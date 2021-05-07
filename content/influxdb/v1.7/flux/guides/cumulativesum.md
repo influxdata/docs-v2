@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
     name: Cumulative sum
 list_query_example: cumulative_sum
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/cumulativesum/
+v2: /influxdb/v2.0/query-data/flux/cumulativesum/
 ---
 
 Use the [`cumulativeSum()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/cumulativesum/)

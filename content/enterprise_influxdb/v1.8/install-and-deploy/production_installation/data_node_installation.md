@@ -18,7 +18,6 @@ If you have not set up your meta nodes, please visit
 [Installing meta nodes](/enterprise_influxdb/v1.8/install-and-deploy/production_installation/meta_node_installation/).
 Bad things can happen if you complete the following steps without meta nodes.
 
-
 # Data node setup description and requirements
 
 The Production Installation process sets up two [data nodes](/enterprise_influxdb/v1.8/concepts/glossary#data-node)
@@ -75,16 +74,19 @@ Ultimately, use entries similar to the following (hostnames and domain IP addres
 | A           | ```enterprise-data-01.mydomain.com``` | ```<Data_1_IP>``` |
 | A           | ```enterprise-data-02.mydomain.com``` | ```<Data_2_IP>``` |
 
-> **Verification steps:**
->
+   {{% note %}}
+**Verification steps:**
+
 Before proceeding with the installation, verify on each meta and data server that the other
 servers are resolvable. Here is an example set of shell commands using `ping`:
->
+
     ping -qc 1 enterprise-meta-01
     ping -qc 1 enterprise-meta-02
     ping -qc 1 enterprise-meta-03
     ping -qc 1 enterprise-data-01
     ping -qc 1 enterprise-data-02
+
+   {{% /note %}}
 
 We highly recommend that each server be able to resolve the IP from the hostname alone as shown here.
 Resolve any connectivity issues before proceeding with the installation.
@@ -99,15 +101,15 @@ Perform the following steps on each data node.
 #### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.8.0-c1.8.0_amd64.deb
-sudo dpkg -i influxdb-data_1.8.0-c1.8.0_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.8.5-c1.8.5_amd64.deb
+sudo dpkg -i influxdb-data_1.8.5-c1.8.5_amd64.deb
 ```
 
 #### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.0_c1.8.0.x86_64.rpm
-sudo yum localinstall influxdb-data-1.8.0_c1.8.0.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.5_c1.8.5.x86_64.rpm
+sudo yum localinstall influxdb-data-1.8.5_c1.8.5.x86_64.rpm
 ```
 
 #### Verify the authenticity of release download (recommended)
@@ -117,20 +119,20 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 1. Download and import InfluxData's public key:
 
     ```
-    curl -sL https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
     ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.0_c1.8.0.x86_64.rpm.asc
+    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.5_c1.8.5.x86_64.rpm.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-data-1.8.0_c1.8.0.x86_64.rpm.asc influxdb-data-1.8.0_c1.8.0.x86_64.rpm
+    gpg --verify influxdb-data-1.8.5-c1.8.5.x86_64.rpm.asc influxdb-data-1.8.5_c1.8.5.x86_64.rpm
     ```
 
     The output from this command should include the following:
@@ -209,16 +211,18 @@ On systemd systems, enter:
 sudo systemctl start influxdb
 ```
 
-> **Verification steps:**
->
+   {{% note %}}
+**Verification steps:**
+
 Check to see that the process is running by entering:
->
+
     ps aux | grep -v grep | grep influxdb
->
+
 You should see output similar to:
->
+
     influxdb  2706  0.2  7.0 571008 35376 ?        Sl   15:37   0:16 /usr/bin/influxd -config /etc/influxdb/influxdb.conf
 
+   {{% /note %}}
 
 If you do not see the expected output, the process is either not launching or is exiting prematurely. Check the [logs](/enterprise_influxdb/v1.8/administration/logs/) for error messages and verify the previous setup steps are complete.
 
@@ -233,7 +237,8 @@ If you are replacing an existing data node with `influxd-ctl update-data`, skip 
 {{% /warn %}}
 
 On one and only one of the meta nodes that you set up in the
-[previous document](/enterprise_influxdb/v1.8/introduction/meta_node_installation/), run:
+[previous document](/enterprise_influxdb/v1.8/introduction/meta_node_installation/), run the `add-data` command once and only once for each data node you are joining
+to the cluster:
 
 ```bash
 influxd-ctl add-data enterprise-data-01:8088
@@ -247,31 +252,29 @@ The expected output is:
 Added data node y at enterprise-data-0x:8088
 ```
 
-Run the `add-data` command once and only once for each data node you are joining
-to the cluster.
+   {{% note %}}
+**Verification steps:**
 
-> **Verification steps:**
->
 Issue the following command on any meta node:
->
+
     influxd-ctl show
->
+
 The expected output is:
->
+
     Data Nodes
     ==========
     ID   TCP Address               Version
-    4    enterprise-data-01:8088   1.8.0-c1.8.0
-    5    enterprise-data-02:8088   1.8.0-c1.8.0
+    4    enterprise-data-01:8088   1.8.5-c1.8.5
+    5    enterprise-data-02:8088   1.8.5-c1.8.5
 
->
+
     Meta Nodes
     ==========
     TCP Address               Version
-    enterprise-meta-01:8091   1.8.0-c1.8.0
-    enterprise-meta-02:8091   1.8.0-c1.8.0
-    enterprise-meta-03:8091   1.8.0-c1.8.0
-
+    enterprise-meta-01:8091   1.8.5-c1.8.5
+    enterprise-meta-02:8091   1.8.5-c1.8.5
+    enterprise-meta-03:8091   1.8.5-c1.8.5
+       {{% /note %}}
 
 The output should include every data node that was added to the cluster.
 The first data node added should have `ID=N`, where `N` is equal to one plus the number of meta nodes.

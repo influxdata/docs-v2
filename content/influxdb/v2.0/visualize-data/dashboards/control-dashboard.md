@@ -33,15 +33,14 @@ Click the timezone dropdown to select a timezone to use for the dashboard. Selec
 
 {{< img-hd src="/img/influxdb/2-0-controls-timezone.png" alt="Select timezone" />}}
 
-### Select auto-refresh interval
-
-Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
-
-{{< img-hd src="/img/influxdb/2-0-controls-refresh-interval.png" alt="Select refresh interval" />}}
-
 ### Manually refresh dashboard
 
 Click the refresh button (**{{< icon "refresh" >}}**) to manually refresh the dashboard's data.
+
+#### Refresh a single dashboard cell
+
+1. Click the **{{< icon "gear" >}}** on the dashboard cell you want to refresh.
+2. Click **{{< icon "refresh" >}} Refresh**.
 
 ### Select time range
 

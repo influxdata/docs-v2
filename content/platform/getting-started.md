@@ -9,9 +9,11 @@ menu:
 weight: 2
 ---
 
-![Getting started setup](/img/chronograf/1-6-intro-gs-diagram.png)
+To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).
 
-Before following the steps below, [download and install](/platform/install-and-deploy/install/) each component of the TICK stack, or [Install the InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install/).
+To get started with the **InfluxData 1.x** platform, [download and install](/platform/install-and-deploy/install/) each component of the TICK stack, or [Install the InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install/), and then follow the steps below.
+
+![Getting started setup](/img/chronograf/1-6-intro-gs-diagram.png)
 
 ## Understand how Telegraf writes data to InfluxDB
 
@@ -30,7 +32,7 @@ For details about the configuration file, see [Get started with Telegraf](/{{< l
 As reviewed above, Telegraf is sending system data, including CPU usage, to InfluxDB. There are two ways you can query your InfluxDB data:
 
 * [In Chronograf with the Data  Explorer.](/{{< latest "chronograf" >}}/guides/create-a-dashboard/#step-3-create-your-query) Use the builder to select from your existing data and allow Chronograf to format the query for you. Alternatively, manually enter and edit a query. You can move between using the builder and manually editing the query.
-* [Using the command line interface.](/{{< latest "influxdb" "v1" >}}/query_language/data_exploration/)
+* [Using the command line interface.](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/)
 
 
 **Query example:**

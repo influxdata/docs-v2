@@ -8,7 +8,7 @@ menu:
   influxdb_2_0:
     parent: InfluxDB stacks
     name: View stacks
-weight: 203
+weight: 204
 related:
   - /influxdb/v2.0/reference/cli/influx/stacks/
 list_code_example: |
@@ -34,10 +34,12 @@ influx stacks -o example-org
 ```
 
 ### Filter stacks
+
 To output information about specific stacks, use the `--stack-name` or `--stack-id`
 flags to filter output by stack names or stack IDs.
 
 ##### Filter by stack name
+
 ```sh
 # Syntax
 influx stacks \
@@ -52,6 +54,7 @@ influx stacks \
 ```
 
 ### Filter by stack ID
+
 ```sh
 # Syntax
 influx stacks \

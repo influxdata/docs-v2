@@ -64,7 +64,7 @@ person icon in the top right corner.
 >
 Your token appears in the table just above the `Create new token` section:
 >
-![HipChat token](/img/kapacitor/hipchat-token.png)
+![HipChat token](/img/kapacitor/1-4-hipchat-token.png)
 
 ### Configuration
 

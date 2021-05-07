@@ -18,11 +18,14 @@ data and metadata stored in InfluxDB.
 InfluxDB copies all data and metadata to a set of files stored in a specified directory
 on your local filesystem.
 
-{{% warn %}}
-If you set up InfluxDB using **v2.0.0-beta.1** or earlier, you cannot back up data.
-Root tokens created prior to **v2.0.0-beta.2** do not have the necessary permissions.
-To succesfully use the backup tool, set up a new InfluxDB instance using **v2.0.0-beta.2+**.
-{{% /warn %}}
+{{% note %}}
+#### InfluxDB 1.x/2.0 compatibility
+The InfluxDB 2.0 `influx backup` command is not compatible with versions of InfluxDB prior to 2.0.0.
+**For information about migrating data between InfluxDB 1.x and 2.0, see:**
+
+- [Automatically upgrade from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/automatic-upgrade/)
+- [Manually upgrade from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/)
+{{% /note %}}
 
 {{% cloud %}}
 The `influx backup` command **cannot** back up data stored in **{{< cloud-name "short" >}}**.
@@ -37,10 +40,10 @@ The `influx backup` command requires:
 ##### Back up data with the influx CLI
 ```sh
 # Syntax
-influx backup -p <backup-path> -t <root-token>
+influx backup <backup-path> -t <root-token>
 
 # Example
 influx backup \
-  -p path/to/backup_$(date '+%Y-%m-%d_%H-%M') \
+  path/to/backup_$(date '+%Y-%m-%d_%H-%M') \
   -t xXXXX0xXX0xxX0xx_x0XxXxXXXxxXX0XXX0XXxXxX0XxxxXX0Xx0xx==
 ```

@@ -4,7 +4,7 @@ list_title: Gauge
 list_image: /img/influxdb/2-0-visualizations-gauge-example.png
 description: >
   The Gauge view displays the single value most recent value for a time series in a gauge view.
-weight: 206
+weight: 201
 menu:
   influxdb_2_0:
     name: Gauge
@@ -15,7 +15,7 @@ The **Gauge** visualization displays the most recent value for a time series in 
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-gauge-example-8.png" alt="Gauge example" />}}
 
-Select the **Gauge** option from the visualization dropdown in the upper right.
+Select the **Gauge** option from the visualization dropdown in the upper left.
 
 ## Gauge behavior
 The gauge visualization displays a single numeric data point within a defined spectrum (_default is 0-100_).

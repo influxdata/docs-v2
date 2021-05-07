@@ -1,25 +1,28 @@
 ---
 title: Get started with Kapacitor
+description: Get started with Kapacitor to process your time series data.
+aliases:
+  - /kapacitor/v1.5/introduction/getting_started/
 weight: 20
 menu:
   kapacitor_1_5:
     parent: Introduction
 ---
 
-Use Kapacitor to import (stream or batch) time series data, and then transform, analyze, and act on the data. To get started using Kapacitor, use Telegraf to collect system metrics on your local machine and store them in InfluxDB. Then, use Kapacitor to process your system data.
+Use Kapacitor to import (stream or batch)  time series data, and then transform, analyze, and act on the data. To get started using Kapacitor, use Telegraf to collect system metrics on your local machine and store them in InfluxDB. Then, use Kapacitor to process your system data.
 
 - [Overview](#overview)
 - [Start InfluxDB and collect Telegraf data](#start-influxdb-and-collect-telegraf-data)
 - [Start Kapacitor](#start-kapacitor)
 - Kapacitor tasks
-    - [Execute a task](#execute-a-task)
-    - [Trigger an alert from stream data](#trigger-alerts-from-stream-data)
-    - [Example alert on CPU usage](#example-alert-on-cpu-usage)
-    - [Gotcha - single versus double quotes](#gotcha-single-versus-double-quotes)
-    - [Extending TICKscripts](#extending-tickscripts)
-    - [A real world example](#a-real-world-example)
-    - [Trigger an alert from batch data](#trigger-alerts-from-batch-data)
-    - [Load tasks](#load-tasks-with-kapacitor)
+  - [Execute a task](#execute-a-task)
+  - [Trigger an alert from stream data](#trigger-alerts-from-stream-data)
+  - [Example alert on CPU usage](#example-alert-on-cpu-usage)
+  - [Gotcha - single versus double quotes](#gotcha-single-versus-double-quotes)
+  - [Extending TICKscripts](#extending-tickscripts)
+  - [A real world example](#a-real-world-example)
+  - [Trigger an alert from batch data](#trigger-alerts-from-batch-data)
+  - [Load tasks](#load-tasks-with-kapacitor)
 
 ## Overview
 
@@ -30,7 +33,7 @@ Kapacitor tasks define work to do on a set of data using [TICKscript](/kapacitor
 
 To get started, do the following:
 
-1. If you haven't already, [download and install the InfluxData TICK stack (OSS)](/platform/install-and-deploy/install/oss-install).
+1. If you haven't already, [download and install the InfluxData 1.x TICK stack (OSS)](/platform/install-and-deploy/install/oss-install).
 2. [Start InfluxDB and start Telegraf](#start-influxdb-and-collect-telegraf-data). By default, Telegraf starts sending system metrics to InfluxDB and creates a 'telegraf' database.
 3. Start Kapacitor.
 
@@ -46,6 +49,7 @@ To get started, do the following:
 
 2. In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), configure `[[outputs.influxd]]` to specify how to connect to InfluxDB and the destination database.
 
+    {{< keep-url >}}
     ```sh
     [[outputs.influxdb]]
     ## InfluxDB url is required and must be in the following form: http/udp "://" host [ ":" port]
@@ -67,6 +71,7 @@ To get started, do the following:
 
 4. After a minute, run the following command to use the InfluxDB API to query for the Telegraf data:
 
+    {{< keep-url >}}
     ```bash
     $ curl -G 'http://localhost:8086/query?db=telegraf' --data-urlencode 'q=SELECT mean(usage_idle) FROM cpu'
     ```
@@ -276,8 +281,9 @@ Complete the following steps to ensure log files and communication channels aren
     InfluxDB logs an error about `connection refused` if it cannot send data to Kapacitor.
     Run the query `SHOW SUBSCRIPTIONS` against InfluxDB to find the endpoint that InfluxDB is using to send data to Kapacitor.
 
-    In the following example, InfluxDB must be running on localhost:8086:
+    In the following example, InfluxDB must be running on `localhost:8086`:
 
+    {{< keep-url >}}
     ```
     $ curl -G 'http://localhost:8086/query?db=telegraf' --data-urlencode 'q=SHOW SUBSCRIPTIONS'
 

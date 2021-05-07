@@ -70,16 +70,16 @@ Ultimately, use entries similar to the following (hostnames and domain IP addres
 | A           | ```enterprise-meta-02.mydomain.com``` | ```<Meta_2_IP>``` |
 | A           | ```enterprise-meta-03.mydomain.com``` | ```<Meta_3_IP>``` |
 
+{{% note %}}
+ **Verification steps:**
 
-> **Verification steps:**
->
 Before proceeding with the installation, verify on each server that the other
 servers are resolvable. Here is an example set of shell commands using `ping`:
->
+
     ping -qc 1 enterprise-meta-01
     ping -qc 1 enterprise-meta-02
     ping -qc 1 enterprise-meta-03
->
+{{% /note %}}
 
 We highly recommend that each server be able to resolve the IP from the hostname alone as shown here.
 Resolve any connectivity issues before proceeding with the installation.
@@ -95,15 +95,15 @@ Perform the following steps on each meta server.
 ##### Ubuntu & Debian (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.8.0-c1.8.0_amd64.deb
-sudo dpkg -i influxdb-meta_1.8.0-c1.8.0_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.8.5-c1.8.5_amd64.deb
+sudo dpkg -i influxdb-meta_1.8.5-c1.8.5_amd64.deb
 ```
 
 ##### RedHat & CentOS (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.0_c1.8.0.x86_64.rpm
-sudo yum localinstall influxdb-meta-1.8.0_c1.8.0.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.5_c1.8.5.x86_64.rpm
+sudo yum localinstall influxdb-meta-1.8.5_c1.8.5.x86_64.rpm
 ```
 
 ##### Verify the authenticity of release download (recommended)
@@ -113,20 +113,20 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 1. Download and import InfluxData's public key:
 
     ```
-    curl -sL https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
     ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.0_c1.8.0.x86_64.rpm.asc
+    wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.5_c1.8.5.x86_64.rpm.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-meta-1.8.0_c1.8.0.x86_64.rpm.asc influxdb-meta-1.8.0_c1.8.0.x86_64.rpm
+    gpg --verify influxdb-meta-1.8.5_c1.8.5.x86_64.rpm.asc influxdb-meta-1.8.5_c1.8.5.x86_64.r
     ```
 
     The output from this command should include the following:
@@ -162,33 +162,34 @@ hostname="<enterprise-meta-0x>"
 
 #### III. Start the meta service
 
-On sysvinit systems, enter:
-```
-service influxdb-meta start
-```
+1. On sysvinit systems, enter:
+    ```
+    service influxdb-meta start
+    ```
 
-On systemd systems, enter:
-```
-sudo systemctl start influxdb-meta
-```
+2. On systemd systems, enter:
+    ```
+    sudo systemctl start influxdb-meta
+    ```
 
-> **Verification steps:**
->
+   {{% note %}}
+ **Verification steps:**
+
 Check to see that the process is running by entering:
->
+
     ps aux | grep -v grep | grep influxdb-meta
->
+
 You should see output similar to:
->
+
     influxdb  3207  0.8  4.4 483000 22168 ?        Ssl  17:05   0:08 /usr/bin/influxd-meta -config /etc/influxdb/influxdb-meta.conf
 
-<br>
+   {{% /note %}}
 
+   {{% note %}}
+To start the cluster with a single meta node, pass the `-single-server flag` when starting the single meta node.
+Note, a cluster with only one meta node is **not** recommended for production environments.
 
-> **Note:** It is possible to start the cluster with a single meta node but you
-must pass the `-single-server flag` when starting the single meta node.
-Please note that a cluster with only one meta node is **not** recommended for
-production environments.
+   {{% /note %}}
 
 ### Step 3: Join the meta nodes to the cluster
 
@@ -211,25 +212,28 @@ The expected output is:
 Added meta node x at enterprise-meta-0x:8091
 ```
 
-> **Verification steps:**
->
+   {{% note %}}
+**Verification steps:**
+
 Issue the following command on any meta node:
->
+
     influxd-ctl show
->
+
 The expected output is:
->
+
     Data Nodes
     ==========
     ID      TCP Address      Version
->
+
     Meta Nodes
     ==========
     TCP Address               Version
-    enterprise-meta-01:8091   1.8.0-c1.8.0
-    enterprise-meta-02:8091   1.8.0-c1.8.0
-    enterprise-meta-03:8091   1.8.0-c1.8.0
 
+    enterprise-meta-01:8091   1.8.5-c1.8.5
+    enterprise-meta-02:8091   1.8.5-c1.8.5
+    enterprise-meta-03:8091   1.8.5-c1.8.5
+
+   {{% /note %}}
 
 Note that your cluster must have at least three meta nodes.
 If you do not see your meta nodes in the output, please retry adding them to

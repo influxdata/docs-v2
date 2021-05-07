@@ -8,6 +8,96 @@ menu:
     parent: About the project
 ---
 
+## v1.8.10 [2020-02-08]
+
+### Features
+
+- Add the ability to set the active InfluxDB database and retention policy for InfluxQL commands. Now, in Chronograf Data Explorer, if you select a metaquery template (InfluxQL command) that requires you to specify an active database, such as `DROP MEASUREMENT`, `DROP SERIES FROM`, and `DELETE FROM`, the `USE` command is prepended to your InfluxQL command as follows:
+
+```
+USE "db_name"; DROP MEASUREMENT "measurement_name"
+USE "db_name"; DROP SERIES FROM "measurement_name" WHERE "tag" = 'value'
+USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '2020-01-01'
+```
+
+- Add support for Bitbucket `emails` endpoint with generic OAuth. For more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and how to [configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1.8/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-2-0).
+
+### Bug Fixes
+
+- Repair ARMv5 build.
+- Upgrade to Axios 0.21.1.
+- Stop async executions on unmounted LogsPage.
+- Repair dashboard import to remap sources in variables.
+- UI updates:
+  - Ignore databases that cannot be read. Now, the Admin page correctly displays all databases that the user has permissions to.
+  - Improve the Send to Dashboard feedback on the Data Explorer page.
+- Log Viewer updates:
+  - Avoid endless networking loop.
+  - Show timestamp with full nanosecond precision.
+
+## v1.8.9.1 [2020-12-10]
+
+### Features
+- Configure etcd with client TLS certificate.
+- Support Flux in InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Support Flux Schema Explorer in InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Let users specify InfluxDB v2 authentication.
+- Validate credentials before creating or updating InfluxDB sources.
+- Use fully qualified bucket names when using Flux in the Data Explorer.
+- Upgrade Go to 1.15.5.
+- Upgrade Node.js to 14 LTS.
+
+### Bug Fixes
+- Prevent briefly displaying "No Results" in dashboard cells upon refresh.
+- Warn about unsupported queries when creating or editing alert rules.
+- Use the `AND` logical operator with not-equal (`!=`) tag comparisons in generated TICKscript `where` filters.
+- Disable InfluxDB admin page when administration is not possible
+  (while using InfluxDB Cloud or InfluxDB OSS 2.x sources).
+- Use token authentication against InfluxDB Cloud and InfluxDB OSS 2.x sources.
+- Avoid blank screen on Windows.
+- Repair visual comparison with time variables (`:upperDashboardTime:` and `:dashboardTime:`).
+- Repair possible millisecond differences in duration computation.
+- Remove deprecated React SFC type.
+
+## v.1.8.8 [2020-11-04]
+
+## Features
+
+- Add the option to select a recovery action in the [OpsGenie2](/chronograf/v1.8/guides/configuring-alert-endpoints/#opsgenie2) configuration.
+
+## Bug Fixes
+
+- Ensure the alert rule name is correctly displayed in the Alert Rules and TICKscript lists.
+- Resolve the issue that caused a truncated dashboard name.
+- Ensure the TICKscript editor is scrollable in Firefox.
+- Apply default timeouts in server connections to ensure a shared HTTP transport connection is used between Chronograf and InfluxDB or Kapacitor.
+- Retain the selected time zone (local or UTC) in the range picker.
+- Export CSV with a time column formatted according to the selected time zone (local or UTC).
+
+## v.1.8.7 [2020-10-06]
+
+{{% warn %}}
+This release includes breaking changes:
+TLS1.2 is now the default minimum required TLS version. If you have clients that require older TLS versions, use one of the following when starting Chronograf:
+  - The `--tls-min-version=1.1` option
+  - The `TLS_MIN_VERSION=1.1` environment variable
+{{% /warn %}}
+
+## Features
+- Allow to configure HTTP basic access authentication.
+- Allow setting token-prefix in Alerta configuration.
+- Make session inactivity duration configurable.
+- Allow configuration of TLS ciphers and versions.
+
+## Bug Fixes
+- Disable default dashboard auto-refresh.
+- Fix to user migration.
+- Add `isPresent` filter to rule TICKscript.
+- Make vertical scrollbar visible when rows overflow in TableGraph.
+- Upgrade `papaparse` to 5.3.0.
+- Require well-formatted commit messages in pull request.
+- Upgrade `node` to v12.
+
 ## v1.8.6 [2020-08-27]
 
 ### Features
@@ -25,6 +115,8 @@ menu:
 
 ## v1.8.5 [2020-07-08]
 
+### Bug Fixes
+
 - Fix public-url generic OAuth configuration issue.
 - Fix crash when starting Chronograf built by Go 1.14 on Windows.
 - Keep dashboard's table sorting stable on data refresh.
@@ -41,6 +133,8 @@ menu:
 - Avoid duplication of `csv.from` in functions list.
 
 ## v1.8.4 [2020-05-01]
+
+### Bug Fixes
 
 - Fix misaligned tables when scrolling.
 
@@ -61,7 +155,7 @@ menu:
 
 ### Features
 
-- Update to [Flux v0.65.0](/flux/v0.65/about_the_project/releasenotes-changelog/#v0-65-0-2020-03-27).
+- Update to Flux v0.65.0.
 
 ### Bug Fixes
 
@@ -1018,7 +1112,7 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Features
 
-  * Add line-protocol proxy for InfluxDB/InfluxEnterprise Cluster data sources
+  * Add line-protocol proxy for InfluxDB/InfluxDB Enterprise Cluster data sources
   * Add `:dashboardTime:` to support cell-specific time ranges on dashboards
   * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/v1.8/guides/advanced-kapacitor/#tickscript-management)
   * Allow users to delete Kapacitor configurations

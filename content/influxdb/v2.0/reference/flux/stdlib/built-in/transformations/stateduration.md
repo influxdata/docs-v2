@@ -11,6 +11,7 @@ menu:
 weight: 402
 related:
   - /influxdb/v2.0/query-data/flux/monitor-states/
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/duration/
 ---
 
 The `stateDuration()` function computes the duration of a given state.

@@ -8,6 +8,7 @@ menu:
     parent: Guides
 aliases:
   - /influxdb/v1.8/guides/writing_data/
+v2: /influxdb/v2.0/write-data/
 ---
 
 Write data into InfluxDB using the [command line interface](/influxdb/v1.8/tools/shell/), [client libraries](/influxdb/v1.8/clients/api/), and plugins for common data formats such as [Graphite](/influxdb/v1.8/write_protocols/graphite/).
@@ -108,7 +109,7 @@ cpu_load_short,direction=in,host=server01,region=us-west value=2.0 1422568543702
 Write the data in `cpu_data.txt` to the `mydb` database with:
 
 ```bash
-curl -i -XPOST 'http://localhost:8086/write?db=mydb' --data-binary @cpu_data.txt`
+curl -i -XPOST 'http://localhost:8086/write?db=mydb' --data-binary @cpu_data.txt
 ```
 
 > **Note:** If your data file has more than 5,000 points, it may be necessary to split that file into several files in order to write your data in batches to InfluxDB.

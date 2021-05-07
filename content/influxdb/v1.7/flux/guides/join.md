@@ -9,6 +9,8 @@ menu:
     parent: Query with Flux
 weight: 10
 list_query_example: join
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/join/
+v2: /influxdb/v2.0/query-data/flux/join/
 ---
 
 The [`join()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/join) merges two or more

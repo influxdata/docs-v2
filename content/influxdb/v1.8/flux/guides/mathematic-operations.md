@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
 weight: 5
 list_query_example: map_math
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/mathematic-operations/
+v2: /influxdb/v2.0/query-data/flux/mathematic-operations/
 ---
 
 Flux supports mathematic expressions in data transformations.
@@ -65,7 +67,7 @@ For example:
 {{% /note %}}
 
 ## Custom mathematic functions
-Flux lets you [create custom functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/custom-functions) that use mathematic operations.
+Flux lets you [create custom functions](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions) that use mathematic operations.
 View the examples below.
 
 ###### Custom multiplication function
@@ -87,7 +89,7 @@ percent(sample: 20.0, total: 80.0)
 ### Transform values in a data stream
 To transform multiple values in an input stream, your function needs to:
 
-- [Handle piped-forward data](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/custom-functions/#functions-that-manipulate-piped-forward-data).
+- [Handle piped-forward data](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
 - Use the [`map()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
 
@@ -174,7 +176,7 @@ To calculate a percentage, use simple division, then multiply the result by 100.
 25.0
 ```
 
-_For an in-depth look at calculating percentages, see [Calculate percentates](/influxdb/v1.8/flux/guides/calculate-percentages)._
+_For an in-depth look at calculating percentages, see [Calculate percentages](/influxdb/v1.8/flux/guides/calculate-percentages)._
 
 ## Pivot vs join
 To query and use values in mathematical operations in Flux, operand values must

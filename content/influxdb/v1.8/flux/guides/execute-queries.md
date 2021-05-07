@@ -8,6 +8,7 @@ menu:
 weight: 1
 aliases:
   - /influxdb/v1.8/flux/guides/executing-queries/
+v2: /influxdb/v2.0/query-data/execute-queries/
 ---
 
 There are multiple ways to execute Flux queries with InfluxDB and Chronograf v1.8+.

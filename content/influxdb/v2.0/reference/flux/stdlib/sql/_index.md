@@ -3,7 +3,8 @@ title: Flux SQL package
 list_title: SQL package
 description: >
   The Flux SQL package provides tools for working with data in SQL databases such
-  as MySQL, PostgreSQL, Snowflake, SQLite, Microsoft SQL Server, and Amazon Athena.
+  as MySQL, PostgreSQL, Snowflake, SQLite, Microsoft SQL Server, Amazon Athena,
+  and Google BigQuery.
   Import the `sql` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/sql/
@@ -20,6 +21,7 @@ related:
 SQL Flux functions provide tools for working with data in SQL databases such as:
 
 - Amazon Athena
+- Google BigQuery
 - Microsoft SQL Server
 - MySQL
 - PostgreSQL

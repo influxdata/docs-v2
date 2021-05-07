@@ -16,7 +16,7 @@ the [Graph controls](#graph-controls).
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-example-8.png" alt="Line Graph example" />}}
 
-Select the **Graph** option from the visualization dropdown in the upper right.
+Select the **Graph** option from the visualization dropdown in the upper left.
 
 ## Graph behavior
 The Graph visualization color codes each table (or series) in the queried data set.
@@ -31,6 +31,8 @@ the visualization dropdown.
 ###### Data
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
+- **Time Format**: Select the time format. Options include:
+    {{< ui/timestamp-formats >}}
 
 ###### Options
 - **Interpolation**: Select from the following options:
@@ -41,11 +43,29 @@ the visualization dropdown.
   <!-- - **Stacked**: Display multiple time series bars as segments stacked on top of each other. -->
 - **Line Colors**: Select a color scheme to use for your graph.
 - **Shade Area Below Lines**: Shade in the area below the graph lines.
+- **Hover Dimension**: Select the data to display in the tooltip when you hover over the graph:
+  - **auto** or **X Axis**: Show all points with the same x value along the y-axis.
+  - **Y Axis**: Show all points with the same y value along the x-axis.
+  - **X & Y Axis**: Show only the point currently being hovered over.
+
+###### X Axis
+- **Generate X-Axis Tick Marks**: Select the method to generate x-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of x-axis tick marks, select this option, and then enter the following:
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
-- **Y Tick Prefix**: Prefix to be added to y-value.
-- **Y Tick Suffix**: Suffix to be added to y-value.
+- **Y Axis Prefix**: Prefix to be added to y-value.
+- **Y Axis Suffix**: Suffix to be added to y-value.
+- **Generate Y-Axis Tick Marks**: Select the method to generate y-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter  the following:
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
@@ -55,6 +75,12 @@ the visualization dropdown.
   - **Overlaid**: Display graph lines overlaid on each other.
   - **Stacked**: Display graph lines stacked on top of each other.
 
+###### Legend
+- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+  - **Horizontal**: Select to display the legend horizontally.
+  - **Vertical**: Select to display the legend vertically.
+- **Opacity**: Adjust the legend opacity using the slider.
+- **Colorize Rows**: Select to display legend rows in colors.
 
 ## Graph Examples
 

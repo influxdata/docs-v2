@@ -224,15 +224,15 @@ The new meta node should appear in the output:
 Data Nodes
 ==========
 ID	TCP Address	Version
-4	enterprise-data-01:8088	1.5.x-c1.5.x
-5	enterprise-data-02:8088	1.5.x-c1.5.x
+4	enterprise-data-01:8088	1.8.x-c1.8.x
+5	enterprise-data-02:8088	1.8.x-c1.8.x
 
 Meta Nodes
 ==========
 TCP Address	Version
-enterprise-meta-01:8091	1.5.x-c1.5.x
-enterprise-meta-03:8091	1.5.x-c1.5.x
-enterprise-meta-04:8091	1.5.x-c1.5.x # <-- The newly added meta node
+enterprise-meta-01:8091	1.8.x-c1.8.x
+enterprise-meta-03:8091	1.8.x-c1.8.x
+enterprise-meta-04:8091	1.8.x-c1.8.x # <-- The newly added meta node
 ```
 
 #### 2.5. Remove and replace all other non-leader meta nodes
@@ -310,15 +310,15 @@ The new data node should appear in the output:
 Data Nodes
 ==========
 ID	TCP Address	Version
-4	enterprise-data-03:8088	1.5.x-c1.5.x # <-- The newly added data node
-5	enterprise-data-02:8088	1.5.x-c1.5.x
+4	enterprise-data-03:8088	1.8.x-c1.8.x # <-- The newly added data node
+5	enterprise-data-02:8088	1.8.x-c1.8.x
 
 Meta Nodes
 ==========
 TCP Address	Version
-enterprise-meta-01:8091	1.5.x-c1.5.x
-enterprise-meta-02:8091	1.5.x-c1.5.x
-enterprise-meta-03:8091	1.5.x-c1.5.x
+enterprise-meta-01:8091	1.8.x-c1.8.x
+enterprise-meta-02:8091	1.8.x-c1.8.x
+enterprise-meta-03:8091	1.8.x-c1.8.x
 ```
 
 Inspect your cluster's shard distribution with `influxd-ctl show-shards`.

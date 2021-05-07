@@ -24,9 +24,9 @@ to return a value representing the `0.5` quantile (50th percentile) or median of
 ## Select a method for calculating the median
 Select one of the following methods to calculate the median:
 
-- [estimate_tdigest](#estimate-tdigest)
-- [exact_mean](#exact-mean)
-- [exact_selector](#exact-selector)
+- [estimate_tdigest](#estimate_tdigest)
+- [exact_mean](#exact_mean)
+- [exact_selector](#exact_selector)
 
 ### estimate_tdigest
 **(Default)** An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)

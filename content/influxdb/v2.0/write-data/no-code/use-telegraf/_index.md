@@ -1,5 +1,5 @@
 ---
-title: Telegraf (agent)
+title: Use Telegraf to write data
 seotitle: Use the Telegraf agent to collect and write data
 list_title: Use the Telegraf agent
 weight: 101
@@ -28,8 +28,6 @@ For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >
 - **Telegraf 1.9.2 or greater**.
   _For information about installing Telegraf, see the
   [Telegraf Installation instructions](/{{< latest "telegraf" >}}/introduction/installation/)._
-
-{{< youtube qFS2zANwIrc >}}
 
 ## Configure Telegraf
 Telegraf input and output plugins are enabled and configured in Telegraf's configuration file (`telegraf.conf`).

@@ -11,21 +11,14 @@ weight: 301
 related:
   - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/
   - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/shapedata/
-  - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/s2cellidtoken/
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/geo/shape-geo-data/
+v2: /influxdb/v2.0/query-data/flux/geo/shape-geo-data/
 list_code_example: |
   ```js
   import "experimental/geo"
 
   sampleGeoData
-    |> map(fn: (r) => ({ r with
-      _field:
-        if r._field == "latitude" then "lat"
-        else if r._field == "longitude" then "lon"
-        else r._field
-      }))
-    |> map(fn: (r) => ({ r with
-      s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)
-    }))  
+    |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 10)
   ```
 ---
 

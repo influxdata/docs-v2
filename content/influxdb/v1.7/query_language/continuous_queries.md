@@ -6,6 +6,7 @@ menu:
     name: Continuous Queries
     weight: 50
     parent: InfluxQL
+v2: /influxdb/v2.0/process-data/
 ---
 
 ## Introduction
@@ -405,7 +406,7 @@ See [ Description of Basic Syntax](/influxdb/v1.7/query_language/continuous_quer
 ##### Scheduling and coverage
 
 CQs operate on real-time data. With the advanced syntax, CQs use the local
-server’s timestamp, the information in the `RESAMPLE` clause, and the InfluxDB 
+server’s timestamp, the information in the `RESAMPLE` clause, and the InfluxDB
 server's preset time boundaries to determine when to execute and what time range to
 cover in the query.
 
@@ -982,4 +983,4 @@ Kapacitor, InfluxData's data processing engine, can do the same work as
 continuous queries in InfluxDB databases.
 
 To learn when to use Kapacitor instead of InfluxDB and how to perform the same CQ
-functionality with a TICKscript, see [examples of continuous queries in Kapacitor](/{{< latest "kapacitor" >}}/examples/continuous_queries/).
+functionality with a TICKscript, see [examples of continuous queries in Kapacitor](/{{< latest "kapacitor" >}}/guides/continuous_queries/).

@@ -7,6 +7,10 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.0/tags: [config]
+cascade:
+  related:
+    - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx config` command displays the active InfluxDB connection configuration
@@ -47,11 +51,11 @@ influx config local-config
 ```
 
 ## Subcommands
-| Subcommand                                         | Description                              |
-|:----                                               |:-----------                              |
-| [create](/influxdb/v2.0/reference/cli/influx/config/create) | Create a new connection configuration    |
+| Subcommand                                                  | Description                              |
+|:----                                                        |:-----------                              |
+| [create](/influxdb/v2.0/reference/cli/influx/config/create) | Create a connection configuration        |
 | [list](/influxdb/v2.0/reference/cli/influx/config/create)   | List connection configurations           |
-| [delete](/influxdb/v2.0/reference/cli/influx/config/rm) | Delete a connection configuration        |
+| [delete](/influxdb/v2.0/reference/cli/influx/config/rm)     | Delete a connection configuration        |
 | [set](/influxdb/v2.0/reference/cli/influx/config/set)       | Set or update a connection configuration |
 
 ## Flags

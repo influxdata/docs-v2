@@ -1,12 +1,11 @@
 ---
 title: Authentication and authorization in InfluxDB
-aliases:
-    - influxdb/v1.7/administration/authentication_and_authorization/
 menu:
   influxdb_1_7:
     name: Authentication and authorization
     weight: 20
     parent: Administration
+v2: /influxdb/v2.0/security/tokens/
 ---
 
 This document covers setting up and managing authentication and authorization in InfluxDB.
@@ -32,7 +31,7 @@ This document covers setting up and managing authentication and authorization in
 
 > **Note:** Authentication and authorization should not be relied upon to prevent access and protect data from malicious actors.
 If additional security or compliance features are desired, InfluxDB should be run behind a third-party service.  If InfluxDB
-is being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled. Otherwise the data will 
+is being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled. Otherwise the data will
 be publicly available to any unauthenticated user.
 
 ## Authentication
@@ -197,11 +196,7 @@ For testing, you can manually generate UNIX timestamps using [https://www.unixti
 
 Encode the payload using your shared secret.
 You can do this with either a JWT library in your own authentication server or by hand at [https://jwt.io/](https://jwt.io/).
-The generated token should look similar to the following:
-
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.he0ErCNloe4J7Id0Ry2SEDg09lKkZkfsRiGsdX_vgEg
-```
+The generated token follows this format: `<header>.<payload>.<signature>`
 
 ##### 3. Include the token in HTTP requests
 Include your generated token as part of the ``Authorization`` header in HTTP requests.
@@ -218,11 +213,10 @@ Be sure your token has not expired.
 ###### Example query request with JWT authentication
 
 ```bash
-curl -XGET "http://localhost:8086/query?db=demodb" \
+curl -G "http://localhost:8086/query?db=demodb" \
   --data-urlencode "q=SHOW DATABASES" \
   --header "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.he0ErCNloe4J7Id0Ry2SEDg09lKkZkfsRiGsdX_vgEg"
 ```
-
 
 ## Authenticate Telegraf requests to InfluxDB
 

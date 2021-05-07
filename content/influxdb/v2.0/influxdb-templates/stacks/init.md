@@ -9,7 +9,7 @@ menu:
   influxdb_2_0:
     parent: InfluxDB stacks
     name: Initialize a stack
-weight: 201
+weight: 202
 related:
   - /influxdb/v2.0/reference/cli/influx/stacks/init/
 list_code_example: |

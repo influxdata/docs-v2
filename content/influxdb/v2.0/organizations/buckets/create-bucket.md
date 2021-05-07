@@ -12,6 +12,13 @@ weight: 201
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to create a bucket.
 
+{{% note %}}
+#### Bucket limits
+A single InfluxDB 2.0 OSS instance supports approximately 20 buckets actively being
+written to or queried across all organizations depending on the use case.
+Any more than that can adversely affect performance.
+{{% /note %}}
+
 ## Create a bucket in the InfluxDB UI
 
 There are two places you can create a bucket in the UI.
@@ -26,7 +33,7 @@ There are two places you can create a bucket in the UI.
 3. Enter a **Name** for the bucket.
 4. Select when to **Delete Data**:
     - **Never** to retain data forever.  
-    - **Older than** to choose a specific retention policy.
+    - **Older than** to choose a specific retention period.
 5. Click **Create** to create the bucket.
 
 ### Create a bucket in the Data Explorer
@@ -39,7 +46,7 @@ There are two places you can create a bucket in the UI.
 3. Enter a **Name** for the bucket.
 4. Select when to **Delete Data**:
     - **Never** to retain data forever.  
-    - **Older than** to choose a specific retention policy.
+    - **Older than** to choose a specific retention period.
 5. Click **Create** to create the bucket.
 
 ## Create a bucket using the influx CLI

@@ -8,6 +8,8 @@ menu:
     weight: 3
 aliases:
   - /influxdb/v1.8/flux/getting-started/syntax-basics/
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/syntax-basics/
+v2: /influxdb/v2.0/query-data/get-started/syntax-basics/
 ---
 
 
@@ -185,7 +187,7 @@ topN = (tables=<-, n) =>
     |> limit(n: n)
 ```
 
-_More information about creating custom functions is available in the [Custom functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/custom-functions) documentation._
+_More information about creating custom functions is available in the [Custom functions](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions) documentation._
 
 Using this new custom function `topN` and the `cpuUsageUser` data stream variable defined above,
 find the top five data points and yield the results.
@@ -218,7 +220,7 @@ Then using Flux's `sort()` and `limit()` functions to find the top `n` results i
 topN = (tables=<-, n) => tables |> sort(desc: true) |> limit(n: n)
 ```
 
-_More information about creating custom functions is available in the [Custom functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/custom-functions) documentation._
+_More information about creating custom functions is available in the [Custom functions](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions) documentation._
 
 Using the `cpuUsageUser` data stream variable defined [above](#define-data-stream-variables),
 find the top five data points with the custom `topN` function and yield the results.

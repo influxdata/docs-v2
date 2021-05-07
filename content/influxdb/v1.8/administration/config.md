@@ -7,6 +7,7 @@ menu:
     name: Configure InfluxDB
     weight: 10
     parent: Administration
+v2: /influxdb/v2.0/reference/config-options/
 ---
 
 The InfluxDB open source (OSS) configuration file contains configuration settings specific to a local node.
@@ -265,6 +266,16 @@ The query log can be useful for troubleshooting, but logs any sensitive data con
 
 Environment variable: `INFLUXDB_DATA_QUERY_LOG_ENABLED`
 
+<!-- #### `strict-error-handling = false`
+
+When set to `false`, any query attempting to insert an unsupported value, for example `+/-Inf` or `NaN`, fails to insert the unsupported value silently and proceeds to insert any valid points in the query.
+
+Set to `true` to provide more error checking. For example, a SELECT INTO query attempting to insert an `+/-Inf` value, returns an error (rather than failing silently) and no points will be inserted.
+
+Environment variable: `INFLUXDB_DATA_STRICT_ERROR_HANDLING`
+
+-->
+
 #### `validate-keys = false`
 
 Validates incoming writes to ensure keys only have valid Unicode characters.
@@ -324,7 +335,7 @@ Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`
 
 The maximum number of bytes per seconds TSM compactions write to disk during brief bursts. Default is `"48m"` (48 million).
 
-Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST` 
+Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST`
 
 #### `tsm-use-madv-willneed = false`
 
@@ -624,7 +635,7 @@ Environment variable: `INFLUXDB_HTTP_ACCESS_LOG_STATUS_FILTERS_x`
 
 ###### Setting access log status filters using configuration settings
 
-`access-log-status-filter = ["4xx", "5xx"]`
+`access-log-status-filters = ["4xx", "5xx"]`
 
 `"4xx"` is in array position `0`
 `"5xx"` is in array position `1`
@@ -775,11 +786,21 @@ To disable the limit, set the value to `0`.
 
 Environment variable: `INFLUXDB_HTTP_MAX_ENQUEUED_WRITE_LIMIT`
 
-### `enqueued-write-timeout = 0`
+#### `enqueued-write-timeout = 0`
 The maximum duration for a write to wait in the queue to be processed.
 To disable the limit, set this to `0` or set the `max-concurrent-write-limit` value to `0`.
 
 Environment variable: `INFLUXDB_HTTP_ENQUEUED_WRITE_TIMEOUT`
+
+#### `[http.headers]`
+
+Use the `[http.headers]` section to configure user-supplied HTTP response headers.
+
+```
+# [http.headers]
+#   X-Header-1 = "Header Value 1"
+#   X-Header-2 = "Header Value 2"
+```
 
 -----
 
@@ -1221,7 +1242,7 @@ Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_RUN_INTERVAL`
 ### `[tls]`
 
 Global configuration settings for Transport Layer Security (TLS) in InfluxDB.
-For more information, see [Enabling HTTPS](/v1.8/administration/https_setup/).
+For more information, see [Enabling HTTPS](/influxdb/v1.8/administration/https_setup/).
 
 If the TLS configuration settings is not specified,
 InfluxDB supports all of the cipher suite IDs listed and all TLS versions implemented in the [Constants section of the Go `crypto/tls` package documentation](https://golang.org/pkg/crypto/tls/#pkg-constants),

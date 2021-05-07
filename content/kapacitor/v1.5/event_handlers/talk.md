@@ -5,7 +5,7 @@ description: >
 menu:
   kapacitor_1_5_ref:
     name: Talk
-    weight: 1700
+    weight: 1800
     parent: Event handlers
 ---
 
@@ -13,7 +13,7 @@ menu:
 a centralized hub.
 Kapacitor can be configured to send alert messages to Talk.
 
-## Conifiguration
+## Configuration
 Configuration as well as default [option](#options) values for the Talk event
 handler are set in your `kapacitor.conf`.
 Below is an example configuration:

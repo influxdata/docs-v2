@@ -7,7 +7,7 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-products: [oss]
+draft: true
 ---
 
 The `influxd inspect dump-tsi` command outputs low-level information about

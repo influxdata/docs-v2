@@ -12,6 +12,8 @@ menu:
     parent: Query with Flux
     name: Increase
 list_query_example: increase
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/increase/
+v2: /influxdb/v2.0/query-data/flux/increase/
 ---
 
 Use the [`increase()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/increase/)

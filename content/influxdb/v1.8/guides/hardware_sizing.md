@@ -115,9 +115,6 @@ Guidelines vary by writes per second per node, moderate queries per second per n
 
 In general, more RAM helps queries return faster. Your RAM requirements are primarily determined by [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality). Higher cardinality requires more RAM. Regardless of RAM, a series cardinality of 10 million or more can cause OOM (out of memory) failures. You can usually resolve OOM issues by redesigning your [schema](/influxdb/v1.8/concepts/glossary/#schema).
 
-The increase in RAM needs relative to series cardinality is exponential where the exponent is between one and two:
-
-![Series Cardinality](/img/influxdb/1-3-series-cardinality.png)
 
 ## Guidelines per cluster
 

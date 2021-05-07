@@ -24,7 +24,7 @@ To choose a strategy that best suits your use case, we recommend considering you
 
 - [Backup and restore utilities](#backup-and-restore-utilities) (suits **most InfluxDB Enterprise applications**)
 - [Export and import commands](#export-and-import-commands) (best for **backfill or recovering shards as files**)
-- [Take AWS snapshots as backup](/backup-and-restore/#take-aws-snapshots-as-backup) (optimal **convenience if budget permits**)
+- [Take AWS snapshots as backup](#take-aws-snapshots-as-backup) (optimal **convenience if budget permits**)
 - [Run two clusters in separate AWS regions](#run-two-clusters-in-separate-aws-regions) (also optimal **convenience if budget permits**, more custom work upfront)
 
  > Test your backup and restore strategy for all applicable scenarios.

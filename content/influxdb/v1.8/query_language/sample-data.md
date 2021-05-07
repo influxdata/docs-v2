@@ -8,6 +8,7 @@ menu:
 aliases:
   - /influxdb/v1.8/sample_data/data_download/
   - /influxdb/v1.8/query_language/data_download/
+v2: /influxdb/v2.0/reference/sample-data/
 ---
 
 In order to explore the query language further, these instructions help you create a database,

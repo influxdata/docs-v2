@@ -11,7 +11,7 @@ menu:
 weight: 201
 influxdb/v2.0/tags: [csv, syntax, write]
 related:
-  - /influxdb/v2.0/write-data/csv/
+  - /influxdb/v2.0/write-data/developer-tools/csv/
   - /influxdb/v2.0/reference/cli/influx/write/
   - /influxdb/v2.0/reference/syntax/line-protocol/
   - /influxdb/v2.0/reference/syntax/annotated-csv/
@@ -27,7 +27,7 @@ annotations.
 
 {{% warn %}}
 The Flux [`csv.from` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/) only supports
-**annotated CSV**, not **extended annotated CSV**.
+[annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/), not extended annotated CSV.
 {{% /warn %}}
 
 To write data to InfluxDB, line protocol must include the following:
@@ -45,6 +45,7 @@ Extended annotated CSV extends and adds the following annotations:
 - [datatype](#datatype)
 - [constant](#constant)
 - [timezone](#timezone)
+- [concat](#concat)
 
 ### datatype
 Use the `#datatype` annotation to specify the [line protocol element](/influxdb/v2.0/reference/syntax/line-protocol/#elements-of-line-protocol)
@@ -312,6 +313,13 @@ Use the `#timezone` annotation to update timestamps to a specific timezone.
 By default, timestamps are parsed as UTC.
 Use the `±HHmm` format to specify the timezone offset relative to UTC.
 
+### strict mode
+Use the `:strict` keyword to indicate a loss of precision when parsing `long` or `unsignedLong` data types.
+Turn on strict mode by using a column data type that ends with `strict`, such as `long:strict`.
+When parsing `long` or `unsignedLong` value from a string value with fraction digits, the whole CSV row fails when in a strict mode.
+A warning is printed when not in a strict mode, saying `line x: column y: '1.2' truncated to '1' to fit into long data type`.
+For more information on strict parsing, see the [package documentation](https://github.com/influxdata/influxdb/tree/master/pkg/csv2lp).
+
 ##### Timezone examples
 | Timezone                        | Offset  |
 |:--------                        | ------: |
@@ -323,6 +331,28 @@ Use the `±HHmm` format to specify the timezone offset relative to UTC.
 ##### Timezone annotation example
 ```
 #timezone -0600
+```
+
+### concat
+
+The `#concat` annotation adds a new column that is concatenated from existing columns according to bash-like string interpolation literal with variables referencing existing column labels.
+
+For example:
+
+```
+#concat,string,fullName,${firstName} ${lastName}
+```
+
+This is especially useful when constructing a timestamp from multiple columns.
+For example, the following annotation will combine the given CSV columns into a timestamp:
+
+```
+#concat,dateTime:2006-01-02,${Year}-${Month}-${Day}
+
+Year,Month,Day,Hour,Minute,Second,Tag,Value
+2020,05,22,00,00,00,test,0
+2020,05,22,00,05,00,test,1
+2020,05,22,00,10,00,test,2
 ```
 
 ## Define custom column separator

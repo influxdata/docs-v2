@@ -1,35 +1,56 @@
-| Flag |                                | Description                                                                                                       | Input type | Mapped to                            |
-|:---- |:---                            |:-----------                                                                                                       | :--------: |:---------                            |
-|      | `--assets-path`                | Override default assets by serving from a specific directory (developer mode)                                     | string     | `INFLUXD_ASSETS_PATH`                |
-|      | `--bolt-path`                  | Path to boltdb database (default `~/.influxdbv2/influxd.bolt`)                                                    | string     | `INFLUXD_BOLT_PATH`                  |
-|      | `--e2e-testing`                | Add /debug/flush endpoint to clear stores; used for end-to-end tests (default `false`)                            |            | `INFLUXD_E2E_TESTING`                |
-|      | `--engine-path`                | Path to persistent engine files (default `~/.influxdbv2/engine`)                                                  | string     | `INFLUXD_ENGINE_PATH`                |
-| `-h` | `--help`                       | Help for the `influxd` command                                                                                    |            |                                      |
-|      | `--http-bind-address`          | Bind address for the REST HTTP API (default `:9999`)                                                              | string     | `INFLUXD_HTTP_BIND_ADDRESS`          |
-|      | `--log-level`                  | Supported log levels are debug, info, and error (default `info`)                                                  | string     | `INFLUXD_LOG_LEVEL`                  |
-|      | `--new-meta-store`             | Enables the new meta store                                                                                        |            | `INFLUXD_NEW_META_STORE`             |
-|      | `--new-meta-store-read-only`   | Toggle read-only mode for the new meta store and duplicate reads between old and new store (default `true`)       |            | `INFLUXD_NEW_META_STORE_READ_ONLY`   |
-|      | `--no-tasks`                   | Disables the task scheduler                                                                                       |            | `INFLUXD_NO_TASKS`                   |
-|      | `--query-concurrency`          | Number of queries allowed to execute concurrently (default `10`)                                                  | integer    | `INFLUXD_QUERY_CONCURRENCY`          |
-|      | `--query-initial-memory-bytes` | Initial bytes of memory allocated for a query (default = `query-memory-bytes`)                                    | integer    | `INFLUXD_QUERY_INITIAL_MEMORY_BYTES` |
-|      | `--query-max-memory-bytes`     | Maximum total bytes of memory allowed for queries (default = `query-concurrency` × `query-memory-bytes`)          | integer    | `INFLUXD_QUERY_MAX_MEMORY_BYTES`     |
-|      | `--query-memory-bytes`         | Maximum bytes of memory allowed for a single query (default _unlimited_, must be >= `query-initial-memory-bytes`) | integer    | `INFLUXD_QUERY_MEMORY_BYTES`         |
-|      | `--query-queue-size`           | Maximum number of queries allowed in execution queue (default `10`)                                               | integer    | `INFLUXD_QUERY_QUEUE_SIZE`           |
-|      | `--reporting-disabled`         | Disable sending telemetry data to **https:<nolink>//telemetry.influxdata.com**                                    |            | `INFLUXD_REPORTING_DISABLED`         |
-|      | `--secret-store`               | Data store for secrets (bolt or vault) (default `bolt`)                                                           | string     | `INFLUXD_SECRET_STORE`               |
-|      | `--session-length`             | TTL in minutes for newly created sessions (default `60`)                                                          | integer    | `INFLUXD_SESSION_LENGTH`             |
-|      | `--session-renew-disabled`     | Disables automatically extending session TTL on request                                                           |            | `INFLUXD_SESSION_RENEW_DISABLED`     |
-|      | `--store`                      | Data store for REST resources (bolt or memory) (default `bolt`)                                                   | string     | `INFLUXD_STORE`                      |
-|      | `--tls-cert`                   | Path to TLS certificate file                                                                                      | string     | `INFLUXD_TLS_CERT`                   |
-|      | `--tls-key`                    | Path to TLS private key file                                                                                      | string     | `INFLUXD_TLS_KEY`                    |
-|      | `--tracing-type`               | Supported tracing types (log or jaeger)                                                                           | string     | `INFLUXD_TRACING_TYPE`               |
-|      | `--vault-addr `                | Address of the Vault server (example: `https://127.0.0.1:8200/`)                                                  | string     | `VAULT_ADDR`                         |
-|      | `--vault-cacert`               | Path to a PEM-encoded CA certificate file                                                                         | string     | `VAULT_CACERT`                       |
-|      | `--vault-capath`               | Path to a directory of PEM-encoded CA certificate files                                                           | string     | `VAULT_CAPATH`                       |
-|      | `--vault-client-cert`          | Path to a PEM-encoded client certificate                                                                          | string     | `VAULT_CLIENT_CERT`                  |
-|      | `--vault-client-key`           | Path to an unencrypted, PEM-encoded private key which corresponds to the matching client certificate              | string     | `VAULT_CLIENT_KEY`                   |
-|      | `--vault-max-retries`          | Maximum number of retries when encountering a 5xx error code (default `2`)                                        | integer    | `VAULT_MAX_RETRIES`                  |
-|      | `--vault-client-timeout`       | Vault client timeout (default `60s`)                                                                              | duration   | `VAULT_CLIENT_TIMEOUT`               |
-|      | `--vault-skip-verify`          | Skip certificate verification when communicating with Vault                                                       |            | `VAULT_SKIP_VERIFY`                  |
-|      | `--vault-tls-server-name`      | Name to use as the SNI host when connecting to Vault via TLS                                                      | string     | `VAULT_TLS_SERVER_NAME`              |
-|      | `--vault-token`                | Vault authentication token                                                                                        | string     | `VAULT_TOKEN`                        |
+- [\--assets-path](/influxdb/v2.0/reference/config-options/#assets-path)
+- [\--bolt-path](/influxdb/v2.0/reference/config-options/#bolt-path)
+- [\--e2e-testing](/influxdb/v2.0/reference/config-options/#e2e-testing)
+- [\--engine-path](/influxdb/v2.0/reference/config-options/#engine-path)
+- -h, \-\-help
+- [\--http-bind-address](/influxdb/v2.0/reference/config-options/#http-bind-address)
+- [\--http-idle-timeout](/influxdb/v2.0/reference/config-options/#http-idle-timeout)
+- [\--http-read-header-timeout](/influxdb/v2.0/reference/config-options/#http-read-header-timeout)
+- [\--http-read-timeout](/influxdb/v2.0/reference/config-options/#http-read-timeout)
+- [\--http-write-timeout](/influxdb/v2.0/reference/config-options/#http-write-timeout)
+- [\--influxql-max-select-buckets](/influxdb/v2.0/reference/config-options/#influxql-max-select-buckets)
+- [\--influxql-max-select-point](/influxdb/v2.0/reference/config-options/#influxql-max-select-point)
+- [\--influxql-max-select-series](/influxdb/v2.0/reference/config-options/#influxql-max-select-series)
+- [\--log-level](/influxdb/v2.0/reference/config-options/#log-level)
+- [\--metrics-disabled](/influxdb/v2.0/reference/config-options/#metrics-disabled)
+- [\--nats-max-payload-bytes](/influxdb/v2.0/reference/config-options/#nats-max-payload-bytes)
+- [\--nats-port](/influxdb/v2.0/reference/config-options/#nats-port)
+- [\--no-tasks](/influxdb/v2.0/reference/config-options/#no-tasks)
+- [\--pprof-disabled](/influxdb/v2.0/reference/config-options/#pprof-disabled)
+- [\--query-concurrency](/influxdb/v2.0/reference/config-options/#query-concurrency)
+- [\--query-initial-memory-bytes](/influxdb/v2.0/reference/config-options/#query-initial-memory-bytes)
+- [\--query-max-memory-bytes](/influxdb/v2.0/reference/config-options/#query-max-memory-bytes)
+- [\--query-memory-bytes](/influxdb/v2.0/reference/config-options/#query-memory-bytes)
+- [\--query-queue-size](/influxdb/v2.0/reference/config-options/#query-queue-size)
+- [\--reporting-disabled](/influxdb/v2.0/reference/config-options/#reporting-disabled)
+- [\--secret-store](/influxdb/v2.0/reference/config-options/#secret-store)
+- [\--session-length](/influxdb/v2.0/reference/config-options/#session-length)
+- [\--session-renew-disabled](/influxdb/v2.0/reference/config-options/#session-renew-disabled)
+- [\--storage-cache-max-memory-size](/influxdb/v2.0/reference/config-options/#storage-cache-max-memory-size)
+- [\--storage-cache-snapshot-memory-size](/influxdb/v2.0/reference/config-options/#storage-cache-snapshot-memory-size)
+- [\--storage-cache-snapshot-write-cold-duration](/influxdb/v2.0/reference/config-options/#storage-cache-snapshot-write-cold-duration)
+- [\--storage-compact-full-write-cold-duration](/influxdb/v2.0/reference/config-options/#storage-compact-full-write-cold-duration)
+- [\--storage-compact-throughput-burst](/influxdb/v2.0/reference/config-options/#storage-compact-throughput-burst)
+- [\--storage-max-concurrent-compactions](/influxdb/v2.0/reference/config-options/#storage-max-concurrent-compactions)
+- [\--storage-max-index-log-file-size](/influxdb/v2.0/reference/config-options/#storage-max-index-log-file-size)
+- [\--storage-retention-check-interval](/influxdb/v2.0/reference/config-options/#storage-retention-check-interval)
+- [\--storage-series-file-max-concurrent-snapshot-compactions](/influxdb/v2.0/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
+- [\--storage-series-id-set-cache-size](/influxdb/v2.0/reference/config-options/#storage-series-id-set-cache-size)
+- [\--storage-shard-precreator-advance-period](/influxdb/v2.0/reference/config-options/#storage-shard-precreator-advance-period)
+- [\--storage-shard-precreator-check-interval](/influxdb/v2.0/reference/config-options/#storage-shard-precreator-check-interval)
+- [\--storage-tsm-use-madv-willneed](/influxdb/v2.0/reference/config-options/#storage-tsm-use-madv-willneed)
+- [\--storage-validate-keys](/influxdb/v2.0/reference/config-options/#storage-validate-keys)
+- [\--storage-wal-fsync-delay](/influxdb/v2.0/reference/config-options/#storage-wal-fsync-delay)
+- [\--store](/influxdb/v2.0/reference/config-options/#store)
+- [\--testing-always-allow-setup](/influxdb/v2.0/reference/config-options/#testing-always-allow-setup)
+- [\--tls-cert](/influxdb/v2.0/reference/config-options/#tls-cert)
+- [\--tls-key](/influxdb/v2.0/reference/config-options/#tls-key)
+- [\--tls-min-version](/influxdb/v2.0/reference/config-options/#tls-min-version)
+- [\--tls-strict-ciphers](/influxdb/v2.0/reference/config-options/#tls-strict-ciphers)
+- [\--tracing-type](/influxdb/v2.0/reference/config-options/#tracing-type)
+- [\--vault-client-key](/influxdb/v2.0/reference/config-options/#vault-client-key)
+- [\--vault-max-retries](/influxdb/v2.0/reference/config-options/#vault-max-retries)
+- [\--vault-client-timeout](/influxdb/v2.0/reference/config-options/#vault-client-timeout)
+- [\--vault-skip-verify](/influxdb/v2.0/reference/config-options/#vault-skip-verify)
+- [\--vault-tls-server-name](/influxdb/v2.0/reference/config-options/#vault-tls-server-name)
+- [\--vault-token](/influxdb/v2.0/reference/config-options/#vault-token)

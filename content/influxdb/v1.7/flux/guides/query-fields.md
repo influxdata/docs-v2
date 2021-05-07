@@ -9,6 +9,8 @@ weight: 1
 menu:
   influxdb_1_7:
     parent: Query with Flux
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/query-fields/
+v2: /influxdb/v2.0/query-data/flux/query-fields/
 list_code_example: |
   ```js
   from(bucket: "db/rp")

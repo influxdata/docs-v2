@@ -96,7 +96,7 @@ boolean values are annotated with the `boolean` datatype.
 ### bucket
 
 A bucket is a named location where time series data is stored.
-All buckets have a retention policy, a duration of time that each data point persists.
+All buckets have a [retention period](#retention-period).
 A bucket belongs to an organization.
 
 ## C
@@ -187,6 +187,10 @@ Use comments with Flux statements to describe your functions.
 ### common log format (CLF)
 
 A standardized text file format used by the InfluxDB web server to create log entries when generating server log files.
+
+### compaction
+
+Compressing time series data to optimize disk usage.
 
 ### continuous query (CQ)
 
@@ -769,6 +773,12 @@ A tuple of named values represented using a record type.
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
+### retention period
+The duration of time that a bucket retains data.
+Points with timestamps older than their bucket's retention period are dropped.
+
+Related entries: [bucket](#bucket), [shard group duration](#shard-group-duration)
+
 <!--### replication factor
 
 The attribute of the retention policy that determines how many copies of the data are stored in the cluster. InfluxDB replicates data across N data nodes, where N is the replication factor.
@@ -778,16 +788,16 @@ To maintain data availability for queries, the replication factor should be less
 Data is fully available when the replication factor is greater than the number of unavailable data nodes.
 Data may be unavailable when the replication factor is less than the number of unavailable data nodes.
 Any replication factor greater than two gives you additional fault tolerance and query capacity within the cluster.
+-->
 
 ### retention policy (RP)
+Retention policy is an InfluxDB 1.x concept that represents the duration of time
+that each data point in the retention policy persists.
+The InfluxDB 2.x equivalent is [retention period](#retention-period).
+For more information about retention policies, see the
+[latest 1.x documentation](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
 
-Retention policy is a duration of time that each data point persists. Retention policies are specified in a bucket.
-
-<!--Retention polices describe how many copies of the data is stored in the cluster (replication factor), and the time range covered by shard groups (shard group duration). Retention policies are unique per bucket.
-
-Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
-
--->
+Related entries:  [retention period](#retention-period),
 
 ### RFC3339 timestamp
 A timestamp that uses the human readable DateTime format proposed in
@@ -810,6 +820,9 @@ Related entries: [bucket](#bucket), [field key](#field-key), [measurement](#meas
 InfluxDB scrapes data from specified targets at regular intervals and writes the data to an InfluxDB bucket.
 Data can be scraped from any accessible endpoint that provides data in the [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
+### secret
+Secrets are key-value pairs that contain information you want to control access to, such as API keys, passwords, or certificates.
+
 ### selector
 
 A Flux function that returns a single point from the range of specified points.
@@ -825,13 +838,13 @@ Related entries: [field set](#field-set), [measurement](#measurement),<!-- [rete
 
 ### series cardinality
 
-The number of unique bucket, measurement, tag set, and field key combinations in an InfluxDB instance.
+The number of unique measurement, tag set, and field key combinations in an InfluxDB bucket.
 
-For example, assume that an InfluxDB instance has a single bucket and one measurement.
+For example, assume that an InfluxDB bucket has one measurement.
 The single measurement has two tag keys: `email` and `status`.
 If there are three different `email`s, and each email address is associated with two
 different `status`es, the series cardinality for the measurement is 6
-(3 * 2 = 6):
+(3 × 2 = 6):
 
 | email                 | status |
 | :-------------------- | :----- |
@@ -842,11 +855,11 @@ different `status`es, the series cardinality for the measurement is 6
 | cliff@influxdata.com  | start  |
 | cliff@influxdata.com  | finish |
 
-In some cases, performing this multiplication may overestimate series cardinality because of the presence of dependent tags.
-Dependent tags are scoped by another tag and do not increase series
-cardinality.
+In some cases, performing this multiplication may overestimate series cardinality
+because of the presence of dependent tags.
+Dependent tags are scoped by another tag and do not increase series cardinality.
 If we add the tag `firstname` to the example above, the series cardinality
-would not be 18 (3 * 2 * 3 = 18).
+would not be 18 (3 × 2 × 3 = 18).
 The series cardinality would remain unchanged at 6, as `firstname` is already scoped by the `email` tag:
 
 | email                | status | firstname |
@@ -858,13 +871,15 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com | start  | clifford  |
 | cliff@influxdata.com | finish | clifford  |
 
-<!--See [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality) to learn about the InfluxQL commands for series cardinality. -->
+##### Query for cardinality:
+- **Flux:** [influxdb.cardinality()](/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/)
+- **InfluxQL:** [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality)
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
 ### series file
 
-A file created and used by the [InfluxDB storage engine](/influxdb/v2.0/reference/internals/storage-engine/)
+A file created and used by the **InfluxDB OSS storage engine**
 that contains a set of all series keys across the entire database.
 
 ### series key
@@ -894,36 +909,50 @@ Service input plugins listen on a socket for known protocol inputs, or apply the
 
 Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin)
 
-<!--### shard
+### shard
 
-A shard contains encoded and compressed data. Shards are represented by a TSM file on disk.
-Every shard belongs to one and only one shard group.
-Multiple shards may exist in a single shard group.
-Each shard contains a specific set of series.
-All points falling on a given series in a given shard group will be stored in the same shard (TSM file) on disk.
+A shard contains encoded and compressed data for a specific set of [series](#series).
+A shard consists of one or more [TSM files](#tsm-time-structured-merge-tree) on disk.
+All points in a series in a given shard group are stored in the same shard (TSM file) on disk.
+A shard belongs to a single [shard group](#shard-group).
 
-Related entries: [series](#series), [shard duration](#shard-duration), [shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
+For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
 
-### shard duration
+Related entries: [series](#series), [shard duration](#shard-duration),
+[shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
 
-The shard duration determines how much time each shard group spans.
-The specific interval is determined by the `SHARD DURATION` of the retention policy.
-<!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#retention-policy-management) for more information.
+### shard group
+
+<<<<<<< HEAD
+Shard groups are logical containers for shards and contain all shards with data
+for a specified interval known as the [shard group duration](#shard-group-duration).
+Every bucket that contains data has at least one shard group.
+=======
+Shard groups are logical containers for shards organized by [bucket](#bucket).
+Every bucket with data has at least one shard group.
+A shard group contains all shards with data for the time interval covered by the shard group.
+The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
+>>>>>>> cb4186ba2075d97882bc5974623adbdd1e88934a
+
+For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
+
+Related entries: [bucket](#bucket), [retention period](#retention-period),
+[series](#series), [shard](#shard), [shard duration](#shard-duration)
+
+### shard group duration
+
+The duration of time or interval that each [shard group](#shard-group) covers. Set the `shard-group-duration` for each [bucket](#bucket).
+
+For more information, see:
+
+- [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/)
+- [Manage buckets](/influxdb/v2.0/organizations/buckets/)
+
+<!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
 Related entries: [database](#database), [retention policy](#retention-policy-rp), [series](/#series), [shard](#shard), [shard group](#shard-group)
-
-### shard group
-
-Shard groups are logical containers for shards.
-Shard groups are organized by time and retention policy.
-Every retention policy that contains data has at least one associated shard group.
-A given shard group contains all shards with data for the interval covered by the shard group.
-The interval spanned by each shard group is the shard duration.
-
-Related entries: [database](#database), [retention policy](#retention-policy-rp), [series](/#series), [shard](#shard), [shard duration](#shard-duration)
-
 -->
 
 ### Single Stat
@@ -962,7 +991,7 @@ string values are annotated with the `string` datatype.
 
 ### TCP
 
-InfluxDB uses Transmission Control Protocol (TCP) port 9999 for client-server communication over the InfluxDB HTTP API.
+InfluxDB uses Transmission Control Protocol (TCP) port 8086 for client-server communication over the InfluxDB HTTP API.
 
 <!--ports for InfluxDB Enterprise -->
 
@@ -1043,14 +1072,21 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 
 ### token
 
-Tokens verify user and organization permissions in InfluxDB.
+Tokens (or authentication tokens) verify user and organization permissions in InfluxDB.
+There are different types of athentication tokens:
+
+- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
+  _InfluxDB Cloud does not support Operator tokens._
+- **All-Access token:** grants full read and write access to all resources in an organization.
+- **Read/Write token:** grants read or write access to specific resources in an organization.
 
 Related entries: [Create a token](/influxdb/v2.0/security/tokens/create-token/).
 
 ### tracing
 
-By default, tracing is disabled in InfluxDB.
-To enable tracing or set other InfluxDB configuration options, see [InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
+By default, tracing is disabled in InfluxDB OSS.
+To enable tracing or set other InfluxDB OSS configuration options,
+see [InfluxDB OSS configuration options](/influxdb/v2%2E0/reference/config-options/).
 
 ### transformation
 

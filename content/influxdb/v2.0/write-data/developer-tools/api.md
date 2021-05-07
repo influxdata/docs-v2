@@ -1,10 +1,8 @@
 ---
-title: InfluxDB API
-seotitle: Write data with the InfluxDB API
-list_title: Write data with the InfluxDB API
+title: Write data with the InfluxDB API
 weight: 206
 description: >
-  Write data to InfluxDB using the InfluxDB API.
+  Use the `/write` endpoint of the InfluxDB API to write data to InfluxDB.
 menu:
   influxdb_2_0:
     name: InfluxDB API
@@ -36,7 +34,7 @@ Compressing write requests reduces network bandwidth, but increases server-side 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
+curl --request POST "http://localhost:8086/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
   --data-raw "
 mem,host=host1 used_percent=23.43234543 1556896326
@@ -48,7 +46,7 @@ mem,host=host2 used_percent=27.18294630 1556896336
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```bash
-curl -XPOST "http://localhost:9999/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
+curl --request POST "http://localhost:8086/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
   --header "Content-Encoding: gzip" \
   --data-raw "

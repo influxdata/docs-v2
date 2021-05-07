@@ -6,12 +6,13 @@ menu:
     parent: InfluxQL
 aliases:
   - /influxdb/v1.7/sample_data/data_download/
+v2: /influxdb/v2.0/reference/sample-data/
 ---
 
 In order to explore the query language further, these instructions help you create a database,
 download and write data to that database within your InfluxDB installation.
-The sample data is then used and referenced in [Data Exploration](../../query_language/data_exploration/),
-[Schema Exploration](../../query_language/schema_exploration/), and [Functions](../../query_language/functions/).
+The sample data is then used and referenced in [Data Exploration](/influxdb/v1.7/query_language/data_exploration/),
+[Schema Exploration](/influxdb/v1.7/query_language/schema_exploration/), and [Functions](/influxdb/v1.7/query_language/functions/).
 
 ## Creating a database
 
@@ -60,7 +61,7 @@ From your terminal, download the text file that contains the data in [line proto
 curl https://s3.amazonaws.com/noaa.water-database/NOAA_data.txt -o NOAA_data.txt
 ```
 
-Write the data to InfluxDB via the [CLI](../../tools/shell/):
+Write the data to InfluxDB via the [CLI](/influxdb/v1.7/tools/shell/):
 ```
 influx -import -path=NOAA_data.txt -precision=s -database=NOAA_water_database
 ```
@@ -114,8 +115,8 @@ The sample data is publicly available data from the [National Oceanic and Atmosp
 The data include 15,258 observations of water levels (ft) collected every six minutes at two stations (Santa Monica, CA (ID 9410840) and Coyote Creek, CA (ID 9414575)) over the period from August 18, 2015 through September 18, 2015.
 
 Note that the measurements `average_temperature`, `h2o_pH`, `h2o_quality`, and `h2o_temperature` contain fictional data.
-Those measurements serve to illuminate query functionality in [Schema Exploration](../../query_language/schema_exploration/).
+Those measurements serve to illuminate query functionality in [Schema Exploration](/influxdb/v1.7/query_language/schema_exploration/).
 
 
 The `h2o_feet` measurement is the only measurement that contains the NOAA data.
-Please note that the `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string [field values](../../concepts/glossary/#field-value).
+Please note that the `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string [field values](/influxdb/v1.7/concepts/glossary/#field-value).

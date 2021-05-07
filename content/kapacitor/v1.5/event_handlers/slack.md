@@ -5,7 +5,7 @@ description: >
 menu:
   kapacitor_1_5_ref:
     name: Slack
-    weight: 1500
+    weight: 1600
     parent: Event handlers
 ---
 

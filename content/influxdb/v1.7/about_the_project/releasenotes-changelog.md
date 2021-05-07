@@ -5,7 +5,22 @@ menu:
     name: Release notes
     weight: 10
     parent: About the project
+v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
+
+## v1.7.11 [2020-03-12]
+
+### Features
+
+- Update to Go 1.13.8.
+
+### Bug fixes
+
+- (Affects build from source only): Switch the influxdb build from `dep` and `Gopkg.toml` to `go mod` to resolve issue that required an incorrect Go module version (`github.com/google/go-github@v0.0.0-20181009003523-dd29b543e14c`).
+- Update sorting method (`sortKey`) to use null byte as a delimiter, not comma.
+- Replace panic with error while encoding and decoding corrupt data.
+- Resolve incorrect error type in type switch.
+- Ensure the tsi log file (`activeLogFile`) has a READ lock.
 
 ## v1.7.10 [2020-02-07]
 

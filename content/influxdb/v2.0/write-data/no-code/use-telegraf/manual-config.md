@@ -113,7 +113,7 @@ set INFLUX_TOKEN=YourAuthenticationToken
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-_See the [example `telegraf.conf` below](#example-influxdb-v2-configuration)._
+_See the [example `telegraf.conf` below](#example-influxdb_v2-configuration)._
 {{% /note %}}
 
 ##### organization
@@ -129,7 +129,7 @@ The example below illustrates an `influxdb_v2` configuration.
 # ...
 
 [[outputs.influxdb_v2]]
-  urls = ["http://localhost:9999"]
+  urls = ["http://localhost:8086"]
   token = "$INFLUX_TOKEN"
   organization = "example-org"
   bucket = "example-bucket"

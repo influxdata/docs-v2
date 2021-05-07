@@ -94,9 +94,7 @@ The `license-key` and `license-path` settings are
 mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-InfluxData recommends performing rolling restarts on the nodes after the license key update.
-Restart one meta, data, or Enterprise service at a time and wait for it to come back up successfully.
-The cluster should remain unaffected as long as only one node is restarting at a time as long as there are two or more data nodes.
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
@@ -108,9 +106,8 @@ Contact [sales@influxdb.com](mailto:sales@influxdb.com) if a license file is req
 
 The license file should be saved on every server in the cluster, including Meta, Data, and Enterprise nodes.
 The file contains the JSON-formatted license, and must be readable by the `influxdb` user. Each server in the cluster independently verifies its license.
-InfluxData recommends performing rolling restarts on the nodes after the license file update.
-Restart one meta, data, or Enterprise service at a time and wait for it to come back up successfully.
-The cluster should remain unaffected as long as only one node is restarting at a time as long as there are two or more data nodes.
+
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 {{% warn %}}
 Use the same license file for all nodes in the same cluster.
@@ -253,7 +250,8 @@ Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_WRITE_COLD_DURATION`
 #### `max-concurrent-compactions = 0`
 
 The maximum number of concurrent full and level compactions that can run at one time.  
-A value of `0` results in 50% of `runtime.GOMAXPROCS(0)` used at runtime.  
+A value of `0` (unlimited compactions) results in 50% of `runtime.GOMAXPROCS(0)` used at runtime,
+so when 50% of the CPUs aren't available, compactions are limited.
 Any number greater than `0` limits compactions to that value.  
 This setting does not apply to cache snapshotting.
 
@@ -400,22 +398,17 @@ so it is unlikely that changing this value will measurably improve performance b
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_STREAMS`
 
-#### `allow-out-of-order = "false"`
+#### allow-out-of-order = "false"
 
-By default, this option is set to false and writes are processed in the order that they are received. This means
-if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
+By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
 
-If this option is set to true, writes are allowed to process in an order that differs from the order they were received.
-This can reduce the time required to drain the HH queue and increase throughput during recovery.
-**Do not enable if your use case involves updating points.** Updating a point means the measurement name, tag keys,
-and timestamp are the same as a previous write and only the value is different.
+If true, writes may process in a different order than they were received. This can reduce the time required to drain the HH queue and increase throughput during recovery.
 
-Allowing out of order writes when updating points may cause incorrect values. For example,
-if the point `cpu v=1.0 1234` arrives on `node1` and attempts to replicate on `node2`
-but `node2` is down, `node1` writes the point to its local HH queue. If `node2` comes back online
-and a new point `cpu v=20. 1234` arrives at `node1` and updates the original point, the updated point
-is sent to `node2` (bypassing the HH queue). Because the updated point arrives at `node2` before the
-original point, and second point value is stored before the original point value.
+**Do not enable if your use case involves updating points, which may cause points to be overwritten.** To overwrite an existing point, the measurement name, tag keys and values (if the point includes tags), field keys, and timestamp all have to be the same as a previous write.
+
+For example, if you have two points with the same measurement (`cpu`), field key (`v`), and timestamp (`1234`), the following could happen:
+
+Point 1 (`cpu v=1.0 1234`) arrives at `node1`, attempts to replicate on `node2`, and finds `node2` is down, so point 1 goes to the local HH queue. Now, `node2` comes back online and point 2 `cpu v=20. 1234` arrives at `node1`, overwrites point 1, and is written to `node2` (bypassing the HH queue). Because the point 2 arrives at `node2` before point 1, point 2 is stored before point 1.
 
 Environment variable: `INFLUXDB_CLUSTER_ALLOW_OUT_OF_ORDER`
 
@@ -914,13 +907,19 @@ Valid options are `auto`, `logfmt`, and `json`.
 A setting of `auto` will use a more a more user-friendly output format if the output terminal is a TTY, but the format is not as easily machine-readable.
 When the output is a non-TTY, `auto` will use `logfmt`.
 
+Environment variable: `INFLUXDB_LOGGING_FORMAT`
+
 #### `level = "info"`
 
 Determines which level of logs will be emitted.
 
+Environment variable: `INFLUXDB_LOGGING_LEVEL`
+
 #### `suppress-logo = false`
 
 Suppresses the logo output that is printed when the program is started.
+
+Environment variable: `INFLUXDB_LOGGING_SUPPRESS_LOGO`
 
 -----
 
@@ -1180,6 +1179,12 @@ Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_ENABLED`
 Controls whether queries are logged when executed by the CQ service.
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_LOG_ENABLED`
+
+#### `query-stats-enabled = false`
+
+Write continuous query execution statistics to the default monitor store.
+
+Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_QUERY_STATS_ENABLED`
 
 #### `run-interval = "1s"`
 

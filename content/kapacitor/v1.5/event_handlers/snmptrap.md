@@ -5,7 +5,7 @@ description: >
 menu:
   kapacitor_1_5_ref:
     name: SNMP Trap
-    weight: 1600
+    weight: 1700
     parent: Event handlers
 ---
 

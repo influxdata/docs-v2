@@ -1,0 +1,44 @@
+.mermaid {
+  opacity: 0;
+  color: $article-bg;
+  margin: 3rem 0;
+  transition: opacity .5s;
+
+
+  .arrowheadPath, .arrowMarkerPath { fill: $diagram-arrow !important; }
+  .edgePath .path, .flowchart-link { stroke: $diagram-arrow !important; }
+  .label { color: $article-text !important; }
+  .cluster-label .nodeLabel {
+    color: $article-code !important;
+  }
+  .edgeLabel {
+    color: $article-text !important;
+    background: $article-code-bg !important;
+    font-size: .85em;
+    font-weight: $medium;
+  }
+
+  .node {
+    rect,
+    circle,
+    ellipse,
+    polygon,
+    path {
+      fill: $article-bg !important;
+      stroke: $diagram-arrow !important;
+      stroke-width: 2px !important;
+    }
+    .label { color: $article-text !important; }
+  }
+
+  .cluster {
+    rect,
+    circle,
+    ellipse,
+    polygon,
+    path {
+      fill: $article-code-bg !important;
+      stroke: none !important;
+    }
+  }
+}

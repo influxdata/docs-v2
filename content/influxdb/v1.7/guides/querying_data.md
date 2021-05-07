@@ -6,6 +6,7 @@ menu:
   influxdb_1_7:
     weight: 20
     parent: Guides
+v2: /influxdb/v2.0/query-data/
 ---
 
 ## Querying data with the InfluxDB API

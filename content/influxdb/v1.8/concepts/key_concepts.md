@@ -6,36 +6,24 @@ menu:
     name: Key concepts
     weight: 10
     parent: Concepts
+v2: /influxdb/v2.0/reference/key-concepts/
 ---
 
-Before diving into InfluxDB it's good to get acquainted with some of the key concepts of the database.
-This document provides a gentle introduction to those concepts and common InfluxDB terminology.
-We've provided a list below of all the terms we'll cover, but we recommend reading this document from start to finish to gain a more general understanding of our favorite time series database.
+Before diving into InfluxDB, it's good to get acquainted with some key concepts of the database. This document introduces key InfluxDB concepts and elements. To introduce the key concepts, we’ll cover how the following elements work together in InfluxDB:
 
-<table style="width:100%">
-  <tr>
-    <td><a href="#database">database</a></td>
-    <td><a href="#field-key">field key</a></td>
-    <td><a href="#field-set">field set</a></td>
-  </tr>
-  <tr>
-    <td><a href="#field-value">field value</a></td>
-    <td><a href="#measurement">measurement</a></td>
-    <td><a href="#point">point</a></td>
-  </tr>
-    <tr>
-    <td><a href="#retention-policy">retention policy</a></td>
-    <td><a href="#series">series</a></td>
-    <td><a href="#tag-key">tag key</a></td>
-  </tr>
-    <tr>
-    <td><a href="#tag-set">tag set</a></td>
-    <td><a href="#tag-value">tag value</a></td>
-    <td><a href="#timestamp">timestamp</a></td>
-  </tr>
-</table>
+- [database](/influxdb/v1.8/concepts/glossary/#database)
+- [field key](/influxdb/v1.8/concepts/glossary/#field-key)
+- [field set](/influxdb/v1.8/concepts/glossary/#field-set)
+- [field value](/influxdb/v1.8/concepts/glossary/#field-value)
+- [measurement](/influxdb/v1.8/concepts/glossary/#measurement)
+- [point](/influxdb/v1.8/concepts/glossary/#point)
+- [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+- [series](/influxdb/v1.8/concepts/glossary/#series)
+- [tag key](/influxdb/v1.8/concepts/glossary/#tag-key)
+- [tag set](/influxdb/v1.8/concepts/glossary/#tag-set)
+- [tag value](/influxdb/v1.8/concepts/glossary/#tag-value)
+- [timestamp](/influxdb/v1.8/concepts/glossary/#timestamp)
 
-Check out the [glossary](/influxdb/v1.8/concepts/glossary/) if you prefer the cold, hard facts.
 
 ### Sample data
 
@@ -123,6 +111,7 @@ You don't need to have tags in your data structure, but it's generally a good id
 This means that queries on tags are faster and that tags are ideal for storing commonly-queried metadata.
 
 Avoid using the following reserved keys:
+
 * `_field`
 * `_measurement`
 * `time`
@@ -197,7 +186,7 @@ time                    butterflies honeybees   location    scientist
 2015-08-18T00:00:00Z    1           30          1           perpetua
 ```
 
-The point in this example is part of series 3 and defined by the measurement (`census`), the tag set (`location = 1`, `scientist = perpetua`), the field set (`butterflies = 1`, `honeybees = 30`), and the timestamp `2015-08-18T00:00:00Z`.
+The point in this example is part of series 3 and 7 and defined by the measurement (`census`), the tag set (`location = 1`, `scientist = perpetua`), the field set (`butterflies = 1`, `honeybees = 30`), and the timestamp `2015-08-18T00:00:00Z`.
 
 All of the stuff we've just covered is stored in a database - the sample data are in the database `my_database`.
 An InfluxDB <a name=database></a>_**database**_ is similar to traditional relational databases and serves as a logical container for users, retention policies, continuous queries, and, of course, your time series data.

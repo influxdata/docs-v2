@@ -11,10 +11,17 @@ weight: 301
 influxdb/v2.0/tags: [tags]
 related:
   - /influxdb/v2.0/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/schema_exploration#show-tag-values, SHOW TAG VALUES in InfluxQL
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
+introduced: 0.16.0
+deprecated: 0.88.0
 ---
 
-The `v1.tagValues()` function returns a list unique values for a given tag.
+{{% warn %}}
+`v1.tagValues()` was deprecated in **Flux v0.88.0** in favor of
+[`schema.tagValues()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/).
+{{% /warn %}}
+
+The `v1.tagValues()` function returns a list of unique values for a given tag.
 The return value is always a single table with a single column, `_value`.
 
 ```js
@@ -31,28 +38,28 @@ v1.tagValues(
 ## Parameters
 
 ### bucket
-The bucket from which to list tag values.
+Bucket to return unique tag values from.
 
 _**Data type:** String_
 
 ### tag
-The tag for which to return unique values.
+Tag to return unique values from.
 
 _**Data type:** String_
 
 ### predicate
-The predicate function that filters tag values.
+Predicate function that filters tag values.
 _Defaults to `(r) => true`._
 
 _**Data type:** Function_
 
 ### start
-The oldest time to include in results.
+Oldest time to include in results.
 _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
-Absolute start times are defined using timestamps.
+Absolute start times are defined using [time values](/influxdb/v2.0/reference/flux/language/types/#time-types).
 
 _**Data type:** Duration_
 

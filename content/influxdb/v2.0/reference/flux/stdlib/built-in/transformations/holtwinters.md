@@ -33,13 +33,12 @@ holtWinters(
 
 The Holt-Winters method predicts [`n`](#n) seasonally-adjusted values for the
 specified [`column`](#column) at the specified [`interval`](#interval).
-For example, if `interval` is `6m` and `n` is `3`, results include three predicted
+For example, if `interval` is six minutes (`6m`) and `n` is `3`, results include three predicted
 values six minutes apart.
 
 #### Seasonality
 [`seasonality`](#seasonality) delimits the length of a seasonal pattern according to `interval`.
-If your `interval` is `2m` and `seasonality` is `4`, then the seasonal pattern occurs every
-eight minutes or every four data points.
+If your `interval` is two minutes (`2m`) and `seasonality` is `4`, then the seasonal pattern occurs every eight minutes or every four data points. Likewise, if your `interval` is two months (`2mo`) and `seasonality` is `4`, then the seasonal pattern occurs every eight months or every four data points.
 If data doesn't have a seasonal pattern, set `seasonality` to `0`.
 
 #### Space values evenly in time

@@ -16,13 +16,25 @@ influx task delete [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                                                           | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                                                           |:----------: |:------------------    |
-|      | `--configs-path` | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
-| `-h` | `--help`         | Help for the `delete` command                                         |             |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`         | HTTP address of InfluxDB (default `http://localhost:9999`)            | string      | `INFLUX_HOST`         |
-| `-i` | `--id`           | **(Required)** Task ID                                                | string      |                       |
-|      | `--json`         | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-|      | `--skip-verify`  | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`        | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}    |
+|:---- |:---               |:-----------                                                           |:----------: |:------------------    |
+| `-c` | `--active-config` | CLI configuration to use for command                                  | string      |                       |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
+| `-h` | `--help`          | Help for the `delete` command                                         |             |                       |
+|      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
+| `-i` | `--id`            | ({{< req >}}) Task ID                                                 | string      |                       |
+|      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
+| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+## Examples
+
+{{< cli/influx-creds-note >}}
+
+##### Delete a task
+```sh
+influx task delete --id 0Xx0oox00XXoxxoo1
+```
+
+

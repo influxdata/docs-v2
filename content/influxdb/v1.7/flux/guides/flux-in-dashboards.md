@@ -8,6 +8,7 @@ menu:
     name: Use Flux in dashboards
     parent: Query with Flux
 weight: 30
+canonical: /{{< latest "influxdb" "v1" >}}/flux/guides/flux-in-dashboards/
 ---
 
 [Chronograf](/{{< latest "chronograf" >}}/) is the web user interface for managing for the
@@ -28,7 +29,7 @@ To use Flux in a dashboard cell, either create a new cell or edit an existing ce
 by clicking the **pencil** icon in the top right corner of the cell.
 To the right of the **Source dropdown** above the graph preview, select **Flux** as the source type.
 
-![Flux in Chronograf dashboard cells](/img/flux/flux-dashboard-cell.png)
+{{< img-hd src="/img/influxdb/1-7-flux-dashboard-cell.png" alt="Flux in Chronograf dashboard cells" />}}
 
 > The Flux source type is only available if your data source has
 > [Flux enabled](/influxdb/v1.7/flux/installation).
@@ -39,7 +40,7 @@ This will provide **Schema**, **Script**, and **Functions** panes.
 The Schema pane allows you to explore your data and add filters for specific
 measurements, fields, and tags to your Flux script.
 
-<img src="/img/flux/flux-dashboard-add-filter.png" style="max-width:316px" title="Add a filter from the Schema panel">
+{{< img-hd src="/img/influxdb/1-7-flux-dashboard-add-filter.png" title="Add a filter from the Schema panel" />}}
 
 ### Script pane
 The Script pane is where you write your Flux script.
@@ -69,7 +70,7 @@ It can be helpful to view the actual data in order to see how it is being shaped
 The **View Raw Data** toggle above the data visualization switches between graphed
 data and raw data shown in table form.
 
-![View raw data](/img/flux/flux-dashboard-view-raw.png)
+{{< img-hd src="/img/influxdb/1-7-flux-dashboard-view-raw.png" alt="View raw data" />}}
 
 _The **View Raw Data** toggle is only available when using Flux._
 
@@ -141,9 +142,9 @@ dataSet
 ```
 
 ### Custom template variables
-<dt>
-Chronograf does not yet support the use of custom template variables in Flux queries.
-</dt>
+{{% warn %}}
+Chronograf does not support the use of custom template variables in Flux queries.
+{{% /warn %}}
 
 ## Using Flux and InfluxQL
 Within individual dashboard cells, the use of Flux and InfluxQL is mutually exclusive.

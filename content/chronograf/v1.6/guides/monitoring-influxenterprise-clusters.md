@@ -80,11 +80,12 @@ Next, start the InfluxDB process:
 
 #### Step 4: Create an admin user
 
-Create an [admin user](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-types-and-privileges) on your InfluxDB instance.
+Create an [admin user](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-types-and-privileges) on your InfluxDB instance.
 Because you enabled authentication, you must perform this step before moving on to the next section.
 Run the command below to create an admin user, replacing `chronothan` and `supersecret` with your own username and password.
 Note that the password requires single quotes.
 
+{{< keep-url >}}
 ```
 ~# curl -XPOST "http://localhost:8086/query" --data-urlencode "q=CREATE USER chronothan WITH PASSWORD 'supersecret' WITH ALL PRIVILEGES"
 ```
@@ -173,6 +174,8 @@ Repeat steps one through four for each data node in your cluster.
 
 Run the following command on your InfluxDB OSS instance to see if your Telegraf instances are successfully collecting and writing data.
 Replace the `chronothan` and `supersecret` values with your actual username and password.
+
+{{< keep-url >}}
 ```
 ~# curl -G "http://localhost:8086/query?db=telegraf&u=chronothan&p=supersecret&pretty=true" --data-urlencode "q=SHOW TAG VALUES FROM cpu WITH KEY=host"
 ```

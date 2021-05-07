@@ -1,3 +1,4 @@
+{{ $scratch := newScratch }}
 {{ $type := .Get "type" }}
 {{ $pathData := findRE "[^/]+.*?" .Page.RelPermalink }}
 {{ $currentTelegrafVersion := replaceRE `v` "" (index $pathData 1) }}
@@ -13,11 +14,29 @@
     <div class="plugin-card visible{{ if eq $minorVer $currentTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $currentTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
       <div class="info">
         <h3 id="{{ .id }}">{{ .name }}</h3>
+        {{ if in .tags "external"}}<p class="external">External</p>{{ end }}
         <p class="meta">
           Plugin ID: <code>{{ $type }}s.{{ .id }}</code><br/>
           Telegraf {{ if not .deprecated }}{{ .introduced }}+{{ else }}{{ .introduced }} - {{ .deprecated }} <span class="deprecated">Deprecated</span>{{ end }}
         </p>
-        <p>{{ .description | markdownify | safeHTML }}</p>
+        <!-- Support latest shortcodes in descriptions (does not support version constraints)-->
+        {{ $scratch.Set "description" .description }}
+
+        {{ if in .description "{{< latest" }}
+          {{ $latestInstances := findRE `{{< latest .* >}}` .description }}
+          {{ range $latestInstances }}
+            {{ $tmpDescription := $scratch.Get "description" }}
+            {{ $product := replaceRE `"` "" (index (findRE `"[a-z_]*"` .) 0 ) }}
+            {{ $latestVersion := (index $.Site.Data.products $product).latest }}
+            {{ $replace := print "{{< latest \"" $product "\" >}}"}}
+            {{ $replacement := print $product "/" $latestVersion }}
+            {{ $scratch.Set "description" (replaceRE $replace $replacement $tmpDescription) }}
+          {{ end }}
+        {{ end }}
+
+        {{ $description := $scratch.Get "description" }}
+
+        <p>{{ $description | markdownify | safeHTML }}</p>
       </div>
       <a class="btn github-link" href="{{ if .link }}{{ .link }}{{ else }}https://github.com/influxdata/telegraf/blob/release-{{ $currentTelegrafVersion }}/plugins/{{ $type }}s/{{ .id }}/README.md{{ end }}" target="_blank">
         <span class="icon-github"></span> <span class="hide">View</span>

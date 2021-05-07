@@ -21,6 +21,7 @@ This article walks through writing a basic InfluxDB task that downsamples
 data and stores it in a new bucket.
 
 ## Components of a task
+
 Every InfluxDB task needs the following four components.
 Their form and order can vary, but they are all essential parts of a task.
 
@@ -32,6 +33,7 @@ Their form and order can vary, but they are all essential parts of a task.
 _[Skip to the full example task script](#full-example-task-script)_
 
 ## Define task options
+
 Task options define specific information about the task.
 The example below illustrates how task options are defined in your Flux script:
 
@@ -41,7 +43,6 @@ option task = {
     every: 1h,
     offset: 0m,
     concurrency: 1,
-    retry: 5
 }
 ```
 
@@ -53,6 +54,7 @@ When creating a task in the InfluxDB user interface (UI), task options are defin
 {{% /note %}}
 
 ## Define a data source
+
 Define a data source using Flux's [`from()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/)
 or any other [Flux input functions](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/).
 
@@ -60,7 +62,7 @@ For convenience, consider creating a variable that includes the sourced data wit
 the required time range and any relevant filters.
 
 ```js
-data = from(bucket: "telegraf/default")
+data = from(bucket: "example-bucket")
   |> range(start: -task.every)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -70,6 +72,7 @@ data = from(bucket: "telegraf/default")
 
 {{% note %}}
 #### Using task options in your Flux script
+
 Task options are passed as part of a `task` option record and can be referenced in your Flux script.
 In the example above, the time range is defined as `-task.every`.
 
@@ -80,9 +83,17 @@ Using task options to define values in your Flux script can make reusing your ta
 {{% /note %}}
 
 ## Process or transform your data
+
 The purpose of tasks is to process or transform data in some way.
 What exactly happens and what form the output data takes is up to you and your
 specific use case.
+
+{{% note %}}
+#### Account for latent data with an offset
+
+To account for latent data (like data streaming from your edge devices), use an offset in your task. For example, if you set a task interval on the hour with the options `every: 1h` and `offset: 5m`, a task executes 5 minutes after the task interval but the query [`now()`](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/) time is on the exact hour.
+
+{{% /note %}}
 
 The example below illustrates a task that downsamples data by calculating the average of set intervals.
 It uses the `data` variable defined [above](#define-a-data-source) as the data source.
@@ -100,6 +111,7 @@ data
 _See [Common tasks](/influxdb/v2.0/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
 ## Define a destination
+
 In the vast majority of task use cases, once data is transformed, it needs to be sent and stored somewhere.
 This could be a separate bucket or another measurement.
 
@@ -108,7 +120,7 @@ to send the transformed data to another bucket:
 
 ```js
 // ...
-|> to(bucket: "telegraf_downsampled", org: "my-org")
+|> to(bucket: "example-downsampled", org: "my-org")
 ```
 
 {{% note %}}
@@ -116,6 +128,7 @@ In order to write data into InfluxDB, you must have `_time`, `_measurement`, `_f
 {{% /note %}}
 
 ## Full example task script
+
 Below is a task script that combines all of the components described above:
 
 ```js
@@ -125,11 +138,10 @@ option task = {
     every: 1h,
     offset: 0m,
     concurrency: 1,
-    retry: 5
 }
 
 // Data source
-data = from(bucket: "telegraf/default")
+data = from(bucket: "example-bucket")
   |> range(start: -task.every)
   |> filter(fn: (r) =>
     r._measurement == "mem" and
@@ -143,6 +155,6 @@ data
     fn: mean
   )
   // Data destination
-  |> to(bucket: "telegraf_downsampled")
+  |> to(bucket: "example-downsampled")
 
 ```

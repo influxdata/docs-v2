@@ -5,7 +5,7 @@ description: >
 menu:
   kapacitor_1_5_ref:
     name: Telegram
-    weight: 1900
+    weight: 2000
     parent: Event handlers
 ---
 

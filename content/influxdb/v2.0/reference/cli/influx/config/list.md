@@ -18,7 +18,7 @@ An asterisk (`*`) indicates the active configuration.
 influx config list [flags]
 ```
 
-#### Aliases
+#### Command aliases
 `list`, `ls`
 
 ## Flags

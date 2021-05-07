@@ -24,7 +24,7 @@ covariance(columns: ["column_x", "column_y"], pearsonr: false, valueDst: "_value
 ## Parameters
 
 ### columns
-A list of **two columns** on which to operate. <span class="required">Required</span>
+({{< req >}}) A list of **two columns** on which to operate.
 
 _**Data type:** Array of strings_
 

@@ -184,7 +184,7 @@ If a table has no rows, the `default` annotation provides the group key values.
 
 
 ## Line protocol elements
-The `datatype` annotation accepts accepts [data types](#data-types) and **line protocol elements**.
+The `datatype` annotation accepts [data types](#data-types) and **line protocol elements**.
 Line protocol elements identify how columns are converted into line protocol when using the
 [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
 

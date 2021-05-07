@@ -117,6 +117,11 @@ Consult your CA if you are unsure about how to use these files.
 
       # If using a self-signed certificate:
       https-insecure-tls = true
+
+      # Use TLS when communicating with data notes
+      data-use-tls = true
+      data-insecure-tls = true
+
     ```
 
 5. **Enable HTTPS within the configuration file for each data node**
@@ -158,6 +163,9 @@ Consult your CA if you are unsure about how to use these files.
 
          # Use a separate private key location.
          https-private-key = "influxdb-data.key"
+
+         # If using a self-signed certificate:
+         https-insecure-tls = true
        ```
 
     3. Configure the data nodes to use HTTPS when communicating with the meta nodes.

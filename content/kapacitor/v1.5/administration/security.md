@@ -7,18 +7,16 @@ menu:
     parent: Administration
 ---
 
-# Contents
-
 * [Overview](#overview)
 * [Secure InfluxDB and Kapacitor](#secure-influxdb-and-kapacitor)
 * [Kapacitor Security](#kapacitor-security)
 * [Secure Kapacitor and Chronograf](#secure-kapacitor-and-chronograf)
 
-# Overview
+## Overview
 
 This document covers the basics of securing the open-source distribution of
 Kapacitor.  For information about security with Enterprise Kapacitor see the
-[Enterprise Kapacitor](/enterprise_kapacitor/v1.5/) documentation.
+[Enterprise Kapacitor](https://archive.docs.influxdata.com/enterprise_kapacitor/v1.5/) documentation.
 
 When seeking to secure Kapacitor it is assumed that the Kapacitor server will be
 communicating with an already secured InfluxDB server.  It will also make its
@@ -59,6 +57,7 @@ When testing with a **self-signed certificate** it is also important to switch o
 certificate verification with the property `insecure-skip-verify`.  Failure to do
 so will result in x509 certificate errors as follows:
 
+{{< keep-url >}}
 ```
 ts=2018-02-19T13:26:11.437+01:00 lvl=error msg="failed to connect to InfluxDB, retrying..." service=influxdb cluster=localhost err="Get https://localhost:8086/ping: x509: certificate is valid for lenovo-TP02, not localhost"
 ```
@@ -70,6 +69,8 @@ ts=2018-02-19T13:26:11.437+01:00 lvl=error msg="failed to connect to InfluxDB, r
 In the configuration file these values are set according to the following example.
 
 **Example 1 &ndash; TLS Configuration Properties for InfluxDB &ndash; kapacitor.conf**
+
+{{< keep-url >}}
 ```toml
 [[influxdb]]
   # Connect to an InfluxDB cluster
@@ -105,6 +106,8 @@ Note that when a CA file contains the certificate and key together the property
 As environment variables these properties can be set as follows:
 
 **Example 2 &ndash; TLS Configuration Properties for InfluxDB &ndash; ENVARS**
+
+{{< keep-url >}}
 ```
 KAPACITOR_INFLUXDB_0_URLS_0="https://localhost:8086"
 KAPACITOR_INFLUXDB_0_SSL_CERT="/etc/ssl/influxdb-selfsigned.crt"
@@ -128,6 +131,7 @@ This results in the following file:
 
 **Example 3 &ndash; The InfluxDB part of the Kapacitor configuration**
 
+{{< keep-url >}}
 ```json
 {
     "elements": [
@@ -156,6 +160,7 @@ This results in the following file:
                 "startup-timeout": "5m0s",
                 "subscription-mode": "cluster",
                 "subscription-protocol": "https",
+                "subscription-path": "",
                 "subscriptions": {},
                 "subscriptions-sync-interval": "1m0s",
                 "timeout": "0s",
@@ -201,15 +206,27 @@ Similar commands:
 
 * To change the URLS:
 
-`curl -kv -d '{ "set": { "urls": [ "https://lenovo-TP02:8086" ]} }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "urls": [ "https://lenovo-TP02:8086" ]} }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 * To set the `subscription-protocol`:
 
-`curl -kv -d '{ "set": { "subscription-protocol": "https" } }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "subscription-protocol": "https" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
+
+* If Kapacitor is behind a reverse proxy, set the `subscription-path` to append to the InfluxDB subscription URL:
+
+```sh
+curl -kv -d '{ "set": { "subscription-path": "/path/behind/reverse-proxy" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 * To set the path to the CA Certificate:
 
-`curl -kv -d '{ "set": { "ssl-ca": "/etc/ssl/influxdata-selfsigned-incl-pub-key.pem" } }' https://localhost:9092/kapacitor/v1/config/influxdb/`
+```sh
+curl -kv -d '{ "set": { "ssl-ca": "/etc/ssl/influxdata-selfsigned-incl-pub-key.pem" } }' https://localhost:9092/kapacitor/v1/config/influxdb/
+```
 
 Other properties can be set in a similar fashion.
 
@@ -222,6 +239,7 @@ file, as environment variables or over the HTTP API.
 
 **Example 4 &ndash; InfluxDB Authentication Parameters &ndash; kapacitor.conf**
 
+{{< keep-url >}}
 ```toml
 [[influxdb]]
   # Connect to an InfluxDB cluster
@@ -410,21 +428,21 @@ Connection page.
 
 **Image 1 &ndash; Adding a Kapacitor Connection**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection01.png" alt="add kapacitor 01" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection01.png" alt="Add Kapacitor 01" style="max-width:100%;" />
 
 2) In the **Connection Details** group fill in such details as a name for the
 connection and click the **Connect** button.
 
 **Image 2 &ndash; Kapacitor Connection Details**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection02.png" alt="add kapacitor 02" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection02.png" alt="Add Kapacitor 02" style="max-width:100%;" />
 
 3) If the certificate is installed on the system a success notification will
 appear.
 
 **Image 3 &ndash; Kapacitor Connection Success**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection03.png" alt="add kapacitor 03" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection03.png" alt="Add Kapacitor 03" style="max-width:100%;" />
 
 If an error notification is returned check the Chronograf log for proxy errors.
 For example:
@@ -439,7 +457,7 @@ group.  In narrower screens they will be below the Connection Details group.
 
 **Image 4 &ndash; Configure Kapacitor Handler Endpoints**
 
-<img src="/img/kapacitor/chrono/Add_Kapacitor_Connection04b.png" alt="add kapacitor 04" style="max-width: 926px;" />
+<img src="/img/kapacitor/1-4-chrono-add-kapacitor-connection04.png" alt="Add Kapacitor 04" style="max-width:100%;" />
 
 At this point Kapacitor can be used to generate alerts and TICKscripts through
 Chronograf. These features are available through the **Alerting** item in the

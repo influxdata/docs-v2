@@ -82,7 +82,7 @@ from(bucket: "telegraf")
   |> range(start: -1h)
   |> filter(fn: (r) =>
       r._measurement == "disk" and
-      r._field = "used_percent"
+      r._field == "used_percent"
   )
   |> group(columns: ["_measurement"])
   |> monitor.check(

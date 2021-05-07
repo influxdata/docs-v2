@@ -43,13 +43,13 @@ Default is `https://api.telegram.org/bot`.
 _**Data type:** String_
 
 ### token
-<span class="req">Required</span>
+({{< req >}})
 Telegram bot token.
 
 _**Data type:** String_
 
 ### channel
-<span class="req">Required</span>
+({{< req >}})
 Telegram channel ID.
 
 _**Data type:** String_
@@ -79,7 +79,7 @@ _**Data type:** Boolean_
 
 ## Examples
 
-##### Send the last reported status to a Microsoft Teams channel
+##### Send the last reported status to Telegram
 ```js
 import "influxdata/influxdb/secrets"
 import "contrib/sranka/telegram"

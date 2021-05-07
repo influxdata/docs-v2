@@ -8,7 +8,7 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-products: [oss]
+draft: true
 ---
 
 The `influxd inspect build-tsi` command rebuilds the TSI index and, if necessary,
@@ -47,11 +47,11 @@ higher memory usage.
 ## Flags
 | Flag |                       | Description                                                                                     | Input Type |
 |:---- |:---                   |:-----------                                                                                     |:----------:|
-|      | `--batch-size`        | The size of the batches to write to the index. Defaults to `10000`. [See above](#batch-size).   | integer    |
+|      | `--batch-size`        | The size of the batches to write to the index. Defaults to `10000`. [See above](#--batch-size). | integer    |
 |      | `--concurrency`       | Number of workers to dedicate to shard index building. Defaults to `GOMAXPROCS` (8 by default). | integer    |
 | `-h` | `--help`              | Help for the `build-tsi` command.                                                               |            |
-|      | `--max-cache-size`    | Maximum cache size. Defaults to `1073741824`. [See above](#max-cache-size).                     | uinteger   |
-|      | `--max-log-file-size` | Maximum log file size. Defaults to `1048576`. [See above](#max-log-file-size) .                 | integer    |
+|      | `--max-cache-size`    | Maximum cache size. Defaults to `1073741824`. [See above](#--max-cache-size).                   | uinteger   |
+|      | `--max-log-file-size` | Maximum log file size. Defaults to `1048576`. [See above](#--max-log-file-size) .               | integer    |
 |      | `--sfile-path`        | Path to the series file directory. Defaults to `~/.influxdbv2/engine/_series`.                  | string     |
 |      | `--tsi-path`          | Path to the TSI index directory. Defaults to `~/.influxdbv2/engine/index`.                      | string     |
 |      | `--tsm-path`          | Path to the TSM data directory. Defaults to `~/.influxdbv2/engine/data`.                        | string     |

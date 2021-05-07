@@ -8,7 +8,7 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-products: [oss]
+draft: true
 ---
 
 The `influxd inspect compact-series-file` command compacts the [series file](/influxdb/v2.0/reference/glossary/#series-file)

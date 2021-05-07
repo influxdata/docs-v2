@@ -1,7 +1,7 @@
 ---
 title: Troubleshoot out-of-memory loops
 list_title: Out-of-memory loops
-description: Identify and troubleshoot out-of-memory (OOM) loops when using the InfluxData TICK stack.
+description: Identify and troubleshoot out-of-memory (OOM) loops when using the InfluxData 1.x TICK stack.
 menu:
   platform:
     name: Out-of-memory loops
@@ -55,11 +55,11 @@ into what queries have room for optimization.
 #### View your InfluxDB logs
 
 If a query is killed, it is logged by InfluxDB.
-View your [InfluxDB logs](/influxdb/latest/administration/logs/) for hints as to what queries are being killed.
+View your [InfluxDB logs](/{{< latest "influxdb" "v1" >}}/administration/logs/) for hints as to what queries are being killed.
 
 #### Estimate query cost
 
-InfluxQL's [`EXPLAIN` statement](/influxdb/latest/query_language/spec#explain)
+InfluxQL's [`EXPLAIN` statement](/{{< latest "influxdb" "v1" >}}/query_language/spec#explain)
 parses and plans a query, then outputs a summary of estimated costs.
 This allows you to estimate how resource-intensive a query may be before having to
 run the actual query.
@@ -86,7 +86,7 @@ SIZE OF BLOCKS: 23252999
 
 #### Analyze actual query cost
 
-InfluxQL's [`EXPLAIN ANALYZE` statement](/influxdb/latest/query_language/spec/#explain-analyze)
+InfluxQL's [`EXPLAIN ANALYZE` statement](/{{< latest "influxdb" "v1" >}}/query_language/spec/#explain-analyze)
 actually executes a query and counts the costs during runtime.
 
 ###### Example EXPLAIN ANALYZE statement

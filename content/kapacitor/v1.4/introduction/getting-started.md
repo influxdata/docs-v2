@@ -48,7 +48,7 @@ The TICKStack services can be installed to run on the host machine as a part of 
 
 If you would like to explore using Docker deployments of these components, [check out these instructions.](/kapacitor/v1.4/introduction/install-docker/)
 
-<!-- Install [InfluxDB](/{{< latest "influxdb" "v1" >}}/introduction/installation/), [Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) and [Kapacitor](/kapacitor/v1.3/introduction/installation/), on the same host, using the Linux system packages (`.deb`,`.rpm`) if available. -->
+<!-- Install [InfluxDB](/{{< latest "influxdb" "v1" >}}/introduction/installation/), [Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) and [Kapacitor](/{{< latest "kapacitor" >}}/introduction/installation/), on the same host, using the Linux system packages (`.deb`,`.rpm`) if available. -->
 
 The applications InfluxDB, Telegraf and Kapacitor will need to be installed in that order and on the same host.
 
@@ -114,6 +114,8 @@ The Telegraf configuration file can be found at its default location: `/etc/tele
    * `[[inputs.cpu]]` - declares how to collect the system cpu metrics to be sent to InfluxDB.
 
 *Example - relevant sections of `/etc/telegraf/telegraf.conf`*
+
+{{< keep-url >}}
 ```
 [agent]
   ## Default data collection interval for all inputs
@@ -191,6 +193,7 @@ InfluxDB and Telegraf are now running and listening on localhost.  Wait about a 
 
 This can be achieved with the following query:
 
+{{< keep-url >}}
 ```bash
 $ curl -G 'http://localhost:8086/query?db=telegraf' --data-urlencode 'q=SELECT mean(usage_idle) FROM cpu'
 ```
@@ -376,6 +379,7 @@ Telegraf will log errors if it cannot communicate to InfluxDB.
 InfluxDB will log an error about `connection refused` if it cannot send data to Kapacitor.
 Run the query `SHOW SUBSCRIPTIONS` to find the endpoint that InfluxDB is using to send data to Kapacitor.
 
+{{< keep-url >}}
 ```
 $ curl -G 'http://localhost:8086/query?db=telegraf' --data-urlencode 'q=SHOW SUBSCRIPTIONS'
 

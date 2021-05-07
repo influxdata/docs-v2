@@ -20,7 +20,7 @@ Complete the following steps to deploy an InfluxDB Enterprise cluster on Google 
 
 After deploying your cluster, see [Getting started with InfluxDB](/platform/introduction/getting-started) for an introduction to InfluxDB database and the InfluxData platform.
 
->**Note:** InfluxDB Enterprise on GCP is a self-managed product. For a fully managed InfluxDB experience, check out [InfluxDB Cloud 2.0](//influxdb/v2.0/cloud/get-started/).
+>**Note:** InfluxDB Enterprise on GCP is a self-managed product. For a fully managed InfluxDB experience, check out [InfluxDB Cloud](/influxdb/cloud/get-started/).
 
 ## Verify prerequisites
 
@@ -86,8 +86,8 @@ Access the cluster's IP address from the GCP network (or subnetwork) specified w
 3. On the instance, install the `influx` command line tool via the InfluxDB open source package.
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb_1.8.10_amd64.deb
-    sudo dpkg -i influxdb_1.8.0_amd64.deb
+    wget https://dl.influxdata.com/influxdb/releases/influxdb_1.8.2_amd64.deb
+    sudo dpkg -i influxdb_1.8.2_amd64.deb
     ```
 
 4. Access the InfluxDB Enterprise cluster using the following command with "Admin username", "Admin password", and "Connection internal IP" values from the deployment screen substituted for `<value>`.

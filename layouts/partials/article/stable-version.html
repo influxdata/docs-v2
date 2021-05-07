@@ -2,17 +2,44 @@
 {{ $product := index $productPathData 0 }}
 {{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData 1 }}
+{{ $latestV2 := index (last 1 .Site.Data.products.influxdb.versions) 0 }}
 
 {{ $stableVersion := (index .Site.Data.products $product).latest }}
 {{ $stableVersionURL := replaceRE `v[1-2]\.[0-9]{1,2}` $stableVersion .RelPermalink }}
+{{ $v2EquivalentURL := replaceRE `v[1-2]\.[0-9]{1,2}` $latestV2 .Page.Params.v2 }}
+{{ $v2EquivalentPage := .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}
+{{ $v2PageExists := gt (len $v2EquivalentPage.Title) 0 }}
+{{ $isCloud := in .Page.RelPermalink "/influxdb/cloud/"}}
 
-{{ if lt $currentVersion $stableVersion }}
+{{ if and (lt $currentVersion $stableVersion) (not $isCloud) }}
   <div class="warn block old-version">
     <p>
       This page documents an earlier version of {{ $productName }}.
-      <a href="/{{ $product }}/{{$stableVersion}}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.<br/>
+      <a href="/{{ $product }}/{{ $stableVersion }}/">{{ $productName }} {{ $stableVersion }}</a> is the latest stable version.
       {{ if eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion) }}
-        <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
+        <!-- Check if page exists in latest major version docs -->
+        {{ if gt (len (.GetPage ((replaceRE `v[1-2]\.[0-9]{1,2}` (index .Site.Data.products $product).latest .RelPermalink) | replaceRE `\/$` "")).Title) 0 }}
+          <a href="{{ $stableVersionURL }}">View this page in the {{ $stableVersion }} documentation</a>.
+        {{ end }}
+      {{ else if and (ne (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion)) (.Page.Params.v2) }}
+        <!-- Check if the v2 equivalent page exists -->
+        {{ if $v2PageExists }}
+          <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $latestV2 }}</strong> documentation:</span> <a href="{{ $v2EquivalentPage.RelPermalink }}">{{ $v2EquivalentPage.Title }}</a>.
+        {{ else }}
+          See the <a href="{{ $v2EquivalentURL }}">equivalent InfluxDB {{ $latestV2 }} documentation</a>.
+        {{ end }}
+      {{ end }}
+    </p>
+  </div>
+{{ end }}
+
+{{ if and .Page.Params.v2 (eq (findRE `v[1-2]` $currentVersion) (findRE `v[1-2]` $stableVersion)) }}
+  <div class="note block old-version">
+    <p>
+      {{ if $v2PageExists }}
+        <span style="margin-right:.25rem">See the equivalent <strong>InfluxDB {{ $latestV2 }}</strong> documentation:</span> <a href="{{ $v2EquivalentPage.RelPermalink }}">{{ $v2EquivalentPage.Title }}</a>.
+      {{ else }}
+        See the <a href="{{ $v2EquivalentURL }}">equivalent InfluxDB {{ $latestV2 }} documentation</a>.
       {{ end }}
     </p>
   </div>

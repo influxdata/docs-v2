@@ -5,6 +5,7 @@ filters:
       - Output
       - Aggregator
       - Processor
+      - External
   - category: Plugin category
     values:
       - Applications

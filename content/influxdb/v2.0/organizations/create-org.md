@@ -13,10 +13,14 @@ products: [oss]
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to create an organization.
 
-{{% cloud %}}
-You cannot currently create additional organizations in {{< cloud-name >}}.
-Only the default organization is available.
-{{% /cloud %}}
+{{% note %}}
+#### Organization and bucket limits
+A single InfluxDB 2.0 OSS instance supports approximately 20 buckets actively being
+written to or queried across all organizations depending on the use case.
+Any more than that can adversely affect performance.
+Because each organization is created with a bucket, we do not recommend more than
+20 organizations in a single InfluxDB OSS instance.
+{{% /note %}}
 
 ## Create an organization in the InfluxDB UI
 

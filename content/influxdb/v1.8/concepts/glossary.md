@@ -6,6 +6,7 @@ menu:
     name: Glossary
     weight: 20
     parent: Concepts
+v2: /influxdb/v2.0/reference/glossary/
 ---
 
 ## aggregation
@@ -169,7 +170,7 @@ The attribute of the retention policy that determines how many copies of data to
 For three nodes or less, the default replication factor equals the number of data nodes.
 For more than three nodes, the default replication factor is 3. To change the default replication factor, specify the replication factor `n` in the retention policy.
 
-Related entries: [cluster](/influxdb/v0.10/concepts/glossary/#cluster), [duration](/influxdb/v1.8/concepts/glossary/#duration), [node](/influxdb/v1.8/concepts/glossary/#node),
+Related entries: [duration](/influxdb/v1.8/concepts/glossary/#duration), [node](/influxdb/v1.8/concepts/glossary/#node),
 [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 
 ## retention policy (RP)

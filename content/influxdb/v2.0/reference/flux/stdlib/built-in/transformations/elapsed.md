@@ -8,6 +8,8 @@ menu:
     name: elapsed
     parent: built-in-transformations
 weight: 402
+related:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/duration/
 ---
 
 The `elapsed()` function returns the time between subsequent records.

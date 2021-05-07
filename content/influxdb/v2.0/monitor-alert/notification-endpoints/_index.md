@@ -13,8 +13,7 @@ related:
   - /influxdb/v2.0/monitor-alert/notification-rules/
 ---
 
-Notification endpoints store information to connect to a third party service.
-If you're using the Free Plan, create a Slack endpoint.
-If you're using the Usage-based Plan, create a connection to a HTTP, Slack, or PagerDuty endpoint.
+Notification endpoints store information to connect to a third-party service.
+Create a connection to a HTTP, Slack, or PagerDuty endpoint.
 
 {{< children >}}

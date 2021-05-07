@@ -14,64 +14,125 @@ related:
 products: [oss]
 ---
 
-Use the `influxd restore` command to restore backup data and metadata from InfluxDB.
-You must stop InfluxDB before restoring data.
-
 {{% cloud %}}
-The `influxd restore` command only restores data to InfluxDB OSS, **not {{< cloud-name "short" >}}**.
+Restores **not supported in {{< cloud-name "short" >}}**.
 {{% /cloud %}}
 
-When restoring data from a backup file set, InfluxDB temporarily moves existing
-data and metadata while the restore process runs.
-Once the process completes, the temporary data is deleted.
-If the restore process fails, InfluxDB preserves the data in the temporary location.
+Use the `influx restore` command to restore backup data and metadata from InfluxDB OSS.
+
+- [Restore data with the influx CLI](#restore-data-with-the-influx-cli)
+- [Recover from a failed restore](#recover-from-a-failed-restore)
+
+InfluxDB moves existing data and metadata to a temporary location.
+If the restore fails, InfluxDB preserves temporary data for recovery,
+otherwise this data is deleted.
 _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 
-## Restore data with the influxd CLI
-1. **Stop the `influxd` server.**
-2. Use the `influxd restore` command and specify the path to the backup directory
-   using the `--backup-path` flag.
+{{% note %}}
+#### Cannot restore to existing buckets
+The `influx restore` command cannot restore data to existing buckets.
+Use the `--new-bucket` flag to create a new bucket to restore data to.
+To restore data and retain bucket names, [delete existing buckets](/influxdb/v2.0/organizations/buckets/delete-bucket/)
+and then begin the restore process.
+{{% /note %}}
+
+## Restore data with the influx CLI
+Use the `influx restore` command and specify the path to the backup directory.
+
+_For more information about restore options and flags, see the
+[`influx restore` documentation](/influxdb/v2.0/reference/cli/influx/restore/)._
+
+- [Restore all time series data](#restore-all-time-series-data)
+- [Restore data from a specific bucket](#restore-data-from-a-specific-bucket)
+- [Restore and replace all InfluxDB data](#restore-and-replace-all-influxdb-data)
+
+### Restore all time series data
+To restore all time series data from a backup directory, provide the following:
+
+- backup directory path
+
+```sh
+influx restore \
+  --input /backups/2020-01-20_12-00/
+```
+
+### Restore data from a specific bucket
+To restore data from a specific backup bucket, provide the following:
+
+- backup directory path
+- bucket name or ID
+
+```sh
+influx restore \
+  --input /backups/2020-01-20_12-00/ \
+  --bucket example-bucket
+
+# OR
+
+influx restore \
+  --input /backups/2020-01-20_12-00/ \
+  --bucket-id 000000000000
+```
+
+If a bucket with the same name as the backed up bucket already exists in InfluxDB,
+use the `--new-bucket` flag to create a new bucket with a different name and
+restore data into it.
+
+```sh
+influx restore \
+  --input /backups/2020-01-20_12-00/ \
+  --bucket example-bucket \
+  --new-bucket new-example-bucket
+```
+
+### Restore and replace all InfluxDB data
+To restore and replace all time series data _and_ InfluxDB key-value data such as
+tokens, users, dashboards, etc., include the following:
+
+- `--full` flag
+- backup directory path
+
+```sh
+influx restore \
+  --input /backups/2020-01-20_12-00/ \
+  --full
+```
+
+{{% note %}}
+#### Restore to a new InfluxDB server
+If using a backup to populate a new InfluxDB server:
+
+1. Retrieve the [admin token](/influxdb/v2.0/security/tokens/#admin-token) from your source InfluxDB instance.
+2. Set up your new InfluxDB instance, but use the `-t`, `--token` flag to use the
+   **admin token** from your source instance as the admin token on your new instance.
 
     ```sh
-    # Syntax
-    influxd restore --backup-path <path-to-backup-directory>
-
-    # Example
-    influxd restore --backup-path ~/backups/2020-01-20_12-00/
+    influx setup --token My5uP3rSecR37t0keN
     ```
-
-    _For more information about restore options and flags, see the
-    [`influxd restore` documentation](/influxdb/v2.0/reference/cli/influxd/restore/)._
-
-## Customize the TSI rebuild process
-By default, InfluxDB rebuilds the index and [series file](/influxdb/v2.0/reference/glossary/#series-file) when restoring data.
-When rebuilding the Time Series Index (TSI), it uses the
-[default `build-tsi` options](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/).
-To customize the Time Series Index (TSI) rebuild process:
-
-1. Disable rebuilding the index and series files when restoring data:
+3. Restore the backup to the new server.
 
     ```sh
-    influxd restore --rebuild-index false
+    influx restore \
+      --input /backups/2020-01-20_12-00/ \
+      --full
     ```
 
-2. Manually run `influxd inspect build-tsi` with any
-   [custom options](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/#flags).
+If you do not provide the admin token from your source InfluxDB instance as the
+admin token in your new instance, the restore process and all subsequent attempts
+to authenticate with the new server will fail.
 
-    ```sh
-    influxd inspect build-tsi \
-      --max-log-file-size=1048576 \
-      --max-cache-size=1073741824
-    ```
+1. The first restore API call uses the auto-generated token to authenticate with
+   the new server and overwrites the entire key-value store in the new server, including
+   the auto-generated token.
+2. The second restore API call attempts to upload time series data, but uses the
+   auto-generated token to authenticate with new server.
+   That token is overwritten in first restore API call and the process fails to authenticate.
+{{% /note %}}
 
-    {{% note %}}
-Manually rebuild the TSI index to [adjust the performance](/influxdb/v2.0/reference/cli/influxd/inspect/build-tsi/#adjust-performance)
-of the TSI rebuild process.
-    {{% /note %}}
 
 ## Recover from a failed restore
 If the restoration process fails, InfluxDB preserves existing data in a `tmp`
-directory in the [target engine path](/influxdb/v2.0/reference/cli/influxd/restore/#flags)
+directory in the [target engine path](/influxdb/v2.0/reference/cli/influx/restore/#flags)
 (default is `~/.influxdbv2/engine`).
 
 To recover from a failed restore:

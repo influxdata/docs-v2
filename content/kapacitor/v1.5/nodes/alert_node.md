@@ -19,12 +19,11 @@ See [AlertNode.Info](/kapacitor/v1.5/nodes/alert_node/#info),
 [AlertNode.Warn](/kapacitor/v1.5/nodes/alert_node/#warn),
 and [AlertNode.Crit](/kapacitor/v1.5/nodes/alert_node/#crit) below.
 
-
 ### Constructor
 
 | Chaining method | Description |
 |:---------|:---------|
-| **alert&nbsp;(&nbsp;)** | Create an alert node, which can trigger alerts.  |
+| **alert&nbsp;(&nbsp;)** | Create an alert node, which can trigger alerts. <br> <br>To dynamically construct a custom HTTP body or URL, use an [**alert template**](/kapacitor/v1.5/event_handlers/post/#alert-templates). For example, `httpPost('localhost/?host={{ index .Tags "host"}}&cpu={{ index .Tags "cpu" }}')`. <br> <br> |
 
 ### Property methods
 
@@ -32,6 +31,7 @@ and [AlertNode.Crit](/kapacitor/v1.5/nodes/alert_node/#crit) below.
 |:---|:---|
 | **[alerta](#alerta) \( \)** | Send the alert to Alerta.  |
 | **[all](#all)&nbsp;(&nbsp;)** | Indicates an alert should trigger only if all points in a batch match the criteria. Does not apply to stream alerts.  |
+| **[bigPanda](#bigpanda) \( \)** | Send the alert to BigPanda.  |
 | **[crit](#crit)&nbsp;(&nbsp;`value`&nbsp;`ast.LambdaNode`)** | Filter expression for the CRITICAL alert level. An empty value indicates the level is invalid and is skipped.  |
 | **[critReset](#critreset)&nbsp;(&nbsp;`value`&nbsp;`ast.LambdaNode`)** | Filter expression for resetting the CRITICAL alert level to lower level.  |
 | **[details](#details)&nbsp;(&nbsp;`value`&nbsp;`string`)** | Template for constructing a detailed HTML message for the alert. The same template data is available as the AlertNode.Message property, in addition to a Message field that contains the rendered Message value.  |
@@ -74,8 +74,6 @@ and [AlertNode.Crit](/kapacitor/v1.5/nodes/alert_node/#crit) below.
 | **[victorOps](#victorops)&nbsp;(&nbsp;)** | Send alert to VictorOps. |
 | **[warn](#warn)&nbsp;(&nbsp;`value`&nbsp;`ast.LambdaNode`)** | Filter expression for the WARNING alert level. An empty value indicates the level is invalid and is skipped.  |
 | **[warnReset](#warnreset)&nbsp;(&nbsp;`value`&nbsp;`ast.LambdaNode`)** | Filter expression for resetting the WARNING alert level to lower level.  |
-
-
 
 ### Chaining methods
 [Alert](#alert),
@@ -130,7 +128,6 @@ and [AlertNode.Crit](/kapacitor/v1.5/nodes/alert_node/#crit) below.
 
 ---
 
-
 #### Available event handlers
 
 Different event handlers can be configured for each [AlertNode.](/kapacitor/v1.5/nodes/alert_node/)
@@ -140,6 +137,7 @@ option, `global`, that indicates that all alerts implicitly use the handler.
 | Handler                       | Description                                                                           |
 | -------                       | -----------                                                                           |
 | [Alerta](#alerta)             | Post alert message to Alerta.                                                         |
+| [BigPanda](#bigpanda)         | Post alert message to BigPanda.                                                       |
 | [Discord](#discord)           | Post alert message to Discord channel.                                                |
 | [email](#email)               | Send and email with alert data.                                                       |
 | [exec](#exec)                 | Execute a command passing alert data over STDIN.                                      |
@@ -160,7 +158,6 @@ option, `global`, that indicates that all alerts implicitly use the handler.
 | [tcp](#tcp)                   | Send data to a specified address via raw TCP.                                         |
 | [Telegram](#telegram)         | Post alert message to Telegram client.                                                |
 | [VictorOps](#victorops)       | Send alert to VictorOps.                                                              |
-
 
 #### Alert event data
 
@@ -201,7 +198,6 @@ stream
     .email('oncall@example.com')
 ```
 
-
 Each expression maintains its own state.
 The order of execution for the expressions is not considered to be deterministic.
 For each point an expression may or may not be evaluated.
@@ -240,8 +236,6 @@ For example, given the following values, the corresponding alert states are:
 | 56    | INFO        |
 | 47    | OK          |
 
-
-
 **Available Statistics:**
 
 * `alerts_triggered`: Total number of alerts triggered
@@ -252,13 +246,11 @@ For example, given the following values, the corresponding alert states are:
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ## Properties
 
 Property methods modify state on the calling node.
 They do not add another node to the pipeline, and always return a reference to the calling node.
 Property methods are marked using the `.` operator.
-
 
 ### Alerta
 
@@ -285,7 +277,6 @@ stream
       .event('Something went wrong')
 ```
 
-
 ### All
 
 Indicates an alert should trigger only if all points in a batch match the criteria.
@@ -297,7 +288,31 @@ alert.all()
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
+### BigPanda
 
+Send the alert to BigPanda.
+Detailed configuration options and setup instructions are provided in the
+[BigPanda Event Handler](/kapacitor/v1.5/event_handlers/bigpanda/) article.
+
+_**Example kapacitor.conf**_  
+```toml
+[bigpanda]
+  enabled = true
+  url = "https://api.bigpanda.io/data/v2/alerts"
+  token = "BigPanda-API-auth-bearer-token"
+  app-key = "BigPanda-integration-app-key"
+```
+
+_**Example TICKscript**_
+```js
+stream
+  |alert()
+    .bigPanda()
+      .appKey('fc39458f98e91eb0310258c3b725d643')
+      .primaryProperty('device')
+      .secondaryProperty('sensor_name')
+      .topic('bigpanda-topic')
+```
 ### Category
 
 Category places this alert in a named category.
@@ -310,7 +325,6 @@ alert.category(value string)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### Crit
 
 Filter expression for the CRITICAL alert level.
@@ -322,7 +336,6 @@ alert.crit(value ast.LambdaNode)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### CritReset
 
 Filter expression for resetting the CRITICAL alert level to lower level.
@@ -332,7 +345,6 @@ alert.critReset(value ast.LambdaNode)
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Details
 
@@ -394,7 +406,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### DurationField
 
 Optional field key to add the alert duration to the data.
@@ -405,7 +416,6 @@ alert.durationField(value string)
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Email
 
@@ -444,7 +454,6 @@ Value: {{ index .Fields "value" }}
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### Exec
 
 Execute a command whenever an alert is triggered and pass the alert data over STDIN in JSON format.
@@ -460,7 +469,6 @@ alert.exec('/usr/bin/python', 'myscript.py')
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Flapping
 
@@ -488,7 +496,6 @@ alert.flapping(0.25, 0.5)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### Kafka
 
 Send the alert to an Apache Kafka cluster.
@@ -515,7 +522,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### History
 
 Number of previous states to remember when computing flapping levels and
@@ -533,7 +539,6 @@ alert.history(21)
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### HipChat
 
@@ -560,7 +565,6 @@ stream
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Id
 
@@ -625,7 +629,6 @@ Resulting ID: `kapacitor/authentication/auth001.example.com`
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### IdField
 
 Optional field key to add to the data, containing the alert ID as a string.
@@ -640,7 +643,6 @@ alert.idField('id')
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### IdTag
 
 Optional tag key to use when tagging the data with the alert ID.
@@ -654,7 +656,6 @@ alert.idTag('alertID')
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Info
 
@@ -671,7 +672,6 @@ alert.info(lambda: 'usage_idle' < 60)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### InfoReset
 
 Filter expression for resetting the INFO alert level to lower level.
@@ -685,7 +685,6 @@ alert.infoReset(lamda: 'usage_idle' > 60)
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Inhibit
 
@@ -725,7 +724,6 @@ alert.inhibit(category string, equalTags ...string)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### Kafka
 
 Send the alert to a Kafka topic.
@@ -751,7 +749,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### LevelField
 
 Optional field key to add to the data, containing the alert level as a string.
@@ -766,7 +763,6 @@ alert.levelField('INFO')
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### LevelTag
 
 Optional tag key to use when tagging the data with the alert level.
@@ -780,7 +776,6 @@ alert.levelTag('level')
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Log
 
@@ -797,7 +792,6 @@ stream
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Message
 
@@ -836,7 +830,6 @@ Resulting Message: authentication/auth001.example.com is CRITICAL value:42
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### MessageField
 
 Optional field key to add to the data containing the alert message.
@@ -850,7 +843,6 @@ alert.messageField('message')
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### MQTT
 
@@ -880,7 +872,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### NoRecoveries
 
 Do not send recovery alerts. Sets `recoverable` alert data field to `false`.
@@ -891,8 +882,8 @@ alert.noRecoveries()
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### OpsGenie v1
+
 Send alert to OpsGenie using OpsGenie's v1 API.
 Detailed configuration options and setup instructions are provided in the
 [OpsGenie v1 Event Handler](/kapacitor/v1.5/event_handlers/opsgenie/v1/) article.
@@ -915,8 +906,8 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### OpsGenie v2
+
 Send alert to OpsGenie using OpsGenie's v2 API.
 Detailed configuration options and setup instructions are provided in the
 [OpsGenie v2 Event Handler](/kapacitor/v1.5/event_handlers/opsgenie/v2/) article.
@@ -939,8 +930,8 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### PagerDuty v1
+
 Send the alert to PagerDuty using PagerDuty's v1 API.
 Detailed configuration options and setup instructions are provided in the
 [PagerDuty v1 Event Handler](/kapacitor/v1.5/event_handlers/pagerduty/v1/) article.
@@ -962,8 +953,8 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### PagerDuty v2
+
 Send the alert to PagerDuty using PagerDuty's v2 API.
 Detailed configuration options and setup instructions are provided in the
 [PagerDuty v2 Event Handler](/kapacitor/v1.5/event_handlers/pagerduty/v2/) article.
@@ -985,7 +976,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### Post
 
 HTTP POST JSON alert data to a specified URL.
@@ -1002,7 +992,6 @@ stream
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Pushover
 
@@ -1033,7 +1022,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### Quiet
 
 Suppress all error logging events from this node.
@@ -1043,7 +1031,6 @@ alert.quiet()
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Sensu
 
@@ -1070,7 +1057,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### Slack
 
 Send the alert to Slack.
@@ -1096,8 +1082,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
-
 ### SnmpTrap
 
 Send the alert using SNMP traps.
@@ -1122,7 +1106,6 @@ stream
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### StateChangesOnly
 
@@ -1167,7 +1150,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### Talk
 
 Send the alert to Talk.
@@ -1191,7 +1173,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### TCP
 
 Send JSON alert data to a specified address over TCP.
@@ -1207,7 +1188,6 @@ alert.tcp('127.0.0.1:7777')
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Telegram
 
@@ -1236,8 +1216,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
-
 ### Topic
 
 Topic specifies the name of an alert topic to which alerts will be published.
@@ -1252,7 +1230,6 @@ alert.topic('cpu')
 ```
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### VictorOps
 
@@ -1278,8 +1255,6 @@ stream
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
-
 ### Warn
 
 Filter expression for the WARNING alert level.
@@ -1295,7 +1270,6 @@ alert.warn(lambda: 'usage_idle' < 20)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ### WarnReset
 
 Filter expression for resetting the WARNING alert level to lower level.
@@ -1310,13 +1284,11 @@ alert.warnReset(lambda: 'usage_idle' > 20)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
-
 ## Chaining Methods
 
 Chaining methods create a new node in the pipeline as a child of the calling node.
 They do not modify the calling node.
 Chaining methods are marked using the `|` operator.
-
 
 ### Alert
 

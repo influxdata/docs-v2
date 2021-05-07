@@ -89,6 +89,10 @@
     box-shadow: 1px 3px 10px $article-shadow;
   }
 
+  ul + p > img {
+    margin-top: 1.5rem;
+  }
+
   hr {
     border-width: 1px 0 0;
     border-color: $article-hr;
@@ -99,13 +103,17 @@
 
   @import "article/blocks",
           "article/buttons",
+          "article/captions",
           "article/children",
           "article/code",
           "article/cloud",
+          "article/diagrams",
           "article/enterprise",
           "article/expand",
           "article/feedback",
           "article/flex",
+          "article/html-diagrams",
+          "article/keybinding",
           "article/lists",
           "article/note",
           "article/pagination-btns",
@@ -127,8 +135,25 @@
 
   .required, .req {
     color:#FF8564;
-    font-weight:700;
+    font-weight:$medium;
     font-style: italic;
+    margin: 0 .15rem 0 .1rem;
+
+    &.asterisk {
+      margin: 0 -.1rem 0 -.5rem;
+    }
+
+    &.key {
+      font-size: .9rem;
+      font-weight: $medium;
+    }
+  }
+
+  h2,h3,h4,h5,h6 {
+    & + .keep-url {
+      margin-top: -1.5rem;
+      z-index: -100;
+    }
   }
 
   a.q-link {
@@ -156,18 +181,6 @@
       text-align: center;
       padding: 1rem;
 
-      .oss:after {
-        content: 'beta';
-        display: inline-block;
-        position: relative;
-        font-style: italic;
-        font-size: .75em;
-        margin-left: .15rem;
-        padding: .1rem .4rem .12rem;
-        border-radius: 1rem;
-        border: 1px solid rgba($g20-white, .5);
-        top: -1px
-      }
     }
   }
 }

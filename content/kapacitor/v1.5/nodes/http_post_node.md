@@ -18,7 +18,6 @@ method on httpPost. Multiple endpoint property methods may be specified.
 
 Example:
 
-
 ```js
 stream
   |window()
@@ -43,12 +42,11 @@ stream
     .endpoint('example')
 ```
 
-
 ### Constructor
 
 | Chaining Method | Description |
 |:---------|:---------|
-| **httpPost&nbsp;(&nbsp;`url`&nbsp;`...string`)** | Creates an HTTP Post node that POSTS received data to the provided HTTP endpoint. HttpPost expects 0 or 1 arguments. If 0 arguments are provided, you must specify an endpoint property method.  |
+| **httpPost&nbsp;(&nbsp;`url`&nbsp;`...string`)** | Creates an HTTP Post node that POSTS received data to the provided HTTP endpoint. HttpPost expects 0 or 1 arguments. If 0 arguments are provided, you must specify an endpoint property method.<br> <br>To dynamically construct a custom HTTP body or URL, use a [**row template**](/kapacitor/v1.5/event_handlers/post/#row-templates        ). For example: `httpPost('localhost/?host={{ index .Tags "host"}}&cpu={{ index .Tags "cpu" }}')`.
 
 ### Property Methods
 

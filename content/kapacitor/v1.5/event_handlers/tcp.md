@@ -5,7 +5,7 @@ description: >
 menu:
   kapacitor_1_5_ref:
     name: TCP
-    weight: 1800
+    weight: 1900
     parent: Event handlers
 ---
 

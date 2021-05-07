@@ -13,13 +13,16 @@
   <div class="section hero">
     {{ partial "svgs/homepage-hero.svg" }}
     <div class="half">
-      <h2>InfluxDB Cloud & <br />InfluxDB {{ $influxdbVersionV2 }} OSS</h2>
+      <h2>InfluxDB Cloud & <br />InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</h2>
       <p>
         The most powerful time series database.
         Designed to handle high write and query loads.
-        Run in the cloud with <strong>InfluxDB Cloud</strong> or on your own hardware with <strong>InfluxDB {{ $influxdbVersionV2 }} OSS</strong>.
+        Run in the cloud with <strong>InfluxDB Cloud</strong> or on your own hardware with <strong>InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</strong>.
       </p>
-      <a class="btn" href="/influxdb/{{ $influxdbVersionV2 }}">View InfluxDB {{ $influxdbVersionV2 }} Documentation</a>
+      <div class="actions">
+        <a class="btn" href="/influxdb/cloud/">InfluxDB Cloud Docs</a>
+        <a class="btn" href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }} Docs</a>
+      </div>
     </div>
   </div>
   <div class="section search">
@@ -41,7 +44,7 @@
     <div class="group-wrapper">
       <div id="platform" class="card quarter">
         <div class="card-content">
-          <h2><a href="/platform/">InfluxData TICK stack</a></h2>
+          <h2><a href="/platform/">InfluxData 1.x TICK stack</a></h2>
           <p>The leading modern time series platform, built for metrics and events.</p>
         </div>
         <p><a href="/platform/">Learn more</a></p>
@@ -95,6 +98,13 @@
             <p>A scalable InfluxDB cluster designed for heavy workloads. Run InfluxDB Enterprise on your own infrastructure—on-premises, private cloud, public cloud, or at the edge.</p>
           </div>
           <p><a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">View documentation</a></p>
+        </div>
+        <div class="card kapacitor">
+          <div class="card-content">
+            <h2><a href="https://archive.docs.influxdata.com/enterprise_kapacitor/v1.5/" target="_blank">Kapacitor Enterprise <span class="version">v1.5</span></a></h2>
+            <p>A high availability Kapacitor cluster with alert deduplication and backend authentication. Run Kapacitor Enterprise on your own infrastructure—on-premises, private cloud, public cloud, or at the edge.</p>
+          </div>
+          <p><a href="https://archive.docs.influxdata.com/enterprise_kapacitor/v1.5/" target="_blank">View documentation archive</a></p>
         </div>
       </div>
     </div>

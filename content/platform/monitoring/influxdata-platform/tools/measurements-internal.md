@@ -1,5 +1,5 @@
 ---
-title: InfluxDB _internal measurements and fields
+title: InfluxDB _internal 1.x measurements and fields
 description: >
   Use and understand the InfluxDB _internal measurements statistics and field keys
   that monitor InfluxDB and InfluxDB Enterprise servers.
@@ -228,9 +228,11 @@ to visualize InfluxDB `_internal` metrics.
   - [pointReqHH](#pointreqhh-enterprise-only) (Enterprise only)
   - [pointReqLocal](#pointreqlocal-enterprise-only) (Enterprise only)
   - [pointReqRemote](#pointreqremote-enterprise-only) (Enterprise only)
+  - [pointsWrittenOK](#pointsWrittenOK)
   - [req](#req)
   - [subWriteDrop](#subwritedrop)
   - [subWriteOk](#subwriteok)
+  - [valuesWrittenOK](#valuesWrittenOK)
   - [writeDrop](#writedrop)
   - [writeError](#writeerror)
   - [writeOk](#writeok)
@@ -522,7 +524,7 @@ The number of points dropped by the storage engine.
 The number of points accepted by the HTTP `/write` endpoint, but unable to be persisted.
 
 #### pointsWrittenOK
-The number of points accepted by the HTTP `/write` endpoint and persisted successfully.
+The number of points successfully accepted and persisted by the HTTP `/write` endpoint.
 
 #### promReadReq
 The number of read requests to the Prometheus `/read` endpoint.
@@ -557,6 +559,8 @@ The number of HTTP responses due to server errors.
 #### statusReq
 The number of status requests served using the HTTP `/status` endpoint.
 
+#### valuesWrittenOK
+The number of values (fields) successfully accepted and persisted by the HTTP `/write` endpoint.
 #### writeReq
 The number of write requests served using the HTTP `/write` endpoint.
 
@@ -963,6 +967,9 @@ Then if the write attempt fails, we check again if HH exists, and if so, add the
 This statistic does not distinguish between requests that are directly written to
 the destination node versus enqueued into the hinted handoff queue for the destination node.  
 
+#### pointsWrittenOK
+Number of points written to the HTTP `/write` endpoint and persisted successfully.
+
 #### req
 The total number of batches of points requested to be written to this node.
 
@@ -971,6 +978,9 @@ The total number of batches of points that failed to be sent to the subscription
 
 #### subWriteOk
 The total number of batches of points that were successfully sent to the subscription dispatcher.
+
+#### valuesWrittenOK
+Number of values (fields) written to the HTTP `/write` endpoint and persisted successfully.
 
 #### writeDrop
 The total number of write requests for points that have been dropped due to timestamps

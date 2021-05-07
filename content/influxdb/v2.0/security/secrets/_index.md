@@ -8,6 +8,8 @@ menu:
 weight: 102
 ---
 
+Secrets are key-value pairs that contain sensitive information you want to control
+access to, such as API keys, passwords, or certificates.
 There are two options for storing secrets with InfluxDB:
 
 - By default, secrets are Base64-encoded and stored in the InfluxDB embedded key value store, [BoltDB](https://github.com/boltdb/bolt).

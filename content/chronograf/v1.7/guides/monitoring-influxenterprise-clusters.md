@@ -10,15 +10,15 @@ menu:
 
 ---
 
-[InfluxEnterprise](/{{< latest "enterprise_influxdb" >}}/) offers high availability and a highly scalable clustering solution for your time series data needs.
+[InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) offers high availability and a highly scalable clustering solution for your time series data needs.
 Use Chronograf to assess your cluster's health and to monitor the infrastructure behind your project.
 
-This guide offers step-by-step instructions for using Chronograf, [InfluxDB](/{{< latest "influxdb" "v1" >}}/), and [Telegraf](/{{< latest "telegraf" >}}/) to monitor data nodes in your InfluxEnterprise cluster.
+This guide offers step-by-step instructions for using Chronograf, [InfluxDB](/{{< latest "influxdb" "v1" >}}/), and [Telegraf](/{{< latest "telegraf" >}}/) to monitor data nodes in your InfluxDB Enterprise cluster.
 
 ## Requirements
 
-You have a fully-functioning InfluxEnterprise cluster with authentication enabled.
-See the InfluxEnterprise documentation for
+You have a fully-functioning InfluxDB Enterprise cluster with authentication enabled.
+See the InfluxDB Enterprise documentation for
 [detailed setup instructions](/{{< latest "enterprise_influxdb" >}}/production_installation/).
 This guide uses an InfluxData Enterprise cluster with three meta nodes and three data nodes; the steps are also applicable to other cluster configurations.
 
@@ -34,7 +34,7 @@ Before we begin, here's an overview of the final monitoring setup:
 
 ![Architecture diagram](/img/chronograf/1-6-cluster-diagram.png)
 
-The diagram above shows an InfluxEnterprise cluster that consists of three meta nodes (M) and three data nodes (D).
+The diagram above shows an InfluxDB Enterprise cluster that consists of three meta nodes (M) and three data nodes (D).
 Each data node has its own [Telegraf](/{{< latest "telegraf" >}}/) instance (T).
 
 Each Telegraf instance is configured to collect node CPU, disk, and memory data using the Telegraf [system stats](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/system) input plugin.
@@ -80,11 +80,12 @@ Next, start the InfluxDB process:
 
 #### Step 4: Create an admin user
 
-Create an [admin user](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-types-and-privileges) on your InfluxDB instance.
+Create an [admin user](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-types-and-privileges) on your InfluxDB instance.
 Because you enabled authentication, you must perform this step before moving on to the next section.
 Run the command below to create an admin user, replacing `chronothan` and `supersecret` with your own username and password.
 Note that the password requires single quotes.
 
+{{< keep-url >}}
 ```
 ~# curl -XPOST "http://localhost:8086/query" --data-urlencode "q=CREATE USER chronothan WITH PASSWORD 'supersecret' WITH ALL PRIVILEGES"
 ```
@@ -173,6 +174,8 @@ Repeat steps one through four for each data node in your cluster.
 
 Run the following command on your InfluxDB OSS instance to see if your Telegraf instances are successfully collecting and writing data.
 Replace the `chronothan` and `supersecret` values with your actual username and password.
+
+{{< keep-url >}}
 ```
 ~# curl -G "http://localhost:8086/query?db=telegraf&u=chronothan&p=supersecret&pretty=true" --data-urlencode "q=SHOW TAG VALUES FROM cpu WITH KEY=host"
 ```

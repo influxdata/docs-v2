@@ -7,6 +7,7 @@ menu:
     name: influxd version
     weight: 10
     parent: influxd
+v2: /influxdb/v2.0/reference/cli/influxd/version/
 ---
 
 
@@ -20,6 +21,6 @@ influxd version [flags]
 
 ## Flags
 
-| Flag           | Description                    |
-|:----           |:-----------                    |
-| `-h`, `-help` | Help for the `version` command |
+| Flag |         | Description                    |
+|:---- |:---     |:-----------                    |
+| `-h` | `-help` | Help for the `version` command |

@@ -21,7 +21,7 @@ _**Function type:** Output_
 import "http"
 
 http.post(
-  url: "http://localhost:9999/",
+  url: "http://localhost:8086/",
   headers: {x:"a", y:"b", z:"c"},
   data: bytes(v: "body")
 )

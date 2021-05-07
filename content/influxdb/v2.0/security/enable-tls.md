@@ -16,14 +16,14 @@ When configured with a signed certificate, TLS also allows clients to verify the
 
 To set up TLS over HTTPS, do the following:
 
-- [Obtain requirements](#requirements)
+- [Obtain requirements](#obtain-requirements)
 - [Configure InfluxDB to use TLS](#configure-influxdb-to-use-tls)
 
 {{% warn %}}
 InfluxData **strongly recommends** enabling HTTPS, especially if you plan on sending requests to InfluxDB over a network.
 {{% /warn %}}
 
-## Requirements
+## Obtain requirements
 
 To enable HTTPS with InfluxDB, you need a Transport Layer Security (TLS) certificate, also known as a Secured Sockets Layer (SSL) certificate.
 InfluxDB supports three types of TLS certificates:
@@ -104,13 +104,13 @@ InfluxDB supports three types of TLS certificates:
     Ensure you can connect over HTTPS by running
 
     ```
-    curl -v https://localhost:9999/api/v2/ping
+    curl -v https://localhost:8086/api/v2/ping
     ```
 
     If using a self-signed certificate, use the `-k` flag to skip certificate verification:
 
     ```
-    curl -vk https://localhost:9999/api/v2/ping
+    curl -vk https://localhost:8086/api/v2/ping
     ```
 
     With this command, you should see output confirming a succussful TLS handshake.
@@ -136,7 +136,7 @@ update the following `influxdb_v2` output settings in your Telegraf configuratio
   ##
   ## Multiple URLs can be specified for a single cluster, only ONE of the
   ## urls will be written to each interval.
-  urls = ["https://127.0.0.1:9999"]
+  urls = ["https://127.0.0.1:8086"]
 
   [...]
 

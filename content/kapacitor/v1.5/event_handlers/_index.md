@@ -29,12 +29,13 @@ syntax for officially supported Kapacitor event handlers.
 [Log](/kapacitor/v1.5/event_handlers/log/)
 [Microsoft Teams](/kapacitor/v1.5/event_handlers/microsoftteams/)
 [MQTT](/kapacitor/v1.5/event_handlers/mqtt/)  
-[Opsgenie](/kapacitor/v1.5/event_handlers/opsgenie/)  
-[Pagerduty](/kapacitor/v1.5/event_handlers/pagerduty/)  
+[Opsgenie](/kapacitor/v1.5/event_handlers/opsgenie/v2/)  
+[Pagerduty](/kapacitor/v1.5/event_handlers/pagerduty/v2/)  
 [Post](/kapacitor/v1.5/event_handlers/post/)  
 [Publish](/kapacitor/v1.5/event_handlers/publish/)
 [Pushover](/kapacitor/v1.5/event_handlers/pushover/)
-[Sensu](/kapacitor/v1.5/event_handlers/sensu/)  
+[Sensu](/kapacitor/v1.5/event_handlers/sensu/)
+[ServiceNow](/kapacitor/v1.5/event_handlers/servicenow/)
 [Slack](/kapacitor/v1.5/event_handlers/slack/)  
 [Snmptrap](/kapacitor/v1.5/event_handlers/snmptrap/)  
 [Talk](/kapacitor/v1.5/event_handlers/talk/)  
@@ -105,7 +106,7 @@ options:
 Use the Kapacitor CLI to define a new handler with a handler file:
 
 ```bash
-# Pattern
+# Syntax
 kapacitor define-topic-handler <handler-file-name>
 
 # Example

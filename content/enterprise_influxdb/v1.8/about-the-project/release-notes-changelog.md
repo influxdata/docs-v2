@@ -3,11 +3,44 @@ title: InfluxDB Enterprise 1.8 release notes
 description: >
   Important changes and and what's new in each version InfluxDB Enterprise.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_8_ref:
     name: Release notes
     weight: 10
     parent: About the project
 ---
+
+## v1.8.5 [2020-04-20]
+
+The InfluxDB Enterprise 1.8.5 release builds on the InfluxDB OSS 1.8.5 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v185-2021-04-20).
+
+### Bug fixes
+
+- Resolve TSM backup "snapshot in progress" error.
+- SHOW DATABASES now only shows databases that the user has either read or write access to
+- `influxd_ctl entropy show` now shows shard expiry times consistent with `influxd_ctl show-shards`
+- Add labels to the values returned in SHOW SHARDS output to clarify the node ID and TCP address.
+- Always forward repairs to the next data node (even if the current data node does not have to take action for the repair).
+
+## v1.8.4 [2020-02-08]
+
+The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v184-2021-02-01).
+
+   > **Note:** InfluxDB Enterprise 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB Enterprise 1.8.4.
+
+### Features
+
+#### Update your InfluxDB Enterprise license without restarting data nodes
+
+Add the ability to [renew or update your license key or file](/enterprise_influxdb/v1.8/administration/renew-license/) without restarting data nodes.
+### Bug fixes
+
+- Wrap TCP mux–based HTTP server with a function that adds custom headers.
+- Correct output for `influxd-ctl show shards`.
+- Properly encode/decode `control.Shard.Err`.
 
 ## v1.8.2 [2020-08-24]
 
@@ -25,7 +58,6 @@ For details on changes incorporated from the InfluxDB OSS release, see
 - Make the number of pending writes configurable. This change adds a configuration option in the `[hinted-handoff]` section called `max-pending-writes`, which defaults to `1024`. See [max-pending-writes](/enterprise_influxdb/v1.8/administration/config-data-nodes#max-pending-writes-1024) for more detail.
 - Update the hinted handoff queue to ensure various entries to segment files occur atomically. Prior to this change, entries were written to disk in three separate writes (len, data, offset). If the process stopped in the middle of any of those writes, the hinted handoff segment file was left in an invalid state.
 - In certain scenarios, the hinted-handoff queue would fail to drain. Upon node startup, the queue segment files are now verified and truncated if any are corrupted. Some additional logging has been added when a node starts writing to the hinted handoff queue as well.
-- Update the hinted handoff queue to ensure that various entries to segment files occur atomically. Prior to this change, entries were written to disk in three separate writes (len, data, offset). If the process stopped in the middle of any of those writes, the hinted handoff segment file was left in an invalid state.
 
 #### `influxd-ctl` CLI improvements
 

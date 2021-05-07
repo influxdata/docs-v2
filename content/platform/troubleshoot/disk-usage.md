@@ -1,7 +1,7 @@
 ---
 title: Troubleshoot high disk usage
 list_title: High disk usage
-description: Identify and troubleshoot high disk usage when using the InfluxData TICK stack.
+description: Identify and troubleshoot high disk usage when using the InfluxData 1.x TICK stack.
 menu:
   platform:
     name: Disk usage
@@ -46,11 +46,11 @@ rates in your continuous queries.
 #### Log data retention policies
 
 Log data should only be stored in a finite
-[retention policy](/influxdb/latest/query_language/database_management/#retention-policy-management).
+[retention policy](/influxdb/v1.8/query_language/database_management/#retention-policy-management).
 The duration of your retention policy is determined by how long you want to keep
 log data around.
 
-Whether or not you use a [continuous query](/influxdb/latest/query_language/continuous_queries/)
+Whether or not you use a [continuous query](/influxdb/v1.8/query_language/continuous_queries/)
 to downsample log data at the end of its retention period is up to you, but old log
 data should either be downsampled or dropped altogether.
 
@@ -69,7 +69,7 @@ crosses certain thresholds. The example TICKscript [below](#example-tickscript-a
 sets warning and critical disk usage thresholds and sends a message to Slack
 whenever those thresholds are crossed.
 
-_For information about Kapacitor tasks and alerts, see the [Kapacitor alerts](/kapacitor/latest/working/alerts/) documentation._
+_For information about Kapacitor tasks and alerts, see the [Kapacitor alerts](/{{< latest "kapacitor" >}}/working/alerts/) documentation._
 
 #### Example TICKscript alert for disk usage
 ```

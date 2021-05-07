@@ -11,10 +11,12 @@ menu:
 weight: 501
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/count/
 ---
 
-The `count()` function outputs the number of records in a column.
-It counts both null and non-null records.
+The `count()` function outputs the number of records in each input table and outputs
+the count in the specified [`column`](#column).
+The function counts both null and non-null records.
 
 _**Function type:** Aggregate_  
 _**Output data type:** Integer_

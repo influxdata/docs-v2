@@ -29,6 +29,6 @@ to view your organization's secrets keys.
 
 <!-- -->
 ```sh
-curl -XGET http://localhost:9999/api/v2/orgs/<org-id>/secrets \
-  -H 'Authorization: Token YOURAUTHTOKEN'
+curl --request GET http://localhost:8086/api/v2/orgs/<org-id>/secrets \
+  --header 'Authorization: Token YOURAUTHTOKEN'
 ```

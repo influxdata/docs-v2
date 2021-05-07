@@ -8,7 +8,7 @@ aliases:
   - /chronograf/v1.6/guides/transition-web-admin-interface/
 ---
 
-Versions 1.3 and later of [InfluxDB](/{{< latest "influxdb" "v1" >}}/) and [InfluxDB Enterprise](/enterprise/latest/) do not support the [web admin interface](/{{< latest "influxdb" "v1" >}}/tools/web_admin/), the builtin user interface for writing and querying data in InfluxDB.
+Versions 1.3 and later of [InfluxDB](/{{< latest "influxdb" "v1" >}}/) and [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) do not support the [web admin interface](https://archive.docs.influxdata.com/influxdb/v1.2/tools/web_admin/), the builtin user interface for writing and querying data in InfluxDB.
 Chronograf replaces the web admin interface with improved tooling for querying data, writing data, and database management.
 
 The following sections describe the Chronograf features that relate to the web admin interface:
@@ -23,7 +23,7 @@ The following sections describe the Chronograf features that relate to the web a
 ### Web admin interface
 
 In the web admin interface, users chose the target database in the top right corner and selected from a set of query templates in the `Query Templates` dropdown.
-The templates included queries with no user-provided values (example: [`SHOW MEASUREMENTS`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-measurements)) and queries with user-provided values (example: [`SHOW TAG KEYS FROM "<measurement_name>"`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-tag-keys)).
+The templates included queries with no user-provided values (example: [`SHOW MEASUREMENTS`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-measurements)) and queries with user-provided values (example: [`SHOW TAG KEYS FROM "<measurement_name>"`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-keys)).
 
 ![WAI Query Templates](/img/chronograf/1-6-g-admin-webtemplates.png)
 

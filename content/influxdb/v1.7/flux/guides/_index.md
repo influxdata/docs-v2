@@ -6,6 +6,8 @@ menu:
   influxdb_1_7:
     name: Query with Flux
     parent: Flux
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/
+v2: /influxdb/v2.0/query-data/flux/
 ---
 
 The following guides walk through both common and complex queries and use cases for Flux.

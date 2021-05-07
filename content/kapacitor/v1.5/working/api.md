@@ -1864,6 +1864,7 @@ Retrieve all the configuration sections which can be overridden.
 GET /kapacitor/v1/config
 ```
 
+{{< keep-url >}}
 ```json
 {
     "link" : {"rel": "self", "href": "/kapacitor/v1/config"},
@@ -1990,6 +1991,7 @@ Retrieve only the InfluxDB section.
 GET /kapacitor/v1/config/influxdb
 ```
 
+{{< keep-url >}}
 ```json
 {
     "link" : {"rel": "self", "href": "/kapacitor/v1/config/influxdb"},

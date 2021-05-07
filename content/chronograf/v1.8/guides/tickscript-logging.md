@@ -5,6 +5,7 @@ menu:
   chronograf_1_8:
     weight: 20
     parent: Guides
+draft: true
 ---
 
 TICKscript logs data to a log file for debugging purposes.

@@ -1,6 +1,6 @@
 ---
-title: Configure a watcher of watchers system to monitor InfluxDB servers
-description: How to set up an external InfluxData TICK stack that monitors another Enterprise or OSS TICK stack.
+title: Configure a watcher of watchers system to monitor InfluxDB 1.x servers
+description: How to set up an external InfluxData 1.x TICK stack that monitors another Enterprise or OSS TICK stack.
 aliases:
   - /platform/monitoring/external-monitor-setup/
 menu:
@@ -64,7 +64,7 @@ the host machine:
 - Swap
 - System (load, number of CPUs, number of users, uptime, etc.)
 
-Use other [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/inputs/) to collect
+Use other [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/#input-plugins) to collect
 a variety of metrics.
 
 #### Monitor InfluxDB performance metrics
@@ -98,7 +98,7 @@ from the local Kapacitor `/debug/vars` endpoint.
 ```toml
 # ...
 
-[[inputs.influxdb]]
+[[inputs.kapacitor]]
   # ...
   ## Multiple URLs from which to read Kapacitor-formatted JSON
   ## Default is "http://localhost:9092/kapacitor/v1/debug/vars".

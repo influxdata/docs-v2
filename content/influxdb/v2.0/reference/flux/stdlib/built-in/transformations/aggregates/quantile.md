@@ -13,11 +13,13 @@ weight: 501
 related:
   - /influxdb/v2.0/query-data/flux/percentile-quantile/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/quantile/
 ---
 
 The `quantile()` function returns records from an input table with `_value`s that fall within
 a specified quantile or it returns the record with the `_value` that represents the specified quantile.
 Which it returns depends on the [method](#method) used.
+`quantile()` supports columns with float values.
 
 _**Function type:** Aggregate or Selector_  
 _**Output data type:** Float | Record_
@@ -52,6 +54,7 @@ _**Data type:** Float_
 
 ### method
 Defines the method of computation.
+Default is `estimate_tdigest`.
 
 _**Data type:** String_
 

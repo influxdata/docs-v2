@@ -35,6 +35,7 @@ Literal = int_lit
         | pipe_receive_lit
         | RecordLiteral
         | ArrayLiteral
+        | DictLiteral
         | FunctionLiteral .
 ```
 
@@ -66,6 +67,28 @@ Array literals construct a value with the array type.
 ```js
 ArrayLiteral   = "[" ExpressionList "]" .
 ExpressionList = [ Expression { "," Expression } ] .
+```
+
+### Dictionary literals
+
+Dictionary literals construct a value with the dict type.
+
+```js
+DictLiteral     = EmptyDict | "[" AssociativeList "]" .
+EmptyDict       = "[" ":" "]" .
+AssociativeList = Association { "," AssociativeList } .
+Association     = Expression ":" Expression .
+```
+
+Keys can be arbitrary expressions.
+The type system enforces that all keys are of the same type.
+
+**Examples**
+```js
+a = "a"
+b = [:] // empty dictionary
+c = [a: 1, "b": 2] // dictionary mapping string values to integers
+d = [a: 1, 2: 3] // type error: cannot mix string and integer keys
 ```
 
 ### Function literals
@@ -223,18 +246,19 @@ Operators with a lower number have higher precedence.
 | 1          | `a()`              | Function call                        |
 |            | `a[]`              | Member or index access               |
 |            | `.`                | Member access                        |
-| 2          | `^`                | Exponentiation                       |
-| 3          | `*` `/` `%`        | Multiplication, division, and modulo |
-| 4          | `+` `-`            | Addition and subtraction             |
-| 5          |`==` `!=`           | Comparison operators                 |
+| 2          | <code>\|></code>   | Pipe forward                         |
+| 3          | `^`                | Exponentiation                       |
+| 4          | `*` `/` `%`        | Multiplication, division, and modulo |
+| 5          | `+` `-`            | Addition and subtraction             |
+| 6          |`==` `!=`           | Comparison operators                 |
 |            | `<` `<=`           |                                      |
 |            | `>` `>=`           |                                      |
 |            |`=~` `!~`           |                                      |
-| 6          | `not`              | Unary logical operator               |
+| 7          | `not`              | Unary logical operator               |
 |            | `exists`           | Null check operator                  |
-| 7          | `and`              | Logical AND                          |
-| 8          | `or`               | Logical OR                           |
-| 9          | `if` `then` `else` | Conditional                          |
+| 8          | `and`              | Logical AND                          |
+| 9          | `or`               | Logical OR                           |
+| 10         | `if` `then` `else` | Conditional                          |
 
 The operator precedence is encoded directly into the grammar as the following.
 

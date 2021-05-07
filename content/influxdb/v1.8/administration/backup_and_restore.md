@@ -9,6 +9,7 @@ menu:
     name: Back up and restore
     weight: 60
     parent: Administration
+v2: /influxdb/v2.0/backup-restore/
 ---
 
 ## Overview
@@ -26,7 +27,7 @@ The InfluxDB OSS `backup` utility provides:
 
 ## Online backup and restore (for InfluxDB OSS)
 
-Use the `backup` and `restore` utilities to back up and restore between `influxd` instances with the same versions or with only minor version differences. For example, you can back up from 1.7.3 and restore on 1.8.0.
+Use the `backup` and `restore` utilities to back up and restore between `influxd` instances with the same versions or with only minor version differences. For example, you can back up from 1.7.3 and restore on 1.8.2.
 
 ### Configuring remote connections
 

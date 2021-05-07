@@ -10,7 +10,7 @@ menu:
     parent: built-in-transformations
 weight: 402
 related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/data_exploration/#the-where-clause, InfluxQL – WHERE
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-where-clause, InfluxQL – WHERE
 ---
 
 The `range()` function filters records based on time bounds.
@@ -23,7 +23,18 @@ _**Function type:** Transformation_
 _**Output data type:* Record_
 
 ```js
-range(start: -15m, stop: now())
+range(
+  start: -15m,
+  stop: now()
+)
+```
+
+#### Behavior of start and stop times
+Results include records with `_time` values greater than or equal to the specified `start`
+time and less than the specified `stop` time.
+
+```
+start <= _time < stop
 ```
 
 ## Parameters

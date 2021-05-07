@@ -27,6 +27,11 @@ to group data into tracks or routes.
 - [Group data by area](#group-data-by-area)
 - [Group data into tracks or routes](#group-data-by-track-or-route)
 
+{{% note %}}
+For example results, use the [bird migration sample data](/influxdb/v2.0/reference/sample-data/#bird-migration-sample-data)
+to populate the `sampleGeoData` variable in the queries below.
+{{% /note %}}
+
 ### Group data by area
 Use the [`geo.groupByArea()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/)
 to group geo-temporal data points by geographic area.
@@ -69,6 +74,6 @@ sampleGeoData
   |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
   |> geo.asTracks(
     groupBy: ["id"],
-    sortBy: ["_time"]
+    orderBy: ["_time"]
   )
 ```

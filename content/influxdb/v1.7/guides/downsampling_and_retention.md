@@ -4,6 +4,7 @@ menu:
   influxdb_1_7:
     weight: 30
     parent: Guides
+v2: /influxdb/v2.0/process-data/common-tasks/downsample-data/
 ---
 
 InfluxDB can handle hundreds of thousands of data points per second.

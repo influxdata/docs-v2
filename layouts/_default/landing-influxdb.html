@@ -4,6 +4,7 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
+{{ $isCloud := eq $currentVersion "cloud" }}
 
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
@@ -12,9 +13,13 @@
 
     <div class="cards">
       <div class="card main" id="get-started">
-        <h1>Get started with InfluxDB {{ replaceRE "v" "" $currentVersion }}</h1>
-        <a class="btn" href="get-started/#start-with-influxdb-cloud-2-0">Start with InfluxDB Cloud</a>
-        <a class="btn oss" href="get-started/#start-with-influxdb-oss">Start with InfluxDB OSS</a>
+        {{ if $isCloud }}
+          <h1>Get started with <span class="avoid-wrap">InfluxDB Cloud</span></h1>
+          <a class="btn" href="get-started">Get started</a>
+        {{ else }}
+          <h1>Get started with <span class="avoid-wrap">InfluxDB OSS {{ replaceRE "v" "" $currentVersion }}</span></h1>
+          <a class="btn" href="get-started">Get started</a>
+        {{ end }}
       </div>
       {{ partial "svgs/hive.svg" }}
       <div class="group">

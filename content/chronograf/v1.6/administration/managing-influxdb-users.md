@@ -58,13 +58,14 @@ Restart the InfluxDB service for your configuration changes to take effect:
 
 ### Step 3: Create an admin user.
 
-Because authentication is enabled, you need to create an [admin user](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-types-and-privileges) before you can do anything else in the database.
+Because authentication is enabled, you need to create an [admin user](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-types-and-privileges) before you can do anything else in the database.
 Run the `curl` command below to create an admin user, replacing:
 
 * `localhost` with the IP or hostname of your InfluxDB OSS instance or one of your InfluxDB Enterprise data nodes
 * `chronothan` with your own username
 * `supersecret` with your own password (note that the password requires single quotes)
 
+{{< keep-url >}}
 ```
 ~# curl -XPOST "http://localhost:8086/query" --data-urlencode "q=CREATE USER chronothan WITH PASSWORD 'supersecret' WITH ALL PRIVILEGES"
 ```
@@ -91,7 +92,7 @@ On the **Chronograf Admin** page:
 ![InfluxDB OSS user management](/img/chronograf/1-6-admin-usermanagement-oss.png)
 
 InfluxDB users are either admin users or non-admin users.
-See InfluxDB's [authentication and authorization](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-types-and-privileges) documentation for more information about those user types.
+See InfluxDB's [authentication and authorization](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-types-and-privileges) documentation for more information about those user types.
 
 > ***Note:*** Note that Chronograf currently does not support assigning InfluxDB database `READ`or `WRITE` access to non-admin users.
 >This is a known issue.
@@ -155,13 +156,13 @@ Assign permissions and roles to both admin and non-admin users.
 #### AddRemoveNode
 Permission to add or remove nodes from a cluster.
 
-**Relevant `influxd-ctl` arguments**:
-[`add-data`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#add-data),
-[`add-meta`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#add-meta),
-[`join`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#join),
-[`remove-data`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#remove-data),
-[`remove-meta`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#remove-meta), and
-[`leave`](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#leave)
+**Relevant `influxd-ctl` commands**:
+[`add-data`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#add-data),
+[`add-meta`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#add-meta),
+[`join`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#join),
+[`remove-data`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#remove-data),
+[`remove-meta`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#remove-meta), and
+[`leave`](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#leave)
 
 **Pages in Chronograf that require this permission**: NA
 
@@ -169,7 +170,7 @@ Permission to add or remove nodes from a cluster.
 Permission to copy shards.
 
 **Relevant `influxd-ctl` arguments**:
-[copy-shard](/{{< latest "enterprise_influxdb" >}}/features/cluster-commands/#copy-shard)
+[copy-shard](/{{< latest "enterprise_influxdb" >}}/administration/cluster-commands/#copy-shard)
 
 **Pages in Chronograf that require this permission**: NA
 
@@ -177,10 +178,10 @@ Permission to copy shards.
 Permission to create databases, create [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp), alter retention policies, and view retention policies.
 
 **Relevant InfluxQL queries**:
-[`CREATE DATABASE`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#create-database),
-[`CREATE RETENTION POLICY`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#create-retention-policies-with-create-retention-policy),
-[`ALTER RETENTION POLICY`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#modify-retention-policies-with-alter-retention-policy), and
-[`SHOW RETENTION POLICIES`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-retention-policies)
+[`CREATE DATABASE`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-database),
+[`CREATE RETENTION POLICY`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-retention-policies-with-create-retention-policy),
+[`ALTER RETENTION POLICY`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy), and
+[`SHOW RETENTION POLICIES`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-retention-policies)
 
 **Pages in Chronograf that require this permission**: Dashboards, Data Explorer, and Databases on the Admin page
 
@@ -188,15 +189,15 @@ Permission to create databases, create [retention policies](/{{< latest "influxd
 Permission to manage users and roles; create users, drop users, grant admin status to users, grant permissions to users, revoke admin status from users, revoke permissions from users, change user passwords, view user permissions, and view users and their admin status.
 
 **Relevant InfluxQL queries**:
-[`CREATE USER`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-management-commands),
-[`DROP USER`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#general-admin-and-non-admin-user-management),
-[`GRANT ALL PRIVILEGES`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-management-commands),
-[`GRANT [READ,WRITE,ALL]`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#non-admin-user-management),
-[`REVOKE ALL PRIVILEGES`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-management-commands),
-[`REVOKE [READ,WRITE,ALL]`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#non-admin-user-management),
-[`SET PASSWORD`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#general-admin-and-non-admin-user-management),
-[`SHOW GRANTS`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#non-admin-user-management), and
-[`SHOW USERS`](/{{< latest "influxdb" "v1" >}}/query_language/authentication_and_authorization/#user-management-commands)
+[`CREATE USER`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-management-commands),
+[`DROP USER`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#general-admin-and-non-admin-user-management),
+[`GRANT ALL PRIVILEGES`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-management-commands),
+[`GRANT [READ,WRITE,ALL]`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#non-admin-user-management),
+[`REVOKE ALL PRIVILEGES`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-management-commands),
+[`REVOKE [READ,WRITE,ALL]`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#non-admin-user-management),
+[`SET PASSWORD`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#general-admin-and-non-admin-user-management),
+[`SHOW GRANTS`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#non-admin-user-management), and
+[`SHOW USERS`](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#user-management-commands)
 
 **Pages in Chronograf that require this permission**: Data Explorer, Dashboards, Users and Roles on the Admin page
 
@@ -204,9 +205,9 @@ Permission to manage users and roles; create users, drop users, grant admin stat
 Permission to drop data, in particular [series](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#series) and [measurements](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#measurement).
 
 **Relevant InfluxQL queries**:
-[`DROP SERIES`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#drop-series-from-the-index-with-drop-series),
-[`DELETE`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#delete-series-with-delete), and
-[`DROP MEASUREMENT`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#delete-measurements-with-drop-measurement)
+[`DROP SERIES`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#drop-series-from-the-index-with-drop-series),
+[`DELETE`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-series-with-delete), and
+[`DROP MEASUREMENT`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-measurements-with-drop-measurement)
 
 **Pages in Chronograf that require this permission**: NA
 
@@ -214,8 +215,8 @@ Permission to drop data, in particular [series](/{{< latest "influxdb" "v1" >}}/
 Permission to drop databases and retention policies.
 
 **Relevant InfluxQL queries**:
-[`DROP DATABASE`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#delete-a-database-with-drop-database) and
-[`DROP RETENTION POLICY`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#delete-retention-policies-with-drop-retention-policy)
+[`DROP DATABASE`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-a-database-with-drop-database) and
+[`DROP RETENTION POLICY`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-retention-policies-with-drop-retention-policy)
 
 **Pages in Chronograf that require this permission**: Data Explorer, Dashboards, Databases on the Admin page
 
@@ -253,7 +254,7 @@ Permission to view and kill queries.
 Permission to copy, delete, and view [shards](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#shard).
 
 **Relevant InfluxQL queries**:
-[`DropShardStatement`](/{{< latest "influxdb" "v1" >}}/query_language/database_management/#delete-a-shard-with-drop-shard),
+[`DropShardStatement`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-a-shard-with-drop-shard),
 [`ShowShardGroupsStatement`](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-shard-groups), and
 [`ShowShardsStatement`](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-shards)
 
@@ -282,12 +283,12 @@ Permission to view cluster statistics and diagnostics.
 Permission to read data.
 
 **Relevant InfluxQL queries**:
-[`SHOW FIELD KEYS`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-field-keys),
-[`SHOW MEASUREMENTS`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-measurements),
-[`SHOW SERIES`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-series),
-[`SHOW TAG KEYS`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-tag-keys),
-[`SHOW TAG VALUES`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-tag-values), and
-[`SHOW RETENTION POLICIES`](/{{< latest "influxdb" "v1" >}}/query_language/schema_exploration/#show-retention-policies)
+[`SHOW FIELD KEYS`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-field-keys),
+[`SHOW MEASUREMENTS`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-measurements),
+[`SHOW SERIES`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-series),
+[`SHOW TAG KEYS`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-keys),
+[`SHOW TAG VALUES`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-values), and
+[`SHOW RETENTION POLICIES`](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-retention-policies)
 
 **Pages in Chronograf that require this permission**: Admin, Alerting, Dashboards, Data Explorer, Host List
 

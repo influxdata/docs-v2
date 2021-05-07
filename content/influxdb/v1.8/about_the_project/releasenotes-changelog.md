@@ -6,7 +6,61 @@ menu:
     name: Release notes
     weight: 10
     parent: About the project
+v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
+
+## v1.8.5 [2021-04-20]
+### Features
+
+- Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
+- Add support to [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) to write to standard out (`stdout`) by adding a hyphen after the [`-out`](/influxdb/v1.8/tools/influx_inspect/#--out-export_dir-or--out--) flag. Using this option writes to `stdout`, and sends error and status messages to standard error (`stderr`).
+- Update HTTP handler for `/query` to [log query text for POST requests](/influxdb/v1.8/administration/logs/#http-access-log-format).
+- Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
+
+### Bug fixes
+
+- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1.8/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
+-  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
+- Correct JSON marshalling error format.
+- Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
+- Improved error logging for TCP connection closures.
+- Fix `regexp` handling to comply with PromQL.
+- Previously, when a SELECT INTO query generated an unsupported value, for example, `+/- Inf`, the query failed silently. Now, an error occurs to notify that the value cannot be inserted.
+- Resolve the "snapshot in progress" error that occurred during a backup.
+- Fix data race when accessing tombstone statistics (`TombstoneStat`).
+- Minimize lock contention when adding new fields or measurements.
+- Resolve a bug causing excess resource usage when an error occurs while reporting an earlier error.
+
+## v1.8.4 [2021-02-01]
+### Features
+
+- Add `stat_total_allocated` to Flux logging.
+ To ensure Flux logging is enabled, set both `flux-enabled` and `flux-log-enabled` to `true` in the [InfluxDB configuration file](/influxdb/v1.8/administration/config). For more information about InfluxDB logging, see [Log and trace with InfluxDB](/influxdb/v1.8/administration/logs).
+
+### Bug fixes
+
+- Add durations to Flux logging, including the log compilation, execution, and total request duration. Previously, the following stats were incorrectly logging `0.000ms`:
+
+  - `stat_total_duration`
+  - `stat_compile_duration`
+  - `stat_execute_duration`
+
+    Now, these durations are logged correctly.
+
+## v1.8.3 [2020-09-30]
+
+### Features
+
+- Use latest version of InfluxQL package.
+- Add `-lponly` flag to [`influx export`](/influxdb/v2.0/reference/cli/influx/export/) sub-command.
+- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [/debug/vars HTTP endpoint](/influxdb/v1.8/tools/api/#debug-vars-http-endpoint).
+- Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
+
+### Bug fixes
+
+- ArrayFilterCursor truncation for multi-block data.
+- Multi-measurement queries now return all applicable series.
+- Lock map before writes.
 
 ## v1.8.2 [2020-08-13]
 
@@ -64,7 +118,7 @@ This release updates support for the Flux language and queries. To learn about F
 
 #### Forward compatibility
 
-- [InfluxDB 2.0 API compatibility endpoints](/v1.8/tools/api/#influxdb-2-0-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
+- [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1.8/tools/api/#influxdb-20-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
 This allows you to leverage the new InfluxDB 2.0 [client libraries](/influxdb/v1.8/tools/api_client_libraries/)
 for both writing and querying data with Flux. Take advantage of the latest client libraries
 while readying your implementation for a move to InfluxDB 2.0 Cloud when you're ready to scale.

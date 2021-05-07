@@ -9,6 +9,8 @@ menu:
     name: skew
     parent: built-in-aggregates
 weight: 501
+related:
+  - /influxdb/v2.0/reference/flux/experimental/skew/
 ---
 
 The `skew()` function outputs the skew of non-null records as a float.

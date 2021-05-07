@@ -10,6 +10,8 @@ menu:
     parent: Query with Flux
     list_title: SQL data
 weight: 20
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/sql/
+v2: /influxdb/v2.0/query-data/flux/sql/
 list_code_example: |
   ```js
   import "sql"

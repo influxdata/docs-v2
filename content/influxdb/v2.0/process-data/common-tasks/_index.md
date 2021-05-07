@@ -15,8 +15,3 @@ weight: 104
 The following articles walk through common task use cases.
 
 {{< children >}}
-
-{{% note %}}
-This list will continue to grow.
-If you have suggestions, please [submit them to the InfluxData Community](https://community.influxdata.com/c/influxdb2).
-{{% /note %}}

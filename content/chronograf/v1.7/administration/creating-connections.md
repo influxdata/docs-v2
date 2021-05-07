@@ -85,6 +85,7 @@ An `.src` files contains the details for a single InfluxDB connection.
 Create a new file named `example.src` (the filename is arbitrary) and place it at Chronograf's `resource-path`.
 All `.src` files should contain the following:
 
+{{< keep-url >}}
 ```json
 {
   "id": "10000",

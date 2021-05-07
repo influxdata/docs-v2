@@ -11,6 +11,8 @@ menu:
     parent: Query with Flux
     name: Percentile & quantile
 list_query_example: quantile
+canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/percentile-quantile/
+v2: /influxdb/v2.0/query-data/flux/percentile-quantile/
 ---
 
 Use the [`quantile()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
