@@ -1,7 +1,7 @@
 ---
 title: Write CSV data to InfluxDB
 description: >
-  Write CSV data with the [`influx write` command](#influx-write-command) or Flux.
+  Write CSV data with the [`influx write` command](/influxdb/cloud/reference/cli/influx/write/) or Flux.
   Include annotations with the CSV data to determine how the data translates into
   [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/).
 menu:
