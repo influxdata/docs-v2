@@ -186,7 +186,7 @@ On systemd systems, enter:
 sudo systemctl start influxdb-meta
 ```
 
-#### Step 2b: Verification steps
+#### Verify meta node process
 Check to see that the process is running by entering:
 
 ```
@@ -224,7 +224,7 @@ The expected output is:
 Added meta node x at enterprise-meta-0x:8091
 ```
 
-#### Verification steps
+#### Verify cluster
 
 Issue the following command on any meta node:
 
