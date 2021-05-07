@@ -1259,21 +1259,26 @@ Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 
 #### query-concurrency
 Number of queries allowed to execute concurrently.
+`0` means unlimited.
 Default is `0`.
 
 #### query-initial-memory-bytes
 Initial bytes of memory allocated for a query.
+`0` means unlimited.
 Default is `0`.
 
 #### query-max-memory-bytes
 Maximum total bytes of memory allowed for queries.
+`0` means unlimited.
 Default is `0`.
 
 #### total-max-memory-bytes
 Maximum total bytes of memory allowed for queries.
+`0` means unlimited.
 Default is `0`.
 
 #### query-queue-size
 Maximum number of queries allowed in execution queue.
 When queue limit is reached, new queries are rejected.
+`0` means unlimited.
 Default is `0`.
