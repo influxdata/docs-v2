@@ -23,31 +23,31 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
 1. [**Clone this repository**](https://help.github.com/articles/cloning-a-repository/) to your local machine.
 
-2. **Install NodeJS, Yarn, Hugo, & Asset Pipeline Tools**
+2.  **Install NodeJS, Yarn, Hugo, & Asset Pipeline Tools**
 
-  The InfluxData documentation uses [Hugo](https://gohugo.io/), a static site generator built in Go.   The site utilizes Hugo's asset pipeline, requiring the extended version of Hugo along with NodeJS tools like PostCSS, to build and process stylesheets and javascript.
+    The InfluxData documentation uses [Hugo](https://gohugo.io/), a static site generator built in Go.   The site utilizes Hugo's asset pipeline, requiring the extended version of Hugo along with NodeJS tools like PostCSS, to build and process stylesheets and javascript.
 
-  To install all the required dependencies, including hugo-extended, and then build the assets:
+    To install all the required dependencies, including hugo-extended, and then build the assets:
 
-  1. [Install NodeJS](https://nodejs.org/en/download/)
-  2. [Install Yarn](https://classic.yarnpkg.com/en/docs/install/)
-  3. Install dependencies:
+    1. [Install NodeJS](https://nodejs.org/en/download/)
+    2. [Install Yarn](https://classic.yarnpkg.com/en/docs/install/)
+    3. Install dependencies:
 
-        ```
-        $ cd docs-v2
-        $ yarn install
-        ```
+          ```
+          $ cd docs-v2
+          $ yarn install
+          ```
 
-        _**Note:** The most recent version of Hugo tested with this documentation is **0.83.1**._
+       _**Note:** The most recent version of Hugo tested with this documentation is **0.83.1**._
 
-3. **Start the Hugo server**
+3.  **Start the Hugo server**
 
-  Hugo provides a local development server that generates the HTML pages, builds the static assets, and serves them at `localhost:1313`.
+    Hugo provides a local development server that generates the HTML pages, builds the static assets, and serves them at `localhost:1313`.
 
-  From the same project directory, `docs-v2`, use NodeJS' `npx` command to start the Hugo server:
+    From the same project directory, `docs-v2`, use NodeJS' `npx` command to start the Hugo server:
 
-    ```
-    $ cd docs-v2/
-    $ hugo server
-    ```
+      ```
+      $ cd docs-v2/
+      $ hugo server
+      ```
     View the docs at [localhost:1313](http://localhost:1313).
