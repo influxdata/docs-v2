@@ -71,6 +71,11 @@ In some cases, local policies may prevent the local user account from being crea
 Contact your systems administrator for assistance with this requirement.
 
 ## Set up meta nodes
+
+1. [Add DNS entries](#add-dns-entries)
+2. [Set up, configure, and start the meta services](#set-up-configure-and-start-the-meta-services)
+3. [Join meta nodes to the cluster](#join-meta-nodes-to-the-cluster)
+
 ### Add DNS entries
 
 Ensure that your servers' hostnames and IP addresses are added to your network's DNS environment.
