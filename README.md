@@ -43,14 +43,13 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
 3. **Start the Hugo server**
 
-  Hugo provides a local development server that generates the HTML pages, builds the static assets, and serves them at `localhost:1313`.
+   Hugo provides a local development server that generates the HTML pages, builds the static assets, and serves them at `localhost:1313`.
 
-  From the same project directory, `docs-v2`, use NodeJS' `npx` command to start the Hugo server:
+   From the same project directory, `docs-v2`, use NodeJS' `npx` command to start the Hugo server:
 
-  ```
-  $ cd docs-v2/
-  $ hugo server
-
-  ```
+   ```
+   $ cd docs-v2/
+   $ hugo server
+   ```
 
  View the docs at [localhost:1313](http://localhost:1313).
