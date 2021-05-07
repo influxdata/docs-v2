@@ -19,13 +19,13 @@ your InfluxDB Enterprise cluster: the meta nodes.
 
 To install InfluxDB Enterprise meta nodes, do the following:
 
-1. Review [meta node requirements](#meta-node-setup-description-and-requirements)
+1. Review [meta node setup and requirements](#meta-node-setup-description-and-requirements)
 2. [Set up meta nodes](#set-up-meta-nodes):
    1. [Add DNS entries](#add-dns-entries)
    2. [Set up, configure, and start the meta services](#set-up-configure-and-start-the-meta-services)
    3. [Join meta nodes to the cluster](#join-meta-nodes-to-the-cluster)
 
-## Meta node setup description and requirements
+## Meta node setup and requirements
 
 The installation process sets up three [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node), with each meta node running on its own server.
 
@@ -39,7 +39,7 @@ If your servers have communication problems chronic reliability issues, you can 
 > InfluxData recommends deploying meta nodes on relatively small footprint servers.
 
 See the
-[Clustering guide](/enterprise_influxdb/v1.9/concepts/clustering#optimal-server-counts)
+[Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1.9/concepts/clustering/)
 for more on cluster architecture.
 
 ### Other requirements
