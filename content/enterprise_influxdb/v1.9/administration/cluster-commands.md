@@ -199,7 +199,7 @@ Added data node 3 at cluster-data-node:8088
 
 Adds a meta node to a cluster.
 By default, `influxd-ctl` adds the specified meta node to the local meta node's cluster.
-Use `add-meta` instead of the [`join` argument](#join) when [installing](/enterprise_influxdb/v1.9/installation/meta_node_installation/) an InfluxDB Enterprise cluster.
+Use `add-meta` instead of the [`join` argument](#join) when [installing a meta node](/enterprise_influxdb/v1.9/installation/meta_node_installation/) an InfluxDB Enterprise cluster.
 
 Resources: [Installation](/enterprise_influxdb/v1.9/installation/data_node_installation/)
 
