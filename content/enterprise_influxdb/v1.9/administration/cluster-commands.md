@@ -673,7 +673,9 @@ Successfully left cluster
 ### `remove-data`
 
 Removes a data node from a cluster.
-Use `remove-data` instead of the [`leave`](#leave) argument if you set up your InfluxDB Enterprise cluster with the [installation](/enterprise_influxdb/v1.9/installation/) process.
+Use `remove-data` to erase data in the selected data node and permanently remove the node from the cluster.
+(To remove metadata about the node from other nodes in the cluster, see [`leave`](#leave).
+
 
 {{% warn %}}The `remove-data` argument is destructive; it erases all data from the specified data node.
 Use `remove-data` only if you want to *permanently* remove a data node from a cluster.
@@ -708,7 +710,8 @@ Removed data node at cluster-data-node-03:8088
 ### `remove-meta`
 
 Removes a meta node from the cluster.
-Use `remove-meta` instead of the [`leave`](#leave) command if you set up your InfluxDB Enterprise cluster with the [installation](/enterprise_influxdb/v1.9/installation/) process.
+Use `remove-meta` to erase data in the selected meta node and permanently remove the node from the cluster.
+(To remove metadata about the node from other nodes in the cluster, see [`leave`](#leave).
 
 {{% warn %}}The `remove-meta` argument is destructive; it erases all metastore information from the specified meta node.
 Use `remove-meta` only if you want to *permanently* remove a meta node from a cluster.
