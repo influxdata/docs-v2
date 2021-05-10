@@ -18,8 +18,6 @@ for managing your InfluxDB Enterprise clusters.
 The [`influx` command line interface](#influx-command-line-interface-cli) is used
 for interacting with and managing your data.
 
-Content
-
 [`influxd-ctl` cluster management utility](#influxd-ctl-cluster-management-utility)
 
 * [Syntax](#syntax)
