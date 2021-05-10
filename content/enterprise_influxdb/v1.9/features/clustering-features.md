@@ -17,7 +17,6 @@ License keys restrict the number of data nodes that can be added to a cluster as
 Without a valid license, the process will abort startup.
 
 Access your license expiration date with the `/debug/vars` endpoint.
-In this examples we use `curl` and [`jq`](https://stedolan.github.io/jq/).
 
 {{< keep-url >}}
 ```sh
@@ -31,6 +30,9 @@ $ curl http://localhost:8086/debug/vars | jq '.entitlements'
   }
 }
 ```
+{{% caption %}}
+This examples uses `curl` and [`jq`](https://stedolan.github.io/jq/).
+{{% /caption %}}
 
 ## Query management
 
