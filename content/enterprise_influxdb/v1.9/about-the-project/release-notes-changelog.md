@@ -9,8 +9,7 @@ menu:
     parent: About the project
 ---
 
-v1.9.0 [TK]
------------
+## v1.9.0 [TK]
 
 ### Features
 - Support user-defined *node labels*.
