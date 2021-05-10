@@ -16,6 +16,22 @@ A valid license key is required in order to start `influxd-meta` or `influxd`.
 License keys restrict the number of data nodes that can be added to a cluster as well as the number of CPU cores a data node can use.
 Without a valid license, the process will abort startup.
 
+Access your license expiration date with the `/debug/vars` endpoint.
+In this examples we use `curl` and [`jq`](https://stedolan.github.io/jq/).
+
+{{< keep-url >}}
+```sh
+$ curl http://localhost:8086/debug/vars | jq '.entitlements'
+{
+  "name": "entitlements",
+  "tags": null,
+  "values": {
+    "licenseExpiry": "2022-02-15T00:00:00Z",
+    "licenseType": "license-key"
+  }
+}
+```
+
 ## Query management
 
 Query management works cluster wide. Specifically, `SHOW QUERIES` and `KILL QUERY <ID>` on `"<host>"` can be run on any data node. `SHOW QUERIES` will report all queries running across the cluster and the node which is running the query.
