@@ -44,7 +44,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
     Hugo provides a local development server that generates the HTML pages, builds the static assets, and serves them at `localhost:1313`.
 
-    From the same project directory, `docs-v2`, use NodeJS' `npx` command to start the Hugo server:
+    In the `docs-v2` directory, start the Hugo server:
 
       ```
       $ cd docs-v2/
