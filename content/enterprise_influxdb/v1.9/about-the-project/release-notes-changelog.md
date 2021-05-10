@@ -9,28 +9,26 @@ menu:
     parent: About the project
 ---
 
-v1.9.0 [unreleased]
--------------------
+v1.9.0 [TK]
+-----------
 
 ### Features
 - Support user-defined *node labels*.
   Node labels allows cluster operators to assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
-- Improve diagnostics for license problems.
-- Ingress metrics now work.
+- Improve diagnostics for license problems. Add license expiration date to `debug/vars` metrics.
+- Improved ingress metrics.
 - Support authorization for Kapacitor via LDAP.
-- Flux query controls. <!-- #3373: feat:  -->
-- Support for pushed-down window aggregates. <!-- #3372: feat:  -->
+- Allow configuring Flux query resource usage (concurrency, memory, etc.).
+- Upgrade to Flux v0.113.0. (This includes support for pushed-down window aggregates.)
 
 
-### Bugfixes
-- Show databases now checks read write permissions. <!-- https://github.com/influxdata/plutonium/pull/3341 -->
-- Anti-entrpoy: Update `tsm1.BlockCount()` call to match signature <!-- https://github.com/influxdata/plutonium/pull/3152 -->
-- Remove extraneous nil check from points writer. <!-- https://github.com/influxdata/plutonium/pull/3141 -->
-- Restore: Ensure a newline is printed after a successful copy <!-- https://github.com/influxdata/plutonium/pull/3137 -->
-- Remove extraneous nil check <!-- #3141 -->
-- Make 'entropy show' expiry times consistent with 'show-shards' <!-- #3355: fix:  -->
-
+### Bug fixes
+- Show databases now checks read write permissions.
+- Anti-entropy: Update `tsm1.BlockCount()` call to match signature.
+- Remove extraneous nil check from points writer.
+- Ensure a newline is printed after a successful copy during [restoration](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
+- Make `entropy show` expiration times consistent with 'show-shards'. <!-- #3355: fix:  -->
 
 ## v1.8.4 [2020-02-08]
 
