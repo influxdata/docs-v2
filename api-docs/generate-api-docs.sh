@@ -41,7 +41,7 @@ weight: 304
 "
 
   # Use Redoc to generate the v2 API html
-  redoc-cli bundle -t template.hbs \
+  npx redoc-cli bundle -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
@@ -51,7 +51,7 @@ weight: 304
     $version/swagger.yml
 
   # Use Redoc to generate the v1 compatibility API html
-  redoc-cli bundle -t template.hbs \
+  npx redoc-cli bundle -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
