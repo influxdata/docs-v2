@@ -1268,12 +1268,12 @@ Initial bytes of memory allocated for a query.
 Default is `0`.
 
 #### query-max-memory-bytes
-Maximum total bytes of memory allowed for queries.
+Maximum total bytes of memory allowed for an individual query.
 `0` means unlimited.
 Default is `0`.
 
 #### total-max-memory-bytes
-Maximum total bytes of memory allowed for queries.
+Maximum total bytes of memory allowed for all running Flux queries.
 `0` means unlimited.
 Default is `0`.
 
