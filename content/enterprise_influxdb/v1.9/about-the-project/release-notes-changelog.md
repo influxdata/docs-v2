@@ -16,19 +16,19 @@ v1.9.0 [TK]
 - Support user-defined *node labels*.
   Node labels allows cluster operators to assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
-- Improve diagnostics for license problems. Add license expiration date to `debug/vars` metrics.
+- Improve diagnostics for license problems. Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
 - Improved ingress metrics.
 - Support authorization for Kapacitor via LDAP.
-- Allow configuring Flux query resource usage (concurrency, memory, etc.).
+- Allow [configuring Flux query resource usage](enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
 - Upgrade to Flux v0.113.0. (This includes support for pushed-down window aggregates.)
-
+  This includes performance improvements which have been available in InfluxDB Cloud.
 
 ### Bug fixes
 - Show databases now checks read write permissions.
 - Anti-entropy: Update `tsm1.BlockCount()` call to match signature.
 - Remove extraneous nil check from points writer.
 - Ensure a newline is printed after a successful copy during [restoration](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
-- Make `entropy show` expiration times consistent with 'show-shards'. <!-- #3355: fix:  -->
+- Make `entropy show` expiration times consistent with `show-shards`.
 
 ## v1.8.4 [2020-02-08]
 
