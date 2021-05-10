@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Enterprise 1.9 release notes
 description: >
-  Important changes and and what's new in each version InfluxDB Enterprise.
+  Important changes and what's new in each version InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9_ref:
     name: Release notes
