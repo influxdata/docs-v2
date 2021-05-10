@@ -1,6 +1,6 @@
 ---
 title: Flux Experimental InfluxDB package
-list_title: InfluxDB package
+list_title: influxdb package
 description: >
   Flux experimental InfluxDB package provides tools for working with the InfluxDB API.
   Import the `experimental/influxdb` package.
