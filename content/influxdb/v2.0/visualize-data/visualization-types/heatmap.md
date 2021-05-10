@@ -5,7 +5,7 @@ list_image: /img/influxdb/2-0-visualizations-heatmap-example.png
 description: >
   A Heatmap displays the distribution of data on an x and y axes where color
   represents different concentrations of data points.
-weight: 203
+weight: 202
 menu:
   influxdb_2_0:
     name: Heatmap
@@ -44,8 +44,12 @@ the visualization dropdown.
 
 ###### X Axis
 - **X Axis Label**: Label for the x-axis.
-- **X Tick Prefix**: Prefix to be added to x-value.
-- **X Tick Suffix**: Suffix to be added to x-value.
+- **Generate X-Axis Tick Marks**: Select the method to generate x-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of x-axis tick marks, select this option, and then enter the following:
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
 - **X Axis Domain**: The x-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
@@ -56,11 +60,24 @@ the visualization dropdown.
 - **Y Axis Label**: Label for the y-axis.
 - **Y Tick Prefix**: Prefix to be added to y-value.
 - **Y Tick Suffix**: Suffix to be added to y-value.
+- **Generate Y-Axis Tick Marks**: Select the method to generate y-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter  the following:
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
+
+###### Legend
+- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+  - **Horizontal**: Select to display the legend horizontally.
+  - **Vertical**: Select to display the legend vertically.
+- **Opacity**: Adjust the legend opacity using the slider.
+- **Colorize Rows**: Select to display legend rows in colors.
 
 ## Heatmap examples
 

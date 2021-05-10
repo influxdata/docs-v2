@@ -12,23 +12,23 @@ menu:
 weight: 103
 ---
 
-InfluxDB ensures secure interaction between users and data through the use of **authentication tokens**.
+InfluxDB **authentication tokens** ensure secure interaction between users and data.
 A token belongs to an organization and identifies InfluxDB permissions within the organization.
 
 Learn how to create, view, update, or delete an authentication token.
 
 ## Authentication token types
 
-- [Admin token](#admin-token)
+- [Operator token](#operator-token)
 - [All-Access token](#all-access-token)
 - [Read/Write token](#readwrite-token)
 
-#### Admin token
+#### Operator token
 Grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
 
 {{% note %}}
-Admin tokens are created in the InfluxDB setup process and cannot be created manually.
-Because Admin tokens have full read and write access to all organizations in the database,
+Operator tokens are created in the InfluxDB setup process and cannot be created manually.
+Because Operator tokens have full read and write access to all organizations in the database,
 we recommend [creating an All-Access token](/influxdb/v2.0/security/tokens/create-token/)
 for each organization and using those to manage InfluxDB.
 This helps to prevent accidental interactions across organizations.
@@ -38,6 +38,6 @@ This helps to prevent accidental interactions across organizations.
 Grants full read and write access to all resources in an organization.
 
 #### Read/Write token
-Grants read or write access to specific resources in an organization.
+Grants read access, write access, or both to specific buckets in an organization.
 
 {{< children hlevel="h2" >}}
