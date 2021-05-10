@@ -50,4 +50,4 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
       $ cd docs-v2/
       $ hugo server
       ```
-    View the docs at [localhost:1313](http://localhost:1313).
+    4. View the docs at [localhost:1313](http://localhost:1313).
