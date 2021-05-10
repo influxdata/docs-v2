@@ -8,6 +8,29 @@ menu:
     name: Flux
 ---
 
+## v0.114.1 [2021-05-04]
+
+### Bug fixes
+- Upgrade `mssqldb` dependency for Go 1.16.
+- Format Flux files in `stdlib`.
+
+---
+
+## v0.114.0 [2021-05-03]
+
+### Features
+- Add `debug.slurp()` and `debug.sink()`.
+- Add [`experimental/influxdb`](/influxdb/v2.0/reference/flux/stdlib/experimental/influxdb/)
+  and [`experimental/usage`](/influxdb/v2.0/reference/flux/stdlib/experimental/usage/) packages.
+- Add `fmt` subcommand to the `flux` CLI to apply formatting to Flux files.
+
+### Bug fixes
+- Format Flux files in `stdlib` and `stdlib/testing`.
+- Update the macOS SDK for Go 1.16.
+- Revert check for uneven columns.
+- Wait for the dispatcher to finish before finishing query.
+- Remove `codecov` job.
+
 ## v0.113.0 [2021-04-21]
 
 ### Features
