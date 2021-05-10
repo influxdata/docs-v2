@@ -24,7 +24,7 @@ v1.9.0 [TK]
   This includes performance improvements which have been available in InfluxDB Cloud.
 
 ### Bug fixes
-- Show databases now checks read write permissions.
+- `show databases` now checks read and write permissions.
 - Anti-entropy: Update `tsm1.BlockCount()` call to match signature.
 - Remove extraneous nil check from points writer.
 - Ensure a newline is printed after a successful copy during [restoration](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
