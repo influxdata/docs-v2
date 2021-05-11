@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud:
     name: Sign up
-weight: 2
+weight: 1
 influxdb/cloud/tags: [get-started, install]
 ---
 
@@ -178,7 +178,7 @@ Click one of the following buttons to download and install the `influx` CLI appr
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvfz influxdb-client-2.0.4-linux-amd64.tar.gz
+tar xvfz influxdb-client-2.0.5-linux-amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -190,7 +190,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-client-2.0.4-linux-amd64/influx /usr/local/bin/
+sudo cp influxdb-client-2.0.5-linux-amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}

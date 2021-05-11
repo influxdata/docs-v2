@@ -1,6 +1,7 @@
 ---
 title: Get started with InfluxDB Cloud
-description: Get started
+description: >
+  Get started with InfluxDB Cloud by querying and visualizing demo data in InfluxDB Notebooks.
 menu:
   influxdb_cloud:
     name: Get started
@@ -10,9 +11,11 @@ weight: 2
 influxdb/cloud/tags: [get-started, install]
 ---
 
-After you've signed up for and installed InfluxData, you're ready to start writing, querying, and visualizing data.
+After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/ ), you're ready to start writing, querying, and visualizing data.
 
-Get started working with demo data in InfluxDB Cloud using notebooks using this guide.
+To get started working in Cloud, we recommend using demo data and notebooks. Complete the following steps:
+1. [Add demo data](add-demo-data)
+2. ...
 
 ## Add demo data
 
@@ -27,7 +30,7 @@ This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add t
 
 ## Select metrics
 
-Now that we've added the demo data bucket, we're ready to create our notebook. The first notebook cell selects the bucket and metrics we'll work with.
+Now that we've added the demo data bucket, we're ready to create our notebook.
 
 1. In the navigation menu on the left, click **Notebooks**.
 
@@ -39,7 +42,7 @@ Now that we've added the demo data bucket, we're ready to create our notebook. T
 
 {{< img-hd src="/img/influxdb/cloud-gs-select-bucket.png" alt="Select bucket" />}}
 
-A list of measurements, fields, and tags for the Website Monitoring bucket appear.
+    A list of measurements, fields, and tags for the Website Monitoring bucket appear.
 
 6. For this example, click the `response_time` field.
 7. Click **Preview** to preview the raw response time data in a table.
@@ -49,7 +52,7 @@ A list of measurements, fields, and tags for the Website Monitoring bucket appea
 Next, we'll make it easier to visualize the raw data by viewing it in a graph.
 
 1. By default, a visualization cell appears below your initial metric selector cell showing the mean `response_time` values on a graph:
-2. Use the function dropdown menu to view different functions to apply to your data. For this response time data, the mean function is a good fit. <add link>
+2. Use the function dropdown menu to view different functions to apply to your data. For this response time data, the mean function is a good fit.
 3. Use the visualization type dropdown to view different visualization types available.
 For a complete list of options, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
 4. Click the gear icon ({{< icon "gear" >}}) to edit specific settings for the visualization type, such as colors, orientation, and labels.
