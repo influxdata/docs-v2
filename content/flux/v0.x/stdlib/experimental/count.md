@@ -22,9 +22,6 @@ The `experimental.count()` function outputs the number of records in each input 
 and returns the count in the `_value` column.
 This function counts both null and non-null records.
 
-_**Function type:** Aggregate_  
-_**Output data type:** Integer_
-
 ```js
 import "experimental"
 

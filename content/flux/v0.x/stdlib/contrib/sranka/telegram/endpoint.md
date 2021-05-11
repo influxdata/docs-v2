@@ -18,8 +18,6 @@ flux/v0.x/tags: [notification endpoints]
 The `telegram.endpoint()` function sends a message to a Telegram channel
 using data from table rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/telegram"
 
@@ -38,39 +36,29 @@ see [Set up a Telegram bot](/v2.0/reference/flux/stdlib/contrib/telegram/#set-up
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 URL of the Telegram bot endpoint.
 Default is `https://api.telegram.org/bot`.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 ({{< req >}})
 Telegram bot token.
 
-_**Data type:** String_
-
-### parseMode
+### parseMode {data-type="string"}
 [Parse mode](https://core.telegram.org/bots/api#formatting-options) of the message text.
 Default is `"MarkdownV2"`.
 
-_**Data type:** String_
-
-### disableWebPagePreview
+### disableWebPagePreview {data-type="bool"}
 Disable preview of web links in the sent message.
 Default is `false`.
-
-_**Data type:** Boolean_
 
 ## Usage
 `telegram.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the object used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the
 following fields:

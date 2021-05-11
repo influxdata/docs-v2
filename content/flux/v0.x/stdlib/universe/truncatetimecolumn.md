@@ -19,18 +19,14 @@ introduced: 0.37.0
 
 The `truncateTimeColumn()` function truncates all input table `_time` values to a specified unit.
 
-_**Function type:** Transformation_
-
 ```js
 truncateTimeColumn(unit: 1s)
 ```
 
 ## Parameters
 
-### unit
+### unit {data-type="duration"}
 The unit of time to truncate to.
-
-_**Data type:** Duration_
 
 {{% note %}}
 Only use `1` and the unit of time to specify the `unit`.

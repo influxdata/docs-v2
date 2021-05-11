@@ -27,10 +27,8 @@ math.pow10(n: 3)
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 The value used in the operation.
-
-_**Data type:** Integer_
 
 ## Special cases
 ```js

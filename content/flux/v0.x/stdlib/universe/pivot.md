@@ -18,9 +18,6 @@ introduced: 0.7.0
 The `pivot()` function collects values stored vertically (column-wise) in a table
 and aligns them horizontally (row-wise) into logical sets.
 
-_**Function type:** Transformation_  
-_**Output data type:** Record_
-
 ```js
 pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
 ```
@@ -50,20 +47,14 @@ The output is constructed as follows:
 
 ## Parameters
 
-### rowKey
+### rowKey {data-type="array of strings"}
 List of columns used to uniquely identify a row for the output.
 
-_**Data type:** Array of strings_
-
-### columnKey
+### columnKey {data-type="array of strings"}
 List of columns used to pivot values onto each row identified by the rowKey.
 
-_**Data type:** Array of strings_
-
-### valueColumn
-The single column that contains the value to be moved around the pivot.
-
-_**Data type:** String_
+### valueColumn {data-type="string"}
+Column that contains the value to be moved around the pivot.
 
 ## Examples
 

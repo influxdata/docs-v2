@@ -20,8 +20,6 @@ introduced: 0.39.0
 The `experimental.group()` function introduces an `extend` mode to the existing
 [`group()`](/flux/v0.x/stdlib/universe/group/) function.
 
-_**Function type:** Transformation_
-
 {{% warn %}}
 This function will be removed once the proposed `extend` mode is sufficiently vetted.
 {{% /warn %}}
@@ -34,16 +32,12 @@ experimental.group(columns: ["host", "_measurement"], mode:"extend")
 
 ## Parameters
 
-### columns
+### columns {data-type="array of strings"}
 List of columns to use in the grouping operation.
 Defaults to `[]`.
 
-_**Data type:** Array of strings_
-
-### mode
+### mode {data-type="string"}
 The mode used to group columns.
-
-_**Data type:** String_
 
 {{% note %}}
 `extend` is the only mode available to `experimental.group()`.

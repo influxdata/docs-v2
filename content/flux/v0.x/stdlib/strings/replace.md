@@ -35,22 +35,14 @@ strings.replace(v: "oink oink oink", t: "oink", u: "moo", i: 2)
 ### v
 The string value to search.
 
-_**Data type:** String_
-
-### t
+### t {data-type="string"}
 The substring value to replace.
 
-_**Data type:** String_
-
-### u
+### u {data-type="string"}
 The replacement for `i` instances of `t`.
 
-_**Data type:** String_
-
-### i
+### i {data-type="int"}
 The number of non-overlapping `t` matches to replace.
-
-_**Data type:** Integer_
 
 ## Examples
 

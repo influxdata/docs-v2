@@ -29,15 +29,11 @@ strings.containsStr(v: "This and that", substr: "and")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### substr
+### substr {data-type="string"}
 The substring value to search for.
-
-_**Data type:** String_
 
 ## Examples
 

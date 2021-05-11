@@ -30,10 +30,8 @@ dict.fromList(
 
 ## Parameters
 
-### pairs
+### pairs {data-type="array of records"}
 ({{< req >}}) List of records, each containing `key` and `value` properties.
-
-_**Data type:** Array of records_
 
 ## Examples
 

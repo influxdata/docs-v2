@@ -17,8 +17,6 @@ introduced: 0.45.0
 The `bigtable.from()` function retrieves data from a [Google Cloud Bigtable](https://cloud.google.com/bigtable/)
 data source.
 
-_**Function type:** Input_
-
 ```js
 import "experimental/bigtable"
 
@@ -32,7 +30,7 @@ bigtable.from(
 
 ## Parameters
 
-### token
+### token {data-type="string"}
 The Google Cloud IAM token to use to access the Cloud Bigtable database.
 
 _For more information, see the following:_
@@ -41,22 +39,14 @@ _For more information, see the following:_
 - [Google Cloud IAM How-to guides](https://cloud.google.com/iam/docs/how-to)
 - [Setting Up Authentication for Server to Server Production Applications on Google Cloud](https://cloud.google.com/docs/authentication/production)
 
-_**Data type:** String_
-
-### project
+### project {data-type="string"}
 The project ID of the Cloud Bigtable project to retrieve data from.
 
-_**Data type:** String_
-
-### instance
+### instance {data-type="string"}
 The instance ID of the Cloud Bigtable instance to retrieve data from.
 
-_**Data type:** String_
-
-### table
+### table {data-type="string"}
 The name of the Cloud Bigtable table to retrieve data from.
-
-_**Data type:** String_
 
 ## Examples
 

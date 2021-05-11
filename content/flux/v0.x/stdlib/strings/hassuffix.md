@@ -30,15 +30,11 @@ strings.hasSuffix(v: "go gopher", suffix: "go")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### suffix
+### suffix {data-type="string"}
 The suffix to search for.
-
-_**Data type:** String_
 
 ###### Filter based on the presence of a suffix in a column value
 ```js

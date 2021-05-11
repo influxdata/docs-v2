@@ -22,6 +22,7 @@ Import the `experimental/query` package:
 import "experimental/query"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}
 
 ## inBucket()

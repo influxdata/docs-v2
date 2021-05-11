@@ -30,15 +30,11 @@ math.atan2(y: 1.22, x: 3.14)
 
 ## Parameters
 
-### y
+### y {data-type="float"}
 The y coordinate used in the operation.
 
-_**Data type:** Float_
-
-### x
+### x {data-type="float"}
 The x coordinate used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

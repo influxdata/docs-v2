@@ -17,13 +17,11 @@ introduced: 0.7.0
 
 The `toFloat()` function converts all values in the `_value` column to floats.
 
-_**Function type:** Type conversion_  
-
 ```js
 toFloat()
 ```
 
-_**Supported data types:** Boolean | Integer | Numeric String | Uinteger_
+_**Supported data types:** Numeric String | Boolean | Integer | Uinteger_
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function

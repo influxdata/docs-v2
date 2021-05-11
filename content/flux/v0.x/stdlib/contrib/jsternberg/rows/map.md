@@ -23,7 +23,6 @@ that is faster, but more limited than `map()`.
 therefore, does not need to regroup tables.
 **Attempts to change columns in the group key are ignored.**
 
-_**Function type:** Transformation_
 
 ```js
 import "contrib/jsternberg/rows"
@@ -33,12 +32,10 @@ rows.map( fn: (r) => ({_value: r._value * 100.0}))
 
 ## Parameters
 
-### fn
+### fn {data-type="function"}
 
 A single argument function to apply to each record.
 The return value must be a record.
-
-_**Data type:** Function_
 
 {{% note %}}
 Use the `with` operator to preserve columns **not** in the group and **not**

@@ -27,15 +27,11 @@ math.pow(x: 2.0, y: 3.0)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The X value used in the operation.
 
-_**Data type:** Float_
-
-### y
+### y {data-type="float"}
 The Y value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

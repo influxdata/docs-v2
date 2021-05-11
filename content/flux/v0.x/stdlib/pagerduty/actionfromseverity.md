@@ -18,8 +18,6 @@ The `pagerduty.actionFromSeverity()` function converts a severity to a PagerDuty
 `ok` converts to `resolve`.
 All other severities convert to `trigger`.
 
-_**Function type:** Transformation_
-
 ```js
 import "pagerduty"
 
@@ -32,10 +30,8 @@ pagerduty.actionFromSeverity(
 
 ## Parameters
 
-### severity
+### severity {data-type="float"}
 The severity to convert to a PagerDuty action.
-
-_**Data type:** String_
 
 ## Function definition
 ```js

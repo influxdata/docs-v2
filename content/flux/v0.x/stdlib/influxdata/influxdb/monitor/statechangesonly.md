@@ -18,8 +18,6 @@ introduced: 0.65.0
 The `monitor.stateChangesOnly()` function takes a stream of tables that contains a `_level`
 column and returns a stream of tables where each record represents a state change.
 
-_**Function type:** Transformation_
-
 ```js
 import "influxdata/influxdb/monitor"
 

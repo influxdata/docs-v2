@@ -21,8 +21,6 @@ The `experimental.distinct()` function returns unique values from the `_value` c
 The `_value` of each output record is set to a distinct value in the specified column.
 `null` is considered a distinct value.
 
-_**Function type:** Selector_  
-
 ```js
 import "experimental"
 
@@ -43,7 +41,7 @@ the following:
 
 ## Parameters
 
-### tables
+### tables {data-type="stream of tables"}
 Input data.
 Default is pipe-forwarded data.
 

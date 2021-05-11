@@ -25,9 +25,6 @@ a specified quantile or it returns the record with the `_value` that represents 
 Which it returns depends on the [method](#method) used.
 `quantile()` supports columns with float values.
 
-_**Function type:** Aggregate or Selector_  
-_**Output data type:** Float | Record_
-
 ```js
 quantile(
   column: "_value",
@@ -45,22 +42,17 @@ value that represents the specified quantile.
 
 ## Parameters
 
-### column
-The column to use to compute the quantile.
-Defaults to `"_value"`.
+### column {data-type="string"}
+Column to use to compute the quantile.
+Default is `"_value"`.
 
-_**Data type:** String_
+### q {data-type="float"}
+({{< req >}})
+Value between 0 and 1 indicating the desired quantile.
 
-### q
-A value between 0 and 1 indicating the desired quantile.
-
-_**Data type:** Float_
-
-### method
-Defines the method of computation.
+### method {data-type="string"}
+Computation method.
 Default is `estimate_tdigest`.
-
-_**Data type:** String_
 
 The available options are:
 
@@ -74,12 +66,10 @@ An aggregate method that takes the average of the two points closest to the quan
 ##### exact_selector
 A selector method that returns the data point for which at least `q` points are less than.
 
-### compression
-Indicates how many centroids to use when compressing the dataset.
+### compression {data-type="float"}
+Number of centroids to use when compressing the dataset.
 A larger number produces a more accurate result at the cost of increased memory requirements.
-Defaults to `1000.0`.
-
-_**Data type:** Float_
+Default is `1000.0`.
 
 ## Examples
 

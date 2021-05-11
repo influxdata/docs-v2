@@ -27,12 +27,8 @@ math.copysign(x: 1.0, y: 2.0)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The magnitude used in the operation.
 
-_**Data type:** Float_
-
-### y
+### y {data-type="float"}
 The sign used in the operation.
-
-_**Data type:** Float_

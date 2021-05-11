@@ -25,9 +25,6 @@ incremented by the duration between points.
 When a point evaluates as `false`, the state duration is reset.
 The state duration is added as an additional column to each record.
 
-_**Function type:** Transformation_  
-_**Output data type:** Duration_
-
 {{% note %}}
 As the first point in the given state has no previous point, its
 state duration will be 0.
@@ -46,28 +43,22 @@ and does not affect the state duration._
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### fn
+### fn {data-type="function"}
 
 A single argument function that evaluates true or false to identify the state of the record.
 Records are passed to the function.
 Those that evaluate to `true` increment the state duration.
 Those that evaluate to `false` reset the state duration.
 
-_**Data type:** Function_
-
-### column
+### column {data-type="string"}
 
 The name of the column added to each record that contains the state duration.
 
-_**Data type:** String_
-
-### unit
+### unit {data-type="duration"}
 
 The unit of time in which the state duration is incremented.
 For example: `1s`, `1m`, `1h`, etc.
 The default unit is one second (`1s`).
-
-_**Data type:** Duration_
 
 ## Examples
 

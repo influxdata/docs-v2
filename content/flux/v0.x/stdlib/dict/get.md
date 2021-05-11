@@ -33,21 +33,15 @@ dict.get(
   {{< req "All paremeters are required" >}}
 </p>
 
-### dict
+### dict {data-type="dict"}
 Dictionary to return a value from.
 
-_**Data type:** Dictionary_
-
-### key
+### key {data-type="string, bool, int, uint, float, time, bytes"}
 Key to return from the dictionary.
 
-_**Data type:** String | Boolean | Integer | Uinteger | Float | Time | Bytes_
-
-### default
+### default {data-type="string, bool, int, uint, float, time, bytes"}
 Default value to return if the `key` does not exist in the dictionary.
 Must be the same type as values in the dictionary.
-
-_**Data type:** String | Boolean | Integer | Uinteger | Float | Time | Bytes_
 
 ## Examples
 

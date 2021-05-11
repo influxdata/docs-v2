@@ -27,7 +27,6 @@ when they hit a threshold or are reset.
 In the case of a wrap/reset, we can assume that the absolute delta between two
 points will be at least their non-negative difference.
 
-_**Function type:** Transformation_  
 _**Output data type:** Float_
 
 ```js
@@ -36,11 +35,9 @@ increase(columns: ["_value"])
 
 ## Parameters
 
-### columns
-The columns to use in the operation.
-Defaults to `["_value"]`.
-
-_**Data type:** Array of strings_
+### columns {data-type="array of strings"}
+Columns to use in the operation.
+Default is `["_value"]`.
 
 ## Output tables
 For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.

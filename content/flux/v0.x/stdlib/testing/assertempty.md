@@ -15,9 +15,7 @@ introduced: 0.18.0
 ---
 
 The `testing.assertEmpty()` function tests if an input stream is empty.
-If not empty, the function returns an error.
-
-_**Function type:** Test_  
+If not empty, the function returns an error. 
 
 ```js
 import "testing"

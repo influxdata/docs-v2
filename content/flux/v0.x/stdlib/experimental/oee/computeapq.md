@@ -43,7 +43,7 @@ and the following columns:
 
 ## Parameters
 
-### productionEvents
+### productionEvents {data-type="stream of tables"}
 ({{< req >}})
 Production events stream that contains the production state or start and stop events.
 Each row must contain the following columns:
@@ -54,9 +54,7 @@ Each row must contain the following columns:
   Use [`runningState`](#runningstate) to specify which value in the `state`
   column represents a running state.
 
-_**Data type:** Stream of Tables_
-
-### partEvents
+### partEvents {data-type="stream of tables"}
 ({{< req >}})
 Part events that contains the running totals of parts produced and parts that do not meet quality standards.
 Each row must contain the following columns:
@@ -68,29 +66,21 @@ Each row must contain the following columns:
 - **partCount:** Cumulative total of parts produced.
 - **badCount** Cumulative total of parts that do not meet quality standards.
 
-_**Data type:** Stream of Tables_
-
-### runningState
+### runningState {data-type="string"}
 ({{< req >}})
 State value that represents a running state.
 
-_**Data type:** String_
-
-### plannedTime
+### plannedTime {data-type="duration, int"}
 ({{< req >}})
 Total time that equipment is expected to produce parts.
-
-_**Data type:** Duration | Integer_
 
 {{% note %}}
 Integer values represent nanoseconds.
 {{% /note %}}
 
-### idealCycleTime
+### idealCycleTime {data-type="duration, int"}
 ({{< req >}})
 Ideal minimum time to produce one part.
-
-_**Data type:** Duration | Integer_
 
 {{% note %}}
 Integer values represent nanoseconds.

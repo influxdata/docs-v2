@@ -18,8 +18,6 @@ introduced: 0.20.0
 The `testing.loadMem()` function loads [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
 test data from memory to emulate query results returned by Flux.
 
-_**Function type:** Test_  
-
 ```js
 import "testing"
 
@@ -30,7 +28,7 @@ testing.loadMem(
 
 ## Parameters
 
-### csv
+### csv {data-type="string"}
 [Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) data to load.
 
 ## Examples

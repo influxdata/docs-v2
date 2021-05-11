@@ -30,44 +30,33 @@ of the [`window()` function](/flux/v0.x/stdlib/universe/window).
 By default the end boundary of an interval will align with the Unix epoch (zero time)
 modified by the offset of the `location` option.
 
-_**Function type:** Miscellaneous_  
-_**Output data type:** Record_
-
 ```js
 intervals()
 ```
 
 ## Parameters
 
-### every
+### every {data-type="duration"}
 The duration between starts of each of the intervals.
 The Nth interval start time is the initial start time plus the offset plus an Nth multiple of the every parameter.
 Defaults to the value of the `period` duration.
 
-_**Data type:** Duration_
-
-### period
+### period {data-type="duration"}
 The length of each interval.
 Each interval's stop time is equal to the interval start time plus the period duration.
 It can be negative, indicating the start and stop boundaries are reversed.
 Defaults to the value of the `every` duration.
 
-_**Data type:** Duration_
-
-### offset
+### offset {data-type="duration"}
 The duration by which to shift the window boundaries.
 It can be negative, indicating that the offset goes backwards in time.
 Defaults to `0`, which will align window end boundaries with the `every` duration.
 
-_**Data type:** Duration_
-
-### filter
+### filter {data-type="function"}
 A function that accepts an interval record and returns a boolean value.
 Each potential interval is passed to the filter function.
 When the function returns false, that interval is excluded from the set of intervals.
 Defaults to include all intervals.
-
-_**Data type:** Function_
 
 ## Examples
 

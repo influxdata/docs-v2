@@ -34,15 +34,11 @@ strings.index(v: "go gopher", substr: "go")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### substr
+### substr {data-type="string"}
 The substring to search for.
-
-_**Data type:** String_
 
 ## Examples
 

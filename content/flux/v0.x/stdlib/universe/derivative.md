@@ -21,8 +21,7 @@ introduced: 0.7.0
 The `derivative()` function computes the rate of change per [`unit`](#unit) of time between subsequent non-null records.
 It assumes rows are ordered by the `_time` column.
 The output table schema is the same as the input table.
-
-_**Function type:** Transformation_  
+ 
 _**Output data type:** Float_
 
 ```js
@@ -36,30 +35,22 @@ derivative(
 
 ## Parameters
 
-### unit
+### unit {data-type="duration"}
 The time duration used when creating the derivative.
 Defaults to `1s`.
 
-_**Data type:** Duration_
-
-### nonNegative
+### nonNegative {data-type="bool"}
 Indicates if the derivative is allowed to be negative. Default is `true`.
 When `true`, if a value is less than the previous value, it is assumed the
 previous value should have been a zero.
 
-_**Data type:** Boolean_
-
-### columns
+### columns {data-type="string"}
 The columns to use to compute the derivative.
 Defaults to `["_value"]`.
 
-_**Data type:** String_
-
-### timeColumn
+### timeColumn {data-type="string"}
 The column containing time values.
 Defaults to `"_time"`.
-
-_**Data type:** String_
 
 ## Output tables
 For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.

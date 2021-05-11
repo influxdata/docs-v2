@@ -36,12 +36,12 @@ option bigpanda.defaultUrl = "https://api.bigpanda.io/data/v2/alerts"
 option bigpanda.defaultTokenPrefix = "Bearer"
 ```
 
-### defaultUrl
+### defaultUrl {data-type="string"}
 The default [BigPanda alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works)
 for functions in the BigPanda package.
 Default is `https://api.bigpanda.io/data/v2/alerts`.
 
-### defaultTokenPrefix
+### defaultTokenPrefix {data-type="string"}
 The default HTTP authentication schema to use when authenticating with BigPanda.
 Default is `Bearer`.
 

@@ -10,13 +10,11 @@ aliases:
   - /influxdb/v2.0/reference/flux/stdlib/testing/load/
   - /influxdb/cloud/reference/flux/stdlib/testing/load/
 weight: 301
-flux/v0.x/tags: [tests, inputs]
+flux/v0.x/tags: [tests, inputs, transformations]
 introduced: 0.112.0
 ---
 
 The `testing.load()` function loads tests data from a stream of tables.
-
-_**Function type:** Test_  
 
 ```js
 import "testing"
@@ -26,7 +24,7 @@ testing.load()
 
 ## Parameters
 
-### tables
+### tables {data-type="stream of tables"}
 Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
@@ -52,5 +50,8 @@ want = array.from(rows: [
   {_time: 2021-01-01T02:00:00Z, _measurement: "m", _field: "t", _value: 3.1}
 ])
 
-testing.diff(got, want)
+testing.diff(
+  got: testing.load(tables: got),
+  want: testing.load(tables: want)
+)
 ```

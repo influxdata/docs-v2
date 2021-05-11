@@ -22,8 +22,6 @@ introduced: 0.7.0
 The `aggregateWindow()` function applies an aggregate or selector function
 (any function with a `column` parameter) to fixed windows of time.
 
-_**Function type:** Aggregate_  
-
 ```js
 aggregateWindow(
   every: 1m,
@@ -49,7 +47,7 @@ Each row in the output of `aggregateWindow` represents an aggregated window endi
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### every
+### every {data-type="duration"}
 
 The duration of windows.
 
@@ -59,46 +57,34 @@ The duration of windows.
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
-_**Data type:** Duration_
-
-### fn
+### fn {data-type="function"}
 
 The [aggregate function](/flux/v0.x/function-types#aggregates) used in the operation.
-
-_**Data type:** Function_
 
 {{% note %}}
 Only aggregate and selector functions with a `column` parameter (singular) work with `aggregateWindow()`.
 {{% /note %}}
 
-### column
+### column {data-type="string"}
 
 The column on which to operate.
 Defaults to `"_value"`.
 
-_**Data type:** String_
-
-### timeSrc
+### timeSrc {data-type="string"}
 
 The time column from which time is copied for the aggregate record.
 Defaults to `"_stop"`.
 
-_**Data type:** String_
-
-### timeDst
+### timeDst {data-type="string"}
 
 The "time destination" column to which time is copied for the aggregate record.
 Defaults to `"_time"`.
 
-_**Data type:** String_
-
-### createEmpty
+### createEmpty {data-type="bool"}
 
 For windows without data, this will create an empty window and fill
 it with a `null` aggregate value.
 Defaults to `true`.
-
-_**Data type:** Boolean_
 
 ## Examples
 The examples below use a `data` variable to represent a filtered data set.

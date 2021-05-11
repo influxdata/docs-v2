@@ -17,8 +17,6 @@ introduced: 0.70.0
 The `teams.message()` function sends a single message to a Microsoft Teams channel using
 an [incoming webhook](https://docs.microsoft.com/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/teams"
 
@@ -32,27 +30,19 @@ teams.message(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 Incoming webhook URL.
 
-_**Data type:** String_
-
-### title
+### title {data-type="string"}
 Message card title.
 
-_**Data type:** String_
-
-### text
+### text {data-type="string"}
 Message card text.
 
-_**Data type:** String_
-
-### summary
+### summary {data-type="string"}
 Message card summary.
 Default is `""`.
 If no summary is provided, Flux generates the summary from the message text.
-
-_**Data type:** String_
 
 ## Examples
 

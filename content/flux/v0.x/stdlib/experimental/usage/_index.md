@@ -27,4 +27,5 @@ Import the `experimental/usage` package:
 import "experimental/usage"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

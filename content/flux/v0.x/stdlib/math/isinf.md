@@ -32,12 +32,8 @@ math.isInf(f: 2.12, sign: 3)
 
 ## Parameters
 
-### f
+### f {data-type="float"}
 The value used in the evaluation.
 
-_**Data type:** Float_
-
-### sign
+### sign {data-type="int"}
 The sign used in the evaluation.
-
-_**Data type:** Integer_

@@ -33,13 +33,11 @@ geo.ST_Length(
 
 ## Parameters
 
-### geometry
+### geometry {data-type="record"}
 The GIS geometry to measure.
 Can be either point or linestring geometry.
 Points will always return `0.0`.
 _See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry-definitions)._
-
-_**Data type:** Record_
 
 ## Examples
 

@@ -19,8 +19,7 @@ The `drop()` function removes specified columns from a table.
 Columns are specified either through a list or a predicate function.
 When a dropped column is part of the group key, it will be removed from the key.
 If a specified column is not present in a table, it will return an error.
-
-_**Function type:** Transformation_  
+ 
 _**Output data type:** Record_
 
 ```js
@@ -37,20 +36,16 @@ drop(fn: (column) => column =~ /usage*/)
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### columns
+### columns {data-type="array of strings"}
 
 Columns to be removed from the table.
 Cannot be used with `fn`.
 
-_**Data type:** Array of strings_
-
-### fn
+### fn {data-type="function"}
 
 A predicate function which takes a column name as a parameter (`column`) and returns
 a boolean indicating whether or not the column should be removed from the table.
 Cannot be used with `columns`.
-
-_**Data type:** Function_
 
 ## Examples
 

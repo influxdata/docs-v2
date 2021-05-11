@@ -26,6 +26,23 @@ Import the `experimental/geo` package:
 import "experimental/geo"
 ```
 
+## Options
+```js
+import "experimental/geo"
+
+option geo.units = {distance: "km"}
+```
+
+### units {data-type="record"}
+Units of distances used in geotemporal operations.
+Default is `km`.
+
+**Supported units:**
+
+- `km` (kilometers)
+- `mile` (miles)
+
+## Functions
 {{< children type="functions" show="pages" >}}
 
 ## Geo schema requirements

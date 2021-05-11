@@ -23,9 +23,6 @@ Records with a `null` value for their time are filtered.
 Each input table's group key value is modified to fit within the time bounds.
 Tables where all records exists outside the time bounds are filtered entirely.
 
-_**Function type:** Transformation_  
-_**Output data type:* Record_
-
 ```js
 range(
   start: -15m,
@@ -43,24 +40,20 @@ start <= _time < stop
 
 ## Parameters
 
-### start
+### start {data-type="duration, time, int"}
 The earliest time to include in results.
 Results **include** points that match the specified start time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
-_**Data type:** Duration | Time | Integer_
-
-### stop
+### stop {data-type="duration, time, int"}
 The latest time to include in results.
 Results **exclude** points that match the specified stop time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 Defaults to `now()`.
-
-_**Data type:** Duration | Time | Integer_
 
 {{% note %}}
 Time values in Flux must be in [RFC3339 format](/flux/v0.x/spec/types#timestamp-format).

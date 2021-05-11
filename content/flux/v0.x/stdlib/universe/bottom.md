@@ -19,7 +19,6 @@ introduced: 0.7.0
 
 The `bottom()` function sorts a table by columns and keeps only the bottom `n` records.
 
-_**Function type:** Selector_  
 _**Output data type:** Record_
 
 ```js
@@ -33,17 +32,13 @@ bottom(n:10, columns: ["_value"])
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 Number of records to return.
 
-_**Data type:** Integer_
-
-### columns
+### columns {data-type="array of strings"}
 List of columns by which to sort.
 Sort precedence is determined by list order (left to right).
 Default is `["_value"]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 ```js

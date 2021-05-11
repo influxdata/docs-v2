@@ -53,35 +53,25 @@ For examples, see [below](#compared-to-similar-functions).
 
 ## Parameters
 
-### unit
+### unit {data-type="duration"}
 Duration unit of the calculated state duration.
 Default is `1ns`
 
-_**Data type:** Duration_
-
-### columnName
+### columnName {data-type="string"}
 Name of the result column.
 Default is `"duration"`.
 
-_**Data type:** String_
-
-### timeColumn
+### timeColumn {data-type="string"}
 Name of the time column.
 Default is `"_time"`.
 
-_**Data type:** String_
-
-### stopColumn
+### stopColumn {data-type="string"}
 Name of the stop column.
 Default is `"_stop"`.
 
-_**Data type:** String_
-
-### stop
+### stop {data-type="time"}
 The latest time to use when calculating results.
 If provided, `stop` overrides the time value in the [`stopColumn`](#stopcolumn).
-
-_**Data type:** Time_
 
 ## Examples
 

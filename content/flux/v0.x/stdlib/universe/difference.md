@@ -20,7 +20,6 @@ introduced: 0.7.1
 The `difference()` function computes the difference between subsequent records.  
 The user-specified columns of numeric type are subtracted while others are kept intact.
 
-_**Function type:** Transformation_  
 _**Output data type:** Float_
 
 ```js
@@ -33,24 +32,19 @@ difference(
 
 ## Parameters
 
-### nonNegative
+### nonNegative {data-type="bool"}
 Indicates if the difference is allowed to be negative.
 When set to `true`, if a value is less than the previous value, it is assumed the previous value should have been a zero.
+Default is `false`.
 
-_**Data type:** Boolean_
-
-### columns
+### columns {data-type="array of strings"}
 The columns to use to compute the difference.
-Defaults to `["_value"]`.
+Default is `["_value"]`.
 
-_**Data type:** Array of Strings_
-
-### keepFirst
+### keepFirst {data-type="bool"}
 Indicates the first row should be kept.
 If `true`, the difference will be `null`.
-Defaults to `false`.
-
-_**Data type:** Boolean_
+Default is `false`.
 
 ## Subtraction rules for numeric types
 - The difference between two non-null values is their algebraic difference;

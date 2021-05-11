@@ -34,21 +34,14 @@ schema.measurementTagValues(
 
 ## Parameters
 
-### bucket
+### bucket {data-type="string"}
 Bucket to return tag values from for a specific measurement.
 
-_**Data type:** String_
-
-### measurement
+### measurement {data-type="string"}
 Measurement to return tag values from.
 
-_**Data type:** String_
-
-### tag
+### tag {data-type="string"}
 Tag to return all unique values from.
-
-_**Data type:** String_
-
 
 ## Function definition
 ```js

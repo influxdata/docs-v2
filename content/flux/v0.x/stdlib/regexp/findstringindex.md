@@ -32,15 +32,11 @@ regexp.findStringIndex(r: /ab?/, v: "tablet")
 
 ## Parameters
 
-### r
+### r {data-type="regexp"}
 The regular expression used to search `v`.
 
-_**Data type:** Regexp_
-
-### v
+### v {data-type="string"}
 The string value to search.
-
-_**Data type:** String_
 
 ## Examples
 

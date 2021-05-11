@@ -28,15 +28,11 @@ math.mMin(x: 1.23, y: 4.56)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The X value used in the operation.
 
-_**Data type:** Float_
-
-### y
+### y {data-type="float"}
 The Y value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

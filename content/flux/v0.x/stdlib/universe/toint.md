@@ -17,8 +17,6 @@ introduced: 0.7.0
 
 The `toInt()` function converts all values in the `_value` column to integers.
 
-_**Function type:** Type conversion_  
-
 ```js
 toInt()
 ```

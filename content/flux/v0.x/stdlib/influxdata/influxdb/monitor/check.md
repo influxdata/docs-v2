@@ -19,8 +19,6 @@ introduced: 0.39.0
 The `monitor.check()` function checks input data and assigns a level
 (`ok`, `info`, `warn`, or `crit`) to each row based on predicate functions.
 
-_**Function type:** Transformation_
-
 ```js
 import "influxdata/influxdb/monitor"
 
@@ -39,42 +37,30 @@ to the `statuses` measurement in the `_monitoring` bucket.
 
 ## Parameters
 
-### crit
+### crit {data-type="function"}
 Predicate function that determines `crit` status.
 Default is `(r) => false`.
 
-_**Data type:** Function_
-
-### warn
+### warn {data-type="function"}
 Predicate function that determines `warn` status.
 Default is `(r) => false`.
 
-_**Data type:** Function_
-
-### info
+### info {data-type="function"}
 Predicate function that determines `info` status.
 Default is `(r) => false`.
 
-_**Data type:** Function_
-
-### ok
+### ok {data-type="function"}
 Predicate function that determines `ok` status.
 Default is `(r) => true`.
 
-_**Data type:** Function_
-
-### messageFn
+### messageFn {data-type="function"}
 A function that constructs a message to append to each row.
 The message is stored in the `_message` column.
 
-_**Data type:** Function_
-
-### data
+### data {data-type="record"}
 Meta data used to identify this check.
 
 **InfluxDB populates check data.**
-
-_**Data type:** Record_
 
 ## Examples
 

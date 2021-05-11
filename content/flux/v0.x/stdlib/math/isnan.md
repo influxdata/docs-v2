@@ -28,7 +28,5 @@ math.isNaN(f: 12.345)
 
 ## Parameters
 
-### f
+### f {data-type="float"}
 The value used in the evaluation.
-
-_**Data type:** Float_

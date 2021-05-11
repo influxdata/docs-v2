@@ -27,15 +27,11 @@ contains(
 
 ## Parameters
 
-### value
-The value for which to search.
+### value {data-type="string, bool, time, int, uint, float"}
+Value to search for.
 
-_**Data type:** Boolean | Integer | UInteger | Float | String | Time_
-
-### set
-The set of values in which to search.
-
-_**Data type:** Array of Booleans | Integers | UIntegers | Floats | Strings | Times_
+### set {data-type="array"}
+Set of values to search in.
 
 ## Examples
 

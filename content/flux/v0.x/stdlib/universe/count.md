@@ -21,7 +21,6 @@ introduced: 0.7.0
 The `count()` function outputs the number of records in a column.
 It counts both null and non-null records.
 
-_**Function type:** Aggregate_  
 _**Output data type:** Integer_
 
 ```js
@@ -42,11 +41,9 @@ To keep empty tables in your data, set the following parameters for the followin
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The column on which to operate.
 Defaults to `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 ```js

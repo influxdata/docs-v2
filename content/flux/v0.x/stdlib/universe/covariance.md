@@ -17,8 +17,7 @@ introduced: 0.7.0
 ---
 
 The `covariance()` function computes the covariance between two columns.
-
-_**Function type:** Transformation_  
+ 
 _**Output data type:** Float_
 
 ```js
@@ -27,20 +26,16 @@ covariance(columns: ["column_x", "column_y"], pearsonr: false, valueDst: "_value
 
 ## Parameters
 
-### columns
+### columns {data-type="array of strings"}
 ({{< req >}}) A list of **two columns** on which to operate.
 
-_**Data type:** Array of strings_
+### pearsonr {data-type="bool"}
+Normalized results to the Pearson R coefficient.
+Default is `false`.
 
-### pearsonr
-Indicates whether the result should be normalized to be the Pearson R coefficient.
-
-_**Data type:** Boolean_
-
-### valueDst
-The column into which the result will be placed. Defaults to `"_value"`.
-
-_**Data type:** String_
+### valueDst {data-type="string"}
+The column into which the result will be placed.
+Defaults to `"_value"`.
 
 ## Examples
 ```js

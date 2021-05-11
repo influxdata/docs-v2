@@ -34,15 +34,11 @@ strings.compare(v: "a", t: "b")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to compare.
 
-_**Data type:** String_
-
-### t
+### t {data-type="string"}
 The string value to compare against.
-
-_**Data type:** String_
 
 ## Examples
 

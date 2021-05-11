@@ -32,26 +32,20 @@ schema.tagKeys(
 
 ## Parameters
 
-### bucket
+### bucket {data-type="string"}
 Bucket to return tag keys from.
 
-_**Data type:** String_
-
-### predicate
+### predicate {data-type="function"}
 Predicate function that filters tag keys.
-_Defaults to `(r) => true`._
+_Default is `(r) => true`._
 
-_**Data type:** Function_
-
-### start
+### start {data-type="duration, time"}
 Oldest time to include in results.
-_Defaults to `-30d`._
+_Default is `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
 Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
-
-_**Data type:** Duration_
 
 ## Examples
 ```js

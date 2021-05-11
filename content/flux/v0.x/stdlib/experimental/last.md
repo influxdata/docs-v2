@@ -22,8 +22,6 @@ introduced: 0.112.0
 The `experimental.last()` function returns the last record with a non-null
 value in the `_value` column.
 
-_**Function type:** Selector_
-
 ```js
 import "experimental"
 
@@ -37,7 +35,7 @@ experimental.last()
 
 ## Parameters
 
-### tables
+### tables {data-type="stream of tables"}
 Input data.
 Default is pipe-forwarded data.
 

@@ -23,8 +23,6 @@ If a column does not exist, the function adds it with the specified value.
 _Once sufficiently vetted, `experimental.set()` will replace the existing
 [`set()` function](/flux/v0.x/stdlib/universe/set/)._
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental"
 
@@ -35,12 +33,10 @@ experimental.set(
 
 ## Parameters
 
-### o
+### o {data-type="record"}
 A record that defines the columns and values to set.
 The key of each key-value pair defines the column name.
 The value of each key-value pair defines the column value.
-
-_**Data type:** Record_
 
 ## Examples
 

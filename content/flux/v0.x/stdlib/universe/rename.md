@@ -23,8 +23,6 @@ There are two variants:
 - one which maps old column names to new column names
 - one which takes a mapping function.
 
-_**Function type:** Transformation_
-
 ```js
 rename(columns: {host: "server", facility: "datacenter"})
 
@@ -39,19 +37,15 @@ rename(fn: (column) => "{column}_new")
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### columns
+### columns {data-type="record"}
 
 A map of columns to rename and their corresponding new names.
 Cannot be used with `fn`.
 
-_**Data type:** Record_
-
-### fn
+### fn {data-type="function"}
 
 A function mapping between old and new column names.
 Cannot be used with `columns`.
-
-_**Data type:** Function_
 
 ## Examples
 

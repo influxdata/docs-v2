@@ -57,41 +57,29 @@ usage.from(
 
 ## Parameters
 
-### start
+### start {data-type="time, duration"}
 ({{< req >}})
 Earliest time to include in results.
 
-_**Data type:** Time | Duration_
-
-### stop
+### stop {data-type="time, duration"}
 ({{< req >}})
 Earliest time to include in results.
 
-_**Data type:** Time | Duration_
-
-### host
+### host {data-type="string"}
 [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
-_**Data type:** String_
-
-### orgID
+### orgID {data-type="string"}
 InfluxDB Cloud organization ID _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 InfluxDB Cloud [authentication token](/influxdb/v2.0/security/tokens/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
-_**Data type:** String_
-
-### raw
+### raw {data-type="bool"}
 Return raw, high resolution usage data instead of downsampled usage data.
 Default is `false`.
-
-_**Data type:** Boolean_
 
 `usage.from()` can query the following time ranges:
 

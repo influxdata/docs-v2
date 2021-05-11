@@ -22,8 +22,6 @@ The `group()` function groups records based on their values for specific columns
 It produces tables with new group keys based on provided properties.
 Specify an empty array of columns to ungroup data or merge all input tables into a single output table.
 
-_**Function type:** Transformation_
-
 ```js
 group(columns: ["host", "_measurement"], mode:"by")
 
@@ -51,16 +49,12 @@ data
 
 ## Parameters
 
-### columns
+### columns {data-type="array of strings"}
 List of columns to use in the grouping operation.
 Defaults to `[]`.
 
-_**Data type:** Array of strings_
-
-### mode
+### mode {data-type="string"}
 The mode used to group columns.
-
-_**Data type:** String_
 
 The following options are available:
 

@@ -26,8 +26,6 @@ introduced: 0.37.0
 The `exponentialMovingAverage()` function calculates the exponential moving average of values
 in the `_value` column grouped into `n` number of points, giving more weight to recent data.
 
-_**Function type:** Aggregate_  
-
 ```js
 exponentialMovingAverage(n: 5)
 ```
@@ -44,10 +42,8 @@ exponentialMovingAverage(n: 5)
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 The number of points to average.
-
-_**Data type:** Integer_
 
 ## Examples
 

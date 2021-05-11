@@ -27,10 +27,8 @@ math.sqrt(x: 4.0)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

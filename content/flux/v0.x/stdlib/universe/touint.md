@@ -17,13 +17,11 @@ introduced: 0.7.0
 
 The `toUInt()` function converts all values in the `_value` column to UIntegers.
 
-_**Function type:** Type conversion_  
-
 ```js
 toUInt()
 ```
 
-_**Supported data types:** Boolean | Duration | Float | Integer | Numeric String | Time_
+_**Supported data types:** Boolean | Duration | Numeric String | Float | Integer | Time_
 
 For duration and time values, `toUint()` returns the following:
 

@@ -16,8 +16,6 @@ introduced: 0.39.0
 
 The `date.year()` function returns the year of a specified time.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 
@@ -28,12 +26,10 @@ date.year(t: 2019-07-17T12:05:21.012Z)
 
 ## Parameters
 
-### t
+### t {data-type="time, duration"}
 The time to operate on.
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
-
-_**Data type:** Time | Duration_
 
 ## Examples
 

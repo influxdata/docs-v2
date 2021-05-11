@@ -30,18 +30,12 @@ regexp.splitRegexp(r: /a*/, v: "abaabaccadaaae", i: 5)
 
 ## Parameters
 
-### r
+### r {data-type="regexp"}
 The regular expression used to search `v`.
 
-_**Data type:** Regexp_
-
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### i
+### i {data-type="int"}
 The maximum number of substrings to return.
 `-1` returns all matching substrings.
-
-_**Data type:** Integer_

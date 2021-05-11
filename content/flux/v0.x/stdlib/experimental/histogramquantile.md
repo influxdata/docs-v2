@@ -35,9 +35,6 @@ The output table has the same group key as the input table.
 The function returns the value of the specified quantile from the histogram in the
 `_value` column and drops all columns not part of the group key.
 
-_**Function type:** Aggregate_  
-_**Output data type:** Float_
-
 ```js
 import "experimental"
 
@@ -49,18 +46,14 @@ experimental.histogramQuantile(
 
 ## Parameters
 
-### quantile
+### quantile {data-type="float"}
 A value between 0 and 1 indicating the desired quantile to compute.
 
-_**Data type:** Float_
-
-### minValue
+### minValue {data-type="float"}
 The assumed minimum value of the dataset.
 When the quantile falls below the lowest upper bound, interpolation is performed between `minValue` and the lowest upper bound.
 When `minValue` is equal to negative infinity, the lowest upper bound is used.
 Defaults to `0.0`.
-
-_**Data type:** Float_
 
 {{% note %}}
 When the quantile falls below the lowest upper bound (`le`),

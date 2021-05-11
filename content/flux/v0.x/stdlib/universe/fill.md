@@ -21,8 +21,6 @@ introduced: 0.14.0
 The `fill()` function replaces all null values in an input stream with a non-null value.
 The output stream is the same as the input stream with all null values replaced in the specified column.
 
-_**Function type:** Transformation_  
-
 ```js
 fill(column: "_value", value: 0.0)
 
@@ -33,26 +31,19 @@ fill(column: "_value", usePrevious: true)
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The column in which to replace null values. Defaults to `"_value"`.
 
-_**Data type:** String_
-
-### value
+### value {data-type="string, bool, int, uint, float, duration, time"}
 The constant value to use in place of nulls.
 The value type must match the value type of the `column`.
 
-_**Data type:** Boolean | Integer | UInteger | Float | String | Time | Duration_
-
-### usePrevious
+### usePrevious {data-type="bool"}
 When `true`, assigns the value set in the previous non-null row.
 
 {{% note %}}
 Cannot be used with `value`.
 {{% /note %}}
-
-_**Data type:** Boolean_
-
 
 ## Examples
 

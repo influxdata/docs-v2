@@ -17,8 +17,6 @@ introduced: 0.43.0
 
 The `pagerduty.endpoint()` function sends a message to PagerDuty that includes output data.
 
-_**Function type:** Output_
-
 ```js
 import "pagerduty"
 
@@ -29,21 +27,17 @@ pagerduty.endpoint(
 
 ## Parameters
 
-### pagerdutyURL
+### pagerdutyURL {data-type="string"}
 The PagerDuty API URL.
-Defaults to `https://events.pagerduty.com/v2/enqueue`.
-
-_**Data type:** String_
+Default is `https://events.pagerduty.com/v2/enqueue`.
 
 ## Usage
 `pagerduty.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 ({{< req >}}) A function that builds the record used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
 

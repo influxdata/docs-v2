@@ -22,8 +22,6 @@ introduced: 0.36.0
 The `mode()` function computes the mode or value that occurs most often in a
 specified column in the input table.
 
-_**Function type:** Aggregate_  
-
 ```js
 mode(column: "_value")
 ```
@@ -48,11 +46,9 @@ If there is no mode, `mode()` returns `null`.
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The column to use to compute the mode.
-Defaults to `"_value"`.
-
-_**Data type:** String_
+Default is `"_value"`.
 
 ## Examples
 

@@ -16,7 +16,7 @@ related:
   - /influxdb/v2.0/query-data/flux/percentile-quantile/
   - /flux/v0.x/stdlib/universe/quantile/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
-flux/v0.x/tags: [transformations, aggregates]
+flux/v0.x/tags: [transformations, aggregates, selectors]
 introduced: 0.107.0
 ---
 
@@ -24,8 +24,6 @@ The `experimental.quantile()` function outputs non-null records with values in
 the `_value` column that fall within the specified quantile or represent the specified quantile.
 Which it returns depends on the [method](#method) used.
 The `_value` column must contain float values.
-
-_**Function type:** Aggregate or Selector_  
 
 ```js
 import "experimental"
@@ -45,16 +43,12 @@ value that represents the specified quantile.
 
 ## Parameters
 
-### q
+### q {data-type="float"}
 A value between 0 and 1 thats specifies the quantile.
 
-_**Data type:** Float_
-
-### method
+### method {data-type="string"}
 Computation method.
 Default is `estimate_tdigest`.
-
-_**Data type:** String_
 
 **Available options:**
 
@@ -72,12 +66,10 @@ An aggregate method that takes the average of the two points closest to the quan
 ##### exact_selector
 A selector method that returns the data point for which at least `q` points are less than.
 
-### compression
+### compression {data-type="float"}
 Indicates how many centroids to use when compressing the dataset.
 A larger number produces a more accurate result at the cost of increased memory requirements.
 Defaults to `1000.0`.
-
-_**Data type:** Float_
 
 ## Examples
 

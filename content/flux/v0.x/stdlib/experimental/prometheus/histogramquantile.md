@@ -11,14 +11,12 @@ menu:
     name: prometheus.histogramQuantile
     parent: prometheus
 weight: 401
-flux/v0.x/tags: [transformations, prometheus]
+flux/v0.x/tags: [transformations, prometheus, aggregates]
 introduced: 0.51.0
 ---
 
 The `prometheus.histogramQuantile()` function calculates quantiles on a set of values
 assuming the given histogram data is scraped or read from a Prometheus data source.
-
-_**Function type:** Aggregate_
 
 ```js
 import "experimental/prometheus"
@@ -30,10 +28,8 @@ prometheus.histogramQuantile(
 
 ## Parameters
 
-### quantile
+### quantile {data-type="float"}
 A value between 0.0 and 1.0 indicating the desired quantile.
-
-_**Data type:** Float_
 
 ## Examples
 

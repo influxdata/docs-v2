@@ -34,15 +34,11 @@ strings.split(v: "a flux of foxes", t: " ")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to split.
 
-_**Data type:** String_
-
-### t
+### t {data-type="string"}
 The string value that acts as the separator.
-
-_**Data type:** String_
 
 ## Examples
 

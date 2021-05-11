@@ -17,35 +17,31 @@ The `linearBins()` function generates a list of linearly separated floats.
 It is a helper function meant to generate bin bounds for the
 [`histogram()` function](/flux/v0.x/stdlib/universe/histogram).
 
-_**Function type:** Miscellaneous_  
 _**Output data type:** Array of floats_
 
 ```js
-linearBins(start: 0.0, width: 5.0, count: 20, infinity: true)
+linearBins(
+  start: 0.0,
+  width: 5.0,
+  count: 20,
+  infinity: true
+)
 ```
 
 ## Parameters
 
-### start
+### start {data-type="float"}
 The first value in the returned list.
 
-_**Data type:** Float_
-
-### width
+### width {data-type="float"}
 The distance between subsequent bin values.
 
-_**Data type:** Float_
-
-### count
+### count {data-type="int"}
 The number of bins to create.
 
-_**Data type:** Integer_
-
-### infinity
+### infinity {data-type="bool"}
 When `true`, adds an additional bin with a value of positive infinity.
 Defaults to `true`.
-
-_**Data type:** Boolean_
 
 ## Examples
 

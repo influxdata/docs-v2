@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.nanosecond()` function returns the nanosecond of a specified time.
 Results range from `[0-999999999]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 
@@ -30,12 +28,10 @@ date.nanosecond(t: 2019-07-17T12:05:21.012934584Z)
 
 ## Parameters
 
-### t
+### t {data-type="time, duration"}
 The time to operate on.
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
-
-_**Data type:** Time | Duration_
 
 ## Examples
 

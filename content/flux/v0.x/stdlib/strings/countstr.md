@@ -30,15 +30,11 @@ strings.countStr(v: "Hello mellow fellow", substr: "ello")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### substr
+### substr {data-type="string"}
 The substring to count.
-
-_**Data type:** String_
 
 {{% note %}}
 The function counts only non-overlapping instances of `substr`.

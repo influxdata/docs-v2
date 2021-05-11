@@ -24,8 +24,6 @@ The `kaufmansER()` function calculates the Kaufman's Efficiency Ratio (KER) usin
 values in an input table.
 The function operates on the `_value` column.
 
-_**Function type:** Transformation_
-
 ```js
 kaufmansER(n: 10)
 ```
@@ -36,10 +34,9 @@ Higher values represent a more efficient or trending market.
 
 ## Parameters
 
-### n
+### n {data-type="int"}
+({{< req >}})
 The period or number of points to use in the calculation.
-
-_**Data type:** Integer_
 
 ## Examples
 ```js

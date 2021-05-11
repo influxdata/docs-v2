@@ -31,10 +31,8 @@ strings.title(v: "a flux of foxes")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to convert.
-
-_**Data type:** String_
 
 ## Examples
 

@@ -17,8 +17,6 @@ introduced: 0.66.0
 The `pushbullet.pushNote()` function sends a push notification of type `note`
 to the Pushbullet API.
 
-_**Function type:** Output_
-
 ```js
 import "pushbullet"
 
@@ -32,30 +30,22 @@ pushbullet.pushNote(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 Pushbullet API URL.
 Defaults to `https://api.pushbullet.com/v2/pushes`.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 [Pushbullet API token](https://get.pushbullet.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
 to use when interacting with Pushbullet.
 Defaults to `""`.
 
-_**Data type:** String_
-
-### title
+### title {data-type="string"}
 ({{< req >}})
 Title of the notification.
 
-_**Data type:** String_
-
-### text
+### text {data-type="string"}
 ({{< req >}})
 Text to display in the notification.
-
-_**Data type:** String_
 
 ## Examples
 

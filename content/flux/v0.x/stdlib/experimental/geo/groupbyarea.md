@@ -21,8 +21,6 @@ Area sizes are determined by the specified [`level`](#level).
 Each geographic area is assigned a unique identifier which is stored in the [`newColumn`](#newcolumn).
 Results are grouped by `newColumn`.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 
@@ -35,22 +33,16 @@ geo.groupByArea(
 
 ## Parameters
 
-### newColumn
+### newColumn {data-type="string"}
 Name of the new column that stores the unique identifier for a geographic area.
 
-_**Data type:** String_
-
-### level
+### level {data-type="int"}
 [S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used
 to determine the size of each geographic area.
 
-_**Data type:** Integer_
-
-### s2cellIDLevel
+### s2cellIDLevel {data-type="int"}
 [S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used in `s2_cell_id` tag.
 Default is `-1`.
-
-_**Data type:** Integer_
 
 {{% note %}}
 When set to `-1`, `geo.groupByArea()` attempts to automatically detect the S2 Cell ID level.

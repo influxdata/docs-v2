@@ -20,7 +20,6 @@ introduced: 0.7.0
 
 The `first()` function selects the first non-null record from an input table.
 
-_**Function type:** Selector_  
 _**Output data type:** Record_
 
 ```js

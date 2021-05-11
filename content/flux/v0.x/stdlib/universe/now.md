@@ -18,9 +18,6 @@ introduced: 0.7.0
 
 The `now()` function returns the current time (UTC) or the time defined in the `now` option.
 
-_**Function type:** Date/Time_  
-_**Output data type:** Time_
-
 ```js
 now()
 ```

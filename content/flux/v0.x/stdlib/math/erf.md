@@ -27,10 +27,8 @@ math.erf(x: 22.6)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

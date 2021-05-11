@@ -28,10 +28,8 @@ schema.measurements(bucket: "example-bucket")
 
 ## Parameters
 
-### bucket
+### bucket {data-type="string"}
 Bucket to retrieve measurements from.
-
-_**Data type:** String_
 
 ## Function definition
 ```js

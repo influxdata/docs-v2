@@ -19,9 +19,6 @@ introduced: 0.7.0
 
 The `sample()` function selects a subset of the records from the input table.
 
-_**Function type:** Selector_  
-_**Output data type:** Record_
-
 ```js
 sample(n:5, pos: -1)
 ```
@@ -33,18 +30,15 @@ sample(n:5, pos: -1)
 
 ## Parameters
 
-### n
+### n {data-type="int"}
+({{< req >}})
 Sample every Nth element.
 
-_**Data type:** Integer_
-
-### pos
+### pos {data-type="int"}
 The position offset from the start of results where sampling begins.
 `pos` must be less than `n`.
 If `pos` is less than 0, a random offset is used.
-Defaults to `-1` (random offset).
-
-_**Data type:** Integer_
+Default is `-1` (random offset).
 
 ## Examples
 ```js

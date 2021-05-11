@@ -25,11 +25,9 @@ bigpanda.statusFromLevel(level: "crit")
 
 ## Parameters
 
-### level
+### level {data-type="string"}
 ({{< req >}})
 Alert level.
-
-_**Data type:** String_
 
 ##### Supported alert levels
 

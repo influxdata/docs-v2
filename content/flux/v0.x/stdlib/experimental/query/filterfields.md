@@ -16,8 +16,6 @@ introduced: 0.60.0
 
 The `query.filterFields()` function filters input data by field.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/query"
 
@@ -28,11 +26,9 @@ query.filterFields(
 
 ## Parameters
 
-### fields
+### fields {data-type="array of strings"}
 Fields to filter by.
 Must be exact string matches.
-
-_**Data type:** Array of strings_
 
 ## Examples
 

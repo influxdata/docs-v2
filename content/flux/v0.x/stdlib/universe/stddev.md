@@ -20,7 +20,6 @@ introduced: 0.7.0
 
 The `stddev()` function computes the standard deviation of non-null records in a specified column.
 
-_**Function type:** Aggregate_  
 _**Output data type:** Float_
 
 ```js
@@ -32,17 +31,13 @@ stddev(
 
 ## Parameters
 
-### column
-The column on which to operate.
-Defaults to `"_value"`.
+### column {data-type="string"}
+Column to operate on.
+Default is `"_value"`.
 
-_**Data type:** String_
-
-### mode
-The standard deviation mode or type of standard deviation to calculate.
+### mode {data-type="string"}
+Standard deviation mode or type of standard deviation to calculate.
 Defaults to `"sample"`.
-
-_**Data type:** String_
 
 The available options are:
 

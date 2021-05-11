@@ -18,9 +18,6 @@ introduced: 0.7.0
 The `unique()` function returns all records containing unique values in a specified column.
 Group keys, record columns, and values are **not** modified.
 
-_**Function type:** Selector_  
-_**Output data type:** Record_
-
 ```js
 unique(column: "_value")
 ```
@@ -32,11 +29,9 @@ unique(column: "_value")
 
 ## Parameters
 
-### column
-The column searched for unique values.
+### column {data-type="string"}
+Column to search for unique values.
 Defaults to `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 ```js

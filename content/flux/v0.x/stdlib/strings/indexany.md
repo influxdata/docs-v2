@@ -33,15 +33,11 @@ strings.indexAny(v: "chicken", chars: "aeiouy")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### chars
+### chars {data-type="string"}
 Characters to search for.
-
-_**Data type:** String_
 
 ## Examples
 

@@ -21,8 +21,6 @@ introduced: 0.29.0
 The `getRecord()` function extracts a record from a table given the record's index.
 If the index is out of bounds, the function errors.
 
-_**Function type:** Stream and table_  
-
 ```js
 getRecord(idx: 0)
 ```
@@ -36,10 +34,8 @@ to extract a single table from a stream of tables.
 
 ## Parameters
 
-### idx
+### idx {data-type="int"}
 Index of the record to extract.
-
-_**Data type:** Integer_
 
 ## Example
 ```js

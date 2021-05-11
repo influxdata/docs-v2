@@ -17,13 +17,11 @@ introduced: 0.7.0
 
 The `toBool()` function converts all values in the `_value` column to booleans.
 
-_**Function type:** Type conversion_  
-
 ```js
 toBool()
 ```
 
-_**Supported data types:** Float | Integer | String | Uinteger_
+_**Supported data types:** String | Integer | Uinteger | Float_
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function

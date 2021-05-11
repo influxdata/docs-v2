@@ -22,8 +22,6 @@ introduced: 0.39.0
 The `chandeMomentumOscillator()` function applies the technical momentum indicator
 developed by Tushar Chande.
 
-_**Function type:** Transformation_
-
 ```js
 chandeMomentumOscillator(
   n: 10,
@@ -39,16 +37,12 @@ It then multiplies the result by 100 and returns a value between -100 and +100.
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 The period or number of points to use in the calculation.
 
-_**Data type:** Integer_
-
-### columns
+### columns {data-type="array of strings"}
 The columns to operate on.
 Defaults to `["_value"]`.
-
-_**Data type: Array of Strings**_
 
 ## Output tables
 For each input table with `x` rows, `chandeMomentumOscillator()` outputs a table

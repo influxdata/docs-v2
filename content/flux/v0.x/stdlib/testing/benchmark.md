@@ -20,8 +20,6 @@ The `testing.benchmark()` function executes a test case without comparing test o
 This lets you accurately benchmark a test case without the added overhead of comparing
 test output that occurs in [`testing.run()`](/flux/v0.x/stdlib/testing/run/).
 
-_**Function type:** Test_  
-
 ```js
 import "testing"
 
@@ -32,10 +30,8 @@ testing.benchmark(
 
 ## Parameters
 
-### case
+### case {data-type="function"}
 Test case to benchmark.
-
-_**Data type:** Function_
 
 ## Examples
 

@@ -21,8 +21,6 @@ The `geo.toRows()` function pivots data into row-wise sets base on time.
 For geo-temporal datasets, output rows include `lat` and `lon` columns required by
 many Geo package functions.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

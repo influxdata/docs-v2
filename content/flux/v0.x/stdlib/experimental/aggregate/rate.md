@@ -18,8 +18,6 @@ introduced: 0.61.0
 
 The `aggregate.rate()` function calculates the rate of change per windows of time.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/aggregate"
 
@@ -32,20 +30,14 @@ aggregate.rate(
 
 ## Parameters
 
-### every
+### every {data-type="duration"}
 Duration of time windows.
 
-_**Data type:** Duration_
-
-### groupColumns
+### groupColumns {data-type="array of strings"}
 List of columns to group by. Defaults to `[]`.
 
-_**Data type:** Array of strings_
-
-### unit
+### unit {data-type="duration"}
 The time duration to use when calculating the rate. Defaults to `1s`.
-
-_**Data type:** Duration_
 
 ## Examples
 

@@ -15,8 +15,6 @@ introduced: 0.20.0
 
 The `testing.run()` function executes a specified test case.
 
-_**Function type:** Test_  
-
 ```js
 import "testing"
 
@@ -27,10 +25,8 @@ testing.run(
 
 ## Parameters
 
-### case
+### case {data-type="function"}
 Test case to run.
-
-_**Data type:** Function_
 
 ## Examples
 

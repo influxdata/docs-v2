@@ -15,9 +15,6 @@ introduced: 0.38.0
 
 The `runtime.version()` function returns the current Flux version.
 
-_**Function type:** Miscellaneous_  
-_**Output data type:** String_
-
 ```js
 import "runtime"
 

@@ -30,20 +30,14 @@ strings.substring(v: "influx", start: 0, end: 4)
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### start
+### start {data-type="int"}
 The starting inclusive index of the substring.
 
-_**Data type:** Integer_
-
-### end
+### end {data-type="int"}
 The ending exclusive index of the substring.
-
-_**Data type:** Integer_
 
 ## Examples
 

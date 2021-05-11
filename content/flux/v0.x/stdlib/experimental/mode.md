@@ -21,8 +21,6 @@ introduced: 0.107.0
 The `experimental.mode()` function computes the mode or value that occurs most
 often in the `_value` column in each input table.
 
-_**Function type:** Aggregate_  
-
 ```js
 import "experimental"
 

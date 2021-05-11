@@ -22,9 +22,6 @@ The `experimental.mean()` function computes the mean or average of non-null
 values in the `_value` column of each input table.
 Output tables contain a single row the with the calculated mean in the `_value` column.
 
-_**Function type:** Aggregate_  
-_**Output data type:** Float_
-
 ```js
 import "experimental"
 

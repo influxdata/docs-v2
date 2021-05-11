@@ -26,10 +26,8 @@ tasks.lastSuccess(orTime: 2020-01-01T00:00:00Z)
 
 ## Parameters
 
-### orTime
+### orTime {data-type="duration, time"}
 The default time value returned if the task has never successfully run.
-
-_**Data type:** Time | Duration_
 
 ## Examples
 

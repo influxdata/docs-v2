@@ -21,8 +21,6 @@ The `findRecord()` function returns a record at a specified index from the first
 table in a stream of tables where the group key values match the specified predicate.
 The function returns an empty record if no table is found or if the index is out of bounds.
 
-_**Function type:** Stream and table_  
-
 ```js
 findRecord(
   fn: (key) => key._field == "fieldName"),
@@ -32,16 +30,12 @@ findRecord(
 
 ## Parameters
 
-### fn
+### fn {data-type="function"}
 A predicate function for matching keys in a table's group key.
 Expects a `key` argument that represents a group key in the input stream.
 
-_**Data type:** Function_
-
-### idx
+### idx {data-type="int"}
 Index of the record to extract.
-
-_**Data type:** Integer_
 
 ## Example
 ```js

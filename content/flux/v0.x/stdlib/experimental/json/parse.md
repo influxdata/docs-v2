@@ -18,8 +18,6 @@ The `json.parse()` function takes JSON data as bytes and returns a value.
 The function can return lists, records, strings, booleans, and float values.
 All numeric values are returned as floats.
 
-_**Function type:** Type conversion_
-
 ```js
 import "experimental/json"
 
@@ -30,11 +28,8 @@ json.parse(
 
 ## Parameters
 
-### data
+### data {data-type="bytes"}
 JSON data to parse.
-
-_**Data type:** Bytes_
-
 
 ## Examples
 

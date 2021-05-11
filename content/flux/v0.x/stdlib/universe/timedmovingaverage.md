@@ -26,8 +26,6 @@ introduced: 0.36.0
 The `timedMovingAverage()` function calculates the mean of values in a defined time
 range at a specified frequency.
 
-_**Function type:** Transformation_  
-
 ```js
 timedMovingAverage(
   every: 1d,
@@ -38,22 +36,18 @@ timedMovingAverage(
 
 ## Parameters
 
-### every
-The frequency of time windows.
+### every {data-type="duration"}
+({{< req >}})
+Frequency of time windows.
 
-_**Data type:** Duration_
-
-### period
-The length of each averaged time window.
+### period {data-type="duration"}
+({{< req >}})
+Length of each averaged time window.
 _A negative duration indicates start and stop boundaries are reversed._
 
-_**Data type:** Duration_
-
-### column
-The column used to compute the moving average.
+### column {data-type="string"}
+Column used to compute the moving average.
 Defaults to `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 

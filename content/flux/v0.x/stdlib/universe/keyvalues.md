@@ -24,8 +24,6 @@ introduced: 0.13.0
 The `keyValues()` function returns a table with the input table's group key plus two columns,
 `_key` and `_value`, that correspond to unique column + value pairs from the input table.
 
-_**Function type:** Transformation_  
-
 ```js
 keyValues(keyColumns: ["usage_idle", "usage_user"])
 ```
@@ -45,16 +43,14 @@ keyValues(fn: (schema) => schema.columns |> filter(fn: (r) =>  r.label =~ /usage
 {{% /note %}}
 -->
 
-### keyColumns
+### keyColumns {data-type="array of strings"}
 
 A list of columns from which values are extracted.
 All columns indicated must be of the same type.
 Each input table must have all of the columns listed by the `keyColumns` parameter.
 
-_**Data type:** Array of strings_
-
 <!--
-### fn
+### fn {data-type="function"}
 
 Function used to identify a set of columns.
 All columns indicated must be of the same type.
@@ -62,8 +58,6 @@ All columns indicated must be of the same type.
 {{% note %}}
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
-
-_**Data type:** Function_
 
 ## Additional requirements
 

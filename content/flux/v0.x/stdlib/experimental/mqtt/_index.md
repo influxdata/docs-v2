@@ -22,4 +22,5 @@ Import the `experimental/mqtt` package:
 import "experimental/mqtt"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}
