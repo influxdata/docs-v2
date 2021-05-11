@@ -18,8 +18,8 @@ menu:
 - Improve diagnostics for license problems. Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
 - Improved ingress metrics allow tracking points written per-measurement and per-login.
 - Support authorization for Kapacitor via LDAP.
-- Allow [configuring Flux query resource usage](enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
-- Upgrade to Flux v0.113.0. This includes:
+- Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
+- Upgrade to [Flux v0.113.0](/influxdb/cloud/reference/release-notes/flux/#v01130-2021-04-21). This includes:
   - The `To` function, which allows for writing back to InfluxDB.
   - Performance improvements which have been available in InfluxDB Cloud,
     and support for pushed-down window aggregates.
