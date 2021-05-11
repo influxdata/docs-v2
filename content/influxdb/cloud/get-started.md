@@ -1,6 +1,7 @@
 ---
 title: Get started with InfluxDB Cloud
-description: Get started
+description: >
+  Get started with InfluxDB Cloud by querying and visualizing demo data in InfluxDB Notebooks.
 menu:
   influxdb_cloud:
     name: Get started
