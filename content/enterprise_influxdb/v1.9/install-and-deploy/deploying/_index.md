@@ -14,6 +14,6 @@ menu:
 
 Deploy InfluxDB Enterprise clusters on the cloud provider of your choice.
 
-> **Note:** To install in your own environment, see [Install an InfluxDB Enterprise cluster in your own environment](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/).
+> **Note:** To install in your own environment, see [Install an InfluxDB Enterprise cluster in your own environment](/enterprise_influxdb/v1.9/install-and-deploy/installation/).
 
 {{< children hlevel="h2" >}}

@@ -11,7 +11,7 @@ menu:
     parent: Introduction
 ---
 
-Now that you successfully [installed and set up](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/) InfluxDB Enterprise,
+Now that you successfully [installed and set up](/enterprise_influxdb/v1.9/install-and-deploy/installation/) InfluxDB Enterprise,
 use [Chronograf to setup your cluster as a data source](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-clusters).
 
 More details on leveraging [Chronograf and getting started are available.](/{{< latest "chronograf" >}}/introduction/getting-started/)
