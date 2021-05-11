@@ -11,3 +11,5 @@ menu:
 weight: 401
 influxdb/cloud/tags: [functions, table, fill, package]
 ---
+
+{{< duplicate-oss >}}
