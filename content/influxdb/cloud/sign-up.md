@@ -13,7 +13,12 @@ influxdb/cloud/tags: [get-started, install]
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB v2.0, the time series
 platform purpose-built to collect, store, process and visualize metrics and events.
 
-_See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-influxdb-cloud-and-influxdb-oss)._
+{{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
+The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
+
+- [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
+  targets are not available in {{< cloud-name "short" >}}.
+- {{< cloud-name "short" >}} instances are currently limited to a single organization.
 
 ## Start for free
 
@@ -224,74 +229,6 @@ Sign in to [InfluxDB Cloud](https://cloud2.influxdata.com) using your email addr
 
 <a class="btn" href="https://cloud2.influxdata.com">Sign in to InfluxDB Cloud now</a>
 
-## Start working with your time series data
+## Get started working with data
 
-### Collect and write data
-
-Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx`
-command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB Cloud), or the InfluxDB v2 API client libraries.
-
-#### Use Telegraf
-
-Use Telegraf to quickly write data to {{< cloud-name >}}.
-Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an
-existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
-
-For details, see [Automatically configure Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/auto-config/)
-and [Manually update Telegraf configurations](/influxdb/cloud/write-data/no-code/use-telegraf/manual-config/).
-
-#### API, CLI, and client libraries
-
-For information about using the InfluxDB v2 API, `influx` CLI, and client libraries to write data,
-see [Write data to InfluxDB](/influxdb/cloud/write-data/).
-
-#### Demo data
-
-**{{< cloud-name "short" >}}** lets you [add a demo data bucket](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data)
-for quick, **free** access to time series data.
-
-### Query data
-
-Query data using Flux, the UI, and the `influx` command line interface.
-See [Query data](/influxdb/cloud/query-data/).
-
-### Process data
-
-Use InfluxDB tasks to process and downsample data. See [Process data](/influxdb/cloud/process-data/).
-
-### Visualize data
-
-Build custom dashboards to visualize your data.
-See [Visualize data](/influxdb/cloud/visualize-data/).
-
-### Monitor and alert
-
-Monitor your data and sends alerts based on specified logic.
-See [Monitor and alert](/influxdb/cloud/monitor-alert/).
-
-## Differences between InfluxDB Cloud and InfluxDB OSS
-
-{{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
-The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
-
-- [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
-  targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization.
-
-#### New features in InfluxDB Cloud
-
-- **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB OSS 2.0 and
-  jump into exploring InfluxDB Cloud technology.
-  The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
-- **Flux support**: [Flux](/influxdb/cloud/query-data/get-started/) is a standalone data
-  scripting and query language that increases productivity and code reuse.
-  It is the primary language for working with data within InfluxDB Cloud.
-  Flux can be used with other data sources as well, letting you work with data where it resides.
-- **Unified API**: Everything in InfluxDB (ingest, query, storage, and visualization)
-  is now accessible using a unified [InfluxDB v2 API](/influxdb/cloud/reference/api/) that
-  enables seamless movement between open source and cloud.
-- **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
-  the new user interface (InfluxDB UI) offers quick and effortless onboarding,
-  richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The [Usage-based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan)
-  offers more flexibility and ensures that you only pay for what you use.
+To learn how to get started working with time series data, see [Get Started](/influxdb/cloud/get-started).

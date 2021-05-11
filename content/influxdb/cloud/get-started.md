@@ -4,8 +4,10 @@ description: Get started
 menu:
   influxdb_cloud:
     name: Get started
+aliases:
+  - /influxdb/v2.0/cloud/get-started
 weight: 2
-influxdb/v2.0/tags: [get-started, install]
+influxdb/cloud/tags: [get-started, install]
 ---
 
 After you've signed up for and installed InfluxData, you're ready to start writing, querying, and visualizing data.
@@ -35,15 +37,12 @@ Now that we've added the demo data bucket, we're ready to create our notebook. T
 4. By default, a **Metric Selector** and **Visualization** cell appear (see [Cell types](#cell-types) below for details.)
 5. In the **Metric Selector** cell, click the **Select a bucket** dropdown and choose **Website Monitoring Bucket**.
 
-{{< img-hd src="/img/influxdb/gs_select_bucket.png" alt="Select bucket" />}}
+{{< img-hd src="/img/influxdb/cloud-gs-select-bucket.png" alt="Select bucket" />}}
 
 A list of measurements, fields, and tags for the Website Monitoring bucket appear.
 
 6. For this example, click the `response_time` field.
 7. Click **Preview** to preview the raw response time data in a table.
-
-{{< img-hd src="/img/influxdb/gs_select_bucket.png" alt="Preview table" />}}
-
 
 ## Visualize data
 
