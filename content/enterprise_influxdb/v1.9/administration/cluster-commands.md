@@ -161,7 +161,7 @@ Error: authorization failed.
 
 Adds a data node to a cluster.
 By default, `influxd-ctl` adds the specified data node to the local meta node's cluster.
-Use `add-data` instead of the [`join` argument](#join) when performing a [production installation](/enterprise_influxdb/v1.9/production_installation/data_node_installation/) of an InfluxDB Enterprise cluster.
+Use `add-data` instead of the [`join` argument](#join) when [installing a data node](/enterprise_influxdb/v1.9/installation/data_node_installation/) an InfluxDB Enterprise cluster.
 
 ##### Syntax
 
@@ -169,7 +169,7 @@ Use `add-data` instead of the [`join` argument](#join) when performing a [produc
 add-data <data-node-TCP-bind-address>
 ```
 
-Resources: [Production installation](/enterprise_influxdb/v1.9/production_installation/data_node_installation/)
+Resources: [Installation](/enterprise_influxdb/v1.9/installation/data_node_installation/)
 
 ##### Examples
 
@@ -199,9 +199,9 @@ Added data node 3 at cluster-data-node:8088
 
 Adds a meta node to a cluster.
 By default, `influxd-ctl` adds the specified meta node to the local meta node's cluster.
-Use `add-meta` instead of the [`join` argument](#join) when performing a [Production Installation](/enterprise_influxdb/v1.9/production_installation/meta_node_installation/) of an InfluxDB Enterprise cluster.
+Use `add-meta` instead of the [`join` argument](#join) when [installing a meta node](/enterprise_influxdb/v1.9/installation/meta_node_installation/) an InfluxDB Enterprise cluster.
 
-Resources: [Production installation](/enterprise_influxdb/v1.9/production_installation/data_node_installation/)
+Resources: [Installation](/enterprise_influxdb/v1.9/installation/data_node_installation/)
 
 #### Syntax
 
@@ -673,7 +673,9 @@ Successfully left cluster
 ### `remove-data`
 
 Removes a data node from a cluster.
-Use `remove-data` instead of the [`leave`](#leave) argument if you set up your InfluxDB Enterprise cluster with the [Production Installation](/enterprise_influxdb/v1.9/production_installation/) process.
+Use `remove-data` to erase data in the selected data node and permanently remove the node from the cluster.
+(To remove metadata about the node from other nodes in the cluster, see [`leave`](#leave).
+
 
 {{% warn %}}The `remove-data` argument is destructive; it erases all data from the specified data node.
 Use `remove-data` only if you want to *permanently* remove a data node from a cluster.
@@ -708,7 +710,8 @@ Removed data node at cluster-data-node-03:8088
 ### `remove-meta`
 
 Removes a meta node from the cluster.
-Use `remove-meta` instead of the [`leave`](#leave) command if you set up your InfluxDB Enterprise cluster with the [Production Installation](/enterprise_influxdb/v1.9/production_installation/) process.
+Use `remove-meta` to erase data in the selected meta node and permanently remove the node from the cluster.
+(To remove metadata about the node from other nodes in the cluster, see [`leave`](#leave).
 
 {{% warn %}}The `remove-meta` argument is destructive; it erases all metastore information from the specified meta node.
 Use `remove-meta` only if you want to *permanently* remove a meta node from a cluster.

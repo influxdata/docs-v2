@@ -14,9 +14,9 @@ Install or deploy your InfluxDB Enterprise cluster in the environment of your ch
 - Your own environment
 - Your cloud provider
 
-## Your production environment
+## Your own environment
 
-Learn how to [install a cluster in your own environment](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/).
+Learn how to [install a cluster in your own environment](/enterprise_influxdb/v1.9/install-and-deploy/installation/).
 
 ## Your cloud provider
 
