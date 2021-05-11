@@ -28,8 +28,6 @@ The `tripleExponentialDerivative()` function calculates a triple exponential
 derivative ([TRIX](https://en.wikipedia.org/wiki/Trix_(technical_analysis))) of
 input tables using `n` points.
 
-_**Function type:** Transformation_  
-
 ```js
 tripleExponentialDerivative(n: 5)
 ```
@@ -58,10 +56,8 @@ a negative value indicates decreasing momentum.
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 The number of points to use in the calculation.
-
-_**Data type:** Integer_
 
 ## Examples
 

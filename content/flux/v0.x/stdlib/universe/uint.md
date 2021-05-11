@@ -16,7 +16,6 @@ introduced: 0.7.0
 
 The `uint()` function converts a single value to a UInteger.
 
-_**Function type:** Type conversion_  
 _**Output data type:** UInteger_
 
 ```js
@@ -25,10 +24,8 @@ uint(v: "4")
 
 ## Parameters
 
-### v
+### v {data-type="string, bool, int, uint, float, duration, time"}
 The value to convert.
-
-_**Data type:** Boolean | Duration | Float | Integer | Numeric String | Time_
 
 For duration and time values, `uint()` returns the following:
 

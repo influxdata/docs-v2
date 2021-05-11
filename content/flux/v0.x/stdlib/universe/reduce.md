@@ -24,8 +24,6 @@ The `reduce()` function aggregates records in each table according to the reduce
 The output for each table is the group key of the table with columns corresponding
 to each field in the reducer record.
 
-_**Function type:** Transformation_
-
 ```js
 reduce(
   fn: (r, accumulator) => ({ sum: r._value + accumulator.sum }),
@@ -43,10 +41,8 @@ However, if two reduced tables write to the same destination group key, the func
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### fn
+### fn {data-type="function"}
 Function to apply to each record with a reducer record ([`identity`](#identity)).
-
-_**Data type:** Function_
 
 ###### fn syntax
 ```js
@@ -71,12 +67,10 @@ Record representing each row or record.
 #### accumulator
 Reducer record defined by [`identity`](#identity).
 
-### identity
+### identity {data-type="record"}
 Defines the reducer record and provides initial values to use when creating a reducer.
 May be used more than once in asynchronous processing use cases.
 _The data type of values in the `identity` record determine the data type of output values._
-
-_**Data type:** Record_
 
 ###### identity record syntax
 ```js

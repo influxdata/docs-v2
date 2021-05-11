@@ -15,8 +15,6 @@ introduced: 0.36.0
 
 The `sleep()` function delays execution by a specified duration.
 
-_**Function type:** Miscellaneous_
-
 ```js
 sleep(
   v: x,
@@ -26,19 +24,15 @@ sleep(
 
 ## Parameters
 
-### v
-Defines input tables.
+### v {data-type="stream of tables"}
+Input tables.
 `sleep()` accepts piped-forward data and passes it on unmodified after the
 specified [duration](#duration).
 If data is not piped-forward into `sleep()`, set `v` to specify a stream of tables.
 The examples [below](#examples) illustrate how.
 
-_**Data type:** Record_
-
-### duration
-The length of time to delay execution.
-
-_**Data type:** Duration_
+### duration {data-type="duration"}
+Length of time to delay execution.
 
 ## Examples
 

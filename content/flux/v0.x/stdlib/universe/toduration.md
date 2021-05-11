@@ -22,13 +22,11 @@ deprecated: 0.37.0
 
 The `toDuration()` function converts all values in the `_value` column to durations.
 
-_**Function type:** Type conversion_  
-
 ```js
 toDuration()
 ```
 
-_**Supported data types:** Integer | String | Uinteger_
+_**Supported data types:** String | Integer | Uinteger_
 
 {{% note %}}
 `duration()` assumes **numeric** input values are **nanoseconds**.

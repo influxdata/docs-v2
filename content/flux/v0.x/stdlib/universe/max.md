@@ -19,9 +19,6 @@ introduced: 0.7.0
 
 The `max()` function selects record with the highest `_value` from the input table.
 
-_**Function type:** Selector_  
-_**Output data type:** Record_
-
 ```js
 max(column: "_value")
 ```
@@ -33,11 +30,9 @@ max(column: "_value")
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The column to use to calculate the maximum value.
 Default is `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 ```js

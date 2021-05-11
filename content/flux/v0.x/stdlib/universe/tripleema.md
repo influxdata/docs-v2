@@ -30,8 +30,6 @@ data with less lag than
 [`exponentialMovingAverage()`](/flux/v0.x/stdlib/universe/exponentialmovingaverage/)
 and [`doubleEMA()`](http://localhost:1313/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/).
 
-_**Function type:** Transformation_  
-
 ```js
 tripleEMA(n: 5)
 ```
@@ -47,10 +45,8 @@ tripleEMA(n: 5)
 
 ## Parameters
 
-### n
-The number of points to average.
-
-_**Data type:** Integer_
+### n {data-type="int"}
+Number of points to average.
 
 ## Examples
 

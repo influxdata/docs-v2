@@ -19,9 +19,6 @@ introduced: 0.7.0
 
 The `min()` function selects record with the lowest `_value` from the input table.
 
-_**Function type:** Selector_  
-_**Output data type:** Record_
-
 ```js
 min(column: "_value")
 ```
@@ -33,11 +30,9 @@ min(column: "_value")
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The column to use to calculate the minimum value.
 Default is `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 ```js

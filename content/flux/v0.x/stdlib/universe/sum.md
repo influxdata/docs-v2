@@ -20,20 +20,15 @@ introduced: 0.7.0
 
 The `sum()` function computes the sum of non-null records in a specified column.
 
-_**Function type:** Aggregate_  
-_**Output data type:** Integer, UInteger, or Float (inherited from column type)_
-
 ```js
 sum(column: "_value")
 ```
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The column on which to operate.
-Defaults to `"_value"`.
-
-_**Data type:** String_
+Default is `"_value"`.
 
 ## Examples
 ```js

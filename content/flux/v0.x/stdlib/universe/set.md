@@ -28,15 +28,13 @@ set(key: "myKey",value: "myValue")
 
 ## Parameters
 
-### key
+### key {data-type="string"}
+({{< req >}})
 The label of the column to modify or set.
 
-_**Data type:** String_
-
-### value
+### value {data-type="string"}
+({{< req >}})
 The string value to set.
-
-_**Data type:** String_
 
 ## Examples
 ```js

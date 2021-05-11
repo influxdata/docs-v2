@@ -26,8 +26,6 @@ The output tables are the result of applying the map function to each record of 
 When the output record contains a different value for the group key, the record is regrouped into the appropriate table.
 When the output record drops a column that was part of the group key, that column is removed from the group key.
 
-_**Function type:** Transformation_
-
 ```js
 map(fn: (r) => ({ _value: r._value * r._value }))
 ```
@@ -38,12 +36,10 @@ map(fn: (r) => ({ _value: r._value * r._value }))
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### fn
+### fn {data-type="function"}
 
 A single argument function to apply to each record.
 The return value must be a record.
-
-_**Data type:** Function_
 
 {{% note %}}
 Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".

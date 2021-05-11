@@ -19,7 +19,6 @@ introduced: 0.7.0
 
 The `skew()` function outputs the skew of non-null records as a float.
 
-_**Function type:** Aggregate_  
 _**Output data type:** Float_
 
 ```js
@@ -28,11 +27,9 @@ skew(column: "_value")
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The column on which to operate.
-Defaults to `"_value"`.
-
-_**Data type:** String_
+Default is `"_value"`.
 
 ## Examples
 ```js

@@ -25,8 +25,6 @@ introduced: 0.38.0
 The `relativeStrengthIndex()` function measures the relative speed and change of
 values in an input table.
 
-_**Function type:** Transformation_  
-
 ```js
 relativeStrengthIndex(
   n: 5,
@@ -45,15 +43,13 @@ relativeStrengthIndex(
 
 ## Parameters
 
-### n
+### n {data-type="int"}
+({{< req >}})
 The number of values to use to calculate the RSI.
 
-_**Data type:** Integer_
-
-### columns
-Columns to operate on. _Defaults to `["_value"]`_.
-
-_**Data type:** Array of Strings_
+### columns {data-type="array of strings"}
+Columns to operate on.
+Default is `["_value"]`.
 
 ## Output tables
 For each input table with `x` rows, `relativeStrengthIndex()` outputs a table

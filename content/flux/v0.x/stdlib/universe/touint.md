@@ -23,7 +23,7 @@ _**Function type:** Type conversion_
 toUInt()
 ```
 
-_**Supported data types:** Boolean | Duration | Float | Integer | Numeric String | Time_
+_**Supported data types:** Boolean | Duration | Numeric String | Float | Integer | Time_
 
 For duration and time values, `toUint()` returns the following:
 

@@ -32,14 +32,15 @@ tail(
 
 ## Parameters
 
-### n
+### n {data-type="int"}
+({{< req >}})
 The maximum number of records to output.
 
 _**Data type:** Integer_
 
-### offset
+### offset {data-type="int"}
 The number of records to skip at the end of a table table before limiting to `n`.
-Defaults to `0`.
+Default is `0`.
 
 _**Data type:** Integer_
 

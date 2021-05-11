@@ -19,8 +19,6 @@ introduced: 0.7.0
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.
 
-_**Function type:** Output_
-
 ```js
 to(
   bucket: "my-bucket",
@@ -62,62 +60,44 @@ them to InfluxDB.
 You must provide a `bucket` or `bucketID` and an `org` or `orgID`.
 {{% /note %}}
 
-### bucket
+### bucket {data-type="string"}
 The bucket to write data to.
 `bucket` and `bucketID` are mutually exclusive.
 
-_**Data type:** String_
-
-### bucketID
+### bucketID {data-type="string"}
 The ID of the bucket to write data to.
 `bucketID` and `bucket` are mutually exclusive.
 
-_**Data type:** String_
-
-### org
+### org {data-type="string"}
 The organization name of the specified [`bucket`](#bucket).
 `org` and `orgID` are mutually exclusive.
 
-_**Data type:** String_
-
-### orgID
+### orgID {data-type="string"}
 The organization ID of the specified [`bucket`](#bucket).
 `orgID` and `org` are mutually exclusive.
 
-_**Data type:** String_
-
-<!-- ### host
+### host {data-type="string"}
 The remote InfluxDB host to which to write.
 _If specified, a `token` is required._
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 The authorization token to use when writing to a remote host.
 _Required when a `host` is specified._
 
-_**Data type:** String_ -->
-
-### timeColumn
+### timeColumn {data-type="string"}
 Time column of the output.
 Default is `"_time"`.
 
-_**Data type:** String_
-
-### tagColumns
+### tagColumns {data-type="array of strings"}
 Tag columns in the output.
 Defaults to all columns with type `string`, excluding all value columns and columns
 identified by [`fieldFn`](#fieldfn).
 
-_**Data type:** Array of strings_
-
-### fieldFn
+### fieldFn {data-type="function"}
 Function that takes a record from the input table and returns a record.
 For each record from the input table, `fieldFn` returns a record that maps the
 output field key to the output value.
 Default is `(r) => ({ [r._field]: r._value })`
-
-_**Data type:** Function_
 _**Output data type:** Record_
 
 {{% note %}}
