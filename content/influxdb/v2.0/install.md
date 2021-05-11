@@ -1,13 +1,12 @@
 ---
-title: Install InfluxDB OSS
-description: Download and install InfluxDB.
+title: Get started with InfluxDB
+description: Download, install, and setup InfluxDB, creating a default organization, user, and bucket.
 menu:
   influxdb_2_0:
-    name: Install 
+    name: Get started
 weight: 2
 influxdb/v2.0/tags: [get-started, install]
 aliases:
-  - /influxdb/v2.0/get-started/
   - /influxdb/v2.0/introduction/get-started/
   - /influxdb/v2.0/introduction/getting-started/
 ---
