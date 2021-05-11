@@ -32,7 +32,7 @@ The installation process sets up three [meta nodes](/enterprise_influxdb/v1.9/co
 InfluxDB Enterprise clusters require an *odd number* of *at least three* meta nodes
 for high availability and redundancy.
 We typically recommend three meta nodes.
-If your servers have communication problems chronic reliability issues, you can try adding nodes.
+If your servers have chronic communication or reliability issues, you can try adding nodes.
 
 > **Note**: Deploying multiple meta nodes on the same server is strongly discouraged
 > since it creates a larger point of potential failure if that particular server is unresponsive.
@@ -231,7 +231,7 @@ Added meta node x at enterprise-meta-0x:8091
 
 #### Verify cluster
 
-Issue the following command on any meta node:
+To verify the cluster, run the following command on any meta node:
 
 ```
 influxd-ctl show
@@ -253,7 +253,7 @@ enterprise-meta-03:8091   1.8.2-c1.8.2
 ```
 
 Note that your cluster must have at least three meta nodes.
-If you do not see your meta nodes in the output, please retry adding them to
+If you do not see your meta nodes in the output, retry adding them to
 the cluster.
 
 Once your meta nodes are part of your cluster move on to [the next steps to
