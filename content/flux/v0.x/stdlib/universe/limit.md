@@ -24,8 +24,6 @@ The function produces one output table for each input table.
 Each output table contains the first `n` records after the [`offset`](#offset).
 If the input table has less than `offset + n` records, `limit()` outputs all records after the `offset`.
 
-_**Function type:** Filter_
-
 ```js
 limit(
   n:10,
@@ -35,16 +33,13 @@ limit(
 
 ## Parameters
 
-### n
-The maximum number of records to output.
+### n {data-type="int"}
+({{< req >}})
+Maximum number of records to output.
 
-_**Data type:** Integer_
-
-### offset
-The number of records to skip per table before limiting to `n`.
-Defaults to `0`.
-
-_**Data type:** Integer_
+### offset {data-type="int"}
+Number of records to skip per table before limiting to `n`.
+Default is `0`.
 
 ## Examples
 

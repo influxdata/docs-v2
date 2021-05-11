@@ -27,10 +27,8 @@ math.ceil(x: 3.14)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

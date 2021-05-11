@@ -29,15 +29,11 @@ strings.hasPrefix(v: "go gopher", prefix: "go")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### prefix
+### prefix {data-type="string"}
 The prefix to search for.
-
-_**Data type:** String_
 
 ###### Filter based on the presence of a prefix in a column value
 ```js

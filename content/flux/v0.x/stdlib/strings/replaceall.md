@@ -32,20 +32,14 @@ strings.replaceAll(v: "oink oink oink", t: "oink", u: "moo")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to search.
 
-_**Data type:** String_
-
-### t
+### t {data-type="string"}
 The substring to replace.
 
-_**Data type:** String_
-
-### u
+### u {data-type="string"}
 The replacement for all instances of `t`.
-
-_**Data type:** String_
 
 ## Examples
 

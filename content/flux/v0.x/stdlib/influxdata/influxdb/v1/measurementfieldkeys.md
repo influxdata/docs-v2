@@ -38,25 +38,19 @@ v1.measurementFieldKeys(
 
 ## Parameters
 
-### bucket
+### bucket {data-type="string"}
 Bucket to retrieve field keys from.
 
-_**Data type:** String_
-
-### measurement
+### measurement {data-type="string"}
 Measurement to list field keys from.
 
-_**Data type:** String_
-
-### start
+### start {data-type="duration, time"}
 Oldest time to include in results.
 _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
 Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
-
-_**Data type:** Duration_
 
 ## Examples
 ```js

@@ -30,11 +30,8 @@ json.parse(
 
 ## Parameters
 
-### data
+### data {data-type="bytes"}
 JSON data to parse.
-
-_**Data type:** Bytes_
-
 
 ## Examples
 

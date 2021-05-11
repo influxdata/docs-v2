@@ -28,11 +28,9 @@ query.filterMeasurement(
 
 ## Parameters
 
-### measurement
+### measurement {data-type="string"}
 The name of the measurement to filter by.
 Must be an exact string match.
-
-_**Data type:** String_
 
 ## Examples
 

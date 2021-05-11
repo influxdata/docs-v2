@@ -21,8 +21,6 @@ introduced: 0.29.0
 The `getColumn()` function extracts a column from a table given its label.
 If the label is not present in the set of columns, the function errors.
 
-_**Function type:** Stream and table_  
-
 ```js
 getColumn(column: "_value")
 ```
@@ -36,10 +34,8 @@ to extract a single table from a stream of tables.
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 Name of the column to extract.
-
-_**Data type:** String_
 
 ## Example
 ```js

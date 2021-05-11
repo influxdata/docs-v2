@@ -30,10 +30,8 @@ strings.isLower(v: "a")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The single-character string value to test.
-
-_**Data type:** String_
 
 ## Examples
 

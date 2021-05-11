@@ -51,33 +51,27 @@ For each input table, the `oee.APQ` function outputs a table with a single row t
 
 ## Parameters
 
-### runningState
+### runningState {data-type="string"}
 ({{< req >}})
 State value that represents a running state.
 
-_**Data type:** String_
-
-### plannedTime
+### plannedTime {data-type="duration, int"}
 ({{< req >}})
 Total time that equipment is expected to produce parts.
 
-_**Data type:** Duration | Integer_
-
 {{% note %}}
 Integer values represent nanoseconds.
 {{% /note %}}
 
-### idealCycleTime
+### idealCycleTime {data-type="duration, int"}
 ({{< req >}})
 Ideal minimum time to produce one part.
 
-_**Data type:** Duration | Integer_
-
 {{% note %}}
 Integer values represent nanoseconds.
 {{% /note %}}
 
-### tables
+### tables {data-type="stream of tables"}
 Input data.
 Default is piped-forward data.
 _See [Required input schema](#required-input-schema)._

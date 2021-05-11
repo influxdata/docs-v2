@@ -29,29 +29,21 @@ bigpanda.sendAlert(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
 Default is the value of the [`bigpanda.defaultURL` option](/flux/v0.x/stdlib/contrib/rhajek/bigpanda/#defaulturl).
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 ({{< req >}})
 BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
 
-_**Data type:** String_
-
-### appKey
+### appKey {data-type="string"}
 ({{< req >}})
 BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
 
-_**Data type:** String_
-
-### status
+### status {data-type="string"}
 ({{< req >}})
 BigPanda [alert status](https://docs.bigpanda.io/reference#alerts).
-
-_**Data type:** String_
 
 **Supported statuses:**
 
@@ -60,12 +52,10 @@ _**Data type:** String_
 - `warning`
 - `acknowledged`
 
-### rec
+### rec {data-type="record"}
 ({{< req >}})
 Additional [alert parameters](https://docs.bigpanda.io/reference#alert-object)
 to send to the BigPanda alert API.
-
-_**Data type:** Record_
 
 ## Examples
 

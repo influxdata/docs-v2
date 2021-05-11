@@ -40,48 +40,36 @@ sensu.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 ({{< req >}})
 Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture)
 **without a trailing slash**. Example: `http://localhost:8080`.
 
-_**Data type:** String_
-
-### apiKey
+### apiKey {data-type="string"}
 ({{< req >}})
 Sensu [API Key](https://docs.sensu.io/sensu-go/latest/operations/control-access/).
 
-_**Data type:** String_
-
-### handlers
+### handlers {data-type="array of strings"}
 [Sensu handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/) to execute.
 Default is `[]`.
 
-_**Data type:** Array of strings_
-
-### namespace
+### namespace {data-type="string"}
 [Sensu namespace](https://docs.sensu.io/sensu-go/latest/reference/rbac/).
 Default is `default`.
 
-_**Data type:** String_
-
-### entityName
+### entityName {data-type="string"}
 Event source.
 Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
 Default is `influxdb`.
 
-_**Data type:** String_
-
 ## Usage
 `sensu.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the object used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the
 following fields:

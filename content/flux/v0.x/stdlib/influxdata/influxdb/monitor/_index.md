@@ -23,4 +23,5 @@ Import the `influxdata/influxdb/monitor` package:
 import "influxdata/influxdb/monitor"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

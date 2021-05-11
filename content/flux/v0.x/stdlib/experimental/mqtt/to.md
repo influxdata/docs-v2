@@ -39,17 +39,13 @@ mqtt.to(
 
 ## Parameters
 
-### broker
+### broker {data-type="string"}
 The MQTT broker connection string.
 
-_**Data type:** String_
-
-### topic
+### topic {data-type="string"}
 The MQTT topic to send data to.
 
-_**Data type:** String_
-
-### message
+### message {data-type="string"}
 The message or payload to send to the MQTT broker.
 The default payload is an output table.
 If there are multiple output tables, it sends each table as a separate MQTT message.
@@ -58,62 +54,42 @@ If there are multiple output tables, it sends each table as a separate MQTT mess
 When you specify a message, the function sends the message string only (no output table).
 {{% /note %}}
 
-_**Data type:** String_
-
-### qos
+### qos {data-type="int"}
 The [MQTT Quality of Service (QoS)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901103) level.
 Values range from `[0-2]`.
 Default is `0`.
 
-_**Data type:** Integer_
-
-### clientid
+### clientid {data-type="string"}
 The MQTT client ID.
 
-_**Data type:** String_
-
-### username
+### username {data-type="string"}
 The username to send to the MQTT broker.
 Username is only required if the broker requires authentication.
 If you provide a username, you must provide a [password](#password).
 
-_**Data type:** String_
-
-### password
+### password {data-type="string"}
 The password to send to the MQTT broker.
 Password is only required if the broker requires authentication.
 If you provide a password, you must provide a [username](#username).
 
-_**Data type:** String_
-
-### name
+### name {data-type="string"}
 _(Optional)_ The name for the MQTT message.
 
-_**Data type:** String_
-
-### timeout
+### timeout {data-type="duration"}
 The MQTT connection timeout.
 Default is `1s`.
 
-_**Data type:** Duration_
-
-### timeColumn
+### timeColumn {data-type="string"}
 The column to use as time values in the output line protocol.
 Default is `"_time"`.  
 
-_**Data type:** String_
-
-### tagColumns
+### tagColumns {data-type="array of strings"}
 The columns to use as tag sets in the output line protocol.
 Default is `[]`.  
 
-_**Data type: Array of strings**_
-
-### valueColumns
+### valueColumns {data-type="array of strings"}
 The columns to use as field values in the output line protocol.
 Default is `["_value"]`.
-
-_**Data type: Array of strings**_
 
 ## Examples
 

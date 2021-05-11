@@ -35,7 +35,7 @@ import "contib/sranka/teams"
 option teams.summaryCutoff = 70
 ```
 
-#### summaryCutoff
+### summaryCutoff {data-type="int"}
 Character limit for message summaries. Default is `70`.
 
 ## Functions

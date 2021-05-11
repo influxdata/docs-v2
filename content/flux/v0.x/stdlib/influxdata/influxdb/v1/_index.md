@@ -25,6 +25,7 @@ Import the `influxdata/influxdb/v1` package:
 import "influxdata/influxdb/v1"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}
 
 {{% warn %}}

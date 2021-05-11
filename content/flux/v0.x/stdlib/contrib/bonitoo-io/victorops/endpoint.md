@@ -34,11 +34,9 @@ victorops.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 ({{< req >}})
 [VictorOps REST endpoint integration URL](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/).
-
-_**Data type:** String_
 
 ##### VictorOps URL example
 ```
@@ -51,11 +49,9 @@ _Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing ke
 `victorops.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the object used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the
 following fields:

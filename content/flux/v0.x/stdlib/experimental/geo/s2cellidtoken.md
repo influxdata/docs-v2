@@ -31,28 +31,22 @@ geo.s2CellIDToken(
 
 ## Parameters
 
-### point
+### point {data-type="record"}
 Longitude and latitude in **decimal degrees** (WGS 84) to use when generating
 the S2 cell ID token.
 Record must contain `lat` and `lon` properties.
 
-_**Data type:** Record_
-
-### token
+### token {data-type="string"}
 S2 cell ID token to update.
 Useful for changing the S2 cell level of an existing S2 cell ID token.
-
-_**Data type:** String_
 
 {{% note %}}
 `point` and `token` are mutually exclusive.
 {{% /note %}}
 
-### level
+### level {data-type="int"}
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) to use
 when generating the S2 cell ID token.
-
-_**Data type:** Integer_
 
 ## Examples
 

@@ -31,21 +31,15 @@ http.get(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 The URL to send the GET request to.
 
-_**Data type:** String_
-
-### headers
+### headers {data-type="record"}
 Headers to include with the GET request.
 
-_**Data type:** Record_
-
-### timeout
+### timeout {data-type="duration"}
 Timeout for the GET request.
 Default is `30s`.
-
-_**Data type:** Duration_
 
 ## Response format
 `http.get` returns a record that contains the following:
@@ -54,20 +48,14 @@ _**Data type:** Duration_
 - [body](#body)
 - [headers](#headers)
 
-### statusCode
+### statusCode {data-type="int"}
 The HTTP status code returned by the GET request.
 
-_**Data type:** Integer_
-
-### body
+### body {data-type="bytes"}
 The response body.
 
-_**Data type:** Byte Array_
-
-### headers
+### headers {data-type="record"}
 Headers included with the response.
-
-_**Data type:** Record_
 
 ## Examples
 

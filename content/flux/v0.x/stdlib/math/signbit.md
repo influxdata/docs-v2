@@ -27,7 +27,5 @@ math.signbit(x: -1.2)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The value used in the evaluation.
-
-_**Data type:** Float_

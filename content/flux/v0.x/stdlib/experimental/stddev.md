@@ -21,9 +21,6 @@ introduced: 0.107.0
 The `experimental.stddev()` function computes the standard deviation of non-null
 values in the `_value` column for each input table.
 
-_**Function type:** Aggregate_  
-_**Output data type:** Float_
-
 ```js
 import "experimental"
 
@@ -32,11 +29,9 @@ experimental.stddev(mode: "sample")
 
 ## Parameters
 
-### mode
+### mode {data-type="string"}
 The standard deviation mode or type of standard deviation to calculate.
 Defaults to `"sample"`.
-
-_**Data type:** String_
 
 **Available options:**
 

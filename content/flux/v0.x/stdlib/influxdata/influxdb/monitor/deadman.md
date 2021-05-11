@@ -18,8 +18,6 @@ introduced: 0.39.0
 The `monitor.deadman()` function detects when a group stops reporting data.
 It takes a stream of tables and reports if groups have been observed since time `t`.
 
-_**Function type:** Transformation_
-
 ```js
 import "influxdata/influxdb/monitor"
 
@@ -32,7 +30,7 @@ Otherwise, `dead` is set to `true`.
 
 ## Parameters
 
-### t
+### t {data-type="time"}
 The time threshold for the deadman check.
 
 _**Data type:** Time_

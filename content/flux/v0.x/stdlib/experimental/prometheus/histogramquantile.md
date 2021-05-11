@@ -30,10 +30,8 @@ prometheus.histogramQuantile(
 
 ## Parameters
 
-### quantile
+### quantile {data-type="float"}
 A value between 0.0 and 1.0 indicating the desired quantile.
-
-_**Data type:** Float_
 
 ## Examples
 

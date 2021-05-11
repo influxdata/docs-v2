@@ -28,10 +28,8 @@ regexp.quoteMeta(v: ".+*?()|[]{}^$")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string that contains regular expression metacharacters to escape.
-
-_**Data type:** String_
 
 ## Examples
 

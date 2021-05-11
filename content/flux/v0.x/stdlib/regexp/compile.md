@@ -30,10 +30,8 @@ regexp.compile(v: "abcd")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to parse into a regular expression.
-
-_**Data type:** String_
 
 ## Examples
 

@@ -31,19 +31,15 @@ bigpanda.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
 Default is the value of the [`bigpanda.defaultURL` option](/flux/v0.x/stdlib/contrib/rhajek/bigpanda/#defaulturl).
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 ({{< req >}})
 BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
 
-_**Data type:** String_
-
-### appKey
+### appKey {data-type="string"}
 ({{< req >}})
 BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
 
@@ -51,11 +47,9 @@ BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-sys
 `bigpanda.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the object used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the
 following fields:

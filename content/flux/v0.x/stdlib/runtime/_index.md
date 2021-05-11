@@ -23,4 +23,5 @@ current Flux runtime. Import the `runtime` package:
 import "runtime"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

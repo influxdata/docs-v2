@@ -23,4 +23,5 @@ Import the `pushbullet` package:
 import "pushbullet"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

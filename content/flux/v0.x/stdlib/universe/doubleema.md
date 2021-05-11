@@ -28,8 +28,6 @@ The `doubleEMA()` function calculates the exponential moving average of values i
 the `_value` column grouped into `n` number of points, giving more weight to recent
 data at double the rate of [`exponentialMovingAverage()`](/flux/v0.x/stdlib/universe/exponentialmovingaverage/).
 
-_**Function type:** Transformation_  
-
 ```js
 doubleEMA(n: 5)
 ```
@@ -44,10 +42,8 @@ doubleEMA(n: 5)
 
 ## Parameters
 
-### n
-The number of points to average.
-
-_**Data type:** Integer_
+### n {data-type="int"}
+Number of points to average.
 
 ## Examples
 

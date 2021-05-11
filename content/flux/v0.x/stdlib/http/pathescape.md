@@ -31,10 +31,8 @@ http.pathEscape(
 
 ## Parameters
 
-### inputString
+### inputString {data-type="string"}
 The string to escape.
-
-_**Data type:** String_
 
 ## Examples
 

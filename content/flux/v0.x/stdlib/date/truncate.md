@@ -31,17 +31,13 @@ date.truncate(
 
 ## Parameters
 
-### t
+### t {data-type="time, duration"}
 The time to operate on.
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
-_**Data type:** Time | Duration_
-
-### unit
+### unit {data-type="duration"}
 The unit of time to truncate to.
-
-_**Data type:** Duration_
 
 {{% note %}}
 Only use `1` and the unit of time to specify the `unit`.

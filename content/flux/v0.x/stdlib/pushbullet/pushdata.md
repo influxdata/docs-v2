@@ -16,8 +16,6 @@ introduced: 0.66.0
 The `pushbullet.pushData()` function sends a push notification to the
 [Pushbullet API](https://docs.pushbullet.com/).
 
-_**Function type:** Output_
-
 ```js
 import "pushbullet"
 
@@ -35,27 +33,19 @@ pushbullet.pushData(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 Pushbullet API URL.
 Defaults to `https://api.pushbullet.com/v2/pushes`.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 [Pushbullet API token](https://get.pushbullet.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
 to use when interacting with Pushbullet.
 Defaults to `""`.
 
-_**Data type:** String_
-
-### data
+### data {data-type="record"}
 ({{< req >}})
 Data to send to the Pushbullet API.
 The function JSON-encodes data before sending it to Pushbullet.
-
-_**Data type:** Record_
-
-
 
 ## Examples
 

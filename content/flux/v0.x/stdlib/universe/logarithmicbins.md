@@ -17,35 +17,31 @@ The `logarithmicBins()` function generates a list of exponentially separated flo
 It is a helper function meant to generate bin bounds for the
 [`histogram()` function](/flux/v0.x/stdlib/universe/histogram).
 
-_**Function type:** Miscellaneous_  
 _**Output data type:** Array of floats_
 
 ```js
-logarithmicBins(start:1.0, factor: 2.0, count: 10, infinity: true)
+logarithmicBins(
+  start:1.0, 
+  factor: 2.0, 
+  count: 10, 
+  infinity: true
+)
 ```
 
 ## Parameters
 
-### start
+### start {data-type="float"}
 The first value in the returned bin list.
 
-_**Data type:** Float_
-
-### factor
+### factor {data-type="float"}
 The multiplier applied to each subsequent bin.
 
-_**Data type:** Float_
-
-### count
+### count {data-type="int"}
 The number of bins to create.
 
-_**Data type:** Integer_
-
-### infinity
+### infinity {data-type="bool"}
 When `true`, adds an additional bin with a value of positive infinity.
 Defaults to `true`.
-
-_**Data type:** Boolean_
 
 ## Examples
 ```js

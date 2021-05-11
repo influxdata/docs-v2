@@ -30,10 +30,8 @@ math.log1p(x: 0.56)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

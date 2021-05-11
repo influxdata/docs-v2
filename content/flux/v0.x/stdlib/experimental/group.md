@@ -34,16 +34,12 @@ experimental.group(columns: ["host", "_measurement"], mode:"extend")
 
 ## Parameters
 
-### columns
+### columns {data-type="array of strings"}
 List of columns to use in the grouping operation.
 Defaults to `[]`.
 
-_**Data type:** Array of strings_
-
-### mode
+### mode {data-type="string"}
 The mode used to group columns.
-
-_**Data type:** String_
 
 {{% note %}}
 `extend` is the only mode available to `experimental.group()`.

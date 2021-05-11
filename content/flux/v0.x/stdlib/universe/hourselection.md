@@ -19,8 +19,6 @@ introduced: 0.39.0
 
 The `hourSelection()` function retains all rows with time values in a specified hour range.
 
-_**Function type:** Transformation_  
-
 ```js
 hourSelection(
   start: 9,
@@ -31,23 +29,19 @@ hourSelection(
 
 ## Parameters
 
-### start
+### start {data-type="int"}
+({{< req >}})
 The first hour of the hour range (inclusive).
 Hours range from `[0-23]`.
 
-_**Data type:** Integer_
-
-### stop
+### stop {data-type="int"}
+({{< req >}})
 The last hour of the hour range (inclusive).
 Hours range from `[0-23]`.
 
-_**Data type:** Integer_
-
-### timeColumn
+### timeColumn {data-type="string"}
 The column that contains the time value.
 Default is `"_time"`.
-
-_**Data type:** String_
 
 ## Examples
 

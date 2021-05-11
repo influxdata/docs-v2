@@ -16,7 +16,6 @@ introduced: 0.7.0
 
 The `duration()` function converts a single value to a duration.
 
-_**Function type:** Type conversion_  
 _**Output data type:** Duration_
 
 ```js
@@ -25,10 +24,8 @@ duration(v: "1m")
 
 ## Parameters
 
-### v
+### v {data-type="string, int, uint"}
 The value to convert.
-
-_**Data type:** Integer | String | Uinteger_
 
 {{% note %}}
 `duration()` assumes **numeric** input values are **nanoseconds**.

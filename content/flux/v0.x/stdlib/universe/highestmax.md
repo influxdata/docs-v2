@@ -18,8 +18,6 @@ introduced: 0.7.0
 The `highestMax()` function selects the maximum record from each table in the input stream and returns the top `n` records.
 It outputs a single aggregated table containing `n` records.
 
-_**Function type:** Selector, Aggregate_
-
 ```js
 highestMax(
   n:10,
@@ -35,22 +33,16 @@ highestMax(
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 Number of records to return.
 
-_**Data type:** Integer_
-
-### column
+### column {data-type="string"}
 Column by which to sort.
 Default is `"_value"`.
 
-_**Data type:** String_
-
-### groupColumns
+### groupColumns {data-type="array of strings"}
 The columns on which to group before performing the aggregation.
 Default is `[]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 ```js

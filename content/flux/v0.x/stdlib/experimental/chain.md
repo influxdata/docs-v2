@@ -38,15 +38,11 @@ experimental.chain(
 
 ## Parameters
 
-### first
+### first {data-type="stream of tables"}
 The first query to execute.
 
-_**Data type:** Stream of tables_
-
-### second
+### second  {data-type="stream of tables"}
 The second query to execute.
-
-_**Data type:** Stream of tables_
 
 ## Examples
 

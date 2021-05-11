@@ -34,59 +34,43 @@ zenoss.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 ({{< req >}})
 Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
 
-_**Data type:** String_
-
-### username
+### username {data-type="string"}
 ({{< req >}})
 Zenoss username to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-_**Data type:**  String_
-
-### password
+### password {data-type="string"}
 ({{< req >}})
 Zenoss password to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-_**Data type:** String_
-
-### action
+### action {data-type="string"}
 Zenoss [router name](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/anatomy-of-an-api-request#AnatomyofanAPIrequest-RouterURL).
 Default is `"EventsRouter"`.
 
-_**Data type:** String_
-
-### method
+### method {data-type="string"}
 [EventsRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
 Default is `"add_event"`.
 
-_**Data type:** String_
-
-### type
+### type {data-type="string"}
 Event type.
 Default is `"rpc"`.
 
-_**Data type:** String_
-
-### tid
+### tid {data-type="int"}
 Temporary request transaction ID.
 Default is `1`.
-
-_**Data type:** Integer_
 
 ## Usage
 `zenoss.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the object used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the
 following fields:

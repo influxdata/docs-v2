@@ -49,62 +49,44 @@ influxdb.cardinality(
 
 ## Parameters
 
-### bucket
+### bucket {data-type="string"}
 Bucket to query cardinality from.
 
-_**Data type:** String_
-
-### bucketID
+### bucketID {data-type="string"}
 String-encoded bucket ID to query cardinality from.
 
-_**Data type:** String_
-
-### org
+### org {data-type="string"}
 Organization name.
 
-_**Data type:** String_
-
-### orgID
+### orgID {data-type="string"}
 String-encoded [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) to query cardinality from.
 
-_**Data type:** String_
-
-### host
+### host {data-type="string"}
 URL of the InfluxDB instance to query.
 _See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions) or
 [InfluxDB OSS URLs](/{{< latest "influxdb" "v2" >}}/reference/urls/)._
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 InfluxDB [authentication token](/{{< latest "influxdb" "v2" >}}/security/tokens/).
 
-_**Data type:** String_
-
-### start
+### start {data-type="duration, time"}
 The earliest time to include when calculating cardinality.
 The cardinality calculation **includes** points that match the specified start time.
 Use a relative duration or absolute time.
 For example, `-1h` or `2019-08-28T22:00:00Z`.
 Durations are relative to [`now()`](/flux/v0.x/stdlib/universe/now/).
 
-_**Data type:** Duration | Time_
-
-### stop
+### stop {data-type="duration, time"}
 The latest time to include when calculating cardinality.
 The cardinality calculation **excludes** points that match the specified start time.
 Use a relative duration or absolute time.
 For example, `-1h` or `2019-08-28T22:00:00Z`.
 Durations are relative to [`now()`](/flux/v0.x/stdlib/universe/now/).
-Defaults to `now()`.
+_Default is `now()`_.
 
-_**Data type:** Duration | Time_
-
-### predicate
+### predicate {data-type="function"}
 Predicate function that filters records.
-_Defaults to `(r) => true`._
-
-_**Data type:** Function_
+_Default is `(r) => true`_.
 
 ## Examples
 

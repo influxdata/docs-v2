@@ -25,40 +25,35 @@ Each input table is converted into a single output table representing a single h
 The output table has the same group key as the input table.
 Columns not part of the group key are removed and an upper bound column and a count column are added.
 
-_**Function type:** Transformation_  
-_**Output data type:** Record_
-
 ```js
-histogram(column: "_value", upperBoundColumn: "le", countColumn: "_value", bins: [50.0, 75.0, 90.0], normalize: false)
+histogram(
+  column: "_value",
+  upperBoundColumn: "le",
+  countColumn: "_value",
+  bins: [50.0, 75.0, 90.0],
+  normalize: false
+  )
 ```
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The name of a column containing input data values.
 The column type must be float.
-Defaults to `"_value"`.
+Default is `"_value"`.
 
-_**Data type:** String_
-
-### upperBoundColumn
+### upperBoundColumn {data-type="string"}
 The name of the column in which to store the histogram's upper bounds.
-Defaults to `"le"`.
+Default is `"le"`.
 
-_**Data type:** String_
-
-### countColumn
+### countColumn {data-type="string"}
 The name of the column in which to store the histogram counts.
-Defaults to `"_value"`.
+Default is `"_value"`.
 
-_**Data type:** String_
-
-### bins
+### bins {data-type="array of floats"}
 A list of upper bounds to use when computing the histogram frequencies.
 Bins should contain a bin whose bound is the maximum value of the data set.
 This value can be set to positive infinity if no maximum is known.
-
-_**Data type:** Array of floats_
 
 #### Bin helper functions
 The following helper functions can be used to generated bins.
@@ -66,11 +61,9 @@ The following helper functions can be used to generated bins.
 [linearBins()](/flux/v0.x/stdlib/universe/linearbins)  
 [logarithmicBins()](/flux/v0.x/stdlib/universe/logarithmicbins)
 
-### normalize
+### normalize {data-type="bool"}
 When `true`, will convert the counts into frequency values between 0 and 1.
-Defaults to `false`.
-
-_**Data type:** Boolean_
+Default is `false`.
 
 {{% note %}}
 Normalized histograms cannot be aggregated by summing their counts.

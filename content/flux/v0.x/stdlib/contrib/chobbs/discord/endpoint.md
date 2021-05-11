@@ -35,35 +35,25 @@ discord.endpoint(
 
 ## Parameters
 
-### webhookToken
+### webhookToken {data-type="string"}
 Discord [webhook token](https://discord.com/developers/docs/resources/webhook).
 
-_**Data type:** String_
-
-### webhookID
+### webhookID {data-type="string"}
 Discord [webhook ID](https://discord.com/developers/docs/resources/webhook).
 
-_**Data type:** String_
-
-### username
+### username {data-type="string"}
 Override the Discord webhook's default username.
 
-_**Data type:** String_
-
-### avatar_url
+### avatar_url {data-type="string"}
 Override the Discord webhook's default avatar.
-
-_**Data type:** String_
 
 ## Usage
 `discord.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the record used to generate the Discord webhook request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns a record that must include the
 following field:

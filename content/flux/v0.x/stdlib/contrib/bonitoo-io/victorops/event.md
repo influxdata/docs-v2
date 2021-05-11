@@ -37,11 +37,9 @@ victorops.event(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 ({{< req >}})
 [VictorOps REST endpoint integration URL](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/).
-
-_**Data type:** String_
 
 ##### VictorOps URL example
 ```
@@ -50,18 +48,14 @@ https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routi
 
 _Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing keys._
 
-### monitoringTool
+### monitoringTool {data-type="string"}
 Monitoring agent name.
 Default is `""`.
 
-_**Data type:** String_
-
-### messageType
+### messageType {data-type="string"}
 ({{< req >}})
 VictorOps [message type](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields)
 (alert behavior).
-
-_**Data type:** String_
 
 **Valid values:**
 
@@ -69,29 +63,21 @@ _**Data type:** String_
 - `WARNING`
 - `INFO`
 
-### entityID
+### entityID {data-type="string"}
 [Incident ID](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields).
 Default is `""`.
 
-_**Data type:** String_
-
-### entityDisplayName
+### entityDisplayName {data-type="string"}
 [Incident display name or summary](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields).
 Default is `""`.
 
-_**Data type:** String_
-
-### stateMessage
+### stateMessage {data-type="string"}
 [Verbose incident message](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields).
 Default is `""`.
 
-_**Data type:** String_
-
-### timestamp
+### timestamp {data-type="time"}
 [Incident start time](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields).
 Default is `now()`.
-
-_**Data type:** Time_
 
 ## Examples
 

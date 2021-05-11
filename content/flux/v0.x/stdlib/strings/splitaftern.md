@@ -35,22 +35,16 @@ strings.splitAfterN(v: "a flux of foxes", t: " ", i: 3)
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to split.
 
-_**Data type:** String_
-
-### t
+### t {data-type="string"}
 The string value that acts as the separator.
 
-_**Data type:** String_
-
-### i
+### i {data-type="int"}
 The maximum number of split substrings to return.
 `-1` returns all matching substrings.
 The last substring is the unsplit remainder.
-
-_**Data type:** Integer_
 
 ## Examples
 

@@ -34,11 +34,8 @@ csv.from(url: "http://localhost:8086/")
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 The URL to retrieve annotated CSV from.
-
-_**Data type:** String_
-
 
 ## Examples
 

@@ -24,4 +24,5 @@ Import the `experimental/csv` package:
 import "experimental/csv"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

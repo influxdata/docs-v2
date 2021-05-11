@@ -23,4 +23,5 @@ Import the `pagerduty` package:
 import "pagerduty"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

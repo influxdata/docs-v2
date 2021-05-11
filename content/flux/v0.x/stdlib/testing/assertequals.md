@@ -33,22 +33,15 @@ _The `testing.assertEquals()` function can be used to perform in-line tests in a
 
 ## Parameters
 
-### name
+### name {data-type="string"}
 Unique name given to the assertion.
 
-_**Data type:** String_
-
-### got
+### got {data-type="stream of tables"}
 The stream containing data to test.
 Defaults to piped-forward data (`<-`).
 
-_**Data type:** Record_
-
-### want
+### want {data-type="stream of tables"}
 The stream that contains the expected data to test against.
-
-_**Data type:** Record_
-
 
 ## Examples
 

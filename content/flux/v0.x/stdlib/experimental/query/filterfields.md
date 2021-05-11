@@ -28,11 +28,9 @@ query.filterFields(
 
 ## Parameters
 
-### fields
+### fields {data-type="array of strings"}
 Fields to filter by.
 Must be exact string matches.
-
-_**Data type:** Array of strings_
 
 ## Examples
 

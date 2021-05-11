@@ -51,21 +51,17 @@ influxdb.select(
 querying data from a **different organization** or a **remote InfluxDB instance**.
 {{% /note %}}
 
-### from
+### from {data-type="string"}
 ({{< req >}}) Name of the bucket to query.
 
-_**Data type:** String_
-
-### start
+### start {data-type="duration, time, int"}
 ({{< req >}}) Earliest time to include in results.
 Results **include** points that match the specified start time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
-_**Data type:** Duration | Time | Integer_
-
-### stop
+### stop {data-type="duration, time, int"}
 Latest time to include in results.
 Results **exclude** points that match the specified stop time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
@@ -74,48 +70,34 @@ Durations are relative to `now()`.
 
 Defaults to `now()`.
 
-_**Data type:** Duration | Time | Integer_
-
-### m
+### m {data-type="string"}
 ({{< req >}}) Name of the measurement to query.
 
-_**Data type:** String_
-
-### fields
+### fields {data-type="array of strings"}
 List of fields to query.
 Returns all fields when list is empty or unspecified.
 Defaults to `[]`.
 
-_**Data type:** Array of Strings_
-
-### where
+### where {data-type="function"}
 A single argument predicate function that evaluates true or false and filters results based on tag values.
 Records are passed to the function **before fields are pivoted into columns**.
 Records that evaluate to true are included in the output tables.
 Records that evaluate to _null_ or false are not included in the output tables.
 Defaults to `(r) => true`.
 
-_**Data type:** Function_
-
 {{% note %}}
 Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".
 {{% /note %}}
 
-### host
+### host {data-type="string"}
 URL of the InfluxDB instance to query.
 _See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)._
 
-_**Data type:** String_
-
-### org
+### org {data-type="string"}
 Organization name.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
-
-_**Data type:** String_
 
 
 ## Examples

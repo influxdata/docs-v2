@@ -20,9 +20,6 @@ introduced: 0.7.0
 
 The `last()` function selects the last non-null record from an input table.
 
-_**Function type:** Selector_  
-_**Output data type:** Record_
-
 ```js
 last(column: "_value")
 ```
@@ -34,13 +31,11 @@ last(column: "_value")
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 Column used to verify the existence of a value.
 If this column is _null_ in the last record, `last()` returns the previous
 record with a non-null value.
 Default is `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 ```js

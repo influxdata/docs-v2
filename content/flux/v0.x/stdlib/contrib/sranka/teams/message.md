@@ -32,27 +32,19 @@ teams.message(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 Incoming webhook URL.
 
-_**Data type:** String_
-
-### title
+### title {data-type="string"}
 Message card title.
 
-_**Data type:** String_
-
-### text
+### text {data-type="string"}
 Message card text.
 
-_**Data type:** String_
-
-### summary
+### summary {data-type="string"}
 Message card summary.
 Default is `""`.
 If no summary is provided, Flux generates the summary from the message text.
-
-_**Data type:** String_
 
 ## Examples
 

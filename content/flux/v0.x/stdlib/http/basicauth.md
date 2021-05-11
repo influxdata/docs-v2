@@ -33,15 +33,11 @@ http.basicAuth(
 
 ## Parameters
 
-### u
+### u {data-type="string"}
 The username to use in the basic authentication header.
 
-_**Data type:** String_
-
-### p
+### p {data-type="string"}
 The password to use in the basic authentication header.
-
-_**Data type:** String_
 
 ## Examples
 

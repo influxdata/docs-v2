@@ -18,8 +18,6 @@ introduced: 0.43.0
 The `pagerduty.severityFromLevel()` function converts an InfluxDB status level to
 a PagerDuty severity.
 
-_**Function type:** Transformation_
-
 ```js
 import "pagerduty"
 
@@ -39,10 +37,8 @@ pagerduty.severityFromLevel(
 
 ## Parameters
 
-### level
+### level {data-type="string"}
 The InfluxDB status level to convert to a PagerDuty severity.
-
-_**Data type:** String_
 
 ## Function definition
 ```js

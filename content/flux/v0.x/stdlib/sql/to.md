@@ -31,10 +31,8 @@ sql.to(
 
 ## Parameters
 
-### driverName
+### driverName {data-type="string"}
 The driver used to connect to the SQL database.
-
-_**Data type:** String_
 
 The following drivers are available:
 
@@ -50,11 +48,9 @@ The following drivers are available:
 The `sql.to` function does not support writing data to [Amazon Athena](https://aws.amazon.com/athena/).
 {{% /warn %}}
 
-### dataSourceName
+### dataSourceName {data-type="string"}
 The data source name (DSN) or connection string used to connect to the SQL database.
 The string's form and structure depend on the [driver](#drivername) used.
-
-_**Data type:** String_
 
 ##### Driver dataSourceName examples
 ```sh
@@ -83,16 +79,12 @@ bigquery://projectid/?param1=value&param2=value
 bigquery://projectid/location?param1=value&param2=value
 ```
 
-### table
+### table {data-type="string"}
 The destination table.
 
-_**Data type:** String_
-
-### batchSize
+### batchSize {data-type="int"}
 The number of parameters or columns that can be queued within each call to `Exec`.
 Defaults to `10000`.
-
-_**Data type:** Integer_
 
 {{% note %}}
 If writing to a **SQLite** database, set `batchSize` to `999` or less.

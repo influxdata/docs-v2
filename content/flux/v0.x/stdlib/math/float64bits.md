@@ -27,7 +27,5 @@ math.float64bits(f: 1234.56)
 
 ## Parameters
 
-### f
+### f {data-type="float"}
 The value used in the operation.
-
-_**Data type:** Float_

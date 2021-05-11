@@ -27,11 +27,9 @@ math.acosh(x: 1.22)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 `x` should be greater than 1.
 If less than 1, the operation will return `NaN`.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

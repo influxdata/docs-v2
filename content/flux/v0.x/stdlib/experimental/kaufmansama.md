@@ -22,8 +22,6 @@ introduced: 0.107.0
 The `experimental.kaufmansAMA()` function calculates the Kaufman's Adaptive Moving Average (KAMA)
 of input tables using the `_value` column in each table.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental"
 
@@ -35,10 +33,8 @@ for market noise or volatility.
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 The period or number of points to use in the calculation.
-
-_**Data type:** Integer_
 
 ## Examples
 ```js

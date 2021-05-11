@@ -41,45 +41,33 @@ sensu.event(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 ({{< req >}})
 Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture)
 **without a trailing slash**. Example: `http://localhost:8080`.
 
-_**Data type:** String_
-
-### apiKey
+### apiKey {data-type="string"}
 ({{< req >}})
 Sensu [API Key](https://docs.sensu.io/sensu-go/latest/operations/control-access/).
 
-_**Data type:** String_
-
-### checkName
+### checkName {data-type="string"}
 ({{< req >}})
 Check name.
 Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
 
-_**Data type:** String_
-
-### text
+### text {data-type="string"}
 ({{< req >}})
 Event text.
 Mapped to `output` in the Sensu Events API request.
 
-_**Data type:** String_
-
-### handlers
+### handlers {data-type="array of strings"}
 [Sensu handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/) to execute.
 Default is `[]`.
 
-_**Data type:** Array of strings_
-
-### status
+### status {data-type="int"}
 Event status code that indicates [state](#state).
 Default is `0`.
-
-_**Data type:** Integer_
 
 | Status code     | State                   |
 |:-----------     |:-----                   |
@@ -88,11 +76,9 @@ _**Data type:** Integer_
 | `2`             | CRITICAL                |
 | Any other value | UNKNOWN or custom state |
 
-### state
+### state {data-type="string"}
 Event state.
 Default is `"passing"` for `0` [status](#status) and `"failing"` for other statuses.
-
-_**Data type:** string_
 
 The following values are accepted:
 
@@ -100,19 +86,15 @@ The following values are accepted:
 - `"passing"`
 - `"flapping"`
 
-### namespace
+### namespace {data-type="string"}
 [Sensu namespace](https://docs.sensu.io/sensu-go/latest/reference/rbac/).
 Default is `"default"`.
 
-_**Data type:** String_
-
-### entityName
+### entityName {data-type="string"}
 Event source.
 Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
 Default is `influxdb`.
-
-_**Data type:** String_
 
 ## Examples
 

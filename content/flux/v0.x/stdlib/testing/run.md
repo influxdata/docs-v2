@@ -27,10 +27,8 @@ testing.run(
 
 ## Parameters
 
-### case
+### case {data-type="function"}
 Test case to run.
-
-_**Data type:** Function_
 
 ## Examples
 

@@ -33,10 +33,8 @@ prometheus.scrape(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 The URL to scrape Prometheus-formatted metrics from.
-
-_**Data type:** String_
 
 ## Examples
 

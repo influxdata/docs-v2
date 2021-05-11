@@ -40,46 +40,32 @@ see [Set up a Telegram bot](/v2.0/reference/flux/stdlib/contrib/telegram/#set-up
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 URL of the Telegram bot endpoint.
 Default is `https://api.telegram.org/bot`.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 ({{< req >}})
 Telegram bot token.
 
-_**Data type:** String_
-
-### channel
+### channel {data-type="string"}
 ({{< req >}})
 Telegram channel ID.
 
-_**Data type:** String_
-
-### text
+### text {data-type="string"}
 Message text.
 
-_**Data type:** String_
-
-### parseMode
+### parseMode {data-type="string"}
 [Parse mode](https://core.telegram.org/bots/api#formatting-options) of the message text.
 Default is `"MarkdownV2"`.
 
-_**Data type:** String_
-
-### disableWebPagePreview
+### disableWebPagePreview {data-type="bool"}
 Disable preview of web links in the sent message.
 Default is `false`.
 
-_**Data type:** Boolean_
-
-### silent
+### silent {data-type="bool"}
 Send message [silently](https://telegram.org/blog/channels-2-0#silent-messages).
 Default is `true`.
-
-_**Data type:** Boolean_
 
 ## Examples
 

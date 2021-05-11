@@ -35,16 +35,12 @@ strings.trimRight(v: ".abc.", cutset: ".")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 String to remove characters from.
 
-_**Data type:** String_
-
-### cutset
+### cutset {data-type="string"}
 The trailing characters to trim from the string.
 Only characters that match the `cutset` string exactly are trimmed.
-
-_**Data type:** String_
 
 ## Examples
 

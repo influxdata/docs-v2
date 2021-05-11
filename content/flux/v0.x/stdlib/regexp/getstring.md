@@ -29,10 +29,8 @@ regexp.getString(r: /[a-zA-Z]/)
 
 ## Parameters
 
-### r
+### r {data-type="regexp"}
 The regular expression object to convert to a string.
-
-_**Data type:** Regexp_
 
 ## Examples
 

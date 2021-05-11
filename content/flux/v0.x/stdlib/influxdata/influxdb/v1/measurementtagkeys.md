@@ -37,15 +37,11 @@ v1.measurementTagKeys(
 
 ## Parameters
 
-### bucket
+### bucket {data-type="string"}
 Bucket to return tag keys from for a specific measurement.
 
-_**Data type:** String_
-
-### measurement
+### measurement {data-type="string"}
 Measurement to return tag keys from.
-
-_**Data type:** String_
 
 ## Function definition
 ```js

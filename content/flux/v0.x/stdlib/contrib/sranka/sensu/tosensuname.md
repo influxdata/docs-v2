@@ -24,7 +24,7 @@ sensu.toSensuName(v: "Example string 1.2?")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 ({{< req >}})
 String to operate on.
 

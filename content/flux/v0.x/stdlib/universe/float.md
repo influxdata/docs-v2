@@ -16,7 +16,6 @@ introduced: 0.7.0
 
 The `float()` function converts a single value to a float.
 
-_**Function type:** Type conversion_  
 _**Output data type:** Float_
 
 ```js
@@ -25,10 +24,8 @@ float(v: "3.14")
 
 ## Parameters
 
-### v
+### v {data-type="numeric string, bool, int, uint"}
 The value to convert.
-
-_**Data type:** Boolean | Integer | Numeric String | Uinteger_
 
 ## Examples
 ```js

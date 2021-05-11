@@ -21,7 +21,6 @@ introduced: 0.38.0
 
 The `holtWinters()` function applies the Holt-Winters forecasting method to input tables.
 
-_**Function type:** Transformation_  
 _**Output data type:** Float_
 
 ```js
@@ -73,39 +72,29 @@ to include "fitted" data points in results when [`withFit`](#withfit) is set to 
 
 ## Parameters
 
-### n
+### n {data-type="int"}
+({{< req >}})
 The number of values to predict.
 
-_**Data type:** Integer_
-
-### seasonality
+### seasonality {data-type="int"}
 The number of points in a season.
-Defaults to `0`.
+Default is `0`.
 
-_**Data type:** Integer_
-
-### interval
+### interval {data-type="duration"}
+({{< req >}})
 The interval between two data points.
 
-_**Data type:** Duration_
-
-### withFit
+### withFit {data-type="bool"}
 Return [fitted data](#fitted-model) in results.
-Defaults to `false`.
+Default is `false`.
 
-_**Data type:** Boolean_
-
-### timeColumn
+### timeColumn {data-type="string"}
 The time column to use.
-Defaults to `"_time"`.
+Default is `"_time"`.
 
-_**Data type:** String_
-
-### column
+### column {data-type="string"}
 The column to operate on.
-Defaults to `"_value"`.
-
-_**Data type:** String_
+Default is `"_value"`.
 
 ## Examples
 

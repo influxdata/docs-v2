@@ -22,19 +22,7 @@
     & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
   }
-  .title {
-    margin-bottom: 2.65rem;
-    .meta {
-      margin-bottom: 0;
-      padding: 0 .65em 0 .75em;
-      color: $article-heading;
-      background: rgba($article-heading, .07);
-      font-size: .9rem;
-      font-weight: $medium;
-      border-radius: 1em;
-      display: inline-block;
-    }
-  }
+  .title { margin-bottom: 2.65rem; }
   h1 {
     font-weight: normal;
     font-size: 2.65rem;
@@ -125,6 +113,7 @@
           "article/expand",
           "article/feedback",
           "article/flex",
+          "article/flux",
           "article/html-diagrams",
           "article/keybinding",
           "article/list-filters",

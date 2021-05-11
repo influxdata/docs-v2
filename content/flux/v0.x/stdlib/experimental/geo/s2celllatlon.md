@@ -34,7 +34,5 @@ geo.s2CellLatLon(
 
 ## Parameters
 
-### token
+### token {data-type="string"}
 S2 cell ID token.
-
-_**Data type:** String_

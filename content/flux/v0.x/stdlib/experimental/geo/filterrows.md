@@ -78,60 +78,46 @@ In most cases, the specified geographic region does not perfectly align with S2 
 
 ## Parameters
 
-### region
+### region {data-type="record"}
 The region containing the desired data points.
 Specify record properties for the shape.
 _See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
 
-_**Data type:** Record_
-
-### minSize
+### minSize {data-type="int"}
 Minimum number of cells that cover the specified region.
 Default is `24`.
 
-_**Data type:** Integer_
-
-### maxSize
+### maxSize {data-type="int"}
 Maximum number of cells that cover the specified region.
 Default is `-1`.
 
-_**Data type:** Integer_
-
-### level
+### level {data-type="int"}
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) of grid cells.
 Default is `-1`.
-
-_**Data type:** Integer_
 
 {{% warn %}}
 `level` is mutually exclusive with `minSize` and `maxSize` and must be less than
 or equal to `s2cellIDLevel`.
 {{% /warn %}}
 
-### s2cellIDLevel
+### s2cellIDLevel {data-type="int"}
 [S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used in `s2_cell_id` tag.
 Default is `-1`.
-
-_**Data type:** Integer_
 
 {{% note %}}
 When set to `-1`, `geo.filterRows()` attempts to automatically detect the S2 Cell ID level.
 {{% /note %}}
 
-### correlationKey
+### correlationKey {data-type="array of strings"}
 List of columns used to uniquely identify a row for output.
 Default is `["_time"]`.
 
-_**Data type:** Array of strings_
-
-### strict
+### strict {data-type="bool"}
 Enable strict geographic data filtering which filters points by longitude (`lon`) and latitude (`lat`).
 For S2 grid cells that are partially covered by the defined region, only points
 with coordinates in the defined region are returned.
 Default is `true`.
 _See [Strict and non-strict filtering](#strict-and-non-strict-filtering) above._
-
-_**Data type:** Boolean_
 
 ## Examples
 

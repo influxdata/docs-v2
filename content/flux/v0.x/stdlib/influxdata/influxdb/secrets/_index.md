@@ -13,7 +13,7 @@ menu:
     name: secrets
     parent: influxdb-pkg
 weight: 202
-flux/v0.x/tags: [functions, secrets, package]
+flux/v0.x/tags: [functions, secrets, package, security]
 ---
 
 InfluxDB Secrets Flux functions provide tools for working with sensitive secrets managed by InfluxDB.
@@ -23,4 +23,5 @@ Import the `influxdata/influxdb/secrets` package:
 import "influxdata/influxdb/secrets"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

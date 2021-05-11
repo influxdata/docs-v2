@@ -26,9 +26,6 @@ The output value type depends on the input value type:
 - `uint` or `int` input values return `int` values
 - `float` input values return float values
 
-_**Function type:** Aggregate_  
-_**Output data type:** Integer or Float_
-
 ```js
 import "experimental"
 

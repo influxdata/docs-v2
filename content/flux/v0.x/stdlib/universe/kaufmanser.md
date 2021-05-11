@@ -36,10 +36,9 @@ Higher values represent a more efficient or trending market.
 
 ## Parameters
 
-### n
+### n {data-type="int"}
+({{< req >}})
 The period or number of points to use in the calculation.
-
-_**Data type:** Integer_
 
 ## Examples
 ```js

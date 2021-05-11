@@ -22,8 +22,6 @@ introduced: 0.112.0
 The `experimental.fill()` function replaces all null values in the `_value`
 column with a non-null value.
 
-_**Function type:** Transformation_  
-
 ```js
 import "experimental"
 
@@ -40,18 +38,14 @@ experimental.fill(usePrevious: true)
 `value` and `usePrevious` are mutually exclusive.
 {{% /note %}}
 
-### value
+### value {data-type="string, bool, int, uint, float, time"}
 Value to replace null values with.
 Data type must match the type of the `_value` column.
 
-_**Data type:** Boolean | Integer | UInteger | Float | String | Time | Duration_
-
-### usePrevious
+### usePrevious {data-type="bool"}
 When `true`, replaces null values with the value of the previous non-null row.
 
-_**Data type:** Boolean_
-
-### tables
+### tables {data-type="stream of tables"}
 Input data.
 Default is pipe-forwarded data.
 

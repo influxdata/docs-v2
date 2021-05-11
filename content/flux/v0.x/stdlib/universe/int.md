@@ -16,7 +16,6 @@ introduced: 0.7.0
 
 The `int()` function converts a single value to an integer.
 
-_**Function type:** Type conversion_  
 _**Output data type:** Integer_
 
 ```js
@@ -25,10 +24,8 @@ int(v: "4")
 
 ## Parameters
 
-### v
-The value to convert.
-
-_**Data type:** Boolean | Duration | Float | Numeric String | Time | Uinteger_
+### v {data-type="numeric string, bool, uint, float, time"}
+Value to convert.
 
 For duration and time values, `int()` returns the following:
 

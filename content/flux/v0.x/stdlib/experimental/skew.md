@@ -20,9 +20,6 @@ introduced: 0.107.0
 The `experimental.skew()` function outputs the skew of non-null values in the
 `_value` column for each input table as a float.
 
-_**Function type:** Aggregate_  
-_**Output data type:** Float_
-
 ```js
 import "experimental"
 

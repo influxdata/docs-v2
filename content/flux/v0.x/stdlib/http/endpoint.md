@@ -29,12 +29,10 @@ http.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 The URL to POST to.
 
-_**Data type:** String_
-
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the record used to generate the POST request.
 
 {{% note %}}
@@ -42,8 +40,6 @@ _You should rarely need to override the default `mapFn` parameter.
 To see the default `mapFn` value or for insight into possible overrides, view the
 [`http.endpoint()` source code](https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux)._
 {{% /note %}}
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
 

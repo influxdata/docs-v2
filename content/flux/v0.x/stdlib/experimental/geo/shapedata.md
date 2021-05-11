@@ -42,23 +42,17 @@ geo.shapeData(
 
 ## Parameters
 
-### latField
+### latField {data-type="string"}
 Name of the existing field that contains the latitude value in **decimal degrees** (WGS 84).
 Field is renamed to `lat`.
 
-_**Data type:** String_
-
-### lonField
+### lonField {data-type="string"}
 Name of the existing field that contains the longitude value in **decimal degrees** (WGS 84).
 Field is renamed to `lon`.
 
-_**Data type:** String_
-
-### level
+### level {data-type="int"}
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) to use
 when generating the S2 cell ID token.
-
-_**Data type:** Integer_
 
 ## Examples
 

@@ -30,32 +30,24 @@ opsgenie.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 Opsgenie API URL.
 Defaults to `https://api.opsgenie.com/v2/alerts`.
 
-_**Data type:** String_
-
-### apiKey
+### apiKey {data-type="string"}
 ({{< req >}})
 Opsgenie API authorization key.
 
-_**Data type:** String_
-
-### entity
+### entity {data-type="string"}
 Alert entity used to specify the alert domain.
-
-_**Data type:** String_
 
 ## Usage
 `opsgenie.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the record used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns a record that must include the
 following fields:

@@ -22,9 +22,6 @@ It returns a stream of tables from the specified [bucket](#parameters).
 Each unique series is contained within its own table.
 Each record in the table represents a single point in the series.
 
-_**Function type:** Input_  
-_**Output data type:** Record_
-
 ```js
 from(
   bucket: "example-bucket",
@@ -55,36 +52,24 @@ _(including hosted, single-tenant InfluxDB Enterprise clusters)_.
 
 ## Parameters
 
-### bucket
+### bucket {data-type="string"}
 Name of the bucket to query.
 
-_**Data type:** String_
-
-### bucketID
+### bucketID {data-type="string"}
 String-encoded bucket ID to query.
 
-_**Data type:** String_
-
-### host
+### host {data-type="string"}
 URL of the InfluxDB instance to query.
 _See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)._
 
-_**Data type:** String_
-
-### org
+### org {data-type="string"}
 Organization name.
 
-_**Data type:** String_
-
-### orgID
+### orgID {data-type="string"}
 String-encoded [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) to query.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
-
-_**Data type:** String_
 
 ## Examples
 

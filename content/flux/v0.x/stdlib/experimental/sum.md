@@ -22,9 +22,6 @@ introduced: 0.107.0
 The `experimental.sum()` function computes the sum of non-null values in the `_value`
 column for each input table.
 
-_**Function type:** Aggregate_  
-_**Output data type:** Integer, UInteger, or Float (inherited from column type)_
-
 ```js
 import "experimental"
 

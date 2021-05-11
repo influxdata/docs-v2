@@ -35,22 +35,16 @@ highestAverage(
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 Number of records to return.
 
-_**Data type:** Integer_
-
-### column
+### column {data-type="string"}
 Column by which to sort.
 Default is `"_value"`.
 
-_**Data type:** String_
-
-### groupColumns
+### groupColumns {data-type="array of strings"}
 The columns on which to group before performing the aggregation.
 Default is `[]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 ```js

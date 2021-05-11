@@ -14,16 +14,14 @@ introduced: 0.7.0
 
 The `length()` function returns the number of items in an array.
 
-_**Function type:** Miscellaneous_  
-
 ```js
 length(arr: [])
 ```
 
 ## Parameters
 
-### arr
-The array to evaluate.
+### arr {data-type="array"}
+Array to evaluate.
 
 ## Examples
 ```js

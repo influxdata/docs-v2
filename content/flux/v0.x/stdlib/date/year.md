@@ -28,12 +28,10 @@ date.year(t: 2019-07-17T12:05:21.012Z)
 
 ## Parameters
 
-### t
+### t {data-type="time, duration"}
 The time to operate on.
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
-
-_**Data type:** Time | Duration_
 
 ## Examples
 

@@ -38,39 +38,29 @@ opsgenie.sendAlert(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 Opsgenie API URL.
 Defaults to `https://api.opsgenie.com/v2/alerts`.
 
-_**Data type:** String_
-
-### apiKey
+### apiKey {data-type="string"}
 ({{< req >}})
 Opsgenie API authorization key.
 
-_**Data type:** String_
-
-### message
+### message {data-type="string"}
 ({{< req >}})
 Alert message text.
 130 characters or less.
 
-_**Data type:** String_
-
-### alias
+### alias {data-type="string"}
 Opsgenie alias usee to de-deduplicate alerts.
 250 characters or less.
 Defaults to [message](#message).
 
-_**Data type:** String_
-
-### description
+### description {data-type="string"}
 Alert description.
 15000 characters or less.
 
-_**Data type:** String_
-
-### priority
+### priority {data-type="string"}
 Opsgenie [alert priority](https://docs.opsgenie.com/docs/alert-priority-settings).
 Valid values include:
 
@@ -80,40 +70,26 @@ Valid values include:
 - `P4`
 - `P5`
 
-_**Data type:** String_
-
-### responders
+### responders {data-type="array of strings"}
 List of responder teams or users.
 Use the `user:` prefix for users and `teams:` prefix for teams.
 
-_**Data type:** Array of strings_
-
-### tags
+### tags {data-type="array of strings"}
 Alert tags.
 
-_**Data type:** Array of strings_
-
-### entity
+### entity {data-type="string"}
 Alert entity used to specify the alert domain.
 
-_**Data type:** String_
-
-### actions
+### actions {data-type="array of strings"}
 List of actions available for the alert.
 
-_**Data type:** Array of strings_
-
-### details
+### details {data-type="string"}
 Additional alert details.
 Must be a JSON-encoded map of key-value string pairs.
 
-_**Data type:** String_
-
-### visibleTo
+### visibleTo {data-type="array of strings"}
 List of teams and users the alert will be visible to without sending notifications.
 Use the `user:` prefix for users and `teams:` prefix for teams.
-
-_**Data type:** Array of strings_
 
 ## Examples
 

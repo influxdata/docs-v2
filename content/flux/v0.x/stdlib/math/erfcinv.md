@@ -27,12 +27,10 @@ math.erfcinv(x: 0.42345)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The value used in the operation.
 `x` should be greater than 0 and less than 2.
 Otherwise, the operation will return `NaN`.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

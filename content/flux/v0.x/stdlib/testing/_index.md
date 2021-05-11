@@ -23,4 +23,5 @@ Import the `testing` package:
 import "testing"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

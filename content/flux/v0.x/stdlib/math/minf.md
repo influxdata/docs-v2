@@ -28,7 +28,5 @@ math.mInf(sign: 1)
 
 ## Parameters
 
-### sign
+### sign {data-type="int"}
 The sign value used in the operation.
-
-_**Data type:** Integer_

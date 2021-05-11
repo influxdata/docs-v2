@@ -29,10 +29,8 @@ experimental.objectKeys(
 
 ## Parameters
 
-### o
+### o {data-type="record"}
 The record to return keys from.
-
-_**Data type:** Record_
 
 ## Examples
 

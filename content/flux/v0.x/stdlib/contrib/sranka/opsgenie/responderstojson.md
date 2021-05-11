@@ -38,11 +38,9 @@ opsgenie.respondersToJSON(
 
 ## Parameters
 
-### v
+### v {data-type="array of strings"}
 ({{< req >}}) Array of Opsgenie responder strings.
 Responder strings must begin with `user:`, `team:`, `escalation:`, or `schedule:`.
-
-_**Data type:** Array of strings_
 
 {{% note %}}
 #### Package author and maintainer

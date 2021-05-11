@@ -31,18 +31,14 @@ geo.asTracks(
 
 ## Parameters
 
-### groupBy
+### groupBy {data-type="array of strings"}
 Columns to group by.
 These columns should uniquely identify each track.
 Default is `["id","tid"]`.
 
-_**Data type:** Array of strings_
-
-### orderBy
+### orderBy {data-type="array of strings"}
 Column to order results by.
 Default is `["_time"]`
-
-_**Data type:** Array of strings_
 
 ## Examples
 
