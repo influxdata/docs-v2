@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.month()` function returns the month of a specified time.
 Results range from `[1-12]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 

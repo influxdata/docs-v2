@@ -17,8 +17,6 @@ introduced: 0.45.0
 The `bigtable.from()` function retrieves data from a [Google Cloud Bigtable](https://cloud.google.com/bigtable/)
 data source.
 
-_**Function type:** Input_
-
 ```js
 import "experimental/bigtable"
 

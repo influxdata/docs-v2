@@ -24,8 +24,6 @@ the option of strict filtering.
 This function is a combination of [`geo.gridFilter()`](/flux/v0.x/stdlib/experimental/geo/gridfilter/)
 and [`geo.strictFilter()`](/flux/v0.x/stdlib/experimental/geo/strictfilter/).
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

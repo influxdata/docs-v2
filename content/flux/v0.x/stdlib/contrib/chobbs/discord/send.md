@@ -17,8 +17,6 @@ introduced: 0.69.0
 The `discord.send()` function sends a single message to a Discord channel using
 a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3).
 
-_**Function type:** Output_
-
 ```js
 import "contrib/chobbs/discord"
 

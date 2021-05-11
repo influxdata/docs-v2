@@ -17,8 +17,6 @@ introduced: 0.39.0
 The `http.get()` function submits an HTTP GET request to the specified URL and
 returns the HTTP status code, response body, and response headers.
 
-_**Function type:** Miscellaneous_
-
 ```js
 import "experimental/http"
 

@@ -19,8 +19,6 @@ introduced: 0.60.0
 The `query.fromRange()` function returns all data from a specified bucket within
 given time bounds.
 
-_**Function type:** Input_
-
 ```js
 import "experimental/query"
 

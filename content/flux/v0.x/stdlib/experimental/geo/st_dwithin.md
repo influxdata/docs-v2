@@ -22,8 +22,6 @@ The `geo.ST_DWithin()` function tests if the specified region is within a define
 distance from the specified geographic information system (GIS) geometry and
 returns `true` or `false`.
 
-_**Function type:** Test_
-
 ```js
 import "experimental/geo"
 

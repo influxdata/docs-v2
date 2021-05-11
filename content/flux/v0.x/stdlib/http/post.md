@@ -18,8 +18,6 @@ introduced: 0.40.0
 The `http.post()` function submits an HTTP POST request to the specified URL with
 headers and data and returns the HTTP status code.
 
-_**Function type:** Output_
-
 ```js
 import "http"
 

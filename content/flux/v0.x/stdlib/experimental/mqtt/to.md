@@ -16,8 +16,6 @@ introduced: 0.40.0
 
 The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
 
-_**Function type:** Output_
-
 ```js
 import "experimental/mqtt"
 

@@ -18,8 +18,6 @@ flux/v0.x/tags: [notification endpoints]
 The `telegram.endpoint()` function sends a message to a Telegram channel
 using data from table rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/telegram"
 

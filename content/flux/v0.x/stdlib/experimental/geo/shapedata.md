@@ -28,8 +28,6 @@ Use `geo.shapeData()` to ensure geo-temporal data meets the
 3. Generate `s2_cell_id` tags using `lat` and `lon` values and a specified
    [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html).
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

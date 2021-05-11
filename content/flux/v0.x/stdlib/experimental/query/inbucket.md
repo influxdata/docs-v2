@@ -19,8 +19,6 @@ introduced: 0.60.0
 The `query.inBucket()` function queries data from a specified bucket within given
 time bounds, filters data by measurement, field, and optional predicate expressions.
 
-_**Function type:** Input_
-
 ```js
 import "experimental/query"
 

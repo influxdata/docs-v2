@@ -16,8 +16,6 @@ introduced: 0.35.0
 
 The `sql.to()` function writes data to a SQL database.
 
-_**Function type:** Output_
-
 ```js
 import "sql"
 

@@ -28,8 +28,6 @@ sensu.toSensuName(v: "Example string 1.2?")
 ({{< req >}})
 String to operate on.
 
-_**Data type:** String_
-
 {{% note %}}
 #### Package author and maintainer
 **Github:** [@sranka](https://github.com/sranka)  

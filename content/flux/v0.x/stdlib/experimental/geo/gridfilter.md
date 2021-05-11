@@ -30,8 +30,6 @@ after `geo.gridFilter()` to precisely filter points.
 _See [Non-strict and strict filtering](#non-strict-and-strict-filtering) below._
 {{% /note %}}
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

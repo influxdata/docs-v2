@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.nanosecond()` function returns the nanosecond of a specified time.
 Results range from `[0-999999999]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 

@@ -33,8 +33,6 @@ Otherwise, `dead` is set to `true`.
 ### t {data-type="time"}
 The time threshold for the deadman check.
 
-_**Data type:** Time_
-
 ## Examples
 
 ### Detect if a host hasn't reported in the last five minutes

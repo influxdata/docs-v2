@@ -29,19 +29,13 @@ covariance(columns: ["column_x", "column_y"], pearsonr: false, valueDst: "_value
 ### columns {data-type="array of strings"}
 ({{< req >}}) A list of **two columns** on which to operate.
 
-_**Data type:** Array of strings_
-
 ### pearsonr {data-type="bool"}
 Normalized results to the Pearson R coefficient.
 Default is `false`.
 
-_**Data type:** Boolean_
-
 ### valueDst {data-type="string"}
 The column into which the result will be placed.
 Defaults to `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 ```js

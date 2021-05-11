@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.quarter()` function returns the quarter of the year for a specified time.
 Results range from `[1-4]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 

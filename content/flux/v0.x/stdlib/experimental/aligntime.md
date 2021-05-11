@@ -16,8 +16,6 @@ introduced: 0.66.0
 
 The `experimental.alignTime()` function aligns input tables to a common start time.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental"
 

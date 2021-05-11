@@ -21,8 +21,6 @@ The `geo.ST_Distance()` function returns the distance between the specified regi
 and specified geographic information system (GIS) geometry.
 Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experimental/geo/#define-distance-units).
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

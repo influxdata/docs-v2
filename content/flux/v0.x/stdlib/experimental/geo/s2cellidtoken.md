@@ -18,8 +18,6 @@ introduced: 0.63.0
 
 The `geo.s2CellIDToken()` function returns an S2 cell ID token.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

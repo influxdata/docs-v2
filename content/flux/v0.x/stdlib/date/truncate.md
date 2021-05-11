@@ -16,7 +16,6 @@ introduced: 0.37.0
 
 The `date.truncate()` function truncates a time to a specified unit.
 
-_**Function type:** Transformation_  
 
 ```js
 import "date"

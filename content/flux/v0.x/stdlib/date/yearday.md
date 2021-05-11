@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.yearDay()` function returns the day of the year for a specified time.
 Results include leap days and range from `[1-366]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 

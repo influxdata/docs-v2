@@ -17,8 +17,6 @@ introduced: 0.70.0
 The `telegram.message()` function sends a single message to a Telegram channel using
 the [`sendMessage` method of the Telegram Bot API](https://core.telegram.org/bots/api#sendmessage).
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/telegram"
 

@@ -36,13 +36,9 @@ tail(
 ({{< req >}})
 The maximum number of records to output.
 
-_**Data type:** Integer_
-
 ### offset {data-type="int"}
 The number of records to skip at the end of a table table before limiting to `n`.
 Default is `0`.
-
-_**Data type:** Integer_
 
 ## Examples
 

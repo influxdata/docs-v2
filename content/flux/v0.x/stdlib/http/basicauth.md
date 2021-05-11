@@ -18,8 +18,6 @@ introduced: 0.44.0
 The `http.basicAuth()` function returns a Base64-encoded basic authentication
 header using a specified username and password combination.
 
-_**Function type:** Miscellaneous_
-
 ```js
 import "http"
 

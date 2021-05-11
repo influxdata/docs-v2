@@ -18,8 +18,6 @@ introduced: 0.7.0
 The `highestAverage()` function calculates the average of each table in the input stream returns the top `n` records.
 It outputs a single aggregated table containing `n` records.
 
-_**Function type:** Selector, Aggregate_
-
 ```js
 highestAverage(
   n:10,

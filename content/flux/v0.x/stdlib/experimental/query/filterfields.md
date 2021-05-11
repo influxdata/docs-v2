@@ -16,8 +16,6 @@ introduced: 0.60.0
 
 The `query.filterFields()` function filters input data by field.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/query"
 

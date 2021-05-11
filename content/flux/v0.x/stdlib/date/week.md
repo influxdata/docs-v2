@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.week()` function returns the ISO week of the year for a specified time.
 Results range from `[1-53]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 

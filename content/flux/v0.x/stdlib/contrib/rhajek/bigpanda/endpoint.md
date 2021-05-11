@@ -17,8 +17,6 @@ introduced: 0.108.0
 The `bigpanda.endpoint()` function sends alerts to [BigPanda](https://www.bigpanda.io/)
 using data from input rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/rhajek/bigpanda"
 

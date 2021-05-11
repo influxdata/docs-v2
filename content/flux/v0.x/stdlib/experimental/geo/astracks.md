@@ -18,8 +18,6 @@ introduced: 0.63.0
 
 The `geo.asTracks()` function groups rows into tracks (sequential, related data points).
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

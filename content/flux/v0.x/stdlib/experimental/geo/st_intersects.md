@@ -20,8 +20,6 @@ introduced: 0.63.0
 The `geo.ST_Intersects()` function tests if the specified geographic information
 system (GIS) geometry intersects with the specified region and returns `true` or `false`.
 
-_**Function type:** Test_
-
 ```js
 import "experimental/geo"
 

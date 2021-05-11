@@ -16,8 +16,6 @@ introduced: 0.40.0
 
 The `json.encode()` function converts a value into JSON bytes.
 
-_**Function type:** Type conversion_
-
 ```js
 import "json"
 

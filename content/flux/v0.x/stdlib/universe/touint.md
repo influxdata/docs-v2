@@ -17,8 +17,6 @@ introduced: 0.7.0
 
 The `toUInt()` function converts all values in the `_value` column to UIntegers.
 
-_**Function type:** Type conversion_  
-
 ```js
 toUInt()
 ```

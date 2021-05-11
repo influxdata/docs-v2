@@ -17,8 +17,6 @@ introduced: 0.39.0
 
 The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.
 
-_**Function type:** Output_
-
 ```js
 import "http"
 

@@ -20,7 +20,6 @@ introduced: 0.7.1
 The `difference()` function computes the difference between subsequent records.  
 The user-specified columns of numeric type are subtracted while others are kept intact.
 
-_**Function type:** Transformation_  
 _**Output data type:** Float_
 
 ```js

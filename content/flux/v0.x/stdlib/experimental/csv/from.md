@@ -23,8 +23,6 @@ The experimental `csv.from()` function is an alternative to the standard
 [`csv.from()` function](/flux/v0.x/stdlib/csv/from/).
 {{% /note %}}
 
-_**Function type:** Input_
-
 {{< keep-url >}}
 ```js
 import "experimental/csv"

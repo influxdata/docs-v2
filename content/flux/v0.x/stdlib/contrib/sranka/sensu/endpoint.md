@@ -24,8 +24,6 @@ The `sensu.endpoint()` function sends an event to the
 [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
 using data from table rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/sensu"
 

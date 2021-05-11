@@ -16,8 +16,6 @@ introduced: 0.108.0
 
 The `zenoss.endpoint()` function sends events to Zenoss using data from input rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/bonitoo-io/zenoss"
 

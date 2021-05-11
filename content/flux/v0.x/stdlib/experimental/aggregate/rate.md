@@ -18,8 +18,6 @@ introduced: 0.61.0
 
 The `aggregate.rate()` function calculates the rate of change per windows of time.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/aggregate"
 

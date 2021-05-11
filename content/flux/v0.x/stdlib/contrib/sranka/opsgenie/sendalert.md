@@ -15,8 +15,6 @@ introduced: 0.84.0
 
 The `opsgenie.sendAlert()` function sends an alert message to Opsgenie.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/opsgenie"
 

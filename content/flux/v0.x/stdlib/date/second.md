@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.second()` function returns the second of a specified time.
 Results range from `[0-59]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 

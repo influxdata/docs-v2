@@ -16,8 +16,6 @@ introduced: 0.84.0
 
 The `opsgenie.endpoint()` function sends an alert message to Opsgenie using data from table rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/opsgenie"
 

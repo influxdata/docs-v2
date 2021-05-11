@@ -11,7 +11,7 @@ menu:
     name: geo.ST_Contains
     parent: geo
 weight: 401
-flux/v0.x/tags: [geotemporal, geo, GIS]
+flux/v0.x/tags: [geotemporal, geo, GIS, tests]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/geo/
 introduced: 0.63.0
@@ -19,8 +19,6 @@ introduced: 0.63.0
 
 The `geo.ST_Contains()` function tests if the specified region contains the specified
 geographic information system (GIS) geometry and returns `true` or `false`.
-
-_**Function type:** Test_
 
 ```js
 import "experimental/geo"

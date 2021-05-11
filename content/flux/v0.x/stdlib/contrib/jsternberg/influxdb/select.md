@@ -26,8 +26,6 @@ The `influxdb.select()` function is an alternate implementation of `from()`, `ra
 and `pivot()` that returns pivoted query results and masks the `_measurement`, `_start`, and `_stop` columns.
 Results are similar to those returned by InfluxQL `SELECT` statements.
 
-_**Function type:** Input_
-
 ```js
 import "contrib/jsternberg/influxdb"
 

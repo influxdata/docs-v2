@@ -20,8 +20,6 @@ The `discord.endpoint()` function sends a single message to a Discord channel us
 a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3)
 and data from table rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/chobbs/discord"
 

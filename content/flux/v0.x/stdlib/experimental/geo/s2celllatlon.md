@@ -20,8 +20,6 @@ introduced: 0.63.0
 The `geo.s2CellLatLon()` function returns the latitude and longitude of the
 center of an S2 cell.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

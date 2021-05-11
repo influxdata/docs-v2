@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.monthDay()` function returns the day of the month for a specified time.
 Results range from `[1-31]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 

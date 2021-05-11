@@ -16,8 +16,6 @@ introduced: 0.108.0
 
 The `victorops.endpoint()` function sends events to VictorOps using data from input rows.
 
-_**Function type:** Output_
-
 {{% note %}}
 #### VictorOps is now Splunk On-Call
 Splunk acquired VictorOps and VictorOps is now

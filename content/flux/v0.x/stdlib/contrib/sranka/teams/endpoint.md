@@ -18,8 +18,6 @@ introduced: 0.70.0
 The `teams.endpoint()` function sends a message to a Microsoft Teams channel
 using data from table rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/teams"
 

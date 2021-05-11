@@ -21,8 +21,6 @@ Area sizes are determined by the specified [`level`](#level).
 Each geographic area is assigned a unique identifier which is stored in the [`newColumn`](#newcolumn).
 Results are grouped by `newColumn`.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 

@@ -22,8 +22,6 @@ introduced: 0.7.0
 The `aggregateWindow()` function applies an aggregate or selector function
 (any function with a `column` parameter) to fixed windows of time.
 
-_**Function type:** Aggregate_  
-
 ```js
 aggregateWindow(
   every: 1m,

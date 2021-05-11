@@ -20,8 +20,6 @@ introduced: 0.39.0
 The `experimental.group()` function introduces an `extend` mode to the existing
 [`group()`](/flux/v0.x/stdlib/universe/group/) function.
 
-_**Function type:** Transformation_
-
 {{% warn %}}
 This function will be removed once the proposed `extend` mode is sufficiently vetted.
 {{% /warn %}}

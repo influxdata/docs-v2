@@ -15,8 +15,6 @@ introduced: 0.20.0
 
 The `testing.run()` function executes a specified test case.
 
-_**Function type:** Test_  
-
 ```js
 import "testing"
 

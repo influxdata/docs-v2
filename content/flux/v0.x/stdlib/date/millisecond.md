@@ -18,8 +18,6 @@ introduced: 0.37.0
 The `date.millisecond()` function returns the millisecond of a specified time.
 Results range from `[0-999]`.
 
-_**Function type:** Transformation_  
-
 ```js
 import "date"
 

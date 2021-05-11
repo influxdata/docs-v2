@@ -21,8 +21,6 @@ introduced: 0.90.0
 The `sensu.event()` function sends a single event to the
 [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event).
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/sensu"
 

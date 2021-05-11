@@ -25,8 +25,6 @@ the results of the first query are met.
   [InfluxDB task](/influxdb/v2.0/process-data/get-started/).
 - Execute queries sequentially in testing scenarios.
 
-_**Function type:** Miscellaneous_
-
 ```js
 import "experimental"
 

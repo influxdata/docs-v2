@@ -24,8 +24,6 @@ This filter is more strict than [`geo.gridFilter()`](/flux/v0.x/stdlib/experimen
 but for the best performance, use `geo.strictFilter()` **after** `geo.gridFilter()`.
 _See [Strict and non-strict filtering](#strict-and-non-strict-filtering) below._
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 
