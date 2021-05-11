@@ -14,3 +14,5 @@ influxdb/cloud/tags: [functions, table, package]
 cascade:
   introduced: 0.115.0
 ---
+
+{{< duplicate-oss >}}
