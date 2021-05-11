@@ -13,7 +13,7 @@ menu:
 
 ### Features
 - Support user-defined *node labels*.
-  Node labels allows cluster operators to assign arbitrary key-value pairs to meta and data nodes in a cluster.
+  Node labels let you assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
 - Improve diagnostics for license problems. Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
 - Improved ingress metrics allow tracking points written per-measurement and per-login.
