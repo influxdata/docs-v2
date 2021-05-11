@@ -8,6 +8,23 @@ menu:
     name: Flux
 ---
 
+## v0.115.0 [2021-05-11]
+
+### Features
+- Add [Alerta notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/alerta/).
+- Add [`table.fill()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)
+  to fill empty tables with a single row.
+- Add string formatting to `dict` type.
+
+### Bug fixes
+- Refactor semantic printing of types.
+- Do not remove escape characters when auto-formatting.
+- Add `0.0.0.0` to URL validator.
+- Add new display API for values.
+- Auto-format Flux files in `stdlib/testing`.
+
+---
+
 ## v0.114.1 [2021-05-04]
 
 ### Bug fixes
