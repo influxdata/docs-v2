@@ -13,7 +13,7 @@ influxdb/v2.0/tags: [functions, table, fill, package]
 ---
 
 The `table.fill()` function adds a single row to empty tables in a stream of tables.
-Columns in the group key are filled with the column value defined in the group key.
+Columns that are in the group key are filled with the column value defined in the group key.
 Columns not in the group key are filled with a null value.
 
 ```js
