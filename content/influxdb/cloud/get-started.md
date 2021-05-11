@@ -40,7 +40,7 @@ Now that we've added the demo data bucket, we're ready to create our notebook.
 
 {{< img-hd src="/img/influxdb/gs_select_bucket.png" alt="Select bucket" />}}
 
-A list of measurements, fields, and tags for the Website Monitoring bucket appear.
+    A list of measurements, fields, and tags for the Website Monitoring bucket appear.
 
 6. For this example, click the `response_time` field.
 7. Click **Preview** to preview the raw response time data in a table.
