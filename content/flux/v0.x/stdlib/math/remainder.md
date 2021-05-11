@@ -27,15 +27,11 @@ math.remainder(x: 21.0, y: 4.0)
 
 ## Parameters
 
-### x
+### x {data-type="float"}
 The numerator used in the operation.
 
-_**Data type:** Float_
-
-### y
+### y {data-type="float"}
 The denominator used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

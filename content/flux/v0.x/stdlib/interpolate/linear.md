@@ -31,10 +31,8 @@ interpolate.linear(every: 1m)
 
 ## Parameters
 
-### every
+### every {data-type="duration"}
 Duration of time between interpolated points.
-
-_**Data type:** Duration_
 
 ## Examples
 

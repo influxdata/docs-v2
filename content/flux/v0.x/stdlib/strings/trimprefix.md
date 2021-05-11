@@ -36,15 +36,11 @@ strings.trimPrefix(v: "123_abc", prefix: "123")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to trim.
 
-_**Data type:** String_
-
-### prefix
+### prefix {data-type="string"}
 The prefix to remove.
-
-_**Data type:** String_
 
 ## Examples
 

@@ -17,9 +17,6 @@ introduced: 0.7.0
 
 The `top()` function sorts a table by columns and keeps only the top `n` records.
 
-_**Function type:** Selector_  
-_**Output data type:** Record_
-
 ```js
 top(n:10, columns: ["_value"])
 ```
@@ -31,17 +28,14 @@ top(n:10, columns: ["_value"])
 
 ## Parameters
 
-### n
+### n {data-type="int"}
+({{< req >}})
 Number of records to return.
 
-_**Data type:** Integer_
-
-### columns
+### columns {data-type="array of strings"}
 List of columns by which to sort.
 Sort precedence is determined by list order (left to right).
 Default is `["_value"]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 ```js

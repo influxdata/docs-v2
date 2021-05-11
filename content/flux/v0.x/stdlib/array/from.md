@@ -20,8 +20,6 @@ The `array.from()` function constructs a table from an array of records.
 Each record in the array is converted into an output row or record.
 All records must have the same keys and data types.
 
-_**Function type:** Input_
-
 {{< keep-url >}}
 ```js
 import "array"
@@ -35,10 +33,8 @@ array.from(rows: [
 
 ## Parameters
 
-### rows
+### rows {data-type="array"}
 Array of records to construct a table with.
-
-_**Data type:** Array of records_
 
 ## Examples
 
@@ -47,7 +43,7 @@ _**Data type:** Array of records_
 import "array"
 
 rows = [
-  {foo: "bar", baz: 21.2}
+  {foo: "bar", baz: 21.2},
   {foo: "bar", baz: 23.8}
 ]
 

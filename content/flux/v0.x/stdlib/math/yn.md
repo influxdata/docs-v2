@@ -27,15 +27,11 @@ math.yn(n: 3, x: 3.14)
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 The order number used in the operation.
 
-_**Data type:** Integer_
-
-### x
+### x {data-type="float"}
 The value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

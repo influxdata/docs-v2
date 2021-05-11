@@ -47,50 +47,34 @@ influxdb.api(
 
 ## Parameters
 
-### method
+### method {data-type="string"}
 ({{< req >}}) HTTP request method.
 
-_**Data type:** String_
-
-### path
+### path {data-type="string"}
 ({{< req >}}) InfluxDB API path.
 
-_**Data type:** String_
-
-### host
+### host {data-type="string"}
 InfluxDB host URL
 _(Required when executed outside of InfluxDB)_.
 Default is `""`.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
 _(Required when executed outside of InfluxDB)_.
 Default is `""`.
 
-_**Data type:** String_
-
-### headers
+### headers {data-type="dict"}
 HTTP request headers.
 
-_**Data type:** Dictionary_
-
-### query
+### query {data-type="dict"}
 URL query parameters.
 
-_**Data type:** Dictionary_
-
-### timeout
+### timeout {data-type="duration"}
 HTTP request timeout.
 Default is `30s`.
 
-_**Data type:** Duration_
-
-### body
+### body {data-type="bytes"}
 HTTP request body as [bytes](/flux/v0.x/stdlib/universe/bytes/).
-
-_**Data type:** Bytes_
 
 ## Examples
 

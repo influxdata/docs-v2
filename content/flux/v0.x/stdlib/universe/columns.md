@@ -29,19 +29,15 @@ plus a new column containing the labels of the input table's columns.
 Each row in an output table contains the group key value and the label of one column of the input table.
 Each output table has the same number of rows as the number of columns of the input table.
 
-_**Function type:** Transformation_
-
 ```js
 columns(column: "_value")
 ```
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The name of the output column in which to store the column labels.
 Defaults to `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 ```js

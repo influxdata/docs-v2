@@ -32,13 +32,11 @@ integral(
 
 ## Parameters
 
-### unit
+### unit {data-type="duration"}
 ({{< req >}})
 Time duration used to compute the integral.
 
-_**Data type:** Duration_
-
-### interpolate
+### interpolate {data-type="string"}
 Type of interpolation to use.
 Defaults to `""`.
 
@@ -46,8 +44,6 @@ Use one of the following interpolation options:
 
 - _empty string for no interpolation_
 - linear
-
-_**Data type:** String_
 
 ## Examples
 

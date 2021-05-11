@@ -19,8 +19,6 @@ The `slack.message()` function sends a single message to a Slack channel.
 The function works with either with the [chat.postMessage API](https://api.slack.com/methods/chat.postMessage)
 or with a [Slack webhook](https://api.slack.com/incoming-webhooks).
 
-_**Function type:** Output_
-
 ```js
 import "slack"
 
@@ -35,7 +33,7 @@ slack.message(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 The Slack API URL.
 Defaults to `https://slack.com/api/chat.postMessage`.
 
@@ -44,9 +42,7 @@ If using a Slack webhook, you'll receive a Slack webhook URL when you
 [create an incoming webhook](https://api.slack.com/incoming-webhooks#create_a_webhook).
 {{% /note %}}
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
 used to interact with Slack.
 Defaults to `""`.
@@ -55,19 +51,13 @@ Defaults to `""`.
 A token is only required if using the Slack chat.postMessage API.
 {{% /note %}}
 
-_**Data type:** String_
-
-### channel
+### channel {data-type="string"}
 ({{< req >}}) The name of channel to post the message to.
 
-_**Data type:** String_
-
-### text
+### text {data-type="string"}
 ({{< req >}}) The text to display in the Slack message.
 
-_**Data type:** String_
-
-### color
+### color {data-type="string"}
 ({{< req >}}) The color to include with the message.
 
 **Valid values include:**
@@ -76,8 +66,6 @@ _**Data type:** String_
 - `warning`
 - `danger`
 - Any valid RGB hex color code. For example, `#439FE0`.
-
-_**Data type:** String_
 
 ## Examples
 

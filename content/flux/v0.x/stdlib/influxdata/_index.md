@@ -10,4 +10,5 @@ weight: 11
 
 The `influxdata` package provides tools for working with InfluxData projects.
 
+## Packages
 {{< children >}}

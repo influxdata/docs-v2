@@ -21,8 +21,6 @@ The `geo.ST_Distance()` function returns the distance between the specified regi
 and specified geographic information system (GIS) geometry.
 Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experimental/geo/#define-distance-units).
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 
@@ -36,19 +34,15 @@ geo.ST_Distance(
 
 ## Parameters
 
-### region
+### region {data-type="record"}
 The region to test.
 Specify record properties for the shape.
 _See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
 
-_**Data type:** Record_
-
-### geometry
+### geometry {data-type="record"}
 The GIS geometry to test.
 Can be either point or linestring geometry.
 _See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry-definitions)._
-
-_**Data type:** Record_
 
 ## Examples
 

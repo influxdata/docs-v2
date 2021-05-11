@@ -24,9 +24,6 @@ The `median()` function is a special application of the [`quantile()` function](
 that returns the median `_value` of an input table or all non-null records in the input table
 with values that fall within the `0.5` quantile (50th percentile) depending on the [method](#method) used.
 
-_**Function type:** Selector or Aggregate_  
-_**Output data type:** Record_
-
 
 ```js
 median(
@@ -51,17 +48,13 @@ You can convert your value column to a float column using the [`toFloat()` funct
 
 ## Parameters
 
-### column
-The column to use to compute the median.
-Defaults to `"_value"`.
+### column {data-type="string"}
+Column to use to compute the median.
+Default is `"_value"`.
 
-_**Data type:** String_
-
-### method
-Defines the method of computation.
-Defaults to `"estimate_tdigest"`.
-
-_**Data type:** String_
+### method {data-type="string"}
+Computation method.
+Default is `"estimate_tdigest"`.
 
 The available options are:
 
@@ -75,12 +68,10 @@ An aggregate method that takes the average of the two points closest to the quan
 ##### exact_selector
 A selector method that returns the data point for which at least `q` points are less than.
 
-### compression
-Indicates how many centroids to use when compressing the dataset.
+### compression {data-type="float"}
+Number of centroids to use when compressing the dataset.
 A larger number produces a more accurate result at the cost of increased memory requirements.
-Defaults to `1000.0`.
-
-_**Data type:** Float_
+Default is `1000.0`.
 
 ## Examples
 

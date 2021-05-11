@@ -16,7 +16,6 @@ introduced: 0.7.0
 
 The `bool()` function converts a single value to a boolean.
 
-_**Function type:** Type conversion_  
 _**Output data type:** Boolean_
 
 ```js
@@ -25,10 +24,8 @@ bool(v: "true")
 
 ## Parameters
 
-### v
+### v {data-type="string, int, uint, float"}
 The value to convert.
-
-_**Data type:** Float | Integer | String | Uinteger_
 
 ## Examples
 ```js

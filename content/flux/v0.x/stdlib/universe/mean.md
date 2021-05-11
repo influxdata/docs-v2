@@ -20,7 +20,6 @@ introduced: 0.7.0
 
 The `mean()` function computes the mean or average of non-null records in the input table.
 
-_**Function type:** Aggregate_  
 _**Output data type:** Float_
 
 ```js
@@ -29,11 +28,9 @@ mean(column: "_value")
 
 ## Parameters
 
-### column
-The column to use to compute the mean.
-Defaults to `"_value"`.
-
-_**Data type:** String_
+### column {data-type="string"}
+Column to use to compute the mean.
+Default is `"_value"`.
 
 ## Examples
 ```js

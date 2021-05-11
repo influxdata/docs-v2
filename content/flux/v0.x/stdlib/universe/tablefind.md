@@ -21,8 +21,6 @@ introduced: 0.29.0
 The `tableFind()` function extracts the first table in a stream of tables whose
 group key values match a predicate. If no table is found, the function errors.
 
-_**Function type:** Stream and table_  
-
 ```js
 tableFind(fn: (key) => key._field == "fieldName")
 ```
@@ -34,13 +32,11 @@ Make sure `fn` parameter names match each specified parameter.
 To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### fn
+### fn {data-type="function"}
 
 A predicate function for matching keys in a table's group key.
 `tableFind` returns the first table that resolves as `true`.
 Expects a `key` argument that represents a group key in the input stream.
-
-_**Data type:** Function_
 
 ##### Example fn function
 

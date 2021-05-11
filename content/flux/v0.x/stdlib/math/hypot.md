@@ -30,15 +30,11 @@ math.hypot(p: 2.0, q: 5.0)
 
 ## Parameters
 
-### p
+### p {data-type="float"}
 The p value used in the operation.
 
-_**Data type:** Float_
-
-### q
+### q {data-type="float"}
 The q value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

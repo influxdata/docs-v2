@@ -29,19 +29,15 @@ For each input table, it outputs a table with the same group key columns, plus a
 Each row in an output table contains the group key value and the label of one column in the group key of the input table.
 Each output table has the same number of rows as the size of the group key of the input table.
 
-_**Function type:** Transformation_
-
 ```js
 keys(column: "_value")
 ```
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 The name of the output column in which to store the group key labels.
 Defaults to `"_value"`.
-
-_**Data type:** String_
 
 ## Examples
 ```js

@@ -26,8 +26,6 @@ introduced: 0.35.0
 The `movingAverage()` function calculates the mean of values in the `_values` column
 grouped into `n` number of points.
 
-_**Function type:** Transformation_  
-
 ```js
 movingAverage(n: 5)
 ```
@@ -41,10 +39,9 @@ movingAverage(n: 5)
 
 ## Parameters
 
-### n
+### n {data-type="int"}
+({{< req >}})
 The number of points to average.
-
-_**Data type:** Integer_
 
 ## Examples
 

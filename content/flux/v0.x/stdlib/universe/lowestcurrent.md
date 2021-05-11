@@ -18,8 +18,6 @@ introduced: 0.7.0
 The `lowestCurrent()` function selects the last record of each table in the input stream and returns the lowest `n` records.
 It outputs a single aggregated table containing `n` records.
 
-_**Function type:** Selector, Aggregate_
-
 ```js
 lowestCurrent(
   n:10,
@@ -35,22 +33,16 @@ lowestCurrent(
 
 ## Parameters
 
-### n
+### n {data-type="int"}
 Number of records to return.
 
-_**Data type:** Integer_
-
-### column
+### column {data-type="column"}
 Column by which to sort.
 Default is `"_value"`.
 
-_**Data type:** String_
-
-### groupColumns
+### groupColumns {data-type="array of strings"}
 The columns on which to group before performing the aggregation.
 Default is `[]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 ```js

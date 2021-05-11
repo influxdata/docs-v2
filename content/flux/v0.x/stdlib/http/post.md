@@ -18,8 +18,6 @@ introduced: 0.40.0
 The `http.post()` function submits an HTTP POST request to the specified URL with
 headers and data and returns the HTTP status code.
 
-_**Function type:** Output_
-
 ```js
 import "http"
 
@@ -32,15 +30,11 @@ http.post(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 The URL to POST to.
 
-_**Data type:** String_
-
-### headers
+### headers {data-type="record"}
 Headers to include with the POST request.
-
-_**Data type:** Record_
 
 {{% note %}}
 ##### Header keys with special characters
@@ -51,10 +45,8 @@ Wrap header keys that contain special characters in double quotes (`""`).
 ```
 {{% /note %}}
 
-### data
+### data {data-type="bytes"}
 The data body to include with the POST request.
-
-_**Data type:** Bytes_
 
 ## Examples
 

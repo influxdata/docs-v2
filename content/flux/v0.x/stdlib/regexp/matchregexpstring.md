@@ -30,15 +30,11 @@ regexp.matchRegexpString(r: /(gopher){2}/, v: "gophergophergopher")
 
 ## Parameters
 
-### r
+### r {data-type="regexp"}
 The regular expression used to search `v`.
 
-_**Data type:** Regexp_
-
-### v
+### v {data-type="string"}
 The string value to search.
-
-_**Data type:** String_
 
 ## Examples
 

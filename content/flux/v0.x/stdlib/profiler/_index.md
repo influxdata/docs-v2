@@ -34,10 +34,8 @@ import "profiler"
 option profiler.enabledProfilers = ["query", "operator"]
 ```
 
-### enabledProfilers
-Enable Flux profilers.
-
-_**Data type:** Array of strings_
+### enabledProfilers {data-type="array of strings"}
+List of Flux profiles to enable.
 
 ## Available profilers
 - [query](#query)

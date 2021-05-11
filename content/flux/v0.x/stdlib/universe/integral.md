@@ -21,7 +21,6 @@ introduced: 0.7.0
 The `integral()` function computes the area under the curve per [`unit`](#unit) of time of subsequent non-null records.
 The curve is defined using `_time` as the domain and record values as the range.
 
-_**Function type:** Aggregate_  
 _**Output data type:** Float_
 
 ```js
@@ -35,25 +34,19 @@ integral(
 
 ## Parameters
 
-### unit
+### unit {data-type="duration"}
 ({{< req >}})
 Time duration used when computing the integral.
 
-_**Data type:** Duration_
-
-### column
+### column {data-type="string"}
 Column on which to operate.
 Defaults to `"_value"`.
 
-_**Data type:** String_
-
-### timeColumn
+### timeColumn {data-type="string"}
 Column that contains time values to use in the operation.
 Defaults to `"_time"`.
 
-_**Data type:** String_
-
-### interpolate
+### interpolate {data-type="string"}
 Type of interpolation to use.
 Defaults to `""`.
 
@@ -61,8 +54,6 @@ Use one of the following interpolation options:
 
 - _empty sting for no interpolation_
 - linear
-
-_**Data type:** String_
 
 ## Examples
 

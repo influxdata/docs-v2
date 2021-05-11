@@ -66,23 +66,17 @@ usage.limits(
 
 ## Parameters
 
-### host{ data-type="string" }
+### host {data-type="string"}
 [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
-_**Data type:** String_
-
-### orgID
+### orgID {data-type="string"}
 InfluxDB Cloud organization ID _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 InfluxDB Cloud authentication token _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
-
-_**Data type:** String_
 
 ## Examples
 

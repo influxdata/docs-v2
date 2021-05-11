@@ -23,4 +23,5 @@ Import the `http` package:
 import "http"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

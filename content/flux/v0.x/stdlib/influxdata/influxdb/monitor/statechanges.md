@@ -19,8 +19,6 @@ introduced: 0.42.0
 The `monitor.stateChanges()` function detects state changes in a stream of data with
 a `_level` column and outputs records that change from `fromLevel` to `toLevel`.
 
-_**Function type:** Transformation_
-
 ```js
 import "influxdata/influxdb/monitor"
 
@@ -32,18 +30,14 @@ monitor.stateChanges(
 
 ## Parameters
 
-### fromLevel
+### fromLevel {data-type="string"}
 The level to detect a change from.
 Defaults to `"any"`.
 
-_**Data type:** String_
-
-### toLevel
+### toLevel {data-type="string"}
 The level to detect a change to.
 The function output records that change to this level.
 Defaults to `"any"`.
-
-_**Data type:** String_
 
 ## Examples
 

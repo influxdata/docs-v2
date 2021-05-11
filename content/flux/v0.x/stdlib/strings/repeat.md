@@ -27,15 +27,11 @@ strings.repeat(v: "ha", i: 3)
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to repeat.
 
-_**Data type:** String_
-
-### i
+### i {data-type="int"}
 The number of times to repeat `v`.
-
-_**Data type:** Integer_
 
 ## Examples
 

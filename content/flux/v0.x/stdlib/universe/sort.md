@@ -21,9 +21,6 @@ The `sort()` function orders the records within each table.
 One output table is produced for each input table.
 The output tables will have the same schema as their corresponding input tables.
 
-_**Function type:** Transformation_  
-_**Output data type:** Record_
-
 #### Sorting with null values
 When sorting, `null` values will always be first.
 When `desc: false`, nulls are less than every other value.
@@ -35,18 +32,14 @@ sort(columns: ["_value"], desc: false)
 
 ## Parameters
 
-### columns
+### columns {data-type="array of strings"}
 List of columns by which to sort.
 Sort precedence is determined by list order (left to right).
 Default is `["_value"]`.
 
-_**Data type:** Array of strings_
-
-### desc
+### desc {data-type="bool"}
 Sort results in descending order.
 Default is `false`.
-
-_**Data type:** Boolean_
 
 ## Examples
 ```js

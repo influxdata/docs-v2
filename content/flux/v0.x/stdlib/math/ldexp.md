@@ -28,15 +28,11 @@ math.ldexp(frac: 0.5, exp: 6)
 
 ## Parameters
 
-### frac
+### frac {data-type="float"}
 The fraction used in the operation.
 
-_**Data type:** Float_
-
-### exp
+### exp {data-type="int"}
 The exponent used in the operation.
-
-_**Data type:** Integer_
 
 ## Special cases
 ```js

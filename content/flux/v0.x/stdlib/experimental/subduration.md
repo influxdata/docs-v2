@@ -20,8 +20,6 @@ introduced: 0.39.0
 The `experimental.subDuration()` function subtracts a duration from a time value and
 returns the resulting time value.
 
-_**Function type:** Transformation_
-
 {{% warn %}}
 This function will be removed once duration vectors are implemented.
 See [influxdata/flux#413](https://github.com/influxdata/flux/issues/413).
@@ -38,15 +36,11 @@ experimental.subDuration(
 
 ## Parameters
 
-### d
+### d {data-type="duration"}
 The duration to subtract.
 
-_**Data type:** Duration_
-
-### from
+### from {data-type="time"}
 The time to subtract the [duration](#d) from.
-
-_**Data type:** Time_
 
 ## Examples
 

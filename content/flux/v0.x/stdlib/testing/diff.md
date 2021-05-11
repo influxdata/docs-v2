@@ -16,8 +16,6 @@ introduced: 0.18.0
 
 The `testing.diff()` function produces a diff between two streams.
 
-_**Function type:** Test_  
-
 ```js
 import "testing"
 
@@ -41,22 +39,16 @@ _The `testing.diff()` function can be used to perform in-line diffs in a query._
 
 ## Parameters
 
-### got
+### got {data-type="stream of tables"}
 Stream containing data to test.
-_Defaults to piped-forward data (`<-`)._
+Default is piped-forward data (`<-`).
 
-_**Data type:** Record_
-
-### want
+### want {data-type="stream of tables"}
 Stream that contains the expected data to test against.
 
-_**Data type:** Record_
-
-### epsilon
+### epsilon {data-type="float"}
 Specifies how far apart two **float** values can be, but still considered equal.
-Defaults to `0.000000001`.
-
-_**Data type:** Float_
+Default is `0.000000001`.
 
 ## Examples
 

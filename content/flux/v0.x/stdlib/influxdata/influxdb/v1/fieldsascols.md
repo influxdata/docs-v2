@@ -28,8 +28,6 @@ The `v1.fieldsAsCols()` function is a special application of the
 function that pivots on `_field` and `_time` columns to aligns fields within each
 input table that have the same timestamp. and resemble InfluxDB 1.x query output.
 
-_**Function type:** Transformation_
-
 ```js
 import "influxdata/influxdb/v1"
 

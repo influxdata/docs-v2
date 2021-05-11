@@ -23,8 +23,6 @@ The experimental `csv.from()` function is an alternative to the standard
 [`csv.from()` function](/flux/v0.x/stdlib/csv/from/).
 {{% /note %}}
 
-_**Function type:** Input_
-
 {{< keep-url >}}
 ```js
 import "experimental/csv"
@@ -34,11 +32,8 @@ csv.from(url: "http://localhost:8086/")
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 The URL to retrieve annotated CSV from.
-
-_**Data type:** String_
-
 
 ## Examples
 

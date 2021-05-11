@@ -19,9 +19,6 @@ The `keep()` function returns a table containing only the specified columns, ign
 Only columns in the group key that are also specified in the `keep()` function will be kept in the resulting group key.
 _It is the inverse of [`drop`](/flux/v0.x/stdlib/universe/drop)._
 
-_**Function type:** Transformation_  
-_**Output data type:** Record_
-
 ```js
 keep(columns: ["col1", "col2"])
 
@@ -36,20 +33,16 @@ keep(fn: (column) => column =~ /inodes*/)
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### columns
+### columns {data-type="array of strings"}
 
 Columns that should be included in the resulting table.
 Cannot be used with `fn`.
 
-_**Data type:** Array of strings_
-
-### fn
+### fn {data-type="function"}
 
 A predicate function which takes a column name as a parameter (`column`) and returns
 a boolean indicating whether or not the column should be included in the resulting table.
 Cannot be used with `columns`.
-
-_**Data type:** Function_
 
 ## Examples
 

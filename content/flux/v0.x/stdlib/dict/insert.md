@@ -35,22 +35,16 @@ dict.insert(
   {{< req "All paremeters are required" >}}
 </p>
 
-### dict
+### dict {data-type="dict"}
 Dictionary to update.
 
-_**Data type:** Dictionary_
-
-### key
+### key {data-type="string, bool, int, uint, float, time, bytes"}
 Key to insert into the dictionary.
 Must be the same type as existing keys in the dictionary.
 
-_**Data type:** String | Boolean | Integer | Uinteger | Float | Time | Bytes_
-
-### default
+### default {data-type="string, bool, int, uint, float, time, bytes"}
 Value to insert into the dictionary.
 Must be the same type as existing values in the dictionary.
-
-_**Data type:** String | Boolean | Integer | Uinteger | Float | Time | Bytes_
 
 ## Examples
 

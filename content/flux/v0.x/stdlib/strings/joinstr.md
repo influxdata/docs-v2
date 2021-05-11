@@ -30,15 +30,11 @@ strings.joinStr(arr: ["a", "b", "c"], v: ",")
 
 ## Parameters
 
-### arr
+### arr {data-type="array of strings"}
 The array of strings to concatenate.
 
-_**Data type:** Array of strings_
-
-### v
+### v {data-type="string"}
 The separator to use in the concatenated value.
-
-_**Data type:** String_
 
 ## Examples
 

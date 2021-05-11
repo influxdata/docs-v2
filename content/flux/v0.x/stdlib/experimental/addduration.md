@@ -20,8 +20,6 @@ introduced: 0.39.0
 The `experimental.addDuration()` function adds a duration to a time value and
 returns the resulting time value.
 
-_**Function type:** Transformation_
-
 {{% warn %}}
 This function will be removed once duration vectors are implemented.
 See [influxdata/flux#413](https://github.com/influxdata/flux/issues/413).
@@ -38,15 +36,11 @@ experimental.addDuration(
 
 ## Parameters
 
-### d
+### d {data-type="duration"}
 The duration to add.
 
-_**Data type:** Duration_
-
-### to
+### to {data-type="time"}
 The time to add the [duration](#d) to.
-
-_**Data type:** Time_
 
 ## Examples
 

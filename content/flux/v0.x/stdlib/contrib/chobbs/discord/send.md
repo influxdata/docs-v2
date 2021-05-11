@@ -17,8 +17,6 @@ introduced: 0.69.0
 The `discord.send()` function sends a single message to a Discord channel using
 a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3).
 
-_**Function type:** Output_
-
 ```js
 import "contrib/chobbs/discord"
 
@@ -33,30 +31,20 @@ discord.send(
 
 ## Parameters
 
-### webhookToken
+### webhookToken {data-type="string"}
 Discord [webhook token](https://discord.com/developers/docs/resources/webhook).
 
-_**Data type:** String_
-
-### webhookID
+### webhookID {data-type="string"}
 Discord [webhook ID](https://discord.com/developers/docs/resources/webhook).
 
-_**Data type:** String_
-
-### username
+### username {data-type="string"}
 Override the Discord webhook's default username.
 
-_**Data type:** String_
-
-### content
+### content {data-type="string"}
 Message to send to Discord (2000 character limit).
 
-_**Data type:** String_
-
-### avatar_url
+### avatar_url {data-type="string"}
 Override the Discord webhook's default avatar.
-
-_**Data type:** String_
 
 ## Examples
 

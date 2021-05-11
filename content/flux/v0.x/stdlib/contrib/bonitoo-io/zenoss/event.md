@@ -39,73 +39,51 @@ zenoss.event(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 ({{< req >}})
 Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
 
-_**Data type:** String_
-
-### username
+### username {data-type="string"}
 ({{< req >}})
 Zenoss username to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-_**Data type:**  String_
-
-### password
+### password {data-type="string"}
 ({{< req >}})
 Zenoss password to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-_**Data type:** String_
-
-### action
+### action {data-type="string"}
 Zenoss [router name](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/anatomy-of-an-api-request#AnatomyofanAPIrequest-RouterURL).
 Default is `"EventsRouter"`.
 
-_**Data type:** String_
-
-### method
+### method {data-type="string"}
 [EventsRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
 Default is `"add_event"`.
 
-_**Data type:** String_
-
-### type
+### type {data-type="string"}
 Event type.
 Default is `"rpc"`.
 
-_**Data type:** String_
-
-### tid
+### tid {data-type="int"}
 Temporary request transaction ID.
 Default is `1`.
 
-_**Data type:** Integer_
-
-### summary
+### summary {data-type="string"}
 Event summary.
 Default is `""`.
 
-_**Data type:** String_
-
-### device
+### device {data-type="string"}
 Related device.
 Default is `""`.
 
-_**Data type:** String_
-
-### component
+### component {data-type="string"}
 Related component.
 Default is `""`.
 
-_**Data type:** String_
-
-### severity
+### severity {data-type="string"}
 ({{< req >}})
 [Event severity level](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-severity-levels).
-
-_**Data type:** String_
 
 **Supported values:**
 
@@ -114,29 +92,21 @@ _**Data type:** String_
 - Info
 - Clear
 
-### eventClass
+### eventClass {data-type="string"}
 [Event class](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/understanding-event-classes).
 Default is `""`.
 
-_**Data type:** String_
-
-### eventClassKey
+### eventClassKey {data-type="string"}
 Event [class key](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-fields).
 Default is `""`.
 
-_**Data type:** String_
-
-### collector
+### collector {data-type="string"}
 Zenoss [collector](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-fields).
 Default is `""`.
 
-_**Data type:** String_
-
-### message
+### message {data-type="string"}
 Related message.
 Default is `""`.
-
-_**Data type:** String_
 
 ## Examples
 

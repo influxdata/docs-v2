@@ -16,7 +16,6 @@ introduced: 0.40.0
 
 The `bytes()` function converts a single value to bytes.
 
-_**Function type:** Type conversion_  
 _**Output data type:** Bytes_
 
 ```js
@@ -25,10 +24,8 @@ bytes(v: "1m")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The value to convert.
-
-_**Data type:** String_
 
 ## Examples
 ```js

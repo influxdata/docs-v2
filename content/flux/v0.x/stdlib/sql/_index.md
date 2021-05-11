@@ -36,4 +36,5 @@ Import the `sql` package:
 import "sql"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

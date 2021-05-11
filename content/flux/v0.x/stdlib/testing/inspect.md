@@ -16,8 +16,6 @@ introduced: 0.18.0
 
 The `testing.inspect()` function returns information about a test case.
 
-_**Function type:** Test_  
-
 ```js
 import "testing"
 
@@ -28,10 +26,8 @@ testing.inspect(
 
 ## Parameters
 
-### case
+### case {data-type="function"}
 Test case to inspect.
-
-_**Data type:** Function_
 
 ## Examples
 

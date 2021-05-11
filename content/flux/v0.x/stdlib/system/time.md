@@ -20,9 +20,6 @@ introduced: 0.18.0
 
 The `system.time()` function returns the current system time.
 
-_**Function type:** Date/Time_  
-_**Output data type:** Timestamp_
-
 ```js
 import "system"
 

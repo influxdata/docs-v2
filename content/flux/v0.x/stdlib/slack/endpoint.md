@@ -17,8 +17,6 @@ introduced: 0.41.0
 
 The `slack.endpoint()` function sends a message to Slack that includes output data.
 
-_**Function type:** Output_
-
 ```js
 import "slack"
 
@@ -30,7 +28,7 @@ slack.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 The Slack API URL.
 Defaults to `https://slack.com/api/chat.postMessage`.
 
@@ -39,9 +37,7 @@ If using a Slack webhook, you'll receive a Slack webhook URL when you
 [create an incoming webhook](https://api.slack.com/incoming-webhooks#create_a_webhook).
 {{% /note %}}
 
-_**Data type:** String_
-
-### token
+### token {data-type="string"}
 The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
 used to interact with Slack.
 Defaults to `""`.
@@ -50,17 +46,13 @@ Defaults to `""`.
 A token is only required if using the Slack chat.postMessage API.
 {{% /note %}}
 
-_**Data type:** String_
-
 ## Usage
 `slack.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 ({{< req >}}) A function that builds the record used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
 

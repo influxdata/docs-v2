@@ -36,15 +36,11 @@ strings.trimSuffix(v: "123_abc", suffix: "abc")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to trim.
 
-_**Data type:** String_
-
-### suffix
+### suffix {data-type="string"}
 The suffix to remove.
-
-_**Data type:** String_
 
 ## Examples
 

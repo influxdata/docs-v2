@@ -24,8 +24,6 @@ A bin is defined by an upper bound where all data points that are less than or
 equal to the bound are counted in the bin.
 Bin counts are cumulative.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental"
 
@@ -48,14 +46,10 @@ The function does the following:
 
 ## Parameters
 
-_**Data type:** String_
-
-### bins
+### bins {data-type="array of floats"}
 ({{< req >}})
 A list of upper bounds to use when computing the histogram frequencies, including the maximum value of the data set.
 This value can be set to positive infinity if no maximum is known.
-
-_**Data type:** Array of floats_
 
 #### Bin helper functions
 The following helper functions can be used to generated bins.
@@ -63,17 +57,15 @@ The following helper functions can be used to generated bins.
 [linearBins()](/flux/v0.x/stdlib/universe/linearbins)  
 [logarithmicBins()](/flux/v0.x/stdlib/universe/logarithmicbins)
 
-### normalize
+### normalize {data-type="bool"}
 Convert count values into frequency values between 0 and 1.
 Default is `false`.
-
-_**Data type:** Boolean_
 
 {{% note %}}
 Normalized histograms cannot be aggregated by summing their counts.
 {{% /note %}}
 
-### tables
+### tables {data-type="stream of tables"}
 Input data.
 Default is pipe-forwarded data.
 

@@ -23,4 +23,5 @@ Import the `json` package:
 import "json"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

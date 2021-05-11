@@ -31,10 +31,8 @@ strings.toLower(v: "KOALA")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to convert.
-
-_**Data type:** String_
 
 ## Examples
 

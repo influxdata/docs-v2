@@ -23,9 +23,6 @@ For each consecutive point that evaluates as `true`, the state count is incremen
 When a point evaluates as `false`, the state count is reset.
 The state count is added as an additional column to each record.
 
-_**Function type:** Transformation_  
-_**Output data type:** Integer_
-
 ```js
 stateCount(fn: (r) => r._field == "state", column: "stateCount")
 ```
@@ -39,20 +36,16 @@ and does not affect the state count._
 Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
-### fn
+### fn {data-type="function"}
 
 A single argument function that evaluates true or false to identify the state of the record.
 Records are passed to the function.
 Those that evaluate to `true` increment the state count.
 Those that evaluate to `false` reset the state count.
 
-_**Data type:** Function_
-
-### column
+### column {data-type="string"}
 
 The name of the column added to each record that contains the incremented state count.
-
-_**Data type:** String_
 
 ## Examples
 

@@ -19,19 +19,17 @@ The `timeWeightedAvg()` function outputs the time-weighted average of non-null r
 in a table as a float.
 Time is weighted using the linearly interpolated integral of values in the table.
 
-_**Function type:** Aggregate_  
 _**Output data type:** Float_
 
 ```js
-timeWeightedAvg(unit: "_value")
+timeWeightedAvg(unit: 1m)
 ```
 
 ## Parameters
 
-### unit
+### unit {data-type="duration"}
+({{< req >}})
 Time duration used when computing the time-weighted average.
-
-_**Data type:** Duration_
 
 ## Examples
 ```js

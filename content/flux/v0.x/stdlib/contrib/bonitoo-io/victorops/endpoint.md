@@ -16,8 +16,6 @@ introduced: 0.108.0
 
 The `victorops.endpoint()` function sends events to VictorOps using data from input rows.
 
-_**Function type:** Output_
-
 {{% note %}}
 #### VictorOps is now Splunk On-Call
 Splunk acquired VictorOps and VictorOps is now
@@ -34,11 +32,9 @@ victorops.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 ({{< req >}})
 [VictorOps REST endpoint integration URL](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/).
-
-_**Data type:** String_
 
 ##### VictorOps URL example
 ```
@@ -51,11 +47,9 @@ _Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing ke
 `victorops.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the object used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the
 following fields:

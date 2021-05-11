@@ -32,10 +32,8 @@ math.frexp(f: 22.0)
 
 ## Parameters
 
-### f
+### f {data-type="float"}
 The value used in the operation.
-
-_**Data type:** Float_
 
 ## Special cases
 ```js

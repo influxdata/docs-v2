@@ -16,8 +16,6 @@ introduced: 0.40.0
 
 The `json.encode()` function converts a value into JSON bytes.
 
-_**Function type:** Type conversion_
-
 ```js
 import "json"
 
@@ -34,14 +32,12 @@ This function encodes [Flux types](/flux/v0.x/spec/types/) as follows:
 
 ## Parameters
 
-### v
+### v {data-type="record, array, dict, string, bool, duration, int, uint, float, time"}
 The value to convert.
-
-_**Data type:** Record | Array | Boolean | Duration | Float | Integer | String | Time | UInteger_
 
 ## Examples
 
-### Encode all values in a column in JSON bytes
+##### Encode all values in a column in JSON bytes
 ```js
 import "json"
 

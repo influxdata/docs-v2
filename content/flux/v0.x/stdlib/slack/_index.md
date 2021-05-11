@@ -23,4 +23,5 @@ Import the `slack` package:
 import "slack"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

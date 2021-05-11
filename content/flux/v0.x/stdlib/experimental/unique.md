@@ -21,8 +21,6 @@ The `experimental.unique()` function returns all records containing unique
 values in the `_value` column.
 `null` is considered a unique value.
 
-_**Function type:** Selector_
-
 ```js
 import "experimental"
 experimental.unique()
@@ -42,11 +40,9 @@ the following:
 
 ## Parameters
 
-### tables
+### tables {data-type="stream of tables"}
 Input data.
 Default is pipe-forwarded data.
-
-_**Data type:** String_
 
 ## Examples
 ```js

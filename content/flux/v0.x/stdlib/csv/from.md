@@ -21,8 +21,6 @@ It returns a stream of tables.
 Each unique series is contained within its own table.
 Each record in the table represents a single point in the series.
 
-_**Function type:** Input_
-
 ```js
 import "csv"
 
@@ -41,7 +39,7 @@ csv.from(
 
 ## Parameters
 
-### csv
+### csv {data-type="string"}
 CSV data.
 Supports [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) or raw CSV.
 Use [`mode`](#mode) to specify the parsing mode.
@@ -50,9 +48,7 @@ Use [`mode`](#mode) to specify the parsing mode.
 Annotated CSV data must include all [annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
 {{% /note %}}
 
-_**Data type:** String_
-
-### file
+### file {data-type="string"}
 The file path of the CSV file to query.
 The path can be absolute or relative.
 If relative, it is relative to the working directory of the `fluxd` process.
@@ -64,13 +60,9 @@ Neither allow access to the underlying filesystem.
 However, the [Flux REPL](/influxdb/v2.0/tools/repl/) does support the `file` parameter.
 {{% /warn %}}
 
-_**Data type:** String_
-
-### mode
+### mode {data-type="string"}
 CSV parsing mode.
 Default is `annotations`.
-
-_**Data type:** String_
 
 ##### Available modes
 - **annotations:** Use CSV annotations to determine column data types.

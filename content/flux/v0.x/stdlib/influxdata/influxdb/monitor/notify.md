@@ -18,8 +18,6 @@ introduced: 0.39.0
 The `monitor.notify()` function sends a notification to an endpoint and logs it
 in the `notifications` measurement in the [`_monitoring` bucket](/influxdb/v2.0/reference/internals/system-buckets/#monitoring-system-bucket).
 
-_**Function type:** Output_
-
 ```js
 import "influxdata/influxdb/monitor"
 
@@ -31,17 +29,13 @@ monitor.notify(
 
 ## Parameters
 
-### endpoint
+### endpoint {data-type="function"}
 ({{< req >}}) A function that constructs and sends the notification to an endpoint.
 
-_**Data type:** Function_
-
-### data
+### data {data-type="record"}
 ({{< req >}}) Notification data to append to the output.
 This data specifies which notification rule and notification endpoint to associate
 with the sent notification.
-
-_**Data type:** Record_
 
 The data record must contain the following fields:
 

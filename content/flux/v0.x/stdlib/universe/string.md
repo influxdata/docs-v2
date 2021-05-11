@@ -16,7 +16,6 @@ introduced: 0.7.0
 
 The `string()` function converts a single value to a string.
 
-_**Function type:** Type conversion_  
 _**Output data type:** String_
 
 ```js
@@ -25,10 +24,8 @@ string(v: 123456789)
 
 ## Parameters
 
-### v
-The value to convert.
-
-_**Data type:** Boolean | Bytes | Duration | Float | Integer | Time | Uinteger_
+### v {data-type="bool, int, uint, float, duration, time, bytes"}
+Value to convert.
 
 ## Examples
 ```js

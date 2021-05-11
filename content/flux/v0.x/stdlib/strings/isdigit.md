@@ -30,10 +30,8 @@ strings.isDigit(v: "A")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The single-character string to test.
-
-_**Data type:** String_
 
 ## Examples
 

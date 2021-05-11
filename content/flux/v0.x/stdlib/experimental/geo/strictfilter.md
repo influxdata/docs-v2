@@ -24,8 +24,6 @@ This filter is more strict than [`geo.gridFilter()`](/flux/v0.x/stdlib/experimen
 but for the best performance, use `geo.strictFilter()` **after** `geo.gridFilter()`.
 _See [Strict and non-strict filtering](#strict-and-non-strict-filtering) below._
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/geo"
 
@@ -64,12 +62,10 @@ In most cases, the specified geographic region does not perfectly align with S2 
 
 ## Parameters
 
-### region
+### region {data-type="record"}
 The region containing the desired data points.
 Specify record properties for the shape.
 _See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
-
-_**Data type:** Record_
 
 ## Examples
 

@@ -34,16 +34,12 @@ strings.trimLeft(v: ".abc.", cutset: ".")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 String to remove characters from.
 
-_**Data type:** String_
-
-### cutset
+### cutset {data-type="string"}
 The leading characters to remove from the string.
 Only characters that match the `cutset` string exactly are removed.
-
-_**Data type:** String_
 
 ## Examples
 

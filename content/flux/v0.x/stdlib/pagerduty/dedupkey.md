@@ -20,8 +20,6 @@ generate and store a deduplication key in the `_pagerdutyDedupKey` column.
 The function sorts, newline-concatenates, SHA256-hashes, and hex-encodes
 the group key to create a unique deduplication key for each input table.
 
-_**Function type:** Transformation_
-
 ```js
 import "pagerduty"
 

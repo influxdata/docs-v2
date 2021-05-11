@@ -19,8 +19,6 @@ introduced: 0.16.0
 
 The `buckets()` function returns a list of buckets in the organization.
 
-_**Function type:** Input_
-
 ```js
 buckets()
 ```

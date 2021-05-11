@@ -21,8 +21,6 @@ The `experimental.to()` function writes data to an InfluxDB v2.0 bucket, but in
 a [different structure](#expected-data-structure) than the
 [built-in `to()` function](/flux/v0.x/stdlib/universe/to/).
 
-_**Function type:** Output_
-
 ```js
 import "experimental"
 
@@ -64,32 +62,23 @@ _[See the example below](#use-pivot-to-shape-data-for-experimentalto)._
 
 ## Parameters
 
-### bucket
+### bucket {data-type="string"}
 The bucket to write data to.
 `bucket` and `bucketID` are mutually exclusive.
 
-_**Data type:** String_
-
-### bucketID
+### bucketID {data-type="string"}
 The ID of the bucket to write data to.
 `bucketID` and `bucket` are mutually exclusive.
 
-_**Data type:** String_
-
-### org
+### org {data-type="string"}
 The organization name of the specified [`bucket`](#bucket).
 Only required when writing to a different organization or a remote host.
 `org` and `orgID` are mutually exclusive.
 
-_**Data type:** String_
-
-### orgID
+### orgID {data-type="string"}
 The organization ID of the specified [`bucket`](#bucket).
 Only required when writing to a different organization or a remote host.
 `orgID` and `org` are mutually exclusive.
-
-_**Data type:** String_
-
 
 ## Examples
 

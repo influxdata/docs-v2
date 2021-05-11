@@ -11,13 +11,12 @@ menu:
     name: secrets.get
     parent: secrets
 weight: 202
+flux/v0.x/tags: [security, secrets]
 introduced: 0.41.0
 ---
 
 The `secrets.get()` function retrieves a secret from the
 [InfluxDB secret store](/influxdb/v2.0/security/secrets/).
-
-_**Function type:** Miscellaneous_
 
 ```js
 import "influxdata/influxdb/secrets"
@@ -27,10 +26,8 @@ secrets.get(key: "KEY_NAME")
 
 ## Parameters
 
-### key
+### key {data-type="string"}
 The secret key to retrieve.
-
-_**Data type:** String_
 
 ## Examples
 

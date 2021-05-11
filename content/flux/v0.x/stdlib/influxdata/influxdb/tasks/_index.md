@@ -36,7 +36,7 @@ import "influxdata/influxdb/tasks"
 option tasks.lastSuccessTime = 0000-01-01T00:00:00Z
 ```
 
-#### lastSuccessTime
+### lastSuccessTime {data-type="time"}
 Define the time of the last successful task run.
 _Only use this option to override the time of the last successful run provided by
 the InfluxDB task engine._

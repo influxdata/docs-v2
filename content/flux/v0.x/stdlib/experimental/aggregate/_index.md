@@ -22,4 +22,5 @@ Import the `experimental/aggregate` package:
 import "experimental/aggregate"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}

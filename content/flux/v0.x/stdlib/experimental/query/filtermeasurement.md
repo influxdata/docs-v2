@@ -16,8 +16,6 @@ introduced: 0.60.0
 
 The `query.filterMeasurement()` function filters input data by measurement.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental/query"
 
@@ -28,11 +26,9 @@ query.filterMeasurement(
 
 ## Parameters
 
-### measurement
+### measurement {data-type="string"}
 The name of the measurement to filter by.
 Must be an exact string match.
-
-_**Data type:** String_
 
 ## Examples
 

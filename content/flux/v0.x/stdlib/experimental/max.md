@@ -21,8 +21,6 @@ introduced: 0.112.0
 The `experimental.max()` function returns the record with the highest value in the
 `_value` column for each input table.
 
-_**Function type:** Selector_
-
 ```js
 import "experimental"
 
@@ -36,11 +34,9 @@ experimental.max()
 
 ## Parameters
 
-### tables
+### tables {data-type="stream of tables"}
 Input data.
 Default is pipe-forwarded data.
-
-_**Data type:** String_
 
 ## Examples
 ```js

@@ -15,8 +15,6 @@ introduced: 0.40.0
 
 The `experimental.objectKeys()` function returns an array of keys in a specified record.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental"
 
@@ -29,10 +27,8 @@ experimental.objectKeys(
 
 ## Parameters
 
-### o
+### o {data-type="record"}
 The record to return keys from.
-
-_**Data type:** Record_
 
 ## Examples
 

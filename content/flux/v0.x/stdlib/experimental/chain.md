@@ -25,8 +25,6 @@ the results of the first query are met.
   [InfluxDB task](/influxdb/v2.0/process-data/get-started/).
 - Execute queries sequentially in testing scenarios.
 
-_**Function type:** Miscellaneous_
-
 ```js
 import "experimental"
 
@@ -38,15 +36,11 @@ experimental.chain(
 
 ## Parameters
 
-### first
+### first {data-type="stream of tables"}
 The first query to execute.
 
-_**Data type:** Stream of tables_
-
-### second
+### second  {data-type="stream of tables"}
 The second query to execute.
-
-_**Data type:** Stream of tables_
 
 ## Examples
 

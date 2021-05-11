@@ -21,7 +21,6 @@ introduced: 0.7.0
 The `cumulativeSum()` function computes a running sum for non-null records in the table.
 The output table schema will be the same as the input table.
 
-_**Function type:** Transformation  
 _**Output data type:** Float_
 
 ```js
@@ -30,11 +29,9 @@ cumulativeSum(columns: ["_value"])
 
 ## Parameters
 
-### columns
+### columns {data-type="array of strings"}
 A list of columns on which to operate.
 Defaults to `["_value"]`.
-
-_**Data type:** Array of strings_
 
 ## Examples
 ```js

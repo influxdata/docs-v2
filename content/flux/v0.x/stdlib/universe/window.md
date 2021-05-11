@@ -28,9 +28,6 @@ A single input record will be placed into zero or more output tables, depending 
 By default the start boundary of a window will align with the Unix epoch (zero time)
 modified by the offset of the `location` option.
 
-_**Function type:** Transformation_  
-_**Output data type:** Record_
-
 ```js
 window(
   every: 5m,
@@ -51,50 +48,36 @@ window(
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
-### every
+### every {data-type="duration"}
 Duration of time between windows.
 Defaults to `period` value.
 
-_**Data type:** Duration_
-
-### period
+### period {data-type="duration"}
 Duration of the window.
 Period is the length of each interval.
 It can be negative, indicating the start and stop boundaries are reversed.
 Defaults to `every` value.
 
-_**Data type:** Duration_
-
-### offset
+### offset {data-type="duration"}
 Offset is the duration by which to shift the window boundaries.
 It can be negative, indicating that the offset goes backwards in time.
 Defaults to 0, which will align window end boundaries with the `every` duration.
 
-_**Data type:** Duration_
-
-### timeColumn
+### timeColumn {data-type="string"}
 The column containing time.
 Defaults to `"_time"`.
 
-_**Data type:** String_
-
-### startColumn
+### startColumn {data-type="string"}
 The column containing the window start time.
 Defaults to `"_start"`.
 
-_**Data type:** String_
-
-### stopColumn
+### stopColumn {data-type="string"}
 The column containing the window stop time.
 Defaults to `"_stop"`.
 
-_**Data type:** String_
-
-### createEmpty
+### createEmpty {data-type="bool"}
 Specifies whether empty tables should be created.
 Defaults to `false`.
-
-_**Data type:** Boolean_
 
 ## Examples
 

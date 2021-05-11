@@ -18,8 +18,6 @@ introduced: 0.70.0
 The `teams.endpoint()` function sends a message to a Microsoft Teams channel
 using data from table rows.
 
-_**Function type:** Output_
-
 ```js
 import "contrib/sranka/teams"
 
@@ -30,20 +28,16 @@ teams.endpoint(
 
 ## Parameters
 
-### url
+### url {data-type="string"}
 Incoming webhook URL.
-
-_**Data type:** String_
 
 ## Usage
 `teams.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn
+### mapFn {data-type="function"}
 A function that builds the object used to generate the POST request.
 Requires an `r` parameter.
-
-_**Data type:** Function_
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the
 following fields:

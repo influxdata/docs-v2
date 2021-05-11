@@ -23,8 +23,6 @@ Group data into meaningful, ordered paths to before converting to linestring.
 Rows in each table must have `lat` and `lon` columns.
 Output tables contain a single row with a `st_linestring` column containing the resulting linestring.
 
-_**Function type:** Aggregate_
-
 ```js
 import "experimental/geo"
 

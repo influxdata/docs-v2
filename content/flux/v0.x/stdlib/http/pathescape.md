@@ -17,8 +17,6 @@ introduced: 0.71.0
 The `http.pathEscape()` function escapes special characters in a string (including `/`)
 and replaces non-ASCII characters with hexadecimal representations (`%XX`).
 
-_**Function type:** Transformation_
-
 ```js
 import "http"
 
@@ -31,10 +29,8 @@ http.pathEscape(
 
 ## Parameters
 
-### inputString
+### inputString {data-type="string"}
 The string to escape.
-
-_**Data type:** String_
 
 ## Examples
 

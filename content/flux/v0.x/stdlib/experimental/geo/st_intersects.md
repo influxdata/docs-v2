@@ -20,8 +20,6 @@ introduced: 0.63.0
 The `geo.ST_Intersects()` function tests if the specified geographic information
 system (GIS) geometry intersects with the specified region and returns `true` or `false`.
 
-_**Function type:** Test_
-
 ```js
 import "experimental/geo"
 
@@ -35,19 +33,15 @@ geo.ST_Intersects(
 
 ## Parameters
 
-### region
+### region {data-type="record"}
 The region to test.
 Specify record properties for the shape.
 _See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
 
-_**Data type:** Record_
-
-### geometry
+### geometry {data-type="record"}
 The GIS geometry to test.
 Can be either point or linestring geometry.
 _See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry-definitions)._
-
-_**Data type:** Record_
 
 ## Examples
 

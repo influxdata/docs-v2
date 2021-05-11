@@ -34,18 +34,18 @@ option telegram.defaultDisableWebPagePreview = false
 option telegram.defaultSilent = true
 ```
 
-#### defaultURL
+### defaultURL {data-type="string"}
 Default Telegram bot URL. Default is `https://api.telegram.org/bot`.
 
-#### defaultParseMode
+### defaultParseMode {data-type="string"}
 Default [Telegram parse mode](https://core.telegram.org/bots/api#formatting-options).
 Default is `MarkdownV2`.
 
-#### defaultDisableWebPagePreview
+### defaultDisableWebPagePreview {data-type="bool"}
 Disable Telegram web page preview by default.
 Default is `false`.
 
-#### defaultSilent
+### defaultSilent {data-type="bool"}
 Send silent Telegram notifications by default.
 Default is `true`.
 

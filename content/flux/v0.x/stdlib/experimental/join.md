@@ -26,8 +26,6 @@ or [`drop()`](/flux/v0.x/stdlib/universe/drop/) to remove
 _See an example [below](#join-two-streams-of-tables-with-different-fields-and-measurements)._
 {{% /note %}}
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental"
 
@@ -42,22 +40,16 @@ experimental.join(
 
 ## Parameters
 
-### left
+### left {data-type="stream of tables"}
 First of two streams of tables to join.
 
-_**Data type:** Stream of tables_
-
-### right
+### right {data-type="stream of tables"}
 Second of two streams of tables to join.
 
-_**Data type:** Stream of tables_
-
-### fn
+### fn {data-type="function"}
 A function with `left` and `right` arguments that maps a new output record
 using values from the `left` and `right` input records.
 The return value must be a record.
-
-_**Data type:** Function_
 
 ## Examples
 

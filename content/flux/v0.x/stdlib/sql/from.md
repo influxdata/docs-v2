@@ -18,8 +18,6 @@ introduced: 0.34.0
 
 The `sql.from()` function retrieves data from a SQL data source.
 
-_**Function type:** Input_
-
 ```js
 import "sql"
 
@@ -32,10 +30,8 @@ sql.from(
 
 ## Parameters
 
-### driverName
+### driverName {data-type="string"}
 The driver used to connect to the SQL database.
-
-_**Data type:** String_
 
 The following drivers are available:
 
@@ -47,11 +43,9 @@ The following drivers are available:
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#query-an-sqlite-database)._
 - sqlserver, mssql
 
-### dataSourceName
+### dataSourceName {data-type="string"}
 The data source name (DSN) or connection string used to connect to the SQL database.
 The string's form and structure depend on the [driver](#drivername) used.
-
-_**Data type:** String_
 
 ##### Driver dataSourceName examples
 ```sh
@@ -84,10 +78,8 @@ bigquery://projectid/?param1=value&param2=value
 bigquery://projectid/location?param1=value&param2=value
 ```
 
-### query
+### query {data-type="string"}
 The query to run against the SQL database.
-
-_**Data type:** String_
 
 ## Examples
 

@@ -16,8 +16,6 @@ introduced: 0.66.0
 
 The `experimental.alignTime()` function aligns input tables to a common start time.
 
-_**Function type:** Transformation_
-
 ```js
 import "experimental"
 
@@ -28,11 +26,9 @@ experimental.alignTime(
 
 ## Parameters
 
-### alignTo
+### alignTo {data-type="time"}
 The **UTC time** to align tables to.
 Default is `1970-01-01T00:00:00Z`.
-
-_**Data type:** Time_
 
 ## Examples
 

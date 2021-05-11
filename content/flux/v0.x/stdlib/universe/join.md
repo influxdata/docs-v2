@@ -26,11 +26,12 @@ Null values are not considered equal when comparing column values.
 The resulting schema is the union of the input schemas.
 The resulting group key is the union of the input group keys.
 
-_**Function type:** Transformation_  
-_**Output data type:** Record_
-
 ```js
-join(tables: {key1: table1, key2: table2}, on: ["_time", "_field"], method: "inner")
+join(
+  tables: {key1: table1, key2: table2},
+  on: ["_time", "_field"],
+  method: "inner"
+)
 ```
 
 #### Output schema
@@ -55,26 +56,20 @@ The resulting group keys for all tables will be: `[_time, _field_d1, _field_d2]`
 
 ## Parameters
 
-### tables
+### tables {data-type="record"}
 ({{< req >}})
 Map of two streams to join.
-
-_**Data type:** Record_
 
 {{% note %}}
 `join()` currently only supports two input streams.
 {{% /note %}}
 
-### on
+### on {data-type="array of strings"}
 ({{< req >}})
 List of columns to join on.
 
-_**Data type:** Array of strings_
-
-### method
+### method {data-type="string"}
 Join method to use to join. Default is `"inner"`.
-
-_**Data type:** String_
 
 ###### Possible Values:
 - `inner`

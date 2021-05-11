@@ -30,10 +30,8 @@ strings.strlen(v: "apple")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 The string value to measure.
-
-_**Data type:** String_
 
 ## Examples
 

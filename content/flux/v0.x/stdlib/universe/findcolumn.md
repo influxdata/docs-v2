@@ -22,8 +22,6 @@ first table in a stream of tables where the group key values match the specified
 The function returns an empty array if no table is found or if the column label
 is not present in the set of columns.
 
-_**Function type:** Stream and table_  
-
 ```js
 findColumn(
   fn: (key) => key._field == "fieldName",
@@ -33,16 +31,12 @@ findColumn(
 
 ## Parameters
 
-### fn
+### fn {data-type="function"}
 A predicate function for matching keys in a table's group key.
 Expects a `key` argument that represents a group key in the input stream.
 
-_**Data type:** Function_
-
-### column
+### column {data-type="string"}
 Name of the column to extract.
-
-_**Data type:** String_
 
 ## Example
 ```js

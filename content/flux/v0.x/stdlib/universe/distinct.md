@@ -21,7 +21,6 @@ The `distinct()` function returns the unique values for a given column.
 The `_value` of each output record is set to the distinct value in the specified column.
 `null` is considered its own distinct value if it is present.
 
-_**Function type:** Selector_  
 _**Output data type:** Record_
 
 ```js
@@ -35,10 +34,8 @@ distinct(column: "host")
 
 ## Parameters
 
-### column
+### column {data-type="string"}
 Column on which to track unique values.
-
-_**Data type:** string_
 
 ## Examples
 ```js

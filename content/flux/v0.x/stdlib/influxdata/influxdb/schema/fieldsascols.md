@@ -22,8 +22,6 @@ The `schema.fieldsAsCols()` function is a special application of the
 function that pivots on `_field` and `_time` columns to aligns fields within each
 input table that have the same timestamp.
 
-_**Function type:** Transformation_
-
 ```js
 import "influxdata/influxdb/schema"
 

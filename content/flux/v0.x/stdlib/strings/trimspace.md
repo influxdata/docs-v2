@@ -33,10 +33,8 @@ strings.trimSpace(v: "  abc  ")
 
 ## Parameters
 
-### v
+### v {data-type="string"}
 String to remove spaces from.
-
-_**Data type:** String_
 
 ## Examples
 

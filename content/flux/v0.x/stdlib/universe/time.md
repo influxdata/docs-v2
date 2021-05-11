@@ -16,7 +16,6 @@ introduced: 0.7.0
 
 The `time()` function converts a single value to a time.
 
-_**Function type:** Type conversion_  
 _**Output data type:** Time_
 
 ```js
@@ -25,10 +24,8 @@ time(v: "2016-06-13T17:43:50.1004002Z")
 
 ## Parameters
 
-### v
+### v {data-type="string, int, uint"}
 The value to convert.
-
-_**Data type:** Integer | String | Uinteger_
 
 {{% note %}}
 `time()` assumes all numeric input values are nanosecond epoch timestamps.

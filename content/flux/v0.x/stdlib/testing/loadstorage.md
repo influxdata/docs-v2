@@ -22,9 +22,7 @@ Test data requires the following columns:
 
 - `_field`
 - `_measurement`
-- `_time`
-
-_**Function type:** Test_  
+- `_time` 
 
 ```js
 import "testing"
@@ -36,7 +34,7 @@ testing.loadStorage(
 
 ## Parameters
 
-### csv
+### csv {data-type="string"}
 [Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) data to load.
 
 ## Examples
