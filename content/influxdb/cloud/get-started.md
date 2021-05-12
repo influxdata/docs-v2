@@ -13,9 +13,7 @@ influxdb/cloud/tags: [get-started, install]
 
 After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/ ), you're ready to start writing, querying, and visualizing data.
 
-To get started working in Cloud, we recommend using demo data and notebooks. Complete the following steps:
-1. [Add demo data](add-demo-data)
-2. ...
+To get started working in Cloud, we recommend using demo data and notebooks. 
 
 ## Add demo data
 
