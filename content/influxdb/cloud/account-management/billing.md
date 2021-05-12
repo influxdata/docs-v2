@@ -16,7 +16,7 @@ menu:
 products: [cloud]
 ---
 
-Learn how to upgrade your plan, access billing details, and review and resolve exceeded plan limits:
+Learn how to upgrade your plan, access billing details, and review and resolve plan limit overages:
 
 - [Upgrade to Usage-Based Plan](#upgrade-to-usage-based-plan)
 - [Access billing details](#access-billing-details):
@@ -25,7 +25,7 @@ Learn how to upgrade your plan, access billing details, and review and resolve e
   - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount#send-notifications-when-usage-exceeds-an-amount)
   - [View Usage-based Plan information](#view-usage-based-plan-information)
   - [View Free Plan information](#view-free-plan-information)
-- [Review and resolve exceeded plan limits](#review-and-resolve-exceeded-plan-limits)
+- [Review and resolve plan limit overages](#review-and-resolve-plan-limit-overages)
 - [Billing cycle](#billing-cycle)
   - [Declined or late payments](#declined-or-late-payments)
 
@@ -96,7 +96,7 @@ On the **Billing page**, view your billing information, including:
 
 On the **Billing page**, view the total limits available for the Free Plan.
 
-## Review and resolve exceeded plan limits
+## Review and resolve plan limit overages
 
 If you exceed your plan's [limits](/influxdb/cloud/account-management/pricing-plans/), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI).
 
