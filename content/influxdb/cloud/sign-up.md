@@ -230,7 +230,7 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 Click the following button to download and install `influx` CLI for Windows.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.6-windows-amd64.tar.gz" download>influx CLI (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.6-windows-amd64.tar.gz" download>influx CLI (Windows)</a>
 
 #### Step 2: Expand the downloaded archive
 
