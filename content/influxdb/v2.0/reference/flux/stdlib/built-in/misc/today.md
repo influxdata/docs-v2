@@ -1,7 +1,7 @@
 ---
 title: today() function
 description: >
-  The `today()` function returns the `now()` time value truncated to the day unit.
+  The `today()` function returns the `now()` timestamp truncated to the day unit.
 menu:
   influxdb_2_0_ref:
     name: today
