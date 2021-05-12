@@ -92,6 +92,7 @@ To use the `influx` CLI to manage and interact with your InfluxDB Cloud instance
 {{% tabs %}}
 [macOS](#)
 [Linux](#)
+[Windows](#)
 {{% /tabs %}}
 
 <!-------------------------------- BEGIN macOS -------------------------------->
@@ -101,7 +102,7 @@ To use the `influx` CLI to manage and interact with your InfluxDB Cloud instance
 
 Click the following button to download and install `influx` CLI for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.5-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.6-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -169,8 +170,8 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.5-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.5-linux-arm64.tar.gz" download >influx CLI (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.6-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.6-linux-arm64.tar.gz" download >influx CLI (arm)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -217,10 +218,37 @@ For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config
 
 #### Step 5: Learn `influx` CLI commands
 
+To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/cloud/reference/cli/influx/).
 
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
 
+<!-------------------------------- BEGIN Windows -------------------------------->
+{{% tab-content %}}
+
+#### Step 1: Download influx CLI for Windows
+
+Click the following button to download and install `influx` CLI for Windows.
+
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.6-windows-amd64.tar.gz" download>influx CLI (macOS)</a>
+
+#### Step 2: Expand the downloaded archive
+
+Expand the downloaded archive into `C:\Program Files\InfluxData\influxdb`.
+
+#### Step 3: Grant network access
+
+When using the `influx` CLI for the first time, Windows Defender will appear with the following message: `Windows Defender Firewall has blocked some features of this app.`
+
+1. Select **Private networks, such as my home or work network**.
+2. Click **Allow access**.
+
+#### Step 4: Learn `influx` CLI commands
+
+To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/cloud/reference/cli/influx/).
+
+{{% /tab-content %}}
+<!--------------------------------- END Windows --------------------------------->
 {{< /tabs-wrapper >}}
 
 ## Sign in
