@@ -30,7 +30,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
 ### Install InfluxDB v2.0
-<!-- 
+<!--
 - [Use Homebrew](#use-homebrew)
 - [Manually download and install](#manually-download-and-install)
 
