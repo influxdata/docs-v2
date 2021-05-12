@@ -41,7 +41,7 @@ Learn how to create a notebook that downsamples data—walk through the followin
   {{% /note %}}
 4. Add an **Output to Bucket** cell, and then select the destination bucket for your downsampled data.
 5. Add a **Markdown** cell to add a note to your team about what this notebook does. For example, the cell might say, "Downsample to one value per hour so we can do week-over-week performance. Sending data to downsample bucket."
-5. Click **Preview** in the upper left to verify that your notebook runs and preview the output.
-6. Run your notebook:
+6. Click **Preview** in the upper left to verify that your notebook runs and preview the output.
+7. Run your notebook:
   - Click **Run** from the **Preview** dropdown list to run the notebook and write to the output bucket a single time.
   - To write continuously, click **Export as Task** in the upper right corner of the **Output to Bucket** cell. For details about working with tasks, see [Manage tasks](/influxdb/cloud/process-data/manage-tasks/).
