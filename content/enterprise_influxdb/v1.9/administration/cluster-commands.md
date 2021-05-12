@@ -15,8 +15,8 @@ menu:
 InfluxDB Enterprise includes two utilities for interacting with and managing your clusters.
 Use these two tools to manage InfluxDB Enterprise clusters:
 
-- [`influxd-ctl` cluster management utility](#influxd-ctl-cluster-management-utility)
-- [`influx` command line interface (CLI)](#influx-command-line-interface-cli)
+-To manage your clusters, use [`influxd-ctl` cluster management utility](#influxd-ctl-cluster-management-utility)
+- To manage nodes, back up and restore data, and rebalance clusters, use [`influx` command line interface (CLI)](#influx-command-line-interface-cli)
 
 ## `influxd-ctl` cluster management utility
 
