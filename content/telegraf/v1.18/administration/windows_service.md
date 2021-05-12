@@ -10,8 +10,8 @@ menu:
 
 Telegraf natively supports running as a Windows service. Complete the following steps:
 
-1. Review considerations [before you begin](#before-you-begin)
-2. [Download and run as service](#download-and-run-as-service)
+1. Review considerations [before you begin](#before-you-begin).
+2. [Download and run as service](#download-and-run-as-service).
 
 {{% note %}}
 Installing a Windows service requires administrative permissions. [Launch PowerShell as administrator](
@@ -22,12 +22,19 @@ https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/startin
 
 The Telegraf installation includes an executable and configuration file. To simplify upgrades, consider the following:
 
-- Whether you want multiple Telegraf configurations. You may want multiple configs if...
-- Setting up Windows symbolic link to update the executable only (maintaining your custom configuration)
+- **Setting up Windows symbolic link (Symlinks) to point to the Telegraf executable**. This option lets you easily roll back your upgrades, and maintain your custom configuration.
+- **Whether to use one or multiple Telegraf configurations**. You may want multiple configs if...
 
 ## Download and run as service
 
-1. Follow instructions on the [Downloads page](https://portal.influxdata.com/downloads/) to download Telegraf to `C:\Program Files\InfluxData\telegraf\telegraf-<version>`, and then create a Windows symbolic link to the latest version `C:\Program Files\InfluxData\telegraf.`
+1. Follow instructions on the [Downloads page](https://portal.influxdata.com/downloads/) to download Telegraf to `C:\Program Files\InfluxData\telegraf\telegraf-<version#>`.
+
+2. Move files from the specified Telegraf version up a level to `C:\Program Files\InfluxData\telegraf` or create a Windows symbolic link (Symlink) to point to this directory.
+
+   {{% note %}}
+The instructions below assume Telegraf files are stored in `C:\Program Files\InfluxData\telegraf` or you've created a Symlink to point to this directory.
+   {{% /note %}}
+
 2. In PowerShell, run the following as an administrator:
    ```powershell
    > cd "C:\Program Files\InfluxData\telegraf"
