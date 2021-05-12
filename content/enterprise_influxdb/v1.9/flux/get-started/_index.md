@@ -26,8 +26,6 @@ It covers querying time series data from InfluxDB using Flux, and introduces Flu
 
 ##### InfluxDB v1.8+
 Flux v0.65 is built into InfluxDB v1.8 and can be used to query data stored in InfluxDB.
-InfluxDB v1.8's `influx` CLI also includes a `-type=` option that, when set to `flux`, will start an
-interactive Flux Read-Eval-Print-Loop (REPL) allowing you to write and run Flux queries from the command line.
 
 ---
 
@@ -102,7 +100,7 @@ are unique to each row.
 You have multiple [options for writing and running Flux queries](/enterprise_influxdb/v1.9/flux/guides/execute-queries/),
 but as you're getting started, we recommend using the following:
 
-### 1. Chronograf's Data Explorer
+### Chronograf's Data Explorer
 Chronograf's Data Explorer makes it easy to write your first Flux script and visualize the results.
 To use Chronograf's Flux UI, open the **Data Explorer** and to the right of the source
 dropdown above the graph placeholder, select **Flux** as the source type.
@@ -111,14 +109,6 @@ This will provide **Schema**, **Script**, and **Functions** panes.
 The Schema pane allows you to explore your data.
 The Script pane is where you write your Flux script.
 The Functions pane provides a list of functions available in your Flux queries.
-
-### 2. influx CLI
-The `influx` CLI is an interactive shell for querying InfluxDB.
-With InfluxDB v1.8+, use the `-type=flux` option to open a Flux REPL where you write and run Flux queries.
-
-```bash
-influx -type=flux
-```
 
 <div class="page-nav-btns">
   <a class="btn next" href="/enterprise_influxdb/v1.9/flux/get-started/query-influxdb/">Query InfluxDB with Flux</a>
