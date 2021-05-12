@@ -22,7 +22,7 @@ set up a fresh instance of InfluxDB, back up your dashboard configuration, or
 
 {{< youtube 2JjW4Rym9XE >}}
 
-[InfluxData Community Templates](https://github.com/influxdata/community-templates/)
+<a class="btn github" href="https://github.com/influxdata/community-templates/" target="_blank">View InfluxDB community templates</a>
 
 ## Template manifests
 
