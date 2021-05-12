@@ -228,6 +228,17 @@ InfluxData recommends values ranging from `0ms` to `100ms` for non-SSD disks.
 
 Environment variable: `INFLUXDB_DATA_WAL_FSYNC_DELAY`
 
+#### `ingress-metric-by-measurement-enabled = false`
+
+When `true`, collect statistics of points written per-measurement.
+These can be accessed via the monitoring subsystem.
+
+#### `ingress-metric-by-login-enabled = false`
+
+When `true`, collect statistics of points written per-login.
+These can be accessed via the monitoring subsystem.
+
+
 ### Data settings for the TSM engine
 
 #### `cache-max-memory-size = "1g"`
