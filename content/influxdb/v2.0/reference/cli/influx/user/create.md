@@ -26,9 +26,9 @@ influx user create [flags]
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | ({{< req >}}) Username                                                | string      | `INFLUX_NAME`         |
-| `-o` | `--org`           | Organization name                                                     | string      | `INFLUX_ORG`          |
-|      | `--org-id`        | Organization ID (mutually exclusive with `--org-id`)                  | string      | `INFLUX_ORG_ID`       |
-| `-p` | `--password`      | User password (mutually exclusive with `--org`)                       | string      |                       |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
+| `-p` | `--password`      | User password                                                         | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
 
