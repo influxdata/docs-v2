@@ -125,7 +125,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx binary to your $PATH
-sudo cp influxdb2-client-2.0.4-darwin-amd64/influx /usr/local/bin/
+sudo cp influxdb2-client-2.0.5-darwin-amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
