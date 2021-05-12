@@ -16,7 +16,7 @@ menu:
 products: [cloud]
 ---
 
-To manage InfluxDB Cloud billing, review the following as needed:
+Learn how to upgrade your plan, access billing details, and review and resolve exceeded plan limits:
 
 - [Upgrade to Usage-Based Plan](#upgrade-to-usage-based-plan)
 - [Access billing details](#access-billing-details):
@@ -98,11 +98,11 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 ## Review and resolve exceeded plan limits
 
-If you exceed your plan's [limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI).
+If you exceed your plan's [limits](/influxdb/cloud/account-management/pricing-plans/), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI).
 
-If you exceed rate limits specifically, including write requests (Data In) or query requests, or exceed the series cardinality limit, InfluxDB adds a rate limit event to your **Usage** page for review, and write requests will be rejected. To start processing write requests again, do the following as needed:
+For rate limits specifically--including write requests (Data In) or query requests--and in cases where you exceed the series cardinality limit, InfluxDB adds a rate limit event to your **Usage** page for review, and begins to reject write requests. To start processing write requests again, do the following as needed:
 
-- **Usage plan**: To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com).
+- **Usage-Based plan**: To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com).
 - **Series cardinality limits**: If you exceed the series cardinality limit, see how to [resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.0/write-data/best-practices/resolve-high-cardinality/).
 - **Free plan**: To remove rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
 
