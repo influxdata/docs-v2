@@ -1,10 +1,8 @@
 ---
-title: InfluxDB API
-seotitle: Write data with the InfluxDB API
-list_title: Write data with the InfluxDB API
+title: Write data with the InfluxDB API
 weight: 206
 description: >
-  Write data to InfluxDB using the InfluxDB API.
+  Use the `/write` endpoint of the InfluxDB API to write data to InfluxDB.
 menu:
   influxdb_cloud:
     name: InfluxDB API

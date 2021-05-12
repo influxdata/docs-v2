@@ -2,16 +2,23 @@
 title: influx transpile
 description: >
   The `influx transpile` command transpiles an InfluxQL query to Flux source code.
-menu:
-  influxdb_2_0_ref:
-    name: influx transpile
-    parent: influx
 weight: 101
-influxdb/v2.0/tags: [influxql, flux]
 related:
   - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
+
+{{% warn %}}
+### Removed in InfluxDB OSS 2.0.5
+The `influx transpile` command was removed in **InfluxDB 2.0.5**.
+[Use InfluxQL to query InfluxDB 2.0](/influxdb/v2.0/query-data/influxql/).
+For information about manually converting InfluxQL queries to Flux, see:
+
+- [Get started with Flux](/influxdb/v2.0/query-data/get-started/)
+- [Query data with Flux](/influxdb/v2.0/query-data/flux/)
+- [Migrate continuous queries to Flux tasks](/influxdb/%762.0/upgrade/v1-to-v2/migrate-cqs/)
+  <!-- Used the hex code in the link above to prevent v2.0 -> cloud replacement -->
+{{% /warn %}}
 
 The `influx transpile` command transpiles an InfluxQL query to Flux source code.
 The transpiled query assumes the bucket name is `<database>/<retention policy>`

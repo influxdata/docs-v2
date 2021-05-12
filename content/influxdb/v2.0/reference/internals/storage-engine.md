@@ -2,7 +2,7 @@
 title: InfluxDB storage engine
 description: >
   An overview of the InfluxDB storage engine architecture.
-weight: 7
+weight: 101
 menu:
   influxdb_2_0_ref:
     name: Storage engine

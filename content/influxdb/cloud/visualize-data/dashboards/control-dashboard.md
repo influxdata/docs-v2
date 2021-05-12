@@ -10,8 +10,6 @@ menu:
 weight: 203
 ---
 
-## Control at the dashboard level
-
 Use dashboard controls in the upper left to update your dashboard.
 
 ### Add a cell
@@ -36,6 +34,11 @@ Click the timezone dropdown to select a timezone to use for the dashboard. Selec
 ### Manually refresh dashboard
 
 Click the refresh button (**{{< icon "refresh" >}}**) to manually refresh the dashboard's data.
+
+#### Refresh a single dashboard cell
+
+1. Click the **{{< icon "gear" >}}** on the dashboard cell you want to refresh.
+2. Click **{{< icon "refresh" >}} Refresh**.
 
 ### Select time range
 
