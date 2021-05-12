@@ -11,7 +11,7 @@ influxdb/v2.0/tags: [date/time]
 introduced: 0.116.0
 ---
 
-The `today()` function returns the `now()` time value truncated to the day unit.
+The `today()` function returns the `now()` timestamp truncated to the day unit.
 
 ```js
 today()
