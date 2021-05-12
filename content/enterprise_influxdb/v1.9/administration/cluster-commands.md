@@ -12,15 +12,16 @@ menu:
     parent: Administration
 ---
 
-InfluxDB Enterprise includes two utilities for interacting with and managing your clusters.
-The [`influxd-ctl`](#influxd-ctl-cluster-management-utility) utility provides commands
-for managing your InfluxDB Enterprise clusters.
-The [`influx` command line interface](#influx-command-line-interface-cli) is used
-for interacting with and managing your data.
+Use the following tools to manage and interact with your InfluxDB Enterprise clusters:
 
-Content
+- To manage your clusters, use [`influxd-ctl` cluster management utility](#influxd-ctl-cluster-management-utility)
+- To manage nodes, back up and restore data, and rebalance clusters, use [`influx` command line interface (CLI)](#influx-command-line-interface-cli)
 
-[`influxd-ctl` cluster management utility](#influxd-ctl-cluster-management-utility)
+## `influxd-ctl` cluster management utility
+
+The `influxd-ctl` utility provides commands for managing your InfluxDB Enterprise clusters.
+Use the `influxd-ctl` cluster management utility to manage your cluster nodes, back up and restore data, and rebalance clusters.
+The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node).
 
 * [Syntax](#syntax)
 * [Global options](#global-options)
@@ -50,13 +51,6 @@ Content
   * [`token`](#token)
   * [`truncate-shards`](#truncate-shards)
   * [`update-data`](#update-data)
-
-[`influx` command line interface (CLI)](#influx-command-line-interface-cli)
-
-## `influxd-ctl` cluster management utility
-
-Use the `influxd-ctl` cluster management utility to manage your cluster nodes, back up and restore data, and rebalance clusters.
-The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node).
 
 ### Syntax
 
