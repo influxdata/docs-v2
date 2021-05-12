@@ -20,18 +20,14 @@ To manage InfluxDB Cloud billing, review the following as needed:
 
 - [Upgrade to Usage-Based Plan](#upgrade-to-usage-based-plan)
 - [Access billing details](#access-billing-details):
-  - [Add or update your payment method]()
-  - [Add or update your contact information]()
-  - [Send notifications when usage exceeds an amount]()
-  - [View Usage-based Plan information]()
-  - [View Free Plan information]()
-- [Access billing details]():
-  - [Add or update your payment method]()
-  - [Add or update your contact inforrmation]()
-  - [Send notifications when usage exceeds an amount]()
-- [Review and resolve exceeded plan limits]()
-- [Billing cycle]()
-  - [Declined or late payments]()
+  - [Add or update your payment method](#add-or-update-your-payment-method)
+  - [Add or update your contact information](#add-or-update-your-contact-information)
+  - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount#send-notifications-when-usage-exceeds-an-amount)
+  - [View Usage-based Plan information](#view-usage-based-plan-information)
+  - [View Free Plan information](#view-free-plan-information)
+- [Review and resolve exceeded plan limits](#review-and-resolve-exceeded-plan-limits)
+- [Billing cycle](#billing-cycle)
+  - [Declined or late payments](#declined-or-late-payments)
 
 ## Upgrade to Usage-Based Plan
 
