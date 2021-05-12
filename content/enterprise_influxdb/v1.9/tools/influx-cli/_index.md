@@ -33,7 +33,6 @@ influx [flags]
 | `-ssl`            | Use https for requests                                                                                |
 | `-unsafessl`      | Set this when connecting to the cluster using https                                                   |
 | `-execute`        | Execute command and quit                                                                              |
-| `-type`           | Specify the query language for executing commands or when invoking the REPL.                          |
 | `-format`         | Specify the format of the server responses: json, csv, or column                                      |
 | `-precision`      | Specify the format of the timestamp: rfc3339, h, m, s, ms, u or ns                                    |
 | `-consistency`    | Set write consistency level: any, one, quorum, or all                                                 |
