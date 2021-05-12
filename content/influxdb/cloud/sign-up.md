@@ -10,7 +10,7 @@ weight: 1
 influxdb/cloud/tags: [get-started, install]
 ---
 
-InfluxDB Cloud is a fully managed and hosted version of InfluxDB v2.0, the time series
+InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
 platform purpose-built to collect, store, process and visualize metrics and events.
 
 {{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
