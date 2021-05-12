@@ -1,7 +1,7 @@
 ---
 title: Sign up for InfluxDB Cloud
 description: >
-  InfluxDB Cloud is a fully managed and hosted version of InfluxDB v2.0, the time series
+  InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
   platform purpose-built to collect, store, process and visualize metrics and events.
 menu:
   influxdb_cloud:
