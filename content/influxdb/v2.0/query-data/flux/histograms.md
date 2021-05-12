@@ -190,3 +190,119 @@ In the Histogram visualization options, select `_time` as the **X Column**
 and `severity` as the **Group By** option:
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-histogram-errors.png" alt="Logs by severity histogram" />}}
+
+### Use Prometheus histograms in Flux
+
+Monitor a service instrumented with a `/metrics` endpoint with InfluxDB and Telegraf. This example demonstrates how to use Telegraf to scrape `/metrics` at regular intervals (10s by default), and then send metrics to an InfluxDB instance.
+
+Use Prometheus histograms to measure the distribution of a variable, for example, the time it takes a server to respond to a request. This example applies to this use case, but can be adapted to others.
+
+Prometheus represents histograms as many sets of buckets (notably, different from an InfluxDB bucket).
+Each unique set of labels corresponds to one set of buckets; within that set, each bucket is labeled with an upper bound.
+You'll notice in this example, the upper bound label is `le`, which stands for *less than or equal to*. Notice the example output from `/metrics` below, there is a bucket for requests that take less-than-or-equal-to 0.005s, 0.01s, and so on, up to 10s and then +Inf. Note that the buckets are cumulative, so if a request takes 7.5s, Prometheus will increment the counters in the buckets for 10s as well as +Inf.
+
+Sample output from a `/metrics` endpoint on an instance of InfluxDB OSS 2.0, including two histograms for requests served by the `/api/v2/write` and `/api/v2/query` endpoints.
+
+```sh
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.005"} 0
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.01"} 1
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.025"} 13
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.05"} 14
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.1"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.25"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.5"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="1"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="2.5"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="5"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="10"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="+Inf"} 16
+http_api_request_duration_seconds_sum{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf"} 0.354163124
+http_api_request_duration_seconds_count{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.005"} 0
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.01"} 16
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.025"} 68
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.05"} 70
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.1"} 70
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.25"} 70
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.5"} 70
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="1"} 71
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="2.5"} 71
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="5"} 71
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="10"} 71
+http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="+Inf"} 71
+http_api_request_duration_seconds_sum{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome"} 1.4840353630000003
+http_api_request_duration_seconds_count{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome"} 71
+```
+
+Use the [histogramQuantile()](https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/) function to convert a Prometheus histogram to the quantile requested by the caller.
+This function expects a stream of input tables where each table has the following form:
+
+- Each row represents one bucket of a histogram, where the upper bound of the bucket is defined by the
+argument `upperBoundColumn` (by default, `le`).
+- A value column represents the number of items (requests, events, etc.) in the bucket (by default, `_value`).
+- Buckets are strictly cumulative, so for example, if for some reason the `+Inf` bucket had a count of `9`,
+but the `10s` bucket had a count of 10, the following error would occur: "histogram records counts are not monotonic".
+Given Prometheus increments the counts in each bucket continually as the process runs, whatever is most recently scraped from `/metrics` is a histogram of all the requests (events, etc) since the process started (maybe days, weeks, or longer). To be more useful, Telegraf scrapes at regular intervals, and we can subtract adjacent samples from the same bucket to discover the number of new items in that bucket for a given interval.
+
+Transform a set of cumulative histograms collected over time and visualize that as some quantile, such as the 50th percentile or 99th percentile) to show change over time. Complete the following high-level transformations:
+
+1. Downsample the data to a specified time resolution (for example, to see how the 50th percentile changes over a month), downsample to a resolution of `1h` to improve query performance).
+2. Subtract adjacent samples so that buckets contain only the new counts for each period.
+3. Sum data across the dimensions that we aren't interested in. For example, in the Prometheus data from above, there is a label for path, but we may not care to break out http requests by path. If this is the case, we would ungroup the path dimension, and then add corresponding buckets together.
+4. Reshape the data so all duration buckets for the same period are in their own tables, with an upper bound column that describes the bucket represented by each row.
+5. Transform each table from a histogram to a quantile with the `histogramQuantile()` function.
+
+The following query performs the above steps.
+
+```js
+import "experimental"
+
+// The "_field" is necessary. Any columns following "_field" will be used
+// to create quantiles for each unique value in that column.
+// E.g., put "path" in here to see quantiles for each unique value of "path".
+groupCols = ["_field"]
+
+// This is a helper function that takes a stream of tables,
+// each containing "le" buckets for one window period.
+// It uses histogramQuantile to transform the bin counts
+// to a quantile defined in the "q" parameter.
+// The windows are then reassembled to produce a single table for each
+// unique group key.
+doQuantile = (tables=<-, q) => tables
+  |> histogramQuantile(quantile: q)
+  |> duplicate(as: "_time", column: "_stop")
+  |> window(every: inf)
+  |> map(fn: (r) => ({r with _measurement: "quantile", _field: string(v: q)}))
+  |> experimental.group(mode: "extend", columns: ["_measurement", "_field"])
+
+histos =
+  from(bucket: "telegraf")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "http_api_request_duration_seconds"
+    and r._field != "count" and r._field != "sum")
+  // Downsample the data. This helps a lot with performance!
+  |> aggregateWindow(fn: last, every: v.windowPeriod)
+  // Calling difference() transforms the cumulative count of requests
+  // to the number of new requests per window period.
+  |> difference(nonNegative: true)
+  // Counters may be reset when a server restarts.
+  // When this happens there will be null values produced by difference().
+  |> filter(fn: (r) => exists r._value)
+  // Group data on the requested dimensions, window it, and sum within those dimensions, for each window.
+  |> group(columns: groupCols)
+  |> window(every: v.windowPeriod)
+  |> sum()
+  // Fields will have names like "0.001", etc. Change _field to a float column called "le".
+  // This also has the effect of ungrouping by _field, so bucket counts for each period
+  // will be within the same table.
+  |> map(fn: (r) => ({r with le: float(v: r._field)}))
+  |> drop(columns: ["_field"])
+
+// Compute the 50th and 95th percentile for duration of http requests.
+union(tables: [
+  histos |> doQuantile(q:  0.95),
+  histos |> doQuantile(q:  0.5)
+])
+```
+
+The tables flowing into the call to `histogramQuantile` should look similar to this. Note, that rows are sorted by `le` to be clear that the counts increase for larger upper bounds):
