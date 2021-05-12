@@ -16,6 +16,23 @@ menu:
 products: [cloud]
 ---
 
+To manage InfluxDB Cloud billing, review the following as needed:
+
+- [Upgrade to Usage-Based Plan](#upgrade-to-usage-based-plan)
+- [Access billing details](#access-billing-details):
+  - [Add or update your payment method]()
+  - [Add or update your contact information]()
+  - [Send notifications when usage exceeds an amount]()
+  - [View Usage-based Plan information]()
+  - [View Free Plan information]()
+- [Access billing details]():
+  - [Add or update your payment method]()
+  - [Add or update your contact inforrmation]()
+  - [Send notifications when usage exceeds an amount]()
+- [Review and resolve exceeded plan limits]()
+- [Billing cycle]()
+  - [Declined or late payments]()
+
 ## Upgrade to Usage-Based Plan
 
 1. Click **Upgrade Now** in the lower left corner of the {{< cloud-name "short" >}} user interface (UI).
@@ -83,24 +100,24 @@ On the **Billing page**, view your billing information, including:
 
 On the **Billing page**, view the total limits available for the Free Plan.
 
-## Exceeded rate limits
+## Review and resolve exceeded plan limits
 
-If you exceed your plan's [rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
+If you exceed your plan's [limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI).
 
-All rate-limited requests are rejected; including both read and write requests.
-_Rate-limited requests are **not** queued._
+If you exceed rate limits specifically, including write requests (Data In) or query requests, or exceed the series cardinality limit, InfluxDB adds a rate limit event to your **Usage** page for review, and write requests will be rejected. To start processing write requests again, do the following as needed:
 
-_To remove rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan)._
+- **Usage plan**: To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com).
+- **Series cardinality limits**: If you exceed the series cardinality limit, see how to [resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.0/write-data/best-practices/resolve-high-cardinality/).
+- **Free plan**: To remove rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
 
-#### Rate-limited HTTP response code
-
-When a request exceeds your plan's rate limit, the InfluxDB API returns the following response:
+<!-- #### Rate-limited HTTP response code
+When a request exceeds your plan's rate limit--either write requests (Data In) or query requests--the InfluxDB API returns the following response:
 
 ```
 HTTP 429 “Too Many Requests”
 Retry-After: xxx (seconds to wait before retrying the request)
 ```
-
+-->
 ## Billing cycle
 
 Billing occurs on the first day of the month for the previous month. For example, if you start the Usage-based Plan on September 15, you're billed on October 1 for your usage from September 15-30.
@@ -113,3 +130,4 @@ Billing occurs on the first day of the month for the previous month. For example
 | **One week later**          | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account. |  
 | **10-14 days later**        | Account completely disabled. During this period, you must contact us at support@influxdata.com to process your payment and enable your account. |  
 | **21 days later**           | Account suspended. Contact support@influxdata.com to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on.|  
+
