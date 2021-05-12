@@ -12,7 +12,7 @@ InfluxDB templates are preconfigured InfluxDB resources and can contain everythi
 from dashboards and Telegraf configurations to notifications and alerts.
 Use InfluxDB templates to quickly get set up monitoring a specific technology,
 set up a fresh instance of InfluxDB, back up your dashboard configuration, or
-share your configuration with the InfluxData community.
+[share your configuration](https://github.com/influxdata/community-templates/) with the InfluxData community.
 
 **InfluxDB templates do the following:**
 
@@ -21,6 +21,8 @@ share your configuration with the InfluxData community.
 - Simplify sharing and using pre-built InfluxDB solutions.
 
 {{< youtube 2JjW4Rym9XE >}}
+
+[InfluxData Community Templates](https://github.com/influxdata/community-templates/)
 
 ## Template manifests
 
