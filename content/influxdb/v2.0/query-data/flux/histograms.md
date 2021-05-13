@@ -255,7 +255,7 @@ To transform a set of cumulative histograms collected over time and visualize th
     // ...
       |> aggregateWindow(every: 1h, fn: last)
     ```
-2. Subtract adjacent samples so that buckets contain only the new counts for each period.
+2. Use `difference()` to subtract adjacent samples so that buckets contain only the new counts for each period.
 3. Sum data across the dimensions that we aren't interested in. For example, in the Prometheus data from above, there is a label for path, but we may not care to break out http requests by path. If this is the case, we would ungroup the path dimension, and then add corresponding buckets together.
 4. Reshape the data so all duration buckets for the same period are in their own tables, with an upper bound column that describes the bucket represented by each row.
 5. Transform each table from a histogram to a quantile with the `histogramQuantile()` function.
