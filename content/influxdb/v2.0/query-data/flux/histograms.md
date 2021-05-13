@@ -278,7 +278,7 @@ doQuantile = (tables=<-, q) => tables
   |> map(fn: (r) => ({r with _measurement: "quantile", _field: string(v: q)}))
   |> experimental.group(mode: "extend", columns: ["_measurement", "_field"])
 
-histos =
+histograms =
   from(bucket: "telegraf")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r._measurement == "http_api_request_duration_seconds"
