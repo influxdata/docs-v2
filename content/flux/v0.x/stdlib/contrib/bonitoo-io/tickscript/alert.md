@@ -9,6 +9,9 @@ menu:
     name: tickscript.alert
     parent: tickscript
 weight: 302
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/alert/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/alert/
 related:
   - /{{< latest "kapacitor" >}}/nodes/alert_node/, Kapacitor AlertNode
 flux/v0.x/tags: [transformations]

@@ -8,6 +8,9 @@ menu:
     name: tickscript.deadman
     parent: tickscript
 weight: 302
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/deadman/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/deadman/
 related:
   - /{{< latest "kapacitor" >}}/nodes/batch_node/#deadman, Kapacitor BatchNode – Deadman
 flux/v0.x/tags: [transformations]

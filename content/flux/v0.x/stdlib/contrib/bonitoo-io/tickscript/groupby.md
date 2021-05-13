@@ -8,6 +8,9 @@ menu:
     name: tickscript.groupBy
     parent: tickscript
 weight: 302
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/groupby/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/groupby/
 related:
   - /{{< latest "kapacitor" >}}/nodes/query_node/#groupby, Kapacitor QueryNode - groupBy
 flux/v0.x/tags: [transformations]

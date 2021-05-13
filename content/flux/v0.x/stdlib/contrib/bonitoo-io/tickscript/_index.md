@@ -9,6 +9,9 @@ menu:
     name: tickscript
     parent: bonitoo-io
 weight: 202
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/
 flux/v0.x/tags: [functions, tickscript, package]
 cascade:
   introduced: 0.111.0

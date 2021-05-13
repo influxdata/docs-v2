@@ -8,6 +8,9 @@ menu:
     name: tickscript.defineCheck
     parent: tickscript
 weight: 302
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/definecheck/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/definecheck/
 introduced: 0.111.0
 ---
 
