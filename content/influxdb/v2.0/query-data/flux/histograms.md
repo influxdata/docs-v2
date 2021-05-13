@@ -308,8 +308,8 @@ histograms =
 
 // Compute the 50th and 95th percentile for duration of http requests.
 union(tables: [
-  histos |> doQuantile(q:  0.95),
-  histos |> doQuantile(q:  0.5)
+  histograms |> doQuantile(q:  0.95),
+  histograms |> doQuantile(q:  0.5)
 ])
 ```
 
