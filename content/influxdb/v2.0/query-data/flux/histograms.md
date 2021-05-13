@@ -247,7 +247,7 @@ argument `upperBoundColumn` (by default, `le`).
 but the `10s` bucket had a count of 10, the following error would occur: "histogram records counts are not monotonic".
 Given Prometheus increments the counts in each bucket continually as the process runs, whatever is most recently scraped from `/metrics` is a histogram of all the requests (events, etc) since the process started (maybe days, weeks, or longer). To be more useful, Telegraf scrapes at regular intervals, and we can subtract adjacent samples from the same bucket to discover the number of new items in that bucket for a given interval.
 
-Transform a set of cumulative histograms collected over time and visualize that as some quantile, such as the 50th percentile or 99th percentile) to show change over time. Complete the following high-level transformations:
+To transform a set of cumulative histograms collected over time and visualize that as some quantile (such as the 50th percentile or 99th percentile) and show change over time, complete the following high-level transformations:
 
 1. Downsample the data to a specified time resolution (for example, to see how the 50th percentile changes over a month), downsample to a resolution of `1h` to improve query performance).
 2. Subtract adjacent samples so that buckets contain only the new counts for each period.
