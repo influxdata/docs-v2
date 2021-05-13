@@ -249,7 +249,12 @@ Given Prometheus increments the counts in each bucket continually as the process
 
 To transform a set of cumulative histograms collected over time and visualize that as some quantile (such as the 50th percentile or 99th percentile) and show change over time, complete the following high-level transformations:
 
-1. Downsample the data to a specified time resolution (for example, to see how the 50th percentile changes over a month), downsample to a resolution of `1h` to improve query performance).
+1. Use `aggregateWindow()` to downsample the data to a specified time resolution to improve query performance. For example, to see how the 50th percentile changes over a month, downsample to a resolution of `1h`.
+
+    ```js
+    // ...
+      |> aggregateWindow(every: 1h, fn: last)
+    ```
 2. Subtract adjacent samples so that buckets contain only the new counts for each period.
 3. Sum data across the dimensions that we aren't interested in. For example, in the Prometheus data from above, there is a label for path, but we may not care to break out http requests by path. If this is the case, we would ungroup the path dimension, and then add corresponding buckets together.
 4. Reshape the data so all duration buckets for the same period are in their own tables, with an upper bound column that describes the bucket represented by each row.
