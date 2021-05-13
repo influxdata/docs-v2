@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Enterprise 1.9 release notes
 description: >
-  Important changes and and what's new in each version InfluxDB Enterprise.
+  Important changes and what's new in each version InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9_ref:
     name: Release notes
@@ -9,28 +9,28 @@ menu:
     parent: About the project
 ---
 
-v1.9.0 [unreleased]
--------------------
+## v1.9.0 [TK]
+
+The release of InfluxDB Enterprise 1.9 is different from previous InfluxDB Enterprise releases
+in that there is no corresponding InfluxDB OSS release.
+(InfluxDB 1.8.x will continue to receive maintenance updates.)
 
 ### Features
 - Support user-defined *node labels*.
-  Node labels allows cluster operators to assign arbitrary key-value pairs to meta and data nodes in a cluster.
+  Node labels let you assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
-- Improve diagnostics for license problems.
-- Ingress metrics now work.
+- Improve diagnostics for license problems. Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
+- Improved [ingress metrics](/enterprise_influxdb/v1.9/administration/config-data-nodes/#ingress-metric-by-measurement-enabled--false) to track points written by measurement and by login.
 - Support authorization for Kapacitor via LDAP.
-- Flux query controls. <!-- #3373: feat:  -->
-- Support for pushed-down window aggregates. <!-- #3372: feat:  -->
+- Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
+- Upgrade to [Flux v0.113.0](/influxdb/cloud/reference/release-notes/flux/#v01130-2021-04-21).
 
-
-### Bugfixes
-- Show databases now checks read write permissions. <!-- https://github.com/influxdata/plutonium/pull/3341 -->
-- Anti-entrpoy: Update `tsm1.BlockCount()` call to match signature <!-- https://github.com/influxdata/plutonium/pull/3152 -->
-- Remove extraneous nil check from points writer. <!-- https://github.com/influxdata/plutonium/pull/3141 -->
-- Restore: Ensure a newline is printed after a successful copy <!-- https://github.com/influxdata/plutonium/pull/3137 -->
-- Remove extraneous nil check <!-- #3141 -->
-- Make 'entropy show' expiry times consistent with 'show-shards' <!-- #3355: fix:  -->
-
+### Bug fixes
+- `show databases` now checks read and write permissions.
+- Anti-entropy: Update `tsm1.BlockCount()` call to match signature.
+- Remove extraneous nil check from points writer.
+- Ensure a newline is printed after a successful copy during [restoration](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
+- Make `entropy show` expiration times consistent with `show-shards`.
 
 ## v1.8.4 [2020-02-08]
 
