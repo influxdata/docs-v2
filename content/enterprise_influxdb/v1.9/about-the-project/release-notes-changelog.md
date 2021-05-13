@@ -25,15 +25,6 @@ in that there is no corresponding InfluxDB OSS release.
 - Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
 - Upgrade to [Flux v0.113.0](/influxdb/cloud/reference/release-notes/flux/#v01130-2021-04-21).
 
-<!-- 
-Verify these... missing from Flux release notes?
-This includes:
-- The `To` function, which allows for writing back to InfluxDB.
-- Performance improvements which have been available in InfluxDB Cloud,
-and support for pushed-down window aggregates.
-- Improved peformance of `last()`, `min()`, and `max()` functions.
--->
-
 ### Bug fixes
 - `show databases` now checks read and write permissions.
 - Anti-entropy: Update `tsm1.BlockCount()` call to match signature.
