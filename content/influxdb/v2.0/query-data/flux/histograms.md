@@ -200,9 +200,11 @@ Each unique set of labels corresponds to one set of buckets; within that set, ea
 In this example, the upper bound label is `le`, which stands for *less than or equal to*.
 In the example `/metrics` endpoint output below, there is a bucket for requests that take less-than-or-equal-to 0.005s, 0.01s, and so on, up to 10s and then +Inf. Note that the buckets are cumulative, so if a request takes 7.5s, Prometheus increments the counters in the buckets for 10s as well as +Inf.
 
-Sample output from a `/metrics` endpoint on an instance of InfluxDB OSS 2.0, including two histograms for requests served by the `/api/v2/write` and `/api/v2/query` endpoints.
+{{< expand-wrapper >}}
+{{% expand "View sample histogram data from the /metrics endpoint" %}}
+Sample histogram metrics from the `/metrics` endpoint on an instance of InfluxDB OSS 2.0, including two histograms for requests served by the `/api/v2/write` and `/api/v2/query` endpoints.
 
-```sh
+```js
 http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.005"} 0
 http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.01"} 1
 http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/write",response_code="204",status="2XX",user_agent="Telegraf",le="0.025"} 13
@@ -232,6 +234,8 @@ http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="
 http_api_request_duration_seconds_sum{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome"} 1.4840353630000003
 http_api_request_duration_seconds_count{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome"} 71
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 Use the [histogramQuantile()](https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/) function to convert a Prometheus histogram to the quantile requested by the caller.
 This function expects a stream of input tables where each table has the following form:
