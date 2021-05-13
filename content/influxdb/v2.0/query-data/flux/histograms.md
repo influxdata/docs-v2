@@ -195,11 +195,10 @@ and `severity` as the **Group By** option:
 
 Use InfluxDB and Telegraf to monitor a service instrumented with an endpoint that outputs [prometheus-formatted metrics](/influxdb/v2.0/write-data/no-code/scrape-data/scrapable-endpoints/). This example demonstrates how to use Telegraf to scrape metrics from the InfluxDB 2.0 OSS `/metrics` endpoint at regular intervals (10s by default), and then store those metrics in InfluxDB.
 
-Use Prometheus histograms to measure the distribution of a variable, for example, the time it takes a server to respond to a request. This example applies to this use case, but can be adapted to others.
-
-Prometheus represents histograms as many sets of buckets (notably, different from an InfluxDB bucket).
+Use Prometheus histograms to measure the distribution of a variable, for example, the time it takes a server to respond to a request. Prometheus represents histograms as many sets of buckets (notably, different from an InfluxDB bucket).
 Each unique set of labels corresponds to one set of buckets; within that set, each bucket is labeled with an upper bound.
-You'll notice in this example, the upper bound label is `le`, which stands for *less than or equal to*. Notice the example output from `/metrics` below, there is a bucket for requests that take less-than-or-equal-to 0.005s, 0.01s, and so on, up to 10s and then +Inf. Note that the buckets are cumulative, so if a request takes 7.5s, Prometheus will increment the counters in the buckets for 10s as well as +Inf.
+In this example, the upper bound label is `le`, which stands for *less than or equal to*.
+In the example `/metrics` endpoint output below, there is a bucket for requests that take less-than-or-equal-to 0.005s, 0.01s, and so on, up to 10s and then +Inf. Note that the buckets are cumulative, so if a request takes 7.5s, Prometheus increments the counters in the buckets for 10s as well as +Inf.
 
 Sample output from a `/metrics` endpoint on an instance of InfluxDB OSS 2.0, including two histograms for requests served by the `/api/v2/write` and `/api/v2/query` endpoints.
 
