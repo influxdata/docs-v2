@@ -391,4 +391,4 @@ Download and import the Air Sensors dashboard to visualize the generated data:
 
 <a class="btn download" href="/downloads/air-sensors-dashboard.json" download>Download Air Sensors dashboard</a>
 
-_For information about importing a dashboard, see [Create a dashboard](/influxdb/v2.0/visualize-data/dashboards/create-dashboard/#create-a-new-dashboard)._
+_For information about importing a dashboard, see [Create a dashboard](/influxdb/v2.0/visualize-data/dashboards/create-dashboard)._

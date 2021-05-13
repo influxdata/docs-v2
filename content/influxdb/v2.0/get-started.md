@@ -30,7 +30,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
 ### Install InfluxDB v2.0
-
+<!--
 - [Use Homebrew](#use-homebrew)
 - [Manually download and install](#manually-download-and-install)
 
@@ -45,7 +45,9 @@ brew install influxdb
 
 #### Manually download and install
 
-You can also download the InfluxDB v2.0 binaries for macOS directly:
+You can also download the InfluxDB v2.0 binaries for macOS directly: -->
+
+Download InfluxDB 2.0 for macOS.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.6-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
@@ -419,7 +421,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
    docker run \
        --name influxdb \
        -p 8086:8086 \
-       --volume $PWD:/root/.influxdbv2 \
+       --volume $PWD:/var/lib/influxdb2 \
        influxdb:2.0.6
    ```
 

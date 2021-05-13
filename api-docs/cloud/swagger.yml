@@ -3019,6 +3019,11 @@ paths:
           description: Only returns buckets with a specific name.
           schema:
             type: string
+        - in: query
+          name: id
+          description: Only returns buckets with a specific ID.
+          schema:
+            type: string
       responses:
         '200':
           description: A list of buckets
@@ -3103,7 +3108,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Bucket'
+              $ref: '#/components/schemas/PatchBucketRequest'
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -6426,6 +6431,311 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/buckets/{bucketID}/schema/measurements':
+    summary: APIs for describing bucket schema
+    get:
+      summary: Retrieve a list of measurement schemas defined for this bucket
+      operationId: getMeasurementSchemas
+      parameters:
+        - in: query
+          name: org
+          description: The organization name.
+          schema:
+            type: string
+        - in: query
+          name: orgID
+          description: The organization ID.
+          schema:
+            type: string
+        - in: query
+          name: name
+          description: Find a measurement with matching name.
+          schema:
+            type: string
+        - in: path
+          name: bucketID
+          description: The ID of the bucket
+          schema:
+            type: string
+          required: true
+      tags:
+        - Bucket Schemas
+      responses:
+        '200':
+          description: A list of measurement schemas returning summary information
+          headers:
+            ETag:
+              description: The current version of the bucket schema
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementSchemaList'
+        '404':
+          description: Bucket not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new measurement schema for this bucket
+      operationId: createMeasurementSchema
+      parameters:
+        - in: query
+          name: org
+          description: The organization name.
+          schema:
+            type: string
+        - in: query
+          name: orgID
+          description: The organization ID.
+          schema:
+            type: string
+        - in: path
+          name: bucketID
+          description: The ID of the bucket
+          schema:
+            type: string
+          required: true
+      tags:
+        - Bucket Schemas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementSchemaCreateRequest'
+      responses:
+        '201':
+          description: New measurement schema
+          headers:
+            ETag:
+              description: The current version of the measurement schema
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementSchema'
+        '400':
+          description: Client error with create request
+          content:
+            application/json:
+              examples:
+                badNameExample:
+                  summary: Invalid name
+                  description: 'The error returned when the name is invalid, such as too few or too many characters or the name contains non-printable ASCII or is not valid UTF-8.'
+                  value:
+                    code: invalid
+                    message: name is invalid
+                missingColumnsExample:
+                  summary: Missing columns
+                  description: The error returned when the request body is missing the columns property.
+                  value:
+                    code: invalid
+                    message: columns is required
+                missingTimestampExample:
+                  summary: Missing timestamp
+                  description: The error returned when the request body is missing a timestamp type column.
+                  value:
+                    code: invalid
+                    message: Timestamp column is required
+                duplicateColumnNamesExample:
+                  summary: Duplicate column names
+                  description: The error returned when the request body contains duplicate column names.
+                  value:
+                    code: invalid
+                    message: Duplicate column names
+                missingFieldExample:
+                  summary: Missing field
+                  description: The error returned when the request body is missing at least one field type column.
+                  value:
+                    code: invalid
+                    message: At least one field column is required
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/buckets/{bucketID}/schema/measurements/{measurementID}':
+    summary: APIs for describing tables
+    get:
+      summary: Fetch schema information for a measurement
+      operationId: getMeasurementSchema
+      parameters:
+        - in: query
+          name: org
+          description: The organization name.
+          schema:
+            type: string
+        - in: query
+          name: orgID
+          description: The organization ID.
+          schema:
+            type: string
+        - in: path
+          name: bucketID
+          description: The ID of the bucket
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: measurementID
+          description: The ID of the measurement
+          schema:
+            type: string
+          required: true
+      tags:
+        - Bucket Schemas
+      responses:
+        '200':
+          description: Schema definition for a single measurement
+          headers:
+            ETag:
+              description: The current version of the measurement schema
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementSchema'
+    patch:
+      summary: Update existing measurement schema
+      operationId: updateMeasurementSchema
+      parameters:
+        - in: query
+          name: org
+          description: The organization name.
+          schema:
+            type: string
+        - in: query
+          name: orgID
+          description: The organization ID.
+          schema:
+            type: string
+        - in: path
+          name: bucketID
+          description: The ID of the bucket
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: measurementID
+          description: The ID of the measurement
+          schema:
+            type: string
+          required: true
+      tags:
+        - Bucket Schemas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementSchemaUpdateRequest'
+      responses:
+        '200':
+          description: Updated measurement schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementSchema'
+        '400':
+          description: Client error updating measurement schema
+          content:
+            application/json:
+              examples:
+                missingColumnsExample:
+                  summary: Deleted columns
+                  description: The error returned when the request body does not contain all the columns from the source.
+                  value:
+                    code: invalid
+                    message: Unable to delete columns from schema
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/orgs/{orgID}/limits':
+    get:
+      tags:
+        - Limits
+      summary: Get limit for an org
+      parameters:
+        - in: path
+          name: orgID
+          description: org to get limit for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A limit
+          content:
+            application/json:
+              schema:
+                type: object
+                description: These are org limits similar to those configured in/by quartz.
+                properties:
+                  links:
+                    $ref: '#/components/schemas/Links'
+                  limits:
+                    $ref: '#/components/schemas/Limit'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/orgs/{orgID}/usage':
+    get:
+      tags:
+        - Usage
+      summary: Get usage for an org
+      parameters:
+        - in: path
+          name: orgID
+          description: org to get usage for
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: start
+          description: start time
+          required: true
+          schema:
+            type: timestamp
+        - in: query
+          name: stop
+          description: stop time
+          required: false
+          schema:
+            type: timestamp
+        - in: query
+          name: raw
+          description: return raw usage data
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Usage data
+          headers:
+            Content-Encoding:
+              description: 'The Content-Encoding entity header is used to compress the media-type. When present, its value indicates which encodings were applied to the entity-body'
+              schema:
+                type: string
+                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                default: identity
+                enum:
+                  - gzip
+                  - identity
+          content:
+            text/csv:
+              schema:
+                type: string
+                example: |
+                  #group,false,false,true,true,false,false,true,true,true,true #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string #default,_result,,,,,,,,, ,result,table,_start,_stop,_time,_value,_field,_measurement,bucket_id,org_id ,,0,2021-05-10T14:25:10.865702397Z,2021-05-10T15:25:10.865702397Z,2021-05-10T15:00:00Z,5434066,gauge,storage_usage_bucket_bytes,2f6ba0cf9a2fdcbb,cec6fc1d2176dc11 ,,1,2021-05-10T14:25:10.865702397Z,2021-05-10T15:25:10.865702397Z,2021-05-10T15:00:00Z,9924053.966666665,gauge,storage_usage_bucket_bytes,8af67bcaf69d9daf,cec6fc1d2176dc11
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   parameters:
     TraceSpan:
@@ -7044,6 +7354,9 @@ components:
           type: string
         retentionRules:
           $ref: '#/components/schemas/RetentionRules'
+        schemaType:
+          $ref: '#/components/schemas/SchemaType'
+          default: implicit
       required:
         - orgID
         - name
@@ -7097,6 +7410,9 @@ components:
           type: string
         rp:
           type: string
+        schemaType:
+          $ref: '#/components/schemas/SchemaType'
+          default: implicit
         createdAt:
           type: string
           format: date-time
@@ -7127,6 +7443,42 @@ components:
       description: Rules to expire or retain data.  No rules means data never expires.
       items:
         $ref: '#/components/schemas/RetentionRule'
+    PatchBucketRequest:
+      type: object
+      description: Updates to an existing bucket resource.
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        retentionRules:
+          $ref: '#/components/schemas/PatchRetentionRules'
+    PatchRetentionRules:
+      type: array
+      description: Updates to rules to expire or retain data. No rules means no updates.
+      items:
+        $ref: '#/components/schemas/PatchRetentionRule'
+    PatchRetentionRule:
+      type: object
+      description: Updates to a rule to expire or retain data.
+      properties:
+        type:
+          type: string
+          default: expire
+          enum:
+            - expire
+        everySeconds:
+          type: integer
+          format: int64
+          description: Duration in seconds for how long data will be kept in the database. 0 means infinite.
+          example: 86400
+          minimum: 0
+        shardGroupDurationSeconds:
+          type: integer
+          format: int64
+          description: Shard duration measured in seconds.
+      required:
+        - type
     RetentionRule:
       type: object
       properties:
@@ -8840,8 +9192,6 @@ components:
           $ref: '#/components/schemas/Axes'
         staticLegend:
           $ref: '#/components/schemas/StaticLegend'
-        legend:
-          $ref: '#/components/schemas/Legend'
         xColumn:
           type: string
         generateXAxisTicks:
@@ -8939,8 +9289,6 @@ components:
           type: boolean
         axes:
           $ref: '#/components/schemas/Axes'
-        legend:
-          $ref: '#/components/schemas/Legend'
         staticLegend:
           $ref: '#/components/schemas/StaticLegend'
         xColumn:
@@ -9036,8 +9384,6 @@ components:
           $ref: '#/components/schemas/Axes'
         staticLegend:
           $ref: '#/components/schemas/StaticLegend'
-        legend:
-          $ref: '#/components/schemas/Legend'
         xColumn:
           type: string
         generateXAxisTicks:
@@ -9464,8 +9810,6 @@ components:
           type: string
         staticLegend:
           $ref: '#/components/schemas/StaticLegend'
-        legend:
-          $ref: '#/components/schemas/Legend'
         decimalPlaces:
           $ref: '#/components/schemas/DecimalPlaces'
     HistogramViewProperties:
@@ -9578,10 +9922,6 @@ components:
           type: string
         tickSuffix:
           type: string
-        staticLegend:
-          $ref: '#/components/schemas/StaticLegend'
-        legend:
-          $ref: '#/components/schemas/Legend'
         decimalPlaces:
           $ref: '#/components/schemas/DecimalPlaces'
     TableViewProperties:
@@ -9918,6 +10258,8 @@ components:
         heightRatio:
           type: number
           format: float
+        hide:
+          type: boolean
         opacity:
           type: number
           format: float
@@ -9928,24 +10270,6 @@ components:
         widthRatio:
           type: number
           format: float
-    Legend:
-      description: Legend define encoding of data into a view's legend
-      type: object
-      deprecated: true
-      properties:
-        type:
-          description: The style of the legend.
-          type: string
-          enum:
-            - static
-        orientation:
-          description: orientation is the location of the legend with respect to the view graph
-          type: string
-          enum:
-            - top
-            - bottom
-            - left
-            - right
     DecimalPlaces:
       description: 'Indicates whether decimal places should be enforced, and how many digits it should show.'
       type: object
@@ -11289,9 +11613,9 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          deadman: ./DeadmanCheck.yml
-          threshold: ./ThresholdCheck.yml
-          custom: ./CustomCheck.yml
+          deadman: '#/components/schemas/DeadmanCheck'
+          threshold: '#/components/schemas/ThresholdCheck'
+          custom: '#/components/schemas/CustomCheck'
     Check:
       allOf:
         - $ref: '#/components/schemas/CheckDiscriminator'
@@ -11426,9 +11750,9 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          greater: ./GreaterThreshold.yml
-          lesser: ./LesserThreshold.yml
-          range: ./RangeThreshold.yml
+          greater: '#/components/schemas/GreaterThreshold'
+          lesser: '#/components/schemas/LesserThreshold'
+          range: '#/components/schemas/RangeThreshold'
     DeadmanCheck:
       allOf:
         - $ref: '#/components/schemas/CheckBase'
@@ -11581,11 +11905,11 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          slack: ./SlackNotificationRule.yml
-          smtp: ./SMTPNotificationRule.yml
-          pagerduty: ./PagerDutyNotificationRule.yml
-          http: ./HTTPNotificationRule.yml
-          telegram: ./TelegramNotificationRule.yml
+          slack: '#/components/schemas/SlackNotificationRule'
+          smtp: '#/components/schemas/SMTPNotificationRule'
+          pagerduty: '#/components/schemas/PagerDutyNotificationRule'
+          http: '#/components/schemas/HTTPNotificationRule'
+          telegram: '#/components/schemas/TelegramNotificationRule'
     NotificationRule:
       allOf:
         - $ref: '#/components/schemas/NotificationRuleDiscriminator'
@@ -11856,10 +12180,10 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          slack: ./SlackNotificationEndpoint.yml
-          pagerduty: ./PagerDutyNotificationEndpoint.yml
-          http: ./HTTPNotificationEndpoint.yml
-          telegram: ./TelegramNotificationEndpoint.yml
+          slack: '#/components/schemas/SlackNotificationEndpoint'
+          pagerduty: '#/components/schemas/PagerDutyNotificationEndpoint'
+          http: '#/components/schemas/HTTPNotificationEndpoint'
+          telegram: '#/components/schemas/TelegramNotificationEndpoint'
     NotificationEndpoint:
       allOf:
         - $ref: '#/components/schemas/NotificationEndpointDiscrimator'
@@ -12070,6 +12394,11 @@ components:
           type: boolean
         links:
           $ref: '#/components/schemas/Links'
+    SchemaType:
+      type: string
+      enum:
+        - implicit
+        - explicit
     Resource:
       type: object
       required:
@@ -12098,6 +12427,7 @@ components:
             - dbrp
             - flows
             - annotations
+            - functions
         id:
           type: string
           nullable: true
@@ -12417,6 +12747,162 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Variable'
+    ColumnDataType:
+      type: string
+      enum:
+        - integer
+        - float
+        - boolean
+        - string
+        - unsigned
+    ColumnSemanticType:
+      type: string
+      nullable: false
+      enum:
+        - timestamp
+        - tag
+        - field
+    MeasurementSchema:
+      description: The schema definition for a single measurement
+      type: object
+      example:
+        id: 1a3c5e7f9b0a8642
+        name: cpu
+        columns:
+          - name: time
+            type: timestamp
+          - name: host
+            type: tag
+          - name: region
+            type: tag
+          - name: usage_user
+            type: field
+            dataType: float
+          - name: usage_user
+            type: field
+            dataType: float
+        createdAt: '2021-01-21T00:48:40.993Z'
+        updatedAt: '2021-01-21T00:48:40.993Z'
+      required:
+        - id
+        - name
+        - columns
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          nullable: false
+        columns:
+          description: An ordered collection of column definitions
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementSchemaColumn'
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    MeasurementSchemaColumn:
+      description: Definition of a measurement column
+      example:
+        name: time
+        type: timestamp
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/ColumnSemanticType'
+        dataType:
+          $ref: '#/components/schemas/ColumnDataType'
+    MeasurementSchemaCreateRequest:
+      description: Create a new measurement schema
+      type: object
+      example:
+        name: cpu
+        columns:
+          - name: time
+            type: timestamp
+          - name: host
+            type: tag
+          - name: region
+            type: tag
+          - name: usage_user
+            type: field
+            dataType: float
+          - name: usage_user
+            type: field
+            dataType: float
+      required:
+        - name
+        - columns
+      properties:
+        name:
+          type: string
+        columns:
+          description: An ordered collection of column definitions
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementSchemaColumn'
+    MeasurementSchemaList:
+      description: A list of measurement schemas returning summary information
+      example:
+        measurementSchemas:
+          - id: 1a3c5e7f9b0a8642
+            name: cpu
+            createdAt: '2021-01-21T00:48:40.993Z'
+            updatedAt: '2021-01-21T00:48:40.993Z'
+          - id: 1a3c5e7f9b0a8643
+            name: memory
+            createdAt: '2021-01-21T00:48:40.993Z'
+            updatedAt: '2021-01-21T00:48:40.993Z'
+          - id: 1a3c5e7f9b0a8644
+            name: disk
+            createdAt: '2021-01-21T00:48:40.993Z'
+            updatedAt: '2021-01-21T00:48:40.993Z'
+      type: object
+      required:
+        - measurementSchemas
+      properties:
+        measurementSchemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementSchema'
+    MeasurementSchemaUpdateRequest:
+      description: Update an existing measurement schema
+      type: object
+      example:
+        columns:
+          - name: time
+            type: timestamp
+          - name: host
+            type: tag
+          - name: region
+            type: tag
+          - name: usage_user
+            type: field
+            dataType: float
+          - name: usage_user
+            type: field
+            dataType: float
+      required:
+        - columns
+      properties:
+        columns:
+          description: An ordered collection of column definitions
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementSchemaColumn'
   securitySchemes:
     BasicAuth:
       type: http

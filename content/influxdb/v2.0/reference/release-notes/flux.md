@@ -8,6 +8,46 @@ menu:
     name: Flux
 ---
 
+## v0.115.0 [2021-05-11]
+
+### Features
+- Add [Alerta notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/alerta/).
+- Add [`table.fill()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)
+  to fill empty tables with a single row.
+- Add string formatting to `dict` type.
+
+### Bug fixes
+- Refactor semantic printing of types.
+- Do not remove escape characters when auto-formatting.
+- Add `0.0.0.0` to URL validator.
+- Add new display API for values.
+- Auto-format Flux files in `stdlib/testing`.
+
+---
+
+## v0.114.1 [2021-05-04]
+
+### Bug fixes
+- Upgrade `mssqldb` dependency for Go 1.16.
+- Format Flux files in `stdlib`.
+
+---
+
+## v0.114.0 [2021-05-03]
+
+### Features
+- Add `debug.slurp()` and `debug.sink()`.
+- Add [`experimental/influxdb`](/influxdb/v2.0/reference/flux/stdlib/experimental/influxdb/)
+  and [`experimental/usage`](/influxdb/v2.0/reference/flux/stdlib/experimental/usage/) packages.
+- Add `fmt` subcommand to the `flux` CLI to apply formatting to Flux files.
+
+### Bug fixes
+- Format Flux files in `stdlib` and `stdlib/testing`.
+- Update the macOS SDK for Go 1.16.
+- Revert check for uneven columns.
+- Wait for the dispatcher to finish before finishing query.
+- Remove `codecov` job.
+
 ## v0.113.0 [2021-04-21]
 
 ### Features
