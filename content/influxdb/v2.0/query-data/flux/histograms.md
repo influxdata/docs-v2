@@ -313,4 +313,4 @@ union(tables: [
 ])
 ```
 
-The tables flowing into the call to `histogramQuantile` should look similar to this. Note, that rows are sorted by `le` to be clear that the counts increase for larger upper bounds):
+The tables piped-forward into `histogramQuantile()` should look similar to those returned by the `histograms` variable in the example above. Note, that rows are sorted by `le` to be clear that the counts increase for larger upper bounds.
