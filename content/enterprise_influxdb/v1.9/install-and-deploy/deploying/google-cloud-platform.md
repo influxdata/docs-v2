@@ -86,8 +86,8 @@ Access the cluster's IP address from the GCP network (or subnetwork) specified w
 3. On the instance, install the `influx` command line tool via the InfluxDB open source package.
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb_1.8.2_amd64.deb
-    sudo dpkg -i influxdb_1.8.2_amd64.deb
+    wget https://dl.influxdata.com/influxdb/releases/influxdb_1.9.0_amd64.deb
+    sudo dpkg -i influxdb_1.9.0_amd64.deb
     ```
 
 4. Access the InfluxDB Enterprise cluster using the following command with "Admin username", "Admin password", and "Connection internal IP" values from the deployment screen substituted for `<value>`.
