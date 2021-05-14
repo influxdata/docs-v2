@@ -141,6 +141,8 @@ the following error:
 ```
 ERR: max number of points reached
 ```
+InfluxDB checks the point count every second (so queries exceeding the maximum aren’t immediately aborted).
+
 
 ### max-select-series
 
