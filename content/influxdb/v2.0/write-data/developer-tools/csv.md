@@ -100,7 +100,7 @@ To fix this error on Linux or Mac OS, run the following command to increase the 
   ulimit -n 10000
   ```
 
-Mac OS users, to persist the `ulimit` setting, follow the [recommended steps](https://unix.stackexchange.com/a/221988/471569) for your OS version.
+macOS users, to persist the `ulimit` setting, follow the [recommended steps](https://unix.stackexchange.com/a/221988/471569) for your operating system version.
 
 {{% /note %}}
 
