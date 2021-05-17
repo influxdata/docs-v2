@@ -14,11 +14,25 @@ of querying, processing, analyzing, and acting on data into a single syntax.
 ## Data model
 ### Stream of tables
 ### Table
-### Column
-### Row
-### Group key
+#### Group key
+
+#### Table grouping example
+The tables below represent data returned from InfluxDB with the following schema:
+
+- `example` measurement
+- `loc` tag with two values
+- `sensorID` tag with two values
+- `temp` and `hum` fields
+
+By default, InfluxDB returns data grouped by [series](/influxdb/v2.0/reference/glossary/#series)
+(common measurement, tag set, and field key).
+To modify the group key and see how the sample data is partitioned into new tables,
+select columns to group by:
 
 {{< flux/group-key-demo >}}
+
+### Column
+### Row
 
 ## Data types
 ### Basic types
