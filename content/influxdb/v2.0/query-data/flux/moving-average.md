@@ -14,7 +14,7 @@ menu:
 influxdb/v2.0/tags: [query, moving average]
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
 list_query_example: moving_average
 ---
 
@@ -92,28 +92,32 @@ If `every = 30m` and `period = 1h`:
 
 | _time                | _value |
 |:-----                | ------:|
-| 2020-01-01T00:01:00Z | 1.0    |
-| 2020-01-01T00:02:00Z | 1.2    |
-| 2020-01-01T00:03:00Z | 1.8    |
-| 2020-01-01T00:04:00Z | 0.9    |
-| 2020-01-01T00:05:00Z | 1.4    |
-| 2020-01-01T00:06:00Z | 2.0    |  
+| 2020-01-01T00:00:00Z | 1.0    |
+| 2020-01-01T00:30:00Z | 1.2    |
+| 2020-01-01T01:00:00Z | 1.8    |
+| 2020-01-01T01:30:00Z | 0.9    |
+| 2020-01-01T02:00:00Z | 1.4    |
+| 2020-01-01T02:30:00Z | 2.0    |  
+| 2020-01-01T03:00:00Z | 1.9    |  
 {{% /flex-content %}}
 {{% flex-content %}}
 **The following would return:**
 
 ```js
 |> timedMovingAverage(
-  every: 2m,
-  period: 4m
+  every: 30m,
+  period: 1h
 )
 ```  
 
 | _time                | _value |
-|:-----                | ------:|
-| 2020-01-01T00:02:00Z | 1.000  |
-| 2020-01-01T00:04:00Z | 1.333  |
-| 2020-01-01T00:06:00Z | 1.325  |
-| 2020-01-01T00:06:00Z | 1.150  |
+| :------------------- | -----: |
+| 2020-01-01T00:30:00Z |    1.0 |
+| 2020-01-01T01:00:00Z |    1.1 |
+| 2020-01-01T01:30:00Z |    1.5 |
+| 2020-01-01T02:00:00Z |   1.35 |
+| 2020-01-01T02:30:00Z |   1.15 |
+| 2020-01-01T03:00:00Z |    1.7 |
+| 2020-01-01T03:00:00Z |      2 |
 {{% /flex-content %}}
 {{< /flex >}}

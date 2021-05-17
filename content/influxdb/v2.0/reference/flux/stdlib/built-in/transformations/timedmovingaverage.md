@@ -28,7 +28,7 @@ _**Function type:** Transformation_
 timedMovingAverage(
   every: 1d,
   period: 5d,
-  column="_value"
+  column: "_value"
 )
 ```
 
