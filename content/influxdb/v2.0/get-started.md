@@ -344,7 +344,7 @@ in the provided examples with `./influx` and `./influxd` respectively.
 ### Download and install InfluxDB v2.0
 Download InfluxDB v2.0 for Windows.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.6-windows-amd64.tar.gz" download >InfluxDB v2.0 (Windows)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.6-windows-amd64.zip" download >InfluxDB v2.0 (Windows)</a>
 
 Expand the downloaded archive into `C:\Program Files\InfluxData\influxdb`.
 
