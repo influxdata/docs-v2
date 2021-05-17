@@ -1,5 +1,6 @@
 var tablesElement = $("#flux-group-keys-demo #grouped-tables")
 
+// Sample data
 let data = [
   [
     { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 110.3 },
@@ -31,11 +32,12 @@ let data = [
   ]
 ]
 
+// Default group key
 let groupKey = ["_measurement", "loc", "sensorID", "_field"]
 
-// Build a table using an array of objects
+// Build a table group (group key and table) using an array of objects
 function buildTable(inputData) {
-  // Build group key string
+  // Build the group key string
   var groupKeyString = "Group key = [" + (groupKey.map(column => column + ": " + (inputData[0])[column])).join(", ") + "]";
   var groupKeyLabel = document.createElement("p");
   groupKeyLabel.className = "table-group-key"
@@ -50,6 +52,8 @@ function buildTable(inputData) {
       }
     }
   }
+  
+  // Create the table element
   var table = document.createElement("table");
   
   // Create the table header
@@ -69,6 +73,7 @@ function buildTable(inputData) {
     for (let j = 0; j < columns.length; j++) {
       var td = tr.insertCell(-1);
       td.innerHTML = inputData[i][columns[j]];
+      // Highlight the value if column is part of the group key
       if (groupKey.includes(columns[j])) {
         td.className = "grouped-by";
       }
@@ -117,7 +122,7 @@ function groupData() {
   buildTables(groupedData);
 }
 
-// Get checked column names
+// Get selected column names
 var checkboxes = $("input[type=checkbox]");
 
 function getChecked() {
@@ -129,8 +134,6 @@ function getChecked() {
   return checked;
 }
 
-groupData()
-
 function toggleCheckbox(element) {
   element.checked = !element.checked;
 }
@@ -141,5 +144,5 @@ $(".column-list label").click(function () {
   groupData();
 });
 
-
-
+// Group and render tables on load
+groupData()
