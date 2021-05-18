@@ -34,7 +34,7 @@ in that there is no corresponding InfluxDB OSS release.
 
 ### Other changes
 
-- Remove `influx_stress` tool. (This had been marked as deprecated since version 1.2.)
+- Remove `influx_stress` tool (deprecated since version 1.2).
   Instead, use [`inch`](https://github.com/influxdata/inch) 
   or [`influx-stress`](https://github.com/influxdata/influx-stress) (not to be confused with `influx_stress`).
 
