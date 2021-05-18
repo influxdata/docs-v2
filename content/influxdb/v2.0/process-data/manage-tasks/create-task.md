@@ -19,6 +19,7 @@ _Before creating a task, review the [basics criteria for writing a task](/influx
 
 - [InfluxDB UI](#create-a-task-in-the-influxdb-ui)
 - [`influx` CLI](#create-a-task-using-the-influx-cli)
+- [InfluxDB API](#create-a-task-using-the-influxdb-api)
 
 ## Create a task in the InfluxDB UI
 The InfluxDB UI provides multiple ways to create a task:
@@ -119,4 +120,33 @@ option task = {
 # ... Task script ...
 
 # <ctrl-d> to close the pipe and submit the command
+```
+
+## Create a task using the InfluxDB API
+
+Send a request using the **POST** method to the `/api/v2/tasks` InfluxDB API endpoint.
+Provide the following in your API request:
+
+##### Request headers
+- **Content-Type**: application/json
+- **Authorization**: Token _YOURINFLUXDBTOKEN_**
+
+##### Request body
+JSON object with the following fields:
+
+- **flux** : raw Flux task string
+- **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+- **status**: task status ("active" or "inactive")
+- **description**: task description
+
+```sh
+curl --request POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <YOURTOKEN>' \
+  --data-raw '{
+    "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nfrom(bucket: \"telegraf\")\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", org: \"russ+cloud2'\''s organization\")",
+    "orgID": "<YOURORGID>",
+    "status": "active",
+    "description": "This task downsamples CPU data every hour"
+}'
 ```
