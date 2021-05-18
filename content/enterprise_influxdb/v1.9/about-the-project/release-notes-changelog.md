@@ -32,6 +32,12 @@ in that there is no corresponding InfluxDB OSS release.
 - Ensure a newline is printed after a successful copy during [restoration](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
 - Make `entropy show` expiration times consistent with `show-shards`.
 
+### Other changes
+
+- Remove `influx_stress` tool (deprecated since version 1.2).
+  Instead, use [`inch`](https://github.com/influxdata/inch) 
+  or [`influx-stress`](https://github.com/influxdata/influx-stress) (not to be confused with `influx_stress`).
+
 ## v1.8.4 [2020-02-08]
 
 The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
