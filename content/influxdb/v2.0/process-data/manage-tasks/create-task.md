@@ -139,11 +139,11 @@ JSON object with the following fields:
 - **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
 - **status**: task status ("active" or "inactive")
 - **description**: task description
-```
-curl --location --request POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks' \
---header 'Content-Type: application/json' \
---header 'Authorization: Token <YOURTOKEN>' \
---data-raw '{
+```sh
+curl --request POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <YOURTOKEN>' \
+  --data-raw '{
     "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nfrom(bucket: \"telegraf\")\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", org: \"russ+cloud2'\''s organization\")",
     "orgID": "<YOURORGID>",
     "status": "active",
