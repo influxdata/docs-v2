@@ -123,7 +123,22 @@ option task = {
 ```
 
 ## Create a task using the InfluxDB API
+Provide the following in your API request:
 
+- `/api/v2/tasks` InfluxDB API endpoint
+- **POST** request method
+
+##### Request headers
+- **Content-Type**: application/json
+- **Authorization**: Token _YOURINFLUXDBTOKEN_**
+
+##### Request body
+JSON object with the following fields:
+
+- **flux** : raw Flux task string
+- **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+- **status**: task status ("active" or "inactive")
+- **description**: task description
 ```
 curl --location --request POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks' \
 --header 'Content-Type: application/json' \
