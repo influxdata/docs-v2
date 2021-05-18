@@ -11,19 +11,19 @@ influxdb/cloud/tags: [thingworx]
 ---
 
 {{% note %}}
-Use PTC ThingWorx with InfluxDB Cloud by deploying both on your AWS or GCP infrastructure. For information about deploying on Azure, see [Use PTC Cloud](https://www.ptc.com/en/customer-success/cloud).
+Use PTC ThingWorx with InfluxDB Cloud by deploying both on your AWS or GCP infrastructure. For information about deploying on Azure, [use PTC Cloud](https://www.ptc.com/en/customer-success/cloud).
 {{% /note %}}
 
 **To use ThingWorx with InfluxDB Cloud**
 
-1. Set up an [InfluxDB Cloud account](#set-up-an-influxdb-cloud-account-compatible-with-thingworx)
+1. Set up an [InfluxDB Cloud account compatible with ThingWorx](#set-up-an-influxdb-cloud-account-compatible-with-thingworx)
 2. [Set up PTC ThingWorx](#set-up-ptc-thingworx)
 3. [Use the InfluxDB 1.x compatibility API on InfluxDB Cloud](#use-the-influxdb-1x-compatibility-api-on-influxdb-cloud)
 
 ## Set up an InfluxDB Cloud account compatible with ThingWorx
 
 1. [Sign up for a Cloud account](https://cloud2.influxdata.com/signup), and do the following when signing up:
-   - Select an AWS or Google region to store your data. To deploy on Azure region, see Use PTC Cloud.
+   - Select an AWS or Google region to store your data. To deploy on Azure region, see [use PTC Cloud](https://www.ptc.com/en/customer-success/cloud).
    - Select a Usage-based plan by entering credit card information.
   For more information, see [how to sign up for InfluxDB Cloud](/influxdb/cloud/sign-up/).
 2. [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/) with an infinite retention period (select **Never** for when to **Delete Data**), and then copy the new bucket ID and save for step 4.
