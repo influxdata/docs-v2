@@ -31,7 +31,7 @@ Learn how to create a notebook that downsamples data—walk through the followin
   - In the **Choose a bucket** dropdown list, select **Website Monitoring Bucket**.
   - Select the **response_time** field.
   - Select the **mean** function from the aggregate selector in the upper-right.
-3. Add a **Downsample** cell with the following script to bring in data from the previous cell and downsample it.
+3. Add a **Downsample** cell to bring in data from the previous cell and downsample it.
   - Select an aggregate function from the **Apply aggregate** dropdown menu.
   - Enter a window period. 
 4. Add an **Output to Bucket** cell, and then select the destination bucket for your downsampled data.
