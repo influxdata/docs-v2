@@ -16,9 +16,9 @@ Use PTC ThingWorx with InfluxDB Cloud by deploying both on your AWS or GCP infra
 
 **To use ThingWorx with InfluxDB Cloud**
 
-1. Set up an [InfluxDB Cloud account](/influxdb/cloud/tools/thingworx/#set-up-an-influxdb-cloud-account-compatible-with-thingworx).
+1. Set up an [InfluxDB Cloud account](#set-up-an-influxdb-cloud-account-compatible-with-thingworx).
 2. [Set up PTC ThingWorx](#set-up-ptc-thingworx).
-3. [Use the InfluxDB 1.x compatibility API on InfluxDB Cloud](#use-the-influxdb-1.x-compatibility-api-on-influxdb-cloud)
+3. [Use the InfluxDB 1.x compatibility API on InfluxDB Cloud](#use-the-influxdb-1x-compatibility-api-on-influxdb-cloud)
 
 ## Set up an InfluxDB Cloud account compatible with ThingWorx
 
