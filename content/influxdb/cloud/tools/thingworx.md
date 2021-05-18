@@ -17,7 +17,7 @@ Use PTC ThingWorx with InfluxDB Cloud by deploying both on your AWS or GCP infra
 **To use ThingWorx with InfluxDB Cloud**
 
 1. Set up an [InfluxDB Cloud account](set-up-an-influxdb-cloud-account-compatible-with-thingworx).
-2. Set up PTC ThingWorx. Because InfluxDB Cloud is already configured, [skip to step 4 in Using InfluxDB as the Persistence Provider](https://support.ptc.com/help/thingworx_hc/thingworx_8_hc/en/index.html#page/ThingWorx%2FHelp%2FComposer%2FDataStorage%2FPersistenceProviders%2Fusing_influxdb_as_the_persistence_provider.html).
+2. [Set up PTC ThingWorx](#set-up-ptc-thingworx).
 3. [Use the InfluxDB 1.x compatibility API on InfluxDB Cloud](#use-the-influxdb-1.x-compatibility-api-on-influxdb-cloud)
 
 ## Set up an InfluxDB Cloud account compatible with ThingWorx
@@ -93,4 +93,3 @@ Additional references
 InfluxDB v2 API documentation
 InfluxDB v1 compatibility API documentation
 DBRP Mapping documentation
-
