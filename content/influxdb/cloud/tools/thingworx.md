@@ -11,7 +11,7 @@ influxdb/cloud/tags: [thingworx]
 ---
 
 {{% note %}}
-Use PTC ThingWorx with InfluxDB Cloud to deploy on your AWS or GCP infrastructure. For information about deploying on Azure, see [Use PTC Cloud](https://www.ptc.com/en/customer-success/cloud).
+Use PTC ThingWorx with InfluxDB Cloud by deploying both on your AWS or GCP infrastructure. For information about deploying on Azure, see [Use PTC Cloud](https://www.ptc.com/en/customer-success/cloud).
 {{% /note %}}
 
 **To use ThingWorx with InfluxDB Cloud**
