@@ -42,6 +42,9 @@ Notebooks are comprised of different cells. Add one or more of the following cel
 - **Transform: Flux Script**:
   - Use `__PREVIOUS_RESULT__` to build from data in the previous cell.
   - Enter a Flux script to transform your data.
+- **Transform: Downsample**:
+  - Apply an aggregate and a window period to downsample data.
+  - For more information, see [Downsample data with notebooks](/influxdb/cloud/notebooks/downsample/).
 - **Pass-through: Markdown**: Enter explanatory notes or other information for yourself or one of your team members in Markdown.
 - **Pass-through: Visualization**:
   - Create a visualization of your data. For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
