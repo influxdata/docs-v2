@@ -5,30 +5,22 @@ let data = [
   [
     { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 110.3 },
     { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 112.5 },
-    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 111.9 },
-    { _time: "2021-01-01T00:03:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 112.1 },
-    { _time: "2021-01-01T00:04:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 110.9 }
+    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "temp", _value: 111.9 }
   ],
   [
     { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 73.4 },
     { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 73.7 },
-    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 75.1 },
-    { _time: "2021-01-01T00:03:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 74.2 },
-    { _time: "2021-01-01T00:04:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 73.9 }
+    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm1", sensorID: "A123", _field: "hum", _value: 75.1 }
   ],
   [
     { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 108.2 },
     { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 108.5 },
-    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 109.6 },
-    { _time: "2021-01-01T00:03:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 108.7 },
-    { _time: "2021-01-01T00:04:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 107.9 }
+    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "temp", _value: 109.6 }
   ],
   [
     { _time: "2021-01-01T00:00:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 71.8 },
     { _time: "2021-01-01T00:01:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 72.3 },
-    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 72.1 },
-    { _time: "2021-01-01T00:03:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 73.6 },
-    { _time: "2021-01-01T00:04:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 73.1 }
+    { _time: "2021-01-01T00:02:00Z", _measurement: "example", loc: "rm2", sensorID: "B456", _field: "hum", _value: 72.1 }
   ]
 ]
 
