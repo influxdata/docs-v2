@@ -124,7 +124,7 @@ option task = {
 
 ## Create a task using the InfluxDB API
 
-Send a **POST** request method to the `/api/v2/tasks` InfluxDB API endpoint.
+Send a request using the **POST** method to the `/api/v2/tasks` InfluxDB API endpoint.
 Provide the following in your API request:
 
 ##### Request headers
