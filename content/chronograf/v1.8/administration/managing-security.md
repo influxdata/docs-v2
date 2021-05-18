@@ -494,10 +494,10 @@ Only use basic authentication in cases where an OAuth 2.0 integration is not pos
 When using basic authentication, *all users have SuperAdmin status*; Chronograf authorization rules are not enforced.
 For more information, see [Cross-organization SuperAdmin status](/chronograf/v1.8/administration/managing-chronograf-users/#cross-organization-superadmin-status).
 
-To enable basic authentication, run chronograf with the `-htpasswd` flag or use the `HTPASSWD` environment variable.
+To enable basic authentication, run chronograf with the `--htpasswd` flag or use the `HTPASSWD` environment variable.
 
 ```sh
-chronograf —-htpasswd <path to .htpasswd file>
+chronograf --htpasswd <path to .htpasswd file>
 ```
 
 The `.htpasswd` file contains users and their passwords, and should be created with a password file utility tool such as `apache2-utils`.
