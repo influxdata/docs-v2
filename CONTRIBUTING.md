@@ -326,10 +326,8 @@ Use the following for project names:
 ```
 
 ### Latest patch version
-Use the `{{< latest-patch >}}` shortcode to print the latest patch version of the
-current product. This shortcode makes often-updated links or code examples more
-maintainable by containing the necessary patch version update to the
-`data/products.yml` file.
+Use the `{{< latest-patch >}}` shortcode to add the latest patch version of the
+current product. Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
 
 ```md
 {{< latest-patch >}}
