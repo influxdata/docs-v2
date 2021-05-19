@@ -31,17 +31,12 @@ Learn how to create a notebook that downsamples data—walk through the followin
   - In the **Choose a bucket** dropdown list, select **Website Monitoring Bucket**.
   - Select the **response_time** field.
   - Select the **mean** function from the aggregate selector in the upper-right.
-3. Add a **Flux Script** cell with the following script to bring in data from the previous cell and downsample it:
-  ```sh
-  __PREVIOUS_RESULT__
-    |> aggregateWindow(fn: mean, every: 1h)
-  ```
-  {{% note %}}
-   If the `every` duration is longer the the total time range queried, aggregateWindow will only return one value.
-  {{% /note %}}
+3. Add a **Downsample** cell to bring in data from the previous cell and downsample it.
+  - Select an aggregate function from the **Apply aggregate** dropdown menu.
+  - Enter a window period. 
 4. Add an **Output to Bucket** cell, and then select the destination bucket for your downsampled data.
 5. Add a **Markdown** cell to add a note to your team about what this notebook does. For example, the cell might say, "Downsample to one value per hour so we can do week-over-week performance. Sending data to downsample bucket."
-5. Click **Preview** in the upper left to verify that your notebook runs and preview the output.
-6. Run your notebook:
+6. Click **Preview** in the upper left to verify that your notebook runs and preview the output.
+7. Run your notebook:
   - Click **Run** from the **Preview** dropdown list to run the notebook and write to the output bucket a single time.
   - To write continuously, click **Export as Task** in the upper right corner of the **Output to Bucket** cell. For details about working with tasks, see [Manage tasks](/influxdb/cloud/process-data/manage-tasks/).
