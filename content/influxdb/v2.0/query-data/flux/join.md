@@ -21,7 +21,7 @@ input streams, whose values are equal on a set of common columns, into a single 
 Flux allows you to join on any columns common between two data streams and opens the door
 for operations such as cross-measurement joins and math across measurements.
 
-To illustrate a join operation, use data captured by Telegraf and and stored in
+To illustrate a join operation, use data captured by Telegraf and stored in
 InfluxDB - memory usage and processes.
 
 In this guide, we'll join two data streams, one representing memory usage and the other representing the
