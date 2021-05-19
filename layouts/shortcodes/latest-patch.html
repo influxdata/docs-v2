@@ -1,0 +1,12 @@
+{{- $scratch := newScratch -}}
+{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
+{{- $product := index $productPathData 0 | default "influxdb" -}}
+{{- $currentVersion := replaceRE "v" "" (index $productPathData 1) -}}
+{{- $latestVersion := replaceRE "v" "" (index (index .Site.Data.products $product) "latest") -}}
+{{- $patchVersions := index (index .Site.Data.products $product) "latest_patches" -}}
+{{- if eq $currentVersion "cloud" -}}
+  {{- $scratch.Set "patchVersion" (print $latestVersion "." (index $patchVersions $latestVersion)) -}}
+{{- else -}}
+  {{- $scratch.Set "patchVersion" (print $currentVersion "." (index $patchVersions $currentVersion)) -}}
+{{- end -}}
+{{- $scratch.Get "patchVersion" -}}

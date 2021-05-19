@@ -8,6 +8,21 @@ menu:
     name: Flux
 ---
 
+## v0.116.0 [2021-05-17]
+
+## Features
+- Add Jaeger tracing information to profile metadata.
+- Add `flux fmt` step to the continuous integration pipeline.
+- Update the `window` implementation to use `interval.Window`.
+- Add [`today()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/).
+
+## Bug fixes
+- Remove deadlock when an error occurs while the dispatcher is stopping.
+- Prevent errors caused by the the auto-formatter removing brackets around `if` expressions.
+- Auto-format remaining Flux files.
+
+---
+
 ## v0.115.0 [2021-05-11]
 
 ### Features
