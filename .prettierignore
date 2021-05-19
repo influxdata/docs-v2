@@ -1,0 +1,10 @@
+.DS_Store
+*~
+public
+.*.swp
+node_modules
+*.log
+/resources
+**/*.json
+**/*.md
+**/*.lock

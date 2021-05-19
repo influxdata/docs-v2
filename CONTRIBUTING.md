@@ -29,6 +29,29 @@ Push your changes up to your forked repository, then [create a new pull request]
 
 ## Style & Formatting
 
+### Tools
+The documentation includes ESLint and Prettier rules
+to enforce proper syntax and consistent formatting of JS and HTML files.
+ESLint and Remark enforce Markdown formatting rules.
+
+To apply the formatting rules as you write, install the ESLint package for your editor and make sure it is configured to use the `docs-v2/.eslintrc` config file.
+
+`git commit` will run ESLint with the same rules and report syntax and formatting rule violations in staged HTML and JS files.
+For now, the commit hook doesn't validate the syntax of code blocks
+within Markdown files, e.g.
+
+  ````
+  ```js
+  function(...)
+  ```
+  ````
+
+However, you can run the lint scripts on demand for all files:
+
+```sh
+yarn run lint
+```
+
 ### Markdown
 All of our documentation is written in [Markdown](https://en.wikipedia.org/wiki/Markdown).
 

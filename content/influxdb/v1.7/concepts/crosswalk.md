@@ -13,7 +13,6 @@ This page gives SQL users an overview of how InfluxDB is like an SQL database an
 It highlights some of the major distinctions between the two and provides a loose crosswalk between the different database terminologies and query languages.
 
 ## In general...
-
 InfluxDB is designed to work with time-series data.
 SQL databases can handle time-series but weren't created strictly for that purpose.
 In short, InfluxDB is made to store a large volume of time-series data and perform real-time analysis on those data, quickly.
@@ -31,11 +30,10 @@ If you need an explanation of the terms measurements, tags, and fields check out
 
 ## Terminology
 
-The table below is a (very) simple example of a table  called `foodships` in an SQL database
-with the unindexed column `#_foodships` and the indexed columns `park_id`, `planet`, and `time`.
+The table below is a (very) simple example of a table  called `foodships` in an SQL database with the unindexed column `#_foodships` and the indexed columns `park_id`, `planet`, and `time`.
 
-``` sql
-+---------+---------+---------------------+--------------+
+ ``` sql
+ +---------+---------+---------------------+--------------+
 | park_id | planet  | time                | #_foodships  |
 +---------+---------+---------------------+--------------+
 |       1 | Earth   | 1429185600000000000 |            0 |

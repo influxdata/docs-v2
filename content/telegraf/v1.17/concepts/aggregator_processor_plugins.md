@@ -11,12 +11,14 @@ menu:
 Besides the input plugins and output plugins, Telegraf includes aggregator and processor plugins, which are used to aggregate and process metrics as they pass through Telegraf.
 
 {{< diagram >}}
+
   graph TD
   Process[Process<br/> - transform<br/> - decorate<br/> - filter]
   Aggregate[Aggregate<br/> - transform<br/> - decorate<br/> - filter]
 
-  CPU --> Process
-  Memory --> Process
+
+   CPU --> Process
+Memory --> Process
   MySQL --> Process
   SNMP --> Process
   Docker --> Process
@@ -27,6 +29,8 @@ Besides the input plugins and output plugins, Telegraf includes aggregator and p
 
 style Process text-align:left
 style Aggregate text-align:left
+style Process font-weight: 800
+
 {{< /diagram >}}
 
 **Processor plugins** process metrics as they pass through and immediately emit
