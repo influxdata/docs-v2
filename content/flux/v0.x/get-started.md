@@ -11,6 +11,17 @@ weight: 1
 Flux is a **functional data scripting** language designed to unify the processes
 of querying, processing, analyzing, and acting on data into a single syntax.
 
+## Flux from a high level
+To understand how Flux works from a high level, consider the process of treating
+and purifying water at scale.
+
+1.  Water is pulled from a large reservoir.
+2.  The amount of water drawn is limited by demand.
+3.  The water is piped through a series of stations that modify the water in some way
+    (remove sediment, purify, treat with additives, etc.).
+4.  The processed water is ultimately delivered to a home in quantities that are
+    manageable and in a state that is consumable.
+
 ## Data model
 ### Stream of tables
 ### Table
