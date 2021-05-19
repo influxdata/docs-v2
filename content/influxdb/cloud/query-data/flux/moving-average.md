@@ -14,7 +14,7 @@ menu:
 influxdb/cloud/tags: [query, moving average]
 related:
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/movingaverage/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/timedmovingaverage/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/timedmovingaverage/
 list_query_example: moving_average
 ---
 

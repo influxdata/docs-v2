@@ -44,7 +44,7 @@ influx v1 dbrp create [flags]
 ```sh
 influx v1 dbrp create \
   --bucket-id 12ab34cd56ef \
-  --database example-db \
+  --db example-db \
   --rp example-rp \
   --default
 ```

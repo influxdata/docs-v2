@@ -279,6 +279,6 @@ Integer, Uinteger, Float, and Duration types are `Negatable`.
 ### Timeable Constraint
 Duration and Time types are `Timeable`.
 
-##### Stringable Constraint
+### Stringable Constraint
 Stringable types are those that can be evaluated and expressed in string interpolation.
 String, Integer, Uinteger, Float, Boolean, Time, and Duration types are `Stringable`.

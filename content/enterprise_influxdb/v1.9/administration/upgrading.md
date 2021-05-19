@@ -10,7 +10,7 @@ menu:
     parent: Administration
 ---
 
-To successfully perform a rolling upgrade of InfluxDB Enterprise clusters to 1.9.0, complete the following steps:
+To successfully perform a rolling upgrade of InfluxDB Enterprise clusters to {{< latest-patch >}}, complete the following steps:
 
 1. [Back up your cluster](#back-up-your-cluster).
 2. [Upgrade meta nodes](#upgrade-meta-nodes).
@@ -41,13 +41,13 @@ Complete the following steps to upgrade meta nodes:
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.9.0-c1.9.0_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.9.0_c1.9.0.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Install the meta node package
@@ -55,13 +55,13 @@ wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.9.0_c1.9.0.x8
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-sudo dpkg -i influxdb-meta_1.9.0-c1.9.0_amd64.deb
+sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-sudo yum localinstall influxdb-meta-1.9.0-c1.9.0.x86_64.rpm
+sudo yum localinstall influxdb-meta-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Update the meta node configuration file
@@ -103,9 +103,9 @@ ID	TCP Address		Version
 Meta Nodes
 ==========
 TCP Address		Version
-rk-upgrading-01:8091	1.9.0-c1.9.0   # 1.9.0-c1.9.0 = 👍
-rk-upgrading-02:8091	1.9.0-c1.9.0
-rk-upgrading-03:8091	1.9.0-c1.9.0
+rk-upgrading-01:8091	{{< latest-patch >}}-c{{< latest-patch >}}   # {{< latest-patch >}}-c{{< latest-patch >}} = 👍
+rk-upgrading-02:8091	{{< latest-patch >}}-c{{< latest-patch >}}
+rk-upgrading-03:8091	{{< latest-patch >}}-c{{< latest-patch >}}
 ```
 
 Ensure that the meta cluster is healthy before upgrading the data nodes.
@@ -129,13 +129,13 @@ Complete the following steps to upgrade data nodes:
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.9.0-c1.9.0_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.9.0-c1.9.0.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Stop traffic to the data node
@@ -146,19 +146,19 @@ wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.9.0-c1.9.0.x8
 
 ### Install the data node package
 
-When you run the install command, you're prompted to keep or overwrite your current configuration file with the file for version 1.9.0. Enter `N` or `O` to keep your current configuration file. You'll make the configuration changes for version 1.9.0. in the next procedure, [Update the data node configuration file](#update-the-data-node-configuration-file).
+When you run the install command, you're prompted to keep or overwrite your current configuration file with the file for version {{< latest-patch >}}. Enter `N` or `O` to keep your current configuration file. You'll make the configuration changes for version {{< latest-patch >}}. in the next procedure, [Update the data node configuration file](#update-the-data-node-configuration-file).
 
 
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-sudo dpkg -i influxdb-data_1.9.0-c1.9.0_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat & CentOS (64-bit)
 
 ```bash
-sudo yum localinstall influxdb-data-1.9.0-c1.9.0.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Update the data node configuration file
@@ -230,16 +230,16 @@ The [`influxd-ctl` utility](/enterprise_influxdb/v1.9/administration/cluster-com
 Data Nodes
 ==========
 ID	TCP Address		Version
-4	rk-upgrading-01:8088	1.9.0-c1.9.0   # 1.9.0-c1.9.0 = 👍
-5	rk-upgrading-02:8088	1.9.0-c1.9.0
-6	rk-upgrading-03:8088	1.9.0-c1.9.0
+4	rk-upgrading-01:8088	{{< latest-patch >}}-c{{< latest-patch >}}   # {{< latest-patch >}}-c{{< latest-patch >}} = 👍
+5	rk-upgrading-02:8088	{{< latest-patch >}}-c{{< latest-patch >}}
+6	rk-upgrading-03:8088	{{< latest-patch >}}-c{{< latest-patch >}}
 
 Meta Nodes
 ==========
 TCP Address		Version
-rk-upgrading-01:8091	1.9.0-c1.9.0
-rk-upgrading-02:8091	1.9.0-c1.9.0
-rk-upgrading-03:8091	1.9.0-c1.9.0
+rk-upgrading-01:8091	{{< latest-patch >}}-c{{< latest-patch >}}
+rk-upgrading-02:8091	{{< latest-patch >}}-c{{< latest-patch >}}
+rk-upgrading-03:8091	{{< latest-patch >}}-c{{< latest-patch >}}
 ```
 
 If you have any issues upgrading your cluster, contact InfluxData support.
