@@ -18,14 +18,14 @@ and get started!
 
 ## Key features
 
-- Custom high performance datastore written specifically for time series data. High ingest speed and data compression.
-- Provides high availability across your cluster and eliminates a single point of failure
+- High performance datastore written specifically for time series data. High ingest speed and data compression.
+- Provides high availability across your cluster and eliminates a single point of failure.
 - Written entirely in Go. Compiles into a single binary with no external dependencies.
 - Simple, high performing write and query HTTP APIs.
 - Plugin support for other data ingestion protocols such as Graphite, collectd, and OpenTSDB.
 - Expressive SQL-like query language tailored to easily query aggregated data.
 - Continuous queries automatically compute aggregate data to make frequent queries more efficient.
-- Tags allow series to be indexed for fast and efficient queries.
+- Tags let you index series for fast and efficient queries.
 - Retention policies efficiently auto-expire stale data.
 
 ## Next steps
