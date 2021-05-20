@@ -13,10 +13,13 @@ menu:
 ---
 
 The `stateDuration` node computes the duration of a given state.
-The state is defined via a lambda expression. For each consecutive point for
-which the expression evaluates as `true`, the state duration will be
-incremented by the duration between points. When a point evaluates as `false`,
-the state duration is reset.
+The state is defined via a lambda expression.
+
+For each consecutive point for which the expression evaluates as `true`,
+the state duration will be incremented by the duration between points.
+This is true for both streams and batches.
+For streams, whenever a point evaluates as `false`, the state duration is reset.
+When processing a batch, the state duration is reset at the end of the batch.
 
 The state duration will be added as an additional `float64` field to each point.
 If the expression evaluates as false, the value will be `-1`.

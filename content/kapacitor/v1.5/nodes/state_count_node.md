@@ -13,9 +13,12 @@ menu:
 ---
 
 The `stateCount` node computes the number of consecutive points in a given state.
-The state is defined via a lambda expression. For each consecutive point for
-which the expression evaluates as true, the state count will be incremented
-When a point evaluates as false, the state count is reset.
+The state is defined via a lambda expression.
+
+For each consecutive point for which the expression evaluates as `true`, the state count will be incremented.
+This is true for both streams and batches.
+For streams, whenever a point evaluates as `false`, the state count is reset.
+When processing a batch, the state count is reset at the end of the batch.
 
 The state count will be added as an additional `int64` field to each point.
 If the expression evaluates as false, the value will be -1.
