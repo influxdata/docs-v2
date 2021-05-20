@@ -20,7 +20,5 @@ learn how to [Monitor your InfluxDB Enterprise clusters](/{{< latest "chronograf
 InfluxDB Enterprise can do.
 - Learn how to [administer your cluster](/enterprise_influxdb/v1.9/administration/), including how to backup and restore clusters, configure clusters, log and trace clusters, manage security, and manage subscriptions. 
 - Find [Enterprise guides](/enterprise_influxdb/v1.9/guides/) on a variety of topics, such as how to downsample and retain data, rebalance InfluxDB Enterprise clusters, use fine-grained authorization, and more!
-
-Explore [InfluxQL](/enterprise_influxdb/v1.9/query_language/) and [Flux](/enterprise_influxdb/v1.9/flux/) languages.
-
-Learn about [InfluxDB line protocol](/enterprise_influxdb/v1.9/write_protocols/) and other [supported protocols](/enterprise_influxdb/v1.9/supported_protocols/).
+- Explore [InfluxQL](/enterprise_influxdb/v1.9/query_language/) and [Flux](/enterprise_influxdb/v1.9/flux/) languages.
+- Learn about [InfluxDB line protocol](/enterprise_influxdb/v1.9/write_protocols/) and other [supported protocols](/enterprise_influxdb/v1.9/supported_protocols/).
