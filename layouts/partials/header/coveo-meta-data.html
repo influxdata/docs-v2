@@ -1,0 +1,9 @@
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 | default "none" }}
+{{ $currentVersion := index $productPathData 1 | default "none" }}
+{{ $isLatest := cond (eq .Kind "home") true (or (eq $currentVersion (index $.Site.Data.products $product).latest) (eq $currentVersion "cloud") (eq $product "platform")) }}
+
+<meta name="coveo-search-data" content="InfluxData Documentation"
+  data-latest="{{ cond $isLatest true false }}"
+  data-last-modified="{{ .Lastmod }}"
+/>
