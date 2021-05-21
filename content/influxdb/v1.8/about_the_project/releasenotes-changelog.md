@@ -9,20 +9,6 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
-## v1.8.6 [2021-05-21]
-
-{{% note %}}
-**Fine-grained authorization security update.** If you're on InfluxDB 1.8.5, we recommend immediately upgrading to this release. An issue was reported in 1.8.5 where grants with specified permissions for users were not enforced. Versions prior to InfluxDB 1.8.5 are not affected. This security update ensures that only users with sufficient permissions can read and write to a measurement.
-{{% /note %}}
-
-### Features
-
-- **Enhanced Anti-Entropy (AE) logging**: Add an optional `Engine.IsIdle()` trace logging to support debugging improvements in the Anti-Entropy service. Add an `IsLogged` parameter to `tsdb.Engine.IsIdle`. When trace logging is turned on, this option reports the reasons why a shard is not idle.
-
-### Bug fixes
-
-- Previously, the Anti-Entropy service would loop trying to copy an empty shard to a data node missing that shard. Now, an empty shard is successfully created on a new node.
-
 ## v1.8.5 [2021-04-20]
 ### Features
 
