@@ -11,7 +11,7 @@ menu:
     parent: Introduction
 ---
 
-After you successfully [install and set up](/enterprise_influxdb/v1.9/install-and-deploy/installation/) InfluxDB Enterprise, learn how to [Monitor your InfluxDB Enterprise clusters](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-clusters) with Chronograf, InfluxDB, and Telegraf.
+After you successfully [install and set up](/enterprise_influxdb/v1.9/install-and-deploy/installation/) InfluxDB Enterprise, learn how to [monitor your InfluxDB Enterprise clusters](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-clusters) with Chronograf, InfluxDB, and Telegraf.
 
 ### Where to from here?
 
