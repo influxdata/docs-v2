@@ -22,6 +22,9 @@ jobs:
           name: Install NodeJS dependencies
           command: yarn install
       - run:
+          name: Install API documentation dependencies
+          command: cd api-docs && yarn install
+      - run:
           name: Generate API documentation
           command: cd api-docs && bash generate-api-docs.sh
       - save_cache:
