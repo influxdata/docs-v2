@@ -9,7 +9,7 @@ The InfluxDB docs deployment process uses swagger files in the `api-docs` direct
 to generate version-specific API documentation.
 
 ### Versioned swagger files
-Structure versions swagger files using the following pattern:
+The structure versions swagger files using the following pattern:
 
 ```
 api-docs/
@@ -29,9 +29,14 @@ to view the API docs locally.
 From the root of the docs repo, run:
 
 ```sh
-# Install redoc-cli
-npm install -g redoc-cli
+
+
+
+cd api-docs
+
+# Install dependencies
+yarn install
 
 # Generate the API docs
-cd api-docs && generate-api-docs.sh
+generate-api-docs.sh
 ```

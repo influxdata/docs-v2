@@ -40,7 +40,9 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
        _**Note:** The most recent version of Hugo tested with this documentation is **0.83.1**._
 
-3.  **Start the Hugo server**
+3. To generate the API docs, see [api-docs/README.md](api-docs/README.md).
+
+4.  **Start the Hugo server**
 
     Hugo provides a local development server that generates the HTML pages, builds the static assets, and serves them at `localhost:1313`.
 
@@ -50,4 +52,4 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
       $ cd docs-v2/
       $ npx hugo server
       ```
-4. View the docs at [localhost:1313](http://localhost:1313).
+5. View the docs at [localhost:1313](http://localhost:1313).

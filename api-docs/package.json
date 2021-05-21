@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "api-docs",
+  "version": "1.0.0",
+  "description": "InfluxDB API documentation",
+  "license": "MIT",
+  "dependencies": {
+    "redoc-cli": "0.9.13"
+  }
+}
