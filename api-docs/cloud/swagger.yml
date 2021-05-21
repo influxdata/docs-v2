@@ -6649,6 +6649,93 @@ paths:
                     message: Unable to delete columns from schema
               schema:
                 $ref: '#/components/schemas/Error'
+  '/orgs/{orgID}/limits':
+    get:
+      tags:
+        - Limits
+      summary: Get limit for an org
+      parameters:
+        - in: path
+          name: orgID
+          description: org to get limit for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A limit
+          content:
+            application/json:
+              schema:
+                type: object
+                description: These are org limits similar to those configured in/by quartz.
+                properties:
+                  links:
+                    $ref: '#/components/schemas/Links'
+                  limits:
+                    $ref: '#/components/schemas/Limit'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/orgs/{orgID}/usage':
+    get:
+      tags:
+        - Usage
+      summary: Get usage for an org
+      parameters:
+        - in: path
+          name: orgID
+          description: org to get usage for
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: start
+          description: start time
+          required: true
+          schema:
+            type: timestamp
+        - in: query
+          name: stop
+          description: stop time
+          required: false
+          schema:
+            type: timestamp
+        - in: query
+          name: raw
+          description: return raw usage data
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Usage data
+          headers:
+            Content-Encoding:
+              description: 'The Content-Encoding entity header is used to compress the media-type. When present, its value indicates which encodings were applied to the entity-body'
+              schema:
+                type: string
+                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                default: identity
+                enum:
+                  - gzip
+                  - identity
+          content:
+            text/csv:
+              schema:
+                type: string
+                example: |
+                  #group,false,false,true,true,false,false,true,true,true,true #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string #default,_result,,,,,,,,, ,result,table,_start,_stop,_time,_value,_field,_measurement,bucket_id,org_id ,,0,2021-05-10T14:25:10.865702397Z,2021-05-10T15:25:10.865702397Z,2021-05-10T15:00:00Z,5434066,gauge,storage_usage_bucket_bytes,2f6ba0cf9a2fdcbb,cec6fc1d2176dc11 ,,1,2021-05-10T14:25:10.865702397Z,2021-05-10T15:25:10.865702397Z,2021-05-10T15:00:00Z,9924053.966666665,gauge,storage_usage_bucket_bytes,8af67bcaf69d9daf,cec6fc1d2176dc11
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   parameters:
     TraceSpan:
@@ -11526,9 +11613,9 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          deadman: ./DeadmanCheck.yml
-          threshold: ./ThresholdCheck.yml
-          custom: ./CustomCheck.yml
+          deadman: '#/components/schemas/DeadmanCheck'
+          threshold: '#/components/schemas/ThresholdCheck'
+          custom: '#/components/schemas/CustomCheck'
     Check:
       allOf:
         - $ref: '#/components/schemas/CheckDiscriminator'
@@ -11663,9 +11750,9 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          greater: ./GreaterThreshold.yml
-          lesser: ./LesserThreshold.yml
-          range: ./RangeThreshold.yml
+          greater: '#/components/schemas/GreaterThreshold'
+          lesser: '#/components/schemas/LesserThreshold'
+          range: '#/components/schemas/RangeThreshold'
     DeadmanCheck:
       allOf:
         - $ref: '#/components/schemas/CheckBase'
@@ -11818,11 +11905,11 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          slack: ./SlackNotificationRule.yml
-          smtp: ./SMTPNotificationRule.yml
-          pagerduty: ./PagerDutyNotificationRule.yml
-          http: ./HTTPNotificationRule.yml
-          telegram: ./TelegramNotificationRule.yml
+          slack: '#/components/schemas/SlackNotificationRule'
+          smtp: '#/components/schemas/SMTPNotificationRule'
+          pagerduty: '#/components/schemas/PagerDutyNotificationRule'
+          http: '#/components/schemas/HTTPNotificationRule'
+          telegram: '#/components/schemas/TelegramNotificationRule'
     NotificationRule:
       allOf:
         - $ref: '#/components/schemas/NotificationRuleDiscriminator'
@@ -12093,10 +12180,10 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          slack: ./SlackNotificationEndpoint.yml
-          pagerduty: ./PagerDutyNotificationEndpoint.yml
-          http: ./HTTPNotificationEndpoint.yml
-          telegram: ./TelegramNotificationEndpoint.yml
+          slack: '#/components/schemas/SlackNotificationEndpoint'
+          pagerduty: '#/components/schemas/PagerDutyNotificationEndpoint'
+          http: '#/components/schemas/HTTPNotificationEndpoint'
+          telegram: '#/components/schemas/TelegramNotificationEndpoint'
     NotificationEndpoint:
       allOf:
         - $ref: '#/components/schemas/NotificationEndpointDiscrimator'
@@ -12340,6 +12427,7 @@ components:
             - dbrp
             - flows
             - annotations
+            - functions
         id:
           type: string
           nullable: true

@@ -8,6 +8,38 @@ menu:
     name: Flux
 ---
 
+## v0.116.0 [2021-05-17]
+
+## Features
+- Add Jaeger tracing information to profile metadata.
+- Add `flux fmt` step to the continuous integration pipeline.
+- Update the `window` implementation to use `interval.Window`.
+- Add [`today()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/).
+
+## Bug fixes
+- Remove deadlock when an error occurs while the dispatcher is stopping.
+- Prevent errors caused by the the auto-formatter removing brackets around `if` expressions.
+- Auto-format remaining Flux files.
+
+---
+
+## v0.115.0 [2021-05-11]
+
+### Features
+- Add [Alerta notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/alerta/).
+- Add [`table.fill()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)
+  to fill empty tables with a single row.
+- Add string formatting to `dict` type.
+
+### Bug fixes
+- Refactor semantic printing of types.
+- Do not remove escape characters when auto-formatting.
+- Add `0.0.0.0` to URL validator.
+- Add new display API for values.
+- Auto-format Flux files in `stdlib/testing`.
+
+---
+
 ## v0.114.1 [2021-05-04]
 
 ### Bug fixes

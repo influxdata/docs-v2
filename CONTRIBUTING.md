@@ -325,6 +325,14 @@ Use the following for project names:
 /{{< latest "telegraf" >}}/
 ```
 
+### Latest patch version
+Use the `{{< latest-patch >}}` shortcode to add the latest patch version of the
+current product. Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
+
+```md
+{{< latest-patch >}}
+```
+
 ### Tabbed Content
 Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).
 Ther following three must be used:

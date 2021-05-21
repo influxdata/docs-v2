@@ -652,7 +652,7 @@ influxql-max-select-buckets = 0
 ### influxql-max-select-point
 Maximum number of points a `SELECT` statement can process.
 `0` allows an unlimited number of points.
-This is only checked every second so queries will not be aborted immediately when hitting the limit.
+InfluxDB checks the point count every second (so queries exceeding the maximum aren’t immediately aborted).
 
 **Default:** `0`
 
