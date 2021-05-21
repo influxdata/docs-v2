@@ -7,7 +7,7 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Getting started
-    weight: 40
+    weight: 104
     parent: Introduction
 ---
 
