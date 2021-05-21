@@ -35,7 +35,7 @@ menu:
 
 ### Output plugin updates
 
-- [Elasticsearch Output](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/): Add ability to to enable gzip compression.
+- [Elasticsearch Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/elasticsearch/README.md): Add ability to to enable gzip compression.
 
 
 ## v1.18.2 [2021-04-29]
