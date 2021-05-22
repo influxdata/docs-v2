@@ -17,7 +17,13 @@ menu:
 
 ### Features
 
-- **Enhanced Anti-Entropy (AE) logging**: Add an optional `Engine.IsIdle()` trace logging to support debugging improvements in the Anti-Entropy service. Add an `IsLogged` parameter to `tsdb.Engine.IsIdle`. When trace logging is turned on, this option reports the reasons why a shard is not idle.
+- **Enhanced Anti-Entropy (AE) logging**: When the [debug logging level](/enterprise_influxdb/v1.8/administration/config-data-nodes/#logging-settings) is set (`level="debug"`) in the data node configuration, the Anti-Entropy service reports reasons a shard is not idle, including:
+  - active Cache compactions
+  - active Level (Zero, One, Two) compactions
+  - active Full compactions
+  - active TSM Optimization compactions
+  - cache size is nonzero
+  - shard is not fully compacted
 - **Enhanced `copy-shard` logging**. Add information to log messages in `copy-shard` functions and additional error tests.
 
 ### Bug fixes
