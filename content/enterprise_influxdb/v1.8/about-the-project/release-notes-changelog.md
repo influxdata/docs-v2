@@ -28,9 +28,9 @@ menu:
 
 ### Bug fixes
 
+- Use the proper TLS configuration when a meta node makes an remote procedure call (RPC) to a data node. Addresses RPC call issues using the following influxd-ctl commands: `copy-shard` `copy-shard-status` `kill-copy-shard` `remove-shard`
 - Previously, the Anti-Entropy service would loop trying to copy an empty shard to a data node missing that shard. Now, an empty shard is successfully created on a new node.
 - Check for previously ignored errors in `DiffIterator.Next()`. Update to check before possible function exit and ensure handles are closed on error in digest diffs.
-- Use the proper TLS configuration when a meta node makes an remote procedure call (RPC) to a data node. Addresses RPC call issues using the following influxd-ctl commands: `copy-shard` `copy-shard-status` `kill-copy-shard` `remove-shard`
 
 ## v1.8.5 [2020-04-20]
 
