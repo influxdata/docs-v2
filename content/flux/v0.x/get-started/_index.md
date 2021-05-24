@@ -13,7 +13,7 @@ of querying, processing, analyzing, and acting on data into a single syntax.
 
 ## Flux from a high level
 To understand how Flux works from a high level, consider the process of treating
-and purifying water at scale.
+and purifying water.
 
 1.  Water is pulled from a large reservoir.
 2.  The amount of water drawn is limited by demand.
@@ -80,18 +80,16 @@ Each example includes the following:
 
 1. A `from()` function to retrieve data from the data source.
 2. `range()`, `filter()`, or both to filter data based on column values.
-3. A `mean()` function to calculate the average a values in a column returned from the data source.
+3. A `mean()` function to calculate the average of values returned from the data source.
 4. A `yield()` function to yield results to the user.
 
-Each function is chained together using the [pipe-forward operator](#pipe-forward-operator).
-
 ### Pipe-forward operator
-The pipe-forward operator (`|>`) is the metaphorical pipeline that takes the output
-of one function and pipes into another function as input.
+In Flux script, functions are "chained" together using the **pipe-forward operator** (`|>`).
+which takes the output of one function and pipes it forward as intput into the
+next function.
 
 Ultimately, Flux is designed to retrieve data from data source and pipe it through
 a processing pipeline that shapes the data into something usable by the user.
-
 
 {{< page-nav next="/flux/v0.x/get-started/data-model/" >}}
 
