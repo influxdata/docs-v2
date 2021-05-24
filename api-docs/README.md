@@ -26,7 +26,7 @@ api-docs/
 Because the API documentation HTML is gitignored, you must manually generate it
 to view the API docs locally.
 
-From the root of the docs repo, run:
+In your terminal, from the root of the docs repo, run:
 
 ```sh
 
