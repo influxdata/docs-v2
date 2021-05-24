@@ -31,11 +31,11 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
     1. [Install NodeJS](https://nodejs.org/en/download/)
     2. [Install Yarn](https://classic.yarnpkg.com/en/docs/install/)
-    3. Install dependencies:
+    3. In your terminal, install the dependencies:
 
           ```sh
-          $ cd docs-v2
-          $ yarn install
+          cd docs-v2
+          yarn install
           ```
 
        _**Note:** The most recent version of Hugo tested with this documentation is **0.83.1**._
@@ -46,10 +46,10 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
     Hugo provides a local development server that generates the HTML pages, builds the static assets, and serves them at `localhost:1313`.
 
-    In the `docs-v2` directory, start the Hugo server:
+    In your terminal, from the `docs-v2` directory, start the Hugo server:
 
       ```sh
-      $ cd docs-v2/
-      $ npx hugo server
+      cd docs-v2/
+      npx hugo server
       ```
 5. View the docs at [localhost:1313](http://localhost:1313).
