@@ -19,6 +19,13 @@ free access to different types of sample data.
 
 {{< youtube GSaByPC1Bdc >}}
 
+1. Navigate to Load Data in the main navigation
+2. Click the Buckets tab
+3. Click the button Add Demo Data and select a data set from the dropdown
+4. A new Bucket of demo data is created as well as example resources that use that data like dashboards and notebooks.
+
+Note: Demo data resources doesn't count against your free account rate limits.
+
 {{% note %}}
 Demo data is not available for use with third-party integrations such as Grafana.
 {{% /note %}}
