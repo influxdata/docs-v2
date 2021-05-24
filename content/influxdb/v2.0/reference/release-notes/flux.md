@@ -8,6 +8,25 @@ menu:
     name: Flux
 ---
 
+## v0.117.0 [2021-05-24]
+
+### Features
+- `to()` function writes to a remote InfluxDB instance.
+
+### Bug fixes
+- Fix unexpected behavior caused by going over the Go/Rust boundary multiple times using JSON serialization.
+- Update `Assert_eq!` output.
+- Update `comrak` dependency.
+- Set `CARGO_HOME` after removing privileges.
+- Log uneven columns found when processing tables.
+- Audit and clean up the Docker build image.
+- Switch default InfluxDB port from `9999` to `8086`.
+- Add tests for window offset behavior.
+- Update formatting for conditional expressions.
+- Fix string interpolation for basic types.
+
+---
+
 ## v0.116.0 [2021-05-17]
 
 ## Features
