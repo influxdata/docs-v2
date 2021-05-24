@@ -59,40 +59,40 @@ You must provide a `bucket` or `bucketID` and an `org` or `orgID`.
 {{% /note %}}
 
 ### bucket
-The bucket to write data to.
+Bucket name to write to.
 `bucket` and `bucketID` are mutually exclusive.
 
 _**Data type:** String_
 
 ### bucketID
-The ID of the bucket to write data to.
+Bucket ID to write to.
 `bucketID` and `bucket` are mutually exclusive.
 
 _**Data type:** String_
 
 ### org
-The organization name of the specified [`bucket`](#bucket).
-`org` and `orgID` are mutually exclusive.
+InfluxDB organization name.
+_`org` and `orgID` are mutually exclusive._
 
 _**Data type:** String_
 
 ### orgID
-The organization ID of the specified [`bucket`](#bucket).
+InfluxDB organization ID.
 `orgID` and `org` are mutually exclusive.
 
 _**Data type:** String_
 
-<!-- ### host
-The remote InfluxDB host to which to write.
-_If specified, a `token` is required._
+### host
+Remote InfluxDB host to write to.
+_If specified, a [`token`](#token) is required._
 
 _**Data type:** String_
 
 ### token
-The authorization token to use when writing to a remote host.
-_Required when a `host` is specified._
+[Authorization token](/influxdb/v2.0/reference/) to use when writing to a remote InfluxDB host.
+_Required when a [`host`](#host) is specified._
 
-_**Data type:** String_ -->
+_**Data type:** String_
 
 ### timeColumn
 Time column of the output.
@@ -113,7 +113,7 @@ For each record from the input table, `fieldFn` returns a record that maps the
 output field key to the output value.
 Default is `(r) => ({ [r._field]: r._value })`
 
-_**Data type:** Function_
+_**Data type:** Function_  
 _**Output data type:** Record_
 
 {{% note %}}
