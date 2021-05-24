@@ -33,7 +33,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
     2. [Install Yarn](https://classic.yarnpkg.com/en/docs/install/)
     3. Install dependencies:
 
-          ```
+          ```sh
           $ cd docs-v2
           $ yarn install
           ```
@@ -48,7 +48,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
     In the `docs-v2` directory, start the Hugo server:
 
-      ```
+      ```sh
       $ cd docs-v2/
       $ npx hugo server
       ```
