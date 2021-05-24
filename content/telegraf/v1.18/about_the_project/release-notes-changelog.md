@@ -10,6 +10,34 @@ menu:
     parent: About the project
 ---
 
+## v1.18.3 [2021-05-21]
+
+- Add FreeBSD ARMv7 build.
+- Dependencies:
+  - Migrate from `soniah/gosnmp` to `gosnmp/gosnmp` v1.32.0.
+  - Migrate from `docker/libnetwork/ipvs` to `moby/ipvs`.
+  - Migrate from `ericchiang/k8s` to `kubernetes/client-go`.
+  - Update `hashicorp/consul/api` module to v1.8.1.
+  - Update `shirou/gopsutil` to v3.21.3.
+  - Update `microsoft/ApplicationInsights-Go` to v0.4.4
+  - Update `gogo/protobuf` to v1.3.2.
+  - Update `Azure/go-autorest/autorest/azure/auth` to v0.5.6 and `Azure/go-autorest/autorest` to v0.11.17.
+  - Update `collectd.org` to v0.5.0.
+  - Update `nats-io/nats.go` to v1.10.0.
+  - Update `golang/protobuf` to v1.5.1.
+
+
+### Input plugin updates
+
+- [Prometheus Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/prometheus): Add ability to set user agent when scraping Prometheus metrics.
+- [Kinesis Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/kinesis_consumer): Fix repeating parser error.
+- [SQL Server Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver): Remove disallowed white space from `sqlServerRingBufferCPU` query.
+
+### Output plugin updates
+
+- [Elasticsearch Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/elasticsearch/README.md): Add ability to to enable gzip compression.
+
+
 ## v1.18.2 [2021-04-29]
 
 - Make JSON format compatible with nulls to ensure Telegraf successfully detects null values and returns an empty metric without error.
