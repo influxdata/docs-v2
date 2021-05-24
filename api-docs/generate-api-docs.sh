@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # Get list of versions from directory names
-versions="$(ls -d -- */)"
+versions="$(ls -d -- */ | grep -v 'node_modules')"
 
 for version in $versions
 do
@@ -28,9 +28,9 @@ weight: 102
 ---
 "
   v1frontmatter="---
-title: InfluxDB $titleVersion v1 compatiblity API documentation
+title: InfluxDB $titleVersion v1 compatibility API documentation
 description: >
-  The InfluxDB v1 compatility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibly endpoints.
+  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibly endpoints.
 layout: api
 menu:
   $menu:
@@ -41,17 +41,19 @@ weight: 304
 "
 
   # Use Redoc to generate the v2 API html
-  redoc-cli bundle -t template.hbs \
+  npx redoc-cli bundle $version/swagger.yml \
+    -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
-    $version/swagger.yml
+
 
   # Use Redoc to generate the v1 compatibility API html
-  redoc-cli bundle -t template.hbs \
+  npx redoc-cli bundle $version/swaggerV1Compat.yml \
+    -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
@@ -59,7 +61,7 @@ weight: 304
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
     --output=redoc-static-v1-compat.html \
-    $version/swaggerV1Compat.yml
+
 
   # Create temp file with frontmatter and Redoc html
   echo "$v2frontmatter" >> $version.tmp
