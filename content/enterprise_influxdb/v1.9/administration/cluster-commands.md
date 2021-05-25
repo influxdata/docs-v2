@@ -744,7 +744,7 @@ ID      TCP Address     Version       Labels
 3       localhost:8391  1.9.x-c1.9.x  {}
 ```
 
-### Programmatic access to node labels
+##### Programmatic access to node labels
 
 Use the meta node API in scripts or programs that need to parse node labels:
 
