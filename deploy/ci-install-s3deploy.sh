@@ -9,6 +9,7 @@ S3DEPLOY_HASH=$(
         | grep "Linux-64bit.tar.gz" | cut -f 1 -d" " | tr -d "\n"
 )
 
+# Install s3deploy if not already cached or upgrade an old version.
 if [ ! -e $HOME/bin/s3deploy ] || ! [[ `$HOME/bin/s3deploy -V` =~ ${S3DEPLOY_VERSION} ]]; then
     # Download and verify checksum
     wget https://github.com/bep/s3deploy/releases/download/v${S3DEPLOY_VERSION}/${S3DEPLOY_DOWNLOAD}
