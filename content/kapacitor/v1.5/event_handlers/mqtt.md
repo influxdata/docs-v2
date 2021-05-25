@@ -104,7 +104,7 @@ options:
   .mqtt('topic-name')
     .brokerName('name')
     .qos(1)
-    .retained(true)
+    .retained(TRUE)
 ```
 
 ## Using the MQTT event handler
