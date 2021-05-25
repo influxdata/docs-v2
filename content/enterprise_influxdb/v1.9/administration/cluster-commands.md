@@ -687,7 +687,7 @@ Available commands are:
 ##### Show a cluster with no node labels
 
 ```
-❯ ./influxd-ctl show
+$ ./influxd-ctl show
 Data Nodes
 ==========
 ID      TCP Address     Version       Labels
@@ -705,9 +705,9 @@ ID      TCP Address     Version       Labels
 ##### Add labels to two data nodes and show the cluster
 
 ```sh
-❯ ./influxd-ctl node-labels set -nodeid 4 -labels '{"az":"us-east","hello":"earth"}'
-❯ ./influxd-ctl node-labels set -nodeid 5 -labels '{"az":"us-west","hello":"mars"}'
-❯ ./influxd-ctl show
+$ ./influxd-ctl node-labels set -nodeid 4 -labels '{"az":"us-east","hello":"earth"}'
+$ ./influxd-ctl node-labels set -nodeid 5 -labels '{"az":"us-west","hello":"mars"}'
+$ ./influxd-ctl show
 Data Nodes
 ==========
 ID      TCP Address     Version       Labels
@@ -727,9 +727,9 @@ ID      TCP Address     Version       Labels
 Update an existing label on one node, delete a label on the other node, and show the cluster:
 
 ```sh
-❯ ./influxd-ctl node-labels set -nodeid 4 -labels '{"hello":"world"}'
-❯ ./influxd-ctl node-labels delete -nodeid 5 -labels '["hello"]'
-❯ ./influxd-ctl show
+$ ./influxd-ctl node-labels set -nodeid 4 -labels '{"hello":"world"}'
+$ ./influxd-ctl node-labels delete -nodeid 5 -labels '["hello"]'
+$ ./influxd-ctl show
 Data Nodes
 ==========
 ID      TCP Address     Version       Labels
@@ -749,7 +749,7 @@ ID      TCP Address     Version       Labels
 Use the meta node API in scripts or programs that need to parse node labels:
 
 ```sh
-❯ curl -s localhost:8191/show-cluster | jq . | head -14
+$ curl -s localhost:8191/show-cluster | jq . | head -14
 {
   "data": [
     {
