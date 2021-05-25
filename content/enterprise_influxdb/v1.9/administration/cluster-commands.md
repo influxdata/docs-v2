@@ -690,9 +690,9 @@ Available commands are:
 ❯ ./influxd-ctl show
 Data Nodes
 ==========
-ID      TCP Address     Version Labels
-4       localhost:8188  unknown {}
-5       localhost:8288  unknown {}
+ID      TCP Address     Version   Labels
+4       localhost:8188  <version> unknown {}
+5       localhost:8288  <version> unknown {}
 
 Meta Nodes
 ==========
@@ -1027,16 +1027,16 @@ $ influxd-ctl show
 
 Data Nodes
 ==========
-ID	 TCP Address		        Version   Version Labels
-2   cluster-node-01:8088	1.3.x-c1.3.x  unknown {}
-4   cluster-node-02:8088	1.3.x-c1.3.x  unknown {}
+ID	 TCP Address		    Version       Labels
+2   cluster-node-01:8088	1.9.x-c1.9.x  {}
+4   cluster-node-02:8088	1.9.x-c1.9.x  {}
 
 Meta Nodes
 ==========
-TCP Address		        Version       Version Labels
-cluster-node-01:8091	1.3.x-c1.3.x  unknown {}
-cluster-node-02:8091	1.3.x-c1.3.x  unknown {}
-cluster-node-03:8091	1.3.x-c1.3.x  unknown {}
+TCP Address		        Version       Labels
+cluster-node-01:8091	1.9.x-c1.9.x  {}
+cluster-node-02:8091	1.9.x-c1.9.x  {}
+cluster-node-03:8091	1.9.x-c1.9.x  {}
 ```
 
 ### `show-shards`
