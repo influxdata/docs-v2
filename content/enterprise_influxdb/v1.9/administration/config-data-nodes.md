@@ -1237,21 +1237,27 @@ ciphers = [ "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
             "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 ]
 
-min-version = "tls1.2"
+min-version = "tls1.3"
 
-max-version = "tls1.2"
+max-version = "tls1.3"
 
 ```
 
-#### `min-version = "tls1.2"`
+#### `min-version = "tls1.3"`
 
-Minimum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, and `tls1.2`. If not specified, `min-version` is the minimum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.0` specifies the minimum version as TLS 1.0, which is consistent with the behavior of previous InfluxDB releases.
+Minimum version of the TLS protocol that will be negotiated.
+Valid values include: `tls1.0`, `tls1.1`, and `tls1.3`.
+If not specified, `min-version` is the minimum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants).
+In this example, `tls1.3` specifies the minimum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MIN_VERSION`
 
-#### `max-version = "tls1.2"`
+#### `max-version = "tls1.3"`
 
-The maximum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, and `tls1.2`. If not specified, `max-version` is the maximum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.2` specifies the maximum version as TLS 1.2, which is consistent with the behavior of previous InfluxDB releases.
+The maximum version of the TLS protocol that will be negotiated.
+Valid values include: `tls1.0`, `tls1.1`, and `tls1.3`.
+If not specified, `max-version` is the maximum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants).
+In this example, `tls1.3` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 
