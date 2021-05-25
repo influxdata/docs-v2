@@ -1007,7 +1007,7 @@ Restored from my-full-backup in 58.58301ms, transferred 569344 bytes
 ### `show`
 
 Shows all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node) and [data nodes](/enterprise_influxdb/v1.9/concepts/glossary/#data-node) that are part of the cluster.
-The output includes the InfluxDB Enterprise version number.
+The output includes the InfluxDB Enterprise version number and any [labels](#node-labels).
 
 #### Syntax
 
@@ -1020,23 +1020,23 @@ influxd-ctl show
 ##### Show all meta and data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes.
-Every node is using InfluxDB Enterprise `1.3.x-c1.3.x`.
+Every node is using InfluxDB Enterprise `1.9.x-c1.9.x`.
 
 ```bash
 $ influxd-ctl show
 
 Data Nodes
 ==========
-ID	 TCP Address		    Version       Labels
-2   cluster-node-01:8088	1.9.x-c1.9.x  {}
-4   cluster-node-02:8088	1.9.x-c1.9.x  {}
+ID  TCP Address             Version         Labels
+2   cluster-node-01:8088    1.9.x-c1.9.x    {}
+4   cluster-node-02:8088    1.9.x-c1.9.x    {}
 
 Meta Nodes
 ==========
-TCP Address		        Version       Labels
-cluster-node-01:8091	1.9.x-c1.9.x  {}
-cluster-node-02:8091	1.9.x-c1.9.x  {}
-cluster-node-03:8091	1.9.x-c1.9.x  {}
+TCP Address             Version         Labels
+cluster-node-01:8091    1.9.x-c1.9.x    {}
+cluster-node-02:8091    1.9.x-c1.9.x    {}
+cluster-node-03:8091    1.9.x-c1.9.x    {}
 ```
 
 ### `show-shards`
