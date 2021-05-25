@@ -42,6 +42,7 @@ The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/
   * [`join`](#join)
   * [`kill-copy-shard`](#kill-copy-shard)
   * [`leave`](#leave)
+  * [`node-labels`](#node-labels)
   * [`remove-data`](#remove-data)
   * [`remove-meta`](#remove-meta)
   * [`remove-shard`](#remove-shard)
@@ -664,6 +665,107 @@ Successfully left cluster
   * Removed meta node cluster-meta-node-03:8091 from cluster
 ```
 
+### `node-labels`
+
+Assign arbitrary labels to meta and data nodes in a cluster.
+Labels are key-value pairs.
+
+#### Syntax
+
+```bash
+influxd-ctl [options] node-labels <command> [options] [<args>]
+```
+
+Available commands are:
+
+- `set`: set one or more labels on a node
+- `delete`: delete one or more labels from a node
+- `update`: update one or more labels on a node
+
+#### Examples
+
+##### Show a cluster with no node labels
+
+```
+❯ ./influxd-ctl show
+Data Nodes
+==========
+ID      TCP Address     Version Labels
+4       localhost:8188  unknown {}
+5       localhost:8288  unknown {}
+
+Meta Nodes
+==========
+ID      TCP Address     Version Labels
+1       localhost:8191  unknown {}
+2       localhost:8291  unknown {}
+3       localhost:8391  unknown {}
+```
+
+##### Add labels to two data nodes and show the cluster
+
+```sh
+❯ ./influxd-ctl node-labels set -nodeid 4 -labels '{"az":"us-east","hello":"earth"}'
+❯ ./influxd-ctl node-labels set -nodeid 5 -labels '{"az":"us-west","hello":"mars"}'
+❯ ./influxd-ctl show
+Data Nodes
+==========
+ID      TCP Address     Version Labels
+4       localhost:8188  unknown {"az":"us-east","hello":"earth"}
+5       localhost:8288  unknown {"az":"us-west","hello":"mars"}
+
+Meta Nodes
+==========
+ID      TCP Address     Version Labels
+1       localhost:8191  unknown {}
+2       localhost:8291  unknown {}
+3       localhost:8391  unknown {}
+```
+
+##### Update, delete, and show labels
+
+Update an existing label on one node, delete a label on the other node, and show the cluster:
+
+```sh
+❯ ./influxd-ctl node-labels set -nodeid 4 -labels '{"hello":"world"}'
+❯ ./influxd-ctl node-labels delete -nodeid 5 -labels '["hello"]'
+❯ ./influxd-ctl show
+Data Nodes
+==========
+ID      TCP Address     Version Labels
+4       localhost:8188  unknown {"az":"us-east","hello":"world"}
+5       localhost:8288  unknown {"az":"us-west"}
+
+Meta Nodes
+==========
+ID      TCP Address     Version Labels
+1       localhost:8191  unknown {}
+2       localhost:8291  unknown {}
+3       localhost:8391  unknown {}
+```
+
+### Programmatic access to node labels
+
+Use the meta node API in scripts or programs that need to parse node labels:
+
+```sh
+❯ curl -s localhost:8191/show-cluster | jq . | head -14
+{
+  "data": [
+    {
+      "id": 4,
+      "version": "unknown",
+      "tcpAddr": "localhost:8188",
+      "httpAddr": "localhost:8186",
+      "httpScheme": "http",
+      "status": "joined",
+      "labels": {
+        "az": "us-east",
+        "hello": "world"
+      }
+    },
+```
+
 ### `remove-data`
 
 Removes a data node from a cluster.
@@ -925,16 +1027,16 @@ $ influxd-ctl show
 
 Data Nodes
 ==========
-ID	 TCP Address		        Version
-2   cluster-node-01:8088	1.3.x-c1.3.x
-4   cluster-node-02:8088	1.3.x-c1.3.x
+ID	 TCP Address		        Version   Version Labels
+2   cluster-node-01:8088	1.3.x-c1.3.x  unknown {}
+4   cluster-node-02:8088	1.3.x-c1.3.x  unknown {}
 
 Meta Nodes
 ==========
-TCP Address		        Version
-cluster-node-01:8091	1.3.x-c1.3.x
-cluster-node-02:8091	1.3.x-c1.3.x
-cluster-node-03:8091	1.3.x-c1.3.x
+TCP Address		        Version       Version Labels
+cluster-node-01:8091	1.3.x-c1.3.x  unknown {}
+cluster-node-02:8091	1.3.x-c1.3.x  unknown {}
+cluster-node-03:8091	1.3.x-c1.3.x  unknown {}
 ```
 
 ### `show-shards`
