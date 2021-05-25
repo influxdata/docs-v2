@@ -667,8 +667,8 @@ Successfully left cluster
 
 ### `node-labels`
 
-Assign arbitrary labels to meta and data nodes in a cluster.
-Labels are key-value pairs.
+Assign user-defined labels to meta and data nodes in a cluster.
+Labels are JSON key-value pairs.
 
 #### Syntax
 
@@ -690,16 +690,16 @@ Available commands are:
 ❯ ./influxd-ctl show
 Data Nodes
 ==========
-ID      TCP Address     Version   Labels
-4       localhost:8188  <version> unknown {}
-5       localhost:8288  <version> unknown {}
+ID      TCP Address     Version       Labels
+4       localhost:8188  1.9.x-c1.9.x  {}
+5       localhost:8288  1.9.x-c1.9.x  {}
 
 Meta Nodes
 ==========
-ID      TCP Address     Version Labels
-1       localhost:8191  unknown {}
-2       localhost:8291  unknown {}
-3       localhost:8391  unknown {}
+ID      TCP Address     Version       Labels
+1       localhost:8191  1.9.x-c1.9.x  {}
+2       localhost:8291  1.9.x-c1.9.x  {}
+3       localhost:8391  1.9.x-c1.9.x  {}
 ```
 
 ##### Add labels to two data nodes and show the cluster
@@ -710,16 +710,16 @@ ID      TCP Address     Version Labels
 ❯ ./influxd-ctl show
 Data Nodes
 ==========
-ID      TCP Address     Version Labels
-4       localhost:8188  unknown {"az":"us-east","hello":"earth"}
-5       localhost:8288  unknown {"az":"us-west","hello":"mars"}
+ID      TCP Address     Version       Labels
+4       localhost:8188  1.9.x-c1.9.x  {"az":"us-east","hello":"earth"}
+5       localhost:8288  unknown       {"az":"us-west","hello":"mars"}
 
 Meta Nodes
 ==========
-ID      TCP Address     Version Labels
-1       localhost:8191  unknown {}
-2       localhost:8291  unknown {}
-3       localhost:8391  unknown {}
+ID      TCP Address     Version       Labels
+1       localhost:8191  1.9.x-c1.9.x  {}
+2       localhost:8291  1.9.x-c1.9.x  {}
+3       localhost:8391  1.9.x-c1.9.x  {}
 ```
 
 ##### Update, delete, and show labels
@@ -732,16 +732,16 @@ Update an existing label on one node, delete a label on the other node, and show
 ❯ ./influxd-ctl show
 Data Nodes
 ==========
-ID      TCP Address     Version Labels
-4       localhost:8188  unknown {"az":"us-east","hello":"world"}
-5       localhost:8288  unknown {"az":"us-west"}
+ID      TCP Address     Version       Labels
+4       localhost:8188  1.9.x-c1.9.x  {"az":"us-east","hello":"world"}
+5       localhost:8288  1.9.x-c1.9.x  {"az":"us-west"}
 
 Meta Nodes
 ==========
-ID      TCP Address     Version Labels
-1       localhost:8191  unknown {}
-2       localhost:8291  unknown {}
-3       localhost:8391  unknown {}
+ID      TCP Address     Version       Labels
+1       localhost:8191  1.9.x-c1.9.x  {}
+2       localhost:8291  1.9.x-c1.9.x  {}
+3       localhost:8391  1.9.x-c1.9.x  {}
 ```
 
 ### Programmatic access to node labels
