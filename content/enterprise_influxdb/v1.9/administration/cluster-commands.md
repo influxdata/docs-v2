@@ -30,4 +30,5 @@ For more information, see [`influxd-ctl`](/enterprise_influxdb/v1.9/tools/influx
 Use the `influx` command line interface (CLI) to write data to your cluster, query data interactively, and view query output in different formats.
 The `influx` CLI is available on all [data nodes](/enterprise_influxdb/v1.9/concepts/glossary/#data-node).
 
-See [InfluxDB command line interface (CLI/shell)](/enterprise_influxdb/v1.9/tools/shell/) in the InfluxDB OSS documentation for details on using the `influx` command line interface utility.
+See [InfluxDB command line interface (CLI/shell)](/enterprise_influxdb/v1.9/tools/shell/)
+for details on using the `influx` command line interface utility.
