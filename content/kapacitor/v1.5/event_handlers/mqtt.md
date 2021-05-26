@@ -193,6 +193,7 @@ options:
   broker-name: 'alerts-broker'
   topic: 'alerts'
   qos: 2
+  retained: true
 ```
 
 Add the handler:
