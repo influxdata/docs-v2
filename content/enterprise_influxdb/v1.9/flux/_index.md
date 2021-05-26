@@ -5,7 +5,7 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Flux
-    weight: 80
+    weight: 71
 v2: /influxdb/v2.0/query-data/get-started/
 ---
 
