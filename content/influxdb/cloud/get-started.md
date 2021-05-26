@@ -282,7 +282,7 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 #### New features in InfluxDB Cloud
 
-- **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB OSS 2.0 and
+- **Free Plan**: Skip downloading and installing InfluxDB OSS 2.0 and
   jump into exploring InfluxDB Cloud technology.
   The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
 - **Flux support**: [Flux](/influxdb/cloud/query-data/get-started/) is a standalone data

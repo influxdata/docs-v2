@@ -20,9 +20,9 @@ right corner of your {{< cloud-name "short" >}} user interface (UI) and select *
 Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
 
 - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
-- **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
+- **Storage:** Total disk usage in gigabytes.
 - **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity.
-- **Storage Usage:** Total disk usage in gigabytes.
+- **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
 - **API Request Count:** The total number of query and write API requests received during the specified time frame.
 - **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
 - **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
@@ -31,17 +31,15 @@ Find data usage information for the time frame specified in the drop-down at the
 
 ## Exceeded rate limits
 
-If you exceed your plan's [rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}}
-will provide a notification in the {{< cloud-name "short" >}} user interface (UI)
-and add a rate limit event to your **Usage** page for review.
+If you exceed your plan's [rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review. If write or read requests exceed the specified limit within a five-minute window, InfluxDB retries the request after that five-minute interval.
 
-All rate-limited requests are rejected; including both read and write requests.
-_Rate-limited requests are **not** queued._
+_If the series cardinality limit is exceeded, requests are rejected and **not** queued._
 
 _To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
 
 ### Rate-limited HTTP response code
-When a request exceeds your plan's rate limit, the InfluxDB API returns the following response:
+
+When a read or write request exceeds your plan's limit, the InfluxDB API returns the following response:
 
 ```
 HTTP 429 “Too Many Requests”

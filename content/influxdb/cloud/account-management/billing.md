@@ -106,9 +106,9 @@ If exceed the series cardinality limit, InfluxDB adds a rate limit event to your
 - **Series cardinality limits**: If you exceed the series cardinality limit, see how to [resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.0/write-data/best-practices/resolve-high-cardinality/).
 - **Free plan**: To remove rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
 
-#### Rate-limited HTTP response code
+#### Write and query limits (HTTP response code)
 
-When a request exceeds your plan's rate limit--either write requests (Data In) or query requests--the InfluxDB API returns the following response:
+When a request exceeds your plan's write requests (Data In) or query requests (Reads) within a five minute window, the InfluxDB API returns the following response:
 
 ```
 HTTP 429 “Too Many Requests”
