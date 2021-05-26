@@ -227,7 +227,7 @@ Once a repair has started, requests to cancel it are ignored.
 
 > Stopping a entropy repair for a **missing** shard operation is not currently supported.
 > It may be possible to stop repairs for missing shards with the
-> [`influxd-ctl kill-copy-shard`](/enterprise_influxdb/v1.9/administration/cluster-commands/#kill-copy-shard) command.
+> [`influxd-ctl kill-copy-shard`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#kill-copy-shard) command.
 
 ## InfluxDB Anti-Entropy API
 
@@ -302,7 +302,7 @@ remaining replicas in the cluster.
 In rare cases, the currently active shard, or the shard to which new data is
 currently being written, may find itself with inconsistent data.
 Because the Anti-Entropy process can't write to hot shards, you must stop writes to the new
-shard using the [`influxd-ctl truncate-shards` command](/enterprise_influxdb/v1.9/administration/cluster-commands/#truncate-shards),
+shard using the [`influxd-ctl truncate-shards` command](/enterprise_influxdb/v1.9/tools/influxd-ctl/#truncate-shards),
 then add the inconsistent shard to the entropy repair queue:
 
 ```bash
