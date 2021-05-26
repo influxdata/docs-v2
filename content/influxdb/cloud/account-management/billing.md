@@ -98,22 +98,23 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 ## Review and resolve plan limit overages
 
-If you exceed your plan's [limits](/influxdb/cloud/account-management/pricing-plans/), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI).
+If you exceed your plan's [limits](/influxdb/cloud/account-management/pricing-plans), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI) **Usage** page.
 
-For rate limits specifically--including write requests (Data In) or query requests--and in cases where you exceed the series cardinality limit, InfluxDB adds a rate limit event to your **Usage** page for review, and begins to reject write requests. To start processing write requests again, do the following as needed:
+If exceed the series cardinality limit, InfluxDB adds a rate limit event to your **Usage** page for review, and begins to reject write requests. To start processing write requests again, do the following as needed:
 
 - **Usage-Based plan**: To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com).
 - **Series cardinality limits**: If you exceed the series cardinality limit, see how to [resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.0/write-data/best-practices/resolve-high-cardinality/).
 - **Free plan**: To remove rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
 
-<!-- #### Rate-limited HTTP response code
+#### Rate-limited HTTP response code
+
 When a request exceeds your plan's rate limit--either write requests (Data In) or query requests--the InfluxDB API returns the following response:
 
 ```
 HTTP 429 “Too Many Requests”
 Retry-After: xxx (seconds to wait before retrying the request)
 ```
--->
+
 ## Billing cycle
 
 Billing occurs on the first day of the month for the previous month. For example, if you start the Usage-based Plan on September 15, you're billed on October 1 for your usage from September 15-30.
