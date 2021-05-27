@@ -1,11 +1,11 @@
 ---
-title: Using influx - InfluxDB command line interface
+title: Use influx - InfluxDB command line interface
 description: InfluxDB's command line interface (`influx`) is an interactive shell for the HTTP API.
 aliases:
     - /enterprise_influxdb/v1.9/tools/shell
 menu:
   enterprise_influxdb_1_9:
-    name: Using influx
+    name: Use influx
     weight: 10
     parent: Tools
 ---
