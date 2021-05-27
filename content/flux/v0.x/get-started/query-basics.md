@@ -1,14 +1,13 @@
 ---
-title: Flux data types
+title: Flux query basics
 description: >
   ...
 menu:
   flux_0_x:
-    name: Data types
+    name: Query basics
     parent: Get started
 weight: 101
 
 ---
 
-## Basic types
-## Composite types
+Placeholder
