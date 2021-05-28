@@ -23,7 +23,6 @@ Find data usage information for the time frame specified in the drop-down at the
 - **Storage:** Total disk usage in gigabytes.
 - **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity.
 - **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
-- **API Request Count:** The total number of query and write API requests received during the specified time frame.
 - **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
 - **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
 
@@ -31,17 +30,37 @@ Find data usage information for the time frame specified in the drop-down at the
 
 ## Exceeded rate limits
 
-If you exceed your plan's [rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review. If write or read requests exceed the specified limit within a five-minute window, InfluxDB retries the request after that five-minute interval.
+If you exceed your plan's [rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review:
 
-_If the series cardinality limit is exceeded, requests are rejected and **not** queued._
+- If write or read requests exceed the specified limit within a five-minute window, InfluxDB retries the request after that five-minute interval.
+- If the series cardinality limit exceeds the limit, requests are rejected and **not** queued.
 
 _To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
 
-### Rate-limited HTTP response code
+### API: HTTP rate limit response code
 
-When a read or write request exceeds your plan's limit, the InfluxDB API returns the following response:
+#### InfluxDB API
 
-```
-HTTP 429 “Too Many Requests”
-Retry-After: xxx (seconds to wait before retrying the request)
-```
+The InfluxDB API returns the following response:
+
+- When a read or write request exceeds your plan's limit:
+
+  ```
+  HTTP 429 “Too Many Requests”
+  Retry-After: xxx (seconds to wait before retrying the request)
+  ```
+
+- When series cardinality exceeds your plan's limit:
+
+  ```
+  HTTP 503 “Series cardinality exceeds your plan's limit”
+  Retry-After: xxx (seconds to wait before retrying the request)
+  ```
+
+#### Data explorer
+
+The Data Explorer shows rate limit response events as fields:
+
+- When a read or write request exceeds your plan's limit: `event_type_limited_query` or `event_type_limited_write`
+
+- When series cardinality exceeds your plan's limit: `event_type_limited_cardinality`
