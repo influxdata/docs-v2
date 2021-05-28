@@ -23,7 +23,7 @@ Where applicable, it links to outstanding issues on GitHub.
 * [How can I identify my version of InfluxDB?](#how-can-i-identify-my-version-of-influxdb)
 * [Where can I find InfluxDB logs?](#where-can-i-find-influxdb-logs)
 * [What is the relationship between shard group durations and retention policies?](#what-is-the-relationship-between-shard-group-durations-and-retention-policies)
-* [Why aren't data dropped after I've altered a retention policy?](#why-aren-t-data-dropped-after-i-ve-altered-a-retention-policy)
+* [Why aren't data dropped after I've altered a retention policy?](#why-arent-data-dropped-after-ive-altered-a-retention-policy)
 * [Why does InfluxDB fail to parse microsecond units in the configuration file?](#why-does-influxdb-fail-to-parse-microsecond-units-in-the-configuration-file)
 * [Does InfluxDB have a file system size limit?](#does-influxdb-have-a-file-system-size-limit)
 
