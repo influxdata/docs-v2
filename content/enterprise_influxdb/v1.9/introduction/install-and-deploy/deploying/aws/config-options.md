@@ -4,6 +4,8 @@ description: >
   Configuration options when deploying InfluxDB Enterprise on Amazon Web Services (AWS).
 aliases:
     - /enterprise_influxdb/v1.9/install-and-deploy/aws/config-options/
+    - /enterprise_influxdb/v1.9/install-and-deploy/aws/config-options/
+    - /enterprise_influxdb/v1.9/install-and-deploy/deploying/aws/config-options/
 menu:
   enterprise_influxdb_1_9:
     name: AWS configuration options
