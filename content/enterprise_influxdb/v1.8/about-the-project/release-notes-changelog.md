@@ -9,6 +9,29 @@ menu:
     parent: About the project
 ---
 
+## v1.8.6 [2021-05-21]
+
+{{% warn %}}
+**Fine-grained authorization security update.** If you're on InfluxDB Enterprise 1.8.5, we recommend immediately upgrading to this release. An issue was reported in 1.8.5 where grants with specified permissions for users were not enforced. Versions prior to InfluxDB Enterprise 1.8.5 are not affected. This security update ensures that only users with sufficient permissions can read and write to a measurement.
+{{% /warn %}}
+
+### Features
+
+- **Enhanced Anti-Entropy (AE) logging**: When the [debug logging level](/enterprise_influxdb/v1.8/administration/config-data-nodes/#logging-settings) is set (`level="debug"`) in the data node configuration, the Anti-Entropy service reports reasons a shard is not idle, including:
+  - active Cache compactions
+  - active Level (Zero, One, Two) compactions
+  - active Full compactions
+  - active TSM Optimization compactions
+  - cache size is nonzero
+  - shard is not fully compacted
+- **Enhanced `copy-shard` logging**. Add information to log messages in `copy-shard` functions and additional error tests.
+
+### Bug fixes
+
+- Use the proper TLS configuration when a meta node makes an remote procedure call (RPC) to a data node. Addresses RPC call issues using the following influxd-ctl commands: `copy-shard` `copy-shard-status` `kill-copy-shard` `remove-shard`
+- Previously, the Anti-Entropy service would loop trying to copy an empty shard to a data node missing that shard. Now, an empty shard is successfully created on a new node.
+- Check for previously ignored errors in `DiffIterator.Next()`. Update to check before possible function exit and ensure handles are closed on error in digest diffs.
+
 ## v1.8.5 [2020-04-20]
 
 The InfluxDB Enterprise 1.8.5 release builds on the InfluxDB OSS 1.8.5 release.
