@@ -743,7 +743,7 @@ Enables HTTP request logging.
 
 Environment variable: `INFLUXDB_HTTP_LOG_ENABLED`
 
-### `suppress-write-log = false`
+#### `suppress-write-log = false`
 
 Determines whether the HTTP write request logs should be suppressed when the log is enabled.
 

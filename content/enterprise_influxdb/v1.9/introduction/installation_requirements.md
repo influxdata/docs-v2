@@ -8,7 +8,7 @@ aliases:
   - /enterprise_influxdb/v1.9/introduction/installation_guidelines/
 menu:
   enterprise_influxdb_1_9:
-    weight: 20
+    weight: 102
     parent: Introduction
 ---
 

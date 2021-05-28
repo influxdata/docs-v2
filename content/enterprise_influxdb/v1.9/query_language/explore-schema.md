@@ -85,7 +85,7 @@ SHOW RETENTION POLICIES [ON <database_name>]
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 ### Examples
@@ -186,7 +186,7 @@ SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<t
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
@@ -419,7 +419,7 @@ SHOW MEASUREMENTS [ON <database_name>] [WITH MEASUREMENT <operator> ['<measureme
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `WITH`, `WHERE`, `LIMIT` and `OFFSET` clauses are optional.
@@ -578,7 +578,7 @@ SHOW TAG KEYS [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> ['<
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM` clause and the `WHERE` clause are optional.
@@ -793,7 +793,7 @@ SHOW TAG VALUES [ON <database_name>][FROM_clause] WITH KEY [ [<operator> "<tag_k
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `WITH` clause is required.
 It supports specifying a single tag key, a regular expression, and multiple tag keys.
@@ -936,7 +936,7 @@ SHOW FIELD KEYS [ON <database_name>] [FROM <measurement_name>]
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/shell/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM` clause is also optional.

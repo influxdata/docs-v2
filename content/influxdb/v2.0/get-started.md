@@ -8,7 +8,6 @@ weight: 2
 influxdb/v2.0/tags: [get-started, install]
 aliases:
   - /influxdb/v2.0/introduction/get-started/
-  - /influxdb/v2.0/introduction/getting-started/
 ---
 
 The InfluxDB 2.0 time series platform is purpose-built to collect, store,
@@ -30,7 +29,7 @@ _See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
 ### Install InfluxDB v2.0
-<!--
+
 - [Use Homebrew](#use-homebrew)
 - [Manually download and install](#manually-download-and-install)
 
@@ -45,9 +44,7 @@ brew install influxdb
 
 #### Manually download and install
 
-You can also download the InfluxDB v2.0 binaries for macOS directly: -->
-
-Download InfluxDB 2.0 for macOS.
+You can also download the InfluxDB v2.0 binaries for macOS directly:
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 

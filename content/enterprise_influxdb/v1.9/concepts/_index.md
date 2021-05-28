@@ -9,4 +9,4 @@ menu:
     weight: 50
 ---
 
-{{< children hlevel="h2" >}}
+{{< children hlevel="h2" type="list" >}}

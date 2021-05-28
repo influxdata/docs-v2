@@ -5,7 +5,7 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Tools
-    weight: 70
+    weight: 72
 ---
 
 Use the following tools to work with InfluxDB Enterprise:

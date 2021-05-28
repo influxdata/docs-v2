@@ -13,7 +13,7 @@ v2: /influxdb/v2.0/query-data/
 ---
 
 
-The InfluxDB API is the primary means for querying data in InfluxDB (see the [command line interface](/enterprise_influxdb/v1.9/tools/shell/) and [client libraries](/enterprise_influxdb/v1.9/tools/api_client_libraries/) for alternative ways to query the database).
+The InfluxDB API is the primary means for querying data in InfluxDB (see the [command line interface](/enterprise_influxdb/v1.9/tools/use-influx/) and [client libraries](/enterprise_influxdb/v1.9/tools/api_client_libraries/) for alternative ways to query the database).
 
 Query data with the InfluxDB API using [Flux](#query-data-with-flux) or [InfluxQL](#query-data-with-influxql).
 

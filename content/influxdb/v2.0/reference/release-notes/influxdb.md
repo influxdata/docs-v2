@@ -1,6 +1,6 @@
 ---
 title: InfluxDB v2.0 release notes
-description: Important changes and and what's new in each version of InfluxDB.
+description: Important changes and what's new in each version of InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: InfluxDB

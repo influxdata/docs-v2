@@ -16,14 +16,14 @@ jobs:
           name: Make bin folder
           command: mkdir -p $HOME/bin
       - run:
-          name: Install Hugo
-          command: ./deploy/ci-install-hugo.sh
-      - run:
           name: Install s3deploy
           command: ./deploy/ci-install-s3deploy.sh
       - run:
           name: Install NodeJS dependencies
-          command: sudo yarn global add postcss-cli@8.3.0 autoprefixer@9.8.6 redoc-cli@0.9.13
+          command: yarn install
+      - run:
+          name: Install API documentation dependencies
+          command: cd api-docs && yarn install
       - run:
           name: Generate API documentation
           command: cd api-docs && bash generate-api-docs.sh
@@ -33,7 +33,7 @@ jobs:
             - /home/circleci/bin
       - run:
           name: Hugo Build
-          command: $HOME/bin/hugo -v --minify --destination workspace/public
+          command: npx hugo -v --minify --destination workspace/public
       - persist_to_workspace:
           root: workspace
           paths:
