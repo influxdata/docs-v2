@@ -1,19 +1,21 @@
 ---
 title: Use influx - InfluxDB command line interface
 description: InfluxDB's command line interface (`influx`) is an interactive shell for the HTTP API.
+aliases:
+    - /enterprise_influxdb/v1.9/tools/shell
 menu:
   enterprise_influxdb_1_9:
     name: Use influx
-    weight: 9
+    weight: 10
     parent: Tools
 ---
 
 InfluxDB's command line interface (`influx`) is an interactive shell for the HTTP API.
 Use `influx` to write data (manually or from a file), query data interactively, and view query output in different formats.
 
-* [Launch `influx`](/enterprise_influxdb/v1.9/tools/shell/#launch-influx)
-* [`influx` Arguments](/enterprise_influxdb/v1.9/tools/shell/#influx-arguments)
-* [`influx` Commands](/enterprise_influxdb/v1.9/tools/shell/#influx-commands)
+* [Launch `influx`](/enterprise_influxdb/v1.9/tools/use-influx/#launch-influx)
+* [`influx` Arguments](/enterprise_influxdb/v1.9/tools/use-influx/#influx-arguments)
+* [`influx` Commands](/enterprise_influxdb/v1.9/tools/use-influx/#influx-commands)
 
 ## Launch `influx`
 If you [install](https://influxdata.com/downloads/) InfluxDB via a package manager, the CLI is installed at `/usr/bin/influx` (`/usr/local/bin/influx` on macOS).
@@ -83,11 +85,11 @@ The database to which `influx` connects.
 
 `-execute 'command'`
 Execute an [InfluxQL](/enterprise_influxdb/v1.9/query_language/explore-data/) command and quit.
-See [-execute](/enterprise_influxdb/v1.9/tools/shell/#execute-an-influxql-command-and-quit-with-execute).
+See [-execute](/enterprise_influxdb/v1.9/tools/use-influx/#execute-an-influxql-command-and-quit-with-execute).
 
 `-format 'json|csv|column'`
 Specifies the format of the server responses.
-See [-format](/enterprise_influxdb/v1.9/tools/shell/#specify-the-format-of-the-server-responses-with-format).
+See [-format](/enterprise_influxdb/v1.9/tools/use-influx/#specify-the-format-of-the-server-responses-with-format).
 
 `-host 'host name'`
 The host to which `influx` connects.
@@ -95,7 +97,7 @@ By default, InfluxDB runs on localhost.
 
 `-import`
 Import new data from a file or import a previously [exported](https://github.com/influxdb/influxdb/blob/1.8/importer/README.md) database from a file.
-See [-import](/enterprise_influxdb/v1.9/tools/shell/#import-data-from-a-file-with-import).
+See [-import](/enterprise_influxdb/v1.9/tools/use-influx/#import-data-from-a-file-with-import).
 
 `-password 'password'`
 The password `influx` uses to connect to the server.
@@ -281,12 +283,11 @@ Results:
 ```
 
 > **Note:** For large datasets, `influx` writes out a status message every 100,000 points.
-
-For example:
+> For example:
 >
-    2015/08/21 14:48:01 Processed 3100000 lines.
-    Time elapsed: 56.740578415s.
-    Points per second (PPS): 54634
+>     2015/08/21 14:48:01 Processed 3100000 lines.
+>     Time elapsed: 56.740578415s.
+>     Points per second (PPS): 54634
 
 Things to note about `-import`:
 
@@ -345,7 +346,7 @@ Quits the `influx` shell.
 
 `format <format>`
 Specifies the format of the server responses: `json`, `csv`, or `column`.
-See the description of [-format](/enterprise_influxdb/v1.9/tools/shell/#specify-the-format-of-the-server-responses-with-format) for examples of each format.
+See the description of [-format](/enterprise_influxdb/v1.9/tools/use-influx/#specify-the-format-of-the-server-responses-with-format) for examples of each format.
 
 `history`
 Displays your command history.
@@ -354,7 +355,7 @@ To use the history while in the shell, simply use the "up" arrow.
 
 `insert`
 Write data using line protocol.
-See [insert](/enterprise_influxdb/v1.9/tools/shell/#write-data-to-influxdb-with-insert).
+See [insert](/enterprise_influxdb/v1.9/tools/use-influx/#write-data-to-influxdb-with-insert).
 
 `precision <format>`
 Specifies the format/precision of the timestamp: `rfc3339` (`YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ`), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), `u` (microseconds), `ns` (nanoseconds).
