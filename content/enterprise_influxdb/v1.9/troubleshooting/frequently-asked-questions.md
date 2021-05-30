@@ -1,6 +1,6 @@
 ---
 title: InfluxDB Enterprise frequently asked questions
-description: Common issues with InfluxDB Enterprise
+description: Common issues with InfluxDB Enterprise.
 aliases:
   - /enterprise_influxdb/v1.9/troubleshooting/frequently_encountered_issues/
   - /enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/
@@ -1270,7 +1270,7 @@ If you’re writing a lot of historical data, the default setting (`10m`) can ca
 Temporarily lowering the `cache-snapshot-write-cold-duration` setting to `10s` while you write the historical data makes the process more efficient.
 ## Where can I find InfluxDB Enterprise logs?
 
-On systemd operating systems service logs can be accessed using the `journalctl` command.
+On systemd operating systems, service logs can be accessed using the `journalctl` command.
 
 Meta: `journalctl -u influxdb-meta`
 
@@ -1291,7 +1291,7 @@ The `503` errors should stop showing up in the logs once you
 
 When you create a
 [Continuous Query (CQ)](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq)
-on your cluster every data node will ask for the CQ lease.
+on your cluster, every data node will ask for the CQ lease.
 Only one data node can accept the lease.
 That data node will have a `200` in its logs.
 All other data nodes will be denied the lease and have a `409` in their logs.
@@ -1312,7 +1312,7 @@ Log output for the data node that accepts the lease:
 [write] 2016/10/18 10:35:21 write failed for shard 2382 on node 4: hinted handoff queue not empty
 ```
 
-This error is informational only and does not necessarily indicate a problem in the cluster. It indicates that the node handling the write request currently has data in its local [hinted handoff](/enterprise_influxdb/v1.9/concepts/clustering/#hinted-handoff) queue for the destination node. Coordinating nodes will not attempt direct writes to other nodes until the hinted handoff queue for the destination node has fully drained. New data is instead appended to the hinted handoff queue. This helps data arrive in chronological order for consistency of graphs and alerts and also prevents unnecessary failed connection attempts between the data nodes. Until the hinted handoff queue is empty this message will continue to display in the logs. Monitor the size of the hinted handoff queues with `ls -lRh /var/lib/influxdb/hh` to ensure that they are decreasing in size.
+This error is informational only and does not necessarily indicate a problem in the cluster. It indicates that the node handling the write request currently has data in its local [hinted handoff](/enterprise_influxdb/v1.9/concepts/clustering/#hinted-handoff) queue for the destination node. Coordinating nodes will not attempt direct writes to other nodes until the hinted handoff queue for the destination node has fully drained. New data is instead appended to the hinted handoff queue. This helps data arrive in chronological order for consistency of graphs and alerts and also prevents unnecessary failed connection attempts between the data nodes. Until the hinted handoff queue is empty, this message will continue to display in the logs. Monitor the size of the hinted handoff queues with `ls -lRh /var/lib/influxdb/hh` to ensure that they are decreasing in size.
 
 Note that for some [write consistency](/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) settings, InfluxDB may return a write error (500) for the write attempt, even if the points are successfully queued in hinted handoff. Some write clients may attempt to resend those points, leading to duplicate points being added to the hinted handoff queue and lengthening the time it takes for the queue to drain. If the queues are not draining, consider temporarily downgrading the write consistency setting, or pause retries on the write clients until the hinted handoff queues fully drain.
 
@@ -1323,8 +1323,6 @@ Note that for some [write consistency](/enterprise_influxdb/v1.9/concepts/cluste
 ```
 
 The `_internal` database collects per-node and also cluster-wide information about the InfluxDB Enterprise cluster. The cluster metrics are replicated to other nodes using `consistency=all`. For a [write consistency](/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) of `all`, InfluxDB returns a write error (500) for the write attempt even if the points are successfully queued in hinted handoff. Thus, if there are points still in hinted handoff, the `_internal` writes will fail the consistency check and log the error, even though the data is in the durable hinted handoff queue and should eventually persist.
-
-
 ## Why am I seeing `queue is full` errors in my data node logs?
 
 This error indicates that the coordinating node that received the write cannot add the incoming write to the hinted handoff queue for the destination node because it would exceed the maximum size of the queue. This error typically indicates a catastrophic condition for the cluster - one data node may have been offline or unable to accept writes for an extended duration.
@@ -1333,7 +1331,7 @@ The controlling configuration settings are in the `[hinted-handoff]` section of 
 
 ## Why am I seeing `unable to determine if "hostname" is a meta node` when I try to add a meta node with `influxd-ctl join`?
 
-Meta nodes use the `/status` endpoint to determine the current state of another metanode. A healthy meta node that is ready to join the cluster will respond with a `200` HTTP response code and a JSON string with the following format (assuming the default ports):
+Meta nodes use the `/status` endpoint to determine the current state of another meta node. A healthy meta node that is ready to join the cluster will respond with a `200` HTTP response code and a JSON string with the following format (assuming the default ports):
 
 `"nodeType":"meta","leader":"","httpAddr":"<hostname>:8091","raftAddr":"<hostname>:8089","peers":null}`
 
