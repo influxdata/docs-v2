@@ -18,15 +18,15 @@ for storing metadata required by the latest UI features like notebooks and annot
 ### Features
 - Add Geo graph type to be able to store in Dashboard cells. <!-- https://github.com/influxdata/influxdb/pull/19811:  -->
 - Add the properties of a static legend for line graphs and band plots. <!-- https://github.com/influxdata/influxdb/pull/21218:  -->
-- Supports pagination when listing users via the API. <!-- https://github.com/influxdata/influxdb/pull/21367:  -->
 - Remove feature flags for permanent UI features: <!-- https://github.com/influxdata/influxdb/pull/21531:  -->
   `axisTicksGenerator`, `legendOrientation`, `mosaicGraphType`, and `bandPlotType`.
+- Allow hiding the tooltip independently of the static legend. <!-- https://github.com/influxdata/influxdb/pull/21547:  -->
+- Support pagination when listing users via the API. <!-- https://github.com/influxdata/influxdb/pull/21367:  -->
 - Add `influxd` configuration flag `--sqlite-path`
   for specifying a user-defined path to the SQLite database file. <!-- https://github.com/influxdata/influxdb/pull/21543:  -->
 - Update `influxd` configuration flag `--store` to work with string values `disk` or `memory`.
   `memory` continues to store metadata in-memory for testing;
   `disk` persists metadata to disk via bolt and SQLite. <!-- https://github.com/influxdata/influxdb/pull/21543:  -->
-- Allow hiding the tooltip independently of the static legend. <!-- https://github.com/influxdata/influxdb/pull/21547:  -->
 
 ### Bug Fixes
 - Deprecate the `PostSetupUser` API. <!-- https://github.com/influxdata/influxdb/pull/21345: --> 
