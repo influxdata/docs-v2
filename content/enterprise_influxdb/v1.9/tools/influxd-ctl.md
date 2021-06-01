@@ -677,7 +677,7 @@ Available commands are:
 
 Required options when operating on labels:
 
-- `nodeid`: the node ID number to add/remove labels to (you can find this using `influxd-ctl show`)
+- `nodeid`: the node ID number to add/remove labels to (find `nodeid` using `influxd-ctl show`)
 - `labels`: labels, given as JSON key-value pairs
 
 #### Examples
