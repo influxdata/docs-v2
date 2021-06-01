@@ -1482,6 +1482,44 @@ Specify a user-defined path to the SQLite database file.
 **Default:** If not set explicitly, the default path for the SQLite database file
 is in the [`INFLUXD_BOLT-PATH`](#bolt-path) directory as `influxd.sqlite`.
 
+###### influxd flag
+```sh
+influxd --sqlite-path
+```
+
+###### Environment variable
+```sh
+export INFLUXD_SQLITE_PATH
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+sqlite_path: <PATH>
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+sqlite_path = "<PATH>"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "sqlite_path": "<PATH>"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### storage-cache-max-memory-size
 Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
 
