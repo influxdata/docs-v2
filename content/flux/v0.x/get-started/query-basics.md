@@ -7,7 +7,7 @@ menu:
     name: Query basics
     parent: Get started
 weight: 101
-
+draft: true
 ---
 
 Placeholder

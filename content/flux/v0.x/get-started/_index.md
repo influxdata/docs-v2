@@ -83,7 +83,7 @@ Each example includes the following:
 3. A `mean()` function to calculate the average of values returned from the data source.
 4. A `yield()` function to yield results to the user.
 
-Flux is designed to retrieve data from data source and pipe it through a
+Flux is designed to retrieve data from data source and send it through a
 processing pipeline that shapes the data into something usable by the user.
 
 ### Pipe-forward operator
@@ -93,4 +93,3 @@ Using the metaphor [above](#flux-from-a-high-level), the pipe-forward operator
 is that pipe the carries water or data through the entire pipeline.
 
 {{< page-nav next="/flux/v0.x/get-started/data-model/" >}}
-

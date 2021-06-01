@@ -9,7 +9,7 @@ menu:
 weight: 101
 ---
 
-To fully understand how to use Flux to process your data, you must understand
+To get the most out of using Flux to process your data, you must understand
 how Flux structures and operates on data.
 The **Flux data model** is comprised of the following:
 
@@ -41,8 +41,8 @@ All rows in a table contain the same values in group key columns.
 All tables in a stream of tables have a unique group key, but group key
 modifications are applied to a stream of tables.
 
-##### Group key examples
-Group keys contain key value pairs where each key represents a column name and
+##### Example group keys
+Group keys contain key-value pairs, where each key represents a column name and
 each value represents the column value included in the table.
 The following are examples of group keys in a stream of tables with three separate tables.
 Each group key represents a table containing data for a unique location:
