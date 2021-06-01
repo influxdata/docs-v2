@@ -8,30 +8,22 @@ menu:
 weight: 1
 ---
 
-Flux is a **functional data scripting** language designed to unify the processes
-of querying, processing, analyzing, and acting on data into a single syntax.
+Flux is a **functional data scripting** language designed to unify querying, processing, analyzing, and acting on data into a single syntax.
 
-## Flux from a high level
-To understand how Flux works from a high level, consider the process of treating
-and purifying water.
-
-1.  Water is pulled from a large reservoir.
-2.  The amount of water drawn is limited by demand.
-3.  The water is piped through a series of stations that modify the water in some way
-    (remove sediment, purify, treat with additives, etc.).
-4.  The processed water is delivered to the end user in a state that is consumable.
+## Flux overview
+To understand how Flux works conceptually, consider the process of treating water. Water is pulled from a source, limited by demand, piped through a series of stations to modify (remove sediment, purify, and so on), and delivered in a consumable state.
 
 <div class="flux-water-diagram"></div>
 
 ## Basic Flux query
-As in the water treatment process above, a basic Flux script or query does the following:
+Like treating water, a Flux query does the following:
 
-1. Retrieves a limited amount of data from a potentially large data set.
+1. Retrieves a specified amount of data from a source.
 2. Filters data based on time or column values.
-3. Shapes and processes the data to transform it into the desired result.
-4. Returns the result to the user.
+3. Processes and shapes data into expected results.
+4. Returns the result.
 
-The following examples represent basic Flux queries that return data from a data source
+To see how to retrieve data from a source, select the data source: InfluxDB, CSV, or PortgreSQL. 
 (InfluxDB, CSV, and PostgreSQL).
 
 {{< code-tabs-wrapper >}}
@@ -76,12 +68,12 @@ sql.from(
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Each example includes the following:
+Each example includes the following functions (in the order listed):
 
-1. A `from()` function to retrieve data from the data source.
-2. `range()`, `filter()`, or both to filter data based on column values.
-3. A `mean()` function to calculate the average of values returned from the data source.
-4. A `yield()` function to yield results to the user.
+- `[from()](/flux/v0.x/stdlib/universe/from/)` to retrieve data from the data source.
+- [`range()`](/flux/v0.x/stdlib/universe/range/), [`filter()`](/flux/v0.x/stdlib/universe/filter/), or both to filter data based on column values.
+- [`mean()`](/flux/v0.x/stdlib/universe/mean/) to calculate the average of values returned from the data source.
+ - [`yield()`](/flux/v0.x/stdlib/universe/yield/) to yield results to the user.
 
 Flux is designed to retrieve data from data source and send it through a
 processing pipeline that shapes the data into something usable by the user.

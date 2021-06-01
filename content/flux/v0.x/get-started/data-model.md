@@ -11,7 +11,7 @@ weight: 101
 
 To get the most out of using Flux to process your data, you must understand
 how Flux structures and operates on data.
-The **Flux data model** is comprised of the following:
+The **Flux data model** comprises the following:
 
 - [Stream of tables](#stream-of-tables)
 - [Table](#table)
@@ -48,9 +48,9 @@ The following are examples of group keys in a stream of tables with three separa
 Each group key represents a table containing data for a unique location:
 
 ```
-[_measurement: "production", facililty: "us-midwest", _field: "apq"]
-[_measurement: "production", facililty: "eu-central", _field: "apq"]
-[_measurement: "production", facililty: "ap-east", _field: "apq"]
+[_measurement: "production", facility: "us-midwest", _field: "apq"]
+[_measurement: "production", facility: "eu-central", _field: "apq"]
+[_measurement: "production", facility: "ap-east", _field: "apq"]
 ```
 
 An **empty group key** groups all data in a stream of tables into a single table.
@@ -59,16 +59,15 @@ _For an example of how group keys work, see the [Table grouping example](#table-
 
 {{% note %}}
 #### Data sources define the initial group key
-How data is structured when returned from a data source is determined by the
+The data source determines how data is initially structured.
 data source.
 InfluxDB returns data grouped by [series](/{{< latest "influxdb" >}}/reference/glossary/#series)
 Tables are provided to Flux from an underlying data.
 {{% /note %}}
 
 {{% note %}}
-The Flux data model is separate from the data model of the queried data source.
-Queried sources return data structured into columnar tables that Flux understands.
-What columns are returned and how tables are structured depends on the queried data source.
+The Flux data model is separate from the queried data source model.
+Queried sources return data structured into columnar tables. The table structure and columns included depends on the data source. 
 {{% /note %}}
 
 ## Operate on tables
