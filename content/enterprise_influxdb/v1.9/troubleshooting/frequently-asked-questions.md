@@ -1264,7 +1264,7 @@ The default shard group duration is one week and if your data cover several hund
 Having an extremely high number of shards is inefficient for InfluxDB.
 Increase the shard group duration for your data’s retention policy with the [`ALTER RETENTION POLICY` query](/enterprise_influxdb/v1.9/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy).
 
-Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](/enterprise_influxdb/v1.9/administration/config-data-nodes/#cache-snapshot-write-cold-duration-10m).
+Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](enterprise_influxdb/v1.9/administration/config-data-nodes/#cache-snapshot-write-cold-duration--10m).
 If you’re writing a lot of historical data, the default setting (`10m`) can cause the system to hold all of your data in cache for every shard.
 Temporarily lowering the `cache-snapshot-write-cold-duration` setting to `10s` while you write the historical data makes the process more efficient.
 ## Where can I find InfluxDB Enterprise logs?
