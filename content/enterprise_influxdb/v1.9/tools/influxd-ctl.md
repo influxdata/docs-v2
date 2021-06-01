@@ -12,6 +12,12 @@ The [`influxd-ctl`](/enterprise_influxdb/v1.9/tools/influxd-ctl/) utility provid
 Use the `influxd-ctl` cluster management utility to manage your cluster nodes, back up and restore data, and rebalance clusters.
 The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node).
 
+## `influxd-ctl` cluster management utility
+
+The `influxd-ctl` utility provides commands for managing your InfluxDB Enterprise clusters.
+Use the `influxd-ctl` cluster management utility to manage your cluster nodes, back up and restore data, and rebalance clusters.
+The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node).
+
 * [Syntax](#syntax)
 * [Global options](#global-options)
   * [`-auth-type`](#auth-type-none-basic-jwt)
@@ -31,6 +37,7 @@ The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/
   * [`join`](#join)
   * [`kill-copy-shard`](#kill-copy-shard)
   * [`leave`](#leave)
+  * [`node-labels`](#node-labels)
   * [`remove-data`](#remove-data)
   * [`remove-meta`](#remove-meta)
   * [`remove-shard`](#remove-shard)
@@ -653,6 +660,107 @@ Successfully left cluster
   * Removed meta node cluster-meta-node-03:8091 from cluster
 ```
 
+### `node-labels`
+
+Assign user-defined labels to meta and data nodes in a cluster.
+Labels are JSON key-value pairs.
+
+#### Syntax
+
+```bash
+influxd-ctl [options] node-labels <command> [options] [<args>]
+```
+
+Available commands are:
+
+- `set`: set one or more labels on a node
+- `delete`: delete one or more labels from a node
+- `update`: update one or more labels on a node
+
+#### Examples
+
+##### Show a cluster with no node labels
+
+```
+$ ./influxd-ctl show
+Data Nodes
+==========
+ID      TCP Address     Version       Labels
+4       localhost:8188  1.9.x-c1.9.x  {}
+5       localhost:8288  1.9.x-c1.9.x  {}
+
+Meta Nodes
+==========
+ID      TCP Address     Version       Labels
+1       localhost:8191  1.9.x-c1.9.x  {}
+2       localhost:8291  1.9.x-c1.9.x  {}
+3       localhost:8391  1.9.x-c1.9.x  {}
+```
+
+##### Add labels to two data nodes and show the cluster
+
+```sh
+$ ./influxd-ctl node-labels set -nodeid 4 -labels '{"az":"us-east","hello":"earth"}'
+$ ./influxd-ctl node-labels set -nodeid 5 -labels '{"az":"us-west","hello":"mars"}'
+$ ./influxd-ctl show
+Data Nodes
+==========
+ID      TCP Address     Version       Labels
+4       localhost:8188  1.9.x-c1.9.x  {"az":"us-east","hello":"earth"}
+5       localhost:8288  unknown       {"az":"us-west","hello":"mars"}
+
+Meta Nodes
+==========
+ID      TCP Address     Version       Labels
+1       localhost:8191  1.9.x-c1.9.x  {}
+2       localhost:8291  1.9.x-c1.9.x  {}
+3       localhost:8391  1.9.x-c1.9.x  {}
+```
+
+##### Update, delete, and show labels
+
+Update an existing label on one node, delete a label on the other node, and show the cluster:
+
+```sh
+$ ./influxd-ctl node-labels set -nodeid 4 -labels '{"hello":"world"}'
+$ ./influxd-ctl node-labels delete -nodeid 5 -labels '["hello"]'
+$ ./influxd-ctl show
+Data Nodes
+==========
+ID      TCP Address     Version       Labels
+4       localhost:8188  1.9.x-c1.9.x  {"az":"us-east","hello":"world"}
+5       localhost:8288  1.9.x-c1.9.x  {"az":"us-west"}
+
+Meta Nodes
+==========
+ID      TCP Address     Version       Labels
+1       localhost:8191  1.9.x-c1.9.x  {}
+2       localhost:8291  1.9.x-c1.9.x  {}
+3       localhost:8391  1.9.x-c1.9.x  {}
+```
+
+##### Programmatic access to node labels
+
+Use the meta node API in scripts or programs that need to parse node labels:
+
+```sh
+$ curl -s localhost:8191/show-cluster | jq . | head -14
+{
+  "data": [
+    {
+      "id": 4,
+      "version": "unknown",
+      "tcpAddr": "localhost:8188",
+      "httpAddr": "localhost:8186",
+      "httpScheme": "http",
+      "status": "joined",
+      "labels": {
+        "az": "us-east",
+        "hello": "world"
+      }
+    },
+```
+
 ### `remove-data`
 
 Removes a data node from a cluster.
@@ -894,7 +1002,7 @@ Restored from my-full-backup in 58.58301ms, transferred 569344 bytes
 ### `show`
 
 Shows all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node) and [data nodes](/enterprise_influxdb/v1.9/concepts/glossary/#data-node) that are part of the cluster.
-The output includes the InfluxDB Enterprise version number.
+The output includes the InfluxDB Enterprise version number and any [labels](#node-labels).
 
 #### Syntax
 
@@ -907,23 +1015,23 @@ influxd-ctl show
 ##### Show all meta and data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes.
-Every node is using InfluxDB Enterprise `1.3.x-c1.3.x`.
+Every node is using InfluxDB Enterprise `1.9.x-c1.9.x`.
 
 ```bash
 $ influxd-ctl show
 
 Data Nodes
 ==========
-ID	 TCP Address		        Version
-2   cluster-node-01:8088	1.3.x-c1.3.x
-4   cluster-node-02:8088	1.3.x-c1.3.x
+ID  TCP Address             Version         Labels
+2   cluster-node-01:8088    1.9.x-c1.9.x    {}
+4   cluster-node-02:8088    1.9.x-c1.9.x    {}
 
 Meta Nodes
 ==========
-TCP Address		        Version
-cluster-node-01:8091	1.3.x-c1.3.x
-cluster-node-02:8091	1.3.x-c1.3.x
-cluster-node-03:8091	1.3.x-c1.3.x
+TCP Address             Version         Labels
+cluster-node-01:8091    1.9.x-c1.9.x    {}
+cluster-node-02:8091    1.9.x-c1.9.x    {}
+cluster-node-03:8091    1.9.x-c1.9.x    {}
 ```
 
 ### `show-shards`
@@ -1207,4 +1315,3 @@ ID  Database             Retention Policy  Desired Replicas  Shard Group  Start 
 54  telegraf             autogen           2                 38           2017-03-13T00:00:00Z  2017-03-13T20:59:14.665827038Z*                        [{26 cluster-data-node-01:8088} {33 cluster-data-node-03:8088}]
 58  telegraf             autogen           2                 40           2017-03-13T00:00:00Z  2017-03-20T00:00:00Z                                   [{26 cluster-data-node-01:8088} {33 cluster-data-node-03:8088}]
 ```
-
