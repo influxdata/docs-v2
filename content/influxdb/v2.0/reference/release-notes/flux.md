@@ -8,6 +8,40 @@ menu:
     name: Flux
 ---
 
+## v0.117.0 [2021-05-24]
+
+### Features
+- `to()` function writes to a remote InfluxDB instance.
+
+### Bug fixes
+- Fix unexpected behavior caused by going over the Go/Rust boundary multiple times using JSON serialization.
+- Update `Assert_eq!` output.
+- Update `comrak` dependency.
+- Set `CARGO_HOME` after removing privileges.
+- Log uneven columns found when processing tables.
+- Audit and clean up the Docker build image.
+- Switch default InfluxDB port from `9999` to `8086`.
+- Add tests for window offset behavior.
+- Update formatting for conditional expressions.
+- Fix string interpolation for basic types.
+
+---
+
+## v0.116.0 [2021-05-17]
+
+## Features
+- Add Jaeger tracing information to profile metadata.
+- Add `flux fmt` step to the continuous integration pipeline.
+- Update the `window` implementation to use `interval.Window`.
+- Add [`today()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/).
+
+## Bug fixes
+- Remove deadlock when an error occurs while the dispatcher is stopping.
+- Prevent errors caused by the the auto-formatter removing brackets around `if` expressions.
+- Auto-format remaining Flux files.
+
+---
+
 ## v0.115.0 [2021-05-11]
 
 ### Features
