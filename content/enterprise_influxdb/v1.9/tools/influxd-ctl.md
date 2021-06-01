@@ -673,9 +673,13 @@ influxd-ctl [options] node-labels <command> [options] [<args>]
 
 Available commands are:
 
-- `set`: set one or more labels on a node
+- `set`: set (add or update) one or more labels on a node
 - `delete`: delete one or more labels from a node
-- `update`: update one or more labels on a node
+
+Required options are when operating on labels:
+
+- `nodeid`: the node ID number to add/remove labels to (you can find this using `influxd-ctl show`)
+- `labels`: labels, given as JSON key-value pairs
 
 #### Examples
 
