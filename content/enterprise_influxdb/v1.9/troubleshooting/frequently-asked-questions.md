@@ -60,7 +60,7 @@ Where applicable, it links to outstanding issues on GitHub.
 * [When should I single quote and when should I double quote in queries?](#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)
 * [Why am I missing data after creating a new `DEFAULT` retention policy?](#why-am-i-missing-data-after-creating-a-new-default-retention-policy)
 * [Why is my query with a `WHERE OR` time clause returning empty results?](#why-is-my-query-with-a-where-or-time-clause-returning-empty-results)
-* [Why does `fill(previous)` return empty results?](#why-does-fill-previous-return-empty-results)
+* [Why does `fill(previous)` return empty results?](#why-does-fillprevious-return-empty-results)
 * [Why are my `INTO` queries missing data?](#why-are-my-into-queries-missing-data)
 * [How do I query data with an identical tag key and field key?](#how-do-i-query-data-with-an-identical-tag-key-and-field-key)
 * [How do I query data across measurements?](#how-do-i-query-data-across-measurements)
@@ -88,7 +88,7 @@ Where applicable, it links to outstanding issues on GitHub.
 * [Why am I seeing a `503 Service Unavailable` error in my meta node logs?](#why-am-i-seeing-a-503-service-unavailable-error-in-my-meta-node-logs)
 * [Why am I seeing a `409` error in some of my data node logs?](#why-am-i-seeing-a-409-error-in-some-of-my-data-node-logs)
 * [Why am I seeing `hinted handoff queue not empty` errors in my data node logs?](#why-am-i-seeing-hinted-handoff-queue-not-empty-errors-in-my-data-node-logs)
-* [Why am I seeing `error writing count stats ...: partial write` errors in my data node logs?](#why-am-i-seeing-error-writing-count-stats-partial-write-errors-in-my-data-node-logs)
+* [Why am I seeing `error writing count stats ...: partial write` errors in my data node logs?](#why-am-i-seeing-error-writing-count-stats--partial-write-errors-in-my-data-node-logs)
 * [Why am I seeing `queue is full` errors in my data node logs?](#why-am-i-seeing-queue-is-full-errors-in-my-data-node-logs)
 * [Why am I seeing `unable to determine if "hostname" is a meta node` when I try to add a meta node with `influxd-ctl join`?](#why-am-i-seeing-unable-to-determine-if-hostname-is-a-meta-node-when-i-try-to-add-a-meta-node-with-influxd-ctl-join)
 
@@ -179,7 +179,7 @@ an RP every 30 minutes.
 You may need to wait for the next RP check for InfluxDB to drop data that are
 outside the RP's new `DURATION` setting.
 The 30 minute interval is
-[configurable](/enterprise_influxdb/v1.9/administration/config/#check-interval-30m0s).
+[configurable](/enterprise_influxdb/v1.9/administration/config-data-nodes/#check-interval--30m0s).
 
 Second, altering both the `DURATION` and `SHARD DURATION` of an RP can result in
 unexpected data retention.
@@ -201,7 +201,10 @@ shorter `SHARD DURATION` preventing any further unexpected data retention.
 
 ## Why does InfluxDB fail to parse microsecond units in the configuration file?
 
-The syntax for specifying microsecond duration units differs for [configuration](/enterprise_influxdb/v1.9/administration/config/) settings, writes, queries, and setting the precision in the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/shell/) (CLI).
+The syntax for specifying microsecond duration units differs for
+[configuration](/enterprise_influxdb/v1.9/administration/configuration/)
+settings, writes, queries, and setting the precision in the InfluxDB
+[Command Line Interface](/enterprise_influxdb/v1.9/tools/shell/) (CLI).
 The table below shows the supported syntax for each category:
 
 | |  Configuration File | InfluxDB API Writes | All Queries  | CLI Precision Command |
@@ -1261,7 +1264,7 @@ The default shard group duration is one week and if your data cover several hund
 Having an extremely high number of shards is inefficient for InfluxDB.
 Increase the shard group duration for your data’s retention policy with the [`ALTER RETENTION POLICY` query](/enterprise_influxdb/v1.9/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy).
 
-Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](/enterprise_influxdb/v1.9/administration/config/#cache-snapshot-write-cold-duration-10m).
+Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](/enterprise_influxdb/v1.9/administration/config-data-nodes/#cache-snapshot-write-cold-duration-10m).
 If you’re writing a lot of historical data, the default setting (`10m`) can cause the system to hold all of your data in cache for every shard.
 Temporarily lowering the `cache-snapshot-write-cold-duration` setting to `10s` while you write the historical data makes the process more efficient.
 ## Where can I find InfluxDB Enterprise logs?
