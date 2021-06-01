@@ -1,9 +1,9 @@
 ---
-title: InfluxDB frequently asked questions
-description: Common issues with InfluxDB OSS.
+title: InfluxDB Enterprise frequently asked questions
+description: Common issues with InfluxDB Enterprise.
 aliases:
   - /enterprise_influxdb/v1.9/troubleshooting/frequently_encountered_issues/
-
+  - /enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/
 menu:
   enterprise_influxdb_1_9:
     name: Frequently asked questions (FAQs)
@@ -11,7 +11,8 @@ menu:
     parent: Troubleshoot
 ---
 
-This page addresses frequent sources of confusion and places where InfluxDB behaves in an unexpected way relative to other database systems.
+This page addresses frequent sources of confusion and places where InfluxDB
+behaves in an unexpected way relative to other database systems.
 Where applicable, it links to outstanding issues on GitHub.
 
 **Administration**
@@ -20,7 +21,7 @@ Where applicable, it links to outstanding issues on GitHub.
 * [How can I identify my version of InfluxDB?](#how-can-i-identify-my-version-of-influxdb)
 * [Where can I find InfluxDB logs?](#where-can-i-find-influxdb-logs)
 * [What is the relationship between shard group durations and retention policies?](#what-is-the-relationship-between-shard-group-durations-and-retention-policies)
-* [Why aren't data dropped after I've altered a retention policy?](#why-aren-t-data-dropped-after-i-ve-altered-a-retention-policy)
+* [Why aren't data dropped after I've altered a retention policy?](#why-arent-data-dropped-after-ive-altered-a-retention-policy)
 * [Why does InfluxDB fail to parse microsecond units in the configuration file?](#why-does-influxdb-fail-to-parse-microsecond-units-in-the-configuration-file)
 * [Does InfluxDB have a file system size limit?](#does-influxdb-have-a-file-system-size-limit)
 
@@ -34,12 +35,12 @@ Where applicable, it links to outstanding issues on GitHub.
 
 **Data types**
 
-* [Why can't I query Boolean field values?](#why-can-t-i-query-boolean-field-values)
+* [Why can't I query Boolean field values?](#why-cant-i-query-boolean-field-values)
 * [How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards)
 * [What are the minimum and maximum integers that InfluxDB can store?](#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store)
 * [What are the minimum and maximum timestamps that InfluxDB can store?](#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store)
 * [How can I tell what type of data is stored in a field?](#how-can-i-tell-what-type-of-data-is-stored-in-a-field)
-* [Can I change a field's data type?](#can-i-change-a-field-s-data-type)
+* [Can I change a field's data type?](#can-i-change-a-fields-data-type)
 
 **InfluxQL functions**
 
@@ -51,13 +52,13 @@ Where applicable, it links to outstanding issues on GitHub.
 
 * [What determines the time intervals returned by `GROUP BY time()` queries?](#what-determines-the-time-intervals-returned-by-group-by-time-queries)
 * [Why do my queries return no data or partial data?](#why-do-my-queries-return-no-data-or-partial-data)
-* [Why don't my `GROUP BY time()` queries return timestamps that occur after `now()`?](#why-don-t-my-group-by-time-queries-return-timestamps-that-occur-after-now)
+* [Why don't my `GROUP BY time()` queries return timestamps that occur after `now()`?](#why-dont-my-group-by-time-queries-return-timestamps-that-occur-after-now)
 * [Can I perform mathematical operations against timestamps?](#can-i-perform-mathematical-operations-against-timestamps)
 * [Can I identify write precision from returned timestamps?](#can-i-identify-write-precision-from-returned-timestamps)
 * [When should I single quote and when should I double quote in queries?](#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)
 * [Why am I missing data after creating a new `DEFAULT` retention policy?](#why-am-i-missing-data-after-creating-a-new-default-retention-policy)
 * [Why is my query with a `WHERE OR` time clause returning empty results?](#why-is-my-query-with-a-where-or-time-clause-returning-empty-results)
-* [Why does `fill(previous)` return empty results?](#why-does-fill-previous-return-empty-results)
+* [Why does `fill(previous)` return empty results?](#why-does-fillprevious-return-empty-results)
 * [Why are my `INTO` queries missing data?](#why-are-my-into-queries-missing-data)
 * [How do I query data with an identical tag key and field key?](#how-do-i-query-data-with-an-identical-tag-key-and-field-key)
 * [How do I query data across measurements?](#how-do-i-query-data-across-measurements)
@@ -78,6 +79,18 @@ Where applicable, it links to outstanding issues on GitHub.
 * [When should I single quote and when should I double quote when writing data?](#when-should-i-single-quote-and-when-should-i-double-quote-when-writing-data)
 * [Does the precision of the timestamp matter?](#does-the-precision-of-the-timestamp-matter)
 * [What are the configuration recommendations and schema guidelines for writing sparse, historical data?](#what-are-the-configuration-recommendations-and-schema-guidelines-for-writing-sparse-historical-data)
+
+**Log errors**
+
+* [Where can I find InfluxDB Enterprise logs?](#where-can-i-find-influxdb-enterprise-logs)
+* [Why am I seeing a `503 Service Unavailable` error in my meta node logs?](#why-am-i-seeing-a-503-service-unavailable-error-in-my-meta-node-logs)
+* [Why am I seeing a `409` error in some of my data node logs?](#why-am-i-seeing-a-409-error-in-some-of-my-data-node-logs)
+* [Why am I seeing `hinted handoff queue not empty` errors in my data node logs?](#why-am-i-seeing-hinted-handoff-queue-not-empty-errors-in-my-data-node-logs)
+* [Why am I seeing `error writing count stats ...: partial write` errors in my data node logs?](#why-am-i-seeing-error-writing-count-stats--partial-write-errors-in-my-data-node-logs)
+* [Why am I seeing `queue is full` errors in my data node logs?](#why-am-i-seeing-queue-is-full-errors-in-my-data-node-logs)
+* [Why am I seeing `unable to determine if "hostname" is a meta node` when I try to add a meta node with `influxd-ctl join`?](#why-am-i-seeing-unable-to-determine-if-hostname-is-a-meta-node-when-i-try-to-add-a-meta-node-with-influxd-ctl-join)
+
+---
 
 ## How do I include a single quote in a password?
 
@@ -164,7 +177,7 @@ an RP every 30 minutes.
 You may need to wait for the next RP check for InfluxDB to drop data that are
 outside the RP's new `DURATION` setting.
 The 30 minute interval is
-[configurable](/enterprise_influxdb/v1.9/administration/config/#check-interval-30m0s).
+[configurable](/enterprise_influxdb/v1.9/administration/config-data-nodes/#check-interval--30m0s).
 
 Second, altering both the `DURATION` and `SHARD DURATION` of an RP can result in
 unexpected data retention.
@@ -186,7 +199,10 @@ shorter `SHARD DURATION` preventing any further unexpected data retention.
 
 ## Why does InfluxDB fail to parse microsecond units in the configuration file?
 
-The syntax for specifying microsecond duration units differs for [configuration](/enterprise_influxdb/v1.9/administration/config/) settings, writes, queries, and setting the precision in the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/use-influx/) (CLI).
+The syntax for specifying microsecond duration units differs for
+[configuration](/enterprise_influxdb/v1.9/administration/configuration/)
+settings, writes, queries, and setting the precision in the InfluxDB
+[Command Line Interface](/enterprise_influxdb/v1.9/tools/shell/) (CLI).
 The table below shows the supported syntax for each category:
 
 | |  Configuration File | InfluxDB API Writes | All Queries  | CLI Precision Command |
@@ -289,7 +305,8 @@ Acceptable Boolean syntax differs for data writes and data queries.
 
 For example, `SELECT * FROM "hamlet" WHERE "bool"=True` returns all points with `bool` set to `TRUE`, but `SELECT * FROM "hamlet" WHERE "bool"=T` returns nothing.
 
-{{% warn %}} [GitHub Issue #3939](https://github.com/influxdb/influxdb/issues/3939) {{% /warn %}}
+<!-- TODO: closed issue. Edit docs if necessary. -->
+<!-- {{% warn %}} [GitHub Issue #3939](https://github.com/influxdb/influxdb/issues/3939) {{% /warn %}} -->
 
 ## How does InfluxDB handle field type discrepancies across shards?
 
@@ -627,33 +644,33 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 2. Write the following points to create both a field and tag key with the same name `leaves`:
 
-    ```bash
-    # create the `leaves` tag key
-    INSERT grape,leaves=species leaves=6
+   ```bash
+   # create the `leaves` tag key
+   INSERT grape,leaves=species leaves=6
 
-    #create the `leaves` field key
-    INSERT grape leaves=5
-    ```
+   #create the `leaves` field key
+   INSERT grape leaves=5
+   ```
 
 3. If you view both keys, you'll notice that neither key includes `_1`:
 
-    ```bash
-    # show the `leaves` tag key
-    SHOW TAG KEYS
+   ```bash
+   # show the `leaves` tag key
+   SHOW TAG KEYS
 
-    name: grape
-    tagKey
-    ------
-    leaves
+   name: grape
+   tagKey
+   ------
+   leaves
 
-    # create the `leaves` field key
-    SHOW FIELD KEYS
+   # create the `leaves` field key
+   SHOW FIELD KEYS
 
-    name: grape
-    fieldKey   fieldType
-    ------     ---------
-    leaves     float
-```
+   name: grape
+   fieldKey   fieldType
+   ------     ---------
+   leaves     float
+   ```
 
 4. If you query the `grape` measurement, you'll see the `leaves` tag key has an appended `_1`:
 
@@ -690,35 +707,31 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/use-influx/#launch-influx).
 
-2. Use the following queries to remove a duplicate key.
+2. Use the following queries to remove a duplicate key:
+   ```sql
+   /* select each field key to keep in the original measurement and send to a temporary
+      measurement; then, group by the tag keys to keep (leave out the duplicate key) */
+   SELECT "field_key","field_key2","field_key3"
+   INTO <temporary_measurement> FROM <original_measurement>
+   WHERE <date range> GROUP BY "tag_key","tag_key2","tag_key3"
 
-    ```sql
+   /* verify the field keys and tags keys were successfully moved to the temporary
+   measurement */
+   SELECT * FROM "temporary_measurement"
 
-    /* select each field key to keep in the original measurement and send to a temporary
-       measurement; then, group by the tag keys to keep (leave out the duplicate key) */
+   /* drop original measurement (with the duplicate key) */
+   DROP MEASUREMENT "original_measurement"
 
-    SELECT "field_key","field_key2","field_key3"
-    INTO <temporary_measurement> FROM <original_measurement>
-    WHERE <date range> GROUP BY "tag_key","tag_key2","tag_key3"
+   /* move data from temporary measurement back to original measurement you just dropped */
+   SELECT * INTO "original_measurement" FROM "temporary_measurement" GROUP BY *
 
-    /* verify the field keys and tags keys were successfully moved to the temporary
+   /* verify the field keys and tags keys were successfully moved back to the original
     measurement */
-    SELECT * FROM "temporary_measurement"
+   SELECT * FROM "original_measurement"
 
-    /* drop original measurement (with the duplicate key) */
-    DROP MEASUREMENT "original_measurement"
-
-    /* move data from temporary measurement back to original measurement you just dropped */
-    SELECT * INTO "original_measurement" FROM "temporary_measurement" GROUP BY *
-
-    /* verify the field keys and tags keys were successfully moved back to the original
-     measurement */
-    SELECT * FROM "original_measurement"
-
-    /* drop temporary measurement */
-    DROP MEASUREMENT "temporary_measurement"
-
-    ```
+   /* drop temporary measurement */
+   DROP MEASUREMENT "temporary_measurement"
+   ```
 
 ## Why don't my GROUP BY time() queries return timestamps that occur after now()?
 
@@ -779,7 +792,8 @@ time                  value	 precision_supplied  timestamp_supplied
 1970-01-01T02:00:00Z  6      h                   2
 ```
 
-{{% warn %}} [GitHub Issue #2977](https://github.com/influxdb/influxdb/issues/2977) {{% /warn %}}
+<!-- TODO: closed issue. Edit docs if necessary. -->
+<!-- {{% warn %}} [GitHub Issue #2977](https://github.com/influxdb/influxdb/issues/2977) {{% /warn %}} -->
 
 ## When should I single quote and when should I double quote in queries?
 
@@ -1248,6 +1262,74 @@ The default shard group duration is one week and if your data cover several hund
 Having an extremely high number of shards is inefficient for InfluxDB.
 Increase the shard group duration for your data’s retention policy with the [`ALTER RETENTION POLICY` query](/enterprise_influxdb/v1.9/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy).
 
-Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](/enterprise_influxdb/v1.9/administration/config/#cache-snapshot-write-cold-duration-10m).
+Second, temporarily lowering the [`cache-snapshot-write-cold-duration` configuration setting](enterprise_influxdb/v1.9/administration/config-data-nodes/#cache-snapshot-write-cold-duration--10m).
 If you’re writing a lot of historical data, the default setting (`10m`) can cause the system to hold all of your data in cache for every shard.
 Temporarily lowering the `cache-snapshot-write-cold-duration` setting to `10s` while you write the historical data makes the process more efficient.
+## Where can I find InfluxDB Enterprise logs?
+
+On systemd operating systems, service logs can be accessed using the `journalctl` command.
+
+Meta: `journalctl -u influxdb-meta`
+
+Data : `journalctl -u influxdb`
+
+Enterprise console: `journalctl -u influx-enterprise`
+
+The `journalctl` output can be redirected to print the logs to a text file. With systemd, log retention depends on the system's journald settings.
+
+## Why am I seeing a `503 Service Unavailable` error in my meta node logs?
+
+This is the expected behavior if you haven't joined the meta node to the
+cluster.
+The `503` errors should stop showing up in the logs once you
+[join the meta node to the cluster](/enterprise_influxdb/v1.9/install-and-deploy/installation/meta_node_installation/#step-3-join-the-meta-nodes-to-the-cluster).
+
+## Why am I seeing a `409` error in some of my data node logs?
+
+When you create a
+[Continuous Query (CQ)](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq)
+on your cluster, every data node will ask for the CQ lease.
+Only one data node can accept the lease.
+That data node will have a `200` in its logs.
+All other data nodes will be denied the lease and have a `409` in their logs.
+This is the expected behavior.
+
+Log output for a data node that is denied the lease:
+```
+[meta-http] 2016/09/19 09:08:53 172.31.4.132 - - [19/Sep/2016:09:08:53 +0000] GET /lease?name=continuous_querier&node_id=5 HTTP/1.2 409 105 - InfluxDB Meta Client b00e4943-7e48-11e6-86a6-000000000000 380.542µs
+```
+Log output for the data node that accepts the lease:
+```
+[meta-http] 2016/09/19 09:08:54 172.31.12.27 - - [19/Sep/2016:09:08:54 +0000] GET /lease?name=continuous_querier&node_id=0 HTTP/1.2 200 105 - InfluxDB Meta Client b05a3861-7e48-11e6-86a7-000000000000 8.87547ms
+```
+
+## Why am I seeing `hinted handoff queue not empty` errors in my data node logs?
+
+```
+[write] 2016/10/18 10:35:21 write failed for shard 2382 on node 4: hinted handoff queue not empty
+```
+
+This error is informational only and does not necessarily indicate a problem in the cluster. It indicates that the node handling the write request currently has data in its local [hinted handoff](/enterprise_influxdb/v1.9/concepts/clustering/#hinted-handoff) queue for the destination node. Coordinating nodes will not attempt direct writes to other nodes until the hinted handoff queue for the destination node has fully drained. New data is instead appended to the hinted handoff queue. This helps data arrive in chronological order for consistency of graphs and alerts and also prevents unnecessary failed connection attempts between the data nodes. Until the hinted handoff queue is empty, this message will continue to display in the logs. Monitor the size of the hinted handoff queues with `ls -lRh /var/lib/influxdb/hh` to ensure that they are decreasing in size.
+
+Note that for some [write consistency](/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) settings, InfluxDB may return a write error (500) for the write attempt, even if the points are successfully queued in hinted handoff. Some write clients may attempt to resend those points, leading to duplicate points being added to the hinted handoff queue and lengthening the time it takes for the queue to drain. If the queues are not draining, consider temporarily downgrading the write consistency setting, or pause retries on the write clients until the hinted handoff queues fully drain.
+
+## Why am I seeing `error writing count stats ...: partial write` errors in my data node logs?
+
+```
+[stats] 2016/10/18 10:35:21 error writing count stats for FOO_grafana: partial write
+```
+
+The `_internal` database collects per-node and also cluster-wide information about the InfluxDB Enterprise cluster. The cluster metrics are replicated to other nodes using `consistency=all`. For a [write consistency](/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) of `all`, InfluxDB returns a write error (500) for the write attempt even if the points are successfully queued in hinted handoff. Thus, if there are points still in hinted handoff, the `_internal` writes will fail the consistency check and log the error, even though the data is in the durable hinted handoff queue and should eventually persist.
+## Why am I seeing `queue is full` errors in my data node logs?
+
+This error indicates that the coordinating node that received the write cannot add the incoming write to the hinted handoff queue for the destination node because it would exceed the maximum size of the queue. This error typically indicates a catastrophic condition for the cluster - one data node may have been offline or unable to accept writes for an extended duration.
+
+The controlling configuration settings are in the `[hinted-handoff]` section of the file. `max-size` is the total size in bytes per hinted handoff queue. When `max-size` is exceeded, all new writes for that node are rejected until the queue drops below `max-size`. `max-age` is the maximum length of time a point will persist in the queue. Once this limit has been reached, points expire from the queue. The age is calculated from the write time of the point, not the timestamp of the point.
+
+## Why am I seeing `unable to determine if "hostname" is a meta node` when I try to add a meta node with `influxd-ctl join`?
+
+Meta nodes use the `/status` endpoint to determine the current state of another meta node. A healthy meta node that is ready to join the cluster will respond with a `200` HTTP response code and a JSON string with the following format (assuming the default ports):
+
+`"nodeType":"meta","leader":"","httpAddr":"<hostname>:8091","raftAddr":"<hostname>:8089","peers":null}`
+
+If you are getting an error message while attempting to `influxd-ctl join` a new meta node, it means that the JSON string returned from the `/status` endpoint is incorrect. This generally indicates that the meta node configuration file is incomplete or incorrect. Inspect the HTTP response with `curl -v "http://<hostname>:8091/status"` and make sure that the `hostname`, the `bind-address`, and the `http-bind-address` are correctly populated. Also check the `license-key` or `license-path` in the configuration file of the meta nodes. Finally, make sure that you specify the `http-bind-address` port in the join command, e.g. `influxd-ctl join hostname:8091`.
