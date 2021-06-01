@@ -88,7 +88,7 @@ sudo systemctl restart influxdb-meta
 
 After upgrading _**all**_ meta nodes, check your node version numbers using the
 `influxd-ctl show` command.
-The [`influxd-ctl` utility](/enterprise_influxdb/v1.9/administration/cluster-commands/) is available on all meta nodes.
+The [`influxd-ctl` utility](/enterprise_influxdb/v1.9/tools/influxd-ctl/) is available on all meta nodes.
 
 ```bash
 ~# influxd-ctl show
@@ -222,7 +222,7 @@ Restart routing read and write requests to the data node server (port 8086) thro
 
 After upgrading _**all**_ data nodes, check your node version numbers using the
 `influxd-ctl show` command.
-The [`influxd-ctl` utility](/enterprise_influxdb/v1.9/administration/cluster-commands/) is available on all meta nodes.
+The [`influxd-ctl` utility](/enterprise_influxdb/v1.9/tools/influxd-ctl/) is available on all meta nodes.
 
 ```bash
 ~# influxd-ctl show

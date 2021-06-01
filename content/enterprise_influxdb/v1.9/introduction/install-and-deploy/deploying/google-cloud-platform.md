@@ -5,6 +5,7 @@ description: >
 aliases:
     - /enterprise_influxdb/v1.9/other-options/google-cloud/
     - /enterprise_influxdb/v1.9/install-and-deploy/google-cloud-platform/
+    - /enterprise_influxdb/v1.9/install-and-deploy/deploying/google-cloud-platform/
 menu:
   enterprise_influxdb_1_9:
     name: GCP

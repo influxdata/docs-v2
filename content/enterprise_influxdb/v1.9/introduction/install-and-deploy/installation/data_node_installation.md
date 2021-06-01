@@ -2,6 +2,7 @@
 title: Install InfluxDB Enterprise data nodes
 aliases:
     - /enterprise_influxdb/v1.9/installation/data_node_installation/
+    - /enterprise_influxdb/v1.9/install-and-deploy/installation/data_node_installation/
 menu:
   enterprise_influxdb_1_9:
     name: Install data nodes
