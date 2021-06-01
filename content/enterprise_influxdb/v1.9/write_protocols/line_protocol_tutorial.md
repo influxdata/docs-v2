@@ -473,7 +473,7 @@ and more examples, see the [API Reference](/enterprise_influxdb/v1.9/tools/api/#
 #### CLI
 
 Write data to InfluxDB using the InfluxDB command line interface (CLI).
-[Launch](/enterprise_influxdb/v1.9/tools/shell/#launch-influx) the CLI, use the relevant
+[Launch](/enterprise_influxdb/v1.9/tools/use-influx/#launch-influx) the CLI, use the relevant
 database, and put `INSERT` in
 front of your line protocol:
 
@@ -482,13 +482,13 @@ INSERT weather,location=us-midwest temperature=82 1465839830100400200
 ```
 
 You can also use the CLI to
-[import](/enterprise_influxdb/v1.9/tools/shell/#import-data-from-a-file-with-import) Line
+[import](/enterprise_influxdb/v1.9/tools/use-influx/#import-data-from-a-file-with-import) Line
 Protocol from a file.
 
 There are several ways to write data to InfluxDB.
 See the [Tools](/enterprise_influxdb/v1.9/tools/) section for more
 on the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#write-http-endpoint), the
-[CLI](/enterprise_influxdb/v1.9/tools/shell/), and the available Service Plugins (
+[CLI](/enterprise_influxdb/v1.9/tools/use-influx/), and the available Service Plugins (
 [UDP](/enterprise_influxdb/v1.9/tools/udp/),
 [Graphite](/enterprise_influxdb/v1.9/tools/graphite/),
 [CollectD](/enterprise_influxdb/v1.9/tools/collectd/), and

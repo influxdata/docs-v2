@@ -11,8 +11,12 @@ menu:
     parent: Introduction
 ---
 
-Please visit [InfluxPortal](https://portal.influxdata.com/) to get a license key and download URLs.
-Also see the [Installation](/enterprise_influxdb/v1.9/install-and-deploy/installation/) documentation to access the downloads.
+You must have a valid license to run InfluxDB Enterprise.
+You may obtain a 14-day demo license via the [InfluxDB Enterprise portal](https://portal.influxdata.com/users/new).
 
-You must have a valid license to run a cluster.
-InfluxPortal offers 14-day Demo licenses on sign-up.
+If you have purchased a license or already obtained a demo license,
+log in to the [InfluxDB Enterprise portal](https://portal.influxdata.com/users/sign_in)
+to get your license key and download URLs.
+
+See the [installation documentation](/enterprise_influxdb/v1.9/install-and-deploy/)
+for more information about getting started.

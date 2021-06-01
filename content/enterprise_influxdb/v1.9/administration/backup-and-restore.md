@@ -73,7 +73,7 @@ influxd-ctl [global-options] backup [backup-options] <path-to-backup-directory>
 
 ##### Global options
 
-Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.9/administration/cluster-commands/#global-options)
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1.9/tools/influxd-ctl/#global-options)
 for a complete list of the global `influxd-ctl` options.
 
 ##### Backup options
@@ -243,7 +243,7 @@ The system automatically drops the `_internal` database when it performs a compl
 
 ##### Global options
 
-Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.9/administration/cluster-commands/#global-options)
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1.9/tools/influxd-ctl/#global-options)
 for a complete list of the global `influxd-ctl` options.
 
 ##### Restore options
@@ -273,7 +273,7 @@ complete restore.
 
 ##### Global options
 
-Please see the [influxd-ctl documentation](/enterprise_influxdb/v1.9/administration/cluster-commands/#global-options)
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1.9/tools/influxd-ctl/#global-options)
 for a complete list of the global `influxd-ctl` options.
 
 ##### Restore options
@@ -384,7 +384,7 @@ Copying data to <hostname>:8088... Copying data to <hostname>:8088... Done. Rest
 Restored from my-incremental-backup/ in 56.623615ms, transferred 588800 bytes
 ```
 
-Then, in the [`influx` client](/enterprise_influxdb/v1.9/tools/shell/), use an [`INTO` query](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) to copy the data from the new database into the existing `telegraf` database:
+Then, in the [`influx` client](/enterprise_influxdb/v1.9/tools/use-influx/), use an [`INTO` query](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) to copy the data from the new database into the existing `telegraf` database:
 
 ```bash
 $ influx
@@ -446,7 +446,7 @@ influx_inspect export -database myDB -compress -start 2019-05-19T00:00:00.000Z -
 
 ### Importing data
 
-After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/{{< latest "influxdb" "v1" >}}/tools/shell/#import).
+After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/{{< latest "influxdb" "v1" >}}/tools/use-influx/#import).
 
 In the following example, the compressed data file is imported into the specified database.
 
@@ -454,7 +454,7 @@ In the following example, the compressed data file is imported into the specifie
 influx -import -database myDB -compress
 ```
 
-For details on using the `influx -import` command, see [Import data from a file with -import](/{{< latest "influxdb" "v1" >}}/tools/shell/#import-data-from-a-file-with-import).
+For details on using the `influx -import` command, see [Import data from a file with -import](/{{< latest "influxdb" "v1" >}}/tools/use-influx/#import-data-from-a-file-with-import).
 
 ### Example
 

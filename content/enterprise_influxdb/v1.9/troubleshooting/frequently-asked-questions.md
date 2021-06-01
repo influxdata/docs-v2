@@ -123,7 +123,7 @@ Request-Id: 1e08aeb6-fec0-11e6-8486-000000000000
 Date: Wed, 01 Mar 2017 20:46:17 GMT
 ```
 
-#### Launch the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/shell/):
+#### Launch the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/use-influx/):
 
 ```bash
 $ influx
@@ -249,7 +249,7 @@ InfluxDB shell 0.xx.x
 >
 ```
 
-Check out [CLI/Shell](/enterprise_influxdb/v1.9/tools/shell/) for more useful CLI options.
+Check out [CLI/Shell](/enterprise_influxdb/v1.9/tools/use-influx/) for more useful CLI options.
 
 ## How can a non-admin user `USE` a database in the InfluxDB CLI?
 
@@ -642,7 +642,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 #### Example
 
-1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/shell/#launch-influx).
+1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/use-influx/#launch-influx).
 
 2. Write the following points to create both a field and tag key with the same name `leaves`:
 
@@ -707,7 +707,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 #### Remove a duplicate key
 
-1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/shell/#launch-influx).
+1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/use-influx/#launch-influx).
 
 2. Use the following queries to remove a duplicate key:
    ```sql

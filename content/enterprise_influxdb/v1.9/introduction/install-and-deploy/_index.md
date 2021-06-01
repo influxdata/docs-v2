@@ -3,10 +3,11 @@ title: Install and deploy InfluxDB Enterprise
 description: Install InfluxDB Enterprise to on-premise or cloud providers, including Google Cloud Platform, Amazon Web Services, and Azure.
 aliases:
 - /enterprise_influxdb/v1.9/install-and-deploy/deploying/
+- /enterprise_influxdb/v1.9/install-and-deploy/
 menu:
   enterprise_influxdb_1_9:
     name: Install and deploy
-    weight: 103
+    weight: 30
     parent: Introduction
 ---
 

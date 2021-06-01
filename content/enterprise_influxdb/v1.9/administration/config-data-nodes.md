@@ -630,6 +630,14 @@ The maximum number of shards that a single data node will copy or repair in para
 
 Environment variable: `INFLUXDB_ANTI_ENTROPY_MAX_FETCH`
 
+{{% note %}}
+Having `max-fetch=10` with higher numbers of shards (100+) can add significant overhead to running nodes.
+The more shards you have, the lower this should be set.
+If AE is enabled while lowering your `max-fetch`, initially, you'll see
+higher CPU load as new shard digest files are created.
+The added load drops off after shard digests are completed for existing shards.
+{{% /note %}}
+
 #### `max-sync = 1`
 
 The maximum number of concurrent sync operations that should be performed.
@@ -777,7 +785,7 @@ Enables HTTP request logging.
 
 Environment variable: `INFLUXDB_HTTP_LOG_ENABLED`
 
-### `suppress-write-log = false`
+#### `suppress-write-log = false`
 
 Determines whether the HTTP write request logs should be suppressed when the log is enabled.
 
@@ -1260,18 +1268,6 @@ If not specified, `max-version` is the maximum TLS version specified in the [Go 
 In this example, `tls1.3` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
-
-    <!-- #### max-fetch = 10
-
-    The maximum number of shards that a single data node will copy or repair in parallel.
-
-    Environment variable: `INFLUXDB_ANTI_ENTROPY_MAX_FETCH`
-
-    > Having `max-fetch=10` with higher numbers of shards (100+) can add significant overhead to running nodes.
-    > The more shards you have, the lower this should be set.
-    > If AE is left enabled while lowering your `max-fetch`, you will initially see
-    > higher CPU load as new shard digest files are created.
-    > The added load will drop off after shard digests are completed for existing shards. -->
 
 ## Flux query settings
 

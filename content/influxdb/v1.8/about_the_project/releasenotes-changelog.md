@@ -9,7 +9,12 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
+## v1.8.6 [2021-05-21]
+
+This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific changes were made for InfluxDB 1.8.6--updates were made to the code base to support [InfluxDB Enterprise 1.8.6](/enterprise_influxdb/v1.8/about-the-project/release-notes-changelog/#v186-2021-05-21).
+
 ## v1.8.5 [2021-04-20]
+
 ### Features
 
 - Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
