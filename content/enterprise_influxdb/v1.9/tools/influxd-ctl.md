@@ -14,7 +14,6 @@ The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/
 
 ## `influxd-ctl` cluster management utility
 
-The `influxd-ctl` utility provides commands for managing your InfluxDB Enterprise clusters.
 Use the `influxd-ctl` cluster management utility to manage your cluster nodes, back up and restore data, and rebalance clusters.
 The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/v1.9/concepts/glossary/#meta-node).
 
