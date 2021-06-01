@@ -26,7 +26,7 @@ A **stream of tables** is a collection of zero or more [tables](#table).
 Queried data sources return results as a stream of tables.
 
 #### Table
-A **table** is a collection of [columns](#column) partitioned by the [group key](#group-key).
+A **table** is a collection of [columns](#column) partitioned by [group key](#group-key).
 
 #### Column
 A **column** is a collection of values of the same [basic type](#)
