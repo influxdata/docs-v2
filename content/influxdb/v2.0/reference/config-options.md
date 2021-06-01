@@ -1475,9 +1475,9 @@ session-renew-disabled = true
 
 Specify a user-defined path to the SQLite database file.
 
-| influxd flag | Environment variable  | Configuration key |
-|:-------------|:----------------------|:------------------|
-| `--sql-path` | `INFLUXD_SQLITE_PATH` | `sql-path`        |
+| influxd flag    | Environment variable  | Configuration key |
+|:----------------|:----------------------|:------------------|
+| `--sqlite-path` | `INFLUXD_SQLITE_PATH` | `sqlite-path`     |
 
 **Default:** If not set explicitly, the default path for the SQLite database file
 is in the [`INFLUXD_BOLT-PATH`](#bolt-path) directory as `influxd.sqlite`.
