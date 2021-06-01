@@ -4,8 +4,6 @@ description: Common issues with InfluxDB Enterprise.
 aliases:
   - /enterprise_influxdb/v1.9/troubleshooting/frequently_encountered_issues/
   - /enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/
-  - /enterprise/v1.8/troubleshooting/frequently_asked_questions/
-  - /enterprise_influxdb/v1.9/introduction/meta_node_installation/
 menu:
   enterprise_influxdb_1_9:
     name: Frequently asked questions (FAQs)
