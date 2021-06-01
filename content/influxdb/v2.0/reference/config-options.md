@@ -120,6 +120,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [secret-store](#secret-store)
 - [session-length](#session-length)
 - [session-renew-disabled](#session-renew-disabled)
+- [sqlite-path](#sqlite-path)
 - [storage-cache-max-memory-size](#storage-cache-max-memory-size)
 - [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
 - [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
@@ -1469,13 +1470,25 @@ session-renew-disabled = true
 
 ---
 
+
+### sqlite-path
+
+Specify a user-defined path to the SQLite database file.
+
+| influxd flag | Environment variable  | Configuration key |
+|:-------------|:----------------------|:------------------|
+| `--sql-path` | `INFLUXD_SQLITE_PATH` | `sql-path`        |
+
+**Default:** If not set explicitly, the default path for the SQLite database file
+is in the [`INFLUXD_BOLT-PATH`](#bolt-path) directory as `influxd.sqlite`.
+
 ### storage-cache-max-memory-size
 Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
 
 **Default:** `1073741824`
 
 | influxd flag                      | Environment variable                    | Configuration key               |
-|:------------                      |:--------------------                    |:-----------------               |
+|:----------------------------------|:----------------------------------------|:--------------------------------|
 | `--storage-cache-max-memory-size` | `INFLUXD_STORAGE_CACHE_MAX_MEMORY_SIZE` | `storage-cache-max-memory-size` |
 
 ###### influxd flag
