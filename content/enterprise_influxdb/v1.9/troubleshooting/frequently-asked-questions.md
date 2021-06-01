@@ -37,12 +37,12 @@ Where applicable, it links to outstanding issues on GitHub.
 
 **Data types**
 
-* [Why can't I query Boolean field values?](#why-can-t-i-query-boolean-field-values)
+* [Why can't I query Boolean field values?](#why-cant-i-query-boolean-field-values)
 * [How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards)
 * [What are the minimum and maximum integers that InfluxDB can store?](#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store)
 * [What are the minimum and maximum timestamps that InfluxDB can store?](#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store)
 * [How can I tell what type of data is stored in a field?](#how-can-i-tell-what-type-of-data-is-stored-in-a-field)
-* [Can I change a field's data type?](#can-i-change-a-field-s-data-type)
+* [Can I change a field's data type?](#can-i-change-a-fields-data-type)
 
 **InfluxQL functions**
 
@@ -54,7 +54,7 @@ Where applicable, it links to outstanding issues on GitHub.
 
 * [What determines the time intervals returned by `GROUP BY time()` queries?](#what-determines-the-time-intervals-returned-by-group-by-time-queries)
 * [Why do my queries return no data or partial data?](#why-do-my-queries-return-no-data-or-partial-data)
-* [Why don't my `GROUP BY time()` queries return timestamps that occur after `now()`?](#why-don-t-my-group-by-time-queries-return-timestamps-that-occur-after-now)
+* [Why don't my `GROUP BY time()` queries return timestamps that occur after `now()`?](#why-dont-my-group-by-time-queries-return-timestamps-that-occur-after-now)
 * [Can I perform mathematical operations against timestamps?](#can-i-perform-mathematical-operations-against-timestamps)
 * [Can I identify write precision from returned timestamps?](#can-i-identify-write-precision-from-returned-timestamps)
 * [When should I single quote and when should I double quote in queries?](#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)
@@ -643,33 +643,33 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 2. Write the following points to create both a field and tag key with the same name `leaves`:
 
-    ```bash
-    # create the `leaves` tag key
-    INSERT grape,leaves=species leaves=6
+   ```bash
+   # create the `leaves` tag key
+   INSERT grape,leaves=species leaves=6
 
-    #create the `leaves` field key
-    INSERT grape leaves=5
-    ```
+   #create the `leaves` field key
+   INSERT grape leaves=5
+   ```
 
 3. If you view both keys, you'll notice that neither key includes `_1`:
 
-    ```bash
-    # show the `leaves` tag key
-    SHOW TAG KEYS
+   ```bash
+   # show the `leaves` tag key
+   SHOW TAG KEYS
 
-    name: grape
-    tagKey
-    ------
-    leaves
+   name: grape
+   tagKey
+   ------
+   leaves
 
-    # create the `leaves` field key
-    SHOW FIELD KEYS
+   # create the `leaves` field key
+   SHOW FIELD KEYS
 
-    name: grape
-    fieldKey   fieldType
-    ------     ---------
-    leaves     float
-```
+   name: grape
+   fieldKey   fieldType
+   ------     ---------
+   leaves     float
+   ```
 
 4. If you query the `grape` measurement, you'll see the `leaves` tag key has an appended `_1`:
 
@@ -706,35 +706,31 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/shell/#launch-influx).
 
-2. Use the following queries to remove a duplicate key.
+2. Use the following queries to remove a duplicate key:
+   ```sql
+   /* select each field key to keep in the original measurement and send to a temporary
+      measurement; then, group by the tag keys to keep (leave out the duplicate key) */
+   SELECT "field_key","field_key2","field_key3"
+   INTO <temporary_measurement> FROM <original_measurement>
+   WHERE <date range> GROUP BY "tag_key","tag_key2","tag_key3"
 
-    ```sql
+   /* verify the field keys and tags keys were successfully moved to the temporary
+   measurement */
+   SELECT * FROM "temporary_measurement"
 
-    /* select each field key to keep in the original measurement and send to a temporary
-       measurement; then, group by the tag keys to keep (leave out the duplicate key) */
+   /* drop original measurement (with the duplicate key) */
+   DROP MEASUREMENT "original_measurement"
 
-    SELECT "field_key","field_key2","field_key3"
-    INTO <temporary_measurement> FROM <original_measurement>
-    WHERE <date range> GROUP BY "tag_key","tag_key2","tag_key3"
+   /* move data from temporary measurement back to original measurement you just dropped */
+   SELECT * INTO "original_measurement" FROM "temporary_measurement" GROUP BY *
 
-    /* verify the field keys and tags keys were successfully moved to the temporary
+   /* verify the field keys and tags keys were successfully moved back to the original
     measurement */
-    SELECT * FROM "temporary_measurement"
+   SELECT * FROM "original_measurement"
 
-    /* drop original measurement (with the duplicate key) */
-    DROP MEASUREMENT "original_measurement"
-
-    /* move data from temporary measurement back to original measurement you just dropped */
-    SELECT * INTO "original_measurement" FROM "temporary_measurement" GROUP BY *
-
-    /* verify the field keys and tags keys were successfully moved back to the original
-     measurement */
-    SELECT * FROM "original_measurement"
-
-    /* drop temporary measurement */
-    DROP MEASUREMENT "temporary_measurement"
-
-    ```
+   /* drop temporary measurement */
+   DROP MEASUREMENT "temporary_measurement"
+   ```
 
 ## Why don't my GROUP BY time() queries return timestamps that occur after now()?
 
