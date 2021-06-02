@@ -1473,24 +1473,23 @@ session-renew-disabled = true
 
 ### sqlite-path
 
-Specify a user-defined path to the SQLite database file.
-The SQLite database is used to store metadata for the notebook and annotations features.
+Path to the SQLite database file.
+The SQLite database is used to store metadata for notebooks and annotations.
+
+**Default:** _`influxd.sqlite` in the same directory as the [bolt-path](#bolt-path)._
 
 | influxd flag    | Environment variable  | Configuration key |
 |:----------------|:----------------------|:------------------|
 | `--sqlite-path` | `INFLUXD_SQLITE_PATH` | `sqlite-path`     |
 
-**Default:** If not set explicitly, the default path for the SQLite database file
-is in the [`INFLUXD_BOLT-PATH`](#bolt-path) directory as `influxd.sqlite`.
-
 ###### influxd flag
 ```sh
-influxd --sqlite-path
+influxd --sqlite-path ~/.influxdbv2/influxd.sqlite
 ```
 
 ###### Environment variable
 ```sh
-export INFLUXD_SQLITE_PATH
+export INFLUXD_SQLITE_PATH=~/.influxdbv2/influxd.sqlite
 ```
 
 ###### Configuration file
@@ -1502,18 +1501,18 @@ export INFLUXD_SQLITE_PATH
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-sqlite_path: <PATH>
+sqlite_path: /users/user/.influxdbv2/influxd.sqlite
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-sqlite_path = "<PATH>"
+sqlite_path = "/users/user/.influxdbv2/influxd.sqlite"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "sqlite_path": "<PATH>"
+  "sqlite_path": "/users/user/.influxdbv2/influxd.sqlite"
 }
 ```
 {{% /code-tab-content %}}
