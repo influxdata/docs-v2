@@ -31,12 +31,6 @@ experimental.last()
 `experimental.last()` drops empty tables.
 {{% /warn %}}
 
-## Parameters
-
-### tables
-Input data.
-Default is pipe-forwarded data.
-
 ## Examples
 
 #### Return the last non-null value

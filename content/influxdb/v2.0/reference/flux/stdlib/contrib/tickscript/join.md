@@ -46,7 +46,7 @@ _**Data type:** Array of Strings_
 ({{< req >}})
 Measurement name to use in results.
 
-_**Data type:** Array of Strings_
+_**Data type:** String_
 
 ## Examples
 

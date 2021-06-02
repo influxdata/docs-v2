@@ -44,8 +44,6 @@ The function does the following:
 
 ## Parameters
 
-_**Data type:** String_
-
 ### bins
 ({{< req >}})
 A list of upper bounds to use when computing the histogram frequencies, including the maximum value of the data set.

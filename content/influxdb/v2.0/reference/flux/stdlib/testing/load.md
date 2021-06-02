@@ -20,12 +20,6 @@ import "testing"
 testing.load()
 ```
 
-## Parameters
-
-### tables
-Input data.
-Default is piped-forward data ([`<-`](/influxdb/v2.0/reference/flux/language/expressions/#pipe-expressions)).
-
 ## Examples
 
 ##### Load a raw stream of tables in a test case

@@ -30,14 +30,6 @@ experimental.min()
 `experimental.min()` drops empty tables.
 {{% /warn %}}
 
-## Parameters
-
-### tables
-Input data.
-Default is pipe-forwarded data.
-
-_**Data type:** String_
-
 ## Examples
 ```js
 import "experimental"
