@@ -1474,6 +1474,7 @@ session-renew-disabled = true
 ### sqlite-path
 
 Specify a user-defined path to the SQLite database file.
+The SQLite database is used to store metadata for the notebook and annotations features.
 
 | influxd flag    | Environment variable  | Configuration key |
 |:----------------|:----------------------|:------------------|
