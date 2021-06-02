@@ -1,5 +1,5 @@
 ---
-title: Sign up for InfluxDB
+title: Install InfluxDB
 description: Download, install, and set up InfluxDB OSS.
 menu:
   influxdb_2_0:
