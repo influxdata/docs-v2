@@ -10,7 +10,7 @@ influxdb/v2.0/tags: [sign-up, install]
 
 The InfluxDB 2.0 time series platform is purpose-built to collect, store,
 process and visualize metrics and events.
-Get started with InfluxDB OSS v2.0 by downloading InfluxDB, installing the necessary
+Get started with InfluxDB OSS 2.0 by downloading InfluxDB, installing the necessary
 executables, and running the initial setup process.
 
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
