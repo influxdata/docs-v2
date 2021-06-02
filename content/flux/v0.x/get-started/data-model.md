@@ -23,7 +23,7 @@ The **Flux data model** comprises the following:
 
 #### Stream of tables
 A **stream of tables** is a collection of zero or more [tables](#table).
-Queried data sources return results as a stream of tables.
+Data sources return results as a stream of tables.
 
 #### Table
 A **table** is a collection of [columns](#column) partitioned by [group key](#group-key).
@@ -58,16 +58,15 @@ An **empty group key** groups all data in a stream of tables into a single table
 _For an example of how group keys work, see the [Table grouping example](#table-grouping-example) below._
 
 {{% note %}}
-#### Data sources define the initial group key
-The data source determines how data is initially structured.
-data source.
-InfluxDB returns data grouped by [series](/{{< latest "influxdb" >}}/reference/glossary/#series)
-Tables are provided to Flux from an underlying data.
-{{% /note %}}
-
-{{% note %}}
+#### Data sources determine data structure
 The Flux data model is separate from the queried data source model.
-Queried sources return data structured into columnar tables. The table structure and columns included depends on the data source. 
+Queried sources return data structured into columnar tables.
+The table structure and columns included depends on the data source. 
+
+For example, InfluxDB returns data grouped by [series](/{{< latest "influxdb" >}}/reference/glossary/#series),
+so each table in the returned stream of tables represents a unique series.
+However, [SQL data sources](/flux/v0.x/stdlib/sql/from/) return a stream of tables
+with a single table and an empty group key.
 {{% /note %}}
 
 ## Operate on tables
