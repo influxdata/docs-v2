@@ -2253,6 +2253,10 @@ Specifies the data store for REST resources.
 **Default:** `disk`  
 
 {{% note %}}
+For backwards compatibility, this flag also acceptss `bolt` as a value.
+{{% /note %}}
+
+{{% note %}}
 `memory` is meant for transient environments, such as testing environments, where
 data persistence does not matter.
 InfluxData does not recommend using `memory` in production.
