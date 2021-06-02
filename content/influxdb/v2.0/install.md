@@ -5,7 +5,7 @@ menu:
   influxdb_2_0:
     name: Install
 weight: 2
-influxdb/v2.0/tags: [sign-up, install]
+influxdb/v2.0/tags: [install]
 ---
 
 The InfluxDB 2.0 time series platform is purpose-built to collect, store,
