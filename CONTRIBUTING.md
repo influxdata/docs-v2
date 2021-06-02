@@ -149,12 +149,12 @@ _**Note:** `_index.md` files should be weighted one level up from the other `.md
 ### Related content
 Use the `related` frontmatter to include links to specific articles at the bottom of an article.
 
-- If the page exists inside of this documentation, just include the path to the page.
-  It will automatically detect the title of the page.
+- If the page exists inside this documentation, include the path to the page.
+  Hugo will automatically detect the title of the page.
 - If the page exists inside of this documentation, but you want to customize the link text,
   include the path to the page followed by a comma, and then the custom link text.
   The path and custom text must be in that order and separated by a comma and a space.
-- If the page exists outside of this documentation, include the full URL and a title for the link.
+- If the page exists outside this documentation, include the full URL and a title for the link.
   The link and title must be in that order and separated by a comma and a space.
 
 ```yaml

@@ -1,9 +1,9 @@
 {
-  "private": true,
-  "name": "docs-v2",
-  "version": "1.0.0",
-  "description": "InfluxDB documentation",
-  "license": "MIT",
+    "private": true,
+    "name": "docs-v2",
+    "version": "1.0.0",
+    "description": "InfluxDB documentation",
+    "license": "MIT",
     "scripts": {
         "lint": "npx eslint .",
         "lint:md": "npx remark **/*.md",
@@ -38,6 +38,7 @@
         "remark-directive": "^1.0.1",
         "remark-frontmatter": "^3.0.0",
         "remark-lint": "^8.0.0",
+        "remark-lint-write-good": "^1.2.0",
         "remark-parse": "^9.0.0",
         "remark-preset-lint-consistent": "^4.0.0",
         "remark-preset-lint-markdown-style-guide": "^4.0.0",

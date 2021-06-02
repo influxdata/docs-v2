@@ -42,7 +42,8 @@
               "preset-lint-recommended",
               "preset-lint-markdown-style-guide",
               ["lint-no-undefined-references", false],
-              ["frontmatter", ["yaml", "toml"]]
+              ["frontmatter", ["yaml", "toml"]],
+              "remark-lint-write-good"
             ]
           }
         ],
