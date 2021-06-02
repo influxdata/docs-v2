@@ -1,7 +1,7 @@
 ---
 title: Get started with InfluxDB
 description: >
-Start collecting, processing, and visualizing data in InfluxDB OSS.
+  Start collecting, processing, and visualizing data in InfluxDB OSS.
 menu:
   influxdb_2_0:
     name: Get started
