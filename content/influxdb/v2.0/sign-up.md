@@ -628,3 +628,5 @@ to provide the required information.
 {{% /tab-content %}}
 <!------------------------------- END UI Setup -------------------------------->
 {{< /tabs-wrapper >}}
+
+After you’ve installed InfluxDB, you’re ready to [get started working with your data in InfluxDB](/influxdb/v2.0/get-started/).
