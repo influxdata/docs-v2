@@ -2249,8 +2249,8 @@ storage-wal-fsync-delay = "0s"
 ### store
 Specifies the data store for REST resources.
 
-**Options:** `bolt`, `memory`  
-**Default:** `bolt`  
+**Options:** `disk`, `memory`  
+**Default:** `disk`  
 
 {{% note %}}
 `memory` is meant for transient environments, such as testing environments, where
