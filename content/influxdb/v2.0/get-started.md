@@ -13,7 +13,7 @@ aliases:
 
 After you've [installed InfluxDB OSS](/influxdb/v2.0/install/), you're ready to get started. Explore the following ways to work with your data:
 
-- [Collect and write data](/influxdb/v2.0/get-started/#collect-and-write-data)
+- [Collect and write data](#collect-and-write-data)
 - [Query data](#query-data)
 - [Process data](#process-data)
 - [Visualize data](#visualize-data)
