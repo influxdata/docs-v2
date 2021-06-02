@@ -14,6 +14,12 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## May 2021
+
+- Added Usage Dashboard template to show Cloud usage data (roll content into docs) https://www.influxdata.com/influxdb-templates/influxdb-cloud-usage-dashboard/.
+
+- Add support for [using annotations](https://docs.influxdata.com/influxdb/cloud/visualize-data/annotations/) in your dashboards.
+
 ## April 2021
 
 - Add new [GCP Europe West (Belgium) region](/influxdb/cloud/reference/regions/#google-cloud-platform-gcp).
