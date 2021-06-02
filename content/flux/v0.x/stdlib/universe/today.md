@@ -5,7 +5,7 @@ description: >
 menu:
   flux_0_x_ref:
     name: today
-    parent: built-in-misc
+    parent: universe
 weight: 401
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/

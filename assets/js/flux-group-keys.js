@@ -29,11 +29,21 @@ let groupKey = ["_measurement", "loc", "sensorID", "_field"]
 
 // Build a table group (group key and table) using an array of objects
 function buildTable(inputData) {
+
   // Build the group key string
-  var groupKeyString = "Group key = [" + (groupKey.map(column => column + ": " + (inputData[0])[column])).join(", ") + "]";
+  function wrapString(column, value) {
+    var stringColumns = ["_measurement", "loc", "sensorID", "_field"]
+    if (stringColumns.includes(column)) {
+      return '"' + value + '"'
+    } else {
+      return value
+    }
+  }
+  var groupKeyString = "Group key = [" + (groupKey.map(column => column + ": " + wrapString(column, (inputData[0])[column]))  ).join(", ") + "]";
   var groupKeyLabel = document.createElement("p");
   groupKeyLabel.className = "table-group-key"
   groupKeyLabel.innerHTML = groupKeyString
+
 
   // Extract column headers
   var columns = [];
@@ -130,10 +140,17 @@ function toggleCheckbox(element) {
   element.checked = !element.checked;
 }
 
+// Build example group function
+function buildGroupExample() {
+  var columnCollection = getChecked().map(i => '<span class=\"s2\">"' + i + '"</span>').join(", ")
+  $("pre#group-by-example")[0].innerHTML = "data\n  <span class='nx'>|></span> group(columns<span class='nx'>:</span> [" + columnCollection + "])";
+}
+
 $(".column-list label").click(function () {
   toggleCheckbox($(this))
   groupKey = getChecked();
   groupData();
+  buildGroupExample();
 });
 
 // Group and render tables on load

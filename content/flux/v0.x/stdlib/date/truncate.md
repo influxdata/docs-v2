@@ -21,7 +21,7 @@ The `date.truncate()` function truncates a time to a specified unit.
 import "date"
 
 date.truncate(
-  t: 2019-07-17T12:05:21.012Z
+  t: 2019-07-17T12:05:21.012Z,
   unit: 1s
 )
 
