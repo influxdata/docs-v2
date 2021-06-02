@@ -11,7 +11,13 @@ aliases:
   - /influxdb/v2.0/introduction/get-started/
 ---
 
-After you've [signed up for InfluxDB OSS](/influxdb/v2.0/sign-up/), you're ready to start writing, querying, and visualizing data.
+After you've [installed InfluxDB OSS](/influxdb/v2.0/install/), you're ready to get started. Explore the following ways to work with your data:
+
+- [Collect and write data](/influxdb/v2.0/get-started/#collect-and-write-data)
+- [Query data](#query-data)
+- [Process data](#process-data)
+- [Visualize data](#visualize-data)
+- [Monitor and alert](#monitor-and-alert)
 
 ### Collect and write data
 
