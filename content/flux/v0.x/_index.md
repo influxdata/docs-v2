@@ -9,9 +9,11 @@ menu:
 weight: 1
 ---
 
-Flux is a open source functional data scripting language designed for querying, analyzing, and acting on data.
+Flux is an open source functional data scripting language designed for querying, analyzing, and acting on data.
 It supports multiple data source types including time series databases such as InfluxDB
 and Prometheus as well as relational SQL databases such as MySQL and PostgreSQL.
 
 Flux unifies code for querying, processing, writing, and acting on data into a single syntax.
 The language is designed to be usable, readable, flexible, composable, testable, contributable, and shareable.
+
+<a href="/flux/v0.x/get-started/" class="btn">Get started with Flux</a>
