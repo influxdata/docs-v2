@@ -26,7 +26,6 @@
 - [\--secret-store](/influxdb/v2.0/reference/config-options/#secret-store)
 - [\--session-length](/influxdb/v2.0/reference/config-options/#session-length)
 - [\--session-renew-disabled](/influxdb/v2.0/reference/config-options/#session-renew-disabled)
-- [\--sqlite-path](/influxdb/v2.0/reference/config-options/#sqlite-path)
 - [\--storage-cache-max-memory-size](/influxdb/v2.0/reference/config-options/#storage-cache-max-memory-size)
 - [\--storage-cache-snapshot-memory-size](/influxdb/v2.0/reference/config-options/#storage-cache-snapshot-memory-size)
 - [\--storage-cache-snapshot-write-cold-duration](/influxdb/v2.0/reference/config-options/#storage-cache-snapshot-write-cold-duration)
