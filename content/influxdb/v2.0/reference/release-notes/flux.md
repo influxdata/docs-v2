@@ -8,10 +8,21 @@ menu:
     name: Flux
 ---
 
+## v0.117.1 [2021-06-01]
+
+### Bug fixes
+- Update `group_no_agg_table` acceptance test to run in a consistent order.
+- Remove `xcc.sh` release dependency.
+- Fix `staticcheck` linter failures.
+- Replace erroneous line deletions.
+
+---
+
 ## v0.117.0 [2021-05-24]
 
 ### Features
-- `to()` function writes to a remote InfluxDB instance.
+- [`to()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) function
+  writes to a remote InfluxDB instance.
 
 ### Bug fixes
 - Fix unexpected behavior caused by going over the Go/Rust boundary multiple times using JSON serialization.
