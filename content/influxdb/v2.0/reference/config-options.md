@@ -120,7 +120,6 @@ To configure InfluxDB, use the following configuration options when starting the
 - [secret-store](#secret-store)
 - [session-length](#session-length)
 - [session-renew-disabled](#session-renew-disabled)
-- [sqlite-path](#sqlite-path)
 - [storage-cache-max-memory-size](#storage-cache-max-memory-size)
 - [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
 - [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
@@ -1471,6 +1470,7 @@ session-renew-disabled = true
 ---
 
 
+<!--
 ### sqlite-path
 
 Path to the SQLite database file.
@@ -1519,6 +1519,7 @@ sqlite_path = "/users/user/.influxdbv2/influxd.sqlite"
 {{< /code-tabs-wrapper >}}
 
 ---
+-->
 
 ### storage-cache-max-memory-size
 Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
