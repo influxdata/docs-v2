@@ -147,7 +147,7 @@ data
 
 // Recommended
 data
-  |> set(key: "foo", as: "bar" }))
+  |> set(key: "foo", value: "bar")
 ```
 
 #### Dynamically set a column value using existing row data
