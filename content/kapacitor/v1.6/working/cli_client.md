@@ -3,7 +3,7 @@ title: Kapacitor command line client
 description: >
   The 'kapacitor' command line utility is used to manage Kapacitor servers and processes, providing access to server statistics as well as other management tasks.
 menu:
-  kapacitor_1_5:
+  kapacitor_1_6:
     name: Kapacitor CLI
     weight: 12
     parent: work-w-kapacitor
@@ -26,7 +26,7 @@ line interface (CLI) leverages the HTTP interface and other resources, to provid
 access to many Kapacitor features.
 
 A general introduction to the `kapacitor` client is presented in the
-[Getting started with Kapacitor](/kapacitor/v1.5/introduction/getting-started/).
+[Getting started with Kapacitor](/kapacitor/v1.6/introduction/getting-started/).
 
 When executed the client can take two options and one command followed by
 arguments applicable to that command.
@@ -52,11 +52,13 @@ The `-url` option supplies an HTTP url string (`http(s)://host:port`) to the Kap
 When not set on the command line the value of the environment variable `KAPACITOR_URL` is used.
 This can be used to run `kapacitor` commands on a remote Kapacitor server.
 
-> #### Include authentication credentials in the Kapacitor URL
-> If authentication is enabled on InfluxDB and Kapacitor, include your InfluxDB
-> username and password as query parameters, `u` and `p` respectively, in the Kapacitor URL.
-> For both convenience and security, InfluxData recommends storing these credentials as
-> part of the Kapacitor URL in the `KAPACITOR_URL` environment variable.
+{{% note %}}
+#### Include authentication credentials in the Kapacitor URL
+If authentication is enabled on InfluxDB and Kapacitor, include your InfluxDB
+username and password as query parameters, `u` and `p` respectively, in the Kapacitor URL.
+For both convenience and security, InfluxData recommends storing these credentials as
+part of the Kapacitor URL in the `KAPACITOR_URL` environment variable.
+{{% /note %}}
 
 ```sh
 export KAPACITOR_URL=https://192.168.67.88:9092?u=username&p=password
@@ -118,9 +120,11 @@ kapacitor backup [PATH_TO_BACKUP_FILE]
 kapacitor backup ~/bak/kapacitor-20180101.db
 ```
 
-> This command will succeed silently. No status message is returned to the console.
-> Errors such as insufficient permissions, or non-existent directories will be reported.
-> To verify the results, check the file system.
+{{% note %}}
+This command will succeed silently. No status message is returned to the console.
+Errors such as insufficient permissions, or non-existent directories will be reported.
+To verify the results, check the file system.
+{{% /note %}}
 
 ### `stats`
 The `stats` command displays statistics about the Kapacitor server.
@@ -134,7 +138,6 @@ kapacitor stats <general|ingress>
 #### `stats general`
 Use `kapacitor stats general` to view values such as the server ID or hostname
 and counts such as the number of tasks and subscriptions used by Kapacitor.
-
 
 ```bash
 $ kapacitor stats general
@@ -189,7 +192,6 @@ telegraf   autogen          system                   15840
 The `vars` command displays a wide range of variables associated with the Kapacitor server.
 Results are output in JSON format.
 
-
 ```bash
 $ kapacitor vars
 {"cluster_id": "39545771-7b64-4692-ab8f-1796c07f3314",
@@ -200,11 +202,14 @@ $ kapacitor vars
 # Output example has been truncated
 ```
 
-> To make the output more readable, pipe the command into a JSON formatter.
-> ```bash
+{{% note %}}
+To make the output more readable, pipe the command into a JSON formatter.
+
+```bash
 # Example using a Python JSON formatter
 kapacitor vars | python -m json.tool
 ```
+{{% /note %}}
 
 ### `push`
 _The `push` command is reserved for a planned feature which will allow tasks to
@@ -214,7 +219,7 @@ be pushed from one Kapacitor server to another._
 Services are functional modules of the Kapacitor server that handle
 communications with third-party applications, server configuration, and the
 discovery and scraping of data. _For more information about services see the
-[Configuration](/kapacitor/v1.5/administration/configuration/) documentation._
+[Configuration](/kapacitor/v1.6/administration/configuration/) documentation._
 
 ### `list service-tests`
 The `list service-tests` lists all service tests currently available on the server.
@@ -230,8 +235,10 @@ kapacitor list service-tests
 `PATTERN` can be a grep-like pattern. For example, to run tests of all services
 beginning with the letter 'a' use the string 'a*'.
 
-> Depending on which terminal you're using, you may need to pass patterns as strings
-> by wrapping them in quotes. For example: `"a*"`.
+{{% note %}}
+Depending on which terminal you're using, you may need to pass patterns as strings
+by wrapping them in quotes. For example: `"a*"`.
+{{% /note %}}
 
 _**Example list services-test output**_
 ```
@@ -277,8 +284,10 @@ kapacitor service-tests [ <SERVICE_NAME> | <PATTERN> ]
 `PATTERN` can be a grep-like pattern. For example, to run tests of all services
 beginning with the letter 'a' use the string 'a*'.
 
-> Depending on which terminal you're using, you may need to pass patterns as strings
-> by wrapping them in quotes. For example: `"a*"`.
+{{% note %}}
+Depending on which terminal you're using, you may need to pass patterns as strings
+by wrapping them in quotes. For example: `"a*"`.
+{{% /note %}}
 
 _**Example of running service tests**_
 ```bash
@@ -289,16 +298,19 @@ talk                false     service is not enabled
 smtp                false     service is not enabled
 ```
 
-> By combining the `list service-tests` and `service-tests` commands, it is possible
+{{% note %}}
+By combining the `list service-tests` and `service-tests` commands, it is possible
 on a Linux system to test all services with the command:
->```bash
+
+```bash
 kapacitor list service-tests | xargs kapacitor service-tests
 ```
+{{% /note %}}
 
 ## Logging
 
 Kapacitor records a wealth of information about itself, its services and its tasks.
-Information about configuring logging is available in the [Configuration](/kapacitor/v1.5/administration/configuration/#logging)
+Information about configuring logging is available in the [Configuration](/kapacitor/v1.6/administration/configuration/#logging)
 document.
 
 ### `logs`
@@ -380,7 +392,9 @@ The tailed stream should become active again.
 ### `watch`
 The `watch` command follows logs associated with a **task**.
 
-> This is different from the `logs` command, which allows tracking logs associated with a service.
+{{% note %}}
+This is different from the `logs` command, which allows tracking logs associated with a service.
+{{% /note %}}
 
 ```bash
 # Syntax
@@ -435,8 +449,10 @@ A `-recording-id` value is optional. When not provided will be automatically gen
 The optional boolean argument, `-no-wait`, will spawn the replay into a separate
 process and exit leaving it to run in the background.
 
-> his command in combination with the `stream` option will run until the time
-> duration has expired. It returns the recording ID in the console.
+{{% note %}}
+This command in combination with the `stream` option will run until the time
+duration has expired. It returns the recording ID in the console.
+{{% /note %}}
 
 ```bash
 # Syntax
@@ -620,9 +636,9 @@ other services can subscribe in order to receive those messages.
 Topic handlers bind topics to services, allowing messages to be forwarded by various means.
 
 Working with topics and topic handlers is introduced in the
-[Using alert topics](/kapacitor/v1.5/working/using_alert_topics/) documentation.
+[Using alert topics](/kapacitor/v1.6/working/using_alert_topics/) documentation.
 
-Topics are created through the `topic()` method of the [AlertNode](/kapacitor/v1.5/nodes/alert_node) in TICKscripts.
+Topics are created through the `topic()` method of the [AlertNode](/kapacitor/v1.6/nodes/alert_node) in TICKscripts.
 
 ### `define-topic-handler`
 The `define-topic-handler` command defines or redefines a topic handler based on
@@ -731,7 +747,9 @@ kapacitor delete topic-handlers [TOPIC_ID] [HANDLER_ID]
 kapacitor delete topic-handlers cpu slack
 ```
 
-> The values for `TOPIC_ID` and `HANDLER_ID` can be determined using the `list` command.
+{{% note %}}
+The values for `TOPIC_ID` and `HANDLER_ID` can be determined using the `list` command.
+{{% /note %}}
 
 This command returns no status or additional messages.
 It fails or succeeds silently.
@@ -740,11 +758,11 @@ To verify the results, use the `list topics` command.
 ## Tasks and task templates
 
 Tasks and task definitions comprise the core Kapacitor functionality.
-Tasks are introduced in the [Getting Started](/kapacitor/v1.5/introduction/getting-started/) guide
-and are explored in detail along side the [TICKscript](/kapacitor/v1.5/tick/).
+Tasks are introduced in the [Getting Started](/kapacitor/v1.6/introduction/getting-started/) guide
+and are explored in detail along side the [TICKscript](/kapacitor/v1.6/tick/).
 
 Task templates make it easy to reuse generic task structures to create a suite of similar tasks.
-They are introduced in the [Template Tasks](/kapacitor/v1.5/working/template_tasks/) document.
+They are introduced in the [Template Tasks](/kapacitor/v1.6/working/template_tasks/) document.
 
 ### `define`
 The `define` command is used to create a new task from a TICKscript.
@@ -884,8 +902,10 @@ kapacitor reload cpu_alert
 This command returns no status or additional messages.
 To verify the result use the `list tasks` command.
 
-> If troubleshooting and making changes to a task, before reloading, redefine the
-> using the [`define`](#define) command with the updated TICKscript, template or template file.
+{{% note %}}
+If troubleshooting and making changes to a task, before reloading, redefine the
+using the [`define`](#define) command with the updated TICKscript, template or template file.
+{{% /note %}}
 
 ### `list tasks`
 The `list tasks` command displays all tasks currently stored by Kapacitor.

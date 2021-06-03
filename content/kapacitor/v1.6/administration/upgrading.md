@@ -1,10 +1,10 @@
 ---
-title: Upgrade to Kapacitor v1.5
+title: Upgrade to Kapacitor v1.6
 description: Upgrade to the latest version of Kapacitor.
 aliases:
-    - kapacitor/v1.5/introduction/upgrading/
+    - kapacitor/v1.6/introduction/upgrading/
 menu:
-  kapacitor_1_5:
+  kapacitor_1_6:
     weight: 30
     parent: Administration
 ---
@@ -22,17 +22,17 @@ menu:
 
 How Kapacitor was installed will determine how Kapacitor should be upgraded.
 
-The application may have been installed directly using the package management mechanisms of the OS or it may have been installed by unpackging the `.zip` or `.tar.gz` distributions.  This document will cover upgrading Kapacitor from release 1.3.1 to release 1.5 on Linux(Ubuntu 16.04 and CentOS 7.3).  This document presents some specifics of upgrading using the `.deb` package; some similar specifics of upgrading using the `.rpm` package; and then more generally upgrading using the `.tar.gz` binary distribution.  The binary package upgrade should serve as an example offering hints as to how to upgrade using the binary distributions on other operating systems, for example on Windows using the `.zip` file.  On other operating systems the general steps presented here will be roughly the same.
+The application may have been installed directly using the package management mechanisms of the OS or it may have been installed by unpackging the `.zip` or `.tar.gz` distributions.  This document will cover upgrading Kapacitor from release 1.3.1 to release 1.6 on Linux(Ubuntu 16.04 and CentOS 7.3).  This document presents some specifics of upgrading using the `.deb` package; some similar specifics of upgrading using the `.rpm` package; and then more generally upgrading using the `.tar.gz` binary distribution.  The binary package upgrade should serve as an example offering hints as to how to upgrade using the binary distributions on other operating systems, for example on Windows using the `.zip` file.  On other operating systems the general steps presented here will be roughly the same.
 
 Before proceeding with the Kapacitor upgrade please ensure that InfluxDB and Telegraf (if used) have been upgraded to a release compatible with the latest release of Kapacitor.  In this example we will use:
 
    * InfluxDB 1.5.2
    * Telegraf 1.6
-   * Kapacitor 1.5
+   * Kapacitor 1.6
 
 For instructions on upgrading InfluxDB, please see the [InfluxDB upgrade](/{{< latest "influxdb" "v1" >}}/administration/upgrading/) documentation.
 
-For information about what is new in the latest Kapacitor release, view the [Changelog](/kapacitor/v1.5/about_the_project/releasenotes-changelog/).
+For information about what is new in the latest Kapacitor release, view the [Changelog](/kapacitor/v1.6/about_the_project/releasenotes-changelog/).
 
 In general the steps for upgrading Kapacitor are as follows:
 
@@ -469,6 +469,6 @@ cpu_alert_batch  batch     disabled  false     ["telegraf"."autogen"]
 cpu_alert_stream stream    enabled   true      ["telegraf"."autogen"]
 ```
 
-Testing recording existing tasks and replaying the results is also recommended for checking the status of the newly upgraded Kapacitor service.  Which tasks to record will depend on the specifics of the installation.  Please see the [Kapacitor API documentation](/kapacitor/v1.5/working/api#recordings) for more details.
+Testing recording existing tasks and replaying the results is also recommended for checking the status of the newly upgraded Kapacitor service.  Which tasks to record will depend on the specifics of the installation.  Please see the [Kapacitor API documentation](/kapacitor/v1.6/working/api#recordings) for more details.
 
 If these checks look correct, then the upgrade can be considered complete.
