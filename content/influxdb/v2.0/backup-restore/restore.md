@@ -52,26 +52,25 @@ To restore all time series data from a backup directory, provide the following:
 - backup directory path
 
 ```sh
-influx restore \
-  --input /backups/2020-01-20_12-00/
+influx restore /backups/2020-01-20_12-00/
 ```
 
 ### Restore data from a specific bucket
 To restore data from a specific backup bucket, provide the following:
 
-- backup directory path
 - bucket name or ID
+- backup directory path
 
 ```sh
 influx restore \
-  --input /backups/2020-01-20_12-00/ \
-  --bucket example-bucket
+  --bucket example-bucket \
+  /backups/2020-01-20_12-00/
 
 # OR
 
 influx restore \
-  --input /backups/2020-01-20_12-00/ \
-  --bucket-id 000000000000
+  --bucket-id 000000000000 \
+  /backups/2020-01-20_12-00/
 ```
 
 If a bucket with the same name as the backed up bucket already exists in InfluxDB,
@@ -80,9 +79,9 @@ restore data into it.
 
 ```sh
 influx restore \
-  --input /backups/2020-01-20_12-00/ \
   --bucket example-bucket \
-  --new-bucket new-example-bucket
+  --new-bucket new-example-bucket \
+  /backups/2020-01-20_12-00/
 ```
 
 ### Restore and replace all InfluxDB data
@@ -94,8 +93,8 @@ tokens, users, dashboards, etc., include the following:
 
 ```sh
 influx restore \
-  --input /backups/2020-01-20_12-00/ \
-  --full
+  --full \
+  /backups/2020-01-20_12-00/
 ```
 
 {{% note %}}
@@ -113,8 +112,8 @@ If using a backup to populate a new InfluxDB server:
 
     ```sh
     influx restore \
-      --input /backups/2020-01-20_12-00/ \
-      --full
+      --full \
+      /backups/2020-01-20_12-00/
     ```
 
 If you do not provide the admin token from your source InfluxDB instance as the
