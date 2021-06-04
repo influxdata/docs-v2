@@ -8,13 +8,15 @@ menu:
 weight: 101
 ---
 
-## v2.0.7 [2021-TK]
+## v2.0.7 [2021-06-04]
 
 ### Features
 
-- Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01)
-- Optimize [`table.fill()`](https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/) execution within Flux aggregate windows.
+- Optimize [`table.fill()`](influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)
+  execution within Flux aggregate windows.
+- Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01).
 - Upgrade UI to v2.0.7.
+- Upgrade `flux-lsp-browser` to v0.5.47.
 
 ### Bug Fixes
 
