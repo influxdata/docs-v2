@@ -10,35 +10,25 @@ weight: 101
 
 ## v2.0.7 [2021-TK]
 
-### SQLite Metadata Store
-
-This release adds an embedded SQLite database
-for storing metadata required by the latest UI features like notebooks and annotations.
-
 ### Features
-- Add Geo graph type to be able to store in Dashboard cells. <!-- https://github.com/influxdata/influxdb/pull/19811:  -->
-- Add the properties of a static legend for line graphs and band plots. <!-- https://github.com/influxdata/influxdb/pull/21218:  -->
-- Remove feature flags for permanent UI features: <!-- https://github.com/influxdata/influxdb/pull/21531:  -->
-  `axisTicksGenerator`, `legendOrientation`, `mosaicGraphType`, and `bandPlotType`.
-- Allow hiding the tooltip independently of the static legend. <!-- https://github.com/influxdata/influxdb/pull/21547:  -->
-- Support pagination when listing users via the API. <!-- https://github.com/influxdata/influxdb/pull/21367:  -->
-- Add `influxd` configuration flag [`--sqlite-path`](/influxdb/v2.0/reference/config-options/#sqlite-path).
-  for specifying a user-defined path to the SQLite database file. <!-- https://github.com/influxdata/influxdb/pull/21543:  -->
-- Update `influxd` configuration flag `--store` to work with string values `disk` or `memory`.
-  `memory` continues to store metadata in-memory for testing;
-  `disk` persists metadata to disk via bolt and SQLite. <!-- https://github.com/influxdata/influxdb/pull/21543:  -->
+
+- Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01)
+- Optimize [`table.fill()`](https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/) execution within Flux aggregate windows.
+- Upgrade UI to v2.0.7.
 
 ### Bug Fixes
-- Deprecate the `PostSetupUser` API. <!-- https://github.com/influxdata/influxdb/pull/21345: --> 
-- Disable `MergeFiltersRule` until it is more stable. <!-- https://github.com/influxdata/influxdb/pull/21356: --> 
-- Add limits to the `/api/v2/delete` endpoint for start and stop times with error messages. <!-- https://github.com/influxdata/influxdb/pull/21369: --> 
-- Add logging to NATS streaming server to help debug startup failures. <!-- https://github.com/influxdata/influxdb/pull/21375: --> 
-- Accept `--input` flag instead of a positional argument in `influx restore`. <!-- https://github.com/influxdata/influxdb/pull/21477: --> 
-- Print error instead of panicking when `influx restore` fails to find backup manifests. <!-- https://github.com/influxdata/influxdb/pull/21477: --> 
-- Set last modified time of empty shard directory to the directory's last modified time, instead of the Unix epoch. <!-- https://github.com/influxdata/influxdb/pull/21481: --> 
-- Replace telemetry file name with slug for `ttf`, `woff`, and `eot` files. <!-- https://github.com/influxdata/influxdb/pull/21522: --> 
-- Enable use of absolute path for `--upgrade-log` when running `influxd upgrade` on Windows. <!-- https://github.com/influxdata/influxdb/pull/21540: --> 
-- Make InfluxQL meta queries respect query timeouts. <!-- https://github.com/influxdata/influxdb/pull/21545: --> 
+
+- Fix query range calculation (off by one) over partially compacted data.
+- Deprecate the unsupported `PostSetupUser` API.
+- Add limits to the `/api/v2/delete` endpoint for start and stop times with error messages.
+- Add logging to NATS streaming server to help debug startup failures.
+- Accept `--input` instead of a positional argument in `influx restore`.
+- Print error instead of panicking when `influx restore` fails to find backup manifests.
+- Set last-modified time of empty shard directory to the directory's last-modified time, instead of the Unix epoch.
+- Remove deadlock in `influx org members list` when an organization has greater than 10 members.
+- Replace telemetry file name with slug for `ttf`, `woff`, and `eot` files.
+- Enable use of absolute path for `--upgrade-log` when running `influxd upgrade` on Windows.
+- Make InfluxQL meta queries respect query timeouts.
 
 ---
 
