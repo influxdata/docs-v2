@@ -13,7 +13,7 @@ weight: 101
 ### Features
 
 - Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01)
-- Optimize [table.fill()](https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/) execution within Flux aggregate windows.
+- Optimize [`table.fill()`](https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/) execution within Flux aggregate windows.
 - Upgrade UI to v2.0.7.
 
 ### Bug Fixes
