@@ -13,22 +13,22 @@ weight: 101
 ### Features
 
 - Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01)
-- Optimize [table.fill()] execution within Flux aggregate windows. <!-- https://github.com/influxdata/influxdb/pull/21519 -->
-- Upgrade UI to v2.0.7 <!-- https://github.com/influxdata/influxdb/pull/21564 -->
+- Optimize [table.fill()](https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/) execution within Flux aggregate windows.
+- Upgrade UI to v2.0.7.
 
 ### Bug Fixes
 
 - Fix query range calculation (off by one) over partially compacted data.
-- Deprecate the unsupported `PostSetupUser` API. <!-- https://github.com/influxdata/influxdb/pull/21350 -->
-- Add limits to the `/api/v2/delete` endpoint for start and stop times with error messages. <!-- https://github.com/influxdata/influxdb/pull/21376 -->
-- Add logging to NATS streaming server to help debug startup failures. <!-- https://github.com/influxdata/influxdb/pull/21379 -->
-- Accept `--input` instead of a positional argument in `influx restore`. <!-- https://github.com/influxdata/influxdb/pull/21479 -->
-- Print error instead of panicking when `influx restore` fails to find backup manifests. <!-- https://github.com/influxdata/influxdb/pull/21479 -->
-- Set last-modified time of empty shard directory to the directory's last-modified time, instead of the Unix epoch. <!-- https://github.com/influxdata/influxdb/pull/21485 -->
-- Remove deadlock in `influx org members list` when an organization has greater than 10 members. <!-- https://github.com/influxdata/influxdb/pull/21501 -->
-- Replace telemetry file name with slug for `ttf`, `woff`, and `eot` files. <!-- https://github.com/influxdata/influxdb/pull/21524 -->
-- Enable use of absolute path for `--upgrade-log` when running `influxd upgrade` on Windows. <!-- https://github.com/influxdata/influxdb/pull/21549 -->
-- Make InfluxQL meta queries respect query timeouts. <!-- https://github.com/influxdata/influxdb/pull/21548 -->
+- Deprecate the unsupported `PostSetupUser` API.
+- Add limits to the `/api/v2/delete` endpoint for start and stop times with error messages.
+- Add logging to NATS streaming server to help debug startup failures.
+- Accept `--input` instead of a positional argument in `influx restore`.
+- Print error instead of panicking when `influx restore` fails to find backup manifests.
+- Set last-modified time of empty shard directory to the directory's last-modified time, instead of the Unix epoch.
+- Remove deadlock in `influx org members list` when an organization has greater than 10 members.
+- Replace telemetry file name with slug for `ttf`, `woff`, and `eot` files.
+- Enable use of absolute path for `--upgrade-log` when running `influxd upgrade` on Windows.
+- Make InfluxQL meta queries respect query timeouts.
 
 ---
 
