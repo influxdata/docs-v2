@@ -12,13 +12,13 @@ weight: 101
 
 ### Features
 
-- Upgrade Flux to v0.117.0 <!-- https://github.com/influxdata/influxdb/pull/21519 -->
+- Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01)
 - Optimize [table.fill()] execution within Flux aggregate windows. <!-- https://github.com/influxdata/influxdb/pull/21519 -->
 - Upgrade UI to v2.0.7 <!-- https://github.com/influxdata/influxdb/pull/21564 -->
 
 ### Bug Fixes
 
-- Fix off-by-one error in query range calculation over partially compacted data. <!-- https://github.com/influxdata/influxdb/pull/21349 -->
+- Fix query range calculation (off by one) over partially compacted data.
 - Deprecate the unsupported `PostSetupUser` API. <!-- https://github.com/influxdata/influxdb/pull/21350 -->
 - Add limits to the `/api/v2/delete` endpoint for start and stop times with error messages. <!-- https://github.com/influxdata/influxdb/pull/21376 -->
 - Add logging to NATS streaming server to help debug startup failures. <!-- https://github.com/influxdata/influxdb/pull/21379 -->
