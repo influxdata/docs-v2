@@ -20,7 +20,7 @@ another OSS or Enterprise TICK stack. They cover different potential monitoring 
 and visualizing the monitoring data in a way that makes it easy to recognize, alert on,
 and address anomalies as they happen.
 
-[InfluxDB Cloud](/influxdb/cloud/) can be leveraged to monitoring your setup and there are pre-built InfluxDB templates 
+[InfluxDB Cloud](/influxdb/cloud/) can be leveraged to monitoring your setup and there are pre-built [InfluxDB templates](/influxdb/cloud/influxdb-templates/) 
 which have been created that include Telegraf configurations and Dashboards.  Start using InfluxDB Cloud at no cost with 
 the Free Plan. Use it as much and as long as you like within the plan’s rate-limits. Limits are designed to let you monitor 5-10 sensors, 
 stacks or servers comfortably. So monitoring a single InfluxDB OSS instance or even a modest InfluxDB Enterprise cluster should easily fit 
