@@ -103,9 +103,10 @@ function updateV1Compat {
   mkdir -p ${ossVersion} && cp cloud/swaggerV1Compat.yml $_/swaggerV1Compat.yml
 }
 
-if [ -z ${verbose} ];
+if [ ! -z ${verbose} ];
 then
   showArgs
+  echo ""
 fi
 
 if [ "$context" = "cloud" ];
