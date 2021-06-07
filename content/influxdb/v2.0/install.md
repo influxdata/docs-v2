@@ -1,9 +1,7 @@
 ---
 title: Install InfluxDB
 description: Download, install, and set up InfluxDB OSS.
-menu:
-  influxdb_2_0:
-    name: Install
+menu: influxdb_2_0
 weight: 2
 influxdb/v2.0/tags: [install]
 ---
@@ -12,11 +10,11 @@ The InfluxDB 2.0 time series platform is purpose-built to collect, store,
 process and visualize metrics and events.
 Download, install, and set up InfluxDB OSS.
 
-The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
+<!-- The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization.
+- {{< cloud-name "short" >}} instances are currently limited to a single organization. -->
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

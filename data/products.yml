@@ -7,7 +7,7 @@ influxdb:
   latest: v2.0
   latest_override: v2.0
   latest_patches: 
-    "2.0": 6
+    "2.0": 7
 
 influxdb_cloud:
   name: InfluxDB Cloud
