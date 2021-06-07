@@ -58,7 +58,9 @@ paths:
   /:
     get:
       operationId: GetRoutes
-      summary: Map of all top level routes available
+      summary: List all top level routes
+      tags:
+        - Routes
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -73,6 +75,7 @@ paths:
       operationId: GetDocumentsTemplates
       tags:
         - Templates
+      summary: List all templates
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -130,6 +133,7 @@ paths:
       operationId: GetDocumentsTemplatesID
       tags:
         - Templates
+      summary: Retrieve a template
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -155,6 +159,7 @@ paths:
       operationId: PutDocumentsTemplatesID
       tags:
         - Templates
+      summary: Update a template
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -518,6 +523,9 @@ paths:
   /telegraf/plugins:
     get:
       operationId: GetTelegrafPlugins
+      tags:
+        - Telegraf Plugins
+      summary: List all Telegraf plugins
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -543,6 +551,7 @@ paths:
       operationId: GetTelegrafs
       tags:
         - Telegrafs
+      summary: List all Telegraf configurations
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -552,7 +561,7 @@ paths:
             type: string
       responses:
         '200':
-          description: A list of Telegraf configs
+          description: A list of Telegraf configurations
           content:
             application/json:
               schema:
@@ -567,11 +576,11 @@ paths:
       operationId: PostTelegrafs
       tags:
         - Telegrafs
-      summary: Create a Telegraf config
+      summary: Create a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       requestBody:
-        description: Telegraf config to create
+        description: Telegraf configuration to create
         required: true
         content:
           application/json:
@@ -579,7 +588,7 @@ paths:
               $ref: '#/components/schemas/TelegrafRequest'
       responses:
         '201':
-          description: Telegraf config created
+          description: Telegraf configuration created
           content:
             application/json:
               schema:
@@ -595,7 +604,7 @@ paths:
       operationId: GetTelegrafsID
       tags:
         - Telegrafs
-      summary: Retrieve a Telegraf config
+      summary: Retrieve a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -603,7 +612,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The Telegraf config ID.
+          description: The Telegraf configuration ID.
         - in: header
           name: Accept
           required: false
@@ -616,7 +625,7 @@ paths:
               - application/octet-stream
       responses:
         '200':
-          description: Telegraf config details
+          description: Telegraf configuration details
           content:
             application/toml:
               example: |-
@@ -643,7 +652,7 @@ paths:
       operationId: PutTelegrafsID
       tags:
         - Telegrafs
-      summary: Update a Telegraf config
+      summary: Update a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -653,7 +662,7 @@ paths:
           required: true
           description: The Telegraf config ID.
       requestBody:
-        description: Telegraf config update to apply
+        description: Telegraf configuration update to apply
         required: true
         content:
           application/json:
@@ -661,7 +670,7 @@ paths:
               $ref: '#/components/schemas/TelegrafRequest'
       responses:
         '200':
-          description: An updated Telegraf config
+          description: An updated Telegraf configurations
           content:
             application/json:
               schema:
@@ -676,7 +685,7 @@ paths:
       operationId: DeleteTelegrafsID
       tags:
         - Telegrafs
-      summary: Delete a Telegraf config
+      summary: Delete a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -684,7 +693,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The Telegraf config ID.
+          description: The Telegraf configuration ID.
       responses:
         '204':
           description: Delete has been accepted
@@ -883,7 +892,7 @@ paths:
       operationId: GetTelegrafsIDOwners
       tags:
         - Telegrafs
-      summary: List all owners of a Telegraf config
+      summary: List all owners of a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -891,10 +900,10 @@ paths:
           schema:
             type: string
           required: true
-          description: The Telegraf config ID.
+          description: The Telegraf configuration ID.
       responses:
         '200':
-          description: A list of Telegraf config owners
+          description: Returns Telegraf configuration owners as a ResourceOwners list
           content:
             application/json:
               schema:
@@ -909,7 +918,7 @@ paths:
       operationId: PostTelegrafsIDOwners
       tags:
         - Telegrafs
-      summary: Add an owner to a Telegraf config
+      summary: Add an owner to a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -917,7 +926,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The Telegraf config ID.
+          description: The Telegraf configuration ID.
       requestBody:
         description: User to add as owner
         required: true
@@ -927,7 +936,7 @@ paths:
               $ref: '#/components/schemas/AddResourceMemberRequestBody'
       responses:
         '201':
-          description: Telegraf config owner added
+          description: Telegraf configuration owner was added. Returns a ResourceOwner that references the User.
           content:
             application/json:
               schema:
@@ -1282,7 +1291,7 @@ paths:
       operationId: GetLabels
       tags:
         - Labels
-      summary: Get all labels
+      summary: List all labels
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -1292,7 +1301,7 @@ paths:
             type: string
       responses:
         '200':
-          description: All labels
+          description: A list of labels
           content:
             application/json:
               schema:
@@ -1308,7 +1317,7 @@ paths:
       operationId: GetLabelsID
       tags:
         - Labels
-      summary: Get a label
+      summary: Retrieve a label
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -1431,7 +1440,7 @@ paths:
       operationId: GetDashboards
       tags:
         - Dashboards
-      summary: Get all dashboards
+      summary: List all dashboards
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
@@ -1439,7 +1448,7 @@ paths:
         - $ref: '#/components/parameters/Descending'
         - in: query
           name: owner
-          description: The owner ID.
+          description: A user identifier. Returns only dashboards where this user has the `owner` role.
           schema:
             type: string
         - in: query
@@ -1453,19 +1462,19 @@ paths:
               - UpdatedAt
         - in: query
           name: id
-          description: 'List of dashboard IDs to return. If both `id` and `owner` are specified, only `id` is used.'
+          description: 'A list of dashboard identifiers. Returns only the listed dashboards. If both `id` and `owner` are specified, only `id` is used.'
           schema:
             type: array
             items:
               type: string
         - in: query
           name: orgID
-          description: The organization ID.
+          description: The identifier of the organization.
           schema:
             type: string
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
       responses:
@@ -1486,7 +1495,7 @@ paths:
       operationId: GetDashboardsID
       tags:
         - Dashboards
-      summary: Get a Dashboard
+      summary: Retrieve a Dashboard
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -1505,7 +1514,7 @@ paths:
           description: Includes the cell view properties in the response if set to `properties`
       responses:
         '200':
-          description: Get a single dashboard
+          description: Retrieve a single dashboard
           content:
             application/json:
               schema:
@@ -2131,6 +2140,7 @@ paths:
       description: Analyzes flux query and generates a query specification.
       tags:
         - Query
+      summary: Generate an Abstract Syntax Tree (AST) from a query
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
@@ -2147,7 +2157,7 @@ paths:
               $ref: '#/components/schemas/LanguageRequest'
       responses:
         '200':
-          description: Abstract syntax tree of flux query.
+          description: Abstract syntax tree of the flux query.
           content:
             application/json:
               schema:
@@ -2163,6 +2173,7 @@ paths:
       operationId: GetQuerySuggestions
       tags:
         - Query
+      summary: Retrieve query suggestions
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -2183,6 +2194,7 @@ paths:
       operationId: GetQuerySuggestionsName
       tags:
         - Query
+      summary: Retrieve query suggestions for a branching suggestion
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -2347,7 +2359,7 @@ paths:
         - $ref: '#/components/parameters/After'
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
         - in: query
@@ -3210,7 +3222,7 @@ paths:
       operationId: ListStacks
       tags:
         - InfluxDB Templates
-      summary: Grab a list of installed InfluxDB Templates
+      summary: List all installed InfluxDB templates
       parameters:
         - in: query
           name: orgID
@@ -3288,17 +3300,17 @@ paths:
       operationId: ReadStack
       tags:
         - InfluxDB Templates
-      summary: Grab a stack by its ID
+      summary: Retrieve a stack
       parameters:
         - in: path
           name: stack_id
           required: true
           schema:
             type: string
-          description: The stack id
+          description: Theidentifier of the stack.
       responses:
         '200':
-          description: Read an influx stack by ID
+          description: The InfluxDB stack
           content:
             application/json:
               schema:
@@ -3320,7 +3332,7 @@ paths:
           required: true
           schema:
             type: string
-          description: The stack id
+          description: Theidentifier of the stack.
       requestBody:
         description: Influx stack to update.
         required: true
@@ -3372,23 +3384,23 @@ paths:
       operationId: DeleteStack
       tags:
         - InfluxDB Templates
-      summary: Delete a stack and remove all its associated resources
+      summary: Delete a stack and associated resources
       parameters:
         - in: path
           name: stack_id
           required: true
           schema:
             type: string
-          description: The stack id
+          description: Theidentifier of the stack.
         - in: query
           name: orgID
           required: true
           schema:
             type: string
-          description: The organization id of the user
+          description: The identifier of the organization.
       responses:
         '204':
-          description: Stack and all its associated resources are deleted
+          description: The stack and its associated resources are deleted
         default:
           description: Unexpected error
           content:
@@ -4026,12 +4038,12 @@ paths:
       operationId: GetMe
       tags:
         - Users
-      summary: Return the current authenticated user
+      summary: Retrieve the currently authenticated user
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
         '200':
-          description: Currently authenticated user
+          description: The currently authenticated user.
           content:
             application/json:
               schema:
@@ -4283,7 +4295,7 @@ paths:
       operationId: GetChecks
       tags:
         - Checks
-      summary: Get all checks
+      summary: List all checks
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
@@ -4337,7 +4349,7 @@ paths:
       operationId: GetChecksID
       tags:
         - Checks
-      summary: Get a check
+      summary: Retrieve a check
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -4565,7 +4577,7 @@ paths:
       operationId: GetNotificationRules
       tags:
         - NotificationRules
-      summary: Get all notification rules
+      summary: List all notification rules
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
@@ -4631,7 +4643,7 @@ paths:
       operationId: GetChecksIDQuery
       tags:
         - Checks
-      summary: Get a check query
+      summary: Retrieve a check query
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -4670,7 +4682,7 @@ paths:
       operationId: GetNotificationRulesID
       tags:
         - NotificationRules
-      summary: Get a notification rule
+      summary: Retrieve a notification rule
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -4898,7 +4910,7 @@ paths:
       operationId: GetNotificationRulesIDQuery
       tags:
         - Rules
-      summary: Get a notification rule query
+      summary: Retrieve a notification rule query
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -4937,7 +4949,7 @@ paths:
       operationId: GetNotificationEndpoints
       tags:
         - NotificationEndpoints
-      summary: Get all notification endpoints
+      summary: List all notification endpoints
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
@@ -4991,7 +5003,7 @@ paths:
       operationId: GetNotificationEndpointsID
       tags:
         - NotificationEndpoints
-      summary: Get a notification endpoint
+      summary: Retrieve a notification endpoint
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -5570,12 +5582,12 @@ paths:
       operationId: GetVariables
       tags:
         - Variables
-      summary: Get all variables
+      summary: List all variables
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
         - in: query
@@ -5585,7 +5597,7 @@ paths:
             type: string
       responses:
         '200':
-          description: All variables for an organization
+          description: A list of variables for an organization
           content:
             application/json:
               schema:
@@ -5625,7 +5637,7 @@ paths:
       operationId: GetVariablesID
       tags:
         - Variables
-      summary: Get a variable
+      summary: Retrieve a variable
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -5758,17 +5770,17 @@ paths:
       operationId: GetSources
       tags:
         - Sources
-      summary: Get all sources
+      summary: List all sources
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
       responses:
         '200':
-          description: All sources
+          description: A list of sources
           content:
             application/json:
               schema:
@@ -5851,7 +5863,7 @@ paths:
       operationId: GetSourcesID
       tags:
         - Sources
-      summary: Get a source
+      summary: Retrieve a source
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -5929,7 +5941,7 @@ paths:
           description: The source ID.
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
       responses:
@@ -5955,8 +5967,8 @@ paths:
     get:
       operationId: GetScrapers
       tags:
-        - ScraperTargets
-      summary: Get all scraper targets
+        - Scraper Targets
+      summary: List all scraper targets
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -5992,7 +6004,7 @@ paths:
       operationId: PostScrapers
       summary: Create a scraper target
       tags:
-        - ScraperTargets
+        - Scraper Targets
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       requestBody:
@@ -6019,8 +6031,8 @@ paths:
     get:
       operationId: GetScrapersID
       tags:
-        - ScraperTargets
-      summary: Get a scraper target by ID
+        - Scraper Targets
+      summary: Retrieve a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -6028,10 +6040,10 @@ paths:
           required: true
           schema:
             type: string
-          description: The scraper target ID.
+          description: The identifier of the scraper target.
       responses:
         '200':
-          description: Scraper target updated
+          description: The scraper target
           content:
             application/json:
               schema:
@@ -6045,7 +6057,7 @@ paths:
     delete:
       operationId: DeleteScrapersID
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: Delete a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6054,7 +6066,7 @@ paths:
           required: true
           schema:
             type: string
-          description: The scraper target ID.
+          description: The identifier of the scraper target.
       responses:
         '204':
           description: Scraper target deleted
@@ -6068,7 +6080,7 @@ paths:
       operationId: PatchScrapersID
       summary: Update a scraper target
       tags:
-        - ScraperTargets
+        - Scraper Targets
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -6076,7 +6088,7 @@ paths:
           required: true
           schema:
             type: string
-          description: The scraper target ID.
+          description: The identifier of the scraper target.
       requestBody:
         description: Scraper target update to apply
         required: true
@@ -6101,7 +6113,7 @@ paths:
     get:
       operationId: GetScrapersIDLabels
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: List all labels for a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6113,7 +6125,7 @@ paths:
           description: The scraper target ID.
       responses:
         '200':
-          description: A list of all labels for a scraper target
+          description: A list of labels for a scraper target.
           content:
             application/json:
               schema:
@@ -6127,7 +6139,7 @@ paths:
     post:
       operationId: PostScrapersIDLabels
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: Add a label to a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6161,7 +6173,7 @@ paths:
     delete:
       operationId: DeleteScrapersIDLabelsID
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: Delete a label from a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6196,7 +6208,7 @@ paths:
     get:
       operationId: GetScrapersIDMembers
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: List all users with member privileges for a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6222,7 +6234,7 @@ paths:
     post:
       operationId: PostScrapersIDMembers
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: Add a member to a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6256,7 +6268,7 @@ paths:
     delete:
       operationId: DeleteScrapersIDMembersID
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: Remove a member from a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6285,7 +6297,7 @@ paths:
     get:
       operationId: GetScrapersIDOwners
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: List all owners of a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6311,7 +6323,7 @@ paths:
     post:
       operationId: PostScrapersIDOwners
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: Add an owner to a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6345,7 +6357,7 @@ paths:
     delete:
       operationId: DeleteScrapersIDOwnersID
       tags:
-        - ScraperTargets
+        - Scraper Targets
       summary: Remove an owner from a scraper target
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11845,7 +11857,7 @@ components:
               readOnly: true
             org:
               type: string
-              description: The organization name.
+              description: The name of the organization.
             bucket:
               type: string
               description: The bucket name.
