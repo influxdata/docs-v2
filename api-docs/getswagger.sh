@@ -25,7 +25,7 @@
 versionDirs=($(ls -d */))
 latestOSS=${versionDirs[${#versionDirs[@]}-1]}
 baseUrl="https://raw.githubusercontent.com/influxdata/openapi/master"
-ossVersion=""
+ossVersion=${latestOSS%/}
 verbose=""
 context=""
 
@@ -65,7 +65,7 @@ case "$subcommand" in
         baseUrl=$OPTARG
         ;;
       o)
-        ossVersion=${OPTARG-${latestOSS%/}}
+        ossVersion=$OPTARG
         ;;
       \?)
         echo "Invalid option: $OPTARG" 1>&2
@@ -94,7 +94,7 @@ function updateCloud {
 
 function updateOSS {
   echo "Updating OSS ${ossVersion} swagger..."
-  curl ${verbose} ${baseUrl}/contracts/oss.yml -s -o ${ossVersion}/swagger.yml
+  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrl}/contracts/oss.yml -s -o $_/swagger.yml
 }
 
 function updateV1Compat {
@@ -103,9 +103,10 @@ function updateV1Compat {
   mkdir -p ${ossVersion} && cp cloud/swaggerV1Compat.yml $_/swaggerV1Compat.yml
 }
 
-if [ -z ${verbose} ];
+if [ ! -z ${verbose} ];
 then
   showArgs
+  echo ""
 fi
 
 if [ "$context" = "cloud" ];
