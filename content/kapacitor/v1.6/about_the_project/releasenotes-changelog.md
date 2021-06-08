@@ -10,8 +10,8 @@ menu:
 
 ### Features
 
-- Support flux tasks in Kapacitor CLI. <!-- https://github.com/influxdata/kapacitor/pull/2559 -->
-- Run flux tasks with built-in flux engine <!-- https://github.com/influxdata/kapacitor/pull/2555 -->
+- Support Flux tasks in Kapacitor CLI. <!-- https://github.com/influxdata/kapacitor/pull/2559 -->
+- Run Flux tasks with built-in Flux engine. <!-- https://github.com/influxdata/kapacitor/pull/2555 -->
 - Add Zenoss alert event handler. <!-- https://github.com/influxdata/kapacitor/pull/2484 -->
 - Route kafka alerts to partitions by ID, and allow for configuring the hashing strategy. <!-- https://github.com/influxdata/kapacitor/pull/2493 -->
 - Pull in authorization code from Kapacitor Enterprise. <!-- https://github.com/influxdata/kapacitor/pull/2512 -->
