@@ -10,17 +10,17 @@ menu:
 
 ### Features
 
-- Add Zenoss alert event handler. <!-- https://github.com/influxdata/kapacitor/pull/#2484 -->
-- Route kafka alerts to partitions by ID, and allow for configuring the hashing strategy. <!-- https://github.com/influxdata/kapacitor/pull/#2493 -->
-- Pull in auth code from Kapacitor Enterprise. <!-- https://github.com/influxdata/kapacitor/pull/#2512 -->
-- Add a node tricklenode that converts batches to streams, the inverse of windownode. <!-- https://github.com/influxdata/kapacitor/pull/#2530 -->
-- flux tasks skeleton in Kapacitor <!-- https://github.com/influxdata/kapacitor/pull/#2544 -->
-- run flux tasks with built-in flux engine <!-- https://github.com/influxdata/kapacitor/pull/#2555 -->
-- kapacitor cli supports flux tasks <!-- https://github.com/influxdata/kapacitor/pull/#2559 -->
-- enable new-style slack apps <!-- https://github.com/influxdata/kapacitor/pull/#2560 -->
+- Support flux tasks in Kapacitor CLI. <!-- https://github.com/influxdata/kapacitor/pull/2559 -->
+- Run flux tasks with built-in flux engine <!-- https://github.com/influxdata/kapacitor/pull/2555 -->
+- Add Zenoss alert event handler. <!-- https://github.com/influxdata/kapacitor/pull/2484 -->
+- Route kafka alerts to partitions by ID, and allow for configuring the hashing strategy. <!-- https://github.com/influxdata/kapacitor/pull/2493 -->
+- Pull in authorization code from Kapacitor Enterprise. <!-- https://github.com/influxdata/kapacitor/pull/2512 -->
+- Add a node `tricklenode` that converts batches to streams (the inverse of `windownode`). <!-- https://github.com/influxdata/kapacitor/pull/2530 -->
+- Enable new-style Slack apps. <!-- https://github.com/influxdata/kapacitor/pull/2560 -->
+<!-- - flux tasks skeleton in Kapacitor <\!-- https://github.com/influxdata/kapacitor/pull/2544 -\-> -->
 
 ### Bugfixes
-- Fix a panic in the scraper handler when debug mode is enabled <!-- https://github.com/influxdata/kapacitor/pull/#2564 -->
+- Fix a panic in the scraper handler when debug mode is enabled. <!-- https://github.com/influxdata/kapacitor/pull/2564 -->
 
 ## v1.5.9 [2021-04-01]
 
