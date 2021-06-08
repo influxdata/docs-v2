@@ -33,6 +33,10 @@ If you follow the instructions below, you will have something that looks like th
 
 {{< img-hd src="/img/influxdb/2-0-monitor-oss-with-cloud.png" />}}
 
+## Before you begin
+describe the setup....  browser access, terminal access to the host where InfluxDB OSS is running... 
+
+
 ## Setting up InfluxDB OSS Monitoring
 By default, InfluxDB OSS has a /metrics endpoint available which exports Prometheus-style metrics. 
 If you have changed any of the default settings to disable this endpoint, you will need to re-enable them for this setup to work.
