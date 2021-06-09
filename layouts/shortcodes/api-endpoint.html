@@ -1,0 +1,6 @@
+{{ $method := .Get "method" | upper }}
+{{ $methodStyle := .Get "method" | lower }}
+{{ $endpoint := .Get "endpoint" }}
+<pre>
+<span class="api {{ $methodStyle }}">{{ $method }}</span> {{ $endpoint }}
+</pre>

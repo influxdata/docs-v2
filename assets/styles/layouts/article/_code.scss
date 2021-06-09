@@ -80,8 +80,11 @@ pre .api {
   font-weight: bold;
   font-size: .9rem;
 
-  &.get { background: $gr-rainforest; }
+  &.get { background: $gr-viridian; }
   &.post { background: $b-ocean; }
+  &.patch { background: $y-topaz; }
+  &.delete { background: $r-ruby; }
+  &.put {background: $br-pulsar; }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

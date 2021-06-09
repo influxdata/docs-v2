@@ -6,9 +6,24 @@ menu:
     parent: About the project
 ---
 
+## v1.6.0 [2021-TK]
+
+### Features
+
+- Add Kapacitor Flux task commands to the `kapacitor` CLI.
+- Add built-in Flux engine to support Flux tasks in Kapacitor.
+- Add Zenoss alert event handler. 
+- Route Kafka alerts to partitions by ID, and support hashing strategy configuration .
+- Add user-based authentnication
+- Add TrickleNode (`trickle`) that converts batches to streams (the inverse of `windownode`). 
+- Enable new-style Slack applications.
+
+### Bugfixes
+- Fix a panic in the scraper handler when debug mode is enabled. 
+
 ## v1.5.9 [2021-04-01]
 
-## Features
+### Features
 
 #### New event handler
 
@@ -53,7 +68,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ## v1.5.7 [2020-10-26]
 
-## Features
+### Features
 
 - Add the `.recoveryaction()` method to support overriding the OpsGenieV2 alert recovery action in a TICKscript, thanks @zabullet!
 - Add support for templating URLs in the [`httpPost` node](/kapacitor/v1.6/nodes/http_post_node/) and [`alert` node](/kapacitor/v1.6/nodes/alert_node/). To set up an template:
@@ -69,7 +84,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ## v1.5.6 [2020-07-17]
 
-## Features
+### Features
 
 - Add [Microsoft Teams event handler](/kapacitor/v1.6/event_handlers/microsoftteams/), thanks @mmindenhall!
 - Add [Discord event handler](/kapacitor/v1.6/event_handlers/discord/), thanks @mattnotmitt!
@@ -88,7 +103,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ## v1.5.5 [2020-04-20]
 
-## Breaking changes
+### Breaking changes
 
 - Update release checksums (used to verify release bits haven't been tampered with) from MD5 (Message Digest, 128-bit digest) to SHA-256 (Secure Hash Algorithm 2, 256-bit digest).
 
@@ -98,7 +113,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ## v1.5.4 [2020-01-16]
 
-## Features
+### Features
 
 - Add the ability to use templates when specifying MQTT (message queue telemetry transport) topic.
 - Upgrade to support Python 3.0 for user defined functions (UDFs).
