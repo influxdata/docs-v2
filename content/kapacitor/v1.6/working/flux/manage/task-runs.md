@@ -23,7 +23,7 @@ Each Flux task execution is considered a "run."
 <!----------------------------- BEGIN CLI content ----------------------------->
 {{% tab-content %}}
 
-Use the `kapacitor flux task run list` command and its subcommands to manage
+Use the `kapacitor flux task run list` command and its sub commands to manage
 Kapacitor Flux task runs.
 
 - [List Kapacitor Flux tasks runs](#list-kapacitor-flux-tasks-runs)

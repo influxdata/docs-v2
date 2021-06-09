@@ -9,17 +9,6 @@ menu:
     parent: work-w-kapacitor
 ---
 
-* [General options](#general-options)
-* [Core commands](#core-commands)
-* [Server management](#server-management)
-   * [Services](#services)
-   * [Logging](#logging)
-* [Data sampling](#data-sampling)
-* [Topics and topic handlers](#topics-and-topic-handlers)
-* [Tasks and task templates](#tasks-and-task-templates)
-
-## Overview
-
 Two key executables are packaged as a part of Kapacitor. The `kapacitord` daemon
 runs the Kapacitor server, including its HTTP interface. The `kapacitor` command
 line interface (CLI) leverages the HTTP interface and other resources, to provide
@@ -35,9 +24,17 @@ arguments applicable to that command.
 kapacitor [options] [command] [args]
 ```
 
-This document provides an overview of all the commands provided by the `kapacitor` CLI.
-These include general options, core commands, server management, data sampling,
-working with topics and topic handlers, and working with tasks and task templates.
+This document provides an overview of all the commands provided by the `kapacitor` CLI:
+
+- [General options](#general-options)
+- [Core commands](#core-commands)
+- [Server management](#server-management)
+   - [Services](#services)
+   - [Logging](#logging)
+- [Data sampling](#data-sampling)
+- [Topics and topic handlers](#topics-and-topic-handlers)
+- [Tasks and task templates](#tasks-and-task-templates)
+- [Flux tasks](#flux-tasks)
 
 ## General options
 
@@ -72,9 +69,9 @@ The `-skipVerify` option disables SSL verification.
 This option should be used when connecting to a Kapacitor server secured using a self-signed SSL certificate.
 When not set on the command line, the value of the environment variable `KAPACITOR_UNSAFE_SSL` is used.
 
-**Using command line options**
+##### Use command line options
 
-```
+```sh
 $ kapacitor -skipVerify -url https://192.168.67.88:9093 list tasks
 ID                                                 Type      Status    Executing Databases and Retention Policies
 batch_load_test                                    batch     enabled   true      ["telegraf"."autogen"]
@@ -240,7 +237,7 @@ Depending on which terminal you're using, you may need to pass patterns as strin
 by wrapping them in quotes. For example: `"a*"`.
 {{% /note %}}
 
-_**Example list services-test output**_
+##### Example list services-test output
 ```
 Service Name
 alerta
@@ -289,7 +286,7 @@ Depending on which terminal you're using, you may need to pass patterns as strin
 by wrapping them in quotes. For example: `"a*"`.
 {{% /note %}}
 
-_**Example of running service tests**_
+##### Example of running service tests
 ```bash
 $ kapacitor service-tests slack talk smtp
 Service             Success   Message
@@ -332,7 +329,7 @@ By default this will return messages only for the selected level.
 To view messages for the selected level and higher, add a `+` character to the
 end of the string.
 
-_**Monitoring log messages of level DEBUG and above for the HTTP service**_
+##### Monitoring log messages of level DEBUG and above for the HTTP service
 
 ```bash
 $ kapacitor logs service=http lvl=debug+
@@ -943,7 +940,7 @@ kapacitor show cpu_alert
 
 `REPLAY_ID` is the identifier of a currently running replay.
 
-_**Example show task output**_  
+##### Example show task output
 ```bash
 ID: cpu_alert
 Error:
@@ -990,7 +987,7 @@ kapacitor show-template <TEMPLATE_ID>
 kapacitor show-template generic_mean_alert
 ```
 
-_**Example show-template output**_  
+##### Example show-template output
 ```bash
 ID: generic_mean_alert
 Error:
@@ -1095,3 +1092,160 @@ the pattern `"generic*"`.
 This command returns no status or additional messages.
 It fails or succeeds silently.
 To verify the results, use the `list templates` command.
+
+## Flux tasks
+The `flux tasks` command and its sub-commands manage Kapacitor Flux tasks.
+
+- [`flux task create`](#flux-task-create)
+- [`flux task list`](#flux-task-list)
+- [`flux task update`](#flux-task-update)
+- [`flux task retry-failed`](#flux-task-retry-failed)
+- [`flux task log list`](#flux-task-log-list)
+- [`flux task run list`](#flux-task-run-list)
+- [`flux task run retry`](#flux-task-run-retry)
+
+---
+
+### flux task create
+The `kapacitor flux task create` command creates a new Kapacitor Flux task.
+
+```sh
+kapacitor flux task create [flags] [flux script or '-' for stdin]
+```
+
+#### Flags
+| Flag |          | Description              | Input type |
+| :--- | :------- | :----------------------- | :--------: |
+| `-f` | `--file` | Path to Flux script file |   string   |
+| `-h` | `--help` | Show command help        |            |
+|      | `--json` | Format output as JSON    |            |
+
+_For usage examples, see [Create Kapacitor Flux tasks](/kapacitor/v1.6/working/flux/manage/create/)._
+
+---
+
+### flux task list
+The `kapacitor flux task list` command lists Kapacitor Flux tasks.
+
+```sh
+kapacitor flux task list [flags]
+```
+
+**Aliases**: `find`, `ls`
+
+#### Flags
+| Flag |             | Description                              | Input type |
+| :--- | :---------- | :--------------------------------------- | :--------: |
+| `-h` | `--help`    | Show command help                        |            |
+| `-i` | `--id`      | Task ID                                  |   string   |
+|      | `--json`    | Format output as JSON                    |            |
+|      | `--limit`   | Number of tasks to list (default is 500) |  integer   |
+| `-n` | `--user-id` | Task owner ID                            |   string   |
+
+_For usage examples, see [List Kapacitor Flux tasks](/kapacitor/v1.6/working/flux/manage/list/)._
+
+---
+
+### flux task update
+The `kapacitor flux task update` command updates a Kapacitor Flux task.
+
+```sh
+kapacitor flux task update [flags] [flux script or '-' for stdin]
+```
+
+#### Flags
+| Flag |            | Description                                 | Input type |
+| :--- | :--------- | :------------------------------------------ | :--------: |
+| `-f` | `--file`   | Path to Flux script file                    |   string   |
+| `-h` | `--help`   | Show command help                           |            |
+| `-i` | `--id`     | ({{< req >}}) Task ID                       |   string   |
+|      | `--json`   | Format output as JSON                       |            |
+|      | `--status` | Update task status (`active` or `inactive`) |   string   |
+
+_For usage examples, see [Update Kapacitor Flux tasks](/kapacitor/v1.6/working/flux/manage/update/)._
+
+---
+
+### flux task retry-failed
+The `kapacitor flux task retry-failed` command retries failed Kapacitor Flux task runs.
+
+```sh
+kapacitor flux task retry-failed [flags]
+```
+
+#### Flags
+| Flag |                | Description                                                       | Input type |
+| :--- | :------------- | :---------------------------------------------------------------- | :--------: |
+|      | `--after`      | Retry runs that occurred after this time (RFC3339 timestamp)      |   string   |
+|      | `--before`     | Retry runs that occurred before this time (RFC3339 timestamp)     |   string   |
+|      | `--dry-run`    | Output information about runs that would be retried               |            |
+| `-h` | `--help`       | Show command help                                                 |            |
+| `-i` | `--id`         | Task ID                                                           |   string   |
+|      | `--json`       | Format output as JSON                                             |            |
+|      | `--run-limit`  | Maximum number of failed runs to retry per task (default is 100)  |  integer   |
+|      | `--status`     | Update task status (`active` or `inactive`)                       |   string   |
+|      | `--task-limit` | Maximum number of tasks to retry failed runs for (default is 100) |  integer   |
+
+_For usage examples, see [Retry failed Kapacitor Flux tasks](/kapacitor/v1.6/working/flux/manage/retry-failed/)._
+
+---
+
+### flux task log list
+The `kapacitor flux task log list` command outputs Kapacitor Flux task logs.
+
+```sh
+kapacitor flux task log list [flags]
+```
+
+#### Flags
+| Flag |             | Description           | Input type |
+| :--- | :---------- | :-------------------- | :--------: |
+| `-h` | `--help`    | Show command help     |            |
+|      | `--json`    | Format output as JSON |            |
+|      | `--run-id`  | Task run ID           |   string   |
+|      | `--task-id` | ({{< req >}}) Task ID |   string   |
+
+_For usage examples, see [View Kapacitor Flux task logs](/kapacitor/v1.6/working/flux/manage/view-task-logs/)._
+
+---
+
+### flux task run list
+The `kapacitor flux task run list` command lists runs of a Kapacitor Flux task.
+
+```sh
+kapacitor flux task run list [flags]
+```
+
+**Aliases**: `find`, `ls`
+
+#### Flags
+| Flag |             | Description                                                  | Input type |
+| :--- | :---------- | :----------------------------------------------------------- | :--------: |
+|      | `--after`   | List runs that occurred after this time (RFC3339 timestamp)  |   string   |
+|      | `--before`  | List runs that occurred before this time (RFC3339 timestamp) |   string   |
+| `-h` | `--help`    | Show command help                                            |            |
+|      | `--json`    | Format output as JSON                                        |            |
+|      | `--limit`   | Number of task runs to list (default is 100)                 |  integer   |
+|      | `--run-id`  | Task run ID                                                  |   string   |
+|      | `--task-id` | ({{< req >}}) Task ID                                        |   string   |
+
+_For usage examples, see [Mange Kapacitor Flux task runs](/kapacitor/v1.6/working/flux/manage/task-runs/#list-kapacitor-flux-tasks-runs)._
+
+---
+
+### flux task run retry
+The `kapacitor flux task run retry` command retries a run for a Kapacitor Flux task.
+
+```sh
+kapacitor flux task run retry [flags]
+```
+
+#### Flags
+| Flag |             | Description               | Input type |
+| :--- | :---------- | :------------------------ | :--------: |
+| `-h` | `--help`    | Show command help         |            |
+|      | `--json`    | Format output as JSON     |            |
+|      | `--run-id`  | ({{< req >}}) Task run ID |   string   |
+|      | `--task-id` | ({{< req >}}) Task ID     |   string   |
+
+_For usage examples, see [Mange Kapacitor Flux task runs](/kapacitor/v1.6/working/flux/manage/task-runs/#retry-a-kapacitor-flux-task-run)._
