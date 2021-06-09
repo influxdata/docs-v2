@@ -15,7 +15,7 @@ menu:
   - [Internal configuration groups](#internal-configuration-groups)
   - [Optional configuration groups](#optional-configuration-groups)
 - [Kapacitor environment variables](#kapacitor-environment-variables)
-- [Configuring with the HTTP API](#configuring-with-the-http-api)
+- [Configure with the HTTP API](#configure-with-the-http-api)
 
 Basic installation and startup of the Kapacitor service is covered in
 [Getting started with Kapacitor](/kapacitor/v1.6/introduction/getting-started/).
@@ -922,7 +922,7 @@ KAPACITOR_HTTPPOST_0_HEADERS_Authorization=some_value
 KAPACITOR_KUBERNETES_ENABLED=true
 ```
 
-## Configuring with the HTTP API
+## Configure with the HTTP API
 
 Use the [Kapacitor HTTP API](/kapacitor/v1.6/working/api/) to override certain configuration properties.
 This is helpful when a property may contain security sensitive information or
