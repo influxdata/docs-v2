@@ -7,6 +7,10 @@ menu:
     name: today
     parent: built-in-misc
 weight: 401
+related:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
+  - /influxdb/v2.0/reference/flux/stdlib/date/truncate/
+  - /influxdb/v2.0/reference/flux/stdlib/system/time/
 influxdb/v2.0/tags: [date/time]
 introduced: 0.116.0
 ---
