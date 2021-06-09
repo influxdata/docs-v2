@@ -24,7 +24,7 @@ and monitoring tasks in Kapacitor.
 ## Before you start
 Before you get started with Flux tasks, consider:
 
-- Kapacitor Flux tasks do not use Kapacitor topics or event handlers.
+- Kapacitor Flux tasks can not use Kapacitor topics or event handlers.
   You can only send alerts from within a Flux script using Flux notification endpoints.
 - Flux tasks are scheduled and executed by the Flux task engine built into Kapacitor 1.6+.
   This engine is separate from the Kapacitor TICKscript task engine.
