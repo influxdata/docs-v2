@@ -58,7 +58,7 @@ Then to load Kapacitor now:
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.kapacitor.plist
 ```
 
-Or, if you don't want/need `lanchctl`, you can just run:
+Or, if you don't want or need `launchctl`, you can just run:
 
 ```
 kapacitord -config /usr/local/etc/kapacitor.conf

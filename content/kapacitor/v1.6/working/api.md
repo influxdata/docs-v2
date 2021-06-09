@@ -21,6 +21,7 @@ menu:
 * [Alerts](#alerts)
 * [Configuration](#overriding-configurations)
 * [Storage](#storage)
+* [Users](#users)
 * [Logging](#logging)
 * [Testing services](#testing-services)
 * [Miscellaneous](#miscellaneous)
@@ -2249,6 +2250,63 @@ POST /kapacitor/v1/storage/stores/tasks
 | 204  | Success                            |
 | 400  | Unknown action                     |
 | 404  | The specified store does not exist |
+
+## Users
+Kapacitor exposes operations to manage users.
+
+### List all users
+To list users, use the GET request method with the `/kapacitor/v1/users` endpoint.
+
+#### Example
+```sh
+curl GET "http://localhost:9092/kapacitor/v1/users"
+```
+
+### Create a user
+To create a user, use the POST request method with the `/kapacitor/v1/users` endpoint.
+
+Define a user as a JSON object with the following properties:
+
+| Property    | Description                                                                                |
+| :---------- | :----------------------------------------------------------------------------------------- |
+| name        | Username                                                                                   |
+| password    | Password                                                                                   |
+| type        | User type  (`normal` or `admin`, _see [User](/influxdb/v1.6/concepts/glossary/#user)_)       |
+| permissions | List of valid user permission strings (`none`, `api`, `config_api`, `write_points`, `all`) 
+
+#### Example
+```sh
+curl --XPOST 'http://localhost:9092/kapacitor/v1/users' \
+  --data '{
+    "name": "stan",
+    "password": "pass",
+    "type":"normal",
+    "permissions": ["config_api"]
+}'
+
+### Update a user
+To update a user, use the PATCH request method with the `/kapacitor/v1/users/<name>` endpoint.
+
+Define a modified user as a JSON object with the following properties:
+
+| Property    | Purpose                                                                                    |
+| :---------- | :----------------------------------------------------------------------------------------- |
+| password    | Password                                                                                   |
+| type        | User type (`normal` or `admin`, _see [User](/influxdb/v1.6/concepts/glossary/#user)_)        |
+| permissions | List of valid user permission strings (`none`, `api`, `config_api`, `write_points`, `all`) |
+
+#### Example
+```sh
+curl -XPATCH "http://localhost:9092/kapacitor/v1/users/bob" -d '{ "password": "pass", "type":"admin", "permissions":["all"] }'
+```
+
+### Delete a user
+To delete a user, use the DELETE request method with the `/kapacitor/v1/users/<name>` endpoint.
+
+#### Example
+```sh
+curl -XDELETE "http://localhost:9092/kapacitor/v1/users/steve"
+```
 
 ## Logging
 
