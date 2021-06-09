@@ -13,6 +13,9 @@ introduced: 0.116.0
 
 The `today()` function returns the `now()` timestamp truncated to the day unit.
 
+_**Function type:** Date/Time_  
+_**Output data type:** Time_
+
 ```js
 today()
 ```
