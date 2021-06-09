@@ -333,6 +333,18 @@ current product. Easier to maintain being you update the version number in the `
 {{< latest-patch >}}
 ```
 
+### API endpoint
+Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains
+a colored request method and a specified API endpoint.
+Provide the following arguments:
+
+- **method**: HTTP request method (get, post, patch, put, or delete)
+- **endpoint**: API endpoint
+
+```md
+{{< api-endpoint method="get" endpoint="/api/v2/tasks">}}
+```
+
 ### Tabbed Content
 Shortcodes are available for creating "tabbed" content (content that is changed by a users' selection).
 Ther following three must be used:

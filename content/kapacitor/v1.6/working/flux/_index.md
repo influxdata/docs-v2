@@ -1,7 +1,9 @@
 ---
 title: Use Flux tasks with Kapacitor
 description: >
-  ...
+  Use **Kapacitor 1.6+** to run Flux tasks against InfluxDB and other data sources.
+  Leverage the full library of Flux functionality to build powerful data processing
+  and monitoring tasks in Kapacitor.
 menu:
   kapacitor_1_6:
     name: Use Flux tasks
@@ -9,6 +11,7 @@ menu:
 related: 
   - /influxdb/cloud/tools/kapacitor/
   - /{{< latest "influxdb" >}}/tools/kapacitor/
+  - /kapacitor/v1.6/working/flux/manage/create/
   - /influxdb/cloud/process-data/get-started/, Get started with Flux tasks
   - /influxdb/cloud/process-data/common-tasks/
   - /influxdb/cloud/process-data/task-options/
@@ -167,7 +170,7 @@ see [Configure Kapacitor](/kapacitor/v1.6/administration/configuration/)._
     kapacitor flux task create --file /path/to/example-task.flux
     ```
 
-_For more details about creating Kapacitor Flux tasks, see [Create a Kapacitor Flux task](#)._
+_For more details about creating Kapacitor Flux tasks, see [Create a Kapacitor Flux task](/kapacitor/v1.6/working/flux/manage/create/)._
 {{% /tab-content %}}
 <!-------------------------- END InfluxDB 1.x content ------------------------->
 <!---------------------- BEGIN InfluxDB Cloud/2.x content --------------------->
@@ -263,7 +266,7 @@ Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
     kapacitor flux task create --file /path/to/example-task.flux
     ```
 
-_For more details about creating Kapacitor Flux tasks, see [Create a Kapacitor Flux task](#)._
+_For more details about creating Kapacitor Flux tasks, see [Create a Kapacitor Flux task](/kapacitor/v1.6/working/flux/manage/create/)._
 {{% /tab-content %}}
 <!----------------------- END InfluxDB Cloud/2.x content ---------------------->
 {{< /tabs-wrapper >}}
