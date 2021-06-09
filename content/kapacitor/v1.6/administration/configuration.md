@@ -153,6 +153,7 @@ including specific alert handlers and mechanisms for service discovery and data 
 
 ### Essential configuration groups
 
+- [Authentication and authorization (auth)](#authentication-and-authorization-auth)
 - [HTTP](#http)
 - [Transport Layer Security (TLS)](#transport-layer-security-tls)
 - [Config override](#config-override)
@@ -164,14 +165,39 @@ including specific alert handlers and mechanisms for service discovery and data 
 - [Deadman](#deadman)
 - [InfluxDB](#influxdb)
 
-#### HTTP
-
-The Kapacitor service requires an HTTP connection. Important
-HTTP properties, such as a bind address and the path to an HTTPS certificate,
-are defined in the `[http]` table.
+#### Authentication and authorization (auth)
+Enable and configure user authentication and authorization in Kapacitor.
 
 ```toml
-...
+[auth]
+  # Enable authentication for Kapacitor
+  enabled = false
+  # User permissions cache expiration time.
+  cache-expiration = "10m"
+  # Cost to compute bcrypt password hashes.
+  # bcrypt rounds = 2^cost
+  bcrypt-cost = 10
+  # Address of a meta server.
+  # If empty then meta, is not used as a user backend.
+  # host:port
+  meta-addr = "172.17.0.2:8091"
+  meta-use-tls = false
+  # Absolute path to PEM encoded Certificate Authority (CA) file.
+  # A CA can be provided without a key/certificate pair.
+  meta-ca = "/etc/kapacitor/ca.pem"
+  # Absolute paths to PEM encoded private key and server certificate files.
+  meta-cert = "/etc/kapacitor/cert.pem"
+  meta-key = "/etc/kapacitor/key.pem"
+  meta-insecure-skip-verify = false
+```
+
+#### HTTP
+
+The Kapacitor service requires an HTTP connection. Use the `[http]` configuration
+group to configure HTTP properties such as a bind address and the path to an HTTPS certificate.
+
+```toml
+# ...
 [http]
   # HTTP API Server for Kapacitor
   # This server is always on,
@@ -179,6 +205,8 @@ are defined in the `[http]` table.
   # and as the API endpoint for all other
   # Kapacitor calls.
   bind-address = ":9092"
+  # Require authentication when interacting with Kapacitor
+  auth-enabled = false
   log-enabled = true
   write-tracing = false
   pprof-enabled = false
@@ -186,7 +214,7 @@ are defined in the `[http]` table.
   https-certificate = "/etc/ssl/influxdb-selfsigned.pem"
   ### Use a separate private key location.
   # https-private-key = ""
-...
+# ...
 ```
 
 #### Transport Layer Security (TLS)
@@ -198,7 +226,7 @@ depending on the version of Go used to build InfluxDB.
 Use the `SHOW DIAGNOSTICS` command to see the version of Go used to build Kapacitor.
 
 ```toml
-#...
+# ...
 
 [tls]
   ciphers = [
@@ -566,6 +594,7 @@ Optional features include:
 - [User defined functions (UDFs)](#user-defined-functions-udfs)
 - [Input methods](#input-methods)
 - [Service discovery and metric scraping](#service-discovery-and-metric-scraping)
+- [Flux tasks](#flux-tasks)
 
 #### Event handlers
 
@@ -879,6 +908,34 @@ _To see configuration properties unique to each discovery service, see the
 # ...
 ```
 
+#### Flux tasks
+Use the `[fluxtask]` configuration group to enable and configure Kapacitor Flux tasks.
+
+```toml
+# ...
+[fluxtask]
+  # Configure flux tasks for kapacitor
+  enabled = false
+  # The InfluxDB instance name (from the [[influxdb]] config section)
+  # to store historical task run data in 
+  # Not recommended: use "none" to turn off historical task run data storage.
+  task-run-influxdb = "localhost"
+  # Bucket to store historical task run data in.
+  # If using InfluxDB 1.x, use the "db/rp" convention.
+  # This bucket or database must already exist in the task-run-influxdb instance.
+  task-run-bucket = "db/rp"
+  # The organization name or ID if storing historical task run data
+  # in InfluxDB 2.x or InfluxDB Cloud
+  task-run-org = ""
+  task-run-orgid = ""
+  # The measurement name for the historical task run data
+  task-run-measurement = "runs"
+# ...
+```
+
+_For more information about using Flux tasks with Kapacitor,
+see [Use Flux tasks](/kapacitor/v1.6/working/flux/)._
+
 ## Kapacitor environment variables
 
 Use environment variables to set global Kapacitor configuration settings or
@@ -931,6 +988,8 @@ when you need to reconfigure a service without restarting Kapacitor.
 To view which properties are configurable through the API, use the `GET` request
 method with the `/kapacitor/v1/config` endpoint:
 
+{{< api-endpoint method="get" endpoint="/kapacitor/v1/config" >}}
+
 ```sh
 curl --request GET 'http://localhost:9092/kapacitor/v1/config'
 ```
@@ -941,9 +1000,11 @@ property in your Kapacitor configuration file to `true`.
 {{% /note %}}
 
 ### View configuration sections
-Most Kapacitory configuration groups or sections can be viewed as JSON files by using
-the `GET` request method appending the group identifier to the `/kapacitor/v1/config/` endpoint.
-For example, to get the table groupings of InfluxDB properties:
+Most Kapacitor configuration groups or sections can be viewed as JSON files by using
+the `GET` request method and appending the group identifier to the `/kapacitor/v1/config/` endpoint.
+For example, to get InfluxDB configuration properties:
+
+{{< api-endpoint method="get" endpoint="/kapacitor/v1/config/influxdb" >}}
 
 ```sh
 curl --request GET 'http://localhost:9092/kapacitor/v1/config/influxdb'
@@ -955,10 +1016,12 @@ using the `GET` request method.
 {{% /note %}}
 
 ### Modify configuration sections
-Modify configuration properties by using the `POST` request method to send
-a JSON document to the endpoint.
+To modify configuration properties, use the `POST` request method to send a JSON
+document to the configuration section endpoint.
 The JSON document must contain a `set` field with a map of the properties to override and
 their new values.
+
+{{< api-endpoint method="post" endpoint="/kapacitor/v1/config/{config-group}" >}}
 
 ##### Enable the SMTP configuration
 ```sh
