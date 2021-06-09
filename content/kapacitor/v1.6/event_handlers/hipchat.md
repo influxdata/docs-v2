@@ -1,5 +1,6 @@
 ---
 title: HipChat event handler
+list_title: HipChat
 description: >
   The HipChat event handler allows you to send Kapacitor alerts to HipChat. This page includes configuration options and usage examples.
 menu:

@@ -1,5 +1,6 @@
 ---
 title: Aggregate event handler
+list_title: Aggregate
 description: >
   The aggregate event handler allows you to aggregate alerts messages over a specified interval. This page includes aggregate options and usage examples.
 menu:

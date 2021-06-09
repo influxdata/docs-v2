@@ -1,5 +1,6 @@
 ---
 title: TCP event handler
+list_title: TCP
 description: >
   The "tcp" event handler allows you to send Kapacitor alert data to a TCP endpoint. This page includes options and usage examples.
 menu:

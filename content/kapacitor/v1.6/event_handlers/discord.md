@@ -1,5 +1,6 @@
 ---
 title: Discord event handler
+list_title: Discord
 description: >
   The Discord event handler lets you send Kapacitor alerts to Discord. This page includes configuration options and usage examples.
 menu:

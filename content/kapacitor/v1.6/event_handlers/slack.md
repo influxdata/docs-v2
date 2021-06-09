@@ -1,5 +1,6 @@
 ---
 title: Slack event handler
+list_title: Slack
 description: >
   The Slack event handler allows you to send Kapacitor alerts to Slack. This page includes configuration options and usage examples.
 menu:
