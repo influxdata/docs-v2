@@ -24,7 +24,7 @@ arguments applicable to that command.
 kapacitor [options] [command] [args]
 ```
 
-This document provides an overview of all the commands provided by the `kapacitor` CLI:
+This document provides an overview of the commands provided by the `kapacitor` CLI:
 
 - [General options](#general-options)
 - [Core commands](#core-commands)
@@ -1110,7 +1110,7 @@ The `flux tasks` command and its sub-commands manage Kapacitor Flux tasks.
 The `kapacitor flux task create` command creates a new Kapacitor Flux task.
 
 ```sh
-kapacitor flux task create [flags] [flux script or '-' for stdin]
+kapacitor flux task create [flags] [flux script or '-' to read from stdin]
 ```
 
 #### Flags

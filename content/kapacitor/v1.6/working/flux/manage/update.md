@@ -19,7 +19,7 @@ Use the **`kapacitor` CLI** or the **Kapacitor HTTP API** to update Kapacitor Fl
 <!----------------------------- BEGIN CLI content ----------------------------->
 {{% tab-content %}}
 
-Use the `kapacitor flux task update` command to update Kapacitor Flux task.
+Use the `kapacitor flux task update` command to update Kapacitor Flux tasks.
 Provide the following flags:
 
 {{< req type="key" >}}

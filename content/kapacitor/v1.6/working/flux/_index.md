@@ -22,7 +22,7 @@ Leverage the full library of Flux functionality to build powerful data processin
 and monitoring tasks in Kapacitor.
 
 ## Before you start
-Before you get started, there are things to consider when using Kapacitor Flux tasks:
+Before you get started with Flux tasks, consider:
 
 - Kapacitor Flux tasks do not use Kapacitor topics or event handlers.
   You can only send alerts from within a Flux script using Flux notification endpoints.
@@ -177,9 +177,8 @@ _For more details about creating Kapacitor Flux tasks, see [Create a Kapacitor F
 {{% tab-content %}}
 {{% warn %}}
 #### Consider using InfluxDB tasks
-If you're using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, you certainly can
-use Kapacitor to run Flux tasks against them, but you should consider just using
-[native InfluxDB tasks](/influxdb/cloud/process-data/).
+If you're using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, consider using
+[native InfluxDB tasks](/influxdb/cloud/process-data/) for data processing.
 {{% /warn %}}
 
 1. [Set up Kapacitor for InfluxDB Cloud or 2.x](#set-up-kapacitor-for-influxdb-cloud-or-2x)
