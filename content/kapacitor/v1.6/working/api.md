@@ -2292,7 +2292,7 @@ Define a modified user as a JSON object with the following properties:
 | Property    | Purpose                                                                                    |
 | :---------- | :----------------------------------------------------------------------------------------- |
 | password    | Password                                                                                   |
-| type        | User type (`user` or `admin`, _see [User](/influxdb/v1.6/concepts/glossary/#user)_)        |
+| type        | User type (`normal` or `admin`, _see [User](/influxdb/v1.6/concepts/glossary/#user)_)        |
 | permissions | List of valid user permission strings (`none`, `api`, `config_api`, `write_points`, `all`) |
 
 #### Example
