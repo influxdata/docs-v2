@@ -1,7 +1,7 @@
 ---
 title: Zenoss event handler
 description: >
-  The Zenoss event handler allows you to send Kapacitor alerts to Zenoss.
+  The Zenoss event handler sends Kapacitor alerts to Zenoss.
   This page includes configuration options and usage examples.
 menu:
   kapacitor_1_6_ref:
@@ -40,35 +40,35 @@ Set to `true` to enable the Zenoss event handler.
 
 #### url
 Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
-Default is `https://tenant.zenoss.io:8080/zport/dmd/evconsole_router`
+For example: `https://tenant.zenoss.io:8080/zport/dmd/evconsole_router`.
 
 #### username
 Zenoss username to use for HTTP BASIC authentication.
-Default is `""` (no authentication).
+For no authentication, set as an empty string (`""`).
 
 #### password
 Zenoss password to use for HTTP BASIC authentication.
-Default is `""` (no authentication).
+For no authentication, set as an empty string (`""`).
 
 #### action
 Zenoss [router name](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/anatomy-of-an-api-request#AnatomyofanAPIrequest-RouterURL).
-Default is `"EventsRouter"`.
+For example: `"EventsRouter"`.
 
 #### method
 [EventsRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
-Default is `"add_event"`.
+For example: `"add_event"`.
 
 #### type
 Event type.
-Default is `"rpc"`.
+For example: `"rpc"`.
 
 #### tid
 Temporary request transaction ID.
-Default is `1`.
+For example: `1`.
 
 #### collector
 Zenoss [collector](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-fields) name.
-Default is `"Kapacitor"`.
+For example: `"Kapacitor"`.
 
 #### severity-map
 Map Kapacitor alert levels to [Zenoss event severity levels](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-severity-levels).
