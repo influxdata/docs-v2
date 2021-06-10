@@ -19,29 +19,7 @@ These documents outline configuration options, setup instructions,
 [handler file](#create-a-topic-handler-with-a-handler-file) and [TICKscript](/kapacitor/v1.6/tick/introduction/)
 syntax for officially supported Kapacitor event handlers.
 
-[Aggregate](/kapacitor/v1.6/event_handlers/aggregate/)  
-[Alerta](/kapacitor/v1.6/event_handlers/alerta/)  
-[Discord](/kapacitor/v1.6/event_handlers/discord/)  
-[Email](/kapacitor/v1.6/event_handlers/email/)  
-[Exec](/kapacitor/v1.6/event_handlers/exec/)  
-[Hipchat](/kapacitor/v1.6/event_handlers/hipchat/)  
-[Kafka](/kapacitor/v1.6/event_handlers/kafka/)  
-[Log](/kapacitor/v1.6/event_handlers/log/)
-[Microsoft Teams](/kapacitor/v1.6/event_handlers/microsoftteams/)
-[MQTT](/kapacitor/v1.6/event_handlers/mqtt/)  
-[Opsgenie](/kapacitor/v1.6/event_handlers/opsgenie/v2/)  
-[Pagerduty](/kapacitor/v1.6/event_handlers/pagerduty/v2/)  
-[Post](/kapacitor/v1.6/event_handlers/post/)  
-[Publish](/kapacitor/v1.6/event_handlers/publish/)
-[Pushover](/kapacitor/v1.6/event_handlers/pushover/)
-[Sensu](/kapacitor/v1.6/event_handlers/sensu/)
-[ServiceNow](/kapacitor/v1.6/event_handlers/servicenow/)
-[Slack](/kapacitor/v1.6/event_handlers/slack/)  
-[Snmptrap](/kapacitor/v1.6/event_handlers/snmptrap/)  
-[Talk](/kapacitor/v1.6/event_handlers/talk/)  
-[TCP](/kapacitor/v1.6/event_handlers/tcp/)  
-[Telegram](/kapacitor/v1.6/event_handlers/telegram/)  
-[Victorops](/kapacitor/v1.6/event_handlers/victorops/)  
+{{< children type="list" >}}
 
 > **Note:** Setup instructions are not currently available for all supported
 > event handlers, but additional information will be added over time. If
