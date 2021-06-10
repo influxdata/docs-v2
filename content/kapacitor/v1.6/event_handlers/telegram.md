@@ -1,5 +1,6 @@
 ---
 title: Telegram event handler
+list_title: Telegram
 description: >
   The Telegram event handler allows you to send Kapacitor alerts to Telegram. This page includes configuration options and usage examples.
 menu:

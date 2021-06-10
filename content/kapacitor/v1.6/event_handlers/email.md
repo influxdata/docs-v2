@@ -1,5 +1,6 @@
 ---
-title: Email event handler
+title: Email (SMTP) event handler
+list_title: Email (SMTP)
 description: >
   The "email" event handler allows you to send Kapacitor alerts via email. This page includes configuration options and usage examples.
 menu:

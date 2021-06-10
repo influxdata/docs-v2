@@ -111,7 +111,7 @@ third party alert handlers.
     endpoint `/kapacitor/v1/config/smtp`
     (for example: `http://localhost:9092/kapacitor/v1/config/smtp`).
 
-For more information see the section [Configuration with the HTTP API](/kapacitor/v1.6/administration/configuration/#configuring-with-the-http-api).
+For more information see the section, [Configure with the HTTP API](/kapacitor/v1.6/administration/configuration/#configure-with-the-http-api).
 
 ### Creating Alerts in Chronograf
 

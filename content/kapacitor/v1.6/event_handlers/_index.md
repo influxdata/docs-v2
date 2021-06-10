@@ -21,11 +21,6 @@ syntax for officially supported Kapacitor event handlers.
 
 {{< children type="list" >}}
 
-> **Note:** Setup instructions are not currently available for all supported
-> event handlers, but additional information will be added over time. If
-> you are familiar with the setup process for a specific event handler, please
-> feel free to [contribute](https://github.com/influxdata/docs.influxdata.com/blob/master/CONTRIBUTING.md).
-
 ## Configure event handlers
 
 Required and default configuration options for most event handlers are
@@ -45,7 +40,9 @@ enabled, do one of the following:
 - [Create a topic handler with a handler file](#create-a-topic-handler-with-a-handler-file), and then [add the handler](#add-the-handler).
 - [Use a handler in a TICKscripts](#use-a-handler-in-a-tickscript).
 
-    > **Note:** Not all event handlers can be used in TICKscripts.
+    {{% note %}}
+**Note:** Not all event handlers can be used in TICKscripts.
+    {{% /note %}}
 
 ### Create a topic handler with a handler file
 
@@ -57,15 +54,15 @@ For some handler types, using handler files is the only option.
 
 The handler file contains the following:
 
-<span style="color: #ff9e46; font-style: italic; font-size: .8rem;">* Required</span>
+{{< req type="key" >}}
 
-- **ID**<span style="color: #ff9e46; font-style: italic;">\*</span>: The unique ID
+- {{< req "\*" >}} **ID**: The unique ID
   of the handler.
-- **Topic**<span style="color: #ff9e46; font-style: italic;">\*</span>: The topic
+- {{< req "\*" >}} **Topic**: The topic
   to which the handler subscribes.
 - **Match**: A lambda expression to filter matching alerts. By default, all alerts
   match. Learn more about [match expressions](/kapacitor/v1.6/working/alerts/#match-expressions).
-- **Kind**<span style="color: #ff9e46; font-style: italic;">\*</span>: The kind of
+- {{< req "\*" >}} **Kind**: The kind of
   handler.
 - **Options**: Configurable options determined by the handler kind. If none are
   provided, default values defined for the handler in the `kapacitor.conf` are used.
@@ -108,6 +105,9 @@ stream
     .slack()
 ```
 
-> Events are sent to handlers if the alert is in a state other than ‘OK’ or the
-alert just changed to the ‘OK’ state from a non ‘OK’ state (the alert
-recovered). Use the [AlertNode.StateChangesOnly](/kapacitor/v1.6/nodes/alert_node/#statechangesonly) property to send events to handlers only if the alert state changes.
+{{% note %}}
+Events are sent to handlers if the alert is in a state other than ‘OK’ or the
+alert just changed to the ‘OK’ state from a non ‘OK’ state (the alert recovered).
+Use the [AlertNode.StateChangesOnly](/kapacitor/v1.6/nodes/alert_node/#statechangesonly)
+property to send events to handlers only if the alert state changes.
+{{% /note %}}

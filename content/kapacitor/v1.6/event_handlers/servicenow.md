@@ -1,5 +1,6 @@
 ---
 title: ServiceNow event handler
+list_title: ServiceNow
 description: >
   The ServiceNow event handler lets you to send Kapacitor alerts to ServiceNow. This page includes configuration options and usage examples.
 menu:

@@ -120,8 +120,8 @@ Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
 # ...
 ```
 
-_For more information about Kapacitor `[fluxtasks]` configuration options,
-see [Configure Kapacitor](/kapacitor/v1.6/administration/configuration/)._
+_For more information about Kapacitor `[fluxtask]` configuration options,
+see [Configure Kapacitor](/kapacitor/v1.6/administration/configuration/#flux-tasks)._
 
 ## Create a Flux task
 

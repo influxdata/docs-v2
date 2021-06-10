@@ -1,5 +1,6 @@
 ---
 title: Log event handler
+list_title: Log
 description: >
   The "log" event handler allows you to send Kapacitor alert messages to a log file. This page includes options and usage examples.
 menu:

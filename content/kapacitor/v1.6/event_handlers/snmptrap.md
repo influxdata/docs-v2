@@ -1,5 +1,6 @@
 ---
 title: SNMP trap event handler
+list_title: SNMP trap
 description: >
   The "snmptrap" event handler allows you to send Kapacitor alerts SNMP traps. This page includes configuration options and usage examples.
 menu:
