@@ -109,6 +109,7 @@ stream
 [Sum](#sum),
 [SwarmAutoscale](#swarmautoscale),
 [Top](#top),
+[Trickle](#trickle),
 [Union](#union),
 [Where](#where),
 [Window](#window)
@@ -931,6 +932,18 @@ httpPost|top(num int64, field string, fieldsAndTags ...string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
+
+<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
+
+### Trickle
+
+Create a new node that converts batch data to stream data.
+
+```js
+httpPost|trickle()
+```
+
+Returns: [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 

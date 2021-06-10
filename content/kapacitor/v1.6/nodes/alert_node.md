@@ -1942,7 +1942,7 @@ Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
 ### Trickle
 
-Select the top `num` points for `field` and sort by any extra tags or fields.
+Create a new node that converts batch data to stream data.
 
 ```js
 alert|trickle()
