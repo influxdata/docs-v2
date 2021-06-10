@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: CombineNode
     identifier: combine_node
-    weight: 40
+    weight: 100
     parent: nodes
 ---
 
@@ -119,6 +119,7 @@ In the following example, all combinations triples are created:
 [Sum](#sum),
 [SwarmAutoscale](#swarmautoscale),
 [Top](#top),
+[Trickle](#trickle),
 [Union](#union),
 [Where](#where),
 [Window](#window)
@@ -907,6 +908,18 @@ combine|top(num int64, field string, fieldsAndTags ...string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
+
+<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
+
+### Trickle
+
+Select the top `num` points for `field` and sort by any extra tags or fields.
+
+```js
+combine|trickle()
+```
+
+Returns: [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 

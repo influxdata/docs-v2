@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: HTTPOutNode
     identifier: http_out_node
-    weight: 130
+    weight: 100
     parent: nodes
 ---
 

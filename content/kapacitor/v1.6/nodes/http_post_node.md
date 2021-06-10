@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: HTTPPostNode
     identifier: http_post_node
-    weight: 140
+    weight: 100
     parent: nodes
 ---
 

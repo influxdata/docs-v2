@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: StateCountNode
     identifier: state_count_node
-    weight: 260
+    weight: 100
     parent: nodes
 ---
 

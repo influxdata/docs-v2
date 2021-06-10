@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: JoinNode
     identifier: join_node
-    weight: 170
+    weight: 100
     parent: nodes
 ---
 

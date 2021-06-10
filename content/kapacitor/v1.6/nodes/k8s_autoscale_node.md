@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: K8sAutoscaleNode
     identifier: k8s_autoscale_node
-    weight: 180
+    weight: 100
     parent: nodes
 ---
 

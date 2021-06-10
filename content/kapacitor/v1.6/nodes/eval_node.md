@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: EvalNode
     identifier: eval_node
-    weight: 90
+    weight: 100
     parent: nodes
 ---
 

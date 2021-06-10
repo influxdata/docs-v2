@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: BatchNode
     identifier: batch_node
-    weight: 4
+    weight: 100
     parent: nodes
 ---
 

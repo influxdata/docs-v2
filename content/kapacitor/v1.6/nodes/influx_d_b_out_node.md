@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: InfluxDBOutNode
     identifier: influx_d_b_out_node
-    weight: 150
+    weight: 100
     parent: nodes
 ---
 

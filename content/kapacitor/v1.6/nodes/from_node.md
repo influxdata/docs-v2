@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: FromNode
     identifier: from_node
-    weight: 110
+    weight: 100
     parent: nodes
 ---
 

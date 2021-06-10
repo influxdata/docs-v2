@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: QueryNode
     identifier: query_node
-    weight: 220
+    weight: 100
     parent: nodes
 ---
 

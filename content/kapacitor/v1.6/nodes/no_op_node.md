@@ -6,7 +6,7 @@ menu:
   kapacitor_1_6_ref:
     name: NoOpNode
     identifier: no_op_node
-    weight: 210
+    weight: 100
     parent: nodes
 ---
 

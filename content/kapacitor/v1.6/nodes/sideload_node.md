@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: SideloadNode
     identifier: sideload_node
-    weight: 250
+    weight: 100
     parent: nodes
 ---
 

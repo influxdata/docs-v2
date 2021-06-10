@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: SampleNode
     identifier: sample_node
-    weight: 230
+    weight: 100
     parent: nodes
 ---
 

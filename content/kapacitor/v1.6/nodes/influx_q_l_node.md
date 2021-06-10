@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: InfluxQLNode
     identifier: influx_q_l_node
-    weight: 160
+    weight: 100
     parent: nodes
 ---
 

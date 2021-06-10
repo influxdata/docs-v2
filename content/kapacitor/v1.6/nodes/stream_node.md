@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: StreamNode
     identifier: stream_node
-    weight: 5
+    weight: 100
     parent: nodes
 ---
 

@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: DerivativeNode
     identifier: derivative_node
-    weight: 70
+    weight: 100
     parent: nodes
 ---
 
@@ -105,6 +105,7 @@ dropped.
 [Sum](#sum),
 [SwarmAutoscale](#swarmautoscale),
 [Top](#top),
+[Trickle](#trickle),
 [Union](#union),
 [Where](#where),
 [Window](#window)
@@ -882,6 +883,18 @@ derivative|top(num int64, field string, fieldsAndTags ...string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
+
+<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
+
+### Trickle
+
+Select the top `num` points for `field` and sort by any extra tags or fields.
+
+```js
+derivative|trickle()
+```
+
+Returns: [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/)
 
 <a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 

@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: GroupByNode
     identifier: group_by_node
-    weight: 120
+    weight: 100
     parent: nodes
 ---
 

@@ -7,7 +7,7 @@ menu:
   kapacitor_1_6_ref:
     name: KapacitorLoopback
     identifier: kapacitor_loopback_node
-    weight: 190
+    weight: 100
     parent: nodes
 ---
 

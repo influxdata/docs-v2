@@ -7,7 +7,7 @@ menu:
   kapacitor_1_6_ref:
     name: WhereNode
     identifier: where_node
-    weight: 330
+    weight: 100
     parent: nodes
 ---
 

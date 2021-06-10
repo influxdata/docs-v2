@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: StateDurationNode
     identifier: state_duration_node
-    weight: 270
+    weight: 100
     parent: nodes
 ---
 

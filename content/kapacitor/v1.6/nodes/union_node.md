@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: UnionNode
     identifier: union_node
-    weight: 320
+    weight: 100
     parent: nodes
 ---
 

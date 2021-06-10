@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: ShiftNode
     identifier: shift_node
-    weight: 240
+    weight: 100
     parent: nodes
 ---
 

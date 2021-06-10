@@ -7,7 +7,7 @@ menu:
   kapacitor_1_6_ref:
     name: LogNode
     identifier: log_node
-    weight: 200
+    weight: 100
     parent: nodes
 ---
 

@@ -7,7 +7,7 @@ menu:
   kapacitor_1_6_ref:
     name: WindowNode
     identifier: window_node
-    weight: 340
+    weight: 100
     parent: nodes
 ---
 
@@ -36,8 +36,9 @@ This example emits the last `10 minute` period every `5 minutes` to the pipeline
 Because `every` is less than `period`, each time the window is emitted it contains `5 minutes` of
 new data and `5 minutes` of the previous period's data.
 
-> **NOTE:** Because no `align` property is defined, the `window` edge is defined relative to the first data point.
-
+{{% note %}}
+**NOTE:** Because no `align` property is defined, the `window` edge is defined relative to the first data point.
+{{% /note %}}
 
 ### Constructor
 

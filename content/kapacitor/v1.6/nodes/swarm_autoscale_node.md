@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: SwarmAutoscaleNode
     identifier: swarm_autoscale_node
-    weight: 300
+    weight: 100
     parent: nodes
 ---
 

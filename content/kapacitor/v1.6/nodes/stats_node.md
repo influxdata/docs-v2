@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: StatsNode
     identifier: stats_node
-    weight: 280
+    weight: 100
     parent: nodes
 ---
 
