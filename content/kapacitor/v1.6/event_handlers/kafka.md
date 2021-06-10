@@ -95,11 +95,11 @@ The following Kafka event handler options can be set in a
 In **Kapacitor 1.6+**, messages with the same ID are sent to the same Kafka partition.
 Previously, messages were sent to the Kafka partition with the least amount of data, regardless of the message ID.
 Messages with no ID are spread randomly between partitions.
-This aligns Kapacitor's concept of message IDs with Kafka's concept of message keys.
+This aligns the Kapacitor concept of message IDs with the Kafka concept of message keys.
 
 To revert to the previous behavior, use the **disablePartitionById** option.
 
-When partitioning by ID, use the **.partitionHashAlgorithm** to specify the
+When partitioning by ID, use the **partitionHashAlgorithm** to specify the
 method used to assign message IDs to Kafka partitions.
 Kapacitor supports the following partitioning algorithms:
 
