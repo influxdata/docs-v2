@@ -12,7 +12,7 @@ menu:
 
 [Apache Kafka](https://kafka.apache.org/) is a distributed streaming platform
 designed for building real-time data pipelines and streaming apps.
-Kapacitor can be configured to send alert messages to a Kafka cluster.
+Configure Kapacitor to send alert messages to a Kafka cluster.
 
 ## Configuration
 Configuration as well as default [option](#options) values for the Kafka event
@@ -34,57 +34,79 @@ Below is an example configuration:
   insecure-skip-verify = false
 ```
 
-> Multiple Kafka clients may be configured by repeating `[[kafka]]` sections.
-> The `id` acts as a unique identifier for each configured Kafka client.
+{{% note %}}
+Multiple Kafka clients may be configured by repeating `[[kafka]]` sections.
+The `id` acts as a unique identifier for each configured Kafka client.
+{{% /note %}}
 
-#### `enabled`
+#### enabled
 Set to `true` to enable the Kafka event handler.
 
-#### `id`
+#### id
 A unique identifier for the Kafka cluster.
 
-#### `brokers`
+#### brokers
 List of Kafka broker addresses using the `host:port` format.
 
-#### `timeout`
+#### timeout
 Timeout on network operations with the Kafka brokers.
-If 0 a default of 10s is used.
+If set to 0, a default of 10s is used.
 
-#### `batch-size`
+#### batch-size
 The number of messages batched before being sent to Kafka.
-If 0 a default of 100 is used.
+If set to 0, a default of 100 is used.
 
-#### `batch-timeout`
+#### batch-timeout
 The maximum amount of time to wait before flushing an incomplete batch.
-If 0 a default of 1s is used.
+If set to 0, a default of 1s is used.
 
-#### `use-ssl`
+#### use-ssl
 Enable SSL communication.
 Must be `true` for other SSL options to take effect.
 
-#### `ssl-ca`
+#### ssl-ca
 Path to certificate authority file.
 
-#### `ssl-cert`
+#### ssl-cert
 Path to host certificate file.
 
-#### `ssl-key`
+#### ssl-key
 Path to certificate private key file.
 
-#### `insecure-skip-verify`
-Use SSL but skip chain and host verification.
-_This is necessary if using a self-signed certificate._
+#### insecure-skip-verify
+Use SSL but skip chain and host verification
+_(required if using a self-signed certificate)_.
 
 ## Options
 The following Kafka event handler options can be set in a
 [handler file](/kapacitor/v1.6/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.kafka()` in a TICKscript.
 
-| Name     | Type   | Description                                                       |
-| ----     | ----   | -----------                                                       |
-| cluster  | string | Name of the Kafka cluster.                                        |
-| topic    | string | Kafka topic. _In TICKscripts, this is set using `.kafkaTopic()`._ |
-| template | string | Message template.                                                 |
+| Name                 | Type    | Description                                                                                               |
+| -------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| cluster              | string  | Name of the Kafka cluster.                                                                                |
+| topic                | string  | Kafka topic. _In TICKscripts, this is set using `.kafkaTopic()`._                                         |
+| template             | string  | Message template.                                                                                         |
+| disablePartitionById | boolean | Disable partitioning Kafka messages by message ID.                                                        |
+| partitionAlgorithm   | string  | Algorithm to use to assign message IDs to Kafka partitions (`crc32` _(default)_, `murmur2`, or `fnv-1a`). |
+
+{{% note %}}
+#### Kafka message partitioning
+In **Kapacitor 1.6+**, messages with the same ID are sent to the same Kafka partition.
+Previously, messages were sent to the Kafka partition with the least amount of data, regardless of the message ID.
+Messages with no ID are spread randomly between partitions.
+This aligns Kapacitor's concept of message IDs with Kafka's concept of message keys.
+
+To revert to the previous behavior, use the **disablePartitionById** option.
+
+When partitioning by ID, use the **.partitionHashAlgorithm** to specify the
+method used to assign message IDs to Kafka partitions.
+Kapacitor supports the following partitioning algorithms:
+
+- **crc32**: _(default)_ aligns with `librdkafka` and `confluent-kafka-go`
+- **murmur2**: aligns with canonical Java partitioning logic
+- **fnv-1a**: aligns with Shopify's `sarama` project
+{{% /note %}}
 
 ### Example: handler file
 ```yaml
@@ -92,9 +114,11 @@ id: kafka-event-handler
 topic: kapacitor-topic-name
 kind: kafka
 options:
-  cluster: 'kafka-cluster'
-  topic: 'kafka-topic-name'
-  template: 'kafka-template-name'
+  cluster: kafka-cluster
+  topic: kafka-topic-name
+  template: kafka-template-name
+  disablePartitionById: false
+  partitionAlgorithm: crc32
 ```
 
 ### Example: TICKscript
@@ -105,6 +129,8 @@ options:
     .cluster('kafka-cluster')
     .kafkaTopic('kafka-topic-name')
     .template('kafka-template-name')
+    .disablePartitionById(FALSE)
+    .partitionAlgorithm('crc32')
 ```
 
 ##  Using the Kafka Event Handler
@@ -160,7 +186,7 @@ Create a TICKscript that publishes alert messages to a topic.
 The TICKscript below sends an alert message to the `cpu` topic any time CPU
 idle usage drops below 10% _(or CPU usage is above 90%)_.
 
-_**cpu\_alert.tick**_
+##### cpu\_alert.tick
 ```js
 stream
   |from()
@@ -181,7 +207,7 @@ kapacitor enable cpu_alert
 Create a handler file that subscribes to the `cpu` topic and uses the Kafka
 event handler to send alerts to the `cpu-alerts` topic in Kafka.
 
-_**kafka\_cpu\_handler.yaml**_
+##### kafka\_cpu\_handler.yaml
 ```yaml
 id: kafka-cpu-alert
 topic: cpu
