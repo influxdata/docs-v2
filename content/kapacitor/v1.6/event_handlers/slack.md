@@ -55,25 +55,14 @@ A logical choice is the name of the Slack workspace, e.g. `<workspace>.slack.com
 
 #### url
 Slack webhook URL.
-For [new Slack apps](https://api.slack.com/authentication/basics),
+For [new Slack apps](#new-slack-apps),
 use `https://slack.com/api/chat.postMessage`.
 For legacy Slack Incoming Webhooks, [add a new webhook](https://slack.com/services/new/incoming-webhook)
 for Kapacitor and Slack will provide the webhook URL.
 
 #### token
-Slack OAuth token.
-For [new Slack apps](https://api.slack.com/authentication/basics):
-
-1. Visit https://api.slack.com/apps
-2. Click on your app
-3. Click **OAuth & Permissions** to find the token.
-    
-{{% note %}}
-Ensure your app has 'chat:write' and 'chat:write.public' permissions.
-{{% /note %}}
-
-For legacy Incoming Webhooks, `token` should be an empty string (`""`).
-
+Slack OAuth token used with [new Slack apps](#new-slack-apps).
+For legacy Incoming Webhooks, leave `token` as an empty string (`""`).
 
 #### channel
 Default channel for messages.
@@ -139,10 +128,27 @@ options:
 ```
 
 ## Slack Setup
-To allow Kapacitor to send alerts to Slack, login to your Slack workspace and
-[create a new incoming webhook](https://slack.com/services/new/incoming-webhook )
-for Kapacitor. Add the generated webhook URL as the `url` in the `[[slack]]`
+
+### Legacy Slack apps
+To send alerts from Kapacitor to Slack using Slack's legacy incoming webhooks:
+
+1. Log into to your Slack workspace
+2. [Create a new incoming webhook](https://slack.com/services/new/incoming-webhook )
+for Kapacitor.
+3. Add the generated webhook URL as the `url` in the `[[slack]]`
 configuration section of your `kapacitor.conf`.
+
+### New Slack apps
+To send alerts from Kapacitor to Slack using a [new Slack app](https://api.slack.com/authentication/basics):
+
+1. Visit <https://api.slack.com/apps>.
+2. Create a new app or click on an existing app.
+3. Click **OAuth & Permissions** to find the token.
+    
+{{% note %}}
+Ensure your app has 'chat:write' and 'chat:write.public' permissions.
+{{% /note %}}
+
 
 ## Using the Slack event handler
 With one or more Slack event handlers enabled and configured in your
