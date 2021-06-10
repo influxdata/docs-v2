@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: StreamNode
     identifier: stream_node
-    weight: 5
+    weight: 100
     parent: nodes
 ---
 
@@ -52,8 +52,6 @@ Suppress all error logging events from this node.
 ```js
 stream.quiet()
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ## Chaining Methods
@@ -146,8 +144,6 @@ stream|deadman(threshold float64, interval time.Duration, expr ...ast.LambdaNode
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### From
 
 Creates a new [FromNode](/kapacitor/v1.6/nodes/from_node/) that can be further
@@ -185,8 +181,6 @@ stream|from()
 
 Returns: [FromNode](/kapacitor/v1.6/nodes/from_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stats
 
 Create a new stream of data that contains the internal statistics of the node.
@@ -199,5 +193,3 @@ stream|stats(interval time.Duration)
 ```
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>

@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: BatchNode
     identifier: batch_node
-    weight: 4
+    weight: 100
     parent: nodes
 ---
 
@@ -75,8 +75,6 @@ Suppress all error logging events from this node.
 ```js
 batch.quiet()
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ## Chaining Methods
 
@@ -168,8 +166,6 @@ batch|deadman(threshold float64, interval time.Duration, expr ...ast.LambdaNode)
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Query
 
 The query to execute. Must not contain a time condition
@@ -185,8 +181,6 @@ batch|query(q string)
 
 Returns: [QueryNode](/kapacitor/v1.6/nodes/query_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stats
 
 Create a new stream of data that contains the internal statistics of the node.
@@ -199,5 +193,3 @@ batch|stats(interval time.Duration)
 ```
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>

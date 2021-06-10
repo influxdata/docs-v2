@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: InfluxQLNode
     identifier: influx_q_l_node
-    weight: 160
+    weight: 100
     parent: nodes
 ---
 
@@ -123,8 +123,6 @@ function used (i.e. .mean -> 'mean')
 influxQL.as(value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Quiet
 
@@ -133,8 +131,6 @@ Suppress all error logging events from this node.
 ```js
 influxQL.quiet()
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### UsePointTimes
@@ -148,8 +144,6 @@ Aggregation functions always use the batch time.
 ```js
 influxQL.usePointTimes()
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ## Chaining Methods
@@ -170,8 +164,6 @@ influxQL|alert()
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Barrier
 
 Create a new Barrier node that emits a BarrierMessage periodically.
@@ -185,8 +177,6 @@ influxQL|barrier()
 
 Returns: [BarrierNode](/kapacitor/v1.6/nodes/barrier_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Bottom
 
 Select the bottom `num` points for `field` and sort by any extra tags or fields.
@@ -198,8 +188,6 @@ influxQL|bottom(num int64, field string, fieldsAndTags ...string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### ChangeDetect
 
 Create a new node that only emits new points if different from the previous point.
@@ -209,8 +197,6 @@ influxQL|changeDetect(field string)
 ```
 
 Returns: [ChangeDetectNode](/kapacitor/v1.6/nodes/change_detect_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Combine
 
@@ -223,8 +209,6 @@ influxQL|combine(expressions ...ast.LambdaNode)
 
 Returns: [CombineNode](/kapacitor/v1.6/nodes/combine_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Count
 
 Count the number of points.
@@ -235,8 +219,6 @@ influxQL|count(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### CumulativeSum
 
@@ -249,8 +231,6 @@ influxQL|cumulativeSum(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Deadman
 
@@ -335,8 +315,6 @@ influxQL|deadman(threshold float64, interval time.Duration, expr ...ast.LambdaNo
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Default
 
 Create a node that can set defaults for missing tags or fields.
@@ -347,8 +325,6 @@ influxQL|default()
 ```
 
 Returns: [DefaultNode](/kapacitor/v1.6/nodes/default_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Delete
 
@@ -361,8 +337,6 @@ influxQL|delete()
 
 Returns: [DeleteNode](/kapacitor/v1.6/nodes/delete_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Derivative
 
 Create a new node that computes the derivative of adjacent points.
@@ -373,8 +347,6 @@ influxQL|derivative(field string)
 ```
 
 Returns: [DerivativeNode](/kapacitor/v1.6/nodes/derivative_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Difference
 
@@ -387,8 +359,6 @@ influxQL|difference(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Distinct
 
 Produce batch of only the distinct points.
@@ -399,8 +369,6 @@ influxQL|distinct(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Ec2Autoscale
 
@@ -413,8 +381,6 @@ influxQL|ec2Autoscale()
 
 Returns: [Ec2AutoscaleNode](/kapacitor/v1.6/nodes/ec2_autoscale_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Elapsed
 
 Compute the elapsed time between points.
@@ -425,8 +391,6 @@ influxQL|elapsed(field string, unit time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Eval
 
@@ -441,8 +405,6 @@ influxQL|eval(expressions ...ast.LambdaNode)
 
 Returns: [EvalNode](/kapacitor/v1.6/nodes/eval_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### First
 
 Select the first point.
@@ -454,8 +416,6 @@ influxQL|first(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Flatten
 
 Flatten points with similar times into a single point.
@@ -466,8 +426,6 @@ influxQL|flatten()
 ```
 
 Returns: [FlattenNode](/kapacitor/v1.6/nodes/flatten_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### GroupBy
 
@@ -489,8 +447,6 @@ influxQL|groupBy(tag ...interface{})
 
 Returns: [GroupByNode](/kapacitor/v1.6/nodes/group_by_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### HoltWinters
 
 Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
@@ -501,8 +457,6 @@ influxQL|holtWinters(field string, h int64, m int64, interval time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### HoltWintersWithFit
 
@@ -515,8 +469,6 @@ influxQL|holtWintersWithFit(field string, h int64, m int64, interval time.Durati
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### HttpOut
 
@@ -533,8 +485,6 @@ influxQL|httpOut(endpoint string)
 
 Returns: [HTTPOutNode](/kapacitor/v1.6/nodes/http_out_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### HttpPost
 
 Creates an HTTP Post node that POSTS received data to the provided HTTP endpoint.
@@ -548,8 +498,6 @@ influxQL|httpPost(url ...string)
 
 Returns: [HTTPPostNode](/kapacitor/v1.6/nodes/http_post_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### InfluxDBOut
 
 Create an influxdb output node that will store the incoming data into InfluxDB.
@@ -560,8 +508,6 @@ influxQL|influxDBOut()
 ```
 
 Returns: [InfluxDBOutNode](/kapacitor/v1.6/nodes/influx_d_b_out_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Join
 
@@ -574,8 +520,6 @@ influxQL|join(others ...Node)
 
 Returns: [JoinNode](/kapacitor/v1.6/nodes/join_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### K8sAutoscale
 
 Create a node that can trigger autoscale events for a kubernetes cluster.
@@ -586,8 +530,6 @@ influxQL|k8sAutoscale()
 ```
 
 Returns: [K8sAutoscaleNode](/kapacitor/v1.6/nodes/k8s_autoscale_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### KapacitorLoopback
 
@@ -600,8 +542,6 @@ influxQL|kapacitorLoopback()
 
 Returns: [KapacitorLoopbackNode](/kapacitor/v1.6/nodes/kapacitor_loopback_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Last
 
 Select the last point.
@@ -612,8 +552,6 @@ influxQL|last(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Log
 
@@ -626,8 +564,6 @@ influxQL|log()
 
 Returns: [LogNode](/kapacitor/v1.6/nodes/log_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Max
 
 Select the maximum point.
@@ -639,8 +575,6 @@ influxQL|max(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Mean
 
 Compute the mean of the data.
@@ -651,8 +585,6 @@ influxQL|mean(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Median
 
@@ -668,8 +600,6 @@ influxQL|median(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Min
 
 Select the minimum point.
@@ -681,8 +611,6 @@ influxQL|min(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Mode
 
 Compute the mode of the data.
@@ -693,8 +621,6 @@ influxQL|mode(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### MovingAverage
 
@@ -708,8 +634,6 @@ influxQL|movingAverage(field string, window int64)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Percentile
 
 Select a point at the given percentile. This is a selector function, no interpolation between points is performed.
@@ -720,8 +644,6 @@ influxQL|percentile(field string, percentile float64)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sample
 
@@ -736,8 +658,6 @@ influxQL|sample(rate interface{})
 
 Returns: [SampleNode](/kapacitor/v1.6/nodes/sample_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Shift
 
 Create a new node that shifts the incoming points or batches in time.
@@ -748,8 +668,6 @@ influxQL|shift(shift time.Duration)
 ```
 
 Returns: [ShiftNode](/kapacitor/v1.6/nodes/shift_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sideload
 
@@ -762,8 +680,6 @@ influxQL|sideload()
 
 Returns: [SideloadNode](/kapacitor/v1.6/nodes/sideload_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Spread
 
 Compute the difference between `min` and `max` points.
@@ -774,8 +690,6 @@ influxQL|spread(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### StateCount
 
@@ -788,8 +702,6 @@ influxQL|stateCount(expression ast.LambdaNode)
 
 Returns: [StateCountNode](/kapacitor/v1.6/nodes/state_count_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### StateDuration
 
 Create a node that tracks duration in a given state.
@@ -800,8 +712,6 @@ influxQL|stateDuration(expression ast.LambdaNode)
 ```
 
 Returns: [StateDurationNode](/kapacitor/v1.6/nodes/state_duration_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Stats
 
@@ -816,8 +726,6 @@ influxQL|stats(interval time.Duration)
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stddev
 
 Compute the standard deviation.
@@ -828,8 +736,6 @@ influxQL|stddev(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sum
 
@@ -842,8 +748,6 @@ influxQL|sum(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### SwarmAutoscale
 
 Create a node that can trigger autoscale events for a Docker swarm cluster.
@@ -854,8 +758,6 @@ influxQL|swarmAutoscale()
 ```
 
 Returns: [SwarmAutoscaleNode](/kapacitor/v1.6/nodes/swarm_autoscale_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Top
 
@@ -868,8 +770,6 @@ influxQL|top(num int64, field string, fieldsAndTags ...string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Union
 
 Perform the union of this node and all other given nodes.
@@ -881,8 +781,6 @@ influxQL|union(node ...Node)
 
 Returns: [UnionNode](/kapacitor/v1.6/nodes/union_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Where
 
 Create a new node that filters the data stream by a given expression.
@@ -893,8 +791,6 @@ influxQL|where(expression ast.LambdaNode)
 ```
 
 Returns: [WhereNode](/kapacitor/v1.6/nodes/where_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Window
 
@@ -908,5 +804,3 @@ influxQL|window()
 ```
 
 Returns: [WindowNode](/kapacitor/v1.6/nodes/window_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>

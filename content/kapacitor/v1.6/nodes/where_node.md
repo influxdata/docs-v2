@@ -7,7 +7,7 @@ menu:
   kapacitor_1_6_ref:
     name: WhereNode
     identifier: where_node
-    weight: 330
+    weight: 100
     parent: nodes
 ---
 
@@ -91,6 +91,7 @@ sums
 [Sum](#sum),
 [SwarmAutoscale](#swarmautoscale),
 [Top](#top),
+[Trickle](#trickle),
 [Union](#union),
 [Where](#where),
 [Window](#window)
@@ -113,8 +114,6 @@ Suppress all error logging events from this node.
 where.quiet()
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ## Chaining Methods
 
@@ -134,8 +133,6 @@ where|alert()
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Barrier
 
 Create a new Barrier node that emits a BarrierMessage periodically.
@@ -149,8 +146,6 @@ where|barrier()
 
 Returns: [BarrierNode](/kapacitor/v1.6/nodes/barrier_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Bottom
 
 Select the bottom `num` points for `field` and sort by any extra tags or fields.
@@ -162,8 +157,6 @@ where|bottom(num int64, field string, fieldsAndTags ...string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### ChangeDetect
 
 Create a new node that only emits new points if different from the previous point.
@@ -173,8 +166,6 @@ where|changeDetect(field string)
 ```
 
 Returns: [ChangeDetectNode](/kapacitor/v1.6/nodes/change_detect_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Combine
 
@@ -187,8 +178,6 @@ where|combine(expressions ...ast.LambdaNode)
 
 Returns: [CombineNode](/kapacitor/v1.6/nodes/combine_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Count
 
 Count the number of points.
@@ -199,8 +188,6 @@ where|count(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### CumulativeSum
 
@@ -213,8 +200,6 @@ where|cumulativeSum(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Deadman
 
@@ -299,8 +284,6 @@ where|deadman(threshold float64, interval time.Duration, expr ...ast.LambdaNode)
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Default
 
 Create a node that can set defaults for missing tags or fields.
@@ -311,8 +294,6 @@ where|default()
 ```
 
 Returns: [DefaultNode](/kapacitor/v1.6/nodes/default_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Delete
 
@@ -325,8 +306,6 @@ where|delete()
 
 Returns: [DeleteNode](/kapacitor/v1.6/nodes/delete_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Derivative
 
 Create a new node that computes the derivative of adjacent points.
@@ -337,8 +316,6 @@ where|derivative(field string)
 ```
 
 Returns: [DerivativeNode](/kapacitor/v1.6/nodes/derivative_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Difference
 
@@ -351,8 +328,6 @@ where|difference(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Distinct
 
 Produce batch of only the distinct points.
@@ -363,8 +338,6 @@ where|distinct(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Ec2Autoscale
 
@@ -377,8 +350,6 @@ where|ec2Autoscale()
 
 Returns: [Ec2AutoscaleNode](/kapacitor/v1.6/nodes/ec2_autoscale_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Elapsed
 
 Compute the elapsed time between points.
@@ -389,8 +360,6 @@ where|elapsed(field string, unit time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Eval
 
@@ -405,8 +374,6 @@ where|eval(expressions ...ast.LambdaNode)
 
 Returns: [EvalNode](/kapacitor/v1.6/nodes/eval_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### First
 
 Select the first point.
@@ -418,8 +385,6 @@ where|first(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Flatten
 
 Flatten points with similar times into a single point.
@@ -430,8 +395,6 @@ where|flatten()
 ```
 
 Returns: [FlattenNode](/kapacitor/v1.6/nodes/flatten_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### GroupBy
 
@@ -453,8 +416,6 @@ where|groupBy(tag ...interface{})
 
 Returns: [GroupByNode](/kapacitor/v1.6/nodes/group_by_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### HoltWinters
 
 Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
@@ -465,8 +426,6 @@ where|holtWinters(field string, h int64, m int64, interval time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### HoltWintersWithFit
 
@@ -479,8 +438,6 @@ where|holtWintersWithFit(field string, h int64, m int64, interval time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### HttpOut
 
@@ -497,8 +454,6 @@ where|httpOut(endpoint string)
 
 Returns: [HTTPOutNode](/kapacitor/v1.6/nodes/http_out_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### HttpPost
 
 Creates an HTTP Post node that POSTS received data to the provided HTTP endpoint.
@@ -512,8 +467,6 @@ where|httpPost(url ...string)
 
 Returns: [HTTPPostNode](/kapacitor/v1.6/nodes/http_post_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### InfluxDBOut
 
 Create an influxdb output node that will store the incoming data into InfluxDB.
@@ -524,8 +477,6 @@ where|influxDBOut()
 ```
 
 Returns: [InfluxDBOutNode](/kapacitor/v1.6/nodes/influx_d_b_out_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Join
 
@@ -538,8 +489,6 @@ where|join(others ...Node)
 
 Returns: [JoinNode](/kapacitor/v1.6/nodes/join_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### K8sAutoscale
 
 Create a node that can trigger autoscale events for a kubernetes cluster.
@@ -550,8 +499,6 @@ where|k8sAutoscale()
 ```
 
 Returns: [K8sAutoscaleNode](/kapacitor/v1.6/nodes/k8s_autoscale_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### KapacitorLoopback
 
@@ -564,8 +511,6 @@ where|kapacitorLoopback()
 
 Returns: [KapacitorLoopbackNode](/kapacitor/v1.6/nodes/kapacitor_loopback_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Last
 
 Select the last point.
@@ -576,8 +521,6 @@ where|last(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Log
 
@@ -590,8 +533,6 @@ where|log()
 
 Returns: [LogNode](/kapacitor/v1.6/nodes/log_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Max
 
 Select the maximum point.
@@ -603,8 +544,6 @@ where|max(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Mean
 
 Compute the mean of the data.
@@ -615,8 +554,6 @@ where|mean(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Median
 
@@ -632,8 +569,6 @@ where|median(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Min
 
 Select the minimum point.
@@ -645,8 +580,6 @@ where|min(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Mode
 
 Compute the mode of the data.
@@ -657,8 +590,6 @@ where|mode(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### MovingAverage
 
@@ -672,8 +603,6 @@ where|movingAverage(field string, window int64)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Percentile
 
 Select a point at the given percentile. This is a selector function, no interpolation between points is performed.
@@ -684,8 +613,6 @@ where|percentile(field string, percentile float64)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sample
 
@@ -700,8 +627,6 @@ where|sample(rate interface{})
 
 Returns: [SampleNode](/kapacitor/v1.6/nodes/sample_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Shift
 
 Create a new node that shifts the incoming points or batches in time.
@@ -712,8 +637,6 @@ where|shift(shift time.Duration)
 ```
 
 Returns: [ShiftNode](/kapacitor/v1.6/nodes/shift_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sideload
 
@@ -726,8 +649,6 @@ where|sideload()
 
 Returns: [SideloadNode](/kapacitor/v1.6/nodes/sideload_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Spread
 
 Compute the difference between `min` and `max` points.
@@ -738,8 +659,6 @@ where|spread(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### StateCount
 
@@ -752,8 +671,6 @@ where|stateCount(expression ast.LambdaNode)
 
 Returns: [StateCountNode](/kapacitor/v1.6/nodes/state_count_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### StateDuration
 
 Create a node that tracks duration in a given state.
@@ -764,8 +681,6 @@ where|stateDuration(expression ast.LambdaNode)
 ```
 
 Returns: [StateDurationNode](/kapacitor/v1.6/nodes/state_duration_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Stats
 
@@ -780,8 +695,6 @@ where|stats(interval time.Duration)
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stddev
 
 Compute the standard deviation.
@@ -792,8 +705,6 @@ where|stddev(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sum
 
@@ -806,8 +717,6 @@ where|sum(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### SwarmAutoscale
 
 Create a node that can trigger autoscale events for a Docker swarm cluster.
@@ -818,8 +727,6 @@ where|swarmAutoscale()
 ```
 
 Returns: [SwarmAutoscaleNode](/kapacitor/v1.6/nodes/swarm_autoscale_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Top
 
@@ -832,7 +739,15 @@ where|top(num int64, field string, fieldsAndTags ...string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
+### Trickle
+
+Create a new node that converts batch data to stream data.
+
+```js
+where|trickle()
+```
+
+Returns: [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/)
 
 ### Union
 
@@ -845,8 +760,6 @@ where|union(node ...Node)
 
 Returns: [UnionNode](/kapacitor/v1.6/nodes/union_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Where
 
 Create a new node that filters the data stream by a given expression.
@@ -857,8 +770,6 @@ where|where(expression ast.LambdaNode)
 ```
 
 Returns: [WhereNode](/kapacitor/v1.6/nodes/where_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Window
 
@@ -872,5 +783,3 @@ where|window()
 ```
 
 Returns: [WindowNode](/kapacitor/v1.6/nodes/window_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>

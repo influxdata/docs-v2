@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: InfluxDBOutNode
     identifier: influx_d_b_out_node
-    weight: 150
+    weight: 100
     parent: nodes
 ---
 
@@ -85,8 +85,6 @@ Default: 1000
 influxDBOut.buffer(value int64)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Cluster
 
@@ -97,8 +95,6 @@ If empty the configured default will be used.
 ```js
 influxDBOut.cluster(value string)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### Create
@@ -117,8 +113,6 @@ If the database already exists nothing happens.
 influxDBOut.create()
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Database
 
@@ -128,8 +122,6 @@ The name of the database.
 ```js
 influxDBOut.database(value string)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### FlushInterval
@@ -142,8 +134,6 @@ Default: 10s
 influxDBOut.flushInterval(value time.Duration)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Measurement
 
@@ -153,8 +143,6 @@ The name of the measurement.
 ```js
 influxDBOut.measurement(value string)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### Precision
@@ -166,8 +154,6 @@ The precision to use when writing the data.
 influxDBOut.precision(value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Quiet
 
 Suppress all error logging events from this node.
@@ -175,8 +161,6 @@ Suppress all error logging events from this node.
 ```js
 influxDBOut.quiet()
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### RetentionPolicy
@@ -187,8 +171,6 @@ The name of the retention policy.
 ```js
 influxDBOut.retentionPolicy(value string)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### Tag
@@ -202,8 +184,6 @@ Tag can be called more then once.
 influxDBOut.tag(key string, value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### WriteConsistency
 
@@ -213,8 +193,6 @@ The write consistency to use when writing the data.
 ```js
 influxDBOut.writeConsistency(value string)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ## Chaining Methods
@@ -307,8 +285,6 @@ influxDBOut|deadman(threshold float64, interval time.Duration, expr ...ast.Lambd
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stats
 
 Create a new stream of data that contains the internal statistics of the node.
@@ -321,5 +297,3 @@ influxDBOut|stats(interval time.Duration)
 ```
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>

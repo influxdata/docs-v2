@@ -8,7 +8,7 @@ menu:
   kapacitor_1_6_ref:
     name: BarrierNode
     identifier: barrier_node
-    weight: 20
+    weight: 100
     parent: nodes
 ---
 
@@ -103,6 +103,7 @@ In `.delete(TRUE)`, `TRUE` must be uppercase.
 [Sum](#sum),
 [SwarmAutoscale](#swarmautoscale),
 [Top](#top),
+[Trickle](#trickle),
 [Union](#union),
 [Where](#where),
 [Window](#window)
@@ -132,8 +133,6 @@ barrier.idle(value time.Duration)
 If `idle` times are less than the window `period`, data may be lost.
 {{% /warn %}}
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Period
 
@@ -145,8 +144,6 @@ Must be greater than zero.
 ```js
 barrier.period(value time.Duration)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Delete
 
@@ -168,8 +165,6 @@ the overall performance of Kapacitor, but these gains are minimal.
 For information about optimizing tasks, see [How can I optimize Kapacitor tasks?](/kapacitor/v1.6/troubleshooting/frequently-asked-questions/#how-can-i-optimize-kapacitor-tasks)
 {{% /note %}}
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Quiet
 
@@ -178,8 +173,6 @@ Suppress all error logging events from this node.
 ```js
 barrier.quiet()
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ## Chaining Methods
@@ -200,8 +193,6 @@ barrier|alert()
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Barrier
 
 Create a new Barrier node that emits a BarrierMessage periodically.
@@ -215,8 +206,6 @@ barrier|barrier()
 
 Returns: [BarrierNode](/kapacitor/v1.6/nodes/barrier_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Bottom
 
 Select the bottom `num` points for `field` and sort by any extra tags or fields.
@@ -228,8 +217,6 @@ barrier|bottom(num int64, field string, fieldsAndTags ...string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### ChangeDetect
 
 Create a new node that only emits new points if different from the previous point.
@@ -239,8 +226,6 @@ barrier|changeDetect(field string)
 ```
 
 Returns: [ChangeDetectNode](/kapacitor/v1.6/nodes/change_detect_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Combine
 
@@ -253,8 +238,6 @@ barrier|combine(expressions ...ast.LambdaNode)
 
 Returns: [CombineNode](/kapacitor/v1.6/nodes/combine_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Count
 
 Count the number of points.
@@ -265,8 +248,6 @@ barrier|count(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### CumulativeSum
 
@@ -279,8 +260,6 @@ barrier|cumulativeSum(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Deadman
 
@@ -365,8 +344,6 @@ barrier|deadman(threshold float64, interval time.Duration, expr ...ast.LambdaNod
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Default
 
 Create a node that can set defaults for missing tags or fields.
@@ -377,8 +354,6 @@ barrier|default()
 ```
 
 Returns: [DefaultNode](/kapacitor/v1.6/nodes/default_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Delete
 
@@ -391,8 +366,6 @@ barrier|delete()
 
 Returns: [DeleteNode](/kapacitor/v1.6/nodes/delete_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Derivative
 
 Create a new node that computes the derivative of adjacent points.
@@ -403,8 +376,6 @@ barrier|derivative(field string)
 ```
 
 Returns: [DerivativeNode](/kapacitor/v1.6/nodes/derivative_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Difference
 
@@ -417,8 +388,6 @@ barrier|difference(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Distinct
 
 Produce batch of only the distinct points.
@@ -429,8 +398,6 @@ barrier|distinct(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Ec2Autoscale
 
@@ -443,8 +410,6 @@ barrier|ec2Autoscale()
 
 Returns: [Ec2AutoscaleNode](/kapacitor/v1.6/nodes/ec2_autoscale_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Elapsed
 
 Compute the elapsed time between points.
@@ -455,8 +420,6 @@ barrier|elapsed(field string, unit time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Eval
 
@@ -471,8 +434,6 @@ barrier|eval(expressions ...ast.LambdaNode)
 
 Returns: [EvalNode](/kapacitor/v1.6/nodes/eval_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### First
 
 Select the first point.
@@ -484,8 +445,6 @@ barrier|first(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Flatten
 
 Flatten points with similar times into a single point.
@@ -496,8 +455,6 @@ barrier|flatten()
 ```
 
 Returns: [FlattenNode](/kapacitor/v1.6/nodes/flatten_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### GroupBy
 
@@ -519,8 +476,6 @@ barrier|groupBy(tag ...interface{})
 
 Returns: [GroupByNode](/kapacitor/v1.6/nodes/group_by_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### HoltWinters
 
 Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
@@ -531,8 +486,6 @@ barrier|holtWinters(field string, h int64, m int64, interval time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### HoltWintersWithFit
 
@@ -545,8 +498,6 @@ barrier|holtWintersWithFit(field string, h int64, m int64, interval time.Duratio
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### HttpOut
 
@@ -563,8 +514,6 @@ barrier|httpOut(endpoint string)
 
 Returns: [HTTPOutNode](/kapacitor/v1.6/nodes/http_out_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### HttpPost
 
 Creates an HTTP Post node that POSTS received data to the provided HTTP endpoint.
@@ -578,8 +527,6 @@ barrier|httpPost(url ...string)
 
 Returns: [HTTPPostNode](/kapacitor/v1.6/nodes/http_post_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### InfluxDBOut
 
 Create an influxdb output node that will store the incoming data into InfluxDB.
@@ -590,8 +537,6 @@ barrier|influxDBOut()
 ```
 
 Returns: [InfluxDBOutNode](/kapacitor/v1.6/nodes/influx_d_b_out_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Join
 
@@ -604,8 +549,6 @@ barrier|join(others ...Node)
 
 Returns: [JoinNode](/kapacitor/v1.6/nodes/join_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### K8sAutoscale
 
 Create a node that can trigger autoscale events for a kubernetes cluster.
@@ -616,8 +559,6 @@ barrier|k8sAutoscale()
 ```
 
 Returns: [K8sAutoscaleNode](/kapacitor/v1.6/nodes/k8s_autoscale_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### KapacitorLoopback
 
@@ -630,8 +571,6 @@ barrier|kapacitorLoopback()
 
 Returns: [KapacitorLoopbackNode](/kapacitor/v1.6/nodes/kapacitor_loopback_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Last
 
 Select the last point.
@@ -642,8 +581,6 @@ barrier|last(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Log
 
@@ -656,8 +593,6 @@ barrier|log()
 
 Returns: [LogNode](/kapacitor/v1.6/nodes/log_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Max
 
 Select the maximum point.
@@ -669,8 +604,6 @@ barrier|max(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Mean
 
 Compute the mean of the data.
@@ -681,8 +614,6 @@ barrier|mean(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Median
 
@@ -698,8 +629,6 @@ barrier|median(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Min
 
 Select the minimum point.
@@ -711,8 +640,6 @@ barrier|min(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Mode
 
 Compute the mode of the data.
@@ -723,8 +650,6 @@ barrier|mode(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### MovingAverage
 
@@ -738,8 +663,6 @@ barrier|movingAverage(field string, window int64)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Percentile
 
 Select a point at the given percentile. This is a selector function, no interpolation between points is performed.
@@ -750,8 +673,6 @@ barrier|percentile(field string, percentile float64)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sample
 
@@ -766,8 +687,6 @@ barrier|sample(rate interface{})
 
 Returns: [SampleNode](/kapacitor/v1.6/nodes/sample_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Shift
 
 Create a new node that shifts the incoming points or batches in time.
@@ -778,8 +697,6 @@ barrier|shift(shift time.Duration)
 ```
 
 Returns: [ShiftNode](/kapacitor/v1.6/nodes/shift_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sideload
 
@@ -792,8 +709,6 @@ barrier|sideload()
 
 Returns: [SideloadNode](/kapacitor/v1.6/nodes/sideload_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Spread
 
 Compute the difference between `min` and `max` points.
@@ -804,8 +719,6 @@ barrier|spread(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### StateCount
 
@@ -818,8 +731,6 @@ barrier|stateCount(expression ast.LambdaNode)
 
 Returns: [StateCountNode](/kapacitor/v1.6/nodes/state_count_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### StateDuration
 
 Create a node that tracks duration in a given state.
@@ -830,8 +741,6 @@ barrier|stateDuration(expression ast.LambdaNode)
 ```
 
 Returns: [StateDurationNode](/kapacitor/v1.6/nodes/state_duration_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Stats
 
@@ -846,8 +755,6 @@ barrier|stats(interval time.Duration)
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stddev
 
 Compute the standard deviation.
@@ -858,8 +765,6 @@ barrier|stddev(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sum
 
@@ -872,8 +777,6 @@ barrier|sum(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### SwarmAutoscale
 
 Create a node that can trigger autoscale events for a Docker swarm cluster.
@@ -884,8 +787,6 @@ barrier|swarmAutoscale()
 ```
 
 Returns: [SwarmAutoscaleNode](/kapacitor/v1.6/nodes/swarm_autoscale_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Top
 
@@ -898,7 +799,15 @@ barrier|top(num int64, field string, fieldsAndTags ...string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
+### Trickle
+
+Create a new node that converts batch data to stream data.
+
+```js
+barrier|trickle()
+```
+
+Returns: [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/)
 
 ### Union
 
@@ -911,8 +820,6 @@ barrier|union(node ...Node)
 
 Returns: [UnionNode](/kapacitor/v1.6/nodes/union_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Where
 
 Create a new node that filters the data stream by a given expression.
@@ -923,8 +830,6 @@ barrier|where(expression ast.LambdaNode)
 ```
 
 Returns: [WhereNode](/kapacitor/v1.6/nodes/where_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Window
 
@@ -938,5 +843,3 @@ barrier|window()
 ```
 
 Returns: [WindowNode](/kapacitor/v1.6/nodes/window_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>

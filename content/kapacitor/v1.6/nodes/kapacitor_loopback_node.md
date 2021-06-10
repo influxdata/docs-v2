@@ -7,7 +7,7 @@ menu:
   kapacitor_1_6_ref:
     name: KapacitorLoopback
     identifier: kapacitor_loopback_node
-    weight: 190
+    weight: 100
     parent: nodes
 ---
 
@@ -95,8 +95,6 @@ The name of the database.
 kapacitorLoopback.database(value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Measurement
 
@@ -107,8 +105,6 @@ The name of the measurement.
 kapacitorLoopback.measurement(value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Quiet
 
@@ -117,8 +113,6 @@ Suppress all error logging events from this node.
 ```js
 kapacitorLoopback.quiet()
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### RetentionPolicy
@@ -129,8 +123,6 @@ The name of the retention policy.
 ```js
 kapacitorLoopback.retentionPolicy(value string)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### Tag
@@ -143,8 +135,6 @@ Tag can be called more than once.
 ```js
 kapacitorLoopback.tag(key string, value string)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ## Chaining Methods
@@ -237,8 +227,6 @@ kapacitorLoopback|deadman(threshold float64, interval time.Duration, expr ...ast
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stats
 
 Create a new stream of data that contains the internal statistics of the node.
@@ -251,5 +239,3 @@ kapacitorLoopback|stats(interval time.Duration)
 ```
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
