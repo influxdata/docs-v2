@@ -1,5 +1,6 @@
 ---
 title: MQTT event handler
+list_title: MQTT
 description: >
   The MQTT event handler allows you to send Kapacitor alert messages to an MQTT handler. This page includes configuration options and usage examples.
 menu:

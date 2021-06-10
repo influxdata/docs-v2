@@ -1,5 +1,6 @@
 ---
 title: Pushover event handler
+list_title: Pushover
 description: >
   The Pushover event handler allows you to send Kapacitor alerts to Pushover. This page includes configuration options and usage examples.
 menu:

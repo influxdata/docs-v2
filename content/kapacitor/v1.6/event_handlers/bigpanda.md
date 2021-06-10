@@ -1,5 +1,6 @@
 ---
 title: BigPanda event handler
+list_title: BigPanda
 description: >
   The BigPanda event handler lets you to send Kapacitor alerts to BigPanda. This page includes configuration options and usage examples.
 menu:

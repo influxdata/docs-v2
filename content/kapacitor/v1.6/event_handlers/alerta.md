@@ -1,5 +1,6 @@
 ---
 title: Alerta event handler
+list_title: Alerta
 description: >
   The Alerta event handler allows you to send Kapacitor alerts to Alerta. This page includes configuration options and usage examples.
 menu:

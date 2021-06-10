@@ -1,5 +1,6 @@
 ---
 title: Microsoft Teams event handler
+list_title: Microsoft Teams
 description: >
   The Microsoft Teams event handler lets you send Kapacitor alerts to a Microsoft Teams channel. This page includes configuration options and usage examples.
 menu:

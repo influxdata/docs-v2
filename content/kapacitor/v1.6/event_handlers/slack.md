@@ -1,5 +1,6 @@
 ---
 title: Slack event handler
+list_title: Slack
 description: >
   The Slack event handler allows you to send Kapacitor alerts to Slack. This page includes configuration options and usage examples.
 menu:
@@ -23,7 +24,8 @@ Below is an example configuration:
   enabled = true
   default = true
   workspace = "example.slack.com"
-  url = "https://hooks.slack.com/xxxx/xxxx/xxxx"
+  url = "https://slack.com/api/chat.postMessage"
+  token = "mY5uP3Rs3CrE7t0keN"
   channel = "#alerts"
   username = "kapacitor"
   global = false
@@ -34,52 +36,59 @@ Below is an example configuration:
   insecure-skip-verify = false
 ```
 
-> Multiple Slack clients may be configured by repeating `[[slack]]` sections.
+{{% note %}}
+Multiple Slack clients may be configured by repeating `[[slack]]` sections.
 The `workspace` acts as a unique identifier for each configured Slack client.
+{{% /note %}}
 
-#### `enabled`
+#### enabled
 Set to `true` to enable the Slack event handler.
 
-#### `default`
+#### default
 Identify one of the Slack configurations as the default if there are multiple
 Slack configurations.
 
-#### `workspace`
-The Slack workspace ID.
+#### workspace
+Slack workspace ID.
 This can be any string that identifies this particular Slack configuration.
 A logical choice is the name of the Slack workspace, e.g. `<workspace>.slack.com`.
 
-#### `url`
-The Slack webhook URL. This can be obtained by adding an Incoming Webhook integration.
-Login to your Slack workspace in your browser and
-[add a new webhook](https://slack.com/services/new/incoming-webhook) for Kapacitor.
-Slack will provide you the webhook URL.
+#### url
+Slack webhook URL.
+For [new Slack apps](#new-slack-apps),
+use `https://slack.com/api/chat.postMessage`.
+For legacy Slack Incoming Webhooks, [add a new webhook](https://slack.com/services/new/incoming-webhook)
+for Kapacitor and Slack will provide the webhook URL.
 
-#### `channel`
+#### token
+Slack OAuth token used with [new Slack apps](#new-slack-apps).
+For legacy Incoming Webhooks, leave `token` as an empty string (`""`).
+
+#### channel
 Default channel for messages.
 
-#### `username`
-The username of the Slack bot.
+#### username
+Slack bot username.
 
-#### `global`
+#### global
 If true all the alerts will be sent to Slack without explicitly specifying Slack
 in the TICKscript.
 
-#### `state-changes-only`
+#### state-changes-only
 Sets all alerts in state-changes-only mode, meaning alerts will only be sent if
 the alert state changes.
 _Only applies if `global` is `true`._
 
-#### `ssl-ca`
+#### ssl-ca
 Path to certificate authority file.
 
-#### `ssl-cert`
+#### ssl-cert
 Path to host certificate file.
 
-#### `ssl-key`
+#### ssl-key
 Path to certificate private key file.
 
-#### `insecure-skip-verify`
+#### insecure-skip-verify
 Use SSL but skip chain and host verification.
 _This is necessary if using a self-signed certificate._
 
@@ -119,10 +128,27 @@ options:
 ```
 
 ## Slack Setup
-To allow Kapacitor to send alerts to Slack, login to your Slack workspace and
-[create a new incoming webhook](https://slack.com/services/new/incoming-webhook )
-for Kapacitor. Add the generated webhook URL as the `url` in the `[[slack]]`
+
+### Legacy Slack apps
+To send alerts from Kapacitor to Slack using Slack's legacy incoming webhooks:
+
+1. Log into to your Slack workspace
+2. [Create a new incoming webhook](https://slack.com/services/new/incoming-webhook )
+for Kapacitor.
+3. Add the generated webhook URL as the `url` in the `[[slack]]`
 configuration section of your `kapacitor.conf`.
+
+### New Slack apps
+To send alerts from Kapacitor to Slack using a [new Slack app](https://api.slack.com/authentication/basics):
+
+1. Visit <https://api.slack.com/apps>.
+2. Create a new app or click on an existing app.
+3. Click **OAuth & Permissions** to find the token.
+    
+{{% note %}}
+Ensure your app has 'chat:write' and 'chat:write.public' permissions.
+{{% /note %}}
+
 
 ## Using the Slack event handler
 With one or more Slack event handlers enabled and configured in your
@@ -130,19 +156,22 @@ With one or more Slack event handlers enabled and configured in your
 alerts to Slack or define a Slack handler that subscribes to a topic and sends
 published alerts to Slack.
 
-> To avoid posting a message every alert interval, use
-> [AlertNode.StateChangesOnly](/kapacitor/v1.6/nodes/alert_node/#statechangesonly)
-> so only events where the alert changed state are sent to Slack.
+{{% note %}}
+To avoid posting a message every alert interval, use
+[AlertNode.StateChangesOnly](/kapacitor/v1.6/nodes/alert_node/#statechangesonly)
+so only events where the alert changed state are sent to Slack.
+{{% /note %}}
 
 The examples below use the following Slack configurations defined in the `kapacitor.conf`:
 
-_**Slack settings in kapacitor.conf**_
+###### Slack settings in kapacitor.conf
 ```toml
 [[slack]]
   enabled = true
   default = true
   workspace = "alerts"
-  url = "https://hooks.slack.com/xxxx/xxxx/example1"
+  url = "https://slack.com/api/chat.postMessage"
+  token = "mY5uP3Rs3CrE7t0keN1"
   channel = "#alerts"
   username = "AlertBot"
   global = false
@@ -152,7 +181,8 @@ _**Slack settings in kapacitor.conf**_
   enabled = true
   default = false
   workspace = "error-reports"
-  url = "https://hooks.slack.com/xxxx/xxxx/example2"
+  url = "https://slack.com/api/chat.postMessage"
+  token = "mY5uP3Rs3CrE7t0keN2"
   channel = "#error-reports"
   username = "StatsBot"
   global = false
@@ -164,7 +194,7 @@ The following TICKscript uses the `.slack()` event handler to send the message,
 "Hey, check your CPU", to the `#alerts` Slack channel whenever idle CPU usage
 drops below 20%.
 
-_**slack-cpu-alert.tick**_  
+###### slack-cpu-alert.tick
 ```js
 stream
   |from()
@@ -188,7 +218,7 @@ Create a TICKscript that publishes alert messages to a topic.
 The TICKscript below sends an critical alert message to the `cpu` topic any time
 idle CPU usage drops below 5%.
 
-_**cpu\_alert.tick**_
+###### cpu\_alert.tick
 ```js
 stream
   |from()
@@ -212,7 +242,7 @@ event handler to send alerts to Slack. This handler using the non-default Slack
 handler, "critical-alerts", which sends messages to the #critical-alerts channel
 in Slack.
 
-_**slack\_cpu\_handler.yaml**_
+###### slack\_cpu\_handler.yaml
 ```yaml
 id: slack-cpu-alert
 topic: cpu
@@ -239,7 +269,7 @@ Slack configurations; one for alerts and the other for daily stats. The
 
 The following TICKscript sends alerts to the `alerts` Slack workspace.
 
-_**slack-cpu-alert.tick**_  
+###### slack-cpu-alert.tick
 ```js
 stream
   |from()
@@ -258,7 +288,7 @@ send daily reports of `500` errors to the `error-reports` Slack workspace.
 The following TICKscript collects `500` error occurances and publishes them to
 the `500-errors` topic.
 
-_**500_errors.tick**_
+###### 500_errors.tick
 ```js
 stream
   |from()
@@ -274,7 +304,7 @@ Below is an [aggregate](/kapacitor/v1.6/event_handlers/aggregate/) handler that
 subscribes to the `500-errors` topic, aggregates the number of 500 errors over a
 24 hour period, then publishes an aggregate message to the `500-errors-24h` topic.
 
-_**500\_errors\_24h.yaml**_
+###### 500\_errors\_24h.yaml
 ```yaml
 id: 500-errors-24h
 topic: 500-errors
@@ -288,7 +318,7 @@ options:
 Last, but not least, a Slack handler that subscribes to the `500-errors-24h`
 topic and publishes aggregated count messages to the `error-reports` Slack workspace:
 
-_**slack\_500\_errors\_daily.yaml**_
+###### slack\_500\_errors\_daily.yaml
 ```yaml
 id: slack-500-errors-daily
 topic: 500-errors-24h

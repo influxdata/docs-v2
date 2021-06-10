@@ -1,5 +1,6 @@
 ---
 title: VictorOps event handler
+list_title: VictorOps
 description: >
   The VictorOps event handler allows you to send Kapacitor alerts to VictorOps. This page includes configuration options and usage examples.
 menu:
@@ -95,7 +96,7 @@ alerts to VictorOps.
 
 The examples below use the following VictorOps configuration defined in the `kapacitor.conf`:
 
-_**VictorOps settings in kapacitor.conf**_  
+##### VictorOps settings in kapacitor.conf
 ```toml
 [victorops]
   enabled = true
@@ -112,7 +113,7 @@ The following TICKscript uses the `.victorOps()` event handler to send the
 message, "Hey, check your CPU", to VictorOps whenever idle CPU usage drops
 below 10%.
 
-_**victorops-cpu-alert.tick**_  
+##### victorops-cpu-alert.tick
 ```js
 stream
   |from()
