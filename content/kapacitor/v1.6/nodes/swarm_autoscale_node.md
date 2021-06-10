@@ -168,8 +168,6 @@ The ID of the cluster is specified in the kapacitor configuration.
 swarmAutoscale.cluster(value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### CurrentField
 
@@ -193,8 +191,6 @@ Example:
 swarmAutoscale.currentField(value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### DecreaseCooldown
 
@@ -205,8 +201,6 @@ Only one decrease event can be triggered per resource every DecreaseCooldown int
 swarmAutoscale.decreaseCooldown(value time.Duration)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### IncreaseCooldown
 
@@ -216,8 +210,6 @@ Only one increase event can be triggered per resource every IncreaseCooldown int
 ```js
 swarmAutoscale.increaseCooldown(value time.Duration)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### Max
@@ -231,8 +223,6 @@ Default: 0, a.k.a no limit.
 swarmAutoscale.max(value int64)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Min
 
@@ -243,8 +233,6 @@ Default: 1
 ```js
 swarmAutoscale.min(value int64)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### OutputServiceNameTag
@@ -257,8 +245,6 @@ Defaults to the value of ServiceNameTag if its not empty.
 swarmAutoscale.outputServiceNameTag(value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### Quiet
 
@@ -267,8 +253,6 @@ Suppress all error logging events from this node.
 ```js
 swarmAutoscale.quiet()
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ### Replicas
@@ -280,8 +264,6 @@ Replicas is a lambda expression that should evaluate to the desired number of re
 swarmAutoscale.replicas(value ast.LambdaNode)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### ServiceName
 
@@ -292,8 +274,6 @@ ServiceName is the name of the Docker swarm service to autoscale.
 swarmAutoscale.serviceName(value string)
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 
 ### ServiceNameTag
 
@@ -303,8 +283,6 @@ ServiceName is the name of a tag which contains the name of the Docker swarm ser
 ```js
 swarmAutoscale.serviceNameTag(value string)
 ```
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 
 ## Chaining Methods
@@ -325,8 +303,6 @@ swarmAutoscale|alert()
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Barrier
 
 Create a new Barrier node that emits a BarrierMessage periodically.
@@ -340,8 +316,6 @@ swarmAutoscale|barrier()
 
 Returns: [BarrierNode](/kapacitor/v1.6/nodes/barrier_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Bottom
 
 Select the bottom `num` points for `field` and sort by any extra tags or fields.
@@ -353,8 +327,6 @@ swarmAutoscale|bottom(num int64, field string, fieldsAndTags ...string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### ChangeDetect
 
 Create a new node that only emits new points if different from the previous point.
@@ -364,8 +336,6 @@ swarmAutoscale|changeDetect(field string)
 ```
 
 Returns: [ChangeDetectNode](/kapacitor/v1.6/nodes/change_detect_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Combine
 
@@ -378,8 +348,6 @@ swarmAutoscale|combine(expressions ...ast.LambdaNode)
 
 Returns: [CombineNode](/kapacitor/v1.6/nodes/combine_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Count
 
 Count the number of points.
@@ -390,8 +358,6 @@ swarmAutoscale|count(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### CumulativeSum
 
@@ -404,8 +370,6 @@ swarmAutoscale|cumulativeSum(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Deadman
 
@@ -490,8 +454,6 @@ swarmAutoscale|deadman(threshold float64, interval time.Duration, expr ...ast.La
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Default
 
 Create a node that can set defaults for missing tags or fields.
@@ -502,8 +464,6 @@ swarmAutoscale|default()
 ```
 
 Returns: [DefaultNode](/kapacitor/v1.6/nodes/default_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Delete
 
@@ -516,8 +476,6 @@ swarmAutoscale|delete()
 
 Returns: [DeleteNode](/kapacitor/v1.6/nodes/delete_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Derivative
 
 Create a new node that computes the derivative of adjacent points.
@@ -528,8 +486,6 @@ swarmAutoscale|derivative(field string)
 ```
 
 Returns: [DerivativeNode](/kapacitor/v1.6/nodes/derivative_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Difference
 
@@ -542,8 +498,6 @@ swarmAutoscale|difference(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Distinct
 
 Produce batch of only the distinct points.
@@ -554,8 +508,6 @@ swarmAutoscale|distinct(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Ec2Autoscale
 
@@ -568,8 +520,6 @@ swarmAutoscale|ec2Autoscale()
 
 Returns: [Ec2AutoscaleNode](/kapacitor/v1.6/nodes/ec2_autoscale_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Elapsed
 
 Compute the elapsed time between points.
@@ -580,8 +530,6 @@ swarmAutoscale|elapsed(field string, unit time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Eval
 
@@ -596,8 +544,6 @@ swarmAutoscale|eval(expressions ...ast.LambdaNode)
 
 Returns: [EvalNode](/kapacitor/v1.6/nodes/eval_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### First
 
 Select the first point.
@@ -609,8 +555,6 @@ swarmAutoscale|first(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Flatten
 
 Flatten points with similar times into a single point.
@@ -621,8 +565,6 @@ swarmAutoscale|flatten()
 ```
 
 Returns: [FlattenNode](/kapacitor/v1.6/nodes/flatten_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### GroupBy
 
@@ -644,8 +586,6 @@ swarmAutoscale|groupBy(tag ...interface{})
 
 Returns: [GroupByNode](/kapacitor/v1.6/nodes/group_by_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### HoltWinters
 
 Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
@@ -656,8 +596,6 @@ swarmAutoscale|holtWinters(field string, h int64, m int64, interval time.Duratio
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### HoltWintersWithFit
 
@@ -670,8 +608,6 @@ swarmAutoscale|holtWintersWithFit(field string, h int64, m int64, interval time.
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### HttpOut
 
@@ -688,8 +624,6 @@ swarmAutoscale|httpOut(endpoint string)
 
 Returns: [HTTPOutNode](/kapacitor/v1.6/nodes/http_out_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### HttpPost
 
 Creates an HTTP Post node that POSTS received data to the provided HTTP endpoint.
@@ -703,8 +637,6 @@ swarmAutoscale|httpPost(url ...string)
 
 Returns: [HTTPPostNode](/kapacitor/v1.6/nodes/http_post_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### InfluxDBOut
 
 Create an influxdb output node that will store the incoming data into InfluxDB.
@@ -715,8 +647,6 @@ swarmAutoscale|influxDBOut()
 ```
 
 Returns: [InfluxDBOutNode](/kapacitor/v1.6/nodes/influx_d_b_out_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Join
 
@@ -729,8 +659,6 @@ swarmAutoscale|join(others ...Node)
 
 Returns: [JoinNode](/kapacitor/v1.6/nodes/join_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### K8sAutoscale
 
 Create a node that can trigger autoscale events for a kubernetes cluster.
@@ -741,8 +669,6 @@ swarmAutoscale|k8sAutoscale()
 ```
 
 Returns: [K8sAutoscaleNode](/kapacitor/v1.6/nodes/k8s_autoscale_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### KapacitorLoopback
 
@@ -755,8 +681,6 @@ swarmAutoscale|kapacitorLoopback()
 
 Returns: [KapacitorLoopbackNode](/kapacitor/v1.6/nodes/kapacitor_loopback_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Last
 
 Select the last point.
@@ -767,8 +691,6 @@ swarmAutoscale|last(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Log
 
@@ -781,8 +703,6 @@ swarmAutoscale|log()
 
 Returns: [LogNode](/kapacitor/v1.6/nodes/log_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Mean
 
 Compute the mean of the data.
@@ -793,8 +713,6 @@ swarmAutoscale|mean(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Median
 
@@ -810,8 +728,6 @@ swarmAutoscale|median(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Mode
 
 Compute the mode of the data.
@@ -822,8 +738,6 @@ swarmAutoscale|mode(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### MovingAverage
 
@@ -837,8 +751,6 @@ swarmAutoscale|movingAverage(field string, window int64)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Percentile
 
 Select a point at the given percentile. This is a selector function, no interpolation between points is performed.
@@ -849,8 +761,6 @@ swarmAutoscale|percentile(field string, percentile float64)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sample
 
@@ -865,8 +775,6 @@ swarmAutoscale|sample(rate interface{})
 
 Returns: [SampleNode](/kapacitor/v1.6/nodes/sample_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Shift
 
 Create a new node that shifts the incoming points or batches in time.
@@ -877,8 +785,6 @@ swarmAutoscale|shift(shift time.Duration)
 ```
 
 Returns: [ShiftNode](/kapacitor/v1.6/nodes/shift_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sideload
 
@@ -891,8 +797,6 @@ swarmAutoscale|sideload()
 
 Returns: [SideloadNode](/kapacitor/v1.6/nodes/sideload_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Spread
 
 Compute the difference between `min` and `max` points.
@@ -903,8 +807,6 @@ swarmAutoscale|spread(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### StateCount
 
@@ -917,8 +819,6 @@ swarmAutoscale|stateCount(expression ast.LambdaNode)
 
 Returns: [StateCountNode](/kapacitor/v1.6/nodes/state_count_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### StateDuration
 
 Create a node that tracks duration in a given state.
@@ -929,8 +829,6 @@ swarmAutoscale|stateDuration(expression ast.LambdaNode)
 ```
 
 Returns: [StateDurationNode](/kapacitor/v1.6/nodes/state_duration_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Stats
 
@@ -945,8 +843,6 @@ swarmAutoscale|stats(interval time.Duration)
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stddev
 
 Compute the standard deviation.
@@ -957,8 +853,6 @@ swarmAutoscale|stddev(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Sum
 
@@ -971,8 +865,6 @@ swarmAutoscale|sum(field string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### SwarmAutoscale
 
 Create a node that can trigger autoscale events for a Docker swarm cluster.
@@ -983,8 +875,6 @@ swarmAutoscale|swarmAutoscale()
 ```
 
 Returns: [SwarmAutoscaleNode](/kapacitor/v1.6/nodes/swarm_autoscale_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Top
 
@@ -997,8 +887,6 @@ swarmAutoscale|top(num int64, field string, fieldsAndTags ...string)
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Trickle
 
 Create a new node that converts batch data to stream data.
@@ -1008,8 +896,6 @@ swarmAutoscale|trickle()
 ```
 
 Returns: [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Union
 
@@ -1022,8 +908,6 @@ swarmAutoscale|union(node ...Node)
 
 Returns: [UnionNode](/kapacitor/v1.6/nodes/union_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Where
 
 Create a new node that filters the data stream by a given expression.
@@ -1034,8 +918,6 @@ swarmAutoscale|where(expression ast.LambdaNode)
 ```
 
 Returns: [WhereNode](/kapacitor/v1.6/nodes/where_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
 
 ### Window
 
@@ -1049,5 +931,3 @@ swarmAutoscale|window()
 ```
 
 Returns: [WindowNode](/kapacitor/v1.6/nodes/window_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>

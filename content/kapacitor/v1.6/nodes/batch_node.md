@@ -76,8 +76,6 @@ Suppress all error logging events from this node.
 batch.quiet()
 ```
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ## Chaining Methods
 
 Chaining methods create a new node in the pipeline as a child of the calling node.
@@ -168,8 +166,6 @@ batch|deadman(threshold float64, interval time.Duration, expr ...ast.LambdaNode)
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Query
 
 The query to execute. Must not contain a time condition
@@ -185,8 +181,6 @@ batch|query(q string)
 
 Returns: [QueryNode](/kapacitor/v1.6/nodes/query_node/)
 
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
-
 ### Stats
 
 Create a new stream of data that contains the internal statistics of the node.
@@ -199,5 +193,3 @@ batch|stats(interval time.Duration)
 ```
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
-
-<a class="top" href="javascript:document.getElementsByClassName('article-heading')[0].scrollIntoView();" title="top"><span class="icon arrow-up"></span></a>
