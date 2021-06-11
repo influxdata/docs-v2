@@ -148,7 +148,7 @@ You can confirm the Telegraf agent is installed correctly by running the followi
 
 ```sh
 > telegraf --version
-Telegraf 1.18.0
+Telegraf 1.18.3
 ```
 
 Now that Telegraf is installed, we can configure it using the setup instructions available in your InfluxDB Cloud account. Back on the Telegraf page 
@@ -166,14 +166,14 @@ Once you have set your API Token, you are ready to start Telegraf using the comm
 for the Telegraf Configuration file hosted on within your InfluxDB Cloud account. If all goes well, you won't see any output from Telegraf, since it's 
 designed to run quietly in the background.
 
-These setup steps will need to be performed for each InfluxDB OSS instance you wish to monitor.
+These setup steps need to be performed for each InfluxDB OSS instance you wish to monitor.
 
 ## Viewing the Monitoring Dashboard
 Once you have your Telegraf agents set up and successfully pushing metrics to your InfluxDB Cloud account, you should be ready to view those meterics 
-on the Dashboard that was installed via the InfluxDB Template from earlier. In your InfluxDB Cloud account, navigate to the `Boards` area of the app and 
+on the dashboard that was installed via the InfluxDB Template from earlier. In your InfluxDB Cloud account, navigate to the `Boards` area of the app and 
 click on the `InfluxDB OSS Metrics` dashboard. If metrics are flowing properly, you should see soemthing like this.
 
-{{ image of the dashboard here }}
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-dashboard.png" />}}
 
 ## Adding Alerting for when Metrics Stop Reporting
 Viewing the dashboard is helpful for seeing data in real time, but to ensure data is always flowing from your InfluxDB OSS instances into your InfluxDB Cloud 
@@ -186,16 +186,18 @@ see this [Checks and Notifications System](https://www.influxdata.com/blog/influ
 {{ image of the deadman check }}
 
 You'll probably notice that the Deadman check has been running in the background from the time you installed the Template. In order to be notified when 
-something is down, you will need to configure a Notification Rule as well as an endpoint. You can leverage [Slack Webhooks]() to quickly send messages 
-to any Slack channel you look at, or you can upgrade your InfluxDB Cloud account to get access to Pagerduty and HTTP post endpoints. See the documentation 
-for more information about [configuring a Slack endpoint](). 
+something is down, you will need to configure a Notification Rule as well as an endpoint. You can 
+leverage [Slack Webhooks](https://api.slack.com/messaging/webhooks) to quickly send messages to any Slack channel you look at, or you can 
+upgrade your InfluxDB Cloud account to get access to Pagerduty and HTTP post endpoints. See the documentation or more information 
+about [configuring a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/). 
 
-Finally, the Slack Endpoint can be used to create a Notification Rule to send you a message whenever there is an outage. Here's an example Notification 
-Rule you can use to be notified when any InfluxDB Instance stops reporting metrics to your InfluxDB Cloud account.
+Finally, the Slack Endpoint can be used to create a [Notification Rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to send you a 
+message whenever there is an outage. Here's an example Notification Rule you can use to be notified when any InfluxDB Instance stops reporting metrics 
+to your InfluxDB Cloud account.
+
+}} Add Notification Rule Example {{
 
 ## Conclusion
 We have walked through the process to set up and configure a Telegraf instance to scrape metrics from your InfluxDB OSS instances into your 
 InfluxDB Cloud account. From here, you can customize the dashboard as you need to monitor additional important metrics and also add more alerting to 
 let you know when users create new tasks or buckets, or when machine limits are being tested.
-
-Thanks for using the InfluxDB Cloud Platform!
