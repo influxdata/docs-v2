@@ -8,15 +8,24 @@ menu:
 
 ## v1.6.0 [2021-TK]
 
+**Kapacitor 1.6** introduces Flux task support.
+Use the Flux task to schedule and run Flux tasks against InfluxDB 1.x databases
+or offload the Flux query load from InfluxDB (1.x, 2.x, and Cloud).
+For more information, see [Use Flux tasks](/kapacitor/v1.6/working/flux/).
+
+User authentication and authorization (previously only supported in Kapacitor Enterprise)
+is now available in Kapacitor 1.6. Require user authentication for interactions
+with the Kapacitor API.
+
 ### Features
 
-- Add Kapacitor Flux task commands to the `kapacitor` CLI.
-- Add built-in Flux engine to support Flux tasks in Kapacitor.
-- Add Zenoss alert event handler. 
-- Route Kafka alerts to partitions by ID, and support hashing strategy configuration .
-- Add user-based authentnication
-- Add TrickleNode (`trickle`) that converts batches to streams (the inverse of `windownode`). 
-- Enable new-style Slack applications.
+- Add Kapacitor [Flux task commands](/kapacitor/v1.6/working/cli_client/#flux-tasks) to the `kapacitor` CLI.
+- Add built-in Flux engine to support [Flux tasks in Kapacitor](/kapacitor/v1.6/working/flux/).
+- Add [Zenoss event handler](/kapacitor/v1.6/event_handlers/zenoss/). 
+- Route Kafka alerts to partitions by message ID and support hashing strategy configuration.
+- Add user-based authentication.
+- Add [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/) to convert batches to streams. 
+- Update [Slack event handler](/kapacitor/v1.6/event_handlers/slack/) to support new-style Slack applications.
 
 ### Bugfixes
 - Fix a panic in the scraper handler when debug mode is enabled. 
