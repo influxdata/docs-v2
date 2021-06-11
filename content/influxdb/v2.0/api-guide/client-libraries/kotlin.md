@@ -6,7 +6,7 @@ external_url: https://github.com/influxdata/influxdb-client-java/tree/master/cli
 menu:
   influxdb_2_0:
     name: Kotlin
-    parent: Use client libraries
+    parent: Client libraries
     url: https://github.com/influxdata/influxdb-client-java/tree/master/client-kotlin
 weight: 201
 ---

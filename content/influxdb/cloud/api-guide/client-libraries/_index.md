@@ -9,7 +9,7 @@ aliases:
   - /influxdb/cloud/reference/api/client-libraries/
 menu:
   influxdb_cloud:
-    name: Use client libraries
+    name: Client libraries
     parent: Develop with the API
 influxdb/cloud/tags: [client libraries]
 ---

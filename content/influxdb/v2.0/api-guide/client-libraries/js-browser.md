@@ -3,11 +3,11 @@ title: JavaScript client library
 seotitle: InfluxDB JavaScript client library
 list_title: JavaScript
 description: >
-  Use the JavaScript client library to interact with InfluxDB.
+  Use the JavaScript client library for web browsers to interact with InfluxDB.
 menu:
   influxdb_2_0:
-    name: JavaScript
-    parent: Use client libraries
+    name: Javascript (Browser)
+    parent: Client libraries
 influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
@@ -79,7 +79,7 @@ Use the Javascript library to write data to InfluxDB in a Node.js environment.
 
   ```js
   import {InfluxDB, Point} from '@influxdata/influxdb-client'
- 
+
   const influxDB = new InfluxDB({url, token})
   const writeApi = influxDB.getWriteApi(org, bucket)
   ```

@@ -7,6 +7,8 @@ menu:
   influxdb_cloud:
     name: InfluxDB API
     parent: Developer tools
+    name: Write data
+    parent: Javascript
 ---
 Write data to InfluxDB using an HTTP request to the InfluxDB API `/write` endpoint.
 Use the `POST` request method and include the following in your request:

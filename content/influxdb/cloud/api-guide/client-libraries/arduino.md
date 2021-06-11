@@ -7,7 +7,7 @@ list_note: _– contributed by [tobiasschuerg](https://github.com/tobiasschuerg)
 menu:
   influxdb_cloud:
     name: Arduino
-    parent: Use client libraries
+    parent: Client libraries
     url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino
 weight: 201
 ---

@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_2_0:
     name: Go
-    parent: Use client libraries
+    parent: Client libraries
 influxdb/v2.0/tags: [client libraries, Go]
 weight: 201
 aliases:

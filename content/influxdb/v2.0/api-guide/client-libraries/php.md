@@ -6,7 +6,7 @@ external_url: https://github.com/influxdata/influxdb-client-php
 menu:
   influxdb_2_0:
     name: PHP
-    parent: Use client libraries
+    parent: Client libraries
     url: https://github.com/influxdata/influxdb-client-php
 weight: 201
 ---

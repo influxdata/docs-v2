@@ -6,7 +6,7 @@ external_url: https://github.com/influxdata/influxdb-client-swift
 menu:
   influxdb_cloud:
     name: Swift
-    parent: Use client libraries
+    parent: Client libraries
     url: https://github.com/influxdata/influxdb-client-swift
 weight: 201
 ---

@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud:
     name: Python
-    parent: Use client libraries
+    parent: Client libraries
 influxdb/cloud/tags: [client libraries, python]
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/python/

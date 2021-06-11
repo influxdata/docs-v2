@@ -6,7 +6,7 @@ external_url: https://github.com/influxdata/influxdb-client-java/tree/master/cli
 menu:
   influxdb_cloud:
     name: Scala
-    parent: Use client libraries
+    parent: Client libraries
     url: https://github.com/influxdata/influxdb-client-java/tree/master/client-scala
 weight: 201
 ---

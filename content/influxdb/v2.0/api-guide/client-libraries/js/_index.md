@@ -3,83 +3,79 @@ title: JavaScript client library
 seotitle: InfluxDB JavaScript client library
 list_title: JavaScript
 description: >
-  Use the JavaScript client library to interact with InfluxDB.
+  Use the Node.js JavaScript client library to interact with InfluxDB.
 menu:
   influxdb_2_0:
-    name: JavaScript
-    parent: Use client libraries
+    name: Node.js
+    parent: Client libraries
 influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
   - /influxdb/v2.0/reference/api/client-libraries/js/
 ---
 
-Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into JavaScript scripts and applications. This client supports both client-side (browser) and server-side (NodeJS) environments.
+Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into your Node.js application.
 
-This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
-If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-started/).
+In this guide, you'll start a Node.js project from scratch and code some simple API operations. See the [client repo](https://github.com/influxdata/influxdb-client-js) for more [complete examples](https://github.com/influxdata/influxdb-client-js/tree/master/examples).
 
-## Before you begin
+## Install
 
-1. Install [NodeJS](https://nodejs.org/en/download/package-manager/).
+1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
 2. Ensure that InfluxDB is running and you can connect to it.
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.0/reference/urls/).
 
-## Easiest way to get started
-1. Clone the [examples directory](https://github.com/influxdata/influxdb-client-js/tree/master/examples) in the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo.
-2. Navigate to the `examples` directory:
+3. Start a new Node.js project:
 
-  ```js
-    cd examples
-  ```
-3. Install `yarn` or `npm` dependencies as needed:
-
-```js
-   yarn install
-   npm install
-```
-
-3. Update your `./env` and `index.html` with the name of your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and `proxy` which relies upon proxy to forward requests to the target InfluxDB.
-4. Run the following command to run the application at [http://localhost:3001/examples/index.html]()
-
-    ```sh
-    npm run browser
-    ```
-
-## Boilerplate for the InfluxDB Javascript client library  
-Use the Javascript library to write data to and query data from InfluxDB in a browser.
-
-1. To write a data point to InfluxDB using the JavaScript library, import the latest InfluxDB Javascript library in your script.
-
-   ```js
-   import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
+   ```sh
+   npm init influx-node-app
    ```
 
-2. Define constants for your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and `proxy` which relies on a proxy to forward requests to the target InfluxDB instance.
+   Answer or `Enter` through the prompts.
 
-   ```js
-   const proxy = '/influx'
-   const token = 'example-token'
-   const org = 'example-org'
-   const bucket = 'example-bucket'
+## Install dependencies
+The JavaScript client contains two packages. Add both as dependencies of your project.
+
+{{% note %}}
+`npm` package manager is included with Node.js.
+{{% /note %}}
+
+1. Change to your project directory:
+
+   ```sh
+   cd influx-node-app
    ```
 
-3. Instantiate the InfluxDB JavaScript client and pass in the `proxy` and `token` parameters.
+2. Install  `@influxdata/influxdb-client` for querying and writing data:
 
-   ```js
-   const influxDB = new InfluxDB({proxy, token})
+   ```sh
+   npm install --save @influxdata/influxdb-client
    ```
+
+3. Install `@influxdata/influxdb-client-apis` for access to the InfluxDB management APIs:
+
+   ```sh
+   npm install --save @influxdata/influxdb-client-apis
+   ```
+
+
+
+## Configure your environment
+1. Configure environment variables. Update your `./env` with the name of your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and [url](/influxdb/v2.0/urls).
 
 ## Write data to InfluxDB with JavaScript
 Use the Javascript library to write data to InfluxDB in a Node.js environment.
+
+{{% note %}}
+This library supports browser and server-side (Node.js) Javascript environments. Use `@influxdata/influxdb-client` in your Node.js project.
+{{% /note %}}
 
 1. Instantiate an `InfluxDB` client. Provide your InfluxDB `url` and `token`.
 2. Use the `getWriteApi` method of the instantiated InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
 
   ```js
   import {InfluxDB, Point} from '@influxdata/influxdb-client'
- 
+
   const influxDB = new InfluxDB({url, token})
   const writeApi = influxDB.getWriteApi(org, bucket)
   ```

@@ -6,45 +6,28 @@ weight: 3
 menu:
   influxdb_2_0:
     name: Develop with the API
+influxdb/v2.0/tags: [api]
 ---
 
-InfluxDB offers a rich API and [client libraries](/influxdb/v2.0/api/client-libraries) ready to integrate with your application.
-This section will guide you through the most commonly used API methods.
+The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.
+Access the InfluxDB API using the `/api/v2/` endpoint.
 
-For detailed documentation on the entire API, see [InfluxDBv2 API Reference](/influxdb/v2.0/reference/api/#influxdb-v2-api-documentation).
+## InfluxDB client libraries
+InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
+For information about supported client libraries, see [InfluxDB client libraries](/influxdb/v2.0/tools/client-libraries/).
 
-{{% note %}}
-If you are interacting with InfluxDB 1.x, see the [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
-{{% /note %}}
+## InfluxDB v2 API documentation
+<a class="btn" href="/influxdb/v2.0/api/">InfluxDB OSS 2.0 API documentation</a>
 
-## Bootstrap your application
+#### View InfluxDB API documentation locally
+InfluxDB API documentation is built into the `influxd` service and represents
+the API specific to the current version of InfluxDB.
+To view the API documentation locally, [start InfluxDB](/influxdb/v2.0/get-started/#start-influxdb)
+and visit the `/docs` endpoint in a browser ([localhost:8086/docs](http://localhost:8086/docs)).
 
-With most API requests, you'll need to provide a minimum of your InfluxDB URL, Organization, and Authorization Token.
+## InfluxDB v1 compatibility API documentation
+The InfluxDB v2 API includes [InfluxDB 1.x compatibility endpoints](/influxdb/v2.0/reference/api/influxdb-1x/)
+that work with InfluxDB 1.x client libraries and third-party integrations like
+[Grafana](https://grafana.com) and others.
 
-[Install InfluxDB OSS v2.x](/influxdb/v2.0/install/) or upgrade to
-an [InfluxDB Cloud account](/influxdb/cloud/sign-up).
-
-### Authentication
-
-Before diving into the API, use the InfluxDB UI to
-[create an initial authentication token](/influxdb/v2.0/security/tokens/create-token/) for your application.
-
-InfluxDB uses [authentication tokens](/influxdb/cloud/security/tokens/) to authorize API requests.
-Include your authentication token as an `Authorization` header in each request.
-
-```sh
-{{% api/curl/auth %}}
-```
-
-## Bucket API
-
-Before writing data you'll need to create a Bucket in InfluxDB.
-[Create a bucket](/influxdb/v2.0/buckets/developer-tools/api/) using an HTTP request to the InfluxDB API `bucket` endpoint.
-
-## Write API
-
-[Write data to InfluxDB](/influxdb/v2.0/write-data/developer-tools/api/) using an HTTP request to the InfluxDB API `/write` endpoint.
-
-## Query API
-
-[Query from InfluxDB](/influxdb/v2.0/query-data/execute-queries/influx-api/) using an HTTP request to the `/query` endpoint.
+<a class="btn" href="/influxdb/v2.0/api/v1-compatibility/">View full v1 compatibility API documentation</a>
