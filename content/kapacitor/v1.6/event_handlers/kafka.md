@@ -35,7 +35,7 @@ Below is an example configuration:
 ```
 
 {{% note %}}
-Multiple Kafka clients may be configured by repeating `[[kafka]]` sections.
+Multiple Kafka clients may be configured with multiple `[[kafka]]` sections in TOML.
 The `id` acts as a unique identifier for each configured Kafka client.
 {{% /note %}}
 
@@ -74,8 +74,8 @@ Path to host certificate file.
 Path to certificate private key file.
 
 #### insecure-skip-verify
-Use SSL but skip chain and host verification
-_(required if using a self-signed certificate)_.
+Use SSL but skip chain and host verification.
+_(Required if using a self-signed certificate.)_
 
 ## Options
 The following Kafka event handler options can be set in a
