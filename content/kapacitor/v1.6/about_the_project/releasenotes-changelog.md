@@ -22,7 +22,8 @@ with the Kapacitor API.
 - Add Kapacitor [Flux task commands](/kapacitor/v1.6/working/cli_client/#flux-tasks) to the `kapacitor` CLI.
 - Add built-in Flux engine to support [Flux tasks in Kapacitor](/kapacitor/v1.6/working/flux/).
 - Add [Zenoss event handler](/kapacitor/v1.6/event_handlers/zenoss/). 
-- Route Kafka alerts to partitions by message ID and support hashing strategy configuration.
+- Route [Kafka alerts](/kapacitor/v1.6/event_handlers/kafka/) to partitions by
+  message ID and support hashing strategy configuration.
 - Add user-based authentication.
 - Add [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/) to convert batches to streams. 
 - Update [Slack event handler](/kapacitor/v1.6/event_handlers/slack/) to support new-style Slack applications.
