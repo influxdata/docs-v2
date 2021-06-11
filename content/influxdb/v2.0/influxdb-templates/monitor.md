@@ -53,10 +53,12 @@ monitoring template by navigating to `Settings > Templates` and pasting the raw 
 InfluxDB Cloud will import the Template, and give you a summary of what is included. It should look something like this. You can also flip 
 over to the included readme for more details.
 
-{{add image of import template here}}
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-template-installer.png" />}}
 
 Once you click "Install Template", you should see the Template show up in the list of Installed Templates on the screen. Under the Installed 
 Resources column, you should be able to expand and click on any of the resources the Template created and instantly jump to that resource.
+
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-template-post-install.png" />}}
 
 ## Setting up InfluxDB OSS for Monitoring
 By default, InfluxDB OSS v2.x has a `/metrics` endpoint available which exports Prometheus-style metrics about what's happening in the system. 
@@ -86,37 +88,50 @@ that [Telegraf](/telegraf/latest/), the data collection agent, will collect and 
 Before continuing, you should ensure that you can access the `/metrics` endpoint for each of the InfluxDB OSS instances you plan to 
 monitor with your InfluxDB Cloud account.
 
-## Configuring tha Telegraf Data Collection Agent
-As mentioned before, the [Telegraf](/telegraf/latest/) agent is used to scrape the Prometheus metrics from the `/metrics` endpoint of each 
-InfluxDB OSS instance and send those into InfluxDB Cloud. Telegraf is configured via a configuration file. That file can be stored centrally in your 
-InfluxDB Cloud account and fetched when installing and starting Telegraf next to the local InfluxDB OSS instance.  As part of installing the 
-InfluxDB OSS Monitoring template, a pre-defined Telegraf configuration was imported.
+## Configuring tha Telegraf data collection agent
+As mentioned before, the [Telegraf](/telegraf/latest/) agent is used to scrape the Prometheus metrics exposed by the `/metrics` endpoint 
+of each InfluxDB OSS instance and send those into InfluxDB Cloud. Telegraf is configured via a configuration file. That configuration file 
+can be stored centrally in your InfluxDB Cloud account and fetched when installing and starting Telegraf next to the local InfluxDB 
+OSS instance. As part of installing the InfluxDB OSS Monitoring template, a pre-defined Telegraf configuration was imported into your 
+InfluxDB Cloud account.
 
 Navigate to the Telegraf configuration page by either clicking on the Installed Resource link on the Templates page or by 
 navigating to `Load Data > Telegraf` in your browser. Here, you should see the Telegraf configuration provided by the InfluxDB Template, 
-and by clicking on the name of the configuration, you can view the contents and edit them.
+and by clicking on the name of the configuration (Scrape InfluxDB OSS Metrics), you can view the contents and edit them.
 
-{{ add image of telegraf config here }}
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-telegraf-config.png" />}}
 
+### Edit the Telegraf configuration file
 Looking through the Telegraf Configuration file, there are a few different sections that are useful to understand. At the top of the file, 
 we have sections for `[global_tags]` and `[agent]`. These sections define the behavior of Telegraf and contain useful settings to control the 
 frequency of data collection and many other options. For more information about customizing your Telegraf agent, see the 
 full [Telegraf Configuration documentation](/telegraf/latest/administration/configuration/#global-tags).
 
 Next, you will see a section for `[[outputs.influxdb_v2]]`. This contains the information that allows Telegraf to send metrics to your InfluxDB 
-Cloud account. Most of the options here are using environment variables, since this InfluxDB Template is designed to work for everyone.
+Cloud account. There are four items configuration parameters listed: URLs, token, organization, and bucket. Most of the parameters here, except 
+for bucket, are using environment variables, since this InfluxDB Template is designed to work for everyone.
 
-To make the Telegraf agent setup easier on each machine, you can hardcode the options for your specifc Cloud account here. To get that information, 
-you can click on the `InfluxDB Output Plugin` button on the Telegraf page, which will generate the correct configuration for sending data to your account.
+To simplify the Telegraf agent setup easier on each machine, you can replace the configuration parameters for your specifc 
+InfluxDB Cloud account here. To get that information, exit the Edit Telegraf Configuration modal window.  Now click on 
+the `InfluxDB Output Plugin` button on the Telegraf page, which generates the correct configuration for sending data to your account.
 
-{{ image of the Output Plugin modal}}
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-load-data.png" />}}
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-telegraf-output-example.png" />}}
 
-For the bucket, to be compatible with the included Dasboard, you should choose `oss_metrics`. The one thing we don't recommend hardcoding in the 
-Telegraf configuration itself is the API Token required for Telegraf to fetch the configuration and write data to your instance. That API Token 
-should be treated just like a password, so we will set it on each machine as an environment variable when we start Telegraf.
+You'll want to copy the URLs and the organization parameters. Once you've copied those values, exit this modal 
+and click on the Scape InfluxDB OSS Metrics configuration again. Now, replace the values with the Telegraf configuration 
+file for URLs and organization with the appropriate values for your InfluxDB Cloud account that you copied from within the InfluxDB 
+Output Plugin panel.
+
+{{% note %}}
+You should use the provided parameter value, `oss_metrics`, for the bucket in order to maintain compatibility with the included dasboard 
+in the template. Best practices dictate using an environment variable for the API Token rather than embeddeding this value within the 
+Telegraf configuration itself.  The API Token required for Telegraf to fetch the configuration and write data to your instance. 
+That API Token should be treated just like a password. Set it as an environment variable on each machine you plan to gather metrics 
+from using Telegraf.{{% /note %}}
 
 After the InfluxDB Output Plugin options, there is a section for Input Plugins, specifically `[[inputs.prometheus]]`. This is the configuration that 
-tells Telegraf how to scrape metrics from the `/metrics` endpoint of each InfluxDB OSS instance. We've hardcoded the default URL for InfluxDB OSS here, 
+tells Telegraf how to scrape metrics from the `/metrics` endpoint of each InfluxDB OSS instance. We've the default URL for InfluxDB OSS here, 
 but if you're using unique URLs or have security set up for your `/metrics` endpoint, you can configure those options here and save the updated configuration.
 
 Now we should be all set for installing and configuring Telegraf on each machine next to our InfluxDB OSS instances.
@@ -137,20 +152,21 @@ Telegraf 1.18.0
 ```
 
 Now that Telegraf is installed, we can configure it using the setup instructions available in your InfluxDB Cloud account. Back on the Telegraf page 
-in yur InfluxDB Cloud account, you should see a link for `Setup Instructions` on your Telegraf Configuration. Clicking that opens the instructions needed 
-to start Telegraf and have it remotely fetch the Telegraf configuration from your InfluxDB Cloud account.
+in yur InfluxDB Cloud account, you should see a link for `Setup Instructions` for the Scrape InfluxDB OSS Metrics Telegraf configuration. 
+Clicking that opens the instructions needed to start Telegraf and have it remotely fetch the Telegraf configuration from your InfluxDB Cloud account.
 
-{{ image of the setup instructions modal here}}
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-telegraf-setup.png" />}}
 
 In Step 2, it will walk you through setting up an environment variable for your API Token. If you have an All Access Token already, feel free to use that 
-here, otherwise, you can Generate a New Token with the correct permissions for fetching the Telegraf configuration and writing to your bucket. That 
-environment variable will need to be set wherever you are running Telegraf, presumably on the same machine running your InfluxDB OSS instance. 
+here, otherwise, you can Generate a New Token with the correct permissions for fetching the Telegraf configuration and writing to the `oss_metrics` bucket. 
+That environment variable will need to be set wherever you are running Telegraf, presumably on the same machine running your InfluxDB OSS instance. 
 If you are running Telegraf as a service, ensure this environment variable is set and available to that service by editing your init script.
 
-Once you have set your API Token, you are ready to start Telegraf and provide it with the unique URL for the Telegraf Configuration file hosted on 
-InfluxDB Cloud. If all goes well, you won't see any output from Telegraf, since it's designed to run quietly in the background.
+Once you have set your API Token, you are ready to start Telegraf using the command provided in Step 3.  This provides Telegraf with the unique URL 
+for the Telegraf Configuration file hosted on within your InfluxDB Cloud account. If all goes well, you won't see any output from Telegraf, since it's 
+designed to run quietly in the background.
 
-These setup steps will need to be done for each InfluxDB OSS instance you would like to monitor.
+These setup steps will need to be performed for each InfluxDB OSS instance you wish to monitor.
 
 ## Viewing the Monitoring Dashboard
 Once you have your Telegraf agents set up and successfully pushing metrics to your InfluxDB Cloud account, you should be ready to view those meterics 
