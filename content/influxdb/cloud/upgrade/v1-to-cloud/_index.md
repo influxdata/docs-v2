@@ -26,9 +26,8 @@ To upgrade from **InfluxDB OSS 1.x** to **InfluxDB Cloud**:
 ## Create an InfluxDB Cloud account
 Do one of the following to create an InfluxDB Cloud account:
 
-- [Subscribe through InfluxData](/influxdb/cloud/get-started/#subscribe-through-influxdata) and
-  [start for free](/influxdb/cloud/get-started/#start-for-free).
-- [Subscribe through your cloud provider](/influxdb/cloud/get-started/#subscribe-through-a-cloud-provider).
+- [Subscribe through InfluxData](/influxdb/cloud/sign-up/#subscribe-through-influxdata) and start for free.
+- [Subscribe through your cloud provider](/influxdb/cloud/sign-up/#subscribe-through-a-cloud-provider).
 
 ## Create an All-Access authentication token
 InfluxDB Cloud requires all requests to be authenticated with **token authentication**.

@@ -11,17 +11,6 @@ influxdb/cloud/tags: [api]
 The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.
 Access the InfluxDB API using the `/api/v2/` endpoint.
 
-## Authentication
-InfluxDB uses [authentication tokens](/influxdb/cloud/security/tokens/) to authorize API requests.
-Include your authentication token as an `Authorization` header in each request.
-
-```sh
-curl --request POST https://cloud2.influxdata.com/api/v2/write \
-  --header "Authorization: Token YOURAUTHTOKEN" \
-  --data-urlencode "org=myorg" \
-  --data-urlencode "bucket=example-bucket"
-```
-
 ## InfluxDB Cloud API documentation
 <a class="btn" href="/influxdb/cloud/api/">InfluxDB Cloud API documentation</a>
 

@@ -19,18 +19,14 @@ Use the `POST` request method and include the following in your request:
 | Authentication token | Use the `Authorization: Token` header.                   |
 | Line protocol        | Pass as plain text in your request body.                 |
 
-#### Example API write request
+#### Example
 
-Below is an example API write request using `curl`.
-The URL depends on on your [InfluxDB Cloud region](/influxdb/cloud/reference/regions/).
-
-To compress data when writing to InfluxDB, set the `Content-Encoding` header to `gzip`.
-Compressing write requests reduces network bandwidth, but increases server-side load.
+The URL in the examples depends on your [InfluxDB Cloud region](/influxdb/cloud/reference/regions/).
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Uncompressed](#)
-[Compressed](#)
+[Curl](#)
+[Node.js](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
@@ -45,6 +41,16 @@ mem,host=host2 used_percent=27.18294630 1556896336
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+```js
+{{< api/nodejs/write >}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% note %}}
+To compress data when writing to InfluxDB, set the `Content-Encoding` header to `gzip`.
+Compression reduces network bandwidth, but increases server-side load.
+
 ```bash
 curl -XPOST "https://cloud2.influxdata.com/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
   --header "Authorization: Token YOURAUTHTOKEN" \
@@ -56,8 +62,7 @@ mem,host=host1 used_percent=22.52984738 1556896336
 mem,host=host2 used_percent=27.18294630 1556896336
 "
 ```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+{{% /note %}}
 
 _For information about **InfluxDB API response codes**, see
 [InfluxDB API Write documentation](/influxdb/cloud/api/#operation/PostWrite)._
