@@ -108,10 +108,10 @@ frequency of data collection and many other options. For more information about 
 full [Telegraf Configuration documentation](/telegraf/latest/administration/configuration/#global-tags).
 
 Next, you will see a section for `[[outputs.influxdb_v2]]`. This contains the information that allows Telegraf to send metrics to your InfluxDB 
-Cloud account. There are four items configuration parameters listed: URLs, token, organization, and bucket. Most of the parameters here, except 
+Cloud account. There are four configuration parameters listed: URLs, token, organization, and bucket. Most of the parameters here, except 
 for bucket, are using environment variables, since this InfluxDB Template is designed to work for everyone.
 
-To simplify the Telegraf agent setup easier on each machine, you can replace the configuration parameters for your specifc 
+To simplify the Telegraf agent setup on each machine, you can replace the configuration parameters for your specifc 
 InfluxDB Cloud account here. To get that information, exit the Edit Telegraf Configuration modal window.  Now click on 
 the `InfluxDB Output Plugin` button on the Telegraf page, which generates the correct configuration for sending data to your account.
 
@@ -119,7 +119,7 @@ the `InfluxDB Output Plugin` button on the Telegraf page, which generates the co
 {{< img-hd src="/img/influxdb/2-0-monitor-oss-telegraf-output-example.png" />}}
 
 You'll want to copy the URLs and the organization parameters. Once you've copied those values, exit this modal 
-and click on the Scape InfluxDB OSS Metrics configuration again. Now, replace the values with the Telegraf configuration 
+and click on the Scape InfluxDB OSS Metrics configuration again. Now, replace the values within the Telegraf configuration 
 file for URLs and organization with the appropriate values for your InfluxDB Cloud account that you copied from within the InfluxDB 
 Output Plugin panel.
 
@@ -130,11 +130,12 @@ Telegraf configuration itself.  The API Token required for Telegraf to fetch the
 That API Token should be treated just like a password. Set it as an environment variable on each machine you plan to gather metrics 
 from using Telegraf.{{% /note %}}
 
-After the InfluxDB Output Plugin options, there is a section for Input Plugins, specifically `[[inputs.prometheus]]`. This is the configuration that 
-tells Telegraf how to scrape metrics from the `/metrics` endpoint of each InfluxDB OSS instance. We've the default URL for InfluxDB OSS here, 
-but if you're using unique URLs or have security set up for your `/metrics` endpoint, you can configure those options here and save the updated configuration.
+After the InfluxDB Output Plugin options within the Telegraf configuration, there is a section for Input Plugins, specifically `[[inputs.prometheus]]`. 
+This is the configuration that tells Telegraf how to scrape metrics from the `/metrics` endpoint of each InfluxDB OSS instance. The default URL 
+for InfluxDB OSS is provided here, but if you're using unique URLs or have security set up for your `/metrics` endpoint, you can configure those options 
+here and save the updated configuration.
 
-Now we should be all set for installing and configuring Telegraf on each machine next to our InfluxDB OSS instances.
+Now we should be all set for installing and configuring Telegraf on each machine next to our InfluxDB OSS instances. 
 
 ## Downloading, installing, and configuring Telegraf
 As mentioned above, Telegraf is an open source data collection agent that can be configured to fetch data from almost anywhere. 
