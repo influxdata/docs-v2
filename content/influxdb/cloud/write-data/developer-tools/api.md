@@ -44,7 +44,7 @@ mem,host=host2 used_percent=27.18294630 1556896336
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{< api/nodejs/write >}}
+{{< api/v2dot0/nodejs/write >}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
