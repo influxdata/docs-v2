@@ -10,6 +10,73 @@ menu:
     parent: About the project
 ---
 
+## v1.19.0 [2021-TK-TK]
+
+### Release Notes
+
+This release updates Go to 1.16.5.
+Many linter fixes - thanks @zak-pawel and all!
+
+### Bugfixes
+- Update pgx to v4 <!-- https://github.com/influxdata/telegraf/pull/9182 -->
+- Fix reading config files starting with http: <!-- https://github.com/influxdata/telegraf/pull/9275 -->
+- serializers.prometheusremotewrite Update dependency and remove tags with empty values <!-- https://github.com/influxdata/telegraf/pull/9196 -->
+- outputs.kafka Don't prevent telegraf from starting when there's a connection error <!-- https://github.com/influxdata/telegraf/pull/9051 -->
+- parsers.prometheusremotewrite Update prometheus dependency to v2.21.0 <!-- https://github.com/influxdata/telegraf/pull/8795 -->
+- outputs.dynatrace Use dynatrace-metric-utils <!-- https://github.com/influxdata/telegraf/pull/9295 -->
+
+### Features
+- Config file environment variable can be a URL. <!-- https://github.com/influxdata/telegraf/pull/8987 -->
+- Add named timestamp formats. <!-- https://github.com/influxdata/telegraf/pull/9087 -->
+- Allow multiple "--config" and "--config-directory" flags. <!-- https://github.com/influxdata/telegraf/pull/9007 -->
+- (`outputs.datadog`): Add HTTP proxy to datadog output. <!-- https://github.com/influxdata/telegraf/pull/9297 -->
+- (`inputs.vsphere`): Add config option for the historical interval duration. <!-- https://github.com/influxdata/telegraf/pull/9276 -->
+- (`inputs.ping`): Add an option to specify packet size. <!-- https://github.com/influxdata/telegraf/pull/9274 -->
+- (`outputs.graphite`): Allow more characters in graphite tags. <!-- https://github.com/influxdata/telegraf/pull/9249 -->
+- (`inputs.sqlserver`): Added login_name. <!-- https://github.com/influxdata/telegraf/pull/8351 -->
+- (`inputs.dovecot`): Add support for unix domain sockets. <!-- https://github.com/influxdata/telegraf/pull/9223 -->
+- (`processors.strings`): Add UTF-8 sanitizer. <!-- https://github.com/influxdata/telegraf/pull/9118 -->
+- (`inputs.aliyuncms`): Add config option list of regions to query. <!-- https://github.com/influxdata/telegraf/pull/9156 -->
+- (`common.http`): Add OAuth2 to HTTP input. <!-- https://github.com/influxdata/telegraf/pull/9138 -->
+- (`inputs.sqlserver`): Enable Azure Active Directory (AAD) authentication support. <!-- https://github.com/influxdata/telegraf/pull/8822 -->
+- (`inputs.cloudwatch`): Add wildcard support in dimensions configuration. <!-- https://github.com/influxdata/telegraf/pull/9136 -->
+- (`inputs.mysql`): Gather all mysql channels. <!-- https://github.com/influxdata/telegraf/pull/5517 -->
+- (`processors.enum`): Support float64. <!-- https://github.com/influxdata/telegraf/pull/8911 -->
+- (`processors.starlark`): Support nanosecond resolution timestamp. <!-- https://github.com/influxdata/telegraf/pull/9105 -->
+- (`inputs.logstash`): Add support for version 7 queue stats. <!-- https://github.com/influxdata/telegraf/pull/9080 -->
+- (`parsers.prometheusremotewrite`): Add starlark script for renaming metrics. <!-- https://github.com/influxdata/telegraf/pull/9074 -->
+- (`inputs.couchbase`): Add ~200 more Couchbase metrics via Buckets endpoint. <!-- https://github.com/influxdata/telegraf/pull/9032 -->
+- (`inputs.sqlserver`): input/sqlserver: Add service and save connection pools. <!-- https://github.com/influxdata/telegraf/pull/8596 -->
+- (`processors.starlark`): Add math module. <!-- https://github.com/influxdata/telegraf/pull/9042 -->
+- (`inputs.x509_)cert`: Wildcard support for cert filenames. <!-- https://github.com/influxdata/telegraf/pull/6952 -->
+- (`processors.starlark`): Add time module. <!-- https://github.com/influxdata/telegraf/pull/9004 -->
+- (`inputs.kinesis_consumer`): Add content_encoding option with gzip and zlib support. <!-- https://github.com/influxdata/telegraf/pull/8891 -->
+- (`processors.starlark`): Add an example showing how to obtain IOPS from diskio input. <!-- https://github.com/influxdata/telegraf/pull/8996 -->
+- (`inputs.http_listener_v2`): Add support for snappy compression <!-- https://github.com/influxdata/telegraf/pull/8966 -->
+- (`inputs.cisco_telemetry_mdt`): Add support for events and class based query. <!-- https://github.com/influxdata/telegraf/pull/8661 -->
+- (`inputs.mongodb`): Optionally collect top stats. <!-- https://github.com/influxdata/telegraf/pull/8861 -->
+- (`parsers.value`): Add custom field name config option. <!-- https://github.com/influxdata/telegraf/pull/8979 -->
+- (`inputs.sqlserver`): Add an optional health metric. <!-- https://github.com/influxdata/telegraf/pull/8544 -->
+
+### New plugins
+#### Input
+https://github.com/influxdata/telegraf/tree/master/plugins/inputs/aliyuncms Alibaba CloudMonitor Service (Aliyun) - contributed by @i-prudnikov
+https://github.com/influxdata/telegraf/tree/master/plugins/inputs/opentelemetry OpenTelemetry - contributed by @jacobmarble
+https://github.com/influxdata/telegraf/tree/master/plugins/inputs/dpdk Intel Data Plane Development Kit (DPDK) - contributed by @p-zak
+https://github.com/influxdata/telegraf/tree/master/plugins/inputs/knx_listener KNX - contributed by @DocLambda
+#### Output
+https://github.com/influxdata/telegraf/tree/master/plugins/outputs/websocket Websocket - contributed by @FZambia
+https://github.com/influxdata/telegraf/tree/master/plugins/outputs/sql SQL - contributed by @illuusio
+https://github.com/influxdata/telegraf/tree/master/plugins/outputs/cloudwatch_logs AWS Cloudwatch logs - contributed by @i-prudnikov
+#### Parser
+https://github.com/influxdata/telegraf/tree/master/plugins/parsers/prometheusremotewrite Prometheus Remote Write - contributed by @helenosheaa
+https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2 JSON V2 - contributed by @sspaink
+#### External
+https://github.com/falon/CSI-telegraf-plugins ldap_org and ds389 - contributed by @falon
+https://github.com/jcgonnard/telegraf-input-x590crl x509_crl - contributed by @jcgonnard
+https://github.com/machinly/dnsmasq-telegraf-plugin dnsmasq - contributed by @machinly
+https://github.com/SLedunois/bigbluebutton-telegraf-plugin Big Blue Button - contributed by @SLedunois
+
 ## v1.18.3 [2021-05-21]
 
 - Add FreeBSD ARMv7 build.
