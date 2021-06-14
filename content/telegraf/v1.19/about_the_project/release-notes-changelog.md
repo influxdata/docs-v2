@@ -14,56 +14,56 @@ menu:
 
 ### Release Notes
 
-This release updates Go to 1.16.5.
-Many linter fixes - thanks @zak-pawel and all!
+Update Go to 1.16.5.
 
 ### Bugfixes
-- Update pgx to v4 <!-- https://github.com/influxdata/telegraf/pull/9182 -->
-- Fix reading config files starting with http: <!-- https://github.com/influxdata/telegraf/pull/9275 -->
-- serializers.prometheusremotewrite Update dependency and remove tags with empty values <!-- https://github.com/influxdata/telegraf/pull/9196 -->
-- outputs.kafka Don't prevent telegraf from starting when there's a connection error <!-- https://github.com/influxdata/telegraf/pull/9051 -->
-- parsers.prometheusremotewrite Update prometheus dependency to v2.21.0 <!-- https://github.com/influxdata/telegraf/pull/8795 -->
-- outputs.dynatrace Use dynatrace-metric-utils <!-- https://github.com/influxdata/telegraf/pull/9295 -->
+- Update pgx to v4. <!-- https://github.com/influxdata/telegraf/pull/9182 -->
+- Fix reading configuration files starting with HTTP: <!-- https://github.com/influxdata/telegraf/pull/9275 -->
+- `serializers.prometheusremotewrite`: Update dependency and remove tags with empty values. <!-- https://github.com/influxdata/telegraf/pull/9196 -->
+- `outputs.kafka`: Don't prevent telegraf from starting when there's a connection error. <!-- https://github.com/influxdata/telegraf/pull/9051 -->
+- `parsers.prometheusremotewrite`: Update prometheus dependency to v2.21.0. <!-- https://github.com/influxdata/telegraf/pull/8795 -->
+- `outputs.dynatrace`: Use dynatrace-metric-utils. <!-- https://github.com/influxdata/telegraf/pull/9295 -->
+- Many linter fixes. (Thanks @zak-pawel and all!)
 
 ### Features
-- Config file environment variable can be a URL. <!-- https://github.com/influxdata/telegraf/pull/8987 -->
+- Configuration file environment variable can now be a URL. <!-- https://github.com/influxdata/telegraf/pull/8987 -->
 - Add named timestamp formats. <!-- https://github.com/influxdata/telegraf/pull/9087 -->
-- Allow multiple "--config" and "--config-directory" flags. <!-- https://github.com/influxdata/telegraf/pull/9007 -->
+- Allow multiple `--config` and `--config-directory` flags. <!-- https://github.com/influxdata/telegraf/pull/9007 -->
 
 
 ### Plugin updates
 
 #### Input plugin updates
-- (`aliyuncms`): Add config option list of regions to query. <!-- https://github.com/influxdata/telegraf/pull/9156 -->
+- (`aliyuncms`): Add configuration option list of regions to query. <!-- https://github.com/influxdata/telegraf/pull/9156 -->
 - (`cisco_telemetry_mdt`): Add support for events and class based query. <!-- https://github.com/influxdata/telegraf/pull/8661 -->
 - (`cloudwatch`): Add wildcard support in dimensions configuration. <!-- https://github.com/influxdata/telegraf/pull/9136 -->
-- (`couchbase`): Add ~200 more Couchbase metrics via Buckets endpoint. <!-- https://github.com/influxdata/telegraf/pull/9032 -->
-- (`dovecot`): Add support for unix domain sockets. <!-- https://github.com/influxdata/telegraf/pull/9223 -->
+- (`couchbase`): Add ~200 more Couchbase metrics via buckets endpoint. <!-- https://github.com/influxdata/telegraf/pull/9032 -->
+- (`dovecot`): Add support for Unix domain sockets. <!-- https://github.com/influxdata/telegraf/pull/9223 -->
 - (`http_listener_v2`): Add support for snappy compression <!-- https://github.com/influxdata/telegraf/pull/8966 -->
 - (`http`): Add OAuth2 to HTTP input. <!-- https://github.com/influxdata/telegraf/pull/9138 -->
-- (`kinesis_consumer`): Add content_encoding option with gzip and zlib support. <!-- https://github.com/influxdata/telegraf/pull/8891 -->
-- (`logstash`): Add support for version 7 queue stats. <!-- https://github.com/influxdata/telegraf/pull/9080 -->
-- (`mongodb`): Optionally collect top stats. <!-- https://github.com/influxdata/telegraf/pull/8861 -->
-- (`mysql`): Gather all mysql channels. <!-- https://github.com/influxdata/telegraf/pull/5517 -->
+- (`kinesis_consumer`): Add `content_encoding` option with gzip and zlib support. <!-- https://github.com/influxdata/telegraf/pull/8891 -->
+- (`logstash`): Add support for version 7 queue statistics. <!-- https://github.com/influxdata/telegraf/pull/9080 -->
+- (`mongodb`): Optionally collect top statistics. <!-- https://github.com/influxdata/telegraf/pull/8861 -->
+- (`mysql`): Gather all MySQL channels. <!-- https://github.com/influxdata/telegraf/pull/5517 -->
 - (`ping`): Add an option to specify packet size. <!-- https://github.com/influxdata/telegraf/pull/9274 -->
 - (`sqlserver`): Add an optional health metric. <!-- https://github.com/influxdata/telegraf/pull/8544 -->
-- (`sqlserver`): Added login_name. <!-- https://github.com/influxdata/telegraf/pull/8351 -->
-- (`sqlserver`): Enable Azure Active Directory (AAD) authentication support. <!-- https://github.com/influxdata/telegraf/pull/8822 -->
+- (`sqlserver`): Added `login_name`. <!-- https://github.com/influxdata/telegraf/pull/8351 -->
+- (`sqlserver`): Enable Azure Active Directory (AAD) authentication. <!-- https://github.com/influxdata/telegraf/pull/8822 -->
 - (`sqlserver`): input/sqlserver: Add service and save connection pools. <!-- https://github.com/influxdata/telegraf/pull/8596 -->
-- (`vsphere`): Add config option for the historical interval duration. <!-- https://github.com/influxdata/telegraf/pull/9276 -->
-- (`x509_)cert`: Wildcard support for cert filenames. <!-- https://github.com/influxdata/telegraf/pull/6952 -->
+- (`vsphere`): Add configuration option for the historical interval duration. <!-- https://github.com/influxdata/telegraf/pull/9276 -->
+- (`x509_)cert`: Wildcard support for certificate filenames. <!-- https://github.com/influxdata/telegraf/pull/6952 -->
 
 #### Output plugin updates
-- (`datadog`): Add HTTP proxy to datadog output. <!-- https://github.com/influxdata/telegraf/pull/9297 -->
+- (`datadog`): Add HTTP proxy to DataDog output. <!-- https://github.com/influxdata/telegraf/pull/9297 -->
 - (`graphite`): Allow more characters in graphite tags. <!-- https://github.com/influxdata/telegraf/pull/9249 -->
 
 #### Parser plugin updates
-- (`prometheusremotewrite`): Add starlark script for renaming metrics. <!-- https://github.com/influxdata/telegraf/pull/9074 -->
-- (`value`): Add custom field name config option. <!-- https://github.com/influxdata/telegraf/pull/8979 -->
+- (`prometheusremotewrite`): Add Starlark script for renaming metrics. <!-- https://github.com/influxdata/telegraf/pull/9074 -->
+- (`value`): Add custom field name configuration option. <!-- https://github.com/influxdata/telegraf/pull/8979 -->
 
 #### Processor plugin updates
 - (`enum`): Support `float64`. <!-- https://github.com/influxdata/telegraf/pull/8911 -->
-- (`starlark`): Add an example showing how to obtain IOPS from diskio input. <!-- https://github.com/influxdata/telegraf/pull/8996 -->
+- (`starlark`): Add an example showing how to obtain IOPS from `diskio` input. <!-- https://github.com/influxdata/telegraf/pull/8996 -->
 - (`starlark`): Add `math` module. <!-- https://github.com/influxdata/telegraf/pull/9042 -->
 - (`starlark`): Add `time` module. <!-- https://github.com/influxdata/telegraf/pull/9004 -->
 - (`starlark`): Support nanosecond resolution timestamp. <!-- https://github.com/influxdata/telegraf/pull/9105 -->
