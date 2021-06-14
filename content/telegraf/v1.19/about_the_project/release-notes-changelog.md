@@ -30,8 +30,9 @@ Many linter fixes - thanks @zak-pawel and all!
 - Add named timestamp formats. <!-- https://github.com/influxdata/telegraf/pull/9087 -->
 - Allow multiple "--config" and "--config-directory" flags. <!-- https://github.com/influxdata/telegraf/pull/9007 -->
 
-- (`common.http`): Add OAuth2 to HTTP input. <!-- https://github.com/influxdata/telegraf/pull/9138 -->
+
 ### Plugin updates
+
 #### Input plugin updates
 - (`aliyuncms`): Add config option list of regions to query. <!-- https://github.com/influxdata/telegraf/pull/9156 -->
 - (`cisco_telemetry_mdt`): Add support for events and class based query. <!-- https://github.com/influxdata/telegraf/pull/8661 -->
@@ -39,6 +40,7 @@ Many linter fixes - thanks @zak-pawel and all!
 - (`couchbase`): Add ~200 more Couchbase metrics via Buckets endpoint. <!-- https://github.com/influxdata/telegraf/pull/9032 -->
 - (`dovecot`): Add support for unix domain sockets. <!-- https://github.com/influxdata/telegraf/pull/9223 -->
 - (`http_listener_v2`): Add support for snappy compression <!-- https://github.com/influxdata/telegraf/pull/8966 -->
+- (`http`): Add OAuth2 to HTTP input. <!-- https://github.com/influxdata/telegraf/pull/9138 -->
 - (`kinesis_consumer`): Add content_encoding option with gzip and zlib support. <!-- https://github.com/influxdata/telegraf/pull/8891 -->
 - (`logstash`): Add support for version 7 queue stats. <!-- https://github.com/influxdata/telegraf/pull/9080 -->
 - (`mongodb`): Optionally collect top stats. <!-- https://github.com/influxdata/telegraf/pull/8861 -->
@@ -68,25 +70,27 @@ Many linter fixes - thanks @zak-pawel and all!
 - (`strings`): Add UTF-8 sanitizer. <!-- https://github.com/influxdata/telegraf/pull/9118 -->
 
 ### New plugins
-#### Input
-https://github.com/influxdata/telegraf/tree/master/plugins/inputs/aliyuncms Alibaba CloudMonitor Service (Aliyun) - contributed by @i-prudnikov
-https://github.com/influxdata/telegraf/tree/master/plugins/inputs/opentelemetry OpenTelemetry - contributed by @jacobmarble
-https://github.com/influxdata/telegraf/tree/master/plugins/inputs/dpdk Intel Data Plane Development Kit (DPDK) - contributed by @p-zak
-https://github.com/influxdata/telegraf/tree/master/plugins/inputs/knx_listener KNX - contributed by @DocLambda
-#### Output
-https://github.com/influxdata/telegraf/tree/master/plugins/outputs/websocket Websocket - contributed by @FZambia
-https://github.com/influxdata/telegraf/tree/master/plugins/outputs/sql SQL - contributed by @illuusio
-https://github.com/influxdata/telegraf/tree/master/plugins/outputs/cloudwatch_logs AWS Cloudwatch logs - contributed by @i-prudnikov
-#### Parser
-https://github.com/influxdata/telegraf/tree/master/plugins/parsers/prometheusremotewrite Prometheus Remote Write - contributed by @helenosheaa
-https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2 JSON V2 - contributed by @sspaink
-#### External
-https://github.com/falon/CSI-telegraf-plugins ldap_org and ds389 - contributed by @falon
-https://github.com/jcgonnard/telegraf-input-x590crl x509_crl - contributed by @jcgonnard
-https://github.com/machinly/dnsmasq-telegraf-plugin dnsmasq - contributed by @machinly
-https://github.com/SLedunois/bigbluebutton-telegraf-plugin Big Blue Button - contributed by @SLedunois
 
-## v1.18.3 [2021-05-21]
+#### Input
+- [Alibaba CloudMonitor Service (Aliyun)](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/aliyuncms)  - contributed by @i-prudnikov
+- [Intel Data Plane Development Kit (DPDK)](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/dpdk)  - contributed by @p-zak
+- [KNX](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/knx_listener)  - contributed by @DocLambda
+- [OpenTelemetry](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/opentelemetry)  - contributed by @jacobmarble
+
+#### Output
+- [AWS Cloudwatch logs](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/cloudwatch_logs) - contributed by @i-prudnikov
+- [SQL](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/sql) - contributed by @illuusio
+- [Websocket](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/websocket) - contributed by @FZambia
+
+#### Parser
+- [Prometheus Remote Write](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/prometheusremotewrite)  - contributed by @helenosheaa
+- [JSON V2](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2)  - contributed by @sspaink
+
+#### External
+- [Big Blue Button](https://github.com/SLedunois/bigbluebutton-telegraf-plugin) - contributed by @SLedunois
+- [dnsmasq](https://github.com/machinly/dnsmasq-telegraf-plugin) - contributed by @machinly
+- [ldap_org and ds389](https://github.com/falon/CSI-telegraf-plugins)  - contributed by @falon
+- [x509_crl](https://github.com/jcgonnard/telegraf-input-x590crl)  - contributed by @jcgonnard## v1.18.3 [2021-05-21]
 
 - Add FreeBSD ARMv7 build.
 - Dependencies:
