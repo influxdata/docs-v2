@@ -82,3 +82,8 @@ redundancy, all nodes should run on independent servers.
 
 Chronograf should not be installed or configured until the
 InfluxDB Enterprise cluster is fully functional.
+
+#### Set up monitoring
+
+Monitoring gives you visibility into the status and performance of your cluster.
+See ["Monitor the InfluxData Platform"](/platform/monitoring/influxdata-platform/) for information on setting up monitoring for your InfluxDB Enterprise installation.
