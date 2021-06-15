@@ -7,17 +7,13 @@ menu:
     name: Write
     parent: Node.js
 influxdb/v2.0/tags: [client libraries, JavaScript]
-weight: 201
+weight: 101
 aliases:
-  - /influxdb/v2.0/reference/api/client-libraries/js/nodejs/write
+  - /influxdb/v2.0/reference/api/client-libraries/nodejs/write
 ---
 
 ## Write data to InfluxDB with JavaScript
 Use the Javascript library to write data to InfluxDB in a Node.js environment.
-
-{{% note %}}
-This library supports browser and server-side (Node.js) Javascript environments. Use `@influxdata/influxdb-client` in your Node.js project.
-{{% /note %}}
 
 1. Instantiate an `InfluxDB` client. Provide your InfluxDB `url` and `token`.
 2. Use the `getWriteApi` method of the instantiated InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
@@ -42,25 +38,34 @@ This library supports browser and server-side (Node.js) Javascript environments.
    writeApi.close()
    ```
 
-### Complete example write script
+### Complete example
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{< api/v2dot0/curl/write >}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```js
-const influxDB = new InfluxDB({proxy, token})
-const writeApi = influxDB.getWriteApi(org, bucket)
+{{< api/v2dot0/nodejs/write >}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-// setup default tags for all writes through this API
-writeApi.useDefaultTags({location: 'browser'})
-const point1 = new Point('temperature')
-  .tag('example', 'index.html')
-  .floatField('value', 24)
-console.log(` ${point1}`)
+### Response codes
+_For information about **InfluxDB API response codes**, see
+[InfluxDB API Write documentation](/influxdb/cloud/api/#operation/PostWrite)._
 
-writeApi.writePoint(point1)
+### Compressing data
 
-// flush pending writes and close writeApi
-writeApi
-  .close()
-  .then(() => {
-    console.log('WRITE FINISHED')
-  })
+To compress data when writing to InfluxDB, set the `Content-Encoding` header to `gzip`.
+Compression reduces network bandwidth, but increases server-side load.
+
+```sh
+{{< api/v2dot0/curl/write-compressed >}}
 ```

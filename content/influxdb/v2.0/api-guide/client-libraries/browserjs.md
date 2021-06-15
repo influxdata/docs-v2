@@ -1,7 +1,7 @@
 ---
 title: JavaScript client library
 seotitle: InfluxDB JavaScript client library
-list_title: JavaScript
+list_title: JavaScript (browser)
 description: >
   Use the JavaScript client library for web browsers to interact with InfluxDB.
 menu:
@@ -11,7 +11,7 @@ menu:
 influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
-  - /influxdb/v2.0/reference/api/client-libraries/js/
+  - /influxdb/v2.0/reference/api/client-libraries/browserjs/
 ---
 
 Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into JavaScript scripts and applications. This client supports both client-side (browser) and server-side (NodeJS) environments.

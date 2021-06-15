@@ -16,6 +16,10 @@ const bucket = process.env.INFLUX_BUCKET
  * with a configuration object.
  **/
 const influxDB = new InfluxDB({ url, token })
+/**
+ * Create a write client from the getWriteApi method.
+ * Provide your `org` and `bucket`.
+ **/
 const writeApi = influxDB.getWriteApi(org, bucket)
 
 /**

@@ -9,10 +9,9 @@ menu:
 influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
-  - /influxdb/v2.0/reference/api/client-libraries/js/nodejs/query
+  - /influxdb/v2.0/reference/api/client-libraries/nodejs/query
 ---
 
-## Query data from InfluxDB with JavaScript
 Use the Javascript library to query data from InfluxDB.
 
 1. Use the `getQueryApi` method of the `InfluxDB` client to create a new **query client**. Provide your InfluxDB `org`.
