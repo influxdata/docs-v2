@@ -1,6 +1,6 @@
 ---
 title: Graphite input data format
-description: Us the Graphite data format to translate Graphite dot buckets directly into Telegraf measurement names, with a single value field, and without any tags.
+description: Use the Graphite data format to translate Graphite dot buckets directly into Telegraf measurement names, with a single value field, and without any tags.
 menu:
   telegraf_1_19:
     name: Graphite
