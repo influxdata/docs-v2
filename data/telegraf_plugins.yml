@@ -40,7 +40,7 @@ input:
     description: |
       TK
     introduced: 1.19
-    tags: []
+    tags: [cloud]
 
   - name: Amazon CloudWatch Alarms
     id: awsalarms
@@ -1917,7 +1917,7 @@ output:
     description: |
       TK
     introduced: 1.19
-    tags: []
+    tags: [amazon, cloud, logging]
 
   - name: Amazon Kinesis
     id: kinesis
