@@ -449,6 +449,13 @@ you can customize the text by passing a string argument with the shortcode.
 
 **Output:** This is required
 
+If using other named arguments like `key` or `color`, use the `text` argument to
+customize the text of the required message.
+
+```md
+{{< req text="Required if ..." color="blue" type="key" >}}
+```
+
 #### Required elements in a list
 When identifying required elements in a list, use `{{< req type="key" >}}` to generate
 a "* Required" key before the list. For required elements in the list, include
@@ -460,6 +467,18 @@ a "* Required" key before the list. For required elements in the list, include
 - {{< req "\*" >}} **This element is required**
 - {{< req "\*" >}} **This element is also required**
 - **This element is NOT required**
+```
+
+#### Change color of required text
+Use the `color` argument to change the color of required text.
+The following colors are available:
+
+- blue
+- green
+- magenta
+
+```md
+{{< req color="magenta" text="This is required" >}}
 ```
 
 ### Keybinds

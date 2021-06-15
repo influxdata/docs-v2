@@ -3,8 +3,8 @@ title: Security
 description: Protect the data in your Kapacitor instance.
 menu:
   kapacitor_1_6:
-    weight: 12
     parent: Administration
+weight: 12
 ---
 
 * [Overview](#overview)

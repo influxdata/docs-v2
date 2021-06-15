@@ -5,8 +5,8 @@ aliases:
     - kapacitor/v1.6/introduction/upgrading/
 menu:
   kapacitor_1_6:
-    weight: 30
     parent: Administration
+weight: 9
 ---
 
 ## Contents
