@@ -1,3 +1,8 @@
+# WHERE DO THESE GO?
+#### Parser
+# - [Prometheus Remote Write](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/prometheusremotewrite) - Contributed by @helenosheaa
+# - [JSON V2](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2) - Contributed by @sspaink
+
 ##############   %%%%%%  %%  %%  %%%%%   %%  %%  %%%%%%   %%%%    ##############
 ##############     %%    %%% %%  %%  %%  %%  %%    %%    %%       ##############
 ##############     %%    %% %%%  %%%%%   %%  %%    %%     %%%%    ##############
@@ -29,6 +34,13 @@ input:
       and  statistics for all configured namespaces.
     introduced: 0.2.0
     tags: [linux, macos, windows, data-stores]
+
+  - name: Alibaba CloudMonitor Service (Aliyun)
+    id: aliyuncms
+    description: |
+      TK
+    introduced: 1.19
+    tags: []
 
   - name: Amazon CloudWatch Alarms
     id: awsalarms
@@ -104,7 +116,6 @@ input:
       [Mesos Observability Metrics](http://mesos.apache.org/documentation/latest/monitoring/) page.
     introduced: 0.10.3
     tags: [linux, macos, windows, containers]
-
 
   - name: Apache Solr
     id: solr
@@ -187,6 +198,14 @@ input:
       (reported by `stats` and `stats-tube` commands respectively).
     introduced: 1.8.0
     tags: [linux, macos, windows, messaging]
+
+  # - name: Big Blue Button
+  #   id:
+  #   description: |
+  #     TK
+  #   introduced: 1.19
+  #   tags: []
+  #   external: true
 
   - name: BIND 9 Nameserver Statistics
     id: bind
@@ -373,6 +392,14 @@ input:
       like [Dig](https://en.wikipedia.org/wiki/Dig_(command)).
     introduced: 1.4.0
     tags: [linux, macos, windows, networking]
+
+  # - name: dnsmasq
+  #   id:
+  #   description: |
+  #     TK
+  #   introduced: 1.19
+  #   tags: []
+  #   external: true
 
   - name: Docker
     id: docker
@@ -715,6 +742,13 @@ input:
     introduced: 1.17.0
     tags: [linux]
 
+  - name: Intel Data Plane Development Kit (DPDK)
+    id: dpdk
+    description: |
+      TK
+    introduced: 1.19
+    tags: []
+
   - name: Intel RDT
     id: intel_rdt
     description: |
@@ -840,6 +874,13 @@ input:
     introduced: 1.8.0
     tags: [linux, macos, windows, applications]
 
+  - name: KNX
+    id: knx_listener
+    description: |
+      TK
+    introduced: 1.19
+    tags: []
+
   - name: Kubernetes
     id: kubernetes
     description: |
@@ -870,6 +911,13 @@ input:
 
     introduced: 1.10.0
     tags: [linux, macos, windows, build-deploy, containers]
+
+  # - name: ldap_org
+  #   id:
+  #   description: |
+  #     TK
+  #   introduced: 1.19
+  #   tags: []
 
   - name: LeoFS
     id: leofs
@@ -1239,6 +1287,13 @@ input:
       a free implementation of the server-side SMTP protocol.
     introduced: 1.5.0
     tags: [linux, macos, windows, applications]
+
+  - name: OpenTelemetry
+    id: opentelemetry
+    description: |
+      TK
+    introduced: 1.19
+    tags: []
 
   - name: OpenWeatherMap
     id: openweathermap
@@ -1816,6 +1871,14 @@ input:
     introduced: 1.8.0
     tags: [linux, macos, windows, networking]
 
+  # - name: x590crl
+  #   id:
+  #   description: |
+  #     TK
+  #   introduced: 1.19
+  #   tags: []
+  #   external: true
+
   - name: YouTube
     id: youtube
     description: |
@@ -1835,7 +1898,6 @@ input:
     introduced: 0.2.1
     tags: [linux, macos, windows, systems]
 
-
 ##########    %%%%   %%  %%  %%%%%%  %%%%%   %%  %%  %%%%%%   %%%%    ##########
 ##########   %%  %%  %%  %%    %%    %%  %%  %%  %%    %%    %%       ##########
 ##########   %%  %%  %%  %%    %%    %%%%%   %%  %%    %%     %%%%    ##########
@@ -1849,6 +1911,13 @@ output:
       The Amazon CloudWatch output plugin send metrics to Amazon CloudWatch.
     introduced: 0.10.1
     tags: [linux, macos, windows, cloud]
+
+  - name: Amazon CloudWatch logs
+    id: cloudwatch_logs
+    description: |
+      TK
+    introduced: 1.19
+    tags: []
 
   - name: Amazon Kinesis
     id: kinesis
@@ -2191,6 +2260,13 @@ output:
     introduced: 1.9.0
     tags: [linux, macos, windows, cloud]
 
+  - name: SQL
+    id: sql
+    description: |
+      TK
+    introduced: 1.19
+    tags: []
+
   - name: Sumo Logic
     id: sumologic
     description: |
@@ -2223,6 +2299,13 @@ output:
       The Wavefront output plugin writes to a Wavefront proxy, in Wavefront data format over TCP.
     introduced: 1.5.0
     tags: [linux, macos, windows, applications, cloud]
+
+  - name: Websocket
+    id: websocket
+    description: |
+      TK
+    introduced: 1.19
+    tags: []
 
   - name: XML
     id: xml
@@ -2328,7 +2411,6 @@ aggregator:
       Float fields are being dropped to prevent the creating of too many fields.
     introduced: 1.8.0
     tags: [linux, macos, windows]
-
 
 #   %%%%%   %%%%%    %%%%    %%%%   %%%%%%  %%%%   %%%%    %%%%   %%%%%    %%%%    #
 #   %%  %%  %%  %%  %%  %%  %%  %%  %%     %%     %%      %%  %%  %%  %%  %%       #
@@ -2592,3 +2674,4 @@ processor:
       *To perform the reverse operation, use the [Pivot](#pivot) processor.*
     introduced: 1.12.0
     tags: [linux, macos, windows]
+
