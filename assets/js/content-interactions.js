@@ -96,9 +96,17 @@ function getTabQueryParam() {
 function activateTabs(selector, tab) {
   const anchor = window.location.hash;
   if (tab !== "") {
-    var targetTab = $(`${selector} a:contains("${tab}")`);
-    if(targetTab.length > 0) {
-      targetTab.click();
+    let targetTab = $(`${selector} a:contains("${tab}")`);
+    if(!targetTab.length) {
+      targetTab = Array.from(document.querySelectorAll(`${selector} a`))
+                  .find(function(el) {
+                    let targetText = el.text &&
+                      el.text.toLowerCase().replace(/[^a-z0-9]/, '')
+                    return targetText && tab.includes(targetText);
+                  })
+    }
+    if(targetTab) {
+      $(targetTab).click();
       scrollToAnchor(anchor);
     }
   }

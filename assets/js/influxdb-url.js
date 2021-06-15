@@ -36,6 +36,11 @@ function setPreference(preference) {
   Cookies.set('influxdb_pref', preference)
 }
 
+// Set the user's programming language (client library) preference.
+function setApiLibPreference(preference) {
+  Cookies.set('influx-docs-api-lib', preference)
+}
+
 // InfluxDB URL-Related Session keys
 //
 // influxdb_oss_url
@@ -107,6 +112,19 @@ function getPrevUrls() {
   return prevUrls;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+///////////////// Preferred Client Library programming language  ///////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function getVisitedApiLib() {
+  const path = window.location.pathname.match(/client-libraries\/([a-zA-Z0-9]*)/)
+  return path && path.length && path[1]
+}
+
+var selectedApiLib = getVisitedApiLib()
+Cookies.set('influx-docs-api-lib', selectedApiLib)
+  //selectedApiLib && setApiLibPreference(selectedApiLib);
+
 // Iterate through code blocks and update InfluxDB urls
 // Requires objects with cloud and oss keys and url values
 function updateUrls(prevUrls, newUrls) {
@@ -164,7 +182,7 @@ function appendUrlSelector() {
 ///////////////////////////// Function executions //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// Add the preserve tag to code blocks that shouldn't be udpated
+// Add the preserve tag to code blocks that shouldn't be updated
 addPreserve()
 
 // Append URL selector buttons to code blocks
