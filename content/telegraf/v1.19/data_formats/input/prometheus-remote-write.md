@@ -1,22 +1,26 @@
 ---
 title: Prometheus Remote Write input data format
-description: Use the Prometheus Remote write input data format
+description: |
+  Use the Prometheus Remote Write input data format to write samples directly into Telegraf metrics.
 menu:
   telegraf_1_19:
-    name: Prometheus
+    name: Prometheus Remote Write
     weight: 40
     parent: Input data formats
 ---
 
-Converts prometheus remote write samples directly into Telegraf metrics.
-It can be used with [http_listener_v2](/plugins/inputs/http_listener_v2).
-There are no additional configuration options for Prometheus Remote Write Samples.
+Use this plugin to convert [Prometheus Remote Write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) samples directly into Telegraf metrics.
+It can be used with [`http_listener_v2`](/plugins/inputs/http_listener_v2).
+<!-- There are no additional configuration options for Prometheus Remote Write Samples. -->
 
 Can be used with `inputs.http_listener_v2` and setting `data format = "prometheusremotewrite"`
-InfluxDB 1.x users that had been using the Prometheus Remote Write endpoint to write in metrics
+
+{{% note %}}
+InfluxDB 1.x users that had been using the [Prometheus Remote Write endpoint](https://github.com/react-monaco-editor/react-monaco-editor/) to write in metrics
 can migrate to 2.0 and use this parser to collect their Prometheus metrics.
 For the metrics to completely align with the 1.x endpoint,
 they must add a Starlark processor as described [here][]
+{{% /note %}}
 
 ### Configuration
 
