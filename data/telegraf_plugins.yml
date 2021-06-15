@@ -33,7 +33,7 @@ input:
   - name: Alibaba CloudMonitor Service (Aliyun)
     id: aliyuncms
     description: |
-      This plugin pulls metric statistics from Aliyun CMS. Contributed by @i-prudnikov
+      This plugin pulls metric statistics from Aliyun CMS.
     introduced: 1.19
     tags: [cloud]
 
@@ -197,7 +197,7 @@ input:
   - name: Big Blue Button
     id: bigbluebutton
     description: |
-      The BigBlueButton Input Plugin gathers metrics from a BigBlueButton server. Contributed by @SLedunois
+      The BigBlueButton Input Plugin gathers metrics from a BigBlueButton server.
     introduced: 1.19
     tags: []
     external: true
@@ -391,7 +391,7 @@ input:
   - name: dnsmasq
     id: dnsmasq
     description: |
-      This plugin gathers dnsmasq statistics on the DNS side. Contributed by @machinly.
+      This plugin gathers dnsmasq statistics on the DNS side.
     introduced: 1.19
     tags: []
     external: true
@@ -427,7 +427,7 @@ input:
   - name: 389 Directory Server Input Plugin
     id: ds389
     description: |
-      This plugin gathers metrics from 389 Directory Servers' cn=Monitor backend. Contributed by @falon
+      This plugin gathers metrics from 389 Directory Servers' cn=Monitor backend.
     introduced: 1.19
     tags: []
 
@@ -747,7 +747,7 @@ input:
   - name: Intel Data Plane Development Kit (DPDK)
     id: dpdk
     description: |
-      The DPDK plugin collects metrics exposed by applications built with Data Plane Development Kit, an extensive set of open source libraries designed for accelerating packet processing workloads. Contributed by @p-zak
+      The DPDK plugin collects metrics exposed by applications built with Data Plane Development Kit, an extensive set of open source libraries designed for accelerating packet processing workloads.
     introduced: 1.19
     tags: []
 
@@ -879,7 +879,7 @@ input:
   - name: KNX
     id: knx_listener
     description: |
-      The KNX input plugin that listens for messages on the KNX (Konnex) home-automation bus. Contributed by @DocLambda
+      The KNX input plugin that listens for messages on the KNX (Konnex) home-automation bus.
     introduced: 1.19
     tags: []
 
@@ -917,7 +917,7 @@ input:
   - name: ldap_org
     id: ldap_org
     description: |
-      This plugin monitors the number of entries inside LDAP trees. Contributed by @falon
+      This plugin monitors the number of entries inside LDAP trees.
     introduced: 1.19
     tags: []
 
@@ -1876,7 +1876,7 @@ input:
   - name: x509crl
     id: x509_crl
     description: |
-      This plugin provides information about X509 CRL (Certificate Revocation Lists) accessible via a file. Contributed by @jcgonnard
+      This plugin provides information about X509 CRL (Certificate Revocation Lists) accessible via a file.
     introduced: 1.19
     tags: []
     external: true
@@ -1917,7 +1917,7 @@ output:
   - name: Amazon CloudWatch logs
     id: cloudwatch_logs
     description: |
-      This output plugin sends logs to Amazon CloudWatch. Contributed by @i-prudnikov
+      This output plugin sends logs to Amazon CloudWatch.
     introduced: 1.19
     tags: [amazon, cloud, logging]
 
@@ -2265,7 +2265,7 @@ output:
   - name: SQL
     id: sql
     description: |
-      The SQL output plugin saves Telegraf metric data to an SQL database. Contributed by @illuusio
+      The SQL output plugin saves Telegraf metric data to an SQL database.
     introduced: 1.19
     tags: []
 
@@ -2305,7 +2305,7 @@ output:
   - name: Websocket
     id: websocket
     description: |
-      The Websocket output plugin can write to a WebSocket endpoint. Contributed by @FZambia
+      The Websocket output plugin can write to a WebSocket endpoint.
     introduced: 1.19
     tags: []
 
