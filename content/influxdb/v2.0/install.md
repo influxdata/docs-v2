@@ -317,12 +317,7 @@ influxd --reporting-disabled
 
 <!------------------------------- BEGIN Windows ------------------------------->
 {{% tab-content %}}
-{{% warn %}}
-### Experimental Windows support
-InfluxDB 2.0 on Windows is currently considered experimental.
-If you experience issues, please [submit an issue](https://github.com/influxdata/influxdb/issues/new/choose)
-to the InfluxDB Github repository.
-
+{{% note %}}
 ##### System requirements
 - Windows 10
 - 64-bit AMD architecture
@@ -335,7 +330,7 @@ The command line examples in this documentation use `influx` and `influxd` as if
 installed on the system `PATH`.
 If these binaries are not installed on your `PATH`, replace `influx` and `influxd`
 in the provided examples with `./influx` and `./influxd` respectively.
-{{% /warn %}}
+{{% /note %}}
 
 ### Download and install InfluxDB v2.0
 Download InfluxDB v2.0 for Windows.
