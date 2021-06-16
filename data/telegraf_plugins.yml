@@ -1549,6 +1549,13 @@ input:
     introduced: 1.14.0
     tags: [linux, macos, windows, networking]
 
+  - name: Siemens S7 Comm
+    id: s7comm
+    description: |
+      This plugin gathers information from Siemens PLC (Programmatic Logic Controller).
+    introduced: 1.19.0
+    tags: []
+
   - name: SMCIPMITool
     id: smc_ipmi
     description: |
