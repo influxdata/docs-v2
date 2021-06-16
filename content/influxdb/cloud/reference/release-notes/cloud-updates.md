@@ -16,9 +16,9 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ## May 2021
 
-- Added Usage Dashboard template to show Cloud usage data (roll content into docs) https://www.influxdata.com/influxdb-templates/influxdb-cloud-usage-dashboard/.
-
+- Add Usage Dashboard template to show Cloud usage data (roll content into docs) https://www.influxdata.com/influxdb-templates/influxdb-cloud-usage-dashboard/.
 - Add support for [using annotations](https://docs.influxdata.com/influxdb/cloud/visualize-data/annotations/) in your dashboards.
+- Add new [map visualization](/influxdb/cloud/visualize-data/visualization-types/map/) to display geo-temporal data. 
 
 ## April 2021
 
