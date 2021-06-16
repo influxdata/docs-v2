@@ -27,6 +27,7 @@ collect troubleshooting data and more.
 - [Override configuration](#override-kapacitor-configurations)
 - [Manage storage](#manage-storage)
 - [Users](#users)
+- [Manage Flux tasks](#manage-flux-tasks)
 - [Logging](#logging)
 - [Test services](#test-services)
 - [Miscellaneous](#miscellaneous)
@@ -2366,6 +2367,285 @@ To delete a user, use the DELETE request method with the `/kapacitor/v1/users/<n
 #### Example
 ```sh
 curl -XDELETE "http://localhost:9092/kapacitor/v1/users/steve"
+```
+
+## Manage Flux tasks
+Kapacitor exposes operations to manage Flux tasks.
+For more information, see [Use Flux tasks](/kapacitor/v1.6/working/flux/).
+
+- [Create a Flux task](#create-a-flux-task)
+- [List Flux tasks](#list-flux-tasks)
+- [Update a Flux task](#update-a-flux-task)
+- [Delete a Flux task](#delete-a-flux-task)
+- [List Kapacitor Flux task runs](#list-kapacitor-flux-task-runs)
+- [Retry a Kapacitor Flux task run](#retry-a-kapacitor-flux-task-run)
+- [Show all run logs for a task](#show-all-run-logs-for-a-task)
+- [Show logs for a specific Flux task run](#show-logs-for-a-specific-flux-task-run)
+
+### Create a Flux task
+Use the following request method and endpoint to create a new Kapacitor Flux task.
+
+{{< api-endpoint method="post" endpoint="/kapacitor/v1/api/v2/tasks" >}}
+
+Provide the following with your request ({{< req type="key" >}}):
+
+#### Headers
+- {{< req "\*" >}} **Content-type:** application/json
+
+#### Request body
+JSON object with the following schema:
+- {{< req "\*" >}} **flux**: Flux task code
+- **status**: Flux tasks status (`active` or `inactive`, default is `active`)
+- **description**: Flux task description
+
+```sh
+curl --request POST 'http://localhost:9092/kapacitor/v1/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+    "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nhost = \"http://localhost:8086\"\ntoken = \"\"\n\nfrom(bucket: \"db/rp\", host:host, token:token)\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", host:host, token:token)",
+    "status": "active",
+    "description": "Downsample CPU data every hour"
+}'
+```
+
+### List Flux tasks
+Use the following request method and endpoint to list Kapacitor Flux tasks.
+
+{{< api-endpoint method="get" endpoint="/kapacitor/v1/api/v2/tasks" >}}
+
+Provide the following with your request ({{< req type="key" >}}):
+
+#### Headers
+- {{< req "\*" >}} **Content-type:** application/json
+
+#### Query parameters
+- **after**: List tasks after a specific task ID
+- **limit**: Limit the number of tasks returned (default is 500)
+- **name**: Filter tasks by name
+- **status**: Filter tasks by status (`active` or `inactive`)
+
+#### Examples
+
+- [List all Flux tasks](#list-all-flux-tasks)
+- [List a limited number of Flux tasks](#list-a-limited-number-of-flux-tasks)
+- [List a specific Flux task by name](#list-a-specific-flux-task-by-name)
+- [List Flux tasks after a specific task ID](#list-flux-tasks-after-a-specific-task-id)
+- [List only active Flux tasks](#list-only-active-flux-tasks)
+
+###### List all Flux tasks
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks' \
+  --header 'Content-Type: application/json'
+```
+
+###### List a limited number of Flux tasks
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --data-urlencode "limit=1"
+```
+
+###### List a specific Flux task by name 
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --data-urlencode "name=example-flux-task-name"
+```
+
+###### List Flux tasks after a specific task ID
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --data-urlencode "after=000x00xX0xXXx00"
+```
+
+###### List only active Flux tasks
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --data-urlencode "status=active"
+```
+
+### Update a Flux task
+Use the following request method and endpoint to update a new Kapacitor Flux task.
+
+{{< api-endpoint method="patch" endpoint="/kapacitor/v1/api/v2/tasks/{taskID}" >}}
+
+Provide the following with your request ({{< req type="key" >}}):
+
+#### Headers
+- {{< req "\*" >}} **Content-type**: application/json
+
+#### Path parameters
+- {{< req "\*" >}} **taskID**: Task ID to update
+
+#### Request body
+JSON object with the following schema:
+
+- **cron**: Override the `cron` Flux task option
+- **description**: New task description
+- **every**: Override the `every` Flux task option
+- **flux**: New Flux task code
+- **name**: Override the `name` Flux task option
+- **offset**: Override the `offset` Flux task option
+- **status**: New Flux task status (`active` or `inactive`)
+
+##### Examples
+
+_The following examples use the task ID `000x00xX0xXXx00`._
+
+- [Update Flux task code](#update-flux-task-code)
+- [Enable or disable a Flux task](#enable-or-disable-a-flux-task)
+- [Override Flux task options](#override-flux-task-options)
+
+###### Update Flux task code
+{{< keep-url >}}
+```sh
+curl --request PATCH 'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+    "flux": "option task = {name: \"Updated task name\", every: 1h}\n\nhost = \"http://localhost:8086\"\ntoken = \"\"\n\nfrom(bucket: \"db/rp\", host:host, token:token)\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", host:host, token:token)"
+}'
+```
+
+###### Enable or disable a Flux task
+```sh
+curl --request PATCH 'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{"status": "inactive"}'
+```
+
+###### Override Flux task options
+```sh
+curl --request PATCH 'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{
+    "every": "1d",
+    "name": "New task name",
+    "offset": "15m"
+}'
+```
+
+### Delete a Flux task
+Use the following request method and endpoint to delete a Kapacitor Flux task.
+
+{{< api-endpoint method="delete" endpoint="/kapacitor/v1/api/v2/tasks/{taskID}" >}}
+
+Provide the following with your request ({{< req type="key" >}}):
+
+#### Path parameters
+- {{< req "\*" >}} **taskID**: Task ID to delete
+
+```sh
+# Delete task ID 000x00xX0xXXx00
+curl --request DELETE 'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00'
+```
+
+### List Kapacitor Flux task runs
+Use the following request method and endpoint to list Kapacitor Flux task runs.
+
+{{< api-endpoint method="get" endpoint="/kapacitor/v1/api/v2/tasks/{taskID}/runs" >}}
+
+Provide the following with your request ({{< req type="key" >}}):
+
+#### Headers
+- {{< req "\*" >}} **Content-type:** application/json
+
+#### Path parameters
+- {{< req "\*" >}} **taskID**: Task ID
+
+#### Query parameters
+- **after**: List task runs after a specific run ID
+- **afterTime**: Return task runs that occurred after this time (RFC3339 timestamp)
+- **beforeTime**: Return task runs that occurred before this time (RFC3339 timestamp)
+- **limit**: Limit the number of task runs returned (default is 100)
+
+##### Examples
+
+_The following examples use the task ID `000x00xX0xXXx00`._
+
+- [List all runs for a Flux task](#list-all-runs-for-a-flux-task)
+- [List a limited number of runs for a Flux task](#list-a-limited-number-of-runs-for-a-flux-task)
+- [List Flux task runs after a specific run ID](#list-flux-task-runs-after-a-specific-run-id)
+- [List Flux task runs that occurred in a time range](#list-flux-task-runs-that-occurred-in-a-time-range)
+
+##### List all runs for a Flux task
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00/runs' \
+  --header 'Content-Type: application/json'
+```
+
+##### List a limited number of runs for a Flux task
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00/runs' \
+  --header 'Content-Type: application/json' \
+  --data-urlencode "limit=10"
+```
+
+##### List Flux task runs after a specific run ID
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00/runs' \
+  --header 'Content-Type: application/json' \
+  --data-urlencode "after=XXX0xx0xX00Xx0X"
+```
+
+##### List Flux task runs that occurred in a time range 
+```sh
+curl --GET 'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00/runs' \
+  --header 'Content-Type: application/json' \
+  --data-urlencode 'afterTime=2021-01-01T00:00:00Z' \
+  --data-urlencode 'beforeTime=2021-01-31T00:00:00Z'
+```
+
+### Retry a Kapacitor Flux task run
+Use the following request method and endpoint to retry a Kapacitor Flux task run.
+
+{{< api-endpoint method="post" endpoint="/kapacitor/v1/api/v2/tasks/{taskID}/runs/{runID}/retry" >}}
+
+Provide the following with your request ({{< req type="key" >}}):
+
+#### Path parameters
+- {{< req "\*" >}} **taskID**: Task ID
+- {{< req "\*" >}} **runID**: Run ID to retry
+
+```sh
+# Retry run ID XXX0xx0xX00Xx0X for task ID 000x00xX0xXXx00
+curl --request POST \
+  'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00/runs/XXX0xx0xX00Xx0X'
+```
+
+### Show all run logs for a task
+Use the following request method and endpoint to show Kapacitor Flux task logs.
+
+{{< api-endpoint method="get" endpoint="/kapacitor/v1/api/v2/tasks/{taskID}/log" >}}
+
+Provide the following with your request ({{< req type="key" >}}):
+
+#### Path parameters
+- {{< req "\*" >}} **taskID**: Task ID
+
+```sh
+# Get logs for task ID 000x00xX0xXXx00
+curl --request GET \
+  'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00/logs'
+```
+
+### Show logs for a specific Flux task run
+Use the following request method and endpoint to show logs for a specific
+Kapacitor Flux task run.
+
+{{< api-endpoint method="get" endpoint="/kapacitor/v1//api/v2/tasks/{taskID}/runs/{runID}/logs" >}}
+
+Provide the following with your request ({{< req type="key" >}}):
+
+#### Path parameters
+- {{< req "\*" >}} **taskID**: Task ID
+- {{< req "\*" >}} **runID**: Task run ID _(see [Manage Flux task runs](/kapacitor/v1.6/working/flux/manage/task-runs/))_
+
+```sh
+# Get logs for task ID 000x00xX0xXXx00, run ID XXX0xx0xX00Xx0X
+curl --request GET \
+  'http://localhost:9092/kapacitor/v1/api/v2/tasks/000x00xX0xXXx00/runs/XXX0xx0xX00Xx0X/logs'
 ```
 
 ## Logging
