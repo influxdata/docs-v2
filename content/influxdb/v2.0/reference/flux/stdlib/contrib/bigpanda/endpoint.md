@@ -42,6 +42,8 @@ _**Data type:** String_
 ({{< req >}})
 BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
 
+_**Data type:** String_
+
 ## Usage
 `bigpanda.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
