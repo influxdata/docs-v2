@@ -526,7 +526,7 @@ input:
       The Fireboard input plugin gathers real time temperature data from Fireboard thermometers.
       To use this input plugin, sign up to use the [Fireboard REST API](https://docs.fireboard.io/reference/restapi.html).
     introduced: 1.12.0
-    tags: [linux, macos, windows, cloud, iot]
+    tags: [linux, macos, windows, cloud, Io]
 
   - name: Fluentd
     id: fluentd
@@ -882,7 +882,7 @@ input:
     description: |
       The KNX input plugin that listens for messages on the KNX (Konnex) home-automation bus.
     introduced: 1.19
-    tags: []
+    tags: [iot]
 
   - name: Kubernetes
     id: kubernetes
@@ -1063,7 +1063,7 @@ input:
       The MQTT Consumer input plugin reads from specified MQTT topics and adds messages to InfluxDB.
       Messages are in the [Telegraf input data formats](/{{< latest "telegraf" >}}/data_formats/input/).
     introduced: 0.10.3
-    tags: [linux, macos, windows, messaging, IoT]
+    tags: [linux, macos, windows, messaging, iot]
 
   - name: Multifile
     id: multifile
@@ -1298,7 +1298,7 @@ input:
     description: |
       Receives traces, metrics and logs from OpenTelemetry clients and agents via gRPC.
     introduced: 1.19
-    tags: []
+    tags: [logging, messaging]
 
   - name: OpenWeatherMap
     id: openweathermap
@@ -1554,7 +1554,7 @@ input:
     description: |
       This plugin gathers information from Siemens PLC (Programmatic Logic Controller).
     introduced: 1.19.0
-    tags: []
+    tags: [external, iot]
 
   - name: SMCIPMITool
     id: smc_ipmi
@@ -2177,7 +2177,7 @@ output:
       The MQTT Producer output plugin writes to the MQTT server using
       [supported output data formats](/{{< latest "telegraf" >}}/data_formats/output/).
     introduced: 0.2.0
-    tags: [linux, macos, windows, messaging, IoT]
+    tags: [linux, macos, windows, messaging, iot]
 
   - name: NATS Output
     id: nats
@@ -2280,7 +2280,7 @@ output:
     description: |
       The SQL output plugin saves Telegraf metric data to an SQL database.
     introduced: 1.19
-    tags: []
+    tags: [data stores]
 
   - name: Sumo Logic
     id: sumologic
@@ -2320,7 +2320,7 @@ output:
     description: |
       The Websocket output plugin can write to a WebSocket endpoint.
     introduced: 1.19
-    tags: []
+    tags: [web, servers]
 
   - name: XML
     id: xml
