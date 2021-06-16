@@ -3,7 +3,7 @@ title: InfluxQL query management
 description: Show, kill, and manage queries in InfluxQL.
 menu:
   enterprise_influxdb_1_9:
-    name: Query management
+    name: InfluxQL query management
     weight: 20
     parent: Troubleshoot
 ---
