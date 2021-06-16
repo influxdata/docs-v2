@@ -32,7 +32,6 @@ cloud:
         - name: Europe West (Belgium)
           location: St. Ghislain, Belgium
           url: https://europe-west1-1.gcp.cloud2.influxdata.com
-          status: beta
     - name: Microsoft Azure
       short_name: Azure
       regions:

@@ -9,6 +9,8 @@ menu:
     name: date.truncate
     parent: Date
 weight: 301
+related:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/
 ---
 
 The `date.truncate()` function truncates a time to a specified unit.
