@@ -1,66 +1,73 @@
 ---
 title: Kapacitor HTTP API reference documentation
 description: >
-  Use the Kapacitor HTTP API endpoints to control task execution, query statues, and collect troubleshooting data.
+  Use the Kapacitor HTTP API manage Kapacitor tasks, templates, recordings, 
+    collect troubleshooting data and more.
 aliases:
   - /kapacitor/v1.6/api
   - /kapacitor/v1.6/api/api
 
 menu:
   kapacitor_1_6:
-    weight: 10
+    name: Kapacitor API
     parent: work-w-kapacitor
+weight: 10
 ---
 
-* [General Information](#general-information)
-* [Writing Data](#writing-data)
-* [Tasks](#tasks)
-* [Templates](#templates)
-* [Recordings](#recordings)
-* [Replays](#replays)
-* [Alerts](#alerts)
-* [Configuration](#overriding-configurations)
-* [Storage](#storage)
-* [Users](#users)
-* [Logging](#logging)
-* [Testing services](#testing-services)
-* [Miscellaneous](#miscellaneous)
+Use the Kapacitor HTTP API manage Kapacitor tasks, templates, recordings, 
+collect troubleshooting data and more.
+
+- [General Information](#general-information)
+- [Write Data](#write-data)
+- [Manage tasks](#manage-tasks)
+- [Manage templates](#manage-templates)
+- [Manage recordings](#manage-recordings)
+- [Manage replays](#manage-replays)
+- [Manage alerts](#manage-alerts)
+- [Override configuration](#override-kapacitor-configurations)
+- [Manage storage](#manage-storage)
+- [Users](#users)
+- [Logging](#logging)
+- [Test services](#test-services)
+- [Miscellaneous](#miscellaneous)
 
 ## General information
 
-Kapacitor provides an HTTP API on port 9092 by default.
-With the API you can control which tasks are executing, query status of tasks and manage recordings etc.
+- Kapacitor provides an HTTP API on **port 9092** by default.
+- Each section below defines the available API endpoints and their inputs and outputs.
+- All requests are versioned and namespaced using the base path `/kapacitor/v1/`.
 
-Each section below defines the available API endpoints and their inputs and outputs.
+##### In this section
+- [HTTP response codes](#http-response-codes)
+- [Errors](#errors)
+- [Query parameters vs JSON body](#query-parameters-vs-json-body)
+- [Links](#links)
+- [IDs](#ids)
+- [Backwards compatibility](#backwards-compatibility)
+- [Technical preview](#technical-preview)
 
-All requests are versioned and namespaced using the base path `/kapacitor/v1/`.
-
-### Response codes
+### HTTP response codes
 
 All requests can return these response codes:
 
-| HTTP Response Code | Meaning                                                                                                                                                             |
-| ------------------ | -------                                                                                                                                                             |
-| 2xx                | The request was a success, content is dependent on the request.                                                                                                     |
-| 4xx                | Invalid request, refer to error for what is wrong with the request. Repeating the request will continue to return the same error.                                   |
-| 5xx                | The server was unable to process the request, refer to the error for a reason. Repeating the request may result in a success if the server issue has been resolved. |
+| Response Code | Meaning                                                                                                                                                             |
+| :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2xx           | The request was a success, content is dependent on the request.                                                                                                     |
+| 4xx           | Invalid request, refer to error for what is wrong with the request. Repeating the request will continue to return the same error.                                   |
+| 5xx           | The server was unable to process the request, refer to the error for a reason. Repeating the request may result in a success if the server issue has been resolved. |
 
 ### Errors
 
 All requests can return JSON in the following format to provide more information about a failed request.
 
-```
-{
-    "error" : "error message"
-}
+```json
+{ "error" : "error message" }
 ```
 
 ### Query parameters vs JSON body
 
-To make using this API a consistent and easy experience we follow one simple rule for when extra information
-about a request is found in the query parameters of the URL or when they are part of the submitted JSON body.
-
-Query parameters are used only for GET requests and all other requests expect parameters to be specified in the JSON body.
+Query parameters are used only for GET requests.
+All other requests expect parameters in the JSON body.
 
 {{% note %}}
 The `/kapacitor/v1/write` endpoint is the one exception to this rule since
@@ -69,39 +76,45 @@ Kapacitor is compatible with the InfluxDB `/write` endpoint.
 
 ### Links
 
-When creating resources in Kapacitor the API server will return a `link` object with an `href` of the resource.
-Clients should not need to perform path manipulation in most cases and can use the links provided from previous calls.
+When creating resources, the Kapacitor API server returns a `link` object with an `href` of the resource.
+Clients should be able to use the links provided from previous calls without any path manipulation.
 
 ### IDs
 
-The API allows the client to specify IDs for the various resources.
-This way you can control the meaning of the IDs.
-If you do not specify an ID, a random UUID will be generated for the resource.
+To give you control over IDs, the Kapacitor API lets the client specify IDs for various resources.
+If you do not specify an ID, Kapacitor generates a random UUID for the resource.
 
-All IDs must match this regex `^[-\._\p{L}0-9]+$`, which is essentially numbers, unicode letters, `-`, `.` and `_`.
+All IDs must match the following regular expression (essentially numbers, unicode letters, `-`, `.` and `_`.):
 
+```
+^[-\._\p{L}0-9]+$`
+```
 
 ### Backwards compatibility
 
-Currently, Kapacitor is in 1.x release with a guarantee that all new releases will be backwards compatible with previous releases.
-This applies directly to the API. New additions may be made to the API, but existing endpoints will not be changed in backwards incompatible ways during the 1.x releases.
+Currently, Kapacitor is in 1.x release with a guarantee that all new releases
+will be backwards compatible with previous releases.
+This applies directly to the API. Updates may be made to the API, but existing
+endpoints will not be changed in backwards-incompatible ways in 1.x releases.
 
 ### Technical preview
 
-When a new feature is added to Kapacitor, it may be added in a "technical preview" release for a few minor releases, and then later promoted to a fully fledged v1 feature.
-Preview means that the newly added features may be changed in backwards incompatible ways until they are promoted to v1 features.
-Technical previews allow new features to fully mature while maintaining regularly scheduled releases.
+When a new feature is added to Kapacitor, it may be added in a "technical preview"
+release for a few minor releases, and then later promoted to a fully supported v1 feature.
+Technical preview features may be changed in backwards-incompatible ways until they are promoted to v1 features.
+Technical previews allow new features to mature while maintaining regularly scheduled releases.
 
 To make it clear which features of the API are in technical preview, the base path `/kapacitor/v1preview` is used.
 If you wish to preview some of these new features, use the path `/kapacitor/v1preview` instead of `/kapacitor/v1` for your requests.
-All v1 endpoints are available under the v1preview path so that your client need not be configured with multiple paths.
-The technical preview endpoints are only available under the v1preview path.
+All v1 endpoints are available under the v1preview path so that your client does not need to be configured with multiple paths.
+Technical preview endpoints are only available under the v1preview path.
 
-{{% note %}}
-Using a technical preview means that you may have to update your client for breaking changes to the previewed endpoints.
-{{% /note %}}
+{{% warn %}}
+Using a technical preview means that you may have to update your client for
+breaking changes to the previewed endpoints.
+{{% /warn %}}
 
-## Writing data
+## Write data
 
 Kapacitor accepts writing data over HTTP using InfluxData's [Line Protocol data format](/{{< latest "influxdb" "v1" >}}/write_protocols/).
 The `kapacitor/v1/write` endpoint is identical in nature to the InfluxDB `/write` endpoint.
@@ -132,12 +145,18 @@ POST /write?db=DB_NAME&rp=RP_NAME
 cpu,host=example.com value=87.6
 ```
 
-## Tasks
+## Manage tasks
 
 A task represents work for Kapacitor to perform.
 A task is defined by its id, type, TICKscript, and list of database retention policy pairs it is allowed to access.
 
-### Defining tasks
+- [Define or update a task](#define-or-update-a-task)
+- [Get a task](#get-a-task)
+- [Delete a task](#delete-a-task)
+- [List tasks](#list-tasks)
+- [Custom task HTTP endpoints](#custom-task-http-endpoints)
+
+### Define or update a task
 
 To define a task, POST to the `/kapacitor/v1/tasks` endpoint.
 If a task already exists, then use the `PATCH` method to modify any property of the task.
@@ -298,7 +317,7 @@ Response with task `id` and `link`.
 | 200  | Task created, contains task information. |
 | 404  | Task does not exist                      |
 
-### Get task
+### Get a task
 
 To get information about a task, make a `GET` request to the `/kapacitor/v1/tasks/TASK_ID` endpoint.
 
@@ -379,7 +398,7 @@ GET /kapacitor/v1/tasks/TASK_ID?dot-view=labels&script-format=raw
 | 404  | Task does not exist |
 
 
-### Deleting tasks
+### Delete a task
 
 To delete a task, make a DELETE request to the `/kapacitor/v1/tasks/TASK_ID` endpoint.
 
@@ -397,7 +416,7 @@ DELETE /kapacitor/v1/tasks/TASK_ID
 **Note:** Deleting a non-existent task is not an error and will return a 204 success.
 {{% /note %}}
 
-### Listing tasks
+### List tasks
 
 To get information about several tasks, make a `GET` request to the `/kapacitor/v1/tasks` endpoint.
 
@@ -561,13 +580,18 @@ GET /kapacitor/v1/tasks/TASK_ID/mycustom_endpoint
 The output is the same as a query for data to [InfluxDB](/{{< latest "influxdb" "v1" >}}/guides/querying_data/).
 
 
-## Templates
+## Manage templates
 
 You can also define task templates.
 A task template is defined by a template TICKscript, and a task type.
 
+- [Define a template](#define-a-template)
+- [Update a template](#update-a-template)
+- [Get a template](#get-a-template)
+- [Delete a template](#delete-a-template)
+- [List templates](#list-templates)
 
-### Defining templates
+### Define a template
 
 To define a template POST to the `/kapacitor/v1/templates` endpoint.
 If a template already exists then use the `PATCH` method to modify any property of the template.
@@ -582,8 +606,7 @@ Define a template using a JSON object with the following options:
 
 When using PATCH, if any option is missing it will be left unmodified.
 
-
-#### Updating templates
+### Update a template
 
 When updating an existing template all associated tasks are reloaded with the new template definition.
 The first error if any is returned when reloading associated tasks.
@@ -642,7 +665,7 @@ PATCH /kapacitor/v1/templates/TEMPLATE_ID
 | 200  | Template created, contains template information. |
 | 404  | Template does not exist                          |
 
-### Get Template
+### Get a template
 
 To get information about a template, make a GET request to the `/kapacitor/v1/templates/TEMPLATE_ID` endpoint.
 
@@ -691,7 +714,7 @@ GET /kapacitor/v1/templates/TEMPLATE_ID
 | 404  | Template does not exist |
 
 
-### Deleting templates
+### Delete a template
 
 To delete a template, make a DELETE request to the `/kapacitor/v1/templates/TEMPLATE_ID` endpoint.
 
@@ -714,7 +737,7 @@ DELETE /kapacitor/v1/templates/TEMPLATE_ID
 **Note**: Deleting a non-existent template is not an error and will return a 204 success.
 {{% /note %}}
 
-### Listing templates
+### List templates
 
 To get information about several templates, make a GET request to the `/kapacitor/v1/templates` endpoint.
 
@@ -813,11 +836,16 @@ GET /kapacitor/v1/templates?fields=status&fields=executing&fields=error
 **Note**: If the pattern does not match any templates an empty list will be returned, with a 200 success.
 {{% /note %}}
 
-## Recordings
+## Manage recordings
 
 Kapacitor can save recordings of data and replay them against a specified task.
 
-### Start Recording
+- [Create a recording](#create-a-recording)
+- [Wait for a recording](#wait-for-a-recording)
+- [Delete a recording](#delete-a-recording)
+- [List recordings](#list-recordings)
+
+### Create a recording
 
 There are three methods for recording data with Kapacitor:
 To create a recording make a POST request to the `/kapacitor/v1/recordings/METHOD` endpoint.
@@ -936,7 +964,7 @@ All recordings are assigned an ID which is returned in this format with a link.
 | ---- | -------                             |
 | 201  | Success, the recording has started. |
 
-### Wait for Recording
+### Wait for a recording
 
 In order to determine when a recording has finished you must make a GET request to the returned link typically something like `/kapacitor/v1/recordings/RECORDING_ID`.
 
@@ -1016,7 +1044,7 @@ GET /kapacitor/v1/recordings/e24db07d-1646-4bb3-a445-828f5049bea0
 | 202  | Success, the recording exists but is not finished. |
 | 404  | No such recording exists.                          |
 
-### Deleting recordings
+### Delete a recording
 
 To delete a recording make a DELETE request to the `/kapacitor/v1/recordings/RECORDING_ID` endpoint.
 
@@ -1032,9 +1060,9 @@ DELETE /kapacitor/v1/recordings/RECORDING_ID
 
 >NOTE: Deleting a non-existent recording is not an error and will return a 204 success.
 
-### Listing recordings
+### List recordings
 
-To list all recordings make a GET request to the `/kapacitor/v1/recordings` endpoint.
+To list all recordings, make a GET request to the `/kapacitor/v1/recordings` endpoint.
 Recordings are sorted by date.
 
 | Query Parameter | Default | Purpose                                                                                                                                           |
@@ -1084,9 +1112,15 @@ GET /kapacitor/v1/recordings
 | 200  | Success |
 
 
-## Replays
+## Manage replays
 
-### Replaying a recording
+- [Replay a recording](#replay-a-recording)
+- [Replay data without recording](#replay-data-without-recording)
+- [Wait for replays](#wait-for-replays)
+- [Delete a replay](#delete-a-replay)
+- [List replays](#list-replays)
+
+### Replay a recording
 
 To replay a recording make a POST request to `/kapacitor/v1/replays/`
 
@@ -1156,7 +1190,7 @@ The request returns once the replay is started and provides a replay ID and link
 | ---- | -------                      |
 | 201  | Success, replay has started. |
 
-### Replaying data without recording
+### Replay data without recording
 
 It is also possible to replay data directly without recording it first.
 This is done by issuing a request similar to either a `batch` or `query` recording
@@ -1253,7 +1287,7 @@ All replays are assigned an ID which is returned in this format with a link.
 | 201  | Success, the replay has started. |
 
 
-### Waiting for replays
+### Wait for replays
 
 Like recordings you make a GET request to the `/kapacitor/v1/replays/REPLAY_ID` endpoint to get the status of the replay.
 
@@ -1373,7 +1407,7 @@ GET /kapacitor/v1/replays/ad95677b-096b-40c8-82a8-912706f41d4c
 | 202  | Success, the replay exists but is not finished. |
 | 404  | No such replay exists.                          |
 
-### Delete Replay
+### Delete a replay
 
 To delete a replay make a DELETE request to the `/kapacitor/v1/replays/REPLAY_ID` endpoint.
 
@@ -1391,7 +1425,7 @@ DELETE /kapacitor/v1/replays/REPLAY_ID
 **Note**: Deleting a non-existent replay is not an error and will return a 204 success.
 {{% /note %}}
 
-### Listing replays
+### List replays
 
 You can list replays for a given recording by making a GET request to `/kapacitor/v1/replays`.
 
@@ -1437,10 +1471,22 @@ GET /kapacitor/v1/replays
 }
 ```
 
-## Alerts
+## Manage alerts
 
 Kapacitor can generate and handle alerts.
 The API allows you to see the current state of any alert and to configure various handlers for the alerts.
+
+- [Topics](#topics)
+- [Create and remove topics](#create-and-remove-topics)
+- [List topics](#list-topics)
+- [Topic state](#topic-state)
+- [List topic events](#list-topic-events)
+- [Topic events](#topic-events)
+- [List topic handlers](#list-topic-handlers)
+- [Get a topic handler](#get-a-topic-handler)
+- [Create a topic handler](#create-a-topic-handler)
+- [Update a topic handler](#update-a-topic-handler)
+- [Remove a topic handler](#remove-a-topic-handler)
 
 ### Topics
 
@@ -1448,7 +1494,7 @@ Alerts are grouped into topics.
 An alert handler "listens" on a topic for any new events.
 You can either specify the alert topic in the TICKscript or one will be generated for you.
 
-### Creating and Removing Topics
+### Create and remove topics
 
 Topics are created dynamically when they referenced in TICKscripts or in handlers.
 To delete a topic make a `DELETE` request to `/kapacitor/v1/alerts/topics/<topic id>`.
@@ -1464,7 +1510,7 @@ This will delete all known events and state for the topic.
 DELETE /kapacitor/v1/alerts/topics/system
 ```
 
-### Listing topics
+### List topics
 
 To query the list of available topics make a GET requests to `/kapacitor/v1/alerts/topics`.
 
@@ -1546,7 +1592,7 @@ GET /kapacitor/v1/alerts/topics/system
 }
 ```
 
-### Listing topic events
+### List topic events
 
 To query all the events within a topic make a GET request to `/kapacitor/v1/alerts/topics/<topic id>/events`.
 
@@ -1612,7 +1658,7 @@ GET /kapacitor/v1/alerts/topics/system/events/cpu
 }
 ```
 
-### Listing topic handlers
+### List topic handlers
 
 Handlers are created within a topic.
 You can get a list of handlers configured for a topic by making a GET request to `/kapacitor/v1/alerts/topics/<topic id>/handlers`.
@@ -1670,7 +1716,7 @@ GET /kapacitor/v1/alerts/topics/main:alert_cpu:alert5/handlers
 }
 ```
 
-### Getting handlers
+### Get a topic handler
 
 To query information about a specific handler make a GET request to `/kapacitor/v1/alerts/topics/<topic id>/handlers/<handler id>`.
 
@@ -1695,7 +1741,7 @@ GET /kapacitor/v1/alerts/topics/system/handlers/slack
 }
 ```
 
-### Creating handlers
+### Create a topic handler
 
 To create a new handler make a POST request to `/kapacitor/v1/alerts/topics/system/handlers`.
 
@@ -1725,7 +1771,7 @@ POST /kapacitor/v1/alerts/topics/system/handlers
 }
 ```
 
-### Updating handlers
+### Update a topic handler
 
 To update an existing handler you can either make a PUT or PATCH request to `/kapacitor/v1/alerts/topics/system/handlers/<handler id>`.
 
@@ -1788,7 +1834,7 @@ PUT /kapacitor/v1/alerts/topics/system/handlers/slack
 }
 ```
 
-### Removing handlers
+### Remove a topic handler
 
 To remove an existing handler make a DELETE request to `/kapacitor/v1/alerts/topics/system/handlers/<handler id>`.
 
@@ -1797,18 +1843,23 @@ DELETE /kapacitor/v1/alerts/topics/system/handlers/<handler id>
 ```
 
 
-## Overriding configurations
+## Override Kapacitor configurations
 
 You can set configuration overrides via the API for certain sections of the config.
 The overrides set via the API always take precedent over what may exist in the configuration file.
 The sections available for overriding include the InfluxDB clusters and the alert handler sections.
 
-
 The intent of the API is to allow for dynamic configuration of sensitive credentials without requiring that the Kapacitor process be restarted.
 As such, it is recommended to use either the configuration file or the API to manage these configuration sections, but not both.
 This will help to eliminate any confusion that may arise as to the source of a given configuration option.
 
-### Enabling and disabling configuration overrides
+- [Enable and disable configuration overrides](#enable-and-disable-configuration-overrides)
+--[Recover from bad configurations](#recover-from-bad-configurations)
+- [Overview](#overview)
+- [Retrieve the current configuration](#retrieve-the-current-configuration)
+- [Override configuration values](#override-configuration-values)
+
+### Enable and disable configuration overrides
 
 By default the ability to override the configuration is enabled.
 If you do not wish to enable this feature it can be disabled via the `config-override` configuration section.
@@ -1820,7 +1871,7 @@ If you do not wish to enable this feature it can be disabled via the `config-ove
 
 If the `config-override` service is disabled then the relevant API endpoints will return 403 forbidden errors.
 
-### Recovering from bad configurations
+### Recover from bad configurations
 
 If somehow you have created a configuration that causes Kapacitor to crash or otherwise not function,
 you can disable applying overrides during startup with the `skip-config-overrides` top level configuration option.
@@ -1869,7 +1920,7 @@ For example the above paths correspond to the following configuration sections:
 ```
 
 
-### Retrieving the current configuration
+### Retrieve the current configuration
 
 To retrieve the current configuration perform a GET request to the desired path.
 The returned configuration will be the merged values from the configuration file and what has been stored in the overrides.
@@ -2084,7 +2135,7 @@ GET /kapacitor/v1/config/influxdb/remote
 | 200  | Success                             |
 | 403  | Config override service not enabled |
 
-### Overriding configuration values
+### Override configuration values
 
 To override a value in the configuration make a POST request to the desired path.
 The request should contain a JSON object describing what should be modified.
@@ -2191,7 +2242,7 @@ POST /kapacitor/v1/config/influxdb/remote
 | 403  | Config override service not enabled                       |
 | 404  | The specified configuration section/option does not exist |
 
-## Storage
+## Manage storage
 
 Kapacitor exposes some operations that can be performed on the underlying storage.
 
@@ -2200,7 +2251,10 @@ Kapacitor exposes some operations that can be performed on the underlying storag
 Always make a backup of the database before performing any of these operations.
 {{% /warn %}}
 
-### Backing up the Storage
+- [Back up storage](#back-up-storage)
+- [Stores](#stores)
+
+### Back up storage
 
 Making a GET request to `/kapacitor/v1/storage/backup` will return a dump of the Kapacitor database.
 To restore from a backup replace the `kapacitor.db` file with the contents of the backup request.
@@ -2254,6 +2308,11 @@ POST /kapacitor/v1/storage/stores/tasks
 ## Users
 Kapacitor exposes operations to manage users.
 
+- [List all users](#list-all-users)
+- [Create a user](#create-a-user)
+- [Update a user](#update-a-user)
+- [Delete a user](#delete-a-user)
+
 ### List all users
 To list users, use the GET request method with the `/kapacitor/v1/users` endpoint.
 
@@ -2283,6 +2342,7 @@ curl --XPOST 'http://localhost:9092/kapacitor/v1/users' \
     "type":"normal",
     "permissions": ["config_api"]
 }'
+```
 
 ### Update a user
 To update a user, use the PATCH request method with the `/kapacitor/v1/users/<name>` endpoint.
@@ -2356,12 +2416,15 @@ ts=2017-11-08T17:42:47.014-05:00 lvl=info msg="created log session" service=sess
 ```
 
 
-## Testing services
+## Test services
 
 Kapacitor makes use of various service integrations.
 The following API endpoints provide way for a user to run simple tests to ensure that a service is configured correctly.
 
-### Listing testable services
+- [List testable services](#list-testable-services)
+- [Test a service](#test-a-service)
+
+### List testable services
 
 A list of services that can be tested is available at the `/kapacitor/v1/service-tests` endpoint
 
@@ -2416,7 +2479,7 @@ GET /kapacitor/v1/service-tests
 | 200  | Success |
 
 
-### Testing a service
+### Test a service
 
 To test a service, make a POST request to the `/kapacitor/v1/service-tests/<service name>` endpoint.
 The contents of the POST body depend on the service in the test.
@@ -2481,6 +2544,12 @@ A failed response looks like:
 
 ## Miscellaneous
 
+- [Ping](#ping)
+- [Reload sideload](#reload-sideload)
+- [/debug/vars HTTP endpoint](#debugvars-http-endpoint)
+- [/debug/pprof HTTP endpoints](#debugpprof-http-endpoints)
+- [Routes](#routes)
+
 ### Ping
 
 You can 'ping' the Kapacitor server to validate you have a successful connection.
@@ -2504,7 +2573,7 @@ Response:
 | 204  | Success |
 ```
 
-### Sideload reload
+### Reload sideload
 
 You can trigger a reload of all sideload sources by making an HTTP POST request to `kapacitor/v1/sideload/reload`, with an empty body.
 
@@ -2521,7 +2590,7 @@ Response:
 | 204  | Success |
 ```
 
-### `/debug/vars` HTTP endpoint
+### /debug/vars HTTP endpoint
 
 Kapacitor exposes statistics and information about its runtime through the `/debug/vars` endpoint, which can be accessed using the following cURL command:
 
@@ -2534,7 +2603,7 @@ Server statistics and information are displayed in JSON format.
 **Note:** You can use the [Telegraf Kapacitor input plugin](https://github.com/influxdata/telegraf/tree/release-1.7/plugins/inputs/kapacitor) to collect metrics (using the `/debug/vars` endpoint) from specified Kapacitor instances. For a list of the measurements and fields, see the plugin README.
 {{% /note %}}
 
-### `/debug/pprof` HTTP endpoints
+### /debug/pprof HTTP endpoints
 
 Kapacitor supports the Go [net/http/pprof](https://golang.org/pkg/net/http/pprof/) endpoints, which can be useful for troubleshooting. The `pprof` package serves runtime profiling data in the format expected by the _pprof_ visualization tool.
 
