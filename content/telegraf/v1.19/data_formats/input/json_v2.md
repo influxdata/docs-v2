@@ -10,9 +10,11 @@ menu:
 
 The JSON v2 input data format parses a [JSON][json] object or an array of objects into Telegraf metric fields.
 This parser takes valid JSON input and turns it into metrics.
+
 The query syntax supported is [GJSON Path Syntax](https://github.com/tidwall/gjson/blob/v1.7.5/SYNTAX.md),
-Use to this playground to test out your GJSON path here: https://gjson.dev/.
-You can find multiple examples under the [`testdata`](TK) folder.
+Use to [this playground](https://gjson.dev/) to test out your GJSON path.
+
+You can find multiple examples [here](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2/testdata) in the Telegraf repository.
 
 <!--
 is this still true?
@@ -165,3 +167,5 @@ The type values you can set:
 * `string`, any data can be formatted as a string.
 * `float`, string values (with valid numbers) or integers can be converted to a float.
 * `bool`, the string values "true" or "false" (regardless of capitalization) or the integer values `0` or `1`  can be turned to a bool.
+
+[json]:         https://www.json.org/
