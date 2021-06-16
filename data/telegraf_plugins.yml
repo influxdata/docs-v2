@@ -750,7 +750,7 @@ input:
     description: |
       The DPDK plugin collects metrics exposed by applications built with Data Plane Development Kit, an extensive set of open source libraries designed for accelerating packet processing workloads.
     introduced: 1.19
-    tags: []
+    tags: [networking]
 
   - name: Intel RDT
     id: intel_rdt
@@ -2689,4 +2689,3 @@ processor:
       *To perform the reverse operation, use the [Pivot](#pivot) processor.*
     introduced: 1.12.0
     tags: [linux, macos, windows]
-
