@@ -1,11 +1,11 @@
 ---
-title: Troubleshoot InfluxDB Enterprise
-description: Troubleshoot InfluxDB Enterprise.
+title: Query Management
+description: Managing query execution within InfluxDB.
 aliases:
-    - /enterprise/v1.8/troubleshooting/
+    - /enterprise/v1.8/troubleshooting/query_management
 menu:
   enterprise_influxdb_1_9:
-    name: Troubleshoot
+    name: Query Management
     weight: 90
 ---
 
