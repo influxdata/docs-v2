@@ -25,6 +25,7 @@ ignored unless specified in the `tag_key` or `json_string_fields` options.
  -->
 
 ## Configuration
+
 Configure this parser by describing the metric you want by defining the fields and tags from the input.
 The configuration is divided into config sub-tables called `field`, `tag`, and `object`.
 In the example below you can see all the possible configuration keys you can define for each config table.
@@ -34,23 +35,23 @@ In the sections that follow these configuration keys are defined in more detail.
  [[inputs.file]]
     urls = []
     data_format = "json_v2"
-    
+
     [[inputs.file.json_v2]]
         measurement_name = "" # A string that will become the new measurement name
         measurement_name_path = "" # A string with valid GJSON path syntax, will override measurement_name
         timestamp_path = "" # A string with valid GJSON path syntax to a valid timestamp (single value)
         timestamp_format = "" # A string with a valid timestamp format (see below for possible values)
         timestamp_timezone = "" # A string with with a valid timezone (see below for possible values)
-        
+
         [[inputs.file.json_v2.field]]
             path = "" # A string with valid GJSON path syntax
             rename = "new name" # A string with a new name for the tag key
             type = "int" # A string specifying the type (int,uint,float,string,bool)
-        
+
         [[inputs.file.json_v2.tag]]
             path = "" # A string with valid GJSON path syntax
             rename = "new name" # A string with a new name for the tag key
-        
+
         [[inputs.file.json_v2.object]]
             path = "" # A string with valid GJSON path syntax
             timestamp_key = "" # A JSON key (for a nested key, prepend the parent keys with underscores) to a valid timestamp
@@ -86,15 +87,16 @@ In the sections that follow these configuration keys are defined in more detail.
 
 The following describes the high-level approach when parsing arrays and objects:
 
-**Array**: Every element in an array is treated as a *separate* metric
+- **Array**: Every element in an array is treated as a *separate* metric
+- **Object**: Every key/value in a object is treated as a *single* metric
 
-**Object**: Every key/value in a object is treated as a *single* metric
+When handling nested arrays and objects, the rules above continue to apply as the parser creates metrics.
+When an object has multiple arrays as values,
+the arrays will become separate metrics containing only non-array values from the object.
+Below you can see an example of this behavior,
+with an input JSON containing an array of book objects that has a nested array of characters.
 
-When handling nested arrays and objects, these above rules continue to apply as the parser creates metrics.
-When an object has multiple array's as values, the array's will become separate metrics containing only non-array values from the obejct.
-Below you can see an example of this behavior, with an input json containing an array of book objects that has a nested array of characters.
-
-Example JSON:
+**Example JSON:**
 
 ```json
 {
@@ -124,7 +126,7 @@ Example JSON:
 
 ```
 
-Example configuration:
+**Example configuration:**
 
 ```toml
 [[inputs.file]]
@@ -137,7 +139,7 @@ Example configuration:
             disable_prepend_keys = true
 ```
 
-Expected metrics:
+**Expected metrics:**
 
 ```
 file,title=The\ Lord\ Of\ The\ Rings author="Tolkien",chapters="A Long-expected Party"
