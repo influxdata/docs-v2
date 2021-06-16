@@ -16,9 +16,10 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ## May 2021
 
-- Add Usage Dashboard template to show Cloud usage data (roll content into docs) https://www.influxdata.com/influxdb-templates/influxdb-cloud-usage-dashboard/.
-- Add support for [using annotations](https://docs.influxdata.com/influxdb/cloud/visualize-data/annotations/) in your dashboards.
-- Add new [map visualization](/influxdb/cloud/visualize-data/visualization-types/map/) to display geo-temporal data. 
+- Add new [Cloud 2 Usage Dashboard template](https://github.com/influxdata/community-templates/tree/master/usage_dashboard) to monitor your Cloud usage data, including rate limiting events. For more detail on Cloud data usage and rate limiting events, see how to [view InfluxDB Cloud data usage](/influxdb/cloud/account-management/data-usage/). For more detail on how to install and customize this template, see [InfluxDB templates in InfluxDB Cloud](/influxdb/cloud/influxdb-templates/cloud/).
+
+- Add support for [using annotations](/influxdb/cloud/visualize-data/annotations/) in your dashboards.
+- Add new [map visualization](/influxdb/cloud/visualize-data/visualization-types/map/) to display geo-temporal data.
 
 ## April 2021
 
