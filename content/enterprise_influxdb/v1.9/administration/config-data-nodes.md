@@ -29,7 +29,8 @@ menu:
   * [UDP [udp]](#udp-settings)
   * [Continuous queries [continuous-queries]](#continuous-queries-settings)
   * [TLS [tls]](#tls-settings)
-  * [Query controls [flux-controller]](#flux-controller)
+  * [InfluxQL query management [coordinator]](#influxql-controls)
+  * [Flux query management [flux-controller]](#flux-controller)
 
 ## Data node configuration settings
 
@@ -1269,7 +1270,71 @@ In this example, `tls1.3` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 
-## Flux query settings
+## InfluxQL query management settings
+
+### `[coordinator]`
+
+This section contains configuration settings for query management.
+For more on managing queries, see [Query Management](/influxdb/v1.8/troubleshooting/query_management/).
+
+#### `write-timeout = "10s"`
+
+The duration a write request waits until a "timeout" error is returned to the caller. The default value is 10 seconds.
+
+Environment variable: `INFLUXDB_COORDINATOR_WRITE_TIMEOUT`
+
+#### `max-concurrent-queries = 0`
+
+The maximum number of running queries allowed on your instance.
+The default setting (`0`) allows for an unlimited number of queries.
+
+Environment variable: `INFLUXDB_COORDINATOR_MAX_CONCURRENT_QUERIES`
+
+#### `query-timeout = "0s"`
+
+The maximum duration that a query is allowed to execute before InfluxDB
+kills the query.
+The default setting (`0`) allows queries to run with no time restrictions.
+This setting is a [duration](#configuration-overview).
+
+Environment variable: `INFLUXDB_COORDINATOR_QUERY_TIMEOUT`
+
+#### `log-queries-after = "0s"`
+
+The maximum duration that a query can until InfluxDB logs the query with a
+`Detected slow query` message.
+The default setting (`"0"`) will never tell InfluxDB to log the query.
+This setting is a [duration](#configuration-overview).
+
+Environment variable: `INFLUXDB_COORDINATOR_LOG_QUERIES_AFTER`
+
+#### `max-select-point = 0`
+
+The maximum number of [points](/influxdb/v1.8/concepts/glossary/#point) that a
+`SELECT` statement can process.
+The default setting (`0`) allows the `SELECT` statement to process an unlimited
+number of points.
+
+Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_POINT`
+
+#### `max-select-series = 0`
+
+The maximum number of [series](/influxdb/v1.8/concepts/glossary/#series) that a
+`SELECT` statement can process.
+The default setting (`0`) allows the `SELECT` statement to process an unlimited
+number of series.
+
+Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_SERIES`
+
+#### `max-select-buckets = 0`
+
+The maximum number of `GROUP BY time()` buckets that a query can process.
+The default setting (`0`) allows a query to process an unlimited number of
+buckets.
+
+Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_BUCKETS`
+
+## Flux query management settings
 
 ### `[flux-controller]`
 
