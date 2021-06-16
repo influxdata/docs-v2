@@ -58,7 +58,7 @@ The following authentication-related configuration options are available in the
   # bcrypt rounds = 2^cost
   bcrypt-cost = 10
   # Address of an InfluxDB Enterprise meta server.
-  # If empty, InfluxDB Enterprise meta nodes are not used as a user backend.
+  # If empty, InfluxDB Enterprise meta nodes are not used as a user store.
   # host:port
   meta-addr = "172.17.0.2:8091"
   meta-use-tls = false
