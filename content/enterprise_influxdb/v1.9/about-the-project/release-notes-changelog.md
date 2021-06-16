@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## v1.9.0 [TK]
+## v1.9.2 [2020-06-21]
 
 The release of InfluxDB Enterprise 1.9 is different from previous InfluxDB Enterprise releases
 in that there is no corresponding InfluxDB OSS release.
@@ -39,6 +39,9 @@ in that there is no corresponding InfluxDB OSS release.
 - Remove `influx_stress` tool (deprecated since version 1.2).
   Instead, use [`inch`](https://github.com/influxdata/inch) 
   or [`influx-stress`](https://github.com/influxdata/influx-stress) (not to be confused with `influx_stress`).
+
+   > **Note:** InfluxDB Enterprise 1.9.0 and 1.9.1 were not released.
+   > Bug fixes intended for 1.9.0 and 1.9.1 were rolled into InfluxDB Enterprise 1.9.2.
 
 ## v1.8.4 [2020-02-08]
 
