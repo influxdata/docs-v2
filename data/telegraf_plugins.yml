@@ -199,7 +199,7 @@ input:
     description: |
       The BigBlueButton Input Plugin gathers metrics from a BigBlueButton server.
     introduced: 1.19
-    tags: []
+    tags: [external]
     external: true
 
   - name: BIND 9 Nameserver Statistics
@@ -393,7 +393,7 @@ input:
     description: |
       This plugin gathers dnsmasq statistics on the DNS side.
     introduced: 1.19
-    tags: []
+    tags: [external]
     external: true
 
   - name: Docker
@@ -429,7 +429,8 @@ input:
     description: |
       This plugin gathers metrics from 389 Directory Servers' cn=Monitor backend.
     introduced: 1.19
-    tags: []
+    tags: [external]
+    external: true
 
   - name: Elasticsearch
     id: elasticsearch
@@ -919,7 +920,8 @@ input:
     description: |
       This plugin monitors the number of entries inside LDAP trees.
     introduced: 1.19
-    tags: []
+    tags: [external]
+    external: true
 
   - name: LeoFS
     id: leofs
@@ -1259,6 +1261,7 @@ input:
     introduced: 1.16.0
     link: https://github.com/BattleBas/octoprint-telegraf-plugin
     tags: [linux, macos, windows, external]
+    external: true
 
   - name: OPC UA
     id: opcua
@@ -1351,6 +1354,7 @@ input:
       The Plex Webhook input plugin listens for events from [Plex Media Server Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).
     introduced: 1.18.0
     tags: [linux, macos, windows, applications, external]
+    external: true
 
   - name: Postfix
     id: postfix
@@ -1683,6 +1687,7 @@ input:
     introduced: 1.16.0
     tags: [linux, macos, windows, systems, external]
     link: https://github.com/pdmorrow/telegraf-execd-systemd-timings
+    external: true
 
   - name: Systemd Units
     id: systemd_units
@@ -1878,7 +1883,7 @@ input:
     description: |
       This plugin provides information about X509 CRL (Certificate Revocation Lists) accessible via a file.
     introduced: 1.19
-    tags: []
+    tags: [external]
     external: true
 
   - name: YouTube
@@ -1888,6 +1893,7 @@ input:
     introduced: 1.16.0
     link: https://github.com/inabagumi/youtube-telegraf-plugin
     tags: [linux, macos, windows, external]
+    external: true
 
   - name: ZFS
     id: zfs
