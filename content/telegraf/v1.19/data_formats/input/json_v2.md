@@ -8,16 +8,19 @@ menu:
     parent: Input data formats
 ---
 
-The JSON v2 input data format parses a [JSON][json] object or an array of objects
-into Telegraf metric fields.
-
-**NOTE:** All JSON numbers are converted to float fields.  JSON String are
-ignored unless specified in the `tag_key` or `json_string_fields` options.
+The JSON v2 input data format parses a [JSON][json] object or an array of objects into Telegraf metric fields.
+This parser takes valid JSON input and turns it into metrics.
+The query syntax supported is [GJSON Path Syntax](https://github.com/tidwall/gjson/blob/v1.7.5/SYNTAX.md),
+Use to this playground to test out your GJSON path here: https://gjson.dev/.
+You can find multiple examples under the [`testdata`](TK) folder.
 
 <!--
-This parser takes valid JSON input and turns it into metrics.
-The query syntax supported is [GJSON Path Syntax](https://github.com/tidwall/gjson/blob/v1.7.5/SYNTAX.md), you can go to this playground to test out your GJSON path here: https://gjson.dev/.
-You can find multiple examples under the `testdata` folder.
+is this still true?
+
+{{% note %}}
+All JSON numbers are converted to float fields.  JSON String are
+ignored unless specified in the `tag_key` or `json_string_fields` options.
+{{% /note %}}
  -->
 
 ## Configuration
