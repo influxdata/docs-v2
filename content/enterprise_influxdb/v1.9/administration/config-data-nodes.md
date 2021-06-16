@@ -1275,7 +1275,7 @@ Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 ### `[coordinator]`
 
 This section contains configuration settings for query management.
-For more on managing queries, see [Query Management](/influxdb/v1.8/troubleshooting/query_management/).
+For more on managing queries, see [Query Management](/enterprise_influxdb/v1.9/troubleshooting/query_management/).
 
 #### `write-timeout = "10s"`
 
@@ -1310,7 +1310,7 @@ Environment variable: `INFLUXDB_COORDINATOR_LOG_QUERIES_AFTER`
 
 #### `max-select-point = 0`
 
-The maximum number of [points](/influxdb/v1.8/concepts/glossary/#point) that a
+The maximum number of [points](/enterprise_influxdb/v1.9/concepts/glossary/#point) that a
 `SELECT` statement can process.
 The default setting (`0`) allows the `SELECT` statement to process an unlimited
 number of points.
@@ -1319,7 +1319,7 @@ Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_POINT`
 
 #### `max-select-series = 0`
 
-The maximum number of [series](/influxdb/v1.8/concepts/glossary/#series) that a
+The maximum number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) that a
 `SELECT` statement can process.
 The default setting (`0`) allows the `SELECT` statement to process an unlimited
 number of series.
@@ -1337,6 +1337,9 @@ Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_BUCKETS`
 ## Flux query management settings
 
 ### `[flux-controller]`
+
+This section contains configuration settings for query management.
+For more on managing queries, see [Query Management](/enterprise_influxdb/v1.9/troubleshooting/query_management/).
 
 #### query-concurrency
 Number of queries allowed to execute concurrently.
