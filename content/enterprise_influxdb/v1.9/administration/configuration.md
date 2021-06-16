@@ -101,6 +101,21 @@ If it finds that file at either of the two locations, the first will be loaded a
 This matches a similar behavior that the open source and data node versions of InfluxDB already follow.
 {{% /warn %}}
 
+InfluxDB is configured using the configuration file (`influxdb.conf`) and environment variables.
+If you do not uncomment a configuration option, the system uses its default setting.
+The default value for each configuration setting is shown in the documentation.
+
+Configuration settings that specify a duration support the following duration units:
+
+- `ns` _(nanoseconds)_
+- `us` or `µs` _(microseconds)_
+- `ms` _(milliseconds)_
+- `s` _(seconds)_
+- `m` _(minutes)_
+- `h` _(hours)_
+- `d` _(days)_
+- `w` _(weeks)_
+
 ### Environment variables
 
 All configuration options can be specified in the configuration file or in
