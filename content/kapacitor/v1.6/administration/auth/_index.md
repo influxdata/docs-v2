@@ -34,9 +34,8 @@ The following authentication-related configuration options are available in the
     - **cache-expiration**: How long a consumer service can hold a credential document in its cache.
     - **bcrypt-cost**: The number of iterations used when hashing the password using the bcrypt algorithm.
     Higher values generate hashes more resilient to brute force cracking attempts, but lead to marginally longer resolution times.
-    - {{< req text="\*" color="magenta" >}} **meta-addr**: The address of the InfluxDB Enterprise meta node to connect to
-    and access the user and permission store.
-    - {{< req text="\*" color="magenta" >}} **meta-use-tls**: Use TLS when communication with the InfluxDB Enterprise meta node.
+    - {{< req text="\*" color="magenta" >}} **meta-addr**: The address of the InfluxDB Enterprise meta node to connect to for accessing the user and permission store.
+    - {{< req text="\*" color="magenta" >}} **meta-use-tls**: Use TLS when communicating with the InfluxDB Enterprise meta node.
     - {{< req text="\*" color="magenta" >}} **meta-ca**: Path to the certificate authority file for the InfluxDB Enterprise meta node.
     - {{< req text="\*" color="magenta" >}} **meta-cert**: Path to the PEM encoded certificate file.
     - {{< req text="\*" color="magenta" >}} **meta-key**: Path to the PEM encoded certificate private key.

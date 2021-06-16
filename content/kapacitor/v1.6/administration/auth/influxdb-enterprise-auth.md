@@ -39,7 +39,7 @@ involves three components of the enterprise [TICK stack](/platform/#influxdata-1
 6.  Kapacitor caches the user details.
 7.  **If the user has the correct privileges**, Kapacitor completes the request.  
     **If the user does not have the correct privileges**, Kapacitor aborts the
-    transaction and returns 403 error like the following:
+    transaction and returns a 403 error with response body:
 
     ```sh
     {"error":"user <USER> does not have \"read\" privilege for API endpoint \"/kapacitor/v1/tasks\""}
@@ -71,7 +71,7 @@ but you can also [use Chronograf to manage users and roles](/{{< latest "chronog
 2. [Grant Kapacitor permissions to the new user](#grant-kapacitor-permissions-to-the-new-user)
 
 ### Create a new InfluxDB Enterprise user
-Use the following request method and endpoint of the of the InfluxDB Enterprise
+Use the following request method and endpoint of the InfluxDB Enterprise
 meta API to create a new InfluxDB Enterprise user:
 
 {{< api-endpoint method="post" endpoint="/user" >}}
@@ -142,7 +142,7 @@ $ curl --request POST https://172.17.0.2:8091/user \
 4. [Assign a user to the new role](#assign-a-user-to-the-new-role)
 
 ### Create a new InfluxDB Enterprise role
-Use the following request method and endpoint of the of the InfluxDB Enterprise
+Use the following request method and endpoint of the InfluxDB Enterprise
 meta API to create a new InfluxDB Enterprise role:
 
 {{< api-endpoint method="post" endpoint="/role" >}}
@@ -202,7 +202,7 @@ $ curl --request POST https://172.17.0.2:8091/user \
 ```
 
 ### Create a new InfluxDB Enterprise user {id="create-a-new-influxdb-enterprise-user-role"}
-Use the following request method and endpoint of the of the InfluxDB Enterprise
+Use the following request method and endpoint of the InfluxDB Enterprise
 meta API to create a new InfluxDB Enterprise user:
 
 {{< api-endpoint method="post" endpoint="/user" >}}
@@ -230,7 +230,7 @@ curl --request POST https://172.17.0.2:8091/user \
 ```
 
 ### Assign a user to the new role
-Use the following request method and endpoint of the of the InfluxDB Enterprise
+Use the following request method and endpoint of the InfluxDB Enterprise
 meta API to assign an InfluxDB Enterprise user to the new role:
 
 {{< api-endpoint method="post" endpoint="/role" >}}
@@ -281,7 +281,7 @@ in your `kapacitor.conf` or with environment variables:
   enabled = true
   cache-expiration = "1h"
   bcrypt-cost = 4
-  meta-addr = " 172.17.0.2:8091:8091"
+  meta-addr = " 172.17.0.2:8091"
   meta-username = "example-influxdb-username"
   meta-password = "example-influxdb-password"
   meta-use-tls = true
