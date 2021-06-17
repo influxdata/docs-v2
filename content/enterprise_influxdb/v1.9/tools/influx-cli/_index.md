@@ -41,3 +41,5 @@ influx [flags]
 | `-pps`            | Points per second the import will allow. The default is `0` and will not throttle importing.          |
 | `-path`           | Path to file to import                                                                                |
 | `-compressed`     | Set to true if the import file is compressed                                                          |
+
+{{< children >}}
