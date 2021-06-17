@@ -238,7 +238,7 @@ Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_MEASUREMENT_ENABLED`
 
 #### `ingress-metric-by-login-enabled = false`
 
-When `true`, collect statistics of points, values and new series written per-login. Metrics are gathered per data node
+When `true`, collect statistics of points, values and new series written per-login. Metrics are gathered per data node.
 These can be accessed via the `/debug/vars` endpoint and in the `_internal` database if enabled.
 
 Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_LOGIN_ENABLED`
