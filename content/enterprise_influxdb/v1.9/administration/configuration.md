@@ -160,8 +160,10 @@ For each section of the configuration file the numbering restarts at zero.
 
 ### `GOMAXPROCS` environment variable
 
-> ***Note:*** `GOMAXPROCS` cannot be set using the InfluxDB configuration file.
-> It can only be set as an environment variable.
+{{% note %}}
+_**Note:**_ `GOMAXPROCS` cannot be set using the InfluxDB configuration file.
+It can only be set as an environment variable.
+{{% /note %}}
 
 The `GOMAXPROCS` [Go language environment variable](https://golang.org/pkg/runtime/#hdr-Environment_Variables)
 can be used to set the maximum number of CPUs that can execute simultaneously.
