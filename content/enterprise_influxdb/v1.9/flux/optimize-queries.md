@@ -14,7 +14,7 @@ aliases:
 Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 
 - [Start queries with pushdowns](#start-queries-with-pushdowns)
-  - [Avoid processing filters inline](#avoid-processing-filters-inline)
+- [Avoid processing filters inline](#avoid-processing-filters-inline)
 - [Avoid short window durations](#avoid-short-window-durations)
 - [Use "heavy" functions sparingly](#use-heavy-functions-sparingly)
 - [Use set() instead of map() when possible](#use-set-instead-of-map-when-possible)
