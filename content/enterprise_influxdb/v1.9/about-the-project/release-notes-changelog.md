@@ -15,9 +15,8 @@ The release of InfluxDB Enterprise 1.9 is different from previous InfluxDB Enter
 in that there is no corresponding InfluxDB OSS release.
 (InfluxDB 1.8.x will continue to receive maintenance updates.)
 
-#21015: build: upgrade to go 1.15.10
-
 ### Features
+- Upgrade to Go 1.15.10.
 - Support user-defined *node labels*.
   Node labels let you assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
@@ -29,17 +28,14 @@ in that there is no corresponding InfluxDB OSS release.
 - Support authentication for Kapacitor via LDAP.
 - Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
 - Upgrade to [Flux v0.113.0](/influxdb/cloud/reference/release-notes/flux/#v01130-2021-04-21).
+- Update Prometheus remote protocol. <!-- https://github.com/influxdata/influxdb/pull/17814 -->
+- Improve performance of sorted merge iterator. <!-- https://github.com/influxdata/influxdb/pull/17596 -->
 
-
-
-<!-- TODO review these -->
-- feat(prometheus): update prometheus remote protocol <!-- https://github.com/influxdata/influxdb/pull/17814 -->
 - feat: meancount aggregation for WindowAggregate pushdown in enterprise <!-- https://github.com/influxdata/influxdb/pull/21291 -->
 - feat(tsi): optimize series iteration <!-- https://github.com/influxdata/influxdb/pull/20544 -->
 - fix: group by returns multiple results per group in some circumstances <!-- https://github.com/influxdata/influxdb/pull/21631 -->
 - feat: add arguments to flux to function <!-- https://github.com/influxdata/influxdb/pull/20873 -->
 - feat: Add WITH KEY to show tag keys <!-- https://github.com/influxdata/influxdb/pull/20793 -->
-- improvement(query): performance improvement for sorted merge iterator [Tristan Su] <!-- https://github.com/influxdata/influxdb/pull/17596 -->
 
 ### Bug fixes
 - `show databases` now checks read and write permissions.
@@ -47,38 +43,34 @@ in that there is no corresponding InfluxDB OSS release.
 - Remove extraneous nil check from points writer.
 - Ensure a newline is printed after a successful copy during [restoration](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
 - Make `entropy show` expiration times consistent with `show-shards`.
+- Properly shutdown multiple HTTP servers <!-- https://github.com/influxdata/influxdb/pull/20183 -->
+- Allow CORS in v2 compatibility endpoints <!-- https://github.com/influxdata/influxdb/pull/18410 -->
+- Address staticcheck warnings SA4006, ST1006, S1039, and S1020. <!-- https://github.com/influxdata/influxdb/pull/18127 -->
+- Fix Anti-Entropy looping endlessly with empty shard. <!-- https://github.com/influxdata/influxdb/pull/21275 -->
+- Disable MergeFiltersRule until it is more stable. <!-- https://github.com/influxdata/influxdb/pull/21358 -->
+- Fix data race and validation in cache ring. <!-- https://github.com/influxdata/influxdb/pull/20802 -->
+- Return error on nonexistent shard ID. <!-- https://github.com/influxdata/influxdb/pull/17060 -->
+- Add `User-Agent` to allowed CORS headers. <!-- https://github.com/influxdata/influxdb/pull/18410 -->
+- Fix variables masked by a declaration. <!-- https://github.com/influxdata/influxdb/pull/18129 -->
+- Fix key collisions when serializing `/debug/vars`. <!-- https://github.com/influxdata/influxdb/pull/18004 -->
+- Fix temporary directory search bug. <!-- https://github.com/influxdata/influxdb/pull/17685 -->
+- Grow tag index buffer if needed. <!-- https://github.com/influxdata/influxdb/pull/21036 -->
 
-<!-- TODO review these -->
+- fix: summation should be in native type for new meancount iterator <!-- https://github.com/influxdata/influxdb/pull/21334 -->
+- fix(storage): cursor requests are [start, stop] instead of [start, stop) <!-- https://github.com/influxdata/influxdb/pull/21347 -->
+- fix: FGA enablement <!-- https://github.com/influxdata/influxdb/pull/21516 -->
+- fix(CORS): allow PATCH <!-- https://github.com/influxdata/influxdb/pull/19631 -->
+- fix(httpd): add option to authenticate prometheus remote read <!-- https://github.com/influxdata/influxdb/pull/18429 -->
+- fix: consistent error for missing shard <!-- https://github.com/influxdata/influxdb/pull/20694 -->
+- fix(tsm1): "snapshot in progress" error during backup <!-- https://github.com/influxdata/influxdb/pull/20063 -->
+- fix(snapshotter): properly read payload <!-- https://github.com/influxdata/influxdb/pull/17495 -->
+- fix(tsdb): exclude stop time from array cursors <!-- https://github.com/influxdata/influxdb/pull/21139 -->
 - fix: flux regression in buckets query <!-- https://github.com/influxdata/influxdb/pull/21183 -->
 - fix: redundant registration for prometheus collector metrics <!-- https://github.com/influxdata/influxdb/pull/21156 -->
 - fix: help text for influx_inspect <!-- https://github.com/influxdata/influxdb/pull/21052 -->
 - fix: Add back flux CLI (#20889) <!-- https://github.com/influxdata/influxdb/pull/20889 -->
-- fix(tsm1): fix data race and validation in cache ring <!-- https://github.com/influxdata/influxdb/pull/20802 -->
-- fix: consistent error for missing shard <!-- https://github.com/influxdata/influxdb/pull/20694 -->
-- fix: Properly shutdown multiple http servers <!-- https://github.com/influxdata/influxdb/pull/20183 -->
-- fix(tsm1): "snapshot in progress" error during backup <!-- https://github.com/influxdata/influxdb/pull/20063 -->
-- fix(CORS): allow PATCH <!-- https://github.com/influxdata/influxdb/pull/19631 -->
-- fix(tsdb): return error on nonexistent shard id <!-- https://github.com/influxdata/influxdb/pull/17060 -->
-- fix(handler): allow CORS in v2 compatibility endpoints <!-- https://github.com/influxdata/influxdb/pull/18410 -->
-- fix(handler): add User-Agent to allowed CORS headers <!-- https://github.com/influxdata/influxdb/pull/18410 -->
-- fix(httpd): add option to authenticate prometheus remote read <!-- https://github.com/influxdata/influxdb/pull/18429 -->
-- fix(query): address staticcheck warning S1020 <!-- https://github.com/influxdata/influxdb/pull/18136 -->
 - fix(client/v2): use non-nil context.Context value <!-- https://github.com/influxdata/influxdb/pull/18140 -->
-- fix: address static check warning s1039 <!-- https://github.com/influxdata/influxdb/pull/18135 -->
-- fix(tsdb): address staticcheck warning SA4006 <!-- https://github.com/influxdata/influxdb/pull/18127 -->
-- fix(tsdb): address staticcheck warning st1006 <!-- https://github.com/influxdata/influxdb/pull/18126 -->
-- fix(tsdb): Fix variables masked by a declaration <!-- https://github.com/influxdata/influxdb/pull/18129 -->
-- fix(httpd): Fixes key collisions when serializing /debug/vars <!-- https://github.com/influxdata/influxdb/pull/18004 -->
 - fix(docs): Update docs to reflect tooling changes <!-- https://github.com/influxdata/influxdb/pull/17798 -->
-- fix(tsm1): Fix temp directory search bug <!-- https://github.com/influxdata/influxdb/pull/17685 -->
-- fix(snapshotter): properly read payload <!-- https://github.com/influxdata/influxdb/pull/17495 -->
-- fix(tsdb): exclude stop time from array cursors <!-- https://github.com/influxdata/influxdb/pull/21139 -->
-- fix(models): grow tag index buffer if needed <!-- https://github.com/influxdata/influxdb/pull/21036 -->
-- fix: Anti-Entropy loops endlessly with empty shard <!-- https://github.com/influxdata/influxdb/pull/21275 -->
-- fix: summation should be in native type for new meancount iterator <!-- https://github.com/influxdata/influxdb/pull/21334 -->
-- fix(storage): cursor requests are [start, stop] instead of [start, stop) <!-- https://github.com/influxdata/influxdb/pull/21347 -->
-- fix: disable MergeFiltersRule until it is more stable <!-- https://github.com/influxdata/influxdb/pull/21358 -->
-- fix: FGA enablement <!-- https://github.com/influxdata/influxdb/pull/21516 -->
 
 ### Other changes
 
