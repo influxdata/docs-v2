@@ -571,7 +571,7 @@ associated with the specified [database](/enterprise_influxdb/v1.9/concepts/glos
 ### Syntax
 
 ```sql
-SHOW TAG KEYS [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
+SHOW TAG KEYS [ON <database_name>] [FROM_clause] WITH KEY [ [<operator> "<tag_key>" | <regular_expression>] | [IN ("<tag_key1>","<tag_key2")]] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
 ```
 
 ### Description of syntax
