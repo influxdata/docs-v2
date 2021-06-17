@@ -16,16 +16,30 @@ in that there is no corresponding InfluxDB OSS release.
 (InfluxDB 1.8.x will continue to receive maintenance updates.)
 
 ### Features
+- Upgrade to Go 1.15.10.
 - Support user-defined *node labels*.
   Node labels let you assign arbitrary key-value pairs to meta and data nodes in a cluster.
   For instance, an operator might want to label nodes with the availability zone in which they're located.
 - Improve performance of `SHOW SERIES CARDINALITY` and `SHOW SERIES CARDINALITY from <measurement>` InfluxQL queries.
   These queries now return a `cardinality estimation` column header where before they returned `count`.
-- Improve diagnostics for license problems. Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
+- Improve diagnostics for license problems.
+  Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
 - Add improved [ingress metrics](/enterprise_influxdb/v1.9/administration/config-data-nodes/#ingress-metric-by-measurement-enabled--false) to track points written by measurement and by login.
-- Support authorization for Kapacitor via LDAP.
+  Allow for collection of statistics regarding points, values, and new series written per measurement and by login.
+  This data is collected and exposed at the data node level.
+  With these metrics you can, for example:
+  aggregate the write requests across the entire cluster,
+  monitor the growth of series within a measurement,
+  and track what user credentials are being used to write data.
+- Support authentication for Kapacitor via LDAP.
 - Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
-- Upgrade to [Flux v0.113.0](/influxdb/cloud/reference/release-notes/flux/#v01130-2021-04-21).
+- Upgrade to [Flux v0.113.0](/influxdb/v2.0/reference/release-notes/flux/#v01130-2021-04-21).
+- Update Prometheus remote protocol to allow streamed reading.
+- Improve performance of sorted merge iterator.
+- Add arguments to Flux `to` function.
+- Add meancount aggregation for WindowAggregate pushdown.
+- Optimize series iteration in TSI.
+- Add `WITH KEY` to `SHOW TAG KEYS`.
 
 ### Bug fixes
 - `show databases` now checks read and write permissions.
@@ -33,6 +47,33 @@ in that there is no corresponding InfluxDB OSS release.
 - Remove extraneous nil check from points writer.
 - Ensure a newline is printed after a successful copy during [restoration](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
 - Make `entropy show` expiration times consistent with `show-shards`.
+- Properly shutdown multiple HTTP servers.
+- Allow CORS in v2 compatibility endpoints.
+- Address staticcheck warnings SA4006, ST1006, S1039, and S1020.
+- Fix Anti-Entropy looping endlessly with empty shard.
+- Disable MergeFiltersRule until it is more stable.
+- Fix data race and validation in cache ring.
+- Return error on nonexistent shard ID.
+- Add `User-Agent` to allowed CORS headers.
+- Fix variables masked by a declaration.
+- Fix key collisions when serializing `/debug/vars`.
+- Fix temporary directory search bug.
+- Grow tag index buffer if needed.
+- Use native type for summation in new meancount iterator.
+- Fix consistent error for missing shard.
+- Properly read payload in `snapshotter`.
+- Fix help text for `influx_inspect`.
+- Allow `PATCH` in CORS.
+- Fix `GROUP BY` returning multiple results per group in some circumstances.
+- Add option to authenticate Prometheus remote read.
+- Fix FGA enablement.
+- Fix "snapshot in progress" error during backup.
+- Fix cursor requests (`[start, stop]` instead of `[start, stop)`).
+- Exclude stop time from array cursors.
+- Fix Flux regression in buckets query.
+- Fix redundant registration for Prometheus collector metrics.
+- Re-add Flux CLI.
+- Use non-nil `context.Context` value in client.
 
 ### Other changes
 
@@ -40,10 +81,10 @@ in that there is no corresponding InfluxDB OSS release.
   Instead, use [`inch`](https://github.com/influxdata/inch) 
   or [`influx-stress`](https://github.com/influxdata/influx-stress) (not to be confused with `influx_stress`).
 
-   > **Note:** InfluxDB Enterprise 1.9.0 and 1.9.1 were not released.
-   > Bug fixes intended for 1.9.0 and 1.9.1 were rolled into InfluxDB Enterprise 1.9.2.
-
-
+{{% note %}}
+**Note:** InfluxDB Enterprise 1.9.0 and 1.9.1 were not released.
+Bug fixes intended for 1.9.0 and 1.9.1 were rolled into InfluxDB Enterprise 1.9.2.
+{{% /note %}}
 
 ## v1.8.6 [2021-05-21]
 
