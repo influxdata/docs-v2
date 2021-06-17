@@ -7,7 +7,7 @@ menu:
     name: Use ThingWorx
     parent: Tools & integrations
 weight: 109
-influxdb/cloud/tags: [thingworx]
+influxdb/cloud/tags: [thingworx, ptc, iiot, persistence provider]
 ---
 
 {{% note %}}
