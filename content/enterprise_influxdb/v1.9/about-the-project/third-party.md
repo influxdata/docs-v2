@@ -22,22 +22,22 @@ InfluxDB Enterprise 1.9 includes the following third party software components, 
 | Component | License | Integration |
 | :--------  | :-------- | :--------   |
 | [asn1-ber](https://github.com/go-asn1-ber/asn1-ber) | [MIT](https://opensource.org/licenses/MIT)  | Statically linked |
-| [cobra](https://github.com/spf13/cobra) | [BSD 2-Clause \*](https://opensource.org/licenses/BSD-2-Clause) | Statically linked |Statically linked|
-| [context](https://github.com/gorilla/context)| [BSD 3-Clause \*](https://opensource.org/licenses/BSD-3-Clause) | Statically linked |
+| [cobra](https://github.com/spf13/cobra) | [BSD 2-Clause](https://opensource.org/licenses/BSD-2-Clause) | Statically linked |Statically linked|
+| [context](https://github.com/gorilla/context)| [BSD 3-Clause](https://opensource.org/licenses/BSD-3-Clause) | Statically linked |
 | [flatbuffers](https://github.com/google/flatbuffers) | [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)  | Statically linked |
 | [flux](https://github.com/influxdata/flux) | [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)  | Statically linked |Statically linked|
 | [goconvey](https://github.com/glycerine/goconvey) | [MIT](https://opensource.org/licenses/MIT)  | Statically linked |
 | [go-immutable-radix](https://github.com/hashicorp/go-immutable-radixhttps://github.com/hashicorp/go-immutable-radix) |  [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0) | Statically linked |
 | [going](https://github.com/markbates/going) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |Statically linked|
 | [golang-lru](https://github.com/hashicorp/golang-lru) |[Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0)  | Statically linked |
-| [go-msgpack](https://github.com/hashicorp/go-msgpack) | [BSD 3-Clause \*](https://opensource.org/licenses/BSD-3-Clause) | Statically linked |
+| [go-msgpack](https://github.com/hashicorp/go-msgpack) | [BSD 3-Clause](https://opensource.org/licenses/BSD-3-Clause) | Statically linked |
 | [go-metrics](https://github.com/armon/go-metrics) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |
 | [go-uuid](https://github.com/hashicorp/go-uuid) | [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0) | Statically linked |
-| [handlers](https://github.com/gorilla/handlershttps://github.com/gorilla/handlers) | [BSD 2-Clause \*](https://opensource.org/licenses/BSD-2-Clause) | Statically linked |
+| [handlers](https://github.com/gorilla/handlershttps://github.com/gorilla/handlers) | [BSD 2-Clause](https://opensource.org/licenses/BSD-2-Clause) | Statically linked |
 | [jose2go](https://github.com/dvsekhvalnov/jose2go) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |
 | [ldap](https://github.com/go-ldap/ldap) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |
 | [ldapserver](https://github.com/mark-rushakoff/ldapserverhttps://github.com/mark-rushakoff/ldapserver) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |Statically linked|
-| [mux](https://github.com/gorilla/mux) | [BSD 2-Clause \*](https://opensource.org/licenses/BSD-2-Clause) | Statically linked |
+| [mux](https://github.com/gorilla/mux) | [BSD 2-Clause](https://opensource.org/licenses/BSD-2-Clause) | Statically linked |
 | [pkcs7](https://github.com/fullsailor/pkcs7) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |
 | [pretty](https://github.com/kr/pretty) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |Statically linked|
 | [raft](https://github.com/hashicorp/raft) | [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0)  | Statically linked |Statically linked|
@@ -45,5 +45,3 @@ InfluxDB Enterprise 1.9 includes the following third party software components, 
 | [sqlx](https://github.com/jmoiron/sqlxhttps://github.com/jmoiron/sqlx) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |Statically linked|
 | [text](https://github.com/kr/text) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |Statically linked|
 | [yamux](https://github.com/hashicorp/yamux/)| [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0) | Statically linked |Statically linked|
-
-\* BSD 3-Clause is also known as the "New" or "Modified" BSD License. BSD 2-Clause is also known as the "Simplified" or "Free" BSD License.
