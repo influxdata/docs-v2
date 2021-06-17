@@ -2331,8 +2331,10 @@ Define a user as a JSON object with the following properties:
 | :---------- | :----------------------------------------------------------------------------------------- |
 | name        | Username                                                                                   |
 | password    | Password                                                                                   |
-| type        | User type  (`normal` or `admin`, _see [User](/influxdb/v1.6/concepts/glossary/#user)_)       |
-| permissions | List of valid user permission strings (`none`, `api`, `config_api`, `write_points`, `all`) 
+| type        | User type  (`normal` or `admin`, _see [User](/influxdb/v1.6/concepts/glossary/#user)_)     |
+| permissions | List of valid user permission strings (`none`, `api`, `config_api`, `write_points`, `all`) |
+
+_See [Kapacitor user types and permissions](/kapacitor/v1.6/user-types-permissions)._
 
 #### Example
 ```sh

@@ -1,10 +1,12 @@
 ---
 title: Configure Kapacitor
-description: Configuration options and environment variables in Kapacitor.
+description: >
+  Configure Kapacitor with configuration files options, environment variables,
+  or the Kapacitor HTTP API.
 menu:
   kapacitor_1_6:
-    weight: 10
     parent: Administration
+weight: 10
 ---
 
 - [Startup](#startup)

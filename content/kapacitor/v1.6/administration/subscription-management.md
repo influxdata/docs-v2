@@ -1,12 +1,13 @@
 ---
 title: Manage Kapacitor subscriptions
 description: >
-  Kapacitor subscribes to InfluxDB and receives all data as it is written to InfluxDB. This article walks through how Kapacitor subscriptions work, how to configure them, and how to manage them.
+  Kapacitor subscribes to InfluxDB and receives all data as it is written to InfluxDB.
+  Learn how Kapacitor subscriptions work and how to configure and manage them.
 menu:
   kapacitor_1_6:
     name: Manage subscriptions
     parent: Administration
-    weight: 100
+weight: 20
 ---
 
 Kapacitor is tightly integrated with InfluxDB through the use of [InfluxDB subscriptions](/{{< latest "influxdb" "v1" >}}/administration/subscription-management/),
