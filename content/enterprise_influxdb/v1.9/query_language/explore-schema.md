@@ -778,6 +778,12 @@ The query returns tag keys from the `h2o_quality` measurement in the
 The `LIMIT` and `OFFSET` clauses limit the number of tag keys returned to one
 and offsets the results by one.
 
+#### Run a `SHOW TAG KEYS` query with a `WITH KEY IN` clause
+
+```sql
+> SHOW TAG KEYS FROM cpu WITH KEY IN (host, region)
+```
+
 ## `SHOW TAG VALUES`
 
 Returns the list of [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value)
