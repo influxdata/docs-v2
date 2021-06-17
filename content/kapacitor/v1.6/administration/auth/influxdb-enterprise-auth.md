@@ -1,5 +1,5 @@
 ---
-title: Use InfluxDB Enterprise authorizations
+title: Set up InfluxDB Enterprise authorizations
 seotitle: Authenticate with Kapacitor using InfluxDB Enterprise
 description: >
   Use user-based authorizations stored and managed in **InfluxDB Enterprise** to

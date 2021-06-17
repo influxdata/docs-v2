@@ -1,7 +1,7 @@
 ---
 title: Kapacitor user types and permissions
 description: >
-  View Kapaictor user types and permissions available when using internal
+  View Kapacitor user types and permissions available when using internal
   Kapacitor authorizations.
 menu:
   kapacitor_1_6_ref:

@@ -1,5 +1,5 @@
 ---
-title: Use internal Kapacitor authorizations
+title: Set up internal Kapacitor authorizations
 description: >
   Use user-based authorizations stored and managed in **Kapacitor** to
   authenticate requests to the Kapacitor HTTP API. 

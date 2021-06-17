@@ -1,6 +1,6 @@
 ---
 title: Set up authentication and authorization
-description: Topics include an overview of TICK stack authentication and authorization, enabling authentication in Kapacitor Enterprise, and user and privilege management using the InfluxDB Meta API.
+description: An overview of TICK stack authentication and authorization, how to enable authentication in Kapacitor Enterprise, and how to manage users and privileges using the InfluxDB Meta API.
 menu:
   kapacitor_1_6:
     name: Authentication and authorization
@@ -50,7 +50,7 @@ The following authentication-related configuration options are available in the
   # ...
 
 [auth]
-  # Enable authentication for Kapacitor
+  # Enable authentication for Kapacitor.
   enabled = false
   # User permissions cache expiration time.
   cache-expiration = "10m"
