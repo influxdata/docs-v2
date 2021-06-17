@@ -101,6 +101,21 @@ If it finds that file at either of the two locations, the first will be loaded a
 This matches a similar behavior that the open source and data node versions of InfluxDB already follow.
 {{% /warn %}}
 
+Configure InfluxDB using the configuration file (`influxdb.conf`) and environment variables.
+The default value for each configuration setting is shown in the documentation.
+Commented configuration options use the default value.
+
+Configuration settings with a duration value support the following duration units:
+
+- `ns` _(nanoseconds)_
+- `us` or `µs` _(microseconds)_
+- `ms` _(milliseconds)_
+- `s` _(seconds)_
+- `m` _(minutes)_
+- `h` _(hours)_
+- `d` _(days)_
+- `w` _(weeks)_
+
 ### Environment variables
 
 All configuration options can be specified in the configuration file or in
@@ -142,3 +157,26 @@ relevant position number (in this case: `0`):
 For the Nth Graphite configuration in the configuration file, the relevant
 environment variables would be of the form `INFLUXDB_GRAPHITE_(N-1)_BATCH_PENDING`.
 For each section of the configuration file the numbering restarts at zero.
+
+### `GOMAXPROCS` environment variable
+
+{{% note %}}
+_**Note:**_ `GOMAXPROCS` cannot be set using the InfluxDB configuration file.
+It can only be set as an environment variable.
+{{% /note %}}
+
+The `GOMAXPROCS` [Go language environment variable](https://golang.org/pkg/runtime/#hdr-Environment_Variables)
+can be used to set the maximum number of CPUs that can execute simultaneously.
+
+The default value of `GOMAXPROCS` is the number of CPUs
+that are visible to the program *on startup*
+(based on what the operating system considers to be a CPU).
+For a 32-core machine, the `GOMAXPROCS` value would be `32`.
+You can override this value to be less than the maximum value,
+which can be useful in cases where you are running the InfluxDB
+along with other processes on the same machine
+and want to ensure that the database doesn't negatively affect those processes.
+
+{{% note %}}
+_**Note:**_ Setting `GOMAXPROCS=1` eliminates all parallelization.
+{{% /note %}}
