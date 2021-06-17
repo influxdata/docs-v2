@@ -14,7 +14,7 @@ aliases:
 Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 
 - [Start queries with pushdowns](#start-queries-with-pushdowns)
-  - [Avoid processing filters inline](#avoid-processing-filters-inline)
+- [Avoid processing filters inline](#avoid-processing-filters-inline)
 - [Avoid short window durations](#avoid-short-window-durations)
 - [Use "heavy" functions sparingly](#use-heavy-functions-sparingly)
 - [Use set() instead of map() when possible](#use-set-instead-of-map-when-possible)
@@ -81,7 +81,7 @@ to the underlying data source, so data returned by the
 previous function loads into memory.
 This often results in a significant performance hit.
 
-For example, the following query uses [dashboard variables](/influxdb/v2.0/visualize-data/variables/)
+For example, the following query uses [Chronograf dashboard template variables](/{{< latest "chronograf" >}}/guides/dashboard-template-variables/)
 and string concatenation to define a region to filter by.
 Because `filter()` uses string concatenation inline, it can't push its operation
 to the underlying data source and loads all data returned from `range()` into memory.
@@ -119,10 +119,6 @@ Consider their necessity in your data processing before using them:
 - [union()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/)
 - [pivot()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
 
-{{% note %}}
-We're continually optimizing Flux and this list may not represent its current state.
-{{% /note %}}
-
 ## Use set() instead of map() when possible
 [`set()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/),
 [`experimental.set()`](/influxdb/v2.0/reference/flux/stdlib/experimental/set/),
@@ -156,10 +152,12 @@ data
 ## Balance time range and data precision
 To ensure queries are performant, balance the time range and the precision of your data.
 For example, if you query data stored every second and request six months worth of data,
-results would include ≈15.5 million points per series.  Depending on the number of series returned after `filter()`([cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality)), this can quickly become many billions of points.
-Flux must store these points in memory to generate a response. Use [pushdowns](#pushdown-functions-and-function-combinations) to optimize how many points are stored in memory.
-
-To query data over large periods of time, create a task to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
+results would include ≈15.5 million points per series.
+Depending on the number of series returned after `filter()`([cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality)),
+this can quickly become many billions of points.
+Flux must store these points in memory to generate a response.
+Use [pushdowns](#pushdown-functions-and-function-combinations) to optimize how
+many points are stored in memory.
 
 ## Measure query performance with Flux profilers
 Use the [Flux Profiler package](/influxdb/v2.0/reference/flux/stdlib/profiler/)
