@@ -31,9 +31,9 @@ in that there is no corresponding InfluxDB OSS release.
 - Update Prometheus remote protocol. <!-- https://github.com/influxdata/influxdb/pull/17814 -->
 - Improve performance of sorted merge iterator. <!-- https://github.com/influxdata/influxdb/pull/17596 -->
 - Add arguments to Flux `to` function. <!-- https://github.com/influxdata/influxdb/pull/20873 -->
+- Add meancount aggregation for WindowAggregate pushdown. <!-- https://github.com/influxdata/influxdb/pull/21291 -->
+- Optimize series iteration is TSI. ; <!-- https://github.com/influxdata/influxdb/pull/20544 -->
 
-- feat: meancount aggregation for WindowAggregate pushdown in enterprise <!-- https://github.com/influxdata/influxdb/pull/21291 -->
-- feat(tsi): optimize series iteration <!-- https://github.com/influxdata/influxdb/pull/20544 -->
 - fix: group by returns multiple results per group in some circumstances <!-- https://github.com/influxdata/influxdb/pull/21631 -->
 - feat: Add WITH KEY to show tag keys <!-- https://github.com/influxdata/influxdb/pull/20793 -->
 
