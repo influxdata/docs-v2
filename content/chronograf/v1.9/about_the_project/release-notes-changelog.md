@@ -8,6 +8,84 @@ menu:
     parent: About the project
 ---
 
+## v1.9.0 [TBD]
+
+{{% warn %}}
+### Breaking Changes
+
+#### OAuth PKCE
+OAuth integrations in Chronograf now use [OAuth PKCE (RFC7636)](https://oauth.net/2/pkce/)
+to provide a more secure OAuth token exchange.
+Google, Azure, Octa, Auth0, Gitlab, and others already support OAuth PKCE.
+Enabling PKCE should have no effect on communication with authorization
+servers that don't support it yet (such as Github or Bitbucket).
+PKCE can be disabled with the `OAUTH_NO_PKCE=true` environment variable or by
+including the `--oauth-no-pkce` flag when starting `chronograf`.
+{{% /warn %}}
+
+### Features
+- Support data migrations to ETCD over HTTPS.
+- Set trusted CA certificates for ETCD connections.
+- Configure new Kapacitor alert endpoints in the UI.
+  - ServiceNow
+  - BigPanda
+  - Teams
+  - Zenoss
+- Remove HipChat alert endpoints.
+- Show or hide histograms in the Log Viewer.
+- Add more meta query templates in the Data Explorer.
+  - `SHOW FIELD KEYS`
+  - `SHOW SUBSCRIPTIONS`
+  - `SHOW QUERIES`
+  - `SHOW GRANTS`
+  - `SHOW SHARDS`
+  - `SHOW SHARD GROUPS`
+  - `EXPLAIN`
+  - `EXPLAIN ANALYZE`
+- Flux improvements and additional functionality:
+  - Add dashboard template variables to Flux query execution.
+    Flux queries include a `v` record with a key value pair for each variable.
+  - Support dashboard template variables defined with Flux.
+  - Add Kapacitor Flux Tasks on the Manage Tasks page (read only).
+  - Provide documentation link when Flux is not enabled in InfluxDB 1.8+.
+  - Write to buckets when the Flux tab is selected.
+- Filter fields in the Query Builder.
+- Select write precision when writing data.
+- Add PKCE to OAuth integrations.
+- Support GitHub Enterprise in the existing GitHub OAuth integration.
+- Update the Queries page in the InfluxDB Admin section of the UI.
+- Set up InfluxDB Cloud and InfluxDB OSS 2.x connections with the `chronograf` CLI.
+- Add custom auto-refresh intervals.
+- Send multiple queries to dashboard.
+- Add macOS arm64 builds.
+
+### Bug Fixes
+- Open alert handler configuration pages with URL hash.
+- Omit errors during line visualizations of meta query results.
+- Delete log stream when TICKscript editor page is closed.
+- Generate correct Flux property expressions.
+- Repair stale database list in Log Viewer.
+- Exclude `_start` and `_stop` columns in Flux query results.
+- Improve server type detection in the Connection Wizard.
+- Add error handling to Alert History page.
+- Don't fetch tag values when a measurement doesn't contain tags.
+- Filter out roles with unknown organization references.
+- Detect Flux support in the Flux proxy.
+- Manage execution status per individual query.
+- Parse exported dashboards in a resources directory.
+- Enforce unique dashboard template variable names.
+- Don't modify queries passed to a Dashboard page using a query URL parameter.
+- Fix unsafe React lifecycle functions.
+- Improve communication with InfluxDB Enterprise.
+
+### Other
+- Upgrade UI to TypeScript 4.2.2.
+- Upgrade dependencies and use ESLint for TypeScript.
+- Update dependency licenses.
+- Upgrade Markdown renderer.
+- Upgrade Go to 1.16.
+- Upgrade build process to Python 3.
+
 ## v1.8.10 [2020-02-08]
 
 ### Features
