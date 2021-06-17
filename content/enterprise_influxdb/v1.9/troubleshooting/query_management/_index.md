@@ -10,13 +10,10 @@ menu:
     parent: Troubleshoot
 ---
 
-## Introduction
+In InfluxDB v1.7+, there are two query languages that query and access data: InfluxQL and Flux.
+Each language has its own execution engine.
+These engines provide a variety of mechanisms for controlling their behavior.
+InfluxQL provides additional meta queries for observing and interacting with running queries.
 
-Starting with InfluxDB v1.7, there are two query languagues which can be used to query and access data.  Each language is associated with an execution engine.
-
-There are a variety of mechanisms for controling the behavior of the query engine and, in the case of the InfluxQL, additional meta queries for
-observing and interacting with running queries.
-
-
-- [InfluxQL query management](/enterprise/v1.8/troubleshooting/query_management/influxql_query_management)
-- [Flux query management](/enterprise/v1.8/troubleshooting/query_management/flux_query_management)
+- [InfluxQL query management](/enterprise/v1.9/troubleshooting/query_management/influxql_query_management)
+- [Flux query management](/enterprise/v1.9/troubleshooting/query_management/flux_query_management)
