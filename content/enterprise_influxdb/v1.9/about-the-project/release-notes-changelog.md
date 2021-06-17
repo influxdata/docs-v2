@@ -55,19 +55,19 @@ in that there is no corresponding InfluxDB OSS release.
 - Fix key collisions when serializing `/debug/vars`. <!-- https://github.com/influxdata/influxdb/pull/18004 -->
 - Fix temporary directory search bug. <!-- https://github.com/influxdata/influxdb/pull/17685 -->
 - Grow tag index buffer if needed. <!-- https://github.com/influxdata/influxdb/pull/21036 -->
+- Use native type for summation in new meancount iterator. <!-- https://github.com/influxdata/influxdb/pull/21334 -->
+- Fix consistent error for missing shard. <!-- https://github.com/influxdata/influxdb/pull/20694 -->
+- Properly read payload in `snapshotter`. <!-- https://github.com/influxdata/influxdb/pull/17495 -->
+- Fix help text for `influx_inspect`. <!-- https://github.com/influxdata/influxdb/pull/21052 -->
+- Allow `PATCH` in CORS. <!-- https://github.com/influxdata/influxdb/pull/19631 -->
 
-- fix: summation should be in native type for new meancount iterator <!-- https://github.com/influxdata/influxdb/pull/21334 -->
 - fix(storage): cursor requests are [start, stop] instead of [start, stop) <!-- https://github.com/influxdata/influxdb/pull/21347 -->
 - fix: FGA enablement <!-- https://github.com/influxdata/influxdb/pull/21516 -->
-- fix(CORS): allow PATCH <!-- https://github.com/influxdata/influxdb/pull/19631 -->
 - fix(httpd): add option to authenticate prometheus remote read <!-- https://github.com/influxdata/influxdb/pull/18429 -->
-- fix: consistent error for missing shard <!-- https://github.com/influxdata/influxdb/pull/20694 -->
 - fix(tsm1): "snapshot in progress" error during backup <!-- https://github.com/influxdata/influxdb/pull/20063 -->
-- fix(snapshotter): properly read payload <!-- https://github.com/influxdata/influxdb/pull/17495 -->
 - fix(tsdb): exclude stop time from array cursors <!-- https://github.com/influxdata/influxdb/pull/21139 -->
 - fix: flux regression in buckets query <!-- https://github.com/influxdata/influxdb/pull/21183 -->
 - fix: redundant registration for prometheus collector metrics <!-- https://github.com/influxdata/influxdb/pull/21156 -->
-- fix: help text for influx_inspect <!-- https://github.com/influxdata/influxdb/pull/21052 -->
 - fix: Add back flux CLI (#20889) <!-- https://github.com/influxdata/influxdb/pull/20889 -->
 - fix(client/v2): use non-nil context.Context value <!-- https://github.com/influxdata/influxdb/pull/18140 -->
 - fix(docs): Update docs to reflect tooling changes <!-- https://github.com/influxdata/influxdb/pull/17798 -->
