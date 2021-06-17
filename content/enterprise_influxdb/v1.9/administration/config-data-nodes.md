@@ -29,7 +29,7 @@ menu:
   * [UDP `[udp]`](#udp-settings)
   * [Continuous queries `[continuous-queries]`](#continuous-queries-settings)
   * [TLS `[tls]`](#tls-settings)
-  * [InfluxQL Query controls `[coordinator]`](#coodinator)
+  * [InfluxQL Query controls `[coordinator]`](#coordinator)
   * [Flux Query controls `[flux-controller]`](#flux-controller)
 
 ## Data node configuration settings
