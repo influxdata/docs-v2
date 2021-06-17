@@ -6,6 +6,7 @@ menu:
     name: JSON v2 input
     weight: 70
     parent: Input data formats
+draft: true
 ---
 
 The JSON v2 input data format parses a [JSON][json] object or an array of objects into Telegraf metric fields.
