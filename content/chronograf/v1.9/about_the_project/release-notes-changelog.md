@@ -27,10 +27,10 @@ including the `--oauth-no-pkce` flag when starting `chronograf`.
 - Support data migrations to ETCD over HTTPS.
 - Set trusted CA certificates for ETCD connections.
 - Configure new Kapacitor alert endpoints in the UI.
-  - ServiceNow
-  - BigPanda
-  - Teams
-  - Zenoss
+  - [ServiceNow](/chronograf/v1.9/guides/configuring-alert-endpoints/#servicenow)
+  - [BigPanda](/chronograf/v1.9/guides/configuring-alert-endpoints/#bigpanda)
+  - [Teams](/chronograf/v1.9/guides/configuring-alert-endpoints/#teams)
+  - [Zenoss](/chronograf/v1.9/guides/configuring-alert-endpoints/#zenoss)
 - Remove HipChat alert endpoints.
 - Show or hide histograms in the Log Viewer.
 - Add more meta query templates in the Data Explorer.
