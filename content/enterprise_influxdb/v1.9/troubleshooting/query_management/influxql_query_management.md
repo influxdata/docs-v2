@@ -14,8 +14,10 @@ Manage your InfluxQL queries using the following:
 - [KILL QUERIES](#stop-currently-running-queries-with-kill-query) to stop queries overloading your system
 - [Configuration settings](#configuration-settings-for-query-management) to prevent and halt the execution of inefficient queries
 
-> The commands and configurations provided on this page are for **Influx Query Language (InfluxQL) only** 
-> For the Flux query management settings, see [Flux query management](/enterprise_influxdb/v1.9/troubleshooting/query_management/flux_query_management).
+{{% note %}}
+The commands and configurations provided on this page are for **Influx Query Language (InfluxQL) only**.
+For Flux query management settings, see [Flux query management](/enterprise_influxdb/v1.9/troubleshooting/query_management/flux_query_management).
+{{% /note %}}
 
 ## List currently-running queries with `SHOW QUERIES`
 
@@ -40,8 +42,7 @@ qid	  query                              database   duration   status
 
 ##### Explanation of the output
 
-- `qid`: The id number of the query. Use this value with 
-[`KILL - QUERY`](/eneterprise_influxdb/v1.9/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query).  
+- `qid`: Query ID. Use this ID with [`KILL - QUERY`](/enterprise_influxdb/v1.9/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query).  
 - `query`: The query text.  
 - `database`: The database targeted by the query.  
 - `duration`: The length of time that the query has been running.

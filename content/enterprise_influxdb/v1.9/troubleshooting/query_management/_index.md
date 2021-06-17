@@ -1,8 +1,8 @@
 ---
-title: Query Management
-description: Managing query execution within InfluxDB.
+title: Manage queries
+description: Manage query execution within InfluxDB.
 aliases:
-    - /enterprise/v1.8/troubleshooting/query_management
+    - /enterprise/v1.9/troubleshooting/query_management
 menu:
   enterprise_influxdb_1_9:
     name: Query Management
@@ -20,4 +20,3 @@ observing and interacting with running queries.
 
 - [InfluxQL query management](/enterprise/v1.8/troubleshooting/query_management/influxql_query_management)
 - [Flux query management](/enterprise/v1.8/troubleshooting/query_management/flux_query_management)
-

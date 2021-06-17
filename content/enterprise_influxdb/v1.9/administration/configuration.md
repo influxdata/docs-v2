@@ -101,11 +101,11 @@ If it finds that file at either of the two locations, the first will be loaded a
 This matches a similar behavior that the open source and data node versions of InfluxDB already follow.
 {{% /warn %}}
 
-InfluxDB is configured using the configuration file (`influxdb.conf`) and environment variables.
-If you do not uncomment a configuration option, the system uses its default setting.
+Configure InfluxDB using the configuration file (`influxdb.conf`) and environment variables.
 The default value for each configuration setting is shown in the documentation.
+Commented configuration options use the default value.
 
-Configuration settings that specify a duration support the following duration units:
+Configuration settings with a duration value support the following duration units:
 
 - `ns` _(nanoseconds)_
 - `us` or `µs` _(microseconds)_
@@ -169,6 +169,6 @@ The `GOMAXPROCS` [Go language environment variable](https://golang.org/pkg/runti
 The default value of `GOMAXPROCS` is the number of CPUs (whatever your operating system considers to be a CPU) that are visible to the program *on startup.* For a 32-core machine, the `GOMAXPROCS` value would be `32`.
 You can override this value to be less than the maximum value, which can be useful in cases where you are running the InfluxDB along with other processes on the same machine and want to ensure that the database doesn't completely starve those processes.
 
-> ***Note:***
-> Setting `GOMAXPROCS=1` will eliminate all parallelization.
-
+{{% note %}}
+_**Note:**_ Setting `GOMAXPROCS=1` eliminates all parallelization.
+{{% /note %}}
