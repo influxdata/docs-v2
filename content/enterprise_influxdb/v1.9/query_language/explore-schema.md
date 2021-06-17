@@ -571,7 +571,7 @@ associated with the specified [database](/enterprise_influxdb/v1.9/concepts/glos
 ### Syntax
 
 ```sql
-SHOW TAG KEYS [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
+SHOW TAG KEYS [ON <database_name>] [FROM_clause] WITH KEY [ [<operator> "<tag_key>" | <regular_expression>] | [IN ("<tag_key1>","<tag_key2")]] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
 ```
 
 ### Description of syntax
@@ -777,6 +777,24 @@ The query returns tag keys from the `h2o_quality` measurement in the
 `NOAA_water_database` database.
 The `LIMIT` and `OFFSET` clauses limit the number of tag keys returned to one
 and offsets the results by one.
+
+#### Run a `SHOW TAG KEYS` query with a `WITH KEY IN` clause
+
+```sql
+> SHOW TAG KEYS ON "telegraf" WITH KEY IN ("host","region")
+
+"measurement","tagKey"
+"cpu","host"
+"cpu_load_short","host"
+"cpu_load_short","region"
+"disk","host"
+"diskio","host"
+"docker","host"
+"docker_container_blkio","host"
+"docker_container_cpu","host"
+"docker_container_mem","host"
+"docker_container_status","host"
+```
 
 ## `SHOW TAG VALUES`
 
