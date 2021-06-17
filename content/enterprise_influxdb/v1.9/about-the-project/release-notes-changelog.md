@@ -25,7 +25,7 @@ in that there is no corresponding InfluxDB OSS release.
 - Improve diagnostics for license problems.
   Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
 - Add improved [ingress metrics](/enterprise_influxdb/v1.9/administration/config-data-nodes/#ingress-metric-by-measurement-enabled--false) to track points written by measurement and by login.
-  Allow for collection of statistics of points, values, and new series written per measurement and by login.
+  Allow for collection of statistics regarding points, values, and new series written per measurement and by login.
   This data is collected and exposed at the data node level.
   With these metrics you can, for example:
   aggregate the write requests across the entire cluster,
@@ -65,13 +65,13 @@ in that there is no corresponding InfluxDB OSS release.
 - Fix help text for `influx_inspect`.
 - Allow `PATCH` in CORS.
 - Fix `GROUP BY` returning multiple results per group in some circumstances.
-- Add option to authenticate prometheus remote read.
+- Add option to authenticate Prometheus remote read.
 - Fix FGA enablement.
 - Fix "snapshot in progress" error during backup.
 - Fix cursor requests (`[start, stop]` instead of `[start, stop)`).
 - Exclude stop time from array cursors.
 - Fix Flux regression in buckets query.
-- Fix redundant registration for prometheus collector metrics.
+- Fix redundant registration for Prometheus collector metrics.
 - Re-add Flux CLI.
 - Use non-nil `context.Context` value in client.
 
