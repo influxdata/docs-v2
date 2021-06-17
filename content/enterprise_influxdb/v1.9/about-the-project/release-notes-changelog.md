@@ -65,17 +65,15 @@ in that there is no corresponding InfluxDB OSS release.
 - Fix help text for `influx_inspect`. <!-- https://github.com/influxdata/influxdb/pull/21052 -->
 - Allow `PATCH` in CORS. <!-- https://github.com/influxdata/influxdb/pull/19631 -->
 - Fix `GROUP BY` returning multiple results per group in some circumstances. <!-- https://github.com/influxdata/influxdb/pull/21631 -->
-
-- fix(storage): cursor requests are [start, stop] instead of [start, stop) <!-- https://github.com/influxdata/influxdb/pull/21347 -->
-- fix: FGA enablement <!-- https://github.com/influxdata/influxdb/pull/21516 -->
-- fix(httpd): add option to authenticate prometheus remote read <!-- https://github.com/influxdata/influxdb/pull/18429 -->
-- fix(tsm1): "snapshot in progress" error during backup <!-- https://github.com/influxdata/influxdb/pull/20063 -->
-- fix(tsdb): exclude stop time from array cursors <!-- https://github.com/influxdata/influxdb/pull/21139 -->
-- fix: flux regression in buckets query <!-- https://github.com/influxdata/influxdb/pull/21183 -->
-- fix: redundant registration for prometheus collector metrics <!-- https://github.com/influxdata/influxdb/pull/21156 -->
-- fix: Add back flux CLI (#20889) <!-- https://github.com/influxdata/influxdb/pull/20889 -->
-- fix(client/v2): use non-nil context.Context value <!-- https://github.com/influxdata/influxdb/pull/18140 -->
-- fix(docs): Update docs to reflect tooling changes <!-- https://github.com/influxdata/influxdb/pull/17798 -->
+- Add option to authenticate prometheus remote read. <!-- https://github.com/influxdata/influxdb/pull/18429 -->
+- Fix FGA enablement. <!-- https://github.com/influxdata/influxdb/pull/21516 -->
+- Fix "snapshot in progress" error during backup. <!-- https://github.com/influxdata/influxdb/pull/20063 -->
+- Fix cursor requests (`[start, stop]` instead of `[start, stop)`). <!-- https://github.com/influxdata/influxdb/pull/21347 -->
+- Exclude stop time from array cursors. <!-- https://github.com/influxdata/influxdb/pull/21139 -->
+- Fix Flux regression in buckets query. <!-- https://github.com/influxdata/influxdb/pull/21183 -->
+- Fix redundant registration for prometheus collector metrics. <!-- https://github.com/influxdata/influxdb/pull/21156 -->
+- Add back Flux CLI (#20889) <!-- https://github.com/influxdata/influxdb/pull/20889 -->
+- Use non-nil `context.Context` value in client.  <!-- https://github.com/influxdata/influxdb/pull/18140 -->
 
 ### Other changes
 
