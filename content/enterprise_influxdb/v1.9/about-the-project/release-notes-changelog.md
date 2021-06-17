@@ -33,7 +33,7 @@ in that there is no corresponding InfluxDB OSS release.
   and track what user credentials are being used to write data.
 - Support authentication for Kapacitor via LDAP.
 - Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
-- Upgrade to [Flux v0.113.0](/influxdb/cloud/reference/release-notes/flux/#v01130-2021-04-21).
+- Upgrade to [Flux v0.113.0](/influxdb/v2.0/reference/release-notes/flux/#v01130-2021-04-21).
 - Update Prometheus remote protocol. <!-- https://github.com/influxdata/influxdb/pull/17814 -->
 - Improve performance of sorted merge iterator. <!-- https://github.com/influxdata/influxdb/pull/17596 -->
 - Add arguments to Flux `to` function. <!-- https://github.com/influxdata/influxdb/pull/20873 -->
