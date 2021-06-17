@@ -1,5 +1,9 @@
 ---
 title: Third party software
+description: >
+  InfluxData products contain third-party software that is copyrighted,
+  patented, or otherwise legally protected software of third parties
+  incorporated in InfluxData products.
 menu:
   enterprise_influxdb_1_9_ref:
     name: Third party software
