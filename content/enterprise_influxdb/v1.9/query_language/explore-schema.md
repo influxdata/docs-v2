@@ -781,7 +781,7 @@ and offsets the results by one.
 #### Run a `SHOW TAG KEYS` query with a `WITH KEY IN` clause
 
 ```sql
-> SHOW TAG KEYS ON "telegraf" with key in ("host","region")
+> SHOW TAG KEYS ON "telegraf" WITH KEY IN ("host","region")
 
 "measurement","tagKey"
 "cpu","host"
