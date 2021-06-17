@@ -39,9 +39,7 @@ in that there is no corresponding InfluxDB OSS release.
 - Add arguments to Flux `to` function. <!-- https://github.com/influxdata/influxdb/pull/20873 -->
 - Add meancount aggregation for WindowAggregate pushdown. <!-- https://github.com/influxdata/influxdb/pull/21291 -->
 - Optimize series iteration in TSI. <!-- https://github.com/influxdata/influxdb/pull/20544 -->
-
-- fix: group by returns multiple results per group in some circumstances <!-- https://github.com/influxdata/influxdb/pull/21631 -->
-- feat: Add WITH KEY to show tag keys <!-- https://github.com/influxdata/influxdb/pull/20793 -->
+- Add `WITH KEY` to `SHOW TAG KEYS`. <!-- https://github.com/influxdata/influxdb/pull/20793 -->
 
 ### Bug fixes
 - `show databases` now checks read and write permissions.
@@ -66,6 +64,7 @@ in that there is no corresponding InfluxDB OSS release.
 - Properly read payload in `snapshotter`. <!-- https://github.com/influxdata/influxdb/pull/17495 -->
 - Fix help text for `influx_inspect`. <!-- https://github.com/influxdata/influxdb/pull/21052 -->
 - Allow `PATCH` in CORS. <!-- https://github.com/influxdata/influxdb/pull/19631 -->
+- Fix `GROUP BY` returning multiple results per group in some circumstances. <!-- https://github.com/influxdata/influxdb/pull/21631 -->
 
 - fix(storage): cursor requests are [start, stop] instead of [start, stop) <!-- https://github.com/influxdata/influxdb/pull/21347 -->
 - fix: FGA enablement <!-- https://github.com/influxdata/influxdb/pull/21516 -->
