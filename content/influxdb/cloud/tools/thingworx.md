@@ -11,10 +11,10 @@ influxdb/cloud/tags: [thingworx, ptc, iiot, persistence provider]
 ---
 
 {{% note %}}
-Use PTC ThingWorx with InfluxDB Cloud by deploying both on your AWS or GCP infrastructure. For information about deploying on Azure, [use PTC Cloud](https://www.ptc.com/en/customer-success/cloud).
+InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. Therefore, PTC recommends using ThingWorx on [PTC Cloud](https://www.ptc.com/en/customer-success/cloud). Alternatively, use this guide to configure self-managed ThingWorx to use InfluxDB Cloud as a persistence provider.
 {{% /note %}}
 
-**To use ThingWorx with InfluxDB Cloud**
+**To use InfluxDB Cloud as persistence provider in ThingWorx**
 
 1. Set up an [InfluxDB Cloud account compatible with ThingWorx](#set-up-an-influxdb-cloud-account-compatible-with-thingworx)
 2. [Set up PTC ThingWorx](#set-up-ptc-thingworx)
@@ -31,7 +31,7 @@ Use PTC ThingWorx with InfluxDB Cloud by deploying both on your AWS or GCP infra
 **Tip:** We recommend naming your bucket “thingworx”. In ThingWorx, this bucket name becomes the database name selected for the InfluxDB persistence provider configuration.
 {{% /note %}}
 3. [Create an All-Access token](/influxdb/v2.0/security/tokens/create-token/) in InfluxDB Cloud, and save the token string for step 4. To access this string in the UI, double-clicking the new token name, and copy the string at the top of the dialog.
-4. Create a DBRP mapping for your bucket by running the following command, replacing all parameters within the brackets (`${}`) below:
+4. In terminal, create a DBRP mapping for your bucket by running the following command, replacing all parameters within the brackets (`${}`) below:
 
     ```sh
     curl --request POST "${influxdb-cloud-url}/api/v2/dbrps" \
@@ -64,11 +64,11 @@ Use PTC ThingWorx with InfluxDB Cloud by deploying both on your AWS or GCP infra
     - **Username**: Login email address for your InfluxDB Cloud account.
     - **Password**: Token string--either All-Access created in step 3 or Read/Write created in step 5.
 
-## Use the InfluxDB 1.x compatibility API on InfluxDB Cloud
+## Examples: Query InfluxDB Cloud
 
-Use [InfluxDB 1.x compatibility API](/influxdb/cloud/reference/api/influxdb-1x/) to access the InfluxDB v2 API on InfluxDB Cloud, and include the InfluxDB persistence provider configuration settings you set up for PTC ThingWorx in your API requests.
+ThingWorx uses the [InfluxDB 1.x compatibility API](/influxdb/cloud/reference/api/influxdb-1x/) to access the InfluxDB v2 API on InfluxDB Cloud. ThingWorx includes the InfluxDB persistence provider configuration settings that you set up for PTC ThingWorx in your API requests.
 
-**To write data**
+**Example: Query data with InfluxQL**
 
 ```sh
 curl -XPOST "https://westeurope-1.azure.cloud2.influxdata.com/write?db=${database}" \
@@ -76,15 +76,12 @@ curl -XPOST "https://westeurope-1.azure.cloud2.influxdata.com/write?db=${databas
 --data-binary 'hello world=1'
 ```
 
-**To query data via InfluxQL**
-
 ```sh
 curl -XPOST "https://westeurope-1.azure.cloud2.influxdata.com/query?db=${database}" \
 --user "${username}:${token}" \
 --data-urlencode "q=SELECT * FROM /.*/"
 ```
 
-**To delete data**
-
-The InfluxDB v1 API in InfluxDB Cloud supports a subset of delete operations, namely DROP MEASUREMENT and DELETE statements. There are currently some edge cases where deletes take longer to appear in query results from InfluxDB Cloud (than InfluxDB open source). You may also delete data from ThingWorx directly in InfluxDB Cloud using the InfluxDB v2 API, which also allows deleting fields. (Guide)
-```
+{{% note %}}
+**Deleting data:** The InfluxDB v1 API in InfluxDB Cloud supports a subset of delete operations, namely DROP MEASUREMENT and DELETE statements. In some edge cases, deletes take longer to appear in query results from InfluxDB Cloud (than InfluxDB open source). To delete specific fields, delete data from ThingWorx directly in InfluxDB Cloud using the InfluxDB v2 API.
+{{% /note %}}
