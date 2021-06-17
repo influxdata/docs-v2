@@ -5,7 +5,7 @@ menu:
   enterprise_influxdb_1_9:
     name: InfluxQL query management
     weight: 20
-    parent: Troubleshoot
+    parent: Query management
 ---
 
 Manage your InfluxQL queries using the following:

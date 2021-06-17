@@ -5,7 +5,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Flux query management
     weight: 40
-    parent: Query Management
+    parent: Query management
 ---
 
 ## Configuration settings for Flux query management
