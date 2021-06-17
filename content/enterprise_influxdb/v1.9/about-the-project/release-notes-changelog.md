@@ -30,11 +30,11 @@ in that there is no corresponding InfluxDB OSS release.
 - Upgrade to [Flux v0.113.0](/influxdb/cloud/reference/release-notes/flux/#v01130-2021-04-21).
 - Update Prometheus remote protocol. <!-- https://github.com/influxdata/influxdb/pull/17814 -->
 - Improve performance of sorted merge iterator. <!-- https://github.com/influxdata/influxdb/pull/17596 -->
+- Add arguments to Flux `to` function. <!-- https://github.com/influxdata/influxdb/pull/20873 -->
 
 - feat: meancount aggregation for WindowAggregate pushdown in enterprise <!-- https://github.com/influxdata/influxdb/pull/21291 -->
 - feat(tsi): optimize series iteration <!-- https://github.com/influxdata/influxdb/pull/20544 -->
 - fix: group by returns multiple results per group in some circumstances <!-- https://github.com/influxdata/influxdb/pull/21631 -->
-- feat: add arguments to flux to function <!-- https://github.com/influxdata/influxdb/pull/20873 -->
 - feat: Add WITH KEY to show tag keys <!-- https://github.com/influxdata/influxdb/pull/20793 -->
 
 ### Bug fixes
