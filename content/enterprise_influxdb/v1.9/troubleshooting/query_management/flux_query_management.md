@@ -11,7 +11,7 @@ menu:
 ## Configuration settings for Flux query management
 
 The following configuration settings are in the
-[flux-controller](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-query-management-settings) section of the
+[flux-controller](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) section of the
 configuration file.
 
 ### `[flux-controller]`
