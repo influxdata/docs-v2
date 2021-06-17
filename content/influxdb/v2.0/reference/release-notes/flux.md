@@ -8,6 +8,22 @@ menu:
     name: Flux
 ---
 
+## v0.117.3 [2021-06-07]
+- _Internal code cleanup._
+
+---
+
+## v0.117.2 [2021-06-07]
+
+### Bug fixes
+- Remove `tabstop` processing from formatter.
+- Support dividing IEEE float values by zero.
+- Fix multiline collapse when formatting function parameters.
+- Reclassify `map type` error as `user` error.
+- Fix acceptance tests to catch different timestamps.
+
+---
+
 ## v0.117.1 [2021-06-01]
 
 ### Bug fixes

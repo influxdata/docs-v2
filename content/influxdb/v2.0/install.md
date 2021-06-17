@@ -1,9 +1,7 @@
 ---
 title: Install InfluxDB
 description: Download, install, and set up InfluxDB OSS.
-menu:
-  influxdb_2_0:
-    name: Install
+menu: influxdb_2_0
 weight: 2
 influxdb/v2.0/tags: [install]
 ---
@@ -12,11 +10,11 @@ The InfluxDB 2.0 time series platform is purpose-built to collect, store,
 process and visualize metrics and events.
 Download, install, and set up InfluxDB OSS.
 
-The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
+<!-- The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization.
+- {{< cloud-name "short" >}} instances are currently limited to a single organization. -->
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -319,12 +317,7 @@ influxd --reporting-disabled
 
 <!------------------------------- BEGIN Windows ------------------------------->
 {{% tab-content %}}
-{{% warn %}}
-### Experimental Windows support
-InfluxDB 2.0 on Windows is currently considered experimental.
-If you experience issues, please [submit an issue](https://github.com/influxdata/influxdb/issues/new/choose)
-to the InfluxDB Github repository.
-
+{{% note %}}
 ##### System requirements
 - Windows 10
 - 64-bit AMD architecture
@@ -337,7 +330,7 @@ The command line examples in this documentation use `influx` and `influxd` as if
 installed on the system `PATH`.
 If these binaries are not installed on your `PATH`, replace `influx` and `influxd`
 in the provided examples with `./influx` and `./influxd` respectively.
-{{% /warn %}}
+{{% /note %}}
 
 ### Download and install InfluxDB v2.0
 Download InfluxDB v2.0 for Windows.

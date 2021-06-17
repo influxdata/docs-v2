@@ -58,7 +58,9 @@ paths:
   /:
     get:
       operationId: GetRoutes
-      summary: Map of all top level routes available
+      summary: List all top level routes
+      tags:
+        - Routes
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -73,6 +75,7 @@ paths:
       operationId: GetDocumentsTemplates
       tags:
         - Templates
+      summary: List all templates
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -130,6 +133,7 @@ paths:
       operationId: GetDocumentsTemplatesID
       tags:
         - Templates
+      summary: Retrieve a template
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -155,6 +159,7 @@ paths:
       operationId: PutDocumentsTemplatesID
       tags:
         - Templates
+      summary: Update a template
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -518,6 +523,9 @@ paths:
   /telegraf/plugins:
     get:
       operationId: GetTelegrafPlugins
+      tags:
+        - Telegraf Plugins
+      summary: List all Telegraf plugins
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -543,6 +551,7 @@ paths:
       operationId: GetTelegrafs
       tags:
         - Telegrafs
+      summary: List all Telegraf configurations
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -552,7 +561,7 @@ paths:
             type: string
       responses:
         '200':
-          description: A list of Telegraf configs
+          description: A list of Telegraf configurations
           content:
             application/json:
               schema:
@@ -567,11 +576,11 @@ paths:
       operationId: PostTelegrafs
       tags:
         - Telegrafs
-      summary: Create a Telegraf config
+      summary: Create a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       requestBody:
-        description: Telegraf config to create
+        description: Telegraf configuration to create
         required: true
         content:
           application/json:
@@ -579,7 +588,7 @@ paths:
               $ref: '#/components/schemas/TelegrafRequest'
       responses:
         '201':
-          description: Telegraf config created
+          description: Telegraf configuration created
           content:
             application/json:
               schema:
@@ -595,7 +604,7 @@ paths:
       operationId: GetTelegrafsID
       tags:
         - Telegrafs
-      summary: Retrieve a Telegraf config
+      summary: Retrieve a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -603,7 +612,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The Telegraf config ID.
+          description: The Telegraf configuration ID.
         - in: header
           name: Accept
           required: false
@@ -616,7 +625,7 @@ paths:
               - application/octet-stream
       responses:
         '200':
-          description: Telegraf config details
+          description: Telegraf configuration details
           content:
             application/toml:
               example: |-
@@ -643,7 +652,7 @@ paths:
       operationId: PutTelegrafsID
       tags:
         - Telegrafs
-      summary: Update a Telegraf config
+      summary: Update a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -653,7 +662,7 @@ paths:
           required: true
           description: The Telegraf config ID.
       requestBody:
-        description: Telegraf config update to apply
+        description: Telegraf configuration update to apply
         required: true
         content:
           application/json:
@@ -661,7 +670,7 @@ paths:
               $ref: '#/components/schemas/TelegrafRequest'
       responses:
         '200':
-          description: An updated Telegraf config
+          description: An updated Telegraf configurations
           content:
             application/json:
               schema:
@@ -676,7 +685,7 @@ paths:
       operationId: DeleteTelegrafsID
       tags:
         - Telegrafs
-      summary: Delete a Telegraf config
+      summary: Delete a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -684,7 +693,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The Telegraf config ID.
+          description: The Telegraf configuration ID.
       responses:
         '204':
           description: Delete has been accepted
@@ -793,7 +802,6 @@ paths:
     get:
       operationId: GetTelegrafsIDMembers
       tags:
-        - Users
         - Telegrafs
       summary: List all users with member privileges for a Telegraf config
       parameters:
@@ -820,7 +828,6 @@ paths:
     post:
       operationId: PostTelegrafsIDMembers
       tags:
-        - Users
         - Telegrafs
       summary: Add a member to a Telegraf config
       parameters:
@@ -855,7 +862,6 @@ paths:
     delete:
       operationId: DeleteTelegrafsIDMembersID
       tags:
-        - Users
         - Telegrafs
       summary: Remove a member from a Telegraf config
       parameters:
@@ -885,9 +891,8 @@ paths:
     get:
       operationId: GetTelegrafsIDOwners
       tags:
-        - Users
         - Telegrafs
-      summary: List all owners of a Telegraf config
+      summary: List all owners of a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -895,10 +900,10 @@ paths:
           schema:
             type: string
           required: true
-          description: The Telegraf config ID.
+          description: The Telegraf configuration ID.
       responses:
         '200':
-          description: A list of Telegraf config owners
+          description: Returns Telegraf configuration owners as a ResourceOwners list
           content:
             application/json:
               schema:
@@ -912,9 +917,8 @@ paths:
     post:
       operationId: PostTelegrafsIDOwners
       tags:
-        - Users
         - Telegrafs
-      summary: Add an owner to a Telegraf config
+      summary: Add an owner to a Telegraf configuration
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -922,7 +926,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The Telegraf config ID.
+          description: The Telegraf configuration ID.
       requestBody:
         description: User to add as owner
         required: true
@@ -932,7 +936,7 @@ paths:
               $ref: '#/components/schemas/AddResourceMemberRequestBody'
       responses:
         '201':
-          description: Telegraf config owner added
+          description: Telegraf configuration owner was added. Returns a ResourceOwner that references the User.
           content:
             application/json:
               schema:
@@ -947,7 +951,6 @@ paths:
     delete:
       operationId: DeleteTelegrafsIDOwnersID
       tags:
-        - Users
         - Telegrafs
       summary: Remove an owner from a Telegraf config
       parameters:
@@ -964,431 +967,6 @@ paths:
             type: string
           required: true
           description: The Telegraf config ID.
-      responses:
-        '204':
-          description: Owner removed
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /scrapers:
-    get:
-      operationId: GetScrapers
-      tags:
-        - ScraperTargets
-      summary: Get all scraper targets
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: query
-          name: name
-          description: Specifies the name of the scraper target.
-          schema:
-            type: string
-        - in: query
-          name: id
-          description: 'List of scraper target IDs to return. If both `id` and `owner` are specified, only `id` is used.'
-          schema:
-            type: array
-            items:
-              type: string
-        - in: query
-          name: orgID
-          description: Specifies the organization ID of the scraper target.
-          schema:
-            type: string
-        - in: query
-          name: org
-          description: Specifies the organization name of the scraper target.
-          schema:
-            type: string
-      responses:
-        '200':
-          description: All scraper targets
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScraperTargetResponses'
-    post:
-      operationId: PostScrapers
-      summary: Create a scraper target
-      tags:
-        - ScraperTargets
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-      requestBody:
-        description: Scraper target to create
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ScraperTargetRequest'
-      responses:
-        '201':
-          description: Scraper target created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScraperTargetResponse'
-        default:
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/scrapers/{scraperTargetID}':
-    get:
-      operationId: GetScrapersID
-      tags:
-        - ScraperTargets
-      summary: Get a scraper target by ID
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          required: true
-          schema:
-            type: string
-          description: The scraper target ID.
-      responses:
-        '200':
-          description: Scraper target updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScraperTargetResponse'
-        default:
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    delete:
-      operationId: DeleteScrapersID
-      tags:
-        - ScraperTargets
-      summary: Delete a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          required: true
-          schema:
-            type: string
-          description: The scraper target ID.
-      responses:
-        '204':
-          description: Scraper target deleted
-        default:
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    patch:
-      operationId: PatchScrapersID
-      summary: Update a scraper target
-      tags:
-        - ScraperTargets
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          required: true
-          schema:
-            type: string
-          description: The scraper target ID.
-      requestBody:
-        description: Scraper target update to apply
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ScraperTargetRequest'
-      responses:
-        '200':
-          description: Scraper target updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScraperTargetResponse'
-        default:
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/scrapers/{scraperTargetID}/labels':
-    get:
-      operationId: GetScrapersIDLabels
-      tags:
-        - ScraperTargets
-      summary: List all labels for a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
-      responses:
-        '200':
-          description: A list of all labels for a scraper target
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabelsResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      operationId: PostScrapersIDLabels
-      tags:
-        - ScraperTargets
-      summary: Add a label to a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
-      requestBody:
-        description: Label to add
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LabelMapping'
-      responses:
-        '201':
-          description: The newly added label
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabelResponse'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/scrapers/{scraperTargetID}/labels/{labelID}':
-    delete:
-      operationId: DeleteScrapersIDLabelsID
-      tags:
-        - ScraperTargets
-      summary: Delete a label from a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
-        - in: path
-          name: labelID
-          schema:
-            type: string
-          required: true
-          description: The label ID.
-      responses:
-        '204':
-          description: Delete has been accepted
-        '404':
-          description: Scraper target not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/scrapers/{scraperTargetID}/members':
-    get:
-      operationId: GetScrapersIDMembers
-      tags:
-        - Users
-        - ScraperTargets
-      summary: List all users with member privileges for a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
-      responses:
-        '200':
-          description: A list of scraper target members
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceMembers'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      operationId: PostScrapersIDMembers
-      tags:
-        - Users
-        - ScraperTargets
-      summary: Add a member to a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
-      requestBody:
-        description: User to add as member
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddResourceMemberRequestBody'
-      responses:
-        '201':
-          description: Member added to scraper targets
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceMember'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/scrapers/{scraperTargetID}/members/{userID}':
-    delete:
-      operationId: DeleteScrapersIDMembersID
-      tags:
-        - Users
-        - ScraperTargets
-      summary: Remove a member from a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: userID
-          schema:
-            type: string
-          required: true
-          description: The ID of member to remove.
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
-      responses:
-        '204':
-          description: Member removed
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/scrapers/{scraperTargetID}/owners':
-    get:
-      operationId: GetScrapersIDOwners
-      tags:
-        - Users
-        - ScraperTargets
-      summary: List all owners of a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
-      responses:
-        '200':
-          description: A list of scraper target owners
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceOwners'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      operationId: PostScrapersIDOwners
-      tags:
-        - Users
-        - ScraperTargets
-      summary: Add an owner to a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
-      requestBody:
-        description: User to add as owner
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddResourceMemberRequestBody'
-      responses:
-        '201':
-          description: Scraper target owner added
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourceOwner'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/scrapers/{scraperTargetID}/owners/{userID}':
-    delete:
-      operationId: DeleteScrapersIDOwnersID
-      tags:
-        - Users
-        - ScraperTargets
-      summary: Remove an owner from a scraper target
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: userID
-          schema:
-            type: string
-          required: true
-          description: The ID of owner to remove.
-        - in: path
-          name: scraperTargetID
-          schema:
-            type: string
-          required: true
-          description: The scraper target ID.
       responses:
         '204':
           description: Owner removed
@@ -1621,6 +1199,8 @@ paths:
   /delete:
     post:
       operationId: PostDelete
+      tags:
+        - Delete
       summary: Delete time series data from InfluxDB
       requestBody:
         description: Predicate delete request
@@ -1681,231 +1261,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /sources:
-    post:
-      operationId: PostSources
-      tags:
-        - Sources
-      summary: Create a source
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-      requestBody:
-        description: Source to create
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Source'
-      responses:
-        '201':
-          description: Created Source
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Source'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    get:
-      operationId: GetSources
-      tags:
-        - Sources
-      summary: Get all sources
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: query
-          name: org
-          description: The organization name.
-          schema:
-            type: string
-      responses:
-        '200':
-          description: All sources
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Sources'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/sources/{sourceID}':
-    delete:
-      operationId: DeleteSourcesID
-      tags:
-        - Sources
-      summary: Delete a source
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: sourceID
-          schema:
-            type: string
-          required: true
-          description: The source ID.
-      responses:
-        '204':
-          description: Delete has been accepted
-        '404':
-          description: View not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    patch:
-      operationId: PatchSourcesID
-      tags:
-        - Sources
-      summary: Update a Source
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: sourceID
-          schema:
-            type: string
-          required: true
-          description: The source ID.
-      requestBody:
-        description: Source update
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Source'
-      responses:
-        '200':
-          description: Created Source
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Source'
-        '404':
-          description: Source not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    get:
-      operationId: GetSourcesID
-      tags:
-        - Sources
-      summary: Get a source
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: sourceID
-          schema:
-            type: string
-          required: true
-          description: The source ID.
-      responses:
-        '200':
-          description: A source
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Source'
-        '404':
-          description: Source not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/sources/{sourceID}/health':
-    get:
-      operationId: GetSourcesIDHealth
-      tags:
-        - Sources
-      summary: Get the health of a source
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: sourceID
-          schema:
-            type: string
-          required: true
-          description: The source ID.
-      responses:
-        '200':
-          description: The source is healthy
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HealthCheck'
-        '503':
-          description: The source is not healthy
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HealthCheck'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/sources/{sourceID}/buckets':
-    get:
-      operationId: GetSourcesIDBuckets
-      tags:
-        - Sources
-        - Buckets
-      summary: Get buckets in a source
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: sourceID
-          schema:
-            type: string
-          required: true
-          description: The source ID.
-        - in: query
-          name: org
-          description: The organization name.
-          schema:
-            type: string
-      responses:
-        '200':
-          description: A source
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Buckets'
-        '404':
-          description: Source not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /labels:
     post:
       operationId: PostLabels
@@ -1936,7 +1291,7 @@ paths:
       operationId: GetLabels
       tags:
         - Labels
-      summary: Get all labels
+      summary: List all labels
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
@@ -1946,7 +1301,7 @@ paths:
             type: string
       responses:
         '200':
-          description: All labels
+          description: A list of labels
           content:
             application/json:
               schema:
@@ -1962,7 +1317,7 @@ paths:
       operationId: GetLabelsID
       tags:
         - Labels
-      summary: Get a label
+      summary: Retrieve a label
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -2085,7 +1440,7 @@ paths:
       operationId: GetDashboards
       tags:
         - Dashboards
-      summary: Get all dashboards
+      summary: List all dashboards
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
@@ -2093,7 +1448,7 @@ paths:
         - $ref: '#/components/parameters/Descending'
         - in: query
           name: owner
-          description: The owner ID.
+          description: A user identifier. Returns only dashboards where this user has the `owner` role.
           schema:
             type: string
         - in: query
@@ -2107,19 +1462,19 @@ paths:
               - UpdatedAt
         - in: query
           name: id
-          description: 'List of dashboard IDs to return. If both `id` and `owner` are specified, only `id` is used.'
+          description: 'A list of dashboard identifiers. Returns only the listed dashboards. If both `id` and `owner` are specified, only `id` is used.'
           schema:
             type: array
             items:
               type: string
         - in: query
           name: orgID
-          description: The organization ID.
+          description: The identifier of the organization.
           schema:
             type: string
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
       responses:
@@ -2140,7 +1495,7 @@ paths:
       operationId: GetDashboardsID
       tags:
         - Dashboards
-      summary: Get a Dashboard
+      summary: Retrieve a Dashboard
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -2159,7 +1514,7 @@ paths:
           description: Includes the cell view properties in the response if set to `properties`
       responses:
         '200':
-          description: Get a single dashboard
+          description: Retrieve a single dashboard
           content:
             application/json:
               schema:
@@ -2190,6 +1545,7 @@ paths:
           application/json:
             schema:
               type: object
+              title: PatchDashboardRequest
               properties:
                 name:
                   description: 'optional, when provided will replace the name'
@@ -2604,7 +1960,6 @@ paths:
     get:
       operationId: GetDashboardsIDMembers
       tags:
-        - Users
         - Dashboards
       summary: List all dashboard members
       parameters:
@@ -2631,7 +1986,6 @@ paths:
     post:
       operationId: PostDashboardsIDMembers
       tags:
-        - Users
         - Dashboards
       summary: Add a member to a dashboard
       parameters:
@@ -2666,7 +2020,6 @@ paths:
     delete:
       operationId: DeleteDashboardsIDMembersID
       tags:
-        - Users
         - Dashboards
       summary: Remove a member from a dashboard
       parameters:
@@ -2696,7 +2049,6 @@ paths:
     get:
       operationId: GetDashboardsIDOwners
       tags:
-        - Users
         - Dashboards
       summary: List all dashboard owners
       parameters:
@@ -2723,7 +2075,6 @@ paths:
     post:
       operationId: PostDashboardsIDOwners
       tags:
-        - Users
         - Dashboards
       summary: Add an owner to a dashboard
       parameters:
@@ -2758,7 +2109,6 @@ paths:
     delete:
       operationId: DeleteDashboardsIDOwnersID
       tags:
-        - Users
         - Dashboards
       summary: Remove an owner from a dashboard
       parameters:
@@ -2790,6 +2140,7 @@ paths:
       description: Analyzes flux query and generates a query specification.
       tags:
         - Query
+      summary: Generate an Abstract Syntax Tree (AST) from a query
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
@@ -2806,7 +2157,7 @@ paths:
               $ref: '#/components/schemas/LanguageRequest'
       responses:
         '200':
-          description: Abstract syntax tree of flux query.
+          description: Abstract syntax tree of the flux query.
           content:
             application/json:
               schema:
@@ -2822,6 +2173,7 @@ paths:
       operationId: GetQuerySuggestions
       tags:
         - Query
+      summary: Retrieve query suggestions
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -2842,6 +2194,7 @@ paths:
       operationId: GetQuerySuggestionsName
       tags:
         - Query
+      summary: Retrieve query suggestions for a branching suggestion
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -3006,7 +2359,7 @@ paths:
         - $ref: '#/components/parameters/After'
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
         - in: query
@@ -3257,7 +2610,6 @@ paths:
     get:
       operationId: GetBucketsIDMembers
       tags:
-        - Users
         - Buckets
       summary: List all users with member privileges for a bucket
       parameters:
@@ -3284,7 +2636,6 @@ paths:
     post:
       operationId: PostBucketsIDMembers
       tags:
-        - Users
         - Buckets
       summary: Add a member to a bucket
       parameters:
@@ -3319,7 +2670,6 @@ paths:
     delete:
       operationId: DeleteBucketsIDMembersID
       tags:
-        - Users
         - Buckets
       summary: Remove a member from a bucket
       parameters:
@@ -3349,7 +2699,6 @@ paths:
     get:
       operationId: GetBucketsIDOwners
       tags:
-        - Users
         - Buckets
       summary: List all owners of a bucket
       parameters:
@@ -3376,7 +2725,6 @@ paths:
     post:
       operationId: PostBucketsIDOwners
       tags:
-        - Users
         - Buckets
       summary: Add an owner to a bucket
       parameters:
@@ -3411,7 +2759,6 @@ paths:
     delete:
       operationId: DeleteBucketsIDOwnersID
       tags:
-        - Users
         - Buckets
       summary: Remove an owner from a bucket
       parameters:
@@ -3489,7 +2836,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Organization'
+              $ref: '#/components/schemas/PostOrganizationRequest'
       responses:
         '201':
           description: Organization created
@@ -3541,7 +2888,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Organization'
+              $ref: '#/components/schemas/PatchOrganizationRequest'
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -3684,7 +3031,6 @@ paths:
     get:
       operationId: GetOrgsIDMembers
       tags:
-        - Users
         - Organizations
       summary: List all members of an organization
       parameters:
@@ -3717,7 +3063,6 @@ paths:
     post:
       operationId: PostOrgsIDMembers
       tags:
-        - Users
         - Organizations
       summary: Add a member to an organization
       parameters:
@@ -3752,7 +3097,6 @@ paths:
     delete:
       operationId: DeleteOrgsIDMembersID
       tags:
-        - Users
         - Organizations
       summary: Remove a member from an organization
       parameters:
@@ -3782,7 +3126,6 @@ paths:
     get:
       operationId: GetOrgsIDOwners
       tags:
-        - Users
         - Organizations
       summary: List all owners of an organization
       parameters:
@@ -3815,7 +3158,6 @@ paths:
     post:
       operationId: PostOrgsIDOwners
       tags:
-        - Users
         - Organizations
       summary: Add an owner to an organization
       parameters:
@@ -3850,7 +3192,6 @@ paths:
     delete:
       operationId: DeleteOrgsIDOwnersID
       tags:
-        - Users
         - Organizations
       summary: Remove an owner from an organization
       parameters:
@@ -3881,7 +3222,7 @@ paths:
       operationId: ListStacks
       tags:
         - InfluxDB Templates
-      summary: Grab a list of installed InfluxDB Templates
+      summary: List all installed InfluxDB templates
       parameters:
         - in: query
           name: orgID
@@ -3929,6 +3270,7 @@ paths:
           application/json:
             schema:
               type: object
+              title: PostStackRequest
               properties:
                 orgID:
                   type: string
@@ -3958,17 +3300,17 @@ paths:
       operationId: ReadStack
       tags:
         - InfluxDB Templates
-      summary: Grab a stack by its ID
+      summary: Retrieve a stack
       parameters:
         - in: path
           name: stack_id
           required: true
           schema:
             type: string
-          description: The stack id
+          description: Theidentifier of the stack.
       responses:
         '200':
-          description: Read an influx stack by ID
+          description: The InfluxDB stack
           content:
             application/json:
               schema:
@@ -3990,7 +3332,7 @@ paths:
           required: true
           schema:
             type: string
-          description: The stack id
+          description: Theidentifier of the stack.
       requestBody:
         description: Influx stack to update.
         required: true
@@ -3998,6 +3340,7 @@ paths:
           application/json:
             schema:
               type: object
+              title: PatchStackRequest
               properties:
                 name:
                   type: string
@@ -4041,23 +3384,23 @@ paths:
       operationId: DeleteStack
       tags:
         - InfluxDB Templates
-      summary: Delete a stack and remove all its associated resources
+      summary: Delete a stack and associated resources
       parameters:
         - in: path
           name: stack_id
           required: true
           schema:
             type: string
-          description: The stack id
+          description: Theidentifier of the stack.
         - in: query
           name: orgID
           required: true
           schema:
             type: string
-          description: The organization id of the user
+          description: The identifier of the organization.
       responses:
         '204':
-          description: Stack and all its associated resources are deleted
+          description: The stack and its associated resources are deleted
         default:
           description: Unexpected error
           content:
@@ -4482,6 +3825,11 @@ paths:
       tags:
         - Tasks
       summary: Retry a task run
+      requestBody:
+        content:
+          application/json; charset=utf-8:
+            schema:
+              type: object
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -4690,12 +4038,12 @@ paths:
       operationId: GetMe
       tags:
         - Users
-      summary: Return the current authenticated user
+      summary: Retrieve the currently authenticated user
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
         '200':
-          description: Currently authenticated user
+          description: The currently authenticated user.
           content:
             application/json:
               schema:
@@ -4736,7 +4084,6 @@ paths:
     get:
       operationId: GetTasksIDMembers
       tags:
-        - Users
         - Tasks
       summary: List all task members
       parameters:
@@ -4763,7 +4110,6 @@ paths:
     post:
       operationId: PostTasksIDMembers
       tags:
-        - Users
         - Tasks
       summary: Add a member to a task
       parameters:
@@ -4798,7 +4144,6 @@ paths:
     delete:
       operationId: DeleteTasksIDMembersID
       tags:
-        - Users
         - Tasks
       summary: Remove a member from a task
       parameters:
@@ -4828,7 +4173,6 @@ paths:
     get:
       operationId: GetTasksIDOwners
       tags:
-        - Users
         - Tasks
       summary: List all owners of a task
       parameters:
@@ -4855,7 +4199,6 @@ paths:
     post:
       operationId: PostTasksIDOwners
       tags:
-        - Users
         - Tasks
       summary: Add an owner to a task
       parameters:
@@ -4890,7 +4233,6 @@ paths:
     delete:
       operationId: DeleteTasksIDOwnersID
       tags:
-        - Users
         - Tasks
       summary: Remove an owner from a task
       parameters:
@@ -4953,7 +4295,7 @@ paths:
       operationId: GetChecks
       tags:
         - Checks
-      summary: Get all checks
+      summary: List all checks
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
@@ -5007,7 +4349,7 @@ paths:
       operationId: GetChecksID
       tags:
         - Checks
-      summary: Get a check
+      summary: Retrieve a check
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -5235,7 +4577,7 @@ paths:
       operationId: GetNotificationRules
       tags:
         - NotificationRules
-      summary: Get all notification rules
+      summary: List all notification rules
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
@@ -5301,7 +4643,7 @@ paths:
       operationId: GetChecksIDQuery
       tags:
         - Checks
-      summary: Get a check query
+      summary: Retrieve a check query
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -5340,7 +4682,7 @@ paths:
       operationId: GetNotificationRulesID
       tags:
         - NotificationRules
-      summary: Get a notification rule
+      summary: Retrieve a notification rule
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -5568,7 +4910,7 @@ paths:
       operationId: GetNotificationRulesIDQuery
       tags:
         - Rules
-      summary: Get a notification rule query
+      summary: Retrieve a notification rule query
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -5607,7 +4949,7 @@ paths:
       operationId: GetNotificationEndpoints
       tags:
         - NotificationEndpoints
-      summary: Get all notification endpoints
+      summary: List all notification endpoints
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
@@ -5661,7 +5003,7 @@ paths:
       operationId: GetNotificationEndpointsID
       tags:
         - NotificationEndpoints
-      summary: Get a notification endpoint
+      summary: Retrieve a notification endpoint
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -5901,10 +5243,7 @@ paths:
                 $ref: '#/components/schemas/Users'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     post:
       operationId: PostUsers
       tags:
@@ -5928,10 +5267,7 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   '/users/{userID}':
     get:
       operationId: GetUsersID
@@ -5955,10 +5291,7 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     patch:
       operationId: PatchUsersID
       tags:
@@ -5988,10 +5321,7 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     delete:
       operationId: DeleteUsersID
       tags:
@@ -6010,22 +5340,19 @@ paths:
           description: User deleted
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   /setup:
     get:
       operationId: GetSetup
       tags:
         - Setup
-      summary: 'Check if database has default user, org, bucket'
-      description: 'Returns `true` if no default user, organization, or bucket has been created.'
+      summary: Retrieve setup status
+      description: 'Check if setup is allowed. Returns `true` if no default user, organization, or bucket have been created.'
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
         '200':
-          description: allowed true or false
+          description: 'Setup is allowed, true or false'
           content:
             application/json:
               schema:
@@ -6034,8 +5361,8 @@ paths:
       operationId: PostSetup
       tags:
         - Setup
-      summary: 'Set up initial user, org and bucket'
-      description: 'Post an onboarding request to set up initial user, org and bucket.'
+      summary: 'Create an initial user, organization, and bucket'
+      description: 'Post an onboarding request to create an initial user, organization, and bucket.'
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       requestBody:
@@ -6047,24 +5374,21 @@ paths:
               $ref: '#/components/schemas/OnboardingRequest'
       responses:
         '201':
-          description: 'Created default user, bucket, org'
+          description: 'The created default user, bucket, and organization'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OnboardingResponse'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   /setup/user:
     post:
       operationId: PostSetupUser
       tags:
         - Setup
-      summary: 'Set up a new user, org and bucket'
-      description: 'Post an onboarding request to set up a new user, org and bucket.'
+      summary: 'Create a new user, organization, and bucket'
+      description: 'Post an onboarding request to create a new user, organization, and bucket.'
       requestBody:
         description: Source to create
         required: true
@@ -6074,17 +5398,14 @@ paths:
               $ref: '#/components/schemas/OnboardingRequest'
       responses:
         '201':
-          description: 'Created default user, bucket, org'
+          description: 'The created default user, bucket, and organization.'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OnboardingResponse'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   /authorizations:
     get:
       operationId: GetAuthorizations
@@ -6127,10 +5448,7 @@ paths:
                 $ref: '#/components/schemas/Authorizations'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     post:
       operationId: PostAuthorizations
       tags:
@@ -6154,16 +5472,10 @@ paths:
                 $ref: '#/components/schemas/Authorization'
         '400':
           description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   '/authorizations/{authID}':
     get:
       operationId: GetAuthorizationsID
@@ -6177,7 +5489,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The ID of the authorization to get.
+          description: The identifier of the authorization to get.
       responses:
         '200':
           description: Authorization details
@@ -6187,17 +5499,15 @@ paths:
                 $ref: '#/components/schemas/Authorization'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     patch:
       operationId: PatchAuthorizationsID
       tags:
         - Authorizations
-      summary: Update an authorization to be active or inactive
+      summary: Update authorization status
+      description: Update an authorization's status to `active` or `inactive`.
       requestBody:
-        description: Authorization to update
+        description: The updated Authorization object.
         required: true
         content:
           application/json:
@@ -6210,20 +5520,17 @@ paths:
           schema:
             type: string
           required: true
-          description: The ID of the authorization to update.
+          description: The identifier of the authorization to update.
       responses:
         '200':
-          description: The active or inactie authorization
+          description: The updated authorization.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Authorization'
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     delete:
       operationId: DeleteAuthorizationsID
       tags:
@@ -6236,27 +5543,24 @@ paths:
           schema:
             type: string
           required: true
-          description: The ID of the authorization to delete.
+          description: The identifier of the authorization to delete.
       responses:
         '204':
           description: Authorization deleted
         default:
           description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   /variables:
     get:
       operationId: GetVariables
       tags:
         - Variables
-      summary: Get all variables
+      summary: List all variables
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
         - in: query
@@ -6266,23 +5570,17 @@ paths:
             type: string
       responses:
         '200':
-          description: All variables for an organization
+          description: A list of variables for an organization.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Variables'
         '400':
           description: Invalid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
         default:
           description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     post:
       operationId: PostVariables
       summary: Create a variable
@@ -6306,16 +5604,13 @@ paths:
                 $ref: '#/components/schemas/Variable'
         default:
           description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   '/variables/{variableID}':
     get:
       operationId: GetVariablesID
       tags:
         - Variables
-      summary: Get a variable
+      summary: Retrieve a variable
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: path
@@ -6333,16 +5628,10 @@ paths:
                 $ref: '#/components/schemas/Variable'
         '404':
           description: Variable not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
         default:
           description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     delete:
       operationId: DeleteVariablesID
       tags:
@@ -6361,10 +5650,7 @@ paths:
           description: Variable deleted
         default:
           description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     patch:
       operationId: PatchVariablesID
       summary: Update a variable
@@ -6394,10 +5680,7 @@ paths:
                 $ref: '#/components/schemas/Variable'
         default:
           description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     put:
       operationId: PutVariablesID
       summary: Replace a variable
@@ -6427,34 +5710,31 @@ paths:
                 $ref: '#/components/schemas/Variable'
         default:
           description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   '/buckets/{bucketID}/schema/measurements':
-    summary: APIs for describing bucket schema
+    summary: APIs for bucket schema
     get:
-      summary: Retrieve a list of measurement schemas defined for this bucket
+      summary: List all measurement schemas of a bucket
       operationId: getMeasurementSchemas
       parameters:
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
         - in: query
           name: orgID
-          description: The organization ID.
+          description: The identifier of the organization.
           schema:
             type: string
         - in: query
           name: name
-          description: Find a measurement with matching name.
+          description: The name of a measurement. Return schemas for this measurement only.
           schema:
             type: string
         - in: path
           name: bucketID
-          description: The ID of the bucket
+          description: The identifier of the bucket.
           schema:
             type: string
           required: true
@@ -6474,27 +5754,24 @@ paths:
                 $ref: '#/components/schemas/MeasurementSchemaList'
         '404':
           description: Bucket not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
     post:
-      summary: Create a new measurement schema for this bucket
+      summary: Create a measurement schema for a bucket
       operationId: createMeasurementSchema
       parameters:
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
         - in: query
           name: orgID
-          description: The organization ID.
+          description: The identifier of the organization.
           schema:
             type: string
         - in: path
           name: bucketID
-          description: The ID of the bucket
+          description: The identifier of the bucket.
           schema:
             type: string
           required: true
@@ -6507,7 +5784,7 @@ paths:
               $ref: '#/components/schemas/MeasurementSchemaCreateRequest'
       responses:
         '201':
-          description: New measurement schema
+          description: The created measurement schema
           headers:
             ETag:
               description: The current version of the measurement schema
@@ -6555,30 +5832,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
   '/buckets/{bucketID}/schema/measurements/{measurementID}':
-    summary: APIs for describing tables
+    summary: APIs for tables
     get:
-      summary: Fetch schema information for a measurement
+      summary: Retrieve measurement schema information
       operationId: getMeasurementSchema
       parameters:
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
         - in: query
           name: orgID
-          description: The organization ID.
+          description: The identifier of the organization.
           schema:
             type: string
         - in: path
           name: bucketID
-          description: The ID of the bucket
+          description: The identifier of the bucket.
           schema:
             type: string
           required: true
         - in: path
           name: measurementID
-          description: The ID of the measurement
+          description: The identifier of the measurement.
           schema:
             type: string
           required: true
@@ -6597,28 +5874,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/MeasurementSchema'
     patch:
-      summary: Update existing measurement schema
+      summary: Update a measurement schema
       operationId: updateMeasurementSchema
       parameters:
         - in: query
           name: org
-          description: The organization name.
+          description: The name of the organization.
           schema:
             type: string
         - in: query
           name: orgID
-          description: The organization ID.
+          description: The identifier of the organization.
           schema:
             type: string
         - in: path
           name: bucketID
-          description: The ID of the bucket
+          description: The identifier of the bucket.
           schema:
             type: string
           required: true
         - in: path
           name: measurementID
-          description: The ID of the measurement
+          description: The identifier of the measurement.
           schema:
             type: string
           required: true
@@ -6631,7 +5908,7 @@ paths:
               $ref: '#/components/schemas/MeasurementSchemaUpdateRequest'
       responses:
         '200':
-          description: Updated measurement schema
+          description: The updated measurement schema
           content:
             application/json:
               schema:
@@ -6653,17 +5930,17 @@ paths:
     get:
       tags:
         - Limits
-      summary: Get limit for an org
+      summary: Retrieve limits for an organization
       parameters:
         - in: path
           name: orgID
-          description: org to get limit for
+          description: The identifier of the organization.
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: A limit
+          description: The Limits defined for the organization.
           content:
             application/json:
               schema:
@@ -6676,19 +5953,16 @@ paths:
                     $ref: '#/components/schemas/Limit'
         default:
           description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
   '/orgs/{orgID}/usage':
     get:
       tags:
         - Usage
-      summary: Get usage for an org
+      summary: Retrieve usage for an organization
       parameters:
         - in: path
           name: orgID
-          description: org to get usage for
+          description: The identifier of the organization.
           required: true
           schema:
             type: string
@@ -6732,10 +6006,7 @@ paths:
                   #group,false,false,true,true,false,false,true,true,true,true #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string #default,_result,,,,,,,,, ,result,table,_start,_stop,_time,_value,_field,_measurement,bucket_id,org_id ,,0,2021-05-10T14:25:10.865702397Z,2021-05-10T15:25:10.865702397Z,2021-05-10T15:00:00Z,5434066,gauge,storage_usage_bucket_bytes,2f6ba0cf9a2fdcbb,cec6fc1d2176dc11 ,,1,2021-05-10T14:25:10.865702397Z,2021-05-10T15:25:10.865702397Z,2021-05-10T15:00:00Z,9924053.966666665,gauge,storage_usage_bucket_bytes,8af67bcaf69d9daf,cec6fc1d2176dc11
         default:
           description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ServerError'
 components:
   parameters:
     TraceSpan:
@@ -6813,6 +6084,11 @@ components:
           type: string
           enum:
             - flux
+        params:
+          type: object
+          additionalProperties: true
+          description: |
+            Enumeration of key/value pairs that respresent parameters to be injected into query (can only specify either this field or extern and not both)
         dialect:
           $ref: '#/components/schemas/Dialect'
         now:
@@ -7204,6 +6480,7 @@ components:
           $ref: '#/components/schemas/NodeType'
         value:
           type: string
+          format: date-time
     DurationLiteral:
       description: Represents the elapsed time between two instants as an int64 nanosecond count with syntax of golang's time.Duration
       type: object
@@ -7537,6 +6814,10 @@ components:
           description: A description of the event that occurred.
           type: string
           example: Halt and catch fire
+        runID:
+          readOnly: true
+          description: the ID of the task that logged
+          type: string
     Organization:
       properties:
         links:
@@ -7601,6 +6882,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Organization'
+    PostOrganizationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - name
+    PatchOrganizationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New name to set on the organization
+        description:
+          type: string
+          description: New description to set on the organization
     TemplateApply:
       type: object
       properties:
@@ -7940,7 +7239,7 @@ components:
               type: array
               items:
                 allOf:
-                  - $ref: '#/components/schemas/NotificationEndpointDiscrimator'
+                  - $ref: '#/components/schemas/NotificationEndpointDiscriminator'
                   - type: object
                     properties:
                       kind:
@@ -8227,9 +7526,9 @@ components:
                   templateMetaName:
                     type: string
                   new:
-                    $ref: '#/components/schemas/NotificationEndpointDiscrimator'
+                    $ref: '#/components/schemas/NotificationEndpointDiscriminator'
                   old:
-                    $ref: '#/components/schemas/NotificationEndpointDiscrimator'
+                    $ref: '#/components/schemas/NotificationEndpointDiscriminator'
             notificationRules:
               type: array
               items:
@@ -8568,14 +7867,7 @@ components:
           type: array
           readOnly: true
           items:
-            type: object
-            properties:
-              runID:
-                type: string
-              time:
-                type: string
-              message:
-                type: string
+            $ref: '#/components/schemas/LogEvent'
         startedAt:
           readOnly: true
           description: 'Time run started executing, RFC3339Nano.'
@@ -8912,6 +8204,7 @@ components:
             - unauthorized
             - method not allowed
             - request too large
+            - unsupported media type
         message:
           readOnly: true
           description: message is a human-readable message.
@@ -9238,6 +8531,8 @@ components:
           $ref: '#/components/schemas/XYGeom'
         legendColorizeRows:
           type: boolean
+        legendHide:
+          type: boolean
         legendOpacity:
           type: number
           format: float
@@ -9336,6 +8631,8 @@ components:
           $ref: '#/components/schemas/XYGeom'
         legendColorizeRows:
           type: boolean
+        legendHide:
+          type: boolean
         legendOpacity:
           type: number
           format: float
@@ -9433,6 +8730,8 @@ components:
         decimalPlaces:
           $ref: '#/components/schemas/DecimalPlaces'
         legendColorizeRows:
+          type: boolean
+        legendHide:
           type: boolean
         legendOpacity:
           type: number
@@ -9542,6 +8841,8 @@ components:
             - 'y'
             - xy
         legendColorizeRows:
+          type: boolean
+        legendHide:
           type: boolean
         legendOpacity:
           type: number
@@ -9654,6 +8955,8 @@ components:
           type: string
         legendColorizeRows:
           type: boolean
+        legendHide:
+          type: boolean
         legendOpacity:
           type: number
           format: float
@@ -9757,6 +9060,8 @@ components:
         binSize:
           type: number
         legendColorizeRows:
+          type: boolean
+        legendHide:
           type: boolean
         legendOpacity:
           type: number
@@ -9872,6 +9177,8 @@ components:
           type: integer
         legendColorizeRows:
           type: boolean
+        legendHide:
+          type: boolean
         legendOpacity:
           type: number
           format: float
@@ -9961,6 +9268,7 @@ components:
           description: 'If true, will display note when empty'
           type: boolean
         tableOptions:
+          type: object
           properties:
             verticalTimeAxis:
               description: verticalTimeAxis describes the orientation of the table by indicating whether the time axis will be displayed vertically
@@ -10035,6 +9343,8 @@ components:
           items:
             $ref: '#/components/schemas/DashboardColor'
         legendColorizeRows:
+          type: boolean
+        legendHide:
           type: boolean
         legendOpacity:
           type: number
@@ -10597,142 +9907,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Dashboard'
-    Source:
-      type: object
-      properties:
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            query:
-              type: string
-            health:
-              type: string
-            buckets:
-              type: string
-        id:
-          type: string
-        orgID:
-          type: string
-        default:
-          type: boolean
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-            - v1
-            - v2
-            - self
-        url:
-          type: string
-          format: uri
-        insecureSkipVerify:
-          type: boolean
-        telegraf:
-          type: string
-        token:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-        sharedSecret:
-          type: string
-        metaUrl:
-          type: string
-          format: uri
-        defaultRP:
-          type: string
-        languages:
-          type: array
-          readOnly: true
-          items:
-            type: string
-            enum:
-              - flux
-              - influxql
-    Sources:
-      type: object
-      properties:
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-              format: uri
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Source'
-    ScraperTargetRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the scraper target.
-        type:
-          type: string
-          description: The type of the metrics to be parsed.
-          enum:
-            - prometheus
-        url:
-          type: string
-          description: The URL of the metrics endpoint.
-          example: 'http://localhost:9090/metrics'
-        orgID:
-          type: string
-          description: The organization ID.
-        bucketID:
-          type: string
-          description: The ID of the bucket to write to.
-        allowInsecure:
-          type: boolean
-          description: Skip TLS verification on endpoint.
-          default: false
-    ScraperTargetResponse:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ScraperTargetRequest'
-        - type: object
-          properties:
-            id:
-              type: string
-              readOnly: true
-            org:
-              type: string
-              description: The organization name.
-            bucket:
-              type: string
-              description: The bucket name.
-            links:
-              type: object
-              readOnly: true
-              example:
-                self: /api/v2/scrapers/1
-                owners: /api/v2/scrapers/1/owners
-                members: /api/v2/scrapers/1/members
-                bucket: /api/v2/buckets/1
-                organization: /api/v2/orgs/1
-              properties:
-                self:
-                  $ref: '#/components/schemas/Link'
-                members:
-                  $ref: '#/components/schemas/Link'
-                owners:
-                  $ref: '#/components/schemas/Link'
-                bucket:
-                  $ref: '#/components/schemas/Link'
-                organization:
-                  $ref: '#/components/schemas/Link'
-    ScraperTargetResponses:
-      type: object
-      properties:
-        configurations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScraperTargetResponse'
     DocumentMeta:
       type: object
       properties:
@@ -10857,403 +10031,6 @@ components:
           type: string
         orgID:
           type: string
-    TelegrafRequestPlugin:
-      oneOf:
-        - $ref: '#/components/schemas/TelegrafPluginInputCpu'
-        - $ref: '#/components/schemas/TelegrafPluginInputDisk'
-        - $ref: '#/components/schemas/TelegrafPluginInputDiskio'
-        - $ref: '#/components/schemas/TelegrafPluginInputDocker'
-        - $ref: '#/components/schemas/TelegrafPluginInputFile'
-        - $ref: '#/components/schemas/TelegrafPluginInputKubernetes'
-        - $ref: '#/components/schemas/TelegrafPluginInputLogParser'
-        - $ref: '#/components/schemas/TelegrafPluginInputProcstat'
-        - $ref: '#/components/schemas/TelegrafPluginInputPrometheus'
-        - $ref: '#/components/schemas/TelegrafPluginInputRedis'
-        - $ref: '#/components/schemas/TelegrafPluginInputSyslog'
-        - $ref: '#/components/schemas/TelegrafPluginOutputFile'
-        - $ref: '#/components/schemas/TelegrafPluginOutputInfluxDBV2'
-    TelegrafPluginInputCpu:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - cpu
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputDisk:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - disk
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputDiskio:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - diskio
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputDocker:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - docker
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginInputDockerConfig'
-    TelegrafPluginInputFile:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - file
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginInputFileConfig'
-    TelegrafPluginInputKernel:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - kernel
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputKubernetes:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - kubernetes
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginInputKubernetesConfig'
-    TelegrafPluginInputLogParser:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - logparser
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginInputLogParserConfig'
-    TelegrafPluginInputMem:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - mem
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputNetResponse:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - net_response
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputNet:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - net
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputNginx:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - nginx
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputProcesses:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - processes
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputProcstat:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - procstat
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginInputProcstatConfig'
-    TelegrafPluginInputPrometheus:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - prometheus
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginInputPrometheusConfig'
-    TelegrafPluginInputRedis:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - redis
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginInputRedisConfig'
-    TelegrafPluginInputSyslog:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - syslog
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginInputSyslogConfig'
-    TelegrafPluginInputSwap:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - swap
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputSystem:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - system
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginInputTail:
-      type: object
-      required:
-        - name
-        - type
-      properties:
-        name:
-          type: string
-          enum:
-            - tail
-        type:
-          type: string
-          enum:
-            - input
-        comment:
-          type: string
-    TelegrafPluginOutputFile:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - file
-        type:
-          type: string
-          enum:
-            - output
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginOutputFileConfig'
-    TelegrafPluginOutputInfluxDBV2:
-      type: object
-      required:
-        - name
-        - type
-        - config
-      properties:
-        name:
-          type: string
-          enum:
-            - influxdb_v2
-        type:
-          type: string
-          enum:
-            - output
-        comment:
-          type: string
-        config:
-          $ref: '#/components/schemas/TelegrafPluginOutputInfluxDBV2Config'
     Telegraf:
       type: object
       allOf:
@@ -11312,96 +10089,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TelegrafPlugin'
-    TelegrafPluginInputDockerConfig:
-      type: object
-      required:
-        - endpoint
-      properties:
-        endpoint:
-          type: string
-    TelegrafPluginInputFileConfig:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            type: string
-    TelegrafPluginInputKubernetesConfig:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-    TelegrafPluginInputLogParserConfig:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            type: string
-    TelegrafPluginInputProcstatConfig:
-      type: object
-      properties:
-        exe:
-          type: string
-    TelegrafPluginInputPrometheusConfig:
-      type: object
-      properties:
-        urls:
-          type: array
-          items:
-            type: string
-            format: uri
-    TelegrafPluginInputRedisConfig:
-      type: object
-      properties:
-        servers:
-          type: array
-          items:
-            type: string
-        password:
-          type: string
-    TelegrafPluginInputSyslogConfig:
-      type: object
-      properties:
-        server:
-          type: string
-    TelegrafPluginOutputFileConfig:
-      type: object
-      required:
-        - files
-      properties:
-        files:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                enum:
-                  - stdout
-                  - path
-              path:
-                type: string
-    TelegrafPluginOutputInfluxDBV2Config:
-      type: object
-      required:
-        - urls
-        - token
-        - organization
-        - bucket
-      properties:
-        urls:
-          type: array
-          items:
-            type: string
-            format: uri
-        token:
-          type: string
-        organization:
-          type: string
-        bucket:
-          type: string
     IsOnboarding:
       type: object
       properties:
@@ -11927,11 +10614,9 @@ components:
     NotificationRuleBase:
       type: object
       required:
-        - id
         - orgID
         - status
         - name
-        - tagRules
         - statusRules
         - endpointID
       properties:
@@ -12171,7 +10856,7 @@ components:
           enum:
             - active
             - inactive
-    NotificationEndpointDiscrimator:
+    NotificationEndpointDiscriminator:
       oneOf:
         - $ref: '#/components/schemas/SlackNotificationEndpoint'
         - $ref: '#/components/schemas/PagerDutyNotificationEndpoint'
@@ -12186,10 +10871,10 @@ components:
           telegram: '#/components/schemas/TelegramNotificationEndpoint'
     NotificationEndpoint:
       allOf:
-        - $ref: '#/components/schemas/NotificationEndpointDiscrimator'
+        - $ref: '#/components/schemas/NotificationEndpointDiscriminator'
     PostNotificationEndpoint:
       allOf:
-        - $ref: '#/components/schemas/NotificationEndpointDiscrimator'
+        - $ref: '#/components/schemas/NotificationEndpointDiscriminator'
     NotificationEndpoints:
       properties:
         notificationEndpoints:
@@ -12411,12 +11096,10 @@ components:
             - buckets
             - dashboards
             - orgs
-            - sources
             - tasks
             - telegrafs
             - users
             - variables
-            - scrapers
             - secrets
             - labels
             - views
@@ -12903,6 +11586,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MeasurementSchemaColumn'
+  responses:
+    ServerError:
+      description: Non 2XX error response from server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BasicAuth:
       type: http

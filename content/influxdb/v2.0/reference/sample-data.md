@@ -19,6 +19,7 @@ and can be used with **InfluxDB OSS** or **InfluxDB Cloud**.
 
 - [Air sensor sample data](#air-sensor-sample-data)
 - [Bird migration sample data](#bird-migration-sample-data)
+- [NOAA water sample data](#noaa-water-sample-data)
 
 ### Air sensor sample data
 Air sensor sample data represents an "Internet of Things" (IoT) use case by simulating
