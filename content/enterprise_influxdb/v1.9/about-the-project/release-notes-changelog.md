@@ -32,7 +32,7 @@ in that there is no corresponding InfluxDB OSS release.
 
 
 
-
+<!-- TODO review these -->
 - feat(prometheus): update prometheus remote protocol <!-- https://github.com/influxdata/influxdb/pull/17814 -->
 - feat: meancount aggregation for WindowAggregate pushdown in enterprise <!-- https://github.com/influxdata/influxdb/pull/21291 -->
 - feat(tsi): optimize series iteration <!-- https://github.com/influxdata/influxdb/pull/20544 -->
@@ -48,7 +48,7 @@ in that there is no corresponding InfluxDB OSS release.
 - Ensure a newline is printed after a successful copy during [restoration](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
 - Make `entropy show` expiration times consistent with `show-shards`.
 
-
+<!-- TODO review these -->
 - fix: flux regression in buckets query <!-- https://github.com/influxdata/influxdb/pull/21183 -->
 - fix: redundant registration for prometheus collector metrics <!-- https://github.com/influxdata/influxdb/pull/21156 -->
 - fix: help text for influx_inspect <!-- https://github.com/influxdata/influxdb/pull/21052 -->
