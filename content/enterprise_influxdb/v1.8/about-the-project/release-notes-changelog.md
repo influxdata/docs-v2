@@ -32,9 +32,9 @@ menu:
 - Previously, the Anti-Entropy service would loop trying to copy an empty shard to a data node missing that shard. Now, an empty shard is successfully created on a new node.
 - Check for previously ignored errors in `DiffIterator.Next()`. Update to check before possible function exit and ensure handles are closed on error in digest diffs.
 
-## v{{< latest-patch >}} [2020-04-20]
+## v1.8.5 [2020-04-20]
 
-The InfluxDB Enterprise {{< latest-patch >}} release builds on the InfluxDB OSS {{< latest-patch >}} release.
+The InfluxDB Enterprise v1.8.5 release builds on the InfluxDB OSS v1.8.5 release.
 For details on changes incorporated from the InfluxDB OSS release, see
 [InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v185-2021-04-20).
 
