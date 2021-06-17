@@ -27,10 +27,10 @@ in that there is no corresponding InfluxDB OSS release.
 - Add improved [ingress metrics](/enterprise_influxdb/v1.9/administration/config-data-nodes/#ingress-metric-by-measurement-enabled--false) to track points written by measurement and by login.
   Allow for collection of statistics of points, values, and new series written per measurement and by login.
   This data is collected and exposed at the data node level.
-  Some examples of what operators can do with these metrics:
-    - aggregate the write requests across the entire cluster,
-    - monitor the growth of series within a measurement,
-    - track what user credentials are being used to write data.
+  With these metrics you can, for example:
+  aggregate the write requests across the entire cluster,
+  monitor the growth of series within a measurement,
+  and track what user credentials are being used to write data.
 - Support authentication for Kapacitor via LDAP.
 - Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
 - Upgrade to [Flux v0.113.0](/influxdb/cloud/reference/release-notes/flux/#v01130-2021-04-21).
