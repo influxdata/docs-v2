@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## v1.9.2 [2020-06-21]
+## v1.9.2 [2020-06-17]
 
 The release of InfluxDB Enterprise 1.9 is different from previous InfluxDB Enterprise releases
 in that there is no corresponding InfluxDB OSS release.
