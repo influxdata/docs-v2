@@ -29,7 +29,8 @@ menu:
   * [UDP `[udp]`](#udp-settings)
   * [Continuous queries `[continuous-queries]`](#continuous-queries-settings)
   * [TLS `[tls]`](#tls-settings)
-  * [Query controls `[flux-controller]`](#flux-controller)
+  * [InfluxQL Query controls `[coordinator]`](#coodinator)
+  * [Flux Query controls `[flux-controller]`](#flux-controller)
 
 ## Data node configuration settings
 
@@ -230,14 +231,14 @@ Environment variable: `INFLUXDB_DATA_WAL_FSYNC_DELAY`
 
 #### `ingress-metric-by-measurement-enabled = false`
 
-When `true`, collect statistics of points written per-measurement.
+When `true`, collect statistics of points, values and new series written per-measurement. Metrics are gathered per data node. 
 These can be accessed via the `/debug/vars` endpoint and in the `_internal` database if enabled.
 
 Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_MEASUREMENT_ENABLED`
 
 #### `ingress-metric-by-login-enabled = false`
 
-When `true`, collect statistics of points written per-login.
+When `true`, collect statistics of points, values and new series written per-login. Metrics are gathered per data node
 These can be accessed via the `/debug/vars` endpoint and in the `_internal` database if enabled.
 
 Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_LOGIN_ENABLED`
