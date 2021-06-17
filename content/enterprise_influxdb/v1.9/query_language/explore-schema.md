@@ -781,7 +781,19 @@ and offsets the results by one.
 #### Run a `SHOW TAG KEYS` query with a `WITH KEY IN` clause
 
 ```sql
-> SHOW TAG KEYS FROM cpu WITH KEY IN (host, region)
+> SHOW TAG KEYS ON "telegraf" with key in ("host","region")
+
+"measurement","tagKey"
+"cpu","host"
+"cpu_load_short","host"
+"cpu_load_short","region"
+"disk","host"
+"diskio","host"
+"docker","host"
+"docker_container_blkio","host"
+"docker_container_cpu","host"
+"docker_container_mem","host"
+"docker_container_status","host"
 ```
 
 ## `SHOW TAG VALUES`
