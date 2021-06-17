@@ -127,12 +127,15 @@ chronograf [flags]
 
 ### etcd flags
 
-| Flag                      | Description                                                                                                | Env. Variable           |
-|:--------------------------|:-----------------------------------------------------------------------------------------------------------|:------------------------|
-| `-e`, `--etcd-endpoints`  | etcd endpoint URL (include multiple flags for multiple endpoints)                                          | `$ETCD_ENDPOINTS`       |
-| `--etcd-username`         | etcd username                                                                                              | `$ETCD_USERNAME`        |
-| `--etcd-password`         | etcd password                                                                                              | `$ETCD_PASSWORD`        |
-| `--etcd-dial-timeout`     | Total time to wait before timing out while connecting to etcd endpoints (0 means no timeout, default: -1s) | `$ETCD_DIAL_TIMEOUT`    |
-| `--etcd-request-timeout`  | Total time to wait before timing out the etcd view or update (0 means no timeout, default: -1s)            | `$ETCD_REQUEST_TIMEOUT` |
-| `--etcd-cert`             | Path to PEM encoded TLS public key certificate for use with TLS                                            | `$ETCD_CERTIFICATE`     |
-| `--etcd-key`              | Path to private key associated with given certificate for use with TLS                                     | `$ETCD_PRIVATE_KEY`     |
+| Flag                     | Description                                                                                                | Env. Variable           |
+| :----------------------- | :--------------------------------------------------------------------------------------------------------- | :---------------------- |
+| `-e`, `--etcd-endpoints` | etcd endpoint URL (include multiple flags for multiple endpoints)                                          | `$ETCD_ENDPOINTS`       |
+| `--etcd-username`        | etcd username                                                                                              | `$ETCD_USERNAME`        |
+| `--etcd-password`        | etcd password                                                                                              | `$ETCD_PASSWORD`        |
+| `--etcd-dial-timeout`    | Total time to wait before timing out while connecting to etcd endpoints (0 means no timeout, default: -1s) | `$ETCD_DIAL_TIMEOUT`    |
+| `--etcd-request-timeout` | Total time to wait before timing out the etcd view or update (0 means no timeout, default: -1s)            | `$ETCD_REQUEST_TIMEOUT` |
+| `--etcd-cert`            | Path to PEM encoded TLS public key certificate for use with TLS                                            | `$ETCD_CERTIFICATE`     |
+| `--etcd-key`             | Path to private key associated with given certificate for use with TLS                                     | `$ETCD_PRIVATE_KEY`     |
+| `--etcd-root-ca`         | Path to root CA certificate for TLS verification.                                                          | `$ETCD-ROOT-CA          |
+
+
