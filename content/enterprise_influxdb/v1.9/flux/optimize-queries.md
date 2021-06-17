@@ -119,9 +119,6 @@ Consider their necessity in your data processing before using them:
 - [union()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/)
 - [pivot()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
 
-{{% note %}}
-We're continually optimizing Flux and this list may not represent its current state.
-{{% /note %}}
 
 ## Use set() instead of map() when possible
 [`set()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/),
