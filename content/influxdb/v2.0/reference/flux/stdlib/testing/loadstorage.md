@@ -34,6 +34,8 @@ testing.loadStorage(
 ### csv
 [Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) data to load.
 
+_**Data type:** String_
+
 ## Examples
 
 ```js

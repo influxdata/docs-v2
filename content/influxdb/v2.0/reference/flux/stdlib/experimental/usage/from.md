@@ -62,7 +62,7 @@ _**Data type:** Time | Duration_
 
 ### stop
 ({{< req >}})
-Earliest time to include in results.
+Latest time to include in results.
 
 _**Data type:** Time | Duration_
 
