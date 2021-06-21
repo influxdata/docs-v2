@@ -174,8 +174,8 @@ InfluxDB 2.0 doesn't support [in-memory (`inmem`) indexing](/influxdb/v1.8/admin
 
 ### Interactive shell
 
-There is no interactive shell you can build on in InfluxDB 2.0. To build a command line Flux REPL, [follow these instructions](https://github.com/influxdata/flux/blob/master/README.md#getting-started) to compile and build from source. 
-
+```suggestion
+The InfluxDB 2.x `influx` CLI does not include an interactive shell for executing InfluxQL queries or Flux queries. For information about executing InfluxQL queries, see [Query data with InfluxQL](/influxdb/v2.0/query-data/influxql/). To build a command line Flux REPL, [follow these instructions](https://github.com/influxdata/flux/blob/master/README.md#getting-started) to compile and build from source. 
 ## Perform the upgrade
 
 If you've considered the [guidance above](#before-you-begin-important-considerations)
