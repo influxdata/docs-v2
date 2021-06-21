@@ -20,6 +20,12 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization.
 
+- [Start for free](#start-for-free)
+- [Sign up](#sign-up)
+- [(Optional) Download, install, and use the influx CLI](#optional-download-install-and-use-the-influx-cli)
+- [Sign in](#sign-in)
+- [Get started working with data](#get-started-working-with-data)
+
 ## Start for free
 
 Start using {{< cloud-name >}} at no cost with the [Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan).
