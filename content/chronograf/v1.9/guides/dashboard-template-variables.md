@@ -1,7 +1,8 @@
 ---
 title: Use dashboard template variables
 description: >
-  Dashboard variables let you to alter specific components of cells' queries without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
+  Chronograf dashboard template variables let you update cell queries without editing queries,
+  making it easy to interact with your dashboard cells and explore your data.
 aliases:
   - /chronograf/v1.9/introduction/templating/
   - /chronograf/v1.9/templating/
@@ -11,10 +12,10 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard template variables let you update cell queries without editing queries, making it easy to interact with your dashboard cells and explore your data.
+Chronograf dashboard template variables let you update cell queries without editing queries,
+making it easy to interact with your dashboard cells and explore your data.
 
 - [Use template variables](#use-template-variables)
-- [Quoting template variables](#quoting-template-variables)
 - [Predefined template variables](#predefined-template-variables)
 - [Create custom template variables](#create-custom-template-variables)
 - [Template variable types](#template-variable-types)
@@ -24,20 +25,28 @@ Chronograf's dashboard template variables let you update cell queries without ed
 ## Use template variables
 
 When creating Chronograf dashboards, use template variables in cell queries and titles.
+Use either [predefined template variables](#predefined-template-variables)
+or [custom template variables](#create-custom-template-variables).
+After you set up variables, variables are available to select in your dashboard user-interface (UI).
 
-In the query, surround template variables names with colons (`:`) as follows:
+- [Use template variables in cell queries](#use-template-variables-in-cell-queries)
+  - [InfluxQL](#influxql)
+  - [Flux](#flux)
+- [Use template variables in cell titles](#use-template-variables-in-cell-titles)
+
+![Use template variables](/img/chronograf/1-6-template-vars-use.gif)
+
+### Use template variables in cell queries
+Both InfluxQL and Flux support template variables.
+
+#### InfluxQL
+In an InfluxQL query, surround template variables names with colons (`:`) as follows:
 
 ```sql
 SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
 ```
 
-Use either [predefined template variables](#predefined-template-variables)
-or [custom template variables](#create-custom-template-variables).
-After you set up variables, variables are available to select in your dashboard user-interface (UI).
-
-![Using template variables](/img/chronograf/1-6-template-vars-use.gif)
-
-## Quoting template variables
+##### Quoting template variables in InfluxQL
 
 For **predefined meta queries** such as "Field Keys" and "Tag Values", **do not add quotes** (single or double) to your queries. Chronograf will add quotes as follows:
 
@@ -53,14 +62,14 @@ For **custom queries**, **CSV**, or **map queries**, quote the values in the que
 {{% note %}}
 **Tips for quoting strings:**
 - When using custom meta queries that return strings, typically, you quote the variable values when using them in a dashboard query, given InfluxQL results are returned without quotes.
-
 - If you are using template variable strings in regular expression syntax (when using quotes may cause query syntax errors), the flexibility in query quoting methods is particularly useful.
 {{% /note %}}
 
-#### String examples
+##### String examples
 
 Add single quotes when you define template variables, or in your queries, but not both.
-##### Example 1: Add single quotes in variable definition
+
+###### Add single quotes in variable definition
 
 If you define a custom CSV variable named `host` using single quotes:
 
@@ -75,7 +84,7 @@ SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu"
 WHERE "host" = :host: and time > :dashboardTime
 ```
 
-##### Example 2: Add single quotes in query
+###### Add single quotes in query
 
 If you define a custom CSV variable named `host` without quotes:
 
@@ -90,14 +99,49 @@ SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu"
 WHERE "host" = ':host:' and time > :dashboardTime
 ```
 
+#### Flux
+In Flux, template variables are stored in a `v` record.
+Use dot or bracket notation to reference the variable key inside of the `v` record:
+
+```js
+from(bucket: v.bucket)
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStart)
+  |> filter(fn: (r) => r._field == v["Field key"])
+  |> aggregateWindow(every: v.windowPeriod, fn: v.aggregateFunction)
+```
+
+### Use template variables in cell titles
+To use a template variable to dynamically change the title of a dashboard cell,
+use the `:variable-name:` syntax.
+
+For example, if you have a variable named `field` with a selected value of `temp`
+and another variable named `location` with a selected value of `San Antonio`,
+the following cell title:
+
+```
+:temp: data for :location:
+```
+
+Would display as:
+
+{{< img-hd src= "/img/chronograf/1-9-template-var-title.png" alt="Use template variables in cell titles" />}}
+
 ## Predefined template variables
 
-Chronograf includes predefined template variables controlled by elements in the Chrongraf UI.
+Chronograf includes predefined template variables controlled by elements in the Chronograf UI.
 These template variables can be used in any of your cells' queries.
 
-[`:dashboardTime:`](#dashboardtime)  
-[`:upperDashboardTime:`](#upperdashboardtime)  
-[`:interval:`](#interval)
+InfluxQL and Flux include their own sets of predefined template variables:
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[InfluxQL](#)
+[Flux](#)
+{{% /tabs %}}
+{{% tab-content %}}
+- [`:dashboardTime:`](#dashboardtime)
+- [`:upperDashboardTime:`](#upperdashboardtime)
+- [`:interval:`](#interval)
 
 ### dashboardTime
 The `:dashboardTime:` template variable is controlled by the "time" dropdown in your Chronograf dashboard.
@@ -146,10 +190,63 @@ FROM "telegraf".."cpu"
 WHERE time > :dashboardtime:
 GROUP BY time(:interval:)
 ```
+{{% /tab-content %}}
+{{% tab-content %}}
+- [`v.timeRangeStart`](#vtimerangestart)
+- [`v.timeRangeStop`](#vtimerangestop)
+- [`v.windowPeriod`](#vwindowperiod)
+
+### v.timeRangeStart
+
+The `v.timeRangeStart` template variable is controlled by the "time" dropdown in your Chronograf dashboard.
+
+<img src="/img/chronograf/1-6-template-vars-time-dropdown.png" style="width:100%;max-width:549px;" alt="Dashboard time selector"/>
+
+If using relative times, it represents the time offset specified in the dropdown (-5m, -15m, -30m, etc.) and assumes time is relative to "now".
+If using absolute times defined by the date picker, `v.timeRangeStart` is populated with lower threshold.
+
+```js
+from(bucket: "telegraf/autogen")
+  |> range(start: v.timeRangeStart)
+  |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system")
+```
+
+{{% note %}}
+To use the date picker to specify a particular time range in the past
+which does not include "now", use `v.timeRangeStart` as the lower limit and
+[`v.timeRangeStop`](#vtimerangestop) as the upper limit.
+{{% /note %}}
+
+### v.timeRangeStop
+The `v.timeRangeStop` template variable is defined by the upper time limit specified using the date picker.
+
+<img src="/img/chronograf/1-6-template-vars-date-picker.png" style="width:100%;max-width:762px;" alt="Dashboard date picker"/>
+
+It will inherit `now()` when using relative time frames or the upper time limit when using absolute time frames.
+
+```js
+from(bucket: "telegraf/autogen")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system")
+```
+
+### v.windowPeriod
+The `v.windowPeriod` template variable is controlled by the display width of the
+dashboard cell and is calculated by the duration of time that each pixel covers.
+Use the `v.windowPeriod` variable to downsample data to use only enough points to
+display one point per pixel.
+
+```js
+from(bucket: "telegraf/autogen")
+  |> range(start: v.timeRangeStart)
+  |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system")
+  |> aggregateWindow(every: v.windowPeriod, fn: mean)
+```
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Create custom template variables
 
-Template variables are essentially an array of potential values used to populate parts of your cells' queries.
 Chronograf lets you create custom template variables powered by meta queries or CSV uploads that return an array of possible values.
 
 To create a template variable:
@@ -169,15 +266,16 @@ and a dropdown for the variable will be included at the top of your dashboard.
 ## Template Variable Types
 Chronograf supports the following template variable types:
 
-[Databases](#databases)  
-[Measurements](#measurements)  
-[Field Keys](#field-keys)  
-[Tag Keys](#tag-keys)  
-[Tag Values](#tag-values)  
-[CSV](#csv)  
-[Map](#map)  
-[Custom Meta Query](#custom-meta-query)  
-[Text](#text)
+- [Databases](#databases)
+- [Measurements](#measurements)
+- [Field Keys](#field-keys)
+- [Tag Keys](#tag-keys)
+- [Tag Values](#tag-values)
+- [CSV](#csv)
+- [Map](#map)
+- [InfluxQL Meta Query](#influxql-meta-query)
+- [Flux Query](#flux-query)
+- [Text](#text)
 
 ### Databases
 Database template variables allow you to select from multiple target [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database).
@@ -349,7 +447,7 @@ Microsoft,11394850823894034212
 
 The customer names would populate your template variable dropdown rather than the customer IDs.
 
-### Custom Meta Query
+### InfluxQL Meta Query
 Vary part of a query with a customized meta query that pulls a specific array of values from InfluxDB.
 These variables let you pull a highly customized array of potential values and offer advanced functionality such as [filtering values based on other template variables](#filter-template-variables-with-other-template-variables).
 
@@ -360,8 +458,16 @@ _**Example custom meta query variable in a cell query**_
 SELECT "purchases" FROM "animals"."autogen"."customers" WHERE "customer" = :customMetaVar:
 ```
 
-#### Custom meta query variable use cases
-Custom meta query template variables should be used any time you are pulling values from InfluxDB, but the pre-canned template variable types aren't able to return the desired list of values.
+#### InfluxQL meta query variable use cases
+Custom InfluxQL meta query template variables should be used any time you are pulling values from InfluxDB, but the pre-canned template variable types aren't able to return the desired list of values.
+
+### Flux Query
+Flux query template variables let you define variable values using Flux queries.
+**Variable values are extracted from the `_value` column returned by your Flux query.**
+
+#### Flux query variable use cases
+Flux query template variables are great when the values necessary for your
+variable can't be queried with InfluxQL.
 
 ### Text
 Vary a part of a query with a single string of text.
@@ -379,21 +485,21 @@ as well as many other parameters that control the display of graphs in your dash
 These names are either [predefined variables](#predefined-template-variables) or would
 conflict with existing URL query parameters.
 
-`:database:`  
-`:measurement:`  
-`:dashboardTime:`  
-`:upperDashboardTime:`  
-`:interval:`  
-`:upper:`  
-`:lower:`  
-`:zoomedUpper:`  
-`:zoomedLower:`
-`refreshRate:`
+- `:database:`
+- `:measurement:`
+- `:dashboardTime:`
+- `:upperDashboardTime:`
+- `:interval:`
+- `:upper:`
+- `:lower:`
+- `:zoomedUpper:`
+- `:zoomedLower:`
+- `:refreshRate:`
 
 ## Advanced template variable usage
 
 ### Filter template variables with other template variables
-[Custom meta query template variables](#custom-meta-query) allow you to filter the array of potential variable values using other existing template variables.
+[Custom InfluxQL meta query template variables](#influxQL-meta-query) allow you to filter the array of potential variable values using other existing template variables.
 
 For example, let's say you want to list all the field keys associated with a measurement, but want to be able to change the measurement:
 
@@ -401,20 +507,38 @@ For example, let's say you want to list all the field keys associated with a mea
 
     <img src="/img/chronograf/1-6-template-vars-measurement-var.png" style="width:100%;max-width:667px;" alt="measurementVar"/>
 
-2. Create a template variable named `:fieldKey:` that uses the [custom meta query](#custom-meta-query) variable type.
+2. Create a template variable named `:fieldKey:` that uses the [InfluxQL meta query](#influxql-meta-query) variable type.
 The following meta query pulls a list of field keys based on the existing `:measurementVar:` template variable.
-
+  
     ```sql
     SHOW FIELD KEYS ON telegraf FROM :measurementVar:
     ```
 
     <img src="/img/chronograf/1-6-template-vars-fieldkey.png" style="width:100%;max-width:667px;" alt="fieldKey"/>
 
-3. Create a new dashboard cell that uses the `:fieldKey:` and `:measurementVar` template variables in its query.
+3. Create a new dashboard cell that uses the `fieldKey` and `measurementVar` template variables in its query.
 
-    ```sql
-    SELECT :fieldKey: FROM "telegraf"..:measurementVar: WHERE time > :dashboardTime:
-    ```
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[InfluxQL](#)
+[Flux](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT :fieldKey: FROM "telegraf"..:measurementVar: WHERE time > :dashboardTime:
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+from(bucket: "telegraf/")
+  |> range(start: v.timeRangeStart)
+  |> filter(fn: (r) =>
+    r._measurement == v.measurementVar and
+    r._field == v.fieldKey
+  )
+```
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
 
 The resulting dashboard will work like this:
 
