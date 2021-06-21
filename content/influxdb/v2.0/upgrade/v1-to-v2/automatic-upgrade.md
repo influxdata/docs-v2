@@ -172,6 +172,10 @@ InfluxDB 2.0 doesn't support [in-memory (`inmem`) indexing](/influxdb/v1.8/admin
 - `max-series-per-database`
 - `max-values-per-tag`
 
+### Interactive shell
+
+There is no interactive shell you can build on in InfluxDB 2.0. To build a command line Flux REPL, [follow these instructions](https://github.com/influxdata/flux/blob/master/README.md#getting-started) to compile and build from source. 
+
 ## Perform the upgrade
 
 If you've considered the [guidance above](#before-you-begin-important-considerations)
