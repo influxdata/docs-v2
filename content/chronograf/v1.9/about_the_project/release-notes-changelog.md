@@ -14,12 +14,12 @@ menu:
 ### Breaking Changes
 
 #### OAuth PKCE
-OAuth integrations in Chronograf now use [OAuth PKCE (RFC7636)](https://oauth.net/2/pkce/)
-to mitigate the threat of the authorization code being intercepted during the OAuth token exchange.
+Add [OAuth PKCE (RFC7636)](https://oauth.net/2/pkce/) to OAuth integrations in Chronograf. 
+PKCE mitigates the threat of the authorization code being intercepted during the OAuth token exchange.
 Google, Azure, Octa, Auth0, Gitlab, and others already support OAuth PKCE.
 Enabling PKCE should have no effect on integrations with services that don't
 support it yet (such as Github or Bitbucket).
-To disable PKCE set the `OAUTH_NO_PKCE` enviornment variable to `=`true` or
+To disable PKCE, set the `OAUTH_NO_PKCE` environment variable to `=`true` or
 include the `--oauth-no-pkce` flag when starting `chronograf`.
 {{% /warn %}}
 
@@ -34,7 +34,7 @@ include the `--oauth-no-pkce` flag when starting `chronograf`.
 - Remove HipChat alert endpoints.
 - [Show or hide the log status histogram](/chronograf/v1.9/guides/analyzing-logs/#show-or-hide-the-log-status-histogram)
   in the Log Viewer.
-- Add more meta query templates in the Data Explorer.
+- Add the following meta query templates in the Data Explorer:
   - `SHOW FIELD KEYS`
   - `SHOW SUBSCRIPTIONS`
   - `SHOW QUERIES`
@@ -47,21 +47,23 @@ include the `--oauth-no-pkce` flag when starting `chronograf`.
   - Add dashboard template variables to Flux query execution.
     Flux queries include a `v` record with a key value pair for each variable.
   - Support dashboard [template variables defined with Flux](/chronograf/v1.9/guides/dashboard-template-variables/#flux-query).
-  - Add [Kapacitor Flux Tasks](/chronograf/v1.9/guides/advanced-kapacitor/#manage-kapacitor-flux-tasks)
+  - Add [Kapacitor Flux tasks](/chronograf/v1.9/guides/advanced-kapacitor/#manage-kapacitor-flux-tasks)
     on the Manage Tasks page (read only).
   - Provide documentation link when Flux is not enabled in InfluxDB 1.8+.
-  - [Write to buckets](/chronograf/v1.9/guides/write-to-influxdb/#use-the-flux-to-function-in-a-query)
-    when the Flux tab is selected.
+  - [Write to buckets using the Flux `to()` function](/chronograf/v1.9/guides/write-to-influxdb/#use-the-flux-to-function-in-a-query).
 - Filter fields in the Query Builder.
 - [Select write precision](/chronograf/v1.9/guides/write-to-influxdb/#upload-line-protocol-through-the-chronograf-ui)
   when writing data through the Chronograf UI.
-- Add [PKCE to OAuth integrations](#oauth-pkce).
 - Support [GitHub Enterprise in the existing GitHub OAuth integration](/chronograf/v1.9/administration/managing-security/#configure-github-authentication).
 - Update the Queries page in the InfluxDB Admin section of the UI.
+  - By default, sort queries by execution time in descending order.
+  - Sort queries by execution time or database.
+  - Include database count in the Queries page title.
+  - Select the refresh interval of the queries page.
 - [Set up InfluxDB Cloud and InfluxDB OSS 2.x connections](/chronograf/v1.9/administration/config-options/#influxdb-connection-options)
   with the `chronograf` CLI.
 - Add [custom auto-refresh intervals](/chronograf/v1.9/administration/config-options/#--custom-auto-refresh).
-- Send multiple queries to dashboard.
+- Send multiple queries to a dashboard.
 - Add macOS arm64 builds.
 
 ### Bug Fixes
