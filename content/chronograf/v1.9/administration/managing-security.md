@@ -33,12 +33,12 @@ Configure Chronograf to use an OAuth 2.0 provider and JWT (JSON Web Token) to au
 
 {{% note %}}
 #### OAuth PKCE 
-OAuth configurations in **Chronograf 1.9+** use [OAuth PKCE](https://oauth.net/2/pkce/)
-integrations for a more secure OAuth token exchange.
+OAuth configurations in **Chronograf 1.9+** use [OAuth PKCE](https://oauth.net/2/pkce/) to
+mitigate the threat of having the authorization code intercepted during the OAuth token exchange.
 OAuth integrations that do no currently support PKCE are not affected.
 
-**To disable OAuth PKCE** and revert to the previous, less secure token exchange,
-use the [`--oauth-no-pkce` Chronograf configuration option](/chronograf/v1.9/administration/config-options/#--oauth-no-pkce)
+**To disable OAuth PKCE** and revert to the previous token exchange, use the
+[`--oauth-no-pkce` Chronograf configuration option](/chronograf/v1.9/administration/config-options/#--oauth-no-pkce)
 or set the `OAUTH_NO_PCKE` environment variable to `true`.
 {{% /note %}}
 
