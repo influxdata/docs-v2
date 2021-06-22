@@ -124,7 +124,7 @@ Manually create `.src` files to store InfluxDB connection details.
 `.src` files are simple JSON files that contain key-value paired connection details.
 The location of `.src` files is defined by the [`--resources-path`](/chronograf/v1.9/administration/config-options/#resources-path)
 command line option, which is, by default, the same as the [`--canned-path`](/chronograf/v1.9/administration/config-options/#canned-path-c).
-An `.src` files contains the details for a single InfluxDB connection.
+A `.src` file contains the details for a single InfluxDB connection.
 
 {{% note %}}
 **Only InfluxDB 1.x connections are configurable in a `.src` file.**
