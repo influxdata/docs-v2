@@ -21,7 +21,7 @@ Update external links to Chronograf dashboards to reflect new source IDs.
 3. [Install and start etcd](/chronograf/v1.9/administration/create-high-availability/#install-and-start-etcd).
 4. Run the following command, specifying the local BoltDB file and the `etcd` endpoint beginning with `etcd://`.
    (We recommend adding the prefix `bolt://` to an absolute path.
-   To specify a relative path to the BoltDB file, the prefix cannot be used.)
+   Do not use the prefix to specify a relative path to the BoltDB file.)
 
     ```sh
     chronoctl migrate \
