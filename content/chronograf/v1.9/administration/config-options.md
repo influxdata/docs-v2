@@ -20,11 +20,11 @@ Chronograf is configured using the configuration file (/etc/default/chronograf) 
   - [Other service options](#other-service-options)
 * [Authentication options](#authentication-options)
     * [General authentication options](#general-authentication-options)
-    * [GitHub-specific OAuth 2.0 authentication options](#github-specific-oauth-2-0-authentication-options)
-    * [Google-specific OAuth 2.0 authentication options](#google-specific-oauth-2-0-authentication-options)
-    * [Auth0-specific OAuth 2.0 authentication options](#auth0-specific-oauth-2-0-authentication-options)
-    * [Heroku-specific OAuth 2.0 authentication options](#heroku-specific-oauth-2-0-authentication-options)
-    * [Generic OAuth 2.0 authentication options](#generic-oauth-2-0-authentication-options)
+    * [GitHub-specific OAuth 2.0 authentication options](#github-specific-oauth-20-authentication-options)
+    * [Google-specific OAuth 2.0 authentication options](#google-specific-oauth-20-authentication-options)
+    * [Auth0-specific OAuth 2.0 authentication options](#auth0-specific-oauth-20-authentication-options)
+    * [Heroku-specific OAuth 2.0 authentication options](#heroku-specific-oauth-20-authentication-options)
+    * [Generic OAuth 2.0 authentication options](#generic-oauth-20-authentication-options)
 
 ## Usage
 
@@ -390,19 +390,26 @@ Environment variable: `$TOKEN_SECRET`
 
 See [Configuring GitHub authentication](/chronograf/v1.9/administration/managing-security/#configure-github-authentication) for more information.
 
-#### `--github-client-id=` | `-i`
+#### `--github-url`
+
+{{< req "Required if using Github Enterprise" >}}  
+GitHub base URL. Default is `https://github.com`. 
+
+Environment variable: `$GH_URL`
+
+#### `--github-client-id` | `-i`
 
 The GitHub client ID value for OAuth 2.0 support.
 
 Environment variable: `$GH_CLIENT_ID`
 
-#### `--github-client-secret=` | `-s`
+#### `--github-client-secret` | `-s`
 
 The GitHub Client Secret value for OAuth 2.0 support.
 
 Environment variable: `$GH_CLIENT_SECRET`
 
-#### `--github-organization=` | `-o`
+#### `--github-organization` | `-o`
 
 [Optional] Specify a GitHub organization membership required for a user.
 
@@ -650,20 +657,26 @@ GENERIC_DOMAINS=delorean.com
 GENERIC_DOMAINS=delorean.com,savetheclocktower.com
 ```
 
-#### `--generic-auth-url=`
+#### `--generic-auth-url`
 
 The authorization endpoint URL for the OAuth 2.0 provider.
 
 Environment variable: `$GENERIC_AUTH_URL`
 
-#### `--generic-token-url=`
+#### `--generic-token-url`
 
 The token endpoint URL for the OAuth 2.0 provider.
 
 Environment variable: `$GENERIC_TOKEN_URL`
 
-#### `--generic-api-url=`
+#### `--generic-api-url`
 
 The URL that returns OpenID UserInfo-compatible information.
 
 Environment variable: `$GENERIC_API_URL`
+
+#### `--oauth-no-pkce`
+
+Disable OAuth PKCE (Proof Key for Code Exchange).
+
+Environment variable: `$OAUTH_NO_PKCE`
