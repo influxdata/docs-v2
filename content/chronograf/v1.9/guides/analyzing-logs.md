@@ -10,7 +10,13 @@ menu:
 Chronograf gives you the ability to view, search, filter, visualize, and analyze log information from a variety of sources.
 This helps to recognize and diagnose patterns, then quickly dive into logged events that lead up to events.
 
-## Logging setup
+- [Set up logging](#set-up-logging)
+- [View logs in Chronograf](#view-logs-in-chronograf)
+- [Configure the log viewer](#configure-the-log-viewer)
+- [Show or hide the log status histogram](#show-or-hide-the-log-status-histogram)
+- [Logs in dashboards](#logs-in-dashboards)
+
+## Set up logging
 Logs data is a first class citizen in InfluxDB and is populated using available log-related [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/#input-plugins):
 
 - [Docker Log](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker_log/README.md)
@@ -84,6 +90,15 @@ By default, text in Log Viewer columns is truncated if it exceeds the column wid
 Select the **Truncate** or **Wrap** option to determine how text appears when it exceeds the width of the cell.
 
 To copy the complete, un-truncated log message, select the message cell and click **Copy**.
+
+## Show or hide the log status histogram
+The Chronograf Log Viewer displays a histogram of log status.
+
+**To hide the log status histogram**, click the **{{< icon "hide" >}} icon** in 
+the top right corner of the histogram.
+
+**To show the log status histogram**, click the **{{< icon "bar-chart" >}} icon**
+in the top right corner of the log output.
 
 ## Logs in dashboards
 An incredibly powerful way to analyze log data is by creating dashboards that include log data.
