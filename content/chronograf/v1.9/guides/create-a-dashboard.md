@@ -103,17 +103,23 @@ _**Note:**_ If you navigate away from this page without clicking Save, your work
   time is **Local**, which uses your browser's local time. Select **UTC** to use
   Coordinated Universal Time.
 
-{{% note %}}
+    {{% note %}}
 **Note:** If your organization spans multiple time zones, we recommend using UTC
 (Coordinated Universal Time) to ensure that everyone sees metrics and events for the same time.
-{{% /note %}}
+    {{% /note %}}
 
 - Change the dashboard's *auto-refresh interval* at the top of the page - the default interval selected is **Every 10 seconds**.
 
-{{% note %}}
+    {{% note %}}
 **Note:** A dashboard's refresh rate persists in local storage, so the default
 refresh rate is only used when a refresh rate isn't found in local storage.
-{{% /note %}}
+    {{% /note %}}
+
+    {{% note %}}
+**To add custom auto-refresh intervals**, use the [`--custom-auto-refresh` configuration
+option](/chronograf/v1.9/administration/config-options/#--custom-auto-refresh)
+or `$CUSTOM_AUTO_REFRESH` environment variable when starting Chronograf.
+    {{% /note %}}
 
 - Modify the dashboard's *time range* at the top of the page - the default range
   is **Past 15 minutes**.

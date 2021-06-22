@@ -59,13 +59,14 @@ chronograf [flags]
 
 ## Other service option flags
 
-| Flag                         | Description                                                                                                                                         | Env. Variable         |
-|:---------------------------- |:------------------------------------------------------------------------                                                                            |:----------------------|
-| `--custom-link`              | Adds a custom link to Chronograf user menu options using `<display_name>:<link_address>` syntax. For multiple custom links, include multiple flags. |                       |
-| `-r`, `--reporting-disabled` | Disables reporting of usage statistics. Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`. | `$REPORTING_DISABLED` |
-| `-l`, `--log-level`          | Sets the logging level. Valid values include `info` (default), `debug`, and `error`.                                                                | `$LOG_LEVEL`          |
-| `-d`, `--develop`            | Runs the Chronograf service in developer mode                                                                                                       |                       |
-| `-h`, `--help`               | Displays command line help for Chronograf                                                                                                           |                       |
+| Flag                         | Description                                                                                                                                        | Env. Variable         |
+| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
+| `--custom-auto-refresh`      | Add custom auto-refresh options using semicolon separated list of label=milliseconds pairs                                                         | `$CUSTOM-AUTO-REFRESH |
+| `--custom-link`              | Add a custom link to Chronograf user menu options using `<display_name>:<link_address>` syntax. For multiple custom links, include multiple flags. |                       |
+| `-d`, `--develop`            | Run the Chronograf service in developer mode                                                                                                       |                       |
+| `-h`, `--help`               | Display command line help for Chronograf                                                                                                           |                       |
+| `-l`, `--log-level`          | Set the logging level. Valid values include `info` (default), `debug`, and `error`                                                                | `$LOG_LEVEL`          |
+| `-r`, `--reporting-disabled` | Disable reporting of usage statistics. Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`. | `$REPORTING_DISABLED` |
 
 ## Authentication option flags
 
