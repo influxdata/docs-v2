@@ -25,8 +25,9 @@ and encourage code reuse.
 
 ## Example
 
-For the most basic example, we’ll pass in a bucket name as an argument to our parameterized Flux query.
-The Flux script looks like this:
+### Writing the query
+
+Pass in a bucket name as an argument to a parameterized Flux query.
 
 ```js
 from(bucket:params.mybucket) 
@@ -35,7 +36,10 @@ from(bucket:params.mybucket)
 ```
 
 The Flux engine will replace `params.mybucket` with the bucket name that we want to query.
-We specify the value of the mybucket parameter at the end of the Flux query request payload with
+
+### Sending the request
+
+Specify the value of the mybucket parameter at the end of the Flux query request payload with
 
 ```
 "params":{"mybucket":"telegraf"} 
@@ -54,15 +58,22 @@ curl -X POST \
   -d '{"query":"from(bucket:params.mybucket) |> range(start: -7d) |> limit(n:2)","params":{"mybucket":"telegraf"}}'
 ```
 
-Typing for parameterized Flux query
+## Typing for parameterized Flux query
 
-Using parameterized Flux queries is pretty straightforward.
-Parameterized Flux queries support parameters of int, float, and string types.
-However, Flux itself supports more types, such as duration and others.
+Parameterized Flux queries support parameters of `int`, `float`, and `string` types.
+Flux itself supports more types, such as `duration` and others.
 Therefore, you must make sure to correctly type date parameters.
-For example if you want to make a parameter a timestamp, you must convert that value into a duration with the duration() function.
-The body of your request should look like this:
+For example if you want to make a parameter a timestamp,
+you must convert that value into a duration with the `duration()` function.
+
+```js
+from(bucket:"telegraf")
+  |> range(start: duration(v : params.mystart)) 
+  |> limit(n:2)
+```
+
+The JSON body of your request should look like this:
 
 ```
-{"query":"from(bucket:\"telegraf\") |> range(start: duration(v : params.mystart)) |> limit(n:2)","params":{"mystart":"-7d"}}Copy
+{"query":"from(bucket:\"telegraf\") |> range(start: duration(v : params.mystart)) |> limit(n:2)","params":{"mystart":"-7d"}}
 ```
