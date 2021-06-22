@@ -141,7 +141,7 @@ InfluxQL and Flux include their own sets of predefined template variables:
 {{% tab-content %}}
 - [`:dashboardTime:`](#dashboardtime)
 - [`:upperDashboardTime:`](#upperdashboardtime)
-- [`:interval:`](#interval)
+- [`:autoInterval:`](#autointerval)
 
 ### dashboardTime
 The `:dashboardTime:` template variable is controlled by the "time" dropdown in your Chronograf dashboard.
@@ -176,9 +176,9 @@ FROM "telegraf".."cpu"
 WHERE time > :dashboardTime: AND time < :upperDashboardTime:
 ```
 
-### interval
+### autoInterval
 
-The `:interval:` template variable is defined by the interval dropdown in the Chronograf dashboard.
+The `:autoInterval:` template variable is defined by the interval dropdown in the Chronograf dashboard.
 
 <img src="/img/chronograf/1-6-template-vars-interval-dropdown.png" style="width:100%;max-width:549px;" alt="Dashboard interval selector"/>
 
@@ -188,7 +188,7 @@ In cell queries, it should be used in the `GROUP BY time()` clause that accompan
 SELECT mean("usage_system") AS "Average System CPU Usage"
 FROM "telegraf".."cpu"
 WHERE time > :dashboardtime:
-GROUP BY time(:interval:)
+GROUP BY time(:autoInterval:)
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -489,7 +489,7 @@ conflict with existing URL query parameters.
 - `:measurement:`
 - `:dashboardTime:`
 - `:upperDashboardTime:`
-- `:interval:`
+- `:autoInterval:`
 - `:upper:`
 - `:lower:`
 - `:zoomedUpper:`
