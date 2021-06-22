@@ -18,27 +18,30 @@ related:
 The `influx bucket create` command creates a bucket in InfluxDB.
 
 ## Usage
+
 ```sh
 influx bucket create [flags]
 ```
 
 ## Flags
-| Flag |                          | Description                                                           | Input type  | {{< cli/mapped >}}    |
-|:---- |:---                      |:-----------                                                           |:----------: |:------------------    |
-| `-c` | `--active-config`        | CLI configuration to use for command                                  | string      |                       |
-|      | `--configs-path`         | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
-| `-d` | `--description`          | Bucket description                                                    | string      |                       |
-| `-h` | `--help`                 | Help for the `create` command                                         |             |                       |
-|      | `--hide-headers`         | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`                 | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-|      | `--json`                 | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`                 | Bucket name                                                           | string      | `INFLUX_BUCKET_NAME`  |
-| `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
-|      | `--org-id`               | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
-| `-r` | `--retention`            | Duration bucket retains data (0 is infinite, default is 0)            | duration    |                       |
-|      | `--shard-group-duration` | Bucket shard group duration (OSS only)                                | string      |                       |
-|      | `--skip-verify`          | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`                | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+
+| Flag |                          | Description                                                           | Input type | {{< cli/mapped >}}    |
+| :--- | :----------------------- | :-------------------------------------------------------------------- | :--------: | :-------------------- |
+| `-c` | `--active-config`        | CLI configuration to use for command                                  |   string   |                       |
+|      | `--configs-path`         | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
+| `-d` | `--description`          | Bucket description                                                    |   string   |                       |
+| `-h` | `--help`                 | Help for the `create` command                                         |            |                       |
+|      | `--hide-headers`         | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
+|      | `--host`                 | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
+|      | `--json`                 | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`                 | Bucket name                                                           |   string   | `INFLUX_BUCKET_NAME`  |
+| `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                |   string   | `INFLUX_ORG`          |
+|      | `--org-id`               | Organization ID (mutually exclusive with `--org`)                     |   string   | `INFLUX_ORG_ID`       |
+| `-r` | `--retention`            | Duration bucket retains data (0 is infinite, default is 0)            |  duration  |                       |
+|      | `--schema-type`          | The schema type (`explicit`, default `implicit`) (Cloud only)         |   string   |                       |
+|      | `--shard-group-duration` | Bucket shard group duration (OSS only)                                |   string   |                       |
+|      | `--skip-verify`          | Skip TLS certificate verification                                     |            |                       |
+| `-t` | `--token`                | Authentication token                                                  |   string   | `INFLUX_TOKEN`        |
 
 {{% note %}}
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),
@@ -55,11 +58,13 @@ milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and 
 - [Create a bucket with a custom shard group duration](#create-a-bucket-with-a-custom-shard-group-duration)
 
 ##### Create a bucket with infinite data retention
+
 ```sh
 influx bucket create --name example-bucket
 ```
 
 ##### Create a bucket that retains data for 30 days
+
 ```sh
 influx bucket create \
   --name example-bucket \
@@ -67,6 +72,7 @@ influx bucket create \
 ```
 
 ##### Create a bucket with a description
+
 ```sh
 influx bucket create \
   --name example-bucket \
@@ -74,6 +80,7 @@ influx bucket create \
 ```
 
 ##### Create a bucket with a custom shard group duration
+
 Custom shard group durations are only supported in **InfluxDB OSS**.
 The shard group duration must be shorter than the bucket's retention period. For more information, see [InfluxDB shards and shard groups](/influxdb/v2.0/reference/internals/shards/).
 
@@ -82,4 +89,14 @@ influx bucket create \
   --name example-bucket \
   --retention 30d \
   --shard-group-duration 2d
+```
+
+##### Create a bucket with custom bucket-schema
+
+Explicit buckets and [bucket-schema](/influxdb/cloud/reference/cli/influx/bucket-schema)
+ are only supported in **InfluxDB Cloud**.
+For more information, see [Manage bucket schema](/influxdb/cloud/organizations/bucket-schema/).
+
+```sh
+{{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
 ```
