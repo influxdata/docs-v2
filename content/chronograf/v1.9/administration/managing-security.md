@@ -12,7 +12,7 @@ menu:
 To enhance security, configure Chronograf to authenticate and authorize with [OAuth 2.0](https://oauth.net/) and use TLS/HTTPS.
 (Basic authentication with username and password is also available.)
 
-* [Configure Chronograf to authenticate with OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-2-0)
+* [Configure Chronograf to authenticate with OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-20)
   1. [Generate a Token Secret](#generate-a-token-secret)
   2. [Set configurations for your OAuth provider](#set-configurations-for-your-oauth-provider)
   3. [Configure authentication duration](#configure-authentication-duration)
@@ -30,6 +30,17 @@ and [users](/chronograf/v1.9/administration/managing-influxdb-users/).
 Configure Chronograf to use an OAuth 2.0 provider and JWT (JSON Web Token) to authenticate users and enable role-based access controls.
 
 (For more details on OAuth and JWT, see [RFC 6749](https://tools.ietf.org/html/rfc6749) and [RFC 7519](https://tools.ietf.org/html/rfc7519).)
+
+{{% note %}}
+#### OAuth PKCE 
+OAuth configurations in **Chronograf 1.9+** use [OAuth PKCE](https://oauth.net/2/pkce/)
+integrations for a more secure OAuth token exchange.
+OAuth integrations that do no currently support PKCE are not affected.
+
+**To disable OAuth PKCE** and revert to the previous, less secure token exchange,
+use the [`--oauth-no-pkce` Chronograf configuration option](/chronograf/v1.9/administration/config-options/#--oauth-no-pkce)
+or set the `OAUTH_NO_PCKE` environment variable to `true`.
+{{% /note %}}
 
 ### Generate a Token Secret
 
@@ -83,7 +94,7 @@ Configuration steps for the following supported authentication providers are pro
 * [Gitlab](#configure-gitlab-authentication)
 * [Azure Active Directory](#configure-azure-active-directory-authentication)
 * [Bitbucket](#configure-bitbucket-authentication)
-* [Configure Chronograf to use any OAuth 2.0 provider](#configure-chronograf-to-use-any-oauth-2-0-provider)
+* [Configure Chronograf to use any OAuth 2.0 provider](#configure-chronograf-to-use-any-oauth-20-provider)
 
 {{% note %}}
 If you haven't already, you must first [generate a token secret](#generate-a-token-secret) before proceeding.
@@ -104,8 +115,11 @@ If you haven't already, you must first [generate a token secret](#generate-a-tok
 2. Set the Chronograf environment variables with the credentials provided by GitHub:
 
     ```sh
-    export GH_CLIENT_ID=<client-id-from-github>
-    export GH_CLIENT_SECRET=<client-secret-from-github>
+    export GH_CLIENT_ID=<github-client-id>
+    export GH_CLIENT_SECRET=<github-client-secret>
+
+    # If using Github Enterprise
+    export GH_URL=https://github.custom-domain.com
     ```
 
 3. If you haven't already, set the Chronograf environment with your token secret:
@@ -116,11 +130,12 @@ If you haven't already, you must first [generate a token secret](#generate-a-tok
 
 Alternatively, set environment variables using the equivalent command line options:
 
-* [`--github-client-id=`](/chronograf/v1.9/administration/config-options/#github-client-id-i)
-* [`--github-client-secret=`](/chronograf/v1.9/administration/config-options/#github-client-secret-s)
-* [`--token_secret=`](/chronograf/v1.9/administration/config-options/#token-secret-t)
+- [`--github-url`](/chronograf/v1.9/administration/config-options/#--github-url)
+- [`--github-client-id`](/chronograf/v1.9/administration/config-options/#--github-client-id-i)
+- [`--github-client-secret`](/chronograf/v1.9/administration/config-options/#--github-client-secret-s)
+- [`--token_secret=`](/chronograf/v1.9/administration/config-options/#--token-secret-t)
 
-For details on the command line options and environment variables, see [GitHub OAuth 2.0 authentication options](/chronograf/v1.9/administration/config-options#github-specific-oauth-2-0-authentication-options).
+For details on the command line options and environment variables, see [GitHub OAuth 2.0 authentication options](/chronograf/v1.9/administration/config-options#github-specific-oauth-20-authentication-options).
 
 ##### GitHub organizations (optional)
 
@@ -145,6 +160,9 @@ The OAuth application can only see membership in organizations it has been grant
 ##### Example GitHub OAuth configuration
 
 ```bash
+# Github Enterprise base URL
+export GH_URL=https://github.mydomain.com
+
 # GitHub Client ID
 export GH_CLIENT_ID=b339dd4fddd95abec9aa
 
@@ -184,7 +202,7 @@ Alternatively, the environment variables discussed above can be set using their 
 * [`--public-url=`](/chronograf/v1.9/administration/config-options/#public-url)
 * [`--token_secret=`](/chronograf/v1.9/administration/config-options/#token-secret-t)
 
-For details on Chronograf command line options and environment variables, see [Google OAuth 2.0 authentication options](/chronograf/v1.9/administration/config-options#google-specific-oauth-2-0-authentication-options).
+For details on Chronograf command line options and environment variables, see [Google OAuth 2.0 authentication options](/chronograf/v1.9/administration/config-options#google-specific-oauth-20-authentication-options).
 
 ##### Optional Google domains
 
@@ -224,9 +242,9 @@ See [OAuth 2.0](https://auth0.com/docs/protocols/oauth2) for details about the A
 
 Alternatively, the environment variables discussed above can be set using their corresponding command line options:
 
-* [`--auth0-domain`](/chronograf/v1.9/administration/config-options/#auth0-specific-oauth-2-0-authentication-options)
-* [`--auth0-client-id`](/chronograf/v1.9/administration/config-options/#auth0-specific-oauth-2-0-authentication-options)
-* [`--auth0-client-secret`](/chronograf/v1.9/administration/config-options/#auth0-specific-oauth-2-0-authentication-options)
+* [`--auth0-domain`](/chronograf/v1.9/administration/config-options/#auth0-specific-oauth-20-authentication-options)
+* [`--auth0-client-id`](/chronograf/v1.9/administration/config-options/#auth0-specific-oauth-20-authentication-options)
+* [`--auth0-client-secret`](/chronograf/v1.9/administration/config-options/#auth0-specific-oauth-20-authentication-options)
 * [`--public-url`](/chronograf/v1.9/administration/config-options/#general-authentication-options)
 
 ##### Auth0 organizations (optional)
@@ -493,7 +511,7 @@ Chronograf can be configured to authenticate users by username and password ("ba
 Turn on basic authentication access to restrict HTTP requests to Chronograf to selected users.
 
 {{% warn %}}
-[OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-2-0) is the preferred method for authentication.
+[OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-20) is the preferred method for authentication.
 Only use basic authentication in cases where an OAuth 2.0 integration is not possible.
 {{% /warn %}}
 

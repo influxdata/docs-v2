@@ -71,19 +71,20 @@ chronograf [flags]
 
 ### General authentication flags
 
-| Flag                                 | Description                                                                                                                                                                                                                                                                                         | Env. Variable    |
-|:-------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
-| `-t`, `--token-secret`               | Secret for signing tokens                                                                                                                                                                                                                                                                           | `$TOKEN_SECRET`  |
-| `--auth-duration`                    | Total duration, in hours, of cookie life for authentication. Default value is `720h`.                                                                                                                                                                                                               | `$AUTH_DURATION` |
-| `--public-url`                       | Public URL required to access Chronograf using a web browser. For example, if you access Chronograf using the default URL, the public URL value would be `http://localhost:8888`. Required for Google OAuth 2.0 authentication. Used for Auth0 and some generic OAuth 2.0 authentication providers. | `$PUBLIC_URL`    |
-| `—htpasswd <path to .htpasswd file>` | Password file for use with HTTP basic authentication (username and password). See [NGINX documentation](https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/) for more on password files.                                                              | `$HTPASSWD`      |
+| Flag                   | Description                                                                                                                                                                                                                                                                                         | Env. Variable    |
+| :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------- |
+| `-t`, `--token-secret` | Secret for signing tokens                                                                                                                                                                                                                                                                           | `$TOKEN_SECRET`  |
+| `--auth-duration`      | Total duration, in hours, of cookie life for authentication. Default value is `720h`.                                                                                                                                                                                                               | `$AUTH_DURATION` |
+| `--public-url`         | Public URL required to access Chronograf using a web browser. For example, if you access Chronograf using the default URL, the public URL value would be `http://localhost:8888`. Required for Google OAuth 2.0 authentication. Used for Auth0 and some generic OAuth 2.0 authentication providers. | `$PUBLIC_URL`    |
+| `—-htpasswd`           | Path to password file for use with HTTP basic authentication. See [NGINX documentation](https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/) for more on password files.                                                                              | `$HTPASSWD`      |
 
 ### GitHub-specific OAuth 2.0 authentication flags
 
-| Flag                           | Description                                                             | Env. Variable       |
-|:-------------------------------|:------------------------------------------------------------------------|:--------------------|
-| `-i`, `--github-client-id`     | GitHub client ID value for OAuth 2.0 support                            | `$GH_CLIENT_ID`     |
-| `-s`, `--github-client-secret` | GitHub client secret value for OAuth 2.0 support                        | `$GH_CLIENT_SECRET` |
+| Flag                           | Description                                                                                                                            | Env. Variable       |
+| :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------- | :------------------ |
+| `--github-url`                 | Github base URL. Default is `https://github.com`. {{< req "Required if using Github Enterprise" >}}                                    | `$GH_URL`           |
+| `-i`, `--github-client-id`     | GitHub client ID value for OAuth 2.0 support                                                                                           | `$GH_CLIENT_ID`     |
+| `-s`, `--github-client-secret` | GitHub client secret value for OAuth 2.0 support                                                                                       | `$GH_CLIENT_SECRET` |
 | `-o`, `--github-organization`  | Restricts authorization to users from specified Github organizations. To add more than one organization, add multiple flags. Optional. | `$GH_ORGS`          |
 
 ### Google-specific OAuth 2.0 authentication flags
@@ -115,7 +116,7 @@ chronograf [flags]
 ### Generic OAuth 2.0 authentication flags
 
 | Flag                      | Description                                                                    | Env. Variable            |
-|:--------------------------|:-------------------------------------------------------------------------------|:-------------------------|
+| :------------------------ | :----------------------------------------------------------------------------- | :----------------------- |
 | `--generic-name`          | Generic OAuth 2.0 name presented on the login page                             | `$GENERIC_NAME`          |
 | `--generic-client-id`     | Generic OAuth 2.0 client ID value. Can be used for a custom OAuth 2.0 service. | `$GENERIC_CLIENT_ID`     |
 | `--generic-client-secret` | Generic OAuth 2.0 client secret value                                          | `$GENERIC_CLIENT_SECRET` |
@@ -124,6 +125,7 @@ chronograf [flags]
 | `--generic-auth-url`      | Authorization endpoint URL for the OAuth 2.0 provider                          | `$GENERIC_AUTH_URL`      |
 | `--generic-token-url`     | Token endpoint URL for the OAuth 2.0 provider                                  | `$GENERIC_TOKEN_URL`     |
 | `--generic-api-url`       | URL that returns OpenID UserInfo-compatible information                        | `$GENERIC_API_URL`       |
+| `--oauth-no-pkce`         | Disable OAuth PKCE                                                             | `$OAUTH_NO_PKCE`         |
 
 ### etcd flags
 
