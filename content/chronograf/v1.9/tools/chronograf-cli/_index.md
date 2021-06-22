@@ -33,11 +33,13 @@ chronograf [flags]
 
 ## InfluxDB connection flags
 
-| Flag                  | Description                                                                   | Env. Variable        |
-|:----------------------|:------------------------------------------------------------------------------|:---------------------|
-| `--influxdb-url`      | Location of your InfluxDB instance, including `http://`, IP address, and port | `$INFLUXDB_URL`      |
-| `--influxdb-username` | Username for your InfluxDB instance                                           | `$INFLUXDB_USERNAME` |
-| `--influxdb-password` | Password for your InfluxDB instance                                           | `$INFLUXDB_PASSWORD` |
+| Flag                  | Description                                                                             | Env. Variable        |
+| :-------------------- | :-------------------------------------------------------------------------------------- | :------------------- |
+| `--influxdb-url`      | InfluxDB URL, including the protocol, IP address, and port                              | `$INFLUXDB_URL`      |
+| `--influxdb-username` | InfluxDB username                                                                       | `$INFLUXDB_USERNAME` |
+| `--influxdb-password` | InfluxDB password                                                                       | `$INFLUXDB_PASSWORD` |
+| `--influxdb-org`      | InfluxDB 2.x or InfluxDB Cloud organization name                                        | `$INFLUXDB_ORG`      |
+| `--influxdb-token`    | InfluxDB 2.x or InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/) | `$INFLUXDB_TOKEN`    |
 
 ## Kapacitor connection flags
 

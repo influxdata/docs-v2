@@ -126,6 +126,12 @@ The location of `.src` files is defined by the [`--resources-path`](/chronograf/
 command line option, which is, by default, the same as the [`--canned-path`](/chronograf/v1.9/administration/config-options/#canned-path-c).
 An `.src` files contains the details for a single InfluxDB connection.
 
+{{% note %}}
+**Only InfluxDB 1.x connections are configurable in a `.src` file.**
+Configure InfluxDB 2.x and Cloud connections with [CLI flags](/chronograf/v1.9/administration/config-options/#influxdb-connection-options)
+or in the [Chronograf UI](#manage-influxdb-connections-using-the-chronograf-ui).
+{{% /note %}}
+
 Create a new file named `example.src` (the filename is arbitrary) and place it at Chronograf's `resource-path`.
 All `.src` files should contain the following:
 
