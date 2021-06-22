@@ -80,10 +80,9 @@ For example, Chronograf's Slack integration allows users to specify a default ch
       Default is `https://api.bigpanda.io/data/v2/alerts`.
     - **Token**: BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
     - **Application Key**: BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
-    - **Insecure Skip Verify**: Check to skip TLS certificate chain and host
+    - **Insecure Skip Verify**: Required if using a self-signed TLS certificate. Select to skip TLS certificate chain and host
       verification when connecting over HTTPS.
-      Required if using a self-signed TLS certificate.
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
@@ -101,20 +100,18 @@ For example, Chronograf's Slack integration allows users to specify a default ch
     - **Timeout**: Maximum amount of time to wait before flushing an incomplete batch. Default is `10s`.
     - **Batch Size**: Number of messages batched before sending to Kafka. Default is `100`.
     - **Batch Timeout**: Timeout period for the batch. Default is `1s`.
-    - **Use SSL**: Check to enable SSL communication.
+    - **Use SSL**: Select to enable SSL communication.
     - **SSL CA**: Path to the SSL CA (certificate authority) file.
     - **SSL Cert**: Path to the SSL host certificate.
     - **SSL Key**: Path to the SSL certificate private key file.
-    - **Insecure Skip Verify**: Check to skip TLS certificate chain and host
+    - **Insecure Skip Verify**: Required if using a self-signed TLS certificate. Select to skip TLS certificate chain and host
       verification when connecting over HTTPS.
-      Required if using a self-signed TLS certificate.
     - **Configuration Enabled**: Check to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
 
-See [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/)
-in the Kapacitor documentation for details about enabling Kafka services using TICKscripts.
+To enable Kafka services using TICKscript, see [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/).
 
 ### OpsGenie
 
@@ -135,14 +132,14 @@ Send an incident alert to OpsGenie teams and recipients using the Chronograf ale
 2. Enter the following information:
 
     - **API Key**: API key (or GenieKey).
-      The API Key can be found by signing into your [OpsGenie account](https://app.opsgenie.com/auth/login)
-      and selecting the **Settings** menu option in the **Admin** menu.
+      To find the API key, sign into your [OpsGenie account](https://app.opsgenie.com/auth/login)
+      and select the **Settings** menu option in the **Admin** menu.
     - **Teams**: List of [OpsGenie teams](https://docs.opsgenie.com/docs/teams) to be alerted.
     - **Recipients** List of [OpsGenie team members](https://docs.opsgenie.com/docs/teams#section-team-members)) to receive alerts.
     - **Select recovery action**: Actions to take when an alert recovers:
         - Add a note to the alert
         - Close the alert
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 4. Click **Save Changes** to save the configuration settings.
 5. Click **Send Test Alert** to verify the configuration.
@@ -170,7 +167,7 @@ Use the [PagerDuty2](#pagerduty2) alert endpoint.
 
     - **Routing Key**: GUID of your PagerDuty Events API V2 integration, listed as "Integration Key" on the Events API V2 integration's detail page. See [Create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service) in the PagerDuty documentation details on getting an "Integration Key" (`routing_key`).
     - **PagerDuty URL**: URL used to POST a JSON body representing the event. This value should not be changed. Valid value is `https://events.pagerduty.com/v2/enqueue`.
-    - **Configuration Enabled**: Check to enable this configuration.
+    - **Configuration Enabled**: Select to enable this configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
@@ -178,8 +175,7 @@ Use the [PagerDuty2](#pagerduty2) alert endpoint.
 See the [PagerDuty Events API V2 Overview](https://v2.developer.pagerduty.com/docs/events-api-v2)
 for details on the PagerDuty Events API and recognized event types (`trigger`, `acknowledge`, and `resolve`).
 
-See [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/{{< latest "kapacitor" >}}/nodes/alert_node/#pagerduty-v2)
-in the Kapacitor documentation for details about enabling a new "Generic API" service using TICKscripts.
+To enable a new "Generic API" service using TICKscript, see [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/{{< latest "kapacitor" >}}/nodes/alert_node/#pagerduty-v2).
 
 ### Pushover
 
@@ -207,8 +203,8 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
 2. Enter the following:
 
     - **Source**: Event source. Default is `Kapacitor`.
-    - **Address**: Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture).
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Address**: URL of [Sensu HTTP API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture).
+    - **Configuration Enabled**: Select to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
@@ -225,7 +221,7 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
     - **Source**: Event source.
     - **Username**: ServiceNow username.
     - **Password**: ServiceNow password.
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
@@ -252,7 +248,6 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
 
-#### Add another Slack configuration
 
 **To add another Slack configuration:**
 
@@ -275,7 +270,7 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
     - **To Email**: Email address to send messages to.
     - **User**: SMTP username.
     - **Password**: SMTP password.
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
@@ -290,7 +285,7 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
 
     - **URL**: Talk API URL.
     - **Author Name**: Message author name.
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
@@ -304,7 +299,7 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
 2. Enter the following:
 
     - **Channel URL**: Microsoft Teams channel URL.
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
@@ -324,9 +319,9 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
         - Markdown _(default)_
         - HTML
     - **Disable link previews**: Disable [link previews](https://telegram.org/blog/link-preview) in Telegram messages.
-    - **Disable notifications**: Disable notifications on iOS Devices and sounds on Android devices.
+    - **Disable notifications**: Disable notifications on iOS devices and sounds on Android devices.
       Android users will continue to receive notifications.
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 ### VictorOps
 
@@ -340,7 +335,7 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
     - **Routing Key**: VictorOps [routing key](https://help.victorops.com/knowledge-base/routing-keys/).
     - **VictorOps URL**: VictorOps alert API URL.
       Default is `https://alert.victorops.com/integrations/generic/20131114/alert`.
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
@@ -369,7 +364,7 @@ in the Kapacitor documentation for details about enabling a new "Generic API" se
         - **Info**: Info _(default)_
         - **Warning**: Warning _(default)_
         - **Critical**: Critical _(default)_
-    - **Configuration Enabled**: Check to enable configuration.
+    - **Configuration Enabled**: Select to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
