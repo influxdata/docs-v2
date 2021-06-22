@@ -136,6 +136,5 @@ chronograf [flags]
 | `--etcd-request-timeout` | Total time to wait before timing out the etcd view or update (0 means no timeout, default: -1s)            | `$ETCD_REQUEST_TIMEOUT` |
 | `--etcd-cert`            | Path to PEM encoded TLS public key certificate for use with TLS                                            | `$ETCD_CERTIFICATE`     |
 | `--etcd-key`             | Path to private key associated with given certificate for use with TLS                                     | `$ETCD_PRIVATE_KEY`     |
-| `--etcd-root-ca`         | Path to root CA certificate for TLS verification.                                                          | `$ETCD-ROOT-CA          |
-
+| `--etcd-root-ca`         | Path to root CA certificate for TLS verification                                                          | `$ETCD-ROOT-CA          |
 
