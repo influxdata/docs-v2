@@ -25,7 +25,7 @@ Choose from the following methods:
     {{< img-hd src="/img/chronograf/1-9-write-data.png" alt="Write data to InfluxDB with Chronograf" />}}
 
 3.  Select the **database** _(if an InfluxQL data source is selected)_ or
-    **database and retention policy** _(if an Flux data source is selected)_ to write to.
+    **database and retention policy** _(if a Flux data source is selected)_ to write to.
 
     {{< img-hd src="/img/chronograf/1-9-write-db-rp.png" alt="Select database and retention policy to write to" />}}
 
@@ -37,7 +37,7 @@ Choose from the following methods:
     - **Manual Entry**: Manually enter line protocol to write to InfluxDB.
 
 5.  Select the timestamp precision of your line protocol.
-    Chronograf supports to following units:
+    Chronograf supports the following units:
 
     - `s` (seconds)
     - `ms` (milliseconds)
