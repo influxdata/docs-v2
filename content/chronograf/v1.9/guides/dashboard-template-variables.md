@@ -111,12 +111,11 @@ from(bucket: v.bucket)
 ```
 
 ### Use template variables in cell titles
-To use a template variable to dynamically change the title of a dashboard cell,
+To dynamically change the title of a dashboard cell,
 use the `:variable-name:` syntax.
 
-For example, if you have a variable named `field` with a selected value of `temp`
-and another variable named `location` with a selected value of `San Antonio`,
-the following cell title:
+For example, a variable named `field` with a value of `temp`
+and a variable named `location` with a value of `San Antonio` the following syntax:
 
 ```
 :temp: data for :location:
@@ -129,7 +128,7 @@ Would display as:
 ## Predefined template variables
 
 Chronograf includes predefined template variables controlled by elements in the Chronograf UI.
-These template variables can be used in any of your cells' queries.
+Use predefined template variables in your cell queries.
 
 InfluxQL and Flux include their own sets of predefined template variables:
 
@@ -141,7 +140,7 @@ InfluxQL and Flux include their own sets of predefined template variables:
 {{% tab-content %}}
 - [`:dashboardTime:`](#dashboardtime)
 - [`:upperDashboardTime:`](#upperdashboardtime)
-- [`:autoInterval:`](#autointerval)
+- [`:interval:`](#interval)
 
 ### dashboardTime
 The `:dashboardTime:` template variable is controlled by the "time" dropdown in your Chronograf dashboard.
@@ -202,8 +201,8 @@ The `v.timeRangeStart` template variable is controlled by the "time" dropdown in
 
 <img src="/img/chronograf/1-6-template-vars-time-dropdown.png" style="width:100%;max-width:549px;" alt="Dashboard time selector"/>
 
-If using relative times, it represents the time offset specified in the dropdown (-5m, -15m, -30m, etc.) and assumes time is relative to "now".
-If using absolute times defined by the date picker, `v.timeRangeStart` is populated with lower threshold.
+If using relative time, this variable represents the time offset specified in the dropdown (-5m, -15m, -30m, etc.) and assumes time is relative to "now".
+If using absolute time defined by the date picker, `v.timeRangeStart` is populated with lower threshold.
 
 ```js
 from(bucket: "telegraf/autogen")
@@ -212,8 +211,7 @@ from(bucket: "telegraf/autogen")
 ```
 
 {{% note %}}
-To use the date picker to specify a particular time range in the past
-which does not include "now", use `v.timeRangeStart` as the lower limit and
+To use the date picker to specify a time range in the past without "now", use `v.timeRangeStart` as the lower limit and
 [`v.timeRangeStop`](#vtimerangestop) as the upper limit.
 {{% /note %}}
 
@@ -222,7 +220,7 @@ The `v.timeRangeStop` template variable is defined by the upper time limit speci
 
 <img src="/img/chronograf/1-6-template-vars-date-picker.png" style="width:100%;max-width:762px;" alt="Dashboard date picker"/>
 
-It will inherit `now()` when using relative time frames or the upper time limit when using absolute time frames.
+For relative time frames, this variable inherits `now()`. For absolute time frames, this variable inherits the upper time limit.
 
 ```js
 from(bucket: "telegraf/autogen")
@@ -233,8 +231,7 @@ from(bucket: "telegraf/autogen")
 ### v.windowPeriod
 The `v.windowPeriod` template variable is controlled by the display width of the
 dashboard cell and is calculated by the duration of time that each pixel covers.
-Use the `v.windowPeriod` variable to downsample data to use only enough points to
-display one point per pixel.
+Use the `v.windowPeriod` variable to limit downsample data to display a maximum of one point per pixel.
 
 ```js
 from(bucket: "telegraf/autogen")
@@ -459,7 +456,7 @@ SELECT "purchases" FROM "animals"."autogen"."customers" WHERE "customer" = :cust
 ```
 
 #### InfluxQL meta query variable use cases
-Custom InfluxQL meta query template variables should be used any time you are pulling values from InfluxDB, but the pre-canned template variable types aren't able to return the desired list of values.
+Use custom InfluxQL meta query template variables when predefined template variable types aren't able to return the values you want.
 
 ### Flux Query
 Flux query template variables let you define variable values using Flux queries.
@@ -489,7 +486,7 @@ conflict with existing URL query parameters.
 - `:measurement:`
 - `:dashboardTime:`
 - `:upperDashboardTime:`
-- `:autoInterval:`
+- `:interval:`
 - `:upper:`
 - `:lower:`
 - `:zoomedUpper:`
@@ -499,7 +496,7 @@ conflict with existing URL query parameters.
 ## Advanced template variable usage
 
 ### Filter template variables with other template variables
-[Custom InfluxQL meta query template variables](#influxQL-meta-query) allow you to filter the array of potential variable values using other existing template variables.
+[Custom InfluxQL meta query template variables](#influxQL-meta-query) let you filter the array of potential variable values using other existing template variables.
 
 For example, let's say you want to list all the field keys associated with a measurement, but want to be able to change the measurement:
 
