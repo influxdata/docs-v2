@@ -280,30 +280,21 @@ Environment variable: `$ETCD_PRIVATE_KEY`
 
 ### Other service options
 
+#### `--custom-auto-refresh`
+
+Add custom auto auto-refresh intervals to the list of of available auto-refresh intervals in Chronograf dashboards.
+Provide a semi-colon-delimited list of key-value pairs where the key is the interval
+name that appears in the auto-refresh dropdown menu and the value is the auto-refresh interval in milliseconds.
+
+Example: `--custom-auto-refresh "500ms=500;1s=1000"`
+
+Environment variable: `$CUSTOM_AUTO_REFRESH`
+
 #### `--custom-link <display_name>:<link_address>`
 
 Custom link added to Chronograf User menu options. Useful for providing links to internal company resources for your Chronograf users. Can be used when any OAuth 2.0 authentication is enabled. To add another custom link, repeat the custom link option.
 
 Example: `--custom-link InfluxData:http://www.influxdata.com/`
-
-#### `--reporting-disabled` | `-r`
-
-Disables reporting of usage statistics.
-Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`.
-
-Environment variable: `$REPORTING_DISABLED`
-
-#### `--log-level=` | `-l`
-
-Set the logging level.
-
-Valid values: `debug` | `info` | `error`
-
-Default value: `info`
-
-Example: `--log-level=debug`
-
-Environment variable: `$LOG_LEVEL`
 
 #### `--develop` | `-d`
 
@@ -317,7 +308,26 @@ Displays the command line help for `chronograf`.
 
 Disables rendering and serving of the Hosts List page (/sources/$sourceId/hosts).
 
-Environment variable: `$HOST_PAGE_DISABLED=true`
+Environment variable: `$HOST_PAGE_DISABLED`
+
+#### `--log-level=` | `-l`
+
+Set the logging level.
+
+Valid values: `debug` | `info` | `error`
+
+Default value: `info`
+
+Example: `--log-level=debug`
+
+Environment variable: `$LOG_LEVEL`
+
+#### `--reporting-disabled` | `-r`
+
+Disables reporting of usage statistics.
+Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`.
+
+Environment variable: `$REPORTING_DISABLED`
 
 ## Authentication options
 
