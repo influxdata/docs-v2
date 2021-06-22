@@ -143,27 +143,43 @@ $ chronograf -v
 {{% note %}}
 InfluxDB connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
 To persist connection details, [include them in a `.src` file](/chronograf/v1.9/administration/creating-connections/#manage-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
+
+**Only InfluxDB 1.x connections are configurable in a `.src` file.**
+Configure InfluxDB 2.x and Cloud connections with CLI flags or in the
+[Chronograf UI](/chronograf/v1.9/administration/creating-connections/#manage-influxdb-connections-using-the-chronograf-ui).
 {{% /note %}}
 
-### `--influxdb-url=`
+### `--influxdb-url`
 
-The location of your InfluxDB instance, including `http://`, IP address, and port.
+The location of your InfluxDB instance, including the protocol, IP address, and port.
 
-Example: `--influxdb-url=http:///0.0.0.0:8086`
+Example: `--influxdb-url http://localhost:8086`
 
 Environment variable: `$INFLUXDB_URL`
 
-### `--influxdb-username=`
+### `--influxdb-username`
 
 The [username] for your InfluxDB instance.
 
 Environment variable: `$INFLUXDB_USERNAME`
 
-### `--influxdb-password=`
+### `--influxdb-password`
 
 The [password] for your InfluxDB instance.
 
 Environment variable: `$INFLUXDB_PASSWORD`
+
+### `--influxdb-org`
+
+InfluxDB 2.x or InfluxDB Cloud organization name.
+
+Environment variable: `$INFLUXDB_ORG`
+
+### `--influxdb-token`
+
+InfluxDB 2.x or InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/).
+
+Environment variable: `$INFLUXDB_TOKEN`
 
 ## Kapacitor connection options
 
