@@ -645,6 +645,6 @@ Environment variable: `$GENERIC_API_URL`
 
 #### `--oauth-no-pkce`
 
-Disable OAuth PKCE.
+Disable OAuth PKCE (Proof Key for Code Exchange).
 
 Environment variable: `$OAUTH_NO_PKCE`
