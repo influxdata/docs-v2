@@ -72,6 +72,6 @@ To manage Kapacitor Flux tasks in Chronograf, click
 On this page, you can:
 
 - View Kapacitor Flux tasks.
-- View TICKscript task activity.
-- Enable and disable TICKscript tasks.
-- Delete TICKscript tasks.
+- View Kapacitor Flux task activity.
+- Enable and disable Kapacitor Flux tasks.
+- Delete Kapacitor Flux tasks.
