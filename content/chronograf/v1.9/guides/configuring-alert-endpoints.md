@@ -20,28 +20,26 @@ This guide offers step-by-step instructions for configuring Chronograf alert end
 Chronograf integrates with [Kapacitor](/{{< latest "kapacitor" >}}/), InfluxData's data processing platform, to send alert messages to event handlers.
 Chronograf supports the following event handlers:
 
-* Alerta
-* Exec
-* [HipChat](#hipchat)
-* HTTP/Post
-* [Kafka](#kafka)
-* Log
-* [OpsGenie](#opsgenie)
-* [OpsGenie2](#opsgenie2)
-* [PagerDuty](#pagerduty)
-* [PagerDuty2](#pagerduty2)
-* [Pushover](#pushover)
-* Sensu
-* [Slack](#slack)
-* SMTP/Email
-* Talk
-* [Telegram](#telegram)
-* TCP
-* VictorOps
+- [Alerta](#alerta)
+- [BigPanda](#bigpanda)
+- [Kafka](#kafka)
+- [OpsGenie](#opsgenie)
+- [OpsGenie2](#opsgenie2)
+- [PagerDuty](#pagerduty)
+- [PagerDuty2](#pagerduty2)
+- [Pushover](#pushover)
+- [Sensu](#sensu)
+- [ServiceNow](#servicenow)
+- [Slack](#slack)
+- [SMTP](#smtp)
+- [Talk](#talk)
+- [Teams](#talk)
+- [Telegram](#telegram)
+- [VictorOps](#victorops)
+- [Zenoss](#zenoss)
 
 To configure a Kapacitor event handler in Chronograf, [install Kapacitor](/{{< latest "kapacitor" >}}/introduction/installation/) and [connect it to Chronograf](/{{< latest "kapacitor" >}}/working/kapa-and-chrono/#add-a-kapacitor-instance).
 The **Configure Kapacitor** page includes the event handler configuration options.
-
 
 ## Alert endpoint configurations
 
@@ -60,84 +58,68 @@ For example, Chronograf's Slack integration allows users to specify a default ch
 1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page, click the **Alerta** tab.
 2. Enter the following:
 
-  * **Environment**: Alerta environment. Can be a template and has access to the same data as the AlertNode.Details property. Default is set from the configuration.
-  * **Origin**: Alerta origin. If empty, uses the origin from the configuration.
-  * **Token**: Default Alerta authentication token..
-  * **Token Prefix**: Default token prefix. If you receive invalid token errors, you may need to change this to “Key”.
-  * **User**: Alerta user.
-  * **Configuration Enabled**: Check to enable configuration.
+    - **Environment**: Alerta environment. Can be a template and has access to the same data as the AlertNode.Details property. Default is set from the configuration.
+    - **Origin**: Alerta origin. If empty, uses the origin from the configuration.
+    - **Token**: Default Alerta authentication token..
+    - **Token Prefix**: Default token prefix. If you receive invalid token errors, you may need to change this to “Key”.
+    - **User**: Alerta user.
+    - **Configuration Enabled**: Check to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
 
-See [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
+### BigPanda
 
-[HipChat](https://www.hipchat.com/) is an Atlassian web service for group chat, video chat, and screen sharing.
-Configure Chronograf to send alert messages to a HipChat room.
-The sections below describe each configuration option.
+**To configure an BigPanda alert endpoint:**
 
-#### Subdomain
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **BigPanda** tab.
+2. Enter the following:
 
-The HipChat subdomain name.
-Identify the subdomain in your HipChat URL;
-for example, the subdomain in the Hipchat URL `https://example-hi.hipchat.com/home` is `example-hi`.
+    - **URL**: BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
+      Default is `https://api.bigpanda.io/data/v2/alerts`.
+    - **Token**: BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
+    - **Application Key**: BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
+    - **Insecure Skip Verify**: Required if using a self-signed TLS certificate. Select to skip TLS certificate chain and host
+      verification when connecting over HTTPS.
+    - **Configuration Enabled**: Select to enable configuration.
 
-#### Room
-
-The HipChat room name.
-Chronograf sends alert messages to this room.
-
-#### Token
-
-A HipChat API access token for sending notifications.
-The following steps describe how to create the API access token:
-
-1. From the **HipChat home page** (`https://<your-subdomain>.hipchat.com/home`), access **Account settings** by clicking on the person icon in the top right corner.
-
-2. Select **API access** from the items in the left menu sidebar.
-
-3. Under **Create new token**, enter a label for your token (it can be anything).
-
-4. Under **Create new token**, select **Send Notification** as the **Scope**.
-
-5. Click **Create**.
-
-Your token appears in the table just above the **Create new token** section:
-
-![HipChat token](/img/chronograf/1-6-g-eventhandlers-hipchattoken.png)
-
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
 ### Kafka
 
-
 **To configure a Kafka alert endpoint:**
 
-1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page, click the **Kafka** tab.
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Kafka** tab.
 2. Enter the following:
 
-  * **ID**: Unique identifier for a Kafka cluster. Default is `localhost`.
-  * **Brokers**: List of Kafka broker addresses, using the `host:port` format.
-  * **Timeout**: The maximum amount of time to wait before flushing an incomplete batch. Default is `10s`.
-  * **Batch Size**: Number of messages batched before sending to Kafka. Default is `100`.
-  * **Batch Timeout**: Timeout period for the batch. Default is `1s`.
-  * **Use SSL**: Check to enable SSL communication.
-  * **SSL CA**: Path to the SSL CA (certificate authority) file.
-  * **SSL Cert**: Path to the SSL host certificate.
-  * **SSL Key**: Path to the SSL certificate private key file.
-  * **Insecure Skip Verify**: Check to use SSL, but skip chain and host verification. Required if using a self-signed certificate.
+    - **ID**: Unique identifier for a Kafka cluster. Default is `localhost`.
+    - **Brokers**: List of Kafka broker addresses, using the `host:port` format.
+    - **Timeout**: Maximum amount of time to wait before flushing an incomplete batch. Default is `10s`.
+    - **Batch Size**: Number of messages batched before sending to Kafka. Default is `100`.
+    - **Batch Timeout**: Timeout period for the batch. Default is `1s`.
+    - **Use SSL**: Select to enable SSL communication.
+    - **SSL CA**: Path to the SSL CA (certificate authority) file.
+    - **SSL Cert**: Path to the SSL host certificate.
+    - **SSL Key**: Path to the SSL certificate private key file.
+    - **Insecure Skip Verify**: Required if using a self-signed TLS certificate. Select to skip TLS certificate chain and host
+      verification when connecting over HTTPS.
+    - **Configuration Enabled**: Check to enable configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
 
-See [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
+To enable Kafka services using TICKscript, see [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/).
 
 ### OpsGenie
 
-The original OpsGenie alert endpoint is deprecated -- use the [OpsGenie2](#opsgenie2) alert endpoint.
-
-{{% note %}}
-**Note:** Support for OpsGenie Events API 1.0 is deprecated. As [noted by OpGenie](https://docs.opsgenie.com/docs/migration-guide-for-alert-rest-api), API v1 will be inaccessible for all customers as of June 30, 2018.
-{{% /note %}}
+{{% warn %}}
+**Note:** Support for OpsGenie Events API 1.0 is deprecated (as [noted by OpGenie](https://docs.opsgenie.com/docs/migration-guide-for-alert-rest-api)).
+As of June 30, 2018, the OpsGenine Events API 1.0 is disabled.
+Use the [OpsGenie2](#opsgenie2) alert endpoint.
+{{% /warn %}}
 
 ### OpsGenie2
 
@@ -145,16 +127,19 @@ Send an incident alert to OpsGenie teams and recipients using the Chronograf ale
 
 **To configure a OpsGenie alert endpoint:**
 
-1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page, click the **OpsGenie** tab.
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **OpsGenie** tab.
 2. Enter the following information:
 
-  * **API Key**: API key (or GenieKey). The API Key can be found by signing into your [OpsGenie account](https://app.opsgenie.com/auth/login) and selecting the **Settings** menu option in the **Admin** menu.
-  * **Teams**: List of [OpsGenie teams](https://docs.opsgenie.com/docs/teams) to be alerted.
-  * **Recipients** field, enter the list of [OpsGenie team members](https://docs.opsgenie.com/docs/teams#section-team-members)) to receive alerts.
-  * **Select recovery action**. Specify one of the following actions to take when an alert recovers:
-
-     - Add a note to the alert
-     - Close the alert
+    - **API Key**: API key (or GenieKey).
+      To find the API key, sign into your [OpsGenie account](https://app.opsgenie.com/auth/login)
+      and select the **Settings** menu option in the **Admin** menu.
+    - **Teams**: List of [OpsGenie teams](https://docs.opsgenie.com/docs/teams) to be alerted.
+    - **Recipients** List of [OpsGenie team members](https://docs.opsgenie.com/docs/teams#section-team-members)) to receive alerts.
+    - **Select recovery action**: Actions to take when an alert recovers:
+        - Add a note to the alert
+        - Close the alert
+    - **Configuration Enabled**: Select to enable configuration.
 
 4. Click **Save Changes** to save the configuration settings.
 5. Click **Send Test Alert** to verify the configuration.
@@ -167,224 +152,219 @@ See the [AlertNode (Kapacitor TICKscript node) - OpsGenie v2](/{{< latest "kapac
 
 ### PagerDuty
 
-The original PagerDuty alert endpoint is deprecated -- use the [PagerDuty2](#pagerduty2) alert endpoint.
+{{% warn %}}
+The original PagerDuty alert endpoint is deprecated.
+Use the [PagerDuty2](#pagerduty2) alert endpoint.
+{{% /warn %}}
 
 ### PagerDuty2
 
-Send an alerts about recognized events to PagerDuty using the Chronograf PagerDuty alert endpoint.
-
 **To configure a PagerDuty alert endpoint:**
 
-1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page, click the **PagerDuty** tab
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **PagerDuty** tab.
 2. Enter the following:
 
-  * **Routing Key**: GUID of your PagerDuty Events API V2 integration, listed as "Integration Key" on the Events API V2 integration's detail page. See [Create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service) in the PagerDuty documentation details on getting an "Integration Key" (`routing_key`).
-  * **PagerDuty URL**: URL used to POST a JSON body representing the event. This value should not be changed. Valid value is `https://events.pagerduty.com/v2/enqueue`.
-  * **Configuration Enabled**: Check to enable this configuration.
+    - **Routing Key**: GUID of your PagerDuty Events API V2 integration, listed as "Integration Key" on the Events API V2 integration's detail page. See [Create a new service](https://support.pagerduty.com/docs/services-and-integrations#section-create-a-new-service) in the PagerDuty documentation details on getting an "Integration Key" (`routing_key`).
+    - **PagerDuty URL**: URL used to POST a JSON body representing the event. This value should not be changed. Valid value is `https://events.pagerduty.com/v2/enqueue`.
+    - **Configuration Enabled**: Select to enable this configuration.
 
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
 
-See the [PagerDuty Events API V2 Overview](https://v2.developer.pagerduty.com/docs/events-api-v2) for details on the PagerDuty Events API and recognized event types (`trigger`, `acknowledge`, and `resolve`).
+See the [PagerDuty Events API V2 Overview](https://v2.developer.pagerduty.com/docs/events-api-v2)
+for details on the PagerDuty Events API and recognized event types (`trigger`, `acknowledge`, and `resolve`).
 
-See [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/{{< latest "kapacitor" >}}/nodes/alert_node/#pagerduty-v2) in the Kapacitor documentation for details about enabling a new "Generic API" service using TICKscripts.
+To enable a new "Generic API" service using TICKscript, see [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/{{< latest "kapacitor" >}}/nodes/alert_node/#pagerduty-v2).
 
 ### Pushover
 
-Configure Chronograf to send Pushover event handler alerts.
+**To configure a Pushover alert endpoint:**
 
-#### User Key
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Pushover** tab.
+2. Enter the following:
 
-Enter your Pushover USER_TOKEN.
+    - **User Key**: Pushover USER_TOKEN.
+    - **Token**: Pushover API token.
+    - **Pushover URL**: Pushover API URL.
+      Default is `https://api.pushover.net/1/messages.json`.
+    - **Configuration Enabled**: Check to enable configuration.
 
-#### Token
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
-Enter your Pushover API token.
+### Sensu
 
-#### Pushover URL
+**To configure a Sensu alert endpoint:**
 
-The URL for the Pushover API. The default value is `https://api.pushover.net/1/messages.json`.
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Sensu** tab.
+2. Enter the following:
 
-#### Configuration Enabled
+    - **Source**: Event source. Default is `Kapacitor`.
+    - **Address**: URL of [Sensu HTTP API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture).
+    - **Configuration Enabled**: Select to enable configuration.
 
-Check the **Configuration Enabled** checkbox to enable this configuration.
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
-#### Save Changes
+### ServiceNow
 
-Click **Save Changes** to save the Pushover configuration.
+**To configure a ServiceNow alert endpoint:**
 
-#### Send Test Alert
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **ServiceNow** tab.
+2. Enter the following:
 
-Click **Send Test Alert** to test your alert endpoint configuration.
+    - **URL**: ServiceNow API URL. Default is `https://instance.service-now.com/api/global/em/jsonv2`.
+    - **Source**: Event source.
+    - **Username**: ServiceNow username.
+    - **Password**: ServiceNow password.
+    - **Configuration Enabled**: Select to enable configuration.
 
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
 ### Slack
 
-[Slack](https://slack.com/) is a popular messaging app for teams.
-Configure Chronograf to send alerts to an existing Slack channel or as a [direct messages (DMs)](https://get.slack.help/hc/en-us/articles/212281468-Direct-messages-and-group-DMs).
-The sections below describe each configuration option.
+**To configure a Slack alert endpoint:**
 
-#### Nickname this Configuration
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Slack** tab.
+2. Enter the following:
 
-Add a unique name for a Slack endpoint if you configure more than one Slack alert endpoint. This field is not available unless at least one Slack endpoint has been configured.
+    - **Nickname this Configuration**: Unique name for a Slack endpoint if you
+      have more than one Slack alert endpoint.
+    - **Slack WebHook URL**: _(Optional)_ Slack webhook URL _(see [Slack webhooks](https://api.slack.com/messaging/webhooks))_
+    - **Slack Channel**: _(Optional)_ Slack channel or user to send messages to.
+      Prefix with `#` to send to a channel.
+      Prefix with `@` to send directly to a user.
+      If not specified, Kapacitor sends alert messages to the channel or user
+      specified in the [alert rule](/chronograf/v1.9/guides/create-a-kapacitor-alert/)
+      or configured in the **Slack Webhook**.
+    - **Configuration Enabled**: Check to enable configuration.
 
-#### Slack WebHook URL
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
-The optional Slack WebHook URL allows you to post messages from Chronograf to Slack.
-The following steps describe how to create a Slack WebHook URL:
 
-1. Visit [Incoming Webhooks](https://api.slack.com/incoming-webhooks) for details on how to send data into Slack in realtime.
+**To add another Slack configuration:**
 
-2. Follow the steps on this page to create an [incoming webhook integration](https://my.slack.com/services/new/incoming-webhook/) in your Slack workspace.
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Slack** tab.
+2. Click **{{< icon "plus" >}} Add Another Config**.
+3. Complete steps 2-4 [above](#slack).
 
-3. Select a channel or DM in the `Post to Channel` section.
+### SMTP
 
-This step is necessary for creating the WebHook.
-Note that you can configure Chronograf to send messages to a different Slack channel or DM later.
+**To configure a SMTP alert endpoint:**
 
-4. On your [Incoming Webhooks](ttps://my.slack.com/services/new/incoming-webhook/) page, click **Add Incoming WebHooks integration**.
-5. In the **Slack Webhook URL** field, enter the Slack WebHook URL that is listed as **Webhook URL** on the **Incoming Webhooks** page.
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **SMTP** tab.
+2. Enter the following:
 
-#### Slack Channel (optional)
+    - **SMTP Host**: SMTP host. Default is `localhost`.
+    - **SMTP Port**: SMTP port. Default is `25`.
+    - **From Email**: Email address to send messages from.
+    - **To Email**: Email address to send messages to.
+    - **User**: SMTP username.
+    - **Password**: SMTP password.
+    - **Configuration Enabled**: Select to enable configuration.
 
-Chronograf sends alert messages to the specified Slack channel, or DM (direct message).
-Prefix the Slack channel with `#`, or the DM (direct message) with `@`. For example, `#chronocats` is a channel and `@chronothan` is a DM.
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
-If this field is empty (not specified), Chronograf sends alert messages to the channel or DM selected for the **Slack WebHook URL** or to the channel or DM specified in the [alert rule](/chronograf/v1.9/guides/create-a-kapacitor-alert/).
-The channel or DM specified in the alert rule takes precedence over both the `Slack Channel` configuration option and the WebHook URL configuration.
+### Talk
 
-#### Configuration Enabled
+**To configure a Talk alert endpoint:**
 
-Check the **Configuration Enabled** checkbox to enable this configuration.
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Talk** tab.
+2. Enter the following:
 
-#### Save Changes
+    - **URL**: Talk API URL.
+    - **Author Name**: Message author name.
+    - **Configuration Enabled**: Select to enable configuration.
 
-Click **Save Changes** to save the Slack configuration.
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
-#### Send Test Alert
+### Teams
 
-Click **Send Test Alert** to test your alert endpoint configuration.
+**To configure a Microsoft Teams alert endpoint:**
 
-#### Add Another Config
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Teams** tab.
+2. Enter the following:
 
-Click **Add Another Config** to add additional Slack alert endpoints. Each additional Slack alert endpoints requires you to specify a unique identifier in the **Nickname this Configuration** field that becomes enabled after the initial Slack alert endpoint is configured.
+    - **Channel URL**: Microsoft Teams channel URL.
+    - **Configuration Enabled**: Select to enable configuration.
+
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
 ### Telegram
 
-[Telegram](https://telegram.org/) is a popular messaging app.
-Configure Chronograf to send alert messages to an existing Telegram bot.
-The sections below describe each configuration option.
+**To configure a Telegram alert endpoint:**
 
-![Telegram configuration](/img/chronograf/1-6-g-eventhandlers-telegram.png)
+1. [Set up a Telegram bot and credentials](/{{< latest "kapacitor" >}}/guides/event-handler-setup/#telegram-setup).
+2. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Telegram** tab.
+3. Enter the following:
 
-#### Telegram bot
+    - **Token**:
+    - **Chat ID**: 
+    - **Select the alert message format**: Telegram message format
+        - Markdown _(default)_
+        - HTML
+    - **Disable link previews**: Disable [link previews](https://telegram.org/blog/link-preview) in Telegram messages.
+    - **Disable notifications**: Disable notifications on iOS devices and sounds on Android devices.
+      Android users will continue to receive notifications.
+    - **Configuration Enabled**: Select to enable configuration.
 
-Chronograf sends alerts to an existing Telegram bot.
-The following steps describe how to create a new Telegram bot:
+### VictorOps
 
-1. Search for the `@BotFather` username in your Telegram application
+**To configure a VictorOps alert endpoint:**
 
-2. Click `Start` to begin a conversation with `@BotFather`
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **VictorOps** tab.
+2. Enter the following:
 
-3. Send `/newbot` to `@BotFather`
+    - **API Key**: VictorOps API key.
+    - **Routing Key**: VictorOps [routing key](https://help.victorops.com/knowledge-base/routing-keys/).
+    - **VictorOps URL**: VictorOps alert API URL.
+      Default is `https://alert.victorops.com/integrations/generic/20131114/alert`.
+    - **Configuration Enabled**: Select to enable configuration.
 
-`@BotFather` responds:
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.
 
-    Alright, a new bot. How are we going to call it? Please choose a name for your bot.
+### Zenoss
 
-`@BotFather` will prompt you through the rest of the bot-creation process;
-feel free to follow his directions or continue with our version of the steps below.
-Both setups result in success!
+**To configure a Zenoss alert endpoint:**
 
-4. Send your bot's name to `@BotFather`
+1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
+   click the **Zenoss** tab.
+2. Enter the following:
 
-Your bot name can be anything.
-Note that this is not your bot's Telegram `@username`;
-you'll create the username in step 5.
+    - **URL**: Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
+      Default is `https://tenant.zenoss.io:8080/zport/dmd/evconsole_router`.
+    - **Username**: Zenoss username. Leave blank for no authentication.
+    - **Password**: Zenoss password. Leave blank for no authentication.
+    - **Action (Router Name)**: Zenoss [router name](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/anatomy-of-an-api-request#AnatomyofanAPIrequest-RouterURL).
+      Default is `EventsRouter`.
+    - **Router Method**: [EventsRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
+      Default is `add_event`.
+    - **Event Type**: Event type. Default is `rpc`.
+    - **Event TID**: Temporary request transaction ID. Default is `1`.
+    - **Collector Name**: Zenoss collector name. Default is `Kapacitor`.
+    - **Kapacitor to Zenoss Severity Mapping**: Map Kapacitor severities to [Zenoss severities](https://help.zenoss.com/docs/using-collection-zones/event-management/event-severity-levels).
+        - **OK**: Clear _(default)_
+        - **Info**: Info _(default)_
+        - **Warning**: Warning _(default)_
+        - **Critical**: Critical _(default)_
+    - **Configuration Enabled**: Select to enable configuration.
 
-`@BotFather` responds:
-
-    Good. Now let's choose a username for your bot. It must end in `bot`. Like this, for example: TetrisBot or tetris_bot.
-
-5. Send your bot's username to `@BotFather`
-
-Your bot's username must end in `bot`.
-For example: `mushroomKap_bot`.
-
-`BotFather` responds:
-
-    Done! Congratulations on your new bot. You will find it at t.me/<bot-username>. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
-
-    Use this token to access the HTTP API:
-    `<API-access-token>`
-
-    For a description of the Bot API, see this page: https://core.telegram.org/bots/api
-
-6. Begin a conversation with your bot
-
-Click on the `t.me/<bot-username>` link in `@BotFather`'s response
-and click `Start` at the bottom of your Telegram application.
-
-Your newly-created bot will appear in the chat list on the left side of the application.
-
-#### Token
-
-The Telegram API access token.
-The following section describes how to identify or create the API access token.
-
-Telegram's `@BotFather` bot sent you an API access token when you created your bot.
-See the `@BotFather` response in step 5 of the previous section for where to find your token.
-
-If you can't find the API access token, create a new token with the steps
-below:
-
-1. Send `/token` to `@BotFather`
-
-2. Select the relevant bot at the bottom of your Telegram application
-
-`@BotFather` responds with a new API access token:
-
-    You can use this token to access HTTP API:
-    <API-access-token>
-
-    For a description of the Bot API, see this page: https://core.telegram.org/bots/api
-
-#### Chat ID
-
-The Telegram chat ID.
-The following steps describe how to identify your chat ID:
-
-1. Paste the following link in your browser.
-Replace `<API-access-token>` with the API access token that you identified or created in the previous section:
-
-    `https://api.telegram.org/bot<API-access-token>/getUpdates?offset=0`
-
-2. Send a message to your bot.
-
-Send a message to your bot in the Telegram application.
-The message text can be anything; your chat history must include at least one message to get your chat ID.
-
-3. Refresh your browser.
-
-4. Identify the chat ID.
-
-Identify the numerical chat ID in the browser.
-In the example below, the chat ID is `123456789`.
-
-```
-    {"ok":true,"result":[{"update_id":XXXXXXXXX,
-    "message":{"message_id":2,"from":{"id":123456789,"first_name":"Mushroom","last_name":"Kap"},"chat":{"id":123456789,"first_name":"Mushroom","last_name":"Kap","type":"private"},"date":1487183963,"text":"hi"}}]}
-```
-
-#### Select the alert message format
-
-Select **Markdown** (default) or **HTML** to specify the formatting for your alert messages.
-
-#### Disable link previews
-
-Select this option to disable [link previews](https://telegram.org/blog/link-preview) in alert messages.
-
-#### Disable notifications
-
-Select this option to disable notifications on iOS Devices and sounds on Android devices.
-Android users will continue to receive notifications.
+3. Click **Save Changes** to save the configuration settings.
+4. Click **Send Test Alert** to verify the configuration.

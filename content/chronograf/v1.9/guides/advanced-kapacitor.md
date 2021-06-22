@@ -1,73 +1,77 @@
 ---
 title: Advanced Kapacitor usage
 description: >
-  Use Kapacitor with Chronograf to manage alert history and TICKscripts.
+  Use Kapacitor with Chronograf to manage alert history, TICKscripts, and Flux tasks.
 menu:
   chronograf_1_9:
     weight: 100
     parent: Guides
 ---
 
-### On this page
+Chronograf provides a user interface for [Kapacitor](/{{< latest "kapacitor" >}}/),
+InfluxData's processing framework for creating alerts, running ETL jobs, and detecting anomalies in your data.
+Learn how Kapacitor interacts with Chronograf.
 
-* [Alert history management](#alert-history-management)
-* [TICKscript management](#tickscript-management)
+- [Manage Kapacitor alerts](#manage-kapacitor-alerts)
+- [Manage Kapacitor tasks](#manage-kapacitor-tasks)
 
+## Manage Kapacitor alerts
 
-Chronograf provides a user interface for [Kapacitor](/{{< latest "kapacitor" >}}/), InfluxData's processing framework for creating alerts, running ETL jobs, and detecting anomalies in your data.
-This guide offers insights into how Kapacitor interacts with Chronograf and introduces advanced Kapacitor usage within Chronograf.
+Chronograf provides information about Kapacitor alerts on the Alert History page.
+Chronograf writes Kapacitor alert data to InfluxDB as time series data.
+It stores the data in the `alerts` [measurement](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#measurement)
+in the `chronograf` database.
+By default, this data is subject to an infinite [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp) (RP).
+If you expect to have a large number of alerts or do not want to store your alert
+history forever, consider shortening the [duration](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#duration)
+of the default retention policy.
 
+### Modify the retention policy of the chronograf database
 
-## Alert history management
-
-Chronograf stores the information on the Alert History page as time series data in InfluxDB.
-It stores it in the `chronograf` database and in the `alerts` [measurement](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#measurement).
-By default, this data is subject to an infinite [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp) (RP), that is, InfluxDB stores them forever.
-Users who expect to have a large number of alerts and users who do not want to store their alert history forever may want to shorten the [duration](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#duration) of that retention policy.
-
-### Modifying the retention policy in Chronograf
-
-Use the Chronograf Admin page to modify the retention policy in the `chronograf` database.
+Use the Chronograf **Admin page** to modify the retention policy in the `chronograf` database.
 In the Databases tab:
 
-#### Step 1: Locate the `chronograf` database and click on the infinity symbol (∞)
+1.  Click **{{< icon "crown" >}} InfluxDB Admin** in the left navigation bar.
+2.  Hover over the retention policy list of the `chronograf` database and click **Edit**
+    next to the retention policy to update.
+3.  Update the **Duration** of the retention policy.
+    The minimum supported duration is one hour (`1h`) and the maximum is infinite (`INF` or `∞`).
+    _See [supported duration units](/{{< latest "influxdb" "v1" >}}/query_language/spec/#duration-units)._
+4.  Click **Save**.
 
-![RP in practice](/img/chronograf/1-6-g-advkap-dur.png)
+If you set the retention policy's duration to one hour (`1h`), InfluxDB
+automatically deletes any alerts that occurred before the past hour.
 
-#### Step 2: Enter a different duration
+## Manage Kapacitor tasks
 
-The minimum allowable duration is one hour (`1h`) and the maximum is infinite (`INF`).
-See the InfluxDB documentation for the list of [acceptable duration units](/{{< latest "influxdb" "v1" >}}/query_language/spec/#duration-units).
+- [Manage Kapacitor TICKscripts](#manage-kapacitor-tickscripts)
+- [Manage Kapacitor Flux tasks](#manage-kapacitor-flux-tasks)
 
-#### Step 3: Click the green check mark to save your changes
+### Manage Kapacitor TICKscripts
 
-InfluxDB only keeps data in the `chronograf` database that fall within that new duration; the system automatically deletes any data with timestamps that occur before the duration setting.
+Chronograf lets you manage Kapacitor TICKscript tasks created in Kapacitor or in
+Chronograf when [creating a Chronograf alert rule](/chronograf/v1.9/guides/create-alert-rules/).
 
-### Example
+To manage Kapacitor TICKscript tasks in Chronograf, click
+**{{< icon "alert">}} Alerts** in the left navigation bar.
+On this page, you can:
 
-If you set the retention policy's duration to one hour (`1h`), InfluxDB automatically deletes any alerts that occurred before the past hour.
-Those alerts no longer appear in your InfluxDB instance or on Chronograf's Alert History page.
+- View Kapacitor TICKscript tasks.
+- View TICKscript task activity.
+- Create new TICKscript tasks.
+- Update TICKscript tasks.
+- Enable and disable TICKscript tasks.
+- Delete TICKscript tasks.
 
-Looking at the image below and assuming that the current time is 19:00 on April 27, 2017, only the first three alerts would appear in your alert history; they occurred within the previous hour (18:00 through 19:00).
-The fourth alert, which occurred on the same day at 16:58:50, is outside the previous hour and would no longer appear in the InfluxDB `chronograf` database or on the Chronograf Alert History page.
+### Manage Kapacitor Flux tasks
+**Kapacitor 1.6+** supports Flux tasks.
+Chronograf lets you view and manage Kapacitor Flux tasks.
 
-![RP in practice](/img/chronograf/1-6-g-advkap-rp.png)
+To manage Kapacitor Flux tasks in Chronograf, click
+**{{< icon "alert">}} Alerts** in the left navigation bar.
+On this page, you can:
 
-## TICKscript management
-
-Chronograf creates Kapacitor tasks using the information that you provide on the Rule Configuration page.
-It uses that information to communicate with Kapacitor and populate Chronograf alert pages.
-Pre-existing tasks, or [TICKscripts](/{{< latest "kapacitor" >}}/tick/), that you created and enabled on your Kapacitor instance without using Chronograf, have limited functionality in the user interface.
-
-In Chronograf, you can:
-
-* View pre-existing tasks the Alert Rules page
-* View pre-existing task activity on the Alert History page
-* Enable and disable pre-existing tasks on the Alert Rules page (this is equivalent to the `kapacitor enable` and `kapacitor disable` commands)
-* Delete pre-existing tasks the Alert Rules page (this is equivalent to the `kapacitor delete tasks` command)
-
-You cannot edit pre-existing tasks on the Chronograf Alert Rules page.
-The `mytick` task in the image below is a pre-existing task; its name appears on the Alert Rules page but you cannot click on it or edit its TICKscript in the interface.
-Currently, you must manually edit your existing tasks and TICKscripts on your machine.
-
-![Pre-existing task](/img/chronograf/1-6-g-advkap-pretick.png)
+- View Kapacitor Flux tasks.
+- View TICKscript task activity.
+- Enable and disable TICKscript tasks.
+- Delete TICKscript tasks.

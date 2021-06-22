@@ -20,18 +20,18 @@ Chronograf is configured using the configuration file (/etc/default/chronograf) 
   - [Other service options](#other-service-options)
 * [Authentication options](#authentication-options)
     * [General authentication options](#general-authentication-options)
-    * [GitHub-specific OAuth 2.0 authentication options](#github-specific-oauth-2-0-authentication-options)
-    * [Google-specific OAuth 2.0 authentication options](#google-specific-oauth-2-0-authentication-options)
-    * [Auth0-specific OAuth 2.0 authentication options](#auth0-specific-oauth-2-0-authentication-options)
-    * [Heroku-specific OAuth 2.0 authentication options](#heroku-specific-oauth-2-0-authentication-options)
-    * [Generic OAuth 2.0 authentication options](#generic-oauth-2-0-authentication-options)
+    * [GitHub-specific OAuth 2.0 authentication options](#github-specific-oauth-20-authentication-options)
+    * [Google-specific OAuth 2.0 authentication options](#google-specific-oauth-20-authentication-options)
+    * [Auth0-specific OAuth 2.0 authentication options](#auth0-specific-oauth-20-authentication-options)
+    * [Heroku-specific OAuth 2.0 authentication options](#heroku-specific-oauth-20-authentication-options)
+    * [Generic OAuth 2.0 authentication options](#generic-oauth-20-authentication-options)
 
 ## Usage
 
 Start the Chronograf service, and include any options after `chronograf`, where `[OPTIONS]` are options separated by spaces:
 
 ```sh
- chronograf [OPTIONS]
+chronograf [OPTIONS]
 ```
 
 **Linux examples**
@@ -39,13 +39,13 @@ Start the Chronograf service, and include any options after `chronograf`, where 
 - To start `chronograf` without options:
 
 ```sh
-  sudo systemctl start chronograf
+sudo systemctl start chronograf
 ```
 
 - To start `chronograf` and set options for develop mode and to disable reporting:
 
 ```sh
-  sudo systemctl start chronograf --develop --reporting-disabled
+sudo systemctl start chronograf --develop --reporting-disabled
 ```
 
 **MacOS X examples**
@@ -53,13 +53,13 @@ Start the Chronograf service, and include any options after `chronograf`, where 
 - To start `chronograf` without options:
 
 ```sh
-  chronograf
+chronograf
 ```
 
 - To start `chronograf` and add shortcut options for develop mode and to disable reporting:
 
 ```sh
-  chronograf -d -r
+chronograf -d -r
 ```
 
 {{% note %}}
@@ -143,27 +143,43 @@ $ chronograf -v
 {{% note %}}
 InfluxDB connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
 To persist connection details, [include them in a `.src` file](/chronograf/v1.9/administration/creating-connections/#manage-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
+
+**Only InfluxDB 1.x connections are configurable in a `.src` file.**
+Configure InfluxDB 2.x and Cloud connections with CLI flags or in the
+[Chronograf UI](/chronograf/v1.9/administration/creating-connections/#manage-influxdb-connections-using-the-chronograf-ui).
 {{% /note %}}
 
-### `--influxdb-url=`
+### `--influxdb-url`
 
-The location of your InfluxDB instance, including `http://`, IP address, and port.
+The location of your InfluxDB instance, including the protocol, IP address, and port.
 
-Example: `--influxdb-url=http:///0.0.0.0:8086`
+Example: `--influxdb-url http://localhost:8086`
 
 Environment variable: `$INFLUXDB_URL`
 
-### `--influxdb-username=`
+### `--influxdb-username`
 
 The [username] for your InfluxDB instance.
 
 Environment variable: `$INFLUXDB_USERNAME`
 
-### `--influxdb-password=`
+### `--influxdb-password`
 
 The [password] for your InfluxDB instance.
 
 Environment variable: `$INFLUXDB_PASSWORD`
+
+### `--influxdb-org`
+
+InfluxDB 2.x or InfluxDB Cloud organization name.
+
+Environment variable: `$INFLUXDB_ORG`
+
+### `--influxdb-token`
+
+InfluxDB 2.x or InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/).
+
+Environment variable: `$INFLUXDB_TOKEN`
 
 ## Kapacitor connection options
 
@@ -278,32 +294,29 @@ Path to private key associated with specified etcd certificate.
 
 Environment variable: `$ETCD_PRIVATE_KEY`
 
+#### `--etcd-root-ca`
+
+Path to root CA certificate for TLS verification.
+
+Environment variable: `$ETCD_ROOT_CA`
+
 ### Other service options
+
+#### `--custom-auto-refresh`
+
+Add custom auto-refresh intervals to the list of of available auto-refresh intervals in Chronograf dashboards.
+Provide a semi-colon-delimited list of key-value pairs where the key is the interval
+name that appears in the auto-refresh dropdown menu and the value is the auto-refresh interval in milliseconds.
+
+Example: `--custom-auto-refresh "500ms=500;1s=1000"`
+
+Environment variable: `$CUSTOM_AUTO_REFRESH`
 
 #### `--custom-link <display_name>:<link_address>`
 
 Custom link added to Chronograf User menu options. Useful for providing links to internal company resources for your Chronograf users. Can be used when any OAuth 2.0 authentication is enabled. To add another custom link, repeat the custom link option.
 
 Example: `--custom-link InfluxData:http://www.influxdata.com/`
-
-#### `--reporting-disabled` | `-r`
-
-Disables reporting of usage statistics.
-Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`.
-
-Environment variable: `$REPORTING_DISABLED`
-
-#### `--log-level=` | `-l`
-
-Set the logging level.
-
-Valid values: `debug` | `info` | `error`
-
-Default value: `info`
-
-Example: `--log-level=debug`
-
-Environment variable: `$LOG_LEVEL`
 
 #### `--develop` | `-d`
 
@@ -317,7 +330,26 @@ Displays the command line help for `chronograf`.
 
 Disables rendering and serving of the Hosts List page (/sources/$sourceId/hosts).
 
-Environment variable: `$HOST_PAGE_DISABLED=true`
+Environment variable: `$HOST_PAGE_DISABLED`
+
+#### `--log-level=` | `-l`
+
+Set the logging level.
+
+Valid values: `debug` | `info` | `error`
+
+Default value: `info`
+
+Example: `--log-level=debug`
+
+Environment variable: `$LOG_LEVEL`
+
+#### `--reporting-disabled` | `-r`
+
+Disables reporting of usage statistics.
+Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`.
+
+Environment variable: `$REPORTING_DISABLED`
 
 ## Authentication options
 
@@ -358,19 +390,26 @@ Environment variable: `$TOKEN_SECRET`
 
 See [Configuring GitHub authentication](/chronograf/v1.9/administration/managing-security/#configure-github-authentication) for more information.
 
-#### `--github-client-id=` | `-i`
+#### `--github-url`
+
+{{< req "Required if using Github Enterprise" >}}  
+GitHub base URL. Default is `https://github.com`. 
+
+Environment variable: `$GH_URL`
+
+#### `--github-client-id` | `-i`
 
 The GitHub client ID value for OAuth 2.0 support.
 
 Environment variable: `$GH_CLIENT_ID`
 
-#### `--github-client-secret=` | `-s`
+#### `--github-client-secret` | `-s`
 
 The GitHub Client Secret value for OAuth 2.0 support.
 
 Environment variable: `$GH_CLIENT_SECRET`
 
-#### `--github-organization=` | `-o`
+#### `--github-organization` | `-o`
 
 [Optional] Specify a GitHub organization membership required for a user.
 
@@ -618,20 +657,26 @@ GENERIC_DOMAINS=delorean.com
 GENERIC_DOMAINS=delorean.com,savetheclocktower.com
 ```
 
-#### `--generic-auth-url=`
+#### `--generic-auth-url`
 
 The authorization endpoint URL for the OAuth 2.0 provider.
 
 Environment variable: `$GENERIC_AUTH_URL`
 
-#### `--generic-token-url=`
+#### `--generic-token-url`
 
 The token endpoint URL for the OAuth 2.0 provider.
 
 Environment variable: `$GENERIC_TOKEN_URL`
 
-#### `--generic-api-url=`
+#### `--generic-api-url`
 
 The URL that returns OpenID UserInfo-compatible information.
 
 Environment variable: `$GENERIC_API_URL`
+
+#### `--oauth-no-pkce`
+
+Disable OAuth PKCE (Proof Key for Code Exchange).
+
+Environment variable: `$OAUTH_NO_PKCE`
