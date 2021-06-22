@@ -30,6 +30,13 @@ input:
     introduced: 0.2.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Alibaba CloudMonitor Service (Aliyun)
+    id: aliyuncms
+    description: |
+      This plugin pulls metric statistics from Aliyun CMS.
+    introduced: 1.19
+    tags: [cloud]
+
   - name: Amazon CloudWatch Alarms
     id: awsalarms
     description: |
@@ -104,7 +111,6 @@ input:
       [Mesos Observability Metrics](http://mesos.apache.org/documentation/latest/monitoring/) page.
     introduced: 0.10.3
     tags: [linux, macos, windows, containers]
-
 
   - name: Apache Solr
     id: solr
@@ -187,6 +193,14 @@ input:
       (reported by `stats` and `stats-tube` commands respectively).
     introduced: 1.8.0
     tags: [linux, macos, windows, messaging]
+
+  - name: Big Blue Button
+    id: bigbluebutton
+    description: |
+      The BigBlueButton Input Plugin gathers metrics from a BigBlueButton server.
+    introduced: 1.19
+    tags: [external]
+    external: true
 
   - name: BIND 9 Nameserver Statistics
     id: bind
@@ -374,6 +388,14 @@ input:
     introduced: 1.4.0
     tags: [linux, macos, windows, networking]
 
+  - name: dnsmasq
+    id: dnsmasq
+    description: |
+      This plugin gathers dnsmasq statistics on the DNS side.
+    introduced: 1.19
+    tags: [external]
+    external: true
+
   - name: Docker
     id: docker
     description: |
@@ -401,6 +423,14 @@ input:
       For more information, see the [Dovecot documentation](http://wiki2.dovecot.org/Statistics).
     introduced: 0.10.3
     tags: [linux, macos, windows, applications, web]
+
+  - name: 389 Directory Server Input Plugin
+    id: ds389
+    description: |
+      This plugin gathers metrics from 389 Directory Servers' cn=Monitor backend.
+    introduced: 1.19
+    tags: [external]
+    external: true
 
   - name: Elasticsearch
     id: elasticsearch
@@ -496,7 +526,7 @@ input:
       The Fireboard input plugin gathers real time temperature data from Fireboard thermometers.
       To use this input plugin, sign up to use the [Fireboard REST API](https://docs.fireboard.io/reference/restapi.html).
     introduced: 1.12.0
-    tags: [linux, macos, windows, cloud, iot]
+    tags: [linux, macos, windows, cloud, Io]
 
   - name: Fluentd
     id: fluentd
@@ -715,6 +745,13 @@ input:
     introduced: 1.17.0
     tags: [linux]
 
+  - name: Intel Data Plane Development Kit (DPDK)
+    id: dpdk
+    description: |
+      The DPDK plugin collects metrics exposed by applications built with Data Plane Development Kit, an extensive set of open source libraries designed for accelerating packet processing workloads.
+    introduced: 1.19
+    tags: [networking]
+
   - name: Intel RDT
     id: intel_rdt
     description: |
@@ -840,6 +877,13 @@ input:
     introduced: 1.8.0
     tags: [linux, macos, windows, applications]
 
+  - name: KNX
+    id: knx_listener
+    description: |
+      The KNX input plugin that listens for messages on the KNX (Konnex) home-automation bus.
+    introduced: 1.19
+    tags: [iot]
+
   - name: Kubernetes
     id: kubernetes
     description: |
@@ -870,6 +914,14 @@ input:
 
     introduced: 1.10.0
     tags: [linux, macos, windows, build-deploy, containers]
+
+  - name: ldap_org
+    id: ldap_org
+    description: |
+      This plugin monitors the number of entries inside LDAP trees.
+    introduced: 1.19
+    tags: [external]
+    external: true
 
   - name: LeoFS
     id: leofs
@@ -1011,7 +1063,7 @@ input:
       The MQTT Consumer input plugin reads from specified MQTT topics and adds messages to InfluxDB.
       Messages are in the [Telegraf input data formats](/{{< latest "telegraf" >}}/data_formats/input/).
     introduced: 0.10.3
-    tags: [linux, macos, windows, messaging, IoT]
+    tags: [linux, macos, windows, messaging, iot]
 
   - name: Multifile
     id: multifile
@@ -1209,6 +1261,7 @@ input:
     introduced: 1.16.0
     link: https://github.com/BattleBas/octoprint-telegraf-plugin
     tags: [linux, macos, windows, external]
+    external: true
 
   - name: OPC UA
     id: opcua
@@ -1239,6 +1292,13 @@ input:
       a free implementation of the server-side SMTP protocol.
     introduced: 1.5.0
     tags: [linux, macos, windows, applications]
+
+  - name: OpenTelemetry
+    id: opentelemetry
+    description: |
+      Receives traces, metrics and logs from OpenTelemetry clients and agents via gRPC.
+    introduced: 1.19
+    tags: [logging, messaging]
 
   - name: OpenWeatherMap
     id: openweathermap
@@ -1294,6 +1354,7 @@ input:
       The Plex Webhook input plugin listens for events from [Plex Media Server Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).
     introduced: 1.18.0
     tags: [linux, macos, windows, applications, external]
+    external: true
 
   - name: Postfix
     id: postfix
@@ -1488,6 +1549,13 @@ input:
     introduced: 1.14.0
     tags: [linux, macos, windows, networking]
 
+  - name: Siemens S7 Comm
+    id: s7comm
+    description: |
+      This plugin gathers information from Siemens PLC (Programmatic Logic Controller).
+    introduced: 1.19.0
+    tags: [external, iot]
+
   - name: SMCIPMITool
     id: smc_ipmi
     description: |
@@ -1626,6 +1694,7 @@ input:
     introduced: 1.16.0
     tags: [linux, macos, windows, systems, external]
     link: https://github.com/pdmorrow/telegraf-execd-systemd-timings
+    external: true
 
   - name: Systemd Units
     id: systemd_units
@@ -1816,6 +1885,14 @@ input:
     introduced: 1.8.0
     tags: [linux, macos, windows, networking]
 
+  - name: x509crl
+    id: x509_crl
+    description: |
+      This plugin provides information about X509 CRL (Certificate Revocation Lists) accessible via a file.
+    introduced: 1.19
+    tags: [external]
+    external: true
+
   - name: YouTube
     id: youtube
     description: |
@@ -1823,6 +1900,7 @@ input:
     introduced: 1.16.0
     link: https://github.com/inabagumi/youtube-telegraf-plugin
     tags: [linux, macos, windows, external]
+    external: true
 
   - name: ZFS
     id: zfs
@@ -1834,7 +1912,6 @@ input:
       It gets ZFS statistics from `/proc/spl/kstat/zfs` on Linux and from `sysctl` and `zpool` on FreeBSD.
     introduced: 0.2.1
     tags: [linux, macos, windows, systems]
-
 
 ##########    %%%%   %%  %%  %%%%%%  %%%%%   %%  %%  %%%%%%   %%%%    ##########
 ##########   %%  %%  %%  %%    %%    %%  %%  %%  %%    %%    %%       ##########
@@ -1849,6 +1926,13 @@ output:
       The Amazon CloudWatch output plugin send metrics to Amazon CloudWatch.
     introduced: 0.10.1
     tags: [linux, macos, windows, cloud]
+
+  - name: Amazon CloudWatch logs
+    id: cloudwatch_logs
+    description: |
+      This output plugin sends logs to Amazon CloudWatch.
+    introduced: 1.19
+    tags: [amazon, cloud, logging]
 
   - name: Amazon Kinesis
     id: kinesis
@@ -2093,7 +2177,7 @@ output:
       The MQTT Producer output plugin writes to the MQTT server using
       [supported output data formats](/{{< latest "telegraf" >}}/data_formats/output/).
     introduced: 0.2.0
-    tags: [linux, macos, windows, messaging, IoT]
+    tags: [linux, macos, windows, messaging, iot]
 
   - name: NATS Output
     id: nats
@@ -2191,6 +2275,13 @@ output:
     introduced: 1.9.0
     tags: [linux, macos, windows, cloud]
 
+  - name: SQL
+    id: sql
+    description: |
+      The SQL output plugin saves Telegraf metric data to an SQL database.
+    introduced: 1.19
+    tags: [data stores]
+
   - name: Sumo Logic
     id: sumologic
     description: |
@@ -2223,6 +2314,13 @@ output:
       The Wavefront output plugin writes to a Wavefront proxy, in Wavefront data format over TCP.
     introduced: 1.5.0
     tags: [linux, macos, windows, applications, cloud]
+
+  - name: Websocket
+    id: websocket
+    description: |
+      The Websocket output plugin can write to a WebSocket endpoint.
+    introduced: 1.19
+    tags: [web, servers]
 
   - name: XML
     id: xml
@@ -2328,7 +2426,6 @@ aggregator:
       Float fields are being dropped to prevent the creating of too many fields.
     introduced: 1.8.0
     tags: [linux, macos, windows]
-
 
 #   %%%%%   %%%%%    %%%%    %%%%   %%%%%%  %%%%   %%%%    %%%%   %%%%%    %%%%    #
 #   %%  %%  %%  %%  %%  %%  %%  %%  %%     %%     %%      %%  %%  %%  %%  %%       #
