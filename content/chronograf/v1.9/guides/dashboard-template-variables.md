@@ -121,7 +121,7 @@ and a variable named `location` with a value of `San Antonio` the following synt
 :temp: data for :location:
 ```
 
-Would display as:
+Displays as:
 
 {{< img-hd src= "/img/chronograf/1-9-template-var-title.png" alt="Use template variables in cell titles" />}}
 
@@ -175,9 +175,9 @@ FROM "telegraf".."cpu"
 WHERE time > :dashboardTime: AND time < :upperDashboardTime:
 ```
 
-### autoInterval
+### interval
 
-The `:autoInterval:` template variable is defined by the interval dropdown in the Chronograf dashboard.
+The `:interval:` template variable is defined by the interval dropdown in the Chronograf dashboard.
 
 <img src="/img/chronograf/1-6-template-vars-interval-dropdown.png" style="width:100%;max-width:549px;" alt="Dashboard interval selector"/>
 
@@ -187,7 +187,7 @@ In cell queries, it should be used in the `GROUP BY time()` clause that accompan
 SELECT mean("usage_system") AS "Average System CPU Usage"
 FROM "telegraf".."cpu"
 WHERE time > :dashboardtime:
-GROUP BY time(:autoInterval:)
+GROUP BY time(:interval:)
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -464,7 +464,8 @@ Flux query template variables let you define variable values using Flux queries.
 
 #### Flux query variable use cases
 Flux query template variables are great when the values necessary for your
-variable can't be queried with InfluxQL.
+variable can't be queried with InfluxQL or if you need the flexibility of Flux
+to return your desired list of variable values.
 
 ### Text
 Vary a part of a query with a single string of text.
