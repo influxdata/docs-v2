@@ -31,7 +31,7 @@ Chronograf is configured using the configuration file (/etc/default/chronograf) 
 Start the Chronograf service, and include any options after `chronograf`, where `[OPTIONS]` are options separated by spaces:
 
 ```sh
- chronograf [OPTIONS]
+chronograf [OPTIONS]
 ```
 
 **Linux examples**
@@ -39,13 +39,13 @@ Start the Chronograf service, and include any options after `chronograf`, where 
 - To start `chronograf` without options:
 
 ```sh
-  sudo systemctl start chronograf
+sudo systemctl start chronograf
 ```
 
 - To start `chronograf` and set options for develop mode and to disable reporting:
 
 ```sh
-  sudo systemctl start chronograf --develop --reporting-disabled
+sudo systemctl start chronograf --develop --reporting-disabled
 ```
 
 **MacOS X examples**
@@ -53,13 +53,13 @@ Start the Chronograf service, and include any options after `chronograf`, where 
 - To start `chronograf` without options:
 
 ```sh
-  chronograf
+chronograf
 ```
 
 - To start `chronograf` and add shortcut options for develop mode and to disable reporting:
 
 ```sh
-  chronograf -d -r
+chronograf -d -r
 ```
 
 {{% note %}}
@@ -277,6 +277,12 @@ Environment variable: `$ETCD_CERTIFICATE`
 Path to private key associated with specified etcd certificate.
 
 Environment variable: `$ETCD_PRIVATE_KEY`
+
+#### `--etcd-root-ca`
+
+Path to root CA certificate for TLS verification.
+
+Environment variable: `$ETCD_ROOT_CA`
 
 ### Other service options
 
