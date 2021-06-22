@@ -65,7 +65,7 @@ chronograf [flags]
 | `--custom-link`              | Add a custom link to Chronograf user menu options using `<display_name>:<link_address>` syntax. For multiple custom links, include multiple flags. |                       |
 | `-d`, `--develop`            | Run the Chronograf service in developer mode                                                                                                       |                       |
 | `-h`, `--help`               | Display command line help for Chronograf                                                                                                           |                       |
-| `-l`, `--log-level`          | Set the logging level. Valid values include `info` (default), `debug`, and `error`.                                                                | `$LOG_LEVEL`          |
+| `-l`, `--log-level`          | Set the logging level. Valid values include `info` (default), `debug`, and `error`                                                                | `$LOG_LEVEL`          |
 | `-r`, `--reporting-disabled` | Disable reporting of usage statistics. Usage statistics reported once every 24 hours include: `OS`, `arch`, `version`, `cluster_id`, and `uptime`. | `$REPORTING_DISABLED` |
 
 ## Authentication option flags

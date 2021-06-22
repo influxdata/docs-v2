@@ -282,7 +282,7 @@ Environment variable: `$ETCD_PRIVATE_KEY`
 
 #### `--custom-auto-refresh`
 
-Add custom auto auto-refresh intervals to the list of of available auto-refresh intervals in Chronograf dashboards.
+Add custom auto-refresh intervals to the list of of available auto-refresh intervals in Chronograf dashboards.
 Provide a semi-colon-delimited list of key-value pairs where the key is the interval
 name that appears in the auto-refresh dropdown menu and the value is the auto-refresh interval in milliseconds.
 
