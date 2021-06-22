@@ -82,10 +82,9 @@ To add your query and graph to a dashboard:
 
 1. Click **Send to Dashboard** in the upper right.
 2. In the **Target Dashboard(s)** dropdown, select at least one existing dashboard to send the cell to, or select **Send to a New Dashboard**.
-
-    <img src="/img/chronograf/1-7-send-to-dashboard-target.png" style="width:100%; max-width:597px; margin:2em 0; display: block;">
-
 3. Enter a name for the new cell and, if you created a new dashboard, the new dashboard.
-4. Click **Send to Dashboard(s)**.
-
-    <img src="/img/chronograf/1-7-send-to-dashboard-send.png" style="width:100%; max-width:597px; display:block; margin:2em 0;">
+4. If using an **InfluxQL** data source and you have multiple queries in the Data Explorer,
+select which queries to send:
+    - **Active Query**: Send the currently viewed query.
+    - **All Queries**: Send all queries.
+5. Click **Send to Dashboard(s)**.
