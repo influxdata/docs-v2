@@ -55,11 +55,11 @@ include the `--oauth-no-pkce` flag when starting `chronograf`.
 - [Select write precision](/chronograf/v1.9/guides/write-to-influxdb/#upload-line-protocol-through-the-chronograf-ui)
   when writing data through the Chronograf UI.
 - Support [GitHub Enterprise in the existing GitHub OAuth integration](/chronograf/v1.9/administration/managing-security/#configure-github-authentication).
-- Update the Queries page in the InfluxDB Admin section of the UI.
+- Update the Queries page in the InfluxDB Admin section of the UI to include the following:
   - By default, sort queries by execution time in descending order.
   - Sort queries by execution time or database.
   - Include database count in the Queries page title.
-  - Select the refresh interval of the queries page.
+  - Select the refresh interval of the Queries page.
 - [Set up InfluxDB Cloud and InfluxDB OSS 2.x connections](/chronograf/v1.9/administration/config-options/#influxdb-connection-options)
   with the `chronograf` CLI.
 - Add [custom auto-refresh intervals](/chronograf/v1.9/administration/config-options/#--custom-auto-refresh).
