@@ -16,7 +16,7 @@ InfluxDB bucket.
 ## Usage
 
 ```sh
-influx bucket-schema list --bucket <string>
+influx bucket-schema list [flags]
 ```
 
 ## Flags
@@ -52,7 +52,7 @@ influx bucket-schema list \
 ## List a single measurement schema of a bucket and print column information
 ```sh
 influx bucket-schema list \
-  --bucket example-bucket
-  --name cpu
-  -x
+  --bucket example-bucket \
+  --name cpu \
+  --extended-output
 ```

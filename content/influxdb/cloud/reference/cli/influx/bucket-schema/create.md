@@ -22,7 +22,7 @@ The `influx bucket-schema create` command creates a measurement schema for an In
 ## Usage
 
 ```sh
-influx bucket-schema create --bucket <string> --name <string> --columns-file <path> [flags]
+influx bucket-schema create [flags]
 ```
 
 ## Flags
@@ -108,6 +108,5 @@ influx bucket-schema create \
   --bucket example-bucket \
   --name cpu \
   --columns-file columns.json \
-  --columns-format ndjson \
-  --extended-output
+  --columns-format ndjson
 ```

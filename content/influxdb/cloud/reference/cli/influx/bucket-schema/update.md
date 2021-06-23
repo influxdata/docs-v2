@@ -19,7 +19,7 @@ and an existing measurement schema.
 ## Usage
 
 ```sh
-influx bucket-schema update --bucket <string> --name <string> --columns-file <path> [flags]
+influx bucket-schema update [flags]
 ```
 
 ##### Supported operations
@@ -91,18 +91,17 @@ influx bucket-schema update \
 ## Update a bucket schema and print column information
 ```sh
 influx bucket-schema update \
-  --bucket example-bucket
-  --name cpu
-  --columns-file columns.csv
-  -x
+  --bucket example-bucket \
+  --name cpu \
+  --columns-file columns.csv \
+  -extended-output
 ```
 
 ## Update a bucket schema, specifying the columns format
 ```sh
 influx bucket-schema update \
-  --bucket example-bucket
-  --name cpu
-  --columns-file columns.json
+  --bucket example-bucket \
+  --name cpu \
+  --columns-file columns.json \
   --columns-format ndjson
-  -x
 ```
