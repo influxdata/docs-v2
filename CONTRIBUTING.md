@@ -29,6 +29,29 @@ Push your changes up to your forked repository, then [create a new pull request]
 
 ## Style & Formatting
 
+### Tools
+The documentation includes ESLint and Prettier rules
+to enforce proper syntax and consistent formatting of JS and HTML files.
+ESLint and Remark enforce Markdown formatting rules.
+
+To apply the formatting rules as you write, install the ESLint package for your editor and make sure it is configured to use the `docs-v2/.eslintrc` config file.
+
+`git commit` will run ESLint with the same rules and report syntax and formatting rule violations in staged HTML and JS files.
+For now, the commit hook doesn't validate the syntax of code blocks
+within Markdown files, e.g.
+
+  ````
+  ```js
+  function(...)
+  ```
+  ````
+
+However, you can run the lint scripts on demand for all files:
+
+```sh
+yarn run lint
+```
+
 ### Markdown
 All of our documentation is written in [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
@@ -126,12 +149,12 @@ _**Note:** `_index.md` files should be weighted one level up from the other `.md
 ### Related content
 Use the `related` frontmatter to include links to specific articles at the bottom of an article.
 
-- If the page exists inside of this documentation, just include the path to the page.
-  It will automatically detect the title of the page.
+- If the page exists inside this documentation, include the path to the page.
+  Hugo will automatically detect the title of the page.
 - If the page exists inside of this documentation, but you want to customize the link text,
   include the path to the page followed by a comma, and then the custom link text.
   The path and custom text must be in that order and separated by a comma and a space.
-- If the page exists outside of this documentation, include the full URL and a title for the link.
+- If the page exists outside this documentation, include the full URL and a title for the link.
   The link and title must be in that order and separated by a comma and a space.
 
 ```yaml

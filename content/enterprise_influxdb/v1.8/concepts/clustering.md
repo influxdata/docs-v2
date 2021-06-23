@@ -18,6 +18,7 @@ This document describes in detail how clustering works in InfluxDB Enterprise. I
 An InfluxDB Enterprise installation consists of three separate software processes: data nodes, meta nodes, and the Enterprise web server. To run an InfluxDB cluster, only the meta and data nodes are required. Communication within a cluster looks like this:
 
 {{< diagram >}}
+
 flowchart TB
   subgraph meta[Meta Nodes]
       Meta1 <-- TCP :8089 --> Meta2 <-- TCP :8089 --> Meta3
@@ -26,6 +27,8 @@ flowchart TB
   subgraph data[Data Nodes]
     Data1 <-- TCP :8088 --> Data2
   end
+
+
 {{< /diagram >}}
 
 

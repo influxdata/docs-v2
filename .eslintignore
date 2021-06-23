@@ -1,0 +1,9 @@
+.DS_Store
+*~
+public
+.*.swp
+node_modules
+*.log
+/resources
+**/*.lock
+layouts/shortcodes/**/*.html
