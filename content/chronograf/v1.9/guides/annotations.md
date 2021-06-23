@@ -34,3 +34,10 @@ The annotation displays "`Deploy v3.8.1-2`" and the time "`2018/28/02 15:59:30:0
 6. Click on `Name Me` in the annotation and type a note or comment.
 7. Click **Done Editing**.
 8. Your annotation is now available in all graph views.
+
+{{% note %}}
+Annotations are not associated with specific dashboards and appear in all dashboards.
+Annotations are managed per InfluxDB data source.
+When a dashboard is deleted, annotation persist until the InfluxDB data source
+the annotations are associated with is removed.
+{{% /note %}}
