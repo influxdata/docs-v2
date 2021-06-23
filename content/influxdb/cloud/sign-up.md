@@ -7,7 +7,7 @@ menu:
   influxdb_cloud:
     name: Sign up
 weight: 1
-influxdb/cloud/tags: [get-started, install]
+influxdb/cloud/tags: [get-started, install, cli]
 ---
 
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
