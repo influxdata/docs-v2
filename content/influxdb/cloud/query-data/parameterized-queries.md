@@ -5,7 +5,7 @@ description: >
 weight: 104
 menu:
   influxdb_cloud:
-    name: parameterized queries
+    name: Parameterized queries
     parent: Query data
 influxdb/cloud/tags: [query]
 ---
@@ -16,46 +16,61 @@ Use parameterized queries to dynamically change values used in a query, without 
 This feature allows users to define the values of variables in a separate field in a request payload,
 A parameterized query enables you to supply arguments which are then inserted into the Flux query for it to be executed.
 
+## Security
+
+Use parameterized queries if you'll be executing Flux with untrusted user input.
+
 For more information on security and query parameterization,
-consult the [Query Parameterization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) from OWASP.
+see the OWASP [SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html#defense-option-1-prepared-statements-with-parameterized-queries).
 
-## Example
+## Example usage
 
-### Writing the query
+To demonstrate using parameterized queries, do the following:
 
-Pass in a bucket name as an argument to a parameterized Flux query.
+1. Create your Flux query.
+    ```js
+    from(bucket:params.mybucket)
+      |> range(start: -7d)
+      |> limit(n:2)","params":{"mybucket":"telegraf"}
+    ```
+    Here we pass in a bucket name as an argument to a parameterized Flux query.
+    The Flux engine will replace `params.mybucket` with the bucket name that we want to query.
 
-```js
-from(bucket:params.mybucket)
-|> range(start: -7d)
-|> limit(n:2)","params":{"mybucket":"telegraf"}
-```
+1. Specify the value of the `mybucket` parameter at the end of the Flux query request payload with `"params":{"mybucket":"telegraf"}`:
+    ```js
+    from(bucket:params.mybucket)
+      |> range(start: -7d)
+      |> limit(n:2)","params":{"mybucket":"telegraf"}
+    ```
+   This will query the `telegraf` bucket.
 
-The Flux engine will replace `params.mybucket` with the bucket name that we want to query.
-
-### Sending the request
-
-Usage: When using the `api/v2/query` endpoint, pass query parameters using the `params` field
-in the request body.
-
-Specify the value of the mybucket parameter at the end of the Flux query request payload with
-
-```
-"params":{"mybucket":"telegraf"}
-```
-
-This will query the `telegraf` bucket.
-
-Since this query must be executed with the API,
-we convert the query into JSON to execute the following `curl` request:
-
-```
-curl -X POST \
-'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/query?orgID=<myOrgID>' \
-  -H 'authorization: Token <myToken>' \
-  -H 'content-type: application/json' \
-  -d '{"query":"from(bucket:params.mybucket) |> range(start: -7d) |> limit(n:2)","params":{"mybucket":"telegraf"}}'
-```
+1. Since this query must be executed with the API,Make it JSON.
+   Schematically, it will look like this:
+   ```json
+   {
+      "query":"from(bucket:params.mybucket) |> range(start: -7d) |> limit(n:2)",
+      "params":{
+         "mybucket":"telegraf"
+      }
+   }
+   ```
+1. We convert the query into JSON to:
+    ```
+    curl -X POST \
+    'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/query?orgID=<myOrgID>' \
+      -H 'authorization: Token <myToken>' \
+      -H 'content-type: application/json' \
+      -d '{"query":"from(bucket:params.mybucket) |> range(start: -7d) |> limit(n:2)","params":{"mybucket":"telegraf"}}'
+    ```
+1. Use the `api/v2/query` endpoint, pass query parameters using the `params` field in the request body.
+   execute the following `curl` request:
+       ```
+    curl -X POST \
+    'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/query?orgID=<myOrgID>' \
+      -H 'authorization: Token <myToken>' \
+      -H 'content-type: application/json' \
+      -d '{"query":"from(bucket:params.mybucket) |> range(start: -7d) |> limit(n:2)","params":{"mybucket":"telegraf"}}'
+    ```
 
 ## Typing for parameterized Flux query
 
