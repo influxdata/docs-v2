@@ -50,7 +50,7 @@ include the `--oauth-no-pkce` flag when starting `chronograf`.
   - Add [Kapacitor Flux tasks](/chronograf/v1.9/guides/advanced-kapacitor/#manage-kapacitor-flux-tasks)
     on the Manage Tasks page (read only).
   - Provide documentation link when Flux is not enabled in InfluxDB 1.8+.
-  - [Write to buckets using the Flux `to()` function](/chronograf/v1.9/guides/write-to-influxdb/#use-the-flux-to-function-in-a-query).
+  - Write to buckets when Flux mode is selected.
 - Filter fields in the Query Builder.
 - [Select write precision](/chronograf/v1.9/guides/write-to-influxdb/#upload-line-protocol-through-the-chronograf-ui)
   when writing data through the Chronograf UI.
