@@ -58,8 +58,8 @@ By default, annotations are visible.
     {{< nav-icon "dashboards" >}}
 
 2. Open a dashboard with annotations:
-   - To hide annotations, click the **Annotations** button. The button turns gray when annotations are hidden.
-   - To show annotations, click the **Annotations** button. The button turns purple when annotations are visible.
+   - To hide annotations, click the **Annotations** button. The button is gray when annotations are hidden.
+   - To show annotations, click the **Annotations** button. The button is purple when annotations are visible.
 
 ## Delete an annotation
 
