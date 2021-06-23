@@ -1,6 +1,6 @@
 ---
 title: influx bucket-schema update
-description: The `influx bucket-schema update` command updates a measurement schema for a bucket in InfluxDB.
+description: The `influx bucket-schema update` command updates a measurement schema for an InfluxDB bucket.
 menu:
   influxdb_cloud_ref:
     name: influx bucket-schema update
@@ -13,7 +13,7 @@ related:
 The `influx bucket-schema update` command updates the measurement schema for a
 bucket in InfluxDB.
 
-`bucket-schema update` requires a bucket with [schema-type `explicit`](/influxdb/v2.0/reference/cli/influx/bucket/create/#create-a-bucket-with-custom-bucket-schema)
+`bucket-schema update` requires a bucket with an [`explicit` schema-type](/influxdb/v2.0/reference/cli/influx/bucket/create/#create-a-bucket-with-custom-bucket-schema)
 and an existing measurement schema.
 
 ## Usage
@@ -22,33 +22,33 @@ and an existing measurement schema.
 influx bucket-schema update --bucket <string> --name <string> --columns-file <path> [flags]
 ```
 
-`update` supports the following operations:
-* adding new columns to a schema
+##### Supported operations
+- Adding new columns to a schema
 
-`update` does not support:
-* modifying existing columns in a schema,
-* deleting columns from a schema.
+##### Unsupported operations
+- Modify existing columns in a schema
+- Delete columns from a schema
 
 ## Flags
 
-| Flag |                          | Description                                                           | Input type | {{< cli/mapped >}}    |
-| :--- | :----------------------- | :-------------------------------------------------------------------- | :--------: | :-------------------- |
-| `-c` | `--active-config`        | CLI configuration to use for command                                  |   string   |                       |
-| `-n` | `--bucket`               | The bucket name, org or org-id will be required by choosing this      |   string   |                       |
-| `-i` | `--bucket-id`            | The bucket ID, required if name isn't provided                        |   string   |
-|      | `--columns-file`         | A path referring to list of column definitions                        |   string   |                       |
-|      | `--columns-format`       | The format of the columns file. `auto` will attempt to guess the format. (`csv`, `ndjson`, `json`, default: `auto`) | string | |             |
-|      | `--configs-path`         | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
-| `-x` | `--extended-output`      | Print column information for each measurement (default: false)        |            |                       |
-| `-h` | `--help`                 | Help for the `create` command                                         |            |                       |
-|      | `--hide-headers`         | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
-|      | `--host`                 | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
-|      | `--json`                 | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`                 | Name of the measurement                                               |   string   |                       |
-| `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                |   string   | `INFLUX_ORG`          |
-|      | `--org-id`               | Organization ID (mutually exclusive with `--org`)                     |   string   | `INFLUX_ORG_ID`       |
-|      | `--skip-verify`          | Skip TLS certificate verification                                     |            |                       |
-| `-t` | `--token`                | Authentication token                                                  |   string   | `INFLUX_TOKEN`        |
+| Flag |                     | Description                                                           | Input type | {{< cli/mapped >}}    |
+| :--- | :------------------ | :-------------------------------------------------------------------- | :--------: | :-------------------- |
+| `-c` | `--active-config`   | CLI configuration to use for command                                  |   string   |                       |
+| `-n` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                   |   string   |                       |
+| `-i` | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                        |   string   |                       |
+|      | `--columns-file`    | Path to column definitions file                                       |   string   |                       |
+|      | `--columns-format`  | Columns file format (`csv`, `ndjson`, `json`, default: `auto`)        |   string   |                       |
+|      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
+| `-x` | `--extended-output` | Print column information for each measurement (default: false)        |            |                       |
+| `-h` | `--help`            | Help for the `create` command                                         |            |                       |
+|      | `--hide-headers`    | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
+|      | `--host`            | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
+|      | `--json`            | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`            | Measurement name                                                      |   string   |                       |
+| `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                |   string   | `INFLUX_ORG`          |
+|      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                     |   string   | `INFLUX_ORG_ID`       |
+|      | `--skip-verify`     | Skip TLS certificate verification                                     |            |                       |
+| `-t` | `--token`           | Authentication token                                                  |   string   | `INFLUX_TOKEN`        |
 
 ## Examples
 
@@ -83,8 +83,8 @@ influx bucket-schema update --bucket <string> --name <string> --columns-file <pa
 
 ```sh
 influx bucket-schema update \
-  --bucket example-bucket
-  --name temperature
+  --bucket example-bucket \
+  --name temperature \
   --columns-file columns.csv
 ```
 

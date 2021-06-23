@@ -38,7 +38,7 @@ influx bucket create [flags]
 | `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                |   string   | `INFLUX_ORG`          |
 |      | `--org-id`               | Organization ID (mutually exclusive with `--org`)                     |   string   | `INFLUX_ORG_ID`       |
 | `-r` | `--retention`            | Duration bucket retains data (0 is infinite, default is 0)            |  duration  |                       |
-|      | `--schema-type`          | The schema type (`explicit`, default `implicit`) (Cloud only)         |   string   |                       |
+|      | `--schema-type`          | Bucket schema type (`explicit`, default `implicit`) _(Cloud only)_         |   string   |                       |
 |      | `--shard-group-duration` | Bucket shard group duration (OSS only)                                |   string   |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |            |                       |
 | `-t` | `--token`                | Authentication token                                                  |   string   | `INFLUX_TOKEN`        |
@@ -91,11 +91,13 @@ influx bucket create \
   --shard-group-duration 2d
 ```
 
-##### Create a bucket with custom bucket-schema
+##### Create a bucket with an explicit schema
 
-Explicit buckets and [bucket-schema](/influxdb/cloud/reference/cli/influx/bucket-schema)
- are only supported in **InfluxDB Cloud**.
+{{% cloud %}}
+[Explicit bucket schemas](/influxdb/cloud/reference/cli/influx/bucket-schema) are only
+supported in **InfluxDB Cloud**.
 For more information, see [Manage bucket schema](/influxdb/cloud/organizations/bucket-schema/).
+{{% /cloud %}}
 
 ```sh
 {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}

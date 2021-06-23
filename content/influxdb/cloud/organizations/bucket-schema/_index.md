@@ -1,27 +1,26 @@
 ---
-title: Manage bucket schema
-seotitle: Manage bucket schema in InfluxDB
-description: Manage bucket schema in InfluxDB using the influx CLI.
+title: Manage bucket schemas
+seotitle: Manage bucket schemas in InfluxDB
+description: Manage bucket schemas in InfluxDB using the influx CLI.
 menu:
   influxdb_cloud:
-    name: Manage bucket schema
+    name: Manage bucket schemas
     parent: Manage organizations
 weight: 105
 influxdb/cloud/tags: [buckets, bucket-schema, schema]
 ---
 
-Use *bucket-schema* to restrict a bucket's columns and data types.
+Use *bucket schemas* to restrict a bucket's columns and data types.
 
-*Bucket-schema* are measurement schema that enforce the shape of
-your bucket data.
-By default, buckets receive *schema-type* `implicit` and InfluxDB's default
-measurement schema.
+A **bucket schema** enforces the shape of data in a bucket.
+By default, buckets have an `implicit` **schema-type**  which conforms
+to data as it is written to InfluxDB.
 
 Buckets with schema-type `explicit` allow you to assign your own schema.
 These buckets reject write requests that do not obey their bucket-schema.
 
 ### Create a bucket schema
-Use the influx CLI to set the schema-type and one or more schema for your bucket:
+Use the `influx` CLI to set the schema-type and one or more schemas for your bucket:
 
 1. Create a bucket with the `schema-type` flag set to `explicit`.
 
@@ -46,8 +45,8 @@ Use the influx CLI to set the schema-type and one or more schema for your bucket
    no measurement schemas
    ```
 
-2. Create a measurement schema *columns file* using CSV, JSON, or Newline delimited JSON (NDJSON).
-   Define the name, field type, and data type of each column.
+2. Create a measurement schema *columns file* using CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/).
+   Define the name, type, and data type of each column.
 
    {{< code-tabs-wrapper >}}
    {{% code-tabs %}}
@@ -73,8 +72,8 @@ Use the influx CLI to set the schema-type and one or more schema for your bucket
    {{< /code-tabs-wrapper >}}
 
 3. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to set the schema for your bucket.
-   Pass the location of your columns file to the `columns-file` flag and the
-   name of your measurement schema to the `name` flag.
+   Provide the location of your columns file with the `columns-file` flag and the
+   name of your measurement with the `name` flag.
 
    ```sh
    influx bucket-schema create \
@@ -94,19 +93,18 @@ Use the influx CLI to set the schema-type and one or more schema for your bucket
 
    #### Columns format
 
-   Use the [`columns-format` flag](/influxdb/cloud/reference/cli/influx/bucket-schema/create)
-   when you need to specify the format of your file.
-   InfluxDB defaults to `auto` and attempts to guess the format.
+    By default, InfluxDB attempts to detect the column file format.
+    To specify the columns file format, use the [`columns-format` flag](/influxdb/cloud/reference/cli/influx/bucket-schema/create).  
 
 ### Add measurement schema to a bucket
 Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to add additional measurement
-schema to a bucket.
+schemas to a bucket.
 
 1. Add a new schema with a new measurement name.
 
     ```sh
     influx bucket-schema create \
-      -n my_explicit_bucket \
+      --bucket my_explicit_bucket \
       --name temperature \
       --columns-file schema.json
     ```
@@ -137,7 +135,7 @@ same measurement name as an existing schema.
 For example,
 ```sh
 influx bucket-schema create \
-  -n my_explicit_bucket \
+  --bucket my_explicit_bucket \
   --name cpu \
   --columns-file schema.json
 ```
@@ -149,19 +147,17 @@ Error: failed to create measurement: 422 Unprocessable Entity
 
 ### Write to the bucket
 
-  Use the [`influx write` command](/influxdb/cloud/reference/cli/influx/write)
-  to write data to a bucket.
+Use the [`influx write` command](/influxdb/cloud/reference/cli/influx/write)
+to write data to a bucket.
 
-  `write` returns an error
-  if the bucket has schema-type `explicit` and the data does not obey a defined
-   bucket-schema.
+If the data does conform to the defined bucket-schema, InfluxDB returns an error:
 
-     ```sh
-     influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
-     Error: failed to write data:
-      unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
-       schema: field type for field "usage_user" not permitted by schema; got String but expected Float
-     ```
+```sh
+$ influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
+Error: failed to write data:
+unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
+schema: field type for field "usage_user" not permitted by schema; got String but expected Float
+```
 
 ### Update a measurement schema
 
