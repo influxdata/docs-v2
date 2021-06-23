@@ -17,24 +17,34 @@ Basic installation and startup of the Kapacitor service is covered in
 The basic principles of working with Kapacitor described there should be understood before continuing here.
 This document presents Kapacitor configuration in greater detail.
 
-Kapacitor service properties are configured using key-value pairs organized
-into groups.
+Kapacitor service properties are configured using key-value pairs organized into groups.
 Any property key can be located by following its path in the configuration file (for example, `[http].https-enabled` or `[slack].channel`).
 Values for configuration keys are declared in the configuration file.
-On POSIX systems this file is located by default at the following location: `/etc/kapacitor/kapacitor.conf`.  On Windows systems a sample configuration file can be found in the same directory as the `kapacitord.exe`.
-The location of this file can be defined at startup with the `-config` argument.
+
+#### Kapacitor configuration file location
+Kapacitor looks for configuration files at specific locations depends on your operating system:
+
+**Linux**: `/etc/kapacitor/kapacitor.conf`
+**macOS**: `~/.kapacitor/kapacitor.conf`
+**Windows**: _same directory as the `kapacitord.exe`._
+
+Define a custom location for your `kapacitor.conf` at startup with the `-config` flag.
 The path to the configuration file can also be declared using the environment variable `KAPACITOR_CONFIG_PATH`.
-Values declared in this file can be overridden by environment variables beginning with the token `KAPACITOR_`.
-Some values can also be dynamically altered using the HTTP API when the key  `[config-override].enabled` is set to `true`.
+Values declared in the configuration file are overridden by environment variables beginning with `KAPACITOR_`.
+Some values can also be dynamically altered using the HTTP API when the key `[config-override].enabled` is set to `true`.
 
-Four primary mechanisms for configuring different aspects of the Kapacitor service are available and listed here in the descending order by which they may be overridden:
+#### Configuration precedence
+Configure Kapacitor using one or more of the available configuration mechanisms.
+Configuration mechanisms are honored in the following order of precedence.
 
-* The configuration file.
-* Environment variables.
-* The HTTP API (for optional services and the InfluxDB connection).
-* Command line arguments (for changing hostname and logging).
+1. Command line arguments
+2. HTTP API _(for the InfluxDB connection and other optional services)_
+3. Environment variables
+4. Configuration file values
 
-> ***Note:*** Setting the property `skip-config-overrides` in the configuration file to `true` will disable configuration overrides at startup.
+{{% note %}}
+***Note:*** Setting the property `skip-config-overrides` in the configuration file to `true` will disable configuration overrides at startup.
+{{% /note %}}
 
 ## Startup
 
