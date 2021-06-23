@@ -44,9 +44,9 @@ include the `--oauth-no-pkce` flag when starting `chronograf`.
   - `EXPLAIN`
   - `EXPLAIN ANALYZE`
 - Flux improvements and additional functionality:
-  - Add dashboard template variables to Flux query execution.
+  - Add predefined and custom dashboard template variables to Flux query execution.
     Flux queries include a `v` record with a key value pair for each variable.
-  - Support dashboard [template variables defined with Flux](/chronograf/v1.9/guides/dashboard-template-variables/#flux-query).
+  - [Define template variables with Flux](/chronograf/v1.9/guides/dashboard-template-variables/#flux-query).
   - Add [Kapacitor Flux tasks](/chronograf/v1.9/guides/advanced-kapacitor/#manage-kapacitor-flux-tasks)
     on the Manage Tasks page (read only).
   - Provide documentation link when Flux is not enabled in InfluxDB 1.8+.
