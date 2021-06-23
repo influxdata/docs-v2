@@ -12,7 +12,12 @@ related:
 
 The `influx bucket-schema create` command creates a measurement schema for an InfluxDB bucket.
 
-Creating a bucket schema requires a bucket of [schema-type **explicit**](influxdb/cloud/reference/cli/influx/bucket/create/#create-a-bucket-for-an-explicit-measurement-schema).
+{{% note %}}
+{{< bucket-schema-type >}}
+```sh
+{{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
+```
+{{% /note %}}
 
 ## Usage
 
@@ -91,18 +96,18 @@ influx bucket-schema create \
 ## Create a bucket schema and print column information
 ```sh
 influx bucket-schema create \
-  --bucket example-bucket
-  --name cpu
-  --columns-file columns.csv
-  -x
+  --bucket example-bucket \
+  --name cpu \
+  --columns-file columns.csv \
+  --extended-output
 ```
 
 ## Create a bucket schema, specifying the columns format
 ```sh
 influx bucket-schema create \
-  --bucket example-bucket
-  --name cpu
-  --columns-file columns.json
-  --columns-format ndjson
-  -x
+  --bucket example-bucket \
+  --name cpu \
+  --columns-file columns.json \
+  --columns-format ndjson \
+  --extended-output
 ```

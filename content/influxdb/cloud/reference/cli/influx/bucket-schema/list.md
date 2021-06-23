@@ -24,8 +24,8 @@ influx bucket-schema list --bucket <string>
 | Flag |                          | Description                                                           | Input type | {{< cli/mapped >}}    |
 | :--- | :----------------------- | :-------------------------------------------------------------------- | :--------: | :-------------------- |
 | `-c` | `--active-config`        | CLI configuration to use for command                                  |   string   |                       |
-| `-n` | `--bucket`               | The bucket name, org or org-id will be required by choosing this      |   string   |                       |
-| `-i` | `--bucket-id`            | The bucket ID, required if name isn't provided                        |   string   |
+| `-n` | `--bucket`               | The bucket name. org or org-id will be required by choosing this      |   string   |                       |
+| `-i` | `--bucket-id`            | The bucket ID, required if bucket isn't provided                        |   string   |
 |      | `--configs-path`         | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
 | `-x` | `--extended-output`      | Print column information for each measurement (default: false)        |            |                       |
 | `-h` | `--help`                 | Help for the `create` command                                         |            |                       |
