@@ -28,9 +28,10 @@ publicly available to any unauthenticated user.
 
 ## Authentication
 
-The InfluxDB API and the [command line interface](/enterprise_influxdb/v1.9/tools/shell/) (CLI),
-which connects to the database using the API, include simple, built-in authentication based on user credentials.
-When you enable authentication, InfluxDB only executes HTTP requests that are sent with valid credentials.
+The InfluxDB API and the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/),
+which connects to the database using the API,
+include built-in authentication based on user credentials.
+When you enable authentication, InfluxDB Enterprise only executes HTTP requests that are sent with valid credentials.
 
 {{% note %}}
 Authentication only occurs at the HTTP request scope.
@@ -44,11 +45,11 @@ endpoints (for example, Graphite, collectd, etc.) are not authenticated.
     See the [authorization section](#authorization) for how to create an admin user.
 
     {{% note %}}
-If you enable authentication and have no users, InfluxDB will **not** enforce authentication
+If you enable authentication and have no users, InfluxDB Enterprise will **not** enforce authentication
 and will only accept the [query](#user-management-commands) that creates a new admin user.
     {{% /note %}}
 
-    InfluxDB will enforce authentication once there is an admin user.
+    InfluxDB Enterprise will enforce authentication once there is an admin user.
 
 2.  **Enable authentication in your configuration file**
     by setting the `auth-enabled` option to `true` in the `[http]` section:
@@ -73,21 +74,22 @@ If `pprof-enabled` is set to `true`, set `pprof-auth-enabled` and `ping-auth-ena
 to `true` to require authentication on profiling and ping endpoints.
     {{% /note %}}
 
-3.  **Restart InfluxDB**.
-    Once restarted, InfluxDB checks user credentials on every request and only
+3.  **Restart InfluxDB Enterprise**.
+    Once restarted, InfluxDB Enterprise checks user credentials on every request and only
     processes requests that have valid credentials for an existing user.
 
 ### Authenticate requests
 
 #### Authenticate with the InfluxDB API
 
-There are two options for authenticating with the [InfluxDB API](/influxdb/v1.8/tools/api/).
+There are two options for authenticating with the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/).
 
-If you authenticate with both Basic Authentication **and** the URL query parameters, the user credentials specified in the query parameters take precedence.
+If you authenticate with both Basic Authentication **and** the URL query parameters,
+the user credentials specified in the query parameters take precedence.
 The queries in the following examples assume that the user is an [admin user](#admin-users).
 See the section on [authorization](#authorization) for the different user types, their privileges, and more on user management.
 
-> **Note:** InfluxDB redacts passwords when you enable authentication.
+> **Note:** InfluxDB Enterprise redacts passwords when you enable authentication.
 
 ##### Authenticate with Basic Authentication
 ```bash
@@ -164,8 +166,8 @@ This is currently only possible through the [InfluxDB HTTP API](/influxdb/v1.8/t
 2. [Generate your JWT token](#generate-your-jwt-token)
 3. [Include the token in HTTP requests](#include-the-token-in-http-requests)
 
-##### Add a shared secret in your InfluxDB configuration file
-InfluxDB uses the shared secret to encode the JWT signature.
+##### Add a shared secret in your InfluxDB Enterprise configuration file
+InfluxDB Enterprise uses the shared secret to encode the JWT signature.
 By default, `shared-secret` is set to an empty string, in which case no JWT authentication takes place.
 Add a custom shared secret in your [InfluxDB configuration file](/influxdb/v1.8/administration/config/#shared-secret).
 The longer the secret string, the more secure it is:
