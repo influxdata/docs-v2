@@ -21,7 +21,7 @@ Add annotations to your dashboards to provide useful, contextual information abo
 Annotations may be useful to highlight operations or anomalies for your team to reference.
 {{% /note %}}
 
-{{< youtube 5NEplCesNAc >}}
+<!-- {{< youtube 5NEplCesNAc >}} --->
 
 ## Create an annotation
 
@@ -29,12 +29,11 @@ Annotations may be useful to highlight operations or anomalies for your team to 
 
     {{< nav-icon "dashboards" >}}
 
-2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/).
-3. Click **Annotations**. The **Show Annotations** option is selected by default.
-4. Select the **Enable 1-Click Annotations** option, and then in a dashboard cell, do one of the following:
+2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/). The **Annotations** option is selected by default.
+4. Add an annotation in a dashboard cell by doing one of the following:
 
-   - To add an annotation to a single point in time, click the time in the cell.
-   - To add an annotation to a time range, press and hold Shift, click the start time in the cell, and then drag your cursor to the end time.
+   - To add an annotation to a single point in time, press Shift and click the time in the cell.
+   - To add an annotation to a time range, press Shift, click the start time in the cell, and then drag your cursor to the end time.
 5. On the **Add Annotation** page:
 
    1. Verify the time or time range, and update if needed.
@@ -53,15 +52,15 @@ Annotations may be useful to highlight operations or anomalies for your team to 
 ## View or hide annotations
 
 By default, annotations are visible.
-Select or clear the **Show Annotations** option to hide or show annotations.
+Click the **Annotations** button to hide annotations (click again to show annotations).
 
 1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
 2. Open a dashboard with annotations, click **Annotations**, and then do one of the following:
-   - To hide annotations, clear the **Show Annotations** option.
-   - To show annotations, select the **Show Annotations** option.
+   - To hide annotations, click the **Annotations** button. The button turns grey when 
+   - To show annotations, click the **Annotations** button. 
 
 ## Delete an annotation
 
