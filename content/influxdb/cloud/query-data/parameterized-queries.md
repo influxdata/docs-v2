@@ -10,18 +10,23 @@ menu:
 influxdb/cloud/tags: [query]
 ---
 
+Use parameterized queries to dynamically change values used in a query, without having to re-write it.
 Flux supports parameterized queries in InfluxDB Cloud.
-A parameterized query enables you to supply arguments
-which are then inserted into the Flux query for it to be executed.
 
-<!-- Parameterized queries can only be used with the InfluxDB v2 API, -->
-<!-- but will be landing in the InfluxDB User Interface soon. -->
+This feature allows users to define the values of variables in a separate field in
+a request payload, allowing our servers to interpret the parameters and run the related
+query.
 
-Parameterized queries also make updating a query to reflect a new bucket, filter or timestamp 
-and encourage code reuse.
+A parameterized query enables you to supply arguments which are then inserted into the Flux query for it to be executed.
 
-<!-- Now you can start constructing parameterized queries to secure your IoT application -->
-<!-- and help prevent injection attacks. -->
+It can provide an extension upon the current [dashboard variables]() feature,
+which is a limited subset of predefined values.
+
+For more information on security and query parameterization, consult the 
+[Query Parameterization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) from OWASP.
+
+Parameterized queries also make it easier to update a query to reflect a new bucket, filter or timestamp.
+They encourage code reuse.
 
 ## Example
 
@@ -38,6 +43,9 @@ from(bucket:params.mybucket)
 The Flux engine will replace `params.mybucket` with the bucket name that we want to query.
 
 ### Sending the request
+
+Usage: When using the `api/v2/query` endpoint, pass query parameters using the `params` field
+in the request body.
 
 Specify the value of the mybucket parameter at the end of the Flux query request payload with
 
