@@ -161,7 +161,7 @@ WHERE time > :dashboardTime:
 {{% note %}}
 To use the date picker to specify a particular time range in the past
 which does not include "now", construct the query using `:dashboardTime:`
-as the lower limit and [`:upperDashboardTime:`](#upperdashboardtime) as the upper limit.
+as the start time and [`:upperDashboardTime:`](#upperdashboardtime) as the stop time.
 {{% /note %}}
 
 ### upperDashboardTime
@@ -204,7 +204,7 @@ The `dashboardTime` template variable is controlled by the "time" dropdown in yo
 <img src="/img/chronograf/1-6-template-vars-time-dropdown.png" style="width:100%;max-width:549px;" alt="Dashboard time selector"/>
 
 If using relative time, this variable represents the time offset specified in the dropdown (-5m, -15m, -30m, etc.) and assumes time is relative to "now".
-If using absolute time defined by the date picker, `dashboardTime` is populated with lower threshold.
+If using absolute time defined by the date picker, `dashboardTime` is populated with the start time.
 
 ```js
 from(bucket: "telegraf/autogen")
@@ -218,11 +218,11 @@ To use the date picker to specify a time range in the past without "now", use `d
 {{% /note %}}
 
 ### upperDashboardTime{id="upperdashboardtime-flux"}
-The `upperDashboardTime` template variable is defined by the upper time limit specified using the date picker.
+The `upperDashboardTime` template variable is defined by the stop time specified using the date picker.
 
 <img src="/img/chronograf/1-6-template-vars-date-picker.png" style="width:100%;max-width:762px;" alt="Dashboard date picker"/>
 
-For relative time frames, this variable inherits `now()`. For absolute time frames, this variable inherits the upper time limit.
+For relative time frames, this variable inherits `now()`. For absolute time frames, this variable inherits the stop time.
 
 ```js
 from(bucket: "telegraf/autogen")
