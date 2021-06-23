@@ -201,9 +201,9 @@ in a `v` record and using dot or bracket notation to reference variables.
 For backward compatibility, Chronograf 1.9+ still supports the following predefined
 variables that do not use the `v.` syntax:
 
-- [`dashboardTime`](/chronograf/v1.8/guides/dashboard-template-variables/#dashboardtime-flux)
-- [`upperDashboardTime`](/chronograf/v1.8/guides/dashboard-template-variables/#upperdashboardtime-flux)
-- [`autoInterval`](/chronograf/v1.8/guides/dashboard-template-variables/#autointerval) 
+- [`dashboardTime`](/chronograf/v1.8/guides/dashboard-template-variables/?t=Flux#dashboardtime-flux)
+- [`upperDashboardTime`](/chronograf/v1.8/guides/dashboard-template-variables/?t=Flux#upperdashboardtime-flux)
+- [`autoInterval`](/chronograf/v1.8/guides/dashboard-template-variables/?t=Flux#autointerval)
 {{% /note %}}
 
 ### v.timeRangeStart
