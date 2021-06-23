@@ -10,23 +10,14 @@ menu:
 influxdb/cloud/tags: [query]
 ---
 
-Use parameterized queries to dynamically change values used in a query, without having to re-write it.
 Flux supports parameterized queries in InfluxDB Cloud.
+Use parameterized queries to dynamically change values used in a query, without having to re-write it.
 
-This feature allows users to define the values of variables in a separate field in
-a request payload, allowing our servers to interpret the parameters and run the related
-query.
-
+This feature allows users to define the values of variables in a separate field in a request payload,
 A parameterized query enables you to supply arguments which are then inserted into the Flux query for it to be executed.
 
-It can provide an extension upon the current [dashboard variables]() feature,
-which is a limited subset of predefined values.
-
-For more information on security and query parameterization, consult the 
-[Query Parameterization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) from OWASP.
-
-Parameterized queries also make it easier to update a query to reflect a new bucket, filter or timestamp.
-They encourage code reuse.
+For more information on security and query parameterization,
+consult the [Query Parameterization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) from OWASP.
 
 ## Example
 
@@ -35,8 +26,8 @@ They encourage code reuse.
 Pass in a bucket name as an argument to a parameterized Flux query.
 
 ```js
-from(bucket:params.mybucket) 
-|> range(start: -7d) 
+from(bucket:params.mybucket)
+|> range(start: -7d)
 |> limit(n:2)","params":{"mybucket":"telegraf"}
 ```
 
@@ -50,7 +41,7 @@ in the request body.
 Specify the value of the mybucket parameter at the end of the Flux query request payload with
 
 ```
-"params":{"mybucket":"telegraf"} 
+"params":{"mybucket":"telegraf"}
 ```
 
 This will query the `telegraf` bucket.
@@ -76,7 +67,7 @@ you must convert that value into a duration with the `duration()` function.
 
 ```js
 from(bucket:"telegraf")
-  |> range(start: duration(v : params.mystart)) 
+  |> range(start: duration(v : params.mystart))
   |> limit(n:2)
 ```
 
