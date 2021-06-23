@@ -9,10 +9,10 @@ menu:
     parent: Administration
 ---
 
-This document covers setting up and managing authentication and authorization in InfluxDB.
+This document covers setting up and managing authentication and authorization in InfluxDB Enterprise.
 
 - [Authentication](#authentication)
-  - [Set up Authentication](#set-up-authentication")
+  - [Set up Authentication](#set-up-authentication)
   - [Authenticate Requests](#authenticate-requests)
 - [Authorization](#authorization)
   - [User Types and Privileges](#user-types-and-privileges)
