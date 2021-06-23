@@ -16,8 +16,8 @@ A **bucket schema** enforces the shape of data in a bucket.
 By default, buckets have an `implicit` **schema-type**  which conforms
 to data as it is written to InfluxDB.
 
-Buckets with schema-type `explicit` allow you to assign your own schema.
-These buckets reject write requests that do not obey their bucket-schema.
+Buckets with the `explicit` schema-type allow you to assign your own named schemas
+and reject write requests that do not conform to a specific schema.
 
 ### Create a bucket schema
 Use the `influx` CLI to set the schema-type and one or more schemas for your bucket:
