@@ -52,7 +52,7 @@ For **predefined meta queries** such as "Field Keys" and "Tag Values", **do not 
 SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
 ```
 
-For **custom queries**, **CSV**, or **map queries**, quote the values in the query following standard [InfluxQL](/{{< latest "influxdb" "v1" >}}/query_language/) syntax as follows:
+For **custom queries**, **CSV**, or **map queries**, quote the values in the query following standard [InfluxQL](/{{< latest "influxdb" "v1" >}}/query_language/) syntax:
 
 - For numerical values, **do not quote**.
 - For string values, choose to quote the values in the variable definition (or not).  See [String examples](#string-examples) below.
