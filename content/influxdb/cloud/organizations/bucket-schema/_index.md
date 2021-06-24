@@ -13,11 +13,11 @@ influxdb/cloud/tags: [buckets, bucket-schema, schema]
 Use *bucket schemas* to restrict a bucket's columns and data types.
 
 A **bucket schema** enforces the shape of data in a bucket.
-By default, buckets have an `implicit` **schema-type**  which conforms
-to data as it is written to InfluxDB.
+Buckets with the `explicit` schema-type allow you to assign your own named bucket schemas
+and reject write requests that do not conform to a schema.
 
-Buckets with the `explicit` schema-type allow you to assign your own named schemas
-and reject write requests that do not conform to a specific schema.
+By default, buckets have an `implicit` **schema-type**  which allows you to write data
+without enforcing a particular schema.
 
 ### Create a bucket schema
 Use the `influx` CLI to set the schema-type and one or more schemas for your bucket:
