@@ -35,7 +35,7 @@ influx bucket-schema create [flags]
 |      | `--columns-file`    | Path to column definitions file                                       |   string   |                       |
 |      | `--columns-format`  | Columns file format (`csv`, `ndjson`, `json`, default: `auto`)        |   string   |                       |             
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
-| `-x` | `--extended-output` | Print column information for each measurement (default: false)        |            |                       |
+| `-x` | `--extended-output` | Print column information for each measurement schema (default: false)        |            |                       |
 | `-h` | `--help`            | Help for the `create` command                                         |            |                       |
 |      | `--hide-headers`    | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 |      | `--host`            | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
@@ -77,14 +77,6 @@ influx bucket-schema create [flags]
 {{< /code-tabs-wrapper >}}
 
 ## Create a bucket schema using the influx CLI
-
-{{% note %}}
-  Before creating a bucket schema, set the bucket's schema-type to **explicit**:
-
-  ```sh
-  {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
-  ```
-{{% /note %}}
 
 ```sh
 influx bucket-schema create \

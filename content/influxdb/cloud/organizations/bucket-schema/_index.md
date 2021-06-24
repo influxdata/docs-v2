@@ -75,10 +75,12 @@ Use the `influx` CLI to set the schema-type and one or more schemas for your buc
 
 3. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to assign the schema to your bucket.
    Provide the location of your schema columns file with the `columns-file` flag and the name of your measurement with the `name` flag.
+   To output schema column details, use the optional `extended-output` flag.
 
    ```sh
    influx bucket-schema create \
-     --bucket my_explicit_bucket --name cpu \
+     --bucket my_explicit_bucket \
+     --name cpu \
      --columns-file columns.csv \
      --extended-output
    ```
@@ -95,7 +97,23 @@ Use the `influx` CLI to set the schema-type and one or more schemas for your buc
    #### Columns format
 
     By default, InfluxDB attempts to detect the columns file format.
-    To specify the format, use the [`columns-format` flag](/influxdb/cloud/reference/cli/influx/bucket-schema/create).  
+    To specify the format, use the [`columns-format` flag](/influxdb/cloud/reference/cli/influx/bucket-schema/create).
+
+4. To write data to the bucket, use the [`influx write` command](/influxdb/cloud/reference/cli/influx/write).
+    If the data doesn't conform to the measurement's schema, InfluxDB returns an error.
+
+    The following example attempts to write a *cpu* measurement:
+
+    ```sh
+    influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
+    ```
+
+    The output is the following:
+    ```sh
+    Error: failed to write data:
+    unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
+    schema: field type for field "usage_user" not permitted by schema; got String but expected Float
+    ```
 
 ### Add measurement schemas to a bucket
 Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to add additional measurement
@@ -117,51 +135,27 @@ schemas to a bucket.
       --columns-file schema.json
     ```
 
-2. Use the [`influx bucket-schema list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list) to list bucket-schemas.
+    InfluxDB responds with an error if you attempt to add a new schema with the
+    same measurement name as an existing schema, as in the following example:
 
     ```sh
-    influx bucket-schema list --bucket my_explicit_bucket
+    influx bucket-schema create \
+      --bucket my_explicit_bucket \
+      --name cpu \
+      --columns-file schema.json
     ```
 
-    To view schema column details, use the `extended-output` flag.
+    The output is the following:
+    ```sh
+    Error: failed to create measurement: 422 Unprocessable Entity
+    ```
+
+2. Use the [`influx bucket-schema list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list) to list bucket-schemas.
+   To output schema column details, use the optional `extended-output` flag.
 
     ```sh
     influx bucket-schema list --bucket my_explicit_bucket --extended-output
     ```
-
-InfluxDB responds with an error if you attempt to add a new schema with the
-same measurement name as an existing schema.
-
-```sh
-influx bucket-schema create \
-  --bucket my_explicit_bucket \
-  --name cpu \
-  --columns-file schema.json
-```
-
-The output is the following:
-```sh
-Error: failed to create measurement: 422 Unprocessable Entity
-```
-
-### Write to the bucket
-
-Use the [`influx write` command](/influxdb/cloud/reference/cli/influx/write)
-to write data to a bucket.
-
-If the data does conform to the defined bucket-schema, InfluxDB returns an error:
-
-```sh
-influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
-```
-
-The output is the following:
-```sh
-Error: failed to write data:
-unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
-schema: field type for field "usage_user" not permitted by schema; got String but expected Float
-```
-
 ### Update a measurement schema
 
-Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to update a bucket's measurement schema.
+  Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to update a bucket's measurement schema.

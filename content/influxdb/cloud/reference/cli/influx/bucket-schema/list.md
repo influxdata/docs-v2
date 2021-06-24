@@ -27,7 +27,7 @@ influx bucket-schema list [flags]
 | `-n` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                   |   string   |                       |
 | `-i` | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                        |   string   |                       |
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
-| `-x` | `--extended-output` | Print column information for each measurement (default: false)        |            |                       |
+| `-x` | `--extended-output` | Print column information for each measurement schema (default: false)        |            |                       |
 | `-h` | `--help`            | Help for the `create` command                                         |            |                       |
 |      | `--hide-headers`    | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 |      | `--host`            | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
