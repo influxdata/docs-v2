@@ -241,25 +241,25 @@ Operators combine operands into expressions.
 The precedence of the operators is given in the table below.
 Operators with a lower number have higher precedence.
 
-| Precedence |    Operator      | Description                          |
-| :--------: | :--------------: | :----------------------------------- |
-|     1      |     `a()`        | Function call                        |
-|            |     `a[]`        | Member or index access               |
-|            |      `.`         | Member access                        |
-|     2      | <code>\|></code> | Pipe forward                         |
-|     3      |   `() => 1`      | FunctionLiteral                      |
-|     4      |      `^`         | Exponentiation                       |
-|     5      |  `*` `/` `%`     | Multiplication, division, and modulo |
-|     6      |    `+` `-`       | Addition and subtraction             |
-|     7      |   `==` `!=`      | Comparison operators                 |
-|            |    `<` `<=`      |                                      |
-|            |    `>` `>=`      |                                      |
-|            |   `=~` `!~`      |                                      |
-|     8      |     `not`        | Unary logical operator               |
-|            |    `exists`      | Null check operator                  |
-|     9      |     `and`        | Logical AND                          |
-|     10     |      `or`        | Logical OR                           |
-|     11     | `if/then/else`   | Conditional                          |
+| Precedence |    Operator        | Description                          |
+| :--------: | :----------------: | :----------------------------------- |
+|     1      |      `a()`         | Function call                        |
+|            |      `a[]`         | Member or index access               |
+|            |       `.`          | Member access                        |
+|     2      |  <code>\|></code>  | Pipe forward                         |
+|     3      |    `() => 1`       | FunctionLiteral                      |
+|     4      |       `^`          | Exponentiation                       |
+|     5      |   `*` `/` `%`      | Multiplication, division, and modulo |
+|     6      |     `+` `-`        | Addition and subtraction             |
+|     7      |    `==` `!=`       | Comparison operators                 |
+|            |     `<` `<=`       |                                      |
+|            |     `>` `>=`       |                                      |
+|            |    `=~` `!~`       |                                      |
+|     8      |      `not`         | Unary logical operator               |
+|            |     `exists`       | Null check operator                  |
+|     9      |      `and`         | Logical AND                          |
+|     10     |       `or`         | Logical OR                           |
+|     11     | `if` `then` `else` | Conditional                          |
 
 The operator precedence is encoded directly into the grammar as the following.
 
