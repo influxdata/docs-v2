@@ -27,13 +27,13 @@ This document presents Kapacitor configuration in greater detail.
 Kapacitor service properties are configured using key-value pairs organized into groups.
 Any property key can be located by following its path in the configuration file (for example, `[http].https-enabled` or `[slack].channel`).
 Values for configuration keys are declared in the configuration file.
-On POSIX systems, this file is located by default at the following location:
 
-```
-/etc/kapacitor/kapacitor.conf
-```
+#### Kapacitor configuration file location
+Kapacitor looks for configuration files at specific locations depends on your operating system:
 
-On Windows systems a sample configuration file can be found in the same directory as the `kapacitord.exe`.
+**Linux**: `/etc/kapacitor/kapacitor.conf`
+**macOS**: `/usr/local/etc/kapacitor.conf`
+**Windows**: _same directory as the `kapacitord.exe`._
 
 Define a custom location for your `kapacitor.conf` at startup with the `-config` flag.
 The path to the configuration file can also be declared using the environment variable `KAPACITOR_CONFIG_PATH`.
