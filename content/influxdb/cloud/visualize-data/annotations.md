@@ -38,7 +38,7 @@ Annotations may be useful to highlight operations or anomalies for your team to 
 
    1. Verify the time or time range, and update if needed.
    2. Enter a message (maximum of 255 characters) to associate with the selected time or time range.
-   3. Click **Save Annotation**. The annotation appears in the cell (dotted line lines indicate the selected time or time range).
+   3. Click **Save Annotation**. The annotation appears in the cell (dotted lines indicate the selected time or time range).
 
 ## Edit an annotation
 
