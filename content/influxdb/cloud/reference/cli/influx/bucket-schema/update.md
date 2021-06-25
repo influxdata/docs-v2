@@ -10,7 +10,7 @@ related:
   - /influxdb/cloud/organizations/bucket-schema
 ---
 
-The `influx bucket-schema update` command updates the measurement schema for a
+The `influx bucket-schema update` command updates the measurement schema of a
 bucket in InfluxDB.
 
 `bucket-schema update` requires a bucket with an [`explicit` schema-type](/influxdb/v2.0/reference/cli/influx/bucket/create/#create-a-bucket-with-custom-bucket-schema)
@@ -36,7 +36,7 @@ influx bucket-schema update [flags]
 | `-c` | `--active-config`   | CLI configuration to use for command                                  |   string   |                       |
 | `-n` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                   |   string   |                       |
 | `-i` | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                        |   string   |                       |
-|      | `--columns-file`    | Path to column definitions file                                       |   string   |                       |
+|      | `--columns-file`    | Path to column definitions file. For more information, see [Create a columns file](/influxdb/cloud/reference/cli/influx/bucket-schema/create/#create-a-columns-file).                                                        |   string   |                       |
 |      | `--columns-format`  | Columns file format (`csv`, `ndjson`, `json`, default: `auto`)        |   string   |                       |
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
 | `-x` | `--extended-output` | Print column information for each measurement schema (default: false)        |            |                       |
@@ -54,32 +54,11 @@ influx bucket-schema update [flags]
 
 {{< cli/influx-creds-note >}}
 
-## Columns file syntax
+- [Update a schema using the influx CLI](#update-a-schema-using-the-influx-cli)
+- [Update a schema and print column information](#update-a-schema-and-print-column-information)
+- [Update a schema, specifying the columns format](#update-a-schema-specifying-the-columns-format)
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[columns.csv](#)
-[columns.json](#)
-[columns.ndjson](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sh
-{{< get-assets-text "bucket-schema/bucket-schema-columns.csv" >}}
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{{< get-assets-text "bucket-schema/bucket-schema-columns.json" >}}
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{{< get-assets-text "bucket-schema/bucket-schema-columns.ndjson" >}}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-## Update a bucket schema using the influx CLI
+## Update a schema using the influx CLI
 
 ```sh
 influx bucket-schema update \
@@ -88,7 +67,7 @@ influx bucket-schema update \
   --columns-file columns.csv
 ```
 
-## Update a bucket schema and print column information
+## Update a schema and print column information
 ```sh
 influx bucket-schema update \
   --bucket example-bucket \
@@ -97,7 +76,7 @@ influx bucket-schema update \
   -extended-output
 ```
 
-## Update a bucket schema, specifying the columns format
+## Update a schema, specifying the columns format
 ```sh
 influx bucket-schema update \
   --bucket example-bucket \

@@ -66,3 +66,12 @@ influx bucket create -n <bucket-name> -o <org-name> -r <retention-period-duratio
 # Example
 influx bucket create -n my-bucket -o my-org -r 72h
 ```
+### Create a bucket with an explicit schema
+
+{{% bucket-schema-type %}}
+
+```sh
+{{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
+```
+
+For more information, see [Manage bucket schemas](/influxdb/cloud/organizations/bucket-schema/).

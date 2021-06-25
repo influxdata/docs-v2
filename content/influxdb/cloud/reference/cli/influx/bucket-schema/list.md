@@ -42,14 +42,14 @@ influx bucket-schema list [flags]
 
 {{< cli/influx-creds-note >}}
 
-## List all measurement schema of a bucket
+## List all schema of a bucket
 
 ```sh
 influx bucket-schema list \
   --bucket example-bucket
 ```
 
-## List a single measurement schema of a bucket and print column information
+## List a single schema of a bucket and print column information
 ```sh
 influx bucket-schema list \
   --bucket example-bucket \

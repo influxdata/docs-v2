@@ -19,20 +19,22 @@ The `influx bucket-schema` command and its subcommands manage measurement
 schemas for InfluxDB buckets.
 
 ## Usage
+
 ```
 influx bucket-schema [flags]
 influx bucket-schema [command]
 ```
 
 ## Subcommands
+
 | Subcommand                                                         | Description   |
 |:----------                                                         |:-----------   |
-| [create](/influxdb/v2.0/reference/cli/influx/bucket-schema/create) | Create a bucket schema |
-| [help](/influxdb/v2.0/reference/cli/influx/bucket-schema/help)     | Help for the `bucket-schema` command |
-| [list](/influxdb/v2.0/reference/cli/influx/bucket-schema/list)     | List bucket schemas |
-| [update](/influxdb/v2.0/reference/cli/influx/bucket-schema/update) | Update a bucket schema |
+| [create](/influxdb/cloud/reference/cli/influx/bucket-schema/create) | Create a bucket schema |
+| [list](/influxdb/cloud/reference/cli/influx/bucket-schema/list)     | List bucket schemas |
+| [update](/influxdb/cloud/reference/cli/influx/bucket-schema/update) | Update a bucket schema |
 
 ## Flags
+
 | Flag |                   | Description                                                 | Input type | {{< cli/mapped >}}   |
 |:---- |:---               |:-----------                                                 |:---------- |:------------------   |
 | `-h` | `--help`          | Help for the `bucket-schema` command                        |            |                      |

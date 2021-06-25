@@ -13,7 +13,7 @@ related:
 The `influx bucket-schema create` command creates a measurement schema for an InfluxDB bucket.
 
 {{% note %}}
-{{< bucket-schema-type >}}
+{{< bucket-schema-requires >}}
 ```sh
 {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
 ```
@@ -32,7 +32,7 @@ influx bucket-schema create [flags]
 | `-c` | `--active-config`   | CLI configuration to use for command                                  |   string   |                       |
 | `-n` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                   |   string   |                       |
 | `-i` | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                        |   string   |                       |
-|      | `--columns-file`    | Path to column definitions file                                       |   string   |                       |
+|      | `--columns-file`    | Path to column definitions file. For more information, see [Create a columns file](/influxdb/cloud/reference/cli/influx/bucket-schema/create/#create-a-columns-file).                                                        |   string   |                       |
 |      | `--columns-format`  | Columns file format (`csv`, `ndjson`, `json`, default: `auto`)        |   string   |                       |             
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
 | `-x` | `--extended-output` | Print column information for each measurement schema (default: false)        |            |                       |
@@ -51,8 +51,14 @@ influx bucket-schema create [flags]
 
 {{< cli/influx-creds-note >}}
 
-## Columns file syntax
+- [Create a columns file](#create-a-columns-file)
+- [Create a schema using the influx CLI](#create-a-schema-using-the-influx-cli)
+- [Create a schema and print column information](#create-a-schema-and-print-column-information)
+- [Create a schema, specifying the columns format](#create-a-schema-specifying-the-columns-format)
 
+## Create a columns file
+
+Create a measurement schema *columns file* using CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/). Define the name, type, and data type of each column. For more information, see [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/).
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [columns.csv](#)
@@ -76,7 +82,7 @@ influx bucket-schema create [flags]
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-## Create a bucket schema using the influx CLI
+## Create a schema using the influx CLI
 
 ```sh
 influx bucket-schema create \
@@ -85,7 +91,7 @@ influx bucket-schema create \
   --columns-file columns.csv
 ```
 
-## Create a bucket schema and print column information
+## Create a schema and print column information
 ```sh
 influx bucket-schema create \
   --bucket example-bucket \
@@ -94,7 +100,7 @@ influx bucket-schema create \
   --extended-output
 ```
 
-## Create a bucket schema, specifying the columns format
+## Create a schema, specifying the columns format
 ```sh
 influx bucket-schema create \
   --bucket example-bucket \
