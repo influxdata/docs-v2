@@ -10,9 +10,8 @@ weight: 105
 influxdb/cloud/tags: [buckets, bucket-schema, schema]
 ---
 
-Use *bucket schemas* to restrict a bucket's columns and data types.
+Use **bucket schemas** to ensure data includes specific columns and data types.
 
-A **bucket schema** enforces the shape of data in a bucket.
 Buckets with the `explicit` schema-type allow you to assign your own named bucket schemas
 and reject write requests that do not conform to a schema.
 
