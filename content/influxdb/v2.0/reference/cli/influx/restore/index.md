@@ -52,7 +52,6 @@ influx restore [flags]
 | `-h` | `--help`          | Help for the `restore` command                                        |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-|      | `--input`         | ({{< req >}}) Path to local backup directory                          | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 |      | `--new-bucket`    | Name of the bucket to restore to                                      | string      |                       |
 |      | `--new-org`       | Name of the organization to restore to                                | string      |                       |
@@ -71,8 +70,7 @@ influx restore [flags]
 
 ##### Restore backup data
 ```sh
-influx restore \
-  --input /path/to/backup/dir/
+influx restore /path/to/backup/dir/
 ```
 
 ##### Restore backup data for a specific bucket into a new bucket
@@ -80,7 +78,7 @@ influx restore \
 influx restore \
   --bucket example-bucket \
   --new-bucket new-example-bucket \
-  --input /path/to/backup/dir/
+  /path/to/backup/dir/
 ```
 
 ##### Restore and replace all data
@@ -90,5 +88,5 @@ data such as tokens, dashboards, users, etc.
 {{% /note %}}
 
 ```sh
-influx restore --full --input /path/to/backup/dir/
+influx restore --full /path/to/backup/dir/
 ```

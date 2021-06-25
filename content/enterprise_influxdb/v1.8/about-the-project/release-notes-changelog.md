@@ -12,7 +12,11 @@ menu:
 ## v1.8.6 [2021-05-21]
 
 {{% warn %}}
-**Fine-grained authorization security update.** If you're on InfluxDB Enterprise 1.8.5, we recommend immediately upgrading to this release. An issue was reported in 1.8.5 where grants with specified permissions for users were not enforced. Versions prior to InfluxDB Enterprise 1.8.5 are not affected. This security update ensures that only users with sufficient permissions can read and write to a measurement.
+**Fine-grained authorization security update.**
+If using **InfluxDB Enterprise 1.8.5**, we strongly recommend upgrading to **InfluxDB Enterprise 1.8.6** immediately.
+1.8.5 does not correctly enforce grants with specified permissions for users.
+Versions prior to InfluxDB Enterprise 1.8.5 are not affected.
+1.8.6 ensures that only users with sufficient permissions can read and write to a measurement.
 {{% /warn %}}
 
 ### Features
@@ -34,7 +38,7 @@ menu:
 
 ## v1.8.5 [2020-04-20]
 
-The InfluxDB Enterprise 1.8.5 release builds on the InfluxDB OSS 1.8.5 release.
+The InfluxDB Enterprise v1.8.5 release builds on the InfluxDB OSS v1.8.5 release.
 For details on changes incorporated from the InfluxDB OSS release, see
 [InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v185-2021-04-20).
 

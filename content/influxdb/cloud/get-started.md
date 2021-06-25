@@ -73,3 +73,4 @@ After processing, send the downsampled data to a new bucket to store and view it
 3. Enter a name for your bucket, such as Website monitoring downsampled, and click **Create**.
 4. Click **Run** from the **Preview** dropdown list to run the notebook and write to the output bucket a single time.
 5. To write continuously, click **Export as Task** in the upper right corner of the **Output to Bucket** cell. For details about working with tasks, see [Manage tasks](/influxdb/cloud/process-data/manage-tasks/).
+
