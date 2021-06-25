@@ -38,7 +38,7 @@ influx bucket create [flags]
 | `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                |   string   | `INFLUX_ORG`          |
 |      | `--org-id`               | Organization ID (mutually exclusive with `--org`)                     |   string   | `INFLUX_ORG_ID`       |
 | `-r` | `--retention`            | Duration bucket retains data (0 is infinite, default is 0)            |  duration  |                       |
-|      | `--schema-type`          | Bucket schema type (`explicit`, default `implicit`) _(Cloud only)_         |   string   |                       |
+|      | `--schema-type`          | Bucket schema type (`explicit`, default `implicit`) _(Cloud only)_. For more information, see [Manage bucket schema](/influxdb/cloud/organizations/bucket-schema/).         |   string   |                       |
 |      | `--shard-group-duration` | Bucket shard group duration (OSS only)                                |   string   |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |            |                       |
 | `-t` | `--token`                | Authentication token                                                  |   string   | `INFLUX_TOKEN`        |
@@ -56,6 +56,7 @@ milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and 
 - [Create a bucket that retains data for 30 days](#create-a-bucket-that-retains-data-for-30-days)
 - [Create a bucket with a description](#create-a-bucket-with-a-description)
 - [Create a bucket with a custom shard group duration](#create-a-bucket-with-a-custom-shard-group-duration)
+- [Create a bucket with an explicit schema](#create-a-bucket-with-an-explicit-schema)
 
 ##### Create a bucket with infinite data retention
 

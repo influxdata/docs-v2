@@ -8,15 +8,26 @@ menu:
     parent: Manage organizations
 weight: 105
 influxdb/cloud/tags: [buckets, bucket-schema, schema]
+related:
+  - /influxdb/cloud/reference/key-concepts/
+  - /influxdb/cloud/reference/key-concepts/data-schema/
+  - /influxdb/cloud/reference/key-concepts/data-elements/
 ---
 
-Use **bucket schemas** to ensure data includes specific columns and data types.
+Use **bucket schemas** to ensure data includes specific [columns](/influxdb/cloud/reference/glossary/#column), [fields](/influxdb/cloud/reference/glossary/#field), and
+ [data types](/influxdb/cloud/reference/glossary/#data-type).
 
-Buckets with the `explicit` schema-type allow you to assign your own named bucket schemas
-and reject write requests that do not conform to a schema.
+{{% note %}}
+#### Before you begin
 
-By default, buckets have an `implicit` **schema-type**  which allows you to write data
-without enforcing a particular schema.
+The bucket schema examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/).
+For more information, see [InfluxDB key concepts](/influxdb/cloud/reference/key-concepts/)
+{{% /note %}}
+
+By default, buckets have an `implicit` **schema-type**  that lets you write data
+without restrictions on columns, fields, or data types.
+To require data to have specific columns, fields, and data types and prevent
+non-conforming write requests, create a bucket with an `explicit` schema type.
 
 ### Create a bucket schema
 Use the `influx` CLI to set the schema-type and one or more schemas for your bucket:
@@ -119,7 +130,7 @@ Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/in
 schemas to a bucket.
 
 {{% note %}}
-{{< bucket-schema-type >}}
+{{< bucket-schema-requires >}}
 ```sh
 {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
 ```

@@ -13,7 +13,7 @@ related:
 The `influx bucket-schema create` command creates a measurement schema for an InfluxDB bucket.
 
 {{% note %}}
-{{< bucket-schema-type >}}
+{{< bucket-schema-requires >}}
 ```sh
 {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
 ```
@@ -50,6 +50,11 @@ influx bucket-schema create [flags]
 ## Examples
 
 {{< cli/influx-creds-note >}}
+
+- [Columns file syntax](#columns-file-syntax)
+- [Create a bucket schema using the influx CLI](#create-a-bucket-schema-using-the-influx-cli)
+- [Create a bucket schema and print column information](#create-a-bucket-schema-and-print-column-information)
+- [Create a bucket schema, specifying the columns format](#create-a-bucket-schema-specifying-the-columns-format)
 
 ## Columns file syntax
 

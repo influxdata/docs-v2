@@ -1,4 +1,4 @@
-#### Bucket schema-type
-
-To support bucket schema, the bucket must have the
-[**explicit** schema-type](/influxdb/cloud/reference/cli/influx/bucket/create/#create-a-bucket-for-an-explicit-measurement-schema).
+By default, buckets have an `implicit` **schema-type**  that lets you write data
+without restrictions on columns, fields, or data types.
+To require data to have specific columns, fields, and data types and prevent
+non-conforming write requests, create a bucket with an `explicit` schema type.
