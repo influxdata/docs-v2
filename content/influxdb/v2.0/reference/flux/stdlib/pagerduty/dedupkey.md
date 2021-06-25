@@ -30,7 +30,7 @@ pagerduty.dedupKey(
 ## Parameters
 
 ### exclude
-Exclude group key columns when generating the deduplication key.
+Group key columns to exclude when generating the deduplication key.
 Default is `["_start", "_stop", "_level"]`.
 
 _**Data type:** Array of strings_
