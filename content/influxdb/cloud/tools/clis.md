@@ -13,4 +13,6 @@ Use the `influx` CLI to interact with and manage data in your **InfluxDB** insta
 Write and query data, generate InfluxDB templates, export data, manage organizations
 and users, and more.
 
-_For more information, see the [`influx` reference documentation](/influxdb/cloud/reference/cli/influx/)._
+_For information about setting up and configuring the `influx` CLI, see [Download, install, and use the influx CLI](/influxdb/cloud/sign-up/#optional-download-install-and-use-the-influx-cli)._
+
+_For more information about using the `influx` CLI, see the [`influx` reference documentation](/influxdb/cloud/reference/cli/influx/)._
