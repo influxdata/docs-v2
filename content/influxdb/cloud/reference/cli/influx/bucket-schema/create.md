@@ -13,7 +13,7 @@ related:
 The `influx bucket-schema create` command creates a measurement schema for an InfluxDB bucket.
 
 {{% note %}}
-{{< bucket-schema-requires >}}
+{{< bucket-schema/requires >}}
 ```sh
 {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
 ```

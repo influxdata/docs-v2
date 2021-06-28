@@ -85,7 +85,7 @@ Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/in
 schemas for a bucket.
 
 {{% note %}}
-{{< bucket-schema-requires >}}
+{{< bucket-schema/requires >}}
 ```sh
 {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
 ```
