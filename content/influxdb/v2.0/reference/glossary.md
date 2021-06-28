@@ -551,6 +551,15 @@ Measurements are strings.
 
 Related entries: [field](#field), [series](#series)
 
+### measurement schema
+
+A schema in InfluxDB Cloud that strictly enforces the columns, fields, and data types stored for a measurement. By default, buckets in InfluxDB 2.0 have an `implicit` schema that lets you write data
+without restrictions on columns, fields, or data types.
+
+Learn how to [manage bucket schemas](/influxdb/cloud/organizations/bucket-schema/) in InfluxDB Cloud.
+
+Related entries: [data type](#data-type), [field](#field), [measurement](#measurement)
+
 ### member
 
 A user in an organization.

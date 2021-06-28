@@ -20,6 +20,7 @@ InfluxDB 2.0 includes the following data elements:
 - [tag value](#tag-value)
 - [tag set](#tag-set)
 - [measurement](#measurement)
+- [measurement schema](#measurement-schema)
 - [series](#series)
 - [point](#point)
 - [bucket](#bucket)
@@ -45,6 +46,24 @@ All data stored in InfluxDB has a `_time` column that stores timestamps. On disk
 ## Measurement
 
 The  `_measurement` column shows the name of the measurement `census`. Measurement names are strings. A measurement acts as a container for tags, fields, and timestamps. Use a measurement name that describes your data. The name `census` tells us that the field values record the number of `bees` and `ants`.
+
+## Measurement schema
+
+A measurement schema defines the name, type, and data type of each column in a measurement.
+
+In InfluxDB Cloud, a measurement name and a schema can be assigned to a bucket.
+By default, buckets in InfluxDB 2.0 have an `implicit` schema that lets you write data
+without restrictions on columns, fields, or data types.
+
+A schema that enforces all columns in the sample data might look like the following:
+
+name      | type           | data_type
+|:------- |:---------------|:--------------------
+time      | timestamp      |
+location  | tag            | string
+scientist | tag            | string
+ants      | field          | integer
+bees      | field          | integer
 
 ## Fields
 
