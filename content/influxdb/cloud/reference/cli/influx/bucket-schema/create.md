@@ -58,7 +58,7 @@ influx bucket-schema create [flags]
 
 ## Create a columns file
 
-Create a measurement schema *columns file* using CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/). Define the name, type, and data type of each column. For more information, see [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/).
+Create a measurement schema **columns file** using CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/). Define the name, type, and data type of each column. For more information, see [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/).
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [columns.csv](#)
