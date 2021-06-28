@@ -68,7 +68,7 @@ influx bucket create -n my-bucket -o my-org -r 72h
 ```
 ### Create a bucket with an explicit schema
 
-{{% bucket-schema-type %}}
+{{% bucket-schema/type %}}
 
 ```sh
 {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}

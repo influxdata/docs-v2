@@ -90,8 +90,9 @@ The InfluxDB system has internal defaults for all of the settings in the configu
 
 The local InfluxDB configuration file is located here:
 
-- Linux: `/etc/influxdb/influxdb.conf`
-- macOS: `/usr/local/etc/influxdb.conf`
+- **Linux**: `/etc/influxdb/influxdb.conf`
+- **macOS**: `/usr/local/etc/influxdb.conf`
+- **Windows**: _Same directory as `influxd.exe`_
 
 Settings that are commented out are set to the internal system defaults. Uncommented settings override the internal defaults.
 Note that the local configuration file does not need to include every configuration setting.

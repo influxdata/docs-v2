@@ -1,6 +1,6 @@
 ---
 title: influx bucket-schema list
-description: The `influx bucket-schema list` command lists measurement schema of an InfluxDB bucket.
+description: The `influx bucket-schema list` command lists the measurement schemas of an InfluxDB bucket.
 menu:
   influxdb_cloud_ref:
     name: influx bucket-schema list
@@ -42,14 +42,14 @@ influx bucket-schema list [flags]
 
 {{< cli/influx-creds-note >}}
 
-## List all measurement schema of a bucket
+## List all schema of a bucket
 
 ```sh
 influx bucket-schema list \
   --bucket example-bucket
 ```
 
-## List a single measurement schema of a bucket and print column information
+## List a single schema of a bucket and print column information
 ```sh
 influx bucket-schema list \
   --bucket example-bucket \
