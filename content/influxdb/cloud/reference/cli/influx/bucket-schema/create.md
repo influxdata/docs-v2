@@ -92,6 +92,7 @@ influx bucket-schema create \
 ```
 
 ## Create a schema and print column information
+
 ```sh
 influx bucket-schema create \
   --bucket example-bucket \
@@ -101,6 +102,10 @@ influx bucket-schema create \
 ```
 
 ## Create a schema, specifying the columns format
+
+By default, InfluxDB attempts to detect the **columns file** format.
+If your file's extension isn't *csv*, *json*, or *ndjson* then use the [`columns-format` flag](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to specify the format.
+
 ```sh
 influx bucket-schema create \
   --bucket example-bucket \

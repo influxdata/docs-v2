@@ -56,9 +56,6 @@ For more information, see [Create a columns file](/influxdb/cloud/reference/cli/
    - location of your schema columns file with the `columns-file` flag
    - measurement name with the `name` flag. This will match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data.
 
-   By default, InfluxDB attempts to detect the columns file format.
-   If your file's extension doesn't match csv, json, or ndjson then use the [`columns-format` flag](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to specify the format.
-
    To output schema column details, use the optional `extended-output` flag.
 
    ```sh
