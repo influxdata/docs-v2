@@ -6,7 +6,7 @@ menu:
     parent: About the project
 ---
 
-## v1.6.0 [2021-TK]
+## v1.6.0 [2021-06-28]
 
 **Kapacitor 1.6** introduces Flux task support.
 Use the Flux task to schedule and run Flux tasks against InfluxDB 1.x databases
