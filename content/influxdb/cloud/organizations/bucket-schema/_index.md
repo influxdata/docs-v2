@@ -21,7 +21,7 @@ related:
 #### Before you begin
 
 The bucket schema examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/).
-For more information, see [InfluxDB key concepts](/influxdb/cloud/reference/key-concepts/)
+For more information, see [InfluxDB key concepts](/influxdb/cloud/reference/key-concepts/).
 {{% /note %}}
 
 By default, buckets have an `implicit` **schema-type**  that lets you write data
