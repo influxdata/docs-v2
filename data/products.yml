@@ -29,8 +29,13 @@ chronograf:
   name: Chronograf
   namespace: chronograf
   list_order: 5
-  versions: [v1.6, v1.7, v1.8]
-  latest: v1.8
+  versions: [v1.6, v1.7, v1.8, v1.9]
+  latest: v1.9
+  latest_patches:
+    "1.6": 2
+    "1.7": 17
+    "1.8": 10
+    "1.9": 0
 
 kapacitor:
   name: Kapacitor

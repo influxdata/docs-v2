@@ -1,5 +1,5 @@
     ---
-title: Telegraf 1.18 release notes
+title: Telegraf 1.19 release notes
 description: Important features and changes in the latest version of Telegraf.
 alias:
   - /telegraf/v1.19/reference/release-notes/influxdb/
@@ -10,7 +10,7 @@ menu:
     parent: About the project
 ---
 
-## v1.19.0 [2021-TK-TK]
+## v1.19.0 [2021-06-17]
 
 ### Release Notes
 
@@ -76,6 +76,7 @@ Update Go to 1.16.5.
 - [Intel Data Plane Development Kit (DPDK)](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/dpdk) - Contributed by @p-zak
 - [KNX](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/knx_listener) - Contributed by @DocLambda
 - [OpenTelemetry](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/opentelemetry) - Contributed by @jacobmarble
+- [SQL](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sql) - Contributed by @srebhan
 
 #### Output
 - [AWS Cloudwatch logs](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/cloudwatch_logs) - Contributed by @i-prudnikov
@@ -83,14 +84,16 @@ Update Go to 1.16.5.
 - [Websocket](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/websocket) - Contributed by @FZambia
 
 #### Parser
-- [Prometheus Remote Write](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/prometheusremotewrite) - Contributed by @helenosheaa
-- [JSON V2](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2) - Contributed by @sspaink
+- [Prometheus Remote Write](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/prometheusremotewrite) - Contributed by @influxdata
+- [JSON V2](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2) - Contributed by @influxdata
 
 #### External
 - [Big Blue Button](https://github.com/SLedunois/bigbluebutton-telegraf-plugin) - Contributed by @SLedunois
 - [dnsmasq](https://github.com/machinly/dnsmasq-telegraf-plugin) - Contributed by @machinly
 - [ldap_org and ds389](https://github.com/falon/CSI-telegraf-plugins) - Contributed by @falon
-- [x509_crl](https://github.com/jcgonnard/telegraf-input-x590crl) - Contributed by @jcgonnard## v1.18.3 [2021-05-21]
+- [x509_crl](https://github.com/jcgonnard/telegraf-input-x590crl) - Contributed by @jcgonnard
+
+## v1.18.3 [2021-05-21]
 
 - Add FreeBSD ARMv7 build.
 - Dependencies:
