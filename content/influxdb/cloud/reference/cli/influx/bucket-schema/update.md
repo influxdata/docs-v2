@@ -37,7 +37,7 @@ influx bucket-schema update [flags]
 | `-n` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                   |   string   |                       |
 | `-i` | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                        |   string   |                       |
 |      | `--columns-file`    | Path to column definitions file. For more information, see [Create a columns file](/influxdb/cloud/reference/cli/influx/bucket-schema/create/#create-a-columns-file).                                                        |   string   |                       |
-|      | `--columns-format`  | Columns file format (`csv`, `ndjson`, `json`, default: `auto`)        |   string   |                       |
+|      | `--columns-format`  | Columns file format (`csv`, `ndjson`, `json`, default: `auto`). For more information, see [Create a schema with columns format](#create-a-schema-with-columns-format)        |   string   |                       |
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
 | `-x` | `--extended-output` | Print column information for each measurement schema (default: false)        |            |                       |
 | `-h` | `--help`            | Help for the `create` command                                         |            |                       |
