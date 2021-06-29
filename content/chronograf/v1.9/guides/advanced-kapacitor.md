@@ -6,8 +6,6 @@ menu:
   chronograf_1_9:
     weight: 100
     parent: Guides
-related:
-  - /{{< latest "kapacitor" >}}/working/flux/
 ---
 
 Chronograf provides a user interface for [Kapacitor](/{{< latest "kapacitor" >}}/),
@@ -67,7 +65,7 @@ On this page, you can:
 
 ### Manage Kapacitor Flux tasks
 **Kapacitor 1.6+** supports Flux tasks.
-Chronograf lets you view and manage [Kapacitor Flux tasks](/{{< latest "kapacitor" >}}/working/flux/).
+Chronograf lets you view and manage Kapacitor Flux tasks.
 
 To manage Kapacitor Flux tasks in Chronograf, click
 **{{< icon "alert">}} Alerts** in the left navigation bar.

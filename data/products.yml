@@ -41,12 +41,12 @@ kapacitor:
   name: Kapacitor
   namespace: kapacitor
   list_order: 6
-  versions: [v1.4, v1.5, v1.6]
-  latest: v1.6
+  versions: [v1.4, v1.5]
+  latest: v1.5
   latest_patches:
     "1.4": 1
     "1.5": 9
-    "1.6": 0
+    # "1.6": 0
 
 enterprise_influxdb:
   name: "InfluxDB Enterprise"
