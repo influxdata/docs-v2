@@ -20,6 +20,7 @@ related:
 {{% bucket-schema/type %}}
 
 {{% note %}}
+
 #### Before you begin
 
 The `bucket-schema` examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/).
@@ -96,7 +97,7 @@ schemas for a bucket.
     ```
 
 2. Use the [`influx bucket-schema list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list) to list measurement schemas of a bucket.
-   To output schema column details, use the optional `extended-output` flag.
+   To output schema column details, use the `extended-output` flag.
 
     ```sh
     influx bucket-schema list --bucket my_explicit_bucket --extended-output
