@@ -260,7 +260,7 @@ Find more info [here][{{< enterprise-link >}}]
 ```
 
 ### InfluxDB Cloud Content
-For sections content that relate specifically to InfluxDB Cloud, use the `{{% cloud %}}` shortcode.
+For sections of content that relate specifically to InfluxDB Cloud, use the `{{% cloud %}}` shortcode.
 
 ```md
 {{% cloud %}}
@@ -520,7 +520,7 @@ flowchart TB
 Use the `{{< filesystem-diagram >}}` shortcode to create a styled file system
 diagram using a Markdown unordered list.
 
-##### Example filestsytem diagram shortcode
+##### Example filesystem diagram shortcode
 ```md
 {{< filesystem-diagram >}}
 - Dir1/
@@ -667,6 +667,53 @@ list_code_example: |
   This is a code example
   ```
 ~~~
+
+#### Organize and include native code examples
+To include text from a file in `/assets/text/`, use the
+`{{< get-assets-text >}}` shortcode and provide the relative path and filename.
+
+This is useful for maintaining and referencing sample code variants in their native formats.
+
+1. Store code examples in their native formats at `/assets/text/`.
+  ```md
+    /assets/text/example1/example.js
+    /assets/text/example1/example.py
+  ```
+
+2. Include the files, e.g. in code tabs
+````md
+  ...
+  {{% code-tab-content %}}
+  ```js
+  {{< get-assets-text "example1/example.js" >}}
+  ```
+  {{% /code-tab-content %}}
+  {{% code-tab-content %}}
+  ```py
+  {{< get-assets-text "example1/example.py" >}}
+  ```
+  {{% /code-tab-content %}}
+  ...
+````
+
+To include the text of specific files from the same directory (aka *leaf bundle*) as the referencing file, use the `{{< get-leaf-text >}}` shortcode.
+
+In the following example, `example/_index.md` will
+include the text of `example/config.py`
+```md
+example/
+example/config.py
+example/_index.md
+```
+
+````md
+# This is example/_index.md
+{{< highlight python "hl_lines=15" >}}
+{{< get-leaf-text "config.py" >}}
+{{< /highlight >}}
+````
+
+Avoid using file extensions that Hugo interprets as a markup language.
 
 #### Reference a query example in children
 To include a query example with the children in your list, update `data/query_examples.yml`

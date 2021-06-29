@@ -34,9 +34,9 @@ influx bucket-schema update [flags]
 | Flag |                     | Description                                                           | Input type | {{< cli/mapped >}}    |
 | :--- | :------------------ | :-------------------------------------------------------------------- | :--------: | :-------------------- |
 | `-c` | `--active-config`   | CLI configuration to use for command                                  |   string   |                       |
-| `-n` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                   |   string   |                       |
-| `-i` | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                        |   string   |                       |
-|      | `--columns-file`    | Path to column definitions file. For more information, see [Create a columns file](/influxdb/cloud/reference/cli/influx/bucket-schema/create/#create-a-columns-file).                                                        |   string   |                       |
+| `-n` | `--bucket`          | ({{< req >}}) Bucket name (mutually exclusive with `--bucket-id`)                   |   string   |                       |
+| `-i` | `--bucket-id`       | ({{< req >}}) Bucket ID (mutually exclusive with `--bucket`)                        |   string   |                       |
+|      | `--columns-file`    | ({{< req >}}) Path to column definitions file. For more information, see [Create a columns file](/influxdb/cloud/reference/cli/influx/bucket-schema/create/#create-a-columns-file).                                                        |   string   |                       |
 |      | `--columns-format`  | Columns file format (`csv`, `ndjson`, `json`, default: `auto`). For more information, see [Update a schema with columns format](#update-a-schema-with-columns-format)        |   string   |                       |
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
 | `-x` | `--extended-output` | Print column information for each measurement schema (default: false)        |            |                       |
@@ -44,7 +44,7 @@ influx bucket-schema update [flags]
 |      | `--hide-headers`    | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 |      | `--host`            | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
 |      | `--json`            | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`            | Measurement name                                                      |   string   |                       |
+| `-n` | `--name`            | ({{< req >}}) Measurement name                                                      |   string   |                       |
 | `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                |   string   | `INFLUX_ORG`          |
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                     |   string   | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                     |            |                       |

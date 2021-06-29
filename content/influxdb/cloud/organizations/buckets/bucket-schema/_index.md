@@ -105,42 +105,42 @@ schemas for a bucket.
 
 ### Update a schema
 
-  Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add new columns to a measurement schema. You cannot modify or delete columns in bucket schemas.
+Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add new columns to a measurement schema. You cannot modify or delete columns in bucket schemas.
 
 ### Errors
 
 #### Not permitted by schema
-  If the measurement data doesn't conform to the measurement schema defined for the bucket, InfluxDB returns an error.
+If the measurement data doesn't conform to the measurement schema defined for the bucket, InfluxDB returns an error.
 
-  The following example attempts to write a *cpu* measurement with an incorrect `usage_user` [data type](/influxdb/cloud/reference/glossary/#data-type):
+The following example attempts to write a *cpu* measurement with an incorrect `usage_user` [data type](/influxdb/cloud/reference/glossary/#data-type):
 
-  ```sh
-  influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
-  ```
+```sh
+influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
+```
 
-  The output is the following:
-  ```sh
-  Error: failed to write data:
-  unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
-  schema: field type for field "usage_user" not permitted by schema; got String but expected Float
+The output is the following:
+```sh
+Error: failed to write data:
+unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
+schema: field type for field "usage_user" not permitted by schema; got String but expected Float
   ```
 
 #### No measurement schemas
 If you attempt to write to a bucket that has schema-type `explicit` but doesn't have a measurement schema, the
 bucket rejects write attempts.
 
-  The output is the following:
+The output is the following:
 
-  ```sh
-  Error: failed to write data: schema: bucket "my_explicit_bucket" contains
-  no measurement schemas
-  ```
+```sh
+Error: failed to write data: schema: bucket "my_explicit_bucket" contains
+no measurement schemas
+```
 
 #### Failed to create measurement
-  If you attempt to add a new measurement schema with the
-  same measurement name as an existing schema, InfluxDB rejects the new schema.
+If you attempt to add a new measurement schema with the
+same measurement name as an existing schema, InfluxDB rejects the new schema.
 
-  The output is the following:
-  ```sh
-  Error: failed to create measurement: 422 Unprocessable Entity
-  ```
+The output is the following:
+```sh
+Error: failed to create measurement: 422 Unprocessable Entity
+```
