@@ -6,8 +6,8 @@ const latestVersions = {
   'influxdb': 'v2.0',
   'influxdbv2': 'v2.0',
   'telegraf': 'v1.19',
-  'chronograf': 'v1.8',
-  'kapacitor': 'v1.5',
+  'chronograf': 'v1.9',
+  'kapacitor': 'v1.6',
   'enterprise': 'v1.9',
   };
 
