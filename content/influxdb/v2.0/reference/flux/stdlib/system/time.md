@@ -14,6 +14,7 @@ menu:
 weight: 401
 related:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/
 introduced: 0.18.0
 ---
 

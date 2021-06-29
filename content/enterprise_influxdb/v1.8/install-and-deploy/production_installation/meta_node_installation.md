@@ -95,15 +95,15 @@ Perform the following steps on each meta server.
 ##### Ubuntu & Debian (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.8.5-c1.8.5_amd64.deb
-sudo dpkg -i influxdb-meta_1.8.5-c1.8.5_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat & CentOS (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.5_c1.8.5.x86_64.rpm
-sudo yum localinstall influxdb-meta-1.8.5_c1.8.5.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ##### Verify the authenticity of release download (recommended)
@@ -120,13 +120,13 @@ For added security, follow these steps to verify the signature of your InfluxDB 
    For example:
 
     ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.8.5_c1.8.5.x86_64.rpm.asc
+    wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-meta-1.8.5_c1.8.5.x86_64.rpm.asc influxdb-meta-1.8.5_c1.8.5.x86_64.r
+    gpg --verify influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.r
     ```
 
     The output from this command should include the following:
@@ -229,9 +229,9 @@ The expected output is:
     ==========
     TCP Address               Version
 
-    enterprise-meta-01:8091   1.8.5-c1.8.5
-    enterprise-meta-02:8091   1.8.5-c1.8.5
-    enterprise-meta-03:8091   1.8.5-c1.8.5
+    enterprise-meta-01:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+    enterprise-meta-02:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+    enterprise-meta-03:8091   {{< latest-patch >}}-c{{< latest-patch >}}
 
    {{% /note %}}
 

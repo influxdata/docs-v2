@@ -10,6 +10,10 @@ weight: 401
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/
   - /influxdb/cloud/reference/flux/stdlib/built-in/misc/today/
+related:
+  - /flux/v0.x/stdlib/universe/now/
+  - /flux/v0.x/stdlib/date/truncate/
+  - /flux/v0.x/stdlib/system/time/
 flux/v0.x/tags: [date/time]
 introduced: 0.116.0
 ---

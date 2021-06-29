@@ -11,6 +11,7 @@ menu:
     parent: built-in-misc
 weight: 401
 related:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/
   - /influxdb/v2.0/reference/flux/stdlib/system/time/
 introduced: 0.7.0
 ---

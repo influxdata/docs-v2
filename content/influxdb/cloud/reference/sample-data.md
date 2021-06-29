@@ -28,6 +28,7 @@ The following sample data sets are used as examples in [InfluxDB query guides](/
 
 - [Air sensor sample data](#air-sensor-sample-data)
 - [Bird migration sample data](#bird-migration-sample-data)
+- [NOAA water sample data](#noaa-water-sample-data)
 - [USGS earthquake data](#usgs-earthquake-data)
 
 ### Air sensor sample data

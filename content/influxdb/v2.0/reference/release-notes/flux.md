@@ -8,6 +8,69 @@ menu:
     name: Flux
 ---
 
+## v0.118.1 [2021-06-15]
+- _Internal code cleanup._
+
+---
+
+## v0.118.0 [2021-06-15]
+
+###  Features
+- Add `exclude` parameter to `pagerduty.dedupKey()`.
+
+### Bug fixes
+- Ensure PagerDuty tests include a `_value` column.
+- Add length check to CSV annotation parsing.
+- Change `FunctionLiteral` precedence to preserve parentheses.
+
+---
+
+## v0.117.3 [2021-06-07]
+- _Internal code cleanup._
+
+---
+
+## v0.117.2 [2021-06-07]
+
+### Bug fixes
+- Remove `tabstop` processing from formatter.
+- Support dividing IEEE float values by zero.
+- Fix multiline collapse when formatting function parameters.
+- Reclassify `map type` error as `user` error.
+- Fix acceptance tests to catch different timestamps.
+
+---
+
+## v0.117.1 [2021-06-01]
+
+### Bug fixes
+- Update `group_no_agg_table` acceptance test to run in a consistent order.
+- Remove `xcc.sh` release dependency.
+- Fix `staticcheck` linter failures.
+- Replace erroneous line deletions.
+
+---
+
+## v0.117.0 [2021-05-24]
+
+### Features
+- [`to()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) function
+  writes to a remote InfluxDB instance.
+
+### Bug fixes
+- Fix unexpected behavior caused by going over the Go/Rust boundary multiple times using JSON serialization.
+- Update `Assert_eq!` output.
+- Update `comrak` dependency.
+- Set `CARGO_HOME` after removing privileges.
+- Log uneven columns found when processing tables.
+- Audit and clean up the Docker build image.
+- Switch default InfluxDB port from `9999` to `8086`.
+- Add tests for window offset behavior.
+- Update formatting for conditional expressions.
+- Fix string interpolation for basic types.
+
+---
+
 ## v0.116.0 [2021-05-17]
 
 ## Features
