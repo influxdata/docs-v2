@@ -39,7 +39,7 @@ non-conforming write requests, create a bucket with an `explicit` schema type.
 To view your bucket's schema-type, use the [`influx bucket list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list).
 
 ### Create a bucket schema
-Use the `influx` CLI to set the schema-type and one or more schemas for your bucket:
+Use the `influx` CLI to set the schema-type and one or more measurement schemas for your bucket:
 
 1. Create a schema **columns file** that defines the columns, fields, and data types for your measurement.
 For more information, see [Create a columns file](/influxdb/cloud/reference/cli/influx/bucket-schema/create/#create-a-columns-file).

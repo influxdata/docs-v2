@@ -49,13 +49,11 @@ The  `_measurement` column shows the name of the measurement `census`. Measureme
 
 ## Measurement schema
 
-A measurement schema defines the name, type, and data type of each column in a measurement.
+In InfluxDB Cloud, a measurement schema restricts the name, type, and data type of each column in a measurement.
+A measurement acts as a container for tags, fields, and timestamps.
+A measurement schema constrains the shape of data in that container.
 
-In InfluxDB Cloud, a measurement name and a schema can be assigned to a bucket.
-By default, buckets in InfluxDB 2.0 have an `implicit` schema that lets you write data
-without restrictions on columns, fields, or data types.
-
-A schema that enforces all columns in the sample data might look like the following:
+The following measurement schema defines a `census` measurement:
 
 name      | type           | data_type
 |:------- |:---------------|:--------------------

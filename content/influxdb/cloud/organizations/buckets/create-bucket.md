@@ -70,8 +70,16 @@ influx bucket create -n my-bucket -o my-org -r 72h
 
 {{% bucket-schema/type %}}
 
-```sh
-{{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
-```
+  1. 
+      ```sh
+     {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
+     ```
 
-For more information, see [Manage bucket schemas](/influxdb/cloud/organizations/bucket-schema/).
+  2. Create a bucket schema. For more information, see [Manage bucket schemas](/influxdb/cloud/organizations/bucket-schema/).
+
+      ```sh
+      influx bucket-schema create \
+        --bucket my_schema_bucket \
+        --name temperature \
+        --columns-file schema.json
+      ```
