@@ -12,6 +12,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [data/time]
 related:
+  - /flux/v0.x/stdlib/universe/today/
   - /flux/v0.x/stdlib/system/time/
 introduced: 0.7.0
 ---

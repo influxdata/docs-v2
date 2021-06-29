@@ -39,7 +39,7 @@ from(bucket: "example-bucket")
 
 ## Function definition
 ```js
-toRows = (tables=<-, correlationKey=["_time"]) =>
+toRows = (tables=<-) =>
   tables
     |> v1.fieldsAsCols()
 ```

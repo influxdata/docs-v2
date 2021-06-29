@@ -24,7 +24,7 @@ To send notifications about changes in your data, start by creating a notificati
 3.  Click **{{< icon "plus" >}} Create**.
 4.  From the **Destination** drop-down list, select a destination endpoint to send notifications
 5.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
-6.  Enter enter information to connect to the endpoint:
+6.  Enter information to connect to the endpoint:
 
     - For HTTP, enter the **URL** to send the notification. Select the **auth method** to use: **None** for no authentication. To authenticate with a username and password, select **Basic** and then enter credentials in the **Username** and **Password** fields. To authenticate with a token, select **Bearer**, and then enter the authentication token in the **Token** field.
 

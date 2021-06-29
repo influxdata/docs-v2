@@ -11,6 +11,8 @@ menu:
     name: date.truncate
     parent: date
 weight: 301
+related:
+  - /flux/v0.x/stdlib/universe/today/
 introduced: 0.37.0
 ---
 

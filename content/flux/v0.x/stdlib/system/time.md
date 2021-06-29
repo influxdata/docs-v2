@@ -15,6 +15,7 @@ weight: 401
 flux/v0.x/tags: [date/time]
 related:
   - /flux/v0.x/stdlib/universe/now/
+  - /flux/v0.x/stdlib/universe/today/
 introduced: 0.18.0
 ---
 

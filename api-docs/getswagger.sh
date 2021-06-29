@@ -4,37 +4,110 @@
 # from the influxdata/openapi repo.
 #
 # Specify a context to retrieve (cloud, oss, v1compat, all).
-# Optionally specify an OSS version to write the updated swagger to.
-# The default version is the latest OSS version directory in the api-docs directory
+# Optionally specify:
+# - an OSS version as the second argument or using the -o flag.
+#   The version specifies where to write the updated swagger.
+#   The default version is the latest OSS version directory in the api-docs directory.
+# - a base URL using the -b flag.
+#   The baseURL specifies where to retrieve the swagger files from.
+#   The default baseUrl is the master branch of the influxdata/openapi repo.
+#   For local development, pass your openapi directory using the file:/// protocol.
 #
 # Syntax:
-#   sh ./getswagger.sh <context> <version>
+#   sh ./getswagger.sh <context>
+#   sh ./getswagger.sh <context> -b <baseUrl>
+#   sh .getswagger.sh -c <context> -o <version> -b <baseUrl>
 #
 # Examples:
 #   sh ./getswagger.sh cloud
-#   sh .getswagger.sh oss v2.0
+#   sh ./getswagger.sh -c oss -o v2.0 -b file:///Users/johnsmith/github/openapi
 
 versionDirs=($(ls -d */))
 latestOSS=${versionDirs[${#versionDirs[@]}-1]}
+baseUrl="https://raw.githubusercontent.com/influxdata/openapi/master"
+ossVersion=${latestOSS%/}
+verbose=""
+context=""
 
-context=$1
-version=${2-${latestOSS%/}}
+function showHelp {
+  echo "Usage: ./getswagger.sh <context>"
+  echo "    With optional arguments:"
+  echo "       ./getswagger.sh <context> -b <baseUrl> -V"
+  echo "       ./getswagger.sh oss -o <ossVersion> -V"
+  echo "Commands:"
+  echo "-b <URL> The base URL to fetch from."
+  echo "      ex. ./getswagger.sh -b file:///Users/yourname/github/openapi"
+  echo "      The default is the influxdata/openapi repo master branch."
+  echo "-h Show this help."
+  echo "-o <semantic version> The OSS Version to fetch."
+  echo "      ex. ./getswagger.sh oss -o v2.0"
+  echo "      The default is the latest OSS version directory in the api-docs directory."
+  echo "-V Verbose. Print the processed arguments and verbose Curl output."
+}
+
+subcommand=$1
+
+case "$subcommand" in
+  cloud|oss|v1compat|all)
+    context=$1
+    shift
+
+  while getopts ":o:b:hV" opt; do
+    case ${opt} in
+      h)
+        showHelp
+        exit 0
+        ;;
+      V)
+        verbose="-v"
+        ;;
+      b)
+        baseUrl=$OPTARG
+        ;;
+      o)
+        ossVersion=$OPTARG
+        ;;
+      \?)
+        echo "Invalid option: $OPTARG" 1>&2
+        showHelp
+        ;;
+      :)
+        echo "Invalid option: $OPTARG requires an argument" 1>&2
+        showHelp
+        ;;
+     esac
+  done
+  shift $((OPTIND -1))
+  ;;
+esac
+
+function showArgs {
+  echo "context: $context";
+  echo "baseUrl: $baseUrl";
+  echo "ossVersion: $ossVersion";
+}
 
 function updateCloud {
   echo "Updating Cloud swagger..."
-  curl https://raw.githubusercontent.com/influxdata/openapi/master/contracts/cloud.yml -s -o cloud/swagger.yml
+  curl ${verbose} ${baseUrl}/contracts/cloud.yml -s -o cloud/swagger.yml
 }
 
 function updateOSS {
-  echo "Updating OSS ${version} swagger..."
-  curl https://raw.githubusercontent.com/influxdata/openapi/master/contracts/oss.yml -s -o ${version}/swagger.yml
+  echo "Updating OSS ${ossVersion} swagger..."
+  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrl}/contracts/oss.yml -s -o $_/swagger.yml
 }
 
 function updateV1Compat {
-  echo "Updating Cloud and ${version} v1 compatibilty swagger..."
-  curl https://raw.githubusercontent.com/influxdata/openapi/master/contracts/swaggerV1Compat.yml -s -o cloud/swaggerV1Compat.yml
-  cp cloud/swaggerV1Compat.yml ${version}/swaggerV1Compat.yml
+  echo "Updating Cloud and ${ossVersion} v1 compatibilty swagger..."
+  curl ${verbose} ${baseUrl}/contracts/swaggerV1Compat.yml -s -o cloud/swaggerV1Compat.yml
+  mkdir -p ${ossVersion} && cp cloud/swaggerV1Compat.yml $_/swaggerV1Compat.yml
 }
+
+if [ ! -z ${verbose} ];
+then
+  showArgs
+  echo ""
+fi
 
 if [ "$context" = "cloud" ];
 then
@@ -52,4 +125,5 @@ then
   updateV1Compat
 else
   echo "Provide a context (cloud, oss, v1compat, all)"
+  showHelp
 fi

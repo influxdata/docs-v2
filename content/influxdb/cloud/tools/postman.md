@@ -45,5 +45,5 @@ To test the authentication, enter the root API endpoint of an InfluxDB Cloud URL
 
 ###### InfluxDB API endpoint
 ```
-https://cloud2.influxdata.com/api/v2/
+https://cloud2.influxdata.com/api/v2
 ```

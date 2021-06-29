@@ -150,6 +150,10 @@
       font-size: .9rem;
       font-weight: $medium;
     }
+    
+    &.blue {color: $b-dodger;}
+    &.green {color: $gr-viridian;}
+    &.magenta {color: $p-comet;}
   }
 
   h2,h3,h4,h5,h6 {

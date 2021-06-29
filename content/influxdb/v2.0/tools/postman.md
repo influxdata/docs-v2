@@ -44,5 +44,5 @@ To test the authentication, enter the root endpoint of an InfluxDB OSS instance 
 
 ###### InfluxDB API endpoint
 ```sh
-http://localhost:8086/api/v2/
+http://localhost:8086/api/v2
 ```

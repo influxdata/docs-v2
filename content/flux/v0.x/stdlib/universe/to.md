@@ -23,6 +23,8 @@ The `to()` function writes data to an **InfluxDB v2.0** bucket.
 to(
   bucket: "my-bucket",
   org: "my-org",
+  host: "localhost:8086",
+  token: "mY5uP3rS3cRe7t0k3n",
   timeColumn: "_time",
   tagColumns: ["tag1", "tag2", "tag3"],
   fieldFn: (r) => ({ [r._field]: r._value })
@@ -33,6 +35,8 @@ to(
 to(
   bucketID: "1234567890",
   orgID: "0987654321",
+  host: "localhost:8086",
+  token: "mY5uP3rS3cRe7t0k3n",
   timeColumn: "_time",
   tagColumns: ["tag1", "tag2", "tag3"],
   fieldFn: (r) => ({ [r._field]: r._value })
@@ -61,28 +65,29 @@ You must provide a `bucket` or `bucketID` and an `org` or `orgID`.
 {{% /note %}}
 
 ### bucket {data-type="string"}
-The bucket to write data to.
-`bucket` and `bucketID` are mutually exclusive.
+Bucket to write data to.
+_`bucket` and `bucketID` are mutually exclusive._
 
 ### bucketID {data-type="string"}
-The ID of the bucket to write data to.
-`bucketID` and `bucket` are mutually exclusive.
+Bucket ID to write data to.
+_`bucketID` and `bucket` are mutually exclusive._
 
 ### org {data-type="string"}
-The organization name of the specified [`bucket`](#bucket).
-`org` and `orgID` are mutually exclusive.
+InfluxDB organization name.
+_`org` and `orgID` are mutually exclusive._
 
 ### orgID {data-type="string"}
-The organization ID of the specified [`bucket`](#bucket).
-`orgID` and `org` are mutually exclusive.
+InfluxDB organization ID.
+_`orgID` and `org` are mutually exclusive._
 
 ### host {data-type="string"}
-The remote InfluxDB host to which to write.
-_If specified, a `token` is required._
+InfluxDB host to write to.
+_If specified, a [`token`](#token) is required._
 
 ### token {data-type="string"}
-The authorization token to use when writing to a remote host.
-_Required when a `host` is specified._
+InfluxDB [authorization token](/{{< latest "influxdb" >}}/security/tokens) to
+use when writing to a remote host.
+_Required when a [`host`](#host) is specified._
 
 ### timeColumn {data-type="string"}
 Time column of the output.
