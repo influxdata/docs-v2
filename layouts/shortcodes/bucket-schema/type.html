@@ -1,5 +1,7 @@
 By default, buckets have an `implicit` **schema-type**  that lets you write data
 without restrictions on columns, fields, or data types.
-To require measurements to have specific columns, fields, and data types and prevent
+To require data to have specific columns, fields, and data types and prevent
 non-conforming write requests, create a bucket with an `explicit` schema type
-and create a measurement schema for each measurement in your bucket.
+and create a
+[measurement schema](/influxdb/cloud/reference/key-concepts/data-elements/#measurement-schema)
+for each measurement in your bucket.

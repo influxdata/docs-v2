@@ -17,4 +17,4 @@ A bucket belongs to an organization.
 
 The following articles provide information about managing buckets:
 
-{{< children >}}
+{{< children sort="weight">}}

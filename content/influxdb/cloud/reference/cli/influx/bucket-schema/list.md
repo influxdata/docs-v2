@@ -7,7 +7,7 @@ menu:
     parent: influx bucket-schema
 weight: 201
 related:
-  - /influxdb/cloud/organizations/bucket-schema
+  - /influxdb/cloud/organizations/buckets/bucket-schema
 ---
 
 The `influx bucket-schema list` command lists the measurement schema of an

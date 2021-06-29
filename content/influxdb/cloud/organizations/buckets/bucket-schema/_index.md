@@ -1,12 +1,12 @@
 ---
-title: Manage measurement schemas
-seotitle: Manage measurement schemas in InfluxDB
-description: Manage measurement schemas in InfluxDB using the influx CLI.
+title: Manage bucket schemas
+seotitle: Manage bucket schemas in InfluxDB
+description: Manage bucket schemas in InfluxDB using the influx CLI.
 menu:
   influxdb_cloud:
-    name: Manage measurement schemas
-    parent: Manage organizations
-weight: 105
+    name: Manage bucket schemas
+    parent: Manage buckets
+weight: 250
 influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, schema]
 related:
   - /influxdb/cloud/reference/key-concepts/
@@ -14,8 +14,8 @@ related:
   - /influxdb/cloud/reference/key-concepts/data-elements/
 ---
 
- Use **measurement schemas** to enforce specific [columns](/influxdb/cloud/reference/glossary/#column), [fields](/influxdb/cloud/reference/glossary/#field), and
- [data types](/influxdb/cloud/reference/glossary/#data-type) for your [measurements](/influxdb/cloud/reference/glossary/).
+ Use **bucket schemas** to enforce specific [columns](/influxdb/cloud/reference/glossary/#column), [fields](/influxdb/cloud/reference/glossary/#field), and
+ [data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
 
 {{% bucket-schema/type %}}
 
@@ -34,7 +34,7 @@ For more information, see [InfluxDB key concepts](/influxdb/cloud/reference/key-
 - [Errors](#errors)
 
 ### View bucket schema types
-Only buckets with an `explicit` schema-type allow measurement schemas.
+Only buckets with an `explicit` schema-type allow bucket schemas.
 To view your bucket's schema-type, use the [`influx bucket list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list).
 
 ### Create a bucket schema
@@ -76,7 +76,7 @@ For more information, see [Create a columns file](/influxdb/cloud/reference/cli/
 
 4. To write data to the bucket, use the [`influx write` command](/influxdb/cloud/reference/cli/influx/write).
 
-### Add measurement schemas to a bucket
+### Add schemas to a bucket
 Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to define additional measurement
 schemas for a bucket.
 
