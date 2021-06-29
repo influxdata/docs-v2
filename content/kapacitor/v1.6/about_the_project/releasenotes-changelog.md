@@ -1,12 +1,24 @@
 ---
-title: Release Notes/Changelog
+title: Kapacitor release notes
 description: Important features and changes in the latest version of Kapacitor.
 menu:
   kapacitor_1_6_ref:
     parent: About the project
+    name: Release notes
 ---
 
+## v1.6.1 [TBD]
+
+<!-- placeholder -->
+
 ## v1.6.0 [2021-06-28]
+
+{{% warn %}}
+Kapacitor 1.6.0 includes a defect that could result in a memory leak and expose
+sensitive information.
+If you installed this release, upgrade to **Kapacitor v1.6.1**, which includes
+the features and bug fixes below.
+{{% /warn %}}
 
 **Kapacitor 1.6** introduces Flux task support.
 Use the Flux task to schedule and run Flux tasks against InfluxDB 1.x databases
