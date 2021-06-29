@@ -105,7 +105,7 @@ schemas for a bucket.
 
 ### Update a schema
 
-  Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add new columns to a measurement schema. You cannot modify or delete columns from your schema.
+  Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add new columns to a measurement schema. You cannot modify or delete columns in bucket schemas.
 
 ### Errors
 
