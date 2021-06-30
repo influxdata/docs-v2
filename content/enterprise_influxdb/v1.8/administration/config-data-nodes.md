@@ -356,8 +356,7 @@ Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
 ### `[cluster]`
 
-Settings related to how the data nodes interact with other data nodes.
-Controls how data is shared across shards and the options for query management.
+Settings related to how data nodes interact with each other, how data is shared across shards, and how InfluxQL queries are managed.
 
 An InfluxDB Enterprise cluster uses remote procedure calls (RPCs) for inter-node communication.
 An RPC connection pool manages the stream connections and efficiently uses system resources.
