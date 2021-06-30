@@ -6,6 +6,9 @@ jobs:
         environment:
           HUGO_VERSION: "0.81.0"
           S3DEPLOY_VERSION: "2.3.5"
+          #From https://github.com/bep/s3deploy/releases
+          S3DEPLOY_VERSION_HASH: "95de91ed207ba32abd0df71f9681c1ede952f8358f3510b980b02550254c941a"
+
     steps:
       - checkout
       - restore_cache:
