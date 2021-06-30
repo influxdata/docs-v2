@@ -21,14 +21,12 @@ For more information on security and query parameterization,
 see the [OWASP SQL Injection Prevention Cheat Sheet][].
 While this guide is about SQL, it contains useful general advice.
 {{% /note %}}
-The InfluxDB Cloud [`/api/v2/query` API endpoint](/influxdb/cloud/api/#operation/PostQuery)
-accepts a `params` field in the request body.
-The `params` field is a JSON object with key-value pairs where the key is a parameter name and the value is the parameter value. For example:
 
 The InfluxDB Cloud [`/api/v2/query` API endpoint](/influxdb/cloud/api/#operation/PostQuery)
 accepts a `params` field in the request body.
 The `params` field is a JSON object with key-value pairs where the key is a
-parameter name and the value is the parameter value. For example:
+parameter name and the value is the parameter value.
+For example:
 
 ```json
 "params": {
@@ -37,10 +35,10 @@ parameter name and the value is the parameter value. For example:
 }
 ```
 
-InfluxDB inserts the `params` JSON object into the Flux query as a
+InfluxDB Cloud inserts the `params` JSON object into the Flux query as a
 [Flux record](/influxdb/cloud/query-data/get-started/syntax-basics/#records) named `params`.
 Use dot or bracket notation to access parameters in the `params` record in your Flux query.
-For example, using the example `params` JSON above, the following query:
+For example, using the example `params` JSON above, the following query
 
 ```js
 from(bucket: params.ex1)
@@ -48,13 +46,14 @@ from(bucket: params.ex1)
   |> filter(fn: (r) => r._measurement == params.ex2)
 ```
 
-Would execute as:
+would execute as
 
 ```js
 from(bucket: "foo")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "bar")
 ```
+
 ## Example
 
 To use a parameterized query, do the following:
@@ -96,7 +95,7 @@ Parameterized Flux queries support `int`, `float`, and `string` data types.
 To convert the supported data types into other [Flux data types](/influxdb/cloud/reference/flux/language/types/#basic-types),
 use [Flux type conversion functions](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/).
 
-For example to define the start parameter of the range function using a parameterized duration value:
+For example, to define the `start` parameter of the `range()` function using a parameterized duration value:
 
 1. Use the `duration()` function to convert the `param` value into a duration:
     
@@ -106,7 +105,7 @@ For example to define the start parameter of the range function using a paramete
       |> limit(n:2)
     ```
 
-2. In the `param` field in your query request body, format the duration parameter as a string:
+2. In the `param` field of your query request body, format the duration parameter as a string:
 
     ```json
     {
