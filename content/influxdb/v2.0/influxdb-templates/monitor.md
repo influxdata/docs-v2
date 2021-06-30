@@ -29,9 +29,9 @@ Do the following:
 
 Before you begin, make sure you have access to the following:
 
- - Browser access to an InfluxDB Cloud account ([sign up for free here](https://cloud2.influxdata.com/signup))
- - Command line access to a machine [running InfluxDB OSS 2.x](/influxdb/v2.0/install/) and permissions to install a data collection agent on this machine
- - Internet connectivity from the machine running InfluxDB OSS 2.x and the agent to InfluxDB Cloud (for requesting the configuration and sending metrics)
+ - InfluxDB Cloud account ([sign up for free here](https://cloud2.influxdata.com/signup))
+ - Command line access to a machine [running InfluxDB OSS 2.x](/influxdb/v2.0/install/) and permissions to install Telegraf on this machine
+ - Internet connectivity from the machine running InfluxDB OSS 2.x and Telegraf to InfluxDB Cloud
  - Sufficient resource availability to install the template. InfluxDB Cloud Free Plan accounts include [resource limits](/influxdb/cloud/account-management/pricing-plans/#resource-limits/influxdb/cloud/account-management/pricing-plans/#resource-limits).
 
 ## Install the InfluxDB OSS Monitoring template
@@ -54,9 +54,7 @@ The InfluxDB OSS Monitoring template includes a Telegraf configuration and a das
 By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports Prometheus-style system metrics.
 
 1. If you've changed the default settings to disable the `/metrics` endpoint, re-enable these settings.
-2. To view InfluxDB OSS system metrics in your browser, go to **http://hostname:port/metrics** (by default, the hostname and port is **http://localhost:8086/metrics** if you're on the machine where InfluxDB is hosted).
-    {{< img-hd src="/img/influxdb/2-0-monitor-oss-with-cloud-prom.png" />}}
-   Alternatively, use `curl`to fetch metrics:
+2. To view InfluxDB OSS system metrics in your browser, go to **http://hostname:port/metrics** (by default, the hostname and port is **http://localhost:8086/metrics** if you're on the machine where InfluxDB is hosted). Alternatively, use `curl`to fetch metrics:
       ```sh
       curl http://localhost:8086/metrics
       # HELP boltdb_reads_total Total number of boltdb reads
@@ -72,9 +70,8 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 
 4. Add your InfluxDB Cloud account information (url and organization) to your Telegraf configuration by doing the following:
    1. [In your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Load Data > Telegraf**, and click the **InfluxDB Output Plugin** button.
-   2. Copy the URLs and organization parameters, close the window, and then click the **Scrape InfluxDB OSS Metrics** link.
-   3. Under `outputs.influxdb_v2`, replace the URLs and organization with your InfluxDB Cloud account information.
-      There are four configuration parameters listed: URLs, token, organization, and bucket. Most of the parameters except for bucket use environment variables.
+   2. Copy the URL, token, organization, and bucket, close the window, and then click the **Scrape InfluxDB OSS Metrics** link.
+   3. Under `outputs.influxdb_v2`, replace `URL`, `token`, `organization`, and `bucket`, with your InfluxDB Cloud account information. These parameters use environment variables except for `bucket`.
 
       {{% note %}}
  Use the provided parameter value, `oss_metrics`, for the bucket to maintain compatibility with the included dashboard in the template. We recommend setting an environment variable for the API token on each machine you plan to gather metrics from using Telegraf. This token allows Telegraf to fetch the configuration and write data to your instance.
