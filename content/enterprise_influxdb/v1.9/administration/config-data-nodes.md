@@ -14,7 +14,7 @@ menu:
   * [Enterprise license [enterprise]](#enterprise-license-settings)
   * [Meta node `[meta]`](#meta-node-settings)
   * [Data `[data]`](#data-settings)
-  * [Cluster `[cluster]`](#cluster-settings)
+  * [Cluster `[cluster]` (includes InfluxQL query controls)](#cluster-settings)
   * [Retention `[retention]`](#retention-policy-settings)
   * [Hinted Handoff `[hinted-handoff]`](#hinted-handoff-settings)
   * [Anti-Entropy `[anti-entropy]`](#anti-entropy-ae-settings)
@@ -29,7 +29,6 @@ menu:
   * [UDP `[udp]`](#udp-settings)
   * [Continuous queries `[continuous-queries]`](#continuous-queries-settings)
   * [TLS `[tls]`](#tls-settings)
-  * [InfluxQL Query controls `[coordinator]`](#coordinator)
   * [Flux Query controls `[flux-controller]`](#flux-controller)
 
 ## Data node configuration settings
