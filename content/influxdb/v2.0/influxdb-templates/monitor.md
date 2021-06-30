@@ -98,7 +98,10 @@ For your API token, generate a new token or use an existing All Access token. If
 
 To see your data in real time, view the Monitoring dashboard.
 
-1. In your InfluxDB Cloud account, select Boards (Dashboards).
+1. In your InfluxDB Cloud account, select **Boards** (**Dashboards**).
+
+    {{< nav-icon "dashboards" >}}
+    
 2. Click **InfluxDB OSS Metrics**. If metrics are flowing properly, you should see something like this.
 
 {{< img-hd src="/img/influxdb/2-0-monitor-oss-dashboard.png" />}}
