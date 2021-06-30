@@ -5,7 +5,7 @@ description: >
   a pre-built InfluxDB template.
 menu:
   influxdb_2_0:
-    parent: InfluxDB templates
+    parent: Monitor with templates
     name: Monitor InfluxDB OSS
 weight: 102
 influxdb/v2.0/tags: [templates, monitor]
