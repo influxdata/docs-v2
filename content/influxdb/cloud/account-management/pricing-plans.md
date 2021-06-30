@@ -12,7 +12,6 @@ menu:
     parent: Account management
     name: Pricing plans
 products: [cloud]
-influxdb/cloud/tags: [VPC]
 ---
 
 InfluxDB Cloud offers two pricing plans, which provide different data and resource usage limits:
