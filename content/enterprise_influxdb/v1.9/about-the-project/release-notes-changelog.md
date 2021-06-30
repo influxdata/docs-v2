@@ -9,6 +9,12 @@ menu:
     parent: About the project
 ---
 
+## v1.9.3 [unreleased]
+
+### Features
+
+- Add configurable password hashing supporting `bcrypt` and `pbkdf2`.
+
 ## v1.9.2 [2021-06-17]
 
 The release of InfluxDB Enterprise 1.9 is different from previous InfluxDB Enterprise releases
