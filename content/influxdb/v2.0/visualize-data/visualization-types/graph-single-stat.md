@@ -101,11 +101,13 @@ the visualization dropdown.
   Choose **Background** for the background of the graph to change color based on the configured thresholds.
 
 ###### Legend
-- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+- **Orientation**: Select the orientation of the legend that appears:
   - **Horizontal**: Select to display the legend horizontally.
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.
 - **Colorize Rows**: Select to display legend rows in colors.
+- **Static Legend**: Select **Hide** to hide the legend or if the **Hover Legend Show** option is selected, show the legend only upon hover. Select **Show** to always show the legend.
+
 
 ## Graph + Single Stat examples
 The primary use case for the Graph + Single Stat visualization is to show the current or latest
