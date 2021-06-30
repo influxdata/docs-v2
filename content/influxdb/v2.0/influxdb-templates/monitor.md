@@ -14,7 +14,9 @@ related:
   - /influxdb/v2.0/reference/cli/influx/template/
 ---
 
-Use [InfluxDB Cloud](/influxdb/cloud/) and the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics) to monitor one or more InfluxDB OSS instances. Do the following:
+Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics), and Telegraf to monitor one or more InfluxDB OSS instances. 
+
+Do the following:
 
 1. [Review requirements](#review-requirements)
 2. [Install the InfluxDB OSS Monitoring template](#install-the-influxdb-oss-monitoring-template)
@@ -28,8 +30,8 @@ Use [InfluxDB Cloud](/influxdb/cloud/) and the [InfluxDB Open Source (OSS) Metri
 Before you begin, make sure you have access to the following:
 
  - Browser access to an InfluxDB Cloud account ([sign up for free here](https://cloud2.influxdata.com/signup))
- - Command line access to a machine running InfluxDB OSS 2.x and permissions to install a data collection agent on this machine
- - Internet connectivity from the machine running InfluxDB OSS and the agent to InfluxDB Cloud (for requesting the configuration and sending metrics)
+ - Command line access to a machine [running InfluxDB OSS 2.x](/influxdb/v2.0/install/) and permissions to install a data collection agent on this machine
+ - Internet connectivity from the machine running InfluxDB OSS 2.x and the agent to InfluxDB Cloud (for requesting the configuration and sending metrics)
  - Sufficient resource availability to install the template. InfluxDB Cloud Free Plan accounts include [resource limits](/influxdb/cloud/account-management/pricing-plans/#resource-limits/influxdb/cloud/account-management/pricing-plans/#resource-limits).
 
 ## Install the InfluxDB OSS Monitoring template
@@ -68,7 +70,7 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
       ```
 3. Verify you have access to the `/metrics` endpoint for each monitored InfluxDB OSS instance so [Telegraf](/telegraf/latest/) can collect metrics.
 
-1. Add your InfluxDB Cloud account information (url and organization) to each Telegraf configuration by doing the following:
+4. Add your InfluxDB Cloud account information (url and organization) to your Telegraf configuration by doing the following:
    1. [In your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Load Data > Telegraf**, and click the **InfluxDB Output Plugin** button.
    2. Copy the URLs and organization parameters, close the window, and then click the **Scrape InfluxDB OSS Metrics** link.
    3. Under `outputs.influxdb_v2`, replace the URLs and organization with your InfluxDB Cloud account information.
@@ -86,7 +88,7 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 
 Install and configure Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Cloud account.
 
-Perform the following steps on each InfluxDB OSS instance you want to monitor:
+On each InfluxDB OSS instance you want to monitor, do the following:
 
 1. [Deploy Telegraf](/telegraf/latest/introduction/).
 
@@ -94,7 +96,7 @@ Perform the following steps on each InfluxDB OSS instance you want to monitor:
 
     ```sh
     > telegraf --version
-    Telegraf 1.18.3
+    Telegraf 1.9.0
     ```
 
 3. Configure Telegraf using the setup instructions available in your InfluxDB Cloud account. On the Telegraf page in your InfluxDB Cloud account, you should see a link for `Setup Instructions` for the "Scrape InfluxDB OSS Metrics" Telegraf configuration.
