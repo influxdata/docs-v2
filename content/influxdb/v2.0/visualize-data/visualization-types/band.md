@@ -160,4 +160,3 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.
 - **Colorize Rows**: Select to display legend rows in colors.
-- **Static Legend**: Select **Hide** to hide the legend or if the **Hover Legend Show** option is selected, show the legend only upon hover. Select **Show** to always show the legend.
