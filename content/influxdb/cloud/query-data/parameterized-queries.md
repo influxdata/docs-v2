@@ -1,7 +1,7 @@
 ---
 title: Use parameterized Flux queries
 description: >
-  Use parameterized queries to re-use queries and prevent injection attacks
+  Use parameterized queries to re-use Flux queries and dynamically populate variables and prevent injection attacks.
 weight: 104
 menu:
   influxdb_cloud:
