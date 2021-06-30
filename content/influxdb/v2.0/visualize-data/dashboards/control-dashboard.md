@@ -46,7 +46,7 @@ Click the refresh button (**{{< icon "refresh" >}}**) to manually refresh the da
 
 Click **Enable Auto Refresh**. In the window that appears, configure the following options:
   - **Until**: Select **Indefinite** to automatically refresh continuously. Select **Custom** to set a time to stop automatically refreshing.
-  - **Inactivity Timeout**: Set how long the dashboard should be inactive for to time out and stop automatically refreshing.
+  - **Inactivity Timeout**: Set how long the dashboard should be inactive before timeout stops automatically refreshing the dashboard.
   - **Refresh Interval**: Enter how frequently the dashboard should refresh.
 
 
