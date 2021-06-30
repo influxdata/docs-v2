@@ -10,12 +10,8 @@ menu:
 influxdb/cloud/tags: [query, security]
 ---
 
-Flux supports parameterized queries in InfluxDB Cloud.
-Parameterized queries make Flux queries more reusable, and can also be used to help prevent injection attacks
-
-Use parameterized queries to dynamically change values used in a query without having to re-write it.
-This feature allows users to define the values of variables in a separate field in a request payload.
-A parameterized query enables you to supply arguments which are then inserted into the Flux query for it to be executed.
+InfluxDB Cloud supports **parameterized Flux queries** that let you dynamically change values in a query using the InfluxDB API.
+Parameterized queries make Flux queries more reusable and can also be used to help prevent injection attacks.
 
 Use parameterized queries when executing Flux with untrusted user input;
 for example, in a web or IoT application.
