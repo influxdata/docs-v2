@@ -86,26 +86,14 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 
 ## Download, install, and configure Telegraf
 
-Install and configure Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Cloud account.
+Use Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Cloud account.
 
 On each InfluxDB OSS instance you want to monitor, do the following:
 
-1. [Deploy Telegraf](/telegraf/latest/introduction/).
-
-2. Confirm Telegraf is installed correctly by running the following command:
-
-    ```sh
-    > telegraf --version
-    Telegraf 1.9.0
-    ```
-
-3. Configure Telegraf using the setup instructions available in your InfluxDB Cloud account. On the Telegraf page in your InfluxDB Cloud account, you should see a link for `Setup Instructions` for the "Scrape InfluxDB OSS Metrics" Telegraf configuration.
-Click that link opens the instructions needed to start Telegraf and have it remotely fetch the Telegraf configuration from your InfluxDB Cloud account.
-
+1. [In your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Load Data > Telegraf**.
+2. Under **"**Scrape InfluxDB OSS Metrics**, click **Setup Instructions**, and complete the Telegraf Setup instructions.
       {{% note %}}
-In step 3 of these instructions, to set up an environment variable for your API Token use an All Access token or generate a new token with the correct permissions to fetch the Telegraf configuration and write to the `oss_metrics` bucket.
-Set this environment variable wherever you run Telegraf; we recommend on the same machine running your InfluxDB OSS instance.
-If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
+For your API token, you can use an existing All Access token or generate a new token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
       {{% /note %}}
 
 4. Start Telegraf <using the command provided in Step 3>. This provides Telegraf with the unique URL for the Telegraf Configuration file hosted on within your InfluxDB Cloud account. Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB Cloud account.
