@@ -102,7 +102,7 @@ To see your data in real time, view the Monitoring dashboard.
 
     {{< nav-icon "dashboards" >}}
 
-2. Click **InfluxDB OSS Metrics**. Metrics should appear in your dashboard.
+2. Click **InfluxDB OSS Metrics**. Metrics appear in your dashboard.
 
 Customize your monitoring dashboard as needed. For example, send an alert in the following cases:
 - Users create a new task or bucket
