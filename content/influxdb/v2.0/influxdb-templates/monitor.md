@@ -14,14 +14,14 @@ related:
   - /influxdb/v2.0/reference/cli/influx/template/
 ---
 
-Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics), and Telegraf to monitor one or more InfluxDB OSS instances. 
+Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics), and Telegraf to monitor one or more InfluxDB OSS instances.
 
 Do the following:
 
 1. [Review requirements](#review-requirements)
 2. [Install the InfluxDB OSS Monitoring template](#install-the-influxdb-oss-monitoring-template)
 3. [Set up InfluxDB OSS for monitoring](#set-up-influxdb-oss-for-monitoring)
-4. [Download, install, and configure Telegraf](#download-install-and-configure-telegraf)
+4. [Set up Telegraf](#set-up-telegraf)
 5. [View the Monitoring dashboard](#view-the-monitoring-dashboard)
 6. (Optional) [Alert when metrics stop reporting](#alert-when-metrics-stop-reporting)
 
@@ -84,30 +84,32 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 
       For more information about customizing Telegraf, see [Telegraf configuration documentation](/telegraf/latest/administration/configuration/#global-tags).
 
-## Download, install, and configure Telegraf
+## Set up Telegraf
 
-Use Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Cloud account.
+Set up Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Cloud account.
 
 On each InfluxDB OSS instance you want to monitor, do the following:
 
 1. [In your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Load Data > Telegraf**.
-2. Under **"**Scrape InfluxDB OSS Metrics**, click **Setup Instructions**, and complete the Telegraf Setup instructions.
+2. Under **Scrape InfluxDB OSS Metrics**, click **Setup Instructions**, and complete the Telegraf Setup instructions.
       {{% note %}}
-For your API token, you can use an existing All Access token or generate a new token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
+For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
       {{% /note %}}
-
-4. Start Telegraf <using the command provided in Step 3>. This provides Telegraf with the unique URL for the Telegraf Configuration file hosted on within your InfluxDB Cloud account. Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB Cloud account.
+   Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB Cloud account.
 
 ## View the Monitoring dashboard
 
-To see your data in real time, view the Monitoring dashboard. 
+To see your data in real time, view the Monitoring dashboard.
 
 1. In your InfluxDB Cloud account, select Boards (Dashboards).
-snavigate to the `Boards` area of the app, and then click the `InfluxDB OSS Metrics` dashboard. If metrics are flowing properly, you should see something like this.
+2. Click **InfluxDB OSS Metrics**. If metrics are flowing properly, you should see something like this.
 
 {{< img-hd src="/img/influxdb/2-0-monitor-oss-dashboard.png" />}}
 
-Customize your monitoring dashboard as needed. Add new metrics to monitor and alert on, for example when a user creates a new task or bucket, or when machine limits are being tested.
+Customize your monitoring dashboard as needed. For example, send an alert in the following cases:
+- Users create a new task or bucket
+- You're testing machine limits
+- [Metrics stop reporting](#alert-when-metrics-stop-reporting)
 
 ## Alert when metrics stop reporting
 
