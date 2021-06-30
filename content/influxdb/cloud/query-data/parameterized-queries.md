@@ -18,7 +18,7 @@ Parameterized queries make Flux queries more reusable and can also be used to he
 Use parameterized queries when executing Flux queries with untrusted user input;
 for example, in a web or IoT application.
 For more information on security and query parameterization,
-see the [OWASP SQL Injection Prevention Cheat Sheet][].
+see the [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html#defense-option-1-prepared-statements-with-parameterized-queries).
 While this guide is about SQL, it contains useful general advice.
 {{% /note %}}
 
@@ -115,5 +115,3 @@ For example, to define the `start` parameter of the `range()` function using a p
       }
     }
     ```
-
-[OWASP SQL Injection Prevention Cheat Sheet]: https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html#defense-option-1-prepared-statements-with-parameterized-queries
