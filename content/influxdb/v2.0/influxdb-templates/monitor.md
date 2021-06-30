@@ -101,10 +101,8 @@ To see your data in real time, view the Monitoring dashboard.
 1. In your InfluxDB Cloud account, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
-    
-2. Click **InfluxDB OSS Metrics**. If metrics are flowing properly, you should see something like this.
 
-{{< img-hd src="/img/influxdb/2-0-monitor-oss-dashboard.png" />}}
+2. Click **InfluxDB OSS Metrics**. Metrics should appear in your dashboard.
 
 Customize your monitoring dashboard as needed. For example, send an alert in the following cases:
 - Users create a new task or bucket
