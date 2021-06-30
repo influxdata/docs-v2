@@ -42,14 +42,6 @@ Click the refresh button (**{{< icon "refresh" >}}**) to manually refresh the da
 1. Click the **{{< icon "gear" >}}** on the dashboard cell you want to refresh.
 2. Click **{{< icon "refresh" >}} Refresh**.
 
-### Automatically refresh dashboard
-
-Click **Enable Auto Refresh**. In the window that appears, configure the following options:
-  - **Until**: Select **Indefinite** to automatically refresh continuously. Select **Custom** to set a time to stop automatically refreshing.
-  - **Inactivity Timeout**: Set how long the dashboard should be inactive before timeout stops automatically refreshing the dashboard.
-  - **Refresh Interval**: Enter how frequently the dashboard should refresh.
-
-
 ### Select time range
 
 1. Select from the time range options in the dropdown menu.
