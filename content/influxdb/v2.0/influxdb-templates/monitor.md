@@ -78,7 +78,7 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
       ```
 3. Verify the [Telegraf](/telegraf/latest/)agent has network access to the `/metrics` endpoint for each monitored InfluxDB OSS instance.
 
-4. Add your InfluxDB Cloud account information (url and organization) to your Telegraf configuration by doing the following:
+4. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
    1. [In your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Load Data > Telegraf**, and click the **InfluxDB Output Plugin** button.
    2. Copy the URL, token, organization, and bucket, close the window, and then click the **Scrape InfluxDB OSS Metrics** link.
    3. Under `outputs.influxdb_v2`, replace `URL`, `token`, `organization`, and `bucket`, with your InfluxDB Cloud account information. These parameters use environment variables except for `bucket`.
