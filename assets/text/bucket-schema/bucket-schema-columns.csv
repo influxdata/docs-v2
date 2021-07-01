@@ -1,5 +1,6 @@
 name,type,data_type
 time,timestamp
 host,tag
-usage_user,field,float
-usage_system,field,float
+service,tag
+fsRead,field,double
+fsWrite,field,double

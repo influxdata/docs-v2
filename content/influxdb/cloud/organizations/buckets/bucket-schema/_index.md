@@ -4,17 +4,17 @@ seotitle: Manage bucket schemas in InfluxDB
 description: Manage bucket schemas in InfluxDB. Optionally, ensure data written to InfluxDB follows a specific schema.
 menu:
   influxdb_cloud:
-    name: Manage bucket schemas
+    name: Manage explicit bucket schemas
     parent: Manage buckets
 weight: 250
-influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, schema]
+influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, schema]
 related:
   - /influxdb/cloud/reference/key-concepts/
   - /influxdb/cloud/reference/key-concepts/data-schema/
   - /influxdb/cloud/reference/key-concepts/data-elements/
 ---
 
- Use **bucket schemas** to enforce specific [columns](/influxdb/cloud/reference/glossary/#column), [fields](/influxdb/cloud/reference/glossary/#field), and
+ Use **explicit bucket schemas** to enforce specific [columns](/influxdb/cloud/reference/glossary/#column), [fields](/influxdb/cloud/reference/glossary/#field), and
  [data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
 
 {{% bucket-schema/type %}}
@@ -23,35 +23,53 @@ related:
 
 #### Before you begin
 
-The `bucket-schema` examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/). We recommend reviewing data elements and [InfluxDB key concepts](/influxdb/cloud/reference/key-concepts/) if you aren't familar with these concepts.
+The `bucket-schema` examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/). We recommend reviewing data elements and [InfluxDB key concepts](/influxdb/cloud/reference/key-concepts/) if you aren't familiar with these concepts.
 {{% /note %}}
 
-- [View bucket schema types](#view-bucket-schema-types)
 - [Create a bucket schema](#create-a-bucket-schema)
+- [View bucket schema types](#view-bucket-schema-types)
 - [Add schemas to a bucket](#add-schemas-to-a-bucket)
 - [Update a schema](#update-a-schema)
 - [Errors](#errors)
 
-### View bucket schema types
-Only buckets with an `explicit` schema-type allow bucket schemas.
-To view your bucket's schema-type, use the [`influx bucket list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list).
-
 ### Create a bucket schema
 Use the `influx` CLI to set the schema-type and one or more measurement schemas for your bucket:
 
-1. Create a **columns file** (CSV, JSON, or Newline delimited JSON (NDJSON)) to define the columns, fields, and data types to require for a measurement.
-For more information, see [Create a columns file](/influxdb/cloud/reference/cli/influx/bucket-schema/create/#create-a-columns-file).
-
-2. Create a bucket with the `schema-type` flag set to `explicit`.
+1. Create a bucket with the `schema-type` flag set to `explicit`.
 
     ```sh
     {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
     ```
 
-3. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to create the measurement schema.
+2. Create a schema file for each measurement you want to add. The file defines the column names, tags, fields, and data types to require for a measurement. Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/), as in the following examples:
+
+  {{< code-tabs-wrapper >}}
+  {{% code-tabs %}}
+  [columns.csv](#)
+  [columns.json](#)
+  [columns.ndjson](#)
+  {{% /code-tabs %}}
+  {{% code-tab-content %}}
+  ```sh
+  {{< get-assets-text "bucket-schema/bucket-schema-columns.csv" >}}
+  ```
+  {{% /code-tab-content %}}
+  {{% code-tab-content %}}
+  ```json
+  {{< get-assets-text "bucket-schema/bucket-schema-columns.json" >}}
+  ```
+  {{% /code-tab-content %}}
+  {{% code-tab-content %}}
+  ```json
+  {{< get-assets-text "bucket-schema/bucket-schema-columns.ndjson" >}}
+  ```
+  {{% /code-tab-content %}}
+  {{< /code-tabs-wrapper >}}
+
+3. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to add the schema file for each measurement to your bucket.
 
    Provide the following:
-   - location of your columns file with the `columns-file` flag
+   - location of your file with the `columns-file` flag
    - measurement name with the `name` flag. This will match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data.
 
    To output measurement schema column details, use the `extended-output` flag.
@@ -74,6 +92,10 @@ For more information, see [Create a columns file](/influxdb/cloud/reference/cli/
    ```
 
 4. To write data to the bucket, use the [`influx write` command](/influxdb/cloud/reference/cli/influx/write).
+
+### View bucket schema types
+Only buckets with an `explicit` schema-type allow bucket schemas.
+To view your bucket's schema-type, use the [`influx bucket list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list).
 
 ### Add schemas to a bucket
 Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to define additional measurement

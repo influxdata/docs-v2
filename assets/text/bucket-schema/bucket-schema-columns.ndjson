@@ -1,4 +1,5 @@
 {"name": "time", "type": "timestamp"}
-{"name": "host", "type": "tag"}
-{"name": "usage_user", "type": "field", "dataType": "float"}
-{"name": "usage_system", "type": "field", "dataType": "float"}
+{"name": "service", "type": "tag"}
+{"name": "sensor", "type": "tag"}
+{"name": "temperature", "type": "field", "dataType": "float"}
+{"name": "humidity", "type": "field", "dataType": "float"}

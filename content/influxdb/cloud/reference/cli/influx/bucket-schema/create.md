@@ -56,32 +56,6 @@ influx bucket-schema create [flags]
 - [Create a schema and print column information](#create-a-schema-and-print-column-information)
 - [Create a schema with columns format](#create-a-schema-with-columns-format)
 
-## Create a columns file
-
-Create a measurement schema **columns file** using CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/). Define the name, type, and data type of each column. For more information, see [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/).
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[columns.csv](#)
-[columns.json](#)
-[columns.ndjson](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sh
-{{< get-assets-text "bucket-schema/bucket-schema-columns.csv" >}}
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{{< get-assets-text "bucket-schema/bucket-schema-columns.json" >}}
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{{< get-assets-text "bucket-schema/bucket-schema-columns.ndjson" >}}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 ## Create a schema using the influx CLI
 
 ```sh
