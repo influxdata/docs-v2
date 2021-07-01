@@ -23,8 +23,7 @@ related:
 
 #### Before you begin
 
-The `bucket-schema` examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/).
-For more information, see [InfluxDB key concepts](/influxdb/cloud/reference/key-concepts/).
+The `bucket-schema` examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/). We recommend reviewing data elements and [InfluxDB key concepts](/influxdb/cloud/reference/key-concepts/) if you aren't familar with these concepts.
 {{% /note %}}
 
 - [View bucket schema types](#view-bucket-schema-types)
