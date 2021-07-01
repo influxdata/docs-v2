@@ -40,7 +40,9 @@ The InfluxDB OSS Monitoring template includes a Telegraf configuration that send
 
 1. [Log into your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Settings > Templates**, and enter the following template URL:
 
-    `https://raw.githubusercontent.com/influxdata/community-templates/master/influxdb2_oss_metrics/influxdb2_oss_metrics.yml`
+    ```
+    https://raw.githubusercontent.com/influxdata/community-templates/master/influxdb2_oss_metrics/influxdb2_oss_metrics.yml
+    ```
 
 2. Click **Lookup Template**, and then click **Install Template**. InfluxDB Cloud imports the template, which includes the following resources:
    - Dashboard `InfluxDB OSS Metrics`
