@@ -46,7 +46,7 @@ The InfluxDB OSS Monitoring template includes a Telegraf configuration that send
 
 2. Click **Lookup Template**, and then click **Install Template**. InfluxDB Cloud imports the template, which includes the following resources:
    - Dashboard `InfluxDB OSS Metrics`
-   - Telegraf configuration `scrape-infludb-oss-telegraf`
+   - Telegraf configuration `scrape-influxdb-oss-telegraf`
    - Bucket `oss_metrics`
    - Check `InfluxDB OSS Deadman`
    - Labels `influxdb2` and `prometheus`
