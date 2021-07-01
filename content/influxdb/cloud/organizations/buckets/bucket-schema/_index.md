@@ -117,7 +117,7 @@ In the following example, the *cpu* measurement has an incorrect `usage_user` [d
 influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
 ```
 
-The output is the following:
+The following error occurs:
 ```sh
 Error: failed to write data:
 unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
