@@ -36,7 +36,7 @@ Before you begin, make sure you have access to the following:
 
 ## Install the InfluxDB OSS Monitoring template
 
-The InfluxDB OSS Monitoring template includes a Telegraf configuration and a dashboard, making it easy to set up and monitor OSS.
+The InfluxDB OSS Monitoring template includes a Telegraf configuration that sends InfluxDB OSS metrics to an InfluxDB endpoint and a dashboard that visualizes the metrics.
 
 1. [Log into your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Settings > Templates**, and enter the following template URL:
 
