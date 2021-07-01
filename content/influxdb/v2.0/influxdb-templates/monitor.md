@@ -87,7 +87,15 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 To ensure the InfluxDB OSS monitoring dashboard can display the recorded metrics, set the destination bucket name to `oss_metrics` in your `telegraf.conf`.
       {{% /note %}}
 
-   4. Under `[[inputs.prometheus]]` update parameters to tell Telegraf how to scrape metrics from the `/metrics` endpoint of each InfluxDB OSS instance. You'll find the default InfluxDB OSS URL here, but if you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
+   4. Add the [Prometheus input plugin](https://github.com/influxdata/telegraf/blob/release-1.19/plugins/inputs/prometheus/README.md) to your `telegraf.conf`. Specify your your InfluxDB OSS URL(s) in the `urls` parameter. For example:
+   
+    {{< keep-url >}}
+     ```toml
+     [[inputs.prometheus]]
+       urls = ["http://localhost:8086/metrics"]
+     ``` 
+     
+     If you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
 
       For more information about customizing Telegraf, see [Telegraf configuration documentation](/telegraf/latest/administration/configuration/#global-tags).
 
