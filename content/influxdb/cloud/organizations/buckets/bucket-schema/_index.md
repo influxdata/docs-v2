@@ -39,7 +39,7 @@ To view your bucket's schema-type, use the [`influx bucket list` command](/influ
 ### Create a bucket schema
 Use the `influx` CLI to set the schema-type and one or more measurement schemas for your bucket:
 
-1. Create a **columns file** that defines the columns, fields, and data types for your measurement.
+1. Create a **columns file** (CSV, JSON, or Newline delimited JSON (NDJSON)) to define the columns, fields, and data types to require for a measurement.
 For more information, see [Create a columns file](/influxdb/cloud/reference/cli/influx/bucket-schema/create/#create-a-columns-file).
 
 2. Create a bucket with the `schema-type` flag set to `explicit`.
