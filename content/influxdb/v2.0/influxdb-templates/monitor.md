@@ -55,7 +55,7 @@ The InfluxDB OSS Monitoring template includes a Telegraf configuration that send
 
 By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports Prometheus-style system metrics.
 
-1. If you've changed the default settings to disable the `/metrics` endpoint, re-enable these settings.
+1. If you've changed the default settings to disable the `/metrics` endpoint, [re-enable these settings](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
 2. To view InfluxDB OSS system metrics in your browser, go to **http://hostname:port/metrics** (by default, the hostname and port is **http://localhost:8086/metrics** if you're on the machine where InfluxDB is hosted). Alternatively, use `curl`to fetch metrics:
       ```sh
       curl http://localhost:8086/metrics
