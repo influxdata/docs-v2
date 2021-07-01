@@ -116,7 +116,7 @@ For your API token, generate a new token or use an existing All Access token. If
 
 To see your data in real time, view the Monitoring dashboard.
 
-1. In your InfluxDB Cloud account, select **Boards** (**Dashboards**).
+1. In your **InfluxDB Cloud** account, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
