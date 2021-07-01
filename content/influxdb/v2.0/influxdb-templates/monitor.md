@@ -97,7 +97,7 @@ To ensure the InfluxDB OSS monitoring dashboard can display the recorded metrics
      
      If you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
 
-      For more information about customizing Telegraf, see [Telegraf configuration documentation](/telegraf/latest/administration/configuration/#global-tags).
+      For more information about customizing Telegraf, see [Configure Telegraf](/{{< latest "telegraf" >}}/administration/configuration/#global-tags).
 
 ## Set up Telegraf
 
