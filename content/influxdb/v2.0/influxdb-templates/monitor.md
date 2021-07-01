@@ -84,7 +84,7 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
    3. Under `outputs.influxdb_v2`, replace `URL`, `token`, `organization`, and `bucket`, with your InfluxDB Cloud account information. Set the `INFLUX_TOKEN` environment variable in your Telegraf environment to your InfluxDB Cloud authentication token.
 
       {{% note %}}
- Use the provided parameter value, `oss_metrics`, for the bucket to maintain compatibility with the included dashboard in the template. We recommend setting an environment variable for the API token on each machine you plan to gather metrics from using Telegraf. This token allows Telegraf to fetch the configuration and write data to your instance.
+To ensure the InfluxDB OSS monitoring dashboard can display the recorded metrics, set the destination bucket name to `oss_metrics` in your `telegraf.conf`.
       {{% /note %}}
 
    4. Under `[[inputs.prometheus]]` update parameters to tell Telegraf how to scrape metrics from the `/metrics` endpoint of each InfluxDB OSS instance. You'll find the default InfluxDB OSS URL here, but if you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
