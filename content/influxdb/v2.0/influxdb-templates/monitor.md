@@ -129,7 +129,7 @@ Customize your monitoring dashboard as needed. For example, send an alert in the
 
 ## Alert when metrics stop reporting
 
-To ensure data is always flowing from your InfluxDB OSS instances into your InfluxDB Cloud account, create an alert.
+To ensure data is always flowing from your InfluxDB OSS instances into your InfluxDB Cloud account, create a deadman alert.
 
 1. The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert/checks/create/#deadman-check); to view it by navigating to the `Alerts` section of your InfluxDB Cloud account.
 
