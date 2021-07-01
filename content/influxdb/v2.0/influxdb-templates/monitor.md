@@ -140,5 +140,5 @@ To ensure data is always flowing from your InfluxDB OSS instances into your Infl
 
 To alert when metrics stop reporting, configure a notification rule and endpoint. Use [Slack Webhooks](https://api.slack.com/messaging/webhooks) to quickly send messages to any Slack channel, or u[pgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints. For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/).
 
-Finally, the Slack Endpoint can be used to create a [Notification Rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to send you a 
-message whenever there is an outage. Check out the documentation for [creating Notification rules in the UI](/influxdb/cloud/monitor-alert/notification-rules/create/).
+[Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to send a 
+message to a specified notification endpoint whenever there is an outage.
