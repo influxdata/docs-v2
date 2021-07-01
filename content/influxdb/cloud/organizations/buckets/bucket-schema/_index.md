@@ -111,7 +111,7 @@ Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/in
 #### Not permitted by schema
 If the measurement data doesn't conform to the measurement schema defined for the bucket, InfluxDB returns an error.
 
-The following example attempts to write a *cpu* measurement with an incorrect `usage_user` [data type](/influxdb/cloud/reference/glossary/#data-type):
+In the following example, the *cpu* measurement has an incorrect `usage_user` [data type](/influxdb/cloud/reference/glossary/#data-type):
 
 ```sh
 influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
