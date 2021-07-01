@@ -21,21 +21,16 @@ Add annotations to your dashboards to provide useful, contextual information abo
 Annotations may be useful to highlight operations or anomalies for your team to reference.
 {{% /note %}}
 
-{{< youtube 5NEplCesNAc >}}
-
+<!-- {{< youtube 5NEplCesNAc >}} --->
 ## Create an annotation
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
-2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/).
-3. Click **Annotations**. The **Show Annotations** option is selected by default.
-4. Select the **Enable 1-Click Annotations** option, and then in any dashboard cell, click the point in time to add the annotation.
-  {{% note %}}
-**Tip:** To move the annotation outside of the selected graph time range, first create the annotation, and then [edit the annotation](#edit-an-annotation) to update the timestamp as needed.
-  {{% /note %}}
-5. On the **Add Annotation** page:
+2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/). The **Annotations** option is selected by default.
+3. In a dashboard cell, add an annotation by pressing Shift+click on a a single point in time .
+4. On the **Add Annotation** page:
 
    1. Verify the start time, and update if needed.
    2. Enter a message (maximum of 255 characters) to associate with the selected start time.
@@ -59,9 +54,9 @@ Select or clear the **Show Annotations** option to hide or show annotations.
 
     {{< nav-icon "dashboards" >}}
 
-2. Open a dashboard with annotations, click **Annotations**, and then do one of the following:
-   - To hide annotations, clear the **Show Annotations** option.
-   - To show annotations, select the **Show Annotations** option.
+2. Open a dashboard with annotations:
+   - To hide annotations, click the **Annotations** button. The button is gray when annotations are hidden.
+   - To show annotations, click the **Annotations** button. The button is purple when annotations are visible.
 
 ## Delete an annotation
 
