@@ -1,7 +1,7 @@
 ---
 title: Manage bucket schemas
 seotitle: Manage bucket schemas in InfluxDB
-description: Manage bucket schemas in InfluxDB using the influx CLI.
+description: Manage bucket schemas in InfluxDB. Optionally, ensure data written to InfluxDB follows a specific schema.
 menu:
   influxdb_cloud:
     name: Manage bucket schemas
