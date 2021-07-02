@@ -1,6 +1,6 @@
 ---
 title: influx bucket-schema create
-description: The `influx bucket-schema create` command creates a measurement schema for an InfluxDB bucket.
+description: The `influx bucket-schema create` command sets the schema for a measurement in an InfluxDB bucket that has the `explicit` schema-type.
 menu:
   influxdb_cloud_ref:
     name: influx bucket-schema create
@@ -10,7 +10,7 @@ related:
   - /influxdb/cloud/organizations/buckets/bucket-schema
 ---
 
-The `influx bucket-schema create` command creates a measurement schema for an InfluxDB bucket.
+The `influx bucket-schema create` command sets the schema for a measurement in an InfluxDB bucket that has the `explicit` schema-type.
 
 {{% note %}}
 {{< bucket-schema/requires >}}

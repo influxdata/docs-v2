@@ -14,10 +14,13 @@ related:
   - /influxdb/cloud/reference/key-concepts/data-elements/
 ---
 
- Use **explicit bucket schemas** to enforce specific [columns](/influxdb/cloud/reference/glossary/#column), [fields](/influxdb/cloud/reference/glossary/#field), and
- [data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
+A bucket schema defines requirements for one or more measurements.
+Use **explicit bucket schemas** to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#field), [fields](/influxdb/cloud/reference/glossary/#field), and
+[data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
 
 {{% bucket-schema/type %}}
+
+After you create a bucket schema, you're ready to [write data](/influxdb/cloud/write-data/) to your bucket.
 
 {{% note %}}
 
@@ -28,7 +31,6 @@ The `bucket-schema` examples below reference [**InfluxDB data elements**](/influ
 
 - [Create a bucket schema](#create-a-bucket-schema)
 - [View bucket schema types](#view-bucket-schema-types)
-- [Add schemas to a bucket](#add-schemas-to-a-bucket)
 - [Update a schema](#update-a-schema)
 - [Errors](#errors)
 
@@ -41,97 +43,96 @@ Use the `influx` CLI to set the schema-type and one or more measurement schemas 
     {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
     ```
 
-2. Create a schema file for each measurement you want to add. The file defines the column names, tags, fields, and data types to require for a measurement. Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/), as in the following examples:
+2. Use your text editor to create a schema file for each measurement you want to add. The file defines the column names, tags, fields, and data types to require for a measurement. Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/), as in the following examples:
 
   {{< code-tabs-wrapper >}}
   {{% code-tabs %}}
-  [columns.csv](#)
-  [columns.json](#)
-  [columns.ndjson](#)
+  [usage-resources.csv](#)
+  [usage-cpu.json](#)
+  [sensor.ndjson](#)
   {{% /code-tabs %}}
   {{% code-tab-content %}}
   ```sh
-  {{< get-assets-text "bucket-schema/bucket-schema-columns.csv" >}}
+  {{< get-assets-text "bucket-schema/usage-system.csv" >}}
   ```
   {{% /code-tab-content %}}
   {{% code-tab-content %}}
   ```json
-  {{< get-assets-text "bucket-schema/bucket-schema-columns.json" >}}
+  {{< get-assets-text "bucket-schema/usage-cpu.json" >}}
   ```
   {{% /code-tab-content %}}
   {{% code-tab-content %}}
   ```json
-  {{< get-assets-text "bucket-schema/bucket-schema-columns.ndjson" >}}
+  {{< get-assets-text "bucket-schema/sensor.ndjson" >}}
   ```
   {{% /code-tab-content %}}
   {{< /code-tabs-wrapper >}}
 
-3. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to add the schema file for each measurement to your bucket.
+3. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to add the schema for each measurement to your bucket.
 
-   Provide the following:
-   - location of your file with the `columns-file` flag
-   - measurement name with the `name` flag. This will match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data.
+  Provide the following:
+  - location of your file with the `columns-file` flag
+  - measurement name with the `name` flag. This will match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data.
 
-   To output measurement schema column details, use the `extended-output` flag.
+  ```sh
+  influx bucket-schema create \
+   --bucket my_explicit_bucket \
+   --name usage_resources \
+   --columns-file usage-resources.csv
 
-   ```sh
-   influx bucket-schema create \
-     --bucket my_explicit_bucket \
-     --name cpu \
-     --columns-file columns.csv \
-     --extended-output
-   ```
+  influx bucket-schema create \
+   --bucket my_explicit_bucket \
+   --name usage_cpu \
+   --columns-file usage-cpu.json
 
-   The output is the following:
-
-   ```sh
-   ID                      Measurement Name       Column Name     Column Type   Column Data Type    Bucket ID
-   <schema-id>             cpu                    time            timestamp                        <bucket-id>
-   <schema-id>             cpu                    host            tag                              <bucket-id>
-   <schema-id>             cpu                    usage_user      field         float              <bucket-id>
-   ```
-
-4. To write data to the bucket, use the [`influx write` command](/influxdb/cloud/reference/cli/influx/write).
+  influx bucket-schema create \
+   --bucket my_explicit_bucket \
+   --name sensor \
+   --columns-file sensor.ndjson     
+  ```
 
 ### View bucket schema types
 Only buckets with an `explicit` schema-type allow bucket schemas.
 To view your bucket's schema-type, use the [`influx bucket list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list).
 
-### Add schemas to a bucket
-Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to define additional measurement
-schemas for a bucket.
-
-{{% note %}}
-{{< bucket-schema/requires >}}
-```sh
-{{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
-```
-{{% /note %}}
-
-1. Add a measurement schema to define the new measurement.
-
-    ```sh
-    influx bucket-schema create \
-      --bucket my_explicit_bucket \
-      --name temperature \
-      --columns-file schema.json
-    ```
-
-2. Use the [`influx bucket-schema list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list) to list measurement schemas of a bucket.
-   To output schema column details, use the `extended-output` flag.
-
-    ```sh
-    influx bucket-schema list --bucket my_explicit_bucket --extended-output
-    ```
-
 ### Update a schema
 
-Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add new columns to a measurement schema. You cannot modify or delete columns in bucket schemas.
+Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add new columns to a schema. You cannot modify or delete columns in bucket schemas.
+
+1. View explicit bucket schemas. Use the [`extended-output` flag](/influxdb/cloud/reference/cli/influx/bucket-schema/list#list-all-schema-of-a-bucket-and-print-column-information) to view column details.
+
+```sh
+influx bucket-schema list \
+  --bucket my_explicit_bucket \
+  --extended-output
+```
+
+InfluxDB returns schema column details:
+
+```sh
+ID                      Measurement Name        Column Name     Column Type     Column Data Type   Bucket ID
+07c62z721z2ca000        sensor                  time            timestamp                          a7d5558b880a95da
+07c62z721z2ca000        sensor                  service         tag                                a7d5558b880a95da
+07c62z721z2ca000        sensor                  sensor          tag                                a7d5558b880a95da
+07c62z721z2ca000        sensor                  temperature     field           float              a7d5558b880a95da
+07c62z721z2ca000        sensor                  humidity        field           float              a7d5558b880a95da
+```
+
+2. In your text editor, add new columns to the schema file.
+
+3. Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add the new columns to the schema.
+
+```sh
+influx bucket-schema update \
+  --bucket my_explicit_bucket \
+  --name sensor \
+  --columns-file sensor.ndjson \
+```
 
 ### Errors
 
 #### Not permitted by schema
-If the measurement data doesn't conform to the measurement schema defined for the bucket, InfluxDB returns an error.
+If data in the write request doesn't conform to the defined schema, InfluxDB returns an error.
 
 In the following example, the *cpu* measurement has an incorrect `usage_user` [data type](/influxdb/cloud/reference/glossary/#data-type):
 
@@ -140,6 +141,7 @@ influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326
 ```
 
 The following error occurs:
+
 ```sh
 Error: failed to write data:
 unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
@@ -147,10 +149,8 @@ schema: field type for field "usage_user" not permitted by schema; got String bu
   ```
 
 #### No measurement schemas
-If you attempt to write to a bucket that has schema-type `explicit` but doesn't have a measurement schema, the
-bucket rejects write attempts.
-
-The output is the following:
+If you attempt to write to a bucket that has schema-type `explicit` that doesn't have a measurement schema, the
+bucket rejects write attempts and returns the following error:
 
 ```sh
 Error: failed to write data: schema: bucket "my_explicit_bucket" contains
@@ -158,10 +158,8 @@ no measurement schemas
 ```
 
 #### Failed to create measurement
-If you attempt to add a new measurement schema with the
-same measurement name as an existing schema, InfluxDB rejects the new schema.
+If you attempt to `create` a schema for an existing measurement name, InfluxDB rejects the new schema and returns the following error:
 
-The output is the following:
 ```sh
 Error: failed to create measurement: 422 Unprocessable Entity
 ```

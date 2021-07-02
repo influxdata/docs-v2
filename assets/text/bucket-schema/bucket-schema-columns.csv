@@ -1,6 +1,0 @@
-name,type,data_type
-time,timestamp
-host,tag
-service,tag
-fsRead,field,double
-fsWrite,field,double

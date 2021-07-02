@@ -47,22 +47,6 @@ All data stored in InfluxDB has a `_time` column that stores timestamps. On disk
 
 The  `_measurement` column shows the name of the measurement `census`. Measurement names are strings. A measurement acts as a container for tags, fields, and timestamps. Use a measurement name that describes your data. The name `census` tells us that the field values record the number of `bees` and `ants`.
 
-## Measurement schema
-
-In InfluxDB Cloud, a measurement schema restricts the name, type, and data type of each column in a measurement.
-A measurement acts as a container for tags, fields, and timestamps.
-A measurement schema constrains the shape of data in that container.
-
-The following measurement schema defines a `census` measurement:
-
-name      | type           | data_type
-|:------- |:---------------|:--------------------
-time      | timestamp      |
-location  | tag            | string
-scientist | tag            | string
-ants      | field          | integer
-bees      | field          | integer
-
 ## Fields
 
 A field includes a field key stored in the `_field` column and a field value stored in the `_value` column.
@@ -156,6 +140,23 @@ InfluxDB scans every field value in the dataset for `bees` before the query retu
 | 2019-08-18T00:06:00Z | census       | 32                               | scientist                              | mullen                                   |
 
 Now that `bees` and `ants` are tags, InfluxDB doesn't have to scan all `_field` and `_value` columns. This makes your queries faster.
+
+## Bucket schema
+
+In InfluxDB Cloud, a bucket with the `explicit` schema-type requires an explicit
+schema for each measurement.
+Measurements contain tags, fields, and timestamps.
+An explicit schema constrains the shape of data that can be written to that measurement.
+
+The following schema constrains `census` data:
+
+name      | type           | data_type
+|:------- |:---------------|:--------------------
+time      | timestamp      |
+location  | tag            | string
+scientist | tag            | string
+ants      | field          | integer
+bees      | field          | integer
 
 ## Series
 

@@ -1,6 +1,6 @@
 ---
 title: influx bucket-schema update
-description: The `influx bucket-schema update` command updates a measurement schema for an InfluxDB bucket.
+description: The `influx bucket-schema update` command updates the schema of an InfluxDB bucket that has the `explicit` schema-type.
 menu:
   influxdb_cloud_ref:
     name: influx bucket-schema update
@@ -10,11 +10,10 @@ related:
   - /influxdb/cloud/organizations/buckets/bucket-schema
 ---
 
-The `influx bucket-schema update` command updates the measurement schema of a
-bucket in InfluxDB.
+The `influx bucket-schema update` command updates the schema of an InfluxDB bucket that has the `explicit` schema-type.
 
 `bucket-schema update` requires a bucket with an [`explicit` schema-type](/influxdb/v2.0/reference/cli/influx/bucket/create/#create-a-bucket-with-custom-bucket-schema)
-and an existing measurement schema.
+and at least one defined schema.
 
 ## Usage
 
