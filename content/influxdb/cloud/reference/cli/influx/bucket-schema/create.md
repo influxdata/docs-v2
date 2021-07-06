@@ -10,14 +10,7 @@ related:
   - /influxdb/cloud/organizations/buckets/bucket-schema
 ---
 
-The `influx bucket-schema create` command sets the schema for a measurement in an InfluxDB bucket that has the `explicit` schema-type.
-
-{{% note %}}
-{{< bucket-schema/requires >}}
-```sh
-{{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
-```
-{{% /note %}}
+The `influx bucket-schema create` command sets the schema for a measurement in an InfluxDB bucket that has the [`explicit` schema-type](/influxdb/cloud/reference/cli/influx/bucket/create/#create-a-bucket-with-an-explicit-schema).
 
 ## Usage
 

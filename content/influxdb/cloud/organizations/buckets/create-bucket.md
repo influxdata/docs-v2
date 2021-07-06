@@ -70,12 +70,12 @@ influx bucket create -n my-bucket -o my-org -r 72h
 
 {{% bucket-schema/type %}}
 
-  1. 
+  1.
       ```sh
      {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
      ```
 
-  2. Create a bucket schema. For more information, see [Manage bucket schemas](/influxdb/cloud/organizations/bucket-schema/).
+  2. Create a bucket schema. For more information, see [Manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/).
 
       ```sh
       influx bucket-schema create \

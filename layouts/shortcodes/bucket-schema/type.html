@@ -1,7 +1,6 @@
 By default, buckets have an `implicit` **schema-type** and a schema that
 conforms to your data.
-To enforce column names, tags, fields, and data types and reject non-conforming data,
-create a bucket with an `explicit` schema type
-and define
-[schemas](/influxdb/cloud/reference/key-concepts/data-elements/#bucket-schema)
-for your measurements.
+To require data to have specific columns and data types and prevent non-conforming write requests,
+create a bucket with an `explicit` schema type and define a
+[schema](/influxdb/cloud/reference/key-concepts/data-elements/#bucket-schema)
+for each measurement.

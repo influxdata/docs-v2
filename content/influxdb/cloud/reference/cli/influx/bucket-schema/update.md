@@ -10,10 +10,9 @@ related:
   - /influxdb/cloud/organizations/buckets/bucket-schema
 ---
 
-The `influx bucket-schema update` command updates the schema of an InfluxDB bucket that has the `explicit` schema-type.
+The `influx bucket-schema update` command updates the schema of an InfluxDB bucket that has the [`explicit` schema-type](/influxdb/cloud/reference/cli/influx/bucket/create/#create-a-bucket-with-an-explicit-schema).
 
-`bucket-schema update` requires a bucket with an [`explicit` schema-type](/influxdb/v2.0/reference/cli/influx/bucket/create/#create-a-bucket-with-custom-bucket-schema)
-and at least one defined schema.
+`bucket-schema update` requires a bucket with at least one defined schema.
 
 ## Usage
 
