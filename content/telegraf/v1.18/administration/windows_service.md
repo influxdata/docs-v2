@@ -26,7 +26,7 @@ To simplify upgrades, consider whether to:
 
 {{% note %}}
 Installing a Windows service requires administrative permissions.
-Make sure you a running PowerSheel as an administrator:
+To run PowerShell as an administrator, 
 see "[Launch PowerShell as administrator](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7#with-administrative-privileges-run-as-administrator)".
 {{% /note %}}
 
