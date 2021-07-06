@@ -28,11 +28,11 @@ After you create a bucket schema, you're ready to [write data](/influxdb/cloud/w
 The `bucket-schema` examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/). We recommend reviewing data elements and [**InfluxDB key concepts**](/influxdb/cloud/reference/key-concepts/) if you aren't familiar with these concepts.
 {{% /note %}}
 
-- [Create a schema](#create-a-schema)
-- [Update a schema](#update-a-schema)
+- [Create a bucket schema](#create-a-bucket-schema)
+- [Update a bucket schema](#update-a-bucket-schema)
 - [Errors](#errors)
 
-### Create a schema
+### Create a bucket schema
 Use the `influx` CLI to set the schema-type and measurement schemas for your bucket:
 1. Create a bucket with the `schema-type` flag set to `explicit`.
 
@@ -90,7 +90,7 @@ as in the following examples:
      --columns-file sensor.ndjson     
     ```
 
-### Update a schema
+### Update a bucket schema
 
 Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add new columns to a schema. You cannot modify or delete columns in bucket schemas.
 
