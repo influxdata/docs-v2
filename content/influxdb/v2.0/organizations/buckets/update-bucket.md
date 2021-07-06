@@ -66,8 +66,8 @@ Valid retention period duration units are nanoseconds (`ns`), microseconds (`us`
 
 ```sh
 # Syntax
-influx bucket update -i <bucket-id> -r <retention period in nanoseconds>
+influx bucket update -i <bucket-id> -r <retention period with units>
 
 # Example
-influx bucket update -i 034ad714fdd6f000 -r 1209600000000000
+influx bucket update -i 034ad714fdd6f000 -r 1209600000000000ns
 ```
