@@ -29,18 +29,31 @@ To simplify upgrades, consider whether to:
 
 ## Download and run as a Windows service
 
-1. Follow instructions on the [Downloads page](https://portal.influxdata.com/downloads/)
-   to download `telegraf-{{< latest-patch >}}_windows_amd64.zip`.
+In PowerShell as an administrator, do the following:
 
-2. Move files from the specified Telegraf version up a level to `C:\Program Files\InfluxData\telegraf`
-   or create a Windows symbolic link (Symlink) to point to this directory.
+1. Download `telegraf-{{< latest-patch >}}_windows_amd64.zip` and extract its contents
+   to `C:\Program Files\InfluxData\telegraf\`:
+   ```powershell
+   > wget https://dl.influxdata.com/telegraf/releases/telegraf-{{< latest-patch >}}_windows_amd64.zip -UseBasicParsing -OutFile telegraf-{{< latest-patch >}}_windows_amd64.zip
+   > Expand-Archive .\telegraf-{{< latest-patch >}}_windows_amd64.zip -DestinationPath 'C:\Program Files\InfluxData\telegraf\'
+   ```
+
+2. Move the `telegraf.exe` and `telegraf.conf` files from
+   `C:\Program Files\InfluxData\telegraf\telegraf-{{< latest-patch >}}`
+   up a level to `C:\Program Files\InfluxData\telegraf`:
+   ```powershell
+   > cd "C:\Program Files\InfluxData\telegraf"
+   > mv .\telegraf-{{< latest-patch >}}\* .
+   ```
+   Or create a [Windows symbolic link (Symlink)](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/)
+   to point to this directory.
 
    {{% note %}}
-The instructions below assume Telegraf files are stored in `C:\Program Files\InfluxData\telegraf`
-or you've created a Symlink to point to this directory.
+The instructions below assume the `telegraf.exe` and `telegraf.conf` files are stored in 
+`C:\Program Files\InfluxData\telegraf` or you've created a Symlink to point to this directory.
    {{% /note %}}
 
-2. In PowerShell, run the following as an administrator:
+2. Install as a service.
    ```powershell
    > cd "C:\Program Files\InfluxData\telegraf"
    > .\telegraf.exe --service install --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
