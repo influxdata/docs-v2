@@ -8,31 +8,36 @@ menu:
     parent: Administration
 ---
 
-Telegraf natively supports running as a Windows service. Complete the following steps:
-
-1. Review considerations [before you begin](#before-you-begin).
-2. [Download and run as service](#download-and-run-as-service).
+Telegraf natively supports running as a Windows service.
 
 {{% note %}}
-Installing a Windows service requires administrative permissions. [Launch PowerShell as administrator](
-https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7#with-administrative-privileges-run-as-administrator).
+Installing a Windows service requires administrative permissions.
+See "[Launch PowerShell as administrator](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7#with-administrative-privileges-run-as-administrator)".
 {{% /note %}}
 
+<!--
 ## Before you begin
 
-The Telegraf installation includes an executable and configuration file. To simplify upgrades, consider the following:
+The Telegraf "Windows Binaries" `.zip` download includes an executable and a configuration file.
+To simplify upgrades, consider whether to:
 
-- **Setting up Windows symbolic link (Symlinks) to point to the Telegraf executable**. This option lets you easily roll back your upgrades, and maintain your custom configuration.
-- **Whether to use one or multiple Telegraf configurations**. You may want multiple configs if...
+- **Set up Windows symbolic link (Symlinks) to point to the Telegraf executable**.
+  This option lets you easily roll back your upgrades, and maintain your custom configuration.
+- **Use one or multiple Telegraf configurations**.
+  You may want multiple configs if...
+-->
 
-## Download and run as service
+## Download and run as a Windows service
 
-1. Follow instructions on the [Downloads page](https://portal.influxdata.com/downloads/) to download Telegraf to `C:\Program Files\InfluxData\telegraf\telegraf-<version#>`.
+1. Follow instructions on the [Downloads page](https://portal.influxdata.com/downloads/)
+   to download `telegraf-{{< latest-patch >}}_windows_amd64.zip`.
 
-2. Move files from the specified Telegraf version up a level to `C:\Program Files\InfluxData\telegraf` or create a Windows symbolic link (Symlink) to point to this directory.
+2. Move files from the specified Telegraf version up a level to `C:\Program Files\InfluxData\telegraf`
+   or create a Windows symbolic link (Symlink) to point to this directory.
 
    {{% note %}}
-The instructions below assume Telegraf files are stored in `C:\Program Files\InfluxData\telegraf` or you've created a Symlink to point to this directory.
+The instructions below assume Telegraf files are stored in `C:\Program Files\InfluxData\telegraf`
+or you've created a Symlink to point to this directory.
    {{% /note %}}
 
 2. In PowerShell, run the following as an administrator:
@@ -40,7 +45,8 @@ The instructions below assume Telegraf files are stored in `C:\Program Files\Inf
    > cd "C:\Program Files\InfluxData\telegraf"
    > .\telegraf.exe --service install --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
    ```
-   When installing Telegraf as a Windows service, provide the absolute path of the Telegraf configuration file. Otherwise the Windows service may fail to start.
+   When installing Telegraf as a Windows service, provide the absolute path of the Telegraf configuration file.
+   Otherwise the Windows service may fail to start.
 3. To test that the installation works, run:
 
    ```powershell
@@ -53,15 +59,18 @@ The instructions below assume Telegraf files are stored in `C:\Program Files\Inf
    telegraf.exe --service start
    ```
 
+<!--
 #### (Optional) Specify multiple configuration files
 
 If you have multiple Telegraf configuration files, you can specify a `--config-directory` for the service to use:
 
-1. Create a directory for configuration snippets: `C:\Program Files\Telegraf\telegraf.d`
+1. Create a directory for configuration snippets at `C:\Program Files\Telegraf\telegraf.d`.
 2. Include the `--config-directory` option when registering the service:
-   ```
+   ```powershell
    > C:\"Program Files"\Telegraf\telegraf.exe --service install --config C:\"Program Files"\Telegraf\telegraf.conf --config-directory C:\"Program Files"\Telegraf\telegraf.d
    ```
+-->
+
 ## Logging and troubleshooting
 
 When Telegraf runs as a Windows service, Telegraf logs messages to Windows event logs.
