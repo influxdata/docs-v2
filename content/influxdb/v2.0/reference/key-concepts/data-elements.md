@@ -20,10 +20,10 @@ InfluxDB 2.0 includes the following data elements:
 - [tag value](#tag-value)
 - [tag set](#tag-set)
 - [measurement](#measurement)
-- [measurement schema](#measurement-schema)
 - [series](#series)
 - [point](#point)
 - [bucket](#bucket)
+- [bucket schema](#bucket-schema)
 - [organization](#organization)
 
 The sample data below is used to illustrate data elements concepts.
