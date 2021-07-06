@@ -32,9 +32,9 @@ see "[Launch PowerShell as administrator](https://docs.microsoft.com/en-us/power
 
 In PowerShell _as an administrator_, do the following:
 
-1. Download `telegraf-{{< latest-patch >}}_windows_amd64.zip` and extract its contents
-   to `C:\Program Files\InfluxData\telegraf\`:
-   ```powershell
+1. Use the following commands to download the Telegraf Windows binary
+   and extract its contents to `C:\Program Files\InfluxData\telegraf\`:
+   ```
    > wget https://dl.influxdata.com/telegraf/releases/telegraf-{{< latest-patch >}}_windows_amd64.zip -UseBasicParsing -OutFile telegraf-{{< latest-patch >}}_windows_amd64.zip
    > Expand-Archive .\telegraf-{{< latest-patch >}}_windows_amd64.zip -DestinationPath 'C:\Program Files\InfluxData\telegraf\'
    ```
@@ -42,7 +42,7 @@ In PowerShell _as an administrator_, do the following:
 2. Move the `telegraf.exe` and `telegraf.conf` files from
    `C:\Program Files\InfluxData\telegraf\telegraf-{{< latest-patch >}}`
    up a level to `C:\Program Files\InfluxData\telegraf`:
-   ```powershell
+   ```
    > cd "C:\Program Files\InfluxData\telegraf"
    > mv .\telegraf-{{< latest-patch >}}\telegraf.* .
    ```
