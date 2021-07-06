@@ -1,11 +1,37 @@
 ---
 title: InfluxDB v2.0 release notes
-description: Important changes and and what's new in each version of InfluxDB.
+description: Important changes and what's new in each version of InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: InfluxDB
     parent: Release notes
 weight: 101
+---
+
+## v2.0.7 [2021-06-04]
+
+### Features
+
+- Optimize [`table.fill()`](/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)
+  execution within Flux aggregate windows.
+- Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01).
+- Upgrade UI to v2.0.7.
+- Upgrade `flux-lsp-browser` to v0.5.47.
+
+### Bug Fixes
+
+- Fix query range calculation (off by one) over partially compacted data.
+- Deprecate the unsupported `PostSetupUser` API.
+- Add limits to the `/api/v2/delete` endpoint for start and stop times with error messages.
+- Add logging to NATS streaming server to help debug startup failures.
+- Accept `--input` instead of a positional argument in `influx restore`.
+- Print error instead of panicking when `influx restore` fails to find backup manifests.
+- Set last-modified time of empty shard directory to the directory's last-modified time, instead of the Unix epoch.
+- Remove deadlock in `influx org members list` when an organization has greater than 10 members.
+- Replace telemetry file name with slug for `ttf`, `woff`, and `eot` files.
+- Enable use of absolute path for `--upgrade-log` when running `influxd upgrade` on Windows.
+- Make InfluxQL meta queries respect query timeouts.
+
 ---
 
 ## v2.0.6 General Availability [2021-04-29]

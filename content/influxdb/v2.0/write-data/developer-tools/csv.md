@@ -1,7 +1,7 @@
 ---
 title: Write CSV data to InfluxDB
 description: >
-  Write CSV data with the [`influx write` command](#influx-write-command) or Flux.
+  Write CSV data with the [`influx write` command](/influxdb/cloud/reference/cli/influx/write/) or Flux.
   Include annotations with the CSV data to determine how the data translates into
   [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/).
 menu:
@@ -23,7 +23,7 @@ Write CSV data with the following methods:
 ### Flux
 
 Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) Flux functions to write an annotated CSV to the bucket of your choice.
- 
+
 {{< youtube wPKZ9i0DulQ >}}
 
 The experimental [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) function lets you write CSV from a URL.
@@ -94,11 +94,14 @@ When attempting to write large amounts of CSV data into InfluxDB, you might see 
 Error: Failed to write data: unexpected error writing points to database: [shard <#>] fcntl: too many open files.
 ```
 
-To fix this error, run the following command to increase the number of open files allowed by the OS (works on both Linux and MacOS):
+To fix this error on Linux or macOS, run the following command to increase the number of open files allowed:
 
-```
-ulimit -n 10000
-```
+  ```
+  ulimit -n 10000
+  ```
+
+macOS users, to persist the `ulimit` setting, follow the [recommended steps](https://unix.stackexchange.com/a/221988/471569) for your operating system version.
+
 {{% /note %}}
 
 ## CSV Annotations
@@ -421,7 +424,7 @@ in the `double`, `long`, and `unsignedLong` datatype annotations.
 {{% note %}}
 If your **numeric format separators** include a comma (`,`), wrap the column annotation in double
 quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
-You can also [define a custom column separator](##################).
+You can also [define a custom column separator](/influxdb/v2.0/reference/syntax/annotated-csv/extended/#define-custom-column-separator).
 {{% /note %}}
 
 {{< tabs-wrapper >}}

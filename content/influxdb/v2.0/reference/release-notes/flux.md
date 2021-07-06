@@ -8,6 +8,124 @@ menu:
     name: Flux
 ---
 
+## v0.118.1 [2021-06-15]
+- _Internal code cleanup._
+
+---
+
+## v0.118.0 [2021-06-15]
+
+###  Features
+- Add `exclude` parameter to `pagerduty.dedupKey()`.
+
+### Bug fixes
+- Ensure PagerDuty tests include a `_value` column.
+- Add length check to CSV annotation parsing.
+- Change `FunctionLiteral` precedence to preserve parentheses.
+
+---
+
+## v0.117.3 [2021-06-07]
+- _Internal code cleanup._
+
+---
+
+## v0.117.2 [2021-06-07]
+
+### Bug fixes
+- Remove `tabstop` processing from formatter.
+- Support dividing IEEE float values by zero.
+- Fix multiline collapse when formatting function parameters.
+- Reclassify `map type` error as `user` error.
+- Fix acceptance tests to catch different timestamps.
+
+---
+
+## v0.117.1 [2021-06-01]
+
+### Bug fixes
+- Update `group_no_agg_table` acceptance test to run in a consistent order.
+- Remove `xcc.sh` release dependency.
+- Fix `staticcheck` linter failures.
+- Replace erroneous line deletions.
+
+---
+
+## v0.117.0 [2021-05-24]
+
+### Features
+- [`to()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) function
+  writes to a remote InfluxDB instance.
+
+### Bug fixes
+- Fix unexpected behavior caused by going over the Go/Rust boundary multiple times using JSON serialization.
+- Update `Assert_eq!` output.
+- Update `comrak` dependency.
+- Set `CARGO_HOME` after removing privileges.
+- Log uneven columns found when processing tables.
+- Audit and clean up the Docker build image.
+- Switch default InfluxDB port from `9999` to `8086`.
+- Add tests for window offset behavior.
+- Update formatting for conditional expressions.
+- Fix string interpolation for basic types.
+
+---
+
+## v0.116.0 [2021-05-17]
+
+## Features
+- Add Jaeger tracing information to profile metadata.
+- Add `flux fmt` step to the continuous integration pipeline.
+- Update the `window` implementation to use `interval.Window`.
+- Add [`today()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/today/).
+
+## Bug fixes
+- Remove deadlock when an error occurs while the dispatcher is stopping.
+- Prevent errors caused by the the auto-formatter removing brackets around `if` expressions.
+- Auto-format remaining Flux files.
+
+---
+
+## v0.115.0 [2021-05-11]
+
+### Features
+- Add [Alerta notifications support](/influxdb/v2.0/reference/flux/stdlib/contrib/alerta/).
+- Add [`table.fill()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)
+  to fill empty tables with a single row.
+- Add string formatting to `dict` type.
+
+### Bug fixes
+- Refactor semantic printing of types.
+- Do not remove escape characters when auto-formatting.
+- Add `0.0.0.0` to URL validator.
+- Add new display API for values.
+- Auto-format Flux files in `stdlib/testing`.
+
+---
+
+## v0.114.1 [2021-05-04]
+
+### Bug fixes
+- Upgrade `mssqldb` dependency for Go 1.16.
+- Format Flux files in `stdlib`.
+
+---
+
+## v0.114.0 [2021-05-03]
+
+### Features
+- Add `debug.slurp()` and `debug.sink()`.
+- Add [`experimental/influxdb`](/influxdb/v2.0/reference/flux/stdlib/experimental/influxdb/)
+  and [`experimental/usage`](/influxdb/v2.0/reference/flux/stdlib/experimental/usage/) packages.
+- Add `fmt` subcommand to the `flux` CLI to apply formatting to Flux files.
+
+### Bug fixes
+- Format Flux files in `stdlib` and `stdlib/testing`.
+- Update the macOS SDK for Go 1.16.
+- Revert check for uneven columns.
+- Wait for the dispatcher to finish before finishing query.
+- Remove `codecov` job.
+
 ## v0.113.0 [2021-04-21]
 
 ### Features

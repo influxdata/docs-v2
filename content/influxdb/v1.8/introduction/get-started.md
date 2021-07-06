@@ -1,9 +1,12 @@
 ---
 title: Get started with InfluxDB OSS
 description: Get started with InfluxDB OSS.
+# v2.0 alias below routes old external links here temporarily.
 aliases:
   - /influxdb/v1.8/introduction/getting_started/
   - /influxdb/v1.8/introduction/getting-started/
+  - /influxdb/v2.0/introduction/getting-started/
+  - /influxdb/v2.0/introduction/getting_started/
 menu:
   influxdb_1_8:
     name: Get started with InfluxDB
