@@ -14,7 +14,7 @@ related:
   - /influxdb/cloud/reference/key-concepts/data-elements/
 ---
 
-Use **explicit bucket schemas** to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#field), [fields](/influxdb/cloud/reference/glossary/#field), and
+Use [**explicit bucket schemas**](/influxdb/cloud/reference/key-concepts/data-elements/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#field), [fields](/influxdb/cloud/reference/glossary/#field), and
 [data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
 
 {{% bucket-schema/type %}}
