@@ -114,10 +114,14 @@ Use the [`extended-output` flag](/influxdb/cloud/reference/cli/influx/bucket-sch
     07c62z721z2ca000        sensor                  humidity        field           float              a7d5558b880a95da
     ```
 
-2. In your text editor or terminal, append new columns to the schema file.
+2. In your text editor or terminal, append new columns to the schema file. The following example appends a `CO2` field to the original *sensor.ndjson* schema file:
 
     ```sh
-    $ echo '{"name": "CO2", "type": "field", "dataType": "float"}' >> sensor.ndjson
+    {{< get-assets-text "bucket-schema/sensor.ndjson" >}}
+    ```
+
+    ```sh
+    echo '{"name": "CO2", "type": "field", "dataType": "float"}' >> sensor.ndjson
     ```
 
 3. Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add the new columns to the bucket schema.
