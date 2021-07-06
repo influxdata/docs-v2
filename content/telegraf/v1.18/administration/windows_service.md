@@ -50,18 +50,16 @@ In PowerShell _as an administrator_, do the following:
    to point to this directory.
 
    {{% note %}}
-The instructions below assume the either the `telegraf.exe` and `telegraf.conf` files are stored in
+The instructions below assume that either the `telegraf.exe` and `telegraf.conf` files are stored in
 `C:\Program Files\InfluxData\telegraf`, or you've created a Symlink to point to this directory.
    {{% /note %}}
 
 3. Install Telegraf as a service:
    ```powershell
-   > cd "C:\Program Files\InfluxData\telegraf"
    > .\telegraf.exe --service install --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
    ```
-   When installing Telegraf as a Windows service,
-   provide the absolute path of the `telegraf.conf` configuration file.
-   Otherwise the Windows service may fail to start.
+   Make sure to provide the absolute path of the `telegraf.conf` configuration file,
+   otherwise the Windows service may fail to start.
 3. To test that the installation works, run:
 
    ```powershell
