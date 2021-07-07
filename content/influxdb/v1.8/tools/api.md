@@ -234,9 +234,9 @@ After 30 seconds of data has been collected, the results are output to a file.
 100  237k    0  237k    0     0   8025      0 --:--:--  0:00:30 --:--:-- 79588
 ```
 
-{{% note }}
+{{% note %}}
 If using InfluxDB 1.8.3 or earlier, use `/debug/pprof/all?cpu=true`.
-{{% /note }}
+{{% /note %}}
 ### `/debug/requests` HTTP endpoint
 
 Use this endpoint to track HTTP client requests to the `/write` and `/query` endpoints.
