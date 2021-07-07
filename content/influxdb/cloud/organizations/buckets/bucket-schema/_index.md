@@ -40,7 +40,7 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
     {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
     ```
 
-2. Use your text editor to create a schema file for each measurement you want to add.
+2. Use your text editor to create a schema columns file for each measurement you want to add.
 The file defines the column names, tags, fields, and data types to require for a measurement.
 Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/),
 as in the following examples:
@@ -114,7 +114,7 @@ Use the [`extended-output` flag](/influxdb/cloud/reference/cli/influx/bucket-sch
     07c62z721z2ca000        sensor                  humidity        field           float              a7d5558b880a95da
     ```
 
-2. In your text editor or terminal, append new columns to the schema file. The following example appends column `CO2` to the original *sensor.ndjson* schema file:
+2. In your text editor or terminal, [create](#create-a-bucket-schema) or edit the schema columns file and append new columns. The following example appends column `CO2` to the original *sensor.ndjson* schema file:
 
     ```sh
     # sensor.ndjson
