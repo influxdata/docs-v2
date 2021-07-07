@@ -117,6 +117,7 @@ Use the [`extended-output` flag](/influxdb/cloud/reference/cli/influx/bucket-sch
 2. In your text editor or terminal, append new columns to the schema file. The following example appends column `CO2` to the original *sensor.ndjson* schema file:
 
     ```sh
+    # sensor.ndjson
     {{< get-assets-text "bucket-schema/sensor.ndjson" >}}
     ```
 
