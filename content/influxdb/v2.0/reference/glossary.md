@@ -99,6 +99,15 @@ A bucket is a named location where time series data is stored.
 All buckets have a [retention period](#retention-period).
 A bucket belongs to an organization.
 
+
+### bucket schema
+
+In InfluxDB Cloud, an explicit bucket schema lets you strictly enforce the data that can be written into one or more measurements in a bucket by defining the column names, tags, fields, and data types allowed for each measurement. By default, buckets in InfluxDB 2.0 have an `implicit` schema that lets you write data without restrictions on columns, fields, or data types.
+
+Learn how to [manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/) in InfluxDB Cloud.
+
+Related entries: [data type](#data-type), [field](#field), [measurement](#measurement)
+
 ## C
 
 ### check
