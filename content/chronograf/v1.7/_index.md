@@ -6,7 +6,7 @@ menu:
 weight: 1
 ---
 
-Chronograf is InfluxData's open source web application.
+Chronograf is Influxata's open source web application.
 Use Chronograf with the other components of the [TICK stack](https://www.influxdata.com/products/) to visualize your monitoring data and easily create alerting and automation rules.
 
 ![Chronograf Collage](/img/chronograf/1-6-chronograf-collage.png)
