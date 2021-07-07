@@ -239,7 +239,7 @@ What follows is the complete UDF implementation with our `info`,
 from kapacitor.udf.agent import Agent, Handler
 from scipy import stats
 import math
-import kapacitor.udf.udf_pb2
+from import kapacitor.udf import udf_pb2
 import sys
 
 class TTestHandler(Handler):
