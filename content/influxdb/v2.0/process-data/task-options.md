@@ -40,10 +40,22 @@ option task = {
 
 ## every
 
-The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time
+The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time, which must be a [duration literal](/influxdb/cloud/reference/flux/language/lexical-elements/#duration-literals).
 
-For example, if you save or schedule a task at 2:30 and specify the task should run every hour (`1h`), the task first executes at 3:00pm, and subsequently every hour after that.
-option task = {name: "aggregation", every: 1h}
+_**Data type:** Duration_ 
+
+```js
+option task = {
+  // ...
+  every: 1h,
+}
+```
+
+For example, if you save or schedule a task at 2:30 and run every hour (`1h`):
+ 
+`option task = {name: "aggregation", every: 1h}`
+
+The task first executes at 3:00pm, and subsequently every hour after that.
 
 {{% note %}}
 In the InfluxDB UI, the **Interval** field sets this option.
