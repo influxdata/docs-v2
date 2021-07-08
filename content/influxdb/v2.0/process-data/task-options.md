@@ -51,7 +51,7 @@ option task = {
 }
 ```
 
-For example, if you save or schedule a task at 2:30 and run every hour (`1h`):
+For example, if you save or schedule a task at 2:30 and run the task every hour (`1h`):
  
 `option task = {name: "aggregation", every: 1h}`
 
