@@ -42,6 +42,14 @@ option task = {
 
 The interval at which the task runs.
 
+This option also determines when the task first starts to run, depending on the specified time.
+
+For example, if you save or schedule a task at 2:30 and specify the task should run every hour (`1h`), the task first executes at 3:00pm, and subsequently every hour after that.
+option task = {name: "aggregation", every: 1h}
+
+Likewise, if you schedule the following task at 2:30.05 pm and specify the task should run every minute (`1m`), the task first executes at 2:31.00pm, and subsequently every minute after that.
+option task = {name: "aggregation", every: 1m}
+
 _**Data type:** Duration_
 
 ```js
