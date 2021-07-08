@@ -15,7 +15,7 @@ menu:
 - Update nat-server module to v2.2.6.
 - Update apimachinary module to v0.21.1.
 - Update jwt module to v1.2.2 and jwt-go module to v3.2.3.
-- Update couchbase Module to v0.1.0.
+- Update couchbase module to v0.1.0.
 - Update signalfx module to v3.3.34.
 - Update gjson module to v1.8.0.
 - Linter fixes.
