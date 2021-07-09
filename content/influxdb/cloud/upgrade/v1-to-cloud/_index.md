@@ -31,7 +31,7 @@ Do one of the following to create an InfluxDB Cloud account:
 - [Subscribe through your cloud provider](/influxdb/cloud/get-started/#subscribe-through-a-cloud-provider).
 
 ## Create an All-Access authentication token
-InfluxDB Cloud requires all requests to be authenticated with **token authentication**.
+InfluxDB Cloud {{% cloud-token-auth %}}
 Create an **All-Access** token in your InfluxDB Cloud user interface (UI) to use
 for the upgrade process.
 

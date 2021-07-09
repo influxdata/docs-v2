@@ -27,13 +27,18 @@ to the `/write` endpoint.
 <span class="api post">POST</span> http://localhost:8086/write
 </pre>
 
+{{% note %}}
+If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
+you **must** [manually create a database and retention policy mapping](/influxdb/v2.0/query-data/influxql/#map-unmapped-buckets)
+to write data to that bucket with the `/write` compatibility API.
+{{% /note %}}
+
 ## Authentication
 
-Use **basic authentication** or **token authentication**.
-
-{{% note %}}
-If using basic authentication, include the `--user` (or `-u` and `-p`) option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
-{{% /note %}}
+Use one of the following authentication methods:
+* **token authentication**
+* **basic authentication with username and password**
+* **query string authentication with username and password**
 
 _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
 
@@ -46,10 +51,10 @@ encode the line protocol.
 ## Query string parameters
 
 ### u
-(Optional) The 1.x **username** to authenticate the request.
+(Optional) The 1.x **username** to authenticate the request. For more information, see [query string authentication with username and password](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication-with-username-and-password)
 
 ### p
-(Optional) The 1.x **password** to authenticate the request.
+(Optional) The 1.x **password** to authenticate the request. For more information, see [query string authentication with username and password](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication-with-username-and-password)
 
 ### db
 ({{< req >}}) The **database** to write data to.
@@ -83,22 +88,28 @@ The following precisions are available:
 
 ##### Write data using basic authentication
 ```sh
-curl --request POST https://cloud2.influxdata.com/write?db=mydb \
-  --header "Authorization: Basic username:YourAuthToken" \
+curl --request POST http://localhost:8086/write?db=mydb \
+  --user "myusername:PasswordOrAuthToken" \
+  --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
+```
+
+##### Write data using token authentication
+```sh
+curl --request POST http://localhost:8086/write?db=mydb \
+  --header "Authorization: Token YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
 
 ##### Write data to a non-default retention policy
 ```sh
-curl --request POST https://cloud2.influxdata.com/write?db=mydb&rp=customrp \
-  --header "Authorization: Basic" \
-  --header "username:YourAuthToken" \
+curl --request POST http://localhost:8086/write?db=mydb&rp=customrp \
+  --user "myusername:PasswordOrAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
 
 ##### Write multiple lines of line protocol
 ```sh
-curl --request POST https://cloud2.influxdata.com/write?db=mydb \
+curl --request POST http://localhost:8086/write?db=mydb \
   --header "Authorization: Token YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000
 measurement,host=host2 field1=14i,field2=12.7 1577836800000000000
@@ -107,14 +118,14 @@ measurement,host=host3 field1=5i,field2=6.8 1577836800000000000"
 
 ##### Write data with millisecond Unix timestamps
 ```sh
-curl --request POST https://cloud2.influxdata.com/write?db=mydb&precision=ms \
+curl --request POST http://localhost:8086/write?db=mydb&precision=ms \
   --header "Authorization: Token YourAuthToken" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000"
 ```
 
 ##### Use curl to write data from a file
 ```sh
-curl --request POST https://cloud2.influxdata.com/write?db=mydb \
+curl --request POST http://localhost:8086/write?db=mydb \
   --header "Authorization: Token YourAuthToken" \
   --data-binary @path/to/line-protocol.txt
 ```

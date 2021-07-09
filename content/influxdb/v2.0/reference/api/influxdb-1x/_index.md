@@ -21,30 +21,11 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 
 ## Authentication
 InfluxDB 2.0 requires all query and write requests to be authenticated.
-Use **1.x-compatible authorizations** or **token authentication** to authenticate
-requests to InfluxDB 1.x compatibility endpoints.
 
-### 1.x-compatible authorizations
-Include the following credentials in your 1.x-compatible authorizations:
+* [Authenticate with a token](#authenticate-with-a-token)
+* [Authenticate with a username and password](#authenticate-with-a-username-and-password)
 
-- **username**: InfluxDB 1.x username
-- **password**: InfluxDB 1.x password
-
-For information about creating and managing 1.x-compatible authorizations, see:
-
-- [influx v1 auth](/influxdb/v2.0/reference/cli/influx/v1/auth/)
-- [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
-
-There are multiple ways to provide 1.x-compatible authorization credentials to InfluxDB 2.0.
-When providing the 1.x-compatible username and password, use the following syntax for basic authentication (or include the `-u` and `-p` parameters in your request).
-
-##### Basic authentication
-```sh
-# --user syntax
-<username>:<password>
-```
-
-### Token Authentication
+### Authenticate with a Token
 Token authentication requires the following credential:
 
 - **token**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
@@ -52,14 +33,117 @@ Token authentication requires the following credential:
 Use the `Authorization` header with the `Token` scheme to provide your
 authentication token to InfluxDB.
 
-##### Token authentication with authorization header
-```sh
-# Header syntax
-Authorization: Token <token>
+#### Syntax
 
-# Header example
-Authorization: Token mYSuP3rs3cREtT0k3N
+```sh
+Authorization: Token <token>
 ```
+
+#### Example
+
+{{% code-tabs-wrapper %}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{% get-assets-text "api/v1-compat/auth/oss/token-auth.sh" %}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{% get-assets-text "api/v1-compat/auth/oss/token-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{% /code-tabs-wrapper %}}
+
+### Authenticate with a username and password
+Username and password authentication requires the following credentials:
+- **username**: 1.x username (this is separate from the UI login username)
+- **password**: 1.x password or InfluxDB authorization token.
+
+{{% note %}}
+#### Password or Token?
+{{% api/v1-compat/password-or-token %}}
+{{% /note %}}
+
+Use the following authentication schemes with clients that support the InfluxDB 1.x convention of `username` and `password` (that don't support the `Authorization: Token` scheme):
+
+- [Basic authentication](#basic-authentication)
+- [Query string authentication](#query-string-authentication)
+
+{{% note %}}
+#### Password or Token
+{{% api/v1-compat/password-or-token %}}
+{{% /note %}}
+
+For information about creating and managing 1.x-compatible authorizations, see:
+
+- [influx v1 auth](/influxdb/v2.0/reference/cli/influx/v1/auth/)
+- [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+
+#### Basic authentication
+
+##### Syntax
+
+{{% api/v1-compat/basic-auth-syntax %}}
+
+##### Example
+
+{{% code-tabs-wrapper %}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{% get-assets-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{% get-assets-text "api/v1-compat/auth/oss/basic-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{% /code-tabs-wrapper %}}
+
+#### Query string authentication
+Use InfluxDB 1.x API parameters to provide credentials through the query string.
+
+{{% note %}}
+##### Using query string parameters
+
+* URL-encode query parameters that may contain whitespace or other special characters.
+
+* Be aware of the <a href="https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url">risks</a> when exposing sensitive data through URLs.
+{{% /note %}}
+
+##### Syntax
+
+```sh
+ /query/?u=<username>&p=<password>
+ /write/?u=<username>&p=<password>
+ ```
+
+##### Example
+
+{{% code-tabs-wrapper %}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{< get-assets-text "api/v1-compat/auth/oss/querystring-auth.sh" >}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{< get-assets-text "api/v1-compat/auth/oss/querystring-auth.js" >}}
+```
+{{% /code-tab-content %}}
+{{% /code-tabs-wrapper %}}
 
 ##### InfluxQL support
 

@@ -134,6 +134,22 @@ To manually authorize the InfluxDB binaries:
 We are in the process of updating our build process to ensure released binaries are signed by InfluxData.
 {{% /warn %}}
 
+{{% warn %}}
+#### "too many open files" errors
+
+After running `influxd`, you might see an error in the log output like the
+following:
+
+```sh
+too many open files
+```
+
+To resolve this error, follow the
+ [recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
+  file and process limits for your operating system version then restart `influxd`.
+
+{{% /warn %}}
+
 _See the [`influxd` documentation](/influxdb/v2.0/reference/cli/influxd) for information about
 available flags and options._
 
