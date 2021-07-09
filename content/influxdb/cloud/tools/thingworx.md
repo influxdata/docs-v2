@@ -64,7 +64,7 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
     - **Username**: Login email address for your InfluxDB Cloud account.
     - **Password**: Token string--either All-Access created in step 3 or Read/Write created in step 5.
 
-## Examples: Query InfluxDB Cloud
+## ThingWorx API requests
 
 ThingWorx uses the [InfluxDB 1.x compatibility API](/influxdb/cloud/reference/api/influxdb-1x/) to access the InfluxDB v2 API on InfluxDB Cloud. ThingWorx includes the InfluxDB persistence provider configuration settings that you set up for PTC ThingWorx in your API requests.
 
