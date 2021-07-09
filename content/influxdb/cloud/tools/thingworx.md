@@ -68,20 +68,6 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
 
 ThingWorx uses the [InfluxDB 1.x compatibility API](/influxdb/cloud/reference/api/influxdb-1x/) to access the InfluxDB v2 API on InfluxDB Cloud. ThingWorx includes the InfluxDB persistence provider configuration settings that you set up for PTC ThingWorx in your API requests.
 
-**Example: Query data with InfluxQL**
-
-```sh
-curl -XPOST "https://westeurope-1.azure.cloud2.influxdata.com/write?db=${database}" \
---user "${username}:${token}" \
---data-binary 'hello world=1'
-```
-
-```sh
-curl -XPOST "https://westeurope-1.azure.cloud2.influxdata.com/query?db=${database}" \
---user "${username}:${token}" \
---data-urlencode "q=SELECT * FROM /.*/"
-```
-
 {{% note %}}
 **Deleting data:** The InfluxDB v1 API in InfluxDB Cloud supports a subset of delete operations, namely DROP MEASUREMENT and DELETE statements. In some edge cases, deletes take longer to appear in query results from InfluxDB Cloud (than InfluxDB open source). To delete specific fields, delete data from ThingWorx directly in InfluxDB Cloud using the InfluxDB v2 API.
 {{% /note %}}
