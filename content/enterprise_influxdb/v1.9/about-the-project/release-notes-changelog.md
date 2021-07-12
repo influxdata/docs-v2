@@ -16,7 +16,7 @@ menu:
 - Add retry with exponential back-off to anti-entropy repair. <!-- https://github.com/influxdata/plutonium/pull/3507 -->
 - Add logging to compaction. <!-- https://github.com/influxdata/influxdb/pull/21710 -->
 - Add `total-buffer-bytes` configuration parameter to subscriptions. <!-- https://github.com/influxdata/influxdb/pull/21806 -->
-- Update Flux to v0.120.1. <!-- https://github.com/influxdata/influxdb/pull/21821 -->
+- Update Flux to [v0.120.1](/influxdb/v2.0/reference/release-notes/flux/#). <!-- https://github.com/influxdata/influxdb/pull/21821 -->
 
 ### Bugfixes
 - Improve heap memory usage when HH queue grows. <!-- https://github.com/influxdata/plutonium/pull/3519 -->
