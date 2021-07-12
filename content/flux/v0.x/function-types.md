@@ -154,9 +154,20 @@ For recommended usage, see [Extract scalar values](/influxdb/v2.0/query-data/flu
 
 ## Function categories
 
+- [Filters](#filters)
 - [Type conversions](#type-conversions)
 - [Tests](#tests)
 - [Date/time](#datetime)
+- [Metadata](#metadata)
+
+### Filters
+Filter functions iterate over and evaluate each input row to see if it matches
+specified conditions.
+The following type conversion functions are available:
+
+{{< list-all-functions filters="filters" >}}
+
+---
 
 ### Type conversions
 Flux type conversion functions convert scalar values or columns to a specific data type.

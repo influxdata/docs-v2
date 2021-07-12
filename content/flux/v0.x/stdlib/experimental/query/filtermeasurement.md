@@ -10,7 +10,7 @@ menu:
     name: query.filterMeasurement
     parent: query
 weight: 401
-flux/v0.x/tags: [transformations]
+flux/v0.x/tags: [transformations, filters]
 introduced: 0.60.0
 ---
 
