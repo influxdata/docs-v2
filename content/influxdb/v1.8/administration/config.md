@@ -279,8 +279,8 @@ Environment variable: `INFLUXDB_DATA_STRICT_ERROR_HANDLING`
 
 #### `validate-keys = false`
 
-Validates incoming writes to ensure keys only have valid Unicode characters.
-This setting will incur a small overhead because every key must be checked.
+Validates incoming writes to ensure measurement keys and tag keys only have valid Unicode characters.
+This setting will incur a small overhead because every key must be checked. This will not validate field keys.
 
 
 ### Settings for the TSM engine
