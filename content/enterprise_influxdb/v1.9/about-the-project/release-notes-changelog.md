@@ -14,6 +14,16 @@ menu:
 ### Features
 
 - Add configurable password hashing supporting `bcrypt` and `pbkdf2`.
+- Example config for configurable password hashing <!-- https://github.com/influxdata/plutonium/pull/3510:  -->
+- Add retry with exponential back-off to anti-entropy repair. <!-- https://github.com/influxdata/plutonium/pull/3499:  -->
+
+### Bugfixes
+
+- Improve heap memory usage when HH queue grows. <!-- https://github.com/influxdata/plutonium/pull/3512 -->
+- Fix configuration of Flux limits. <!-- https://github.com/influxdata/plutonium/pull/3491 -->
+- Rename ARM rpms with yum-compatible names. <!-- https://github.com/influxdata/plutonium/pull/3498 -->
+- Panic when running influxd config. <!-- https://github.com/influxdata/plutonium/pull/3508 -->
+- Fix panic when running `influxd config`. <!-- https://github.com/influxdata/plutonium/pull/3508 -->
 
 ## v1.9.2 [2021-06-17]
 
