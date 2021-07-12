@@ -1,7 +1,7 @@
 ---
 title: Manage notebooks
 description: View, update, and delete notebooks.
-weight: 102
+weight: 103
 influxdb/cloud/tags:
 menu:
   influxdb_cloud:

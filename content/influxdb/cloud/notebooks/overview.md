@@ -1,36 +1,14 @@
 ---
-title: Create a notebook
+title: Overview of notebooks
 description: >
-  Create a notebook to explore, visualize, and process your data.
-weight: 102
+  Learn about the building blocks of a notebook. 
+weight: 101
 influxdb/cloud/tags:
 menu:
   influxdb_cloud:
-    name: Create a notebook
+    name: Overview of notebooks
     parent: Notebooks
 ---
-
-Create a notebook to explore, visualize, and process your data.
-
-This guide walks through the basics of creating a notebook. For specific examples, see the following:
-
-  - [Downsample data](/influxdb/cloud/notebooks/downsample/)
-  - [Normalize data](/influxdb/cloud/notebooks/clean-data/)
-
-## Create a new notebook
-1. In the navigation menu on the left, click **Notebooks**.
-
-    {{< nav-icon "notebooks" >}}
-2. Click **+Create Notebook**.
-3. Enter a name for your notebook in the **Name this notebook** field.
-4. By default, a **Metric Selector** and **Visualization** cell appear (see [Cell types](#cell-types) below for details.)
-5. Click the **+** icon to add a cell. See [Cell types](#cell-types) below for details on each type of cell.
-6. Click **Preview** to preview the results of each cell in a raw data table without writing any data.
-    {{% warn %}}
-If your cell contains a custom script that uses any output function to write data to InfluxDB (the `to()` function) or send it to a 3rd party service, clicking **Preview** will write data.
-    {{% /warn %}}
-7. Click the dropdown menu next to **Preview** and select **Run** to show the results of each cell and write it to the specified output bucket.
-7. Click the eye icon to hide a cell.
 
 ## Cell types
 Notebooks are comprised of different cells. Add one or more of the following cell types to your notebook:
