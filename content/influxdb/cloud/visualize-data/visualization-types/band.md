@@ -83,7 +83,7 @@ For example, to change the name of the first function from  `mean` to `Average`,
    - In the **Upper Column Name** field, enter the result set to use for the upper boundary.
    - In the **Main Column Name** field, enter the result set to use for the main boundary.
    - In the **Lower Column Name** field, enter the function for the lower boundary.
-7. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](#options) and [Y Axis](#y-axis) below.
+7. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, static legend, and y-axis settings. For more information, see [Options](#options) and [Y Axis](#y-axis) below.
 
 ### Customize column names
 
