@@ -993,8 +993,8 @@ Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_BUFFER_SIZE`
 
 #### `total-buffer-bytes = 0`
 
-The total number of bytes allocated to buffering across all subscriptions.
-Each named subscription will receive an equal share of the total.
+Total number of bytes allocated to buffering across all subscriptions.
+Each named subscription receives an equal share of the total.
 `0` means unlimited.
 Default is `0`.
 
