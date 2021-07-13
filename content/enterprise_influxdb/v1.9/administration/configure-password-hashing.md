@@ -54,7 +54,7 @@ to change the password hashing algorithm used by an existing InfluxDB Enterprise
 1. Ensure all meta and data nodes are running InfluxDB Enterprise 1.9.3 or later.
 2. Edit the meta and data node configuration files as in the [example above](#example-configuration).
 2. Restart each meta and node to pick up the configuration change.
-3. Change each password.
+3. [Reset](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#reset-a-users-password) all passwords.
    For all existing usernames within the cluster,
-   the passwords *must* be updated in order for the new hashing algorithm to be applied.
+   the passwords *must* be reset in order for the new hashing algorithm to be applied.
    Otherwise, the previous algorithm will continue to be used.
