@@ -97,13 +97,13 @@ the visualization dropdown.
 
 ## Graph Examples
 
-##### Graph with linear interpolation
-{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-example-8.png" alt="Line Graph example" />}}
+##### Graph with linear interpolation and static legend
+{{< img-hd src="/img/influxdb/2-0-visualizations-graph-linear-static.png" alt="Line Graph example" />}}
 
-##### Graph with smooth interpolation
-{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-smooth-example-8.png" alt="Step-Plot Graph example" />}}
+##### Graph with smooth interpolation and hover legend
+{{< img-hd src="/img/influxdb/2-0-visualizations-graph-smooth-hover.pmg" alt="Step-Plot Graph example" />}}
 
-##### Graph with step interpolation
+##### Graph with step interpolation and no visible legend
 {{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-step-example-8.png" alt="Step-Plot Graph example" />}}
 
 <!-- ##### Stacked Graph example
