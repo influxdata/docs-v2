@@ -154,10 +154,21 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 
 
 ###### Legend
-
-- **Orientation**: Select the orientation of the legend:
-  - **Horizontal**: Select to display the legend horizontally.
-  - **Vertical**: Select to display the legend vertically.
-- **Opacity**: Adjust the legend opacity using the slider.
-- **Colorize Rows**: Select to display legend rows in colors.
-- **Static Legend**: Select **Hide** to hide the legend or if the **Hover Legend Show** option is selected, show the legend only upon hover. Select **Show** to always show the legend.
+- **Hover Legend**:
+  - **Hide**: Hide the legend that appears upon hover.
+  - **Show**: Show the legend upon hover.
+    - **Orientation**: Select the orientation of the legend:
+      - **Horizontal**: Select to display the legend horizontally.
+      - **Vertical**: Select to display the legend vertically.
+    - **Opacity**: Adjust the hover legend opacity using the slider.
+    - **Colorize Rows**: Select to display hover legend rows in colors.
+- **Static Legend**:
+  - **Hide**: Hide the static legend.
+  - **Show**: Always show the static legend.
+    - **Orientation**: Select the orientation of the legend:
+      - **Horizontal**: Select to display the legend horizontally.
+      - **Vertical**: Select to display the legend vertically.
+    - **Opacity**: Adjust the static legend opacity using the slider.
+    - **Colorize Rows**: Select to display static legend rows in colors.
+    - **Displayed Value**: Select **Latest Y Axis** or **Latest X Axis** to determine whether the y or x axis appears on the legend.
+    - **Height**: Adjust the height of the static legend using the slider.
