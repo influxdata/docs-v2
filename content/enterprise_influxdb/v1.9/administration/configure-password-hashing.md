@@ -48,9 +48,13 @@ The `meta.password-hash` setting must be the same in both the data and meta node
 
 ## Change password hashing algorithm
 
-To change the password hashing algorithm used by an existing InfluxDB Enterprise cluster:
+Complete the following steps
+to change the password hashing algorithm used by an existing InfluxDB Enterprise cluster:
 
 1. Ensure all meta and data nodes are running InfluxDB Enterprise 1.9.3 or later.
 2. Edit the meta and data node configuration files as in the [example above](#example-configuration).
 2. Restart each meta and node to pick up the configuration change.
-3. Change each password. This will store each password in the new hash format.
+3. Change each password.
+   For all existing usernames within the cluster,
+   the passwords *must* be updated in order for the new hashing algorithm to be applied.
+   Otherwise, the previous algorithm will continue to be used.
