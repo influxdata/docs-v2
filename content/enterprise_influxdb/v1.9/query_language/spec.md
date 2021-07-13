@@ -985,7 +985,8 @@ Estimates or counts exactly the cardinality of the series for the current databa
 
 [Series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
-- [When do I need more RAM?](/enterprise_influxdb/v1.9/reference/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/enterprise_influxdb/v1.9/reference/hardware_sizing/)
+-<!-- [When do I need more RAM?](/enterprise_influxdb/v1.9/reference/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/enterprise_influxdb/v1.9/reference/hardware_sizing/) -->
+
 - [Don't have too many series](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/#avoid-too-many-series)
 
 > **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
