@@ -380,7 +380,7 @@ The `mymeas` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurem
 The first point has the [timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) `2017-03-01T00:16:18Z`, a `myfield` value of `33.1`, and no tag values for the `mytag1` and `mytag2` [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key).
 The second point has the timestamp `2017-03-01T00:17:18Z`, a `myfield` value of `12.4`, a `mytag1` value of `12`, and a `mytag2` value of `14`.
 
-The same query in the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/use-influx/) (CLI) returns the following table:
+The same query in the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) (CLI) returns the following table:
 
 ```sql
 name: mymeas
