@@ -25,6 +25,7 @@ The `meta.password-hash` setting must be the same in both the data and meta node
 **Example data node configuration:**
 
 ```toml
+[meta]
   # Configures password hashing scheme. Use "pbkdf2-sha256" or "pbkdf2-sha512"
   # for a FIPS-ready password hash. This setting must have the same value as
   # the meta nodes' meta.password-hash configuration.
@@ -37,6 +38,7 @@ The `meta.password-hash` setting must be the same in both the data and meta node
 **Example meta node configuration:**
 
 ```toml
+[meta]
   # Configures password hashing scheme. Use "pbkdf2-sha256" or "pbkdf2-sha512"
   # for a FIPS-ready password hash. This setting must have the same value as
   # the data nodes' meta.password-hash configuration.
