@@ -991,10 +991,12 @@ The number of in-flight writes buffered in the write channel.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_BUFFER_SIZE`
 
-#### `total-buffer-bytes`
+#### `total-buffer-bytes = 0`
 
 The total number of bytes allocated to buffering across all subscriptions.
 Each named subscription will receive an equal share of the total.
+`0` means unlimited.
+Default is `0`.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_TOTAL_BUFFER_BYTES`
 
