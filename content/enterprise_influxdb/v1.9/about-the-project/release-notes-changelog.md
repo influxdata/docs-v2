@@ -15,7 +15,7 @@ menu:
 - Add configurable password hashing with `bcrypt` and `pbkdf2` support. <!-- https://github.com/influxdata/plutonium/pull/3504 AND https://github.com/influxdata/plutonium/pull/3486 -->
 - Add retry with exponential back-off to anti-entropy repair. <!-- https://github.com/influxdata/plutonium/pull/3507 -->
 - Add logging to compaction. <!-- https://github.com/influxdata/influxdb/pull/21710 -->
-- Add `total-buffer-bytes` configuration parameter to subscriptions. <!-- https://github.com/influxdata/influxdb/pull/21806 -->
+- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions. <!-- https://github.com/influxdata/influxdb/pull/21806 -->
 - Update Flux to [v0.120.1](/influxdb/v2.0/reference/release-notes/flux/#). <!-- https://github.com/influxdata/influxdb/pull/21821 -->
 
 ### Bugfixes
