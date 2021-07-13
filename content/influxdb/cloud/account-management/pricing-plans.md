@@ -12,7 +12,6 @@ menu:
     parent: Account management
     name: Pricing plans
 products: [cloud]
-influxdb/cloud/tags: [VPC]
 ---
 
 InfluxDB Cloud offers two pricing plans, which provide different data and resource usage limits:
@@ -87,10 +86,3 @@ Set your retention period to unlimited or up to 1 year by [updating a bucket’s
   - Checks
   - Notification rules
   - PagerDuty, Slack, and HTTP notification endpoints
-
-{{% cloud %}}
-#### VPC peering
-
-If you are interested in adding virtual private cloud (VPC) peering to your Cloud account, please [contact sales](https://www.influxdata.com/contact-sales/) to discuss the options and associated pricing.
-{{% /cloud %}}
-
