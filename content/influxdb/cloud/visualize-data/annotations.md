@@ -29,7 +29,7 @@ Annotations may be useful to highlight operations or anomalies for your team to 
 
     {{< nav-icon "dashboards" >}}
 
-2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/). The **Annotations** option is selected by default.
+2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/), and then click the **Annotations** button.
 3. In a dashboard cell, do one of the following:
 
    - Press Shift and click the graph at the time you want to annotate.
