@@ -21,9 +21,7 @@ related:
 The `/query` 1.x compatibility endpoint queries InfluxDB Cloud and InfluxDB OSS 2.0 using **InfluxQL**.
 Use the `GET` request method to query data from the `/query` endpoint.
 
-<pre>
-<span class="api get">GET</span> http://localhost:8086/query
-</pre>
+{{< api-endpoint method="get" endpoint="http://localhost:8086/query" >}}
 
 The `/query` compatibility endpoint uses the **database** and **retention policy**
 specified in the query request to map the request to an InfluxDB bucket.

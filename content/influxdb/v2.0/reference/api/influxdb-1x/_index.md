@@ -116,11 +116,10 @@ Authorization: Basic <username>:<password>
 Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 {{% note %}}
-##### Using query string parameters
+##### Consider when using query string parameters
 
-* URL-encode query parameters that may contain whitespace or other special characters.
-
-* Be aware of the <a href="https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url">risks</a> when exposing sensitive data through URLs.
+- URL-encode query parameters that may contain whitespace or other special characters.
+- Be aware of the [risks](https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url) when exposing sensitive data through URLs.
 {{% /note %}}
 
 ##### Syntax
@@ -132,7 +131,7 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 ##### Example
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
 [Node.js](#nodejs)
@@ -147,7 +146,7 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 {{< get-assets-text "api/v1-compat/auth/oss/querystring-auth.js" >}}
 ```
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
 ##### InfluxQL support
 

@@ -2,6 +2,7 @@
   * Use a token in the Authorization header
   * to query the InfluxDB 1.x-compatibility API
   */
+
 const https = require('https');
 const querystring = require('querystring');
 

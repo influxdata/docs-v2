@@ -145,8 +145,8 @@ too many open files
 ```
 
 To resolve this error, follow the
- [recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
-  file and process limits for your operating system version then restart `influxd`.
+[recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
+file and process limits for your operating system version then restart `influxd`.
 
 {{% /warn %}}
 

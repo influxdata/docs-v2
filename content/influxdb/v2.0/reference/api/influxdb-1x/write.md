@@ -51,10 +51,10 @@ encode the line protocol.
 ## Query string parameters
 
 ### u
-(Optional) The 1.x **username** to authenticate the request. For more information, see [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication)
+(Optional) The 1.x **username** to authenticate the request. For more information, see [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication).
 
 ### p
-(Optional) The 1.x **password** to authenticate the request. For more information, see [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication)
+(Optional) The 1.x **password** to authenticate the request. For more information, see [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication).
 
 ### db
 ({{< req >}}) The **database** to write data to.

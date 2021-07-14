@@ -24,9 +24,7 @@ using patterns from the InfluxDB 1.x `/write` API endpoint.
 Use the `POST` request method to write [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 to the `/write` endpoint.
 
-<pre>
-<span class="api post">POST</span> https://cloud2.influxdata.com/write
-</pre>
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/write" >}}
 
 {{% note %}}
 If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
@@ -47,10 +45,10 @@ encode the line protocol.
 ## Query string parameters
 
 ### u
-(Optional) The InfluxDB Cloud **username** to authenticate the request. For more information, see [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)
+(Optional) The InfluxDB Cloud **username** to authenticate the request. For more information, see [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication).
 
 ### p
-(Optional) The InfluxDB Cloud **authentication token** to authenticate the request. For more information, see [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)
+(Optional) The InfluxDB Cloud **authentication token** to authenticate the request. For more information, see [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication).
 
 ### db
 ({{< req >}}) The **database** to write data to.
