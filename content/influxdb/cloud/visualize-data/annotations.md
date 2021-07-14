@@ -32,7 +32,7 @@ Annotations may be useful to highlight operations or anomalies for your team to 
 2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/). The **Annotations** option is selected by default.
 3. In a dashboard cell, do one of the following:
 
-   - To add an annotation to a single point in time, press Shift and click the time.
+   - Press Shift and click the graph at the time you want to annotate.
    - To add an annotation to a time range, press Shift, click the start time, and then drag your cursor to the end time.
 4. On the **Add Annotation** page:
 
