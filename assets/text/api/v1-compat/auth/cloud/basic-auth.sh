@@ -1,7 +1,7 @@
 #######################################
 # Use an InfluxDB 1.x compatible username
 # and password with Basic Authentication
-# to query the InfluxDB 1.x-compatibility API
+# to query the InfluxDB 1.x compatibility API
 #######################################
 # Use default retention policy
 #######################################

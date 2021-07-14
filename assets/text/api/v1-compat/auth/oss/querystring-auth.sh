@@ -1,6 +1,6 @@
 #######################################
 # Use an InfluxDB 1.x compatible username and password
-# to query the InfluxDB 1.x-compatibility API
+# to query the InfluxDB 1.x compatibility API
 #######################################
 # Use authentication query parameters:
 #   ?u=<username>&p=<password>

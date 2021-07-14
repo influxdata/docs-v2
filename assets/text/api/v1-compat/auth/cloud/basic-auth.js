@@ -1,7 +1,7 @@
 /**
   * Use an InfluxDB Cloud username and token
   * with Basic Authentication
-  * to query the InfluxDB 1.x-compatibility API
+  * to query the InfluxDB 1.x compatibility API
   */
 
 const https = require('https');
