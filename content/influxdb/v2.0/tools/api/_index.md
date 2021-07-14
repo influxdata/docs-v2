@@ -15,7 +15,7 @@ The following pages offer general guides to the most commonly used API methods.
 For detailed documentation on the entire API, see [InfluxDBv2 API Documentation](/influxdb/v2.0/reference/api/#influxdb-v2-api-documentation).
 
 {{% note %}}
-If you are interacting with InfluxDB 1.x, see the [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
+If you need to use InfluxDB 2.0 with **InfluxDB 1.x** API clients and integrations, see the [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 {{% /note %}}
 
 Use the following API endpoints to write and query data:
