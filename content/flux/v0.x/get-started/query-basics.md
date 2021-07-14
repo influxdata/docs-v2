@@ -17,7 +17,10 @@ In the [water treatment metaphor](/flux/v0.x/get-started/#flux-overview),
 the pipe-forward operator is that pipe the carries water or data through the entire pipeline.
 
 ### Predicate functions
-- Functions that return `true` or `false` using [predicate expressions](#predicate-expression).
+Predicate functions return `true` or `false` based on [predicate expressions](#predicate-expressions)
+
+#### Predicate expressions
+Flux uses predicate expressions when [filtering data](#filter) or in [conditional logic](#).
 - Predicate expression
   - left and right operand split by an operator
   - chained together using [logical operators](/flux/v0.x/spec/operators/#logical-operators) (`and`, `or`)
@@ -113,9 +116,30 @@ or [selector](/flux/v0.x/function-types/#selectors) function to the restructured
 
 ## Write a basic query
 
-- Use the Flux REPL or the InfluxDB Cloud or InfluxDB OSS data explorer.
+- Use the Flux REPL or the InfluxDB Cloud or InfluxDB OSS data explorer
+  and the airSensor sample data.
 
 ```js
-import "http"
+import "influxdata/influxdb/sample"
 
+sample.data(set: "airSensor")
 ```
+
+- Filter the data by time:
+    ```js
+    import "influxdata/influxdb/sample"
+
+    sample.data(set: "airSensor")
+      |> range(start: -1h)
+    ```
+
+- Filter data by column value
+- Explain how filter works
+
+    ```js
+    import "influxdata/influxdb/sample"
+
+    sample.data(set: "airSensor")
+      |> range(start: -1h)
+      |> filter(fn: (r) => r._sensorID == "???")
+    ```
