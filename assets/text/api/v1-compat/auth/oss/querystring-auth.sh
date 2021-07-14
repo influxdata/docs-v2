@@ -6,6 +6,7 @@
 #   ?u=<username>&p=<password>
 # Use default retention policy.
 #######################################
+
 curl --get "http://localhost:8086/query" \
   --data-urlencode "u=OneDotXUsername" \
   --data-urlencode "p=yourPasswordOrToken" \
