@@ -84,7 +84,8 @@ For information about creating and managing 1.x-compatible authorizations, see:
 
 #### Basic authentication
 
-Use Basic authentication to provide username and password credentials to InfluxDB.
+Use the `Authorization` header with the `Basic` scheme to provide username and
+password credentials to InfluxDB.
 
 {{% api/v1-compat/basic-auth-syntax %}}
 

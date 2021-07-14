@@ -78,7 +78,7 @@ Username and password schemes require the following credentials:
 - **password**: InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/)
 
 #### Basic authentication
-Use Basic authentication to provide username and password credentials to InfluxDB.
+Use the `Authorization` header with the `Basic` scheme to provide username and password credentials to InfluxDB.
 
 {{% api/v1-compat/basic-auth-syntax %}}
 
