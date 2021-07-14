@@ -337,7 +337,12 @@ Download InfluxDB v2.0 for Windows.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v2.0 (Windows)</a>
 
-Expand the downloaded archive into `C:\Program Files\InfluxData\influxdb`.
+Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
+
+```powershell
+> Expand-Archive .\influxdb2-{{< latest-patch >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
+> mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
+```
 
 ### Networking ports
 By default, InfluxDB uses TCP port `8086` for client-server communication over
@@ -348,7 +353,7 @@ In **Powershell**, navigate into `C:\Program Files\InfluxData\influxdb` and star
 InfluxDB by running the `influxd` daemon:
 
 ```powershell
-> cd -Path C:\Program Files\InfluxData\influxdb
+> cd -Path 'C:\Program Files\InfluxData\influxdb'
 > ./influxd
 ```
 
