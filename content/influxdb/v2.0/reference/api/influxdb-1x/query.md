@@ -46,10 +46,12 @@ _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxd
 ## Query string parameters
 
 ### u
-(Optional) The 1.x **username** to authenticate the request. For more information, see [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication)
+(Optional) The 1.x **username** to authenticate the request.
+_See [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### p
-(Optional) The 1.x **password** to authenticate the request. For more information, see [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication)
+(Optional) The 1.x **password** to authenticate the request.
+_See [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### db
 ({{< req >}}) The **database** to query data from.

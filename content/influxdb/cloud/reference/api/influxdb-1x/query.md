@@ -40,10 +40,12 @@ to query that bucket with the `/query` compatibility API.
 {{% api/url-encode-note %}}
 
 ### u
-(Optional) The InfluxDB Cloud **username** to authenticate the request. For more information, see [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)
+(Optional) The InfluxDB Cloud **username** to authenticate the request.
+_See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### p
-(Optional) The InfluxDB Cloud **authentication token** to authenticate the request. For more information, see [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)
+(Optional) The InfluxDB Cloud **authentication token** to authenticate the request.
+_See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### db
 ({{< req >}}) The **database** to query data from.
