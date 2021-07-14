@@ -3,6 +3,7 @@
   * with Basic Authentication
   * to query the InfluxDB 1.x-compatibility API
   */
+
 const https = require('https');
 const querystring = require('querystring');
 
