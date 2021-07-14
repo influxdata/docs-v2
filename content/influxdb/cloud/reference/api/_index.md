@@ -12,7 +12,7 @@ The InfluxDB v2 API provides a programmatic interface for interactions with Infl
 Access the InfluxDB API using the `/api/v2/` endpoint.
 
 ## Authentication
-InfluxDB uses [authentication tokens](/influxdb/cloud/security/tokens/) to authorize API requests.
+{{% cloud-token-auth %}}
 Include your authentication token as an `Authorization` header in each request.
 
 ```sh
