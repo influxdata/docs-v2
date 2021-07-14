@@ -9,6 +9,7 @@
 # or the `--user <username>` interactive syntax to ensure your credentials are
 # encoded in the header.
 #######################################
+
 curl --get "http://localhost:8086/query" \
   --user "OneDotXUsername":"YourAuthToken" \
   --data-urlencode "db=mydb" \
