@@ -10,6 +10,6 @@
 # encoded in the header.
 #######################################
 curl --get "http://localhost:8086/query" \
-  --user "OneDotXUsername":"myPasswordOrAuthToken" \
+  --user "OneDotXUsername":"yourPasswordOrToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM cpu_usage"

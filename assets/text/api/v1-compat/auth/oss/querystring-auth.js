@@ -16,7 +16,7 @@ function queryWithToken() {
     db: 'mydb',
     q: 'SELECT * FROM cpu_usage',
     u: 'OneDotXUsername',
-    p: 'myPasswordOrAuthToken'
+    p: 'yourPasswordOrToken'
   };
 
   const options = {

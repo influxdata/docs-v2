@@ -1,8 +1,8 @@
-Most HTTP clients provide a **Basic authentication** option that allows the `<username>:<password>` syntax
-and encodes the credentials into the `Authorization` header before sending the request.
-
-The following *curl* example provides the credentials through the `--user` option:
-
-```sh
-curl get "http://localhost:8086/influxdb/query" --user myusername:mYSuP3rs3cREtT0k3N
-```
+{{ $_hugo_config := `{ "version": 1 }` }}
+<div class="note block">
+  <p>
+  Most HTTP clients provide a <b>Basic authentication</b> option that
+  accepts the <code>&lt;username&gt;:&lt;password&gt;</code> syntax
+  and encodes the credentials before sending the request.
+  </p>
+</div>

@@ -8,6 +8,6 @@
 #######################################
 curl --get "http://localhost:8086/query" \
   --data-urlencode "u=OneDotXUsername" \
-  --data-urlencode "p=myPasswordOrAuthToken" \
+  --data-urlencode "p=yourPasswordOrToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM cpu_usage"

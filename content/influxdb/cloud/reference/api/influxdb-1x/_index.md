@@ -27,18 +27,18 @@ InfluxDB Cloud requires all query and write requests to be authenticated using
 [InfluxDB authentication tokens](/influxdb/cloud/security/tokens/).
 {{% /cloud %}}
 
-Use the following authentication methods to with InfluxDB 1.x compatibility endpoints:
+Use InfluxDB authentication tokens with the following authentication schemes:
 
-* [token authentication](#authenticate-with-a-token)
-* [username and password authentication](#authenticate-with-a-username-and-password)
+* [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
+* [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
 
-### Authenticate with a token
+### Authenticate with the Token scheme
 Token authentication requires the following credential:
 
 - **token**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
 
 Use the `Authorization` header with the `Token` scheme to provide your
-authentication token to InfluxDB.
+token to InfluxDB.
 
 ##### Syntax
 ```sh
@@ -47,7 +47,7 @@ Authorization: Token <token>
 
 ##### Example
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
 [Node.js](#nodejs)
@@ -62,26 +62,34 @@ Authorization: Token <token>
 {{% get-assets-text "api/v1-compat/auth/oss/token-auth.js" %}}
 ```
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
-### Authenticate with a username and password
-Use the following authentication schemes with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
+### Authenticate with a username and password scheme
+
+Use the following schemes with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
 
 - [Basic authentication](#basic-authentication)
 - [Query string authentication](#query-string-authentication)
 
+##### Manage credentials
+
+Username and password schemes require the following credentials:
 - **username**: InfluxDB Cloud username
 - **password**: InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/)
 
 #### Basic authentication
-Use the `Authentication Basic` scheme.
+Use Basic authentication to provide username and password credentials to InfluxDB.
 
-#### Syntax
 {{% api/v1-compat/basic-auth-syntax %}}
 
-#### Example
+##### Syntax
+```sh
+Authorization: Basic <username>:<password>
+```
 
-{{% code-tabs-wrapper %}}
+##### Example
+
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
 [Node.js](#nodejs)
@@ -96,17 +104,18 @@ Use the `Authentication Basic` scheme.
 {{% get-assets-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
 ```
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
 #### Query string authentication
-Use InfluxDB 1.x API parameters to provide credentials through the query string.
+Use InfluxDB 1.x API parameters to provide username and password credentials through the query string.
 
-{{% api/url-encode-note %}}
+{{% note %}}
+##### Using query string parameters
 
-{{% warn %}}
-##### Information exposure through query strings
-Be aware of [the risks](https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url) when exposing sensitive data through URLs.
-{{% /warn %}}
+* URL-encode query parameters that may contain whitespace or other special characters.
+
+* Be aware of the <a href="https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url">risks</a> when exposing sensitive data through URLs.
+{{% /note %}}
 
 ##### Syntax
 
@@ -117,7 +126,7 @@ Be aware of [the risks](https://owasp.org/www-community/vulnerabilities/Informat
 
 ##### Example
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
 [Node.js](#nodejs)
@@ -132,7 +141,7 @@ Be aware of [the risks](https://owasp.org/www-community/vulnerabilities/Informat
 {{% get-assets-text "api/v1-compat/auth/oss/querystring-auth.js" %}}
 ```
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
 ## InfluxQL support
 

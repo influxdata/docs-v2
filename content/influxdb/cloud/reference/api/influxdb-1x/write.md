@@ -36,12 +36,7 @@ to write data to that bucket with the `/write` compatibility API.
 
 ## Authentication
 
-Use one of the following authentication methods:
-* **token authentication**
-* **basic authentication with username and password**
-* **query string authentication with username and password**
-
-_For more information, see [Authentication](/influxdb/cloud/reference/api/influxdb-1x/#authentication)._
+{{% api/v1-compat/cloud/authentication %}}
 
 ## Request body
 Include your line protocol in the request body.
@@ -52,10 +47,10 @@ encode the line protocol.
 ## Query string parameters
 
 ### u
-(Optional) The 1.x **username** to authenticate the request. For more information, see [query string authentication with username and password](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication-with-username-and-password)
+(Optional) The InfluxDB Cloud **username** to authenticate the request. For more information, see [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)
 
 ### p
-(Optional) The 1.x **password** to authenticate the request. For more information, see [query string authentication with username and password](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication-with-username-and-password)
+(Optional) The InfluxDB Cloud **authentication token** to authenticate the request. For more information, see [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)
 
 ### db
 ({{< req >}}) The **database** to write data to.

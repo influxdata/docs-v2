@@ -20,18 +20,19 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 <a class="btn" href="/influxdb/v2.0/api/v1-compatibility/">View full v1 compatibility API documentation</a>
 
 ## Authentication
-InfluxDB 2.0 requires all query and write requests to be authenticated.
+InfluxDB 2.0 requires all query and write requests to be authenticated with an
+[authentication token](/influxdb/v2.0/security/tokens/) or 1.x compatible
+credentials.
 
-* [Authenticate with a token](#authenticate-with-a-token)
-* [Authenticate with a username and password](#authenticate-with-a-username-and-password)
+* [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
+* [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
 
-### Authenticate with a Token
+### Authenticate with the Token scheme
 Token authentication requires the following credential:
 
 - **token**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
 
-Use the `Authorization` header with the `Token` scheme to provide your
-authentication token to InfluxDB.
+Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
 
 #### Syntax
 
@@ -41,7 +42,7 @@ Authorization: Token <token>
 
 #### Example
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
 [Node.js](#nodejs)
@@ -56,42 +57,45 @@ Authorization: Token <token>
 {{% get-assets-text "api/v1-compat/auth/oss/token-auth.js" %}}
 ```
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
-### Authenticate with a username and password
-Username and password authentication requires the following credentials:
-- **username**: 1.x username (this is separate from the UI login username)
-- **password**: 1.x password or InfluxDB authorization token.
-
-{{% note %}}
-#### Password or Token?
-{{% api/v1-compat/password-or-token %}}
-{{% /note %}}
+### Authenticate with a username and password scheme
 
 Use the following authentication schemes with clients that support the InfluxDB 1.x convention of `username` and `password` (that don't support the `Authorization: Token` scheme):
 
 - [Basic authentication](#basic-authentication)
 - [Query string authentication](#query-string-authentication)
 
+##### Manage credentials
+
+Username and password schemes require the following credentials:
+- **username**: 1.x username (this is separate from the UI login username)
+- **password**: 1.x password or InfluxDB authentication token.
+
 {{% note %}}
 #### Password or Token
-{{% api/v1-compat/password-or-token %}}
+{{% api/v1-compat/oss/password-or-token %}}
 {{% /note %}}
 
 For information about creating and managing 1.x-compatible authorizations, see:
 
-- [influx v1 auth](/influxdb/v2.0/reference/cli/influx/v1/auth/)
+- [`influx v1 auth` command](/influxdb/v2.0/reference/cli/influx/v1/auth/)
 - [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
 
 #### Basic authentication
 
-##### Syntax
+Use Basic authentication to provide username and password credentials to InfluxDB.
 
 {{% api/v1-compat/basic-auth-syntax %}}
 
+##### Syntax
+```sh
+Authorization: Basic <username>:<password>
+```
+
 ##### Example
 
-{{% code-tabs-wrapper %}}
+{{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
 [Node.js](#nodejs)
@@ -106,7 +110,7 @@ For information about creating and managing 1.x-compatible authorizations, see:
 {{% get-assets-text "api/v1-compat/auth/oss/basic-auth.js" %}}
 ```
 {{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+{{< /code-tabs-wrapper >}}
 
 #### Query string authentication
 Use InfluxDB 1.x API parameters to provide credentials through the query string.

@@ -16,7 +16,7 @@ function queryWithUsername() {
   const options = {
     host: 'localhost:8086',
     path: '/query?' + querystring.stringify(queryparams),
-    auth: 'OneDotXUsername:myPasswordOrAuthToken',
+    auth: 'OneDotXUsername:yourPasswordOrToken',
     headers: {
       'Content-type': 'application/json'
     },
