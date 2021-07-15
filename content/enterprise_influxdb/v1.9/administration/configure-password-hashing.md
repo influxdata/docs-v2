@@ -23,7 +23,7 @@ to change the password hashing algorithm used by an existing InfluxDB Enterprise
 
 1. Ensure all meta and data nodes are running InfluxDB Enterprise 1.9.3 or later.
 2. In your meta node and data node configuration files, set [`password-hash`] to your desired algorithm
-   and [`ensure-fips`] to `true`
+   and [`ensure-fips`] to `true`.
 
    {{% note %}}
 The `meta.password-hash` setting must be the same in both the data and meta node configuration files.
