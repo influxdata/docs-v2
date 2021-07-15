@@ -43,12 +43,12 @@ Include your authentication token as an `Authorization` header in each request.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-{{% get-assets-text "api/v2.0/auth/oss/token-auth.sh" %}}
+{{% get-shared-text "api/v2.0/auth/oss/token-auth.sh" %}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{% get-assets-text "api/v2.0/auth/oss/token-auth.js" %}}
+{{% get-shared-text "api/v2.0/auth/oss/token-auth.js" %}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
