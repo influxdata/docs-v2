@@ -181,6 +181,8 @@ Whether log messages are printed for the meta service.
 
 Environment variable: `INFLUXDB_META_LOGGING_ENABLED`
 
+#### `password hashing`
+
 -----
 
 ## Data settings

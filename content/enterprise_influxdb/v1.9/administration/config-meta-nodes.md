@@ -264,6 +264,7 @@ To use this option, set [`auth-enabled`](#auth-enabled-false) to `true`.
 
 Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`
 
+#### `password hashing`
 ### TLS settings
 
 For more information, see [TLS settings for data nodes](/enterprise_influxdb/v1.9/administration/config-data-nodes#tls-settings).
