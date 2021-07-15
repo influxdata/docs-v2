@@ -17,7 +17,7 @@ menu:
 The default port that runs the InfluxDB HTTP service.
 It is used for the primary public write and query API.
 Clients include the CLI, Chronograf, InfluxDB client libraries, Grafana, curl, or anything that wants to write and read time series data to and from InfluxDB.
-[Configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address-8088)
+[Configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address--8086)
 in the data node configuration file.
 
 _See also: [API Reference](/enterprise_influxdb/v1.9/tools/api/)._
@@ -31,7 +31,7 @@ It's also used by meta nodes for cluster-type operations (e.g., tell a data node
 
 This is the default port used for RPC calls used for inter-node communication and by the CLI for backup and restore operations
 (`influxdb backup` and `influxd restore`).
-[Configure this port](/enterprise_influxdb/v1.9/administration/config#bind-address-127-0-0-1-8088)
+[Configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address--8088)
 in the configuration file.
 
 This port should not be exposed outside the cluster.
@@ -40,7 +40,7 @@ _See also: [Backup and Restore](/enterprise_influxdb/v1.9/administration/backup_
 
 ### 8089
 
-Used for communcation between meta nodes.
+Used for communication between meta nodes.
 It is used by the Raft consensus protocol.
 The only clients using `8089` should be the other meta nodes in the cluster.
 
@@ -61,7 +61,7 @@ This port should not be exposed outside the cluster.
 ### 2003
 
 The default port that runs the Graphite service.
-[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config#bind-address-2003)
+[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address--2003)
 in the configuration file.
 
 **Resources** [Graphite README](https://github.com/influxdata/influxdb/tree/1.8/services/graphite/README.md)
@@ -69,7 +69,7 @@ in the configuration file.
 ### 4242
 
 The default port that runs the OpenTSDB service.
-[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config#bind-address-4242)
+[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address--4242)
 in the configuration file.
 
 **Resources** [OpenTSDB README](https://github.com/influxdata/influxdb/tree/1.8/services/opentsdb/README.md)
@@ -77,7 +77,7 @@ in the configuration file.
 ### 8089
 
 The default port that runs the UDP service.
-[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config#bind-address-8089)
+[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address--8089)
 in the configuration file.
 
 **Resources** [UDP README](https://github.com/influxdata/influxdb/tree/1.8/services/udp/README.md)
@@ -85,7 +85,7 @@ in the configuration file.
 ### 25826
 
 The default port that runs the Collectd service.
-[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config#bind-address-25826)
+[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#collectd)
 in the configuration file.
 
 **Resources** [Collectd README](https://github.com/influxdata/influxdb/tree/1.8/services/collectd/README.md)

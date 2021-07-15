@@ -77,7 +77,7 @@ The size of the batches written to the index. Default value is `10000`.
 ##### `[ -concurrency ]`
 
 The number of workers to dedicate to shard index building.
-Defaults to [`GOMAXPROCS`](/enterprise_influxdb/v1.9/administration/config#gomaxprocs-environment-variable) value.
+Defaults to [`GOMAXPROCS`](/enterprise_influxdb/v1.9/administration/configuration/#gomaxprocs-environment-variable) value.
 
 ##### `[ -database <db_name> ]`
 

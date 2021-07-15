@@ -85,7 +85,7 @@ in the configuration file.
 ### 25826
 
 The default port that runs the Collectd service.
-[Enable and configure this port](/influxdb/v1.8/administration/config#bind-address-25826)
+[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#collectd)
 in the configuration file.
 
 **Resources** [Collectd README](https://github.com/influxdata/influxdb/tree/1.8/services/collectd/README.md)
