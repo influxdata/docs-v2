@@ -155,7 +155,7 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 
 ###### Legend
 
-- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+- **Orientation**: Select the orientation of the legend:
   - **Horizontal**: Select to display the legend horizontally.
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.

@@ -134,6 +134,22 @@ To manually authorize the InfluxDB binaries:
 We are in the process of updating our build process to ensure released binaries are signed by InfluxData.
 {{% /warn %}}
 
+{{% warn %}}
+#### "too many open files" errors
+
+After running `influxd`, you might see an error in the log output like the
+following:
+
+```sh
+too many open files
+```
+
+To resolve this error, follow the
+[recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
+file and process limits for your operating system version then restart `influxd`.
+
+{{% /warn %}}
+
 _See the [`influxd` documentation](/influxdb/v2.0/reference/cli/influxd) for information about
 available flags and options._
 
@@ -317,12 +333,7 @@ influxd --reporting-disabled
 
 <!------------------------------- BEGIN Windows ------------------------------->
 {{% tab-content %}}
-{{% warn %}}
-### Experimental Windows support
-InfluxDB 2.0 on Windows is currently considered experimental.
-If you experience issues, please [submit an issue](https://github.com/influxdata/influxdb/issues/new/choose)
-to the InfluxDB Github repository.
-
+{{% note %}}
 ##### System requirements
 - Windows 10
 - 64-bit AMD architecture
@@ -335,14 +346,19 @@ The command line examples in this documentation use `influx` and `influxd` as if
 installed on the system `PATH`.
 If these binaries are not installed on your `PATH`, replace `influx` and `influxd`
 in the provided examples with `./influx` and `./influxd` respectively.
-{{% /warn %}}
+{{% /note %}}
 
 ### Download and install InfluxDB v2.0
 Download InfluxDB v2.0 for Windows.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v2.0 (Windows)</a>
 
-Expand the downloaded archive into `C:\Program Files\InfluxData\influxdb`.
+Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
+
+```powershell
+> Expand-Archive .\influxdb2-{{< latest-patch >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
+> mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
+```
 
 ### Networking ports
 By default, InfluxDB uses TCP port `8086` for client-server communication over
@@ -353,7 +369,7 @@ In **Powershell**, navigate into `C:\Program Files\InfluxData\influxdb` and star
 InfluxDB by running the `influxd` daemon:
 
 ```powershell
-> cd -Path C:\Program Files\InfluxData\influxdb
+> cd -Path 'C:\Program Files\InfluxData\influxdb'
 > ./influxd
 ```
 

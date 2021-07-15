@@ -143,7 +143,7 @@ Connected to http://localhost:8086 version 1.4.x
 InfluxDB shell 1.4.x
 ```
 
-##### Authenticate with credentials in the influx sheel
+##### Authenticate with credentials in the influx shell
 Start the `influx` shell and run the `auth` command.
 Enter your username and password when prompted.
 

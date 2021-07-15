@@ -7,7 +7,7 @@ menu:
   influxdb_cloud:
     name: Sign up
 weight: 1
-influxdb/cloud/tags: [get-started, install]
+influxdb/cloud/tags: [get-started, install, cli]
 ---
 
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
@@ -19,6 +19,12 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization.
+
+- [Start for free](#start-for-free)
+- [Sign up](#sign-up)
+- [(Optional) Download, install, and use the influx CLI](#optional-download-install-and-use-the-influx-cli)
+- [Sign in](#sign-in)
+- [Get started working with data](#get-started-working-with-data)
 
 ## Start for free
 
@@ -230,7 +236,7 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 Click the following button to download and install `influx` CLI for Windows.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.tar.gz" download>influx CLI (Windows)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download>influx CLI (Windows)</a>
 
 #### Step 2: Expand the downloaded archive
 

@@ -8,6 +8,39 @@ menu:
     name: Flux
 ---
 
+## v0.118.1 [2021-06-15]
+- _Internal code cleanup._
+
+---
+
+## v0.118.0 [2021-06-15]
+
+###  Features
+- Add `exclude` parameter to `pagerduty.dedupKey()`.
+
+### Bug fixes
+- Ensure PagerDuty tests include a `_value` column.
+- Add length check to CSV annotation parsing.
+- Change `FunctionLiteral` precedence to preserve parentheses.
+
+---
+
+## v0.117.3 [2021-06-07]
+- _Internal code cleanup._
+
+---
+
+## v0.117.2 [2021-06-07]
+
+### Bug fixes
+- Remove `tabstop` processing from formatter.
+- Support dividing IEEE float values by zero.
+- Fix multiline collapse when formatting function parameters.
+- Reclassify `map type` error as `user` error.
+- Fix acceptance tests to catch different timestamps.
+
+---
+
 ## v0.117.1 [2021-06-01]
 
 ### Bug fixes
