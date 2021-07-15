@@ -25,6 +25,7 @@ This query:
 
 ```js
 from(bucket: "noaa")
+  |> range(start: -30d)
   |> group()
   |> keep(columns: ["location"])
   |> unique(column: "location")
