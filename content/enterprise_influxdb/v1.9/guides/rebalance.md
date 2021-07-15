@@ -267,7 +267,7 @@ shards across the three data nodes in the cluster.
 
 The following query increases the replication factor to three.
 Run the query on any data node for each retention policy and database.
-Here, we use InfluxDB's [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) to execute the query:
+Here, we use InfluxDB's [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) to execute the query:
 
 ```
 > ALTER RETENTION POLICY "<retention_policy_name>" ON "<database_name>" REPLICATION 3
