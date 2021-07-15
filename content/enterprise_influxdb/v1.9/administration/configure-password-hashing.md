@@ -11,29 +11,26 @@ related:
     - /enterprise_influxdb/v1.9/administration/configuration/
 ---
 
-Compliance standards might require particular hashing alorithms
-when storing the InfluxDB Enterprise [user](/enterprise_influxdb/v1.9/concepts/glossary/#user) passwords.
+[FIPS] compliance standards require particular hashing alorithms
+when storing the InfluxDB Enterprise passwords.
 
 By default, InfluxDB Enterprise uses `bcrypt` for password hashing.
+Use `pbkdf2-sha256` or `pbkdf2-sha256` for FIPS compliance.
 
 ## Change password hashing algorithm
 
 Complete the following steps
 to change the password hashing algorithm used by an existing InfluxDB Enterprise cluster:
 
-1. Set the following configuration options in both the meta node and data node configuration files:
-
-   - `password-hash`
-   - `ensure-fips`
+1. Ensure all meta and data nodes are running InfluxDB Enterprise 1.9.3 or later.
+2. In your meta node and data node configuration files, set [`password-hash`] to your desired algorithm
+   and [`ensure-fips`] to `true`
 
    {{% note %}}
 The `meta.password-hash` setting must be the same in both the data and meta node configuration files.
    {{% /note %}}
-
-2. Ensure all meta and data nodes are running InfluxDB Enterprise 1.9.3 or later.
-3. Edit the meta and data node configuration files as in the [example above](#example-configuration).
-4. Restart each meta and node to pick up the configuration change.
-5. [Reset](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#reset-a-users-password) all passwords.
+3. Restart each meta and node to pick up the configuration change.
+4. [Reset](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#reset-a-users-password) all user passwords.
    For all existing usernames within the cluster,
    the passwords *must* be reset in order for the new hashing algorithm to be applied.
    Otherwise, the previous algorithm will continue to be used.
@@ -66,3 +63,7 @@ The `meta.password-hash` setting must be the same in both the data and meta node
   ensure-fips = true
 ```
 
+
+[FIPS]: https://csrc.nist.gov/publications/detail/fips/140/2/final
+[`password-hash`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt
+[`ensure-fips`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips--false
