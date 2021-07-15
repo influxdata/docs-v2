@@ -121,7 +121,7 @@ Request-Id: 1e08aeb6-fec0-11e6-8486-000000000000
 Date: Wed, 01 Mar 2017 20:46:17 GMT
 ```
 
-#### Launch the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/):
+#### Launch the InfluxDB command line interface:
 
 ```bash
 $ influx
