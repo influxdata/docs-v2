@@ -11,10 +11,9 @@ related:
     - /enterprise_influxdb/v1.9/administration/configuration/
 ---
 
-[FIPS] compliance standards require particular hashing alorithms
-when storing the InfluxDB Enterprise passwords.
 
 By default, InfluxDB Enterprise uses `bcrypt` for password hashing.
+[FIPS] compliance standards require particular hashing alorithms.
 Use `pbkdf2-sha256` or `pbkdf2-sha256` for FIPS compliance.
 
 ## Change password hashing algorithm
