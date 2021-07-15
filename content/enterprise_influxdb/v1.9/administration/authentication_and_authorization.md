@@ -5,7 +5,7 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Manage authentication and authorization
-    weight: 20
+    weight: 30
     parent: Administration
 ---
 
