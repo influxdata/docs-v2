@@ -63,7 +63,6 @@ The `meta.password-hash` setting must be the same in both the data and meta node
   ensure-fips = true
 ```
 
-
 [FIPS]: https://csrc.nist.gov/publications/detail/fips/140/2/final
 [`password-hash`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt
 [`ensure-fips`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips--false
