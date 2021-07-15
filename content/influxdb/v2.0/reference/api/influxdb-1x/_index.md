@@ -49,12 +49,12 @@ Authorization: Token <token>
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-{{% get-assets-text "api/v1-compat/auth/oss/token-auth.sh" %}}
+{{% get-shared-text "api/v1-compat/auth/oss/token-auth.sh" %}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{% get-assets-text "api/v1-compat/auth/oss/token-auth.js" %}}
+{{% get-shared-text "api/v1-compat/auth/oss/token-auth.js" %}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -103,12 +103,12 @@ Authorization: Basic <username>:<password>
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-{{% get-assets-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
+{{% get-shared-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{% get-assets-text "api/v1-compat/auth/oss/basic-auth.js" %}}
+{{% get-shared-text "api/v1-compat/auth/oss/basic-auth.js" %}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -139,12 +139,12 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-{{< get-assets-text "api/v1-compat/auth/oss/querystring-auth.sh" >}}
+{{< get-shared-text "api/v1-compat/auth/oss/querystring-auth.sh" >}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{< get-assets-text "api/v1-compat/auth/oss/querystring-auth.js" >}}
+{{< get-shared-text "api/v1-compat/auth/oss/querystring-auth.js" >}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

@@ -669,16 +669,16 @@ list_code_example: |
 ~~~
 
 #### Organize and include native code examples
-To include text from a file in `/assets/text/`, use the
-`{{< get-assets-text >}}` shortcode and provide the relative path and filename.
+To include text from a file in `/shared/text/`, use the
+`{{< get-shared-text >}}` shortcode and provide the relative path and filename.
 
 This is useful for maintaining and referencing sample code variants in their
  native file formats.
 
-1. Store code examples in their native formats at `/assets/text/`.
+1. Store code examples in their native formats at `/shared/text/`.
   ```md
-    /assets/text/example1/example.js
-    /assets/text/example1/example.py
+    /shared/text/example1/example.js
+    /shared/text/example1/example.py
   ```
 
 2. Include the files, e.g. in code tabs
@@ -690,12 +690,12 @@ This is useful for maintaining and referencing sample code variants in their
   {{% /code-tabs %}}
   {{% code-tab-content %}}
   ```js
-  {{< get-assets-text "example1/example.js" >}}
+  {{< get-shared-text "example1/example.js" >}}
   ```
   {{% /code-tab-content %}}
   {{% code-tab-content %}}
   ```py
-  {{< get-assets-text "example1/example.py" >}}
+  {{< get-shared-text "example1/example.py" >}}
   ```
   {{% /code-tab-content %}}
   {{% /code-tabs-wrapper %}}

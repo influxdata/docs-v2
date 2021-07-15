@@ -91,12 +91,12 @@ The following precisions are available:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-{{% get-assets-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{% get-assets-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

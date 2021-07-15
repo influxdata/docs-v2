@@ -37,7 +37,7 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
 1. Create a bucket with the `schema-type` flag set to `explicit`.
 
     ```sh
-    {{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
+    {{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}
     ```
 
 2. Use your text editor to create a schema columns file for each measurement you want to add.
@@ -52,17 +52,17 @@ as in the following examples:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-{{< get-assets-text "bucket-schema/usage-resources.csv" >}}
+{{< get-shared-text "bucket-schema/usage-resources.csv" >}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
-{{< get-assets-text "bucket-schema/usage-cpu.json" >}}
+{{< get-shared-text "bucket-schema/usage-cpu.json" >}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
-{{< get-assets-text "bucket-schema/sensor.ndjson" >}}
+{{< get-shared-text "bucket-schema/sensor.ndjson" >}}
 ```
 {{% /code-tab-content %}}
 {{% /code-tabs-wrapper %}}
@@ -118,7 +118,7 @@ Use the [`extended-output` flag](/influxdb/cloud/reference/cli/influx/bucket-sch
 
     ```sh
     # sensor.ndjson
-    {{< get-assets-text "bucket-schema/sensor.ndjson" >}}
+    {{< get-shared-text "bucket-schema/sensor.ndjson" >}}
     ```
 
     ```sh

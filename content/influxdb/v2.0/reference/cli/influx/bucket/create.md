@@ -101,5 +101,5 @@ For more information, see [Manage bucket schema](/influxdb/cloud/organizations/b
 {{% /cloud %}}
 
 ```sh
-{{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
+{{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}
 ```
