@@ -16,14 +16,41 @@ The **pipe-forward operator** (`|>`) sends output of a function as input to the 
 In the [water treatment metaphor](/flux/v0.x/get-started/#flux-overview),
 the pipe-forward operator is that pipe the carries water or data through the entire pipeline.
 
-### Predicate functions
-Predicate functions return `true` or `false` based on [predicate expressions](#predicate-expressions)
-
-#### Predicate expressions
+### Predicate expressions
 Flux uses predicate expressions when [filtering data](#filter) or in [conditional logic](#).
 - Predicate expression
-  - left and right operand split by an operator
+  - left and right operand split by a [comparison operator](/flux/v0.x/spec/operators/#comparison-operators)
   - chained together using [logical operators](/flux/v0.x/spec/operators/#logical-operators) (`and`, `or`)
+
+```js
+customer = {fname: "John", lname: "Doe", age: 41}
+
+customer.fname == "John"
+// Resolves to true
+
+customer.age < 30
+// Resolves to false
+
+customer.fname == "John" and customer.lname == "Doe"
+// Resolves to true
+```
+
+### Predicate functions
+Predicate functions return `true` or `false` and typically contain [predicate expressions](#predicate-expressions)
+and [logical operators](/flux/v0.x/spec/operators/#logical-operators).
+
+Flux functions, like [`filter()`](#filter), use predicate functions to iterate
+over rows and include or exclude rows based on column values.
+`filter()` passes each input into the predicate function defined in the `fn` parameter
+as a [record](/flux/v0.x/spec/types/#record-types) name `r`.
+The record contains key-value pairs for each column in the row.
+Predicate expressions evaluate column values with specified conditions.
+
+##### Example filter function
+```js
+// ...
+  |> filter(fn: (r) => r.fname == "John" and r.age < 30)
+```
 
 ### Packages
 - Explain how packages work.
