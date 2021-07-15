@@ -9,7 +9,7 @@ menu:
 weight: 201
 ---
 
-Use the [Raspberry Pi Monitoring template](https://github.com/influxdata/community-templates/tree/master/raspberry-pi) to monitor data from the Raspberry Pi system template to monitor your Raspberry Pi 4 or 400 Linux system. 
+Use the [Raspberry Pi Monitoring template](https://github.com/influxdata/community-templates/tree/master/raspberry-pi) to monitor your Raspberry Pi 4 or 400 Linux system.
 
 The Raspberry Pi template includes the following:
 
