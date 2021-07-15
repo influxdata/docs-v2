@@ -31,6 +31,7 @@ It's also used by meta nodes for cluster-type operations (e.g., tell a data node
 
 This is the default port used for RPC calls used for inter-node communication and by the CLI for backup and restore operations
 (`influxdb backup` and `influxd restore`).
+
 [Configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address--8088)
 in the configuration file.
 

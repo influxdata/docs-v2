@@ -191,8 +191,6 @@ Controls where the actual shard data for InfluxDB lives and how it is compacted 
 "dir" may need to be changed to a suitable place for your system.
 The defaults should work for most systems.
 
-For InfluxDB OSS, see the [OSS documentation](/enterprise_influxdb/v1.9/administration/config/#data-settings).
-
 #### `dir = "/var/lib/influxdb/data"`
 
 The directory where the TSM storage engine stores TSM (read-optimized) files.
@@ -384,7 +382,7 @@ to perform most RPC requests. In special circumstances, for example, when copyin
 a single-use TCP connection may be used.
 
 For information on InfluxDB `_internal` measurement statistics related to clusters, RPCs, and shards,
-see [Measurements for monitoring InfluxDB OSS and InfluxDB Enterprise (`_inernal`)](/platform/monitoring/influxdata-platform/tools/measurements-internal/#cluster-enterprise-only).
+see [Measurements for monitoring InfluxDB Enterprise (`_internal`)](/platform/monitoring/influxdata-platform/tools/measurements-internal/#cluster-enterprise-only).
 
 #### `dial-timeout = "1s"`
 
@@ -747,8 +745,6 @@ Environment variable: `INFLUXDB_MONITOR_REMOTE_COLLECT_INTERVAL`
 ### `[http]`
 
 Controls how the HTTP endpoints are configured. These are the primary mechanism for getting data into and out of InfluxDB.
-
-For InfluxDB OSS, see the [OSS documentation](/enterprise_influxdb/v1.9/administration/config/#http-endpoint-settings-http).
 
 #### `enabled = true`
 
