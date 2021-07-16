@@ -51,4 +51,4 @@ The Raspberry Pi template includes the following:
 1. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
-2. Open your dashboards, and then set the `v.bucket` variable to specify the bucket to query data from `rasp-pi`.
+2. Click the Raspberry Pi System link to open your dashboard, then select `rasp-pi` as your bucket and select your linux_host. 
