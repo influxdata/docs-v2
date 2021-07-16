@@ -88,12 +88,6 @@ influx bucket create -n my-bucket -o my-org -r 72h
 
 Use the InfluxDB API to create a bucket.
 
-{{% note %}}
-#### Bucket limits
-A single InfluxDB 2.0 OSS instance supports approximately 20 buckets actively being
-written to or queried across all organizations depending on the use case.
-Any more than that can adversely affect performance.
-{{% /note %}}
 
 Create a bucket in InfluxDB using an HTTP request to the InfluxDB API `/buckets` endpoint.
 Use the `POST` request method and include the following in your request:
