@@ -13,7 +13,7 @@ related:
 
 
 By default, InfluxDB Enterprise uses `bcrypt` for password hashing.
-[FIPS] compliance standards require particular hashing alorithms.
+[FIPS] compliance requires particular hashing alorithms.
 Use `pbkdf2-sha256` or `pbkdf2-sha256` for FIPS compliance.
 
 ## Change password hashing algorithm
@@ -22,8 +22,9 @@ Complete the following steps
 to change the password hashing algorithm used by an existing InfluxDB Enterprise cluster:
 
 1. Ensure all meta and data nodes are running InfluxDB Enterprise 1.9.3 or later.
-2. In your meta node and data node configuration files, set [`password-hash`] to one of the following algorithms: `bcrypt` (default), `pbkdf2-sha256`, and `pbkdf2-sha512`
-   and set [`ensure-fips`] to `true`.
+2. In your meta node and data node configuration files, set [`password-hash`] to one of the following:
+   `pbkdf2-sha256`, or `pbkdf2-sha512`.
+   Also set [`ensure-fips`] to `true`.
 
    {{% note %}}
 The `meta.password-hash` setting must be the same in both the data and meta node configuration files.
