@@ -8,7 +8,7 @@ menu:
     name: Quick start
     parent: Develop with the API
 aliases:
-  - /influxdb/v2.0/tools/api/
+  - /influxdb/cloud/tools/api/
 influxdb/cloud/tags: [api]
 ---
 
