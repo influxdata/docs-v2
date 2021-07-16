@@ -143,7 +143,7 @@ exports.handler = (event, context, callback) => {
   // or if the version number is parsed as an extension.
   let newUri;
 
-  if (parsedPath.ext === '' || /\.\d*/.test(parsedPath.ext)) {
+  if (parsedPath.ext === '' || /\.\d{1,}/.test(parsedPath.ext)) {
     newUri = path.join(parsedPath.dir, parsedPath.base, indexPath);
   } else {
     newUri = request.uri;
