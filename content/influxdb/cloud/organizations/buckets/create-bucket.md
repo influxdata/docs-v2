@@ -101,7 +101,7 @@ Use the `POST` request method and include the following in your request:
 
 #### Example
 
-The URL depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/{{< latest "influxdb" >}}/reference/urls/))_.
+The URL depends on your InfluxDB Cloud region _(see [InfluxDB URLs](/influxdb/cloud/reference/regions/))_.
 
 ```sh
 {{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
