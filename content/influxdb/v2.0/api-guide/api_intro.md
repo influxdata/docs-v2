@@ -61,7 +61,7 @@ Postman is another popular tool for exploring APIs. See how to [send authenticat
 ## Buckets API
 
 Before writing data you'll need to create a Bucket in InfluxDB.
-[Create a bucket](/{{< latest "influxdb" >}}/organizations/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) using an HTTP request to the InfluxDB API `/buckets` endpoint.
+[Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) using an HTTP request to the InfluxDB API `/buckets` endpoint.
 
 #### Example
 
