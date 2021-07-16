@@ -108,4 +108,4 @@ The URL depends on your InfluxDB Cloud region _(see [InfluxDB URLs](/influxdb/cl
 ```
 
 _For information about **InfluxDB API options and response codes**, see
-[InfluxDB API Buckets documentation](/influxdb/v2.0/api/#operation/PostBuckets)._      
+[InfluxDB API Buckets documentation](/influxdb/cloud/api/#operation/PostBuckets)._      
