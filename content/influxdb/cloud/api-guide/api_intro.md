@@ -7,6 +7,9 @@ menu:
   influxdb_cloud:
     name: Quick start
     parent: Develop with the API
+aliases:
+  - /influxdb/cloud/tools/api/
+influxdb/cloud/tags: [api]
 ---
 
 {{< duplicate-oss >}}

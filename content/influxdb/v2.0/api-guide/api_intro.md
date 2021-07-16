@@ -7,6 +7,9 @@ menu:
   influxdb_2_0:
     name: Quick Start
     parent: Develop with the API
+aliases:
+  - /influxdb/v2.0/tools/api/
+influxdb/cloud/tags: [api]
 ---
 
 InfluxDB offers a rich API and [client libraries](/influxdb/v2.0/api-guide/client-libraries) ready to integrate with your application. Use popular tools like Curl and [Postman](/influxdb/v2.0/api-guide/postman) for rapidly testing API requests.
@@ -34,7 +37,7 @@ Before diving into the API, use the InfluxDB UI to
 InfluxDB uses [authentication tokens](/influxdb/v2.0/security/tokens/) to authorize API requests.
 Include your authentication token as an `Authorization` header in each request.
 
-##### Example
+#### Example
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -55,10 +58,16 @@ Include your authentication token as an `Authorization` header in each request.
 
 Postman is another popular tool for exploring APIs. See how to [send authenticated requests with Postman](/{{< latest "influxdb" >}}/api-guide/postman/#send-authenticated-api-requests-with-postman).
 
-## Bucket API
+## Buckets API
 
 Before writing data you'll need to create a Bucket in InfluxDB.
-[Create a bucket](/influxdb/v2.0/buckets/developer-tools/api/) using an HTTP request to the InfluxDB API `bucket` endpoint.
+[Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) using an HTTP request to the InfluxDB API `/buckets` endpoint.
+
+#### Example
+
+```sh
+{{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
+```
 
 ## Write API
 
