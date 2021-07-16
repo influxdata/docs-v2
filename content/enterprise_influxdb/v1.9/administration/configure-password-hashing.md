@@ -28,7 +28,7 @@ to change the password hashing algorithm used by an existing InfluxDB Enterprise
    {{% note %}}
 The `meta.password-hash` setting must be the same in both the data and meta node configuration files.
    {{% /note %}}
-3. Restart each meta and node to pick up the configuration change.
+3. Restart each meta and data node to load the configuration change.
 4. [Reset](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#reset-a-users-password) all user passwords.
    For all existing usernames within the cluster,
    the passwords *must* be reset in order for the new hashing algorithm to be applied.
@@ -62,6 +62,6 @@ The `meta.password-hash` setting must be the same in both the data and meta node
   ensure-fips = true
 ```
 
-[FIPS]: https://csrc.nist.gov/publications/detail/fips/140/2/final
+[FIPS]: https://csrc.nist.gov/publications/detail/fips/140/3/final
 [`password-hash`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt
 [`ensure-fips`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips--false

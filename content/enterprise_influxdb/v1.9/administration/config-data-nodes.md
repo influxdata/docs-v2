@@ -191,8 +191,7 @@ When not set, InfluxDB Enterprise uses `bcrypt`.
 
 #### `ensure-fips = false`
 
-Configure a FIPS-readiness check on startup.
-`password-hash` is not set by default.
+When `true`, enables a FIPS-readiness check on startup.
 When not set, `ensure-fips` is `false`.
 
 -----
