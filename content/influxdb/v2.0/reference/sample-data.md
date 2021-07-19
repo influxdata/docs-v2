@@ -19,7 +19,10 @@ and can be used with **InfluxDB OSS** or **InfluxDB Cloud**.
 
 - [Air sensor sample data](#air-sensor-sample-data)
 - [Bird migration sample data](#bird-migration-sample-data)
-- [NOAA water sample data](#noaa-water-sample-data)
+- [NOAA]
+  - [NOAA NDBC data](#noaa-water-sample-data)
+  - [NOAA water sample data](#noaa-water-sample-data)
+- [USGS Earthquake data](#usgs-earthquake-data)
 
 ### Air sensor sample data
 Air sensor sample data represents an "Internet of Things" (IoT) use case by simulating
@@ -45,7 +48,9 @@ to query and analyze the geo-temporal data in this sample data set.
 
 _Used in [Work with geo-temporal data](/influxdb/v2.0/query-data/flux/geo/)._
 
-### NOAA water sample data
+### NOAA sample data
+
+#### NOAA water sample data
 
 This data set is  publicly available data from the [National Oceanic and Atmospheric Administration’s (NOAA) Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html).
 
@@ -76,3 +81,6 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 ```
 
 _Used in [Common queries](/influxdb/v2.0/query-data/common-queries/) and [Common tasks](/influxdb/v2.0/process-data/common-tasks/)._
+
+### USGS Earthquake data
+_placeholder_
