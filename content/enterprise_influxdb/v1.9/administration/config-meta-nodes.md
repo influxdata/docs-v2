@@ -273,7 +273,7 @@ This setting must have the same value as the data node option [`meta.password-ha
 #### `ensure-fips = false`
 
 When `true`, enables a FIPS-readiness check on startup.
-When not set, `ensure-fips` is `false`.
+Default `ensure-fips` is `false`.
 
 ### TLS settings
 
