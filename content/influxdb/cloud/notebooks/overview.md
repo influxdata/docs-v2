@@ -19,7 +19,7 @@ The following options appear in the upper left of each notebook.
 Preview presents your data output through cells without writing it to a bucket. Select Preview or press CTRL + Enter as a shortcut to preview data. 
  
 ### Run
-Run presents your data output through cells and writes it to a bucket. Select Run in the dropdown list to write you data to a bucket.
+Run presents your data output through cells and writes it to a bucket. Select Run in the dropdown list to write your data to a bucket.
 
 ## Notebook controls
 The following options appear in the upper right of each notebook.
