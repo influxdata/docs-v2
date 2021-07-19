@@ -27,12 +27,12 @@ Download, install, and set up InfluxDB OSS.
 
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
-### Install InfluxDB v2.0
+## Install InfluxDB v2.0
 
 - [Use Homebrew](#use-homebrew)
 - [Manually download and install](#manually-download-and-install)
 
-#### Use Homebrew
+### Use Homebrew
 
 We recommend using [Homebrew](https://brew.sh/) to install InfluxDB v2.0 on macOS:
 
@@ -41,12 +41,15 @@ brew update
 brew install influxdb
 ```
 
-#### Manually download and install
+### Manually download and install
 
-You can also download the InfluxDB v2.0 binaries for macOS directly:
+#### Manually install InfluxDB 
+Manually download and expand the InfluxDB v2.0 package for macOS:
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
+{{< expand-wrapper >}}
+{{% expand "(Optional) Verify the authenticity of downloaded binary" %}}
 ##### (Optional) Verify the authenticity of downloaded binary
 
 For added security, use `gpg` to verify the signature of your download.
@@ -77,17 +80,14 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     ```
     gpg: Good signature from "InfluxData <support@influxdata.com>" [unknown]
     ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
-##### Unpackage the InfluxDB binaries
+#### Manually install the influx CLI 
+The [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) is a tool for interacting with the InfluxDB server. 
 
-To unpackage the downloaded archive, **double-click the archive file in Finder**
-or run the following command in a macOS command prompt application such
-**Terminal** or **[iTerm2](https://www.iterm2.com/)**:
-
-```sh
-# Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz
-```
+Download the influx CLI package. 
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2/client-{{< latest-patch >}}-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
 
 ##### (Optional) Place the binaries in your $PATH
 
