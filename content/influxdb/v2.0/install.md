@@ -83,21 +83,29 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+##### Networking ports
+
+By default, InfluxDB uses TCP port `8086` for client-server communication over
+the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
+
 #### Manually install the influx CLI 
 The [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) is a tool for interacting with the InfluxDB server. 
 
-Download the influx CLI package.
+Download and expand the influx CLI package.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
 
-##### (Optional) Place the binaries in your $PATH
+#### (Optional) Place the binaries in your $PATH
 
 If you choose, you can place `influx` and `influxd` in your `$PATH` or you can
 prefix the executables with `./` to run then in place.
 
 ```sh
-# (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-{{< latest-patch >}}-darwin-amd64/{influx,influxd} /usr/local/bin/
+# Copy the influxd binary to your $PATH
+sudo cp ~/Downloads/influxdb2-{{< latest-patch >}}-darwin-amd64/influxd /usr/local/bin/
+
+# Copy the influx binary to your $PATH
+sudo cp ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
@@ -107,10 +115,9 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-##### Networking ports
+#### (Optional) Enable shell completion
 
-By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
+To install `influx` shell completion scripts, see [`influx completion`](/influxdb/v2.0/reference/cli/influx/completion/#install-completion-scripts).
 
 ### Start InfluxDB
 
@@ -154,10 +161,6 @@ file and process limits for your operating system version then restart `influxd`
 _See the [`influxd` documentation](/influxdb/v2.0/reference/cli/influxd) for information about
 available flags and options._
 
-### Enable shell completion (Optional)
-
-To install `influx` shell completion scripts, see [`influx completion`](/influxdb/v2.0/reference/cli/influx/completion/#install-completion-scripts).
-
 {{% note %}}
 #### InfluxDB "phone home"
 
@@ -185,7 +188,8 @@ Download InfluxDB v2.0 for Linux.
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-arm64.tar.gz" download >InfluxDB v2.0 (arm)</a>
 
-### (Optional) Verify the authenticity of downloaded binary
+{{< expand-wrapper >}}
+{{% expand "(Optional) Verify the authenticity of downloaded binary" %}} 
 
 For added security, use `gpg` to verify the signature of your download.
 (Most operating systems include the `gpg` command by default.
@@ -215,8 +219,15 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     ```
     gpg: Good signature from "InfluxData <support@influxdata.com>" [unknown]
     ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
-### Place the executables in your $PATH
+Download and install the influx CLI. 
+
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
+
+### (Optional) Place the executables in your $PATH
 
 Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
 
@@ -225,9 +236,11 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 ```sh
 # Unpackage contents to the current working directory
 tar xvzf path/to/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz
+tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/{influx,influxd} /usr/local/bin/
+sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/influxd /usr/local/bin/
+sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
@@ -272,11 +285,7 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
       Active: active (running)
     ```
 
-When installed as a service, InfluxDB stores data in the following locations:
-
-- **Time series data:** `/var/lib/influxdb/engine/`
-- **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
-- **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.0/reference/cli/influx/config/) for more information)_ .
+For more information about the file system layout of InfluxDB when installed as a service, see [File system layout](/influxdb/v2.0/reference/internals/file-system-layout/?t=Linux#installed-as-a-package).
 
 To customize your InfluxDB configuration, use either
 [command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
@@ -354,11 +363,18 @@ Download InfluxDB v2.0 for Windows.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v2.0 (Windows)</a>
 
+### Download and install influx CLI 
+Download influx CLI for Windows. 
+
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download >influx CLI (Windows)</a>
+
 Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
 
 ```powershell
 > Expand-Archive .\influxdb2-{{< latest-patch >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
+> Expand-Archive .\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
 > mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
+> mv 'C:\Program Files\InfluxData\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
 ```
 
 ### Networking ports
