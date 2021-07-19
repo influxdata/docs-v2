@@ -264,6 +264,17 @@ To use this option, set [`auth-enabled`](#auth-enabled-false) to `true`.
 
 Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`
 
+#### `password-hash = bcrypt`
+
+Configures password hashing algorithm.
+Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
+This setting must have the same value as the data node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#password-hash--bcrypt).
+
+#### `ensure-fips = false`
+
+When `true`, enables a FIPS-readiness check on startup.
+Default `ensure-fips` is `false`.
+
 ### TLS settings
 
 For more information, see [TLS settings for data nodes](/enterprise_influxdb/v1.9/administration/config-data-nodes#tls-settings).
