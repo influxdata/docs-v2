@@ -5,4 +5,4 @@ public
 node_modules
 *.log
 /resources
-/content/influxdb/*/api/**
+/content/influxdb/*/api/*.html
