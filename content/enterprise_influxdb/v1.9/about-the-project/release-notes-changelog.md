@@ -28,7 +28,7 @@ menu:
 - Convert ARM arch names for RPMs during builds via Docker.
 - Do not send non-UTF-8 characters to subscriptions.
 - Error instead of panic for statement rewrite failure.
-- `show shards` gives empty expiry time for inf duration shards.
+- Fix `SHOW SHARDS` showing expiration time for shard groups with no expiration.
 
 ## v1.9.2 [2021-06-17]
 
