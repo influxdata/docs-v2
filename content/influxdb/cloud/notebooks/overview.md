@@ -11,6 +11,7 @@ menu:
 ---
 
 ## Cell types
+
 Notebooks are comprised of different cells. Add one or more of the following cell types to your notebook:
 
 - **Input: Metric Selector**:
@@ -30,13 +31,17 @@ Notebooks are comprised of different cells. Add one or more of the following cel
 - **Output: Output to Bucket**: Write data to a bucket. Click **Run** in the upper left to write a single time, or select **Export as Task** to schedule your output as a task.
 
 ## Notebook controls
+
 The following options appear in the upper right of each notebook.
 
 ### Presentation mode
+
 Toggle the **Presentation** option to enter presentation mode. Use presentation mode to view notebooks in full screen, hiding the left and top navigation menus so only the cells appear. This mode might be helpful, for example, for stationary screens dedicated to monitoring visualizations.
 
 ### Time range
+
 Select from the options in the dropdown list or select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 
 ### Timezone
+
 Click the timezone dropdown list to select a timezone to use for the dashboard. Select either the local time (default) or UTC.
