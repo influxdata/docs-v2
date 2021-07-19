@@ -9,25 +9,26 @@ menu:
     parent: About the project
 ---
 
-## v1.9.3 [unreleased]
+## v1.9.3 [2021-07-19]
 
 ### Features
-- Add configurable password hashing with `bcrypt` and `pbkdf2` support. <!-- https://github.com/influxdata/plutonium/pull/3504 AND https://github.com/influxdata/plutonium/pull/3486 -->
-- Add retry with exponential back-off to anti-entropy repair. <!-- https://github.com/influxdata/plutonium/pull/3507 -->
-- Add logging to compaction. <!-- https://github.com/influxdata/influxdb/pull/21710 -->
-- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions. <!-- https://github.com/influxdata/influxdb/pull/21806 -->
-- Update Flux to [v0.120.1](/influxdb/v2.0/reference/release-notes/flux/#). <!-- https://github.com/influxdata/influxdb/pull/21821 -->
+- Add configurable password hashing with `bcrypt` and `pbkdf2` support.
+- Add retry with exponential back-off to anti-entropy repair.
+- Add logging to compaction.
+- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions.
+  This option is intended to help alleviate out-of-memory errors.
+- Update Flux to v0.120.1.
 
 ### Bugfixes
-- Improve heap memory usage when HH queue grows. <!-- https://github.com/influxdata/plutonium/pull/3519 -->
-- Avoid rewriting `fields.idx` unnecessarily. <!-- https://github.com/influxdata/influxdb/pull/21609 -->
-- Do not close connection twice in `DigestWithOptions`. <!-- https://github.com/influxdata/influxdb/pull/21695 -->
-- Do not panic on cleaning up failed iterators. <!-- https://github.com/influxdata/influxdb/pull/21697 -->
-- Rename ARM RPMs with `yum`-compatible names. <!-- https://github.com/influxdata/influxdb/pull/21751 -->
-- Convert ARM arch names for RPMs during builds via Docker. <!-- https://github.com/influxdata/influxdb/pull/21776 -->
-- Do not send non-UTF-8 characters to subscriptions.  <!-- https://github.com/influxdata/influxdb/pull/21764 -->
-- Error instead of panic for statement rewrite failure. <!-- https://github.com/influxdata/influxdb/pull/21809 -->
-- `show shards` gives empty expiry time for inf duration shards. <!-- https://github.com/influxdata/influxdb/pull/21807 -->
+- Improve heap memory usage when HH queue grows.
+- Avoid rewriting `fields.idx` unnecessarily.
+- Do not close connection twice in `DigestWithOptions`.
+- Do not panic on cleaning up failed iterators.
+- Rename ARM RPMs with `yum`-compatible names.
+- Convert ARM arch names for RPMs during builds via Docker.
+- Do not send non-UTF-8 characters to subscriptions.
+- Error instead of panic for statement rewrite failure.
+- `show shards` gives empty expiry time for inf duration shards.
 
 ## v1.9.2 [2021-06-17]
 
