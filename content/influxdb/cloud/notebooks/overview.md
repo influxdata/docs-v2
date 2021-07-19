@@ -13,13 +13,13 @@ menu:
 Learn the building blocks of a notebook. Each notebook has unlimited cells with different features to visualize, transform, and process your data.
 
 ## Preview and Run
-The following options appear in the upper left of each notebook.
+The following options appear in the upper left of each notebook. 
  
 ### Preview
-Preview presents your data output through cells without writing it to a bucket.
+Preview presents your data output through cells without writing it to a bucket. Select Preview or press CTRL + Enter as a shortcut to preview data. 
  
 ### Run
-Preview presents your data output through cells and writes it to a bucket.
+Run presents your data output through cells and writes it to a bucket. Select Run in the dropdown list to write you data to a bucket.
 
 ## Notebook controls
 The following options appear in the upper right of each notebook.
@@ -34,7 +34,7 @@ Time ranges are customizable with a precision up to nanoseconds.
 Timezones are selected in the dropdown list with local time (default) or UTC. 
 
 ## Cell types
-Notebooks are comprised of different cells. Add one or more of the following cell types to your notebook:
+Add one or more of the following cell types to your notebook:
 
 - **Input: Metric Selector**:
 Filter out your data using group keys.
