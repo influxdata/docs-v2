@@ -186,8 +186,6 @@ Environment variable: `INFLUXDB_META_LOGGING_ENABLED`
 Configures password hashing algorithm.
 Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
 This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
-When not set, InfluxDB Enterprise uses `bcrypt`.
-`password-hash` is not set by default.
 
 #### `ensure-fips = false`
 
