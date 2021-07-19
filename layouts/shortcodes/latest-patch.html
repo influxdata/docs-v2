@@ -1,12 +1,24 @@
 {{- $scratch := newScratch -}}
+{{- $cli := .Get "cli" | default false }}
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
 {{- $product := index $productPathData 0 | default "influxdb" -}}
 {{- $currentVersion := replaceRE "v" "" (index $productPathData 1) -}}
 {{- $latestVersion := replaceRE "v" "" (index (index .Site.Data.products $product) "latest") -}}
 {{- $patchVersions := index (index .Site.Data.products $product) "latest_patches" -}}
-{{- if eq $currentVersion "cloud" -}}
-  {{- $scratch.Set "patchVersion" (print $latestVersion "." (index $patchVersions $latestVersion)) -}}
+{{- $cliVersions := index .Site.Data.products.influxdb "latest_cli" -}}
+{{- if $cli }}
+  {{- if eq $currentVersion "cloud" -}}
+    {{- $scratch.Set "patchVersion" (index $cliVersions $latestVersion) -}}
+  {{- else -}}
+    {{- $scratch.Set "patchVersion" (index $cliVersions $currentVersion) -}}
+  {{- end -}}
 {{- else -}}
-  {{- $scratch.Set "patchVersion" (print $currentVersion "." (index $patchVersions $currentVersion)) -}}
+  {{- if eq $currentVersion "cloud" -}}
+    {{- $scratch.Set "patchVersion" (print $latestVersion "." (index $patchVersions $latestVersion)) -}}
+  {{- else -}}
+    {{- $scratch.Set "patchVersion" (print $currentVersion "." (index $patchVersions $currentVersion)) -}}
+  {{- end -}}
 {{- end -}}
+
+
 {{- $scratch.Get "patchVersion" -}}

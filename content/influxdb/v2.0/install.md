@@ -86,8 +86,9 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 #### Manually install the influx CLI 
 The [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) is a tool for interacting with the InfluxDB server. 
 
-Download the influx CLI package. 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2/client-{{< latest-patch >}}-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
+Download the influx CLI package.
+
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
 
 ##### (Optional) Place the binaries in your $PATH
 

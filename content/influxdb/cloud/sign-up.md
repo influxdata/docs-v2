@@ -108,7 +108,7 @@ To use the `influx` CLI to manage and interact with your InfluxDB Cloud instance
 
 Click the following button to download and install `influx` CLI for macOS.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch >}}-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
 
 #### Step 2: Unpackage the influx binary
 
