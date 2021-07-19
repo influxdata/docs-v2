@@ -12,7 +12,7 @@ menu:
 ## v1.9.3 [2021-07-19]
 
 ### Features
-- Add configurable password hashing with `bcrypt` and `pbkdf2` support.
+- Add [configurable password hashing](/enterprise_influxdb/v1.9/administration/configure-password-hashing/) with `bcrypt` and `pbkdf2` support.
 - Add retry with exponential back-off to anti-entropy repair.
 - Add logging to compaction.
 - Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions.
