@@ -19,7 +19,7 @@ menu:
   This option is intended to help alleviate out-of-memory errors.
 - Update to [Flux v0.120.1.](/influxdb/v2.0/reference/release-notes/flux/#v01201-2021-07-06)
 
-### Bugfixes
+### Bug fixes
 - Improve heap memory usage when HH queue grows.
 - Avoid rewriting `fields.idx` unnecessarily.
 - Do not close connection twice in `DigestWithOptions`.
