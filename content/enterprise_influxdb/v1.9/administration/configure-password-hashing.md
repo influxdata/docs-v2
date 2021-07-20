@@ -14,7 +14,7 @@ related:
 
 By default, InfluxDB Enterprise uses `bcrypt` for password hashing.
 [FIPS] compliance requires particular hashing alorithms.
-Use `pbkdf2-sha256` or `pbkdf2-sha256` for FIPS compliance.
+Use `pbkdf2-sha256` or `pbkdf2-sha512` for FIPS compliance.
 
 ## Change password hashing algorithm
 
