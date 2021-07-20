@@ -12,19 +12,17 @@ weight: 7
 
 Use sample data to familiarize yourself with time series data and InfluxDB.
 InfluxData provides many sample time series datasets to use with InfluxDB.
-
-## Sample data sets
-The following sample data sets are used as examples in [InfluxDB query guides](/influxdb/v2.0/query-data/flux)
-and can be used with **InfluxDB OSS** or **InfluxDB Cloud**.
+You can also use the [Flux InfluxDB sample package](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/)
+to view, download, and output sample datasets.
 
 - [Air sensor sample data](#air-sensor-sample-data)
 - [Bird migration sample data](#bird-migration-sample-data)
-- [NOAA]
+- [NOAA sample data](#noaa-sample-data)
   - [NOAA NDBC data](#noaa-water-sample-data)
   - [NOAA water sample data](#noaa-water-sample-data)
 - [USGS Earthquake data](#usgs-earthquake-data)
 
-### Air sensor sample data
+## Air sensor sample data
 Air sensor sample data represents an "Internet of Things" (IoT) use case by simulating
 temperature, humidity, and carbon monoxide levels for multiple rooms in a building.
 The dataset also includes a relational SQL dataset with meta information about sensors in each room.
@@ -35,7 +33,7 @@ The dataset also includes a relational SQL dataset with meta information about s
 
 _Used in [Query SQL data sources](/influxdb/v2.0/query-data/flux/sql/)._
 
-### Bird migration sample data
+## Bird migration sample data
 Bird migration data is adapted from the
 [Movebank: Animal Tracking data set on Kaggle](https://www.kaggle.com/pulkit8595/movebank-animal-tracking)
 and represents animal migratory movements throughout 2019.
@@ -48,11 +46,44 @@ to query and analyze the geo-temporal data in this sample data set.
 
 _Used in [Work with geo-temporal data](/influxdb/v2.0/query-data/flux/geo/)._
 
-### NOAA sample data
+## NOAA sample data
 
-#### NOAA water sample data
+There are two National Oceanic and Atmospheric Administration (NOAA) datasets 
+available to use with InfluxDB.
 
-This data set is  publicly available data from the [National Oceanic and Atmospheric Administration’s (NOAA) Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html).
+- [NOAA NDBC data](#noaa-water-sample-data)
+- [NOAA water sample data](#noaa-water-sample-data)
+
+### NOAA NDBC data
+
+The **NOAA National Data Buoy Center (NDBC)** dataset provides the latest
+observations from the NOAA NDBC network of buoys throughout the world.
+Observations are updated approximately every 15 minutes.
+
+To download and output the most recent NOAA NDBC observations, import the Flux
+`influxdata/influxdb/sample` package Use the [`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/).
+
+```js
+import "influxdata/influxdb/sample"
+
+sample.data(set: "noaa")
+```
+
+{{% note %}}
+#### Store historical NOAA NDBC data
+
+The NOAA NDBC sample dataset only returns the most recent observations; not historical observations.
+To regularly query and store NOAA NDBC observations, add the following as an
+[InfluxDB task](/inflxudb/v2.0/process-data/manage-tasks/).
+Replace `example-org` and `example-bucket` with your organization name and the
+name of the bucket to store data in.
+
+{{% get-shared-text "flux/noaa-ndbc-sample-task.md" %}}
+{{% /note %}}
+
+### NOAA water sample data
+
+This data set is publicly available data from the [NOAA Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html).
 
 [The CSV data](https://influx-testdata.s3.amazonaws.com/noaa.csv) includes 15,258
 observations of water levels (ft) collected every six minutes at two stations
@@ -82,5 +113,5 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 
 _Used in [Common queries](/influxdb/v2.0/query-data/common-queries/) and [Common tasks](/influxdb/v2.0/process-data/common-tasks/)._
 
-### USGS Earthquake data
+## USGS Earthquake data
 _placeholder_

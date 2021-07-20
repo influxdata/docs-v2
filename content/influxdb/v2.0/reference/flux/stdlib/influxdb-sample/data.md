@@ -99,17 +99,4 @@ sample.data(set: "usgs")
 Add the following as an [InfluxDB task](/influxdb/v2.0/process-data/) to regularly
 collect the latest reported observations from the NOAA NDBC.
 
-```js
-import "influxdata/influxdb/sample"
-
-option task = {
-  name: "Collect NOAA NDBC data"
-  every: 15m,
-}
-
-sample.data(set: "noaa")
-  |> to(
-      org: "example-org",
-      bucket: "example-bucket"
-  )
-```
+{{% get-shared-text "flux/noaa-ndbc-sample-task.md" %}}
