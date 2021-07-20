@@ -12,7 +12,7 @@ The InfluxDB v2 API provides a programmatic interface for interactions with Infl
 Access the InfluxDB API using the `/api/v2/` endpoint.
 
 ## InfluxDB client libraries
-[InfluxDB client libraries](/influxdb/cloud/tools/client-libraries/) are language-specific packages that integrate with the InfluxDB v2 API.
+[InfluxDB client libraries](/influxdb/cloud/api-guide/client-libraries/) are language-specific packages that integrate with the InfluxDB v2 API.
 
 ## Authentication
 {{% cloud-token-auth %}}
