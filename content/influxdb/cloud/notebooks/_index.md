@@ -9,15 +9,7 @@ menu:
 weight: 6
 ---
 
-Notebooks are a way to build and annotate processes and data flows for time series data. Using notebooks, you can:
-
-- Create documents with live code, equations, visualizations, and explanatory notes.
-- Create dashboard cells or scheduled tasks.
-- Clean and downsample data.
-- Build runbooks.
-- Document data processing steps.
-
-{{< youtube Rs16uhxK0h8 >}}
+Learn about the building blocks of a notebook, how notebooks can help show how data is processed, and discover some common use cases.
 
 To learn how to use notebooks, check out the following articles:
 
