@@ -16,7 +16,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ## July 2021 
 
-- Add new [Asia Pacific (Australia) region](https://ap-southeast-2-1.aws.cloud2.influxdata.com)
+- Add new [Asia Pacific (Australia) region](https://ap-southeast-2-1.aws.cloud2.influxdata.com).
 - Redesign the View Raw Data table in Data Explorer. Graph keys and data types are now easily identifiable underneath column headings. 
 - Add a static legend to Graph and Band Plot. 
 
