@@ -57,7 +57,7 @@ To open the cell editor overlay, click the gear icon in the upper right of a cel
 
 ### View raw data
 
-Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Group keys and data types are easily identifiable at the top of each column underneath the headings. Use this option when data can't be visualized using a visualization type.
+Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. [Group keys](/influxdb/cloud/reference/glossary/#group-key) and [data types](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype) are easily identifiable at the top of each column underneath the headings. Use this option when data can't be visualized using a visualization type. Scroll through the raw data using arrows, or click page numbers to find specific tables. 
 
  {{< img-hd src="/img/influxdb/cloud-controls-view-raw-data.png" alt="View raw data" />}}
 
