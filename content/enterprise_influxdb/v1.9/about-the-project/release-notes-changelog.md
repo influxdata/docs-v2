@@ -17,7 +17,7 @@ menu:
 - Add logging to compaction.
 - Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions.
   This option is intended to help alleviate out-of-memory errors.
-- Update Flux to v0.120.1.
+- Update to [Flux v0.120.1.](/influxdb/v2.0/reference/release-notes/flux/#v01201-2021-07-06)
 
 ### Bugfixes
 - Improve heap memory usage when HH queue grows.
