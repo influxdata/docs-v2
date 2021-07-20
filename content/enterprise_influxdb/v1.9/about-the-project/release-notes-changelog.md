@@ -9,6 +9,27 @@ menu:
     parent: About the project
 ---
 
+## v1.9.3 [2021-07-19]
+
+### Features
+- Add [configurable password hashing](/enterprise_influxdb/v1.9/administration/configure-password-hashing/) with `bcrypt` and `pbkdf2` support.
+- Add retry with exponential back-off to anti-entropy repair.
+- Add logging to compaction.
+- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions.
+  This option is intended to help alleviate out-of-memory errors.
+- Update to [Flux v0.120.1.](/influxdb/v2.0/reference/release-notes/flux/#v01201-2021-07-06)
+
+### Bug fixes
+- Improve heap memory usage when HH queue grows.
+- Avoid rewriting `fields.idx` unnecessarily.
+- Do not close connection twice in `DigestWithOptions`.
+- Do not panic on cleaning up failed iterators.
+- Rename ARM RPMs with `yum`-compatible names.
+- Convert ARM arch names for RPMs during builds via Docker.
+- Do not send non-UTF-8 characters to subscriptions.
+- Error instead of panic for statement rewrite failure.
+- Fix `SHOW SHARDS` showing expiration time for shard groups with no expiration.
+
 ## v1.9.2 [2021-06-17]
 
 The release of InfluxDB Enterprise 1.9 is different from previous InfluxDB Enterprise releases

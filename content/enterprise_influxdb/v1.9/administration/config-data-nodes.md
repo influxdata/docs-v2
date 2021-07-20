@@ -181,6 +181,17 @@ Whether log messages are printed for the meta service.
 
 Environment variable: `INFLUXDB_META_LOGGING_ENABLED`
 
+#### `password-hash = bcrypt`
+
+Configures password hashing algorithm.
+Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
+This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
+
+#### `ensure-fips = false`
+
+When `true`, enables a FIPS-readiness check on startup.
+Default is `false`.
+
 -----
 
 ## Data settings
@@ -986,6 +997,15 @@ Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_CONCURRENCY`
 The number of in-flight writes buffered in the write channel.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_BUFFER_SIZE`
+
+#### `total-buffer-bytes = 0`
+
+Total number of bytes allocated to buffering across all subscriptions.
+Each named subscription receives an equal share of the total.
+`0` means unlimited.
+Default is `0`.
+
+Environment variable: `INFLUXDB_SUBSCRIBER_TOTAL_BUFFER_BYTES`
 
 -----
 
