@@ -90,8 +90,8 @@ _**Data type:** String_
 
 ### createEmpty
 
-For windows without data, this will create an empty window and fill
-it with a `null` aggregate value.
+For windows without data, create a single-row table for each empty window (using
+[`table.fill()`](/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)).
 Defaults to `true`.
 
 _**Data type:** Boolean_
