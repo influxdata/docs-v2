@@ -59,7 +59,9 @@ _**Data type:** Duration_
 
 ### fn
 
-The [aggregate function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates) used in the operation.
+The [aggregate](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates)
+or [selector function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors)
+used in the operation.
 
 _**Data type:** Function_
 
@@ -95,6 +97,12 @@ For windows without data, create a single-row table for each empty window (using
 Defaults to `true`.
 
 _**Data type:** Boolean_
+
+{{% note %}}
+When using `createEmpty: true`, [aggregate functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates)
+return empty tables, but [selector functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors) do not.
+By design, selectors drop empty tables.
+{{% /note %}}
 
 ## Examples
 The examples below use a `data` variable to represent a filtered data set.
