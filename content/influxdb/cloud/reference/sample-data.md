@@ -83,7 +83,7 @@ guide to demonstrate how to query and analyze geo-temporal data.
 
 ### NOAA sample data
 
-There are two National Oceanic and Atmospheric Administration (NOAA) datasets 
+The following two National Oceanic and Atmospheric Administration (NOAA) datasets are
 available to use with InfluxDB.
 
 - [NOAA NDBC data](#noaa-ndbc-data)
@@ -95,9 +95,7 @@ available to use with InfluxDB.
 **Size**: ~1.3 MB • **Updated**: every 15m
 {{% /caption %}}
 
-The **NOAA National Data Buoy Center (NDBC)** dataset provides the latest
-observations from the NOAA NDBC network of buoys throughout the world.
-Observations are updated approximately every 15 minutes.
+The **NOAA National Data Buoy Center (NDBC)** dataset provides observations (updated every 15 minutes) from the NOAA NDBC network of buoys throughout the world.
 
 To download and output the most recent NOAA NDBC observations, use the
 [`sample.data()` function](/influxdb/cloud/reference/flux/stdlib/influxdb-sample/data/).
