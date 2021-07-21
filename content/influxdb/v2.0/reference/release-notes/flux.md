@@ -8,6 +8,18 @@ menu:
     name: Flux
 ---
 
+## v0.123.0 [2021-07-19]
+
+### Breaking changes
+- Remove the [`sleep()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/sleep/).
+
+### Features
+- Optimize [`pivot()` transformation](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/).
+- Add [InfluxDB sample data package](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/).
+- Use `table.fill()` when `aggregateWindow(createEmpty: true)` is used.
+
+---
+
 ## v0.122.0 [2021-07-13]
 
 ### Features

@@ -7,7 +7,7 @@ aliases:
 menu:
   influxdb_cloud_ref:
     name: secrets.get
-    parent: InfluxDB Secrets
+    parent: InfluxDB secrets
 weight: 202
 ---
 
