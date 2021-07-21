@@ -23,6 +23,7 @@ Download, install, and set up InfluxDB OSS.
 [Windows](#)
 [Docker](#)
 [Kubernetes](#)
+[Raspberry Pi](#)
 {{% /tabs %}}
 
 <!-------------------------------- BEGIN macOS -------------------------------->
@@ -545,6 +546,25 @@ Always inspect YAML manifests before running `kubectl apply -f <url>`!
 
 {{% /tab-content %}}
 <!--------------------------------- END kubernetes ---------------------------->
+<!--------------------------------- BEGIN Rasberry Pi ------------------------->
+{{% tab-content %}}
+
+To run InfluxDB on Raspberry Pi, you will need:
+
+- A Raspberry Pi 4+ or 400
+- A 64-bit operating system.
+  We recommend installing a [64-bit version of Ubuntu](https://ubuntu.com/download/raspberry-pi)
+  of Ubuntu Desktop or Ubuntu Server compatible with Raspberry Pi 4+.
+
+Follow the [Linux installation instructions](/influxdb/v2.0/install/?t=Linux) to install InfluxDB on a Raspberry Pi.
+
+#### Support for 32-bit systems
+
+If you have a 32-bit Raspberry Pi,
+you can [use Telegraf](/{{< latest "telegraf" >}}/) for collecting and sending data to InfluxDB Cloud.
+
+{{% /tab-content %}}
+<!--------------------------------- END Rasberry Pi --------------------------->
 
 {{< /tabs-wrapper >}}
 
