@@ -10,7 +10,11 @@ menu:
     parent: Notebooks
 ---
 
-Notebooks are a way to build and annotate processes and data flows for time series data. Notebooks include different cell types and controls that help to show how data is processed.
+Learn about the building blocks of a notebook, how notebooks can help show how data is processed, and discover some common use cases. Use different notebook cell types and controls that help to show how data is processed.
+
+## Notebook concepts 
+
+{{< youtube Rs16uhxK0h8 >}}
 
 Using notebooks, you can:
 
@@ -19,8 +23,6 @@ Using notebooks, you can:
 - Clean and downsample data.
 - Build runbooks.
 - Document data processing steps.
-
-{{< youtube Rs16uhxK0h8 >}}
 
 ## Notebook controls
 
@@ -33,7 +35,7 @@ The following options appear at the top of each notebook.
 
 ### Presentation mode
 
-Presentation mode displays notebooks in full screen, hiding the left and top navigation menus so only the cells appear. This mode might be helpful, for example, for stationary screens dedicated to monitoring visualizations.
+Display notebooks in full screen with Presentation mode, hiding the left and top navigation menus so only the cells appear. This mode might be helpful, for example, for stationary screens dedicated to monitoring visualizations.
 
 ### Local or UTC timezone
 
@@ -43,7 +45,7 @@ Click the timezone dropdown list to select a timezone to use for the dashboard. 
 
 Select from the options in the dropdown list or select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 
-## Cell types
+## Notebook Cell types
 
 Add one or more of the following cell types to your notebook:
 

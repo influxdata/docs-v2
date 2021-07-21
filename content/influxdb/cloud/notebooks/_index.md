@@ -9,7 +9,7 @@ menu:
 weight: 6
 ---
 
-Learn about the building blocks of a notebook, how notebooks can help show how data is processed, and discover some common use cases.
+Notebooks are a way to build and annotate processes and data flows for time series data. Notebooks include cells and controls to transform the data in your bucket and other countless possibilities. 
 
 To learn how to use notebooks, check out the following articles:
 
