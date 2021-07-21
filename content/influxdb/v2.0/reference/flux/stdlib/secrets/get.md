@@ -9,7 +9,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: secrets.get
-    parent: InfluxDB Secrets
+    parent: InfluxDB secrets
 weight: 202
 introduced: 0.41.0
 ---

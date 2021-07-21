@@ -48,7 +48,7 @@ The following forward compatible APIs are available:
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.9/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
+Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.9/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/api-guide/client-libraries/).
  Flux is the primary language for working with data in InfluxDB 2.0.
 
 **Include the following HTTP headers:**
@@ -90,7 +90,7 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 ### `/api/v2/write/` HTTP endpoint
 
 The `/api/v2/write` endpoint accepts `POST` HTTP requests.
-Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
+Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/api-guide/client-libraries/).
 
 Both InfluxDB 1.x and 2.0 APIs support the same line protocol format for raw time series data.
 For the purposes of writing data, the APIs differ only in the URL parameters and request headers.
@@ -214,21 +214,21 @@ For more information about the Go `/net/http/pprof` package and the interactive 
 
 #### `/debug/pprof/all` HTTP endpoint
 
-The `/debug/pprof/all` endpoint is a custom `/debug/pprof` profile intended primarily for use by InfluxData support. This endpoint generates a `profile.tar.gz` archive containing text files with the standard Go profiling information and additional debugging data. An optional CPU profile is generated when using the `cpu=true` option (default is `false`).
+The `/debug/pprof/all` endpoint is a custom `/debug/pprof` profile intended primarily for use by InfluxData support.
+This endpoint generates a `profile.tar.gz` archive containing text files with the standard Go profiling information and additional debugging data.
+An optional CPU profile is generated when using the `cpu=` option followed by a duration in seconds (e.g., `cpu=30s`).
 
 To create a `profile.tar.gz` archive, use the following cURL command to generate a `profile.tar.gz` file for sharing with InfluxData support.
 
 ```bash
-curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=true"
+curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=30s"
 ```
 
->**Note:** When the `cpu=true` option is included, a CPU profile is generated for 30+ seconds.
-> If you're concerned about running a CPU profile (which only has a small, temporary impact on performance), then you can set `?cpu=false` or omit `?cpu=true` altogether.
-
-As the following example shows, the cURL output includes "Time Spent," the time elapsed (in  seconds). After 30 seconds of data has been collected, the results are output to a file.
+As the following example shows, the cURL output includes "Time Spent," the time elapsed (in  seconds).
+After 30 seconds of data has been collected, the results are output to a file.
 
 ```bash
-➜  ~ curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=true"
+➜  ~ curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=30s"
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  237k    0  237k    0     0   8025      0 --:--:--  0:00:30 --:--:-- 79588
@@ -380,7 +380,7 @@ The `mymeas` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurem
 The first point has the [timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) `2017-03-01T00:16:18Z`, a `myfield` value of `33.1`, and no tag values for the `mytag1` and `mytag2` [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key).
 The second point has the timestamp `2017-03-01T00:17:18Z`, a `myfield` value of `12.4`, a `mytag1` value of `12`, and a `mytag2` value of `14`.
 
-The same query in the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/use-influx/) (CLI) returns the following table:
+The same query in the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) (CLI) returns the following table:
 
 ```sql
 name: mymeas

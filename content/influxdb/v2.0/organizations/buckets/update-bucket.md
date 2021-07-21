@@ -50,14 +50,16 @@ to update a bucket. Updating a bucket requires the following:
 - The bucket ID _(provided in the output of `influx bucket list`)_
 - The name or ID of the organization the bucket belongs to.
 
+{{< cli/influx-creds-note >}}
+
 ##### Update the name of a bucket
 
 ```sh
 # Syntax
-influx bucket update -i <bucket-id> -o <org-name> -n <new-bucket-name>
+influx bucket update -i <bucket-id> -n <new-bucket-name>
 
 # Example
-influx bucket update -i 034ad714fdd6f000 -o my-org -n my-new-bucket
+influx bucket update -i 034ad714fdd6f000 -n my-new-bucket
 ```
 
 ##### Update a bucket's retention period
@@ -66,8 +68,8 @@ Valid retention period duration units are nanoseconds (`ns`), microseconds (`us`
 
 ```sh
 # Syntax
-influx bucket update -i <bucket-id> -r <retention period in nanoseconds>
+influx bucket update -i <bucket-id> -r <retention period with units>
 
 # Example
-influx bucket update -i 034ad714fdd6f000 -r 1209600000000000
+influx bucket update -i 034ad714fdd6f000 -r 1209600000000000ns
 ```

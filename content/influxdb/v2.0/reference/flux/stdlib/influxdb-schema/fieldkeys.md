@@ -4,7 +4,7 @@ description: The `schema.fieldKeys()` function returns field keys in a bucket.
 menu:
   influxdb_2_0_ref:
     name: schema.fieldKeys
-    parent: InfluxDB Schema
+    parent: InfluxDB schema
 weight: 301
 influxdb/v2.0/tags: [fields]
 aliases:

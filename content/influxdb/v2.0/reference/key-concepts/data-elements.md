@@ -23,6 +23,7 @@ InfluxDB 2.0 includes the following data elements:
 - [series](#series)
 - [point](#point)
 - [bucket](#bucket)
+- [bucket schema](#bucket-schema)
 - [organization](#organization)
 
 The sample data below is used to illustrate data elements concepts.
@@ -139,6 +140,23 @@ InfluxDB scans every field value in the dataset for `bees` before the query retu
 | 2019-08-18T00:06:00Z | census       | 32                               | scientist                              | mullen                                   |
 
 Now that `bees` and `ants` are tags, InfluxDB doesn't have to scan all `_field` and `_value` columns. This makes your queries faster.
+
+## Bucket schema
+
+In InfluxDB Cloud, a bucket with the `explicit` schema-type requires an explicit
+schema for each measurement.
+Measurements contain tags, fields, and timestamps.
+An explicit schema constrains the shape of data that can be written to that measurement.
+
+The following schema constrains `census` data:
+
+name      | type           | data_type
+|:------- |:---------------|:--------------------
+time      | timestamp      |
+location  | tag            | string
+scientist | tag            | string
+ants      | field          | integer
+bees      | field          | integer
 
 ## Series
 

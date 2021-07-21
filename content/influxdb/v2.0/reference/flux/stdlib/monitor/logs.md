@@ -10,7 +10,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: monitor.logs
-    parent: InfluxDB Monitor
+    parent: InfluxDB monitor
 weight: 202
 introduced: 0.39.0
 ---
