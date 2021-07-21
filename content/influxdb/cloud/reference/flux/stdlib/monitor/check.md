@@ -8,7 +8,7 @@ aliases:
 menu:
   influxdb_cloud_ref:
     name: monitor.check
-    parent: InfluxDB Monitor
+    parent: InfluxDB monitor
 weight: 202
 ---
 

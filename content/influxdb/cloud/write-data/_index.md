@@ -138,7 +138,7 @@ See [Sample data](/influxdb/cloud/reference/sample-data) for more sample InfluxD
 {{% /note %}}
 
 ## Sample data
-Use [sample data sets](/influxdb/cloud/reference/sample-data/#sample-data-sets)
+Use [sample data sets](/influxdb/cloud/reference/sample-data/#sample-datasets)
 to quickly populate InfluxDB with sample time series data.
 
 ---

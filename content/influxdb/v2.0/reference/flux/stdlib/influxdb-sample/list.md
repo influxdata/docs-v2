@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb_2_0_ref:
     name: sample.list
-    parent: InfluxDB Sample
+    parent: InfluxDB sample
 weight: 301
 related:
   - /influxdb/v2.0/reference/sample-data/

@@ -6,7 +6,7 @@ description: >
   Import the `influxdata/influxdb/sample` package.
 menu:
   influxdb_2_0_ref:
-    name: InfluxDB Sample
+    name: InfluxDB sample
     parent: Flux standard library
 weight: 202
 influxdb/v2.0/tags: [functions, sample, package]
