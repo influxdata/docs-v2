@@ -2,7 +2,7 @@
 title: Flux InfluxDB sample package
 list_title: InfluxDB sample package
 description: >
-  The Flux InfluxDB sample package provides functions for downloading and outputting InfluxDB data sample.
+  The Flux InfluxDB sample package provides functions for downloading and outputting InfluxDB sample data.
   Import the `influxdata/influxdb/sample` package.
 menu:
   influxdb_cloud_ref:
