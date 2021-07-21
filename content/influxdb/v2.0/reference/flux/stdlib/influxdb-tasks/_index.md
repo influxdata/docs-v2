@@ -1,8 +1,8 @@
 ---
-title: Flux InfluxDB Tasks package
-list_title: InfluxDB Tasks package
+title: Flux InfluxDB tasks package
+list_title: InfluxDB tasks package
 description: >
-  The Flux InfluxDB Tasks package provides options and functions for working with
+  The Flux InfluxDB tasks package provides options and functions for working with
   [InfluxDB tasks](/influxdb/v2.0/process-data/get-started/).
   Import the `influxdata/influxdb/tasks` package.
 aliases:
@@ -11,7 +11,7 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/influxdb-tasks/
 menu:
   influxdb_2_0_ref:
-    name: InfluxDB Tasks
+    name: InfluxDB tasks
     parent: Flux standard library
 weight: 202
 influxdb/v2.0/tags: [functions, tasks, package]
@@ -19,7 +19,7 @@ related:
   - /influxdb/v2.0/process-data/get-started/
 ---
 
-The Flux InfluxDB Tasks package provides options and functions for working with
+The Flux InfluxDB tasks package provides options and functions for working with
 [InfluxDB tasks](/influxdb/v2.0/process-data/get-started/).
 Import the `influxdata/influxdb/tasks` package:
 
@@ -28,7 +28,7 @@ import "influxdata/influxdb/tasks"
 ```
 
 ## Options
-The InfluxDB Tasks package provides the following options:
+The InfluxDB tasks package provides the following options:
 
 #### lastSuccessTime
 Define the time of the last successful task run.

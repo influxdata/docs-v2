@@ -1,8 +1,8 @@
 ---
-title: Flux InfluxDB Secrets package
-list_title: InfluxDB Secrets package
+title: Flux InfluxDB secrets package
+list_title: InfluxDB secrets package
 description: >
-  The Flux InfluxDB Secrets package provides functions for working with sensitive secrets managed by InfluxDB.
+  The Flux InfluxDB secrets package provides functions for working with sensitive secrets managed by InfluxDB.
   Import the `influxdata/influxdb/secrets` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/secrets/
@@ -10,13 +10,13 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/secrets/
 menu:
   influxdb_2_0_ref:
-    name: InfluxDB Secrets
+    name: InfluxDB secrets
     parent: Flux standard library
 weight: 202
 influxdb/v2.0/tags: [functions, secrets, package]
 ---
 
-InfluxDB Secrets Flux functions provide tools for working with sensitive secrets managed by InfluxDB.
+InfluxDB secrets Flux functions provide tools for working with sensitive secrets managed by InfluxDB.
 Import the `influxdata/influxdb/secrets` package:
 
 ```js
