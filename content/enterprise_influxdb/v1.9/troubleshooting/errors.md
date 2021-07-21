@@ -21,7 +21,7 @@ common resolutions.
 The `database name required` error occurs when certain `SHOW` queries do
 not specify a [database](/enterprise_influxdb/v1.9/concepts/glossary/#database).
 Specify a database with an `ON` clause in the `SHOW` query, with `USE <database_name>` in the
-[CLI](/enterprise_influxdb/v1.9/tools/use-influx/), or with the `db` query string parameter in
+[CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/), or with the `db` query string parameter in
 the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The relevant `SHOW` queries include `SHOW RETENTION POLICIES`, `SHOW SERIES`,
@@ -370,7 +370,7 @@ Find common errors that occur when importing data in the command line interface 
   - [Unnamed import file](#unnamed-import-file)
   - [Docker container cannot read host files](#docker-container-cannot-read-host-files)
 
-  >**Note:** To learn how to use the `-import` command, see [Import data from a file with `-import`](/enterprise_influxdb/v1.9/tools/use-influx/#import-data-from-a-file-with-import).
+  >**Note:** To learn how to use the `-import` command, see [Import data from a file with `-import`](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#import-data-from-a-file-with-import).
 
 ### Inconsistent data types
 

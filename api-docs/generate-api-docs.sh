@@ -23,7 +23,7 @@ layout: api
 menu:
   $menu:
     parent: InfluxDB v2 API
-    name: View v2 API docs
+    name: v2 API docs
 weight: 102
 ---
 "

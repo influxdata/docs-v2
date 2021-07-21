@@ -3,6 +3,6 @@
 {{ $productName := print (index .Site.Data.products $product).name }}
 {{ if .Page.Params.introduced }}
   <p class="meta">
-    {{ $productName }} {{ .Page.Params.introduced }}{{ if .Page.Params.deprecated }}{{ print " – " .Page.Params.deprecated }}{{ else }}+{{ end }}
+    {{ $productName }} {{ .Page.Params.introduced }}{{ if .Page.Params.deprecated }}{{ print " – " .Page.Params.deprecated }}{{ else if .Page.Params.removed }}{{ print " – " .Page.Params.removed }}{{ else }}+{{ end }}
   </p>
 {{ end }}

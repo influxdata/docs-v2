@@ -6,7 +6,7 @@ aliases:
 menu:
   influxdb_cloud_ref:
     name: schema.measurements
-    parent: InfluxDB Schema
+    parent: InfluxDB schema
 weight: 301
 influxdb/v2.0/tags: [measurements]
 related:

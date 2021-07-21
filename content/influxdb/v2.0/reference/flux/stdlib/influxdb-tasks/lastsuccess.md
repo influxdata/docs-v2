@@ -9,7 +9,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: tasks.lastSuccess
-    parent: InfluxDB Tasks
+    parent: InfluxDB tasks
 weight: 301
 introduced: 0.84.0
 ---

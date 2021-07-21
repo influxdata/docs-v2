@@ -5,13 +5,14 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/misc/sleep/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/sleep/
   - /influxdb/cloud/reference/flux/stdlib/built-in/misc/sleep/
-menu:
-  flux_0_x_ref:
-    name: sleep
-    parent: universe
 weight: 102
 introduced: 0.36.0
+removed: 0.123.0
 ---
+
+{{% warn %}}
+The `sleep()` function was removed in **Flux 0.123.0**.
+{{% /warn %}}
 
 The `sleep()` function delays execution by a specified duration.
 

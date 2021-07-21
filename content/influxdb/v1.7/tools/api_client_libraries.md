@@ -9,7 +9,7 @@ menu:
   influxdb_1_7:
     weight: 30
     parent: Tools
-v2: /influxdb/v2.0/tools/client-libraries/
+v2: /influxdb/v2.0/api-guide/client-libraries/
 ---
 
 InfluxDB client libraries are developed by the open source community. These client libraries support the InfluxDB 1.7 API and should be fully compatible with InfluxDB 1.5+. Functionality will vary as there are no standard features that all libraries must implement in order to be listed here.

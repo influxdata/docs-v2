@@ -13,3 +13,19 @@
     margin-top: -2.75rem;
   }
 }
+
+p {
+  & + .caption {
+    padding: 0;
+    margin: -.75rem 0 0;
+    opacity: 1;
+  }
+}
+
+h2,h3,h4,h5,h6 {
+  & + .caption {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+  }
+}

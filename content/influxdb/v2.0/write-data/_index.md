@@ -3,7 +3,7 @@ title: Write data to InfluxDB
 list_title: Write data
 description: >
   Collect and write time series data to InfluxDB Cloud and InfluxDB OSS.
-weight: 3
+weight: 4
 aliases:
   - /influxdb/v2.0/write-data/quick-start/
   - /influxdb/v2.0/write-data/sample-data/demo-data/

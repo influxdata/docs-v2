@@ -35,7 +35,6 @@ aggregateWindow(
 
 As data is windowed into separate tables and processed, the `_time` column is dropped from each group key.
 This function copies the timestamp from a remaining column into the `_time` column.
-View the [function definition](#function-definition).
 
 `aggregateWindow()` restores the original `_start` and `_stop` values of input data
 and, by default, uses `_stop` to set the `_time` value for each aggregated window.
@@ -59,7 +58,9 @@ including **calendar months (`1mo`)** and **years (`1y`)**.
 
 ### fn {data-type="function"}
 
-The [aggregate function](/flux/v0.x/function-types#aggregates) used in the operation.
+[Aggregate](/flux/v0.x/function-types/#aggregates)
+or [selector function](/flux/v0.x/function-types/#selectors)
+used in the operation.
 
 {{% note %}}
 Only aggregate and selector functions with a `column` parameter (singular) work with `aggregateWindow()`.
@@ -82,9 +83,15 @@ Defaults to `"_time"`.
 
 ### createEmpty {data-type="bool"}
 
-For windows without data, this will create an empty window and fill
-it with a `null` aggregate value.
+For windows without data, create a single-row table for each empty window (using
+[`table.fill()`](/flux/v0.x/stdlib/experimental/table/fill/)).
 Defaults to `true`.
+
+{{% note %}}
+When using `createEmpty: true`, [aggregate functions](/flux/v0.x/function-types/#aggregates)
+return empty tables, but [selector functions](/flux/v0.x/function-types/#selectors) do not.
+By design, selectors drop empty tables.
+{{% /note %}}
 
 ## Examples
 The examples below use a `data` variable to represent a filtered data set.
@@ -127,15 +134,4 @@ data
 ```js
 data
   |> aggregateWindow(every: 1mo, fn: mean)
-```
-
-## Function definition
-
-```js
-aggregateWindow = (every, fn, column="_value", timeSrc="_stop", timeDst="_time", tables=<-) =>
-	tables
-		|> window(every:every)
-		|> fn(column:column)
-		|> duplicate(column:timeSrc, as:timeDst)
-		|> window(every:inf, timeColumn:timeDst)
 ```

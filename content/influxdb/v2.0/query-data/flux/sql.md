@@ -292,7 +292,7 @@ sql.from(
 ---
 
 ## Sample sensor data
-The [sample data generator](#download-and-run-the-sample-data-generator) and
+The [air sensor sample data](#download-sample-air-sensor-data) and
 [sample sensor information](#import-the-sample-sensor-information) simulate a
 group of sensors that measure temperature, humidity, and carbon monoxide
 in rooms throughout a building.
@@ -303,53 +303,43 @@ Sample sensor information is stored in PostgreSQL.
 **Sample data includes:**
 
 - Simulated data collected from each sensor and stored in the `airSensors` measurement in **InfluxDB**:
-    - temperature
-    - humidity
-    - co
+  - temperature
+  - humidity
+  - co
 
 - Information about each sensor stored in the `sensors` table in **PostgreSQL**:
-    - sensor_id
-    - location
-    - model_number
-    - last_inspected
+  - sensor_id
+  - location
+  - model_number
+  - last_inspected
 
-### Import and generate sample sensor data
+#### Download sample air sensor data
 
-#### Download and run the sample data generator
-`air-sensor-data.rb` is a script that generates air sensor data and stores the data in InfluxDB.
-To use `air-sensor-data.rb`:
+1.  [Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/) to store the data.
+2.  [Create an InfluxDB task](/influxdb/v2.0/process-data/manage-tasks/create-task/)
+    and use the [`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/)
+    to download sample air sensor data every 15 minutes.
+    Write the downloaded sample data to your new bucket:
 
-1. [Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/) to store the data.
-2. Download the sample data generator. _This tool requires [Ruby](https://www.ruby-lang.org/en/)._
+    ```js
+    import "influxdata/influxdb/sample"
 
-    <a class="btn download" href="/downloads/air-sensor-data.rb" download>Download Air Sensor Generator</a>
+    option task = {
+      name: "Collect sample air sensor data",
+      every: 15m
+    }
 
-3. Give `air-sensor-data.rb` executable permissions:
-
+    sample.data(set: "airSensor")
+      |> to(
+        org: "example-org",
+        bucket: "example-bucket"
+      )
     ```
-    chmod +x air-sensor-data.rb
-    ```
 
-4. Start the generator. Specify your organization, bucket, and authorization token.
-  _For information about retrieving your token, see [View tokens](/influxdb/v2.0/security/tokens/view-tokens/)._
+3.  [Query your target bucket](/influxdb/v2.0/query-data/execute-queries/) after
+    the first task run to ensure the sample data is writing successfully.
 
-    ```
-    ./air-sensor-data.rb -o your-org -b your-bucket -t YOURAUTHTOKEN
-    ```
-
-    The generator begins to write data to InfluxDB and will continue until stopped.
-    Use `ctrl-c` to stop the generator.
-
-    {{% note %}}
-    Use the `--help` flag to view other configuration options.
-    {{% /note %}}
-
-5. [Query your target bucket](/influxdb/v2.0/query-data/execute-queries/) to ensure the
-   generated data is writing successfully.
-   The generator doesn't catch errors from write requests, so it will continue running
-   even if data is not writing to InfluxDB successfully.
-
-    ```
+    ```js
     from(bucket: "example-bucket")
        |> range(start: -1m)
        |> filter(fn: (r) => r._measurement == "airSensors")
@@ -359,7 +349,7 @@ To use `air-sensor-data.rb`:
 1. [Download and install PostgreSQL](https://www.postgresql.org/download/).
 2. Download the sample sensor information CSV.
 
-    <a class="btn download" href="/downloads/sample-sensor-info.csv" download>Download Sample Data</a>
+    <a class="btn download" href="https://influx-testdata.s3.amazonaws.com/sample-sensor-info.csv" download>Download sample sensor information</a>
 
 3. Use a PostgreSQL client (`psql` or a GUI) to create the `sensors` table:
 
@@ -389,6 +379,6 @@ To use `air-sensor-data.rb`:
 #### Import the sample data dashboard
 Download and import the Air Sensors dashboard to visualize the generated data:
 
-<a class="btn download" href="/downloads/air-sensors-dashboard.json" download>Download Air Sensors dashboard</a>
+<a class="btn github" href="https://raw.githubusercontent.com/influxdata/influxdb2-sample-data/master/air-sensor-data/air-sensors-dashboard.json" target="_blank">View Air Sensors dashboard JSON</a>
 
 _For information about importing a dashboard, see [Create a dashboard](/influxdb/v2.0/visualize-data/dashboards/create-dashboard)._

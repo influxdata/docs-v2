@@ -181,6 +181,17 @@ Whether log messages are printed for the meta service.
 
 Environment variable: `INFLUXDB_META_LOGGING_ENABLED`
 
+#### `password-hash = bcrypt`
+
+Configures password hashing algorithm.
+Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
+This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
+
+#### `ensure-fips = false`
+
+When `true`, enables a FIPS-readiness check on startup.
+Default is `false`.
+
 -----
 
 ## Data settings
@@ -190,8 +201,6 @@ Environment variable: `INFLUXDB_META_LOGGING_ENABLED`
 Controls where the actual shard data for InfluxDB lives and how it is compacted from the WAL.
 "dir" may need to be changed to a suitable place for your system.
 The defaults should work for most systems.
-
-For InfluxDB OSS, see the [OSS documentation](/enterprise_influxdb/v1.9/administration/config/#data-settings).
 
 #### `dir = "/var/lib/influxdb/data"`
 
@@ -384,7 +393,7 @@ to perform most RPC requests. In special circumstances, for example, when copyin
 a single-use TCP connection may be used.
 
 For information on InfluxDB `_internal` measurement statistics related to clusters, RPCs, and shards,
-see [Measurements for monitoring InfluxDB OSS and InfluxDB Enterprise (`_inernal`)](/platform/monitoring/influxdata-platform/tools/measurements-internal/#cluster-enterprise-only).
+see [Measurements for monitoring InfluxDB Enterprise (`_internal`)](/platform/monitoring/influxdata-platform/tools/measurements-internal/#cluster-enterprise-only).
 
 #### `dial-timeout = "1s"`
 
@@ -414,7 +423,7 @@ so it is unlikely that changing this value will measurably improve performance b
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_STREAMS`
 
-#### allow-out-of-order = "false"
+#### `allow-out-of-order-writes = false`
 
 By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
 
@@ -748,8 +757,6 @@ Environment variable: `INFLUXDB_MONITOR_REMOTE_COLLECT_INTERVAL`
 
 Controls how the HTTP endpoints are configured. These are the primary mechanism for getting data into and out of InfluxDB.
 
-For InfluxDB OSS, see the [OSS documentation](/enterprise_influxdb/v1.9/administration/config/#http-endpoint-settings-http).
-
 #### `enabled = true`
 
 Enables HTTP endpoints.
@@ -990,6 +997,15 @@ Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_CONCURRENCY`
 The number of in-flight writes buffered in the write channel.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_BUFFER_SIZE`
+
+#### `total-buffer-bytes = 0`
+
+Total number of bytes allocated to buffering across all subscriptions.
+Each named subscription receives an equal share of the total.
+`0` means unlimited.
+Default is `0`.
+
+Environment variable: `INFLUXDB_SUBSCRIBER_TOTAL_BUFFER_BYTES`
 
 -----
 
