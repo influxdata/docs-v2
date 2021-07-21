@@ -8,7 +8,7 @@ aliases:
   - /influxdb/cloud/reference/flux/functions/influxdb-v1/
 menu:
   influxdb_cloud_ref:
-    name: InfluxDB Schema
+    name: InfluxDB schema
     parent: Flux standard library
 weight: 202
 influxdb/v2.0/tags: [functions, schema, package]
