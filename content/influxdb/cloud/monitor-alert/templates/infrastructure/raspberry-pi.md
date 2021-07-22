@@ -34,16 +34,18 @@ The Raspberry Pi template includes the following:
     ```
     For more information, see [influx apply](/influxdb/cloud/reference/cli/influx/apply/).
 2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both your Raspberry Pi and the [InfluxDB Cloud API](/influxdb/cloud/reference/api/).
-3. In your Telegraf configuration file (`telegraf.conf`), find the following example `influxdb_v2` output plugins, and then **replace** the `urls` to specify the servers to monitor:
+3. Add the following environment variables to your Telegraf environment:
 
-   ```sh
-    ## cloudv2 sample
-    [[outputs.influxdb_v2]]
-     urls = ["$INFLUX_HOST"]
-     token = "$INFLUX_TOKEN"
-     organization = "$INFLUX_ORG"
-     bucket = “rasp-pi"
-   ```
+    - `INFLUX_HOST`: Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
+    - `INFLUX_TOKEN`: Your InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/)
+    - `INFLUX_ORG`: Your InfluxDB Cloud organization name.
+    
+    ```sh
+    export INFLUX_HOST=https://cloud2.influxdata.com
+    export INFLUX_TOKEN=mY5uP3rS3cr3T70keN
+    export INFLUX_ORG=example-org
+    ```
+
 4. [Start Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
 
 ## View the incoming data
