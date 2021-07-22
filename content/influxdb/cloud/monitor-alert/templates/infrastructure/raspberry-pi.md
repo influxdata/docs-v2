@@ -22,7 +22,7 @@ The Raspberry Pi template includes the following:
   - [Swap input plugin](/{{< latest "telegraf" >}}/plugins//#swap) 
   - [System input plugin](/{{< latest "telegraf" >}}/plugins//#system) 
 - one [Telegraf configuration](/influxdb/cloud/telegraf-configs/)
-- one [dashboards](/influxdb/cloud/reference/glossary/#dashboard): Raspberry Pi System
+- one [dashboard](/influxdb/cloud/reference/glossary/#dashboard): Raspberry Pi System
 - two variables: `bucket` and `linux_host`
 
 ## Apply the template
@@ -33,7 +33,7 @@ The Raspberry Pi template includes the following:
     influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/raspberry-pi/raspberry-pi-system.yml
     ```
     For more information, see [influx apply](/influxdb/cloud/reference/cli/influx/apply/).
-2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both your Raspberry Pi and the [InfluxDB v2 API](/influxdb/cloud/reference/api/).
+2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both your Raspberry Pi and the [InfluxDB Cloud API](/influxdb/cloud/reference/api/).
 3. In your Telegraf configuration file (`telegraf.conf`), find the following example `influxdb_v2` output plugins, and then **replace** the `urls` to specify the servers to monitor:
 
    ```sh
