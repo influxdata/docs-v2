@@ -123,7 +123,7 @@ write_api.write(bucket=bucket, org=org, record=p)
 3. Pass the `query()` method two named parameters:`org` and `query`.  
 
    ```python
-   result = client.query_api().query(org=org, query=query)
+   result = query_api.query(org=org, query=query)
    ```
 
 4. Iterate through the tables and records in the Flux object.
@@ -161,7 +161,7 @@ query = ‘ from(bucket:"my-bucket")\
 |> filter(fn:(r) => r._measurement == "my_measurement")\
 |> filter(fn: (r) => r.location == "Prague")\
 |> filter(fn:(r) => r._field == "temperature" )‘
-result = client.query_api().query(org=org, query=query)
+result = query_api.query(org=org, query=query)
 results = []
 for table in result:
     for record in table.records:
