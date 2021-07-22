@@ -76,7 +76,7 @@ the visualization dropdown.
   - **Stacked**: Display graph lines stacked on top of each other.
 
 ###### Legend
-- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+- **Orientation**: Select the orientation of the legend that appears:
   - **Horizontal**: Select to display the legend horizontally.
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.

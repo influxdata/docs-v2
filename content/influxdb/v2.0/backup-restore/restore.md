@@ -52,8 +52,7 @@ To restore all time series data from a backup directory, provide the following:
 - backup directory path
 
 ```sh
-influx restore \
-  --input /backups/2020-01-20_12-00/
+influx restore /backups/2020-01-20_12-00/
 ```
 
 ### Restore data from a specific bucket
@@ -64,13 +63,13 @@ To restore data from a specific backup bucket, provide the following:
 
 ```sh
 influx restore \
-  --input /backups/2020-01-20_12-00/ \
+  /backups/2020-01-20_12-00/ \
   --bucket example-bucket
 
 # OR
 
 influx restore \
-  --input /backups/2020-01-20_12-00/ \
+  /backups/2020-01-20_12-00/ \
   --bucket-id 000000000000
 ```
 
@@ -80,7 +79,7 @@ restore data into it.
 
 ```sh
 influx restore \
-  --input /backups/2020-01-20_12-00/ \
+  /backups/2020-01-20_12-00/ \
   --bucket example-bucket \
   --new-bucket new-example-bucket
 ```
@@ -94,7 +93,7 @@ tokens, users, dashboards, etc., include the following:
 
 ```sh
 influx restore \
-  --input /backups/2020-01-20_12-00/ \
+  /backups/2020-01-20_12-00/ \
   --full
 ```
 
@@ -113,7 +112,7 @@ If using a backup to populate a new InfluxDB server:
 
     ```sh
     influx restore \
-      --input /backups/2020-01-20_12-00/ \
+      /backups/2020-01-20_12-00/ \
       --full
     ```
 

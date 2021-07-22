@@ -5,11 +5,11 @@ const path = require('path');
 const latestVersions = {
   'influxdb': 'v2.0',
   'influxdbv2': 'v2.0',
-  'telegraf': 'v1.18',
-  'chronograf': 'v1.8',
+  'telegraf': 'v1.19',
+  'chronograf': 'v1.9',
   'kapacitor': 'v1.5',
-  'enterprise': 'v1.8',
-  };
+  'enterprise': 'v1.9',
+};
 
 const archiveDomain = 'https://archive.docs.influxdata.com';
 
@@ -34,17 +34,17 @@ exports.handler = (event, context, callback) => {
     if (condition) {
       return callback(null, {
         status: '301',
-          statusDescription: 'Moved Permanently',
-          headers: {
-            'location': [{
-              key: 'Location',
-              value: newUri,
-            }],
-            'cache-control': [{
-              key: 'Cache-Control',
-              value: "max-age=3600"
-            }],
-          },
+        statusDescription: 'Moved Permanently',
+        headers: {
+          'location': [{
+            key: 'Location',
+            value: newUri,
+          }],
+          'cache-control': [{
+            key: 'Cache-Control',
+            value: "max-age=3600"
+          }],
+        },
       });
     }
   }
@@ -53,30 +53,30 @@ exports.handler = (event, context, callback) => {
   const parsedPath = path.parse(request.uri);
   const indexPath = 'index.html';
   const validExtensions = {
-      '.html': true,
-      '.css': true,
-      '.js': true,
-      '.xml': true,
-      '.png': true,
-      '.gif': true,
-      '.jpg': true,
-      '.ico': true,
-      '.svg': true,
-      '.csv': true,
-      '.txt': true,
-      '.lp': true,
-      '.json': true,
-      '.rb': true,
-      '.eot': true,
-      '.ttf': true,
-      '.woff': true,
-      '.otf': true,
-      '.gz': true,
-      '.tar': true,
-      '.zip': true,
-      '.md5': true,
-      '.sha256': true,
-    };
+    '.html': true,
+    '.css': true,
+    '.js': true,
+    '.xml': true,
+    '.png': true,
+    '.gif': true,
+    '.jpg': true,
+    '.ico': true,
+    '.svg': true,
+    '.csv': true,
+    '.txt': true,
+    '.lp': true,
+    '.json': true,
+    '.rb': true,
+    '.eot': true,
+    '.ttf': true,
+    '.woff': true,
+    '.otf': true,
+    '.gz': true,
+    '.tar': true,
+    '.zip': true,
+    '.md5': true,
+    '.sha256': true,
+  };
 
   // Remove multiple slashes from path
   // permanantRedirect(/\/{2,}/.test(request.uri), request.uri.replace(/\/{2,}/, `/`));
@@ -143,7 +143,7 @@ exports.handler = (event, context, callback) => {
   // or if the version number is parsed as an extension.
   let newUri;
 
-  if (parsedPath.ext === '' || /\.\d*/.test(parsedPath.ext)) {
+  if (parsedPath.ext === '' || /\.\d{1,}/.test(parsedPath.ext)) {
     newUri = path.join(parsedPath.dir, parsedPath.base, indexPath);
   } else {
     newUri = request.uri;

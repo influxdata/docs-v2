@@ -99,6 +99,15 @@ A bucket is a named location where time series data is stored.
 All buckets have a [retention period](#retention-period).
 A bucket belongs to an organization.
 
+
+### bucket schema
+
+In InfluxDB Cloud, an explicit bucket schema lets you strictly enforce the data that can be written into one or more measurements in a bucket by defining the column names, tags, fields, and data types allowed for each measurement. By default, buckets in InfluxDB 2.0 have an `implicit` schema that lets you write data without restrictions on columns, fields, or data types.
+
+Learn how to [manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/) in InfluxDB Cloud.
+
+Related entries: [data type](#data-type), [field](#field), [measurement](#measurement)
+
 ## C
 
 ### check
@@ -923,16 +932,10 @@ Related entries: [series](#series), [shard duration](#shard-duration),
 
 ### shard group
 
-<<<<<<< HEAD
-Shard groups are logical containers for shards and contain all shards with data
-for a specified interval known as the [shard group duration](#shard-group-duration).
-Every bucket that contains data has at least one shard group.
-=======
 Shard groups are logical containers for shards organized by [bucket](#bucket).
 Every bucket with data has at least one shard group.
 A shard group contains all shards with data for the time interval covered by the shard group.
 The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
->>>>>>> cb4186ba2075d97882bc5974623adbdd1e88934a
 
 For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
 

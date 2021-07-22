@@ -1,0 +1,6 @@
+name,type,data_type
+time,timestamp,
+host,tag,
+service,tag,
+fsRead,field,float
+fsWrite,field,float

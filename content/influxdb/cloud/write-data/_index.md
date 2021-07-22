@@ -3,7 +3,7 @@ title: Write data to InfluxDB
 list_title: Write data
 description: >
   Collect and write time series data to InfluxDB Cloud and InfluxDB OSS.
-weight: 2
+weight: 3
 aliases:
   - /influxdb/cloud/write-data/quick-start/
   - /influxdb/cloud/write-data/sample-data/demo-data/
@@ -138,7 +138,7 @@ See [Sample data](/influxdb/cloud/reference/sample-data) for more sample InfluxD
 {{% /note %}}
 
 ## Sample data
-Use [sample data sets](/influxdb/cloud/reference/sample-data/#sample-data-sets)
+Use [sample data sets](/influxdb/cloud/reference/sample-data/#sample-datasets)
 to quickly populate InfluxDB with sample time series data.
 
 ---

@@ -35,10 +35,17 @@ Click the timezone dropdown to select a timezone to use for the dashboard. Selec
 
 Click the refresh button (**{{< icon "refresh" >}}**) to manually refresh the dashboard's data.
 
-#### Refresh a single dashboard cell
+#### Manually a single dashboard cell
 
 1. Click the **{{< icon "gear" >}}** on the dashboard cell you want to refresh.
 2. Click **{{< icon "refresh" >}} Refresh**.
+
+### Automatically refresh dashboard
+
+Click **Enable Auto Refresh**. In the window that appears, configure the following options:
+  - **Until**: Select **Indefinite** to automatically refresh continuously. Select **Custom** to set a time to stop automatically refreshing.
+  - **Inactivity Timeout**: Set how long the user should be inactive for the dashboard to time out and stop automatically refreshing.
+  - **Refresh Interval**: Enter how frequently the dashboard should refresh.
 
 ### Select time range
 

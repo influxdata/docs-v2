@@ -4,7 +4,7 @@ description: The `schema.measurementFieldKeys()` function returns a list of fiel
 menu:
   influxdb_2_0_ref:
     name: schema.measurementFieldKeys
-    parent: InfluxDB Schema
+    parent: InfluxDB schema
 weight: 301
 influxdb/v2.0/tags: [fields]
 aliases:

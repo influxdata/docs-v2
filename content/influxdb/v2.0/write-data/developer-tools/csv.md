@@ -94,11 +94,14 @@ When attempting to write large amounts of CSV data into InfluxDB, you might see 
 Error: Failed to write data: unexpected error writing points to database: [shard <#>] fcntl: too many open files.
 ```
 
-To fix this error, run the following command to increase the number of open files allowed by the OS (works on both Linux and MacOS):
+To fix this error on Linux or macOS, run the following command to increase the number of open files allowed:
 
-```
-ulimit -n 10000
-```
+  ```
+  ulimit -n 10000
+  ```
+
+macOS users, to persist the `ulimit` setting, follow the [recommended steps](https://unix.stackexchange.com/a/221988/471569) for your operating system version.
+
 {{% /note %}}
 
 ## CSV Annotations
