@@ -5,10 +5,9 @@ menu:
   influxdb_2_0_ref:
     name: Contribute to InfluxDB
     weight: 1
-    parent: Contributing
 ---
 
-To contribute to the InfluxDB OSS project, we recommend the following:
+To contribute to the InfluxDB OSS project, complete the following steps:
 
 1. [Sign the InfluxData Contributor License Agreement (CLA)](#sign-influxdata-contributor-license-agreement-cla).
 2. [Review contribution guidelines](#review-contribution-guidelines).
