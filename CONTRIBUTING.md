@@ -432,6 +432,16 @@ WHERE time > now() - 15m
 {{< /code-tabs-wrapper >}}
 ~~~
 
+#### Link to tabbed content
+
+To link to tabbed content, click on the tab and use the URL parameter shown.
+It will have the form `?t=`, plus a string.
+For example: 
+
+```
+[Windows installation](/influxdb/v2.0/install/?t=Windows)
+```
+
 ### Required elements
 Use the `{{< req >}}` shortcode to identify required elements in documentation with
 orange text and/or asterisks. By default, the shortcode outputs the text, "Required," but
