@@ -18,8 +18,10 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 - Add new [Asia Pacific (Australia) region](https://ap-southeast-2-1.aws.cloud2.influxdata.com).
 - Redesign the View Raw Data table in Data Explorer. Group keys and data types are now easily identifiable underneath column headings. 
-- Add a static legend to Graph and Band Plot visualizations. 
-- Add new Ranged Annotations feature in Boards. 
+- Dashboard improvements: 
+   - Add ability to add an [annotation to a specific time range](/influxdb/cloud/visualize-data/annotations/). 
+   - Add ability to [automatically refresh dashboard](/influxdb/cloud/visualize-data/dashboards/control-dashboard/#automatically-refresh-dashboard).  
+   - Add new static legend to Graph and Band Plot visualizations. 
 
 ## May 2021
 
