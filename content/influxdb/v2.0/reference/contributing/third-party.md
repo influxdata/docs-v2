@@ -21,7 +21,7 @@ Third party suppliers assume no liability for any claim that might arise with
 respect to such third party software, nor for a
 customer’s use of or inability to use the third party software.
 
-InfluxDB Enterprise 1.9 includes the following third party software components, which are maintained on a version by version basis.
+InfluxDB 2.0 includes the following third party software components. These dependencies are maintained on a version by version basis.
 
 | Component | License | Integration |
 | :--------  | :-------- | :--------   |
