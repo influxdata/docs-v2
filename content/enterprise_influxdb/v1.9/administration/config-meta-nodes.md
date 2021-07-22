@@ -270,10 +270,14 @@ Configures password hashing algorithm.
 Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
 This setting must have the same value as the data node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#password-hash--bcrypt).
 
+Environment variable: `INFLUXDB_META_PASSWORD_HASH`
+
 #### `ensure-fips = false`
 
 When `true`, enables a FIPS-readiness check on startup.
 Default `ensure-fips` is `false`.
+
+Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
 ### TLS settings
 
@@ -290,8 +294,8 @@ ciphers = [ "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
             "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 ]
 
-min-version = "tls1.2"
+min-version = "tls1.3"
 
-max-version = "tls1.2"
+max-version = "tls1.3"
 
 ```
