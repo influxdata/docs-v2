@@ -296,6 +296,6 @@ ciphers = [ "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
 
 min-version = "tls1.2"
 
-max-version = "tls1.2"
+max-version = "tls1.3"
 
 ```
