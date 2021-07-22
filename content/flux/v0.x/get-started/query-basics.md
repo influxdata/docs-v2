@@ -1,7 +1,7 @@
 ---
 title: Flux query basics
 description: >
-  ...
+  View basic concepts and steps to use when querying data with Flux. 
 menu:
   flux_0_x:
     name: Query basics
@@ -9,60 +9,81 @@ menu:
 weight: 102
 ---
 
+Most Flux queries follow the same basic structure.
+Familiarize yourself with the basic concepts and steps to use when querying data with Flux. 
+
+- [Important concepts](#important-concepts)
+- [Basic query structure](#basic-query-structure)
+- [Write a basic query](#write-a-basic-query)
+
 ## Important concepts
+
+- [Pipe-forward operator](#pipe-forward-operator)
+- [Predicate expressions](#predicate-expressions)
+- [Predicate functions](#predicate-functions)
+- [Packages](#packages)
 
 ### Pipe-forward operator
 The **pipe-forward operator** (`|>`) sends output of a function as input to the next function.
 In the [water treatment metaphor](/flux/v0.x/get-started/#flux-overview),
-the pipe-forward operator is that pipe the carries water or data through the entire pipeline.
+the pipe-forward operator is that pipe the carries water or data through the pipeline.
 
 ### Predicate expressions
-Flux uses predicate expressions when [filtering data](#filter) or in [conditional logic](#).
-- Predicate expression
-  - left and right operand split by a [comparison operator](/flux/v0.x/spec/operators/#comparison-operators)
-  - chained together using [logical operators](/flux/v0.x/spec/operators/#logical-operators) (`and`, `or`)
+A predicate is an expression that evaluates to `true` or `false`.
+A predicate expression consists of [comparison operators](/flux/v0.x/spec/operators/#comparison-operators)
+and [logical operators](/flux/v0.x/spec/operators/#logical-operators) that specify a
+relationship between values or operands.
+For example:
 
 ```js
-customer = {fname: "John", lname: "Doe", age: 41}
+"John" == "John"
+// Evaluates to true
 
-customer.fname == "John"
-// Resolves to true
+41 < 30
+// Evaluates to false
 
-customer.age < 30
-// Resolves to false
+"John" == "John" and 41 < 30
+// Evaluates to false
 
-customer.fname == "John" and customer.lname == "Doe"
-// Resolves to true
+"John" == "John" or 41 < 30
+// Evaluates to true
 ```
 
+Flux uses predicate expressions when [filtering data](#filter) or in
+[conditional expressions](/flux/v0.x/spec/expressions/#conditional-expressions).
+
 ### Predicate functions
-Predicate functions return `true` or `false` and typically contain [predicate expressions](#predicate-expressions)
-and [logical operators](/flux/v0.x/spec/operators/#logical-operators).
+Predicate functions use [predicate expressions](#predicate-expressions) to evaluate
+input and return `true` or `false`. For example:
 
-Flux functions, like [`filter()`](#filter), use predicate functions to iterate
-over rows and include or exclude rows based on column values.
-`filter()` passes each input into the predicate function defined in the `fn` parameter
-as a [record](/flux/v0.x/spec/types/#record-types) name `r`.
-The record contains key-value pairs for each column in the row.
-Predicate expressions evaluate column values with specified conditions.
-
-##### Example filter function
 ```js
-// ...
-  |> filter(fn: (r) => r.fname == "John" and r.age < 30)
+examplePredicate = (v) => v == "foo"
+
+examplePredicate(v: "foo")
+// Returns true
+
+examplePredicate(v: "bar")
+// Returns false
 ```
 
 ### Packages
-- Explain how packages work.
-- Import statements should be at the beginning of a script
+The [Flux standard library](/flux/v0.x/stdlib/) is organized into [packages](/flux/v0.x/spec/packages/)
+that contain functions and package-specific options.
+The [universe package](/flux/v0.x/stdlib/universe/) is loaded by default.
+To load other packages, include an import statement for each package at the
+beginning of your Flux script.
 
 ```js
-import "package/path"
+import "array"
+import "math"
+import "influxdata/influxdb/sample"
 ```
+
+---
 
 ## Basic query structure
 
-The majority of basic Flux queries include the following:
+The majority of basic Flux queries include the following steps:
 
 - [Source](#source)
 - [Filter](#filter)
@@ -141,18 +162,40 @@ The function windows and groups data by time, and then applies an [aggregate](/f
 or [selector](/flux/v0.x/function-types/#selectors) function to the restructured tables.
 {{% /note %}}
 
+---
+
 ## Write a basic query
 
-- Use the Flux REPL or the InfluxDB Cloud or InfluxDB OSS data explorer
-  and the airSensor sample data.
+Use [InfluxDB sample data](/{{< latest "influxdb" >}}/reference/sample-data/)to
+write a basic Flux query that queries data, filters the data by time and column values,
+then applies an [aggregate](/flux/v0.x/function-types/#aggregates).
 
-```js
-import "influxdata/influxdb/sample"
+{{% note %}}
+Use the [InfluxDB data explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/)
+or the [Flux REPL](/{{< latest "influxdb" >}}/tools/repl/#build-the-repl)
+to build and execute the following basic query.
+{{% /note %}}
 
-sample.data(set: "airSensor")
-```
+1.  Import the [`influxdata/influxdb/sample` package](/flux/v0.x/stdlib/influxdata/influxdb/sample/)
+    and use the [`sample.data()` function](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/)
+    to load the `airSensor` sample dataset.
 
-- Filter the data by time:
+    ```js
+    import "influxdata/influxdb/sample"
+
+    sample.data(set: "airSensor")
+    ```
+
+    {{% note %}}
+`sample.data()` returns data as if it was queried from InfluxDB.
+To actually query data from InfluxDB, replace `sample.data()` with the
+[`from()` function](/flux/v0.x/stdlib/universe/from/).
+    {{% /note %}}
+
+2.  Pipe the returned data forward into [`range()`](/flux/v0.x/stdlib/universe/range/)
+    to filter the data by time.
+    Return data from the last hour.
+
     ```js
     import "influxdata/influxdb/sample"
 
@@ -160,13 +203,60 @@ sample.data(set: "airSensor")
       |> range(start: -1h)
     ```
 
-- Filter data by column value
-- Explain how filter works
+3.  Use [`filter()`](/flux/v0.x/stdlib/universe/filter/) to filter rows based on
+    column values. 
+    In this example, return only rows that include values for the `co` field.
+    The field name is stored in the `_field` column.
 
     ```js
     import "influxdata/influxdb/sample"
 
     sample.data(set: "airSensor")
       |> range(start: -1h)
-      |> filter(fn: (r) => r._sensorID == "???")
+      |> filter(fn: (r) => r._field == "co")
     ```
+
+4.  Use [`mean()`](/flux/v0.x/stdlib/universe/mean/) to calculate the average value
+    in each input table.
+    Because InfluxDB groups data by [series](/influxdb/cloud/reference/glossary/#series),
+    `mean()` returns a table for each unique `sensor_id` containing a single row
+    with the average value in the `_value` column.
+
+    ```js
+    import "influxdata/influxdb/sample"
+
+    sample.data(set: "airSensor")
+      |> range(start: -1h)
+      |> filter(fn: (r) => r._field == "co")
+      |> mean()
+    ```
+
+5.  Use [`group()`](/flux/v0.x/stdlib/universe/group) to [restructure tables](/flux/v0.x/get-started/data-model/#restructure-tables)
+    into a single table:
+
+    ```js
+    import "influxdata/influxdb/sample"
+
+    sample.data(set: "airSensor")
+      |> range(start: -1h)
+      |> filter(fn: (r) => r._field == "co")
+      |> mean()
+      |> group()
+    ```
+
+Results from this basic query should be similar to the following:
+
+{{% note %}}
+`_start` and `_stop` columns have been omitted.
+{{% /note %}}
+
+| _field | _measurement | sensor_id |              _value |
+| :----: | :----------: | :-------: | ------------------: |
+|   co   |  airSensors  |  TLM0100  | 0.42338714381053716 |
+|   co   |  airSensors  |  TLM0101  |  0.4223251339463061 |
+|   co   |  airSensors  |  TLM0102  |  0.8543452859060252 |
+|   co   |  airSensors  |  TLM0103  |  0.2782783780205422 |
+|   co   |  airSensors  |  TLM0200  |   4.612143110484339 |
+|   co   |  airSensors  |  TLM0201  |   0.297474366047375 |
+|   co   |  airSensors  |  TLM0202  |  0.3336370208486757 |
+|   co   |  airSensors  |  TLM0203  |  0.4948166816959906 |
