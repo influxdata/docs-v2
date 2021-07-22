@@ -46,14 +46,6 @@ The Raspberry Pi template includes the following:
     export INFLUX_ORG=example-org
     ```
 
-   ```sh
-    ## cloudv2 sample
-    [[outputs.influxdb_v2]]
-     urls = ["$INFLUX_HOST"]
-     token = "$INFLUX_TOKEN"
-     organization = "$INFLUX_ORG"
-     bucket = “rasp-pi"
-   ```
 4. [Start Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
 
 ## View the incoming data
