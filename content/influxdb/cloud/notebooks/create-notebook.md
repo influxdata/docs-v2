@@ -13,11 +13,12 @@ menu:
 1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
-2. Click **+Create Notebook**, then enter a name for your notebook in the **Name this notebook** field. By default, the notebook name appears as `<username>-notebook-<year>-<month>-<day and time>`. The notebook includes the following three cell types by default: **Metric Selector**, **Data Validation**, and **Visualization**. For more information about cell types, see [Overview of Notebooks](/influxdb/cloud/notebooks/overview/). 
-3. Do the following at the top of the page: 
-   - Select your local time zone or UTC. 
-   - Choose a time range for your data. 
-4. Click the **+** icon, and then add or more cells to your notebook:  
+2. Click **+Create Notebook**, then enter a name for your notebook in the **Name this notebook** field. By default, the notebook name appears as `<username>-notebook-<year>-<month>-<day and time>`.
+3. Do the following at the top of the page:
+   - Select your local time zone or UTC.
+   - Choose a time range for your data.
+4. Consider which notebook cells to add to your notebook. By default, each notebook includes **Metric Selector**, **Data Validation**, and **Visualization** cells. For more information about cell types, see [Notebook cell types](/influxdb/cloud/notebooks/overview/#notebook-cell-types).
+5. Click the **+** icon, and then add or more of the following cell types to your notebook:  
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -29,7 +30,6 @@ menu:
 <!-------------------------------- BEGIN Input -------------------------------->
 {{% tab-content %}}
 
-- Input cells are required for some other cells to run. 
 - Select **Metric Builder** or **Query Builder** as your input, and then select your bucket to define your data source. Next, select filters to narrow your data.
 - Select **Preview** or **Run** in the upper left dropdown menu. By default, Preview appears. 
   - Click **Preview** (or press **CTRL + Enter**) to preview the results of each cell in a raw data table without writing any data. 
@@ -41,7 +41,7 @@ menu:
 <!-------------------------------- BEGIN Transform-------------------------------->
 {{% tab-content %}}
 
-- Select one of the following transform cell-types: 
+- Select one of the following transform cell-types:
   - **Flux Script**: Use `__PREVIOUS_RESULT__` to build from data in the previous cell, enter a Flux script to transform your data. 
   - **Downsample**: Window data by time and apply an aggregate to each window to downsample data. (For more information, see [Downsample data with notebooks](/influxdb/cloud/notebooks/downsample/).)
 - Select **Preview** or **Run** in the upper left dropdown menu. By default, Preview appears. 

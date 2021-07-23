@@ -60,6 +60,8 @@ Add one or more of the following cell types to your notebook:
 
 ### Inputs
 
+At least one input cell is required in a notebook for other cells to run.
+
 - **Metric Selector**: Filter out your data using a single list.
 - **Query Builder**: Filter out your data using lists separated by group keys.
 
