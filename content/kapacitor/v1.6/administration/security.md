@@ -380,6 +380,17 @@ This can be especially useful if Kapacitor to InfluxDB communications do not
 seem to be respecting values seen in the file `kapacitor.conf` or in environment
 variables.
 
+### Deny specific CIDR ranges
+
+To deny access to Kapacitor from certain [CIDR ranges](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+(classes of IP addresses),
+use the `-blacklist-cidrs` flag.
+Pass a comma-separated list of CIDRs to deny for most HTTP GET/POST operations:
+
+```sh
+kapacitor -blacklist 10.0.0.0/8,0.0.0.0/32
+```
+
 ## Secure Kapacitor and Chronograf
 
 With Kapacitor configured with HTTPS/TLS enabled many users will want to add
