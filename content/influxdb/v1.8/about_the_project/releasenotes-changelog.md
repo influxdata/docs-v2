@@ -13,10 +13,10 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 
 ### Bug fixes
 
-- Renamed ARM RPMs with yum-compatible names
-- Convert ARM arch names for RPMs during builds via docker
-- Systemd unit now blocks on startup until HTTP endpoint is ready
-- Updated protobuf libraries to current version
+- Renamed ARM RPMs with yum-compatible names.
+- Convert ARM arch names for RPMs during builds via Docker.
+- Systemd unit now blocks on startup until HTTP endpoint is ready.
+- Updated protobuf libraries to current version.
 
 ## v1.8.6 [2021-05-21]
 
