@@ -549,12 +549,18 @@ Always inspect YAML manifests before running `kubectl apply -f <url>`!
 <!--------------------------------- BEGIN Rasberry Pi ------------------------->
 {{% tab-content %}}
 
+### InfluxDB on Raspberry Pi
+
+#### Requirements
+
 To run InfluxDB on Raspberry Pi, you will need:
 
 - a Raspberry Pi 4+ or 400
 - a 64-bit operating system.
   We recommend installing a [64-bit version of Ubuntu](https://ubuntu.com/download/raspberry-pi)
   of Ubuntu Desktop or Ubuntu Server compatible with 64-bit Raspberry Pi.
+
+#### Installation
 
 Follow the [Linux installation instructions](/influxdb/v2.0/install/?t=Linux)
 to install InfluxDB on a Raspberry Pi.
