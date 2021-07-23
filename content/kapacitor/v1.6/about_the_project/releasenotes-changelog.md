@@ -7,17 +7,23 @@ menu:
     name: Release notes
 ---
 
-## v1.6.1 [TBD]
+## v1.6.1 [2021-07-22]
 
-<!-- placeholder -->
+### Features
+- Add flag for restricting CIDR ranges for certain event handlers and nodes.
+- Add flag for disabling alert handlers for additional security (such as
+  disabling the `exec` alert handler on a shared machine).
+
+### Bugfixes
+- Align `DeleteGroupMessage` with `GroupInfo` interface.
+- Fix payload serialization for BigPanda.
 
 ## v1.6.0 [2021-06-28]
 
 {{% warn %}}
 Kapacitor 1.6.0 includes a defect that could result in a memory leak and expose
 sensitive information.
-If you installed this release, upgrade to **Kapacitor v1.6.1**, which includes
-the features and bug fixes below.
+If you installed this release, upgrade to **Kapacitor v1.6.1**.
 {{% /warn %}}
 
 **Kapacitor 1.6** introduces Flux task support.
@@ -29,16 +35,25 @@ User authentication and authorization (previously only supported in Kapacitor En
 is now available in Kapacitor 1.6. Require user authentication for interactions
 with the Kapacitor API.
 
+{{% warn %}}
+### Breaking changes
+Kapacitor 1.6+ no longer supports 32-bit operating systems.
+If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
+{{% /warn %}}
+
 ### Features
 
+- Provide ARM 64-bit builds. 
 - Add Kapacitor [Flux task commands](/kapacitor/v1.6/working/cli_client/#flux-tasks) to the `kapacitor` CLI.
 - Add built-in Flux engine to support [Flux tasks in Kapacitor](/kapacitor/v1.6/working/flux/).
+- Add **queryFluxNode** for querying with Flux in batch tasks.
 - Add [Zenoss event handler](/kapacitor/v1.6/event_handlers/zenoss/). 
 - Route [Kafka alerts](/kapacitor/v1.6/event_handlers/kafka/) to partitions by
   message ID and support hashing strategy configuration.
 - Add user-based authentication.
 - Add [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/) to convert batches to streams. 
 - Update [Slack event handler](/kapacitor/v1.6/event_handlers/slack/) to support new-style Slack applications.
+- Handle Delete messages in [joinNode](/kapacitor/v1.6/nodes/join_node/).
 
 ### Bugfixes
 - Fix a panic in the scraper handler when debug mode is enabled. 
