@@ -3,7 +3,7 @@ title: Query Prometheus
 list_title: Prometheus
 description: >
   Use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape) to
-  query Prometheus-formatted metrics from an HTTP(S)-accessible endpoint using Flux.
+  query Prometheus-formatted metrics from an HTTP endpoint using Flux.
 menu:
   flux_0_x:
     name: Prometheus
@@ -17,10 +17,10 @@ list_code_example: |
   ```
 ---
 
-To query Prometheus-formatted metrics from an HTTP(S)-accessible endpoint using Flux
+To query Prometheus-formatted metrics from an HTTP endpoint using Flux
 import the [`experimental/prometheus` package](/flux/v0.x/stdlib/experimental/prometheus/)
 and use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape).
-Provide the **url** to scrape metrics from.
+Use the **url** parameter to provide the URL to scrape metrics from.
 
 {{< keep-url >}}
 ```js
@@ -30,7 +30,7 @@ prometheus.scrape(url: "http://localhost:8086/metrics")
 ```
 
 ## Results structure
-`prometheus.scrape()` return a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
+`prometheus.scrape()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
 with the following columns:
 
 - **_time**: Data timestamp
@@ -38,8 +38,8 @@ with the following columns:
 - **_field**: [Prometheus metric name](https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels)
 - **_value**: [Prometheus metric value](https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels)
 - **url**: URL metrics were scraped from
-- **Label columns**: A column for each [Prometheus label](https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels)
-  column label is the lable name and the column value is the label value
+- **Label columns**: A column for each [Prometheus label](https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels).
+  The column label is the label name and the column value is the label value.
 
 Tables are grouped by **_measurement**, **_field**, and **Label columns**.
 
@@ -50,8 +50,7 @@ Some Flux functions require these columns to function properly.
 {{% /note %}}
 
 ### Example Prometheus query results
-The following Prometheus metrics are example metrics scraped from the InfluxDB
-OSS 2.x `/metrics` endpoint:
+The following are example Prometheus metrics scraped from the InfluxDB OSS 2.x `/metrics` endpoint:
 
 ```sh
 # HELP go_goroutines Number of goroutines that currently exist.
