@@ -391,6 +391,16 @@ Pass a comma-separated list of CIDRs to deny for most HTTP GET/POST operations:
 kapacitor -blacklist 10.0.0.0/8,0.0.0.0/32
 ```
 
+### Disable specific alert handlers
+
+Use the `-disable-handlers` flag to disable a set of alert handlers.
+Pass a comma-separated list of [handlers](/kapacitor/v1.6/event_handlers/):
+
+```sh
+kapacitor -disable-handlers exec,httppost
+```
+
+
 ## Secure Kapacitor and Chronograf
 
 With Kapacitor configured with HTTPS/TLS enabled many users will want to add
