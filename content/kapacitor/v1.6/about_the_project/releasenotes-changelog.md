@@ -35,8 +35,15 @@ User authentication and authorization (previously only supported in Kapacitor En
 is now available in Kapacitor 1.6. Require user authentication for interactions
 with the Kapacitor API.
 
+{{% warn %}}
+### Breaking changes
+Kapacitor 1.6+ no longer supports 32-bit operating systems.
+If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
+{{% /warn %}}
+
 ### Features
 
+- Provide ARM 64-bit builds. 
 - Add Kapacitor [Flux task commands](/kapacitor/v1.6/working/cli_client/#flux-tasks) to the `kapacitor` CLI.
 - Add built-in Flux engine to support [Flux tasks in Kapacitor](/kapacitor/v1.6/working/flux/).
 - Add **queryFluxNode** for querying with Flux in batch tasks.
