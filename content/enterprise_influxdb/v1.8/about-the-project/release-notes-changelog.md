@@ -15,7 +15,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 [InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v187-2021-07-21).
 
 ### Bug fixes
-- Rename ARM RPMs with yum-compatible names
+- Rename ARM RPMs with yum-compatible names.
 
 ## v1.8.6 [2021-05-21]
 
