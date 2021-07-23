@@ -191,6 +191,7 @@ When `true`, enables a FIPS-readiness check on startup.
 Default is `false`.
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
+
 -----
 
 ## Data settings
