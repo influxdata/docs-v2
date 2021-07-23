@@ -48,7 +48,7 @@ batch
 | **[every](#every)( `value` `time.Duration`)**   | How often to query InfluxDB. Mutually exclusive with the `cron` property.             |
 | **[offset](#offset)( `value` `time.Duration`)** | How far back in time to query from the current time.                                  |
 | **[org](#org)( `value` `string`)**              | InfluxDB Cloud or 2.x organization name.                                              |
-| **[orgid](#orgid)( `value` `string`)**          | InfluxDB Cloud or 2.x organization ID.                                                |
+| **[orgID](#orgid)( `value` `string`)**          | InfluxDB Cloud or 2.x organization ID.                                                |
 | **[period](#period)( `value` `time.Duration`)** | The period or length of time that will be queried from InfluxDB.                      |
 | **[quiet](#quiet)( )**                          | Suppress all error logging events from this node.                                     |
 
@@ -191,10 +191,10 @@ fluxQuery.org(value string)
 ### OrgID
 
 The InfluxDB Cloud or 2.x organization ID to query.
-If empty, the default `orgid` is used.
+If empty, the default `orgID` is used.
 
 ```js
-fluxQuery.orgid(value string)
+fluxQuery.orgID(value string)
 ```
 
 ### Quiet
