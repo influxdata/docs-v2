@@ -69,22 +69,32 @@ If your cell contains a custom script that uses any output function to write dat
 <!-------------------------------- BEGIN Output------------------------------->
 {{% tab-content %}}
  
- - Select one of the following output cell-types: 
-   - Help set up alerts with **Output: Notification**. 
-     - Enter a time range to automatically check the data and enter your query offset. 
-     - Customize the conditions to send an alarm. 
-     - Choose one of the following to recieve your alarms: 
-       - Slack and a Slack Channel 
-       - HTTP post 
-       - Pager Duty
-     - (Optional) Personalize your alarm message. By default, the message is "Notification Rule: ${ r._notification_rule_name } triggered by check: ${ r._check_name }: ${ r._message }." 
-     - Click **Export as Task** to create your alarm. 
-   - Create an output with **Output: Output to Bucket**. 
-     - Select a bucket. 
-     - Click **Preview** to see what would be written to the bucket without commiting, or click **Run** in the upper left to write, or select **Export as Task** to schedule your output as a task. 
-   - Create a task with **Schedule**. 
-     - Enter a time and an offset to schedule the task. 
-     - Click **Export as Task** to save. 
+Select one of the following output cell-types: 
+
+- To recieve an alert, select **Notification** and complete the steps below. 
+- To write output to a bucket, select **Output to Bucket** and complete the steps below. 
+- To create a task, select **Schedule** and complete the steps below. 
+
+**Notification**
+
+1. Enter a time range to automatically check the data and enter your query offset. 
+2. Customize the conditions to send an alarm. 
+3. Choose one of the following to recieve your alarms: 
+   - Slack and a Slack Channel 
+   - HTTP post 
+   - Pager Duty
+4. (Optional) Personalize your alarm message. By default, the message is "Notification Rule: ${ r._notification_rule_name } triggered by check: ${ r._check_name }: ${ r._message }." 
+5. Click **Export as Task** to create your alarm. 
+
+**Output to Bucket**
+
+1. Select a bucket. 
+2. Click **Preview** to see what would be written to the bucket without commiting, or click **Run** in the upper left to write, or select **Export as Task** to schedule your output as a task. 
+
+**Schedule**
+
+1. Enter a time and an offset to schedule the task. 
+2. Click **Export as Task** to save. 
  
 {{% /tab-content %}}
 <!--------------------------------- END Output-------------------------------->
