@@ -46,7 +46,7 @@ If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
 - Provide ARM 64-bit builds. 
 - Add Kapacitor [Flux task commands](/kapacitor/v1.6/working/cli_client/#flux-tasks) to the `kapacitor` CLI.
 - Add built-in Flux engine to support [Flux tasks in Kapacitor](/kapacitor/v1.6/working/flux/).
-- Add **queryFluxNode** for querying with Flux in batch tasks.
+- Add [QueryFluxNode](/kapacitor/v1.6/nodes/query_flux_node/) for querying with Flux in batch tasks.
 - Add [Zenoss event handler](/kapacitor/v1.6/event_handlers/zenoss/). 
 - Route [Kafka alerts](/kapacitor/v1.6/event_handlers/kafka/) to partitions by
   message ID and support hashing strategy configuration.
