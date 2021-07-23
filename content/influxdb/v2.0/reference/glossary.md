@@ -262,19 +262,14 @@ Related entries: [bucket](#bucket)
 A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it. 
 
 InfluxDB supports the following data types: 
-- boolean 
-- dateTime
-- double 
-- field
-- float
-- ignored
-- integer
-- long 
-- measurement 
-- string
-- tag
-- timestamp 
-- unsignedLong 
+| Data type        | Alias/annotation   |
+| :--------------- | :----------------- |
+| string           |                    |
+| boolean          |                    |
+| float            | double             |
+| integer          | int, long          |
+| unsigned integer | uint, unsignedLong |
+| time             | dateTime           |
 
 For more information about each data type, see [extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype). 
 
