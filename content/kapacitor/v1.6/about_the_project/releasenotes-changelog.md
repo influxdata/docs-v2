@@ -15,8 +15,8 @@ menu:
   disabling the `exec` alert handler on a shared machine).
 
 ### Bugfixes
-#2585: Make DeleteGroupMessage align with GroupInfoer interface.
-#2596: Fix payload serialization for BigPanda.
+- Align `DeleteGroupMessage` with `GroupInfo` interface.
+- Fix payload serialization for BigPanda.
 
 ## v1.6.0 [2021-06-28]
 
