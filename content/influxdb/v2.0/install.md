@@ -556,12 +556,20 @@ To run InfluxDB on Raspberry Pi, you will need:
   We recommend installing a [64-bit version of Ubuntu](https://ubuntu.com/download/raspberry-pi)
   of Ubuntu Desktop or Ubuntu Server compatible with 64-bit Raspberry Pi.
 
-Follow the [Linux installation instructions](/influxdb/v2.0/install/?t=Linux) to install InfluxDB on a Raspberry Pi.
+Follow the [Linux installation instructions](/influxdb/v2.0/install/?t=Linux)
+to install InfluxDB on a Raspberry Pi.
+
+Use the [Raspberry Pi template](/influxdb/cloud/monitor-alert/templates/infrastructure/raspberry-pi/)
+to easily configure collecting and visualizating system metrics for the Raspberry Pi.
 
 #### Support for 32-bit systems
 
 If you have a 32-bit Raspberry Pi, [use Telegraf](/{{< latest "telegraf" >}}/)
-to collect and send data to [InfluxDB Cloud](/influxdb/cloud).
+to collect and send data to:
+
+- [InfluxDB OSS](/influxdb/v2.0/), running on a 64-bit system
+- [InfluxDB Cloud](/influxdb/cloud) with a **Free Tier** account
+- [InfluxDB Cloud](/influxdb/cloud) with a **Pay As You Go** account with relaxed resource restrictions.
 
 {{% /tab-content %}}
 <!--------------------------------- END Rasberry Pi --------------------------->
