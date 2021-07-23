@@ -53,24 +53,31 @@ Select from the options in the dropdown list or select **Custom Time Range** to 
 ## Notebook cell types
 
 Add one or more of the following cell types to your notebook:
+- [Inputs](#inputs)
+- [Transform](#transform)
+- [Pass-through](#pass-through)
+- [Output](#output)
 
-- **Input: Metric Selector**:
-Filter out your data using a single list.
-- **Input: Query Builder**: 
-Filter out your data using lists separated by group keys. 
-- **Transform: Flux Script**:
+### Inputs
+
+- **Metric Selector**: Filter out your data using a single list.
+- **Query Builder**: Filter out your data using lists separated by group keys.
+
+### Transform
+
+- **Flux Script**:
 Modify your data with Flux Script. `__PREVIOUS_RESULT__` refers to your previous inputs from the Metric Selector.
-- **Transform: Downsample**:
+- **Downsample**:
 Downsample data through aggregates.
-- **Pass-through: Column Editor**: 
-Modify column visibility and naming. 
-- **Pass-through: Markdown**: 
-Create explanatory notes or other information for yourself or one of your team members.
-- **Pass-through: Visualization**:
-Represents your data in visual formats such as graphs or charts. 
-- **Output: Notification**: 
-Set up alerts. 
-- **Output: Output to Bucket**: 
-In **Preview** mode, this cell represents what would be written if the data was going to be committed to a bucket.
-- **Output: Schedule**: 
-Run tasks at specific times. 
+
+### Pass-through
+
+- **Column Editor**: Modify column visibility and naming.
+- **Markdown**: Create explanatory notes or other information for yourself or one of your team members.
+- **Visualization**: Represents your data in visual formats such as graphs or charts.
+
+### Output
+
+- **Notification**: Set up alerts.
+- **Output to Bucket**: In **Preview** mode, this cell represents what would be written if the data was going to be committed to a bucket.
+- **Output: Schedule**: Run tasks at specific times.
