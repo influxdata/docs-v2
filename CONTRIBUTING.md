@@ -326,11 +326,17 @@ Use the following for project names:
 ```
 
 ### Latest patch version
-Use the `{{< latest-patch >}}` shortcode to add the latest patch version of the
-current product. Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
+Use the `{{< latest-patch >}}` shortcode to add the latest patch version of a product.
+By default, this shortcode parses the product and minor version from the URL.
+To specify a specific product and minor version, use the `product` and `version` arguments.
+Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
 
 ```md
 {{< latest-patch >}}
+
+{{< latest-patch product="telegraf" >}}
+
+{{< latest-patch product="chronograf" version="1.7" >}}
 ```
 
 ### API endpoint
