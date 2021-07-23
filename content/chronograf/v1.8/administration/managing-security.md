@@ -357,11 +357,13 @@ export HEROKU_ORGS=hill-valley-preservation-sociey,the-pinheads
     GENERIC_TOKEN_URL=https://login.microsoftonline.com/<<TENANT-ID>>/oauth2/token
     TENANT=<<TENANT-ID>>
     GENERIC_NAME=AzureAD
-    GENERIC_API_KEY=userPrincipalName
+    GENERIC_API_KEY=upn
     GENERIC_SCOPES=openid
     GENERIC_CLIENT_ID=<<APPLICATION-ID>>
     GENERIC_AUTH_URL=https://login.microsoftonline.com/<<TENANT-ID>>/oauth2/authorize?resource=https://graph.windows.net
     GENERIC_CLIENT_SECRET=<<APPLICATION-KEY>>
+    USE_ID_TOKEN: true
+    JWKS_URL: "https://login.microsoftonline.com/${tenantId}/discovery/v2.0/keys"
     TOKEN_SECRET=secret
     GENERIC_API_URL=https://graph.windows.net/<<TENANT-ID>>/me?api-version=1.6
     PUBLIC_URL=http://localhost:8888

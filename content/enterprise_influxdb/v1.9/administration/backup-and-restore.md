@@ -34,9 +34,13 @@ Depending on the volume of data to be protected and your application requirement
 
 ## Backup and restore utilities
 
-InfluxDB Enterprise supports backing up and restoring data in a cluster, a single database, a single database and retention policy, and single shards. Most InfluxDB Enterprise applications can use the backup and restore utilities.
+InfluxDB Enterprise supports backing up and restoring data in a cluster, 
+a single database and retention policy, and single shards.
+Most InfluxDB Enterprise applications can use the backup and restore utilities.
 
-Use the `backup` and `restore` utilities to back up and restore between `influxd` instances with the same versions or with only minor version differences. For example, you can backup from 1.7.3 and restore on 1.8.2.
+Use the `backup` and `restore` utilities to back up and restore between `influxd`
+instances with the same versions or with only minor version differences.
+For example, you can backup from 1.7.3 and restore on 1.8.2.
 
 ### Backup utility
 
@@ -384,7 +388,7 @@ Copying data to <hostname>:8088... Copying data to <hostname>:8088... Done. Rest
 Restored from my-incremental-backup/ in 56.623615ms, transferred 588800 bytes
 ```
 
-Then, in the [`influx` client](/enterprise_influxdb/v1.9/tools/use-influx/), use an [`INTO` query](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) to copy the data from the new database into the existing `telegraf` database:
+Then, in the [`influx` client](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/), use an [`INTO` query](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) to copy the data from the new database into the existing `telegraf` database:
 
 ```bash
 $ influx

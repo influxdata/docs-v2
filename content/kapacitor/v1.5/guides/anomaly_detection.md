@@ -224,7 +224,7 @@ subsequent points belong to a batch.  Once the batch is complete, the
 `end_batch` method is called with some metadata about the batch.
 
 At a high level, this is what our UDF code will do for each of the
-`begin_batch`, `point`, and `end_batch` calls:
+`begin_batch`, `point`, and `end_batch` calls: 
 
 * `begin_batch`: mark the start of a new batch and initialize a structure for it
 * `point`: store the point
@@ -240,7 +240,7 @@ What follows is the complete UDF implementation with our `info`,
 from kapacitor.udf.agent import Agent, Handler
 from scipy import stats
 import math
-import kapacitor.udf.udf_pb2
+from kapacitor.udf import udf_pb2
 import sys
 
 class TTestHandler(Handler):
