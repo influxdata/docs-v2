@@ -9,6 +9,14 @@ menu:
     parent: About the project
 ---
 
+## v1.8.7 [2021-07-21]
+The InfluxDB Enterprise 1.8.7 release builds on the InfluxDB OSS 1.8.4 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v187-2021-07-21).
+
+### Bug fixes
+- Rename ARM RPMs with yum-compatible names
+
 ## v1.8.6 [2021-05-21]
 
 {{% warn %}}
