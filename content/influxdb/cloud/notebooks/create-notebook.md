@@ -28,8 +28,8 @@ menu:
  
 <!-------------------------------- BEGIN Input -------------------------------->
 {{% tab-content %}}
- 
-- The **Metric Selector** cell appears by default and required for some of the other cells to run. 
+
+- Input cells are required for some other cells to run. 
 - Select **Metric Builder** or **Query Builder** as your input, and then select your bucket to define your data source. Next, select filters to narrow your data.
 - Select **Preview** or **Run** in the upper left dropdown menu. By default, Preview appears. 
   - Click **Preview** (or press **CTRL + Enter**) to preview the results of each cell in a raw data table without writing any data. 
@@ -42,8 +42,11 @@ menu:
 {{% tab-content %}}
 
 - Select one of the following transform cell-types: 
-  - Flux Script: Use `__PREVIOUS_RESULT__` to build from data in the previous cell, enter a Flux script to transform your data. 
-  - Downsample: Window data by time and apply an aggregate to each window to downsample data. (For more information, see [Downsample data with notebooks](/influxdb/cloud/notebooks/downsample/).)
+  - **Flux Script**: Use `__PREVIOUS_RESULT__` to build from data in the previous cell, enter a Flux script to transform your data. 
+  - **Downsample**: Window data by time and apply an aggregate to each window to downsample data. (For more information, see [Downsample data with notebooks](/influxdb/cloud/notebooks/downsample/).)
+- Select **Preview** or **Run** in the upper left dropdown menu. By default, Preview appears. 
+  - Click **Preview** (or press **CTRL + Enter**) to preview the results of each cell in a raw data table without writing any data. 
+  - Select **Run** to show the results of each cell and write it to the specified output bucket.
 
    {{% warn %}}
 If your cell contains a custom script that uses any output function to write data to InfluxDB (the `to()` function) or send it to a 3rd party service, clicking **Preview** will write data.
@@ -56,9 +59,9 @@ If your cell contains a custom script that uses any output function to write dat
 {{% tab-content %}}
  
 - Select one of the following pass-through cell-types: 
-  - Column Editor 
-  - Markdown: Enter explanatory notes. 
-  - Visualization: Create a visualization of your data. The **Visualization** cell appears by default. For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
+  - **Column Editor**: Handle column visability and naming and requires an input cell to run. 
+  - **Markdown**: Enter explanatory notes. 
+  - **Visualization**: Create a visualization of your data and requires an input cell to run. For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
  
 {{% /tab-content %}}
 <!-------------------------------- END Pass-through-------------------------------->
@@ -66,14 +69,27 @@ If your cell contains a custom script that uses any output function to write dat
 <!-------------------------------- BEGIN Output------------------------------->
 {{% tab-content %}}
  
-- Create an output with **Output: Output to Bucket** 
-    - Select a bucket. 
-    - Click **Preview** to see what would be written to the bucket without commiting, or click **Run** in the upper left to write, or select **Export as Task** to schedule your output as a task. 
- 
+ - Select one of the following output cell-types: 
+   - Help set up alerts with **Output: Notification**. 
+     - Enter a time range to automatically check the data and enter your query offset. 
+     - Customize the conditions to send an alarm. 
+     - Choose one of the following to recieve your alarms: 
+       - Slack and a Slack Channel 
+       - HTTP post 
+       - Pager Duty
+     - (Optional) Personalize your alarm message. By default, the message is "Notification Rule: ${ r._notification_rule_name } triggered by check: ${ r._check_name }: ${ r._message }." 
+     - Click **Export as Task** to create your alarm. 
+   - Create an output with **Output: Output to Bucket**. 
+     - Select a bucket. 
+     - Click **Preview** to see what would be written to the bucket without commiting, or click **Run** in the upper left to write, or select **Export as Task** to schedule your output as a task. 
+   - Create a task with **Schedule**. 
+     - Enter a time and an offset to schedule the task. 
+     - Click **Export as Task** to save. 
  
 {{% /tab-content %}}
 <!--------------------------------- END Output-------------------------------->
 
+- The **Validate the data** cell can not be found in the cell selection. To view your input data in a raw data table format through the default cell, click **Preview** or **Run** on an input cell. 
 
 
  

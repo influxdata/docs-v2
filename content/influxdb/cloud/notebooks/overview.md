@@ -10,7 +10,12 @@ menu:
     parent: Notebooks
 ---
 
-Learn about the building blocks of a notebook, how notebooks can help show how data is processed, and discover some common use cases. Use different notebook cell types and controls that help to show how data is processed.
+Learn about the building blocks of a notebook, how notebooks can help show how data is processed, and discover some common use cases. Use different notebook cell types and controls that help show how data is processed.
+
+Explore more about the many functions and uses of notebooks through: 
+- [Notebook concepts](/influxdb/cloud/notebooks/overview/#notebook-concepts)
+- [Notebook controls](/influxdb/cloud/notebooks/overview/#notebook-controls)
+- [Notebook cell types](/influxdb/cloud/notebooks/overview/#notebook-cell-types)
 
 ## Notebook concepts 
 
@@ -45,19 +50,27 @@ Click the timezone dropdown list to select a timezone to use for the dashboard. 
 
 Select from the options in the dropdown list or select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 
-## Notebook Cell types
+## Notebook cell types
 
 Add one or more of the following cell types to your notebook:
 
 - **Input: Metric Selector**:
-Filter out your data using group keys.
+Filter out your data using a single list.
+- **Input: Query Builder**: 
+Filter out your data using lists separated by group keys. 
 - **Transform: Flux Script**:
 Modify your data with Flux Script. `__PREVIOUS_RESULT__` refers to your previous inputs from the Metric Selector.
 - **Transform: Downsample**:
 Downsample data through aggregates.
+- **Pass-through: Column Editor**: 
+Modify column visibility and naming. 
 - **Pass-through: Markdown**: 
 Create explanatory notes or other information for yourself or one of your team members.
 - **Pass-through: Visualization**:
 Represents your data in visual formats such as graphs or charts. 
+- **Output: Notification**: 
+Set up alerts. 
 - **Output: Output to Bucket**: 
 In **Preview** mode, this cell represents what would be written if the data was going to be committed to a bucket.
+- **Output: Schedule**: 
+Run tasks at specific times. 
