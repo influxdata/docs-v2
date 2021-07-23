@@ -33,7 +33,7 @@ The Raspberry Pi template includes the following:
     influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/raspberry-pi/raspberry-pi-system.yml
     ```
     For more information, see [influx apply](/influxdb/cloud/reference/cli/influx/apply/).
-2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both your Raspberry Pi and the [InfluxDB Cloud API](/influxdb/cloud/reference/api/).
+2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on your Raspberry Pi and ensure your Raspberry Pi has network access to the [InfluxDB Cloud API](/influxdb/cloud/reference/api/).
 3. Add the following environment variables to your Telegraf environment:
 
     - `INFLUX_HOST`: Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
