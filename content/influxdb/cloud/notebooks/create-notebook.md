@@ -9,15 +9,16 @@ menu:
     name: Create a notebook
     parent: Notebooks
 ---
+For more information about cell types, see [Overview of Notebooks](/influxdb/cloud/notebooks/overview/). 
 
 1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
-2. Click **+Create Notebook**, then enter a name for your notebook in the **Name this notebook** field. By default, the notebook name appears as `<username>-notebook-<year>-<month>-<day and time>`. The notebook includes the following three cell types by default: **Metric Selector**, **Data Validation**, and **Visualization**. For more information about cell types, see [Overview of Notebooks](/influxdb/cloud/notebooks/overview/). 
+2. Click **+Create Notebook**, then enter a name for your notebook in the **Name this notebook** field. By default, the notebook name appears as `<username>-notebook-<year>-<month>-<day and time>`. The notebook includes the following three cell types by default: **Metric Selector**, **Data Validation**, and **Visualization**. 
 3. Do the following at the top of the page: 
    - Select your local time zone or UTC. 
    - Choose a time range for your data. 
-4. Click the **+** icon, and then add or more cells to your notebook:  
+4. Click the **+** icon, and then add or more cells to your notebook if desired:  
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -29,11 +30,14 @@ menu:
 <!-------------------------------- BEGIN Input -------------------------------->
 {{% tab-content %}}
 
-- Input cells are required for some other cells to run. 
-- Select **Metric Builder** or **Query Builder** as your input, and then select your bucket to define your data source. Next, select filters to narrow your data.
-- Select **Preview** or **Run** in the upper left dropdown menu. By default, Preview appears. 
-  - Click **Preview** (or press **CTRL + Enter**) to preview the results of each cell in a raw data table without writing any data. 
-  - Select **Run** to show the results of each cell and write it to the specified output bucket.
+Input cells are required for some other cells to run. 
+
+1. Select **Metric Builder** or **Query Builder** as your input. 
+2. Select your bucket to define your data source. Next, select filters to narrow your data.
+3. Select **Preview** or **Run** in the upper left dropdown menu. By default, Preview appears. 
+   - Click **Preview** (or press **CTRL + Enter**) to preview the results of each cell in a raw data table without writing any data. 
+   - Select **Run** to show the results of each cell and write it to the specified output bucket.
+4. Repeat steps 1-3 to add additional input cell as necessary. 
 
 {{% /tab-content %}}
 <!--------------------------------- END Input --------------------------------->
@@ -42,7 +46,7 @@ menu:
 {{% tab-content %}}
 
 - Select one of the following transform cell-types: 
-  - **Flux Script**: Use `__PREVIOUS_RESULT__` to build from data in the previous cell, enter a Flux script to transform your data. 
+  - **Flux Script**: Use `__PREVIOUS_RESULT__` to build from input data in the previous cell, enter a Flux script to transform your data. 
   - **Downsample**: Window data by time and apply an aggregate to each window to downsample data. (For more information, see [Downsample data with notebooks](/influxdb/cloud/notebooks/downsample/).)
 - Select **Preview** or **Run** in the upper left dropdown menu. By default, Preview appears. 
   - Click **Preview** (or press **CTRL + Enter**) to preview the results of each cell in a raw data table without writing any data. 
@@ -58,10 +62,41 @@ If your cell contains a custom script that uses any output function to write dat
 <!------------------------------- BEGIN Pass-through------------------------------->
 {{% tab-content %}}
  
-- Select one of the following pass-through cell-types: 
-  - **Column Editor**: Handle column visability and naming and requires an input cell to run. 
-  - **Markdown**: Enter explanatory notes. 
-  - **Visualization**: Create a visualization of your data and requires an input cell to run. For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
+Select one of the following pass-through cell-types: 
+
+- To change visability and name of columns, select **Column Editor**. 
+- To create a visualization of your data, select **Visualization**. For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/). 
+- To view your input data in raw data table format, select **Validate the Data**. 
+- To enter explanatory notes, select **Markdown**. 
+
+You must Preview or Run an input cell above these cells to view your results: 
+
+   - **Column Editor**:  
+     - Click the toggle to hide or view your column. 
+     - Rename your columns by hovering over the column name and pressing the pencil icon. 
+   - **Visualization**: 
+     - Change your graphic type by clicking the second dropdown menu at the top of the cell. By default, ig is a graph. 
+     - Choose specific values in your histogram graphic by clicking the dropdown menu labled **Select**. 
+     - Press the nut icon to configure graphic visualization. 
+     - Click the **CSV** button to download results as an annotated CSV file. 
+     - Export to the dashboard by clicking the labled button. 
+   - **Validate the Data**: 
+     - View your raw data through the **Simple Table** graphic. 
+     - Click the **CSV** button to download results as an annotated CSV file. 
+     - Export to the dashboard by clicking the labled button.
+
+ {{% note %}}
+ 
+ The validation cell only appears by default. You can not add the cell by pressing the plus icon. 
+
+{{% /note %}}
+    
+You can add these cells anywhere: 
+
+   - **Markdown**: 
+     - Select **Edit** to type in your notes.  
+     - Select **Preview** to view your notes. 
+  
  
 {{% /tab-content %}}
 <!-------------------------------- END Pass-through-------------------------------->
@@ -99,7 +134,6 @@ Select one of the following output cell-types:
 {{% /tab-content %}}
 <!--------------------------------- END Output-------------------------------->
 
-- The **Validate the data** cell can not be found in the cell selection. To view your input data in a raw data table format through the default cell, click **Preview** or **Run** on an input cell. 
 
 
  

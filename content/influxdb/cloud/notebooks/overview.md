@@ -10,9 +10,9 @@ menu:
     parent: Notebooks
 ---
 
-Learn about the building blocks of a notebook, how notebooks can help show how data is processed, and discover some common use cases. Use different notebook cell types and controls that help show how data is processed.
+Learn about the building blocks of a notebook, how notebooks can help show how data is processed, and discover some common use cases. 
 
-Explore more about the many functions and uses of notebooks through: 
+To use different notebook cell types, controls, and uses to process data, see: 
 - [Notebook concepts](/influxdb/cloud/notebooks/overview/#notebook-concepts)
 - [Notebook controls](/influxdb/cloud/notebooks/overview/#notebook-controls)
 - [Notebook cell types](/influxdb/cloud/notebooks/overview/#notebook-cell-types)
@@ -52,7 +52,7 @@ Select from the options in the dropdown list or select **Custom Time Range** to 
 
 ## Notebook cell types
 
-Add one or more of the following cell types to your notebook:
+The following cell types are available: 
 
 - **Input: Metric Selector**:
 Filter out your data using a single list.
@@ -63,7 +63,7 @@ Modify your data with Flux Script. `__PREVIOUS_RESULT__` refers to your previous
 - **Transform: Downsample**:
 Downsample data through aggregates.
 - **Pass-through: Column Editor**: 
-Modify column visibility and naming. 
+Hides columns and renames columns. 
 - **Pass-through: Markdown**: 
 Create explanatory notes or other information for yourself or one of your team members.
 - **Pass-through: Visualization**:
@@ -71,6 +71,6 @@ Represents your data in visual formats such as graphs or charts.
 - **Output: Notification**: 
 Set up alerts. 
 - **Output: Output to Bucket**: 
-In **Preview** mode, this cell represents what would be written if the data was going to be committed to a bucket.
+Write data to a bucket or preview your output. 
 - **Output: Schedule**: 
 Run tasks at specific times. 
