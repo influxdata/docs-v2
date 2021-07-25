@@ -11,6 +11,10 @@ weight: 202
 influxdb/v2.0/tags: [contributed, functions, package]
 ---
 
-User-contributed packages and functions are contributed and maintained by members of the InfluxDB and Flux communities. However, InfluxData may work with third-party contributors to Flux, but packages in the `contrib` directory are owned and maintained by their author not the InfluxData team. As such the author will be requested for review on all changes to the package.
+User-contributed packages and functions are contributed and maintained by members of the InfluxDB and Flux communities. 
+
+InfluxData supports user-contributed Flux packages and functions. We also recognize the importance of original contributors reviewing updates to their packages and functions. 
+
+To support both contributors and our community at large, InfluxData requests reviews from original authors regarding all changes to the package.
 
 {{< children >}}
