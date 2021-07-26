@@ -71,6 +71,10 @@ The structure of results returned by `csv.from()` depends on the
 
 ## Examples
 
+_If just getting started, use the [Flux REPL](/influxdb/v2.0/tools/repl/) or the
+[InfluxDB Data Explorer](/influxdb/v2.0/query-data/execute-queries/data-explorer/)
+to execute Flux queries._
+
 - [Query an annotated CSV string](#query-an-annotated-csv-string)
 - [Query a raw CSV string](#query-a-raw-csv-string)
 - [Query CSV data from a file](#query-csv-data-from-a-file)
@@ -171,7 +175,14 @@ When using the **raw** CSV parsing mode, all columns values are strings.
 Use `csv.from()` and the `file` parameter to query CSV data from a file.
 
 {{% note %}}
+#### Flux must have access to the file system
 To query CSV data from a file, Flux must have access to the filesystem.
+If Flux does not have access to the file system, the query will return an error
+simlir to:
+
+```
+failed to read file: filesystem service is uninitialized
+```
 If using InfluxDB Cloud or InfluxDB OSS, the Flux process **does not** have 
 access to the filesystem.
 {{% /note %}}
@@ -230,7 +241,7 @@ Use the `url` parameter to specify the URL to query.
 
 {{% note %}}
 The experimental `csv.from()` function does not support multiple parsing modes
-and only works with annotated CSV.
+and only works with [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/).
 {{% /note %}}
 
 ```js
