@@ -13,6 +13,6 @@ influxdb/v2.0/tags: [contributed, functions, package]
 
 InfluxData supports user-contributed Flux packages and functions. We also recognize the importance of original contributors reviewing updates to their packages and functions. 
 
-To support both contributors and our community at large, InfluxData requests reviews from original authors regarding all changes to the package.
+To support both contributors and our community at large, InfluxData requests reviews from original authors regarding all changes to the packages and functions.
 
 {{< children >}}
