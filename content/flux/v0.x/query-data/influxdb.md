@@ -60,7 +60,7 @@ from(bucket: "telegraf/autogen")
   |> range(start: -30m)
 ```
 
-To query the **default retention policy** in a database, use the same bucket naming
+To query the [default retention policy](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-a-retention-policy) in a database, use the same bucket naming
 convention, but do not provide a retention policy:
 
 ```js
@@ -69,7 +69,7 @@ from(bucket: "telegraf/")
 ```
 
 
-## Results structure
+### Results structure
 `from()` and `range()` return a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
 grouped by [series](/influxdb/cloud/reference/glossary/#series)
 (measurement, tag set, and field).
@@ -87,7 +87,7 @@ Each table includes the following columns:
 {{% note %}}
 #### Columns with the underscore prefix
 Columns with the underscore (`_`) prefix are considered "system" columns.
-Some Flux functions require these columns to function properly.
+Some Flux functions require these columns.
 {{% /note %}}
 
 ### Example InfluxDB query results
@@ -116,4 +116,3 @@ To structure results similarly with Flux, use [`pivot()`](/flux/v0.x/stdlib/univ
 or [`schema.fieldsAsCols()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/)
 to pivot fields into columns.
 {{% /note %}}
-
