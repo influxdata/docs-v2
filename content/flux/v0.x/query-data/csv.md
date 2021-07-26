@@ -178,11 +178,12 @@ Use `csv.from()` and the `file` parameter to query CSV data from a file.
 #### Flux must have access to the file system
 To query CSV data from a file, Flux must have access to the filesystem.
 If Flux does not have access to the file system, the query will return an error
-simlir to:
+similar to:
 
 ```
 failed to read file: filesystem service is uninitialized
 ```
+
 If using InfluxDB Cloud or InfluxDB OSS, the Flux process **does not** have 
 access to the filesystem.
 {{% /note %}}
