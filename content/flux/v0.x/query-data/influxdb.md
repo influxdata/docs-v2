@@ -60,7 +60,7 @@ from(bucket: "telegraf/autogen")
   |> range(start: -30m)
 ```
 
-To query the **default retention policy** in a database, use the same bucket naming
+To query the [default retention policy](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-a-retention-policy) in a database, use the same bucket naming
 convention, but do not provide a retention policy:
 
 ```js
