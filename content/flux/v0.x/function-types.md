@@ -159,11 +159,12 @@ For recommended usage, see [Extract scalar values](/influxdb/v2.0/query-data/flu
 - [Tests](#tests)
 - [Date/time](#datetime)
 - [Metadata](#metadata)
+- [Notification endpoints](#notification-endpoints)
 
 ### Filters
 Filter functions iterate over and evaluate each input row to see if it matches
 specified conditions.
-The following type conversion functions are available:
+The following filter functions are available:
 
 {{< list-all-functions filters="filters" >}}
 

@@ -26,7 +26,7 @@ Familiarize yourself with the basic concepts and steps to use when querying data
 ### Pipe-forward operator
 The **pipe-forward operator** (`|>`) sends output of a function as input to the next function.
 In the [water treatment metaphor](/flux/v0.x/get-started/#flux-overview),
-the pipe-forward operator is that pipe the carries water or data through the pipeline.
+the pipe-forward operator is the pipe that carries water or data through the pipeline.
 
 ### Predicate expressions
 A predicate is an expression that evaluates to `true` or `false`.
@@ -92,11 +92,10 @@ The majority of basic Flux queries include the following steps:
 
 ```js
 from(bucket: "example-bucket")            // ── Source
-  |> range(start: -1d)                    // ┐
-  |> filter(fn: (r) => r._field == "foo") // ┴─ Filter
+  |> range(start: -1d)                    // ── Filter on time
+  |> filter(fn: (r) => r._field == "foo") // ── Filter on column values
   |> group(columns: ["sensorID"])         // ── Shape
   |> mean()                               // ── Process
-```
 
 ### Source
 Flux [input functions](/flux/v0.x/function-types/#inputs) retrieve data from a data source.
@@ -141,7 +140,7 @@ Functions that reshape data include the following:
 - [`keep()`](/flux/v0.x/stdlib/universe/keep/): keep specific columns and drop all others
 
 ### Process
-Processing data can take on many forms, but include the following types of operations:
+Processing data can take on many forms, and includes the following types of operations:
 
 - **Aggregate data**: aggregate all rows of an input table into a single row.
   For information, see [Function types and categories - Aggregates](/flux/v0.x/function-types/#aggregates).
@@ -166,12 +165,12 @@ or [selector](/flux/v0.x/function-types/#selectors) function to the restructured
 
 ## Write a basic query
 
-Use [InfluxDB sample data](/{{< latest "influxdb" >}}/reference/sample-data/)to
+Use [InfluxDB sample data](/{{< latest "influxdb" >}}/reference/sample-data/) to
 write a basic Flux query that queries data, filters the data by time and column values,
-then applies an [aggregate](/flux/v0.x/function-types/#aggregates).
+and then applies an [aggregate](/flux/v0.x/function-types/#aggregates).
 
 {{% note %}}
-Use the [InfluxDB data explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/)
+Use the [InfluxDB Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/)
 or the [Flux REPL](/{{< latest "influxdb" >}}/tools/repl/#build-the-repl)
 to build and execute the following basic query.
 {{% /note %}}
