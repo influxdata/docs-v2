@@ -19,7 +19,7 @@ For more information about cell types, see [Overview of Notebooks](/influxdb/clo
    - Select your local time zone or UTC.
    - Choose a time range for your data.
 4. Consider which notebook cells to add to your notebook. By default, each notebook includes **Metric Selector**, **Data Validation**, and **Visualization** cells. 
-5. Click the **+** icon, and then add or more of the following cell types to your notebook:
+5. Click the **+** icon, and then add one or more of the following cell types to your notebook:
 
     - **Input cells**: to pull information into your notebook
     - **Transform cells**: to filter and apply changes to your data
