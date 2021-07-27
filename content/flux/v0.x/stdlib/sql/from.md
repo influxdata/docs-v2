@@ -12,7 +12,7 @@ menu:
 weight: 202
 flux/v0.x/tags: [inputs]
 related:
-  - /{{< latest "influxdb" >}}/query-data/flux/sql/
+  - /flux/v0.x/query-data/sql/
 introduced: 0.34.0
 ---
 
@@ -31,7 +31,7 @@ sql.from(
 ## Parameters
 
 ### driverName {data-type="string"}
-The driver used to connect to the SQL database.
+Driver to use to connect to the SQL database.
 
 The following drivers are available:
 
@@ -45,7 +45,7 @@ The following drivers are available:
 - sqlserver, mssql
 
 ### dataSourceName {data-type="string"}
-The data source name (DSN) or connection string used to connect to the SQL database.
+Data source name (DSN) or connection string to use to connect to the SQL database.
 The string's form and structure depend on the [driver](#drivername) used.
 
 ##### Driver dataSourceName examples
@@ -85,7 +85,7 @@ hdb://?KEY=<keyname>
 ```
 
 ### query {data-type="string"}
-The query to run against the SQL database.
+Query to run against the SQL database.
 
 ## Examples
 
