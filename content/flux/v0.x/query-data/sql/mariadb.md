@@ -1,11 +1,11 @@
 ---
-title: Query MySQL
-list_title: MySQL
+title: Query MariaDB
+list_title: MariaDB
 description: >
-  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `mysql` driver to query MySQL.
+  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `mysql` driver to query MariaDB.
 menu:
   flux_0_x:
-    name: MySQL
+    name: MariaDB
     parent: SQL databases
 weight: 101
 related:
@@ -22,12 +22,12 @@ list_code_example: |
   ```
 ---
 
-To query [MySQL](https://www.mysql.com/) with Flux, import the [`sql` package](/flux/v0.x/stdlib/sql/)
+To query [MariaDB](https://mariadb.org/) with Flux, import the [`sql` package](/flux/v0.x/stdlib/sql/)
 and use the [`sql.from()` function](/flux/v0.x/stdlib/sql/from/) with the `mysql` driver.
 Provide the following parameters:
 
 - **driverName**: mysql
-- **dataSourceName**: [MySQL data source name (DSN)](#data-source-name)
+- **dataSourceName**: [MariaDB data source name (DSN)](#data-source-name)
   _(also known as **connection string**)_
 - **query**: SQL query to execute
 
@@ -56,9 +56,9 @@ username:password@tcp(localhost:3306)/dbname?param=value
 ```
 
 ## Data types
-`sql.from()` converts MySQL data types to Flux data types.
+`sql.from()` converts MariaDB data types to Flux data types.
 
-| MySQL data type                | Flux data type                                |
+| MariaDB data type              | Flux data type                                |
 | :----------------------------- | :-------------------------------------------- |
 | INT, BIGINT, SMALLINT, TINYINT | [int](/flux/v0.x/spec/types/#numeric-types)   |
 | FLOAT, DOUBLE                  | [float](/flux/v0.x/spec/types/#numeric-types) |
@@ -66,7 +66,7 @@ username:password@tcp(localhost:3306)/dbname?param=value
 | STRING                         | [string](/flux/v0.x/spec/types/#string-types) |
 
 {{% caption %}}
-All other MySQL data types are converted to strings.
+All other MariaDB data types are converted to strings.
 {{% /caption %}}
 
 ## Results structure
@@ -75,7 +75,7 @@ For more information about table grouping, see
 [Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
 
 ## Store sensitive credentials as secrets
-If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing MySQL
+If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing MariaDB
 connection credentials as [InfluxDB secrets](/influxdb/cloud/security/secrets/).
 Use [`secrets.get()`](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) to
 retrieve a secret from the InfluxDB secrets API.
@@ -84,8 +84,8 @@ retrieve a secret from the InfluxDB secrets API.
 import "sql"
 import "influxdata/influxdb/secrets"
 
-username = secrets.get(key: "MYSQL_USERNAME")
-password = secrets.get(key: "MYSQL_PASSWORD")
+username = secrets.get(key: "MARIADB_USERNAME")
+password = secrets.get(key: "MARIADB_PASSWORD")
 
 sql.from(
   driverName: "mysql",

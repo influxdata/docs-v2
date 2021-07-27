@@ -2,8 +2,7 @@
 title: Query SQL databases
 list_title: SQL databases
 description: >
-  To query SQL databases with Flux, import the [`sql` package](/flux/v0.x/stdlib/sql/)
-  and use the [`sql.from()` function](/flux/v0.x/stdlib/sql/from/).
+  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) to query SQL databases with Flux.
 menu:
   flux_0_x:
     name: SQL databases

@@ -35,6 +35,7 @@ The driver used to connect to the SQL database.
 The following drivers are available:
 
 - bigquery
+- hdb
 - mysql
 - postgres
 - snowflake
@@ -75,6 +76,11 @@ server=localhost;user id=username;database=examplebdbr;azure tenant id=77e7d537;
 # Google BigQuery DSNs
 bigquery://projectid/?param1=value&param2=value
 bigquery://projectid/location?param1=value&param2=value
+
+# SAP HANA driver DSN
+hdb://<user>:<password>@<host>:<port>?<connection-property>=<value>&<connection-property>=<value>&...
+hdb://<user>:<password>@<host>:<port>?DATABASENAME=<tenant-db-name>
+hdb://?KEY=<keyname>
 ```
 
 ### table {data-type="string"}
