@@ -151,13 +151,13 @@ To avoid having to pass your InfluxDB [authentication token](/influxdb/cloud/sec
 In a terminal, run the following command:
 
 ```sh
-   # Set up a configuration profile
-   influx config create -n default \
-     -u https://cloud2.influxdata.com \
-     -o example-org \
-     -t mySuP3rS3cr3tT0keN \
-     -a
-  ```  
+# Set up a configuration profile
+influx config create -n default \
+  -u https://cloud2.influxdata.com \
+  -o example-org \
+  -t mySuP3rS3cr3tT0keN \
+  -a
+```  
 
 This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
 For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config/).
@@ -211,13 +211,13 @@ To avoid having to pass your InfluxDB [authentication token](/influxdb/cloud/sec
 In a terminal, run the following command:
 
 ```sh
-   # Set up a configuration profile
-   influx config create -n default \
-     -u https://cloud2.influxdata.com \
-     -o example-org \
-     -t mySuP3rS3cr3tT0keN \
-     -a
-  ```  
+# Set up a configuration profile
+influx config create -n default \
+  -u https://cloud2.influxdata.com \
+  -o example-org \
+  -t mySuP3rS3cr3tT0keN \
+  -a
+```  
 
 This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
 For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config/).
