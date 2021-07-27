@@ -266,14 +266,18 @@ InfluxDB supports the following data types:
 | :--------------- | :----------------- |
 | string           |                    |
 | boolean          |                    |
-| duration         |                    |
 | float            | double             |
 | integer          | int, long          |
 | unsigned integer | uint, unsignedLong |
 | time             | dateTime           |
-| base64Binary     | bytes              |
 
-For more information about each data type, see [extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype). 
+For more information about different data types, see:
+- [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+- [extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype)
+- [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)
+- [InfluxQL](/influxdb/v1.8/query_language/spec/#literals)
+- [Flux](/influxdb/v2.0/reference/flux/language/types/)
+- [InfluxDB](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)
 
 ### database
 
