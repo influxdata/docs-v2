@@ -14,7 +14,7 @@ For more information about cell types, see [Overview of Notebooks](/influxdb/clo
 1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
-2. Click **+Create Notebook**, then enter a name for your notebook in the **Name this notebook** field. By default, the notebook name appears as `<username>-notebook-<year>-<month>-<day and time>`.
+2. Click **+Create Notebook**, and then enter a name for your notebook in the **Name this notebook** field. By default, the notebook name appears as `<username>-notebook-<year>-<month>-<day and time>`.
 3. Do the following at the top of the page:
    - Select your local time zone or UTC.
    - Choose a time range for your data.
@@ -141,5 +141,4 @@ You can add these cells anywhere:
 
  
  
-
 
