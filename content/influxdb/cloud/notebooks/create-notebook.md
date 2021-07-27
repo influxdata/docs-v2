@@ -9,7 +9,7 @@ menu:
     name: Create a notebook
     parent: Notebooks
 ---
-For more information about cell types, see [Overview of Notebooks](/influxdb/cloud/notebooks/overview/). 
+To learn how notebooks can be useful and to see an overview of different cell types available in notebooks, see [Overview of Notebooks](/influxdb/cloud/notebooks/overview/).
 
 1. In the navigation menu on the left, click **Notebooks**.
 
@@ -141,4 +141,3 @@ You can add these cells anywhere:
 
  
  
-
