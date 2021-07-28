@@ -22,15 +22,14 @@ list_code_example: |
   ```
 ---
 
-To query [SQLite](https://www.sqlite.org/index.html) with Flux, import the
-[`sql` package](/flux/v0.x/stdlib/sql/) and use the [`sql.from()` function](/flux/v0.x/stdlib/sql/from/)
-with the `sqlite3` driver.
-Provide the following parameters:
+To query [SQLite](https://www.sqlite.org/index.html) with Flux:
 
-- **driverName**: sqlite3
-- **dataSourceName**: [SQLite data source name (DSN)](#data-source-name)
-  _(also known as a **connection string**)_
-- **query**: SQL query to execute
+1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
+2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+
+    - **driverName**: sqlite3
+    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **query**: SQL query to execute
 
 ```js
 import "sql"
@@ -52,24 +51,23 @@ similar to one of the following:
 - `failed to read file: filesystem service is uninitialized`
 - `An internal error has occurred`
 
-If using InfluxDB Cloud or InfluxDB OSS, the Flux process **does not** have 
-access to the filesystem.
+If using **InfluxDB Cloud** or **InfluxDB OSS**, the Flux process **does not**
+have access to the filesystem.
 {{% /note %}}
 
 ##### On this page
 
 - [Data source name](#data-source-name)
-- [Data types](#data-types)
-- [Results structure](#results-structure)
+- [Data type conversion](#data-type-conversion)
 
 ## Data source name
-The `sqlite3` driver uses the following DSN syntax:
+The `sqlite3` driver uses the following DSN syntax (also known as a **connection string**):
 
 ```
 file:/path/to/example.db?param=value
 ```
 
-## Data types
+## Data type conversion
 `sql.from()` converts SQLite data types to Flux data types.
 
 | SQLite data type                        | Flux data type                                |
@@ -83,9 +81,3 @@ file:/path/to/example.db?param=value
 {{% caption %}}
 All other SQLite data types are converted to strings.
 {{% /caption %}}
-
-## Results structure
-`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
-with no grouping (all rows in a single table).
-For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).

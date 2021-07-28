@@ -22,14 +22,14 @@ list_code_example: |
   ```
 ---
 
-To query [MySQL](https://www.mysql.com/) with Flux, import the [`sql` package](/flux/v0.x/stdlib/sql/)
-and use the [`sql.from()` function](/flux/v0.x/stdlib/sql/from/) with the `mysql` driver.
-Provide the following parameters:
+To query [MySQL](https://www.mysql.com/) with Flux:
 
-- **driverName**: mysql
-- **dataSourceName**: [MySQL data source name (DSN)](#data-source-name)
-  _(also known as a **connection string**)_
-- **query**: SQL query to execute
+1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
+2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+
+    - **driverName**: mysql
+    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **query**: SQL query to execute
 
 ```js
 import "sql"
@@ -44,18 +44,16 @@ sql.from(
 ##### On this page
 
 - [Data source name](#data-source-name)
-- [Data types](#data-types)
-- [Results structure](#results-structure)
-- [Store sensitive credentials as secrets](#store-sensitive-credentials-as-secrets)
+- [Data type conversion](#data-type-conversion)
 
 ## Data source name
-The `mysql` driver uses the following data source name (DSN) syntax:
+The `mysql` driver uses the following data source name (DSN) syntax (also known as a **connection string**):
 
 ```
 username:password@tcp(localhost:3306)/dbname?param=value
 ```
 
-## Data types
+## Data type conversion
 `sql.from()` converts MySQL data types to Flux data types.
 
 | MySQL data type                | Flux data type                                |
@@ -68,29 +66,3 @@ username:password@tcp(localhost:3306)/dbname?param=value
 {{% caption %}}
 All other MySQL data types are converted to strings.
 {{% /caption %}}
-
-## Results structure
-`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
-with no grouping (all rows in a single table).
-For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
-
-## Store sensitive credentials as secrets
-If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing MySQL
-connection credentials as [InfluxDB secrets](/influxdb/cloud/security/secrets/).
-Use [`secrets.get()`](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) to
-retrieve a secret from the InfluxDB secrets API.
-
-```js
-import "sql"
-import "influxdata/influxdb/secrets"
-
-username = secrets.get(key: "MYSQL_USERNAME")
-password = secrets.get(key: "MYSQL_PASSWORD")
-
-sql.from(
-  driverName: "mysql",
-  dataSourceName: "${username}:${password}@tcp(localhost:3306)/db",
-  query: "SELECT * FROM example_table"
-)
-```

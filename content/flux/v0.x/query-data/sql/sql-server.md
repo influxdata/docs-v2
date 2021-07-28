@@ -23,15 +23,14 @@ list_code_example: |
   ```
 ---
 
-To query [Microsoft SQL Server](https://www.microsoft.com/sql-server/) with Flux,
-import the [`sql` package](/flux/v0.x/stdlib/sql/) and use the
-[`sql.from()` function](/flux/v0.x/stdlib/sql/from/) with the `sqlserver` or `mssql` driver.
-Provide the following parameters:
+To query [Microsoft SQL Server](https://www.microsoft.com/sql-server/) with Flux:
 
-- **driverName**: `sqlserver` or `mssql`
-- **dataSourceName**: [SQL Server data source name (DSN)](#data-source-name)
-  _(also known as a **connection string**)_
-- **query**: SQL query to execute
+1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
+2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+
+    - **driverName**: sqlserver _or_ mssql
+    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **query**: SQL query to execute
 
 ```js
 import "sql"
@@ -47,12 +46,10 @@ sql.from(
 
 - [Data source name](#data-source-name)
 - [SQL Server ADO authentication](#sql-server-ado-authentication)
-- [Data types](#data-types)
-- [Results structure](#results-structure)
-- [Store sensitive credentials as secrets](#store-sensitive-credentials-as-secrets)
+- [Data type conversion](#data-type-conversion)
 
 ## Data source name
-The `sqlserver` and `mssql` drivers use the following DSN syntaxes:
+The `sqlserver` and `mssql` drivers use the following DSN syntaxes (also known as a **connection string**):
 
 ```
 sqlserver://username:password@localhost:1433?database=examplebdb
@@ -107,7 +104,7 @@ _For information about managed identities, see [Microsoft managed identities](ht
 azure auth=MSI
 ```
 
-## Data types
+## Data type conversion
 `sql.from()` converts SQL Server data types to Flux data types.
 
 | SQL Server data type                    | Flux data type                                  |
@@ -121,29 +118,3 @@ azure auth=MSI
 All other SQL Server data types (including other [date/time types](https://docs.microsoft.com/sql/t-sql/functions/date-and-time-data-types-and-functions-transact-sql?view=sql-server-ver15#DateandTimeDataTypes))
 are converted to strings.
 {{% /caption %}}
-
-## Results structure
-`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
-with no grouping (all rows in a single table).
-For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
-
-## Store sensitive credentials as secrets
-If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing SQL Server
-connection credentials as [InfluxDB secrets](/influxdb/cloud/security/secrets/).
-Use [`secrets.get()`](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) to
-retrieve a secret from the InfluxDB secrets API.
-
-```js
-import "sql"
-import "influxdata/influxdb/secrets"
-
-username = secrets.get(key: "SQLSERVER_USER")
-password = secrets.get(key: "SQLSERVER_PASS")
-
-sql.from(
-  driverName: "sqlserver",
-  dataSourceName: "sqlserver://${username}:${password}@localhost:1433?database=examplebdb",
-  query: "GO SELECT * FROM Example.Table"
-)
-```

@@ -22,15 +22,14 @@ list_code_example: |
   ```
 ---
 
-To query [Google BigQuery](https://cloud.google.com/bigquery) with Flux, import
-the [`sql` package](/flux/v0.x/stdlib/sql/) and use the [`sql.from()` function](/flux/v0.x/stdlib/sql/from/)
-with the `bigquery` driver.
-Provide the following parameters:
+To query [Google BigQuery](https://cloud.google.com/bigquery) with Flux
 
-- **driverName**: bigquery
-- **dataSourceName**: [BigQuery data source name (DSN)](#data-source-name)
-  _(also known as a **connection string**)_
-- **query**: SQL query to execute
+1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
+2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+
+    - **driverName**: bigquery
+    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **query**: SQL query to execute
 
 ```js
 import "sql"
@@ -45,12 +44,10 @@ sql.from(
 ##### On this page
 
 - [Data source name](#data-source-name)
-- [Data types](#data-types)
-- [Results structure](#results-structure)
-- [Store sensitive credentials as secrets](#store-sensitive-credentials-as-secrets)
+- [Data type conversion](#data-type-conversion)
 
 ## Data source name
-The `bigquery` driver uses the following DSN syntaxes:
+The `bigquery` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
 bigquery://projectid/?param1=value&param2=value
@@ -81,7 +78,7 @@ Provide your authentication credentials using one of the following methods:
     bigquery://projectid/?credentials=eyJ0eXBlIjoiYXV0...
     ```
 
-## Data types
+## Data type conversion
 `sql.from()` converts BigQuery data types to Flux data types.
 
 | BigQuery data type | Flux data type                                |
@@ -95,29 +92,3 @@ Provide your authentication credentials using one of the following methods:
 All other BigQuery data types (including **DATE**, **TIME** and **DATETIME**)
 are converted to strings.
 {{% /caption %}}
-
-## Results structure
-`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
-with no grouping (all rows in a single table).
-For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
-
-## Store sensitive credentials as secrets
-If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing BigQuery
-connection credentials as [InfluxDB secrets](/influxdb/cloud/security/secrets/).
-Use [`secrets.get()`](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) to
-retrieve a secret from the InfluxDB secrets API.
-
-```js
-import "sql"
-import "influxdata/influxdb/secrets"
-
-projectID = secrets.get(key: "BIGQUERY_PROJECT_ID")
-apiKey = secrets.get(key: "BIGQUERY_APIKEY")
-
-sql.from(
-  driverName: "bigquery",
-  dataSourceName: "bigquery://${projectID}/?apiKey=${apiKey}",
-  query:"SELECT * FROM exampleTable"
-)
-```

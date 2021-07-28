@@ -22,17 +22,14 @@ list_code_example: |
   ```
 ---
 
-To query [CockroachDB](https://www.cockroachlabs.com/) with Flux, import the
-[`sql` package](/flux/v0.x/stdlib/sql/) and use the [`sql.from()` function](/flux/v0.x/stdlib/sql/from/)
-with the `postgres` driver.
-The `postgres` driver use the [Go `pq` implementation](https://www.cockroachlabs.com/docs/stable/build-a-go-app-with-cockroachdb-pq)
-to interact with CockroachDB.
-Provide the following parameters:
+To query [CockroachDB](https://www.cockroachlabs.com/) with Flux:
 
-- **driverName**: postgres
-- **dataSourceName**: [CockroachDB data source name (DSN)](#data-source-name)
-  _(also known as a **connection string**)_
-- **query**: SQL query to execute
+1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
+2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+
+    - **driverName**: postgres
+    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **query**: PSQL query to execute
 
 ```js
 import "sql"
@@ -47,18 +44,22 @@ sql.from(
 ##### On this page
 
 - [Data source name](#data-source-name)
-- [Data types](#data-types)
-- [Results structure](#results-structure)
-- [Store sensitive credentials as secrets](#store-sensitive-credentials-as-secrets)
+- [Data type conversion](#data-type-conversion)
 
 ## Data source name
-The `postgres` driver uses the following DSN syntax to connect to CockroachDB:
+The `postgres` driver uses the following DSN syntax (also known as a **connection string**)
+to connect to CockroachDB :
 
 ```
 postgres://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt
 ```
 
-## Data types
+{{% note %}}
+The `postgres` driver use the [Go `pq` implementation](https://www.cockroachlabs.com/docs/stable/build-a-go-app-with-cockroachdb-pq)
+to interact with CockroachDB.
+{{% /note %}}
+
+## Data type conversion
 `sql.from()` converts PostgreSQL and CockroachDB data types to Flux data types.
 
 | CockroachDB data type                                                        | Flux data type                                  |
@@ -72,29 +73,3 @@ postgres://username:password@localhost:26257/cluster_name.defaultdb?sslmode=veri
 {{% caption %}}
 All other CockroachDB data types are converted to strings.
 {{% /caption %}}
-
-## Results structure
-`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
-with no grouping (all rows in a single table).
-For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
-
-## Store sensitive credentials as secrets
-If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing CockroachDB
-connection credentials as [InfluxDB secrets](/influxdb/cloud/security/secrets/).
-Use [`secrets.get()`](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) to
-retrieve a secret from the InfluxDB secrets API.
-
-```js
-import "sql"
-import "influxdata/influxdb/secrets"
-
-username = secrets.get(key: "COCKROACHDB_USER")
-password = secrets.get(key: "COCKROACHDB_PASS")
-
-sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://${username}:${password}@localhost:26257/mycluster.mydb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
-  query: "SELECT * FROM example_table"
-)
-```
