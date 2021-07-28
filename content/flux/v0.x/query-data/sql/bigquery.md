@@ -22,7 +22,7 @@ list_code_example: |
   ```
 ---
 
-To query [Google BigQuery](https://cloud.google.com/bigquery) with Flux
+To query [Google BigQuery](https://cloud.google.com/bigquery) with Flux:
 
 1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
