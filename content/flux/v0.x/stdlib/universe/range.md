@@ -11,7 +11,7 @@ menu:
     name: range
     parent: universe
 weight: 102
-flux/v0.x/tags: [transformations]
+flux/v0.x/tags: [transformations, filters]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-where-clause, InfluxQL – WHERE
 introduced: 0.7.0

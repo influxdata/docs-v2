@@ -326,11 +326,17 @@ Use the following for project names:
 ```
 
 ### Latest patch version
-Use the `{{< latest-patch >}}` shortcode to add the latest patch version of the
-current product. Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
+Use the `{{< latest-patch >}}` shortcode to add the latest patch version of a product.
+By default, this shortcode parses the product and minor version from the URL.
+To specify a specific product and minor version, use the `product` and `version` arguments.
+Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
 
 ```md
 {{< latest-patch >}}
+
+{{< latest-patch product="telegraf" >}}
+
+{{< latest-patch product="chronograf" version="1.7" >}}
 ```
 
 ### API endpoint
@@ -431,6 +437,16 @@ WHERE time > now() - 15m
 
 {{< /code-tabs-wrapper >}}
 ~~~
+
+#### Link to tabbed content
+
+To link to tabbed content, click on the tab and use the URL parameter shown.
+It will have the form `?t=`, plus a string.
+For example: 
+
+```
+[Windows installation](/influxdb/v2.0/install/?t=Windows)
+```
 
 ### Required elements
 Use the `{{< req >}}` shortcode to identify required elements in documentation with
@@ -675,7 +691,7 @@ To include a horizontal rule after each child summary, set `hr=true`.
 _Only the `articles` list type supports horizontal rules._
 
 ```md
-{{< children readmore=true >}}
+{{< children hr=true >}}
 ```
 
 #### Include a code example with a child summary

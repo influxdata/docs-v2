@@ -14,7 +14,7 @@ menu:
   * [Enterprise license [enterprise]](#enterprise-license-settings)
   * [Meta node `[meta]`](#meta-node-settings)
   * [Data `[data]`](#data-settings)
-  * [Cluster `[cluster]`](#cluster-settings)
+  * [Cluster `[cluster]` (includes InfluxQL query controls)](#cluster-settings)
   * [Retention `[retention]`](#retention-policy-settings)
   * [Hinted Handoff `[hinted-handoff]`](#hinted-handoff-settings)
   * [Anti-Entropy `[anti-entropy]`](#anti-entropy-ae-settings)
@@ -29,13 +29,9 @@ menu:
   * [UDP `[udp]`](#udp-settings)
   * [Continuous queries `[continuous-queries]`](#continuous-queries-settings)
   * [TLS `[tls]`](#tls-settings)
-  * [InfluxQL Query controls `[coordinator]`](#coordinator)
   * [Flux Query controls `[flux-controller]`](#flux-controller)
 
 ## Data node configuration settings
-
-The InfluxDB Enterprise data node configuration settings overlap significantly
-with the settings in InfluxDB OSS.
 
 > **Note:**
 The system has internal defaults for every configuration file setting.
@@ -187,10 +183,14 @@ Configures password hashing algorithm.
 Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
 This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
 
+Environment variable: `INFLUXDB_META_PASSWORD_HASH`
+
 #### `ensure-fips = false`
 
 When `true`, enables a FIPS-readiness check on startup.
 Default is `false`.
+
+Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
 -----
 
@@ -381,8 +381,7 @@ Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
 ### `[cluster]`
 
-Settings related to how the data nodes interact with other data nodes.
-Controls how data is shared across shards and the options for query management.
+Settings related to how data nodes interact with each other, how data is shared across shards, and how InfluxQL queries are managed.
 
 An InfluxDB Enterprise cluster uses remote procedure calls (RPCs) for inter-node communication.
 An RPC connection pool manages the stream connections and efficiently uses system resources.
@@ -1285,68 +1284,6 @@ If not specified, `max-version` is the maximum TLS version specified in the [Go 
 In this example, `tls1.3` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
-
-## InfluxQL query management settings
-
-### `[coordinator]`
-
-This section contains configuration settings for query management.
-For more on managing queries, see [Query Management](/enterprise_influxdb/v1.9/troubleshooting/query_management/).
-
-#### `write-timeout = "10s"`
-
-Duration a write request waits until a "timeout" error is returned to the caller. Default is `10s` (10 seconds).
-
-Environment variable: `INFLUXDB_COORDINATOR_WRITE_TIMEOUT`
-
-#### `max-concurrent-queries = 0`
-
-Maximum number of concurrently running queries allowed. `0` means unlimited. Default is `0`.
-
-Environment variable: `INFLUXDB_COORDINATOR_MAX_CONCURRENT_QUERIES`
-
-#### `query-timeout = "0s"`
-
-Maximum duration a query is allowed to execute before InfluxDB kills the query.
-`0s` allows queries to run with no time restrictions.
-Default is `0s`.
-
-Environment variable: `INFLUXDB_COORDINATOR_QUERY_TIMEOUT`
-
-#### `log-queries-after = "0s"`
-
-Maximum duration a query can run until InfluxDB logs the query with a
-`Detected slow query` message.
-`0s` disables slow query logging.
-Default is `0s`.
-
-Environment variable: `INFLUXDB_COORDINATOR_LOG_QUERIES_AFTER`
-
-#### `max-select-point = 0`
-
-Maximum number of [points](/enterprise_influxdb/v1.9/concepts/glossary/#point) a
-`SELECT` statement can process.
-`0` lets the `SELECT` statement to process an unlimited number of points.
-Default is `0`.
-
-Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_POINT`
-
-#### `max-select-series = 0`
-
-Maximum number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) a
-`SELECT` statement can process.
-`0` lets the `SELECT` statement to process an unlimited number of series.
-Default is `0`.
-
-Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_SERIES`
-
-#### `max-select-buckets = 0`
-
-Maximum number of `GROUP BY time()` buckets a query can process.
-`0` allows a query to process an unlimited number of buckets.
-Default is `0`.
-
-Environment variable: `INFLUXDB_COORDINATOR_MAX_SELECT_BUCKETS`
 
 ## Flux query management settings
 

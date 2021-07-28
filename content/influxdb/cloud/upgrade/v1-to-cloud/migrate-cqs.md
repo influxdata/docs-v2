@@ -31,8 +31,8 @@ To migrate continuous queries to InfluxDB Cloud tasks, do the following:
     {{< keep-url >}}
     ```sh
     $ influx
-    Connected to http://localhost:8086 version 1.8.5
-    InfluxDB shell version: 1.8.5
+    Connected to http://localhost:8086 version {{< latest-patch version="1.8" >}}
+    InfluxDB shell version: {{< latest-patch version="1.8" >}}
     > SHOW CONTINUOUS QUERIES
     ```
 
