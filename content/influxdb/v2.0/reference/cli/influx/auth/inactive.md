@@ -1,6 +1,6 @@
 ---
 title: influx auth inactive
-description: The `influx auth inactive` command inactivates an authentication token in InfluxDB.
+description: The `influx auth inactive` command inactivates an API token in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx auth inactive
@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx auth inactive` command inactivates an authentication token in InfluxDB.
+The `influx auth inactive` command inactivates an API token in InfluxDB.
 Inactive tokens **do not** authorize access to InfluxDB.
 
 To temporarily disable client access to InfluxDB, inactivate the authentication
@@ -31,16 +31,16 @@ influx auth inactive [flags]
 | `-h` | `--help`          | Help for the `inactive` command                                       |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-| `-i` | `--id`            | ({{< req >}}) Authentication token ID                                 | string      |                       |
+| `-i` | `--id`            | ({{< req >}}) API token ID                                 | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`        |
 
 ## Examples
 
 {{< cli/influx-creds-note >}}
 
-##### Inactivate an authentication token
+##### Inactivate an API token
 ```sh
 influx auth inactive --id 06c86c40a9f36000
 ```

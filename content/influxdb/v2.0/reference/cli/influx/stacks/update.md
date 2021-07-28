@@ -32,7 +32,7 @@ influx stacks update [flags]
 | `-d` | `--stack-description` | Stack description                                                     | string          |                       |
 | `-n` | `--stack-name`        | Stack name                                                            | string          |                       |
 | `-u` | `--template-url`      | Template URLs to associate with a stack                               | list of strings |                       |
-| `-t` | `--token`             | Authentication token                                                  | string          | `INFLUX_TOKEN`        |
+| `-t` | `--token`             | API token                                                  | string          | `INFLUX_TOKEN`        |
 
 {{% warn %}}
 #### Export an updated template

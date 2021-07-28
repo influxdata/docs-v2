@@ -45,7 +45,7 @@ influx apply [flags]
 |      | `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                      |
 |      | `--skip-verify`           | Skip TLS certificate verification                                                           |            |                      |
 |      | `--stack-id`              | Stack ID to associate when applying the template                                            | string     |                      |
-| `-t` | `--token`                 | Authentication token                                                                        | string     | `INFLUX_TOKEN`       |
+| `-t` | `--token`                 | API token                                                                        | string     | `INFLUX_TOKEN`       |
 
 ## Examples: how to apply a template or stack
 

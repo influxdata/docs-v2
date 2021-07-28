@@ -48,7 +48,7 @@ drop columns such as `_start` and `_stop` to optimize the download file size.
 | `-p` | `--profilers`     | Flux query profilers to enable (comma-separated)                      | string     |                      |
 | `-r` | `--raw`           | Output raw query results (annotated CSV)                              |            |                      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                      |
-| `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`       |
+| `-t` | `--token`         | API token                                                  | string     | `INFLUX_TOKEN`       |
 
 ## Examples
 

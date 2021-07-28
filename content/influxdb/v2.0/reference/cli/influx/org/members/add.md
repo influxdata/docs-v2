@@ -24,7 +24,7 @@ influx org members add [flags]
 | `-m` | `--member`      | User ID                                                    | string      |                    |
 | `-n` | `--name`        | Organization name                                          | string      | `INFLUX_ORG`       |
 |      | `--skip-verify` | Skip TLS certificate verification                          |             |                    |
-| `-t` | `--token`       | Authentication token                                       | string      | `INFLUX_TOKEN`     |
+| `-t` | `--token`       | API token                                       | string      | `INFLUX_TOKEN`     |
 
 ## Examples
 

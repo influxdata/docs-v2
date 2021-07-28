@@ -28,7 +28,7 @@ influx user password [flags]
 | `-i` | `--id`            | User ID                                                               | string      |                      |
 | `-n` | `--name`          | Username                                                              | string      |                      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                      |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`       |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`       |
 
 ## Examples
 

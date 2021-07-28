@@ -35,7 +35,7 @@ influx task run list [flags]
 |      | `--run-id`        | Run ID                                                                | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 |      | `--task-id`       | ({{< req >}}) Task ID                                                 | string      |                       |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`        |
 
 ## Examples
 

@@ -59,7 +59,7 @@ influx export [command]
 |      | `--tasks`                 | Comma-separated list of task IDs                                                 | string     |                      |
 |      | `--telegraf-config-names` | Comma-separated list of Telegraf configuration names                             | string     |                      |
 |      | `--telegraf-configs`      | Comma-separated list of Telegraf configuration IDs                               | string     |                      |
-| `-t` | `--token`                 | Authentication token                                                             | string     | `INFLUX_TOKEN`       |
+| `-t` | `--token`                 | API token                                                             | string     | `INFLUX_TOKEN`       |
 |      | `--variable-names`        | Comma-separated list of variable names                                           | string     |                      |
 |      | `--variables`             | Comma-separated list of variable IDs                                             | string     |                      |
 

@@ -35,7 +35,7 @@ influx v1 dbrp list [flags]
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                        | string     | `$INFLUX_ORG_ID`        |
 |      | `--rp`            | Filter DBRP mappings by InfluxDB v1 retention policy                     | string     | `$INFLUX_ORG`           |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
-| `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
+| `-t` | `--token`         | API token                                                     | string     | `$INFLUX_TOKEN`         |
 
 ## Examples
 

@@ -38,7 +38,7 @@ influx secret update [flags]
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string     | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
-| `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                  | string     | `INFLUX_TOKEN`        |
 | `-v` | `--value`         | ({{< req >}}) Secret value                                            | string     |                       |
 
 ## Examples

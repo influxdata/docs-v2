@@ -32,7 +32,7 @@ influx task retry-failed [flags]
 |      | `--run-limit`     | Maximum number of failed runs to retry per task (`1-500`, default `100`)  | integer     |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                         |             |                       |
 |      | `--task-limit`    | Maximum number of tasks to retry failed runs for (`1-500`, default `100`) | integer     |                       |
-| `-t` | `--token`         | Authentication token                                                      | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                      | string      | `INFLUX_TOKEN`        |
 
 ## Examples
 

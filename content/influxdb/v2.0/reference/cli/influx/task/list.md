@@ -34,7 +34,7 @@ influx task list [flags]
 | `-o` | `--org`           | Task organization name                                                | string      | `INFLUX_ORG`          |
 |      | `--org-id`        | Task organization ID                                                  | string      | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`        |
 | `-n` | `--user-id`       | Task owner ID                                                         | string      |                       |
 
 ## Examples

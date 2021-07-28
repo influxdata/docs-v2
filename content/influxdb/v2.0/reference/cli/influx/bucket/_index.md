@@ -37,4 +37,4 @@ influx bucket [command]
 | `-h` | `--help`          | Help for the `bucket` command                                         |            |                      |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`        |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                      |
-| `-t` | `--token`         | Authentication token                                                  | string     | `INFLUX_TOKEN`       |
+| `-t` | `--token`         | API token                                                  | string     | `INFLUX_TOKEN`       |

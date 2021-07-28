@@ -32,7 +32,7 @@ influx org list [flags]
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | Organization name                                                     | string      | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`        |
 
 ## Examples
 

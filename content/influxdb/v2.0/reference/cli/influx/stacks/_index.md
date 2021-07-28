@@ -47,7 +47,7 @@ influx stacks [command]
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
 |      | `--stack-id`      | Stack IDs to filter by                                                | stringArray |                       |
 |      | `--stack-name`    | Stack names to filter by                                              | stringArray |                       |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`        |
 
 ## Examples
 

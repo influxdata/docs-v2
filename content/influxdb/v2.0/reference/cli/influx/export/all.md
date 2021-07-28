@@ -22,7 +22,7 @@ _For detailed examples of exporting InfluxDB templates, see
 {{% note %}}
 To export resources as a template, you must use the **Operator token** created for
 the initial InfluxDB user or an **All-Access token**.
-For information about creating an All-Access token, see [Create an authentication token](/influxdb/v2.0/security/tokens/create-token/).
+For information about creating an All-Access token, see [Create an API token](/influxdb/v2.0/security/tokens/create-token/).
 {{% /note %}}
 
 ## Usage
@@ -42,7 +42,7 @@ influx export all [flags]
 | `-o` | `--org`           | Organization name that owns the resources (mutually exclusive with `--org-id`)                  | string      | `INFLUX_ORG`         |
 |      | `--org-id`        | Organization ID that owns the resources (mutually exclusive with `--org`)                       | string      | `INFLUX_ORG_ID`      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                               |             |                      |
-| `-t` | `--token`         | Authentication token                                                                            | string      | `INFLUX_TOKEN`       |
+| `-t` | `--token`         | API token                                                                            | string      | `INFLUX_TOKEN`       |
 
 
 ## Examples

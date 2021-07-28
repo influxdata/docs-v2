@@ -1,7 +1,7 @@
 ---
-title: Manage authentication tokens
-seotitle: Manage authentication tokens in InfluxDB
-description: Manage authentication tokens in InfluxDB using the InfluxDB UI or the influx CLI.
+title: Manage API tokens
+seotitle: Manage API tokens in InfluxDB
+description: Manage API tokens in InfluxDB using the InfluxDB UI or the influx CLI.
 aliases:
   - /influxdb/v2.0/users/tokens
 influxdb/v2.0/tags: [tokens, authentication, security]
@@ -12,12 +12,12 @@ menu:
 weight: 103
 ---
 
-InfluxDB **authentication tokens** ensure secure interaction between users and data.
+InfluxDB **API tokens** ensure secure interaction between users and data.
 A token belongs to an organization and identifies InfluxDB permissions within the organization.
 
-Learn how to create, view, update, or delete an authentication token.
+Learn how to create, view, update, or delete an API token.
 
-## Authentication token types
+## API token types
 
 - [Operator token](#operator-token)
 - [All-Access token](#all-access-token)

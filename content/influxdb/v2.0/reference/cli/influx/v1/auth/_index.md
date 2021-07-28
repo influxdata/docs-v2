@@ -13,7 +13,7 @@ influxdb/v2.0/tags: [authorization]
 The `influx v1 auth` subcommands provide authorization management for the
 [InfluxDB 1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 
-InfluxDB 2.0 uses [authentication tokens](/influxdb/v2.0/security/tokens/) to authorize API requests.
+InfluxDB 2.0 uses [API tokens](/influxdb/v2.0/security/tokens/) to authorize API requests.
 The [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/) lets clients authenticate with InfluxDB 2.0 using the InfluxDB 1.x convention of username and password.
 
 {{% note %}}

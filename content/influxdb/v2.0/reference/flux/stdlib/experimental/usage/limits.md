@@ -77,7 +77,7 @@ Default is `""`.
 _**Data type:** String_
 
 ### token
-InfluxDB Cloud authentication token _(Required if executed outside of your InfluxDB Cloud organization or region)_.
+InfluxDB Cloud API token _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
 _**Data type:** String_

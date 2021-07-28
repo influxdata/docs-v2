@@ -38,7 +38,7 @@ Running `influx delete` without the `-p` or `--predicate` flag deletes all data 
 |      | `--skip-verify`   | Skip TLS certificate verification                                                                         |            |                      |
 |      | `--start`         | ({{< req >}}) Start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                  | string     |                      |
 |      | `--stop`          | ({{< req >}}) Stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                   | string     |                      |
-| `-t` | `--token`         | Authentication token                                                                                      | string     | `INFLUX_TOKEN`       |
+| `-t` | `--token`         | API token                                                                                      | string     | `INFLUX_TOKEN`       |
 
 ## Examples
 

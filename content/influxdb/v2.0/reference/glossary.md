@@ -1075,7 +1075,7 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 
 ### token
 
-Tokens (or authentication tokens) verify user and organization permissions in InfluxDB.
+Tokens (or API tokens) verify user and organization permissions in InfluxDB.
 There are different types of athentication tokens:
 
 - **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
@@ -1156,7 +1156,7 @@ Related entries: [integer](#integer)
 ### user
 
 InfluxDB users are granted permission to access to InfluxDB.
-Users are added as a member of an organization and are given a unique authentication token.
+Users are added as a member of an organization and are given a unique API token.
 
 ## V
 
