@@ -15,6 +15,29 @@ related:
   - /influxdb/cloud/reference/cli/influx/write/
 ---
 
+Write CSV data with the following methods:
+- [Flux](#flux)
+- [influx write command](#influx-write-command)
+- [Telegraf](#telegraf)
+
+### Flux
+
+Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) Flux functions to write an annotated CSV to the bucket of your choice.
+
+{{< youtube wPKZ9i0DulQ >}}
+
+The experimental [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) function lets you write CSV from a URL.
+The example below writes [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data) to an example `noaa` bucket in an example organization:
+
+```js
+import "experimental/csv"
+
+csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+  |> to(bucket: "noaa", org: "example-org")
+```
+
+### influx write command
+
 Use the [`influx write` command](/influxdb/cloud/reference/cli/influx/write/) to write CSV data
 to InfluxDB. Include [Extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/)
 annotations to specify how the data translates into [line protocol](/influxdb/cloud/reference/syntax/line-protocol/).
@@ -61,6 +84,14 @@ mem,host=host2 used_percent=73.77 1577836820000000000
 To test the CSV to line protocol conversion process, use the `influx write dryrun`
 command to print the resulting line protocol to stdout rather than write to InfluxDB.
 {{% /note %}}
+
+### Telegraf 
+
+Use CSV data format in Telegraf as a way to write CSV data to InfluxDB. 
+
+For more information, see: 
+- [CSV input data format](/telegraf/v1.19/data_formats/input/csv/)
+- [Use Telegraf to write data](/influxdb/v2.0/write-data/no-code/use-telegraf/)
 
 ## CSV Annotations
 Use **CSV annotations** to specify which element of line protocol each CSV column
