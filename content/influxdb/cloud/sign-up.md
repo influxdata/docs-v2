@@ -33,7 +33,7 @@ Use it as much and as long as you like within the plan's rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
 
 {{% note %}}
-Users on the free plan are limited to one organization. 
+Users on the Free Plan are limited to one organization. 
 {{% /note %}}
 
 ## Sign up

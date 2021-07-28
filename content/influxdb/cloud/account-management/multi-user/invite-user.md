@@ -16,7 +16,7 @@ Use the InfluxDB Cloud user interface (UI) to invite users to collaborate in
 your InfluxDB Cloud organization.
 
 {{% note %}}
-You can not invite someone who already has an account. Users on the free plan are limited to one organization. 
+You cannot invite someone who already has an account. Users on the Free Plan are limited to one organization. 
 {{% /note %}}
 
 - [Invite a user](#invite-a-user)
