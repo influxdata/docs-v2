@@ -83,7 +83,9 @@ to execute Flux queries._
 ---
 
 ### Query an annotated CSV string
-Use the `csv` parameter to specify the annotated CSV string to query.
+1. Import the [`csv` package](/flux/v0.x/stdlib/csv/).
+2. Use [`csv.from()`](/flux/v0.x/stdlib/csv/from/) and the `csv` parameter to
+   specify the annotated CSV string to query.
 
 #### Query
 ```js
@@ -131,8 +133,11 @@ csv.from(csv: csvData)
 ---
 
 ### Query a raw CSV string
-Use the `csv` parameter to specify the raw CSV string to query.
-Set the `mode` parameter to `raw`.
+1. Import the [`csv` package](/flux/v0.x/stdlib/csv/).
+2. Use [`csv.from()`](/flux/v0.x/stdlib/csv/from/) and provide the following parameters:
+    
+    - **csv**: CSV string to query
+    - **mode**: raw
 
 #### Query
 ```js
@@ -172,7 +177,9 @@ When using the **raw** CSV parsing mode, all columns values are strings.
 ---
 
 ### Query CSV data from a file
-Use `csv.from()` and the `file` parameter to query CSV data from a file.
+1. Import the [`csv` package](/flux/v0.x/stdlib/csv/).
+2. Use [`csv.from()`](/flux/v0.x/stdlib/csv/from/) and the `file` parameter to
+   query CSV data from a file.
 
 {{% note %}}
 #### Flux must have access to the file system
@@ -235,13 +242,12 @@ csv.from(file: "/path/to/example.csv")
 ---
 
 ### Query CSV data from a URL
-Import the [`experimental/csv` package](/flux/v0.x/stdlib/experimental/csv/)
-and use the [experimental `csv.from()` function](/flux/v0.x/stdlib/experimental/csv/from/)
-to query data from a URL.
-Use the `url` parameter to specify the URL to query.
+1. Import the [`experimental/csv` package](/flux/v0.x/stdlib/experimental/csv/).
+2. Use the [experimental `csv.from()` function](/flux/v0.x/stdlib/experimental/csv/from/)
+   and `url` parameter to specify the URL to query.
 
 {{% note %}}
-The experimental `csv.from()` function does not support multiple parsing modes
+The **experimental `csv.from()`** function does not support multiple parsing modes
 and only works with [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/).
 {{% /note %}}
 
@@ -253,14 +259,14 @@ csv.from(url: "https://example.com/example.csv")
 
 **To use the parsing modes available in `csv.from()`:**
 
-1. Import the [`experimental/http` package](/flux/v0.x/stdlib/experimental/http/).
+1. Import the [`csv`](/flux/v0.x/stdlib/csv/) and [`experimental/http`](/flux/v0.x/stdlib/experimental/http/) packages.
 2. Use [`http.get()`](/flux/v0.x/stdlib/experimental/http/) to fetch the CSV data.
 3. Use [`string()`](/flux/v0.x/stdlib/universe/string/) to convert the response body to a string.
-4. Use `csv.from` to parse the CSV data and return results.
+4. Use [`csv.from()`](/flux/v0.x/stdlib/csv/from/) to parse the CSV data and return results.
 
 ```js
-import "experimental/http"
 import "csv"
+import "experimental/http"
 
 url = "https://example.com/example.csv"
 csvData = string(v: http.get(url: url).body)

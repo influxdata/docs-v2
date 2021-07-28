@@ -17,10 +17,11 @@ list_code_example: |
   ```
 ---
 
-To query Prometheus-formatted metrics from an HTTP endpoint using Flux
-import the [`experimental/prometheus` package](/flux/v0.x/stdlib/experimental/prometheus/)
-and use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape).
-Use the **url** parameter to provide the URL to scrape metrics from.
+To query Prometheus-formatted metrics from an HTTP endpoint using Flux:
+
+1. Import the [`experimental/prometheus` package](/flux/v0.x/stdlib/experimental/prometheus/).
+2. Use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape).
+   Use the **url** parameter to provide the URL to scrape metrics from.
 
 {{< keep-url >}}
 ```js

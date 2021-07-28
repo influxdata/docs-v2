@@ -18,9 +18,14 @@ list_code_example: |
   ```
 ---
 
-Use [`from()`](/flux/v0.x/stdlib/universe/from/) and [`range`](/flux/v0.x/stdlib/universe/range/)
-to query data from InfluxDB using Flux.
-Provide the **bucket name** or **bucket ID** to query.
+To query data from InfluxDB using Flux, use [`from()`](/flux/v0.x/stdlib/universe/from/)
+and [`range`](/flux/v0.x/stdlib/universe/range/).
+Provide the following parameters to each function:
+
+- **from()**:
+  - **bucket** or **bucketID**: _InfluxDB bucket name_ or _bucket ID_ to query.
+- **range()**:
+  - **start**: Earliest time to return results from.
 
 {{% note %}}
 InfluxDB requires queries to be time-bound, so `from()` must always be followed by
@@ -32,7 +37,9 @@ from(bucket: "example-bucket")
   |> range(start: -1h)
 ```
 
-### Query InfluxDB Cloud or 2.x remotely
+
+
+## Query InfluxDB Cloud or 2.x remotely
 To query InfluxDB Cloud or 2.x remotely, provide the following parameters
 in addition to **bucket** or **bucketID**.
 
@@ -50,7 +57,7 @@ from(
 )
 ```
 
-### Query InfluxDB 1.x
+## Query InfluxDB 1.x
 To query InfluxDB 1.x, use the `database-name/retention-policy-name` naming
 convention for your bucket name.
 For example, to query data from the `autogen` retention policy in the `telegraf` database:
@@ -69,7 +76,7 @@ from(bucket: "telegraf/")
 ```
 
 
-### Results structure
+## Results structure
 `from()` and `range()` return a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
 grouped by [series](/influxdb/cloud/reference/glossary/#series)
 (measurement, tag set, and field).
@@ -99,7 +106,7 @@ Hover over highlighted text to view description.
 | _start                                                    | _stop                                                    | _time                                              | _measurement                             | {{< tooltip "Tag key" "host" >}}    | _field                            |                              _value |
 | :-------------------------------------------------------- | :------------------------------------------------------- | :------------------------------------------------- | :--------------------------------------- | :---------------------------------- | :-------------------------------- | ----------------------------------: |
 | 2021-01-01T00:00:00Z                                      | 2021-01-02T00:00:00Z                                     | 2021-01-01T00:00:00Z                               | foo                                      | host1                               | bar                               |                                 1.2 |
-| {{< tooltip "Time range start" "2021-01-01T00:00:00Z" >}} | {{< tooltip "Time range stop" "2021-01-02T00:00:00Z" >}} | {{< tooltip "Timestamp" "2021-01-01T02:00:00Z" >}} | {{< tooltip "Measurement name" "foo" >}} | {{< tooltip "Tag value" "host1" >}} | {{< tooltip "Field key" "bar" >}} | {{< tooltip "Field value" "1.2" >}} |
+| {{< tooltip "Time range start" "2021-01-01T00:00:00Z" >}} | {{< tooltip "Time range stop" "2021-01-02T00:00:00Z" >}} | {{< tooltip "Timestamp" "2021-01-01T01:00:00Z" >}} | {{< tooltip "Measurement name" "foo" >}} | {{< tooltip "Tag value" "host1" >}} | {{< tooltip "Field key" "bar" >}} | {{< tooltip "Field value" "1.6" >}} |
 | 2021-01-01T00:00:00Z                                      | 2021-01-02T00:00:00Z                                     | 2021-01-01T02:00:00Z                               | foo                                      | host1                               | bar                               |                                 2.1 |
 
 | _start               | _stop                | _time                | _measurement | host  | _field | _value |
