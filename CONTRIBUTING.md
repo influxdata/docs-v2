@@ -675,7 +675,7 @@ To include a horizontal rule after each child summary, set `hr=true`.
 _Only the `articles` list type supports horizontal rules._
 
 ```md
-{{< children readmore=true >}}
+{{< children hr=true >}}
 ```
 
 #### Include a code example with a child summary
