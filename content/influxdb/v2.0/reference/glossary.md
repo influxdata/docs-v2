@@ -259,9 +259,25 @@ Related entries: [bucket](#bucket)
 
 ### data type
 
-A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it.
+A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it. 
 
-InfluxDB supports the following data types: float, integer, string, boolean, and timestamp.
+InfluxDB supports the following data types: 
+| Data type        | Alias/annotation   |
+| :--------------- | :----------------- |
+| string           |                    |
+| boolean          |                    |
+| float            | double             |
+| integer          | int, long          |
+| unsigned integer | uint, unsignedLong |
+| time             | dateTime           |
+
+For more information about different data types, see:
+- [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+- [extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype)
+- [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)
+- [InfluxQL](/influxdb/v1.8/query_language/spec/#literals)
+- [Flux](/influxdb/v2.0/reference/flux/language/types/)
+- [InfluxDB](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)
 
 ### database
 

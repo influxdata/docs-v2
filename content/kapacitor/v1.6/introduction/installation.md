@@ -13,6 +13,14 @@ This page provides directions for installing, starting, and configuring Kapacito
 
 Installation of the InfluxDB package may require `root` or administrator privileges in order to complete successfully.
 
+{{% warn %}}
+#### Platform support
+Kapacitor 1.6+ no longer supports 32-bit operating systems.
+If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
+
+Builds have been provided for ARM 64-bit architectures.
+{{% /warn %}}
+
 ### Networking
 
 Kapacitor listens on TCP port `9092` for all API and write

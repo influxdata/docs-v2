@@ -191,8 +191,8 @@ function updateUrls(prevUrls, newUrls) {
   .forEach(function (o) {
      if (o.replace != o.with) {
        $(elementSelector).each(function() {
-         // Lookbehind matches if o.replace is not preceded by [/.].
-         var hostnameOnly = new RegExp("(?<![/.])" + o.replace, "g")
+         // Lookbehind matches if o.replace is not preceded by :[/.].
+         var hostnameOnly = new RegExp("(?<!:[/.])" + o.replace, "g")
          $(this).html(
            $(this).html().replace(hostnameOnly, function(match) {
              return o.with.host || o.with;
