@@ -24,7 +24,8 @@ list_code_example: |
 
 To query SQL databases with Flux, import the [`sql` package](/flux/v0.x/stdlib/sql/)
 and use the [`sql.from()` function](/flux/v0.x/stdlib/sql/from/).
-
 `sql.from()` supports the following SQL databases:
 
-{{< children type="list" >}}
+{{< children type="anchored-list" >}}
+
+{{< children readmore=true hr=true >}}
