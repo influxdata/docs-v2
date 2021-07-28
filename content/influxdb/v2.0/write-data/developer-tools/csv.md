@@ -16,6 +16,7 @@ related:
   - /influxdb/v2.0/reference/syntax/annotated-csv/
   - /influxdb/v2.0/reference/cli/influx/write/
 ---
+
 Write CSV data with the following methods:
 - [Flux](#flux)
 - [influx write command](#influx-write-command)
