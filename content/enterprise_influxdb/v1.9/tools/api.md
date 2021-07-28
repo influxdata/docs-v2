@@ -158,13 +158,14 @@ curl -XGET "localhost:8086/health"
 The following InfluxDB 1.x API endpoints are available:
 
 | Endpoint                                         | Description                                                                    |
-|:----------                                       |:----------                                                                     |
+|:-------------------------------------------------|:-------------------------------------------------------------------------------|
 | [/debug/pprof ](#debug-pprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
 | [/debug/requests](#debug-requests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
 | [/debug/vars](#debug-vars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
 | [/ping](#ping-http-endpoint)                     | Check the status of your InfluxDB instance and your version of InfluxDB        |
 | [/query](#query-http-endpoint)                   | Query data using **InfluxQL**, manage databases, retention policies, and users |
 | [/write](#write-http-endpoint)                   | Write data to a database                                                       |
+| [/shard-status](#shard-status-http-endpoint)    | Get information about a data node's shards                                     |
 
 ### `/debug/pprof` HTTP endpoint
 
