@@ -585,7 +585,7 @@ to collect and send data to:
 ## Set up InfluxDB
 
 The initial setup process for InfluxDB walks through creating a default organization,
-user, bucket, and Admin API token.
+user, bucket, and Operator API token.
 The setup process is available in both the InfluxDB user interface (UI) and in
 the `influx` command line interface (CLI).
 

@@ -3013,7 +3013,7 @@ vault-tls-server-name = "secure.example.com"
 ---
 
 ### vault-token
-Specifies the Vault API token use when authenticating with Vault.
+Specifies the Vault token use when authenticating with Vault.
 
 | influxd flag    | Environment variable | Configuration key |
 |:------------    |:-------------------- |:----------------- |
