@@ -10,6 +10,10 @@ menu:
     parent: About the project
 ---
 
+## v.1.19.2 [2021-07-28]
+
+-
+
 ## v.1.19.1 [2021-07-07]
 
 - Update nat-server module to v2.2.6.
