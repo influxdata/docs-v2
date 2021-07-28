@@ -19,8 +19,8 @@ The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
 Those settings [are configurable](/enterprise_influxdb/v1.9/administration/config/#http-endpoints-settings).
 
-- [InfluxDB 2.0 API compatibility endpoints](#influxdb-2-0-api-compatibility-endpoints)
-- [InfluxDB  1.x HTTP endpoints](#influxdb-1-x-http-endpoints)
+- [InfluxDB 2.0 API compatibility endpoints](#influxdb-20-api-compatibility-endpoints)
+- [InfluxDB  1.x HTTP endpoints](#influxdb-1x-http-endpoints)
 
 ## InfluxDB 2.0 API compatibility endpoints
 
