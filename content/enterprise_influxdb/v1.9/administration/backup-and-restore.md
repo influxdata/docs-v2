@@ -40,7 +40,7 @@ Most InfluxDB Enterprise applications can use the backup and restore utilities.
 
 Use the `backup` and `restore` utilities to back up and restore between `influxd`
 instances with the same versions or with only minor version differences.
-For example, you can backup from 1.7.3 and restore on 1.8.2.
+For example, you can backup from {{< latest-patch version="1.8" >}} and restore on {{< latest-patch >}}.
 
 ### Backup utility
 

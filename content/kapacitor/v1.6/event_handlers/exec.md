@@ -30,7 +30,8 @@ topic: topic-name
 kind: exec
 options:
   prog: /path/to/executable
-  args: 'executable arguments'
+  args: 
+    - 'executable arguments'
 ```
 
 ### Example: TICKscript
@@ -101,7 +102,8 @@ topic: cpu
 kind: exec
 options:
   prog: '/usr/bin/python'
-  args: 'sound-the-alarm.py'
+  args: 
+    - 'sound-the-alarm.py'
 ```
 
 Add the handler:

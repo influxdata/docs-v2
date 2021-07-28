@@ -62,8 +62,8 @@ Start by logging into the Influx CLI:
 
 ```bash
 $ influx -precision rfc3339 -database NOAA_water_database
-Connected to http://localhost:8086 version 1.7.x
-InfluxDB shell 1.7.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 
