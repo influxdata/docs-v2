@@ -1007,3 +1007,77 @@ HTTP/1.1 500 Internal Server Error
 [...]
 {"error":"retention policy not found: myrp"}
 ```
+
+### `/shard-status` HTTP endpoint
+
+The `/shard-status` endpoint accepts HTTP `GET` requests.
+Use this endpoint to get information about all shards for a given data node.
+
+- `id`: the shard ID
+- `size`: the size on disk of the shard (bytes)
+- `is_hot`: whether the time range from the shard includes 'now'.
+  Note that this is different from is_idle (not captured here)
+  which is whether the shard is fully compacted and not receiving new (potentially historical) writes.
+- `state`: the anti-entropy status of the shard (healthy/restore pending/restoring/repairing/error processing)
+
+#### Example
+
+```
+curl -q 'http://localhost:8086/shard-status' | jq
+{
+  "databases": [
+    {
+      "name": "_internal",
+      "retention_policies": [
+        {
+          "name": "monitor",
+          "replication_factor": 1,
+          "shards": [
+            {
+              "id": 2,
+              "size": 594491,
+              "is_hot": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "retention_policies": [
+        {
+          "name": "autogen",
+          "replication_factor": 1,
+          "shards": [
+            {
+              "id": 3,
+              "is_hot": false
+            },
+            {
+              "id": 6,
+              "size": 1921,
+              "is_hot": false
+            },
+            {
+              "id": 7,
+              "is_hot": false
+            },
+            {
+              "id": 10,
+              "size": 1920,
+              "is_hot": false
+            },
+            {
+              "id": 11,
+              "is_hot": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+{{% caption %}}
+This example uses [`jq`](https://stedolan.github.io/jq/) to print the JSON object.
+{{% /caption %}}
