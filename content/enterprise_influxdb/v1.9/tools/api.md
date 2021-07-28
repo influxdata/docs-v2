@@ -1013,11 +1013,17 @@ HTTP/1.1 500 Internal Server Error
 The `/shard-status` endpoint accepts HTTP `GET` requests.
 Use this endpoint to get information about all shards for a given data node.
 
+#### Response
+
+Requests to `/shard-status` return the following information in JSON format:
+
 - `id`: the shard ID
-- `size`: the size on disk of the shard (bytes)
-- `is_hot`: whether the time range from the shard includes 'now'.
-  Note that this is different from is_idle (not captured here)
-  which is whether the shard is fully compacted and not receiving new (potentially historical) writes.
+- `size`: the size on disk of the shard in bytes
+- `is_hot`: whether the time range from the shard includes `now`.
+  {{% note %}}
+An *idle* shard is fully compacted and not receiving new (potentially historical) writes.
+A hot shard may or may not be idle.
+  {{% /note %}}
 - `state`: the anti-entropy status of the shard (healthy/restore pending/restoring/repairing/error processing)
 
 #### Example
