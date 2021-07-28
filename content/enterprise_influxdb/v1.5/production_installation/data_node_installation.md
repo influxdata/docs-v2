@@ -92,15 +92,15 @@ Perform the following steps on each data server.
 #### Ubuntu & Debian (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.5.4-c1.5.4_amd64.deb
-sudo dpkg -i influxdb-data_1.5.4-c1.5.4_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 #### RedHat & CentOS (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.5.4_c1.5.4.x86_64.rpm
-sudo yum localinstall influxdb-data-1.5.4_c1.5.4.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### 2.2 Edit the configuration file
@@ -221,16 +221,16 @@ The expected output is:
 Data Nodes
 ==========
 ID   TCP Address               Version
-4    enterprise-data-01:8088   1.5.4-c1.5.4
-5    enterprise-data-02:8088   1.5.4-c1.5.4
+4    enterprise-data-01:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+5    enterprise-data-02:8088   {{< latest-patch >}}-c{{< latest-patch >}}
 
 
 Meta Nodes
 ==========
 TCP Address               Version
-enterprise-meta-01:8091   1.5.4-c1.5.4
-enterprise-meta-02:8091   1.5.4-c1.5.4
-enterprise-meta-03:8091   1.5.4-c1.5.4
+enterprise-meta-01:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+enterprise-meta-02:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+enterprise-meta-03:8091   {{< latest-patch >}}-c{{< latest-patch >}}
 ```
 
 The output should list every data node that was added to the cluster.

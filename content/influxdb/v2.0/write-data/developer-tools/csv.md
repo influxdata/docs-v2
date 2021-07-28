@@ -16,9 +16,11 @@ related:
   - /influxdb/v2.0/reference/syntax/annotated-csv/
   - /influxdb/v2.0/reference/cli/influx/write/
 ---
+
 Write CSV data with the following methods:
 - [Flux](#flux)
 - [influx write command](#influx-write-command)
+- [Telegraf](#telegraf)
 
 ### Flux
 
@@ -103,6 +105,14 @@ To fix this error on Linux or macOS, run the following command to increase the n
 macOS users, to persist the `ulimit` setting, follow the [recommended steps](https://unix.stackexchange.com/a/221988/471569) for your operating system version.
 
 {{% /note %}}
+
+### Telegraf 
+
+Use CSV data format in Telegraf as a way to write CSV data to InfluxDB. 
+
+For more information, see: 
+- [CSV input data format](/telegraf/v1.19/data_formats/input/csv/)
+- [Use Telegraf to write data](/influxdb/v2.0/write-data/no-code/use-telegraf/)
 
 ## CSV Annotations
 Use **CSV annotations** to specify which element of line protocol each CSV column

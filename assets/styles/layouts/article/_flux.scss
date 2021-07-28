@@ -22,3 +22,278 @@ h2,h3,h4 {
     opacity: .5;
   }
 }
+
+#flux-group-keys-demo {
+  table {
+    margin-bottom: 1.25rem;
+    td, th {
+      &:first-child {text-align: left;}
+      &:last-child {text-align: right;}
+      &.grouped-by {font-weight: bold;}
+    }
+    th.grouped-by {color: $tooltip-color-alt;}
+    td.grouped-by {color: $tooltip-color}
+  }
+
+  #group-by-columns {
+    .column-list {
+      padding: 0;
+      margin: .5rem 0 0;
+      list-style: none;
+      li {
+        margin: 0;
+        line-height: 1.35rem;
+      }
+    }
+
+    label {
+      display: inline-block;
+      padding: .25rem 0;
+      color: $article-text;
+      position: relative;
+
+      &:after {
+        content: attr(data-count);
+        margin-left: 0;
+        font-size: .85rem;
+        opacity: .5;
+      }
+    }
+
+    .checkbox {
+      display: inline-block;
+      position: relative;
+      height: 1.15em;
+      width: 1.15em;
+      background: rgba($article-text, .05);
+      margin-right: .3rem;
+      vertical-align: text-top;
+      border-radius: $radius;
+      cursor: pointer;
+      border: 1.5px solid rgba($article-text, .2);
+      user-select: none;
+    }
+
+    input[type='checkbox'] {
+      margin-right: -1.1rem ;
+      padding: 0;
+      vertical-align: top;
+      opacity: 0;
+      cursor: pointer;
+
+      & + .checkbox:after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: .5rem;
+        width: .5rem;
+        border-radius: 50%;
+        background: $article-link;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+        transform: scale(2) translate(-20%, -20%);
+        transition: all .2s;
+      }
+
+      &:checked + .checkbox:after {
+        opacity: 1;
+        transform: scale(1) translate(-50%, -50%);
+      }
+    }
+  }
+  
+  pre#group-by-example {
+    line-height: 1.4rem;
+    font-size: .95rem;
+    .nx { color: $article-code-accent2; }
+    .s2 { color: $article-code-accent3; }
+  }
+}
+
+.flux-water-diagram {
+  background: $flux-water-process-img;
+  margin: 2rem 0 .5rem;
+  width: 100%;
+  height: 0;
+  padding-top: 63.71%;
+  background-repeat: no-repeat;
+}
+
+//////////////////////////// Flux Data Model Diagram ///////////////////////////
+
+#flux-data-model {
+  max-width: 500px;
+  margin: 3rem 0;
+
+  .stream-of-tables{ 
+    position: relative;
+    border: 1px dashed $article-text;
+    padding: 1rem;
+    border-radius: $radius * 2;
+
+    &:before {
+      content: "Stream of tables";
+      font-weight: $medium;
+      color: $article-bold;
+      background: $article-bg;
+      position: absolute;
+      padding: 0 1rem;
+      top: -.65rem;
+    }
+  }
+
+  table {
+    display: table;
+    width: 100%;
+    overflow: visible;
+    margin: 0;
+
+    th, td {
+      border-right: 1px dashed rgba($article-text, .25);
+      &:last-child { border: none; }
+    }
+    th { border-color: rgba($g20-white, .25); }
+  }
+
+  .table-group {
+    padding: 1rem;
+
+    // Table outline
+    &:first-child {
+      border: 1px dashed $article-text;
+      border-radius: $radius;
+      position: relative;
+      margin-bottom: .25rem;
+      &:before {
+        content: "Table";
+        font-weight: $medium;
+        color: $article-bold;
+        background: $article-bg;
+        position: absolute;
+        padding: 0 .75rem;
+        top: -.65rem;
+        right: 1rem;
+      }
+    }
+    // Column outline
+    &:nth-child(2) {
+      th{
+        &:first-child { border: none; }
+        &:nth-child(2) {
+          border-top: 1px dashed $article-text;
+          border-left: 1px dashed rgba($g20-white, .85);
+          border-right: 1px dashed rgba($g20-white, .85);
+          position: relative;
+          &:before {
+            content: "Column";
+            font-weight: $medium;
+            color: $g20-white, .85;
+            position: absolute;
+            top: .2rem;
+            left: .5rem;
+          }
+        }
+      }
+      td{
+        &:first-child { border: none; }
+        &:nth-child(2) {
+          border-left: 1px dashed $article-text;
+          border-right: 1px dashed $article-text;
+        }
+      }
+      tr:last-child td:nth-child(2) { border-bottom: 1px dashed $article-text; }
+    }
+    // Row outline
+    &:nth-child(3) {
+      tr:nth-child(2) {
+        border-top: 1px dashed $article-text;
+        border-bottom: 1px dashed $article-text;
+        td:first-child {
+          border-left: 1px dashed $article-text;
+          position: relative;
+          &:before {
+            content: "Row";
+            font-weight: $medium;
+            color: $article-bold;
+            position: absolute;
+            top: .15rem;
+            left: .5rem;
+          }
+        }
+        td:last-child { border-right: 1px dashed $article-text }
+      }
+    }
+  }
+}
+
+///////////////////////// Flux Table Operations Diagram ////////////////////////
+
+#flux-table-ops {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 650px;
+  margin-bottom: 2rem;
+
+  .stream-of-tables {
+    flex-grow: 1;
+
+    &:first-child { padding-left: 0; }
+    &:last-child { padding-right: 0; }
+  }
+
+  .operation {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    .arrow {
+      position: relative;
+      background: $article-text;
+      flex-grow: 1;
+      height: 1px;
+      margin: 0 .75rem;
+      opacity: .35;
+      &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 7px 0 7px 8px;
+        border-color: transparent transparent transparent $article-text;
+        right: -1px;
+        top: -7px;
+      }
+    }
+    p { margin: 0; text-align: center;}
+  }
+
+  table {
+    display: table;
+    width: 100%;
+    overflow: visible;
+    margin: 1rem 0;
+
+    th, td {
+      border-right: 1px dashed rgba($article-text, .25);
+      &:last-child { border: none; }
+    }
+    th { border-color: rgba($g20-white, .25); }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  #flux-table-ops {
+    th, td {
+      &:last-child { display: none; }
+      &:nth-child(2) { border: none; }
+    }
+    th:nth-child(2) { border-radius: 0 $radius 0 0;}
+    tr:last-child td:nth-child(2) {border-radius: 0 0 $radius 0;}
+  }
+}

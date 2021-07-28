@@ -61,5 +61,5 @@ option location = loadLocation(name:"America/Denver") // Set location to be Amer
 ```
 
 {{% note %}}
-[IMPL#660](https://github.com/influxdata/platform/issues/660) Implement Location option
+[Flux#406](https://github.com/influxdata/flux/issues/406) Implement Location option
 {{% /note %}}

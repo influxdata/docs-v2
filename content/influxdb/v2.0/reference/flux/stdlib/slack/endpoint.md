@@ -76,7 +76,7 @@ _For more information, see [`slack.message()`](/influxdb/v2.0/reference/flux/std
 ```js
 import "slack"
 
-toSlack = slack.endpoint(url: https://hooks.slack.com/services/EXAMPLE-WEBHOOK-URL)
+toSlack = slack.endpoint(url: "https://hooks.slack.com/services/EXAMPLE-WEBHOOK-URL")
 
 crit_statuses = from(bucket: "example-bucket")
   |> range(start: -1m)
