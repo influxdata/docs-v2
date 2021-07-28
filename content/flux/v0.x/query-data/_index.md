@@ -6,6 +6,8 @@ menu: flux_0_x
 weight: 4
 ---
 
-Query different data sources with Flux including InfluxDB, SQL databases, CSV, and Prometheus.
+Query the following data sources with Flux:
 
-{{< children >}}
+{{< children type="anchored-list" >}}
+
+{{< children readmore=true hr=true >}}
