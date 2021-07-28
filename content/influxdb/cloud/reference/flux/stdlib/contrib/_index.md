@@ -15,4 +15,6 @@ InfluxData supports user-contributed Flux packages and functions. We also recogn
 
 To support both contributors and our community at large, InfluxData requests reviews from original authors regarding all changes to the packages and functions.
 
+If you'd like to add a new Flux package or are curious about our future plans regarding Flux contributions, please see how to [Contribute Third Party Flux Packages](https://github.com/influxdata/flux/blob/master/stdlib/contrib/README.md).
+
 {{< children >}}
