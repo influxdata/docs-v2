@@ -28,7 +28,7 @@ Provide the following parameters:
 
 - **driverName**: mysql
 - **dataSourceName**: [MariaDB data source name (DSN)](#data-source-name)
-  _(also known as **connection string**)_
+  _(also known as a **connection string**)_
 - **query**: SQL query to execute
 
 ```js

@@ -29,7 +29,7 @@ Provide the following parameters:
 
 - **driverName**: sqlite3
 - **dataSourceName**: [SQLite data source name (DSN)](#data-source-name)
-  _(also known as **connection string**)_
+  _(also known as a **connection string**)_
 - **query**: SQL query to execute
 
 ```js
