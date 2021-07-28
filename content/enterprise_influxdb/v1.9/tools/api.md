@@ -1025,7 +1025,9 @@ Requests to `/shard-status` return the following information in JSON format:
 An *idle* shard is fully compacted and not receiving new (potentially historical) writes.
 A hot shard may or may not be idle.
   {{% /note %}}
-- `state`: the anti-entropy status of the shard (healthy/restore pending/restoring/repairing/error processing)
+- `state`: the anti-entropy status of the shard.
+  `state` can be one of:
+  `healthy`,`restore pending`,`restoring`,`repairing`,`error processing`.
 
 #### Example
 
