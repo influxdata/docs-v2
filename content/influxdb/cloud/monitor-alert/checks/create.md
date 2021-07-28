@@ -12,18 +12,24 @@ related:
   - /influxdb/cloud/monitor-alert/notification-endpoints/
 ---
 
-Create a check in the InfluxDB user interface (UI).
+Create a check in the InfluxDB user interface (UI) on the Alerts page or as an InfluxDB task.
 Checks query data and apply a status to each point based on specified conditions.
 
-## Create a check in the InfluxDB UI
+## Create a check on the Alerts page
+
 1. In the navigation menu on the left, select **Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2.  Click **{{< icon "plus" >}} Create** and select the [type of check](#check-types) to create.
+2.  Click **{{< icon "plus" >}} Create** and select the type of check to create:
+-  To assign a status based on a value being above, below,
+inside, or outside of defined threshold, select **Threshold Check**.
+-  To assign a status to data when a series or group doesn't report
+in a specified amount of time, select **Deadman Check**.
 3.  Click **Name this check** in the top left corner and provide a unique name for the check.
 
 #### Configure the check query
+
 1.  Select the **bucket**, **measurement**, **field** and **tag sets** to query.
 2.  If creating a threshold check, select an **aggregate function**.
     Aggregate functions aggregate data between the specified check intervals and
@@ -36,15 +42,18 @@ Checks query data and apply a status to each point based on specified conditions
    To see the raw query results, click the **{{< icon "toggle" >}} View Raw Data** toggle.
 
 #### Configure the check
+
 1.  Click **2. Configure Check** near the top of the window.
 2.  In the **Properties** column, configure the following:
 
     ##### Schedule Every
+
     Select the interval to run the check (for example, "Every 5 minutes").
     This interval matches the aggregate function interval for the check query.
     _Changing the interval here will update the aggregate function interval._
 
     ##### Offset
+
     Delay the execution of a task to account for any late data.
     Offset queries do not change the queried time range.
 
@@ -52,6 +61,7 @@ Checks query data and apply a status to each point based on specified conditions
     {{% /note %}}
 
     ##### Tags
+
     Add custom tags to the query output.
     Each custom tag appends a new column to each row in the query output.
     The column label is the tag key and the column value is the tag value.
@@ -102,6 +112,7 @@ count = 12
     Condition options depend on your check type.
 
     ##### Configure a threshold check
+
     1.  In the **Thresholds** column, click the status name (CRIT, WARN, INFO, or OK)
         to define conditions for that specific status.
     2.  From the **When value** drop-down list, select a threshold: is above, is below,
@@ -110,6 +121,7 @@ count = 12
         You can also use the threshold sliders in the data visualization to define threshold values.
 
     ##### Configure a deadman check
+    
     1.  In the **Deadman** column, enter a duration for the deadman check in the **for** field.
         For example, `90s`, `5m`, `2h30m`, etc.
     2.  Use the **set status to** drop-down list to select a status to set on a dead series.
@@ -118,7 +130,45 @@ count = 12
 
 5. Click the green **{{< icon "check" >}}** in the top right corner to save the check.
 
+## Create a deadman check as an InfluxDB task
+
+To add a check for when data stops, you can create a deadman check.
+
+1. Use the InfluxDB UI, CLI, or Influx API to create a task.
+2. Include the following Flux script in your task:
+
+```js
+// import the monitor package
+package main
+import "influxdata/influxdb/monitor"
+import "experimental”
+import "influxdata/influxdb/v1"
+
+// Define your data source
+data = from(bucket: "telegraf")
+|> range(start: -15s)
+|> filter(fn: (r) =>  (r["_measurement"] == "cpu")) 
+|> filter(fn: (r) =>  (r["_field"] == "usage_system")) 
+|> filter(fn: (r) =>  (r["cpu"] == "cpu-total"))
+
+// Define your task options
+option task = {name: "Deadman", every: 1m, offset: 0s}
+check = { _check_id: "074bdadac4429000",
+     _check_name: "Deadman",
+     _type: "deadman",
+     tags: {deadman: "deadman"}}
+crit = (r) => (r["dead"])
+messageFn = (r) => (  "Check: ${r._check_name} is: ${r._level}")
+
+// Apply deadman check
+data 
+|> v1["fieldsAsCols"]() 
+|> monitor["deadman"](t: experimental["subDuration"](from: now(), d: 5s)) 
+|> monitor["check"](data: check, messageFn: messageFn, crit:crit)}
+```
+
 ## Clone a check
+
 Create a new check by cloning an existing check.
 
 1. In the **Checks** column, hover over the check you want to clone.
