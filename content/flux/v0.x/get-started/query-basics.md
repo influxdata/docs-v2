@@ -96,6 +96,7 @@ from(bucket: "example-bucket")            // ── Source
   |> filter(fn: (r) => r._field == "foo") // ── Filter on column values
   |> group(columns: ["sensorID"])         // ── Shape
   |> mean()                               // ── Process
+```
 
 ### Source
 Flux [input functions](/flux/v0.x/function-types/#inputs) retrieve data from a data source.
