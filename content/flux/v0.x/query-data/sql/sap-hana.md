@@ -77,7 +77,8 @@ not store time zone information and
 For more information, see [Timestamps in SAP HANA](https://help.sap.com/viewer/f1b440ded6144a54ada97ff95dac7adf/2.4/en-US/a394f75dcbe64b42b7a887231af8f15f.html).
 
 ## Results structure
-`sql.from()` returns a stream of tables with no grouping (all rows are in a single table).
+`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
+with no grouping (all rows in a single table).
 For more information about table grouping, see
 [Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
 

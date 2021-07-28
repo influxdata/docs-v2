@@ -85,6 +85,7 @@ All other SQLite data types are converted to strings.
 {{% /caption %}}
 
 ## Results structure
-`sql.from()` returns a stream of tables with no grouping (all rows are in a single table).
+`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
+with no grouping (all rows in a single table).
 For more information about table grouping, see
 [Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
