@@ -22,7 +22,7 @@ menu:
 - Kubernetes (`kubernetes`): Update plugin to attach pod labels to the `kubernetes_pod_volume` and `kubernetes_pod_network` metrics.
 - Kubernetes Inventory (`kube_inventory`): Fix a segmentation fault when selector labels were not present on a persistent volume claim.
 - MongoDB (`mongodb`): Switch to official `mongo-go-driver` module to fix an SSL authentication failure.
-- NSQ Consumer (`couchbase`): Fix a connection error when try to connect to an empty list of servers.
+- NSQ Consumer (`couchbase`): Fix a connection error when attempting to connect to an empty list of servers.
 - Prometheus (`prometheus`): Fix Prometheus cAdvisor authentication.
 - SQL (`sql`): Fix issue when handling a boolean column.
 - SQL Server (`sqlserver`):
