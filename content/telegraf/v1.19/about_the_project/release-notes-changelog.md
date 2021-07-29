@@ -40,7 +40,7 @@ menu:
 ## Processor plugin updates
 - IfName (`ifname`): Fix issue with SNMP empty metric name.
 
-## Parser Plugin Updates
+## Parser plugin updates
 - JSON v2 (`json_v2`):
     - Simplify how nesting is handled in parser.
     - Add support for large uint64 and int64 numbers.
