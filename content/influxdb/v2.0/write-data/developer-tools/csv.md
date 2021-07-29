@@ -581,3 +581,13 @@ import "experimental/csv"
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
   |> to(bucket: "noaa", org: "example-org")
 ```
+
+{{% note %}}
+#### Required columns
+To write data to InfluxDB with Flux, data must include the following columns:
+
+- `_time`
+- `_measurement`
+- `_field`
+- `_value`
+{{% /note %}}
