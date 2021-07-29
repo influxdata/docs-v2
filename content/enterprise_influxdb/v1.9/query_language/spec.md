@@ -664,11 +664,11 @@ EXPLAIN ANALYZE
 
 > Note: EXPLAIN ANALYZE ignores query output, so the cost of serialization to JSON or CSV is not accounted for.
 
-#### execution_time
+##### execution_time
 
 Shows the amount of time the query took to execute, including reading the time series data, performing operations as data flows through iterators, and draining processed data from iterators. Execution time doesn't include the time taken to serialize the output into JSON or other formats.
 
-#### planning_time
+##### planning_time
 
 Shows the amount of time the query took to plan.
 Planning a query in InfluxDB requires a number of steps. Depending on the complexity of the query, planning can require more work and consume more CPU and memory resources than the executing the query. For example, the number of series keys required to execute a query affects how quickly the query is planned and the required memory.
@@ -681,7 +681,7 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 3. Enumerate each tag set and create a cursor and iterator for each series key.
 4. Merge iterators and return the merged result to the query executor.
 
-#### iterator type
+##### iterator type
 
 EXPLAIN ANALYZE supports the following iterator types:
 
@@ -690,7 +690,7 @@ EXPLAIN ANALYZE supports the following iterator types:
 
 For more information about iterators, see [Understanding iterators](#understanding-iterators).
 
-#### cursor type
+##### cursor type
 
 EXPLAIN ANALYZE distinguishes 3 cursor types. While the cursor types have the same data structures and equal CPU and I/O costs, each cursor type is constructed for a different reason and separated in the final output. Consider the following cursor types when tuning a statement:
 
@@ -700,7 +700,7 @@ EXPLAIN ANALYZE distinguishes 3 cursor types. While the cursor types have the sa
 
 For more information about cursors, see [Understanding cursors](#understanding-cursors).
 
-#### block types
+##### block types
 
 EXPLAIN ANALYZE separates storage block types, and reports the total number of blocks decoded and their size (in bytes) on disk. The following block types are supported:
 
@@ -1043,25 +1043,17 @@ SHOW SHARDS
 
 Returns detailed statistics on available components of an InfluxDB node and available (enabled) components.
 
+Statistics returned by `SHOW STATS` are stored in memory and reset to zero when the node is restarted,
+but `SHOW STATS` is triggered every 10 seconds to populate the `_internal` database.
+
+The `SHOW STATS` command does not list index memory usage -- 
+use the [`SHOW STATS FOR 'indexes'`](#show-stats-for-indexes) command.
+
 For more information on using the `SHOW STATS` command, see [Using the SHOW STATS command to monitor InfluxDB](/platform/monitoring/tools/show-stats/).
 
 ```
 show_stats_stmt = "SHOW STATS [ FOR '<component>' | 'indexes' ]"
 ```
-
-#### `SHOW STATS`
-
-* The `SHOW STATS` command does not list index memory usage -- use the [`SHOW STATS FOR 'indexes'`](#show-stats-for-indexes) command.
-* Statistics returned by `SHOW STATS` are stored in memory and reset to zero when the node is restarted, but `SHOW STATS` is triggered every 10 seconds to populate the `_internal` database.
-
-#### `SHOW STATS FOR <component>`
-
-* For the specified component (\<component\>), the command returns available statistics.
-* For the `runtime` component, the command returns an overview of memory usage by the InfluxDB system, using the [Go runtime](https://golang.org/pkg/runtime/) package.
-
-#### `SHOW STATS FOR 'indexes'`
-
-* Returns an estimate of memory use of all indexes. Index memory use is not reported with `SHOW STATS` because it is a potentially expensive operation.
 
 #### Example
 
@@ -1078,6 +1070,18 @@ batches_tx      bytes_rx        connections_active      connections_handled     
 ----------      --------        ------------------      -------------------     ---------       ---------
 159             3999750         0                       1                       158110          158110
 ```
+
+### `SHOW STATS FOR <component>`
+
+For the specified component (\<component\>), the command returns available statistics.
+For the `runtime` component, the command returns an overview of memory usage by the InfluxDB system,
+using the [Go runtime](https://golang.org/pkg/runtime/) package.
+
+### `SHOW STATS FOR 'indexes'`
+
+Returns an estimate of memory use of all indexes.
+Index memory use is not reported with `SHOW STATS` because it is a potentially expensive operation.
+
 
 ### SHOW SUBSCRIPTIONS
 
