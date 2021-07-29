@@ -22,41 +22,6 @@ influx [flags]
 influx [command]
 ```
 
-## Download the influx CLI 
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[macOS](#)
-[Linux](#)
-[Windows](#)
-{{% /tabs %}}
-
-<!-------------------------------- BEGIN macOS -------------------------------->
-{{% tab-content %}}
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
-
-{{% /tab-content %}}
-<!--------------------------------- END macOS --------------------------------->
-
-<!-------------------------------- BEGIN Linux -------------------------------->
-{{% tab-content %}}
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
-
-{{% /tab-content %}}
-<!--------------------------------- END Linux --------------------------------->
-
-<!-------------------------------- BEGIN Windows -------------------------------->
-{{% tab-content %}}
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download>influx CLI (Windows)</a>
-
-{{% /tab-content %}}
-<!--------------------------------- END Windows --------------------------------->
-{{< /tabs-wrapper >}}
-
 ### Provide required authentication credentials
 To avoid having to pass your InfluxDB **host**, **authentication token**, and **organization**
 with each command, store them in an `influx` CLI configuration (config).
