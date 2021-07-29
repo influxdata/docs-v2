@@ -12,7 +12,40 @@ menu:
 
 ## v.1.19.2 [2021-07-28]
 
--
+- Update Go to 1.16.6.
+- Linter fixes.
+- Update `dynatrace-metric-utils-go` module to v0.2.0.
+- Detect changes to configuration and reload Telegraf.
+
+## Input Plugin Updates
+- CGroup (`couchbase`): Allow for multiple keys when parsing cgroups.
+- Kubernetes (`kubernetes`): Update plugin to attach pod labels to the `kubernetes_pod_volume` & `kubernetes_pod_network` metrics.
+- Kubernetes Inventory (`kube_inventory`): Fix a segmentation fault when selector labels were not present on a persistent volume claim.
+- MongoDB (`mongodb`): Switch to official `mongo-go-driver` module to fix an SSL authentication failure.
+- NSQ Consumer (`couchbase`): Fix a connection error when try to connect to an empty list of servers.
+- Prometheus (`prometheus`): Fix Prometheus cAdvisor authentication.
+- SQL (`sql`): Fix issue when handling a boolean column.
+- SQL Server (`sqlserver`):
+  - Add TempDB troubleshooting stats and missing v2 query metrics.
+  - Update to provide more detailed error messaging.
+- StatsD (`statsd`): Fix a regression that didn't allow integer percentiles.
+- x509 Certificate (`x509_cert`): Fix an issue where plugin would hang indefinitely to a UDP connection.
+
+## Output Plugin Updates
+- Dynatrace Output (`dynatrace`):
+  - Updated plugin to allow optional default dimensions
+  - Fixed a panic caused by uninitialized `loggedMetrics` map
+- InfluxDB (`influxdb`): Fix issue where metrics were reporting as written but not actually written.
+
+## Processor Plugin Updates
+- IfName (`ifname`): Fix issue with SNMP empty metric name.
+
+## Parser Plugin Updates
+- JSON v2 (`json_v2`):
+    - Simplify how nesting is handled in parser.
+    - Add support for large uint64 and int64 numbers.
+    - Fix an issue to handle nested objects in arrays properly.
+
 
 ## v.1.19.1 [2021-07-07]
 
@@ -25,7 +58,7 @@ menu:
 - Linter fixes.
 
 ## Input plugin updates
-- SQL Server Input (`sqlserver`): Require authentication method to be specified.
+- SQL Server (`sqlserver`): Require authentication method to be specified.
 - Kube Inventory (`kube_inventory`): Fix segfault.
 - Couchbase (`couchbase`): Fix panic.
 - KNX (`knx_listener`): Fix nil pointer panic.
