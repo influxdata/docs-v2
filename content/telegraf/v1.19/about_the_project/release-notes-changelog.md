@@ -17,7 +17,7 @@ menu:
 - Update `dynatrace-metric-utils-go` module to v0.2.0.
 - Detect changes to configuration and reload Telegraf.
 
-## Input Plugin Updates
+## Input plugin updates
 - CGroup (`couchbase`): Allow for multiple keys when parsing cgroups.
 - Kubernetes (`kubernetes`): Update plugin to attach pod labels to the `kubernetes_pod_volume` & `kubernetes_pod_network` metrics.
 - Kubernetes Inventory (`kube_inventory`): Fix a segmentation fault when selector labels were not present on a persistent volume claim.
