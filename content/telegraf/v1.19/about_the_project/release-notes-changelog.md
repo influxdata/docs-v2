@@ -34,7 +34,7 @@ menu:
 ## Output Plugin Updates
 - Dynatrace Output (`dynatrace`):
   - Updated plugin to allow optional default dimensions
-  - Fixed a panic caused by uninitialized `loggedMetrics` map
+  - Fix a panic caused by uninitialized `loggedMetrics` map.
 - InfluxDB (`influxdb`): Fix issue where metrics were reporting as written but not actually written.
 
 ## Processor plugin updates
