@@ -76,7 +76,7 @@ the derivative of the mean:
 SELECT DERIVATIVE(MEAN(value), 20m) FROM cpu GROUP BY time(10m)
 ```
 
-### Understanding cursors
+### Cursors
 
 A **cursor** identifies data by shard in tuples (time, value) for a single series (measurement, tag set and field). The cursor trasverses data stored as a log-structured merge-tree and handles deduplication across levels, tombstones for deleted data, and merging the cache (Write Ahead Log). A cursor sorts the `(time, value)` tuples by time in ascending or descending order.
 
