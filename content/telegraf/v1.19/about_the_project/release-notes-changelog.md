@@ -31,7 +31,7 @@ menu:
 - StatsD (`statsd`): Fix a regression that didn't allow integer percentiles.
 - x509 Certificate (`x509_cert`): Fix an issue where plugin would hang indefinitely to a UDP connection.
 
-## Output Plugin Updates
+## Output plugin updates
 - Dynatrace Output (`dynatrace`):
   - Updated plugin to allow optional default dimensions
   - Fix a panic caused by uninitialized `loggedMetrics` map.
