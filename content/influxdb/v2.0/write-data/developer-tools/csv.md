@@ -95,6 +95,7 @@ macOS users, to persist the `ulimit` setting, follow the [recommended steps](htt
 Use CSV data format in Telegraf as a way to write CSV data to InfluxDB. 
 
 For more information, see: 
+
 - [CSV input data format](/telegraf/v1.19/data_formats/input/csv/)
 - [Use Telegraf to write data](/influxdb/v2.0/write-data/no-code/use-telegraf/)
 
