@@ -1160,7 +1160,7 @@ SHOW TAG VALUES WITH KEY !~ /.*c.*/
 SHOW TAG VALUES FROM "cpu" WITH KEY IN ("region", "host") WHERE "service" = 'redis'
 ```
 
-#### SHOW TAG VALUES CARDINALITY
+### SHOW TAG VALUES CARDINALITY
 
 Estimates or counts exactly the cardinality of tag key values for the specified tag key on the current database unless a database is specified using the `ON <database>` option.
 
