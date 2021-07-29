@@ -1,6 +1,6 @@
 ---
 title: Influx Query Language (InfluxQL) reference
-description: List of resources for Influx Query Language (InfluxQL).
+description: Reference for Influx Query Language (InfluxQL).
 menu:
   enterprise_influxdb_1_9:
     name: InfluxQL reference
@@ -12,19 +12,24 @@ aliases:
 
 ## Introduction
 
+InfluxQL is a SQL-like query language for interacting with InfluxDB
+and providing features specific to storing and analyzing time series data.
+
 Find Influx Query Language (InfluxQL) definitions and details, including:
 
 * [Notation](/enterprise_influxdb/v1.9/query_language/spec/#notation)
 * [Query representation](/enterprise_influxdb/v1.9/query_language/spec/#query-representation)
-* [Identifiers](/enterprise_influxdb/v1.9/query_language/spec/#identifiers)
-* [Keywords](/enterprise_influxdb/v1.9/query_language/spec/#keywords)
-* [Literals](/enterprise_influxdb/v1.9/query_language/spec/#literals)
+  * [Characters](/enterprise_influxdb/v1.9/query_language/spec/#characters)
+  * [Letters and digits](/enterprise_influxdb/v1.9/query_language/spec/#letters-and-digits)
+  * [Identifiers](/enterprise_influxdb/v1.9/query_language/spec/#identifiers)
+  * [Keywords](/enterprise_influxdb/v1.9/query_language/spec/#keywords)
+  * [Literals](/enterprise_influxdb/v1.9/query_language/spec/#literals)
 * [Queries](/enterprise_influxdb/v1.9/query_language/spec/#queries)
 * [Statements](/enterprise_influxdb/v1.9/query_language/spec/#statements)
 * [Clauses](/enterprise_influxdb/v1.9/query_language/spec/#clauses)
 * [Expressions](/enterprise_influxdb/v1.9/query_language/spec/#expressions)
+* [Comments](/enterprise_influxdb/v1.9/query_language/spec/#comments)
 * [Other](/enterprise_influxdb/v1.9/query_language/spec/#other)
-* [Query engine internals](/enterprise_influxdb/v1.9/query_language/spec/#query-engine-internals)
 
 To learn more about InfluxQL, browse the following topics:
 
@@ -32,14 +37,13 @@ To learn more about InfluxQL, browse the following topics:
 * [Explore your schema with InfluxQL](/enterprise_influxdb/v1.9/query_language/explore-schema/)
 * [Database management](/enterprise_influxdb/v1.9/query_language/manage-database/)
 * [Authentication and authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/).
-
-InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
+* [Query engine internals](/enterprise_influxdb/v1.9/query_language/spec/#query-engine-internals)
 
 ## Notation
 
 The syntax is specified using Extended Backus-Naur Form ("EBNF").
-EBNF is the same notation used in the [Go](http://golang.org) programming language specification, which can be found [here](https://golang.org/ref/spec).
-Not so coincidentally, InfluxDB is written in Go.
+EBNF is the same notation used in the [Go](http://golang.org) programming language specification,
+which can be found [here](https://golang.org/ref/spec).
 
 ```
 Production  = production_name "=" [ Expression ] "." .
@@ -71,7 +75,7 @@ newline             = /* the Unicode code point U+000A */ .
 unicode_char        = /* an arbitrary Unicode code point except newline */ .
 ```
 
-## Letters and digits
+### Letters and digits
 
 Letters are the set of ASCII characters plus the underscore character _ (U+005F) is considered a letter.
 
@@ -83,7 +87,7 @@ ascii_letter        = "A" … "Z" | "a" … "z" .
 digit               = "0" … "9" .
 ```
 
-## Identifiers
+### Identifiers
 
 Identifiers are tokens which refer to [database](/enterprise_influxdb/v1.9/concepts/glossary/#database) names, [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) names, [user](/enterprise_influxdb/v1.9/concepts/glossary/#user) names, [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) names, [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key), and [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
 
@@ -111,7 +115,7 @@ _cpu_stats
 "1_Crazy-1337.identifier>NAME👍"
 ```
 
-## Keywords
+### Keywords
 
 ```
 ALL           ALTER         ANY           AS            ASC           BEGIN
@@ -147,9 +151,9 @@ In those cases, `time` does not require double quotes in queries.
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
 See [Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#time) for more information.
 
-## Literals
+### Literals
 
-### Integers
+#### Integers
 
 InfluxQL supports decimal integer literals.
 Hexadecimal and octal literals are not currently supported.
@@ -158,7 +162,7 @@ Hexadecimal and octal literals are not currently supported.
 int_lit             = ( "1" … "9" ) { digit } .
 ```
 
-### Floats
+#### Floats
 
 InfluxQL supports floating-point literals.
 Exponents are not currently supported.
@@ -167,7 +171,7 @@ Exponents are not currently supported.
 float_lit           = int_lit "." int_lit .
 ```
 
-### Strings
+#### Strings
 
 String literals must be surrounded by single quotes.
 Strings may contain `'` characters as long as they are escaped (i.e., `\'`).
@@ -176,13 +180,13 @@ Strings may contain `'` characters as long as they are escaped (i.e., `\'`).
 string_lit          = `'` { unicode_char } `'` .
 ```
 
-### Durations
+#### Durations
 
 Duration literals specify a length of time.
 An integer literal followed immediately (with no spaces) by a duration unit listed below is interpreted as a duration literal.
 Durations can be specified with mixed units.
 
-#### Duration units
+##### Duration units
 
 | Units  | Meaning                                 |
 | ------ | --------------------------------------- |
@@ -195,13 +199,12 @@ Durations can be specified with mixed units.
 | d      | day                                     |
 | w      | week                                    |
 
-
 ```
 duration_lit        = int_lit duration_unit .
 duration_unit       = "ns" | "u" | "µ" | "ms" | "s" | "m" | "h" | "d" | "w" .
 ```
 
-### Dates & Times
+#### Dates & Times
 
 The date and time literal format is not specified in EBNF like the rest of this document.
 It is specified using Go's date / time parsing format, which is a reference date written in the format required by InfluxQL.
@@ -213,13 +216,13 @@ InfluxQL reference date time: January 2nd, 2006 at 3:04:05 PM
 time_lit            = "2006-01-02 15:04:05.999999" | "2006-01-02" .
 ```
 
-### Booleans
+#### Booleans
 
 ```
 bool_lit            = TRUE | FALSE .
 ```
 
-### Regular Expressions
+#### Regular Expressions
 
 ```
 regex_lit           = "/" { unicode_char } "/" .
@@ -1069,7 +1072,6 @@ name: runtime
 Alloc   Frees   HeapAlloc       HeapIdle        HeapInUse       HeapObjects     HeapReleased    HeapSys         Lookups Mallocs NumGC   NumGoroutine    PauseTotalNs    Sys             TotalAlloc
 4136056 6684537 4136056         34586624        5816320         49412           0               40402944        110     6733949 83      44              36083006        46692600        439945704
 
-
 name: graphite
 tags: proto=tcp
 batches_tx      bytes_rx        connections_active      connections_handled     points_rx       points_tx
@@ -1242,6 +1244,15 @@ unary_expr       = "(" expr ")" | var_ref | time_lit | string_lit | int_lit |
                    float_lit | bool_lit | duration_lit | regex_lit .
 ```
 
+## Comments
+
+Use comments with InfluxQL statements to describe your queries.
+
+* A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
+  This comment type cannot span several lines.
+* A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
+  Multi-line comments do not support nested multi-line comments.
+
 ## Other
 
 ```
@@ -1317,164 +1328,3 @@ user_name        = identifier .
 
 var_ref          = measurement .
 ```
-
-### Comments
-
-Use comments with InfluxQL statements to describe your queries.
-
-* A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
-  This comment type cannot span several lines.
-* A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
-  Multi-line comments do not support nested multi-line comments.
-
-## Query Engine Internals
-
-Once you understand the language itself, it's important to know how these
-language constructs are implemented in the query engine. This gives you an
-intuitive sense for how results will be processed and how to create efficient
-queries.
-
-The life cycle of a query looks like this:
-
-1. InfluxQL query string is tokenized and then parsed into an abstract syntax
-   tree (AST). This is the code representation of the query itself.
-
-2. The AST is passed to the `QueryExecutor` which directs queries to the
-   appropriate handlers. For example, queries related to meta data are executed
-   by the meta service and `SELECT` statements are executed by the shards
-   themselves.
-
-3. The query engine then determines the shards that match the `SELECT`
-   statement's time range. From these shards, iterators are created for each
-   field in the statement.
-
-4. Iterators are passed to the emitter which drains them and joins the resulting
-   points. The emitter's job is to convert simple time/value points into the
-   more complex result objects that are returned to the client.
-
-### Understanding iterators
-
-Iterators are at the heart of the query engine. They provide a simple interface
-for looping over a set of points. For example, this is an iterator over Float
-points:
-
-```
-type FloatIterator interface {
-    Next() *FloatPoint
-}
-```
-
-These iterators are created through the `IteratorCreator` interface:
-
-```
-type IteratorCreator interface {
-    CreateIterator(opt *IteratorOptions) (Iterator, error)
-}
-```
-
-The `IteratorOptions` provide arguments about field selection, time ranges,
-and dimensions that the iterator creator can use when planning an iterator.
-The `IteratorCreator` interface is used at many levels such as the `Shards`,
-`Shard`, and `Engine`. This allows optimizations to be performed when applicable
-such as returning a precomputed `COUNT()`.
-
-Iterators aren't just for reading raw data from storage though. Iterators can be
-composed so that they provided additional functionality around an input
-iterator. For example, a `DistinctIterator` can compute the distinct values for
-each time window for an input iterator. Or a `FillIterator` can generate
-additional points that are missing from an input iterator.
-
-This composition also lends itself well to aggregation. For example, a statement
-such as this:
-
-```sql
-SELECT MEAN(value) FROM cpu GROUP BY time(10m)
-```
-
-In this case, `MEAN(value)` is a `MeanIterator` wrapping an iterator from the
-underlying shards. However, if we can add an additional iterator to determine
-the derivative of the mean:
-
-```
-SELECT DERIVATIVE(MEAN(value), 20m) FROM cpu GROUP BY time(10m)
-```
-
-### Understanding cursors
-
-A **cursor** identifies data by shard in tuples (time, value) for a single series (measurement, tag set and field). The cursor trasverses data stored as a log-structured merge-tree and handles deduplication across levels, tombstones for deleted data, and merging the cache (Write Ahead Log). A cursor sorts the `(time, value)` tuples by time in ascending or descending order.
-
-For example, a query that evaluates one field for 1,000 series over 3 shards constructs a minimum of 3,000 cursors (1,000 per shard).
-
-### Understanding auxiliary fields
-
-Because InfluxQL allows users to use selector functions such as `FIRST()`,
-`LAST()`, `MIN()`, and `MAX()`, the engine must provide a way to return related
-data at the same time with the selected point.
-
-For example, in this query:
-
-```sql
-SELECT FIRST(value), host FROM cpu GROUP BY time(1h)
-```
-
-We are selecting the first `value` that occurs every hour but we also want to
-retrieve the `host` associated with that point. Since the `Point` types only
-specify a single typed `Value` for efficiency, we push the `host` into the
-auxiliary fields of the point. These auxiliary fields are attached to the point
-until it is passed to the emitter where the fields get split off to their own
-iterator.
-
-### Built-in iterators
-
-There are many helper iterators that let us build queries:
-
-* Merge Iterator - This iterator combines one or more iterators into a single
-  new iterator of the same type. This iterator guarantees that all points
-  within a window will be output before starting the next window but does not
-  provide ordering guarantees within the window. This allows for fast access
-  for aggregate queries which do not need stronger sorting guarantees.
-
-* Sorted Merge Iterator - This iterator also combines one or more iterators
-  into a new iterator of the same type. However, this iterator guarantees
-  time ordering of every point. This makes it slower than the `MergeIterator`
-  but this ordering guarantee is required for non-aggregate queries which
-  return the raw data points.
-
-* Limit Iterator - This iterator limits the number of points per name/tag
-  group. This is the implementation of the `LIMIT` & `OFFSET` syntax.
-
-* Fill Iterator - This iterator injects extra points if they are missing from
-  the input iterator. It can provide `null` points, points with the previous
-  value, or points with a specific value.
-
-* Buffered Iterator - This iterator provides the ability to "unread" a point
-  back onto a buffer so it can be read again next time. This is used extensively
-  to provide lookahead for windowing.
-
-* Reduce Iterator - This iterator calls a reduction function for each point in
-  a window. When the window is complete then all points for that window are
-  output. This is used for simple aggregate functions such as `COUNT()`.
-
-* Reduce Slice Iterator - This iterator collects all points for a window first
-  and then passes them all to a reduction function at once. The results are
-  returned from the iterator. This is used for aggregate functions such as
-  `DERIVATIVE()`.
-
-* Transform Iterator - This iterator calls a transform function for each point
-  from an input iterator. This is used for executing binary expressions.
-
-* Dedupe Iterator - This iterator only outputs unique points. It is resource
-  intensive so it is only used for small queries such as meta query statements.
-
-### Call iterators
-
-Function calls in InfluxQL are implemented at two levels. Some calls can be
-wrapped at multiple layers to improve efficiency. For example, a `COUNT()` can
-be performed at the shard level and then multiple `CountIterator`s can be
-wrapped with another `CountIterator` to compute the count of all shards. These
-iterators can be created using `NewCallIterator()`.
-
-Some iterators are more complex or need to be implemented at a higher level.
-For example, the `DERIVATIVE()` needs to retrieve all points for a window first
-before performing the calculation. This iterator is created by the engine itself
-and is never requested to be created by the lower levels.
