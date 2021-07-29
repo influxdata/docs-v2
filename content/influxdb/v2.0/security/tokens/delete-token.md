@@ -12,7 +12,7 @@ weight: 204
 ---
 
 Delete API tokens from the InfluxDB user interface (UI) or the `influx` command line interface (CLI).
-Once deleted, all users and external integrations using the token will no longer
+Once deleted, all users and external integrations using the API token will no longer
 have access to your InfluxDB instance.
 
 ## Delete tokens in the InfluxDB UI

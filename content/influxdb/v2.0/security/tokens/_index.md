@@ -12,14 +12,14 @@ menu:
 weight: 103
 ---
 
-InfluxDB **API tokens** ensure secure interaction between users and data.
+InfluxDB **API tokens** ensure secure interaction between InfluxDB and external tools such as clients or applications.
 A token belongs to an organization and identifies InfluxDB permissions within the organization.
 
 Learn how to create, view, update, or delete an API token.
 
 ## API token types
 
-- [Operator token](#operator-token)
+- [Operator API token](#operator-token)
 - [All-Access token](#all-access-token)
 - [Read/Write token](#readwrite-token)
 
