@@ -25,8 +25,8 @@ list_code_example: |
 To query [Google Cloud Bigtable](https://cloud.google.com/bigtable/) with Flux:
 
 1. Import the [`experimental/bigtable` package](/flux/v0.x/stdlib/experimental/bigtable/).
-2. Use [`bigtable.from`](/flux/v0.x/stdlib/experimental/bigtable/from).
-   Provide the following parameters:
+2. Use [`bigtable.from`](/flux/v0.x/stdlib/experimental/bigtable/from) and
+   provide the following parameters:
 
     - **token**: Google Cloud IAM token
     - **project**: Bigtable project ID
