@@ -1031,7 +1031,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
      "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
    ```
 
-6. Update the `latest_version` in `data/version.yaml`:
+6. Update the `latest_version` in `data/products.yml`:
    ```yaml
    latest_version: v2.1
    ```
