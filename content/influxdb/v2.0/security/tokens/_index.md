@@ -20,7 +20,7 @@ Learn how to create, view, update, or delete an API token.
 ## API token types
 
 - [Operator API token](#operator-token)
-- [All-Access token](#all-access-token)
+- [All-Access API token](#all-access-token)
 - [Read/Write token](#readwrite-token)
 
 #### Operator token
