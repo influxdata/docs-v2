@@ -901,7 +901,7 @@ show_grants_stmt = "SHOW GRANTS FOR" user_name .
 SHOW GRANTS FOR "jdoe"
 ```
 
-#### SHOW MEASUREMENT CARDINALITY
+### SHOW MEASUREMENT CARDINALITY
 
 Estimates or counts exactly the cardinality of the measurement set for the current database unless a database is specified using the `ON <database>` option.
 
