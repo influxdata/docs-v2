@@ -8,13 +8,11 @@ menu:
     parent: InfluxQL
 ---
 
-## Query Engine Internals
 
-Read here about the implementation of InfluxQL
-to help develop an intuitive sense for how
-results will be processed and how to create efficient queries.
+Learn about the implementation of InfluxQL to understand how
+results are processed and how to create efficient queries.
 
-The life cycle of a query looks like this:
+## Query life cycle
 
 1. InfluxQL query string is tokenized and then parsed into an abstract syntax
    tree (AST). This is the code representation of the query itself.
@@ -34,9 +32,8 @@ The life cycle of a query looks like this:
 
 ### Understanding iterators
 
-Iterators are at the heart of the query engine. They provide a simple interface
-for looping over a set of points. For example, this is an iterator over Float
-points:
+Iterators  provide a simple interface for looping over a set of points.
+For example, this is an iterator over Float points:
 
 ```
 type FloatIterator interface {
@@ -75,7 +72,7 @@ In this case, `MEAN(value)` is a `MeanIterator` wrapping an iterator from the
 underlying shards. However, if we can add an additional iterator to determine
 the derivative of the mean:
 
-```
+```sql
 SELECT DERIVATIVE(MEAN(value), 20m) FROM cpu GROUP BY time(10m)
 ```
 
@@ -85,7 +82,7 @@ A **cursor** identifies data by shard in tuples (time, value) for a single serie
 
 For example, a query that evaluates one field for 1,000 series over 3 shards constructs a minimum of 3,000 cursors (1,000 per shard).
 
-### Understanding auxiliary fields
+### Auxiliary fields
 
 Because InfluxQL allows users to use selector functions such as `FIRST()`,
 `LAST()`, `MIN()`, and `MAX()`, the engine must provide a way to return related
