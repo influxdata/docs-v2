@@ -13,7 +13,7 @@ weight: 103
 ---
 
 InfluxDB **API tokens** ensure secure interaction between InfluxDB and external tools such as clients or applications.
-A token belongs to an organization and identifies InfluxDB permissions within the organization.
+An API token belongs to a specific user and identifies InfluxDB permissions within the user's organization.
 
 Learn how to create, view, update, or delete an API token.
 
