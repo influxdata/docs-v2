@@ -12,6 +12,7 @@ menu:
 ## v2.1.0 [2021-07-29]
 
 ## New Repository
+
 This is the initial release of the `influx` CLI from the `influxdata/influx-cli` GitHub repository.
 
 ## Breaking Changes
@@ -32,7 +33,8 @@ The template and template validate commands now use an API request to the server
 
 The output of influx stacks --json previously used an UpperCamelCase naming convention for most, but not all, keys. The command now uses lowerCamelCase consistently for all objects keys, matching the schema returned by the API.
 
-Features
+## Features
+
 33: Add global --http-debug flag to help inspect communication with InfluxDB servers.
 52: Add bucket-schema commands to manage explicit measurement schemas in InfluxDB Cloud.
 52: Update bucket create to allow setting a schema type.
@@ -43,6 +45,14 @@ Features
 191: Add --password flag to user password command to allow bypassing interactive prompt.
 208: Bind --skip-verify flag to INFLUX_SKIP_VERIFY environment variable.
 Bug Fixes
+35: Fix interactive password collection & color rendering in PowerShell.
+97: org members list no longer hangs on organizations with more than 10 members.
+109: Detect & warn when inputs to write contain standalone CR characters.
+122: dashboards command now accepts --org flag, or falls back to default org in config.
+140: Return a consistent error when responses fail to decode, with hints for OSS- our Cloud-only commands.
+
+## Bug Fixes
+
 35: Fix interactive password collection & color rendering in PowerShell.
 97: org members list no longer hangs on organizations with more than 10 members.
 109: Detect & warn when inputs to write contain standalone CR characters.
