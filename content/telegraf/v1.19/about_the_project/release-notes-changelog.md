@@ -19,7 +19,7 @@ menu:
 
 ## Input plugin updates
 - CGroup (`couchbase`): Allow for multiple keys when parsing cgroups.
-- Kubernetes (`kubernetes`): Update plugin to attach pod labels to the `kubernetes_pod_volume` & `kubernetes_pod_network` metrics.
+- Kubernetes (`kubernetes`): Update plugin to attach pod labels to the `kubernetes_pod_volume` and `kubernetes_pod_network` metrics.
 - Kubernetes Inventory (`kube_inventory`): Fix a segmentation fault when selector labels were not present on a persistent volume claim.
 - MongoDB (`mongodb`): Switch to official `mongo-go-driver` module to fix an SSL authentication failure.
 - NSQ Consumer (`couchbase`): Fix a connection error when try to connect to an empty list of servers.
