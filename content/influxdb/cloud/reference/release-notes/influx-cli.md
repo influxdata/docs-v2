@@ -8,7 +8,6 @@ menu:
     name: influx CLI 
 ---
 
-
 ## v2.1.0 [2021-07-29]
 
 ## New repository
@@ -19,32 +18,32 @@ This is the initial release of the `influx` CLI from the `influxdata/influx-cli`
 
 ### `influx write` skip-header parsing
 
-The `write` command no longer supports `--skipHeader` as short-hand for `--skipHeader 1`. 
+The `write` command no longer supports `--skipHeader` as short-hand for `--skipHeader 1`.
 This change was made to simplify our CLI parser.
 
-### Stricter input validation for template-related commands
+### Stricter input validation for `influx template` commands
 
-The `apply`, `export`, and `stacks` commands now raise errors when CLI options fail to parse instead of silently discarding bad inputs. 
+The `apply`, `export`, and `stacks` commands now raise errors when CLI options fail to parse instead of silently discarding bad inputs.
 This change was made to help users debug when their commands fail to execute as expected.
 
-### Server-side template summarization & validation
+### Server-side template summarization and validation
 
-The `template` and `template validate` commands now use an API request to the server to perform their logic, instead of performing the work on the client-side. 
-Offline summarization and validation is no longer supported. 
-This change was made to avoid significant code duplication between `influxdb` and `influx CLI`, and to allow server- side template logic to evolve without requiring coordinated CLI changes.
+The `template` and `template validate` commands now use an API request to the server to perform their logic, instead of performing the work on the client-side.
+Offline summarization and validation is no longer supported.
+This change was made to avoid significant code duplication between `influxdb` and `influx CLI`, and to allow server-side template logic to evolve without requiring coordinated CLI changes.
 
 ### `influx stacks --json` output conventions
 
-The output of `influx stacks --json` previously used an UpperCamelCase naming convention for most, but not all, keys. 
+The output of `influx stacks --json` previously used an UpperCamelCase naming convention for most keys.
 The command now uses lowerCamelCase consistently for all objects keys, matching the schema returned by the API.
 
 ## Features
 
-- Add global `--http-debug` flag to help inspect communication with InfluxDB servers.
+- Add global `--http-debug` flag to all `influx` commands to help inspect communication with InfluxDB servers.
 - Add [`bucket-schema` commands](/influxdb/cloud/reference/cli/influx/bucket-schema/) to manage explicit measurement schemas in InfluxDB Cloud.
 - Update [`bucket create`](/influxdb/cloud/reference/cli/influx/bucket/create/) to allow setting a schema type.
 - Update [`bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/) to display schema types.
-- (OSS only) Updates to `backup` and `restore`: 
+- (OSS only) Updates to `backup` and `restore`:
   - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB v2.1.x.
   - Add `--compression` flag to support enabling/disabling GZIP compression of downloaded files.
   - Reimplement `restore` to support uploading embedded SQL store from InfluxDB v2.1.x.
