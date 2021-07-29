@@ -23,16 +23,17 @@ Download, install, and set up InfluxDB OSS.
 [Windows](#)
 [Docker](#)
 [Kubernetes](#)
+[Raspberry Pi](#)
 {{% /tabs %}}
 
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
-## Install InfluxDB v2.0
+### Install InfluxDB v2.0
 
 - [Use Homebrew](#use-homebrew)
 - [Manually download and install](#manually-download-and-install)
 
-### Use Homebrew
+#### Use Homebrew
 
 We recommend using [Homebrew](https://brew.sh/) to install InfluxDB v2.0 on macOS:
 
@@ -41,15 +42,12 @@ brew update
 brew install influxdb
 ```
 
-### Manually download and install
+#### Manually download and install
 
-#### Manually install InfluxDB 
-Manually download and expand the InfluxDB v2.0 package for macOS:
+You can also download the InfluxDB v2.0 binaries for macOS directly:
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz" download>InfluxDB v2.0 (macOS)</a>
 
-{{< expand-wrapper >}}
-{{% expand "(Optional) Verify the authenticity of downloaded binary" %}}
 ##### (Optional) Verify the authenticity of downloaded binary
 
 For added security, use `gpg` to verify the signature of your download.
@@ -80,32 +78,26 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     ```
     gpg: Good signature from "InfluxData <support@influxdata.com>" [unknown]
     ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
 
-##### Networking ports
+##### Unpackage the InfluxDB binaries
 
-By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
+To unpackage the downloaded archive, **double-click the archive file in Finder**
+or run the following command in a macOS command prompt application such
+**Terminal** or **[iTerm2](https://www.iterm2.com/)**:
 
-#### Manually install the influx CLI 
-The [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) is a tool for interacting with the InfluxDB server. 
+```sh
+# Unpackage contents to the current working directory
+tar zxvf ~/Downloads/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz
+```
 
-Download and expand the influx CLI package.
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
-
-#### (Optional) Place the binaries in your $PATH
+##### (Optional) Place the binaries in your $PATH
 
 If you choose, you can place `influx` and `influxd` in your `$PATH` or you can
 prefix the executables with `./` to run then in place.
 
 ```sh
-# Copy the influxd binary to your $PATH
-sudo cp ~/Downloads/influxdb2-{{< latest-patch >}}-darwin-amd64/influxd /usr/local/bin/
-
-# Copy the influx binary to your $PATH
-sudo cp ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64/influx /usr/local/bin/
+# (Optional) Copy the influx and influxd binary to your $PATH
+sudo cp influxdb2-{{< latest-patch >}}-darwin-amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -115,9 +107,10 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
-#### (Optional) Enable shell completion
+##### Networking ports
 
-To install `influx` shell completion scripts, see [`influx completion`](/influxdb/v2.0/reference/cli/influx/completion/#install-completion-scripts).
+By default, InfluxDB uses TCP port `8086` for client-server communication over
+the [InfluxDB HTTP API](/influxdb/v2.0/reference/api/).
 
 ### Start InfluxDB
 
@@ -161,6 +154,10 @@ file and process limits for your operating system version then restart `influxd`
 _See the [`influxd` documentation](/influxdb/v2.0/reference/cli/influxd) for information about
 available flags and options._
 
+### Enable shell completion (Optional)
+
+To install `influx` shell completion scripts, see [`influx completion`](/influxdb/v2.0/reference/cli/influx/completion/#install-completion-scripts).
+
 {{% note %}}
 #### InfluxDB "phone home"
 
@@ -188,8 +185,7 @@ Download InfluxDB v2.0 for Linux.
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz" download >InfluxDB v2.0 (amd64)</a>
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-arm64.tar.gz" download >InfluxDB v2.0 (arm)</a>
 
-{{< expand-wrapper >}}
-{{% expand "(Optional) Verify the authenticity of downloaded binary" %}} 
+### (Optional) Verify the authenticity of downloaded binary
 
 For added security, use `gpg` to verify the signature of your download.
 (Most operating systems include the `gpg` command by default.
@@ -219,15 +215,8 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     ```
     gpg: Good signature from "InfluxData <support@influxdata.com>" [unknown]
     ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
 
-Download and install the influx CLI. 
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
-
-### (Optional) Place the executables in your $PATH
+### Place the executables in your $PATH
 
 Unpackage the downloaded archive and place the `influx` and `influxd` executables in your system `$PATH`.
 
@@ -236,11 +225,9 @@ _**Note:** The following commands are examples. Adjust the file names, paths, an
 ```sh
 # Unpackage contents to the current working directory
 tar xvzf path/to/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz
-tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
 
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/influxd /usr/local/bin/
-sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
+sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/{influx,influxd} /usr/local/bin/
 ```
 
 {{% note %}}
@@ -285,7 +272,11 @@ If you rename the binaries, all references to `influx` and `influxd` in this doc
       Active: active (running)
     ```
 
-For more information about the file system layout of InfluxDB when installed as a service, see [File system layout](/influxdb/v2.0/reference/internals/file-system-layout/?t=Linux#installed-as-a-package).
+When installed as a service, InfluxDB stores data in the following locations:
+
+- **Time series data:** `/var/lib/influxdb/engine/`
+- **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
+- **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.0/reference/cli/influx/config/) for more information)_ .
 
 To customize your InfluxDB configuration, use either
 [command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
@@ -363,18 +354,11 @@ Download InfluxDB v2.0 for Windows.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v2.0 (Windows)</a>
 
-### Download and install influx CLI 
-Download influx CLI for Windows. 
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download >influx CLI (Windows)</a>
-
 Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
 
 ```powershell
 > Expand-Archive .\influxdb2-{{< latest-patch >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
-> Expand-Archive .\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
 > mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
-> mv 'C:\Program Files\InfluxData\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
 ```
 
 ### Networking ports
@@ -562,6 +546,39 @@ Always inspect YAML manifests before running `kubectl apply -f <url>`!
 
 {{% /tab-content %}}
 <!--------------------------------- END kubernetes ---------------------------->
+<!--------------------------------- BEGIN Rasberry Pi ------------------------->
+{{% tab-content %}}
+
+### InfluxDB on Raspberry Pi
+
+#### Requirements
+
+To run InfluxDB on Raspberry Pi, you will need:
+
+- a Raspberry Pi 4+ or 400
+- a 64-bit operating system.
+  We recommend installing a [64-bit version of Ubuntu](https://ubuntu.com/download/raspberry-pi)
+  of Ubuntu Desktop or Ubuntu Server compatible with 64-bit Raspberry Pi.
+
+#### Installation
+
+Follow the [Linux installation instructions](/influxdb/v2.0/install/?t=Linux)
+to install InfluxDB on a Raspberry Pi.
+
+Use the [Raspberry Pi template](/influxdb/cloud/monitor-alert/templates/infrastructure/raspberry-pi/)
+to easily configure collecting and visualizating system metrics for the Raspberry Pi.
+
+#### Support for 32-bit systems
+
+If you have a 32-bit Raspberry Pi, [use Telegraf](/{{< latest "telegraf" >}}/)
+to collect and send data to:
+
+- [InfluxDB OSS](/influxdb/v2.0/), running on a 64-bit system
+- InfluxDB Cloud with a [**Free Tier**](/influxdb/cloud/account-management/pricing-plans/#free-plan) account
+- InfluxDB Cloud with a paid [**Usage-Based**](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) account with relaxed resource restrictions.
+
+{{% /tab-content %}}
+<!--------------------------------- END Rasberry Pi --------------------------->
 
 {{< /tabs-wrapper >}}
 
