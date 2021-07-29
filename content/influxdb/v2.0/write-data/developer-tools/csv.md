@@ -18,27 +18,11 @@ related:
 ---
 
 Write CSV data with the following methods:
-- [Flux](#flux)
 - [influx write command](#influx-write-command)
 - [Telegraf](#telegraf)
+- [Flux](#flux)
 
-### Flux
-
-Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) Flux functions to write an annotated CSV to the bucket of your choice.
-
-{{< youtube wPKZ9i0DulQ >}}
-
-The experimental [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) function lets you write CSV from a URL.
-The example below writes [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data) to an example `noaa` bucket in an example organization:
-
-```js
-import "experimental/csv"
-
-csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-  |> to(bucket: "noaa", org: "example-org")
-```
-
-### influx write command
+## influx write command
 
 Use the [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write CSV data
 to InfluxDB. Include [Extended annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/extended/)
@@ -106,7 +90,7 @@ macOS users, to persist the `ulimit` setting, follow the [recommended steps](htt
 
 {{% /note %}}
 
-### Telegraf 
+## Telegraf 
 
 Use CSV data format in Telegraf as a way to write CSV data to InfluxDB. 
 
@@ -581,3 +565,19 @@ example lbs=2014.9 1578096000000000000
 ```
 {{% /flex-content %}}
 {{< /flex >}}
+
+## Flux
+
+Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) Flux functions to write an annotated CSV to the bucket of your choice.
+
+{{< youtube wPKZ9i0DulQ >}}
+
+The experimental [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) function lets you write CSV from a URL.
+The example below writes [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data) to an example `noaa` bucket in an example organization:
+
+```js
+import "experimental/csv"
+
+csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
+  |> to(bucket: "noaa", org: "example-org")
+```
