@@ -1091,7 +1091,7 @@ show_subscriptions_stmt = "SHOW SUBSCRIPTIONS" .
 SHOW SUBSCRIPTIONS
 ```
 
-#### SHOW TAG KEY CARDINALITY
+### SHOW TAG KEY CARDINALITY
 
 Estimates or counts exactly the cardinality of tag key set on the current database unless a database is specified using the `ON <database>` option.
 
