@@ -37,7 +37,7 @@ menu:
   - Fixed a panic caused by uninitialized `loggedMetrics` map
 - InfluxDB (`influxdb`): Fix issue where metrics were reporting as written but not actually written.
 
-## Processor Plugin Updates
+## Processor plugin updates
 - IfName (`ifname`): Fix issue with SNMP empty metric name.
 
 ## Parser Plugin Updates
