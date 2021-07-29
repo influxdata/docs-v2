@@ -7,6 +7,9 @@ menu:
     name: Manage authentication and authorization
     weight: 30
     parent: Administration
+related:
+  - /enterprise_influxdb/v1.9/guides/fine-grained-authorization/
+  - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
 This document covers setting up and managing authentication and authorization in InfluxDB Enterprise.
@@ -250,6 +253,13 @@ Restart Telegraf and you're all set!
 
 Authorization is only enforced once you've [enabled authentication](#set-up-authentication).
 By default, authentication is disabled, all credentials are silently ignored, and all users have all privileges.
+
+{{% note %}}
+#### Manage InfluxDB Enterprise users with Chronograf
+[Chronograf](/{{< latest "chronograf" >}}/) is an open source project that
+provides a user interface for working with InfluxDB and InfluxDB Enterprise.
+Consider using Chronograf to [manage InfluxDB users and roles](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
+{{% /note %}}
 
 ### User types and privileges
 
