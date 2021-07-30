@@ -1020,14 +1020,13 @@ Requests to `/shard-status` return the following information in JSON format:
 
 - `id`: the shard ID
 - `size`: the size on disk of the shard in bytes
-- `is_hot`: whether the time range from the shard includes `now`.
+- `is_hot`: whether the time range from the shard includes `now`
   {{% note %}}
 An *idle* shard is fully compacted and not receiving new (potentially historical) writes.
 A hot shard may or may not be idle.
   {{% /note %}}
-- `state`: the anti-entropy status of the shard.
-  `state` can be one of:
-  `healthy`,`restore pending`,`restoring`,`repairing`,`error processing`.
+- `state`: the anti-entropy status of the shard can be one of the following:
+  `healthy`,`restore pending`,`restoring`,`repairing`,`error processing`
 
 #### Example
 
