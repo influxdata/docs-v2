@@ -92,7 +92,7 @@ Select one of the following output cell-types:
 4. (Optional) Personalize your alarm message. By default, the message is "Notification Rule: ${ r._notification_rule_name } triggered by check: ${ r._check_name }: ${ r._message }." 
 5. Click **Export as Task** to create your alarm. 
 
-**Output to Bucket**
+**Output to bucket**
 
 1. Select a bucket. 
 2. Click **Preview** to see what would be written to the bucket without commiting, or click **Run** in the upper left to write, or select **Export as Task** to schedule your output as a task. 
