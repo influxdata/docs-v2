@@ -31,7 +31,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
     - [Pass-through](#pass-through): to visualize and add notes to your data
     - [Output](#output): to write data to a bucket, preview output before writing, or schedule an output task
 
-### Input 
+### Add an input cell 
 
 1. Select **Metric Builder** or **Query Builder** as your input, and then select the bucket to pull data from.
 2. Select filters to narrow your data.
