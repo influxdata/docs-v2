@@ -45,10 +45,10 @@ bigtable.from(
 ```
 
 ## Results structure
-`bigtable.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
+`bigtable.from()` returns a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 with no grouping (all rows in a single table).
 For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
+[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-tables).
 
 ## Store sensitive credentials as secrets
 If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing Bigtable
