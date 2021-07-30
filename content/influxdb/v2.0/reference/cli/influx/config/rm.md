@@ -27,6 +27,7 @@ influx config rm <config-name> [flags]
 |:---- |:---              |:-----------                                                        |:----------: |:------------------    |
 | `-h` | `--help`         | Help for the `delete` command                                      |             |                       |
 |      | `--hide-headers` | Hide table headers (default `false`)                               |             | `INFLUX_HIDE_HEADERS` |
+|      | `--http-debug`   | Inspect communication with InfluxDB servers.                       | string      |                       |
 |      | `--json`         | Output data as JSON (default `false`)                              |             | `INFLUX_OUTPUT_JSON`  |
 
 ## Examples

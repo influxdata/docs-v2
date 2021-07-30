@@ -24,6 +24,7 @@ influx config create [flags]
 | `-h` | `--help`         | Help for the `create` command                                |             |                       |
 |      | `--hide-headers` | Hide table headers (default `false`)                         |             | `INFLUX_HIDE_HEADERS` |
 | `-u` | `--host-url`     | ({{< req >}}) Connection URL for the new configuration.     | string      |                       |
+|      | `--http-debug`   | Inspect communication with InfluxDB servers.                 | string      |                      |
 |      | `--json`         | Output data as JSON (default `false`)                        |             | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`          | Organization name                                            | string      |                       |
 | `-t` | `--token`        | Authentication token                                         | string      | `INFLUX_TOKEN`         |
