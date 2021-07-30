@@ -40,15 +40,15 @@ The command now uses lowerCamelCase consistently for all objects keys, matching 
 ## Features
 
 - Add global `--http-debug` flag to all `influx` commands to help inspect communication with InfluxDB servers.
-- (InfluxDB Cloud only) Add [`bucket-schema` commands](/influxdb/cloud/reference/cli/influx/bucket-schema/) to manage explicit measurement schemas in InfluxDB Cloud.
 - Update [`bucket create`](/influxdb/cloud/reference/cli/influx/bucket/create/) to allow setting a schema type.
 - Update [`bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/) to display schema types.
+- Bind [`--skip-verify`](/influxdb/cloud/reference/cli/influx/org/members/add/#flags) flag to the `INFLUX_SKIP_VERIFY` environment variable.
+- (InfluxDB Cloud only) Add [`buck
 - (InfluxDB OSS only) Updates to `backup` and `restore`:
-  - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB v2.1.x.
+  - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB 2.0 or later.
   - Add [`--compression`](/influxdb/v2.0/reference/cli/influx/backup/_index.md) flag to support GZIP compression of downloaded files.
   - Reimplement `restore` to support uploading embedded SQL store from InfluxDB v2.1.x.
 - (InfluxDB OSS only) Add [`--password`](/influxdb/cloud/reference/cli/influx/user/password/) flag to `user password` command to allow bypassing interactive prompt.
-- Bind [`--skip-verify`](/influxdb/cloud/reference/cli/influx/org/members/add/#flags) flag to the `INFLUX_SKIP_VERIFY` environment variable.
 
 ## Bug fixes
 
