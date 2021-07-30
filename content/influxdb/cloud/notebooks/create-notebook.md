@@ -81,7 +81,7 @@ Select one of the following output cell-types:
 - To write output to a bucket, select **Output to Bucket** and complete the steps below. 
 - To create a task, select **Schedule** and complete the steps below. 
 
-**Notification**
+#### Add a notification
 
 1. Enter a time range to automatically check the data and enter your query offset. 
 2. Customize the conditions to send an alarm. 
