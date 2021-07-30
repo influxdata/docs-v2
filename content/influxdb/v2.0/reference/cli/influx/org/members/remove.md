@@ -20,6 +20,7 @@ influx org members remove [flags]
 |:---- |:---             |:-----------                                                |:----------: |:------------------ |
 | `-h` | `--help`        | Help for the `remove` command                              |             |                    |
 |      | `--host`        | HTTP address of InfluxDB (default `http://localhost:8086`) | string      | `INFLUX_HOST`      |
+|      | `--http-debug`  | Inspect communication with InfluxDB servers.               | string      |                    |
 | `-i` | `--id`          | Organization ID                                            | string      | `INFLUX_ORG_ID`    |
 | `-m` | `--member`      | Member ID                                                  | string      |                    |
 | `-n` | `--name`        | Organization name                                          | string      | `INFLUX_ORG`       |

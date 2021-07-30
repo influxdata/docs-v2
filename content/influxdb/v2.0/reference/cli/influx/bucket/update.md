@@ -31,6 +31,7 @@ influx bucket update [flags]
 | `-h` | `--help`                 | Help for the `update` command                                         |             |                       |
 |      | `--hide-headers`         | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`                 | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
+|      | `--http-debug`           | Inspect communication with InfluxDB servers.                          | string      |                       |
 | `-i` | `--id`                   | ({{< req >}}) Bucket ID                                               | string      |                       |
 |      | `--json`                 | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`                 | New bucket name                                                       | string      | `INFLUX_BUCKET_NAME`  |
