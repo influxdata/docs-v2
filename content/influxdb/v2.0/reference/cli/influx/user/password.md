@@ -27,6 +27,7 @@ influx user password [flags]
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`        |
 | `-i` | `--id`            | User ID                                                               | string      |                      |
 | `-n` | `--name`          | Username                                                              | string      |                      |
+| `-n` | `--password`      | Use `password` flag to send your password instead of typing it in     | string      |                      |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                      |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`       |
 
