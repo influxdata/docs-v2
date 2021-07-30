@@ -27,4 +27,3 @@ influx config list [flags]
 | `-h` | `--help`         | Help for the `list` command                  |                       |
 |      | `--hide-headers` | Hide table headers (default `false`)         | `INFLUX_HIDE_HEADERS` |
 |      | `--json`         | Output data as JSON (default `false`)        | `INFLUX_OUTPUT_JSON`  |
-|      | `--http-debug`   | Inspect communication with InfluxDB servers. |                       |

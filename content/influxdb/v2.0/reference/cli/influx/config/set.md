@@ -20,16 +20,15 @@ influx config set [flags]
 `set` , `update`
 
 ## Flags
-| Flag |                  | Description                                                     | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                                                     |:----------: |:------------------    |
-| `-a` | `--active`        | Set the specified connection to active                          |             |                       |
-| `-n` | `--config-name`   | Name for the InfluxDB connection configuration to set or update | string      |                       |
-| `-h` | `--help`          | Help for the `set` command                                      |             |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)                            |             | `INFLUX_HIDE_HEADERS` |
-| `-u` | `--host-url`      | URL for InfluxDB connection configuration to set or update      | string      |                       |
-|      | `--http-debug`   | Inspect communication with InfluxDB servers.                    | string      |                       |
-|      | `--json`         | Output data as JSON (default `false`)                           |             | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`          | Organization name for the connection configuration              | string      |                       |
+| Flag |                  | Description                                                     | Input type | {{< cli/mapped >}}    |
+| :--- | :--------------- | :-------------------------------------------------------------- | :--------: | :-------------------- |
+| `-a` | `--active`       | Set the specified connection to active                          |            |                       |
+| `-n` | `--config-name`  | Name for the InfluxDB connection configuration to set or update |   string   |                       |
+| `-h` | `--help`         | Help for the `set` command                                      |            |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)                            |            | `INFLUX_HIDE_HEADERS` |
+| `-u` | `--host-url`     | URL for InfluxDB connection configuration to set or update      |   string   |                       |
+|      | `--json`         | Output data as JSON (default `false`)                           |            | `INFLUX_OUTPUT_JSON`  |
+| `-o` | `--org`          | Organization name for the connection configuration              |   string   |                       |
 
 ## Examples
 
