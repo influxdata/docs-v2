@@ -40,7 +40,7 @@ The command now uses lowerCamelCase consistently for all objects keys, matching 
 ## Features
 
 - Add global `--http-debug` flag to all `influx` commands to help inspect communication with InfluxDB servers.
-- Add [`bucket-schema` commands](/influxdb/cloud/reference/cli/influx/bucket-schema/) to manage explicit measurement schemas in InfluxDB Cloud.
+- (InfluxDB Cloud only) Add [`bucket-schema` commands](/influxdb/cloud/reference/cli/influx/bucket-schema/) to manage explicit measurement schemas in InfluxDB Cloud.
 - Update [`bucket create`](/influxdb/cloud/reference/cli/influx/bucket/create/) to allow setting a schema type.
 - Update [`bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/) to display schema types.
 - (OSS only) Updates to `backup` and `restore`:
