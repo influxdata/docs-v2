@@ -18,8 +18,8 @@ This is the initial release of the `influx` CLI from the `influxdata/influx-cli`
 
 ### `influx write` skip-header parsing
 
-The `write` command no longer supports `--skipHeader` as short-hand for `--skipHeader 1`.
-This change was made to simplify our CLI parser.
+To simplify the CLI parser, the `write` command no longer supports `--skipHeader`
+as short-hand for `--skipHeader 1`.
 
 ### Stricter input validation for `influx template` commands
 
@@ -40,15 +40,15 @@ The command now uses lowerCamelCase consistently for all objects keys, matching 
 ## Features
 
 - Add global `--http-debug` flag to all `influx` commands to help inspect communication with InfluxDB servers.
-- Add [`bucket-schema` commands](/influxdb/cloud/reference/cli/influx/bucket-schema/) to manage explicit measurement schemas in InfluxDB Cloud.
 - Update [`bucket create`](/influxdb/cloud/reference/cli/influx/bucket/create/) to allow setting a schema type.
 - Update [`bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/) to display schema types.
-- (OSS only) Updates to `backup` and `restore`:
-  - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB v2.1.x.
-  - Add `--compression` flag to support enabling/disabling GZIP compression of downloaded files.
-  - Reimplement `restore` to support uploading embedded SQL store from InfluxDB v2.1.x.
-- (OSS only) Add [`--password`](/influxdb/cloud/reference/cli/influx/user/password/) flag to `user password` command to allow bypassing interactive prompt.
 - Bind [`--skip-verify`](/influxdb/cloud/reference/cli/influx/org/members/add/#flags) flag to the `INFLUX_SKIP_VERIFY` environment variable.
+- (InfluxDB Cloud only) Add [`buck
+- (InfluxDB OSS only) Updates to `backup` and `restore`:
+  - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB 2.0 or later.
+  - Add [`--compression`](/influxdb/v2.0/reference/cli/influx/backup/_index.md) flag to support GZIP compression of downloaded files.
+  - Reimplement `restore` to support uploading embedded SQL store from InfluxDB v2.1.x.
+- (InfluxDB OSS only) Add [`--password`](/influxdb/cloud/reference/cli/influx/user/password/) flag to `user password` command to allow bypassing interactive prompt.
 
 ## Bug fixes
 

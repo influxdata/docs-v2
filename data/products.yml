@@ -14,6 +14,8 @@ influxdb:
     "1.5": 5
     "1.4": 3
     "1.3": 9
+  latest_cli:
+    "2.0": 2.1.0
 
 influxdb_cloud:
   name: InfluxDB Cloud
