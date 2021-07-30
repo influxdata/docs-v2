@@ -39,7 +39,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
     - Click **Preview** (or press **CTRL + Enter**) to preview the results of each cell in a raw data table without writing any data. 
     - Select **Run** to show the results of each cell and write it to the specified output bucket.
 
-### Transform 
+### Add a transform cell
 
 1. Select one of the following transform cell-types:
     - **Flux Script**: Use `__PREVIOUS_RESULT__` to build from data in the previous cell, enter a Flux script to transform your data. 
