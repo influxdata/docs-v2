@@ -84,7 +84,7 @@ Select one of the following output cell-types:
 #### Add a notification
 
 1. Enter a time range to automatically check the data and enter your query offset. 
-2. Customize the conditions to send an alarm. 
+2. Customize the conditions to send an alert. 
 3. Choose one of the following to recieve your alarms: 
    - Slack and a Slack Channel 
    - HTTP post 
