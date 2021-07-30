@@ -22,8 +22,8 @@ influx config list [flags]
 `list`, `ls`
 
 ## Flags
-| Flag |                  | Description                           | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                           |:------------------    |
-| `-h` | `--help`         | Help for the `list` command           |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)  | `INFLUX_HIDE_HEADERS` |
-|      | `--json`         | Output data as JSON (default `false`) | `INFLUX_OUTPUT_JSON`  |
+| Flag |                  | Description                                  | {{< cli/mapped >}}    |
+| :--- | :--------------- | :------------------------------------------- | :-------------------- |
+| `-h` | `--help`         | Help for the `list` command                  |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)         | `INFLUX_HIDE_HEADERS` |
+|      | `--json`         | Output data as JSON (default `false`)        | `INFLUX_OUTPUT_JSON`  |
