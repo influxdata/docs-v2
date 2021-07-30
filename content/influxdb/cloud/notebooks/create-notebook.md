@@ -20,9 +20,9 @@ To learn how notebooks can be useful and to see an overview of different cell ty
    - Choose a time range for your data.
 4. Consider which notebook cells to add to your notebook. You need to have one input cell for other cells to run properly. By default, each notebook includes **Metric Selector**, **Data Validation**, and **Visualization** cells. 
 5. Select your bucket in **Metric Selector** and then select the filters to narrow your data. 
-6. Click **Preview** or **Run** in the upper left dropdown menu to get results from your **Data Validation** and **Visualization** cell. 
-    - Click **Preview** (or press **CTRL + Enter**) to preview the results of each cell in a raw data table without writing any data. 
-    - Select **Run** to show the results of each cell and write it to the specified output bucket.
+6. Do one of the following:
+    - To view results in your cells (for example, **Data Validation** and **Visualization**) *without writing data*, click **Preview** (or press **CTRL + Enter**). 
+    - To view the results of each cell and write the results to the specified output bucket, click **Run**.
 7. (Optional) Change your visualization settings with the dropdown menus and gear icon at the top of the **Visualization** cell. 
 8. (Optional) Click the **+** icon, and then add one or more of the following cell types to your notebook:
 
