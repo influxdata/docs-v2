@@ -1,5 +1,5 @@
 ---
-title: Monitoring Your InfluxDB Instance 
+title: Monitoring your InfluxDB Instance 
 description: >
   Learn how to monitor your data using InfluxDB Cloud. 
 weight: 202
@@ -10,7 +10,7 @@ menu:
     parent: Monitor
 ---
 
-## Enabling/Disabling Prometheus /metrics endpoint
+## Enabling/Disabling Prometheus/metrics endpoint
 
 ## Securing the endpoint
 
