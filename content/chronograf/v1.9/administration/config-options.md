@@ -135,7 +135,7 @@ Displays the version of the Chronograf service.
 Example:
 ```sh
 $ chronograf -v
-2018/01/03 14:11:19 Chronograf 1.4.0.0-rc1-26-gb74ae387 (git: b74ae387)
+2018/01/03 14:11:19 Chronograf {{< latest-patch >}} (git: b74ae387)
 ```
 
 ## InfluxDB connection options

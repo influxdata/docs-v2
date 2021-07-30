@@ -22,6 +22,7 @@ Write CSV data with the following methods:
 - [Telegraf](#telegraf)
 - [Flux](#flux)
 
+
 ## influx write command
 
 Use the [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write CSV data
