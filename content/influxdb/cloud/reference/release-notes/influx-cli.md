@@ -43,7 +43,7 @@ The command now uses lowerCamelCase consistently for all objects keys, matching 
 - Add [`bucket-schema` commands](/influxdb/cloud/reference/cli/influx/bucket-schema/) to manage explicit measurement schemas in InfluxDB Cloud.
 - Update [`bucket create`](/influxdb/cloud/reference/cli/influx/bucket/create/) to allow setting a schema type.
 - Update [`bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/) to display schema types.
-- (OSS only) Updates to `backup` and `restore`:
+- (InfluxDB OSS only) Updates to `backup` and `restore`:
   - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB v2.1.x.
   - Add `--compression` flag to support enabling/disabling GZIP compression of downloaded files.
   - Reimplement `restore` to support uploading embedded SQL store from InfluxDB v2.1.x.
