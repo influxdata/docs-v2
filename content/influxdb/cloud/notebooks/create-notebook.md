@@ -89,7 +89,7 @@ Select one of the following output cell-types:
    - Slack and a Slack Channel 
    - HTTP post 
    - Pager Duty
-4. (Optional) Personalize your alarm message. By default, the message is "Notification Rule: ${ r._notification_rule_name } triggered by check: ${ r._check_name }: ${ r._message }." 
+4. (Optional) Personalize your message. By default, the message is "Notification Rule: ${ r._notification_rule_name } triggered by check: ${ r._check_name }: ${ r._message }." 
 5. Click **Export as Task** to create your alarm. 
 
 **Output to bucket**
