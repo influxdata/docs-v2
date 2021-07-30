@@ -28,7 +28,7 @@ influx user password [flags]
 | `-i` | `--id`            | User ID                                                               | string      |                      |
 | `-n` | `--name`          | Username                                                              | string      |                      |
 | `-n` | `--password`      | Use `password` flag to send your password instead of typing it in     | string      |                      |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                      |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             | `INFLUX_SKIP_VERIFY` |
 | `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`       |
 
 ## Examples
