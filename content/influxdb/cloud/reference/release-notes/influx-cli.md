@@ -45,7 +45,7 @@ The command now uses lowerCamelCase consistently for all objects keys, matching 
 - Update [`bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/) to display schema types.
 - (InfluxDB OSS only) Updates to `backup` and `restore`:
   - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB v2.1.x.
-  - Add [`--compression`](content/influxdb/v2.0/reference/cli/influx/backup/_index.md) flag to support GZIP compression of downloaded files.
+  - Add [`--compression`](/influxdb/v2.0/reference/cli/influx/backup/_index.md) flag to support GZIP compression of downloaded files.
   - Reimplement `restore` to support uploading embedded SQL store from InfluxDB v2.1.x.
 - (InfluxDB OSS only) Add [`--password`](/influxdb/cloud/reference/cli/influx/user/password/) flag to `user password` command to allow bypassing interactive prompt.
 - Bind [`--skip-verify`](/influxdb/cloud/reference/cli/influx/org/members/add/#flags) flag to the `INFLUX_SKIP_VERIFY` environment variable.
