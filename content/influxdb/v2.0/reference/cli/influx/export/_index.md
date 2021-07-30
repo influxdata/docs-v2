@@ -49,7 +49,6 @@ influx export [command]
 | `-h` | `--help`                  | Help for the `export` command                                                    |            |                       |
 |      | `--host`                  | HTTP address of InfluxDB (default `http://localhost:9999`)                       | string     | `INFLUX_HOST`         |
 |      | `--http-debug`            | Inspect communication with InfluxDB servers.                                     | string     |                       |
-|      | `--http-debug`            | Inspect communication with InfluxDB servers.                                     | string     |                       |
 |      | `--label-names`           | Comma-separated list of label names                                              | string     |                       |
 |      | `--labels`                | Comma-separated list of label IDs                                                | string     |                       |
 |      | `--resource-type`         | Resource type associated with all IDs via stdin                                  | string     |                       |
