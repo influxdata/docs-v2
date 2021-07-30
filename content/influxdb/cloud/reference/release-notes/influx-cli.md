@@ -18,8 +18,8 @@ This is the initial release of the `influx` CLI from the `influxdata/influx-cli`
 
 ### `influx write` skip-header parsing
 
-The `write` command no longer supports `--skipHeader` as short-hand for `--skipHeader 1`.
-This change was made to simplify our CLI parser.
+To simplify the CLI parser, the `write` command no longer supports `--skipHeader`
+as short-hand for `--skipHeader 1`.
 
 ### Stricter input validation for `influx template` commands
 
