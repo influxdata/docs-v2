@@ -3175,7 +3175,7 @@ SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
 
 {{% note %}}
 #### Improve performance of time-bound subqueries
-To improve the performance of InfluxQL queries with time-bounded subqueries,
+To improve the performance of InfluxQL queries with time-bound subqueries,
 apply the `WHERE time` clause to the outer query instead of the inner query.
 For example, the following queries return the same results, but **the query with
 time bounds on the outer query is more performant than the query with time
