@@ -105,9 +105,8 @@ All input functions return a [stream of tables](/flux/v0.x/get-started/data-mode
 Flux supports multiple data sources including, time series databases (such as **InfluxDB** and **Prometheus**),
 relational databases (such as **MySQL** and **PostgreSQL**), CSV, and more.
 
-<!-- For more information about supported data sources, see [Query data sources](#) -->
-
-For a list of input functions, see [Function types and categories – Inputs](/flux/v0.x/function-types/#inputs).
+- For more information about supported data sources, see [Query data sources](/flux/v0.x/query-data/).
+- For a list of input functions, see [Function types and categories – Inputs](/flux/v0.x/function-types/#inputs).
 
 ### Filter
 Filter functions iterate over and evaluate each input row to see if it matches
