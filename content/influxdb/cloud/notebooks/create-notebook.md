@@ -2,7 +2,7 @@
 title: Create a notebook
 description: >
   Create a notebook to explore, visualize, and process your data.
-weight: 101
+weight: 102
 influxdb/cloud/tags:
 menu:
   influxdb_cloud:
@@ -30,6 +30,9 @@ This guide walks through the basics of creating a notebook. For specific example
 If your cell contains a custom script that uses any output function to write data to InfluxDB (the `to()` function) or send it to a 3rd party service, clicking **Preview** will write data.
     {{% /warn %}}
 7. Click the dropdown menu next to **Preview** and select **Run** to show the results of each cell and write it to the specified output bucket.
+    {{% note %}}
+Use the keyboard shortcut CTRL + Enter to Preview your notebook.
+    {{% /note %}}
 7. Click the eye icon to hide a cell.
 
 ## Cell types
