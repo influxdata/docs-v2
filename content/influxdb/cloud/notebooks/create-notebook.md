@@ -57,7 +57,7 @@ If your cell contains a custom script that uses any output function to write dat
 Select one of the following pass-through cell-types: 
 
 - To change visability and name of columns, select [Column Editor](#column-editor). 
-- To create a visualization of your data, select **Visualization**. For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/). 
+- To create a visualization of your data, select [Visualization](#visualization). For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/). 
 - To enter explanatory notes, select **Markdown**. 
 
  #### Column Editor  
