@@ -17,13 +17,13 @@ or containerization platform used to install InfluxDB Enterprise.
 - [File system layout](#file-system-layout)
 
 ## InfluxDB Enterprise file structure
-The InfluxDB file structure includes of the following:
+The InfluxDB file structure includes the following:
 
 - [Data directory](#data-directory)
 - [WAL directory](#wal-directory)
 - [Metastore directory](#metastore-directory)
 - [Hinted handoff directory](#hinted-handoff-directory)
-- [Default InfluxDB Enterprise configuration files](#default-influxdb-enterprise-configuration-files)
+- [InfluxDB Enterprise configuration files](#default-influxdb-enterprise-configuration-files)
 
 ### Data directory
 (**Data nodes only**)
