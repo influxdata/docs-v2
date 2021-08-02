@@ -64,7 +64,7 @@ Select one of the following pass-through cell-types:
      - Click the toggle to hide or view your column. 
      - Rename your columns by hovering over the column name and pressing the pencil icon. 
 #### Visualization
-     - Change your graphic type by clicking the second dropdown menu at the top of the cell. By default, ig is a graph. 
+     - To change your visualization type, click the second dropdown menu at the top of the cell. 
      - Choose specific values in your histogram graphic by clicking the dropdown menu labled **Select**. 
      - Press the nut icon to configure graphic visualization. 
      - Click the **CSV** button to download results as an annotated CSV file. 
