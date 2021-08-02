@@ -58,28 +58,28 @@ Select one of the following pass-through cell-types:
 
 #### Column Editor  
 
-     - Click the toggle to hide or view your column. 
-     - Rename your columns by hovering over the column name and pressing the pencil icon. 
+- Click the toggle to hide or view your column. 
+- Rename your columns by hovering over the column name and pressing the pencil icon. 
 
 #### Visualization
 
-     - To change your visualization type, click the second dropdown menu at the top of the cell. 
-     - For histograms, specify values by clicking **Select**. 
-     - To configure the visualization, click **Configure**. 
-     - Click the **CSV** button to download results as an annotated CSV file. 
-     - Export to the dashboard by clicking the labled button. 
+- To change your visualization type, click the second dropdown menu at the top of the cell. 
+- (For histogram only) To specify values, click **Select**. 
+- To configure the visualization, click **Configure**. 
+- To download results as an annotated CSV file, click the **CSV** button. 
+- To export to the dashboard, click **Export to Dashboard**.  
 
 #### Markdown
 
-     - Type in notes as needed.
+- Type in notes as needed.
 
 ### Add an output cell
 
 Select one of the following output cell-types:
 
-- To recieve an alert, select [Notification](#add-a-notification) and complete the steps below. 
-- To write output to a bucket, select **Output to Bucket** and complete the steps below. 
-- To create a task, select **Schedule** and complete the steps below. 
+- To recieve an alert, select [Notification](#notification) and complete the steps below. 
+- To write output to a bucket, select [Output to Bucket](#output-to-bucket) and complete the steps below. 
+- To create a task, select [Schedule](#schedule) and complete the steps below. 
 
 #### Notification
 
