@@ -25,7 +25,7 @@ integral(
   unit: 10s,
   column: "_value",
   timeColumn: "_time",
-  interpolation: ""
+  interpolate: ""
 )
 ```
 

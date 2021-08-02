@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_2_0:
     name: Process data
-weight: 5
+weight: 6
 influxdb/v2.0/tags: [tasks]
 ---
 

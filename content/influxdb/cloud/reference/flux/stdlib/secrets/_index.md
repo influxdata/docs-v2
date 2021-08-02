@@ -8,7 +8,7 @@ aliases:
   - /influxdb/cloud/reference/flux/functions/secrets/
 menu:
   influxdb_cloud_ref:
-    name: InfluxDB Secrets
+    name: InfluxDB secrets
     parent: Flux standard library
 weight: 202
 influxdb/v2.0/tags: [functions, secrets, package]

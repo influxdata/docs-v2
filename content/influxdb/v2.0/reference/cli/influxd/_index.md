@@ -30,7 +30,6 @@ For information about other available InfluxDB configuration methods, see
 
 | Command                                                           | Description                                                  |
 |:----------------------------------------------------------        |:-------------------------------------------------            |
-| [generate](/influxdb/v2.0/reference/cli/influxd/generate)         | Generate time series data sets using TOML schema             |
 | [inspect](/influxdb/v2.0/reference/cli/influxd/inspect)           | Inspect on-disk database data                                |
 | [print-config](/influxdb/v2.0/reference/cli/influxd/print-config) | Print full influxd configuration for the current environment |
 | [run](/influxdb/v2.0/reference/cli/influxd/run)                   | Start the influxd server _**(default)**_                     |

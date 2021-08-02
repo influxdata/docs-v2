@@ -18,7 +18,7 @@ related:
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
 In InfluxDB Cloud, data is stored in [buckets](/influxdb/cloud/reference/glossary/#bucket).
-Because InfluxQL uses the 1.x data model, before querying in InfluxQL, a bucket must be mapped to a database and retention policy (DBRP).
+Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 
 {{% note %}}
 #### InfluxQL reference documentation
@@ -26,7 +26,7 @@ For complete InfluxQL reference documentation, see
 [Influx Query Language in the latest InfluxDB 1.x documentation](/{{< latest "influxdb" "v1" >}}/query_language/).
 {{% /note %}}
 
-**Complete the following steps:**
+**To use InfluxQL to query bucket data, complete the following steps:**
 
 1. [Verify buckets have a mapping](#verify-buckets-have-a-mapping).
 2. [Map unmapped buckets](#map-unmapped-buckets).
@@ -126,11 +126,9 @@ Include the following in your request:
 - **Query parameters:**
   - **db**: 1.x database to query
   - **rp**: 1.x retention policy to query _(if no retention policy is specified, InfluxDB uses the default retention policy for the specified database)_
-  - **q**: InfluxQL query
+  - **q**: URL-encoded InfluxQL query
 
-{{% note %}}
-**URL-encode** the InfluxQL query to ensure it's formatted correctly when submitted to InfluxDB.
-{{% /note %}}
+{{% api/url-encode-note %}}
 
 ```sh
 curl --get https://cloud2.influxdata.com/query?db=example-db \

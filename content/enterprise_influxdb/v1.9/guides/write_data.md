@@ -11,7 +11,7 @@ aliases:
 v2: /influxdb/v2.0/write-data/
 ---
 
-Write data into InfluxDB using the [command line interface](/enterprise_influxdb/v1.9/tools/use-influx/), [client libraries](/enterprise_influxdb/v1.9/clients/api/), and plugins for common data formats such as [Graphite](/enterprise_influxdb/v1.9/write_protocols/graphite/).
+Write data into InfluxDB using the [command line interface](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/), [client libraries](/enterprise_influxdb/v1.9/clients/api/), and plugins for common data formats such as [Graphite](/enterprise_influxdb/v1.9/write_protocols/graphite/).
 
 > **Note**: The following examples use `curl`, a command line tool that transfers data using URLs. Learn the basics of `curl` with the [HTTP Scripting Guide](https://curl.haxx.se/docs/httpscripting.html).
 
@@ -158,7 +158,7 @@ returns:
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 01 Mar 2017 19:38:01 GMT
 Content-Length: 150
 
@@ -177,7 +177,7 @@ returns:
 HTTP/1.1 404 Not Found
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 01 Mar 2017 19:38:35 GMT
 Content-Length: 45
 

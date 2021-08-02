@@ -46,6 +46,6 @@ InfluxDB Enterprise 1.9 includes the following third party software components, 
 | [Pretty printing for Go values (kr/pretty)](https://github.com/kr/pretty) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |Statically linked|
 |[Go language implementation of the Raft consensus protocol (hashicorp/raft)](https://github.com/hashicorp/raft)  | [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0)  | Statically linked |
 | [Raft backend implementation using BoltDB (hashicorp/raft-boltdb)](https://github.com/hashicorp/raft-boltdb) | [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0)  | Statically linked |
-| [General purpose extensions to golang's database/sql (jmoiron/sqlx)](https://github.com/jmoiron/sqlxhttps://github.com/jmoiron/sqlx) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |Statically linked|
+| [General purpose extensions to golang's database/sql (jmoiron/sqlx)](https://github.com/jmoiron/sqlx) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |Statically linked|
 | [Miscellaneous functions for formatting text (kr/text)](https://github.com/kr/text) | [MIT](https://opensource.org/licenses/MIT) | Statically linked |
 | [Golang connection multiplexing library (hashicorp/yamux)](https://github.com/hashicorp/yamux/) | [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0) | Statically linked |

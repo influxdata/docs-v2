@@ -33,6 +33,7 @@ influx bucket create [flags]
 | `-h` | `--help`                 | Help for the `create` command                                         |            |                       |
 |      | `--hide-headers`         | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 |      | `--host`                 | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
+|      | `--http-debug`           | Inspect communication with InfluxDB servers.                          |   string   |                       | 
 |      | `--json`                 | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`                 | Bucket name                                                           |   string   | `INFLUX_BUCKET_NAME`  |
 | `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                |   string   | `INFLUX_ORG`          |
@@ -101,5 +102,5 @@ For more information, see [Manage bucket schema](/influxdb/cloud/organizations/b
 {{% /cloud %}}
 
 ```sh
-{{< get-assets-text "bucket-schema/bucket-schema-type.sh" >}}
+{{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}
 ```

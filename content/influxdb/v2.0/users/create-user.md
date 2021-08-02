@@ -10,10 +10,7 @@ weight: 101
 products: [oss]
 ---
 
-Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to create a user.
-
-## Create a user in the InfluxDB UI
+Use the `influx` command line interface (CLI) to create a user.
 
 {{% note %}}
 Additional users cannot be created in the InfluxDB UI.

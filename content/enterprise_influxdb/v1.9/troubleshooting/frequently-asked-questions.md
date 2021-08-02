@@ -106,7 +106,7 @@ There a number of ways to identify the version of InfluxDB that you're using:
 ```bash
 $ influxd version
 
-InfluxDB ✨ v1.4.0 ✨ (git: master b7bb7e8359642b6e071735b50ae41f5eb343fd42)
+InfluxDB v{{< latest-patch >}} (git: master b7bb7e8359642b6e071735b50ae41f5eb343fd42)
 ```
 
 #### `curl` the `/ping` endpoint:
@@ -117,17 +117,17 @@ $ curl -i 'http://localhost:8086/ping'
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: 1e08aeb6-fec0-11e6-8486-000000000000
-✨ X-Influxdb-Version: 1.4.x ✨
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 01 Mar 2017 20:46:17 GMT
 ```
 
-#### Launch the InfluxDB [Command Line Interface](/enterprise_influxdb/v1.9/tools/use-influx/):
+#### Launch the InfluxDB command line interface:
 
 ```bash
 $ influx
 
-Connected to http://localhost:8086✨ version 1.4.x ✨
-InfluxDB shell version: 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell version: {{< latest-patch >}}
 ```
 
 #### Check the HTTP response in your logs:
@@ -135,7 +135,7 @@ InfluxDB shell version: 1.4.x
 ```bash
 $ journalctl -u influxdb.service
 
-Mar 01 20:49:45 rk-api influxd[29560]: [httpd] 127.0.0.1 - - [01/Mar/2017:20:49:45 +0000] "POST /query?db=&epoch=ns&q=SHOW+DATABASES HTTP/1.1" 200 151 "-" ✨ "InfluxDBShell/1.4.x" ✨ 9a4371a1-fec0-11e6-84b6-000000000000 1709
+Mar 01 20:49:45 rk-api influxd[29560]: [httpd] 127.0.0.1 - - [01/Mar/2017:20:49:45 +0000] "POST /query?db=&epoch=ns&q=SHOW+DATABASES HTTP/1.1" 200 151 "-" "InfluxDBShell/{{< latest-patch >}}" 9a4371a1-fec0-11e6-84b6-000000000000 1709
 ```
 
 ## Where can I find InfluxDB logs?
@@ -247,7 +247,7 @@ InfluxDB shell 0.xx.x
 >
 ```
 
-Check out [CLI/Shell](/enterprise_influxdb/v1.9/tools/use-influx/) for more useful CLI options.
+Check out [CLI/Shell](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) for more useful CLI options.
 
 ## How can a non-admin user `USE` a database in the InfluxDB CLI?
 
@@ -640,7 +640,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 #### Example
 
-1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/use-influx/#launch-influx).
+1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#launch-influx).
 
 2. Write the following points to create both a field and tag key with the same name `leaves`:
 
@@ -705,7 +705,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
 
 #### Remove a duplicate key
 
-1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/use-influx/#launch-influx).
+1. [Launch `influx`](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#launch-influx).
 
 2. Use the following queries to remove a duplicate key:
    ```sql

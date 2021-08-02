@@ -326,11 +326,30 @@ Use the following for project names:
 ```
 
 ### Latest patch version
-Use the `{{< latest-patch >}}` shortcode to add the latest patch version of the
-current product. Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
+Use the `{{< latest-patch >}}` shortcode to add the latest patch version of a product.
+By default, this shortcode parses the product and minor version from the URL.
+To specify a specific product and minor version, use the `product` and `version` arguments.
+Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
 
 ```md
 {{< latest-patch >}}
+
+{{< latest-patch product="telegraf" >}}
+
+{{< latest-patch product="chronograf" version="1.7" >}}
+```
+
+### Latest influx CLI version
+Use the `{{< latest-cli >}}` shortcode to add the latest version of the `influx`
+CLI supported by the minor version of InfluxDB.
+By default, this shortcode parses the minor version from the URL.
+To specify a specific minor version, use the `version` argument.
+Maintain CLI version numbers in the `data/products.yml` file instead of updating individual links and code examples.
+
+```md
+{{< latest-cli >}}
+
+{{< latest-cli version="2.1" >}}
 ```
 
 ### API endpoint
@@ -431,6 +450,16 @@ WHERE time > now() - 15m
 
 {{< /code-tabs-wrapper >}}
 ~~~
+
+#### Link to tabbed content
+
+To link to tabbed content, click on the tab and use the URL parameter shown.
+It will have the form `?t=`, plus a string.
+For example: 
+
+```
+[Windows installation](/influxdb/v2.0/install/?t=Windows)
+```
 
 ### Required elements
 Use the `{{< req >}}` shortcode to identify required elements in documentation with
@@ -669,16 +698,16 @@ list_code_example: |
 ~~~
 
 #### Organize and include native code examples
-To include text from a file in `/assets/text/`, use the
-`{{< get-assets-text >}}` shortcode and provide the relative path and filename.
+To include text from a file in `/shared/text/`, use the
+`{{< get-shared-text >}}` shortcode and provide the relative path and filename.
 
 This is useful for maintaining and referencing sample code variants in their
  native file formats.
 
-1. Store code examples in their native formats at `/assets/text/`.
+1. Store code examples in their native formats at `/shared/text/`.
   ```md
-    /assets/text/example1/example.js
-    /assets/text/example1/example.py
+    /shared/text/example1/example.js
+    /shared/text/example1/example.py
   ```
 
 2. Include the files, e.g. in code tabs
@@ -690,12 +719,12 @@ This is useful for maintaining and referencing sample code variants in their
   {{% /code-tabs %}}
   {{% code-tab-content %}}
   ```js
-  {{< get-assets-text "example1/example.js" >}}
+  {{< get-shared-text "example1/example.js" >}}
   ```
   {{% /code-tab-content %}}
   {{% code-tab-content %}}
   ```py
-  {{< get-assets-text "example1/example.py" >}}
+  {{< get-shared-text "example1/example.py" >}}
   ```
   {{% /code-tab-content %}}
   {{% /code-tabs-wrapper %}}
@@ -1015,7 +1044,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
      "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
    ```
 
-6. Update the `latest_version` in `data/version.yaml`:
+6. Update the `latest_version` in `data/products.yml`:
    ```yaml
    latest_version: v2.1
    ```

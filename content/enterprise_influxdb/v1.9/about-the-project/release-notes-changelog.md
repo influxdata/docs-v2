@@ -9,6 +9,27 @@ menu:
     parent: About the project
 ---
 
+## v1.9.3 [2021-07-19]
+
+### Features
+- Add [configurable password hashing](/enterprise_influxdb/v1.9/administration/configure-password-hashing/) with `bcrypt` and `pbkdf2` support.
+- Add retry with exponential back-off to anti-entropy repair.
+- Add logging to compaction.
+- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions.
+  This option is intended to help alleviate out-of-memory errors.
+- Update to [Flux v0.120.1.](/influxdb/v2.0/reference/release-notes/flux/#v01201-2021-07-06)
+
+### Bug fixes
+- Improve heap memory usage when HH queue grows.
+- Avoid rewriting `fields.idx` unnecessarily.
+- Do not close connection twice in `DigestWithOptions`.
+- Do not panic on cleaning up failed iterators.
+- Rename ARM RPMs with `yum`-compatible names.
+- Convert ARM arch names for RPMs during builds via Docker.
+- Do not send non-UTF-8 characters to subscriptions.
+- Error instead of panic for statement rewrite failure.
+- Fix `SHOW SHARDS` showing expiration time for shard groups with no expiration.
+
 ## v1.9.2 [2021-06-17]
 
 The release of InfluxDB Enterprise 1.9 is different from previous InfluxDB Enterprise releases
@@ -158,7 +179,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 #### Hinted handoff improvements
 
-- Allow out-of-order writes. This change adds a configuration option `allow-out-of-order-writes` to the `[cluster]` section of the data node configuration file. This setting defaults to `false` to match the existing behavior. There are some important operational considerations to review before turning this on. But, the result is enabling this option reduces the time required to drain the hinted handoff queue and increase throughput during recovery. See [allow-out-of-order-writes](/enterprise_influxdb/v1.8/administration/config-data-nodes#allow-out-of-order-false) for more detail.
+- Allow out-of-order writes. This change adds a configuration option `allow-out-of-order-writes` to the `[cluster]` section of the data node configuration file. This setting defaults to `false` to match the existing behavior. There are some important operational considerations to review before turning this on. But, the result is enabling this option reduces the time required to drain the hinted handoff queue and increase throughput during recovery. See [`allow-out-of-order-writes`](/enterprise_influxdb/v1.8/administration/config-data-nodes#allow-out-of-order-writes--false) for more detail.
 - Make the number of pending writes configurable. This change adds a configuration option in the `[hinted-handoff]` section called `max-pending-writes`, which defaults to `1024`. See [max-pending-writes](/enterprise_influxdb/v1.8/administration/config-data-nodes#max-pending-writes-1024) for more detail.
 - Update the hinted handoff queue to ensure various entries to segment files occur atomically. Prior to this change, entries were written to disk in three separate writes (len, data, offset). If the process stopped in the middle of any of those writes, the hinted handoff segment file was left in an invalid state.
 - In certain scenarios, the hinted-handoff queue would fail to drain. Upon node startup, the queue segment files are now verified and truncated if any are corrupted. Some additional logging has been added when a node starts writing to the hinted handoff queue as well.

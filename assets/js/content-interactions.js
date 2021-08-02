@@ -22,12 +22,13 @@ var elementWhiteList = [
 
 function scrollToAnchor(target) {
   var $target = $(target);
-
-  $('html, body').stop().animate({
-    'scrollTop': ($target.offset().top)
-  }, 400, 'swing', function () {
-    window.location.hash = target;
-  });
+  if($target && $target.length > 0) {
+    $('html, body').stop().animate({
+      'scrollTop': ($target.offset().top)
+    }, 400, 'swing', function () {
+      window.location.hash = target;
+    });
+  }
 }
 
 $('.article a[href^="#"]:not(' + elementWhiteList + ')').click(function (e) {
@@ -82,28 +83,54 @@ function tabbedContent(container, tab, content) {
 tabbedContent('.code-tabs-wrapper', '.code-tabs p a', '.code-tab-content');
 tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 
-//////////////////////// Activate Tabs with Query Params ////////////////////////
-
-const queryParams = new URLSearchParams(window.location.search);
-var anchor = window.location.hash
-
-tab = $('<textarea />').html(queryParams.get('t')).text();
-
-if (tab !== "") {
-  var targetTab = $('.tabs a:contains("' + tab + '")')
-  targetTab.click()
-  if (anchor !== "") { scrollToAnchor(anchor) }
+// Retrieve the user's programming language (client library) preference.
+function getApiLibPreference() {
+  return Cookies.get('influx-docs-api-lib');
 }
 
-$('.tabs p a').click(function() {
-  if ($(this).is(':not(":first-child")')) {
-    queryParams.set('t', $(this).html())
-    window.history.replaceState({}, '', `${location.pathname}?${queryParams}${anchor}`);
-  } else {
-    queryParams.delete('t')
-    window.history.replaceState({}, '', `${location.pathname}${anchor}`);
+function getTabQueryParam() {
+  const queryParams = new URLSearchParams(window.location.search);
+  return $('<textarea />').html(queryParams.get('t')).text();
+}
+
+function activateTabs(selector, tab) {
+  const anchor = window.location.hash;
+  if (tab !== "") {
+    let targetTab = $(`${selector} a:contains("${tab}")`);
+    if(!targetTab.length) {
+      targetTab = Array.from(document.querySelectorAll(`${selector} a`))
+                  .find(function(el) {
+                    let targetText = el.text &&
+                      el.text.toLowerCase().replace(/[^a-z0-9]/, '')
+                    return targetText && tab.includes(targetText);
+                  })
+    }
+    if(targetTab) {
+      $(targetTab).click();
+      scrollToAnchor(anchor);
+    }
   }
-})
+
+  const queryParams = new URLSearchParams(window.location.search);
+  $(`${selector} p a`).click(function() {
+    if ($(this).is(':not(":first-child")')) {
+      queryParams.set('t', $(this).html())
+      window.history.replaceState({}, '', `${location.pathname}?${queryParams}${anchor}`);
+    } else {
+      queryParams.delete('t')
+      window.history.replaceState({}, '', `${location.pathname}${anchor}`);
+    }
+  })
+};
+
+//////////////////// Activate Tab with Cookie or Query Param ///////////////////
+/**
+  * Activate code-tabs based on the cookie then override with query param.
+**/
+var tab = getApiLibPreference();
+(['.code-tabs']).forEach(selector => activateTabs(selector, tab));
+tab = getTabQueryParam();
+(['.tabs', '.code-tabs']).forEach(selector => activateTabs(selector, tab));
 
 /////////////////////////////// Truncate Content ///////////////////////////////
 
