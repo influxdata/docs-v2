@@ -880,7 +880,7 @@ influxd-ctl show
 ###### Showing all meta and data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes.
-Every node is using InfluxDB Enterprise `1.3.x-c1.3.x`.
+Every node is using InfluxDB Enterprise `{{< latest-patch >}}-c{{< latest-patch >}}`.
 
 ```
 $ influxd-ctl show
@@ -888,15 +888,15 @@ $ influxd-ctl show
 Data Nodes
 ==========
 ID	 TCP Address		        Version
-2   cluster-node-01:8088	1.3.x-c1.3.x
-4   cluster-node-02:8088	1.3.x-c1.3.x
+2   cluster-node-01:8088	{{< latest-patch >}}-c{{< latest-patch >}}
+4   cluster-node-02:8088	{{< latest-patch >}}-c{{< latest-patch >}}
 
 Meta Nodes
 ==========
 TCP Address		        Version
-cluster-node-01:8091	1.3.x-c1.3.x
-cluster-node-02:8091	1.3.x-c1.3.x
-cluster-node-03:8091	1.3.x-c1.3.x
+cluster-node-01:8091	{{< latest-patch >}}-c{{< latest-patch >}}
+cluster-node-02:8091	{{< latest-patch >}}-c{{< latest-patch >}}
+cluster-node-03:8091	{{< latest-patch >}}-c{{< latest-patch >}}
 ```
 
 #### `show-shards`

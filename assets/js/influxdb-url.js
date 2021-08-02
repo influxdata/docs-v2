@@ -36,6 +36,11 @@ function setPreference(preference) {
   Cookies.set('influxdb_pref', preference)
 }
 
+// Set the user's programming language (client library) preference.
+function setApiLibPreference(preference) {
+  Cookies.set('influx-docs-api-lib', preference)
+}
+
 // InfluxDB URL-Related Session keys
 //
 // influxdb_oss_url
@@ -107,19 +112,60 @@ function getPrevUrls() {
   return prevUrls;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+///////////////// Preferred Client Library programming language  ///////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function getVisitedApiLib() {
+  const path = window.location.pathname.match(/client-libraries\/([a-zA-Z0-9]*)/)
+  return path && path.length && path[1]
+}
+
+var selectedApiLib = getVisitedApiLib()
+Cookies.set('influx-docs-api-lib', selectedApiLib)
+  //selectedApiLib && setApiLibPreference(selectedApiLib);
+
 // Iterate through code blocks and update InfluxDB urls
 // Requires objects with cloud and oss keys and url values
 function updateUrls(prevUrls, newUrls) {
-
   var preference = getPreference()
+  var prevUrlsParsed = {
+    cloud: {},
+    oss: {}
+  }
 
+  var newUrlsParsed = {
+    cloud: {},
+    oss: {}
+  }
+
+    Object.keys(prevUrls).forEach(function(k) {
+      try {
+        prevUrlsParsed[k] = new URL(prevUrls[k])
+      } catch {
+        prevUrlsParsed[k] = { host: prevUrls[k] }
+      }
+    })
+
+    Object.keys(newUrls).forEach(function(k) {
+      try {
+        newUrlsParsed[k] = new URL(newUrls[k])
+      } catch {
+        newUrlsParsed[k] = { host: newUrls[k] }
+      }
+    })
+
+  /**
+    * Match and replace <prev> host with <new> host
+    * then replace <prev> URL with <new> URL.
+  **/
   var cloudReplacements = [
-    { replace: prevUrls.cloud, with: newUrls.cloud},
-    { replace: prevUrls.oss, with: newUrls.cloud }
+    { replace: prevUrlsParsed.cloud, with: newUrlsParsed.cloud },
+    { replace: prevUrlsParsed.oss, with: newUrlsParsed.cloud },
   ]
   var ossReplacements = [
-    { replace: prevUrls.cloud, with: newUrls.cloud},
-    { replace: prevUrls.oss, with: newUrls.oss }
+    { replace: prevUrlsParsed.cloud, with: newUrlsParsed.cloud },
+    { replace: prevUrlsParsed.oss, with: newUrlsParsed.oss },
   ]
 
   if (context() === "cloud") { var replacements = cloudReplacements  }
@@ -130,10 +176,31 @@ function updateUrls(prevUrls, newUrls) {
   replacements.forEach(function (o) {
     if (o.replace != o.with) {
       $(elementSelector).each(function() {
-        $(this).html($(this).html().replace(RegExp(o.replace, "g"),  o.with));
-      });
+        $(this).html(
+          $(this).html().replace(RegExp(o.replace, "g"), function(match){
+            return (o.replace.protocol && o.with) || match;
+          })
+        );
+      })
     }
-  })
+  });
+  replacements
+  .map(function(o) {
+     return {replace: o.replace.host, with: o.with.host}
+   })
+  .forEach(function (o) {
+     if (o.replace != o.with) {
+       $(elementSelector).each(function() {
+         // Lookbehind matches if o.replace is not preceded by :[/.].
+         var hostnameOnly = new RegExp("(?<!:[/.])" + o.replace, "g")
+         $(this).html(
+           $(this).html().replace(hostnameOnly, function(match) {
+             return o.with.host || o.with;
+           })
+         );
+       })
+     }
+   })
 }
 
 // Append the URL selector button to each codeblock with an InfluxDB Cloud or OSS URL
@@ -164,7 +231,7 @@ function appendUrlSelector() {
 ///////////////////////////// Function executions //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// Add the preserve tag to code blocks that shouldn't be udpated
+// Add the preserve tag to code blocks that shouldn't be updated
 addPreserve()
 
 // Append URL selector buttons to code blocks

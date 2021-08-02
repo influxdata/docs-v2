@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_cloud:
     name: Query data
-weight: 3
+weight: 4
 influxdb/cloud/tags: [query, flux]
 ---
 

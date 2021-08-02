@@ -22,19 +22,22 @@ Annotations may be useful to highlight operations or anomalies for your team to 
 {{% /note %}}
 
 <!-- {{< youtube 5NEplCesNAc >}} --->
+
 ## Create an annotation
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
     {{< nav-icon "dashboards" >}}
 
-2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/). The **Annotations** option is selected by default.
-3. In a dashboard cell, add an annotation by pressing **Shift**, and then click on a single point in time.
+2. Select an existing dashboard to add the annotation to, or [create a new dashboard](/influxdb/cloud/visualize-data/dashboards/create-dashboard/), and then click the **Annotations** button.
+3. In a dashboard cell, do one of the following:
+   - Press Shift and click the graph at the time you want to annotate.
+   - To add an annotation to a time range, press Shift, click the start time, and then drag your cursor to the end time.
 4. On the **Add Annotation** page:
 
-   1. Verify the start time, and update if needed.
-   2. Enter a message (maximum of 255 characters) to associate with the selected start time.
-   3. Click **Save Annotation**. The annotation appears as a dotted line at the specified start time and includes details associated with the selected point.
+   1. Verify the time or time range, and update if needed.
+   2. Enter a message (maximum of 255 characters) to associate with the selected time or time range.
+   3. Click **Save Annotation**. The annotation appears in the cell (dotted lines indicate the selected time or time range).
 
 ## Edit an annotation
 
@@ -48,7 +51,6 @@ Annotations may be useful to highlight operations or anomalies for your team to 
 ## View or hide annotations
 
 By default, annotations are visible.
-Select or clear the **Show Annotations** option to hide or show annotations.
 
 1.  In the navigation menu on the left, select **Boards** (**Dashboards**).
 

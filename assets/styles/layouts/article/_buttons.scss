@@ -40,4 +40,11 @@ a.btn {
     margin-right: .5rem;
     font-size: 1.1rem;
   }
+
+  &.github:before {
+    content: "\eab0";
+    font-family: "icomoon";
+    margin-right: .5rem;
+    font-size: 1.1rem;
+  }
 }

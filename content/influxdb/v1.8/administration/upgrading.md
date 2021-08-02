@@ -31,15 +31,21 @@ and see [Migrate to InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/g
 
 3. To enable TSI in InfluxDB 1.8.x, complete the following steps:
 
-    a. If using the InfluxDB configuration file, find the `[data]` section, uncomment `index-version = "inmem"` and change the value to `tsi1`.
+    1. If using the InfluxDB configuration file, find the `[data]` section, uncomment `index-version = "inmem"` and change the value to `tsi1`.
 
-    b. If using environment variables, set `INFLUXDB_DATA_INDEX_VERSION` to `tsi1`.
+    2. If using environment variables, set `INFLUXDB_DATA_INDEX_VERSION` to `tsi1`.
 
-    c. Delete shard `index` directories (by default, located at `/<shard_ID>/index`).
+    3. Delete shard `index` directories in your [InfluxDB `data/` directory](/influxdb/v1.8/concepts/file-system-layout).
+       For example, in a Linux environment:
 
-    d. Build TSI by running the [influx_inspect buildtsi](/influxdb/v1.8/tools/influx_inspect/#buildtsi) command.
+        ```
+        /var/lib/influxdb/data/<db-name>/<rp-name>/<shard_ID>/index
+        ```
 
-    > **Note** Run the `buildtsi` command using the user account that you are going to run the database as, or ensure that the permissions match afterward.
+    4. Build TSI by running the [influx_inspect buildtsi](/influxdb/v1.8/tools/influx_inspect/#buildtsi) command.
+        {{% note %}}
+Run the `buildtsi` command using the user account that you are going to run the database as, or ensure that the permissions match afterward.
+        {{% /note %}}
 
 4. Restart the `influxdb` service.
 

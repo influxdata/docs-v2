@@ -35,7 +35,7 @@ to create an `influx` CLI config and set it as active:
 influx config create --config-name <config-name> \
   --host-url http://localhost:8086 \
   --org <your-org> \
-  --token <your-auth-token \
+  --token <your-auth-token> \
   --active
 ```
 
