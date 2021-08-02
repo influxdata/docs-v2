@@ -65,7 +65,7 @@ Select one of the following pass-through cell-types:
      - Rename your columns by hovering over the column name and pressing the pencil icon. 
 #### Visualization
      - To change your visualization type, click the second dropdown menu at the top of the cell. 
-     - Choose specific values in your histogram graphic by clicking the dropdown menu labled **Select**. 
+     - For histograms, specify values by clicking **Select**. 
      - To configure the visualization, click **Configure**. 
      - Click the **CSV** button to download results as an annotated CSV file. 
      - Export to the dashboard by clicking the labled button. 
