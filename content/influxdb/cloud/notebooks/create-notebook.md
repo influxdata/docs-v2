@@ -69,7 +69,7 @@ Select one of the following pass-through cell-types:
      - Press the nut icon to configure graphic visualization. 
      - Click the **CSV** button to download results as an annotated CSV file. 
      - Export to the dashboard by clicking the labled button. 
-   - **Markdown**: 
+#### Markdown
      - Select **Edit** to type in your notes.  
      - Select **Preview** to view your notes. 
 
