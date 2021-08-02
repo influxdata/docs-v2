@@ -76,7 +76,7 @@ Select one of the following pass-through cell-types:
 
 Select one of the following output cell-types:
 
-- To recieve an alert, select **Notification** and complete the steps below. 
+- To recieve an alert, select [Notification](#add-a-notification) and complete the steps below. 
 - To write output to a bucket, select **Output to Bucket** and complete the steps below. 
 - To create a task, select **Schedule** and complete the steps below. 
 
