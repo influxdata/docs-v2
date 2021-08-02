@@ -58,7 +58,7 @@ Select one of the following pass-through cell-types:
 
 - To change visability and name of columns, select [Column Editor](#column-editor). 
 - To create a visualization of your data, select [Visualization](#visualization). For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/). 
-- To enter explanatory notes, select **Markdown**. 
+- To enter explanatory notes, select [Markdown](#markdown). 
 
  #### Column Editor  
      - Click the toggle to hide or view your column. 
