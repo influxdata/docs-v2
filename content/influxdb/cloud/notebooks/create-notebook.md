@@ -73,7 +73,7 @@ Select one of the following pass-through cell-types:
      - Select **Edit** to type in your notes.  
      - Select **Preview** to view your notes. 
 
-### Output 
+### Add an output cell
 
 Select one of the following output cell-types:
 
