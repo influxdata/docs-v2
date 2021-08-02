@@ -68,12 +68,12 @@ The file system layout is the same with each.
 - [Meta node file system layout](#meta-node-file-system-layout)
 
 ### Data node file system layout
-| Path                                                     | Default                       |
-| :------------------------------------------------------- | :---------------------------- |
-| [Data directory](#data-directory)                        | `/var/lib/influxdb/data/`     |
-| [WAL directory](#wal-directory)                          | `/var/lib/influxdb/wal/`      |
-| [Metastore directory](#metastore-directory)              | `/var/lib/influxdb/meta/`     |
-| [Hinted handoff directory](#hinted-handoff-directory)    | `/var/lib/influxdb/hh/`       |
+| Path                                                                 | Default                       |
+| :------------------------------------------------------------------- | :---------------------------- |
+| [Data directory](#data-directory)                                    | `/var/lib/influxdb/data/`     |
+| [WAL directory](#wal-directory)                                      | `/var/lib/influxdb/wal/`      |
+| [Metastore directory](#metastore-directory)                          | `/var/lib/influxdb/meta/`     |
+| [Hinted handoff directory](#hinted-handoff-directory)                | `/var/lib/influxdb/hh/`       |
 | [Default config file path](#influxdb-enterprise-configuration-files) | `/etc/influxdb/influxdb.conf` |
 
 ##### Data node file system overview
@@ -92,9 +92,9 @@ The file system layout is the same with each.
 {{% /filesystem-diagram %}}
 
 ### Meta node file system layout
-| Path                                                     | Default                            |
-| :------------------------------------------------------- | :--------------------------------- |
-| [Metastore directory](#metastore-directory)              | `/var/lib/influxdb/meta/`          |
+| Path                                                                 | Default                            |
+| :------------------------------------------------------------------- | :--------------------------------- |
+| [Metastore directory](#metastore-directory)                          | `/var/lib/influxdb/meta/`          |
 | [Default config file path](#influxdb-enterprise-configuration-files) | `/etc/influxdb/influxdb-meta.conf` |
 
 ##### Meta node file system overview
