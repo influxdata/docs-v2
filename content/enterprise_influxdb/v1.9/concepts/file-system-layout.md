@@ -23,7 +23,7 @@ The InfluxDB file structure includes the following:
 - [WAL directory](#wal-directory)
 - [Metastore directory](#metastore-directory)
 - [Hinted handoff directory](#hinted-handoff-directory)
-- [InfluxDB Enterprise configuration files](#default-influxdb-enterprise-configuration-files)
+- [InfluxDB Enterprise configuration files](#influxdb-enterprise-configuration-files)
 
 ### Data directory
 (**Data nodes only**)
@@ -53,7 +53,7 @@ To customize this path, use the [`[meta].dir` configuration option in your data 
 **On meta nodes**, the metastore contains information about the InfluxDB Enterprise RAFT cluster.
 To customize this path, use the [`[meta].dir` configuration option in your meta node configuration file](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#dir--varlibinfluxdbmeta).
 
-### Default configuration files
+### InfluxDB Enterprise configuration files
 InfluxDB Enterprise stores default data and meta node configuration file on disk.
 For more information about using InfluxDB Enterprise configuration files, see:
 
@@ -74,7 +74,7 @@ The file system layout is the same with each.
 | [WAL directory](#wal-directory)                          | `/var/lib/influxdb/wal/`      |
 | [Metastore directory](#metastore-directory)              | `/var/lib/influxdb/meta/`     |
 | [Hinted handoff directory](#hinted-handoff-directory)    | `/var/lib/influxdb/hh/`       |
-| [Default config file path](#default-configuration-files) | `/etc/influxdb/influxdb.conf` |
+| [Default config file path](#influxdb-enterprise-configuration-files) | `/etc/influxdb/influxdb.conf` |
 
 ##### Data node file system overview
 {{% filesystem-diagram %}}
@@ -95,7 +95,7 @@ The file system layout is the same with each.
 | Path                                                     | Default                            |
 | :------------------------------------------------------- | :--------------------------------- |
 | [Metastore directory](#metastore-directory)              | `/var/lib/influxdb/meta/`          |
-| [Default config file path](#default-configuration-files) | `/etc/influxdb/influxdb-meta.conf` |
+| [Default config file path](#influxdb-enterprise-configuration-files) | `/etc/influxdb/influxdb-meta.conf` |
 
 ##### Meta node file system overview
 {{% filesystem-diagram %}}
