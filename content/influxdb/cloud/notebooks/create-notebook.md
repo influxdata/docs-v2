@@ -60,7 +60,7 @@ Select one of the following pass-through cell-types:
 - To create a visualization of your data, select **Visualization**. For details on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/). 
 - To enter explanatory notes, select **Markdown**. 
 
-   - **Column Editor**:  
+ #### Column Editor  
      - Click the toggle to hide or view your column. 
      - Rename your columns by hovering over the column name and pressing the pencil icon. 
    - **Visualization**: 
