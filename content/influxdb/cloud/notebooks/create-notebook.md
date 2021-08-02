@@ -49,7 +49,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
     - Select **Run** to show the results of each cell and write it to the specified output bucket.
 
 {{% warn %}}
-If your cell contains a custom script that uses any output function to write data to InfluxDB (the to() function) or send it to a 3rd party service, clicking Preview will write data.
+If your cell contains a custom script that uses any output function to write data to InfluxDB (for example, the `to()` function) or sends data to a 3rd party service, clicking Preview will write data.
 {{% /warn %}}
 
 ### Add a pass-through cell
