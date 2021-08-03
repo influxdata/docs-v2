@@ -41,28 +41,19 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
 ```
 
 3. Update your `./env` and `index.html` with the name of your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and `proxy` which relies upon proxy to forward requests to the target InfluxDB.
-4. Run the following command to run the application at [http://localhost:3001/examples/index.html]()
+4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 
     ```sh
     npm run browser
     ```
 
-## Boilerplate for the InfluxDB Javascript client library  
+## Set properties for the client library  
 Use the Javascript library to write data to and query data from InfluxDB in a browser.
 
 1. To write a data point to InfluxDB using the JavaScript library, import the latest InfluxDB Javascript library in your script.
 
    ```js
    import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
-   ```
-
-2. Define constants for your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and `proxy` which relies on a proxy to forward requests to the target InfluxDB instance.
-
-   ```js
-   const proxy = '/influx'
-   const token = 'example-token'
-   const org = 'example-org'
-   const bucket = 'example-bucket'
    ```
 
 3. Instantiate the InfluxDB JavaScript client and pass in the `proxy` and `token` parameters.
