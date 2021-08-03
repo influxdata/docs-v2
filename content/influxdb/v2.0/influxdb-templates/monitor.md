@@ -75,7 +75,7 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
       # HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
       ...
       ```
-3. Verify the [Telegraf](/telegraf/latest/)agent has network access to the `/metrics` endpoint for each monitored InfluxDB OSS instance.
+3. Verify the [Telegraf](/{{< latest "telegraf" >}}/) agent has network access to the `/metrics` endpoint for each monitored InfluxDB OSS instance.
 
 4. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
    1. [In your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Load Data > Telegraf**, and click **InfluxDB Output Plugin**.
