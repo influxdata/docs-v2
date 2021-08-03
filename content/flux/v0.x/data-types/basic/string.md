@@ -184,10 +184,3 @@ p = {name: "John", age: 42}
 "My name is " + p.name + " and I'm " + string(v: p.age) + " years old."
 // My name is John and I'm 42 years old.
 ```
-
-{{% note %}}
-#### String interpolation vs concatenation
-Flux supports both [string interpolation](#interpolate-strings) and
-[string concatenation](#concatenate-strings).
-String interpolation is a more concise method for achieving the same result.
-{{% /note %}}
