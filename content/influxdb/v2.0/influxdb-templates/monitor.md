@@ -137,10 +137,13 @@ The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert
     {{< nav-icon "alerts" >}}
 
 {{< img-hd src="/img/influxdb/2-0-monitor-oss-deadman.png" />}}
-2. Choose any field that is being reported from your InfluxDB OSS instances for your deadman query. 
-3. Set how often you’d like to check for data **Schedule Every**, and the amount of time to wait before switching to a critical alert.
+2. Choose a InfluxDB OSS field for your deadman alert. When metrics stop reporting, you'll receive an alert. 
+3. Start under **Schedule Every**, set the amount of time to check for data. 
+4. Set the amount of time to wait before switching to a critical alert.
+5. Save the Check and click on **View History** of the Check to verify it is running.  
 
-To alert when metrics stop reporting, configure a notification rule and endpoint. Use [Slack Webhooks](https://api.slack.com/messaging/webhooks) to quickly send messages to any Slack channel, or u[pgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints. For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/).
+
+To alert when metrics stop reporting, configure a notification rule and endpoint. Use [Slack Webhooks](https://api.slack.com/messaging/webhooks) to quickly send messages to any Slack channel, or [upgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints. For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/).
 
 [Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to send a 
 message to a specified notification endpoint whenever there is an outage.
