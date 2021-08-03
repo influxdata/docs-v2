@@ -64,7 +64,6 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 
     Or use `curl` to fetch metrics:
 
-~~~
       ```sh
       curl http://localhost:8086/metrics
       # HELP boltdb_reads_total Total number of boltdb reads
