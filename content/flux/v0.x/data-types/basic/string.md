@@ -31,7 +31,7 @@ Strings are immutable and cannot be modified once created.
 - [Concatenate strings](#concatenate-strings)
 
 ## String syntax
-To format a sequence of characters as a string, wrap the sequence in double quotes (`""`).
+To format a sequence of characters as a string, begin and end the sequence with double quotes (`"`).
 
 ```js
 "This is a string"
@@ -57,7 +57,7 @@ The following data types can be converted to strings:
 
 ### Convert columns to strings
 
-#### Covert the \_value column to strings
+#### Convert the \_value column to strings
 Use the [`toString()` function](/flux/v0.x/stdlib/universe/tostring/) to convert
 the `_value` column to strings.
 
@@ -132,7 +132,7 @@ operations including:
 - [and more](/flux/v0.x/stdlib/strings/)
 
 ## Interpolate strings
-To interpolate strings in a Flux string, enclose embedded [expressions](/flux/v0.x/spec/expressions/)
+To interpolate strings in another Flux string, enclose embedded [expressions](/flux/v0.x/spec/expressions/)
 in a dollar sign and curly braces `${}`.
 Flux replaces the placeholder with the result of the embedded expression and
 returns a string literal.
