@@ -8,9 +8,6 @@ menu:
     parent: Flux specification
     name: String interpolation
 weight: 211
-aliases:
-  - /influxdb/v2.0/reference/flux/language/string-interpolation/
-  - /influxdb/cloud/reference/flux/language/string-interpolation/
 ---
 
 Flux string interpolation evaluates string literals containing one or more placeholders
