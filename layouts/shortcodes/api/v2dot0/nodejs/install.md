@@ -2,4 +2,4 @@ This library supports browser and server-side (Node.js) Javascript environments.
 
 To use InfluxDB management APIs in your project, also add @influxdata/influxdb-client-apis as a dependency to your project.
 
-If you target the browser or deno, use @influxdata/influxdb-client-browser. It is UMD-compatible for use with module loaders. See [Javascript (browser)](/influxdb/content/v2.0/api-guide/client-libraries/js-browser) for more information.
+If you target the browser or deno, use @influxdata/influxdb-client-browser. It is UMD-compatible for use with module loaders. See [Javascript (browser)](/influxdb/v2.0/api-guide/client-libraries/browserjs) for more information.
