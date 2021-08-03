@@ -8,6 +8,22 @@ menu:
     name: Flux
 ---
 
+## v0.124.0 [2021-08-03]
+
+### Features
+- Update the string array builder to support constant data.
+- Expand message interface with message lifetime controls.
+- Create internal Flux array package.
+
+### Bug fixes
+- Register `sortedPivot` and update `sortedPivot` kind.
+- Derive `Copy` on `ast::Position`.
+- Update `to()` function to properly close the writer on error.
+- Update `libflux` include paths to use `pkg-config`.
+- Properly copy record types with no `extends` parameter.
+
+---
+
 ## v0.123.0 [2021-07-19]
 
 ### Breaking changes
