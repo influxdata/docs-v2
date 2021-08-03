@@ -55,8 +55,8 @@ The InfluxDB OSS Monitoring template includes a Telegraf configuration that send
 
 By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports Prometheus-style system metrics.
 
-1. If you've changed the default settings to disable the `/metrics` endpoint, [re-enable these settings](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
-2. To view InfluxDB OSS system metrics in your browser, navigate to the `/metrics` endpoint of your InfluxDB OSS instance: 
+1. Make sure the `/metrics` endpoint is [enabled](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled). If you've changed the default settings to disable the `/metrics` endpoint, [re-enable these settings](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
+2. Navigate to the `/metrics` endpoint of your InfluxDB OSS instance to view the InfluxDB OSS system metrics in your browser: 
 
     ```
     http://localhost:8086/metrics
@@ -78,9 +78,9 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 3. Verify the [Telegraf](/{{< latest "telegraf" >}}/) agent has network access to the `/metrics` endpoint for each monitored InfluxDB OSS instance.
 
 4. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
-   1. [In your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Load Data > Telegraf**, and click **InfluxDB Output Plugin**.
+   1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/), and click **InfluxDB Output Plugin**.
    2. Copy the URL, token, organization, and bucket, close the window, and then click **Scrape InfluxDB OSS Metrics**.
-   3. Under `outputs.influxdb_v2`, replace `URL`, `token`, `organization`, and `bucket`, with your InfluxDB Cloud account information. Set the `INFLUX_TOKEN` environment variable in your Telegraf environment to your InfluxDB Cloud authentication token.
+   3. Replace `URL`, `token`, `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. Set the `INFLUX_TOKEN` environment variable in your Telegraf environment to your InfluxDB Cloud authentication token.
 
       {{% note %}}
 To ensure the InfluxDB OSS monitoring dashboard can display the recorded metrics, set the destination bucket name to `oss_metrics` in your `telegraf.conf`.
@@ -104,8 +104,8 @@ Set up Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Clo
 
 On each InfluxDB OSS instance you want to monitor, do the following:
 
-1. [In your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Load Data > Telegraf**.
-2. Under **Scrape InfluxDB OSS Metrics**, click **Setup Instructions**, and complete the Telegraf Setup instructions.
+1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/).
+2. Click **Setup Instructions** under **Scrape InfluxDB OSS Metrics**, and complete the Telegraf Setup instructions.
       {{% note %}}
 For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
       {{% /note %}}
@@ -115,7 +115,7 @@ For your API token, generate a new token or use an existing All Access token. If
 
 To see your data in real time, view the Monitoring dashboard.
 
-1. In your **InfluxDB Cloud** account, select **Boards** (**Dashboards**).
+1. Select **Boards** (**Dashboards**) in your **InfluxDB Cloud** account.
 
     {{< nav-icon "dashboards" >}}
 
@@ -130,12 +130,15 @@ Customize your monitoring dashboard as needed. For example, send an alert in the
 
 To ensure data is always flowing from your InfluxDB OSS instances into your InfluxDB Cloud account, create a deadman alert.
 
-1. The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert/checks/create/#deadman-check) that checks to see that metrics are reported at regular intervals. To view the deadman check, click **Alerts** in the navigation bar of your **InfluxDB Cloud** account.
+The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert/checks/create/#deadman-check) that checks to see that metrics are reported at regular intervals.
+
+1.  Click **Alerts** in the navigation bar of your **InfluxDB Cloud** account to view the deadman check.
 
     {{< nav-icon "alerts" >}}
 
-
 {{< img-hd src="/img/influxdb/2-0-monitor-oss-deadman.png" />}}
+2. Choose any field that is being reported from your InfluxDB OSS instances for your deadman query. 
+3. Set how often you’d like to check for data **Schedule Every**, and the amount of time to wait before switching to a critical alert.
 
 To alert when metrics stop reporting, configure a notification rule and endpoint. Use [Slack Webhooks](https://api.slack.com/messaging/webhooks) to quickly send messages to any Slack channel, or u[pgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints. For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/).
 
