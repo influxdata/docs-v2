@@ -6,7 +6,7 @@ description: >
   Use the JavaScript client library for web browsers to interact with InfluxDB.
 menu:
   influxdb_2_0:
-    name: Javascript (Browser)
+    name: Oldie Javascript (Browser)
     parent: Client libraries
 influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
