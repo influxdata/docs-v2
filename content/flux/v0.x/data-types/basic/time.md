@@ -15,7 +15,9 @@ A **time** type represents a single point in time with nanosecond precision.
 **Type name**: `time`
 
 ###### On this page:
-- placeholder
+- [Time syntax](#time-syntax)
+- [Convert data types to time](#convert-data-types-to-time)
+- [Operate on time](#operate-on-time)
 
 ## Time syntax
 Time types are represented with [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
@@ -116,6 +118,11 @@ data
 
 ## Operate on time
 
+- [Truncate timestamps to a specified unit](#truncate-timestamps-to-a-specified-unit)
+- [Parse units of time from a timestamp](#parse-units-of-time-from-a-timestamp)
+- [Add a duration to a time value](#add-a-duration-to-a-time-value)
+- [Subtract a duration from a time value](#subtract-a-duration-from-a-time-value)
+
 ### Truncate timestamps to a specified unit
 Truncating time values can be helpful when normalizing irregular timestamps.
 To truncate timestamps to a specified unit:
@@ -123,6 +130,13 @@ To truncate timestamps to a specified unit:
 1. Import the [`date` package](/flux/v0.x/stdlib/date/).
 2. Use [`date.truncate()`](/flux/v0.x/stdlib/date/truncate/) and provide the
    unit of time to truncate to.
+
+{{% note %}}
+#### Truncate to weeks
+When truncating a time value to the week (`1w`), weeks are determined using the 
+**Unix epoch (1970-01-01T00:00:00Z UTC)**. The Unix epoch was on a Thursday, so
+all calculated weeks begin on Thursday.
+{{% /note %}}
 
 ```js
 t0 = 2021-01-08T14:54:10.023849Z
@@ -137,12 +151,34 @@ date.truncate(t: t0, unit: 1mo)
 // Returns 2021-01-01T00:00:00.000000000Z
 ```
 
-{{% note %}}
-#### Truncate to weeks
-When truncating a time value to the week (`1w`), weeks are determined using the 
-**Unix epoch (1970-01-01T00:00:00Z UTC)**. The Unix epoch was on a Thursday, so
-all calculated weeks begin on Thursday.
-{{% /note %}}
+**To truncate the `_time` column, use [`truncateTimeColumn()`](/flux/v0.x/stdlib/universe/truncatetimecolumn/)**:
+
+```js
+data
+  |> truncateTimeColumn(unit: 1m)
+```
+
+{{< flex >}}
+{{% flex-content %}}
+##### Given the following input:
+| \_time                                            | _value |
+| :------------------------------------------------ | -----: |
+| {{% nowrap %}}2021-01-01T00:00:33Z{{% /nowrap %}} |    1.0 |
+| {{% nowrap %}}2021-01-01T00:01:10Z{{% /nowrap %}} |    1.1 |
+| {{% nowrap %}}2021-01-01T00:02:45Z{{% /nowrap %}} |    3.6 |
+| {{% nowrap %}}2021-01-01T00:03:23Z{{% /nowrap %}} |    2.5 |
+{{% /flex-content %}}
+
+{{% flex-content %}}
+##### The example above returns:
+| \_time                                            | _value |
+| :------------------------------------------------ | -----: |
+| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} |    1.0 |
+| {{% nowrap %}}2021-01-01T00:01:00Z{{% /nowrap %}} |    1.1 |
+| {{% nowrap %}}2021-01-01T00:02:00Z{{% /nowrap %}} |    3.6 |
+| {{% nowrap %}}2021-01-01T00:03:00Z{{% /nowrap %}} |    2.5 |
+{{% /flex-content %}}
+{{< /flex >}}
 
 ### Parse units of time from a timestamp
 To parse a specific unit of time from a time value:
@@ -164,7 +200,6 @@ date.year(t: t0)
 date.quarter(t: t0)
 // Returns 1
 ```
-
 
 ### Add a duration to a time value
 To add a [duration](/flux/v0.x/data-types/basic/duration/) to a time value:
