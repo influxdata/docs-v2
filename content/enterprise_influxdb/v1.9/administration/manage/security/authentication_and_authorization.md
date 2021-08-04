@@ -12,7 +12,7 @@ menu:
 This document covers setting up and managing authentication and authorization in InfluxDB Enterprise.
 
 - [Authentication](#authentication)
-  - [Set up Authentication](#set-up-authentication)
+  - [Set up Authentication](#enable-authentication)
   - [Authenticate Requests](#authenticate-requests)
 - [Authorization](#authorization)
   - [User Types and Privileges](#user-types-and-privileges)
@@ -308,7 +308,12 @@ the databases on which they have `READ` and/or `WRITE` permissions.
 
 ### User management commands
 
-#### Admin user management
+User management commands apply to either
+[admin users](#manage-admin-users),
+[non-admin users](#manage-non-admin-users),
+or [both](#manage-admin-and-non-admin-users).
+
+#### Manage admin users
 
 TO enable HTTP authentication,
 you must create at least one admin user before you can interact with the system.
@@ -358,7 +363,7 @@ hermione false
 dobby    false
 ```
 
-#### Non-admin user management
+#### Manage non-admin users
 
 ##### `CREATE` a new non-admin user
 ```sql
@@ -377,12 +382,17 @@ CREATE USER <username> WITH PASSWORD '<password>'
 
 {{% note %}}
 ##### Important notes about providing user credentials
-- The user value must be wrapped in double quotes if it starts with a digit, is an InfluxQL keyword, contains a hyphen and or includes any special characters, for example: `!@#$%^&*()-`
+- The user value must be wrapped in double quotes if
+  it starts with a digit, is an InfluxQL keyword, contains a hyphen,
+  or includes any special characters (for example: `!@#$%^&*()-`).
 - The password [string](/influxdb/v1.8/query_language/spec/#strings) must be wrapped in single quotes.
   Do not include the single quotes when authenticating requests.
   We recommend avoiding the single quote (`'`) and backslash (`\`) characters in passwords.
-  For passwords that include these characters, escape the special character with a backslash (e.g. (`\'`) when creating the password and when submitting authentication requests.
-- Repeating the exact `CREATE USER` statement is idempotent. If any values change the database will return a duplicate user error. See GitHub Issue [#6890](https://github.com/influxdata/influxdb/pull/6890) for details.
+  For passwords that include these characters, escape the special character with a backslash
+  (e.g. (`\'`) when creating the password and when submitting authentication requests.
+- Repeating the exact `CREATE USER` statement is idempotent.
+  If any values change the database will return a duplicate user error.
+  See GitHub Issue [#6890](https://github.com/influxdata/influxdb/pull/6890) for details.
 
 ###### CLI example
 ```sql
@@ -397,7 +407,6 @@ ERR: user already exists
 >
 ```
 {{% /note %}}
-
 
 ##### `GRANT` `READ`, `WRITE` or `ALL` database privileges to an existing user
 
@@ -457,12 +466,12 @@ CLI example:
 > SHOW GRANTS FOR "todd"
 database		            privilege
 NOAA_water_database	        WRITE
-another_database_name	      READ
+another_database_name	    READ
 yet_another_database_name   ALL PRIVILEGES
 one_more_database_name      NO PRIVILEGES
 ```
 
-#### General admin and non-admin user management
+#### Manage admin and non-admin users
 
 ##### Reset a user's password
 
