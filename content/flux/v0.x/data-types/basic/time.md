@@ -87,7 +87,7 @@ data
 To convert columns other than `_value` to time:
 
 1. Use [`map()`](/flux/v0.x/stdlib/universe/map/) to iterate over and rewrite rows.
-2. Use [`time()`](/flux/v0.x/stdlib/universe/time/) to convert columns values to strings.
+2. Use [`time()`](/flux/v0.x/stdlib/universe/time/) to convert columns values to time.
 
 ```js
 data
