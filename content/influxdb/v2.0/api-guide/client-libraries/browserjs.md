@@ -19,6 +19,11 @@ Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influ
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
 If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-started/).
 
+* [Before you begin](#before-you-begin)
+* [Get started with the example app](#get-started-with-the-example-app)
+* [Write data to InfluxDB](#write-data-to-influxdb)
+* [Query data from InfluxDB](#query-data-from-influxdb)
+
 ## Before you begin
 
 1. Install [NodeJS](https://nodejs.org/en/download/package-manager/).
@@ -26,8 +31,11 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
 2. Ensure that InfluxDB is running and you can connect to it.
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.0/reference/urls/).
 
-## Easiest way to get started
+## Get started with the example app 
+The InfluxDB Javascript client library includes a working browser app that queries from and writes to 
+your InfluxDB instance.
 
+### Install the examples
 1. Clone the [examples directory](https://github.com/influxdata/influxdb-client-js/tree/master/examples) in the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo.
 
 2. Navigate to the `examples` directory:
@@ -41,26 +49,24 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
     npm install
     ```
 
-## Configure and start your app
-{{% warn %}}
-  ### Tokens in production applications
+### Configure and start your app
+  {{% warn %}}
+  #### Tokens in production applications
   {{% api/browser-token-warning %}}
-{{% /warn %}}
+  {{% /warn %}}
 
-{{% note %}}
-  The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for conveniently accessing environment variables.
-{{% /note %}}
+The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for conveniently accessing environment variables.
 
-1. Update your `./env` with your InfluxDB [url](/influxdb/v2.0/reference/urls/).
+1. Update `./env` with your InfluxDB [url](/influxdb/v2.0/reference/urls/).
 
-2. Update your `./env_browser.js` with the name of your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), and [token](/influxdb/v2.0/security/tokens/)
+2. Update `./env_browser.js` with the name of your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), and [token](/influxdb/v2.0/security/tokens/)
 
 3. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
     ```sh
     npm run browser
     ```
 
-## Import the InfluxDB Javascript client library  
+## Use the InfluxDB Javascript client library
 Use the Javascript library to write data to and query data from InfluxDB in a browser.
 
 1. Import the latest InfluxDB Javascript library in your script.
@@ -68,15 +74,14 @@ Use the Javascript library to write data to and query data from InfluxDB in a br
    ```js
    import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
    ```
-2. Instantiate the InfluxDB JavaScript client with the `proxy` and `token` parameters.
+2. Instantiate the InfluxDB JavaScript client with the `url` and `token` parameters.
 
    ```js
-   const influxDB = new InfluxDB({process.env.proxy, process.env.token})
+   const influxDB = new InfluxDB({url, token})
    ```
 
-## Write data to InfluxDB with JavaScript
-
-Use the `getWriteApi` method of the instantiated InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
+### Write data to InfluxDB
+Use the `getWriteApi` method of the InfluxDB client instance to create a **write client**. Provide your InfluxDB `org` and `bucket`.
 
   ```js
   import {InfluxDB, Point} from '@influxdata/influxdb-client'
@@ -101,7 +106,7 @@ The `useDefaultTags` method instructs the write api to use default tags when wri
 ### Complete example write script
 
 ```js
-const influxDB = new InfluxDB({proxy, token})
+const influxDB = new InfluxDB({url, token})
 const writeApi = influxDB.getWriteApi(org, bucket)
 
 // setup default tags for all writes through this API
@@ -121,7 +126,7 @@ writeApi
   })
 ```
 
-## Query data from InfluxDB with JavaScript
+## Query data from InfluxDB
 Use the Javascript library to query data from InfluxDB.
 
 1. Use the `getQueryApi` method of the `InfluxDB` client to create a new **query client**. Provide your InfluxDB `org`.
@@ -157,9 +162,10 @@ Use the Javascript library to query data from InfluxDB.
 
 ### Complete example query script
 
+The following example queries InfluxDB and prints table metadata and rows from [Annotated CSV](
+https://v2.docs.influxdata.com/v2.0/reference/syntax/annotated-csv/)
+
 ```js
-// performs query and receive line table metadata and rows
-// https://v2.docs.influxdata.com/v2.0/reference/syntax/annotated-csv/
 queryApi.queryRows(fluxQuery, {
   next(row: string[], tableMeta: FluxTableMetaData) {
     const o = tableMeta.toObject(row)
