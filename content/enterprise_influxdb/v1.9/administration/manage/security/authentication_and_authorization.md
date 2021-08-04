@@ -247,28 +247,34 @@ Restart Telegraf and you're all set!
 
 ## Authorization
 
-Authorization is only enforced once you've [enabled authentication](#set-up-authentication).
 By default, authentication is disabled, all credentials are silently ignored, and all users have all privileges.
+To enable authorization, first [enable authentication](#enable-authentication).
 
 ### User types and privileges
 
+There are two types of users:
+
+- [Admin users](#admin-users)
+- [Non-admin users](#non-admin-users)
+
 #### Admin users
-Admin users have `READ` and `WRITE` access to all databases and full access to the following administrative queries:
+Admin users have `READ` and `WRITE` access
+to all databases and full access to the following administrative queries:
 
 ##### Database management
 - `CREATE DATABASE`
-- `DROP DATABASE`  
+- `DROP DATABASE`
 - `DROP SERIES`
-- `DROP MEASUREMENT`  
+- `DROP MEASUREMENT`
 - `CREATE RETENTION POLICY`
 - `ALTER RETENTION POLICY`
-- `DROP RETENTION POLICY`  
+- `DROP RETENTION POLICY`
 - `CREATE CONTINUOUS QUERY`
-- `DROP CONTINUOUS QUERY`  
+- `DROP CONTINUOUS QUERY`
 
 For more information about these commands,
-see [Database management](/influxdb/v1.8/query_language/manage-database/) and
-[Continuous queries](/influxdb/v1.8/query_language/continuous_queries/).
+see [Database management](/enterprise_influxdb/v1.9/query_language/manage-database/) and
+[Continuous queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/).
 
 ##### User management
 - Admin user management
@@ -289,27 +295,26 @@ See [below](#user-management-commands) for a complete discussion of the user man
 #### Non-admin users
 Non-admin users can have one of the following three privileges per database:
 
-- `READ`  
-- `WRITE`  
-- `ALL` (both `READ` and `WRITE` access)  
+- `READ`
+- `WRITE`
+- `ALL` (both `READ` and `WRITE` access)
 
-`READ`, `WRITE`, and `ALL` privileges are controlled per user per database. A new non-admin user has no access to any database until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user) by an admin user.
-Non-admin users can [`SHOW`](/influxdb/v1.8/query_language/explore-schema/#show-databases) the databases on which they have `READ` and/or `WRITE` permissions.
+`READ`, `WRITE`, and `ALL` privileges are controlled per user per database.
+A new non-admin user has no access to any database
+until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user)
+by an admin user.
+Non-admin users can [`SHOW`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-databases)
+the databases on which they have `READ` and/or `WRITE` permissions.
 
 ### User management commands
 
 #### Admin user management
 
-When you enable HTTP authentication, InfluxDB requires you to create at least one admin user before you can interact with the system.
+TO enable HTTP authentication,
+you must create at least one admin user before you can interact with the system.
 
 ```sql
 CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
-```
-
-##### Create another admin user
-
-```sql
-CREATE USER <username> WITH PASSWORD '<password>' WITH ALL PRIVILEGES
 ```
 
 {{% note %}}
