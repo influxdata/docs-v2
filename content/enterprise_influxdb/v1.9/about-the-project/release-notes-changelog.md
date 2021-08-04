@@ -9,6 +9,11 @@ menu:
     parent: About the project
 ---
 
+## v1.9.4 []
+
+### Features
+### Bug fixes
+
 ## v1.9.3 [2021-07-19]
 
 ### Features
