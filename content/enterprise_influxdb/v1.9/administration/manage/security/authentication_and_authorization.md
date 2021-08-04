@@ -39,7 +39,7 @@ Plugins do not currently have the ability to authenticate requests and service
 endpoints (for example, Graphite, collectd, etc.) are not authenticated.
 {{% /note %}}
 
-### Set up authentication
+### Enable authentication
 
 1.  **Create at least one [admin user](#admin-users)**.
     See the [authorization section](#authorization) for how to create an admin user.
@@ -49,9 +49,7 @@ If you enable authentication and have no users, InfluxDB Enterprise will **not**
 and will only accept the [query](#user-management-commands) that creates a new admin user.
     {{% /note %}}
 
-    InfluxDB Enterprise will enforce authentication once there is an admin user.
-
-2.  **Enable authentication in your configuration file**
+2.  **Enable authentication in your meta and data configuration files**
     by setting the `auth-enabled` option to `true` in the `[http]` section:
 
     ```toml
@@ -117,7 +115,7 @@ curl -G http://localhost:8086/query \
 
 #### Authenticate with the CLI
 
-There are three options for authenticating with the [CLI](/influxdb/v1.8/tools/shell/).
+There are three options for authenticating with the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/).
 
 ##### Authenticate with environment variables
 Use the `INFLUX_USERNAME` and `INFLUX_PASSWORD` environment variables to provide
@@ -160,7 +158,7 @@ password:
 
 #### Authenticate using JWT tokens
 For a more secure alternative to using passwords, include JWT tokens with requests to the InfluxDB API.
-This is currently only possible through the [InfluxDB HTTP API](/influxdb/v1.8/tools/api/).
+This is currently only possible through the [InfluxDB HTTP API](/enterprise_influxdb/v1.9/tools/api/).
 
 1. [Add a shared secret in your InfluxDB configuration file](#add-a-shared-secret-in-your-influxdb-configuration-file)
 2. [Generate your JWT token](#generate-your-jwt-token)
@@ -169,7 +167,8 @@ This is currently only possible through the [InfluxDB HTTP API](/influxdb/v1.8/t
 ##### Add a shared secret in your InfluxDB Enterprise configuration file
 InfluxDB Enterprise uses the shared secret to encode the JWT signature.
 By default, `shared-secret` is set to an empty string, in which case no JWT authentication takes place.
-Add a custom shared secret in your [InfluxDB configuration file](/influxdb/v1.8/administration/config/#shared-secret).
+<!-- TODO: meta, data, or both? -->
+Add a custom shared secret in your [InfluxDB configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#shared-secret--).
 The longer the secret string, the more secure it is:
 
 ```toml
@@ -267,7 +266,8 @@ Admin users have `READ` and `WRITE` access to all databases and full access to t
 - `CREATE CONTINUOUS QUERY`
 - `DROP CONTINUOUS QUERY`  
 
-For more information about these commands, see [Database management](/influxdb/v1.8/query_language/manage-database/) and
+For more information about these commands,
+see [Database management](/influxdb/v1.8/query_language/manage-database/) and
 [Continuous queries](/influxdb/v1.8/query_language/continuous_queries/).
 
 ##### User management
