@@ -80,6 +80,8 @@ duration(v: uint(v: 3000000000))
 - [Subtract a duration from a time value](#subtract-a-duration-from-a-time-value)
 
 ### Perform arithmetic operations on durations
+To perform operations like adding, subtracting, multiplying, or dividing duration values:
+
 1. Use [`int()`](/flux/v0.x/stdlib/universe/int/) or [`uint()`](/flux/v0.x/stdlib/universe/uint/)
    to convert duration values to numeric values.
 2. Use [arithmetic operators](/flux/v0.x/spec/operators/#arithmetic-operators) to
@@ -94,11 +96,11 @@ duration(v: int(v: 6h4m) + int(v: 22h32s))
 duration(v: int(v: 22h32s) - int(v: 6h4m))
 // Returns 15h56m32s
 
-duration(v: int(v: 24h) / 2)
-// Returns 12h
-
 duration(v: int(v: 32m10s) * 10)
 // Returns 5h21m40s
+
+duration(v: int(v: 24h) / 2)
+// Returns 12h
 ```
 
 ### Add a duration to a time value
