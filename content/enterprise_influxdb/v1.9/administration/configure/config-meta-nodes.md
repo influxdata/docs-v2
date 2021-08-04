@@ -6,7 +6,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Configure meta nodes
     weight: 21
-    parent: Administration
+    parent: Configure
 ---
 
 * [Meta node configuration settings](#meta-node-configuration-settings)

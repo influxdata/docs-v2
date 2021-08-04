@@ -8,7 +8,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Configure clusters
     weight: 10
-    parent: Administration
+    parent: Configure
 ---
 
 This page contains general information about configuring InfluxDB Enterprise clusters.

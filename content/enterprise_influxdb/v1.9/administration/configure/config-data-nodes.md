@@ -6,7 +6,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Configure data nodes
     weight: 20
-    parent: Administration
+    parent: Configure
 ---
 
 * [Data node configuration settings](#data-node-configuration-settings)

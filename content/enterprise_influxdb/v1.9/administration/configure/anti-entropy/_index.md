@@ -7,7 +7,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Use Anti-entropy service
     weight: 60
-    parent: Administration
+    parent: Configure
 ---
 
 {{% warn %}}
