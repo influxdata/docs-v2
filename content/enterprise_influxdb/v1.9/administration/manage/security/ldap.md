@@ -6,7 +6,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Configure LDAP authentication
     weight: 40
-    parent: Manage
+    parent: Manage security
 ---
 
 Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol) to:
