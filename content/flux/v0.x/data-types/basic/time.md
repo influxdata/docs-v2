@@ -2,7 +2,7 @@
 title: Work with time types
 list_title: Time
 description: >
-  Learn how to work with string data types in Flux.
+  Learn how to work with time data types in Flux.
 menu:
   flux_0_x:
     name: Time
