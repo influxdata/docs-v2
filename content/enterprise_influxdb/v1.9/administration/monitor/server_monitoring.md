@@ -8,7 +8,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Monitor InfluxDB
     weight: 80
-    parent: Administration
+    parent: Monitor
 ---
 
 **On this page**

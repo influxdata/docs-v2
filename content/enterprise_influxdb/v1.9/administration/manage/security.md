@@ -5,7 +5,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Manage security
     weight: 110
-    parent: Administration
+    parent: Manage
 ---
 
 Some customers may choose to install InfluxDB Enterprise with public internet access, however doing so can inadvertently expose your data and invite unwelcome attacks on your database.

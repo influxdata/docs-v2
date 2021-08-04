@@ -9,7 +9,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Manage clusters
     weight: 40
-    parent: Administration
+    parent: Manage
 ---
 
 Use the following tools to manage and interact with your InfluxDB Enterprise clusters:

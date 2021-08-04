@@ -6,7 +6,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Manage authentication and authorization
     weight: 30
-    parent: Administration
+    parent: Manage
 ---
 
 This document covers setting up and managing authentication and authorization in InfluxDB Enterprise.
