@@ -141,6 +141,6 @@ The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert
 3. Start under **Schedule Every**, set the amount of time to check for data. 
 4. Set the amount of time to wait before switching to a critical alert.
 5. Save the Check and click on **View History** of the Check to verify it is running.  
-6. Configure a notification rule and endpoint. To quickly send messages to any Slack channel, use [Slack Webhooks](https://api.slack.com/messaging/webhooks). For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/). Alternatively, [upgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints. 
+6. Configure a notification rule and endpoint. Use [Slack Webhooks](https://api.slack.com/messaging/webhooks) to send messages to your Slack channel. For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/). Alternatively, [upgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints. 
 7. [Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to send a 
 message to a specified notification endpoint whenever there is an outage.
