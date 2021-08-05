@@ -45,7 +45,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 2. Select **Preview** (**CTRL + Enter**) or **Run** in the upper left dropdown menu. 
 
 {{% warn %}}
-If your cell contains a custom script that uses any output function to write data to InfluxDB (the to() function) or send it to a third party service, clicking Preview will write data.
+If your cell contains a custom script that uses any output function to write data to InfluxDB (for example: the to() function) or send it to a third party service, clicking Preview will write data.
 {{% /warn %}}
 
 ### Add a pass-through cell
