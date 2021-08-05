@@ -31,7 +31,8 @@ publicly available to any unauthenticated user.
 The InfluxDB API and the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/),
 which connects to the database using the API,
 include built-in authentication based on user credentials.
-When you enable authentication, InfluxDB Enterprise only executes HTTP requests that are sent with valid credentials.
+When you enable authentication,
+InfluxDB Enterprise only executes HTTP requests that are sent with valid credentials.
 
 {{% note %}}
 Authentication only occurs at the HTTP request scope.
@@ -82,10 +83,14 @@ to `true` to require authentication on profiling and ping endpoints.
 
 There are two options for authenticating with the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/).
 
+- [Authenticate with Basic Authentication](#authenticate-with-basic-authentication)
+- [Authenticate with query parameters in the URL or request body](#authenticate-with-query-parameters-in-the-url-or-request-body)
+
 If you authenticate with both Basic Authentication **and** the URL query parameters,
 the user credentials specified in the query parameters take precedence.
 The queries in the following examples assume that the user is an [admin user](#admin-users).
-See the section on [authorization](#authorization) for the different user types, their privileges, and more on user management.
+See the section on [authorization](#authorization)
+for the different user types, their privileges, and more on user management.
 
 > **Note:** InfluxDB Enterprise redacts passwords when you enable authentication.
 
@@ -115,7 +120,11 @@ curl -G http://localhost:8086/query \
 
 #### Authenticate with the CLI
 
-There are three options for authenticating with the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/).
+There are three options for authenticating with the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/):
+
+- [Authenticate with environment variables](#authenticate-with-environment-variables)
+- [Authenticate with CLI flags](#authenticate-with-cli-flags)
+- [Authenticate with credentials in the influx shell](#authenticate-with-credentials-in-the-influx-shell)
 
 ##### Authenticate with environment variables
 Use the `INFLUX_USERNAME` and `INFLUX_PASSWORD` environment variables to provide
