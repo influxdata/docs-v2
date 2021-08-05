@@ -14,13 +14,16 @@ related:
   - /flux/v0.x/stdlib/universe/toint/
 ---
 
-A **integer** type represents a signed 64-bit integer.
+An **integer** type represents a signed 64-bit integer.
 
 **Type name**: `int`  
 **Min value**: `-9223372036854775808`  
 **Max value**: `9223372036854775807`
 
 ###### On this page:
+- [Integer syntax](#integer-syntax)
+- [Convert data types to integers](#convert-data-types-to-integers)
+- [Operate on integers](#operate-on-integers)
 
 ## Integer syntax
 An integer literal contains one or more digits (0-9) optionally preceded by
