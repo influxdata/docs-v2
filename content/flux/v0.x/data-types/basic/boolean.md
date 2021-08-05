@@ -49,10 +49,14 @@ bool(v: uint(v: 1))
 ```
 
 ### Convert columns to booleans
+Flux lets you iterate over rows in a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
+and convert columns to booleans.
 
-#### Convert the \_value column to booleans
-Use the [`toBool()` function](/flux/v0.x/stdlib/universe/bool/) to convert
-the `_value` column to booleans.
+**To convert the `_value` column to booleans**, use the [`toBool()` function](/flux/v0.x/stdlib/universe/bool/).
+
+{{% note %}}
+`toBool()` only operates on the `_value` column.
+{{% /note %}}
 
 ```js
 data
@@ -61,7 +65,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time               | \_value _<span style="opacity:.5">(float)</span>_ |
 | :------------------- | ------------------------------------------------: |
 | 2021-01-01T00:00:00Z |                                               1.0 |
@@ -81,8 +85,7 @@ data
 {{% /flex-content %}}
 {{< /flex >}}
 
-#### Convert other columns to booleans
-To convert columns other than `_value` to booleans:
+**To convert any column to booleans**:
 
 1. Use [`map()`](/flux/v0.x/stdlib/universe/map/) to iterate over and rewrite rows.
 2. Use [`bool()`](/flux/v0.x/stdlib/universe/bool/) to convert columns values to booleans.
@@ -94,7 +97,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time               | running _<span style="opacity:.5">(int)</span>_ |
 | :------------------- | ----------------------------------------------: |
 | 2021-01-01T00:00:00Z |                                               1 |
