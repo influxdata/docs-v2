@@ -202,6 +202,7 @@ This results in small rounding errors in some operations.
 Use [Flux comparison operators](/flux/v0.x/spec/operators/#comparison-operators)
 to compare float values.
 Operands must be the same type.
+The operation returns a float.
 
 ```js
 12345600.0 == float(v: "1.23456e+07")
