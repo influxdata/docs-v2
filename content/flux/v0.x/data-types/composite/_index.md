@@ -1,7 +1,8 @@
 ---
-title: Composite types
+title: Work with composite types
 menu:
   flux_0_x:
+    name: Composite types
     parent: Work with data types
 weight: 101
 ---

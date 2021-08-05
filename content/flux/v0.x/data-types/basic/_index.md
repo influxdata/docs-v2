@@ -1,9 +1,10 @@
 ---
-title: Basic types
+title: Work with basic types
 description: >
   ...
 menu:
   flux_0_x:
+    name: Basic types
     parent: Work with data types
 weight: 101
 ---
