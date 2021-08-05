@@ -52,24 +52,24 @@ permissions to:
 
 InfluxDB Enterprise clusters have 16 permissions:
 
-| Permission                | Description                                              |
-|:--------------------------|----------------------------------------------------------|
-| View Admin                | Permission to view or edit admin screens.                |
-| View Chronograf           | Permission to use Chronograf tools.                      |
-| Create Databases          | Permission to create databases.                          |
-| Create Users & Roles      | Permission to create users and roles.                    |
-| Add/Remove Nodes          | Permission to add/remove nodes from a cluster.           |
-| Drop Databases            | Permission to drop databases.                            |
-| Drop Data                 | Permission to drop measurements and series.              |
-| Read                      | Permission to read data.                                 |
-| Write                     | Permission to write data.                                |
-| Rebalance                 | Permission to rebalance a cluster.                       |
-| Manage Shards             | Permission to copy and delete shards.                    |
-| Manage Continuous Queries | Permission to create, show, and drop continuous queries. |
-| Manage Queries            | Permission to show and kill queries.                     |
-| Manage Subscriptions      | Permission to show, add, and drop subscriptions.         |
-| Monitor                   | Permission to show stats and diagnostics.                |
-| Copy Shard                | Permission to copy shards.                               |
+| Permission                | Description                                             |
+|:--------------------------|---------------------------------------------------------|
+| View Admin                | Permission to view or edit admin screens                |
+| View Chronograf           | Permission to use Chronograf tools                      |
+| Create Databases          | Permission to create databases                          |
+| Create Users & Roles      | Permission to create users and roles                    |
+| Add/Remove Nodes          | Permission to add/remove nodes from a cluster           |
+| Drop Databases            | Permission to drop databases                            |
+| Drop Data                 | Permission to drop measurements and series              |
+| Read                      | Permission to read data                                 |
+| Write                     | Permission to write data                                |
+| Rebalance                 | Permission to rebalance a cluster                       |
+| Manage Shards             | Permission to copy and delete shards                    |
+| Manage Continuous Queries | Permission to create, show, and drop continuous queries |
+| Manage Queries            | Permission to show and kill queries                     |
+| Manage Subscriptions      | Permission to show, add, and drop subscriptions         |
+| Monitor                   | Permission to show stats and diagnostics                |
+| Copy Shard                | Permission to copy shards                               |
 
 ### Permission to Statement
 
