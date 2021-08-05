@@ -16,7 +16,8 @@ A **bytes** type represents a sequence of byte values.
 **Type name**: `bytes`
 
 ###### On this page
-- placeholder
+- [Bytes syntax](#bytes-syntax)
+- [Convert a column to bytes](#convert-a-column-to-bytes)
 
 ## Bytes syntax
 Flux does not provide a usable syntax for bytes types.
