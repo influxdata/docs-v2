@@ -22,7 +22,7 @@ A **float** type represents a [IEEE-754](https://standards.ieee.org/standard/754
 - [Operate on floats](#operate-on-floats)
 
 ## Float syntax
-A float literal contains a decimal integer, a decimal point, and a decimal fraction. 
+A float literal is represented by a decimal integer, a decimal point, and a decimal fraction. 
 
 ```js
 0.0
@@ -94,10 +94,14 @@ float(v: 123)
 ```
 
 ### Convert columns to floats
+Flux lets you iterate over rows in a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
+and convert columns to floats.
 
-#### Convert the \_value column to floats
-Use the [`toFloat()` function](/flux/v0.x/stdlib/universe/tofloat/) to convert
-the `_value` column to floats.
+**To convert the `_value` column to floats**, use the [`toFloat()` function](/flux/v0.x/stdlib/universe/tofloat/)
+
+{{% note %}}
+`toFloat()` only operates on the `_value` column.
+{{% /note %}}
 
 ```js
 data
@@ -106,7 +110,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time               | \_value _<span style="opacity:.5">(int)</span>_ |
 | :------------------- | ----------------------------------------------: |
 | 2021-01-01T00:00:00Z |                                              10 |
@@ -126,8 +130,7 @@ data
 {{% /flex-content %}}
 {{< /flex >}}
 
-#### Convert other columns to floats
-To convert columns other than `_value` to floats:
+**To convert any column to floats**:
 
 1. Use [`map()`](/flux/v0.x/stdlib/universe/map/) to iterate over and rewrite rows.
 2. Use [`float()`](/flux/v0.x/stdlib/universe/float/) to convert columns values to floats.
@@ -139,7 +142,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time               | index _<span style="opacity:.5">(int)</span>_ |
 | :------------------- | --------------------------------------------: |
 | 2021-01-01T00:00:00Z |                                             1 |
