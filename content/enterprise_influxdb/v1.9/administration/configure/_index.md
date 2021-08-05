@@ -1,6 +1,6 @@
 ---
-title: Administer InfluxDB Enterprise
-description: Configuration, security, and logging in InfluxDB enterprise.
+title: Configure
+description: Configure cluster and node settings in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Configure

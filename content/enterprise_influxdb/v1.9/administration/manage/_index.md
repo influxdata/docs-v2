@@ -1,6 +1,6 @@
 ---
 title: Manage
-description: Configuration, security, and logging in InfluxDB enterprise.
+description: Manage security, clusters, and subscriptions in InfluxDB enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Manage

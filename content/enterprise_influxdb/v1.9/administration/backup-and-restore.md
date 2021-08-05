@@ -1,5 +1,5 @@
 ---
-title: Back up and restore InfluxDB Enterprise clusters
+title: Back up and restore
 description: >
   Back up and restore InfluxDB enterprise clusters in case of unexpected data loss.
 aliases:
