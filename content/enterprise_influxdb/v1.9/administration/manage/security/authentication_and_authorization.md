@@ -393,7 +393,6 @@ CREATE USER <username> WITH PASSWORD '<password>'
 > CREATE USER "rachel_smith" WITH PASSWORD 'asdf1234!'
 > CREATE USER "monitoring-robot" WITH PASSWORD 'XXXXX'
 > CREATE USER "$savyadmin" WITH PASSWORD 'm3tr1cL0v3r'
->
 ```
 
 {{% note %}}
@@ -436,14 +435,12 @@ CLI examples:
 
 ```sql
 > GRANT READ ON "NOAA_water_database" TO "todd"
->
 ```
 
 `GRANT` `ALL` access to `todd` on the `NOAA_water_database` database:
 
 ```sql
 > GRANT ALL ON "NOAA_water_database" TO "todd"
->
 ```
 
 ##### `REVOKE` `READ`, `WRITE`, or `ALL` database privileges from an existing user
@@ -458,14 +455,12 @@ CLI examples:
 
 ```sql
 > REVOKE ALL ON "NOAA_water_database" FROM "todd"
->
 ```
 
 `REVOKE` `WRITE` privileges from `todd` on the `NOAA_water_database` database:
 
 ```sql
 > REVOKE WRITE ON "NOAA_water_database" FROM "todd"
->
 ```
 
 >**Note:** If a user with `ALL` privileges has `WRITE` privileges revoked, they are left with `READ` privileges, and vice versa.
@@ -499,7 +494,6 @@ CLI example:
 
 ```sql
 > SET PASSWORD FOR "todd" = 'influxdb4ever'
->
 ```
 
 {{% note %}}
@@ -520,7 +514,6 @@ CLI example:
 
 ```sql
 > DROP USER "todd"
->
 ```
 
 ## Authentication and authorization HTTP errors
