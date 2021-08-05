@@ -16,10 +16,9 @@ The **null type** represents a missing or unknown value.
 **Type name**: `null`
 
 ## Null syntax
-Flux does not provide a usable syntax for _null_ values.
 Null types exist in [columns](/flux/v0.x/get-started/data-model/#column) of
-other [basic types](/flux/v0.x/data-types/basic/), but there is no syntax to
-represent a _null_ value.
+other [basic types](/flux/v0.x/data-types/basic/), but there is no literal syntax
+to represent a _null_ value.
 
 {{% note %}}
 An empty string (`""`) **is not** a _null_ value.
