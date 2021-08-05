@@ -62,7 +62,7 @@ string(v: 42)
 ```
 
 ### Convert columns to strings
-Flex lets you iterate over rows in a stream of tables and convert columns to strings.
+Flux lets you iterate over rows in a stream of tables and convert columns to strings.
 
 **To convert the `_value` column to strings**,
 use the [`toString()` function](/flux/v0.x/stdlib/universe/tostring/).
