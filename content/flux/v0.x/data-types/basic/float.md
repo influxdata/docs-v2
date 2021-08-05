@@ -22,7 +22,7 @@ A **float** type represents a [IEEE-754](https://standards.ieee.org/standard/754
 - [Operate on floats](#operate-on-floats)
 
 ## Float syntax
-A float literal is represented by a decimal integer, a decimal point, and a decimal fraction. 
+A float literal contains a decimal integer, a decimal point, and a decimal fraction. 
 
 ```js
 0.0
