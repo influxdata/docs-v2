@@ -51,10 +51,14 @@ time(v: uint(v: 1609459200000000000))
 ```
 
 ### Convert columns to time
+Flux lets you iterate over rows in a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
+and convert columns to time.
 
-#### Convert the \_value column to time
-Use the [`toTime()` function](/flux/v0.x/stdlib/universe/totime/) to convert
-the `_value` column to time.
+**To convert the `_value` column to time**, use the [`toTime()` function](/flux/v0.x/stdlib/universe/totime/).
+
+{{% note %}}
+`toTime()` only operates on the `_value` column.
+{{% /note %}}
 
 ```js
 data
@@ -83,8 +87,7 @@ data
 {{% /flex-content %}}
 {{< /flex >}}
 
-#### Convert other columns to time
-To convert columns other than `_value` to time:
+**To convert any column to time**:
 
 1. Use [`map()`](/flux/v0.x/stdlib/universe/map/) to iterate over and rewrite rows.
 2. Use [`time()`](/flux/v0.x/stdlib/universe/time/) to convert columns values to time.
