@@ -1,7 +1,7 @@
 ---
 title: Work with Flux data types
 description: >
-  ...
+  Learn how to work with different Flux data types.
 menu:
   flux_0_x:
     name: Work with data types
