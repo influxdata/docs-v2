@@ -20,7 +20,7 @@ A **bytes** type represents a sequence of byte values.
 - [Convert a column to bytes](#convert-a-column-to-bytes)
 
 ## Bytes syntax
-Flux does not provide a usable syntax for bytes types.
+Flux does not provide a literal syntax for bytes types.
 Use the [`bytes()` function](/flux/v0.x/stdlib/universe/bytes) to convert a
 **string** into bytes.
 
