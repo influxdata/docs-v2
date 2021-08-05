@@ -15,7 +15,7 @@ related:
 This document covers setting up and managing authentication and authorization in InfluxDB Enterprise.
 
 - [Authentication](#authentication)
-  - [Set up Authentication](#enable-authentication)
+  - [Enable Authentication](#enable-authentication)
   - [Authenticate Requests](#authenticate-requests)
 - [Authorization](#authorization)
   - [User Types and Privileges](#user-types-and-privileges)
@@ -282,36 +282,36 @@ There are two types of users:
 Admin users have `READ` and `WRITE` access
 to all databases and full access to the following administrative queries:
 
-##### Database management
-- `CREATE DATABASE`
-- `DROP DATABASE`
-- `DROP SERIES`
-- `DROP MEASUREMENT`
-- `CREATE RETENTION POLICY`
-- `ALTER RETENTION POLICY`
-- `DROP RETENTION POLICY`
-- `CREATE CONTINUOUS QUERY`
-- `DROP CONTINUOUS QUERY`
+| Database management       |
+|:--------------------------|
+| `CREATE DATABASE`         |
+| `DROP DATABASE`           |
+| `DROP SERIES`             |
+| `DROP MEASUREMENT`        |
+| `CREATE RETENTION POLICY` |
+| `ALTER RETENTION POLICY`  |
+| `DROP RETENTION POLICY`   |
+| `CREATE CONTINUOUS QUERY` |
+| `DROP CONTINUOUS QUERY`   |
 
+{{% caption %}}
 For more information about these commands,
 see [Database management](/enterprise_influxdb/v1.9/query_language/manage-database/) and
 [Continuous queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/).
+{{% /caption %}}
 
-##### User management
-- Admin user management
-  - [`CREATE USER`](#user-management-commands)
-  - [`GRANT ALL PRIVILEGES`](#grant-administrative-privileges-to-an-existing-user)
-  - [`REVOKE ALL PRIVILEGES`](#revoke-administrative-privileges-from-an-admin-user)
-  - [`SHOW USERS`](#show-all-existing-users-and-their-admin-status)  
-- Non-admin user management:  
-  - [`CREATE USER`](#user-management-commands)
-  - [`GRANT [READ,WRITE,ALL]`](#grant-read-write-or-all-database-privileges-to-an-existing-user)
-  - [`REVOKE [READ,WRITE,ALL]`](#revoke-read-write-or-all-database-privileges-from-an-existing-user)
-- General user management:  
-  - [`SET PASSWORD`](#reset-a-users-password)
-  - [`DROP USER`](#drop-a-user)  
+Admin users have access to the following user management commands:
 
+| Admin user management                                                           | Non-admin user management                                                                        | General user management                   |
+|:--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|-------------------------------------------|
+| [`CREATE USER`](#user-management-commands)                                      | [`CREATE USER`](#user-management-commands)                                                       | [`SET PASSWORD`](#reset-a-users-password) |
+| [`GRANT ALL PRIVILEGES`](#grant-administrative-privileges-to-an-existing-user)  | [`GRANT [READ,WRITE,ALL]`](#grant-read-write-or-all-database-privileges-to-an-existing-user)     | [`DROP USER`](#drop-a-user)               |
+| [`REVOKE ALL PRIVILEGES`](#revoke-administrative-privileges-from-an-admin-user) | [`REVOKE [READ,WRITE,ALL]`](#revoke-read-write-or-all-database-privileges-from-an-existing-user) |                                           |
+| [`SHOW USERS`](#show-all-existing-users-and-their-admin-status)                 |                                                                                                  |                                           |
+
+{{% caption %}}
 See [below](#user-management-commands) for a complete discussion of the user management commands.
+{{% /caption %}}
 
 #### Non-admin users
 Non-admin users can have one of the following three privileges per database:
@@ -325,7 +325,7 @@ A new non-admin user has no access to any database
 until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user)
 by an admin user.
 Non-admin users can [`SHOW`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-databases)
-the databases on which they have `READ` and/or `WRITE` permissions.
+the databases for which they have `READ` and/or `WRITE` permissions.
 
 ### User management commands
 
@@ -336,7 +336,7 @@ or [both](#manage-admin-and-non-admin-users).
 
 #### Manage admin users
 
-TO enable HTTP authentication,
+To enable HTTP authentication,
 you must create at least one admin user before you can interact with the system.
 
 ```sql
