@@ -9,35 +9,20 @@ menu:
     parent: Enterprise features
 ---
 
-InfluxDB Enterprise users have functions that are either specific to the web
-console or specific to the cluster:
-
-```
-Users                            Cluster              Permissions
-
-Penelope
-   O
-  \|/
-   |    ----------------------> Dev Account  --------> Manage Queries
-  / \                                        --------> Monitor
-                                             --------> Add/Remove Nodes
-Jim
-   O
-  \|/
-   |    ----------------------> Marketing Account ---> View Admin
-  / \                                             ---> Graph Role ---> Read
-                                                  ---> View Chronograf
-```
+<!--
+Consider:
+Penelope, who has a Dev role, w/ permissions: she can Manage Queries, Monitor, Add/remove Nodes.
+Jim has role Marketing, w/ permissions:  he can View Admin, Graph Role, View Chronograf.
+-->
 
 ## Cluster user information
 
 In the cluster, individual users are assigned to an account.
 Cluster accounts have permissions and roles.
 
-In the diagram above, Penelope is assigned to the  Dev Account and
+In the diagram above, Penelope is assigned to the Dev Account and
 Jim is assigned to the Marketing Account.
-The Dev Account includes the permissions to manage queries, monitor the
-cluster, and add/remove nodes from the cluster.
+
 The Marketing Account includes the permission to view and edit the admin screens
 as well as the Graph Role which contains the permissions to read data and
 view Chronograf.
@@ -73,14 +58,14 @@ InfluxDB Enterprise clusters have 16 permissions:
 | View Chronograf           | Permission to use Chronograf tools.                      |
 | Create Databases          | Permission to create databases.                          |
 | Create Users & Roles      | Permission to create users and roles.                    |
-| Add/Remove nodes          | Permission to add/remove nodes from a cluster.           |
+| Add/Remove Nodes          | Permission to add/remove nodes from a cluster.           |
 | Drop Databases            | Permission to drop databases.                            |
 | Drop Data                 | Permission to drop measurements and series.              |
 | Read                      | Permission to read data.                                 |
 | Write                     | Permission to write data.                                |
 | Rebalance                 | Permission to rebalance a cluster.                       |
 | Manage Shards             | Permission to copy and delete shards.                    |
-| Manage continuous queries | Permission to create, show, and drop continuous queries. |
+| Manage Continuous Queries | Permission to create, show, and drop continuous queries. |
 | Manage Queries            | Permission to show and kill queries.                     |
 | Manage Subscriptions      | Permission to show, add, and drop subscriptions.         |
 | Monitor                   | Permission to show stats and diagnostics.                |
@@ -89,7 +74,7 @@ InfluxDB Enterprise clusters have 16 permissions:
 ### Permission to Statement
 
 The following table describes permissions required to execute the associated database statement.
-It also describes whether these permissions apply just to InfluxDB (Database) or InfluxDB Enterprise (Cluster).
+<!-- It also describes whether these permissions apply just to InfluxDB (Database) or InfluxDB Enterprise (Cluster). -->
 
 | Permission                             | Statement                                                                                                                                                                                    |
 |----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -109,7 +94,7 @@ It also describes whether these permissions apply just to InfluxDB (Database) or
 ### Statement to Permission
 
 The following table describes database statements and the permissions required to execute them.
-It also describes whether these permissions apply just to InfluxDB (Database) or InfluxDB Enterprise (Cluster).
+It also describes whether these permissions apply the the database or cluster level.
 
 | Statement                      | Permissions                            | Scope    |                                                                          |
 |--------------------------------|----------------------------------------|----------|--------------------------------------------------------------------------|
