@@ -31,10 +31,17 @@ Strings are immutable and cannot be modified once created.
 - [Concatenate strings](#concatenate-strings)
 
 ## String syntax
-To format a sequence of characters as a string, begin and end the sequence with double quotes (`"`).
+A **string** literal is represented by a sequence of characters enclosed in double quotes (`"`).
+Any character may appear inside a string literal except an unescaped double quote.
+String literals support several [escape sequences](/flux/v0.x/spec/lexical-elements/#string-literals)
+and [hex encoding using `\x` as a prefix](/flux/v0.x/spec/lexical-elements/#string-literals).
 
 ```js
-"This is a string"
+"abc"
+"string with double \" quote"
+"string with backslash \\"
+"日本語"
+"\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e"
 ```
 
 ## Convert data types to strings
@@ -51,13 +58,18 @@ other [basic types](/flux/v0.x/data-types/basic/) to strings:
 
 ```js
 string(v: 42)
+// Returns "42"
 ```
 
 ### Convert columns to strings
-Convert the `_value` column and other columns to strings.
-#### Convert the \_value column to strings
-Use the [`toString()` function](/flux/v0.x/stdlib/universe/tostring/) to convert
-the `_value` column to strings.
+Flex lets you iterate over rows in a stream of tables and convert columns to strings.
+
+**To convert the `_value` column to strings**,
+use the [`toString()` function](/flux/v0.x/stdlib/universe/tostring/).
+
+{{% note %}}
+`toString()` only operates on the `_value` column.
+{{% /note %}}
 
 ```js
 data
@@ -66,7 +78,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time               | \_value _<span style="opacity:.5">(int)</span>_ |
 | :------------------- | ----------------------------------------------: |
 | 2021-01-01T00:00:00Z |                                               1 |
@@ -86,8 +98,7 @@ data
 {{% /flex-content %}}
 {{< /flex >}}
 
-#### Convert other columns to strings
-To convert columns other than `_value` to strings:
+**To convert any column to strings**:
 
 1. Use [`map()`](/flux/v0.x/stdlib/universe/map/) to iterate over and rewrite rows.
 2. Use [`string()`](/flux/v0.x/stdlib/universe/string/) to convert columns values to strings.
@@ -98,7 +109,7 @@ data
 ```
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time               | level _<span style="opacity:.5">(int)</span>_ |
 | :------------------- | --------------------------------------------: |
 | 2021-01-01T00:00:00Z |                                             1 |
