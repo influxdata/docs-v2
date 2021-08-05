@@ -162,6 +162,9 @@ See [InfluxQL Functions](/enterprise_influxdb/v1.9/query_language/functions/) fo
 
 Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
 
+<!--
+## grant
+-->
 ## identifier
 
 Tokens that refer to continuous query names, database names, field keys,
