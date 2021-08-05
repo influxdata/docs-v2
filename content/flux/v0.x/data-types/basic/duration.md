@@ -21,7 +21,7 @@ A **duration** type represents a length of time with nanosecond precision.
 - [Operate on durations](#operate-on-durations)
 
 ## Duration syntax
-Durations are represented with positive integers and unit specifiers.
+Duration literals are represented with integers and unit specifiers.
 Flux supports the following unit specifiers:
 
 - `ns`: nanosecond
