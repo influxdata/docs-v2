@@ -172,59 +172,54 @@ password:
 For a more secure alternative to using passwords, include JWT tokens with requests to the InfluxDB API.
 This is currently only possible through the [InfluxDB HTTP API](/enterprise_influxdb/v1.9/tools/api/).
 
-1. [Add a shared secret in your InfluxDB configuration file](#add-a-shared-secret-in-your-influxdb-configuration-file)
-2. [Generate your JWT token](#generate-your-jwt-token)
-3. [Include the token in HTTP requests](#include-the-token-in-http-requests)
+1. **Add a shared secret in your InfluxDB Enterprise configuration file**
+   InfluxDB Enterprise uses the shared secret to encode the JWT signature.
+   By default, `shared-secret` is set to an empty string, in which case no JWT authentication takes place.
+   <!-- TODO: meta, data, or both? -->
+   Add a custom shared secret in your [InfluxDB configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#shared-secret--).
+   The longer the secret string, the more secure it is:
 
-##### Add a shared secret in your InfluxDB Enterprise configuration file
-InfluxDB Enterprise uses the shared secret to encode the JWT signature.
-By default, `shared-secret` is set to an empty string, in which case no JWT authentication takes place.
-<!-- TODO: meta, data, or both? -->
-Add a custom shared secret in your [InfluxDB configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#shared-secret--).
-The longer the secret string, the more secure it is:
+   ```toml
+   [http]
+   shared-secret = "my super secret pass phrase"
+   ```
 
-```toml
-[http]
-  shared-secret = "my super secret pass phrase"
-```
+   Alternatively, to avoid keeping your secret phrase as plain text in your InfluxDB configuration file, set the value with the `INFLUXDB_HTTP_SHARED_SECRET` environment variable.
 
-Alternatively, to avoid keeping your secret phrase as plain text in your InfluxDB configuration file, set the value with the `INFLUXDB_HTTP_SHARED_SECRET` environment variable.
+2. **Generate your JWT token**
+   Use an authentication service to generate a secure token using your InfluxDB username, an expiration time, and your shared secret.
+   There are online tools, such as [https://jwt.io/](https://jwt.io/), that will do this for you.
 
+   The payload (or claims) of the token must be in the following format:
 
-##### Generate your JWT token
-Use an authentication service to generate a secure token using your InfluxDB username, an expiration time, and your shared secret.
-There are online tools, such as [https://jwt.io/](https://jwt.io/), that will do this for you.
+   ```json
+   {
+       "username": "myUserName",
+       "exp": 1516239022
+   }
+   ```
 
-The payload (or claims) of the token must be in the following format:
+   - **username** - The name of your InfluxDB user.
+   - **exp** - The expiration time of the token in UNIX epoch time.
+     For increased security, keep token expiration periods short.
+     For testing, you can manually generate UNIX timestamps using [https://www.unixtimestamp.com/index.php](https://www.unixtimestamp.com/index.php).
 
-```json
-{
-  "username": "myUserName",
-  "exp": 1516239022
-}
-```
+   Encode the payload using your shared secret.
+   You can do this with either a JWT library in your own authentication server or by hand at [https://jwt.io/](https://jwt.io/).
 
-- **username** - The name of your InfluxDB user.  
-- **exp** - The expiration time of the token in UNIX epoch time.
-  For increased security, keep token expiration periods short.
-  For testing, you can manually generate UNIX timestamps using [https://www.unixtimestamp.com/index.php](https://www.unixtimestamp.com/index.php).
+   The generated token follows this format: `<header>.<payload>.<signature>`
 
-Encode the payload using your shared secret.
-You can do this with either a JWT library in your own authentication server or by hand at [https://jwt.io/](https://jwt.io/).
+3. **Include the token in HTTP requests**
+   Include your generated token as part of the ``Authorization`` header in HTTP requests.
+   Use the ``Bearer`` authorization scheme:
 
-The generated token follows this format: `<header>.<payload>.<signature>`
-
-##### Include the token in HTTP requests
-Include your generated token as part of the ``Authorization`` header in HTTP requests.
-Use the ``Bearer`` authorization scheme:
-
-```
-Authorization: Bearer <myToken>
-```
-{{% note %}}
+   ```
+   Authorization: Bearer <myToken>
+   ```
+   {{% note %}}
 Only unexpired tokens will successfully authenticate.
 Be sure your token has not expired.
-{{% /note %}}
+   {{% /note %}}
 
 ###### Example query request with JWT authentication
 ```bash
