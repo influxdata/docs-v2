@@ -24,7 +24,7 @@ int(v: "4")
 
 ## Parameters
 
-### v {data-type="numeric string, bool, uint, float, time"}
+### v {data-type="numeric string, bool, uint, float, time, duration"}
 Value to convert.
 
 For duration and time values, `int()` returns the following:
