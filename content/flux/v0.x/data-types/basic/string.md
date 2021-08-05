@@ -39,13 +39,7 @@ To format a sequence of characters as a string, begin and end the sequence with 
 
 ## Convert data types to strings
 Use the [`string()` function](/flux/v0.x/stdlib/universe/string/) to convert
-other [basic types](/flux/v0.x/data-types/basic/) to strings.
-
-```js
-string(v: 42)
-```
-
-The following data types can be converted to strings:
+other [basic types](/flux/v0.x/data-types/basic/) to strings:
 
 - boolean
 - bytes
@@ -55,8 +49,12 @@ The following data types can be converted to strings:
 - uint
 - time
 
-### Convert columns to strings
+```js
+string(v: 42)
+```
 
+### Convert columns to strings
+Convert the `_value` column and other columns to strings.
 #### Convert the \_value column to strings
 Use the [`toString()` function](/flux/v0.x/stdlib/universe/tostring/) to convert
 the `_value` column to strings.
