@@ -8,7 +8,7 @@ menu:
 weight: 4
 ---
 
-A Flux **type** defines the set of values and operations possible on those values.
+A Flux **data type** defines the set of possible values and operations.
 Data types are never explicitly declared as part of the Flux syntax except as
 part of a [builtin statement](/flux/v0.x/spec/system-built-ins/).
 Types are inferred from how a value is used.
@@ -16,7 +16,7 @@ Types are inferred from how a value is used.
 Flux is a **statically typed**. Variable types are inferred at compile time based
 on how variables are used.
 
-Flux types are organized into the following:
+Flux data types are organized into the following:
 
 {{< children type="anchored-list" >}}
 
