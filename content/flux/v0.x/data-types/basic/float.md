@@ -11,8 +11,8 @@ weight: 202
 flux/v0.x/tags: ["basic types", "numeric types", "data types"]
 ---
 
-A **float** type represents all [IEEE-754](https://standards.ieee.org/standard/754-2019.html)
-64-bit floating-point numbers.
+A **float** type represents a [IEEE-754](https://standards.ieee.org/standard/754-2019.html)
+64-bit floating-point number.
 
 **Type name:** `float`
 
@@ -221,5 +221,5 @@ math.round(x: 1.54)
 ```
 
 ### Flux math package
-Use the [`math` package](/flux/v0.x/stdlib/math/) to perform a number of
+Use the [`math` package](/flux/v0.x/stdlib/math/) to perform
 operations on float values.
