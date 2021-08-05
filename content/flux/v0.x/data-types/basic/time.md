@@ -20,7 +20,7 @@ A **time** type represents a single point in time with nanosecond precision.
 - [Operate on time](#operate-on-time)
 
 ## Time syntax
-Time types are represented with [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
+Time literals are represented by [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
 
 ```js
 YYYY-MM-DD
