@@ -45,40 +45,40 @@ endpoints (for example, Graphite, collectd, etc.) are not authenticated.
 
 ### Enable authentication
 
-1.  **Create at least one [admin user](#admin-users)**.
-    See the [authorization section](#authorization) for how to create an admin user.
+1. **Create at least one [admin user](#admin-users)**.
+   See the [authorization section](#authorization) for how to create an admin user.
 
-    {{% note %}}
+   {{% note %}}
 If you enable authentication and have no users, InfluxDB Enterprise will **not** enforce authentication
 and will only accept the [query](#user-management-commands) that creates a new admin user.
-    {{% /note %}}
+   {{% /note %}}
 
-2.  **Enable authentication in your meta and data configuration files**
-    by setting the `auth-enabled` option to `true` in the `[http]` section:
+2. **Enable authentication in your meta and data configuration files**
+   by setting the `auth-enabled` option to `true` in the `[http]` section:
 
-    ```toml
-    [http]
-      enabled = true
-      bind-address = ":8086"
-      auth-enabled = true # Set to true
-      log-enabled = true
-      write-tracing = false
-      pprof-enabled = true
-      pprof-auth-enabled = true
-      debug-pprof-enabled = false
-      ping-auth-enabled = true
-      https-enabled = true
-      https-certificate = "/etc/ssl/influxdb.pem"
-    ```
+   ```toml
+   [http]
+     enabled = true
+     bind-address = ":8086"
+     auth-enabled = true # Set to true
+     log-enabled = true
+     write-tracing = false
+     pprof-enabled = true
+     pprof-auth-enabled = true
+     debug-pprof-enabled = false
+     ping-auth-enabled = true
+     https-enabled = true
+     https-certificate = "/etc/ssl/influxdb.pem"
+   ```
 
-    {{% note %}}
+   {{% note %}}
 If `pprof-enabled` is set to `true`, set `pprof-auth-enabled` and `ping-auth-enabled`
 to `true` to require authentication on profiling and ping endpoints.
-    {{% /note %}}
+   {{% /note %}}
 
-3.  **Restart InfluxDB Enterprise**.
-    Once restarted, InfluxDB Enterprise checks user credentials on every request and only
-    processes requests that have valid credentials for an existing user.
+3. **Restart InfluxDB Enterprise**.
+   Once restarted, InfluxDB Enterprise checks user credentials on every request and only
+   processes requests that have valid credentials for an existing user.
 
 ### Authenticate requests
 
