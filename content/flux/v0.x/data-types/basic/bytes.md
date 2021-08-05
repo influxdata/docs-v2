@@ -45,7 +45,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time               | \_value _<span style="opacity:.5">(string)</span>_ |
 | :------------------- | -------------------------------------------------: |
 | 2021-01-01T00:00:00Z |                                                foo |
