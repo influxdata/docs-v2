@@ -19,12 +19,7 @@ Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influ
 In this guide, you'll start a Node.js project from scratch and build interactions between the browser and the InfluxDB API.
 
 {{% note %}}
-This library supports browser and server-side (Node.js) Javascript environments.
-
-If you target browser or [Deno](https://deno.land/) environments, use @influxdata/influxdb-client-browser. It is UMD-compatible for use with module loaders.
-
-If you target Node.js server-side environments, use the @influxdata/influxdb-client module.
-See [Node.js](/influxdb/v2.0/api-guide/client-libraries/nodejs) for more information.
+{{% api/v2dot0/browserjs/install %}}
 {{% /note %}}
 
 {{< children >}}

@@ -16,13 +16,6 @@ weight: 201
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
 If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-started/).
 
-## Before you begin
-
-1. Install [NodeJS](https://nodejs.org/en/download/package-manager/).
-
-2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.0/reference/urls/).
-
 ### Write data to InfluxDB
   {{% warn %}}
   #### Tokens in production applications
@@ -32,7 +25,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.0/get-star
 Use the `getWriteApi` method of the InfluxDB client instance to create a **write client**. Provide your InfluxDB `org` and `bucket`.
 
   ```js
-  import {InfluxDB, Point} from '@influxdata/influxdb-client'
+  import {InfluxDB, Point} from '@influxdata/influxdb-client-browser'
 
   const influxDB = new InfluxDB({url, token})
   const writeApi = influxDB.getWriteApi(org, bucket)
