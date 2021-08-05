@@ -8,7 +8,7 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Manage clusters
-    weight: 40
+    weight: 30
     parent: Manage
 ---
 

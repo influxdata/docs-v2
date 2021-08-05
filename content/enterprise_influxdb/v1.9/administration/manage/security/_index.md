@@ -1,10 +1,10 @@
 ---
-title: Security
+title: Manage security
 description: Configuration, security, and logging in InfluxDB enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Manage security
-    weight: 12
+    weight: 40
     parent: Manage
 ---
 
