@@ -21,7 +21,7 @@ A **boolean** type represents a truth value (`true` or `false`).
 - [Negate boolean values](#negate-boolean-values)
 
 ## Boolean syntax
-Boolean values are represented by the following:
+Boolean literals are represented by the following:
 
 ```js
 true
