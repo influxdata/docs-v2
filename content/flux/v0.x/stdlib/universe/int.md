@@ -11,6 +11,9 @@ menu:
     parent: universe
 weight: 102
 flux/v0.x/tags: [type-conversions]
+related:
+  - /flux/v0.x/data-types/basic/integer/
+  - /flux/v0.x/stdlib/universe/toint/
 introduced: 0.7.0
 ---
 
@@ -27,12 +30,16 @@ int(v: "4")
 ### v {data-type="numeric string, bool, uint, float, time, duration"}
 Value to convert.
 
-For duration and time values, `int()` returns the following:
+`int()` behavior depends on the input data type:
 
-| Input type | Returned value                                      |
-|:---------- |:--------------                                      |
-| Duration   | The number of nanoseconds in the specified duration |
-| Time       | A nanosecond epoch timestamp                        |
+| Input type | Returned value                                  |
+| :--------- | :---------------------------------------------- |
+| string     | Integer equivalent of the numeric string        |
+| bool       | 1 (true) or 0 (false)                           |
+| duration   | Number of nanoseconds in the specified duration |
+| time       | Equivalent nanosecond epoch timestamp           |
+| float      | Value truncated at the decimal                  |
+| uint       | Integer equivalent of the unsigned integer      |
 
 ## Examples
 ```js

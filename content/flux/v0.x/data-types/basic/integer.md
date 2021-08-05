@@ -9,6 +9,9 @@ menu:
     parent: Basic types
 weight: 202
 flux/v0.x/tags: ["basic types", "numeric types", "data types"]
+related:
+  - /flux/v0.x/stdlib/universe/int/
+  - /flux/v0.x/stdlib/universe/toint/
 ---
 
 A **integer** type represents a signed 64-bit integer.
@@ -35,12 +38,12 @@ An integer literal contains one or more digits (0-9) optionally preceded by
 Use the [`int()` function](/flux/v0.x/stdlib/universe/int/) to convert
 the following [basic types](/flux/v0.x/data-types/basic/) to integers:
 
-- **string**: must be a numeric string (`[0-9]`)
-- **bool**: `true` converts to `1`, `false` converts to `0`
-- **duration**: converts to the number of nanoseconds in the duration
-- **time**: converts to a [nanosecond epoch timestamp](/influxdb/cloud/reference/glossary/#unix-timestamp)
+- **string**: returns the integer equivalent of the numeric string (`[0-9]`)
+- **bool**: returns `1` for `true` or `0` for `false`
+- **duration**: returns to the number of nanoseconds in the duration
+- **time**: returns the equivalent [nanosecond epoch timestamp](/influxdb/cloud/reference/glossary/#unix-timestamp)
 - **float**: truncates the float value at the decimal
-- **uint**
+- **uint**: returns the integer equivalent of the unsigned integer
 
 ```js
 int(v: "123")
