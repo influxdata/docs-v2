@@ -67,7 +67,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time                                            | \_value _<span style="opacity:.5">(int)</span>_ |
 | :------------------------------------------------ | ----------------------------------------------: |
 | {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} |                                     10000000000 |
@@ -99,7 +99,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time                                            | epoch_ns _<span style="opacity:.5">(int)</span>_ |
 | :------------------------------------------------ | -----------------------------------------------: |
 | {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} |                                      10000000000 |
