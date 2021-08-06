@@ -9,6 +9,9 @@ menu:
     parent: Basic types
 weight: 202
 flux/v0.x/tags: ["basic types", "numeric types", "data types"]
+related:
+  - /flux/v0.x/stdlib/universe/float/
+  - /flux/v0.x/stdlib/universe/tofloat/
 ---
 
 A **float** type represents a [IEEE-754](https://standards.ieee.org/standard/754-2019.html)
