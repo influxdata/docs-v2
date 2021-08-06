@@ -8,6 +8,10 @@ menu:
     name: Time
     parent: Basic types
 weight: 201
+flux/v0.x/tags: [basic types, data types, date/time]
+related:
+  - /flux/v0.x/stdlib/universe/time/
+  - /flux/v0.x/stdlib/universe/totime/
 ---
 
 A **time** type represents a single point in time with nanosecond precision.
