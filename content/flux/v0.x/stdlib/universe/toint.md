@@ -13,6 +13,9 @@ menu:
 weight: 102
 flux/v0.x/tags: [type-conversions, transformations]
 introduced: 0.7.0
+related:
+  - /flux/v0.x/data-types/basic/integer/
+  - /flux/v0.x/stdlib/universe/int/
 ---
 
 The `toInt()` function converts all values in the `_value` column to integers.
@@ -23,12 +26,16 @@ toInt()
 
 _**Supported data types:** Boolean | Duration | Float | Numeric String | Time | Uinteger_
 
-For duration and time values, `toInt()` returns the following:
+`toInt()` behavior depends on the `_value` column data type:
 
-| Input type | Returned value                                      |
-|:---------- |:--------------                                      |
-| Duration   | The number of nanoseconds in the specified duration |
-| Time       | A nanosecond epoch timestamp                        |
+| \_value type | Returned value                                  |
+| :----------- | :---------------------------------------------- |
+| string       | Integer equivalent of the numeric string        |
+| bool         | 1 (true) or 0 (false)                           |
+| duration     | Number of nanoseconds in the specified duration |
+| time         | Equivalent nanosecond epoch timestamp           |
+| float        | Value truncated at the decimal                  |
+| uint         | Integer equivalent of the unsigned integer      |
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function
