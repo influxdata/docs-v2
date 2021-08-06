@@ -14,8 +14,8 @@ menu:
 Migrate a running instance of InfluxDB open source (OSS) to an InfluxDB Enterprise cluster.
 
 ## Prerequisites
-- An InfluxDB OSS instance running **InfluxDB 1.7.10 or later**.
-- An InfluxDB Enterprise cluster running **InfluxDB Enterprise 1.7.10 or later**
+- An InfluxDB OSS instance running **InfluxDB {{< latest-patch >}} or later**.
+- An InfluxDB Enterprise cluster running **InfluxDB Enterprise {{< latest-patch >}} or later**
 - Network accessibility between the OSS instances and all data and meta nodes.
 
 {{% warn %}}
@@ -29,7 +29,7 @@ Migrate a running instance of InfluxDB open source (OSS) to an InfluxDB Enterpri
 ## To migrate to InfluxDB Enterprise
 Complete the following tasks:
 
-1. [Upgrade to **InfluxDB 1.7.10 or later**](#upgrade-to-influxdb-1-7-10-or-later)
+1. [Upgrade to **InfluxDB {{< latest-patch >}} or later**](#upgrade-to-influxdb-1-7-10-or-later)
 2. [Set up InfluxDB Enterprise meta nodes](#set-up-influxdb-enterprise-meta-nodes)
 3. [Set up InfluxDB Enterprise data nodes](#set-up-influxdb-enterprise-data-nodes)
 4. [Upgrade the InfluxDB binary on your OSS instance](#upgrade-the-influxdb-oss-instance-to-influxdb-enterprise)
@@ -37,10 +37,10 @@ Complete the following tasks:
 6. [Add existing data nodes back to the cluster](#add-existing-data-nodes-back-to-the-cluster)
 7. [Rebalance the cluster](#rebalance-the-cluster)
 
-## Upgrade to InfluxDB 1.7.10 or later
-InfluxDB 1.7.10 (both OSS and Enterprise) fixed an issue that prevented upgrading
+## Upgrade to InfluxDB {{< latest-patch >}} or later
+InfluxDB {{< latest-patch >}} (both OSS and Enterprise) fixed an issue that prevented upgrading
 an InfluxDB OSS instance to InfluxDB Enterprise successfully.
-Upgrade to **InfluxDB 1.7.10** or later before proceeding.
+Upgrade to **InfluxDB {{< latest-patch >}}** or later before proceeding.
 
 - [Upgrade InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/upgrading/)
 - [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1.7/administration/upgrading/)
@@ -163,14 +163,14 @@ sudo yum remove influxdb
     {{% /code-tabs %}}
     {{% code-tab-content %}}
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.7.10-c1.7.10_amd64.deb
-sudo dpkg -i influxdb-data_1.7.10-c1.7.10_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
     {{% /code-tab-content %}}
     {{% code-tab-content %}}
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.7.10_c1.7.10.x86_64.rpm
-sudo yum localinstall influxdb-data-1.7.10_c1.7.10.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
     {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}

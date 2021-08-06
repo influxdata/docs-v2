@@ -7,6 +7,7 @@ weight: 101
 aliases:
   - /influxdb/cloud/reference/client-libraries/
   - /influxdb/cloud/reference/api/client-libraries/
+  - /influxdb/cloud/tools/client-libraries/
 menu:
   influxdb_cloud:
     name: Client libraries

@@ -23,6 +23,7 @@ Download, install, and set up InfluxDB OSS.
 [Windows](#)
 [Docker](#)
 [Kubernetes](#)
+[Raspberry Pi](#)
 {{% /tabs %}}
 
 <!-------------------------------- BEGIN macOS -------------------------------->
@@ -426,7 +427,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
    mkdir path/to/influxdb-docker-data-volume && cd $_
    ```
 2. From within your new directory, run the InfluxDB Docker container with the `--volume` flag to
-   persist data from `/root/.influxdb2/` _inside_ the container to the current working directory in
+   persist data from `/var/lib/influxdb2` _inside_ the container to the current working directory in
    the host file system.
 
    ```sh
@@ -545,6 +546,39 @@ Always inspect YAML manifests before running `kubectl apply -f <url>`!
 
 {{% /tab-content %}}
 <!--------------------------------- END kubernetes ---------------------------->
+<!--------------------------------- BEGIN Rasberry Pi ------------------------->
+{{% tab-content %}}
+
+### InfluxDB on Raspberry Pi
+
+#### Requirements
+
+To run InfluxDB on Raspberry Pi, you will need:
+
+- a Raspberry Pi 4+ or 400
+- a 64-bit operating system.
+  We recommend installing a [64-bit version of Ubuntu](https://ubuntu.com/download/raspberry-pi)
+  of Ubuntu Desktop or Ubuntu Server compatible with 64-bit Raspberry Pi.
+
+#### Installation
+
+Follow the [Linux installation instructions](/influxdb/v2.0/install/?t=Linux)
+to install InfluxDB on a Raspberry Pi.
+
+Use the [Raspberry Pi template](/influxdb/cloud/monitor-alert/templates/infrastructure/raspberry-pi/)
+to easily configure collecting and visualizating system metrics for the Raspberry Pi.
+
+#### Support for 32-bit systems
+
+If you have a 32-bit Raspberry Pi, [use Telegraf](/{{< latest "telegraf" >}}/)
+to collect and send data to:
+
+- [InfluxDB OSS](/influxdb/v2.0/), running on a 64-bit system
+- InfluxDB Cloud with a [**Free Tier**](/influxdb/cloud/account-management/pricing-plans/#free-plan) account
+- InfluxDB Cloud with a paid [**Usage-Based**](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) account with relaxed resource restrictions.
+
+{{% /tab-content %}}
+<!--------------------------------- END Rasberry Pi --------------------------->
 
 {{< /tabs-wrapper >}}
 

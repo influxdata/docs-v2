@@ -120,8 +120,8 @@ echo $INFLUX_USERNAME $INFLUX_PASSWORD
 todd influxdb4ever
 
 influx
-Connected to http://localhost:8086 version 1.3.x
-InfluxDB shell 1.3.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 ```
 
 ##### Authenticate by setting the `username` and `password` flags when you start the CLI
@@ -130,8 +130,8 @@ Example:
 
 ```bash
 influx -username todd -password influxdb4ever
-Connected to http://localhost:8086 version 1.3.x
-InfluxDB shell 1.3.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 ```
 
 ##### Authenticate with `auth <username> <password>` after starting the CLI
@@ -140,8 +140,8 @@ Example:
 
 ```bash
 influx
-Connected to http://localhost:8086 version 1.3.x
-InfluxDB shell 1.3.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 > auth
 username: todd
 password:

@@ -55,6 +55,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /ping:
+    servers:
+      - url: ''
+    get:
+      operationId: GetPing
+      summary: Checks the status of InfluxDB instance and version of InfluxDB.
+      responses:
+        '204':
+          description: OK
+          headers:
+            X-Influxdb-Build:
+              schema:
+                type: string
+              description: The type of InfluxDB build.
+            X-Influxdb-Version:
+              schema:
+                type: integer
+              description: The version of InfluxDB.
+    head:
+      operationId: HeadPing
+      summary: Checks the status of InfluxDB instance and version of InfluxDB.
+      responses:
+        '204':
+          description: OK
+          headers:
+            X-Influxdb-Build:
+              schema:
+                type: string
+              description: The type of InfluxDB build.
+            X-Influxdb-Version:
+              schema:
+                type: integer
+              description: The version of InfluxDB.
   /:
     get:
       operationId: GetRoutes
@@ -315,8 +348,12 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: orgID
-          required: true
           description: Specifies the organization ID to filter on
+          schema:
+            type: string
+        - in: query
+          name: org
+          description: Specifies the organization name to filter on
           schema:
             type: string
         - in: query
@@ -376,7 +413,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DBRP'
+              $ref: '#/components/schemas/DBRPCreate'
       responses:
         '201':
           description: Database retention policy mapping created
@@ -406,8 +443,12 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: orgID
-          required: true
           description: Specifies the organization ID of the mapping
+          schema:
+            type: string
+        - in: query
+          name: org
+          description: Specifies the organization name of the mapping
           schema:
             type: string
         - in: path
@@ -422,7 +463,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DBRP'
+                $ref: '#/components/schemas/DBRPGet'
         '400':
           description: if any of the IDs passed is invalid
           content:
@@ -451,8 +492,12 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: orgID
-          required: true
           description: Specifies the organization ID of the mapping
+          schema:
+            type: string
+        - in: query
+          name: org
+          description: Specifies the organization name of the mapping
           schema:
             type: string
         - in: path
@@ -467,7 +512,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DBRP'
+                $ref: '#/components/schemas/DBRPGet'
         '400':
           description: if any of the IDs passed is invalid
           content:
@@ -495,8 +540,12 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: orgID
-          required: true
           description: Specifies the organization ID of the mapping
+          schema:
+            type: string
+        - in: query
+          name: org
+          description: Specifies the organization name of the mapping
           schema:
             type: string
         - in: path
@@ -2943,7 +2992,6 @@ paths:
       operationId: GetOrgsIDSecrets
       tags:
         - Secrets
-        - Organizations
       summary: List all secret keys for an organization
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2970,7 +3018,6 @@ paths:
       operationId: PatchOrgsIDSecrets
       tags:
         - Secrets
-        - Organizations
       summary: Update secrets in an organization
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2987,37 +3034,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Secrets'
-      responses:
-        '204':
-          description: Keys successfully patched
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/orgs/{orgID}/secrets/delete':
-    post:
-      operationId: PostOrgsIDSecrets
-      tags:
-        - Secrets
-        - Organizations
-      summary: Delete secrets from an organization
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: orgID
-          schema:
-            type: string
-          required: true
-          description: The organization ID.
-      requestBody:
-        description: Secret key to delete
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SecretKeys'
       responses:
         '204':
           description: Keys successfully patched
@@ -3217,6 +3233,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/orgs/{orgID}/secrets/delete':
+    post:
+      deprecated: true
+      operationId: PostOrgsIDSecrets
+      tags:
+        - Secrets
+      summary: Delete secrets from an organization
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: orgID
+          schema:
+            type: string
+          required: true
+          description: The organization ID.
+      requestBody:
+        description: Secret key to delete
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecretKeys'
+      responses:
+        '204':
+          description: Keys successfully patched
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/orgs/{orgID}/secrets/{secretID}':
+    delete:
+      operationId: DeleteOrgsIDSecretsID
+      tags:
+        - Secrets
+      summary: Delete a secret from an organization
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: orgID
+          schema:
+            type: string
+          required: true
+          description: The organization ID.
+        - in: path
+          name: secretID
+          schema:
+            type: string
+          required: true
+          description: The secret ID.
+      responses:
+        '204':
+          description: Keys successfully deleted
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
   /stacks:
     get:
       operationId: ListStacks
@@ -5476,6 +5549,67 @@ paths:
         default:
           description: Unexpected error
           $ref: '#/components/responses/ServerError'
+  /experimental/sampledata/buckets:
+    get:
+      operationId: GetDemoDataBuckets
+      tags:
+        - DemoDataBuckets
+      summary: List of Demo Data Buckets
+      responses:
+        '200':
+          description: A list of demo data buckets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DemoDataBuckets'
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  '/experimental/sampledata/buckets/{bucketID}/members':
+    post:
+      operationId: GetDemoDataBucketMembers
+      tags:
+        - DemoDataBuckets
+      summary: List of Demo Data Buckets
+      parameters:
+        - description: bucket id
+        - in: path
+          name: bucketID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: if sampledata route is not available gateway responds with 200
+        '204':
+          description: A list of demo data buckets
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: GetDemoDataBucketMembers
+      tags:
+        - DemoDataBuckets
+      summary: List of Demo Data Buckets
+      parameters:
+        - description: bucket id
+        - in: path
+          name: bucketID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: if sampledata route is not available gateway responds with 200
+        '204':
+          description: A list of demo data buckets
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   '/authorizations/{authID}':
     get:
       operationId: GetAuthorizationsID
@@ -7030,18 +7164,20 @@ components:
                     items:
                       $ref: '#/components/schemas/TemplateKind'
         resources:
-          type: object
-          properties:
-            id:
-              type: string
-            kind:
-              $ref: '#/components/schemas/TemplateKind'
-            name:
-              type: string
-              description: 'if defined with id, name is used for resource exported by id. if defined independently, resources strictly matching name are exported'
-          required:
-            - id
-            - kind
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              kind:
+                $ref: '#/components/schemas/TemplateKind'
+              name:
+                type: string
+                description: 'if defined with id, name is used for resource exported by id. if defined independently, resources strictly matching name are exported'
+            required:
+              - id
+              - kind
     TemplateExportByName:
       type: object
       properties:
@@ -7066,15 +7202,17 @@ components:
                     items:
                       $ref: '#/components/schemas/TemplateKind'
         resources:
-          type: object
-          properties:
-            kind:
-              $ref: '#/components/schemas/TemplateKind'
-            name:
-              type: string
-          required:
-            - name
-            - kind
+          type: array
+          items:
+            type: object
+            properties:
+              kind:
+                $ref: '#/components/schemas/TemplateKind'
+              name:
+                type: string
+            required:
+              - name
+              - kind
     Template:
       type: array
       items:
@@ -7934,6 +8072,9 @@ components:
           type: string
         name:
           description: The name of the task.
+          type: string
+        ownerID:
+          description: The ID of the user who owns this Task.
           type: string
         description:
           description: An optional description of the task.
@@ -9424,6 +9565,11 @@ components:
             isClustered:
               description: Cluster close markers together
               type: boolean
+            tooltipColumns:
+              description: An array for which columns to display in tooltip
+              type: array
+              items:
+                type: string
     GeoTrackMapViewLayer:
       allOf:
         - $ref: '#/components/schemas/GeoViewLayerProperties'
@@ -9530,6 +9676,14 @@ components:
           description: 'If true, search results get automatically regroupped so that lon,lat and value are treated as columns'
           type: boolean
           default: true
+        useS2CellID:
+          description: 'If true, S2 column is used to calculate lat/lon'
+          type: boolean
+        s2Column:
+          description: String to define the column
+          type: string
+        latLonColumns:
+          $ref: '#/components/schemas/LatLonColumns'
         mapStyle:
           description: 'Define map type - regular, satellite etc.'
           type: string
@@ -9548,6 +9702,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GeoViewLayer'
+    LatLonColumns:
+      description: Object type to define lat/lon columns
+      type: object
+      required:
+        - lat
+        - lon
+      properties:
+        lat:
+          $ref: '#/components/schemas/LatLonColumn'
+        lon:
+          $ref: '#/components/schemas/LatLonColumn'
+    LatLonColumn:
+      description: Object type for key and column definitions
+      type: object
+      required:
+        - key
+        - column
+      properties:
+        key:
+          description: Key to determine whether the column is tag/field
+          type: string
+        column:
+          description: Column to look up Lat/Lon
+          type: string
     Axes:
       description: The viewport for a View's visualizations
       type: object
@@ -9568,7 +9746,7 @@ components:
         heightRatio:
           type: number
           format: float
-        hide:
+        show:
           type: boolean
         opacity:
           type: number
@@ -11033,6 +11211,46 @@ components:
         orgID:
           type: string
           description: the organization ID that owns this mapping.
+        bucketID:
+          type: string
+          description: the bucket ID used as target for the translation.
+        database:
+          type: string
+          description: InfluxDB v1 database
+        retention_policy:
+          type: string
+          description: InfluxDB v1 retention policy
+        default:
+          type: boolean
+          description: Specify if this mapping represents the default retention policy for the database specificed.
+        links:
+          $ref: '#/components/schemas/Links'
+      required:
+        - id
+        - orgID
+        - bucketID
+        - database
+        - retention_policy
+        - default
+    DBRPs:
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/DBRP'
+    DBRPUpdate:
+      properties:
+        retention_policy:
+          type: string
+          description: InfluxDB v1 retention policy
+        default:
+          type: boolean
+    DBRPCreate:
+      type: object
+      properties:
+        orgID:
+          type: string
+          description: the organization ID that owns this mapping.
         org:
           type: string
           description: the organization that owns this mapping.
@@ -11048,42 +11266,95 @@ components:
         default:
           type: boolean
           description: Specify if this mapping represents the default retention policy for the database specificed.
-        links:
-          $ref: '#/components/schemas/Links'
-      oneOf:
-        - required:
-            - orgID
-            - bucketID
-            - database
-            - retention_policy
-        - required:
-            - org
-            - bucketID
-            - database
-            - retention_policy
-    DBRPs:
+      required:
+        - bucketID
+        - database
+        - retention_policy
+    DBRPGet:
+      type: object
       properties:
         content:
-          type: array
-          items:
-            $ref: '#/components/schemas/DBRP'
-    DBRPUpdate:
-      properties:
-        database:
-          type: string
-          description: InfluxDB v1 database
-        retention_policy:
-          type: string
-          description: InfluxDB v1 retention policy
-        default:
-          type: boolean
-        links:
-          $ref: '#/components/schemas/Links'
+          $ref: '#/components/schemas/DBRP'
+          required: true
     SchemaType:
       type: string
       enum:
         - implicit
         - explicit
+    DemoDataBucket:
+      properties:
+        links:
+          type: object
+          readOnly: true
+          example:
+            labels: /api/v2/buckets/1/labels
+            members: /api/v2/buckets/1/members
+            org: /api/v2/orgs/2
+            owners: /api/v2/buckets/1/owners
+            self: /api/v2/buckets/1
+            write: /api/v2/write?org=2&bucket=1
+          properties:
+            labels:
+              description: URL to retrieve labels for this bucket
+              $ref: '#/components/schemas/Link'
+            members:
+              description: URL to retrieve members that can read this bucket
+              $ref: '#/components/schemas/Link'
+            org:
+              description: URL to retrieve parent organization for this bucket
+              $ref: '#/components/schemas/Link'
+            owners:
+              description: URL to retrieve owners that can read and write to this bucket.
+              $ref: '#/components/schemas/Link'
+            self:
+              description: URL for this bucket
+              $ref: '#/components/schemas/Link'
+            write:
+              description: URL to write line protocol for this bucket
+              $ref: '#/components/schemas/Link'
+        id:
+          readOnly: true
+          type: string
+        type:
+          readOnly: true
+          type: string
+          default: demodata
+        name:
+          type: string
+        description:
+          type: string
+        orgID:
+          type: string
+        rp:
+          type: string
+        schemaType:
+          $ref: '#/components/schemas/SchemaType'
+          default: implicit
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        retentionRules:
+          $ref: '#/components/schemas/RetentionRules'
+        labels:
+          $ref: '#/components/schemas/Labels'
+      required:
+        - name
+        - retentionRules
+    DemoDataBuckets:
+      type: object
+      properties:
+        links:
+          readOnly: true
+          $ref: '#/components/schemas/Links'
+        buckets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DemoDataBucket'
     Resource:
       type: object
       required:
@@ -11301,6 +11572,12 @@ components:
             cardinality:
               type: integer
               description: Allowed organization total cardinality. 0 is unlimited.
+          required:
+            - readKBs
+            - concurrentReadRequests
+            - writeKBs
+            - concurrentWriteRequests
+            - cardinality
         bucket:
           type: object
           properties:
@@ -11309,21 +11586,30 @@ components:
             maxRetentionDuration:
               type: integer
               description: Max bucket retention duration in nanoseconds. 0 is unlimited.
+          required:
+            - maxBuckets
+            - maxRetentionDuration
         task:
           type: object
           properties:
             maxTasks:
               type: integer
+          required:
+            - maxTasks
         dashboard:
           type: object
           properties:
             maxDashboards:
               type: integer
+          required:
+            - maxDashboards
         check:
           type: object
           properties:
             maxChecks:
               type: integer
+          required:
+            - maxChecks
         notificationRule:
           type: object
           properties:
@@ -11333,6 +11619,9 @@ components:
               type: string
               description: comma separated list of notification rules
               example: 'http,pagerduty'
+          required:
+            - maxNotifications
+            - blockNotificationRules
         notificationEndpoint:
           type: object
           properties:
@@ -11340,12 +11629,22 @@ components:
               type: string
               description: comma separated list of notification endpoints
               example: 'http,pagerduty'
+          required:
+            - blockNotificationEndpoints
         features:
           type: object
           properties:
             allowDelete:
               type: boolean
               description: allow delete predicate endpoint
+      required:
+        - rate
+        - bucket
+        - task
+        - dashboard
+        - check
+        - notificationRule
+        - notificationEndpoint
     Variable:
       type: object
       required:

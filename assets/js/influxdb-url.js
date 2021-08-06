@@ -160,16 +160,12 @@ function updateUrls(prevUrls, newUrls) {
     * then replace <prev> URL with <new> URL.
   **/
   var cloudReplacements = [
-    { replace: prevUrlsParsed.cloud.host, with: newUrlsParsed.cloud.host },
-    { replace: prevUrlsParsed.oss.host, with: newUrlsParsed.cloud.host },
-    { replace: prevUrls.cloud, with: newUrls.cloud },
-    { replace: prevUrls.oss, with: newUrls.cloud },
+    { replace: prevUrlsParsed.cloud, with: newUrlsParsed.cloud },
+    { replace: prevUrlsParsed.oss, with: newUrlsParsed.cloud },
   ]
   var ossReplacements = [
-    { replace: prevUrlsParsed.cloud.host, with: newUrlsParsed.cloud.host },
-    { replace: prevUrlsParsed.oss.host, with: newUrlsParsed.oss.host },
-    { replace: prevUrls.cloud, with: newUrls.cloud},
-    { replace: prevUrls.oss, with: newUrls.oss }
+    { replace: prevUrlsParsed.cloud, with: newUrlsParsed.cloud },
+    { replace: prevUrlsParsed.oss, with: newUrlsParsed.oss },
   ]
 
   if (context() === "cloud") { var replacements = cloudReplacements  }
@@ -180,10 +176,31 @@ function updateUrls(prevUrls, newUrls) {
   replacements.forEach(function (o) {
     if (o.replace != o.with) {
       $(elementSelector).each(function() {
-        $(this).html($(this).html().replace(RegExp(o.replace, "g"),  o.with));
-      });
+        $(this).html(
+          $(this).html().replace(RegExp(o.replace, "g"), function(match){
+            return (o.replace.protocol && o.with) || match;
+          })
+        );
+      })
     }
-  })
+  });
+  replacements
+  .map(function(o) {
+     return {replace: o.replace.host, with: o.with.host}
+   })
+  .forEach(function (o) {
+     if (o.replace != o.with) {
+       $(elementSelector).each(function() {
+         // Lookbehind matches if o.replace is not preceded by :[/.].
+         var hostnameOnly = new RegExp("(?<!:[/.])" + o.replace, "g")
+         $(this).html(
+           $(this).html().replace(hostnameOnly, function(match) {
+             return o.with.host || o.with;
+           })
+         );
+       })
+     }
+   })
 }
 
 // Append the URL selector button to each codeblock with an InfluxDB Cloud or OSS URL

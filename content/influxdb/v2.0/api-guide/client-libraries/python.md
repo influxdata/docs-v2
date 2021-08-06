@@ -123,7 +123,7 @@ write_api.write(bucket=bucket, org=org, record=p)
 3. Pass the `query()` method two named parameters:`org` and `query`.  
 
    ```python
-   result = client.query_api().query(org=org, query=query)
+   result = query_api.query(org=org, query=query)
    ```
 
 4. Iterate through the tables and records in the Flux object.
@@ -145,7 +145,7 @@ write_api.write(bucket=bucket, org=org, record=p)
 - `get_measurement()`: Returns the measurement name of the record.
 - `get_field()`: Returns the field name.
 - `get_value()`: Returns the actual field value.
-- `values()`: Returns a map of column values.
+- `values`: Returns a map of column values.
 - `values.get("<your tag>")`: Returns a value from the record for given column.
 - `get_time()`: Returns the time of the record.
 - `get_start()`: Returns the inclusive lower time bound of all records in the current table.
@@ -161,7 +161,7 @@ query = ‘ from(bucket:"my-bucket")\
 |> filter(fn:(r) => r._measurement == "my_measurement")\
 |> filter(fn: (r) => r.location == "Prague")\
 |> filter(fn:(r) => r._field == "temperature" )‘
-result = client.query_api().query(org=org, query=query)
+result = query_api.query(org=org, query=query)
 results = []
 for table in result:
     for record in table.records:

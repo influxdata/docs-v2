@@ -7,7 +7,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: monitor.deadman
-    parent: InfluxDB Monitor
+    parent: InfluxDB monitor
 weight: 202
 cloud_all: true
 ---

@@ -8,6 +8,75 @@ menu:
     name: Flux
 ---
 
+## v0.124.0 [2021-08-03]
+
+### Features
+- Update the string array builder to support constant data.
+- Expand message interface with message lifetime controls.
+- Create internal Flux array package.
+
+### Bug fixes
+- Register `sortedPivot` and update `sortedPivot` kind.
+- Derive `Copy` on `ast::Position`.
+- Update `to()` function to properly close the writer on error.
+- Update `libflux` include paths to use `pkg-config`.
+- Properly copy record types with no `extends` parameter.
+
+---
+
+## v0.123.0 [2021-07-19]
+
+### Breaking changes
+- Remove the [`sleep()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/sleep/).
+
+### Features
+- Optimize [`pivot()` transformation](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/).
+- Add [InfluxDB sample data package](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/).
+- Use `table.fill()` when `aggregateWindow(createEmpty: true)` is used.
+
+---
+
+## v0.122.0 [2021-07-13]
+
+### Features
+- Add `--skip` flag to the `flux test` command to skip specific tests.
+
+---
+
+## v0.121.0 [2021-07-12]
+
+### Features
+- Update [`experimental.to()`](/influxdb/v2.0/reference/flux/stdlib/experimental/to/)
+  to use the Flux `influxdb` provider.
+
+---
+
+## v0.120.1 [2021-07-06]
+- _Add inline Flux function documentation._
+
+---
+
+## v0.120.0 [2021-07-06]
+
+### Features
+- Bootstrap documentation methods.
+
+### Bug fixes
+- Reverse [`math.atan2()`](/influxdb/v2.0/reference/flux/stdlib/math/atan2/) parameters.
+- Fix documentation headers in `stdlib`.
+- Distinct `testcase` should not use `testing.load()`.
+- `movingAverage()` creates columns with the same length when `n` is the size of the input.
+- Allow work queue to be resized when work exceeds queue length.
+- `distinct()` appends null values without creating invalid tables.
+
+---
+
+## v0.119.1 [2021-06-29]
+- _Add inline Flux function documentation._
+
+---
+
+
 ## v0.118.1 [2021-06-15]
 - _Internal code cleanup._
 

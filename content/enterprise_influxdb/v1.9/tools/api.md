@@ -19,8 +19,8 @@ The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
 Those settings [are configurable](/enterprise_influxdb/v1.9/administration/config/#http-endpoints-settings).
 
-- [InfluxDB 2.0 API compatibility endpoints](#influxdb-2-0-api-compatibility-endpoints)
-- [InfluxDB  1.x HTTP endpoints](#influxdb-1-x-http-endpoints)
+- [InfluxDB 2.0 API compatibility endpoints](#influxdb-20-api-compatibility-endpoints)
+- [InfluxDB  1.x HTTP endpoints](#influxdb-1x-http-endpoints)
 
 ## InfluxDB 2.0 API compatibility endpoints
 
@@ -48,7 +48,7 @@ The following forward compatible APIs are available:
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.9/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
+Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.9/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/api-guide/client-libraries/).
  Flux is the primary language for working with data in InfluxDB 2.0.
 
 **Include the following HTTP headers:**
@@ -90,7 +90,7 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 ### `/api/v2/write/` HTTP endpoint
 
 The `/api/v2/write` endpoint accepts `POST` HTTP requests.
-Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
+Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/api-guide/client-libraries/).
 
 Both InfluxDB 1.x and 2.0 APIs support the same line protocol format for raw time series data.
 For the purposes of writing data, the APIs differ only in the URL parameters and request headers.
@@ -158,13 +158,14 @@ curl -XGET "localhost:8086/health"
 The following InfluxDB 1.x API endpoints are available:
 
 | Endpoint                                         | Description                                                                    |
-|:----------                                       |:----------                                                                     |
+|:-------------------------------------------------|:-------------------------------------------------------------------------------|
 | [/debug/pprof ](#debug-pprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
 | [/debug/requests](#debug-requests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
 | [/debug/vars](#debug-vars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
 | [/ping](#ping-http-endpoint)                     | Check the status of your InfluxDB instance and your version of InfluxDB        |
 | [/query](#query-http-endpoint)                   | Query data using **InfluxQL**, manage databases, retention policies, and users |
 | [/write](#write-http-endpoint)                   | Write data to a database                                                       |
+| [/shard-status](#shard-status-http-endpoint)    | Get information about a data node's shards                                     |
 
 ### `/debug/pprof` HTTP endpoint
 
@@ -327,7 +328,7 @@ HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 X-Influxdb-Build: OSS
-X-Influxdb-Version: v1.8.2
+X-Influxdb-Version: v{{< latest-patch >}}
 X-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 Date: Tue, 05 Nov 2018 16:08:32 GMT
 ```
@@ -678,7 +679,7 @@ HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:22:54 GMT
 Transfer-Encoding: chunked
 
@@ -694,7 +695,7 @@ HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:23:48 GMT
 Transfer-Encoding: chunked
 
@@ -709,7 +710,7 @@ $ curl -i -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *'
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:24:25 GMT
 Content-Length: 76
 
@@ -725,7 +726,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:11:26 GMT
 Content-Length: 33
 
@@ -772,7 +773,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&precision=s" --data-binary
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:33:23 GMT
 ```
 
@@ -784,7 +785,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&rp=myrp" --data-binary 'my
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:34:31 GMT
 ```
 
@@ -798,7 +799,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&u=myusername&p=mypassword"
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:34:56 GMT
 ```
 
@@ -811,7 +812,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:40:30 GMT
 Content-Length: 33
 
@@ -828,7 +829,7 @@ $ curl -i -XPOST -u myusername:mypassword "http://localhost:8086/write?db=mydb" 
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:36:40 GMT
 ```
 
@@ -841,7 +842,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:46:40 GMT
 Content-Length: 33
 
@@ -885,7 +886,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,myt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:02:57 GMT
 ```
 
@@ -897,7 +898,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,myt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:03:44 GMT
 ```
 
@@ -910,7 +911,7 @@ mymeas,mytag=2 myfield=34 1463689152000000000'
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:04:02 GMT
 ```
 
@@ -922,7 +923,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary @data.txt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:08:11 GMT
 ```
 
@@ -1007,3 +1008,84 @@ HTTP/1.1 500 Internal Server Error
 [...]
 {"error":"retention policy not found: myrp"}
 ```
+
+### `/shard-status` HTTP endpoint
+
+The `/shard-status` endpoint accepts HTTP `GET` requests.
+Use this endpoint to get information about all shards for a given data node.
+
+#### Response
+
+Requests to `/shard-status` return the following information in JSON format:
+
+- `id`: the shard ID
+- `size`: the size on disk of the shard in bytes
+- `is_hot`: whether the time range from the shard includes `now`
+  {{% note %}}
+An *idle* shard is fully compacted and not receiving new (potentially historical) writes.
+A hot shard may or may not be idle.
+  {{% /note %}}
+- `state`: the anti-entropy status of the shard can be one of the following:
+  `healthy`,`restore pending`,`restoring`,`repairing`,`error processing`
+
+#### Example
+
+```
+curl -q 'http://localhost:8086/shard-status' | jq
+{
+  "databases": [
+    {
+      "name": "_internal",
+      "retention_policies": [
+        {
+          "name": "monitor",
+          "replication_factor": 1,
+          "shards": [
+            {
+              "id": 2,
+              "size": 594491,
+              "is_hot": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "retention_policies": [
+        {
+          "name": "autogen",
+          "replication_factor": 1,
+          "shards": [
+            {
+              "id": 3,
+              "is_hot": false
+            },
+            {
+              "id": 6,
+              "size": 1921,
+              "is_hot": false
+            },
+            {
+              "id": 7,
+              "is_hot": false
+            },
+            {
+              "id": 10,
+              "size": 1920,
+              "is_hot": false
+            },
+            {
+              "id": 11,
+              "is_hot": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+{{% caption %}}
+This example uses [`jq`](https://stedolan.github.io/jq/) to print the JSON object.
+{{% /caption %}}

@@ -5,7 +5,7 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Manage authentication and authorization
-    weight: 20
+    weight: 30
     parent: Administration
 ---
 
@@ -130,8 +130,8 @@ echo $INFLUX_USERNAME $INFLUX_PASSWORD
 todd influxdb4ever
 
 influx
-Connected to http://localhost:8086 version 1.4.x
-InfluxDB shell 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 ```
 
 ##### Authenticate with CLI flags
@@ -140,8 +140,8 @@ to the `influx` CLI.
 
 ```bash
 influx -username todd -password influxdb4ever
-Connected to http://localhost:8086 version 1.4.x
-InfluxDB shell 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 ```
 
 ##### Authenticate with credentials in the influx shell
@@ -150,8 +150,8 @@ Enter your username and password when prompted.
 
 ```bash
 > influx
-Connected to http://localhost:8086 version 1.4.x
-InfluxDB shell 1.8.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 > auth
 username: todd
 password:

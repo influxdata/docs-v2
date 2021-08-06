@@ -9,7 +9,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: schema.fieldsAsCols
-    parent: InfluxDB Schema
+    parent: InfluxDB schema
 weight: 301
 introduced: 0.88.0
 ---
