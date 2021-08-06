@@ -47,6 +47,9 @@ bool(v: "true")
 bool(v: 0.0)
 // Returns false
 
+bool(v: 0)
+// Returns false
+
 bool(v: uint(v: 1))
 // Returns true
 ```
