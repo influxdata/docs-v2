@@ -2,7 +2,7 @@
 title: Work with unsigned integers
 list_title: UIntegers
 description: >
-  Learn how to work with integer types in Flux.
+  Learn how to work with unsigned integer types in Flux.
 menu:
   flux_0_x:
     name: UIntegers
@@ -41,7 +41,7 @@ the following [basic types](/flux/v0.x/data-types/basic/) to uintegers:
 
 - **string**: returns the uinteger equivalent of the numeric string (`[0-9]`)
 - **bool**: returns `1` for `true` or `0` for `false`
-- **duration**: returns to the number of nanoseconds in the duration
+- **duration**: returns the number of nanoseconds in the duration
 - **time**: returns the equivalent [nanosecond epoch timestamp](/influxdb/cloud/reference/glossary/#unix-timestamp)
 - **float**: truncates the float value at the decimal and returns the uinteger equivalent
 - **int**: returns the uinteger equivalent of the integer
@@ -68,9 +68,7 @@ uint(v: -54321)
 
 {{% note %}}
 #### Round float values before converting to uintegers
-When converting a [float](/flux/v0.x/data-types/basic/float/) value to a uinteger,
-Flux _truncates_ the float value at the decimal.
-To round float values to the nearest whole number:
+Being Flux _truncates_ the [float](/flux/v0.x/data-types/basic/float/) value at the decimal when converting to a uinteger, for example `12.54` to `12`, you may want to round float values to the nearest whole number `12.54` to `13` before converting. To do this:
 
 1. Import the [`math` package](/flux/v0.x/stdlib/math/).
 2. Use [`math.round()`](/flux/v0.x/stdlib/math/round/) to round the the float value
