@@ -80,7 +80,7 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 4. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
    1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/), and click **InfluxDB Output Plugin**.
    2. Copy the URL, token, organization, and bucket, close the window, and then click **Scrape InfluxDB OSS Metrics**.
-   3. Replace `URL`, `token`, `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. Set the `INFLUX_TOKEN` environment variable in your Telegraf environment to your InfluxDB Cloud authentication token.
+   3. Replace `URL`, `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. 
 
       {{% note %}}
 To ensure the InfluxDB OSS monitoring dashboard can display the recorded metrics, set the destination bucket name to `oss_metrics` in your `telegraf.conf`.
@@ -97,6 +97,7 @@ To ensure the InfluxDB OSS monitoring dashboard can display the recorded metrics
      If you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
 
       For more information about customizing Telegraf, see [Configure Telegraf](/{{< latest "telegraf" >}}/administration/configuration/#global-tags).
+5. Click **Save Changes**. 
 
 ## Set up Telegraf
 
@@ -105,11 +106,14 @@ Set up Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Clo
 On each InfluxDB OSS instance you want to monitor, do the following:
 
 1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/).
-2. Click **Setup Instructions** under **Scrape InfluxDB OSS Metrics**, and complete the Telegraf Setup instructions.
+2. Click **Setup Instructions** under **Scrape InfluxDB OSS Metrics**. 
+3. Complete the Telegraf Setup instructions.
+
       {{% note %}}
 For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
       {{% /note %}}
-   Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB Cloud account.
+
+Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB Cloud account.
 
 ## View the Monitoring dashboard
 
@@ -137,10 +141,14 @@ The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert
     {{< nav-icon "alerts" >}}
 
 {{< img-hd src="/img/influxdb/2-0-monitor-oss-deadman.png" />}}
-2. Choose a InfluxDB OSS field for your deadman alert. When metrics stop reporting, you'll receive an alert. 
+2. Choose a InfluxDB OSS field or create a new OSS field for your deadman alert: 
+    1. Click **+ Create** and select **Deadman Check** in the dropown menu. 
+    2. Define your query with at least one field. 
+    3. Click **Submit** and **Configure Check**. 
+   When metrics stop reporting, you'll receive an alert. 
 3. Start under **Schedule Every**, set the amount of time to check for data. 
 4. Set the amount of time to wait before switching to a critical alert.
 5. Save the Check and click on **View History** of the Check to verify it is running.  
-6. Configure a notification rule and endpoint. Use [Slack Webhooks](https://api.slack.com/messaging/webhooks) to send messages to your Slack channel. For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/). Alternatively, [upgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints. 
+6. Configure a notification rule and endpoint. Send messages to your Slack channel through [Slack Webhooks](https://api.slack.com/messaging/webhooks). For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/). Alternatively, [upgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints. 
 7. [Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to send a 
 message to a specified notification endpoint whenever there is an outage.
