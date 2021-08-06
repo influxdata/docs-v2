@@ -10,7 +10,7 @@ menu:
 ---
 
 - [Overview](#overview)
-- [User and privilege management over the Influxd-meta API](#user-and-privilege-management-over-the-influxd-meta-api)
+- [API examples](#user-and-privilege-management-over-the-influxd-meta-api)
 
 ## Overview
 
