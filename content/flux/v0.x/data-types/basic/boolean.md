@@ -9,6 +9,9 @@ menu:
     parent: Basic types
 weight: 201
 flux/v0.x/tags: ["basic types", "data types"]
+related:
+  - /flux/v0.x/stdlib/universe/bool/
+  - /flux/v0.x/stdlib/universe/tobool/
 ---
 
 A **boolean** type represents a truth value (`true` or `false`).
