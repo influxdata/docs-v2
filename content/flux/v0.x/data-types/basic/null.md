@@ -38,7 +38,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time               | \_value |
 | :------------------- | ------: |
 | 2021-01-01T00:00:00Z |     1.2 |
@@ -55,4 +55,3 @@ data
 | 2021-01-01T03:00:00Z |     2.5 |
 {{% /flex-content %}}
 {{< /flex >}}
-
