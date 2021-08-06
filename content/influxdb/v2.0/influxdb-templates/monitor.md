@@ -81,7 +81,7 @@ By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 4. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
    1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/), and click **InfluxDB Output Plugin**.
    2. Copy the URL, token, organization, and bucket, close the window, and then click **Scrape InfluxDB OSS Metrics**.
-   3. Replace `URL`, `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. 
+   3. Replace `URL`, `token', `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. Alternatively, store this information in your environment variables and include the environment variables in your configuration.
 
       {{% note %}}
 To ensure the InfluxDB OSS monitoring dashboard can display the recorded metrics, set the destination bucket name to `oss_metrics` in your `telegraf.conf`.
@@ -132,6 +132,31 @@ Customize your monitoring dashboard as needed. For example, send an alert in the
 - [Metrics stop reporting](#alert-when-metrics-stop-reporting)
 
 ## Alert when metrics stop reporting
+
+To ensure data is always flowing from your InfluxDB OSS instances into your InfluxDB Cloud account, create a deadman check to monitor data and write statuses. To recieve notifications when the deadman check is triggered, create a notification rule and endpoint.
+ 
+The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert/checks/create/#deadman-check) that checks to see that metrics are reported at regular intervals.
+ 
+1.  Click **Alerts** in the navigation bar of your **InfluxDB Cloud** account to view the deadman check.
+ 
+   {{< nav-icon "alerts" >}}
+ 
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-deadman.png" />}}
+2. Choose a InfluxDB OSS field or create a new OSS field for your deadman alert:
+   1. Click **Create** and select **Deadman Check** in the dropown menu.
+   2. Define your query with at least one field.
+   3. Click **Submit** and **Configure Check**.
+  When metrics stop reporting, you'll receive an alert.
+3. Start under **Schedule Every**, set the amount of time to check for data.
+4. Set the amount of time to wait before switching to a critical alert.
+5. Save the Check and click on **View History** of the Check under the gear icon to verify it is running. 
+6. Go to **Alerts > Notification Endpoint** and click **Create**.
+2. Create a [a notification endpoint] for example, [Slack Webhooks](https://api.slack.com/messaging/webhooks) and then [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/).
+ 
+6. Send messages to your Slack channel through [Slack Webhooks](https://api.slack.com/messaging/webhooks). For more information, see how to [configure a Slack endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/). Alternatively, [upgrade your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) to get access to Pagerduty and HTTP post endpoints.
+7. [Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to send a
+message to a specified notification endpoint whenever there is an outage.
+
 
 To ensure data is always flowing from your InfluxDB OSS instances into your InfluxDB Cloud account, create a deadman alert.
 
