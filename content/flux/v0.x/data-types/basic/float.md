@@ -39,7 +39,7 @@ A float literal contains a decimal integer, a decimal point, and a decimal fract
 
 ### Scientific notation
 Flux does not support scientific notation float literal syntax.
-However you can use [`float()`]((/flux/v0.x/stdlib/universe/float/)) to convert
+However, you can use [`float()`]((/flux/v0.x/stdlib/universe/float/)) to convert
 a **scientific notation string** into a float type.
 
 ```js
@@ -52,7 +52,7 @@ float(v: "1.23456e+78")
 
 ### Infinity
 Flux does not support infinite float literal syntax (`+Inf` and `-Inf`).
-However you can use [`float()`]((/flux/v0.x/stdlib/universe/float/)) to convert
+However, you can use [`float()`]((/flux/v0.x/stdlib/universe/float/)) to convert
 a **infinite string** into a float type.
 
 ```js
@@ -65,7 +65,7 @@ float(v: "+Inf")
 
 ### Not a Number
 Flux does not support Not a Number (NaN) float literal syntax.
-However you can use [`float()`]((/flux/v0.x/stdlib/universe/float/)) to convert
+However, you can use [`float()`]((/flux/v0.x/stdlib/universe/float/)) to convert
 a **NaN string** into a float type.
 
 ```js
@@ -100,7 +100,7 @@ float(v: 123)
 Flux lets you iterate over rows in a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 and convert columns to floats.
 
-**To convert the `_value` column to floats**, use the [`toFloat()` function](/flux/v0.x/stdlib/universe/tofloat/)
+**To convert the `_value` column to floats**, use the [`toFloat()` function](/flux/v0.x/stdlib/universe/tofloat/).
 
 {{% note %}}
 `toFloat()` only operates on the `_value` column.
