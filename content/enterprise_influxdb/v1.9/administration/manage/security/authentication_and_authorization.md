@@ -46,10 +46,10 @@ endpoints (for example, Graphite, collectd, etc.) are not authenticated.
 ### Enable authentication
 
 1. **Create at least one [admin user](#admin-users)**.
+   Run the following command using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/):
    ```
    CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
    ```
-   <!-- See the [authorization section](#authorization) for how to create an admin user. -->
 
    {{% note %}}
 If you enable authentication and have no users, InfluxDB Enterprise will **not** enforce authentication
