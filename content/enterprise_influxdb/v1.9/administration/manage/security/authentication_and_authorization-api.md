@@ -7,8 +7,12 @@ menu:
     name: Manage security with Meta API
     weight: 30
     parent: Manage security
-draft: true
 ---
+
+- [Overview](#overview)
+- [User and privilege management over the Influxd-meta API](#user-and-privilege-management-over-the-influxd-meta-api)
+
+## Overview
 
 Managing users, roles and privileges is most easily handled using the Chronograf InfluxDB Admin console.
 <!--
@@ -16,8 +20,6 @@ TODO
 Certain things cannot be done with Chronograf.
 Examples: -->
 Authentication and authorization entities can also be managed directly over the Influxd-Meta API.
-
-## Management users and permissions
 
 User and privilege management means
 managing the contents of a user store and the access rights (privileges, permissions) that users can be granted.
@@ -85,6 +87,34 @@ When working with Kapacitor the last two privilege tokens are of interest.
 -->
 
 ### User and privilege management over the Influxd-meta API
+
+**Users**:
+
+- [Example: List users](#example-list-users)
+- [Example: Create a user against a follower node](#example-create-a-user-against-a-follower-node)
+- [Example: Create a user against the lead node](#example-create-a-user-against-the-lead-node)
+- [Example: Retrieve a user details document](#example-retrieve-a-user-details-document)
+- [Example: Grant permissions to a user](#example-grant-permissions-to-a-user)
+- [Example: Verify user permissions](#example-verify-user-permissions)
+- [Example: Remove permissions from a user](#example-remove-permissions-from-a-user)
+- [Example: Remove a user](#example-remove-a-user)
+- [Example: Verify user removal](#example-verify-user-removal)
+
+**Roles**:
+
+- [Example: List roles](#example-list-roles)
+- [Example: Create a role](#example-create-a-role)
+- [Example: Verify roles](#example-verify-roles)
+- [Example: Retrieve a role document](#example-retrieve-a-role-document)
+- [Example: Add permissions to a role](#example-add-permissions-to-a-role)
+- [Example: Verify role permissions](#example-verify-role-permissions)
+- [Example: Add a user to a role](#example-add-a-user-to-a-role)
+- [Example: Verify user in role](#example-verify-user-in-role)
+- [Example: Remove a user from a role](#example-remove-a-user-from-a-role)
+- [Example: Remove a permission from a role](#example-remove-a-permission-from-a-role)
+- [Example: Delete a role](#example-delete-a-role)
+- [Example: Verify role deletion](#example-verify-role-deletion)
+
 #### Users
 
 Use the `/user` endpoint of the InfluxDB Enterprise Meta API to manage users.
@@ -298,7 +328,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 }
 ```
 
-##### Example:: Remove permissions from a user
+##### Example: Remove permissions from a user
 To remove permissions.
 
 ```
@@ -341,7 +371,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions",
 
 To delete a user.
 
-##### Example:: Remove a user
+##### Example: Remove a user
 
 ```
 $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"name":"phantom2"}}' https://cluster_node_1:8091/user
@@ -381,7 +411,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"nam
 <
 ```
 
-##### Example:: Verify user removal
+##### Example: Verify user removal
 To verify user has been removed.
 
 ```
@@ -392,8 +422,6 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 #### Roles
 
 The Influxd-Meta API provides an endpoint `/role` for managing roles.
-
-To list roles.
 
 ##### Example: List roles
 
