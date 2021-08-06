@@ -31,7 +31,7 @@ This guide presumes some familiarity with JavaScript, browser environments, and 
 If you're just getting started with InfluxDB, see [Get started with InfluxDB](/influxdb/v2.0/get-started/).
 
 * [Before you begin](#before-you-begin)
-* [Install the client library](#install-the-client-library)
+* [Import the client library](#import-the-client-library)
 * [Get started with the example app](#get-started-with-the-example-app)
 
 ## Before you begin
@@ -40,6 +40,33 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/i
 
 2. Ensure that InfluxDB is running and you can connect to it.
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.0/reference/urls/).
+
+## Import the client library
+
+Add `@influxdata/influxdb-client` to your module build or reference it in an HTML `script` tag.
+
+  {{< code-tabs-wrapper >}}
+  {{% code-tabs %}}
+   [import ESM](#module-import)
+   [script ESM](#module-script)
+  {{% /code-tabs %}}
+  {{% code-tab-content %}}
+  ```js
+    import {InfluxDB, Point} from '@influxdata/influxdb-client'
+  ```
+  {{% /code-tab-content %}}
+  {{% code-tab-content %}}
+  ```html
+  <script type="module">
+    /** Import latest release from npm repository. **/ 
+    import {InfluxDB, Point} from "https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs"
+    /** Add your module code here. **/
+  </script>
+  ```
+  {{% /code-tab-content %}}
+  {{< /code-tabs-wrapper >}}
+
+After you've imported the client library, you're ready to [write data](/{{< latest "influxdb" >}}/api-guide/client-libraries/nodejs/write/) to InfluxDB.
 
 ## Get started with the example app
 
