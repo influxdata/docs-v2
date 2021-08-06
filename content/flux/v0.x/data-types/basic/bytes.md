@@ -9,6 +9,8 @@ menu:
     parent: Basic types
 weight: 201
 flux/v0.x/tags: ["basic types", "data types"]
+related:
+  - /flux/v0.x/stdlib/universe/bytes/
 ---
 
 A **bytes** type represents a sequence of byte values.
