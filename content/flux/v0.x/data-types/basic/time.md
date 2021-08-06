@@ -36,8 +36,8 @@ YYYY-MM-DDT00:00:00.000Z
 Use the [`time()` function](/flux/v0.x/stdlib/universe/time/) to convert
 the following [basic types](/flux/v0.x/data-types/basic/) to time:
 
-- **string**: must be formatted as an
-  [RFC3339 timestamp](/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
+- **string**: parsed as an [RFC3339 timestamp](/influxdb/cloud/reference/glossary/#rfc3339-timestamp)
+  and converted to a time value.
 - **int**: parsed as a [Unix nanosecond timestamp](/influxdb/cloud/reference/glossary/#unix-timestamp)
   and converted to a time value.
 - **uint**: parsed as a [Unix nanosecond timestamp](/influxdb/cloud/reference/glossary/#unix-timestamp)
@@ -153,6 +153,9 @@ date.truncate(t: t0, unit: 1ms)
 
 date.truncate(t: t0, unit: 1m)
 // Returns 2021-01-08T14:54:00.000000000Z
+
+date.truncate(t: t0, unit: 1w)
+// Returns 2021-01-07T00:00:00.000000000Z
 
 date.truncate(t: t0, unit: 1mo)
 // Returns 2021-01-01T00:00:00.000000000Z
