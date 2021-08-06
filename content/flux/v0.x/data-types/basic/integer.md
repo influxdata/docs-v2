@@ -43,7 +43,7 @@ the following [basic types](/flux/v0.x/data-types/basic/) to integers:
 
 - **string**: returns the integer equivalent of the numeric string (`[0-9]`)
 - **bool**: returns `1` for `true` or `0` for `false`
-- **duration**: returns to the number of nanoseconds in the duration
+- **duration**: returns the number of nanoseconds in the duration
 - **time**: returns the equivalent [nanosecond epoch timestamp](/influxdb/cloud/reference/glossary/#unix-timestamp)
 - **float**: truncates the float value at the decimal
 - **uint**: returns the integer equivalent of the unsigned integer
