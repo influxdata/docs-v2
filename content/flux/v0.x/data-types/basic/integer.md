@@ -14,7 +14,7 @@ related:
   - /flux/v0.x/stdlib/universe/toint/
 ---
 
-An **integer** type represents a signed 64-bit integer.
+An **integer** type represents a 64-bit signed integer.
 
 **Type name**: `int`  
 **Min value**: `-9223372036854775808`  
