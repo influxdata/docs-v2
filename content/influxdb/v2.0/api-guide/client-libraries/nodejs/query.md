@@ -14,13 +14,17 @@ aliases:
 
 Use the Javascript library to query data from InfluxDB.
 
-1. Use the `getQueryApi` method of the `InfluxDB` client to create a new **query client**. Provide your InfluxDB `org`.
+
+1. Instantiate an `InfluxDB` client. Provide your InfluxDB `url` and `token`.
+
+2. Use the `getQueryApi` method of the `InfluxDB` client to create a new **query client**.
+Provide your InfluxDB `org`.
 
    ```js
    const queryApi = influxDB.getQueryApi(org)
    ```
 
-2. Create a Flux query (including your `bucket` parameter).
+3. Create a Flux query (including your `bucket` parameter).
 
    ```js
    const fluxQuery =
@@ -31,7 +35,7 @@ Use the Javascript library to query data from InfluxDB.
 
    The **query client** sends the Flux query to InfluxDB and returns line table metadata and rows.
 
-3. Use the `next` method to iterate over the rows.
+4. Use the `next` method to iterate over the rows.
 
    ```js
    queryApi.queryRows(fluxQuery, {

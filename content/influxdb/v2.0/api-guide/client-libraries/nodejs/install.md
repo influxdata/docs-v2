@@ -29,10 +29,6 @@ aliases:
 
 ## Install dependencies
 
-{{% note %}}
-{{% api/v2dot0/nodejs/install %}}
-{{% /note %}}
-
 The JavaScript client contains two packages. Add both as dependencies of your project.
 
 1. Change to your project directory:
@@ -72,3 +68,4 @@ The examples will use these to interact with the InfluxDB API.
    ```sh
    query.ts
    ```
+{{% api/v2dot0/nodejs/learn-more %}}
