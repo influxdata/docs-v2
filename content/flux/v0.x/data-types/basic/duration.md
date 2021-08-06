@@ -56,7 +56,7 @@ Flux supports the following unit specifiers:
 Use the [`duration()` function](/flux/v0.x/stdlib/universe/duration/) to convert
 the following [basic types](/flux/v0.x/data-types/basic/) to durations:
 
-- **string**: must be formatted as a duration string.
+- **string**: parsed as a duration string and converted to a duration.
 - **int**: parsed as nanoseconds and converted to a duration.
 - **uint**: parsed as nanoseconds and converted to a duration.
 
