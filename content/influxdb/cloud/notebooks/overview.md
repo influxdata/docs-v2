@@ -10,41 +10,76 @@ menu:
     parent: Notebooks
 ---
 
-Learn the building blocks of a notebook. Each notebook has unlimited cells with different features to visualize, transform, and process your data.
+Learn about the building blocks of a notebook, how notebooks can help show how data is processed, and discover some common use cases. 
 
-## Preview and Run
-The following options appear in the upper left of each notebook. 
- 
-### Preview
-Preview presents your data output through cells without writing it to a bucket. Select Preview or press CTRL + Enter as a shortcut to preview data. 
- 
-### Run
-Run presents your data output through cells and writes it to a bucket. Select Run in the dropdown list to write your data to a bucket.
+To use different notebook cell types, controls, and uses to process data, see: 
+- [Notebook concepts](/influxdb/cloud/notebooks/overview/#notebook-concepts)
+- [Notebook controls](/influxdb/cloud/notebooks/overview/#notebook-controls)
+- [Notebook cell types](/influxdb/cloud/notebooks/overview/#notebook-cell-types)
+
+## Notebook concepts 
+
+{{< youtube Rs16uhxK0h8 >}}
+
+Using notebooks, you can:
+
+- Create documents with live code, equations, visualizations, and explanatory notes.
+- Create dashboard cells or scheduled tasks.
+- Clean and downsample data.
+- Build runbooks.
+- Document data processing steps.
 
 ## Notebook controls
-The following options appear in the upper right of each notebook.
+
+The following options appear at the top of each notebook.
+
+### Preview/Run mode
+
+- Select **Preview** (or press **Control+Enter**) to display results of each cell without writing data. Helps to verify that cells return expected results before writing data.
+- Select **Run** mode displays results of each cell and writes data to the selected bucket.
 
 ### Presentation mode
-Presentation mode displays notebooks in full screen, hiding the left and top navigation menus so only the cells appear. This mode might be helpful, for example, for stationary screens dedicated to monitoring visualizations.
+
+Display notebooks in full screen with Presentation mode, hiding the left and top navigation menus so only the cells appear. This mode might be helpful, for example, for stationary screens dedicated to monitoring visualizations.
+
+### Local or UTC timezone
+
+Click the timezone dropdown list to select a timezone to use for the dashboard. Select either the local time (default) or UTC.
 
 ### Time range
-Time ranges are customizable with a precision up to nanoseconds.
 
-### Timezone
-Timezones are selected in the dropdown list with local time (default) or UTC. 
+Select from the options in the dropdown list or select **Custom Time Range** to enter a custom time range with precision up to nanoseconds.
 
-## Cell types
-Add one or more of the following cell types to your notebook:
+## Notebook cell types
 
-- **Input: Metric Selector**:
-Filter out your data using group keys.
-- **Transform: Flux Script**:
+The following cell types are available for your notebook:
+- [Inputs](#inputs)
+- [Transform](#transform)
+- [Pass-through](#pass-through)
+- [Output](#output)
+
+### Inputs
+
+At least one input cell is required in a notebook for other cells to run.
+
+- **Metric Selector**: Filter out your data using a single list.
+- **Query Builder**: Filter out your data using lists separated by group keys.
+
+### Transform
+
+- **Flux Script**:
 Modify your data with Flux Script. `__PREVIOUS_RESULT__` refers to your previous inputs from the Metric Selector.
-- **Transform: Downsample**:
+- **Downsample**:
 Downsample data through aggregates.
-- **Pass-through: Markdown**: 
-Create explanatory notes or other information for yourself or one of your team members.
-- **Pass-through: Visualization**:
-Represents your data in visual formats such as graphs or charts. 
-- **Output: Output to Bucket**: 
-In **Preview** mode, this cell represents what would be written if the data was going to be committed to a bucket.
+
+### Pass-through
+
+- **Column Editor**: Modify column visibility and naming.
+- **Markdown**: Create explanatory notes or other information for yourself or one of your team members.
+- **Visualization**: Represents your data in visual formats such as graphs or charts.
+
+### Output
+
+- **Notification**: Set up alerts.
+- **Output to Bucket**: In **Preview** mode, this cell represents what would be written if the data was going to be committed to a bucket.
+- **Output: Schedule**: Run tasks at specific times.
