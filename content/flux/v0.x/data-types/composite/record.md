@@ -39,7 +39,9 @@ Property keys are associated to values by a colon (`:`).
 ```
 
 ## Reference values in a record
-To reference values in a record, use **dot notation** or **bracket notation**.
+Flux records are **key-indexed**.
+To reference values in a record, use **dot notation** or **bracket notation**
+and specify the key to reference.
 
 - [Dot notation](#dot-notation)
 - [Bracket notation](#bracket-notation)
@@ -127,6 +129,7 @@ _To dynamically reference keys in a composite type, consider using a
 
 - [Extend a record](#extend-a-record)
 - [List keys in a record](#list-keys-in-a-record)
+- [Compare records](#compare-records)
 
 ### Extend a record
 Use the **`with` operator** to extend a record.
@@ -158,4 +161,17 @@ c = {
 
 experimental.objectKeys(o: c)
 // Returns [name, id]
+```
+
+### Compare records
+Use the `==` [comparison operator](/flux/v0.x/spec/operators/#comparison-operators)
+to check if two records are equal.
+Equality is based on keys, their values, and types.
+
+```js
+{id: 1, msg: "hello"} == {id: 1, msg: "goodbye"}
+// Returns false
+
+{foo: 12300.0, bar: 34500.0} == {bar: float(v: "3.45e+04"), foo: float(v: "1.23e+04")}
+// Returns true
 ```
