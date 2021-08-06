@@ -9,13 +9,15 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
-## v1.8.8 [2021-08-03]
+## v1.8.9 [2021-08-05]
 
 ### Bug fixes 
 
-- Prevent silently dropped writes with overlapping shards.
-- Restore portable backup bug.
-- Systemd-startup script should be executable by group and others.
+- prevent silently dropped writes with overlapping shards
+- restore portable backup bug
+- systemd-startup script should be executable by group and others
+- handle https in systemd wrapper, and prevent it from looping forever
+- error instead of panic when enterprise tries to restore with OSS
 
 ## v1.8.7 [2021-07-21]
 

@@ -9,17 +9,6 @@ menu:
     parent: About the project
 ---
 
-## v1.8.8 [2021-08-03]
-The InfluxDB Enterprise 1.8.8 release builds on the InfluxDB OSS 1.8.8 release.
-For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v188-2021-08-0?).
-
-### Bug fixes 
-
-- Prevent silently dropped writes with overlapping shards.
-- Restore portable backup bug.
-- Systemd-startup script should be executable by group and others.
-
 ## v1.8.7 [2021-07-21]
 The InfluxDB Enterprise 1.8.7 release builds on the InfluxDB OSS 1.8.7 release.
 For details on changes incorporated from the InfluxDB OSS release, see
