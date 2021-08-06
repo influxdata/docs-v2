@@ -131,11 +131,11 @@ data
 - [Subtract a duration from a time value](#subtract-a-duration-from-a-time-value)
 
 ### Truncate timestamps to a specified unit
-Truncating time values can be helpful when normalizing irregular timestamps.
+Truncating timestamps can be helpful when normalizing irregular timestamps.
 To truncate timestamps to a specified unit:
 
 1. Import the [`date` package](/flux/v0.x/stdlib/date/).
-2. Use [`date.truncate()`](/flux/v0.x/stdlib/date/truncate/) and provide the
+2. Use [`date.truncate()`](/flux/v0.x/stdlib/date/truncate/), and provide the
    unit of time to truncate to.
 
 {{% note %}}
@@ -167,7 +167,7 @@ data
 
 {{< flex >}}
 {{% flex-content %}}
-##### Given the following input:
+##### Given the following input data:
 | \_time                                            | _value |
 | :------------------------------------------------ | -----: |
 | {{% nowrap %}}2021-01-01T00:00:33Z{{% /nowrap %}} |    1.0 |
