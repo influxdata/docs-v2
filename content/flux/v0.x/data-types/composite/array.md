@@ -1,12 +1,12 @@
 ---
-title: Work with array types
-seotitle: Work with Flux array types
-list_title: Arrays
+title: Work with arrays
+seotitle: Work with arrays in Flux
+list_title: Array
 description: >
   ...
 menu:
   flux_0_x:
-    name: Arrays
+    name: Array
     parent: Composite types
 weight: 202
 flux/v0.x/tags: ["composite types", "data types"]
