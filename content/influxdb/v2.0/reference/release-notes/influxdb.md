@@ -9,6 +9,7 @@ weight: 101
 ---
 
 ## v2.0.8 [2021-08-09]
+
 ### Go version
 
 - Upgrade to Go 1.16. **Requires macOS Sierra 10.12 Sierra or later to run.**
