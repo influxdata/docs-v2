@@ -8,20 +8,19 @@ menu:
 weight: 101
 ---
 
-## v2.0.7 [2021-08-09]
-
-## Go version
+## v2.0.8 [2021-08-09]
+### Go version
 
 - Upgrade to Go 1.16. **Requires macOS Sierra 10.12 Sierra or later to run.**
 
-## Linux packaging for influx CLI
+### Linux packaging for influx CLI
 
 - Modify Linux packages (`.deb` and `.rpm`) to enable standalone installation of the influx CLI for InfluxDB Cloud users, includes the following changes:
 
   - Add new `influxdb2-cli` package that contains only the `influx` CLI binary.
   - Remove the `influx` CLI binary from the `influxdb2` package. Now, the `influxdb2` package declares a recommended dependency on the `influxdb2-cli` package.
 
-## Features
+### Features
 
 - Add `--ui-disabled` option to `influxd` to support running with the UI disabled.
 - Telemetry improvements: Do not record telemetry data for non-existent paths; replace invalid static asset paths with a slug.
@@ -29,7 +28,7 @@ weight: 101
 - Upgrade to UI v2.0.8.
 - Upgrade `flux-lsp-browser` to v0.5.53.
 
-## Bug fixes
+### Bug fixes
 
 - Rename ARM RPM packages with yum-compatible names.
 - Upgrade to latest version of `influxdata/cron` so that tasks can be created with interval of `every: 1w`.
@@ -48,28 +47,6 @@ weight: 101
 - Invalid requests to `/api/v2` subroutes now return 404 instead of a list of links.
 - Flux meta queries for `_field` take fast path if `_measurement` is the only predicate.
 - Copy names from mmapped memory before closing iterator.
-
-### Features
-
-- Optimize [`table.fill()`](/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)
-  execution within Flux aggregate windows.
-- Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01).
-- Upgrade UI to v2.0.7.
-- Upgrade `flux-lsp-browser` to v0.5.47.
-
-### Bug Fixes
-
-- Fix query range calculation (off by one) over partially compacted data.
-- Deprecate the unsupported `PostSetupUser` API.
-- Add limits to the `/api/v2/delete` endpoint for start and stop times with error messages.
-- Add logging to NATS streaming server to help debug startup failures.
-- Accept `--input` instead of a positional argument in `influx restore`.
-- Print error instead of panicking when `influx restore` fails to find backup manifests.
-- Set last-modified time of empty shard directory to the directory's last-modified time, instead of the Unix epoch.
-- Remove deadlock in `influx org members list` when an organization has greater than 10 members.
-- Replace telemetry file name with slug for `ttf`, `woff`, and `eot` files.
-- Enable use of absolute path for `--upgrade-log` when running `influxd upgrade` on Windows.
-- Make InfluxQL meta queries respect query timeouts.
 
 ## v2.0.7 [2021-06-04]
 
