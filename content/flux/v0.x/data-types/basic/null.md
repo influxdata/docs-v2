@@ -2,6 +2,7 @@
 title: Work with null types
 list_title: "Null"
 description: >
+  The **null type** represents a missing or unknown value.
   Learn how to work with null types in Flux.
 menu:
   flux_0_x:

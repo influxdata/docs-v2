@@ -3,6 +3,7 @@ title: Work with functions
 seotitle: Work with functions in Flux
 list_title: Function
 description: >
+  A **function** type is a set of parameters that perform an operation.
   Learn how to work with functions in flux.
 menu:
   flux_0_x:
@@ -12,6 +13,17 @@ weight: 204
 flux/v0.x/tags: ["composite types", "data types"]
 related:
   - /flux/v0.x/define-functions/
+list_code_example: |
+  ```js
+  () => 1
+  
+  (a, b) => a + b
+  
+  (a, b, c=2) => { 
+      d = a + b
+      return d / c
+  }
+  ```
 ---
 
 A **function** type is a set of parameters that perform an operation.

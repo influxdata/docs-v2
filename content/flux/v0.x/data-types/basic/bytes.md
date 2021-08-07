@@ -2,6 +2,7 @@
 title: Work with bytes types
 list_title: Bytes
 description: >
+  A **bytes** type represents a sequence of byte values.
   Learn how to work with bytes data types in Flux.
 menu:
   flux_0_x:

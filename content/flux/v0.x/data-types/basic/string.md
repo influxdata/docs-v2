@@ -2,6 +2,7 @@
 title: Work with strings
 list_title: String
 description: >
+  A **string** type represents a sequence of characters.
   Learn how to work with string data types in Flux.
 menu:
   flux_0_x:
@@ -16,6 +17,14 @@ related:
   - /flux/v0.x/stdlib/universe/string/
   - /flux/v0.x/stdlib/universe/tostring/
   - /flux/v0.x/stdlib/strings/
+list_code_example: |
+  ```js
+  "abc"
+  "string with double \" quote"
+  "string with backslash \\"
+  "日本語"
+  "\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e"
+  ```
 ---
 
 A **string** type represents a sequence of characters.

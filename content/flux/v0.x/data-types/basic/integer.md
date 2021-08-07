@@ -2,6 +2,7 @@
 title: Work with integers
 list_title: Integer
 description: >
+  An **integer** type represents a signed 64-bit integer.
   Learn how to work with integer types in Flux.
 menu:
   flux_0_x:
@@ -12,6 +13,13 @@ flux/v0.x/tags: ["basic types", "numeric types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/int/
   - /flux/v0.x/stdlib/universe/toint/
+list_code_example: |
+  ```js
+  0
+  2
+  1254
+  -1254
+  ```
 ---
 
 An **integer** type represents a signed 64-bit integer.

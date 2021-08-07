@@ -2,6 +2,7 @@
 title: Work with unsigned integers
 list_title: UIntegers
 description: >
+  An **unsigned integer** (uinteger) type represents a unsigned 64-bit integer.
   Learn how to work with unsigned integer types in Flux.
 menu:
   flux_0_x:
@@ -12,6 +13,10 @@ flux/v0.x/tags: ["basic types", "numeric types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/uint/
   - /flux/v0.x/stdlib/universe/touint/
+list_code_example: |
+  ```js
+  uint(v: 123)
+  ```
 ---
 
 An **unsigned integer** (uinteger) type represents a unsigned 64-bit integer.

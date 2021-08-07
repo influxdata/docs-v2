@@ -3,13 +3,19 @@ title: Work with records
 seotitle: Work with records in Flux
 list_title: Record
 description: >
-  ...
+  A **record** type is a set of key-value pairs.
+  Learn how to work with record types in Flux.
 menu:
   flux_0_x:
     name: Record
     parent: Composite types
 weight: 201
 flux/v0.x/tags: ["composite types", "data types"]
+list_code_example: |
+  ```js
+  {foo: "bar", baz: 123.4, quz: -2}
+  {"Company Name": "ACME", "Street Address": "123 Main St.", id: 1123445}
+  ```
 ---
 
 A **record** type is a set of key-value pairs (also known as properties).

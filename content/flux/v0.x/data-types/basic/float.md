@@ -2,6 +2,8 @@
 title: Work with floats
 list_title: Float
 description: >
+  A **float** type represents a [IEEE-754](https://standards.ieee.org/standard/754-2019.html)
+  64-bit floating-point number.
   Learn how to work with float types in Flux.
 menu:
   flux_0_x:
@@ -12,6 +14,12 @@ flux/v0.x/tags: ["basic types", "numeric types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/float/
   - /flux/v0.x/stdlib/universe/tofloat/
+list_code_example: |
+  ```js
+  0.0
+  123.4
+  -123.456
+  ```
 ---
 
 A **float** type represents a [IEEE-754](https://standards.ieee.org/standard/754-2019.html)

@@ -3,6 +3,7 @@ title: Work with arrays
 seotitle: Work with arrays in Flux
 list_title: Array
 description: >
+  An **array** type is an ordered sequence of values of the same type.
   Learn how to work with arrays in Flux.
 menu:
   flux_0_x:
@@ -13,6 +14,12 @@ flux/v0.x/tags: ["composite types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/length/
   - /flux/v0.x/stdlib/array/
+list_code_example: |
+  ```js
+  ["1st", "2nd", "3rd"]
+  [1.23, 4.56, 7.89]
+  [10, 25, -15]
+  ```
 ---
 
 An **array** type is an ordered sequence of values of the same type.

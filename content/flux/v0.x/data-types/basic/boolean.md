@@ -2,6 +2,7 @@
 title: Work with booleans
 list_title: Boolean
 description: >
+  A **boolean** type represents a truth value (`true` or `false`).
   Learn how to work with boolean data types in Flux.
 menu:
   flux_0_x:
@@ -12,6 +13,11 @@ flux/v0.x/tags: ["basic types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/bool/
   - /flux/v0.x/stdlib/universe/tobool/
+list_code_example: |
+  ```js
+  true
+  false
+  ```
 ---
 
 A **boolean** type represents a truth value (`true` or `false`).

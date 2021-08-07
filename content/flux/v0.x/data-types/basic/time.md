@@ -2,6 +2,7 @@
 title: Work with time types
 list_title: Time
 description: >
+  A **time** type represents a single point in time with nanosecond precision.
   Learn how to work with time data types in Flux.
 menu:
   flux_0_x:
@@ -12,6 +13,12 @@ flux/v0.x/tags: [basic types, data types, date/time]
 related:
   - /flux/v0.x/stdlib/universe/time/
   - /flux/v0.x/stdlib/universe/totime/
+list_code_example: |
+  ```js
+  2021-01-01
+  2021-01-01T00:00:00Z
+  2021-01-01T00:00:00.000Z
+  ```
 ---
 
 A **time** type represents a single point in time with nanosecond precision.

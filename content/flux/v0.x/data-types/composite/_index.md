@@ -1,5 +1,8 @@
 ---
 title: Work with composite types
+description: >
+  Flux **composite types** are types constructed from basic types.
+  Flux supports the following composite types: record, array, dictionary, function.
 menu:
   flux_0_x:
     name: Composite types
@@ -10,4 +13,6 @@ weight: 101
 Flux **composite types** are types constructed from basic types.
 Flux supports the following composite types:
 
-{{< children type="list" >}}
+{{< children type="anchored-list" >}}
+
+{{< children type="articles" readmore=true >}}

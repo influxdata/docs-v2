@@ -3,6 +3,8 @@ title: Work with dictionaries
 seotitle: Work with dictionaries in Flux
 list_title: Dictionary
 description: >
+  A **dictionary** type is a collection of key-value pairs with keys of the same
+  type and values of the same type.
   Learn how to work with dictionaries in Flux.
 menu:
   flux_0_x:
@@ -12,9 +14,16 @@ weight: 203
 flux/v0.x/tags: ["composite types", "data types"]
 related:
   - /flux/v0.x/stdlib/dict/
+list_code_example: |
+  ```js
+  [0: "Sun", 1: "Mon", 2: "Tue"]
+  ["red": "#FF0000", "green": "#00FF00", "blue": "#0000FF"]
+  [1.0: {stable: 12, latest: 12}, 1.1: {stable: 3, latest: 15}]
+  ```
 ---
 
-A **dictionary** type is a collection of key-value pairs with keys of the same type and values of the same type.
+A **dictionary** type is a collection of key-value pairs with keys of the same
+type and values of the same type.
 
 ###### On this page:
 - [Dictionary syntax](#dictionary-syntax)

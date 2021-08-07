@@ -2,6 +2,7 @@
 title: Work with durations
 list_title: Duration
 description: >
+  A **duration** type represents a length of time with nanosecond precision
   Learn how to work with duration data types in Flux.
 menu:
   flux_0_x:
@@ -11,6 +12,13 @@ weight: 201
 flux/v0.x/tags: ["basic types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/duration/
+list_code_example: |
+  ```js
+  1ns
+  1h 
+  1w 
+  3d12h4m25s
+  ```
 ---
 
 A **duration** type represents a length of time with nanosecond precision. 
