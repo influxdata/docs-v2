@@ -12,11 +12,11 @@ weight: 101
 
 ### Go version
 
-- Upgrade to Go 1.16. **Requires macOS Sierra 10.12 Sierra or later to run.**
+- Upgrade to Go 1.16. **Requires macOS Sierra 10.12 or later to run.**
 
 ### Linux packaging for influx CLI
 
-- Modify Linux packages (`.deb` and `.rpm`) to enable standalone installation of the influx CLI for InfluxDB Cloud users, includes the following changes:
+- Modify Linux packages (`.deb` and `.rpm`) to enable standalone installation of the `influx` CLI for InfluxDB Cloud users, includes the following changes:
 
   - Add new `influxdb2-cli` package that contains only the `influx` CLI binary.
   - Remove the `influx` CLI binary from the `influxdb2` package. Now, the `influxdb2` package declares a recommended dependency on the `influxdb2-cli` package.
