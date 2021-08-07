@@ -266,7 +266,8 @@ To enable authorization, first [enable authentication](#enable-authentication).
 provides a user interface for working with InfluxDB and InfluxDB Enterprise.
 Consider using Chronograf to [manage InfluxDB users and roles](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
 
-You cannot specify database level permissions (grants) for users via Chronograf.
+<!-- LIMITATION -->
+You cannot specify per-database permissions (grants) for users via Chronograf.
 {{% /note %}}
 
 ### User types and privileges
