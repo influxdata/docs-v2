@@ -33,7 +33,7 @@ The basic syntax for defining functions in Flux is as follows:
 functionName = (functionParameters) => functionBody
 ```
 
-- **functionName**: Name to use to execute the function
+- **functionName**: Name to use to execute the function.
 - **functionParameters**: Comma-separated list of parameters passed into the function.
 - **functionBody**: Operations on function parameters.
 
@@ -101,7 +101,7 @@ x = (t=<-) => t |> //...
 #### Multiply values by x
 The following example defines a `multByX` function that multiplies the `_value` column
 of each input row by the `x` parameter.
-It uses the [`map()` function](/flux/v0.x/stdlib/universe/map/) to iterate over
+The example uses the [`map()` function](/flux/v0.x/stdlib/universe/map/) to iterate over
 each row, modify the `_value`, and then return the updated row.
 
 ##### Function definition
@@ -155,7 +155,7 @@ data
 #### Calculate speed
 The following example defines a `speed` function that calculates speed using an
 `elapsed` and `distance` column in input tables.
-It uses the [`map()` function](/flux/v0.x/stdlib/universe/map/) to iterate over
+The example uses the [`map()` function](/flux/v0.x/stdlib/universe/map/) to iterate over
 each row, calculate the speed per specified unit of distance, and then return
 the updated row with a new `speed` column.
 
@@ -207,7 +207,7 @@ data
 To create custom functions with variables scoped to the function,
 
 1. Enclose your [function body](#function-definition-syntax) in a
-   [block (`{}`)](/influxdb/v2.0/reference/flux/language/blocks/)
+   [block (`{}`)](/influxdb/v2.0/reference/flux/language/blocks/).
 2. Use a `return` statement to return a specific variable.
 
 ```js
