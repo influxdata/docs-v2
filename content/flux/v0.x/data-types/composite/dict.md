@@ -86,6 +86,7 @@ list = [
 ]
 
 dict.fromList(pairs: list)
+// Returns [k1: v1, k2: v2]
 ```
   
 ### Insert a key-value pair into a dictionary
@@ -103,6 +104,7 @@ dict.insert(
   key: "k3",
   value: "v3"
 )
+// Returns [k1: v1, k2: v2, k3: v3]
 ```
 
 ### Remove a key-value pair from a dictionary
@@ -119,4 +121,5 @@ dict.remove(
   dict: exampleDict,
   key: "k2"
 )
+// Returns [k1: v1]
 ```
