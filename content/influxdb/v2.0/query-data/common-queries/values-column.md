@@ -1,11 +1,15 @@
 ---
 title: Operate on the values column
 description: >
-  This guide includes several different ways to operate on columns: how to find and count unique values, recalculate the _value column, and how to use values to calculate a new column.
+  Operate on columns with: how to find and count unique values, recalculate the _value column, and how to use values to calculate a new column.
 influxdb/v2.0/tags: [queries]
+aliases: 
+  - /influxdb/cloud/query-data/common-queries/count_unique_values_for_column/
+  - /influxdb/cloud/query-data/common-queries/recalculate_value_column/
+  - /influxdb/cloud/query-data/common-queries/calculate_new_column/
 menu:
   influxdb_2_0:
-    name: Calculate a new column
+    name: Operate on columns
     parent: Common queries
 weight: 104
 ---
@@ -17,8 +21,11 @@ These examples use [NOAA water sample data](/influxdb/v2.0/reference/sample-data
 To operate on the value columns, see: 
 
 - [Find and count unique columms](#find-and-count-unique-columns)
+     - Count the number of unique values in a specified column.
 - [Recalculate the _values column](#recalculate-the-_values-column)
+     - Recalculate the `_value` column without creating a new one.
 - [Use values to calculate a new column](#use-values-to-calculate-a-new-column)
+     - Use the `map()` function to create a new column calculated from existing values in each row. 
 
 ## Find and count unique columns 
 
