@@ -26,8 +26,8 @@ Each property can have a different value type.
 A **record** literal contains a set of key-value pairs (properties) enclosed in curly brackets (`{}`).
 Properties are comma-delimitted.
 **Property keys must be strings** and can optionally be enclosed in double quotes (`"`).
-If a property key contains only numeric characters or any whitespace characters,
-it must be enclosed in double quotes.
+If a property key contains whitespace characters or only numeric characters,
+you must enclose the property key in double quotes.
 Property keys are associated to values by a colon (`:`).
 **Values can be any type**.
 
