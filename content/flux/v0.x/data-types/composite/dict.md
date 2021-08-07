@@ -14,9 +14,7 @@ related:
   - /flux/v0.x/stdlib/dict/
 ---
 
-A **dictionary** type is a collection of key-value pairs
-in which keys can be any type, but must all be the same type.
-Values can also by any type, but must all be the same type.
+A **dictionary** type is a collection of key-value pairs with keys of the same type and values of the same type.
 
 ###### On this page:
 - [Dictionary syntax](#dictionary-syntax)
@@ -27,8 +25,8 @@ Values can also by any type, but must all be the same type.
 A **dictionary** literal contains a set of key-value pairs (also known as elements)
 enclosed in square brackets (`[]`).
 Elements are comma-delimited.
-Keys can be any type, but must all be the same type.
-Values can be any type, but must all be the same type.
+Keys must all be the same type.
+Values must all be the same type.
 Keys are associated to values by a colon (`:`).
 
 ##### Example dictionaries
