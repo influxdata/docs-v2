@@ -14,16 +14,16 @@ menu:
 
 ## Overview
 
-Managing users, roles and privileges is most easily handled using the Chronograf InfluxDB Admin console.
-<!--
-TODO
-Certain things cannot be done with Chronograf.
-Examples: -->
-Authentication and authorization entities can also be managed directly over the Influxd-Meta API.
+Authentication and authorization entities can be managed directly over the Influxd-Meta API.
+<!-- TODO decided on name: "Enterprise meta API"? -->
 
 User and privilege management means
 managing the contents of a user store and the access rights (privileges, permissions) that users can be granted.
 It entails creating and deleting users and roles, granting them privileges, and assigning roles to users.
+
+Managing users, roles and privileges can be done using the Chronograf InfluxDB Admin console.
+However, certain operations are only available through the Enterprise meta API.
+<!-- TODO which operations are API-only? -->
 
 **User** means an actor
 identified by a set of credentials including a username and a password
@@ -36,17 +36,19 @@ which define a set of TICK stack resources and APIs available for use.
 **Privilege** means a level of access to a TICK stack resource.
 
 Level of access can mean:
-- viewing the resource,
-- copying the resource,
-- dropping the resource,
-- writing to the resource,
-- full management capabilities.
+
+- viewing the resource
+- copying the resource
+- dropping the resource
+- writing to the resource
+- full management capabilities
 
 The level of access and the resource are combined in predefined keys.
 The enforcement of privileges is handled by the respective TICK stack services.
 
-Predefined key tokens generally take the form of self-descriptive verb object pairs.
+Predefined key tokens generally take the form of self-descriptive verb-object pairs.
 When the token lacks the verb part, full management privileges are implied.
+
 These predefined tokens include:
 
 * `ViewAdmin`
