@@ -427,7 +427,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
    mkdir path/to/influxdb-docker-data-volume && cd $_
    ```
 2. From within your new directory, run the InfluxDB Docker container with the `--volume` flag to
-   persist data from `/root/.influxdb2/` _inside_ the container to the current working directory in
+   persist data from `/var/lib/influxdb2` _inside_ the container to the current working directory in
    the host file system.
 
    ```sh

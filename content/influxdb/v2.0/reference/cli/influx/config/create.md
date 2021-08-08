@@ -17,16 +17,16 @@ influx config create [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                                                  | Input type  | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                                                  |:----------: |:------------------    |
-| `-a` | `--active`       | Set the specified connection to be the active configuration. |             |                       |
-| `-n` | `--config-name`  | ({{< req >}}) Name of the new configuration.                | string      |                       |
-| `-h` | `--help`         | Help for the `create` command                                |             |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)                         |             | `INFLUX_HIDE_HEADERS` |
-| `-u` | `--host-url`     | ({{< req >}}) Connection URL for the new configuration.     | string      |                       |
-|      | `--json`         | Output data as JSON (default `false`)                        |             | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`          | Organization name                                            | string      |                       |
-| `-t` | `--token`        | API token                                         | string      | `INFLUX_TOKEN`         |
+| Flag |                  | Description                                                  | Input type | {{< cli/mapped >}}    |
+|:-----|:-----------------|:-------------------------------------------------------------|:----------:|:----------------------|
+| `-a` | `--active`       | Set the specified connection to be the active configuration. |            |                       |
+| `-n` | `--config-name`  | ({{< req >}}) Name of the new configuration.                 | string     |                       |
+| `-h` | `--help`         | Help for the `create` command                                |            |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)                         |            | `INFLUX_HIDE_HEADERS` |
+| `-u` | `--host-url`     | ({{< req >}}) Connection URL for the new configuration.      | string     |                       |
+|      | `--json`         | Output data as JSON (default `false`)                        |            | `INFLUX_OUTPUT_JSON`  |
+| `-o` | `--org`          | Organization name                                            | string     |                       |
+| `-t` | `--token`        | API token                                                    | string     | `INFLUX_TOKEN`        |
 
 ## Examples
 

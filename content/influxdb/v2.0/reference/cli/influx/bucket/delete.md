@@ -29,6 +29,7 @@ influx bucket delete [flags]
 | `-h` | `--help`          | Help for the `delete` command                                         |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
+|      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string      |                       |
 | `-i` | `--id`            | Bucket ID _(required if no `--name`)_                                 | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | Bucket name _(requires `--org` or `org-id`)_                          | string      |                       |

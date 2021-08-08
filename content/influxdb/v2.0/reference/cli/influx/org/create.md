@@ -24,6 +24,7 @@ influx org create [flags]
 | `-h` | `--help`          | Help for the `create` command                                         |             |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
+|      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string      |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | ({{< req >}}) Organization name                                       | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |

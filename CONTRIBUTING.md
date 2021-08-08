@@ -339,6 +339,19 @@ Easier to maintain being you update the version number in the `data/products.yml
 {{< latest-patch product="chronograf" version="1.7" >}}
 ```
 
+### Latest influx CLI version
+Use the `{{< latest-cli >}}` shortcode to add the latest version of the `influx`
+CLI supported by the minor version of InfluxDB.
+By default, this shortcode parses the minor version from the URL.
+To specify a specific minor version, use the `version` argument.
+Maintain CLI version numbers in the `data/products.yml` file instead of updating individual links and code examples.
+
+```md
+{{< latest-cli >}}
+
+{{< latest-cli version="2.1" >}}
+```
+
 ### API endpoint
 Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains
 a colored request method and a specified API endpoint.
@@ -1031,7 +1044,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
      "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
    ```
 
-6. Update the `latest_version` in `data/version.yaml`:
+6. Update the `latest_version` in `data/products.yml`:
    ```yaml
    latest_version: v2.1
    ```
