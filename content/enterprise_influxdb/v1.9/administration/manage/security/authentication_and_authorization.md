@@ -274,11 +274,13 @@ You cannot specify per-database permissions (grants) for users via Chronograf.
 
 ### User types and privileges
 
-There are two types of users:
+InfluxDB Enterprise has the following types of users:
 
+- [Global admin users](#global-admind-users)
 - [Admin users](#admin-users)
 - [Non-admin users](#non-admin-users)
 
+#### Global admin users
 #### Admin users
 Admin users have `READ` and `WRITE` access
 to all databases and full access to the following administrative queries:
