@@ -45,6 +45,9 @@ endpoints (for example, Graphite, collectd, etc.) are not authenticated.
 
 ### Enable authentication
 
+By default, authentication is disabled, all credentials are silently ignored, and all users have all privileges.
+To enable authentication in a cluster, do the following:
+
 1. **Create at least one [admin user](#admin-users)**.
    Run the following command using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/):
    ```
@@ -257,7 +260,6 @@ Restart Telegraf and you're all set!
 
 ## Authorization
 
-By default, authentication is disabled, all credentials are silently ignored, and all users have all privileges.
 To enable authorization, first [enable authentication](#enable-authentication).
 
 {{% note %}}
