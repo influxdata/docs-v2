@@ -56,7 +56,7 @@ configure your InfluxDB connection:
         ```
 
     - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/cloud/organizations/view-orgs/).
-    - **Token**: Your InfluxDB [authentication token](/influxdb/cloud/security/tokens/).
+    - **Token**: Your InfluxDB [API token](/influxdb/cloud/security/tokens/).
     - **Default Bucket**: The default [bucket](/influxdb/cloud/organizations/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
@@ -80,13 +80,13 @@ To query InfluxDB Cloud from Grafana using InfluxQL:
 1. [Download the latest version of the `influx` CLI](/influxdb/cloud/get-started/#optional-download-install-and-use-the-influx-cli)
    appropriate for your local operating system.
 2. Create a CLI configuration that provides the required InfluxDB Cloud **host**,
-   **organization**, and **authentication token** to all CLI commands.
+   **organization**, and **API token** to all CLI commands.
    Use the [`influx config create` command](/influxdb/cloud/reference/cli/influx/config/create/)
    and provide the following:
 
    - [InfluxDB Cloud URL](/influxdb/cloud/reference/regions/)
    - [organization name](/influxdb/cloud/organizations/) _(by default, your email address)_
-   - [authentication token](/influxdb/cloud/security/tokens/)
+   - [API token](/influxdb/cloud/security/tokens/)
 
     ```sh
     influx config create \
@@ -177,10 +177,10 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
         ```
     - **Access**: Server (default)
 
-2. Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB Cloud authentication token:
+2. Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB Cloud API token:
 
     - **Header**: Enter `Authorization`
-    - **Value**: Use the `Token` schema and provide your [InfluxDB authentication token](/influxdb/v2.0/security/tokens/).
+    - **Value**: Use the `Token` schema and provide your [InfluxDB API token](/influxdb/v2.0/security/tokens/).
       For example:
 
       ```

@@ -30,7 +30,7 @@ to delete one or more secrets.
 **Include the following:**
 
 - Your [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [authentication token](/influxdb/cloud/security/tokens/view-tokens/) in the `Authorization` header
+- Your [API token](/influxdb/cloud/security/tokens/view-tokens/) in the `Authorization` header
 - An array of secret keys to delete in the request body
 
 <!-- -->
