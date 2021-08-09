@@ -12,7 +12,7 @@ menu:
 ## v1.8.9 [2021-08-06]
 The InfluxDB Enterprise 1.8.9 release builds on the InfluxDB OSS 1.8.9 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v187-2021-07-21) (v1.8.8 was unreleased).
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v189-2021-08-05) (v1.8.8 was unreleased).
 
 ## v1.8.8 [unreleased]
 
