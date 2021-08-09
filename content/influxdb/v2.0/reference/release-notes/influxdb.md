@@ -10,16 +10,18 @@ weight: 101
 
 ## v2.0.8 [2021-08-09]
 
+### Breaking change: Linux package updates for influx CLI
+
+If you install InfluxDB using `dpkg -i`, now you must download and install both `influxdb2-2.0.8-amd64.deb` (InfluxDB) and `influxdb2-client-2.0.8-amd64.deb` (influx CLI) (or the RPM equivalent) to install the `influx` CLI (previously, the CLI was packaged with InfluxDB).
+
+This update was made to support the standalone installation of the `influx` CLI for InfluxDB Cloud users. Linux packages (`.deb` and `.rpm`) were modified as follows:
+
+- Add new `influxdb2-cli` package that contains only the `influx` CLI binary.
+- Remove the `influx` CLI binary from the `influxdb2` package. Now, the `influxdb2` package declares a recommended dependency on the `influxdb2-cli` package. **No breaking change** if you install using `apt install` or `apt upgrade`, as `apt` fetches and installs the recommended dependency.
+
 ### Go version
 
 - Upgrade to Go 1.16. **Requires macOS Sierra 10.12 or later to run.**
-
-### Linux packaging for influx CLI
-
-- Modify Linux packages (`.deb` and `.rpm`) to enable standalone installation of the `influx` CLI for InfluxDB Cloud users, includes the following changes:
-
-  - Add new `influxdb2-cli` package that contains only the `influx` CLI binary.
-  - Remove the `influx` CLI binary from the `influxdb2` package. Now, the `influxdb2` package declares a recommended dependency on the `influxdb2-cli` package.
 
 ### Features
 
