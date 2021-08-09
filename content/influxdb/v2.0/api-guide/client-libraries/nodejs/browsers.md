@@ -24,7 +24,9 @@ related:
 Use the JavaScript client library example to interact with the InfluxDB API in a web browser.
 
 {{% note %}}
-{{% api/v2dot0/nodejs/modules %}}
+`@influxdata/influxdb-client` provides CommonJS and ESM syntax for browser and server-side Javascript environments.
+
+If you need UMD module syntax, use `@influxdata/influxdb-client-browser`.
 {{% /note %}}
 
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
