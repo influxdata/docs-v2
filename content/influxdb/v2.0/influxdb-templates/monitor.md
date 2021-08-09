@@ -133,9 +133,46 @@ Customize your monitoring dashboard as needed. For example, send an alert in the
 
 ## Alert when metrics stop reporting
 
-To ensure data is always flowing from your InfluxDB OSS instances into your InfluxDB Cloud account, create a deadman check to monitor data and write statuses. To recieve notifications when the deadman check is triggered, create a notification rule and endpoint.
+To ensure data is always flowing from your InfluxDB OSS instances into your InfluxDB Cloud account, create a deadman check to monitor data and write statuses. 
  
 The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert/checks/create/#deadman-check) that checks to see that metrics are reported at regular intervals.
+
+To recieve notifications when the deadman check is triggered, do the following: 
+
+#### Create a Check 
+
+1.  Click **Alerts** in the navigation bar of your **InfluxDB Cloud** account to view the deadman check.
+
+    {{< nav-icon "alerts" >}}
+
+{{< img-hd src="/img/influxdb/2-0-monitor-oss-deadman.png" />}}
+2. Choose a InfluxDB OSS field or create a new OSS field for your deadman alert: 
+    1. Click **Create** and select **Deadman Check** in the dropown menu. 
+    2. Define your query with at least one field. 
+    3. Click **Submit** and **Configure Check**. 
+   When metrics stop reporting, you'll receive an alert. 
+3. Start under **Schedule Every**, set the amount of time to check for data. 
+4. Set the amount of time to wait before switching to a critical alert.
+5. Save the Check and click on **View History** of the Check under the gear icon to verify it is running.  
+
+#### Create a notification endpoint 
+
+Notification endpoints specify which endpoint to send the alerts. 
+
+1. Create a [notification endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/) by going to **Alerts > Notification Endpoint**. 
+2. Select a destination. InfluxDB Cloud supports different endpoints. On the Free Plan, to send a message to Slack, create a [Slack Webhook](https://api.slack.com/messaging/webhooks) and enter it in **Incoming Webhook URL**. 
+3. Click **Edit Notification Endpoint**. 
+
+#### Create a notification rule 
+
+Notification rules send a message to a specified notification endpoint whenever there is an outage.
+
+1. Create a [notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) by going to **Notification Rule**. 
+2. Complete the **About** section. 
+3. Click **Create Notification Rule**. 
+
+
+create a notification rule and endpoint.
  
 1.  Click **Alerts** in the navigation bar of your **InfluxDB Cloud** account to view the deadman check.
  
