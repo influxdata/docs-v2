@@ -139,7 +139,7 @@ The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert
 
 To recieve notifications when the deadman check is triggered, do the following: 
 
-#### Create a Check 
+### Create a Check 
 
 1.  Click **Alerts** in the navigation bar of your **InfluxDB Cloud** account to view the deadman check.
 
@@ -147,23 +147,27 @@ To recieve notifications when the deadman check is triggered, do the following:
 
 {{< img-hd src="/img/influxdb/2-0-monitor-oss-deadman.png" />}}
 2. Choose a InfluxDB OSS field or create a new OSS field for your deadman alert: 
-    1. Click **Create** and select **Deadman Check** in the dropown menu. 
-    2. Define your query with at least one field. 
-    3. Click **Submit** and **Configure Check**. 
+   1. Click **Create** and select **Deadman Check** in the dropown menu. 
+   2. Define your query with at least one field. 
+   3. Click **Submit** and **Configure Check**. 
    When metrics stop reporting, you'll receive an alert. 
 3. Start under **Schedule Every**, set the amount of time to check for data. 
 4. Set the amount of time to wait before switching to a critical alert.
 5. Save the Check and click on **View History** of the Check under the gear icon to verify it is running.  
 
-#### Create a notification endpoint 
+### Create a notification endpoint 
 
 Notification endpoints specify which endpoint to send the alerts. 
 
 1. Create a [notification endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/) by going to **Alerts > Notification Endpoint**. 
 2. Select a destination. InfluxDB Cloud supports different endpoints. On the Free Plan, to send a message to Slack, create a [Slack Webhook](https://api.slack.com/messaging/webhooks) and enter it in **Incoming Webhook URL**. 
+   - For paid plans, send a message to: 
+     - Slack 
+     - PagerDuty 
+     - HTTP 
 3. Click **Edit Notification Endpoint**. 
 
-#### Create a notification rule 
+### Create a notification rule 
 
 Notification rules send a message to a specified notification endpoint whenever there is an outage.
 
