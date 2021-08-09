@@ -6,7 +6,7 @@ description: >
   Use the JavaScript client library example app to interact with the InfluxDB API in a web browser.
 menu:
   influxdb_2_0:
-    name: Browser and client-side
+    name: Browser & client-side applications
     identifier: client_js_browser_get_started
     parent: Node.js 
     influxdb/v2.0/tags: [client libraries, JavaScript]
