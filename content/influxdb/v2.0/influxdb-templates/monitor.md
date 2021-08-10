@@ -148,7 +148,7 @@ To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB Cl
 
       {{< img-hd src="/img/influxdb/2-0-monitor-oss-deadman.png" />}}
 2. Choose a InfluxDB OSS field or create a new OSS field for your deadman alert:
-   1. Click **Create** and select **Deadman Check** in the dropown menu.
+   1. Click **{{< icon "plus" >}} Create** and select **Deadman Check** in the dropown menu.
    2. Define your query with at least one field.
    3. Click **Submit** and **Configure Check**.
    When metrics stop reporting, you'll receive an alert.
@@ -163,7 +163,7 @@ To receive a notification message when your deadman check is triggered, create a
 1. Do one of the following:
    - Send a notification to Slack:
      1. Create a [Slack Webhooks](https://api.slack.com/messaging/webhooks). 
-     2. Go to **Alerts > Notification Endpoint** and click **Create**, and enter a name and description for your Slack endpoint. 
+     2. Go to **Alerts > Notification Endpoint** and click **{{< icon "plus" >}} Create**, and enter a name and description for your Slack endpoint. 
      3. Enter your Slack Webhook under **Incoming Webhook URL** and click **Edit Notification Endpoint**. 
    - Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgrading your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan).
 2. Go to **Alerts > Notification Rules** and [Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to set rules for when to send a deadman alert message to your notification endpoint. 
