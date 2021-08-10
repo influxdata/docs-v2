@@ -167,4 +167,4 @@ To receive a notification message when your deadman check is triggered, create a
      3. Enter your Slack Webhook under **Incoming Webhook URL** and click **Edit Notification Endpoint**. 
    - Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgrading your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan).
 2. Go to **Alerts > Notification Rules** and [Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to set rules for when to send a deadman alert message to your notification endpoint. 
-3. Fill out the **About** section then click **Create Notification Rule**. 
+3. Fill out the **About** and **Conditions** section then click **Create Notification Rule**. 
