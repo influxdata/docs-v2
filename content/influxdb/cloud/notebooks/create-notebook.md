@@ -30,6 +30,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
     - [Transform](#add-a-transform-cell): to filter and apply changes to your data
     - [Pass-through](#add-a-pass-through-cell): to visualize and add notes to your data
     - [Output](#add-an-output-cell): to write data to a bucket, preview output before writing, or schedule an output task
+9. (Optional) [Convert a cell into raw Flux script](#view-and-edit-flux-script-in-a-cell) to view and edit the code.
 
 ### Add an input cell
 
@@ -101,3 +102,13 @@ Select one of the following output cell-types:
 
 1. Enter a time and an offset to schedule the task.
 2. Click **Export as Task** to save.
+
+
+### View and edit Flux script in a cell
+Convert your notebook cells into raw Flux script to view and edit the code. Conversion to Flux is available for the following cell types:
+  - **Inputs: Metric Selector**
+  - **Transform: Column Editor** and **Downsample**
+
+1. Click the overflow menu icon under the cells you want to view as Flux, then select **Convert to |> Flux**. You won't be able to undo this step.
+2. A Flux cell appears with underlying script for the selected cell.
+3. View and edit the Flux script as needed.
