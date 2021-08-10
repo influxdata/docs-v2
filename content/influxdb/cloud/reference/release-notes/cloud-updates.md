@@ -14,6 +14,22 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## July 2021 
+
+- Add new [Asia Pacific (Australia) region](https://ap-southeast-2-1.aws.cloud2.influxdata.com).
+- Redesign the View Raw Data table in Data Explorer. Group keys and data types are now easily identifiable underneath column headings. 
+- Dashboard improvements: 
+   - Add ability to add an [annotation to a specific time range](/influxdb/cloud/visualize-data/annotations/). 
+   - Add ability to [automatically refresh dashboard](/influxdb/cloud/visualize-data/dashboards/control-dashboard/#automatically-refresh-dashboard).  
+   - Add new static legend to Graph and Band Plot visualizations. 
+
+## May 2021
+
+- Add new [Cloud 2 Usage Dashboard template](https://github.com/influxdata/community-templates/tree/master/usage_dashboard) to monitor your Cloud usage data, including rate limiting events. For more detail on Cloud data usage and rate limiting events, see how to [view InfluxDB Cloud data usage](/influxdb/cloud/account-management/data-usage/). For more detail on how to install and customize this template, see [InfluxDB templates in InfluxDB Cloud](/influxdb/cloud/influxdb-templates/cloud/).
+
+- Add support for [using annotations](/influxdb/cloud/visualize-data/annotations/) in your dashboards.
+- Add new [map visualization](/influxdb/cloud/visualize-data/visualization-types/map/) to display geo-temporal data.
+
 ## April 2021
 
 - Add new [GCP Europe West (Belgium) region](/influxdb/cloud/reference/regions/#google-cloud-platform-gcp).

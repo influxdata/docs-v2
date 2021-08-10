@@ -9,10 +9,31 @@ menu:
     parent: About the project
 ---
 
+## v1.8.9 [2021-08-06]
+The InfluxDB Enterprise 1.8.9 release builds on the InfluxDB OSS 1.8.9 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v189-2021-08-05) (v1.8.8 was unreleased).
+
+## v1.8.8 [unreleased]
+
+Due to encountering several issues building v.1.8.8, this version will not be released.  
+
+## v1.8.7 [2021-07-21]
+The InfluxDB Enterprise 1.8.7 release builds on the InfluxDB OSS 1.8.7 release.
+For details on changes incorporated from the InfluxDB OSS release, see
+[InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v187-2021-07-21).
+
+### Bug fixes
+- Rename ARM RPMs with yum-compatible names.
+
 ## v1.8.6 [2021-05-21]
 
 {{% warn %}}
-**Fine-grained authorization security update.** If you're on InfluxDB Enterprise 1.8.5, we recommend immediately upgrading to this release. An issue was reported in 1.8.5 where grants with specified permissions for users were not enforced. Versions prior to InfluxDB Enterprise 1.8.5 are not affected. This security update ensures that only users with sufficient permissions can read and write to a measurement.
+**Fine-grained authorization security update.**
+If using **InfluxDB Enterprise 1.8.5**, we strongly recommend upgrading to **InfluxDB Enterprise 1.8.6** immediately.
+1.8.5 does not correctly enforce grants with specified permissions for users.
+Versions prior to InfluxDB Enterprise 1.8.5 are not affected.
+1.8.6 ensures that only users with sufficient permissions can read and write to a measurement.
 {{% /warn %}}
 
 ### Features
@@ -34,7 +55,7 @@ menu:
 
 ## v1.8.5 [2020-04-20]
 
-The InfluxDB Enterprise 1.8.5 release builds on the InfluxDB OSS 1.8.5 release.
+The InfluxDB Enterprise v1.8.5 release builds on the InfluxDB OSS v1.8.5 release.
 For details on changes incorporated from the InfluxDB OSS release, see
 [InfluxDB OSS release notes](/influxdb/v1.8/about_the_project/releasenotes-changelog/#v185-2021-04-20).
 
@@ -77,7 +98,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 #### Hinted handoff improvements
 
-- Allow out-of-order writes. This change adds a configuration option `allow-out-of-order-writes` to the `[cluster]` section of the data node configuration file. This setting defaults to `false` to match the existing behavior. There are some important operational considerations to review before turning this on. But, the result is enabling this option reduces the time required to drain the hinted handoff queue and increase throughput during recovery. See [allow-out-of-order-writes](/enterprise_influxdb/v1.8/administration/config-data-nodes#allow-out-of-order-false) for more detail.
+- Allow out-of-order writes. This change adds a configuration option `allow-out-of-order-writes` to the `[cluster]` section of the data node configuration file. This setting defaults to `false` to match the existing behavior. There are some important operational considerations to review before turning this on. But, the result is enabling this option reduces the time required to drain the hinted handoff queue and increase throughput during recovery. See [`allow-out-of-order-writes`](/enterprise_influxdb/v1.8/administration/config-data-nodes#allow-out-of-order-writes--false) for more detail.
 - Make the number of pending writes configurable. This change adds a configuration option in the `[hinted-handoff]` section called `max-pending-writes`, which defaults to `1024`. See [max-pending-writes](/enterprise_influxdb/v1.8/administration/config-data-nodes#max-pending-writes-1024) for more detail.
 - Update the hinted handoff queue to ensure various entries to segment files occur atomically. Prior to this change, entries were written to disk in three separate writes (len, data, offset). If the process stopped in the middle of any of those writes, the hinted handoff segment file was left in an invalid state.
 - In certain scenarios, the hinted-handoff queue would fail to drain. Upon node startup, the queue segment files are now verified and truncated if any are corrupted. Some additional logging has been added when a node starts writing to the hinted handoff queue as well.

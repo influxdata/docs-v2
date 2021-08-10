@@ -24,7 +24,7 @@ Use the `GET` request method to query data from the `/query` endpoint.
 <span class="api get">GET</span> http://localhost:8086/query
 </pre>
 
-The `/query` compatibility endpoint use the **database** and **retention policy**
+The `/query` compatibility endpoint uses the **database** and **retention policy**
 specified in the query request to map the request to an InfluxDB bucket.
 For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp).
 
@@ -36,25 +36,22 @@ to query that bucket with the `/query` compatibility API.
 
 ## Authentication
 
-Use **basic authentication** or **token authentication**.
-
-{{% note %}}
-**Note:** If using basic authentication, include the `--user` (or `-u` and `-p`) option in your request (not `--header`) to ensure the `username:password` is base64 encoded.
-{{% /note %}}
+Use one of the following authentication methods:
+* **token authentication**
+* **basic authentication with username and password**
+* **query string authentication with username and password**
 
 _For more information, see [Authentication](/influxdb/v2.0/reference/api/influxdb-1x/#authentication)._
 
 ## Query string parameters
 
-{{% note %}}
-**URL-encode** all query string parameters.
-{{% /note %}}
-
 ### u
 (Optional) The 1.x **username** to authenticate the request.
+_See [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### p
 (Optional) The 1.x **password** to authenticate the request.
+_See [query string authentication](/influxdb/v2.0/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### db
 ({{< req >}}) The **database** to query data from.
@@ -89,20 +86,30 @@ The following precisions are available:
 - [Query a non-default retention policy](#query-a-non-default-retention-policy)
 - [Execute multiple queries](#execute-multiple-queries)
 - [Return query results with millisecond Unix timestamps](#return-query-results-with-millisecond-unix-timestamps)
-- [Use `curl` to execute InfluxQL queries from a file](#use-curl-to-execute-influxql-queries-from-a-file)
+- [Execute InfluxQL queries from a file](#execute-influxql-queries-from-a-file)
 
 ##### Query using basic authentication
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
-curl --get http://localhost:8086/query \
-  --user "username:YourAuthToken" \
-  --data-urlencode "db=mydb" \
-  --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
+{{% get-shared-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{% get-shared-text "api/v1-compat/auth/oss/basic-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ##### Query a non-default retention policy
 ```sh
 curl --get http://localhost:8086/query \
-  --user "username:YourAuthToken" \
+  --user "OneDotXUsername":"myPasswordOrAuthToken" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
@@ -126,7 +133,7 @@ curl --get http://localhost:8086/query \
   --data-urlencode "epoch=ms"
 ```
 
-##### Use curl to execute InfluxQL queries from a file
+##### Execute InfluxQL queries from a file
 ```sh
 curl --get http://localhost:8086/query \
   --header "Authorization: Token YourAuthToken" \

@@ -7,7 +7,7 @@ menu:
   influxdb_cloud:
     name: Sign up
 weight: 1
-influxdb/cloud/tags: [get-started, install]
+influxdb/cloud/tags: [get-started, install, cli]
 ---
 
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
@@ -19,6 +19,12 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
   targets are not available in {{< cloud-name "short" >}}.
 - {{< cloud-name "short" >}} instances are currently limited to a single organization.
+
+- [Start for free](#start-for-free)
+- [Sign up](#sign-up)
+- [(Optional) Download, install, and use the influx CLI](#optional-download-install-and-use-the-influx-cli)
+- [Sign in](#sign-in)
+- [Get started working with data](#get-started-working-with-data)
 
 ## Start for free
 
@@ -140,18 +146,18 @@ If running `influx` on macOS Catalina, you must manually authorize the
 
 #### Step 5: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [authentication token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [API token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
 
 ```sh
-   # Set up a configuration profile
-   influx config create -n default \
-     -u https://cloud2.influxdata.com \
-     -o example-org \
-     -t mySuP3rS3cr3tT0keN \
-     -a
-  ```  
+# Set up a configuration profile
+influx config create -n default \
+  -u https://cloud2.influxdata.com \
+  -o example-org \
+  -t mySuP3rS3cr3tT0keN \
+  -a
+```  
 
 This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
 For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config/).
@@ -170,8 +176,8 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-cli >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-cli >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -179,7 +185,7 @@ Click one of the following buttons to download and install the `influx` CLI appr
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvfz influxdb-client-{{< latest-patch >}}-linux-amd64.tar.gz
+tar xvfz influxdb-client-{{< latest-cli >}}-linux-amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -191,7 +197,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-client-{{< latest-patch >}}-linux-amd64/influx /usr/local/bin/
+sudo cp influxdb-client-{{< latest-cli >}}-linux-amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
@@ -200,18 +206,18 @@ If you rename the binary, all references to `influx` in this documentation refer
 
 #### Step 4: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [authentication token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [API token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
 
 ```sh
-   # Set up a configuration profile
-   influx config create -n default \
-     -u https://cloud2.influxdata.com \
-     -o example-org \
-     -t mySuP3rS3cr3tT0keN \
-     -a
-  ```  
+# Set up a configuration profile
+influx config create -n default \
+  -u https://cloud2.influxdata.com \
+  -o example-org \
+  -t mySuP3rS3cr3tT0keN \
+  -a
+```  
 
 This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
 For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config/).
@@ -230,7 +236,7 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 Click the following button to download and install `influx` CLI for Windows.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.tar.gz" download>influx CLI (Windows)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download>influx CLI (Windows)</a>
 
 #### Step 2: Expand the downloaded archive
 

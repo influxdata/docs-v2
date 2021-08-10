@@ -24,6 +24,7 @@ The following query:
 
 from(bucket: "noaa")
   |> filter(fn: (r) => r._measurement == "average_temperature")
+  |> range(start: -30d)
   |> map(fn: (r) => ({r with _value: (float(v: r._value) - 32.0) * 5.0 / 9.0} ))
 ```
 

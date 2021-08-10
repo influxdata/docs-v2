@@ -3,7 +3,7 @@ title: Write data to InfluxDB
 list_title: Write data
 description: >
   Collect and write time series data to InfluxDB Cloud and InfluxDB OSS.
-weight: 2
+weight: 4
 aliases:
   - /influxdb/v2.0/write-data/quick-start/
   - /influxdb/v2.0/write-data/sample-data/demo-data/
@@ -39,8 +39,8 @@ To write data into InfluxDB, you need the following:
   for instructions on viewing your organization ID._
 - **bucket** – _See [View buckets](/influxdb/v2.0/organizations/buckets/view-buckets/) for
   instructions on viewing your bucket ID._
-- **authentication token** – _See [View tokens](/influxdb/v2.0/security/tokens/view-tokens/)
-  for instructions on viewing your authentication token._
+- **API token** – _See [View tokens](/influxdb/v2.0/security/tokens/view-tokens/)
+  for instructions on viewing your API token._
 - **InfluxDB URL** – _See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)_.
 
 The [InfluxDB setup process](/influxdb/v2.0/get-started/#set-up-influxdb) creates each of these.

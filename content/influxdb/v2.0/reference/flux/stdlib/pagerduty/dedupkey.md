@@ -22,8 +22,18 @@ _**Function type:** Transformation_
 ```js
 import "pagerduty"
 
-pagerduty.dedupKey()
+pagerduty.dedupKey(
+  exclude: ["_start", "_stop", "_level"]
+)
 ```
+
+## Parameters
+
+### exclude
+Group key columns to exclude when generating the deduplication key.
+Default is `["_start", "_stop", "_level"]`.
+
+_**Data type:** Array of strings_
 
 ## Examples
 
@@ -36,3 +46,8 @@ from(bucket: "default")
   |> filter(fn: (r) => r._measurement == "mem")
   |> pagerduty.dedupKey()
 ```
+
+{{% expand "View function updates" %}}
+#### v1.18.0
+- Add `exclude` parameter to exclude group key columns when generating the deduplication key.
+{{% /expand %}}

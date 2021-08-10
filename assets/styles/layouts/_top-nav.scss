@@ -75,7 +75,7 @@
     }
 
     &:after {
-      content: '\e917';
+      content: "\e918";
       font-family: 'icomoon';
       position: absolute;
       top: .45rem;
@@ -85,6 +85,8 @@
 
     &.open {
       height: auto;
+      max-height: calc(100vh - 2rem);
+      overflow-y: scroll;
       &:after {
         transform: rotate(180deg);
       }

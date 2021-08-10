@@ -33,7 +33,7 @@ influx user list [flags]
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`          | Username                                                              | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`        |
 
 ## Examples
 

@@ -4,7 +4,7 @@ description: The `tasks.lastSuccess()` function returns ...
 menu:
   influxdb_2_0_ref:
     name: tasks.lastSuccess
-    parent: InfluxDB Tasks
+    parent: InfluxDB tasks
 weight: 301
 ---
 

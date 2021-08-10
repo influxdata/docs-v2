@@ -42,24 +42,24 @@ influx restore [flags]
 
 ## Flags
 
-| Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}    |
-|:---- |:---               |:-----------                                                           |:----------: |:------------------    |
-| `-c` | `--active-config` | CLI configuration to use for command                                  | string      |                       |
-| `-b` | `--bucket`        | Name of the bucket to restore (mutually exclusive with `--bucket-id`) | string      |                       |
-|      | `--bucket-id`     | ID of the bucket to restore (mutually exclusive with `--bucket`)      | string      |                       |
-|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
-|      | `--full`          | Fully restore and replace all data on server                          |             |                       |
-| `-h` | `--help`          | Help for the `restore` command                                        |             |                       |
-|      | `--hide-headers`  | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-|      | `--input`         | ({{< req >}}) Path to local backup directory                          | string      |                       |
-|      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-|      | `--new-bucket`    | Name of the bucket to restore to                                      | string      |                       |
-|      | `--new-org`       | Name of the organization to restore to                                | string      |                       |
-| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string      |                       |
-|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string      |                       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}    |
+|:-----|:------------------|:----------------------------------------------------------------------|:----------:|:----------------------|
+| `-c` | `--active-config` | CLI configuration to use for command                                  | string     |                       |
+| `-b` | `--bucket`        | Name of the bucket to restore (mutually exclusive with `--bucket-id`) | string     |                       |
+|      | `--bucket-id`     | ID of the bucket to restore (mutually exclusive with `--bucket`)      | string     |                       |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     | `INFLUX_CONFIGS_PATH` |
+|      | `--full`          | Fully restore and replace all data on server                          |            |                       |
+| `-h` | `--help`          | Help for the `restore` command                                        |            |                       |
+|      | `--hide-headers`  | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
+|      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
+|      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
+|      | `--new-bucket`    | Name of the bucket to restore to                                      | string     |                       |
+|      | `--new-org`       | Name of the organization to restore to                                | string     |                       |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string     |                       |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string     |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
+| `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 
 ## Examples
 
@@ -71,8 +71,7 @@ influx restore [flags]
 
 ##### Restore backup data
 ```sh
-influx restore \
-  --input /path/to/backup/dir/
+influx restore /path/to/backup/dir/
 ```
 
 ##### Restore backup data for a specific bucket into a new bucket
@@ -80,7 +79,7 @@ influx restore \
 influx restore \
   --bucket example-bucket \
   --new-bucket new-example-bucket \
-  --input /path/to/backup/dir/
+  /path/to/backup/dir/
 ```
 
 ##### Restore and replace all data
@@ -90,5 +89,5 @@ data such as tokens, dashboards, users, etc.
 {{% /note %}}
 
 ```sh
-influx restore --full --input /path/to/backup/dir/
+influx restore --full /path/to/backup/dir/
 ```

@@ -23,7 +23,7 @@ layout: api
 menu:
   $menu:
     parent: InfluxDB v2 API
-    name: View v2 API docs
+    name: v2 API docs
 weight: 102
 ---
 "
@@ -66,8 +66,27 @@ weight: 304
   # Create temp file with frontmatter and Redoc html
   echo "$v2frontmatter" >> $version.tmp
   echo "$v1frontmatter" >> $version-v1-compat.tmp
+
+  V2LEN_INIT=$(wc -c $version.tmp | awk '{print $1}')
+  V1LEN_INIT=$(wc -c $version-v1-compat.tmp | awk '{print $1}')
+
   cat redoc-static.html >> $version.tmp
   cat redoc-static-v1-compat.html >> $version-v1-compat.tmp
+
+  V2LEN=$(wc -c $version.tmp | awk '{print $1}')
+  V1LEN=$(wc -c $version-v1-compat.tmp | awk '{print $1}')
+
+  if ! [[ $V2LEN -gt $V2LEN_INIT  ]]
+   then
+     echo "Error: bundle was not appended to $version.tmp"
+     exit $?
+  fi
+
+  if ! [[ $V1LEN -gt $V1LEN_INIT  ]]
+  then
+    echo "Error: bundle was not appended to $version-v1-compat.tmp"
+    exit $?
+  fi
 
   # Remove redoc file and move the tmp file to it's proper place
   rm -f redoc-static.html

@@ -99,6 +99,15 @@ A bucket is a named location where time series data is stored.
 All buckets have a [retention period](#retention-period).
 A bucket belongs to an organization.
 
+
+### bucket schema
+
+In InfluxDB Cloud, an explicit bucket schema lets you strictly enforce the data that can be written into one or more measurements in a bucket by defining the column names, tags, fields, and data types allowed for each measurement. By default, buckets in InfluxDB 2.0 have an `implicit` schema that lets you write data without restrictions on columns, fields, or data types.
+
+Learn how to [manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/) in InfluxDB Cloud.
+
+Related entries: [data type](#data-type), [field](#field), [measurement](#measurement)
+
 ## C
 
 ### check
@@ -250,9 +259,25 @@ Related entries: [bucket](#bucket)
 
 ### data type
 
-A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it.
+A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it. 
 
-InfluxDB supports the following data types: float, integer, string, boolean, and timestamp.
+InfluxDB supports the following data types: 
+| Data type        | Alias/annotation   |
+| :--------------- | :----------------- |
+| string           |                    |
+| boolean          |                    |
+| float            | double             |
+| integer          | int, long          |
+| unsigned integer | uint, unsignedLong |
+| time             | dateTime           |
+
+For more information about different data types, see:
+- [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+- [extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype)
+- [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)
+- [InfluxQL](/influxdb/v1.8/query_language/spec/#literals)
+- [Flux](/influxdb/v2.0/reference/flux/language/types/)
+- [InfluxDB](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)
 
 ### database
 
@@ -1066,7 +1091,7 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 
 ### token
 
-Tokens (or authentication tokens) verify user and organization permissions in InfluxDB.
+Tokens (or API tokens) verify user and organization permissions in InfluxDB.
 There are different types of athentication tokens:
 
 - **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
@@ -1147,7 +1172,7 @@ Related entries: [integer](#integer)
 ### user
 
 InfluxDB users are granted permission to access to InfluxDB.
-Users are added as a member of an organization and are given a unique authentication token.
+Users are added as a member of an organization and are given a unique API token.
 
 ## V
 

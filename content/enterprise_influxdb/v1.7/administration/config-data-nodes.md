@@ -385,7 +385,7 @@ so it is unlikely that changing this value will measurably improve performance b
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_STREAMS`
 
-#### allow-out-of-order = "false"
+#### `allow-out-of-order-writes = false`
 
 By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
 
@@ -743,7 +743,7 @@ Enables HTTP request logging.
 
 Environment variable: `INFLUXDB_HTTP_LOG_ENABLED`
 
-### `suppress-write-log = false`
+#### `suppress-write-log = false`
 
 Determines whether the HTTP write request logs should be suppressed when the log is enabled.
 

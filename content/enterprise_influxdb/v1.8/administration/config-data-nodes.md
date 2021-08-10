@@ -14,7 +14,7 @@ menu:
   * [Enterprise license [enterprise]](#enterprise-license-settings)
   * [Meta node `[meta]`](#meta-node-settings)
   * [Data `[data]`](#data-settings)
-  * [Cluster `[cluster]`](#cluster-settings)
+  * [Cluster `[cluster]` (includes InfluxQL query controls)](#cluster-settings)
   * [Retention `[retention]`](#retention-policy-settings)
   * [Hinted Handoff `[hinted-handoff]`](#hinted-handoff-settings)
   * [Anti-Entropy `[anti-entropy]`](#anti-entropy-ae-settings)
@@ -356,8 +356,7 @@ Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
 ### `[cluster]`
 
-Settings related to how the data nodes interact with other data nodes.
-Controls how data is shared across shards and the options for query management.
+Settings related to how data nodes interact with each other, how data is shared across shards, and how InfluxQL queries are managed.
 
 An InfluxDB Enterprise cluster uses remote procedure calls (RPCs) for inter-node communication.
 An RPC connection pool manages the stream connections and efficiently uses system resources.
@@ -398,7 +397,7 @@ so it is unlikely that changing this value will measurably improve performance b
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_STREAMS`
 
-#### allow-out-of-order = "false"
+#### `allow-out-of-order-writes = false`
 
 By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
 
@@ -613,6 +612,14 @@ Environment variable: `INFLUXDB_ANTI_ENTROPY_CHECK_INTERVAL`
 
 The maximum number of shards that a single data node will copy or repair in parallel.
 
+{{% note %}}
+Having `max-fetch=10` with higher numbers of shards (100+) can add significant overhead to running nodes.
+The more shards you have, the lower this should be set.
+If AE is enabled while lowering your `max-fetch`, initially, you'll see
+higher CPU load as new shard digest files are created.
+The added load drops off after shard digests are completed for existing shards.
+{{% /note %}}
+
 Environment variable: `INFLUXDB_ANTI_ENTROPY_MAX_FETCH`
 
 #### `max-sync = 1`
@@ -762,7 +769,7 @@ Enables HTTP request logging.
 
 Environment variable: `INFLUXDB_HTTP_LOG_ENABLED`
 
-### `suppress-write-log = false`
+#### `suppress-write-log = false`
 
 Determines whether the HTTP write request logs should be suppressed when the log is enabled.
 
@@ -1196,7 +1203,6 @@ Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_RUN_INTERVAL`
 
 ## TLS settings
 
-
 ### `[tls]`
 
 Global configuration settings for Transport Layer Security (TLS) in InfluxDB.  
@@ -1222,32 +1228,20 @@ ciphers = [ "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
             "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 ]
 
-min-version = "tls1.2"
+min-version = "tls1.3"
 
-max-version = "tls1.2"
+max-version = "tls1.3"
 
 ```
 
-#### `min-version = "tls1.2"`
+#### `min-version = "tls1.3"`
 
-Minimum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, and `tls1.2`. If not specified, `min-version` is the minimum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.0` specifies the minimum version as TLS 1.0, which is consistent with the behavior of previous InfluxDB releases.
+Minimum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, `tls1.2` and `tls1.3`. If not specified, `min-version` is the minimum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.3` specifies the minimum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MIN_VERSION`
 
-#### `max-version = "tls1.2"`
+#### `max-version = "tls1.3"`
 
-The maximum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, and `tls1.2`. If not specified, `max-version` is the maximum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.2` specifies the maximum version as TLS 1.2, which is consistent with the behavior of previous InfluxDB releases.
+The maximum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, `tls1.2` and `tls1.3`. If not specified, `max-version` is the maximum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.3` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
-
-    <!-- #### max-fetch = 10
-
-    The maximum number of shards that a single data node will copy or repair in parallel.
-
-    Environment variable: `INFLUXDB_ANTI_ENTROPY_MAX_FETCH`
-
-    > Having `max-fetch=10` with higher numbers of shards (100+) can add significant overhead to running nodes.
-    > The more shards you have, the lower this should be set.
-    > If AE is left enabled while lowering your `max-fetch`, you will initially see
-    > higher CPU load as new shard digest files are created.
-    > The added load will drop off after shard digests are completed for existing shards. -->

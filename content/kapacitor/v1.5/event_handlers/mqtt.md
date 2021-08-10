@@ -104,7 +104,7 @@ options:
   .mqtt('topic-name')
     .brokerName('name')
     .qos(1)
-    .retained()
+    .retained(TRUE)
 ```
 
 ## Using the MQTT event handler
@@ -193,6 +193,7 @@ options:
   broker-name: 'alerts-broker'
   topic: 'alerts'
   qos: 2
+  retained: true
 ```
 
 Add the handler:
