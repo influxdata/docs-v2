@@ -8,7 +8,9 @@ menu:
 weight: 301
 ---
 
-Add secrets using the `influx` command line interface (CLI) or the InfluxDB API.
+Add secrets using the InfluxDB Cloud UI, `influx` command line interface (CLI) or the InfluxDB API.
+
+## Add a secret using the InfluxDB Cloud UI
 
 ## Add a secret using the influx CLI
 Use the [`influx secret update` command](/influxdb/cloud/reference/cli/influx/secret/update/)
