@@ -8,7 +8,7 @@ menu:
 weight: 303
 ---
 
-Update secrets using the InfluxDB Cloud UI, `influx` command line interface (CLI) or the InfluxDB API.
+Update secrets using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
 
 ## Update a secret using the InfluxDB Cloud UI
 

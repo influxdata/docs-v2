@@ -8,7 +8,7 @@ menu:
 weight: 304
 ---
 
-Delete secrets using the InfluxDB Cloud UI, `influx` command line interface (CLI) or the InfluxDB API.
+Delete secrets using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
 
 ## Delete a secret using the InfluxDB Cloud UI
 

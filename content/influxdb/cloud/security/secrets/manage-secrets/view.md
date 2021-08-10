@@ -8,7 +8,7 @@ menu:
 weight: 302
 ---
 
-View secret keys using the InfluxDB Cloud UI, `influx` command line interface (CLI) or the InfluxDB API.
+View secret keys using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
 
 ## View secret keys using the InfluxDB Cloud UI
 
