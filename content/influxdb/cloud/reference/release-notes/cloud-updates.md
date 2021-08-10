@@ -16,7 +16,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ## August 2021 
 
-- Add new support for [bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/) to enforce column names, tags, fields, and data types for your data.
+- Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
 
 ## July 2021 
 
