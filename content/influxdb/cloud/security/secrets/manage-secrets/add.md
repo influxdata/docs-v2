@@ -16,6 +16,13 @@ Add secrets using the InfluxDB Cloud UI, `influx` command line interface (CLI) o
 
     {{< nav-icon "settings" >}}
 2. Click the **Secrets** tab.
+3. Click **Add Secret**.
+4. Enter a *key* and a *value*.
+   {{% warn %}}
+If will need it again, be sure to safely store your secret value.
+You will not be able to see the value again.
+   {{% /warn %}}
+5. Click **Add Secret**.
 
 ## Add a secret using the influx CLI
 Use the [`influx secret update` command](/influxdb/cloud/reference/cli/influx/secret/update/)
