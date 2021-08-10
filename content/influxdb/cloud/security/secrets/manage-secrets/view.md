@@ -12,6 +12,18 @@ View secret keys using the InfluxDB Cloud UI, `influx` command line interface (C
 
 ## View secret keys using the InfluxDB Cloud UI
 
+Follow the steps below to view a list of secret keys.
+Only the keys will be shown, not the values.
+
+1. In the {{< cloud-name "short" >}} UI, click **Settings**.
+
+    {{< nav-icon "settings" >}}
+2. Click on the **Secrets** tab.
+
+From here, you can [add](/influxdb/cloud/security/secrets/manage-secrets/add/#add-a-secret-using-the-influxdb-cloud-ui),
+[update](/influxdb/cloud/security/secrets/manage-secrets/update/#update-a-secret-using-the-influxdb-cloud-ui), 
+and [delete](/influxdb/cloud/security/secrets/manage-secrets/delete/#delete-a-secret-using-the-influxdb-cloud-ui) secrets.
+
 ## View secret keys using the influx CLI
 Use the [`influx secret list` command](/influxdb/cloud/reference/cli/influx/secret/list/)
 to list your organization's secret keys.
