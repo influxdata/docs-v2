@@ -42,7 +42,7 @@ influx bucket create [flags]
 |      | `--schema-type`          | Bucket schema type (`explicit`, default `implicit`) _(Cloud only)_. For more information, see [Manage bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).         |   string   |                       |
 |      | `--shard-group-duration` | Bucket shard group duration (OSS only)                                |   string   |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |            |                       |
-| `-t` | `--token`                | Authentication token                                                  |   string   | `INFLUX_TOKEN`        |
+| `-t` | `--token`                | API token                                                  |   string   | `INFLUX_TOKEN`        |
 
 {{% note %}}
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),

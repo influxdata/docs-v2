@@ -21,7 +21,7 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 
 ## Authentication
 InfluxDB 2.0 requires all query and write requests to be authenticated with an
-[authentication token](/influxdb/v2.0/security/tokens/) or 1.x compatible
+[API token](/influxdb/v2.0/security/tokens/) or 1.x compatible
 credentials.
 
 * [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
@@ -30,7 +30,7 @@ credentials.
 ### Authenticate with the Token scheme
 Token authentication requires the following credential:
 
-- **token**: InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+- **token**: InfluxDB [API token](/influxdb/v2.0/security/tokens/)
 
 Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
 
@@ -70,7 +70,7 @@ Use the following authentication schemes with clients that support the InfluxDB 
 
 Username and password schemes require the following credentials:
 - **username**: 1.x username (this is separate from the UI login username)
-- **password**: 1.x password or InfluxDB authentication token.
+- **password**: 1.x password or InfluxDB API token.
 
 {{% note %}}
 #### Password or Token

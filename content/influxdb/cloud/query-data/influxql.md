@@ -46,7 +46,7 @@ Include the following:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
+  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/cloud/security/tokens/)
 - **Query parameters:**  
   {{< req type="key" >}}
   - {{< req "\*" >}} **organization_id:** [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
@@ -86,7 +86,7 @@ Include the following:
 
 - **Request method:** `POST`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
+  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/cloud/security/tokens/)
   - **Content-type:** `application/json`
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}

@@ -27,7 +27,7 @@ influx v1 auth set-password [flags]
 | `-i` | `--id`            | Authorization ID                                                         | string     |                         |
 |      | `--password`      | Password to set on the authorization                                     | string     |                         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
-| `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
+| `-t` | `--token`         | API token                                                     | string     | `$INFLUX_TOKEN`         |
 |      | `--username`      | Authorization username                                                   | string     | `$INFLUX_USERNAME`      |
 
 ## Examples

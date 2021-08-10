@@ -33,7 +33,7 @@ Then click **Download Config** to download the file.
 
 ### View setup instructions
 To view the setup instructions for a Telegraf configuration, click **Setup Instructions**.
-Setup instructions include commands for adding your InfluxDB authentication token
+Setup instructions include commands for adding your InfluxDB API token
 as an environment variable and starting Telegraf with the specific configuration.
 
 ## Use the influx CLI
