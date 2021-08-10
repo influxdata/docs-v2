@@ -21,7 +21,7 @@ v2: /influxdb/v2.0/reference/release-notes/influxdb/
 
 ## v1.8.8 [unreleased]
 
-Due to encountering several issues with the build dependency of v.1.8.8, this version will not be released.  
+Due to encountering several issues with build dependencies in v.1.8.8, this version will not be released.  
 
 ## v1.8.7 [2021-07-21]
 
