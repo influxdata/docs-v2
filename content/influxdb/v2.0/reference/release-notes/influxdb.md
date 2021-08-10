@@ -12,7 +12,7 @@ weight: 101
 
 ### Breaking change: Linux package updates for influx CLI
 
-If you install InfluxDB using `dpkg -i`, now you must download and install both `influxdb2-2.0.8-amd64.deb` (InfluxDB) and `influxdb2-client-2.0.8-amd64.deb` (influx CLI) (or the RPM equivalent) to install the `influx` CLI (previously, the CLI was packaged with InfluxDB).
+If you install InfluxDB using `dpkg -i`, now you must download and install both `influxdb2-2.0.8-amd64.deb` (InfluxDB) and `influxdb2-client-2.0.8-amd64.deb` (influx CLI) (or the RPM equivalent) to install the `influx` CLI. Previously, the CLI was packaged with InfluxDB.
 
 This update was made to support the standalone installation of the `influx` CLI for InfluxDB Cloud users. Linux packages (`.deb` and `.rpm`) were modified as follows:
 
