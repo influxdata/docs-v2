@@ -125,8 +125,7 @@ To see your data in real time, view the Monitoring dashboard.
     {{< nav-icon "dashboards" >}}
 
 2. Click **InfluxDB OSS Metrics**. Metrics appear in your dashboard.
-
-Customize your monitoring dashboard as needed. For example, send an alert in the following cases:
+3. Customize your monitoring dashboard as needed. For example, send an alert in the following cases:
 - Users create a new task or bucket
 - You're testing machine limits
 - [Metrics stop reporting](#alert-when-metrics-stop-reporting)
@@ -158,13 +157,25 @@ To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB Cl
 
 ## Create a notification rule and endpoint
 
-To receive a notification message when your deadman check is triggered, create a notification rule and endpoint.
+To receive a notification message when your deadman check is triggered, create a notification rule and endpoint. 
 
-1. Do one of the following:
-   - Send a notification to Slack:
-     1. Create a [Slack Webhooks](https://api.slack.com/messaging/webhooks). 
-     2. Go to **Alerts > Notification Endpoint** and click **{{< icon "plus" >}} Create**, and enter a name and description for your Slack endpoint. 
-     3. Enter your Slack Webhook under **Incoming Webhook URL** and click **Edit Notification Endpoint**. 
-   - Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgrading your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan).
-2. Go to **Alerts > Notification Rules** and [Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to set rules for when to send a deadman alert message to your notification endpoint. 
-3. Fill out the **About** and **Conditions** section then click **Create Notification Rule**. 
+### Create a notification endpoint 
+
+InfluxData supports different endpoints: Slack, PagerDuty, and HTTP. Slack is free for all users, while PagerDuty and HTTP are exclusive to the Usage-Based Plan. 
+
+#### Send a notification to Slack
+
+1. Create a [Slack Webhooks](https://api.slack.com/messaging/webhooks). 
+2. Go to **Alerts > Notification Endpoint** and click **{{< icon "plus" >}} Create**, and enter a name and description for your Slack endpoint. 
+3. Enter your Slack Webhook under **Incoming Webhook URL** and click **Create Notification Endpoint**. 
+
+#### Send a notification to PagerDuty or HTTP 
+
+Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgrading your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan).
+
+### Create a notification rule 
+
+[Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to set rules for when to send a deadman alert message to your notification endpoint. 
+
+1. Go to **Alerts > Notification Rules** and click **{{< icon "plus" >}} Create**. 
+2. Fill out the **About** and **Conditions** section then click **Create Notification Rule**. 
