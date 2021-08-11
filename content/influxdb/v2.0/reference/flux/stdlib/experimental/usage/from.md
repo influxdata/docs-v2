@@ -79,7 +79,7 @@ Default is `""`.
 _**Data type:** String_
 
 ### token
-InfluxDB Cloud [authentication token](/influxdb/v2.0/security/tokens/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
+InfluxDB Cloud [API token](/influxdb/v2.0/security/tokens/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
 _**Data type:** String_

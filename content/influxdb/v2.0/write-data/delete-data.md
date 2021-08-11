@@ -60,7 +60,7 @@ Use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) or the InfluxDB API
 
 {{% note %}}
 Use [InfluxDB CLI connection configurations](/influxdb/v2.0/reference/cli/influx/config/)
-to provide your **InfluxDB host, organization, and authentication token**.
+to provide your **InfluxDB host, organization, and API token**.
 {{% /note %}}
 
 1. Use the [`influx delete` command](/influxdb/v2.0/reference/cli/influx/delete/) to delete points from InfluxDB.
@@ -99,7 +99,7 @@ Include the following:
 
 - **Request method:** `POST`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB authentication token
+  - **Authorization:** `Token` schema with your InfluxDB API token
   - **Content-type:** `application/json`
 - **Query parameters:**
   - **org** or **orgID:** organization name or [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)

@@ -44,7 +44,7 @@ to query that bucket with the `/query` compatibility API.
 _See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### p
-(Optional) The InfluxDB Cloud **authentication token** to authenticate the request.
+(Optional) The InfluxDB Cloud **API token** to authenticate the request.
 _See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### db
