@@ -29,7 +29,7 @@ influx telegrafs rm [flags]
 | `-i` | `--id`            | Telegraf configuration ID to remove                                   | stringArray |                        |
 |      | `--json`          | Output data as json                                                   |             | `$INFLUX_OUTPUT_JSON`  |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                        |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`         |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`         |
 
 ## Examples
 

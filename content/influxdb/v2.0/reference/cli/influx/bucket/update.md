@@ -38,7 +38,7 @@ influx bucket update [flags]
 | `-r` | `--retention`            | New duration bucket will retain data                                  | duration    |                       |
 |      | `--shard-group-duration` | Custom shard group duration for the bucket (OSS only)                    | string      |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`                | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`                | API token                                                  | string      | `INFLUX_TOKEN`        |
 
 {{% note %}}
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),

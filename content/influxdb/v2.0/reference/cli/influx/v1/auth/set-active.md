@@ -29,7 +29,7 @@ influx v1 auth set-active [flags]
 | `-i` | `--id`            | Authorization ID                                                         | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
 |      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
-| `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
+| `-t` | `--token`         | API token                                                     | string     | `$INFLUX_TOKEN`         |
 |      | `--username`      | Authorization username                                                   | string     | `$INFLUX_USERNAME`      |
 
 ## Examples
