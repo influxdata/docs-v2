@@ -16,12 +16,8 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ## August 2021 
 
-<<<<<<< HEAD
-- Add new support for [bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/) to enforce column names, tags, fields, and data types for your data.
-- Add ability to convert notebook cells into raw Flux script. 
-=======
 - Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
->>>>>>> 56bdb23a5d30a309579977992e0008b553e1d725
+- Add ability to convert notebook cells into raw Flux Script. Now you can view and edit the code. 
 
 ## July 2021 
 
