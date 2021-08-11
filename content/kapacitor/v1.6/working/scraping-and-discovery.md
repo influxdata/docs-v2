@@ -71,7 +71,6 @@ Below are all the configuration options for a scraper.
   scheme = "http"
   metrics-path = "/metrics"
   scrape-interval = "1m0s"
-  scrape-timeout = "10s"
   username = ""
   password = ""
   bearer-token = ""
