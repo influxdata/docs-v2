@@ -48,4 +48,4 @@ Please contact InfluxData Support to [delete-an-organization](#delete-an-organiz
 
 #### Remove yourself from an organization 
 
-1. Get another organization owner to remove you. 
+- Get another person in your organization to remove you. 
