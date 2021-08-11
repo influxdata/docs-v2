@@ -63,8 +63,16 @@ The `meta.password-hash` setting must be the same in both the data and meta node
 
 ## Using FIPS readiness checks
 
-When `ensure-fips` is enabled, attempting to use `password-has = bcrypt`
-results in the following warning being output in the logs:
+InfluxDB Enterprise outputs information about the current password hashing configuration at startup.
+For example:
+
+```
+2021-07-21T17:20:44.024846Z     info    Password hashing configuration: pbkdf2-sha256;rounds=29000;salt_len=16  {"log_id": "0VUXBWE0001"}
+2021-07-21T17:20:44.024857Z     info    Password hashing is FIPS-ready: true   {"log_id": "0VUXBWE0001"}
+```
+
+When `ensure-fips` is enabled, attempting to use `password-hash = bcrypt`
+results in the following warning the logs:
 
 ```
 run: create server: passwordhash: not FIPS-ready: config: 'bcrypt'
