@@ -24,7 +24,7 @@ Do the following:
 4. [Set up Telegraf](#set-up-telegraf)
 5. [View the Monitoring dashboard](#view-the-monitoring-dashboard)
 6. (Optional) [Alert when metrics stop reporting](#alert-when-metrics-stop-reporting)
-7. (Optional) [Create a notification rule and endpoint](#create-a-notification-rule-and-endpoint)
+7. (Optional) [Create a notification endpoint and rule](#create-a-notification-endpoint-and-rule)
 
 ## Review requirements
 
@@ -126,9 +126,9 @@ To see your data in real time, view the Monitoring dashboard.
 
 2. Click **InfluxDB OSS Metrics**. Metrics appear in your dashboard.
 3. Customize your monitoring dashboard as needed. For example, send an alert in the following cases:
-- Users create a new task or bucket
-- You're testing machine limits
-- [Metrics stop reporting](#alert-when-metrics-stop-reporting)
+   - Users create a new task or bucket
+   - You're testing machine limits
+   - [Metrics stop reporting](#alert-when-metrics-stop-reporting)
 
 ## Alert when metrics stop reporting
 
@@ -137,7 +137,7 @@ The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert
 To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB Cloud account, do the following:
 
 1. [Customize the deadman check](#customize-the-deadman-check) to identify the fields you want to monitor.
-2. [Create a notification rule and endpoint](#create-a-notification-rule-and-endpoint) to receive notifications when your deadman check is triggered.
+2. [Create a notification endpoint and rule](#create-a-notification-endpoint-and-rule) to receive notifications when your deadman check is triggered.
 
 ### Customize the deadman check
 
@@ -155,9 +155,9 @@ To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB Cl
 4. Set the amount of time to wait before switching to a critical alert.
 5. Save the Check and click on **View History** of the Check under the gear icon to verify it is running.  
 
-## Create a notification rule and endpoint
+## Create a notification endpoint and rule
 
-To receive a notification message when your deadman check is triggered, create a notification rule and endpoint. 
+To receive a notification message when your deadman check is triggered, create a [notification endpoint](#create-a-notification-endpoint) and [rule](#create-a-notification-rule). 
 
 ### Create a notification endpoint 
 
