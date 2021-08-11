@@ -5,7 +5,7 @@ influxdb/v2.0/tags: [secrets, security]
 menu:
   influxdb_2_0:
     parent: Store and use secrets
-weight: 201
+weight: 306
 ---
 
 [Vault](https://www.vaultproject.io/) secures, stores, and controls access
