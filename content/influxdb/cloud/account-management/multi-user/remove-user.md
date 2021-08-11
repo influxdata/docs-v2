@@ -40,7 +40,7 @@ Delete a single-user organization from one of the following:
 
 You can not delete a multi-user organization on your own. 
 
-To remove or delete an organization with multiple users, do one of the following: 
+Please contact InfluxData Support to [delete-an-organization](#delete-an-organization), or [remove yourself from an organization](#remove-yourself-from-an-organization).
 
 #### Delete an organization
 
