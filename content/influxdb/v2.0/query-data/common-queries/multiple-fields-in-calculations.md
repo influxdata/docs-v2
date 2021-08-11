@@ -7,7 +7,7 @@ influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
     parent: Common queries
-weight: 204
+weight: 103
 ---
 
 To use values from multiple fields in a mathematic calculation:

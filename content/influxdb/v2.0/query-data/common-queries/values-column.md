@@ -11,7 +11,7 @@ menu:
   influxdb_2_0:
     name: Operate on columns
     parent: Common queries
-weight: 104
+weight: 100  
 ---
 
 {{% note %}}
