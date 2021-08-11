@@ -29,7 +29,7 @@ Delete a single-user organization on:
 2. Hover over the user you want to remove and then click the {{< icon "delete" >}} icon that appears.
 3. Confirm the removal.
 
-#### User-based Plan 
+#### Usage-based plan 
 
 1. Click on the **user icon > billing**. 
 2. [Cancel your service](/influxdb/cloud/account-management/offboarding/#cancel-service) to delete your organization. 
