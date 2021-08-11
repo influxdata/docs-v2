@@ -585,7 +585,7 @@ to collect and send data to:
 ## Set up InfluxDB
 
 The initial setup process for InfluxDB walks through creating a default organization,
-user, bucket, and Admin authentication token.
+user, bucket, and Operator API token.
 The setup process is available in both the InfluxDB user interface (UI) and in
 the `influx` command line interface (CLI).
 
@@ -624,7 +624,7 @@ You are ready to [write or collect data](/influxdb/v2.0/write-data).
 
 ### (Optional) Set up and use the influx CLI
 
-If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx), we recommend setting up a configuration profile. This lets you avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/) with each `influx` command. Complete the following steps to set up a configuration profile that stores your credentials.
+If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx), we recommend setting up a configuration profile. This lets you avoid having to pass your InfluxDB [API token](/influxdb/v2.0/security/tokens/) with each `influx` command. Complete the following steps to set up a configuration profile that stores your credentials.
 
 1. In a terminal, run the following command:
 
@@ -661,9 +661,9 @@ influx setup
 6. Enter a **retention period** for your primary bucket—valid units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`). Enter nothing for an infinite retention period.
 7. Confirm the details for your primary user, organization, and bucket.
 
-InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. InfluxDB also creates a configuration profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/influxdb/v2.0/reference/cli/influx/config) command.
+InfluxDB is now initialized with a primary user, organization, bucket, and API token. InfluxDB also creates a configuration profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/influxdb/v2.0/reference/cli/influx/config) command.
 
-To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/influxdb/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
+To continue to use InfluxDB via the CLI, you need the API token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/influxdb/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
 
 You are ready to [write or collect data](/influxdb/v2.0/write-data).
 

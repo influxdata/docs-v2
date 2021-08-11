@@ -16,7 +16,7 @@ related:
 
 The `influx ping` command checks the health of a running InfluxDB instance by
 querying the `/health` endpoint.
-It does not require an authentication token.
+It does not require an API token.
 
 ## Usage
 ```
