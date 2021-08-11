@@ -12,7 +12,12 @@ menu:
 
 A number of third-party technologies can be configured to send line protocol directly to InfluxDB.
 
-If you're using any of the following technologies, check out the handy links below to configure these technologies to write data to InfluxDB (**no additional software to download or install**):
+
+If you're using any of the following technologies, check out the handy links below to configure these technologies to write data to InfluxDB (**no additional software to download or install**).
+
+{{% note %}}
+Many third-party integrations are community contributions. If there's an integration missing from the list below, please [open a docs issue](https://github.com/influxdata/docs-v2/issues/new/choose) to let us know.
+{{% /note %}}
 
 - (Write metrics and log events only) [Vector 0.9 or later](#configure-vector)
 
@@ -22,7 +27,10 @@ If you're using any of the following technologies, check out the handy links bel
 
 - [Apache JMeter 5.2 or later](#configure-apache-jmeter)
 
+- [Apache Pulsar](#configure-apache-pulsar)
+
 - [FluentD 1.x or later](#configure-fluentd)
+
 
 #### Configure Vector
 
@@ -74,6 +82,10 @@ To configure Apache JMeter, complete the following steps in InfluxDB and JMeter.
    - **influxdbToken**: _your InfluxDB API token_
    - Include additional parameters as needed.
 4. Click **Add** to add the _**InfluxDBBackendListenerClient**_ implementation.
+
+#### Configure Apache Pulsar
+
+See _[InfluxDB sink connector](https://pulsar.apache.org/docs/en/io-influxdb-sink/)_ for details.
 
 #### Configure FluentD
 
