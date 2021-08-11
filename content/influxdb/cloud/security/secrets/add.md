@@ -1,6 +1,6 @@
 ---
 title: Add secrets
-description: Add secrets using the `influx` CLI or the InfluxDB API.
+description: Add secrets using the {{< cloud-name "short" >}} UI, `influx` CLI, or the InfluxDB API.
 influxdb/cloud/tags: [secrets, security]
 menu:
   influxdb_cloud:
@@ -9,6 +9,10 @@ weight: 301
 ---
 
 Add secrets using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
+
+- [Add a secret using the InfluxDB Cloud UI](#add-a-secret-using-the-influxdb-cloud-ui)
+- [Add a secret using the influx CLI](#add-a-secret-using-the-influx-cli)
+- [Add a secret using the InfluxDB API](#add-a-secret-using-the-influxdb-api)
 
 ## Add a secret using the InfluxDB Cloud UI
 
