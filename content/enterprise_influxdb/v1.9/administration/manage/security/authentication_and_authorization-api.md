@@ -49,6 +49,7 @@ The enforcement of privileges is handled by the respective TICK stack services.
 Predefined key tokens generally take the form of self-descriptive verb-object pairs.
 When the token lacks the verb part, full management privileges are implied.
 
+<!-- These predefined tokens are: -->
 These predefined tokens include:
 
 * `ViewAdmin`
@@ -92,36 +93,36 @@ When working with Kapacitor the last two privilege tokens are of interest.
 
 **Users**:
 
-- [Example: List users](#example-list-users)
-- [Example: Create a user against a follower node](#example-create-a-user-against-a-follower-node)
-- [Example: Create a user against the lead node](#example-create-a-user-against-the-lead-node)
-- [Example: Retrieve a user details document](#example-retrieve-a-user-details-document)
-- [Example: Grant permissions to a user](#example-grant-permissions-to-a-user)
-- [Example: Verify user permissions](#example-verify-user-permissions)
-- [Example: Remove permissions from a user](#example-remove-permissions-from-a-user)
-- [Example: Remove a user](#example-remove-a-user)
-- [Example: Verify user removal](#example-verify-user-removal)
+- [List users](#list-users)
+- [Create a user against a follower node](#create-a-user-against-a-follower-node)
+- [Create a user against the lead node](#create-a-user-against-the-lead-node)
+- [Retrieve a user details document](#retrieve-a-user-details-document)
+- [Grant permissions to a user](#grant-permissions-to-a-user)
+- [Verify user permissions](#verify-user-permissions)
+- [Remove permissions from a user](#remove-permissions-from-a-user)
+- [Remove a user](#remove-a-user)
+- [Verify user removal](#verify-user-removal)
 
 **Roles**:
 
-- [Example: List roles](#example-list-roles)
-- [Example: Create a role](#example-create-a-role)
-- [Example: Verify roles](#example-verify-roles)
-- [Example: Retrieve a role document](#example-retrieve-a-role-document)
-- [Example: Add permissions to a role](#example-add-permissions-to-a-role)
-- [Example: Verify role permissions](#example-verify-role-permissions)
-- [Example: Add a user to a role](#example-add-a-user-to-a-role)
-- [Example: Verify user in role](#example-verify-user-in-role)
-- [Example: Remove a user from a role](#example-remove-a-user-from-a-role)
-- [Example: Remove a permission from a role](#example-remove-a-permission-from-a-role)
-- [Example: Delete a role](#example-delete-a-role)
-- [Example: Verify role deletion](#example-verify-role-deletion)
+- [List roles](#list-roles)
+- [Create a role](#create-a-role)
+- [Verify roles](#verify-roles)
+- [Retrieve a role document](#retrieve-a-role-document)
+- [Add permissions to a role](#add-permissions-to-a-role)
+- [Verify role permissions](#verify-role-permissions)
+- [Add a user to a role](#add-a-user-to-a-role)
+- [Verify user in role](#verify-user-in-role)
+- [Remove a user from a role](#remove-a-user-from-a-role)
+- [Remove a permission from a role](#remove-a-permission-from-a-role)
+- [Delete a role](#delete-a-role)
+- [Verify role deletion](#verify-role-deletion)
 
 #### Users
 
 Use the `/user` endpoint of the InfluxDB Enterprise Meta API to manage users.
 
-##### Example: List users
+##### List users
 
 View a list of existing users.
 
@@ -163,7 +164,7 @@ $ curl -u "admin:changeit" -s https://cluster_node_1:8091/user | python -m json.
 Transactions that modify the user store are initiated using HTTP POST and must be sent to the lead node in the Influxd-Meta raft.
 If when POSTing a request the node returns a 307 redirect message, try resending the request to the lead node indicated by the `Location` field in the HTTP header.
 
-##### Example: Create a user against a follower node
+##### Create a user against a follower node
 
 ```
 $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom2","password":"changeit"}}' https://cluster_node_2:8091/user
@@ -209,7 +210,7 @@ $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom2
 
 To create a new user against the lead node.
 
-##### Example: Create a user against the lead node
+##### Create a user against the lead node
 
 ```
 $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom","password":"changeit"}}' https://cluster_node_1:8091/user
@@ -253,7 +254,7 @@ $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom"
 
 To get a user details document.
 
-##### Example: Retrieve a user details document
+##### Retrieve a user details document
 
 ```
 $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | python -m json.tool
@@ -267,7 +268,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 }
 ```
 
-##### Example: Grant permissions to a user
+##### Grant permissions to a user
 To grant permissions to a user.
 
 ```
@@ -310,7 +311,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","us
 
 Verify permission grant.
 
-##### Example: Verify user permissions
+##### Verify user permissions
 
 ```
 $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | python -m json.tool
@@ -330,7 +331,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 }
 ```
 
-##### Example: Remove permissions from a user
+##### Remove permissions from a user
 To remove permissions.
 
 ```
@@ -373,7 +374,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions",
 
 To delete a user.
 
-##### Example: Remove a user
+##### Remove a user
 
 ```
 $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"name":"phantom2"}}' https://cluster_node_1:8091/user
@@ -413,7 +414,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"nam
 <
 ```
 
-##### Example: Verify user removal
+##### Verify user removal
 To verify user has been removed.
 
 ```
@@ -425,7 +426,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 
 The Influxd-Meta API provides an endpoint `/role` for managing roles.
 
-##### Example: List roles
+##### List roles
 
 ```
 $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | python -m json.tool
@@ -435,7 +436,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | pyt
 In a fresh installation no roles will have been created yet.
 As when creating a user the lead node must be used.
 
-##### Example: Create a role
+##### Create a role
 To create a role.
 
 ```
@@ -477,7 +478,7 @@ $ curl --negotiate -u "admin:changeit"  -v -d '{"action":"create","role":{"name"
 <
 ```
 
-##### Example: Verify roles
+##### Verify roles
 Verify the role has been created.
 
 ```
@@ -495,7 +496,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | pyt
 
 ```
 
-##### Example: Retrieve a role document
+##### Retrieve a role document
 Retrieve a record for a single node.
 
 ```
@@ -509,7 +510,7 @@ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=sp
 }
 ```
 
-##### Example: Add permissions to a role
+##### Add permissions to a role
 Add permissions to a role.
 
 ```
@@ -551,7 +552,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","ro
 <
 ```
 
-##### Example: Verify role permissions
+##### Verify role permissions
 Verify permissions have been added.
 
 ```
@@ -571,7 +572,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=
 }
 ```
 
-##### Example: Add a user to a role
+##### Add a user to a role
 
 ```
 $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-users","role":{"name":"spectre","users":["phantom"]}}'  https://cluster_node_1:8091/role
@@ -612,7 +613,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-users","role":{"
 <
 ```
 
-##### Example: Verify user in role
+##### Verify user in role
 Verify user has been added to role.
 
 ```
@@ -637,7 +638,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=
 
 Remove a user from a role.
 
-##### Example: Remove a user from a role
+##### Remove a user from a role
 
 ```
 $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-users","role":{"name":"spectre","users":["phantom"]}}' https://admin:changeit@cluster_node_1:8091/role
@@ -678,7 +679,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-users","role"
 <
 ```
 
-##### Example: Remove a permission from a role
+##### Remove a permission from a role
 Remove a permission from a role.
 
 ```
@@ -720,7 +721,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions",
 <
 ```
 
-##### Example: Delete a role
+##### Delete a role
 
 ```
 $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","role":{"name":"spectre"}}' https://cluster_node_1:8091/role
@@ -761,7 +762,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","role":{"nam
 <
 ```
 
-##### Example: Verify role deletion
+##### Verify role deletion
 
 ```
 $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool

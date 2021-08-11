@@ -263,7 +263,8 @@ Restart Telegraf and you're all set!
 To enable authorization, first [enable authentication](#enable-authentication).
 
 {{% note %}}
-#### Manage InfluxDB Enterprise users with Chronograf
+**Manage InfluxDB Enterprise users with Chronograf**
+
 [Chronograf](/{{< latest "chronograf" >}}/) is an open source project that
 provides a user interface for working with InfluxDB and InfluxDB Enterprise.
 Consider using Chronograf to [manage InfluxDB users and roles](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
