@@ -72,7 +72,8 @@ For example:
 ```
 
 When `ensure-fips` is enabled, attempting to use `password-hash = bcrypt`
-results in the following warning the logs:
+will cause the FIPS check to fail.
+The node then exits with an error in the logs:
 
 ```
 run: create server: passwordhash: not FIPS-ready: config: 'bcrypt'
