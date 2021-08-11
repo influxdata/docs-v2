@@ -37,6 +37,4 @@ sql.from(
 )
 ```
 
-## Add, list, and delete secrets
-
-See [Manage secrets](/influxdb/v2.0/security/secrets/manage-secrets).
+{{< children >}}

@@ -20,7 +20,8 @@ Add secrets using the {{< cloud-name "short" >}} UI, `influx` command line inter
 4. Enter a *key* and a *value*.
    {{% warn %}}
 If will need it again, be sure to safely store your secret value.
-Once the value is set, you will not be able to view the secret value again. It will only be accessible to your code through the secrets library.
+Once the value is set, you will not be able to view the secret value again.
+It will only be accessible to your code through the secrets library.
    {{% /warn %}}
 5. Click **Add Secret**.
 
