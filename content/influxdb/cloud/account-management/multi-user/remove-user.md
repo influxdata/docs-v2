@@ -44,7 +44,7 @@ Please contact InfluxData Support to [delete-an-organization](#delete-an-organiz
 
 #### Delete an organization
 
-1. Contact [InfluxData Support](support@influxdata.com) to delete an organization with multiple users. 
+- Contact [InfluxData Support](support@influxdata.com) to delete an organization with multiple users. 
 
 #### Remove yourself from an organization 
 
