@@ -10,6 +10,10 @@ weight: 301
 
 Add secrets using the `influx` command line interface (CLI) or the InfluxDB API.
 
+
+- [Add a secret using the influx CLI](#add-a-secret-using-the-influx-cli)
+- [Add a secret using the InfluxDB API](#add-a-secret-using-the-influxdb-api)
+
 ## Add a secret using the influx CLI
 Use the [`influx secret update` command](/influxdb/v2.0/reference/cli/influx/secret/update/)
 to add a new secret to your organization.

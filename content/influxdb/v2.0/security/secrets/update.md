@@ -10,6 +10,9 @@ weight: 303
 
 Update secrets using the `influx` command line interface (CLI) or the InfluxDB API.
 
+- [Update a secret using the influx CLI](#update-a-secret-using-the-influx-cli)
+- [Update a secret using the InfluxDB API](#update-a-secret-using-the-influxdb-api)
+
 ## Update a secret using the influx CLI
 Use the [`influx secret update` command](/influxdb/v2.0/reference/cli/influx/secret/update/)
 to update a secret in your organization.
