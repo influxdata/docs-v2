@@ -22,7 +22,7 @@ Delete a single-user organization from one of the following:
 - Free plan
 - Usage-based plan
 
-#### Free Plan 
+#### Free plan 
 
 1. Click your user avatar in the left navigation bar and select **Users**.
 
