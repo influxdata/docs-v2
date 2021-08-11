@@ -16,7 +16,7 @@ To remove a user from your InfluxDB Cloud organization, select one of the follow
 - [Single-user organization](#single-user-organization)
 - [Multi-user orgaanization](#multi-user-organization)
 
-### Single-user organization 
+### Delete a single-user organization 
 
 Delete a single-user organization on: 
 
