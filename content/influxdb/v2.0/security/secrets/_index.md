@@ -1,6 +1,6 @@
 ---
 title: Manage secrets
-description: Use BoltDB or Vault to store secrets for InfluxDB.
+description: Manage, use, and store secrets in InfluxDB.
 influxdb/v2.0/tags: [secrets, security]
 menu:
   influxdb_2_0:
