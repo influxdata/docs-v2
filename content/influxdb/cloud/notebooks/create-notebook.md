@@ -103,7 +103,6 @@ Select one of the following output cell-types:
 1. Enter a time and an offset to schedule the task.
 2. Click **Export as Task** to save.
 
-
 ### View and edit Flux script in a cell
 Convert your notebook cells into raw Flux script to view and edit the code. Conversion to Flux is available for the following cell types:
   - **Inputs: Metric Selector**
