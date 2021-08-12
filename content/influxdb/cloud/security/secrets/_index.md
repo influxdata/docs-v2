@@ -8,11 +8,11 @@ menu:
 weight: 201
 ---
 
-Manage secrets using
+Manage secrets using any of the following:
 
-- the {{< cloud-name "short" >}} UI
-- the [`influx` command line interface (CLI)](/influxdb/cloud/reference/cli/influx/) 
-- or the InfluxDB API.
+- {< cloud-name "short" >}} UI
+- [`influx` command line interface (CLI)](/influxdb/cloud/reference/cli/influx/) 
+- InfluxDB API
 
 All secrets belong to an organization and are stored in {{< cloud-name "short" >}} using [Vault](https://www.vaultproject.io/).
 

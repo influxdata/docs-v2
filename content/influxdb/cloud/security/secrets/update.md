@@ -21,7 +21,7 @@ Update secrets using the {{< cloud-name "short" >}} UI, `influx` command line in
     {{< nav-icon "settings" >}}
 2. Click the **Secrets** tab.
 3. Click on the secret key whose value you want to update.
-4. Enter the new value, then click **Edit Secret**.
+4. Enter the new value, and click **Edit Secret**.
 
 ## Update a secret using the influx CLI
 Use the [`influx secret update` command](/influxdb/cloud/reference/cli/influx/secret/update/)
