@@ -108,6 +108,6 @@ Convert your notebook cells into raw Flux script to view and edit the code. Conv
   - **Inputs: Metric Selector**
   - **Transform: Column Editor** and **Downsample**
 
-1. Click the overflow menu icon under the cells you want to view as Flux, then select **Convert to |> Flux**. You won't be able to undo this step.
+1. Click the overflow menu icon in the cell you want to view as Flux, and then select **Convert to |> Flux**. You won't be able to undo this step.
     A Flux cell appears with underlying script for the selected cell.
 3. View and edit the Flux script as needed.
