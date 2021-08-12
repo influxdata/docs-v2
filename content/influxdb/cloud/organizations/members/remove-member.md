@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Remove a member
 seotitle: Remove a member from an organization in InfluxDB
 description: Remove a member from an organization.

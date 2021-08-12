@@ -174,11 +174,11 @@ function updateUrls(prevUrls, newUrls) {
   else { var replacements = ossReplacements }
 
   replacements.forEach(function (o) {
-    if (o.replace != o.with) {
+    if (o.replace.origin != o.with.origin) {
       $(elementSelector).each(function() {
         $(this).html(
-          $(this).html().replace(RegExp(o.replace, "g"), function(match){
-            return (o.replace.protocol && o.with) || match;
+          $(this).html().replace(RegExp(o.replace.origin, "g"), function(match){
+            return o.with.origin || match;
           })
         );
       })
@@ -191,8 +191,13 @@ function updateUrls(prevUrls, newUrls) {
   .forEach(function (o) {
      if (o.replace != o.with) {
        $(elementSelector).each(function() {
-         // Lookbehind matches if o.replace is not preceded by :[/.].
-         var hostnameOnly = new RegExp("(?<!:[/.])" + o.replace, "g")
+         /**
+	  * Hostname pattern
+	  * 1. Lookbehind (?<!) matches if o.replace is not preceded by :[/.].
+	  * 2. Match 1 or no slashes following the hostname.
+	  * 3. Negative lookahead (?!) matches if not followed by word char, dash, or dot.
+	  */
+         var hostnameOnly = new RegExp("(?<![/.])" + o.replace + "\/?(?![/w/-/.])", "g")
          $(this).html(
            $(this).html().replace(hostnameOnly, function(match) {
              return o.with.host || o.with;

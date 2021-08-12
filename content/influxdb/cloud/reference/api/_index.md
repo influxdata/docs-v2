@@ -16,7 +16,7 @@ Access the InfluxDB API using the `/api/v2/` endpoint.
 
 ## Authentication
 {{% cloud-token-auth %}}
-Include your authentication token as an `Authorization` header in each request.
+Include your API token as an `Authorization` header in each request.
 
 ```sh
 curl --request POST https://cloud2.influxdata.com/api/v2/write \

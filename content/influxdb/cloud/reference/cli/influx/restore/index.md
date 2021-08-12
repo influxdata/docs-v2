@@ -54,7 +54,7 @@ influx restore [flags]
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string      |                       |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string      |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                  | string      | `INFLUX_TOKEN`        |
 
 ## Examples
 
