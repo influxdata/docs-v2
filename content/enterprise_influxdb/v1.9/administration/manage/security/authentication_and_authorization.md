@@ -23,10 +23,13 @@ This document covers setting up and managing authentication and authorization in
 - [HTTP Errors](#authentication-and-authorization-http-errors)
 
 {{% note %}}
-Authentication and authorization should not be relied upon to prevent access and protect data from malicious actors.
-If additional security or compliance features are desired, InfluxDB Enterprise should be run behind a third-party service.
-If InfluxDB Enterprise is being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled. Otherwise the data will be
-publicly available to any unauthenticated user.
+If InfluxDB Enterprise is being deployed on a publicly accessible endpoint,
+we **strongly recommend** enabling authentication.
+Otherwise, data and potentially destructive commands will be publicly available to any unauthenticated user.
+If additional security or compliance features are desired,
+InfluxDB Enterprise should be run behind a third-party service.
+Authentication and authorization should not be soley relied upon
+to prevent access and protect data from malicious actors.
 {{% /note %}}
 
 ## Authentication

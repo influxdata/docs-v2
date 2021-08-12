@@ -25,15 +25,12 @@ Managing users, roles and privileges can be done using the Chronograf InfluxDB A
 However, certain operations are only available through the Enterprise meta API.
 <!-- TODO which operations are API-only? -->
 
-**User** means an actor
-identified by a set of credentials including a username and a password
-and granted a set of privileges,
+**Users** are granted a set of privileges,
 which define a set of TICK stack resources and APIs available for use.
 
 **Role** means a predefined collection of privileges that can be assigned to a user.
 
-<!-- **permission**? -->
-**Privilege** means a level of access to a TICK stack resource.
+**Privilege** (also *permission*) means a level of access to a TICK stack resource.
 
 Level of access can mean:
 
