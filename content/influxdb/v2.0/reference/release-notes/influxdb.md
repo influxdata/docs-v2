@@ -10,14 +10,12 @@ weight: 101
 
 ## v2.0.8 [2021-08-09]
 
-### Breaking change: Linux package updates for influx CLI
+{{% warn %}} #### Upcoming changes to influx CLI packaging
 
-If you install InfluxDB using `dpkg -i`, now you must download and install both `influxdb2-2.0.8-amd64.deb` (InfluxDB) and `influxdb2-client-2.0.8-amd64.deb` (influx CLI) (or the RPM equivalent) to install the `influx` CLI. Previously, the CLI was packaged with InfluxDB.
+Beginning in InfluxDB 2.1, the `influx` CLI will no longer be packaged with the release. Future versions of `influx` CLI will be released from the [influx-cli](https://github.com/influxdata/influx-cli) repository.
 
-This update was made to support the standalone installation of the `influx` CLI for InfluxDB Cloud users. Linux packages (`.deb` and `.rpm`) were modified as follows:
-
-- Add new `influxdb2-cli` package that contains only the `influx` CLI binary.
-- Remove the `influx` CLI binary from the `influxdb2` package. Now, the `influxdb2` package declares a recommended dependency on the `influxdb2-cli` package. **No breaking change** if you install using `apt install` or `apt upgrade`, as `apt` fetches and installs the recommended dependency.
+To adopt the new, separate `influx` CLI early, download the latest release from [GitHub](https://github.com/influxdata/influx-cli/releases/tag/v2.1.0) or from the [InfluxData Downloads portal](https://portal.influxdata.com/downloads/).
+{{% /warn %}}
 
 ### Go version
 
