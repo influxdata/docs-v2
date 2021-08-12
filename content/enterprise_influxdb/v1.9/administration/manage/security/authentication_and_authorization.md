@@ -289,17 +289,29 @@ InfluxDB Enterprise has the following types of users:
 Admin users have `READ` and `WRITE` access
 to all databases and full access to the following administrative queries:
 
-| Database management       |
-|:--------------------------|
-| `CREATE DATABASE`         |
-| `DROP DATABASE`           |
-| `DROP SERIES`             |
-| `DROP MEASUREMENT`        |
-| `CREATE RETENTION POLICY` |
-| `ALTER RETENTION POLICY`  |
-| `DROP RETENTION POLICY`   |
-| `CREATE CONTINUOUS QUERY` |
-| `DROP CONTINUOUS QUERY`   |
+**Database-level permissions**
+| OSS                       |                         |
+|:--------------------------|-------------------------|
+| `CREATE DATABASE`         | `CreateDatabase`        |
+| `DROP DATABASE`           | `DropDatabase`          |
+| `DROP SERIES`             | `DropData`              |
+| `DROP MEASUREMENT`        | `DropData`              |
+| `CREATE RETENTION POLICY` |                         |
+| `ALTER RETENTION POLICY`  |                         |
+| `DROP RETENTION POLICY`   |                         |
+| `CREATE CONTINUOUS QUERY` | `ManageContinuousQuery` |
+| `DROP CONTINUOUS QUERY`   | `ManageContinuousQuery` |
+|                           | `ViewAdmin`             |
+|                           | `ReadData`, `WriteData` |
+|                           | `CreateUserAndRole`     |
+|                           | `ViewChronograf`        |
+|                           | `AddRemoveNode`         |
+|                           | `Rebalance`             |
+|                           | `Monitor`               |
+|                           | `ManageShard`           |
+|                           | `ManageQuery`           |
+|                           | `ManageSubscription`    |
+|                           | `CopyShard`             |
 
 {{% caption %}}
 For more information about these commands,
