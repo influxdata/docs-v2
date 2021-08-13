@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.0.8 [2021-08-09]
+## v2.0.8 [2021-08-13]
 
 {{% warn %}} #### Upcoming changes to influx CLI packaging
 
