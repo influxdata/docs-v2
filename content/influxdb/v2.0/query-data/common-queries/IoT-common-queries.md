@@ -19,7 +19,7 @@ The following scenarios walk through IoT sensor common queries:
 
 ## Record time in state
 
-Machine state would be a Boolean value that changes states occasionally. I would like to know the percent of time or total time it was in the “true” state over a given interval. It is possible that no points were recorded during that interval, and that the last state prior to that interval is needed.
+Machine state is a Boolean value that changes states occasionally. I would like to know the percent of time or total time it was in the “true” state over a given interval. It is possible that no points were recorded during that interval, and that the last state prior to that interval is needed.
 
 We could potentially tie this example into using the Mosaic chart as well. Since Mosaic allows you to visualize time in state....
 
@@ -33,7 +33,9 @@ Events are recorded for when a batch of beer is started and when a batch of beer
 If each batch is identified with a tag, it means that the start and end is the only range when data will be collected for this series and ultimately the data will age out. If we have many tanks to brew beer at the same time, we should be able to use tags to correctly calculate this. But, an example detailing this out would be useful.
 
 ## Record data points with added context
+
 Equipment speed measurements are recorded periodically (float), as is the production order number (string), but not as a field set – as separate streams. I would like to query the equipment speed measurements either in their raw form or aggregated on windows, but I would like to also have the result set include the production order number that was active at that point in time. Example of using experimental.join and how to ensure the timestamps align along with the tag keys... But, need to figure out what ties the two streams together?
 
 ## Group aggregate on value change(s)
-Similar to Scenario 4, but I’d like to have something akin to a “group by” aggregate for one or more measurements over given interval, grouped by one or more context values that might change state (production order number, crew, machine state, etc.)
+
+Aggregates can be "grouped by" one or more measurements over given interval, and by one or more context values that might change state (production order number, crew, machine state, etc.)

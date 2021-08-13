@@ -110,7 +110,7 @@ from(bucket: "noaa")
 | degrees | average_temperature | 1920-03-05T22:10:01Z | 2020-03-05T22:10:01Z | 2019-08-17T01:00:00Z | coyote_creek | 21.11111111111111  |
 | •••     | •••                 | •••                  | •••                  | •••                  | •••          | •••                |
 
-## Use values to calculate a new column
+## Calculate a new column with values
 
 Use the `map()` function to create a new column calculated from existing values in each row.
 
