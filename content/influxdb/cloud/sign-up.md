@@ -32,6 +32,10 @@ Start using {{< cloud-name >}} at no cost with the [Free Plan](/influxdb/cloud/a
 Use it as much and as long as you like within the plan's rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
 
+{{% note %}}
+Users on the Free Plan are limited to one organization. 
+{{% /note %}}
+
 ## Sign up
 
 1. Choose one of the following:
