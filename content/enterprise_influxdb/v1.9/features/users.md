@@ -15,17 +15,9 @@ Penelope, who has a Dev role, w/ permissions: she can Manage Queries, Monitor, A
 Jim has role Marketing, w/ permissions:  he can View Admin, Graph Role, View Chronograf.
 -->
 
-## Cluster user information
+## Users
 
-In the cluster, individual users are assigned to an account.
-Cluster accounts have permissions and roles.
-
-In the diagram above, Penelope is assigned to the Dev Account and
-Jim is assigned to the Marketing Account.
-
-The Marketing Account includes the permission to view and edit the admin screens
-as well as the Graph Role which contains the permissions to read data and
-view Chronograf.
+Users have permissions and roles.
 
 ### Roles
 
