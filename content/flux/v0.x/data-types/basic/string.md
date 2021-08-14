@@ -70,6 +70,19 @@ string(v: 42)
 // Returns "42"
 ```
 
+To convert a [regular expression](/flux/v0.x/data-types/regexp/) to a string:
+
+1. Import the [`regexp` package](/flux/v0.x/stdlib/regexp/).
+2. Use [`regexp.getString()`](/flux/v0.x/stdlib/regexp/getstring/) and provide
+   the regular expression to convert to a string.
+
+```js
+import "regexp"
+
+regexp.getString(r: /[a-zA-Z]/)
+// Returns [a-zA-Z] (string)
+```
+
 ### Convert columns to strings
 Flux lets you iterate over rows in a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 and convert columns to strings.
