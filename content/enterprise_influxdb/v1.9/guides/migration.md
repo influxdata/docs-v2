@@ -15,8 +15,8 @@ Migrate a running instance of InfluxDB open source (OSS) to an InfluxDB Enterpri
 
 {{% warn %}}
 **Migrating does the following:**
-- Deletes data in existing InfluxDB Enterprise data nodes (not applicable if you're migrating to a new cluster)
-- Transfers all users from the OSS instance to the InfluxDB Enterprise cluster
+- Deletes existing data in InfluxDB Enterprise data nodes (not applicable if you're migrating to a new cluster).
+- Transfers all users from the OSS instance to the InfluxDB Enterprise cluster.
 {{% /warn %}}
 
 ## Migrate to InfluxDB Enterprise
@@ -31,17 +31,16 @@ Complete the following tasks:
       We recommend using this method to create a portable backup first.
       This method lets you move data between OSS and Enterprise as you're testing the migration.
     - [Migrate a data set with downtime](#migrate-a-data-set-with-downtime).
-      Note, with this method, you cannot move data from Enterprise back to OSS.
+      With this method, you cannot move data from Enterprise back to OSS.
       This method is useful if you're not able to run a portable backup.
       Some reasons you may not be able to create a portable backup:
-     - Data set exceeds a certain size
-     - Hardware requirements aren't available
-     - Time constraints (large data sets increase the time needed to back up data)
+     - Data set exceeds a certain size.
+     - Hardware requirements aren't available.
+     - Time constraints (large data sets increase the time needed to back up data).
 
 ### Upgrade InfluxDB to the latest version
 
 Upgrade InfluxDB OSS and InfluxDB Enterprise to the latest stable version.
-Make sure the OSS and Enterprise version is the same.
 
 - [Upgrade InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/upgrading/)
 - [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1.9/administration/upgrading/)
@@ -61,8 +60,7 @@ on each meta node, include the IP and host name of your InfluxDB OSS instance so
 
 ### Set up InfluxDB Enterprise data nodes
 
-If you don't have any existing data nodes in your InfluxDB Enterprise cluster,
-skip this step.
+Skip this step if you don't have any existing data nodes in your InfluxDB Enterprise cluster.
 
 #### For each existing data node:
 
@@ -111,18 +109,18 @@ skip this step.
      influxd backup -portable -host <IP address>:8088 /tmp/mysnapshot
     ```
 
-    For more information, see [`-backup`](/influxdb/latest/administration/backup_and_restore/#backup)
+    For more information, see [`-backup`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#backup)
 2. Restore the backup on the cluster by running the following:
 
     ```sh
     influxd restore -portable  [ -host <host:port> ] <path-to-backup-files>
     ```
 
-    For more information, see [`-restore`](/influxdb/latest/administration/backup_and_restore/#restore)
+    For more information, see [`-restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore)
 3. Dual write to both OSS and Enterprise.
    See [Write data with the InfluxDB API](https://docs.influxdata.com/influxdb/v1.9/guides/write_data/).
    This keeps the OSS and cluster active for testing and acceptance work.
-4. [Export data from OSS](/enterprise_influxdb/latest/administration/backup-and-restore/#exporting-data)
+4. [Export data from OSS](/enterprise_influxdb/v1.9/administration/backup-and-restore/#exporting-data)
    from the time the backup was taken to the time the dual write started.
    For example, if you take the backup on 2020-07-19T00:00:00.000Z, and started writing data to Enterprise at 2020-07-19T23:59:59.999Z,
    you could run the following command:
@@ -131,8 +129,8 @@ skip this step.
     influx_inspect export -compress -start 2020-07-19T00:00:00.000Z -end 2020-07-19T23:59:59.999Z`
     ```
     
-    For more information, see [`-export`](/influxdb/latest/tools/influx_inspect#export).
-5. [Import data into Enterprise](/enterprise_influxdb/latest/administration/backup-and-restore/#importing-data).
+    For more information, see [`-export`](/enterprise_influxdb/v1.9/tools/influx_inspect#export).
+5. [Import data into Enterprise](/enterprise_influxdb/v1.9/administration/backup-and-restore/#importing-data).
 6. Verify data is successfully migrated. To review your data, see how to:
    - [Query data with the InfluxDB API](https://docs.influxdata.com/influxdb/latest/guides/query_data/#sidebar)
    - [View data in Chronograf](/chronograf/latest/)
@@ -227,11 +225,12 @@ sudo yum localinstall influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x
 
 3. **Update the configuration file**
 
-    In `/etc/influxdb/influxdb.conf`, set:
+    In `/etc/influxdb/influxdb.conf`:
 
-    - `hostname` to the full hostname of the data node
-    - `license-key` in the `[enterprise]` section to the license key you received on InfluxPortal **OR** `license-path`
-    in the `[enterprise]` section to the local path to the JSON license file you received from InfluxData.  
+    - set `hostname` to the full hostname of the data node
+    - set `license-key` in the `[enterprise]` section to the license key you received on InfluxPortal
+      **or** set `license-path` in the `[enterprise]` section to 
+      the local path to the JSON license file you received from InfluxData.
 
         {{% warn %}}
 The `license-key` and `license-path` settings are mutually exclusive and one must remain set to an empty string.
@@ -325,7 +324,7 @@ It may take a few minutes before the existing data is available.
 
 ## Rebalance the cluster
 
-1. Use the [ALTER RETENTION POLICY](/influxdb/v1.9/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
+1. Use the [ALTER RETENTION POLICY](/enterprise_influxdb/v1.9/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
    statement to increase the [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor)
    on all existing retention polices to the number of data nodes in your cluster.
 2. [Rebalance your cluster manually](/enterprise_influxdb/v1.9/guides/rebalance/)
