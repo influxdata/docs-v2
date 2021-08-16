@@ -45,8 +45,8 @@ Upgrade InfluxDB OSS (and InfluxDB Enterprise, if you already have a cluster) to
 ### Set up InfluxDB Enterprise meta nodes
 
 1. Set up all meta nodes in your InfluxDB Enterprise cluster.
-   For information about installing and setting up meta nodes, see
-   [Install meta nodes](/enterprise_influxdb/v1.9/install-and-deploy/production_installation/meta_node_installation).
+   For information about installing and setting up meta nodes,
+   see [Install meta nodes](/enterprise_influxdb/v1.9/introduction/install-and-deploy/installation/meta_node_installation/).
 2. Add the OSS instance to the `/etc/hosts` file on each meta data.
    Include the IP and host name of your InfluxDB OSS instance so meta nodes can communicate with the OSS instance.
 
@@ -111,8 +111,8 @@ For each existing data node:
    ```
 
    For more information, see [`-restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore)
-3. Dual write to both OSS and Enterprise.
-   See [Write data with the InfluxDB API](https://docs.influxdata.com/influxdb/v1.9/guides/write_data/).
+3. To avoid data loss, dual write to both OSS and Enterprise while completing the upgrade.
+   See [Write data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/write_data/).
    This keeps the OSS and cluster active for testing and acceptance work.
 4. [Export data from OSS](/enterprise_influxdb/v1.9/administration/backup-and-restore/#exporting-data)
    from the time the backup was taken to the time the dual write started.
@@ -126,10 +126,10 @@ For each existing data node:
 
    For more information, see [`-export`](/enterprise_influxdb/v1.9/tools/influx_inspect#export).
 5. [Import data into Enterprise](/enterprise_influxdb/v1.9/administration/backup-and-restore/#importing-data).
-6. Verify data is successfully migrated. To review your data, see how to:
+6. Verify data is successfully migrated. See:
    - [Query data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/query_data/)
    - [View data in Chronograf](/{{< latest "chronograf" >}}/)
-7. Follow below, [Stop writes and remove OSS](#stop-writes-and-remove-oss).
+7. Follow [Stop writes and remove OSS](#stop-writes-and-remove-oss) below.
 
 ### Migrate a data set with downtime
 
