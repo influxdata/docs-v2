@@ -33,15 +33,14 @@ There is no requirement for each data node to run on its own server.
 However, best practices are to deploy each data node on a dedicated server.
 {{% /note %}}
 
-See the
-[Clustering guide](/enterprise_influxdb/v1.9/concepts/clustering/#optimal-server-counts)
+See the [Clustering guide](/enterprise_influxdb/v1.9/concepts/clustering/#optimal-server-counts)
 for more on cluster architecture.
 
 ### Other requirements
 
 #### License key or file
 
-InfluxDB Enterprise requires a license key **OR** a license file to run.
+InfluxDB Enterprise requires a license key **or** a license file to run.
 Your license key is available at [InfluxPortal](https://portal.influxdata.com/licenses).
 Contact support at the email we provided at signup to receive a license file.
 License files are required only if the nodes in your cluster cannot reach
@@ -65,7 +64,7 @@ data nodes on port `8086` (the default port for the [HTTP API](/enterprise_influ
 
 #### User account
 
-The installation package creates user `influxdb` that is used to run the influxdb data service.
+The installation package creates an `influxdb` user that is used to run the InfluxDB data service.
 `influxdb` user also owns  certain files that are needed for the service to start successfully.
 In some cases, local policies may prevent the local user account from being created and the service fails to start.
 Contact your systems administrator for assistance with this requirement.
@@ -74,8 +73,9 @@ Contact your systems administrator for assistance with this requirement.
 ## Step 1: Add appropriate DNS entries for each of your servers
 
 Ensure that your servers' hostnames and IP addresses are added to your network's DNS environment.
-The addition of DNS entries and IP assignment is usually site and policy specific; contact your DNS administrator for assistance as necessary.
-Ultimately, use entries similar to the following (hostnames and domain IP addresses are representative).
+The addition of DNS entries and IP assignment is usually site and policy specific;
+contact your DNS administrator for assistance as necessary.
+Ultimately, use entries similar to the following:
 
 | Record Type |               Hostname                |                IP |
 |:------------|:-------------------------------------:|------------------:|
@@ -99,9 +99,13 @@ A healthy cluster requires that every meta node and data node in a cluster be ab
 
 ## Step 2: Set up, configure, and start the data node services
 
-Perform the following steps on each data node.
+Perform the following steps *on each data node*:
 
-### I. Download and install the data service
+- [a. Download and install the data service](#a-download-and-install-the-data-service)
+- [b. Edit the data node configuration files](#b-edit-the-data-node-configuration-files)
+- [c. Start the data service](#c-start-the-data-service)
+
+### a. Download and install the data service
 
 #### Ubuntu and Debian (64-bit)
 
@@ -141,7 +145,7 @@ For added security, follow these steps to verify the signature of your InfluxDB 
    gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
    ```
 
-### II. Edit the data node configuration files
+### b. Edit the data node configuration files
 
 First, in `/etc/influxdb/influxdb.conf`:
 
@@ -199,7 +203,7 @@ hostname="<enterprise-data-0x>"
   shared-secret = "long pass phrase used for signing tokens"
 ```
 
-### III. Start the data service
+### c. Start the data service
 
 On sysvinit systems, enter:
 
@@ -234,7 +238,7 @@ for error messages and verify the previous setup steps are complete.
 If you see the expected output, repeat for the remaining data nodes.
 Once all data nodes have been installed, configured, and launched, move on to the next section to join the data nodes to the cluster.
 
-## Join the data nodes to the cluster
+## Step 3: Join the data nodes to the cluster
 
 {{% warn %}}You should join your data nodes to the cluster only when you are adding a brand new node,
 either during the initial creation of your cluster or when growing the number of data nodes.
@@ -295,3 +299,13 @@ to the cluster.
 
 Once your data nodes are part of your cluster move on to [the final step
 to set up Chronograf](/enterprise_influxdb/v1.9/install-and-deploy/installation/chrono_install).
+
+## Step 4: Create an admin user
+
+In [Step 2](#b-edit-the-data-node-configuration-files), you enabled authentication.
+In order to access the cluster, you must create at least one admin user.
+Using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/), run:
+
+```sql
+CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
+```
