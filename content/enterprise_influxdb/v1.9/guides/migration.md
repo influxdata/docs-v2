@@ -52,7 +52,9 @@ Upgrade InfluxDB OSS (and InfluxDB Enterprise, if you already have a cluster) to
 
 ### Set up InfluxDB Enterprise data nodes
 
+{{% note %}}
 Skip this step if you don't have any existing data nodes in your InfluxDB Enterprise cluster.
+{{% /note %}}
 
 For each existing data node:
 
@@ -226,27 +228,26 @@ sudo yum localinstall influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x
       **or** set `license-path` in the `[enterprise]` section to
       the local path to the JSON license file you received from InfluxData.
 
-        {{% warn %}}
+      {{% warn %}}
 The `license-key` and `license-path` settings are mutually exclusive and one must remain set to an empty string.
-        {{% /warn %}}
+      {{% /warn %}}
 
-    <!-- -->
-    ```toml
-    # Hostname advertised by this host for remote addresses.
-    # This must be accessible to all nodes in the cluster.
-    hostname="<data-node-hostname>"
+      ```toml
+      # Hostname advertised by this host for remote addresses.
+      # This must be accessible to all nodes in the cluster.
+      hostname="<data-node-hostname>"
 
-    [enterprise]
+      [enterprise]
       # license-key and license-path are mutually exclusive,
       # use only one and leave the other blank
       license-key = "<your_license_key>"
       license-path = "/path/to/readable/JSON.license.file"
-    ```
+      ```
 
-    {{% note %}}
+      {{% note %}}
 Transfer any custom settings from the backup of your OSS configuration file
 to the new Enterprise configuration file.
-    {{% /note %}}
+      {{% /note %}}
 
 4. **Update the `/etc/hosts` file**.
 
