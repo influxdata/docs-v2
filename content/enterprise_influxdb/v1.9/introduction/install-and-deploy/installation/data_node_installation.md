@@ -65,7 +65,7 @@ data nodes on port `8086` (the default port for the [HTTP API](/enterprise_influ
 #### User account
 
 The installation package creates an `influxdb` user that is used to run the InfluxDB data service.
-`influxdb` user also owns  certain files that are needed for the service to start successfully.
+The `influxdb` user also owns certain files that are needed for the service to start successfully.
 In some cases, local policies may prevent the local user account from being created and the service fails to start.
 Contact your systems administrator for assistance with this requirement.
 
