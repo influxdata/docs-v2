@@ -70,8 +70,8 @@ These numeric types also have value limits.
 
 |          | Minimum                 | Maximum                 | 
 | -------- | ---------------         | ---------------         |
-| integer  | `-9223372036854775808i` | `9223372036854775807i`  |
-| uinteger | `0u`                    | `18446744073709551615u` |
+| integer  | `-9223372036854775808` | `9223372036854775807`  |
+| uinteger | `0`                    | `18446744073709551615` |
 
 {{% note %}}
 All numeric types are nullable.
