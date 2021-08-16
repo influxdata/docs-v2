@@ -13,18 +13,39 @@ influxdb/cloud/tags: [get-started, install]
 
 After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to start writing, querying, and visualizing data.
 
-To get started working in Cloud, we recommend using demo data and notebooks.
+To get started working in Cloud, we recommend using notebooks to explore demo data and sample data. 
+
+To write data into InfluxDB, you need the following:
+ 
+- **organization** – _See [View organizations](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
+ for instructions on viewing your organization ID._
+- **bucket** – _See [View buckets](/influxdb/cloud/organizations/buckets/view-buckets/) for
+ instructions on viewing your bucket ID._
+- **API token** – _See [View tokens](/influxdb/cloud/security/tokens/view-tokens/)
+ for instructions on viewing your API token._
+- **InfluxDB Cloud region URL** – _See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)_.
+
 
 ## Add demo data
 
 This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add the demo data bucket:
 
-1.  In the navigation menu on the left, click **Data (Load Data)** > **Buckets**.
+1.  Click **Data (Load Data)** > **Buckets** in the navigation menu on the left.
 
     {{< nav-icon "data" >}}
 
 2.  Click **{{< icon "plus" >}} Add Demo Data**, and then select the **Website Monitoring** bucket.
 3.  The Demo Data bucket appears in your list of buckets.
+
+## Sample data
+
+Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate InfluxDB with sample time series data.
+
+1. Look through the list of [sample data sets](/influxdb/cloud/reference/sample-data/#sample-datasets) and choose one to download. 
+2. Copy the 'sample.data()' function listed underneath your desired sample dataset. 
+3. Click **Explore > Script Editor** in InfluxDB Cloud's left navigation menu. 
+4. Paste your 'sample.data()' function. 
+5. Click **Submit**. 
 
 ## Select metrics
 
