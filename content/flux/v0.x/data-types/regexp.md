@@ -26,8 +26,8 @@ A **regular expression** type represents a regular expression pattern.
 - [Examples](#examples)
 
 ## Regular expression syntax
-Flux uses the [Go regexp implementation and syntax](https://pkg.go.dev/regexp)
-which uses the same _general_ syntax as Perl, Python, and other languages.
+Flux uses the [Go regexp implementation and syntax](https://pkg.go.dev/regexp).
+This syntax is similar to regular expressions in Perl, Python, and other languages.
 Regular expression literals are enclosed in forward slash characters (`/`).
 
 ```js
