@@ -89,10 +89,6 @@ Flux supports [RFC3339 timestamps](/influxdb/v2.0/reference/glossary/#rfc3339-ti
 - `YYYY-MM-DDT00:00:00Z`
 - `YYYY-MM-DDT00:00:00.000Z`
 
-| Minimum timestamp      | Maximum timestamp     |
-| -----------------      | -----------------     |
-| `-9223372036854775806` | `9223372036854775806` |
-
 ### Duration types
 A _duration type_ represents a length of time with nanosecond precision.
 The duration type name is `duration`.
