@@ -120,7 +120,6 @@ When working with Kapacitor the last two privilege tokens are of interest.
 Use the `/user` endpoint of the InfluxDB Enterprise Meta API to manage users.
 
 ##### List users
-
 View a list of existing users.
 
 ```
@@ -205,8 +204,6 @@ $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom2
 <
 ```
 
-To create a new user against the lead node.
-
 ##### Create a user against the lead node
 
 ```
@@ -249,8 +246,6 @@ $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom"
 <
 ```
 
-To get a user details document.
-
 ##### Retrieve a user details document
 
 ```
@@ -266,7 +261,6 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 ```
 
 ##### Grant permissions to a user
-To grant permissions to a user.
 
 ```
 $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/user
@@ -306,8 +300,6 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","us
 <
 ```
 
-Verify permission grant.
-
 ##### Verify user permissions
 
 ```
@@ -329,7 +321,6 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 ```
 
 ##### Remove permissions from a user
-To remove permissions.
 
 ```
 $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions","user":{"name":"phantom","permissions":{"":["KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/user
@@ -368,8 +359,6 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions",
 < Content-Type: text/plain; charset=utf-8
 <
 ```
-
-To delete a user.
 
 ##### Remove a user
 
@@ -412,7 +401,6 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"nam
 ```
 
 ##### Verify user removal
-To verify user has been removed.
 
 ```
 $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom
@@ -434,7 +422,6 @@ In a fresh installation no roles will have been created yet.
 As when creating a user the lead node must be used.
 
 ##### Create a role
-To create a role.
 
 ```
 $ curl --negotiate -u "admin:changeit"  -v -d '{"action":"create","role":{"name":"spectre"}}' https://cluster_node_1:8091/role
@@ -633,8 +620,6 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=
 }
 ```
 
-Remove a user from a role.
-
 ##### Remove a user from a role
 
 ```
@@ -677,7 +662,6 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-users","role"
 ```
 
 ##### Remove a permission from a role
-Remove a permission from a role.
 
 ```
 $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions","role":{"name":"spectre","permissions":{"":["KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/role
