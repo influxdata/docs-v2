@@ -1,7 +1,7 @@
 ---
 title: Operate on columns
 description: >
-  Find and count unique values, recalculate the _value column, and use values to calculate a new column.
+  Find and count unique values, recalculate the `_value` column, and use values to calculate a new column.
 influxdb/v2.0/tags: [queries]
 aliases: 
   - /influxdb/cloud/query-data/common-queries/count_unique_values_for_column/

@@ -10,13 +10,14 @@ menu:
 weight: 103
 ---
 
-To use values from multiple fields in a mathematic calculation:
+To use values from multiple fields in a mathematic calculation, complete the following steps:
 
 1. [Filter by fields required in your calculation](#filter-by-fields)
 2. [Pivot fields into columns](#pivot-fields-into-columns)
 3. [Perform the mathematic calculation](#perform-the-calculation)
 
 ## Filter by fields
+
 Use [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
 to return only the fields necessary for your calculation.
 Use the [`or` logical operator](/influxdb/v2.0/reference/flux/language/operators/#logical-operators)
@@ -52,6 +53,7 @@ This query returns one or more tables for each field. For example:
 {{< /flex >}}
 
 ## Pivot fields into columns
+
 Use [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
 to align multiple fields by time.
 
@@ -80,6 +82,7 @@ Using the queried data [above](#filter-by-fields), this `pivot()` function retur
 | 2021-01-01T00:00:45Z | 11.9   | 3.3    |
 
 ## Perform the calculation
+
 Use [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
 to perform the mathematic operation using column values as operands.
 
@@ -100,6 +103,7 @@ Using the pivoted data above, this `map()` function returns:
 | 2021-01-01T00:00:45Z | 11.9   | 3.3    | 39.27  |
 
 ## Full example query
+
 ```js
 from(bucket: "example-bucket")
   |> range(start: -1m)
