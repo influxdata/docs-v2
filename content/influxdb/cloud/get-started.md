@@ -25,7 +25,6 @@ To write data into InfluxDB, you need the following:
  for instructions on viewing your API token._
 - **InfluxDB Cloud region URL** – _See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)_.
 
-
 ## Add demo data
 
 This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add the demo data bucket:

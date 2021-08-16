@@ -23,12 +23,18 @@ Discover what you'll need to write data into InfluxDB Cloud. Learn how to quickl
 
 There are multiple options for writing data into InfluxDB.
 
-  - [No-code solutions](/influxdb/cloud/write-data/no-code)
-  - [Developer tools](/influxdb/cloud/write-data/developer-tools)
   - [Best practices](/influxdb/cloud/write-data/best-practices/)
+     - [Optimize writes](/influxdb/v2.0/write-data/best-practices/optimize-writes/)
+     - [Duplicate points](/influxdb/v2.0/write-data/best-practices/duplicate-points/)
+     - [InfluxDB schema design](/influxdb/v2.0/write-data/best-practices/schema-design/)
+     - [Revolve high series cardinality](/influxdb/v2.0/write-data/best-practices/resolve-high-cardinality/)
+  - [No-code solutions](/influxdb/cloud/write-data/no-code)
+     - [Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/)
+     - [Scrape data](/influxdb/v2.0/write-data/no-code/scrape-data/)
+     - [no-code third-party technologies](/influxdb/v2.0/write-data/no-code/third-party/)
+  - [Developer tools](/influxdb/cloud/write-data/developer-tools)
   - [Bulk ingest](/influxdb/cloud/write-data/bulk-ingest-cloud/)
   - [Load data source in UI](/influxdb/cloud/write-data/load-data/)
-  - [Delete data](/influxdb/cloud/write-data/delete-data/)
 
 After you have successfully written data in InfluxDB, follow the [Next steps](#next-steps). 
 

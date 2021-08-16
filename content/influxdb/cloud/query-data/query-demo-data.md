@@ -4,8 +4,8 @@ description: >
   Explore InfluxDB Cloud with our demo data buckets. 
 menu:
   influxdb_cloud:
-    name: Release notes
-    parent: Query data 
+    name: Query with demo data
+    parent: Execute queries
 weight: 10
 aliases:
   - /influxdb/cloud/write-data/#demo-data-for-influxdb-cloud
