@@ -8,16 +8,16 @@ menu:
     name: Flux
 ---
 
-## 0.125.0 [2021-08-11]
+## v0.125.0 [2021-08-11]
 
 ### Features
 - Add feature flag library as an internal package.
 - Add narrow transformation transport.
 - Add transport-aware dataset.
 - Simplify the transport interface and add a transformation adapter.
-- Add [`contrib/sranka/webexteams` package](#).
+- Add [`contrib/sranka/webexteams` package](/influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/).
 - Add optimized repeat function for arrow arrays.
-- Add two additional message types.
+- Add two additional internal message types.
 
 ### Bug fixes
 - Update transformation adapter to correctly error when receiving a flush key
