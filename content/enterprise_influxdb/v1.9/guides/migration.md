@@ -141,8 +141,8 @@ For each existing data node:
 
 #### Stop writes and remove OSS
 
-1. **Stop all writes to the InfluxDB OSS instance**.
-2. **Stop the `influxdb` service on the InfluxDB OSS instance**.
+1. Stop all writes to the InfluxDB OSS instance.
+2. Stop the `influxdb` service on the InfluxDB OSS instance.
 
     {{< code-tabs-wrapper >}}
     {{% code-tabs %}}
@@ -168,7 +168,7 @@ sudo systemctl stop influxdb
     ps ax | grep influxd
     ```
 
-3. **Remove the InfluxDB OSS package**.
+3. Remove the InfluxDB OSS package.
 
     {{< code-tabs-wrapper >}}
     {{% code-tabs %}}
@@ -187,7 +187,7 @@ sudo yum remove influxdb
     {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
 
-#### Back up your InfluxDB OSS configuration file
+#### Back up and migrate your InfluxDB OSS configuration file
 
 1. **Back up your InfluxDB OSS configuration file**.
     If you have custom configuration settings for InfluxDB OSS, back up and save your configuration file.
@@ -320,7 +320,7 @@ It may take a few minutes before the existing data is available.
 
 ## Rebalance the cluster
 
-1. Use the [ALTER RETENTION POLICY](/enterprise_influxdb/v1.9/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
+1. Use the [`ALTER RETENTION POLICY`](/enterprise_influxdb/v1.9/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
    statement to increase the [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor)
    on all existing retention polices to the number of data nodes in your cluster.
 2. [Rebalance your cluster manually](/enterprise_influxdb/v1.9/guides/rebalance/)
