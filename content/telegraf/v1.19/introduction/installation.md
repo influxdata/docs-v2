@@ -46,7 +46,14 @@ aren't synchronized with NTP, the timestamps on the data can be inaccurate.
 {{% tab-content %}}
 Debian and Ubuntu users can install the latest stable version of Telegraf using the `apt-get` package manager.
 
-**Ubuntu:** Add the InfluxData repository with the following commands:
+**Ubuntu:** Telegraf is available in recent versions of Ubuntu.
+Install by running:
+
+```sh
+sudo apt-get update && sudo apt-get install telegraf
+```
+
+Install Telegraf from the InfluxData repository with the following commands:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
