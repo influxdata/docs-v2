@@ -48,7 +48,7 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{
 
 ## Use with module bundlers
 
-If you use a module bundler like Webpack or Parcel, install `@influxdata/influxdb-client`. For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/).  
+If you use a module bundler like Webpack or Parcel, install `@influxdata/influxdb-client-browser`. For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/).  
 
 ## Use bundled distributions with browsers and module loaders 
 
@@ -64,8 +64,7 @@ If you use a module bundler like Webpack or Parcel, install `@influxdata/influxd
    ```
 
 2. Import modules from the latest client library browser distribution.
-If you need bundled ESM for modern browsers and clients, use the `@influxdata/influxdb-client` browser distribution.
-If you need UMD compatibility for browsers and module loaders, use `@influxdata/influxdb-client-browser`.
+`@influxdata/influxdb-client-browser` exports bundled ESM and UMD syntaxes. 
 
    {{< code-tabs-wrapper >}}
    {{% code-tabs %}}
@@ -75,7 +74,7 @@ If you need UMD compatibility for browsers and module loaders, use `@influxdata/
    {{% code-tab-content %}}
    ```html
    <script type="module">
-     import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client/dist/index.browser.mjs'
+     import {InfluxDB, Point} from 'https://unpkg.com/@influxdata/influxdb-client-browser/dist/index.browser.mjs'
 
      const influxDB = new InfluxDB({INFLUX_ENV.url, INFLUX_ENV.token})
    </script>

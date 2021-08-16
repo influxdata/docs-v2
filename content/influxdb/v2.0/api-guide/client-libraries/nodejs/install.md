@@ -29,7 +29,8 @@ aliases:
 
 ## Install dependencies
 
-The JavaScript client contains two packages. Add both as dependencies of your project.
+The JavaScript client contains two packages.
+Add both as dependencies of your project.
 
 1. Change to your project directory:
 
