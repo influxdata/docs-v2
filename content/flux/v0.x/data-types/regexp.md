@@ -129,6 +129,10 @@ regexp.findString(
 ```
 
 ### Escape regular expression metacharacters in a string
+If a string contains regular expression metacharacters that should be evaluated
+as literal characters, escape the metacharacters before converting the string
+to a regular expression:
+
 1. Import the [`regexp` package](/flux/v0.x/stdlib/regexp).
 2. Use [`regexp.quoteMeta()`](/flux/v0.x/stdlib/regexp/quotemeta/)
    and provide the string to escape regular expression metacharacters in:
