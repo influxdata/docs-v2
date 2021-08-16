@@ -17,7 +17,9 @@ related:
 list_code_example: |
   ```js
   ["1st", "2nd", "3rd"]
+
   [1.23, 4.56, 7.89]
+
   [10, 25, -15]
   ```
 ---
@@ -32,7 +34,9 @@ Values are comma-separated and must be the same type.
 ##### Example arrays
 ```js
 ["1st", "2nd", "3rd"]
+
 [1.23, 4.56, 7.89]
+
 [10, 25, -15]
 ```
 

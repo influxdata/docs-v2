@@ -17,7 +17,9 @@ related:
 list_code_example: |
   ```js
   [0: "Sun", 1: "Mon", 2: "Tue"]
+
   ["red": "#FF0000", "green": "#00FF00", "blue": "#0000FF"]
+  
   [1.0: {stable: 12, latest: 12}, 1.1: {stable: 3, latest: 15}]
   ```
 ---
@@ -41,7 +43,9 @@ Keys are associated to values by a colon (`:`).
 ##### Example dictionaries
 ```js
 [0: "Sun", 1: "Mon", 2: "Tue"]
+
 ["red": "#FF0000", "green": "#00FF00", "blue": "#0000FF"]
+
 [1.0: {stable: 12, latest: 12}, 1.1: {stable: 3, latest: 15}]
 ```
 

@@ -14,6 +14,7 @@ flux/v0.x/tags: ["composite types", "data types"]
 list_code_example: |
   ```js
   {foo: "bar", baz: 123.4, quz: -2}
+  
   {"Company Name": "ACME", "Street Address": "123 Main St.", id: 1123445}
   ```
 ---
