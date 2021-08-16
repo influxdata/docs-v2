@@ -214,8 +214,8 @@ sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
     {{% /code-tab-content %}}
     {{% code-tab-content %}}
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
-sudo yum localinstall influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
     {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
