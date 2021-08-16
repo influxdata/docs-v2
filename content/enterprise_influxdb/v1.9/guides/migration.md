@@ -129,7 +129,7 @@ For each existing data node:
 6. Verify data is successfully migrated. To review your data, see how to:
    - [Query data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/query_data/)
    - [View data in Chronograf](/{{< latest "chronograf" >}}/)
-7. [Stop writes and remove OSS](#stop-writes-and-remove-oss).
+7. Follow below, [Stop writes and remove OSS](#stop-writes-and-remove-oss).
 
 ### Migrate a data set with downtime
 
