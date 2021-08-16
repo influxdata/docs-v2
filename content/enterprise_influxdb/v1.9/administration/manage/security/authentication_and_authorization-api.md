@@ -62,7 +62,7 @@ These predefined tokens are:
 
 {{% note %}}
 These privileges are system privileges and are separate from the database-specific privileges
-that can be inspected using the `show grants for "<USER>"` command when connected to an Influxd-Data node.
+that can be inspected using the `show grants for "<USER>"` command when connected to a data node.
 {{% /note %}}
 
 In addition, two tokens govern Kapacitor permissions:
@@ -74,7 +74,7 @@ In addition, two tokens govern Kapacitor permissions:
   Grants the user permission to override the Kapacitor configuration
   dynamically using the configuration endpoint.
 
-### User and privilege management over the Influxd-meta API
+### User and privilege management over the InfluxDB Enterprise meta API
 
 **Users**:
 
@@ -142,13 +142,14 @@ $ curl -u "admin:changeit" -s https://cluster_node_1:8091/user | python -m json.
         }
     ]
 }
-...
 ```
 
-Transactions that modify the user store are initiated using HTTP POST and must be sent to the lead node in the Influxd-Meta raft.
-If when POSTing a request the node returns a 307 redirect message, try resending the request to the lead node indicated by the `Location` field in the HTTP header.
-
 ##### Create a user against a follower node
+
+Transactions that modify the user store must be sent to the lead meta node using `POST`.
+
+If the node returns a 307 redirect message,
+try resending the request to the lead node as indicated by the `Location` field in the HTTP response header.
 
 ```
 $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom2","password":"changeit"}}' https://cluster_node_2:8091/user
