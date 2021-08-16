@@ -14,14 +14,20 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
-## July 2021 
+## August 2021
+
+- Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
+- Add ability to convert [notebook cells into raw Flux script](/influxdb/cloud/notebooks/create-notebook/#view-and-edit-flux-script-in-a-cell). Now you can view and edit the code.
+- Add [delete request rate limits](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits) per organization.
+
+## July 2021
 
 - Add new [Asia Pacific (Australia) region](https://ap-southeast-2-1.aws.cloud2.influxdata.com).
-- Redesign the View Raw Data table in Data Explorer. Group keys and data types are now easily identifiable underneath column headings. 
-- Dashboard improvements: 
-   - Add ability to add an [annotation to a specific time range](/influxdb/cloud/visualize-data/annotations/). 
-   - Add ability to [automatically refresh dashboard](/influxdb/cloud/visualize-data/dashboards/control-dashboard/#automatically-refresh-dashboard).  
-   - Add new static legend to Graph and Band Plot visualizations. 
+- Redesign the View Raw Data table in Data Explorer. Group keys and data types are now easily identifiable underneath column headings.
+- Dashboard improvements:
+   - Add ability to add an [annotation to a specific time range](/influxdb/cloud/visualize-data/annotations/).
+   - Add ability to [automatically refresh dashboard](/influxdb/cloud/visualize-data/dashboards/control-dashboard/#automatically-refresh-dashboard).
+   - Add new static legend to Graph and Band Plot visualizations.
 
 ## May 2021
 
