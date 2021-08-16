@@ -66,6 +66,13 @@ int     the set of all signed 64-bit integers | null
 float   the set of all IEEE-754 64-bit floating-point numbers | null
 ```
 
+These numeric types also have value limits. 
+
+|          | Minimum                 | Maximum                 | 
+| -------- | ---------------         | ---------------         |
+| integer  | `-9223372036854775808i` | `9223372036854775807i`  |
+| uinteger | `0u`                    | `18446744073709551615u` |
+
 {{% note %}}
 All numeric types are nullable.
 {{% /note %}}
@@ -81,6 +88,10 @@ Flux supports [RFC3339 timestamps](/influxdb/v2.0/reference/glossary/#rfc3339-ti
 - `YYYY-MM-DD`
 - `YYYY-MM-DDT00:00:00Z`
 - `YYYY-MM-DDT00:00:00.000Z`
+
+| Minimum timestamp      | Maximum timestamp     |
+| -----------------      | -----------------     |
+| `-9223372036854775806` | `9223372036854775806` |
 
 ### Duration types
 A _duration type_ represents a length of time with nanosecond precision.
