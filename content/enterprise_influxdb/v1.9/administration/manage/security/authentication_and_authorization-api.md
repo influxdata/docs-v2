@@ -14,26 +14,22 @@ menu:
 
 ## Overview
 
-Authentication and authorization entities can be managed directly over the Influxd-Meta API.
-<!-- TODO decided on name: "Enterprise meta API"? -->
+Authentication and authorization can be managed using the InfluxDB Enterprise Meta API.
 
 User and privilege management means
-managing the contents of a user store and the access rights (privileges, permissions) that users can be granted.
+managing the contents of a user store and the permissions that users can be granted.
 It entails creating and deleting users and roles, granting them privileges, and assigning roles to users.
 
 Managing users, roles and privileges can be done using the Chronograf InfluxDB Admin console.
 However, certain operations are only available through the Enterprise meta API.
 <!-- TODO which operations are API-only? -->
 
-**Users** are granted a set of privileges,
-which define a set of TICK stack resources and APIs available for use.
+**Users** are granted a set of privileges.
+<!-- which define a set of TICK stack resources and APIs available for use. -->
 
-**Role** means a predefined collection of privileges that can be assigned to a user.
+A **role** is a predefined collection of privileges that can be assigned to a user.
 
-**Privilege** (also *permission*) means a level of access to a TICK stack resource.
-
-Level of access can mean:
-
+A **permission** (also *privilege*) is the ability to access a resource in some way, including:
 - viewing the resource
 - copying the resource
 - dropping the resource
@@ -41,13 +37,11 @@ Level of access can mean:
 - full management capabilities
 
 The level of access and the resource are combined in predefined keys.
-The enforcement of privileges is handled by the respective TICK stack services.
+<!-- The enforcement of privileges is handled by the respective TICK stack services. -->
 
-Predefined key tokens generally take the form of self-descriptive verb-object pairs.
+Predefined key tokens take the form of verb-object pairs.
 When the token lacks the verb part, full management privileges are implied.
-
-<!-- These predefined tokens are: -->
-These predefined tokens include:
+These predefined tokens are:
 
 * `ViewAdmin`
 * `ViewChronograf`
@@ -65,18 +59,13 @@ These predefined tokens include:
 * `ManageSubscription`
 * `Monitor`
 * `CopyShard`
-* `KapacitorAPI`
-* `KapacitorConfigAPI`
-
-<!-- These correspond to the 16 permissions in InfluxDB Enterprise. -->
 
 {{% note %}}
-These privileges are system privileges and are separate from the database specific privileges
+These privileges are system privileges and are separate from the database-specific privileges
 that can be inspected using the `show grants for "<USER>"` command when connected to an Influxd-Data node.
 {{% /note %}}
 
-<!--
-When working with Kapacitor the last two privilege tokens are of interest.
+In addition, two tokens govern Kapacitor permissions:
 
 * `KapacitorAPI`:
   Grants the user permission to create, read, update and delete
@@ -84,7 +73,6 @@ When working with Kapacitor the last two privilege tokens are of interest.
 * `KapacitorConfigAPI`:
   Grants the user permission to override the Kapacitor configuration
   dynamically using the configuration endpoint.
--->
 
 ### User and privilege management over the Influxd-meta API
 
