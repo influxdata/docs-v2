@@ -27,9 +27,11 @@ The installation process sets up two [data nodes](/enterprise_influxdb/v1.9/conc
 and each data node runs on its own server.
 You **must** have a minimum of two data nodes in a cluster.
 InfluxDB Enterprise clusters require at least two data nodes for high availability and redundancy.
-<br>
-Note: that there is no requirement for each data node to run on its own
-server.  However, best practices are to deploy each data node on a dedicated server.
+
+{{% note %}}
+There is no requirement for each data node to run on its own server.
+However, best practices are to deploy each data node on a dedicated server.
+{{% /note %}}
 
 See the
 [Clustering guide](/enterprise_influxdb/v1.9/concepts/clustering/#optimal-server-counts)
@@ -63,7 +65,10 @@ data nodes on port `8086` (the default port for the [HTTP API](/enterprise_influ
 
 #### User account
 
-The installation package creates user `influxdb` that is used to run the influxdb data service.  `influxdb` user also owns  certain files that are needed for the service to start successfully.  In some cases, local policies may prevent the local user account from being created and the service fails to start.  Contact your systems administrator for assistance with this requirement.
+The installation package creates user `influxdb` that is used to run the influxdb data service.
+ `influxdb` user also owns  certain files that are needed for the service to start successfully.
+ In some cases, local policies may prevent the local user account from being created and the service fails to start.
+ Contact your systems administrator for assistance with this requirement.
 
 # Data node setup
 ## Step 1: Add appropriate DNS entries for each of your servers
@@ -77,16 +82,16 @@ Ultimately, use entries similar to the following (hostnames and domain IP addres
 | A           | ```enterprise-data-01.mydomain.com``` | ```<Data_1_IP>``` |
 | A           | ```enterprise-data-02.mydomain.com``` | ```<Data_2_IP>``` |
 
-> **Verification steps:**
->
 Before proceeding with the installation, verify on each meta and data server that the other
 servers are resolvable. Here is an example set of shell commands using `ping`:
->
-    ping -qc 1 enterprise-meta-01
-    ping -qc 1 enterprise-meta-02
-    ping -qc 1 enterprise-meta-03
-    ping -qc 1 enterprise-data-01
-    ping -qc 1 enterprise-data-02
+
+```sh
+ping -qc 1 enterprise-meta-01
+ping -qc 1 enterprise-meta-02
+ping -qc 1 enterprise-meta-03
+ping -qc 1 enterprise-data-01
+ping -qc 1 enterprise-data-02
+```
 
 We highly recommend that each server be able to resolve the IP from the hostname alone as shown here.
 Resolve any connectivity issues before proceeding with the installation.
@@ -100,14 +105,14 @@ Perform the following steps on each data node.
 
 #### Ubuntu and Debian (64-bit)
 
-```bash
+```sh
 wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 #### RedHat and CentOS (64-bit)
 
-```bash
+```sh
 wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
@@ -148,7 +153,9 @@ First, in `/etc/influxdb/influxdb.conf`:
 * Uncomment `hostname` at the top of the file and set it to the full hostname of the data node.
 * Uncomment `auth-enabled` in the `[http]` section and set it to `true`.
 * Uncomment `meta-auth-enabled` in the `[meta]` section and set it to `true`.
-* Uncomment `meta-internal-shared-secret` in the `[meta]` section and set it to a long pass phrase. The internal shared secret is used in JWT authentication for intra-node communication. This value must be same for all of your data nodes and match the `[meta] internal-shared-secret` value in the configuration files of your meta nodes.
+* Uncomment `meta-internal-shared-secret` in the `[meta]` section and set it to a long pass phrase.
+  The internal shared secret is used in JWT authentication for intra-node communication.
+  This value must be same for all of your data nodes and match the `[meta] internal-shared-secret` value in the configuration files of your meta nodes.
 
 Second, in `/etc/influxdb/influxdb.conf`, set:
 
@@ -201,28 +208,33 @@ hostname="<enterprise-data-0x>"
 
 On sysvinit systems, enter:
 
-```bash
+```sh
 service influxdb start
 ```
 
 On systemd systems, enter:
 
-```bash
+```sh
 sudo systemctl start influxdb
 ```
 
-> **Verification steps:**
->
+**Verification steps:**
+
 Check to see that the process is running by entering:
->
-    ps aux | grep -v grep | grep influxdb
->
+
+```sh
+ps aux | grep -v grep | grep influxdb
+```
+
 You should see output similar to:
->
-    influxdb  2706  0.2  7.0 571008 35376 ?        Sl   15:37   0:16 /usr/bin/influxd -config /etc/influxdb/influxdb.conf
 
+```
+influxdb  2706  0.2  7.0 571008 35376 ?        Sl   15:37   0:16 /usr/bin/influxd -config /etc/influxdb/influxdb.conf
+```
 
-If you do not see the expected output, the process is either not launching or is exiting prematurely. Check the [logs](/enterprise_influxdb/v1.9/administration/logs/) for error messages and verify the previous setup steps are complete.
+If you do not see the expected output, the process is either not launching or is exiting prematurely.
+Check the [logs](/enterprise_influxdb/v1.9/administration/logs/)
+for error messages and verify the previous setup steps are complete.
 
 If you see the expected output, repeat for the remaining data nodes.
 Once all data nodes have been installed, configured, and launched, move on to the next section to join the data nodes to the cluster.
@@ -237,7 +249,7 @@ If you are replacing an existing data node with `influxd-ctl update-data`, skip 
 On one and only one of the meta nodes that you set up in the
 [previous document](/enterprise_influxdb/v1.9/introduction/meta_node_installation/), run:
 
-```bash
+```sh
 influxd-ctl add-data enterprise-data-01:8088
 
 influxd-ctl add-data enterprise-data-02:8088
@@ -245,35 +257,37 @@ influxd-ctl add-data enterprise-data-02:8088
 
 The expected output is:
 
-```bash
+```sh
 Added data node y at enterprise-data-0x:8088
 ```
 
 Run the `add-data` command once and only once for each data node you are joining
 to the cluster.
 
-> **Verification steps:**
->
-Issue the following command on any meta node:
->
-    influxd-ctl show
->
-The expected output is:
->
-    Data Nodes
-    ==========
-    ID   TCP Address               Version
-    4    enterprise-data-01:8088   {{< latest-patch >}}-c{{< latest-patch >}}
-    5    enterprise-data-02:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+**Verification steps:**
 
->
-    Meta Nodes
-    ==========
-    TCP Address               Version
-    enterprise-meta-01:8091   {{< latest-patch >}}-c{{< latest-patch >}}
-    enterprise-meta-02:8091   {{< latest-patch >}}-c{{< latest-patch >}}
-    enterprise-meta-03:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+To verify the nodes, issue the following command on any meta node:
 
+```sh
+influxd-ctl show
+```
+
+The output should be similar to:
+
+```
+Data Nodes
+==========
+ID   TCP Address               Version
+4    enterprise-data-01:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+5    enterprise-data-02:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+
+Meta Nodes
+==========
+TCP Address               Version
+enterprise-meta-01:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+enterprise-meta-02:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+enterprise-meta-03:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+```
 
 The output should include every data node that was added to the cluster.
 The first data node added should have `ID=N`, where `N` is equal to one plus the number of meta nodes.
