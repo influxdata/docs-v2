@@ -38,7 +38,7 @@ add a new secret to your organization.
 **Include the following:**
 
 - Your [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [authentication token](/influxdb/cloud/security/tokens/view-tokens/) in the `Authorization` header
+- Your [API token](/influxdb/cloud/security/tokens/view-tokens/) in the `Authorization` header
 - The secret key-value pair in the request body
 
 <!-- -->

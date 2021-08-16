@@ -19,7 +19,7 @@ All `metadata.name` fields remain the same.
 {{% note %}}
 To export resources as a template, you must use the **Operator token** created for
 the initial InfluxDB user or an **All-Access token**.
-For information about creating an All-Access token, see [Create an authentication token](/influxdb/v2.0/security/tokens/create-token/).
+For information about creating an All-Access API token, see [Create an API token](/influxdb/v2.0/security/tokens/create-token/).
 {{% /note %}}
 
 ## Usage
@@ -29,7 +29,7 @@ influx export stack <stack_id> [flags]
 
 ## Flags
 | Flag |                   | Description                                                                      | Input Type | {{< cli/mapped >}}    |
-| :--- | :---------------- | :------------------------------------------------------------------------------- | :--------- | :-------------------- |
+|:-----|:------------------|:---------------------------------------------------------------------------------|:-----------|:----------------------|
 | `-c` | `--active-config` | CLI configuration to use for command                                             | string     |                       |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)            | string     | `INFLUX_CONFIGS_PATH` |
 | `-f` | `--file`          | Template output file. Defaults to stdout. Use `.yml` or `.json` file extensions. | string     |                       |
@@ -39,7 +39,7 @@ influx export stack <stack_id> [flags]
 | `-o` | `--org`           | Organization name that owns the resources (mutually exclusive with `--org-id`)   | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID that owns the resources (mutually exclusive with `--org`)        | string     | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                |            |                       |
-| `-t` | `--token`         | Authentication token                                                             | string     | `INFLUX_TOKEN`        |
+| `-t` | `--token`         | API token                                                                        | string     | `INFLUX_TOKEN`        |
 
 ## Examples
 

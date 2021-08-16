@@ -104,7 +104,7 @@ If exceed the series cardinality limit, InfluxDB adds a rate limit event to your
 
 - **Usage-Based plan**: To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com).
 - **Series cardinality limits**: If you exceed the series cardinality limit, see how to [resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.0/write-data/best-practices/resolve-high-cardinality/).
-- **Free plan**: To remove rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
+- **Free plan**: To raise rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
 
 #### Write and query limits (HTTP response code)
 
@@ -123,8 +123,8 @@ Billing occurs on the first day of the month for the previous month. For example
 
 | Timeline                    | Action |
 |:----------------------------|:------------------------------------------------------------------------------------------------------------------------|
-| **Initial declined payment**| We'll retry charge every 72 hours. During this period, update your payment method to successfully process your payment. |  
-| **One week later**          | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account. |  
-| **10-14 days later**        | Account completely disabled. During this period, you must contact us at support@influxdata.com to process your payment and enable your account. |  
-| **21 days later**           | Account suspended. Contact support@influxdata.com to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on.|  
+| **Initial declined payment**| We'll retry charge every 72 hours. During this period, update your payment method to successfully process your payment. |
+| **One week later**          | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account. |
+| **10-14 days later**        | Account completely disabled. During this period, you must contact us at support@influxdata.com to process your payment and enable your account. |
+| **21 days later**           | Account suspended. Contact support@influxdata.com to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on.|
 

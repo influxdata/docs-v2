@@ -11,6 +11,7 @@ influxdb/cloud/tags: [client libraries, python]
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/python/
   - /influxdb/cloud/reference/api/client-libraries/python-cl-guide/
+  - /influxdb/cloud/tools/client-libraries/python/
 weight: 201
 ---
 

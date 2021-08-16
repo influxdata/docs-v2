@@ -25,7 +25,7 @@ influx [command]
 ```
 
 ### Provide required authentication credentials
-To avoid having to pass your InfluxDB **host**, **authentication token**, and **organization**
+To avoid having to pass your InfluxDB **host**, **API token**, and **organization**
 with each command, store them in an `influx` CLI configuration (config).
 `influx` commands that require these credentials automatically retrieve these
 credentials from the active config.
@@ -49,7 +49,7 @@ For more information about managing CLI configurations, see the
 | Command                                                      | Description                                          |
 |:-------                                                      |:-----------                                          |
 | [apply](/influxdb/cloud/reference/cli/influx/apply)           | Apply an InfluxDB template                           |
-| [auth](/influxdb/cloud/reference/cli/influx/auth)             | Authentication token management commands             |
+| [auth](/influxdb/cloud/reference/cli/influx/auth)             | API token management commands             |
 | [backup](/influxdb/cloud/reference/cli/influx/backup)         | Back up data                                         |
 | [bucket](/influxdb/cloud/reference/cli/influx/bucket)         | Bucket management commands                           |
 | [completion](/influxdb/cloud/reference/cli/influx/completion) | Generate completion scripts                          |
