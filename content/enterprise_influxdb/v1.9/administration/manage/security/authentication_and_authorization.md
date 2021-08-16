@@ -273,64 +273,40 @@ provides a user interface for working with InfluxDB and InfluxDB Enterprise.
 Consider using Chronograf to [manage InfluxDB users and roles](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
 
 <!-- LIMITATION -->
-You cannot specify per-database permissions (grants) for users via Chronograf.
+<!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
 {{% /note %}}
 
 ### User types and privileges
 
-InfluxDB Enterprise has the following types of users:
+InfluxDB Enterprise has the following kinds of users:
 
-- [Global admin users](#global-admind-users)
+<!-- - [Global admin users](#global-admin-users) -->
 - [Admin users](#admin-users)
 - [Non-admin users](#non-admin-users)
 
-#### Global admin users
+<!-- #### Global admin users -->
 #### Admin users
-Admin users have `READ` and `WRITE` access
-to all databases and full access to the following administrative queries:
 
-| Permission                | Description                                             |
-|:--------------------------|---------------------------------------------------------|
-| View Admin                | Permission to view or edit admin screens                |
-| View Chronograf           | Permission to use Chronograf tools                      |
-| Create Databases          | Permission to create databases                          |
-| Create Users & Roles      | Permission to create users and roles                    |
-| Add/Remove Nodes          | Permission to add/remove nodes from a cluster           |
-| Drop Databases            | Permission to drop databases                            |
-| Drop Data                 | Permission to drop measurements and series              |
-| Read                      | Permission to read data                                 |
-| Write                     | Permission to write data                                |
-| Rebalance                 | Permission to rebalance a cluster                       |
-| Manage Shards             | Permission to copy and delete shards                    |
-| Manage Continuous Queries | Permission to create, show, and drop continuous queries |
-| Manage Queries            | Permission to show and kill queries                     |
-| Manage Subscriptions      | Permission to show, add, and drop subscriptions         |
-| Monitor                   | Permission to show stats and diagnostics                |
-| Copy Shard                | Permission to copy shards                               |
+Admin users have the following permissions:
 
-**Database-level permissions**
-| OSS                       |                         |
-|:--------------------------|-------------------------|
-| `CREATE DATABASE`         | `CreateDatabase`        |
-| `DROP DATABASE`           | `DropDatabase`          |
-| `DROP SERIES`             | `DropData`              |
-| `DROP MEASUREMENT`        | `DropData`              |
-| `CREATE RETENTION POLICY` |                         |
-| `ALTER RETENTION POLICY`  |                         |
-| `DROP RETENTION POLICY`   |                         |
-| `CREATE CONTINUOUS QUERY` | `ManageContinuousQuery` |
-| `DROP CONTINUOUS QUERY`   | `ManageContinuousQuery` |
-|                           | `ViewAdmin`             |
-|                           | `ReadData`, `WriteData` |
-|                           | `CreateUserAndRole`     |
-|                           | `ViewChronograf`        |
-|                           | `AddRemoveNode`         |
-|                           | `Rebalance`             |
-|                           | `Monitor`               |
-|                           | `ManageShard`           |
-|                           | `ManageQuery`           |
-|                           | `ManageSubscription`    |
-|                           | `CopyShard`             |
+| Permission                | Description                                             | Token                  |
+|:--------------------------|---------------------------------------------------------|------------------------|
+| View Admin                | Permission to view or edit admin screens                | `ViewAdmin`            |
+| View Chronograf           | Permission to use Chronograf tools                      | `ViewChronograf`       |
+| Create Databases          | Permission to create databases                          | `CreateDatabase`       |
+| Create Users & Roles      | Permission to create users and roles                    | `CreateUserAndRole`    |
+| Add/Remove Nodes          | Permission to add/remove nodes from a cluster           | `AddRemoveNode`        |
+| Drop Databases            | Permission to drop databases                            | `DropDatabase`         |
+| Drop Data                 | Permission to drop measurements and series              | `DropData`             |
+| Read                      | Permission to read data                                 | `ReadData`             |
+| Write                     | Permission to write data                                | `WriteData`            |
+| Rebalance                 | Permission to rebalance a cluster                       | `Rebalance`            |
+| Manage Shards             | Permission to copy and delete shards                    | `ManageShard`          |
+| Manage Continuous Queries | Permission to create, show, and drop continuous queries | `ManageContnuousQuery` |
+| Manage Queries            | Permission to show and kill queries                     | `ManageQuery`          |
+| Manage Subscriptions      | Permission to show, add, and drop subscriptions         | `ManageSubscription`   |
+| Monitor                   | Permission to show stats and diagnostics                | `Monitor`              |
+| Copy Shard                | Permission to copy shards                               | `CopyShard`            |
 
 {{% caption %}}
 For more information about these commands,
@@ -338,6 +314,7 @@ see [Database management](/enterprise_influxdb/v1.9/query_language/manage-databa
 [Continuous queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/).
 {{% /caption %}}
 
+<!--
 Admin users have access to the following user management commands:
 
 | Admin user management                                                           | Non-admin user management                                                                        | General user management                   |
@@ -350,6 +327,7 @@ Admin users have access to the following user management commands:
 {{% caption %}}
 See [below](#user-management-commands) for a complete discussion of the user management commands.
 {{% /caption %}}
+-->
 
 #### Non-admin users
 Non-admin users can have one of the following three privileges per database:
@@ -359,11 +337,13 @@ Non-admin users can have one of the following three privileges per database:
 - `ALL` (both `READ` and `WRITE` access)
 
 `READ`, `WRITE`, and `ALL` privileges are controlled per user per database.
-A new non-admin user has no access to any database
+When authentication is enabled
+a new non-admin user has no access to any database
 until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user)
 by an admin user.
+
 Non-admin users can [`SHOW`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-databases)
-the databases for which they have `READ` and/or `WRITE` permissions.
+the databases for which they have `READ` or `WRITE` permissions.
 
 ### User management commands
 
@@ -374,7 +354,7 @@ or [both](#manage-admin-and-non-admin-users).
 
 #### Manage admin users
 
-To enable HTTP authentication,
+To enable authentication,
 you must create at least one admin user before you can interact with the system.
 
 ```sql
