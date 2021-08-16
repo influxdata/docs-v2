@@ -278,17 +278,17 @@ sudo systemctl start influxdb
 
 After you upgrade your OSS instance to InfluxDB Enterprise, add the node to your Enterprise cluster.
 
-- From a **meta** node in the cluster, run:
+From a **meta** node in the cluster, run:
 
-    ```bash
-    influxd-ctl add-data <new-data-node-hostname>:8088
-    ```
+```bash
+influxd-ctl add-data <new-data-node-hostname>:8088
+```
 
-    The output should look like:
+The output should look like:
 
-    ```bash
-    Added data node y at new-data-node-hostname:8088
-    ```
+```bash
+Added data node y at new-data-node-hostname:8088
+```
 
 #### Add existing data nodes back to the cluster
 
