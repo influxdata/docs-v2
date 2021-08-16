@@ -66,9 +66,9 @@ data nodes on port `8086` (the default port for the [HTTP API](/enterprise_influ
 #### User account
 
 The installation package creates user `influxdb` that is used to run the influxdb data service.
- `influxdb` user also owns  certain files that are needed for the service to start successfully.
- In some cases, local policies may prevent the local user account from being created and the service fails to start.
- Contact your systems administrator for assistance with this requirement.
+`influxdb` user also owns  certain files that are needed for the service to start successfully.
+In some cases, local policies may prevent the local user account from being created and the service fails to start.
+Contact your systems administrator for assistance with this requirement.
 
 # Data node setup
 ## Step 1: Add appropriate DNS entries for each of your servers
@@ -122,29 +122,24 @@ sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x
 For added security, follow these steps to verify the signature of your InfluxDB download with `gpg`.
 
 1. Download and import InfluxData's public key:
-
-    ```
-    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
-    ```
-
+   ```
+   curl -s https://repos.influxdata.com/influxdb.key | gpg --import
+   ```
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
-    ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
-    ```
+   ```
+   wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
+   ```
 
 3. Verify the signature with `gpg --verify`:
-
-    ```
-    gpg --verify influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
-    ```
-
-    The output from this command should include the following:
-
-    ```
-    gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
-    ```
+   ```
+   gpg --verify influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+   ```
+   The output from this command should include the following:
+   ```
+   gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
+   ```
 
 ### II. Edit the data node configuration files
 
