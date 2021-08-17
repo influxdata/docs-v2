@@ -424,7 +424,6 @@ CREATE USER <username> WITH PASSWORD '<password>'
   (e.g. (`\'`) when creating the password and when submitting authentication requests.
 - Repeating the exact `CREATE USER` statement is idempotent.
   If any values change the database will return a duplicate user error.
-  See GitHub Issue [#6890](https://github.com/influxdata/influxdb/pull/6890) for details.
 
 ###### CLI example
 ```sql
