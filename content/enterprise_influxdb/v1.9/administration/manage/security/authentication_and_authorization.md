@@ -330,13 +330,7 @@ See [below](#user-management-commands) for a complete discussion of the user man
 -->
 
 #### Non-admin users
-Non-admin users can have one of the following three privileges per database:
 
-- `READ`
-- `WRITE`
-- `ALL` (both `READ` and `WRITE` access)
-
-`READ`, `WRITE`, and `ALL` privileges are controlled per user per database.
 When authentication is enabled
 a new non-admin user has no access to any database
 until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user)
