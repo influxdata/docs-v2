@@ -47,7 +47,7 @@ aren't synchronized with NTP, the timestamps on the data can be inaccurate.
 Debian and Ubuntu users can install the latest stable version of Telegraf using the `apt-get` package manager.
 
 ### Ubuntu
-Telegraf is available in Ubuntu 21.04+.
+Telegraf is available in **Ubuntu 21.04+**.
 Install by running:
 
 ```sh
