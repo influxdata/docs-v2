@@ -35,6 +35,7 @@ API tokens are visible only to the user who created them and stop working when t
 Use the [`influx auth create` command](/influxdb/v2.0/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
 See the [available flags](/influxdb/v2.0/reference/cli/influx/auth/create#flags).
+Only tokens with the `write: authorizations` permission can create tokens.
 
 ```sh
 # Syntax
@@ -53,3 +54,17 @@ influx auth create -o my-org \
 Filtering options such as filtering by authorization ID, username, or user ID are available.
 See the [`influx auth list` documentation](/influxdb/v2.0/reference/cli/influx/auth/list)
 for information about other available flags.
+
+## Create a token using the InfluxDB API
+
+Use the InfluxDB API to create a token.
+Provide your `orgID` and a list of permissions.
+Only tokens with the `write: authorizations` permission can create tokens.
+
+See the [available permissions](/influxdb/v2.0/api/#operation/PostAuthorizations).
+
+```sh
+# Example
+
+{{% get-shared-text "api/v2.0/auth/oss/token-create.sh" %}}
+```

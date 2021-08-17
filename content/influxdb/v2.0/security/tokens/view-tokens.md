@@ -38,3 +38,26 @@ influx auth list
 Filtering options such as filtering by authorization ID, username, or user ID are available.
 See the [`influx auth list` documentation](/influxdb/v2.0/reference/cli/influx/auth/list)
 for information about other available flags.
+
+## View tokens using the InfluxDB API
+
+Use the InfluxDB API to create a token.
+Only tokens with the `read: authorizations` permission can view tokens.
+
+See the [available permissions](/influxdb/v2.0/api/#operation/PostAuthorizations).
+
+### List all tokens in the organization
+
+```sh
+{{% get-shared-text "api/v2.0/auth/oss/tokens-view.sh" %}}
+```
+
+### View a specific token
+
+```sh
+{{% get-shared-text "api/v2.0/auth/oss/token-view.sh" %}}
+```
+
+Filtering options such as filtering by authorization ID, username, or user ID are available.
+See the [`influx auth list` documentation](/influxdb/v2.0/reference/cli/influx/auth/list)
+for information about other available flags.
