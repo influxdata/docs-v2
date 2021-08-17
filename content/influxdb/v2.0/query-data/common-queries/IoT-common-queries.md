@@ -26,14 +26,15 @@ To visualize the time in state, see the Mosaic visualization.
 ## Calculate time weighted average
 
 Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
+
 #### Example: Calculate hazardous exposure
 
 For example, you may want to calculate a person's exposure to a hazardous substance. OSHA uses time-weighted averages to determine permissible exposure limits (PELs).
 
 The total exposure considers both the total hours in the work day and exposure for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time.
 
-
 ##### Flux query to calculate time-weighted average
+
 ```js
 from(bucket: "monitor-exposure")
   |> range(start: -8h)
