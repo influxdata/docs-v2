@@ -33,6 +33,10 @@ There are multiple options for writing data into InfluxDB.
      - [Scrape data](/influxdb/v2.0/write-data/no-code/scrape-data/)
      - [no-code third-party technologies](/influxdb/v2.0/write-data/no-code/third-party/)
   - [Developer tools](/influxdb/cloud/write-data/developer-tools)
+     - [Optimize writes to InfluxDB](/influxdb/cloud/write-data/best-practices/optimize-writes/)
+     - [Handle duplicate data points](/influxdb/cloud/write-data/best-practices/duplicate-points/)
+     - [InfluxDB schema design](/influxdb/cloud/write-data/best-practices/schema-design/)
+     - [Revolve high series cardinality](/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/)
   - [Bulk ingest](/influxdb/cloud/write-data/bulk-ingest-cloud/)
   - [Load data source in UI](/influxdb/cloud/write-data/load-data/)
 
