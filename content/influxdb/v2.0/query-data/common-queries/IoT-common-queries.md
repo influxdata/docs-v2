@@ -15,7 +15,7 @@ The following scenarios walk through IoT sensor common queries:
 - [Calculate time weighted average](#calculate-time-weighted-average)
 - [Calculate value between events](#calculate-value-between-events)
 - [Record data points with added context](#record-data-points-with-added-context)
-- [Group aggregate on value change(s)](#group-aggregate-on-value-change(s))
+- [Group aggregate on value change(s)](#group-aggregate-on-value-changes)
 
 ## Record time in state
 

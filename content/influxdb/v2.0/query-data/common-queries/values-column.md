@@ -24,7 +24,7 @@ To operate on the value columns, see:
      - Count the number of unique values in a specified column.
 - [Recalculate the _values column](#recalculate-the-_values-column)
      - Recalculate the `_value` column without creating a new one.
-- [Use values to calculate a new column](#use-values-to-calculate-a-new-column)
+- [Use values to calculate a new column](#calculate-a-new-column-with-values)
      - Use the `map()` function to create a new column calculated from existing values in each row. 
 
 ## Find and count unique columns 
