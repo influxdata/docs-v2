@@ -348,8 +348,7 @@ or [both](#manage-admin-and-non-admin-users).
 
 #### Manage admin users
 
-To enable authentication,
-you must create at least one admin user before you can interact with the system.
+Create an admin user with:
 
 ```sql
 CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
