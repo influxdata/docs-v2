@@ -12,15 +12,21 @@ related:
   - /influxdb/cloud/reference/cli/influx/write/
 ---
 
-Use line protocol to write data to InfluxDB Cloud. Line protocol is a is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point. Learn more about [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/)
+Use line protocol to write data to InfluxDB Cloud. Line protocol is a is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point. Learn more about [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/). 
 
----
+To write data using line protocol, do the following: 
 
-Use _line protocol_ format to write data into InfluxDB.
-Each line represents a data point.
-Each point requires a [*measurement*](/influxdb/cloud/reference/syntax/line-protocol/#measurement)
-and [*field set*](/influxdb/cloud/reference/syntax/line-protocol/#field-set) and may also include
-a [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set) and a [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp).
+1. Make sure the line protocol adheres to the conventions. Each line represents a data point.
+   - Each point requires a:  
+     - [*measurement*](/influxdb/cloud/reference/syntax/line-protocol/#measurement)
+     - [*field set*](/influxdb/cloud/reference/syntax/line-protocol/#field-set)
+     - (Optional) [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set) 
+     - [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp) 
+2. Click **Data** in your left navigation bar. 
+3. Select **Line Protocol** and choose your bucket. 
+4. Select your **Precision** in the dropdown menu. By default it is by nanosections. 
+5. Upload your file or write it manually. 
+
 
 Line protocol data looks like this:
 
