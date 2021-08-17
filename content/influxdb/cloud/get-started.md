@@ -15,15 +15,6 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
 
 To get started working in Cloud, we recommend using notebooks to explore demo data and sample data. 
 
-To write data into InfluxDB, you need the following:
- 
-- **organization** – _See [View organizations](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
- for instructions on viewing your organization ID._
-- **bucket** – _See [View buckets](/influxdb/cloud/organizations/buckets/view-buckets/) for
- instructions on viewing your bucket ID._
-- **API token** – _See [View tokens](/influxdb/cloud/security/tokens/view-tokens/)
- for instructions on viewing your API token._
-- **InfluxDB Cloud region URL** – _See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)_.
 
 ## Add demo data
 
