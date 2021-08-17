@@ -44,7 +44,7 @@ from(bucket: "monitor-exposure")
   |> timeWeightedAvg(unit: 2h)
 ```
 
-In this example, a person is exposed to `1.0` unit of substance in the first `2hr` interval, with increasing exposure by `.5` unit every `2hr`. For the following input data:
+In this example, the `_value` in the table below shows input data from the `unit-exposure` field in the `sensor_1` measurement. A person is exposed to `1.0` unit of substance in the first `2hr` interval, with increasing exposure by `.5` unit every subsequent `2hr` period. For the following input data:
 
 | _time                | _value |
 |:-----                | ------:|
