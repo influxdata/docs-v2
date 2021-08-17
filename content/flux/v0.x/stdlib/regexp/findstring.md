@@ -12,6 +12,7 @@ menu:
 weight: 301
 related:
   - /flux/v0.x/stdlib/regexp/splitregexp
+  - /flux/v0.x/data-types/regexp/
 introduced: 0.33.1
 ---
 

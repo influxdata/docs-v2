@@ -11,6 +11,9 @@ menu:
     parent: universe
 weight: 102
 flux/v0.x/tags: [type-conversions]
+related:
+  - /flux/v0.x/data-types/basic/float/
+  - /flux/v0.x/stdlib/universe/tofloat/
 introduced: 0.7.0
 ---
 

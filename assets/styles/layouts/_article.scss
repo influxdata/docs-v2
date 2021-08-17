@@ -173,6 +173,17 @@
     &:hover {opacity: 1;}
   }
 
+  p.read-more {
+    text-align: right;
+    font-style: italic;
+  }
+
+  .highlight, pre, code, .flex-wrapper {
+    & + p.read-more {
+      margin: -.75rem 0 .5rem;
+    }
+  }
+
   /////////////////////////// Getting Started Buttons //////////////////////////
 
   .get-started-btns {

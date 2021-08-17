@@ -9,6 +9,8 @@ weight: 102
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/length/
   - /influxdb/cloud/reference/flux/stdlib/built-in/misc/length/
+related:
+  - /flux/v0.x/data-types/composite/array/
 introduced: 0.7.0
 ---
 

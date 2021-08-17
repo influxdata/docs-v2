@@ -80,8 +80,8 @@ The following output functions are are available:
 ---
 
 ### Transformations
-Flux transformation take a stream of tables as input, transform the data in some way,
-and output a stream of tables.
+Flux transformations take a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
+as input, transform the data in some way, and output a stream of tables.
 Transformations cover a broad range of functions, but the following categorizations
 highlight important behaviors associated with specific transformation functions.
 

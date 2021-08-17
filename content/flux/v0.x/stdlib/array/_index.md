@@ -15,6 +15,10 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [functions, array, package, table]
+cascade:
+  related:
+    - /flux/v0.x/data-types/composite/array/
+introduced: 0.103.0
 ---
 
 Flux Array functions provide tools for building tables from Flux arrays.
@@ -24,4 +28,5 @@ Import the `array` package:
 import "array"
 ```
 
+## Functions
 {{< children type="functions" show="pages" >}}
