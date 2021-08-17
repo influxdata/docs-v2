@@ -14,6 +14,8 @@ menu:
 products: [cloud]
 ---
 
+View the statistics of your data usage and rate limit through our Usage page. Cloud Usage tracks several metrics, some of which are pricing vectors that affect monthly costs and others that do not. For more information, see the [pricing plans](/influxdb/cloud/account-management/pricing-plans/). 
+
 To view your {{< cloud-name >}} data usage, do the following: 
 
 1. Click the **user avatar** on the left-side navigation. 
