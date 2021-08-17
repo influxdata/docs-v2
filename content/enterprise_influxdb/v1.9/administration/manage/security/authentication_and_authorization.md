@@ -266,13 +266,11 @@ Restart Telegraf and you're all set!
 To enable authorization, first [enable authentication](#enable-authentication).
 
 {{% note %}}
-**Manage InfluxDB Enterprise users with Chronograf**
+Only a subset of Enterprise permissions can be managed with InfluxQL.
 
-[Chronograf](/{{< latest "chronograf" >}}/) is an open source project that
-provides a user interface for working with InfluxDB and InfluxDB Enterprise.
-Consider using Chronograf to [manage InfluxDB users and roles](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
+Consider using Chronograf and/or the Enterprise meta API
+to [manage InfluxDB Enterprise users and roles](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
 
-<!-- LIMITATION -->
 <!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
 {{% /note %}}
 
@@ -280,11 +278,9 @@ Consider using Chronograf to [manage InfluxDB users and roles](/{{< latest "chro
 
 InfluxDB Enterprise has the following kinds of users:
 
-<!-- - [Global admin users](#global-admin-users) -->
 - [Admin users](#admin-users)
 - [Non-admin users](#non-admin-users)
 
-<!-- #### Global admin users -->
 #### Admin users
 
 Admin users have the following permissions:
@@ -337,7 +333,7 @@ until they are specifically [granted privileges to a database](#grant-read-write
 by an admin user.
 
 Non-admin users can [`SHOW`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-databases)
-the databases for which they have `READ` or `WRITE` permissions.
+the databases for which they have `ReadData` or `WriteData` permissions.
 
 ### User management commands
 
