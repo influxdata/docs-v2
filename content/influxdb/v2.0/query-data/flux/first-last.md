@@ -3,9 +3,7 @@ title: Query first and last values
 seotitle: Query first and last values in Flux
 list_title: First and last
 description: >
-  Use the [`first()`](/{{< latest "flux" >}}/stdlib/universe/first/) or
-  [`last()`](/{{< latest "flux" >}}/stdlib/universe/last/) functions
-  to return the first or last point in an input table.
+  Use `first()` or `last()` to return the first or last point in an input table.
 weight: 210
 menu:
   influxdb_2_0:
@@ -18,9 +16,9 @@ related:
 list_query_example: first_last
 ---
 
-Use the [`first()`](/{{< latest "flux" >}}/stdlib/universe/first/) or
-[`last()`](/{{< latest "flux" >}}/stdlib/universe/last/) functions
-to return the first or last record in an input table.
+Use [`first()`](/{{< latest "flux" >}}/stdlib/universe/first/) or
+[`last()`](/{{< latest "flux" >}}/stdlib/universe/last/) to return the first or
+last record in an input table.
 
 ```js
 data

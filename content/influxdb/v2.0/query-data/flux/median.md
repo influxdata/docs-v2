@@ -3,8 +3,7 @@ title: Find median values
 seotitle: Find median values in Flux
 list_title: Median
 description: >
-  Use the [`median()` function](/{{< latest "flux" >}}/stdlib/universe/median/)
-  to return a value representing the `0.5` quantile (50th percentile) or median of input data.
+  Use `median()` to return a value representing the `0.5` quantile (50th percentile) or median of input data.
 weight: 210
 menu:
   influxdb_2_0:

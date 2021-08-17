@@ -2,8 +2,7 @@
 title: Create histograms with Flux
 list_title: Histograms
 description: >
-  Use the [`histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram/)
-  to create cumulative histograms with Flux.
+  Use `histogram()` to create cumulative histograms with Flux.
 influxdb/v2.0/tags: [histogram]
 menu:
   influxdb_2_0:

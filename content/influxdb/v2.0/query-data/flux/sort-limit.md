@@ -3,10 +3,8 @@ title: Sort and limit data with Flux
 seotitle: Sort and limit data in InfluxDB with Flux
 list_title: Sort and limit
 description: >
-  Use the [`sort()`function](/{{< latest "flux" >}}/stdlib/universe/sort)
-  to order records within each table by specific columns and the
-  [`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
-  to limit the number of records in output tables to a fixed number, `n`.
+  Use `sort()` to order records within each table by specific columns and
+  `limit()` to limit the number of records in output tables to a fixed number, `n`.
 influxdb/v2.0/tags: [sort, limit]
 menu:
   influxdb_2_0:
@@ -21,9 +19,9 @@ related:
 list_query_example: sort_limit
 ---
 
-Use the [`sort()`function](/{{< latest "flux" >}}/stdlib/universe/sort)
-to order records within each table by specific columns and the
-[`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
+Use [`sort()`](/{{< latest "flux" >}}/stdlib/universe/sort)
+to order records within each table by specific columns and
+[`limit()`](/{{< latest "flux" >}}/stdlib/universe/limit)
 to limit the number of records in output tables to a fixed number, `n`.
 
 If you're just getting started with Flux queries, check out the following:

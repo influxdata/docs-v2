@@ -3,10 +3,8 @@ title: Calculate the rate of change
 seotitle: Calculate the rate of change in Flux
 list_title: Rate
 description: >
-  Use the [`derivative()` function](/{{< latest "flux" >}}/stdlib/universe/derivative/)
-  to calculate the rate of change between subsequent values or the
-  [`aggregate.rate()` function](/{{< latest "flux" >}}/stdlib/experimental/to/aggregate/rate/)
-  to calculate the average rate of change per window of time.
+  Use `derivative()` to calculate the rate of change between subsequent values or
+  `aggregate.rate()` to calculate the average rate of change per window of time.
   If time between points varies, these functions normalize points to a common time interval
   making values easily comparable.
 weight: 210
@@ -22,9 +20,9 @@ list_query_example: rate_of_change
 ---
 
 
-Use the [`derivative()` function](/{{< latest "flux" >}}/stdlib/universe/derivative/)
-to calculate the rate of change between subsequent values or the
-[`aggregate.rate()` function](/{{< latest "flux" >}}/stdlib/experimental/to/aggregate/rate/)
+Use [`derivative()`](/{{< latest "flux" >}}/stdlib/universe/derivative/)
+to calculate the rate of change between subsequent values or
+[`aggregate.rate()`](/{{< latest "flux" >}}/stdlib/experimental/to/aggregate/rate/)
 to calculate the average rate of change per window of time.
 If time between points varies, these functions normalize points to a common time interval
 making values easily comparable.
