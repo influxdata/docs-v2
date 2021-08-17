@@ -14,6 +14,9 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [regex, functions]
+cascade:
+  related:
+    - /flux/v0.x/data-types/regexp/
 ---
 
 The Flux regular expressions package includes functions that provide enhanced
