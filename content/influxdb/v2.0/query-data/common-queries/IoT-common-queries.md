@@ -1,7 +1,7 @@
 ---
 title: IoT sensor common queries
 description: >
-  Different scenarios for common queries -- IoT 
+  Find common queries used for IoT sensors.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
@@ -10,7 +10,7 @@ menu:
 weight: 205
 ---
 
-The following scenarios walk through IoT sensor common queries: 
+Use the following queries to retrieve information about your IoT sensors:
 - [Record time in state](#record-time-in-state)
 - [Calculate time weighted average](#calculate-time-weighted-average)
 - [Calculate value between events](#calculate-value-between-events)
@@ -19,13 +19,49 @@ The following scenarios walk through IoT sensor common queries:
 
 ## Record time in state
 
-Machine state is a Boolean value that changes states occasionally. I would like to know the percent of time or total time it was in the “true” state over a given interval. It is possible that no points were recorded during that interval, and that the last state prior to that interval is needed.
+Find the percentage of total time a state is “true” or "false" or "null" over a given interval. If no points are recorded during the interval, you may opt to retrieve the last state prior to the interval.
 
-We could potentially tie this example into using the Mosaic chart as well. Since Mosaic allows you to visualize time in state....
+To visualize the time in state, see the Mosaic visualization.
 
 ## Calculate time weighted average
 
-A flow sensor records data intermittently (whenever the data changes by a certain percentage) to save on overhead. I would like to know the time weighted average over a given interval. It is possible that no points were recorded during that interval, and that the last state prior to that interval is needed. Expand and create a more contextual example for: https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/ (non reference)/
+Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
+#### Example: Calculate hazardous exposure
+
+For example, you may want to calculate a person's exposure to a hazardous substance. OSHA uses time-weighted averages to determine permissible exposure limits (PELs).
+
+The total exposure considers both the total hours in the work day and exposure for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time.
+
+
+##### Flux query to calculate time-weighted average
+```js
+from(bucket: "monitor-exposure")
+  |> range(start: -8h)
+  |> filter(fn: (r) =>
+    r._measurement == "sensor_1"
+  )
+  |> timeWeightedAvg(unit: 2h)
+```
+
+In this example, a person is exposed to `1.0` unit of substance in the first `2hr` interval, with increasing exposure by `.5` unit every `2hr`. For the following input data:
+
+| _time                | _value |
+|:-----                | ------:|
+| 2021-01-01T00:09:00Z | 1.0    |
+| 2021-01-01T00:11:00Z | 1.5    |
+| 2021-01-01T00:01:00Z | 2.0    |
+| 2021-01-01T00:03:00Z | 2.5    |
+| 2021-01-01T00:05:00Z | 3.0    |
+
+Given the input data in the table above, the example function above does the following:
+
+1. Multiplies each value by its time-weighting interval: `1.0x2, 1.5x2, 2.0x2, 2.5x2, 3.0x2`
+2. Sums the values in step 1 to calculate the total weighted exposure: `2.0 + 3.0 + 4.0 + 5.0 + 6.0 = 20.0`
+3. Divides the value in step 2 by the total hours of exposure: `20.0/8 = 2.5` and returns:
+
+   | _value |
+   | :----: |
+   |  2.5   |
 
 ## Calculate value between events
 
