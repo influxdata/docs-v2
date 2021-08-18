@@ -20,7 +20,7 @@ menu:
 - Add two additional internal message types.
 
 ### Bug fixes
-- Update transformation adapter to correctly error when receiving a flush key
+- Update transformation adapter to return an error when receiving a flush key
   for a table that is not present.
 - Fix pivot operations when no data is left to operate on.
 - Update `join()` to produce columns of equivalent length when combining mismatched schemas.
