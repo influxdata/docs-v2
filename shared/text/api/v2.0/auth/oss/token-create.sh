@@ -13,23 +13,20 @@ curl -v --request POST \
     {
       "action": "read",
       "resource": {
-        "type": "authorizations",
-        "orgID": "'"${INFLUX_ORG_ID}"'"
+        "type": "authorizations"
       }
     },
     {
       "action": "read",
       "resource": {
-        "type": "buckets",
-        "orgID": "'"${INFLUX_ORG_ID}"'"
+        "type": "buckets"
       }
     },
     {
       "action": "write",
       "resource": {
         "type": "buckets",
-	"name": "iot-center", 
-        "orgID": "'"${INFLUX_ORG_ID}"'"
+        "name": "iot-center" 
       }
     }
   ]

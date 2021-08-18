@@ -58,13 +58,19 @@ for information about other available flags.
 ## Create a token using the InfluxDB API
 
 Use the InfluxDB API to create a token.
-Provide your `orgID` and a list of permissions.
+Send a `POST` request to the `/api/v2/authorizations` endpoint. Include your `orgID` and a [list of permissions](/influxdb/v2.0/api/#operation/PostAuthorizations) in the request body.
 Only tokens with the `write: authorizations` permission can create tokens.
 
-See the [available permissions](/influxdb/v2.0/api/#operation/PostAuthorizations).
+{{% api-endpoint method="POST" endpoint="/api/v2/authorizations" %}}
 
 ```sh
 # Example
 
 {{% get-shared-text "api/v2.0/auth/oss/token-create.sh" %}}
 ```
+
+Filtering options such as filtering by authorization ID, username, or user ID are available.
+See the
+[`POST /api/v2/authorizations` documentation](/influxdb/v2.0/api/#operation/PostAuthorizations)
+for more information about options.
+

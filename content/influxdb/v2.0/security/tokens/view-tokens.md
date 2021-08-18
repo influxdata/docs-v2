@@ -41,7 +41,8 @@ for information about other available flags.
 
 ## View tokens using the InfluxDB API
 
-Use the InfluxDB API to create a token.
+Use the InfluxDB API to view tokens and authorization details.
+Send a `GET` request to the `/api/v2/authorizations` endpoint.
 Only tokens with the `read: authorizations` permission can view tokens.
 
 See the [available permissions](/influxdb/v2.0/api/#operation/PostAuthorizations).
@@ -52,12 +53,11 @@ See the [available permissions](/influxdb/v2.0/api/#operation/PostAuthorizations
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view.sh" %}}
 ```
 
-### View a specific token
+To filter the list of tokens, include the authorization ID, username, or user ID in the querystring.
+
+#### Example
 
 ```sh
 {{% get-shared-text "api/v2.0/auth/oss/token-view.sh" %}}
 ```
 
-Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth list` documentation](/influxdb/v2.0/reference/cli/influx/auth/list)
-for information about other available flags.
