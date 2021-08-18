@@ -103,12 +103,14 @@ The queries in the following examples assume that the user is an [admin user](#a
 See the section on [authorization](#authorization)
 for the different user types, their privileges, and more on user management.
 
-> **Note:** InfluxDB Enterprise redacts passwords when you enable authentication.
+{{% note %}}
+InfluxDB Enterprise redacts passwords in log output when you enable authentication.
+{{% /note %}}
 
 ##### Authenticate with Basic Authentication
 ```bash
 curl -G http://localhost:8086/query \
-  -u todd:influxdb4ever \
+  -u todd:password4todd \
   --data-urlencode "q=SHOW DATABASES"
 ```
 
@@ -117,7 +119,7 @@ Set `u` as the username and `p` as the password.
 
 ###### Credentials as query parameters
 ```bash
-curl -G "http://localhost:8086/query?u=todd&p=influxdb4ever" \
+curl -G "http://localhost:8086/query?u=todd&p=password4todd" \
   --data-urlencode "q=SHOW DATABASES"
 ```
 
@@ -125,7 +127,7 @@ curl -G "http://localhost:8086/query?u=todd&p=influxdb4ever" \
 ```bash
 curl -G http://localhost:8086/query \
   --data-urlencode "u=todd" \
-  --data-urlencode "p=influxdb4ever" \
+  --data-urlencode "p=password4todd" \
   --data-urlencode "q=SHOW DATABASES"
 ```
 
@@ -143,9 +145,9 @@ authentication credentials to the `influx` CLI.
 
 ```bash
 export INFLUX_USERNAME=todd
-export INFLUX_PASSWORD=influxdb4ever
+export INFLUX_PASSWORD=password4todd
 echo $INFLUX_USERNAME $INFLUX_PASSWORD
-todd influxdb4ever
+todd password4todd
 
 influx
 Connected to http://localhost:8086 version {{< latest-patch >}}
@@ -157,7 +159,7 @@ Use the `-username` and `-password` flags to provide authentication credentials
 to the `influx` CLI.
 
 ```bash
-influx -username todd -password influxdb4ever
+influx -username todd -password password4todd
 Connected to http://localhost:8086 version {{< latest-patch >}}
 InfluxDB shell {{< latest-patch >}}
 ```
@@ -503,7 +505,7 @@ SET PASSWORD FOR <username> = '<password>'
 CLI example:
 
 ```sql
-> SET PASSWORD FOR "todd" = 'influxdb4ever'
+> SET PASSWORD FOR "todd" = 'password4todd'
 ```
 
 {{% note %}}
