@@ -230,7 +230,7 @@ dict.get(dict: d, key: "1", default: "")
 _For more information, see [Work with dictionaries](/flux/v0.x/data-types/composite/dict/)._
 
 #### Functions
-A **function** is a set of parameters that perform an operation.
+A **function** is a block of code that uses a set of parameters to perform an operation.
 Functions can be named or anonymous.
 Define parameters in parentheses (`()`) and pass parameters into an operation
 with the [arrow operator (`=>`)](/flux/v0.x/spec/operators/#function-operators).
