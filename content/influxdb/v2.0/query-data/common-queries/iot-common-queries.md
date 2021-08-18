@@ -55,7 +55,6 @@ from(bucket: "monitor-exposure")
 ## Calculate time weighted average
 
 Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
-
 #### Example: Calculate hazardous exposure
 
 For example, you may want to calculate a person's exposure to a hazardous substance. OSHA uses time-weighted averages to determine permissible exposure limits (PELs).
@@ -69,11 +68,12 @@ from(bucket: "monitor-exposure")
   |> range(start: -8h)
   |> filter(fn: (r) =>
     r._measurement == "sensor_1"
+    r._field == "unit-exposure"
   )
   |> timeWeightedAvg(unit: 2h)
 ```
 
-In this example, a person is exposed to `1.0` unit of substance in the first `2hr` interval, with increasing exposure by `.5` unit every `2hr`. For the following input data:
+In this example, the `_value` in the table below shows input data from the `unit-exposure` field in the `sensor_1` measurement. A person is exposed to `1.0` unit of substance in the first `2hr` interval, with increasing exposure by `.5` unit every subsequent `2hr` period. For the following input data:
 
 | _time                | _value |
 |:-----                | ------:|
