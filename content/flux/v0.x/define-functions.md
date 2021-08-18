@@ -207,7 +207,7 @@ data
 To create custom functions with variables scoped to the function,
 
 1. Enclose your [function body](#function-definition-syntax) in a
-   [block (`{}`)](/influxdb/v2.0/reference/flux/language/blocks/).
+   [block (`{}`)](/flux/v0.x/spec/blocks/).
 2. Use a `return` statement to return a specific variable.
 
 ```js
@@ -245,7 +245,7 @@ alertLevel(v: 87.3)
 {{% expand "Convert a HEX color code to a name" %}}
 #### Convert a HEX color code to a name
 The following function converts a hexadecimal (HEX) color code to the equivalent HTML color name.
-The functions uses the [Flux dictionary package](/influxdb/v2.0/reference/flux/stdlib/dict/)
+The functions uses the [Flux dictionary package](/flux/v0.x/stdlib/dict/)
 to create a dictionary of HEX codes and their corresponding names.
 
 ```js

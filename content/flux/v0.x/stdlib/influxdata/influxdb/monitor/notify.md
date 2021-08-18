@@ -16,7 +16,7 @@ introduced: 0.39.0
 ---
 
 The `monitor.notify()` function sends a notification to an endpoint and logs it
-in the `notifications` measurement in the [`_monitoring` bucket](/influxdb/v2.0/reference/internals/system-buckets/#monitoring-system-bucket).
+in the `notifications` measurement in the [`_monitoring` bucket](/influxdb/cloud/reference/internals/system-buckets/#monitoring-system-bucket).
 
 ```js
 import "influxdata/influxdb/monitor"
@@ -46,7 +46,7 @@ The data record must contain the following fields:
 
 The InfluxDB monitoring and alerting system uses `monitor.notify()` to store
 information about sent notifications and automatically assigns these values.
-If writing a custom notification [task](/influxdb/v2.0/process-data/),
+If writing a custom notification [task](/influxdb/cloud/process-data/),
 we recommend using **unique arbitrary values** for data record fields.
 
 ## Examples

@@ -15,7 +15,7 @@ flux/v0.x/tags: [tests, inputs]
 introduced: 0.20.0
 ---
 
-The `testing.loadMem()` function loads [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+The `testing.loadMem()` function loads [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/)
 test data from memory to emulate query results returned by Flux.
 
 ```js
@@ -29,7 +29,7 @@ testing.loadMem(
 ## Parameters
 
 ### csv {data-type="string"}
-[Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) data to load.
+[Annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) data to load.
 
 ## Examples
 

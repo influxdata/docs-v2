@@ -86,7 +86,7 @@ identity: {sum: 0.0, count: 0.0}
 #### Dropped columns
 By default, `reduce()` drops any columns that:
 
-1. Are not part of the input table's [group key](/influxdb/v2.0/reference/glossary/#group-key).
+1. Are not part of the input table's [group key](/flux/v0.x/get-started/data-model/#group-key).
 2. Are not explicitly mapped in the `reduce()` function.
 
 ## Examples

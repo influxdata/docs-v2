@@ -22,7 +22,7 @@ the results of the first query are met.
 
 ##### Applicable use cases
 - Writing to a bucket and querying the written data in a single Flux script or
-  [InfluxDB task](/influxdb/v2.0/process-data/get-started/).
+  [InfluxDB task](/influxdb/cloud/process-data/get-started/).
 - Execute queries sequentially in testing scenarios.
 
 ```js

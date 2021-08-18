@@ -59,7 +59,7 @@ _(Required when executed outside of InfluxDB)_.
 Default is `""`.
 
 ### token {data-type="string"}
-InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+InfluxDB [API token](/{{< latest "influxdb" >}}/security/tokens/)
 _(Required when executed outside of InfluxDB)_.
 Default is `""`.
 

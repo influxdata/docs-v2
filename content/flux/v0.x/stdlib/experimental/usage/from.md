@@ -74,7 +74,7 @@ InfluxDB Cloud organization ID _(Required if executed outside of your InfluxDB C
 Default is `""`.
 
 ### token {data-type="string"}
-InfluxDB Cloud [authentication token](/influxdb/v2.0/security/tokens/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
+InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 Default is `""`.
 
 ### raw {data-type="bool"}

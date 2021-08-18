@@ -45,7 +45,7 @@ in important ways:
 
 - `elapsed()` drops the first record. `events.duration()` does not.
 - `stateDuration()` calculates the total time spent in a state (determined by a
-  [predicate function](/influxdb/v2.0/reference/glossary/#predicate-function)).
+  [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)).
   `events.duration()` returns the duration between all records and their subsequent records.
 
 For examples, see [below](#compared-to-similar-functions).

@@ -71,7 +71,7 @@ Specify your [S2 Cell ID level](https://s2geometry.io/resources/s2cell_statistic
 
 {{% note %}}
 To filter more quickly, use higher S2 Cell ID levels,
-but know that that higher levels increase [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality).
+but know that that higher levels increase [series cardinality](/{{< latest "influxdb" >}}/reference/glossary/#series-cardinality).
 {{% /note %}}
 
 Language-specific implementations of the S2 Geometry Library provide methods for

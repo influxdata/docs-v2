@@ -146,7 +146,7 @@ categorized as [aggregate functions](#aggregates) in this documentation:
 ### Dynamic queries
 Flux dynamic query functions extract a table from a stream of tables and access its
 columns and records.
-For recommended usage, see [Extract scalar values](/influxdb/v2.0/query-data/flux/scalar-values/).
+For recommended usage, see [Extract scalar values](/influxdb/cloud/query-data/flux/scalar-values/).
 
 {{< list-all-functions filters="dynamic queries" >}}
 

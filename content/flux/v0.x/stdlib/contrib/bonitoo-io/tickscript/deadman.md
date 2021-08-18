@@ -18,7 +18,7 @@ introduced: 0.111.0
 ---
 
 The `tickscript.deadman()` function detects low data throughput and writes a point
-with a critical status to the InfluxDB [`_monitoring` system bucket](/influxdb/v2.0/reference/internals/system-buckets/).
+with a critical status to the InfluxDB [`_monitoring` system bucket](/{{< latest "influxdb" >}}/reference/internals/system-buckets/).
 For each input table containing a number of rows less than or equal to the specified
 [threshold](#threshold), the function assigns a `crit` value to the `_level` column.
 

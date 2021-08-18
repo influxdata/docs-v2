@@ -51,8 +51,8 @@ The name of the Cloud Bigtable table to retrieve data from.
 ## Examples
 
 {{% note %}}
-The example below uses [InfluxDB secrets](/influxdb/v2.0/security/secrets/) to populate
-sensitive connection credentials.
+The example below uses [InfluxDB secrets](/{{< latest "influxdb" >}}/security/secrets/)
+to populate sensitive connection credentials.
 {{% /note %}}
 
 ```js

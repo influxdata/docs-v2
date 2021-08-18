@@ -62,7 +62,7 @@ include a table with the following columns:
 
 ### operator
 The `operator` profiler output statistics about each operation in a query.
-[Operations executed in the storage tier](/influxdb/v2.0/query-data/optimize-queries/#start-queries-with-pushdown-functions)
+[Operations executed in the storage tier](/influxdb/cloud/query-data/optimize-queries/#start-queries-with-pushdown-functions)
 return as a single operation.
 When the `operator` profile is enabled, results returned by [`yield()`](/flux/v0.x/stdlib/universe/yield/)
 include a table with a row for each operation and the following columns:

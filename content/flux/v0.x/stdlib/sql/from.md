@@ -99,7 +99,7 @@ Query to run against the SQL database.
 - [SAP HANA](#query-a-sap-hana-database)
 
 {{% note %}}
-The examples below use [InfluxDB secrets](/influxdb/v2.0/security/secrets/) to populate
+The examples below use [InfluxDB secrets](/{{< latest "influxdb" >}}/security/secrets/) to populate
 sensitive connection credentials.
 {{% /note %}}
 
@@ -154,7 +154,7 @@ sql.from(
 {{% warn %}}
 **InfluxDB OSS** and **InfluxDB Cloud** do not have direct access to the local filesystem
 and cannot query SQLite data sources.
-Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to query a SQLite data source
+Use the [Flux REPL](/influxdb/cloud/tools/repl/) to query a SQLite data source
 on your local filesystem.
 {{% /warn %}}
 
@@ -234,7 +234,7 @@ azure auth=ENV
 **InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ provide
 access to the underlying file system and do not support reading credentials from a file.
 To retrieve SQL Server credentials from a file, execute the query in the
-[Flux REPL](/influxdb/v2.0/tools/repl/) on your local machine.
+[Flux REPL](/influxdb/cloud/tools/repl/) on your local machine.
 {{% /warn %}}
 
 ```powershel

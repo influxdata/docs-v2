@@ -45,7 +45,7 @@ geo.gridFilter(
 {{% note %}}
 #### s2_cell_id must be part of the group key
 To filter geo-temporal data with `geo.gridFilter()`, `s2_cell_id` must be part
-of the [group key](/influxdb/v2.0/reference/glossary/#group-key).
+of the [group key](/flux/v0.x/get-started/data-model/#group-key).
 To add `s2_cell_id` to the group key, use [`experimental.group`](/flux/v0.x/stdlib/experimental/group/):
 
 ```js

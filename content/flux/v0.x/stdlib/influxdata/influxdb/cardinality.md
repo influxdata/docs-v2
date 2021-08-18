@@ -59,7 +59,7 @@ String-encoded bucket ID to query cardinality from.
 Organization name.
 
 ### orgID {data-type="string"}
-String-encoded [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) to query cardinality from.
+String-encoded [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id) to query cardinality from.
 
 ### host {data-type="string"}
 URL of the InfluxDB instance to query.
@@ -67,7 +67,7 @@ _See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions) or
 [InfluxDB OSS URLs](/{{< latest "influxdb" "v2" >}}/reference/urls/)._
 
 ### token {data-type="string"}
-InfluxDB [authentication token](/{{< latest "influxdb" "v2" >}}/security/tokens/).
+InfluxDB [API token](/{{< latest "influxdb" "v2" >}}/security/tokens/).
 
 ### start {data-type="duration, time"}
 The earliest time to include when calculating cardinality.

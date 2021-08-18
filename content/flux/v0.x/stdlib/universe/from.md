@@ -60,16 +60,17 @@ String-encoded bucket ID to query.
 
 ### host {data-type="string"}
 URL of the InfluxDB instance to query.
-_See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)._
+_See [InfluxDB URLs](/{{< latest "influxdb" >}}/reference/urls/) or
+[InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)._
 
 ### org {data-type="string"}
 Organization name.
 
 ### orgID {data-type="string"}
-String-encoded [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) to query.
+String-encoded [organization ID](/{{< latest "influxdb" >}}/organizations/view-orgs/#view-your-organization-id) to query.
 
 ### token {data-type="string"}
-InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
+InfluxDB [API token](/{{< latest "influxdb" >}}/security/tokens/).
 
 ## Examples
 
