@@ -48,7 +48,8 @@ endpoints (for example, Graphite, collectd, etc.) are not authenticated.
 
 ### Enable authentication
 
-By default, authentication is disabled, all credentials are silently ignored, and all users have all privileges.
+Authentication is disabled in InfluxDB and InfluxDB Enterprise.
+all credentials are silently ignored, and all users have all privileges.
 To enable authentication in a cluster, do the following:
 
 1. **Create at least one [admin user](#admin-users)**.
@@ -57,10 +58,8 @@ To enable authentication in a cluster, do the following:
    CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
    ```
 
-   {{% note %}}
-If you enable authentication and have no users, InfluxDB Enterprise will **not** enforce authentication
-and will only accept the [query](#user-management-commands) that creates a new admin user.
-   {{% /note %}}
+If you enable authentication and have no users, InfluxDB Enterprise *will not enforce authentication*.
+It will only accept the [query](#user-management-commands) that creates a new admin user.
 
 2. **Enable authentication in your meta and data configuration files**
    by setting the `auth-enabled` option to `true` in the `[http]` section:
