@@ -16,7 +16,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 ## v1.8.8 [unreleased]
 
-Due to encountering several issues building v.1.8.8, this version will not be released.  
+Due to encountering several issues with build dependencies in v.1.8.8, this version will not be released.  
 
 ## v1.8.7 [2021-07-21]
 The InfluxDB Enterprise 1.8.7 release builds on the InfluxDB OSS 1.8.7 release.

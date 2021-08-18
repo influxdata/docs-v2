@@ -37,8 +37,8 @@ Automatically manage and use tokens from the CLI using [`influx config`](/influx
 
 ### Use a token in an API request
 
-Use tokens in [API requests](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api/).
+Use tokens in [API requests](/influxdb/v2.0/api-guide/api_intro/#authentication).
 
 ### Use a token in Postman
 
-Make authenticated requests with tokens [using Postman](https://docs.influxdata.com/influxdb/v2.0/tools/postman/).
+Make authenticated requests with tokens [using Postman](/influxdb/v2.0/api-guide/postman/).

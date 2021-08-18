@@ -12,7 +12,6 @@ aliases:
   - /influxdb/v2.0/reference/api/client-libraries/nodejs/write
 ---
 
-## Write data to InfluxDB with JavaScript
 Use the Javascript library to write data to InfluxDB in a Node.js environment.
 
 1. Instantiate an `InfluxDB` client. Provide your InfluxDB `url` and `token`.
