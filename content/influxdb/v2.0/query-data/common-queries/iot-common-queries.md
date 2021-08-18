@@ -23,16 +23,12 @@ Find the percentage of total time a state is “true” or "false" or "null" ove
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
-#### Example: Calculate hazardous exposure 
-
 The following example queries data from its bucket and calculates the percentage of times hazardous substances were released into the air. Air with any amount of hazardous substances would be "true" while air with no amount of hazardous substances would be "false." 
-
-##### Flux query to calculate percentages 
 
 To find percentage of total time, the state is "true" or "false", make sure the data includes the following: 
 - `monitor` measurement 
-- **`mem_used` field**: used monitor memory in bytes
-- **`mem_total` field**: total monitor memory in bytes
+- **`unit-exposure_used` field**: used exposure memory in bytes
+- **`unit-expsoure_total` field**: total exposure memory in bytes
 
 ```js
 from(bucket: "monitor-exposure")
@@ -42,7 +38,7 @@ from(bucket: "monitor-exposure")
 
 ##### Mosaic visualization 
 
-The following query displays the change in air quality over time. A mosaic visualization displays state changes over time. 
+The following query displays the change in air quality over time. A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of hazardous materials in the air. 
 
 ```js
 from(bucket: "monitor-exposure")
