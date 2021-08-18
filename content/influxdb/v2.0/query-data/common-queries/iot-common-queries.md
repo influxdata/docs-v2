@@ -21,7 +21,7 @@ Use the following queries to retrieve information about your IoT sensors:
 
 Find the percentage of total time a state is “true” or "false" or "null" over a given interval. If no points are recorded during the interval, you may opt to retrieve the last state prior to the interval.
 
-To visualize the time in state, see the Mosaic visualization.
+To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
 #### Example: Calculate hazardous exposure 
 
@@ -37,7 +37,7 @@ To find percentage of total time, the state is "true" or "false", make sure the 
 ```js
 from(bucket: "monitor-exposure")
   |> range(start: -8h)
-  |> filter(fn: (r) => r._measurement == "sensor_1" and r._field =~ /mem_/)
+  |> filter(fn: (r) => r._measurement == "sensor_1" and r._field = "unit-exposure")
 ```
 
 ##### Mosaic visualization 
@@ -48,13 +48,16 @@ The following query displays the change in air quality over time. A mosaic visua
 from(bucket: "monitor-exposure")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r._measurement == "sensor_1")
-  |> filter(fn: (r) => r._field == "/mem_/")
+  |> filter(fn: (r) => r._field == "unit-exposure")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
+
+For more information about mosaic visualizations, see [here](/influxdb/cloud/visualize-data/visualization-types/mosaic/). 
 
 ## Calculate time weighted average
 
 Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
+
 #### Example: Calculate hazardous exposure
 
 For example, you may want to calculate a person's exposure to a hazardous substance. OSHA uses time-weighted averages to determine permissible exposure limits (PELs).
