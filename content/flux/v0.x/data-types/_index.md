@@ -15,6 +15,4 @@ and types are inferred from how a variable is used.
 
 Flux data types are organized into the following:
 
-{{< children type="anchored-list" >}}
-
 {{< children hlevel="h2" >}}

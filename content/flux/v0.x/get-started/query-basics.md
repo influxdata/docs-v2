@@ -6,80 +6,14 @@ menu:
   flux_0_x:
     name: Query basics
     parent: Get started
-weight: 102
+weight: 103
 ---
 
 Most Flux queries follow the same basic structure.
 Familiarize yourself with the basic concepts and steps to use when querying data with Flux. 
 
-- [Important concepts](#important-concepts)
 - [Basic query structure](#basic-query-structure)
 - [Write a basic query](#write-a-basic-query)
-
-## Important concepts
-
-- [Pipe-forward operator](#pipe-forward-operator)
-- [Predicate expressions](#predicate-expressions)
-- [Predicate functions](#predicate-functions)
-- [Packages](#packages)
-
-### Pipe-forward operator
-The **pipe-forward operator** (`|>`) sends output of a function as input to the next function.
-In the [water treatment metaphor](/flux/v0.x/get-started/#flux-overview),
-the pipe-forward operator is the pipe that carries water or data through the pipeline.
-
-### Predicate expressions
-A predicate is an expression that evaluates to `true` or `false`.
-A predicate expression consists of [comparison operators](/flux/v0.x/spec/operators/#comparison-operators)
-and [logical operators](/flux/v0.x/spec/operators/#logical-operators) that specify a
-relationship between values or operands.
-For example:
-
-```js
-"John" == "John"
-// Evaluates to true
-
-41 < 30
-// Evaluates to false
-
-"John" == "John" and 41 < 30
-// Evaluates to false
-
-"John" == "John" or 41 < 30
-// Evaluates to true
-```
-
-Flux uses predicate expressions when [filtering data](#filter) or in
-[conditional expressions](/flux/v0.x/spec/expressions/#conditional-expressions).
-
-### Predicate functions
-Predicate functions use [predicate expressions](#predicate-expressions) to evaluate
-input and return `true` or `false`. For example:
-
-```js
-examplePredicate = (v) => v == "foo"
-
-examplePredicate(v: "foo")
-// Returns true
-
-examplePredicate(v: "bar")
-// Returns false
-```
-
-### Packages
-The [Flux standard library](/flux/v0.x/stdlib/) is organized into [packages](/flux/v0.x/spec/packages/)
-that contain functions and package-specific options.
-The [universe package](/flux/v0.x/stdlib/universe/) is loaded by default.
-To load other packages, include an import statement for each package at the
-beginning of your Flux script.
-
-```js
-import "array"
-import "math"
-import "influxdata/influxdb/sample"
-```
-
----
 
 ## Basic query structure
 
@@ -259,3 +193,5 @@ Results from this basic query should be similar to the following:
 |   co   |  airSensors  |  TLM0201  |   0.297474366047375 |
 |   co   |  airSensors  |  TLM0202  |  0.3336370208486757 |
 |   co   |  airSensors  |  TLM0203  |  0.4948166816959906 |
+
+{{< page-nav prev="/flux/v0.x/get-started/syntax-basics/" >}}

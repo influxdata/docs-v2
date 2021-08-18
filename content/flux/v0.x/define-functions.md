@@ -82,7 +82,7 @@ A [transformation](/flux/v0.x/function-types/#transformations) is a function tha
 takes a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 as input, operates on the input, and then outputs a new stream of tables.
 
-The [pipe-forward operator](/flux/v0.x/get-started/query-basics/#pipe-forward-operator) (`|>`)
+The [pipe-forward operator](/flux/v0.x/get-started/syntax-basics/#pipe-forward-operator) (`|>`)
 pipes data from the previous identifier or function forward into a transformation.
 To use piped-forward data, assign a function parameter to the 
 [pipe-receive operator](/flux/v0.x/spec/operators/#function-operators) (`<-`).
