@@ -22,16 +22,6 @@ This document covers setting up and managing authentication and authorization in
   - [User Management Commands](#user-management-commands)
 - [HTTP Errors](#authentication-and-authorization-http-errors)
 
-{{% note %}}
-If InfluxDB Enterprise is being deployed on a publicly accessible endpoint,
-we **strongly recommend** enabling authentication.
-Otherwise, data and potentially destructive commands will be publicly available to any unauthenticated user.
-If additional security or compliance features are desired,
-InfluxDB Enterprise should be run behind a third-party service.
-Authentication and authorization should not be soley relied upon
-to prevent access and protect data from malicious actors.
-{{% /note %}}
-
 ## Authentication
 
 The InfluxDB API and the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/),
@@ -44,6 +34,16 @@ InfluxDB Enterprise only executes HTTP requests that are sent with valid credent
 Authentication only occurs at the HTTP request scope.
 Plugins do not currently have the ability to authenticate requests and service
 endpoints (for example, Graphite, collectd, etc.) are not authenticated.
+{{% /note %}}
+
+{{% note %}}
+If InfluxDB Enterprise is being deployed on a publicly accessible endpoint,
+we **strongly recommend** enabling authentication.
+Otherwise, data and potentially destructive commands will be publicly available to any unauthenticated user.
+If additional security or compliance features are desired,
+InfluxDB Enterprise should be run behind a third-party service.
+Authentication and authorization should not be soley relied upon
+to prevent access and protect data from malicious actors.
 {{% /note %}}
 
 ### Enable authentication
@@ -264,16 +264,15 @@ Restart Telegraf and you're all set!
 
 ## Authorization
 
+Authorization in InfluxDB Enterprise refers to managing user permissions.
 To enable authorization, first [enable authentication](#enable-authentication).
 
-{{% note %}}
-Only a subset of Enterprise permissions can be managed with InfluxQL.
-
-Consider using Chronograf and/or the Enterprise meta API
-to [manage InfluxDB Enterprise users and roles](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
-
+This page shows examples of basic user and permission management using InfluxQL statements.
+However, *only a subset of Enterprise permissions can be managed with InfluxQL.*
+Consider using [Chronograf](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/)
+and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
+to manage InfluxDB Enterprise users and roles.
 <!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
-{{% /note %}}
 
 ### User types and privileges
 
