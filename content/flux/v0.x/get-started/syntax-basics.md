@@ -1,7 +1,7 @@
 ---
 title: Flux syntax basics
 description: >
-  Learn the basic elements of Flux syntax with real-world application examples.
+  Learn the basic elements of Flux syntax with examples from real-world applications.
 menu:
   flux_0_x:
     name: Syntax basics
@@ -26,14 +26,14 @@ This guide walks through a handful of simple expressions and how they are handle
     - [Functions](#functions)
   - [Regular expression types](#regular-expression-types)
 - [Packages](#packages)
-- [Examples of of basic syntax](#examples-of-basic-syntax)
+- [Examples of basic syntax](#examples-of-basic-syntax)
   - [Define data stream variables](#define-data-stream-variables)
   - [Define custom functions](#define-custom-functions)
 
 ## Pipe-forward operator
-The **pipe-forward operator** (`|>`) sends output of a function as input to the next function.
+The **pipe-forward operator** (`|>`) sends the output of one function as input to the next function.
 In the [water treatment metaphor](/flux/v0.x/get-started/#flux-overview),
-the pipe-forward operator is the pipe that carries water or data through the pipeline.
+the pipe-forward operator is the pipe that carries water (or data) through the pipeline.
 
 ```js
 data
@@ -42,7 +42,7 @@ data
 ```
 
 ## Simple expressions
-Flux is a scripting language that supports basic expressions.
+Flux supports basic expressions.
 For example:
 
 ```js
@@ -187,7 +187,7 @@ o["favorite color"]
 _For more information, see [Work with records](/flux/v0.x/data-types/composite/record/)._
 
 #### Arrays
-An **arrays** is a collection of values of the same type.
+An **array** is a collection of values of the same type.
 
 ```js
 n = 4
@@ -243,7 +243,7 @@ square(n:3)
 ```
 
 {{% note %}}
-Flux does not support positional arguments or parameters.
+Flux does not support positional parameters.
 Parameters must always be named when calling a function.
 {{% /note %}}
 
