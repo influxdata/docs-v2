@@ -62,7 +62,6 @@ _For more information, see [`webexteams.message()` parameters](/influxdb/v2.0/re
 import "contrib/sranka/webexteams"
 import "influxdata/influxdb/secrets"
 
-// this value can be stored in the secret-store()
 token = secrets.get(key: "WEBEX_API_KEY")
 
 from(bucket: "example-bucket")
