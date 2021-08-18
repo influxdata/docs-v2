@@ -15,7 +15,7 @@ related:
 Use line protocol to write data to InfluxDB Cloud. Line protocol is a is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point. Learn more about [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/). 
 
 Write data using line protocol with the following methods: 
-- [UI](#write-line-protocol-with-UI)
+- [UI](#write-line-protocol-with-ui)
 - [Influx write command](#influx-write-command)
 
 ## Write line protocol with UI 
@@ -43,12 +43,12 @@ to InfluxDB.
 Set the path for your `--file` flag and set the path for your `--format`. 
 Verify that your line protocol follows the correct conventions. 
 
-##### Example write command
+#### Example write command
 ```sh
 influx write -b example-bucket -f path/to/example.csv
 ```
 
-##### line protocol format
+#### line protocol format
 ```
 mem,host=host1 used_percent=64.23 1577836800000000000
 mem,host=host2 used_percent=72.01 1577836800000000000
@@ -56,6 +56,78 @@ mem,host=host1 used_percent=62.61 1577836810000000000
 mem,host=host2 used_percent=72.98 1577836810000000000
 mem,host=host1 used_percent=63.40 1577836820000000000
 mem,host=host2 used_percent=73.77 1577836820000000000
+```
+
+#### Write line protocol
+
+- [via stdin](#write-line-protocol-via-stdin)
+- [from a file](#write-line-protocol-from-a-file)
+- [from multiple files](#write-line-protocol-from-multiple-files)
+- [from a URL](#write-line-protocol-from-a-url)
+- [from multiple URLs](#write-line-protocol-from-multiple-urls)
+- [from multiple sources](#write-line-protocol-from-multiple-sources)
+- [from a compressed file](#write-line-protocol-from-a-compressed-file)
+
+#### Write line protocol via stdin
+```sh
+influx write --bucket example-bucket "
+m,host=host1 field1=1.2
+m,host=host2 field1=2.4
+m,host=host1 field2=5i
+m,host=host2 field2=3i
+"
+```
+
+##### Write line protocol from a file
+```sh
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol.txt
+```
+
+##### Write line protocol from multiple files
+```sh
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol-1.txt \
+  --file path/to/line-protocol-2.txt
+```
+
+##### Write line protocol from a URL
+```sh
+influx write \
+  --bucket example-bucket \
+  --url https://example.com/line-protocol.txt
+```
+
+##### Write line protocol from multiple URLs
+```sh
+influx write \
+  --bucket example-bucket \
+  --url https://example.com/line-protocol-1.txt \
+  --url https://example.com/line-protocol-2.txt
+```
+
+##### Write line protocol from multiple sources
+```sh
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol-1.txt \
+  --url https://example.com/line-protocol-2.txt
+```
+
+##### Write line protocol from a compressed file
+```sh
+# The influx CLI assumes files with the .gz extension use gzip compression 
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol.txt.gz
+
+# Specify gzip compression for gzipped files without the .gz extension
+influx write \
+  --bucket example-bucket \
+  --file path/to/line-protocol.txt.comp \
+  --compression gzip
 ```
 
 --- 
