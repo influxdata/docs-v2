@@ -101,7 +101,7 @@ the visualization dropdown.
 {{< img-hd src="/img/influxdb/2-0-visualizations-graph-linear-static.png" alt="Line Graph example" />}}
 
 ##### Graph with smooth interpolation and hover legend
-{{< img-hd src="/img/influxdb/2-0-visualizations-graph-smooth-hover.pmg" alt="Step-Plot Graph example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-graph-smooth-hover.png" alt="Step-Plot Graph example" />}}
 
 ##### Graph with step interpolation and no visible legend
 {{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-step-example-8.png" alt="Step-Plot Graph example" />}}

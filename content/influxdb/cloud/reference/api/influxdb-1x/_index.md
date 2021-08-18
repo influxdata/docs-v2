@@ -24,10 +24,10 @@ like [Grafana](https://grafana.com) and others.
 
 {{% cloud %}}
 InfluxDB Cloud requires all query and write requests to be authenticated using
-[InfluxDB authentication tokens](/influxdb/cloud/security/tokens/).
+[InfluxDB API tokens](/influxdb/cloud/security/tokens/).
 {{% /cloud %}}
 
-Use InfluxDB authentication tokens with the following authentication schemes:
+Use InfluxDB API tokens with the following authentication schemes:
 
 * [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
 * [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
@@ -35,7 +35,7 @@ Use InfluxDB authentication tokens with the following authentication schemes:
 ### Authenticate with the Token scheme
 Token authentication requires the following credential:
 
-- **token**: InfluxDB [authentication token](/influxdb/cloud/security/tokens/)
+- **token**: InfluxDB [API token](/influxdb/cloud/security/tokens/)
 
 Use the `Authorization` header with the `Token` scheme to provide your
 token to InfluxDB.
@@ -75,7 +75,7 @@ Use the following schemes with clients that support the InfluxDB 1.x convention 
 
 Username and password schemes require the following credentials:
 - **username**: InfluxDB Cloud username
-- **password**: InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/)
+- **password**: InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/)
 
 #### Basic authentication
 Use the `Authorization` header with the `Basic` scheme to provide username and password credentials to InfluxDB.

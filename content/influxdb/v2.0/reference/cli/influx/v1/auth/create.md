@@ -33,7 +33,7 @@ influx v1 auth create [flags]
 |      | `--password`      | Password to set on the authorization                                                                       |             |                         |
 |      | `--read-bucket`   | Bucket ID to assign read permissions to                                                                    | stringArray |                         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                                          |             |                         |
-| `-t` | `--token`         | Authentication token                                                                                       | string      | `$INFLUX_TOKEN`         |
+| `-t` | `--token`         | API token                                                                                       | string      | `$INFLUX_TOKEN`         |
 |      | `--username`      | ({{< req >}}) Token username                                                                               | string      |                         |
 |      | `--write-bucket`  | Bucket ID to assign write permissions to                                                                   | stringArray |                         |
 

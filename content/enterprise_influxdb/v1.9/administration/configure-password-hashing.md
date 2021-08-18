@@ -11,7 +11,6 @@ related:
     - /enterprise_influxdb/v1.9/administration/configuration/
 ---
 
-
 By default, InfluxDB Enterprise uses `bcrypt` for password hashing.
 [FIPS] compliance requires particular hashing alorithms.
 Use `pbkdf2-sha256` or `pbkdf2-sha512` for FIPS compliance.
@@ -60,6 +59,24 @@ The `meta.password-hash` setting must be the same in both the data and meta node
 
   # Configures strict FIPS-readiness check on startup.
   ensure-fips = true
+```
+
+## Using FIPS readiness checks
+
+InfluxDB Enterprise outputs information about the current password hashing configuration at startup.
+For example:
+
+```
+2021-07-21T17:20:44.024846Z     info    Password hashing configuration: pbkdf2-sha256;rounds=29000;salt_len=16  {"log_id": "0VUXBWE0001"}
+2021-07-21T17:20:44.024857Z     info    Password hashing is FIPS-ready: true   {"log_id": "0VUXBWE0001"}
+```
+
+When `ensure-fips` is enabled, attempting to use `password-hash = bcrypt`
+will cause the FIPS check to fail.
+The node then exits with an error in the logs:
+
+```
+run: create server: passwordhash: not FIPS-ready: config: 'bcrypt'
 ```
 
 [FIPS]: https://csrc.nist.gov/publications/detail/fips/140/3/final

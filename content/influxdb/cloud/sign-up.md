@@ -32,6 +32,10 @@ Start using {{< cloud-name >}} at no cost with the [Free Plan](/influxdb/cloud/a
 Use it as much and as long as you like within the plan's rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
 
+{{% note %}}
+Users on the Free Plan are limited to one organization. 
+{{% /note %}}
+
 ## Sign up
 
 1. Choose one of the following:
@@ -146,7 +150,7 @@ If running `influx` on macOS Catalina, you must manually authorize the
 
 #### Step 5: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [authentication token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [API token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
 
@@ -176,8 +180,8 @@ To see all available `influx` commands, type `influx -h` or check out [influx - 
 
 Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-cli >}}-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-cli >}}-linux-arm64.tar.gz" download >influx CLI (arm)</a>
 
 #### Step 2: Unpackage the influx binary
 
@@ -185,7 +189,7 @@ Click one of the following buttons to download and install the `influx` CLI appr
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvfz influxdb-client-{{< latest-patch >}}-linux-amd64.tar.gz
+tar xvfz influxdb-client-{{< latest-cli >}}-linux-amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -197,7 +201,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-client-{{< latest-patch >}}-linux-amd64/influx /usr/local/bin/
+sudo cp influxdb-client-{{< latest-cli >}}-linux-amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}
@@ -206,7 +210,7 @@ If you rename the binary, all references to `influx` in this documentation refer
 
 #### Step 4: Set up a configuration profile
 
-To avoid having to pass your InfluxDB [authentication token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB [API token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
 
 In a terminal, run the following command:
 

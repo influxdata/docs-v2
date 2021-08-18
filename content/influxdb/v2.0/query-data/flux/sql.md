@@ -246,7 +246,7 @@ curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
 **To store secrets, you need:**
 
 - [your organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)  
-- [your authentication token](/influxdb/v2.0/security/tokens/view-tokens/)
+- [your API token](/influxdb/v2.0/security/tokens/view-tokens/)
 {{% /tab-content %}}
 {{% tab-content %}}
 ```sh

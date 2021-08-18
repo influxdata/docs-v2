@@ -1,7 +1,7 @@
 ---
 title: View tokens
-seotitle: View authentication tokens in InfluxDB
-description: View authentication tokens in InfluxDB using the InfluxDB UI or the `influx` CLI.
+seotitle: View API tokens in InfluxDB
+description: View API tokens in InfluxDB using the InfluxDB UI or the `influx` CLI.
 aliases:
   - /influxdb/v2.0/users/tokens/view-tokens
 menu:
@@ -11,7 +11,7 @@ menu:
 weight: 202
 ---
 
-View authentication tokens using the InfluxDB user interface (UI) or the `influx`
+View API tokens using the InfluxDB user interface (UI) or the `influx`
 command line interface (CLI).
 
 {{% note %}}

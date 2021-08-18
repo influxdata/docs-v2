@@ -32,10 +32,10 @@ an [InfluxDB Cloud account](/influxdb/cloud/sign-up).
 ### Authentication
 
 Before diving into the API, use the InfluxDB UI to
-[create an initial authentication token](/influxdb/v2.0/security/tokens/create-token/) for your application.
+[create an initial API token](/influxdb/v2.0/security/tokens/create-token/) for your application.
 
-InfluxDB uses [authentication tokens](/influxdb/v2.0/security/tokens/) to authorize API requests.
-Include your authentication token as an `Authorization` header in each request.
+InfluxDB uses [API tokens](/influxdb/v2.0/security/tokens/) to authorize API requests.
+Include your API token as an `Authorization` header in each request.
 
 #### Example
 
