@@ -68,7 +68,7 @@ empty  in      or   package  builtin
 ```
 
 {{% note %}}
-[IMPL#256](https://github.com/influxdata/platform/issues/256) Add in and empty operator support.
+[IMPL#764](https://github.com/influxdata/flux/issues/764) Add `in` and `empty` operator support.
 {{% /note %}}
 
 
@@ -96,7 +96,7 @@ The following coercion rules apply to numeric literals:
 * An error will occur if the coerced type cannot represent the literal value.
 
 {{% note %}}
-[IMPL#255](https://github.com/influxdata/platform/issues/255) Allow numeric literal coercion.
+[IMPL#476](https://github.com/influxdata/flux/issues/476) Allow numeric literal coercion.
 {{% /note %}}
 
 ### Integer literals
@@ -139,10 +139,6 @@ decimals  = decimal_digit { decimal_digit } .
 2.71828
 .26
 ```
-
-{{% note %}}
-[IMPL#254](https://github.com/influxdata/platform/issues/254) Parse float literals.
-{{% /note %}}
 
 ### Duration literals
 
@@ -244,7 +240,7 @@ When months are added to a date times and the resulting date is past the end of 
 ```
 
 {{% note %}}
-[IMPL#657](https://github.com/influxdata/platform/issues/657) Implement Duration vectors.
+[IMPL#413](https://github.com/influxdata/flux/issues/413) Implement Duration vectors.
 {{% /note %}}
 
 ## Date and time literals
@@ -329,7 +325,7 @@ A function `printf` exists to allow more precise control over formatting of vari
 To include the literal `${` within a string, it must be escaped.
 
 {{% note %}}
-[IMPL#248](https://github.com/influxdata/platform/issues/248) Add printf function.
+[IMPL#731](https://github.com/influxdata/flux/issues/731) Add printf function.
 {{% /note %}}
 
 ##### Example: Interpolation
@@ -340,10 +336,6 @@ n = 42
 "the answer is not ${n+1}" // the answer is not 43
 "dollar sign opening curly bracket \${" // dollar sign opening curly bracket ${
 ```
-
-{{% note %}}
-[IMPL#1775](https://github.com/influxdata/flux/issues/1775) Interpolate arbitrary expressions in string literals
-{{% /note %}}
 
 ### Regular expression literals
 
