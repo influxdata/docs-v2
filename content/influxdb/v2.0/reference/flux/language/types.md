@@ -69,6 +69,13 @@ int     the set of all signed 64-bit integers | null
 float   the set of all IEEE-754 64-bit floating-point numbers | null
 ```
 
+These numeric types also have value limits. 
+
+|          | Minimum                 | Maximum                 | 
+| -------- | ---------------         | ---------------         |
+| integer  | `-9223372036854775808` | `9223372036854775807`  |
+| uinteger | `0`                    | `18446744073709551615` |
+
 {{% note %}}
 All numeric types are nullable.
 {{% /note %}}

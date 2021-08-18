@@ -53,7 +53,7 @@ influx write dryrun [flags]
 |      | `--skip-verify`     | Skip TLS certificate verification                                               |             |                       |
 |      | `--skipHeader`      | Skip first *n* rows of input data                                               | integer     |                       |
 |      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                            |             |                       |
-| `-t` | `--token`           | Authentication token                                                            | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`           | API token                                                            | string      | `INFLUX_TOKEN`        |
 | `-u` | `--url`             | URL to import data from                                                         | stringArray |                       |
 
 ## Examples

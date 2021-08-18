@@ -59,7 +59,7 @@ Provide the following credentials in your `[[influxdb]].username` and `[[influxd
 configuration options:
 
 - **username:** InfluxDB username
-- **password:** InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+- **password:** InfluxDB [API token](/influxdb/v2.0/security/tokens/)
 
 ```toml
 [[influxdb]]

@@ -37,7 +37,7 @@ The Raspberry Pi template includes the following:
 3. Add the following environment variables to your Telegraf environment:
 
     - `INFLUX_HOST`: Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
-    - `INFLUX_TOKEN`: Your InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/)
+    - `INFLUX_TOKEN`: Your InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/)
     - `INFLUX_ORG`: Your InfluxDB Cloud organization name.
     
     ```sh

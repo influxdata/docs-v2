@@ -45,7 +45,7 @@ Consider whether you need to address any of the following before upgrading.
 - [Dashboards](#dashboards)
 - [Other data](#other-data)
 - [Secure by default](#secure-by-default)
-- [`inmem` indexing option](#inmem-indexing-option)
+- [`inmem` indexing option](#in-memory-indexing-option)
 
 ### Available operating system, container, and platform support
 

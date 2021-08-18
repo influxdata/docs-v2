@@ -32,16 +32,17 @@ Find data usage information for the time frame specified in the drop-down at the
 
 If you exceed your [plan's rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review. InfluxDB Cloud plans include the following rate limits:
 
-- If **write or read requests exceed** the specified limit within a five-minute window, InfluxDB retries the request after that five-minute interval. The UI displays `event_type_limited_query` or `event_type_limited_write` as fields.
-- If the **series cardinality exceeds** the limit, requests are rejected and **not** queued. The UI displays `event_type_limited_cardinality` as a field.
+- If **write or read requests or series cardinality exceed** the specified limit within a five-minute window, the request is rejected and the UI displays `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality` as fields.
 
-_To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
+_To raise these rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
+
+- If **delete requests exceed** the specified limit within a five-minute window, the request is rejected and the UI displays `event_type_limited_delete_rate` as the field.
 
 ### InfluxDB API: HTTP rate limit responses
 
 The InfluxDB API returns the following responses:
 
-- When a **read or write request exceeds** your plan's limit:
+- When a **read or write or delete request exceeds** limits:
 
   ```
   HTTP 429 “Too Many Requests”

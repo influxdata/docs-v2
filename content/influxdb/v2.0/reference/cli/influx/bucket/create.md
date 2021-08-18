@@ -33,6 +33,7 @@ influx bucket create [flags]
 | `-h` | `--help`                 | Help for the `create` command                                         |            |                       |
 |      | `--hide-headers`         | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 |      | `--host`                 | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
+|      | `--http-debug`           | Inspect communication with InfluxDB servers.                          |   string   |                       | 
 |      | `--json`                 | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`                 | Bucket name                                                           |   string   | `INFLUX_BUCKET_NAME`  |
 | `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                |   string   | `INFLUX_ORG`          |
@@ -41,7 +42,7 @@ influx bucket create [flags]
 |      | `--schema-type`          | Bucket schema type (`explicit`, default `implicit`) _(Cloud only)_. For more information, see [Manage bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).         |   string   |                       |
 |      | `--shard-group-duration` | Bucket shard group duration (OSS only)                                |   string   |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |            |                       |
-| `-t` | `--token`                | Authentication token                                                  |   string   | `INFLUX_TOKEN`        |
+| `-t` | `--token`                | API token                                                  |   string   | `INFLUX_TOKEN`        |
 
 {{% note %}}
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),

@@ -19,8 +19,8 @@ The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
 Those settings [are configurable](/enterprise_influxdb/v1.9/administration/config/#http-endpoints-settings).
 
-- [InfluxDB 2.0 API compatibility endpoints](#influxdb-2-0-api-compatibility-endpoints)
-- [InfluxDB  1.x HTTP endpoints](#influxdb-1-x-http-endpoints)
+- [InfluxDB 2.0 API compatibility endpoints](#influxdb-20-api-compatibility-endpoints)
+- [InfluxDB  1.x HTTP endpoints](#influxdb-1x-http-endpoints)
 
 ## InfluxDB 2.0 API compatibility endpoints
 
@@ -158,13 +158,14 @@ curl -XGET "localhost:8086/health"
 The following InfluxDB 1.x API endpoints are available:
 
 | Endpoint                                         | Description                                                                    |
-|:----------                                       |:----------                                                                     |
+|:-------------------------------------------------|:-------------------------------------------------------------------------------|
 | [/debug/pprof ](#debug-pprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
 | [/debug/requests](#debug-requests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
 | [/debug/vars](#debug-vars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
 | [/ping](#ping-http-endpoint)                     | Check the status of your InfluxDB instance and your version of InfluxDB        |
 | [/query](#query-http-endpoint)                   | Query data using **InfluxQL**, manage databases, retention policies, and users |
 | [/write](#write-http-endpoint)                   | Write data to a database                                                       |
+| [/shard-status](#shard-status-http-endpoint)    | Get information about a data node's shards                                     |
 
 ### `/debug/pprof` HTTP endpoint
 
@@ -1007,3 +1008,84 @@ HTTP/1.1 500 Internal Server Error
 [...]
 {"error":"retention policy not found: myrp"}
 ```
+
+### `/shard-status` HTTP endpoint
+
+The `/shard-status` endpoint accepts HTTP `GET` requests.
+Use this endpoint to get information about all shards for a given data node.
+
+#### Response
+
+Requests to `/shard-status` return the following information in JSON format:
+
+- `id`: the shard ID
+- `size`: the size on disk of the shard in bytes
+- `is_hot`: whether the time range from the shard includes `now`
+  {{% note %}}
+An *idle* shard is fully compacted and not receiving new (potentially historical) writes.
+A hot shard may or may not be idle.
+  {{% /note %}}
+- `state`: the anti-entropy status of the shard can be one of the following:
+  `healthy`,`restore pending`,`restoring`,`repairing`,`error processing`
+
+#### Example
+
+```
+curl -q 'http://localhost:8086/shard-status' | jq
+{
+  "databases": [
+    {
+      "name": "_internal",
+      "retention_policies": [
+        {
+          "name": "monitor",
+          "replication_factor": 1,
+          "shards": [
+            {
+              "id": 2,
+              "size": 594491,
+              "is_hot": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "retention_policies": [
+        {
+          "name": "autogen",
+          "replication_factor": 1,
+          "shards": [
+            {
+              "id": 3,
+              "is_hot": false
+            },
+            {
+              "id": 6,
+              "size": 1921,
+              "is_hot": false
+            },
+            {
+              "id": 7,
+              "is_hot": false
+            },
+            {
+              "id": 10,
+              "size": 1920,
+              "is_hot": false
+            },
+            {
+              "id": 11,
+              "is_hot": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+{{% caption %}}
+This example uses [`jq`](https://stedolan.github.io/jq/) to print the JSON object.
+{{% /caption %}}
