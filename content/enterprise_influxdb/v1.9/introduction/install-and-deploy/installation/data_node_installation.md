@@ -303,8 +303,8 @@ to set up Chronograf](/enterprise_influxdb/v1.9/install-and-deploy/installation/
 ## Step 4: Create an admin user
 
 In [Step 2](#b-edit-the-data-node-configuration-files), you enabled authentication.
-In order to access the cluster, you must create at least one admin user.
-Using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/), run:
+To access the cluster, you must create at least one admin user.
+To create an admin user, use the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/), and run the following:
 
 ```sql
 CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
