@@ -4,7 +4,7 @@ description: Find important information about what's included in new versions of
 menu:
   influxdb_2_0_ref:
     name: Contribute to InfluxDB
-    weight: 1
+    weight: 10
 ---
 
 To contribute to the InfluxDB OSS project, complete the following steps:
