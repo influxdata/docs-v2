@@ -28,8 +28,8 @@ _This function is comparable to the [Kapacitor AlertNode](/{{< latest "kapacitor
 import "contrib/bonitoo-io/tickscript"
 
 tickscript.alert(
-    check,
-    id: (r) => "${r._check_id}",
+    check: {id: "000000000000", name: "Example check name", type: "threshold", tags: {}},
+    id: (r) => "000000000000",
     details: (r) => "",
     message: (r) => "Threshold Check: ${r._check_name} is: ${r._level}",
     crit: (r) => false,
@@ -93,13 +93,19 @@ import "contrib/bonitoo-io/tickscript"
 
 option task = {name: "Example task", every: 1m;}
 
+check = tickscript.defineCheck(
+  id: "000000000000",
+  name: "Errors",
+  type: "threshold"
+)
+
 from(bucket: "example-bucket")
   |> range(start: -task.every)
   |> filter(fn: (r) => r._measurement == "errors" and r._field == "value")
   |> count()
   |> tickscript.alert(
-    check: tickscript.defineCheck(id: "000000000000", name: "task/${r.service}"),
-    message: "${r._check_name} is ${r._level} value: ${r._value}",
+    check: {check with _check_id: "task/${r.service}"},
+    message: "task/${r.service} is ${r._level} value: ${r._value}",
     crit: (r) => r._value > 30,
     warn: (r) => r._value > 20,
     info: (r) => r._value > 10    
