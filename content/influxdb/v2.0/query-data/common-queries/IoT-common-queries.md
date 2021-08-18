@@ -23,6 +23,35 @@ Find the percentage of total time a state is “true” or "false" or "null" ove
 
 To visualize the time in state, see the Mosaic visualization.
 
+#### Example: Calculate hazardous exposure 
+
+The following example queries data from its bucket and calculates the percentage of times hazardous substances were released into the air. Air with any amount of hazardous substances would be "true" while air with no amount of hazardous substances would be "false." 
+
+##### Flux query to calculate percentages 
+
+To find percentage of total time, the state is "true" or "false", make sure the data includes the following: 
+- `monitor` measurement 
+- **`mem_used` field**: used monitor memory in bytes
+- **`mem_total` field**: total monitor memory in bytes
+
+```js
+from(bucket: "monitor-exposure")
+  |> range(start: -8h)
+  |> filter(fn: (r) => r._measurement == "sensor_1" and r._field =~ /mem_/)
+```
+
+##### Mosaic visualization 
+
+The following query displays the change in air quality over time. A mosaic visualization displays state changes over time. 
+
+```js
+from(bucket: "monitor-exposure")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "sensor_1")
+  |> filter(fn: (r) => r._field == "/mem_/")
+  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
+```
+
 ## Calculate time weighted average
 
 Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
@@ -66,7 +95,7 @@ Given the input data in the table above, the example function above does the fol
 
 ## Calculate value between events
 
-Events are recorded for when a batch of beer is started and when a batch of beer is completed. I would like to calculate the average temperature value during that period.
+Events are recorded for when hazardous substance starts to release and when hazardous substances stop releasing. I would like to calculate the average temperature value during that period.
 If each batch is identified with a tag, it means that the start and end is the only range when data will be collected for this series and ultimately the data will age out. If we have many tanks to brew beer at the same time, we should be able to use tags to correctly calculate this. But, an example detailing this out would be useful.
 
 ## Record data points with added context
