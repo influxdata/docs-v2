@@ -58,6 +58,14 @@ mem,host=host1 used_percent=63.40 1577836820000000000
 mem,host=host2 used_percent=73.77 1577836820000000000
 ```
 
+Line protocol data looks like this:
+
+```sh
+mem,host=host1 used_percent=23.43234543 1556892576842902000
+cpu,host=host1 usage_user=3.8234,usage_system=4.23874 1556892726597397000
+mem,host=host1 used_percent=21.83599203 1556892777007291000
+```
+
 #### Write line protocol
 
 - [via stdin](#write-line-protocol-via-stdin)
@@ -128,16 +136,6 @@ influx write \
   --bucket example-bucket \
   --file path/to/line-protocol.txt.comp \
   --compression gzip
-```
-
---- 
-
-Line protocol data looks like this:
-
-```sh
-mem,host=host1 used_percent=23.43234543 1556892576842902000
-cpu,host=host1 usage_user=3.8234,usage_system=4.23874 1556892726597397000
-mem,host=host1 used_percent=21.83599203 1556892777007291000
 ```
 
 #### Timestamp precision

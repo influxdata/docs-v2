@@ -10,24 +10,14 @@ menu: influxdb_cloud_ref
 weight: 7
 ---
 
-Use **demo data** and **sample data** to familiarize yourself with time series data and InfluxDB Cloud.
-InfluxDB Cloud lets you access **Demo data buckets** that contain real-time time
+Use **sample data** to familiarize yourself with time series data and InfluxDB Cloud.
+InfluxDB Cloud lets you access **Sample datasets** that contain time
 series data without having to write data to InfluxDB. 
-Sample datasets are also available for download and can be written to InfluxDB
+Sample datasets are available for download and can be written to InfluxDB
 or loaded at query time.
 
-- [InfluxDB Cloud demo data](#influxdb-cloud-demo-data)
 - [Sample datasets](#sample-datasets)
-
-## InfluxDB Cloud demo data
-Use [InfluxDB Cloud demo data buckets](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data) for quick,
-free access to different time series datasets.
-
-{{< youtube GSaByPC1Bdc >}}
-
-{{% note %}}
-Demo data is not available for use with third-party integrations such as Grafana.
-{{% /note %}}
+- [InfluxDB Cloud demo data](#influxdb-cloud-demo-data)
 
 ## Sample datasets
 
@@ -183,3 +173,13 @@ import "influxdata/influxdb/sample"
 
 sample.data(set: "usgs")
 ```
+
+## InfluxDB Cloud demo data
+Use [InfluxDB Cloud demo data buckets](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data) for quick,
+free access to different time series datasets.
+
+{{< youtube GSaByPC1Bdc >}}
+
+{{% note %}}
+Demo data is not available for use with third-party integrations such as Grafana.
+{{% /note %}}

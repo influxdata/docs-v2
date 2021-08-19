@@ -13,19 +13,7 @@ influxdb/cloud/tags: [get-started, install]
 
 After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to start writing, querying, and visualizing data.
 
-To get started working in Cloud, we recommend using notebooks to explore demo data and sample data. 
-
-
-## Add demo data
-
-This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add the demo data bucket:
-
-1.  Click **Data (Load Data)** > **Buckets** in the navigation menu on the left.
-
-    {{< nav-icon "data" >}}
-
-2.  Click **{{< icon "plus" >}} Add Demo Data**, and then select the **Website Monitoring** bucket.
-3.  The Demo Data bucket appears in your list of buckets.
+To get started working in Cloud, we recommend using sample data to explore. 
 
 ## Sample data
 
@@ -39,7 +27,7 @@ Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate In
 
 ## Select metrics
 
-Now that we've added the demo data bucket, we're ready to create our notebook.
+Now that we've added the sample data bucket, we're ready to create our notebook.
 
 1. In the navigation menu on the left, click **Notebooks**.
 
