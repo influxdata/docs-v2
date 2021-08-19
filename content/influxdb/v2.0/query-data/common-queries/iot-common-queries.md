@@ -10,6 +10,10 @@ menu:
 weight: 205
 ---
 
+{{% note %}}
+These examples use [air sensor sample data](/influxdb/v2.0/reference/sample-data/#air-sensor-sample-data).
+{{% /note %}}
+
 Use the following queries to retrieve information about your IoT sensors:
 - [Record time in state](#record-time-in-state)
 - [Calculate time weighted average](#calculate-time-weighted-average)
@@ -23,7 +27,7 @@ Find the percentage of total time a state is “true” or "false" or "null" ove
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
-The following example queries data from the `monitor-exposure` bucket and calculates the percentage of times hazardous substances were released into the air. Air with any amount of hazardous substances would be "true" while air with no amount of hazardous substances would be "false." 
+The following example queries data from the air sensor sample data and calculates the percentage of times any amount of carbon monoxide was in the air. Air with any amount of carbon monoxide would be "true" while air with no amount of carbon monoxide would be "false." 
 
 To find percentage of total time, the state is "true" or "false", make sure the data includes the following: 
 - `monitor` measurement 
@@ -31,9 +35,22 @@ To find percentage of total time, the state is "true" or "false", make sure the 
 - **`unit-expsoure_total` field**: total exposure memory in bytes
 
 ```js
-from(bucket: "monitor-exposure")
-  |> range(start: -8h)
-  |> filter(fn: (r) => r._measurement == "sensor_1" and r._field = "unit-exposure")
+from(bucket: "air-sensor")
+  |> range(start: 2020-01-01T00:00:00Z)
+  |> filter(fn: (r) => r._measurement == "airSensors" and r._field =~ /mem_/ )
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+  |> map(fn: (r) => ({
+    _time: r._time,
+    _measurement: r._measurement,
+    _field: "mem_used_percent",
+    _value: float(v: r.mem_used) / float(v: r.mem_total) * 100.0
+  }))
+  lastReported =
+  from(bucket: "example-bucket")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_idle")
+    |> last()
+    |> findRecord(fn: (key) => true, idx: 0) 
 ```
 
 ##### Mosaic visualization 
@@ -56,23 +73,23 @@ Calculate the time-weighted average by using the linearly interpolated integral 
 
 #### Example: Calculate hazardous exposure
 
-For example, you may want to calculate a person's exposure to a hazardous substance. OSHA uses time-weighted averages to determine permissible exposure limits (PELs).
+For example, you may want to calculate temperature. 
 
-The total exposure considers both the total hours in the work day and exposure for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time.
+The total exposure considers both the total hours in the day and temperature for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time.
 
 ##### Flux query to calculate time-weighted average
 
 ```js
-from(bucket: "monitor-exposure")
+from(bucket: "air-sensor")
   |> range(start: -8h)
   |> filter(fn: (r) =>
-    r._measurement == "sensor_1"
-    r._field == "unit-exposure"
+    r._measurement == "airSensors"
+    r._field == "temperature"
   )
   |> timeWeightedAvg(unit: 2h)
 ```
 
-In this example, the `_value` in the table below shows input data from the `unit-exposure` field in the `sensor_1` measurement. A person is exposed to `1.0` unit of substance in the first `2hr` interval, with increasing exposure by `.5` unit every subsequent `2hr` period. For the following input data:
+In this example, the `_value` in the table below shows input data from the `temperature` field in the `airSensors` measurement. A person is exposed to `1.0` unit of substance in the first `2hr` interval, with increasing exposure by `.5` unit every subsequent `2hr` period. For the following input data:
 
 | _time                | _value |
 |:-----                | ------:|
@@ -94,8 +111,8 @@ Given the input data in the table above, the example function above does the fol
 
 ## Calculate value between events
 
-Events are recorded for when hazardous substance starts to release and when hazardous substances stop releasing. I would like to calculate the average temperature value during that period.
-If each batch is identified with a tag, it means that the start and end is the only range when data will be collected for this series and ultimately the data will age out. If we have many tanks to brew beer at the same time, we should be able to use tags to correctly calculate this. But, an example detailing this out would be useful.
+Events are recorded for when a day starts and ends. I would like to calculate the average temperature value during that period.
+If each day is identified with a tag, it means that the start and end is the only range when data will be collected for this series and ultimately the data will age out. If we have many days recorded, we should be able to use tags to correctly calculate this. But, an example detailing this out would be useful.
 
 ## Record data points with added context
 
