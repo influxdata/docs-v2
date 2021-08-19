@@ -27,7 +27,7 @@ Find the percentage of total time a state is “true” or "false" or "null" ove
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
-The following example queries data from the air sensor sample data and calculates the percentage of times any amount of carbon monoxide was in the air. Air with any amount of carbon monoxide would be "true" while air with no amount of carbon monoxide would be "false." 
+The following example queries data from the air sensor sample data and calculates the percentage of times the carbon monoxide levels reached 150ppm. Air that was equal or higher than 150ppm is "true" while air with lower amounts of carbon monoxide would be "false." 
 
 To find percentage of total time, the state is "true" or "false", make sure the data includes the following: 
 - `monitor` measurement 
@@ -35,6 +35,15 @@ To find percentage of total time, the state is "true" or "false", make sure the 
 - **`unit-expsoure_total` field**: total exposure memory in bytes
 
 ```js
+import "influxdata/influxdb/sample"
+
+coThreshold = 3.0
+
+sample.data(set: "airSensor")
+  |> range(start: -1h)
+  |> filter(fn: (r) => r._field == "co")
+  |> map(fn: (r) => ({ r with alert: if r._value >= coThreshold then true else false }))
+
 from(bucket: "air-sensor")
   |> range(start: 2020-01-01T00:00:00Z)
   |> filter(fn: (r) => r._measurement == "airSensors" and r._field =~ /mem_/ )
@@ -55,7 +64,7 @@ from(bucket: "air-sensor")
 
 ##### Mosaic visualization 
 
-The following query displays the change in air quality over time. A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of hazardous materials in the air. 
+The following query displays the change in air quality over time. A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of carbon monoxide in the air. 
 
 ```js
 from(bucket: "monitor-exposure")
