@@ -293,7 +293,7 @@ import "influxdata/influxdb/sample"
 
 ## Examples of of basic syntax
 After reading the sections above, you can begin to apply these basic principles in real-world
- use cases such as creating data stream variables, custom functions, and more.
+use cases such as creating data stream variables, custom functions, and more.
 
 - [Define data stream variables](#define-data-stream-variables)
 - [Define custom functions](#define-custom-functions)
