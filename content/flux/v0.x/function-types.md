@@ -80,8 +80,8 @@ The following output functions are are available:
 ---
 
 ### Transformations
-Flux transformation take a stream of tables as input, transform the data in some way,
-and output a stream of tables.
+Flux transformations take a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
+as input, transform the data in some way, and output a stream of tables.
 Transformations cover a broad range of functions, but the following categorizations
 highlight important behaviors associated with specific transformation functions.
 
@@ -146,7 +146,7 @@ categorized as [aggregate functions](#aggregates) in this documentation:
 ### Dynamic queries
 Flux dynamic query functions extract a table from a stream of tables and access its
 columns and records.
-For recommended usage, see [Extract scalar values](/influxdb/v2.0/query-data/flux/scalar-values/).
+For recommended usage, see [Extract scalar values](/influxdb/cloud/query-data/flux/scalar-values/).
 
 {{< list-all-functions filters="dynamic queries" >}}
 
@@ -154,9 +154,21 @@ For recommended usage, see [Extract scalar values](/influxdb/v2.0/query-data/flu
 
 ## Function categories
 
+- [Filters](#filters)
 - [Type conversions](#type-conversions)
 - [Tests](#tests)
 - [Date/time](#datetime)
+- [Metadata](#metadata)
+- [Notification endpoints](#notification-endpoints)
+
+### Filters
+Filter functions iterate over and evaluate each input row to see if it matches
+specified conditions.
+The following filter functions are available:
+
+{{< list-all-functions filters="filters" >}}
+
+---
 
 ### Type conversions
 Flux type conversion functions convert scalar values or columns to a specific data type.

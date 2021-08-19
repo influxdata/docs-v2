@@ -24,7 +24,7 @@ json.encode(v: "some value")
 
 This function encodes [Flux types](/flux/v0.x/spec/types/) as follows:
 
-- `time` values in [RFC3339](/influxdb/v2.0/reference/glossary/#rfc3339-timestamp) format
+- `time` values in [RFC3339](/influxdb/cloud/reference/glossary/#rfc3339-timestamp) format
 - `duration` values in number of milliseconds since the epoch
 - `regexp` values as their string representation
 - `bytes` values as base64-encoded strings

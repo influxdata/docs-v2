@@ -17,7 +17,7 @@ related:
 introduced: 0.88.0
 ---
 
-The `schema.fieldKeys()` function returns [field keys](/influxdb/v2.0/reference/glossary/#field-key) in a bucket.
+The `schema.fieldKeys()` function returns [field keys](/{{< latest "influxdb" >}}/reference/glossary/#field-key) in a bucket.
 The return value is always a single table with a single column, `_value`.
 
 ```js

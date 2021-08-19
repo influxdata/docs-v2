@@ -3,7 +3,7 @@ title: Flux InfluxDB Tasks package
 list_title: tasks package
 description: >
   The Flux InfluxDB Tasks package provides options and functions for working with
-  [InfluxDB tasks](/influxdb/v2.0/process-data/get-started/).
+  [InfluxDB tasks](/influxdb/cloud/process-data/get-started/).
   Import the `influxdata/influxdb/tasks` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
@@ -20,7 +20,7 @@ related:
 ---
 
 The Flux InfluxDB Tasks package provides options and functions for working with
-[InfluxDB tasks](/influxdb/v2.0/process-data/get-started/).
+[InfluxDB tasks](/influxdb/cloud/process-data/get-started/).
 Import the `influxdata/influxdb/tasks` package:
 
 ```js

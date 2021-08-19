@@ -20,7 +20,7 @@ introduced: 0.111.0
 
 The `tickscript.alert()` function identifies events of varying severity levels
 and writes them to the `statuses` measurement in the InfluxDB
-[`_monitoring` system bucket](/influxdb/v2.0/reference/internals/system-buckets/).
+[`_monitoring` system bucket](/{{< latest "influxdb" >}}/reference/internals/system-buckets/).
 
 _This function is comparable to the [Kapacitor AlertNode](/{{< latest "kapacitor" >}}/nodes/alert_node/)._
 

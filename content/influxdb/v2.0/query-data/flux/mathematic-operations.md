@@ -3,8 +3,7 @@ title: Transform data with mathematic operations
 seotitle: Transform data with mathematic operations in Flux
 list_title: Transform data with math
 description: >
-  Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map)
-  to remap column values and apply mathematic operations.
+  Use `map()` to remap column values and apply mathematic operations.
 influxdb/v2.0/tags: [math, flux]
 menu:
   influxdb_2_0:

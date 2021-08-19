@@ -12,6 +12,9 @@ menu:
     parent: universe
 weight: 102
 flux/v0.x/tags: [type-conversions, transformations]
+related:
+  - /flux/v0.x/data-types/basic/uinteger/
+  - /flux/v0.x/stdlib/universe/uint/
 introduced: 0.7.0
 ---
 
@@ -23,12 +26,16 @@ toUInt()
 
 _**Supported data types:** Boolean | Duration | Numeric String | Float | Integer | Time_
 
-For duration and time values, `toUint()` returns the following:
+`toInt()` behavior depends on the `_value` column data type:
 
-| Input type | Returned value                                      |
-|:---------- |:--------------                                      |
-| Duration   | The number of nanoseconds in the specified duration |
-| Time       | A nanosecond epoch timestamp                        |
+| \_value type | Returned value                                                  |
+| :----------- | :-------------------------------------------------------------- |
+| string       | UInteger equivalent of the numeric string                       |
+| bool         | 1 (true) or 0 (false)                                           |
+| duration     | Number of nanoseconds in the specified duration                 |
+| time         | Equivalent nanosecond epoch timestamp                           |
+| float        | UInteger equivalent of the float value truncated at the decimal |
+| int          | UInteger equivalent of the integer                              |
 
 {{% note %}}
 To convert values in a column other than `_value`, define a custom function

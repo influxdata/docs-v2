@@ -2,8 +2,7 @@
 title: Group data in InfluxDB with Flux
 list_title: Group
 description: >
-  Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group)
-  to group data with common values in specific columns.
+  Use `group()` to group data with common values in specific columns.
 influxdb/v2.0/tags: [group]
 menu:
   influxdb_2_0:

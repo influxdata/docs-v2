@@ -14,6 +14,7 @@ menu:
 weight: 301
 related:
   - /flux/v0.x/stdlib/regexp/compile
+  - /flux/v0.x/data-types/regexp/
 introduced: 0.33.2
 ---
 

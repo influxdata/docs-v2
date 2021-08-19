@@ -98,7 +98,7 @@ sample.data(set: "usgs")
 ```
 
 ##### Download and write NOAA NDBC data to InfluxDB
-Add the following as an [InfluxDB task](/influxdb/v2.0/process-data/) to regularly
-collect the latest reported observations from the NOAA NDBC.
+Add the following as an [InfluxDB task]{{< latest "influxdb" >}}/process-data/)
+to regularly collect the latest reported observations from the NOAA NDBC.
 
 {{% get-shared-text "flux/noaa-ndbc-sample-task.md" %}}

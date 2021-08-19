@@ -23,12 +23,19 @@ The `date.truncate()` function truncates a time to a specified unit.
 import "date"
 
 date.truncate(
-  t: 2019-07-17T12:05:21.012Z
+  t: 2019-07-17T12:05:21.012Z,
   unit: 1s
 )
 
 // Returns 2019-07-17T12:05:21.000000000Z
 ```
+
+{{% note %}}
+#### Truncate to weeks
+When truncating a time value to the week (`1w`), weeks are determined using the 
+**Unix epoch (1970-01-01T00:00:00Z UTC)**. The Unix epoch was on a Thursday, so
+all calculated weeks begin on Thursday.
+{{% /note %}}
 
 ## Parameters
 

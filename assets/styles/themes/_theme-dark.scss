@@ -215,6 +215,8 @@ $html-diagram-shard-group-bg: $article-table-row-alt;
 // Diagram colors
 $diagram-arrow: $g6-smoke;
 
+$flux-water-process-img: url('/img/flux/0-x-water-process-dark.svg');
+
 @import "dark/telegraf",
         "dark/chronograf",
         "dark/kapacitor";

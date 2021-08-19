@@ -45,7 +45,7 @@ The mode used to group columns.
 
 #### extend
 Appends columns defined in the [`columns` parameter](#columns) to all existing
-[group keys](/influxdb/v2.0/query-data/get-started/#group-keys).
+[group keys](/flux/v0.x/get-started/data-model/#group-key).
 
 ## Examples
 

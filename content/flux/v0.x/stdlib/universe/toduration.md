@@ -6,14 +6,13 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/toduration/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/toduration/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/toduration/
-menu:
-  flux_0_x_ref:
-    name: toDuration
-    parent: universe
 weight: 102
 flux/v0.x/tags: [type-conversions, transformations]
+related:
+  - /flux/v0.x/data-types/basic/duration/
+  - /flux/v0.x/stdlib/universe/duration/
 introduced: 0.7.0
-deprecated: 0.37.0
+removed: 0.37.0
 ---
 
 {{% warn %}}

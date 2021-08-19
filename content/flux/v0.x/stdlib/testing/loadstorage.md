@@ -15,7 +15,7 @@ flux/v0.x/tags: [tests, inputs]
 introduced: 0.20.0
 ---
 
-The `testing.loadStorage()` function loads [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+The `testing.loadStorage()` function loads [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/)
 test data as if it were queried from InfluxDB.
 This function ensures tests behave correctly in both the Flux and InfluxDB test suites.
 Test data requires the following columns:
@@ -35,7 +35,7 @@ testing.loadStorage(
 ## Parameters
 
 ### csv {data-type="string"}
-[Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) data to load.
+[Annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) data to load.
 
 ## Examples
 

@@ -3,8 +3,7 @@ title: Fill null values in data
 seotitle: Fill null values in data
 list_title: Fill
 description: >
-  Use the [`fill()` function](/{{< latest "flux" >}}/stdlib/universe/fill/)
-  to replace _null_ values.
+  Use `fill()` function to replace _null_ values.
 weight: 210
 menu:
   influxdb_2_0:
@@ -16,7 +15,7 @@ related:
 list_query_example: fill_null
 ---
 
-Use the [`fill()` function](/{{< latest "flux" >}}/stdlib/universe/fill/)
+Use [`fill()`](/{{< latest "flux" >}}/stdlib/universe/fill/)
 to replace _null_ values with:
 
 - [the previous non-null value](#fill-with-the-previous-value)

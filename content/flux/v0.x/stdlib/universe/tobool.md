@@ -12,6 +12,9 @@ menu:
     parent: universe
 weight: 102
 flux/v0.x/tags: [type-conversions, transformations]
+related:
+  - /flux/v0.x/data-types/basic/boolean/
+  - /flux/v0.x/stdlib/universe/bool/
 introduced: 0.7.0
 ---
 

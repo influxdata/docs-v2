@@ -67,10 +67,11 @@ The `>` and `<` operators also [compare the lexicographic order of strings](#str
 
 ## Logical operators
 | Operator | Description                                                                |
-|:--------:|:-----------                                                                |
+| :------: | :------------------------------------------------------------------------- |
+|  `not`   | Returns `true` if right operand is `false`. Otherwise, returns `false`.    |
 | `exists` | Returns `false` if right operand is _**null**_. Otherwise, returns `true`. |
-| `and`    | Returns `true` if both operands are true. Otherwise, returns `false`.      |
-| `or`     | Returns `true` if any operand is true. Otherwise, returns `false`.         |
+|  `and`   | Returns `true` if both operands are true. Otherwise, returns `false`.      |
+|   `or`   | Returns `true` if any operand is true. Otherwise, returns `false`.         |
 
 #### Short-circuit evaluation
 Flux logical operators observe the short-circuiting behavior seen in other programming languages.
@@ -101,7 +102,7 @@ Function operators facilitate the creation of functions and control the flow of 
 
 ---
 
-_See [Custom functions](/influxdb/v2.0/query-data/flux/custom-functions) for examples of function operators is use._
+_See [Define custom functions](/flux/v0.x/define-functions/) for examples of function operators is use._
 
 ---
 

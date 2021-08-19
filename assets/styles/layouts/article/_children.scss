@@ -16,4 +16,5 @@
       &:after { color: $article-link; }
     }
   }
+  & > hr:last-child {display: none}
 }

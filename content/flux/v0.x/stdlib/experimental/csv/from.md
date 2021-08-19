@@ -16,7 +16,8 @@ flux/v0.x/tags: [inputs]
 introduced: 0.64.0
 ---
 
-The experimental `csv.from()` function retrieves [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) **from a URL**.
+The experimental `csv.from()` function retrieves
+[annotated CSV](/{{< latest "influxdb" >}}/reference/syntax/annotated-csv/) **from a URL**.
 
 {{% note %}}
 The experimental `csv.from()` function is an alternative to the standard

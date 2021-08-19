@@ -51,7 +51,7 @@ following fields:
 - `text`
 - `markdown`
 
-_For more information, see [`webexteams.message()` parameters](/influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/message/#parameters)._
+_For more information, see [`webexteams.message()` parameters](/flux/v0.x/stdlib/contrib/sranka/webexteams/message/#parameters)._
 
 ## Examples
 

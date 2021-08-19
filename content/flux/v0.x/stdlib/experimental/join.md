@@ -16,7 +16,7 @@ introduced: 0.65.0
 ---
 
 The `experimental.join()` function joins two streams of tables on the
-[group key](/influxdb/v2.0/reference/glossary/#group-key) and `_time` column.
+[group key](/flux/v0.x/get-started/data-model/#group-key) and `_time` column.
 Use the [`fn` parameter](#fn) to map new output tables using values from input tables.
 
 {{% note %}}

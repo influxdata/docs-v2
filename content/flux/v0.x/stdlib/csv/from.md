@@ -41,11 +41,11 @@ csv.from(
 
 ### csv {data-type="string"}
 CSV data.
-Supports [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/) or raw CSV.
+Supports [annotated CSV](/{{< latest "influxdb" >}}/reference/syntax/annotated-csv/) or raw CSV.
 Use [`mode`](#mode) to specify the parsing mode.
 
 {{% note %}}
-Annotated CSV data must include all [annotation rows](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations).
+Annotated CSV data must include all [annotation rows](/{{< latest "influxdb" >}}/reference/syntax/annotated-csv/#annotations).
 {{% /note %}}
 
 ### file {data-type="string"}
@@ -57,7 +57,7 @@ _The CSV file must exist in the same file system running the `fluxd` process._
 {{% warn %}}
 **InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ support the `file` parameter.
 Neither allow access to the underlying filesystem.
-However, the [Flux REPL](/influxdb/v2.0/tools/repl/) does support the `file` parameter.
+However, the [Flux REPL](/{{< latest "influxdb" >}}/tools/repl/) does support the `file` parameter.
 {{% /warn %}}
 
 ### mode {data-type="string"}
@@ -67,7 +67,7 @@ Default is `annotations`.
 ##### Available modes
 - **annotations:** Use CSV annotations to determine column data types.
 - **raw:** Parse all columns as strings and use the first row as the
-  [header row](/influxdb/v2.0/reference/syntax/annotated-csv/#rows) and all
+  [header row](/{{< latest "influxdb" >}}/reference/syntax/annotated-csv/#rows) and all
   subsequent rows as data.
 
 ## Examples

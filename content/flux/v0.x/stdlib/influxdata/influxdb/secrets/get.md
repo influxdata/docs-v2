@@ -16,7 +16,7 @@ introduced: 0.41.0
 ---
 
 The `secrets.get()` function retrieves a secret from the
-[InfluxDB secret store](/influxdb/v2.0/security/secrets/).
+[InfluxDB secret store](/{{< latest "influxdb" >}}/security/secrets/).
 
 ```js
 import "influxdata/influxdb/secrets"

@@ -89,14 +89,14 @@ Records evaluated in `fn` functions are represented by `r`, short for "record" o
 
 ### host {data-type="string"}
 URL of the InfluxDB instance to query.
-_See [InfluxDB URLs](/influxdb/v2.0/reference/urls/)._
+_See [InfluxDB URLs](/{{< latest "influxdb" >}}/reference/urls/)
+or [InfluxDB Cloud regions](/{{< latest "influxdb" >}}/reference/regions/)._
 
 ### org {data-type="string"}
 Organization name.
 
 ### token {data-type="string"}
-InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
-
+InfluxDB [API token](/{{< latest "influxdb" >}}/security/tokens/).
 
 ## Examples
 

@@ -79,7 +79,7 @@ The time type name is `time`.
 The time type is nullable.
 
 #### Timestamp format
-Flux supports [RFC3339 timestamps](/influxdb/v2.0/reference/glossary/#rfc3339-timestamp):
+Flux supports [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp):
 
 - `YYYY-MM-DD`
 - `YYYY-MM-DDT00:00:00Z`

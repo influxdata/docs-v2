@@ -12,7 +12,7 @@ menu:
 weight: 202
 flux/v0.x/tags: [inputs]
 related:
-  - /{{< latest "influxdb" >}}/query-data/flux/sql/
+  - /flux/v0.x/query-data/sql/
 introduced: 0.34.0
 ---
 
@@ -31,12 +31,13 @@ sql.from(
 ## Parameters
 
 ### driverName {data-type="string"}
-The driver used to connect to the SQL database.
+Driver to use to connect to the SQL database.
 
 The following drivers are available:
 
 - awsathena
 - bigquery
+- hdb
 - mysql
 - postgres
 - snowflake
@@ -44,7 +45,7 @@ The following drivers are available:
 - sqlserver, mssql
 
 ### dataSourceName {data-type="string"}
-The data source name (DSN) or connection string used to connect to the SQL database.
+Data source name (DSN) or connection string to use to connect to the SQL database.
 The string's form and structure depend on the [driver](#drivername) used.
 
 ##### Driver dataSourceName examples
@@ -76,10 +77,15 @@ server=localhost;user id=username;database=examplebdbr;azure tenant id=77e7d537;
 # Google BigQuery DSNs
 bigquery://projectid/?param1=value&param2=value
 bigquery://projectid/location?param1=value&param2=value
+
+# SAP HANA driver DSN
+hdb://<user>:<password>@<host>:<port>?<connection-property>=<value>&<connection-property>=<value>&...
+hdb://<user>:<password>@<host>:<port>?DATABASENAME=<tenant-db-name>
+hdb://?KEY=<keyname>
 ```
 
 ### query {data-type="string"}
-The query to run against the SQL database.
+Query to run against the SQL database.
 
 ## Examples
 
@@ -90,9 +96,10 @@ The query to run against the SQL database.
 - [Amazon Athena](#query-an-amazon-athena-database)
 - [SQL Server](#query-a-sql-server-database)
 - [Google BigQuery](#query-a-bigquery-database)
+- [SAP HANA](#query-a-sap-hana-database)
 
 {{% note %}}
-The examples below use [InfluxDB secrets](/influxdb/v2.0/security/secrets/) to populate
+The examples below use [InfluxDB secrets](/{{< latest "influxdb" >}}/security/secrets/) to populate
 sensitive connection credentials.
 {{% /note %}}
 
@@ -147,7 +154,7 @@ sql.from(
 {{% warn %}}
 **InfluxDB OSS** and **InfluxDB Cloud** do not have direct access to the local filesystem
 and cannot query SQLite data sources.
-Use the [Flux REPL](/influxdb/v2.0/tools/repl/) to query a SQLite data source
+Use the [Flux REPL](/influxdb/cloud/tools/repl/) to query a SQLite data source
 on your local filesystem.
 {{% /warn %}}
 
@@ -227,7 +234,7 @@ azure auth=ENV
 **InfluxDB OSS** and **{{< cloud-name "short" >}}** user interfaces do _**not**_ provide
 access to the underlying file system and do not support reading credentials from a file.
 To retrieve SQL Server credentials from a file, execute the query in the
-[Flux REPL](/influxdb/v2.0/tools/repl/) on your local machine.
+[Flux REPL](/influxdb/cloud/tools/repl/) on your local machine.
 {{% /warn %}}
 
 ```powershel
@@ -257,12 +264,14 @@ azure auth=MSI
 ```js
 import "sql"
 import "influxdata/influxdb/secrets"
+
 projectID = secrets.get(key: "BIGQUERY_PROJECT_ID")
 apiKey = secrets.get(key: "BIGQUERY_APIKEY")
+
 sql.from(
- driverName: "bigquery",
- dataSourceName: "bigquery://${projectID}/?apiKey=${apiKey}",
- query:"SELECT * FROM exampleTable"
+  driverName: "bigquery",
+  dataSourceName: "bigquery://${projectID}/?apiKey=${apiKey}",
+  query:"SELECT * FROM exampleTable"
 )
 ```
 
@@ -289,3 +298,18 @@ Provide your authentication credentials using one of the following methods:
     ```
     bigquery://projectid/?credentials=eyJ0eXBlIjoiYXV0...
     ```
+
+### Query a SAP HANA database
+```js
+import "sql"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "SAP_HANA_USER")
+password = secrets.get(key: "SAP_HANA_PASS")
+
+sql.from(
+  driverName: "hdb",
+  dataSourceName: "hdb://${username}:{password}@myserver:30015",
+  query: "SELECT * FROM SCHEMA.TABLE"
+)
+```
