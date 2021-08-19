@@ -6,6 +6,8 @@ menu:
   influxdb_cloud:
     parent: Manage secrets
 weight: 305
+aliases:
+  - /influxdb/cloud/security/secrets/manage-secrets/use/
 ---
 
 Use secrets in a Flux query to pass sensitive data like credentials.

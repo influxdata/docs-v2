@@ -6,6 +6,8 @@ menu:
   influxdb_2_0:
     parent: Manage secrets
 weight: 305
+aliases:
+  - /influxdb/v2.0/security/secrets/manage-secrets/use/
 ---
 
 ## Use secrets in a query
