@@ -10,6 +10,7 @@ weight: 102
 influxdb/v2.0/tags: [write, line protocol, syntax]
 aliases:
   - /influxdb/v2.0/reference/line-protocol
+  - /influxdb/v2.0/write_protocols/line_protocol_tutorial/
 related:
   - /influxdb/v2.0/write-data/
 ---

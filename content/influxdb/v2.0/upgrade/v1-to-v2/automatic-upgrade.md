@@ -45,7 +45,7 @@ Consider whether you need to address any of the following before upgrading.
 - [Dashboards](#dashboards)
 - [Other data](#other-data)
 - [Secure by default](#secure-by-default)
-- [`inmem` indexing option](#inmem-indexing-option)
+- [`inmem` indexing option](#in-memory-indexing-option)
 
 ### Available operating system, container, and platform support
 
@@ -174,8 +174,8 @@ InfluxDB 2.0 doesn't support [in-memory (`inmem`) indexing](/influxdb/v1.8/admin
 
 ### Interactive shell
 
-```suggestion
 The InfluxDB 2.x `influx` CLI does not include an interactive shell for executing InfluxQL queries or Flux queries. For information about executing InfluxQL queries, see [Query data with InfluxQL](/influxdb/v2.0/query-data/influxql/). To build an interactive shell to execute Flux queries, [compile and build a command line Flux REPL from source](https://github.com/influxdata/flux/blob/master/README.md#getting-started). 
+
 ## Perform the upgrade
 
 If you've considered the [guidance above](#before-you-begin-important-considerations)

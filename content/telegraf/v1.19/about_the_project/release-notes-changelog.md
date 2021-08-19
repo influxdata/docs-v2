@@ -10,13 +10,79 @@ menu:
     parent: About the project
 ---
 
+## v.1.19.2 [2021-07-28]
+
+- Update Go to 1.16.6.
+- Linter fixes.
+- Update `dynatrace-metric-utils-go` module to v0.2.0.
+- Detect changes to configuration and reload Telegraf.
+
+## Input plugin updates
+- CGroup (`couchbase`): Allow for multiple keys when parsing cgroups.
+- Kubernetes (`kubernetes`): Update plugin to attach pod labels to the `kubernetes_pod_volume` and `kubernetes_pod_network` metrics.
+- Kubernetes Inventory (`kube_inventory`): Fix a segmentation fault when selector labels were not present on a persistent volume claim.
+- MongoDB (`mongodb`): Switch to official `mongo-go-driver` module to fix an SSL authentication failure.
+- NSQ Consumer (`couchbase`): Fix a connection error when attempting to connect to an empty list of servers.
+- Prometheus (`prometheus`): Fix Prometheus cAdvisor authentication.
+- SQL (`sql`): Fix issue when handling a boolean column.
+- SQL Server (`sqlserver`):
+  - Add TempDB troubleshooting stats and missing v2 query metrics.
+  - Update to provide more detailed error messaging.
+- StatsD (`statsd`): Fix a regression that didn't allow integer percentiles.
+- x509 Certificate (`x509_cert`): Fix an issue where plugin would hang indefinitely to a UDP connection.
+
+## Output plugin updates
+- Dynatrace Output (`dynatrace`):
+  - Update plugin to allow optional default dimensions.
+  - Fix a panic caused by uninitialized `loggedMetrics` map.
+- InfluxDB (`influxdb`): Fix issue where metrics were reporting as written but not actually written.
+
+## Processor plugin updates
+- IfName (`ifname`): Fix issue with SNMP empty metric name.
+
+## Parser plugin updates
+- JSON v2 (`json_v2`):
+    - Simplify how nesting is handled in parser.
+    - Add support for large uint64 and int64 numbers.
+    - Fix an issue to handle nested objects in arrays properly.
+
+
+## v.1.19.1 [2021-07-07]
+
+- Update nat-server module to v2.2.6.
+- Update apimachinary module to v0.21.1.
+- Update jwt module to v1.2.2 and jwt-go module to v3.2.3.
+- Update couchbase module to v0.1.0.
+- Update signalfx module to v3.3.34.
+- Update gjson module to v1.8.0.
+- Linter fixes.
+
+## Input plugin updates
+- SQL Server (`sqlserver`): Require authentication method to be specified.
+- Kube Inventory (`kube_inventory`): Fix segfault.
+- Couchbase (`couchbase`): Fix panic.
+- KNX (`knx_listener`): Fix nil pointer panic.
+- Procstat (`procstat`): Update gopsutil module to fix panic.
+- RabbitMQ (`rabbitmq`) Fix JSON unmarshall regression.
+- Dovecot (`dovecot`): Exclude read-timeout from being an error.
+- StatsD(`statsd`) Don't stop parsing after parsing error.
+- SNMP (`snmp`): Add a check for oid and name to prevent empty metrics.
+- (`x509_cert`):
+  - Fix 'source' tag for https.
+  - Fix SNI support.
+
+## Output plugin updates
+- (`http`): Fix toml error when parsing insecure_skip_verify.
+
+## Parser plugin updates
+- (`json_v2`): Don't require tags to be added to included_keys.
+
+
 ## v1.19.0 [2021-06-17]
 
-### Release Notes
+- Update Go to 1.16.5.
 
-Update Go to 1.16.5.
-
-### Bugfixes
+### Bug fixes
 - Update pgx to v4. <!-- https://github.com/influxdata/telegraf/pull/9182 -->
 - Fix reading configuration files starting with HTTP: <!-- https://github.com/influxdata/telegraf/pull/9275 -->
 - `serializers.prometheusremotewrite`: Update dependency and remove tags with empty values. <!-- https://github.com/influxdata/telegraf/pull/9196 -->
@@ -29,7 +95,6 @@ Update Go to 1.16.5.
 - Configuration file environment variable can now be a URL. <!-- https://github.com/influxdata/telegraf/pull/8987 -->
 - Add named timestamp formats. <!-- https://github.com/influxdata/telegraf/pull/9087 -->
 - Allow multiple `--config` and `--config-directory` flags. <!-- https://github.com/influxdata/telegraf/pull/9007 -->
-
 
 ### Plugin updates
 

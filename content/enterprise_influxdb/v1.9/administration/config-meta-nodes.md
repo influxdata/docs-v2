@@ -5,7 +5,7 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Configure meta nodes
-    weight: 30
+    weight: 21
     parent: Administration
 ---
 
@@ -277,7 +277,7 @@ Optional sections after this are `key=value` password hash configuration options
 Each scheme has its own set of options.
 Any options not specified default to reasonable values as specified below.
 
-This configuration should be set in both the `influxd` and `influxd-meta` configuration files.
+This setting must have the same value as the data node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#password-hash--bcrypt).
 
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
@@ -376,8 +376,8 @@ ciphers = [ "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
             "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 ]
 
-min-version = "tls1.2"
+min-version = "tls1.3"
 
-max-version = "tls1.2"
+max-version = "tls1.3"
 
 ```

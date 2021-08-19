@@ -6,7 +6,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: schema.tagValues
-    parent: InfluxDB Schema
+    parent: InfluxDB schema
 weight: 301
 influxdb/v2.0/tags: [tags]
 related:
@@ -75,9 +75,9 @@ tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
   from(bucket: bucket)
     |> range(start: start)
     |> filter(fn: predicate)
-    |> group(columns: [tag])
+    |> keep(columns: [tag])
+    |> group()
     |> distinct(column: tag)
-    |> keep(columns: ["_value"])
 ```
 
 _**Used functions:**

@@ -1,7 +1,7 @@
 ---
 title: Delete an organization
 seotitle: Delete an organization from InfluxDB
-description: Delete an existing organization from InfluxDB using the InfluxDB UI or the influx CLI.
+description: Delete an existing organization from InfluxDB using the influx CLI.
 menu:
   influxdb_2_0:
     name: Delete an organization

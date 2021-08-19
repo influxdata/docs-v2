@@ -16,13 +16,13 @@ Use the `POST` request method and include the following in your request:
 | Organization         | Use the `org` query parameter in your request URL.       |
 | Bucket               | Use the `bucket` query parameter in your request URL.    |
 | Precision            | Use the `precision` query parameter in your request URL. |
-| Authentication token | Use the `Authorization: Token` header.                   |
+| API token | Use the `Authorization: Token <API token>` header.                   |
 | Line protocol        | Pass as plain text in your request body.                 |
 
 #### Example API write request
 
 Below is an example API write request using `curl`.
-The URL depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/influxdb/v2.0/reference/urls/))_.
+The URL depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/{{< latest "influxdb" >}}/reference/urls/))_.
 
 To compress data when writing to InfluxDB, set the `Content-Encoding` header to `gzip`.
 Compressing write requests reduces network bandwidth, but increases server-side load.

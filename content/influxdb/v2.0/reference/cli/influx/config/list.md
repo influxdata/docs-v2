@@ -10,7 +10,7 @@ weight: 201
 
 The `influx config list` command lists all InfluxDB connection configurations in
 the `configs` file (by default, stored at `~/.influxdbv2/configs`).
-Each connection configuration includes a URL, authentication token, and active setting.
+Each connection configuration includes a URL, API token, and active setting.
 An asterisk (`*`) indicates the active configuration.
 
 ## Usage
@@ -22,8 +22,8 @@ influx config list [flags]
 `list`, `ls`
 
 ## Flags
-| Flag |                  | Description                           | {{< cli/mapped >}}    |
-|:---- |:---              |:-----------                           |:------------------    |
-| `-h` | `--help`         | Help for the `list` command           |                       |
-|      | `--hide-headers` | Hide table headers (default `false`)  | `INFLUX_HIDE_HEADERS` |
-|      | `--json`         | Output data as JSON (default `false`) | `INFLUX_OUTPUT_JSON`  |
+| Flag |                  | Description                                  | {{< cli/mapped >}}    |
+| :--- | :--------------- | :------------------------------------------- | :-------------------- |
+| `-h` | `--help`         | Help for the `list` command                  |                       |
+|      | `--hide-headers` | Hide table headers (default `false`)         | `INFLUX_HIDE_HEADERS` |
+|      | `--json`         | Output data as JSON (default `false`)        | `INFLUX_OUTPUT_JSON`  |

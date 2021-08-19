@@ -65,8 +65,8 @@ Start by logging into the Influx CLI:
 
 ```bash
 $ influx -precision rfc3339 -database NOAA_water_database
-Connected to http://localhost:8086 version 1.8.x
-InfluxDB shell 1.8.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 
@@ -144,8 +144,8 @@ The `FROM` clause supports several formats for specifying a [measurement(s)](/en
 `FROM <measurement_name>`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Returns data from a single measurement.
-If you're using the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) InfluxDB queries the measurement in the
-[`USE`d](/enterprise_influxdb/v1.9/tools/use-influx/#commands)
+If you're using the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) InfluxDB queries the measurement in the
+[`USE`d](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#commands)
 [database](/enterprise_influxdb/v1.9/concepts/glossary/#database) and the `DEFAULT` [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp).
 If you're using the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) InfluxDB queries the
 measurement in the database specified in the [`db` query string parameter](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters)
@@ -198,7 +198,7 @@ The query selects all [fields](/enterprise_influxdb/v1.9/concepts/glossary/#fiel
 [tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag) from the `h2o_feet`
 [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
 
-If you're using the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) be sure to enter
+If you're using the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) be sure to enter
 `USE NOAA_water_database` before you run the query.
 The CLI queries the data in the `USE`d database and the
 `DEFAULT` [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp).
@@ -1695,8 +1695,8 @@ The `INTO` clause supports several formats for specifying a [measurement](/enter
 `INTO <measurement_name>`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Writes data to the specified measurement.
-If you're using the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) InfluxDB writes the data to the measurement in the
-[`USE`d](/enterprise_influxdb/v1.9/tools/use-influx/#commands)
+If you're using the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) InfluxDB writes the data to the measurement in the
+[`USE`d](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#commands)
 [database](/enterprise_influxdb/v1.9/concepts/glossary/#database) and the `DEFAULT` [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp).
 If you're using the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) InfluxDB writes the data to the
 measurement in the database specified in the [`db` query string parameter](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters)
@@ -1788,7 +1788,7 @@ time                   water_level
 ```
 
 The query writes its results a new [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement): `h2o_feet_copy_1`.
-If you're using the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/), InfluxDB writes the data to
+If you're using the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/), InfluxDB writes the data to
 the `USE`d [database](/enterprise_influxdb/v1.9/concepts/glossary/#database) and the `DEFAULT` [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp).
 If you're using the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/), InfluxDB writes the
 data to the database and retention policy specified in the `db` and `rp`
@@ -2684,7 +2684,7 @@ a `GROUP BY time()` clause must provide an alternative upper bound in the
 
 #### Example
 
-Use the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) to write a point to the `NOAA_water_database` that occurs after `now()`:
+Use the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) to write a point to the `NOAA_water_database` that occurs after `now()`:
 
 ```sql
 > INSERT h2o_feet,location=santa_monica water_level=3.1 1587074400000000000
@@ -2729,10 +2729,10 @@ the lower bound to `now()` such that the query's time range is between
 
 ### Configuring the returned timestamps
 
-The [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) returns timestamps in
+The [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) returns timestamps in
 nanosecond epoch format by default.
 Specify alternative formats with the
-[`precision <format>` command](/enterprise_influxdb/v1.9/tools/use-influx/#influx-commands).
+[`precision <format>` command](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#influx-commands).
 The [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
 Specify alternative formats with the
@@ -3062,7 +3062,7 @@ Separate multiple [`SELECT` statements](#the-basic-select-statement) in a query 
 
 {{% tab-content %}}
 
-In the InfluxDB [CLI](/enterprise_influxdb/v1.9/tools/use-influx/):
+In the InfluxDB [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/):
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet"; SELECT "water_level" FROM "h2o_feet" LIMIT 2
@@ -3162,6 +3162,31 @@ Sample syntax for multiple subqueries:
 ```sql
 SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
 ```
+
+{{% note %}}
+#### Improve performance of time-bound subqueries
+To improve the performance of InfluxQL queries with time-bound subqueries,
+apply the `WHERE time` clause to the outer query instead of the inner query.
+For example, the following queries return the same results, but **the query with
+time bounds on the outer query is more performant than the query with time
+bounds on the inner query**:
+
+##### Time bounds on the outer query (recommended)
+```sql
+SELECT inner_value AS value FROM (SELECT raw_value as inner_value)
+WHERE time >= '2020-07-19T21:00:00Z'
+AND time <= '2020-07-20T22:00:00Z'
+```
+
+##### Time bounds on the inner query
+```sql
+SELECT inner_value AS value FROM (
+  SELECT raw_value as inner_value
+  WHERE time >= '2020-07-19T21:00:00Z'
+  AND time <= '2020-07-20T22:00:00Z'
+)
+```
+{{% /note %}}
 
 ### Examples
 

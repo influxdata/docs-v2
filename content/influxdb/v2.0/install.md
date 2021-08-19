@@ -23,6 +23,7 @@ Download, install, and set up InfluxDB OSS.
 [Windows](#)
 [Docker](#)
 [Kubernetes](#)
+[Raspberry Pi](#)
 {{% /tabs %}}
 
 <!-------------------------------- BEGIN macOS -------------------------------->
@@ -132,6 +133,22 @@ To manually authorize the InfluxDB binaries:
 4. Repeat this process for both binaries.
 
 We are in the process of updating our build process to ensure released binaries are signed by InfluxData.
+{{% /warn %}}
+
+{{% warn %}}
+#### "too many open files" errors
+
+After running `influxd`, you might see an error in the log output like the
+following:
+
+```sh
+too many open files
+```
+
+To resolve this error, follow the
+[recommended steps](https://unix.stackexchange.com/a/221988/471569) to increase
+file and process limits for your operating system version then restart `influxd`.
+
 {{% /warn %}}
 
 _See the [`influxd` documentation](/influxdb/v2.0/reference/cli/influxd) for information about
@@ -337,7 +354,12 @@ Download InfluxDB v2.0 for Windows.
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v2.0 (Windows)</a>
 
-Expand the downloaded archive into `C:\Program Files\InfluxData\influxdb`.
+Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
+
+```powershell
+> Expand-Archive .\influxdb2-{{< latest-patch >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
+> mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
+```
 
 ### Networking ports
 By default, InfluxDB uses TCP port `8086` for client-server communication over
@@ -348,7 +370,7 @@ In **Powershell**, navigate into `C:\Program Files\InfluxData\influxdb` and star
 InfluxDB by running the `influxd` daemon:
 
 ```powershell
-> cd -Path C:\Program Files\InfluxData\influxdb
+> cd -Path 'C:\Program Files\InfluxData\influxdb'
 > ./influxd
 ```
 
@@ -405,7 +427,7 @@ _To run InfluxDB in [detached mode](https://docs.docker.com/engine/reference/run
    mkdir path/to/influxdb-docker-data-volume && cd $_
    ```
 2. From within your new directory, run the InfluxDB Docker container with the `--volume` flag to
-   persist data from `/root/.influxdb2/` _inside_ the container to the current working directory in
+   persist data from `/var/lib/influxdb2` _inside_ the container to the current working directory in
    the host file system.
 
    ```sh
@@ -524,13 +546,46 @@ Always inspect YAML manifests before running `kubectl apply -f <url>`!
 
 {{% /tab-content %}}
 <!--------------------------------- END kubernetes ---------------------------->
+<!--------------------------------- BEGIN Rasberry Pi ------------------------->
+{{% tab-content %}}
+
+### InfluxDB on Raspberry Pi
+
+#### Requirements
+
+To run InfluxDB on Raspberry Pi, you will need:
+
+- a Raspberry Pi 4+ or 400
+- a 64-bit operating system.
+  We recommend installing a [64-bit version of Ubuntu](https://ubuntu.com/download/raspberry-pi)
+  of Ubuntu Desktop or Ubuntu Server compatible with 64-bit Raspberry Pi.
+
+#### Installation
+
+Follow the [Linux installation instructions](/influxdb/v2.0/install/?t=Linux)
+to install InfluxDB on a Raspberry Pi.
+
+Use the [Raspberry Pi template](/influxdb/cloud/monitor-alert/templates/infrastructure/raspberry-pi/)
+to easily configure collecting and visualizating system metrics for the Raspberry Pi.
+
+#### Support for 32-bit systems
+
+If you have a 32-bit Raspberry Pi, [use Telegraf](/{{< latest "telegraf" >}}/)
+to collect and send data to:
+
+- [InfluxDB OSS](/influxdb/v2.0/), running on a 64-bit system
+- InfluxDB Cloud with a [**Free Tier**](/influxdb/cloud/account-management/pricing-plans/#free-plan) account
+- InfluxDB Cloud with a paid [**Usage-Based**](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) account with relaxed resource restrictions.
+
+{{% /tab-content %}}
+<!--------------------------------- END Rasberry Pi --------------------------->
 
 {{< /tabs-wrapper >}}
 
 ## Set up InfluxDB
 
 The initial setup process for InfluxDB walks through creating a default organization,
-user, bucket, and Admin authentication token.
+user, bucket, and Operator API token.
 The setup process is available in both the InfluxDB user interface (UI) and in
 the `influx` command line interface (CLI).
 
@@ -569,7 +624,7 @@ You are ready to [write or collect data](/influxdb/v2.0/write-data).
 
 ### (Optional) Set up and use the influx CLI
 
-If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx), we recommend setting up a configuration profile. This lets you avoid having to pass your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/) with each `influx` command. Complete the following steps to set up a configuration profile that stores your credentials.
+If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx), we recommend setting up a configuration profile. This lets you avoid having to pass your InfluxDB [API token](/influxdb/v2.0/security/tokens/) with each `influx` command. Complete the following steps to set up a configuration profile that stores your credentials.
 
 1. In a terminal, run the following command:
 
@@ -606,9 +661,9 @@ influx setup
 6. Enter a **retention period** for your primary bucket—valid units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`). Enter nothing for an infinite retention period.
 7. Confirm the details for your primary user, organization, and bucket.
 
-InfluxDB is now initialized with a primary user, organization, bucket, and authentication token. InfluxDB also creates a configuration profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/influxdb/v2.0/reference/cli/influx/config) command.
+InfluxDB is now initialized with a primary user, organization, bucket, and API token. InfluxDB also creates a configuration profile for you so that you don't have to add organization and token to every command. To view that config profile, use the [`influx config list`](/influxdb/v2.0/reference/cli/influx/config) command.
 
-To continue to use InfluxDB via the CLI, you need the authentication token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/influxdb/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
+To continue to use InfluxDB via the CLI, you need the API token created during setup. To view the token, log into the UI with the credentials created above. (For instructions, see [View tokens in the InfluxDB UI](/influxdb/v2.0/security/tokens/view-tokens/#view-tokens-in-the-influxdb-ui).)
 
 You are ready to [write or collect data](/influxdb/v2.0/write-data).
 

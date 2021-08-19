@@ -3,12 +3,13 @@ title: sleep() function
 description: The `sleep()` function delays execution by a specified duration.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/misc/sleep/
-menu:
-  influxdb_2_0_ref:
-    name: sleep
-    parent: built-in-misc
 weight: 401
+removed: 0.123.0
 ---
+
+{{% warn %}}
+The `sleep()` function was removed in **Flux 0.123.0**.
+{{% /warn %}}
 
 The `sleep()` function delays execution by a specified duration.
 

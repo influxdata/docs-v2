@@ -14,8 +14,12 @@ menu:
 products: [cloud]
 ---
 
-To view your {{< cloud-name >}} data usage, click the **user avatar** in the top
-right corner of your {{< cloud-name "short" >}} user interface (UI) and select **Usage**.
+View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs (pricing vectors) and other usage data, including delete limits, does not affect pricing. For more information, see the [pricing plans](/influxdb/cloud/account-management/pricing-plans/). 
+
+To view your {{< cloud-name >}} data usage, do the following: 
+
+1. Click the **user avatar** on the left-side navigation. 
+2. Select **Usage**.
 
 Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
 
@@ -26,22 +30,23 @@ Find data usage information for the time frame specified in the drop-down at the
 - **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
 - **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
 
-{{< img-hd src="/img/influxdb/2-0-cloud-usage.png" />}}
+{{< img-hd src="/img/influxdb/cloud-controls-data-usage.png" />}}
 
 ## Exceeded rate limits
 
 If you exceed your [plan's rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review. InfluxDB Cloud plans include the following rate limits:
 
-- If **write or read requests exceed** the specified limit within a five-minute window, InfluxDB retries the request after that five-minute interval. The UI displays `event_type_limited_query` or `event_type_limited_write` as fields.
-- If the **series cardinality exceeds** the limit, requests are rejected and **not** queued. The UI displays `event_type_limited_cardinality` as a field.
+- If **write or read requests or series cardinality exceed** the specified limit within a five-minute window, the request is rejected and the UI displays `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality` as fields.
 
-_To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
+_To raise these rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
+
+- If **delete requests exceed** the specified limit within a five-minute window, the request is rejected and the UI displays `event_type_limited_delete_rate` as the field.
 
 ### InfluxDB API: HTTP rate limit responses
 
 The InfluxDB API returns the following responses:
 
-- When a **read or write request exceeds** your plan's limit:
+- When a **read or write or delete request exceeds** limits:
 
   ```
   HTTP 429 “Too Many Requests”

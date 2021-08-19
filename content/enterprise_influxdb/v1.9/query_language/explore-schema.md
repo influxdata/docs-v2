@@ -40,8 +40,8 @@ Before proceeding, login to the Influx CLI.
 
 ```bash
 $ influx -precision rfc3339
-Connected to http://localhost:8086 version 1.4.x
-InfluxDB shell 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 
@@ -85,7 +85,7 @@ SHOW RETENTION POLICIES [ON <database_name>]
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 ### Examples
@@ -186,7 +186,7 @@ SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<t
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
@@ -419,7 +419,7 @@ SHOW MEASUREMENTS [ON <database_name>] [WITH MEASUREMENT <operator> ['<measureme
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `WITH`, `WHERE`, `LIMIT` and `OFFSET` clauses are optional.
@@ -578,7 +578,7 @@ SHOW TAG KEYS [ON <database_name>] [FROM_clause] WITH KEY [ [<operator> "<tag_ke
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM` clause and the `WHERE` clause are optional.
@@ -811,7 +811,7 @@ SHOW TAG VALUES [ON <database_name>][FROM_clause] WITH KEY [ [<operator> "<tag_k
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `WITH` clause is required.
 It supports specifying a single tag key, a regular expression, and multiple tag keys.
@@ -954,7 +954,7 @@ SHOW FIELD KEYS [ON <database_name>] [FROM <measurement_name>]
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/use-influx/) or with the `db` query
+database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `FROM` clause is also optional.
@@ -1187,7 +1187,73 @@ Note that `SHOW FIELD KEYS` handles field type discrepancies differently from
 For more information, see the
 [How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards).
 
-### Filter meta queries by time
+## `SHOW CARDINALITY`
+
+`SHOW CARDINALITY` refers to the group of commands used to estimate or count exactly
+the cardinality of measurements, series, tag keys, tag key values, and field keys.
+
+For more information on the `SHOW CARDINALITY` commands,
+see the [InfluxQL reference entry](/enterprise_influxdb/v1.9/query_language/spec/#show-cardinality).
+
+### `SHOW FIELD KEY CARDINALITY`
+
+```sql
+-- show estimated cardinality of the field key set of current database
+SHOW FIELD KEY CARDINALITY
+-- show exact cardinality on field key set of specified database
+SHOW FIELD KEY EXACT CARDINALITY ON mydb
+```
+
+
+### `SHOW MEASUREMENT KEY CARDINALITY`
+
+```sql
+-- show estimated cardinality of measurement set on current database
+SHOW MEASUREMENT CARDINALITY
+-- show exact cardinality of measurement set on specified database
+SHOW MEASUREMENT EXACT CARDINALITY ON mydb
+```
+
+
+### `SHOW SERIES CARDINALITY`
+
+```sql
+-- show estimated cardinality of the series on current database
+SHOW SERIES CARDINALITY
+-- show estimated cardinality of the series on specified database
+SHOW SERIES CARDINALITY ON mydb
+-- show exact series cardinality
+SHOW SERIES EXACT CARDINALITY
+-- show series cardinality of the series on specified database
+SHOW SERIES EXACT CARDINALITY ON mydb
+```
+
+
+### `SHOW TAG KEY CARDINALITY`
+
+```sql
+-- show estimated tag key cardinality
+SHOW TAG KEY CARDINALITY
+-- show exact tag key cardinality
+SHOW TAG KEY EXACT CARDINALITY
+```
+
+
+### `SHOW TAG VALUES CARDINALITY`
+
+```sql
+-- show estimated tag key values cardinality for a specified tag key
+SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
+-- show estimated tag key values cardinality for a specified tag key
+SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
+-- show exact tag key values cardinality for a specified tag key
+SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
+-- show exact tag key values cardinality for a specified tag key
+SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
+```
+
+
+## Filter meta queries by time
 
 When you filter meta queries by time, you may see results outside of your specified time. Meta query results are filtered at the shard level, so results can be approximately as granular as your shard group duration. If your time filter spans multiple shards, you'll get results from all shards with points in the specified time range. To review your shards and timestamps on points in the shard, run `SHOW SHARDS`. To learn more about shards and their duration, see [recommended shard groups durations](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/#shard-group-duration-recommendations).
 

@@ -48,7 +48,7 @@ The following forward compatible APIs are available:
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/influxdb/v1.8/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
+Use this endpoint to query data using [Flux](/influxdb/v1.8/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/api-guide/client-libraries/).
  Flux is the primary language for working with data in InfluxDB 2.0.
 
 **Include the following HTTP headers:**
@@ -90,7 +90,7 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 ### `/api/v2/write/` HTTP endpoint
 
 The `/api/v2/write` endpoint accepts `POST` HTTP requests.
-Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/tools/client-libraries/).
+Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/api-guide/client-libraries/).
 
 Both InfluxDB 1.x and 2.0 APIs support the same line protocol format for raw time series data.
 For the purposes of writing data, the APIs differ only in the URL parameters and request headers.
@@ -214,26 +214,29 @@ For more information about the Go `/net/http/pprof` package and the interactive 
 
 #### `/debug/pprof/all` HTTP endpoint
 
-The `/debug/pprof/all` endpoint is a custom `/debug/pprof` profile intended primarily for use by InfluxData support. This endpoint generates a `profile.tar.gz` archive containing text files with the standard Go profiling information and additional debugging data. An optional CPU profile is generated when using the `cpu=true` option (default is `false`).
+The `/debug/pprof/all` endpoint is a custom `/debug/pprof` profile intended primarily for use by InfluxData support.
+This endpoint generates a `profile.tar.gz` archive containing text files with the standard Go profiling information and additional debugging data.
+An optional CPU profile is generated when using the `cpu=` option followed by a duration in seconds (e.g., `cpu=30s`).
 
 To create a `profile.tar.gz` archive, use the following cURL command to generate a `profile.tar.gz` file for sharing with InfluxData support.
 
 ```bash
-curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=true"
+curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=30s"
 ```
 
->**Note:** When the `cpu=true` option is included, a CPU profile is generated for 30+ seconds.
-> If you're concerned about running a CPU profile (which only has a small, temporary impact on performance), then you can set `?cpu=false` or omit `?cpu=true` altogether.
-
-As the following example shows, the cURL output includes "Time Spent," the time elapsed (in  seconds). After 30 seconds of data has been collected, the results are output to a file.
+As the following example shows, the cURL output includes "Time Spent," the time elapsed (in  seconds).
+After 30 seconds of data has been collected, the results are output to a file.
 
 ```bash
-➜  ~ curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=true"
+➜  ~ curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=30s"
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  237k    0  237k    0     0   8025      0 --:--:--  0:00:30 --:--:-- 79588
 ```
 
+{{% note %}}
+If using InfluxDB 1.8.3 or earlier, use `/debug/pprof/all?cpu=true`.
+{{% /note %}}
 ### `/debug/requests` HTTP endpoint
 
 Use this endpoint to track HTTP client requests to the `/write` and `/query` endpoints.
@@ -327,7 +330,7 @@ HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 X-Influxdb-Build: OSS
-X-Influxdb-Version: v1.8.2
+X-Influxdb-Version: {{< latest-patch >}}
 X-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 Date: Tue, 05 Nov 2018 16:08:32 GMT
 ```
@@ -678,7 +681,7 @@ HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:22:54 GMT
 Transfer-Encoding: chunked
 
@@ -694,7 +697,7 @@ HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:23:48 GMT
 Transfer-Encoding: chunked
 
@@ -709,7 +712,7 @@ $ curl -i -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *'
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:24:25 GMT
 Content-Length: 76
 
@@ -725,7 +728,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:11:26 GMT
 Content-Length: 33
 
@@ -772,7 +775,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&precision=s" --data-binary
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:33:23 GMT
 ```
 
@@ -784,7 +787,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&rp=myrp" --data-binary 'my
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:34:31 GMT
 ```
 
@@ -798,7 +801,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&u=myusername&p=mypassword"
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:34:56 GMT
 ```
 
@@ -811,7 +814,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:40:30 GMT
 Content-Length: 33
 
@@ -828,7 +831,7 @@ $ curl -i -XPOST -u myusername:mypassword "http://localhost:8086/write?db=mydb" 
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:36:40 GMT
 ```
 
@@ -841,7 +844,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:46:40 GMT
 Content-Length: 33
 
@@ -885,7 +888,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,myt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:02:57 GMT
 ```
 
@@ -897,7 +900,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,myt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:03:44 GMT
 ```
 
@@ -910,7 +913,7 @@ mymeas,mytag=2 myfield=34 1463689152000000000'
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:04:02 GMT
 ```
 
@@ -922,7 +925,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary @data.txt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:08:11 GMT
 ```
 

@@ -71,7 +71,7 @@ To configure Apache JMeter, complete the following steps in InfluxDB and JMeter.
       https://cloud2.influxdata.com/api/v2/write?org=my-org&bucket=jmeter
       ```
    - **application**: `InfluxDB2`
-   - **influxdbToken**: _your InfluxDB authentication token_
+   - **influxdbToken**: _your InfluxDB API token_
    - Include additional parameters as needed.
 4. Click **Add** to add the _**InfluxDBBackendListenerClient**_ implementation.
 
