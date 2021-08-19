@@ -10,6 +10,34 @@ menu:
     parent: About the project
 ---
 
+## v.1.19.3 [2021-08-19]
+
+- Update `sirupsen/logrus` module from 1.7.0 to 1.8.1.
+- Update `testcontainers/testcontainers-go` module from 0.11.0 to 0.11.1.
+- Update `golang/snappy` module from 0.0.3 to 0.0.4.
+- Update `aws/aws-sdk-go-v2` module from 1.3.2 to 1.8.0.
+- Update `sensu/go` module to v2.9.0.
+- Update `hashicorp/consul/api` module to 1.9.1.
+
+### Input plugin updates
+- Prometheus (`prometheus`): Fix Kubernetes pod discovery.
+- Redis (`redis`) Improve redis commands documentation.
+- Clickhouse (`clickhouse`): Fix panic, improve handling empty result set.
+- OPC UA: (`opcua`):
+  - Avoid closing session on a closed connection.
+  - Fix reconnection regression introduced in 1.19.1.
+  - Don't skip good quality nodes after encountering bad quality node.
+- Kubernetes Inventory (`kube_inventory`): Fix k8s nodes and pods parsing error.
+- Postgre SQL (`postgresql`): Normalize unix socket path.
+- vSphere (`vsphere`): Update `vmware/govmomi` module to v0.26.0 in order to support vSphere 7.0.
+
+### Output plugin updates
+- Loki (`loki`): Sort logs by timestamp before writing to Loki.
+- CrateDB (`cratedb`): Replace dots in tag keys with underscores.
+
+### Processor plugin updates
+- AWS (`aws`): Refactor EC2 init for `config-api`.
+
 ## v.1.19.2 [2021-07-28]
 
 - Update Go to 1.16.6.
@@ -17,7 +45,7 @@ menu:
 - Update `dynatrace-metric-utils-go` module to v0.2.0.
 - Detect changes to configuration and reload Telegraf.
 
-## Input plugin updates
+### Input plugin updates
 - CGroup (`couchbase`): Allow for multiple keys when parsing cgroups.
 - Kubernetes (`kubernetes`): Update plugin to attach pod labels to the `kubernetes_pod_volume` and `kubernetes_pod_network` metrics.
 - Kubernetes Inventory (`kube_inventory`): Fix a segmentation fault when selector labels were not present on a persistent volume claim.
@@ -31,16 +59,16 @@ menu:
 - StatsD (`statsd`): Fix a regression that didn't allow integer percentiles.
 - x509 Certificate (`x509_cert`): Fix an issue where plugin would hang indefinitely to a UDP connection.
 
-## Output plugin updates
+### Output plugin updates
 - Dynatrace Output (`dynatrace`):
   - Update plugin to allow optional default dimensions.
   - Fix a panic caused by uninitialized `loggedMetrics` map.
 - InfluxDB (`influxdb`): Fix issue where metrics were reporting as written but not actually written.
 
-## Processor plugin updates
+### Processor plugin updates
 - IfName (`ifname`): Fix issue with SNMP empty metric name.
 
-## Parser plugin updates
+### Parser plugin updates
 - JSON v2 (`json_v2`):
     - Simplify how nesting is handled in parser.
     - Add support for large uint64 and int64 numbers.
@@ -57,7 +85,7 @@ menu:
 - Update gjson module to v1.8.0.
 - Linter fixes.
 
-## Input plugin updates
+### Input plugin updates
 - SQL Server (`sqlserver`): Require authentication method to be specified.
 - Kube Inventory (`kube_inventory`): Fix segfault.
 - Couchbase (`couchbase`): Fix panic.
@@ -71,10 +99,10 @@ menu:
   - Fix 'source' tag for https.
   - Fix SNI support.
 
-## Output plugin updates
+### Output plugin updates
 - (`http`): Fix toml error when parsing insecure_skip_verify.
 
-## Parser plugin updates
+### Parser plugin updates
 - (`json_v2`): Don't require tags to be added to included_keys.
 
 
