@@ -10,6 +10,9 @@ weight: 304
 
 Delete secrets using the `influx` command line interface (CLI) or the InfluxDB API.
 
+- [Delete a secret using the influx CLI](#delete-a-secret-using-the-influx-cli)
+- [Delete secrets using the InfluxDB API](#delete-secrets-using-the-influxdb-api)
+
 ## Delete a secret using the influx CLI
 Use the [`influx secret delete` command](/influxdb/v2.0/reference/cli/influx/secret/delete/)
 to delete a secret key-value pair from your organization.
