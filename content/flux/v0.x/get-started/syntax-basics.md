@@ -10,7 +10,7 @@ weight: 102
 ---
 
 Flux, at its core, is a scripting language designed specifically for working with data.
-This guide walks through a handful of simple expressions and how they are handled in Flux.
+This guide walks through how Flux handles a few simple expressions.
 
 ###### On this page
 - [Pipe-forward operator](#pipe-forward-operator)
@@ -63,10 +63,7 @@ _For information about operator precedence, see
 [Flux Operators – Operator precedence](/flux/v0.x/spec/operators/#operator-precedence)._
 
 ## Predicate expressions
-A predicate is an expression that returns `true` or `false`.
-A predicate expression consists of [comparison operators](/flux/v0.x/spec/operators/#comparison-operators)
-and [logical operators](/flux/v0.x/spec/operators/#logical-operators) that specify a
-relationship between values or operands.
+A predicate expression compares values using [comparison operators](/flux/v0.x/spec/operators/#comparison-operators), [logical operators](/flux/v0.x/spec/operators/#logical-operators), or both, and evalutes as `true` or `false`. 
 For example:
 
 ```js
@@ -98,7 +95,7 @@ f = 2.0 // float (floating point number)
 
 s // Returns foo
 i // Returns 1
-f // Returns 2
+f // Returns 2.0
 ```
 
 Variables can be assigned to any [Flux data type](/flux/v0.x/data-types/).
@@ -140,7 +137,7 @@ true
 1
 ```
 
-The following basic types do not have a literal syntax, but can be created in other ways.
+The following basic types do not have a literal syntax, but can be created in other ways:
 
 - [Bytes](/flux/v0.x/data-types/basic/bytes/)
 - [Unsigned integers](/flux/v0.x/data-types/basic/uint/)
