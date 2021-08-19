@@ -7,6 +7,8 @@ menu:
     name: Log and trace
     weight: 90
     parent: Monitor
+aliases:
+  - /enterprise_influxdb/v1.9/administration/logs/
 ---
 
 

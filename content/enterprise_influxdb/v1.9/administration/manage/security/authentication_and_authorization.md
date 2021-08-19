@@ -10,6 +10,8 @@ menu:
 related:
   - /enterprise_influxdb/v1.9/guides/fine-grained-authorization/
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
+aliases:
+  - enterprise_influxdb/v1.9/administration/authentication_and_authorization/
 ---
 
 This document covers setting up and managing authentication and authorization in InfluxDB Enterprise.

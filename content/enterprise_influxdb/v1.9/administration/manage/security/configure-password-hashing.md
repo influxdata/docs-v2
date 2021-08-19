@@ -9,6 +9,8 @@ menu:
     parent: Manage security
 related:
     - /enterprise_influxdb/v1.9/administration/configuration/
+aliases:
+  - /enterprise_influxdb/v1.9/administration/configure-password-hashing/
 ---
 
 By default, InfluxDB Enterprise uses `bcrypt` for password hashing.

@@ -7,6 +7,8 @@ menu:
     name: Manage subscriptions
     weight: 100
     parent: Manage
+aliases:
+  - /enterprise_influxdb/v1.9/administration/subscription-management/
 ---
 
 InfluxDB subscriptions are local or remote endpoints to which all data written to InfluxDB is copied.

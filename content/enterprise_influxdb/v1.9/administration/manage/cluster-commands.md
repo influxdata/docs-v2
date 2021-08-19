@@ -5,6 +5,7 @@ description: >
 aliases:
     - /enterprise/v1.8/features/cluster-commands/
     - /enterprise_influxdb/v1.9/features/cluster-commands/
+    - /enterprise_influxdb/v1.9/administration/cluster-commands/
 menu:
   enterprise_influxdb_1_9:
     name: Manage clusters
