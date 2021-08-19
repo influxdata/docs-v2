@@ -264,20 +264,102 @@ To use this option, set [`auth-enabled`](#auth-enabled-false) to `true`.
 
 Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`
 
-#### `password-hash = bcrypt`
+#### `password-hash = "bcrypt"`
 
-Configures password hashing algorithm.
-Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
+Specifies the password hashing scheme and its configuration.
+
+FIPS-readiness is achieved by specifying an appropriate password hashing scheme, such as `pbkdf2-sha256` or `pbkdf2-sha512`.
+The configured password hashing scheme and its FIPS readiness are logged on startup of `influxd` and `influxd-meta` for verification and auditing purposes.
+
+The configuration is a semicolon delimited list.
+The first section specifies the password hashing scheme.
+Optional sections after this are `key=value` password hash configuration options.
+Each scheme has its own set of options.
+Any options not specified default to reasonable values as specified below.
+
 This setting must have the same value as the data node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#password-hash--bcrypt).
 
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
+**Example hashing configurations:**
+
+| String                                   | Description                                                                                                                     | FIPS ready |
+|:-----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|------------|
+| `bcrypt`                                 | Specifies the [`bcrypt`](#bcrypt) hashing scheme with default options.                                                          | No         |
+| `pbkdf2-sha256;salt_len=32;rounds=64000` | Specifies the [`pbkdf2-sha256`](#pbkdf2-sha256) hashing scheme with options `salt_len` set to `32` and `rounds` set to `64000`. | Yes        |
+
+Supported password hashing schemes and options:
+
+##### `bcrypt`
+
+`bcrypt` is the default hashing scheme.
+It is not a FIPS-ready password hashing scheme.
+
+**Options:**
+
+* `cost`
+  * Specifies the cost of hashing.
+    Number of rounds performed is `2^cost`.
+    Higher cost gives greater security at the expense of execution time.
+  * Default value: `10`
+  * Valid range: [`4`, `31`]
+
+##### `pbkdf2-sha256`
+
+`pbkdf2-sha256` uses the PBKDF2 scheme with SHA-256 as the HMAC function.
+It is FIPS-ready according to [NIST Special Publication 800-132] §5.3
+when used with appropriate `rounds` and `salt_len` options.
+
+**Options:**
+
+* `rounds`
+  * Specifies the number of rounds to perform.
+    Higher cost gives greater security at the expense of execution time.
+  * Default value: `29000`
+  * Valid range: [`1`, `4294967295`]
+  * Must be greater than or equal to `1000`
+    for FIPS-readiness according to [NIST Special Publication 800-132] §5.2.
+* `salt_len`
+  * Specifies the salt length in bytes.
+    The longer the salt, the more difficult it is for an attacker to generate a table of password hashes.
+  * Default value: `16`
+  * Valid range: [`1`, `1024`]
+  * Must be greater than or equal to `16`
+    for FIPS-readiness according to [NIST Special Publication 800-132] §5.1.
+
+##### `pbkdf2-sha512`
+
+`pbkdf2-sha512` uses the PBKDF2 scheme with SHA-256 as the HMAC function.
+It is FIPS-ready according to [NIST Special Publication 800-132] §5.3
+when used with appropriate `rounds` and `salt_len` options.
+
+**Options:**
+
+* `rounds`
+  * Specifies the number of rounds to perform.
+    Higher cost gives greater security at the expense of execution time.
+  * Default value: `29000`
+  * Valid range: [`1`, `4294967295`]
+  * Must be greater than or equal to `1000`
+    for FIPS-readiness according to [NIST Special Publication 800-132] § 5.2.
+* `salt_len`
+  * Specifies the salt length in bytes.
+    The longer the salt, the more difficult it is for an attacker to generate a table of password hashes.
+  * Default value: `16`
+  * Valid range: [`1`, `1024`]
+  * Must be greater than or equal to `16`
+    for FIPS-readiness according to [NIST Special Publication 800-132] § 5.1.
+
 #### `ensure-fips = false`
 
-When `true`, enables a FIPS-readiness check on startup.
-Default `ensure-fips` is `false`.
+If `ensure-fips` is set to `true`, then `influxd` and `influxd-meta`
+will refuse to start if they are not configured in a FIPS-ready manner.
+For example, `password-hash = "bcrypt"` would not be allowed if `ensure-fips = true`.
+`ensure-fips` gives the administrator extra confidence that their instances are configured in a FIPS-ready manner.
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
+
+[NIST Special Publication 800-132]: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf
 
 ### TLS settings
 
