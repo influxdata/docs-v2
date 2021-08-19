@@ -1,6 +1,6 @@
 ---
 title: Delete secrets
-description: Delete secrets using the {{< cloud-name "short" >}}, UI `influx` CLI, or the InfluxDB API.
+description: Delete secrets using the InfluxDB Cloud UI, `influx` CLI, or the InfluxDB API.
 influxdb/cloud/tags: [secrets, security]
 menu:
   influxdb_cloud:
