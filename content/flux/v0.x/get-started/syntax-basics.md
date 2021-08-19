@@ -292,8 +292,8 @@ import "influxdata/influxdb/sample"
 ```
 
 ## Examples of of basic syntax
-Now you can begin to apply these basic principles in real-world use cases such
-as creating data stream variables, custom functions, and more.
+After reading the sections above, you can begin to apply these basic principles in real-world
+ use cases such as creating data stream variables, custom functions, and more.
 
 - [Define data stream variables](#define-data-stream-variables)
 - [Define custom functions](#define-custom-functions)
@@ -302,8 +302,7 @@ as creating data stream variables, custom functions, and more.
 A common use case for variable assignments in Flux is creating variables for one
 or more input data streams.
 The following example uses [`sample.data()`](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/)
-to query air sensor sample data.
-It assigns different streams of data to unique variables.
+to query sample air sensor data and assigns different streams of data to unique variables.
 
 ```js
 import "influxdata/influxdb/sample"
@@ -338,7 +337,7 @@ topN = (tables=<-, n) =>
 ```
 
 Use the custom function `topN` and the `humidity` data stream variable defined
-above to return the top three data points in each input table (each room).
+above to return the top three data points in each input table.
 
 ```js
 humidity
