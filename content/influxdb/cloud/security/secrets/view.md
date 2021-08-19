@@ -6,6 +6,8 @@ menu:
   influxdb_cloud:
     parent: Manage secrets
 weight: 302
+aliases:
+  - /influxdb/cloud/security/secrets/manage-secrets/view/
 ---
 
 View secret keys using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.

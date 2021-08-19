@@ -6,6 +6,8 @@ menu:
   influxdb_2_0:
     parent: Manage secrets
 weight: 303
+aliases:
+  - /influxdb/v2.0/security/secrets/manage-secrets/update/
 ---
 
 Update secrets using the `influx` command line interface (CLI) or the InfluxDB API.

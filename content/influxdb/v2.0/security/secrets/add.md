@@ -6,6 +6,8 @@ menu:
   influxdb_2_0:
     parent: Manage secrets
 weight: 301
+aliases:
+  - /influxdb/v2.0/security/secrets/manage-secrets/add/
 ---
 
 Add secrets using the `influx` command line interface (CLI) or the InfluxDB API.
