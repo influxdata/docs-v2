@@ -1,5 +1,6 @@
 ---
 title: Work with composite types
+list_title: Composite types
 description: >
   Flux **composite types** are types constructed from basic types.
   Flux supports the following composite types: record, array, dictionary, function.

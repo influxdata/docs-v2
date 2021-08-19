@@ -73,12 +73,15 @@ sql.from(
 Each example includes the following functions (in the order listed):
 
 - [`from()`](/flux/v0.x/stdlib/universe/from/) to retrieve data from the data source.
-- [Pipe-forward operator (`|>`)](/flux/v0.x/get-started/query-basics/#pipe-forward-operator)
+- [Pipe-forward operator (`|>`)](/flux/v0.x/get-started/syntax-basics/#pipe-forward-operator)
   to send the output of each function to the next function as input.
 - [`range()`](/flux/v0.x/stdlib/universe/range/), [`filter()`](/flux/v0.x/stdlib/universe/filter/),
   or both to filter data based on column values.
 - [`mean()`](/flux/v0.x/stdlib/universe/mean/) to calculate the average of values
   returned from the data source.
 - [`yield()`](/flux/v0.x/stdlib/universe/yield/) to yield results to the user.
+
+_For detailed information about basic Flux queries,
+see [Flux query basics](/flux/v0.x/get-started/query-basics/)._
 
 {{< page-nav next="/flux/v0.x/get-started/data-model/" >}}

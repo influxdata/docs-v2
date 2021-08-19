@@ -102,4 +102,4 @@ select columns to group by:
 
 {{< flux/group-key-demo >}}
 
-{{< page-nav prev="/flux/v0.x/get-started/" next="/flux/v0.x/get-started/query-basics/" >}}
+{{< page-nav prev="/flux/v0.x/get-started/" next="/flux/v0.x/get-started/syntax-basics/" >}}
