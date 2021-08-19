@@ -19,7 +19,7 @@ related:
   - /influxdb/cloud/reference/cli/influx/write
 ---
 
-Discover what you'll need to write data into InfluxDB Cloud. Learn how to quickly start collecting data, and then explore ways to write data, best practices, and what we recommend if you're migrating a large amount of historical data.
+Learn how to quickly start collecting data, and then explore ways to write data, best practices, and what we recommend if you're migrating a large amount of historical data.
 
 There are multiple options for writing data into InfluxDB.
 
