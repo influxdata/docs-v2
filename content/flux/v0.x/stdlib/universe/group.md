@@ -69,6 +69,10 @@ Groups records by columns defined in the [`columns`](#columns) parameter.
 #### except
 Groups records by all columns **except** those defined in the [`columns`](#columns) parameter.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ###### Group by host and measurement

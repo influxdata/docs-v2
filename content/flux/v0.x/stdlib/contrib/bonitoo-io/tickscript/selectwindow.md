@@ -70,6 +70,10 @@ Default fill value for null values in [`column`](#column).
 
 _Must be the same data type as `column`._
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 #### Change the name of, window, and then aggregate the value column

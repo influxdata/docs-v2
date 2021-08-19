@@ -22,7 +22,9 @@ import "testing"
 testing.diff(
   got: stream2,
   want: stream1,
-  epsilon: 0.000000001
+  epsilon: 0.000000001,
+  nansEqual: false,
+  verbose: false  
 )
 ```
 
@@ -49,6 +51,14 @@ Stream that contains the expected data to test against.
 ### epsilon {data-type="float"}
 Specifies how far apart two **float** values can be, but still considered equal.
 Default is `0.000000001`.
+
+### nansEqual {data-type="bool"}
+Consider `NaN` float values equal.
+Default is `false`.
+
+### verbose {data-type="bool"}
+Include detailed differences in output.
+Default is `false`.
 
 ## Examples
 

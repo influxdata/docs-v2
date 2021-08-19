@@ -37,6 +37,10 @@ Expects a `key` argument that represents a group key in the input stream.
 ### idx {data-type="int"}
 Index of the record to extract.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Example
 ```js
 r0 = from(bucket:"example-bucket")

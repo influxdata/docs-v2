@@ -67,7 +67,7 @@ Normalized histograms cannot be aggregated by summing their counts.
 
 ### tables {data-type="stream of tables"}
 Input data.
-Default is pipe-forwarded data.
+Default is piped-forward data (`<-`).
 
 ## Examples
 

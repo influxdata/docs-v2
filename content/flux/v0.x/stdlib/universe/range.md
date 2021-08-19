@@ -59,6 +59,10 @@ Defaults to `now()`.
 Time values in Flux must be in [RFC3339 format](/flux/v0.x/spec/types#timestamp-format).
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ###### Time range relative to now

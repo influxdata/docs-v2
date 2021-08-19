@@ -47,6 +47,10 @@ The mode used to group columns.
 Appends columns defined in the [`columns` parameter](#columns) to all existing
 [group keys](/flux/v0.x/get-started/data-model/#group-key).
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 
 ###### Include the value column in each groups' group key

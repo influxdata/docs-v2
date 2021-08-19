@@ -60,7 +60,9 @@ The message is stored in the `_message` column.
 ### data {data-type="record"}
 Meta data used to identify this check.
 
-**InfluxDB populates check data.**
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
 

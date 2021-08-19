@@ -37,6 +37,10 @@ to extract a single table from a stream of tables.
 ### column {data-type="string"}
 Name of the column to extract.
 
+### table {data-type="table"}
+Input table.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Example
 ```js
 vs = from(bucket:"example-bucket")

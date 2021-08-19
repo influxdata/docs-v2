@@ -39,6 +39,10 @@ increase(columns: ["_value"])
 Columns to use in the operation.
 Default is `["_value"]`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Output tables
 For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.
 

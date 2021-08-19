@@ -46,6 +46,10 @@ Indicates the first row should be kept.
 If `true`, the difference will be `null`.
 Default is `false`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Subtraction rules for numeric types
 - The difference between two non-null values is their algebraic difference;
   or `null`, if the result is negative and `nonNegative: true`;

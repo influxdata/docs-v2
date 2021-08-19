@@ -67,6 +67,10 @@ The region containing the desired data points.
 Specify record properties for the shape.
 _See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Filter data in a box-shaped region

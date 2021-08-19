@@ -30,6 +30,10 @@ experimental.alignTime(
 The **UTC time** to align tables to.
 Default is `1970-01-01T00:00:00Z`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 
 ### Compare values month-over-month

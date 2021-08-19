@@ -37,6 +37,10 @@ to extract a single table from a stream of tables.
 ### idx {data-type="int"}
 Index of the record to extract.
 
+### table {data-type="table"}
+Input table.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Example
 ```js
 r0 = from(bucket:"example-bucket")

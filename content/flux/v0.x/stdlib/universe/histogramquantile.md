@@ -82,6 +82,10 @@ interpolation is performed between `minValue` and the lowest upper bound.
 When `minValue` is equal to negative infinity, the lowest upper bound is used.
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Compute the 90th quantile

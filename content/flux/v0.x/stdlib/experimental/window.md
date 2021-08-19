@@ -64,6 +64,10 @@ Defaults to 0, which will align window end boundaries with the `every` duration.
 Specifies whether empty tables should be created.
 Defaults to `false`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 
 #### Window data into 10 minute intervals

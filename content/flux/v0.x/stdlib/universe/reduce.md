@@ -81,6 +81,10 @@ identity: {identityKey1: value1, identityKey2: value2}
 identity: {sum: 0.0, count: 0.0}
 ```
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Important notes
 
 #### Dropped columns

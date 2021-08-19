@@ -33,6 +33,10 @@ unique(column: "_value")
 Column to search for unique values.
 Defaults to `"_value"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from("example-bucket")

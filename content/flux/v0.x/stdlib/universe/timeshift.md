@@ -35,6 +35,10 @@ May be a negative duration.
 The list of all columns to be shifted.
 Default is `["_start", "_stop", "_time"]`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ###### Shift forward in time

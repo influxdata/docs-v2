@@ -52,6 +52,10 @@ Field is renamed to `lon`.
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) to use
 when generating the S2 cell ID token.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Shape data to meet the requirements of the Geo package

@@ -61,23 +61,27 @@ Default is `(r) => "Threshold Check: ${r._check_name} is: ${r._level}"`.
 
 ### crit {data-type="function"}
 Predicate function to determine `crit` status.
-Default is `(r) => false`
+Default is `(r) => false`.
 
 ### warn {data-type="function"}
 Predicate function to determine `warn` status.
-Default is `(r) => false`
+Default is `(r) => false`.
 
 ### info {data-type="function"}
 Predicate function to determine `info` status.
-Default is `(r) => false`
+Default is `(r) => false`.
 
 ### ok {data-type="function"}
 Predicate function to determine `ok` status.
-Default is `(r) => true`
+Default is `(r) => true`.
 
 ### topic {data-type="string"}
 Check topic.
-Default is `""`
+Default is `""`.
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
 

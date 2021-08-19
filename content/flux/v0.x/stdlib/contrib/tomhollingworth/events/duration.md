@@ -73,6 +73,10 @@ Default is `"_stop"`.
 The latest time to use when calculating results.
 If provided, `stop` overrides the time value in the [`stopColumn`](#stopcolumn).
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Calculate the duration of states

@@ -40,6 +40,10 @@ Only use `1` and the unit of time to specify the `unit`.
 For example: `1s`, `1m`, `1h`.
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Truncate all time values to seconds

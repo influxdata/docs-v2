@@ -44,6 +44,10 @@ A predicate function which takes a column name as a parameter (`column`) and ret
 a boolean indicating whether or not the column should be included in the resulting table.
 Cannot be used with `columns`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Keep a list of columns

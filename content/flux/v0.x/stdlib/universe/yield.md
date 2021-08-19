@@ -36,6 +36,10 @@ With multiple sources, `yield()` is required to specify what is returned, and wh
 A unique name for the yielded results.
 Default is `"_results"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket: "example-bucket")

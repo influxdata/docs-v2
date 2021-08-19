@@ -45,6 +45,10 @@ To keep empty tables in your data, set the following parameters for the followin
 The column on which to operate.
 Defaults to `"_value"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket: "example-bucket")

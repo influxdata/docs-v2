@@ -50,6 +50,10 @@ If there is no mode, `mode()` returns `null`.
 The column to use to compute the mode.
 Default is `"_value"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ###### Return the mode of windowed data

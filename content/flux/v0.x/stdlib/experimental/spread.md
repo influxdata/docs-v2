@@ -32,6 +32,12 @@ import "experimental"
 experimental.spread()
 ```
 
+## Parameters
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 ```js
 import "experimental"

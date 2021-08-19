@@ -117,6 +117,10 @@ with coordinates in the defined region are returned.
 Default is `true`.
 _See [Strict and non-strict filtering](#strict-and-non-strict-filtering) above._
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Strictly filter data in a box-shaped region

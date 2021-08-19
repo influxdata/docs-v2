@@ -69,6 +69,10 @@ Default is `false`.
 Normalized histograms cannot be aggregated by summing their counts.
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Histogram with dynamically generated bins

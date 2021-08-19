@@ -45,6 +45,10 @@ exponentialMovingAverage(n: 5)
 ### n {data-type="int"}
 The number of points to average.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 #### Calculate a five point exponential moving average

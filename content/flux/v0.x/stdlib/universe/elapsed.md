@@ -44,6 +44,10 @@ _Default is `"_time"`._
 The column to store elapsed times.
 _Default is `"elapsed"`._
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Calculate the time between points in seconds

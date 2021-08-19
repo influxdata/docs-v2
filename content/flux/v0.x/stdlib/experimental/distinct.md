@@ -43,7 +43,7 @@ the following:
 
 ### tables {data-type="stream of tables"}
 Input data.
-Default is pipe-forwarded data.
+Default is piped-forward data (`<-`).
 
 ## Examples
 

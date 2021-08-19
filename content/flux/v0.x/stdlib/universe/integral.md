@@ -52,8 +52,12 @@ Defaults to `""`.
 
 Use one of the following interpolation options:
 
-- _empty sting for no interpolation_
+- _empty string for no interpolation_
 - linear
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
 

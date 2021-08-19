@@ -43,6 +43,10 @@ Hours range from `[0-23]`.
 The column that contains the time value.
 Default is `"_time"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Use only data from 9am to 5pm

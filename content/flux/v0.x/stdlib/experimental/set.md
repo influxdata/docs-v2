@@ -38,6 +38,10 @@ A record that defines the columns and values to set.
 The key of each key-value pair defines the column name.
 The value of each key-value pair defines the column value.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 
 ### Set values for multiple columns

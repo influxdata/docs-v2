@@ -33,6 +33,10 @@ Otherwise, `dead` is set to `true`.
 ### t {data-type="time"}
 The time threshold for the deadman check.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ### Detect if a host hasn't reported in the last five minutes

@@ -41,6 +41,10 @@ Maximum number of records to output.
 Number of records to skip per table before limiting to `n`.
 Default is `0`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Output the first ten records in each table

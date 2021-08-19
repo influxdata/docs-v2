@@ -36,7 +36,11 @@ Default is `["id","tid"]`.
 
 ### orderBy {data-type="array of strings"}
 Column to order results by.
-Default is `["_time"]`
+Default is `["_time"]`.
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
 

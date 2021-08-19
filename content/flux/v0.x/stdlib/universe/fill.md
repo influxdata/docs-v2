@@ -45,6 +45,10 @@ When `true`, assigns the value set in the previous non-null row.
 Cannot be used with `value`.
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Fill null values with a specified non-null value

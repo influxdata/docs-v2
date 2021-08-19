@@ -96,6 +96,10 @@ Default is `"_time"`.
 The column to operate on.
 Default is `"_value"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Use aggregateWindow to prepare data for holtWinters

@@ -44,6 +44,10 @@ The period or number of points to use in the calculation.
 The columns to operate on.
 Defaults to `["_value"]`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Output tables
 For each input table with `x` rows, `chandeMomentumOscillator()` outputs a table
 with `x - n` rows.

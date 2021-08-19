@@ -31,13 +31,17 @@ aggregate.rate(
 ## Parameters
 
 ### every {data-type="duration"}
-Duration of time windows.
+({{< req >}}) Duration of time windows.
 
 ### groupColumns {data-type="array of strings"}
-List of columns to group by. Defaults to `[]`.
+List of columns to group by. Default is `[]`.
 
 ### unit {data-type="duration"}
-The time duration to use when calculating the rate. Defaults to `1s`.
+The time duration to use when calculating the rate. Default is `1s`.
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
 

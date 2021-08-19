@@ -93,6 +93,10 @@ return empty tables, but [selector functions](/flux/v0.x/function-types/#selecto
 By design, selectors drop empty tables.
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 The examples below use a `data` variable to represent a filtered data set.
 

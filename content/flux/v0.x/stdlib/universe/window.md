@@ -79,6 +79,10 @@ Defaults to `"_stop"`.
 Specifies whether empty tables should be created.
 Defaults to `false`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 #### Window data into 10 minute intervals

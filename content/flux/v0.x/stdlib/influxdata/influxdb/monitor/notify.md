@@ -49,6 +49,10 @@ information about sent notifications and automatically assigns these values.
 If writing a custom notification [task](/influxdb/cloud/process-data/),
 we recommend using **unique arbitrary values** for data record fields.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 - [Send a notification to Slack](#send-a-notification-to-slack)

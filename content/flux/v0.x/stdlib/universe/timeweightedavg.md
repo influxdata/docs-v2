@@ -31,6 +31,10 @@ timeWeightedAvg(unit: 1m)
 ({{< req >}})
 Time duration used when computing the time-weighted average.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket: "example-bucket")
