@@ -23,7 +23,7 @@ Find the percentage of total time a state is “true” or "false" or "null" ove
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
-The following example queries data from its bucket and calculates the percentage of times hazardous substances were released into the air. Air with any amount of hazardous substances would be "true" while air with no amount of hazardous substances would be "false." 
+The following example queries data from the `monitor-exposure` bucket and calculates the percentage of times hazardous substances were released into the air. Air with any amount of hazardous substances would be "true" while air with no amount of hazardous substances would be "false." 
 
 To find percentage of total time, the state is "true" or "false", make sure the data includes the following: 
 - `monitor` measurement 
