@@ -28,7 +28,7 @@ menu:
   - Fix reconnection regression introduced in 1.19.1.
   - Don't skip good quality nodes after encountering bad quality node.
 - Kubernetes Inventory (`kube_inventory`): Fix k8s nodes and pods parsing error.
-- Postgre SQL (`postgresql`): Normalize unix socket path.
+- PostgreSQL (`postgresql`): Normalize unix socket path.
 - vSphere (`vsphere`): Update `vmware/govmomi` module to v0.26.0 in order to support vSphere 7.0.
 
 ### Output plugin updates
@@ -36,7 +36,7 @@ menu:
 - CrateDB (`cratedb`): Replace dots in tag keys with underscores.
 
 ### Processor plugin updates
-- AWS (`aws`): Refactor EC2 init for `config-api`.
+- AWS (`aws`): Refactor EC2 init.
 
 ## v.1.19.2 [2021-07-28]
 
