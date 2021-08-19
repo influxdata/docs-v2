@@ -1,6 +1,6 @@
 ---
 title: Update secrets
-description: Update secrets using the `influx` CLI or the InfluxDB API.
+description: Update secrets using the {{< cloud-name "short" >}}, `influx` CLI, or the InfluxDB API.
 influxdb/cloud/tags: [secrets, security]
 menu:
   influxdb_cloud:
@@ -8,7 +8,20 @@ menu:
 weight: 303
 ---
 
-Update secrets using the `influx` command line interface (CLI) or the InfluxDB API.
+Update secrets using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
+
+- [Update a secret using the InfluxDB Cloud UI](#update-a-secret-using-the-influxdb-cloud-ui)
+- [Update a secret using the influx CLI](#update-a-secret-using-the-influx-cli)
+- [Update a secret using the InfluxDB API](#update-a-secret-using-the-influxdb-api)
+
+## Update a secret using the InfluxDB Cloud UI
+
+1. In the {{< cloud-name "short" >}} UI, click **Settings**.
+
+    {{< nav-icon "settings" >}}
+2. Click the **Secrets** tab.
+3. Click on the secret key whose value you want to update.
+4. Enter the new value, and click **Edit Secret**.
 
 ## Update a secret using the influx CLI
 Use the [`influx secret update` command](/influxdb/cloud/reference/cli/influx/secret/update/)

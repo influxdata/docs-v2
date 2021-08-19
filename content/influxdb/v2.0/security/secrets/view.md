@@ -10,6 +10,9 @@ weight: 302
 
 View secret keys using the `influx` command line interface (CLI) or the InfluxDB API.
 
+- [View secret keys using the influx CLI](#view-secret-keys-using-the-influx-cli)
+- [View secret keys using the InfluxDB API](#view-secret-keys-using-the-influxdb-api)
+
 ## View secret keys using the influx CLI
 Use the [`influx secret list` command](/influxdb/v2.0/reference/cli/influx/secret/list/)
 to list your organization's secret keys.

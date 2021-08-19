@@ -1,21 +1,15 @@
 ---
-title: Manage secrets
-description: Manage secrets in InfluxDB with the InfluxDB API.
-influxdb/v2.0/tags: [secrets, security]
+title: Use secrets
+description: Use secrets in queries with Flux.
+influxdb/cloud/tags: [secrets, security]
 menu:
-  influxdb_2_0:
-    parent: Store and use secrets
-weight: 201
+  influxdb_cloud:
+    parent: Manage secrets
+weight: 305
 ---
 
-Manage secrets using the [`influx` command line interface (CLI)](/influxdb/v2.0/reference/cli/influx/) or the InfluxDB API.
-All secrets belong to an organization and are stored in your [secret-store](/influxdb/v2.0/security/secrets/).
+Use secrets in a Flux query to pass sensitive data like credentials.
 
-{{< children >}}
-
----
-
-## Use secrets in a query
 Import the `influxdata/influxd/secrets` package and use the `secrets.get()` function
 to populate sensitive data in queries with secrets from your secret store.
 
