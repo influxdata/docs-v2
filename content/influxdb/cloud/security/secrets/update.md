@@ -1,6 +1,6 @@
 ---
 title: Update secrets
-description: Update secrets using the {{< cloud-name "short" >}}, `influx` CLI, or the InfluxDB API.
+description: Update secrets using the InfluxDB Cloud UI, `influx` CLI, or the InfluxDB API.
 influxdb/cloud/tags: [secrets, security]
 menu:
   influxdb_cloud:

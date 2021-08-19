@@ -1,6 +1,6 @@
 ---
 title: View secret keys
-description: View secret keys using the {{< cloud-name "short" >}} UI, `influx` CLI, or the InfluxDB API.
+description: View secret keys using the InfluxDB Cloud UI, `influx` CLI, or the InfluxDB API.
 influxdb/cloud/tags: [secrets, security]
 menu:
   influxdb_cloud:

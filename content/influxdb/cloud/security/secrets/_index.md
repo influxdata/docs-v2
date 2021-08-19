@@ -10,7 +10,7 @@ weight: 201
 
 Manage secrets using any of the following:
 
-- {< cloud-name "short" >}} UI
+- {{< cloud-name "short" >}} UI
 - [`influx` command line interface (CLI)](/influxdb/cloud/reference/cli/influx/) 
 - InfluxDB API
 
