@@ -51,6 +51,10 @@ The number of values to use to calculate the RSI.
 Columns to operate on.
 Default is `["_value"]`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Output tables
 For each input table with `x` rows, `relativeStrengthIndex()` outputs a table
 with `x - n` rows.

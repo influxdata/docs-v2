@@ -36,11 +36,15 @@ for market noise or volatility.
 ### n {data-type="int"}
 The period or number of points to use in the calculation.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 ```js
 import "experimental"
 
-experimental.from(bucket: "example-bucket"):
+from(bucket: "example-bucket"):
   |> range(start: -7d)
-  |> kaufmansAMA(n: 10)
+  |> experimental.kaufmansAMA(n: 10)
 ```

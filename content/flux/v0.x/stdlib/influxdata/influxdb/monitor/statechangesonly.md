@@ -24,6 +24,12 @@ import "influxdata/influxdb/monitor"
 monitor.stateChangesOnly()
 ```
 
+## Parameters
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Return records representing state changes

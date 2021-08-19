@@ -57,6 +57,10 @@ function to apply.
 ({{< req >}})
 New column name.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 - [Change the name of the value column](#change-the-name-of-the-value-column)

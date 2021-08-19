@@ -39,6 +39,10 @@ The level to detect a change to.
 The function output records that change to this level.
 Defaults to `"any"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Detect when the state changes to critical

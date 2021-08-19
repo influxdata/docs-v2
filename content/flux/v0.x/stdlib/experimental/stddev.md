@@ -44,6 +44,10 @@ Calculate the sample standard deviation where the data is considered to be part 
 ##### population
 Calculate the population standard deviation where the data is considered a population of its own.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 ```js
 import "experimental"

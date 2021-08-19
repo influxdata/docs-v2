@@ -48,6 +48,10 @@ Default is `-1`.
 When set to `-1`, `geo.groupByArea()` attempts to automatically detect the S2 Cell ID level.
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 import "experimental/geo"

@@ -45,6 +45,10 @@ Use one of the following interpolation options:
 - _empty string for no interpolation_
 - linear
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 
 ##### Calculate the integral

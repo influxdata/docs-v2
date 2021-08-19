@@ -47,6 +47,10 @@ Calculates the sample standard deviation where the data is considered to be part
 ##### population
 Calculates the population standard deviation where the data is considered a population of its own.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket: "example-bucket")

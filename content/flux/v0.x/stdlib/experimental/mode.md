@@ -45,6 +45,12 @@ If there is no mode, `experimental.mode()` returns `null`.
 - Boolean
 - Time
 
+## Parameters
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 
 ###### Return the mode of windowed data

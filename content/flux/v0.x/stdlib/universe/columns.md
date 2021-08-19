@@ -39,6 +39,10 @@ columns(column: "_value")
 The name of the output column in which to store the column labels.
 Defaults to `"_value"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket: "example-bucket")

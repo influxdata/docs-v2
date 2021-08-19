@@ -52,6 +52,10 @@ Defaults to `["_value"]`.
 The column containing time values.
 Defaults to `"_time"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Output tables
 For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.
 

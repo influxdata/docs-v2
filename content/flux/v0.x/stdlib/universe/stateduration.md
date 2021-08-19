@@ -60,6 +60,10 @@ The unit of time in which the state duration is incremented.
 For example: `1s`, `1m`, `1h`, etc.
 The default unit is one second (`1s`).
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ```js

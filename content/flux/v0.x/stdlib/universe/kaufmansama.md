@@ -44,6 +44,10 @@ The period or number of points to use in the calculation.
 The column to operate on.
 Defaults to `"_value"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket: "telegraf/autogen"):

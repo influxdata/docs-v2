@@ -42,6 +42,10 @@ Use the `with` operator to preserve columns **not** in the group and **not**
 explicitly mapped in the operation.
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 - [Perform mathemtical operations on column values](#perform-mathemtical-operations-on-column-values)

@@ -48,6 +48,10 @@ tripleEMA(n: 5)
 ### n {data-type="int"}
 Number of points to average.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 #### Calculate a five point triple exponential moving average

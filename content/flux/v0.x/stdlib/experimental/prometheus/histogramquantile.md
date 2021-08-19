@@ -31,6 +31,10 @@ prometheus.histogramQuantile(
 ### quantile {data-type="float"}
 A value between 0.0 and 1.0 indicating the desired quantile.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ### Calculate the 99th quantile in Prometheus data

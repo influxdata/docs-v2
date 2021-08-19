@@ -71,6 +71,10 @@ Indicates how many centroids to use when compressing the dataset.
 A larger number produces a more accurate result at the cost of increased memory requirements.
 Defaults to `1000.0`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 
 ###### Quantile as an aggregate

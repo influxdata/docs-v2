@@ -29,6 +29,12 @@ patterned after the [function definition](#function-definition),
 but replace `_value` with your desired column.
 {{% /note %}}
 
+## Parameters
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket: "telegraf")

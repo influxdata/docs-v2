@@ -80,6 +80,10 @@ The organization ID of the specified [`bucket`](#bucket).
 Only required when writing to a different organization or a remote host.
 `orgID` and `org` are mutually exclusive.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 
 ##### Use pivot() to shape data for experimental.to()

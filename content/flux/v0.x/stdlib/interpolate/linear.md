@@ -34,6 +34,10 @@ interpolate.linear(every: 1m)
 ### every {data-type="duration"}
 Duration of time between interpolated points.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ### Interpolate missing data by day

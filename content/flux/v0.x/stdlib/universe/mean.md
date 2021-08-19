@@ -32,6 +32,10 @@ mean(column: "_value")
 Column to use to compute the mean.
 Default is `"_value"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket:"example-bucket")

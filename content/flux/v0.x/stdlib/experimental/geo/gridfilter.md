@@ -110,6 +110,10 @@ Default is `-1`.
 When set to `-1`, `gridFilter()` attempts to automatically detect the S2 Cell ID level.
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Filter data in a box-shaped region

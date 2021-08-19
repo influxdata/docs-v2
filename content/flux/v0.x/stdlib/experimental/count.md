@@ -40,6 +40,12 @@ To keep empty tables in your data, set the following parameters for the followin
 | [aggregateWindow()](/flux/v0.x/stdlib/universe/aggregatewindow/) | `createEmpty: true` |
 {{% /note %}}
 
+## Parameters
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 ```js
 import "experimental"

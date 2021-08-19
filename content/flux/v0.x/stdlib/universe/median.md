@@ -73,6 +73,10 @@ Number of centroids to use when compressing the dataset.
 A larger number produces a more accurate result at the cost of increased memory requirements.
 Default is `1000.0`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ###### Median as an aggregate

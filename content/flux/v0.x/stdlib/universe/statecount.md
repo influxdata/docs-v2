@@ -47,6 +47,10 @@ Those that evaluate to `false` reset the state count.
 
 The name of the column added to each record that contains the incremented state count.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ```js

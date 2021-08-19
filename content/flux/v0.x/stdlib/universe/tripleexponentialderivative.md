@@ -59,6 +59,10 @@ a negative value indicates decreasing momentum.
 ### n {data-type="int"}
 The number of points to use in the calculation.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 #### Calculate a five point triple exponential derivative

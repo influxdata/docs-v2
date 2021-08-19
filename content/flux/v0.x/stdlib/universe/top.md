@@ -37,6 +37,10 @@ List of columns by which to sort.
 Sort precedence is determined by list order (left to right).
 Default is `["_value"]`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket:"example-bucket")

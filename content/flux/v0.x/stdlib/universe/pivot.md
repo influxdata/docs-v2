@@ -56,6 +56,10 @@ List of columns used to pivot values onto each row identified by the rowKey.
 ### valueColumn {data-type="string"}
 Column that contains the value to be moved around the pivot.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ### Align fields within each measurement that have the same timestamp

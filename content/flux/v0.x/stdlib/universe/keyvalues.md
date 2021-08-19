@@ -66,6 +66,10 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 - Each input table must have all of the columns listed by the `keyColumns` parameter.
 -->
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Get key values from explicitly defined columns

@@ -26,6 +26,12 @@ import "experimental"
 experimental.skew()
 ```
 
+## Parameters
+
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data (`<-`).
+
 ## Examples
 ```js
 import "experimental"

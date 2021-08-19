@@ -73,7 +73,7 @@ Integer values represent nanoseconds.
 
 ### tables {data-type="stream of tables"}
 Input data.
-Default is piped-forward data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 _See [Required input schema](#required-input-schema)._
 
 ## Examples

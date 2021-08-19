@@ -68,6 +68,10 @@ then keep empty tables on subsequent `filter()` calls with smaller data sets.
 _[See the example below](#keep-empty-tables-when-filtering)._
 {{% /warn %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Filter based on measurement, field, and tag

@@ -49,6 +49,10 @@ _A negative duration indicates start and stop boundaries are reversed._
 Column used to compute the moving average.
 Defaults to `"_value"`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ###### Calculate a five year moving average every year

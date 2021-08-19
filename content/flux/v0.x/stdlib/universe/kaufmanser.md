@@ -38,6 +38,10 @@ Higher values represent a more efficient or trending market.
 ({{< req >}})
 The period or number of points to use in the calculation.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 ```js
 from(bucket: "example-bucket")

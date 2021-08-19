@@ -45,6 +45,10 @@ The return value must be a record.
 Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".
 {{% /note %}}
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Important notes
 
 #### Preserve columns

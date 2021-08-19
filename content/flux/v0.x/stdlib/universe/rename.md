@@ -47,6 +47,10 @@ Cannot be used with `fn`.
 A function mapping between old and new column names.
 Cannot be used with `columns`.
 
+### tables {data-type="stream of tables"}
+Input data.
+Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 ## Examples
 
 ##### Rename a single column
