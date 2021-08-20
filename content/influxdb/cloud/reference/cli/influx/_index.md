@@ -77,6 +77,7 @@ For more information about managing CLI configurations, see the
 | Flag |          | Description                   |
 |:---- |:---      |:-----------                   |
 | `-h` | `--help` | Help for the `influx` command |
+|      | `--http-debug` | Inspect communication with InfluxDB servers | 
 
 ### Flag patterns and conventions
 The `influx` CLI uses the following patterns and conventions:
