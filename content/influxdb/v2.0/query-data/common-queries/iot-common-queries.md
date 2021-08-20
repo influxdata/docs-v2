@@ -27,44 +27,49 @@ Find the percentage of total time a state is “true” or "false" or "null" ove
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
-The following example queries data from the air sensor sample data and calculates the percentage of times the carbon monoxide levels reached 150ppm. Air that was equal or higher than 150ppm is "true" while air with lower amounts of carbon monoxide would be "false." 
-
-To find percentage of total time, the state is "true" or "false", make sure the data includes the following: 
-- `monitor` measurement 
-- **`unit-exposure_used` field**: used exposure memory in bytes
-- **`unit-expsoure_total` field**: total exposure memory in bytes
+The following example queries data from the air sensor sample data and calculates the percentage of time the carbon monoxide levels reaches 150ppm. Air that is equal or higher than 150ppm is "true" while air with lower amounts of carbon monoxide would be "false." 
 
 ```js
+import "contrib/tomhollingworth/events"
 import "influxdata/influxdb/sample"
 
 coThreshold = 3.0
 
 sample.data(set: "airSensor")
   |> range(start: -1h)
-  |> filter(fn: (r) => r._field == "co")
+  |> filter(fn: (r) => r._field == "co" and r.sensor_id == "TLM0200" )
   |> map(fn: (r) => ({ r with alert: if r._value >= coThreshold then true else false }))
-
-from(bucket: "air-sensor")
-  |> range(start: 2020-01-01T00:00:00Z)
-  |> filter(fn: (r) => r._measurement == "airSensors" and r._field =~ /mem_/ )
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({
-    _time: r._time,
-    _measurement: r._measurement,
-    _field: "mem_used_percent",
-    _value: float(v: r.mem_used) / float(v: r.mem_total) * 100.0
-  }))
-  lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_idle")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0) 
+  |> events.duration(unit: 1s, columnName: "duration",)
+  |> group(columns: ["alert", "_start", "_stop", "sensor_id"])
+  |> sum(column: "duration")
+  |> pivot(rowKey:["_stop"], columnKey: ["alert"], valueColumn: "duration")
+  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))
+  |> map(fn: (r) => { 
+    totalTime =  float(v: r.false + r.true)
+    return {sensor_id: r.sensor_id, noAlert: float(v: r.false) / totalTime * 100.0 , alert: float(v: r.true) / totalTime * 100.0 }
+  })
 ```
+
+In this example, the `filter` function narrows down the air sensor sample data to only include an instance where the CO levels have crossed the threshold, and the `map` function gives the data a "true" and "false" state. A Boolean value is created by querying `  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))`. 
+The `group` function creates a notification for when the data crosses the threshold. 
+The `sum` function drops all duration not included in the group key. 
+The percent of the state over the total interval is the sum of the duration of true and false states, divided by the total time, multiplied by 100. 
+
+| table | alert             | noAlert           | sensor_id |
+| ----- | ----------------- | ----------------- | --------- |
+| 0     | 95.27515286270149 | 4.724847137298499 | TLM0200   |
+
+Given the input data in the table above, the example function above does the following:
+
+1. Turns TLM0200 into true and false statements for when the levels are higher or lower than 150ppm. 
+2. Sums the true and false states to calculate the total time.
+3. Divides the value in step 2 by the total hours of exposure, and then multiplies the quotient by 100.
+
+The results are 95.28% of time is in the true state and 4.72% of time is in the false state.
 
 ##### Mosaic visualization 
 
-The following query displays the change in air quality over time. A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of carbon monoxide in the air. 
+The following query displays the change of "false" to "true". A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of carbon monoxide in the air. 
 
 ```js
 from(bucket: "monitor-exposure")
@@ -80,9 +85,9 @@ For more information about mosaic visualizations, see [here](/influxdb/cloud/vis
 
 Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
 
-#### Example: Calculate hazardous exposure
+#### Example: Calculate air temperature 
 
-For example, you may want to calculate temperature. 
+For example, you want to calculate temperature over a given interval.  
 
 The total exposure considers both the total hours in the day and temperature for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time.
 
@@ -120,7 +125,10 @@ Given the input data in the table above, the example function above does the fol
 
 ## Calculate value between events
 
-Events are recorded for when a day starts and ends. I would like to calculate the average temperature value during that period.
+Calculate the value between events by 
+
+The following example queries data starting with when a day starts and ends. The following query would calculate the average temperature value during that period.
+
 If each day is identified with a tag, it means that the start and end is the only range when data will be collected for this series and ultimately the data will age out. If we have many days recorded, we should be able to use tags to correctly calculate this. But, an example detailing this out would be useful.
 
 ## Record data points with added context
