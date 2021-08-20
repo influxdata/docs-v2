@@ -30,7 +30,7 @@ influx stacks init [flags]
 |      | `--json`              | Output data as JSON (default `false`)                                 |                 | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`               | Organization name (mutually exclusive with `--org-id`)                | string          | `INFLUX_ORG`          |
 |      | `--org-id`            | Organization ID (mutually exclusive with `--org`)                     | string          | `INFLUX_ORG_ID`       |
-|      | `--skip-verify`       | Skip TLS certificate verification                                     |                 |                       |
+|      | `--skip-verify`       | Skip TLS certificate verification                                     |                 | `INFLUX_SKIP_VERIFY`  |
 | `-d` | `--stack-description` | Stack description                                                     | string          |                       |
 | `-n` | `--stack-name`        | Stack name                                                            | string          |                       |
 | `-u` | `--template-url`      | Template URLs to associate with a stack                               | list of strings |                       |
