@@ -39,7 +39,7 @@ influx auth create [flags]
 |      | `--read-tasks`                  | Grant permission to read tasks                                        |             |                       |
 |      | `--read-telegrafs`              | Grant permission to read Telegraf configurations                      |             |                       |
 |      | `--read-user`                   | Grant permission to read organization users                           |             |                       |
-|      | `--skip-verify`                 | Skip TLS certificate verification                                     |             |                       |
+|      | `--skip-verify`                 | Skip TLS certificate verification                                     |             | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`                       | API token                                                             | string      | `INFLUX_TOKEN`        |
 | `-u` | `--user`                        | Username                                                              | string      |                       |
 |      | `--write-bucket`                | Grant permission to write to specified a bucket ID                    | stringArray |                       |
