@@ -88,7 +88,7 @@ Adding another tag (`season=summer`) to the example looks like this:
 weather,location=us-midwest,season=summer temperature=82 1465839830100400200
 ```
 
-When it comes to quoting the tag sets, line protocol supports single and double quotes as described in the following table:
+When using quotes in tag sets, line protocol supports single and double quotes as described in the following table:
 
 | Element     | Double quotes                           | Single quotes                           |
 | :------     | :------------:                          |:-------------:                          |
