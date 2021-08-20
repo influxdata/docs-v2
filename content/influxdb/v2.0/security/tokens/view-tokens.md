@@ -1,7 +1,7 @@
 ---
 title: View tokens
 seotitle: View API tokens in InfluxDB
-description: View API tokens in InfluxDB using the InfluxDB UI or the `influx` CLI.
+description: View API tokens in InfluxDB using the InfluxDB UI, the `influx` CLI, or the InfluxDB API.
 aliases:
   - /influxdb/v2.0/users/tokens/view-tokens
 menu:
@@ -11,11 +11,12 @@ menu:
 weight: 202
 ---
 
-View API tokens using the InfluxDB user interface (UI) or the `influx`
-command line interface (CLI).
+View API tokens and permissions using the InfluxDB user interface (UI),
+the `influx` command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
-Tokens are visible only to the user who created them and stop working when the user is deactivated. We recommend creating a generic IT user to create and manage tokens for writing data.
+Tokens are visible only to the user who created them and stop working when the user is deactivated.
+We recommend creating a generic IT user to create and manage tokens for writing data.
 {{% /note %}}
 
 ## View tokens in the InfluxDB UI
@@ -41,23 +42,36 @@ for information about other available flags.
 
 ## View tokens using the InfluxDB API
 
-Use the InfluxDB API to view tokens and authorization details.
-Send a `GET` request to the `/api/v2/authorizations` endpoint.
-Only tokens with the `read: authorizations` permission can view tokens.
+Use the `/authorizations` endpoint of the InfluxDB API to view tokens and permissions.
 
-See the [available permissions](/influxdb/v2.0/api/#operation/PostAuthorizations).
+{{% api-endpoint method="GET" endpoint="/api/v2/authorizations" %}}
 
-### List all tokens in the organization
+Include the following in your request:
+
+| Requirement          | Include by                                               |
+|:-----------          |:----------                                               |
+| API token with the [`read: authorizations`](/influxdb/v2.0/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token <API token>` header.                   |
 
 ```sh
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view.sh" %}}
 ```
 
-To filter the list of tokens, include the authorization ID, username, or user ID in the querystring.
+### View a single token
 
-#### Example
+To view a specific authorization and token, include the authorization ID in the URL path.
+
+{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" %}}
+
+### Filter the token list
+
+InfluxDB returns authorizations from the same organization as the token used in the request.
+To filter tokens by user, include `userID` as a query parameter in your request.
 
 ```sh
-{{% get-shared-text "api/v2.0/auth/oss/token-view.sh" %}}
+{{% get-shared-text "api/v2.0/auth/oss/tokens-view-filter.sh" %}}
 ```
 
+[***Operator tokens***](/{{% latest "influxdb" %}}/security/tokens/#operator-token) have access to all organizations' authorizations.
+To filter authorizations by organization when using an operator token, include an `org` or `orgID` query parameter in your request.
+
+See the [`/authorizations` endpoint documentation](/influxdb/v2.0/api/#tag/Authorizations) for more information about available parameters.
