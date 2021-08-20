@@ -8,7 +8,7 @@ description: >
   Import the `contrib/sranka/teams` package.
 menu:
   influxdb_cloud_ref:
-    name: Teams
+    name: Microsoft Teams
     parent: Contributed
 weight: 202
 influxdb/v2.0/tags: [functions, teams, microsoft, package]
