@@ -26,19 +26,18 @@ This document covers setting up and managing authentication and authorization in
 
 ## Authentication
 
-The InfluxDB API and the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/),
-which connects to the database using the API,
-include built-in authentication based on user credentials.
-When you enable authentication,
-InfluxDB Enterprise only executes HTTP requests that are sent with valid credentials.
+Enable authentication in InfluxDB Enterprise
+to only allow requests that are sent with valid credentials to execute.
 
 {{% note %}}
+#### Plugins not authenticated
 Authentication only occurs at the HTTP request scope.
 Plugins do not currently have the ability to authenticate requests and service
 endpoints (for example, Graphite, collectd, etc.) are not authenticated.
 {{% /note %}}
 
 {{% note %}}
+#### Authentication recommended on public endpoints
 If InfluxDB Enterprise is being deployed on a publicly accessible endpoint,
 we **strongly recommend** enabling authentication.
 Otherwise, data and potentially destructive commands will be publicly available to any unauthenticated user.
@@ -50,21 +49,23 @@ to prevent access and protect data from malicious actors.
 
 ### Enable authentication
 
-Authentication is disabled in InfluxDB and InfluxDB Enterprise.
-all credentials are silently ignored, and all users have all privileges.
+Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
+All credentials are silently ignored, and all users have all privileges.
+
 To enable authentication in a cluster, do the following:
 
 1. **Create at least one [admin user](#admin-users)**.
+
+   If you enable authentication and have no users, InfluxDB Enterprise *will not enforce authentication*.
+   It will only accept the [query](#user-management-commands) that creates a new admin user.
+
    Run the following command using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/):
    ```
    CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
    ```
 
-If you enable authentication and have no users, InfluxDB Enterprise *will not enforce authentication*.
-It will only accept the [query](#user-management-commands) that creates a new admin user.
-
 2. **Enable authentication in your meta and data configuration files**
-   by setting the `auth-enabled` option to `true` in the `[http]` section:
+   Set the `auth-enabled` options to `true` in the `[http]` section:
 
    ```toml
    [http]
