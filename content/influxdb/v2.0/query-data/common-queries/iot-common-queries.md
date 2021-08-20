@@ -72,10 +72,10 @@ The results are 95.28% of time is in the true state and 4.72% of time is in the 
 The following query displays the change of "false" to "true". A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of carbon monoxide in the air. 
 
 ```js
-from(bucket: "monitor-exposure")
+sample.data(set: "airSensor")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "sensor_1")
-  |> filter(fn: (r) => r._field == "unit-exposure")
+  |> filter(fn: (r) => r._measurement == "airSensor")
+  |> filter(fn: (r) => r._field == "co")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
 
