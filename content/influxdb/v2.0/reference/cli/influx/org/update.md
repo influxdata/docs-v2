@@ -28,7 +28,7 @@ influx org update [flags]
 | `-i` | `--id`            | ({{< req >}}) Organization ID                                         | string     | `INFLUX_ORG_ID`          |
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`     |
 | `-n` | `--name`          | New organization name                                                 | string     | `INFLUX_ORG`             |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                          |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`     |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`           |
 
 ## Examples
