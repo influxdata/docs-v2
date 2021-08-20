@@ -483,7 +483,9 @@ CLI examples:
 > REVOKE WRITE ON "NOAA_water_database" FROM "todd"
 ```
 
->**Note:** If a user with `ALL` privileges has `WRITE` privileges revoked, they are left with `READ` privileges, and vice versa.
+{{% note %}}
+If a user with `ALL` privileges has `WRITE` privileges revoked, they are left with `READ` privileges, and vice versa.
+{{% /note %}}
 
 ##### `SHOW` a user's database privileges
 
@@ -517,7 +519,7 @@ CLI example:
 ```
 
 {{% note %}}
-**Note:** The password [string](/influxdb/v1.8/query_language/spec/#strings) must be wrapped in single quotes.
+The password [string](/influxdb/v1.8/query_language/spec/#strings) must be wrapped in single quotes.
 Do not include the single quotes when authenticating requests.
 
 We recommend avoiding the single quote (`'`) and backslash (`\`) characters in passwords
