@@ -156,7 +156,7 @@ stream
   |from()
     .measurement('cpu')
   |alert()
-    .crit(lambda: "usage_idle" < 10)
+    .crit(lambda: int("usage_idle") < 10)
     .message('Hey, check your CPU')
     .topic('cpu')
 ```
