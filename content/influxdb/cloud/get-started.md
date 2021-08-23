@@ -11,7 +11,11 @@ weight: 2
 influxdb/cloud/tags: [get-started, install]
 ---
 
-After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to start writing, querying, and visualizing data.
+After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to get started:
+1. Do one of the following:
+   - (Recommended) Add sample data. Sample data sets delivered with Cloud are used throughout this documentation site to provide context, best practices, and clear examples for how InfluxDB Cloud features and functions work.
+   - Use your own data to explore Cloud. See how to [write your data](/influxdb/cloud/write-data/) to Cloud.
+2.  [Create a notebook](/influxdb/cloud/notebooks/create-notebook/) to build and annotate processes and data flows for your time series data, including writing to, querying from, and visualizing your data.
 
 To get started working in Cloud, we recommend using sample data to explore. 
 
