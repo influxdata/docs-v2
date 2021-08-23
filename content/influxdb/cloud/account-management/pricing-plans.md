@@ -14,7 +14,7 @@ menu:
 products: [cloud]
 ---
 
-InfluxDB Cloud offers two pricing plans, which provide different data and resource usage limits:
+InfluxDB Cloud offers two plans, which provide different data and resource usage limits:
 
 - [Free Plan](#free-plan)
 - [Usage-Based Plan](#usage-based-plan)
