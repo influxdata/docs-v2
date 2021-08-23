@@ -40,8 +40,8 @@ Flux will not query the database without a specified range.
 Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/{{< latest "flux" >}}/stdlib/universe/range)
 function, which specifies a time range for your query.
 It accepts two properties: `start` and `stop`.
-Ranges can be **relative** using negative [durations](/{{< latest "influxdb" "v2" >}}/reference/flux/language/lexical-elements#duration-literals)
-or **absolute** using [timestamps](/{{< latest "influxdb" "v2" >}}/reference/flux/language/lexical-elements#date-and-time-literals).
+Ranges can be **relative** using negative [durations](/{{< latest "flux" >}}/language/lexical-elements#duration-literals)
+or **absolute** using [timestamps](/{{< latest "flux" >}}/language/lexical-elements#date-and-time-literals).
 
 ###### Example relative time ranges
 ```js

@@ -54,7 +54,7 @@ uint(v: 2019-09-18T12:00:00.000000000Z)
 ```
 
 ## Calculate the duration between two timestamps
-Flux doesn't support mathematical operations using [time type](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#time-types) values.
+Flux doesn't support mathematical operations using [time type](/{{< latest "flux" >}}/language/types/#time-types) values.
 To calculate the duration between two timestamps:
 
 1. Use the `uint()` function to convert each timestamp to a Unix nanosecond timestamp.

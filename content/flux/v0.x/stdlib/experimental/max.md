@@ -12,7 +12,7 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/max/
 weight: 302
 related:
-  - /{{< latest "influxdb" >}}/reference/flux/stdlib/built-in/transformations/selectors/max
+  - /flux/v0.x/stdlib/universe/max/
   - /{{< latest "influxdb" "v1" >}}/query_language/functions/#max, InfluxQL – MAX()
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.112.0

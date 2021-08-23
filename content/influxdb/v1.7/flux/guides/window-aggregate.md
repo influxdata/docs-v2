@@ -107,7 +107,7 @@ dataSet
 ```
 
 {{% note %}}
-The `every` parameter supports all [valid duration units](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#duration-types),
+The `every` parameter supports all [valid duration units](/{{< latest "flux" >}}/language/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 

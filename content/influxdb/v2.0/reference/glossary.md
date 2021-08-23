@@ -851,7 +851,7 @@ Secrets are key-value pairs that contain information you want to control access 
 ### selector
 
 A Flux function that returns a single point from the range of specified points.
-See [Flux selector functions](/{{< latest "flux" >}}/stdlib/built-in/transformations/selectors/) for a complete list of available selector functions.
+See [Flux selector functions](/{{< latest "flux" >}}/stdlib/universe/) for a complete list of available selector functions.
 
 Related entries: [aggregate](#aggregate), [function](#function), [transformation](#transformation)
 

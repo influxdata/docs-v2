@@ -35,7 +35,7 @@ data
 ```
 
 By default, `derivative()` returns only positive derivative values and replaces negative values with _null_.
-Cacluated values are returned as [floats](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#numeric-types).
+Cacluated values are returned as [floats](/{{< latest "flux" >}}/language/types/#numeric-types).
 
 
 {{< flex >}}

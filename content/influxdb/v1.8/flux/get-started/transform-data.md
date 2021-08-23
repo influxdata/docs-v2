@@ -58,7 +58,7 @@ Use the `every` parameter to define a duration of time for each window.
 
 {{% note %}}
 #### Calendar months and years
-`every` supports all [valid duration units](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#duration-types),
+`every` supports all [valid duration units](/{{< latest "flux" >}}/language/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 

@@ -15,7 +15,7 @@ v2: /influxdb/v2.0/query-data/flux/mathematic-operations/
 ---
 
 Flux supports mathematic expressions in data transformations.
-This article describes how to use [Flux arithmetic operators](/{{< latest "influxdb" "v2" >}}/reference/flux/language/operators/#arithmetic-operators)
+This article describes how to use [Flux arithmetic operators](/{{< latest "flux" >}}/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
 If you're just getting started with Flux queries, check out the following:

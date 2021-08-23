@@ -23,7 +23,7 @@ list_code_example: |
   ```
 ---
 
-Use Flux [stream and table functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/stream-table/)
+Use Flux [stream and table functions](/{{< latest "flux" >}}/stdlib/universe/stream-table/)
 to extract scalar values from Flux query output.
 This lets you, for example, dynamically set variables using query results.
 
@@ -38,7 +38,7 @@ _The samples on this page use the [sample data provided below](#sample-data)._
 {{% warn %}}
 #### Current limitations
 - The InfluxDB user interface (UI) does not currently support raw scalar output.
-  Use [`map()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map/) to add
+  Use [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to add
   scalar values to output data.
 - The [Flux REPL](/enterprise_influxdb/v1.9/flux/guides/execute-queries/#influx-cli) does not currently support
   Flux stream and table functions (also known as "dynamic queries").
@@ -56,7 +56,7 @@ If query results include only one table, it is still formatted as a stream of ta
 You still must extract that table from the stream.
 {{% /note %}}
 
-Use [`tableFind()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/)
+Use [`tableFind()`](/{{< latest "flux" >}}/stdlib/universe/stream-table/tablefind/)
 to extract the **first** table whose [group key](/enterprise_influxdb/v1.9/flux/get-started/#group-keys)
 values match the `fn` **predicate function**.
 The predicate function requires a `key` record, which represents the group key of
@@ -89,7 +89,7 @@ of tables piped-forward into `tableFind()`.
 {{% /note %}}
 
 ## Extract a column from the table
-Use the [`getColumn()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/)
+Use the [`getColumn()` function](/{{< latest "flux" >}}/stdlib/universe/stream-table/getcolumn/)
 to output an array of values from a specific column in the extracted table.
 
 
@@ -129,7 +129,7 @@ SFOTemps[2]
 ```
 
 ## Extract a row from the table
-Use the [`getRecord()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/)
+Use the [`getRecord()` function](/{{< latest "flux" >}}/stdlib/universe/stream-table/getrecord/)
 to output data from a single row in the extracted table.
 Specify the index of the row to output using the `idx` parameter.
 The function outputs a record with key-value pairs for each column.
@@ -232,7 +232,7 @@ The temperature was ${string(v: lastReported._value)}°F."
 The following sample data set represents fictional temperature metrics collected
 from three locations.
 It's formatted in [annotated CSV](https://v2.docs.influxdata.com/v2.0/reference/syntax/annotated-csv/) and imported
-into the Flux query using the [`csv.from()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/csv/from/).
+into the Flux query using the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/).
 
 Place the following at the beginning of your query to use the sample data:
 

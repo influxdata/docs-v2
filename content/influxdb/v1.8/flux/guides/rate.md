@@ -38,7 +38,7 @@ data
 ```
 
 By default, `derivative()` returns only positive derivative values and replaces negative values with _null_.
-Cacluated values are returned as [floats](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#numeric-types).
+Cacluated values are returned as [floats](/{{< latest "flux" >}}/language/types/#numeric-types).
 
 
 {{< flex >}}
@@ -129,7 +129,7 @@ data
   )
 ```
 
-`aggregate.rate()` returns the average rate of change (as a [float](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#numeric-types))
+`aggregate.rate()` returns the average rate of change (as a [float](/{{< latest "flux" >}}/language/types/#numeric-types))
 per `unit` for time intervals defined by `every`.
 Negative values are replaced with _null_.
 
