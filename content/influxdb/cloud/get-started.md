@@ -19,7 +19,7 @@ To get started working in Cloud, we recommend using sample data to explore.
 
 Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate InfluxDB with sample time series data.
 
-1. Look through the list of [sample data sets](/influxdb/cloud/reference/sample-data/#sample-datasets) and choose one to download. 
+1. Review the list of [sample data sets](/influxdb/cloud/reference/sample-data/#sample-datasets) and choose one to download. 
 2. Copy the 'sample.data()' function listed underneath your desired sample dataset. 
 3. Click **Explore > Script Editor** in InfluxDB Cloud's left navigation menu. 
 4. Paste your 'sample.data()' function. 
