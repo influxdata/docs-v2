@@ -15,7 +15,7 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
 
 To get started working in Cloud, we recommend using sample data to explore. 
 
-## Sample data
+## Add sample data
 
 Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate InfluxDB with sample time series data.
 
