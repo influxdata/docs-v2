@@ -36,7 +36,10 @@ InfluxDB uses [API tokens](/influxdb/v2.0/security/tokens/) to authorize API req
 1. Before exploring the API, use the InfluxDB UI to
 [create an initial API token](/influxdb/v2.0/security/tokens/create-token/) for your application.
 
-2. Include your API token as an `Authorization: Token yourApiToken` header in each request.
+2. Include your API token as an `Authorization: Token` header in each request.
+
+  ```sh
+  Authorization: Token yourApiToken
 
 #### Example
 
