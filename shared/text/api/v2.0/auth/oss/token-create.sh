@@ -7,7 +7,7 @@ curl -v --request POST \
   --header 'Content-type: application/json' \
   --data '{
   "status": "active",
-  "description": "IOT Center device 1",
+  "description": "iot-center-device",
   "orgID": "'"${INFLUX_ORG_ID}"'",
   "permissions": [
     {
