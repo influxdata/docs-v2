@@ -50,7 +50,7 @@ Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`read: authorizations`](/influxdb/v2.0/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token <API token>` header.                   |
+| API token with the [`read: authorizations`](/influxdb/v2.0/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
 
 ```sh
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view.sh" %}}

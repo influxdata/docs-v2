@@ -1,5 +1,5 @@
-INFLUX_ORG_ID=48c88459ee424a04
-INFLUX_API_TOKEN=YCiJXZPXSL
+INFLUX_ORG_ID=YOUR_ORG_ID
+INFLUX_API_TOKEN=YOUR_API_TOKEN
 
 curl -v --request POST \
   http://localhost:8086/api/v2/authorizations \

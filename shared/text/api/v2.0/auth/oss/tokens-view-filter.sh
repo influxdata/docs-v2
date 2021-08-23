@@ -4,7 +4,7 @@
 # 2. Find the user's authorizations by user ID.
 # 3. Filter for `active` authorizations that have `write` permission.
 
-INFLUX_TOKEN=YCiJXZPXSL-3
+INFLUX_TOKEN=YOUR_API_TOKEN
 
 function list_write_auths() {
   curl "http://localhost:8086/api/v2/users/?name=$1" \

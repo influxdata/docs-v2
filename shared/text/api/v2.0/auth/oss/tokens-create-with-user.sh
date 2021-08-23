@@ -9,7 +9,7 @@
 #   c. Return the new token.
 ######################################################
 
-INFLUX_TOKEN=YCiJXZPXSL-3
+INFLUX_TOKEN=YOUR_API_TOKEN
 
 function create_token_with_user() {
   curl --request POST \
@@ -25,7 +25,7 @@ function create_token_with_user() {
   
   jq --arg USER $1 '.users[0] // error("User missing")
     | {
-        "orgID": "48c88459ee424a04",
+        "orgID": "YOUR_ORG_ID",
         "userID": .id,
         "description": $USER,
         "permissions": [
