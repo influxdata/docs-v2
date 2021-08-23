@@ -36,12 +36,7 @@ InfluxDB uses [API tokens](/influxdb/v2.0/security/tokens/) to authorize API req
 1. Before exploring the API, use the InfluxDB UI to
 [create an initial API token](/influxdb/v2.0/security/tokens/create-token/) for your application.
 
-2. Include your API token as an `Authorization: Token` header in each request.
-
-  ```sh
-  Authorization: Token yourApiToken
-
-#### Example
+2. Include your API token in an `Authentication: Token yourAuthToken` HTTP header with each request.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -66,8 +61,6 @@ Postman is another popular tool for exploring APIs. See how to [send authenticat
 
 Before writing data you'll need to create a Bucket in InfluxDB.
 [Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) using an HTTP request to the InfluxDB API `/buckets` endpoint.
-
-#### Example
 
 ```sh
 {{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
