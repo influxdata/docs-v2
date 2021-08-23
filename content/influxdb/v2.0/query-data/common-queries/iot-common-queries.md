@@ -10,10 +10,6 @@ menu:
 weight: 205
 ---
 
-{{% note %}}
-These examples use [air sensor sample data](/influxdb/v2.0/reference/sample-data/#air-sensor-sample-data).
-{{% /note %}}
-
 Use the following queries to retrieve information about your IoT sensors:
 - [Record time in state](#record-time-in-state)
 - [Calculate time weighted average](#calculate-time-weighted-average)
@@ -23,11 +19,11 @@ Use the following queries to retrieve information about your IoT sensors:
 
 ## Record time in state
 
-Find the percentage of total time a state is “true” or "false" or "null" over a given interval. If no points are recorded during the interval, you may opt to retrieve the last state prior to the interval.
-
-To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
+Find the percentage of total time a state is a “true”, "false", or "null" over a given interval. If no points are recorded during the interval, you may opt to retrieve the last state prior to the interval.
 
 The following example queries data from the air sensor sample data and calculates the percentage of time the carbon monoxide levels reaches 150ppm. Air that is equal or higher than 150ppm is "true" while air with lower amounts of carbon monoxide would be "false." 
+
+To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
 ```js
 import "contrib/tomhollingworth/events"
