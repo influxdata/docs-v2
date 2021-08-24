@@ -47,10 +47,18 @@ After installing the template, sample data will be stored in the sample data buc
 1. Go to [Sample data](/influxdb/v2.0/reference/sample-data/) and view the [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data). 
 2. Copy the `sample.data()` function listed underneath the NOAA sample dataset. 
 ```js
-import "experimental/csv"
+import "influxdata/influxdb/sample"
 
-csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-  |> to(bucket: "noaa", org: "example-org")
+option task = {
+  name: "Collect NOAA NDBC data"
+  every: 15m,
+}
+
+sample.data(set: "noaa")
+  |> to(
+      org: "example-org",
+      bucket: "example-bucket"
+  )
 ```
 3. Click **Explore** in InfluxDB Cloud's left navigation menu and select your **noaa** bucket. 
 4. Click **Script Editor**. 
