@@ -41,7 +41,7 @@ To write data using Cloud's line protocol file upload, do the following:
 Use the [`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write data using line protocol
 to InfluxDB. 
 Set the path to the line protocol file using the `-f` flag.
-Verify that your line protocol follows the correct conventions. 
+Verify that your line protocol follows the correct [line protocol format](#line-protocol-format) conventions. 
 
 #### Example write command
 ```sh
