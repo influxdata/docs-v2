@@ -63,7 +63,7 @@ Default is `""`.
 _**Data type:** String_
 
 ### token
-InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+InfluxDB [API token](/influxdb/v2.0/security/tokens/)
 _(Required when executed outside of InfluxDB)_.
 Default is `""`.
 

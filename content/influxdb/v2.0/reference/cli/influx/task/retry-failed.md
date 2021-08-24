@@ -16,24 +16,24 @@ influx task retry-failed [flags]
 
 ## Flags
 | Flag |                   | Description                                                               | Input type | {{< cli/mapped >}}    |
-| :--- | :---------------- | :------------------------------------------------------------------------ | :--------: | :-------------------- |
-|      | `--after`         | Retry task runs that occurred after this time (RFC3339 timestamp)         |   string   |                       |
-| `-c` | `--active-config` | CLI configuration to use for command                                      |   string   |                       |
-|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)     |   string   | `INFLUX_CONFIGS_PATH` |
-|      | `--before`        | Retry task runs that occurred before this time (RFC3339 timestamp)        |   string   |                       |
+|:-----|:------------------|:--------------------------------------------------------------------------|:----------:|:----------------------|
+|      | `--after`         | Retry task runs that occurred after this time (RFC3339 timestamp)         | string     |                       |
+| `-c` | `--active-config` | CLI configuration to use for command                                      | string     |                       |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)     | string     | `INFLUX_CONFIGS_PATH` |
+|      | `--before`        | Retry task runs that occurred before this time (RFC3339 timestamp)        | string     |                       |
 |      | `--dry-run`       | Print information about task runs that would be retried                   |            |                       |
 | `-h` | `--help`          | Help for the `list` command                                               |            |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                      |            | `INFLUX_HIDE_HEADERS` |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                |   string   | `INFLUX_HOST`         |
-|      | `--http-debug`    | Inspect communication with InfluxDB servers.                              |   string   |                       |
-| `-i` | `--id`            | Task ID                                                                   |   string   |                       |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                | string     | `INFLUX_HOST`         |
+|      | `--http-debug`    | Inspect communication with InfluxDB servers.                              | string     |                       |
+| `-i` | `--id`            | Task ID                                                                   | string     |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                     |            | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`           | Task organization name                                                    |   string   | `INFLUX_ORG`          |
-|      | `--org-id`        | Task organization ID                                                      |   string   | `INFLUX_ORG_ID`       |
-|      | `--run-limit`     | Maximum number of failed runs to retry per task (`1-500`, default `100`)  |  integer   |                       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                         |            |                       |
-|      | `--task-limit`    | Maximum number of tasks to retry failed runs for (`1-500`, default `100`) |  integer   |                       |
-| `-t` | `--token`         | Authentication token                                                      |   string   | `INFLUX_TOKEN`        |
+| `-o` | `--org`           | Task organization name                                                    | string     | `INFLUX_ORG`          |
+|      | `--org-id`        | Task organization ID                                                      | string     | `INFLUX_ORG_ID`       |
+|      | `--run-limit`     | Maximum number of failed runs to retry per task (`1-500`, default `100`)  | integer    |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                         |            | `INFLUX_SKIP_VERIFY`  |
+|      | `--task-limit`    | Maximum number of tasks to retry failed runs for (`1-500`, default `100`) | integer    |                       |
+| `-t` | `--token`         | API token                                                                 | string     | `INFLUX_TOKEN`        |
 
 ## Examples
 

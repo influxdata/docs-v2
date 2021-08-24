@@ -118,19 +118,22 @@ Avoid using the following reserved keys:
 
 If reserved keys are included as a tag or field key, the associated point is discarded.
 
-> **Why indexing matters: The schema case study**
+{{% note %}}
+#### Why indexing matters: The schema case study
 
-> Say you notice that most of your queries focus on the values of the field keys `honeybees` and `butterflies`:
+Say you notice that most of your queries focus on the values of the field keys `honeybees` and `butterflies`:
 
-> `SELECT * FROM "census" WHERE "butterflies" = 1`
-> `SELECT * FROM "census" WHERE "honeybees" = 23`
+```sql
+SELECT * FROM "census" WHERE "butterflies" = 1
+SELECT * FROM "census" WHERE "honeybees" = 23
+```
 
-> Because fields aren't indexed, InfluxDB scans every value of `butterflies`  in the first query and every value of `honeybees` in the second query before it provides a response.
+Because fields aren't indexed, InfluxDB scans every value of `butterflies`  in the first query and every value of `honeybees` in the second query before it provides a response.
 That behavior can hurt query response times - especially on a much larger scale.
 To optimize your queries, it may be beneficial to rearrange your [schema](/influxdb/v1.8/concepts/glossary/#schema) such that the fields (`butterflies` and `honeybees`) become the tags and the tags (`location` and `scientist`) become the fields:
 
-> **name:** <span class="tooltip" data-tooltip-text="Measurement">census</span>  
->
+**name:** <span class="tooltip" data-tooltip-text="Measurement">census</span>  
+
 | time                                                                            | <span class ="tooltip" data-tooltip-text ="Field key">location</span> | <span class ="tooltip" data-tooltip-text ="Field key">scientist</span>  | <span class ="tooltip" data-tooltip-text ="Tag key">butterflies</span> | <span class ="tooltip" data-tooltip-text ="Tag key">honeybees</span> |
 | ----                                                                            | --------------------------------------------------------------------- | ----------------------------------------------------------------------  | ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | 2015-08-18T00:00:00Z                                                            | 1                                                                     | langstroth                                                              | 12                                                                     | 23                                                                   |
@@ -142,7 +145,8 @@ To optimize your queries, it may be beneficial to rearrange your [schema](/influ
 | 2015-08-18T06:06:00Z                                                            | 2                                                                     | perpetua                                                                | 8                                                                      | 23                                                                   |
 | 2015-08-18T06:12:00Z                                                            | 2                                                                     | perpetua                                                                | 7                                                                      | 22                                                                   |
 
-> Now that `butterflies` and `honeybees` are tags, InfluxDB won't have to scan every one of their values when it performs the queries above - this means that your queries are even faster.
+Now that `butterflies` and `honeybees` are tags, InfluxDB won't have to scan every one of their values when it performs the queries above - this means that your queries are even faster.
+{{% /note %}}
 
 The <a name=measurement></a>_**measurement**_ acts as a container for tags, fields, and the `time` column, and the measurement name is the description of the data that are stored in the associated fields.
 Measurement names are strings, and, for any SQL users out there, a measurement is conceptually similar to a table.

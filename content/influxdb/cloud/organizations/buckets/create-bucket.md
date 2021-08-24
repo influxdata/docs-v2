@@ -97,7 +97,7 @@ Use the `POST` request method and include the following in your request:
 | Organization         | Use `orgID` in the JSON payload.                |
 | Bucket               | Use `name` in the JSON payload.                 |
 | Retention Rules      | Use `retentionRules` in the JSON payload.    |
-| Authentication token | Use the `Authorization: Token` header.                   |
+| API token | Use the `Authorization: Token` header.                   |
 
 #### Example
 

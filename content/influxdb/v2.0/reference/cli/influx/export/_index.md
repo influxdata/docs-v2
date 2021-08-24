@@ -34,7 +34,7 @@ influx export [command]
 ## Flags
 
 | Flag |                           | Description                                                                      | Input Type | {{< cli/mapped >}}    |
-| :--- | :------------------------ | :------------------------------------------------------------------------------- | :--------- | :-------------------- |
+|:-----|:--------------------------|:---------------------------------------------------------------------------------|:-----------|:----------------------|
 | `-c` | `--active-config`         | CLI configuration to use for command                                             | string     |                       |
 |      | `--bucket-names`          | Comma-separated list of bucket names                                             | string     |                       |
 |      | `--buckets`               | Comma-separated list of bucket IDs                                               | string     |                       |
@@ -54,13 +54,13 @@ influx export [command]
 |      | `--resource-type`         | Resource type associated with all IDs via stdin                                  | string     |                       |
 |      | `--rule-names`            | Comma-separated list of notification rule names                                  | string     |                       |
 |      | `--rules`                 | Comma-separated list of notification rule IDs                                    | string     |                       |
-|      | `--skip-verify`           | Skip TLS certificate verification                                                |            |                       |
+|      | `--skip-verify`           | Skip TLS certificate verification                                                |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--stack-id`              | Stack ID to include resources from in export                                     | string     |                       |
 |      | `--task-names`            | Comma-separated list of task names                                               | string     |                       |
 |      | `--tasks`                 | Comma-separated list of task IDs                                                 | string     |                       |
 |      | `--telegraf-config-names` | Comma-separated list of Telegraf configuration names                             | string     |                       |
 |      | `--telegraf-configs`      | Comma-separated list of Telegraf configuration IDs                               | string     |                       |
-| `-t` | `--token`                 | Authentication token                                                             | string     | `INFLUX_TOKEN`        |
+| `-t` | `--token`                 | API token                                                                        | string     | `INFLUX_TOKEN`        |
 |      | `--variable-names`        | Comma-separated list of variable names                                           | string     |                       |
 |      | `--variables`             | Comma-separated list of variable IDs                                             | string     |                       |
 

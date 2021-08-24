@@ -30,7 +30,7 @@ To manually upgrade from InfluxDB 1.x to InfluxDB 2.0:
 {{% note %}}
 #### Required 2.x credentials
 All InfluxDB 2.0 `influx` CLI examples below assume the required **host**,
-**organization**, and **authentication token** credentials are provided by your
+**organization**, and **API token** credentials are provided by your
 [`influx` CLI configuration](/influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials).
 {{% /note %}}
 

@@ -8,6 +8,39 @@ menu:
     name: Flux
 ---
 
+## v0.125.0 [2021-08-11]
+
+### Features
+- Add feature flag library as an internal package.
+- Add narrow transformation transport.
+- Add transport-aware dataset.
+- Simplify the transport interface and add a transformation adapter.
+- Add [`contrib/sranka/webexteams` package](/influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/).
+- Add optimized repeat function for arrow arrays.
+- Add two additional internal message types.
+
+### Bug fixes
+- Update transformation adapter to return an error when receiving a flush key
+  for a table that is not present.
+- Fix pivot operations when no data is left to operate on.
+- Update `join()` to produce columns of equivalent length when combining mismatched schemas.
+
+## v0.124.0 [2021-08-03]
+
+### Features
+- Update the string array builder to support constant data.
+- Expand message interface with message lifetime controls.
+- Create internal Flux array package.
+
+### Bug fixes
+- Register `sortedPivot` and update `sortedPivot` kind.
+- Derive `Copy` on `ast::Position`.
+- Update `to()` function to properly close the writer on error.
+- Update `libflux` include paths to use `pkg-config`.
+- Properly copy record types with no `extends` parameter.
+
+---
+
 ## v0.123.0 [2021-07-19]
 
 ### Breaking changes

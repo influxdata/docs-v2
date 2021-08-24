@@ -183,12 +183,16 @@ Configures password hashing algorithm.
 Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
 This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
 
+For detailed configuration information, see [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
+
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
 #### `ensure-fips = false`
 
 When `true`, enables a FIPS-readiness check on startup.
 Default is `false`.
+
+For detailed configuration information, see [`meta.ensure-fips`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips--false).
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 

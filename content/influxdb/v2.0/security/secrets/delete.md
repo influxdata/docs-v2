@@ -6,9 +6,14 @@ menu:
   influxdb_2_0:
     parent: Manage secrets
 weight: 304
+aliases:
+  - /influxdb/v2.0/security/secrets/manage-secrets/delete/
 ---
 
 Delete secrets using the `influx` command line interface (CLI) or the InfluxDB API.
+
+- [Delete a secret using the influx CLI](#delete-a-secret-using-the-influx-cli)
+- [Delete secrets using the InfluxDB API](#delete-secrets-using-the-influxdb-api)
 
 ## Delete a secret using the influx CLI
 Use the [`influx secret delete` command](/influxdb/v2.0/reference/cli/influx/secret/delete/)
@@ -30,7 +35,7 @@ to delete one or more secrets.
 **Include the following:**
 
 - Your [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [authentication token](/influxdb/v2.0/security/tokens/view-tokens/) in the `Authorization` header
+- Your [API token](/influxdb/v2.0/security/tokens/view-tokens/) in the `Authorization` header
 - An array of secret keys to delete in the request body
 
 <!-- -->

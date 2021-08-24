@@ -15,6 +15,10 @@ aliases:
 Use the InfluxDB Cloud user interface (UI) to invite users to collaborate in
 your InfluxDB Cloud organization.
 
+{{% note %}}
+You cannot invite someone who already has an account. Users on the Free Plan are limited to one organization. 
+{{% /note %}}
+
 - [Invite a user](#invite-a-user)
 - [Withdraw an invitation](#withdraw-an-invitation)
 

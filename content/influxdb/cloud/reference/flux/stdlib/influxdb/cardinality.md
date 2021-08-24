@@ -74,7 +74,7 @@ _See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions) or
 _**Data type:** String_
 
 ### token
-InfluxDB [authentication token](/influxdb/cloud/security/tokens/).
+InfluxDB [API token](/influxdb/cloud/security/tokens/).
 
 _**Data type:** String_
 

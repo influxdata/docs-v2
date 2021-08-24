@@ -23,22 +23,22 @@ influx bucket update [flags]
 ```
 
 ## Flags
-| Flag |                          | Description                                                           | Input type  | {{< cli/mapped >}}    |
-|:---- |:---                      |:-----------                                                           |:----------: |:------------------    |
-| `-c` | `--active-config`        | CLI configuration to use for command                                  | string      |                       |
-|      | `--configs-path`         | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`  |
-| `-d` | `--description`          | Bucket description                                                    | string      |                       |
-| `-h` | `--help`                 | Help for the `update` command                                         |             |                       |
-|      | `--hide-headers`         | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
-|      | `--host`                 | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-|      | `--http-debug`           | Inspect communication with InfluxDB servers.                          | string      |                       |
-| `-i` | `--id`                   | ({{< req >}}) Bucket ID                                               | string      |                       |
-|      | `--json`                 | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`                 | New bucket name                                                       | string      | `INFLUX_BUCKET_NAME`  |
-| `-r` | `--retention`            | New duration bucket will retain data                                  | duration    |                       |
-|      | `--shard-group-duration` | Custom shard group duration for the bucket (OSS only)                    | string      |                       |
-|      | `--skip-verify`          | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`                | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+| Flag |                          | Description                                                           | Input type | {{< cli/mapped >}}    |
+|:-----|:-------------------------|:----------------------------------------------------------------------|:----------:|:----------------------|
+| `-c` | `--active-config`        | CLI configuration to use for command                                  | string     |                       |
+|      | `--configs-path`         | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     | `INFLUX_CONFIGS_PATH` |
+| `-d` | `--description`          | Bucket description                                                    | string     |                       |
+| `-h` | `--help`                 | Help for the `update` command                                         |            |                       |
+|      | `--hide-headers`         | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
+|      | `--host`                 | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
+|      | `--http-debug`           | Inspect communication with InfluxDB servers.                          | string     |                       |
+| `-i` | `--id`                   | ({{< req >}}) Bucket ID                                               | string     |                       |
+|      | `--json`                 | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`                 | New bucket name                                                       | string     | `INFLUX_BUCKET_NAME`  |
+| `-r` | `--retention`            | New duration bucket will retain data                                  | duration   |                       |
+|      | `--shard-group-duration` | Custom shard group duration for the bucket (OSS only)                 | string     |                       |
+|      | `--skip-verify`          | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
+| `-t` | `--token`                | API token                                                             | string     | `INFLUX_TOKEN`        |
 
 {{% note %}}
 Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),

@@ -3173,6 +3173,31 @@ Sample syntax for multiple subqueries:
 SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
 ```
 
+{{% note %}}
+#### Improve performance of time-bound subqueries
+To improve the performance of InfluxQL queries with time-bound subqueries,
+apply the `WHERE time` clause to the outer query instead of the inner query.
+For example, the following queries return the same results, but **the query with
+time bounds on the outer query is more performant than the query with time
+bounds on the inner query**:
+
+##### Time bounds on the outer query (recommended)
+```sql
+SELECT inner_value AS value FROM (SELECT raw_value as inner_value)
+WHERE time >= '2020-07-19T21:00:00Z'
+AND time <= '2020-07-20T22:00:00Z'
+```
+
+##### Time bounds on the inner query
+```sql
+SELECT inner_value AS value FROM (
+  SELECT raw_value as inner_value
+  WHERE time >= '2020-07-19T21:00:00Z'
+  AND time <= '2020-07-20T22:00:00Z'
+)
+```
+{{% /note %}}
+
 ### Examples
 
 #### Calculate the [`SUM()`](/influxdb/v1.7/query_language/functions/#sum) of several [`MAX()`](/influxdb/v1.7/query_language/functions/#max) values
