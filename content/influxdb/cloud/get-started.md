@@ -49,15 +49,7 @@ After installing the template, sample data will be stored in the sample data buc
 ```js
 import "experimental/csv"
 
-relativeToNow = (tables=<-) =>
-  tables
-    |> elapsed()
-    |> sort(columns: ["_time"], desc: true)
-    |> cumulativeSum(columns: ["elapsed"])
-    |> map(fn: (r) => ({ r with _time: time(v: int(v: now()) - (r.elapsed * 1000000000))}))
-
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-  |> relativeToNow()
   |> to(bucket: "noaa", org: "example-org")
 ```
 3. Click **Explore** in InfluxDB Cloud's left navigation menu and select your **noaa** bucket. 
