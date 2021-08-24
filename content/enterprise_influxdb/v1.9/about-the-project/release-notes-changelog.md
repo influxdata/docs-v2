@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## v1.9.4 []
+## v1.9.4 [TK]
 
 ### Features
 
@@ -17,6 +17,27 @@ menu:
   Measures memory usage in bytes across all subscriptions.
 
 ### Bug fixes
+
+<!-- https://github.com/influxdata/influxdb/blob/1.9/CHANGELOG.md -->
+### Features
+- feat: SHOW TAG VALUES should produce results from one specific RP <!-- https://github.com/influxdata/influxdb/pull/22011 -->
+- feat: add subscription buffer size usage metric <!-- https://github.com/influxdata/influxdb/pull/22049 -->
+- chore: update flux dependency to 0.124.0 <!-- https://github.com/influxdata/influxdb/pull/22102 -->
+### Bug fixes
+- Update protobuf library versions and remove `influx_tsm`. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
+- Systemd-start script should be executable by group and others. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
+- Restore portable backup bug. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
+- Copy names from mmapped memory before closing iterator. <!-- https://github.com/influxdata/influxdb/pull/22058 -->
+- TSI index should compact old or too-large log files. <!-- https://github.com/influxdata/influxdb/pull/22044 -->
+- Export example and fix adjacent shards. <!-- https://github.com/influxdata/influxdb/pull/22046 -->
+- Error instead of panic when enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
+- Old TSL files should be compacted without new writes. <!-- https://github.com/influxdata/influxdb/pull/22067 -->
+- Hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
+- Ensure log formatting (JSON) is respected. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
+- Systemd service -- handle https, 40x, and block indefinitely. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
+- Avoid compaction queue stats flutter. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
+- Require database authorization to see continuous queries <!-- https://github.com/influxdata/influxdb/pull/22289 -->
+- Return correct count of ErrNotExecuted <!-- https://github.com/influxdata/influxdb/pull/22294 -->
 
 ## v1.9.3 [2021-07-19]
 
