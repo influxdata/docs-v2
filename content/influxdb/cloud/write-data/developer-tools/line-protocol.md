@@ -31,7 +31,7 @@ To write data using Cloud's line protocol file upload, do the following:
      - [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp) 
 2. Click **Data** in your left navigation bar. 
 3. Select **Line Protocol** and choose your bucket. 
-4. Select your **Precision** in the dropdown menu. By default, the precision is set to nanosections. 
+4. Select your **Precision** in the dropdown menu. By default, the precision is set to nanoseconds. 
 5. Do one of the following: 
    - Upload your line protocol file. 
    - Write your line protocol manually, and then click **Submit**. 
