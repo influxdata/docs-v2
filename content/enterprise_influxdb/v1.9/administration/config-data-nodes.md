@@ -301,7 +301,7 @@ Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST`
 
 #### `compact-full-write-cold-duration = "4h"`
 
-The duration at which the TSM engine will compact all TSM files in a shard if it hasn't received a write or delete.
+The duration at which to compact all TSM and TSI files in a shard if they have not received a write or delete.
 
 Environment variable: `INFLUXDB_DATA_COMPACT_FULL_WRITE_COLD_DURATION`
 

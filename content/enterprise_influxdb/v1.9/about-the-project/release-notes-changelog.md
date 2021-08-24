@@ -15,6 +15,7 @@ menu:
 
 - Added `memUsage` metrics to `/debug/vars` endpoint.
   Measures memory usage in bytes across all subscriptions.
+- Make `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
 
 ### Bug fixes
 
