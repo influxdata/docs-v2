@@ -45,7 +45,7 @@ Verify that your line protocol follows the correct conventions.
 
 #### Example write command
 ```sh
-influx write -b example-bucket -f path/to/example.csv
+influx write -b example-bucket -f path/to/example.txt 
 ```
 
 #### line protocol format
