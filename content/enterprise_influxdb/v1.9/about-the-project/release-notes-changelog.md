@@ -12,6 +12,10 @@ menu:
 ## v1.9.4 []
 
 ### Features
+
+- Added `memUsage` metrics to `/debug/vars` endpoint.
+  Measures memory usage in bytes across all subscriptions.
+
 ### Bug fixes
 
 ## v1.9.3 [2021-07-19]
