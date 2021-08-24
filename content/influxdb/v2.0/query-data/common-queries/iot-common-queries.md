@@ -32,8 +32,8 @@ import "influxdata/influxdb/sample"
 coThreshold = 3.0
 
 sample.data(set: "airSensor")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._field == "co" and r.sensor_id == "TLM0200" )
+  |> range(start: 2021-08-23T09:34:58Z, stop: 2021-08-25T10:35:24Z)
+  |> filter(fn: (r) => r._field == "state")
   |> map(fn: (r) => ({ r with alert: if r._value >= coThreshold then true else false }))
   |> events.duration(unit: 1s, columnName: "duration",)
   |> group(columns: ["alert", "_start", "_stop", "sensor_id"])
@@ -46,14 +46,28 @@ sample.data(set: "airSensor")
   })
 ```
 
+from(bucket: "machine")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "machinery")
+  |> filter(fn: (r) => r["_field"] == "state")
+  |> events.duration(unit: 1h, columnName: "duration",)
+  |> group(columns: ["_value", "_start", "_stop", "station_id"])
+  |> sum(column: "duration")
+  |> pivot(rowKey:["_stop"], columnKey: ["alert"], valueColumn: "duration")
+  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))
+  |> map(fn: (r) => { 
+    totalTime =  float(v: r.false + r.true)
+    return {sensor_id: r.sensor_id, noAlert: float(v: r.false) / totalTime * 100.0 , alert: float(v: r.true) / totalTime * 100.0 }
+  })
+
 In this example, the `filter` function narrows down the air sensor sample data to only include an instance where the CO levels have crossed the threshold, and the `map` function gives the data a "true" and "false" state. A Boolean value is created by querying `  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))`. 
 The `group` function creates a notification for when the data crosses the threshold. 
 The `sum` function drops all duration not included in the group key. 
 The percent of the state over the total interval is the sum of the duration of true and false states, divided by the total time, multiplied by 100. 
 
-| table | alert             | noAlert           | sensor_id |
-| ----- | ----------------- | ----------------- | --------- |
-| 0     | 95.27515286270149 | 4.724847137298499 | TLM0200   |
+| table | alert             | noAlert            | sensor_id |
+| ----- | ----------------- | ------------------ | --------- |
+| 0     | 97.61332864158622 | 2.3866713584137815 | TLM0200   |
 
 Given the input data in the table above, the example function above does the following:
 
