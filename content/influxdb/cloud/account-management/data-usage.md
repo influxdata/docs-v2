@@ -14,33 +14,35 @@ menu:
 products: [cloud]
 ---
 
-View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs (pricing vectors) and other usage data, including delete limits, does not affect pricing. For more information, see the [pricing plans](/influxdb/cloud/account-management/pricing-plans/). 
+View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs (pricing vectors) and other usage data, including delete limits, does not affect pricing. For more information about costs and limits, see the [pricing plans](/influxdb/cloud/account-management/pricing-plans/).
 
-To view your {{< cloud-name >}} data usage, do the following: 
+To view your {{< cloud-name >}} data usage, do the following:
 
-1. Click the **user avatar** on the left-side navigation. 
+1. Click the **user avatar** on the left-side navigation.
 2. Select **Usage**.
+3. Select a time range to review data usage (by default, `Past 24h`), and then select one of the following:
 
-Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
+   - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
+   - **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity.
+   - **Storage:** Total disk usage in gigabytes.
+   - **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
 
-- **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
-- **Storage:** Total disk usage in gigabytes.
-- **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity.
-- **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
-- **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
-- **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
-
-{{< img-hd src="/img/influxdb/cloud-controls-data-usage.png" />}}
+A line graph displays usage for the selected vector for the specified time period.
 
 ## Exceeded rate limits
 
-If you exceed your [plan's rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review. InfluxDB Cloud plans include the following rate limits:
+{{% note %}}
+**Tip:**
+Combine predicate expressions (if possible) into a single request. InfluxDB rate limits per number of requests (not points in request).
+{{% /note %}}
 
-- If **write or read requests or series cardinality exceed** the specified limit within a five-minute window, the request is rejected and the UI displays `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality` as fields.
+If you exceed your [plan's data limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} UI displays a notification message, and the following occurs:
 
-_To raise these rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
+- When **write or read requests or series cardinality exceed** the specified limit within a five-minute window, the request is rejected and the following events appears under **Limit Events** on the Usage page as applicable: `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality`
 
-- If **delete requests exceed** the specified limit within a five-minute window, the request is rejected and the UI displays `event_type_limited_delete_rate` as the field.
+  _To raise these rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
+
+- When **delete requests exceed** the specified limit within a five-minute window, the request is rejected and `event_type_limited_delete_rate` appears under **Limit Events** on the Usage page.
 
 ### InfluxDB API: HTTP rate limit responses
 
