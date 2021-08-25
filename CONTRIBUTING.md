@@ -952,6 +952,40 @@ I like {{< tooltip "Butterflies are awesome!" "butterflies" >}}.
 The example above renders as "I like butterflies" with "butterflies" highlighted.
 When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
 
+### Flux sample data tables
+The Flux `sample` package provides basic sample datasets that can be used to
+illustrate how Flux functions work. To quickly display one of the raw sample
+datasets, use the `{{% flux/sample %}}` shortcode.
+
+The `flux/sample` shortcode has the following arguments that can be specified
+by name or positionally.
+
+#### set
+Sample dataset to output. Use either `set` argument name or provide the set
+as the first argument. The following sets are available:
+
+- float
+- int
+- uint
+- string
+- bool
+
+#### includeNull
+Specify whether or not to include _null_ values in the dataset.
+Use either `includeNull` argument name or provide the boolean value as the second argument.
+
+##### Example Flux sample data shortcodes
+```md
+<!-- No arguments, defaults to "float" set without nulls -->
+{{% flux/sample %}}
+
+<!-- Output the "string" set without nulls -->
+{{% flux/sample set="string" includeNull=false %}}
+
+<!-- Output the "int" set with nulls -->
+{{% flux/sample "int" true %}}
+```
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
