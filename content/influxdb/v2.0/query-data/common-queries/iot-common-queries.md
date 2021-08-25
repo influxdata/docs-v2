@@ -32,7 +32,7 @@ import "influxdata/influxdb/sample"
 coThreshold = 3.0
 
 sample.data(set: "airSensor")
-  |> range(start: 2021-08-23T09:34:58Z, stop: 2021-08-25T10:35:24Z)
+  |> range(start: 2021-08-23T20:00:00Z, stop: 2021-08-25T17:00:00Z)
   |> filter(fn: (r) => r._field == "state")
   |> map(fn: (r) => ({ r with alert: if r._value >= coThreshold then true else false }))
   |> events.duration(unit: 1s, columnName: "duration",)
@@ -45,7 +45,6 @@ sample.data(set: "airSensor")
     return {sensor_id: r.sensor_id, noAlert: float(v: r.false) / totalTime * 100.0 , alert: float(v: r.true) / totalTime * 100.0 }
   })
 ```
-
 from(bucket: "machine")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r["_measurement"] == "machinery")
@@ -82,10 +81,10 @@ The results are 95.28% of time is in the true state and 4.72% of time is in the 
 The following query displays the change of "false" to "true". A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of carbon monoxide in the air. 
 
 ```js
-sample.data(set: "airSensor")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "airSensor")
-  |> filter(fn: (r) => r._field == "co")
+from(bucket: "machine")
+  |> range(start: 2021-07-31T18:00:00Z, stop: 2021-08-01T17:00:00Z)
+  |> filter(fn: (r) => r._measurement == "machinery")
+  |> filter(fn: (r) => r._field == "state")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
 
@@ -104,11 +103,10 @@ The total exposure considers both the total hours in the day and temperature for
 ##### Flux query to calculate time-weighted average
 
 ```js
-from(bucket: "air-sensor")
-  |> range(start: -8h)
+from(bucket: "machine")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) =>
-    r._measurement == "airSensors"
-    r._field == "temperature"
+    r._measurement == "machinery" and r._field == "oil temp"
   )
   |> timeWeightedAvg(unit: 2h)
 ```
