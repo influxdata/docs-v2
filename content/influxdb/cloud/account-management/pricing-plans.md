@@ -51,6 +51,10 @@ _To raise rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-m
 
 The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/cloud/account-management/data-usage/).
 
+### Data limit
+
+- **Ingest batch size:** 50MB
+
 ### Soft data limits
 
 To protect against any intentional or unintentional harm, the Usage-Based Plan includes soft limits.
@@ -58,7 +62,6 @@ _To request higher soft data limits, contact [InfluxData Support](mailto:support
 
 - **Data In:** 300MB every 5 minutes
 - **Query:** 3000MB every 5 minutes
-- **Ingest batch size:** 50MB
 - **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact InfluxData Support](mailto:support@influxdata.com))
 - **Storage:** Unlimited retention
 {{% note %}}
