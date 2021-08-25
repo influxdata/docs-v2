@@ -969,21 +969,34 @@ as the first argument. The following sets are available:
 - uint
 - string
 - bool
+- numericString
+- numericBool
 
 #### includeNull
 Specify whether or not to include _null_ values in the dataset.
 Use either `includeNull` argument name or provide the boolean value as the second argument.
+
+#### includeRange
+Specify whether or not to include time range columns (`_start` and `_stop`) in the dataset.
+This is only recommended when showing how functions that require a time range
+(such as `window()`) operate on input data.
+Use either `includeRange` argument name or provide the boolean value as the third argument.
 
 ##### Example Flux sample data shortcodes
 ```md
 <!-- No arguments, defaults to "float" set without nulls -->
 {{% flux/sample %}}
 
-<!-- Output the "string" set without nulls -->
+<!-- Output the "string" set without nulls or time range columns -->
 {{% flux/sample set="string" includeNull=false %}}
 
-<!-- Output the "int" set with nulls -->
+<!-- Output the "int" set with nulls but without time range columns -->
 {{% flux/sample "int" true %}}
+
+<!-- Output the "int" set with nulls and time range columns -->
+<!-- The following shortcode examples render the same -->
+{{% flux/sample set="int" includeNull=true includeRange=true %}}
+{{% flux/sample "int" true true %}}
 ```
 
 ### Reference content
