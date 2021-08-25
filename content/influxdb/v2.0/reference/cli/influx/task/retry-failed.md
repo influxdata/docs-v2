@@ -31,7 +31,7 @@ influx task retry-failed [flags]
 | `-o` | `--org`           | Task organization name                                                    | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Task organization ID                                                      | string     | `INFLUX_ORG_ID`       |
 |      | `--run-limit`     | Maximum number of failed runs to retry per task (`1-500`, default `100`)  | integer    |                       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                         |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                         |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--task-limit`    | Maximum number of tasks to retry failed runs for (`1-500`, default `100`) | integer    |                       |
 | `-t` | `--token`         | API token                                                                 | string     | `INFLUX_TOKEN`        |
 

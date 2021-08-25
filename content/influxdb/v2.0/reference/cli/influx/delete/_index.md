@@ -36,7 +36,7 @@ Running `influx delete` without the `-p` or `--predicate` flag deletes all data 
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                                                    | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                         | string     | `INFLUX_ORG_ID`       |
 | `-p` | `--predicate`     | InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2.0/reference/syntax/delete-predicate)) | string     |                       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                                                         |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                                                         |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--start`         | ({{< req >}}) Start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                  | string     |                       |
 |      | `--stop`          | ({{< req >}}) Stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                   | string     |                       |
 | `-t` | `--token`         | API token                                                                                                 | string     | `INFLUX_TOKEN`        |

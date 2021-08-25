@@ -32,7 +32,7 @@ influx write dryrun [flags]
 
 ## Flags
 | Flag |                     | Description                                                                     | Input type  | {{< cli/mapped >}}    |
-|:-----|:--------------------|:--------------------------------------------------------------------------------|:----------: |:----------------------|
+|:-----|:--------------------|:--------------------------------------------------------------------------------|:-----------:|:----------------------|
 | `-c` | `--active-config`   | CLI configuration to use for command                                            | string      |                       |
 | `-b` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                             | string      | `INFLUX_BUCKET_NAME`  |
 |      | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                                  | string      | `INFLUX_BUCKET_ID`    |
@@ -50,10 +50,10 @@ influx write dryrun [flags]
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                               | string      | `INFLUX_ORG_ID`       |
 | `-p` | `--precision`       | Precision of the timestamps (default `ns`)                                      | string      | `INFLUX_PRECISION`    |
 |      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                      | string      |                       |
-|      | `--skip-verify`     | Skip TLS certificate verification                                               |             |                       |
+|      | `--skip-verify`     | Skip TLS certificate verification                                               |             | `INFLUX_SKIP_VERIFY`                      |
 |      | `--skipHeader`      | Skip first *n* rows of input data                                               | integer     |                       |
 |      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                            |             |                       |
-| `-t` | `--token`           | API token                                                            | string      | `INFLUX_TOKEN`        |
+| `-t` | `--token`           | API token                                                                       | string      | `INFLUX_TOKEN`        |
 | `-u` | `--url`             | URL to import data from                                                         | stringArray |                       |
 
 ## Examples

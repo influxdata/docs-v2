@@ -6,6 +6,8 @@ menu:
   influxdb_2_0:
     parent: Security & authorization
 weight: 102
+aliases:
+  - /influxdb/v2.0/security/secrets/manage-secrets/
 ---
 
 Secrets are key-value pairs that contain sensitive information you want to control

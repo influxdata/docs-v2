@@ -1,7 +1,7 @@
 ---
 title: Create a token
 seotitle: Create an API token in InfluxDB
-description: Create an API token in InfluxDB using the InfluxDB UI or the `influx` CLI.
+description: Create an API token in InfluxDB using the InfluxDB UI, the `influx` CLI, or the InfluxDB API.
 aliases:
   - /influxdb/v2.0/users/tokens/create-token/
 menu:
@@ -11,10 +11,13 @@ menu:
 weight: 201
 ---
 
-Create API tokens using the InfluxDB user interface (UI) or the `influx`
-command line interface (CLI).
+Create API tokens using the InfluxDB user interface (UI), the `influx`
+command line interface (CLI), or the InfluxDB API.
 
-API tokens are visible only to the user who created them and stop working when the user is deactivated. We recommend creating a generic IT user to create and manage tokens for writing data.
+{{% note %}}
+Tokens are visible only to the user who created them and stop working when the user is deactivated.
+We recommend creating a generic IT user to create and manage tokens for writing data.
+{{% /note %}}
 
 ## Create a token in the InfluxDB UI
 
@@ -35,6 +38,7 @@ API tokens are visible only to the user who created them and stop working when t
 Use the [`influx auth create` command](/influxdb/v2.0/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
 See the [available flags](/influxdb/v2.0/reference/cli/influx/auth/create#flags).
+Only tokens with the `write: authorizations` permission can create tokens.
 
 ```sh
 # Syntax
@@ -50,6 +54,36 @@ influx auth create -o my-org \
   --read-user
 ```
 
-Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth list` documentation](/influxdb/v2.0/reference/cli/influx/auth/list)
-for information about other available flags.
+See the [`influx auth create` documentation](/influxdb/v2.0/reference/cli/influx/auth/create) for information about other available flags.
+
+## Create a token using the InfluxDB API
+
+Use the `/authorizations` endpoint of the InfluxDB API to create a token.
+
+{{% api-endpoint method="POST" endpoint="/api/v2/authorizations" %}}
+
+Include the following in your request:
+
+| Requirement          | Include by                                               |
+|:-----------          |:----------                                               |
+| API token with the [`write: authorizations`](/influxdb/v2.0/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
+| Organization         | Pass as `orgID` in the request body.
+| Permissions list     | Pass as a `permissions` array in the request body.
+
+```sh
+{{% get-shared-text "api/v2.0/auth/oss/token-create.sh" %}}
+```
+
+### Create a token scoped to a user
+
+To scope a token to a user other than the token creator, pass `userID` in the request
+body.
+
+```sh
+{{% get-shared-text "api/v2.0/auth/oss/tokens-create-with-user.sh" %}}
+```
+
+See the
+[`POST /api/v2/authorizations` documentation](/influxdb/v2.0/api/#operation/PostAuthorizations)
+for more information about options.
+

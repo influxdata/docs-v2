@@ -19,7 +19,7 @@ influx v1 auth create [flags]
 
 ## Flags
 | Flag |                   | Description                                                                                                | Input type  | {{< cli/mapped >}}      |
-|:-----|:------------------|:-------------------------------------------------------------------------------------------------------    |:-----------:|:------------------------|
+|:-----|:------------------|:-----------------------------------------------------------------------------------------------------------|:-----------:|:------------------------|
 | `-c` | `--active-config` | Config name to use for command                                                                             | string      | `$INFLUX_ACTIVE_CONFIG` |
 |      | `--configs-path`  | Path to the influx CLI configurations (default: `~/.influxdbv2/configs`)                                   | string      | `$INFLUX_CONFIGS_PATH`  |
 | `-d` | `--description`   | Token description                                                                                          | string      |                         |
@@ -32,8 +32,8 @@ influx v1 auth create [flags]
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                          | string      | `$INFLUX_ORG_ID`        |
 |      | `--password`      | Password to set on the authorization                                                                       |             |                         |
 |      | `--read-bucket`   | Bucket ID to assign read permissions to                                                                    | stringArray |                         |
-|      | `--skip-verify`   | Skip TLS certificate verification                                                                          |             |                         |
-| `-t` | `--token`         | API token                                                                                       | string      | `$INFLUX_TOKEN`         |
+|      | `--skip-verify`   | Skip TLS certificate verification                                                                          |             | `INFLUX_SKIP_VERIFY`    |
+| `-t` | `--token`         | API token                                                                                                  | string      | `$INFLUX_TOKEN`         |
 |      | `--username`      | ({{< req >}}) Token username                                                                               | string      |                         |
 |      | `--write-bucket`  | Bucket ID to assign write permissions to                                                                   | stringArray |                         |
 

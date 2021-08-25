@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_ref:
     name: teams.endpoint
-    parent: Teams
+    parent: Microsoft Teams
 weight: 202
 ---
 
