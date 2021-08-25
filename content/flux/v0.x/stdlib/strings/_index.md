@@ -1,8 +1,8 @@
 ---
 title: Flux strings package
-list_title: Strings package
+list_title: strings package
 description: >
-  The Flux strings package provides functions to manipulate UTF-8 encoded strings.
+  The Flux `strings` package provides functions to manipulate UTF-8 encoded strings.
   Import the `strings` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/
@@ -16,7 +16,7 @@ weight: 11
 flux/v0.x/tags: [strings, functions, package]
 ---
 
-The Flux string package provides functions to manipulate UTF-8 encoded strings.
+The Flux `strings` package provides functions for working with UTF-8 encoded strings.
 Import the `strings` package:
 
 ```js

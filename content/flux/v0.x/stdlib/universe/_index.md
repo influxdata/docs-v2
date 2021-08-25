@@ -1,6 +1,6 @@
 ---
-title: Flux Universe package (Built-in)
-list_title: Universe package (Built-in)
+title: Flux universe package (built-in)
+list_title: universe package (built-in)
 description: >
   The Flux `universe` package includes all functions that do not require a package import statement and are usable without any extra setup.
   Functions in the `universe` package provide a foundation for working with data using Flux.
@@ -19,6 +19,30 @@ flux/v0.x/tags: [built-in, functions, package]
 
 he Flux `universe` package includes all functions that do not require a package import statement and are usable without any extra setup.
 The "built-in" functions in the `universe` package provide a foundation for working with data using Flux.
+
+```js
+import "sample"
+
+sample.float()
+  |> mean()
+```
+
+{{< flex >}}
+{{% flex-content %}}
+##### Input data
+{{% flux/sample "float" %}}
+{{% /flex-content %}}
+{{% flex-content %}}
+##### Output data
+| tid | _value |
+| :-- | -----: |
+| t1  |   8.88 |
+
+| tid |            _value |
+| :-- | ----------------: |
+| t2  | 9.426666666666668 |
+{{% /flex-content %}}
+{{< /flex >}}
 
 ## Functions
 {{< children type="functions" >}}

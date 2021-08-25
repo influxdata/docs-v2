@@ -1,12 +1,12 @@
-{{- $parsedSet := .Get 0 | default "float" }}
+{{- $parsedSet := .Get 0 | default "float" -}}
 {{- $set := .Get "set" | default $parsedSet -}}
-{{- $parsedIncludeNull := .Get 1 | default false}}
+{{- $parsedIncludeNull := .Get 1 | default false -}}
 {{- $includeNull := .Get "includeNull" | default $parsedIncludeNull -}}
 
 {{- define "float" -}}
 | _time                | tid |                                _value |
 | :------------------- | :-: | ------------------------------------: |
-| 2021-01-01T00:00:00Z | t1  |                                  2.18 |
+| 2021-01-01T00:00:00Z | t1  |                                 -2.18 |
 | 2021-01-01T00:00:10Z | t1  | {{ cond ($.includeNull) "" "10.92" }} |
 | 2021-01-01T00:00:20Z | t1  |                                  7.35 |
 | 2021-01-01T00:00:30Z | t1  | {{ cond ($.includeNull) "" "17.53" }} |
@@ -17,7 +17,7 @@
 | :------------------- | :-: | ------------------------------------: |
 | 2021-01-01T00:00:00Z | t2  | {{ cond ($.includeNull) "" "19.85" }} |
 | 2021-01-01T00:00:10Z | t2  |                                  4.97 |
-| 2021-01-01T00:00:20Z | t2  |                                  3.75 |
+| 2021-01-01T00:00:20Z | t2  |                                 -3.75 |
 | 2021-01-01T00:00:30Z | t2  |                                 19.77 |
 | 2021-01-01T00:00:40Z | t2  | {{ cond ($.includeNull) "" "13.86" }} |
 | 2021-01-01T00:00:50Z | t2  |                                  1.86 |
@@ -26,7 +26,7 @@
 {{- define "int" -}}
 | _time                | tid |                             _value |
 | :------------------- | :-: | ---------------------------------: |
-| 2021-01-01T00:00:00Z | t1  |                                  2 |
+| 2021-01-01T00:00:00Z | t1  |                                 -2 |
 | 2021-01-01T00:00:10Z | t1  | {{ cond ($.includeNull) "" "10" }} |
 | 2021-01-01T00:00:20Z | t1  |                                  7 |
 | 2021-01-01T00:00:30Z | t1  | {{ cond ($.includeNull) "" "17" }} |
@@ -37,7 +37,7 @@
 | :------------------- | :-: | ---------------------------------: |
 | 2021-01-01T00:00:00Z | t2  | {{ cond ($.includeNull) "" "19" }} |
 | 2021-01-01T00:00:10Z | t2  |                                  4 |
-| 2021-01-01T00:00:20Z | t2  |                                  3 |
+| 2021-01-01T00:00:20Z | t2  |                                 -3 |
 | 2021-01-01T00:00:30Z | t2  |                                 19 |
 | 2021-01-01T00:00:40Z | t2  | {{ cond ($.includeNull) "" "13" }} |
 | 2021-01-01T00:00:50Z | t2  |                                  1 |
@@ -46,7 +46,7 @@
 {{- define "uint" -}}
 | _time                | tid |                             _value |
 | :------------------- | :-: | ---------------------------------: |
-| 2021-01-01T00:00:00Z | t1  |                                  2 |
+| 2021-01-01T00:00:00Z | t1  |               18446744073709551614 |
 | 2021-01-01T00:00:10Z | t1  | {{ cond ($.includeNull) "" "10" }} |
 | 2021-01-01T00:00:20Z | t1  |                                  7 |
 | 2021-01-01T00:00:30Z | t1  | {{ cond ($.includeNull) "" "17" }} |
@@ -57,7 +57,7 @@
 | :------------------- | :-: | ---------------------------------: |
 | 2021-01-01T00:00:00Z | t2  | {{ cond ($.includeNull) "" "19" }} |
 | 2021-01-01T00:00:10Z | t2  |                                  4 |
-| 2021-01-01T00:00:20Z | t2  |                                  3 |
+| 2021-01-01T00:00:20Z | t2  |               18446744073709551613 |
 | 2021-01-01T00:00:30Z | t2  |                                 19 |
 | 2021-01-01T00:00:40Z | t2  | {{ cond ($.includeNull) "" "13" }} |
 | 2021-01-01T00:00:50Z | t2  |                                  1 |
@@ -86,7 +86,7 @@
 {{- define "numericString" -}}
 | _time                | tid | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
 | :------------------- | :-: | ----------------------------------------------------------------: |
-| 2021-01-01T00:00:00Z | t1  |                                                              2.18 |
+| 2021-01-01T00:00:00Z | t1  |                                                             -2.18 |
 | 2021-01-01T00:00:10Z | t1  |                             {{ cond ($.includeNull) "" "10.92" }} |
 | 2021-01-01T00:00:20Z | t1  |                                                              7.35 |
 | 2021-01-01T00:00:30Z | t1  |                             {{ cond ($.includeNull) "" "17.53" }} |
@@ -97,7 +97,7 @@
 | :------------------- | :-: | ----------------------------------------------------------------: |
 | 2021-01-01T00:00:00Z | t2  |                             {{ cond ($.includeNull) "" "19.85" }} |
 | 2021-01-01T00:00:10Z | t2  |                                                              4.97 |
-| 2021-01-01T00:00:20Z | t2  |                                                              3.75 |
+| 2021-01-01T00:00:20Z | t2  |                                                             -3.75 |
 | 2021-01-01T00:00:30Z | t2  |                                                             19.77 |
 | 2021-01-01T00:00:40Z | t2  |                             {{ cond ($.includeNull) "" "13.86" }} |
 | 2021-01-01T00:00:50Z | t2  |                                                              1.86 |
@@ -143,18 +143,18 @@
 | 2021-01-01T00:00:50Z | t2  |                                                              0 |
 {{- end -}}
 
-{{ if eq $set "float" }}
-  {{ template "float" dict "includeNull" $includeNull }}
-{{ else if eq $set "int" }}
-  {{ template "int" dict "includeNull" $includeNull }}
-{{ else if eq $set "uint" }}
-  {{ template "uint" dict "includeNull" $includeNull }}
-{{ else if eq $set "string" }}
-  {{ template "string" dict "includeNull" $includeNull }}
-{{ else if eq $set "numericString" }}
-  {{ template "numericString" dict "includeNull" $includeNull }}
-{{ else if eq $set "bool" }}
-  {{ template "bool" dict "includeNull" $includeNull }}
-{{ else if eq $set "numericBool" }}
-  {{ template "numericBool" dict "includeNull" $includeNull }}
-{{ end }}
+{{- if eq $set "float" -}}
+  {{- template "float" dict "includeNull" $includeNull -}}
+{{- else if eq $set "int" -}}
+  {{- template "int" dict "includeNull" $includeNull -}}
+{{- else if eq $set "uint" -}}
+  {{- template "uint" dict "includeNull" $includeNull -}}
+{{- else if eq $set "string" -}}
+  {{- template "string" dict "includeNull" $includeNull -}}
+{{- else if eq $set "numericString" -}}
+  {{- template "numericString" dict "includeNull" $includeNull -}}
+{{- else if eq $set "bool" -}}
+  {{- template "bool" dict "includeNull" $includeNull -}}
+{{- else if eq $set "numericBool" -}}
+  {{- template "numericBool" dict "includeNull" $includeNull -}}
+{{- end }}

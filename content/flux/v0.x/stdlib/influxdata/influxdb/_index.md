@@ -16,7 +16,7 @@ weight: 202
 flux/v0.x/tags: [functions, package]
 ---
 
-The Flux InfluxDB package provides functions for analyzing InfluxDB metadata.
+The Flux `influxdb` package provides functions for analyzing InfluxDB metadata.
 Import the `influxdata/influxdb` package:
 
 ```js

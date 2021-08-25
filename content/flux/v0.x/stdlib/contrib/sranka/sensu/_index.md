@@ -1,8 +1,8 @@
 ---
-title: Flux Sensu package
+title: Flux sensu package
 list_title: sensu package
 description: >
-  The Flux Sensu package provides functions for sending events to
+  The Flux `sensu` package provides functions for sending events to
   [Sensu Go](https://docs.sensu.io/sensu-go/latest/).
   Import the `contrib/sranka/sensu` package.
 aliases:
@@ -16,7 +16,7 @@ weight: 201
 v2.0/tags: [functions, teams, sensu, package]
 ---
 
-The Flux Sensu package provides functions for sending events to
+The Flux `sensu` package provides functions for sending events to
 [Sensu Go](https://docs.sensu.io/sensu-go/latest/).
 Import the `contrib/sranka/sensu` package:
 

@@ -1,8 +1,8 @@
 ---
-title: Flux Experimental package
-list_title: Experimental package
+title: Flux experimental package
+list_title: experimental package
 description: >
-  The Flux Experimental package includes experimental functions that perform various tasks.
+  The Flux experimental package includes experimental functions that perform various tasks.
   Experimental functions are subject to change at any time and are not recommended for production use.
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/

@@ -1,8 +1,8 @@
 ---
-title: Flux HTTP package
-list_title: HTTP package
+title: Flux http package
+list_title: http package
 description: >
-  The Flux HTTP package provides functions for transferring data using the HTTP protocol.
+  The Flux `http` package provides functions for transferring data using the HTTP protocol.
   Import the `http` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/http/
@@ -16,7 +16,7 @@ weight: 11
 flux/v0.x/tags: [functions, http, package]
 ---
 
-The Flux HTTP package provides functions for transferring data using the HTTP protocol.
+The Flux `http` package provides functions for transferring data using the HTTP protocol.
 Import the `http` package:
 
 ```js

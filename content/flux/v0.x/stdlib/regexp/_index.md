@@ -1,9 +1,9 @@
 ---
-title: Flux regular expressions package
-list_title: Regular expressions package
+title: Flux regexp package
+list_title: regexp package
 description: >
-  The Flux regular expressions package includes functions that provide enhanced
-  regular expression functionality. Import the `regexp` package.
+  The Flux `regexp` package includes functions for working with regular expressions.
+  Import the `regexp` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/regexp/
   - /influxdb/v2.0/reference/flux/stdlib/regexp/
@@ -19,8 +19,8 @@ cascade:
     - /flux/v0.x/data-types/regexp/
 ---
 
-The Flux regular expressions package includes functions that provide enhanced
-regular expression functionality. Import the `regexp` package.
+The Flux `regexp` package includes functions for working with regular expressions.
+Import the `regexp` package.
 
 ```js
 import "regexp"

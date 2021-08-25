@@ -1,5 +1,5 @@
 ---
-title: Flux CSV package
+title: Flux experimental csv package
 list_title: csv package
 seotitle: Flux Experimental CSV package
 description: >
@@ -17,7 +17,7 @@ weight: 301
 flux/v0.x/tags: [functions, csv, package]
 ---
 
-The Flux Experimental CSV package provides functions for retrieving annotated CSV.
+The Flux experimental `csv` package provides functions for retrieving annotated CSV.
 Import the `experimental/csv` package:
 
 ```js

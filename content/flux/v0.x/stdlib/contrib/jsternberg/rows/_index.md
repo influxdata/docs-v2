@@ -1,8 +1,8 @@
 ---
-title: Flux Rows package
+title: Flux rows package
 list_title: rows package
 description: >
-  The Flux Rows package provides additional functions for remapping values in rows.
+  The Flux `rows` package provides additional functions for remapping values in rows.
   Import the `contrib/jsternberg/rows` package.
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/rows/
@@ -15,7 +15,7 @@ weight: 201
 flux/v0.x/tags: [functions, package]
 ---
 
-The Flux Rows package provides additional functions for remapping values in rows.
+The Flux `rows` package provides additional functions for remapping values in rows.
 Import the `contrib/jsternberg/rows` package:
 
 ```js
