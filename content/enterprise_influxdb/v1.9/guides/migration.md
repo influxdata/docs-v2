@@ -53,7 +53,7 @@ Upgrade InfluxDB OSS (and InfluxDB Enterprise, if you already have a cluster) to
 ### Set up InfluxDB Enterprise data nodes
 
 {{% note %}}
-Skip this step if you don't have any existing data nodes in your InfluxDB Enterprise cluster.
+Skip the following steps (1-5) if you don't have any existing data nodes in your InfluxDB Enterprise cluster.
 {{% /note %}}
 
 For each existing data node:
