@@ -54,7 +54,7 @@ The Usage-based Plan offers more flexibility and ensures you only pay for what y
 ### Soft data limits
 
 To protect against any intentional or unintentional harm, the Usage-Based Plan includes soft limits.
-_To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com)._
+_To request higher soft data limits, contact [InfluxData Support](mailto:support@influxdata.com)._
 
 - **Data In:** 300MB every 5 minutes
 - **Query:** 3000MB every 5 minutes

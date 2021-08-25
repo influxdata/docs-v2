@@ -31,11 +31,6 @@ A line graph displays usage for the selected vector for the specified time perio
 
 ## Exceeded rate limits
 
-{{% note %}}
-**Tip:**
-Combine predicate expressions (if possible) into a single request. InfluxDB rate limits per number of requests (not points in request).
-{{% /note %}}
-
 If you exceed your [plan's data limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} UI displays a notification message, and the following occurs:
 
 - When **write or read requests or series cardinality exceed** the specified limit within a five-minute window, the request is rejected and the following events appears under **Limit Events** on the Usage page as applicable: `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality`
@@ -43,6 +38,10 @@ If you exceed your [plan's data limits](/influxdb/cloud/account-management/prici
   _To raise these rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
 
 - When **delete requests exceed** the specified limit within a five-minute window, the request is rejected and `event_type_limited_delete_rate` appears under **Limit Events** on the Usage page.
+  {{% note %}}
+**Tip:**
+Combine predicate expressions (if possible) into a single request. InfluxDB rate limits per number of requests (not points in request).
+{{% /note %}}
 
 ### InfluxDB API: HTTP rate limit responses
 
