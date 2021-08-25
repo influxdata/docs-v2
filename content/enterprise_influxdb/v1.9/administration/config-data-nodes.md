@@ -880,6 +880,14 @@ The JWT authorization shared secret used to validate requests using JSON web tok
 
 Environment variable: `INFLUXDB_HTTP_SHARED_SECRET`
 
+#### `max-body-size = 25000000`
+
+The maximum size, in bytes, of a client request body.
+When a HTTP client sends data that exceeds the configured maximum size, a `413 Request Entity Too Large` HTTP response is returned.
+To disable the limit, set the value to `0`.
+
+Environment variable: `INFLUXDB_HTTP_MAX_BODY_SIZE`
+
 #### `max-row-limit = 0`
 
 The default chunk size for result sets that should be chunked.
