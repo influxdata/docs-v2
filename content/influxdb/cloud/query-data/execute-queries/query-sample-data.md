@@ -49,19 +49,20 @@ In the navigation menu on the left, click **Explore (Data Explorer)**.
 2. Click **{{< icon "plus" >}} Create bucket**, and then name your bucket. The bucket will appear in your list of buckets.
 3. View the [sample datasets document](/influxdb/cloud/reference/sample-data/#sample-datasets) and choose a sample data to query. 
 4. Copy the `sample.data()` function listed underneath. 
-5. Click **Explore** on the left navigation of InfluxDB Cloud and click **Script Editor**. 
+5. Click **Explore** on the left navigation of InfluxDB Cloud and click your bucket, and then click **Script Editor**. 
 6. Paste the `sample.data()` function. 
 7. Click **Submit** to run the query. 
 
-## View sample data dashboards
-After adding a sample data bucket, view a dashboard specific to the sample dataset:
+## Create sample data dashboards
+After adding a sample data bucket, create a dashboard specific to the sample dataset:
 
 1. Click **Boards (Dashboards)** in the navigation menu on the left.
 
     {{< nav-icon "dashboards" >}}
 
-2. Click **Create Dashboard** and name the dashboard after your bucket. 
-3. Click **Add Cell > Script Editor** 
-4. Copy and paste the `sample.data()` function into the script editor. 
-5. Click **Submit** to run the query. 
+2. Click **Create Dashboard > New Dashboard**, and name the dashboard after your bucket. 
+3. Click **Add Cell**, and select your sample data bucket. 
+4. Click **Script Editor**. 
+5. Copy and paste the `sample.data()` function into the script editor. 
+6. Click **Submit** to run the query. 
 6. Define the variables of your sample data. 
