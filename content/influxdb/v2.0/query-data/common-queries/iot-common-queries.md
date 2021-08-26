@@ -94,11 +94,11 @@ For more information about mosaic visualizations, see [here](/influxdb/cloud/vis
 
 Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
 
-#### Example: Calculate air temperature 
+#### Example: Calculate oil temperature 
 
-For example, you want to calculate temperature over a given interval.  
+For example, you want to calculate oil temperature over a given interval.  
 
-The total exposure considers both the total hours in the day and temperature for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time.
+The total exposure considers both the total hours in the day and temperature for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time. In this example, the average oil temperature for the time range is calculated across three different stations in a production line. 
 
 ##### Flux query to calculate time-weighted average
 
@@ -111,15 +111,14 @@ from(bucket: "machine")
   |> timeWeightedAvg(unit: 2h)
 ```
 
-In this example, the `_value` in the table below shows input data from the `temperature` field in the `airSensors` measurement. A person is exposed to `1.0` unit of substance in the first `2hr` interval, with increasing exposure by `.5` unit every subsequent `2hr` period. For the following input data:
+In this example, the `_value` in the table below shows input data from the `temperature` field in the `machinery` measurement. For the following input data:
 
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:09:00Z | 1.0    |
-| 2021-01-01T00:11:00Z | 1.5    |
-| 2021-01-01T00:01:00Z | 2.0    |
-| 2021-01-01T00:03:00Z | 2.5    |
-| 2021-01-01T00:05:00Z | 3.0    |
+| stationID | _start                   | _stop                    | _value             |
+|:-----     | -----                    | -----                    |             ------:|
+| g1        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.541438067883554 |
+| g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.35824278556158  |
+| g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.687188602516066 |
+
 
 Given the input data in the table above, the example function above does the following:
 
