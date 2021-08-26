@@ -44,7 +44,6 @@ influx bucket-schema create [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Create a columns file](#create-a-columns-file)
 - [Create a schema using the influx CLI](#create-a-schema-using-the-influx-cli)
 - [Create a schema and print column information](#create-a-schema-and-print-column-information)
 - [Create a schema with columns format](#create-a-schema-with-columns-format)
