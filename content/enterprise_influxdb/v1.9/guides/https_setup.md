@@ -51,6 +51,8 @@ Regardless of your certificate's type, InfluxDB Enterprise supports certificates
 a private key file (`.key`) and a signed certificate file (`.crt`) file pair, as well as certificates
 that combine the private key file and the signed certificate file into a single bundled file (`.pem`).
 
+In general, each node node should have its own certificate, whether signed or unsiged.
+
 ## Set up HTTPS in an InfluxDB Enterprise cluster
 
 1. **Download or generate certificate files**
