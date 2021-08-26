@@ -26,7 +26,7 @@ Choose from the following sample datasets:
 - **NOAA NDBC data**
   - Explore, visualize, and monitor NDBC's observations from their buoys. This data observes air temperature, wind speed, and more from specific locations. 
 - **NOAA water sample data**
-  - Explore, visualize, and monitor temperature, water level, and more from specific locations. 
+  - Explore, visualize, and monitor temperature, water level, pH, and quality from specific locations. 
 - **USGS Earthquake data**
   - Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitide, and more. 
 
