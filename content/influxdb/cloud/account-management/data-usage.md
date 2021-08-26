@@ -14,8 +14,12 @@ menu:
 products: [cloud]
 ---
 
-To view your {{< cloud-name >}} data usage, click the **user avatar** in the top
-right corner of your {{< cloud-name "short" >}} user interface (UI) and select **Usage**.
+View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs (pricing vectors) and other usage data, including delete limits, does not affect pricing. For more information, see the [pricing plans](/influxdb/cloud/account-management/pricing-plans/). 
+
+To view your {{< cloud-name >}} data usage, do the following: 
+
+1. Click the **user avatar** on the left-side navigation. 
+2. Select **Usage**.
 
 Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
 
@@ -26,7 +30,7 @@ Find data usage information for the time frame specified in the drop-down at the
 - **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
 - **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
 
-{{< img-hd src="/img/influxdb/2-0-cloud-usage.png" />}}
+{{< img-hd src="/img/influxdb/cloud-controls-data-usage.png" />}}
 
 ## Exceeded rate limits
 

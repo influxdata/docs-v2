@@ -1,17 +1,22 @@
 ---
 title: Update secrets
 description: Update secrets using the `influx` CLI or the InfluxDB API.
-influxdb/cloud/tags: [secrets, security]
+influxdb/v2.0/tags: [secrets, security]
 menu:
-  influxdb_cloud:
+  influxdb_2_0:
     parent: Manage secrets
 weight: 303
+aliases:
+  - /influxdb/v2.0/security/secrets/manage-secrets/update/
 ---
 
 Update secrets using the `influx` command line interface (CLI) or the InfluxDB API.
 
+- [Update a secret using the influx CLI](#update-a-secret-using-the-influx-cli)
+- [Update a secret using the InfluxDB API](#update-a-secret-using-the-influxdb-api)
+
 ## Update a secret using the influx CLI
-Use the [`influx secret update` command](/influxdb/cloud/reference/cli/influx/secret/update/)
+Use the [`influx secret update` command](/influxdb/v2.0/reference/cli/influx/secret/update/)
 to update a secret in your organization.
 Provide the secret key to update with the `-k` or `--key` flag.
 You may also provide the secret value with the `-v` or `--value` flag.
@@ -37,15 +42,15 @@ to update a secret in your organization.
 
 **Include the following:**
 
-- Your [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [API token](/influxdb/cloud/security/tokens/view-tokens/) in the `Authorization` header
+- Your [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) in the request URL
+- Your [API token](/influxdb/v2.0/security/tokens/view-tokens/) in the `Authorization` header
 - The updated secret key-value pair in the request body
 
 <!-- -->
 ```sh
-curl -XPATCH https://cloud2.influxdata.com/api/v2/orgs/<org-id>/secrets \
-  -H 'Authorization: Token YOURAUTHTOKEN' \
-  -H 'Content-type: application/json' \
+curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
+  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Content-type: application/json' \
   --data '{
 	"<secret-key>": "<secret-value>"
 }'

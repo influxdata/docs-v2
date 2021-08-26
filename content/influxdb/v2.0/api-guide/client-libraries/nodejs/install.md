@@ -12,6 +12,7 @@ aliases:
   - /influxdb/v2.0/reference/api/client-libraries/nodejs/install
 ---
 
+
 ## Install
 
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
@@ -28,11 +29,8 @@ aliases:
 
 ## Install dependencies
 
-{{% note %}}
-{{% api/v2dot0/nodejs/install %}}
-{{% /note %}}
-
-The JavaScript client contains two packages. Add both as dependencies of your project.
+The JavaScript client contains two packages.
+Add both as dependencies of your project.
 
 1. Change to your project directory:
 
@@ -52,13 +50,23 @@ The JavaScript client contains two packages. Add both as dependencies of your pr
    npm install --save @influxdata/influxdb-client-apis
    ```
 
-## Configure your environment
-Set environment variables for [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and [url](/influxdb/v2.0/urls). Your application will use these to  interact with the InfluxDB API.
-
-```sh
-{{< api/v2dot0/env >}}
-```
+## Get started with examples 
 
 {{% note %}}
-The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for conveniently accessing environment variables.
+The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for accessing your InfluxDB properties from environment variables or from `env.js`.
+The examples will use these to interact with the InfluxDB API.
 {{% /note %}}
+
+1. Set environment variables or update `env.js` with your InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/), [organization](/influxdb/v2.0/organizations/), [token](/influxdb/v2.0/security/tokens/), and [url](/influxdb/v2.0/urls).
+
+   ```sh
+   # Environment variables
+   {{< api/v2dot0/env >}}
+   ```
+
+2. Run an example script.
+
+   ```sh
+   query.ts
+   ```
+{{% api/v2dot0/nodejs/learn-more %}}

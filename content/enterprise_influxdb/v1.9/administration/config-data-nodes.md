@@ -183,12 +183,16 @@ Configures password hashing algorithm.
 Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
 This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
 
+For detailed configuration information, see [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
+
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
 #### `ensure-fips = false`
 
 When `true`, enables a FIPS-readiness check on startup.
 Default is `false`.
+
+For detailed configuration information, see [`meta.ensure-fips`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips--false).
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
@@ -875,6 +879,14 @@ Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
 The JWT authorization shared secret used to validate requests using JSON web tokens (JWTs).
 
 Environment variable: `INFLUXDB_HTTP_SHARED_SECRET`
+
+#### `max-body-size = 25000000`
+
+The maximum size, in bytes, of a client request body.
+When a HTTP client sends data that exceeds the configured maximum size, a `413 Request Entity Too Large` HTTP response is returned.
+To disable the limit, set the value to `0`.
+
+Environment variable: `INFLUXDB_HTTP_MAX_BODY_SIZE`
 
 #### `max-row-limit = 0`
 

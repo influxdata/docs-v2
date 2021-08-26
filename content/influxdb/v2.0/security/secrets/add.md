@@ -1,19 +1,25 @@
 ---
-title: Update secrets
-description: Update secrets using the `influx` CLI or the InfluxDB API.
+title: Add secrets
+description: Add secrets using the `influx` CLI or the InfluxDB API.
 influxdb/v2.0/tags: [secrets, security]
 menu:
   influxdb_2_0:
     parent: Manage secrets
-weight: 303
+weight: 301
+aliases:
+  - /influxdb/v2.0/security/secrets/manage-secrets/add/
 ---
 
-Update secrets using the `influx` command line interface (CLI) or the InfluxDB API.
+Add secrets using the `influx` command line interface (CLI) or the InfluxDB API.
 
-## Update a secret using the influx CLI
+
+- [Add a secret using the influx CLI](#add-a-secret-using-the-influx-cli)
+- [Add a secret using the InfluxDB API](#add-a-secret-using-the-influxdb-api)
+
+## Add a secret using the influx CLI
 Use the [`influx secret update` command](/influxdb/v2.0/reference/cli/influx/secret/update/)
-to update a secret in your organization.
-Provide the secret key to update with the `-k` or `--key` flag.
+to add a new secret to your organization.
+Provide the secret key with the `-k` or `--key` flag.
 You may also provide the secret value with the `-v` or `--value` flag.
 If you do not provide the secret value with the `-v` or `--value` flag,
 enter the value when prompted.
@@ -31,15 +37,15 @@ influx secret update -k <secret-key>
 influx secret update -k foo
 ```
 
-## Update a secret using the InfluxDB API
-Use the `PATCH` request method and the InfluxDB `/orgs/{orgID}/secrets` API endpoint
-to update a secret in your organization.
+## Add a secret using the InfluxDB API
+Use the `PATCH` request method and the `/orgs/{orgID}/secrets` API endpoint to
+add a new secret to your organization.
 
 **Include the following:**
 
 - Your [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) in the request URL
 - Your [API token](/influxdb/v2.0/security/tokens/view-tokens/) in the `Authorization` header
-- The updated secret key-value pair in the request body
+- The secret key-value pair in the request body
 
 <!-- -->
 ```sh

@@ -27,8 +27,8 @@ influx v1 auth delete [flags]
 |      | `--host`          | HTTP address of InfluxDB                                                 | string     | `$INFLUX_HOST`          |
 | `-i` | `--id`            | ({{< req >}}) Authorization ID                                           | string     |                         |
 |      | `--json`          | Output data as JSON (default: `false`)                                   |            | `$INFLUX_OUTPUT_JSON`   |
-|      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
-| `-t` | `--token`         | API token                                                     | string     | `$INFLUX_TOKEN`         |
+|      | `--skip-verify`   | Skip TLS certificate verification                                        |            | `INFLUX_SKIP_VERIFY`    |
+| `-t` | `--token`         | API token                                                                | string     | `$INFLUX_TOKEN`         |
 |      | `--username`      | Authorization username                                                   | string     | `$INFLUX_USERNAME`      |
 
 ## Examples

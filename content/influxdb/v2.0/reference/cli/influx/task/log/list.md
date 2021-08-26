@@ -31,7 +31,7 @@ influx task log list [flags]
 |      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
 |      | `--run-id`        | Run ID                                                                | string     |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--task-id`       | ({{< req >}}) Task ID                                                 | string     |                       |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 
