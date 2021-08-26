@@ -4,6 +4,24 @@ info:
   version: 2.0.0
 servers:
   - url: /api/v2
+x-tagGroups:
+  - name: Getting Started
+    tags:
+      - Authentication
+  - name: User Management
+    tags:
+      - Authorizations
+      - Users
+  - name: System
+    tags:
+      - Health
+      - Ping
+tags:
+  - name: Authentication
+    description: |
+      The InfluxDB v2 API provides a programmatic interface for all interactions with InfluxDB.
+      <!-- ReDoc-Inject: <security-definitions> -->
+    x-traitTag: true
 paths:
   /signin:
     post:
@@ -55,12 +73,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /ping:
+    servers:
+      - url: ''
+    get:
+      operationId: GetPing
+      tags:
+        - Health
+      summary: Checks the status of InfluxDB instance and version of InfluxDB.
+      responses:
+        '204':
+          description: OK
+          headers:
+            X-Influxdb-Build:
+              schema:
+                type: string
+              description: The type of InfluxDB build.
+            X-Influxdb-Version:
+              schema:
+                type: integer
+              description: The version of InfluxDB.
+    head:
+      operationId: HeadPing
+      tags:
+        - Health
+      summary: Checks the status of InfluxDB instance and version of InfluxDB.
+      responses:
+        '204':
+          description: OK
+          headers:
+            X-Influxdb-Build:
+              schema:
+                type: string
+              description: The type of InfluxDB build.
+            X-Influxdb-Version:
+              schema:
+                type: integer
+              description: The version of InfluxDB.
   /:
     get:
       operationId: GetRoutes
       summary: List all top level routes
       tags:
-        - Routes
+        - Resources
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -315,8 +370,12 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: orgID
-          required: true
           description: Specifies the organization ID to filter on
+          schema:
+            type: string
+        - in: query
+          name: org
+          description: Specifies the organization name to filter on
           schema:
             type: string
         - in: query
@@ -371,15 +430,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       requestBody:
-        description: The database retention policy mapping to add
+        description: The Database Retention Policy Mapping to add
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DBRP'
+              $ref: '#/components/schemas/DBRPCreate'
       responses:
         '201':
-          description: Database retention policy mapping created
+          description: The created Database Retention Policy Mapping
           content:
             application/json:
               schema:
@@ -406,8 +465,12 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: orgID
-          required: true
           description: Specifies the organization ID of the mapping
+          schema:
+            type: string
+        - in: query
+          name: org
+          description: Specifies the organization name of the mapping
           schema:
             type: string
         - in: path
@@ -422,7 +485,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DBRP'
+                $ref: '#/components/schemas/DBRPGet'
         '400':
           description: if any of the IDs passed is invalid
           content:
@@ -451,8 +514,12 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: orgID
-          required: true
           description: Specifies the organization ID of the mapping
+          schema:
+            type: string
+        - in: query
+          name: org
+          description: Specifies the organization name of the mapping
           schema:
             type: string
         - in: path
@@ -467,7 +534,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DBRP'
+                $ref: '#/components/schemas/DBRPGet'
         '400':
           description: if any of the IDs passed is invalid
           content:
@@ -495,8 +562,12 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: query
           name: orgID
-          required: true
           description: Specifies the organization ID of the mapping
+          schema:
+            type: string
+        - in: query
+          name: org
+          description: Specifies the organization name of the mapping
           schema:
             type: string
         - in: path
@@ -2943,7 +3014,6 @@ paths:
       operationId: GetOrgsIDSecrets
       tags:
         - Secrets
-        - Organizations
       summary: List all secret keys for an organization
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2970,7 +3040,6 @@ paths:
       operationId: PatchOrgsIDSecrets
       tags:
         - Secrets
-        - Organizations
       summary: Update secrets in an organization
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -2987,37 +3056,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Secrets'
-      responses:
-        '204':
-          description: Keys successfully patched
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/orgs/{orgID}/secrets/delete':
-    post:
-      operationId: PostOrgsIDSecrets
-      tags:
-        - Secrets
-        - Organizations
-      summary: Delete secrets from an organization
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - in: path
-          name: orgID
-          schema:
-            type: string
-          required: true
-          description: The organization ID.
-      requestBody:
-        description: Secret key to delete
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SecretKeys'
       responses:
         '204':
           description: Keys successfully patched
@@ -3213,6 +3251,86 @@ paths:
           description: Owner removed
         default:
           description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/orgs/{orgID}/secrets/delete':
+    post:
+      deprecated: true
+      operationId: PostOrgsIDSecrets
+      tags:
+        - Secrets
+      summary: Delete secrets from an organization
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: orgID
+          schema:
+            type: string
+          required: true
+          description: The organization ID.
+      requestBody:
+        description: Secret key to delete
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecretKeys'
+      responses:
+        '204':
+          description: Keys successfully patched
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/orgs/{orgID}/secrets/{secretID}':
+    delete:
+      operationId: DeleteOrgsIDSecretsID
+      tags:
+        - Secrets
+      summary: Delete a secret from an organization
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: orgID
+          schema:
+            type: string
+          required: true
+          description: The organization ID.
+        - in: path
+          name: secretID
+          schema:
+            type: string
+          required: true
+          description: The secret ID.
+      responses:
+        '204':
+          description: Keys successfully deleted
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  /resources:
+    get:
+      operationId: GetResources
+      tags:
+        - Resources
+      summary: List all known resources
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          description: All resources targets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        default:
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -5550,7 +5668,7 @@ paths:
           description: The ID of the authorization to update.
       responses:
         '200':
-          description: The active or inactie authorization
+          description: The active or inactive authorization
           content:
             application/json:
               schema:
@@ -5574,6 +5692,187 @@ paths:
       responses:
         '204':
           description: Authorization deleted
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  /legacy/authorizations:
+    servers:
+      - url: /private
+    get:
+      operationId: GetLegacyAuthorizations
+      tags:
+        - Legacy Authorizations
+      summary: List all legacy authorizations
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: query
+          name: userID
+          schema:
+            type: string
+          description: Only show legacy authorizations that belong to a user ID.
+        - in: query
+          name: user
+          schema:
+            type: string
+          description: Only show legacy authorizations that belong to a user name.
+        - in: query
+          name: orgID
+          schema:
+            type: string
+          description: Only show legacy authorizations that belong to an organization ID.
+        - in: query
+          name: org
+          schema:
+            type: string
+          description: Only show legacy authorizations that belong to a organization name.
+        - in: query
+          name: token
+          schema:
+            type: string
+          description: Only show legacy authorizations with a specified token (auth name).
+        - in: query
+          name: authID
+          schema:
+            type: string
+          description: Only show legacy authorizations with a specified auth ID.
+      responses:
+        '200':
+          description: A list of legacy authorizations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorizations'
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+    post:
+      operationId: PostLegacyAuthorizations
+      tags:
+        - Legacy Authorizations
+      summary: Create a legacy authorization
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      requestBody:
+        description: Legacy authorization to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegacyAuthorizationPostRequest'
+      responses:
+        '201':
+          description: Legacy authorization created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+        '400':
+          description: Invalid request
+          $ref: '#/components/responses/ServerError'
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  '/legacy/authorizations/{authID}':
+    servers:
+      - url: /private
+    get:
+      operationId: GetLegacyAuthorizationsID
+      tags:
+        - Legacy Authorizations
+      summary: Retrieve a legacy authorization
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: authID
+          schema:
+            type: string
+          required: true
+          description: The ID of the legacy authorization to get.
+      responses:
+        '200':
+          description: Legacy authorization details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+    patch:
+      operationId: PatchLegacyAuthorizationsID
+      tags:
+        - Legacy Authorizations
+      summary: Update a legacy authorization to be active or inactive
+      requestBody:
+        description: Legacy authorization to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizationUpdateRequest'
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: authID
+          schema:
+            type: string
+          required: true
+          description: The ID of the legacy authorization to update.
+      responses:
+        '200':
+          description: The active or inactive legacy authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+    delete:
+      operationId: DeleteLegacyAuthorizationsID
+      tags:
+        - Legacy Authorizations
+      summary: Delete a legacy authorization
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: authID
+          schema:
+            type: string
+          required: true
+          description: The ID of the legacy authorization to delete.
+      responses:
+        '204':
+          description: Legacy authorization deleted
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  '/legacy/authorizations/{authID}/password':
+    servers:
+      - url: /private
+    post:
+      operationId: PostLegacyAuthorizationsIDPassword
+      tags:
+        - Legacy Authorizations
+      summary: Set a legacy authorization password
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: authID
+          schema:
+            type: string
+          required: true
+          description: The ID of the legacy authorization to update.
+      requestBody:
+        description: New password
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetBody'
+      responses:
+        '204':
+          description: Legacy authorization password set
         default:
           description: Unexpected error
           $ref: '#/components/responses/ServerError'
@@ -6382,6 +6681,652 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /backup/kv:
+    get:
+      operationId: GetBackupKV
+      tags:
+        - Backup
+      summary: 'Download snapshot of metadata stored in the server''s embedded KV store. Should not be used in versions greater than 2.1.x, as it doesn''t include metadata stored in embedded SQL.'
+      deprecated: true
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          description: Snapshot of KV metadata
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  /backup/metadata:
+    get:
+      operationId: GetBackupMetadata
+      tags:
+        - Backup
+      summary: Download snapshot of all metadata in the server
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: header
+          name: Accept-Encoding
+          description: 'The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.'
+          schema:
+            type: string
+            description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
+            default: identity
+            enum:
+              - gzip
+              - identity
+      responses:
+        '200':
+          description: Snapshot of metadata
+          headers:
+            Content-Encoding:
+              description: 'The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body'
+              schema:
+                type: string
+                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                default: identity
+                enum:
+                  - gzip
+                  - identity
+          content:
+            multipart/mixed:
+              schema:
+                $ref: '#/components/schemas/MetadataBackup'
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  '/backup/shards/{shardID}':
+    get:
+      operationId: GetBackupShardId
+      tags:
+        - Backup
+      summary: Download snapshot of all TSM data in a shard
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: header
+          name: Accept-Encoding
+          description: 'The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.'
+          schema:
+            type: string
+            description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
+            default: identity
+            enum:
+              - gzip
+              - identity
+        - in: path
+          name: shardID
+          schema:
+            type: integer
+            format: int64
+          required: true
+          description: The shard ID.
+        - in: query
+          name: since
+          description: Earliest time to include in the snapshot. RFC3339 format.
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: TSM snapshot.
+          headers:
+            Content-Encoding:
+              description: 'The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body'
+              schema:
+                type: string
+                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                default: identity
+                enum:
+                  - gzip
+                  - identity
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Shard not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  /restore/kv:
+    post:
+      operationId: PostRestoreKV
+      tags:
+        - Restore
+      summary: Overwrite the embedded KV store on the server with a backed-up snapshot.
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: header
+          name: Content-Encoding
+          description: 'When present, its value indicates to the database that compression is applied to the line-protocol body.'
+          schema:
+            type: string
+            description: Specifies that the line protocol in the body is encoded with gzip or not encoded with identity.
+            default: identity
+            enum:
+              - gzip
+              - identity
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            default: application/octet-stream
+            enum:
+              - application/octet-stream
+      requestBody:
+        description: Full KV snapshot.
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '204':
+          description: KV store successfully overwritten.
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  /restore/sql:
+    post:
+      operationId: PostRestoreSQL
+      tags:
+        - Restore
+      summary: Overwrite the embedded SQL store on the server with a backed-up snapshot.
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: header
+          name: Content-Encoding
+          description: 'When present, its value indicates to the database that compression is applied to the line-protocol body.'
+          schema:
+            type: string
+            description: Specifies that the line protocol in the body is encoded with gzip or not encoded with identity.
+            default: identity
+            enum:
+              - gzip
+              - identity
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            default: application/octet-stream
+            enum:
+              - application/octet-stream
+      requestBody:
+        description: Full SQL snapshot.
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '204':
+          description: SQL store successfully overwritten.
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  '/restore/bucket/{bucketID}':
+    post:
+      operationId: PostRestoreBucketID
+      tags:
+        - Restore
+      summary: Overwrite storage metadata for a bucket with shard info from a backup.
+      deprecated: true
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: bucketID
+          schema:
+            type: string
+          required: true
+          description: The bucket ID.
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            default: application/octet-stream
+            enum:
+              - application/octet-stream
+      requestBody:
+        description: Database info serialized as protobuf.
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              format: byte
+      responses:
+        '200':
+          description: ID mappings for shards in bucket.
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  /restore/bucketMetadata:
+    post:
+      operationId: PostRestoreBucketMetadata
+      tags:
+        - Restore
+      summary: Create a new bucket pre-seeded with shard info from a backup.
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      requestBody:
+        description: Metadata manifest for a bucket.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BucketMetadataManifest'
+      responses:
+        '201':
+          description: ID mappings for shards in new bucket.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestoredBucketMappings'
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  '/restore/shards/{shardID}':
+    post:
+      operationId: PostRestoreShardId
+      tags:
+        - Restore
+      summary: Restore a TSM snapshot into a shard.
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: header
+          name: Content-Encoding
+          description: 'When present, its value indicates to the database that compression is applied to the line-protocol body.'
+          schema:
+            type: string
+            description: Specifies that the line protocol in the body is encoded with gzip or not encoded with identity.
+            default: identity
+            enum:
+              - gzip
+              - identity
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            default: application/octet-stream
+            enum:
+              - application/octet-stream
+        - in: path
+          name: shardID
+          schema:
+            type: string
+          required: true
+          description: The shard ID.
+      requestBody:
+        description: TSM snapshot.
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '204':
+          description: TSM snapshot successfully restored.
+        default:
+          description: Unexpected error
+          $ref: '#/components/responses/ServerError'
+  /remotes:
+    get:
+      operationId: GetRemoteConnections
+      tags:
+        - RemoteConnections
+      summary: List all remote connections
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: query
+          name: orgID
+          description: The organization ID.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: remoteURL
+          schema:
+            type: string
+            format: uri
+      responses:
+        '200':
+          description: List of remote connections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnections'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+    post:
+      operationId: PostRemoteConnection
+      tags:
+        - RemoteConnections
+      summary: Register a new remote connection
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: query
+          name: validate
+          description: 'If true, validate the remote connection, but don''t save it.'
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteConnectionCreationRequest'
+      responses:
+        '201':
+          description: Remote connection saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+        '204':
+          description: 'Remote connection validated, but not saved'
+        '400':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+  '/remotes/{remoteID}':
+    get:
+      operationId: GetRemoteConnectionByID
+      tags:
+        - RemoteConnections
+      summary: Retrieve a remote connection
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Remote connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+    patch:
+      operationId: PatchRemoteConnectionByID
+      tags:
+        - RemoteConnections
+      summary: Update a remote connection
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: validate
+          description: 'If true, validate the updated information, but don''t save it.'
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteConnectionUpdateRequest'
+      responses:
+        '200':
+          description: Updated information saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+        '204':
+          description: 'Updated connection validated, but not saved'
+        '400':
+          $ref: '#/components/responses/ServerError'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+    delete:
+      operationId: DeleteRemoteConnectionByID
+      tags:
+        - RemoteConnections
+      summary: Delete a remote connection
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Remote connection info deleted.
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+  '/remotes/{remoteID}/validate':
+    post:
+      operationId: PostValidateRemoteConnectionByID
+      tags:
+        - RemoteConnections
+      summary: Validate a remote connection
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Remote connection is valid
+        '400':
+          description: Remote connection failed validation
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+  /replications:
+    get:
+      operationId: GetReplications
+      tags:
+        - Replications
+      summary: List all replications
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: query
+          name: orgID
+          description: The organization ID.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: remoteID
+          schema:
+            type: string
+        - in: query
+          name: localBucketID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of replications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replications'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+    post:
+      operationId: PostReplication
+      tags:
+        - Replications
+      summary: Register a new replication
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: query
+          name: validate
+          description: 'If true, validate the replication, but don''t save it.'
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplicationCreationRequest'
+      responses:
+        '201':
+          description: Replication saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+        '204':
+          description: 'Replication validated, but not saved'
+        '400':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+  '/replications/{replicationID}':
+    get:
+      operationId: GetReplicationByID
+      tags:
+        - Replications
+      summary: Retrieve a replication
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Replication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+    patch:
+      operationId: PatchReplicationByID
+      tags:
+        - Replications
+      summary: Update a replication
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: validate
+          description: 'If true, validate the updated information, but don''t save it.'
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplicationUpdateRequest'
+      responses:
+        '200':
+          description: Updated information saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+        '204':
+          description: 'Updated replication validated, but not saved'
+        '400':
+          $ref: '#/components/responses/ServerError'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+    delete:
+      operationId: DeleteReplicationByID
+      tags:
+        - Replications
+      summary: Delete a replication
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Replication deleted.
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+  '/replications/{replicationID}/validate':
+    post:
+      operationId: PostValidateReplicationByID
+      tags:
+        - Replications
+      summary: Validate a replication
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Replication is valid
+        '400':
+          description: Replication failed validation
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
 components:
   parameters:
     TraceSpan:
@@ -7405,18 +8350,20 @@ components:
                     items:
                       $ref: '#/components/schemas/TemplateKind'
         resources:
-          type: object
-          properties:
-            id:
-              type: string
-            kind:
-              $ref: '#/components/schemas/TemplateKind'
-            name:
-              type: string
-              description: 'if defined with id, name is used for resource exported by id. if defined independently, resources strictly matching name are exported'
-          required:
-            - id
-            - kind
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              kind:
+                $ref: '#/components/schemas/TemplateKind'
+              name:
+                type: string
+                description: 'if defined with id, name is used for resource exported by id. if defined independently, resources strictly matching name are exported'
+            required:
+              - id
+              - kind
     TemplateExportByName:
       type: object
       properties:
@@ -7441,15 +8388,17 @@ components:
                     items:
                       $ref: '#/components/schemas/TemplateKind'
         resources:
-          type: object
-          properties:
-            kind:
-              $ref: '#/components/schemas/TemplateKind'
-            name:
-              type: string
-          required:
-            - name
-            - kind
+          type: array
+          items:
+            type: object
+            properties:
+              kind:
+                $ref: '#/components/schemas/TemplateKind'
+              name:
+                type: string
+            required:
+              - name
+              - kind
     Template:
       type: array
       items:
@@ -8309,6 +9258,9 @@ components:
           type: string
         name:
           description: The name of the task.
+          type: string
+        ownerID:
+          description: The ID of the user who owns this Task.
           type: string
         description:
           description: An optional description of the task.
@@ -9799,6 +10751,11 @@ components:
             isClustered:
               description: Cluster close markers together
               type: boolean
+            tooltipColumns:
+              description: An array for which columns to display in tooltip
+              type: array
+              items:
+                type: string
     GeoTrackMapViewLayer:
       allOf:
         - $ref: '#/components/schemas/GeoViewLayerProperties'
@@ -9905,6 +10862,14 @@ components:
           description: 'If true, search results get automatically regroupped so that lon,lat and value are treated as columns'
           type: boolean
           default: true
+        useS2CellID:
+          description: 'If true, S2 column is used to calculate lat/lon'
+          type: boolean
+        s2Column:
+          description: String to define the column
+          type: string
+        latLonColumns:
+          $ref: '#/components/schemas/LatLonColumns'
         mapStyle:
           description: 'Define map type - regular, satellite etc.'
           type: string
@@ -9923,6 +10888,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GeoViewLayer'
+    LatLonColumns:
+      description: Object type to define lat/lon columns
+      type: object
+      required:
+        - lat
+        - lon
+      properties:
+        lat:
+          $ref: '#/components/schemas/LatLonColumn'
+        lon:
+          $ref: '#/components/schemas/LatLonColumn'
+    LatLonColumn:
+      description: Object type for key and column definitions
+      type: object
+      required:
+        - key
+        - column
+      properties:
+        key:
+          description: Key to determine whether the column is tag/field
+          type: string
+        column:
+          description: Column to look up Lat/Lon
+          type: string
     Axes:
       description: The viewport for a View's visualizations
       type: object
@@ -9943,7 +10932,7 @@ components:
         heightRatio:
           type: number
           format: float
-        hide:
+        show:
           type: boolean
         opacity:
           type: number
@@ -11408,6 +12397,46 @@ components:
         orgID:
           type: string
           description: the organization ID that owns this mapping.
+        bucketID:
+          type: string
+          description: the bucket ID used as target for the translation.
+        database:
+          type: string
+          description: InfluxDB v1 database
+        retention_policy:
+          type: string
+          description: InfluxDB v1 retention policy
+        default:
+          type: boolean
+          description: Specify if this mapping represents the default retention policy for the database specificed.
+        links:
+          $ref: '#/components/schemas/Links'
+      required:
+        - id
+        - orgID
+        - bucketID
+        - database
+        - retention_policy
+        - default
+    DBRPs:
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/DBRP'
+    DBRPUpdate:
+      properties:
+        retention_policy:
+          type: string
+          description: InfluxDB v1 retention policy
+        default:
+          type: boolean
+    DBRPCreate:
+      type: object
+      properties:
+        orgID:
+          type: string
+          description: the organization ID that owns this mapping.
         org:
           type: string
           description: the organization that owns this mapping.
@@ -11423,37 +12452,16 @@ components:
         default:
           type: boolean
           description: Specify if this mapping represents the default retention policy for the database specificed.
-        links:
-          $ref: '#/components/schemas/Links'
-      oneOf:
-        - required:
-            - orgID
-            - bucketID
-            - database
-            - retention_policy
-        - required:
-            - org
-            - bucketID
-            - database
-            - retention_policy
-    DBRPs:
+      required:
+        - bucketID
+        - database
+        - retention_policy
+    DBRPGet:
+      type: object
       properties:
         content:
-          type: array
-          items:
-            $ref: '#/components/schemas/DBRP'
-    DBRPUpdate:
-      properties:
-        database:
-          type: string
-          description: InfluxDB v1 database
-        retention_policy:
-          type: string
-          description: InfluxDB v1 retention policy
-        default:
-          type: boolean
-        links:
-          $ref: '#/components/schemas/Links'
+          $ref: '#/components/schemas/DBRP'
+          required: true
     SchemaType:
       type: string
       enum:
@@ -11536,6 +12544,29 @@ components:
               description: List of permissions for an auth.  An auth must have at least one Permission.
               items:
                 $ref: '#/components/schemas/Permission'
+    LegacyAuthorizationPostRequest:
+      required:
+        - orgID
+        - permissions
+      allOf:
+        - $ref: '#/components/schemas/AuthorizationUpdateRequest'
+        - type: object
+          properties:
+            orgID:
+              type: string
+              description: ID of org that authorization is scoped to.
+            userID:
+              type: string
+              description: ID of user that authorization is scoped to.
+            token:
+              type: string
+              description: Token (name) of the authorization
+            permissions:
+              type: array
+              minItems: 1
+              description: List of permissions for an auth.  An auth must have at least one Permission.
+              items:
+                $ref: '#/components/schemas/Permission'
     Authorizations:
       type: object
       properties:
@@ -11587,19 +12618,15 @@ components:
             - notebooks
         id:
           type: string
-          nullable: true
           description: If ID is set that is a permission for a specific resource. if it is not set it is a permission for all resources of that resource type.
         name:
           type: string
-          nullable: true
           description: Optional name of the resource if the resource has a name field.
         orgID:
           type: string
-          nullable: true
           description: If orgID is set that is a permission for all resources owned my that org. if it is not set it is a permission for all resources of that resource type.
         org:
           type: string
-          nullable: true
           description: Optional name of the organization of the organization with orgID.
     User:
       properties:
@@ -11888,6 +12915,344 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ScraperTargetResponse'
+    MetadataBackup:
+      type: object
+      properties:
+        kv:
+          type: string
+          format: binary
+        sql:
+          type: string
+          format: binary
+        buckets:
+          $ref: '#/components/schemas/BucketMetadataManifests'
+      required:
+        - kv
+        - sql
+        - buckets
+    BucketMetadataManifests:
+      type: array
+      items:
+        $ref: '#/components/schemas/BucketMetadataManifest'
+    BucketMetadataManifest:
+      type: object
+      properties:
+        organizationID:
+          type: string
+        organizationName:
+          type: string
+        bucketID:
+          type: string
+        bucketName:
+          type: string
+        description:
+          type: string
+        defaultRetentionPolicy:
+          type: string
+        retentionPolicies:
+          $ref: '#/components/schemas/RetentionPolicyManifests'
+      required:
+        - organizationID
+        - organizationName
+        - bucketID
+        - bucketName
+        - defaultRetentionPolicy
+        - retentionPolicies
+    RetentionPolicyManifests:
+      type: array
+      items:
+        $ref: '#/components/schemas/RetentionPolicyManifest'
+    RetentionPolicyManifest:
+      type: object
+      properties:
+        name:
+          type: string
+        replicaN:
+          type: integer
+        duration:
+          type: integer
+          format: int64
+        shardGroupDuration:
+          type: integer
+          format: int64
+        shardGroups:
+          $ref: '#/components/schemas/ShardGroupManifests'
+        subscriptions:
+          $ref: '#/components/schemas/SubscriptionManifests'
+      required:
+        - name
+        - replicaN
+        - duration
+        - shardGroupDuration
+        - shardGroups
+        - subscriptions
+    ShardGroupManifests:
+      type: array
+      items:
+        $ref: '#/components/schemas/ShardGroupManifest'
+    ShardGroupManifest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        deletedAt:
+          type: string
+          format: date-time
+        truncatedAt:
+          type: string
+          format: date-time
+        shards:
+          $ref: '#/components/schemas/ShardManifests'
+      required:
+        - id
+        - startTime
+        - endTime
+        - shards
+    ShardManifests:
+      type: array
+      items:
+        $ref: '#/components/schemas/ShardManifest'
+    ShardManifest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        shardOwners:
+          $ref: '#/components/schemas/ShardOwners'
+      required:
+        - id
+        - shardOwners
+    ShardOwners:
+      type: array
+      items:
+        $ref: '#/components/schemas/ShardOwner'
+    ShardOwner:
+      type: object
+      properties:
+        nodeID:
+          type: integer
+          format: int64
+          description: ID of the node that owns a shard.
+      required:
+        - nodeID
+    SubscriptionManifests:
+      type: array
+      items:
+        $ref: '#/components/schemas/SubscriptionManifest'
+    SubscriptionManifest:
+      type: object
+      properties:
+        name:
+          type: string
+        mode:
+          type: string
+        destinations:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - mode
+        - destinations
+    RestoredBucketMappings:
+      type: object
+      properties:
+        id:
+          description: New ID of the restored bucket
+          type: string
+        name:
+          type: string
+        shardMappings:
+          $ref: '#/components/schemas/BucketShardMappings'
+      required:
+        - id
+        - name
+        - shardMappings
+    BucketShardMappings:
+      type: array
+      items:
+        $ref: '#/components/schemas/BucketShardMapping'
+    BucketShardMapping:
+      type: object
+      properties:
+        oldId:
+          type: integer
+          format: int64
+        newId:
+          type: integer
+          format: int64
+      required:
+        - oldId
+        - newId
+    RemoteConnection:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        orgID:
+          type: string
+        description:
+          type: string
+        remoteURL:
+          type: string
+          format: uri
+        remoteOrgID:
+          type: string
+        allowInsecureTLS:
+          type: boolean
+          default: false
+      required:
+        - id
+        - name
+        - orgID
+        - remoteURL
+        - remoteOrgID
+        - allowInsecureTLS
+    RemoteConnections:
+      type: object
+      properties:
+        remotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RemoteConnection'
+    RemoteConnectionCreationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        orgID:
+          type: string
+        remoteURL:
+          type: string
+          format: uri
+        remoteAPIToken:
+          type: string
+        remoteOrgID:
+          type: string
+        allowInsecureTLS:
+          type: boolean
+          default: false
+      required:
+        - name
+        - orgID
+        - remoteURL
+        - remoteAPIToken
+        - remoteOrgID
+        - allowInsecureTLS
+    RemoteConnectionUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        remoteURL:
+          type: string
+          format: uri
+        remoteAPIToken:
+          type: string
+        remoteOrgID:
+          type: string
+        allowInsecureTLS:
+          type: boolean
+          default: false
+    Replication:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        orgID:
+          type: string
+        remoteID:
+          type: string
+        localBucketID:
+          type: string
+        remoteBucketID:
+          type: string
+        maxQueueSizeBytes:
+          type: int
+          format: int64
+        currentQueueSizeBytes:
+          type: int
+          format: int64
+        latestResponseCode:
+          type: int
+        latestErrorMessage:
+          type: string
+      required:
+        - id
+        - name
+        - remoteID
+        - orgID
+        - localBucketID
+        - remoteBucketID
+        - maxQueueSizeBytes
+        - currentQueueSizeBytes
+    Replications:
+      type: object
+      properties:
+        replications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Replication'
+    ReplicationCreationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        orgID:
+          type: string
+        remoteID:
+          type: string
+        localBucketID:
+          type: string
+        remoteBucketID:
+          type: string
+        maxQueueSizeBytes:
+          type: integer
+          format: int64
+          minimum: 33554430
+          default: 67108860
+      required:
+        - name
+        - orgID
+        - remoteID
+        - sourceBucketID
+        - targetBucketID
+        - maxQueueSizeBytes
+    ReplicationUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        remoteID:
+          type: string
+        remoteBucketID:
+          type: string
+        maxQueueSizeBytes:
+          type: integer
+          format: int64
+          minimum: 33554430
   responses:
     ServerError:
       description: Non 2XX error response from server.
@@ -11896,6 +13261,20 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   securitySchemes:
-    BasicAuth:
+    basicAuth:
       type: http
       scheme: basic
+    TokenBearerAuth:
+      type: http
+      scheme: token
+      bearerFormat: InfluxDB Token String
+      description: |
+        Include your API token in an `Authorization: Token YOUR_API_TOKEN` HTTP header with each request.
+
+         ### Example
+        `curl https://localhost:1313
+        --header "Authorization: Token YOUR_API_TOKEN"`
+
+        For more examples, see how to [use tokens in API requests](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/#authentication).
+  security:
+    - TokenBearerAuth: []

@@ -4,6 +4,24 @@ info:
   version: 2.0.1
 servers:
   - url: /api/v2
+x-tagGroups:
+  - name: Getting Started
+    tags:
+      - Authentication
+  - name: User Management
+    tags:
+      - Authorizations
+      - Users
+  - name: System
+    tags:
+      - Health
+      - Ping
+tags:
+  - name: Authentication
+    description: |
+      The InfluxDB v2 API provides a programmatic interface for all interactions with InfluxDB.
+      <!-- ReDoc-Inject: <security-definitions> -->
+    x-traitTag: true
 paths:
   /signin:
     post:
@@ -60,6 +78,8 @@ paths:
       - url: ''
     get:
       operationId: GetPing
+      tags:
+        - Health
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       responses:
         '204':
@@ -75,6 +95,8 @@ paths:
               description: The version of InfluxDB.
     head:
       operationId: HeadPing
+      tags:
+        - Health
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       responses:
         '204':
@@ -93,7 +115,7 @@ paths:
       operationId: GetRoutes
       summary: List all top level routes
       tags:
-        - Routes
+        - Resources
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -408,7 +430,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       requestBody:
-        description: The database retention policy mapping to add
+        description: The Database Retention Policy Mapping to add
         required: true
         content:
           application/json:
@@ -416,7 +438,7 @@ paths:
               $ref: '#/components/schemas/DBRPCreate'
       responses:
         '201':
-          description: Database retention policy mapping created
+          description: The created Database Retention Policy Mapping
           content:
             application/json:
               schema:
@@ -3290,6 +3312,29 @@ paths:
         default:
           description: Unexpected error
           $ref: '#/components/responses/ServerError'
+  /resources:
+    get:
+      operationId: GetResources
+      tags:
+        - Resources
+      summary: List all known resources
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          description: All resources targets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        default:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /stacks:
     get:
       operationId: ListStacks
@@ -5572,11 +5617,12 @@ paths:
         - DemoDataBuckets
       summary: List of Demo Data Buckets
       parameters:
-        - description: bucket id
         - in: path
           name: bucketID
+          required: true
           schema:
             type: string
+          description: bucket id
       responses:
         '200':
           description: if sampledata route is not available gateway responds with 200
@@ -5589,16 +5635,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     delete:
-      operationId: GetDemoDataBucketMembers
+      operationId: DeleteDemoDataBucketMembers
       tags:
         - DemoDataBuckets
       summary: List of Demo Data Buckets
       parameters:
-        - description: bucket id
         - in: path
           name: bucketID
+          required: true
           schema:
             type: string
+          description: bucket id
       responses:
         '200':
           description: if sampledata route is not available gateway responds with 200
@@ -11572,6 +11619,12 @@ components:
             cardinality:
               type: integer
               description: Allowed organization total cardinality. 0 is unlimited.
+            concurrentDeleteRequests:
+              type: integer
+              description: Allowed organization concurrent outstanding delete requests.
+            deleteRequestsPerSecond:
+              type: integer
+              description: Allowed organization delete request rate.
           required:
             - readKBs
             - concurrentReadRequests
@@ -11896,3 +11949,18 @@ components:
     BasicAuth:
       type: http
       scheme: basic
+    TokenBearerAuth:
+      type: http
+      scheme: token
+      bearerFormat: InfluxDB Token String
+      description: |
+        Include your API token in an `Authentication: Token YOUR_API_TOKEN` HTTP header with each request.
+
+        ### Example
+
+        `curl https://us-east-1-1.aws.cloud2.influxdata.com/ 
+        --header "Authentication: Token YOUR_API_TOKEN"`
+
+        For more examples, see how to [use tokens in API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
+  security:
+    - TokenBearerAuth: []
