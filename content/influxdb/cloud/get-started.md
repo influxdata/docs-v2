@@ -16,12 +16,12 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
 1. Do one of the following:
    - Add [sample data](#add-sample-data). 
    - Use your own data to explore Cloud. See how to [write your data](/influxdb/cloud/write-data/) to Cloud.
-2. [Create a notebook](#create-a-notebook) to build and annotate processes and data flows for your time series data, including writing to, querying from, and visualizing your data.
-   Click **Books > Create Notebook** and do the following: 
+2. [Create a notebook](#create-a-notebook) by clicking **Books > Create Notebook**, and then do the following: 
      1. [Select metrics](#select-metrics)
      2. [Visualize data](#visualize-data)
      3. (Optional) [Process data](#process-data)
-     4. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
+     4. (Optional) [Monitor data](#monitor-data)
+     5. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
 
 ## Add sample data
 
@@ -47,7 +47,7 @@ After installing the template, sample data will be stored in the sample data buc
    
 1. Click **Data Explorer** in InfluxDB Cloud's left navigation menu and select your **noaa** bucket. 
 2. Click **Script Editor**. 
-3. Copy the `sample.data()` function listed underneath the NOAA sample dataset and paste it into the script editor. 
+3. Copy the `sample.data()` function listed for the NOAA sample dataset and paste it into the script editor. 
     ```js
     import "influxdata/influxdb/sample"
 
@@ -67,7 +67,7 @@ After installing the template, sample data will be stored in the sample data buc
 
 ## Create a notebook
 
-Now that we've added the sample data bucket, we're ready to create our notebook. For more information, see [Notebooks](/influxdb/cloud/notebooks/). 
+Now that we've added the sample data bucket, we're ready to create our notebook. Notebooks can build and annotate processes and data flows for your time series data, including writing to, querying from, and visualizing your data. For more information, see [Notebooks](/influxdb/cloud/notebooks/). 
 
 ### Select metrics
 
@@ -78,7 +78,7 @@ Now that we've added the sample data bucket, we're ready to create our notebook.
 3. Enter a name for your notebook in the **Name this notebook** field. 
 5. In the **Metric Selector** cell, click the **Select a bucket** dropdown and chooose the bucket you want to explore data from. A list of measurements, fields, and tags from the bucket appear.
 6. Select a column value to analyze.
-7. Click **Preview** to preview the raw response time data in a table.
+7. Click **Preview** to preview the raw data in a table.
 
 ### Visualize data
 
@@ -86,7 +86,7 @@ Next, we'll make it easier to visualize the raw data by viewing it in a graph. F
 
 By default, a visualization cell appears below your initial metric selector cell showing the mean values on a graph. 
 
-1. Use the function dropdown menu to view different functions to apply to your data. For this response time data, the mean function is a good fit.
+1. Use the function dropdown menu to view different functions to apply to your data. By default, the visualization is set to the mean function.
 2. Use the visualization type dropdown to view different visualization types available.
 For a complete list of options, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
 3. Click the gear icon ({{< icon "gear" >}}) to edit specific settings for the visualization type, such as colors, orientation, and labels.
@@ -104,7 +104,7 @@ For more information on how to process data, see [here](/influxdb/cloud/process-
 
 ### Monitor data
 
-Get notifications every time your data crosses a threshold. Specify your alerts by time and decide how that information will be sent to you. 
+Get notifications every time your data crosses a threshold. Specify your alerts by time and decide how the information will be sent to you. 
 
 1. Click **+** to add a cell, then select **Output > Alert**.
 2. Customize the conditions to send an alert.
