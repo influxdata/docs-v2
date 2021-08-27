@@ -11,9 +11,33 @@ weight: 10
 
 Use **InfluxDB Cloud** sample datasets for quick and easy access to data that let you explore and familiarize yourself with InfluxDB Cloud. Sample data allows you to use InfluxDB Cloud's features without requiring you to have or use your own data. 
 
-- [Add a sample data bucket](#add-a-sample-data-bucket)
+- [Add a sample data](#add-a-sample-data)
 - [Explore sample data](#explore-demo-data)
 - [View demo sample dashboards](#view-demo-data-dashboards)
+
+{{% note %}}
+#### Network bandwidth
+Each execution of `sample.data()` downloads the specified dataset from **Amazon S3**.
+If using [InfluxDB Cloud](/influxdb/cloud/) or a hosted InfluxDB OSS instance,
+you may see additional network bandwidth costs when using this function.
+Approximate sample dataset sizes are listed [below](#available-influxdb-sample-datasets)
+and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/).
+{{% /note %}}
+
+## Add sample data 
+
+1. Choose from the following sample datasets:
+   - **Air sensor sample data**: Explore, visualize, and monitor humidity, temperature, and carbon monoxide levels in the air.
+   - **Bird migration sample data**: Explore, visualize, and monitor the latitude and longitude of bird migration patterns. 
+   - **NOAA NDBC sample data**: Explore, visualize, and monitor NDBC's observations from their buoys. This data observes air temperature, wind speed, and more from specific locations. 
+   - **NOAA water sample data**: Explore, visualize, and monitor temperature, water level, pH, and quality from specific locations. 
+   - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitide, and more.  
+2. Do one of the following to download sample data: 
+   - [Install community templates](#add-sample-data-with-community-templates) 
+   - [Download using the InfluxData UI](#add-sample-data-with-influxdata-ui)
+   - [Create a template](#add-sample-data-with-templates)
+
+### Add sample data with community templates 
 
 ## Sample data sets
 
