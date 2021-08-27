@@ -59,7 +59,7 @@ Complete the following tasks:
    ```
    For more information, see [`-export`](/enterprise_influxdb/v1.9/tools/influx_inspect#export).
 5. [Import data into Enterprise](/enterprise_influxdb/v1.9/administration/backup-and-restore/#importing-data).
-6. Verify data is successfully migrated. See:
+6. Verify data is successfully migrated to your Enterprise cluster. See:
    - [Query data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/query_data/)
    - [View data in Chronograf](/{{< latest "chronograf" >}}/)
 7. Follow [Stop writes and remove OSS](#stop-writes-and-remove-oss) below.
