@@ -13,13 +13,9 @@ menu:
 
 Migrate a running instance of InfluxDB open source (OSS) to an InfluxDB Enterprise cluster.
 
-This guide assumes that you have a working InfluxDB Enterprise cluster.
-
-{{% warn %}}
-**Migrating does the following:**
-- Deletes existing data in InfluxDB Enterprise data nodes (not applicable if you're migrating to a new cluster).
-- Transfers all users from the OSS instance to the InfluxDB Enterprise cluster.
-{{% /warn %}}
+{{% note %}}
+- Migration transfers all users from the OSS instance to the InfluxDB Enterprise cluster.
+{{% /note %}}
 
 ## Migrate an OSS instance to InfluxDB Enterprise
 
