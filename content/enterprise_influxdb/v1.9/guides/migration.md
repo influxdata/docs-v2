@@ -29,37 +29,49 @@ to migrate data from OSS to an InfluxDB Enterprise cluster without downtime or m
 1. Upgrade InfluxDB OSS and InfluxDB Enterprise to the latest stable versions.
    - [Upgrade InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/upgrading/)
    - [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1.9/administration/upgrading/)
+
 2. On each meta node and each data node,
    add the IP and hostname of your OSS instance to the `/etc/hosts` file.
    This will allow the nodes to communicate with the OSS instance.
+
 3. On the OSS instance, take a portable backup from OSS:
+
    ```sh
    influxd-ctl backup -portable -host <IP address>:8088 /tmp/mysnapshot
    ```
+
    Note the current date and time when you take the backup.
    For more information, see [`-backup`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#backup)
+
 4. Restore the backup on the cluster by running the following:
-   <!-- should be influxd-ctl -->
+
    ```sh
-   influxd restore -portable  [ -host <host:port> ] <path-to-backup-files>
+   influxd-ctl restore -portable  [ -host <host:port> ] <path-to-backup-files>
    ```
    For more information, see [`-restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore)
+
 5. To avoid data loss, dual write to both OSS and Enterprise while completing the upgrade.
    See [Write data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/write_data/).
    This keeps the OSS and cluster active for testing and acceptance work.
+
 6. [Export data from OSS](/enterprise_influxdb/v1.9/administration/backup-and-restore/#exporting-data)
    from the time the backup was taken to the time the dual write started.
    For example, if you take the backup on `2020-07-19T00:00:00.000Z`,
    and started writing data to Enterprise at `2020-07-19T23:59:59.999Z`,
    you would run the following command:
+
    ```sh
    influx_inspect export -compress -start 2020-07-19T00:00:00.000Z -end 2020-07-19T23:59:59.999Z`
    ```
+
    For more information, see [`-export`](/enterprise_influxdb/v1.9/tools/influx_inspect#export).
+
 7. [Import data into Enterprise](/enterprise_influxdb/v1.9/administration/backup-and-restore/#importing-data).
+
 8. Verify data is successfully migrated to your Enterprise cluster. See:
    - [Query data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/query_data/)
    - [View data in Chronograf](/{{< latest "chronograf" >}}/)
+
 9. Follow [Stop writes and remove OSS](#stop-writes-and-remove-oss) below.
 
 <!--
