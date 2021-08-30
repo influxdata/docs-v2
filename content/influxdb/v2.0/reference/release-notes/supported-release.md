@@ -19,7 +19,7 @@ InfluxData provides support for the following minor, major, and maintenance rele
 
 ##### Minor (x.Y.z) 
 
-- Include new minor features, enhancements to existing features, and includes applicable error corrections from prior minor and maintenance releases. 
+- Includes new minor features, enhancements to existing features, and includes applicable error corrections from prior minor and maintenance releases. 
 
 ##### Maintenance (x.y.Z) 
 
