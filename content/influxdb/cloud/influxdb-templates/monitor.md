@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud:
     parent: Monitor with templates
-    name: Monitor InfluxDB OSS 2.x with Cloud
+    name: Monitor InfluxDB OSS 2.x
 weight: 102
 influxdb/v2.0/tags: [templates, monitor]
 related:
