@@ -53,7 +53,7 @@ The InfluxDB Enterprise Monitoring template includes a Telegraf configuration th
 By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which exports Prometheus-style system metrics.
 
 1. Make sure the `/metrics` endpoint is [enabled](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled). If you've changed the default settings to disable the `/metrics` endpoint, [re-enable these settings](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
-2. Navigate to the `/metrics` endpoint of your InfluxDB OSS instance to view the InfluxDB OSS system metrics in your browser: 
+2. Navigate to the `/metrics` endpoint of your InfluxDB enterprise instance to view the InfluxDB OSS system metrics in your browser: 
 
     ```
     http://localhost:8086/metrics
