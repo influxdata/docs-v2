@@ -10,6 +10,8 @@ menu:
     name: contains
     parent: universe
 weight: 102
+related:
+  - /flux/v0.x/data-types/composite/array/
 flux/v0.x/tags: [tests]
 introduced: 0.19.0
 ---
@@ -37,12 +39,58 @@ Set of values to search in.
 
 ###### Filter on a set of specific fields
 ```js
-fields = ["load1", "load5", "load15"]
+import "influxdata/influxdb/sample"
 
-from(bucket: "example-bucket")
-  |> range(start:start, stop: stop)
-  |> filter(fn: (r) =>
-      r._measurement == "system" and
-      contains(value: r._field, set: fields)
-  )
+fields = ["temperature", "humidity"]
+
+sample.data(set: "airSensor")
+  |> range(start: -30m)
+  |> filter(fn: (r) => contains(value: r._field, set: fields))
 ```
+
+{{% expand "View example input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+##### Example input data
+| _time                | _field      | _value |
+| :------------------- | :---------- | -----: |
+| 2020-01-01T00:00:00Z | temperature |   74.1 |
+| 2020-01-01T00:01:00Z | temperature |   73.9 |
+| 2020-01-01T00:02:00Z | temperature |   74.0 |
+| 2020-01-01T00:03:00Z | temperature |   74.2 |
+
+| _time                | _field   | _value |
+| :------------------- | :------- | -----: |
+| 2020-01-01T00:00:00Z | humidity |   35.5 |
+| 2020-01-01T00:01:00Z | humidity |   35.4 |
+| 2020-01-01T00:02:00Z | humidity |   35.5 |
+| 2020-01-01T00:03:00Z | humidity |   35.6 |
+
+| _time                | _field | _value |
+| :------------------- | :----- | -----: |
+| 2020-01-01T00:00:00Z | co     |   0.65 |
+| 2020-01-01T00:01:00Z | co     |   0.66 |
+| 2020-01-01T00:02:00Z | co     |   0.66 |
+| 2020-01-01T00:03:00Z | co     |   0.67 |
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Example output data
+| _time                | _field      | _value |
+| :------------------- | :---------- | -----: |
+| 2020-01-01T00:00:00Z | temperature |   74.1 |
+| 2020-01-01T00:01:00Z | temperature |   73.9 |
+| 2020-01-01T00:02:00Z | temperature |   74.0 |
+| 2020-01-01T00:03:00Z | temperature |   74.2 |
+
+| _time                | _field   | _value |
+| :------------------- | :------- | -----: |
+| 2020-01-01T00:00:00Z | humidity |   35.5 |
+| 2020-01-01T00:01:00Z | humidity |   35.4 |
+| 2020-01-01T00:02:00Z | humidity |   35.5 |
+| 2020-01-01T00:03:00Z | humidity |   35.6 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

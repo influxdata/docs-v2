@@ -27,7 +27,8 @@ duration(v: "1m")
 ## Parameters
 
 ### v {data-type="string, int, uint"}
-The value to convert.
+({{< req >}})
+Value to convert.
 
 {{% note %}}
 `duration()` assumes **numeric** input values are **nanoseconds**.
@@ -36,14 +37,71 @@ The value to convert.
 
 ## Examples
 
+- [Convert an integer to a duration](#convert-an-integer-to-a-duration)
+- [Convert a string to a duration](#convert-a-string-to-a-duration)
+- [Convert values in a column to durations](#convert-values-in-a-column-to-durations)
+
+### Convert an integer to a duration
+```js
+duration(v: 120000000)
+// Returns 120ms
+```
+
+### Convert a string to a duration
+```js
+duration(v: "12h30m")
+// Returns 12h30m
+```
+
+### Convert values in a column to durations
+The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
+to generate sample data and show how to iterate over values in a stream of tables
+and convert them to duration values.
+
 {{% note %}}
 Flux does not support duration column types.
-The example below converts an integer to a duration and stores the value as a string.
+This example converts an integer to a duration and stores the value as a string.
 {{% /note %}}
 
 ```js
-from(bucket: "sensor-data")
-  |> range(start: -1m)
-  |> filter(fn:(r) => r._measurement == "system" )
-  |> map(fn:(r) => ({ r with uptime: string(v: duration(v: r.uptime)) }))
+import "generate"
+
+data = generate.from(
+  count: 5,
+  fn: (n) => (n + 1) * 3600000000000,
+  start: 2021-01-01T00:00:00Z,
+  stop: 2021-01-01T05:00:00Z,
+)
+
+data
+  |> map(fn:(r) => ({ r with _value: string(v: duration(v: r._value)) }))
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+| _time                |         _value |
+| :------------------- | -------------: |
+| 2021-01-01T00:00:00Z |  3600000000000 |
+| 2021-01-01T01:00:00Z |  7200000000000 |
+| 2021-01-01T02:00:00Z | 10800000000000 |
+| 2021-01-01T03:00:00Z | 14400000000000 |
+| 2021-01-01T04:00:00Z | 18000000000000 |
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | _value |
+| :------------------- | -----: |
+| 2021-01-01T00:00:00Z |     1h |
+| 2021-01-01T01:00:00Z |     2h |
+| 2021-01-01T02:00:00Z |     3h |
+| 2021-01-01T03:00:00Z |     4h |
+| 2021-01-01T04:00:00Z |     5h |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

@@ -50,14 +50,37 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
+### Count the number of rows in each input table
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
+import "sampledata"
+
+data = sampledata.string()
+
+data
   |> count()
 ```
 
-```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> count(column: "_value")
-```
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "string" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _value |
+| :-- | -----: |
+| t1  |      6 |
+
+| tag | _value |
+| :-- | -----: |
+| t2  |      6 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

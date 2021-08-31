@@ -8,7 +8,7 @@
 {{- $stop := "2021-01-01T00:01:00Z" -}}
 
 {{- define "float" -}}
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                                _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                                _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t1  |                                 -2.18 |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t1  | {{ cond ($.includeNull) "" "10.92" }} |
@@ -17,7 +17,7 @@
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t1  | {{ cond ($.includeNull) "" "15.23" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t1  |                                  4.43 |
 
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                                _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                                _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t2  | {{ cond ($.includeNull) "" "19.85" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t2  |                                  4.97 |
@@ -28,7 +28,7 @@
 {{- end -}}
 
 {{- define "int" -}}
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                             _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                             _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ---------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t1  |                                 -2 |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t1  | {{ cond ($.includeNull) "" "10" }} |
@@ -37,7 +37,7 @@
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t1  | {{ cond ($.includeNull) "" "15" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t1  |                                  4 |
 
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                             _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                             _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ---------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t2  | {{ cond ($.includeNull) "" "19" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t2  |                                  4 |
@@ -48,7 +48,7 @@
 {{- end -}}
 
 {{- define "uint" -}}
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                             _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                             _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ---------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t1  |               18446744073709551614 |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t1  | {{ cond ($.includeNull) "" "10" }} |
@@ -57,7 +57,7 @@
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t1  | {{ cond ($.includeNull) "" "15" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t1  |                                  4 |
 
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                             _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                             _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ---------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t2  | {{ cond ($.includeNull) "" "19" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t2  |                                  4 |
@@ -68,7 +68,7 @@
 {{- end -}}
 
 {{- define "string" -}}
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                                      _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                                      _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ------------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t1  |                                 smpl_g9qczs |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t1  | {{ cond ($.includeNull) "" "smpl_0mgv9n" }} |
@@ -77,7 +77,7 @@
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t1  | {{ cond ($.includeNull) "" "smpl_5v3cce" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t1  |                                 smpl_s9fmgy |
 
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                                      _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                                      _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ------------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t2  | {{ cond ($.includeNull) "" "smpl_b5eida" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t2  |                                 smpl_eu4oxp |
@@ -88,7 +88,7 @@
 {{- end -}}
 
 {{- define "numericString" -}}
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ----------------------------------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t1  |                                                             -2.18 |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t1  |                             {{ cond ($.includeNull) "" "10.92" }} |
@@ -97,7 +97,7 @@
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t1  |                             {{ cond ($.includeNull) "" "15.23" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t1  |                                                              4.43 |
 
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ----------------------------------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t2  |                             {{ cond ($.includeNull) "" "19.85" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t2  |                                                              4.97 |
@@ -108,7 +108,7 @@
 {{- end -}}
 
 {{- define "bool" -}}
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                                _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                                _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t1  |                                  true |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t1  |  {{ cond ($.includeNull) "" "true" }} |
@@ -117,7 +117,7 @@
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t1  | {{ cond ($.includeNull) "" "false" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t1  |                                 false |
 
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid |                                _value |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                                _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t2  | {{ cond ($.includeNull) "" "false" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t2  |                                  true |
@@ -128,7 +128,7 @@
 {{- end -}}
 
 {{- define "numericBool" -}}
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid | _value _<span style="opacity:.5;font-weight:300">(int)</span>_ |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag | _value _<span style="opacity:.5;font-weight:300">(int)</span>_ |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | -------------------------------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t1  |                                                              1 |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t1  |                              {{ cond ($.includeNull) "" "1" }} |
@@ -137,7 +137,7 @@
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t1  |                              {{ cond ($.includeNull) "" "0" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t1  |                                                              0 |
 
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tid | _value _<span style="opacity:.5;font-weight:300">(int)</span>_ |
+{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag | _value _<span style="opacity:.5;font-weight:300">(int)</span>_ |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | -------------------------------------------------------------: |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t2  |                              {{ cond ($.includeNull) "" "0" }} |
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t2  |                                                              1 |

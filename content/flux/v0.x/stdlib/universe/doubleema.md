@@ -50,13 +50,44 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
-#### Calculate a five point double exponential moving average
+### Calculate a three point double exponential moving average
 ```js
-from(bucket: "example-bucket"):
-  |> range(start: -12h)
-  |> doubleEMA(n: 5)
+import "sampledata"
+
+data = sampledata.int()
+
+data
+  |> doubleEMA(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample set="int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:40Z | t1  | 16.627222222222223 |
+| 2021-01-01T00:00:50Z | t1  |  8.301527777777778 |
+
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:40Z | t2  | 15.907222222222224 |
+| 2021-01-01T00:00:50Z | t2  |  5.941527777777779 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js

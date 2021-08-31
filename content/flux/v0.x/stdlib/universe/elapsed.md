@@ -49,10 +49,44 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
 ##### Calculate the time between points in seconds
 ```js
-from(bucket: "example-bucket")
-	|> range(start: -5m)
+import "sampledata"
+
+data = sampledata.int()
+
+data
 	|> elapsed(unit: 1s)
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value | elapsed |
+| :------------------- | :-- | -----: | ------: |
+| 2021-01-01T00:00:10Z | t1  |     10 |      10 |
+| 2021-01-01T00:00:20Z | t1  |      7 |      10 |
+| 2021-01-01T00:00:30Z | t1  |     17 |      10 |
+| 2021-01-01T00:00:40Z | t1  |     15 |      10 |
+| 2021-01-01T00:00:50Z | t1  |      4 |      10 |
+
+| _time                | tag | _value | elapsed |
+| :------------------- | :-- | -----: | ------: |
+| 2021-01-01T00:00:10Z | t2  |      4 |      10 |
+| 2021-01-01T00:00:20Z | t2  |     -3 |      10 |
+| 2021-01-01T00:00:30Z | t2  |     19 |      10 |
+| 2021-01-01T00:00:40Z | t2  |     13 |      10 |
+| 2021-01-01T00:00:50Z | t2  |      1 |      10 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

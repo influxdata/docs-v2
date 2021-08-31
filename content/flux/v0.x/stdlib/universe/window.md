@@ -46,6 +46,11 @@ window(
 #### Calendar months and years
 `every`, `period`, and `offset` support all [valid duration units](/flux/v0.x/spec/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
+
+#### Window by week
+When windowing by week (`1w`), weeks are determined using the 
+**Unix epoch (1970-01-01T00:00:00Z UTC)**. The Unix epoch was on a Thursday, so
+all calculated weeks begin on Thursday.
 {{% /note %}}
 
 ### every {data-type="duration"}

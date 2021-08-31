@@ -44,18 +44,41 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
+### List all columns per table
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -30m)
+import "sampledata"
+
+data = sampledata.string()
+
+data
   |> columns(column: "labels")
 ```
 
-##### Get every possible column label in a single table
-```js
-from(bucket: "example-bucket")
-  |> range(start: -30m)
-  |> columns()
-  |> keep(columns: ["_value"])
-  |> group()
-  |> distinct()
-```
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "string" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | labels |
+| :-- | -----: |
+| t1  |  _time |
+| t1  |    tag |
+| t1  | _value |
+
+| tag | labels |
+| :-- | -----: |
+| t2  |  _time |
+| t2  |    tag |
+| t2  | _value |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

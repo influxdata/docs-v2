@@ -13,6 +13,9 @@
   &.quarter { width: calc(25% - 1rem); }
   &.two-thirds { width: calc(66% - 2rem);}
 
+  &.half, &.third, &.quarter {
+    table {display: table;}
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
