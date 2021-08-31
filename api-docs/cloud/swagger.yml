@@ -408,7 +408,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       requestBody:
-        description: The database retention policy mapping to add
+        description: The Database Retention Policy Mapping to add
         required: true
         content:
           application/json:
@@ -416,7 +416,7 @@ paths:
               $ref: '#/components/schemas/DBRPCreate'
       responses:
         '201':
-          description: Database retention policy mapping created
+          description: The created Database Retention Policy Mapping
           content:
             application/json:
               schema:
@@ -1198,33 +1198,37 @@ paths:
             $ref: '#/components/schemas/WritePrecision'
       responses:
         '204':
-          description: Write data is correctly formatted and accepted for writing to the bucket.
+          description: 'The sent data was correctly formatted and accepted for writing to the bucket. `204` doesn''t indicate a successful write operation since writes are asynchronous. See [how to check for write errors](###some-link###).'
         '400':
-          description: Line protocol poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
+          description: Bad request. The error indicates the line protocol payload was malformed. The response body contains the first malformed line in the data. All payload data was rejected and not written.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
         '401':
-          description: Token does not have sufficient permissions to write to this organization and bucket or the organization and bucket do not exist.
+          description: |
+            Unauthorized. The error may indicate one of the following:
+              * The `Authorization: Token` header is missing or malformed.
+              * The API token value is missing from the header.
+              * The token does not have sufficient permissions to write to this organization and bucket.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        '403':
-          description: No token was sent and they are required.
+        '404':
+          description: 'Not found. A requested resource was not found. The response body contains the requested resource type, e.g. `organization name` or `bucket`, and name.'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '413':
-          description: Write has been rejected because the payload is too large. Error message returns max size supported. All data in body was rejected and not written.
+          description: Request entity too large. The payload exceeded the 50MB limit. All payload data was rejected and not written.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
         '429':
-          description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
+          description: The token is temporarily over quota. The Retry-After header describes when to try the write again.
           headers:
             Retry-After:
               description: A non-negative decimal integer indicating the seconds to delay after the response is received.
@@ -1232,7 +1236,7 @@ paths:
                 type: integer
                 format: int32
         '503':
-          description: Server is temporarily unavailable to accept writes.  The Retry-After header describes when to try the write again.
+          description: Server is temporarily unavailable to accept writes.  The `Retry-After` header describes when to try the write again.
           headers:
             Retry-After:
               description: A non-negative decimal integer indicating the seconds to delay after the response is received.
@@ -3290,6 +3294,29 @@ paths:
         default:
           description: Unexpected error
           $ref: '#/components/responses/ServerError'
+  /resources:
+    get:
+      operationId: GetResources
+      tags:
+        - resource list
+      summary: List all known resources
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          description: All resources targets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        default:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /stacks:
     get:
       operationId: ListStacks
@@ -5572,11 +5599,12 @@ paths:
         - DemoDataBuckets
       summary: List of Demo Data Buckets
       parameters:
-        - description: bucket id
         - in: path
           name: bucketID
+          required: true
           schema:
             type: string
+          description: bucket id
       responses:
         '200':
           description: if sampledata route is not available gateway responds with 200
@@ -5589,16 +5617,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     delete:
-      operationId: GetDemoDataBucketMembers
+      operationId: DeleteDemoDataBucketMembers
       tags:
         - DemoDataBuckets
       summary: List of Demo Data Buckets
       parameters:
-        - description: bucket id
         - in: path
           name: bucketID
+          required: true
           schema:
             type: string
+          description: bucket id
       responses:
         '200':
           description: if sampledata route is not available gateway responds with 200
@@ -11572,6 +11601,12 @@ components:
             cardinality:
               type: integer
               description: Allowed organization total cardinality. 0 is unlimited.
+            concurrentDeleteRequests:
+              type: integer
+              description: Allowed organization concurrent outstanding delete requests.
+            deleteRequestsPerSecond:
+              type: integer
+              description: Allowed organization delete request rate.
           required:
             - readKBs
             - concurrentReadRequests
