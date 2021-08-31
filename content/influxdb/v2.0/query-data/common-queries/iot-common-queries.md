@@ -17,11 +17,12 @@ Use the following queries to retrieve information about your IoT sensors:
 - [Record data points with added context](#record-data-points-with-added-context)
 - [Group aggregate on value change(s)](#group-aggregate-on-value-changes)
 
+
 ## Record time in state
 
-Find the percentage of total time a state is a “true”, "false", or "null" over a given interval. If no points are recorded during the interval, you may opt to retrieve the last state prior to the interval.
+In this scenario, we are attempting to find the percentage of total time a state is a “true”, "false", or "null" over a given interval. If no points are recorded during the interval, you may opt to retrieve the last state prior to the interval.
 
-The following example queries data from the air sensor sample data and calculates the percentage of time the carbon monoxide levels reaches 150ppm. Air that is equal or higher than 150ppm is "true" while air with lower amounts of carbon monoxide would be "false." 
+The following example queries data from a machine process sample data, specifically our "state" field, and calculates the percentage of time the the production lines are running smoothly, which would return with `OK`. If a product in the production line is not produced correctly, it would return as `NOK`. The `OK` value will represent our "true" state, while the `NOK` value will represent our "false" state. 
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
@@ -42,12 +43,16 @@ return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / to
 })
 ```
 
-In this example, the `filter` function narrows down the air sensor sample data to only include an instance where the CO levels have crossed the threshold, and the `map` function gives the data a "true" and "false" state. A Boolean value is created by querying `  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))`. 
+In this example, the query above focuses on a specific, small time range in order to narrow down on one instance where the state of the production line did change. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the "state" field and "machinery" measurement out of the other variables. 
+
+
+
+the `filter` function narrows down the air sensor sample data to only include an instance where the CO levels have crossed the threshold, and the `map` function gives the data a "true" and "false" state. A Boolean value is created by querying `  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))`. 
 The `group` function creates a notification for when the data crosses the threshold. 
 The `sum` function drops all duration not included in the group key. 
 The percent of the state over the total interval is the sum of the duration of true and false states, divided by the total time, multiplied by 100. 
 
-| table | alert              | noAlert            | 
+| table | NOK                | OK                 | 
 | ----- | -----------------  | ------------------ | 
 | 0     | 2.3255813953488373 | 97.67441860465115  | 
 
