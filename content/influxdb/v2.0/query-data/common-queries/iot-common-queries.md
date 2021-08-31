@@ -27,46 +27,29 @@ To visualize the time in state, see the [Mosaic visualization](#mosaic-visualiza
 
 ```js
 import "contrib/tomhollingworth/events"
-import "influxdata/influxdb/sample"
-
-coThreshold = 3.0
-
-sample.data(set: "airSensor")
-  |> range(start: 2021-08-23T20:00:00Z, stop: 2021-08-25T17:00:00Z)
-  |> filter(fn: (r) => r._field == "state")
-  |> map(fn: (r) => ({ r with alert: if r._value >= coThreshold then true else false }))
-  |> events.duration(unit: 1s, columnName: "duration",)
-  |> group(columns: ["alert", "_start", "_stop", "sensor_id"])
-  |> sum(column: "duration")
-  |> pivot(rowKey:["_stop"], columnKey: ["alert"], valueColumn: "duration")
-  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))
-  |> map(fn: (r) => { 
-    totalTime =  float(v: r.false + r.true)
-    return {sensor_id: r.sensor_id, noAlert: float(v: r.false) / totalTime * 100.0 , alert: float(v: r.true) / totalTime * 100.0 }
-  })
-```
+ 
 from(bucket: "machine")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r["_measurement"] == "machinery")
-  |> filter(fn: (r) => r["_field"] == "state")
-  |> events.duration(unit: 1h, columnName: "duration",)
-  |> group(columns: ["_value", "_start", "_stop", "station_id"])
-  |> sum(column: "duration")
-  |> pivot(rowKey:["_stop"], columnKey: ["alert"], valueColumn: "duration")
-  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))
-  |> map(fn: (r) => { 
-    totalTime =  float(v: r.false + r.true)
-    return {sensor_id: r.sensor_id, noAlert: float(v: r.false) / totalTime * 100.0 , alert: float(v: r.true) / totalTime * 100.0 }
-  })
+|> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+|> filter(fn: (r) => r["_measurement"] == "machinery")
+|> filter(fn: (r) => r["_field"] == "state")
+|> events.duration(unit: 1h, columnName: "duration",)
+|> group(columns: ["_value", "_start", "_stop", "station_id"])
+|> sum(column: "duration")
+|> pivot(rowKey:["_stop"], columnKey: ["_value"], valueColumn: "duration")
+|> map(fn: (r) => {
+totalTime = float(v: r.NOK + r.OK)
+return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / totalTime * 100.0}
+})
+```
 
 In this example, the `filter` function narrows down the air sensor sample data to only include an instance where the CO levels have crossed the threshold, and the `map` function gives the data a "true" and "false" state. A Boolean value is created by querying `  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))`. 
 The `group` function creates a notification for when the data crosses the threshold. 
 The `sum` function drops all duration not included in the group key. 
 The percent of the state over the total interval is the sum of the duration of true and false states, divided by the total time, multiplied by 100. 
 
-| table | alert             | noAlert            | sensor_id |
-| ----- | ----------------- | ------------------ | --------- |
-| 0     | 97.61332864158622 | 2.3866713584137815 | TLM0200   |
+| table | alert              | noAlert            | 
+| ----- | -----------------  | ------------------ | 
+| 0     | 2.3255813953488373 | 97.67441860465115  | 
 
 Given the input data in the table above, the example function above does the following:
 
@@ -137,6 +120,19 @@ Calculate the value between events by
 The following example queries data starting with when a day starts and ends. The following query would calculate the average temperature value during that period.
 
 If each day is identified with a tag, it means that the start and end is the only range when data will be collected for this series and ultimately the data will age out. If we have many days recorded, we should be able to use tags to correctly calculate this. But, an example detailing this out would be useful.
+
+```js
+batchStart = 2021-01-01T00:00:00Z
+batchStop = 2021-01-01T01:00:00Z
+
+from(bucket: "sample")
+  |> range(start: batchStart, stop: batchStop)
+  |> filter(fn: (r) =>
+    r._measurement == "machine" and
+    r._field == "oil_temp"
+  )
+  |> mean()
+```
 
 ## Record data points with added context
 
