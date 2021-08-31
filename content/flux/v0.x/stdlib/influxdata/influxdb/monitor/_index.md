@@ -16,11 +16,37 @@ weight: 202
 flux/v0.x/tags: [functions, monitor, alerts, package]
 ---
 
-The Flux monitor package provides tools for monitoring and alerting with InfluxDB.
+The Flux `monitor` package provides tools for monitoring and alerting with InfluxDB.
 Import the `influxdata/influxdb/monitor` package:
 
 ```js
 import "influxdata/influxdb/monitor"
+```
+
+## Options
+The `monitor` packages provides the following options:
+
+```js
+import "influxdata/influxdb/monitor"
+
+option monitor.write = (tables=<-) => tables |> experimental.to(bucket: bucket)
+option monitor.log = (tables=<-) => tables |> experimental.to(bucket: bucket)
+```
+
+### write {data-type="function"}
+A function option that defines how check statuses are written to InfluxDB.
+Default is:
+
+```js
+(tables=<-) => tables |> experimental.to(bucket: bucket)
+```
+
+### log {data-type="function"}
+A function option that defines how notification event logs are written to InfluxDB.
+Default is:
+
+```js
+(tables=<-) => tables |> experimental.to(bucket: bucket)
 ```
 
 ## Functions

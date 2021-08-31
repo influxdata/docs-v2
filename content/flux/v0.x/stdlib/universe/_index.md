@@ -27,7 +27,7 @@ The `universe` package provides the following options:
 option now = () => system.time
 ```
 
-### now
+### now {data-type="function"}
 A function option that, by default, returns the current system time.
 The value of `now()` is cached at query time, so all instances of `now()` in a
 script return the same time value.
