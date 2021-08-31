@@ -6,9 +6,9 @@ aliases:
     - /enterprise_influxdb/v1.9/troubleshooting/statistics/
 menu:
   enterprise_influxdb_1_9:
-    name: Monitor InfluxDB
+    name: Monitor with QL
     weight: 80
-    parent: Administration
+    parent: Monitor InfluxDB
 ---
 
 **On this page**

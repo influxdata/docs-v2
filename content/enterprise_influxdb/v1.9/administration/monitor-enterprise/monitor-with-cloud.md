@@ -5,8 +5,8 @@ description: >
   a pre-built InfluxDB template.
 menu:
   enterprise_influxdb_1_9:
-    parent: Monitor with templates
-    name: Monitor InfluxDB Enterprise
+    parent: Monitor InfluxDB
+    name: Monitor with Cloud
 weight: 102
 ---
 
