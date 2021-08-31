@@ -42,12 +42,9 @@ from(
 
 {{% note %}}
 #### Query remote InfluxDB data sources
-Use `from()` to retrieve data from remote InfluxDB 2.0 OSS and InfluxDB Cloud instances.
+Use `from()` to retrieve data from remote InfluxDB OSS 1.7+, InfluxDB Enterprise 1.9+, and InfluxDB Cloud.
 To query remote InfluxDB sources, include the [host](#host), [token](#token), and
 [org](#org) (or [orgID](#orgid)) parameters.
-
-`from()` **cannot retrieve data** from **remote** InfluxDB OSS 1.x or InfluxDB Enterprise 1.x data sources
-_(including hosted, single-tenant InfluxDB Enterprise clusters)_.
 {{% /note %}}
 
 ## Parameters
@@ -55,8 +52,12 @@ _(including hosted, single-tenant InfluxDB Enterprise clusters)_.
 ### bucket {data-type="string"}
 Name of the bucket to query.
 
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
+
 ### bucketID {data-type="string"}
 String-encoded bucket ID to query.
+
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
 ### host {data-type="string"}
 URL of the InfluxDB instance to query.
@@ -66,11 +67,20 @@ _See [InfluxDB URLs](/{{< latest "influxdb" >}}/reference/urls/) or
 ### org {data-type="string"}
 Organization name.
 
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
+
 ### orgID {data-type="string"}
 String-encoded [organization ID](/{{< latest "influxdb" >}}/organizations/view-orgs/#view-your-organization-id) to query.
 
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
+
 ### token {data-type="string"}
 InfluxDB [API token](/{{< latest "influxdb" >}}/security/tokens/).
+
+**InfluxDB 1.x or Enterprise**:
+If authentication is _disabled_, provide an empty string (`""`).
+If authentication is _enabled_, provide your InfluxDB username and password
+using the `<username>:<password>` syntax.
 
 ## Examples
 
