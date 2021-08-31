@@ -40,8 +40,7 @@ from(
 
 {{% note %}}
 #### Query remote InfluxDB data sources
-Use `from()` to retrieve data from remote InfluxDB 2.0 OSS and InfluxDB Cloud instances.
-(InfluxDB 1.x OSS and Enterprise 1.9+ are also supported.)
+Use `from()` to retrieve data from remote InfluxDB OSS 1.7+, InfluxDB Enterprise 1.9+, and InfluxDB Cloud.
 To query remote InfluxDB sources, include the [host](#host), [token](#token), and
 [org](#org) (or [orgID](#orgid)) parameters.
 {{% /note %}}
