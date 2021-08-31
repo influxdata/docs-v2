@@ -798,6 +798,15 @@ A tuple of named values represented using a record type.
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
+### rejected point
+
+A log entry that contains information about a data point that InfluxDB could not write to its intended bucket.
+The entry contains a minimum of two tags:
+ 1. The InfluxDB `bucket` ID targeted by the write request.
+ 2. A `reason` describing why the data point was dropped.
+
+See how to [review rejected writes](/{{% latest "influxdb" %}}/write-data/troubleshoot/#review-rejected-writes) for more information.
+
 ### retention period
 The duration of time that a bucket retains data.
 Points with timestamps older than their bucket's retention period are dropped.

@@ -16,12 +16,14 @@ rules, and notification endpoints. Or use [community templates to monitor](/infl
 
 ## Overview
 
-1.  A [check](/influxdb/v2.0/reference/glossary/#check) in InfluxDB queries data and assigns a status with a `_level` based on specific conditions.
-2.  InfluxDB stores the output of a check in the `statuses` measurement in the `_monitoring` system bucket.
-3.  [Notification rules](/influxdb/v2.0/reference/glossary/#notification-rule) check data in the `statuses`
+1. A [check](/influxdb/v2.0/reference/glossary/#check) in InfluxDB queries data and assigns a status with a `_level` based on specific conditions.
+2. InfluxDB stores the output of a check in the `statuses` measurement in the `_monitoring` system bucket.
+3. A [rejected point](/{{% latest "influxdb" %}}/reference/glossary/#rejected-point) in InfluxDB is a log entry that contains information about a data point that InfluxDB could not write to the target bucket. 
+4. InfluxDB stores rejected data points in the `rejected_points` measurement in the `_monitoring` system bucket. 
+5. [Notification rules](/influxdb/v2.0/reference/glossary/#notification-rule) check data in the `statuses`
     measurement and, based on conditions set in the notification rule, send a message
     to a [notification endpoint](/influxdb/v2.0/reference/glossary/#notification-endpoint).
-4.  InfluxDB stores notifications in the `notifications` measurement in the `_monitoring` system bucket.
+6. InfluxDB stores notifications in the `notifications` measurement in the `_monitoring` system bucket.
 
 ## Create an alert
 
