@@ -1,5 +1,5 @@
 ---
-title: Monitor InfluxDB servers
+title: Monitor InfluxDB with QL 
 description: Troubleshoot and monitor InfluxDB OSS.
 aliases:
     - /enterprise_influxdb/v1.9/administration/statistics/
