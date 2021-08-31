@@ -16,6 +16,7 @@ InfluxData provides support for the following minor, major, and maintenance rele
 ##### Major
 
 - Includes new features, enhancements to existing features, and applicable error corrections from all prior releases.
+- InfluxDB supports backward compatibility within a major release.
 
 ##### Minor (x.Y.z) 
 
@@ -27,8 +28,6 @@ InfluxData provides support for the following minor, major, and maintenance rele
 - Interim (x.y.z.A) Fourth digit (or beyond) are an exception, and only delivered to address specific customer issues. These releases are retired in a timely manner by the customer once the issue has been addressed in a standard release.
 - InfluxData provides Support Services for the current and previous Minor Release (x.Y) including Maintenance Releases (x.y.Z) included in the respective Minor Release. 
 - When InfluxData releases a Major Release (X.y), InfluxData will provide Support Services for the current and precding Major Release (X.y), includng all Maintenance Releases (x.y.Z) included in the respective Minor Release that is available at least 12 months from the Major Release. 
-
-InfluxDB also supports backward compatibility within a major release.
 
 For more information about supported 2.0 releases, click [here](https://www.influxdata.com/legal/support-policy/).
 
