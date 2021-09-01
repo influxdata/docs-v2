@@ -46,7 +46,7 @@ to migrate data from OSS to an InfluxDB Enterprise cluster without downtime or m
    ```
    For more information, see [`-restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore)
 
-5. To avoid data loss, dual write to both OSS and Enterprise while completing the upgrade.
+5. To avoid data loss, dual write to both OSS and Enterprise while completing the remaining steps.
    See [Write data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/write_data/).
    This keeps the OSS and cluster active for testing and acceptance work.
 
