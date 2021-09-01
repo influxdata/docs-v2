@@ -95,7 +95,7 @@ To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded 
 
 ## Set up Telegraf
 
-Set up Telegraf to scrape metrics from InfluxDB Enterprises to send to your InfluxDB Cloud account.
+Set up Telegraf to scrape metrics from InfluxDB Enterprise to send to your InfluxDB Cloud account.
 
 On each InfluxDB Enterprise instance you want to monitor, do the following:
 
