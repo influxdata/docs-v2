@@ -35,7 +35,7 @@ option profiler.enabledProfilers = ["query", "operator"]
 ```
 
 ### enabledProfilers {data-type="array of strings"}
-List of Flux profiles to enable.
+List of Flux profilers to enable.
 
 ## Available profilers
 - [query](#query)

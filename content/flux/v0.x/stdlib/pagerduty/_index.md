@@ -16,12 +16,25 @@ weight: 11
 flux/v0.x/tags: [functions, pagerduty, package]
 ---
 
-The Flux PagerDuty package provides functions for sending data to PagerDuty.
+The Flux `pagerduty` package provides functions for sending data to PagerDuty.
 Import the `pagerduty` package:
 
 ```js
 import "pagerduty"
 ```
+
+## Options
+The `pagerduty` package provides the following options:
+
+```js
+import "pagerduty"
+
+option pagerduty.defaultURL = "https://events.pagerduty.com/v2/enqueue"
+```
+
+### defaultURL {data-type="string"}
+Default PagerDuty events API URL.
+Default is `https://events.pagerduty.com/v2/enqueue`.
 
 ## Functions
 {{< children type="functions" show="pages" >}}
