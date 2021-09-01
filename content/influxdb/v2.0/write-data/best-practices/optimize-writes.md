@@ -90,14 +90,11 @@ For specific instructions, see the [InfluxDB client libraries documentation](/in
 {{% tab-content %}}
 ### Use gzip compression with the InfluxDB API
 
-When using the InfluxDB API `/write` endpoint to write data, set the `Content-Encoding`
-header to `gzip` to compress the request data.
+When using the InfluxDB API `/write` endpoint to write data, compress the data with `gzip` and set the `Content-Encoding`
+header to `gzip`.
 
 ```sh
-curl --request POST "http://localhost:8086/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
-  --header "Authorization: Token YOURAUTHTOKEN" \
-  --header "Content-Encoding: gzip" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+{{% get-shared-text "api/v2.0/write/write-compress.sh" %}}
 ```
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
