@@ -34,7 +34,7 @@ option monitor.log = (tables=<-) => tables |> experimental.to(bucket: bucket)
 ```
 
 ### write {data-type="function"}
-A function option that defines how check statuses are written to InfluxDB.
+Function option that defines how check statuses are written to InfluxDB.
 Default is:
 
 ```js
@@ -42,7 +42,7 @@ Default is:
 ```
 
 ### log {data-type="function"}
-A function option that defines how notification event logs are written to InfluxDB.
+Function option that defines how notification event logs are written to InfluxDB.
 Default is:
 
 ```js

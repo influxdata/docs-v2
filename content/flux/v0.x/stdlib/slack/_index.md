@@ -29,12 +29,12 @@ The `slack` package provides the following options:
 ```js
 import "slack"
 
-option slack.defaultURL = "https://api.pushbullet.com/v2/pushes"
+option slack.defaultURL = "https://slack.com/api/chat.postMessage"
 ```
 
 ### defaultURL {data-type="string"}
 Default Slack API URL.
-Default is `https://api.pushbullet.com/v2/pushes`.
+Default is `https://slack.com/api/chat.postMessage`.
 
 ## Functions
 {{< children type="functions" show="pages" >}}

@@ -60,8 +60,8 @@ Default is:
 ```
 
 ### loadStorage {data-type="function"}
-Function option that loads annotated CSV test data as if queried from InfluxDB
-to ensure tests behave correctly in both the Flux and InfluxDB test suites.
+Function option that loads annotated CSV test data as if queried from InfluxDB.
+Ensures tests behave correctly in both the Flux and InfluxDB test suites.
 Default is:
 
 ```js
