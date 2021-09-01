@@ -13,6 +13,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [outputs]
 related:
+  - /flux/v0.x/stdlib/experimental/to/
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause, InfluxQL – SELECT INTO
 introduced: 0.7.0
 ---
@@ -27,7 +28,7 @@ to(
   token: "mY5uP3rS3cRe7t0k3n",
   timeColumn: "_time",
   tagColumns: ["tag1", "tag2", "tag3"],
-  fieldFn: (r) => ({ [r._field]: r._value })
+  fieldFn: (r) => ({ r._field: r._value })
 )
 
 // OR
@@ -39,7 +40,7 @@ to(
   token: "mY5uP3rS3cRe7t0k3n",
   timeColumn: "_time",
   tagColumns: ["tag1", "tag2", "tag3"],
-  fieldFn: (r) => ({ [r._field]: r._value })
+  fieldFn: (r) => ({ r._field: r._value })
 )
 ```
 
@@ -81,13 +82,20 @@ InfluxDB organization ID.
 _`orgID` and `org` are mutually exclusive._
 
 ### host {data-type="string"}
-InfluxDB host to write to.
-_If specified, a [`token`](#token) is required._
+[InfluxDB URL](/{{< latest "influxdb" >}}/reference/urls/) or
+[InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL to write to.
+
+{{% warn %}}
+_`host` is required when writing to a remote InfluxDB instance.
+If specified, [`token`](#token) is also required._
+{{% /warn %}}
 
 ### token {data-type="string"}
-InfluxDB [authorization token](/{{< latest "influxdb" >}}/security/tokens) to
-use when writing to a remote host.
-_Required when a [`host`](#host) is specified._
+[InfluxDB API token](/{{< latest "influxdb" >}}/security/tokens).
+
+{{% warn %}}
+_`token` is required when writing to another organization or when writing to a remote InfluxDB [`host`](#host)._
+{{% /warn %}}
 
 ### timeColumn {data-type="string"}
 Time column of the output.

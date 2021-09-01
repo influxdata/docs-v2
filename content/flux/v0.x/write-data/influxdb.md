@@ -11,118 +11,195 @@ menu:
     identifier: write-influxdb
 weight: 101
 related:
-  - /influxdb/cloud/query-data/optimize-queries/, Optimize Flux queries for InfluxDB
+  - /flux/v0.x/stdlib/universe/to/
+  - /flux/v0.x/stdlib/experimental/to/
 list_code_example: |
   ```js
-  from(bucket: "example-bucket")
-    |> range(start: -1h)
+  data
+    |> to(bucket: "example-bucket")
   ```
 ---
 
 To write data to InfluxDB using Flux, use [`to()`](/flux/v0.x/stdlib/universe/to/)
 or [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/).
+Provide the following parameters to both functions:
 
+- **bucket** or **bucketID**: _InfluxDB bucket name_ or _bucket ID_ to write to.
+- **org** or **orgID**: _InfluxDB organization name_ or _organization ID_ to write to.
+- **host**: [InfluxDB URL](/{{< latest "influxdb" >}}/reference/urls/) or
+  [InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL.
+- **token**: [InfluxDB API token](/{{< latest "influxdb" >}}/security/tokens/).
 
-Provide the following parameters to each function:
+###### On this page
+- [Write data to InfluxDB with to()](#write-data-to-influxdb-with-to)
+  - [Examples](#examples)
+- [Write data to InfluxDB with experimental.to()](#write-data-to-influxdb-with-experimentalto)
+  - [Examples](#examples-1)
 
-- **from()**:
-  - **bucket** or **bucketID**: _InfluxDB bucket name_ or _bucket ID_ to query.
-- **range()**:
-  - **start**: Earliest time to return results from.
+---
+
+## Write data to InfluxDB with to()
+[`to()`](/flux/v0.x/stdlib/universe/to/) writes data structured using the standard 
+[InfluxDB v2.x and InfluxDB Cloud data structure](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/)
+that includes, at a minimum, the following columns:
+
+- `_time`
+- `_measurement`
+- `_field`
+- `_value`
+
+_All other columns are written to InfluxDB as [tags](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/#tags)._
+
+Given the following input [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables):
+
+| _time                | _measurement | id  | _field | _value |
+| :------------------- | :----------- | :-- | -----: | -----: |
+| 2021-01-01T00:00:00Z | m            | 001 |   temp |   72.1 |
+| 2021-01-01T01:00:00Z | m            | 001 |   temp |   71.8 |
+| 2021-01-01T02:00:00Z | m            | 001 |   temp |   71.2 |
+
+| _time                | _measurement | id  | _field | _value |
+| :------------------- | :----------- | :-- | -----: | -----: |
+| 2021-01-01T00:00:00Z | m            | 001 |    hum |   40.5 |
+| 2021-01-01T01:00:00Z | m            | 001 |    hum |   50.1 |
+| 2021-01-01T02:00:00Z | m            | 001 |    hum |   52.8 |
+
+`to()` generates the following [line protocol](/{{< latest "influxdb" >}}/reference/syntax/line-protocol/)
+and writes it to InfluxDB:
+
+```
+m,id=001 temp=72.1,hum=40.5 1609459200000000000
+m,id=001 temp=71.8,hum=50.1 1609462800000000000
+m,id=001 temp=71.2,hum=52.8 1609466400000000000
+```
+
+### Examples
+
+- [Write data to a bucket in the same InfluxDB organization](#write-data-to-a-bucket-in-the-same-influxdb-organization)
+- [Write data to a bucket in a different InfluxDB organization](#write-data-to-a-bucket-in-a-different-influxdb-organization)
+- [Write data to a remote InfluxDB bucket](#write-data-to-a-remote-influxdb-bucket)
+
+#### Write data to a bucket in the same InfluxDB organization
+```js
+data
+  |> to(bucket: "example-bucket")
+```
+
+#### Write data to a bucket in a different InfluxDB organization
+```js
+data
+  |> to(
+    bucket: "example-bucket",
+    org: "example-org",
+    token: "mY5uPeRs3Cre7tok3N"
+  )
+```
+
+#### Write data to a remote InfluxDB bucket
+```js
+data
+  |> to(
+    bucket: "example-bucket",
+    org: "example-org",
+    token: "mY5uPeRs3Cre7tok3N",
+    host: "https://myinfluxdbdomain.com/8086"
+  )
+```
+
+---
+
+## Write data to InfluxDB with experimental.to()
+[`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) is designed to write
+[pivoted](/flux/v0.x/stdlib/universe/pivot/) data to InfluxDB.
+Input data must have the following columns:
+
+- `_time`
+- `_measurement`
+
+All columns **in the [group key](/flux/v0.x/get-started/data-model/#group-key)**
+other than `_time` and `_measurement` are written to InfluxDB as [tags](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/#tags).
+Columns **not in the group key** are written to InfluxDB as [fields](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/#fields).
 
 {{% note %}}
-InfluxDB requires queries to be time-bound, so `from()` must always be followed by
-[`range()`](/flux/v0.x/stdlib/universe/range/).
+`_start` and `_stop` columns are ignored.
 {{% /note %}}
 
+**To write pivoted data to InfluxDB:**
+
+1. Import the `experimental` package.
+2. Use `experimental.to()` to write pivoted data to an InfluxDB bucket.
+
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
+import "experimental"
+
+data
+  |> experimental.to(bucket: "example-bucket")
+```
+
+Given the following input [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables):
+
+{{< flux/group-key "[_measurement, id, loc]" >}}
+
+| _time                | _measurement | id  | loc | min | max | mean |
+| :------------------- | :----------- | :-- | :-- | --: | --: | ---: |
+| 2021-01-01T00:00:00Z | m            | 001 | FR  |   2 |   6 |  4.0 |
+| 2021-01-01T01:00:00Z | m            | 001 | FR  |   2 |  18 | 10.0 |
+| 2021-01-01T02:00:00Z | m            | 001 | FR  |   1 |  13 |  7.0 |
+
+| _time                | _measurement | id  | loc | min | max | mean |
+| :------------------- | :----------- | :-- | :-- | --: | --: | ---: |
+| 2021-01-01T00:00:00Z | m            | 001 | BK  |   4 |   4 |  4.0 |
+| 2021-01-01T01:00:00Z | m            | 001 | BK  |   3 |   5 |  4.0 |
+| 2021-01-01T02:00:00Z | m            | 001 | BK  |   5 |   8 |  6.5 |
+
+`experimental.to()` generates the following [line protocol](/{{< latest "influxdb" >}}/reference/syntax/line-protocol/)
+and writes it to InfluxDB:
+
+```
+m,id=001,loc=FR min=2i,max=6i,mean=4 1609459200000000000
+m,id=001,loc=FR min=2i,max=18i,mean=10 1609462800000000000
+m,id=001,loc=FR min=1i,max=13i,mean=7 1609466400000000000
+m,id=001,loc=BK min=4i,max=4i,mean=4 1609459200000000000
+m,id=001,loc=BK min=3i,max=5i,mean=4 1609462800000000000
+m,id=001,loc=BK min=5i,max=3i,mean=6.5 1609466400000000000
 ```
 
 
+### Examples
 
-## Query InfluxDB Cloud or 2.x remotely
-To query InfluxDB Cloud or 2.x remotely, provide the following parameters
-in addition to **bucket** or **bucketID**.
+- [Write pivoted data to a bucket in the same InfluxDB organization](#write-pivoted-data-to-a-bucket-in-the-same-influxdb-organization)
+- [Write pivoted data to a bucket in a different InfluxDB organization](#write-pivoted-data-to-a-bucket-in-a-different-influxdb-organization)
+- [Write pivoted data to a remote InfluxDB bucket](#write-pivoted-data-to-a-remote-influxdb-bucket)
 
-- **host**: [InfluxDB Cloud region URL](/influxdb/cloud/reference/urls/) or
-  [InfluxDB URL](/{{< latest "influxdb" >}}/reference/urls/)
-- **org** or **orgID**: InfluxDB organization name or ID
-- **token**: InfluxDB [API token](/influxdb/cloud/security/tokens/)
-
+#### Write pivoted data to a bucket in the same InfluxDB organization
 ```js
-from(
-  bucket: "example-bucket",
-  host: "http://localhost:8086",
-  org: "example-org",
-  token: "mYSup3r5Ecr3T70keN"
-)
+import "experimental"
+
+data
+  |> experimental.to(bucket: "example-bucket")
 ```
 
-## Query InfluxDB 1.x
-To query InfluxDB 1.x, use the `database-name/retention-policy-name` naming
-convention for your bucket name.
-For example, to query data from the `autogen` retention policy in the `telegraf` database:
-
+#### Write pivoted data to a bucket in a different InfluxDB organization
 ```js
-from(bucket: "telegraf/autogen")
-  |> range(start: -30m)
+import "experimental"
+
+data
+  |> experimental.to(
+    bucket: "example-bucket",
+    org: "example-org",
+    token: "mY5uPeRs3Cre7tok3N"
+  )
 ```
 
-To query the [default retention policy](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-a-retention-policy) in a database, use the same bucket naming
-convention, but do not provide a retention policy:
-
+#### Write pivoted data to a remote InfluxDB bucket
 ```js
-from(bucket: "telegraf/")
-  |> range(start: -30m)
+import "experimental"
+
+data
+  |> experimental.to(
+    bucket: "example-bucket",
+    org: "example-org",
+    token: "mY5uPeRs3Cre7tok3N",
+    host: "https://myinfluxdbdomain.com/8086"
+  )
 ```
-
-
-## Results structure
-`from()` and `range()` return a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
-grouped by [series](/influxdb/cloud/reference/glossary/#series)
-(measurement, tag set, and field).
-Each table includes the following columns:
-
-- **_start**: Query range start time (defined by `range()`)
-- **_stop**: Query range stop time (defined by `range()`)
-- **_time**: Data timestamp
-- **_measurement**: Measurement name
-- **_field**: Field key
-- **_value**: Field value
-- **Tag columns**: A column for each tag where the column label is the tag key
-  and the column value is the tag value
-
-{{% note %}}
-#### Columns with the underscore prefix
-Columns with the underscore (`_`) prefix are considered "system" columns.
-Some Flux functions require these columns.
-{{% /note %}}
-
-### Example InfluxDB query results
-
-{{% caption %}}
-Hover over highlighted text to view description.
-{{% /caption %}}
-
-| _start                                                    | _stop                                                    | _time                                              | _measurement                             | {{< tooltip "Tag key" "host" >}}    | _field                            |                              _value |
-| :-------------------------------------------------------- | :------------------------------------------------------- | :------------------------------------------------- | :--------------------------------------- | :---------------------------------- | :-------------------------------- | ----------------------------------: |
-| 2021-01-01T00:00:00Z                                      | 2021-01-02T00:00:00Z                                     | 2021-01-01T00:00:00Z                               | foo                                      | host1                               | bar                               |                                 1.2 |
-| {{< tooltip "Time range start" "2021-01-01T00:00:00Z" >}} | {{< tooltip "Time range stop" "2021-01-02T00:00:00Z" >}} | {{< tooltip "Timestamp" "2021-01-01T01:00:00Z" >}} | {{< tooltip "Measurement name" "foo" >}} | {{< tooltip "Tag value" "host1" >}} | {{< tooltip "Field key" "bar" >}} | {{< tooltip "Field value" "1.6" >}} |
-| 2021-01-01T00:00:00Z                                      | 2021-01-02T00:00:00Z                                     | 2021-01-01T02:00:00Z                               | foo                                      | host1                               | bar                               |                                 2.1 |
-
-| _start               | _stop                | _time                | _measurement | host  | _field | _value |
-| :------------------- | :------------------- | :------------------- | :----------- | :---- | :----- | -----: |
-| 2021-01-01T00:00:00Z | 2021-01-02T00:00:00Z | 2021-01-01T00:00:00Z | foo          | host2 | bar    |    1.2 |
-| 2021-01-01T00:00:00Z | 2021-01-02T00:00:00Z | 2021-01-01T01:00:00Z | foo          | host2 | bar    |    1.7 |
-| 2021-01-01T00:00:00Z | 2021-01-02T00:00:00Z | 2021-01-01T02:00:00Z | foo          | host2 | bar    |    2.1 |
-
-{{% note %}}
-#### Structure results like InfluxQL
-[InfluxQL](/{{< latest "influxdb" "v1" >}}/query_language/) returns each field as
-a column where the column label is the field key and the column value is the field value.
-To structure results similarly with Flux, use [`pivot()`](/flux/v0.x/stdlib/universe/pivot/)
-or [`schema.fieldsAsCols()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/)
-to pivot fields into columns.
-{{% /note %}}
