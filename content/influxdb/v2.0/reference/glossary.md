@@ -800,10 +800,8 @@ Regular expressions (regex or regexp) are patterns used to match character combi
 
 ### rejected point
 
-A log entry that contains information about a data point that InfluxDB could not write to its intended bucket.
-The entry contains a minimum of two tags:
- 1. The InfluxDB `bucket` ID targeted by the write request.
- 2. A `reason` describing why the data point was dropped.
+A data point that InfluxDB could not write to the target bucket. 
+InfluxDB logs information about rejected points to the `_monitoring` system bucket.
 
 See how to [review rejected writes](/{{% latest "influxdb" %}}/write-data/troubleshoot/#review-rejected-writes) for more information.
 
