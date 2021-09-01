@@ -71,11 +71,9 @@ By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which e
       # HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
       ...
       ```
-3. Verify the [Telegraf](/{{< latest "telegraf" >}}/) agent has network access to the `/metrics` endpoint for each monitored InfluxDB OSS instance.
-
-4. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
+3. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
    1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/), and click **InfluxDB Output Plugin**.
-   2. Copy the URL, token, organization, and bucket, close the window, and then click **Scrape InfluxDB Enterprise Metrics**.
+   2. Copy the URL, token, organization, and bucket, close the window, and then click **monitoring-enterprise-1.x**.
    3. Replace `URL`, `token', `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. Alternatively, store this information in your environment variables and include the environment variables in your configuration.
 
       {{% note %}}
@@ -93,16 +91,16 @@ To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded 
      If you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
 
       For more information about customizing Telegraf, see [Configure Telegraf](/{{< latest "telegraf" >}}/administration/configuration/#global-tags).
-5. Click **Save Changes**.
+4. Click **Save Changes**.
 
 ## Set up Telegraf
 
-Set up Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Cloud account.
+Set up Telegraf to scrape metrics from InfluxDB Enterprises to send to your InfluxDB Cloud account.
 
-On each InfluxDB OSS instance you want to monitor, do the following:
+On each InfluxDB Enterprise instance you want to monitor, do the following:
 
 1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/).
-2. Click **Setup Instructions** under **Scrape InfluxDB Enterprise Metrics**. 
+2. Click **Setup Instructions** under **monitoring-enterprise-1.x**. 
 3. Complete the Telegraf Setup instructions.
 
       {{% note %}}
@@ -176,6 +174,6 @@ Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgradin
 
 ## Monitor with InfluxDB Insights and Aware 
 
-For InfluxDB Enterprise customers, Insights and Aware is a free service that can monitor your data. InfluxDB Insights sends your data to a private Cloud account and will be monitored with the help of the support team. InfluxDB Aware is a similar service, but you monitor your data yourself. 
+For InfluxDB Enterprise customers, Insights and Aware are free services that can monitor your data. InfluxDB Insights sends your data to a private Cloud account and will be monitored with the help of the support team. InfluxDB Aware is a similar service, but you monitor your data yourself. 
 
 To apply for this service, please contact the [support team](support@influxdata.com). 

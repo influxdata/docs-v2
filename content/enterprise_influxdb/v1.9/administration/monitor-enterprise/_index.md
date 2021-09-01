@@ -8,6 +8,4 @@ menu:
     weight: 50
 ---
 
-Monitor
-
 {{< children >}}
