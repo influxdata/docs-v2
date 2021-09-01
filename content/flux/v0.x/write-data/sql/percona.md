@@ -1,8 +1,9 @@
 ---
-title: Query Percona
+title: Write to Percona
 list_title: Percona
 description: >
-  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `mysql` driver to query Percona.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `mysql` driver to write
+  data to Percona.
 menu:
   flux_0_x:
     name: Percona
@@ -10,36 +11,41 @@ menu:
     identifier: write-percona
 weight: 101
 related:
-  - /flux/v0.x/stdlib/sql/from/
+  - /flux/v0.x/stdlib/sql/to/
 list_code_example: |
   ```js
   import "sql"
   
-  sql.from(
-    driverName: "mysql",
-    dataSourceName: "user:password@tcp(localhost:3306)/db",
-    query: "SELECT * FROM example_table"
-  )
+  data
+    |> sql.to(
+      driverName: "mysql",
+      dataSourceName: "user:password@tcp(localhost:3306)/db",
+      table: "example_table"
+    )
   ```
 ---
 
-To query [Percona](https://www.percona.com/) with Flux:
+To write data to [Percona](https://www.percona.com/) with Flux:
 
 1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
-2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+2. Pipe-forward data into [`sql.to()`](/flux/v0.x/stdlib/sql/to/) and provide
+   the following parameters:
 
     - **driverName**: mysql
     - **dataSourceName**: _See [data source name](#data-source-name)_
-    - **query**: SQL query to execute
+    - **table**: Table to write to
+    - **batchSize**: Number of parameters or columns that can be queued within
+      each call to `Exec` (default is `10000`)
 
 ```js
 import "sql"
-
-sql.from(
-  driverName: "mysql",
-  dataSourceName: "user:password@tcp(localhost:3306)/db",
-  query: "SELECT * FROM example_table"
-)
+  
+data
+  |> sql.to(
+    driverName: "mysql",
+    dataSourceName: "user:password@tcp(localhost:3306)/db",
+    table: "example_table"
+  )
 ```
 
 ##### On this page
@@ -55,15 +61,20 @@ username:password@tcp(localhost:3306)/dbname?param=value
 ```
 
 ## Data type conversion
-`sql.from()` converts Percona data types to Flux data types.
+`sql.to()` converts Flux data types to Percona data types.
 
-| Percona data type              | Flux data type                                |
-| :----------------------------- | :-------------------------------------------- |
-| INT, BIGINT, SMALLINT, TINYINT | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| FLOAT, DOUBLE                  | [float](/flux/v0.x/spec/types/#numeric-types) |
-| DATETIME                       | [time](/flux/v0.x/spec/types/#time-types)     |
-| STRING                         | [string](/flux/v0.x/spec/types/#string-types) |
+| Flux data type                                | Percona data type |
+| :-------------------------------------------- | :---------------- |
+| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT             |
+| [int](/flux/v0.x/spec/types/#numeric-types)   | BIGINT            |
+| [uint](/flux/v0.x/spec/types/#numeric-types)  | BIGINT            |
+| [string](/flux/v0.x/spec/types/#string-types) | TEXT(16383)       |
+| [bool](/flux/v0.x/spec/types/#boolean-types)  | BOOL (TINYINT)    |
+| [time](/flux/v0.x/spec/types/#time-types)     | DATETIME          |
 
-{{% caption %}}
-All other Percona data types are converted to strings.
-{{% /caption %}}
+{{% note %}}
+#### Percona BOOL types
+`BOOL` is a synonym supplied by Percona for convenience.
+Percona stores `BOOL` values as `TINYINT` types so looking at the schema shows the
+column type as `TINYINT`.
+{{% /note %}}

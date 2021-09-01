@@ -1,9 +1,9 @@
 ---
-title: Query SQL Server
+title: Write to SQL Server
 list_title: SQL Server
 description: >
-  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `sqlserver` or `mssql`
-  driver to query SQL Server.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `sqlserver` or `mssql`
+  driver to write data to SQL Server.
 menu:
   flux_0_x:
     name: SQL Server
@@ -11,36 +11,41 @@ menu:
     identifier: write-sqlserver
 weight: 101
 related:
-  - /flux/v0.x/stdlib/sql/from/
+  - /flux/v0.x/stdlib/sql/to/
 list_code_example: |
   ```js
   import "sql"
 
-  sql.from(
-    driverName: "sqlserver",
-    dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-    query: "GO SELECT * FROM Example.Table"
-  )
+  data
+    |> sql.to(
+      driverName: "sqlserver",
+      dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+      table: "Example.Table"
+    )
   ```
 ---
 
-To query [Microsoft SQL Server](https://www.microsoft.com/sql-server/) with Flux:
+To write data to [Microsoft SQL Server](https://www.microsoft.com/sql-server/) with Flux:
 
 1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
-2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+2. Pipe-forward data into [`sql.to()`](/flux/v0.x/stdlib/sql/to/) and provide
+   the following parameters:
 
     - **driverName**: sqlserver _or_ mssql
     - **dataSourceName**: _See [data source name](#data-source-name)_
-    - **query**: SQL query to execute
+    - **table**: Table to write to
+    - **batchSize**: Number of parameters or columns that can be queued within
+      each call to `Exec` (default is `10000`)
 
 ```js
 import "sql"
 
-sql.from(
-  driverName: "sqlserver",
-  dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-  query: "GO SELECT * FROM Example.Table"
-)
+data
+  |> sql.to(
+    driverName: "sqlserver",
+    dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+    table: "Example.Table"
+  )
 ```
 
 ##### On this page
@@ -106,16 +111,13 @@ azure auth=MSI
 ```
 
 ## Data type conversion
-`sql.from()` converts SQL Server data types to Flux data types.
+`sql.to()` converts Flux data types to SQL Server data types.
 
-| SQL Server data type                    | Flux data type                                  |
-| :-------------------------------------- | :---------------------------------------------- |
-| INT, TINYINT, SMALLINT, BIGINT          | [int](/flux/v0.x/spec/types/#numeric-types)     |
-| DECIMAL, REAL, FLOAT, MONEY, SMALLMONEY | [float](/flux/v0.x/spec/types/#numeric-types)   |
-| DATETIMEOFFSET                          | [time](/flux/v0.x/spec/types/#time-types)       |
-| BIT                                     | [bool](/flux/v0.x/spec/types/#boolean-types)    |
-
-{{% caption %}}
-All other SQL Server data types (including other [date/time types](https://docs.microsoft.com/sql/t-sql/functions/date-and-time-data-types-and-functions-transact-sql?view=sql-server-ver15#DateandTimeDataTypes))
-are converted to strings.
-{{% /caption %}}
+| Flux data type                                | SQL Server data type |
+| :-------------------------------------------- | :------------------- |
+| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT                |
+| [int](/flux/v0.x/spec/types/#numeric-types)   | BIGINT               |
+| [uint](/flux/v0.x/spec/types/#numeric-types)  | BIGINT               |
+| [string](/flux/v0.x/spec/types/#string-types) | VARCHAR(MAX          |
+| [bool](/flux/v0.x/spec/types/#boolean-types)  | BIT                  |
+| [time](/flux/v0.x/spec/types/#time-types)     | DATETIMEOFFSET       |

@@ -2,7 +2,7 @@
 title: Write to SQL databases
 list_title: SQL databases
 description: >
-  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) to write to SQL databases with Flux.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) to write data to SQL databases with Flux.
 menu:
   flux_0_x:
     name: SQL databases
@@ -24,7 +24,7 @@ list_code_example: |
   ```
 ---
 
-Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) to write to SQL databases with Flux.
+Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) to write data to SQL databases with Flux.
 
 - [Databases](#databases)
 - [Drivers](#drivers)
@@ -102,9 +102,9 @@ Given the following following [stream of tables](/flux/v0.x/get-started/data-mod
 
 | _time                | tag | _value |
 | :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |     19 |
-| 2021-01-01T00:00:10Z | t1  |      4 |
-| 2021-01-01T00:00:20Z | t1  |     -3 |
+| 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
 
 ##### Flux query
 ```js

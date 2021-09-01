@@ -1,8 +1,9 @@
 ---
-title: Query Snowflake
+title: Write to Snowflake
 list_title: Snowflake
 description: >
-  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `snowflake` driver to query Snowflake.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `snowflake` driver to 
+  write data to Snowflake.
 menu:
   flux_0_x:
     name: Snowflake
@@ -10,36 +11,41 @@ menu:
     identifier: write-snowflake
 weight: 101
 related:
-  - /flux/v0.x/stdlib/sql/from/
+  - /flux/v0.x/stdlib/sql/to/
 list_code_example: |
   ```js
   import "sql"
   
-  sql.from(
-    driverName: "snowflake",
-    dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
-    query: "SELECT * FROM example_table"
-  )
+  data
+    |> sql.to(
+      driverName: "snowflake",
+      dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
+      table: "example_table"
+    )
   ```
 ---
 
-To query [Snowflake](https://www.snowflake.com/) with Flux:
+To write data to [Snowflake](https://www.snowflake.com/) with Flux:
 
 1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
-2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+2. Pipe-forward data into [`sql.to()`](/flux/v0.x/stdlib/sql/to/) and provide
+   the following parameters:
 
     - **driverName**: snowflake
     - **dataSourceName**: _See [data source name](#data-source-name)_
-    - **query**: SQL query to execute
+    - **table**: Table to write to
+    - **batchSize**: Number of parameters or columns that can be queued within
+      each call to `Exec` (default is `10000`)
 
 ```js
 import "sql"
-
-sql.from(
-  driverName: "snowflake",
-  dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
-  query: "SELECT * FROM example_table"
-)
+  
+data
+  |> sql.to(
+    driverName: "snowflake",
+    dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
+    table: "example_table"
+  )
 ```
 
 ##### On this page
@@ -57,16 +63,12 @@ username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param
 ```
 
 ## Data type conversion
-`sql.from()` converts Snowflake data types to Flux data types.
+`sql.to()` converts Flux data types to Snowflake data types.
 
-| Snowflake data type         | Flux data type                                                                                                           |
-| :-------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
-| FIXED, NUMBER               | [int](/flux/v0.x/spec/types/#numeric-types) or [float](/flux/v0.x/spec/types/#numeric-types) (depending on decimal size) |
-| REAL, FLOAT                 | [float](/flux/v0.x/spec/types/#numeric-types)                                                                            |
-| TIMESTAMP_TZ, TIMESTAMP_LTZ | [time](/flux/v0.x/spec/types/#time-types)                                                                                |
-| BOOLEAN                     | [bool](/flux/v0.x/spec/types/#boolean-types)                                                                             |
-
-{{% caption %}}
-All other Snowflake data types (including **TIMESTAMP_NTZ**, **DATE** and **TIME**)
-are converted to strings.
-{{% /caption %}}
+| Flux data type                                | Snowflake data type |
+| :-------------------------------------------- | :------------------ |
+| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT               |
+| [int](/flux/v0.x/spec/types/#numeric-types)   | NUMBER              |
+| [string](/flux/v0.x/spec/types/#string-types) | TEXT                |
+| [bool](/flux/v0.x/spec/types/#boolean-types)  | BOOLEAN             |
+| [time](/flux/v0.x/spec/types/#time-types)     | TIMESTAMP_LTZ       |

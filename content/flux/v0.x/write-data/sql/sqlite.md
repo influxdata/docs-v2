@@ -1,8 +1,9 @@
 ---
-title: Query SQLite
+title: Write to SQLite
 list_title: SQLite
 description: >
-  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `sqlite3` driver to query SQLite.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `sqlite3` driver to write
+  data to SQLite.
 menu:
   flux_0_x:
     name: SQLite
@@ -10,36 +11,41 @@ menu:
     identifier: write-sqlite
 weight: 101
 related:
-  - /flux/v0.x/stdlib/sql/from/
+  - /flux/v0.x/stdlib/sql/to/
 list_code_example: |
   ```js
   import "sql"
 
-  sql.from(
-    driverName: "sqlite3",
-    dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
-    query: "SELECT * FROM example_table"
-  )
+  data
+    |> sql.to(
+      driverName: "sqlite3",
+      dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
+      table: "example_table"
+    )
   ```
 ---
 
-To query [SQLite](https://www.sqlite.org/index.html) with Flux:
+To write data to [SQLite](https://www.sqlite.org/index.html) with Flux:
 
 1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
-2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+2. Pipe-forward data into [`sql.to()`](/flux/v0.x/stdlib/sql/to/) and provide
+   the following parameters:
 
     - **driverName**: sqlite3
     - **dataSourceName**: _See [data source name](#data-source-name)_
-    - **query**: SQL query to execute
+    - **table**: Table to write to
+    - **batchSize**: Number of parameters or columns that can be queued within 
+      each call to `Exec` ({{< req "set to `999` or less" >}})
 
 ```js
 import "sql"
 
-sql.from(
-  driverName: "sqlite3",
-  dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
-  query: "SELECT * FROM example_table"
-)
+data
+  |> sql.to(
+    driverName: "sqlite3",
+    dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
+    table: "example_table"
+  )
 ```
 
 {{% note %}}
@@ -69,16 +75,12 @@ file:/path/to/example.db?param=value
 ```
 
 ## Data type conversion
-`sql.from()` converts SQLite data types to Flux data types.
+`sql.to()` converts Flux data types to SQLite data types.
 
-| SQLite data type                        | Flux data type                                |
-| :-------------------------------------- | :-------------------------------------------- |
-| INT, INTEGER, BIGINT, SMALLINT, TINYINT | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| FLOAT, DOUBLE                           | [float](/flux/v0.x/spec/types/#numeric-types) |
-| DATETIME, TIMESTAMP, DATE               | [time](/flux/v0.x/spec/types/#time-types)     |
-| BOOL                                    | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| TEXT                                    | [string](/flux/v0.x/spec/types/#string-types) |
-
-{{% caption %}}
-All other SQLite data types are converted to strings.
-{{% /caption %}}
+| Flux data type                                | SQLite data type |
+| :-------------------------------------------- | :--------------- |
+| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT            |
+| [int](/flux/v0.x/spec/types/#numeric-types)   | INT              |
+| [uint](/flux/v0.x/spec/types/#numeric-types)  | INT              |
+| [string](/flux/v0.x/spec/types/#string-types) | TEXT             |
+| [time](/flux/v0.x/spec/types/#time-types)     | DATETIME         |

@@ -1,8 +1,9 @@
 ---
-title: Query SAP HANA
+title: Write to SAP HANA
 list_title: SAP HANA
 description: >
-  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `hdb` driver to query SAP HANA.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `hdb` driver to write
+  data to SAP HANA.
 menu:
   flux_0_x:
     name: SAP HANA
@@ -10,36 +11,41 @@ menu:
     identifier: write-sap-hana
 weight: 101
 related:
-  - /flux/v0.x/stdlib/sql/from/
+  - /flux/v0.x/stdlib/sql/to/
 list_code_example: |
   ```js
   import "sql"
   
-  sql.from(
-    driverName: "hdb",
-    dataSourceName: "hdb://username:password@myserver:30015",
-    query: "SELECT * FROM SCHEMA.TABLE"
-  )
+  data
+    |> sql.to(
+      driverName: "hdb",
+      dataSourceName: "hdb://username:password@myserver:30015",
+      table: "SCHEMA.TABLE"
+    )
   ```
 ---
 
-To query [SAP HANA](https://www.sap.com/products/hana.html) with Flux:
+To write data to [SAP HANA](https://www.sap.com/products/hana.html) with Flux:
 
 1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
-2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
+2. Pipe-forward data into [`sql.to()`](/flux/v0.x/stdlib/sql/to/) and provide
+   the following parameters:
 
     - **driverName**: hdb
     - **dataSourceName**: _See [data source name](#data-source-name)_
-    - **query**: SQL query to execute
+    - **table**: Table to write to
+    - **batchSize**: Number of parameters or columns that can be queued within
+      each call to `Exec` (default is `10000`)
 
 ```js
 import "sql"
-
-sql.from(
-  driverName: "hdb",
-  dataSourceName: "hdb://username:password@myserver:30015",
-  query: "SELECT * FROM SCHEMA.TABLE"
-)
+  
+data
+  |> sql.to(
+    driverName: "hdb",
+    dataSourceName: "hdb://username:password@myserver:30015",
+    table: "SCHEMA.TABLE"
+  )
 ```
 
 ##### On this page
@@ -57,17 +63,15 @@ hdb://?KEY=<keyname>
 ```
 
 ## Data type conversion
-`sql.from()` converts SAP HANA data types to Flux data types.
+`sql.to()` converts Flux data types to SAP HANA data types.
 
-| SAP HANA data type                 | Flux data type                                |
-| :--------------------------------- | :-------------------------------------------- |
-| TINYINT, SMALLINT, INTEGER, BIGINT | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| REAL, DOUBLE, DECIMAL              | [float](/flux/v0.x/spec/types/#numeric-types) |
-| {{< req text="\*" color="magenta" >}} TIMESTAMP         | [time](/flux/v0.x/spec/types/#time-types)     |
-
-{{% caption %}}
-All other SAP HANA data types are converted to strings.  
-{{% /caption %}}
+| Flux data type                                | SAP HANA data type                              |
+| :-------------------------------------------- | :---------------------------------------------- |
+| [float](/flux/v0.x/spec/types/#numeric-types) | DOUBLE                                          |
+| [int](/flux/v0.x/spec/types/#numeric-types)   | BIGINT                                          |
+| [string](/flux/v0.x/spec/types/#string-types) | NVARCHAR(5000)                                  |
+| [bool](/flux/v0.x/spec/types/#boolean-types)  | BOOLEAN                                         |
+| [time](/flux/v0.x/spec/types/#time-types)     | {{< req text="\*" color="magenta" >}} TIMESTAMP |
 
 {{< req text="\*" color="magenta" >}} The SAP HANA **TIMESTAMP** data type does
 not store time zone information and
