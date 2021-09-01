@@ -70,7 +70,7 @@ The following query displays the change of "false" to "true". A mosaic visualiza
 
 ```js
 from(bucket: "machine")
-  |> range(start: 2021-07-31T18:00:00Z, stop: 2021-08-01T17:00:00Z)
+  |> range(start: 2021-08-01T15:00:00Z, stop: 2021-08-01T16:30:00Z)
   |> filter(fn: (r) => r._measurement == "machinery")
   |> filter(fn: (r) => r._field == "state")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
