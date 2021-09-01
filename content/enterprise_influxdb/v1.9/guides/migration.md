@@ -68,7 +68,55 @@ to migrate data from OSS to an InfluxDB Enterprise cluster without downtime or m
    - [Query data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/query_data/)
    - [View data in Chronograf](/{{< latest "chronograf" >}}/)
 
-9. Follow [Stop writes and remove OSS](#stop-writes-and-remove-oss) below.
+Next, stop writes to OSS instance, and remove it.
+
+#### Stop writes and remove OSS
+
+1. Stop all writes to the InfluxDB OSS instance.
+2. Stop the `influxdb` service on the InfluxDB OSS instance server.
+
+    {{< code-tabs-wrapper >}}
+    {{% code-tabs %}}
+[sysvinit](#)
+[systemd](#)
+    {{% /code-tabs %}}
+    {{% code-tab-content %}}
+```bash
+sudo service influxdb stop
+```
+    {{% /code-tab-content %}}
+    {{% code-tab-content %}}
+```bash
+sudo systemctl stop influxdb
+```
+    {{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
+
+    Double check that the service is stopped.
+    The following command should return nothing:
+
+    ```bash
+    ps ax | grep influxd
+    ```
+
+3. Remove the InfluxDB OSS package.
+
+    {{< code-tabs-wrapper >}}
+    {{% code-tabs %}}
+[Debian & Ubuntu](#)
+[RHEL & CentOS](#)
+    {{% /code-tabs %}}
+    {{% code-tab-content %}}
+```bash
+sudo apt-get remove influxdb
+```
+    {{% /code-tab-content %}}
+    {{% code-tab-content %}}
+```bash
+sudo yum remove influxdb
+```
+    {{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
 
 <!--
 ### Migrate a data set with downtime
