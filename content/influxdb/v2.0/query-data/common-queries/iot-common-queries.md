@@ -30,7 +30,7 @@ To visualize the time in state, see the [Mosaic visualization](#mosaic-visualiza
 import "contrib/tomhollingworth/events"
  
 from(bucket: "machine")
-|> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+|> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:30:00Z)
 |> filter(fn: (r) => r["_measurement"] == "machinery")
 |> filter(fn: (r) => r["_field"] == "state")
 |> events.duration(unit: 1h, columnName: "duration",)
@@ -43,7 +43,10 @@ return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / to
 })
 ```
 
-In this example, the query above focuses on a specific, small time range in order to narrow down on one instance where the state of the production line did change. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the "state" field and "machinery" measurement out of the other variables. 
+In this example, the query above focuses on a specific time range in order to narrow down on one instance where the state of the production line changes. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the "state" field and "machinery" measurement out of the other variables. 
+The `events.duration()` function calculates the time between the start and end of the record and associates the duration with the start of the recording. 
+The `group` function defines the column values that will appear in our table. 
+The `sum` function calculates the of all the variables in our "duration" column. 
 
 
 
@@ -52,9 +55,9 @@ The `group` function creates a notification for when the data crosses the thresh
 The `sum` function drops all duration not included in the group key. 
 The percent of the state over the total interval is the sum of the duration of true and false states, divided by the total time, multiplied by 100. 
 
-| table | NOK                | OK                 | 
-| ----- | -----------------  | ------------------ | 
-| 0     | 2.3255813953488373 | 97.67441860465115  | 
+| table | NOK               | OK                 | 
+| ----- | ----------------- | ------------------ | 
+| 0     | 2.027027027027027 | 97.97297297297297  | 
 
 Given the input data in the table above, the example function above does the following:
 
@@ -70,7 +73,7 @@ The following query displays the change of "false" to "true". A mosaic visualiza
 
 ```js
 from(bucket: "machine")
-  |> range(start: 2021-08-01T15:00:00Z, stop: 2021-08-01T16:30:00Z)
+  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:30:00Z)
   |> filter(fn: (r) => r._measurement == "machinery")
   |> filter(fn: (r) => r._field == "state")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
