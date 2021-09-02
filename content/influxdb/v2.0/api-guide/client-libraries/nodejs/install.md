@@ -13,7 +13,7 @@ aliases:
 ---
 
 
-## Install
+## Install Node.js 
 
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
@@ -27,18 +27,32 @@ aliases:
    npm init -y influx-node-app
    ```
 
-## Install dependencies
+## Install TypeScript
 
-The JavaScript client contains two packages.
-Add both as dependencies of your project.
+Many of the client library examples use [TypeScript](https://www.typescriptlang.org/). Follow these steps to initialize the TypeScript project.
 
-1. Change to your project directory:
+1. Install TypeScript and type definitions for Node.js.
 
    ```sh
-   cd influx-node-app
+   npm i -g typescript && npm i --save-dev @types/node
+   ```
+2. Create a TypeScript configuration with default values.
+
+   ```sh
+   tsc --init
+   ```
+3. Run the TypeScript compiler. To recompile your code automatically as you make changes, pass the `watch` flag to the compiler.
+
+   ```sh
+   tsc -w -p
    ```
 
-2. Install  `@influxdata/influxdb-client` for querying and writing data:
+## Install dependencies
+
+The JavaScript client library contains two packages.
+Add both as dependencies of your project.
+
+1. Open a new terminal window and install  `@influxdata/influxdb-client` for querying and writing data:
 
    ```sh
    npm install --save @influxdata/influxdb-client
@@ -49,6 +63,10 @@ Add both as dependencies of your project.
    ```sh
    npm install --save @influxdata/influxdb-client-apis
    ```
+
+## Next steps
+
+Once you've installed the Javascript client library, you're ready to [write data](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/write.md) to InfluxDB or [get started](#get-started-with-examples) with other examples from the client library.
 
 ## Get started with examples 
 
