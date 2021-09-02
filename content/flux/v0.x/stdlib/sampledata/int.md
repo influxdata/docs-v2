@@ -29,7 +29,7 @@ Default is `false`.
 ## Examples
 
 - [Return sample data with integer values](#return-sample-data-with-integer-values)
-- [Return sample data that includes null values](#return-sample-data-that-includes-null-values)
+- [Return integer sample data with null values](#return-integer-sample-data-with-null-values)
 
 ### Return sample data with integer values
 
@@ -42,7 +42,7 @@ sampledata.int()
 ##### Output tables
 {{% flux/sample "int" %}}
 
-### Return sample data that includes null values
+### Return integer sample data with null values
 
 ##### Function
 ```js

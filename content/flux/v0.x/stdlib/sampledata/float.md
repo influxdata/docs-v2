@@ -29,7 +29,7 @@ Default is `false`.
 ## Examples
 
 - [Return sample data with float values](#return-sample-data-with-float-values)
-- [Return sample data that includes null values](#return-sample-data-that-includes-null-values)
+- [Return float sample data with null values](#return-float-sample-data-with-null-values)
 
 ### Return sample data with float values
 
@@ -42,7 +42,7 @@ sampledata.float()
 ##### Output tables
 {{% flux/sample "float" %}}
 
-### Return sample data that includes null values
+### Return float sample data with null values
 
 ##### Function
 ```js

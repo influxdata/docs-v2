@@ -29,7 +29,7 @@ Default is `false`.
 ## Examples
 
 - [Return sample data with unsigned integer values](#return-sample-data-with-unsigned-integer-values)
-- [Return sample data that includes null values](#return-sample-data-that-includes-null-values)
+- [Return unsigned integer sample data with null values](#return-unsigned-integer-sample-data-with-null-values)
 
 ### Return sample data with unsigned integer values
 
@@ -42,7 +42,7 @@ sampledata.uint()
 ##### Output tables
 {{% flux/sample "uint" %}}
 
-### Return sample data that includes null values
+### Return unsigned integer sample data with null values
 
 ##### Function
 ```js

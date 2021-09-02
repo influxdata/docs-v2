@@ -29,7 +29,7 @@ Default is `false`.
 ## Examples
 
 - [Return sample data with boolean values](#return-sample-data-with-boolean-values)
-- [Return sample data that includes null values](#return-sample-data-that-includes-null-values)
+- [Return boolean sample data with null values](#return-boolean-sample-data-with-null-values)
 
 ### Return sample data with boolean values
 
@@ -42,7 +42,7 @@ sampledata.bool()
 ##### Output tables
 {{% flux/sample "bool" %}}
 
-### Return sample data that includes null values
+### Return boolean sample data with null values
 
 ##### Function
 ```js

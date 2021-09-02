@@ -29,7 +29,7 @@ Default is `false`.
 ## Examples
 
 - [Return sample data with string values](#return-sample-data-with-string-values)
-- [Return sample data that includes null values](#return-sample-data-that-includes-null-values)
+- [Return string sample data with null values](#return-string-sample-data-with-null-values)
 
 ### Return sample data with string values
 
@@ -42,7 +42,7 @@ sampledata.string()
 ##### Output tables
 {{% flux/sample "string" %}}
 
-### Return sample data that includes null values
+### Return string sample data with null values
 
 ##### Function
 ```js
