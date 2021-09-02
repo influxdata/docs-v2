@@ -87,26 +87,6 @@
 {{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t2  |                                 smpl_dtn2bv |
 {{- end -}}
 
-{{- define "numericString" -}}
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
-{{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ----------------------------------------------------------------: |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t1  |                                                             -2.18 |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t1  |                             {{ cond ($.includeNull) "" "10.92" }} |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:20Z | t1  |                                                              7.35 |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:30Z | t1  |                             {{ cond ($.includeNull) "" "17.53" }} |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t1  |                             {{ cond ($.includeNull) "" "15.23" }} |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t1  |                                                              4.43 |
-
-{{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
-{{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ----------------------------------------------------------------: |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:00Z | t2  |                             {{ cond ($.includeNull) "" "19.85" }} |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:10Z | t2  |                                                              4.97 |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:20Z | t2  |                                                             -3.75 |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:30Z | t2  |                                                             19.77 |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:40Z | t2  |                             {{ cond ($.includeNull) "" "13.86" }} |
-{{ cond ($.includeRange) (print "| " $.start " | " $.stop " ") "" }}| 2021-01-01T00:00:50Z | t2  |                                                              1.86 |
-{{- end -}}
-
 {{- define "bool" -}}
 {{ cond ($.includeRange)        "| _start      | _stop       " "" }}| _time                | tag |                                _value |
 {{ cond ($.includeRange)        "| :---------- | :---------- " "" }}| :------------------- | :-: | ------------------------------------: |
@@ -155,8 +135,6 @@
   {{- template "uint" dict "includeNull" $includeNull "includeRange" $includeRange "start" $start "stop" $stop -}}
 {{- else if eq $set "string" -}}
   {{- template "string" dict "includeNull" $includeNull "includeRange" $includeRange "start" $start "stop" $stop -}}
-{{- else if eq $set "numericString" -}}
-  {{- template "numericString" dict "includeNull" $includeNull "includeRange" $includeRange "start" $start "stop" $stop -}}
 {{- else if eq $set "bool" -}}
   {{- template "bool" dict "includeNull" $includeNull "includeRange" $includeRange "start" $start "stop" $stop -}}
 {{- else if eq $set "numericBool" -}}
