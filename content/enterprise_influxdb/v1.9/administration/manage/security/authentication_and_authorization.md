@@ -56,9 +56,6 @@ To enable authentication in a cluster, do the following:
 
 1. **Create at least one [admin user](#admin-users)**.
 
-   If you enable authentication and have no users, InfluxDB Enterprise *will not enforce authentication*.
-   It will only accept the [query](#user-management-commands) that creates a new admin user.
-
    To create an admin user,
    run the following command using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/):
    ```
