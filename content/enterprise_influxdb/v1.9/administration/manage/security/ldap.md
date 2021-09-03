@@ -6,7 +6,10 @@ menu:
   enterprise_influxdb_1_9:
     name: Configure LDAP authentication
     weight: 40
-    parent: Administration
+    parent: Manage security
+aliases:
+  - /enterprise_influxdb/v1.9/administration/ldap/
+  
 ---
 
 Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol) to:
@@ -39,7 +42,9 @@ Update the following settings in each data node configuration file (`/etc/influx
 3. If you're enabling authentication on meta nodes, you must also include the following configurations:
    - `INFLUXDB_META_META_AUTH_ENABLED` environment variable, or `[http]` configuration setting `meta-auth-enabled`, is set to `true`.
      This value must be the same value as the meta node's `meta.auth-enabled` configuration.
-   - `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`, or the corresponding `[meta]` configuration setting `meta-internal-shared-secret`, is set to `true`.
+   - `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`,
+     or the corresponding `[meta]` configuration setting `meta-internal-shared-secret`,
+     is set a secret value.
      This value must be the same value as the meta node's `meta.internal-shared-secret`.
 
 ### Configure meta nodes

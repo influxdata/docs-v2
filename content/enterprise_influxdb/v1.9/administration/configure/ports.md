@@ -5,7 +5,9 @@ menu:
   enterprise_influxdb_1_9:
     name: Configure TCP and UDP Ports
     weight: 120
-    parent: Administration
+    parent: Configure
+aliases:
+  - /enterprise/v1.9/administration/ports/
 ---
 
 ![InfluxDB Enterprise network diagram](/img/enterprise/1-8-network-diagram.png)
