@@ -10,7 +10,7 @@ menu:
 weight: 205
 ---
 
-Use the following queries to retrieve information about your IoT sensors:
+The following scenarios are ways to retrieve information about your IoT sensors:
 - [Record time in state](#record-time-in-state)
 - [Calculate time weighted average](#calculate-time-weighted-average)
 - [Calculate value between events](#calculate-value-between-events)
@@ -20,9 +20,8 @@ Use the following queries to retrieve information about your IoT sensors:
 
 ## Record time in state
 
-In this scenario, we are attempting to find the percentage of total time a state is a “true”, "false", or "null" over a given interval. If no points are recorded during the interval, you may opt to retrieve the last state prior to the interval.
+In this scenario, we look at whether a production line is running smoothly (`state`=`OK`) and what percentage of time the production line is running smoothly or not (`state`=`NOK`). If no points are recorded during the interval (`state`=`NaN`), you may opt to retrieve the last state prior to the interval. 
 
-The following example queries data from a machine process sample data, specifically our "state" field, and calculates the percentage of time the the production lines are running smoothly, which would return with `OK`. If a product in the production line is not produced correctly, it would return as `NOK`. The `OK` value will represent our "true" state, while the `NOK` value will represent our "false" state. 
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
@@ -43,17 +42,17 @@ return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / to
 })
 ```
 
-In this example, the query above focuses on a specific time range in order to narrow down on one instance where the state of the production line changes. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the "state" field and "machinery" measurement out of the other variables. 
-The `events.duration()` function calculates the time between the start and end of the record and associates the duration with the start of the recording. 
-The `group` function defines the column values that will appear in our table. 
-The `sum` function calculates the of all the variables in our "duration" column. 
+The query above focuses on a specific time range to narrow down on one occasion where the state of the production line changes. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the `state` field and `machinery` measurement out of the other variables. 
 
+The next steps in the query gather the necessary columns for the table we need to display the percentages of a specific state at a certain time:
+- The `events.duration()` function calculates the time between the start and end of the record and associates the duration with the start of the recording. The `duration` column creates a value for each unique column. 
+- The `group` function defines the column values that will appear in our table. For our scenario, the ones we need to focus on are the `_value`, `start`, `stop`, and `station_id`. 
+- The `sum` function calculates the of all the variables in our "duration" column. 
+- The `pivot` function aligns all of the mentioned columns together. `rowKey` is the anchor for each point that hinges into a single row. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` will populate that new columns.
 
+To recieve the percentage of time the state was OK or not OK, you use the `map` function. The `map` function starts off by getting the `totalTime` by adding the amount of time the state was in `NOK` or `OK`. To recieve the final percentage, dividing both the `NOK` and `OK` values by the `totalTime`, and then multiply the answer by 100. 
+The final answers will be the percentage values.
 
-the `filter` function narrows down the air sensor sample data to only include an instance where the CO levels have crossed the threshold, and the `map` function gives the data a "true" and "false" state. A Boolean value is created by querying `  |> map(fn: (r) => ({ r with true: if exists r.true then r.true else 0, false: if exists r.false then r.false else 0}))`. 
-The `group` function creates a notification for when the data crosses the threshold. 
-The `sum` function drops all duration not included in the group key. 
-The percent of the state over the total interval is the sum of the duration of true and false states, divided by the total time, multiplied by 100. 
 
 | table | NOK               | OK                 | 
 | ----- | ----------------- | ------------------ | 
@@ -61,15 +60,15 @@ The percent of the state over the total interval is the sum of the duration of t
 
 Given the input data in the table above, the example function above does the following:
 
-1. Turns TLM0200 into true and false statements for when the levels are higher or lower than 150ppm. 
-2. Sums the true and false states to calculate the total time.
-3. Divides the value in step 2 by the total hours of exposure, and then multiplies the quotient by 100.
+1. Sums the `NOK` and `OK` values to calculate `totalTime`. 
+2. Divides `NOK` and `OK` by `totalTime`, and then multiplies the quotient by 100. 
+3. Divides `OK` and `OK` by `totalTime`, and then multiplies the quotient by 100. 
 
-The results are 95.28% of time is in the true state and 4.72% of time is in the false state.
+The results are 97.97% of time is in the true state and 2.03% of time is in the false state.
 
 ##### Mosaic visualization 
 
-The following query displays the change of "false" to "true". A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of carbon monoxide in the air. 
+The following query displays the change of "false" to "true". A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of state. 
 
 ```js
 from(bucket: "machine")
@@ -78,6 +77,7 @@ from(bucket: "machine")
   |> filter(fn: (r) => r._field == "state")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
+At the very end of the query, `aggregateWindow` is used to split up data for the UI to display. Within the agregate, `windowPeriod` divides the data into timewindows that would span a single pixel, so it becomes one point per pixel, specifically the last pixel in the entire window of time. The `createEmpty` function assures 
 
 For more information about mosaic visualizations, see [here](/influxdb/cloud/visualize-data/visualization-types/mosaic/). 
 
