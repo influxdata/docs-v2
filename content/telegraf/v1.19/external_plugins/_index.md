@@ -11,7 +11,6 @@ menu:
 of Telegraf that can run through an `execd` plugin. These external plugins allow for
 more flexibility compared to internal Telegraf plugins.  
 
-- External plugins can be written in any language (internal Telegraf plugins can only written in Go)
 - External plugins can access to libraries not written in Go
 - Utilize licensed software that isn't available to the open source community
 - Can include large dependencies that would otherwise bloat Telegraf
