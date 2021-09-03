@@ -1,7 +1,7 @@
 ---
-title: Write data with the JavaScript client library
+title: Write data with the InfluxDB JavaScript client library
 description: >
-  Use the Node.js JavaScript client library to write data with the InfluxDB API.
+  Use the JavaScript client library to write data with the InfluxDB API in Node.js.
 menu:
   influxdb_2_0:
     name: Write
@@ -10,6 +10,8 @@ influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 101
 aliases:
   - /influxdb/v2.0/reference/api/client-libraries/nodejs/write
+related:
+  - /influxdb/v2.0/write-data/troubleshoot/
 ---
 
 Use the [InfluxDB Javascript client library](https://github.com/influxdata/influxdb-client-js) to write data from a Node.js environment to InfluxDB.
@@ -26,32 +28,54 @@ The Javascript client library includes the following convenient features for wri
 
 ### Write data with the client library
 
-1. Instantiate an `InfluxDB` client. Provide your InfluxDB `url` and `token`.
+1. Instantiate an `InfluxDB` client. Provide your InfluxDB URL and API token.
 
-2. Use the `getWriteApi()` method of the instantiated InfluxDB client to create a **write client**. Provide your InfluxDB `org` and `bucket`.
-    ```js
-    import {InfluxDB, Point} from '@influxdata/influxdb-client'
+   ```js
+   import {InfluxDB, Point} from '@influxdata/influxdb-client'
 
-    const influxDB = new InfluxDB({url, token})
-    const writeApi = influxDB.getWriteApi(org, bucket)
-    ```
+   const influxDB = new InfluxDB({YOUR_INFLUX_URL, YOUR_INFLUX_TOKEN})
+   ```
 
-3. To instruct the client to use default tags when writing points, call the `useDefaultTags()` method.
+2. Use the `getWriteApi()` method of the client to create a **write client**.
+   Provide your InfluxDB org ID and bucket name.
+
+   ```js
+   import {InfluxDB, Point} from '@influxdata/influxdb-client'
+
+   const influxDB = new InfluxDB({YOUR_INFLUX_URL, YOUR_INFLUX_TOKEN})
+   const writeApi = influxDB.getWriteApi(YOUR_INFLUX_ORG, YOUR_INFLUX_BUCKET)
+   ```
+   Replace the following:
+   - *`YOUR_INFLUX_URL`*: the URL of your InfluxDB instance.
+   - *`YOUR_INFLUX_TOKEN`*: your InfluxDB API token.
+   - *`YOUR_INFLUX_ORG`*: the ID of your InfluxDB organization.
+   - *`YOUR_INFLUX_BUCKET`*: the name of your InfluxDB bucket.
+
+3. To apply one or more [tags]({{% latest "influxdb" %}}/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
+   Provide an object of tag key/value pairs.
+
     ```js
     writeApi.useDefaultTags({region: 'west'})
     ```
 
-4. Create a [point](/influxdb/v2.0/reference/glossary/#point) and write it to InfluxDB using the `writePoint()` method.
-   The `tag()` and `floatField()` methods add key value pairs for the tags and fields, respectively.
-   Finally, use the `close()` method to flush all pending writes and finish.
-   The example logs the new data point followed by "WRITE FINISHED" to the terminal. 
+4. Use the `Point()` constructor to create a [point]({{% latest "influxdb" %}}/reference/glossary/#point).
+   1. Call the constructor and provide a [measurement]({{% latest "influxdb" %}}/reference/glossary/#measurement). 
+   2. To add one or more tags, chain the `tag()` method to the constructor.
+      Provide a `name` and `value`.
+   3. To add a field of type `float`, chain the `floatField()` method to the constructor.
+      Provide a `name` and `value`.
 
     ```js
     const point1 = new Point('temperature')
       .tag('sensor_id', 'TLM010')
       .floatField('value', 24)
-    console.log(`${point1}`)
+    ```
 
+5. Use the `writePoint()` method to write the point to your InfluxDB bucket.
+   Finally, use the `close()` method to flush all pending writes.
+   The example logs the new data point followed by "WRITE FINISHED" to the terminal. 
+
+    ```js
     writeApi.writePoint(point1)
 
     writeApi.close().then(() => {
@@ -80,6 +104,16 @@ The Javascript client library includes the following convenient features for wri
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+To run the example from a file, set your InfluxDB environment variables and use `node` to execute the JavaScript file.
+
+```sh
+export INFLUX_URL=https://cloud2.influxdata.com && \
+export INFLUX_TOKEN=YOUR_INFLUX_TOKEN && \
+export INFLUX_ORG=YOUR_INFLUX_ORG && \
+export INFLUX_BUCKET=YOUR_INFLUX_BUCKET && \
+node write.js
+```
 
 ### Response codes
 _For information about **InfluxDB API response codes**, see
