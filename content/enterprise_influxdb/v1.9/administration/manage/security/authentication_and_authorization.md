@@ -101,9 +101,8 @@ Authenticate with the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) using
 
 If you authenticate with both basic authentication **and** the URL query parameters,
 the user credentials specified in the query parameters take precedence.
-The queries in the following examples assume that the user is an [admin user](#admin-users).
-See the section on [authorization](#authorization)
-for the different user types, their privileges, and more on user management.
+The following examples demonstrate queries with [admin user](#admin-users) permissions.
+To learn about different users types, permissions, and how to manage users, see [authorization](#authorization).
 
 {{% note %}}
 InfluxDB Enterprise redacts passwords in log output when you enable authentication.
