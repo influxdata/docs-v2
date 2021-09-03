@@ -43,15 +43,16 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Example
-```js
-vs = from(bucket:"example-bucket")
-    |> range(start: -5m)
-    |> filter(fn:(r) => r._measurement == "cpu")
-    |> findColumn(
-      fn: (key) => key._field == "usage_idle",
-      column: "_value"
-    )
+{{% flux/sample-example-intro %}}
 
-// Use column values
-x = vs[0] + vs[1]
+```js
+import "sampledata"
+
+sampledata.int()
+  |> findColumn(
+    fn: (key) => key.tag == "t1",
+    column: "_value"
+  )
+
+// Returns [-2, 10, 7, 17, 15, 4]
 ```

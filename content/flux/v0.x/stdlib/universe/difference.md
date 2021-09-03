@@ -68,7 +68,7 @@ For each input table with `n` rows, `difference()` outputs a table with `n - 1` 
 - [Calculate the difference between subsequent values with null values](#calculate-the-difference-between-subsequent-values-with-null-values)
 - [Keep the first value when calculating the difference between values](#keep-the-first-value-when-calculating-the-difference-between-values)
 
-### Calculate the difference between subsequent values
+#### Calculate the difference between subsequent values
 
 ```js
 import "sample"
@@ -112,7 +112,7 @@ data
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Calculate the non-negative difference between subsequent values
+#### Calculate the non-negative difference between subsequent values
 ```js
 import "sampledata"
 
@@ -156,7 +156,7 @@ data
 {{< /expand-wrapper >}}
 
 
-### Calculate the difference between subsequent values with null values
+#### Calculate the difference between subsequent values with null values
 ```js
 import "sampledata"
 
@@ -199,13 +199,11 @@ data
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Keep the first value when calculating the difference between values
+#### Keep the first value when calculating the difference between values
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
   |> difference(keepFirst: true)
 ```
 

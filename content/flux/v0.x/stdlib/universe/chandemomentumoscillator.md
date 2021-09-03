@@ -60,9 +60,7 @@ with `x - n` rows.
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
   |> chandeMomentumOscillator(n: 2)
 ```
 

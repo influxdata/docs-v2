@@ -43,9 +43,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ```js
 import "sampledata"
 
-data = sampledata.string()
-
-data
+sampledata.string()
   |> cumulativeSum()
 ```
 {{% expand "View input and output" %}}

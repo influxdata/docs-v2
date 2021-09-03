@@ -52,13 +52,11 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ## Examples
 {{% flux/sample-example-intro %}}
 
-### Count the number of rows in each input table
+#### Count the number of rows in each input table
 ```js
 import "sampledata"
 
-data = sampledata.string()
-
-data
+sampledata.string()
   |> count()
 ```
 

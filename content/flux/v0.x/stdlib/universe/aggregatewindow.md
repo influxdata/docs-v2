@@ -114,7 +114,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 - [Specify parameters of the aggregate function](#specify-parameters-of-the-aggregate-function)
 - [Window and aggregate by calendar month](#window-and-aggregate-by-calendar-month)
 
-### Use an aggregate function with default parameters
+#### Use an aggregate function with default parameters
 The following example uses the default parameters of the
 [`mean()` function](/flux/v0.x/stdlib/universe/mean/)
 to aggregate time-based windows:
@@ -153,7 +153,7 @@ data
 {{< /expand-wrapper >}}
 
 
-### Specify parameters of the aggregate function
+#### Specify parameters of the aggregate function
 To use functions that don't provide defaults for required parameters with `aggregateWindow()`,
 define an anonymous function with `column` and `tables` parameters that pipes-forward
 tables into the aggregate or selector function with all required parameters defined:
@@ -192,7 +192,7 @@ data
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Window and aggregate by calendar month
+#### Window and aggregate by calendar month
 ```js
 import "sampledata"
 

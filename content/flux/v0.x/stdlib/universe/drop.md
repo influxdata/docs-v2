@@ -58,14 +58,12 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 - [Drop a list of columns](#drop-a-list-of-columns)
 - [Drop columns matching a predicate](#drop-columns-matching-a-predicate)
 
-### Drop a list of columns
+#### Drop a list of columns
 
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
   |> drop(columns: ["_time", "tid"])
 ```
 
@@ -101,14 +99,12 @@ data
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Drop columns matching a predicate
+#### Drop columns matching a predicate
 
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
   |> drop(fn: (column) => column =~ /^t/)
 ```
 

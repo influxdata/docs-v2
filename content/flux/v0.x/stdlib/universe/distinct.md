@@ -45,8 +45,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ## Examples
 {{% flux/sample-example-intro plural=true %}}
 
-
-### Return distinct values from the _value column
+#### Return distinct values from the _value column
 ```js
 import "sampledata"
 
@@ -90,13 +89,11 @@ data
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Return distinct values from a non-default column
+#### Return distinct values from a non-default column
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
   |> distinct(column: "tag")
 ```
 
@@ -125,13 +122,11 @@ data
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Return distinct values from with null values
+#### Return distinct values from with null values
 ```js
 import "sampledata"
 
-data = sampledata.int(includeNull: true)
-
-data
+sampledata.int(includeNull: true)
   |> distinct()
 ```
 

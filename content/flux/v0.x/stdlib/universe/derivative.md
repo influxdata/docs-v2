@@ -66,13 +66,11 @@ For each input table with `n` rows, `derivative()` outputs a table with `n - 1` 
 - [Calculate the non-negative rate of change per second](#calculate-the-non-negative-rate-of-change-per-second)
 - [Calculate the rate of change per second with null values](#calculate-the-rate-of-change-per-second-with-null-values)
 
-### Calculate the rate of change per second
+#### Calculate the rate of change per second
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
   |> derivative()
 ```
 
@@ -109,13 +107,11 @@ data
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Calculate the non-negative rate of change per second
+#### Calculate the non-negative rate of change per second
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
   |> derivative(nonNegative: true)
 ```
 
@@ -152,13 +148,11 @@ data
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Calculate the rate of change per second with null values
+#### Calculate the rate of change per second with null values
 ```js
 import "sampledata"
 
-data = sampledata.int(includeNull: true)
-
-data
+sampledata.int(includeNull: true)
   |> derivative()
 ```
 {{% expand "View input and output" %}}

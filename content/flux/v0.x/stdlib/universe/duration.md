@@ -41,19 +41,19 @@ Value to convert.
 - [Convert a string to a duration](#convert-a-string-to-a-duration)
 - [Convert values in a column to durations](#convert-values-in-a-column-to-durations)
 
-### Convert an integer to a duration
+#### Convert an integer to a duration
 ```js
 duration(v: 120000000)
 // Returns 120ms
 ```
 
-### Convert a string to a duration
+#### Convert a string to a duration
 ```js
 duration(v: "12h30m")
 // Returns 12h30m
 ```
 
-### Convert values in a column to durations
+#### Convert values in a column to durations
 The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
 to generate sample data and show how to iterate over values in a stream of tables
 and convert them to duration values.

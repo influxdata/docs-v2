@@ -47,13 +47,11 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ## Examples
 {{% flux/sample-example-intro %}}
 
-### Return rows with the two lowest values
+#### Return rows with the two lowest values
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
   |> bottom(n:2)
 ```
 

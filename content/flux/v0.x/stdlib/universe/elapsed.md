@@ -51,13 +51,11 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ## Examples
 {{% flux/sample-example-intro %}}
 
-##### Calculate the time between points in seconds
+#### Calculate the time between points in seconds
 ```js
 import "sampledata"
 
-data = sampledata.int()
-
-data
+sampledata.int()
 	|> elapsed(unit: 1s)
 ```
 

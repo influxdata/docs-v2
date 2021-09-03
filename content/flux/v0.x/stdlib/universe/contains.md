@@ -37,7 +37,7 @@ Set of values to search in.
 
 ## Examples
 
-###### Filter on a set of specific fields
+#### Filter on a set of specific fields
 ```js
 import "influxdata/influxdb/sample"
 

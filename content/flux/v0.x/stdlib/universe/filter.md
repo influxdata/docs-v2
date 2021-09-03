@@ -74,7 +74,12 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ## Examples
 
-##### Filter based on measurement, field, and tag
+- [Filter based on InfluxDB measurement, field, and tag](#filter-based-on-influxdb-measurement-field-and-tag)
+- [Keep empty tables when filtering](#keep-empty-tables-when-filtering)
+- [Filter out null values](#filter-out-null-values)
+- [Filter values based on thresholds](#filter-values-based-on-thresholds)
+
+#### Filter based on InfluxDB measurement, field, and tag
 ```js
 from(bucket:"example-bucket")
   |> range(start:-1h)
@@ -85,24 +90,117 @@ from(bucket:"example-bucket")
   )
 ```
 
-##### Filter out null values
+#### Keep empty tables when filtering
+The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/).
+
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
+import "sampledata"
+import "experimental/table"
+
+sampledata.int()
+  |> filter(fn: (r) => r._value > 18, onEmpty: "keep")
+```
+
+{{% note %}}
+Use [`table.fill()`](/flux/v0.x/stdlib/experimental/table/fill/) to fill empty tables.
+{{% /note %}}
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Filter out null values
+The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/).
+
+```js
+import "sampledata"
+
+sampledata.int(includeNull: true)
   |> filter(fn: (r) => exists r._value )
 ```
 
-##### Filter values based on thresholds
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" true %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |     -2 |
+| 2021-01-01T00:00:20Z | t1  |      7 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Filter values based on thresholds
+The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/).
+
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> filter(fn: (r) => r._value > 50.0 and r._value < 65.0 )
+import "sampledata"
+
+sampledata.int()
+  |> filter(fn: (r) => r._value > 0 and r._value < 10 )
 ```
 
-##### Keep empty tables when filtering
-```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "events" and r._field == "open")
-  |> filter(fn: (r) => r.doorId =~ /^2.*/, onEmpty: "keep")
-```
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t1  |      7 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
