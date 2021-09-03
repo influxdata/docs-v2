@@ -7,9 +7,9 @@ menu:
      weight: 50
 ---
 
-[External plugins](/EXTERNAL_PLUGINS.md) are external programs that are built outside
-of Telegraf that can run through an `execd` plugin. These external plugins allow for
-more flexibility compared to internal Telegraf plugins.  
+To add functionality that doesn't already exist in Telegraf plugins, 
+write an [external plugin](/EXTERNAL_PLUGINS.md) in any language (Telegraf plugins must be written in Go), 
+and then run the external plugin through the `etcd` plugin.
 
 - External plugins can access to libraries not written in Go
 - Utilize licensed software that isn't available to the open source community
