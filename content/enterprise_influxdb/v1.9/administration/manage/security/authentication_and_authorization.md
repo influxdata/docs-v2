@@ -97,7 +97,7 @@ to `true` to require authentication on profiling and ping endpoints.
 
 #### Authenticate with the InfluxDB API
 
-There are two options for authenticating with the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/).
+Authenticate with the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) using one of the following options:
 
 - [Authenticate with Basic Authentication](#authenticate-with-basic-authentication)
 - [Authenticate with query parameters in the URL or request body](#authenticate-with-query-parameters-in-the-url-or-request-body)
