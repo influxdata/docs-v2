@@ -37,7 +37,7 @@ to migrate data from OSS to an InfluxDB Enterprise cluster without downtime or m
    ```
 
    Note the current date and time when you take the backup.
-   For more information, see [`-backup`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#backup)
+   For more information, see [`-backup`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#backup).
 
 4. Restore the backup on the cluster by running the following:
 
