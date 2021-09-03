@@ -16,7 +16,7 @@ repo. This allows anyone to build and run it as a separate app using one of the
 - [processors.execd](https://github.com/influxdata/telegraf/blob/master//plugins/processors/execd)
 - [outputs.execd](https://github.com/influxdata/telegraf/blob/master//plugins/outputs/execd)
 
-## Externalize a plugin with using the shim wrapper
+## Extract a plugin using the shim wrapper
 
 1. Move the project to an external repo. We recommend preserving the path
   structure: for example, if your plugin was located at
@@ -28,15 +28,15 @@ repo. This allows anyone to build and run it as a separate app using one of the
   The shim isn't designed to run multiple plugins at the same time, so include only one plugin per repo.
   {{% /note %}}
 3. Edit the `main.go` file to import your plugin. For example,`_ "github.com/me/my-plugin-telegraf/plugins/inputs/cpu"`. See an example of where to edit `main.go` [here](https://github.com/influxdata/telegraf/blob/7de9c5ff279e10edf7fe3fdd596f3b33902c912b/plugins/common/shim/example/cmd/main.go#L9).
-4. Optionally, add a [plugin.conf](https://github.com/influxdata/telegraf/blob/master/plugins/common/shim/example/cmd/plugin.conf) for configuration
+4. Add a [plugin.conf](https://github.com/influxdata/telegraf/blob/master/plugins/common/shim/example/cmd/plugin.conf) for configuration
   specific to your plugin.
   {{% note %}}
-  This config file must be separate from the rest of the config for Telegraf, and must not be in a shared directory where Telegraf is expecting to load all configs.
+  This config file must be separate from the rest of the config for Telegraf, and must not be in a shared directory with other Telegraf configs.
   {{% /note %}}
 
 ## Test and run your plugin
 
-1. Build the `cmd/main.go` using the following command with your plugin name: `go build -o project-name cmd/main.go`
+1. Build the `cmd/main.go` using the following command with your plugin name: `go build -o plugin-name cmd/main.go`
 1. Test the binary:
 2. If you're building a processor or output, first feed valid metrics in on `STDIN`. Skip this step if you're building an input.
 3. Test out the binary by running it (for example, `./project-name -config plugin.conf`).
