@@ -32,7 +32,8 @@ Common failure scenarios that return an HTTP `4xx` or `5xx` error status code in
 - The client or server reached a timeout threshold. 
 - The size of the data payload was too large. 
 - The data was not formatted correctly. 
-- The data did not conform to the explicit bucket schema.
+- The data did not conform to the [explicit bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
+  See how to troubleshoot specific [bucket schema errors](/influxdb/cloud/organizations/buckets/bucket-schema/#troubleshoot-errors).
 
 Writes may fail partially or completely even though InfluxDB returns an HTTP `2xx` status code for a valid request. For example, a partial write may occur when InfluxDB writes all points that conform to the bucket schema, but rejects points that have the wrong data type in a field.      
 
@@ -71,7 +72,7 @@ To get a log of rejected data points, query the [`rejected_points` measurement](
 #### Rejected point example 
 
 ```sh
-rejected_points,bucket=01234f6701e34dd7,field=somefield,gotType=Float,
-  measurement=somemeasurement,reason=type\ conflict\ in\ batch\ write,
+rejected_points,bucket=YOUR_BUCKET,field=YOUR_FIELD,gotType=Float,
+  measurement=YOUR_MEASUREMENT,reason=type\ conflict\ in\ batch\ write,
   wantType=Integer count=1i 1627906197091972750
 ```

@@ -68,7 +68,7 @@ To get a log of rejected data points, query the [`rejected_points` measurement](
 #### Rejected point example
 
 ```sh
-rejected_points,bucket=01234f6701e34dd7,field=somefield,gotType=Float,
-  measurement=somemeasurement,reason=type\ conflict\ in\ batch\ write,
+rejected_points,bucket=YOUR_BUCKET,field=YOUR_FIELD,gotType=Float,
+  measurement=YOUR_MEASUREMENT,reason=type\ conflict\ in\ batch\ write,
   wantType=Integer count=1i 1627906197091972750
 ```
