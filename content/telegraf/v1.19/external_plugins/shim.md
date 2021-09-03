@@ -11,7 +11,7 @@ menu:
 The _shim_ makes it easy to extract an internal input,
 processor, or output plugin from the main Telegraf repo out to a stand-alone
 repo. This lets you build and run an internal plugin as a separate app. Use the 
-`execd` plugins:
+`execd` plugin for the type of plugin you're extracting:
 - [inputs.execd](/plugins/inputs/execd)
 - [processors.execd](/plugins/processors/execd)
 - [outputs.execd](/plugins/outputs/execd)
