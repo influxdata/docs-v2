@@ -44,11 +44,11 @@ to migrate data from OSS to an InfluxDB Enterprise cluster without downtime or m
    ```sh
    influxd-ctl restore -portable  [ -host <host:port> ] <path-to-backup-files>
    ```
-   For more information, see [`-restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore)
+   For more information, see [`-restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore).
 
 5. To avoid data loss, dual write to both OSS and Enterprise while completing the remaining steps.
-   See [Write data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/write_data/).
-   This keeps the OSS and cluster active for testing and acceptance work.
+   This keeps the OSS and cluster active for testing and acceptance work. For more information, see [Write data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/write_data/).
+   
 
 6. [Export data from OSS](/enterprise_influxdb/v1.9/administration/backup-and-restore/#exporting-data)
    from the time the backup was taken to the time the dual write started.
@@ -92,14 +92,14 @@ sudo systemctl stop influxdb
     {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
 
-    Double check that the service is stopped.
+    3. Double check that the service is stopped.
     The following command should return nothing:
 
     ```bash
     ps ax | grep influxd
     ```
 
-3. Remove the InfluxDB OSS package.
+4. Remove the InfluxDB OSS package.
 
     {{< code-tabs-wrapper >}}
     {{% code-tabs %}}
