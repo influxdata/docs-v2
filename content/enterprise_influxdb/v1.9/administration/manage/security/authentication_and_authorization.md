@@ -96,10 +96,10 @@ to `true` to require authentication on profiling and ping endpoints.
 
 Authenticate with the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) using one of the following options:
 
-- [Authenticate with Basic Authentication](#authenticate-with-basic-authentication)
+- [Authenticate with basic authentication](#authenticate-with-basic-authentication)
 - [Authenticate with query parameters in the URL or request body](#authenticate-with-query-parameters-in-the-url-or-request-body)
 
-If you authenticate with both Basic Authentication **and** the URL query parameters,
+If you authenticate with both basic authentication **and** the URL query parameters,
 the user credentials specified in the query parameters take precedence.
 The queries in the following examples assume that the user is an [admin user](#admin-users).
 See the section on [authorization](#authorization)
@@ -109,7 +109,7 @@ for the different user types, their privileges, and more on user management.
 InfluxDB Enterprise redacts passwords in log output when you enable authentication.
 {{% /note %}}
 
-##### Authenticate with Basic Authentication
+##### Authenticate with basic authentication
 ```bash
 curl -G http://localhost:8086/query \
   -u todd:password4todd \
