@@ -1,56 +1,30 @@
 ---
-title: External plugins
+title: Write an external plugins
 description:
 menu:
   telegraf_1_19:
-     name: External plugins
+     name: Write an external plugin
      weight: 50
      parent: External plugins
 ---
 Set up your plugin to use it with `execd`.
 
-Follow the guidelines for our general [input](/docs/INPUTS.md),
-[output](/docs/OUTPUTS.md), [processor](/docs/PROCESSORS.md), and [aggregator](/docs/AGGREGATORS.md) plugins.
-Reference the documentation on how to create these plugins written in Go.
+{{% note %}}
+For listed [external plugins](/EXTERNAL_PLUGINS.md), the author of the external plugin is also responsible for the maintenance
+and feature development of external plugins.
+{{% /note %}}
 
-_For listed [external plugins](/EXTERNAL_PLUGINS.md), the author of the external plugin is also responsible for the maintenance
-and feature development of external plugins._
-
-1. Write your Telegraf plugin.  Depending on the plugin, follow the guidelines on how to create the plugin itself using InfluxData's best practices:
-   - [Input Plugins](/docs/INPUTS.md)
-   - [Processor Plugins](/docs/PROCESSORS.md)
-   - [Aggregator Plugins](/docs/AGGREGATORS.md)
-   - [Output Plugins](/docs/OUTPUTS.md)
-2. If your plugin is written in Go, include the steps for the [Execd Go Shim](/plugins/common/shim#steps-to-build-and-run-your-plugin)
-  1. Move the project to an external repo, it's recommended to preserve the path
-  structure, (but not strictly necessary). eg if your plugin was at
-  `plugins/inputs/cpu`, it's recommended that it also be under `plugins/inputs/cpu`
-  in the new repo. For a further example of what this might look like, take a
-  look at [ssoroka/rand](https://github.com/ssoroka/rand) or
-  [danielnelson/telegraf-execd-openvpn](https://github.com/danielnelson//telegraf-execd-openvpn)
-  1. Copy [main.go](/plugins/common/shim/example/cmd/main.go) into your project under the `cmd` folder.
-  This will be the entrypoint to the plugin when run as a stand-alone program, and
-  it will call the shim code for you to make that happen. It's recommended to
-  have only one plugin per repo, as the shim is not designed to run multiple
-  plugins at the same time (it would vastly complicate things).
-  1. Edit the main.go file to import your plugin. Within Telegraf this would have
-  been done in an all.go file, but here we don't split the two apart, and the change
-  just goes in the top of main.go. If you skip this step, your plugin will do nothing.
-  eg: `_ "github.com/me/my-plugin-telegraf/plugins/inputs/cpu"`
-  1. Optionally add a [plugin.conf](./example/cmd/plugin.conf) for configuration
-  specific to your plugin. Note that this config file **must be separate from the
-  rest of the config for Telegraf, and must not be in a shared directory where
-  Telegraf is expecting to load all configs**. If Telegraf reads this config file
-  it will not know which plugin it relates to. Telegraf instead uses an execd config
-  block to look for this plugin.
-  1. Add usage and development instructions in the homepage of your repository for running
-  your plugin with its respective `execd` plugin. Please refer to
-  [openvpn](https://github.com/danielnelson/telegraf-execd-openvpn#usage) and [awsalarms](https://github.com/vipinvkmenon/awsalarms#installation)
-  for examples. Include the following steps:
-     1. How to download the release package for your platform or how to clone the binary for your external plugin
-     1. The commands to build your binary
-     1. Location to edit your `telegraf.conf`
-     1. Configuration to run your external plugin with [inputs.execd](/plugins/inputs/execd),
-     [processors.execd](/plugins/processors/execd) or [outputs.execd](/plugins/outputs/execd)
-  1. Submit your plugin by opening a PR to add your external plugin to the [/EXTERNAL_PLUGINS.md](/EXTERNAL_PLUGINS.md)
-  list. Please include the plugin name, link to the plugin repository and a short description of the plugin.
+1. Write your Telegraf plugin. Follow InfluxData's best practices:
+   - [Input plugins](https://github.com/influxdata/telegraf/blob/master/docs/INPUTS.md)
+   - [Processor plugins](https://github.com/influxdata/telegraf/blob/master/docs/PROCESSORS.md)
+   - [Aggregator plugins](https://github.com/influxdata/telegraf/blob/master/docs/AGGREGATORS.md)
+   - [Output plugins](https://github.com/influxdata/telegraf/blob/master/docs/OUTPUTS.md)
+2. If your plugin is written in Go, follow the steps for the [Execd Go Shim](/telegraf/latest/external_plugins/shim).
+3. Add usage and development instructions in the homepage of your repository for running your plugin with its respective `execd` plugin. Refer to [openvpn](https://github.com/danielnelson/telegraf-execd-openvpn#usage) and [awsalarms](https://github.com/vipinvkmenon/awsalarms#installation) for examples.
+Include the following steps:
+     - How to download the release package for your platform or how to clone the binary for your external plugin
+     - Commands to build your binary
+     - Location to edit your `telegraf.conf`
+     - Configuration to run your external plugin with [inputs.execd](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/execd),
+     [processors.execd](/plugins/processors/execd) or [outputs.execd](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/execd)
+4. Submit your plugin by opening a PR to add your external plugin to the [/EXTERNAL_PLUGINS.md](https://github.com/influxdata/telegraf/blob/master/EXTERNAL_PLUGINS.md) list. Include the plugin name, a link to the plugin repository and a short description of the plugin.

@@ -44,6 +44,10 @@ Related entries: [collection interval](/telegraf/v1.15/concepts/glossary/#collec
 
 ## external plugin
 
+External plugins are external programs that are built outside
+of Telegraf that can run through an `execd` plugin. These external plugins allow for
+more flexibility compared to internal Telegraf plugins.
+
 ## flush interval
 
 The global interval for flushing data from each output plugin to its destination.
