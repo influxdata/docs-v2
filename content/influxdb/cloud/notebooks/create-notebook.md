@@ -78,11 +78,11 @@ Select one of the following pass-through cell-types:
 
 Select one of the following output cell-types:
 
-- To recieve an alert, select [Notification](#notification) and complete the steps below.
+- To recieve a notification, select [Alert](#alert) and complete the steps below.
 - To write output to a bucket, select [Output to Bucket](#output-to-bucket) and complete the steps below.
 - To create a task, select [Schedule](#schedule) and complete the steps below.
 
-#### Notification
+#### Alert
 
 1. Enter a time range to automatically check the data and enter your query offset.
 2. Customize the conditions to send an alert.
@@ -90,7 +90,7 @@ Select one of the following output cell-types:
    - Slack and a Slack Channel
    - HTTP post
    - Pager Duty
-4. (Optional) Personalize your message. By default, the message is "Notification Rule: ${ r._notification_rule_name } triggered by check: ${ r._check_name }: ${ r._message }."
+4. (Optional) Personalize your message. By default, the message is "${strings.title(v: r._type)} for ${r._source_measurement} triggered at ${time(v: r._source_timestamp)}!"
 5. Click **Export as Task** to create your alarm.
 
 #### Output to bucket

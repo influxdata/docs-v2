@@ -40,12 +40,9 @@ from(
 
 {{% note %}}
 #### Query remote InfluxDB data sources
-Use `from()` to retrieve data from remote InfluxDB 2.0 OSS and InfluxDB Cloud instances.
+Use `from()` to retrieve data from remote InfluxDB OSS 1.7+, InfluxDB Enterprise 1.9+, and InfluxDB Cloud.
 To query remote InfluxDB sources, include the [host](#host), [token](#token), and
 [org](#org) (or [orgID](#orgid)) parameters.
-
-`from()` **cannot retrieve data** from **remote** InfluxDB OSS 1.x or InfluxDB Enterprise 1.x data sources
-_(including hosted, single-tenant InfluxDB Enterprise clusters)_.
 {{% /note %}}
 
 ## Parameters
@@ -53,10 +50,14 @@ _(including hosted, single-tenant InfluxDB Enterprise clusters)_.
 ### bucket
 Name of the bucket to query.
 
+**InfluxDB 1.x or Enterprise**: provide an empty string (`""`)
+
 _**Data type:** String_
 
 ### bucketID
 String-encoded bucket ID to query.
+
+**InfluxDB 1.x or Enterprise**: provide an empty string (`""`)
 
 _**Data type:** String_
 
@@ -69,6 +70,8 @@ _**Data type:** String_
 ### org
 Organization name.
 
+**InfluxDB 1.x or Enterprise**: provide an empty string (`""`)
+
 _**Data type:** String_
 
 ### orgID
@@ -78,6 +81,11 @@ _**Data type:** String_
 
 ### token
 InfluxDB [API token](/influxdb/v2.0/security/tokens/).
+
+**InfluxDB 1.x or Enterprise**:
+If authentication is _disabled_, provide an empty string (`""`).
+If authentication is _enabled_, provide your InfluxDB username and password
+using the `<username>:<password>` syntax.
 
 _**Data type:** String_
 
