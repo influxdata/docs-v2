@@ -22,8 +22,13 @@ The following scenarios are ways to retrieve information about your IoT sensors:
 
 In this scenario, we look at whether a production line is running smoothly (`state`=`OK`) and what percentage of time the production line is running smoothly or not (`state`=`NOK`). If no points are recorded during the interval (`state`=`NaN`), you may opt to retrieve the last state prior to the interval. 
 
+This scenario uses the machine-processing sample data. To learn more about sample data, see [sample data](/influxdb/cloud/reference/sample-data/).
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
+
+{{% note %}}
+If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
+{{% /note %}}
 
 ```js
 import "contrib/tomhollingworth/events"
@@ -42,13 +47,18 @@ return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / to
 })
 ```
 
-The query above focuses on a specific time range to narrow down on one occasion where the state of the production line changes. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the `state` field and `machinery` measurement out of the other variables. 
+The query above focuses on a specific time range to narrow down on one occasion where the state of the production line changes. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the `state` field and `machinery` measurement out of the other variables. The `state` is stored as a field, and then the `fieldKey` is stored as a value. 
 
-The next steps in the query gather the necessary columns for the table we need to display the percentages of a specific state at a certain time:
-- The `events.duration()` function calculates the time between the start and end of the record and associates the duration with the start of the recording. The `duration` column creates a value for each unique column. 
-- The `group` function defines the column values that will appear in our table. For our scenario, the ones we need to focus on are the `_value`, `start`, `stop`, and `station_id`. 
-- The `sum` function calculates the of all the variables in our "duration" column. 
-- The `pivot` function aligns all of the mentioned columns together. `rowKey` is the anchor for each point that hinges into a single row. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` will populate that new columns.
+In the table below, the next three functions are responsible for displaying the values and the duration of the values during our time range.
+
+| table | _value | duration | 
+| ----- | ------ | -------- | 
+| 0     | NOK    | 22       | 
+| 1     | OK     | 172      | 
+
+ The `events.duration()` function calculates the time between the start and end of the record and associates the duration with the start of the recording. The `duration` column creates a value for each unique column and `sum` calculates the variables in that column, which gives it the value. The `group` function defines the column values that will appear in our table. 
+
+ In order to move the values into one column, the `pivot` function aligns all of the mentioned columns together. `rowKey` is the anchor for each point that hinges into a single row. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` populates that new columns.
 
 To recieve the percentage of time the state was OK or not OK, you use the `map` function. The `map` function starts off by getting the `totalTime` by adding the amount of time the state was in `NOK` or `OK`. To recieve the final percentage, dividing both the `NOK` and `OK` values by the `totalTime`, and then multiply the answer by 100. 
 The final answers will be the percentage values.
@@ -56,7 +66,7 @@ The final answers will be the percentage values.
 
 | table | NOK               | OK                 | 
 | ----- | ----------------- | ------------------ | 
-| 0     | 2.027027027027027 | 97.97297297297297  | 
+| 0     | 11.34020618556701 | 88.65979381443299  | 
 
 Given the input data in the table above, the example function above does the following:
 
@@ -64,7 +74,7 @@ Given the input data in the table above, the example function above does the fol
 2. Divides `NOK` and `OK` by `totalTime`, and then multiplies the quotient by 100. 
 3. Divides `OK` and `OK` by `totalTime`, and then multiplies the quotient by 100. 
 
-The results are 97.97% of time is in the true state and 2.03% of time is in the false state.
+The results 88.66% of time is in the true state and 11.34% of time is in the false state.
 
 ##### Mosaic visualization 
 
@@ -109,7 +119,7 @@ In this example, the `_value` in the table below shows input data from the `temp
 | g1        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.541438067883554 |
 | g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.35824278556158  |
 | g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.687188602516066 |
-
+| g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.52875251975071  |
 
 Given the input data in the table above, the example function above does the following:
 
