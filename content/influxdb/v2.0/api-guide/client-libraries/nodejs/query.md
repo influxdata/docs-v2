@@ -30,7 +30,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 
 2. Instantiate an `InfluxDB` client. Provide your InfluxDB URL and API token.
    Use the `getQueryApi()` method of the client.
-   Provide your InfluxDB org ID to create a configured **query client**.
+   Provide your InfluxDB organization ID to create a configured **query client**.
 
    ```js
    import { InfluxDB, Point } from '@influxdata/influxdb-client'
