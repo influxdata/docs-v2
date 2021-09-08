@@ -67,7 +67,7 @@ Add both as dependencies of your project.
 
 ## Next steps
 
-Once you've installed the Javascript client library, you're ready to [write data](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/write.md) to InfluxDB or [get started](#get-started-with-examples) with other examples from the client library.
+Once you've installed the Javascript client library, you're ready to [write data](/influxdb/v2.0/api-guide/client-libraries/nodejs/write.md) to InfluxDB or [get started](#get-started-with-examples) with other examples from the client library.
 
 ## Get started with examples 
 
