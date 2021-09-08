@@ -73,7 +73,7 @@ The Javascript client library includes the following convenient features for wri
 
 5. Use the `writePoint()` method to write the point to your InfluxDB bucket.
    Finally, use the `close()` method to flush all pending writes.
-   The example logs the new data point followed by "WRITE FINISHED" to the terminal. 
+   The example logs the new data point followed by "WRITE FINISHED" to stdout. 
 
     ```js
     writeApi.writePoint(point1)
