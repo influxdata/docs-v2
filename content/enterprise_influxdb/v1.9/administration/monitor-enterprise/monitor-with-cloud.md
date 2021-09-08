@@ -21,6 +21,7 @@ Do the following:
 5. [View the Monitoring dashboard](#view-the-monitoring-dashboard)
 6. (Optional) [Alert when metrics stop reporting](#alert-when-metrics-stop-reporting)
 7. (Optional) [Create a notification endpoint and rule](#create-a-notification-endpoint-and-rule)
+8. (Optional) [Monitor with InfluxDB Insights and Aware](#monitor-with-influxdb-insights-and-aware)
 
 ## Review requirements
 
