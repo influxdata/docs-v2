@@ -24,7 +24,7 @@ Learn how to handle and recover from errors when writing to InfluxDB.
 
 ## Common failure scenarios
 
-Write requests made to InfluxDB may fail for a number of reasons.
+InfluxDB write requests may fail for a number of reasons.
 Common failure scenarios that return an HTTP `4xx` or `5xx` error status code include the following:
 
 - The request exceeded a rate limit. 
