@@ -18,7 +18,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 
 ## Before you begin
 
-- [Install the client library and other dependencies](/{{% latest "influxdb" %}}/v2.0/api-guide/client-libraries/nodejs/install.md).
+- [Install the client library and other dependencies](/influxdb/v2.0/api-guide/client-libraries/nodejs/install.md).
 
 ## Query InfluxDB 
 
