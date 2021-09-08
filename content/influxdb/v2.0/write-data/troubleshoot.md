@@ -69,7 +69,7 @@ If you notice data is missing in your bucket, check the following:
 ### Review rejected points
 
 If some of your data did not write to the bucket, check for rejected data points. InfluxDB may have rejected points even if the HTTP request returned "Success".
-To get a log of rejected data points, query the [`rejected_points` measurement](/{{% latest "influxdb" %}}/reference/internals/system-buckets/#_monitoring-bucket-schema) in your organization's `_monitoring` bucket.
+To get a log of rejected data points, query the [`rejected_points` measurement](/influxdb/v2.0/reference/internals/system-buckets/#_monitoring-bucket-schema) in your organization's `_monitoring` bucket.
 
 #### Rejected point example
 
