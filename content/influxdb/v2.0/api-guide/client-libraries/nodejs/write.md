@@ -24,7 +24,7 @@ The Javascript client library includes the following convenient features for wri
 
 ### Before you begin
 
-- [Install the client library](/{{% latest "influxdb" %}}/v2.0/api-guide/client-libraries/nodejs/install.md).
+- [Install the client library](/influxdb/v2.0/api-guide/client-libraries/nodejs/install.md).
 
 ### Write data with the client library
 
