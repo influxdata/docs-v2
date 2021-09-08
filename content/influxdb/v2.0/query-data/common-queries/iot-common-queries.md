@@ -22,7 +22,7 @@ The following scenarios are ways to retrieve information about your IoT sensors:
 
 In this scenario, we look at whether a production line is running smoothly (`state`=`OK`) and what percentage of time the production line is running smoothly or not (`state`=`NOK`). If no points are recorded during the interval (`state`=`NaN`), you may opt to retrieve the last state prior to the interval. 
 
-This scenario uses the machine-processing sample data. To learn more about sample data, see [sample data](/influxdb/cloud/reference/sample-data/).
+This scenario uses the machine-production sample data. To learn more about sample data, see [sample data](/influxdb/cloud/reference/sample-data/).
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
@@ -49,19 +49,20 @@ return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / to
 
 The query above focuses on a specific time range to narrow down on one occasion where the state of the production line changes. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the `state` field and `machinery` measurement out of the other variables. The `state` is stored as a field, and then the `fieldKey` is stored as a value. 
 
-In the table below, the next three functions are responsible for displaying the values and the duration of the values during our time range.
+In the table below, the next three functions display the column values and the duration of the values.
 
 | table | _value | duration | 
 | ----- | ------ | -------- | 
 | 0     | NOK    | 22       | 
 | 1     | OK     | 172      | 
 
- The `events.duration()` function calculates the time between the start and end of the record and associates the duration with the start of the recording. The `duration` column creates a value for each unique column and `sum` calculates the variables in that column, which gives it the value. The `group` function defines the column values that will appear in our table. 
+ The `events.duration()` function calculates the time between the start and end of the record and associates the duration with the start of the recording. Within it, the `duration` column creates a value for each unique column and `sum` calculates the variables in that column, which gives it the value. The `group` function defines the column values that will appear in our table. 
 
- In order to move the values into one column, the `pivot` function aligns all of the mentioned columns together. `rowKey` is the anchor for each point that hinges into a single row. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` populates that new columns.
+ To move the values into one column, the `pivot` function aligns the columns together. `rowKey` is the anchor for each point that hinges into a single row. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` populates that new columns.
 
-To recieve the percentage of time the state was OK or not OK, you use the `map` function. The `map` function starts off by getting the `totalTime` by adding the amount of time the state was in `NOK` or `OK`. To recieve the final percentage, dividing both the `NOK` and `OK` values by the `totalTime`, and then multiply the answer by 100. 
-The final answers will be the percentage values.
+To recieve the percentage of time the state is OK or not OK, you use the `map` function. The `map` function starts off by getting the `totalTime` by adding the amount of time the state was in `NOK` or `OK`. To recieve the final percentage, dividing both the `NOK` and `OK` values by the `totalTime`, and then multiply the answer by 100. 
+
+The final table will contain the percentage values.
 
 
 | table | NOK               | OK                 | 
@@ -70,7 +71,7 @@ The final answers will be the percentage values.
 
 Given the input data in the table above, the example function above does the following:
 
-1. Sums the `NOK` and `OK` values to calculate `totalTime`. 
+1. Adds the `NOK` and `OK` values to calculate `totalTime`. 
 2. Divides `NOK` and `OK` by `totalTime`, and then multiplies the quotient by 100. 
 3. Divides `OK` and `OK` by `totalTime`, and then multiplies the quotient by 100. 
 
@@ -87,7 +88,9 @@ from(bucket: "machine")
   |> filter(fn: (r) => r._field == "state")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
-At the very end of the query, `aggregateWindow` is used to split up data for the UI to display. Within the agregate, `windowPeriod` divides the data into timewindows that would span a single pixel, so it becomes one point per pixel, specifically the last pixel in the entire window of time. The `createEmpty` function assures 
+At the end of the query, `aggregateWindow` is used to split up data for the UI to display. Within the agregate, `windowPeriod` divides the data into timewindows that would span a single pixel, so it becomes one point per pixel, specifically the last pixel in the entire window of time. The `createEmpty: false` function assures that the mosaic visualization won't create an empty point with a null value if there is a time window with no data. 
+
+These features assure that the mosaic visualization is properly displayed. 
 
 For more information about mosaic visualizations, see [here](/influxdb/cloud/visualize-data/visualization-types/mosaic/). 
 
@@ -97,7 +100,11 @@ Calculate the time-weighted average by using the linearly interpolated integral 
 
 #### Example: Calculate oil temperature 
 
-For example, you want to calculate oil temperature over a given interval.  
+For example, you want to calculate oil temperature over a given interval using the machine-production sample data.  
+
+{{% note %}}
+If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
+{{% /note %}}
 
 The total exposure considers both the total hours in the day and temperature for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time. In this example, the average oil temperature for the time range is calculated across three different stations in a production line. 
 
@@ -107,19 +114,26 @@ The total exposure considers both the total hours in the day and temperature for
 from(bucket: "machine")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) =>
-    r._measurement == "machinery" and r._field == "oil temp"
+    r._measurement == "machinery" and r._field == "oil_temp"
   )
   |> timeWeightedAvg(unit: 2h)
 ```
+
+from(bucket: "machine")
+  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:20Z)
+  |> filter(fn: (r) =>
+    r._measurement == "machinery" and r._field == "oil_temp"
+  )
+|> timeWeightedAvg(unit: 5s)
 
 In this example, the `_value` in the table below shows input data from the `temperature` field in the `machinery` measurement. For the following input data:
 
 | stationID | _start                   | _stop                    | _value             |
 |:-----     | -----                    | -----                    |             ------:|
-| g1        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.541438067883554 |
-| g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.35824278556158  |
-| g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.687188602516066 |
-| g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.52875251975071  |
+| g1        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.0035550773662   |
+| g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 54.48890346533612  |
+| g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 27.895718458756782 |
+| g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 70.6348839303196   |
 
 Given the input data in the table above, the example function above does the following:
 
@@ -133,24 +147,35 @@ Given the input data in the table above, the example function above does the fol
 
 ## Calculate value between events
 
-Calculate the value between events by 
+Calculate the value between events by getting the average value during a specific time range. 
 
-The following example queries data starting with when a day starts and ends. The following query would calculate the average temperature value during that period.
+The following scenario queries data starting when the four production lines starts and ends. The following query would calculate the average oil temperature value during that period.
 
-If each day is identified with a tag, it means that the start and end is the only range when data will be collected for this series and ultimately the data will age out. If we have many days recorded, we should be able to use tags to correctly calculate this. But, an example detailing this out would be useful.
+{{% note %}}
+If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
+{{% /note %}}
 
 ```js
-batchStart = 2021-01-01T00:00:00Z
-batchStop = 2021-01-01T01:00:00Z
+batchStart = 2021-08-01T00:00:00Z
+batchStop = 2021-08-02T00:00:00Z
 
-from(bucket: "sample")
+from(bucket: "machine")
   |> range(start: batchStart, stop: batchStop)
   |> filter(fn: (r) =>
-    r._measurement == "machine" and
+    r._measurement == "machinery" and
     r._field == "oil_temp"
   )
   |> mean()
 ```
+
+
+
+| stationID | _start                   | _stop                    | _value             |
+|:-----     | -----                    | -----                    |             ------:|
+| g1        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.359974719346376 |
+| g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.12639796196727  |
+| g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.68573009329573  |
+| g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.219930334526325 |
 
 ## Record data points with added context
 
