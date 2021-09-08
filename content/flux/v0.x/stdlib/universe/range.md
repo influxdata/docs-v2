@@ -65,28 +65,33 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ## Examples
 
-###### Time range relative to now
+- [Time range relative to now](#time-range-relative-to-now)
+- [Relative time range](#relative-time-range)
+- [Absolute time range](#absolute-time-range)
+- [Absolute time range with Unix timestamps](#absolute-time-range-with-unix-timestamps)
+
+#### Time range relative to now
 ```js
 from(bucket:"example-bucket")
   |> range(start: -12h)
   // ...
 ```
 
-###### Relative time range
+#### Relative time range
 ```js
 from(bucket:"example-bucket")
   |> range(start: -12h, stop: -15m)
   // ...
 ```
 
-###### Absolute time range
+#### Absolute time range
 ```js
 from(bucket:"example-bucket")
   |> range(start: 2018-05-22T23:30:00Z, stop: 2018-05-23T00:00:00Z)
   // ...
 ```
 
-###### Absolute time range with Unix timestamps
+#### Absolute time range with Unix timestamps
 ```js
 from(bucket:"example-bucket")
   |> range(start: 1527031800, stop: 1527033600)

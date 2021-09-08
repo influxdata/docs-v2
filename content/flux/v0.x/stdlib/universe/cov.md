@@ -21,7 +21,7 @@ then performing the covariance operation.
 
 
 ```js
-cov(x: table1, y: table2, on: ["_time", "_field"], pearsonr: false)
+cov(x: stream1, y: stream2, on: ["_time", "_field"], pearsonr: false)
 ```
 
 ## Parameters
@@ -51,21 +51,21 @@ to generate sample data and show how `cov()` transforms data.
 ```js
 import "generate"
 
-table1 = generate.from(
+stream1 = generate.from(
   count: 5,
   fn: (n) => n * n,
   start: 2021-01-01T00:00:00Z,
   stop: 2021-01-01T00:01:00Z
 ) |> toFloat()
 
-table2 = generate.from(
+stream2 = generate.from(
   count: 5,
   fn: (n) => n * n * n / 2,
   start: 2021-01-01T00:00:00Z,
   stop: 2021-01-01T00:01:00Z
 ) |> toFloat()
 
-cov(x: table1, y: table2, on: ["_time"])
+cov(x: stream1, y: stream2, on: ["_time"])
 ```
 
 {{< expand-wrapper >}}
@@ -74,7 +74,7 @@ cov(x: table1, y: table2, on: ["_time"])
 #### Input data
 {{< flex >}}
 {{% flex-content %}}
-##### table1
+##### stream1
 | _time                | _value |
 | :------------------- | -----: |
 | 2021-01-01T00:00:00Z |    0.0 |
@@ -84,7 +84,7 @@ cov(x: table1, y: table2, on: ["_time"])
 | 2021-01-01T00:00:48Z |   16.0 |
 {{% /flex-content %}}
 {{% flex-content %}}
-##### table2
+##### stream2
 | _time                | _value |
 | :------------------- | -----: |
 | 2021-01-01T00:00:00Z |    0.0 |

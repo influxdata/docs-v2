@@ -51,7 +51,7 @@ The name of the column in which to store the histogram counts.
 Default is `"_value"`.
 
 ### bins {data-type="array of floats"}
-A list of upper bounds to use when computing the histogram frequencies.
+({{< req >}}) A list of upper bounds to use when computing the histogram frequencies.
 Bins should contain a bin whose bound is the maximum value of the data set.
 This value can be set to positive infinity if no maximum is known.
 
@@ -74,11 +74,85 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-##### Histogram with dynamically generated bins
+- [Create a cumulative histogram](#create-a-cumulative-histogram)
+- [Create a cumulative histogram with dynamically generated bins](#create-a-cumulative-histogram-with-dynamically-generated-bins)
+
+#### Create a cumulative histogram
 ```js
-// Dynamically generate 10 bins from 0,10,20,...,100
-histogram(
-  bins: linearBins(start:0.0, width:10.0, count:10)
-)
+import "sampledata"
+
+sampledata.float()
+  |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "float" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag |   le | _value |
+| :-- | ---: | -----: |
+| t1  |  0.0 |    1.0 |
+| t1  |  5.0 |    2.0 |
+| t1  | 10.0 |    3.0 |
+| t1  | 20.0 |    6.0 |
+
+| tag |   le | _value |
+| :-- | ---: | -----: |
+| t2  |  0.0 |    1.0 |
+| t2  |  5.0 |    3.0 |
+| t2  | 10.0 |    3.0 |
+| t2  | 20.0 |    6.0 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Create a cumulative histogram with dynamically generated bins
+```js
+import "sampledata"
+
+sampledata.float()
+  |> histogram(
+    bins: linearBins(start:0.0, width:4.0, count:3)
+  )
+```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "float" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag |   le | _value |
+| :-- | ---: | -----: |
+| t1  |  0.0 |    1.0 |
+| t1  |  4.0 |    1.0 |
+| t1  |  8.0 |    3.0 |
+| t1  | +Inf |    6.0 |
+
+| tag |   le | _value |
+| :-- | ---: | -----: |
+| t2  |  0.0 |    1.0 |
+| t2  |  4.0 |    2.0 |
+| t2  |  8.0 |    3.0 |
+| t2  | +Inf |    6.0 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

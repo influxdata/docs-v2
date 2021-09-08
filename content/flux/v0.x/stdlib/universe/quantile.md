@@ -76,30 +76,80 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-###### Quantile as an aggregate
+- [Quantile as an aggregate](#quantile-as-an-aggregate)
+- [Quantile as a selector](#quantile-as-a-selector)
+
+#### Quantile as an aggregate
 ```js
-from(bucket: "example-bucket")
-	|> range(start: -5m)
-	|> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system")
-	|> quantile(
+import "sampledata"
+
+sampledata.float()
+  |> quantile(
     q: 0.99,
     method: "estimate_tdigest",
     compression: 1000.0
   )
 ```
 
-###### Quantile as a selector
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _value |
+| :-- | -----: |
+| t1  |  17.53 |
+
+| tag | _value |
+| :-- | -----: |
+| t2  |  19.85 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Quantile as a selector
 ```js
-from(bucket: "example-bucket")
-	|> range(start: -5m)
-	|> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system")
-	|> quantile(
-    q: 0.99,
+import "sampledata"
+
+sampledata.float()
+  |> quantile(
+    q: 0.5,
     method: "exact_selector"
   )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t1  | 2021-01-01T00:00:20Z |   7.35 |
+
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t2  | 2021-01-01T00:00:10Z |   4.97 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

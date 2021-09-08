@@ -49,43 +49,33 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> lowestAverage(n:10, groupColumns: ["host"])
+import "sampledata"
+
+sampledata.int()
+  |> lowestAverage(n: 2, groupColumns: ["tag"])
 ```
 
-## Function definition
-```js
-// _sortLimit is a helper function, which sorts and limits a table.
-_sortLimit = (n, desc, columns=["_value"], tables=<-) =>
-  tables
-    |> sort(columns:columns, desc:desc)
-    |> limit(n:n)
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
 
-// _highestOrLowest is a helper function which reduces all groups into a single
-// group by specific tags and a reducer function. It then selects the highest or
-// lowest records based on the column and the _sortLimit function.
-// The default reducer assumes no reducing needs to be performed.
-_highestOrLowest = (n, _sortLimit, reducer, column="_value", groupColumns=[], tables=<-) =>
-  tables
-    |> group(columns:groupColumns)
-    |> reducer()
-    |> group(columns:[])
-    |> _sortLimit(n:n, columns:[column])
+##### Input data
+{{% flux/sample "int" %}}
 
-lowestAverage = (n, column="_value", groupColumns=[], tables=<-) =>
-  tables
-    |> _highestOrLowest(
-        n:n,
-        column:column,
-        groupColumns:groupColumns,
-        reducer: (tables=<-) => tables |> mean(column:column]),
-        _sortLimit: bottom,
-      )
+{{% /flex-content %}}
+{{% flex-content %}}
 
-```
+##### Output data
+| tag |            _value |
+| :-- | ----------------: |
+| t1  |               8.5 |
+| t2  | 8.833333333333334 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

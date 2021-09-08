@@ -47,42 +47,54 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.
 
 ## Examples
+
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -24h)
-  |> filter(fn: (r) =>
-    r._measurement == "system" and
-    r._field == "n_users"
-  )
+import "sampledata"
+
+sampledata.int()
   |> increase()
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
 {{< flex >}}
 {{% flex-content %}}
-Given the following input table:
 
-| _time | _value |
-| ----- | ------ |
-| 00001 | 1      |
-| 00002 | 5      |
-| 00003 | 3      |
-| 00004 | 4      |
+##### Input data
+{{% flux/sample "int" %}}
+
 {{% /flex-content %}}
 {{% flex-content %}}
-`increase()` produces the following table:
 
-| _time | _value |
-| ----- | ------ |
-| 00002 | 4      |
-| 00003 | 4      |
-| 00004 | 5      |
+##### Output data
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t1  |     12 |
+| 2021-01-01T00:00:20Z | t1  |     12 |
+| 2021-01-01T00:00:30Z | t1  |     22 |
+| 2021-01-01T00:00:40Z | t1  |     22 |
+| 2021-01-01T00:00:50Z | t1  |     22 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t2  |      0 |
+| 2021-01-01T00:00:20Z | t2  |      0 |
+| 2021-01-01T00:00:30Z | t2  |     22 |
+| 2021-01-01T00:00:40Z | t2  |     22 |
+| 2021-01-01T00:00:50Z | t2  |     22 |
+
 {{% /flex-content %}}
 {{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js
 increase = (tables=<-, column="_value") =>
-	tables
-		|> difference(nonNegative: true, column:column)
-		|> cumulativeSum()
+  tables
+    |> difference(nonNegative: true, column:column)
+    |> cumulativeSum()
 ```

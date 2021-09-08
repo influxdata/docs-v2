@@ -60,6 +60,13 @@ To specify other values to use in the calculation, use:
   or [aggregates](/flux/v0.x/function-types#aggregates)
 - [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow)
 
+###### Use aggregateWindow to normalize irregular times
+```js
+data
+  |> aggregateWindow(every: 1d, fn: first)
+  |> holtWinters(n: 10, seasonality: 4, interval: 1d)
+```
+
 #### Fitted model
 The `holtWinters()` function applies the [Nelder-Mead optimization](https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method)
 to include "fitted" data points in results when [`withFit`](#withfit) is set to `true`.
@@ -101,12 +108,145 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-##### Use aggregateWindow to prepare data for holtWinters
+- [Use holtWinters to predict future values](#use-holtwinters-to-predict-future-values)
+- [Use holtWinters with seasonality to predict future values](#use-holtwinters-with-seasonality-to-predict-future-values)
+- [Use the holtWinters fitted model to predict future values](#use-the-holtwinters-fitted-model-to-predict-future-values)
+
+#### Use holtWinters to predict future values
 ```js
-from(bucket: "example-bucket")
-    |> range(start: -7y)
-    |> filter(fn: (r) => r._field == "water_level")
-    |> aggregateWindow(every: 379m, fn: first).
-    |> holtWinters(n: 10, seasonality: 4, interval: 379m)
+import "sampledata"
+
+sampledata.int()
+  |> holtWinters(n: 6, interval: 10s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:01:00Z | t1  | 10.955834804389518 |
+| 2021-01-01T00:01:10Z | t1  | 10.930165921204969 |
+| 2021-01-01T00:01:20Z | t1  | 10.914688653595203 |
+| 2021-01-01T00:01:30Z | t1  | 10.905759343909201 |
+| 2021-01-01T00:01:40Z | t1  | 10.900719277060372 |
+| 2021-01-01T00:01:50Z | t1  | 10.897906726242955 |
+
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:01:00Z | t2  |  6.781008791726221 |
+| 2021-01-01T00:01:10Z | t2  |  6.781069271640753 |
+| 2021-01-01T00:01:20Z | t2  |  6.781073869897851 |
+| 2021-01-01T00:01:30Z | t2  | 6.7810742195001135 |
+| 2021-01-01T00:01:40Z | t2  |  6.781074246080124 |
+| 2021-01-01T00:01:50Z | t2  |  6.781074248100982 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Use holtWinters with seasonality to predict future values
+```js
+import "sampledata"
+
+sampledata.int()
+  |> holtWinters(
+    n: 4,
+    interval: 10s,
+    seasonality: 4
+  )
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:01:00Z | t1  |  7.179098046049717 |
+| 2021-01-01T00:01:10Z | t1  |  17.01106624302682 |
+| 2021-01-01T00:01:20Z | t1  | 14.576432091790977 |
+| 2021-01-01T00:01:30Z | t1  |  6.968535480723005 |
+
+| _time                | tag |               _value |
+| :------------------- | :-- | -------------------: |
+| 2021-01-01T00:01:00Z | t2  | 0.008498516062705495 |
+| 2021-01-01T00:01:10Z | t2  |    4.311588701815885 |
+| 2021-01-01T00:01:20Z | t2  |    4.306517319025279 |
+| 2021-01-01T00:01:30Z | t2  |    2.473640466434541 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Use the holtWinters fitted model to predict future values
+```js
+import "sampledata"
+
+sampledata.int()
+  |> holtWinters(
+    n: 3,
+    interval: 10s,
+    withFit: true
+  )
+```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:00Z | t1  |               -2.0 |
+| 2021-01-01T00:00:10Z | t1  |  9.218975712746163 |
+| 2021-01-01T00:00:20Z | t1  | 10.724838162080957 |
+| 2021-01-01T00:00:30Z | t1  |  11.02931521239947 |
+| 2021-01-01T00:00:40Z | t1  |   11.0379002238265 |
+| 2021-01-01T00:00:50Z | t1  | 10.994404043609528 |
+| 2021-01-01T00:01:00Z | t1  | 10.955834804389518 |
+| 2021-01-01T00:01:10Z | t1  | 10.930165921204969 |
+| 2021-01-01T00:01:20Z | t1  | 10.914688653595203 |
+
+| _time                | tag |            _value |
+| :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:00Z | t2  |              19.0 |
+| 2021-01-01T00:00:10Z | t2  | 8.907308429189435 |
+| 2021-01-01T00:00:20Z | t2  | 4.983321898435179 |
+| 2021-01-01T00:00:30Z | t2  | 6.633066160485693 |
+| 2021-01-01T00:00:40Z | t2  | 6.769755828568384 |
+| 2021-01-01T00:00:50Z | t2  | 6.780213338483446 |
+| 2021-01-01T00:01:00Z | t2  | 6.781008791726221 |
+| 2021-01-01T00:01:10Z | t2  | 6.781069271640753 |
+| 2021-01-01T00:01:20Z | t2  | 6.781073869897851 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

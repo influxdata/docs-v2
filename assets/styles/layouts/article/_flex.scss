@@ -14,7 +14,7 @@
   &.two-thirds { width: calc(66% - 2rem);}
 
   &.half, &.third, &.quarter {
-    table {display: table;}
+    table:not(:last-child) {margin-right: 1rem;}
   }
 }
 

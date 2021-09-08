@@ -54,7 +54,64 @@ groups rows of data based on existing [group keys](/flux/v0.x/get-started/data-m
 `join()` creates new rows based on common values in one or more specified columns.
 Output rows also contain the differing values from each of the joined streams.
 
-Given two streams of tables, `t1` and `t2`, the results of `join()` and `union()`
+{{% expand "View union() vs join() example" %}}
+Given two streams of tables, `t1` and `t2`, the results of `union()` and `join()`
 are illustrated below:
 
-{{< svg "/static/svgs/join-vs-union.svg" >}}
+#### Input streams
+
+{{< flex >}}
+{{% flex-content %}}
+
+##### t1 
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | foo |      1 |
+| 2021-01-02T00:00:00Z | foo |      2 |
+| 2021-01-03T00:00:00Z | foo |      3 |
+| 2021-01-04T00:00:00Z | foo |      4 |
+{{% /flex-content %}}
+{{% flex-content %}}
+##### t2
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | foo |      0 |
+| 2021-01-02T00:00:00Z | foo |     -1 |
+| 2021-01-03T00:00:00Z | foo |     -2 |
+| 2021-01-04T00:00:00Z | foo |     -3 |
+{{% /flex-content %}}
+{{< /flex >}}
+
+#### union() output
+```js
+union(tables: [t1, t2])
+```
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | foo |      0 |
+| 2021-01-02T00:00:00Z | foo |     -1 |
+| 2021-01-03T00:00:00Z | foo |     -2 |
+| 2021-01-04T00:00:00Z | foo |     -3 |
+| 2021-01-01T00:00:00Z | foo |      1 |
+| 2021-01-02T00:00:00Z | foo |      2 |
+| 2021-01-03T00:00:00Z | foo |      3 |
+| 2021-01-04T00:00:00Z | foo |      4 |
+
+#### join() output
+```js
+join(
+  tables: {t1: t1, t2: t2}
+  on: ["_time", "tag"]
+)
+```
+
+| _time                | tag | _value_t1 | _value_t2 |
+| :------------------- | :-- | --------: | --------: |
+| 2021-01-01T00:00:00Z | foo |         1 |         0 |
+| 2021-01-02T00:00:00Z | foo |         2 |        -1 |
+| 2021-01-03T00:00:00Z | foo |         3 |        -2 |
+| 2021-01-04T00:00:00Z | foo |         4 |        -3 |
+{{% /expand %}}

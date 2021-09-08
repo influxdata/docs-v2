@@ -42,13 +42,14 @@ Input table.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Example
-```js
-r0 = from(bucket:"example-bucket")
-    |> range(start: -5m)
-    |> filter(fn:(r) => r._measurement == "cpu")
-    |> tableFind(fn: (key) => key._field == "usage_idle")
-    |> getRecord(idx: 0)
+{{% flux/sample-example-intro %}}
 
-// Use record values
-x = r0._field + "--" + r0._measurement
+```js
+import "sampledata"
+
+sampledata.int()
+  |> tableFind(fn: (key) => key.tag == "t1")
+  |> getRecord(idx: 0)
+
+// Returns {_time: 2021-01-01T00:00:00.000000000Z, _value: -2, tag: t1}
 ```

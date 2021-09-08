@@ -49,19 +49,92 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-##### Keep a list of columns
+- [Keep a list of columns](#keep-a-list-of-columns)
+- [Keep columns matching a predicate](#keep-columns-matching-a-predicate)
 
-```js
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> keep(columns: ["_time", "_value"])
-```
-
-##### Keep all columns matching a predicate
+#### Keep a list of columns
 
 ```js
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> keep(fn: (column) => column =~ /inodes*/)
+import "sampledata"
+
+sampledata.int()
+  |> keep(columns: ["_time", "_value"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | _value |
+| :------------------- | -----: |
+| 2021-01-01T00:00:00Z |     -2 |
+| 2021-01-01T00:00:10Z |     10 |
+| 2021-01-01T00:00:20Z |      7 |
+| 2021-01-01T00:00:30Z |     17 |
+| 2021-01-01T00:00:40Z |     15 |
+| 2021-01-01T00:00:50Z |      4 |
+| 2021-01-01T00:00:00Z |     19 |
+| 2021-01-01T00:00:10Z |      4 |
+| 2021-01-01T00:00:20Z |     -3 |
+| 2021-01-01T00:00:30Z |     19 |
+| 2021-01-01T00:00:40Z |     13 |
+| 2021-01-01T00:00:50Z |      1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Keep columns matching a predicate
+
+```js
+import "sampledata"
+
+sampledata.int()
+  |> keep(fn: (column) => column =~ /^_?t/)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |
+| :------------------- | :-- |
+| 2021-01-01T00:00:00Z | t1  |
+| 2021-01-01T00:00:10Z | t1  |
+| 2021-01-01T00:00:20Z | t1  |
+| 2021-01-01T00:00:30Z | t1  |
+| 2021-01-01T00:00:40Z | t1  |
+| 2021-01-01T00:00:50Z | t1  |
+
+| _time                | tag |
+| :------------------- | :-- |
+| 2021-01-01T00:00:00Z | t2  |
+| 2021-01-01T00:00:10Z | t2  |
+| 2021-01-01T00:00:20Z | t2  |
+| 2021-01-01T00:00:30Z | t2  |
+| 2021-01-01T00:00:40Z | t2  |
+| 2021-01-01T00:00:50Z | t2  |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
