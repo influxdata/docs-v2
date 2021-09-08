@@ -38,19 +38,19 @@ Writes may fail partially or completely even though InfluxDB returns an HTTP `2x
 InfluxDB uses conventional HTTP status codes to indicate the success or failure of a request.
 Write requests return the following status codes:
 
-- `204` **Success**: Data was correctly formatted and accepted for writing to the bucket.
-
+- `204` **Success**: InfluxDB validated the request data format and accepted the data for writing to the bucket. 
     {{% note %}}
 `204` doesn't indicate a successful write operation since writes are asynchronous. See how to [check for rejected points](#review-rejected-points).
     {{% /note %}}
 
-- `400` **Bad request**: Indicates the line protocol payload was malformed. The response body contains the first malformed line in the data. All payload data was rejected and not written.
+- `400` **Bad request**: The line protocol data in the request was malformed.
+        The response body contains the first malformed line in the data. All request data was rejected and not written.
 - `401` **Unauthorized**: May indicate one of the following:
   - `Authorization: Token` header is missing or malformed.
   - API token value is missing from the header.
   - API token does not have sufficient permissions to write to the organization and the bucket.
 - `404` **Not found**: A requested resource was not found. The response body contains the requested resource type, e.g. organization or bucket, and resource name.
-- `413` **Request entity too large**: All payload data was rejected and not written.
+- `413` **Request entity too large**: All request data was rejected and not written.
 - `429` **Too many requests**: API token is temporarily over quota. The `Retry-After` header describes when to try the write request again.
 - `500` **Internal server error**: Default HTTP status for an error.
 - `503` **Service unavailable**: Server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
@@ -71,10 +71,41 @@ If you notice data is missing in your bucket, check the following:
 If some of your data did not write to the bucket, check for rejected data points. InfluxDB may have rejected points even if the HTTP request returned "Success".
 To get a log of rejected data points, query the [`rejected_points` measurement](/influxdb/v2.0/reference/internals/system-buckets/#_monitoring-bucket-schema) in your organization's `_monitoring` bucket.
 
-#### Rejected point example
+```js
+from(bucket: "_monitoring")
+  |> range(start:-1h)
+  |> filter(fn:(r) =>
+    r._measurement == "rejected_points"
+  )
+```
+
+InfluxDB returns `rejected_points` entries.
 
 ```sh
 rejected_points,bucket=YOUR_BUCKET,field=YOUR_FIELD,gotType=Float,
   measurement=YOUR_MEASUREMENT,reason=type\ conflict\ in\ batch\ write,
   wantType=Integer count=1i 1627906197091972750
 ```
+
+Each rejected point entry contains the `bucket` where the rejection occurred and a `reason` for the rejection.
+
+#### Troubleshoot field type conflicts 
+
+If the rejection is due to a field type conflict, the rejected point entry contains the following tags:
+
+| Tag           | Value                             |                                                                                                                               
+|:------        |:-----                             |                                                                                                  
+| `bucket`      | Bucket that rejected the point.
+| `measurement` | Measurement name of the point.    |
+| `field`       | Field that caused the problem.    |
+| `reason`      | Brief description of the problem. |
+| `gotType`     | Received [field](/influxdb/v2.0/reference/key-concepts/data-elements/#field-value) type: `Boolean`, `Float`, `Integer`, or `UnsignedInteger` |
+| `wantType`    | Expected [field](/influxdb/v2.0/reference/key-concepts/data-elements/#field-value) type: `Boolean`, `Float`, `Integer`, or `UnsignedInteger` |
+
+Field type conflicts occur for the following reasons:
+
+| Reason                             | Meaning                                                                                 | 
+|:------                             |:-------                                                                                 | 
+| `type conflict in batch write`     | The **batch** contains another point with the same series, but a different field type.  |
+| `type conflict with existing data` | The **bucket** contains another point with the same series, but a different field type. |
+

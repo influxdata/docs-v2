@@ -76,8 +76,8 @@ The `_monitoring` system bucket stores InfluxDB data used to
       - **\_reason:** brief description of why InfluxDB rejected the point 
       - **\_field:** field name of the point (present if the point contained a field)
       - **\_measurement:** measurement of the point (present if the point contained a measurement)
-      - **\_gotType:** type of the field value in the point (present if type mismatch)
-      - **\_wantType:** type of the field value in the bucket schema (present if type mismatch)
+      - **\_gotType:** InfluxDB field type in the point (present if type mismatch)
+      - **\_wantType:** InfluxDB field type in the bucket schema (present if type mismatch)
     - **fields:**
       - **\_count:** will always be `1`
 
