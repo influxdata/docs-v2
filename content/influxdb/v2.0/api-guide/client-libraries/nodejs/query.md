@@ -50,7 +50,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 
    ```js
    const fluxQuery =
-     'from(bucket:YOUR_INFLUX_BUCKET)
+     'from(bucket: "YOUR_INFLUX_BUCKET")
      |> range(start: 0)
      |> filter(fn: (r) => r._measurement == "temperature")'
    ```
