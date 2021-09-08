@@ -42,17 +42,22 @@ Writes may fail partially or completely even though InfluxDB returns an HTTP `2x
 InfluxDB uses conventional HTTP status codes to indicate the success or failure of a request.
 Write requests return the following status codes:
 
-- `204` Success. The sent data was correctly formatted and accepted for writing to the bucket. `204` doesn't indicate a successful write operation since writes are asynchronous. See how to [check for rejected points](#review-rejected-points).
-- `400` Bad request. The error indicates the line protocol payload was malformed. The response body contains the first malformed line in the data. All payload data was rejected and not written.
-- `401` Unauthorized. The error may indicate one of the following:
-  - The Authorization: Token header is missing or malformed.
-  - The API token value is missing from the header.
-  - The token does not have sufficient permissions to write to this organization and bucket.
-- `404` Not found. A requested resource was not found. The response body contains the requested resource type, e.g. organization name or bucket, and name.
-- `413` Request entity too large. The payload exceeded the 50MB limit. All payload data was rejected and not written.
-- `429` Too many requests. The token is temporarily over quota. The Retry-After header describes when to try the write again.
-- `500` Internal server error. The default HTTP status for an error.
-- `503` Service unavailable. Server is temporarily unavailable to accept writes. The Retry-After header describes when to try the write again.
+- `204` **Success**: Data was correctly formatted and accepted for writing to the bucket.
+
+    {{% note %}}
+`204` doesn't indicate a successful write operation since writes are asynchronous. See how to [check for rejected points](#review-rejected-points).
+    {{% /note %}}
+
+- `400` **Bad request**: Indicates the line protocol payload was malformed. The response body contains the first malformed line in the data. All payload data was rejected and not written.
+- `401` **Unauthorized**: May indicate one of the following:
+  - `Authorization: Token` header is missing or malformed.
+  - API token value is missing from the header.
+  - API token does not have sufficient permissions to write to the organization and bucket.
+- `404` **Not found**: A requested resource was not found. The response body contains the requested resource type, e.g. organization name or bucket, and resource name.
+- `413` **Request entity too large**: Payload exceeded the 50MB limit. All payload data was rejected and not written.
+- `429` **Too many requests**: API token is temporarily over quota. The `Retry-After` header describes when to try the write request again.
+- `500` **Internal server error**: Default HTTP status for an error.
+- `503` **Service unavailable**: Server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
 
 The `message` property of the response body may contain additional details about the error.  
 
