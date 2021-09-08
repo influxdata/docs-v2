@@ -52,7 +52,7 @@ The InfluxDB Enterprise Monitoring template includes a Telegraf configuration th
 By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which exports Prometheus-style system metrics.
 
 1. Make sure the `/metrics` endpoint is [enabled](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled). If you've changed the default settings to disable the `/metrics` endpoint, [re-enable these settings](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
-2. Navigate to the `/metrics` endpoint of your InfluxDB OSS instance to view the InfluxDB OSS system metrics in your browser: 
+2. Navigate to the `/metrics` endpoint of your InfluxDB Enterprise instance to view the InfluxDB Enterprise system metrics in your browser: 
 
     ```
     http://localhost:8086/metrics
@@ -73,14 +73,15 @@ By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which e
       ```
 3. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
    1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/), and click **InfluxDB Output Plugin**.
-   2. Copy the URL, token, organization, and bucket, close the window, and then click **monitoring-enterprise-1.x**.
-   3. Replace `URL`, `token', `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. Alternatively, store this information in your environment variables and include the environment variables in your configuration.
+   2. Copy the `urls`, `token`, `organization`, and `bucket` and close the window. 
+   3. Click **monitoring-enterprise-1.x**. 
+   4. Replace `urls`, `token`, `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. Alternatively, store this information in your environment variables and include the environment variables in your configuration.
 
       {{% note %}}
 To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded metrics, set the destination bucket name to `enterprise_metrics` in your `telegraf.conf`.
       {{% /note %}}
 
-   4. Add the [Prometheus input plugin](https://github.com/influxdata/telegraf/blob/release-1.19/plugins/inputs/prometheus/README.md) to your `telegraf.conf`. Specify your your InfluxDB OSS URL(s) in the `urls` parameter. For example:
+   5. Add the [Prometheus input plugin](https://github.com/influxdata/telegraf/blob/release-1.19/plugins/inputs/prometheus/README.md) to your `telegraf.conf`. Specify your your InfluxDB Enterprise URL(s) in the `urls` parameter. For example:
    
     {{< keep-url >}}
      ```toml
@@ -101,7 +102,7 @@ On each InfluxDB Enterprise instance you want to monitor, do the following:
 
 1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/).
 2. Click **Setup Instructions** under **monitoring-enterprise-1.x**. 
-3. Complete the Telegraf Setup instructions.
+3. Complete the Telegraf Setup instructions. If you are using environment variables, set them up now. 
 
       {{% note %}}
 For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
