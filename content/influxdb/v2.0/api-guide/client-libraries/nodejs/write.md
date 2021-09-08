@@ -51,7 +51,7 @@ The Javascript client library includes the following convenient features for wri
    - *`YOUR_INFLUX_ORG`*: the ID of your InfluxDB organization.
    - *`YOUR_INFLUX_BUCKET`*: the name of your InfluxDB bucket.
 
-3. To apply one or more [tags]({{% latest "influxdb" %}}/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
+3. To apply one or more [tags](/influxdb/v2.0/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
    Provide an object of tag key/value pairs.
 
     ```js
