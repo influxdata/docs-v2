@@ -59,7 +59,7 @@ The Javascript client library includes the following convenient features for wri
     ```
 
 4. Use the `Point()` constructor to create a [point](/influxdb/v2.0/reference/glossary/#point).
-   1. Call the constructor and provide a [measurement]({{% latest "influxdb" %}}/reference/glossary/#measurement). 
+   1. Call the constructor and provide a [measurement](/influxdb/v2.0/reference/glossary/#measurement). 
    2. To add one or more tags, chain the `tag()` method to the constructor.
       Provide a `name` and `value`.
    3. To add a field of type `float`, chain the `floatField()` method to the constructor.
