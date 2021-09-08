@@ -27,12 +27,12 @@ Learn how to handle and recover from errors when writing to InfluxDB.
 InfluxDB write requests may fail for a number of reasons.
 Common failure scenarios that return an HTTP `4xx` or `5xx` error status code include the following:
 
-- The request exceeded a rate limit. 
-- The API token was invalid.
-- The client or server reached a timeout threshold. 
-- The size of the data payload was too large. 
-- The data was not formatted correctly. 
-- The data did not conform to the [explicit bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
+- Exceeded a rate limit. 
+- API token was invalid.
+- Client or server reached a timeout threshold. 
+- Size of the data payload was too large. 
+- Data was not formatted correctly. 
+- Data did not conform to the [explicit bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
   See how to troubleshoot specific [bucket schema errors](/influxdb/cloud/organizations/buckets/bucket-schema/#troubleshoot-errors).
 
 Writes may fail partially or completely even though InfluxDB returns an HTTP `2xx` status code for a valid request. For example, a partial write may occur when InfluxDB writes all points that conform to the bucket schema, but rejects points that have the wrong data type in a field.      
