@@ -21,7 +21,7 @@ Use the `POST` request method and include the following in your request:
 
 #### Send a write request
 
-The URL in the examples depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/{{< latest "influxdb" >}}/reference/urls/))_.
+The URL in the examples depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/influxdb/v2.0/reference/urls/))_.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
