@@ -89,6 +89,8 @@ To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded 
      ```toml
      [[inputs.prometheus]]
        urls = ["http://localhost:8086/metrics"]
+       username = "$INFLUX_USER"
+       password = "$INFLUX_PASSWORD"
      ``` 
      
      If you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
