@@ -803,7 +803,7 @@ Regular expressions (regex or regexp) are patterns used to match character combi
 A data point that InfluxDB could not write to the target bucket. 
 InfluxDB logs information about rejected points to the `_monitoring` system bucket.
 
-See how to [review rejected writes](/{{% latest "influxdb" %}}/write-data/troubleshoot/#review-rejected-writes) for more information.
+See how to [review rejected writes](/influxdb/v2.0/write-data/troubleshoot/#review-rejected-writes) for more information.
 
 ### retention period
 The duration of time that a bucket retains data.
