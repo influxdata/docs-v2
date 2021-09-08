@@ -20,7 +20,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 
 - [Install the client library and other dependencies](/influxdb/v2.0/api-guide/client-libraries/nodejs/install.md).
 
-## Query InfluxDB 
+## Query InfluxDB
 
 1. Change to your new project directory and create a file for your query module.
 
@@ -35,26 +35,26 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    ```js
    import { InfluxDB, Point } from '@influxdata/influxdb-client'
 
-   const queryApi = new InfluxDB({YOUR_INFLUX_URL, YOUR_INFLUX_TOKEN}).getQueryApi(YOUR_INFLUX_ORG)
+   const queryApi = new InfluxDB({YOUR_URL, YOUR_API_TOKEN}).getQueryApi(YOUR_ORG)
    ```
 
    Replace the following:
-   - *`YOUR_INFLUX_URL`*: the URL of your InfluxDB instance.
-   - *`YOUR_INFLUX_TOKEN`*: your InfluxDB API token.
-   - *`YOUR_INFLUX_ORG`*: the ID of your InfluxDB organization.
+   - *`YOUR_URL`*: InfluxDB URL.
+   - *`YOUR_API_TOKEN`*: InfluxDB API token.
+   - *`YOUR_ORG`*: InfluxDB organization ID.
 
 3. Create a Flux query for your InfluxDB bucket. Store the query as a string variable.
    {{% warn %}}
-   To prevent SQL injection attacks, avoid concatenating unsafe user input with queries. 
+   To prevent SQL injection attacks, avoid concatenating unsafe user input with queries.
    {{% /warn %}}
 
    ```js
    const fluxQuery =
-     'from(bucket: "YOUR_INFLUX_BUCKET")
+     'from(bucket: "YOUR_BUCKET")
      |> range(start: 0)
      |> filter(fn: (r) => r._measurement == "temperature")'
    ```
-   Replace *`YOUR_INFLUX_BUCKET`* with the name of your InfluxDB bucket.
+   Replace *`YOUR_BUCKET`* with the name of your InfluxDB bucket.
 
 4. Use the `queryRows()` method of the query client to query InfluxDB.
    `queryRows()` takes a Flux query and an [RxJS **Observer**](http://reactivex.io/rxjs/manual/overview.html#observer) object.
@@ -85,9 +85,9 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 To run the example from a file, set your InfluxDB environment variables and use `node` to execute the JavaScript file.
 
 ```sh
-export INFLUX_URL=https://cloud2.influxdata.com && \
-export INFLUX_TOKEN=YOUR_INFLUX_TOKEN && \
-export INFLUX_ORG=YOUR_INFLUX_ORG && \
+export INFLUX_URL=http://localhost:8086 && \
+export INFLUX_TOKEN=YOUR_API_TOKEN && \
+export INFLUX_ORG=YOUR_ORG && \
 node query.js
 ```
 

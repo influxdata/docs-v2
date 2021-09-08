@@ -33,23 +33,21 @@ The Javascript client library includes the following convenient features for wri
    ```js
    import {InfluxDB, Point} from '@influxdata/influxdb-client'
 
-   const influxDB = new InfluxDB({YOUR_INFLUX_URL, YOUR_INFLUX_TOKEN})
+   const influxDB = new InfluxDB({YOUR_URL, YOUR_API_TOKEN})
    ```
+   Replace the following:
+   - *`YOUR_URL`*: InfluxDB URL.
+   - *`YOUR_API_TOKEN`*: InfluxDB API token.
 
 2. Use the `getWriteApi()` method of the client to create a **write client**.
    Provide your InfluxDB organization ID and bucket name.
 
    ```js
-   import {InfluxDB, Point} from '@influxdata/influxdb-client'
-
-   const influxDB = new InfluxDB({YOUR_INFLUX_URL, YOUR_INFLUX_TOKEN})
-   const writeApi = influxDB.getWriteApi(YOUR_INFLUX_ORG, YOUR_INFLUX_BUCKET)
+   const writeApi = influxDB.getWriteApi(YOUR_ORG, YOUR_BUCKET)
    ```
    Replace the following:
-   - *`YOUR_INFLUX_URL`*: the URL of your InfluxDB instance.
-   - *`YOUR_INFLUX_TOKEN`*: your InfluxDB API token.
-   - *`YOUR_INFLUX_ORG`*: the ID of your InfluxDB organization.
-   - *`YOUR_INFLUX_BUCKET`*: the name of your InfluxDB bucket.
+   - *`YOUR_ORG`*: InfluxDB organization ID.
+   - *`YOUR_BUCKET`*: InfluxDB bucket name.
 
 3. To apply one or more [tags](/influxdb/v2.0/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
    Provide an object of tag key/value pairs.
@@ -59,7 +57,7 @@ The Javascript client library includes the following convenient features for wri
     ```
 
 4. Use the `Point()` constructor to create a [point](/influxdb/v2.0/reference/glossary/#point).
-   1. Call the constructor and provide a [measurement](/influxdb/v2.0/reference/glossary/#measurement). 
+   1. Call the constructor and provide a [measurement](/influxdb/v2.0/reference/glossary/#measurement).
    2. To add one or more tags, chain the `tag()` method to the constructor.
       Provide a `name` and `value`.
    3. To add a field of type `float`, chain the `floatField()` method to the constructor.
@@ -73,7 +71,7 @@ The Javascript client library includes the following convenient features for wri
 
 5. Use the `writePoint()` method to write the point to your InfluxDB bucket.
    Finally, use the `close()` method to flush all pending writes.
-   The example logs the new data point followed by "WRITE FINISHED" to stdout. 
+   The example logs the new data point followed by "WRITE FINISHED" to stdout.
 
     ```js
     writeApi.writePoint(point1)
@@ -108,10 +106,10 @@ The Javascript client library includes the following convenient features for wri
 To run the example from a file, set your InfluxDB environment variables and use `node` to execute the JavaScript file.
 
 ```sh
-export INFLUX_URL=https://cloud2.influxdata.com && \
-export INFLUX_TOKEN=YOUR_INFLUX_TOKEN && \
-export INFLUX_ORG=YOUR_INFLUX_ORG && \
-export INFLUX_BUCKET=YOUR_INFLUX_BUCKET && \
+export INFLUX_URL=http://localhost:8086 && \
+export INFLUX_TOKEN=YOUR_API_TOKEN && \
+export INFLUX_ORG=YOUR_ORG && \
+export INFLUX_BUCKET=YOUR_BUCKET && \
 node write.js
 ```
 
