@@ -50,7 +50,7 @@ Many of the client library examples use [TypeScript](https://www.typescriptlang.
 
 ## Install dependencies
 
-The JavaScript client library contains two packages.
+The JavaScript client library contains two packages: `@influxdata/influxdb-client` and `@influxdata/influxdb-client-apis`.
 Add both as dependencies of your project.
 
 1. Open a new terminal window and install  `@influxdata/influxdb-client` for querying and writing data:
