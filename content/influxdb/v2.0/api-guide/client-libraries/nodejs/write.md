@@ -37,7 +37,7 @@ The Javascript client library includes the following convenient features for wri
    ```
 
 2. Use the `getWriteApi()` method of the client to create a **write client**.
-   Provide your InfluxDB org ID and bucket name.
+   Provide your InfluxDB organization ID and bucket name.
 
    ```js
    import {InfluxDB, Point} from '@influxdata/influxdb-client'
