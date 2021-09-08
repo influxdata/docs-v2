@@ -74,7 +74,7 @@ By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which e
       ...
       ```
 3. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
-   1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/), and click **InfluxDB Output Plugin**.
+   1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/), and click **InfluxDB Output Plugin** at the top-right corner.
    2. Copy the `urls`, `token`, `organization`, and `bucket` and close the window. 
    3. Click **monitoring-enterprise-1.x**. 
    4. Replace `urls`, `token`, `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. Alternatively, store this information in your environment variables and include the environment variables in your configuration.
