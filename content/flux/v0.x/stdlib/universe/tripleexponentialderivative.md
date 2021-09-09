@@ -57,17 +57,47 @@ a negative value indicates decreasing momentum.
 ## Parameters
 
 ### n {data-type="int"}
-The number of points to use in the calculation.
+({{< req >}})
+Number of points to use in the calculation.
 
 ### tables {data-type="stream of tables"}
 Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
-#### Calculate a five point triple exponential derivative
+#### Calculate a two point triple exponential derivative
 ```js
-from(bucket: "example-bucket"):
-  |> range(start: -12h)
-  |> tripleExponentialDerivative(n: 5)
+import "sampledata"
+
+sampledata.float()
+  |> tripleExponentialDerivative(n: 2)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _time                |              _value |
+| :-- | :------------------- | ------------------: |
+| t1  | 2021-01-01T00:00:40Z |   46.03174603174607 |
+| t1  | 2021-01-01T00:00:50Z | -11.666666666666647 |
+
+| tag | _time                |              _value |
+| :-- | :------------------- | ------------------: |
+| t2  | 2021-01-01T00:00:40Z |  26.675945256321064 |
+| t2  | 2021-01-01T00:00:50Z | -22.205945187084176 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

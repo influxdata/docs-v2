@@ -130,7 +130,7 @@ join(
 {{% /flex-content %}}
 {{< /flex >}}
 
-#### Output data
+#### Output data stream
 
 | _time                | tag | _value_t1 | _value_t2 |
 | :------------------- | :-- | --------: | --------: |

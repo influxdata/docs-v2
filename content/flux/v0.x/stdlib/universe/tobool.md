@@ -44,7 +44,7 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
+{{% flux/sample-example-intro %}}
 
 #### Convert an integer value column to a boolean column
 ```js

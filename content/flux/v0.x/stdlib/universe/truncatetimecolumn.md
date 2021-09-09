@@ -45,22 +45,43 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
-##### Truncate all time values to seconds
+##### Truncate all time values to minutes
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> truncateTimeColumn(unit: 1s)
+import "sampledata"
+
+data = sampledata.int()
+  |> range(start: sampledata.start, stop: sampledata.stop)
+
+data
+  |> truncateTimeColumn(unit: 1m)
 ```
 
-## Function definition
-```js
-import "date"
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
 
-truncateTimeColumn = (unit, tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-        r with _time: date.truncate(t: r._time, unit:unit)
-      })
-    )
-```
+##### Input data
+{{% flux/sample set="int" includeRange=true %}}
+
+##### Output data
+| _start               | _stop                | _time                | tag | _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t1  |     -2 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t1  |     10 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t1  |      7 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t1  |     17 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t1  |     15 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t1  |      4 |
+
+| _start               | _stop                | _time                | tag | _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t2  |      4 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t2  |     -3 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t2  |     13 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t2  |      1 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
