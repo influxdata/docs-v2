@@ -23,7 +23,7 @@ Please note that experimental functions and packages may:
 - be moved or promoted to a permanent location
 - undergo API changes
 - stop working with no planned fixes
-- be removed without warning nor published explanation
+- be removed without warning or explanation
 {{% /warn %}}
 
 ## Experimental functions
