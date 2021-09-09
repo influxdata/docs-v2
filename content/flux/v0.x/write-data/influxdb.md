@@ -50,25 +50,25 @@ _All other columns are written to InfluxDB as [tags](/{{< latest "influxdb" >}}/
 
 Given the following input [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables):
 
-| _time                | _measurement | id  | _field | _value |
-| :------------------- | :----------- | :-- | -----: | -----: |
-| 2021-01-01T00:00:00Z | m            | 001 |   temp |   72.1 |
-| 2021-01-01T01:00:00Z | m            | 001 |   temp |   71.8 |
-| 2021-01-01T02:00:00Z | m            | 001 |   temp |   71.2 |
+| _time                | _measurement | id  | loc | _field | _value |
+| :------------------- | :----------- | :-- | :-- | -----: | -----: |
+| 2021-01-01T00:00:00Z | m            | 001 | SF  |   temp |   72.1 |
+| 2021-01-01T01:00:00Z | m            | 001 | SF  |   temp |   71.8 |
+| 2021-01-01T02:00:00Z | m            | 001 | SF  |   temp |   71.2 |
 
-| _time                | _measurement | id  | _field | _value |
-| :------------------- | :----------- | :-- | -----: | -----: |
-| 2021-01-01T00:00:00Z | m            | 001 |    hum |   40.5 |
-| 2021-01-01T01:00:00Z | m            | 001 |    hum |   50.1 |
-| 2021-01-01T02:00:00Z | m            | 001 |    hum |   52.8 |
+| _time                | _measurement | id  | loc | _field | _value |
+| :------------------- | :----------- | :-- | :-- | -----: | -----: |
+| 2021-01-01T00:00:00Z | m            | 001 | SF  |    hum |   40.5 |
+| 2021-01-01T01:00:00Z | m            | 001 | SF  |    hum |   50.1 |
+| 2021-01-01T02:00:00Z | m            | 001 | SF  |    hum |   52.8 |
 
 `to()` generates the following [line protocol](/{{< latest "influxdb" >}}/reference/syntax/line-protocol/)
 and writes it to InfluxDB:
 
 ```
-m,id=001 temp=72.1,hum=40.5 1609459200000000000
-m,id=001 temp=71.8,hum=50.1 1609462800000000000
-m,id=001 temp=71.2,hum=52.8 1609466400000000000
+m,id=001,loc=SF temp=72.1,hum=40.5 1609459200000000000
+m,id=001,loc=SF temp=71.8,hum=50.1 1609462800000000000
+m,id=001,loc=SF temp=71.2,hum=52.8 1609466400000000000
 ```
 
 ### Examples
