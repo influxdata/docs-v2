@@ -1,5 +1,5 @@
 ---
-title: Query InfluxDB
+title: Write to InfluxDB
 list_title: InfluxDB
 description: >
   Use [`to()`](/flux/v0.x/stdlib/universe/to/) or [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/)
