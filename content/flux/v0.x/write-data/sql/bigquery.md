@@ -54,7 +54,7 @@ data
 - [Data type conversion](#data-type-conversion)
 
 ## Data source name
-The `bigquery` driver uses the following DSN syntaxes (also known as a **connection string**):
+Use one of the following DSN syntax (**connection string**) to connect to the `bigquery` driver:
 
 ```
 bigquery://projectid/?param1=value&param2=value
