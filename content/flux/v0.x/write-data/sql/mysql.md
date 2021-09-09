@@ -32,7 +32,7 @@ To write data to [MySQL](https://www.mysql.com/) with Flux:
    the following parameters:
 
     - **driverName**: mysql
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#mysql-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
       each call to `Exec` (default is `10000`)
@@ -48,19 +48,16 @@ data
   )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## MySQL data source name
 The `mysql` driver uses the following data source name (DSN) syntax (also known as a **connection string**):
 
 ```
 username:password@tcp(localhost:3306)/dbname?param=value
 ```
 
-## Data type conversion
+## Flux to MySQL data type conversion
 `sql.to()` converts Flux data types to MySQL data types.
 
 | Flux data type                                | MySQL data type |

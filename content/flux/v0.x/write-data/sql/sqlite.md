@@ -32,7 +32,7 @@ To write data to [SQLite](https://www.sqlite.org/index.html) with Flux:
    the following parameters:
 
     - **driverName**: sqlite3
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#sqlite-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within 
       each call to `Exec` ({{< req "set to `999` or less" >}})
@@ -62,19 +62,16 @@ If using **InfluxDB Cloud** or **InfluxDB OSS**, the Flux process **does not**
 have access to the filesystem.
 {{% /note %}}
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## SQLite data source name
 The `sqlite3` driver uses the following DSN syntax (also known as a **connection string**):
 
 ```
 file:/path/to/example.db?param=value
 ```
 
-## Data type conversion
+## Flux to SQLite data type conversion
 `sql.to()` converts Flux data types to SQLite data types.
 
 | Flux data type                                | SQLite data type |

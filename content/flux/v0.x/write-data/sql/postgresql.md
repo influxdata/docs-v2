@@ -32,7 +32,7 @@ To write data to [PostgreSQL](https://www.postgresql.org/) with Flux:
    the following parameters:
 
     - **driverName**: postgres
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#postgresql-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
       each call to `Exec` (default is `10000`)
@@ -48,19 +48,16 @@ data
   )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## PostgreSQL data source name
 The `postgres` driver uses the following DSN syntax (also known as a **connection string**):
 
 ```
 postgres://username:password@localhost:5432/dbname?param=value
 ```
 
-## Data type conversion
+## Flux to PostgreSQL data type conversion
 `sql.to()` converts Flux data types to PostgreSQL data types.
 
 | Flux data type                                | PostgreSQL data type |

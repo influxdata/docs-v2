@@ -32,7 +32,7 @@ To write data to [SAP HANA](https://www.sap.com/products/hana.html) with Flux:
    the following parameters:
 
     - **driverName**: hdb
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#sap-hana-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
       each call to `Exec` (default is `10000`)
@@ -48,12 +48,9 @@ data
   )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## SAP HANA data source name
 The `hdb` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
@@ -62,7 +59,7 @@ hdb://<user>:<password>@<host>:<port>?DATABASENAME=<tenant-db-name>
 hdb://?KEY=<keyname>
 ```
 
-## Data type conversion
+## Flux to SAP HANA data type conversion
 `sql.to()` converts Flux data types to SAP HANA data types.
 
 | Flux data type                                | SAP HANA data type                              |

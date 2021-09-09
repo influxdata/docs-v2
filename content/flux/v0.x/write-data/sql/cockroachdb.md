@@ -32,7 +32,7 @@ To write data to [CockroachDB](https://www.cockroachlabs.com/) with Flux:
    the following parameters:
 
     - **driverName**: postgres
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#cockroachdb-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
       each call to `Exec` (default is `10000`)
@@ -48,14 +48,10 @@ data
   )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
-The `postgres` driver uses the following DSN syntax (also known as a **connection string**)
-to connect to CockroachDB :
+## CockroachDB data source name
+The `postgres` driver uses the following DSN syntax (also known as a **connection string**):
 
 ```
 postgres://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt
@@ -66,7 +62,7 @@ The `postgres` driver use the [Go `pq` implementation](https://www.cockroachlabs
 to interact with CockroachDB.
 {{% /note %}}
 
-## Data type conversion
+## Flux to CockroachDB data type conversion
 `sql.to()` converts Flux data types to PostgreSQL and CockroachDB data types.
 
 | Flux data type                                | CockroachDB data type |

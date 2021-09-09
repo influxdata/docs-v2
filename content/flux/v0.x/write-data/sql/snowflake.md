@@ -32,7 +32,7 @@ To write data to [Snowflake](https://www.snowflake.com/) with Flux:
    the following parameters:
 
     - **driverName**: snowflake
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#snowflake-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
       each call to `Exec` (default is `10000`)
@@ -48,12 +48,9 @@ data
   )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## Snowflake data source name
 The `snowflake` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
@@ -62,7 +59,7 @@ username[:password]@accountname/dbname?param1=value1&paramN=valueN
 username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param1=value1&paramN=valueN
 ```
 
-## Data type conversion
+## Flux to Snowflake data type conversion
 `sql.to()` converts Flux data types to Snowflake data types.
 
 | Flux data type                                | Snowflake data type |

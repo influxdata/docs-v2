@@ -32,7 +32,7 @@ To write data to [Google BigQuery](https://cloud.google.com/bigquery) with Flux:
    the following parameters:
 
     - **driverName**: bigquery
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#bigquery-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
       each call to `Exec` (default is `10000`)
@@ -48,12 +48,9 @@ data
   )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## BigQuery data source name
 The `bigquery` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
@@ -85,7 +82,7 @@ Provide your authentication credentials using one of the following methods:
     bigquery://projectid/?credentials=eyJ0eXBlIjoiYXV0...
     ```
 
-## Data type conversion
+## Flux to BigQuery data type conversion
 `sql.to()` converts Flux data types to BigQuery data types.
 
 | Flux data type                                | BigQuery data type |

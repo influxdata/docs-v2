@@ -32,7 +32,7 @@ To write data to [Microsoft SQL Server](https://www.microsoft.com/sql-server/) w
    the following parameters:
 
     - **driverName**: sqlserver _or_ mssql
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#sql-server-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
       each call to `Exec` (default is `10000`)
@@ -48,13 +48,9 @@ data
   )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [SQL Server ADO authentication](#sql-server-ado-authentication)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## SQL Server data source name
 The `sqlserver` and `mssql` drivers use the following DSN syntaxes (also known as a **connection string**):
 
 ```
@@ -110,7 +106,7 @@ _For information about managed identities, see [Microsoft managed identities](ht
 azure auth=MSI
 ```
 
-## Data type conversion
+## Flux to SQL Server data type conversion
 `sql.to()` converts Flux data types to SQL Server data types.
 
 | Flux data type                                | SQL Server data type |
