@@ -1,18 +1,37 @@
 ---
-title: Monitor InfluxDB with QL 
-description: Troubleshoot and monitor InfluxDB OSS.
+title: Monitor InfluxDB Enterprise 
+description: Troubleshoot and monitor InfluxDB Enterprise.
 aliases:
     - /enterprise_influxdb/v1.9/administration/statistics/
     - /enterprise_influxdb/v1.9/troubleshooting/statistics/
     - /enterprise_influxdb/v1.9/administration/server-monitoring/
 menu:
   enterprise_influxdb_1_9:
-    name: Monitor with QL
+    name: Monitor Entterprise
     weight: 80
     parent: Monitor InfluxDB
 ---
 
-**On this page**
+Monitoring is the act of proactively observing changes in data throughout time. There are multiple ways to monitor InfluxDB Enterprise. 
+
+If you want to monitor Enterprise, do one of the following: 
+
+* [Monitor Enterprise with Cloud]
+* [Monitor Enterprise with OSS]
+* [Monitor Enterprise with internal monitoring]
+* [Monitor with Insights and Aware] 
+
+If you don't want to monitor your data, but view your output data at a time, do one of the following: 
+
+* [SHOW STATS]
+* [SHOW DIAGNOSTICS]
+* [Useful performance metric commands]
+
+## Defining monitoring 
+
+
+
+
 
 * [SHOW STATS](#show-stats)
 * [SHOW DIAGNOSTICS](#show-diagnostics)
