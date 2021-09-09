@@ -23,5 +23,31 @@ Import the `influxdata/influxdb/monitor` package:
 import "influxdata/influxdb/monitor"
 ```
 
+## Options
+The `monitor` packages provides the following options:
+
+```js
+import "influxdata/influxdb/monitor"
+
+option monitor.write = (tables=<-) => tables |> experimental.to(bucket: bucket)
+option monitor.log = (tables=<-) => tables |> experimental.to(bucket: bucket)
+```
+
+### write {data-type="function"}
+Function option that defines how check statuses are written to InfluxDB.
+Default is:
+
+```js
+(tables=<-) => tables |> experimental.to(bucket: bucket)
+```
+
+### log {data-type="function"}
+Function option that defines how notification event logs are written to InfluxDB.
+Default is:
+
+```js
+(tables=<-) => tables |> experimental.to(bucket: bucket)
+```
+
 ## Functions
 {{< children type="functions" show="pages" >}}

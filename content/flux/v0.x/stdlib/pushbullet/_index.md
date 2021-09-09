@@ -24,5 +24,18 @@ Import the `pushbullet` package:
 import "pushbullet"
 ```
 
+## Options
+The `pushbullet` package includes the following options:
+
+```js
+import "pushbullet"
+
+option pushbullet.defaultURL = "https://api.pushbullet.com/v2/pushes"
+```
+
+### defaultURL {data-type="string"}
+Default Pushbullet API URL.
+Default is `https://api.pushbullet.com/v2/pushes`.
+
 ## Functions
 {{< children type="functions" show="pages" >}}
