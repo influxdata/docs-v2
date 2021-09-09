@@ -12,7 +12,7 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/influxdb-sample/data
 related:
   - /influxdb/v2.0/reference/sample-data/
-flux/v0.x/tags: [sample, inputs]
+flux/v0.x/tags: [sample data, inputs]
 introduced: 0.123.0
 ---
 

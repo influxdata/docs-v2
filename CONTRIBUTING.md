@@ -969,7 +969,6 @@ as the first argument. The following sets are available:
 - uint
 - string
 - bool
-- numericString
 - numericBool
 
 #### includeNull

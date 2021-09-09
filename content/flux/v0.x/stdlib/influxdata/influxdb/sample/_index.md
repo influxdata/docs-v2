@@ -13,7 +13,7 @@ weight: 202
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/influxdb-sample
   - /influxdb/cloud/reference/flux/stdlib/influxdb-sample
-flux/v0.x/tags: [functions, sample, package]
+flux/v0.x/tags: [functions, sample data, package]
 introduced: 0.123.0
 ---
 
