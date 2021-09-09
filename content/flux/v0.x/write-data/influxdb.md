@@ -71,19 +71,23 @@ m,id=001,loc=SF temp=71.8,hum=50.1 1609462800000000000
 m,id=001,loc=SF temp=71.2,hum=52.8 1609466400000000000
 ```
 
-### Examples
+### Example: Write data to a bucket
 
-- [Write data to a bucket in the same InfluxDB organization](#write-data-to-a-bucket-in-the-same-influxdb-organization)
-- [Write data to a bucket in a different InfluxDB organization](#write-data-to-a-bucket-in-a-different-influxdb-organization)
-- [Write data to a remote InfluxDB bucket](#write-data-to-a-remote-influxdb-bucket)
-
-#### Write data to a bucket in the same InfluxDB organization
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[In the same org](#)
+[In a different org](#)
+[On a remote host](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```js
 data
-  |> to(bucket: "example-bucket")
+  |> to(
+    bucket: "example-bucket"
+  )
 ```
-
-#### Write data to a bucket in a different InfluxDB organization
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```js
 data
   |> to(
@@ -92,8 +96,8 @@ data
     token: "mY5uPeRs3Cre7tok3N"
   )
 ```
-
-#### Write data to a remote InfluxDB bucket
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```js
 data
   |> to(
@@ -103,6 +107,8 @@ data
     host: "https://myinfluxdbdomain.com/8086"
   )
 ```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ---
 
@@ -162,21 +168,25 @@ m,id=001,loc=BK min=3i,max=5i,mean=4 1609462800000000000
 m,id=001,loc=BK min=5i,max=3i,mean=6.5 1609466400000000000
 ```
 
-### Examples
+### Example: Write pivoted data to InfluxDB
 
-- [Write pivoted data to a bucket in the same InfluxDB organization](#write-pivoted-data-to-a-bucket-in-the-same-influxdb-organization)
-- [Write pivoted data to a bucket in a different InfluxDB organization](#write-pivoted-data-to-a-bucket-in-a-different-influxdb-organization)
-- [Write pivoted data to a remote InfluxDB bucket](#write-pivoted-data-to-a-remote-influxdb-bucket)
-
-#### Write pivoted data to a bucket in the same InfluxDB organization
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[In the same org](#)
+[In a different org](#)
+[On a remote host](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```js
 import "experimental"
 
 data
-  |> experimental.to(bucket: "example-bucket")
+  |> experimental.to(
+    bucket: "example-bucket"
+  )
 ```
-
-#### Write pivoted data to a bucket in a different InfluxDB organization
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```js
 import "experimental"
 
@@ -187,8 +197,8 @@ data
     token: "mY5uPeRs3Cre7tok3N"
   )
 ```
-
-#### Write pivoted data to a remote InfluxDB bucket
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```js
 import "experimental"
 
@@ -200,3 +210,5 @@ data
     host: "https://myinfluxdbdomain.com/8086"
   )
 ```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
