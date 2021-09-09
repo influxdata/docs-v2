@@ -1,57 +1,62 @@
 ---
-title: Query Amazon RDS
+title: Write to Amazon RDS
 list_title: Amazon RDS
 description: >
-  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) to query a relational database
-  hosted on Amazon RDS.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) to write data to a relational
+  database hosted on Amazon RDS.
 menu:
   flux_0_x:
     name: Amazon RDS
-    parent: SQL databases
+    parent: write-to-sql
+    identifier: write-amazon-rds
 weight: 101
 related:
-  - /flux/v0.x/stdlib/sql/from/
+  - /flux/v0.x/stdlib/sql/to/
 list_code_example: |
   ```js
   import "sql"
   
-  sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
-    query: "SELECT * FROM example_table"
-  )
+  data
+    |> sql.to(
+      driverName: "snowflake",
+      dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
+      query: "SELECT * FROM example_table"
+    )
   ```
 ---
 
-To query a relational database hosted on [Amazon Relational Database Service (RDS)](https://aws.amazon.com/rds/)
+To write data to a relational database hosted on [Amazon Relational Database Service (RDS)](https://aws.amazon.com/rds/)
 with Flux:
 
 1. Import the [`sql` package](/flux/v0.x/stdlib/sql/)
-2. Use the [`sql.from()` function](/flux/v0.x/stdlib/sql/from/) and provide the
+2. Pipe-forward data into [`sql.to()`](/flux/v0.x/stdlib/sql/to/) and provide the
   following parameters:
 
     - **driverName**: _Determined by your [Amazon RDS database engine](#supported-database-engines)_
     - **dataSourceName**: _Determined by your [Amazon RDS database engine](#supported-database-engines)_
-    - **query**: SQL query to execute
+    - **table**: Table to write to
+    - **batchSize**: Number of parameters or columns that can be queued within
+      each call to `Exec` (default is `10000`)
 
-##### Query Amazon RDS PostgreSQL database
+##### Write to an Amazon RDS PostgreSQL database
 ```js
 import "sql"
 
-sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
-  query: "SELECT * FROM example_table"
-)
+data
+  |> sql.to(
+    driverName: "postgres",
+    dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
+    table: "example_table"
+  )
 ```
 
 ## Supported database engines
 Use the following guides to query supported Amazon RDS database engines:
 
-- [Query MariaDB](/flux/v0.x/query-data/sql/mariadb/)
-- [Query MySQL](/flux/v0.x/query-data/sql/mysql/)
-- [Query PostgreSQL](/flux/v0.x/query-data/sql/postgresql/)
-- [Query SQL Server](/flux/v0.x/query-data/sql/sql-server/)
+- [Write to MariaDB](/flux/v0.x/write-data/sql/mariadb/)
+- [Write to MySQL](/flux/v0.x/write-data/sql/mysql/)
+- [Write to PostgreSQL](/flux/v0.x/write-data/sql/postgresql/)
+- [Write to SQL Server](/flux/v0.x/write-data/sql/sql-server/)
 
 ## Amazon RDS connection credentials
 Amazon RDS provides connection credentials required to connect to your database instance.

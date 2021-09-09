@@ -26,14 +26,18 @@ import "experimental"
 
 experimental.to(
   bucket: "my-bucket",
-  org: "my-org"
+  org: "my-org",
+  host: "http://localhost:8086",
+  token: "mY5uPeRs3Cre7tok3N"
 )
 
 // OR
 
 experimental.to(
   bucketID: "1234567890",
-  orgID: "0987654321"
+  orgID: "0987654321",
+  host: "http://localhost:8086",
+  token: "mY5uPeRs3Cre7tok3N"
 )
 ```
 
@@ -48,7 +52,7 @@ The `_field` column stores the **field key** and the `_value` column stores the 
 | timestamp | measurement-name | field key | field value |
 
 #### Data structure expected by experimental to()
-`experimental.to()` requires `_time` and `measurement` columns, but field keys
+`experimental.to()` requires `_time` and `_measurement` columns, but field keys
 and values are stored in single columns with the **field key** as the **column name** and
 the **field value** as the **column value**.
 
@@ -79,6 +83,22 @@ Only required when writing to a different organization or a remote host.
 The organization ID of the specified [`bucket`](#bucket).
 Only required when writing to a different organization or a remote host.
 `orgID` and `org` are mutually exclusive.
+
+### host {data-type="string"}
+[InfluxDB URL](/{{< latest "influxdb" >}}/reference/urls/) or
+[InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL to write to.
+
+{{% warn %}}
+_`host` is required when writing to a remote InfluxDB instance.
+If specified, [`token`](#token) is also required._
+{{% /warn %}}
+
+### token {data-type="string"}
+[InfluxDB API token](/{{< latest "influxdb" >}}/security/tokens).
+
+{{% warn %}}
+_`token` is required when writing to another organization or when writing to a remote InfluxDB [`host`](#host)._
+{{% /warn %}}
 
 ### tables {data-type="stream of tables"}
 Input data.
