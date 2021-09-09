@@ -62,7 +62,7 @@ postgres://username:password@localhost:26257/cluster_name.defaultdb?sslmode=veri
 ```
 
 {{% note %}}
-The `postgres` driver use the [Go `pq` implementation](https://www.cockroachlabs.com/docs/stable/build-a-go-app-with-cockroachdb-pq)
+The `postgres` driver uses the [Go `pq` implementation](https://www.cockroachlabs.com/docs/stable/build-a-go-app-with-cockroachdb-pq)
 to interact with CockroachDB.
 {{% /note %}}
 
