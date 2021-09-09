@@ -30,18 +30,16 @@ Provide the following parameters to both functions:
   [InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL.
 - **token**: [InfluxDB API token](/{{< latest "influxdb" >}}/security/tokens/).
 
-###### On this page
-- [Write data to InfluxDB with to()](#write-data-to-influxdb-with-to)
-  - [Examples](#examples)
-- [Write data to InfluxDB with experimental.to()](#write-data-to-influxdb-with-experimentalto)
-  - [Examples](#examples-1)
+
+- [Write data to InfluxDB](#write-data-to-influxdb)
+- [Write pivoted data to InfluxDB](#write-pivoted-data-to-influxdb)
 
 ---
 
-## Write data to InfluxDB with to()
-[`to()`](/flux/v0.x/stdlib/universe/to/) writes data structured using the standard 
-[InfluxDB v2.x and InfluxDB Cloud data structure](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/)
-that includes, at a minimum, the following columns:
+## Write data to InfluxDB
+Use [`to()`](/flux/v0.x/stdlib/universe/to/) to write data structured using the standard 
+[InfluxDB v2.x and InfluxDB Cloud data structure](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/).
+Data must include, at a minimum, the following columns:
 
 - `_time`
 - `_measurement`
@@ -108,8 +106,8 @@ data
 
 ---
 
-## Write data to InfluxDB with experimental.to()
-[`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) is designed to write
+## Write pivoted data to InfluxDB
+Use [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) to write
 [pivoted](/flux/v0.x/stdlib/universe/pivot/) data to InfluxDB.
 Input data must have the following columns:
 
@@ -163,7 +161,6 @@ m,id=001,loc=BK min=4i,max=4i,mean=4 1609459200000000000
 m,id=001,loc=BK min=3i,max=5i,mean=4 1609462800000000000
 m,id=001,loc=BK min=5i,max=3i,mean=6.5 1609466400000000000
 ```
-
 
 ### Examples
 
