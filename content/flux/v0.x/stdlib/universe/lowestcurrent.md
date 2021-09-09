@@ -49,42 +49,33 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> lowestCurrent(n:10, groupColumns: ["host"])
+import "sampledata"
+
+sampledata.int()
+  |> lowestCurrent(n: 2, groupColumns: ["tag"])
 ```
 
-## Function definition
-```js
-// _sortLimit is a helper function, which sorts and limits a table.
-_sortLimit = (n, desc, columns=["_value"], tables=<-) =>
-  tables
-    |> sort(columns:columns, desc:desc)
-    |> limit(n:n)
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
 
-// _highestOrLowest is a helper function which reduces all groups into a single
-// group by specific tags and a reducer function. It then selects the highest or
-// lowest records based on the column and the _sortLimit function.
-// The default reducer assumes no reducing needs to be performed.
-_highestOrLowest = (n, _sortLimit, reducer, column="_value", groupColumns=[], tables=<-) =>
-  tables
-    |> group(columns:groupColumns)
-    |> reducer()
-    |> group(columns:[])
-    |> _sortLimit(n:n, columns:[column])
+##### Input data
+{{% flux/sample "int" %}}
 
-lowestCurrent = (n, column="_value", groupColumns=[], tables=<-) =>
-  tables
-    |> _highestOrLowest(
-        n:n,
-        column:column,
-        groupColumns:groupColumns,
-        reducer: (tables=<-) => tables |> last(column:column),
-        _sortLimit: bottom,
-      )
-```
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

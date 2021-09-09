@@ -1,8 +1,8 @@
 ---
-title: Flux JSON package
-list_title: JSON package
+title: Flux json package
+list_title: json package
 description: >
-  The Flux JSON package provides functions for working with JSON.
+  The Flux `json` package provides functions for working with JSON.
   Import the `json` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/json/
@@ -16,7 +16,7 @@ weight: 11
 flux/v0.x/tags: [functions, json, package]
 ---
 
-JSON Flux functions provide tools for working with JSON.
+The Flux `json` package provides functions for working with JSON.
 Import the `json` package:
 
 ```js

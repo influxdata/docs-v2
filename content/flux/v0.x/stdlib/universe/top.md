@@ -15,7 +15,7 @@ flux/v0.x/tags: [selectors, transformations]
 introduced: 0.7.0
 ---
 
-The `top()` function sorts a table by columns and keeps only the top `n` records.
+The `top()` function sorts each input table by columns and keeps only the top `n` records.
 
 ```js
 top(n:10, columns: ["_value"])
@@ -33,7 +33,7 @@ top(n:10, columns: ["_value"])
 Number of records to return.
 
 ### columns {data-type="array of strings"}
-List of columns by which to sort.
+List of columns to sort by.
 Sort precedence is determined by list order (left to right).
 Default is `["_value"]`.
 
@@ -42,23 +42,40 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
+##### Return rows with the top three values in each input table
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> top(n:10)
+import "sampledata"
+
+sampledata.int()
+  |> top(n: 3)
 ```
 
-## Function definition
-```js
-// _sortLimit is a helper function, which sorts and limits a table.
-_sortLimit = (n, desc, columns=["_value"], tables=<-) =>
-  tables
-    |> sort(columns:columns, desc:desc)
-    |> limit(n:n)
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
 
-top = (n, columns=["_value"], tables=<-) => _sortLimit(n:n, columns:columns, desc:true)
-```
+##### Input data
+{{% flux/sample "float" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:30Z | t1  |     17 |
+| 2021-01-01T00:00:40Z | t1  |     15 |
+| 2021-01-01T00:00:10Z | t1  |     10 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+| 2021-01-01T00:00:40Z | t2  |     13 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

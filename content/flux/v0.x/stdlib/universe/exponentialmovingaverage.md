@@ -50,31 +50,84 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-#### Calculate a five point exponential moving average
+- [Calculate a three point exponential moving average](#calculate-a-three-point-exponential-moving-average)
+- [Calculate a three point exponential moving average with null values](#calculate-a-three-point-exponential-moving-average-with-null-values)
+
+#### Calculate a three point exponential moving average
 ```js
-from(bucket: "example-bucket"):
-  |> range(start: -12h)
-  |> exponentialMovingAverage(n: 5)
+import "sampledata"
+
+sampledata.int()
+  |> exponentialMovingAverage(n: 3)
 ```
 
-#### Table transformation with a two point exponential moving average
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
 
-###### Input table:
-| _time | tag | _value |
-|:-----:|:---:|:------:|
-| 0001  | tv  | null   |
-| 0002  | tv  | 10     |
-| 0003  | tv  | 20     |
+##### Input data
+{{% flux/sample "int" %}}
 
-###### Query:
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t1  |      5 |
+| 2021-01-01T00:00:30Z | t1  |     11 |
+| 2021-01-01T00:00:40Z | t1  |     13 |
+| 2021-01-01T00:00:50Z | t1  |    8.5 |
+
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:20Z | t2  |  6.666666666666667 |
+| 2021-01-01T00:00:30Z | t2  | 12.833333333333334 |
+| 2021-01-01T00:00:40Z | t2  | 12.916666666666668 |
+| 2021-01-01T00:00:50Z | t2  |  6.958333333333334 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Calculate a three point exponential moving average with null values
+
 ```js
-// ...
-  |> exponentialMovingAverage(n: 2)
+import "sampledata"
+
+sampledata.int(includeNull: true)
+  |> exponentialMovingAverage(n: 3)
 ```
 
-###### Output table:
-| _time | tag | _value |
-|:-----:|:---:|:------:|
-| 0002  | tv  | 10     |
-| 0003  | tv  | 16.67  |
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" true %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t1  | 2021-01-01T00:00:20Z |    2.5 |
+| t1  | 2021-01-01T00:00:30Z |    2.5 |
+| t1  | 2021-01-01T00:00:40Z |    2.5 |
+| t1  | 2021-01-01T00:00:50Z |   3.25 |
+
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t2  | 2021-01-01T00:00:20Z |    0.5 |
+| t2  | 2021-01-01T00:00:30Z |   9.75 |
+| t2  | 2021-01-01T00:00:40Z |   9.75 |
+| t2  | 2021-01-01T00:00:50Z |  5.375 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

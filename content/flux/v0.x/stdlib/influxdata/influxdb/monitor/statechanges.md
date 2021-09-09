@@ -55,27 +55,21 @@ monitor.from(start: -1h)
 
 {{< flex >}}
 {{% flex-content %}}
-**Given the following input:**
+##### Example input data
 
-| _time | _level |
-|:----- |:------:|
-| 0001  | ok     |
-| 0002  | ok     |
-| 0003  | warn   |
-| 0004  | crit   |
+| _time                | _level |
+| :------------------- | :----: |
+| 2021-01-01T00:00:00Z |   ok   |
+| 2021-01-01T00:10:00Z |   ok   |
+| 2021-01-01T00:20:00Z |  warn  |
+| 2021-01-01T00:30:00Z |  crit  |
 {{% /flex-content %}}
 {{% flex-content %}}
-**The following function outputs:**
+##### Example output data
 
-```js
-monitor.stateChanges(
-  toLevel: "crit"
-)
-```
-
-| _time | _level |
-|:----- |:------:|
-| 0004  | crit   |
+| _time                | _level |
+| :------------------- | :----: |
+| 2021-01-01T00:30:00Z |  crit  |
 {{% /flex-content %}}
 {{< /flex >}}
 

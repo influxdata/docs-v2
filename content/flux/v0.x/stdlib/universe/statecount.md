@@ -33,32 +33,65 @@ and does not affect the state count._
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter.
+To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### fn {data-type="function"}
-
+({{< req >}})
 A single argument function that evaluates true or false to identify the state of the record.
 Records are passed to the function.
 Those that evaluate to `true` increment the state count.
 Those that evaluate to `false` reset the state count.
 
 ### column {data-type="string"}
-
-The name of the column added to each record that contains the incremented state count.
+Name of the column added to each record that contains the incremented state count.
+Default is `stateCount`.
 
 ### tables {data-type="stream of tables"}
 Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
 ```js
-from("monitor/autogen")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "http")
-  |> stateCount(
-    fn: (r) => r.http_response_code == "500",
-    column: "server_error_count"
-  )
+import "sampledata"
+
+sampledata.int()
+  |> stateCount(fn: (r) => r._value > 10)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                                             | tag | _value | stateCount |
+| :------------------------------------------------ | :-- | -----: | ---------: |
+| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} | t1  |     -2 |         -1 |
+| {{% nowrap %}}2021-01-01T00:00:10Z{{% /nowrap %}} | t1  |     10 |         -1 |
+| {{% nowrap %}}2021-01-01T00:00:20Z{{% /nowrap %}} | t1  |      7 |         -1 |
+| {{% nowrap %}}2021-01-01T00:00:30Z{{% /nowrap %}} | t1  |     17 |          1 |
+| {{% nowrap %}}2021-01-01T00:00:40Z{{% /nowrap %}} | t1  |     15 |          2 |
+| {{% nowrap %}}2021-01-01T00:00:50Z{{% /nowrap %}} | t1  |      4 |         -1 |
+
+| _time                                             | tag | _value | stateCount |
+| :------------------------------------------------ | :-- | -----: | ---------: |
+| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} | t2  |     19 |          1 |
+| {{% nowrap %}}2021-01-01T00:00:10Z{{% /nowrap %}} | t2  |      4 |         -1 |
+| {{% nowrap %}}2021-01-01T00:00:20Z{{% /nowrap %}} | t2  |     -3 |         -1 |
+| {{% nowrap %}}2021-01-01T00:00:30Z{{% /nowrap %}} | t2  |     19 |          1 |
+| {{% nowrap %}}2021-01-01T00:00:40Z{{% /nowrap %}} | t2  |     13 |          2 |
+| {{% nowrap %}}2021-01-01T00:00:50Z{{% /nowrap %}} | t2  |      1 |         -1 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

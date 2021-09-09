@@ -1,8 +1,8 @@
 ---
-title: Flux TICKscript package
+title: Flux tickscript package
 list_title: tickscript package
 description: >
-  The Flux TICKscript package provides functions to help migrate Kapacitor TICKscripts to Flux tasks.
+  The Flux `tickscript` package provides functions to help migrate Kapacitor TICKscripts to Flux tasks.
   Import the `contrib/bonitoo-io/tickscript` package.
 menu:
   flux_0_x_ref:
@@ -23,7 +23,7 @@ cascade:
       **InfluxDB Slack:** [@Ales Pour](https://influxdata.com/slack)
 ---
 
-The Flux TICKscript package provides functions to help migrate Kapacitor TICKscripts to Flux tasks.
+The Flux `tickscript` package provides functions to help migrate Kapacitor TICKscripts to Flux tasks.
 Import the `contrib/bonitoo-io/tickscript` package:
 
 ```js

@@ -1,8 +1,9 @@
 ---
-title: Flux user-contributed functions
-list_title: User-contributed functions
+title: Flux contrib package (user-contributed)
+list_title: contrib package (user-contributed)
 description: >
-  User-contributed packages and functions are contributed and maintained by members of the InfluxDB and Flux communities.
+  The Flux `contrib` package contains packages and functions that are contributed
+  and maintained by members of the Flux and InfluxDB communities.
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/
   - /influxdb/cloud/reference/flux/stdlib/contrib/
@@ -14,6 +15,8 @@ weight: 11
 flux/v0.x/tags: [contributed, functions, package]
 ---
 
+The Flux `contrib` package contains packages and functions that are contributed
+and maintained by members of the Flux and InfluxDB communities.
 InfluxData supports user-contributed Flux packages and functions.
 We also recognize the importance of original contributors reviewing updates to
 their packages and functions.

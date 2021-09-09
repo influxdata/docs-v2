@@ -88,7 +88,48 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ## Examples
 
-##### Compute the 90th quantile
+##### Compute the 90th quantile of a histogram
 ```js
-histogramQuantile(quantile: 0.9)
+import "sampledata"
+
+data = sampledata.float()
+  |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
+
+data
+  |> histogramQuantile(quantile: 0.9)
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+| tag |   le | _value |
+| :-- | ---: | -----: |
+| t1  |  0.0 |    1.0 |
+| t1  |  5.0 |    2.0 |
+| t1  | 10.0 |    3.0 |
+| t1  | 20.0 |    6.0 |
+
+| tag |   le | _value |
+| :-- | ---: | -----: |
+| t2  |  0.0 |    1.0 |
+| t2  |  5.0 |    3.0 |
+| t2  | 10.0 |    3.0 |
+| t2  | 20.0 |    6.0 |
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _value |
+| :-- | -----: |
+| t1  |   18.0 |
+
+| tag | _value |
+| :-- | -----: |
+| t2  |   18.0 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

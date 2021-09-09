@@ -43,24 +43,3 @@ but replace `_value` with your desired column.
 ### tables {data-type="stream of tables"}
 Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
-
-## Examples
-```js
-from(bucket: "telegraf")
-  |> filter(fn:(r) =>
-    r._measurement == "mem" and
-    r._field == "used"
-  )
-  |> toDuration()
-```
-
-## Function definition
-```js
-toDuration = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: duration(v: r._value) }))
-```
-
-_**Used functions:**
-[map()](/flux/v0.x/stdlib/universe/map),
-[duration()](/flux/v0.x/stdlib/universe/duration)_

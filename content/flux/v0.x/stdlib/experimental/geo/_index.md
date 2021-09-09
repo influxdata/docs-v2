@@ -1,8 +1,8 @@
 ---
-title: Flux Geo package
+title: Flux geo package
 list_title: geo package
 description: >
-  The Flux Geo package provides tools for working with geo-temporal data,
+  The Flux `geo` package provides tools for working with geo-temporal data,
   such as filtering and grouping by geographic location.
   Import the `experimental/geo` package.
 aliases:
@@ -18,7 +18,7 @@ related:
   - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
-The Flux Geo package provides tools for working with geo-temporal data,
+The Flux `geo` package provides tools for working with geo-temporal data,
 such as filtering and grouping by geographic location.
 Import the `experimental/geo` package:
 

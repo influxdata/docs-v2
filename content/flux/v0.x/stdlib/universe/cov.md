@@ -19,10 +19,9 @@ introduced: 0.7.0
 The `cov()` function computes the covariance between two streams by first joining the streams,
 then performing the covariance operation.
 
-_**Output data type:** Float_
 
 ```js
-cov(x: table1, y: table2, on: ["_time", "_field"], pearsonr: false)
+cov(x: stream1, y: stream2, on: ["_time", "_field"], pearsonr: false)
 ```
 
 ## Parameters
@@ -30,10 +29,12 @@ cov(x: table1, y: table2, on: ["_time", "_field"], pearsonr: false)
 ### x {data-type="stream of tables"}
 ({{< req >}})
 First input stream used to calculate the covariance.
+Values in the `_value` columns must be [float values](/flux/v0.x/data-types/basic/float/).
 
 ### y {data-type="stream of tables"}
 ({{< req >}})
 Second input stream used to calculate the covariance.
+Values in the `_value` columns must be [float values](/flux/v0.x/data-types/basic/float/).
 
 ### on {data-type="array of strings"}
 ({{< req >}})
@@ -44,22 +45,63 @@ Normalize results to the Pearson R coefficient.
 Default is `false`.
 
 ## Examples
+The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
+to generate sample data and show how `cov()` transforms data.
 
 ```js
-table1 = from(bucket: "example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "measurement_1"
-  )
+import "generate"
 
-table2 = from(bucket: "example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "measurement_2"
-  )
+stream1 = generate.from(
+  count: 5,
+  fn: (n) => n * n,
+  start: 2021-01-01T00:00:00Z,
+  stop: 2021-01-01T00:01:00Z
+) |> toFloat()
 
-cov(x: table1, y: table2, on: ["_time", "_field"])
+stream2 = generate.from(
+  count: 5,
+  fn: (n) => n * n * n / 2,
+  start: 2021-01-01T00:00:00Z,
+  stop: 2021-01-01T00:01:00Z
+) |> toFloat()
+
+cov(x: stream1, y: stream2, on: ["_time"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+
+#### Input data
+{{< flex >}}
+{{% flex-content %}}
+##### stream1
+| _time                | _value |
+| :------------------- | -----: |
+| 2021-01-01T00:00:00Z |    0.0 |
+| 2021-01-01T00:00:12Z |    1.0 |
+| 2021-01-01T00:00:24Z |    4.0 |
+| 2021-01-01T00:00:36Z |    9.0 |
+| 2021-01-01T00:00:48Z |   16.0 |
+{{% /flex-content %}}
+{{% flex-content %}}
+##### stream2
+| _time                | _value |
+| :------------------- | -----: |
+| 2021-01-01T00:00:00Z |    0.0 |
+| 2021-01-01T00:00:12Z |    0.0 |
+| 2021-01-01T00:00:24Z |    4.0 |
+| 2021-01-01T00:00:36Z |   13.0 |
+| 2021-01-01T00:00:48Z |   32.0 |
+{{% /flex-content %}}
+{{< /flex >}}
+
+#### Output data
+| _value |
+| -----: |
+|  87.75 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js

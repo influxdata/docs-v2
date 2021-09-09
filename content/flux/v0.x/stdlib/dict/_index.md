@@ -1,8 +1,8 @@
 ---
-title: Flux Dictionary package
-list_title: Dictionary package
+title: Flux dict package
+list_title: dict package
 description: >
-  The Flux dictionary package provides functions for interacting with dictionary types.
+  The Flux `dict` package provides functions for interacting with dictionary types.
   Import the `dict` package.
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/dict/
@@ -19,7 +19,8 @@ cascade:
 introduced: 0.97.0
 ---
 
-The Flux dictionary package provides functions for interacting with [dictionary types](/flux/v0.x/spec/types/#dictionary-types).
+The Flux `dict` package provides functions for interacting with
+[dictionary types](/flux/v0.x/data-types/composite/dict).
 Import the `dict` package.
 
 ```js

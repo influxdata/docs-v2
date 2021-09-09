@@ -60,60 +60,40 @@ For each input table with `x` rows, `relativeStrengthIndex()` outputs a table
 with `x - n` rows.
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
-#### Calculate a five point relative strength index
+#### Calculate a three point relative strength index
 ```js
-from(bucket: "example-bucket"):
-  |> range(start: -12h)
-  |> relativeStrengthIndex(n: 5)
+import "sampledata"
+
+sampledata.int()
+  |> relativeStrengthIndex(n: 3)
 ```
 
-#### Table transformation with a ten point RSI
-
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
 {{< flex >}}
 {{% flex-content %}}
-###### Input table:
-| _time | A    | B    | tag |
-|:-----:|:----:|:----:|:---:|
-| 0001  | 1    | 1    | tv  |
-| 0002  | 2    | 2    | tv  |
-| 0003  | 3    | 3    | tv  |
-| 0004  | 4    | 4    | tv  |
-| 0005  | 5    | 5    | tv  |
-| 0006  | 6    | 6    | tv  |
-| 0007  | 7    | 7    | tv  |
-| 0008  | 8    | 8    | tv  |
-| 0009  | 9    | 9    | tv  |
-| 0010  | 10   | 10   | tv  |
-| 0011  | 11   | 11   | tv  |
-| 0012  | 12   | 12   | tv  |
-| 0013  | 13   | 13   | tv  |
-| 0014  | 14   | 14   | tv  |
-| 0015  | 15   | 15   | tv  |
-| 0016  | 16   | 16   | tv  |
-| 0017  | 17   | null | tv  |
-| 0018  | 18   | 17   | tv  |
+
+##### Input data
+{{% flux/sample "int" %}}
+
 {{% /flex-content %}}
 {{% flex-content %}}
-###### Query:
-```js
-// ...
-  |> relativeStrengthIndex(
-    n: 10,
-    columns: ["A", "B"]
-  )
-```
 
-###### Output table:
-| _time |   A  |   B  | tag |
-|:-----:|:----:|:----:|:---:|
-|  0011 | 100  | 100  |  tv |
-|  0012 | 100  | 100  |  tv |
-|  0013 | 100  | 100  |  tv |
-|  0014 | 100  | 100  |  tv |
-|  0015 | 100  | 100  |  tv |
-|  0016 |  90  |  90  |  tv |
-|  0017 |  81  |  90  |  tv |
-|  0018 | 72.9 |  81  |  tv |
-{{% flex-content %}}
+##### Output data
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:30Z | t1  |             84.375 |
+| 2021-01-01T00:00:40Z | t1  |  73.97260273972603 |
+| 2021-01-01T00:00:50Z | t1  | 36.672325976230894 |
+
+| _time                | tag |            _value |
+| :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:30Z | t2  | 70.27027027027026 |
+| 2021-01-01T00:00:40Z | t2  | 59.42857142857142 |
+| 2021-01-01T00:00:50Z | t2  |            40.625 |
+{{% /flex-content %}}
 {{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

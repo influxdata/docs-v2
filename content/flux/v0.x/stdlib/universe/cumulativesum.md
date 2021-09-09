@@ -38,12 +38,43 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "disk" and
-    r._field == "used_percent"
-  )
-  |> cumulativeSum(columns: ["_value"])
+import "sampledata"
+
+sampledata.string()
+  |> cumulativeSum()
 ```
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample set="int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |     -2 |
+| 2021-01-01T00:00:10Z | t1  |      8 |
+| 2021-01-01T00:00:20Z | t1  |     15 |
+| 2021-01-01T00:00:30Z | t1  |     32 |
+| 2021-01-01T00:00:40Z | t1  |     47 |
+| 2021-01-01T00:00:50Z | t1  |     51 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:10Z | t2  |     23 |
+| 2021-01-01T00:00:20Z | t2  |     20 |
+| 2021-01-01T00:00:30Z | t2  |     39 |
+| 2021-01-01T00:00:40Z | t2  |     52 |
+| 2021-01-01T00:00:50Z | t2  |     53 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

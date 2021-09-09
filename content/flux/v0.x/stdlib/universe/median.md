@@ -78,30 +78,76 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-###### Median as an aggregate
+- [Median as an aggregate](#median-as-an-aggregate)
+- [Median as a selector](#median-as-a-selector)
+
+#### Median as an aggregate
 ```js
-from(bucket: "example-bucket")
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> range(start:-12h)
-  |> window(every:10m)
+import "sampledata"
+
+sampledata.float()
   |> median()
 ```
 
-###### Median as a selector
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _value |
+| :-- | -----: |
+| t1  |  9.135 |
+
+| tag | _value |
+| :-- | -----: |
+| t2  |  9.415 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Median as a selector
 ```js
-from(bucket: "example-bucket")
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> range(start:-12h)
-  |> window(every:10m)
+import "sampledata"
+
+sampledata.float()
   |> median(method: "exact_selector")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t1  | 2021-01-01T00:00:20Z |   7.35 |
+
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t2  | 2021-01-01T00:00:10Z |   4.97 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js

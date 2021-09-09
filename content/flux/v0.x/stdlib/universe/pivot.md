@@ -62,11 +62,14 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ## Examples
 
-### Align fields within each measurement that have the same timestamp
+- [Align fields within each measurement that have the same timestamp](#align-fields-within-each-measurement-that-have-the-same-timestamp)
+- [Align fields and measurements that have the same timestamp ](#align-fields-and-measurements-that-have-the-same-timestamp )
+- [Align values for each tag](#align-values-for-each-tag)
+
+#### Align fields within each measurement that have the same timestamp
 
 ```js
-from(bucket:"test")
-  |> range(start: 1970-01-01T00:00:00.000000000Z)
+data
   |> pivot(
     rowKey:["_time"],
     columnKey: ["_field"],
@@ -74,43 +77,45 @@ from(bucket:"test")
   )
 ```
 
-###### Input
-|              _time             | _value | _measurement | _field |
-|:------------------------------:|:------:|:------------:|:------:|
-| 1970-01-01T00:00:00.000000001Z |   1.0  |     "m1"     |  "f1"  |
-| 1970-01-01T00:00:00.000000001Z |   2.0  |     "m1"     |  "f2"  |
-| 1970-01-01T00:00:00.000000001Z |  null  |     "m1"     |  "f3"  |
-| 1970-01-01T00:00:00.000000001Z |   3.0  |     "m1"     |  null  |
-| 1970-01-01T00:00:00.000000002Z |   4.0  |     "m1"     |  "f1"  |
-| 1970-01-01T00:00:00.000000002Z |   5.0  |     "m1"     |  "f2"  |
-|              null              |   6.0  |     "m1"     |  "f2"  |
-| 1970-01-01T00:00:00.000000002Z |  null  |     "m1"     |  "f3"  |
-| 1970-01-01T00:00:00.000000003Z |  null  |     "m1"     |  "f1"  |
-| 1970-01-01T00:00:00.000000003Z |   7.0  |     "m1"     |  null  |
-| 1970-01-01T00:00:00.000000004Z |   8.0  |     "m1"     |  "f3"  |
+{{< expand-wrapper >}}
+{{% expand "View example input and output" %}}
+##### Input data
+| _time                | _measurement | _field | _value |
+| :------------------- | :----------: | :----: | :----: |
+| 1970-01-01T00:00:01Z |      m1      |   f1   |  1.0   |
+| 1970-01-01T00:00:01Z |      m1      |   f2   |  2.0   |
+| 1970-01-01T00:00:01Z |      m1      |   f3   |        |
+| 1970-01-01T00:00:01Z |      m1      |        |  3.0   |
+| 1970-01-01T00:00:02Z |      m1      |   f1   |  4.0   |
+| 1970-01-01T00:00:02Z |      m1      |   f2   |  5.0   |
+|                      |      m1      |   f2   |  6.0   |
+| 1970-01-01T00:00:02Z |      m1      |   f3   |        |
+| 1970-01-01T00:00:03Z |      m1      |   f1   |        |
+| 1970-01-01T00:00:03Z |      m1      |        |  7.0   |
+| 1970-01-01T00:00:04Z |      m1      |   f3   |  8.0   |
 
-###### Output
-|              _time             | _measurement |  f1  |  f2  |  f3  | null |
-|:------------------------------:|:------------:|:----:|:----:|:----:|:----:|
-| 1970-01-01T00:00:00.000000001Z |     "m1"     |  1.0 |  2.0 | null |  3.0 |
-| 1970-01-01T00:00:00.000000002Z |     "m1"     |  4.0 |  5.0 | null | null |
-|               null             |     "m1"     | null |  6.0 | null | null |
-| 1970-01-01T00:00:00.000000003Z |     "m1"     | null | null | null |  7.0 |
-| 1970-01-01T00:00:00.000000004Z |     "m1"     | null | null |  8.0 | null |
+##### Output data
+| _time                | _measurement |  f1 |  f2 |  f3 | null |
+| :------------------- | :----------: | --: | --: | --: | ---: |
+| 1970-01-01T00:00:01Z |      m1      | 1.0 | 2.0 |     |  3.0 |
+| 1970-01-01T00:00:02Z |      m1      | 4.0 | 5.0 |     |      |
+|                      |      m1      |     | 6.0 |     |      |
+| 1970-01-01T00:00:03Z |      m1      |     |     |     |  7.0 |
+| 1970-01-01T00:00:04Z |      m1      |     |     | 8.0 |      |
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
-### Align fields and measurements that have the same timestamp  
+#### Align fields and measurements that have the same timestamp
 
 {{% note %}}
-Note the effects of:
-
-- Having null values in some `columnKey` value;
+###### Note the effects of:
+- Having _null_ values in some `columnKey` values.
 - Having more values for the same `rowKey` and `columnKey` value
   (the 11th row overrides the 10th, and so does the 15th with the 14th).
 {{% /note %}}
 
 ```js
-from(bucket:"test")
-  |> range(start: 1970-01-01T00:00:00.000000000Z)
+data
   |> pivot(
     rowKey:["_time"],
     columnKey: ["_measurement", "_field"],
@@ -118,29 +123,73 @@ from(bucket:"test")
   )
 ```
 
-###### Input
-|              _time             | _value | _measurement | _field |
-|:------------------------------:|:------:|:------------:|:------:|
-| 1970-01-01T00:00:00.000000001Z |   1.0  |     "m1"     |  "f1"  |
-| 1970-01-01T00:00:00.000000001Z |   2.0  |     "m1"     |  "f2"  |
-| 1970-01-01T00:00:00.000000001Z |   3.0  |     null     |  "f3"  |
-| 1970-01-01T00:00:00.000000001Z |   4.0  |     null     |  null  |
-| 1970-01-01T00:00:00.000000002Z |   5.0  |     "m1"     |  "f1"  |
-| 1970-01-01T00:00:00.000000002Z |   6.0  |     "m1"     |  "f2"  |
-| 1970-01-01T00:00:00.000000002Z |   7.0  |     "m1"     |  "f3"  |
-| 1970-01-01T00:00:00.000000002Z |   8.0  |     null     |  null  |
-|              null              |   9.0  |     "m1"     |  "f3"  |
-| 1970-01-01T00:00:00.000000003Z |  10.0  |     "m1"     |  null  |
-| 1970-01-01T00:00:00.000000003Z |  11.0  |     "m1"     |  null  |
-| 1970-01-01T00:00:00.000000003Z |  12.0  |     "m1"     |  "f3"  |
-| 1970-01-01T00:00:00.000000003Z |  13.0  |     null     |  null  |
-|              null              |  14.0  |     "m1"     |  null  |
-|              null              |  15.0  |     "m1"     |  null  |
+{{< expand-wrapper >}}
+{{% expand "View example input and output" %}}
+##### Input data
+| _time                | _measurement | _field | _value |
+| :------------------- | :----------: | :----: | -----: |
+| 1970-01-01T00:00:01Z |      m1      |   f1   |    1.0 |
+| 1970-01-01T00:00:01Z |      m1      |   f2   |    2.0 |
+| 1970-01-01T00:00:01Z |              |   f3   |    3.0 |
+| 1970-01-01T00:00:01Z |              |        |    4.0 |
+| 1970-01-01T00:00:02Z |      m1      |   f1   |    5.0 |
+| 1970-01-01T00:00:02Z |      m1      |   f2   |    6.0 |
+| 1970-01-01T00:00:02Z |      m1      |   f3   |    7.0 |
+| 1970-01-01T00:00:02Z |              |        |    8.0 |
+|                      |      m1      |   f3   |    9.0 |
+| 1970-01-01T00:00:03Z |      m1      |        |   10.0 |
+| 1970-01-01T00:00:03Z |      m1      |        |   11.0 |
+| 1970-01-01T00:00:03Z |      m1      |   f3   |   12.0 |
+| 1970-01-01T00:00:03Z |              |        |   13.0 |
+|                      |      m1      |        |   14.0 |
+|                      |      m1      |        |   15.0 |
 
-###### Output
-|              _time             | m1_f1 | m1_f2 |  null_f3  | null_null | m1_f3 | m1_null |
-|:------------------------------:|:-----:|:-----:|:---------:|:---------:|:-----:|:-------:|
-| 1970-01-01T00:00:00.000000001Z |  1.0  |  2.0  |    3.0    |    4.0    |  null |  null   |
-| 1970-01-01T00:00:00.000000002Z |  5.0  |  6.0  |   null    |    8.0    |  7.0  |  null   |
-|              null              |  null |  null |   null    |    null   |  9.0  |  15.0   |
-| 1970-01-01T00:00:00.000000003Z |  null |  null |   null    |   13.0    |  12.0 |  11.0   |
+##### Output data
+| _time                | m1_f1 | m1_f2 | null_f3 | null_null | m1_f3 | m1_null |
+| :------------------- | ----: | ----: | ------: | --------: | ----: | ------: |
+| 1970-01-01T00:00:01Z |   1.0 |   2.0 |     3.0 |       4.0 |       |         |
+| 1970-01-01T00:00:02Z |   5.0 |   6.0 |         |       8.0 |   7.0 |         |
+|                      |       |       |         |           |   9.0 |    15.0 |
+| 1970-01-01T00:00:03Z |       |       |         |      13.0 |  12.0 |    11.0 |
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Align values for each tag
+{{% flux/sample-example-intro %}}
+
+```js
+import "sampledata"
+
+sampledata.int()
+  |> pivot(
+    rowKey: ["_time"],
+    columnKey: ["tag"],
+    valueColumn: "_value"
+  )
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                |  t1 |  t2 |
+| :------------------- | --: | --: |
+| 2021-01-01T00:00:00Z |  -2 |  19 |
+| 2021-01-01T00:00:10Z |  10 |   4 |
+| 2021-01-01T00:00:20Z |   7 |  -3 |
+| 2021-01-01T00:00:30Z |  17 |  19 |
+| 2021-01-01T00:00:40Z |  15 |  13 |
+| 2021-01-01T00:00:50Z |   4 |   1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

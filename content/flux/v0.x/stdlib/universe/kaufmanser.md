@@ -43,8 +43,38 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -7d)
-  |> kaufmansER(n: 10)
+import "sampledata"
+
+sampledata.int()
+  |> kaufmansER(n: 3)
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |              _value |
+| :------------------- | :-- | ------------------: |
+| 2021-01-01T00:00:30Z | t1  |                0.76 |
+| 2021-01-01T00:00:40Z | t1  | 0.33333333333333337 |
+| 2021-01-01T00:00:50Z | t1  | 0.13043478260869565 |
+
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:30Z | t2  |                0.0 |
+| 2021-01-01T00:00:40Z | t2  | 0.2571428571428572 |
+| 2021-01-01T00:00:50Z | t2  |                0.1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

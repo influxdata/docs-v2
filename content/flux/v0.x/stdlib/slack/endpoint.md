@@ -30,7 +30,7 @@ slack.endpoint(
 
 ### url {data-type="string"}
 The Slack API URL.
-Defaults to `https://slack.com/api/chat.postMessage`.
+Default is `https://slack.com/api/chat.postMessage`.
 
 {{% note %}}
 If using a Slack webhook, you'll receive a Slack webhook URL when you
@@ -40,7 +40,7 @@ If using a Slack webhook, you'll receive a Slack webhook URL when you
 ### token {data-type="string"}
 The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
 used to interact with Slack.
-Defaults to `""`.
+Default is `""`.
 
 {{% note %}}
 A token is only required if using the Slack chat.postMessage API.

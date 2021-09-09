@@ -27,6 +27,7 @@ interpolate.linear(every: 1m)
 
 #### Function requirements
 - Input data must have `_time` and `_value` columns.
+- `_value` column must be of type `float`.
 - **All columns** other than `_time` and `_value` must be part of the group key.
 
 ## Parameters

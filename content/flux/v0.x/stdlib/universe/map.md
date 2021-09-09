@@ -70,51 +70,150 @@ map(fn: (r) => ({ r with newColumn: r._value * 2 }))
 ```
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-###### Square the value of each record
+- [Square the value in each row](#square-the-value-in-each-row)
+- [Create a new table with new columns](#create-a-new-table-with-new-columns)
+- [Add new columns and preserve existing columns](#add-new-columns-and-preserve-existing-columns)
 
-```js
-from(bucket:"example-bucket")
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> range(start:-12h)
-  |> map(fn: (r) => ({ r with _value: r._value * r._value}))
-```
-
-###### Create a new table with new format
+#### Square the value in each row
 
 ```js
-from(bucket:"example-bucket")
-    |> filter(fn: (r) =>
-      r._measurement == "cpu" and
-      r._field == "usage_system"
-    )
-    |> range(start:-12h)
-    // create a new table by copying each row into a new format
-    |> map(fn: (r) => ({
-      time: r._time,
-      app_server: r.host
-    }))
+import "sampledata"
+
+sampledata.int()
+  |> map(fn: (r) => ({ r with _value: r._value * r._value }))
 ```
 
-###### Add new columns and preserve existing columns
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |      4 |
+| 2021-01-01T00:00:10Z | t1  |    100 |
+| 2021-01-01T00:00:20Z | t1  |     49 |
+| 2021-01-01T00:00:30Z | t1  |    289 |
+| 2021-01-01T00:00:40Z | t1  |    225 |
+| 2021-01-01T00:00:50Z | t1  |     16 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t2  |    361 |
+| 2021-01-01T00:00:10Z | t2  |     16 |
+| 2021-01-01T00:00:20Z | t2  |      9 |
+| 2021-01-01T00:00:30Z | t2  |    361 |
+| 2021-01-01T00:00:40Z | t2  |    169 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Create a new table with new columns
+
 ```js
-from(bucket:"example-bucket")
-    |> filter(fn: (r) =>
-      r._measurement == "cpu" and
-      r._field == "usage_system"
-    )
-    |> range(start:-12h)
-    // create a new table by copying each row into a new format
-    |> map(fn: (r) => ({
-      r with
-      app_server: r.host,
-      valueInt: int(v: r._value)
-    }))
+import "sampledata"
+
+sampledata.int()
+  |> map(fn: (r) => ({
+    time: r._time,
+    source: r.tag,
+    alert: if r._value > 10 then true else false
+  }))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| time                 | source | alert |
+| :------------------- | :----- | ----: |
+| 2021-01-01T00:00:00Z | t1     | false |
+| 2021-01-01T00:00:10Z | t1     | false |
+| 2021-01-01T00:00:20Z | t1     | false |
+| 2021-01-01T00:00:30Z | t1     |  true |
+| 2021-01-01T00:00:40Z | t1     |  true |
+| 2021-01-01T00:00:50Z | t1     | false |
+| 2021-01-01T00:00:00Z | t2     |  true |
+| 2021-01-01T00:00:10Z | t2     | false |
+| 2021-01-01T00:00:20Z | t2     | false |
+| 2021-01-01T00:00:30Z | t2     |  true |
+| 2021-01-01T00:00:40Z | t2     |  true |
+| 2021-01-01T00:00:50Z | t2     | false |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Add new columns and preserve existing columns
+Use the `with` operator on the `r` record to preserve columns not directly
+operated on by the map operation.
+
+```js
+import "sampledata"
+
+sampledata.int()
+  |> map(fn: (r) => ({
+    r with
+    server: "server-${r.tag}",
+    valueFloat: float(v: r._value)
+  }))
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value | server    | valueFloat |
+| :------------------- | :-- | -----: | :-------- | ---------: |
+| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} | t1  |     -2 | {{% nowrap %}}server-t1{{% /nowrap %}} |       -2.0 |
+| {{% nowrap %}}2021-01-01T00:00:10Z{{% /nowrap %}} | t1  |     10 | {{% nowrap %}}server-t1{{% /nowrap %}} |       10.0 |
+| {{% nowrap %}}2021-01-01T00:00:20Z{{% /nowrap %}} | t1  |      7 | {{% nowrap %}}server-t1{{% /nowrap %}} |        7.0 |
+| {{% nowrap %}}2021-01-01T00:00:30Z{{% /nowrap %}} | t1  |     17 | {{% nowrap %}}server-t1{{% /nowrap %}} |       17.0 |
+| {{% nowrap %}}2021-01-01T00:00:40Z{{% /nowrap %}} | t1  |     15 | {{% nowrap %}}server-t1{{% /nowrap %}} |       15.0 |
+| {{% nowrap %}}2021-01-01T00:00:50Z{{% /nowrap %}} | t1  |      4 | {{% nowrap %}}server-t1{{% /nowrap %}} |        4.0 |
+
+| _time                | tag | _value | server    | valueFloat |
+| :------------------- | :-- | -----: | :-------- | ---------: |
+| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} | t2  |     19 | {{% nowrap %}}server-t2{{% /nowrap %}} |       19.0 |
+| {{% nowrap %}}2021-01-01T00:00:10Z{{% /nowrap %}} | t2  |      4 | {{% nowrap %}}server-t2{{% /nowrap %}} |        4.0 |
+| {{% nowrap %}}2021-01-01T00:00:20Z{{% /nowrap %}} | t2  |     -3 | {{% nowrap %}}server-t2{{% /nowrap %}} |       -3.0 |
+| {{% nowrap %}}2021-01-01T00:00:30Z{{% /nowrap %}} | t2  |     19 | {{% nowrap %}}server-t2{{% /nowrap %}} |       19.0 |
+| {{% nowrap %}}2021-01-01T00:00:40Z{{% /nowrap %}} | t2  |     13 | {{% nowrap %}}server-t2{{% /nowrap %}} |       13.0 |
+| {{% nowrap %}}2021-01-01T00:00:50Z{{% /nowrap %}} | t2  |      1 | {{% nowrap %}}server-t2{{% /nowrap %}} |        1.0 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Troubleshooting
 

@@ -47,5 +47,23 @@ import "experimental"
 from(bucket: "example-bucket")
   |> range(start: -10m)
   |> group(columns: ["host"])
-  |> monitor.deadman(t: experimental.subDuration(d: 5m, from: now() ))
+  |> monitor.deadman(t: experimental.subDuration(d: 30s, from: now() ))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and output" %}}
+##### Example input data
+| _start               | _stop                | _time                | _measurement | _host | _field | _value |
+| :------------------- | :------------------- | :------------------- | :----------- | :---- | :----- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:00:00Z | example      | h1    | resp   |    200 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:00:30Z | example      | h1    | resp   |    200 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:01:00Z | example      | h1    | resp   |    500 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:01:30Z | example      | h1    | resp   |    500 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:02:00Z | example      | h1    | resp   |    200 |
+
+##### Example output data
+| _start               | _stop                | _time                | _measurement | _host | _field | _value | dead |
+| :------------------- | :------------------- | :------------------- | :----------- | :---- | :----- | -----: | ---: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:02:00Z | example      | h1    | resp   |    200 | true |
+{{% /expand %}}
+{{< /expand-wrapper >}}

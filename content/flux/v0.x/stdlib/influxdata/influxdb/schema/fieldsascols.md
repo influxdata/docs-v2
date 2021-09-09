@@ -42,8 +42,38 @@ from(bucket:"example-bucket")
   |> range(start: -1h)
   |> filter(fn: (r) => r._measurement == "cpu")
   |> schema.fieldsAsCols()
-  |> keep(columns: ["_time", "cpu", "usage_idle", "usage_user"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and output" %}}
+
+_`_start` and `_stop` columns have been omitted._
+
+##### Example input data
+| _measurement | _host | _time                | _field  | _value |
+| :----------- | :---- | :------------------- | :------ | -----: |
+| example      | h1    | 2021-01-01T00:00:00Z | resp_ms |     43 |
+| example      | h1    | 2021-01-01T00:00:30Z | resp_ms |     52 |
+| example      | h1    | 2021-01-01T00:01:00Z | resp_ms |  30000 |
+| example      | h1    | 2021-01-01T00:01:30Z | resp_ms |     49 |
+
+| _measurement | _host | _time                | _field    | _value |
+| :----------- | :---- | :------------------- | :-------- | -----: |
+| example      | h1    | 2021-01-01T00:00:00Z | resp_code |    200 |
+| example      | h1    | 2021-01-01T00:00:30Z | resp_code |    200 |
+| example      | h1    | 2021-01-01T00:01:00Z | resp_code |    500 |
+| example      | h1    | 2021-01-01T00:01:30Z | resp_code |    200 |
+
+##### Example output data
+| _measurement | _host | _time                | resp_ms | resp_code |
+| :----------- | :---- | :------------------- | ------: | --------: |
+| example      | h1    | 2021-01-01T00:00:00Z |      43 |       200 |
+| example      | h1    | 2021-01-01T00:00:30Z |      52 |       200 |
+| example      | h1    | 2021-01-01T00:01:00Z |   30000 |       500 |
+| example      | h1    | 2021-01-01T00:01:30Z |      49 |       200 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js
@@ -57,6 +87,3 @@ fieldsAsCols = (tables=<-) =>
       valueColumn: "_value"
     )
 ```
-
-_**Used functions:**
-[pivot()](/flux/v0.x/stdlib/universe/pivot)_

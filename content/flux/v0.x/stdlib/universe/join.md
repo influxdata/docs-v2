@@ -86,45 +86,64 @@ The `on` parameter and the `cross` method are mutually exclusive.
 -->
 
 ## Examples
-
-#### Example join with sample data
-
-Given the following two streams of data:
-
-##### SF_Temp**  
-
-| _time  | _field | _value  |
-| ------ |:------:| -------:|
-| 0001	 | "temp" | 70      |
-| 0002	 | "temp" | 75      |
-| 0003	 | "temp" | 72      |
-
-##### NY_Temp**  
-
-| _time  | _field | _value  |
-| ------ |:------:| -------:|
-| 0001	 | "temp" | 55      |
-| 0002	 | "temp" | 56      |
-| 0003	 | "temp" | 55      |
-
-And the following join query:
+The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
+to illustrate how `join()` transforms data.
 
 ```js
+import "generate"
+
+t1 = generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+  |> set(key: "tag", value: "foo")
+
+t2 = generate.from(count: 4, fn: (n) => n * -1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+  |> set(key: "tag", value: "foo")
+
 join(
-  tables: {sf: SF_Temp, ny: NY_Temp},
-  on: ["_time", "_field"]
+  tables: {t1: t1, t2: t2},
+  on: ["_time", "tag"]
 )
 ```
 
-The output will be:
+#### Input data streams
 
-| _time | _field | _value_ny | _value_sf |
-| ----- | ------ | ---------:| ---------:|
-| 0001  | "temp" | 55        | 70        |
-| 0002  | "temp" | 56        | 75        |
-| 0003  | "temp" | 55        | 72        |
+{{< flex >}}
+{{% flex-content %}}
 
-#### Cross-measurement join
+##### t1 
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | foo |      1 |
+| 2021-01-02T00:00:00Z | foo |      2 |
+| 2021-01-03T00:00:00Z | foo |      3 |
+| 2021-01-04T00:00:00Z | foo |      4 |
+{{% /flex-content %}}
+{{% flex-content %}}
+##### t2
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | foo |      0 |
+| 2021-01-02T00:00:00Z | foo |     -1 |
+| 2021-01-03T00:00:00Z | foo |     -2 |
+| 2021-01-04T00:00:00Z | foo |     -3 |
+{{% /flex-content %}}
+{{< /flex >}}
+
+#### Output data stream
+
+| _time                | tag | _value_t1 | _value_t2 |
+| :------------------- | :-- | --------: | --------: |
+| 2021-01-01T00:00:00Z | foo |         1 |         0 |
+| 2021-01-02T00:00:00Z | foo |         2 |        -1 |
+| 2021-01-03T00:00:00Z | foo |         3 |        -2 |
+| 2021-01-04T00:00:00Z | foo |         4 |        -3 |
+
+
+### InfluxDB cross-measurement join
+The following example shows how data in different InfluxDB measurements can be
+joined with Flux.
+
 ```js
 data_1 = from(bucket:"example-bucket")
   |> range(start:-15m)
@@ -153,7 +172,64 @@ Output rows also contain the differing values from each of the joined streams.
 into a single stream of tables and groups rows of data based on existing
 [group keys](/flux/v0.x/get-started/data-model/#group-key).
 
+{{% expand "View join() vs union() example" %}}
 Given two streams of tables, `t1` and `t2`, the results of `join()` and `union()`
 are illustrated below:
 
-{{< svg "/static/svgs/join-vs-union.svg" >}}
+#### Input streams
+
+{{< flex >}}
+{{% flex-content %}}
+
+##### t1 
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | foo |      1 |
+| 2021-01-02T00:00:00Z | foo |      2 |
+| 2021-01-03T00:00:00Z | foo |      3 |
+| 2021-01-04T00:00:00Z | foo |      4 |
+{{% /flex-content %}}
+{{% flex-content %}}
+##### t2
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | foo |      0 |
+| 2021-01-02T00:00:00Z | foo |     -1 |
+| 2021-01-03T00:00:00Z | foo |     -2 |
+| 2021-01-04T00:00:00Z | foo |     -3 |
+{{% /flex-content %}}
+{{< /flex >}}
+
+#### join() output
+```js
+join(
+  tables: {t1: t1, t2: t2}
+  on: ["_time", "tag"]
+)
+```
+
+| _time                | tag | _value_t1 | _value_t2 |
+| :------------------- | :-- | --------: | --------: |
+| 2021-01-01T00:00:00Z | foo |         1 |         0 |
+| 2021-01-02T00:00:00Z | foo |         2 |        -1 |
+| 2021-01-03T00:00:00Z | foo |         3 |        -2 |
+| 2021-01-04T00:00:00Z | foo |         4 |        -3 |
+
+#### union() output
+```js
+union(tables: [t1, t2])
+```
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | foo |      0 |
+| 2021-01-02T00:00:00Z | foo |     -1 |
+| 2021-01-03T00:00:00Z | foo |     -2 |
+| 2021-01-04T00:00:00Z | foo |     -3 |
+| 2021-01-01T00:00:00Z | foo |      1 |
+| 2021-01-02T00:00:00Z | foo |      2 |
+| 2021-01-03T00:00:00Z | foo |      3 |
+| 2021-01-04T00:00:00Z | foo |      4 |
+{{% /expand %}}

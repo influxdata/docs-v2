@@ -20,6 +20,7 @@ The `json.encode()` function converts a value into JSON bytes.
 import "json"
 
 json.encode(v: "some value")
+// Returns [34 115 111 109 101 32 118 97 108 117 101 34]
 ```
 
 This function encodes [Flux types](/flux/v0.x/spec/types/) as follows:
@@ -34,16 +35,3 @@ This function encodes [Flux types](/flux/v0.x/spec/types/) as follows:
 
 ### v {data-type="record, array, dict, string, bool, duration, int, uint, float, time"}
 The value to convert.
-
-## Examples
-
-##### Encode all values in a column in JSON bytes
-```js
-import "json"
-
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> map(fn: (r) => ({
-      r with _value: json.encode(v: r._value)
-  }))
-```

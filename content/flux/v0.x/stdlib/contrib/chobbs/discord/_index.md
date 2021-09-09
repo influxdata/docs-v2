@@ -1,8 +1,8 @@
 ---
-title: Flux Discord package
+title: Flux discord package
 list_title: discord package
 description: >
-  The Flux Discord package provides functions for sending messages to Discord.
+  The Flux `discord` package provides functions for sending messages to [Discord](https://discord.com/).
   Import the `contrib/chobbs/discord` package.
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/discord/
@@ -15,7 +15,7 @@ weight: 201
 flux/v0.x/tags: [functions, discord, package]
 ---
 
-The Flux Discord package provides functions for sending messages to Discord.
+The Flux `discord` package provides functions for sending messages to [Discord](https://discord.com/).
 Import the `contrib/chobbs/discord` package:
 
 ```js

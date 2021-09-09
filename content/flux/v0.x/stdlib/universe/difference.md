@@ -61,63 +61,182 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 For each input table with `n` rows, `difference()` outputs a table with `n - 1` rows.
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
+
+- [Calculate the difference between subsequent values](#calculate-the-difference-between-subsequent-values)
+- [Calculate the non-negative difference between subsequent values](#calculate-the-non-negative-difference-between-subsequent-values)
+- [Calculate the difference between subsequent values with null values](#calculate-the-difference-between-subsequent-values-with-null-values)
+- [Keep the first value when calculating the difference between values](#keep-the-first-value-when-calculating-the-difference-between-values)
+
+#### Calculate the difference between subsequent values
 
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
+import "sample"
+
+data = sample.int()
+
+data
   |> difference()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample set="int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t1  |     12 |
+| 2021-01-01T00:00:20Z | t1  |     -3 |
+| 2021-01-01T00:00:30Z | t1  |     10 |
+| 2021-01-01T00:00:40Z | t1  |     -2 |
+| 2021-01-01T00:00:50Z | t1  |    -11 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t2  |   -15 |
+| 2021-01-01T00:00:20Z | t2  |    -7 |
+| 2021-01-01T00:00:30Z | t2  |    22 |
+| 2021-01-01T00:00:40Z | t2  |    -6 |
+| 2021-01-01T00:00:50Z | t2  |   -12 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Calculate the non-negative difference between subsequent values
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> difference(nonNegative: true)
+import "sampledata"
+
+data = sampledata.int()
+
+data
+  |> difference(nonNegative: true):
 ```
 
-### Example data transformation
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
 
-###### Input table
-| _time | _value | tag |
-|:-----:|:------:|:---:|
-| 0001  | null   | tv  |
-| 0002  | 6      | tv  |
-| 0003  | 4      | tv  |
-| 0004  | 10     | tv  |
-| 0005  | null   | tv  |
+##### Input data
+{{% flux/sample set="int" %}}
 
-#### With nonNegative set to false
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t1  |     12 |
+| 2021-01-01T00:00:20Z | t1  |        |
+| 2021-01-01T00:00:30Z | t1  |     10 |
+| 2021-01-01T00:00:40Z | t1  |        |
+| 2021-01-01T00:00:50Z | t1  |        |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t2  |        |
+| 2021-01-01T00:00:20Z | t2  |        |
+| 2021-01-01T00:00:30Z | t2  |     22 |
+| 2021-01-01T00:00:40Z | t2  |        |
+| 2021-01-01T00:00:50Z | t2  |        |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+
+#### Calculate the difference between subsequent values with null values
 ```js
-|> difference(nonNegative: false)
-```
-###### Output table
-| _time | _value | tag |
-|:-----:|:------:|:---:|
-| 0002  | null   | tv  |
-| 0003  | -2     | tv  |
-| 0004  | 6      | tv  |
-| 0005  | null   | tv  |
+import "sampledata"
 
-#### With nonNegative set to true
+data = sampledata.int(includeNull: true)
+
+data
+  |> difference()
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" true %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t1  |        |
+| 2021-01-01T00:00:20Z | t1  |      9 |
+| 2021-01-01T00:00:30Z | t1  |        |
+| 2021-01-01T00:00:40Z | t1  |        |
+| 2021-01-01T00:00:50Z | t1  |     -3 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t2  |        |
+| 2021-01-01T00:00:20Z | t2  |     -7 |
+| 2021-01-01T00:00:30Z | t2  |     22 |
+| 2021-01-01T00:00:40Z | t2  |        |
+| 2021-01-01T00:00:50Z | t2  |    -18 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Keep the first value when calculating the difference between values
 ```js
-|> difference(nonNegative: true):
-```
-###### Output table
-| _time | _value | tag |
-|:-----:|:------:|:---:|
-| 0002  | null   | tv  |
-| 0003  | null   | tv  |
-| 0004  | 6      | tv  |
-| 0005  | null   | tv  |
+import "sampledata"
 
-
-#### With keepFirst set to true
-```js
-|> difference(nonNegative: false, keepFirst: true):
+sampledata.int()
+  |> difference(keepFirst: true)
 ```
-###### Output table
-| _time | _value | tag |
-|:-----:|:------:|:---:|
-| 0001  | null   | tv  |
-| 0002  | null   | tv  |
-| 0003  | -2     | tv  |
-| 0004  | 6      | tv  |
-| 0005  | null   | tv  |
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample set="int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |        |
+| 2021-01-01T00:00:10Z | t1  |     12 |
+| 2021-01-01T00:00:20Z | t1  |     -3 |
+| 2021-01-01T00:00:30Z | t1  |     10 |
+| 2021-01-01T00:00:40Z | t1  |     -2 |
+| 2021-01-01T00:00:50Z | t1  |    -11 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | tw  |        |
+| 2021-01-01T00:00:10Z | t2  |    -15 |
+| 2021-01-01T00:00:20Z | t2  |     -7 |
+| 2021-01-01T00:00:30Z | t2  |     22 |
+| 2021-01-01T00:00:40Z | t2  |     -6 |
+| 2021-01-01T00:00:50Z | t2  |    -12 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+

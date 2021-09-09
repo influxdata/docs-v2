@@ -1,8 +1,8 @@
 ---
-title: Flux BigPanda package
+title: Flux bigpanda package
 list_title: bigpanda package
 description: >
-  The Flux BigPanda package provides functions that send alerts to
+  The Flux `bigpanda` package provides functions that send alerts to
   [BigPanda](https://www.bigpanda.io/).
 menu:
   flux_0_x_ref:
@@ -15,7 +15,7 @@ aliases:
 flux/v0.x/tags: [functions, bigpanda, package]
 ---
 
-The Flux BigPanda package provides functions that send alerts to
+The Flux `bigpanda` package provides functions that send alerts to
 [BigPanda](https://www.bigpanda.io/).
 Import the `contrib/rhajek/bigpanda` package:
 
