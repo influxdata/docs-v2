@@ -46,6 +46,7 @@ tripleEMA(n: 5)
 ## Parameters
 
 ### n {data-type="int"}
+({{< req >}})
 Number of points to average.
 
 ### tables {data-type="stream of tables"}
@@ -53,23 +54,37 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
-#### Calculate a five point triple exponential moving average
+#### Calculate a three point triple exponential moving average
 ```js
-from(bucket: "example-bucket"):
-  |> range(start: -12h)
-  |> tripleEMA(n: 5)
+import "sampledata"
+
+sampledata.int()
+  |> tripleEMA(n: 3)
 ```
 
-## Function definition
-```js
-tripleEMA = (n, tables=<-) =>
-	tables
-		|> exponentialMovingAverage(n:n)
-		|> duplicate(column:"_value", as:"ema1")
-    |> exponentialMovingAverage(n:n)
-		|> duplicate(column:"_value", as:"ema2")
-		|> exponentialMovingAverage(n:n)
-		|> map(fn: (r) => ({r with _value: 3.0 * r.ema1 - 3.0 * r.ema2 + r._value}))
-		|> drop(columns: ["ema1", "ema2"])
-```
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:50Z | t1  | 7.6250000000000036 |
+
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:50Z | t2  | 4.0729166666666625 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

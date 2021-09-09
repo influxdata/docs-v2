@@ -1,8 +1,8 @@
 ---
 title: Flux system package
-list_title: System package
+list_title: system package
 description: >
-  The Flux system package provides functions for reading values from the system.
+  The Flux `system` package provides functions for reading values from the system.
   Import the `system` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/system/
@@ -16,7 +16,7 @@ weight: 11
 flux/v0.x/tags: [system, functions, package]
 ---
 
-The Flux system package provides functions for reading values from the system.
+The Flux `system` package provides functions for reading values from the system.
 Import the `system` package:
 
 ```js

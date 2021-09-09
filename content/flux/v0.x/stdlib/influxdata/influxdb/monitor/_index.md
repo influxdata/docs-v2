@@ -2,7 +2,7 @@
 title: Flux InfluxDB monitor package
 list_title: monitor package
 description: >
-  The InfluxDB monitor package provides tools for monitoring and alerting with InfluxDB.
+  The InfluxDB `monitor` package provides tools for monitoring and alerting with InfluxDB.
   Import the `influxdata/influxdb/monitor` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/monitor/

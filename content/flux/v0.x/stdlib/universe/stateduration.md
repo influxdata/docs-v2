@@ -44,34 +44,66 @@ Make sure `fn` parameter names match each specified parameter. To learn why, see
 {{% /note %}}
 
 ### fn {data-type="function"}
-
+({{< req >}})
 A single argument function that evaluates true or false to identify the state of the record.
 Records are passed to the function.
 Those that evaluate to `true` increment the state duration.
 Those that evaluate to `false` reset the state duration.
 
 ### column {data-type="string"}
-
-The name of the column added to each record that contains the state duration.
+Name of the column added to each record that contains the state duration.
+Default is `stateDuration`.
 
 ### unit {data-type="duration"}
 
-The unit of time in which the state duration is incremented.
+Unit of time to increment state duration with.
 For example: `1s`, `1m`, `1h`, etc.
-The default unit is one second (`1s`).
+Default is one second (`1s`).
 
 ### tables {data-type="stream of tables"}
 Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
 ```js
-from("monitor/autogen")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "http")
-  |> stateDuration(
-    fn: (r) => r.http_response_code == "500",
-    column: "server_error_duration"
-  )
+import "sampledata"
+
+sampledata.int()
+  |> stateDuration(fn: (r) => r._value > 10)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                                             | tag | _value | stateDuration |
+| :------------------------------------------------ | :-- | -----: | ------------: |
+| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} | t1  |     -2 |            -1 |
+| {{% nowrap %}}2021-01-01T00:00:10Z{{% /nowrap %}} | t1  |     10 |            -1 |
+| {{% nowrap %}}2021-01-01T00:00:20Z{{% /nowrap %}} | t1  |      7 |            -1 |
+| {{% nowrap %}}2021-01-01T00:00:30Z{{% /nowrap %}} | t1  |     17 |             0 |
+| {{% nowrap %}}2021-01-01T00:00:40Z{{% /nowrap %}} | t1  |     15 |            10 |
+| {{% nowrap %}}2021-01-01T00:00:50Z{{% /nowrap %}} | t1  |      4 |            -1 |
+
+| _time                                             | tag | _value | stateDuration |
+| :------------------------------------------------ | :-- | -----: | ------------: |
+| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} | t2  |     19 |             0 |
+| {{% nowrap %}}2021-01-01T00:00:10Z{{% /nowrap %}} | t2  |      4 |            -1 |
+| {{% nowrap %}}2021-01-01T00:00:20Z{{% /nowrap %}} | t2  |     -3 |            -1 |
+| {{% nowrap %}}2021-01-01T00:00:30Z{{% /nowrap %}} | t2  |     19 |             0 |
+| {{% nowrap %}}2021-01-01T00:00:40Z{{% /nowrap %}} | t2  |     13 |            10 |
+| {{% nowrap %}}2021-01-01T00:00:50Z{{% /nowrap %}} | t2  |      1 |            -1 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

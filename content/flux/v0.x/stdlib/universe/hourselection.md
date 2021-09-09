@@ -48,11 +48,52 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
+to generate sample data and show how `covariance()` transforms data.
 
-##### Use only data from 9am to 5pm
+#### Filter by business hours
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-90d)
-  |> filter(fn: (r) => r._measurement == "foot-traffic" )
+import "generate"
+
+data = generate.from(
+  count: 8,
+  fn: (n) => n * n,
+  start: 2021-01-01T00:00:00Z,
+  stop: 2021-01-02T00:00:00Z
+)
+  
+data 
   |> hourSelection(start: 9, stop: 17)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+| _time                | _value |
+| :------------------- | -----: |
+| 2021-01-01T00:00:00Z |      0 |
+| 2021-01-01T03:00:00Z |      1 |
+| 2021-01-01T06:00:00Z |      4 |
+| 2021-01-01T09:00:00Z |      9 |
+| 2021-01-01T12:00:00Z |     16 |
+| 2021-01-01T15:00:00Z |     25 |
+| 2021-01-01T18:00:00Z |     36 |
+| 2021-01-01T21:00:00Z |     49 |
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | _value |
+| :------------------- | -----: |
+| 2021-01-01T09:00:00Z |      9 |
+| 2021-01-01T12:00:00Z |     16 |
+| 2021-01-01T15:00:00Z |     25 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

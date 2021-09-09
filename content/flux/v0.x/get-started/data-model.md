@@ -36,7 +36,7 @@ that contains one value for each [row](#row).
 A **row** is a collection of associated [column](#column) values.
 
 #### Group key
-A **group key** defines which column values to include in a table.
+A **group key** defines which columns and specific column values to include in a table.
 All rows in a table contain the same values in group key columns.
 All tables in a stream of tables have a unique group key, but group key
 modifications are applied to a stream of tables.

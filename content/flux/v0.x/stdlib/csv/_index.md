@@ -1,8 +1,8 @@
 ---
-title: Flux CSV package
-list_title: CSV package
+title: Flux csv package
+list_title: csv package
 description: >
-  The Flux CSV package provides functions for working with data in annotated CSV format.
+  The Flux `csv` package provides functions for working with data in annotated CSV format.
   Import the `csv` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/csv/
@@ -16,7 +16,8 @@ weight: 11
 flux/v0.x/tags: [functions, csv, package]
 ---
 
-CSV Flux functions provide tools for working with data in [annotated CSV format](https://github.com/influxdata/flux/blob/master/docs/SPEC.md#csv).
+The Flux `csv` package provides functions for working with data in
+[annotated CSV format](https://github.com/influxdata/flux/blob/master/docs/SPEC.md#csv).
 Import the `csv` package:
 
 ```js

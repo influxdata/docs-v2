@@ -1,8 +1,9 @@
 ---
-title: Flux PagerDuty package
-list_title: PagerDuty package
+title: Flux pagerduty package
+list_title: pagerduty package
 description: >
-  The Flux PagerDuty package provides functions for sending data to PagerDuty.
+  The Flux `pagerduty` package provides functions for sending data to
+  [PagerDuty](https://www.pagerduty.com/).
   Import the `pagerduty` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/pagerduty/
@@ -16,7 +17,8 @@ weight: 11
 flux/v0.x/tags: [functions, pagerduty, package]
 ---
 
-The Flux `pagerduty` package provides functions for sending data to PagerDuty.
+The Flux `pagerduty` package provides functions for sending data to
+[PagerDuty](https://www.pagerduty.com/).
 Import the `pagerduty` package:
 
 ```js

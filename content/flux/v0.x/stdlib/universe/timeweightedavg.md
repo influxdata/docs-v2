@@ -36,15 +36,47 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system"
-  )
-  |> timeWeightedAvg(unit: 1m)
+import "sampledata"
+
+data = sampledata.int(includeNull: true)
+  |> range(start: sampledata.start, stop: sampledata.stop)
+  |> fill(usePrevious: true)
+  |> unique()
+
+data
+  |> timeWeightedAvg(unit: 1s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+##### Input data
+| _start               | _stop                | _time                | tag | _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t1  |     -2 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | t1  |      7 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | t1  |      4 |
+
+| _start               | _stop                | _time                | tag | _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t2  |        |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | t2  |     -3 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | t2  |     19 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | t2  |      1 |
+
+##### Output data
+| _start               | _stop                | tag |            _value |
+| :------------------- | :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1  | 4.166666666666667 |
+
+| _start               | _stop                | tag |            _value |
+| :------------------- | :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2  | 5.416666666666667 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js

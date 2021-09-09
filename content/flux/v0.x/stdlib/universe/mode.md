@@ -55,15 +55,34 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
-###### Return the mode of windowed data
 ```js
-from(bucket: "example-bucket")
-  |> filter(fn: (r) =>
-    r._measurement == "errors" and
-    r._field == "count_per_minute"
-  )
-  |> range(start:-12h)
-  |> window(every:10m)
+import "sampledata"
+
+sampledata.int()
   |> mode()
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _value |
+| :-- | -----: |
+| t1  |        |
+
+| tag | _value |
+| :-- | -----: |
+| t2  |     19 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

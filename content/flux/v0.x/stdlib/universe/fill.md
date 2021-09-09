@@ -50,25 +50,91 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-##### Fill null values with a specified non-null value
+- [Fill null values with a specified non-null value](#fill-null-values-with-a-specified-non-null-value)
+- [Fill null values with the previous non-null value](#fill-null-values-with-the-previous-non-null-value)
+
+#### Fill null values with a specified non-null value
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r.cpu == "cpu-total"
-  )
+import "sampledata"
+
+sampledata.float(includeNull: true)
   |> fill(value: 0.0)
 ```
 
-##### Fill null values with the previous non-null value
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "float" true %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |  -2.18 |
+| 2021-01-01T00:00:10Z | t1  |    0.0 |
+| 2021-01-01T00:00:20Z | t1  |   7.35 |
+| 2021-01-01T00:00:30Z | t1  |    0.0 |
+| 2021-01-01T00:00:40Z | t1  |    0.0 |
+| 2021-01-01T00:00:50Z | t1  |   4.43 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t2  |    0.0 |
+| 2021-01-01T00:00:10Z | t2  |   4.97 |
+| 2021-01-01T00:00:20Z | t2  |  -3.75 |
+| 2021-01-01T00:00:30Z | t2  |  19.77 |
+| 2021-01-01T00:00:40Z | t2  |    0.0 |
+| 2021-01-01T00:00:50Z | t2  |   1.86 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Fill null values with the previous non-null value
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r.cpu == "cpu-total"
-  )
+import "sampledata"
+
+sampledata.float(includeNull: true)
   |> fill(usePrevious: true)
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "float" true %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |  -2.18 |
+| 2021-01-01T00:00:10Z | t1  |  -2.18 |
+| 2021-01-01T00:00:20Z | t1  |   7.35 |
+| 2021-01-01T00:00:30Z | t1  |   7.35 |
+| 2021-01-01T00:00:40Z | t1  |   7.35 |
+| 2021-01-01T00:00:50Z | t1  |   4.43 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t2  |        |
+| 2021-01-01T00:00:10Z | t2  |   4.97 |
+| 2021-01-01T00:00:20Z | t2  |  -3.75 |
+| 2021-01-01T00:00:30Z | t2  |  19.77 |
+| 2021-01-01T00:00:40Z | t2  |  19.77 |
+| 2021-01-01T00:00:50Z | t2  |   1.86 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

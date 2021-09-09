@@ -1,6 +1,6 @@
 ---
-title: Flux Universe package (Built-in)
-list_title: Universe package (Built-in)
+title: Flux universe package (built-in)
+list_title: universe package (built-in)
 description: >
   The Flux `universe` package includes all functions that do not require a package import statement and are usable without any extra setup.
   Functions in the `universe` package provide a foundation for working with data using Flux.

@@ -40,17 +40,91 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-###### Shift forward in time
+- [Shift timestamps forward in time](#shift-timestamps-forward-in-time)
+- [Shift timestamps backward in time](#shift-timestamps-backward-in-time)
+
+#### Shift timestamps forward in time
 ```js
-from(bucket: "example-bucket")
-	|> range(start: -5m)
-	|> timeShift(duration: 12h)
+import "sampledata"
+
+sampledata.int()
+  |> timeShift(duration: 12h)
 ```
 
-###### Shift backward in time
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T12:00:00Z | t1  |     -2 |
+| 2021-01-01T12:00:10Z | t1  |     10 |
+| 2021-01-01T12:00:20Z | t1  |      7 |
+| 2021-01-01T12:00:30Z | t1  |     17 |
+| 2021-01-01T12:00:40Z | t1  |     15 |
+| 2021-01-01T12:00:50Z | t1  |      4 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T12:00:00Z | t2  |     19 |
+| 2021-01-01T12:00:10Z | t2  |      4 |
+| 2021-01-01T12:00:20Z | t2  |     -3 |
+| 2021-01-01T12:00:30Z | t2  |     19 |
+| 2021-01-01T12:00:40Z | t2  |     13 |
+| 2021-01-01T12:00:50Z | t2  |      1 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Shift timestamps backward in time
 ```js
-from(bucket: "example-bucket")
-	|> range(start: -5m)
-	|> timeShift(duration: -12h)
+import "sampledata"
+
+sampledata.int()
+  |> timeShift(duration: -12h)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2020-12-31T12:00:00Z | t1  |     -2 |
+| 2020-12-31T12:00:10Z | t1  |     10 |
+| 2020-12-31T12:00:20Z | t1  |      7 |
+| 2020-12-31T12:00:30Z | t1  |     17 |
+| 2020-12-31T12:00:40Z | t1  |     15 |
+| 2020-12-31T12:00:50Z | t1  |      4 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2020-12-31T12:00:00Z | t2  |     19 |
+| 2020-12-31T12:00:10Z | t2  |      4 |
+| 2020-12-31T12:00:20Z | t2  |     -3 |
+| 2020-12-31T12:00:30Z | t2  |     19 |
+| 2020-12-31T12:00:40Z | t2  |     13 |
+| 2020-12-31T12:00:50Z | t2  |      1 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

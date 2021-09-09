@@ -42,12 +42,34 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system"
-  )
+import "sampledata"
+
+sampledata.int()
   |> last()
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t1  | 2021-01-01T00:00:50Z |      4 |
+
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t2  | 2021-01-01T00:00:50Z |      1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

@@ -33,6 +33,10 @@ aggregateWindow(
 )
 ```
 
+`aggregateWindow()` requires that input data have `_start` and `_stop` columns to
+calculate windows of time to operate on. Use [`range()`](/flux/v0.x/stdlib/universe/range/)
+to assign `_start` and `_stop` values.
+
 As data is windowed into separate tables and processed, the `_time` column is dropped from each group key.
 This function copies the timestamp from a remaining column into the `_time` column.
 
@@ -43,24 +47,30 @@ Each row in the output of `aggregateWindow` represents an aggregated window endi
 ## Parameters
 
 {{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
+Make sure `fn` parameter names match each specified parameter.
+To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
 {{% /note %}}
 
 ### every {data-type="duration"}
 
-The duration of windows.
+Duration of windows.
 
 {{% note %}}
 #### Calendar months and years
 `every` supports all [valid duration units](/flux/v0.x/spec/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
+
+#### Aggregate by week
+When aggregating by week (`1w`), weeks are determined using the 
+**Unix epoch (1970-01-01T00:00:00Z UTC)**. The Unix epoch was on a Thursday, so
+all calculated weeks begin on Thursday.
 {{% /note %}}
 
 ### fn {data-type="function"}
 
 [Aggregate](/flux/v0.x/function-types/#aggregates)
 or [selector function](/flux/v0.x/function-types/#selectors)
-used in the operation.
+used to operate on each window of time.
 
 {{% note %}}
 Only aggregate and selector functions with a `column` parameter (singular) work with `aggregateWindow()`.
@@ -98,44 +108,111 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
-The examples below use a `data` variable to represent a filtered data set.
+{{% flux/sample-example-intro plural=true %}}
 
-```js
-data = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent")
-```
+- [Use an aggregate function with default parameters](#use-an-aggregate-function-with-default-parameters)
+- [Specify parameters of the aggregate function](#specify-parameters-of-the-aggregate-function)
+- [Window and aggregate by calendar month](#window-and-aggregate-by-calendar-month)
 
-##### Use an aggregate function with default parameters
+#### Use an aggregate function with default parameters
 The following example uses the default parameters of the
 [`mean()` function](/flux/v0.x/stdlib/universe/mean/)
 to aggregate time-based windows:
 
 ```js
+import "sampledata"
+
+data = sampledata.float()
+  |> range(start: sampledata.start, stop: sampledata.stop)
+
 data
   |> aggregateWindow(
-    every: 5m,
+    every: 20s,
     fn: mean
   )
 ```
-##### Specify parameters of the aggregate function
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+##### Input data
+{{% flux/sample set="float" includeRange=true %}}
+
+##### Output data
+| _start               | _stop                | _time                | tag |             _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | t1  |               4.37 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | t1  | 12.440000000000001 |        
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t1  |               9.83 |        
+
+| _start               | _stop                | _time                | tag |            _value |
+| :------------------- | :------------------- | :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | t2  |             12.41 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | t2  |              8.01 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t2  | 7.859999999999999 |
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+
+#### Specify parameters of the aggregate function
 To use functions that don't provide defaults for required parameters with `aggregateWindow()`,
 define an anonymous function with `column` and `tables` parameters that pipes-forward
 tables into the aggregate or selector function with all required parameters defined:
 
 ```js
+import "sampledata"
+
+data = sampledata.float()
+  |> range(start: sampledata.start, stop: sampledata.stop)
+
 data
   |> aggregateWindow(
     column: "_value",
-    every: 5m,
+    every: 20s,
     fn: (column, tables=<-) => tables |> quantile(q: 0.99, column:column)
   )
 ```
 
-##### Window and aggregate by calendar month
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+##### Input data
+{{% flux/sample set="float" includeRange=true %}}
+
+##### Output data
+| _start               | _stop                | _time                | tag | _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | t1  |  10.92 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | t1  |  17.53 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t1  |  15.23 |
+
+| _start               | _stop                | _time                | tag | _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | t2  |  19.85 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | t2  |  19.77 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t2  |  13.86 |
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Window and aggregate by calendar month
 ```js
+import "sampledata"
+
+data = sampledata.float()
+  |> range(start: sampledata.start, stop: sampledata.stop)
+
 data
   |> aggregateWindow(every: 1mo, fn: mean)
 ```
+
+{{% expand "View input and output" %}}
+##### Input data
+{{% flux/sample set="float" includeRange=true %}}
+
+##### Output data
+| _start               | _stop                | _time                | tag | _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t1  |   8.88 |
+
+| _start               | _stop                | _time                | tag |            _value |
+| :------------------- | :------------------- | :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t2  | 9.426666666666668 |
+{{% /expand %}}

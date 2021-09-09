@@ -35,7 +35,7 @@ sample(n:5, pos: -1)
 Sample every Nth element.
 
 ### pos {data-type="int"}
-The position offset from the start of results where sampling begins.
+Position offset from the start of results where sampling begins.
 `pos` must be less than `n`.
 If `pos` is less than 0, a random offset is used.
 Default is `-1` (random offset).
@@ -45,12 +45,39 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1d)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system"
-  )
-  |> sample(n: 5, pos: 1)
+import "sampledata"
+
+sampledata.int()
+  |> sample(n: 2, pos: 1)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t1  |     10 |
+| 2021-01-01T00:00:30Z | t1  |     17 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

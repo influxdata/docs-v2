@@ -1,8 +1,8 @@
 ---
 title: Flux date package
-list_title: Date package
+list_title: date package
 description: >
-  The Flux date package provides date and time constants and functions.
+  The Flux `date` package provides date and time constants and functions.
   Import the `date` package.
 aliases:
   - /influxdb/v2.0/reference/flux/language/built-ins/time-constants/
@@ -18,7 +18,7 @@ cascade:
   flux/v0.x/tags: [date/time]
 ---
 
-The Flux date package provides date and time constants and functions.
+The Flux `date` package provides date and time constants and functions.
 Import the `date` package.
 
 ```js

@@ -37,12 +37,34 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket:"example-bucket")
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent")
-  |> range(start:-12h)
-  |> window(every:10m)
+import "sampledata"
+
+sampledata.int()
   |> mean()
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _value |
+| :-- | -----: |
+| t1  |    8.5 |
+
+| tag |            _value |
+| :-- | ----------------: |
+| t2  | 8.833333333333334 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

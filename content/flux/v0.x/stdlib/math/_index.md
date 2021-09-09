@@ -1,8 +1,8 @@
 ---
 title: Flux math package
-list_title: Math package
+list_title: math package
 description: >
-  The Flux math package provides basic constants and mathematical functions.
+  The Flux `math` package provides basic constants and mathematical functions.
   Import the `math` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/math/
@@ -18,7 +18,7 @@ related:
   - /{{< latest "influxdb" >}}/query-data/flux/mathematic-operations/
 ---
 
-The Flux math package provides basic constants and mathematical functions.
+The Flux `math` package provides basic constants and mathematical functions.
 Import the `math` package.
 
 ```js

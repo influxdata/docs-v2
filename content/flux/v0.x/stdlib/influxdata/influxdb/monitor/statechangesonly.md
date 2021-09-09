@@ -36,14 +36,13 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ```js
 import "influxdata/influxdb/monitor"
 
-
 monitor.from(start: -1h)
   |> monitor.stateChangesOnly()
 ```
 
 {{< flex >}}
 {{% flex-content %}}
-**Given the following input:**
+##### Example input data
 
 | _time | _level |
 |:----- |:------:|
@@ -53,7 +52,7 @@ monitor.from(start: -1h)
 | 0004  | crit   |
 {{% /flex-content %}}
 {{% flex-content %}}
-**`monitor.stateChangesOnly()` outputs:**
+##### Example output data
 
 | _time | _level |
 |:----- |:------:|

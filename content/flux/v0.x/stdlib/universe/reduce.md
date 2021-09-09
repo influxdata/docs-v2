@@ -94,69 +94,163 @@ By default, `reduce()` drops any columns that:
 2. Are not explicitly mapped in the `reduce()` function.
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-##### Compute the sum of the value column
+- [Compute the sum of the value column](#compute-the-sum-of-the-value-column)
+- [Compute the sum and count in a single reducer](#compute-the-sum-and-count-in-a-single-reducer)
+- [Compute the product of all values](#compute-the-product-of-all-values)
+- [Calculate the average of all values](#calculate-the-average-of-all-values)
+
+#### Compute the sum of the value column
 ```js
-from(bucket:"example-bucket")
-    |> filter(fn: (r) =>
-        r._measurement == "cpu" and
-        r._field == "usage_system" and
-        r.service == "app-server"
-    )
-    |> range(start:-12h)
+import "sampledata"
+
+sampledata.int()
     |> reduce(
         fn: (r, accumulator) => ({
             sum: r._value + accumulator.sum
         }),
-        identity: {sum: 0.0}
+        identity: {sum: 0}
     )
 ```
 
-##### Compute the sum and count in a single reducer
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | sum |
+| :-- | --: |
+| t1  |  51 |
+
+| tag | sum |
+| :-- | --: |
+| t2  |  53 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Compute the sum and count in a single reducer
 ```js
-from(bucket:"example-bucket")
-    |> filter(fn: (r) =>
-        r._measurement == "cpu" and
-        r._field == "usage_system" and
-        r.service == "app-server"
-    )
-    |> range(start:-12h)
+import "sampledata"
+
+sampledata.int()
     |> reduce(
         fn: (r, accumulator) => ({
           sum: r._value + accumulator.sum,
-          count: accumulator.count + 1.0
+          count: accumulator.count + 1
         }),
-        identity: {sum: 0.0, count: 0.0}
+        identity: {sum: 0, count: 0}
     )
 ```
 
-##### Compute the product of all values
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | count | sum |
+| :-- | ----: | --: |
+| t1  |     6 |  51 |
+
+| tag | count | sum |
+| :-- | ----: | --: |
+| t2  |     6 |  53 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Compute the product of all values
 ```js
-from(bucket:"example-bucket")
-    |> filter(fn: (r) =>
-        r._measurement == "cpu" and
-        r._field == "usage_system" and
-        r.service == "app-server")
-    |> range(start:-12h)
+import "sampledata"
+
+sampledata.int()
     |> reduce(
         fn: (r, accumulator) => ({
             prod: r._value * accumulator.prod
         }),
-        identity: {prod: 1.0}        
+        identity: {prod: 1}        
     )
 ```
 
-##### Calculate the average
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag |    prod |
+| :-- | ------: |
+| t1  | -142800 |
+
+| tag |   prod |
+| :-- | -----: |
+| t2  | -56316 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Calculate the average of all values
 ```js
-from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
-  |> window(every: 5m)
+import "sampledata"
+
+sampledata.int()
   |> reduce(fn: (r, accumulator) => ({
       count: accumulator.count + 1,
       total: accumulator.total + r._value,
-      avg: (accumulator.total + r._value) / float(v: accumulator.count)
+      avg: float(v: (accumulator.total + r._value)) / float(v: accumulator.count)
     }),
-    identity: {count: 1, total: 0.0, avg: 0.0}
+    identity: {count: 1, total: 0, avg: 0.0}
   )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | avg | count | total |
+| :-- | --: | ----: | ----: |
+| t1  | 8.5 |     7 |    51 |
+
+| tag |               avg | count | total |
+| :-- | ----------------: | ----: | ----: |
+| t2  | 8.834 |     7 |    53 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -52,19 +52,94 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-##### Rename a single column
+- [Rename specific columns](#rename-specific-columns)
+- [Rename all columns using a function](#rename-all-columns-using-a-function)
 
-```js
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> rename(columns: {host: "server"})
-```
-
-##### Rename all columns using a function
+#### Rename specific columns
 
 ```js
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> rename(fn: (column) => column + "_new")
+import "sampledata"
+
+sampledata.int()
+  |> rename(columns: {tag: "uid", _value: "val"})
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | uid | val |
+| :------------------- | :-- | --: |
+| 2021-01-01T00:00:00Z | t1  |  -2 |
+| 2021-01-01T00:00:10Z | t1  |  10 |
+| 2021-01-01T00:00:20Z | t1  |   7 |
+| 2021-01-01T00:00:30Z | t1  |  17 |
+| 2021-01-01T00:00:40Z | t1  |  15 |
+| 2021-01-01T00:00:50Z | t1  |   4 |
+
+| _time                | uid | val |
+| :------------------- | :-- | --: |
+| 2021-01-01T00:00:00Z | t2  |  19 |
+| 2021-01-01T00:00:10Z | t2  |   4 |
+| 2021-01-01T00:00:20Z | t2  |  -3 |
+| 2021-01-01T00:00:30Z | t2  |  19 |
+| 2021-01-01T00:00:40Z | t2  |  13 |
+| 2021-01-01T00:00:50Z | t2  |   1 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+
+#### Rename all columns using a function
+
+```js
+import "sampledata"
+
+sampledata.int()
+  |> rename(fn: (column) => "${column}_new")
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time_new            | tag_new | _value_new |
+| :------------------- | :------ | ---------: |
+| 2021-01-01T00:00:00Z | t1      |         -2 |
+| 2021-01-01T00:00:10Z | t1      |         10 |
+| 2021-01-01T00:00:20Z | t1      |          7 |
+| 2021-01-01T00:00:30Z | t1      |         17 |
+| 2021-01-01T00:00:40Z | t1      |         15 |
+| 2021-01-01T00:00:50Z | t1      |          4 |
+
+| _time_new            | tag_new | _value_new |
+| :------------------- | :------ | ---------: |
+| 2021-01-01T00:00:00Z | t2      |         19 |
+| 2021-01-01T00:00:10Z | t2      |          4 |
+| 2021-01-01T00:00:20Z | t2      |         -3 |
+| 2021-01-01T00:00:30Z | t2      |         19 |
+| 2021-01-01T00:00:40Z | t2      |         13 |
+| 2021-01-01T00:00:50Z | t2      |          1 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -45,15 +45,42 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
+#### Return rows with the two lowest values
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> bottom(n:10)
+import "sampledata"
+
+sampledata.int()
+  |> bottom(n:2)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample set="int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |     -2 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js

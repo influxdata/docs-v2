@@ -1,8 +1,8 @@
 ---
-title: Flux Slack package
-list_title: Slack package
+title: Flux slack package
+list_title: slack package
 description: >
-  The Flux Slack package provides functions for sending data to Slack.
+  The Flux `slack` package provides functions for sending data to [Slack](https://slack.com/).
   Import the `slack` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/slack/
@@ -16,7 +16,7 @@ weight: 11
 flux/v0.x/tags: [functions, slack, package]
 ---
 
-The Flux `slack` package provides functions for sending data to Slack.
+The Flux `slack` package provides functions for sending data to [Slack](https://slack.com/).
 Import the `slack` package:
 
 ```js

@@ -49,11 +49,38 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket: "telegraf/autogen"):
-  |> range(start: -7d)
-  |> kaufmansAMA(
-    n: 10,
-    column: "_value"
-  )
+import "sampledata"
+
+sampledata.int()
+  |> kaufmansAMA(n: 3)
 ```
+
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:30Z | t1  |   9.72641183951902 |
+| 2021-01-01T00:00:40Z | t1  | 10.097401019601417 |
+| 2021-01-01T00:00:50Z | t1  |  9.972614968115325 |
+
+| _time                | tag |              _value |
+| :------------------- | :-- | ------------------: |
+| 2021-01-01T00:00:30Z | t2  | -2.9084287200832466 |
+| 2021-01-01T00:00:40Z | t2  |  -2.142970089472789 |
+| 2021-01-01T00:00:50Z | t2  | -2.0940721758134693 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}

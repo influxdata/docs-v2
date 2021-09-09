@@ -84,17 +84,21 @@ using the `<username>:<password>` syntax.
 
 ## Examples
 
-##### Query using the bucket name
+- [Query InfluxDB using the bucket name](#query-influxdb-using-the-bucket-name)
+- [Query InfluxDB using the bucket ID](#query-influxdb-using-the-bucket-id)
+- [Query a remote InfluxDB Cloud instance](#query-a-remote-influxdb-cloud-instance)
+
+#### Query using the bucket name
 ```js
 from(bucket: "example-bucket")
 ```
 
-##### Query using the bucket ID
+#### Query using the bucket ID
 ```js
 from(bucketID: "0261d8287f4d6000")
 ```
 
-##### Query a remote InfluxDB Cloud instance
+#### Query a remote InfluxDB Cloud instance
 ```js
 import "influxdata/influxdb/secrets"
 

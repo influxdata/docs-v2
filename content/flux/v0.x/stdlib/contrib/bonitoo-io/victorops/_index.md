@@ -1,8 +1,8 @@
 ---
-title: Flux VictorOps package
+title: Flux victorops package
 list_title: victorops package
 description: >
-  The Flux VictorOps package provides functions that send events to
+  The Flux `victorops` package provides functions that send events to
   [VictorOps](https://victorops.com).
 menu:
   flux_0_x_ref:
@@ -15,7 +15,7 @@ aliases:
 flux/v0.x/tags: [functions, victorops, package]
 ---
 
-The Flux VictorOps package provides functions that send events to
+The Flux `victorops` package provides functions that send events to
 [VictorOps](https://victorops.com).
 
 {{% note %}}

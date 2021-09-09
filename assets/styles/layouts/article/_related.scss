@@ -13,3 +13,8 @@
     line-height: 1.25rem;
   }
 }
+
+.expand-wrapper + .related {
+    border-top: none;
+    margin-top: -2rem;
+} 

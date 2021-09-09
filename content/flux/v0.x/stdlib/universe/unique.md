@@ -38,9 +38,45 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from("example-bucket")
- |> range(start: -15m)
- |> filter(fn: (r) => r._measurement == "syslog")
- |> unique(column: "message")
+import "sampledata"
+
+sampledata.int()
+  |> unique()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t1  | 2021-01-01T00:00:00Z |     -2 |
+| t1  | 2021-01-01T00:00:10Z |     10 |
+| t1  | 2021-01-01T00:00:20Z |      7 |
+| t1  | 2021-01-01T00:00:30Z |     17 |
+| t1  | 2021-01-01T00:00:40Z |     15 |
+| t1  | 2021-01-01T00:00:50Z |      4 |
+
+| tag | _time                | _value |
+| :-- | :------------------- | -----: |
+| t2  | 2021-01-01T00:00:00Z |     19 |
+| t2  | 2021-01-01T00:00:10Z |      4 |
+| t2  | 2021-01-01T00:00:20Z |     -3 |
+| t2  | 2021-01-01T00:00:40Z |     13 |
+| t2  | 2021-01-01T00:00:50Z |      1 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

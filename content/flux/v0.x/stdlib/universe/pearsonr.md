@@ -37,23 +37,63 @@ Second input stream used in the operation.
 List of columns to join on.
 
 ## Examples
-```js
-stream1 = from(bucket:"example-bucket")
-  |> range(start:-15m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used"
-  )
+The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
+to generate sample data and show how `pearsonr()` transforms data.
 
-stream2 = from(bucket:"example-bucket")
-  |> range(start:-15m)
-  |> filter(fn: (r) => r
-    ._measurement == "mem" and
-    r._field == "available"
-  )
+```js
+import "generate"
+
+stream1 = generate.from(
+  count: 5,
+  fn: (n) => n * n,
+  start: 2021-01-01T00:00:00Z,
+  stop: 2021-01-01T00:01:00Z
+) |> toFloat()
+
+stream2 = generate.from(
+  count: 5,
+  fn: (n) => n * n * n / 2,
+  start: 2021-01-01T00:00:00Z,
+  stop: 2021-01-01T00:01:00Z
+) |> toFloat()
 
 pearsonr(x: stream1, y: stream2, on: ["_time"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+
+#### Input data
+{{< flex >}}
+{{% flex-content %}}
+##### stream1
+| _time                | _value |
+| :------------------- | -----: |
+| 2021-01-01T00:00:00Z |    0.0 |
+| 2021-01-01T00:00:12Z |    1.0 |
+| 2021-01-01T00:00:24Z |    4.0 |
+| 2021-01-01T00:00:36Z |    9.0 |
+| 2021-01-01T00:00:48Z |   16.0 |
+{{% /flex-content %}}
+{{% flex-content %}}
+##### stream2
+| _time                | _value |
+| :------------------- | -----: |
+| 2021-01-01T00:00:00Z |    0.0 |
+| 2021-01-01T00:00:12Z |    0.0 |
+| 2021-01-01T00:00:24Z |    4.0 |
+| 2021-01-01T00:00:36Z |   13.0 |
+| 2021-01-01T00:00:48Z |   32.0 |
+{{% /flex-content %}}
+{{< /flex >}}
+
+#### Output data
+|             _value |
+| -----------------: |
+| 0.9856626734271221 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js

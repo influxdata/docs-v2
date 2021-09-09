@@ -2,7 +2,7 @@
 title: Flux InfluxDB schema package
 list_title: schema package
 description: >
-  The Flux InfluxDB schema package provides functions for exploring your InfluxDB data schema.
+  The Flux InfluxDB `schema` package provides functions for exploring your InfluxDB data schema.
   Import the `influxdata/influxdb/schema` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
@@ -23,7 +23,7 @@ cascade:
       Cloud user interface (UI), but **not** from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
-The Flux InfluxDB schema package provides functions for exploring your InfluxDB data schema.
+The Flux InfluxDB `schema` package provides functions for exploring your InfluxDB data schema.
 
 Import the `influxdata/influxdb/schema` package:
 

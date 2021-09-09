@@ -1,8 +1,8 @@
 ---
-title: Flux Alerta package
+title: Flux alerta package
 list_title: alerta package
 description: >
-  The Flux Alerta package provides functions that send alerts to
+  The Flux `alerta` package provides functions that send alerts to
   [Alerta](https://alerta.io/).
 menu:
   flux_0_x_ref:
@@ -23,7 +23,7 @@ cascade:
       **InfluxDB Slack:** [@Ales Pour](https://influxdata.com/slack)
 ---
 
-The Flux Alerta package provides functions that send alerts to
+The Flux `alerta` package provides functions that send alerts to
 [Alerta](https://alerta.io/).
 Import the `contrib/bonitoo-io/alerta` package:
 

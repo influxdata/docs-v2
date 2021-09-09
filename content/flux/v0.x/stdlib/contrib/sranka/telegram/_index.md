@@ -1,8 +1,8 @@
 ---
-title: Flux Telegram package
+title: Flux telegram package
 list_title: telegram package
 description: >
-  The Flux Telegram package provides functions for sending messages to
+  The Flux `telegram` package provides functions for sending messages to
   [Telegram](https://telegram.org/) using the [Telegram Bot API](https://core.telegram.org/bots/api).
   Import the `contrib/sranka/telegram` package.
 aliases:
@@ -16,7 +16,7 @@ weight: 202
 v2.0/tags: [functions, teams, telegram, package]
 ---
 
-The Flux Telegram package provides functions for sending messages to
+The Flux `telegram` package provides functions for sending messages to
 [Telegram](https://telegram.org/) using the [Telegram Bot API](https://core.telegram.org/bots/api).
 Import the `contrib/sranka/telegram` package:
 

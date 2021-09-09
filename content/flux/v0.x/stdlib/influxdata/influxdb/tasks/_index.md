@@ -1,8 +1,8 @@
 ---
-title: Flux InfluxDB Tasks package
+title: Flux InfluxDB `tasks` package
 list_title: tasks package
 description: >
-  The Flux InfluxDB Tasks package provides options and functions for working with
+  The Flux InfluxDB `tasks` package provides options and functions for working with
   [InfluxDB tasks](/influxdb/cloud/process-data/get-started/).
   Import the `influxdata/influxdb/tasks` package.
 aliases:
@@ -19,7 +19,7 @@ related:
   - /{{< latest "influxdb" >}}/process-data/get-started/
 ---
 
-The Flux InfluxDB Tasks package provides options and functions for working with
+The Flux InfluxDB `tasks` package provides options and functions for working with
 [InfluxDB tasks](/influxdb/cloud/process-data/get-started/).
 Import the `influxdata/influxdb/tasks` package:
 

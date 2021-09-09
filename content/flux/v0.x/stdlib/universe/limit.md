@@ -46,10 +46,81 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-##### Output the first ten records in each table
+- [Limit results to the first three rows in each table](#limit-results-to-the-first-three-rows-in-each-table)
+- [Limit results to the first three rows in each input table after the first two](#limit-results-to-the-first-three-rows-in-each-input-table-after-the-first-two)
+
+#### Limit results to the first three rows in each table
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> limit(n:10)
+import "sampledata"
+
+sampledata.int()
+  |> limit(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |     -2 |
+| 2021-01-01T00:00:10Z | t1  |     10 |
+| 2021-01-01T00:00:20Z | t1  |      7 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Limit results to the first three rows in each input table after the first two
+```js
+import "sampledata"
+
+sampledata.int()
+  |> limit(n: 3, offset: 2)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t1  |      7 |
+| 2021-01-01T00:00:30Z | t1  |     17 |
+| 2021-01-01T00:00:40Z | t1  |     15 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+| 2021-01-01T00:00:40Z | t2  |     13 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

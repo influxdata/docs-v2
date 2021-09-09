@@ -18,7 +18,7 @@
   cursor: pointer;
 
   &:hover {
-    .expand-toggle { background: $article-link; }
+    .expand-toggle { background: $b-laser; }
   }
 }
 
@@ -27,7 +27,7 @@
   display: inline-block;
   min-height: 20px;
   min-width: 20px;
-  background: rgba($article-text, .25);
+  background: $b-dodger;
   border-radius: 50%;
   margin-right: .75rem;
   transition: background-color .2s;

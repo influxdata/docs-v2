@@ -1,8 +1,8 @@
 ---
-title: Flux HTTP package
+title: Flux experimental http package
 list_title: http package
 description: >
-  The Flux Experimental HTTP package provides functions for transferring data
+  The Flux experimental HTTP package provides functions for transferring data
   using HTTP protocol.
   Import the `experimental/http` package.
 aliases:
@@ -17,7 +17,7 @@ weight: 301
 flux/v0.x/tags: [functions, http, package]
 ---
 
-The Flux Experimental HTTP package provides functions for transferring data
+The Flux experimental HTTP package provides functions for transferring data
 using HTTP protocol.
 Import the `experimental/http` package:
 

@@ -48,31 +48,85 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro plural=true %}}
 
-#### Calculate a five point moving average
+- [Calculate a three point moving average](#calculate-a-three-point-moving-average)
+- [Calculate a three point moving average with null values](#calculate-a-three-point-moving-average-with-null-values)
+
+#### Calculate a three point moving average
 ```js
-from(bucket: "example-bucket"):
-  |> range(start: -12h)
-  |> movingAverage(n: 5)
+import "sampledata"
+
+sampledata.int()
+  |> movingAverage(n: 3)
 ```
 
-#### Table transformation with a two point moving average
+{{% expand-wrapper %}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
 
-###### Input table:
-| _time | tag | _value |
-|:-----:|:---:|:------:|
-| 0001  | tv  | null   |
-| 0002  | tv  | 6      |
-| 0003  | tv  | 4      |
+##### Input data
+{{% flux/sample "int" %}}
 
-###### Query:
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag |             _value |
+| :------------------- | :-- | -----------------: |
+| 2021-01-01T00:00:20Z | t1  |                5.0 |
+| 2021-01-01T00:00:30Z | t1  | 11.333333333333334 |
+| 2021-01-01T00:00:40Z | t1  |               13.0 |
+| 2021-01-01T00:00:50Z | t1  |               12.0 |
+
+| _time                | tag |            _value |
+| :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:20Z | t2  | 6.666666666666667 |
+| 2021-01-01T00:00:30Z | t2  | 6.666666666666667 |
+| 2021-01-01T00:00:40Z | t2  | 9.666666666666666 |
+| 2021-01-01T00:00:50Z | t2  |              11.0 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{% /expand-wrapper %}}
+
+#### Calculate a three point moving average with null values
 ```js
-// ...
-  |> movingAverage(n: 2 )
+import "sampledata"
+
+sampledata.int(includeNull: true)
+  |> movingAverage(n: 3)
 ```
 
-###### Output table:
-| _time | tag | _value |
-|:-----:|:---:|:------:|
-| 0002  | tv  | 6      |
-| 0003  | tv  | 5      |
+{{% expand-wrapper %}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" true %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t1  |    2.5 |
+| 2021-01-01T00:00:30Z | t1  |    7.0 |
+| 2021-01-01T00:00:40Z | t1  |    7.0 |
+| 2021-01-01T00:00:50Z | t1  |    4.0 |
+
+| _time                | tag |            _value |
+| :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:20Z | t2  |               0.5 |
+| 2021-01-01T00:00:30Z | t2  | 6.666666666666667 |
+| 2021-01-01T00:00:40Z | t2  |               8.0 |
+| 2021-01-01T00:00:50Z | t2  |              10.0 |
+
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{% /expand-wrapper %}}

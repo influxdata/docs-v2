@@ -1,8 +1,8 @@
 ---
-title: Flux Webex Teams package
-list_title: Webex Teams package
+title: Flux webexteams package
+list_title: webexteams package
 description: >
-  The Flux Webex Teams package provides functions that send messages to
+  The Flux `webexteams` package provides functions that send messages to
   [Webex Teams](https://www.webex.com/team-collaboration.html).
 menu:
   flux_0_x_ref:
@@ -14,7 +14,7 @@ cascade:
 influxdb/v2.0/tags: [functions, webex, package]
 ---
 
-The Flux Webex Teams package provides functions that send messages to
+The Flux `webexteams` package provides functions that send messages to
 [Webex Teams](https://www.webex.com/team-collaboration.html).
 
 Import the `contrib/sranka/webexteams` package:

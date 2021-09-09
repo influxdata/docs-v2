@@ -1,8 +1,8 @@
 ---
 title: Flux testing package
-list_title: Testing package
+list_title: testing package
 description: >
-  The Flux testing package provides functions that test piped-forward data in specific ways.
+  The Flux `testing` package provide functions for testing Flux operations.
   Import the `testing` package.
 aliases:
   - /influxdb/v2.0/reference/flux/functions/testing/
@@ -16,7 +16,7 @@ weight: 11
 flux/v0.x/tags: [testing, functions, package]
 ---
 
-Flux testing functions test piped-forward data in specific ways and return errors if the tests fail.
+The Flux `testing` package provide functions for testing Flux operations.
 Import the `testing` package:
 
 ```js

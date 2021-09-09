@@ -16,7 +16,8 @@ related:
 introduced: 0.61.0
 ---
 
-The `aggregate.rate()` function calculates the rate of change per windows of time.
+The `aggregate.rate()` function calculates the rate of change per windows of time
+for each input table.
 
 ```js
 import "experimental/aggregate"
@@ -27,6 +28,10 @@ aggregate.rate(
   unit: 1s
 )
 ```
+
+`aggregate.rate()` requires that input data have `_start` and `_stop` columns to
+calculate windows of time to operate on. Use [`range()`](/flux/v0.x/stdlib/universe/range/)
+to assign `_start` and `_stop` values.
 
 ## Parameters
 
@@ -45,13 +50,41 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ## Examples
 
+### Calculate the average rate of change in sample data
+{{% flux/sample-example-intro %}}
+
 ```js
 import "experimental/aggregate"
+import "sampledata"
 
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> aggregate.rate(every: 5m, unit: 1m)
+data = sampledata.int()
+  |> range(start: sampledata.start, stop: sampledata.stop)
+
+data  
+  |> aggregate.rate(
+    every: 30s,
+    unit: 1s,
+    groupColumns: ["tag"]
+  )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+##### Input data
+{{% flux/sample set="int" includeRange=true %}}
+
+##### Output data
+| _start              | _stop               | _time               | tag | _value |
+| :------------------ | :------------------ | :------------------ | :-- | -----: |
+| 2021-01-01T00:00:00 | 2021-01-01T00:01:00 | 2021-01-01T00:00:30 | t1  |    1.2 |
+| 2021-01-01T00:00:00 | 2021-01-01T00:01:00 | 2021-01-01T00:01:00 | t1  |    1.0 |
+
+| _start              | _stop               | _time               | tag | _value |
+| :------------------ | :------------------ | :------------------ | :-- | -----: |
+| 2021-01-01T00:00:00 | 2021-01-01T00:01:00 | 2021-01-01T00:00:30 | t2  |        |
+| 2021-01-01T00:00:00 | 2021-01-01T00:01:00 | 2021-01-01T00:01:00 | t2  |    2.2 |
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Function definition
 ```js
