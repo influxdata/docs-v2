@@ -12,7 +12,7 @@ menu:
     parent: universe
 weight: 102
 related:
-  - /flux/v0.x/experimental/skew/
+  - /flux/v0.x/stdlib/experimental/skew/
 flux/v0.x/tags: [aggregates, transformations]
 introduced: 0.7.0
 ---
@@ -36,12 +36,35 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
 ```js
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system"
-  )
+import "sampledata"
+
+sampledata.int()
   |> skew()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| tag |               _value |
+| :-- | -------------------: |
+| t1  | -0.22375476930534782 |
+
+| tag |               _value |
+| :-- | -------------------: |
+| t2  | -0.01972080701262574 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

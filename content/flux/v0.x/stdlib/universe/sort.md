@@ -46,12 +46,134 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
+
+- [Sort values in ascending order](#sort-values-in-ascending-order)
+- [Sort values in descending order](#sort-values-in-descending-order)
+- [Sort by multiple columns](#sort-by-multiple-columns)
+
+#### Sort values in ascending order
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-12h)
-  |> filter(fn: (r) =>
-    r._measurement == "system" and
-    r._field == "uptime"
-  )
-  |> sort(columns:["region", "host", "_value"])
+import "sampledata"
+
+sampledata.int()
+  |> sort()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |     -2 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+| 2021-01-01T00:00:20Z | t1  |      7 |
+| 2021-01-01T00:00:10Z | t1  |     10 |
+| 2021-01-01T00:00:40Z | t1  |     15 |
+| 2021-01-01T00:00:30Z | t1  |     17 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:40Z | t2  |     13 |
+| 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Sort values in descending order
+```js
+import "sampledata"
+
+sampledata.int()
+  |> sort(desc: true)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:30Z | t1  |     17 |
+| 2021-01-01T00:00:40Z | t1  |     15 |
+| 2021-01-01T00:00:10Z | t1  |     10 |
+| 2021-01-01T00:00:20Z | t1  |      7 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+| 2021-01-01T00:00:00Z | t1  |     -2 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+| 2021-01-01T00:00:40Z | t2  |     13 |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Sort by multiple columns
+```js
+import "sampledata"
+
+sampledata.int()
+  |> sort(columns: ["tag", "_value"])
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |     -2 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+| 2021-01-01T00:00:20Z | t1  |      7 |
+| 2021-01-01T00:00:10Z | t1  |     10 |
+| 2021-01-01T00:00:40Z | t1  |     15 |
+| 2021-01-01T00:00:30Z | t1  |     17 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:40Z | t2  |     13 |
+| 2021-01-01T00:00:00Z | t2  |     19 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

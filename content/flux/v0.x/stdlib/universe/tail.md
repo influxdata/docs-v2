@@ -21,8 +21,6 @@ The function produces one output table for each input table.
 Each output table contains the last `n` records before the [`offset`](#offset).
 If the input table has less than `offset + n` records, `tail()` outputs all records before the `offset`.
 
-_**Function type:** Filter_
-
 ```js
 tail(
   n:10,
@@ -45,10 +43,79 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
+{{% flux/sample-example-intro %}}
 
-##### Output the last ten records in each table
+- [Output the last three rows in each input table](#output-the-last-three-rows-in-each-input-table)
+- [Output the last three rows before the last row in each input table](#output-the-last-three-rows-before-the-last-row-in-each-input-table)
+
+#### Output the last three rows in each input table
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> tail(n:10)
+import "sampledata"
+
+sampledata.int()
+  |> tail(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:30Z | t1  |     17 |
+| 2021-01-01T00:00:40Z | t1  |     15 |
+| 2021-01-01T00:00:50Z | t1  |      4 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+| 2021-01-01T00:00:40Z | t2  |     13 |
+| 2021-01-01T00:00:50Z | t2  |      1 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Output the last three rows before the last row in each input table
+```js
+import "sampledata"
+
+sampledata.int()
+  |> tail(n: 3, offset: 1)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+{{< flex >}}
+{{% flex-content %}}
+
+##### Input data
+{{% flux/sample "int" %}}
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Output data
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t1  |      7 |
+| 2021-01-01T00:00:30Z | t1  |     17 |
+| 2021-01-01T00:00:40Z | t1  |     15 |
+
+| _time                | tag | _value |
+| :------------------- | :-- | -----: |
+| 2021-01-01T00:00:20Z | t2  |     -3 |
+| 2021-01-01T00:00:30Z | t2  |     19 |
+| 2021-01-01T00:00:40Z | t2  |     13 |
+{{% /flex-content %}}
+{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

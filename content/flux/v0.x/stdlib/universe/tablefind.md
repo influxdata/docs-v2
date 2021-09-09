@@ -49,15 +49,16 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Example
+{{% flux/sample-example-intro %}}
 
 ```js
-t = from(bucket:"example-bucket")
-    |> range(start: -5m)
-    |> filter(fn:(r) => r._measurement == "cpu")
-    |> tableFind(fn: (key) => key._field == "usage_idle")
+import "sampledata"
+
+t = sampledata.int()
+    |> tableFind(fn: (key) => key.tag == "t2")
 
 // t represents the first table in a stream whose group key
-// contains "_field" with a value of "usage_idle".
+// contains "tag" with a value of "t2".
 ```
 
 {{% note %}}
