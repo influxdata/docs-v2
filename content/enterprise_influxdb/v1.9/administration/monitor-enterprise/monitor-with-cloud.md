@@ -157,7 +157,7 @@ To receive a notification message when your deadman check is triggered, create a
 
 ### Create a notification endpoint 
 
-InfluxData supports different endpoints: Slack, PagerDuty, and HTTP. Slack is free for all users, while PagerDuty and HTTP are exclusive to the Usage-Based Plan. 
+InfluxDB Cloud supports different endpoints: Slack, PagerDuty, and HTTP. Slack is free for all users, while PagerDuty and HTTP are exclusive to the Usage-Based Plan. 
 
 #### Send a notification to Slack
 
