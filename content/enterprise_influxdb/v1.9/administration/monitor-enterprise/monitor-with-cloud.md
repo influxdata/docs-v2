@@ -108,7 +108,7 @@ On each InfluxDB Enterprise instance you want to monitor, do the following:
 3. Complete the Telegraf Setup instructions. If you are using environment variables, set them up now. 
 
       {{% note %}}
-For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
+For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure that it's available to the service.
       {{% /note %}}
 
 Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB Cloud account.
