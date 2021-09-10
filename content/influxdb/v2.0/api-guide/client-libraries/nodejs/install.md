@@ -85,9 +85,9 @@ The examples use these properties to interact with the InfluxDB API.
    export INFLUX_BUCKET=YOUR_BUCKET
    ```
    Replace the following:
-   - *`YOUR_API_TOKEN`*: InfluxDB API token.
-   - *`YOUR_ORG`*: InfluxDB organization ID.
-   - *`YOUR_BUCKET`*: InfluxDB bucket name.
+   - *`YOUR_API_TOKEN`*: InfluxDB API token
+   - *`YOUR_ORG`*: InfluxDB organization ID
+   - *`YOUR_BUCKET`*: InfluxDB bucket name
 
 2. Run an example script.
 
