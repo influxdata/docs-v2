@@ -30,7 +30,7 @@ Provide the following parameters to both functions:
   [InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL.
 - **token**: [InfluxDB API token](/{{< latest "influxdb" >}}/security/tokens/).
 
-
+##### Write options
 - [Write data to InfluxDB](#write-data-to-influxdb)
 - [Write pivoted data to InfluxDB](#write-pivoted-data-to-influxdb)
 
