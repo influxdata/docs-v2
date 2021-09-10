@@ -136,6 +136,11 @@ Use the [`extended-output` flag](/influxdb/cloud/reference/cli/influx/bucket-sch
 
 ### Troubleshoot errors
 
+Troubleshoot and resolve the following bucket schema errors:
+- [Not permitted by schema](#not-permitted-by-schema)
+- [No measurement schemas](#no-measurement-schemas)
+- [Failed to create measurement](#failed-to-create-measurement)
+
 #### Not permitted by schema
 If data in the write request doesn't conform to the defined schema, InfluxDB returns an error.
 
