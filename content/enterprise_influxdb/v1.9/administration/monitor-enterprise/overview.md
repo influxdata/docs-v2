@@ -8,7 +8,7 @@ menu:
     parent: Monitor InfluxDB
 ---
 
-## Monitoring and looking at data 
+## Monitoring and viewing internal metrics
 
 InfluxDB offers options for both monitoring and for viewing your data at one time. 
 
