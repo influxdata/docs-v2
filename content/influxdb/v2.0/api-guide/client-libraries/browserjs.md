@@ -1,15 +1,15 @@
 ---
-title: Get started with the JavaScript client library for web browsers
-seotitle: Get started with the InfluxDB JavaScript client library for web browsers
+title: JavaScript client library for web browsers
+seotitle: Use the InfluxDB JavaScript client library for web browsers
 list_title: JavaScript for browsers
 description: >
-  Use the JavaScript client library example app to interact with the InfluxDB API in web browsers.
+  Use the InfluxDB JavaScript client library to interact with InfluxDB in web clients.
 menu:
   influxdb_2_0:
     name: JavaScript for browsers
     identifier: client_js_browsers
     parent: Client libraries
-    influxdb/v2.0/tags: [client libraries, JavaScript]
+influxdb/v2.0/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
   - /influxdb/v2.0/reference/api/client-libraries/browserjs/
@@ -35,8 +35,7 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{
 
 * [Before you begin](#before-you-begin)
 * [Use with module bundlers](#use-with-module-bundlers)
-* [Use bundled distributions with browsers and module loaders 
-](#use-bundled-distributions-with-browsers-and-module-loaders)
+* [Use bundled distributions with browsers and module loaders](#use-bundled-distributions-with-browsers-and-module-loaders)
 * [Get started with the example app](#get-started-with-the-example-app)
 
 ## Before you begin
@@ -48,7 +47,8 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{
 
 ## Use with module bundlers
 
-If you use a module bundler like Webpack or Parcel, install `@influxdata/influxdb-client-browser`. For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/).  
+If you use a module bundler like Webpack or Parcel, install `@influxdata/influxdb-client-browser`.
+For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/).  
 
 ## Use bundled distributions with browsers and module loaders 
 
