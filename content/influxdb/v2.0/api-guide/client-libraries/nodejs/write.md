@@ -36,8 +36,8 @@ The Javascript client library includes the following convenient features for wri
    const influxDB = new InfluxDB({YOUR_URL, YOUR_API_TOKEN})
    ```
    Replace the following:
-   - *`YOUR_URL`*: InfluxDB URL.
-   - *`YOUR_API_TOKEN`*: InfluxDB API token.
+   - *`YOUR_URL`*: InfluxDB URL
+   - *`YOUR_API_TOKEN`*: InfluxDB API token
 
 2. Use the `getWriteApi()` method of the client to create a **write client**.
    Provide your InfluxDB organization ID and bucket name.
