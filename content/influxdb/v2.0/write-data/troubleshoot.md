@@ -3,7 +3,7 @@ title: Troubleshoot issues writing data
 seotitle: Troubleshoot issues writing data
 list_title: Troubleshoot issues writing data
 weight: 106 >
-  Troubleshoot issues writing data. Discover how writes fail, including rate limit failures, timeouts, size of write payload, not conforming to an explicit bucket schema, and partial writes. Find response codes for failed writes, and suggestions to fix.
+  Troubleshoot issues writing data. Find response codes for failed writes. Discover how writes fail, from exceeding rate or payload limits, to syntax errors and schema conflicts.
 menu:
   influxdb_2_0:
     name: Troubleshoot issues
