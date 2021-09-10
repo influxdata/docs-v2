@@ -65,7 +65,7 @@ The `message` property of the response body may contain additional details about
 
 ## Troubleshoot failures
 
-If you notice data is missing in your bucket, check the following:
+If you notice data is missing in your bucket, do the following:
 
 - Does the `message` property in the response body contain details about the error?
 - Do all lines contain valid syntax, e.g. [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) or [CSV](/influxdb/cloud/reference/syntax/annotated-csv/)?
