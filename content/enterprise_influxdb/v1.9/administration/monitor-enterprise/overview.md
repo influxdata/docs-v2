@@ -12,9 +12,9 @@ menu:
 
 InfluxDB offers options for both monitoring and for viewing your data at one time. 
 
-Monitoring is the act of proactively observing changes in data throughout time. However, you can choose to not monitor your data, but to view it occasionally and/or at the time when an issue occurs. There are multiple ways to monitor or look at InfluxDB Enterprise. 
+Monitoring is the act of proactively observing changes in data over time. However, you can choose to not monitor your data, but to view it occasionally and/or at the time when an issue occurs. There are multiple ways to monitor or look at InfluxDB Enterprise. 
 
-If you want to monitor Enterprise yourself, do one of the following: 
+If you want to monitor an Enterprise cluster on your own, do one of the following: 
 
 * [Monitor Enterprise with Cloud](#monitor-enterprise-with-cloud)
 * [Monitor Enterprise with OSS](#monitor-enterprise-with-oss)
