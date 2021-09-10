@@ -19,7 +19,7 @@ related:
 Learn how to handle and recover from errors when writing to InfluxDB.
 
 - [Discover common failure scenarios](#common-failure-scenarios)
-- [HTTP status codes](#http-status-codes)
+- [Review HTTP status codes](#review-http-status-codes)
 - [Troubleshoot failures](#troubleshoot-failures)
 
 ## Common failure scenarios
