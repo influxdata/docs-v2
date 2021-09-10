@@ -12,7 +12,7 @@ menu:
     parent: Monitor InfluxDB
 ---
 
-Monitoring is the act of proactively observing changes in data throughout time. There are multiple ways to monitor InfluxDB Enterprise. 
+Monitoring is the act of proactively observing changes in data over time. There are multiple ways to monitor InfluxDB Enterprise. 
 
 If you want to monitor Enterprise, do one of the following: 
 
