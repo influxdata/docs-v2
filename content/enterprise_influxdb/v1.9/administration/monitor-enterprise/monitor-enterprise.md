@@ -14,7 +14,7 @@ menu:
 
 Monitoring is the act of proactively observing changes in data over time. There are multiple ways to monitor InfluxDB Enterprise. 
 
-If you want to monitor Enterprise, do one of the following: 
+If you want to monitor an Enterprise cluster, do one of the following: 
 
 * [Monitor Enterprise with Cloud]
 * [Monitor Enterprise with OSS]
