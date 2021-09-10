@@ -34,7 +34,7 @@ Before you begin, make sure you have access to the following:
 
 ## Install the InfluxDB Enterprise Monitoring template
 
-The InfluxDB Enterprise Monitoring template includes a Telegraf configuration that sends InfluxDB Enterprise metrics to an InfluxDB endpoint and a dashboard that visualizes the metrics.
+The InfluxDB Enterprise Monitoring template includes a Telegraf configuration that sends InfluxDB Enterprise metrics to an InfluxDB endpoint, and a dashboard that visualizes the metrics.
 
 1. [Log into your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Settings > Templates**, and enter the following template URL:
 
