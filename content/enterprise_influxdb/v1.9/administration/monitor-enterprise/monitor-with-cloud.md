@@ -92,7 +92,7 @@ To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded 
        password = "$INFLUX_PASSWORD"
      ``` 
      
-     If you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
+     If you're using unique URLs or have authentication set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
 
       For more information about customizing Telegraf, see [Configure Telegraf](/{{< latest "telegraf" >}}/administration/configuration/#global-tags).
 4. Click **Save Changes**.
