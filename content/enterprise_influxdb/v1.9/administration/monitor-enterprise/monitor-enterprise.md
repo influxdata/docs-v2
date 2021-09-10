@@ -7,7 +7,7 @@ aliases:
     - /enterprise_influxdb/v1.9/administration/server-monitoring/
 menu:
   enterprise_influxdb_1_9:
-    name: Monitor Entterprise
+    name: Monitor Enterprise
     weight: 80
     parent: Monitor InfluxDB
 ---

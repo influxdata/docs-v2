@@ -22,7 +22,7 @@ Some service managers may override this default.
 
 ## Logging locations
 
-### Run InfluxDB directly
+### Write logs to stderr
 
 If you run InfluxDB directly, using `influxd`, all logs will be written to `stderr`.
 You may redirect this log output as you would any output to `stderr` like so:
@@ -122,7 +122,7 @@ See [Redirecting HTTP request logging](/enterprise_influxdb/v1.9/administration/
 
 ## Structured logging
 
-With InfluxDB 1.5, structured logging is supported and enable machine-readable and more developer-friendly log output formats. The two new structured log formats, `logfmt` and `json`, provide easier filtering and searching with external tools and simplifies integration of InfluxDB logs  with Splunk, Papertrail, Elasticsearch, and other third party tools.
+Structured logging is supported and enable machine-readable and more developer-friendly log output formats. The two new structured log formats, `logfmt` and `json`, provide easier filtering and searching with external tools and simplifies integration of InfluxDB logs  with Splunk, Papertrail, Elasticsearch, and other third party tools.
 
 See [Structured logging](/enterprise_influxdb/v1.9/administration/logs/#structured-logging) in the InfluxDB OSS documentation.
 
