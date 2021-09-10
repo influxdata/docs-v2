@@ -69,6 +69,7 @@ input:
       metrics using one of the supported [input data formats](/{{< latest "telegraf" >}}/data_formats/input).
     introduced: 1.10.0
     tags: [linux, macos, windows, cloud, messaging]
+    external: true
 
   - name: Apache Aurora
     id: aurora
@@ -2513,6 +2514,7 @@ processor:
       The GeoIP processor plugin looks up IP addresses in the [MaxMind GeoLite2 database](https://dev.maxmind.com/geoip/geoip2/geolite2/) and adds the respective ISO country code, city name, latitude and longitude.
     introduced: 1.18.0
     tags: [linux, macos, windows]
+    external: true
 
   - name: Network Interface Name
     id: ifname

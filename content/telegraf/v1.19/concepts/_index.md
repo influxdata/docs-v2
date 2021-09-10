@@ -6,6 +6,6 @@ menu:
      name: Concepts
      weight: 30
 ---
-This section discusses key concepts about Telegraf, the plug-in driven server agent component of the InfluxData time series platform. Topics covered include metrics, aggregator and processor plugins, and a glossary of important terms.
+This section discusses key concepts about Telegraf, the plugin driven server agent component of the InfluxData time series platform. Topics covered include metrics, aggregator and processor plugins, and a glossary of important terms.
 
 {{< children >}}
