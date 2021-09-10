@@ -67,11 +67,11 @@ The `message` property of the response body may contain additional details about
 
 If you notice data is missing in your bucket, do the following:
 
-- Does the `message` property in the response body contain details about the error?
-- Do all lines contain valid syntax, e.g. [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) or [CSV](/influxdb/cloud/reference/syntax/annotated-csv/)?
-- Do the data types match the [bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/)?
+- Check the `message` property in the response body for details about the error
+- Verify all lines contain valid syntax, e.g. [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) or [CSV](/influxdb/cloud/reference/syntax/annotated-csv/)
+- Verify the data types match the [bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/)
   For example, did you attempt to write `string` data to an `int` field?
-- Do the timestamps match the precision parameter?
+- Verify the timestamps match the precision parameter
 
 ### Troubleshoot rejected points
 
