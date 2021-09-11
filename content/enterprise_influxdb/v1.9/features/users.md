@@ -21,8 +21,8 @@ Users have permissions and roles.
 
 ### Roles
 
-Roles are groups of permissions.
-A single role can belong to several cluster accounts.
+    Roles are groups of permissions.
+A single role can belong to several users.
 
 InfluxDB Enterprise clusters have two built-in roles:
 
