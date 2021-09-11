@@ -8,6 +8,7 @@ menu:
     parent: Configure
 aliases:
   - /enterprise/v1.9/administration/ports/
+  - /enterprise_influxdb/v1.9/administration/ports/
 ---
 
 ![InfluxDB Enterprise network diagram](/img/enterprise/1-8-network-diagram.png)

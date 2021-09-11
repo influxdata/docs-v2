@@ -5,6 +5,8 @@ description: >
 aliases:
     - /enterprise/v1.8/administration/configuration/
     - /enterprise/v1.9/administration/configuration/
+    - /enterprise_influxdb/v1.8/administration/configuration/
+    - /enterprise_influxdb/v1.9/administration/configuration/
 menu:
   enterprise_influxdb_1_9:
     name: Configure clusters
