@@ -60,20 +60,18 @@ In the table below, the next three functions display the column values and the d
 
  To move the values into one column, the `pivot` function aligns the columns together. `rowKey` is the anchor for each point that hinges into a single row. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` populates that new columns.
 
-To recieve the percentage of time the state is OK or not OK, you use the `map` function. The `map` function starts off by getting the `totalTime` by adding the amount of time the state was in `NOK` or `OK`. To recieve the final percentage, dividing both the `NOK` and `OK` values by the `totalTime`, and then multiply the answer by 100. 
-
-The final table will contain the percentage values.
+To recieve the percentage of time the state is OK or not OK, you use the `map` function. 
 
 
 | table | NOK               | OK                 | 
 | ----- | ----------------- | ------------------ | 
 | 0     | 11.34020618556701 | 88.65979381443299  | 
 
-Given the input data in the table above, the example function above does the following:
+Given the input data in the table above, the `map` function above does the following:
 
 1. Adds the `NOK` and `OK` values to calculate `totalTime`. 
-2. Divides `NOK` and `OK` by `totalTime`, and then multiplies the quotient by 100. 
-3. Divides `OK` and `OK` by `totalTime`, and then multiplies the quotient by 100. 
+2. Divides `NOK` by `totalTime`, and then multiplies the quotient by 100. 
+3. Divides `OK` by `totalTime`, and then multiplies the quotient by 100. 
 
 The results 88.66% of time is in the true state and 11.34% of time is in the false state.
 
@@ -106,38 +104,47 @@ For example, you want to calculate oil temperature over a given interval using t
 If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
 {{% /note %}}
 
-The total exposure considers both the total hours in the day and temperature for specified periods throughout the day. A time-weighted average is equal to the sum of units of exposure (in the `_value` column) multiplied by the time period (as a decimal), divided by the total time. In this example, the average oil temperature for the time range is calculated across three different stations in a production line. 
+The total temperature considers both the total hours in the day and the temperature of the different batches. A time-weighted average requires time to be shown in decimal form. 
+
+Minutes will be divided by 60 and seconds will be divided by 3600 to get a decimal form of the hour. Depending on what your time is, the hour and the quotient of the minutes and the seconds will be added to recieve your time in decimals.  
+
+To recieve the average oil temperature, the temperature (in the `_value` column) is multiplied by the time period (as a decimal), divided by the total time. In this example, the average oil temperature for the time range is calculated across four different stations in a production line. 
 
 ##### Flux query to calculate time-weighted average
 
 ```js
 from(bucket: "machine")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-    r._measurement == "machinery" and r._field == "oil_temp"
-  )
-  |> timeWeightedAvg(unit: 2h)
-```
-
-from(bucket: "machine")
-  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:20Z)
+  |> range(start: 2021-08-02T00:00:00Z, stop: 2021-08-02T00:00:20Z)
   |> filter(fn: (r) =>
     r._measurement == "machinery" and r._field == "oil_temp"
   )
 |> timeWeightedAvg(unit: 5s)
+```
 
 In this example, the `_value` in the table below shows input data from the `temperature` field in the `machinery` measurement. For the following input data:
 
-| stationID | _start                   | _stop                    | _value             |
-|:-----     | -----                    | -----                    |             ------:|
-| g1        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.0035550773662   |
-| g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 54.48890346533612  |
-| g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 27.895718458756782 |
-| g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 70.6348839303196   |
+| stationID | _start                   | _stop                    | _value            |
+|:-----     | -----                    | -----                    |            ------:|
+| g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 40.02210657730674 |
+| g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 203000000000      |
+| g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 41.37233748271092 |
+| g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 206000000000      |
+
+In order to get the values above, `timeWeightedAvg` is removed. The function `timeWeightedAvg` takes the average of the temperature every 5 seconds. The table below shows the values before the oil temperatures have been averaged. 
+
+| table | stationID | _start                   | _stop                    | _value |
+|:----- | -----     | -----                    | -----                    | ------:|
+| 0     | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.4   |
+| 0     | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.36  |
+| 1     | g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.2   |
+| 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 39.1   |
+| 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.3   |
+| 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
+| 3     | g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
 
 Given the input data in the table above, the example function above does the following:
 
-1. Multiplies each value by its time-weighting interval: `1.0x2, 1.5x2, 2.0x2, 2.5x2, 3.0x2`
+1. Multiplies each value by its time-weighting interval by station id: `39.1x0.0056, 40.3x0.0056, 40.6x0.0056`, `40.6x0.0056`, `41.4x0.0056, 41.36x0.0056`, and `41.2x0.0056` 
 2. Sums the values in step 1 to calculate the total weighted exposure: `2.0 + 3.0 + 4.0 + 5.0 + 6.0 = 20.0`
 3. Divides the value in step 2 by the total hours of exposure: `20.0/8 = 2.5` and returns:
 
@@ -167,8 +174,6 @@ from(bucket: "machine")
   )
   |> mean()
 ```
-
-
 
 | stationID | _start                   | _stop                    | _value             |
 |:-----     | -----                    | -----                    |             ------:|
