@@ -1,5 +1,6 @@
 # Deploying the InfluxData Docs
 
+
 Use the following command to deploy a CloudFormation stack using the template in this directory.
 
 ```sh

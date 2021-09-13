@@ -1,12 +1,24 @@
 {
-  "extends": ["plugin:prettier/recommended", "plugin:md/recommended"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:prettier/recommended"],
+  "plugins": ["markdown"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
   "rules": {
     "prettier/prettier": "warn"
   },
   "overrides": [
     {
       "files": ["*.js", "*.html"],
-      "excludedFiles": ["**/*.md", "*.md.js", "**/*.md/*.js"],
+      "excludedFiles": [
+	"**/*.md",
+	"*.md.js",
+	"**/*.md/*.js"
+	],
       "plugins": ["html", "jquery", "json"],
       "extends": [
         "eslint:recommended",
@@ -21,6 +33,17 @@
       }
     },
     {
+      "files": ["**/*.md/*.js", "shared/**/*.mjs"],
+      parserOptions: {
+        "ecmaFeatures": {
+	  "impliedStrict": true
+	}
+      },
+      rules: {
+        "no-console": "off"
+      }
+    },
+    {
       "files": ["*.md"],
       "excludedFiles": [
         "*.md.js",
@@ -32,13 +55,13 @@
         "*.md.md",
         "**/*.md/*.md"
       ],
-      "parser": "markdown-eslint-parser",
+      "processor": "markdown/markdown",
       "rules": {
         "md/remark": [
           "warn",
           {
             "plugins": [
-              "preset-lint-consistent",
+	      "preset-lint-consistent",
               "preset-lint-recommended",
               "preset-lint-markdown-style-guide",
               ["lint-no-undefined-references", false],

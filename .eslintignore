@@ -6,4 +6,8 @@ node_modules
 *.log
 /resources
 **/*.lock
+assets/js/jquery*.js
+assets/js.cookie.js
+content/influxdb/**/api
 layouts/shortcodes/**/*.html
+static
