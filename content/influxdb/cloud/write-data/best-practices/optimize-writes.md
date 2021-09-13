@@ -22,7 +22,7 @@ Use these tips to optimize performance and system overhead when writing data to 
 The following tools write to InfluxDB and employ _most_ write optimizations by default:
 
 - [Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/)
-- [InfluxDB client libraries](/influxdb/cloud/tools/client-libraries/)
+- [InfluxDB client libraries](/influxdb/cloud/api-guide/client-libraries/)
 {{% /note %}}
 
 ## Batch writes
@@ -81,22 +81,19 @@ In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set th
 {{% tab-content %}}
 ### Enable gzip compression in InfluxDB client libraries
 
-Each [InfluxDB client library](/influxdb/cloud/tools/client-libraries/) provides
+Each [InfluxDB client library](/influxdb/cloud/api-guide/client-libraries/) provides
 options for compressing write requests or enforces compression by default.
 The method for enabling compression is different for each library.
-For specific instructions, see the [InfluxDB client libraries documentation](/influxdb/cloud/tools/client-libraries/).
+For specific instructions, see the [InfluxDB client libraries documentation](/influxdb/cloud/api-guide/client-libraries/).
 {{% /tab-content %}}
 {{% tab-content %}}
 ### Use gzip compression with the InfluxDB API
 
-When using the InfluxDB API `/write` endpoint to write data, set the `Content-Encoding`
-header to `gzip` to compress the request data.
+When using the InfluxDB API `/write` endpoint to write data,
+compress the data with `gzip` and set the `Content-Encoding` header to `gzip`.
 
 ```sh
-curl -XPOST "https://cloud2.influxdata.com/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
-  --header "Authorization: Token YOURAUTHTOKEN" \
-  --header "Content-Encoding: gzip" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+{{% get-shared-text "api/v2.0/write/write-compress.sh" %}}
 ```
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

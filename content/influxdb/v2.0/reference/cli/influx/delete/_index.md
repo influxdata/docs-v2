@@ -24,21 +24,22 @@ Running `influx delete` without the `-p` or `--predicate` flag deletes all data 
 {{% /warn %}}
 
 ## Flags
-| Flag |                   | Description                                                                                               | Input type | {{< cli/mapped >}}   |
-|:---- |:---               |:-----------                                                                                               |:----------:|:------------------   |
-| `-c` | `--active-config` | CLI configuration to use for command                                                                      | string     |                      |
-|      | `--bucket`        | Name of bucket to remove data from (mutually exclusive with `--bucket-id`)                                | string     | `INFLUX_BUCKET_NAME` |
-|      | `--bucket-id`     | Bucket ID (mutually exclusive with `--bucket`)                                                            | string     | `INFLUX_BUCKET_ID`   |
-|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                                     | string     |`INFLUX_CONFIGS_PATH` |
-| `-h` | `--help`          | Help for the `delete` command                                                                             |            |                      |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                                                | string     | `INFLUX_HOST`        |
-| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                                                    | string     | `INFLUX_ORG`         |
-|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                         | string     | `INFLUX_ORG_ID`      |
-| `-p` | `--predicate`     | InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2.0/reference/syntax/delete-predicate)) | string     |                      |
-|      | `--skip-verify`   | Skip TLS certificate verification                                                                         |            |                      |
-|      | `--start`         | ({{< req >}}) Start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                  | string     |                      |
-|      | `--stop`          | ({{< req >}}) Stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                   | string     |                      |
-| `-t` | `--token`         | Authentication token                                                                                      | string     | `INFLUX_TOKEN`       |
+| Flag |                   | Description                                                                                               | Input type | {{< cli/mapped >}}    |
+|:-----|:------------------|:----------------------------------------------------------------------------------------------------------|:----------:|:----------------------|
+| `-c` | `--active-config` | CLI configuration to use for command                                                                      | string     |                       |
+|      | `--bucket`        | Name of bucket to remove data from (mutually exclusive with `--bucket-id`)                                | string     | `INFLUX_BUCKET_NAME`  |
+|      | `--bucket-id`     | Bucket ID (mutually exclusive with `--bucket`)                                                            | string     | `INFLUX_BUCKET_ID`    |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                                     | string     | `INFLUX_CONFIGS_PATH` |
+| `-h` | `--help`          | Help for the `delete` command                                                                             |            |                       |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                                                | string     | `INFLUX_HOST`         |
+|      | `--http-debug`    | Inspect communication with InfluxDB servers.                                                              | string     |                       |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                                                    | string     | `INFLUX_ORG`          |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                         | string     | `INFLUX_ORG_ID`       |
+| `-p` | `--predicate`     | InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2.0/reference/syntax/delete-predicate)) | string     |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                                                         |            | `INFLUX_SKIP_VERIFY`  |
+|      | `--start`         | ({{< req >}}) Start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                  | string     |                       |
+|      | `--stop`          | ({{< req >}}) Stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                   | string     |                       |
+| `-t` | `--token`         | API token                                                                                                 | string     | `INFLUX_TOKEN`        |
 
 ## Examples
 

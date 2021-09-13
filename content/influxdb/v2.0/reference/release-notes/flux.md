@@ -8,10 +8,183 @@ menu:
     name: Flux
 ---
 
+## v0.127.2 [2021-09-01]
+
+### Bug fixes
+- Remove `flux wasm` crate and moved it to `lsp`.
+- Delete obsolete packages.
+- Add `_time` to status sorting.
+- Fix panic with `unknown type invalid` in `reduce()` function.
+
+---
+
+## v0.127.1 [2021-08-30]
+
+### Bug fixes
+- `limit()` correctly resets the offset after processing a partial buffer.
+
+---
+
+## v0.127.0 [2021-08-26]
+
+### Features
+- Create an executable to retrieve all `stdlib` documentation and updated WASM functions.
+- Implement `transport` in aggregate transformations.
+- Add documentation site links and fix `flux_types` issue.
+
+### Bug fixes
+- `fill()` function fails when the specified fill column doesn't exist.
+- Add `link` parameter to function structs.
+
+---
+
+## v0.126.0 [2021-08-19]
+
+### Features
+- Update `filter()` to use narrow transformation.
+
+### Bug fixes
+- Return JSON for WASM.
+- Check both dynamic types and static values in `strings` package.
+- Check both dynamic types and static values in `regexp` package.
+- Change `die` error code to invalid.
+
+---
+
+## v0.125.0 [2021-08-11]
+
+### Features
+- Add feature flag library as an internal package.
+- Add narrow transformation transport.
+- Add transport-aware dataset.
+- Simplify the transport interface and add a transformation adapter.
+- Add [`contrib/sranka/webexteams` package](/influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/).
+- Add optimized repeat function for arrow arrays.
+- Add two additional internal message types.
+
+### Bug fixes
+- Update transformation adapter to return an error when receiving a flush key
+  for a table that is not present.
+- Fix pivot operations when no data is left to operate on.
+- Update `join()` to produce columns of equivalent length when combining mismatched schemas.
+
+## v0.124.0 [2021-08-03]
+
+### Features
+- Update the string array builder to support constant data.
+- Expand message interface with message lifetime controls.
+- Create internal Flux array package.
+
+### Bug fixes
+- Register `sortedPivot` and update `sortedPivot` kind.
+- Derive `Copy` on `ast::Position`.
+- Update `to()` function to properly close the writer on error.
+- Update `libflux` include paths to use `pkg-config`.
+- Properly copy record types with no `extends` parameter.
+
+---
+
+## v0.123.0 [2021-07-19]
+
+### Breaking changes
+- Remove the [`sleep()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/sleep/).
+
+### Features
+- Optimize [`pivot()` transformation](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/).
+- Add [InfluxDB sample data package](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/).
+- Use `table.fill()` when `aggregateWindow(createEmpty: true)` is used.
+
+---
+
+## v0.122.0 [2021-07-13]
+
+### Features
+- Add `--skip` flag to the `flux test` command to skip specific tests.
+
+---
+
+## v0.121.0 [2021-07-12]
+
+### Features
+- Update [`experimental.to()`](/influxdb/v2.0/reference/flux/stdlib/experimental/to/)
+  to use the Flux `influxdb` provider.
+
+---
+
+## v0.120.1 [2021-07-06]
+- _Add inline Flux function documentation._
+
+---
+
+## v0.120.0 [2021-07-06]
+
+### Features
+- Bootstrap documentation methods.
+
+### Bug fixes
+- Reverse [`math.atan2()`](/influxdb/v2.0/reference/flux/stdlib/math/atan2/) parameters.
+- Fix documentation headers in `stdlib`.
+- Distinct `testcase` should not use `testing.load()`.
+- `movingAverage()` creates columns with the same length when `n` is the size of the input.
+- Allow work queue to be resized when work exceeds queue length.
+- `distinct()` appends null values without creating invalid tables.
+
+---
+
+## v0.119.1 [2021-06-29]
+- _Add inline Flux function documentation._
+
+---
+
+
+## v0.118.1 [2021-06-15]
+- _Internal code cleanup._
+
+---
+
+## v0.118.0 [2021-06-15]
+
+###  Features
+- Add `exclude` parameter to `pagerduty.dedupKey()`.
+
+### Bug fixes
+- Ensure PagerDuty tests include a `_value` column.
+- Add length check to CSV annotation parsing.
+- Change `FunctionLiteral` precedence to preserve parentheses.
+
+---
+
+## v0.117.3 [2021-06-07]
+- _Internal code cleanup._
+
+---
+
+## v0.117.2 [2021-06-07]
+
+### Bug fixes
+- Remove `tabstop` processing from formatter.
+- Support dividing IEEE float values by zero.
+- Fix multiline collapse when formatting function parameters.
+- Reclassify `map type` error as `user` error.
+- Fix acceptance tests to catch different timestamps.
+
+---
+
+## v0.117.1 [2021-06-01]
+
+### Bug fixes
+- Update `group_no_agg_table` acceptance test to run in a consistent order.
+- Remove `xcc.sh` release dependency.
+- Fix `staticcheck` linter failures.
+- Replace erroneous line deletions.
+
+---
+
 ## v0.117.0 [2021-05-24]
 
 ### Features
-- `to()` function writes to a remote InfluxDB instance.
+- [`to()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) function
+  writes to a remote InfluxDB instance.
 
 ### Bug fixes
 - Fix unexpected behavior caused by going over the Go/Rust boundary multiple times using JSON serialization.

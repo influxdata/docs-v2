@@ -15,7 +15,7 @@ related:
 To upgrade from **InfluxDB OSS 1.x** to **InfluxDB Cloud**:
 
 1. [Create an InfluxDB Cloud account](#create-an-influxdb-cloud-account)
-2. [Create an All-Access authentication token](#create-an-all-access-authentication-token)
+2. [Create an All-Access API token](#create-an-all-access-authentication-token)
 3. [Download and install the `influx` CLI](#download-and-install-the-influx-cli)
 4. [Create DBRP mappings](#create-dbrp-mappings)
 5. [Dual write to InfluxDB 1.x and InfluxDB Cloud](#dual-write-to-influxdb-1x-and-influxdb-cloud)
@@ -26,12 +26,11 @@ To upgrade from **InfluxDB OSS 1.x** to **InfluxDB Cloud**:
 ## Create an InfluxDB Cloud account
 Do one of the following to create an InfluxDB Cloud account:
 
-- [Subscribe through InfluxData](/influxdb/cloud/get-started/#subscribe-through-influxdata) and
-  [start for free](/influxdb/cloud/get-started/#start-for-free).
-- [Subscribe through your cloud provider](/influxdb/cloud/get-started/#subscribe-through-a-cloud-provider).
+- [Subscribe through InfluxData](/influxdb/cloud/sign-up/#subscribe-through-influxdata) and start for free.
+- [Subscribe through your cloud provider](/influxdb/cloud/sign-up/#subscribe-through-a-cloud-provider).
 
-## Create an All-Access authentication token
-InfluxDB Cloud requires all requests to be authenticated with **token authentication**.
+## Create an All-Access API token
+{{% cloud-token-auth %}}
 Create an **All-Access** token in your InfluxDB Cloud user interface (UI) to use
 for the upgrade process.
 
@@ -75,7 +74,7 @@ _For more information about managing tokens and token types, see [Manage tokens]
 {{% note %}}
 #### Required InfluxDB Cloud credentials
 All `influx` CLI examples below assume the required InfluxDB Cloud **host**,
-**organization**, and **authentication token** credentials are provided by your
+**organization**, and **API token** credentials are provided by your
 [`influx` CLI configuration](/influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials).
 {{% /note %}}
 
@@ -159,7 +158,7 @@ Update external clients to write to your InfluxDB Cloud instance.
 finish [migrating your existing time series data](#migrate-time-series-data)**.
 
 Configure external clients with your InfluxDB Cloud **host**, **organization**,
-and **authentication token**.
+and **API token**.
 
 ### Update Telegraf configurations
 If using Telegraf to collect and write metrics to InfluxDB 1.x, update your
@@ -185,7 +184,7 @@ Telegraf configuration to write to both InfluxDB 1.x and InfluxDB Cloud:
     ```
 
 2.  Add the `INFLUX_TOKEN` environment variable to your Telegraf environment(s)
-    and set the value to your InfluxDB Cloud authentication token.
+    and set the value to your InfluxDB Cloud API token.
 
 3.  Restart Telegraf with the updated configuration and begin writing to both
     InfluxDB 1.x and InfluxDB Cloud.

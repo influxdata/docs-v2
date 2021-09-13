@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Add a member
 seotitle: Add a member to an organization in InfluxDB
 description: Add a member to an organization.

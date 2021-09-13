@@ -10,12 +10,18 @@ menu: influxdb_cloud_ref
 weight: 7
 ---
 
-Use sample data to familiarize yourself with time series data and InfluxDB.
-InfluxData provides many sample time series datasets to use with **InfluxDB Cloud**.
+Use **demo data** and **sample data** to familiarize yourself with time series data and InfluxDB Cloud.
+InfluxDB Cloud lets you access **Demo data buckets** that contain real-time time
+series data without having to write data to InfluxDB. 
+Sample datasets are also available for download and can be written to InfluxDB
+or loaded at query time.
+
+- [InfluxDB Cloud demo data](#influxdb-cloud-demo-data)
+- [Sample datasets](#sample-datasets)
 
 ## InfluxDB Cloud demo data
 Use [InfluxDB Cloud demo data buckets](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data) for quick,
-free access to different types of sample data.
+free access to different time series datasets.
 
 {{< youtube GSaByPC1Bdc >}}
 
@@ -23,46 +29,116 @@ free access to different types of sample data.
 Demo data is not available for use with third-party integrations such as Grafana.
 {{% /note %}}
 
-## Sample data sets
-The following sample data sets are used as examples in [InfluxDB query guides](/influxdb/cloud/query-data/flux).
+## Sample datasets
 
 - [Air sensor sample data](#air-sensor-sample-data)
 - [Bird migration sample data](#bird-migration-sample-data)
-- [USGS earthquake data](#usgs-earthquake-data)
+- [NOAA sample data](#noaa-sample-data)
+  - [NOAA NDBC data](#noaa-ndbc-data)
+  - [NOAA water sample data](#noaa-water-sample-data)
+- [USGS Earthquake data](#usgs-earthquake-data)
 
 ### Air sensor sample data
+
+{{% caption %}}
+**Size**: ~600 KB • **Updated**: every 15m
+{{% /caption %}}
+
 Air sensor sample data represents an "Internet of Things" (IoT) use case by simulating
 temperature, humidity, and carbon monoxide levels for multiple rooms in a building.
-The dataset also includes a relational SQL dataset with meta information about sensors in each room.
 
-<a class="btn" href="https://github.com/influxdata/influxdb2-sample-data/tree/master/air-sensor-data" target="\_blank">
-  <span class="icon-github"></span> View air sensor sample data
-</a>
+To download and output the air sensor sample dataset, use the
+[`sample.data()` function](/influxdb/cloud/reference/flux/stdlib/influxdb-sample/data/).
 
-_Used in [Query SQL data sources](/influxdb/cloud/query-data/flux/sql/)._
+```js
+import "influxdata/influxdb/sample"
+
+sample.data(set: "airSensor")
+```
+
+#### Companion SQL sensor data
+The air sensor sample dataset is paired with a relational SQL dataset with meta
+information about sensors in each room.
+These two sample datasets are used to demonstrate
+[how to join time series data and relational data with Flux](/influxdb/cloud/query-data/flux/sql/#join-sql-data-with-data-in-influxdb)
+in the [Query SQL data sources](/influxdb/cloud/query-data/flux/sql/) guide.
+
+<a class="btn download" href="https://influx-testdata.s3.amazonaws.com/sample-sensor-info.csv" download>Download SQL air sensor data</a>
 
 ### Bird migration sample data
-Bird migration data is adapted from the
-[Movebank: Animal Tracking data set on Kaggle](https://www.kaggle.com/pulkit8595/movebank-animal-tracking)
+
+{{% caption %}}
+**Size**: ~1.2 MB • **Updated**: N/A
+{{% /caption %}}
+
+Bird migration sample data is adapted from the
+[Movebank: Animal Tracking data set](https://www.kaggle.com/pulkit8595/movebank-animal-tracking)
 and represents animal migratory movements throughout 2019.
-Use the [Flux Geo package](/influxdb/cloud/reference/flux/stdlib/experimental/geo/#geo-schema-requirements)
-to query and analyze the geo-temporal data in this sample data set.
 
-<a class="btn" href="https://github.com/influxdata/influxdb2-sample-data/tree/master/bird-migration-data" target="\_blank">
- <span class="icon-github"></span> View bird migration sample data
-</a>
+To download and output the bird migration sample dataset, use the
+[`sample.data()` function](/influxdb/cloud/reference/flux/stdlib/influxdb-sample/data/).
 
-_Used in [Work with geo-temporal data](/influxdb/cloud/query-data/flux/geo/)._
+```js
+import "influxdata/influxdb/sample"
 
-### NOAA water sample data
+sample.data(set: "birdMigration")
+```
 
-This data set is  publicly available data from the [National Oceanic and Atmospheric Administration’s (NOAA) Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html).
+The bird migration sample dataset is used in the [Work with geo-temporal data](/influxdb/cloud/query-data/flux/geo/)
+guide to demonstrate how to query and analyze geo-temporal data.
 
-[The CSV data](https://influx-testdata.s3.amazonaws.com/noaa.csv) includes 15,258
-observations of water levels (ft) collected every six minutes at two stations
+### NOAA sample data
+
+The following two National Oceanic and Atmospheric Administration (NOAA) datasets are
+available to use with InfluxDB.
+
+- [NOAA NDBC data](#noaa-ndbc-data)
+- [NOAA water sample data](#noaa-water-sample-data)
+
+#### NOAA NDBC data
+
+{{% caption %}}
+**Size**: ~1.3 MB • **Updated**: every 15m
+{{% /caption %}}
+
+The **NOAA National Data Buoy Center (NDBC)** dataset provides observations (updated every 15 minutes) from the NOAA NDBC network of buoys throughout the world.
+
+To download and output the most recent NOAA NDBC observations, use the
+[`sample.data()` function](/influxdb/cloud/reference/flux/stdlib/influxdb-sample/data/).
+
+```js
+import "influxdata/influxdb/sample"
+
+sample.data(set: "noaa")
+```
+
+{{% note %}}
+##### Store historical NOAA NDBC data
+
+The **NOAA NDBC sample dataset** only returns the most recent observations;
+not historical observations.
+To regularly query and store NOAA NDBC observations, add the following as an
+[InfluxDB task](/inflxudb/v2.0/process-data/manage-tasks/).
+Replace `example-org` and `example-bucket` with your organization name and the
+name of the bucket to store data in.
+
+{{% get-shared-text "flux/noaa-ndbc-sample-task.md" %}}
+{{% /note %}}
+
+#### NOAA water sample data
+
+{{% caption %}}
+**Size**: ~10 MB • **Updated**: N/A
+{{% /caption %}}
+
+The **NOAA water sample dataset** is static dataset extracted from
+[NOAA Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html) data.
+The sample dataset includes 15,258 observations of water levels (ft) collected every six minutes at two stations
 (Santa Monica, CA (ID 9410840) and Coyote Creek, CA (ID 9414575)) over the period
-from August 18, 2015 through September 18, 2015.
+from **August 18, 2015** through **September 18, 2015**.
 
+{{% note %}}
+##### Store NOAA water sample data to avoid bandwidth usage
 To avoid having to re-download this 10MB dataset every time you run a query,
 we recommend that you [create a new bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
 (`noaa`) and write the NOAA data to it.
@@ -83,88 +159,27 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
   |> relativeToNow()
   |> to(bucket: "noaa", org: "example-org")
 ```
+{{% /note %}}
 
-_Used in [Common queries](/influxdb/cloud/query-data/common-queries/) and [Common tasks](/influxdb/cloud/process-data/common-tasks/)._
+The NOAA water sample dataset is used to demonstrate Flux queries in the
+[Common queries](/influxdb/cloud/query-data/common-queries/) and
+[Common tasks](/influxdb/cloud/process-data/common-tasks/) guides.
 
-### USGS earthquake data
-The United States Geological Survey (USGS) collects earthquake data and makes
-this data publicly available.
-Each earthquake event includes information such as latitude and longitude
-coordinates, magnitude, depth, and [more](#collected-usgs-data).
+### USGS Earthquake data
 
-**To periodically retrieve and write USGS earthquake data to InfluxDB**
+{{% caption %}}
+**Size**: ~6 MB • **Updated**: every 15m
+{{% /caption %}}
 
-1. [Create a new bucket](/influxdb/cloud/organizations/buckets/create-bucket/) named `usgs`.
-2. [Create a new task](/influxdb/cloud/process-data/manage-tasks/create-task/)
-   and include the following Flux script:
+The United States Geological Survey (USGS) earthquake dataset contains observations
+collected from USGS seismic sensors around the world over the last week.
+Data is updated approximately every 15m.
 
-   {{% truncate %}}
+To download and output the last week of USGS seismic data, use the
+[`sample.data()` function](/influxdb/cloud/reference/flux/stdlib/influxdb-sample/data/).
+
 ```js
-import "csv"
-import "experimental"
-import "experimental/http"
+import "influxdata/influxdb/sample"
 
-usgsCSV = string(v: (http.get(url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.csv")).body)
-
-csv.from(csv: usgsCSV, mode: "raw")
-  |> map(fn: (r) => ({
-    _measurement: "earthquakes",
-    _time: time(v: r.time),
-    lat: float(v: r.latitude),
-    lon: float(v: r.longitude),
-    depth: float(v: r.depth),
-    depthError: float(v: r.depthError),
-    mag: float(v: r.mag),
-    magType: string(v: r.magType),
-    nst: int(v: r.nst),
-    gap: float(v: r.gap),
-    dmin: float(v: r.dmin),
-    rms: float(v: r.rms),
-    net: string(v: r.net),
-    id: string(v: r.id),
-    updated: int(v: time(v: r.updated)) / 1000000,
-    place: string(v: r.place),
-    type: string(v: r.type),
-    locationSource: string(v: r.locationSource),
-    magSource: string(v: r.magSource),
-    horizontalError: float(v: r.horizontalError),
-    magError: float(v: r.magError),
-    magNst: int(v: r.magNst),
-  }))
-  |> group(columns: ["_measurement", "locationSource", "magSource", "type", "net", "magType"])
-  |> experimental.to(bucket: "usgs")
+sample.data(set: "usgs")
 ```
-    {{% /truncate %}}
-    {{% note %}}
-USGS updates earthquake data every minute.
-This task retrieves earthquake data for the current day.
-Set your task's `every` interval between `1m` and `24h`, depending on how often
-you want to retrieve new data.
-    {{% /note %}}
-
-#### Collected USGS data
-The task above writes the following to InfluxDB:
-
-**Fields:**  
-[lat](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#latitude),
-[lon](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#longitude),
-[depth](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#depth),
-[depthError](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#depthError),
-[mag](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#mag),
-[nst](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#nst),
-[gap](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#gap),
-[dmin](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#dmin),
-[rms](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#rms),
-[id](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#id),
-[updated](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#updated),
-[place](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#place),
-[horizontalError](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#horizontalError),
-[magError](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#magError),
-[magNst](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#magNst)
-
-**Tags:**  
-[magType](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#magType),
-[net](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#net),
-[type](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#type),
-[locationSource](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#locationSource),
-[magSource](https://earthquake.usgs.gov/data/comcat/data-eventterms.php#magSource)

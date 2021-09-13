@@ -8,6 +8,73 @@ menu:
 weight: 101
 ---
 
+## v2.0.8 [2021-08-13]
+
+{{% warn %}} #### Upcoming changes to influx CLI packaging
+
+Beginning in InfluxDB 2.1, the `influx` CLI will no longer be packaged with the release. Future versions of `influx` CLI will be released from the [influx-cli](https://github.com/influxdata/influx-cli) repository.
+
+To adopt the new, separate `influx` CLI early, download the latest release from [GitHub](https://github.com/influxdata/influx-cli/releases/tag/v2.1.0) or from the [InfluxData Downloads portal](https://portal.influxdata.com/downloads/).
+{{% /warn %}}
+
+### Go version
+
+- Upgrade to Go 1.16. **Requires macOS Sierra 10.12 or later to run.**
+
+### Features
+
+- Add `--ui-disabled` option to `influxd` to support running with the UI disabled.
+- Telemetry improvements: Do not record telemetry data for non-existent paths; replace invalid static asset paths with a slug.
+- Upgrade to Flux v0.124.0.
+- Upgrade to UI v2.0.8.
+- Upgrade `flux-lsp-browser` to v0.5.53.
+
+### Bug fixes
+
+- Rename ARM RPM packages with yum-compatible names.
+- Upgrade to latest version of `influxdata/cron` so that tasks can be created with interval of `every: 1w`.
+- Avoid rewriting `fields.idx` unnecessarily.
+- Do not close connection twice in DigestWithOptions.
+- Remove incorrect optimization for group-by.
+- Return an error instead of panicking when InfluxQL statement rewrites fail.
+- Migrate restored KV snapshots to latest schema before using them.
+- Specify which fields are missing when rejecting an incomplete onboarding request.
+- Ensure `systemd` unit blocks on startup until HTTP endpoint is ready.
+- Fix display and parsing of `influxd upgrade` CLI prompts in PowerShell.
+- Removed unused `chronograf-migator` package and chronograf API service, and updated various "chronograf" references.
+- Fix display and parsing of interactive `influx` CLI prompts in PowerShell.
+- Upgrade to `golang-jwt` 3.2.1.
+- Prevent silently dropped writes when there are overlapping shards.
+- Invalid requests to `/api/v2` subroutes now return 404 instead of a list of links.
+- Flux meta queries for `_field` take fast path if `_measurement` is the only predicate.
+- Copy names from mmapped memory before closing iterator.
+
+## v2.0.7 [2021-06-04]
+
+### Features
+
+- Optimize [`table.fill()`](/influxdb/v2.0/reference/flux/stdlib/experimental/table/fill/)
+  execution within Flux aggregate windows.
+- Upgrade Flux to [v0.117.0](/influxdb/v2.0/reference/release-notes/flux/#v01171-2021-06-01).
+- Upgrade UI to v2.0.7.
+- Upgrade `flux-lsp-browser` to v0.5.47.
+
+### Bug Fixes
+
+- Fix query range calculation (off by one) over partially compacted data.
+- Deprecate the unsupported `PostSetupUser` API.
+- Add limits to the `/api/v2/delete` endpoint for start and stop times with error messages.
+- Add logging to NATS streaming server to help debug startup failures.
+- Accept `--input` instead of a positional argument in `influx restore`.
+- Print error instead of panicking when `influx restore` fails to find backup manifests.
+- Set last-modified time of empty shard directory to the directory's last-modified time, instead of the Unix epoch.
+- Remove deadlock in `influx org members list` when an organization has greater than 10 members.
+- Replace telemetry file name with slug for `ttf`, `woff`, and `eot` files.
+- Enable use of absolute path for `--upgrade-log` when running `influxd upgrade` on Windows.
+- Make InfluxQL meta queries respect query timeouts.
+
+---
+
 ## v2.0.6 General Availability [2021-04-29]
 
 ### Bug Fixes

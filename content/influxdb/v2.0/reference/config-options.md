@@ -147,8 +147,8 @@ To configure InfluxDB, use the following configuration options when starting the
 - [vault-capath](#vault-capath)
 - [vault-client-cert](#vault-client-cert)
 - [vault-client-key](#vault-client-key)
-- [vault-max-retries](#vault-max-retries)
 - [vault-client-timeout](#vault-client-timeout)
+- [vault-max-retries](#vault-max-retries)
 - [vault-skip-verify](#vault-skip-verify)
 - [vault-tls-server-name](#vault-tls-server-name)
 - [vault-token](#vault-token)
@@ -1469,13 +1469,65 @@ session-renew-disabled = true
 
 ---
 
+
+<!--
+### sqlite-path
+
+Path to the SQLite database file.
+The SQLite database is used to store metadata for notebooks and annotations.
+
+**Default:** _`influxd.sqlite` in the same directory as the [bolt-path](#bolt-path)._
+
+| influxd flag    | Environment variable  | Configuration key |
+|:----------------|:----------------------|:------------------|
+| `--sqlite-path` | `INFLUXD_SQLITE_PATH` | `sqlite-path`     |
+
+###### influxd flag
+```sh
+influxd --sqlite-path ~/.influxdbv2/influxd.sqlite
+```
+
+###### Environment variable
+```sh
+export INFLUXD_SQLITE_PATH=~/.influxdbv2/influxd.sqlite
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+sqlite_path: /users/user/.influxdbv2/influxd.sqlite
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+sqlite_path = "/users/user/.influxdbv2/influxd.sqlite"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "sqlite_path": "/users/user/.influxdbv2/influxd.sqlite"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+-->
+
 ### storage-cache-max-memory-size
 Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
 
 **Default:** `1073741824`
 
 | influxd flag                      | Environment variable                    | Configuration key               |
-|:------------                      |:--------------------                    |:-----------------               |
+|:----------------------------------|:----------------------------------------|:--------------------------------|
 | `--storage-cache-max-memory-size` | `INFLUXD_STORAGE_CACHE_MAX_MEMORY_SIZE` | `storage-cache-max-memory-size` |
 
 ###### influxd flag
@@ -2961,7 +3013,7 @@ vault-tls-server-name = "secure.example.com"
 ---
 
 ### vault-token
-Specifies the Vault authentication token use when authenticating with Vault.
+Specifies the Vault token use when authenticating with Vault.
 
 | influxd flag    | Environment variable | Configuration key |
 |:------------    |:-------------------- |:----------------- |

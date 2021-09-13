@@ -109,7 +109,7 @@ Organization name.
 _**Data type:** String_
 
 ### token
-InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
+InfluxDB [API token](/influxdb/v2.0/security/tokens/).
 
 _**Data type:** String_
 

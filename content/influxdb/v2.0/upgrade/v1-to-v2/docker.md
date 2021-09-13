@@ -58,7 +58,7 @@ to provide setup credentials:
 - `DOCKER_INFLUXDB_INIT_BUCKET`: Name to set for the initial bucket ({{< req >}}).
 - `DOCKER_INFLUXDB_INIT_RETENTION`: Duration for the initial bucket's retention period.
   If not set, the initial bucket will retain data forever.
-- `DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`: Authentication token to associate with the admin user.
+- `DOCKER_INFLUXDB_INIT_ADMIN_TOKEN`: API token to associate with the admin user.
   If not set, InfluxDB automatically generates a token.
 
 ### File system mounts

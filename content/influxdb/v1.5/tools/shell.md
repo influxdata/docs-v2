@@ -23,8 +23,8 @@ Once you've entered the shell and successfully connected to an InfluxDB node, yo
 
 ```bash
 $ influx
-Connected to http://localhost:8086 version 1.4.x
-InfluxDB shell 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 ```
 
 > **Note:** The versions of InfluxDB and the CLI should be identical. If not, parsing issues can occur with queries.

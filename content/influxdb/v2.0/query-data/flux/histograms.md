@@ -193,7 +193,7 @@ and `severity` as the **Group By** option:
 
 ### Use Prometheus histograms in Flux
 
-Use InfluxDB and Telegraf to monitor a service instrumented with an endpoint that outputs [prometheus-formatted metrics](/influxdb/v2.0/write-data/no-code/scrape-data/scrapable-endpoints/). This example demonstrates how to use Telegraf to scrape metrics from the InfluxDB 2.0 OSS `/metrics` endpoint at regular intervals (10s by default), and then store those metrics in InfluxDB.
+Use InfluxDB and Telegraf to monitor a service instrumented with an endpoint that outputs [prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/). This example demonstrates how to use Telegraf to scrape metrics from the InfluxDB 2.0 OSS `/metrics` endpoint at regular intervals (10s by default), and then store those metrics in InfluxDB.
 
 Use Prometheus histograms to measure the distribution of a variable, for example, the time it takes a server to respond to a request. Prometheus represents histograms as many sets of buckets (notably, different from an InfluxDB bucket).
 Each unique set of labels corresponds to one set of buckets; within that set, each bucket is labeled with an upper bound.

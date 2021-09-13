@@ -30,35 +30,9 @@ weight: 201
 
 2. Click the **Create Dashboard** menu in the upper right and select **Import Dashboard**.
 3. In the window that appears:
-  * Select **Upload File** to drag-and-drop or select a file.
-  * Select **Paste JSON** to paste in JSON.
+    - Select **Upload File** to drag-and-drop or select a file.
+    - Select **Paste JSON** to paste in JSON.
 4. Click **Import JSON as Dashboard**.
-
-## Create dashboards with templates
-
-**To create a dashboard from a template in the dashboards page**:
-
-1. In the navigation menu on the left, select **Boards** (**Dashboards**).
-
-    {{< nav-icon "dashboards" >}}
-
-2. Click the **+Create Dashboard** menu in the upper right and select **From a Template**.
-3. In the window that appears, select a template and review the template's variables and cells.
-4. Click **Create Dashboard**.
-
-**To create a dashboard from a template in the templates UI**:
-
-1. Click the **Settings** icon in the left navigation.
-
-    {{< nav-icon "settings" >}}
-
-2. Select the **Templates** tab.
-
-  - In the **Static Templates** tab, a list of pre-created templates appears.
-  - In the **User Templates** tab, a list of custom user-created templates appears.
-
-3. Hover over the name of the template you want to create a dashboard from, then click **Create**.
-
 
 ## Clone a dashboard
 
@@ -69,14 +43,13 @@ weight: 201
 2. Hover over the dashboard and click **{{< icon "copy" >}}**.
 3. Click **Clone**. The cloned dashboard opens.
 
-
 #### Add data to your dashboard
 
 1. From your dashboard, click **{{< icon "add-cell" >}} Add Cell**.
 2. Create a query in the Data Explorer following the instructions in [Explore metrics](/influxdb/v2.0/visualize-data/explore-metrics).
 3. Enter a name for your cell in the upper left.
 4. Click the checkmark icon (**{{< icon "checkmark" >}}**) to save the cell to your dashboard.
-You can also send data to your dashboard directly from the Data Explorer. For details, [Explore metrics](/influxdb/v2.0/visualize-data/explore-metrics).
+   You can also send data to your dashboard directly from the Data Explorer. For details, [Explore metrics](/influxdb/v2.0/visualize-data/explore-metrics).
 
 #### Add a note to your dashboard
 1. From your dashboard, click **{{< icon "note" >}} Add Note** in the upper left.
