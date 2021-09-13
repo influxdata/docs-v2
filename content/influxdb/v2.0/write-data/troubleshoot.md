@@ -3,7 +3,7 @@ title: Troubleshoot issues writing data
 seotitle: Troubleshoot issues writing data
 list_title: Troubleshoot issues writing data
 weight: 106 >
-  Troubleshoot issues writing data. Discover how writes fail, including rate limit failures, timeouts, size of write payload, not conforming to an explicit bucket schema, and partial writes. Find response codes for failed writes, and suggestions to fix.
+  Troubleshoot issues writing data. Find response codes for failed writes. Discover how writes fail, from exceeding rate or payload limits, to syntax errors and schema conflicts.
 menu:
   influxdb_2_0:
     name: Troubleshoot issues
@@ -44,14 +44,14 @@ Write requests return the following status codes:
   If some of your data did not write to the bucket, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).
     {{% /note %}}
 
-- `400` **Bad request**: The line protocol data in the request was malformed.
+- `400` **Bad request**: The [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/) data in the request was malformed.
         The response body contains the first malformed line in the data. All request data was rejected and not written.
 - `401` **Unauthorized**: May indicate one of the following:
-  - `Authorization: Token` header is missing or malformed.
-  - API token value is missing from the header.
-  - API token does not have sufficient permissions to write to the organization and the bucket.
+  - [`Authorization: Token` header](/influxdb/v2.0/api-guide/api_intro/#authentication) is missing or malformed.
+  - [API token](/influxdb/v2.0/api-guide/api_intro/#authentication) value is missing from the header.
+  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2.0/security/tokens/)
 - `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found. The response body contains the requested resource type, e.g. "organization", and resource name.
-- `413` **Request entity too large**: All request data was rejected and not written. InfluxDB only returns this error if the Go (golang) [`ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error. 
+- `413` **Request entity too large**: All request data was rejected and not written. InfluxDB OSS only returns this error if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error. 
 - `500` **Internal server error**: Default HTTP status for an error.
 - `503` **Service unavailable**: Server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
 
@@ -59,11 +59,14 @@ The `message` property of the response body may contain additional details about
 
 ## Troubleshoot failures
 
-If you notice data is missing in your bucket, check the following:
+If you notice data is missing in your bucket, do the following:
 
-- Does the `message` property in the response body contain details about the error?
-- Do all lines contain valid syntax, e.g. [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/) or [CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)?
-- Do the timestamps match the precision parameter?
+- Check the `message` property in the response body for details about the error
+- Verify all lines contain valid syntax, e.g. [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/) or [CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+- Verify the data types match other data points with the same series.
+  For example, did you attempt to write `string` data to an `int` field?
+- Verify the timestamps match the [precision parameter](/influxdb/v2.0/write-data/#timestamp-precision).
+- Minimize payload size and network errors by [optimizing writes](/influxdb/v2.0/write-data/best-practices/optimize-writes/) 
 
 ### Troubleshoot rejected points
 
