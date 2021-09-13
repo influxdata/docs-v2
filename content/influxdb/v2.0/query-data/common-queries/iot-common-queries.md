@@ -130,7 +130,7 @@ In this example, the `_value` in the table below shows input data from the `temp
 | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 41.37233748271092 |
 | g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 206000000000      |
 
-In order to get the values above, `timeWeightedAvg` is removed. The function `timeWeightedAvg` takes the average of the temperature every 5 seconds. The table below shows the values before the oil temperatures have been averaged. 
+In order to get the values above, you can view the values before it has been averaged by removing`timeWeightedAvg`. The function `timeWeightedAvg` takes the average of the temperature every 5 seconds. The table below shows the values before the oil temperatures have been averaged. 
 
 | table | stationID | _start                   | _stop                    | _value |
 |:----- | -----     | -----                    | -----                    | ------:|
@@ -142,7 +142,7 @@ In order to get the values above, `timeWeightedAvg` is removed. The function `ti
 | 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
 | 3     | g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
 
-Given the input data in the table above, the example function above does the following:
+Given the input data in the table above, the example function does the following:
 
 1. Multiplies each value by its time-weighting interval by station id: `39.1x0.0056, 40.3x0.0056, 40.6x0.0056`, `40.6x0.0056`, `41.4x0.0056, 41.36x0.0056`, and `41.2x0.0056` 
 2. Sums the values in step 1 to calculate the total weighted exposure: `2.0 + 3.0 + 4.0 + 5.0 + 6.0 = 20.0`
@@ -174,6 +174,7 @@ from(bucket: "machine")
   )
   |> mean()
 ```
+In this example, the `_value` in the table below shows the average `oil_temp` from our specific batch start and stop. To recieve the following input data, the `mean()` function calculates the average value between that time range for every individual batch. 
 
 | stationID | _start                   | _stop                    | _value             |
 |:-----     | -----                    | -----                    |             ------:|
@@ -188,4 +189,5 @@ Equipment speed measurements are recorded periodically (float), as is the produc
 
 ## Group aggregate on value change(s)
 
-Aggregates can be "grouped by" one or more measurements over given interval, and by one or more context values that might change state (production order number, crew, machine state, etc.)
+Similar to Scenario 4, but I’d like to have something akin to a “group by” aggregate for one or more measurements over given interval, grouped by one or more context values that might change state (production order number, crew, machine state, etc.)
+ 
