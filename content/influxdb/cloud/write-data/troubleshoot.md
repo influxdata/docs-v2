@@ -49,12 +49,12 @@ Write requests return the following status codes:
   If some of your data did not write to the bucket, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).
     {{% /note %}}
 
-- `400` **Bad request**: The line protocol data in the request was malformed.
+- `400` **Bad request**: The [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) data in the request was malformed.
    The response body contains the first malformed line in the data. All request data was rejected and not written.
 - `401` **Unauthorized**: May indicate one of the following:
-  - `Authorization: Token` header is missing or malformed.
-  - API token value is missing from the header.
-  - API token does not have sufficient permissions to write to the organization and bucket.
+  -  [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed.
+  - [API token](/influxdb/cloud/api-guide/api_intro/#authentication) value is missing from the header.
+  - API token does not have sufficient permissions to write to the organization and bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud/security/tokens/)
 - `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found. The response body contains the requested resource type, e.g. "organization", and resource name.
 - `413` **Request entity too large**: The payload exceeded the 50MB limit. All request data was rejected and not written.
 - `429` **Too many requests**: API token is temporarily over quota. The `Retry-After` header describes when to try the write request again.
@@ -67,11 +67,11 @@ The `message` property of the response body may contain additional details about
 
 If you notice data is missing in your bucket, do the following:
 
-- Check the `message` property in the response body for details about the error
-- Verify all lines contain valid syntax, e.g. [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) or [CSV](/influxdb/cloud/reference/syntax/annotated-csv/)
-- Verify the data types match the [bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/)
+- Check the `message` property in the response body for details about the error.
+- Verify all lines contain valid syntax, e.g. [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) or [CSV](/influxdb/cloud/reference/syntax/annotated-csv/).
+- Verify the data types match the [bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
   For example, did you attempt to write `string` data to an `int` field?
-- Verify the timestamps match the precision parameter
+- Verify the timestamps match the [precision parameter](/influxdb/cloud/write-data/#timestamp-precision).
 
 ### Troubleshoot rejected points
 
