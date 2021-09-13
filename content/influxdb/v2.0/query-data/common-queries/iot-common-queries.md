@@ -114,7 +114,7 @@ To recieve the average oil temperature, the temperature (in the `_value` column)
 
 ```js
 from(bucket: "machine")
-  |> range(start: 2021-08-02T00:00:00Z, stop: 2021-08-02T00:00:20Z)
+  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:20Z)
   |> filter(fn: (r) =>
     r._measurement == "machinery" and r._field == "oil_temp"
   )
@@ -122,15 +122,6 @@ from(bucket: "machine")
 ```
 
 In this example, the `_value` in the table below shows input data from the `temperature` field in the `machinery` measurement. For the following input data:
-
-| stationID | _start                   | _stop                    | _value            |
-|:-----     | -----                    | -----                    |            ------:|
-| g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 40.02210657730674 |
-| g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 203000000000      |
-| g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 41.37233748271092 |
-| g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:00.000Z | 206000000000      |
-
-In order to get the values above, you can view the values before it has been averaged by removing`timeWeightedAvg`. The function `timeWeightedAvg` takes the average of the temperature every 5 seconds. The table below shows the values before the oil temperatures have been averaged. 
 
 | table | stationID | _start                   | _stop                    | _value |
 |:----- | -----     | -----                    | -----                    | ------:|
@@ -141,6 +132,17 @@ In order to get the values above, you can view the values before it has been ave
 | 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.3   |
 | 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
 | 3     | g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
+
+In order to get the values above, you can view the values before it has been averaged by removing `timeWeightedAvg` in the table above.  
+
+After The function `timeWeightedAvg` takes the average of the temperature every 5 seconds, you get the following output data in the table below.
+
+| stationID | _start                   | _stop                    | _value             |
+|:-----     | -----                    | -----                    |             ------:|
+| g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.25396118491921  |
+| g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6               |
+| g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.384505595567866 |
+| g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.26735518634935  |
 
 Given the input data in the table above, the example function does the following:
 
