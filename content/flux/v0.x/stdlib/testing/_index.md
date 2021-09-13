@@ -14,6 +14,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [testing, functions, package]
+introduced: 0.112.0
 ---
 
 The Flux `testing` package provide functions for testing Flux operations.

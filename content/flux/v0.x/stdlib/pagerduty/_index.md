@@ -15,6 +15,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [functions, pagerduty, package]
+introduced: 0.43.0
 ---
 
 The Flux `pagerduty` package provides functions for sending data to

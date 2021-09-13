@@ -17,6 +17,7 @@ flux/v0.x/tags: [regex, functions]
 cascade:
   related:
     - /flux/v0.x/data-types/regexp/
+introduced: 0.33.0
 ---
 
 The Flux `regexp` package includes functions for working with regular expressions.

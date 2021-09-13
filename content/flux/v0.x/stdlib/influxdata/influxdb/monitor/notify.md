@@ -70,7 +70,7 @@ endpoint = slack.endpoint(token: token)(mapFn: (r) => ({
     channel: "Alerts",
     text: r._message,
     color: "danger"
-  }))()
+  }))
 
 notification_data = {
 	_notification_rule_id: "0000000000000001",
@@ -106,7 +106,7 @@ endpoint = pagerduty.endpoint()(mapFn: (r) => ({
     eventAction: "trigger",
     source: "monitoringtool:vendor:region",
     timestamp: r._source_timestamp
-  }))()
+  }))
 
 notification_data = {
 	_notification_rule_id: "0000000000000001",

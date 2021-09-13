@@ -14,6 +14,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [runtime, functions, package]
+introduced: 0.38.0
 ---
 
 The Flux `runtime` package includes functions that provide information about the

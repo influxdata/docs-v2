@@ -14,6 +14,7 @@ menu:
     parent: influxdb-pkg
 weight: 202
 flux/v0.x/tags: [functions, secrets, package, security]
+introduced: 0.41.0
 ---
 
 InfluxDB `secrets` Flux functions provide tools for working with sensitive secrets managed by InfluxDB.

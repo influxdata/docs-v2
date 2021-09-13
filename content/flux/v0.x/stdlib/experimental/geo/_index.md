@@ -16,6 +16,7 @@ weight: 301
 flux/v0.x/tags: [functions, package, geo]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/geo/
+introduced: 0.63.0
 ---
 
 The Flux `geo` package provides tools for working with geo-temporal data,

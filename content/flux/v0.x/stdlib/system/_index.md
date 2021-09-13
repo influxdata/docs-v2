@@ -14,6 +14,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [system, functions, package]
+introduced: 0.18.0
 ---
 
 The Flux `system` package provides functions for reading values from the system.

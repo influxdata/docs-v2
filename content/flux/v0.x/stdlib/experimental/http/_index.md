@@ -15,6 +15,7 @@ menu:
     parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, http, package]
+introduced: 0.39.0
 ---
 
 The Flux experimental HTTP package provides functions for transferring data

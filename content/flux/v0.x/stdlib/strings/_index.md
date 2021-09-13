@@ -14,6 +14,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [strings, functions, package]
+introduced: 0.18.0
 ---
 
 The Flux `strings` package provides functions for working with UTF-8 encoded strings.

@@ -14,6 +14,7 @@ menu:
     parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, json, package]
+introduced: 0.69.0
 ---
 
 Flux experimental JSON functions provide tools for working with JSON.

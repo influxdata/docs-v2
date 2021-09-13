@@ -13,6 +13,7 @@ menu:
     parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, bigtable, package, google]
+introduced: 0.45.0
 ---
 
 The Flux `bigtable` package provides tools for working with data in

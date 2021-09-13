@@ -14,6 +14,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [functions, json, package]
+introduced: 0.40.0
 ---
 
 The Flux `json` package provides functions for working with JSON.

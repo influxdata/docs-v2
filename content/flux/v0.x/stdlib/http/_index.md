@@ -14,6 +14,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [functions, http, package]
+introduced: 0.39.0
 ---
 
 The Flux `http` package provides functions for transferring data using the HTTP protocol.

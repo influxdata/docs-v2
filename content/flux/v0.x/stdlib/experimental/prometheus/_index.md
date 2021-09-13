@@ -13,6 +13,7 @@ menu:
     parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, prometheus, package]
+introduced: 0.50.0
 ---
 
 Flux Prometheus functions provide tools for working with

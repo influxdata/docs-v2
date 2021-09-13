@@ -18,6 +18,7 @@ weight: 11
 flux/v0.x/tags: [functions, sql, package, mysql, postgres]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/sql/
+introduced: 0.34.0
 ---
 
 The Flux `sql` package provides functions for working with SQL databases such as:

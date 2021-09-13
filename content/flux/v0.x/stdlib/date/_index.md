@@ -16,6 +16,7 @@ menu:
 weight: 11
 cascade:
   flux/v0.x/tags: [date/time]
+introduced: 0.37.0
 ---
 
 The Flux `date` package provides date and time constants and functions.

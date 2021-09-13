@@ -15,6 +15,7 @@ menu:
     parent: influxdb-pkg
 weight: 202
 flux/v0.x/tags: [functions, influxdb-v1, package]
+introduced: 0.16.0
 ---
 
 InfluxDB v1 Flux functions provide tools for managing data from an InfluxDB v1.x

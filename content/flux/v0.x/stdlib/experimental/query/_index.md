@@ -13,6 +13,7 @@ menu:
     parent: experimental
 weight: 301
 flux/v0.x/tags: [package]
+introduced: 0.60.0
 ---
 
 Flux Query functions provide functions meant to simplify common InfluxDB queries.

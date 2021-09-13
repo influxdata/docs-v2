@@ -14,6 +14,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [functions, pushbullet, package]
+introduced: 0.66.0
 ---
 
 The Flux `pushbullet` package provides functions for sending data to

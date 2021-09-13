@@ -16,6 +16,7 @@ weight: 11
 flux/v0.x/tags: [math, functions]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/mathematic-operations/
+introduced: 0.22.0
 ---
 
 The Flux `math` package provides basic constants and mathematical functions.

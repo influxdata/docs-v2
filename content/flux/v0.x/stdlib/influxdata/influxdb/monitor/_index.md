@@ -14,6 +14,7 @@ menu:
     parent: influxdb-pkg
 weight: 202
 flux/v0.x/tags: [functions, monitor, alerts, package]
+introduced: 0.39.0
 ---
 
 The Flux `monitor` package provides tools for monitoring and alerting with InfluxDB.

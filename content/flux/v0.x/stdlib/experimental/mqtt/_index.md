@@ -13,6 +13,7 @@ menu:
     parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, mqtt, package]
+introduced: 0.40.0
 ---
 
 Flux MQTT functions provide tools for working with Message Queuing Telemetry Transport (MQTT) protocol.

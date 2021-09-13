@@ -13,6 +13,7 @@ menu:
     parent: experimental
 weight: 301
 flux/v0.x/tags: [package]
+introduced: 0.61.0
 ---
 
 The Flux experimental `aggregate` package provides functions to simplify common aggregate operations.

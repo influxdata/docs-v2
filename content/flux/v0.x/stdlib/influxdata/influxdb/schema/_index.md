@@ -15,6 +15,7 @@ menu:
 weight: 202
 flux/v0.x/tags: [functions, schema, package]
 cascade:
+  introduced: 0.88.0
   append:
     block: cloud
     content: |

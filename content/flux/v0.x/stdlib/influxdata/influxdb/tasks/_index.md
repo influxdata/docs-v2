@@ -17,6 +17,7 @@ weight: 202
 flux/v0.x/tags: [functions, tasks, package]
 related:
   - /{{< latest "influxdb" >}}/process-data/get-started/
+introduced: 0.84.0
 ---
 
 The Flux InfluxDB `tasks` package provides options and functions for working with

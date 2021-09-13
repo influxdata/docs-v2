@@ -14,6 +14,7 @@ menu:
     parent: Standard library
 weight: 11
 flux/v0.x/tags: [functions, csv, package]
+introduced: 0.14.0
 ---
 
 The Flux `csv` package provides functions for working with data in

@@ -13,6 +13,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/stdlib/interpolate/
   - /influxdb/cloud/reference/flux/stdlib/interpolate/
 weight: 11
+introduced: 0.87.0
 ---
 
 The `interpolate` package provides functions that insert rows for missing

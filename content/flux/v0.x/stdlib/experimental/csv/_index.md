@@ -15,6 +15,7 @@ menu:
     parent: experimental
 weight: 301
 flux/v0.x/tags: [functions, csv, package]
+introduced: 0.64.0
 ---
 
 The Flux experimental `csv` package provides functions for retrieving annotated CSV.
