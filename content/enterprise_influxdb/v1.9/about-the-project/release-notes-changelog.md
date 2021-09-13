@@ -13,18 +13,17 @@ menu:
 
 ### Features
 
-- Added `memUsage` metrics to `/debug/vars` endpoint.
-  Measures memory usage in bytes across all subscriptions.
+- Add `memUsage` metrics to `/debug/vars` endpoint.
+  Measures memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
+- feat: `SHOW TAG VALUES` should produce results from one specific RP. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
+- feat: Add subscription buffer size usage metric. <!-- https://github.com/influxdata/influxdb/pull/22049 -->
+- More options for restoring Enterprise databases. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
+- Update Flux to 0.124.0. <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
-### Bug fixes
 
-<!-- https://github.com/influxdata/influxdb/blob/1.9/CHANGELOG.md -->
-### Features
-- feat: SHOW TAG VALUES should produce results from one specific RP <!-- https://github.com/influxdata/influxdb/pull/22011 -->
-- feat: add subscription buffer size usage metric <!-- https://github.com/influxdata/influxdb/pull/22049 -->
-- chore: update flux dependency to 0.124.0 <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 ### Bug fixes
 - Update protobuf library versions and remove `influx_tsm`. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
+- Update protobuf libraries. <!-- https://github.com/influxdata/plutonium/pull/3538 -->
 - Systemd-start script should be executable by group and others. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
 - Restore portable backup bug. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
 - Copy names from mmapped memory before closing iterator. <!-- https://github.com/influxdata/influxdb/pull/22058 -->
@@ -34,10 +33,24 @@ menu:
 - Old TSL files should be compacted without new writes. <!-- https://github.com/influxdata/influxdb/pull/22067 -->
 - Hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
 - Ensure log formatting (JSON) is respected. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
-- Systemd service -- handle https, 40x, and block indefinitely. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
+- Systemd service -- handle HTTPS, 400 erors, and block indefinitely. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
 - Avoid compaction queue stats flutter. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
-- Require database authorization to see continuous queries <!-- https://github.com/influxdata/influxdb/pull/22289 -->
-- Return correct count of ErrNotExecuted <!-- https://github.com/influxdata/influxdb/pull/22294 -->
+- Require database authorization to see continuous queries. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
+- Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
+- fix: Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
+- build: Drop OSS release builds and extra Dockerfiles. <!-- https://github.com/influxdata/plutonium/pull/3577 -->
+- fix: Ensure proper JSON log formatting. <!-- https://github.com/influxdata/plutonium/pull/3588 -->
+- fix: Add logs for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
+- fix: Do not generate entropy when purging short HH queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
+- fix: Re-enable CAS for metadata. <!-- https://github.com/influxdata/plutonium/pull/3593 -->
+- Fix Flux panic when querying precreated shard with no writes. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
+- fix: HH rate limiting uses simpler logic. <!-- https://github.com/influxdata/plutonium/pull/3597 -->
+- Fix incorrect TLS settings for `influxd-ctl entropy` commands. <!-- https://github.com/influxdata/plutonium/pull/3601 -->
+- fix: Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
+- fix: Do not close nil ResultSet in a ResultSetCursorWrapper. <!-- https://github.com/influxdata/plutonium/pull/3617 -->
+- fix: Flux queries with (RF < cluster size) working on large datasets. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
+- fix: Derive package version either from tag or `git-describe`. <!-- https://github.com/influxdata/plutonium/pull/3638 -->
+- fix: Avoid broken pipe error by exhausting inputs. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
 
 ## v1.9.3 [2021-07-19]
 
