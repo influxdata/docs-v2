@@ -39,9 +39,9 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    ```
 
    Replace the following:
-   - *`YOUR_URL`*: InfluxDB URL.
-   - *`YOUR_API_TOKEN`*: InfluxDB API token.
-   - *`YOUR_ORG`*: InfluxDB organization ID.
+   - *`YOUR_URL`*: InfluxDB URL
+   - *`YOUR_API_TOKEN`*: InfluxDB API token
+   - *`YOUR_ORG`*: InfluxDB organization ID
 
 3. Create a Flux query for your InfluxDB bucket. Store the query as a string variable.
    {{% warn %}}
