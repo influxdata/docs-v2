@@ -36,7 +36,7 @@ ESLint and Remark enforce Markdown formatting rules.
 
 To apply the formatting rules as you write, install the ESLint package for your editor and make sure it is configured to use the `docs-v2/.eslintrc` config file.
 
-`git commit` will run ESLint with the same rules and report syntax and formatting rule violations in staged HTML and JS files.
+`git commit` runs the `lint-staged` pre-commit hook. The hook applies the rules in `docs-v2/.eslintrc` and reports syntax and style violations in staged Markdown, HTML, and JS files.
 For now, the commit hook doesn't validate the syntax of code blocks
 within Markdown files, e.g.
 
@@ -46,10 +46,18 @@ within Markdown files, e.g.
   ```
   ````
 
-However, you can run the lint scripts on demand for all files:
+You can run the lint scripts, defined in **package.json**, on demand with `yarn`.
+
+Check all files:
 
 ```sh
 yarn run lint
+```
+
+Check Markdown style and grammar of `.md` files:
+
+```sh
+yarn run lint:md
 ```
 
 ### Markdown
