@@ -15,11 +15,10 @@ menu:
 
 - Add `memUsage` metrics to `/debug/vars` endpoint.
   Measures memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
-- feat: `SHOW TAG VALUES` should produce results from one specific RP. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
-- feat: Add subscription buffer size usage metric. <!-- https://github.com/influxdata/influxdb/pull/22049 -->
-- More options for restoring Enterprise databases. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
-- Update Flux to 0.124.0. <!-- https://github.com/influxdata/influxdb/pull/22102 -->
-
+- `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
+- Add subscription buffer size usage metric. <!-- https://github.com/influxdata/influxdb/pull/22049 -->
+- Add more options for restoring Enterprise databases. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
+- Update to Flux 0.124.0. <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
 ### Bug fixes
 - Update protobuf library versions and remove `influx_tsm`. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
@@ -37,20 +36,20 @@ menu:
 - Avoid compaction queue stats flutter. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
 - Require database authorization to see continuous queries. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
 - Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
-- fix: Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
+- Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
 - build: Drop OSS release builds and extra Dockerfiles. <!-- https://github.com/influxdata/plutonium/pull/3577 -->
-- fix: Ensure proper JSON log formatting. <!-- https://github.com/influxdata/plutonium/pull/3588 -->
-- fix: Add logs for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
-- fix: Do not generate entropy when purging short HH queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
-- fix: Re-enable CAS for metadata. <!-- https://github.com/influxdata/plutonium/pull/3593 -->
+- Ensure proper JSON log formatting. <!-- https://github.com/influxdata/plutonium/pull/3588 -->
+- Add logs for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
+- Do not generate entropy when purging short HH queues. <!-- FIX https://github.com/influxdata/plutonium/pull/3585 -->
+- Re-enable CAS for metadata. <!-- FIX https://github.com/influxdata/plutonium/pull/3593 -->
 - Fix Flux panic when querying precreated shard with no writes. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
-- fix: HH rate limiting uses simpler logic. <!-- https://github.com/influxdata/plutonium/pull/3597 -->
+- HH rate limiting uses simpler logic. <!-- FIX https://github.com/influxdata/plutonium/pull/3597 -->
 - Fix incorrect TLS settings for `influxd-ctl entropy` commands. <!-- https://github.com/influxdata/plutonium/pull/3601 -->
-- fix: Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
-- fix: Do not close nil ResultSet in a ResultSetCursorWrapper. <!-- https://github.com/influxdata/plutonium/pull/3617 -->
-- fix: Flux queries with (RF < cluster size) working on large datasets. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
-- fix: Derive package version either from tag or `git-describe`. <!-- https://github.com/influxdata/plutonium/pull/3638 -->
-- fix: Avoid broken pipe error by exhausting inputs. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
+- Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
+- Fix Flux query problems when working on large datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
+- Derive package version either from tag or `git-describe`. <!-- https://github.com/influxdata/plutonium/pull/3638 -->
+- Avoid broken pipe error by exhausting inputs. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
+<!-- - Do not close nil `ResultSet` in a `ResultSetCursorWrapper`. <\!-- https://github.com/influxdata/plutonium/pull/3617 -\-> -->
 
 ## v1.9.3 [2021-07-19]
 
