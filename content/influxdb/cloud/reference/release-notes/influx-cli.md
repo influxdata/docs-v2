@@ -8,6 +8,20 @@ menu:
     name: influx CLI 
 ---
 
+## v2.1.1 [unreleased]
+
+## Go Version 
+
+This release upgrades the project to `go` version 1.17.
+
+## Bug Fixes 
+
+- Fix shell completion for top-level `influx` commands.
+- Make global `--http-debug` flag visible in help text.
+- Don't set empty strings for IDs in permission resources.
+- Detect and error out on incorrect positional args.
+- Respect value of `--host` flag when writing CLI configs in `setup`.
+
 ## v2.1.0 [2021-07-29]
 
 ## New repository
