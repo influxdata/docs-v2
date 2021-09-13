@@ -66,6 +66,7 @@ If you notice data is missing in your bucket, do the following:
 - Verify the data types match other data points with the same series.
   For example, did you attempt to write `string` data to an `int` field?
 - Verify the timestamps match the [precision parameter](/influxdb/v2.0/write-data/#timestamp-precision).
+- Minimize payload size and network errors by [optimizing writes](/influxdb/v2.0/write-data/best-practices/optimize-writes/) 
 
 ### Troubleshoot rejected points
 
