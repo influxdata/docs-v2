@@ -2,6 +2,7 @@
 title: to() function
 description: The `to()` function writes data to an InfluxDB v2.0 bucket.
 aliases:
+  - /flux/v0.x/stdlib/universe/to
   - /influxdb/v2.0/reference/flux/functions/outputs/to
   - /influxdb/v2.0/reference/flux/functions/built-in/outputs/to/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/
@@ -9,8 +10,8 @@ aliases:
 menu:
   flux_0_x_ref:
     name: to
-    parent: universe
-weight: 102
+    parent: influxdb-pkg
+weight: 301
 flux/v0.x/tags: [outputs]
 related:
   - /flux/v0.x/stdlib/experimental/to/
@@ -19,6 +20,13 @@ introduced: 0.7.0
 ---
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.
+
+{{% note %}}
+#### to() does not require a package import
+`to()` is part of the `influxdata/influxdb` package, but is included with the
+[`universe` package](/flux/v0.x/stdlib/universe/) by default and does not require
+an import statement or package namespace.
+{{% /note %}}
 
 ```js
 to(

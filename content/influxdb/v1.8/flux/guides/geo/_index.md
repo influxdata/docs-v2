@@ -68,8 +68,8 @@ sampleGeoData = csv.from(
 
 {{% note %}}
 `csv.from(url: ...)` downloads sample data each time you execute the query **(~1.3 MB)**.
-If bandwidth is a concern, use the [`to()` function](/{{< latest "flux" >}}/stdlib/universe/to/)
-to write the data to a bucket, and then query the bucket with [`from()`](/{{< latest "flux" >}}/stdlib/universe/from/).
+If bandwidth is a concern, use [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/)
+to write the data to a bucket, and then query the bucket with [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/).
 {{% /note %}}
 
 ### Write sample data to InfluxDB with line protocol

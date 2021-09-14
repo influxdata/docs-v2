@@ -73,11 +73,3 @@ tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
     |> group()
     |> distinct(column: tag)
 ```
-
-_**Used functions:**
-[from](/flux/v0.x/stdlib/universe/from/),
-[range](/flux/v0.x/stdlib/universe/range/),
-[filter](/flux/v0.x/stdlib/universe/filter/),
-[group](/flux/v0.x/stdlib/universe/group/),
-[distinct](/flux/v0.x/stdlib/universe/distinct/),
-[keep](/flux/v0.x/stdlib/universe/keep/)_

@@ -13,13 +13,13 @@ menu:
 weight: 302
 flux/v0.x/tags: [outputs]
 related:
-  - /flux/v0.x/stdlib/universe/to/
+  - /flux/v0.x/stdlib/influxdata/influxdb/to/
 introduced: 0.40.0
 ---
 
 The `experimental.to()` function writes data to an InfluxDB v2.0 bucket, but in
 a [different structure](#expected-data-structure) than the
-[built-in `to()` function](/flux/v0.x/stdlib/universe/to/).
+[`to()` function](/flux/v0.x/stdlib/influxdata/influxdb/to/).
 
 ```js
 import "experimental"

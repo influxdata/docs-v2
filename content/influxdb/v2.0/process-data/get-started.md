@@ -55,7 +55,7 @@ When creating a task in the InfluxDB user interface (UI), task options are defin
 
 ## Define a data source
 
-Define a data source using Flux's [`from()` function](/{{< latest "flux" >}}/stdlib/universe/from/)
+Define a data source using Flux's [`from()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/)
 or any other [Flux input functions](/{{< latest "flux" >}}/function-types#inputs).
 
 For convenience, consider creating a variable that includes the sourced data with

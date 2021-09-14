@@ -2,6 +2,7 @@
 title: from() function
 description: The `from()` function retrieves data from an InfluxDB data source.
 aliases:
+  - /flux/v0.x/stdlib/universe/from
   - /influxdb/v2.0/reference/flux/functions/inputs/from
   - /influxdb/v2.0/reference/flux/functions/built-in/inputs/from/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/
@@ -9,8 +10,8 @@ aliases:
 menu:
   flux_0_x_ref:
     name: from
-    parent: universe
-weight: 102
+    parent: influxdb-pkg
+weight: 301
 flux/v0.x/tags: [inputs]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#from-clause, InfluxQL - FROM
@@ -21,6 +22,13 @@ The `from()` function retrieves data from an InfluxDB data source.
 It returns a stream of tables from the specified [bucket](#parameters).
 Each unique series is contained within its own table.
 Each record in the table represents a single point in the series.
+
+{{% note %}}
+#### from() does not require a package import
+`from()` is part of the `influxdata/influxdb` package, but is included with the
+[`universe` package](/flux/v0.x/stdlib/universe/) by default and does not require
+an import statement or package namespace.
+{{% /note %}}
 
 ```js
 from(

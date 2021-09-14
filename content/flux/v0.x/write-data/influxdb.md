@@ -2,7 +2,7 @@
 title: Write to InfluxDB
 list_title: InfluxDB
 description: >
-  Use [`to()`](/flux/v0.x/stdlib/universe/to/) or [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/)
+  Use [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) or [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/)
   to write data to InfluxDB using Flux.
 menu:
   flux_0_x:
@@ -11,7 +11,7 @@ menu:
     identifier: write-influxdb
 weight: 101
 related:
-  - /flux/v0.x/stdlib/universe/to/
+  - /flux/v0.x/stdlib/influxdata/influxdb/to/
   - /flux/v0.x/stdlib/experimental/to/
 list_code_example: |
   ```js
@@ -20,7 +20,7 @@ list_code_example: |
   ```
 ---
 
-To write data to InfluxDB using Flux, use [`to()`](/flux/v0.x/stdlib/universe/to/)
+To write data to InfluxDB using Flux, use [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/)
 or [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/).
 Provide the following parameters to both functions:
 
@@ -37,7 +37,7 @@ Provide the following parameters to both functions:
 ---
 
 ## Write data to InfluxDB
-Use [`to()`](/flux/v0.x/stdlib/universe/to/) to write data structured using the standard 
+Use [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) to write data structured using the standard 
 [InfluxDB v2.x and InfluxDB Cloud data structure](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/).
 Data must include, at a minimum, the following columns:
 

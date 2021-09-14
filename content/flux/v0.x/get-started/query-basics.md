@@ -122,7 +122,7 @@ to build and execute the following basic query.
     {{% note %}}
 `sample.data()` returns data as if it was queried from InfluxDB.
 To actually query data from InfluxDB, replace `sample.data()` with the
-[`from()` function](/flux/v0.x/stdlib/universe/from/).
+[`from()` function](/flux/v0.x/stdlib/influxdata/influxdb/from/).
     {{% /note %}}
 
 2.  Pipe the returned data forward into [`range()`](/flux/v0.x/stdlib/universe/range/)

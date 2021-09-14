@@ -8,7 +8,7 @@ menu:
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/
   - /influxdb/cloud/reference/flux/stdlib/influxdb/cardinality/
-weight: 301
+weight: 302
 flux/v0.x/tags: [metadata]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality, SHOW CARDINALITY in InfluxQL

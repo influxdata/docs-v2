@@ -68,7 +68,3 @@ fromRange = (bucket, start, stop=now()) =>
   from(bucket: bucket)
     |> range(start: start, stop: stop)
 ```
-
-_**Used functions:**_  
-[from()](/flux/v0.x/stdlib/universe/from/)  
-[range()](/flux/v0.x/stdlib/universe/range/)  

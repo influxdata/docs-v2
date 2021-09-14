@@ -72,7 +72,7 @@ sql.from(
 
 Each example includes the following functions (in the order listed):
 
-- [`from()`](/flux/v0.x/stdlib/universe/from/) to retrieve data from the data source.
+- [`from()`](/flux/v0.x/stdlib/influxdata/influxdb/from/) to retrieve data from the data source.
 - [Pipe-forward operator (`|>`)](/flux/v0.x/get-started/syntax-basics/#pipe-forward-operator)
   to send the output of each function to the next function as input.
 - [`range()`](/flux/v0.x/stdlib/universe/range/), [`filter()`](/flux/v0.x/stdlib/universe/filter/),

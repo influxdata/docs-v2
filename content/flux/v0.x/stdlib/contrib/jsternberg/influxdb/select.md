@@ -14,7 +14,7 @@ menu:
 weight: 301
 flux/v0.x/tags: [inputs]
 related:
-  - /flux/v0.x/stdlib/universe/from/
+  - /flux/v0.x/stdlib/influxdata/influxdb/from/
   - /flux/v0.x/stdlib/universe/range/
   - /flux/v0.x/stdlib/universe/filter/
   - /flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/

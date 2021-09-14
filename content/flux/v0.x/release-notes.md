@@ -209,7 +209,7 @@ menu:
 ## v0.117.0 [2021-05-24]
 
 ### Features
-- [`to()`](/flux/v0.x/stdlib/universe/to/) function
+- [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) function
   writes to a remote InfluxDB instance.
 
 ### Bug fixes

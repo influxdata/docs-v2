@@ -67,11 +67,3 @@ tagKeys = (bucket, predicate=(r) => true, start=-30d) =>
     |> keep(columns: ["_value"])
     |> distinct()
 ```
-
-_**Used functions:**
-[from](/flux/v0.x/stdlib/universe/from/),
-[range](/flux/v0.x/stdlib/universe/range/),
-[filter](/flux/v0.x/stdlib/universe/filter/),
-[keys](/flux/v0.x/stdlib/universe/keys/),
-[keep](/flux/v0.x/stdlib/universe/keep/),
-[distinct](/flux/v0.x/stdlib/universe/distinct/)_

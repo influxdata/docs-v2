@@ -25,7 +25,7 @@ Use `map()` to re-map values in the row and calculate a percentage.
 
 **To calculate percentages**
 
-1. Use [`from()`](/{{< latest "flux" >}}/stdlib/universe/from/),
+1. Use [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/),
    [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) and
    [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to query operands.
 2. Use [`pivot()` or `join()`](/influxdb/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)

@@ -2,7 +2,7 @@
 title: Query InfluxDB
 list_title: InfluxDB
 description: >
-  Use [`from()`](/flux/v0.x/stdlib/universe/from/) and [`range`](/flux/v0.x/stdlib/universe/range/)
+  Use [`from()`](/flux/v0.x/stdlib/influxdata/influxdb/from/) and [`range`](/flux/v0.x/stdlib/universe/range/)
   to query data from InfluxDB using Flux.
 menu:
   flux_0_x:
@@ -18,7 +18,7 @@ list_code_example: |
   ```
 ---
 
-To query data from InfluxDB using Flux, use [`from()`](/flux/v0.x/stdlib/universe/from/)
+To query data from InfluxDB using Flux, use [`from()`](/flux/v0.x/stdlib/influxdata/influxdb/from/)
 and [`range`](/flux/v0.x/stdlib/universe/range/).
 Provide the following parameters to each function:
 
