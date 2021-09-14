@@ -14,7 +14,7 @@ menu:
 
 Upgrade to Go 1.17.
 
-## Bug Fixes 
+## Bug fixes 
 
 - Fix shell completion for top-level `influx` commands.
 - Make global `--http-debug` flag visible in help text.
