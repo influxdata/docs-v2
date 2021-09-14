@@ -75,7 +75,7 @@ Given the output data in the table above, the `map` function above does the foll
 
 The results 88.66% of time is in the true state and 11.34% of time is in the false state.
 
-##### Mosaic visualization 
+#### Mosaic visualization 
 
 The following query displays the change of "false" to "true". A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of state. 
 
@@ -96,7 +96,7 @@ For more information about mosaic visualizations, see [here](/influxdb/cloud/vis
 
 Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
 
-#### Example: Calculate oil temperature 
+### Example: Calculate oil temperature 
 
 For example, you want to calculate oil temperature over a given interval using the machine-production sample data.  
 
@@ -110,7 +110,7 @@ Minutes will be divided by 60 and seconds will be divided by 3600 to get a decim
 
 To recieve the average oil temperature, the temperature (in the `_value` column) is multiplied by the time period (as a decimal), divided by the total time. In this example, the average oil temperature for the time range is calculated across four different stations in a production line. 
 
-##### Flux query to calculate time-weighted average
+#### Flux query to calculate time-weighted average
 
 ```js
 from(bucket: "machine")
@@ -198,7 +198,7 @@ Equipment speed measurements are recorded periodically (float), as is the produc
 
 Group together aggregates for one or more measurements over a given interval. 
 
-The following scenario groups together data by one or more context values that changes the state. 
+The following scenario groups together data by one or more context values that creates changes in the state. 
 
 {{% note %}}
 If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
@@ -216,7 +216,7 @@ The query above groups together different fields to see their values in relation
 
 The `group` function defines the column values that will appear in our table. 
 
- To move the values into one column, the `pivot` function aligns the columns together. The `rowKey` function is the anchor for each point that hinges into a single row. In this query, every row is distinguished by several seconds. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` populates that new columns.
+ To move the values into one column, the `pivot` function aligns the columns together. The `rowKey` function is the anchor for each point that hinges into a single row. In this query, every row is distinguished by different timestamps. `columnKey`, once the other tables are going to be pinned on the table, will take `_field` to create a new column, and `valueColumn` populates that new columns.
 
  Given the query above, the output is as shown: 
 
@@ -229,3 +229,5 @@ The `group` function defines the column values that will appear in our table.
 | 2021-08-01T00:00:00.000Z | 13.306        | 41.4     | 110.5309 | 110             | 0           | OK    | g3        | 
 | 2021-08-01T00:00:14.460Z | 14.466        | 41.36    | 110.3746 | 110             | 0           | OK    | g3        | 
 | 2021-08-01T00:00:00.000Z | 12.625        | 41.2     | 110.2657 | 110             | 0           | OK    | g4        | 
+
+The table reveals that the values for `grinding_time`, `oil_temp`, `pressure`, and `pressure_target` are all within good ranges, therefore there is no changes in state that would turn `OK` into `NOK`. As a result, there is no `rework_time` as well, 
