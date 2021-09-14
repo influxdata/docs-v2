@@ -21,13 +21,6 @@ introduced: 0.7.0
 
 The `to()` function writes data to an **InfluxDB v2.0** bucket.
 
-{{% note %}}
-#### to() does not require a package import
-`to()` is part of the `influxdata/influxdb` package, but is included with the
-[`universe` package](/flux/v0.x/stdlib/universe/) by default and does not require
-an import statement or package namespace.
-{{% /note %}}
-
 ```js
 to(
   bucket: "my-bucket",
@@ -51,6 +44,13 @@ to(
   fieldFn: (r) => ({ r._field: r._value })
 )
 ```
+
+{{% note %}}
+#### to() does not require a package import
+`to()` is part of the `influxdata/influxdb` package, but is included with the
+[`universe` package](/flux/v0.x/stdlib/universe/) by default and does not require
+an import statement or package namespace.
+{{% /note %}}
 
 ### Output data requirements
 `to()` writes data structured using the standard 

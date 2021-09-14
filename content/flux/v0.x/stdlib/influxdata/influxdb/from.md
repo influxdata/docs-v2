@@ -23,13 +23,6 @@ It returns a stream of tables from the specified [bucket](#parameters).
 Each unique series is contained within its own table.
 Each record in the table represents a single point in the series.
 
-{{% note %}}
-#### from() does not require a package import
-`from()` is part of the `influxdata/influxdb` package, but is included with the
-[`universe` package](/flux/v0.x/stdlib/universe/) by default and does not require
-an import statement or package namespace.
-{{% /note %}}
-
 ```js
 from(
   bucket: "example-bucket",
@@ -47,6 +40,13 @@ from(
   token: "MySuP3rSecr3Tt0k3n"
 )
 ```
+
+{{% note %}}
+#### from() does not require a package import
+`from()` is part of the `influxdata/influxdb` package, but is included with the
+[`universe` package](/flux/v0.x/stdlib/universe/) by default and does not require
+an import statement or package namespace.
+{{% /note %}}
 
 {{% note %}}
 #### Query remote InfluxDB data sources
