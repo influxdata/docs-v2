@@ -24,6 +24,8 @@ Some service managers may override this default.
 
 ### Write logs to stderr
 
+
+
 If you run InfluxDB directly, using `influxd`, all logs will be written to `stderr`.
 You may redirect this log output as you would any output to `stderr` like so:
 
