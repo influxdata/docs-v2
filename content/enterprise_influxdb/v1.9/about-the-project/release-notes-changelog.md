@@ -21,10 +21,10 @@ menu:
 - Update to Flux 0.124.0. <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
 ### Bug fixes
+- Require database authorization to see continuous queries. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
 - Update protobuf library versions and remove `influx_tsm`. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
-- Update protobuf libraries. <!-- https://github.com/influxdata/plutonium/pull/3538 -->
-- Systemd-start script should be executable by group and others. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
-- Restore portable backup bug. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
+- Fix permissions for Systemd start script. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
+- Fix network error when restoring portable backups. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
 - Copy names from mmapped memory before closing iterator. <!-- https://github.com/influxdata/influxdb/pull/22058 -->
 - TSI index should compact old or too-large log files. <!-- https://github.com/influxdata/influxdb/pull/22044 -->
 - Export example and fix adjacent shards. <!-- https://github.com/influxdata/influxdb/pull/22046 -->
@@ -34,7 +34,6 @@ menu:
 - Ensure log formatting (JSON) is respected. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
 - Systemd service -- handle HTTPS, 400 erors, and block indefinitely. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
 - Avoid compaction queue stats flutter. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
-- Require database authorization to see continuous queries. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
 - Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
 - Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
 - build: Drop OSS release builds and extra Dockerfiles. <!-- https://github.com/influxdata/plutonium/pull/3577 -->
@@ -49,7 +48,6 @@ menu:
 - Fix Flux query problems when working on large datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
 - Derive package version either from tag or `git-describe`. <!-- https://github.com/influxdata/plutonium/pull/3638 -->
 - Avoid broken pipe error by exhausting inputs. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
-<!-- - Do not close nil `ResultSet` in a `ResultSetCursorWrapper`. <\!-- https://github.com/influxdata/plutonium/pull/3617 -\-> -->
 
 ## v1.9.3 [2021-07-19]
 
