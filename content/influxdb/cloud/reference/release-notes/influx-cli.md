@@ -12,7 +12,7 @@ menu:
 
 ## Go version 
 
-This release upgrades the project to `go` version 1.17.
+Upgrade to Go 1.17.
 
 ## Bug Fixes 
 
