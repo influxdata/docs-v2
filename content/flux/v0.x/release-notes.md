@@ -7,6 +7,18 @@ menu:
     name: Release notes
 ---
 
+## v0.129.0 [2021-09-14]
+
+### Features
+- Make `flux-dump-docs` use a nested documentation structure.
+
+### Bug fixes
+- Add `boolean` package to prelude.
+- Delete obsolete Go formatter code.
+- Fix `unknown type` panic when using `difference()`.
+
+---
+
 ## v0.128.0 [2021-09-07]
 
 ### Features
