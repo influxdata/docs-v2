@@ -10,7 +10,7 @@ menu:
 
 ## v2.1.1 [unreleased]
 
-## Go Version 
+## Go version 
 
 This release upgrades the project to `go` version 1.17.
 
