@@ -12,16 +12,15 @@ menu:
 ## v1.9.4 [TK]
 
 ### Features
-
 - Add `memUsage` metrics to `/debug/vars` endpoint.
   Measures memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
 - `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
 - Add more options for restoring Enterprise databases.
-  Users can
+  Users can now:
   restore data with a new RP into an existing database,
-  override the duration of an RP while restoring.
+  override the duration of an RP while restoring, and
   specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
-- Update to Flux 0.124.0. <!-- https://github.com/influxdata/influxdb/pull/22102 -->
+- Update to Flux [0.124.0](/influxdb/v2.0/reference/release-notes/flux/#v01240-2021-08-03). <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
 ### Bug fixes
 - Require database authorization to see continuous queries. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
@@ -30,8 +29,8 @@ menu:
 - Fix network error when restoring portable backups. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
 - TSI index should compact old or too-large log files. <!-- https://github.com/influxdata/influxdb/pull/22044 -->
 - Export example and fix adjacent shards. <!-- https://github.com/influxdata/influxdb/pull/22046 -->
-- Error instead of panic when enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
-- Old TSL files should be compacted without new writes. <!-- https://github.com/influxdata/influxdb/pull/22067 -->
+- Error instead of panic when Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
+- Compact Old TSL files should be  without new writes. <!-- https://github.com/influxdata/influxdb/pull/22067 -->
 - Hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
 - Ensure correct JSON log formatting. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
 - Handle HTTPS errors in Systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
