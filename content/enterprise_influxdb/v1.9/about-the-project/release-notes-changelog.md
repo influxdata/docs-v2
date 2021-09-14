@@ -16,8 +16,11 @@ menu:
 - Add `memUsage` metrics to `/debug/vars` endpoint.
   Measures memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
 - `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
-- Add subscription buffer size usage metric. <!-- https://github.com/influxdata/influxdb/pull/22049 -->
-- Add more options for restoring Enterprise databases. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
+- Add more options for restoring Enterprise databases.
+  Users can
+  restore data with a new RP into an existing database,
+  override the duration of an RP while restoring.
+  specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
 - Update to Flux 0.124.0. <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
 ### Bug fixes
