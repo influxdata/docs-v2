@@ -28,18 +28,16 @@ menu:
 - Update protobuf library versions and remove `influx_tsm`. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
 - Fix permissions for Systemd start script. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
 - Fix network error when restoring portable backups. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
-- Copy names from mmapped memory before closing iterator. <!-- https://github.com/influxdata/influxdb/pull/22058 -->
 - TSI index should compact old or too-large log files. <!-- https://github.com/influxdata/influxdb/pull/22044 -->
 - Export example and fix adjacent shards. <!-- https://github.com/influxdata/influxdb/pull/22046 -->
 - Error instead of panic when enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
 - Old TSL files should be compacted without new writes. <!-- https://github.com/influxdata/influxdb/pull/22067 -->
 - Hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
-- Ensure log formatting (JSON) is respected. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
-- Systemd service -- handle HTTPS, 400 erors, and block indefinitely. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
+- Ensure correct JSON log formatting. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
+- Handle HTTPS errors in Systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
 - Avoid compaction queue stats flutter. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
 - Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
 - Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
-- build: Drop OSS release builds and extra Dockerfiles. <!-- https://github.com/influxdata/plutonium/pull/3577 -->
 - Ensure proper JSON log formatting. <!-- https://github.com/influxdata/plutonium/pull/3588 -->
 - Add logs for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
 - Do not generate entropy when purging short HH queues. <!-- FIX https://github.com/influxdata/plutonium/pull/3585 -->
@@ -48,9 +46,11 @@ menu:
 - HH rate limiting uses simpler logic. <!-- FIX https://github.com/influxdata/plutonium/pull/3597 -->
 - Fix incorrect TLS settings for `influxd-ctl entropy` commands. <!-- https://github.com/influxdata/plutonium/pull/3601 -->
 - Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
-- Fix Flux query problems when working on large datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
-- Derive package version either from tag or `git-describe`. <!-- https://github.com/influxdata/plutonium/pull/3638 -->
+- Fix Flux query problems with large and datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
 - Avoid broken pipe error by exhausting inputs. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
+<!-- - Derive package version either from tag or `git-describe`. <\!-- https://github.com/influxdata/plutonium/pull/3638 -\-> -->
+<!-- - Copy names from mmapped memory before closing iterator. <\!-- https://github.com/influxdata/influxdb/pull/22058 -\-> -->
+<!-- - build: Drop OSS release builds and extra Dockerfiles. <\!-- https://github.com/influxdata/plutonium/pull/3577 -\-> -->
 
 ## v1.9.3 [2021-07-19]
 
