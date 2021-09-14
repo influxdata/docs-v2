@@ -77,7 +77,7 @@ SENDGRID_APIKEY = secrets.get(key: "SENDGRID_APIKEY")
 
 numberOfCrits = from(bucket: "_monitoring")
 	|> range(start: -task.every)
-	|> filter(fn: (r) => r.measurement == "statuses" and r.level == "crit")
+	|> filter(fn: (r) => r._measurement == "statuses" and r._level == "crit")
 	|> count()
 
 numberOfCrits

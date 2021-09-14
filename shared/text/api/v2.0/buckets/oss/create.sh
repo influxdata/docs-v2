@@ -1,5 +1,5 @@
-INFLUX_TOKEN=YourAuthToken
-INFLUX_ORG_ID=your-org-id
+INFLUX_TOKEN=YOUR_API_TOKEN
+INFLUX_ORG_ID=YOUR_ORG_ID
 
 curl --request POST \
 	"http://localhost:8086/api/v2/buckets" \

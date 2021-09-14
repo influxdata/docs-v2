@@ -34,7 +34,7 @@ influx task list [flags]
 |      | `--limit`         | Number of tasks to find (default `100`)                               | integer    |                       |
 | `-o` | `--org`           | Task organization name                                                | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Task organization ID                                                  | string     | `INFLUX_ORG_ID`       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 | `-n` | `--user-id`       | Task owner ID                                                         | string     |                       |
 

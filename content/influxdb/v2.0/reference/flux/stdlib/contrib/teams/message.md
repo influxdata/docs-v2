@@ -9,7 +9,7 @@ aliases:
 menu:
   influxdb_2_0_ref:
     name: teams.message
-    parent: Teams
+    parent: Microsoft Teams
 weight: 202
 introduced: 0.70.0
 ---

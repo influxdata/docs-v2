@@ -1,8 +1,9 @@
 ---
 title: Python client library
+seotitle: Use the InfluxDB Python client library
 list_title: Python
 description: >
-  Use the Python client library to interact with InfluxDB.
+  Use the InfluxDB Python client library to interact with InfluxDB.
 menu:
   influxdb_cloud:
     name: Python

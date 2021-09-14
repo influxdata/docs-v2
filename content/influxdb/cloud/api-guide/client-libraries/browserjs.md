@@ -1,9 +1,9 @@
 ---
-title: Get started with the JavaScript client library for web browsers 
-seotitle: Get started with the InfluxDB JavaScript client library for web browsers 
+title: JavaScript client library for web browsers 
+seotitle: Use the InfluxDB JavaScript client library for web browsers 
 list_title: JavaScript for browsers 
 description: >
-  Use the JavaScript client library example app to interact with the InfluxDB API in web browsers.
+  Use the InfluxDB JavaScript client library to interact with InfluxDB in web clients.
 menu:
   influxdb_cloud:
     name: JavaScript for browsers 

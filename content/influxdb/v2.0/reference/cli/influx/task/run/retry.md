@@ -24,7 +24,7 @@ influx task run retry [flags]
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
 |      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
 | `-r` | `--run-id`        | ({{< req >}}) Run ID                                                  | string     |                       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 | `-i` | `--task-id`       | ({{< req >}}) Task ID                                                 | string     |                       |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 

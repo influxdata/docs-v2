@@ -1,7 +1,8 @@
 ---
-title: InfluxDB client R package
-list_title: R
-description: Use the client R package to interact with InfluxDB.
+title: Ruby client library
+seotitle: Use the InfluxDB Ruby client library
+list_title: Ruby
+description: Use the InfluxDB client R package to interact with InfluxDB.
 external_url: https://github.com/influxdata/influxdb-client-r
 menu:
   influxdb_cloud:

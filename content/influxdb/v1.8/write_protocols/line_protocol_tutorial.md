@@ -88,6 +88,29 @@ Adding another tag (`season=summer`) to the example looks like this:
 weather,location=us-midwest,season=summer temperature=82 1465839830100400200
 ```
 
+When using quotes in tag sets, line protocol supports single and double quotes as described in the following table:
+
+| Element     | Double quotes                           | Single quotes                           |
+| :------     | :------------:                          |:-------------:                          |
+| Measurement | _Limited_ <sup class="required">*</sup> | _Limited_ <sup class="required">*</sup> |
+| Tag key     | _Limited_ <sup class="required">*</sup> | _Limited_ <sup class="required">*</sup> |
+| Tag value   | _Limited_ <sup class="required">*</sup> | _Limited_ <sup class="required">*</sup> |
+| Field key   | _Limited_ <sup class="required">*</sup> | _Limited_ <sup class="required">*</sup> |
+| Field value | **Strings only**                        | Never                                   |
+| Timestamp   | Never                                   | Never                                   |
+
+<sup class="required">\*</sup> _Line protocol accepts double and single quotes in
+measurement names, tag keys, tag values, and field keys, but interprets them as
+part of the name, key, or value._
+
+{{% note %}}
+_Always double quote string field values._
+
+```sh
+measurementName fieldKey="field string value" 1556813561098000000
+```
+{{% /note %}}
+
 For best performance you should sort tags by key before sending them to the
 database.
 The sort should match the results from the

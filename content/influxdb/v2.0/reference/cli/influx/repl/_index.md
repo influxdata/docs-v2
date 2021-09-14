@@ -40,5 +40,5 @@ To use the Flux REPL, you must first authenticate with a [token](/influxdb/v2.0/
 |      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string     | `INFLUX_ORG_ID`       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |

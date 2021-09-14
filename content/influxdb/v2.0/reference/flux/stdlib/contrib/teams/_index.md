@@ -11,7 +11,7 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/contrib/teams/
 menu:
   influxdb_2_0_ref:
-    name: Teams
+    name: Microsoft Teams
     parent: Contributed
 weight: 202
 influxdb/v2.0/tags: [functions, teams, microsoft, package]

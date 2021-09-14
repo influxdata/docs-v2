@@ -26,7 +26,7 @@ influx task delete [flags]
 |      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
 | `-i` | `--id`            | ({{< req >}}) Task ID                                                 | string     |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 
 ## Examples
