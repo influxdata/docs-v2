@@ -67,7 +67,7 @@ To recieve the percentage of time the state is OK or not OK, you use the `map` f
 | ----- | ----------------- | ------------------ | 
 | 0     | 11.34020618556701 | 88.65979381443299  | 
 
-Given the input data in the table above, the `map` function above does the following:
+Given the output data in the table above, the `map` function above does the following:
 
 1. Adds the `NOK` and `OK` values to calculate `totalTime`. 
 2. Divides `NOK` by `totalTime`, and then multiplies the quotient by 100. 
@@ -114,45 +114,29 @@ To recieve the average oil temperature, the temperature (in the `_value` column)
 
 ```js
 from(bucket: "machine")
-  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:20Z)
+  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:30Z)
   |> filter(fn: (r) =>
     r._measurement == "machinery" and r._field == "oil_temp"
   )
 |> timeWeightedAvg(unit: 5s)
 ```
 
-In this example, the `_value` in the table below shows input data from the `temperature` field in the `machinery` measurement. For the following input data:
-
-| table | stationID | _start                   | _stop                    | _value |
-|:----- | -----     | -----                    | -----                    | ------:|
-| 0     | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.4   |
-| 0     | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.36  |
-| 1     | g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.2   |
-| 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 39.1   |
-| 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.3   |
-| 2     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
-| 3     | g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
-
-In order to get the values above, you can view the values before it has been averaged by removing `timeWeightedAvg` in the table above.  
-
-After The function `timeWeightedAvg` takes the average of the temperature every 5 seconds, you get the following output data in the table below.
+In this example, the `_value` in the table below shows output data from the `temperature` field in the `machinery` measurement. The function `timeWeightedAvg` takes the average of the temperature every 5 seconds. For the following output data:
 
 | stationID | _start                   | _stop                    | _value             |
 |:-----     | -----                    | -----                    |             ------:|
-| g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.25396118491921  |
-| g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6               |
-| g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.384505595567866 |
-| g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.26735518634935  |
+| g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:30.000Z | 40.25396118491921  |
+| g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:30.000Z | 40.6               |
+| g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:30.000Z | 41.384505595567866 |
+| g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:30.000Z | 41.26735518634935  |
 
-Given the input data in the table above, the example function does the following:
+Given the output data in the table above, the `timeWeightedAverage` function does the following:
 
-1. Multiplies each value by its time-weighting interval by station id: `39.1x0.0056, 40.3x0.0056, 40.6x0.0056`, `40.6x0.0056`, `41.4x0.0056, 41.36x0.0056`, and `41.2x0.0056` 
-2. Sums the values in step 1 to calculate the total weighted exposure: `2.0 + 3.0 + 4.0 + 5.0 + 6.0 = 20.0`
-3. Divides the value in step 2 by the total hours of exposure: `20.0/8 = 2.5` and returns:
+1. Uses the input table integral as the time weighting factor and multiplies it against the aggregate value. 
+2. Converts the unit duration to get the nanosecond duration. 
+3. Completes the calculation `r with _value: r._value * float(v: uint(v: unit)) / float(v: int(v: r._stop) - int(v: r._start`. 
 
-   | _value |
-   | :----: |
-   |  2.5   |
+Through all four stations, the `timeWeightedAverages` are 40.25, 40.6, 41.38, 41.27, respectively.  
 
 ## Calculate value between events
 
@@ -166,7 +150,7 @@ If you have a retention period on your bucket, you need to update your Cloud to 
 
 ```js
 batchStart = 2021-08-01T00:00:00Z
-batchStop = 2021-08-02T00:00:00Z
+batchStop = 2021-08-01T00:00:20Z
 
 from(bucket: "machine")
   |> range(start: batchStart, stop: batchStop)
@@ -176,14 +160,35 @@ from(bucket: "machine")
   )
   |> mean()
 ```
-In this example, the `_value` in the table below shows the average `oil_temp` from our specific batch start and stop. To recieve the following input data, the `mean()` function calculates the average value between that time range for every individual batch. 
+
+In this example, the `_value` in the table below shows the average `oil_temp` from our specific batch start and stop. To recieve the following output data, the `mean()` function calculates the average value between that time range for every individual batch. 
 
 | stationID | _start                   | _stop                    | _value             |
 |:-----     | -----                    | -----                    |             ------:|
-| g1        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.359974719346376 |
-| g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.12639796196727  |
-| g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 39.68573009329573  |
-| g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.219930334526325 |
+| g1        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40                 |
+| g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.6               |
+| g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.379999999999995 |
+| g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.2               |
+
+In order to get the values above, you can view the values before it has been averaged by removing `mean()` in the query above. 
+
+| table | stationID | _start                   | _stop                    | _value |
+|:----- | -----     | -----                    | -----                    | ------:|
+| 0     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 39.1   |
+| 0     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.3   |
+| 0     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
+| 1     | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.4   |
+| 1     | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.36  |
+| 2     | g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.2   |
+| 3     | g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
+
+Given the output data in the table above, the `mean()` function does the following:
+
+1. Groups `_value` by stationID. 
+2. Calculates the sum of the values with the same group. 
+3. Divides the sum by the number of values in the group. 
+
+Through all four stations, the `means()` are 40, 40.6, 41.38, 41.2, respectively.  
 
 ## Record data points with added context
 
@@ -191,5 +196,36 @@ Equipment speed measurements are recorded periodically (float), as is the produc
 
 ## Group aggregate on value change(s)
 
-Similar to Scenario 4, but I’d like to have something akin to a “group by” aggregate for one or more measurements over given interval, grouped by one or more context values that might change state (production order number, crew, machine state, etc.)
- 
+Group together aggregates for one or more measurements over a given interval. 
+
+The following scenario groups together data by one or more context values that changes the state. 
+
+{{% note %}}
+If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
+{{% /note %}}
+
+```js
+from(bucket: "machine")
+  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:20Z)
+  |> filter(fn: (r) => r["_measurement"] == "machinery")
+  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+  |> group(columns: ["state"])
+```
+
+The query above groups together different fields to see their values in relation to a state change. 
+
+The `group` function defines the column values that will appear in our table. 
+
+ To move the values into one column, the `pivot` function aligns the columns together. The `rowKey` function is the anchor for each point that hinges into a single row. In this query, every row is distinguished by several seconds. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` populates that new columns.
+
+ Given the query above, the output is as shown: 
+
+| _time                    | grinding_time | oil_temp | pressure | pressure_target | rework_time | state | stationID |
+|:-----                    | -----         | -----    | -----    | -----           | -----       | ----- |    ------:|
+| 2021-08-01T00:00:00.000Z | 9.804         | 39.1     | 110.2617 | 110             | 0           | OK    | g1        |
+| 2021-08-01T00:00:11.510Z | 11.505        | 40.3     |	110.3506 | 110             | 0           | OK    | g1        |
+| 2021-08-01T00:00:19.530Z | 8.024         | 40.6     | 110.1836 | 110             | 0           | OK    | g1        | 
+| 2021-08-01T00:00:00.000Z | 27.332        | 40.6     | 105.392  | 105             | 0           | OK    | g2        |
+| 2021-08-01T00:00:00.000Z | 13.306        | 41.4     | 110.5309 | 110             | 0           | OK    | g3        | 
+| 2021-08-01T00:00:14.460Z | 14.466        | 41.36    | 110.3746 | 110             | 0           | OK    | g3        | 
+| 2021-08-01T00:00:00.000Z | 12.625        | 41.2     | 110.2657 | 110             | 0           | OK    | g4        | 
