@@ -947,6 +947,17 @@ Integer of the new [replication factor](/enterprise_influxdb/v1.9/concepts/gloss
 
 Name of the new [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) to restore to (must specify with `-rp`).
 
+
+###### [ `-newduration <new_duration>` ]
+Argument to set the shard duration when restoring
+
+###### [ `-newshard <new_shard_name` ]
+
+Argument to set a destination shard ID
+(Previously the shard id in the target had to match the backup,
+which only worked if you were restoring back to the original database.
+Some kinds of restore don’t preserve shard ID numbering.)
+
 ###### [ `-rp <rp_name>` ]
 
 Name of the single retention policy to restore.
