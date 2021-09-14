@@ -950,15 +950,12 @@ Name of the new [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#
 (Requires the `-rp` argument)
 
 ###### [ `-newduration <new_duration>` ]
-Argument to set the shard duration when restoring.
+The shard duration when restoring.
 (Requires the `-rp` argument.)
 
 ###### [ `-newshard <new_shard_name` ]
 
-Argument to set a destination shard ID
-(Previously the shard id in the target had to match the backup,
-which only worked if you were restoring back to the original database.
-Some kinds of restore don’t preserve shard ID numbering.)
+Name of a new destination shard ID, if different from the old one.
 (Requires the `-shard` argument.)
 
 ###### [ `-rp <rp_name>` ]
