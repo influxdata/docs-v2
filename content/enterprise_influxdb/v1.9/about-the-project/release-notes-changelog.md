@@ -20,7 +20,7 @@ menu:
 - Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
   to measure memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
 - Ensure `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
-- Make `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
+- Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
 - Update Protocol Buffers library versions. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
 - Update to Flux [0.124.0](/influxdb/v2.0/reference/release-notes/flux/#v01240-2021-08-03). <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
