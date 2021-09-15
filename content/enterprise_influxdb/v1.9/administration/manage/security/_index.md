@@ -1,14 +1,18 @@
 ---
-title: Manage security in InfluxDB Enterprise
-description: Protect the data in your InfluxDB Enterprise instance.
+title: Manage security
+description: Configuration, security, and logging in InfluxDB enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Manage security
-    weight: 110
-    parent: Administration
+    weight: 40
+    parent: Manage
+aliases:
+  - /enterprise_influxdb/v1.9/administration/security/
 ---
 
-Some customers may choose to install InfluxDB Enterprise with public internet access, however doing so can inadvertently expose your data and invite unwelcome attacks on your database.
+<!--
+Some customers may choose to install InfluxDB Enterprise with public internet access,
+however doing so can inadvertently expose your data and invite unwelcome attacks on your database.
 Check out the sections below for how protect the data in your InfluxDB Enterprise instance.
 
 ## Enable authentication
@@ -47,7 +51,10 @@ You can also use a proxy to port `8086`.  By default, data nodes and meta nodes 
 
 For InfluxDB Enterprise, [backing up and restoring](/enterprise_influxdb/v1.9/administration/backup-and-restore/) is performed from the meta nodes.
 
-
 ### AWS Recommendations
 
 InfluxData recommends implementing on-disk encryption; InfluxDB does not offer built-in support to encrypt the data.
+
+-->
+
+{{< children >}}

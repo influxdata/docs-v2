@@ -9,6 +9,9 @@ menu:
     name: Use fine-grained authorization
     weight: 10
     parent: Guides
+related:
+  - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
+  - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
 Use fine-grained authorization (FGA) in InfluxDB Enterprise to control user access at the database, measurement, and series levels.

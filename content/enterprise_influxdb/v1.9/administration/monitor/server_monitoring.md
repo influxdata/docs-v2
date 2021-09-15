@@ -4,11 +4,12 @@ description: Troubleshoot and monitor InfluxDB OSS.
 aliases:
     - /enterprise_influxdb/v1.9/administration/statistics/
     - /enterprise_influxdb/v1.9/troubleshooting/statistics/
+    - /enterprise_influxdb/v1.9/administration/server-monitoring/
 menu:
   enterprise_influxdb_1_9:
     name: Monitor InfluxDB
     weight: 80
-    parent: Administration
+    parent: Monitor
 ---
 
 **On this page**

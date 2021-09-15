@@ -81,7 +81,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 |      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`)            | integer     |                       |
 | `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                                     | string      | `INFLUX_ORG`          |
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                                          | string      | `INFLUX_ORG_ID`       |
-| `-p` | `--precision`       | Precision of the timestamps (default `ns`)                                                 | string      | `INFLUX_PRECISION`    |
+| `-p` | `--precision`       | [Precision](/influxdb/v2.0/write-data/#timestamp-precision) of the timestamps (default `ns`)                                                 | string      | `INFLUX_PRECISION`    |
 |      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                                 | string      |                       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                                          |             | `INFLUX_SKIP_VERIFY`  |
 |      | `--skipHeader`      | Skip first *n* rows of input data                                                          | integer     |                       |
