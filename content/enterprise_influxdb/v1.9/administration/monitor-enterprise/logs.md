@@ -24,11 +24,10 @@ Some service managers may override this default.
 
 ### Write logs to stderr
 
+To redirect the log output as you would any output to `stderr`, do the following: 
 
-
-If you run InfluxDB directly, using `influxd`, all logs will be written to `stderr`.
-You may redirect this log output as you would any output to `stderr` like so:
-
+1. Run InfluxDB directly by using `influxd` in your terminal. 
+2. Run this query to redirect the log output. 
 ```bash
 influxdb-meta 2>$HOME/my_log_file # Meta nodes
 influxd 2>$HOME/my_log_file # Data nodes
@@ -39,24 +38,28 @@ influx-enterprise 2>$HOME/my_log_file # Enterprise Web
 
 #### sysvinit
 
-If InfluxDB was installed using a pre-built package, and then launched
-as a service, `stderr` is redirected to
-`/var/log/influxdb/<node-type>.log`, and all log data will be written to
-that file.  You can override this location by setting the variable
-`STDERR` in the file `/etc/default/<node-type>`.
+If InfluxDB was installed using a pre-built package, and then launched as a service, `stderr` is redirected to `/var/log/influxdb/<node-type>.log`, and all log data will be written to that file. 
 
-For example, if on a data node `/etc/default/influxdb` contains:
+To ovverride this location, do one of the following: 
+- [Set the variable to `STDERR`](#STDERR)
+- [Set the variable to `STDOUT`](#STDOUT) 
+
+##### STDERR 
+
+1. Set the variable `STDERR` in the file `/etc/default/<node-type>`. 
+- For example, if on a data node `/etc/default/influxdb` contains:
 
 ```bash
 STDERR=/dev/null
 ```
 
-all log data will be discarded.  You can similarly direct output to
-`stdout` by setting `STDOUT` in the same file.  Output to `stdout` is
-sent to `/dev/null` by default when InfluxDB is launched as a service.
+all log data will be discarded.
+2. Restart InfluxDB to pick up any changes to `/etc/default/<node-type>`. 
 
-InfluxDB must be restarted to pick up any changes to `/etc/default/<node-type>`.
+##### STDOUT 
 
+1. Set the variable to `STDOUT` in the file `/etc/default/<node-type>`. Output to `stdout` is sent to `/dev/null` by default when InfluxDB is launched as a service.
+2. InfluxDB must be restarted to pick up any changes to `/etc/default/<node-type>`.
 
 ##### Meta nodes
 

@@ -16,9 +16,9 @@ Monitoring is the act of proactively observing changes in data over time. There 
 
 If you want to monitor an Enterprise cluster, do one of the following: 
 
-* [Monitor Enterprise with Cloud]
-* [Monitor Enterprise with OSS]
-* [Monitor Enterprise with internal monitoring]
+* [Monitor Enterprise with Cloud](#monitor-enterprise-with-cloud)
+* [Monitor Enterprise with OSS](#monitor-enterpprise-with-oss)
+* [Monitor Enterprise with internal monitoring](#monitor-enterprise-with-internal-monitoring)
 * [Monitor with Insights and Aware] 
 
 If you don't want to monitor your data, but view your output data at a time, do one of the following: 
@@ -27,8 +27,19 @@ If you don't want to monitor your data, but view your output data at a time, do 
 * [SHOW DIAGNOSTICS]
 * [Useful performance metric commands]
 
-## Defining monitoring 
+## Monitor Enterprise with Cloud 
 
+To monitor Enterprise with Cloud, see [here](/enterprise_influxdb/v1.9/administration/monitor-enterprise/monitor-with-cloud/). 
+
+## Monitor Enterprise with OSS
+
+To monitor Enterprise with Cloud, see [here](/enterprise_influxdb/v1.9/administration/monitor-enterprise/monitor-with-oss/). 
+
+## Monitor Enterprise with internal monitoring 
+
+{{% note %}}
+Monitoring Enterprise through `_internal` is an option, but not recommended since no system should monitor itself. 
+{{% /note %}}
 
 
 
