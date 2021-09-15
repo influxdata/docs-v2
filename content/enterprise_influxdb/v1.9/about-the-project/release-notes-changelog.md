@@ -41,7 +41,7 @@ menu:
 - Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
 - Fix Flux query problems with large datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
 - Avoid incorrect logging about "broken pipe" when entropy is detected. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
-- Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
+- Return correct number of unexecuted statements when multi-statement query fails. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
 - HH rate limiting uses simpler logic. <!-- https://github.com/influxdata/plutonium/pull/3597 -->
 - Copy names from mmapped memory before closing iterator. <!-- Fix potential crash due to race between reading TSI index and TSI compaction --><!-- https://github.com/influxdata/influxdb/pull/22058 -->
 
