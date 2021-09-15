@@ -25,7 +25,7 @@ Discover what you'll need to write data into InfluxDB OSS (open source). Learn h
 - [Quickly start collecting data](#quickly-start-collecting-data)
   - [Quick Start for InfluxDB OSS](#quick-start-for-influxdb-oss)
   - [Sample data](#sample-data)
-- [Load data from sources in the InfluxDB UI](/influxdb/v2.0/write-data/load-data/)
+- [Load data from sources in the InfluxDB UI](/influxdb/v2.0/write-data/no-code/load-data/)
 - [Use no-code solutions](/influxdb/v2.0/write-data/no-code)
 - [Use developer tools (`influx` CLI and others)](/influxdb/v2.0/write-data/developer-tools)
 - [Best practices for writing data](/influxdb/v2.0/write-data/best-practices/)

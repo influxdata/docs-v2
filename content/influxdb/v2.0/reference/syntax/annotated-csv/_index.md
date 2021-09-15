@@ -10,7 +10,7 @@ menu:
     parent: Syntax
 influxdb/v2.0/tags: [csv, syntax]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/csv/from/
+  - /{{< latest "flux" >}}/stdlib/csv/from/
   - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
 ---
 

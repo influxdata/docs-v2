@@ -317,7 +317,7 @@ Sample sensor information is stored in PostgreSQL.
 
 1.  [Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/) to store the data.
 2.  [Create an InfluxDB task](/influxdb/v2.0/process-data/manage-tasks/create-task/)
-    and use the [`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/)
+    and use the [`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/)
     to download sample air sensor data every 15 minutes.
     Write the downloaded sample data to your new bucket:
 
