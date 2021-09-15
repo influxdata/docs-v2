@@ -33,7 +33,7 @@ menu:
 - Ensure correct JSON log formatting. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
 - Handle HTTPS errors during systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
 - Fix issue incorrectly reporting compaction queue of zero. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
-- Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
+- Prevent dropped writes with overlapping shards in certain edge cases. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
 - Add logging for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
 - Prevent lost writes during hinted handoff when purging short queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
 - Fix Flux panic when querying empty pre-created shards. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
