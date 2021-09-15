@@ -15,30 +15,29 @@ menu:
 - Add `memUsage` metrics to `/debug/vars` endpoint.
   Measures memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
 - `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
-- Add more options for restoring Enterprise databases.
+- Add more options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) Enterprise databases.
   Users can now:
-  restore data with a new RP into an existing database,
-  override the duration of an RP while restoring, and
+  restore data with a new retention policy into an existing database,
+  override the duration of a retention policy while restoring, and
   specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
 - Update to Flux [0.124.0](/influxdb/v2.0/reference/release-notes/flux/#v01240-2021-08-03). <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
 ### Bug fixes
 - Require database authorization to see continuous queries. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
-- Update protobuf library versions and remove `influx_tsm`. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
-- Fix permissions for Systemd start script. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
+- Update Protocol Buffers library versions. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
+- Fix permissions for systemd start script. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
 - Fix network error when restoring portable backups. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
-- TSI index should compact old or too-large log files. <!-- https://github.com/influxdata/influxdb/pull/22044 -->
-- Export example and fix adjacent shards. <!-- https://github.com/influxdata/influxdb/pull/22046 -->
-- Error instead of panic when Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
-- Compact Old TSL files should be  without new writes. <!-- https://github.com/influxdata/influxdb/pull/22067 -->
-- Hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
+- Compact old or too-large log files in TSI index. <!-- https://github.com/influxdata/influxdb/pull/22044 -->
+- Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
+- Return an error instead of panic when Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
+- Add 1MB hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
 - Ensure correct JSON log formatting. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
-- Handle HTTPS errors in Systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
+- Handle HTTPS errors in systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
 - Avoid compaction queue stats flutter. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
 - Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
 - Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
 - Ensure proper JSON log formatting. <!-- https://github.com/influxdata/plutonium/pull/3588 -->
-- Add logs for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
+- Add logging for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
 - Do not generate entropy when purging short HH queues. <!-- FIX https://github.com/influxdata/plutonium/pull/3585 -->
 - Re-enable CAS for metadata. <!-- FIX https://github.com/influxdata/plutonium/pull/3593 -->
 - Fix Flux panic when querying precreated shard with no writes. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
