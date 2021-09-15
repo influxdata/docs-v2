@@ -6,7 +6,9 @@ menu:
   enterprise_influxdb_1_9:
     name: Configure data nodes
     weight: 20
-    parent: Administration
+    parent: Configure
+aliases:
+  - /enterprise_influxdb/v1.9/administration/config-data-nodes/
 ---
 
 * [Data node configuration settings](#data-node-configuration-settings)
@@ -879,6 +881,14 @@ Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
 The JWT authorization shared secret used to validate requests using JSON web tokens (JWTs).
 
 Environment variable: `INFLUXDB_HTTP_SHARED_SECRET`
+
+#### `max-body-size = 25000000`
+
+The maximum size, in bytes, of a client request body.
+When a HTTP client sends data that exceeds the configured maximum size, a `413 Request Entity Too Large` HTTP response is returned.
+To disable the limit, set the value to `0`.
+
+Environment variable: `INFLUXDB_HTTP_MAX_BODY_SIZE`
 
 #### `max-row-limit = 0`
 

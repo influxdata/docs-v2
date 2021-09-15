@@ -15,52 +15,40 @@ Use the `POST` request method and include the following in your request:
 |:-----------          |:----------                                               |
 | Organization         | Use the `org` query parameter in your request URL.       |
 | Bucket               | Use the `bucket` query parameter in your request URL.    |
-| Precision            | Use the `precision` query parameter in your request URL. |
-| API token | Use the `Authorization: Token` header.                   |
+| Precision            | Use the [`precision`](/influxdb/cloud/write-data/#timestamp-precision) query parameter in your request URL. Default is `ns` |
+| API token | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
 | Line protocol        | Pass as plain text in your request body.                 |
 
-#### Example
+#### Send a write request 
 
 The URL in the examples depends on your [InfluxDB Cloud region](/influxdb/cloud/reference/regions/).
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Curl](#)
-[Node.js](#)
+[Curl](#curl)
+[Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-curl -XPOST "https://cloud2.influxdata.com/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
-  --header "Authorization: Token YOURAUTHTOKEN" \
-  --data-raw "
-mem,host=host1 used_percent=23.43234543 1556896326
-mem,host=host2 used_percent=26.81522361 1556896326
-mem,host=host1 used_percent=22.52984738 1556896336
-mem,host=host2 used_percent=27.18294630 1556896336
-"
+{{< get-shared-text "api/v2.0/write/write.sh" >}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{< api/v2dot0/nodejs/write >}}
+{{< get-shared-text "api/v2.0/write/write.sh" >}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
 {{% note %}}
-To compress data when writing to InfluxDB, set the `Content-Encoding` header to `gzip`.
+##### Use gzip compression with the InfluxDB API
+
+When using the InfluxDB API `/write` endpoint to write data, compress the data with `gzip` and set the `Content-Encoding`
+header to `gzip`.
 Compression reduces network bandwidth, but increases server-side load.
 
-```bash
-curl -XPOST "https://cloud2.influxdata.com/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
-  --header "Authorization: Token YOURAUTHTOKEN" \
-  --header "Content-Encoding: gzip" \
-  --data-raw "
-mem,host=host1 used_percent=23.43234543 1556896326
-mem,host=host2 used_percent=26.81522361 1556896326
-mem,host=host1 used_percent=22.52984738 1556896336
-mem,host=host2 used_percent=27.18294630 1556896336
-"
+```sh
+{{% get-shared-text "api/v2.0/write/write-compress.sh" %}}
 ```
 {{% /note %}}
 
