@@ -13,6 +13,7 @@ menu:
     parent: chobbs
 weight: 201
 flux/v0.x/tags: [functions, discord, package]
+introduced: 0.69.0
 ---
 
 The Flux `discord` package provides functions for sending messages to [Discord](https://discord.com/).

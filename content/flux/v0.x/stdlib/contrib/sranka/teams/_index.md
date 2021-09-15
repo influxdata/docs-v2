@@ -15,6 +15,7 @@ menu:
     parent: sranka
 weight: 201
 flux/v0.x/tags: [functions, teams, microsoft, package]
+introduced: 0.70.0
 ---
 
 The Flux `teams` (Microsoft Teams) package provides functions for sending messages to a
@@ -41,9 +42,3 @@ Character limit for message summaries. Default is `70`.
 ## Functions
 
 {{< children type="functions" show="pages" >}}
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@sranka](https://github.com/sranka)  
-**InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
-{{% /note %}}

@@ -15,6 +15,7 @@ menu:
     parent: sranka
 weight: 201
 flux/v0.x/tags: [functions, opsgenie, package]
+introduced: 0.84.0
 ---
 
 The Flux `opsgenie` package provides functions that send alerts to
@@ -27,9 +28,3 @@ import "contrib/sranka/opsgenie"
 ```
 
 {{< children type="functions" show="pages" >}}
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@sranka](https://github.com/sranka)  
-**InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
-{{% /note %}}

@@ -14,7 +14,7 @@ weight: 102
 flux/v0.x/tags: [type-conversions, transformations]
 introduced: 0.7.0
 related:
-  - /flux/v0.x/data-types/basic/integer/
+  - /flux/v0.x/data-types/basic/int/
   - /flux/v0.x/stdlib/universe/int/
 ---
 

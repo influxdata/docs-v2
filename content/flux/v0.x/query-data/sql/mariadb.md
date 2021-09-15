@@ -28,7 +28,7 @@ To query [MariaDB](https://mariadb.org/) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: mysql
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#mariadb-data-source-name)_
     - **query**: SQL query to execute
 
 ```js
@@ -41,19 +41,16 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data types](#data-types)
-
-## Data source name
+## MariaDB data source name
 The `mysql` driver uses the following data source name (DSN) syntax (also known as a **connection string**):
 
 ```
 username:password@tcp(localhost:3306)/dbname?param=value
 ```
 
-## Data type conversion
+## MariaDB to Flux data type conversion
 `sql.from()` converts MariaDB data types to Flux data types.
 
 | MariaDB data type              | Flux data type                                |

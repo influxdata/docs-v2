@@ -28,7 +28,7 @@ To query [Snowflake](https://www.snowflake.com/) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: snowflake
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#snowflake-data-source-name)_
     - **query**: SQL query to execute
 
 ```js
@@ -41,12 +41,9 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## Snowflake data source name
 The `snowflake` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
@@ -55,7 +52,7 @@ username[:password]@accountname/dbname?param1=value1&paramN=valueN
 username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param1=value1&paramN=valueN
 ```
 
-## Data type conversion
+## Snowflake to Flux data type conversion
 `sql.from()` converts Snowflake data types to Flux data types.
 
 | Snowflake data type         | Flux data type                                                                                                           |

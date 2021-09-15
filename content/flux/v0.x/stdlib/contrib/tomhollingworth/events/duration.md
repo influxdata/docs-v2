@@ -16,7 +16,6 @@ flux/v0.x/tags: [functions, events, package]
 related:
   - /flux/v0.x/stdlib/universe/elapsed/
   - /flux/v0.x/stdlib/universe/stateduration/
-introduced: 0.91.0
 ---
 
 The `events.duration()` function calculates the duration of events.
@@ -160,10 +159,3 @@ data |> stateDuration(
 | 2020-01-01T16:07:55Z | crit  | 46                | 942                                 | 967             |
 | 2020-01-01T16:54:21Z | warn  | 86                | 46                                  | 1014            |
 | 2020-01-01T18:20:45Z | ok    | 339               | 86                                  | 1100            |
-
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@tomhollingworth](https://github.com/tomhollingworth)  
-**InfluxDB Slack:** [@Tom Hollingworth](https://influxdata.com/slack)  
-{{% /note %}}

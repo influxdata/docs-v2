@@ -84,7 +84,7 @@ dict.get(dict: positions, key: "Teller", default: "Unknown position")
 
 ### Create a dictionary from a list
 1. Import the [`dict` package](/flux/v0.x/stdlib/dict/).
-2. Use [`dict.fromList()`](/flux/v0.x/stdlib/dict/get/fromlist/) to create a dictionary
+2. Use [`dict.fromList()`](/flux/v0.x/stdlib/dict/fromlist/) to create a dictionary
    from an **[array](/flux/v0.x/data-types/composite/array/) of [records](/flux/v0.x/data-types/composite/record/)**.
    Each record must have a **key** and **value** property.
 
@@ -102,7 +102,7 @@ dict.fromList(pairs: list)
   
 ### Insert a key-value pair into a dictionary
 1. Import the [`dict` package](/flux/v0.x/stdlib/dict/).
-2. Use [`dict.insert()`](/flux/v0.x/stdlib/dict/get/insert/) to insert a key-value
+2. Use [`dict.insert()`](/flux/v0.x/stdlib/dict/insert/) to insert a key-value
    pair into a dictionary. If the key already exists, it's overwritten with the new value.
   
 ```js
@@ -120,7 +120,7 @@ dict.insert(
 
 ### Remove a key-value pair from a dictionary
 1. Import the [`dict` package](/flux/v0.x/stdlib/dict/).
-2. Use [`dict.remove()`](/flux/v0.x/stdlib/dict/get/remove/) to remove a key-value
+2. Use [`dict.remove()`](/flux/v0.x/stdlib/dict/remove/) to remove a key-value
    pair from a dictionary.
 
 ```js

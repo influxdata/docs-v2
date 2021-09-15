@@ -364,7 +364,7 @@ menu:
 ### Features
 - Add [BigPanda notification support](/flux/v0.x/stdlib/contrib/rhajek/bigpanda/).
 - Add [Zenoss notifications support](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/).
-- Add [VictorOps notifications support](/flux/v0.x/stdlib/contrib/bonitoo-90/victorops/).
+- Add [VictorOps notifications support](/flux/v0.x/stdlib/contrib/bonitoo-io/victorops/).
 
 ### Bug fixes
 - Classify "Option not found error" as internal.

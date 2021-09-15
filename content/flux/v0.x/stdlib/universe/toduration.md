@@ -32,12 +32,6 @@ _**Supported data types:** String | Integer | Uinteger_
 **String** input values must use [duration literal representation](/flux/v0.x/spec/lexical-elements/#duration-literals).
 {{% /note %}}
 
-{{% note %}}
-To convert values in a column other than `_value`, define a custom function
-patterned after the [function definition](#function-definition),
-but replace `_value` with your desired column.
-{{% /note %}}
-
 ## Parameters
 
 ### tables {data-type="stream of tables"}

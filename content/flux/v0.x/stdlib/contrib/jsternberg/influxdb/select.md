@@ -158,11 +158,3 @@ influxdb.select(
   token: token
 )
 ```
-
----
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@jsternberg](https://github.com/jsternberg)  
-**InfluxDB Slack:** [@Jonathan Sternberg](https://influxdata.com/slack)
-{{% /note %}}

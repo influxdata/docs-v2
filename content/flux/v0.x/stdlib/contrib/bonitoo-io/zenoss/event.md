@@ -139,8 +139,3 @@ zenoss.event(
       else "Clear"
 )
 ```
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@alespour](https://github.com/alespour), [@bonitoo-io](https://github.com/bonitoo-io)  
-**InfluxDB Slack:** [@Ales Pour](https://influxdata.com/slack)
-{{% /note %}}

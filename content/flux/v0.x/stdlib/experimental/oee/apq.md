@@ -32,8 +32,8 @@ oee.APQ(
 You must include the following columns in your production data input tables:
 
 - **_stop**: Right time boundary timestamp (typically assigned by
-  [`range()`](/flux/v0.x/stdlib/range/)
-  or [`window()`](/flux/v0.x/stdlib/window/)).
+  [`range()`](/flux/v0.x/stdlib/universe/range/)
+  or [`window()`](/flux/v0.x/stdlib/universe/window/)).
 - **_time**: Timestamp of the production event.
 - **state**: String that represents start or stop events or the production state.
 - **partCount**: Cumulative total of parts produced.

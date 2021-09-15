@@ -39,8 +39,3 @@ Alert level.
 | ok          | ok              |
 
 _All other alert levels return a `critical` BigPanda status._
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@rhajek](https://github.com/rhajek), [@bonitoo-io](https://github.com/bonitoo-io)  
-{{% /note %}}

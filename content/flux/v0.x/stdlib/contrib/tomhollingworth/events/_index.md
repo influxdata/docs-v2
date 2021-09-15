@@ -24,9 +24,3 @@ import "contrib/tomhollingworth/events"
 ```
 
 {{< children type="functions" show="pages" >}}
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@tomhollingworth](https://github.com/tomhollingworth)  
-**InfluxDB Slack:** [@Tom Hollingworth](https://influxdata.com/slack)  
-{{% /note %}}

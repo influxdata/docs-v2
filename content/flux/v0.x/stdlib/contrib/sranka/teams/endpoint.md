@@ -69,9 +69,3 @@ crit_statuses
     })
   )()
 ```
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@sranka](https://github.com/sranka)  
-**InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
-{{% /note %}}

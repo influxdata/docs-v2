@@ -28,7 +28,7 @@ To query [SAP HANA](https://www.sap.com/products/hana.html) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: hdb
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#sap-hana-data-source-name)_
     - **query**: SQL query to execute
 
 ```js
@@ -41,12 +41,9 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## SAP HANA data source name
 The `hdb` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
@@ -55,7 +52,7 @@ hdb://<user>:<password>@<host>:<port>?DATABASENAME=<tenant-db-name>
 hdb://?KEY=<keyname>
 ```
 
-## Data type conversion
+## SAP HANA to Flux data type conversion
 `sql.from()` converts SAP HANA data types to Flux data types.
 
 | SAP HANA data type                 | Flux data type                                |

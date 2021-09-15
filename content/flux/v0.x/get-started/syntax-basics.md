@@ -115,7 +115,7 @@ The following basic types can be represented with literal values:
 - [String](/flux/v0.x/data-types/basic/string/)
 - [Time](/flux/v0.x/data-types/basic/time/)
 - [Float](/flux/v0.x/data-types/basic/float/)
-- [Integer](/flux/v0.x/data-types/basic/integer/)
+- [Integer](/flux/v0.x/data-types/basic/int/)
 
 ```js
 // Boolean
@@ -291,7 +291,7 @@ import "math"
 import "influxdata/influxdb/sample"
 ```
 
-## Examples of of basic syntax
+## Examples of basic syntax
 After reading the sections above, you can begin to apply these basic principles in real-world
 use cases such as creating data stream variables, custom functions, and more.
 

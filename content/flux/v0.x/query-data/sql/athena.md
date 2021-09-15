@@ -28,7 +28,7 @@ To query [Amazon Athena](https://aws.amazon.com/athena) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: awsathena
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#amazon-athena-data-source-name)_
     - **query**: SQL query to execute
 
 ```js
@@ -41,12 +41,9 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## Amazon Athena data source name
 The `awsathena` driver uses the following data source name (DSN) syntaxes (also known as a **connection string**):
 
 ```
@@ -66,7 +63,7 @@ Use the following query parameters in your Athena S3 DSN:
 - **missingAsDefault** - replace missing data with default values
 - **missingAsEmptyString** - replace missing data with empty strings
 
-## Data type conversion
+## Athena to Flux data type conversion
 `sql.from()` converts Athena data types to Flux data types.
 
 | Athena data type                        | Flux data type                                |

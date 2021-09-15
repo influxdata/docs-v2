@@ -56,8 +56,8 @@ By default, `holtWinters()` uses the first value in each time bucket to run the 
 To specify other values to use in the calculation, use:
 
 - [`window()`](/flux/v0.x/stdlib/universe/window/)
-  with [selectors](/flux/v0.x/function-types#selectors/)
-  or [aggregates](/flux/v0.x/function-types#aggregates)
+  with [selectors](/flux/v0.x/function-types/#selectors)
+  or [aggregates](/flux/v0.x/function-types/#aggregates)
 - [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow)
 
 ###### Use aggregateWindow to normalize irregular times

@@ -43,7 +43,7 @@ Columns to removed from input tables.
 _Mutually exclusive with `fn`._
 
 ### fn {data-type="function"}
-[Predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-function)
+[Predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)
 with a `column` parameter that returns a boolean value indicating whether or not
 the column should be removed from input tables.
 _Mutually exclusive with `columns`._

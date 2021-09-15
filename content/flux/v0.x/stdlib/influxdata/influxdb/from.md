@@ -92,8 +92,8 @@ using the `<username>:<password>` syntax.
 
 ## Examples
 
-- [Query InfluxDB using the bucket name](#query-influxdb-using-the-bucket-name)
-- [Query InfluxDB using the bucket ID](#query-influxdb-using-the-bucket-id)
+- [Query InfluxDB using the bucket name](#query-using-the-bucket-name)
+- [Query InfluxDB using the bucket ID](#query-using-the-bucket-id)
 - [Query a remote InfluxDB Cloud instance](#query-a-remote-influxdb-cloud-instance)
 
 #### Query using the bucket name

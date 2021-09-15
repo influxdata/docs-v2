@@ -28,7 +28,7 @@ To query [MySQL](https://www.mysql.com/) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: mysql
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#mysql-data-source-name)_
     - **query**: SQL query to execute
 
 ```js
@@ -41,19 +41,16 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## MySQL data source name
 The `mysql` driver uses the following data source name (DSN) syntax (also known as a **connection string**):
 
 ```
 username:password@tcp(localhost:3306)/dbname?param=value
 ```
 
-## Data type conversion
+## MySQL to Flux data type conversion
 `sql.from()` converts MySQL data types to Flux data types.
 
 | MySQL data type                | Flux data type                                |

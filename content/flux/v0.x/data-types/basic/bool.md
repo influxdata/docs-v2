@@ -130,7 +130,7 @@ data
 {{< /flex >}}
 
 ## Negate boolean values
-To negate boolean values, use the [`not` logical operator](flux/v0.x/spec/operators/#logical-operators).
+To negate boolean values, use the [`not` logical operator](/flux/v0.x/spec/operators/#logical-operators).
 
 ```js
 not true

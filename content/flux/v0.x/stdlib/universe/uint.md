@@ -12,7 +12,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [type-conversions]
 related:
-  - /flux/v0.x/data-types/basic/uinteger/
+  - /flux/v0.x/data-types/basic/uint/
   - /flux/v0.x/stdlib/universe/touint/
 introduced: 0.7.0
 ---
@@ -48,7 +48,7 @@ The value to convert.
 - [Convert a duration to a uinteger value](#convert-a-duration-to-a-uinteger-value)
 - [Convert a time to a uinteger value](#convert-a-time-to-a-uinteger-value)
 - [Convert a float to a uinteger value](#convert-a-float-to-a-uinteger-value)
-- [Convert all values in a column to integer values](#convert-all-values-in-a-column-to-integer-values)
+- [Convert all values in a column to uinteger values](#convert-all-values-in-a-column-to-uinteger-values)
 
 #### Convert a string to a uinteger value
 ```js

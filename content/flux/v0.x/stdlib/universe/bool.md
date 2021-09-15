@@ -12,7 +12,7 @@ menu:
 weight: 102
 flux/v0.x/tags: [type-conversions]
 related:
-  - /flux/v0.x/data-types/basic/boolean/
+  - /flux/v0.x/data-types/basic/bool/
   - /flux/v0.x/stdlib/universe/tobool/
 introduced: 0.7.0
 ---

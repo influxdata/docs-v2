@@ -14,6 +14,7 @@ menu:
     parent: sranka
 weight: 201
 v2.0/tags: [functions, teams, sensu, package]
+introduced: 0.90.0
 ---
 
 The Flux `sensu` package provides functions for sending events to
@@ -32,9 +33,3 @@ All `sensu` functions require an `apiKey` parameter to successfully authenticate
 with your Sensu service.
 For information about managing Sensu API keys, see the
 [Sensu APIKeys API documentation](https://docs.sensu.io/sensu-go/latest/api/apikeys/).
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@sranka](https://github.com/sranka)  
-**InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
-{{% /note %}}

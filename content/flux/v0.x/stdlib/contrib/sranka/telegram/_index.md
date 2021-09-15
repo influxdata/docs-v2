@@ -14,6 +14,7 @@ menu:
     parent: sranka
 weight: 202
 v2.0/tags: [functions, teams, telegram, package]
+introduced: 0.70.0
 ---
 
 The Flux `telegram` package provides functions for sending messages to
@@ -71,10 +72,3 @@ To set up a Telegram bot and obtain the required bot token and channel ID:
     ```
 
     Find your **channel ID** in the `id` field of the response.
-
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@sranka](https://github.com/sranka)  
-**InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
-{{% /note %}}

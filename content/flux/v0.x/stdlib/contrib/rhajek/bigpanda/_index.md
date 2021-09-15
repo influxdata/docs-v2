@@ -56,8 +56,3 @@ convert timestamps to **epoch second timestamps**:
 //
   |> map(fn: (r) => ({ r with secTime: int(v: r._time) / 1000000000 }))
 ```
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@rhajek](https://github.com/rhajek), [@bonitoo-io](https://github.com/bonitoo-io)
-{{% /note %}}

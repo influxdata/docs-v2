@@ -10,6 +10,7 @@ menu:
     parent: bonitoo-io
 weight: 202
 flux/v0.x/tags: [functions, zenoss, package]
+introduced: 0.108.0
 ---
 
 The Flux `zenoss` package provides functions that send events to
@@ -23,9 +24,3 @@ import "contrib/bonitoo-io/zenoss"
 ## Functions
 
 {{< children type="functions" show="pages" >}}
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@alespour](https://github.com/alespour), [@bonitoo-io](https://github.com/bonitoo-io)  
-**InfluxDB Slack:** [@Ales Pour](https://influxdata.com/slack)
-{{% /note %}}

@@ -14,6 +14,7 @@ menu:
     parent: jsternberg
 weight: 201
 flux/v0.x/tags: [functions, package, query]
+introduced: 0.77.0
 ---
 
 The Flux `influxdb` package provides additional functions for querying data from InfluxDB.
@@ -24,9 +25,3 @@ import "contrib/jsternberg/influxdb"
 ```
 
 {{< children type="functions" show="pages" >}}
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@jsternberg](https://github.com/jsternberg)  
-**InfluxDB Slack:** [@Jonathan Sternberg](https://influxdata.com/slack)
-{{% /note %}}

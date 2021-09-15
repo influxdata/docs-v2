@@ -41,9 +41,3 @@ opsgenie.respondersToJSON(
 ### v {data-type="array of strings"}
 ({{< req >}}) Array of Opsgenie responder strings.
 Responder strings must begin with `user:`, `team:`, `escalation:`, or `schedule:`.
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@sranka](https://github.com/sranka)  
-**InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
-{{% /note %}}

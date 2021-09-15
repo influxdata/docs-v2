@@ -29,7 +29,7 @@ To query [Microsoft SQL Server](https://www.microsoft.com/sql-server/) with Flux
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: sqlserver _or_ mssql
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#sql-server-data-source-name)_
     - **query**: SQL query to execute
 
 ```js
@@ -42,13 +42,13 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
+- [SQL Server data source name](#sql-server-data-source-name)
 - [SQL Server ADO authentication](#sql-server-ado-authentication)
-- [Data type conversion](#data-type-conversion)
+- [SQL Server to Flux data type conversion](#sql-server-to-flux-data-type-conversion)
 
-## Data source name
+## SQL Server data source name
 The `sqlserver` and `mssql` drivers use the following DSN syntaxes (also known as a **connection string**):
 
 ```
@@ -81,7 +81,7 @@ To retrieve SQL Server credentials from a file, execute the query in the
 [Flux REPL](/{{< latest "influxdb" >}}/tools/repl/) on your local machine.
 {{% /warn %}}
 
-```powershel
+```powershell
 azure auth=C:\secure\azure.auth
 ```
 
@@ -104,7 +104,7 @@ _For information about managed identities, see [Microsoft managed identities](ht
 azure auth=MSI
 ```
 
-## Data type conversion
+## SQL Server to Flux data type conversion
 `sql.from()` converts SQL Server data types to Flux data types.
 
 | SQL Server data type                    | Flux data type                                  |

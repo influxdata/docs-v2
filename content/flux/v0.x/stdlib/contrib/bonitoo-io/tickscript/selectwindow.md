@@ -53,7 +53,7 @@ _**Data type:** String_
 
 ### fn {data-type="function"}
 ({{< req >}})
-[Aggregate](/flux/v0.x/function-types/#saggregates/) or [selector](/flux/v0.x/function-types/#selectors)
+[Aggregate](/flux/v0.x/function-types/#aggregates) or [selector](/flux/v0.x/function-types/#selectors)
 function to apply.
 
 ### as {data-type="string"}

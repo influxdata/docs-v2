@@ -27,9 +27,3 @@ sensu.toSensuName(v: "Example string 1.2?")
 ### v {data-type="string"}
 ({{< req >}})
 String to operate on.
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@sranka](https://github.com/sranka)  
-**InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
-{{% /note %}}

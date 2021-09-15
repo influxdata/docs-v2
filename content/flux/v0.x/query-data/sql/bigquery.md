@@ -28,7 +28,7 @@ To query [Google BigQuery](https://cloud.google.com/bigquery) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: bigquery
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#bigquery-data-source-name)_
     - **query**: SQL query to execute
 
 ```js
@@ -41,12 +41,9 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## BigQuery data source name
 The `bigquery` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```

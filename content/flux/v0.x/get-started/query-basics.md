@@ -21,7 +21,7 @@ The majority of basic Flux queries include the following steps:
 
 - [Source](#source)
 - [Filter](#filter)
-- [Shape](#shape)
+- [Shape](#shape-data)
 - [Process](#process)
 
 ```js
@@ -52,7 +52,7 @@ Flux provides the following primary filter functions:
 
 - [`range()`](/flux/v0.x/stdlib/universe/range/): filter data based on time.
 - [`filter()`](/flux/v0.x/stdlib/universe/filter/): filter data based on column values.
-  `filter()` uses a [predicate function](#predicate-functions) defined in the
+  `filter()` uses a [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions) defined in the
   `fn` parameter to evaluate input rows.
   Each row is passed into the predicate function as a **record**, `r`, containing
   key-value pairs for each column in the row.

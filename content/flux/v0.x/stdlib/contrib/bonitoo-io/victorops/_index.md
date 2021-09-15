@@ -13,6 +13,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/victorops/
   - /influxdb/cloud/reference/flux/stdlib/contrib/victorops/
 flux/v0.x/tags: [functions, victorops, package]
+introduced: 0.108.0
 ---
 
 The Flux `victorops` package provides functions that send events to
@@ -40,9 +41,3 @@ To send events to VictorOps with Flux:
 ## Functions
 
 {{< children type="functions" show="pages" >}}
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@alespour](https://github.com/alespour), [@bonitoo-io](https://github.com/bonitoo-io)  
-**InfluxDB Slack:** [@Ales Pour](https://influxdata.com/slack)
-{{% /note %}}

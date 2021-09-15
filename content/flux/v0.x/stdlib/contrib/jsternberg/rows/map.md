@@ -222,11 +222,3 @@ data
 | tag2 | bar    | 0003  | 1.7    |
 {{% /flex-content %}}
 {{< /flex >}}
-
----
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@jsternberg](https://github.com/jsternberg)  
-**InfluxDB Slack:** [@Jonathan Sternberg](https://influxdata.com/slack)
-{{% /note %}}

@@ -42,7 +42,7 @@ sampledata.numericBool()
 ##### Output tables
 {{% flux/sample "numericBool" %}}
 
-### Return nuermica boolean sample data with null values
+### Return numeric boolean sample data with null values
 
 ##### Function
 ```js

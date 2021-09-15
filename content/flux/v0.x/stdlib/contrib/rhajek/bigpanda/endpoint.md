@@ -86,8 +86,3 @@ crit_events
     }
   })()
 ```
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@rhajek](https://github.com/rhajek), [@bonitoo-io](https://github.com/bonitoo-io)
-{{% /note %}}

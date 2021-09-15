@@ -31,7 +31,7 @@ prometheus.scrape(url: "http://localhost:8086/metrics")
 ```
 
 ## Results structure
-`prometheus.scrape()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
+`prometheus.scrape()` returns a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 with the following columns:
 
 - **_time**: Data timestamp

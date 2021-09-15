@@ -28,7 +28,7 @@ To query [CockroachDB](https://www.cockroachlabs.com/) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: postgres
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#cockroachdb-data-source-name)_
     - **query**: PSQL query to execute
 
 ```js
@@ -41,12 +41,9 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## CockroachDB data source name
 The `postgres` driver uses the following DSN syntax (also known as a **connection string**)
 to connect to CockroachDB :
 
@@ -59,7 +56,7 @@ The `postgres` driver use the [Go `pq` implementation](https://www.cockroachlabs
 to interact with CockroachDB.
 {{% /note %}}
 
-## Data type conversion
+## CockroachDB to Flux data type conversion
 `sql.from()` converts PostgreSQL and CockroachDB data types to Flux data types.
 
 | CockroachDB data type                                                        | Flux data type                                  |

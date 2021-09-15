@@ -13,6 +13,7 @@ menu:
     parent: jsternberg
 weight: 201
 flux/v0.x/tags: [functions, package]
+introduced: 0.77.0
 ---
 
 The Flux `rows` package provides additional functions for remapping values in rows.
@@ -23,9 +24,3 @@ import "contrib/jsternberg/rows"
 ```
 
 {{< children type="functions" show="pages" >}}
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@jsternberg](https://github.com/jsternberg)  
-**InfluxDB Slack:** [@Jonathan Sternberg](https://influxdata.com/slack)
-{{% /note %}}

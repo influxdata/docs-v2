@@ -28,7 +28,7 @@ To query [PostgreSQL](https://www.postgresql.org/) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: postgres
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#postgresql-data-source-name)_
     - **query**: PSQL query to execute
 
 ```js
@@ -41,19 +41,16 @@ sql.from(
 )
 ```
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## PostgreSQL data source name
 The `postgres` driver uses the following DSN syntax (also known as a **connection string**):
 
 ```
 postgres://username:password@localhost:5432/dbname?param=value
 ```
 
-## Data type conversion
+## PostgreSQL to Flux data type conversion
 `sql.from()` converts PostgreSQL data types to Flux data types.
 
 | PostgreSQL data type                                                        | Flux data type                                  |
@@ -69,7 +66,7 @@ All other PostgreSQL data types are converted to strings.
 {{% /caption %}}
 
 ## Results structure
-`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
+`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 with no grouping (all rows in a single table).
 For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-data).
+[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-tables).

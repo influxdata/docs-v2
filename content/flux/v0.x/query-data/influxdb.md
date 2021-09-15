@@ -77,7 +77,7 @@ from(bucket: "telegraf/")
 
 
 ## Results structure
-`from()` and `range()` return a [stream of tables](/flux/v0.x/get-started/data-structure/#stream-of-tables)
+`from()` and `range()` return a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 grouped by [series](/influxdb/cloud/reference/glossary/#series)
 (measurement, tag set, and field).
 Each table includes the following columns:

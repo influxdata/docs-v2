@@ -28,7 +28,7 @@ To query [SQLite](https://www.sqlite.org/index.html) with Flux:
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
     - **driverName**: sqlite3
-    - **dataSourceName**: _See [data source name](#data-source-name)_
+    - **dataSourceName**: _See [data source name](#sqlite-data-source-name)_
     - **query**: SQL query to execute
 
 ```js
@@ -55,19 +55,16 @@ If using **InfluxDB Cloud** or **InfluxDB OSS**, the Flux process **does not**
 have access to the filesystem.
 {{% /note %}}
 
-##### On this page
+---
 
-- [Data source name](#data-source-name)
-- [Data type conversion](#data-type-conversion)
-
-## Data source name
+## SQLite data source name
 The `sqlite3` driver uses the following DSN syntax (also known as a **connection string**):
 
 ```
 file:/path/to/example.db?param=value
 ```
 
-## Data type conversion
+## SQLite to Flux data type conversion
 `sql.from()` converts SQLite data types to Flux data types.
 
 | SQLite data type                        | Flux data type                                |
