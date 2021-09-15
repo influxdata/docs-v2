@@ -7,6 +7,13 @@ menu:
     name: Release notes
 ---
 
+## v0.130.0 [2021-09-15]
+
+### Features
+- Add narrow state transformation transport.
+
+---
+
 ## v0.129.0 [2021-09-14]
 
 ### Features
