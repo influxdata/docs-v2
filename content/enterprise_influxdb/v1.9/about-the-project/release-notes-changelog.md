@@ -17,7 +17,7 @@ menu:
   restore data with a new retention policy into an existing database,
   override the duration of a retention policy while restoring, and
   specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
-- Add `memUsage` metrics to `/debug/vars` endpoint
+- Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
   to measure memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
 - Ensure `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
 - Make `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
