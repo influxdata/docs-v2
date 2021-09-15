@@ -27,7 +27,6 @@ menu:
 ### Bug fixes
 - Require read authorization on a database to see continuous queries linked to that database. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
 - Fix permissions for systemd start script. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
-- Fix network error when restoring portable backups. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
 - Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
 - Return an error instead of panic when Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
 - Add 1MB hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
