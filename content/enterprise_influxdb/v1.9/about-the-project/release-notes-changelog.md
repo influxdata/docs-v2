@@ -12,14 +12,14 @@ menu:
 ## v1.9.4 [TK]
 
 ### Features
-- Add `memUsage` metrics to `/debug/vars` endpoint.
-  Measures memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
-- `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
+- Add `memUsage` metrics to `/debug/vars` endpoint
+  to measure memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
 - Add more options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) Enterprise databases.
   Users can now:
   restore data with a new retention policy into an existing database,
   override the duration of a retention policy while restoring, and
   specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
+- Ensure `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
 - Update to Flux [0.124.0](/influxdb/v2.0/reference/release-notes/flux/#v01240-2021-08-03). <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
 ### Bug fixes
@@ -38,10 +38,9 @@ menu:
 - Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
 - Ensure proper JSON log formatting. <!-- https://github.com/influxdata/plutonium/pull/3588 -->
 - Add logging for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
-- Do not generate entropy when purging short HH queues. <!-- FIX https://github.com/influxdata/plutonium/pull/3585 -->
-- Re-enable CAS for metadata. <!-- FIX https://github.com/influxdata/plutonium/pull/3593 -->
-- Fix Flux panic when querying precreated shard with no writes. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
-- HH rate limiting uses simpler logic. <!-- FIX https://github.com/influxdata/plutonium/pull/3597 -->
+- Do not generate entropy when purging short HH queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
+- Fix Flux panic when querying empty pre-created shards. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
+- HH rate limiting uses simpler logic. <!-- https://github.com/influxdata/plutonium/pull/3597 -->
 - Fix incorrect TLS settings for `influxd-ctl entropy` commands. <!-- https://github.com/influxdata/plutonium/pull/3601 -->
 - Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
 - Fix Flux query problems with large and datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
