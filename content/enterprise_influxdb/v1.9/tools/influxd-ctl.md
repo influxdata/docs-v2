@@ -955,7 +955,7 @@ The shard duration when restoring.
 
 ###### [ `-newshard <new_shard_name` ]
 
-Name of a new destination shard ID, if different from the old one.
+Name of a new destination shard ID, if the target shard differs from the shard ID in the backup.
 (Requires the `-shard` argument.)
 
 ###### [ `-rp <rp_name>` ]
