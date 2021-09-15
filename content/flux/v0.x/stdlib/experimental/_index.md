@@ -18,16 +18,13 @@ flux/v0.x/tags: [functions, experimental, package]
 The Flux Experimental package includes experimental functions that perform various tasks.
 
 {{% warn %}}
-### Use experimental functions at your own risk
-Experimental functions are subject to change and are **not recommended for production use**.
-At any time, experimental functions and packages may:
+### Experimental functions are subject to change
+Please note that experimental packages and functions and may: 
 
 - be moved or promoted to a permanent location
 - undergo API changes
 - stop working with no planned fixes
-- be removed without warning nor published explanation
-
-**By using experimental functions and packages, you agree to these risks.**
+- be removed without warning or explanation
 {{% /warn %}}
 
 ## Experimental functions

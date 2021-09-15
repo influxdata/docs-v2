@@ -164,7 +164,7 @@ adds a duration to a specified time and returns the resulting time.
 
 {{% warn %}}
 By using `experimental.addDuration()`, you accept the
-[risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/to/#use-experimental-functions-at-your-own-risk).
+[risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/to/#experimental-functions-are-subject-to-change).
 {{% /warn %}}
 
 ```js
@@ -184,7 +184,7 @@ subtracts a duration from a specified time and returns the resulting time.
 
 {{% warn %}}
 By using `experimental.subDuration()`, you accept the
-[risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/to/#use-experimental-functions-at-your-own-risk).
+[risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/to/#experimental-functions-are-subject-to-change).
 {{% /warn %}}
 
 ```js
