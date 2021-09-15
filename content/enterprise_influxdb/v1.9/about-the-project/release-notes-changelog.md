@@ -43,7 +43,9 @@ menu:
 - Avoid incorrect logging about "broken pipe" when entropy is detected. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
 - Return correct number of unexecuted statements when multi-statement query fails. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
 - HH rate limiting uses simpler logic. <!-- https://github.com/influxdata/plutonium/pull/3597 -->
-- Copy names from mmapped memory before closing iterator. <!-- Fix potential crash due to race between reading TSI index and TSI compaction --><!-- https://github.com/influxdata/influxdb/pull/22058 -->
+- Add delay (less than one second) to hinted handoff sends if `retry-rate-limit` is exceeded.
+- Fix potential crash due to race between reading TSI index and TSI compaction. <!-- https://github.com/influxdata/influxdb/pull/22058 -->
+
 
 ## v1.9.3 [2021-07-19]
 
