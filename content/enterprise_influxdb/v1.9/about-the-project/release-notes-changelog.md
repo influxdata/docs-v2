@@ -36,7 +36,7 @@ menu:
 - Prevent dropped writes with overlapping shards in certain edge cases. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
 - Add logging for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
 - Prevent lost writes during hinted handoff when purging short queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
-- Fix Flux panic when querying empty pre-created shards. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
+- Fix Flux panic that caused node to crash when querying empty pre-created shards. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
 - Fix incorrect TLS handling for `influxd-ctl entropy` commands. <!-- https://github.com/influxdata/plutonium/pull/3601 -->
 - Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
 - Fix Flux query problems with large datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
