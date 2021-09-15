@@ -19,16 +19,15 @@ menu:
   specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
 - Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
   to measure memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
-- Ensure `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
+- Allow specification and filtering of `SHOW TAG VALUES` by retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
 - Update Protocol Buffers library versions. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
 - Update to Flux [0.127.3](/influxdb/v2.0/reference/release-notes/flux/). <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
 ### Bug fixes
-- Require database authorization to see continuous queries. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
+- Require read authorization on a database to see continuous queries linked to that database. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
 - Fix permissions for systemd start script. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
 - Fix network error when restoring portable backups. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
-- Compact old or too-large log files in TSI index. <!-- https://github.com/influxdata/influxdb/pull/22044 -->
 - Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
 - Return an error instead of panic when Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
 - Add 1MB hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
@@ -36,19 +35,16 @@ menu:
 - Handle HTTPS errors during systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
 - Fix issue incorrectly reporting compaction queue of zero. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
 - Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
-- Ensure proper JSON log formatting. <!-- https://github.com/influxdata/plutonium/pull/3588 -->
 - Add logging for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
 - Prevent lost writes during hinted handoff when purging short queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
 - Fix Flux panic when querying empty pre-created shards. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
 - Fix incorrect TLS settings for `influxd-ctl entropy` commands. <!-- https://github.com/influxdata/plutonium/pull/3601 -->
 - Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
-- Fix Flux query problems with large and datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
+- Fix Flux query problems with large datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
 - Avoid broken pipe error by exhausting inputs. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
 - Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
-<!-- - HH rate limiting uses simpler logic. <\!-- https://github.com/influxdata/plutonium/pull/3597 -\-> -->
-<!-- - Derive package version either from tag or `git-describe`. <\!-- https://github.com/influxdata/plutonium/pull/3638 -\-> -->
-<!-- - Copy names from mmapped memory before closing iterator. <\!-- https://github.com/influxdata/influxdb/pull/22058 -\-> -->
-<!-- - build: Drop OSS release builds and extra Dockerfiles. <\!-- https://github.com/influxdata/plutonium/pull/3577 -\-> -->
+- HH rate limiting uses simpler logic. <!-- https://github.com/influxdata/plutonium/pull/3597 -->
+- Copy names from mmapped memory before closing iterator. <!-- Fix potential crash due to race between reading TSI index and TSI compaction --><!-- https://github.com/influxdata/influxdb/pull/22058 -->
 
 ## v1.9.3 [2021-07-19]
 
