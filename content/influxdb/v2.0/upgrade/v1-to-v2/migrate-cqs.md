@@ -372,7 +372,7 @@ The following resources are available and may be helpful when converting
 continuous queries to Flux tasks.
 
 ##### Documentation
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/)
+- [Get started with Flux](/{{< latest "flux" >}}//get-started/)
 - [Query data with Flux](/influxdb/v2.0/query-data/flux/)
 - [Common tasks](/influxdb/v2.0/process-data/common-tasks/#downsample-data-with-influxdb)
 

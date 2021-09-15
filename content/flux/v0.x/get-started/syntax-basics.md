@@ -6,6 +6,9 @@ menu:
   flux_0_x:
     name: Syntax basics
     parent: Get started
+aliases:
+  - /influxdb/v2.0/query-data/get-started/syntax-basics/
+  - /influxdb/cloud/query-data/get-started/syntax-basics/
 weight: 102
 ---
 

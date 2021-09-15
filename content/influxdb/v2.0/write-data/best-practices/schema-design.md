@@ -57,7 +57,7 @@ Use the following conventions when naming your tag and field keys:
 Not required, but simplifies writing queries because you won't have to wrap tag or field names in double quotes.
 See [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) to avoid.
 
-Also, if a tag or field name contains non-alphanumeric characters, you must use [bracket notation](/influxdb/v2.0/query-data/get-started/syntax-basics/#records) in Flux.
+Also, if a tag or field name contains non-alphanumeric characters, you must use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in Flux.
 
 ### Avoid the same name for a tag and a field
 
