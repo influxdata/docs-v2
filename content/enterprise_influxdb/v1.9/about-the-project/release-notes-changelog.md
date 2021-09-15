@@ -12,19 +12,19 @@ menu:
 ## v1.9.4 [TK]
 
 ### Features
-- Add `memUsage` metrics to `/debug/vars` endpoint
-  to measure memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
 - Add more options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) Enterprise databases.
   Users can now:
   restore data with a new retention policy into an existing database,
   override the duration of a retention policy while restoring, and
   specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
+- Add `memUsage` metrics to `/debug/vars` endpoint
+  to measure memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
 - Ensure `SHOW TAG VALUES` produces results from one specific retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
+- Update Protocol Buffers library versions. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
 - Update to Flux [0.124.0](/influxdb/v2.0/reference/release-notes/flux/#v01240-2021-08-03). <!-- https://github.com/influxdata/influxdb/pull/22102 -->
 
 ### Bug fixes
 - Require database authorization to see continuous queries. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
-- Update Protocol Buffers library versions. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
 - Fix permissions for systemd start script. <!-- https://github.com/influxdata/influxdb/pull/21988 -->
 - Fix network error when restoring portable backups. <!-- https://github.com/influxdata/influxdb/pull/21993 -->
 - Compact old or too-large log files in TSI index. <!-- https://github.com/influxdata/influxdb/pull/22044 -->
@@ -32,19 +32,19 @@ menu:
 - Return an error instead of panic when Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
 - Add 1MB hard limit on field size while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
 - Ensure correct JSON log formatting. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
-- Handle HTTPS errors in systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
-- Avoid compaction queue stats flutter. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
-- Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
+- Handle HTTPS errors during systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
+- Fix issue incorrectly reporting compaction queue of zero. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
 - Prevent dropped writes with overlapping shards. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
 - Ensure proper JSON log formatting. <!-- https://github.com/influxdata/plutonium/pull/3588 -->
 - Add logging for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
-- Do not generate entropy when purging short HH queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
+- Prevent lost writes during hinted handoff when purging short queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
 - Fix Flux panic when querying empty pre-created shards. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
-- HH rate limiting uses simpler logic. <!-- https://github.com/influxdata/plutonium/pull/3597 -->
 - Fix incorrect TLS settings for `influxd-ctl entropy` commands. <!-- https://github.com/influxdata/plutonium/pull/3601 -->
 - Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
 - Fix Flux query problems with large and datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
 - Avoid broken pipe error by exhausting inputs. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
+- Return correct count of `ErrNotExecuted`. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
+<!-- - HH rate limiting uses simpler logic. <\!-- https://github.com/influxdata/plutonium/pull/3597 -\-> -->
 <!-- - Derive package version either from tag or `git-describe`. <\!-- https://github.com/influxdata/plutonium/pull/3638 -\-> -->
 <!-- - Copy names from mmapped memory before closing iterator. <\!-- https://github.com/influxdata/influxdb/pull/22058 -\-> -->
 <!-- - build: Drop OSS release builds and extra Dockerfiles. <\!-- https://github.com/influxdata/plutonium/pull/3577 -\-> -->
