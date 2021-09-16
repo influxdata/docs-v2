@@ -4,7 +4,7 @@ description: >
   Learn how to work with different Flux data types.
 menu:
   flux_0_x:
-    name: Work with data types
+    name: Work with Flux types
 weight: 4
 ---
 

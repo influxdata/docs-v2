@@ -14,7 +14,7 @@ The `influx transpile` command was removed in **InfluxDB 2.0.5**.
 [Use InfluxQL to query InfluxDB 2.0](/influxdb/v2.0/query-data/influxql/).
 For information about manually converting InfluxQL queries to Flux, see:
 
-- [Get started with Flux](/{{< latest "flux" >}}//get-started/)
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/)
 - [Query data with Flux](/influxdb/v2.0/query-data/flux/)
 - [Migrate continuous queries to Flux tasks](/influxdb/%762.0/upgrade/v1-to-v2/migrate-cqs/)
   <!-- Used the hex code in the link above to prevent v2.0 -> cloud replacement -->

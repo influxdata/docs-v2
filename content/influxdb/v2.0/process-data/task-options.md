@@ -40,7 +40,7 @@ option task = {
 
 ## every
 
-The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in [duration literal](/{{< latest "flux" >}}}/spec/lexical-elements/#duration-literals)).
+The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in [duration literal](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals)).
 
 _**Data type:** Duration_
 

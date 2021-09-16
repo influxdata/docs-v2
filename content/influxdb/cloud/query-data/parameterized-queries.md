@@ -94,8 +94,8 @@ To use a parameterized query, do the following:
 ## Supported parameter data types
 
 Parameterized Flux queries support `int`, `float`, and `string` data types.
-To convert the supported data types into other [Flux basic data types](/{{< latest "flux" >}}}/data-types/basic/),
-use [Flux type conversion functions](/{{< latest "flux" >}}}/function-types/#type-conversions).
+To convert the supported data types into other [Flux basic data types](/{{< latest "flux" >}}/data-types/basic/),
+use [Flux type conversion functions](/{{< latest "flux" >}}/function-types/#type-conversions).
 
 For example, to define the `start` parameter of the `range()` function using a parameterized duration value:
 

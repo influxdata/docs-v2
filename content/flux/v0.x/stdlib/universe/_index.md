@@ -17,7 +17,7 @@ weight: 10
 flux/v0.x/tags: [built-in, functions, package]
 ---
 
-he Flux `universe` package includes all functions that do not require a package import statement and are usable without any extra setup.
+The Flux `universe` package includes all functions that do not require a package import statement and are usable without any extra setup.
 The "built-in" functions in the `universe` package provide a foundation for working with data using Flux.
 
 ## Options

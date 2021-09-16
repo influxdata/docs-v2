@@ -145,7 +145,7 @@ The prefix used for Prometheus metrics from the query controller has changed fro
 - Add `-p, --profilers` flag to [`influx query` command](/influxdb/v2.0/reference/cli/influx/query/)
   to enable [Flux profilers](/{{< latest "flux" >}}/stdlib/profiler/) on
   a query executed from the `influx` CLI.
-- Update InfluxDB OSS UI to match InfluxDB Cloud./influxdb/v2.0/write-data/load-data/
+- Update InfluxDB OSS UI to match InfluxDB Cloud.
 - Support disabling concurrency limits in the Flux controller.
 - Replace unique resource IDs (UI assets, backup shards) with slugs to reduce
   cardinality of telemetry data.

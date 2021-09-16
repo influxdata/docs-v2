@@ -103,7 +103,7 @@ The `ON` clause defines the database to query.
 In InfluxDB OSS 2.0, database and retention policy combinations are mapped to specific buckets
 (for more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)).
 
-Use the [`from()` function](/{{< latest "flux" >}}/stdlib/universe//from)
+Use the [`from()` function](/{{< latest "flux" >}}/stdlib/universe/from)
 to specify the bucket to query:
 
 ###### InfluxQL
@@ -256,7 +256,7 @@ The `WHERE` clause uses predicate logic to filter results based on fields, tags,
 Use the [`filter()` function](/{{< latest "flux" >}}/stdlib/universe/filter/)
 and Flux [comparison operators](/{{< latest "flux" >}}/spec/operators/#comparison-operators)
 to filter results based on fields and tags.
-Use the [`range()` function](/{{< latest "flux" >}}/stdlib/universe//range/) to filter results based on timestamps.
+Use the [`range()` function](/{{< latest "flux" >}}/stdlib/universe/range/) to filter results based on timestamps.
 
 ###### InfluxQL
 ```sql
@@ -275,7 +275,7 @@ WHERE "example-tag" = "foo" AND time > now() - 7d
 The InfluxQL `GROUP BY` clause groups data by specific tags or by time (typically to calculate an aggregate value for windows of time).
 
 ##### Group by tags
-Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe//group/)
+Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group/)
 to modify the [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key) and change how data is grouped.
 
 ###### InfluxQL
@@ -372,7 +372,7 @@ The following resources are available and may be helpful when converting
 continuous queries to Flux tasks.
 
 ##### Documentation
-- [Get started with Flux](/{{< latest "flux" >}}//get-started/)
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/)
 - [Query data with Flux](/influxdb/v2.0/query-data/flux/)
 - [Common tasks](/influxdb/v2.0/process-data/common-tasks/#downsample-data-with-influxdb)
 

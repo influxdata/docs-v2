@@ -63,6 +63,17 @@
     {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}
   {{ end }}
 
+  <!-- Flux links for InfluxDB docs -->
+  {{ $fluxWhitelist := slice "influxdb/v1.7" "influxdb/v1.8" "influxdb/v2.0" "influxdb/cloud" }}
+  {{ $productAndVersion := print $product "/" $currentVersion }}
+  {{ $latestFlux := $.Site.Data.products.flux.latest }}
+  {{ if in $fluxWhitelist $productAndVersion }}
+    <h4 class="flux">Flux</h4>
+    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/">Flux {{ $latestFlux }} Documentation</a></li>
+    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/get-started/">Get started with Flux</a></li>
+    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/stdlib/">Flux standard library</a></li>
+  {{ end }}
+
   <!-- Platform menu for 1.x docs -->
   {{ $platformWhitelist := `telegraf|chronograf|kapacitor|enterprise_influxdb|influxdb_1` }}
   {{ if gt (len (findRE $platformWhitelist $menuKey)) 0 }}
