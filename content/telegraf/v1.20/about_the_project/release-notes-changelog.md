@@ -9,17 +9,12 @@ menu:
     weight: 10
     parent: About the project
 ---
-
-## v.1.20 [2021-09-15]
+## v.1.20 [2021-09-16]
 
 - Update Go to 1.17.0
 - Update runc module to v1.0.0-rc95.
 - Migrate `dgrijalva/jwt-go` to `golang-jwt/jwt/v4`.
-- Support for RTU/ASCII over TCP in the Modbus Input Plugin.
-- HTTP Listener v2 Input Plugin now allows for multiple paths.
-- Add JSON, MessagePack, and Protocol-buffers format support to the XPath parser.
-- Add RFC 3164 support to Syslog input for BSD-style syslog messages.
-- Update thrift module to 0.14.2 and zipkin-go-opentracing 0.4.5.
+- Update `thrift` module to 0.14.2 and `zipkin-go-opentracing` 0.4.5.
 - Update `cloud.google.com/go/pubsub` module to 1.15.0.
 - Update `github.com/tinylib/msgp` module to 1.1.6.
 
@@ -28,34 +23,38 @@ menu:
 
 - MongoDB (`mongodb`): Change command based on server version.
 - SQL (`sql`): Make timeout apply to single query.
-inputs.systemd_units feat(plugins/inputs/systemd_units): add pattern support
+- SystemD Units (`systemd_units`): Add pattern support.
 - Cloudwatch (`cloudwatch`):
   - Pull metrics from multiple AWS CloudWatch namespaces.
   - Support AWS Web Identity Provider.
-- Modbus 
-#9570 inputs.modbus Add support for RTU over TCP
-#9488 inputs.procstat Support cgroup globs and include systemd unit children
-#9322 inputs.suricata Support alert event type
-#5464 inputs.prometheus Add ability to query Consul Service catalog
-#8641 outputs.prometheus_client Add Landing page
-#9529 inputs.http_listener_v2 Allows multiple paths and add path_tag
-#9395 Add cookie authentication to HTTP input and output plugins
-#8454 inputs.syslog Add RFC3164 support
-#9351 inputs.jenkins Add option to include nodes by name
-#9277 Add JSON, MessagePack, and Protocol-buffers format support to the XPath parser
-#9343 inputs.snmp_trap Improve MIB lookup performance
-#9342 outputs.newrelic Add option to override metric_url
-#9306 inputs.smart Add power mode status
+- Modbus (`modbus`): Add support for RTU over TCP.
+- Procstat (`procstat`): Support cgroup globs and include `systemd` unit children.
+- Suricata (`suricata`): Support alert event type.
+- Prometheus (`prometheus`): Add ability to query Consul Service catalog.
+- HTTP Listener V2 (`http_listener_v2`): Allow multiple paths and add path_tag.
+- HTTP (`http`): Add cookie authentication.
+- Syslog (`syslog`): Add RFC 3164 support for BSD-style syslog messages.
+- Jenkins (`jenkins`): Add option to include nodes by name.
+- SNMP Trap (`snmp_trap`): Improve MIB lookup performance.
+- Smart (`smart`): Add power mode status.
+- New Relic (`newrelic`): Add option to override `metric_url`.
+
 
 ### Output plugin updates
 
 - Dynatrace (`dynatrace`): Remove hardcoded int value.
 - InfluxDB v2 (`influxdb_v2`): Increase accepted retry-after header values.
 - SQL (`sql`): Add bool datatype.
+- Prometheus Client (`prometheus_client`): Add Landing page.
+- HTTP (`http`): Add cookie authentication.
 
 ### Serializer plugin updates
 
 - Prometheus (`prometheus`): Update timestamps and expiration time as new data arrives.
+
+### Parser plugin updates
+
+- XPath (`xpath`): Add JSON, MessagePack, and Protocol-buffers format support.
 
 ### New plugins
 
@@ -69,8 +68,6 @@ inputs.systemd_units feat(plugins/inputs/systemd_units): add pattern support
 #### Output
 - [OpenTelemetry](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/opentelemetry) - Contributed by @jacobmarble
 - [Azure Data Explorer](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/azure_data_explorer) - Contributed by @minwal
-
-
 
 ## v.1.19.3 [2021-08-19]
 
