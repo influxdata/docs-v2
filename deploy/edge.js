@@ -5,7 +5,7 @@ const path = require('path');
 const latestVersions = {
   'influxdb': 'v2.0',
   'influxdbv2': 'v2.0',
-  'telegraf': 'v1.19',
+  'telegraf': 'v1.20',
   'chronograf': 'v1.9',
   'kapacitor': 'v1.6',
   'enterprise': 'v1.9',
