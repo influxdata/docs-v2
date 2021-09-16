@@ -1,28 +1,25 @@
 ---
 title: Scrape Prometheus metrics
-list_title: Prometheus
 description: >
   Use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape) to
   scrape Prometheus-formatted metrics from an HTTP-accessible endpoint using Flux.
 menu:
   flux_0_x:
-    name: Prometheus
-    parent: Query data sources
-weight: 104
-list_code_example: |
-  ```js
-  import "experimental/prometheus"
-  
-  prometheus.scrape(url: "http://example.com/metrics")
-  ```
-draft: true
+    parent: Work with Prometheus
+weight: 101
+flux/v0.x/tags: [prometheus]
+related:
+  - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
+  - /flux/v0.x/stdlib/experimental/prometheus/scrape/
+  - /influxdb/cloud/process-data/manage-tasks/create-task/, Create an InfluxDB task
 ---
 
-To scrape Prometheus-formatted metrics from an HTTP-accessible endpoint using Flux:
+To scrape [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/) 
+from an HTTP-accessible endpoint using Flux:
 
 1. Import the [`experimental/prometheus` package](/flux/v0.x/stdlib/experimental/prometheus/).
-2. Use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape).
-   Use the **url** parameter to provide the URL to scrape metrics from.
+2. Use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape/) and
+   specify the **url** to scrape metrics from.
 
 {{< keep-url >}}
 ```js
@@ -31,7 +28,7 @@ import "experimental/prometheus"
 prometheus.scrape(url: "http://localhost:8086/metrics")
 ```
 
-## Results structure
+## Output structure
 `prometheus.scrape()` returns a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 with the following columns:
 
@@ -52,7 +49,7 @@ Some Flux functions require these columns to function properly.
 {{% /note %}}
 
 ### Example Prometheus query results
-The following are example Prometheus metrics scraped from the InfluxDB OSS 2.x `/metrics` endpoint:
+The following are example Prometheus metrics scraped from the **InfluxDB OSS 2.x `/metrics`** endpoint:
 
 ```sh
 # HELP go_goroutines Number of goroutines that currently exist.
@@ -94,11 +91,12 @@ When scraped by Flux, these metrics return the following stream of tables:
 | :------------------- | :----------- | :------------------------------ | ------: | :---------------------------- |
 | 2021-01-01T00:00:00Z | prometheus   | go_memstats_buck_hash_sys_bytes | 5259247 | http://localhost:8086/metrics |
 
-{{% note %}}
-#### Write Prometheus metrics to InfluxDB
+
+## Write Prometheus metrics to InfluxDB
 To write scraped Prometheus metrics to InfluxDB:
 
-1. Use `prometheus.scrape()` to scrape Prometheus metrics.
+1. Use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape)
+   to scrape Prometheus metrics.
 2. Use [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) to write the scraped
    metrics to InfluxDB.
 
@@ -115,5 +113,18 @@ prometheus.scrape(url: "http://example.com/metrics")
 ```
 
 To scrape Prometheus metrics and write them to InfluxDB at regular intervals,
-use the example above to [create an InfluxDB task](/influxdb/cloud/process-data/get-started/).
-{{% /note %}}
+scrape Prometheus metrics in an [InfluxDB task](/influxdb/cloud/process-data/get-started/).
+
+{{% expand "View example Prometheus scrape task" %}}
+```js
+import "experimental/prometheus"
+
+option task = {
+  name: "Scrape Prometheus metrics",
+  every: 1m
+}
+  
+prometheus.scrape(url: "http://example.com/metrics")
+  |> to(bucket: "example-bucket")
+```
+{{% /expand %}}

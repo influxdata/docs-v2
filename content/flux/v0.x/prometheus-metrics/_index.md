@@ -1,20 +1,16 @@
 ---
-title: Work with Prometheus metric types
+title: Work with Prometheus
 description: >
-  ...
-menu:
-  flux_0_x:
-    name: Work with Prometheus metrics
+  Flux provides tools for scraping raw [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/)
+  from an HTTP-accessible endpoint, then processing those raw metrics.
+menu: flux_0_x
 weight: 8
-cascade:
-  related:
-    - https://prometheus.io/docs/concepts/metric_types/, Prometheus metric types
-    - /flux/v0.x/query-data/prometheus/
 flux/v0.x/tags: [prometheus]
 ---
 
-
-- [Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/)
-- [Scrape Promethues metrics](/flux/v0.x/query-data/prometheus/)
+[Prometheus](https://prometheus.io/) is an open-source monitoring system designed
+to build simple and robust monitoring and alerting systems.
+Flux provides tools for scraping raw [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/)
+from an HTTP-accessible endpoint, then processing those raw metrics.
 
 {{< children >}}
