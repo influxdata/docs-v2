@@ -64,8 +64,8 @@ username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param
 
 | Flux data type                                | Snowflake data type |
 | :-------------------------------------------- | :------------------ |
-| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT               |
-| [int](/flux/v0.x/spec/types/#numeric-types)   | NUMBER              |
-| [string](/flux/v0.x/spec/types/#string-types) | TEXT                |
-| [bool](/flux/v0.x/spec/types/#boolean-types)  | BOOLEAN             |
-| [time](/flux/v0.x/spec/types/#time-types)     | TIMESTAMP_LTZ       |
+| [float](/flux/v0.x/data-types/basic/float/)   | FLOAT               |
+| [int](/flux/v0.x/data-types/basic/int/)       | NUMBER              |
+| [string](/flux/v0.x/data-types/basic/string/) | TEXT                |
+| [bool](/flux/v0.x/data-types/basic/bool/)     | BOOLEAN             |
+| [time](/flux/v0.x/data-types/basic/time/)     | TIMESTAMP_LTZ       |

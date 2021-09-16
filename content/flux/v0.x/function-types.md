@@ -188,7 +188,7 @@ The following testing functions are available:
 ---
 
 ### Date/time
-Flux date/time functions return or manipulate [time](/flux/v0.x/spec/types/#time-types)
+Flux date/time functions return or manipulate [time](/flux/v0.x/data-types/basic/time/)
 or [duration](/flux/v0.x/spec/types/#duration-types) values.
 
 {{< list-all-functions filters="date/time" >}}

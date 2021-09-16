@@ -78,12 +78,12 @@ Provide your authentication credentials using one of the following methods:
 ## Data type conversion
 `sql.from()` converts BigQuery data types to Flux data types.
 
-| BigQuery data type | Flux data type                                |
-| :----------------- | :-------------------------------------------- |
-| INTEGER            | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| FLOAT, NUMERIC     | [float](/flux/v0.x/spec/types/#numeric-types) |
-| TIMESTAMP          | [time](/flux/v0.x/spec/types/#time-types)     |
-| BOOLEAN            | [bool](/flux/v0.x/spec/types/#boolean-types)  |
+| BigQuery data type | Flux data type                              |
+| :----------------- | :------------------------------------------ |
+| INTEGER            | [int](/flux/v0.x/data-types/basic/int/)     |
+| FLOAT, NUMERIC     | [float](/flux/v0.x/data-types/basic/float/) |
+| TIMESTAMP          | [time](/flux/v0.x/data-types/basic/time/)   |
+| BOOLEAN            | [bool](/flux/v0.x/data-types/basic/bool/)   |
 
 {{% caption %}}
 All other BigQuery data types (including **DATE**, **TIME** and **DATETIME**)

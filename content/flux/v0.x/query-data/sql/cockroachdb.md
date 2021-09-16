@@ -59,13 +59,13 @@ to interact with CockroachDB.
 ## CockroachDB to Flux data type conversion
 `sql.from()` converts PostgreSQL and CockroachDB data types to Flux data types.
 
-| CockroachDB data type                                                        | Flux data type                                  |
-| :-------------------------------------------------------------------------- | :---------------------------------------------- |
-| INT, BIGINT, SMALLINT, TINYINT, INT2, INT4, INT8, SERIAL2, SERIAL4, SERIAL8 | [int](/flux/v0.x/spec/types/#numeric-types)     |
-| FLOAT4, FLOAT8                                                              | [float](/flux/v0.x/spec/types/#numeric-types)   |
-| DATE, TIME, TIMESTAMP                                                       | [time](/flux/v0.x/spec/types/#time-types)       |
-| BOOL                                                                        | [bool](/flux/v0.x/spec/types/#boolean-types)    |
-| TEXT                                                                        | [string](/flux/v0.x/spec/types/#string-types)   |
+| CockroachDB data type                                                       | Flux data type                                |
+| :-------------------------------------------------------------------------- | :-------------------------------------------- |
+| INT, BIGINT, SMALLINT, TINYINT, INT2, INT4, INT8, SERIAL2, SERIAL4, SERIAL8 | [int](/flux/v0.x/data-types/basic/int/)       |
+| FLOAT4, FLOAT8                                                              | [float](/flux/v0.x/data-types/basic/float/)   |
+| DATE, TIME, TIMESTAMP                                                       | [time](/flux/v0.x/data-types/basic/time/)     |
+| BOOL                                                                        | [bool](/flux/v0.x/data-types/basic/bool/)     |
+| TEXT                                                                        | [string](/flux/v0.x/data-types/basic/string/) |
 
 {{% caption %}}
 All other CockroachDB data types are converted to strings.

@@ -84,7 +84,7 @@ If the destination table doesn't exist, `sql.to()` attempts to create it.
 
 {{% note %}}
 #### Column data types
-Each `sql.to()` [driver](#drivers) converts [Flux basic data types](/flux/v0.x/data-types/basic/).
+Each `sql.to()` [driver](#drivers) converts [Flux basic data types](/flux/v0.x/data-types/basic/)
 to corresponding data types supported by the target database.
 _See the [database guides](#databases) for information about data type conversions._
 {{% /note %}}

@@ -53,13 +53,13 @@ postgres://username:password@localhost:5432/dbname?param=value
 ## PostgreSQL to Flux data type conversion
 `sql.from()` converts PostgreSQL data types to Flux data types.
 
-| PostgreSQL data type                                                        | Flux data type                                  |
-| :-------------------------------------------------------------------------- | :---------------------------------------------- |
-| INT, BIGINT, SMALLINT, TINYINT, INT2, INT4, INT8, SERIAL2, SERIAL4, SERIAL8 | [int](/flux/v0.x/spec/types/#numeric-types)     |
-| FLOAT4, FLOAT8                                                              | [float](/flux/v0.x/spec/types/#numeric-types)   |
-| DATE, TIME, TIMESTAMP                                                       | [time](/flux/v0.x/spec/types/#time-types)       |
-| BOOL                                                                        | [bool](/flux/v0.x/spec/types/#boolean-types)    |
-| TEXT                                                                        | [string](/flux/v0.x/spec/types/#string-types)   |
+| PostgreSQL data type                                                        | Flux data type                                |
+| :-------------------------------------------------------------------------- | :-------------------------------------------- |
+| INT, BIGINT, SMALLINT, TINYINT, INT2, INT4, INT8, SERIAL2, SERIAL4, SERIAL8 | [int](/flux/v0.x/data-types/basic/int/)       |
+| FLOAT4, FLOAT8                                                              | [float](/flux/v0.x/data-types/basic/float/)   |
+| DATE, TIME, TIMESTAMP                                                       | [time](/flux/v0.x/data-types/basic/time/)     |
+| BOOL                                                                        | [bool](/flux/v0.x/data-types/basic/bool/)     |
+| TEXT                                                                        | [string](/flux/v0.x/data-types/basic/string/) |
 
 {{% caption %}}
 All other PostgreSQL data types are converted to strings.
@@ -69,4 +69,4 @@ All other PostgreSQL data types are converted to strings.
 `sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 with no grouping (all rows in a single table).
 For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-tables).
+[Flux data model - Restructure tables](/flux/v0.x/get-started/data-model/#restructure-tables).

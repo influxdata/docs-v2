@@ -76,8 +76,8 @@ file:/path/to/example.db?param=value
 
 | Flux data type                                | SQLite data type |
 | :-------------------------------------------- | :--------------- |
-| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT            |
-| [int](/flux/v0.x/spec/types/#numeric-types)   | INT              |
-| [uint](/flux/v0.x/spec/types/#numeric-types)  | INT              |
-| [string](/flux/v0.x/spec/types/#string-types) | TEXT             |
-| [time](/flux/v0.x/spec/types/#time-types)     | DATETIME         |
+| [float](/flux/v0.x/data-types/basic/float/)   | FLOAT            |
+| [int](/flux/v0.x/data-types/basic/int/)       | INT              |
+| [uint](/flux/v0.x/data-types/basic/uint/)     | INT              |
+| [string](/flux/v0.x/data-types/basic/string/) | TEXT             |
+| [time](/flux/v0.x/data-types/basic/time/)     | DATETIME         |

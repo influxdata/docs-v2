@@ -87,8 +87,8 @@ Provide your authentication credentials using one of the following methods:
 
 | Flux data type                                | BigQuery data type |
 | :-------------------------------------------- | :----------------- |
-| [int](/flux/v0.x/spec/types/#numeric-types)   | INT64              |
-| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT64            |
-| [string](/flux/v0.x/spec/types/#string-types) | STRING             |
-| [bool](/flux/v0.x/spec/types/#boolean-types)  | BOOL               |
-| [time](/flux/v0.x/spec/types/#time-types)     | TIMESTAMP          |
+| [int](/flux/v0.x/data-types/basic/int/)       | INT64              |
+| [float](/flux/v0.x/data-types/basic/float/)   | FLOAT64            |
+| [string](/flux/v0.x/data-types/basic/string/) | STRING             |
+| [bool](/flux/v0.x/data-types/basic/bool/)     | BOOL               |
+| [time](/flux/v0.x/data-types/basic/time/)     | TIMESTAMP          |

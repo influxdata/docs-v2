@@ -55,12 +55,12 @@ username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param
 ## Snowflake to Flux data type conversion
 `sql.from()` converts Snowflake data types to Flux data types.
 
-| Snowflake data type         | Flux data type                                                                                                           |
-| :-------------------------- | :----------------------------------------------------------------------------------------------------------------------- |
-| FIXED, NUMBER               | [int](/flux/v0.x/spec/types/#numeric-types) or [float](/flux/v0.x/spec/types/#numeric-types) (depending on decimal size) |
-| REAL, FLOAT                 | [float](/flux/v0.x/spec/types/#numeric-types)                                                                            |
-| TIMESTAMP_TZ, TIMESTAMP_LTZ | [time](/flux/v0.x/spec/types/#time-types)                                                                                |
-| BOOLEAN                     | [bool](/flux/v0.x/spec/types/#boolean-types)                                                                             |
+| Snowflake data type         | Flux data type                                                                                                     |
+| :-------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| FIXED, NUMBER               | [int](/flux/v0.x/data-types/basic/int/) or [float](/flux/v0.x/data-types/basic/float/) (depending on decimal size) |
+| REAL, FLOAT                 | [float](/flux/v0.x/data-types/basic/float/)                                                                        |
+| TIMESTAMP_TZ, TIMESTAMP_LTZ | [time](/flux/v0.x/data-types/basic/time/)                                                                          |
+| BOOLEAN                     | [bool](/flux/v0.x/data-types/basic/bool/)                                                                          |
 
 {{% caption %}}
 All other Snowflake data types (including **TIMESTAMP_NTZ**, **DATE** and **TIME**)

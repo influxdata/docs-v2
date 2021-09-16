@@ -62,12 +62,12 @@ username:password@tcp(localhost:3306)/dbname?param=value
 
 | Flux data type                                | Percona data type |
 | :-------------------------------------------- | :---------------- |
-| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT             |
-| [int](/flux/v0.x/spec/types/#numeric-types)   | BIGINT            |
-| [uint](/flux/v0.x/spec/types/#numeric-types)  | BIGINT            |
-| [string](/flux/v0.x/spec/types/#string-types) | TEXT(16383)       |
-| [bool](/flux/v0.x/spec/types/#boolean-types)  | BOOL (TINYINT)    |
-| [time](/flux/v0.x/spec/types/#time-types)     | DATETIME          |
+| [float](/flux/v0.x/data-types/basic/float/)   | FLOAT             |
+| [int](/flux/v0.x/data-types/basic/int/)       | BIGINT            |
+| [uint](/flux/v0.x/data-types/basic/uint/)     | BIGINT            |
+| [string](/flux/v0.x/data-types/basic/string/) | TEXT(16383)       |
+| [bool](/flux/v0.x/data-types/basic/bool/)     | BOOL (TINYINT)    |
+| [time](/flux/v0.x/data-types/basic/time/)     | DATETIME          |
 
 {{% note %}}
 #### Percona BOOL types

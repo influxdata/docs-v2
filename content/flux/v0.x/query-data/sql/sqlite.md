@@ -69,11 +69,11 @@ file:/path/to/example.db?param=value
 
 | SQLite data type                        | Flux data type                                |
 | :-------------------------------------- | :-------------------------------------------- |
-| INT, INTEGER, BIGINT, SMALLINT, TINYINT | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| FLOAT, DOUBLE                           | [float](/flux/v0.x/spec/types/#numeric-types) |
-| DATETIME, TIMESTAMP, DATE               | [time](/flux/v0.x/spec/types/#time-types)     |
-| BOOL                                    | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| TEXT                                    | [string](/flux/v0.x/spec/types/#string-types) |
+| INT, INTEGER, BIGINT, SMALLINT, TINYINT | [int](/flux/v0.x/data-types/basic/int/)       |
+| FLOAT, DOUBLE                           | [float](/flux/v0.x/data-types/basic/float/)   |
+| DATETIME, TIMESTAMP, DATE               | [time](/flux/v0.x/data-types/basic/time/)     |
+| BOOL                                    | [int](/flux/v0.x/data-types/basic/int/)       |
+| TEXT                                    | [string](/flux/v0.x/data-types/basic/string/) |
 
 {{% caption %}}
 All other SQLite data types are converted to strings.

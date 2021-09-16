@@ -66,12 +66,12 @@ Use the following query parameters in your Athena S3 DSN:
 ## Athena to Flux data type conversion
 `sql.from()` converts Athena data types to Flux data types.
 
-| Athena data type                        | Flux data type                                |
-| :-------------------------------------- | :-------------------------------------------- |
-| tinyint, smallint, int, integer, bigint | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| float, double, real                     | [float](/flux/v0.x/spec/types/#numeric-types) |
-| timestamp with time zone                | [time](/flux/v0.x/spec/types/#time-types)     |
-| boolean                                 | [bool](/flux/v0.x/spec/types/#boolean-types)  |
+| Athena data type                        | Flux data type                              |
+| :-------------------------------------- | :------------------------------------------ |
+| tinyint, smallint, int, integer, bigint | [int](/flux/v0.x/data-types/basic/int/)     |
+| float, double, real                     | [float](/flux/v0.x/data-types/basic/float/) |
+| timestamp with time zone                | [time](/flux/v0.x/data-types/basic/time/)   |
+| boolean                                 | [bool](/flux/v0.x/data-types/basic/bool/)   |
 
 {{% caption %}}
 All other Athena data types (including **timestamp**, **date** and **time**)

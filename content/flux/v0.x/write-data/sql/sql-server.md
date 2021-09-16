@@ -111,9 +111,9 @@ azure auth=MSI
 
 | Flux data type                                | SQL Server data type |
 | :-------------------------------------------- | :------------------- |
-| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT                |
-| [int](/flux/v0.x/spec/types/#numeric-types)   | BIGINT               |
-| [uint](/flux/v0.x/spec/types/#numeric-types)  | BIGINT               |
-| [string](/flux/v0.x/spec/types/#string-types) | VARCHAR(MAX          |
-| [bool](/flux/v0.x/spec/types/#boolean-types)  | BIT                  |
-| [time](/flux/v0.x/spec/types/#time-types)     | DATETIMEOFFSET       |
+| [float](/flux/v0.x/data-types/basic/float/)   | FLOAT                |
+| [int](/flux/v0.x/data-types/basic/int/)       | BIGINT               |
+| [uint](/flux/v0.x/data-types/basic/uint/)     | BIGINT               |
+| [string](/flux/v0.x/data-types/basic/string/) | VARCHAR(MAX          |
+| [bool](/flux/v0.x/data-types/basic/bool/)     | BIT                  |
+| [time](/flux/v0.x/data-types/basic/time/)     | DATETIMEOFFSET       |

@@ -55,11 +55,11 @@ hdb://?KEY=<keyname>
 ## SAP HANA to Flux data type conversion
 `sql.from()` converts SAP HANA data types to Flux data types.
 
-| SAP HANA data type                 | Flux data type                                |
-| :--------------------------------- | :-------------------------------------------- |
-| TINYINT, SMALLINT, INTEGER, BIGINT | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| REAL, DOUBLE, DECIMAL              | [float](/flux/v0.x/spec/types/#numeric-types) |
-| {{< req text="\*" color="magenta" >}} TIMESTAMP         | [time](/flux/v0.x/spec/types/#time-types)     |
+| SAP HANA data type                              | Flux data type                              |
+| :---------------------------------------------- | :------------------------------------------ |
+| TINYINT, SMALLINT, INTEGER, BIGINT              | [int](/flux/v0.x/data-types/basic/int/)     |
+| REAL, DOUBLE, DECIMAL                           | [float](/flux/v0.x/data-types/basic/float/) |
+| {{< req text="\*" color="magenta" >}} TIMESTAMP | [time](/flux/v0.x/data-types/basic/time/)   |
 
 {{% caption %}}
 All other SAP HANA data types are converted to strings.  

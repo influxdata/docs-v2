@@ -55,10 +55,10 @@ username:password@tcp(localhost:3306)/dbname?param=value
 
 | MariaDB data type              | Flux data type                                |
 | :----------------------------- | :-------------------------------------------- |
-| INT, BIGINT, SMALLINT, TINYINT | [int](/flux/v0.x/spec/types/#numeric-types)   |
-| FLOAT, DOUBLE                  | [float](/flux/v0.x/spec/types/#numeric-types) |
-| DATETIME                       | [time](/flux/v0.x/spec/types/#time-types)     |
-| STRING                         | [string](/flux/v0.x/spec/types/#string-types) |
+| INT, BIGINT, SMALLINT, TINYINT | [int](/flux/v0.x/data-types/basic/int/)       |
+| FLOAT, DOUBLE                  | [float](/flux/v0.x/data-types/basic/float/)   |
+| DATETIME                       | [time](/flux/v0.x/data-types/basic/time/)     |
+| STRING                         | [string](/flux/v0.x/data-types/basic/string/) |
 
 {{% caption %}}
 All other MariaDB data types are converted to strings.

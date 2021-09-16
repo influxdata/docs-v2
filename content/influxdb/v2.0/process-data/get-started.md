@@ -12,6 +12,9 @@ menu:
     name: Get started with tasks
     parent: Process data
 weight: 101
+related:
+  - /influxdb/v2.0/process-data/manage-tasks/
+  - /influxdb/v2.0/process-data/manage-tasks/create-task/
 ---
 
 An **InfluxDB task** is a scheduled Flux script that takes a stream of input data, modifies or analyzes

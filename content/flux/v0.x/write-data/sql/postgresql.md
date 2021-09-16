@@ -62,9 +62,9 @@ postgres://username:password@localhost:5432/dbname?param=value
 
 | Flux data type                                | PostgreSQL data type |
 | :-------------------------------------------- | :------------------- |
-| [float](/flux/v0.x/spec/types/#numeric-types) | FLOAT                |
-| [int](/flux/v0.x/spec/types/#numeric-types)   | BIGINT               |
-| [uint](/flux/v0.x/spec/types/#numeric-types)  | BIGINT               |
-| [string](/flux/v0.x/spec/types/#string-types) | TEXT                 |
-| [bool](/flux/v0.x/spec/types/#boolean-types)  | BOOL                 |
-| [time](/flux/v0.x/spec/types/#time-types)     | TIMESTAMP            |
+| [float](/flux/v0.x/data-types/basic/float/)   | FLOAT                |
+| [int](/flux/v0.x/data-types/basic/int/)       | BIGINT               |
+| [uint](/flux/v0.x/data-types/basic/uint/)     | BIGINT               |
+| [string](/flux/v0.x/data-types/basic/string/) | TEXT                 |
+| [bool](/flux/v0.x/data-types/basic/bool/)     | BOOL                 |
+| [time](/flux/v0.x/data-types/basic/time/)     | TIMESTAMP            |

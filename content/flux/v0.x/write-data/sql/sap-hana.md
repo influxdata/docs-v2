@@ -64,11 +64,11 @@ hdb://?KEY=<keyname>
 
 | Flux data type                                | SAP HANA data type                              |
 | :-------------------------------------------- | :---------------------------------------------- |
-| [float](/flux/v0.x/spec/types/#numeric-types) | DOUBLE                                          |
-| [int](/flux/v0.x/spec/types/#numeric-types)   | BIGINT                                          |
-| [string](/flux/v0.x/spec/types/#string-types) | NVARCHAR(5000)                                  |
-| [bool](/flux/v0.x/spec/types/#boolean-types)  | BOOLEAN                                         |
-| [time](/flux/v0.x/spec/types/#time-types)     | {{< req text="\*" color="magenta" >}} TIMESTAMP |
+| [float](/flux/v0.x/data-types/basic/float/)   | DOUBLE                                          |
+| [int](/flux/v0.x/data-types/basic/int/)       | BIGINT                                          |
+| [string](/flux/v0.x/data-types/basic/string/) | NVARCHAR(5000)                                  |
+| [bool](/flux/v0.x/data-types/basic/bool/)     | BOOLEAN                                         |
+| [time](/flux/v0.x/data-types/basic/time/)     | {{< req text="\*" color="magenta" >}} TIMESTAMP |
 
 {{< req text="\*" color="magenta" >}} The SAP HANA **TIMESTAMP** data type does
 not store time zone information and

@@ -107,12 +107,12 @@ azure auth=MSI
 ## SQL Server to Flux data type conversion
 `sql.from()` converts SQL Server data types to Flux data types.
 
-| SQL Server data type                    | Flux data type                                  |
-| :-------------------------------------- | :---------------------------------------------- |
-| INT, TINYINT, SMALLINT, BIGINT          | [int](/flux/v0.x/spec/types/#numeric-types)     |
-| DECIMAL, REAL, FLOAT, MONEY, SMALLMONEY | [float](/flux/v0.x/spec/types/#numeric-types)   |
-| DATETIMEOFFSET                          | [time](/flux/v0.x/spec/types/#time-types)       |
-| BIT                                     | [bool](/flux/v0.x/spec/types/#boolean-types)    |
+| SQL Server data type                    | Flux data type                              |
+| :-------------------------------------- | :------------------------------------------ |
+| INT, TINYINT, SMALLINT, BIGINT          | [int](/flux/v0.x/data-types/basic/int/)     |
+| DECIMAL, REAL, FLOAT, MONEY, SMALLMONEY | [float](/flux/v0.x/data-types/basic/float/) |
+| DATETIMEOFFSET                          | [time](/flux/v0.x/data-types/basic/time/)   |
+| BIT                                     | [bool](/flux/v0.x/data-types/basic/bool/)   |
 
 {{% caption %}}
 All other SQL Server data types (including other [date/time types](https://docs.microsoft.com/sql/t-sql/functions/date-and-time-data-types-and-functions-transact-sql?view=sql-server-ver15#DateandTimeDataTypes))

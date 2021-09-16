@@ -79,7 +79,7 @@ sql.from(
 `sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
 with no grouping (all rows in a single table).
 _For more information about table grouping, see
-[Flux data model - Restructure data](/flux/v0.x/get-started/data-model/#restructure-tables)._
+[Flux data model - Restructure tables](/flux/v0.x/get-started/data-model/#restructure-tables)._
 
 {{% note %}}
 #### Column data types
