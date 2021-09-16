@@ -2,13 +2,13 @@
  title: About the Telegraf project
 description: Release notes, contribution guidelines, CLA, and license for the Telegraf project.
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
      name: About the project
      weight: 10
 ---
 
 ## Telegraf release notes
-View the [Telegraf release notes](/telegraf/v1.19/about_the_project/release-notes-changelog/)
+View the [Telegraf release notes](/telegraf/v1.20/about_the_project/release-notes-changelog/)
 for important information about new versions of Telegraf.
 
 ## Contributions and licenses

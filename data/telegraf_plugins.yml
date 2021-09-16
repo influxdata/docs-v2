@@ -772,7 +772,7 @@ input:
     description: |
       The Internet Speed Monitor plugin collects data about the internet speed on the system.
     introduced: 1.20.0
-    tags: [linux, macos, windows, systems]
+    tags: [linux, macos, windows, systems, IoT, networking]
 
   - name: Interrupts
     id: interrupts
@@ -1011,7 +1011,7 @@ input:
     description: |
       The mdstat plugin gathers statistics about any Linux MD RAID arrays configured on the host by reading /proc/mdstat.
     introduced: 1.20.0
-    tags: [linux, macos, windows, networking]
+    tags: [linux, macos, windows, systems]
 
   - name: Mem
     id: mem
@@ -1551,7 +1551,7 @@ input:
     description: |
       The ROCm System Management Interface plugin pulls statistics from NVIDIA GPU stats including memory, usage, and temperature.
     introduced: 1.20.0
-    tags: [linux, macos, windows]
+    tags: [linux, macos, windows, systems]
 
   - name: Salesforce
     id: salesforce
@@ -2017,7 +2017,7 @@ output:
     description: |
       The Azure Data Explorer output plugin writes metrics to [Azure Data Explorer](https://azure.microsoft.com/en-au/services/data-explorer/).
     introduced: 1.20.0
-    tags: [linux, macos, windows]
+    tags: [linux, macos, windows, cloud, datastores]
 
   - name: BigQuery
     id: bigquery
@@ -2242,7 +2242,7 @@ output:
     description: |
       The OpenTelemetry plugin sends metrics to [OpenTelemetry](https://opentelemetry.io/) servers and agents via gRPC.
     introduced: 1.20.0
-    tags: [linux, macos, windows]
+    tags: [linux, macos, windows, logging, messaging]
 
   - name: OpenTSDB
     id: opentsdb

@@ -2,7 +2,7 @@
 title: XML input data format
 description: Use the XML input data format to parse XML data into Telegraf metrics.
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
     name: XML
     weight: 110
     parent: Input data formats

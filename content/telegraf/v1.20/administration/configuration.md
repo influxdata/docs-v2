@@ -2,7 +2,7 @@
 title: Configuring Telegraf
 description: Overview of the Telegraf configuration file, enabling plugins, and setting environment variables.
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
     name: Configuring
     weight: 20
     parent: Administration

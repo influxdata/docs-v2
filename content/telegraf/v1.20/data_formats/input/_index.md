@@ -2,7 +2,7 @@
 title: Telegraf input data formats
 description: Telegraf supports parsing input data formats into Telegraf metrics.
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
     name: Input data formats
     weight: 1
     parent: Data formats

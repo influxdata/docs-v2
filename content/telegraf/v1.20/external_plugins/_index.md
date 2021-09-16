@@ -2,7 +2,7 @@
 title: External plugins
 description:
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
      name: External plugins
      weight: 50
 ---

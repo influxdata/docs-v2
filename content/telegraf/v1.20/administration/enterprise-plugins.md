@@ -2,7 +2,7 @@
 title: Recommended Telegraf plugins for Enterprise users
 
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
     name: Recommended plugins for Enterprise users
     weight: 20
     parent: Administration

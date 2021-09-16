@@ -2,7 +2,7 @@
 title: Key Telegraf concepts
 description: Includes information on supported input data formats, output data formats, aggregator and processor plugins, and includes a glossary of important terms.
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
      name: Concepts
      weight: 30
 ---

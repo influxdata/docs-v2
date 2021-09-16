@@ -2,7 +2,7 @@
 title: Write an external plugin
 description:
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
      name: Write an external plugin
      weight: 50
      parent: External plugins

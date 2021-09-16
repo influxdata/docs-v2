@@ -2,7 +2,7 @@
 title: Install Telegraf
 description: Install Telegraf on your operating system.
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
     name: Install
     weight: 20
     parent: Introduction
@@ -16,7 +16,7 @@ Installation of the Telegraf package may require `root` or administrator privile
 
 ### Networking
 
-Telegraf offers multiple service [input plugins](/telegraf/v1.19/plugins/inputs/) that may
+Telegraf offers multiple service [input plugins](/telegraf/v1.20/plugins/inputs/) that may
 require custom ports.
 Modify port mappings through the configuration file (`telegraf.conf`).
 
@@ -166,7 +166,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.19/administration/configuration/).
+[configuration documentation](/telegraf/v1.20/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN RedHat & CentOS ---------->
 {{% tab-content %}}
@@ -217,7 +217,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.19/administration/configuration/).
+[configuration documentation](/telegraf/v1.20/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN SLES & openSUSE ---------->
 {{% tab-content %}}
@@ -248,7 +248,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.19/administration/configuration/).
+[configuration documentation](/telegraf/v1.20/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN FreeBSD/PC-BSD ---------->
 {{% tab-content %}}
@@ -279,7 +279,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.19/administration/configuration/).
+[configuration documentation](/telegraf/v1.20/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN macOS ---------->
 {{% tab-content %}}
@@ -323,7 +323,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.19/administration/configuration/).
+[configuration documentation](/telegraf/v1.20/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN Windows ---------->
 {{% tab-content %}}
@@ -347,7 +347,7 @@ Compare the output from this command to the hash listed on the downloads page to
 ### Configure an input plugin
 
 The Telegraf ZIP archive contains a default configuration file (`telegraf.conf`).
-In this file, the input plugin for capturing basic [Windows system metrics](/telegraf/v1.19/plugins/#win_perf_counters) is already activated.
+In this file, the input plugin for capturing basic [Windows system metrics](/telegraf/v1.20/plugins/#win_perf_counters) is already activated.
 With this plugin, Telegraf monitors the following defined Windows Operating System objects:
 
 - Processor
@@ -359,7 +359,7 @@ With this plugin, Telegraf monitors the following defined Windows Operating Syst
 - Paging File
 
 Telegraf can capture metrics and log information from a wide variety of sources.
-For more advanced configuration details, see the [configuration documentation](/telegraf/v1.19/administration/configuration/).
+For more advanced configuration details, see the [configuration documentation](/telegraf/v1.20/administration/configuration/).
 
 ### Configure an output plugin
 
@@ -367,8 +367,8 @@ Before you start the Telegraf agent, configure an output plugin to send data to 
 Choose the appropriate plugin based on the version of InfluxDB you are using.
 
 The `telegraf.conf` file included in the ZIP archive contains sections for configuring
-both the [InfluxDB v1](/telegraf/v1.19/plugins/#influxdb) and
-[InfluxDB v2](/telegraf/v1.19/plugins/#influxdb_v2) output plugins.
+both the [InfluxDB v1](/telegraf/v1.20/plugins/#influxdb) and
+[InfluxDB v2](/telegraf/v1.20/plugins/#influxdb_v2) output plugins.
 
 #### Writing data to InfluxDB 1.x
 
@@ -393,7 +393,7 @@ Once configured, run the following commands in PowerShell to begin sending metri
 ```
 ## Install Telegraf as a Windows Service
 
-See [Running Telegraf as a Windows service](/telegraf/v1.19/administration/windows_service).
+See [Running Telegraf as a Windows service](/telegraf/v1.20/administration/windows_service).
 
 {{< /tab-content >}}
 {{< /tabs-wrapper >}}

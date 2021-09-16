@@ -2,7 +2,7 @@
 title: Use the `execd` shim
 description:
 menu:
-  telegraf_1_19:
+  telegraf_1_20:
      name: Use the `execd` shim
      weight: 50
      parent: External plugins

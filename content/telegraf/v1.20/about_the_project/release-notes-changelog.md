@@ -13,10 +13,49 @@ menu:
 ## v.1.20 [2021-09-15]
 
 - Update Go to 1.17.0
+- Update runc module to v1.0.0-rc95.
+- Migrate `dgrijalva/jwt-go` to `golang-jwt/jwt/v4`.
 - Support for RTU/ASCII over TCP in the Modbus Input Plugin.
 - HTTP Listener v2 Input Plugin now allows for multiple paths.
 - Add JSON, MessagePack, and Protocol-buffers format support to the XPath parser.
 - Add RFC 3164 support to Syslog input for BSD-style syslog messages.
+- Update thrift module to 0.14.2 and zipkin-go-opentracing 0.4.5.
+- Update `cloud.google.com/go/pubsub` module to 1.15.0.
+- Update `github.com/tinylib/msgp` module to 1.1.6.
+
+
+### Input plugin updates
+
+- MongoDB (`mongodb`): Change command based on server version.
+- SQL (`sql`): Make timeout apply to single query.
+inputs.systemd_units feat(plugins/inputs/systemd_units): add pattern support
+- Cloudwatch (`cloudwatch`):
+  - Pull metrics from multiple AWS CloudWatch namespaces.
+  - Support AWS Web Identity Provider.
+- Modbus 
+#9570 inputs.modbus Add support for RTU over TCP
+#9488 inputs.procstat Support cgroup globs and include systemd unit children
+#9322 inputs.suricata Support alert event type
+#5464 inputs.prometheus Add ability to query Consul Service catalog
+#8641 outputs.prometheus_client Add Landing page
+#9529 inputs.http_listener_v2 Allows multiple paths and add path_tag
+#9395 Add cookie authentication to HTTP input and output plugins
+#8454 inputs.syslog Add RFC3164 support
+#9351 inputs.jenkins Add option to include nodes by name
+#9277 Add JSON, MessagePack, and Protocol-buffers format support to the XPath parser
+#9343 inputs.snmp_trap Improve MIB lookup performance
+#9342 outputs.newrelic Add option to override metric_url
+#9306 inputs.smart Add power mode status
+
+### Output plugin updates
+
+- Dynatrace (`dynatrace`): Remove hardcoded int value.
+- InfluxDB v2 (`influxdb_v2`): Increase accepted retry-after header values.
+- SQL (`sql`): Add bool datatype.
+
+### Serializer plugin updates
+
+- Prometheus (`prometheus`): Update timestamps and expiration time as new data arrives.
 
 ### New plugins
 
