@@ -21,6 +21,7 @@ introduced: 0.107.0
 
 The `experimental.sum()` function computes the sum of non-null values in the `_value`
 column for each input table.
+_`experimental.sum()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 import "experimental"

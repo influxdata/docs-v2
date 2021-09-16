@@ -21,6 +21,7 @@ introduced: 0.36.0
 
 The `mode()` function computes the mode or value that occurs most often in a
 specified column in the input table.
+_`mode()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 mode(column: "_value")

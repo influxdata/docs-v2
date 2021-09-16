@@ -25,7 +25,6 @@ A **duration** type represents a length of time with nanosecond precision.
 
 **Type name**: `duration`
 
-###### On this page:
 - [Duration syntax](#duration-syntax)
 - [Convert data types to durations](#convert-data-types-to-durations)
 - [Operate on durations](#operate-on-durations)

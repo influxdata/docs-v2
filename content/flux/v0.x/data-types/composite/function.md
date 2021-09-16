@@ -28,6 +28,9 @@ list_code_example: |
 
 A **function** type is a set of parameters that perform an operation.
 
+- [Function syntax](#function-syntax)
+- [Define functions](#define-functions)
+
 ## Function syntax
 A Flux **function** literal contains the following:
 

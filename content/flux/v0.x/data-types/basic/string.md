@@ -32,7 +32,6 @@ Strings are immutable and cannot be modified once created.
 
 **Type name**: `string`
 
-###### On this page:
 - [String syntax](#string-syntax)
 - [Convert data types to strings](#convert-data-types-to-strings)
 - [Operate on strings](#operate-on-strings)

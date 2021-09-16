@@ -18,6 +18,7 @@ introduced: 0.7.0
 ---
 
 The `min()` function selects record with the lowest `_value` from the input table.
+_`min()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 min(column: "_value")

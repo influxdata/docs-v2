@@ -27,7 +27,6 @@ A **float** type represents a [IEEE-754](https://standards.ieee.org/standard/754
 
 **Type name:** `float`
 
-###### On this page:
 - [Float syntax](#float-syntax)
 - [Convert data types to floats](#convert-data-types-to-floats)
 - [Operate on floats](#operate-on-floats)

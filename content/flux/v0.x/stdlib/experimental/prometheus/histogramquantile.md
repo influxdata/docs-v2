@@ -17,6 +17,7 @@ introduced: 0.51.0
 
 The `prometheus.histogramQuantile()` function calculates quantiles on a set of values
 assuming the given histogram data is scraped or read from a Prometheus data source.
+_`prometheus.histogramQuantile()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 import "experimental/prometheus"

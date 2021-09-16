@@ -16,7 +16,8 @@ introduced: 0.7.0
 ---
 
 The `highestMax()` function selects the maximum record from each table in the input stream and returns the top `n` records.
-It outputs a single aggregated table containing `n` records.
+The function outputs a single aggregated table containing `n` records.
+_`highestMax()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 highestMax(

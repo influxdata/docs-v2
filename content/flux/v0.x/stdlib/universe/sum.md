@@ -19,6 +19,7 @@ introduced: 0.7.0
 ---
 
 The `sum()` function computes the sum of non-null records in a specified column.
+_`sum()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 sum(column: "_value")

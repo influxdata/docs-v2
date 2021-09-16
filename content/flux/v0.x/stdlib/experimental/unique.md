@@ -20,6 +20,7 @@ introduced: 0.112.0
 The `experimental.unique()` function returns all records containing unique
 values in the `_value` column.
 `null` is considered a unique value.
+_`experimental.unique()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 import "experimental"

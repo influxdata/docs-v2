@@ -19,6 +19,7 @@ introduced: 0.7.0
 ---
 
 The `stddev()` function computes the standard deviation of non-null records in a specified column.
+_`stddev()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 _**Output data type:** Float_
 

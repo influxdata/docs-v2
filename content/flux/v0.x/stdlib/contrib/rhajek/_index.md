@@ -1,6 +1,6 @@
 ---
 title: Packages contributed by rhajek
-list_title: rhajek
+list_title: rhajek package
 description: >
   The `rhajek` package contains functions and packages contributed by
   [@rhajek](https://github.com/rhajek).

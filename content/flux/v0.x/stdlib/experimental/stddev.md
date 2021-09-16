@@ -20,6 +20,7 @@ introduced: 0.107.0
 
 The `experimental.stddev()` function computes the standard deviation of non-null
 values in the `_value` column for each input table.
+_`experimental.stddev()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 import "experimental"

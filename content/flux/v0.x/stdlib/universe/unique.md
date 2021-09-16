@@ -17,6 +17,7 @@ introduced: 0.7.0
 
 The `unique()` function returns all records containing unique values in a specified column.
 Group keys, record columns, and values are **not** modified.
+_`unique()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 unique(column: "_value")

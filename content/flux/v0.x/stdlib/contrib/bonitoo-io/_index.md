@@ -1,6 +1,6 @@
 ---
 title: Packages contributed by bonitoo-io
-list_title: bonitoo-io
+list_title: bonitoo-io package
 description: >
   The `bonitoo-io` package contains functions and packages contributed by
   [@bonitoo-io](https://github.com/bonitoo-io).

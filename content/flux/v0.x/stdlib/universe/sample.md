@@ -18,6 +18,7 @@ introduced: 0.7.0
 ---
 
 The `sample()` function selects a subset of the records from the input table.
+_`sample()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 sample(n:5, pos: -1)

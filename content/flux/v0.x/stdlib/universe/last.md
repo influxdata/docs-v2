@@ -19,6 +19,7 @@ introduced: 0.7.0
 ---
 
 The `last()` function selects the last non-null record from an input table.
+_`last()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 last(column: "_value")

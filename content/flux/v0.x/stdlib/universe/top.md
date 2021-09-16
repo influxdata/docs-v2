@@ -16,6 +16,7 @@ introduced: 0.7.0
 ---
 
 The `top()` function sorts each input table by columns and keeps only the top `n` records.
+_`top()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 top(n:10, columns: ["_value"])

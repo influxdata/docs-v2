@@ -26,6 +26,10 @@ list_code_example: |
 
 An **array** type is an ordered sequence of values of the same type.
 
+- [Array syntax](#array-syntax)
+- [Reference values in an array](#reference-values-in-an-array)
+- [Operate on arrays](#operate-on-arrays)
+
 ## Array syntax
 An array literal contains a sequence of values (also known as elements) enclosed
 in square brackets (`[]`).

@@ -24,6 +24,9 @@ The `median()` function is a special application of the [`quantile()` function](
 that returns the median `_value` of an input table or all non-null records in the input table
 with values that fall within the `0.5` quantile (50th percentile) depending on the [method](#method) used.
 
+_`median()` behaves like an [aggregate function](/flux/v0.x/function-types/#aggregates)
+or a [selector function](/flux/v0.x/function-types/#selectors) depending on
+the [`method`](#method) used._
 
 ```js
 median(

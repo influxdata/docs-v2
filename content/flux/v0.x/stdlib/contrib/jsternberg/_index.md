@@ -1,6 +1,6 @@
 ---
 title: Packages contributed by jsternberg
-list_title: jsternberg
+list_title: jsternberg package
 description: >
   The `jsternberg` package contains functions and packages contributed by [@jsternberg](https://github.com/jsternberg).
 menu:

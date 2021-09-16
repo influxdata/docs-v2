@@ -20,6 +20,7 @@ introduced: 0.112.0
 
 The `experimental.max()` function returns the record with the highest value in the
 `_value` column for each input table.
+_`experimental.max()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 import "experimental"

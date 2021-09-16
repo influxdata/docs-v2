@@ -22,6 +22,7 @@ The `experimental.integral()` function computes the area under the curve per
 [`unit`](#unit) of time of subsequent non-null records.
 The curve is defined using `_time` as the domain and record values as the range.
 **Input tables must have `_time` and `_value` columns.**
+_`integral()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 integral(

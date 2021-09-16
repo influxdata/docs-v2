@@ -21,6 +21,7 @@ introduced: 0.112.0
 
 The `experimental.last()` function returns the last record with a non-null
 value in the `_value` column.
+_`experimental.last()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 import "experimental"

@@ -21,6 +21,7 @@ introduced: 0.7.0
 The `integral()` function computes the area under the curve per [`unit`](#unit) of time of subsequent non-null records.
 `integral()` requires `_start` and `_stop` columns that are part of the [group key](/flux/v0.x/get-started/data-model/#group-key).
 The curve is defined using `_time` as the domain and record values as the range.
+_`integral()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 _**Output data type:** Float_
 

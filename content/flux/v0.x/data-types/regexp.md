@@ -18,7 +18,6 @@ A **regular expression** type represents a regular expression pattern.
 
 **Type name**: `regexp`
 
-###### On this page
 - [Regular expression syntax](#regular-expression-syntax)
 - [Use regular expression flags](#use-regular-expression-flags)
 - [Use regular expressions in predicate expressions](#use-regular-expressions-in-predicate-expressions)

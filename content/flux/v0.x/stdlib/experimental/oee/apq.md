@@ -17,6 +17,7 @@ weight: 401
 The `oee.APQ()` function computes availability, performance, quality (APQ)
 and overall equipment effectiveness (OEE) in producing parts.
 Provide the required input schema to ensure this function successfully calculates APQ and OEE.
+_`oee.APQ()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 import "experimental/oee"

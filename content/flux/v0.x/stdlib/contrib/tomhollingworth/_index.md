@@ -1,6 +1,6 @@
 ---
 title: Packages contributed by tomhollingworth
-list_title: tomhollingworth
+list_title: tomhollingworth package
 description: >
   The `tomhollingworth` package contains functions and packages contributed by
   [@tomhollingworth](https://github.com/tomhollingworth).

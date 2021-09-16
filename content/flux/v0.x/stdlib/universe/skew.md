@@ -18,6 +18,7 @@ introduced: 0.7.0
 ---
 
 The `skew()` function outputs the skew of non-null records as a float.
+_`skew()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 _**Output data type:** Float_
 

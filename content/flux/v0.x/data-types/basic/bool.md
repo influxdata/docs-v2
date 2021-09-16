@@ -24,7 +24,6 @@ A **boolean** type represents a truth value (`true` or `false`).
 
 **Type name**: `bool`
 
-###### On this page:
 - [Boolean syntax](#boolean-syntax)
 - [Convert data types to booleans](#convert-data-types-to-booleans)
 - [Negate boolean values](#negate-boolean-values)

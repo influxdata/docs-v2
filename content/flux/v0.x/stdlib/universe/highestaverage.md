@@ -16,7 +16,8 @@ introduced: 0.7.0
 ---
 
 The `highestAverage()` function calculates the average of each table in the input stream returns the top `n` records.
-It outputs a single aggregated table containing `n` records.
+The function outputs a single aggregated table containing `n` records.
+_`highestAverage()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 highestAverage(

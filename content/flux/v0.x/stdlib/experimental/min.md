@@ -20,6 +20,7 @@ introduced: 0.112.0
 
 The `experimental.min()` function returns the record with the lowest value in
 the `_value` column for each input table.
+_`experimental.min()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 import "experimental"

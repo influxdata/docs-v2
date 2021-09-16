@@ -19,6 +19,7 @@ introduced: 0.7.0
 ---
 
 The `mean()` function computes the mean or average of non-null records in the input table.
+_`mean()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 _**Output data type:** Float_
 

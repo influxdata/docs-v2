@@ -25,7 +25,6 @@ A **time** type represents a single point in time with nanosecond precision.
 
 **Type name**: `time`
 
-###### On this page:
 - [Time syntax](#time-syntax)
 - [Convert data types to time](#convert-data-types-to-time)
 - [Operate on time](#operate-on-time)

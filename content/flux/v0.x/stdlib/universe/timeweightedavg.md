@@ -18,6 +18,7 @@ introduced: 0.83.0
 The `timeWeightedAvg()` function outputs the time-weighted average of non-null records
 in a table as a float.
 Time is weighted using the linearly interpolated integral of values in the table.
+_`timeWeightedAvg()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 _**Output data type:** Float_
 

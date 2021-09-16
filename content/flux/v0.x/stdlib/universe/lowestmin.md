@@ -16,7 +16,8 @@ introduced: 0.7.0
 ---
 
 The `lowestMin()` function selects the minimum record from each table in the input stream and returns the lowest `n` records.
-It outputs a single aggregated table containing `n` records.
+The function outputs a single aggregated table containing `n` records.
+_`lowestMin()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 lowestMin(

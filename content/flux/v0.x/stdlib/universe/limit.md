@@ -11,7 +11,7 @@ menu:
     name: limit
     parent: universe
 weight: 102
-flux/v0.x/tags: [transformations]
+flux/v0.x/tags: [transformations, selectors]
 related:
   - /{{< latest "influxdb" >}}/query-data/flux/sort-limit/
   - /flux/v0.x/stdlib/universe/tail/
@@ -23,6 +23,7 @@ The `limit()` function limits each output table to the first [`n`](#n) records.
 The function produces one output table for each input table.
 Each output table contains the first `n` records after the [`offset`](#offset).
 If the input table has less than `offset + n` records, `limit()` outputs all records after the `offset`.
+_`limit()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 limit(

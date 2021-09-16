@@ -5,7 +5,7 @@ description: >
   View high-level function types and categories that represent distinct and important function behaviors.
 menu:
   flux_0_x_ref:
-    name: Function types
+    name: Function types & categories
 weight: 10
 related:
   - /flux/v0.x/stdlib/
@@ -46,12 +46,14 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/
 ---
 
-Flux functions each share a set of behaviors or traits that define how the function works.
-The following categories represent high-level function behaviors.
-This list is not all-inclusive, but covers distinct and important function behaviors.
+Flux functions share a set of behaviors or traits that define how the function works.
+This types and categories lists below are not all-inclusive, but covers distinct
+and important function behaviors.
 
 - [Function types](#function-types)
 - [Function categories](#function-categories)
+
+---
 
 ## Function types
 - [Inputs](#inputs)
@@ -97,20 +99,25 @@ to input tables.
 {{% /note %}}
 
 #### Aggregates
-Flux's aggregate transformations take values from an input table and aggregate them in some way.
+Flux aggregate functions are [transformations](#transformations) aggregate values
+from input tables in some way.
 Output tables contain a single row with the aggregated value.
+Aggregate transformations output a table for every input table they receive.
 
-Aggregate operations output a table for every input table they receive.
-You must provide a column to aggregate.
-Any output table will have the following properties:
+Each output table from an aggregate function will:
 
-- It always contains a single record.
-- It will have the same group key as the input table.
-- It will contain a column for the provided aggregate column.
+- Contain a single record.
+- Have the same [group key](/flux/v0.x/get-started/data-model/#group-key) as the input table.
+- Contain the an aggregated column.
   The column label will be the same as the input table.
-  The type of the column depends on the specific aggregate operation.
-  The value of the column will be `null` if the input table is empty or the input column has only `null` values.
-- It will not have a `_time` column.
+  The column data type depends on the specific aggregate operation.
+  The value of the column will be `null` if the input table is empty or the input
+  column has only `null` values.
+- Drop all columns that are:
+  - not in the group key
+  - not the aggregated column
+
+**The following aggregate functions are available:**
 
 {{< list-all-functions filters="aggregates" >}}
 
@@ -127,10 +134,15 @@ They are categorized as [selector functions](#selectors) in this documentation:
 - [lowestMin()](/flux/v0.x/stdlib/universe/lowestmin)
 
 #### Selectors
-Flux selector functions return one or more records based on function logic.
-The output table is different than the input table, but individual row values are not.
+Flux selector functions are [transformations](#transformations) that return one
+or more record per input table.
 
-The following selector functions are available:
+Each output table from a selector function will:
+
+- Contain one or more unmodified records.
+- Have the same [group key](/flux/v0.x/get-started/data-model/#group-key) as the input table.
+
+**The following selector functions are available:**
 
 {{< list-all-functions filters="selectors" >}}
 
@@ -153,6 +165,7 @@ For recommended usage, see [Extract scalar values](/influxdb/cloud/query-data/fl
 ---
 
 ## Function categories
+The following categories represent high-level function behaviors.
 
 - [Filters](#filters)
 - [Type conversions](#type-conversions)
@@ -160,10 +173,12 @@ For recommended usage, see [Extract scalar values](/influxdb/cloud/query-data/fl
 - [Date/time](#datetime)
 - [Metadata](#metadata)
 - [Notification endpoints](#notification-endpoints)
+- [Geotemporal](#geotemporal)
 
 ### Filters
 Filter functions iterate over and evaluate each input row to see if it matches
 specified conditions.
+Rows that do not match the specified conditions are dropped from the output.
 The following filter functions are available:
 
 {{< list-all-functions filters="filters" >}}
@@ -188,8 +203,9 @@ The following testing functions are available:
 ---
 
 ### Date/time
-Flux date/time functions return or manipulate [time](/flux/v0.x/data-types/basic/time/)
+Flux date/time functions return or operate on [time](/flux/v0.x/data-types/basic/time/)
 or [duration](/flux/v0.x/spec/types/#duration-types) values.
+The following data/time functions are available:
 
 {{< list-all-functions filters="date/time" >}}
 
@@ -197,6 +213,7 @@ or [duration](/flux/v0.x/spec/types/#duration-types) values.
 
 ### Metadata
 Flux metadata functions return metadata from the input stream or from an underlying data source.
+The following metadata functions are available:
 
 {{< list-all-functions filters="metadata" >}}
 
@@ -204,5 +221,14 @@ Flux metadata functions return metadata from the input stream or from an underly
 
 ### Notification endpoints
 Flux notification endpoint functions send notifications to external endpoints or services.
+The following notification endpoint functions are available:
 
 {{< list-all-functions filters="notification endpoints" >}}
+
+---
+
+### Geotemporal
+Flux geotemporal functions are designed to work with geotemporal data (geographic location over time).
+The following geotemporal functions are available:
+
+{{< list-all-functions filters="geotemporal" >}}

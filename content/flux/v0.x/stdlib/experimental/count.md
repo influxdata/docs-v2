@@ -21,6 +21,7 @@ introduced: 0.107.0
 The `experimental.count()` function outputs the number of records in each input table
 and returns the count in the `_value` column.
 This function counts both null and non-null records.
+_`experimental.count()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 import "experimental"

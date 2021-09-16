@@ -20,6 +20,7 @@ flux/v0.x/tags: [transformations, selectors]
 The `experimental.distinct()` function returns unique values from the `_value` column.
 The `_value` of each output record is set to a distinct value in the specified column.
 `null` is considered a distinct value.
+_`experimental.distinct()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 import "experimental"

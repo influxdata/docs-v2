@@ -25,6 +25,10 @@ a specified quantile or it returns the record with the `_value` that represents 
 Which it returns depends on the [method](#method) used.
 `quantile()` supports columns with float values.
 
+_`quantile()` behaves like an [aggregate function](/flux/v0.x/function-types/#aggregates)
+or a [selector function](/flux/v0.x/function-types/#selectors) depending on
+the [`method`](#method) used._
+
 ```js
 quantile(
   column: "_value",

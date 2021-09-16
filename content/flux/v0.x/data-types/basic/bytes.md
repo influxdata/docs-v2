@@ -18,7 +18,6 @@ A **bytes** type represents a sequence of byte values.
 
 **Type name**: `bytes`
 
-###### On this page
 - [Bytes syntax](#bytes-syntax)
 - [Convert a column to bytes](#convert-a-column-to-bytes)
 

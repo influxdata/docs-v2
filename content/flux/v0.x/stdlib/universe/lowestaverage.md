@@ -16,7 +16,8 @@ introduced: 0.7.0
 ---
 
 The `lowestAverage()` function calculates the average of each table in the input stream returns the lowest `n` records.
-It outputs a single aggregated table containing `n` records.
+The function outputs a single aggregated table containing `n` records.
+_`lowestAverage()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 lowestAverage(

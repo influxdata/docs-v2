@@ -23,6 +23,7 @@ The `reduce()` function aggregates records in each table according to the reduce
 `fn`, providing a way to create custom aggregations.
 The output for each table is the group key of the table with columns corresponding
 to each field in the reducer record.
+_`reduce()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 reduce(

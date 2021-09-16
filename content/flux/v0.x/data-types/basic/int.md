@@ -28,7 +28,6 @@ An **integer** type represents a signed 64-bit integer.
 **Min value**: `-9223372036854775808`  
 **Max value**: `9223372036854775807`
 
-###### On this page:
 - [Integer syntax](#integer-syntax)
 - [Convert data types to integers](#convert-data-types-to-integers)
 - [Operate on integers](#operate-on-integers)

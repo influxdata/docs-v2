@@ -19,8 +19,6 @@ The `duplicate()` function duplicates a specified column in a table.
 If the specified column is part of the group key, it will be duplicated, but will
 not be part of the output table's group key.
 
-_**Output data type:** Record_
-
 ```js
 duplicate(column: "column-name", as: "duplicate-name")
 ```

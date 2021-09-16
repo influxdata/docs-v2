@@ -18,8 +18,7 @@ introduced: 0.7.0
 ---
 
 The `bottom()` function sorts a table by columns and keeps only the bottom `n` records.
-
-_**Output data type:** Record_
+_`bottom()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 bottom(n:10, columns: ["_value"])

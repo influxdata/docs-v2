@@ -19,6 +19,8 @@ introduced: 0.7.0
 ---
 
 The `spread()` function outputs the difference between the minimum and maximum values in a specified column.
+_`spread()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+
 Only `uint`, `int`, and `float` column types can be used.
 The type of the output column depends on the type of input column:
 

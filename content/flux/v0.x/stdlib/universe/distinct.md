@@ -20,8 +20,7 @@ introduced: 0.7.0
 The `distinct()` function returns the unique values for a given column.
 The `_value` of each output record is set to the distinct value in the specified column.
 `null` is considered its own distinct value if it is present.
-
-_**Output data type:** Record_
+_`distinct()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 distinct(column: "host")

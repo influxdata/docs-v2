@@ -20,6 +20,8 @@ introduced: 0.107.0
 
 The `experimental.spread()` function outputs the difference between the minimum
 and maximum values in the `_value` column for each input table.
+_`experimental.spread()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+
 The function supports `uint`, `int`, and `float` values.
 The output value type depends on the input value type:
 

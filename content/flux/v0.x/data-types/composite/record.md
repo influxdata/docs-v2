@@ -24,7 +24,6 @@ Keys (also known as labels) are strings.
 Values can be any data type.
 Each property can have a different value type.
 
-###### On this page:
 - [Record syntax](#record-syntax)
 - [Reference values in a record](#reference-values-in-a-record)
 - [Operate on records](#operate-on-records)

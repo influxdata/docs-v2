@@ -20,6 +20,7 @@ introduced: 0.7.0
 
 The `count()` function outputs the number of records in a column.
 It counts both null and non-null records.
+_`count()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 _**Output data type:** Integer_
 

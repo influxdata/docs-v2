@@ -25,7 +25,6 @@ An **unsigned integer** (uinteger) type represents a unsigned 64-bit integer.
 **Min value**: `0`  
 **Max value**: `18446744073709551615`
 
-###### On this page:
 - [UInteger syntax](#uinteger-syntax)
 - [Convert data types to uintegers](#convert-data-types-to-uintegers)
 - [Operate on uintegers](#operate-on-uintegers)

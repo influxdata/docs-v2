@@ -22,8 +22,6 @@ introduced: 0.7.0
 
 The `filter()` function filters data based on conditions defined in a predicate function ([`fn`](#fn)).
 The output tables have the same schema as the corresponding input tables.
- 
-_**Output data type:** Record_
 
 ```js
 filter(

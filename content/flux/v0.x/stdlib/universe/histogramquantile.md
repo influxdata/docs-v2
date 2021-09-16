@@ -50,6 +50,8 @@ histogramQuantile(
 )
 ```
 
+_`histogramQuantile()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+
 ## Parameters
 
 ### quantile {data-type="float"}

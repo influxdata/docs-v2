@@ -1,6 +1,6 @@
 ---
 title: Packages contributed by chobbs
-list_title: chobbs
+list_title: chobbs package
 description: >
   The `chobbs` package contains functions and packages contributed by [@chobbs](https://github.com/chobbs).
 menu:

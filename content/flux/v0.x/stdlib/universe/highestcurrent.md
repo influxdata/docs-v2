@@ -16,7 +16,8 @@ introduced: 0.7.0
 ---
 
 The `highestCurrent()` function selects the last record of each table in the input stream and returns the top `n` records.
-It outputs a single aggregated table containing `n` records.
+The function outputs a single aggregated table containing `n` records.
+_`highestCurrent()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 highestCurrent(

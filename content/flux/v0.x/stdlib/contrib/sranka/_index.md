@@ -1,6 +1,6 @@
 ---
 title: Packages contributed by sranka
-list_title: sranka
+list_title: sranka package
 description: >
   The `sranka` package contains functions and packages contributed by
   [@sranka](https://github.com/sranka).

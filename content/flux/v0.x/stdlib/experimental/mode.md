@@ -20,6 +20,7 @@ introduced: 0.107.0
 
 The `experimental.mode()` function computes the mode or value that occurs most
 often in the `_value` column in each input table.
+_`experimental.mode()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 import "experimental"

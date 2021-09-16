@@ -22,6 +22,7 @@ The `geo.ST_LineString()` function converts a series of geographic points into
 Group data into meaningful, ordered paths to before converting to linestring.
 Rows in each table must have `lat` and `lon` columns.
 Output tables contain a single row with a `st_linestring` column containing the resulting linestring.
+_`geo.ST_LineString()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 import "experimental/geo"

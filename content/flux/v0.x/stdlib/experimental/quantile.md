@@ -25,6 +25,10 @@ the `_value` column that fall within the specified quantile or represent the spe
 Which it returns depends on the [method](#method) used.
 The `_value` column must contain float values.
 
+_`experimental.quantile()` behaves like an [aggregate function](/flux/v0.x/function-types/#aggregates)
+or a [selector function](/flux/v0.x/function-types/#selectors) depending on
+the [`method`](#method) used._
+
 ```js
 import "experimental"
 

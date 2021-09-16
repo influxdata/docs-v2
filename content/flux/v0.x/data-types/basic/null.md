@@ -16,6 +16,9 @@ The **null type** represents a missing or unknown value.
 
 **Type name**: `null`
 
+- [Null syntax](#null-syntax)
+- [Check if a column value is null](#check-if-a-column-value-is-null)
+
 ## Null syntax
 Null types exist in [columns](/flux/v0.x/get-started/data-model/#column) of
 other [basic types](/flux/v0.x/data-types/basic/), but there is no literal syntax

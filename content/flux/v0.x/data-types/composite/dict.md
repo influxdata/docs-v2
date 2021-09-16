@@ -27,7 +27,6 @@ list_code_example: |
 A **dictionary** type is a collection of key-value pairs with keys of the same
 type and values of the same type.
 
-###### On this page:
 - [Dictionary syntax](#dictionary-syntax)
 - [Reference dictionary values](#reference-dictionary-values)
 - [Operate on dictionaries](#operate-on-dictionaries)

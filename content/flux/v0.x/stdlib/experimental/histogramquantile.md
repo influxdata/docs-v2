@@ -20,7 +20,9 @@ introduced: 0.107.0
 The `experimental.histogramQuantile()` function approximates a quantile given a
 histogram with the cumulative distribution of the dataset.
 Each input table represents a single histogram.
-Each input table represents a single histogram. Input tables must have two columns—a count column (`_value`) and an upper bound column (`le`), and neither column can be part of the group key.
+Each input table represents a single histogram.
+Input tables must have two columns—a count column (`_value`) and an upper bound
+column (`le`), and neither column can be part of the group key.
 
 The count is the number of values that are less than or equal to the upper bound value (`le`).
 Input tables can have an unlimited number of records; each record represents an entry in the histogram.
@@ -43,6 +45,8 @@ experimental.histogramQuantile(
   minValue: 0.0
 )
 ```
+
+_`experimental.histogramQuantile()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ## Parameters
 
