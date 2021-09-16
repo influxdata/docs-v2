@@ -25,10 +25,10 @@ Discover what you'll need to write data into InfluxDB Cloud. Learn how to quickl
 - [Quickly start collecting data](#quickly-start-collecting-data)
   - [Demo data for InfluxDB Cloud](#demo-data-for-influxdb-cloud)
   - [Sample data](#sample-data)
-- [Load data from sources in the InfluxDB UI](/influxdb/v2.0/write-data/load-data/)
-- [Use no-code solutions](/influxdb/v2.0/write-data/no-code)
-- [Use developer tools](/influxdb/v2.0/write-data/developer-tools)
-- [Best practices for writing data](/influxdb/v2.0/write-data/best-practices/)
+- [Load data from sources in the InfluxDB UI](/influxdb/cloud/write-data/no-code/load-data/)
+- [Use no-code solutions](/influxdb/cloud/write-data/no-code)
+- [Use developer tools](/influxdb/cloud/write-data/developer-tools)
+- [Best practices for writing data](/influxdb/cloud/write-data/best-practices/)
 - [Next steps](#next-steps)
 
 ### What you'll need

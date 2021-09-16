@@ -3,8 +3,7 @@ title: Calculate the increase
 seotitle: Calculate the increase in Flux
 list_title: Increase
 description: >
-  Use the [`increase()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/increase/)
-  to track increases across multiple columns in a table.
+  Use `increase()` to track increases across multiple columns in a table.
   This function is especially useful when tracking changes in counter values that
   wrap over time or periodically reset.
 weight: 210
@@ -14,11 +13,11 @@ menu:
     name: Increase
 influxdb/v2.0/tags: [query, increase, counters]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/
+  - /{{< latest "flux" >}}/stdlib/universe/increase/
 list_query_example: increase
 ---
 
-Use the [`increase()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/increase/)
+Use [`increase()`](/{{< latest "flux" >}}/stdlib/universe/increase/)
 to track increases across multiple columns in a table.
 This function is especially useful when tracking changes in counter values that
 wrap over time or periodically reset.

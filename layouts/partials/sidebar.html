@@ -30,9 +30,9 @@
 {{ $searchPlaceholder := .Scratch.Get "searchPlaceholder" }}
 
 <aside class="sidebar">
-  <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-closed');return false;"><a href="#">&#59672;</a></div>
+  <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-closed');return false;"><a href="#">&#xe919;</a></div>
   <div class="search-and-nav-toggle">
-    <div class="sidebar--search">
+    <div class="sidebar--search" style="opacity:0.25">
       <input  class="sidebar--search-field"
               id="algolia-search-input"
               type="text"
@@ -42,7 +42,9 @@
               autocapitalize="off"
               spellcheck="false"
               dir="auto"
-              placeholder='{{ $searchPlaceholder }}'>
+              placeholder='{{ $searchPlaceholder }}'
+              disabled
+              >
     </div>
     <a id="contents-toggle-btn" href="#">
       <span class="toggle-hamburger"></span>
@@ -61,6 +63,17 @@
   {{ if gt (len $refMenu) 0 }}
     <h4 class="reference">Reference</h4>
     {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}
+  {{ end }}
+
+  <!-- Flux links for InfluxDB docs -->
+  {{ $fluxWhitelist := slice "influxdb/v1.7" "influxdb/v1.8" "influxdb/v2.0" "influxdb/cloud" }}
+  {{ $productAndVersion := print $product "/" $currentVersion }}
+  {{ $latestFlux := $.Site.Data.products.flux.latest }}
+  {{ if in $fluxWhitelist $productAndVersion }}
+    <h4 class="flux">Flux</h4>
+    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/">Flux {{ $latestFlux }} Documentation</a></li>
+    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/get-started/">Get started with Flux</a></li>
+    <li class="nav-category"><a href="/flux/{{ $latestFlux }}/stdlib/">Flux standard library</a></li>
   {{ end }}
 
   <!-- Platform menu for 1.x docs -->

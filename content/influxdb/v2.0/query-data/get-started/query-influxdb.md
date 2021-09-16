@@ -8,10 +8,11 @@ menu:
     parent: Get started with Flux
 weight: 201
 related:
+  - /{{< latest "flux" >}}/get-started/query-basics/
   - /influxdb/v2.0/query-data/flux/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/from
+  - /{{< latest "flux" >}}/stdlib/universe/range
+  - /{{< latest "flux" >}}/stdlib/universe/filter
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
@@ -23,8 +24,8 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from) function defines an InfluxDB data source.
-It requires a [`bucket`](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from#bucket) parameter.
+Flux's [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/) function defines an InfluxDB data source.
+It requires a [`bucket`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/#bucket) parameter.
 The following examples use `example-bucket` as the bucket name.
 
 ```js
@@ -36,11 +37,12 @@ Flux requires a time range when querying time series data.
 "Unbounded" queries are very resource-intensive and as a protective measure,
 Flux will not query the database without a specified range.
 
-Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range)
-function, which specifies a time range for your query.
+Use the [pipe-forward operator](/{{< latest "flux" >}}/get-started/syntax-basics/#pipe-forward-operator)
+(`|>`) to pipe data from your data source into
+[`range()`](/{{< latest "flux" >}}/stdlib/universe/range), which specifies a time range for your query.
 It accepts two parameters: `start` and `stop`.
-Ranges can be **relative** using negative [durations](/influxdb/v2.0/reference/flux/language/lexical-elements#duration-literals)
-or **absolute** using [timestamps](/influxdb/v2.0/reference/flux/language/lexical-elements#date-and-time-literals).
+Start and stop values can be **relative** using negative [durations](/{{< latest "flux" >}}/data-types/basic/duration/)
+or **absolute** using [timestamps](/{{< latest "flux" >}}/data-types/basic/time/).
 
 ###### Example relative time ranges
 ```js
@@ -60,7 +62,7 @@ Relative ranges are relative to "now."
 ###### Example absolute time range
 ```js
 from(bucket:"example-bucket")
-  |> range(start: 2018-11-05T23:30:00Z, stop: 2018-11-06T00:00:00Z)
+  |> range(start: 2021-01-01T00:00:00Z, stop: 2021-01-01T12:00:00Z)
 ```
 
 #### Use the following:
@@ -72,14 +74,18 @@ from(bucket:"example-bucket")
 ```
 
 ## 3. Filter your data
-Pass your ranged data into the `filter()` function to narrow results based on data attributes or columns.
-The `filter()` function has one parameter, `fn`, which expects an anonymous function
-with logic that filters data based on columns or attributes.
+Pass your ranged data into `filter()` to narrow results based on data attributes or columns.
+`filter()` has one parameter, `fn`, which expects a
+[predicate function](/{{< latest "flux" >}}/get-started/syntax-basics/#predicate-functions)
+evaluates rows by column values.
 
-Flux's anonymous function syntax is similar to Javascript's.
-Records or rows are passed into the `filter()` function as a record (`r`).
-The anonymous function takes the record and evaluates it to see if it matches the defined filters.
-Use the `and` relational operator to chain multiple filters.
+`filter()` iterates over every input row and structures row data as a Flux
+[record](/{{< latest "flux" >}}/data-types/composite/record/). 
+The record is passed into the predicate function as `r` where it is evaluated using
+[predicate expressions](/{{< latest "flux" >}}/get-started/syntax-basics/#predicate-expressions).
+
+Rows that evaluate to `false` are dropped from the output data.
+Rows that evaluate to `true` persist in the output data.
 
 ```js
 // Pattern
@@ -89,11 +95,12 @@ Use the `and` relational operator to chain multiple filters.
 (r) => (r._measurement == "cpu")
 
 // Example with multiple filters
-(r) => (r._measurement == "cpu") and (r._field != "usage_system" )
+(r) => r._measurement == "cpu" and r._field != "usage_system")
 ```
 
 #### Use the following:
-For this example, filter by the `cpu` measurement, the `usage_system` field, and the `cpu-total` tag value:
+For this example, filter by the `cpu` measurement, `usage_system` field, and
+`cpu-total` tag value:
 
 ```js
 from(bucket:"example-bucket")
@@ -106,7 +113,7 @@ from(bucket:"example-bucket")
 ```
 
 ## 4. Yield your queried data
-Flux's `yield()` function outputs the filtered tables as the result of the query.
+[`yield()`](/{{< latest "flux" >}}/stdlib/universe/yield/) outputs the result of the query.
 
 ```js
 from(bucket:"example-bucket")
@@ -120,18 +127,15 @@ from(bucket:"example-bucket")
 ```
 
 Flux automatically assumes a `yield()` function at
-the end of each script in order to output and visualize the data.
-Explicitly calling `yield()` is only necessary when including multiple queries in the same Flux query.
+the end of each script to output and visualize the data.
+Explicitly calling `yield()` is only necessary when including multiple queries
+in the same Flux query.
 Each set of returned data needs to be named using the `yield()` function.
 
 ## Congratulations!
 You have now queried data from InfluxDB using Flux.
 
-The query shown here is a barebones example.
+The query shown here is a basic example.
 Flux queries can be extended in many ways to form powerful scripts.
 
-
-<div class="page-nav-btns">
-  <a class="btn prev" href="/influxdb/v2.0/query-data/get-started/">Get started with Flux</a>
-  <a class="btn next" href="/influxdb/v2.0/query-data/get-started/transform-data/">Transform your data</a>
-</div>
+{{< page-nav prev="/influxdb/v2.0/query-data/get-started/" next="/influxdb/v2.0/query-data/get-started/transform-data/" >}}

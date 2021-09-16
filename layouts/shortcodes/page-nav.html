@@ -1,0 +1,14 @@
+{{ $prev := .Get "prev" | default "" }}
+{{ $next := .Get "next" | default "" }}
+{{ $prevText := .Get "prevText" | default "" }}
+{{ $nextText := .Get "nextText" | default "" }}
+{{ $prevPage := .Site.GetPage (replaceRE `\/$` "" $prev) }}
+{{ $nextPage := .Site.GetPage (replaceRE `\/$` "" $next) }}
+<div class="page-nav-btns">
+  {{ if ne (len $prev) 0 }}
+    <a class="btn prev" href="{{ $prevPage.RelPermalink }}">{{ if ne (len $prevText) 0 }}{{ $prevText }}{{ else if $prevPage.Params.list_title }}{{ $prevPage.Params.list_title }}{{ else }}{{ $prevPage.Title }}{{ end }}</a>
+  {{ end }}
+  {{ if ne (len $next) 0 }}
+    <a class="btn next" href="{{ $nextPage.RelPermalink }}">{{ if ne (len $nextText) 0 }}{{ $nextText }}{{ else if $nextPage.Params.list_title }}{{ $nextPage.Params.list_title }}{{ else }}{{ $nextPage.Title }}{{ end }}</a>
+  {{ end }}
+</div>

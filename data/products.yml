@@ -78,3 +78,10 @@ enterprise_influxdb:
     "1.7": 10
     "1.6": 6
     "1.5": 4
+
+flux:
+  name: Flux
+  namespace: flux
+  list_order: 7
+  versions: [v0.x]
+  latest: v0.x

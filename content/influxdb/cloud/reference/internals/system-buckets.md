@@ -12,11 +12,11 @@ influxdb/cloud/tags: [buckets]
 related:
   - /influxdb/cloud/monitor-alert/
   - /influxdb/cloud/process-data/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/check/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/deadman/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/from/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/logs/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/notify/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/check/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/deadman/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/from/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/logs/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/notify/
 ---
 
 {{< duplicate-oss >}}

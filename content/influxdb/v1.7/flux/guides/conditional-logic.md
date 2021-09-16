@@ -33,9 +33,9 @@ Conditional expressions are most useful in the following contexts:
 
 - When defining variables.
 - When using functions that operate on a single row at a time (
-  [`filter()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/filter/),
-  [`map()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map/),
-  [`reduce()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/reduce) ).
+  [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/),
+  [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/),
+  [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce) ).
 
 ## Evaluating conditional expressions
 
@@ -93,7 +93,7 @@ from(bucket: "telegraf/autogen")
 ```
 
 ### Conditionally transform column values with map()
-The following example uses the [`map()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map/)
+The following example uses the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map/)
 to conditionally transform column values.
 It sets the `level` column to a specific string based on `_value` column.
 
@@ -140,8 +140,8 @@ from(bucket: "telegraf/autogen")
 {{< /code-tabs-wrapper >}}
 
 ### Conditionally increment a count with reduce()
-The following example uses the [`aggregateWindow()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
-and [`reduce()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
+The following example uses the [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
+and [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce/)
 functions to count the number of records in every five minute window that exceed a defined threshold.
 
 {{< code-tabs-wrapper >}}

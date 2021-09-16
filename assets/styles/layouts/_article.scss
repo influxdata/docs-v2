@@ -22,10 +22,11 @@
     & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
   }
+  .title { margin-bottom: 2.65rem; }
   h1 {
     font-weight: normal;
     font-size: 2.65rem;
-    margin: .4em 0 1em;
+    margin: .4em 0 .2em;
   }
   h2 {
     font-size: 2rem;
@@ -112,8 +113,10 @@
           "article/expand",
           "article/feedback",
           "article/flex",
+          "article/flux",
           "article/html-diagrams",
           "article/keybinding",
+          "article/list-filters",
           "article/lists",
           "article/note",
           "article/pagination-btns",
@@ -170,6 +173,17 @@
     &:hover {opacity: 1;}
   }
 
+  p.read-more {
+    text-align: right;
+    font-style: italic;
+  }
+
+  .highlight, pre, code, .flex-wrapper {
+    & + p.read-more {
+      margin: -.75rem 0 .5rem;
+    }
+  }
+
   /////////////////////////// Getting Started Buttons //////////////////////////
 
   .get-started-btns {
@@ -197,7 +211,10 @@
   .article {
     padding: 1.5rem 1.5rem 3rem;
 
-    h1 { margin: .35rem 0 2rem; font-size: 2.4rem; }
+    .title {
+      margin-bottom: 2rem;
+      h1 { margin: .35em 0 .2em; font-size: 2.4rem; }
+    }
     h2 { font-size: 1.9rem; }
     h3 { font-size: 1.55rem; }
     h4 { font-size: 1.3rem; }

@@ -53,7 +53,7 @@ influxd upgrade --continuous-query-export-path /path/to/continuous_queries.txt
 
 To migrate InfluxDB 1.x continuous queries to InfluxDB 2.0 tasks, convert the InfluxQL query syntax to Flux.
 The majority of continuous queries are simple downsampling queries and can be converted quickly
-using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/).
+using the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/).
 For example:
 
 ##### Example continuous query
@@ -103,7 +103,7 @@ The `ON` clause defines the database to query.
 In InfluxDB OSS 2.0, database and retention policy combinations are mapped to specific buckets
 (for more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)).
 
-Use the [`from()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from)
+Use the [`from()` function](/{{< latest "flux" >}}/stdlib/universe/from)
 to specify the bucket to query:
 
 ###### InfluxQL
@@ -122,7 +122,7 @@ from(bucket: "my-db/")
 The `SELECT` statement queries data by field, tag, and time from a specific measurement.
 `SELECT` statements can take many different forms and converting them to Flux depends
 on your use case. For information about Flux and InfluxQL function parity, see
-[Flux vs InfluxQL](/influxdb/v2.0/reference/flux/flux-vs-influxql/#influxql-and-flux-parity).
+[Flux vs InfluxQL](/influxdb/v2.0/reference/syntax/flux/flux-vs-influxql/#influxql-and-flux-parity).
 See [other resources available to help](#other-helpful-resources).
 
 #### INTO clause
@@ -132,8 +132,8 @@ In InfluxDB OSS 2.0, database and retention policy combinations are mapped to sp
 (for more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/)).
 
 To write to a measurement different than the measurement queried, use
-[`set()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/) or
-[`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+[`set()`](/{{< latest "flux" >}}/stdlib/universe/set/) or
+[`map()`](/{{< latest "flux" >}}/stdlib/universe/map/)
 to change the measurement name.
 Use the `to()` function to specify the bucket to write results to.
 
@@ -169,12 +169,12 @@ INTO "example-db"."example-rp"."example-measurement"
 ##### Write pivoted data to InfluxDB
 InfluxDB 1.x query results include a column for each field.
 InfluxDB 2.0 does not do this by default, but it is possible with
-[`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot)
-or [`schema.fieldsAsCols()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldsascols/).
+[`pivot()`](/{{< latest "flux" >}}/stdlib/universe/pivot)
+or [`schema.fieldsAsCols()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/fieldsascols/).
 
 If you use `to()` to write _pivoted data_ back to InfluxDB 2.0, each field column is stored as a tag.
 To write pivoted fields back to InfluxDB as fields, import the `experimental` package
-and use the [`experimental.to()` function](/influxdb/v2.0/reference/flux/stdlib/experimental/to/).
+and use the [`experimental.to()` function](/{{< latest "flux" >}}/stdlib/experimental/to/).
 
 ###### InfluxQL
 ```sql
@@ -202,7 +202,7 @@ from(bucket: "my-db/")
 
 #### FROM clause
 The from clause defines the measurement to query.
-Use the [`filter()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
+Use the [`filter()` function](/{{< latest "flux" >}}/stdlib/universe/filter/)
 to specify the measurement to query.
 
 ###### InfluxQL
@@ -220,8 +220,8 @@ FROM "example-measurement"
 
 #### AS clause
 The `AS` clause changes the name of the field when writing data back to InfluxDB.
-Use [`set()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/)
-or [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+Use [`set()`](/{{< latest "flux" >}}/stdlib/universe/set/)
+or [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/)
 to change the field name.
 
 ###### InfluxQL
@@ -253,10 +253,10 @@ AS newfield
 
 #### WHERE clause
 The `WHERE` clause uses predicate logic to filter results based on fields, tags, or timestamps.
-Use the [`filter()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
-and Flux [comparison operators](/influxdb/v2.0/reference/flux/language/operators/#comparison-operators)
+Use the [`filter()` function](/{{< latest "flux" >}}/stdlib/universe/filter/)
+and Flux [comparison operators](/{{< latest "flux" >}}/spec/operators/#comparison-operators)
 to filter results based on fields and tags.
-Use the [`range()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/) to filter results based on timestamps.
+Use the [`range()` function](/{{< latest "flux" >}}/stdlib/universe/range/) to filter results based on timestamps.
 
 ###### InfluxQL
 ```sql
@@ -275,8 +275,8 @@ WHERE "example-tag" = "foo" AND time > now() - 7d
 The InfluxQL `GROUP BY` clause groups data by specific tags or by time (typically to calculate an aggregate value for windows of time).
 
 ##### Group by tags
-Use the [`group()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/)
-to modify the [group key](/influxdb/v2.0/reference/glossary/#group-key) and change how data is grouped.
+Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group/)
+to modify the [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key) and change how data is grouped.
 
 ###### InfluxQL
 ```sql
@@ -291,7 +291,7 @@ GROUP BY "location"
 ```
 
 ##### Group by time
-Use the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+Use the [`aggregateWindow()` function](//{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
 to group data into time windows and perform an aggregation on each window.
 In CQs, the interval specified in the `GROUP BY time()` clause determines the CQ execution interval.
 Use the `GROUP BY time()` interval to set the `every` task option.
@@ -372,7 +372,7 @@ The following resources are available and may be helpful when converting
 continuous queries to Flux tasks.
 
 ##### Documentation
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/)
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/)
 - [Query data with Flux](/influxdb/v2.0/query-data/flux/)
 - [Common tasks](/influxdb/v2.0/process-data/common-tasks/#downsample-data-with-influxdb)
 

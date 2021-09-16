@@ -8,8 +8,8 @@ menu:
     parent: Geo-temporal data
 weight: 302
 related:
-  - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/
-  - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/filterrows/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/filterrows/
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/geo/filter-by-region/
 v2: /influxdb/v2.0/query-data/flux/geo/filter-by-region/
 list_code_example: |
@@ -24,7 +24,7 @@ list_code_example: |
   ```
 ---
 
-Use the [`geo.filterRows` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/filterrows/)
+Use the [`geo.filterRows` function](/{{< latest "flux" >}}/stdlib/experimental/geo/filterrows/)
 to filter geo-temporal data by geographic region:
 
 1. [Define a geographic region](#define-a-geographic-region)

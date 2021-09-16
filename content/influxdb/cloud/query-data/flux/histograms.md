@@ -11,7 +11,7 @@ menu:
     parent: Query with Flux
 weight: 210
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/histogram
+  - /{{< latest "flux" >}}/stdlib/universe/histogram
 list_query_example: histogram
 ---
 

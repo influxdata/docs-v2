@@ -2,8 +2,7 @@
 title: Create histograms with Flux
 list_title: Histograms
 description: >
-  Use the [`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram/)
-  to create cumulative histograms with Flux.
+  Use `histogram()` to create cumulative histograms with Flux.
 influxdb/v2.0/tags: [histogram]
 menu:
   influxdb_2_0:
@@ -13,7 +12,7 @@ weight: 210
 aliases:
   - /influxdb/v2.0/query-data/guides/histograms/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram
+  - /{{< latest "flux" >}}/stdlib/universe/histogram
 list_query_example: histogram
 ---
 
@@ -22,12 +21,12 @@ This guide walks through using Flux's `histogram()` function to transform your d
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## histogram() function
 
-The [`histogram()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram) approximates the
+The [`histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram) approximates the
 cumulative distribution of a dataset by counting data frequencies for a list of "bins."
 A **bin** is simply a range in which a data point falls.
 All data points that are less than or equal to the bound are counted in the bin.
@@ -54,7 +53,7 @@ Flux provides two helper functions for generating histogram bins.
 Each generates an array of floats designed to be used in the `histogram()` function's `bins` parameter.
 
 ### linearBins()
-The [`linearBins()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/linearbins) generates a list of linearly separated floats.
+The [`linearBins()` function](/{{< latest "flux" >}}/stdlib/universe/linearbins) generates a list of linearly separated floats.
 
 ```js
 linearBins(start: 0.0, width: 10.0, count: 10)
@@ -63,7 +62,7 @@ linearBins(start: 0.0, width: 10.0, count: 10)
 ```
 
 ### logarithmicBins()
-The [`logarithmicBins()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
+The [`logarithmicBins()` function](/{{< latest "flux" >}}/stdlib/universe/logarithmicbins) generates a list of exponentially separated floats.
 
 ```js
 logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
@@ -237,7 +236,7 @@ http_api_request_duration_seconds_count{handler="platform",method="POST",path="/
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-Use the [histogramQuantile()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/) function to convert a Prometheus histogram to a specified quantile.
+Use the [histogramQuantile()](/{{< latest "flux" >}}/stdlib/universe/histogramquantile/) function to convert a Prometheus histogram to a specified quantile.
 This function expects a stream of input tables where each table has the following form:
 
 - Each row represents one bucket of a histogram, where the upper bound of the bucket is defined by the

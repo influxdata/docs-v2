@@ -1,12 +1,14 @@
 {{ $versionSelector := resources.Get "js/version-selector.js" }}
 {{ $contentInteractions := resources.Get "js/content-interactions.js" }}
 {{ $searchInteractions := resources.Get "js/search-interactions.js" }}
-{{ $telegrafFilters := resources.Get "js/telegraf-filters.js" }}
+{{ $listFilters := resources.Get "js/list-filters.js" }}
 {{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
 {{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
 {{ $notifications := resources.Get "js/notifications.js" }}
 {{ $keybindings := resources.Get "js/keybindings.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs $featureCallouts $notifications $keybindings | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $influxdbURLs $featureCallouts $notifications $keybindings | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
 <script type="text/javascript">
@@ -37,4 +39,9 @@
     }
   })
 </script>
+{{ end }}
+
+<!-- Load group key demo JS if when the group key demo shortcode is present -->
+{{ if .Page.HasShortcode "flux/group-key-demo" }}
+<script type="text/javascript" src="{{ $fluxGroupKeyjs.RelPermalink }}"></script>
 {{ end }}

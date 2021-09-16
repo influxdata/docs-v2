@@ -45,7 +45,7 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
 
 2. Click **Script Editor**.
 3. Select the **Band Plot** option from the visualization dropdown in the upper left.
-4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/), [`max()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/max/), and [`min()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/min) functions:
+4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/{{< latest "flux" >}}/stdlib/universe/mean/), [`max()`](/{{< latest "flux" >}}/stdlib/universe/max/), and [`min()`](/{{< latest "flux" >}}/stdlib/universe/min) functions:
 
 ```js
 from(bucket: "bucket_1")
@@ -73,7 +73,7 @@ from(bucket: "bucket_1")
   |> yield(name: "min")
 ```
 
-5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/) function.
+5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/{{< latest "flux" >}}/stdlib/universe/yield/) function.
 For example, to change the name of the first function from  `mean` to `Average`, modify the last line to the following:
   ```js
     |> yield(name: "Average")

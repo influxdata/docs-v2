@@ -177,6 +177,55 @@
     }
   }
 
+  #flux {
+    padding-bottom: 2.5rem;
+    .card .card-content {
+      h2 {margin-bottom: .5rem;}
+      p {margin: 0 0 1rem;}
+    }
+    .card.flux-btns {
+      flex-direction: row;
+      margin-bottom: .75rem;
+      justify-content: flex-end;
+      align-items: center;
+      a.btn {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        margin: .5rem .5rem .5rem 0;
+        padding: .75rem 1.5rem;
+        color: $article-btn-text !important;
+        border-radius: $radius;
+        font-size: .95rem;
+        z-index: 1;
+        @include gradient($article-btn-gradient);
+
+        &:after {
+          content: "";
+          position: absolute;
+          display: block;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: $radius;
+          @include gradient($article-btn-gradient-hover);
+          opacity: 0;
+          transition: opacity .2s;
+          z-index: -1;
+        }
+
+        &:hover {
+          cursor: pointer;
+
+          &:after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
   #tick-cards {
     display: flex;
     flex-wrap: wrap;
@@ -260,6 +309,10 @@
       .quarter { width: 33.33%; }
       .three-quarters { width: 66.64%; }
     }
+    #flux .card.flux-btns {
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
 
   @media (max-width: 920px) {
@@ -268,7 +321,7 @@
       padding-right: 1.5rem;
       &.hero { padding-top: 2rem; padding-bottom: 3rem;}
       &.search,
-      &#enterprise { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+      &#enterprise, &#flux { padding-top: 1.5rem; padding-bottom: 1.5rem; }
     }
     .hero {
       #hero-img{ display: none; }
@@ -327,28 +380,34 @@
           }
         }
       }
+      &#flux {
+        order: 3; padding-left: 0; padding-right: 0;
+        .card.flux-btns {
+          padding-top: 0;
+          a.btn {
+            display: block;
+            width: 100%;
+            margin: 0 0 .5rem;
+          }
+        }
+      }
       &#tick-stack {
-        order: 3;
+        order: 4;
         padding-left: 0;
         padding-right: 0;
         #tick-cards {
           flex-direction: column;
           .card {
             width: 100%;
-            color: $g20-white;
-            a {color: $g20-white;}
-            &:after { opacity: 1; }
+            border-top: 1px solid rgba($article-text, .15);
           }
         }
       }
-      &#enterprise { order: 4; padding-left: 0; padding-right: 0; }
+      &#enterprise { order: 5; padding-left: 0; padding-right: 0; }
     }
     .group-wrapper {flex-direction: column;}
     .row {
       flex-direction: column;
-    }
-    .card {
-
     }
   }
 
