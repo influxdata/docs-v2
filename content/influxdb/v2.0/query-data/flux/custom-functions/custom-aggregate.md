@@ -22,7 +22,7 @@ or create custom aggregate functions using the
 Aggregate functions all have the same basic characteristics:
 
 - They operate on individual input tables and transform all records into a single record.
-- The output table has the same [group key](/influxdb/v2.0/query-data/get-started/#group-keys) as the input table.
+- The output table has the same [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key) as the input table.
 
 ## How reduce() works
 The `reduce()` function operates on one row at a time using the function defined in
@@ -131,7 +131,7 @@ to create a transformed table with one row and columns for each mapped key.
 #### What happened to the \_time column?
 The `reduce()` function only keeps columns that are:
 
-1. Are part of the input table's [group key](/influxdb/v2.0/query-data/get-started/#group-keys).
+1. Are part of the input table's [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key).
 2. Explicitly mapped in the `fn` function.
 
 It drops all other columns.
