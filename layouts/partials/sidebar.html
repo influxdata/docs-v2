@@ -32,7 +32,7 @@
 <aside class="sidebar">
   <div class="sidebar-toggle" onclick="toggle_sidebar('sidebar-closed');return false;"><a href="#">&#59672;</a></div>
   <div class="search-and-nav-toggle">
-    <div class="sidebar--search">
+    <div class="sidebar--search" style="opacity:0.25">
       <input  class="sidebar--search-field"
               id="algolia-search-input"
               type="text"
@@ -42,7 +42,9 @@
               autocapitalize="off"
               spellcheck="false"
               dir="auto"
-              placeholder='{{ $searchPlaceholder }}'>
+              placeholder='{{ $searchPlaceholder }}'
+              disabled
+              >
     </div>
     <a id="contents-toggle-btn" href="#">
       <span class="toggle-hamburger"></span>
