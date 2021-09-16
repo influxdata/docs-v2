@@ -23,7 +23,7 @@ This guide walks through grouping data in Flux and provides examples of how data
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/{{< latest "flux" >}}//get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Group keys

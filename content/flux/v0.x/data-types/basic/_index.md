@@ -1,5 +1,6 @@
 ---
-title: Work with basic types
+title: Work with basic data types
+seotitle: Work with basic Flux data types
 list_title: Basic types
 description: >
   All Flux data types are constructed from **basic types**: boolean, bytes,
@@ -7,7 +8,7 @@ description: >
 menu:
   flux_0_x:
     name: Basic types
-    parent: Work with data types
+    parent: Work with Flux types
 weight: 101
 ---
 

@@ -12,13 +12,15 @@ aliases:
   - /influxdb/cloud/reference/flux/
 ---
 
-Flux is an open source functional data scripting language designed for querying, analyzing, and acting on data.
+Flux is an open source functional data scripting language designed for querying,
+analyzing, and acting on data.
 Flux supports multiple data source types, including:
 
-- Time series databases (such as **InfluxDB**)
-- Relational SQL databases (such as **MySQL** and **PostgreSQL**)
-- **Prometheus-formatted metrics** from HTTP-accessible endpoints
-- CSV
+- Time series databases (such as [InfluxDB](/flux/v0.x/query-data/influxdb/))
+- [Relational SQL databases](/flux/v0.x/query-data/sql/)
+  (such as [MySQL](/flux/v0.x/query-data/sql/mysql/) and [PostgreSQL](/flux/v0.x/query-data/sql/postgresql/))
+- [CSV](/flux/v0.x/query-data/csv/)
+<!-- - **Prometheus-formatted metrics** from HTTP-accessible endpoints -->
 
 Flux unifies code for querying, processing, writing, and acting on data into a single syntax.
 The language is designed to be usable, readable, flexible, composable, testable, contributable, and shareable.

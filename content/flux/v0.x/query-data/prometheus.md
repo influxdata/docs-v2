@@ -15,6 +15,7 @@ list_code_example: |
   
   prometheus.scrape(url: "http://example.com/metrics")
   ```
+draft: true
 ---
 
 To scrape Prometheus-formatted metrics from an HTTP-accessible endpoint using Flux:
