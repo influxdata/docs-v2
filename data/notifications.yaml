@@ -7,15 +7,6 @@
 #   message: |
 #     Markdown message content.
 
-- id: search-disabled
-  level: warn
-  scope:
-    - /
-  message: |
-    ### Search maintenance
-    Our documentation search functionality is undergoing maintenance and has
-    been temporarily disabled. It will be back shortly. Thank you for your patience.
-
 - id: v2-cloud-upgrade
   level: note
   scope:
