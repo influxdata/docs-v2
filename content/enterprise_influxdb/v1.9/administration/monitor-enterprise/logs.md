@@ -9,42 +9,37 @@ menu:
     parent: Administration
 ---
 
+InfluxDB writes log output, by default, to `stderr`.
+Depending on your use case, you may opt to write this log information to another location. 
+Some service managers may override this default.
 
-* [Logging locations](#logging-locations)
 * [Redirect HTTP request logging](#redirect-http-access-logging)
 * [Structured logging](#structured-logging)
 * [Tracing](#tracing)
 
+## Write log output to `stderr`
 
-InfluxDB writes log output, by default, to `stderr`.
-Depending on your use case, this log information can be written to another location.
-Some service managers may override this default.
+To write log output to `stderr`, open your terminal, run `influxd`, and then run the following query: 
 
-## Logging locations
-
-### Write logs to stderr
-
-To redirect the log output as you would any output to `stderr`, do the following: 
-
-1. Run InfluxDB directly by using `influxd` in your terminal. 
-2. Run this query to redirect the log output. 
 ```bash
 influxdb-meta 2>$HOME/my_log_file # Meta nodes
 influxd 2>$HOME/my_log_file # Data nodes
 influx-enterprise 2>$HOME/my_log_file # Enterprise Web
 ```
 
-### Launched as a service
+## Write log output to log file 
 
-#### sysvinit
+If InfluxDB was installed using a pre-built package, and then launched as a service (for example, sysvinit), log output is written to `/var/log/influxdb/<node-type>.log`. 
 
-If InfluxDB was installed using a pre-built package, and then launched as a service, `stderr` is redirected to `/var/log/influxdb/<node-type>.log`, and all log data will be written to that file. 
+For meta nodes, the <node-type> is `influxdb-meta`. For data nodes, the <node-type> is `influxdb`.
+
+The service configuration file is `/etc/default/influxdb-meta`. The service configuration file is `/etc/default/influxdb`.
 
 To ovverride this location, do one of the following: 
-- [Set the variable to `STDERR`](#STDERR)
-- [Set the variable to `STDOUT`](#STDOUT) 
+- [Set the variable to `STDERR`](#set-the-variable-to-STDERR)
+- [Set the variable to `STDOUT`](#set-the-variable-to-STDOUT) 
 
-##### STDERR 
+### Set the variable to `STDERR`
 
 1. Set the variable `STDERR` in the file `/etc/default/<node-type>`. 
 - For example, if on a data node `/etc/default/influxdb` contains:
@@ -56,22 +51,10 @@ STDERR=/dev/null
 all log data will be discarded.
 2. Restart InfluxDB to pick up any changes to `/etc/default/<node-type>`. 
 
-##### STDOUT 
+### Set the variable to `STDOUT`
 
 1. Set the variable to `STDOUT` in the file `/etc/default/<node-type>`. Output to `stdout` is sent to `/dev/null` by default when InfluxDB is launched as a service.
 2. InfluxDB must be restarted to pick up any changes to `/etc/default/<node-type>`.
-
-##### Meta nodes
-
-For meta nodes, the <node-type> is `influxdb-meta`.
-The default log file is `/var/log/influxdb/influxdb-meta.log`
-The service configuration file is `/etc/default/influxdb-meta`.
-
-##### Data nodes
-
-For data nodes, the <node-type> is `influxdb`.
-The default log file is `/var/log/influxdb/influxdb.log`
-The service configuration file is `/etc/default/influxdb`.
 
 ##### Enterprise Web
 
@@ -79,7 +62,7 @@ For Enterprise Web nodes, the <node-type> is `influx-enterprise`.
 The default log file is `/var/log/influxdb/influx-enterprise.log`
 The service configuration file is `/etc/default/influx-enterprise`.
 
-#### systemd
+### systemd
 
 Starting with version 1.0, InfluxDB on systemd systems no longer
 writes files to `/var/log/<node-type>.log` by default, and now uses the
@@ -129,10 +112,7 @@ See [Redirecting HTTP request logging](/enterprise_influxdb/v1.9/administration/
 
 Structured logging is supported and enable machine-readable and more developer-friendly log output formats. The two new structured log formats, `logfmt` and `json`, provide easier filtering and searching with external tools and simplifies integration of InfluxDB logs  with Splunk, Papertrail, Elasticsearch, and other third party tools.
 
-See [Structured logging](/enterprise_influxdb/v1.9/administration/logs/#structured-logging) in the InfluxDB OSS documentation.
-
 ## Tracing
 
 Logging has been enhanced, starting in InfluxDB 1.5, to provide tracing of important InfluxDB operations. Tracing is useful for error reporting and discovering performance bottlenecks.
 
-See [Tracing](/enterprise_influxdb/v1.9/administration/logs/#tracing) in the InfluxDB OSS documentation.

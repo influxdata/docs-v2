@@ -19,180 +19,92 @@ If you want to monitor an Enterprise cluster, do one of the following:
 * [Monitor Enterprise with Cloud](#monitor-enterprise-with-cloud)
 * [Monitor Enterprise with OSS](#monitor-enterpprise-with-oss)
 * [Monitor Enterprise with internal monitoring](#monitor-enterprise-with-internal-monitoring)
-* [Monitor with Insights and Aware] 
+* [Monitor with Insights and Aware](#monitor-with-insights-and-aware)
 
-If you don't want to monitor your data, but view your output data at a time, do one of the following: 
+If you don't want to monitor your data, but view your output data occasionally, do one of the following: 
 
-* [SHOW STATS]
-* [SHOW DIAGNOSTICS]
+* [SHOW STATS](#show-stats)
+* [SHOW DIAGNOSTICS](#show-diagnostics)
 * [Useful performance metric commands]
 
-## Monitor Enterprise with Cloud 
+## Monitor Enterprise
+
+Monitor Enterprise proactively before issues occur with the following platforms. 
+
+### Monitor Enterprise with Cloud 
 
 To monitor Enterprise with Cloud, see [here](/enterprise_influxdb/v1.9/administration/monitor-enterprise/monitor-with-cloud/). 
 
-## Monitor Enterprise with OSS
+### Monitor Enterprise with OSS
 
 To monitor Enterprise with Cloud, see [here](/enterprise_influxdb/v1.9/administration/monitor-enterprise/monitor-with-oss/). 
 
-## Monitor Enterprise with internal monitoring 
+### Monitor Enterprise with internal monitoring 
+
+Enterprise data nodes can monitor by themselves. Learn more about monitoring internally through dashboards [here](/platform/monitoring/influxdata-platform/monitoring-dashboards/). 
 
 {{% note %}}
 Monitoring Enterprise through `_internal` is an option, but not recommended since no system should monitor itself. 
 {{% /note %}}
 
+1. Make sure your Chronograf is installed and connected to an InfluxDB Enterprise cluster.
+2. Do one of the following: 
+- [Use prebuilt monitoring dashboards](#use-prebuilt-monitoring-dashboards)
+- [Import monitoring dashboards](#import-monitoring-dashboards)
 
+#### Use prebuilt monitoring dashboards 
 
+Chronograf provides prebuilt monitoring dashboards. To use the prebuilt dashboards, do the following:
 
-* [SHOW STATS](#show-stats)
-* [SHOW DIAGNOSTICS](#show-diagnostics)
-* [Internal monitoring](#internal-monitoring)
-* [Useful performance metrics commands](#useful-performance-metrics-commands)
-* [InfluxDB `/metrics` HTTP endpoint](#influxdb-metrics-http-endpoint)
+1. Open Chronograf and click **Host List** in the left-side navigation bar. 
+2. Click the monitoring dashboard link in the **Apps** column. The newly imported dashboard will appear in your list of dashboards.
 
+#### Import monitoring dashboards 
 
-InfluxDB can display statistical and diagnostic information about each node.
-This information can be very useful for troubleshooting and performance monitoring.
+To use the InfluxDB Enterprise Monitor dashboard to monitor InfluxDB Enterprise in Chronograf, do the following: 
 
-## SHOW STATS
+1. Download the InfluxDB Enterprise Monitor dashboard. 
+<a class="btn download" href="/downloads/influxdb-enterprise-monitor-dashboard.json" download target="\_blank">Download InfluxDB Enterprise Monitor dashboard</a>
 
-To see node statistics, execute the command `SHOW STATS`.
+2. Import the dashboard to Chronograf. 
+{{% note %}}
+A user must have an Admin or Editor role to import a dashboard. 
+{{% /note %}}
+    1. Click **Import Dashboard** in the Dashboards page in Chronograf. 
+    2. Drag, or drop, or select the JSON export file to import. 
+    3. Click **Upload Dashboard**. The newly imported dashboard will appear in your list of dashboards.
+
+### Monitor with Aware and Insights 
+
+To monitor InfluxDB Enterprise by yourself, use Aware. In Aware, Telegraf runs on enterprise nodes and sends information to Cloud, where the user can see their metrics.
+
+To have the support team monitor your InfluxDB Enterprise, use Insights. Telegraf runs enterprise nodes to send information to the Support team who monitors and alerts customers as needed.
+
+To monitor with Aware and Insights, do the following: 
+
+1. Contact [the support team](support@influxdata.com). 
+2. Set up a free Cloud 2 account with your email address once you are in contact with the support team. 
+{{% note %}}
+A group account on your side is preferred because the token the team creates will be owned by that account. If you remove the account (even if others persist) the token will be destroyed.
+{{% /note %}}
+3. Create a telegraf bucket and a **Write Token** for the telegraf bucket.
+4. Work with the support team via a zoom to ensure that the data is being written to your Cloud 2 account. 
+
+## View data at one time
+
+InfluxDB can display statistical and diagnostic information about each node which is used for troubleshooting and performance monitoring. 
+
+To view your data occasionally, with the following nodes:
+
+### SHOW STATS 
+
 For details on this command, see [`SHOW STATS`](/enterprise_influxdb/v1.9/query_language/spec#show-stats) in the InfluxQL specification.
 
-The statistics returned by `SHOW STATS` are stored in memory only, and are reset to zero when the node is restarted.
+Execute the command `SHOW STATS` in your terminal to see node statistics. 
 
-## SHOW DIAGNOSTICS
+### SHOW DIAGNOSTICS 
 
-To see node diagnostic information, execute the command `SHOW DIAGNOSTICS`.
-This returns information such as build information, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics.
 For details on this command, see [`SHOW DIAGNOSTICS`](/enterprise_influxdb/v1.9/query_language/spec#show-diagnostics) in the InfluxQL specification.
 
-## Internal monitoring
-InfluxDB also writes statistical and diagnostic information to database named `_internal`, which records metrics on the internal runtime and service performance.
-The `_internal` database can be queried and manipulated like any other InfluxDB database.
-Check out the [monitor service README](https://github.com/influxdata/influxdb/blob/1.8/monitor/README.md) and the [internal monitoring blog post](https://www.influxdata.com/blog/how-to-use-the-show-stats-command-and-the-_internal-database-to-monitor-influxdb/) for more detail.
+Excecute the command `SHOW DIAGNOSTICS` in your terminal to see node diagnostic information. 
 
-## Useful performance metrics commands
-
-Below are a collection of commands to find useful performance metrics about your InfluxDB instance.
-
-To find the number of points per second being written to the instance. Must have the `monitor` service enabled:
-```bash
-$ influx -execute 'select derivative(pointReq, 1s) from "write" where time > now() - 5m' -database '_internal' -precision 'rfc3339'
-```
-
-To find the number of writes separated by database since the beginnning of the log file:
-
-```bash
-grep 'POST' /var/log/influxdb/influxd.log | awk '{ print $10 }' | sort | uniq -c
-```
-
-Or, for systemd systems logging to journald:
-
-```bash
-journalctl -u influxdb.service | awk '/POST/ { print $10 }' | sort | uniq -c
-```
-
-### InfluxDB `/metrics` HTTP endpoint
-
-> ***Note:*** There are no outstanding PRs for improvements to the `/metrics` endpoint, but we’ll add them to the CHANGELOG as they occur.
-
-The InfluxDB `/metrics` endpoint is configured to produce the default Go metrics in Prometheus metrics format.
-
-
-#### Example using InfluxDB `/metrics' endpoint
-
-Below is an example of the output generated using the `/metrics` endpoint. Note that HELP is available to explain the Go statistics.
-
-```
-# HELP go_gc_duration_seconds A summary of the GC invocation durations.
-# TYPE go_gc_duration_seconds summary
-go_gc_duration_seconds{quantile="0"} 6.4134e-05
-go_gc_duration_seconds{quantile="0.25"} 8.8391e-05
-go_gc_duration_seconds{quantile="0.5"} 0.000131335
-go_gc_duration_seconds{quantile="0.75"} 0.000169204
-go_gc_duration_seconds{quantile="1"} 0.000544705
-go_gc_duration_seconds_sum 0.004619405
-go_gc_duration_seconds_count 27
-# HELP go_goroutines Number of goroutines that currently exist.
-# TYPE go_goroutines gauge
-go_goroutines 29
-# HELP go_info Information about the Go environment.
-# TYPE go_info gauge
-go_info{version="go1.10"} 1
-# HELP go_memstats_alloc_bytes Number of bytes allocated and still in use.
-# TYPE go_memstats_alloc_bytes gauge
-go_memstats_alloc_bytes 1.581062048e+09
-# HELP go_memstats_alloc_bytes_total Total number of bytes allocated, even if freed.
-# TYPE go_memstats_alloc_bytes_total counter
-go_memstats_alloc_bytes_total 2.808293616e+09
-# HELP go_memstats_buck_hash_sys_bytes Number of bytes used by the profiling bucket hash table.
-# TYPE go_memstats_buck_hash_sys_bytes gauge
-go_memstats_buck_hash_sys_bytes 1.494326e+06
-# HELP go_memstats_frees_total Total number of frees.
-# TYPE go_memstats_frees_total counter
-go_memstats_frees_total 1.1279913e+07
-# HELP go_memstats_gc_cpu_fraction The fraction of this program's available CPU time used by the GC since the program started.
-# TYPE go_memstats_gc_cpu_fraction gauge
-go_memstats_gc_cpu_fraction -0.00014404354379774563
-# HELP go_memstats_gc_sys_bytes Number of bytes used for garbage collection system metadata.
-# TYPE go_memstats_gc_sys_bytes gauge
-go_memstats_gc_sys_bytes 6.0936192e+07
-# HELP go_memstats_heap_alloc_bytes Number of heap bytes allocated and still in use.
-# TYPE go_memstats_heap_alloc_bytes gauge
-go_memstats_heap_alloc_bytes 1.581062048e+09
-# HELP go_memstats_heap_idle_bytes Number of heap bytes waiting to be used.
-# TYPE go_memstats_heap_idle_bytes gauge
-go_memstats_heap_idle_bytes 3.8551552e+07
-# HELP go_memstats_heap_inuse_bytes Number of heap bytes that are in use.
-# TYPE go_memstats_heap_inuse_bytes gauge
-go_memstats_heap_inuse_bytes 1.590673408e+09
-# HELP go_memstats_heap_objects Number of allocated objects.
-# TYPE go_memstats_heap_objects gauge
-go_memstats_heap_objects 1.6924595e+07
-# HELP go_memstats_heap_released_bytes Number of heap bytes released to OS.
-# TYPE go_memstats_heap_released_bytes gauge
-go_memstats_heap_released_bytes 0
-# HELP go_memstats_heap_sys_bytes Number of heap bytes obtained from system.
-# TYPE go_memstats_heap_sys_bytes gauge
-go_memstats_heap_sys_bytes 1.62922496e+09
-# HELP go_memstats_last_gc_time_seconds Number of seconds since 1970 of last garbage collection.
-# TYPE go_memstats_last_gc_time_seconds gauge
-go_memstats_last_gc_time_seconds 1.520291233297057e+09
-# HELP go_memstats_lookups_total Total number of pointer lookups.
-# TYPE go_memstats_lookups_total counter
-go_memstats_lookups_total 397
-# HELP go_memstats_mallocs_total Total number of mallocs.
-# TYPE go_memstats_mallocs_total counter
-go_memstats_mallocs_total 2.8204508e+07
-# HELP go_memstats_mcache_inuse_bytes Number of bytes in use by mcache structures.
-# TYPE go_memstats_mcache_inuse_bytes gauge
-go_memstats_mcache_inuse_bytes 13888
-# HELP go_memstats_mcache_sys_bytes Number of bytes used for mcache structures obtained from system.
-# TYPE go_memstats_mcache_sys_bytes gauge
-go_memstats_mcache_sys_bytes 16384
-# HELP go_memstats_mspan_inuse_bytes Number of bytes in use by mspan structures.
-# TYPE go_memstats_mspan_inuse_bytes gauge
-go_memstats_mspan_inuse_bytes 1.4781696e+07
-# HELP go_memstats_mspan_sys_bytes Number of bytes used for mspan structures obtained from system.
-# TYPE go_memstats_mspan_sys_bytes gauge
-go_memstats_mspan_sys_bytes 1.4893056e+07
-# HELP go_memstats_next_gc_bytes Number of heap bytes when next garbage collection will take place.
-# TYPE go_memstats_next_gc_bytes gauge
-go_memstats_next_gc_bytes 2.38107752e+09
-# HELP go_memstats_other_sys_bytes Number of bytes used for other system allocations.
-# TYPE go_memstats_other_sys_bytes gauge
-go_memstats_other_sys_bytes 4.366786e+06
-# HELP go_memstats_stack_inuse_bytes Number of bytes in use by the stack allocator.
-# TYPE go_memstats_stack_inuse_bytes gauge
-go_memstats_stack_inuse_bytes 983040
-# HELP go_memstats_stack_sys_bytes Number of bytes obtained from system for stack allocator.
-# TYPE go_memstats_stack_sys_bytes gauge
-go_memstats_stack_sys_bytes 983040
-# HELP go_memstats_sys_bytes Number of bytes obtained from system.
-# TYPE go_memstats_sys_bytes gauge
-go_memstats_sys_bytes 1.711914744e+09
-# HELP go_threads Number of OS threads created.
-# TYPE go_threads gauge
-go_threads 16
-```

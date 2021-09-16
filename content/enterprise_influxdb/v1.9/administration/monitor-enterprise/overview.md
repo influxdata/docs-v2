@@ -58,7 +58,7 @@ InfluxDB Insights is a free Enterprise service that sends your data to a private
 
 To apply for this service, please contact the [support team](support@influxdata.com). 
 
-## View your data 
+## View your data at one time 
 
 ### SHOW STATS 
 
