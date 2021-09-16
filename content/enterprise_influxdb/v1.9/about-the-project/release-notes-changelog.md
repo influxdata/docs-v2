@@ -28,7 +28,7 @@ menu:
 - Require read authorization on a database to see continuous queries linked to that database. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
 - Limit field size to 1MB while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
 - Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
-- Return an error instead of panic when Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
+- Return an error instead of panic when InfluxDB Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
 - Ensure correct JSON log formatting. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
 - Handle HTTPS errors during systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
 - Fix issue incorrectly reporting compaction queue of zero. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
