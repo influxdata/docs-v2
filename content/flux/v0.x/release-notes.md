@@ -5,6 +5,9 @@ weight: 1
 menu:
   flux_0_x_ref:
     name: Release notes
+aliases:
+  - /influxdb/v2.0/reference/release-notes/flux/
+  - /influxdb/cloud/reference/release-notes/flux/
 ---
 
 ## v0.130.0 [2021-09-15]

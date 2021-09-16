@@ -121,9 +121,9 @@ Defaults are overridden by explicitly defining the parameter in the function cal
 #### Get a list of leaders
 The example below defines a `leaderBoard` function that returns a limited number
 of records sorted by values in specified columns.
-It uses the [`sort()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort)
+It uses the [`sort()` function](/{{< latest "flux" >}}/stdlib/universe/sort)
 to sort records in either descending or ascending order.
-It then uses the [`limit()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit)
+It then uses the [`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
 to return a specified number of records from the sorted table.
 
 ```js
@@ -189,7 +189,7 @@ alertLevel(v: 87.3)
 
 #### Convert a HEX color code to a name
 The following function converts a hexadecimal (HEX) color code to the equivalent HTML color name.
-The functions uses the [Flux dictionary package](/influxdb/v2.0/reference/flux/stdlib/dict/)
+The functions uses the [Flux dictionary package](/{{< latest "flux" >}}/stdlib/dict/)
 to create a dictionary of HEX codes and their corresponding names.
 
 ```js

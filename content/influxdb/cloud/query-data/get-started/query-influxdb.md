@@ -8,8 +8,9 @@ menu:
     parent: Get started with Flux
 weight: 201
 related:
+  - /{{< latest "flux" >}}/get-started/query-basics/
   - /influxdb/cloud/query-data/flux/
-  - /{{< latest "flux" >}}/stdlib/universe/from
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/from
   - /{{< latest "flux" >}}/stdlib/universe/range
   - /{{< latest "flux" >}}/stdlib/universe/filter
 ---

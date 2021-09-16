@@ -27,7 +27,7 @@ Aggregate functions all have the same basic characteristics:
 ## How reduce() works
 The `reduce()` function operates on one row at a time using the function defined in
 the [`fn` parameter](/{{< latest "flux" >}}/stdlib/universe/reduce/#fn).
-The `fn` function maps keys to specific values using two [records](/influxdb/v2.0/query-data/get-started/syntax-basics/#records)
+The `fn` function maps keys to specific values using two [records](/{{< latest "flux" >}}/data-types/composite/record/)
 specified by the following parameters:
 
 | Parameter     | Description                                                             |

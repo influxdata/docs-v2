@@ -76,7 +76,7 @@ value4
 
 ## Use custom dashboard variables
 
-Use the Flux `v` record and [dot or bracket notation](/influxdb/v2.0/query-data/get-started/syntax-basics/#records) to access custom dashboard variables. 
+Use the Flux `v` record and [dot or bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#reference-values-in-a-record) to access custom dashboard variables. 
 
 For example, to use a custom dashboard variable named `exampleVar` in a query,
 reference the variable with `v.exampleVar`:

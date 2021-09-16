@@ -73,7 +73,7 @@ from(bucket: "bucket_1")
   |> yield(name: "min")
 ```
 
-5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/) function.
+5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/{{< latest "flux" >}}/stdlib/universe/yield/) function.
 For example, to change the name of the first function from  `mean` to `Average`, modify the last line to the following:
   ```js
     |> yield(name: "Average")

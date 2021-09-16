@@ -44,7 +44,7 @@ and use the results with InfluxDB dashboards, tasks, and other operations.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/{{< latest "flux" >}}//get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Query a SQL data source
@@ -317,7 +317,7 @@ Sample sensor information is stored in PostgreSQL.
 
 1.  [Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/) to store the data.
 2.  [Create an InfluxDB task](/influxdb/v2.0/process-data/manage-tasks/create-task/)
-    and use the [`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/)
+    and use the [`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/)
     to download sample air sensor data every 15 minutes.
     Write the downloaded sample data to your new bucket:
 

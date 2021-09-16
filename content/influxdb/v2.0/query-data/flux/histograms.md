@@ -21,7 +21,7 @@ This guide walks through using Flux's `histogram()` function to transform your d
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/{{< latest "flux" >}}//get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## histogram() function
@@ -236,7 +236,7 @@ http_api_request_duration_seconds_count{handler="platform",method="POST",path="/
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-Use the [histogramQuantile()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/) function to convert a Prometheus histogram to a specified quantile.
+Use the [histogramQuantile()](/{{< latest "flux" >}}/stdlib/universe/histogramquantile/) function to convert a Prometheus histogram to a specified quantile.
 This function expects a stream of input tables where each table has the following form:
 
 - Each row represents one bucket of a histogram, where the upper bound of the bucket is defined by the

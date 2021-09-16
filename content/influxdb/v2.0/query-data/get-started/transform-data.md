@@ -14,14 +14,16 @@ related:
 
 When [querying data from InfluxDB](/influxdb/v2.0/query-data/get-started/query-influxdb),
 you often need to transform that data in some way.
-Common examples are aggregating data into averages, downsampling data, etc.
+Common examples are aggregating data, downsampling data, etc.
 
 This guide demonstrates using [Flux functions](/{{< latest "flux" >}}/stdlib/) to transform your data.
 It walks through creating a Flux script that partitions data into windows of time,
 averages the `_value`s in each window, and outputs the averages as a new table.
-(Remember, Flux structures all data in [tables](/influxdb/v2.0/query-data/get-started/#tables).)
 
-It's important to understand how the "shape" of your data changes through each of these operations.
+{{% note %}}
+If you're not familiar with how Flux structures and operates on data, see
+[Flux data model](/{{< latest "flux" >}}/get-started/data-model/).
+{{% /note %}}
 
 ## Query data
 Use the query built in the previous [Query data from InfluxDB](/influxdb/v2.0/query-data/get-started/query-influxdb)
@@ -40,7 +42,7 @@ from(bucket:"example-bucket")
 ## Flux functions
 Flux provides a number of functions that perform specific operations, transformations, and tasks.
 You can also [create custom functions](/influxdb/v2.0/query-data/flux/custom-functions) in your Flux queries.
-_Functions are covered in detail in the [Flux functions](/{{< latest "flux" >}}/stdlib/) documentation._
+_Functions are covered in detail in the [Flux standard library](/{{< latest "flux" >}}/stdlib/) documentation._
 
 A common type of function used when transforming data queried from InfluxDB is an aggregate function.
 Aggregate functions take a set of `_value`s in a table, aggregate them, and transform
@@ -155,8 +157,8 @@ This may seem like a lot of coding just to build a query that aggregates data, h
 process helps to understand how data changes "shape" as it is passed through each function.
 
 Flux provides (and allows you to create) "helper" functions that abstract many of these steps.
-The same operation performed in this guide can be accomplished using the
-[`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow).
+The same operation performed in this guide can be accomplished using
+[`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow).
 
 ```js
 from(bucket:"example-bucket")
@@ -181,4 +183,4 @@ view the [Window and aggregate data](/influxdb/v2.0/query-data/flux/window-aggre
 
 ---
 
-{{< page-nav prev="/influxdb/v2.0/query-data/get-started/query-influxdb/" next="/influxdb/v2.0/query-data/get-started/syntax-basics/" >}}
+{{< page-nav prev="/influxdb/v2.0/query-data/get-started/query-influxdb/" >}}

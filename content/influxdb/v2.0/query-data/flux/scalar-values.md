@@ -48,8 +48,8 @@ _The samples on this page use the [sample data provided below](#sample-data)._
 Flux formats query results as a stream of tables.
 Both [`findColumn()`](/{{< latest "flux" >}}/stdlib/universe/findcolumn/)
 and [`findRecord()`](/{{< latest "flux" >}}/stdlib/universe/findrecord/)
-extract the first table in a stream of tables whose [group key](/influxdb/v2.0/reference/glossary/#group-key)
-values match the `fn` [predicate function](/influxdb/v2.0/reference/glossary/#predicate-function).
+extract the first table in a stream of tables whose [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key)
+values match the `fn` [predicate function](/{{< latest "flux" >}}/get-started/syntax-basics/#predicate-functions).
 
 {{% note %}}
 #### Extract the correct table
@@ -124,8 +124,8 @@ sampleData
 ### Use an extracted row record
 Use a variable to store the extracted row record.
 In the example below, `tempInfo` represents the extracted row.
-Use [dot notation](/influxdb/v2.0/query-data/get-started/syntax-basics/#records) to reference
-keys in the record.
+Use [dot or bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#dot-notation)
+to reference keys in the record.
 
 ```js
 tempInfo = sampleData

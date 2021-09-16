@@ -46,7 +46,8 @@ Rows that evaluate to `false` are **excluded** from the output data.
 The `fn` predicate function requires an `r` argument, which represents each row
 as `filter()` iterates over input data.
 Key-value pairs in the row record represent columns and their values.
-Use **dot notation** or **bracket notation** to reference specific column values in the predicate function.
+Use [dot notation or bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#reference-values-in-a-record) 
+to reference specific column values in the predicate function.
 Use [logical operators](/{{< latest "flux" >}}/spec/operators/#logical-operators)
 to chain multiple predicate expressions together.
 
@@ -62,7 +63,7 @@ r = {foo: "bar", baz: "quz"}
 ```
 
 ## Filter by fields and tags
-The combination of [`from()`](/{{< latest "flux" >}}/stdlib/universe/from),
+The combination of [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from),
 [`range()`](/{{< latest "flux" >}}/stdlib/universe/range),
 and `filter()` represent the most basic Flux query:
 
