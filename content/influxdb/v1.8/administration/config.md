@@ -292,6 +292,8 @@ The maximum size that a shard cache can reach before it starts rejecting writes.
 Valid memory size suffixes are: `k`, `m`, or `g` (case-insensitive, 1024 = 1k).
 Values without a size suffix are in bytes.
 
+Consider increasing this value if encountering `cache maximum memory size exceeded` errors.
+
 Environment variable: `INFLUXDB_DATA_CACHE_MAX_MEMORY_SIZE`
 
 #### `cache-snapshot-memory-size = "25m"`
