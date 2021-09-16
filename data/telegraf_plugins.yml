@@ -772,7 +772,7 @@ input:
     description: |
       The Internet Speed Monitor plugin collects data about the internet speed on the system.
     introduced: 1.20.0
-    tags: [linux, macos, windows, systems, IoT, networking]
+    tags: [linux, macos, windows, systems, iot, networking]
 
   - name: Interrupts
     id: interrupts
