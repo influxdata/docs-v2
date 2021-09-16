@@ -11,7 +11,7 @@ menu:
     name: prometheus.scrape
     parent: prometheus
 weight: 401
-flux/v0.x/tags: [inputs]
+flux/v0.x/tags: [inputs, prometheus]
 related:
   - /{{< latest "influxdb" >}}/write-data/no-code/scrape-data/scrapable-endpoints/
 introduced: 0.50.0
