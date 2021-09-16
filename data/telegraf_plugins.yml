@@ -442,6 +442,13 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, data-stores]
 
+  - name: Elasticsearch Query
+    id: elasticsearch_query
+    description: |
+      This elasticsearch query plugin queries endpoints to obtain metrics from data stored in an Elasticsearch cluster.
+    introduced: 1.20.0
+    tags: [linux, macos, windows, data-stores]
+
   - name: Ethtool
     id: ethtool
     description: |
@@ -760,6 +767,13 @@ input:
     introduced: 1.16.0
     tags: [linux, macos, windows, systems]
 
+  - name: Internet Speed Monitor
+    id: internet_speed
+    description: |
+      The Internet Speed Monitor plugin collects data about the internet speed on the system.
+    introduced: 1.20.0
+    tags: [linux, macos, windows, systems]
+
   - name: Interrupts
     id: interrupts
     description: |
@@ -990,6 +1004,13 @@ input:
       It's a core component of cache infrastructure at Facebook and Instagram where mcrouter
       handles almost 5 billion requests per second at peak.
     introduced: 1.7.0
+    tags: [linux, macos, windows, networking]
+
+  - name: Mdstat
+    id: mdstat
+    description: |
+      The mdstat plugin gathers statistics about any Linux MD RAID arrays configured on the host by reading /proc/mdstat.
+    introduced: 1.20.0
     tags: [linux, macos, windows, networking]
 
   - name: Mem
@@ -1525,6 +1546,13 @@ input:
     introduced: 1.17.0
     tags: [linux, macos, windows]
 
+  - name: ROCm System Management Interface (SMI)
+    id: amd_rocm_smi
+    description: |
+      The ROCm System Management Interface plugin pulls statistics from NVIDIA GPU stats including memory, usage, and temperature.
+    introduced: 1.20.0
+    tags: [linux, macos, windows]
+
   - name: Salesforce
     id: salesforce
     description: |
@@ -1984,6 +2012,13 @@ output:
     introduced: 0.1.7
     tags: [linux, macos, windows, messaging]
 
+  - name: Azure Data Explorer
+    id: azure_data_explorer
+    description: |
+      The Azure Data Explorer output plugin writes metrics to [Azure Data Explorer](https://azure.microsoft.com/en-au/services/data-explorer/).
+    introduced: 1.20.0
+    tags: [linux, macos, windows]
+
   - name: BigQuery
     id: bigquery
     description: |
@@ -2201,6 +2236,13 @@ output:
       It requires a server name and a topic name.
     introduced: 0.2.1
     tags: [linux, macos, windows, messaging]
+
+  - name: OpenTelemetry
+    id: opentelemetry
+    description: |
+      The OpenTelemetry plugin sends metrics to [OpenTelemetry](https://opentelemetry.io/) servers and agents via gRPC.
+    introduced: 1.20.0
+    tags: [linux, macos, windows]
 
   - name: OpenTSDB
     id: opentsdb
