@@ -42,7 +42,7 @@ The InfluxDB Enterprise Monitoring template includes a Telegraf configuration th
      https://raw.githubusercontent.com/influxdata/community-templates/master/influxdb-enterprise-1x/enterprise.yml
     ```
 
-2. Click **Lookup Template**, and then click **Install Template**. InfluxDB Cloud imports the template, which includes the following resources:
+2. Click **Lookup Template**, and then click **Install Template**. InfluxDB OSS imports the template, which includes the following resources:
    - Telegraf Configuration `monitoring-enterprise-1x`
    - Dashboard `InfluxDB 1.x Enterprise`
    - Label `enterprise`
@@ -72,7 +72,7 @@ By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which e
       # HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
       ...
       ```
-3. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
+3. Add your **InfluxDB OSS** account information (URL and organization) to your Telegraf configuration by doing the following:
    1. Go to **Load Data > Telegraf** [in your InfluxDB OSS account](http://localhost:8086/), and click **InfluxDB Output Plugin** at the top-right corner.
    2. Copy the `urls`, `token`, `organization`, and `bucket` and close the window. 
    3. Click **monitoring-enterprise-1.x**. 
@@ -99,7 +99,7 @@ To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded 
 
 ## Set up Telegraf
 
-Set up Telegraf to scrape metrics from InfluxDB Enterprise to send to your InfluxDB Cloud account.
+Set up Telegraf to scrape metrics from InfluxDB Enterprise to send to your InfluxDB OSS account.
 
 On each InfluxDB Enterprise instance you want to monitor, do the following:
 
