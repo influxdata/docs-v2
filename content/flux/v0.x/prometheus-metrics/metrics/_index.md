@@ -17,6 +17,4 @@ flux/v0.x/tags: [prometheus]
 Learn how to use Flux to work with the four core
 [Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/):
 
-{{< children type="anchored-list" >}}
-
 {{< children >}}
