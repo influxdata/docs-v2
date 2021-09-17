@@ -34,7 +34,7 @@ influx task run list [flags]
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--limit`         | Limit the number of results                                           | integer    |                       |
 |      | `--run-id`        | Run ID                                                                | string     |                       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--task-id`       | ({{< req >}}) Task ID                                                 | string     |                       |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 

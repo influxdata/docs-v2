@@ -1,13 +1,32 @@
-{{ $section := "influxdb" }}
+{{ $section := (index (findRE "[^/]+.*?" .Page.RelPermalink) 0) }}
 {{ $currentVersion := (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
+{{ $filters := .Get "filters" | default "" }}
+{{ $filterArr := split $filters ", "}}
+{{ $tagTaxonomy := print $section "/" $currentVersion "/tags" }}
 
 <ul>
 {{ range where $.Site.RegularPages.ByTitle "Section" $section }}
-  {{ if and (in .RelPermalink (print $section "/" $currentVersion "/")) (in .Title "() function")  }}
-    {{ $title := replaceRE `\ function` "" .Title }}
-    <li>
-      <a href="{{ .RelPermalink }}">{{ $title }}</a>
-    </li>
+  {{ $title := cond (isset .Page.Params "list_title") (replaceRE `\ function` "" .Page.Params.list_title) (replaceRE `\ function` "" .Title) }}
+  {{ $deprecated := isset .Page.Params "deprecated" }}
+  {{ $removed := isset .Page.Params "removed" }}
+  {{ $tagList := index .Page.Params $tagTaxonomy | default (slice "") }}
+
+  {{ if ne $filters "" }}
+    {{ if gt (len (intersect $filterArr (index .Page.Params $tagTaxonomy))) 0}}
+      {{ if and (in .RelPermalink (print $section "/" $currentVersion "/")) (in .Title "() function")  }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ $title }}</a>{{ if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
+        </li>
+      {{ end }}
+    {{ end }}
+  {{ else }}
+    {{ if and (in .RelPermalink (print $section "/" $currentVersion "/")) (in .Title "() function")  }}
+      <li class="filter-item visible" data-tags='{{ replaceRE "/" "-" (delimit (apply $tagList "urlize" ".") " ") }}'>
+        <a href="{{ .RelPermalink }}">{{ $title }}</a>
+        {{ if $removed }} <em style="opacity:.35">– (removed)</em>
+        {{ else if $deprecated }} <em style="opacity:.35">– (deprecated)</em>{{ end }}
+      </li>
+    {{ end }}
   {{ end }}
 {{ end }}
 </ul>

@@ -10,12 +10,12 @@ menu:
     parent: Syntax
 influxdb/v2.0/tags: [csv, syntax]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/csv/from/
+  - /{{< latest "flux" >}}/stdlib/csv/from/
   - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
 ---
 
 InfluxDB and Flux return query results in annotated CSV format.
-You can also read annotated CSV directly from Flux with the [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/)
+You can also read annotated CSV directly from Flux with the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/)
 or write data to InfluxDB using annotated CSV and the `influx write` command.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
@@ -247,7 +247,7 @@ test,name=annotatedDatatypes s="str2",d=2,b=false,l=2i,ul=2u,dur=2000i 157873741
 
 ## Annotated CSV in Flux
 Flux requires all annotation and header rows in annotated CSV.
-The example below illustrates how to use the [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/)
+The example below illustrates how to use the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/)
 to read annotated CSV in Flux:
 
 ```js

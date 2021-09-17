@@ -42,8 +42,8 @@ When performing any math operation in a Flux query, you must complete the follow
 1. Specify the [bucket](/{{< latest "influxdb" "v2" >}}/query-data/get-started/#buckets) to query from and the time range to query.
 2. Filter your data by measurements, fields, and other applicable criteria.
 3. Align values in one row (required to perform math in Flux) by using one of the following functions:
-   - To query **from multiple** data sources, use the [`join()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/join/).
-   - To query **from the same** data source, use the [`pivot()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/pivot/).
+   - To query **from multiple** data sources, use the [`join()` function](/{{< latest "flux" >}}/stdlib/universe/join/).
+   - To query **from the same** data source, use the [`pivot()` function](/{{< latest "flux" >}}/stdlib/universe/pivot/).
 
 For examples using the `join()` function to calculate percentages and more examples of calculating percentages, see [Calculate percentages with Flux](/{{< latest "influxdb" "v2" >}}/query-data/flux/calculate-percentages/).
 
@@ -73,7 +73,7 @@ data
 
 ## Calculate a percentage from two fields
 
-Use the `data` variable created above, and then use the [`map()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map/) to divide one field by another, multiply by 100, and add a new `percent` field to store the percentage values in.
+Use the `data` variable created above, and then use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map/) to divide one field by another, multiply by 100, and add a new `percent` field to store the percentage values in.
 
 ```js
 data
@@ -89,7 +89,7 @@ data
 
 ## Calculate a percentage using aggregate functions
 
-Use [`aggregateWindow()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow) to window data by time and perform an aggregate function on each window.
+Use [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow) to window data by time and perform an aggregate function on each window.
 
 ```js
 from(bucket:"<database>/<retention_policy>")

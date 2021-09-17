@@ -16,7 +16,7 @@ Telegraf supports four categories of plugins including input, output, aggregator
 
 > Telegraf plugins support parsers (input data formats) and serializers (output data formats), which can be added to Telegraf plugins that include the `data-format` option. For more information about parsers and serializers, see [Telgraf data formats](/telegraf/v1.14/data_formats/).
 
-{{< telegraf/filters >}}
+{{< list-filters >}}
 
 **Jump to:**
 

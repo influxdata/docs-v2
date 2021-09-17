@@ -12,6 +12,9 @@ menu:
     name: Get started with tasks
     parent: Process data
 weight: 101
+related:
+  - /influxdb/cloud/process-data/manage-tasks/
+  - /influxdb/cloud/process-data/manage-tasks/create-task/
 ---
 
 {{< duplicate-oss >}}

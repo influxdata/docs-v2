@@ -162,6 +162,9 @@ See [InfluxQL Functions](/enterprise_influxdb/v1.9/query_language/functions/) fo
 
 Related entries: [aggregation](#aggregation), [selector](#selector), [transformation](#transformation)
 
+<!--
+## grant
+-->
 ## identifier
 
 Tokens that refer to continuous query names, database names, field keys,
@@ -195,6 +198,9 @@ The metastore contains the user information, databases, retention policies, shar
 
 Related entries: [database](#database), [retention policy](#retention-policy-rp), [user](#user)
 
+<!--
+## permission
+-->
 ## node
 
 An independent `influxd` process.
@@ -251,6 +257,9 @@ For more information, see [Retention policy management](/enterprise_influxdb/v1.
 
 Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
 
+<!--
+## role
+  -->
 ## schema
 
 How the data are organized in InfluxDB.
@@ -423,8 +432,9 @@ The purpose-built data storage format for InfluxDB. TSM allows for greater compa
 
 ## user
 
-There are two kinds of users in InfluxDB:
+There are three kinds of users in InfluxDB Enterprise:
 
+* *Global admin users* have all permissions.
 * *Admin users* have `READ` and `WRITE` access to all databases and full access to administrative queries and user management commands.
 * *Non-admin users* have `READ`, `WRITE`, or `ALL` (both `READ` and `WRITE`) access per database.
 

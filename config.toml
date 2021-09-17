@@ -23,6 +23,7 @@ smartDashes = false
 [taxonomies]
   "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
   "influxdb/cloud/tag" = "influxdb/cloud/tags"
+  "flux/v0.x/tag" = "flux/v0.x/tags"
 
 [markup]
   [markup.goldmark]

@@ -33,7 +33,7 @@ influx auth list [flags]
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string     |                       |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string     |                       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 | `-u` | `--user`          | Username                                                              | string     |                       |
 |      | `--user-id`       | User ID                                                               | string     |                       |

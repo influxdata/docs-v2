@@ -9,15 +9,15 @@ menu:
     parent: Query with Flux
 weight: 220
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/misc/now/
-  - /influxdb/cloud/reference/flux/stdlib/system/time/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/time/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/uint/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/int/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/
-  - /influxdb/cloud/reference/flux/stdlib/date/truncate/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/addduration/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/subduration/
+  - /{{< latest "flux" >}}/stdlib/universe/now/
+  - /{{< latest "flux" >}}/stdlib/system/time/
+  - /{{< latest "flux" >}}/stdlib/universe/time/
+  - /{{< latest "flux" >}}/stdlib/universe/uint/
+  - /{{< latest "flux" >}}/stdlib/universe/int/
+  - /{{< latest "flux" >}}/stdlib/universe/truncatetimecolumn/
+  - /{{< latest "flux" >}}/stdlib/date/truncate/
+  - /{{< latest "flux" >}}/stdlib/experimental/addduration/
+  - /{{< latest "flux" >}}/stdlib/experimental/subduration/
 ---
 
 {{< duplicate-oss >}}

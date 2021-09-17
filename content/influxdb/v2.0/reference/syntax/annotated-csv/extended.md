@@ -26,7 +26,7 @@ Extended annotated CSV supports all [Annotated CSV](/influxdb/v2.0/reference/syn
 annotations.
 
 {{% warn %}}
-The Flux [`csv.from` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/) only supports
+The Flux [`csv.from` function](/{{< latest "flux" >}}/stdlib/csv/from/) only supports
 [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/), not extended annotated CSV.
 {{% /warn %}}
 

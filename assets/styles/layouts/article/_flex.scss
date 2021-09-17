@@ -13,8 +13,8 @@
   &.quarter { width: calc(25% - 1rem); }
   &.two-thirds { width: calc(66% - 2rem);}
 
-  table {
-    margin-bottom: 1rem;
+  &.half, &.third, &.quarter {
+    table:not(:last-child) {margin-right: 1rem;}
   }
 }
 

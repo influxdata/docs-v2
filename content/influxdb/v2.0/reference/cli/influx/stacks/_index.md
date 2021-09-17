@@ -45,7 +45,7 @@ influx stacks [command]
 |      | `--json`          | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             | `INFLUX_SKIP_VERIFY`  |
 |      | `--stack-id`      | Stack IDs to filter by                                                | stringArray |                       |
 |      | `--stack-name`    | Stack names to filter by                                              | stringArray |                       |
 | `-t` | `--token`         | API token                                                             | string      | `INFLUX_TOKEN`        |

@@ -14,7 +14,7 @@ menu:
 products: [cloud]
 ---
 
-InfluxDB Cloud offers two pricing plans, which provide different data and resource usage limits:
+InfluxDB Cloud offers two plans, which provide different data and resource usage limits:
 
 - [Free Plan](#free-plan)
 - [Usage-Based Plan](#usage-based-plan)
@@ -51,9 +51,26 @@ _To raise rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-m
 
 The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/cloud/account-management/data-usage/).
 
+### Data limit
+
+- **Ingest batch size:** 50MB
+
+### Soft data limits
+
+To protect against any intentional or unintentional harm, the Usage-Based Plan includes soft limits.
+_To request higher soft data limits, contact [InfluxData Support](mailto:support@influxdata.com)._
+
+- **Data In:** 300MB every 5 minutes
+- **Query:** 3000MB every 5 minutes
+- **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact InfluxData Support](mailto:support@influxdata.com))
+- **Storage:** Unlimited retention
+{{% note %}}
+Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
+{{% /note %}}
+
 ### Pricing vectors
 
-The following vectors determine pricing:
+The Usage-Based Plan uses the following pricing vectors to calculate InfluxDB Cloud billing costs:
 
 - **Data out** is the total sum of the data (measured in GB) returned to the user to answer a query, also known as data transfer costs.
 - **Query count** is the total number of individual query operations:
@@ -63,19 +80,7 @@ The following vectors determine pricing:
 - **Data In** is the amount of data you’re writing into InfluxDB (measured in MB/second).
 - **Storage** is the amount of data you’re storing in InfluxDB (measured in GB/hour).
 
-### Usage-Based Plan limits
-
-To protect against any intentional or unintentional harm, Usage-Based Plans include soft limits.
-_To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com)._
-
-- **Data In:** 300MB every 5 minutes
-- **Query:** 3000MB every 5 minutes
-- **Ingest batch size:** 50MB
-- **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact InfluxData Support](mailto:support@influxdata.com))
-- **Storage:** Unlimited retention
-{{% note %}}
-Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
-{{% /note %}}
+Discover how to [manage InfluxDB Cloud billing](/influxdb/cloud/account-management/billing/).
 
 ### Unlimited resources
 

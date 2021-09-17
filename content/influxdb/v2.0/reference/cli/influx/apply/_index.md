@@ -44,7 +44,7 @@ influx apply [flags]
 | `-q` | `--quiet`                 | Disable output printing                                                                     |            |                       |
 | `-R` | `--recurse`               | Recurse through files in the directory specified in `-f`, `--file`                          |            |                       |
 |      | `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                       |
-|      | `--skip-verify`           | Skip TLS certificate verification                                                           |            |                       |
+|      | `--skip-verify`           | Skip TLS certificate verification                                                           |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--stack-id`              | Stack ID to associate when applying the template                                            | string     |                       |
 | `-t` | `--token`                 | API token                                                                                   | string     | `INFLUX_TOKEN`        |
 
