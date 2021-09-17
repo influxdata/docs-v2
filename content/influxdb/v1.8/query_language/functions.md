@@ -40,7 +40,7 @@ Aggregate, select, transform, and predict data with InfluxQL functions.
   * [ATAN2()](#atan2)
   * [CEIL()](#ceil)
   * [COS()](#cos)
-  * [CUMULATIVE_SUM()](#cumulative-sum)
+  * [CUMULATIVE_SUM()](#cumulative_sum)
   * [DERIVATIVE()](#derivative)
   * [DIFFERENCE()](#difference)
   * [ELAPSED()](#elapsed)
@@ -51,32 +51,32 @@ Aggregate, select, transform, and predict data with InfluxQL functions.
   * [LOG()](#log)
   * [LOG2()](#log2)
   * [LOG10()](#log10)
-  * [MOVING_AVERAGE()](#moving-average)
-  * [NON_NEGATIVE_DERIVATIVE()](#non-negative-derivative)
-  * [NON_NEGATIVE_DIFFERENCE()](#non-negative-difference)
+  * [MOVING_AVERAGE()](#moving_average)
+  * [NON_NEGATIVE_DERIVATIVE()](#non_negative_derivative)
+  * [NON_NEGATIVE_DIFFERENCE()](#non_negative_difference)
   * [POW()](#pow)
   * [ROUND()](#round)
   * [SIN()](#sin)
   * [SQRT()](#sqrt)
   * [TAN()](#tan)
 * [Predictors](#predictors)
-  * [HOLT_WINTERS()](#holt-winters)
+  * [HOLT_WINTERS()](#holt_winters)
 * [Technical Analysis](#technical-analysis)
-  * [CHANDE_MOMENTUM_OSCILLATOR()](#chande-momentum-oscillator)
-  * [EXPONENTIAL_MOVING_AVERAGE()](#exponential-moving-average)
-  * [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double-exponential-moving-average)
-  * [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans-efficiency-ratio)
-  * [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans-adaptive-moving-average)
-  * [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](#triple-exponential-moving-average)
-  * [TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple-exponential-derivative)
-  * [RELATIVE_STRENGTH_INDEX()](#relative-strength-index)
+  * [CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)
+  * [EXPONENTIAL_MOVING_AVERAGE()](#exponential_moving_average)
+  * [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double_exponential_moving_average)
+  * [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans_efficiency_ratio)
+  * [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans_adaptive_moving_average)
+  * [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](#triple_exponential_moving_average)
+  * [TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple_exponential_derivative)
+  * [RELATIVE_STRENGTH_INDEX()](#relative_strength_index)
 * [Other](#other)
-  * [Sample Data](#sample-data)
-  * [General Syntax for Functions](#general-syntax-for-functions)
-    * [Specify Multiple Functions in the SELECT clause](#specify-multiple-functions-in-the-select-clause)
-    * [Rename the Output Field Key](#rename-the-output-field-key)
-    * [Change the Values Reported for Intervals with no Data](#change-the-values-reported-for-intervals-with-no-data)
-  * [Common Issues with Functions](#common-issues-with-functions)
+  * [Sample Data](#sample_data)
+  * [General Syntax for Functions](#general_syntax_for_functions)
+    * [Specify Multiple Functions in the SELECT clause](#specify_multiple_functions_in_the_select_clause)
+    * [Rename the Output Field Key](#rename_the_output_field_key)
+    * [Change the Values Reported for Intervals with no Data](#change_the_values_reported_for_intervals_with_no_data)
+  * [Common Issues with Functions](#common_issues_with_functions)
 
 ## Aggregations
 
@@ -6303,14 +6303,14 @@ The following technical analysis functions apply widely used algorithms to your 
 While they are primarily used in the world of finance and investing, they have
 application in other industries and use cases as well.
 
-[CHANDE_MOMENTUM_OSCILLATOR()](#chande-momentum-oscillator)  
-[EXPONENTIAL_MOVING_AVERAGE()](#exponential-moving-average)  
-[DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double-exponential-moving-average)  
-[KAUFMANS_EFFICIENCY_RATIO()](#kaufmans-efficiency-ratio)  
-[KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans-adaptive-moving-average)  
-[TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](#triple-exponential-moving-average)  
-[TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple-exponential-derivative)  
-[RELATIVE_STRENGTH_INDEX()](#relative-strength-index)  
+[CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)  
+[EXPONENTIAL_MOVING_AVERAGE()](#exponential_moving_average)  
+[DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double_exponential_moving_average)  
+[KAUFMANS_EFFICIENCY_RATIO()](#kaufmans_efficiency_ratio)  
+[KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans_adaptive_moving_average)  
+[TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](#triple_exponential_moving_average)  
+[TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple_exponential_derivative)  
+[RELATIVE_STRENGTH_INDEX()](#relative_strength_index)  
 
 ### Arguments
 
@@ -6341,23 +6341,23 @@ and the `WARMUP_TYPE`, but is a value in which the algorithm can emit meaningful
 _**Default Hold Periods:**_  
 
 For most of the available technical analysis, the default `HOLD_PERIOD` is
-determined by which technical analysis algorithm you're using and the [`WARMUP_TYPE`](#warmup-type)
+determined by which technical analysis algorithm you're using and the [`WARMUP_TYPE`](#warmup_type)
 
 | Algorithm \ Warmup Type                                                 | simple                 | exponential | none                                 |
 | ---------------------------------                                       | ---------------------- | ----------- |:----------:                          |
-| [EXPONENTIAL_MOVING_AVERAGE](#exponential-moving-average)               | PERIOD - 1             | PERIOD - 1  | <span style="opacity:.35">n/a</span> |
-| [DOUBLE_EXPONENTIAL_MOVING_AVERAGE](#double-exponential-moving-average) | ( PERIOD - 1 ) * 2     | PERIOD - 1  | <span style="opacity:.35">n/a</span> |
-| [TRIPLE_EXPONENTIAL_MOVING_AVERAGE](#triple-exponential-moving-average) | ( PERIOD - 1 ) * 3     | PERIOD - 1  | <span style="opacity:.35">n/a</span> |
-| [TRIPLE_EXPONENTIAL_DERIVATIVE](#triple-exponential-derivative)         | ( PERIOD - 1 ) * 3 + 1 | PERIOD      | <span style="opacity:.35">n/a</span> |
-| [RELATIVE_STRENGTH_INDEX](#relative-strength-index)                     | PERIOD                 | PERIOD      | <span style="opacity:.35">n/a</span> |
-| [CHANDE_MOMENTUM_OSCILLATOR](#chande-momentum-oscillator)               | PERIOD                 | PERIOD      | PERIOD - 1                           |
+| [EXPONENTIAL_MOVING_AVERAGE](#exponential_moving_average)               | PERIOD - 1             | PERIOD - 1  | <span style="opacity:.35">n/a</span> |
+| [DOUBLE_EXPONENTIAL_MOVING_AVERAGE](#double_exponential_moving_average) | ( PERIOD - 1 ) * 2     | PERIOD - 1  | <span style="opacity:.35">n/a</span> |
+| [TRIPLE_EXPONENTIAL_MOVING_AVERAGE](#triple_exponential_moving_average) | ( PERIOD - 1 ) * 3     | PERIOD - 1  | <span style="opacity:.35">n/a</span> |
+| [TRIPLE_EXPONENTIAL_DERIVATIVE](#triple_exponential_derivative)         | ( PERIOD - 1 ) * 3 + 1 | PERIOD      | <span style="opacity:.35">n/a</span> |
+| [RELATIVE_STRENGTH_INDEX](#relative_strength_index)                     | PERIOD                 | PERIOD      | <span style="opacity:.35">n/a</span> |
+| [CHANDE_MOMENTUM_OSCILLATOR](#chande_momentum_oscillator)               | PERIOD                 | PERIOD      | PERIOD - 1                           |
 
 _**Kaufman Algorithm Default Hold Periods:**_
 
 | Algorithm                                                               | Default Hold Period |
 | ---------                                                               | ------------------- |
-| [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans-efficiency-ratio)               | PERIOD              |
-| [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans-adaptive-moving-average) | PERIOD              |
+| [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans_efficiency_ratio)               | PERIOD              |
+| [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans_adaptive_moving_average) | PERIOD              |
 
 #### `WARMUP_TYPE`
 
@@ -6385,7 +6385,7 @@ When this method is used and `HOLD_PERIOD` is unspecified, `HOLD_PERIOD`
 defaults to `PERIOD - 1`.
 
 > The `none` warmup type is only available with the
-> [`CHANDE_MOMENTUM_OSCILLATOR()`](#chande-momentum-oscillator) function.
+> [`CHANDE_MOMENTUM_OSCILLATOR()`](#chande_momentum_oscillator) function.
 
 ### CHANDE_MOMENTUM_OSCILLATOR()
 
@@ -6405,8 +6405,8 @@ CHANDE_MOMENTUM_OSCILLATOR([ * | <field_key> | /regular_expression/ ], <period>[
 **Available Arguments:**  
 
 [period](#period)  
-[hold_period](#hold-period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
-[warmup_type](#warmup-type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[hold_period](#hold_period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[warmup_type](#warmup_type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
 
 `CHANDE_MOMENTUM_OSCILLATOR(field_key, 2)`  
 Returns the field values associated with the [field key](/influxdb/v1.8/concepts/glossary/#field-key)
@@ -6444,7 +6444,7 @@ See the [Advanced Syntax](#advanced-syntax) section for how to use `CHANDE_MOMEN
 ### EXPONENTIAL_MOVING_AVERAGE()
 
 An exponential moving average (EMA) is a type of moving average that is similar
-to a [simple moving average](#moving-average), except that more weight is given to the latest data.
+to a [simple moving average](#moving_average), except that more weight is given to the latest data.
 It's also known as the "exponentially weighted moving average."
 This type of moving average reacts faster to recent data changes than a simple moving average.
 
@@ -6459,8 +6459,8 @@ EXPONENTIAL_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <period>[
 **Available Arguments:**  
 
 [period](#period)  
-[hold_period](#hold-period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
-[warmup_type](#warmup-type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[hold_period](#hold_period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[warmup_type](#warmup_type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
 
 `EXPONENTIAL_MOVING_AVERAGE(field_key, 2)`  
 Returns the field values associated with the [field key](/influxdb/v1.8/concepts/glossary/#field-key)
@@ -6500,7 +6500,7 @@ See the [Advanced Syntax](#advanced-syntax) section for how to use `EXPONENTIAL_
 The Double Exponential Moving Average (DEMA) attempts to remove the inherent lag
 associated to Moving Averages by placing more weight on recent values.
 The name suggests this is achieved by applying a double exponential smoothing which is not the case.
-The name double comes from the fact that the value of an [EMA](#exponential-moving-average) is doubled.
+The name double comes from the fact that the value of an [EMA](#exponential_moving_average) is doubled.
 To keep it in line with the actual data and to remove the lag, the value "EMA of EMA"
 is subtracted from the previously doubled EMA.
 
@@ -6515,8 +6515,8 @@ DOUBLE_EXPONENTIAL_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <p
 **Available Arguments:**  
 
 [period](#period)  
-[hold_period](#hold-period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
-[warmup_type](#warmup-type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[hold_period](#hold_period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[warmup_type](#warmup_type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
 
 `DOUBLE_EXPONENTIAL_MOVING_AVERAGE(field_key, 2)`  
 Returns the field values associated with the [field key](/influxdb/v1.8/concepts/glossary/#field-key)
@@ -6573,7 +6573,7 @@ KAUFMANS_EFFICIENCY_RATIO([ * | <field_key> | /regular_expression/ ], <period>[,
 **Available Arguments:**  
 
 [period](#period)  
-[hold_period](#hold-period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[hold_period](#hold_period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
 
 `KAUFMANS_EFFICIENCY_RATIO(field_key, 2)`  
 Returns the field values associated with the [field key](/influxdb/v1.8/concepts/glossary/#field-key)
@@ -6627,7 +6627,7 @@ KAUFMANS_ADAPTIVE_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <pe
 
 **Available Arguments:**  
 [period](#period)  
-[hold_period](#hold-period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[hold_period](#hold_period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
 
 `KAUFMANS_ADAPTIVE_MOVING_AVERAGE(field_key, 2)`  
 Returns the field values associated with the [field key](/influxdb/v1.8/concepts/glossary/#field-key)
@@ -6667,8 +6667,8 @@ See the [Advanced Syntax](#advanced-syntax) section for how to use `KAUFMANS_ADA
 The triple exponential moving average (TEMA) was developed to filter out
 volatility from conventional moving averages.
 While the name implies that it's a triple exponential smoothing, it's actually a
-composite of a [single exponential moving average](#exponential-moving-average),
-a [double exponential moving average](#double-exponential-moving-average),
+composite of a [single exponential moving average](#exponential_moving_average),
+a [double exponential moving average](#double_exponential_moving_average),
 and a triple exponential moving average.
 
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp " target="\_blank">Source</a>
@@ -6682,8 +6682,8 @@ TRIPLE_EXPONENTIAL_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <p
 **Available Arguments:**  
 
 [period](#period)  
-[hold_period](#hold-period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
-[warmup_type](#warmup-type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[hold_period](#hold_period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[warmup_type](#warmup_type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
 
 `TRIPLE_EXPONENTIAL_MOVING_AVERAGE(field_key, 2)`  
 Returns the field values associated with the [field key](/influxdb/v1.8/concepts/glossary/#field-key)
@@ -6746,8 +6746,8 @@ TRIPLE_EXPONENTIAL_DERIVATIVE([ * | <field_key> | /regular_expression/ ], <perio
 **Available Arguments:**  
 
 [period](#period)  
-[hold_period](#hold-period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
-[warmup_type](#warmup-type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[hold_period](#hold_period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[warmup_type](#warmup_type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
 
 `TRIPLE_EXPONENTIAL_DERIVATIVE(field_key, 2)`  
 Returns the field values associated with the [field key](/influxdb/v1.8/concepts/glossary/#field-key)
@@ -6797,8 +6797,8 @@ RELATIVE_STRENGTH_INDEX([ * | <field_key> | /regular_expression/ ], <period>[, <
 **Available Arguments:**  
 
 [period](#period)  
-[hold_period](#hold-period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
-[warmup_type](#warmup-type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[hold_period](#hold_period) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
+[warmup_type](#warmup_type) <span style="font-size:.8rem; font-style:italic;">(Optional)</span>  
 
 `RELATIVE_STRENGTH_INDEX(field_key, 2)`  
 Returns the field values associated with the [field key](/influxdb/v1.8/concepts/glossary/#field-key)
@@ -6883,7 +6883,7 @@ The query returns the [mode](#mode) field values for the `water_level` field key
 The `water_level` mode is in the `mode` column and the `level description` mode is in the `mode_1` column.
 The system can't return more than one column with the same name so it renames the second `mode` column to `mode_1`.
 
-See [Rename the Output Field Key](#rename-the-output-field-key) for how to configure the output column headers.
+See [Rename the Output Field Key](#rename_the_output_field_key) for how to configure the output column headers.
 
 ###### Calculate the minimum and maximum field values in one query
 
@@ -7003,13 +7003,13 @@ See the function-specific documentation for common issues with individual functi
 Some InfluxQL functions support nesting in the [`SELECT` clause](/influxdb/v1.8/query_language/explore-data/#select-clause):
 
 * [`COUNT()`](#count) with [`DISTINCT()`](#distinct)
-* [`CUMULATIVE_SUM()`](#cumulative-sum)
+* [`CUMULATIVE_SUM()`](#cumulative_sum)
 * [`DERIVATIVE()`](#derivative)
 * [`DIFFERENCE()`](#difference)
 * [`ELAPSED()`](#elapsed)
-* [`MOVING_AVERAGE()`](#moving-average)
-* [`NON_NEGATIVE_DERIVATIVE()`](#non-negative-derivative)
-* [`HOLT_WINTERS()`](#holt-winters) and [`HOLT_WINTERS_WITH_FIT()`](#holt-winters)
+* [`MOVING_AVERAGE()`](#moving_average)
+* [`NON_NEGATIVE_DERIVATIVE()`](#non_negative_derivative)
+* [`HOLT_WINTERS()`](#holt_winters) and [`HOLT_WINTERS_WITH_FIT()`](#holt_winters)
 
 For other functions, use InfluxQL's [subqueries](/influxdb/v1.8/query_language/explore-data/#subqueries) to nest functions in the [`FROM` clause](/influxdb/v1.8/query_language/explore-data/#from-clause).
 See the [Data Exploration](/influxdb/v1.8/query_language/explore-data/#subqueries) page more on using subqueries.
