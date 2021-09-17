@@ -33,7 +33,7 @@ To monitor InfluxDB Enterprise with Cloud, see [here](/enterprise_influxdb/v1.9/
 
 ### Monitor InfluxDB Enterprise with OSS
 
-To monitor InfluxDB Enterprise with Cloud, see [here](/enterprise_influxdb/v1.9/administration/monitor-enterprise/monitor-with-oss/). 
+To monitor InfluxDB Enterprise with OSS, see [here](/enterprise_influxdb/v1.9/administration/monitor-enterprise/monitor-with-oss/). 
 
 ### Monitor InfluxDB Enterprise with internal monitoring 
 

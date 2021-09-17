@@ -27,6 +27,7 @@ If you don't want to monitor your data, but view your output data at a single ti
 
 * [SHOW STATS](#show-stats)
 * [SHOW DIAGNOSTICS](#show-diagnostics)
+* [Log and trace InfluxDB Enterprise operations](#log-and-trace-influxdb-enterprise-operations)
 
 ## Monitor your data 
 
@@ -73,3 +74,4 @@ This returns information such as build information, uptime, hostname, server con
 
 For details on this command, see [`SHOW DIAGNOSTICS`](/enterprise_influxdb/v1.9/query_language/spec#show-diagnostics) in the InfluxQL specification.
 
+### Log and trace InfluxDB Enterprise operations
