@@ -10,10 +10,10 @@ menu: influxdb_cloud_ref
 weight: 7
 ---
 
-Use **sample data** to familiarize yourself with time series data and InfluxDB Cloud.
-InfluxDB Cloud lets you access **Sample datasets** that contain time
+Use **demo data** and **sample data** to familiarize yourself with time series data and InfluxDB Cloud.
+InfluxDB Cloud lets you access **Demo data buckets** and **Sample datasets** that contain time
 series data without having to write data to InfluxDB. 
-Sample datasets are available for download and can be written to InfluxDB
+Sample datasets are also available for download and can be written to InfluxDB
 or loaded at query time.
 
 - [Sample datasets](#sample-datasets)

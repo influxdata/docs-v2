@@ -14,6 +14,7 @@ influxdb/cloud/tags: [get-started, install]
 After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to get started:
 
 1. Do one of the following:
+   - Add [demo data](#add-demo-data).
    - Add [sample data](#add-sample-data). 
    - Use your own data to explore Cloud. See how to [write your data](/influxdb/cloud/write-data/) to Cloud.
 2. [Create a notebook](#create-a-notebook) by clicking **Books > Create Notebook**, and then do the following: 
@@ -22,6 +23,17 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
      3. (Optional) [Process data](#process-data)
      4. (Optional) [Monitor data](#monitor-data)
      5. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
+
+## Add demo data
+
+This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add the demo data bucket:
+
+1.  Click **Data (Load Data)** > **Buckets** in the navigation menu on the left.
+
+    {{< nav-icon "data" >}}
+
+2.  Click **{{< icon "plus" >}} Add Demo Data**, and then select the **Website Monitoring** bucket.
+3.  The Demo Data bucket appears in your list of buckets.
 
 ## Add sample data
 
@@ -74,7 +86,7 @@ Now that we've added the sample data bucket, we're ready to create our notebook.
 1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
-2. Click **+Create Notebook**. By default, a **Metric Selector** and **Visualization** cell appear. For an overview of cell types, see [Overview of notebooks](/influxdb/cloud/notebooks/overview/#notebook-cell-types). 
+2. Click **+New Notebook**. By default, a **Metric Selector** and **Visualization** cell appear. For an overview of cell types, see [Overview of notebooks](/influxdb/cloud/notebooks/overview/#notebook-cell-types). 
 3. Enter a name for your notebook in the **Name this notebook** field. 
 5. In the **Metric Selector** cell, click the **Select a bucket** dropdown and chooose the bucket you want to explore data from. A list of measurements, fields, and tags from the bucket appear.
 6. Select a column value to analyze.
