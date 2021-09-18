@@ -75,3 +75,7 @@ This returns information such as build information, uptime, hostname, server con
 For details on this command, see [`SHOW DIAGNOSTICS`](/enterprise_influxdb/v1.9/query_language/spec#show-diagnostics) in the InfluxQL specification.
 
 ### Log and trace InfluxDB Enterprise operations
+
+InfluxDB writes log output, by default, to `stderr`.
+Depending on your use case, you may opt to write this log information to another location. 
+Use different service managers to override this default. 

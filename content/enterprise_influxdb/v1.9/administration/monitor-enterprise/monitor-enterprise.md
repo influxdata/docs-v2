@@ -12,20 +12,22 @@ menu:
     parent: Monitor InfluxDB
 ---
 
-Monitoring is the act of proactively observing changes in data over time (for example: monitoring for an issue in advance). Alternatively, you can also monitor your data at a specific point in time (for example: when an issue happens). There are multiple ways to monitor InfluxDB Enterprise. 
+Monitoring is the act of proactively observing changes in data over time (for example: monitoring for an issue in advance). Alternatively, you can also monitor your data at a specific point in time (for example: when an issue happens). 
+
+There are multiple ways to monitor InfluxDB Enterprise. 
 
 If you want to monitor an InfluxDB Enterprise cluster over time, do one of the following: 
 
 * [Monitor InfluxDB Enterprise with Cloud](#monitor-influxdb-enterprise-with-cloud)
-* [Monitor InfluxDB Enterprise with OSS](#monitor-influxdb-enterpprise-with-oss)
+* [Monitor InfluxDB Enterprise with OSS](#monitor-influxdb-enterprise-with-oss)
 * [Monitor InfluxDB Enterprise with internal monitoring](#monitor-influxdb-enterprise-with-internal-monitoring)
-* [Monitor with Insights or Aware](#monitor-with-insights-or-aware)
+* [Monitor with Aware or Insights](#monitor-with-aware-or-insights)
 
 Alternitively, if you want to view your output data occasionally, do one of the following: 
 
 * [SHOW STATS](#show-stats)
 * [SHOW DIAGNOSTICS](#show-diagnostics)
-* [Log and trace InfluxDB Enterprise operations](log-and-trace-influxdb-enterprise-operations)
+* [Log and trace InfluxDB Enterprise operations](#log-and-trace-influxdb-enterprise-operations)
 
 ### Monitor InfluxDB Enterprise with Cloud 
 
@@ -78,7 +80,8 @@ To have the support team monitor your InfluxDB Enterprise, use Insights. Telegra
 
 To monitor with Aware or Insights, do the following: 
 
-1. Contact [the InfluxDat Support team](support@influxdata.com). 
+1. Contact [the InfluxDat Support team](support@influxdata.com).
+2. [Install Telegraf](/telegraf/v1.20/introduction/installation/).
 2. Set up a free Cloud 2 account with your email address once you are in contact with the support team. 
 {{% note %}}
 A group account on your side is preferred because the token the team creates will be owned by that account. If you remove the account (even if others persist) the token will be destroyed.

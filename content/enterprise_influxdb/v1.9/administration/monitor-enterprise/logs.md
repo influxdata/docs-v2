@@ -9,15 +9,16 @@ menu:
     parent: Administration
 ---
 
+Write log information to other locations, use different service managers, and use different log output formats.
 InfluxDB writes log output, by default, to `stderr`.
 Depending on your use case, you may opt to write this log information to another location. 
-Some service managers may override this default.
+User different service managers to override this default.
 
 * [Write log output to log file](#write-log-output-to-log-file)
 * [Write log output to flat file](#write-log-output-to-flat-file)
 * [Redirect HTTP request logging](#redirect-http-access-logging)
 * [Use structured logging](#use-structured-logging)
-* [use tracing](#use-tracing)
+* [Use tracing](#use-tracing)
 
 ## Write log output to log file
 
