@@ -9,7 +9,7 @@ menu:
     weight: 10
     parent: About the project
 ---
-<!--## v.1.20 [2021-09-16]
+## v.1.20 [2021-09-16]
 
 - Update Go to 1.17.0
 - Update runc module to v1.0.0-rc95.
@@ -68,7 +68,6 @@ menu:
 #### Output
 - [OpenTelemetry](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/opentelemetry) - Contributed by @jacobmarble
 - [Azure Data Explorer](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/azure_data_explorer) - Contributed by @minwal
--->
 
 ## v.1.19.3 [2021-08-19]
 
