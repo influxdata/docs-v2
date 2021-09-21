@@ -79,7 +79,7 @@ want to round float values to the nearest whole number `12.54` to `13` before co
 To do this:
 
 1. Import the [`math` package](/flux/v0.x/stdlib/math/).
-2. Use [`math.round()`](/flux/v0.x/stdlib/math/round/) to round the the float value
+2. Use [`math.round()`](/flux/v0.x/stdlib/math/round/) to round the float value
    before converting it to a uinteger.
 
 ```js
