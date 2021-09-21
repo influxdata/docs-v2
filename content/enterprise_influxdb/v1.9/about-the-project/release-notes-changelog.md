@@ -16,35 +16,34 @@ menu:
   Users can now:
   restore data with a new retention policy into an existing database,
   override the duration of a retention policy while restoring, and
-  specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
+  specify a destination shard when restoring a specific shard.
 - Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
-  to measure memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
-- Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-tag-values) by retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
+  to measure memory usage in bytes across all subscriptions.
+- Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-tag-values) by retention policy.
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
-- Update Protocol Buffers library versions. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
-- Update to Flux [0.127.3](/influxdb/v2.0/reference/release-notes/flux/). <!-- https://github.com/influxdata/influxdb/pull/22102 -->
+- Update Protocol Buffers library versions.
+- Update to Flux [0.127.3](/influxdb/v2.0/reference/release-notes/flux/).
 
 ### Bug fixes
-- Require read authorization on a database to see continuous queries linked to that database. <!-- https://github.com/influxdata/influxdb/pull/22289 -->
-- Limit field size to 1MB while parsing line protocol. <!-- https://github.com/influxdata/influxdb/pull/22095 -->
+- Require read authorization on a database to see continuous queries linked to that database.
+- Limit field size to 1MB while parsing line protocol.
 - Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
-- Return an error instead of panic when InfluxDB Enterprise tries to restore with OSS. <!-- https://github.com/influxdata/influxdb/pull/22048 -->
-- Ensure correct JSON log formatting. <!-- https://github.com/influxdata/influxdb/pull/22107 -->
-- Handle HTTPS errors during systemd service startup. <!-- https://github.com/influxdata/influxdb/pull/22091 -->
-- Fix issue incorrectly reporting compaction queue of zero. <!-- https://github.com/influxdata/influxdb/pull/22214 -->
-- Prevent dropped writes with overlapping shards in certain edge cases. <!-- https://github.com/influxdata/plutonium/pull/3550 -->
-- Add logging for shard write errors. <!-- https://github.com/influxdata/plutonium/pull/3584 -->
-- Prevent lost writes during hinted handoff when purging short queues. <!-- https://github.com/influxdata/plutonium/pull/3585 -->
-- Fix Flux panic that caused node to crash when querying empty pre-created shards. <!-- https://github.com/influxdata/plutonium/pull/3594 -->
-- Fix incorrect TLS handling for `influxd-ctl entropy` commands. <!-- https://github.com/influxdata/plutonium/pull/3601 -->
-- Use TLS for nested LDAP connections when configured. <!-- https://github.com/influxdata/plutonium/pull/3612 -->
-- Fix Flux query problems with large datasets when replication factor is less than cluster size. <!-- https://github.com/influxdata/plutonium/pull/3623 -->
-- Avoid incorrect logging about "broken pipe" when entropy is detected. <!-- https://github.com/influxdata/plutonium/pull/3639 -->
-- Return correct number of unexecuted statements when multi-statement query fails. <!-- https://github.com/influxdata/influxdb/pull/22294 -->
-- HH rate limiting uses simpler logic. <!-- https://github.com/influxdata/plutonium/pull/3597 -->
+- Return an error instead of panic when InfluxDB Enterprise tries to restore with OSS.
+- Ensure correct JSON log formatting.
+- Handle HTTPS errors during systemd service startup.
+- Fix issue incorrectly reporting compaction queue of zero.
+- Prevent dropped writes with overlapping shards in certain edge cases.
+- Add logging for shard write errors.
+- Prevent lost writes during hinted handoff when purging short queues.
+- Fix Flux panic that caused node to crash when querying empty pre-created shards.
+- Fix incorrect TLS handling for `influxd-ctl entropy` commands.
+- Use TLS for nested LDAP connections when configured.
+- Fix Flux query problems with large datasets when replication factor is less than cluster size.
+- Avoid incorrect logging about "broken pipe" when entropy is detected.
+- Return correct number of unexecuted statements when multi-statement query fails.
+- HH rate limiting uses simpler logic.
 - Add delay (less than one second) to hinted handoff sends if `retry-rate-limit` is exceeded.
-- Fix potential crash due to race between reading TSI index and TSI compaction. <!-- https://github.com/influxdata/influxdb/pull/22058 -->
-
+- Fix potential crash due to race between reading TSI index and TSI compaction.
 
 ## v1.9.3 [2021-07-19]
 
