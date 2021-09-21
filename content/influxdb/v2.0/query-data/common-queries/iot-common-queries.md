@@ -205,29 +205,39 @@ If you have a retention period on your bucket, you need to update your Cloud to 
 {{% /note %}}
 
 ```js
+import "math"
+
 from(bucket: "machine")
-  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:20Z)
+  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:00:00Z)
   |> filter(fn: (r) => r["_measurement"] == "machinery")
+  |> filter(fn: (r) => r["_field"] == "pressure" or r["_field"] == "pressure_target")
+  |> aggregateWindow(every: 12h, fn: mean)
   |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> group(columns: ["state"])
+  |> map(fn: (r) => ({ r with pressureDiff: r.pressure - r.pressure_target }))
+  |> map(fn: (r) => ({ r with needsMaintenance: if math.abs(x: r.pressureDiff) >= 15.0 then true else false }))
 ```
 
-The query above groups together different fields to see their values in relation to a state change. 
+The example above groups together different fields to see their values in relation to a state change. 
 
-The `group` function defines the column values that will appear in our table. 
+The query filters the `pressure` and `pressure_target`fields to determine the state `needsMaintenance`. 
+
+The `aggregateWindow`applies an aggregate every 12 hours to get the average value by appling `fn: mean`. 
 
  To move the values into one column, the `pivot` function aligns the columns together. The `rowKey` function is the anchor for each point that hinges into a single row. In this query, every row is distinguished by different timestamps. `columnKey`, once the other tables are going to be pinned on the table, will take `_field` to create a new column, and `valueColumn` populates that new columns.
 
+ The first `map` function takes the difference from `pressure` and `pressure_target`. In order to see the fields' relation to the state change, the second `map` function states that if the absolute value of the difference between `pressure` and `pressure_target` is greater than or equal to 15, than it needs maintenance or `true`. If it is lesser than 15, it is marked as false. 
+
  Given the query above, the output is as shown: 
 
-| _time                    | grinding_time | oil_temp | pressure | pressure_target | rework_time | state | stationID |
-|:-----                    | -----         | -----    | -----    | -----           | -----       | ----- |    ------:|
-| 2021-08-01T00:00:00.000Z | 9.804         | 39.1     | 110.2617 | 110             | 0           | OK    | g1        |
-| 2021-08-01T00:00:11.510Z | 11.505        | 40.3     |	110.3506 | 110             | 0           | OK    | g1        |
-| 2021-08-01T00:00:19.530Z | 8.024         | 40.6     | 110.1836 | 110             | 0           | OK    | g1        | 
-| 2021-08-01T00:00:00.000Z | 27.332        | 40.6     | 105.392  | 105             | 0           | OK    | g2        |
-| 2021-08-01T00:00:00.000Z | 13.306        | 41.4     | 110.5309 | 110             | 0           | OK    | g3        | 
-| 2021-08-01T00:00:14.460Z | 14.466        | 41.36    | 110.3746 | 110             | 0           | OK    | g3        | 
-| 2021-08-01T00:00:00.000Z | 12.625        | 41.2     | 110.2657 | 110             | 0           | OK    | g4        | 
+| _time                    | needsMaintenance | pressure           | pressure_target    | pressureDiff        | stationID |
+|:-----                    | -----            | -----              | -----              | -----               |    ------:|
+| 2021-08-01T12:00:00.000Z | false            | 101.83929080014092 | 104.37786394078252 | -2.5385731406416028 | g1        |
+| 2021-08-02T00:00:00.000Z | false            | 96.04368008245874  | 102.27698650674662 | -6.233306424287889  | g1        |
+| 2021-08-01T12:00:00.000Z | false            | 101.62490431541765 | 104.83915260886623 | -3.214248293448577  | g2        |
+| 2021-08-02T00:00:00.000Z | false            | 94.52039415465273  | 105.90869375273046	| -11.388299598077722 | g2        |
+| 2021-08-01T12:00:00.000Z | false            |	92.23774168403503  | 104.81867444768653 | -12.580932763651504	| g3        |
+| 2021-08-02T00:00:00.000Z | true             | 89.20867846153847  | 108.2579185520362  | -19.049240090497733	| g3        |
+| 2021-08-01T12:00:00.000Z | false            | 94.40834093349847  | 107.6827757125155  | -13.274434779017028 | g4        |
+| 2021-08-02T00:00:00.000Z | true             | 88.61785638936534  | 108.25471698113208 | -19.636860591766734 | g4        |
 
-The table reveals that the values for `grinding_time`, `oil_temp`, `pressure`, and `pressure_target` are all within good ranges, therefore there is no changes in state that would turn `OK` into `NOK`. As a result, there is no `rework_time` as well, 
+The table reveals that the `pressureDiff` value `-19.636860591766734` from station g4 and `-19.049240090497733` from station g3 are higher than 15, therefore there is a change in state that marks the `needMaintenance` value as "true" and would require that station to need work to turn that value back to `false`. 
