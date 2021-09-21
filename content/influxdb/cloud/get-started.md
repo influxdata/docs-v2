@@ -120,7 +120,7 @@ For more information on how to process data, see [here](/influxdb/cloud/process-
 
 1. Click **+** to add a cell, then select **Transform > Downsample**.
 2. In the **Apply aggregate** field, select **mean**.
-3. In the **Every Window Period** field, enter a value. For this example, we'll use `3h30s`, but any duration is supported by InfluxDB Cloud. For more information, see [duration literals](/influxdb/v2.0/reference/flux/language/lexical-elements/#duration-literals).
+3. In the **Every Window Period** field, enter a value. For this example, we'll use `3h30s`, but any duration is supported by InfluxDB Cloud. For more information, see [duration literals](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals).
 4. Click **Preview** to view the downsampled data.
 
 ### Monitor data
