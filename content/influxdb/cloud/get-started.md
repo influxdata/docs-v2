@@ -127,7 +127,7 @@ For more information on how to process data, see [here](/influxdb/cloud/process-
 
 Get notifications every time your data crosses a threshold. Specify your alerts by time and decide how the information will be sent to you. 
 
-1. Click **+** to add a cell, then select **Output > Alert**.
+1. In your notebook, click **{{< icon "plus" >}}** to add a cell, then select **Output > Alert**.
 2. Customize the conditions to send an alert.
 3. Enter a time range to automatically check the data and enter your query offset.
 4. Select an endpoint to receive an alert:
