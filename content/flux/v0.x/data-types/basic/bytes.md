@@ -40,7 +40,7 @@ Only string types can be converted to bytes.
 Use `bytes()` or `hex.bytes()` to convert strings to bytes.
 
 - [`bytes()`](/flux/v0.x/stdlib/universe/bytes/): Convert a string to bytes
-- [`hex.bytes()`](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/bytes/): Decode hexadecimal value and covert it to bytes.
+- [`hex.bytes()`](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/bytes/): Decode hexadecimal value and convert it to bytes.
 
 #### Convert a hexadecimal string to bytes
 ```js
