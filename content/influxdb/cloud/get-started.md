@@ -64,7 +64,7 @@ Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate In
 
 The sample data template installs a task that collects sample data and dashboards to visualize the sample data.
 After installing the template, sample data is downloaded and stored in the sample data bucket at regular intervals.
-### Add sample data in InfluxDB Cloud UI 
+### Write sample data with an InfluxDB task
    
 1. Click **Data Explorer** in InfluxDB Cloud's left navigation menu and select your **noaa** bucket. 
 2. Click **Script Editor**. 
