@@ -16,7 +16,7 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
 1. Do one of the following:
    - Add [demo data](#add-demo-data).
    - Add [sample data](#add-sample-data). 
-   - Use your own data to explore Cloud. See how to [write your data](/influxdb/cloud/write-data/) to Cloud.
+   - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
 2. [Create a notebook](#create-a-notebook) by clicking **Books > Create Notebook**, and then do the following: 
      1. [Select metrics](#select-metrics)
      2. [Visualize data](#visualize-data)
