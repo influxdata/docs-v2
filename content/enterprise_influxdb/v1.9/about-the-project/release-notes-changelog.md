@@ -19,7 +19,7 @@ menu:
   specify a destination shard when restoring a specific shard. <!-- https://github.com/influxdata/plutonium/pull/3608 -->
 - Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
   to measure memory usage in bytes across all subscriptions.<!-- https://github.com/influxdata/influxdb/pull/22020 -->
-- Allow specification and filtering of `SHOW TAG VALUES` by retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
+- Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-tag-values) by retention policy. <!-- https://github.com/influxdata/influxdb/pull/22011 -->
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
 - Update Protocol Buffers library versions. <!-- https://github.com/influxdata/influxdb/pull/21890 -->
 - Update to Flux [0.127.3](/influxdb/v2.0/reference/release-notes/flux/). <!-- https://github.com/influxdata/influxdb/pull/22102 -->
