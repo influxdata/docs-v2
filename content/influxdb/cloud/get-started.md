@@ -17,12 +17,14 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
    - Add [demo data](#add-demo-data).
    - Add [sample data](#add-sample-data). 
    - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
-2. [Create a notebook](#create-a-notebook) by clicking **Books > Create Notebook**, and then do the following: 
-     1. [Select metrics](#select-metrics)
-     2. [Visualize data](#visualize-data)
-     3. (Optional) [Process data](#process-data)
-     4. (Optional) [Monitor data](#monitor-data)
-     5. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
+2. [Create a notebook](#create-a-notebook):
+    1.  Clicking **Books > Create Notebook** in the navigation menu on the left.
+        {{< nav-icon "books" >}}
+    2. [Select metrics](#select-metrics)
+    3. [Visualize data](#visualize-data)
+    4. (Optional) [Process data](#process-data)
+    5. (Optional) [Monitor data](#monitor-data)
+    6. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
 
 ## Add demo data
 
