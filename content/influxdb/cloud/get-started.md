@@ -52,11 +52,18 @@ Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate In
 
 ### Add sample data with community templates 
 
-After installing the template, sample data will be stored in the sample data bucket. 
+1. Visit the **InfluxDB templates page** in the InfluxDB Cloud UI. Click **Settings** > **Templates** in the navigation menu on the left.
 
-1. Go to the community templates respository on GitHub and head to our [sample data documentation](/influxdata/community-templates/tree/master/sample-data). 
-2. [Install the template](https://github.com/influxdata/community-templates/tree/master/sample-data#quick-install) with the instructions given. 
+    {{< nav-icon "settings" >}}
+      
+2. Paste the Sample Data community temple URL in **resource manifest file** field:
 
+    ```
+    https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml
+    ```
+
+The sample data template installs a task that collects sample data and dashboards to visualize the sample data.
+After installing the template, sample data is downloaded and stored in the sample data bucket at regular intervals.
 ### Add sample data in InfluxDB Cloud UI 
    
 1. Click **Data Explorer** in InfluxDB Cloud's left navigation menu and select your **noaa** bucket. 
