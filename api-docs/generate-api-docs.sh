@@ -47,6 +47,7 @@ weight: 304
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
+    --options.noAutoAuth \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
 
