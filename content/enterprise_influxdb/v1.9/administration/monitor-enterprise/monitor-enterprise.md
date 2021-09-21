@@ -16,7 +16,7 @@ Monitoring is the act of proactively observing changes in data over time (for ex
 
 There are multiple ways to monitor InfluxDB Enterprise. 
 
-If you want to monitor an InfluxDB Enterprise cluster over time, do one of the following: 
+If you want to monitor an InfluxDB Enterprise cluster over time, do one or more of the following: 
 
 * [Monitor InfluxDB Enterprise with Cloud](#monitor-influxdb-enterprise-with-cloud)
 * [Monitor InfluxDB Enterprise with OSS](#monitor-influxdb-enterprise-with-oss)
@@ -72,11 +72,11 @@ A user must have an Admin or Editor role to import a dashboard.
     2. Drag, or drop, or select the JSON export file to import. 
     3. Click **Upload Dashboard**. The newly imported dashboard will appear in your list of dashboards.
 
-### Monitor with Aware or Insights 
+### Monitor with InfluxDB Aware or InfluxDB Insights 
 
-To monitor InfluxDB Enterprise by yourself, use Aware. In Aware, Telegraf runs on InfluxDB Enterprise nodes and sends information to Cloud, where you can see your metrics.
+To monitor InfluxDB Enterprise by yourself, use InfluxDB Aware. In InfluxDB Aware, Telegraf runs on InfluxDB Enterprise nodes and sends information to Cloud, where you can see your metrics.
 
-To have the support team monitor your InfluxDB Enterprise, use Insights. Telegraf runs on InfluxDB Enterprise nodes and sends information to the InfluxData Support team who monitors and alerts customers as needed.
+To have the support team monitor your InfluxDB Enterprise, use InfluxDB Insights. InfluxDB Telegraf runs on InfluxDB Enterprise nodes and sends information to the InfluxData Support team who monitors and alerts customers as needed.
 
 To monitor with Aware or Insights, do the following: 
 
@@ -84,7 +84,7 @@ To monitor with Aware or Insights, do the following:
 2. [Install Telegraf](/telegraf/v1.20/introduction/installation/).
 2. Set up a free Cloud 2 account with your email address once you are in contact with the support team. 
 {{% note %}}
-A group account on your side is preferred because the token the team creates will be owned by that account. If you remove the account (even if others persist) the token will be destroyed.
+A group account on your side is preferred because the token the team creates will be owned by that account. If the account is removed, (even if others persist) the token will be destroyed.
 {{% /note %}}
 3. Create a telegraf bucket and a **Write Token** for the telegraf bucket.
 4. Work with the support team via a zoom to ensure that the data is being written to your Cloud 2 account. 
