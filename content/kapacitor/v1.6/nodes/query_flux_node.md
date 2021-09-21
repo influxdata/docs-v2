@@ -10,7 +10,7 @@ menu:
     parent: nodes
 ---
 
-The `fluxQuery` node defines a source and a schedule for processing batch data.
+The `QueryFlux` node defines a source and a schedule for processing batch data.
 The data is queried from an InfluxDB bucket and then passed into the data pipeline.
 
 ##### Example
@@ -19,7 +19,7 @@ the last minute.
 
 ```js
 batch
-  |fluxQuery('''
+  |QueryFlux('''
     from(bucket: "example-bucket")
     |> range(start: -1m)
     |> filter(fn: (r) =>
@@ -36,7 +36,7 @@ batch
 
 | Chaining Method                     | Description            |
 | :---------------------------------- | :--------------------- |
-| **fluxQuery( `queryStr` `string`)** | Flux query to execute. |
+| **QueryFlux( `queryStr` `string`)** | Flux query to execute. |
 
 ### Property Methods
 
@@ -121,7 +121,7 @@ Does not apply if using the [QueryFluxNode.Cron](/kapacitor/v1.6/nodes/query_nod
 
 
 ```js
-fluxQuery.align()
+QueryFlux.align()
 ```
 
 ### Cluster
@@ -130,7 +130,7 @@ The name of a configured InfluxDB cluster.
 If empty, the default cluster is used.
 
 ```js
-fluxQuery.cluster(value string)
+QueryFlux.cluster(value string)
 ```
 
 ### Cron
@@ -143,7 +143,7 @@ https://github.com/gorhill/cronexpr#implementation
 The Cron property is mutually exclusive with the Every property.
 
 ```js
-fluxQuery.cron(value string)
+QueryFlux.cron(value string)
 ```
 
 ### Every
@@ -152,7 +152,7 @@ How often to query InfluxDB.
 The Every property is mutually exclusive with the Cron property.
 
 ```js
-fluxQuery.every(value time.Duration)
+QueryFlux.every(value time.Duration)
 ```
 
 ### Offset
@@ -167,7 +167,7 @@ This applies to Cron schedules as well. If the cron specifies to run every Sunda
 
 
 ```js
-fluxQuery.offset(value time.Duration)
+QueryFlux.offset(value time.Duration)
 ```
 
 ### Period
@@ -176,7 +176,7 @@ The period or length of time queried from InfluxDB.
 
 
 ```js
-fluxQuery.period(value time.Duration)
+QueryFlux.period(value time.Duration)
 ```
 
 ### Org
@@ -185,7 +185,7 @@ The InfluxDB Cloud or 2.x organization name to query.
 If empty, the default `org` is used.
 
 ```js
-fluxQuery.org(value string)
+QueryFlux.org(value string)
 ```
 
 ### OrgID
@@ -194,7 +194,7 @@ The InfluxDB Cloud or 2.x organization ID to query.
 If empty, the default `orgID` is used.
 
 ```js
-fluxQuery.orgID(value string)
+QueryFlux.orgID(value string)
 ```
 
 ### Quiet
@@ -202,7 +202,7 @@ fluxQuery.orgID(value string)
 Suppress all error logging events from this node.
 
 ```js
-fluxQuery.quiet()
+QueryFlux.quiet()
 ```
 
 
@@ -219,7 +219,7 @@ Create an alert node, which can trigger alerts.
 
 
 ```js
-fluxQuery|alert()
+QueryFlux|alert()
 ```
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
@@ -232,7 +232,7 @@ One BarrierMessage will be emitted every period duration.
 
 
 ```js
-fluxQuery|barrier()
+QueryFlux|barrier()
 ```
 
 Returns: [BarrierNode](/kapacitor/v1.6/nodes/barrier_node/)
@@ -243,7 +243,7 @@ Select the bottom `num` points for `field` and sort by any extra tags or fields.
 
 
 ```js
-fluxQuery|bottom(num int64, field string, fieldsAndTags ...string)
+QueryFlux|bottom(num int64, field string, fieldsAndTags ...string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -253,7 +253,7 @@ Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 Create a new node that only emits new points if different from the previous point.
 
 ```js
-fluxQuery|changeDetect(field string)
+QueryFlux|changeDetect(field string)
 ```
 
 Returns: [ChangeDetectNode](/kapacitor/v1.6/nodes/change_detect_node/)
@@ -264,7 +264,7 @@ Combine this node with itself. The data is combined on timestamp.
 
 
 ```js
-fluxQuery|combine(expressions ...ast.LambdaNode)
+QueryFlux|combine(expressions ...ast.LambdaNode)
 ```
 
 Returns: [CombineNode](/kapacitor/v1.6/nodes/combine_node/)
@@ -275,7 +275,7 @@ Count the number of points.
 
 
 ```js
-fluxQuery|count(field string)
+QueryFlux|count(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -287,7 +287,7 @@ A point is emitted for every point collected.
 
 
 ```js
-fluxQuery|cumulativeSum(field string)
+QueryFlux|cumulativeSum(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -305,7 +305,7 @@ Example:
 
 ```js
     var data = batch
-        |fluxQuery()...
+        |QueryFlux()...
     // Trigger critical alert if the throughput drops below 100 points per 10s and checked every 10s.
     data
         |deadman(100.0, 10s)
@@ -318,7 +318,7 @@ The above is equivalent to this example:
 
 ```js
     var data = batch
-        |fluxQuery()...
+        |QueryFlux()...
     // Trigger critical alert if the throughput drops below 100 points per 10s and checked every 10s.
     data
         |stats(10s)
@@ -342,7 +342,7 @@ Example:
 
 ```js
     var data = batch
-        |fluxQuery()...
+        |QueryFlux()...
     // Trigger critical alert if the throughput drops below 100 points per 10s and checked every 10s.
     data
         |deadman(100.0, 10s)
@@ -358,7 +358,7 @@ Example:
 
 ```js
     var data = batch
-        |fluxQuery()...
+        |QueryFlux()...
     // Trigger critical alert if the throughput drops below 100 points per 10s and checked every 10s.
     // Only trigger the alert if the time of day is between 8am-5pm.
     data
@@ -370,7 +370,7 @@ Example:
 
 
 ```js
-fluxQuery|deadman(threshold float64, interval time.Duration, expr ...ast.LambdaNode)
+QueryFlux|deadman(threshold float64, interval time.Duration, expr ...ast.LambdaNode)
 ```
 
 Returns: [AlertNode](/kapacitor/v1.6/nodes/alert_node/)
@@ -381,7 +381,7 @@ Create a node that can set defaults for missing tags or fields.
 
 
 ```js
-fluxQuery|default()
+QueryFlux|default()
 ```
 
 Returns: [DefaultNode](/kapacitor/v1.6/nodes/default_node/)
@@ -392,7 +392,7 @@ Create a node that can delete tags or fields.
 
 
 ```js
-fluxQuery|delete()
+QueryFlux|delete()
 ```
 
 Returns: [DeleteNode](/kapacitor/v1.6/nodes/delete_node/)
@@ -403,7 +403,7 @@ Create a new node that computes the derivative of adjacent points.
 
 
 ```js
-fluxQuery|derivative(field string)
+QueryFlux|derivative(field string)
 ```
 
 Returns: [DerivativeNode](/kapacitor/v1.6/nodes/derivative_node/)
@@ -414,7 +414,7 @@ Compute the difference between points independent of elapsed time.
 
 
 ```js
-fluxQuery|difference(field string)
+QueryFlux|difference(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -425,7 +425,7 @@ Produce batch of only the distinct points.
 
 
 ```js
-fluxQuery|distinct(field string)
+QueryFlux|distinct(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -436,7 +436,7 @@ Create a node that can trigger autoscale events for a ec2 autoscalegroup.
 
 
 ```js
-fluxQuery|ec2Autoscale()
+QueryFlux|ec2Autoscale()
 ```
 
 Returns: [Ec2AutoscaleNode](/kapacitor/v1.6/nodes/ec2_autoscale_node/)
@@ -447,7 +447,7 @@ Compute the elapsed time between points.
 
 
 ```js
-fluxQuery|elapsed(field string, unit time.Duration)
+QueryFlux|elapsed(field string, unit time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -460,7 +460,7 @@ The results are available to later expressions.
 
 
 ```js
-fluxQuery|eval(expressions ...ast.LambdaNode)
+QueryFlux|eval(expressions ...ast.LambdaNode)
 ```
 
 Returns: [EvalNode](/kapacitor/v1.6/nodes/eval_node/)
@@ -471,7 +471,7 @@ Select the first point.
 
 
 ```js
-fluxQuery|first(field string)
+QueryFlux|first(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -482,7 +482,7 @@ Flatten points with similar times into a single point.
 
 
 ```js
-fluxQuery|flatten()
+QueryFlux|flatten()
 ```
 
 Returns: [FlattenNode](/kapacitor/v1.6/nodes/flatten_node/)
@@ -493,7 +493,7 @@ Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functio
 
 
 ```js
-fluxQuery|holtWinters(field string, h int64, m int64, interval time.Duration)
+QueryFlux|holtWinters(field string, h int64, m int64, interval time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -505,7 +505,7 @@ This method also outputs all the points used to fit the data in addition to the 
 
 
 ```js
-fluxQuery|holtWintersWithFit(field string, h int64, m int64, interval time.Duration)
+QueryFlux|holtWintersWithFit(field string, h int64, m int64, interval time.Duration)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -520,7 +520,7 @@ For example, if the task endpoint is at `/kapacitor/v1/tasks/<task_id>` and endp
 
 
 ```js
-fluxQuery|httpOut(endpoint string)
+QueryFlux|httpOut(endpoint string)
 ```
 
 Returns: [HTTPOutNode](/kapacitor/v1.6/nodes/http_out_node/)
@@ -533,7 +533,7 @@ endpoint property method.
 
 
 ```js
-fluxQuery|httpPost(url ...string)
+QueryFlux|httpPost(url ...string)
 ```
 
 Returns: [HTTPPostNode](/kapacitor/v1.6/nodes/http_post_node/)
@@ -544,7 +544,7 @@ Create an influxdb output node that will store the incoming data into InfluxDB.
 
 
 ```js
-fluxQuery|influxDBOut()
+QueryFlux|influxDBOut()
 ```
 
 Returns: [InfluxDBOutNode](/kapacitor/v1.6/nodes/influx_d_b_out_node/)
@@ -555,7 +555,7 @@ Join this node with other nodes. The data is joined on timestamp.
 
 
 ```js
-fluxQuery|join(others ...Node)
+QueryFlux|join(others ...Node)
 ```
 
 Returns: [JoinNode](/kapacitor/v1.6/nodes/join_node/)
@@ -566,7 +566,7 @@ Create a node that can trigger autoscale events for a kubernetes cluster.
 
 
 ```js
-fluxQuery|k8sAutoscale()
+QueryFlux|k8sAutoscale()
 ```
 
 Returns: [K8sAutoscaleNode](/kapacitor/v1.6/nodes/k8s_autoscale_node/)
@@ -577,7 +577,7 @@ Create an kapacitor loopback node that will send data back into Kapacitor as a s
 
 
 ```js
-fluxQuery|kapacitorLoopback()
+QueryFlux|kapacitorLoopback()
 ```
 
 Returns: [KapacitorLoopbackNode](/kapacitor/v1.6/nodes/kapacitor_loopback_node/)
@@ -588,7 +588,7 @@ Select the last point.
 
 
 ```js
-fluxQuery|last(field string)
+QueryFlux|last(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -599,7 +599,7 @@ Create a node that logs all data it receives.
 
 
 ```js
-fluxQuery|log()
+QueryFlux|log()
 ```
 
 Returns: [LogNode](/kapacitor/v1.6/nodes/log_node/)
@@ -610,7 +610,7 @@ Select the maximum point.
 
 
 ```js
-fluxQuery|max(field string)
+QueryFlux|max(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -621,7 +621,7 @@ Compute the mean of the data.
 
 
 ```js
-fluxQuery|mean(field string)
+QueryFlux|mean(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -635,7 +635,7 @@ If you want the median point, use `.percentile(field, 50.0)`.
 
 
 ```js
-fluxQuery|median(field string)
+QueryFlux|median(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -646,7 +646,7 @@ Select the minimum point.
 
 
 ```js
-fluxQuery|min(field string)
+QueryFlux|min(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -657,7 +657,7 @@ Compute the mode of the data.
 
 
 ```js
-fluxQuery|mode(field string)
+QueryFlux|mode(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -669,7 +669,7 @@ No points are emitted until the window is full.
 
 
 ```js
-fluxQuery|movingAverage(field string, window int64)
+QueryFlux|movingAverage(field string, window int64)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -680,7 +680,7 @@ Select a point at the given percentile. This is a selector function, no interpol
 
 
 ```js
-fluxQuery|percentile(field string, percentile float64)
+QueryFlux|percentile(field string, percentile float64)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -693,7 +693,7 @@ One point will be emitted every count or duration specified.
 
 
 ```js
-fluxQuery|sample(rate interface{})
+QueryFlux|sample(rate interface{})
 ```
 
 Returns: [SampleNode](/kapacitor/v1.6/nodes/sample_node/)
@@ -704,7 +704,7 @@ Create a new node that shifts the incoming points or batches in time.
 
 
 ```js
-fluxQuery|shift(shift time.Duration)
+QueryFlux|shift(shift time.Duration)
 ```
 
 Returns: [ShiftNode](/kapacitor/v1.6/nodes/shift_node/)
@@ -715,7 +715,7 @@ Create a node that can load data from external sources.
 
 
 ```js
-fluxQuery|sideload()
+QueryFlux|sideload()
 ```
 
 Returns: [SideloadNode](/kapacitor/v1.6/nodes/sideload_node/)
@@ -726,7 +726,7 @@ Compute the difference between `min` and `max` points.
 
 
 ```js
-fluxQuery|spread(field string)
+QueryFlux|spread(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -737,7 +737,7 @@ Create a node that tracks number of consecutive points in a given state.
 
 
 ```js
-fluxQuery|stateCount(expression ast.LambdaNode)
+QueryFlux|stateCount(expression ast.LambdaNode)
 ```
 
 Returns: [StateCountNode](/kapacitor/v1.6/nodes/state_count_node/)
@@ -748,7 +748,7 @@ Create a node that tracks duration in a given state.
 
 
 ```js
-fluxQuery|stateDuration(expression ast.LambdaNode)
+QueryFlux|stateDuration(expression ast.LambdaNode)
 ```
 
 Returns: [StateDurationNode](/kapacitor/v1.6/nodes/state_duration_node/)
@@ -761,7 +761,7 @@ This means the interval time is independent of the times of the data points the 
 
 
 ```js
-fluxQuery|stats(interval time.Duration)
+QueryFlux|stats(interval time.Duration)
 ```
 
 Returns: [StatsNode](/kapacitor/v1.6/nodes/stats_node/)
@@ -772,7 +772,7 @@ Compute the standard deviation.
 
 
 ```js
-fluxQuery|stddev(field string)
+QueryFlux|stddev(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -783,7 +783,7 @@ Compute the sum of all values.
 
 
 ```js
-fluxQuery|sum(field string)
+QueryFlux|sum(field string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -794,7 +794,7 @@ Create a node that can trigger autoscale events for a Docker swarm cluster.
 
 
 ```js
-fluxQuery|swarmAutoscale()
+QueryFlux|swarmAutoscale()
 ```
 
 Returns: [SwarmAutoscaleNode](/kapacitor/v1.6/nodes/swarm_autoscale_node/)
@@ -805,7 +805,7 @@ Select the top `num` points for `field` and sort by any extra tags or fields.
 
 
 ```js
-fluxQuery|top(num int64, field string, fieldsAndTags ...string)
+QueryFlux|top(num int64, field string, fieldsAndTags ...string)
 ```
 
 Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
@@ -815,7 +815,7 @@ Returns: [InfluxQLNode](/kapacitor/v1.6/nodes/influx_q_l_node/)
 Create a new node that converts batch data to stream data.
 
 ```js
-fluxQuery|trickle()
+QueryFlux|trickle()
 ```
 
 Returns: [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/)
@@ -826,7 +826,7 @@ Perform the union of this node and all other given nodes.
 
 
 ```js
-fluxQuery|union(node ...Node)
+QueryFlux|union(node ...Node)
 ```
 
 Returns: [UnionNode](/kapacitor/v1.6/nodes/union_node/)
@@ -837,7 +837,7 @@ Create a new node that filters the data stream by a given expression.
 
 
 ```js
-fluxQuery|where(expression ast.LambdaNode)
+QueryFlux|where(expression ast.LambdaNode)
 ```
 
 Returns: [WhereNode](/kapacitor/v1.6/nodes/where_node/)
@@ -850,7 +850,7 @@ NOTE: Window can only be applied to stream edges.
 
 
 ```js
-fluxQuery|window()
+QueryFlux|window()
 ```
 
 Returns: [WindowNode](/kapacitor/v1.6/nodes/window_node/)
