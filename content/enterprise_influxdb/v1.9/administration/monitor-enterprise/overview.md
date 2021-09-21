@@ -19,17 +19,13 @@ If you want to monitor an Enterprise cluster on your own, do one of the followin
 * [Monitor Enterprise with Cloud](#monitor-enterprise-with-cloud)
 * [Monitor Enterprise with OSS](#monitor-enterprise-with-oss)
 * [Monitor Enterprise with internal monitoring](#monitor-enterprise-with-internal-monitoring)
-* [Monitor with Aware](#monitor-with-aware)
+* [Monitor with InfluxDB Aware and Influx Insights](#monitor-with-influxdb-aware-and-influx-insights)
 
-If you want the InfluxData team to monitor your data for you, see [Monitor with Insights](#monitor-with-insights). 
-
-If you don't want to monitor your data, but view your output data at a single time, do one of the following: 
+If you want to view your data occasionally at a point in time do one of the following: 
 
 * [SHOW STATS](#show-stats)
 * [SHOW DIAGNOSTICS](#show-diagnostics)
 * [Log and trace InfluxDB Enterprise operations](#log-and-trace-influxdb-enterprise-operations)
-
-## Monitor your data 
 
 ### Monitor Enterprise with Cloud 
 
@@ -46,19 +42,11 @@ InfluxDB writes statistical and diagnostic information to database named `_inter
 The `_internal` database can be queried and manipulated like any other InfluxDB database.
 Check out the [monitor service README](https://github.com/influxdata/influxdb/blob/1.8/monitor/README.md) and the [internal monitoring blog post](https://www.influxdata.com/blog/how-to-use-the-show-stats-command-and-the-_internal-database-to-monitor-influxdb/) for more detail.
 
-### Monitor with Aware
+### Monitor with InfluxDB Aware and Influx Insights
 
-InfluxDB Aware is a free Enterprise service that sends your data to a free Cloud 2 account. Aware assists you in monitoring your data by yourself. 
-
-To apply for this service, please contact the [support team](support@influxdata.com). 
-
-### Monitor with Insights 
-
-InfluxDB Insights is a free Enterprise service that sends your data to a private Cloud account. Insights assists you in monitoring your data with the help of the support team.  
+InfluxDB Aware and Influx Insights is a free Enterprise service that sends your data to a free Cloud account. Aware assists you in monitoring your data by yourself. Insights assists you in monitoring your data with the help of the support team.  
 
 To apply for this service, please contact the [support team](support@influxdata.com). 
-
-## View your data at one time 
 
 ### SHOW STATS 
 
@@ -76,6 +64,7 @@ For details on this command, see [`SHOW DIAGNOSTICS`](/enterprise_influxdb/v1.9/
 
 ### Log and trace InfluxDB Enterprise operations
 
+Write log information to other locations, use different service managers, and use different log output formats.
 InfluxDB writes log output, by default, to `stderr`.
 Depending on your use case, you may opt to write this log information to another location. 
 Use different service managers to override this default. 
