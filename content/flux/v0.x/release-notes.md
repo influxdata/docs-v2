@@ -10,6 +10,22 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.131.0 [2021-09-20]
+
+### Features
+- Update `group` to use new `GroupTransformation` interface.
+- Add `experimental/record` package.
+- Embed compiled Flux standard library instead of compiling at runtime.
+- Add `contrib/bonitoo-io/hex` package to convert hexadecimal values into Flux basic types.
+
+### Bug fixes
+- Disallow setting [`allowAllFiles` parameter](https://github.com/go-sql-driver/mysql#allowallfiles)
+  in [MySQL DSNs](/flux/v0.x/query-data/sql/mysql/#mysql-data-source-name).
+- Downgrade [Snowflake](/flux/v0.x/query-data/sql/snowflake/) version.
+- Add _null_ support to optimized `repeat` function.
+
+---
+
 ## v0.130.0 [2021-09-15]
 
 ### Features
