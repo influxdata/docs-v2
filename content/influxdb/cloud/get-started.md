@@ -40,7 +40,7 @@ This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add t
 ## Add sample data
 
 {{% note %}}
-For example purposes, we will be referencing the [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data), but we provide other [sample data sets](/influxdb/cloud/reference/sample-data/#sample-datasets) as well.
+The examples below use the [NOAA NDBC sample data](/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data), but we provide other [sample data sets](/influxdb/cloud/reference/sample-data/#sample-datasets) as well.
 {{% /note %}}
 
 Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate InfluxDB with sample time series data. Sample data sets delivered with Cloud are used throughout this documentation site to provide context, best practices, and clear examples for how InfluxDB Cloud features and functions work.
