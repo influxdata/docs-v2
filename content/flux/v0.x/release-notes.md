@@ -16,7 +16,8 @@ aliases:
 - Update `group` to use new `GroupTransformation` interface.
 - Add `experimental/record` package.
 - Embed compiled Flux standard library instead of compiling at runtime.
-- Add `contrib/bonitoo-io/hex` package to convert hexadecimal values into Flux basic types.
+- Add [`contrib/bonitoo-io/hex` package](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/)
+  to work with hexadecimal string values.
 
 ### Bug fixes
 - Disallow setting [`allowAllFiles` parameter](https://github.com/go-sql-driver/mysql#allowallfiles)

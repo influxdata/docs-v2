@@ -75,9 +75,9 @@ int(v: 12.54)
 
 {{% note %}}
 #### Round float values before converting to integers
-Being Flux _truncates_ the [float](/flux/v0.x/data-types/basic/float/) value at
-the decimal when converting to an integer, for example `12.54` to `12`, you may
-want to round float values to the nearest whole number `12.54` to `13` before converting.
+When converting [floats](/flux/v0.x/data-types/basic/float/) to integers,
+`int()` _truncates_ the float value at the decimal (for example `12.54` to `12`). 
+You may want to round float values to the nearest whole number (`12.54` to `13`) before converting.
 To do this:
 
 1. Import the [`math` package](/flux/v0.x/stdlib/math/).
