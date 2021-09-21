@@ -170,9 +170,9 @@ pre[class*="language-"] {
 	.w  		/* Text.Whitespace */
 					{ font-style: italic }
 
-  // Javascript / Flux specific styles (duration values)
+  // Javascript / Flux specific styles (duration and time values)
   .language-js {
-    .mi + .nx { color: $article-code-accent5; }
+    .mi + .nx, .mf + .nx { color: $article-code-accent5; }
   }
 
   // SQL / InfluxQL specific styles (duration values)

@@ -4,6 +4,7 @@
 {{ $telegrafVersion := .Site.Data.products.telegraf.latest }}
 {{ $chronografVersion := .Site.Data.products.chronograf.latest }}
 {{ $kapacitorVersion := .Site.Data.products.kapacitor.latest }}
+{{ $fluxVersion := .Site.Data.products.flux.latest }}
 
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
@@ -37,6 +38,21 @@
               spellcheck="false"
               dir="auto"
               placeholder='Search the docs'>
+    </div>
+  </div>
+
+  <div id="flux" class="section row">
+    <div class="group-wrapper">
+      <div class="card">
+        <div class="card-content">
+          <h2><a href="/flux/{{ $fluxVersion }}/">Flux <span class="version">{{ $fluxVersion }}</span></a></h2>
+          <p>The functional query and data scripting language.</p>
+        </div>
+      </div>
+      <div class="card flux-btns">
+          <a class="btn" href="/flux/{{ $fluxVersion }}/get-started/">Get started with Flux</a>
+          <a class="btn" href="/flux/{{ $fluxVersion }}/stdlib/">Flux standard library</a>
+      </div>
     </div>
   </div>
 

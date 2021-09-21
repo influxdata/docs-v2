@@ -3,8 +3,7 @@ title: Calculate percentages with Flux
 list_title: Calculate percentages
 description: >
   Use [`pivot()` or `join()`](/influxdb/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)
-  and the [`map()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
-  to align operand values into rows and calculate a percentage.
+  and the `map()` function to align operand values into rows and calculate a percentage.
 menu:
   influxdb_2_0:
     name: Calculate percentages
@@ -14,9 +13,9 @@ aliases:
  - /influxdb/v2.0/query-data/guides/calculate-percentages/
 related:
   - /influxdb/v2.0/query-data/flux/mathematic-operations
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join
+  - /{{< latest "flux" >}}/stdlib/universe/map
+  - /{{< latest "flux" >}}/stdlib/universe/pivot
+  - /{{< latest "flux" >}}/stdlib/universe/join
 list_query_example: percentages
 ---
 
@@ -26,12 +25,12 @@ Use `map()` to re-map values in the row and calculate a percentage.
 
 **To calculate percentages**
 
-1. Use [`from()`](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/),
-   [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/) and
-   [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to query operands.
+1. Use [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/),
+   [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) and
+   [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to query operands.
 2. Use [`pivot()` or `join()`](/influxdb/v2.0/query-data/flux/mathematic-operations/#pivot-vs-join)
    to align operand values into rows.
-3. Use [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+3. Use [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/)
    to divide the numerator operand value by the denominator operand value and multiply by 100.
 
 {{% note %}}

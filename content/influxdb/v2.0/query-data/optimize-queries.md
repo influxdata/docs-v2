@@ -116,20 +116,20 @@ Reasonable window durations depend on the total time range queried.
 The following functions use more memory or CPU than others.
 Consider their necessity in your data processing before using them:
 
-- [map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
-- [reduce()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
-- [join()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/)
-- [union()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/)
-- [pivot()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+- [map()](/{{< latest "flux" >}}/stdlib/universe/map/)
+- [reduce()](/{{< latest "flux" >}}/stdlib/universe/reduce/)
+- [join()](/{{< latest "flux" >}}/stdlib/universe/join/)
+- [union()](/{{< latest "flux" >}}/stdlib/universe/union/)
+- [pivot()](/{{< latest "flux" >}}/stdlib/universe/pivot/)
 
 {{% note %}}
 We're continually optimizing Flux and this list may not represent its current state.
 {{% /note %}}
 
 ## Use set() instead of map() when possible
-[`set()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/),
-[`experimental.set()`](/influxdb/v2.0/reference/flux/stdlib/experimental/set/),
-and [`map`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+[`set()`](/{{< latest "flux" >}}/stdlib/universe/set/),
+[`experimental.set()`](/{{< latest "flux" >}}/stdlib/experimental/set/),
+and [`map`](/{{< latest "flux" >}}/stdlib/universe/map/)
 can each set columns value in data, however **set** functions have performance
 advantages over `map()`.
 
@@ -165,7 +165,7 @@ Flux must store these points in memory to generate a response. Use [pushdowns](#
 To query data over large periods of time, create a task to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
 
 ## Measure query performance with Flux profilers
-Use the [Flux Profiler package](/influxdb/v2.0/reference/flux/stdlib/profiler/)
+Use the [Flux Profiler package](/{{< latest "flux" >}}/stdlib/profiler/)
 to measure query performance and append performance metrics to your query output.
 The following Flux profilers are available:
 
@@ -182,4 +182,4 @@ option profiler.enabledProfilers = ["query", "operator"]
 // Query to profile
 ```
 
-For more information about Flux profilers, see the [Flux Profiler package](/influxdb/v2.0/reference/flux/stdlib/profiler/).
+For more information about Flux profilers, see the [Flux Profiler package](/{{< latest "flux" >}}/stdlib/profiler/).

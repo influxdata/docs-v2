@@ -88,7 +88,7 @@ in a specified amount of time.
     You can also use custom tags in [notification rules](/influxdb/cloud/monitor-alert/notification-rules/create/).
 
 3.  In the **Status Message Template** column, enter the status message template for the check.
-    Use [Flux string interpolation](/influxdb/cloud/reference/flux/language/string-interpolation/)
+    Use [Flux string interpolation](/{{< latest "flux" >}}/data-types/basic/string/#interpolate-strings)
     to populate the message with data from the query.
 
     {{% note %}}
