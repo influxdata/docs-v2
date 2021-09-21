@@ -64,27 +64,24 @@ Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate In
 
 The sample data template installs a task that collects sample data and dashboards to visualize the sample data.
 After installing the template, sample data is downloaded and stored in the sample data bucket at regular intervals.
+
 ### Write sample data with an InfluxDB task
    
-1. Click **Data Explorer** in InfluxDB Cloud's left navigation menu and select your **noaa** bucket. 
-2. Click **Script Editor**. 
-3. Copy the `sample.data()` function listed for the NOAA sample dataset and paste it into the script editor. 
-    ```js
-    import "influxdata/influxdb/sample"
+Use the [Flux InfluxDB sample package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/) to download and write sample data to InfluxDB.
 
-    option task = {
-      name: "Collect NOAA NDBC data"
-      every: 15m,
-    }
+Add the following as an [InfluxDB task](/influxdb/cloud/process-data/manage-tasks/create-task/).
 
-    sample.data(set: "noaa")
-      |> to(
-          org: "example-org",
-          bucket: "example-bucket"
-      )
+```js
+import "influxdata/influxdb/sample"
+option task = {
+  name: "Collect NOAA NDBC data"
+  every: 15m,
+}
+sample.data(set: "noaa")
+  |> to(bucket: "noaa"  )
     ```
-   Click here for more information about [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data), or other [sample data sets](/influxdb/v2.0/reference/sample-data/). 
-4. Click **Submit**. 
+
+For more information about this and other InfluxDB sample datasets, see [InfluxDB sample data](/influxdb/cloud/reference/sample-data/). 
 
 ## Create a notebook
 
