@@ -37,7 +37,7 @@ menu:
 - Prevent lost writes during hinted handoff when purging short queues.
 - Fix Flux panic that caused node to crash when querying empty pre-created shards.
 - Fix incorrect TLS handling for `influxd-ctl entropy` commands.
-- Use TLS for nested LDAP connections when configured.
+- Use TLS for nested LDAP connections when TLS is enabled.
 - Fix Flux query problems with large datasets when replication factor is less than cluster size.
 - Avoid incorrect logging about "broken pipe" when entropy is detected.
 - Return correct number of unexecuted statements when multi-statement query fails.
