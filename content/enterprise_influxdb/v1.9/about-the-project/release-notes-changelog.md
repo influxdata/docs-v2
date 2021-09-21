@@ -41,8 +41,7 @@ menu:
 - Fix Flux query problems with large datasets when replication factor is less than cluster size.
 - Avoid incorrect logging about "broken pipe" when entropy is detected.
 - Return correct number of unexecuted statements when multi-statement query fails.
-- HH rate limiting uses simpler logic.
-- Add delay (less than one second) to hinted handoff sends if `retry-rate-limit` is exceeded.
+- Delay hinted handoff writes (by less than one second) if `retry-rate-limit` is exceeded.
 - Fix potential crash due to race between reading TSI index and TSI compaction.
 
 ## v1.9.3 [2021-07-19]
