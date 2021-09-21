@@ -55,7 +55,7 @@ After installing the template, sample data will be stored in the sample data buc
 1. Go to the community templates respository on GitHub and head to our [sample data documentation](/influxdata/community-templates/tree/master/sample-data). 
 2. [Install the template](https://github.com/influxdata/community-templates/tree/master/sample-data#quick-install) with the instructions given. 
 
-### Add sample data with InfluxData UI 
+### Add sample data in InfluxDB Cloud UI 
    
 1. Click **Data Explorer** in InfluxDB Cloud's left navigation menu and select your **noaa** bucket. 
 2. Click **Script Editor**. 
