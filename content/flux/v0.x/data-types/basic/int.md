@@ -13,6 +13,7 @@ flux/v0.x/tags: ["basic types", "numeric types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/int/
   - /flux/v0.x/stdlib/universe/toint/
+  - /flux/v0.x/stdlib/contrib/bonitoo-io/hex/int/
 list_code_example: |
   ```js
   0
@@ -74,10 +75,13 @@ int(v: 12.54)
 
 {{% note %}}
 #### Round float values before converting to integers
-Being Flux _truncates_ the [float](/flux/v0.x/data-types/basic/float/) value at the decimal when converting to an integer, for example `12.54` to `12`, you may want to round float values to the nearest whole number `12.54` to `13` before converting. To do this:
+When converting [floats](/flux/v0.x/data-types/basic/float/) to integers,
+`int()` _truncates_ the float value at the decimal (for example `12.54` to `12`). 
+You may want to round float values to the nearest whole number (`12.54` to `13`) before converting.
+To do this:
 
 1. Import the [`math` package](/flux/v0.x/stdlib/math/).
-2. Use [`math.round()`](/flux/v0.x/stdlib/math/round/) to round the the float value
+2. Use [`math.round()`](/flux/v0.x/stdlib/math/round/) to round the float value
    before converting it to an integer.
 
 ```js
@@ -87,6 +91,20 @@ int(v: math.round(x: 12.54))
 // Returns 13
 ```
 {{% /note %}}
+
+### Convert a hexadecimal string to an integer
+To convert a hexadecimal string representation of a number to an integer:
+
+1. Import the [`contrib/bonitoo-io/hex` package](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/).
+2. Use [`hex.int()`](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/int/) to convert
+   the hexadecimal string to an integer.
+
+```js
+import "contrib/bonitoo-io/hex"
+
+hex.int(v: "1e240")
+// Returns 123456
+```
 
 ### Convert columns to integers
 Flux lets you iterate over rows in a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
