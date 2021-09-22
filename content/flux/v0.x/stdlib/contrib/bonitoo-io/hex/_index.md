@@ -23,5 +23,9 @@ cascade:
 The Flux `hex` package provides functions that convert hexadecimal strings into Flux data types.
 Import the `contrib/bonitoo-io/hex` package.
 
+```js
+import "contrib/bonitoo-io/hex"
+```
+
 ## Functions
 {{< children type="functions" show="pages" >}}
