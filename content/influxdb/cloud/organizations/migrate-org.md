@@ -18,7 +18,8 @@ To duplicate the state of an organization:
    Use [InfluxDB templates](/influxdb/cloud/influxdb-templates/create/).
    Export all resources, like dashboards and buckets, to a template manifest
    with [`influx export all`](/influxdb/cloud/influxdb-templates/create/#export-all-resources).
-   Then, [apply the template](/influxdb/cloud/reference/cli/influx/apply/#examples-how-to-apply-a-template-or-stack).
+   Then, [apply the template](/influxdb/cloud/reference/cli/influx/apply/#examples-how-to-apply-a-template-or-stack)
+   to the new organization.
    
 2. **Migrate data**.
 
