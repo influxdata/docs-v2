@@ -14,7 +14,7 @@ aliases:
 
 ### Features
 - Update `group` to use new `GroupTransformation` interface.
-- Add `experimental/record` package.
+- Add [`experimental/record` package](/flux/v0.x/stdlib/experimental/record/).
 - Embed compiled Flux standard library instead of compiling at runtime.
 - Add [`contrib/bonitoo-io/hex` package](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/)
   to work with hexadecimal string values.
