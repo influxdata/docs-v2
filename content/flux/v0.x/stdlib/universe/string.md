@@ -39,28 +39,28 @@ Value to convert.
 
 #### Convert a boolean to a string value
 ```js
-int(v: true)
+string(v: true)
 
 // Returns "true"
 ```
 
 #### Convert a duration to a string value
 ```js
-int(v: 1m)
+string(v: 1m)
 
 // Returns "1m"
 ```
 
 #### Convert a time to a string value
 ```js
-int(v: 2021-01-01T00:00:00Z)
+string(v: 2021-01-01T00:00:00Z)
 
 // Returns "2021-01-01T00:00:00Z"
 ```
 
 #### Convert a float to a string value
 ```js
-int(v: 10.12)
+string(v: 10.12)
 
 // Returns "10.12"
 ```
