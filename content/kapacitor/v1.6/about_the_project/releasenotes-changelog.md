@@ -7,14 +7,30 @@ menu:
     name: Release notes
 ---
 
+## v1.6.2 [2021-08-04]
+
+### Features
+
+- Add the `-template-id` option to `task list`.
+
+### Bug fixes
+
+- Previously, errors could occur if a measurement string had special characters. Now, `expvar` string json encoding handles special characters, thanks @prashanthjbabu!
+- Update `jwt` dependencies of libraries to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
+- Switch to `github.com/golang-jwt/jwt` to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
+- Switch task service to use Flux formatter that preserves comments.
+- Previously, Kapacitor used a remote `influxdb` bucket (or 1.x database) to store Flux task run logs, and you had to manually create the database or bucket to store Flux logs. Now, Kapacitor automatically creates an InfluxDB 1.x database or InfluxDB 2.x bucket for Flux task logs.
+
 ## v1.6.1 [2021-07-22]
 
 ### Features
+
 - Add flag for restricting CIDR ranges for certain event handlers and nodes.
 - Add flag for disabling alert handlers for additional security (such as
   disabling the `exec` alert handler on a shared machine).
 
-### Bugfixes
+### Bug fixes
+
 - Align `DeleteGroupMessage` with `GroupInfo` interface.
 - Fix payload serialization for BigPanda.
 
@@ -37,6 +53,7 @@ with the Kapacitor API.
 
 {{% warn %}}
 ### Breaking changes
+
 Kapacitor 1.6+ no longer supports 32-bit operating systems.
 If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
 {{% /warn %}}
@@ -55,7 +72,8 @@ If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
 - Update [Slack event handler](/kapacitor/v1.6/event_handlers/slack/) to support new-style Slack applications.
 - Handle Delete messages in [joinNode](/kapacitor/v1.6/nodes/join_node/).
 
-### Bugfixes
+### Bug fixes
+
 - Fix a panic in the scraper handler when debug mode is enabled. 
 
 ## v1.5.9 [2021-04-01]
