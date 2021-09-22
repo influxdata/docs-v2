@@ -39,8 +39,8 @@ record.any = {} // polymorphic record with unconstrained property types
 
 ### record.any
 Currently, default function parameter values constrain the parameter's type.
-`record.any` is a polymorphic record value that can be used in
-as a default record value when input record property types are not known.
+`record.any` is a polymorphic record value that can be used as a default
+record value when input record property types are not known.
 
 ```js
 addFoo = (r=record.any) => ({ r with foo: "bar" })
