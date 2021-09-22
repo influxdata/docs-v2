@@ -319,7 +319,6 @@ If a user writes points with timestamps set by the client, then multiple points 
 ### `export`
 
 Exports all TSM files in InfluxDB line protocol data format.
-Writes all WAL file data for `_internal/monitor`.
 This output file can be imported using the
 [influx](/influxdb/v1.8/tools/shell/#import-data-from-a-file-with-import) command.
 
