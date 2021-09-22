@@ -7,7 +7,7 @@ menu:
     name: Release notes
 ---
 
-## v1.6.2 [2021-08-04]
+## v1.6.2 [2021-09-22]
 
 ### Features
 
