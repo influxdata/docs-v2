@@ -142,7 +142,7 @@ Through all four stations, the `timeWeightedAverages` are 40.25, 40.6, 41.38, 41
 
 Calculate the value between events by getting the average value during a specific time range. 
 
-The following scenario queries data starting when the four production lines starts and ends. The following query would calculate the average oil temperature value during that period.
+The following scenario queries data starting when the four production lines starts and ends. The following query  calculates the average oil temperature value during that period.
 
 {{% note %}}
 If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
@@ -170,7 +170,7 @@ In this example, the `_value` in the table below shows the average `oil_temp` fr
 | g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.379999999999995 |
 | g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.2               |
 
-In order to get the values above, you can view the values before it has been averaged by removing `mean()` in the query above. 
+In order to get the values above, you can view the values before it has been averaged by removing `mean()` in the query. 
 
 | table | stationID | _start                   | _stop                    | _value |
 |:----- | -----     | -----                    | -----                    | ------:|
@@ -192,7 +192,7 @@ Through all four stations, the `means()` are 40, 40.6, 41.38, 41.2, respectively
 
 ## Record data points with added context
 
-Equipment speed measurements are recorded periodically (float), as is the production order number (string), but not as a field set – as separate streams. I would like to query the equipment speed measurements either in their raw form or aggregated on windows, but I would like to also have the result set include the production order number that was active at that point in time. Example of using experimental.join and how to ensure the timestamps align along with the tag keys... But, need to figure out what ties the two streams together?
+Equipment speed measurements are recorded periodically (float), as is the production order number (string), but not as a field set – as separate streams. I would like to query the equipment speed measurements either in their raw form or aggregated on windows, but I would like to also have the result set include the production order number that was active at that point in time. Example of using `experimental.join` and how to ensure the timestamps align along with the tag keys... But, need to figure out what ties the two streams together?
 
 ## Group aggregate on value change(s)
 
