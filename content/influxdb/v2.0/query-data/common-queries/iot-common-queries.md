@@ -10,7 +10,8 @@ menu:
 weight: 205
 ---
 
-The following scenarios are ways to retrieve information about your IoT sensors:
+The following scenarios illustrate common queries used to extract information from IoT sensor data:
+
 - [Record time in state](#record-time-in-state)
 - [Calculate time weighted average](#calculate-time-weighted-average)
 - [Calculate value between events](#calculate-value-between-events)
