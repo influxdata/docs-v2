@@ -42,17 +42,17 @@ To calculate the percentage of time machines in a production line spend in each 
 import "contrib/tomhollingworth/events"
  
 from(bucket: "machine")
-|> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:30:00Z)
-|> filter(fn: (r) => r["_measurement"] == "machinery")
-|> filter(fn: (r) => r["_field"] == "state")
-|> events.duration(unit: 1h, columnName: "duration",)
-|> group(columns: ["_value", "_start", "_stop", "station_id"])
-|> sum(column: "duration")
-|> pivot(rowKey:["_stop"], columnKey: ["_value"], valueColumn: "duration")
-|> map(fn: (r) => {
-totalTime = float(v: r.NOK + r.OK)
-return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / totalTime * 100.0}
-})
+  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:30:00Z)
+  |> filter(fn: (r) => r["_measurement"] == "machinery")
+  |> filter(fn: (r) => r["_field"] == "state")
+  |> events.duration(unit: 1h, columnName: "duration",)
+  |> group(columns: ["_value", "_start", "_stop", "station_id"])
+  |> sum(column: "duration")
+  |> pivot(rowKey:["_stop"], columnKey: ["_value"], valueColumn: "duration")
+  |> map(fn: (r) => {
+    totalTime = float(v: r.NOK + r.OK)
+    return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / totalTime * 100.0}
+  })
 ```
 
 The query above focuses on a specific time range to narrow down on one occasion where the state of the production line changes. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the `state` field and `machinery` measurement out of the other variables. The `state` is stored as a field, and then the `fieldKey` is stored as a value. 
