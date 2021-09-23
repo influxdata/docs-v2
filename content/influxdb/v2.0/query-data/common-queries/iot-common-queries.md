@@ -21,7 +21,7 @@ The following scenarios illustrate common queries used to extract information fr
 All scenarios below use the `machineProduction` sample dataset provided by the [InfluxDB `sample` package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/).
 For more information, see [Sample data](/influxdb/cloud/reference/sample-data/).
 
-## Record time in state
+## Calculate time in state
 
 In this scenario, we look at whether a production line is running smoothly (`state`=`OK`) and what percentage of time the production line is running smoothly or not (`state`=`NOK`). If no points are recorded during the interval (`state`=`NaN`), you may opt to retrieve the last state prior to the interval. 
 
