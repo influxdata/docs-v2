@@ -28,9 +28,6 @@ In this scenario, we look at whether a production line is running smoothly (`sta
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
-{{% note %}}
-If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
-{{% /note %}}
 
 ```js
 import "contrib/tomhollingworth/events"
