@@ -34,24 +34,15 @@ weight: 101
 - Include `curl` as a dependency in `influxdb2` packages.
 - Correctly filter requests to `/api/v2/authorizations` by `org` and `user` parameters.
 - Fix `X-Influxdb-Build` and `X-Influxdb-Version` response header at `/ping`.
-
-
-- [22548](https://github.com/influxdata/influxdb/pull/22548): Suggest setting flux content-type when query fails to parse as json
-- [22563](https://github.com/influxdata/influxdb/pull/22563): For windows, copy snapshot files being backed up (#22551) (#22562)
-
-- [22517](https://github.com/influxdata/influxdb/pull/22517): Use consistent path separator in permission string representation
-- [22523](https://github.com/influxdata/influxdb/pull/22523): Upgrade golang.org/x/sys to avoid panics on macs
-- [22520](https://github.com/influxdata/influxdb/pull/22520): Make tsi index compact old and too-large log files
-- [22525](https://github.com/influxdata/influxdb/pull/22525): Hard limit on field size while parsing line protocol
-- [22504](https://github.com/influxdata/influxdb/pull/22504): Upgrade influxql to latest version & fix predicate handling for show tag values metaqueries
-- [22242](https://github.com/influxdata/influxdb/pull/22242): Switch flux formatter to one that preserves comments
-- [22236](https://github.com/influxdata/influxdb/pull/22236): Influxdb2 packages should depend on curl
-- [22243](https://github.com/influxdata/influxdb/pull/22243): Inactive task runs when updated
-- [22245](https://github.com/influxdata/influxdb/pull/22245): Avoid compaction queue stats flutter
-- [22278](https://github.com/influxdata/influxdb/pull/22278): Auth requests use org and user names if present
-- [22325](https://github.com/influxdata/influxdb/pull/22325): Change build type to 'oss', use correct version
-- [22355](https://github.com/influxdata/influxdb/pull/22355): Repair bad port dropping return value names (#22307)
-- [22397](https://github.com/influxdata/influxdb/pull/22397): Discard excessive errors (#22379)
+- Repair bad port dropping return value names.
+- Discard excessive errors over `DefaultMaxSavedErrors (100)` to prevent out-of-memory crashes.
+- Show message to set the Flux `content-type` when a query fails to parse as JSON.
+- Use consistent path separator in permission string representation.
+- Upgrade `golang.org/x/sys` to avoid panics on macs.
+- Ensure TSI index compacts log files that are old or too large.
+- Implement hard limit on field size (`MaxFieldValueLength = 1048576`) while parsing line protocol.
+- Upgrade `influxql` to latest version and fix predicate handling for `SHOW TAG VALUES` metaqueries.
+- (Windows only) Copy snapshot files being backed up.
 
 ## v2.0.8 [2021-08-13]
 
