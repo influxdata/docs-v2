@@ -294,7 +294,6 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Support creating users without initial passwords in `influx user create`.
 - Fix incorrect errors when passing `--bucket-id` to `influx write`.
 
-
 ## v2.0.3 General Availability [2020-12-14]
 
 ### Breaking Changes
@@ -392,7 +391,7 @@ When there are multiple [DBRP mappings](/influxdb/v2.0/reference/api/influxdb-1x
 Highlights include:
 
 - Support for **upgrading to InfluxDB 2.0**:
-   - To upgrade **from InfluxDB 1.x **, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2).
+   - To upgrade **from InfluxDB 1.x**, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2.0/upgrade/v1-to-v2).
    - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2).
 - **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/{{< latest "flux" >}}/release-notes/#v0-94-0-2020-11-09). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2.0/query-data/get-started/). Next, delve deeper into the [Flux standard library](/{{< latest "flux" >}}/stdlib//) reference docs and see how to [query with Flux](/influxdb/v2.0/query-data/flux/).
 - Support for [InfluxDB 1.x API compatibility](/influxdb/v2.0/reference/api/influxdb-1x/).
