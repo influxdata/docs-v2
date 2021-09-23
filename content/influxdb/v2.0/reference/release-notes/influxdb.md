@@ -12,13 +12,19 @@ weight: 101
 
 ### Features
 
-- Set `x-influxdb-version` and `x-influxdb-build` response headers.
-- Optimize queries with predicates that contain multiple measurements.
-- Add support for [`influxdb.cardinality()`](/flux/v0.x/stdlib/influxdata/influxdb/cardinality/) function.
-- Optimize series iteration for queries that can be answered without inspecting TSM data.
-- Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
-- Add additional logging to Flux end to end tests (`TestFluxEndToEnd`) to help diagnose test failures.
-- Add `--flux-log-enabled` option to [`influxd`](/influxdb/v2.0/reference/config-options/) to show detailed logs for Flux queries.
+- **Flux updates**:
+  - Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
+  - Add support for [`influxdb.cardinality()`](/flux/v0.x/stdlib/influxdata/influxdb/cardinality/) function.
+
+- **Improved logging**:
+  - Add additional logging to Flux end to end tests (`TestFluxEndToEnd`) to help diagnose test failures.
+  - Add `--flux-log-enabled` option to [`influxd`](/influxdb/v2.0/reference/config-options/) to show detailed logs for Flux queries.
+
+- **Performance optimizations**:
+  - Optimize series iteration for queries that can be answered without inspecting TSM data.
+  - Optimize queries with predicates that contain multiple measurements.
+
+- **Version maintenance:** Set `x-influxdb-version` and `x-influxdb-build` response headers.
 
 ### Bug fixes
 
