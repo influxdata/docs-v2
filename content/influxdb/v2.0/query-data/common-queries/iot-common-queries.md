@@ -100,9 +100,6 @@ into time windows that span a single pixel.
 Use `last` as the aggregate `fn` to return the last value in each time window.
 Set `createEmpty` to `false` so results  won't include empty time windows. 
 
-These features assure that the mosaic visualization is properly displayed. 
-
-For more information about mosaic visualizations, see [here](/influxdb/cloud/visualize-data/visualization-types/mosaic/). 
 
 ## Calculate time weighted average
 
