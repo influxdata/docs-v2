@@ -110,11 +110,6 @@ Calculate the time-weighted average by using the linearly interpolated integral 
 For example, to calculate oil temperature over a given interval using the machine-production sample data.  
 
 
-The total temperature considers both the total hours in the day and the temperature of the different batches. A time-weighted average requires time to be shown in decimal form. 
-
-Minutes will be divided by 60 and seconds will be divided by 3600 to get a decimal form of the hour. Depending on what your time is, the hour and the quotient of the minutes and the seconds will be added to recieve your time in decimals.  
-
-To recieve the average oil temperature, the temperature (in the `_value` column) is multiplied by the time period (as a decimal), divided by the total time. In this example, the average oil temperature for the time range is calculated across four different stations in a production line. 
 
 #### Flux query to calculate time-weighted average
 
