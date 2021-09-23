@@ -18,6 +18,8 @@ The following scenarios illustrate common queries used to extract information fr
 - [Record data points with added context](#record-data-points-with-added-context)
 - [Group aggregate on value change(s)](#group-aggregate-on-value-changes)
 
+All scenarios below use the `machineProduction` sample dataset provided by the [InfluxDB `sample` package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/).
+For more information, see [Sample data](/influxdb/cloud/reference/sample-data/).
 
 ## Record time in state
 
