@@ -75,7 +75,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ### Load Data updates
 
-  - Redesign the Load Data page to increase discovery and ease of use. Now, you can [load data from sources directly in the InfluxDB user interface](/influxdb/cloud/write-data/load-data/).
+  - Redesign the Load Data page to increase discovery and ease of use. Now, you can [load data from sources directly in the InfluxDB user interface](/influxdb/cloud/write-data/no-code/load-data/).
   - Add support for new data sources:
     - InfluxDB v2 Listener
     - NSD

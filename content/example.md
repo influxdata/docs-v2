@@ -2,7 +2,7 @@
 title: Example post
 description: This is just an example post to show the format of new 2.0 posts
 weight: 1
-draft: true
+# draft: true
 related:
   - /influxdb/v2.0/write-data/
   - /influxdb/v2.0/write-data/quick-start
@@ -11,6 +11,10 @@ products: [cloud, oss, enterprise]
 ---
 
 This is a paragraph. Lorem ipsum dolor ({{< icon "trash" >}}) sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
+
+[Ref link][foo]
+
+[foo]: https://docs.influxadata.com
 
 This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 

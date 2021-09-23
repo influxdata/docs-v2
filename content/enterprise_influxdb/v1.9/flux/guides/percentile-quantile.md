@@ -15,7 +15,7 @@ canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/percentile-quantile/
 v2: /influxdb/v2.0/query-data/flux/percentile-quantile/
 ---
 
-Use the [`quantile()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
+Use the [`quantile()` function](/{{< latest "flux" >}}/stdlib/universe/quantile/)
 to return a value representing the `q` quantile or percentile of input data.
 
 ## Percentile versus quantile
@@ -144,13 +144,13 @@ data
 ```
 
 ## Use quantile() with aggregateWindow()
-[`aggregateWindow()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+[`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, and then removes the time-based segmentation.
 It is primarily used to downsample data.
 
 To specify the [quantile calculation method](#select-a-method-for-calculating-the-quantile) in
-`aggregateWindow()`, use the [full function syntax](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#specify-parameters-of-the-aggregate-function):
+`aggregateWindow()`, use the [full function syntax](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/#specify-parameters-of-the-aggregate-function):
 
 ```js
 data

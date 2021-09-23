@@ -132,8 +132,8 @@ see [Configure Kapacitor](/kapacitor/v1.6/administration/configuration/#flux-tas
     - [Common data processing tasks](/{{< latest "influxdb" >}}/process-data/common-tasks/)
 
     #### Provide InfluxDB connection credentials
-    [`from()`](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/) and
-    [`to()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) functions
+    [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/) and
+    [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) functions
     require your InfluxDB **host** and **token**.
 
     - **host:** InfluxDB URL.
@@ -231,8 +231,8 @@ Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
     - [Common data processing tasks](/{{< latest "influxdb" >}}/process-data/common-tasks/)
 
     #### Provide InfluxDB connection credentials
-    [`from()`](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/) and
-    [`to()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) functions
+    `from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/) and
+    [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) functions
     require your InfluxDB **host** and **token**.
 
     - **host:** InfluxDB URL.

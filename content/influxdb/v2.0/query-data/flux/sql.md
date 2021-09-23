@@ -15,7 +15,7 @@ weight: 220
 aliases:
   - /influxdb/v2.0/query-data/guides/sql/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/sql/
+  - /{{< latest "flux" >}}/stdlib/sql/
 list_code_example: |
   ```js
   import "sql"
@@ -29,7 +29,7 @@ list_code_example: |
 ---
 
 The [Flux](/influxdb/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
-[`sql.from()`](/influxdb/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
+[`sql.from()`](/{{< latest "flux" >}}/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
 [Snowflake](https://www.snowflake.com/), [SQLite](https://www.sqlite.org/index.html),
 [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/default.aspx),
@@ -44,7 +44,7 @@ and use the results with InfluxDB dashboards, tasks, and other operations.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Query a SQL data source
@@ -129,7 +129,7 @@ sql.from(
 ```
 
 _For information about authenticating with SQL Server using ADO-style parameters,
-see [SQL Server ADO authentication](/influxdb/v2.0/reference/flux/stdlib/sql/from/#sql-server-ado-authentication)._
+see [SQL Server ADO authentication](/{{< latest "flux" >}}/stdlib/sql/from/#sql-server-ado-authentication)._
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
@@ -143,7 +143,7 @@ sql.from(
 ```
 
 _For information about parameters to include in the Athena DSN,
-see [Athena connection string](/influxdb/v2.0/reference/flux/stdlib/sql/from/#athena-connection-string)._
+see [Athena connection string](/{{< latest "flux" >}}/stdlib/sql/from/#athena-connection-string)._
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
@@ -156,11 +156,11 @@ sql.from(
 ```
 
 _For information about authenticating with BigQuery, see
-[BigQuery authentication parameters](/influxdb/v2.0/reference/flux/stdlib/sql/from/#bigquery-authentication-parameters)._
+[BigQuery authentication parameters](/{{< latest "flux" >}}/stdlib/sql/from/#bigquery-authentication-parameters)._
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_See the [`sql.from()` documentation](/influxdb/v2.0/reference/flux/stdlib/sql/from/) for
+_See the [`sql.from()` documentation](/{{< latest "flux" >}}/stdlib/sql/from/) for
 information about required function parameters._
 
 ## Join SQL data with data in InfluxDB
@@ -271,7 +271,7 @@ influx secret update -k <secret-key> -v <secret-value>
 {{< /tabs-wrapper >}}
 
 ### Use secrets in your query
-Import the `influxdata/influxdb/secrets` package and use [string interpolation](/influxdb/v2.0/reference/flux/language/string-interpolation/)
+Import the `influxdata/influxdb/secrets` package and use [string interpolation](/{{< latest "flux" >}}/spec/string-interpolation/)
 to populate connection credentials with stored secrets in your Flux query.
 
 ```js
@@ -317,7 +317,7 @@ Sample sensor information is stored in PostgreSQL.
 
 1.  [Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/) to store the data.
 2.  [Create an InfluxDB task](/influxdb/v2.0/process-data/manage-tasks/create-task/)
-    and use the [`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/)
+    and use the [`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/)
     to download sample air sensor data every 15 minutes.
     Write the downloaded sample data to your new bucket:
 
