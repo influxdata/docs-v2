@@ -88,13 +88,13 @@ in a specified amount of time.
     You can also use custom tags in [notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create/).
 
 3.  In the **Status Message Template** column, enter the status message template for the check.
-    Use [Flux string interpolation](/influxdb/v2.0/reference/flux/language/string-interpolation/)
+    Use [Flux string interpolation](/{{< latest "flux" >}}/spec/string-interpolation/)
     to populate the message with data from the query.
 
     {{% note %}}
 #### Flux only interpolates string values
 Flux currently interpolates only string values.
-Use the [string() function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
+Use the [string() function](/{{< latest "flux" >}}/stdlib/universe/string/)
 to convert non-string values to strings.
 
 ```js

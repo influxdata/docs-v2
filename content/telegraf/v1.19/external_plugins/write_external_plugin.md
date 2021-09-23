@@ -1,5 +1,5 @@
 ---
-title: Write an external plugins
+title: Write an external plugin
 description:
 menu:
   telegraf_1_19:

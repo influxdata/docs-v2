@@ -2,8 +2,7 @@
 title: Group data in InfluxDB with Flux
 list_title: Group
 description: >
-  Use the [`group()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group)
-  to group data with common values in specific columns.
+  Use `group()` to group data with common values in specific columns.
 influxdb/v2.0/tags: [group]
 menu:
   influxdb_2_0:
@@ -13,8 +12,8 @@ weight: 202
 aliases:
   - /influxdb/v2.0/query-data/guides/group-data/
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/group
+  - /{{< latest "flux" >}}/stdlib/universe/group
+  - /{{< latest "flux" >}}/stdlib/experimental/group
 list_query_example: group
 ---
 
@@ -24,7 +23,7 @@ This guide walks through grouping data in Flux and provides examples of how data
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Group keys
@@ -40,7 +39,7 @@ Understanding how modifying group keys shapes output data is key to successfully
 grouping and transforming data into your desired output.
 
 ## group() Function
-Flux's [`group()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group) defines the
+Flux's [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group) defines the
 group key for output tables, i.e. grouping records based on values for specific columns.
 
 ###### group() example

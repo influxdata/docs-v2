@@ -5,11 +5,10 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Configure LDAP authentication
-    weight: 40
     parent: Manage security
+weight: 43
 aliases:
   - /enterprise_influxdb/v1.9/administration/ldap/
-  
 ---
 
 Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol) to:

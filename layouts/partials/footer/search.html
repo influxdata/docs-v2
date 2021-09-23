@@ -1,7 +1,10 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
-{{ $latestV2 := (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit .Site.Data.products.influxdb.versions " "))) 0) }}
+{{ $latestV2 := .Site.Data.products.influxdb.latest }}
+{{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
+{{ $influxdbFluxSupport := slice "v1.7" "v1.8" "v1.9" "cloud" }}
+{{ $includeFlux := cond (and (in $fluxSupported $product) (or (in $influxdbFluxSupport $currentVersion) (gt (len (findRE `v2\.` $currentVersion)) 0))) true false }}
 
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
@@ -16,10 +19,10 @@ docsearch({
     'facetFilters': [
       {{ if or (eq $product "platform") (le (len $productPathData) 1) }}
         'latest:true'
-      {{ else if and (eq $product "influxdb") (gt (len (findRE `v1\.[7,8]` $currentVersion)) 0) }}
-        ['project: influxdb', 'flux:true'], ['version: {{ $currentVersion }}', 'version: {{ $latestV2 }}']
+      {{ else if $includeFlux }}
+        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true']
       {{ else }}
-        'project: {{ $product }}', 'version: {{ $currentVersion }}'
+        'searchTag: {{ $product }}-{{ $currentVersion }}'
       {{ end }}
     ]
   },

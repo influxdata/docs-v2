@@ -209,4 +209,4 @@ With your InfluxDB connection configured, use Grafana and Flux to query and
 visualize time series data stored in **{{< cloud-name >}}**.
 
 For more information about using Grafana, see the [Grafana documentation](https://grafana.com/docs/).
-If you're just learning Flux, see [Get started with Flux](/influxdb/cloud/query-data/get-started/).
+If you're just learning Flux, see [Get started with Flux](/{{< latest "flux" >}}/get-started/).

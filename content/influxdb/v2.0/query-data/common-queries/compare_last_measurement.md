@@ -19,10 +19,10 @@ This example compares the value from the latest point to an average value stored
 
 The following query:
 
-  - Uses [`range()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/) to define a time range.
-  - Gets the last value in the `means` bucket and compares it to the last value in the `noaa` bucket using [`last()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/).
-  - Uses [`join()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/) to combine the results
-  - Uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to calculate the differences
+  - Uses [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) to define a time range.
+  - Gets the last value in the `means` bucket and compares it to the last value in the `noaa` bucket using [`last()`](/{{< latest "flux" >}}/stdlib/universe/last/).
+  - Uses [`join()`](/{{< latest "flux" >}}/stdlib/universe/join/) to combine the results
+  - Uses [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to calculate the differences
 
   ```js
   means = from(bucket: "weekly_means")

@@ -13,7 +13,7 @@ weight: 6
 Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.
 It supports four categories of plugins including input, output, aggregator, and processor.
 
-{{< telegraf/filters >}}
+{{< list-filters >}}
 
 
 **Jump to:**

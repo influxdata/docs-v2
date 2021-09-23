@@ -8,8 +8,8 @@ menu:
     parent: Get started with Flux
 weight: 202
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/window
+  - /{{< latest "flux" >}}/stdlib/universe/aggregatewindow
+  - /{{< latest "flux" >}}/stdlib/universe/window
 ---
 
 {{< duplicate-oss >}}

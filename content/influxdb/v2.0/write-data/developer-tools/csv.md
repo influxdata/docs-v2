@@ -570,11 +570,11 @@ example lbs=2014.9 1578096000000000000
 
 ## Flux
 
-Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) Flux functions to write an annotated CSV to the bucket of your choice.
+Use the [csv.from()](/{{< latest "flux" >}}/stdlib/csv/from/) and [to()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) Flux functions to write an annotated CSV to the bucket of your choice.
 
 {{< youtube wPKZ9i0DulQ >}}
 
-The experimental [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) function lets you write CSV from a URL.
+The experimental [csv.from()](/{{< latest "flux" >}}/stdlib/csv/from/) function lets you write CSV from a URL.
 The example below writes [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data) to an example `noaa` bucket in an example organization:
 
 ```js

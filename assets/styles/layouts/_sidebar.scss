@@ -284,13 +284,15 @@
       font-size: .85rem;
       letter-spacing: .08rem;
 
-      &.platform:after {
-        content: "\e911";
-        font-family: "icomoon";
-        font-style: normal;
-        font-size: 1rem;
-        opacity: .4;
-        margin-left: .25rem;
+      &.platform, &.flux {
+        &:after {
+          content: "\e911";
+          font-family: "icomoon";
+          font-style: normal;
+          font-size: 1rem;
+          opacity: .4;
+          margin-left: .25rem;
+        }
       }
     }
   }

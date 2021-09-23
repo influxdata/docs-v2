@@ -510,6 +510,27 @@ The following colors are available:
 {{< req color="magenta" text="This is required" >}}
 ```
 
+### Page navigation buttons
+Use the `{{< page-nav >}}` shortcode to add page navigation buttons to a page.
+These are useful for guiding users through a set of docs that should be read in sequential order.
+The shortcode has the following parameters:
+
+- **prev:** path of the previous document _(optional)_
+- **next:** path of the next document _(optional)_
+- **prevText:** override the button text linking to the previous document _(optional)_
+- **nextText:** override the button text linking to the next document _(optional)_
+
+The shortcode generates buttons that link to both the previous and next documents.
+By default, the shortcode uses either the `list_title` or the `title` of the linked
+document, but you can use `prevText` and `nextText` to override button text.
+
+```md
+<!-- Simple example -->
+{{ page-nav prev="/path/to/prev/" next="/path/to/next" >}}
+
+<!-- Override button text -->
+{{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
+
 ### Keybinds
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
 The following parameters are available:
@@ -683,7 +704,7 @@ To include a horizontal rule after each child summary, set `hr=true`.
 _Only the `articles` list type supports horizontal rules._
 
 ```md
-{{< children readmore=true >}}
+{{< children hr=true >}}
 ```
 
 #### Include a code example with a child summary
@@ -930,6 +951,52 @@ I like {{< tooltip "Butterflies are awesome!" "butterflies" >}}.
 
 The example above renders as "I like butterflies" with "butterflies" highlighted.
 When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
+
+### Flux sample data tables
+The Flux `sample` package provides basic sample datasets that can be used to
+illustrate how Flux functions work. To quickly display one of the raw sample
+datasets, use the `{{% flux/sample %}}` shortcode.
+
+The `flux/sample` shortcode has the following arguments that can be specified
+by name or positionally.
+
+#### set
+Sample dataset to output. Use either `set` argument name or provide the set
+as the first argument. The following sets are available:
+
+- float
+- int
+- uint
+- string
+- bool
+- numericBool
+
+#### includeNull
+Specify whether or not to include _null_ values in the dataset.
+Use either `includeNull` argument name or provide the boolean value as the second argument.
+
+#### includeRange
+Specify whether or not to include time range columns (`_start` and `_stop`) in the dataset.
+This is only recommended when showing how functions that require a time range
+(such as `window()`) operate on input data.
+Use either `includeRange` argument name or provide the boolean value as the third argument.
+
+##### Example Flux sample data shortcodes
+```md
+<!-- No arguments, defaults to "float" set without nulls -->
+{{% flux/sample %}}
+
+<!-- Output the "string" set without nulls or time range columns -->
+{{% flux/sample set="string" includeNull=false %}}
+
+<!-- Output the "int" set with nulls but without time range columns -->
+{{% flux/sample "int" true %}}
+
+<!-- Output the "int" set with nulls and time range columns -->
+<!-- The following shortcode examples render the same -->
+{{% flux/sample set="int" includeNull=true includeRange=true %}}
+{{% flux/sample "int" true true %}}
+```
 
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on

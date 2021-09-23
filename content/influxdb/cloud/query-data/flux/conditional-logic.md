@@ -13,9 +13,9 @@ menu:
 weight: 220
 related:
   - /influxdb/cloud/query-data/flux/query-fields/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/map/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /{{< latest "flux" >}}/stdlib/universe/filter/
+  - /{{< latest "flux" >}}/stdlib/universe/map/
+  - /{{< latest "flux" >}}/stdlib/universe/reduce/
 list_code_example: |
   ```js
   if color == "green" then "008000" else "ffffff"

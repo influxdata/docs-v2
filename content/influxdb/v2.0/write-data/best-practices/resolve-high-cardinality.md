@@ -87,7 +87,7 @@ These queries should help to identify the sources of high cardinality in each of
 Usually, resolving high cardinality is as simple as changing a tag with many unique values to a field. Review the following potential solutions for resolving high cardinality:
 
 - Delete data to reduce high cardinality
-- Design schema or read performance
+- Design schema for read performance
 
 ### Delete data to reduce high cardinality
 

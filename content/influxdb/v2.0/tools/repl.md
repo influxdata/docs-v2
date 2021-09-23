@@ -35,7 +35,7 @@ To open a new REPL session, run:
 
 ### Query data from InfluxDB
 To query data from InfluxDB (local or remote), provide the host, organization, and token parameters
-to the [`from()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/).
+to the [`from()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/).
 
 ```js
   host: "http://localhost:8086",

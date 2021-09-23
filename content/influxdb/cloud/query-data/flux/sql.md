@@ -13,7 +13,7 @@ menu:
     list_title: SQL data
 weight: 220
 related:
-  - /influxdb/cloud/reference/flux/stdlib/sql/
+  - /{{< latest "flux" >}}/stdlib/sql/
 list_code_example: |
   ```js
   import "sql"
