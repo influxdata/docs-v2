@@ -55,7 +55,7 @@ To adopt the new, separate `influx` CLI early, download the latest release from 
 
 ### Go version
 
-- Upgrade to Go - 6. **Requires macOS Sierra 10.12 or later to run.**
+- Upgrade to Go 1.16. **Requires macOS Sierra 10.12 or later to run.**
 
 ### Features
 
