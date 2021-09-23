@@ -8,6 +8,21 @@ menu:
 weight: 101
 ---
 
+## v2.0.9 [2021-09-23]
+
+### Features
+
+Add `--flux-log-enabled` option to [`influxd`](/influxdb/v2.0/reference/config-options/) to show detailed logs for Flux queries.
+
+### Bug fixes
+
+- Updating an inactive task no longer schedules it. Thanks @raffs!
+- Preserve comments in Flux queries when saving task definitions.
+- Resolve the compaction queue stats flutter.
+- Include `curl` as a dependency in `influxdb2` packages.
+- Correctly filter requests to `/api/v2/authorizations` by `org` and `user` parameters.
+- Fix `X-Influxdb-Build` and `X-Influxdb-Version` response header at `/ping`.
+
 ## v2.0.8 [2021-08-13]
 
 {{% warn %}} #### Upcoming changes to influx CLI packaging

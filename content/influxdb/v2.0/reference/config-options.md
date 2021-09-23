@@ -87,7 +87,6 @@ tls-key = "/path/to/influxdb.key"
 Only non-default settings need to be defined in the configuration file.
 {{% /note %}}
 
-
 ## Configuration options
 
 To configure InfluxDB, use the following configuration options when starting the
@@ -97,6 +96,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [bolt-path](#bolt-path)
 - [e2e-testing](#e2e-testing)
 - [engine-path](#engine-path)
+- [flux-log-enabled](#flux-log-enabled)
 - [http-bind-address](#http-bind-address)
 - [http-idle-timeout](#http-idle-timeout)
 - [http-read-header-timeout](#http-read-header-timeout)
@@ -338,6 +338,59 @@ engine-path = "/users/user/.influxdbv2/engine"
 ```json
 {
   "engine-path": "/users/user/.influxdbv2/engine"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### flux-log-enabled
+
+Include option to show detailed logs for Flux queries, including the following:
+
+- query response size (`response_size`)
+- query errors (`err`)
+- query durations (`stat_total_duration`, `stat_compile_duration`, `stat_execute_duration`)
+- memory allocation (`stat_max_allocated`, `stat_total_allocated`)
+
+**Default:** `false`  
+
+| influxd flag         | Environment variable       | Configuration key |
+|:------------         |:--------------------       |:----------------- |
+| `--flux-log-enabled` | `INFLUXD_FLUX_LOG_ENABLED` | `flux-log-enabled`|
+
+###### influxd flag
+```sh
+influxd --flux-log-enabled=true
+```
+
+###### Environment variable
+```sh
+export INFLUXD_FLUX_LOG_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+flux-log-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+flux-log-enabled = "true"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "flux-log-enabled": "true"
 }
 ```
 {{% /code-tab-content %}}
