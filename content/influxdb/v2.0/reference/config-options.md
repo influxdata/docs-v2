@@ -18,8 +18,7 @@ configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
 ### Configuration precedence
-InfluxDB honors configuration settings using the 
-precedence:
+InfluxDB honors configuration settings using the following precedence:
 
 1. `influxd` flags
 2. Environment variables
