@@ -124,7 +124,6 @@ from(bucket: "machine")
   |> timeWeightedAvg(unit: 5s)
 ```
 
-In this example, the `_value` in the table below shows output data from the `temperature` field in the `machinery` measurement. The function `timeWeightedAvg` takes the average of the temperature every 5 seconds. For the following output data:
 
 | stationID | _start                   | _stop                    | _value             |
 |:-----     | -----                    | -----                    |             ------:|
