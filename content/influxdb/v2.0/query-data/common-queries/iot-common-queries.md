@@ -154,7 +154,7 @@ from(bucket: "machine")
   |> mean()
 ```
 
-In this example, the `_value` in the table below shows the average `oil_temp` from our specific batch start and stop. To recieve the following output data, the `mean()` function calculates the average value between that time range for every individual batch. 
+##### Output
 
 | stationID | _start                   | _stop                    | _value             |
 |:-----     | -----                    | -----                    |             ------:|
@@ -162,26 +162,6 @@ In this example, the `_value` in the table below shows the average `oil_temp` fr
 | g2        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 40.6               |
 | g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.379999999999995 |
 | g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.2               |
-
-In order to get the values above, you can view the values before it has been averaged by removing `mean()` in the query. 
-
-| table | stationID | _start                   | _stop                    | _value |
-|:----- | -----     | -----                    | -----                    | ------:|
-| 0     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 39.1   |
-| 0     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.3   |
-| 0     | g1        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
-| 1     | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.4   |
-| 1     | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.36  |
-| 2     | g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 41.2   |
-| 3     | g2        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:20.000Z | 40.6   |
-
-Given the output data in the table above, the `mean()` function does the following:
-
-1. Groups `_value` by stationID. 
-2. Calculates the sum of the values with the same group. 
-3. Divides the sum by the number of values in the group. 
-
-Through all four stations, the `means()` are 40, 40.6, 41.38, 41.2, respectively.  
 
 ## Record data points with added context
 
