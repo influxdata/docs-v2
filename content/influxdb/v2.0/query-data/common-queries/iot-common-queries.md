@@ -1,7 +1,7 @@
 ---
 title: IoT sensor common queries
 description: >
-  Find common queries used for IoT sensors.
+  Use Flux to address common IoT use cases that query data collected from sensors.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
