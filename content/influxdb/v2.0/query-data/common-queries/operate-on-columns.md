@@ -115,8 +115,8 @@ This example converts temperature from Fahrenheit to Celsius and maps the Celsiu
 
 The following query:
 
-  - Uses [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/) to filter the `average_temperature` measurement.
-  - Uses [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/) to create a new column calculated from existing values in each row.
+  - Uses [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to filter the `average_temperature` measurement.
+  - Uses [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to create a new column calculated from existing values in each row.
 
 ```js
 from(bucket: "noaa")
