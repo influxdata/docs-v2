@@ -133,13 +133,6 @@ In this example, the `_value` in the table below shows output data from the `tem
 | g3        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:30.000Z | 41.384505595567866 |
 | g4        | 2021-08-01T01:00:00.000Z | 2021-08-01T00:00:30.000Z | 41.26735518634935  |
 
-Given the output data in the table above, the `timeWeightedAverage` function does the following:
-
-1. Uses the input table integral as the time weighting factor and multiplies it against the aggregate value. 
-2. Converts the unit duration to get the nanosecond duration. 
-3. Completes the calculation `r with _value: r._value * float(v: uint(v: unit)) / float(v: int(v: r._stop) - int(v: r._start`. 
-
-Through all four stations, the `timeWeightedAverages` are 40.25, 40.6, 41.38, 41.27, respectively.  
 
 ## Calculate value between events
 
