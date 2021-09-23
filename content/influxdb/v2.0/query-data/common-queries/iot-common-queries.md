@@ -124,6 +124,7 @@ from(bucket: "machine")
   |> timeWeightedAvg(unit: 5s)
 ```
 
+##### Output data
 
 | stationID | _start                   | _stop                    | _value             |
 |:-----     | -----                    | -----                    |             ------:|
