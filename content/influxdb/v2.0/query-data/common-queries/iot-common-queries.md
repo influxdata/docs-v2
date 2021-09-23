@@ -168,7 +168,15 @@ from(bucket: "machine")
 
 Use multiple existing values to determine a state.
 The following example calculates a state based on the difference between the `pressure` and `pressure-target` fields in the machine-production sample data.
+To determine a state by comparing existing fields:
 
+1. Query the fields to compare (in this case, `pressure` and `pressure_target`).
+2. (Optional) Use `aggregateWindow()` to window data into time-based windows and
+    apply an aggregate function (like `mean()`) to return values that represent larger windows of time.
+3. Use `pivot()` to shift field values into columns.
+4. Use `map()` to compare or operate on the different field column values.
+5. Use `map()` to assign a status (in this case, `needsMaintenance` based on the relation ship of the field column values.
+ 
 ```js
 import "math"
 
