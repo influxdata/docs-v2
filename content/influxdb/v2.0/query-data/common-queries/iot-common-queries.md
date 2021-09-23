@@ -109,9 +109,6 @@ Calculate the time-weighted average by using the linearly interpolated integral 
 
 For example, to calculate oil temperature over a given interval using the machine-production sample data.  
 
-{{% note %}}
-If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
-{{% /note %}}
 
 The total temperature considers both the total hours in the day and the temperature of the different batches. A time-weighted average requires time to be shown in decimal form. 
 
