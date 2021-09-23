@@ -12,17 +12,16 @@ menu:
 ## v1.9.4 [TK]
 
 ### Features
-- Add more options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) Enterprise databases.
-  Users can now:
-  restore data with a new retention policy into an existing database,
-  override the duration of a retention policy while restoring, and
-  specify a destination shard when restoring a specific shard.
+- Add the following options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) InfluxDB Enterprise databases:
+  - Restore data with a new retention policy into an existing database.
+  - Override the duration of a retention policy while restoring.
+  - Specify a destination shard when restoring a specific shard.
 - Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
   to measure memory usage in bytes across all subscriptions.
 - Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-tag-values) by retention policy.
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
 - Update Protocol Buffers library versions.
-- Update to Flux [0.127.3](/influxdb/v2.0/reference/release-notes/flux/).
+- Update to Flux [0.127.3](/flux/v0.x/release-notes/#v01273-2021-09-01).
 
 ### Bug fixes
 - Require read authorization on a database to see continuous queries linked to that database.
