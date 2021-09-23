@@ -103,7 +103,7 @@ Set `createEmpty` to `false` so results  won't include empty time windows.
 
 ## Calculate time weighted average
 
-Calculate the time-weighted average by using the linearly interpolated integral of values in a table to calculate the average over time.
+Calculate the time-weighted average by using the linearly interpolated integral of values in a table.
 
 ### Example: Calculate oil temperature 
 
