@@ -348,12 +348,17 @@ engine-path = "/users/user/.influxdbv2/engine"
 
 ### flux-log-enabled
 
-Include option to show detailed logs for Flux queries, including the following information:
+Include option to show detailed logs for Flux queries, including the following log fields:
 
-- query response size (`response_size`)
-- query errors (`err`)
-- query durations (`stat_total_duration`, `stat_compile_duration`, `stat_execute_duration`)
-- memory allocation (`stat_max_allocated`, `stat_total_allocated`)
+`compiler_type`: Compiler used for processing the query (will always be Flux).
+`response_size`: Size of the response, in bytes.
+`query`: The textual representation of the query.
+`err`: Errors encountered while processing the query.
+`stat_total_duration`: Total duration to process the query.
+`stat_compile_duration`: Duration to compile the query.
+`stat_execute_duration`: Duration to execute the query.
+`stat_max_allocated`: Maximum amount of memory allocated while processing the query, in bytes.
+`stat_total_allocated`: Total amount of memory allocated while processing the query, in bytes. This includes memory that was freed and then used again.
 
 **Default:** `false`  
 
