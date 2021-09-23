@@ -617,7 +617,8 @@ This release includes breaking changes:
 - Consolidate all InfluxDB template and stack functionality into two new public APIs: `/api/v2/templates` and `/api/v2/stacks`.
 - Extend template `Summary` and `Diff` nested types with `kind` identifiers.
 - Add static builds for Linux.
-- Update Flux to v.0.71.1. 
+- Update Flux to v.0.71.1.
+
 ### Bug Fixes
 
 - Don't overwrite build date set via `ldflags`.
