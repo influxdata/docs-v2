@@ -1,7 +1,9 @@
 ---
 title: Operate on the values column
 description: >
-  Operate on columns with: how to find and count unique values, recalculate the _value column, and how to use values to calculate a new column.
+  Use Flux to operate on the `_value` column. Find and count unique values,
+  recalculate the _value column, and learn how to use existing columns to
+  calculate a value for a new column.
 influxdb/v2.0/tags: [queries]
 aliases: 
   - /influxdb/cloud/query-data/common-queries/count_unique_values_for_column/
