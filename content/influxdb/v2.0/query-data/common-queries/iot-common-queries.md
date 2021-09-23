@@ -12,7 +12,7 @@ weight: 205
 
 The following scenarios illustrate common queries used to extract information from IoT sensor data:
 
-- [Record time in state](#record-time-in-state)
+- [Calculate time in state](#calculate-time-in-state)
 - [Calculate time weighted average](#calculate-time-weighted-average)
 - [Calculate value between events](#calculate-value-between-events)
 - [Record data points with added context](#record-data-points-with-added-context)
