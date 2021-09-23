@@ -163,9 +163,6 @@ from(bucket: "machine")
 | g3        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.379999999999995 |
 | g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.2               |
 
-## Record data points with added context
-
-Equipment speed measurements are recorded periodically (float), as is the production order number (string), but not as a field set – as separate streams. I would like to query the equipment speed measurements either in their raw form or aggregated on windows, but I would like to also have the result set include the production order number that was active at that point in time. Example of using `experimental.join` and how to ensure the timestamps align along with the tag keys... But, need to figure out what ties the two streams together?
 
 ## Group aggregate on value change(s)
 
