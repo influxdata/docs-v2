@@ -169,10 +169,6 @@ from(bucket: "machine")
 Use multiple existing values to determine a state.
 The following example calculates a state based on the difference between the `pressure` and `pressure-target` fields in the machine-production sample data.
 
-{{% note %}}
-If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
-{{% /note %}}
-
 ```js
 import "math"
 
