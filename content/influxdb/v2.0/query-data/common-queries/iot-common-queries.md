@@ -85,7 +85,7 @@ The results 88.66% of time is in the true state and 11.34% of time is in the fal
 
 #### Mosaic visualization 
 
-The following query displays the change of "false" to "true". A mosaic visualization displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the changes of state. 
+The [mosaic visualization](/influxdb/v2.0/visualize-data/visualization-types/mosaic/) displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the `state` field. 
 
 ```js
 from(bucket: "machine")
