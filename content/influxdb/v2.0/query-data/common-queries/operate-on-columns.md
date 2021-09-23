@@ -34,8 +34,8 @@ The following examples identify and count unique locations that data was collect
 
 This query:
 
-  - Uses [`group()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/) to ungroup data and return results in a single table.
-  - Uses [`keep()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keep/) and [`unique()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/unique/) to return unique values in the specified column.
+  - Uses [`group()`](/{{< latest "flux" >}}/stdlib/universe/group/) to ungroup data and return results in a single table.
+  - Uses [`keep()`](/{{< latest "flux" >}}/stdlib/universe/keep/) and [`unique()`](/{{< latest "flux" >}}/stdlib/universe/selectors/unique/) to return unique values in the specified column.
 
 ```js
 from(bucket: "noaa")
