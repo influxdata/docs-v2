@@ -17,7 +17,7 @@ The [InfluxDB v2 API](/influxdb/v2.0/reference/api) provides a programmatic inte
 In your request, set the following:
 
 - Your organization via the `org` or `orgID` URL parameters.
-- `Authorization` header to `Token ` + your authentication token.
+- `Authorization` header to `Token ` + your API token.
 - `Accept` header to `application/csv`.
 - `Content-type` header to `application/vnd.flux` (Flux only) or `application/json` (Flux or InfluxQL).
 - Query in Flux or InfluxQL with the request's raw data.

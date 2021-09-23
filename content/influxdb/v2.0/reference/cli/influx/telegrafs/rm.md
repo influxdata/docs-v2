@@ -21,15 +21,15 @@ influx telegrafs rm [flags]
 
 ## Flags
 | Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}     |
-|:---- |:---               |:-----------                                                           |:----------: |:------------------     |
+|:-----|:------------------|:----------------------------------------------------------------------|:-----------:|:-----------------------|
 | `-c` | `--active-config` | CLI configuration to use for command                                  | string      |                        |
-|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      |`INFLUX_CONFIGS_PATH`   |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      | `INFLUX_CONFIGS_PATH`  |
 | `-h` | `--help`          | Help for the `rm` command                                             |             |                        |
 |      | `--hide-headers`  | Hide the table headers                                                |             | `$INFLUX_HIDE_HEADERS` |
 | `-i` | `--id`            | Telegraf configuration ID to remove                                   | stringArray |                        |
 |      | `--json`          | Output data as json                                                   |             | `$INFLUX_OUTPUT_JSON`  |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |             |                        |
-| `-t` | `--token`         | Authentication token                                                  | string      | `INFLUX_TOKEN`         |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |             | `INFLUX_SKIP_VERIFY`   |
+| `-t` | `--token`         | API token                                                             | string      | `INFLUX_TOKEN`         |
 
 ## Examples
 

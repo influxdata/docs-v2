@@ -25,7 +25,7 @@ influx apply [flags]
 
 ## Flags
 | Flag |                           | Description                                                                                 | Input Type | {{< cli/mapped >}}    |
-| :--- | :------------------------ | :------------------------------------------------------------------------------------------ | :--------- | :-------------------- |
+|:-----|:--------------------------|:--------------------------------------------------------------------------------------------|:-----------|:----------------------|
 | `-c` | `--active-config`         | CLI configuration to use for command                                                        | string     |                       |
 |      | `--configs-path`          | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                       | string     | `INFLUX_CONFIGS_PATH` |
 |      | `--disable-color`         | Disable color in output                                                                     |            |                       |
@@ -44,9 +44,9 @@ influx apply [flags]
 | `-q` | `--quiet`                 | Disable output printing                                                                     |            |                       |
 | `-R` | `--recurse`               | Recurse through files in the directory specified in `-f`, `--file`                          |            |                       |
 |      | `--secret`                | Secrets to provide with the template (format: `--secret=SECRET_KEY=SECRET_VALUE`)           | string     |                       |
-|      | `--skip-verify`           | Skip TLS certificate verification                                                           |            |                       |
+|      | `--skip-verify`           | Skip TLS certificate verification                                                           |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--stack-id`              | Stack ID to associate when applying the template                                            | string     |                       |
-| `-t` | `--token`                 | Authentication token                                                                        | string     | `INFLUX_TOKEN`        |
+| `-t` | `--token`                 | API token                                                                                   | string     | `INFLUX_TOKEN`        |
 
 ## Examples: how to apply a template or stack
 

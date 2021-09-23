@@ -39,8 +39,8 @@ To write data into InfluxDB, you need the following:
   for instructions on viewing your organization ID._
 - **bucket** – _See [View buckets](/influxdb/cloud/organizations/buckets/view-buckets/) for
   instructions on viewing your bucket ID._
-- **authentication token** – _See [View tokens](/influxdb/cloud/security/tokens/view-tokens/)
-  for instructions on viewing your authentication token._
+- **API token** – _See [View tokens](/influxdb/cloud/security/tokens/view-tokens/)
+  for instructions on viewing your API token._
 - **InfluxDB Cloud region URL** – _See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)_.
 
 Use _line protocol_ format to write data into InfluxDB.

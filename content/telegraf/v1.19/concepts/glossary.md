@@ -42,6 +42,9 @@ Each collection interval, every input plugin will sleep for a random time betwee
 
 Related entries: [collection interval](/telegraf/v1.15/concepts/glossary/#collection-interval), [input plugin](/telegraf/v1.15/concepts/glossary/#input-plugin)
 
+## external plugin
+
+Programs built outside of Telegraf that run through the `execd` plugin. Provides flexibility to add functionality that doesn't exist in internal Telegraf plugins.
 ## flush interval
 
 The global interval for flushing data from each output plugin to its destination.

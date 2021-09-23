@@ -24,7 +24,7 @@ influx backup [flags] path
 ## Flags
 
 | Flag |                   | Description                                                                                                | Input type | {{< cli/mapped >}}    |
-| ---- | ----------------- | ---------------------------------------------------------------------------------------------------------- | ---------- | --------------------- |
+|------|-------------------|------------------------------------------------------------------------------------------------------------|------------|-----------------------|
 | `-c` | `--active-config` | CLI configuration to use for command                                                                       | string     |                       |
 |      | `--bucket-id`     | ID of the bucket to back up from (mutually exclusive with `--bucket`)                                      | string     |                       |
 | `-b` | `--bucket`        | Name of the bucket to back up from (mutually exclusive with `--bucket-id`)                                 | string     |                       |
@@ -37,8 +37,8 @@ influx backup [flags] path
 |      | `--json`          | Output data as JSON (default `false`)                                                                      |            | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                                                     | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                          | string     | `INFLUX_ORG_ID`       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                                                          | string     |                       |
-| `-t` | `--token`         | Authentication token                                                                                       | string     | `INFLUX_TOKEN`        |
+|      | `--skip-verify`   | Skip TLS certificate verification                                                                          | string     | `INFLUX_SKIP_VERIFY`  |
+| `-t` | `--token`         | API token                                                                                                  | string     | `INFLUX_TOKEN`        |
 
 ## Examples
 

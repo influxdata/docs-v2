@@ -31,8 +31,8 @@ influx v1 dbrp update [flags]
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                   | string     | `$INFLUX_ORG`           |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                        | string     | `$INFLUX_ORG_ID`        |
 | `-r` | `--rp`            | InfluxDB v1 retention policy to map from                                 |            |                         |
-|      | `--skip-verify`   | Skip TLS certificate verification                                        |            |                         |
-| `-t` | `--token`         | Authentication token                                                     | string     | `$INFLUX_TOKEN`         |
+|      | `--skip-verify`   | Skip TLS certificate verification                                        |            | `INFLUX_SKIP_VERIFY`    |
+| `-t` | `--token`         | API token                                                                | string     | `$INFLUX_TOKEN`         |
 
 ## Examples
 

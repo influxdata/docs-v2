@@ -13,7 +13,7 @@ weight: 11
 To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 
 1. [Create an InfluxDB Cloud account](#create-an-influxdb-cloud-account)
-2. [Create an All-Access authentication token](#create-an-all-access-authentication-token)
+2. [Create an All-Access API token](#create-an-all-access-authentication-token)
 3. [Set up influx CLI connection configurations](#set-up-influx-cli-connection-configurations)
 4. [Use templates to migrate InfluxDB resources](#use-templates-to-migrate-influxdb-resources)
 5. [Migrate DBRP mappings](#migrate-dbrp-mappings)
@@ -23,7 +23,7 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 
 {{% note %}}
 #### Consider when upgrading
-- InfluxDB Cloud requires token authentication, and you must create all new authentication tokens.
+- InfluxDB Cloud requires token authentication, and you must create all new API tokens.
 - InfluxDB Cloud does not support:
   - Multiple [organizations](http://localhost:1313/influxdb/cloud/reference/glossary/#organization) per account.
     Upgrade a single InfluxDB OSS 2.x organization to an InfluxDB Cloud organization.
@@ -39,8 +39,8 @@ Do one of the following to create an InfluxDB Cloud account:
 - [Subscribe through InfluxData](/influxdb/cloud/sign-up/#subscribe-through-influxdata) and start for free.
 - [Subscribe through your cloud provider](/influxdb/cloud/sign-up/#subscribe-through-a-cloud-provider).
 
-## Create an All-Access authentication token
-InfluxDB authentication tokens are unique to each organization.
+## Create an All-Access API token
+InfluxDB API tokens are unique to each organization.
 Create an **All-Access** token in your InfluxDB Cloud user interface (UI) to use
 for the upgrade process.
 
@@ -60,7 +60,7 @@ _For more information about managing tokens and token types, see [Manage tokens]
 
 ## Set up influx CLI connection configurations
 The `influx` command line interface (CLI) lets you create connection configurations
-that automatically provides **host**, **organization**, and **authentication token**
+that automatically provides **host**, **organization**, and **API token**
 credentials to CLI commands.
 Use the `influx` CLI packaged with InfluxDB 2.x and the
 [`influx config create` command](/influxdb/cloud/reference/cli/influx/config/create/)
@@ -78,7 +78,7 @@ Include the following flags for each configuration:
 - **-\-org**:
   InfluxDB organization name.
   The default organization name in InfluxDB Cloud is the email address associated with your account.
-- **-\-token**: Authentication token to use to connect to InfluxDB.
+- **-\-token**: API token to use to connect to InfluxDB.
   Provide an **All-Access** token (or an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token) for 2.x).
 
 ##### Create an InfluxDB Cloud connection configuration
@@ -211,7 +211,7 @@ Update external clients to write to your InfluxDB Cloud instance.
 finish [migrating your existing time series data](#migrate-time-series-data)**.
 
 Configure external clients with your InfluxDB Cloud **host**, **organization**,
-and **authentication token**.
+and **API token**.
 
 ### Update Telegraf configurations
 If using Telegraf configurations migrated to or stored in InfluxDB Cloud,
@@ -240,8 +240,8 @@ If using Telegraf configurations migrated to or stored in InfluxDB Cloud,
 
 2.  Add the following environment variables to your Telegraf environment(s):
 
-    - `INFLUX_TOKEN`: InfluxDB 2.x authentication token
-    - `INFLUX_CLOUD_TOKEN`: InfluxDB Cloud authentication token
+    - `INFLUX_TOKEN`: InfluxDB 2.x API token
+    - `INFLUX_CLOUD_TOKEN`: InfluxDB Cloud API token
 
 3.  Use the command provided in your [Telegraf Setup Instructions](/influxdb/cloud/telegraf-configs/#use-influxdb-telegraf-configurations)
     to restart Telegraf with the updated configuration and begin writing to both

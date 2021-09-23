@@ -22,21 +22,21 @@ influx task run list [flags]
 
 ## Flags
 | Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}    |
-| :--- | :---------------- | :-------------------------------------------------------------------- | :--------: | :-------------------- |
-| `-c` | `--active-config` | CLI configuration to use for command                                  |   string   |                       |
-|      | `--after`         | After-time for filtering                                              |   string   |                       |
-|      | `--before`        | Before-time for filtering                                             |   string   |                       |
-|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
+|:-----|:------------------|:----------------------------------------------------------------------|:----------:|:----------------------|
+| `-c` | `--active-config` | CLI configuration to use for command                                  | string     |                       |
+|      | `--after`         | After-time for filtering                                              | string     |                       |
+|      | `--before`        | Before-time for filtering                                             | string     |                       |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     | `INFLUX_CONFIGS_PATH` |
 | `-h` | `--help`          | Help for the `list` command                                           |            |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            |   string   | `INFLUX_HOST`         |
-|      | `--http-debug`    | Inspect communication with InfluxDB servers.                          |   string   |                       |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
+|      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
-|      | `--limit`         | Limit the number of results                                           |  integer   |                       |
-|      | `--run-id`        | Run ID                                                                |   string   |                       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            |                       |
-|      | `--task-id`       | ({{< req >}}) Task ID                                                 |   string   |                       |
-| `-t` | `--token`         | Authentication token                                                  |   string   | `INFLUX_TOKEN`        |
+|      | `--limit`         | Limit the number of results                                           | integer    |                       |
+|      | `--run-id`        | Run ID                                                                | string     |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
+|      | `--task-id`       | ({{< req >}}) Task ID                                                 | string     |                       |
+| `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 
 ## Examples
 

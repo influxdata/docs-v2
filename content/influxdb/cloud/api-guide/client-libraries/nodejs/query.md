@@ -1,12 +1,12 @@
 ---
-title: Query data with the JavaScript client library
+title: Query with the InfluxDB JavaScript client library
 description: >
-  Use the Node.js JavaScript client library to query data with the InfluxDB API.
+  Use the JavaScript client library to query data with the InfluxDB API in Node.js.
 menu:
   influxdb_cloud:
     name: Query
     parent: Node.js
-influxdb/v2.0/tags: [client libraries, JavaScript]
+influxdb/cloud/tags: [client libraries, Node.js, JavaScript]
 weight: 201
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/js/query

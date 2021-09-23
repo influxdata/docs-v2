@@ -1,12 +1,13 @@
 ---
-title: Install the JavaScript client library
+title: Install the InfluxDB JavaScript client library
+seotitle: Install the InfluxDB Node.js JavaScript client library
 description: >
-  Install the Node.js JavaScript client library to interact with the InfluxDB API.
+  Install the JavaScript client library to interact with InfluxDB in Node.js.
 menu:
   influxdb_cloud:
     name: Install
     parent: Node.js
-influxdb/v2.0/tags: [client libraries, JavaScript]
+influxdb/cloud/tags: [client libraries, JavaScript]
 weight: 100
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/js/install

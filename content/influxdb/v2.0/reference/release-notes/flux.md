@@ -8,6 +8,66 @@ menu:
     name: Flux
 ---
 
+## v0.127.2 [2021-09-01]
+
+### Bug fixes
+- Remove `flux wasm` crate and moved it to `lsp`.
+- Delete obsolete packages.
+- Add `_time` to status sorting.
+- Fix panic with `unknown type invalid` in `reduce()` function.
+
+---
+
+## v0.127.1 [2021-08-30]
+
+### Bug fixes
+- `limit()` correctly resets the offset after processing a partial buffer.
+
+---
+
+## v0.127.0 [2021-08-26]
+
+### Features
+- Create an executable to retrieve all `stdlib` documentation and updated WASM functions.
+- Implement `transport` in aggregate transformations.
+- Add documentation site links and fix `flux_types` issue.
+
+### Bug fixes
+- `fill()` function fails when the specified fill column doesn't exist.
+- Add `link` parameter to function structs.
+
+---
+
+## v0.126.0 [2021-08-19]
+
+### Features
+- Update `filter()` to use narrow transformation.
+
+### Bug fixes
+- Return JSON for WASM.
+- Check both dynamic types and static values in `strings` package.
+- Check both dynamic types and static values in `regexp` package.
+- Change `die` error code to invalid.
+
+---
+
+## v0.125.0 [2021-08-11]
+
+### Features
+- Add feature flag library as an internal package.
+- Add narrow transformation transport.
+- Add transport-aware dataset.
+- Simplify the transport interface and add a transformation adapter.
+- Add [`contrib/sranka/webexteams` package](/influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/).
+- Add optimized repeat function for arrow arrays.
+- Add two additional internal message types.
+
+### Bug fixes
+- Update transformation adapter to return an error when receiving a flush key
+  for a table that is not present.
+- Fix pivot operations when no data is left to operate on.
+- Update `join()` to produce columns of equivalent length when combining mismatched schemas.
+
 ## v0.124.0 [2021-08-03]
 
 ### Features
