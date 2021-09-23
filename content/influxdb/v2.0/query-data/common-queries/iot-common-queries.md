@@ -94,7 +94,11 @@ from(bucket: "machine")
   |> filter(fn: (r) => r._field == "state")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
-At the end of the query, `aggregateWindow` is used to split up data for the UI to display. Within the agregate, `windowPeriod` divides the data into timewindows that would span a single pixel, so it becomes one point per pixel, specifically the last pixel in the entire window of time. The `createEmpty: false` function assures that the mosaic visualization won't create an empty point with a null value if there is a time window with no data. 
+When visualizing data, it is possible to have more data points than available pixels.
+Use `aggregateWindow` with the `every` parameter set to `v.windowPeriod` to divide data
+into time windows that span a single pixel.
+Use `last` as the aggregate `fn` to return the last value in each time window.
+Set `createEmpty` to `false` so results  won't include empty time windows. 
 
 These features assure that the mosaic visualization is properly displayed. 
 
