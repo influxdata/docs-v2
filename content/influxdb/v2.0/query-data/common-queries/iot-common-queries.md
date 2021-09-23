@@ -164,11 +164,10 @@ from(bucket: "machine")
 | g4        | 2021-08-01T01:00:00.000Z | 2021-08-02T00:00:00.000Z | 41.2               |
 
 
-## Group aggregate on value change(s)
+## Determine a state with existing values
 
-Group together aggregates for one or more measurements over a given interval. 
-
-The following scenario groups together data by one or more context values that creates changes in the state. 
+Use multiple existing values to determine a state.
+The following example calculates a state based on the difference between the `pressure` and `pressure-target` fields in the machine-production sample data.
 
 {{% note %}}
 If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
