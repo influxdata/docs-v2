@@ -18,7 +18,8 @@ configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
 ### Configuration precedence
-InfluxDB honors configuration settings using the following precedence:
+InfluxDB honors configuration settings using the 
+precedence:
 
 1. `influxd` flags
 2. Environment variables
@@ -347,7 +348,7 @@ engine-path = "/users/user/.influxdbv2/engine"
 
 ### flux-log-enabled
 
-Include option to show detailed logs for Flux queries, including the following:
+Include option to show detailed logs for Flux queries, including the following information:
 
 - query response size (`response_size`)
 - query errors (`err`)
