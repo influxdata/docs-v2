@@ -191,7 +191,7 @@ from(bucket: "machine")
 ```
 
 
- Given the query above, the output is as shown: 
+##### Output
 
 | _time                    | needsMaintenance |           pressure |    pressure_target |        pressureDiff | stationID |
 | :----------------------- | :--------------- | -----------------: | -----------------: | ------------------: | --------: |
