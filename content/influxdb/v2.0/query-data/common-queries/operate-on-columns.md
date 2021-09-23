@@ -81,8 +81,8 @@ Recalculate the `_value` column without creating a new one. Use the `with` opera
 
 The following query:
 
-  - Uses [`filter()`](/{{< latest "flux" >>}}/stdlib/universe/filter/) to filter the `average_temperature` measurement.
-  - Uses [`map()`](/{{< latest "flux" >>}}/stdlib/universe/map/) to convert Fahrenheit temperature values into Celsius.
+  - Uses [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to filter the `average_temperature` measurement.
+  - Uses [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to convert Fahrenheit temperature values into Celsius.
 
 ```js
 
