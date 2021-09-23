@@ -182,15 +182,6 @@ from(bucket: "machine")
   |> map(fn: (r) => ({ r with needsMaintenance: if math.abs(x: r.pressureDiff) >= 15.0 then true else false }))
 ```
 
-The example above groups together different fields to see their values in relation to a state change. 
-
-The query filters the `pressure` and `pressure_target`fields to determine the state `needsMaintenance`. 
-
-The `aggregateWindow`applies an aggregate every 12 hours to get the average value by appling `fn: mean`. 
-
- To move the values into one column, the `pivot` function aligns the columns together. The `rowKey` function is the anchor for each point that hinges into a single row. In this query, every row is distinguished by different timestamps. `columnKey`, once the other tables are going to be pinned on the table, will take `_field` to create a new column, and `valueColumn` populates that new columns.
-
- The first `map` function takes the difference from `pressure` and `pressure_target`. In order to see the fields' relation to the state change, the second `map` function states that if the absolute value of the difference between `pressure` and `pressure_target` is greater than or equal to 15, than it needs maintenance or `true`. If it is lesser than 15, it is marked as false. 
 
  Given the query above, the output is as shown: 
 
