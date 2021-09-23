@@ -138,7 +138,8 @@ from(bucket: "machine")
 
 Calculate the value between events by getting the average value during a specific time range. 
 
-The following scenario queries data starting when the four production lines starts and ends. The following query  calculates the average oil temperature value during that period.
+The following scenario queries data starting when four production lines start and end.
+The following query  calculates the average oil temperature value during that period.
 
 {{% note %}}
 If you have a retention period on your bucket, you need to update your Cloud to the [usage-based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) in order for the query to work.
