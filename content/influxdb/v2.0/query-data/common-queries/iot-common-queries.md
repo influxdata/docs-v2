@@ -111,7 +111,9 @@ For example, to calculate oil temperature over a given interval using the machin
 
 
 
-#### Flux query to calculate time-weighted average
+To calculate the time-weighted average of data points, use the [`timeWeightedAvg()` function](/{{< latest "flux" >}}/stdlib/universe/timeweightedavg/).
+
+The example below queries the `oil_temp` field in the `machinery` measurement. The `timeWeightedAvg()` function returns the time-weighted average of oil temperatures based on 5 second intervals.
 
 ```js
 from(bucket: "machine")
@@ -119,7 +121,7 @@ from(bucket: "machine")
   |> filter(fn: (r) =>
     r._measurement == "machinery" and r._field == "oil_temp"
   )
-|> timeWeightedAvg(unit: 5s)
+  |> timeWeightedAvg(unit: 5s)
 ```
 
 In this example, the `_value` in the table below shows output data from the `temperature` field in the `machinery` measurement. The function `timeWeightedAvg` takes the average of the temperature every 5 seconds. For the following output data:
