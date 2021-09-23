@@ -63,31 +63,31 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 | [dryrun](/influxdb/v2.0/reference/cli/influx/write/dryrun) | Write to stdout instead of InfluxDB |
 
 ## Flags
-| Flag |                     | Description                                                                                  | Input type  | {{< cli/mapped >}}    |
-|:-----|:--------------------|:---------------------------------------------------------------------------------------------|:-----------:|:----------------------|
-| `-c` | `--active-config`   | CLI configuration to use for command                                                         | string      |                       |
-| `-b` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                                          | string      | `INFLUX_BUCKET_NAME`  |
-|      | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                                               | string      | `INFLUX_BUCKET_ID`    |
-|      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                        | string      | `INFLUX_CONFIGS_PATH` |
-|      | `--compression`     | Input compression (`none` or `gzip`, default is `none` unless input file ends with `.gz`.)   | string      |                       |
-|      | `--debug`           | Output errors to stderr                                                                      |             |                       |
-|      | `--encoding`        | Character encoding of input (default `UTF-8`)                                                | string      |                       |
-|      | `--error-file`      | Path to a file used for recording rejected row errors                                        | string      |                       |
-| `-f` | `--file`            | File to import                                                                               | stringArray |                       |
-|      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                                   | string      |                       |
-|      | `--header`          | Prepend header line to CSV input data                                                        | string      |                       |
-| `-h` | `--help`            | Help for the `write` command                                                                 |             |                       |
-|      | `--host`            | HTTP address of InfluxDB (default `http://localhost:8086`)                                   | string      | `INFLUX_HOST`         |
-|      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`)              | integer     |                       |
-| `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                                       | string      | `INFLUX_ORG`          |
-|      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                                            | string      | `INFLUX_ORG_ID`       |
-| `-p` | `--precision`       | [Precision](/influxdb/v2.0/write-data/#timestamp-precision) of the timestamps (default `ns`) | string      | `INFLUX_PRECISION`    |
-|      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                                   | string      |                       |
-|      | `--skip-verify`     | Skip TLS certificate verification                                                            |             | `INFLUX_SKIP_VERIFY`  |
-|      | `--skipHeader`      | Skip first *n* rows of input data                                                            | integer     |                       |
-|      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                                         |             |                       |
-| `-t` | `--token`           | API token                                                                                    | string      | `INFLUX_TOKEN`        |
-| `-u` | `--url`             | URL to import data from                                                                      | stringArray |                       |
+| Flag |                     | Description                                                                                | Input type  | {{< cli/mapped >}}    |
+|:-----|:--------------------|:-------------------------------------------------------------------------------------------|:-----------:|:----------------------|
+| `-c` | `--active-config`   | CLI configuration to use for command                                                       | string      |                       |
+| `-b` | `--bucket`          | Bucket name (mutually exclusive with `--bucket-id`)                                        | string      | `INFLUX_BUCKET_NAME`  |
+|      | `--bucket-id`       | Bucket ID (mutually exclusive with `--bucket`)                                             | string      | `INFLUX_BUCKET_ID`    |
+|      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                      | string      | `INFLUX_CONFIGS_PATH` |
+|      | `--compression`     | Input compression (`none` or `gzip`, default is `none` unless input file ends with `.gz`.) | string      |                       |
+|      | `--debug`           | Output errors to stderr                                                                    |             |                       |
+|      | `--encoding`        | Character encoding of input (default `UTF-8`)                                              | string      |                       |
+|      | `--error-file`      | Path to a file used for recording rejected row errors                                      | string      |                       |
+| `-f` | `--file`            | File to import                                                                             | stringArray |                       |
+|      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                                 | string      |                       |
+|      | `--header`          | Prepend header line to CSV input data                                                      | string      |                       |
+| `-h` | `--help`            | Help for the `write` command                                                               |             |                       |
+|      | `--host`            | HTTP address of InfluxDB (default `http://localhost:8086`)                                 | string      | `INFLUX_HOST`         |
+|      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`)            | integer     |                       |
+| `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                                     | string      | `INFLUX_ORG`          |
+|      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                                          | string      | `INFLUX_ORG_ID`       |
+| `-p` | `--precision`       | [Precision](/influxdb/v2.0/write-data/#timestamp-precision) of the timestamps (default `ns`)                                                 | string      | `INFLUX_PRECISION`    |
+|      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                                 | string      |                       |
+|      | `--skip-verify`     | Skip TLS certificate verification                                                          |             | `INFLUX_SKIP_VERIFY`  |
+|      | `--skipHeader`      | Skip first *n* rows of input data                                                          | integer     |                       |
+|      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                                       |             |                       |
+| `-t` | `--token`           | API token                                                                                  | string      | `INFLUX_TOKEN`        |
+| `-u` | `--url`             | URL to import data from                                                                    | stringArray |                       |
 
 ## Examples
 
