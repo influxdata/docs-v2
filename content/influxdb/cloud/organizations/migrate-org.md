@@ -9,9 +9,9 @@ menu:
 weight: 110
 ---
 
-The state of an consists of metadata (dashboards, buckets, and other resources) and data (time-series).
-While there no way to automatically duplicate an organization,
-the state of an organization can be migrated to a new organization.
+The state of an organization consists of metadata (dashboards, buckets, and other resources) and data (time-series).
+An organization's state at a point in time can be effectively
+duplicated to another organization by copying both metadata and data.
 To migrate the state of an organization:
 
 1. Create a new organization using the [InfluxDB Cloud sign up page](https://cloud2.influxdata.com/signup).
