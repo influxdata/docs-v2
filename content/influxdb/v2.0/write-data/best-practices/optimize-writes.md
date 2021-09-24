@@ -57,7 +57,7 @@ _Specify timestamp precision when [writing to InfluxDB](/influxdb/v2.0/write-dat
 
 ## Use gzip compression
 
-Use gzip compression to speed up writes to InfluxDB.
+Use gzip compression to speed up writes to InfluxDB and reduce network bandwidth.
 Benchmarks have shown up to a 5x speed improvement when data is compressed.
 
 {{< tabs-wrapper >}}
@@ -67,6 +67,7 @@ Benchmarks have shown up to a 5x speed improvement when data is compressed.
 [InfluxDB API](#)
 {{% /tabs %}}
 {{% tab-content %}}
+
 ### Enable gzip compression in Telegraf
 
 In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set the
@@ -80,6 +81,7 @@ In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set th
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
+
 ### Enable gzip compression in InfluxDB client libraries
 
 Each [InfluxDB client library](/influxdb/v2.0/api-guide/client-libraries/) provides
@@ -88,16 +90,14 @@ The method for enabling compression is different for each library.
 For specific instructions, see the [InfluxDB client libraries documentation](/influxdb/v2.0/api-guide/client-libraries/).
 {{% /tab-content %}}
 {{% tab-content %}}
+
 ### Use gzip compression with the InfluxDB API
 
-When using the InfluxDB API `/write` endpoint to write data, set the `Content-Encoding`
-header to `gzip` to compress the request data.
+When using the InfluxDB API `/write` endpoint to write data, compress the data with `gzip` and set the `Content-Encoding`
+header to `gzip`. 
 
 ```sh
-curl --request POST "http://localhost:8086/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
-  --header "Authorization: Token YOURAUTHTOKEN" \
-  --header "Content-Encoding: gzip" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+{{% get-shared-text "api/v2.0/write/write-compress.sh" %}}
 ```
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

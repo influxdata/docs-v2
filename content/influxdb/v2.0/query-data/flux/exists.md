@@ -15,7 +15,7 @@ aliases:
   - /influxdb/v2.0/query-data/guides/exists/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /{{< latest "flux" >}}/stdlib/universe/filter/
 list_code_example: |
   ##### Filter null values
   ```js
@@ -39,13 +39,13 @@ exists p.height
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 Use `exists` with row functions (
-[`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/),
-[`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/),
-[`reduce()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/))
+[`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/),
+[`map()`](/{{< latest "flux" >}}/stdlib/universe/map/),
+[`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce/))
 to check if a row includes a column or if the value for that column is `null`.
 
 #### Filter null values

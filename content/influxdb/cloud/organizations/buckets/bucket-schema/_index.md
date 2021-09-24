@@ -30,7 +30,7 @@ The `bucket-schema` examples below reference [**InfluxDB data elements**](/influ
 
 - [Create a bucket schema](#create-a-bucket-schema)
 - [Update a bucket schema](#update-a-bucket-schema)
-- [Errors](#errors)
+- [Troubleshoot errors](#troubleshoot-errors)
 
 ### Create a bucket schema
 Use the `influx` CLI to set the schema-type and measurement schemas for your bucket:
@@ -134,7 +134,12 @@ Use the [`extended-output` flag](/influxdb/cloud/reference/cli/influx/bucket-sch
       --columns-file sensor.ndjson
     ```
 
-### Errors
+### Troubleshoot errors
+
+Troubleshoot and resolve the following bucket schema errors:
+- [Not permitted by schema](#not-permitted-by-schema)
+- [No measurement schemas](#no-measurement-schemas)
+- [Failed to create measurement](#failed-to-create-measurement)
 
 #### Not permitted by schema
 If data in the write request doesn't conform to the defined schema, InfluxDB returns an error.

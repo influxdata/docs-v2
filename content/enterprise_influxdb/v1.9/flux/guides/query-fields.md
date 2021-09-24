@@ -23,7 +23,7 @@ list_code_example: |
   ```
 ---
 
-Use the [`filter()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/filter/)
+Use the [`filter()` function](/{{< latest "flux" >}}/stdlib/universe/filter/)
 to query data based on fields, tags, or any other column value.
 `filter()` performs operations similar to the `SELECT` statement and the `WHERE`
 clause in InfluxQL and other SQL-like query languages.
@@ -44,7 +44,7 @@ The `fn` predicate function requires an `r` argument, which represents each row
 as `filter()` iterates over input data.
 Key-value pairs in the row record represent columns and their values.
 Use **dot notation** or **bracket notation** to reference specific column values in the predicate function.
-Use [logical operators](/{{< latest "influxdb" "v2" >}}/reference/flux/language/operators/#logical-operators)
+Use [logical operators](/{{< latest "flux" >}}/language/operators/#logical-operators)
 to chain multiple predicate expressions together.
 
 ```js
@@ -59,8 +59,8 @@ r = {foo: "bar", baz: "quz"}
 ```
 
 ## Filter by fields and tags
-The combination of [`from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/inputs/from),
-[`range()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/range),
+The combination of [`from()`](/{{< latest "flux" >}}/stdlib/built-in/inputs/from),
+[`range()`](/{{< latest "flux" >}}/stdlib/universe/range),
 and `filter()` represent the most basic Flux query:
 
 1. Use `from()` to define your [bucket](/enterprise_influxdb/v1.9/flux/get-started/#buckets).

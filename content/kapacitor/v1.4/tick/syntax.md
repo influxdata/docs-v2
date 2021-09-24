@@ -838,7 +838,7 @@ Once the data set has been defined it can be passed to other nodes, which will p
 
 * Nodes for triggering events, processes:
    * [`alert`](/kapacitor/v1.4/nodes/alert_node/) - empty chaining method. It relies on a number of properties for configuring the emission of alerts.
-   * [`deadman`](/kapacitor/v1.4//nodes/stream_node/#deadman) - actually a helper function, it is an alias for an `alert` that gets triggered when data flow falls below a specified threshold.
+   * [`deadman`](/kapacitor/v1.4/nodes/stream_node/#deadman) - actually a helper function, it is an alias for an `alert` that gets triggered when data flow falls below a specified threshold.
    * [`httpOut`](/kapacitor/v1.4/nodes/http_out_node/) - chaining method takes a string. It caches the most recent data for each group it receives, making it available over the Kapicator http server using the string argument as the final locator context.
    * [`httpPost`](/kapacitor/v1.4/nodes/http_post_node/) - chaining method takes an array of strings.  It can also be empty. It posts data to HTTP endpoints specified in the string array.
    * [`influxDBOut`](/kapacitor/v1.4/nodes/influx_d_b_out_node/) - empty chaining method &ndash; configured through property setters.  It  writes data to InfluxDB as it is received.

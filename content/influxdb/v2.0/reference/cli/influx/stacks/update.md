@@ -29,7 +29,7 @@ influx stacks update [flags]
 |      | `--http-debug`        | Inspect communication with InfluxDB servers.                          | string          |                       |
 | `-i` | `--stack-id`          | The stack ID to update                                                | string          |                       |
 |      | `--json`              | Output data as JSON (default `false`)                                 |                 | `INFLUX_OUTPUT_JSON`  |
-|      | `--skip-verify`       | Skip TLS certificate verification                                     |                 |                       |
+|      | `--skip-verify`       | Skip TLS certificate verification                                     |                 | `INFLUX_SKIP_VERIFY`  |
 | `-d` | `--stack-description` | Stack description                                                     | string          |                       |
 | `-n` | `--stack-name`        | Stack name                                                            | string          |                       |
 | `-u` | `--template-url`      | Template URLs to associate with a stack                               | list of strings |                       |

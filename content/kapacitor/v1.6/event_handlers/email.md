@@ -134,7 +134,7 @@ stream
   |from()
     .measurement('cpu')
   |alert()
-    .crit(lambda: 'usage_idle' < 10)
+    .crit(lambda: "usage_idle" < 10)
     .message('Hey, check your CPU')
     .email()
       .to('oncall1@mydomain.com')

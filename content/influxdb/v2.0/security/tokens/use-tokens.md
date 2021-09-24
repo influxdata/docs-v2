@@ -1,7 +1,7 @@
 ---
 title: Use tokens
 seotitle: Use an API token in InfluxDB
-description: Use an API token in InfluxDB using the InfluxDB UI, `influx` CLI, or InfluxDB API.
+description: Use an API token in the InfluxDB UI, the `influx` CLI, or the InfluxDB API.
 aliases:
   - /influxdb/v2.0/users/tokens/use-tokens
 menu:
@@ -37,8 +37,8 @@ Automatically manage and use tokens from the CLI using [`influx config`](/influx
 
 ### Use a token in an API request
 
-Use tokens in [API requests](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api/).
+Use tokens in [API requests](/influxdb/v2.0/api-guide/api_intro/#authentication).
 
 ### Use a token in Postman
 
-Make authenticated requests with tokens [using Postman](https://docs.influxdata.com/influxdb/v2.0/tools/postman/).
+Make authenticated requests with tokens [using Postman](/influxdb/v2.0/api-guide/postman/).

@@ -44,14 +44,14 @@ The InfluxDB user interface (UI) provides the following predefined dashboard var
 
 #### v.timeRangeStart
 Specifies the beginning of the queried time range.
-This variable is typically used to define the [`start` parameter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range#start)
+This variable is typically used to define the [`start` parameter](/{{< latest "flux" >}}/stdlib/universe/range#start)
 of the `range()` function.
 
 The **Time Range** selector defines the value of this variable.
 
 #### v.timeRangeStop
 Specifies the end of the queried time range.
-This variable is typically used to define the [`stop` parameter](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range#stop)
+This variable is typically used to define the [`stop` parameter](/{{< latest "flux" >}}/stdlib/universe/range#stop)
 of the `range()` function.
 
 The **Time Range** selector defines the value of this variable.
@@ -60,7 +60,7 @@ It defaults to `now`.
 #### v.windowPeriod
 Specifies the period of windowed data.
 This variable is typically used to define the `every` or `period` parameters of the
-[`window()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window)
+[`window()` function](/{{< latest "flux" >}}/stdlib/universe/window)
 in data aggregation operations.
 
 The value of this variable is calculated by analyzing the duration of the Flux

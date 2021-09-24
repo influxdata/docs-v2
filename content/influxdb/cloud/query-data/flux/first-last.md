@@ -13,8 +13,8 @@ menu:
     name: First & last
 influxdb/cloud/tags: [query]
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/first/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/last/
+  - /{{< latest "flux" >}}/stdlib/universe/first/
+  - /{{< latest "flux" >}}/stdlib/universe/last/
 list_query_example: first_last
 ---
 

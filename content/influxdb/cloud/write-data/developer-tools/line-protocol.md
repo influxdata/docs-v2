@@ -154,5 +154,5 @@ InfluxDB accepts the following precisions:
 - `ms` - Milliseconds
 - `s` - Seconds
 
-_For more details about line protocol, see the [Line protocol reference](/influxdb/cloud/reference/syntax/line-protocol)
-and [Best practices for writing data](/influxdb/cloud/write-data/best-practices/)._
+_For more details about line protocol, see the [Line protocol reference](/influxdb/cloud/reference/syntax/line-protocol) and [Best practices for writing data](/influxdb/cloud/write-data/best-practices/)._
+

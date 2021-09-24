@@ -17,9 +17,9 @@ To use values from multiple fields in a mathematic calculation:
 3. [Perform the mathematic calculation](#perform-the-calculation)
 
 ## Filter by fields
-Use [`filter()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/)
+Use [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/)
 to return only the fields necessary for your calculation.
-Use the [`or` logical operator](/influxdb/v2.0/reference/flux/language/operators/#logical-operators)
+Use the [`or` logical operator](/{{< latest "flux" >}}/spec/operators/#logical-operators)
 to filter by multiple fields.
 
 The following example queries two fields, `A` and `B`:
@@ -52,7 +52,7 @@ This query returns one or more tables for each field. For example:
 {{< /flex >}}
 
 ## Pivot fields into columns
-Use [`pivot()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+Use [`pivot()`](/{{< latest "flux" >}}/stdlib/universe/pivot/)
 to align multiple fields by time.
 
 {{% note %}}
@@ -80,7 +80,7 @@ Using the queried data [above](#filter-by-fields), this `pivot()` function retur
 | 2021-01-01T00:00:45Z | 11.9   | 3.3    |
 
 ## Perform the calculation
-Use [`map()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+Use [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/)
 to perform the mathematic operation using column values as operands.
 
 The following example uses values in the `A` and `B` columns to calculate a new `_value` column:

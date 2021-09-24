@@ -21,7 +21,8 @@ related:
 
 Learn how to quickly start collecting data, and then explore ways to write data, best practices, and what we recommend if you're migrating a large amount of historical data.
 
-There are multiple options for writing data into InfluxDB.
+There are multiple options for writing data into InfluxDB, including both no-code and developer solutions.
+
 
   - [Best practices](/influxdb/cloud/write-data/best-practices/)
      - [Optimize writes](/influxdb/v2.0/write-data/best-practices/optimize-writes/)
