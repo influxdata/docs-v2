@@ -998,6 +998,56 @@ Use either `includeRange` argument name or provide the boolean value as the thir
 {{% flux/sample "int" true true %}}
 ```
 
+### Duplicate OSS content in Cloud
+The latest InfluxDB OSS version and InfluxDB Cloud share the majority of content.
+To prevent duplication of content between versions, use the following shortcodes:
+
+- `{{< duplicate-oss >}}`
+- `{{% oss-only %}}`
+- `{{% cloud-only %}}
+
+#### duplicate-oss
+The `{{< duplicate-oss >}}` shortcode copies the page content of the file located
+at the identical file path in the most recent InfluxDB OSS version.
+The Cloud version of this markdown file should contain the frontmatter required
+for all pages, but the body content should just be the `{{< duplicate-oss >}}` shortcode.
+
+#### oss-only
+Wrap content that should only appear in the OSS version of the doc with the `{{% oss-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% oss-only %}}This is inline content that only renders in the InfluxDB OSS docs{{% /oss-only %}}
+
+{{% oss-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and  will
+only render in the InfluxDB OSS documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /oss-only %}}
+```
+
+#### cloud-only
+Wrap content that should only appear in the Cloud version of the doc with the `{{% cloud-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% cloud-only %}}This is inline content that only renders in the InfluxDB Cloud docs{{% /cloud-only %}}
+
+{{% cloud-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and will
+only render in the InfluxDB Cloud documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /cloud-only %}}
+```
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
