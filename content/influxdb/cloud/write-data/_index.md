@@ -23,7 +23,6 @@ Learn how to quickly start collecting data, and then explore ways to write data,
 
 There are multiple options for writing data into InfluxDB, including both no-code and developer solutions.
 
-
   - [Best practices](/influxdb/cloud/write-data/best-practices/)
      - [Optimize writes](/influxdb/v2.0/write-data/best-practices/optimize-writes/)
      - [Duplicate points](/influxdb/v2.0/write-data/best-practices/duplicate-points/)

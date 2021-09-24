@@ -79,7 +79,7 @@ option task = {
 }
 sample.data(set: "noaa")
   |> to(bucket: "noaa"  )
-    ```
+ ```
 
 For more information about this and other InfluxDB sample datasets, see [InfluxDB sample data](/influxdb/cloud/reference/sample-data/). 
 
