@@ -15,8 +15,7 @@ The following scenarios illustrate common queries used to extract information fr
 - [Calculate time in state](#calculate-time-in-state)
 - [Calculate time weighted average](#calculate-time-weighted-average)
 - [Calculate value between events](#calculate-value-between-events)
-- [Record data points with added context](#record-data-points-with-added-context)
-- [Group aggregate on value change(s)](#group-aggregate-on-value-changes)
+- [Determine a state within existing values](#determine-a-state-within-existing-values)
 
 All scenarios below use the `machineProduction` sample dataset provided by the [InfluxDB `sample` package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/).
 For more information, see [Sample data](/influxdb/cloud/reference/sample-data/).
@@ -24,7 +23,6 @@ For more information, see [Sample data](/influxdb/cloud/reference/sample-data/).
 ## Calculate time in state
 
 In this scenario, we look at whether a production line is running smoothly (`state`=`OK`) and what percentage of time the production line is running smoothly or not (`state`=`NOK`). If no points are recorded during the interval (`state`=`NaN`), you may opt to retrieve the last state prior to the interval. 
-
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
@@ -109,8 +107,6 @@ Calculate the time-weighted average by using the linearly interpolated integral 
 
 For example, to calculate oil temperature over a given interval using the machine-production sample data.  
 
-
-
 To calculate the time-weighted average of data points, use the [`timeWeightedAvg()` function](/{{< latest "flux" >}}/stdlib/universe/timeweightedavg/).
 
 The example below queries the `oil_temp` field in the `machinery` measurement. The `timeWeightedAvg()` function returns the time-weighted average of oil temperatures based on 5 second intervals.
@@ -139,7 +135,7 @@ from(bucket: "machine")
 Calculate the value between events by getting the average value during a specific time range. 
 
 The following scenario queries data starting when four production lines start and end.
-The following query  calculates the average oil temperature value during that period.
+The following query calculates the average oil temperature value during that period.
 
 ```js
 batchStart = 2021-08-01T00:00:00Z
@@ -189,7 +185,6 @@ from(bucket: "machine")
   |> map(fn: (r) => ({ r with pressureDiff: r.pressure - r.pressure_target }))
   |> map(fn: (r) => ({ r with needsMaintenance: if math.abs(x: r.pressureDiff) >= 15.0 then true else false }))
 ```
-
 
 ##### Output
 
