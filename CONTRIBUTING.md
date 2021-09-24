@@ -1004,7 +1004,7 @@ To prevent duplication of content between versions, use the following shortcodes
 
 - `{{< duplicate-oss >}}`
 - `{{% oss-only %}}`
-- `{{% cloud-only %}}
+- `{{% cloud-only %}}`
 
 #### duplicate-oss
 The `{{< duplicate-oss >}}` shortcode copies the page content of the file located
