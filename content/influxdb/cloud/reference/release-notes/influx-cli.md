@@ -8,7 +8,7 @@ menu:
     name: influx CLI 
 ---
 
-## v2.1.1 [unreleased]
+## v2.1.1 [2021-09-24]
 
 ## Go version 
 
