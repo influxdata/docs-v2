@@ -134,7 +134,7 @@ from(bucket: "machine")
 Calculate the value between events by getting the average value during a specific time range. 
 
 The following scenario queries data starting when four production lines start and end.
-The following query calculates the average oil temperature value during that period.
+The following query calculates the average oil temperature for each grinding station during that period.
 
 ```js
 batchStart = 2021-08-01T00:00:00Z
