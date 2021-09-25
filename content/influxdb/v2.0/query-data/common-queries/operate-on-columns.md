@@ -106,9 +106,8 @@ from(bucket: "noaa")
 
 ## Calculate a new column
 
-Use the `map()` function to create a new column calculated from existing values in each row.
-
-This example converts temperature from Fahrenheit to Celsius and maps the Celsius value to a new `celsius` column.
+To use values in a row to calculate and add a new column, use `map()`.
+This example below converts temperature from Fahrenheit to Celsius and maps the Celsius value to a new `celsius` column.
 
 The following query:
 
