@@ -53,33 +53,38 @@ from(bucket: "machine")
   })
 ```
 
-The query above focuses on a specific time range to narrow down on one occasion where the state of the production line changes. The `range` function selects the time range, and within that time range, the `filter` function focuses only on the `state` field and `machinery` measurement out of the other variables. The `state` is stored as a field, and then the `fieldKey` is stored as a value. 
+The query above focuses on a specific time range of state changes reported in the production line.
+`range()` defines the time range to query.
+`filter()` defines the field (`state`) and measurement (`machinery`) to filter by.
+`events.duration()` calculates the time between points.
+`group()` regroups the data by the field value, so points with `OK` and `NOK` field values are grouped
+into separate tables.
+`sum()` returns the sum of durations spent in each state.
 
-In the table below, the next three functions display the column values and the duration of the values.
+The output of the query at this point is:
 
-| table | _value | duration | 
-| ----- | ------ | -------- | 
-| 0     | NOK    | 22       | 
-| 1     | OK     | 172      | 
+| _value | duration | 
+| ------ | -------: | 
+| NOK    | 22       | 
 
- The `events.duration()` function calculates the time between the start and end of the record and associates the duration with the start of the recording. Within it, the `duration` column creates a value for each unique column and `sum` calculates the variables in that column, which gives it the value. The `group` function defines the column values that will appear in our table. 
+| _value | duration | 
+| ------ | -------: | 
+| OK     | 172      | 
 
- To move the values into one column, the `pivot` function aligns the columns together. `rowKey` is the anchor for each point that hinges into a single row. `columnKey`, once the other tables are going to be pinned on the table, will take `_value` to create a new column, and `valueColumn` populates that new columns.
+`pivot()` shifts creates columns for each unique value in the `_value` column and then assigns the associated duration as the column value.
+The output of the pivot operation is:
 
-To recieve the percentage of time the state is OK or not OK, you use the `map` function. 
+| NOK               | OK                 | 
+| :---------------- | :----------------- | 
+| 11.34020618556701 | 88.65979381443299  | 
 
-
-| table | NOK               | OK                 | 
-| ----- | ----------------- | ------------------ | 
-| 0     | 11.34020618556701 | 88.65979381443299  | 
-
-Given the output data in the table above, the `map` function above does the following:
+Given the output above, `map()` does the following:
 
 1. Adds the `NOK` and `OK` values to calculate `totalTime`. 
 2. Divides `NOK` by `totalTime`, and then multiplies the quotient by 100. 
 3. Divides `OK` by `totalTime`, and then multiplies the quotient by 100. 
 
-The results 88.66% of time is in the true state and 11.34% of time is in the false state.
+The results is that 88.66% of time is in the `OK` state and 11.34% of time is in the `NOK` state.
 
 #### Mosaic visualization 
 
