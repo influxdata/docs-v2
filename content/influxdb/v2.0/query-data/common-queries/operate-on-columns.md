@@ -74,7 +74,7 @@ from(bucket: "noaa")
 
 ## Recalculate the _values column
 
-Recalculate the `_value` column without creating a new one. Use the `with` operator in [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to overwrite the existing `_value` column.
+To recalculate the `_value` column, use the `with` operator in [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to overwrite the existing `_value` column.
 
 The following query:
 
