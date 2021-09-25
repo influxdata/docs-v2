@@ -74,9 +74,9 @@ A user must have an Admin or Editor role to import a dashboard.
 
 ### Monitor with InfluxDB Aware or Influx Insights 
 
-To monitor InfluxDB Enterprise by yourself, use InfluxDB Aware. In InfluxDB Aware, Telegraf runs on InfluxDB Enterprise nodes and sends information to Cloud where you can see your metrics.
+To self-monitor InfluxDB Enterprise clusters, use InfluxDB Aware. In InfluxDB Aware, Telegraf runs on InfluxDB Enterprise nodes and sends information to a free Cloud account where you can see your metrics.
 
-To have the support team monitor your InfluxDB Enterprise, use Influx Insights. InfluxDB Telegraf runs on InfluxDB Enterprise nodes and sends information to the InfluxData Support team who monitors and alerts customers as needed.
+To have the support team monitor your InfluxDB Enterprise clusters, use Influx Insights. InfluxDB Telegraf runs on InfluxDB Enterprise nodes and sends information to the InfluxData Support team who monitors and alerts customers as needed.
 
 To monitor with InfluxDB Aware or Influx Insights, do the following: 
 
