@@ -71,9 +71,6 @@ from(bucket: "noaa")
 | ---------:|
 | 2         |
 
-Use values to calculate a new column.
-
- Use the `map()` function to create a new column calculated from existing values in each row.
 
 ## Recalculate the _values column
 
