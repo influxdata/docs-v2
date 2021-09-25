@@ -39,6 +39,13 @@ and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/infl
 
 ### Add sample data with community templates 
 
+1. Go to the [GitHub community templates sample data](https://github.com/influxdata/community-templates/tree/master/sample-data) page. 
+2. Follow the instructions listed under **Quick Install**.
+
+### Download using the InfluxData UI 
+1. Go to **Explore > Script Editor**. 
+2. Put your sample data query from the 
+
 ## Sample data sets
 
 Choose from the following sample datasets:

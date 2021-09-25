@@ -16,17 +16,27 @@ series data without having to write data to InfluxDB.
 Sample datasets are also available for download and can be written to InfluxDB
 or loaded at query time.
 
+The sample data below contains both static and live datasets. A static sample dataset is not updated regularly and has fixed timestamps. A "live" sample dataset is updated regularly.
+
+{{% note %}}
+If writing a static sample dataset to a bucket with a limited retention period, use [sample.alignToNow()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/aligntonow/) to shift timestamps to align the last point in the set to now. This will prevent writing points with timestamps beyond the bucket's retention period.
+{{% /note %}}
+
 - [Sample datasets](#sample-datasets)
 - [InfluxDB Cloud demo data](#influxdb-cloud-demo-data)
 
 ## Sample datasets
 
-- [Air sensor sample data](#air-sensor-sample-data)
-- [Bird migration sample data](#bird-migration-sample-data)
-- [NOAA sample data](#noaa-sample-data)
-  - [NOAA NDBC data](#noaa-ndbc-data)
-  - [NOAA water sample data](#noaa-water-sample-data)
-- [USGS Earthquake data](#usgs-earthquake-data)
+Do one of the following: 
+
+- Run the sample data query in the **Script Editor** found in **Explore** from the left-hand navigation bar: 
+    - [Air sensor sample data](#air-sensor-sample-data)
+    - [Bird migration sample data](#bird-migration-sample-data)
+    - [NOAA sample data](#noaa-sample-data)
+      - [NOAA NDBC data](#noaa-ndbc-data)
+      - [NOAA water sample data](#noaa-water-sample-data)
+    - [USGS Earthquake data](#usgs-earthquake-data)
+- [Write sample data with InfluxDB task](#write-sample-data-with-influxdb-task)
 
 ### Air sensor sample data
 
@@ -173,6 +183,22 @@ import "influxdata/influxdb/sample"
 
 sample.data(set: "usgs")
 ```
+
+### Write sample data with an InfluxDB task
+   
+Use the [Flux InfluxDB sample package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/) to download and write sample data to InfluxDB.
+
+Add the following as an [InfluxDB task](/influxdb/cloud/process-data/manage-tasks/create-task/).
+
+```js
+import "influxdata/influxdb/sample"
+option task = {
+  name: "Collect NOAA NDBC data"
+  every: 15m,
+}
+sample.data(set: "noaa")
+  |> to(bucket: "noaa"  )
+ ```
 
 ## InfluxDB Cloud demo data
 Use [InfluxDB Cloud demo data buckets](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data) for quick,
