@@ -106,12 +106,6 @@ Set `createEmpty` to `false` so results  won't include empty time windows.
 
 ## Calculate time weighted average
 
-Calculate the time-weighted average by using the linearly interpolated integral of values in a table.
-
-### Example: Calculate oil temperature 
-
-For example, to calculate oil temperature over a given interval using the machine-production sample data.  
-
 To calculate the time-weighted average of data points, use the [`timeWeightedAvg()` function](/{{< latest "flux" >}}/stdlib/universe/timeweightedavg/).
 
 The example below queries the `oil_temp` field in the `machinery` measurement. The `timeWeightedAvg()` function returns the time-weighted average of oil temperatures based on 5 second intervals.
