@@ -13,18 +13,32 @@ menu:
 
 Load data from the following sources in the InfluxDB user interface (UI):
 
-- [CSV or line protocol file](#load-data-by-uploading-a-csv-or-line-protocol-file)
+- [CSV or line protocol file](#load-csv-or-line-protocol-by-uploading-a-file-or-pasting-data-manually-in-ui)
 - [Line protocol](#load-data-using-line-protocol)
 - [Client libraries](#load-data-from-a-client-library-in-the-ui)
 - [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
 
-### Load data by uploading a CSV or line protocol file
+### Load CSV or line protocol by uploading a file or pasting data manually in UI
 
 1. In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
     {{< nav-icon "data" >}}
 2. Under **File Upload**, select the type of file to upload:
-    - Annotated CSV. Verify your CSV follows the supported [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) syntax.
-    - Line Protocol. Verify your line protocol follows the supported [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) syntax.
+    - **Annotated CSV**. Verify your CSV file follows the supported [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) syntax.
+    - **Line Protocol**. Verify your line protocol file adheres to the following conventions:  
+       - Each line represents a data point.
+        - Each data point requires a:  
+          - [*measurement*](/influxdb/cloud/reference/syntax/line-protocol/#measurement)
+          - [*field set*](/influxdb/cloud/reference/syntax/line-protocol/#field-set)
+          - (Optional) [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set) 
+          - [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp)
+         
+          For more information, see supported [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) syntax.
+
+2. Select the bucket to write to.
+4. Select the **Precision** in the dropdown menu. By default, the precision is set to nanoseconds.
+5. Do one of the following:
+   - To upload file, drag and drop your file onto the UI, and then click **Write Data**.
+   - To enter data manually, select the **Enter Manually** tab, paste your data, and then click **Write Data**.
 
 ### Load data from a client library in the UI
 
