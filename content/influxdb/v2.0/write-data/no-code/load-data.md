@@ -24,7 +24,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 
 1. In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
     {{< nav-icon "data" >}}
-2. Under **File Upload**, select the type of file to upload:
+2. Under **File Upload**, select the type of data to upload:
     - **Annotated CSV**. Verify your CSV file follows the supported [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) syntax.
     - **Line Protocol**. Verify your line protocol file adheres to the following conventions:  
        - Each line represents a data point.
