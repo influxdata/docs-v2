@@ -999,7 +999,7 @@ Use either `includeRange` argument name or provide the boolean value as the thir
 ```
 
 ### Duplicate OSS content in Cloud
-The latest InfluxDB OSS version and InfluxDB Cloud share the majority of content.
+Docs for InfluxDB OSS and InfluxDB Cloud share a majority of content.
 To prevent duplication of content between versions, use the following shortcodes:
 
 - `{{< duplicate-oss >}}`
