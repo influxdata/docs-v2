@@ -1,0 +1,12 @@
+---
+title: InfluxDB Cloud v1 compatibility API documentation
+description: >
+  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB Cloud using InfluxDB v1.x compatibly endpoints.
+layout: api
+menu:
+  influxdb_cloud_ref:
+    parent: 1.x compatibility
+    name: View v1 compatibility API docs
+weight: 304
+---
+
