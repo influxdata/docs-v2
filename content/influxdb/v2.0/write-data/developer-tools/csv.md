@@ -18,7 +18,7 @@ related:
 ---
 
 Write CSV data with the following methods:
-- [Upload a file in the UI](/influxdb/cloud/write-data/no-code/load-data/#load-data-by-uploading-a-csv-or-line-protocol-file)
+- [Upload a file or manually paste data in the UI](/influxdb/cloud/write-data/no-code/load-data/#load-data-by-uploading-a-csv-or-line-protocol-file)
 - [influx write command](#influx-write-command)
 - [Telegraf](#telegraf)
 - [Flux](#flux)
