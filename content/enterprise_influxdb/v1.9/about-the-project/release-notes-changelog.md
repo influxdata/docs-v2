@@ -9,15 +9,39 @@ menu:
     parent: About the project
 ---
 
-## v1.9.4 []
+## v1.9.4 [TK]
 
 ### Features
-
-- Added `memUsage` metrics to `/debug/vars` endpoint.
-  Measures memory usage in bytes across all subscriptions.
-- Make `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
+- Add the following options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) InfluxDB Enterprise databases:
+  - Restore data with a new retention policy into an existing database.
+  - Override the duration of a retention policy while restoring.
+  - Specify a destination shard when restoring a specific shard.
+- Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
+  to measure memory usage in bytes across all subscriptions.
+- Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-tag-values) by retention policy.
+- Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
+- Update Protocol Buffers library versions.
+- Update to Flux [0.127.3](/flux/v0.x/release-notes/#v01273-2021-09-01).
 
 ### Bug fixes
+- Require read authorization on a database to see continuous queries linked to that database.
+- Limit field size to 1MB while parsing line protocol.
+- Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
+- Return an error instead of panic when InfluxDB Enterprise tries to restore with OSS.
+- Ensure correct JSON log formatting.
+- Handle HTTPS errors during systemd service startup.
+- Fix issue incorrectly reporting compaction queue of zero.
+- Prevent dropped writes with overlapping shards in certain edge cases.
+- Add logging for shard write errors.
+- Prevent lost writes during hinted handoff when purging short queues.
+- Fix Flux panic that caused node to crash when querying empty pre-created shards.
+- Fix incorrect TLS handling for `influxd-ctl entropy` commands.
+- Use TLS for nested LDAP connections when TLS is enabled.
+- Fix Flux query problems with large datasets when replication factor is less than cluster size.
+- Avoid incorrect logging about "broken pipe" when entropy is detected.
+- Return correct number of unexecuted statements when multi-statement query fails.
+- Delay hinted handoff writes (by less than one second) if `retry-rate-limit` is exceeded.
+- Fix potential crash due to race between reading TSI index and TSI compaction.
 
 ## v1.9.3 [2021-07-19]
 
