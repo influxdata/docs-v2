@@ -13,11 +13,17 @@ menu:
 
 Load data from the following sources in the InfluxDB user interface (UI):
 
-- [CSV](#load-data-using-csv)
+- [CSV or line protocol file](#load-data-by-uploading-a-csv-or-line-protocol-file)
 - [Line protocol](#load-data-using-line-protocol)
 - [Client libraries](#load-data-from-a-client-library-in-the-ui)
 - [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
 
+### Load data by uploading a CSV or line protocol file
+
+1.  In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
+    {{< nav-icon "data" >}}
+
+<!--
 ### Load data using CSV 
 
 Use CSV data to write data to InfluxDB using the different [methods](/influxdb/cloud/write-data/developer-tools/csv/). 
@@ -25,6 +31,8 @@ Use CSV data to write data to InfluxDB using the different [methods](/influxdb/c
 ### Load data using line protocol 
 
 Use line protocol to write data to InfluxDB using the different [methods](/influxdb/cloud/write-data/developer-tools/line-protocol/). 
+
+-->
 
 ### Load data from a client library in the UI
 
