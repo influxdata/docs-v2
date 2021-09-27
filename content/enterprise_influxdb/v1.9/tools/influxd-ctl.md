@@ -6,6 +6,9 @@ menu:
   enterprise_influxdb_1_9:
     weight: 11
     parent: Tools
+aliases:
+    - /enterprise_influxdb/v1.9/tools/influxd/restore/
+    - /enterprise_influxdb/v1.9/tools/influxd/backup/
 ---
 
 The `influxd-ctl` utility provides commands for managing your InfluxDB Enterprise clusters.
