@@ -91,6 +91,18 @@ When scraped by Flux, these metrics return the following stream of tables:
 | :------------------- | :----------- | :------------------------------ | ------: | :---------------------------- |
 | 2021-01-01T00:00:00Z | prometheus   | go_memstats_buck_hash_sys_bytes | 5259247 | http://localhost:8086/metrics |
 
+{{% note %}}
+#### Different data structures for scraped Prometheus metrics
+[Telegraf](/{{< latest "telegraf" >}}/) and [InfluxDB](/{{< latest "influxdb" >}}/) 
+provide tools that scrape Prometheus metrics and store them in InfluxDB.
+Depending on the tool and and configuration you use to scrape metrics, 
+the resulting data structure may differ than the structure returned by `prometheus.scrape()`
+described [above](#output-structure).
+
+For information about the different data structures of scraped Prometheus metrics
+stored in InfluxDB, see [Scrape Prometheus metrics](#).
+{{% /note %}}
+
 
 ## Write Prometheus metrics to InfluxDB
 To write scraped Prometheus metrics to InfluxDB:
