@@ -34,7 +34,7 @@ and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/infl
    - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitide, and more.  
 2. Do one of the following to download sample data: 
    - [Install community templates](#add-sample-data-with-community-templates) 
-   - [Download using the InfluxData UI](#add-sample-data-with-influxdata-ui)
+   - [Download using the InfluxDB UI](#add-sample-data-with-influxdata-ui)
    - [Create a template](#add-sample-data-with-templates)
 
 ### Add sample data with community templates 
@@ -42,7 +42,7 @@ and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/infl
 1. Go to the [GitHub community templates sample data](https://github.com/influxdata/community-templates/tree/master/sample-data) page. 
 2. Follow the instructions listed under **Quick Install**.
 
-### Download using the InfluxData UI 
+### Download using the InfluxDB UI 
 1. Go to **Explore > Script Editor**. 
 2. Put your sample data query from the 
 
