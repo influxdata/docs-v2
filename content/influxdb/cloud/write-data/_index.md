@@ -19,7 +19,7 @@ related:
 ---
 
 {{% note %}}
-To use existing data to explore InfluxDB **without writing your own data**, see how to [add sample data](/influxdb/cloud/query-data/execute-queries/query-sample-data/#add-sample) or [add a demo data bucket](/influxdb/cloud/query-data/execute-queries/query-demo-data/#add-a-demo-data-bucket).
+To explore InfluxDB using existing data (*without writing your own data*), see how to [add sample data](/influxdb/cloud/query-data/execute-queries/query-sample-data/#add-sample) or [add a demo data bucket](/influxdb/cloud/query-data/execute-queries/query-demo-data/#add-a-demo-data-bucket).
 {{% /note %}}
 
 1. Learn the [best practices](/influxdb/cloud/write-data/best-practices/) for writing data.
