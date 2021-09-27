@@ -45,24 +45,7 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 ### Download using the InfluxDB UI
 
 1. Go to **Explore > Script Editor**.
-2. Put your sample data query from the 
-
-## Sample data sets
-
-Choose from the following sample datasets:
-
-- **Air sensor sample data**
-  - Explore, visualize, and monitor humidity, temperature, and carbon monoxide levels in the air.
-- **Bird migration sample data**
-  - Explore, visualize, and monitor the latitude and longitude of bird migration patterns.
-- **NOAA NDBC data**
-  - Explore, visualize, and monitor NDBC's observations from their buoys. This data observes air temperature, wind speed, and more from specific locations.
-- **NOAA water sample data**
-  - Explore, visualize, and monitor temperature, water level, pH, and quality from specific locations.
-- **USGS Earthquake data**
-  - Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitude, and more.
-
-For more information, see our [sample data](/influxdb/cloud/reference/sample-data/).
+2. Put your sample data query from the
 
 ## Explore sample data
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
