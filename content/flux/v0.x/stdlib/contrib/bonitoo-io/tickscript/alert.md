@@ -1,7 +1,7 @@
 ---
 title: tickscript.alert() function
 description: >
-  The `tickscript.alert()` function function identifies events of varying severity levels
+  The `tickscript.alert()` function identifies events of varying severity levels
   and writes them to the `statuses` measurement in the InfluxDB
   `_monitoring` system bucket.
 menu:

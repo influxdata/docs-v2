@@ -69,6 +69,7 @@ string(v: 42)
 // Returns "42"
 ```
 
+### Convert regular expressions to strings
 To convert a [regular expression](/flux/v0.x/data-types/regexp/) to a string:
 
 1. Import the [`regexp` package](/flux/v0.x/stdlib/regexp/).
@@ -80,6 +81,20 @@ import "regexp"
 
 regexp.getString(r: /[a-zA-Z]/)
 // Returns [a-zA-Z] (string)
+```
+
+### Convert data types to hexadecimal strings
+To convert [basic types](/flux/v0.x/data-types/basic/) to hexadecimal strings:
+
+1. Import the [`contrib/bonitoo-io/hex` package](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/).
+2. Use [`hex.string()`](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/string/) to convert
+   other a value to a hexadecimal string.
+
+```js
+import "contrib/bonitoo-io/hex"
+
+hex.string(v: 123456)
+// Returns 1e240
 ```
 
 ### Convert columns to strings
