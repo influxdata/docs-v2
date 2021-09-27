@@ -32,6 +32,11 @@ influx task run retry [flags]
 
 {{< cli/influx-creds-note >}}
 
+{{% note %}}
+#### Required permissions
+Use an [{{% oss-only %}}**Operator** or{{% /oss-only %}} <span>**All-Access**</span> token](/influxdb/v2.0/security/tokens/) to retry tasks.
+{{% /note %}}
+
 ##### Retry a task run
 ```sh
 influx task run retry \

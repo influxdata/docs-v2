@@ -1,0 +1,13 @@
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+{{ $influxdbOSS := and (eq $product "influxdb") (ne $version "cloud") }}
+{{ $influxdbCloud := and (eq $product "influxdb") (eq $version "cloud") }}
+
+{{ if $influxdbOSS }}
+  {{ .Content | replaceRE `(?U)(<span class=\'cloud\-only\'>.*<\/span><\!\-\- close \-\-\>)` "" | replaceRE `(?Us)(<div class=\'cloud\-only\'>.*<\/div><\!\-\- close \-\-\>)` "" | safeHTML}}
+{{ else if $influxdbCloud }}
+  {{ .Content | replaceRE `(?U)(<span class=\'oss\-only\'>.*<\/span><\!\-\- close \-\-\>)` "" | replaceRE `(?Us)(<div class=\'oss\-only\'>.*<\/div><\!\-\- close \-\-\>)` "" | safeHTML}}
+{{ else }}
+  {{ .Content }}
+{{ end }}
