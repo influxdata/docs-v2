@@ -13,10 +13,7 @@ flux/v0.x/tags: ["basic types", "numeric types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/int/
   - /flux/v0.x/stdlib/universe/toint/
-<<<<<<< HEAD
-=======
   - /flux/v0.x/stdlib/contrib/bonitoo-io/hex/int/
->>>>>>> master
 list_code_example: |
   ```js
   0

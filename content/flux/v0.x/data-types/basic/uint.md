@@ -13,10 +13,7 @@ flux/v0.x/tags: ["basic types", "numeric types", "data types"]
 related:
   - /flux/v0.x/stdlib/universe/uint/
   - /flux/v0.x/stdlib/universe/touint/
-<<<<<<< HEAD
-=======
   - /flux/v0.x/stdlib/contrib/bonitoo-io/hex/uint/
->>>>>>> master
 list_code_example: |
   ```js
   uint(v: 123)
