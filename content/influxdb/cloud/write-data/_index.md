@@ -24,7 +24,7 @@ To use existing data to explore InfluxDB **without writing your own data**, see 
 
 1. Learn the [best practices](/influxdb/cloud/write-data/best-practices/) for writing data.
 2. (Optional) Migrate a large amount of historical data, by [writing data in bulk](/influxdb/cloud/write-data/bulk-ingest-cloud/).
-3. Discover how to write data [without coding](/influxdb/cloud/write-data/no-code), [load data source in UI](/influxdb/cloud/write-data/load-data/), or using [developer tools](/influxdb/cloud/write-data/developer-tools).
+3. Discover how to write data [without coding](/influxdb/cloud/write-data/no-code), by [loading data source in the UI](/influxdb/cloud/write-data/load-data/), or using [developer tools](/influxdb/cloud/write-data/developer-tools).
 4. Do any of the following:
    - [Troubleshoot the most common issues writing data](/influxdb/cloud/write-data/troubleshoot/)
    - [Delete data you no longer need](/influxdb/cloud/write-data/delete-data/)
