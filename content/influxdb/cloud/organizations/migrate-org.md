@@ -4,13 +4,13 @@ seotitle: Migrate an organization in InfluxDB Cloud
 description: Replicate the state of an organization in InfluxDB Cloud
 menu:
   influxdb_cloud:
-    name: Migrate organization
+    name: Migrate an organization
     parent: Manage organizations
 weight: 110
 ---
 
 The state of an organization consists of metadata (dashboards, buckets, and other resources) and data (time-series).
-An organization's state at a point in time can be effectively
+An organization's state at a point in time can be
 duplicated to another organization by copying both metadata and data.
 To migrate the state of an organization:
 
@@ -47,5 +47,5 @@ Use the [`influx write --rate-limit`](/influxdb/cloud/reference/cli/influx/write
 flag to control the rate of writes.
 
 For more information on rate limits in InfluxDB Cloud,
-see [Exceed rate limits](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits).
+see ["Exceeded rate limits"](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits).
 {{% /note %}}
