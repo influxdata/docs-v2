@@ -20,19 +20,11 @@ Load data from the following sources in the InfluxDB user interface (UI):
 
 ### Load data by uploading a CSV or line protocol file
 
-1.  In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
+1. In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
     {{< nav-icon "data" >}}
-
-<!--
-### Load data using CSV 
-
-Use CSV data to write data to InfluxDB using the different [methods](/influxdb/cloud/write-data/developer-tools/csv/). 
-
-### Load data using line protocol 
-
-Use line protocol to write data to InfluxDB using the different [methods](/influxdb/cloud/write-data/developer-tools/line-protocol/). 
-
--->
+2. Under **File Upload**, select the type of file to upload:
+    - Annotated CSV. Verify your CSV follows the supported [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) syntax.
+    - Line Protocol. Verify your line protocol follows the supported [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) syntax.
 
 ### Load data from a client library in the UI
 
