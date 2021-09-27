@@ -340,11 +340,6 @@ Copying data to <hostname>:8088... Copying data to <hostname>:8088... Done. Rest
 Restored from my-full-backup in 58.58301ms, transferred 569344 bytes
 ```
 
-{{% note %}}
-Restoring from a full backup **does not** restore metadata.
-To restore metadata, [restore a metadata backup](#restore-from-a-metadata-backup) separately.
-{{% /note %}}
-
 ##### Restore from an incremental backup for a single database and give the database a new name
 
 ```bash
