@@ -15,7 +15,7 @@ related:
 Use line protocol to write data to InfluxDB Cloud. Line protocol is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point. Learn more about [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/). 
 
 Write data using line protocol with the following methods:
-- [Upload a file or manually paste data in the UI](/influxdb/cloud/write-data/no-code/load-data/#load-csv-or-line-protocol-by-uploading-a-file-or-pasting-data-manually-in-ui)
+- [Upload a file or manually paste data in the UI](/influxdb/cloud/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
 - [Use influx write command](#influx-write-command)
 
 ## Write line protocol using the influx write command
