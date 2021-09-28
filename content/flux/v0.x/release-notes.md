@@ -16,7 +16,7 @@ aliases:
 - Copy location-related code from the Go `time` package.
 - Create a `Vector` monotype.
 - Refactor and optimize [`derivative()` transformation](/flux/v0.x/stdlib/universe/derivative/).
-- Add new [InfluxDB sample datasets](/flux/v0.x/stdlib/influxdata/influxdb/sample/)
+- Add new [InfluxDB sample datasets](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/#available-influxdb-sample-datasets)
   and [`sample.alignToNow()`](/flux/v0.x/stdlib/influxdata/influxdb/sample/aligntonow/).
 - Allow query concurrency to be set to the number of nodes in the graph.
 
