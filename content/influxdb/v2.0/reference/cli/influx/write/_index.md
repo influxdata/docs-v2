@@ -114,6 +114,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 - [from multiple sources](#write-annotated-csv-data-from-multiple-sources)
 - [and prepend annotation headers](#prepend-csv-data-with-annotation-headers)
 - [from a compressed file](#write-annotated-csv-data-from-a-compressed-file)
+- [using rate limiting](#write-annotated-csv-data-using-rate-limiting)
 
 ### Line protocol
 
@@ -275,4 +276,12 @@ influx write \
   --bucket example-bucket \
   --file path/to/data.csv.comp \
   --compression gzip
+```
+
+##### Write annotated CSV data using rate limiting
+```sh
+influx write \
+  --bucket example-bucket \
+  --file path/to/data.csv \
+  --rate-limit 5 MB / 5 min
 ```

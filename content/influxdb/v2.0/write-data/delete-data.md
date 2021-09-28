@@ -119,7 +119,7 @@ deletes all data in the specified bucket with timestamps between the specified `
 
 ##### Delete points in a specific measurement with a specific tag value
 ```sh
-curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=example-bucket \
+curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=example-bucket \
   --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -131,7 +131,7 @@ curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=
 
 ##### Delete all points in a specified time range
 ```sh
-curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=example-bucket \
+curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=example-bucket \
   --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{
