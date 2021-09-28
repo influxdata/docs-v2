@@ -938,6 +938,10 @@ To restore metadata, [restore a metadata backup](#restore-from-a-metadata-backup
 
 Show the contents of the backup.
 
+###### [ `-meta-only` ]
+
+Restore from metadata only backup.
+
 ###### [ `-newdb <newdb_name>` ]
 
 Name of the new database to restore to.

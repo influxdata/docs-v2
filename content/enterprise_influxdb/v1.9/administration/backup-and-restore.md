@@ -310,6 +310,28 @@ Restored from my-incremental-backup/ in 83.892591ms, transferred 588800 bytes
 
 ##### Restore from a metadata backup
 
+
+<!-- USE -meta-only flag -->
+
+<!-- Q: what's the difference b/w the meta-only flag and the current docs example? -->
+
+<!--
+A 'regular' restore assumes we are restoring into a new cluster with a
+potentially new number of data nodes, so we re-assign all shards to data
+nodes via round robin and then restore to them from a backup.
+
+Consider the case where the user's meta nodes were damaged but the user
+has a good metadata backup and good data nodes (with any strategy).
+
+The user does not want to run a full restore (since the data nodes are
+fine, a full restore would take a long time and besides they might only
+have a meta-only backup).
+
+The user does not want to use the 'normal' restore process, since that
+will re-assign new shard id's and data node assignements for existing shards
+which will not match up properly with existing data nodes.
+-->
+
 In this example, the `restore` command restores an metadata backup stored
 in the `metadata-backup/` directory.
 
