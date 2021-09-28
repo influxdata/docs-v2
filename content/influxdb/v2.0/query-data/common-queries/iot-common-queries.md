@@ -103,6 +103,7 @@ from(bucket: "machine")
   |> filter(fn: (r) => r._field == "state")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
+
 When visualizing data, it is possible to have more data points than available pixels.
 Use `aggregateWindow` with the `every` parameter set to `v.windowPeriod` to divide data
 into time windows that span a single pixel.
