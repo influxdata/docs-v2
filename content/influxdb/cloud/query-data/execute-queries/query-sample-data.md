@@ -21,31 +21,33 @@ Use **InfluxDB Cloud** sample datasets to quickly access data that lets you expl
 Each execution of `sample.data()` downloads the specified dataset from **Amazon S3**.
 If using [InfluxDB Cloud](/influxdb/cloud/) or a hosted InfluxDB OSS instance,
 you may see additional network bandwidth costs when using this function.
-Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/cloud/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/). To 
+Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/cloud/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/). To explore data without incurring network bandwidth costs, see how to [query demo data](/influxdb/cloud/query-data/query-demo-data/).
 {{% /note %}}
 
 ## Add sample data
 
 1. Choose from the following sample datasets:
    - **Air sensor sample data**: Explore, visualize, and monitor humidity, temperature, and carbon monoxide levels in the air.
-   - **Bird migration sample data**: Explore, visualize, and monitor the latitude and longitude of bird migration patterns. 
+   - **Bird migration sample data**: Explore, visualize, and monitor the latitude and longitude of bird migration patterns.
    - **NOAA NDBC sample data**: Explore, visualize, and monitor NDBC's observations from their buoys. This data observes air temperature, wind speed, and more from specific locations. 
-   - **NOAA water sample data**: Explore, visualize, and monitor temperature, water level, pH, and quality from specific locations. 
+   - **NOAA water sample data**: Explore, visualize, and monitor temperature, water level, pH, and quality from specific locations.
    - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitide, and more.  
 2. Do one of the following to download sample data: 
-   - [Install community templates](#add-sample-data-with-community-templates) 
-   - [Download using the InfluxDB UI](#add-sample-data-with-influxdata-ui)
+   - [Add sample data with community template](#add-sample-data-with-community-templates)
+   - [Download sample data using the InfluxDB UI](#add-sample-data-with-influxdata-ui)
    - [Create a template](#add-sample-data-with-templates)
 
-### Add sample data with community templates
+### Add sample data with community template
 
-1. Go to the [GitHub community templates sample data](https://github.com/influxdata/community-templates/tree/master/sample-data) page. 
+1. Go to the [GitHub community templates sample data](https://github.com/influxdata/community-templates/tree/master/sample-data) page.
 2. Follow the instructions listed under **Quick Install**.
 
-### Download using the InfluxDB UI
+### Download sample data using the InfluxDB UI
 
-1. Go to **Explore > Script Editor**.
-2. Put your sample data query from the
+1. In the UI, in the navigation menu on the left, select **Data Explorer**, and then click **Script Editor**.
+2. In your query, use the [sample.data() function](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/) to select one of the following [InfluxDB sample datasets](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/#available-influxdb-sample-datasets): `airSensor`, `birdMigration`, `noaa`, or `usgs`. For example: `sample.data(set: "airSensor")`
+
+For more information about querying in the Script Editor, see how to [Query data with Flux and the Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/#query-data-with-flux-and-the-data-explorer).
 
 ## Explore sample data
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
@@ -69,6 +71,7 @@ In the navigation menu on the left, click **Explore (Data Explorer)**.
 7. Click **Submit** to run the query.
 
 ## Create sample data dashboards
+
 After adding a sample data bucket, create a dashboard specific to the sample dataset:
 
 1. Click **Boards (Dashboards)** in the navigation menu on the left.
