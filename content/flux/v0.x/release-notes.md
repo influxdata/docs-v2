@@ -10,6 +10,29 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.132.0 [2021-09-28]
+
+### Features
+- Copy location-related code from the Go `time` package.
+- Create a `Vector` monotype.
+- Refactor and optimize [`derivative()` transformation](/flux/v0.x/stdlib/universe/derivative/).
+- Add new [InfluxDB sample datasets](/flux/v0.x/stdlib/influxdata/influxdb/sample/)
+  and [`sample.alignToNow()`](/flux/v0.x/stdlib/influxdata/influxdb/sample/aligntonow/).
+- Allow query concurrency to be set to the number of nodes in the graph.
+
+### Bug fixes
+- Update null check with clear error message.
+- Report errors from function parameters.
+- Propagate all inferred properties to a function argument.
+- Fix `Staticcheck` linter in `executetest`.
+- Reformat non-formatted Flux files.
+- Make builds reproducible by ordering package members in the `doc` package.
+- Prevent the optimized `derivative()` from attempt to replicate a non-existent bug.
+- Update [`events.duration()`](/flux/v0.x/stdlib/contrib/tomhollingworth/events/duration/)
+  to properly handle multiple buffers.
+
+---
+
 ## v0.131.0 [2021-09-20]
 
 ### Features
