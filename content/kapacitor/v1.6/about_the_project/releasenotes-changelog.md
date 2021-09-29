@@ -7,11 +7,12 @@ menu:
     name: Release notes
 ---
 
-## v1.6.2 [2021-09-22]
+## v1.6.2 [2021-09-24]
 
 ### Features
 
 - Add the `-template-id` option to `task list`.
+- Add support for third-party services that reject standard `json` ending with a carriage return by adding the ability to use compact `json` in templates. (Also compacts Big Panda alert details to avoid Panda service error.)
 
 ### Bug fixes
 
@@ -19,7 +20,7 @@ menu:
 - Update `jwt` dependencies of libraries to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
 - Switch to `github.com/golang-jwt/jwt` to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
 - Switch task service to use Flux formatter that preserves comments.
-- Previously, Kapacitor used a remote `influxdb` bucket (or 1.x database) to store Flux task run logs, and you had to manually create the database or bucket to store Flux logs. Now, Kapacitor automatically creates an InfluxDB 1.x database or InfluxDB 2.x bucket for Flux task logs.
+- Previously, Kapacitor used a remote `influxdb` bucket (or 1.x database) to store Flux task run logs, and you had to manually create the database or bucket to store Flux logs. Now, Kapacitor automatically creates an InfluxDB 1.x database or InfluxDB 2.x bucket for Flux task logs. Note for InfluxDB 1.x, the `database` bucket name is created (rather than the 1.x format `database/rp` that includes the retention policy.
 
 ## v1.6.1 [2021-07-22]
 
