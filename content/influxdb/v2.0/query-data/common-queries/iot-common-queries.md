@@ -26,7 +26,7 @@ In this scenario, we look at whether a production line is running smoothly (`sta
 
 To visualize the time in state, see the [Mosaic visualization](#mosaic-visualization).
 
-To calculate the percentage of time machines in a production line spend in each state:
+**To calculate the percentage of time a machine spends in each state**
 
 1. Import the [`contrib/tomhollingworth/events` package](/{{< latest "flux" >}}/stdlib/contrib/tomhollingworth/events/).
 1. Query the `state` field.
