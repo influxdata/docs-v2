@@ -1,12 +1,12 @@
 ---
-title: Comparing metrics from different buckets
+title: Comparing values from different buckets
 seotitle: Compare the last measurement to a mean stored in another bucket
 description: >
   Compare the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a threshold check.
 influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
-    name: Compare metrics from different buckets
+    name: Compare values from different buckets
     parent: Common queries
 weight: 104
 ---
