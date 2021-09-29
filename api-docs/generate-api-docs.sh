@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # Get list of versions from directory names
-versions="$(ls -d -- */ | grep -v 'node_modules')"
+versions="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'plugins')"
 
 for version in $versions
 do
@@ -39,8 +39,12 @@ menu:
 weight: 304
 ---
 "
-
   # Use Redoc to generate the v2 API html
+
+  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
+  npx openapi bundle $version/swagger.yml -o $version/swagger.yml
+
+  # Generate the HTML bundle.
   npx redoc-cli bundle $version/swagger.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
@@ -51,8 +55,12 @@ weight: 304
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
 
-
   # Use Redoc to generate the v1 compatibility API html
+
+  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
+  npx openapi bundle $version/swaggerV1Compat.yml -o $version/swaggerV1Compat.yml
+
+  # Generate the HTML bundle.
   npx redoc-cli bundle $version/swaggerV1Compat.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
@@ -62,7 +70,6 @@ weight: 304
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
     --output=redoc-static-v1-compat.html \
-
 
   # Create temp file with frontmatter and Redoc html
   echo "$v2frontmatter" >> $version.tmp

@@ -1,0 +1,16 @@
+apiDefinitions:
+  cloud: ./cloud/swagger.yml
+  cloudV1Compat: ./cloud/swaggerV1Compat.yml
+  'v2.0': ./v2.0/swagger.yml
+  'v2.0V1Compat': ./v2.0/swaggerV1Compat.yml
+lint:
+  extends:
+    - recommended
+  plugins:
+    - './plugins/servers-plugin.js'
+  rules:
+    no-server-trailing-slash: off
+    servers/validate-servers-url: error
+  decorators:
+    servers/replace-servers-url: error
+    servers/set-servers-url: error
