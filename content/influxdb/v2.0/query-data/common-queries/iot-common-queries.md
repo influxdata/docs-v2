@@ -30,7 +30,7 @@ To visualize the time in state, see the [Mosaic visualization](#mosaic-visualiza
 
 1. Import the [`contrib/tomhollingworth/events` package](/{{< latest "flux" >}}/stdlib/contrib/tomhollingworth/events/).
 1. Query the `state` field.
-2. Use `events.duration()` to return the amount of time (in a specified unit) between each data point and store it in the `duration` column.
+2. Use `events.duration()` to return the amount of time (in a specified unit) between each data point, and store the interval in the `duration` column.
 3. Group columns by the status value column (in this case `_value`), `_start`, `_stop`, and other relevant dimensions.
 4. Sum the `duration` column to calculated the total amount of time spent in each state.
 5. Pivot the summed durations into the `_value` column
