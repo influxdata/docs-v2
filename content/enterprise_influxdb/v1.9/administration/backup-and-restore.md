@@ -27,7 +27,7 @@ Depending on the volume of data to be protected and your application requirement
 - [Backup and restore utilities](#backup-and-restore-utilities) — For most applications
 - [Exporting and importing data](#exporting-and-importing-data) — For large datasets
 
-> **Note:** Use the [`backup` and `restore` utilities (InfluxDB OSS 1.5 and later)](/enterprise_influxdb/v1.9/administration/backup_and_restore/) to:
+> **Note:** Use the [`backup` and `restore` utilities (InfluxDB OSS 1.5 and later)](/enterprise_influxdb/v1.9/administration/backup-and-restore/) to:
 >
 > - Restore InfluxDB Enterprise backup files to InfluxDB OSS instances.
 > - Back up InfluxDB OSS data that can be restored in InfluxDB Enterprise clusters.
