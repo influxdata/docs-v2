@@ -36,8 +36,7 @@ If you also want to explore Cloud, we offer a way to explore data without incurr
    - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitide, and more.  
 2. Do one of the following to download sample data: 
    - [Add sample data with community template](#add-sample-data-with-community-templates)
-   - [Download sample data using the InfluxDB UI](#add-sample-data-with-influxdata-ui)
-   - [Create a template](#add-sample-data-with-templates)
+   - [Add sample data using the InfluxDB UI](#add-sample-data)
 
 ### Add sample data with community template
 
@@ -50,13 +49,6 @@ If you also want to explore Cloud, we offer a way to explore data without incurr
     ```
     https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml
     ```
-
-### Download sample data using the InfluxDB UI
-
-1. In the UI, in the navigation menu on the left, select **Data Explorer**, and then click **Script Editor**.
-2. In your query, use the [sample.data() function](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/) to select one of the following [InfluxDB sample datasets](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/#available-influxdb-sample-datasets): `airSensor`, `birdMigration`, `noaa`, or `usgs`. For example: `sample.data(set: "airSensor")`
-
-For more information about querying in the Script Editor, see how to [Query data with Flux and the Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/#query-data-with-flux-and-the-data-explorer).
 
 ## Explore sample data
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
@@ -78,6 +70,8 @@ In the navigation menu on the left, click **Explore (Data Explorer)**.
 5. Click **Explore** on the left navigation of InfluxDB Cloud and click your bucket, and then click **Script Editor**.
 6. Paste the `sample.data()` function.
 7. Click **Submit** to run the query.
+
+For more information about querying in the Script Editor, see how to [Query data with Flux and the Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/#query-data-with-flux-and-the-data-explorer).
 
 ## Create sample data dashboards
 
