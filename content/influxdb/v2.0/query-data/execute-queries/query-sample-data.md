@@ -1,19 +1,19 @@
 ---
 title: Query sample data 
 description: >
-  Explore InfluxDB Cloud with our sample data buckets. 
+  Explore InfluxDB OSS with our sample data buckets. 
 menu:
-  influxdb_cloud:
+  influxdb_2_0::
     name: Query with sample data
     parent: Execute queries
 weight: 10
 ---
 
-Use **InfluxDB Cloud** sample datasets to quickly access data that lets you explore and familiarize yourself with InfluxDB Cloud without requiring you to have or write your own data.
+Use **InfluxDB OSS** sample datasets to quickly access data that lets you explore and familiarize yourself with InfluxDB Cloud without requiring you to have or write your own data.
 
 - [Choose sample data](#choose-sample-data)
 - [Explore sample data](#explore-sample-data)
-- [create sample data dashboards](#create-sample-data-dashboards)
+- [Create sample data dashboards](#create-sample-data-dashboards)
 
 {{% note %}}
 #### Network bandwidth
@@ -21,7 +21,9 @@ Use **InfluxDB Cloud** sample datasets to quickly access data that lets you expl
 Each execution of `sample.data()` downloads the specified dataset from **Amazon S3**.
 If using [InfluxDB Cloud](/influxdb/cloud/) or a hosted InfluxDB OSS instance,
 you may see additional network bandwidth costs when using this function.
-Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/cloud/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/). To explore data without incurring network bandwidth costs, see how to [query demo data](/influxdb/cloud/query-data/execute-queries/query-demo-data/).
+Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/2.0/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/). 
+
+If you also want to explore Cloud, we offer a way to explore data without incurring network bandwidth costs, using [demo data](/influxdb/cloud/query-data/execute-queries/query-demo-data/).
 {{% /note %}}
 
 ## Choose sample data
@@ -39,7 +41,7 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 
 ### Add sample data with community template
 
-1. Visit the **InfluxDB templates page** in the InfluxDB Cloud UI. Click **Settings** > **Templates** in the navigation menu on the left.
+1. Visit the **InfluxDB templates page** in the InfluxDB OSS UI. Click **Settings** > **Templates** in the navigation menu on the left.
 
     {{< nav-icon "settings" >}}
       
@@ -91,5 +93,3 @@ After adding a sample data bucket, create a dashboard specific to the sample dat
 5. Copy and paste the `sample.data()` function into the script editor.
 6. Click **Submit** to run the query.
 6. Define the variables of your sample data.
-
-

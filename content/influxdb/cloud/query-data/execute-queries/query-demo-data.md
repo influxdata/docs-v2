@@ -9,6 +9,7 @@ menu:
 weight: 10
 aliases:
   - /influxdb/cloud/write-data/#demo-data-for-influxdb-cloud
+  - influxdb/cloud/query-data/query-demo-data/
 ---
 
 Use **InfluxDB Cloud** demo data buckets for quick and easy access to different
