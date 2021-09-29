@@ -177,7 +177,7 @@ To determine a state by comparing existing fields:
     apply an aggregate function (like `mean()`) to return values that represent larger windows of time.
 3. Use `pivot()` to shift field values into columns.
 4. Use `map()` to compare or operate on the different field column values.
-5. Use `map()` to assign a status (in this case, `needsMaintenance` based on the relation ship of the field column values.
+5. Use `map()` to assign a status (in this case, `needsMaintenance` based on the relationship of the field column values.
  
 ```js
 import "math"
