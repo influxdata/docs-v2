@@ -445,7 +445,7 @@ influx_inspect export -database myDB -compress -start 2019-05-19T00:00:00.000Z -
 
 ### Importing data
 
-After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/{{< latest "influxdb" "v1" >}}/tools/use-influx/#import).
+After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#import-data-from-a-file-with--import).
 
 In the following example, the compressed data file is imported into the specified database.
 
