@@ -90,7 +90,7 @@ This returns:
 | :---------------- | :----------------- | 
 | 11.34020618556701 | 88.65979381443299  | 
 
-The results is that 88.66% of time is in the `OK` state and 11.34% of time is in the `NOK` state.
+The result shows that 88.66% of time production is in the `OK` state, and that 11.34% of time, production is in the `NOK` state.
 
 #### Mosaic visualization 
 
