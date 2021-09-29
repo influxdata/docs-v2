@@ -17,7 +17,7 @@ It uses HTTP response codes, HTTP authentication, JWT Tokens, and basic authenti
 
 The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
-Those settings [are configurable](/enterprise_influxdb/v1.9/administration/config/#http-endpoints-settings).
+Those settings [are configurable](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#http-endpoints-settings).
 
 - [InfluxDB 2.0 API compatibility endpoints](#influxdb-20-api-compatibility-endpoints)
 - [InfluxDB  1.x HTTP endpoints](#influxdb-1x-http-endpoints)
@@ -427,7 +427,8 @@ A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.9/query_language/
 | u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
 
 \* InfluxDB does not truncate the number of rows returned for requests without the `chunked` parameter.
-That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1.9/administration/config/#max-row-limit-0) configuration option for more information.
+That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-row-limit-0)
+configuration option for more information.
 
 \** The InfluxDB API also supports basic authentication.
 Use basic authentication if you've [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication)
@@ -950,7 +951,7 @@ Errors are returned in JSON.
 | 400 Bad Request  | Unacceptable request. Can occur with an InfluxDB line protocol syntax error or if a user attempts to write values to a field that previously accepted a different value type. The returned JSON offers further information. |
 | 401 Unauthorized | Unacceptable request. Can occur with invalid authentication credentials.  |
 | 404 Not Found    | Unacceptable request. Can occur if a user attempts to write to a database that does not exist. The returned JSON offers further information. |
-| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/enterprise_influxdb/v1.9/administration/config/#max-body-size-25000000) parameter for more details.
+| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-body-size-25000000) parameter for more details.
 | 500 Internal Server Error  | The system is overloaded or significantly impaired. Can occur if a user attempts to write to a retention policy that does not exist. The returned JSON offers further information. |
 
 #### Examples
