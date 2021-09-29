@@ -104,9 +104,7 @@ from(bucket: "machine")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
 
-When visualizing data, it is possible to have more data points than available pixels.
-Use `aggregateWindow` with the `every` parameter set to `v.windowPeriod` to divide data
-into time windows that span a single pixel.
+When visualizing data, it is possible to have more data points than available pixels. To divide data into time windows that span a single pixel, use `aggregateWindow` with the `every` parameter set to `v.windowPeriod`.
 Use `last` as the aggregate `fn` to return the last value in each time window.
 Set `createEmpty` to `false` so results  won't include empty time windows. 
 
