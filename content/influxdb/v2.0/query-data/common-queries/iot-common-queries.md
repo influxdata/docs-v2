@@ -33,7 +33,7 @@ To visualize the time in state, see the [Mosaic visualization](#mosaic-visualiza
 2. Use `events.duration()` to return the amount of time (in a specified unit) between each data point, and store the interval in the `duration` column.
 3. Group columns by the status value column (in this case `_value`), `_start`, `_stop`, and other relevant dimensions.
 4. Sum the `duration` column to calculate the total amount of time spent in each state.
-5. Pivot the summed durations into the `_value` column
+5. Pivot the summed durations into the `_value` column.
 6. Use `map()` to calculate the percentage of time spent in each state.
 
 ```js
