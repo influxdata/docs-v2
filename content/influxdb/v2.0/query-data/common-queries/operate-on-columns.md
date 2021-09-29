@@ -26,9 +26,8 @@ These examples use [NOAA water sample data](/influxdb/v2.0/reference/sample-data
 
 ## Find and count unique values in a column
 
-Count the number of unique values in a specified column.
-
-The following examples identify and count unique locations that data was collected from.
+Find and count the number of unique values in a specified column.
+The following examples find and count unique locations where data was collected.
 
 ### Find unique values
 
