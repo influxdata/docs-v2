@@ -147,8 +147,6 @@ paths:
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       servers:
         - url: /
-      x-servers:
-        - url: /
       tags:
         - Ping
       responses:
