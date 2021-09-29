@@ -94,7 +94,7 @@ The result shows that 88.66% of time production is in the `OK` state, and that 1
 
 #### Mosaic visualization 
 
-The [mosaic visualization](/influxdb/v2.0/visualize-data/visualization-types/mosaic/) displays state changes over time. In this example, the mosaic visualization displayed different colored tiles based on the `state` field. 
+The [mosaic visualization](/influxdb/v2.0/visualize-data/visualization-types/mosaic/) displays state changes over time. In this example, the mosaic visualization displays different colored tiles based on the `state` field. 
 
 ```js
 from(bucket: "machine")
