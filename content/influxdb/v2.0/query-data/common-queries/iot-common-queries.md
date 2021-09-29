@@ -54,12 +54,12 @@ from(bucket: "machine")
 ```
 
 The query above focuses on a specific time range of state changes reported in the production line.
-`range()` defines the time range to query.
-`filter()` defines the field (`state`) and measurement (`machinery`) to filter by.
-`events.duration()` calculates the time between points.
-`group()` regroups the data by the field value, so points with `OK` and `NOK` field values are grouped
-into separate tables.
-`sum()` returns the sum of durations spent in each state.
+
+- `range()` defines the time range to query.
+- `filter()` defines the field (`state`) and measurement (`machinery`) to filter by.
+- `events.duration()` calculates the time between points.
+- `group()` regroups the data by the field value, so points with `OK` and `NOK` field values are grouped into separate tables.
+- `sum()` returns the sum of durations spent in each state.
 
 The output of the query at this point is:
 
