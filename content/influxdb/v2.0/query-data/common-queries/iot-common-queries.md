@@ -71,7 +71,7 @@ The output of the query at this point is:
 | ------ | -------: | 
 | OK     | 172      | 
 
-`pivot()` creates columns for each unique value in the `_value` column and then assigns the associated duration as the column value.
+`pivot()` creates columns for each unique value in the `_value` column, and then assigns the associated duration as the column value.
 The output of the pivot operation is:
 
 | NOK | OK  |
