@@ -202,7 +202,7 @@ It does not drop the associated continuous queries.
 
 A successful `DROP MEASUREMENT` query returns an empty result.
 
-{{% warn %}} Currently, InfluxDB does not support regular expressions with `DROP MEASUREMENTS`.
+{{% warn %}} Currently, InfluxDB does not support regular expressions with `DROP MEASUREMENT`.
 See GitHub Issue [#4275](https://github.com/influxdb/influxdb/issues/4275) for more information.
 {{% /warn %}}
 
