@@ -71,18 +71,24 @@ The output of the query at this point is:
 | ------ | -------: | 
 | OK     | 172      | 
 
-`pivot()` shifts creates columns for each unique value in the `_value` column and then assigns the associated duration as the column value.
+`pivot()` creates columns for each unique value in the `_value` column and then assigns the associated duration as the column value.
 The output of the pivot operation is:
 
-| NOK               | OK                 | 
-| :---------------- | :----------------- | 
-| 11.34020618556701 | 88.65979381443299  | 
+| NOK | OK  |
+| :-- | :-- |
+| 22  | 172 |
 
 Given the output above, `map()` does the following:
 
 1. Adds the `NOK` and `OK` values to calculate `totalTime`. 
 2. Divides `NOK` by `totalTime`, and then multiplies the quotient by 100. 
-3. Divides `OK` by `totalTime`, and then multiplies the quotient by 100. 
+3. Divides `OK` by `totalTime`, and then multiplies the quotient by 100.
+
+This returns:
+
+| NOK               | OK                 | 
+| :---------------- | :----------------- | 
+| 11.34020618556701 | 88.65979381443299  | 
 
 The results is that 88.66% of time is in the `OK` state and 11.34% of time is in the `NOK` state.
 
@@ -97,6 +103,7 @@ from(bucket: "machine")
   |> filter(fn: (r) => r._field == "state")
   |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
+
 When visualizing data, it is possible to have more data points than available pixels.
 Use `aggregateWindow` with the `every` parameter set to `v.windowPeriod` to divide data
 into time windows that span a single pixel.

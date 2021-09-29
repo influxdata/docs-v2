@@ -4,9 +4,9 @@ description: >
   Find and count unique values, recalculate the `_value` column, and use values to calculate a new column.
 influxdb/v2.0/tags: [queries]
 aliases: 
-  - /influxdb/cloud/query-data/common-queries/count_unique_values_for_column/
-  - /influxdb/cloud/query-data/common-queries/recalculate_value_column/
-  - /influxdb/cloud/query-data/common-queries/calculate_new_column/
+  - /influxdb/v2.0/query-data/common-queries/count_unique_values_for_column/
+  - /influxdb/v2.0/query-data/common-queries/recalculate_value_column/
+  - /influxdb/v2.0/query-data/common-queries/calculate_new_column/
 menu:
   influxdb_2_0:
     name: Operate on columns
