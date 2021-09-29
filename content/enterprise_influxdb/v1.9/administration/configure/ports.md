@@ -39,7 +39,7 @@ in the configuration file.
 
 This port should not be exposed outside the cluster.
 
-_See also: [Backup and Restore](/enterprise_influxdb/v1.9/administration/backup_and_restore/)._
+_See also: [Back up and restore](/enterprise_influxdb/v1.9/administration/backup-and-restore/)._
 
 ### 8089
 
