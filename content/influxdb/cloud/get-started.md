@@ -48,7 +48,7 @@ Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate In
 1. Click **Data > Bucket** and click **Create Bucket** to create a bucket and name it **noaa**.
 2. Do one of the following to download sample data: 
    - [Install community templates](#add-sample-data-with-community-templates) 
-  - [Write sample data with an InfluxDB task](#write-sample-data-with-an-influxdb-task)
+   - [Write sample data with an InfluxDB task](#write-sample-data-with-an-influxdb-task)
 
 ### Add sample data with community templates 
 
