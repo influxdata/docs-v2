@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
 # Get list of versions from directory names
 versions="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'plugins')"
@@ -41,7 +42,7 @@ weight: 304
 "
   # Use Redoc to generate the v2 API html
 
-  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
+  # Use Redocly's openapi-cli to regenerate the spec with customizations.
   npx openapi bundle $version/swagger.yml -o $version/swagger.yml
 
   # Generate the HTML bundle.
@@ -57,7 +58,7 @@ weight: 304
 
   # Use Redoc to generate the v1 compatibility API html
 
-  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
+  # Use Redocly's openapi-cli to regenerate the spec with customizations.
   npx openapi bundle $version/swaggerV1Compat.yml -o $version/swaggerV1Compat.yml
 
   # Generate the HTML bundle.
