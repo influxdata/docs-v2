@@ -45,6 +45,10 @@ The [MQTT Quality of Service (QoS)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/o
 Values range from `[0-2]`.
 Default is `0`.
 
+### retain {data-type="bool"}
+The [MQTT retain](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901042) flag.
+Default is `false`.
+
 ### clientid {data-type="string"}
 The MQTT client ID.
 
@@ -72,7 +76,8 @@ mqtt.publish(
   broker: "tcp://localhost:8883",
   topic: "alerts",
   message: "wake up",
-  clientid: "alert-watcher"
+  clientid: "alert-watcher",
+  retain: true
 )
 ```
 
