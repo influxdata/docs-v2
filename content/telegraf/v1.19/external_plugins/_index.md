@@ -7,7 +7,7 @@ menu:
      weight: 50
 ---
 
-[External plugins](/EXTERNAL_PLUGINS.md) are external programs that are built outside
+[External plugins](https://github.com/influxdata/telegraf/blob/master/EXTERNAL_PLUGINS.md) are external programs that are built outside
 of Telegraf that can run through an `execd` plugin. These external plugins allow for
 more flexibility compared to internal Telegraf plugins. Benefits to using external plugins include:
 - Access to libraries not written in Go
