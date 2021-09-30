@@ -24,7 +24,7 @@ weight: 101
   - Optimize series iteration for queries that can be answered without inspecting TSM data.
   - Optimize queries with predicates that contain multiple measurements.
 
-- **API update**: Add a new route `/api/v2/resources` that returns a list of known resources to the platform, including the following resource types:
+- **API update**: Add a new route `/api/v2/resources` that returns a list of known resources to the platform, including the following resource types. This makes it easier to update all-access tokens with current resources:
 	- `AuthorizationsResourceType`
 	- `BucketsResourceType`
 	- `DashboardsResourceType`
