@@ -15,6 +15,7 @@ related:
   - /{{< latest "influxdb" >}}/reference/prometheus-metrics/
   - /influxdb/cloud/write-data/developer-tools/scrape-prometheus-metrics, Scrape Prometheus metrics with InfluxDB Cloud
   - /{{< latest "influxdb" >}}/write-data/developer-tools/scrape-prometheus-metrics, Scrape Prometheus metrics with InfluxDB OSS
+  - /{{< latest "influxdb" >}}/reference/prometheus-metrics/, InfluxDB Prometheus metric parsing formats
 ---
 
 To scrape [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/) 
@@ -153,7 +154,7 @@ the resulting data structure may differ than the structure returned by `promethe
 described [above](#output-structure).
 
 For information about the different data structures of scraped Prometheus metrics
-stored in InfluxDB, see [InfluxDB Prometheus metric parsing formats](#).
+stored in InfluxDB, see [InfluxDB Prometheus metric parsing formats](/{{< latest "influxdb" >}}/reference/prometheus-metrics/).
 {{% /note %}}
 
 ## Write Prometheus metrics to InfluxDB
@@ -176,19 +177,18 @@ prometheus.scrape(url: "http://example.com/metrics")
   )
 ```
 
+### Write Prometheus metrics to InfluxDB at regular intervals
 To scrape Prometheus metrics and write them to InfluxDB at regular intervals,
 scrape Prometheus metrics in an [InfluxDB task](/influxdb/cloud/process-data/get-started/).
 
-{{% expand "View example Prometheus scrape task" %}}
 ```js
 import "experimental/prometheus"
 
 option task = {
   name: "Scrape Prometheus metrics",
-  every: 1m
+  every: 10s
 }
   
 prometheus.scrape(url: "http://example.com/metrics")
   |> to(bucket: "example-bucket")
 ```
-{{% /expand %}}

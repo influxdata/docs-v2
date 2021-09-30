@@ -1,7 +1,8 @@
 ---
 title: Prometheus metric parsing formats
 description: >
-  ...
+  When scraping [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/)
+  and writing them to InfluxDB, metrics are parsed and stored in InfluxDB in different formats.
 menu:
   influxdb_2_0_ref:
     name: Prometheus metrics
@@ -10,6 +11,8 @@ influxdb/v2.0/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /influxdb/v2.0/write-data/developer-tools/scrape-prometheus-metrics/
+  - /{{< latest "telegraf" >}}/plugins/#prometheus, Telegraf Prometheus input plugin
+  - /influxdb/v2.0/write-data/no-code/scrape-data/
   - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
 ---
 
@@ -20,24 +23,28 @@ The following formats are available:
 - [Format version 1](#version-1)
 - [Format version 2](#version-2)
 
-The format used depends on the tool and associated configuration used to scrape the metrics.
+
+#### Scraping tools and formats
+The format that Prometheus metrics are written to InfluxDB in depends on the
+tool and configuration used to scrape the metrics.
 
 {{% oss-only %}}
 
-| Scraping mechanism                                                                     |   Format version |
-| :------------------------------------------------------------------------------------- | ---------------: |
-| **Telegraf Prometheus plugin** with `metric_version = 1`                               | Format version 1 |
-| **Telegraf Prometheus plugin** with `metric_version = 2`                               | Format version 2 |
-| **InfluxDB scraper**                                                                   | Format version 1 |
-| [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/): | Format version 2 |
+| Scraping mechanism                                                                                    |   Format version |
+| :---------------------------------------------------------------------------------------------------- | ---------------: |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` | Format version 1 |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` | Format version 2 |
+| [InfluxDB scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)                                    | Format version 1 |
+| [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)                 | Format version 2 |
 
 {{% /oss-only %}}
 {{% cloud-only %}}
 
-- **Telegraf** with `metric_version = 1`: Format version 1
-- **Telegraf** with `metric_version = 2`: Format version 2
-- [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/):
-  Format version 2
+| Scraping mechanism                                                                                    |   Format version |
+| :---------------------------------------------------------------------------------------------------- | ---------------: |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` | Format version 1 |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` | Format version 2 |
+| [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)                 | Format version 2 |
 
 {{% /cloud-only %}}
 
@@ -95,7 +102,7 @@ task_executor_run_duration,taskID=00xx0Xx0xx00XX0x0,task_type=threshold 0.5=5.17
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View tables when queried from InfluxDB" %}}
+{{% expand "View version 1 tables when queried from InfluxDB" %}}
 | _time                     | _measurement                  | _field  |       _value |
 | :------------------------ | :---------------------------- | :------ | -----------: |
 | {{< flux/current-time >}} | go_memstats_alloc_bytes_total | counter | 1422764240.0 |
@@ -200,6 +207,7 @@ task_executor_run_duration_count{taskID="00xx0Xx0xx00XX0x0",task_type="threshold
 ```
 
 #### Resulting line protocol
+{{< keep-url >}}
 ```
 prometheus,url=http://localhost:8086/metrics go_memstats_alloc_bytes_total=1.42276424e+09
 prometheus,url=http://localhost:8086/metrics go_memstats_buck_hash_sys_bytes=5.259247e+06
@@ -220,7 +228,7 @@ prometheus,url=http://localhost:8086/metrics,taskID=00xx0Xx0xx00XX0x0,task_type=
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View tables when queried from InfluxDB" %}}
+{{% expand "View version 2 tables when queried from InfluxDB" %}}
 | _time                     | _measurement | url                           | _field                        |       _value |
 | :------------------------ | :----------- | :---------------------------- | :---------------------------- | -----------: |
 | {{< flux/current-time >}} | prometheus   | http://localhost:8086/metrics | go_memstats_alloc_bytes_total | 1422764240.0 |

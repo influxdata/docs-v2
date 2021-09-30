@@ -2,8 +2,8 @@
 title: Work with Prometheus summaries
 list_title: Summary
 description: >
-  Use Flux to query and transform Prometheus **summary** metrics.
-  A _summary_ samples observations (usually things like request durations and response sizes).
+  Use Flux to query and transform Prometheus **summary** metrics stored in InfluxDB.
+  A summary samples observations (usually things like request durations and response sizes).
   While it also provides a total count of observations and a sum of all observed
   values, it calculates configurable quantiles over a sliding time window.
 menu:
@@ -14,7 +14,7 @@ weight: 101
 flux/v0.x/tags: [prometheus]
 ---
 
-Use Flux to query and transform Prometheus **summary** metrics.
+Use Flux to query and transform Prometheus **summary** metrics stored in InfluxDB.
 
 > A _summary_ samples observations (usually things like request durations and response sizes).
 > While it also provides a total count of observations and a sum of all observed
@@ -22,8 +22,8 @@ Use Flux to query and transform Prometheus **summary** metrics.
 >
 > {{% cite %}}[Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/#summary){{% /cite %}}
 
-
-```
+##### Example summary metric in Prometheus data
+```sh
 # HELP task_executor_run_duration The duration in seconds between a run starting and finishing.
 # TYPE task_executor_run_duration summary
 example_summary_duration{label="foo",quantile="0.5"} 4.147907251

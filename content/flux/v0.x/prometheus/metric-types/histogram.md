@@ -2,8 +2,8 @@
 title: Work with Prometheus histograms
 list_title: Histogram
 description: >
-  Use Flux to query and transform Prometheus **histogram** metrics.
-  A _histogram_ samples observations (usually things like request durations or
+  Use Flux to query and transform Prometheus **histogram** metrics stored in InfluxDB.
+  A histogram samples observations (usually things like request durations or
   response sizes) and counts them in configurable buckets.
   It also provides a sum of all observed values.
 menu:
@@ -14,7 +14,7 @@ weight: 101
 flux/v0.x/tags: [prometheus]
 ---
 
-Use Flux to query and transform Prometheus **histogram** metrics.
+Use Flux to query and transform Prometheus **histogram** metrics stored in InfluxDB.
 
 > A _histogram_ samples observations (usually things like request durations or
 > response sizes) and counts them in configurable buckets.
@@ -22,7 +22,8 @@ Use Flux to query and transform Prometheus **histogram** metrics.
 >
 > {{% cite %}}[Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/#gauge){{% /cite %}}
 
-```
+##### Example histogram metric in Prometheus data
+```sh
 # HELP http_api_request_duration_seconds Time taken to respond to HTTP request
 # TYPE http_api_request_duration_seconds histogram
 http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.005"} 0
