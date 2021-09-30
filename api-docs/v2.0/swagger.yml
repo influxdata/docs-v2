@@ -2,8 +2,9 @@ openapi: 3.0.0
 info:
   title: Influx OSS API Service
   version: 2.0.0
-  description: |
-    The InfluxDB v2 API provides a programmatic interface for all interactions with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
+  description: >
+    The InfluxDB v2 API provides a programmatic interface for all interactions
+    with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 servers:
   - url: /api/v2
 tags:
@@ -22,8 +23,10 @@ tags:
     description: |
       Write time series data to buckets.
   - name: Authorizations
-    description: |
-      Create and manage API tokens. An **authorization** associates a list of permissions to an **organization** and provides a token for API access. To assign a token to a specific user, scope the authorization to the user ID.
+    description: >
+      Create and manage API tokens. An **authorization** associates a list of
+      permissions to an **organization** and provides a token for API access. To
+      assign a token to a specific user, scope the authorization to the user ID.
 x-tagGroups:
   - name: Get started
     tags:
@@ -88,7 +91,9 @@ paths:
     post:
       operationId: PostSignin
       summary: Create a user session.
-      description: 'Authenticates ***Basic Auth*** credentials for a user. If successful, creates a new UI session for the user.'
+      description: >-
+        Authenticates ***Basic Auth*** credentials for a user. If successful,
+        creates a new UI session for the user.
       tags:
         - Signin
       security:
@@ -145,7 +150,7 @@ paths:
       operationId: GetPing
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       servers:
-        - url: ''
+        - url: /
       tags:
         - Ping
       responses:
@@ -164,7 +169,7 @@ paths:
       operationId: HeadPing
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       servers:
-        - url: ''
+        - url: /
       tags:
         - Ping
       responses:
@@ -194,6 +199,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Routes'
+      servers:
+        - url: /
   /documents/templates:
     get:
       operationId: GetDocumentsTemplates
@@ -1076,7 +1083,9 @@ paths:
               $ref: '#/components/schemas/AddResourceMemberRequestBody'
       responses:
         '201':
-          description: Telegraf configuration owner was added. Returns a ResourceOwner that references the User.
+          description: >-
+            Telegraf configuration owner was added. Returns a ResourceOwner that
+            references the User.
           content:
             application/json:
               schema:
@@ -1217,19 +1226,33 @@ paths:
       tags:
         - Write
       summary: Write data
-      description: |
+      description: >
         Writes data to a bucket.
 
-        To write data into InfluxDB, you need the following:
-        - **organization** – _See [View organizations](https://docs.influxdata.com/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) for instructions on viewing your organization ID._
-        - **bucket** – _See [View buckets](https://docs.influxdata.com/influxdb/v2.0/organizations/buckets/view-buckets/) for
-         instructions on viewing your bucket ID._
-        - **API token** – _See [View tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/view-tokens/)
-         for instructions on viewing your API token._
-        - **InfluxDB URL** – _See [InfluxDB URLs](https://docs.influxdata.com/influxdb/v2.0/reference/urls/)_.
-        - data in [line protocol](https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol) format.
 
-        For more information and examples, see [Write data with the InfluxDB API](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api).
+        To write data into InfluxDB, you need the following:
+
+        - **organization** – _See [View
+        organizations](https://docs.influxdata.com/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+        for instructions on viewing your organization ID._
+
+        - **bucket** – _See [View
+        buckets](https://docs.influxdata.com/influxdb/v2.0/organizations/buckets/view-buckets/)
+        for
+         instructions on viewing your bucket ID._
+        - **API token** – _See [View
+        tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/view-tokens/)
+         for instructions on viewing your API token._
+        - **InfluxDB URL** – _See [InfluxDB
+        URLs](https://docs.influxdata.com/influxdb/v2.0/reference/urls/)_.
+
+        - data in [line
+        protocol](https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol)
+        format.
+
+
+        For more information and examples, see [Write data with the InfluxDB
+        API](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api).
       requestBody:
         description: Data in line protocol format.
         required: true
@@ -1242,21 +1265,28 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
           name: Content-Encoding
-          description: 'When present, the header value tells the database that compression is applied to the line protocol in the request body.'
+          description: >-
+            When present, the header value tells the database that compression
+            is applied to the line protocol in the request body.
           schema:
             type: string
-            description: The header value specifies that the line protocol in the request body is encoded with gzip or not encoded with identity.
+            description: >-
+              The header value specifies that the line protocol in the request
+              body is encoded with gzip or not encoded with identity.
             default: identity
             enum:
               - gzip
               - identity
         - in: header
           name: Content-Type
-          description: The header value indicates the format of the data in the request body.
+          description: >-
+            The header value indicates the format of the data in the request
+            body.
           schema:
             type: string
-            description: |
-              `text/plain` specifies line protocol. `UTF-8` is the default character set.
+            description: >
+              `text/plain` specifies line protocol. `UTF-8` is the default
+              character set.
             default: text/plain; charset=utf-8
             enum:
               - text/plain
@@ -1264,7 +1294,11 @@ paths:
               - application/vnd.influx.arrow
         - in: header
           name: Content-Length
-          description: 'The header value indicates the size of the entity-body, in bytes, sent to the database. If the length is greater than the database''s `max body` configuration option, the server responds with status code `413`.'
+          description: >-
+            The header value indicates the size of the entity-body, in bytes,
+            sent to the database. If the length is greater than the database's
+            `max body` configuration option, the server responds with status
+            code `413`.
           schema:
             type: integer
             description: The length in decimal number of octets.
@@ -1279,14 +1313,21 @@ paths:
               - application/json
         - in: query
           name: org
-          description: 'The parameter value specifies the destination organization for writes. The database writes all points in the batch to this organization. If you provide both `orgID` and `org` parameters, `org` takes precedence.'
+          description: >-
+            The parameter value specifies the destination organization for
+            writes. The database writes all points in the batch to this
+            organization. If you provide both `orgID` and `org` parameters,
+            `org` takes precedence.
           required: true
           schema:
             type: string
             description: Organization name or ID.
         - in: query
           name: orgID
-          description: 'The parameter value specifies the ID of the destination organization for writes. If both `orgID` and `org` are specified, `org` takes precedence.'
+          description: >-
+            The parameter value specifies the ID of the destination organization
+            for writes. If both `orgID` and `org` are specified, `org` takes
+            precedence.
           schema:
             type: string
         - in: query
@@ -1303,9 +1344,16 @@ paths:
             $ref: '#/components/schemas/WritePrecision'
       responses:
         '204':
-          description: 'InfluxDB validated the request data format and accepted the data for writing to the bucket. `204` doesn''t indicate a successful write operation since writes are asynchronous. See [how to check for write errors](https://docs.influxdata.com/influxdb/v2.0/write-data/troubleshoot).'
+          description: >-
+            InfluxDB validated the request data format and accepted the data for
+            writing to the bucket. `204` doesn't indicate a successful write
+            operation since writes are asynchronous. See [how to check for write
+            errors](https://docs.influxdata.com/influxdb/v2.0/write-data/troubleshoot).
         '400':
-          description: Bad request. The line protocol data in the request is malformed. The response body contains the first malformed line in the data. InfluxDB rejected the batch and did not write any data.
+          description: >-
+            Bad request. The line protocol data in the request is malformed. The
+            response body contains the first malformed line in the data.
+            InfluxDB rejected the batch and did not write any data.
           content:
             application/json:
               schema:
@@ -1321,30 +1369,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '404':
-          description: 'Not found. A requested resource was not found. The response body contains the requested resource type, e.g. `organization name` or `bucket`, and name.'
+          description: >-
+            Not found. A requested resource was not found. The response body
+            contains the requested resource type, e.g. `organization name` or
+            `bucket`, and name.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '413':
-          description: Request entity too large. The payload exceeded the 50MB limit. InfluxDB rejected the batch and did not write any data.
+          description: >-
+            Request entity too large. The payload exceeded the 50MB limit.
+            InfluxDB rejected the batch and did not write any data.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
         '429':
-          description: The token is temporarily over quota. The Retry-After header describes when to try the write again.
+          description: >-
+            The token is temporarily over quota. The Retry-After header
+            describes when to try the write again.
           headers:
             Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
               schema:
                 type: integer
                 format: int32
         '503':
-          description: The server is temporarily unavailable to accept writes.  The `Retry-After` header describes when to try the write again.
+          description: >-
+            The server is temporarily unavailable to accept writes.  The
+            `Retry-After` header describes when to try the write again.
           headers:
             Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
               schema:
                 type: integer
                 format: int32
@@ -1585,7 +1646,9 @@ paths:
             type: string
             enum:
               - properties
-          description: Includes the cell view properties in the response if set to `properties`
+          description: >-
+            Includes the cell view properties in the response if set to
+            `properties`
       responses:
         '200':
           description: Retrieve a single dashboard
@@ -1628,7 +1691,9 @@ paths:
                   description: 'optional, when provided will replace the description'
                   type: string
                 cells:
-                  description: 'optional, when provided will replace all existing cells with the cells provided'
+                  description: >-
+                    optional, when provided will replace all existing cells with
+                    the cells provided
                   $ref: '#/components/schemas/CellWithViewProperties'
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1692,7 +1757,9 @@ paths:
         - Cells
         - Dashboards
       summary: Replace cells in a dashboard
-      description: Replaces all cells in a dashboard. This is used primarily to update the positional information of all cells.
+      description: >-
+        Replaces all cells in a dashboard. This is used primarily to update the
+        positional information of all cells.
       requestBody:
         required: true
         content:
@@ -1773,7 +1840,9 @@ paths:
         - Cells
         - Dashboards
       summary: Update the non-positional information related to a cell
-      description: Updates the non positional information related to a cell. Updates to a single cell's positional data could cause grid conflicts.
+      description: >-
+        Updates the non positional information related to a cell. Updates to a
+        single cell's positional data could cause grid conflicts.
       requestBody:
         required: true
         content:
@@ -2338,25 +2407,42 @@ paths:
       tags:
         - Query
       summary: Query data
-      description: |
+      description: >
         Retrieves data from InfluxDB buckets.
 
-        To query data, you need the following:
-        - **organization** – _See [View organizations](https://docs.influxdata.com/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id) for instructions on viewing your organization ID._
-        - **API token** – _See [View tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/view-tokens/)
-         for instructions on viewing your API token._
-        - **InfluxDB URL** – _See [InfluxDB URLs](https://docs.influxdata.com/influxdb/v2.0/reference/urls/)_.
-        - [Flux](https://docs.influxdata.com/influxdb/v2.0/reference/flux) or [InfluxQL](https://docs.influxdata.com/influxdb/v2.0/query-data/influxql/) query.
 
-        For more information and examples, see [Query with the InfluxDB API](https://docs.influxdata.com/influxdb/v2.0/query-data/execute-queries/influx-api/).
+        To query data, you need the following:
+
+        - **organization** – _See [View
+        organizations](https://docs.influxdata.com/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+        for instructions on viewing your organization ID._
+
+        - **API token** – _See [View
+        tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/view-tokens/)
+         for instructions on viewing your API token._
+        - **InfluxDB URL** – _See [InfluxDB
+        URLs](https://docs.influxdata.com/influxdb/v2.0/reference/urls/)_.
+
+        - [Flux](https://docs.influxdata.com/influxdb/v2.0/reference/flux) or
+        [InfluxQL](https://docs.influxdata.com/influxdb/v2.0/query-data/influxql/)
+        query.
+
+
+        For more information and examples, see [Query with the InfluxDB
+        API](https://docs.influxdata.com/influxdb/v2.0/query-data/execute-queries/influx-api/).
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
           name: Accept-Encoding
-          description: 'The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.'
+          description: >-
+            The Accept-Encoding request HTTP header advertises which content
+            encoding, usually a compression algorithm, the client is able to
+            understand.
           schema:
             type: string
-            description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
+            description: >-
+              Specifies that the query response in the body should be encoded
+              with gzip or not encoded with identity.
             default: identity
             enum:
               - gzip
@@ -2370,12 +2456,17 @@ paths:
               - application/vnd.flux
         - in: query
           name: org
-          description: 'Specifies the name of the organization executing the query. Takes either the ID or Name. If both `orgID` and `org` are specified, `org` takes precedence.'
+          description: >-
+            Specifies the name of the organization executing the query. Takes
+            either the ID or Name. If both `orgID` and `org` are specified,
+            `org` takes precedence.
           schema:
             type: string
         - in: query
           name: orgID
-          description: 'Specifies the ID of the organization executing the query. If both `orgID` and `org` are specified, `org` takes precedence.'
+          description: >-
+            Specifies the ID of the organization executing the query. If both
+            `orgID` and `org` are specified, `org` takes precedence.
           schema:
             type: string
       requestBody:
@@ -2394,16 +2485,23 @@ paths:
           description: Success. Returns query results.
           headers:
             Content-Encoding:
-              description: 'The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body'
+              description: >-
+                The Content-Encoding entity header is used to compress the
+                media-type.  When present, its value indicates which encodings
+                were applied to the entity-body
               schema:
                 type: string
-                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                description: >-
+                  Specifies that the response in the body is encoded with gzip
+                  or not encoded with identity.
                 default: identity
                 enum:
                   - gzip
                   - identity
             Trace-Id:
-              description: 'The Trace-Id header reports the request''s trace ID, if one was generated.'
+              description: >-
+                The Trace-Id header reports the request's trace ID, if one was
+                generated.
               schema:
                 type: string
                 description: Specifies the request's trace ID.
@@ -2411,17 +2509,24 @@ paths:
             text/csv:
               schema:
                 type: string
-                example: |
-                  result,table,_start,_stop,_time,region,host,_value mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43 mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25 mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
+                example: >
+                  result,table,_start,_stop,_time,region,host,_value
+                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
+                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
+                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
             application/vnd.influx.arrow:
               schema:
                 type: string
                 format: binary
         '429':
-          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
+          description: >-
+            Token is temporarily over quota. The Retry-After header describes
+            when to try the read again.
           headers:
             Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
               schema:
                 type: integer
                 format: int32
@@ -3586,15 +3691,21 @@ paths:
               $ref: '#/components/schemas/TemplateApply'
       responses:
         '200':
-          description: |
-            Success. The package dry-run succeeded. No new resources were created. Returns a diff and summary of the dry-run. The diff and summary won't contain IDs for resources that didn't exist at the time of the dry-run.
+          description: >
+            Success. The package dry-run succeeded. No new resources were
+            created. Returns a diff and summary of the dry-run. The diff and
+            summary won't contain IDs for resources that didn't exist at the
+            time of the dry-run.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TemplateSummary'
         '201':
-          description: |
-            Success. The package applied successfully. Returns a diff and summary of the run. The summary contains newly created resources. The diff compares the initial state to the state after the package applied. This corresponds to `"dryRun": true`.
+          description: >
+            Success. The package applied successfully. Returns a diff and
+            summary of the run. The summary contains newly created resources.
+            The diff compares the initial state to the state after the package
+            applied. This corresponds to `"dryRun": true`.
           content:
             application/json:
               schema:
@@ -3622,7 +3733,9 @@ paths:
                 - $ref: '#/components/schemas/TemplateExportByName'
       responses:
         '200':
-          description: The template was created successfully. Returns the newly created template.
+          description: >-
+            The template was created successfully. Returns the newly created
+            template.
           content:
             application/json:
               schema:
@@ -4629,7 +4742,9 @@ paths:
         - in: query
           name: orgID
           required: true
-          description: Only show notification rules that belong to a specific organization ID.
+          description: >-
+            Only show notification rules that belong to a specific organization
+            ID.
           schema:
             type: string
         - in: query
@@ -4639,7 +4754,9 @@ paths:
             type: string
         - in: query
           name: tag
-          description: Only return notification rules that "would match" statuses which contain the tag key value pairs provided.
+          description: >-
+            Only return notification rules that "would match" statuses which
+            contain the tag key value pairs provided.
           schema:
             type: string
             pattern: '^[a-zA-Z0-9_]+:[a-zA-Z0-9_]+$'
@@ -5001,7 +5118,9 @@ paths:
         - in: query
           name: orgID
           required: true
-          description: Only show notification endpoints that belong to specific organization ID.
+          description: >-
+            Only show notification endpoints that belong to specific
+            organization ID.
           schema:
             type: string
       responses:
@@ -5277,7 +5396,7 @@ paths:
         - Health
       summary: Get the health of an instance
       servers:
-        - url: ''
+        - url: /
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -5303,7 +5422,7 @@ paths:
         - Ready
       summary: Get the readiness of an instance at startup
       servers:
-        - url: ''
+        - url: /
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -5448,7 +5567,9 @@ paths:
       tags:
         - Setup
       summary: 'Check if database has default user, org, bucket'
-      description: 'Returns `true` if no default user, organization, or bucket has been created.'
+      description: >-
+        Returns `true` if no default user, organization, or bucket has been
+        created.
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
@@ -6203,7 +6324,9 @@ paths:
             type: string
         - in: query
           name: id
-          description: 'List of scraper target IDs to return. If both `id` and `owner` are specified, only `id` is used.'
+          description: >-
+            List of scraper target IDs to return. If both `id` and `owner` are
+            specified, only `id` is used.
           schema:
             type: array
             items:
@@ -6612,7 +6735,10 @@ paths:
       operationId: GetBackupKV
       tags:
         - Backup
-      summary: 'Download snapshot of metadata stored in the server''s embedded KV store. Should not be used in versions greater than 2.1.x, as it doesn''t include metadata stored in embedded SQL.'
+      summary: >-
+        Download snapshot of metadata stored in the server's embedded KV store.
+        Should not be used in versions greater than 2.1.x, as it doesn't include
+        metadata stored in embedded SQL.
       deprecated: true
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6637,10 +6763,15 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
           name: Accept-Encoding
-          description: 'The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.'
+          description: >-
+            The Accept-Encoding request HTTP header advertises which content
+            encoding, usually a compression algorithm, the client is able to
+            understand.
           schema:
             type: string
-            description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
+            description: >-
+              Specifies that the query response in the body should be encoded
+              with gzip or not encoded with identity.
             default: identity
             enum:
               - gzip
@@ -6650,10 +6781,15 @@ paths:
           description: Snapshot of metadata
           headers:
             Content-Encoding:
-              description: 'The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body'
+              description: >-
+                The Content-Encoding entity header is used to compress the
+                media-type.  When present, its value indicates which encodings
+                were applied to the entity-body
               schema:
                 type: string
-                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                description: >-
+                  Specifies that the response in the body is encoded with gzip
+                  or not encoded with identity.
                 default: identity
                 enum:
                   - gzip
@@ -6675,10 +6811,15 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
           name: Accept-Encoding
-          description: 'The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.'
+          description: >-
+            The Accept-Encoding request HTTP header advertises which content
+            encoding, usually a compression algorithm, the client is able to
+            understand.
           schema:
             type: string
-            description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
+            description: >-
+              Specifies that the query response in the body should be encoded
+              with gzip or not encoded with identity.
             default: identity
             enum:
               - gzip
@@ -6701,10 +6842,15 @@ paths:
           description: TSM snapshot.
           headers:
             Content-Encoding:
-              description: 'The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body'
+              description: >-
+                The Content-Encoding entity header is used to compress the
+                media-type.  When present, its value indicates which encodings
+                were applied to the entity-body
               schema:
                 type: string
-                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                description: >-
+                  Specifies that the response in the body is encoded with gzip
+                  or not encoded with identity.
                 default: identity
                 enum:
                   - gzip
@@ -6733,10 +6879,14 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
           name: Content-Encoding
-          description: 'When present, its value indicates to the database that compression is applied to the line-protocol body.'
+          description: >-
+            When present, its value indicates to the database that compression
+            is applied to the line-protocol body.
           schema:
             type: string
-            description: Specifies that the line protocol in the body is encoded with gzip or not encoded with identity.
+            description: >-
+              Specifies that the line protocol in the body is encoded with gzip
+              or not encoded with identity.
             default: identity
             enum:
               - gzip
@@ -6765,7 +6915,9 @@ paths:
                 type: object
                 properties:
                   token:
-                    description: token is the root token for the instance after restore (this is overwritten during the restore)
+                    description: >-
+                      token is the root token for the instance after restore
+                      (this is overwritten during the restore)
                     type: string
         '204':
           description: KV store successfully overwritten.
@@ -6777,15 +6929,21 @@ paths:
       operationId: PostRestoreSQL
       tags:
         - Restore
-      summary: Overwrite the embedded SQL store on the server with a backed-up snapshot.
+      summary: >-
+        Overwrite the embedded SQL store on the server with a backed-up
+        snapshot.
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
           name: Content-Encoding
-          description: 'When present, its value indicates to the database that compression is applied to the line-protocol body.'
+          description: >-
+            When present, its value indicates to the database that compression
+            is applied to the line-protocol body.
           schema:
             type: string
-            description: Specifies that the line protocol in the body is encoded with gzip or not encoded with identity.
+            description: >-
+              Specifies that the line protocol in the body is encoded with gzip
+              or not encoded with identity.
             default: identity
             enum:
               - gzip
@@ -6887,10 +7045,14 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - in: header
           name: Content-Encoding
-          description: 'When present, its value indicates to the database that compression is applied to the line-protocol body.'
+          description: >-
+            When present, its value indicates to the database that compression
+            is applied to the line-protocol body.
           schema:
             type: string
-            description: Specifies that the line protocol in the body is encoded with gzip or not encoded with identity.
+            description: >-
+              Specifies that the line protocol in the body is encoded with gzip
+              or not encoded with identity.
             default: identity
             enum:
               - gzip
@@ -7305,7 +7467,9 @@ paths:
         - $ref: '#/components/parameters/Descending'
         - in: query
           name: owner
-          description: A user identifier. Returns only dashboards where this user has the `owner` role.
+          description: >-
+            A user identifier. Returns only dashboards where this user has the
+            `owner` role.
           schema:
             type: string
         - in: query
@@ -7319,7 +7483,9 @@ paths:
               - UpdatedAt
         - in: query
           name: id
-          description: 'A list of dashboard identifiers. Returns only the listed dashboards. If both `id` and `owner` are specified, only `id` is used.'
+          description: >-
+            A list of dashboard identifiers. Returns only the listed dashboards.
+            If both `id` and `owner` are specified, only `id` is used.
           schema:
             type: array
             items:
@@ -7485,8 +7651,9 @@ components:
       required: false
       schema:
         type: string
-      description: |
-        The last resource ID from which to seek from (but not including). This is to be used instead of `offset`.
+      description: >
+        The last resource ID from which to seek from (but not including). This
+        is to be used instead of `offset`.
   schemas:
     LanguageRequest:
       description: Flux query to be analyzed.
@@ -7516,12 +7683,16 @@ components:
         params:
           type: object
           additionalProperties: true
-          description: |
-            Enumeration of key/value pairs that respresent parameters to be injected into query (can only specify either this field or extern and not both)
+          description: >
+            Enumeration of key/value pairs that respresent parameters to be
+            injected into query (can only specify either this field or extern
+            and not both)
         dialect:
           $ref: '#/components/schemas/Dialect'
         now:
-          description: Specifies the time that should be reported as "now" in the query. Default is the server's now time.
+          description: >-
+            Specifies the time that should be reported as "now" in the query.
+            Default is the server's now time.
           type: string
           format: date-time
     InfluxQLQuery:
@@ -7539,7 +7710,9 @@ components:
           enum:
             - influxql
         bucket:
-          description: Bucket is to be used instead of the database and retention policy specified in the InfluxQL query.
+          description: >-
+            Bucket is to be used instead of the database and retention policy
+            specified in the InfluxQL query.
           type: string
     Package:
       description: Represents a complete package source tree.
@@ -7645,7 +7818,9 @@ components:
         - $ref: '#/components/schemas/BuiltinStatement'
         - $ref: '#/components/schemas/TestStatement'
     BadStatement:
-      description: A placeholder for statements for which no correct statement nodes can be created
+      description: >-
+        A placeholder for statements for which no correct statement nodes can be
+        created
       type: object
       properties:
         type:
@@ -7674,7 +7849,9 @@ components:
         init:
           $ref: '#/components/schemas/Expression'
     ExpressionStatement:
-      description: May consist of an expression that does not return a value and is executed solely for its side-effects
+      description: >-
+        May consist of an expression that does not return a value and is
+        executed solely for its side-effects
       type: object
       properties:
         type:
@@ -7811,7 +7988,9 @@ components:
           items:
             $ref: '#/components/schemas/Expression'
     ConditionalExpression:
-      description: 'Selects one of two expressions, `Alternate` or `Consequent`, depending on a third boolean expression, `Test`'
+      description: >-
+        Selects one of two expressions, `Alternate` or `Consequent`, depending
+        on a third boolean expression, `Test`
       type: object
       properties:
         type:
@@ -7823,7 +8002,9 @@ components:
         consequent:
           $ref: '#/components/schemas/Expression'
     LogicalExpression:
-      description: Represents the rule conditions that collectively evaluate to either true or false
+      description: >-
+        Represents the rule conditions that collectively evaluate to either true
+        or false
       type: object
       properties:
         type:
@@ -7902,7 +8083,9 @@ components:
         value:
           type: boolean
     DateTimeLiteral:
-      description: Represents an instant in time with nanosecond precision using the syntax of golang's RFC3339 Nanosecond variant
+      description: >-
+        Represents an instant in time with nanosecond precision using the syntax
+        of golang's RFC3339 Nanosecond variant
       type: object
       properties:
         type:
@@ -7911,7 +8094,9 @@ components:
           type: string
           format: date-time
     DurationLiteral:
-      description: Represents the elapsed time between two instants as an int64 nanosecond count with syntax of golang's time.Duration
+      description: >-
+        Represents the elapsed time between two instants as an int64 nanosecond
+        count with syntax of golang's time.Duration
       type: object
       properties:
         type:
@@ -7922,7 +8107,9 @@ components:
           items:
             $ref: '#/components/schemas/Duration'
     FloatLiteral:
-      description: Represents floating point numbers according to the double representations defined by the IEEE-754-1985
+      description: >-
+        Represents floating point numbers according to the double
+        representations defined by the IEEE-754-1985
       type: object
       properties:
         type:
@@ -7938,13 +8125,17 @@ components:
         value:
           type: string
     PipeLiteral:
-      description: 'Represents a specialized literal value, indicating the left hand value of a pipe expression'
+      description: >-
+        Represents a specialized literal value, indicating the left hand value
+        of a pipe expression
       type: object
       properties:
         type:
           $ref: '#/components/schemas/NodeType'
     RegexpLiteral:
-      description: Expressions begin and end with `/` and are regular expressions with syntax accepted by RE2
+      description: >-
+        Expressions begin and end with `/` and are regular expressions with
+        syntax accepted by RE2
       type: object
       properties:
         type:
@@ -7968,7 +8159,9 @@ components:
         value:
           type: string
     Duration:
-      description: A pair consisting of length of time and the unit of time measured. It is the atomic unit from which all duration literals are composed.
+      description: >-
+        A pair consisting of length of time and the unit of time measured. It is
+        the atomic unit from which all duration literals are composed.
       type: object
       properties:
         type:
@@ -8000,7 +8193,9 @@ components:
         name:
           type: string
     Dialect:
-      description: 'Dialect are options to change the default CSV output format; https://www.w3.org/TR/2015/REC-tabular-metadata-20151217/#dialect-descriptions'
+      description: >-
+        Dialect are options to change the default CSV output format;
+        https://www.w3.org/TR/2015/REC-tabular-metadata-20151217/#dialect-descriptions
       type: object
       properties:
         header:
@@ -8039,7 +8234,9 @@ components:
     AuthorizationUpdateRequest:
       properties:
         status:
-          description: If inactive the token is inactive and requests using the token will be rejected.
+          description: >-
+            If inactive the token is inactive and requests using the token will
+            be rejected.
           default: active
           type: string
           enum:
@@ -8176,7 +8373,9 @@ components:
         everySeconds:
           type: integer
           format: int64
-          description: Duration in seconds for how long data will be kept in the database. 0 means infinite.
+          description: >-
+            Duration in seconds for how long data will be kept in the database.
+            0 means infinite.
           example: 86400
           minimum: 0
         shardGroupDurationSeconds:
@@ -8196,7 +8395,9 @@ components:
         everySeconds:
           type: integer
           format: int64
-          description: Duration in seconds for how long data will be kept in the database. 0 means infinite.
+          description: >-
+            Duration in seconds for how long data will be kept in the database.
+            0 means infinite.
           example: 86400
           minimum: 0
         shardGroupDurationSeconds:
@@ -8469,7 +8670,10 @@ components:
                 $ref: '#/components/schemas/TemplateKind'
               name:
                 type: string
-                description: 'if defined with id, name is used for resource exported by id. if defined independently, resources strictly matching name are exported'
+                description: >-
+                  if defined with id, name is used for resource exported by id.
+                  if defined independently, resources strictly matching name are
+                  exported
             required:
               - id
               - kind
@@ -8534,7 +8738,9 @@ components:
             description: Field the environment reference corresponds too
           envRefKey:
             type: string
-            description: Key identified as environment reference and is the key identified in the template
+            description: >-
+              Key identified as environment reference and is the key identified
+              in the template
           value:
             description: Value provided to fulfill reference
             nullable: true
@@ -8544,7 +8750,9 @@ components:
               - type: number
               - type: boolean
           defaultValue:
-            description: Default value that will be provided for the reference when no value is provided
+            description: >-
+              Default value that will be provided for the reference when no
+              value is provided
             nullable: true
             oneOf:
               - type: string
@@ -9337,7 +9545,9 @@ components:
       properties:
         scheduledFor:
           nullable: true
-          description: 'Time used for run''s "now" option, RFC3339.  Default is the server''s now time.'
+          description: >-
+            Time used for run's "now" option, RFC3339.  Default is the server's
+            now time.
           type: string
           format: date-time
     Tasks:
@@ -9357,7 +9567,9 @@ components:
           readOnly: true
           type: string
         type:
-          description: 'The type of task, this can be used for filtering tasks on list actions.'
+          description: >-
+            The type of task, this can be used for filtering tasks on list
+            actions.
           type: string
         orgID:
           description: The ID of the organization that owns this Task.
@@ -9379,7 +9591,9 @@ components:
         labels:
           $ref: '#/components/schemas/Labels'
         authorizationID:
-          description: The ID of the authorization used when this task communicates with the query engine.
+          description: >-
+            The ID of the authorization used when this task communicates with
+            the query engine.
           type: string
         flux:
           description: The Flux script to run for this task.
@@ -9388,10 +9602,15 @@ components:
           description: A simple task repetition schedule; parsed from Flux.
           type: string
         cron:
-          description: A task repetition schedule in the form '* * * * * *'; parsed from Flux.
+          description: >-
+            A task repetition schedule in the form '* * * * * *'; parsed from
+            Flux.
           type: string
         offset:
-          description: 'Duration to delay after the schedule, before executing the task; parsed from flux, if set to zero it will remove this option and use 0 as the default.'
+          description: >-
+            Duration to delay after the schedule, before executing the task;
+            parsed from flux, if set to zero it will remove this option and use
+            0 as the default.
           type: string
         latestCompleted:
           description: 'Timestamp of latest scheduled, completed run, RFC3339.'
@@ -9647,11 +9866,15 @@ components:
           type: string
         op:
           readOnly: true
-          description: op describes the logical code operation during error. Useful for debugging.
+          description: >-
+            op describes the logical code operation during error. Useful for
+            debugging.
           type: string
         err:
           readOnly: true
-          description: err is a stack of errors that occurred during processing of the request. Useful for debugging.
+          description: >-
+            err is a stack of errors that occurred during processing of the
+            request. Useful for debugging.
           type: string
       required:
         - code
@@ -9675,11 +9898,15 @@ components:
           type: string
         op:
           readOnly: true
-          description: Op describes the logical code operation during error. Useful for debugging.
+          description: >-
+            Op describes the logical code operation during error. Useful for
+            debugging.
           type: string
         err:
           readOnly: true
-          description: Err is a stack of errors that occurred during processing of the request. Useful for debugging.
+          description: >-
+            Err is a stack of errors that occurred during processing of the
+            request. Useful for debugging.
           type: string
         line:
           readOnly: true
@@ -9716,10 +9943,14 @@ components:
       type: object
       properties:
         value:
-          description: value is the value of the field.  Meaning of the value is implied by the `type` key
+          description: >-
+            value is the value of the field.  Meaning of the value is implied by
+            the `type` key
           type: string
         type:
-          description: '`type` describes the field type. `func` is a function. `field` is a field reference.'
+          description: >-
+            `type` describes the field type. `func` is a function. `field` is a
+            field reference.
           type: string
           enum:
             - func
@@ -9729,7 +9960,9 @@ components:
             - regex
             - wildcard
         alias:
-          description: Alias overrides the field name in the returned response.  Applies only if type is `func`
+          description: >-
+            Alias overrides the field name in the returned response.  Applies
+            only if type is `func`
           type: string
         args:
           description: Args are the arguments to the function
@@ -9804,7 +10037,9 @@ components:
           type: array
           minItems: 0
           maxItems: 2
-          description: 'The extents of an axis in the form [lower, upper]. Clients determine whether bounds are to be inclusive or exclusive of their limits'
+          description: >-
+            The extents of an axis in the form [lower, upper]. Clients determine
+            whether bounds are to be inclusive or exclusive of their limits
           items:
             type: string
         label:
@@ -10707,27 +10942,37 @@ components:
           type: object
           properties:
             verticalTimeAxis:
-              description: verticalTimeAxis describes the orientation of the table by indicating whether the time axis will be displayed vertically
+              description: >-
+                verticalTimeAxis describes the orientation of the table by
+                indicating whether the time axis will be displayed vertically
               type: boolean
             sortBy:
               $ref: '#/components/schemas/RenamableField'
             wrapping:
-              description: Wrapping describes the text wrapping style to be used in table views
+              description: >-
+                Wrapping describes the text wrapping style to be used in table
+                views
               type: string
               enum:
                 - truncate
                 - wrap
                 - single-line
             fixFirstColumn:
-              description: fixFirstColumn indicates whether the first column of the table should be locked
+              description: >-
+                fixFirstColumn indicates whether the first column of the table
+                should be locked
               type: boolean
         fieldOptions:
-          description: fieldOptions represent the fields retrieved by the query with customization options
+          description: >-
+            fieldOptions represent the fields retrieved by the query with
+            customization options
           type: array
           items:
             $ref: '#/components/schemas/RenamableField'
         timeFormat:
-          description: timeFormat describes the display format for time values according to moment.js date formatting
+          description: >-
+            timeFormat describes the display format for time values according to
+            moment.js date formatting
           type: string
         decimalPlaces:
           $ref: '#/components/schemas/DecimalPlaces'
@@ -10997,7 +11242,9 @@ components:
           type: boolean
           default: true
         detectCoordinateFields:
-          description: 'If true, search results get automatically regroupped so that lon,lat and value are treated as columns'
+          description: >-
+            If true, search results get automatically regroupped so that lon,lat
+            and value are treated as columns
           type: boolean
           default: true
         useS2CellID:
@@ -11083,7 +11330,9 @@ components:
           type: number
           format: float
     DecimalPlaces:
-      description: 'Indicates whether decimal places should be enforced, and how many digits it should show.'
+      description: >-
+        Indicates whether decimal places should be enforced, and how many digits
+        it should show.
       type: object
       properties:
         isEnforced:
@@ -11596,7 +11845,9 @@ components:
       type: object
       properties:
         allowed:
-          description: True means that the influxdb instance has NOT had initial setup; false means that the database has been setup.
+          description: >-
+            True means that the influxdb instance has NOT had initial setup;
+            false means that the database has been setup.
           type: boolean
     PasswordResetBody:
       properties:
@@ -11669,7 +11920,9 @@ components:
           type: object
           additionalProperties:
             type: string
-          description: Key/Value pairs associated with this label. Keys can be removed by sending an update with an empty value.
+          description: >-
+            Key/Value pairs associated with this label. Keys can be removed by
+            sending an update with an empty value.
           example:
             color: ffb3b3
             description: this is a description
@@ -11687,7 +11940,9 @@ components:
           type: object
           additionalProperties:
             type: string
-          description: Key/Value pairs associated with this label. Keys can be removed by sending an update with an empty value.
+          description: >-
+            Key/Value pairs associated with this label. Keys can be removed by
+            sending an update with an empty value.
           example:
             color: ffb3b3
             description: this is a description
@@ -11700,7 +11955,9 @@ components:
           type: object
           additionalProperties:
             type: string
-          description: Key/Value pairs associated with this label. Keys can be removed by sending an update with an empty value.
+          description: >-
+            Key/Value pairs associated with this label. Keys can be removed by
+            sending an update with an empty value.
           example:
             color: ffb3b3
             description: this is a description
@@ -11958,7 +12215,9 @@ components:
               description: String duration before deadman triggers.
               type: string
             staleTime:
-              description: String duration for time that a series is considered stale and should not trigger deadman.
+              description: >-
+                String duration for time that a series is considered stale and
+                should not trigger deadman.
               type: string
             reportZero:
               description: 'If only zero values reported since time, trigger an alert'
@@ -12177,10 +12436,14 @@ components:
         runbookLink:
           type: string
         limitEvery:
-          description: 'Don''t notify me more than <limit> times every <limitEvery> seconds. If set, limit cannot be empty.'
+          description: >-
+            Don't notify me more than <limit> times every <limitEvery> seconds.
+            If set, limit cannot be empty.
           type: integer
         limit:
-          description: 'Don''t notify me more than <limit> times every <limitEvery> seconds. If set, limitEvery cannot be empty.'
+          description: >-
+            Don't notify me more than <limit> times every <limitEvery> seconds.
+            If set, limitEvery cannot be empty.
           type: integer
         tagRules:
           description: List of tag rules the notification rule attempts to match.
@@ -12330,7 +12593,9 @@ components:
         - channel
       properties:
         type:
-          description: The discriminator between other types of notification rules is "telegram".
+          description: >-
+            The discriminator between other types of notification rules is
+            "telegram".
           type: string
           enum:
             - telegram
@@ -12338,14 +12603,19 @@ components:
           description: The message template as a flux interpolated string.
           type: string
         parseMode:
-          description: 'Parse mode of the message text per https://core.telegram.org/bots/api#formatting-options . Defaults to "MarkdownV2" .'
+          description: >-
+            Parse mode of the message text per
+            https://core.telegram.org/bots/api#formatting-options . Defaults to
+            "MarkdownV2" .
           type: string
           enum:
             - MarkdownV2
             - HTML
             - Markdown
         disableWebPagePreview:
-          description: Disables preview of web links in the sent messages when "true". Defaults to "false" .
+          description: >-
+            Disables preview of web links in the sent messages when "true".
+            Defaults to "false" .
           type: boolean
     NotificationEndpointUpdate:
       type: object
@@ -12450,7 +12720,9 @@ components:
         - type: object
           properties:
             url:
-              description: Specifies the URL of the Slack endpoint. Specify either `URL` or `Token`.
+              description: >-
+                Specifies the URL of the Slack endpoint. Specify either `URL` or
+                `Token`.
               type: string
             token:
               description: Specifies the API token string. Specify either `URL` or `Token`.
@@ -12514,10 +12786,14 @@ components:
             - channel
           properties:
             token:
-              description: 'Specifies the Telegram bot token. See https://core.telegram.org/bots#creating-a-new-bot .'
+              description: >-
+                Specifies the Telegram bot token. See
+                https://core.telegram.org/bots#creating-a-new-bot .
               type: string
             channel:
-              description: 'ID of the telegram channel, a chat_id in https://core.telegram.org/bots/api#sendmessage .'
+              description: >-
+                ID of the telegram channel, a chat_id in
+                https://core.telegram.org/bots/api#sendmessage .
               type: string
     NotificationEndpointType:
       type: string
@@ -12547,7 +12823,9 @@ components:
           description: InfluxDB v1 retention policy
         default:
           type: boolean
-          description: Specify if this mapping represents the default retention policy for the database specificed.
+          description: >-
+            Specify if this mapping represents the default retention policy for
+            the database specificed.
         links:
           $ref: '#/components/schemas/Links'
       required:
@@ -12590,7 +12868,9 @@ components:
           description: InfluxDB v1 retention policy
         default:
           type: boolean
-          description: Specify if this mapping represents the default retention policy for the database specificed.
+          description: >-
+            Specify if this mapping represents the default retention policy for
+            the database specificed.
       required:
         - bucketID
         - database
@@ -12628,7 +12908,9 @@ components:
             permissions:
               type: array
               minItems: 1
-              description: List of permissions for an auth.  An auth must have at least one Permission.
+              description: >-
+                List of permissions for an auth.  An auth must have at least one
+                Permission.
               items:
                 $ref: '#/components/schemas/Permission'
             id:
@@ -12637,7 +12919,9 @@ components:
             token:
               readOnly: true
               type: string
-              description: Passed via the Authorization Header and Token Authentication type.
+              description: >-
+                Passed via the Authorization Header and Token Authentication
+                type.
             userID:
               readOnly: true
               type: string
@@ -12680,7 +12964,9 @@ components:
             permissions:
               type: array
               minItems: 1
-              description: List of permissions for an auth.  An auth must have at least one Permission.
+              description: >-
+                List of permissions for an auth.  An auth must have at least one
+                Permission.
               items:
                 $ref: '#/components/schemas/Permission'
     LegacyAuthorizationPostRequest:
@@ -12703,7 +12989,9 @@ components:
             permissions:
               type: array
               minItems: 1
-              description: List of permissions for an auth.  An auth must have at least one Permission.
+              description: >-
+                List of permissions for an auth.  An auth must have at least one
+                Permission.
               items:
                 $ref: '#/components/schemas/Permission'
     Authorizations:
@@ -12757,13 +13045,18 @@ components:
             - notebooks
         id:
           type: string
-          description: If ID is set that is a permission for a specific resource. if it is not set it is a permission for all resources of that resource type.
+          description: >-
+            If ID is set that is a permission for a specific resource. if it is
+            not set it is a permission for all resources of that resource type.
         name:
           type: string
           description: Optional name of the resource if the resource has a name field.
         orgID:
           type: string
-          description: If orgID is set that is a permission for all resources owned my that org. if it is not set it is a permission for all resources of that resource type.
+          description: >-
+            If orgID is set that is a permission for all resources owned my that
+            org. if it is not set it is a permission for all resources of that
+            resource type.
         org:
           type: string
           description: Optional name of the organization of the organization with orgID.
@@ -12815,12 +13108,15 @@ components:
         retentionPeriodHrs:
           type: integer
           deprecated: true
-          description: |
-            Retention period *in nanoseconds* for the new bucket. This key's name has been misleading since OSS 2.0 GA, please transition to use `retentionPeriodSeconds`
+          description: >
+            Retention period *in nanoseconds* for the new bucket. This key's
+            name has been misleading since OSS 2.0 GA, please transition to use
+            `retentionPeriodSeconds`
         token:
           type: string
-          description: |
-            Authentication token to set on the initial user. If not specified, the server will generate a token.
+          description: >
+            Authentication token to set on the initial user. If not specified,
+            the server will generate a token.
       required:
         - username
         - org
@@ -13404,10 +13700,15 @@ components:
       type: http
       scheme: token
       bearerFormat: InfluxDB Token String
-      description: |
-        InfluxDB API tokens ensure secure interaction between users and data. A token belongs to an organization and identifies InfluxDB permissions within the organization.
+      description: >
+        InfluxDB API tokens ensure secure interaction between users and data. A
+        token belongs to an organization and identifies InfluxDB permissions
+        within the organization.
 
-        Include your API token in an `Authentication: Token YOUR_API_TOKEN` HTTP header with each request.
+
+        Include your API token in an `Authentication: Token YOUR_API_TOKEN` HTTP
+        header with each request.
+
 
         ### Example
 
@@ -13421,37 +13722,48 @@ components:
     BasicAuth:
       type: http
       scheme: basic
-      description: |
-        Use Basic authentication with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme).
+      description: >
+        Use Basic authentication with clients that support the InfluxDB 1.x
+        convention of username and password (that don't support the
+        `Authorization: Token` scheme).
+
 
         Username and password schemes require the following credentials:
           - **username**: 1.x username (this is separate from the UI login username)
           - **password**: 1.x password or InfluxDB API token
 
         ### Example
+
 
         `curl --get "http://localhost:8086/query"
               --user "YOUR_1.x_USERNAME":"YOUR_TOKEN_OR_PASSWORD"`
 
-        For more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+        For more information and examples, see how to [authenticate with a
+        username and password
+        scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
     QuerystringAuth:
       type: apiKey
       in: query
       name: u=&p=
-      description: |
-        Use InfluxDB 1.x API parameters to provide credentials through the query string.
+      description: >
+        Use InfluxDB 1.x API parameters to provide credentials through the query
+        string.
+
 
         Username and password schemes require the following credentials:
           - **username**: 1.x username (this is separate from the UI login username)
           - **password**: 1.x password or InfluxDB API token
 
         ### Example
+
 
         `curl --get "http://localhost:8086/query"
               --data-urlencode "u=YOUR_1.x_USERNAME"
               --data-urlencode "p=YOUR_TOKEN_OR_PASSWORD"`
 
-        For more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+        For more information and examples, see how to [authenticate with a
+        username and password
+        scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
 security:
   - TokenAuth: []
   - BasicAuth: []
