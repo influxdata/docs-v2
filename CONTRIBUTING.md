@@ -998,8 +998,6 @@ Use either `includeRange` argument name or provide the boolean value as the thir
 {{% flux/sample "int" true true %}}
 ```
 
-<<<<<<< HEAD
-=======
 ### Duplicate OSS content in Cloud
 Docs for InfluxDB OSS and InfluxDB Cloud share a majority of content.
 To prevent duplication of content between versions, use the following shortcodes:
@@ -1050,7 +1048,6 @@ This is necessary to get the first sentence/paragraph to render correctly.
 {{% /cloud-only %}}
 ```
 
->>>>>>> master
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
