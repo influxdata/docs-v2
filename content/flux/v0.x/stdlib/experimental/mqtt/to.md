@@ -22,7 +22,6 @@ import "experimental/mqtt"
 mqtt.to(
   broker: "tcp://localhost:8883",
   topic: "example-topic",
-  message: "Example message",
   qos: 0,
   clientid: "flux-mqtt",
   username: "username",
@@ -42,15 +41,6 @@ The MQTT broker connection string.
 
 ### topic {data-type="string"}
 The MQTT topic to send data to.
-
-### message {data-type="string"}
-The message or payload to send to the MQTT broker.
-The default payload is an output table.
-If there are multiple output tables, it sends each table as a separate MQTT message.
-
-{{% note %}}
-When you specify a message, the function sends the message string only (no output table).
-{{% /note %}}
 
 ### qos {data-type="int"}
 The [MQTT Quality of Service (QoS)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901103) level.
