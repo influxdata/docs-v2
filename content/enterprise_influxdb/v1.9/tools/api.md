@@ -427,7 +427,7 @@ A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.9/query_language/
 | u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
 
 \* InfluxDB does not truncate the number of rows returned for requests without the `chunked` parameter.
-That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-row-limit-0)
+That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-row-limit--0)
 configuration option for more information.
 
 \** The InfluxDB API also supports basic authentication.
