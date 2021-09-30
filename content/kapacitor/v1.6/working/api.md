@@ -255,7 +255,8 @@ Response with task `id` and `link`.
     "error" : "",
     "created": "2006-01-02T15:04:05Z07:00",
     "modified": "2006-01-02T15:04:05Z07:00",
-    "stats" : {}
+    "stats" : {},
+    "template-id": "TASK_ID"
 }
 ```
 
@@ -346,7 +347,7 @@ A task has these read-only properties in addition to the properties listed [abov
 
 #### Example
 
-Get information about a task using defaults.
+Get information about a task using defaults. If a task is associated with a template, the template ID is included in the response.
 
 ```
 GET /kapacitor/v1/tasks/TASK_ID
@@ -367,7 +368,8 @@ GET /kapacitor/v1/tasks/TASK_ID
     "created": "2006-01-02T15:04:05Z07:00",
     "modified": "2006-01-02T15:04:05Z07:00",
     "last-enabled": "2006-01-03T15:04:05Z07:00",
-    "stats" : {}
+    "stats" : {},
+    "template-id": "TASK_ID"
 }
 ```
 
@@ -392,7 +394,8 @@ GET /kapacitor/v1/tasks/TASK_ID?dot-view=labels&script-format=raw
     "created": "2006-01-02T15:04:05Z07:00",
     "modified": "2006-01-02T15:04:05Z07:00",
     "last-enabled": "2006-01-03T15:04:05Z07:00",
-    "stats" : {}
+    "stats" : {},
+    "template-id": "TASK_ID"
 }
 ```
 
@@ -427,7 +430,8 @@ To get information about several tasks, make a `GET` request to the `/kapacitor/
 
 | Query Parameter | Default    | Purpose                                                                                                                                           |
 | --------------- | -------    | -------                                                                                                                                           |
-| pattern         |            | Filter results based on the pattern. Uses standard shell glob matching, see [this](https://golang.org/pkg/path/filepath/#Match) for more details. |          | template-id     |            | (Optional) Template ID to use instead of specifying a TICKscript and type.                                                                        |
+| pattern         |            | Filter results based on the pattern. Uses standard shell glob matching, see [this](https://golang.org/pkg/path/filepath/#Match) for more details. | 
+| template-id     |            | (Optional) Template ID to use instead of specifying a TICKscript and type.                                                                        |
 | fields          |            | List of fields to return. If empty returns all fields. Fields `id` and `link` are always returned.                                                |
 | dot-view        | attributes | One of `labels` or `attributes`. Labels is less readable but will correctly render with all the information contained in labels.                  |
 | script-format   | formatted  | One of `formatted` or `raw`. Raw will return the script identical to how it was defined. Formatted will first format the script.                  |
@@ -436,7 +440,7 @@ To get information about several tasks, make a `GET` request to the `/kapacitor/
 
 #### Example
 
-Get all tasks.
+Get all tasks. Lists details about each task, including the task id, task type, database/retention policy mapping, status, whether the task is executing, and any errors or stats associated with the task. Also lists the associated template ID if the task was created from a template.
 
 ```
 GET /kapacitor/v1/tasks
@@ -448,7 +452,6 @@ GET /kapacitor/v1/tasks
         {
             "link" : {"rel":"self", "href":"/kapacitor/v1/tasks/TASK_ID"},
             "id" : "TASK_ID",
-            "template-id" : "TEMPLATE_ID,
             "type" : "stream",
             "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
             "script" : "stream|from().measurement('cpu')",
@@ -456,7 +459,8 @@ GET /kapacitor/v1/tasks
             "status" : "enabled",
             "executing" : true,
             "error" : "",
-            "stats" : {}
+            "stats" : {},
+            "template-id" : "TEMPLATE_ID"
         },
         {
             "link" : {"rel":"self", "href":"/kapacitor/v1/tasks/ANOTHER_TASK_ID"},
@@ -468,7 +472,8 @@ GET /kapacitor/v1/tasks
             "status" : "disabled",
             "executing" : true,
             "error" : "",
-            "stats" : {}
+            "stats" : {},
+            "template-id" : "TEMPLATE_ID"
         }
     ]
 }
@@ -493,7 +498,8 @@ GET /kapacitor/v1/tasks?pattern=TASK*
             "status" : "enabled",
             "executing" : true,
             "error" : "",
-            "stats" : {}
+            "stats" : {},
+            "template-id" : "TEMPLATE_ID"
         }
     ]
 }

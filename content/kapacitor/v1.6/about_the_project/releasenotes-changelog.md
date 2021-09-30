@@ -11,8 +11,8 @@ menu:
 
 ### Features
 
-- Add the `-template-id` option to `task list`. Adding this option supports processing and visualizing templated tasks in Chronograf.
-- Add support for third-party services that reject standard `json` (with carriage return at end) by adding the ability to use compact `json` in templates. (Also compacts Big Panda alert details to avoid Panda service error.)
+- Add the `-template-id` option to `task list`. Adding this option helps to identify tasks that were created from a template.
+- For alert templates, row templates, and details templates, add support for third-party services that reject standard `json` (with carriage return at end) by adding the ability to use compact `json` in templates. (Also compacts Big Panda alert details to avoid Panda service error.) jsonCompact.
 
 ### Bug fixes
 
