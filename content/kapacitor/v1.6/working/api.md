@@ -167,7 +167,7 @@ Define a task using a JSON object with the following options:
 | Property    | Purpose                                                                                   |
 | --------    | -------                                                                                   |
 | id          | Unique identifier for the task. If empty a random ID will be chosen.                      |
-| template-id | An optional ID of a template to use instead of specifying a TICKscript and type directly. |
+| template-id | (Optional) Template ID to use instead of specifying a TICKscript and type.                |
 | type        | The task type: `stream` or `batch`.                                                       |
 | dbrps       | List of database retention policy pairs the task is allowed to access.                    |
 | script      | The content of the script.                                                                |
@@ -178,7 +178,7 @@ When using `PATCH`, if any property is missing, the task will be left unmodified
 
 {{% note %}}
 **Note:** When patching a task, no changes are made to the running task.
-The task must be disabled and re-enabled for any changes to take effect.
+The task must be disabled and re-enabled for changes to take effect.
 {{% /note %}}
 
 ##### Vars
@@ -220,6 +220,7 @@ Create a new task with the `id` value of `TASK_ID`.
 POST /kapacitor/v1/tasks
 {
     "id" : "TASK_ID",
+    "template-id" : "TASK_DESCRIPTION",
     "type" : "stream",
     "dbrps": [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script": "stream\n    |from()\n        .measurement('cpu')\n",
@@ -238,6 +239,7 @@ Response with task `id` and `link`.
 {
     "link" : {"rel": "self", "href": "/kapacitor/v1/tasks/TASK_ID"},
     "id" : "TASK_ID",
+    "template-id" : "TASK_DESCRIPTION",
     "type" : "stream",
     "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script" : "stream\n    |from()\n        .measurement('cpu')\n",
@@ -295,6 +297,7 @@ Define a new task that is enabled on creation.
 POST /kapacitor/v1/tasks
 {
     "id" : "TASK_ID",
+    "template-id" : "TASK_DESCRIPTION",
     "type" : "stream",
     "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script" : "stream\n    |from()\n        .measurement('cpu')\n",
@@ -302,11 +305,12 @@ POST /kapacitor/v1/tasks
 }
 ```
 
-Response with task `id` and `link`.
+Response with task `id`, `template-id` and `link`.
 
 ```json
 {
     "id" : "TASK_ID",
+    "template-id" : "TASK_DESCRIPTION",
     "link" : {"rel": "self", "href": "/kapacitor/v1/tasks/TASK_ID"}
 }
 ```
@@ -327,7 +331,6 @@ To get information about a task, make a `GET` request to the `/kapacitor/v1/task
 | dot-view        | attributes | One of `labels` or `attributes`. Labels is less readable but will correctly render with all the information contained in labels. |
 | script-format   | formatted  | One of `formatted` or `raw`. Raw will return the script identical to how it was defined. Formatted will first format the script. |
 | replay-id       |            | Optional ID of a running replay. The returned task information will be in the context of the task for the running replay.        |
-
 
 A task has these read-only properties in addition to the properties listed [above](#defining-tasks).
 
@@ -353,6 +356,7 @@ GET /kapacitor/v1/tasks/TASK_ID
 {
     "link" : {"rel": "self", "href": "/kapacitor/v1/tasks/TASK_ID"},
     "id" : "TASK_ID",
+    "template-id" : "TASK_DESCRIPTION",
     "type" : "stream",
     "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script" : "stream\n    |from()\n        .measurement('cpu')\n",
@@ -377,6 +381,7 @@ GET /kapacitor/v1/tasks/TASK_ID?dot-view=labels&script-format=raw
 {
     "link" : {"rel": "self", "href": "/kapacitor/v1/tasks/TASK_ID"},
     "id" : "TASK_ID",
+    "template-id" : "TASK_DESCRIPTION",
     "type" : "stream",
     "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script" : "stream|from().measurement('cpu')",
@@ -397,7 +402,6 @@ GET /kapacitor/v1/tasks/TASK_ID?dot-view=labels&script-format=raw
 | ---- | -------             |
 | 200  | Success             |
 | 404  | Task does not exist |
-
 
 ### Delete a task
 
@@ -423,7 +427,7 @@ To get information about several tasks, make a `GET` request to the `/kapacitor/
 
 | Query Parameter | Default    | Purpose                                                                                                                                           |
 | --------------- | -------    | -------                                                                                                                                           |
-| pattern         |            | Filter results based on the pattern. Uses standard shell glob matching, see [this](https://golang.org/pkg/path/filepath/#Match) for more details. |
+| pattern         |            | Filter results based on the pattern. Uses standard shell glob matching, see [this](https://golang.org/pkg/path/filepath/#Match) for more details. |          | template-id     |            | (Optional) Template ID to use instead of specifying a TICKscript and type.                                                                        |
 | fields          |            | List of fields to return. If empty returns all fields. Fields `id` and `link` are always returned.                                                |
 | dot-view        | attributes | One of `labels` or `attributes`. Labels is less readable but will correctly render with all the information contained in labels.                  |
 | script-format   | formatted  | One of `formatted` or `raw`. Raw will return the script identical to how it was defined. Formatted will first format the script.                  |
@@ -444,6 +448,7 @@ GET /kapacitor/v1/tasks
         {
             "link" : {"rel":"self", "href":"/kapacitor/v1/tasks/TASK_ID"},
             "id" : "TASK_ID",
+            "template-id" : "TEMPLATE_ID,
             "type" : "stream",
             "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
             "script" : "stream|from().measurement('cpu')",
