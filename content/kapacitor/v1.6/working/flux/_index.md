@@ -88,7 +88,6 @@ CREATE RETENTION POLICY threedays on kapacitorfluxtasks DURATION 3d
     {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
 
-
 ## Configure Kapacitor Flux tasks
 Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
 
@@ -97,8 +96,8 @@ Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
   to use to store Flux task data.
   _To disable Flux task logging, set to `"none"`._
 - **task-run-bucket**: InfluxDB bucket to store Flux task data and logs in.
-  Use the `"db-name/rp-name"` naming convention.
-  To use the default RP for the database, use `"db-name/"`.
+  Use the `"db-name"` naming convention.
+  By default, the bucket/database name is `kapacitor_fluxtask_logs`.
 - Provide one of the following:
     - **task-run-org**: _Leave as an empty string (`""`)_
     - **task-run-orgid**: _Leave as an empty string (`""`)_

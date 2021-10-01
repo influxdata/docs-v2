@@ -17,8 +17,15 @@ Use templates in the CLI and the [API](/kapacitor/v1.6/working/api) to define an
 
 To create a task template, do the following:
 
-1. Create a task template script
-2. Run the `define-template` command
+1. [Create a task template script](#create-a-task-template-script)
+2. [Run the `define-template` command](#run-the-define-template-command)
+3. [Define a new task](#define-a-new-task)
+
+When creating a task template, consider the following:
+
+- [Using variables](#using-variables)
+- [Using the `-file` flag](#using-the-file-flag)
+- [Specifying dbrp implicitly](#specifying-dbrp-implicitly)
 
 Then, use the task template to define new tasks.
 
