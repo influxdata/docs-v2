@@ -197,7 +197,7 @@ Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
   to use to store Flux task data.
   _To disable Flux task logging, set to `"none"`._
 - **task-run-bucket**: InfluxDB bucket to store Flux task data and logs in. By default, data is written to the `kapacitor_fluxtask_logs` bucket.
-  To specify another bucket to write task log data to, use the [_tasks system bucket](/influxdb/cloud/reference/internals/system-buckets/#_tasks-system-bucket) or [create a new bucket](/influxdb/cloud/organizations/buckets/create-bucket/). If the specified bucket does not already exist in InfluxDB, Kapacitor attempts to create it with `POST /api/v2/buckets`, in which case your API token must have permissions to create buckets in InfluxDB. For more information, see [Manage API tokens](/influxdb/v2.0/security/tokens/).
+  To specify another bucket to write task log data to, use the [_tasks system bucket](/influxdb/cloud/reference/internals/system-buckets/#_tasks-system-bucket) or [create a new bucket](/influxdb/cloud/organizations/buckets/create-bucket/). If the specified bucket does not already exist in InfluxDB, Kapacitor attempts to create it with [`POST /api/v2/buckets`](/influxdb/v2.0/api/#operation/PostBuckets), in which case your API token must have permissions to create buckets in InfluxDB. For more information, see [Manage API tokens](/influxdb/v2.0/security/tokens/).
 - Provide one of the following:
     - **task-run-org**: InfluxDB organization name.
     - **task-run-orgid**: InfluxDB organization ID.
