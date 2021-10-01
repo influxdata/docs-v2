@@ -205,7 +205,7 @@ The following is a table of valid types and example values.
 | bool     | true                             | "true" or "false"                                                                                       |
 | int      | 42                               | Any integer value                                                                                       |
 | float    | 2.5 or 67                        | Any numeric value                                                                                       |
-| duration | "1s" or 1000000000               | Any integer value interpretted in nanoseconds or an influxql duration string, (i.e. 10000000000 is 10s) |
+| duration | "1s" or 1000000000               | Any integer value interpreted in nanoseconds or an influxql duration string, (i.e. 10000000000 is 10s) |
 | string   | "a string"                       | Any string value                                                                                        |
 | regex    | "^abc.*xyz"                      | Any string value that represents a valid Go regular expression https://golang.org/pkg/regexp/           |
 | lambda   | "\"value\" > 5"                  | Any string that is a valid TICKscript lambda expression                                                 |
@@ -214,13 +214,13 @@ The following is a table of valid types and example values.
 
 #### Example
 
-Create a new task with the `id` value of `TASK_ID`.
+Create a new task with the `id` value of `TASK_ID`. To create a task from a template, add the `template-id`.
 
 ```
 POST /kapacitor/v1/tasks
 {
     "id" : "TASK_ID",
-    "template-id" : "TASK_DESCRIPTION",
+    "template-id" : "TEMPLATE_ID", 
     "type" : "stream",
     "dbrps": [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script": "stream\n    |from()\n        .measurement('cpu')\n",
@@ -239,7 +239,7 @@ Response with task `id` and `link`.
 {
     "link" : {"rel": "self", "href": "/kapacitor/v1/tasks/TASK_ID"},
     "id" : "TASK_ID",
-    "template-id" : "TASK_DESCRIPTION",
+    "template-id" : "TEMPLATE_ID",
     "type" : "stream",
     "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script" : "stream\n    |from()\n        .measurement('cpu')\n",
@@ -298,7 +298,7 @@ Define a new task that is enabled on creation.
 POST /kapacitor/v1/tasks
 {
     "id" : "TASK_ID",
-    "template-id" : "TASK_DESCRIPTION",
+    "template-id" : "TEMPLATE_ID",
     "type" : "stream",
     "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script" : "stream\n    |from()\n        .measurement('cpu')\n",
@@ -311,7 +311,7 @@ Response with task `id`, `template-id` and `link`.
 ```json
 {
     "id" : "TASK_ID",
-    "template-id" : "TASK_DESCRIPTION",
+    "template-id" : "TEMPLATE_ID",
     "link" : {"rel": "self", "href": "/kapacitor/v1/tasks/TASK_ID"}
 }
 ```
@@ -357,7 +357,7 @@ GET /kapacitor/v1/tasks/TASK_ID
 {
     "link" : {"rel": "self", "href": "/kapacitor/v1/tasks/TASK_ID"},
     "id" : "TASK_ID",
-    "template-id" : "TASK_DESCRIPTION",
+    "template-id" : "TEMPLATE_ID",
     "type" : "stream",
     "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script" : "stream\n    |from()\n        .measurement('cpu')\n",
@@ -383,7 +383,7 @@ GET /kapacitor/v1/tasks/TASK_ID?dot-view=labels&script-format=raw
 {
     "link" : {"rel": "self", "href": "/kapacitor/v1/tasks/TASK_ID"},
     "id" : "TASK_ID",
-    "template-id" : "TASK_DESCRIPTION",
+    "template-id" : "TEMPLATE_ID",
     "type" : "stream",
     "dbrps" : [{"db": "DATABASE_NAME", "rp" : "RP_NAME"}],
     "script" : "stream|from().measurement('cpu')",
@@ -394,8 +394,7 @@ GET /kapacitor/v1/tasks/TASK_ID?dot-view=labels&script-format=raw
     "created": "2006-01-02T15:04:05Z07:00",
     "modified": "2006-01-02T15:04:05Z07:00",
     "last-enabled": "2006-01-03T15:04:05Z07:00",
-    "stats" : {},
-    "template-id": "TASK_ID"
+    "stats" : {}
 }
 ```
 

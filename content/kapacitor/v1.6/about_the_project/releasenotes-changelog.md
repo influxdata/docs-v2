@@ -12,7 +12,8 @@ menu:
 ### Features
 
 - Add the `-template-id` property to the `GET /kapacitor/v1/tasks` request response. Adding this property helps to identify tasks that were created from a template.
-- For alert templates, row templates, and details templates, add support for third-party services that reject standard `json` (with carriage return at end) by adding the ability to use compact `json` in templates. (Also compacts Big Panda alert details to avoid Panda service error.) jsonCompact.
+- For alert templates, row templates, and details templates, add support for third-party services that reject standard `json` (with carriage return at end) by adding the ability to use compact `json` in templates. To use compact JSON, replace `{{ json . }}` with `{{ jsonCompact . }}` in your template. (This change also compacts Big Panda alert details to avoid Panda service error.)
+- Previously, Kapacitor used a remote `influxdb` bucket (or 1.x database) to store Flux task run logs, and you had to manually create the database or bucket to store Flux logs. Now, Kapacitor automatically creates an InfluxDB 1.x database or InfluxDB 2.x bucket for Flux task logs (by default, `kapacitor_fluxtask_logs`). Note for InfluxDB 1.x, the `database` bucket name is created (rather than the 1.x format `database/rp` that includes the retention policy.
 
 ### Bug fixes
 
@@ -20,7 +21,6 @@ menu:
 - Update `jwt` dependencies of libraries to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
 - Switch to `github.com/golang-jwt/jwt` to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
 - Switch task service to use Flux formatter that preserves comments.
-- Previously, Kapacitor used a remote `influxdb` bucket (or 1.x database) to store Flux task run logs, and you had to manually create the database or bucket to store Flux logs. Now, Kapacitor automatically creates an InfluxDB 1.x database or InfluxDB 2.x bucket for Flux task logs. Note for InfluxDB 1.x, the `database` bucket name is created (rather than the 1.x format `database/rp` that includes the retention policy.
 
 ## v1.6.1 [2021-07-22]
 
