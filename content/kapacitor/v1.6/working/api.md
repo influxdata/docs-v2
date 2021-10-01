@@ -429,8 +429,7 @@ To get information about several tasks, make a `GET` request to the `/kapacitor/
 
 | Query Parameter | Default    | Purpose                                                                                                                                           |
 | --------------- | -------    | -------                                                                                                                                           |
-| pattern         |            | Filter results based on the pattern. Uses standard shell glob matching, see [this](https://golang.org/pkg/path/filepath/#Match) for more details. | 
-| template-id     |            | (Optional) Template ID to use instead of specifying a TICKscript and type.                                                                        |
+| pattern         |            | Filter results based on the pattern. Uses standard shell glob matching, see [this](https://golang.org/pkg/path/filepath/#Match) for more details. |
 | fields          |            | List of fields to return. If empty returns all fields. Fields `id` and `link` are always returned.                                                |
 | dot-view        | attributes | One of `labels` or `attributes`. Labels is less readable but will correctly render with all the information contained in labels.                  |
 | script-format   | formatted  | One of `formatted` or `raw`. Raw will return the script identical to how it was defined. Formatted will first format the script.                  |
