@@ -931,7 +931,7 @@ Use the `[fluxtask]` configuration group to enable and configure Kapacitor Flux 
   task-run-orgid = ""
   # The measurement name for the historical task run data
   task-run-measurement = "runs" 
-  # If you run multiple Kapacitor instance, then you must 
+
 # ...
 ```
 
