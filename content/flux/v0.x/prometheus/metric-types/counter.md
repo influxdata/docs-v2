@@ -22,6 +22,18 @@ Use Flux to query and transform Prometheus **counter** metrics stored in InfluxD
 >
 > {{% cite %}}[Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/#counter){{% /cite %}}
 
+##### Example counter metric in Prometheus format
+```sh
+# HELP example_counter_total Total representing and example counter metric
+# TYPE example_counter_total counter
+example_counter_total 282327
+```
+
+The examples below include example data collected from the **InfluxDB OSS 2.x `/metrics` endpoint**
+using `prometheus.scrape()` and stored in InfluxDB.
+Your data schema and query structure may differ depending on the tool used to
+collect metrics and its [Prometheus metrics parsing format](/{{< latest "influxdb">}}/reference/prometheus-metrics/).
+
 - [Normalize counter resets](#normalize-counter-resets)
 - [Calculate changes between normalized counter values](#calculate-changes-between-normalized-counter-values)
 - [Calculate the rate of change in normalized counter values](#calculate-the-rate-of-change-in-normalized-counter-values)
@@ -104,7 +116,7 @@ from(bucket: "example-bucket")
 {{< img-hd src="/img/flux/0-x-prometheus-counter-normalized-input.png" alt="Raw Prometheus counter metric in InfluxDB" />}}
 {{< /flex-content >}}
 {{< flex-content >}}
-{{< img-hd src="/img/flux/0-x-prometheus-counter-difference-output.png" alt="Increase on Prometheus counter metric in InfluxDB" />}}
+{{< img-hd src="/img/flux/0-x-prometheus-counter-difference-output.png" alt="Normalize Prometheus counter metric to account for counter resets" />}}
 {{< /flex-content >}}
 {{< /flex >}}
 
@@ -136,7 +148,7 @@ from(bucket: "example-bucket")
 ## Calculate the rate of change in normalized counter values
 Use [`derivative()`](/flux/v0.x/stdlib/universe/derivative/) to calculate the rate
 of change between [normalized counter values](#normalize-counter-resets).
-By default, derivative returns the rate of change per second.
+By default, `derivative()` returns the rate of change per second.
 Use the [`unit` parameter](/flux/v0.x/stdlib/universe/derivative/#unit) to
 customize the rate unit.
 
@@ -153,10 +165,10 @@ from(bucket: "example-bucket")
 
 {{< flex >}}
 {{< flex-content >}}
-{{< img-hd src="/img/flux/0-x-prometheus-counter-normalized-input.png" alt="Raw Prometheus counter metric in InfluxDB" />}}
+{{< img-hd src="/img/flux/0-x-prometheus-counter-normalized-input.png" alt="Normalized Prometheus counter metric in InfluxDB" />}}
 {{< /flex-content >}}
 {{< flex-content >}}
-{{< img-hd src="/img/flux/0-x-prometheus-counter-derivative-output.png" alt="Increase on Prometheus counter metric in InfluxDB" />}}
+{{< img-hd src="/img/flux/0-x-prometheus-counter-derivative-output.png" alt="Calculate the rate of change in Prometheus counter metric with Flux" />}}
 {{< /flex-content >}}
 {{< /flex >}}
 
@@ -185,7 +197,7 @@ from(bucket: "example-bucket")
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Calculate the average rate of change in specified time windows
+## Calculate the average rate of change in specified time windows
 To calculate the average rate of change in [normalized counter values](#normalize-counter-resets)
 in specified time windows:
 
@@ -196,7 +208,8 @@ in specified time windows:
     - Use the [`every` parameter](/flux/v0.x/stdlib/experimental/aggregate/rate/#every)
       to define the time window interval.
     - Use the [`unit` parameter](/flux/v0.x/stdlib/experimental/aggregate/rate/#unit)
-      to customize the rate unit.
+      to customize the rate unit.By default, `aggregate.rate()` returns the per second
+      (`1s`) rate of change.
     - Use the [`groupColumns` parameter](/flux/v0.x/stdlib/experimental/aggregate/rate/#groupcolumns)
       to specify columns to group by when performing the aggregation.
 
@@ -210,15 +223,15 @@ from(bucket: "example-bucket")
     r._field == "http_query_request_bytes"
   )
   |> increase()
-  |> aggregate.rate(every: 10s, unit: 1s)
+  |> aggregate.rate(every: 15s, unit: 1s)
 ```
 
 {{< flex >}}
 {{< flex-content >}}
-{{< img-hd src="/img/flux/0-x-prometheus-counter-normalized-input.png" alt="Raw Prometheus counter metric in InfluxDB" />}}
+{{< img-hd src="/img/flux/0-x-prometheus-counter-normalized-input.png" alt="Normalized Prometheus counter metric in InfluxDB" />}}
 {{< /flex-content >}}
 {{< flex-content >}}
-{{< img-hd src="/img/flux/0-x-prometheus-counter-aggregate-rate-output.png" alt="Increase on Prometheus counter metric in InfluxDB" />}}
+{{< img-hd src="/img/flux/0-x-prometheus-counter-aggregate-rate-output.png" alt="Calculate the rate of change in Prometheus counter metrics per time window with Flux" />}}
 {{< /flex-content >}}
 {{< /flex >}}
 

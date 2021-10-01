@@ -24,20 +24,17 @@ Use Flux to query and transform Prometheus **histogram** metrics stored in Influ
 
 ##### Example histogram metric in Prometheus data
 ```sh
-# HELP http_api_request_duration_seconds Time taken to respond to HTTP request
-# TYPE http_api_request_duration_seconds histogram
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.005"} 0
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.01"} 2
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.025"} 80
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.05"} 80
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.1"} 80
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.25"} 85
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="0.5"} 85
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="1"} 87
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="2.5"} 87
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="5"} 88
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="10"} 88
-http_api_request_duration_seconds_bucket{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome",le="+Inf"} 88
-http_api_request_duration_seconds_sum{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome"} 6.833441910000001
-http_api_request_duration_seconds_count{handler="platform",method="POST",path="/api/v2/query",response_code="200",status="2XX",user_agent="Chrome"} 88
+# HELP example_histogram_duration Duration of given tasks and example histogram metric
+# TYPE example_histogram_duration histogram
+example_histogram_duration_bucket{le="0.1"} 80
+example_histogram_duration_bucket{le="0.25"} 85
+example_histogram_duration_bucket{le="0.5"} 85
+example_histogram_duration_bucket{le="1"} 87
+example_histogram_duration_bucket{le="2.5"} 87
+example_histogram_duration_bucket{le="5"} 88
+example_histogram_duration_bucket{le="+Inf"} 88
+example_histogram_duration_sum 6.833441910000001
+example_histogram_duration_count 88
 ```
+
+## Calculate quantiles from Prometheus histograms
