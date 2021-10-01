@@ -1,19 +1,20 @@
 ---
-title: victorops.event() function
+title: victorops.alert() function
 description: >
-  The `victorops.event()` function sends an event to VictorOps.
+  The `victorops.alert()` function sends an alert to VictorOps.
 menu:
   flux_0_x_ref:
-    name: victorops.event
+    name: victorops.alert
     parent: victorops
 weight: 202
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/victorops/event/
   - /influxdb/cloud/reference/flux/stdlib/contrib/victorops/event/
+  - /flux/v0.x/stdlib/contrib/bonitoo-io/victorops/event/
 introduced: 0.108.0
 ---
 
-The `victorops.event()` function sends an event to [VictorOps](https://www.victorops.com/).
+The `victorops.alert()` function sends an alert to [VictorOps](https://www.victorops.com/).
 
 {{% note %}}
 #### VictorOps is now Splunk On-Call
@@ -24,7 +25,7 @@ Splunk acquired VictorOps and VictorOps is now
 ```js
 import "contrib/bonitoo-io/victorops"
 
-victorops.event(
+victorops.alert(
   url: "https://alert.victorops.com/integrations/generic/00000000/alert/${api_key}/${routing_key}",
   monitoringTool: "",
   messageType: "CRITICAL",
@@ -96,7 +97,7 @@ lastReported =
     |> last()
     |> findRecord(fn: (key) => true, idx: 0)
 
-victorops.event(
+victorops.alert(
   url: "https://alert.victorops.com/integrations/generic/00000000/alert/${apiKey}/${routingKey}",
   messageType:
     if lastReported._value < 1.0 then "CRITICAL"
