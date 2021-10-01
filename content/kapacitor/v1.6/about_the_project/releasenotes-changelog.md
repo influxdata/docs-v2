@@ -18,6 +18,7 @@ menu:
 ### Bug fixes
 
 - Previously, errors could occur if a measurement string had special characters. Now, `expvar` string json encoding handles special characters, thanks @prashanthjbabu!
+- Previously, if `disable-subscriptions=true` in the [InfluxDB](/kapacitor/v1.6/administration/configuration/#influxdb) section of the Kapacitor configuration file, Kapacitor didn't validate that the `influxdb` instance was running and available. Now, Kapacitor correctly validates (via `GET /ping`) whenever `enabled=true`. If InfluxDB is not available, Kapacitor does not start.
 - Update `jwt` dependencies of libraries to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
 - Switch to `github.com/golang-jwt/jwt` to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
 - Switch task service to use Flux formatter that preserves comments.
