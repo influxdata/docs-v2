@@ -96,7 +96,6 @@ Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
   to use to store Flux task data.
   _To disable Flux task logging, set to `"none"`._
 - **task-run-bucket**: InfluxDB bucket to store Flux task data and logs in. By default, data is written to the `kapacitor_fluxtask_logs` database. To specify another database to write task log data to, use the `"db-name"` naming convention (including the retention policy `"db-name/rp"` is not supported). If the specified database does not already exist in InfluxDB, Kapacitor attempts to create the database. If authentication is turned on, permissions to `CREATE DATABASE` are required. For more information, see [Authentication and authorization in InfluxDB](/influxdb/v1.8/administration/authentication_and_authorization/).
-  # to create it with `CREATE DATABASE`
 - Provide one of the following:
     - **task-run-org**: _Leave as an empty string (`""`)_
     - **task-run-orgid**: _Leave as an empty string (`""`)_
