@@ -37,7 +37,8 @@ The `max series per database exceeded` error occurs when a write causes the
 number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) in a database to
 exceed the maximum allowable series per database.
 The maximum allowable series per database is controlled by the
-`max-series-per-database` setting in the `[data]` section of the configuration
+[`max-series-per-database`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-series-per-database--1000000)
+setting in the `[data]` section of the configuration
 file.
 
 The information in the `< >` shows the measurement and the tag set of the series
@@ -45,9 +46,6 @@ that exceeded `max-series-per-database`.
 
 By default `max-series-per-database` is set to one million.
 Changing the setting to `0` allows an unlimited number of series per database.
-
-**Resources:**
-[Database Configuration](/enterprise_influxdb/v1.9/administration/config/#max-series-per-database-1000000)
 
 ## `error parsing query: found < >, expected identifier at line < >, char < >`
 
@@ -326,7 +324,7 @@ The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854
 
 The `cache maximum memory size exceeded` error occurs when the cached
 memory size increases beyond the
-[`cache-max-memory-size` setting](/enterprise_influxdb/v1.9/administration/config/#cache-max-memory-size-1g)
+[`cache-max-memory-size` setting](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#cache-max-memory-size--1g)
 in the configuration file.
 
 By default, `cache-max-memory-size` is set to 512mb.
@@ -335,11 +333,8 @@ or for datasets with higher [series cardinality](/enterprise_influxdb/v1.9/conce
 If you have lots of RAM you could set it to `0` to disable the cached memory
 limit and never get this error.
 You can also examine the `memBytes` field in the`cache` measurement in the
-[`_internal` database](/enterprise_influxdb/v1.9/administration/server_monitoring/#internal-monitoring)
+[`_internal` database](/enterprise_influxdb/v1.9/administration/monitor/server_monitoring/#internal-monitoring)
 to get a sense of how big the caches are in memory.
-
-**Resources:**
-[Database Configuration](/enterprise_influxdb/v1.9/administration/config/)
 
 ## `already killed`
 

@@ -63,7 +63,7 @@ until the query record is cleared from memory.
 #### Syntax
 
 Where `qid` is the query ID, displayed in the
-[`SHOW QUERIES`](/eneterprise_influxdb/v1.9/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries) output:
+[`SHOW QUERIES`](/enterprise_influxdb/v1.9/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries) output:
 
 ```sql
 KILL QUERY <qid>
