@@ -2,15 +2,11 @@
 title: mqtt.publish() function
 description: >
   The `mqtt.publish()` function outputs data to an MQTT broker using MQTT protocol.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/mqtt/publish/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/publish/
 menu:
   flux_0_x_ref:
     name: mqtt.publish
     parent: mqtt
 weight: 401
-flux/v0.x/tags: [outputs]
 introduced: 0.133.0
 ---
 
@@ -23,9 +19,12 @@ mqtt.publish(
   broker: "tcp://localhost:8883",
   topic: "example-topic",
   message: "Example message",
+  qos: 0,
+  retain: false,
   clientid: "flux-mqtt",
   username: "username",
-  password: "password"
+  password: "password",
+  timeout: 1s
 )
 ```
 
@@ -68,7 +67,7 @@ Default is `1s`.
 
 ## Examples
 
-### Send arbitrary message to an MQTT endpoint
+#### Send a message to an MQTT endpoint
 ```js
 import "experimental/mqtt"
 
@@ -81,13 +80,13 @@ mqtt.publish(
 )
 ```
 
-### Send data related message to an MQTT endpoint
+#### Send a message to an MQTT endpoint using input data
 ```js
 import "experimental/mqtt"
+import "influxdata/influxdb/sample"
 
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) => r._measurement == "airSensor")
+sample.data(set: "airSensor")
+  |> range(start: -20m)
   |> last()
   |> map(fn: (r) => ({
     r with
