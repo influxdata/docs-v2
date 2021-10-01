@@ -109,7 +109,7 @@ Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
 [fluxtask]
   enabled = true
   task-run-influxdb = "default"
-  task-run-bucket = "kapacitorfluxtasks/autogen"
+  task-run-bucket = "kapacitor_fluxtask_logs"
   task-run-org = ""
   task-run-orgid = ""
   task-run-measurement = "runs"
