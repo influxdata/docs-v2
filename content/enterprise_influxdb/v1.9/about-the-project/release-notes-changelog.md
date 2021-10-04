@@ -9,7 +9,17 @@ menu:
     parent: About the project
 ---
 
-## v1.9.4 [TK]
+## v1.9.5
+
+### Features
+### Bug fixes
+
+## v1.9.4
+
+{{% note %}}
+InfluxDB Enterprise 1.9.4 was not released.
+Changes below are included in InfluxDB Enterprise 1.9.5.
+{{% /note %}}
 
 ### Features
 - Add the following options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) InfluxDB Enterprise databases:
