@@ -19,8 +19,7 @@ menu:
 
 - Implement `expvar` string json encoding to correctly handle special characters in measurement strings!
 - Correctly validate that connected InfluxDB instances are running when`disable-subscriptions` is set to `true` in the [InfluxDB section of the Kapacitor configuration file](/kapacitor/v1.6/administration/configuration/#influxdb). If InfluxDB is not available, Kapacitor does not start.
-- Update `jwt` dependencies of libraries to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
-- Switch to `github.com/golang-jwt/jwt` to prevent this vulnerability: https://nvd.nist.gov/vuln/detail/CVE-2020-26160.
+- Update `jwt` dependencies and switch to `github.com/golang-jwt/jwt` to remediate the [CVE-2020-26160 vulnerability](https://nvd.nist.gov/vuln/detail/CVE-2020-26160).
 - Switch task service to use Flux formatter that preserves comments.
 
 ## v1.6.1 [2021-07-22]
