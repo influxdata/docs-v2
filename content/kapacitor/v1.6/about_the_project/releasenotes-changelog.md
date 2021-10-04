@@ -12,7 +12,7 @@ menu:
 ### Features
 
 - Add the `template-id` property to the `GET /kapacitor/v1/tasks` request response. Adding this property helps to identify tasks that were created from a [template](/kapacitor/v1.6/working/template_tasks/).
-- For alert templates, row templates, and details templates, add support for third-party services that reject standard `json` (with carriage return at end) by compacting `json` in templates. To do this, replace `{{ json . }}` with `{{ jsonCompact . }}` in your templates. (This change also compacts Big Panda alert details to avoid Panda service error.)
+- For alert templates, row templates, and details templates, add support for third-party services that reject standard `json` (terminated by a new line character) by compacting `json` in templates. To do this, replace `{{ json . }}` with `{{ jsonCompact . }}` in your templates. (This change also compacts Big Panda alert details to avoid Panda service error.)
 - Previously, Kapacitor used a remote `influxdb` bucket (or 1.x database) to store Flux task run logs, and you had to manually create the database or bucket to store Flux logs. Now, Kapacitor automatically creates an InfluxDB 1.x database or InfluxDB 2.x bucket for Flux task logs (by default, kapacitor_fluxtask_logs). For more information, see how to [use Flux tasks with Kapacitor](/kapacitor/v1.6/working/flux/).
 
 ### Bug fixes
