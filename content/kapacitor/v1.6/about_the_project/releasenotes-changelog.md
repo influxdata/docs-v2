@@ -7,14 +7,31 @@ menu:
     name: Release notes
 ---
 
+## v1.6.2 [2021-09-24]
+
+### Features
+
+- Add the `template-id` property to the `GET /kapacitor/v1/tasks` request response. Adding this property helps to identify tasks that were created from a [template](/kapacitor/v1.6/working/template_tasks/).
+- For alert templates, row templates, and details templates, add support for third-party services that reject standard `json` (terminated by a new line character) by compacting `json` in templates. To do this, replace `{{ json . }}` with `{{ jsonCompact . }}` in your templates. (This change also compacts Big Panda alert details to avoid Panda service error.)
+- Previously, Kapacitor used a remote `influxdb` bucket (or 1.x database) to store Flux task run logs, and you had to manually create the database or bucket to store Flux logs. Now, Kapacitor automatically creates an InfluxDB 1.x database or InfluxDB 2.x bucket for Flux task logs (by default, kapacitor_fluxtask_logs). For more information, see how to [use Flux tasks with Kapacitor](/kapacitor/v1.6/working/flux/).
+
+### Bug fixes
+
+- Implement `expvar` string json encoding to correctly handle special characters in measurement strings, thanks @prashanthjbabu!
+- Correctly validate that connected InfluxDB instances are running when`disable-subscriptions` is set to `true` in the [InfluxDB section of the Kapacitor configuration file](/kapacitor/v1.6/administration/configuration/#influxdb). If InfluxDB is not available, Kapacitor does not start.
+- Update `jwt` dependencies and switch to `github.com/golang-jwt/jwt` to remediate the [CVE-2020-26160 vulnerability](https://nvd.nist.gov/vuln/detail/CVE-2020-26160).
+- Switch task service to use Flux formatter that preserves comments.
+
 ## v1.6.1 [2021-07-22]
 
 ### Features
+
 - Add flag for restricting CIDR ranges for certain event handlers and nodes.
 - Add flag for disabling alert handlers for additional security (such as
   disabling the `exec` alert handler on a shared machine).
 
-### Bugfixes
+### Bug fixes
+
 - Align `DeleteGroupMessage` with `GroupInfo` interface.
 - Fix payload serialization for BigPanda.
 
@@ -37,6 +54,7 @@ with the Kapacitor API.
 
 {{% warn %}}
 ### Breaking changes
+
 Kapacitor 1.6+ no longer supports 32-bit operating systems.
 If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
 {{% /warn %}}
@@ -55,7 +73,8 @@ If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
 - Update [Slack event handler](/kapacitor/v1.6/event_handlers/slack/) to support new-style Slack applications.
 - Handle Delete messages in [joinNode](/kapacitor/v1.6/nodes/join_node/).
 
-### Bugfixes
+### Bug fixes
+
 - Fix a panic in the scraper handler when debug mode is enabled. 
 
 ## v1.5.9 [2021-04-01]

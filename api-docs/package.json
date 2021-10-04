@@ -5,6 +5,7 @@
   "description": "InfluxDB API documentation",
   "license": "MIT",
   "dependencies": {
+    "npx": "^10.2.2",
     "redoc-cli": "0.9.13"
   }
 }

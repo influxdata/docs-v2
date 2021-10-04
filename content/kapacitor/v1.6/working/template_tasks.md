@@ -17,10 +17,19 @@ Use templates in the CLI and the [API](/kapacitor/v1.6/working/api) to define an
 
 To create a task template, do the following:
 
-1. Create a task template script
-2. Run the `define-template` command
+1. [Create a task template script](#create-a-task-template-script)
+2. [Run the `define-template` command](#run-the-define-template-command)
+3. [Define a new task](#define-a-new-task)
 
-Then, use the task template to define new tasks.
+{{% note %}}
+Some third-party services reject standard `json` terminated by a new-line character. To remove the new line, replace `{{ json . }}` with `{{ jsonCompact . }}` in your templates.
+{{% /note %}}
+
+When creating a task template, consider the following:
+
+- [Using variables](#using-variables)
+- [Using the `-file` flag](#using-the--file-flag)
+- [Specifying dbrp implicitly](#specifying-dbrp-implicitly)
 
 {{% note %}}
 Chronograf does **not** display template details, including variable values.
@@ -142,19 +151,19 @@ Define a new task using the template to trigger an alert on CPU usage.
 
 1. Pass variable values into the template using a simple JSON file.
 
-_**Example: A JSON variable file**_
-```json
-{
-    "measurement": {"type" : "string", "value" : "cpu" },
-    "where_filter": {"type": "lambda", "value": "\"cpu\" == 'cpu-total'"},
-    "groups": {"type": "list", "value": [{"type":"string", "value":"host"},{"type":"string", "value":"dc"}]},
-    "field": {"type" : "string", "value" : "usage_idle" },
-    "warn": {"type" : "lambda", "value" : "\"mean\" < 30.0" },
-    "crit": {"type" : "lambda", "value" : "\"mean\" < 10.0" },
-    "window": {"type" : "duration", "value" : "1m" },
-    "slack_channel": {"type" : "string", "value" : "#alerts_testing" }
-}
-```
+    _**Example: A JSON variable file**_
+    ```json
+    {
+       "measurement": {"type" : "string", "value" : "cpu" },
+       "where_filter": {"type": "lambda", "value": "\"cpu\" == 'cpu-total'"},
+       "groups": {"type": "list", "value": [{"type":"string", "value":"host"},{"type":"string", "value":"dc"}]},
+       "field": {"type" : "string", "value" : "usage_idle" },
+       "warn": {"type" : "lambda", "value" : "\"mean\" < 30.0" },
+       "crit": {"type" : "lambda", "value" : "\"mean\" < 10.0" },
+       "window": {"type" : "duration", "value" : "1m" },
+       "slack_channel": {"type" : "string", "value" : "#alerts_testing" }
+    }
+    ```
 
 2. Pass in the template file and the JSON variable file by running a command with both `-template` and `-vars` arguments:
 
