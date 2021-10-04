@@ -22,7 +22,7 @@ To create a task template, do the following:
 3. [Define a new task](#define-a-new-task)
 
 {{% note %}}
-Some third-party services reject standard `json` with a carriage return at the end. To remove the carriage return, replace `{{ json . }}` with `{{ jsonCompact . }}` in your templates.
+Some third-party services reject standard `json` terminated by a new-line character. To remove the new line, replace `{{ json . }}` with `{{ jsonCompact . }}` in your templates.
 {{% /note %}}
 
 When creating a task template, consider the following:
