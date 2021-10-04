@@ -19,16 +19,18 @@ flux/v0.x/tags: [transformations]
 introduced: 0.7.0
 ---
 
-The `aggregateWindow()` function applies an aggregate or selector function
+`aggregateWindow()` applies an aggregate or selector function
 (any function with a `column` parameter) to fixed windows of time.
 
 ```js
 aggregateWindow(
   every: 1m,
+  period: 1m,
   fn: mean,
   column: "_value",
   timeSrc: "_stop",
   timeDst: "_time",
+  location: "UTC",
   createEmpty: true
 )
 ```
@@ -66,6 +68,12 @@ When aggregating by week (`1w`), weeks are determined using the
 all calculated weeks begin on Thursday.
 {{% /note %}}
 
+### period {data-type="duration"}
+Duration of the window.
+Period is the length of each interval.
+The period can be negative, indicating the start and stop boundaries are reversed.
+Defaults to `every` value.
+
 ### fn {data-type="function"}
 
 [Aggregate](/flux/v0.x/function-types/#aggregates)
@@ -90,6 +98,10 @@ Defaults to `"_stop"`.
 
 The "time destination" column to which time is copied for the aggregate record.
 Defaults to `"_time"`.
+
+### location {data-type="string"}
+Location and timezone.
+Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
 ### createEmpty {data-type="bool"}
 

@@ -32,6 +32,7 @@ window(
   every: 5m,
   period: 5m,
   offset: 12h,
+  location: "UTC",
   createEmpty: false
 )
 ```
@@ -59,6 +60,10 @@ Defaults to `every` value.
 Offset is the duration by which to shift the window boundaries.
 It can be negative, indicating that the offset goes backwards in time.
 Defaults to 0, which will align window end boundaries with the `every` duration.
+
+### location {data-type="string"}
+Location and timezone.
+Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
 ### createEmpty {data-type="bool"}
 Specifies whether empty tables should be created.
