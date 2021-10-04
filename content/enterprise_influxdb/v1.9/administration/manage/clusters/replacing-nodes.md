@@ -3,9 +3,9 @@ title: Replace InfluxDB Enterprise cluster meta nodes and data nodes
 description: Replace meta and data nodes in an InfluxDB Enterprise cluster.
 menu:
   enterprise_influxdb_1_9:
-    name: Replace cluster nodes
-    weight: 10
-    parent: Guides
+    name: Replace nodes
+    weight: 21
+    parent: Manage clusters
 ---
 
 ## Introduction
