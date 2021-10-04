@@ -89,7 +89,7 @@ CREATE RETENTION POLICY threedays on kapacitorfluxtasks DURATION 3d
     {{< /code-tabs-wrapper >}}
 
 ## Configure Kapacitor Flux tasks
-Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
+Update or add the following settings under `[fluxtask]` in your `kapacitor.conf`:
 
 - **enabled**: `true`
 - **task-run-influxdb**: Name of the [InfluxDB configuration in your `kapacitor.conf`](/kapacitor/v1.6/administration/configuration/#influxdb)
