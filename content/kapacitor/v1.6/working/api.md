@@ -233,7 +233,7 @@ POST /kapacitor/v1/tasks
 }
 ```
 
-Response with task `id` and `link`.
+Response with task details.
 
 ```json
 {
@@ -438,7 +438,7 @@ To get information about several tasks, make a `GET` request to the `/kapacitor/
 
 #### Example
 
-Get all tasks. Lists details about each task, including the task ID, task type, database/retention policy (DBRP) mapping, status, whether the task is executing, and errors or stats associated with the task. Also lists the associated template ID if the task was created from a template.
+Get all tasks list details.
 
 ```
 GET /kapacitor/v1/tasks
