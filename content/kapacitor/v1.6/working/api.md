@@ -306,7 +306,7 @@ POST /kapacitor/v1/tasks
 }
 ```
 
-Response with task `id`, `template-id` and `link`.
+The response contains the created task.
 
 ```json
 {
