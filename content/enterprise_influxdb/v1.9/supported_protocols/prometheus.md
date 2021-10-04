@@ -23,7 +23,7 @@ HTTP endpoints to InfluxDB:
 * `/api/v1/prom/read`
 * `/api/v1/prom/write`
 
-Additionally, there is a [`/metrics` endpoint](/enterprise_influxdb/v1.9/administration/server_monitoring/#influxdb-metrics-http-endpoint) configured to produce default Go metrics in Prometheus metrics format.
+Additionally, there is a [`/metrics` endpoint](/enterprise_influxdb/v1.9/administration/monitor/server_monitoring/#influxdb-metrics-http-endpoint) configured to produce default Go metrics in Prometheus metrics format.
 
 ### Create a target database
 
@@ -89,7 +89,7 @@ made to match the InfluxDB data structure:
 * Prometheus labels become InfluxDB tags.
 * All `# HELP` and `# TYPE` lines are ignored.
 * [v1.8.6 and later] Prometheus remote write endpoint drops unsupported Prometheus values (`NaN`,`-Inf`, and `+Inf`) rather than reject the entire batch.
-  * If [write trace logging is enabled (`[http] write-tracing = true`)](/enterprise_influxdb/v1.9/administration/config/#write-tracing-false), then summaries of dropped values are logged.
+  * If [write trace logging is enabled (`[http] write-tracing = true`)](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#write-tracing--false), then summaries of dropped values are logged.
   * If a batch of values contains values that are subsequently dropped, HTTP status code `204` is returned.
 
 ### Example: Parse Prometheus to InfluxDB

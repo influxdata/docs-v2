@@ -7,10 +7,10 @@ influxdb/v2.0/tags: [queries]
 menu:
   influxdb_2_0:
     parent: Common queries
-weight: 204
+weight: 103
 ---
 
-To use values from multiple fields in a mathematic calculation:
+To use values from multiple fields in a mathematic calculation, complete the following steps:
 
 1. [Filter by fields required in your calculation](#filter-by-fields)
 2. [Pivot fields into columns](#pivot-fields-into-columns)
@@ -100,6 +100,7 @@ Using the pivoted data above, this `map()` function returns:
 | 2021-01-01T00:00:45Z | 11.9   | 3.3    | 39.27  |
 
 ## Full example query
+
 ```js
 from(bucket: "example-bucket")
   |> range(start: -1m)

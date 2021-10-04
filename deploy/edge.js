@@ -13,6 +13,7 @@ const latestVersions = {
 };
 
 const archiveDomain = 'https://archive.docs.influxdata.com';
+const docsDomain = 'https://docs.influxdata.com';
 
 exports.handler = (event, context, callback) => {
 
@@ -173,13 +174,13 @@ exports.handler = (event, context, callback) => {
   /////////////////////// END PRODUCT-SPECIFIC REDIRECTS ///////////////////////
 
   // Redirect to the a trailing slash
-  permanentRedirect(!request.uri.endsWith('/'), request.uri + '/');
+  permanentRedirect(!request.uri.endsWith('/'), `${docsDomain}${request.uri}/`);
 
   // Use index.html if the path doesn't have an extension
   // or if the version number is parsed as an extension.
   let newUri;
 
-  if (parsedPath.ext === '' || /\.[x0-9]{1,}/.test(parsedPath.ext)) {
+  if (parsedPath.ext === '' || /\.(?:x$|[0-9]{1,})/.test(parsedPath.ext)) {
     newUri = path.join(parsedPath.dir, parsedPath.base, indexPath);
   } else {
     newUri = request.uri;
