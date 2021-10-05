@@ -10,6 +10,24 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.133.0 [2021-10-04]
+
+### Features
+- Expose location functionality to [`window()`](/flux/v0.x/stdlib/universe/window/),
+  [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/), and
+  [`experimental.window()`](/flux/v0.x/stdlib/experimental/window/).
+- Add location functionality to the `interval` package.
+- Add methods to convert time values to and from local clock time.
+- Add [`mqtt.publish()` function](/flux/v0.x/stdlib/experimental/mqtt/publish/).
+- Add [`retain` parameter](/flux/v0.x/stdlib/experimental/mqtt/to/#retain) to
+  [`mqtt.to`](/flux/v0.x/stdlib/experimental/mqtt/to/).
+
+### Bug fixes
+- Add `range()` before `window()` to set query time bounds in tests.
+- Use a new `Fresher` instance for each package.
+
+---
+
 ## v0.132.0 [2021-09-28]
 
 ### Features
