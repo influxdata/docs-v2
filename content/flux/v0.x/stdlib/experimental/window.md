@@ -62,8 +62,11 @@ It can be negative, indicating that the offset goes backwards in time.
 Defaults to 0, which will align window end boundaries with the `every` duration.
 
 ### location {data-type="string"}
-Location and timezone.
+Location used to determine timezone.
 Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
+
+_Flux uses the timezone database (commonly referred to as "tz" or "zoneinfo")
+provided by the operating system._
 
 ### createEmpty {data-type="bool"}
 Specifies whether empty tables should be created.
