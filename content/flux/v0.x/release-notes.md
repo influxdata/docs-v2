@@ -13,8 +13,8 @@ aliases:
 ## v0.133.0 [2021-10-04]
 
 ### Features
-- Expose location functionality to [`window()`](/flux/v0.x/stdlib/universe/window/)
-  [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/) and
+- Expose location functionality to [`window()`](/flux/v0.x/stdlib/universe/window/),
+  [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/), and
   [`experimental.window()`](/flux/v0.x/stdlib/experimental/window/).
 - Add location functionality to the `interval` package.
 - Add methods to convert time values to and from local clock time.
