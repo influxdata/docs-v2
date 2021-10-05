@@ -1,16 +1,16 @@
 ---
-title: Monitor InfluxDB Enterprise using a template
+title: Monitor InfluxDB Enterprise with InfluxDB OSS 
 description: >
-  Monitor your InfluxDB Enterprise instance using InfluxDB Cloud and
+  Monitor your InfluxDB Enterprise instance using InfluxDB OSS and
   a pre-built InfluxDB template.
 menu:
   enterprise_influxdb_1_9:
-    parent: Monitor InfluxDB
-    name: Monitor with Cloud
-weight: 102
+    name: Monitor with OSS
+    parent: Monitor
+weight: 103
 ---
 
-Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
+Use [InfluxDB OSS](/influxdb/v2.0/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
 
 Do the following:
 
@@ -27,22 +27,22 @@ Do the following:
 
 Before you begin, make sure you have access to the following:
 
- - An InfluxDB Cloud account. ([Sign up for free here](https://cloud2.influxdata.com/signup)).
+ - A self-hosted OSS 2.x instance. ([get started for free here](/influxdb/v2.0/get-started/))
  - Command line access to a machine [running InfluxDB Enterprise 1.x](/enterprise_influxdb/v1.9/introduction/install-and-deploy/) and permissions to install Telegraf on this machine.
- - Internet connectivity from the machine running InfluxDB Enterprise 1.x and Telegraf to InfluxDB Cloud.
- - Sufficient resource availability to install the template. (InfluxDB Cloud Free Plan accounts include [resource limits](/influxdb/cloud/account-management/pricing-plans/#resource-limits/influxdb/cloud/account-management/pricing-plans/#resource-limits).)
+ - Internet connectivity from the machine running InfluxDB Enterprise 1.x and Telegraf to InfluxDB OSS.
+ - Sufficient resource availability to install the template. 
 
 ## Install the InfluxDB Enterprise Monitoring template
 
-The InfluxDB Enterprise Monitoring template includes a Telegraf configuration that sends InfluxDB Enterprise metrics to an InfluxDB endpoint, and a dashboard that visualizes the metrics.
+The InfluxDB Enterprise Monitoring template includes a Telegraf configuration that sends InfluxDB Enterprise metrics to an InfluxDB endpoint and a dashboard that visualizes the metrics.
 
-1. [Log into your InfluxDB Cloud account](https://cloud2.influxdata.com/), go to **Settings > Templates**, and enter the following template URL:
+1. [Log into your InfluxDB OSS UI](http://localhost:8086/signin), go to **Settings > Templates**, and enter the following template URL:
 
     ```
      https://raw.githubusercontent.com/influxdata/community-templates/master/influxdb-enterprise-1x/enterprise.yml
     ```
 
-2. Click **Lookup Template**, and then click **Install Template**. InfluxDB Cloud imports the template, which includes the following resources:
+2. Click **Lookup Template**, and then click **Install Template**. InfluxDB OSS imports the template, which includes the following resources:
    - Telegraf Configuration `monitoring-enterprise-1x`
    - Dashboard `InfluxDB 1.x Enterprise`
    - Label `enterprise`
@@ -72,11 +72,11 @@ By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which e
       # HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
       ...
       ```
-3. Add your **InfluxDB Cloud** account information (URL and organization) to your Telegraf configuration by doing the following:
-   1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/), and click **InfluxDB Output Plugin** at the top-right corner.
+3. Add your **InfluxDB OSS** account information (URL and organization) to your Telegraf configuration by doing the following:
+   1. Go to **Load Data > Telegraf** [in your InfluxDB OSS account](http://localhost:8086/), and click **InfluxDB Output Plugin** at the top-right corner.
    2. Copy the `urls`, `token`, `organization`, and `bucket` and close the window. 
    3. Click **monitoring-enterprise-1.x**. 
-   4. Replace `urls`, `token`, `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB Cloud account information. Alternatively, store this information in your environment variables and include the environment variables in your configuration.
+   4. Replace `urls`, `token`, `organization`, and `bucket` under `outputs.influxdb_v2` with your InfluxDB OSS account information. Alternatively, store this information in your environment variables and include the environment variables in your configuration.
 
       {{% note %}}
 To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded metrics, set the destination bucket name to `enterprise_metrics` in your `telegraf.conf`.
@@ -92,32 +92,32 @@ To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded 
        password = "$INFLUX_PASSWORD"
      ``` 
      
-     If you're using unique URLs or have authentication set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
+     If you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
 
       For more information about customizing Telegraf, see [Configure Telegraf](/{{< latest "telegraf" >}}/administration/configuration/#global-tags).
 4. Click **Save Changes**.
 
 ## Set up Telegraf
 
-Set up Telegraf to scrape metrics from InfluxDB Enterprise to send to your InfluxDB Cloud account.
+Set up Telegraf to scrape metrics from InfluxDB Enterprise to send to your InfluxDB OSS account.
 
 On each InfluxDB Enterprise instance you want to monitor, do the following:
 
-1. Go to **Load Data > Telegraf** [in your InfluxDB Cloud account](https://cloud2.influxdata.com/).
+1. Go to **Load Data > Telegraf** [in your InfluxDB OSS account](http://localhost:8086/signin).
 2. Click **Setup Instructions** under **monitoring-enterprise-1.x**. 
 3. Complete the Telegraf Setup instructions. If you are using environment variables, set them up now. 
 
       {{% note %}}
-For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure that it's available to the service.
+For your API token, generate a new token or use an existing All Access token. If you run Telegraf as a service, edit your init script to set the environment variable and ensure its available to the service.
       {{% /note %}}
 
-Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB Cloud account.
+Telegraf runs quietly in the background (no immediate output appears), and Telegraf begins pushing metrics to your InfluxDB OSS account.
 
 ## View the Monitoring dashboard
 
 To see your data in real time, view the Monitoring dashboard.
 
-1. Select **Boards** (**Dashboards**) in your **InfluxDB Cloud** account.
+1. Select **Boards** (**Dashboards**) in your **InfluxDB OSS** account.
 
     {{< nav-icon "dashboards" >}}
 
@@ -129,16 +129,16 @@ To see your data in real time, view the Monitoring dashboard.
 
 ## Alert when metrics stop reporting
 
-The Monitoring template includes a [deadman check](/influxdb/cloud/monitor-alert/checks/create/#deadman-check) to verify metrics are reported at regular intervals.
+The Monitoring template includes a [deadman check](/influxdb/v2.0/monitor-alert/checks/create/#deadman-check) to verify metrics are reported at regular intervals.
 
-To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB Cloud account, do the following:
+To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB OSS account, do the following:
 
 1. [Customize the deadman check](#customize-the-deadman-check) to identify the fields you want to monitor.
 2. [Create a notification endpoint and rule](#create-a-notification-endpoint-and-rule) to receive notifications when your deadman check is triggered.
 
 ### Customize the deadman check
 
-1.  To view the deadman check, click **Alerts** in the navigation bar of your **InfluxDB Cloud** account.
+1.  To view the deadman check, click **Alerts** in the navigation bar of your **InfluxDB OSS** account.
 
     {{< nav-icon "alerts" >}}
 
@@ -157,7 +157,7 @@ To receive a notification message when your deadman check is triggered, create a
 
 ### Create a notification endpoint 
 
-InfluxDB Cloud supports different endpoints: Slack, PagerDuty, and HTTP. Slack is free for all users, while PagerDuty and HTTP are exclusive to the Usage-Based Plan. 
+InfluxData supports different endpoints: Slack, PagerDuty, and HTTP. Slack is free for all users, while PagerDuty and HTTP are exclusive to the Usage-Based Plan. 
 
 #### Send a notification to Slack
 
@@ -167,17 +167,11 @@ InfluxDB Cloud supports different endpoints: Slack, PagerDuty, and HTTP. Slack i
 
 #### Send a notification to PagerDuty or HTTP 
 
-Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgrading your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan).
+Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgrading your InfluxDB OSS account](/influxdb/v2.0/reference/cli/influxd/upgrade/).
 
 ### Create a notification rule 
 
-[Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to set rules for when to send a deadman alert message to your notification endpoint. 
+[Create a notification rule](/influxdb/v2.0/monitor-alert/notification-rules/create/) to set rules for when to send a deadman alert message to your notification endpoint. 
 
 1. Go to **Alerts > Notification Rules** and click **{{< icon "plus" >}} Create**. 
 2. Fill out the **About** and **Conditions** section then click **Create Notification Rule**. 
-
-## Monitor with InfluxDB Insights and Aware 
-
-For InfluxDB Enterprise customers, Insights and Aware are free services that can monitor your data. InfluxDB Insights sends your data to a private Cloud account and will be monitored with the help of the support team. InfluxDB Aware is a similar service, but you monitor your data yourself. 
-
-To apply for this service, please contact the [support team](support@influxdata.com). 
