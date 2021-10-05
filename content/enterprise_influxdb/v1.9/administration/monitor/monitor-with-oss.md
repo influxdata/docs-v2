@@ -7,7 +7,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Monitor with OSS
     parent: Monitor
-weight: 103
+weight: 101
 ---
 
 Use [InfluxDB OSS](/influxdb/v2.0/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
