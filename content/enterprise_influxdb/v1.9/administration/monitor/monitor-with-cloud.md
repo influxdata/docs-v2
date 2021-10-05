@@ -8,6 +8,8 @@ menu:
     name: Monitor with Cloud
     parent: Monitor
 weight: 100
+aliases:
+  - /enterprise_influxdb/v1.9/administration/monitor-enterprise/monitor-with-cloud/
 ---
 
 Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
