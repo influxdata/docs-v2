@@ -4,8 +4,8 @@ description: Use InfluxQL commands for diagnostics and statistics.
 menu:
   enterprise_influxdb_1_9:
     name: Diagnostics
-    weight: 90
     parent: Monitor
+weight: 104
 ---
 
 The commands below are useful when diagnosing issues with InfluxDB Enterprise clusters.
