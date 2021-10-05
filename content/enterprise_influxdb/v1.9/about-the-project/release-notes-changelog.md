@@ -11,11 +11,6 @@ menu:
 
 ## v1.9.5
 
-### Features
-### Bug fixes
-
-## v1.9.4
-
 {{% note %}}
 InfluxDB Enterprise 1.9.4 was not released.
 Changes below are included in InfluxDB Enterprise 1.9.5.
