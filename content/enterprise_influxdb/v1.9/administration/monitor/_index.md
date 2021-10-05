@@ -1,6 +1,6 @@
 ---
 title: Monitor InfluxDB Enterprise
-description: Monitor InfluxDB Enterprise using templates, Cloud, or with QL. 
+description: Monitor InfluxDB Enterprise with InfluxDB Cloud or OSS.
 menu:
   enterprise_influxdb_1_9:
     name: Monitor
