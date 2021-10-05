@@ -7,6 +7,7 @@ menu:
     name: Log and trace
     weight: 90
     parent: Administration
+draft: true
 ---
 
 Write log information to other locations, use different service managers, and use different log output formats.

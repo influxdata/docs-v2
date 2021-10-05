@@ -8,8 +8,9 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Monitor Enterprise
+    parent: Monitor
     weight: 80
-    parent: Monitor InfluxDB
+draft: true
 ---
 
 Monitoring is the act of proactively observing changes in data over time (for example: monitoring for an issue in advance). Alternatively, you can also monitor your data at a specific point in time (for example: when an issue happens). 

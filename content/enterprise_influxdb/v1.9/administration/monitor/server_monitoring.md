@@ -10,6 +10,7 @@ menu:
     name: Monitor InfluxDB
     weight: 80
     parent: Monitor
+draft: true
 ---
 
 **On this page**
