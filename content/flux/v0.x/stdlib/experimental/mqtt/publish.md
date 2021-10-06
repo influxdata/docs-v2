@@ -1,36 +1,30 @@
 ---
-title: mqtt.to() function
+title: mqtt.publish() function
 description: >
-  The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/mqtt/to/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/to/
+  The `mqtt.publish()` function outputs data to an MQTT broker using MQTT protocol.
 menu:
   flux_0_x_ref:
-    name: mqtt.to
+    name: mqtt.publish
     parent: mqtt
 weight: 401
-flux/v0.x/tags: [outputs]
-introduced: 0.40.0
+introduced: 0.133.0
 ---
 
-The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
+The `mqtt.publish()` function outputs data to an MQTT broker using MQTT protocol.
 
 ```js
 import "experimental/mqtt"
 
-mqtt.to(
+mqtt.publish(
   broker: "tcp://localhost:8883",
   topic: "example-topic",
+  message: "Example message",
   qos: 0,
+  retain: false,
   clientid: "flux-mqtt",
   username: "username",
   password: "password",
-  name: "name-example",
-  timeout: 1s,
-  timeColumn: "_time",
-  tagColumns: ["tag1", "tag2"],
-  valueColumns: ["_value"]
+  timeout: 1s
 )
 ```
 
@@ -41,6 +35,9 @@ The MQTT broker connection string.
 
 ### topic {data-type="string"}
 The MQTT topic to send data to.
+
+### message {data-type="string"}
+The message to send to the MQTT broker.
 
 ### qos {data-type="int"}
 The [MQTT Quality of Service (QoS)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901103) level.
@@ -64,39 +61,40 @@ The password to send to the MQTT broker.
 Password is only required if the broker requires authentication.
 If you provide a password, you must provide a [username](#username).
 
-### name {data-type="string"}
-_(Optional)_ The name for the MQTT message.
-
 ### timeout {data-type="duration"}
 The MQTT connection timeout.
 Default is `1s`.
 
-### timeColumn {data-type="string"}
-The column to use as time values in the output line protocol.
-Default is `"_time"`.  
-
-### tagColumns {data-type="array of strings"}
-The columns to use as tag sets in the output line protocol.
-Default is `[]`.  
-
-### valueColumns {data-type="array of strings"}
-The columns to use as field values in the output line protocol.
-Default is `["_value"]`.
-
 ## Examples
 
-### Send data to an MQTT endpoint
+#### Send a message to an MQTT endpoint
 ```js
 import "experimental/mqtt"
 
-from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) => r._measurement == "airSensor")
-  |> mqtt.to(
-    broker: "tcp://localhost:8883",
-    topic: "air-sensors",
-    clientid: "sensor-12a4",
-    tagColumns: ["sensorID"],
-    valueColumns: ["_value"]
-  )
+mqtt.publish(
+  broker: "tcp://localhost:8883",
+  topic: "alerts",
+  message: "wake up",
+  clientid: "alert-watcher",
+  retain: true
+)
+```
+
+#### Send a message to an MQTT endpoint using input data
+```js
+import "experimental/mqtt"
+import "influxdata/influxdb/sample"
+
+sample.data(set: "airSensor")
+  |> range(start: -20m)
+  |> last()
+  |> map(fn: (r) => ({
+    r with
+      sent: mqtt.publish(
+        broker: "tcp://localhost:8883",
+        topic: "air-sensors/last/${r.sensorID}",
+        message: string(v: r._value),
+        clientid: "sensor-12a4"
+      )
+  }))
 ```
