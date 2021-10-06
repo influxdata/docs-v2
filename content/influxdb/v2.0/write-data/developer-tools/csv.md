@@ -48,7 +48,7 @@ influx write -b example-bucket -f path/to/example.csv
 
 ##### example.csv
 ```
-#datatype,measurement,tag,double,dateTime:RFC3339
+#datatype,group,default,measurement,tag,double,dateTime:RFC3339
 m,host,used_percent,time
 mem,host1,64.23,2020-01-01T00:00:00Z
 mem,host2,72.01,2020-01-01T00:00:00Z
