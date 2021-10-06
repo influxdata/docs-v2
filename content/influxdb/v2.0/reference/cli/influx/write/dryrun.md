@@ -137,7 +137,7 @@ influx write dryrun \
 influx write dryrun \
   --bucket example-bucket \
   --format csv \
-  "#datatype measurement,tag,tag,field,field,ignored,time
+  "#datatype,measurement,tag,tag,field,field,ignored,time
 m,cpu,host,time_steal,usage_user,nothing,time
 cpu,cpu1,host1,0,2.7,a,1482669077000000000
 cpu,cpu1,host2,0,2.2,b,1482669087000000000
