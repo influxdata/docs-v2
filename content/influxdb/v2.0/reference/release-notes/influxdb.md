@@ -24,8 +24,8 @@ New features include:
 
 - Add a new route `/api/v2/resources` that returns a list of known resources to the platform, including the following resource types. Makes it easier to update all-access tokens with current resources:
 
-	 - `AuthorizationsResourceType`
-	 - `BucketsResourceType`
+   - `AuthorizationsResourceType`
+   - `BucketsResourceType`
    - `ChecksResourceType`
    - `DashboardsResourceType`
    - `DBRPResourceType`
