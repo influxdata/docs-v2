@@ -57,7 +57,6 @@ New features include:
 - Optimize series iteration for queries that can be answered without inspecting TSM data.
 - Optimize queries with predicates that contain multiple measurements.
 
-
 ### Bug fixes
 
 This release includes the following bug fixes and updates:
