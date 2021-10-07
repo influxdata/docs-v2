@@ -33,7 +33,7 @@ In your terminal, run:
 npx --version
 ```
 
-If `npx` returns errors, [download](https://nodejs.org/en/) and run a recent version of the Node.JS installer for your OS.
+If `npx` returns errors, [download](https://nodejs.org/en/) and run a recent version of the Node.js installer for your OS.
 
 In your terminal, from the root of the docs repo, run:
 
