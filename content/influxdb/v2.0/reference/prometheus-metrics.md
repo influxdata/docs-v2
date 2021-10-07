@@ -35,7 +35,7 @@ tool and configuration used to scrape the metrics.
 | [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` | Format version 1 |
 | [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` | Format version 2 |
 | [InfluxDB scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)                                    | Format version 1 |
-| [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)                 | Format version 2 |
+| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)            | Format version 2 |
 
 {{% /oss-only %}}
 {{% cloud-only %}}
@@ -44,7 +44,7 @@ tool and configuration used to scrape the metrics.
 | :---------------------------------------------------------------------------------------------------- | ---------------: |
 | [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` | Format version 1 |
 | [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` | Format version 2 |
-| [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)                 | Format version 2 |
+| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)            | Format version 2 |
 
 {{% /cloud-only %}}
 
