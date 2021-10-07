@@ -3,5 +3,9 @@
   "name": "api-docs",
   "version": "1.0.0",
   "description": "InfluxDB API documentation",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "npx": "^10.2.2",
+    "redoc-cli": "0.9.13"
+  }
 }
