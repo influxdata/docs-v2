@@ -26,7 +26,7 @@ api-docs/
 Because the API documentation HTML is gitignored, you must manually generate it
 to view the API docs locally.
 
-Verify that you have a working `npx` (it's included with Node.JS).
+Verify that you have a working `npx` (it's included with Node.js).
 In your terminal, run:
 
 ```sh
