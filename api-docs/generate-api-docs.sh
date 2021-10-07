@@ -43,8 +43,9 @@ weight: 304
 "
 
   # Use npx to install and run the specified version of redoc-cli.
-  # npm_config_yes=true npx (vs. npx --yes) overrides the prompt and is compatible with both npm@6 and npm@7.
-  
+  # npm_config_yes=true npx overrides the prompt
+  # and (vs. npx --yes) is compatible with npm@6 and npm@7.
+
   redocCLI="redoc-cli@0.12.3"
 
   npm --version
