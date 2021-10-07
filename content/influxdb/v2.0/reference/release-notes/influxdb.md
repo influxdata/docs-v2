@@ -10,59 +10,101 @@ weight: 101
 
 ## v2.0.9 [2021-09-23]
 
+This release includes several new [features](#features) and [bug fixes](#bug-fixes).
+
 ### Features
 
-- **Flux updates**:
-  - Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
-  - Add support for [`influxdb.cardinality()`](/flux/v0.x/stdlib/influxdata/influxdb/cardinality/) function.
+New features include:
 
-- **Improved logging**:
-  - Add additional logging to Flux end to end tests (`TestFluxEndToEnd`) to help diagnose test failures.
+- [API updates](#api-updates)
+- [Flux updates](#flux-updates)
+- [Performance enhancements](#performance-enhancements)
+
+#### API updates
+
+- Add a new route `/api/v2/resources` that returns a list of known resources to the platform, including the following resource types. Makes it easier to update all-access tokens with current resources:
+
+	 - `AuthorizationsResourceType`
+	 - `BucketsResourceType`
+   - `ChecksResourceType`
+   - `DashboardsResourceType`
+   - `DBRPResourceType`
+   - `DocumentsResourceType`
+   - `LabelsResourceType`
+   - `NotificationEndpointResourceType`
+   - `NotificationRuleResourceType`
+   - `OrgsResourceType`
+   - `ScraperResourceType`
+   - `SecretsResourceType`
+   - `SourcesResourceType`
+   - `TasksResourceType`
+   - `TelegrafsResourceType`
+   - `UsersResourceType`
+   - `VariablesResourceType`
+   - `ViewsResourceType`
+
+
+#### Flux updates
+
+- Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
+- Add support for [`influxdb.cardinality()`](/flux/v0.x/stdlib/influxdata/influxdb/cardinality/) function.
+- Operational improvements:
+  - Add logging to Flux end-to-end tests (`TestFluxEndToEnd`) to help diagnose test failures.
   - Add `--flux-log-enabled` option to [`influxd`](/influxdb/v2.0/reference/config-options/) to show detailed logs for Flux queries.
 
-- **Performance optimizations**:
-  - Optimize series iteration for queries that can be answered without inspecting TSM data.
-  - Optimize queries with predicates that contain multiple measurements.
+#### Performance enhancements
 
-- **API update**: Add a new route `/api/v2/resources` that returns a list of known resources to the platform, including the following resource types. This makes it easier to update all-access tokens with current resources:
-	- `AuthorizationsResourceType`
-	- `BucketsResourceType`
-	- `DashboardsResourceType`
-	- `OrgsResourceType`
-	- `SourcesResourceType`
-	- `TasksResourceType`
-	- `TelegrafsResourceType`
-	- `UsersResourceType`
-	- `VariablesResourceType`
-	- `ScraperResourceType`
-  - `SecretsResourceType`
-	- `LabelsResourceType`
-	- `ViewsResourceType`
-	- `DocumentsResourceType`
-	- `NotificationRuleResourceType`
-	- `NotificationEndpointResourceType`
-	- `ChecksResourceType`
-	- `DBRPResourceType`
+- Optimize series iteration for queries that can be answered without inspecting TSM data.
+- Optimize queries with predicates that contain multiple measurements.
 
-- **Version maintenance:** Set `x-influxdb-version` and `x-influxdb-build` response headers.
 
 ### Bug fixes
 
+This release includes the following bug fixes and updates:
+
+- [API fix](#api-fix)
+- [Dependency update](#dependency-update)
+- [Error updates](#error-updates)
+- [Limit update](#limit-update)
+- [Miscellaneous operational fixes](#miscellaneous-operational-fixes)
+- [Task updates](#task-updates)
+- [Version maintenance](#version-maintenance)
+
+#### API fix
+
+- Correctly filter requests to `/api/v2/authorizations` by `org` and `user` parameters.
+
+#### Dependency update
+
+- Include `curl` as a dependency in `influxdb2` packages.
+
+#### Errors updates
+
+- Add message to set the Flux `content-type` when a query fails to parse as JSON.
+- Discard excessive errors over `DefaultMaxSavedErrors (100)` to prevent out-of-memory crashes.
+- Upgrade `golang.org/x/sys` to avoid panics on macs.
+
+#### Limit update
+
+- Implement hard limit on field size (`MaxFieldValueLength = 1048576`) while parsing line protocol.
+
+#### Miscellaneous operational fixes
+
+- Resolve the compaction queue stats flutter.
+- Ensure TSI index compacts log files that are old or too large.
+- Repair bad port dropping return value names.
+- Use consistent path separator in permission string representation.
+- (Windows only) Copy snapshot files being backed up.
+
+#### Task updates
+
 - Updating an inactive task no longer schedules it. Thanks @raffs!
 - Preserve comments in Flux queries when saving task definitions.
-- Resolve the compaction queue stats flutter.
-- Include `curl` as a dependency in `influxdb2` packages.
-- Correctly filter requests to `/api/v2/authorizations` by `org` and `user` parameters.
+
+#### Version maintenance
+
 - Fix `X-Influxdb-Build` and `X-Influxdb-Version` response header at `/ping`.
-- Repair bad port dropping return value names.
-- Discard excessive errors over `DefaultMaxSavedErrors (100)` to prevent out-of-memory crashes.
-- Show message to set the Flux `content-type` when a query fails to parse as JSON.
-- Use consistent path separator in permission string representation.
-- Upgrade `golang.org/x/sys` to avoid panics on macs.
-- Ensure TSI index compacts log files that are old or too large.
-- Implement hard limit on field size (`MaxFieldValueLength = 1048576`) while parsing line protocol.
-- Upgrade `influxql` to latest version and fix predicate handling for `SHOW TAG VALUES` metaqueries.
-- (Windows only) Copy snapshot files being backed up.
+- Upgrade `influxql` to latest version and fix predicate handling for `SHOW TAG VALUES` meta queries.
 
 ## v2.0.8 [2021-08-13]
 
