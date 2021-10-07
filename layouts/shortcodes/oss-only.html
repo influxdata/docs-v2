@@ -1,0 +1,3 @@
+{{- $el := cond (gt (len (findRE `\n` .Inner)) 0) "div" "span" -}}
+{{- $output := print "<" $el " class='oss-only'>" .Inner "</" $el "><!-- close -->" | safeHTML -}}
+{{ $output }}

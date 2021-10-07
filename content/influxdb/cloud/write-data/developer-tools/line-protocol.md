@@ -14,27 +14,9 @@ related:
 
 Use line protocol to write data to InfluxDB Cloud. Line protocol is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point. Learn more about [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/). 
 
-Write data using line protocol with the following methods: 
-- [UI](#write-line-protocol-with-ui)
-- [Influx write command](#influx-write-command)
-
-## Write line protocol with UI 
-
-To write data using Cloud's line protocol file upload, do the following: 
-
-1. Verify the line protocol adheres to the following conventions:  
-   - Each line represents a data point.
-   - Each data point requires a:  
-     - [*measurement*](/influxdb/cloud/reference/syntax/line-protocol/#measurement)
-     - [*field set*](/influxdb/cloud/reference/syntax/line-protocol/#field-set)
-     - (Optional) [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set) 
-     - [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp) 
-2. Click **Data** in your left navigation bar. 
-3. Select **Line Protocol** and choose your bucket. 
-4. Select your **Precision** in the dropdown menu. By default, the precision is set to nanoseconds. 
-5. Do one of the following: 
-   - Upload your line protocol file. 
-   - Write your line protocol manually, and then click **Submit**. 
+Write data using line protocol with the following methods:
+- [Upload a file or manually paste data in the UI](/influxdb/cloud/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
+- [Use influx write command](#influx-write-command)
 
 ## Write line protocol using the influx write command
 
@@ -130,6 +112,7 @@ influx write \
 influx write \
   --bucket example-bucket \
   --file path/to/line-protocol.txt.gz
+
 # Specify gzip compression for gzipped files without the .gz extension
 influx write \
   --bucket example-bucket \
@@ -153,5 +136,5 @@ InfluxDB accepts the following precisions:
 - `ms` - Milliseconds
 - `s` - Seconds
 
-_For more details about line protocol, see the [Line protocol reference](/influxdb/cloud/reference/syntax/line-protocol)
-and [Best practices for writing data](/influxdb/cloud/write-data/best-practices/)._
+_For more details about line protocol, see the [Line protocol reference](/influxdb/cloud/reference/syntax/line-protocol) and [Best practices for writing data](/influxdb/cloud/write-data/best-practices/)._
+

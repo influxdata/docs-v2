@@ -2,8 +2,8 @@
 title: Annotated CSV
 description: >
   InfluxDB and Flux return query results in annotated CSV format.
-  You can also read annotated CSV directly from Flux with the `csv.from()` function
-  or write data to InfluxDB using annotated CSV and the `influx write` command.
+  You can also read annotated CSV directly from Flux with the `csv.from()` function,
+  write data to InfluxDB using annotated CSV and the `influx write` command, or upload a CSV file in the UI.
 weight: 103
 menu:
   influxdb_2_0_ref:
@@ -15,8 +15,7 @@ related:
 ---
 
 InfluxDB and Flux return query results in annotated CSV format.
-You can also read annotated CSV directly from Flux with the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/)
-or write data to InfluxDB using annotated CSV and the `influx write` command.
+You can also read annotated CSV directly from Flux with the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/), write data to InfluxDB using annotated CSV and the `influx write` command, or [upload a CSV file](/influxdb/cloud/write-data/no-code/load-data/#load-data-by-uploading-a-csv-or-line-protocol-file) in the UI.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
 InfluxDB removes carriage returns before newline characters.

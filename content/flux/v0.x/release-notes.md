@@ -10,6 +10,64 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.133.0 [2021-10-04]
+
+### Features
+- Expose location functionality to [`window()`](/flux/v0.x/stdlib/universe/window/),
+  [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/), and
+  [`experimental.window()`](/flux/v0.x/stdlib/experimental/window/).
+- Add location functionality to the `interval` package.
+- Add methods to convert time values to and from local clock time.
+- Add [`mqtt.publish()` function](/flux/v0.x/stdlib/experimental/mqtt/publish/).
+- Add [`retain` parameter](/flux/v0.x/stdlib/experimental/mqtt/to/#retain) to
+  [`mqtt.to`](/flux/v0.x/stdlib/experimental/mqtt/to/).
+
+### Bug fixes
+- Add `range()` before `window()` to set query time bounds in tests.
+- Use a new `Fresher` instance for each package.
+
+---
+
+## v0.132.0 [2021-09-28]
+
+### Features
+- Copy location-related code from the Go `time` package.
+- Create a `Vector` monotype.
+- Refactor and optimize [`derivative()` transformation](/flux/v0.x/stdlib/universe/derivative/).
+- Add new [InfluxDB sample datasets](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/#available-influxdb-sample-datasets)
+  and [`sample.alignToNow()`](/flux/v0.x/stdlib/influxdata/influxdb/sample/aligntonow/).
+- Allow query concurrency to be set to the number of nodes in the graph.
+
+### Bug fixes
+- Update null check with clear error message.
+- Report errors from function parameters.
+- Propagate all inferred properties to a function argument.
+- Fix `Staticcheck` linter in `executetest`.
+- Reformat non-formatted Flux files.
+- Make builds reproducible by ordering package members in the `doc` package.
+- Prevent the optimized `derivative()` from attempt to replicate a non-existent bug.
+- Update [`events.duration()`](/flux/v0.x/stdlib/contrib/tomhollingworth/events/duration/)
+  to properly handle multiple buffers.
+
+---
+
+## v0.131.0 [2021-09-20]
+
+### Features
+- Update `group` to use new `GroupTransformation` interface.
+- Add [`experimental/record` package](/flux/v0.x/stdlib/experimental/record/).
+- Embed compiled Flux standard library instead of compiling at runtime.
+- Add [`contrib/bonitoo-io/hex` package](/flux/v0.x/stdlib/contrib/bonitoo-io/hex/)
+  to work with hexadecimal string values.
+
+### Bug fixes
+- Disallow setting [`allowAllFiles` parameter](https://github.com/go-sql-driver/mysql#allowallfiles)
+  in [MySQL DSNs](/flux/v0.x/query-data/sql/mysql/#mysql-data-source-name).
+- Downgrade [Snowflake](/flux/v0.x/query-data/sql/snowflake/) version.
+- Add _null_ support to optimized `repeat` function.
+
+---
+
 ## v0.130.0 [2021-09-15]
 
 ### Features

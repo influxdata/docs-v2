@@ -28,13 +28,9 @@ index-version = "tsi1"
 
 ### InfluxDB Enterprise
 
-- To convert your data nodes to support TSI, see [Upgrade InfluxDB Enterprise clusters](/enterprise_influxdb/v1.8/administration/upgrading/).
+- To convert your data nodes to support TSI, see [Upgrade InfluxDB Enterprise clusters](/enterprise_influxdb/v1.9/administration/upgrading/).
 
-- For detail on configuration, see [Configure InfluxDB Enterprise clusters](/enterprise_influxdb/v1.8/administration/configuration/).
-
-### InfluxDB OSS
-
-- For detail on configuration, see [Configuring InfluxDB OSS](/enterprise_influxdb/v1.9/administration/config/).
+- For detail on configuration, see [Configure InfluxDB Enterprise clusters](/enterprise_influxdb/v1.9/administration/configuration/).
 
 ## Tooling
 

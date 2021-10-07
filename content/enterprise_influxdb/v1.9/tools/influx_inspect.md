@@ -77,7 +77,7 @@ The size of the batches written to the index. Default value is `10000`.
 ##### `[ -concurrency ]`
 
 The number of workers to dedicate to shard index building.
-Defaults to [`GOMAXPROCS`](/enterprise_influxdb/v1.9/administration/config#gomaxprocs-environment-variable) value.
+Defaults to [`GOMAXPROCS`](/enterprise_influxdb/v1.9/administration/configure/configuration/#gomaxprocs-environment-variable) value.
 
 ##### `[ -database <db_name> ]`
 
@@ -318,7 +318,6 @@ If a user writes points with timestamps set by the client, then multiple points 
 ### `export`
 
 Exports all TSM files in InfluxDB line protocol data format.
-Writes all WAL file data for `_internal/monitor`.
 This output file can be imported using the
 [influx](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#import-data-from-a-file-with-import) command.
 
