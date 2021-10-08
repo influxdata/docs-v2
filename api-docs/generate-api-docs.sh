@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+set -e
+
 # Get list of versions from directory names
 versions="$(ls -d -- */ | grep -v 'node_modules')"
 
@@ -40,8 +42,16 @@ weight: 304
 ---
 "
 
+  # Use npx to install and run the specified version of redoc-cli.
+  # npm_config_yes=true npx overrides the prompt
+  # and (vs. npx --yes) is compatible with npm@6 and npm@7.
+
+  redocCLI="redoc-cli@0.12.3"
+
+  npm --version
+
   # Use Redoc to generate the v2 API html
-  npx redoc-cli bundle $version/swagger.yml \
+  npm_config_yes=true npx $redocCLI bundle $version/swagger.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
     --options.sortPropsAlphabetically \
@@ -52,7 +62,7 @@ weight: 304
 
 
   # Use Redoc to generate the v1 compatibility API html
-  npx redoc-cli bundle $version/swaggerV1Compat.yml \
+  npm_config_yes=true npx $redocCLI bundle $version/swaggerV1Compat.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
     --options.sortPropsAlphabetically \
