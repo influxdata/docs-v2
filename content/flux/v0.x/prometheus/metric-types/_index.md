@@ -20,9 +20,3 @@ Learn how to use Flux to work with the four core
 process them for visualizations in InfluxDB dashboards:
 
 {{< children >}}
-
-<!-- 
-- Scraped Prometheus metrics are considered "raw" and require some processing
-  to be be useful. Generally that processing is done with [Prometheus recording rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/#recording-rules).
-  When using Flux to work Prometheus metric types, the Flux query should process
-  the metrics much like Prometheus recording rules. -->
