@@ -12,10 +12,9 @@ related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /flux/v0.x/stdlib/experimental/prometheus/scrape/
   - /influxdb/cloud/process-data/manage-tasks/create-task/, Create an InfluxDB task
-  - /{{< latest "influxdb" >}}/reference/prometheus-metrics/
+  - /{{< latest "influxdb" >}}/reference/prometheus-metrics/, InfluxDB Prometheus metric parsing formats
   - /influxdb/cloud/write-data/developer-tools/scrape-prometheus-metrics, Scrape Prometheus metrics with InfluxDB Cloud
   - /{{< latest "influxdb" >}}/write-data/developer-tools/scrape-prometheus-metrics, Scrape Prometheus metrics with InfluxDB OSS
-  - /{{< latest "influxdb" >}}/reference/prometheus-metrics/, InfluxDB Prometheus metric parsing formats
 ---
 
 To scrape [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/) 

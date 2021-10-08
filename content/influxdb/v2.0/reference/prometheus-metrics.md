@@ -11,6 +11,7 @@ influxdb/v2.0/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /influxdb/v2.0/write-data/developer-tools/scrape-prometheus-metrics/
+  - /{{< latest "flux" >}}/prometheus/, Work with Prometheus in Flux
   - /{{< latest "telegraf" >}}/plugins/#prometheus, Telegraf Prometheus input plugin
   - /influxdb/v2.0/write-data/no-code/scrape-data/
   - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
@@ -20,8 +21,8 @@ When scraping [Prometheus-formatted metrics](https://prometheus.io/docs/concepts
 and writing them to InfluxDB, metrics are parsed and stored in InfluxDB in different formats.
 The following formats are available:
 
-- [Format version 1](#version-1)
-- [Format version 2](#version-2)
+- [Metric version 1](#metric-version-1)
+- [Metric version 2](#metric-version-2)
 
 
 #### Scraping tools and formats
@@ -30,25 +31,25 @@ tool and configuration used to scrape the metrics.
 
 {{% oss-only %}}
 
-| Scraping mechanism                                                                                    |   Format version |
-| :---------------------------------------------------------------------------------------------------- | ---------------: |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` | Format version 1 |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` | Format version 2 |
-| [InfluxDB scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)                                    | Format version 1 |
-| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)            | Format version 2 |
+| Scraping mechanism                                                                                    | Metric version |
+| :---------------------------------------------------------------------------------------------------- | -------------: |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` |              1 |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` |              2 |
+| [InfluxDB scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)                                    |              1 |
+| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)            |              2 |
 
 {{% /oss-only %}}
 {{% cloud-only %}}
 
-| Scraping mechanism                                                                                    |   Format version |
-| :---------------------------------------------------------------------------------------------------- | ---------------: |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` | Format version 1 |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` | Format version 2 |
-| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)            | Format version 2 |
+| Scraping mechanism                                                                                    | Metric version |
+| :---------------------------------------------------------------------------------------------------- | -------------: |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` |              1 |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` |              2 |
+| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)            |              2 |
 
 {{% /cloud-only %}}
 
-## Metrics format version 1
+## Metric version 1
 
 - **_time**: timestamp
 - **_measurement**: [Prometheus metric name](https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels)
@@ -165,7 +166,7 @@ task_executor_run_duration,taskID=00xx0Xx0xx00XX0x0,task_type=threshold 0.5=5.17
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## Metrics format version 2
+## Metrics version 2
 
 - **_time**: timestamp
 - **_measurement**: `prometheus`

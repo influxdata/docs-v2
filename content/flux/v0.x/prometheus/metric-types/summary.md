@@ -37,7 +37,7 @@ example_summary_duration_count{label="foo"} 539
 ```
 
 The examples below include example data collected from the **InfluxDB OSS 2.x `/metrics` endpoint**
-using `prometheus.scrape()` and stored in InfluxDB.
+and stored in InfluxDB.
 
 {{% note %}}
 #### Prometheus metric parsing formats
@@ -54,8 +54,8 @@ Prometheus summary metrics provide quantile values that can be visualized withou
 
 {{< tabs-wrapper >}}
 {{% tabs "small" %}}
-[Format version 2](#)
-[Format version 1](#)
+[Metric version 2](#)
+[Metric version 1](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -91,8 +91,8 @@ derive an average summary value.
 
 {{< tabs-wrapper >}}
 {{% tabs "small" %}}
-[Format version 2](#)
-[Format version 1](#)
+[Metric version 2](#)
+[Metric version 1](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
