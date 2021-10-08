@@ -9,6 +9,43 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v1.20.2 [2021-10-07]
+
+- Fix makefile typo that prevented i386 tar and rpm packages from being built.
+
+### Input plugin updates
+- Cloudwatch (`cloudwatch`): Use new session API.
+- Stackdriver (`stackdriver`): Migrate to `cloud.google.com/go/monitoring/apiv3/v2`.
+
+### Parser plugin updates
+- JSON V2 (`json_v2`): Duplicate line_protocol when using object and fields
+- Influx (`influx`): Fix memory leak.
+
+## v1.20.1 [2021-10-06]
+
+- Fix output buffer never completely flushing.
+- Update `k8s.io/apimachinery` module to 0.22.2.
+- Update `consul` module to 1.11.0.
+- Update `github.com/testcontainers/testcontainers-go` module to 0.11.1.
+- Update `github.com/Azure/go-autorest/autorest/adal` module.
+- Update `github.com/Azure/go-autorest/autorest/azure/auth module` to 0.5.8.
+- Update `cloud.google.com/go/pubsub` module to 1.17.0.
+- Update `github.com/aws/smithy-go` module to 1.8.0.
+
+### Input plugin updates
+
+- ElasticSearch (`elasticsearch_query`): Add custom time/date format field.
+- OpenTelemetry (`opentelemetry`): Fix error returned to OpenTelemetry client.
+- Couchbase (`couchbase`): Fix insecure certificate validation.
+- MongoDB (`mongodb`): Fix panic due to nil dereference.
+- Intel RDT (`intel_rdt`): Prevent timeout when logging.
+- Procstat (`procstat`): Add missing tags.
+
+### Output plugin updates
+
+- Loki (`loki`): Update http_headers setting to match sample config
+- MQTT (`mqtt`): Add "keep alive" config option and documentation around issue with eclipse/mosquito version.
+
 ## v.1.20 [2021-09-16]
 
 - Update Go to 1.17.0
