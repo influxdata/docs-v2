@@ -70,7 +70,7 @@ A function that builds the object used to generate the POST request.
 Requires an `r` parameter.
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the
-following fields:
+following properties:
 
 - `checkName`
 - `text`

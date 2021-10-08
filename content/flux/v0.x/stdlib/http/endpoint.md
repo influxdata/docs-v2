@@ -39,7 +39,7 @@ To see the default `mapFn` value or for insight into possible overrides, view th
 [`http.endpoint()` source code](https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux)._
 {{% /note %}}
 
-`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
+`mapFn` accepts a table row (`r`) and returns a record that must include the following properties:
 
 - `headers`
 - `data`

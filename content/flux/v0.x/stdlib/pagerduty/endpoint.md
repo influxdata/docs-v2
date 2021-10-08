@@ -42,7 +42,7 @@ for more information about these parameters.
 ({{< req >}}) A function that builds the record used to generate the POST request.
 Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
+`mapFn` accepts a table row (`r`) and returns a record that must include the following properties:
 
 - `routingKey`
 - `client`
