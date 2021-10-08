@@ -90,7 +90,9 @@ This release includes the following bug fixes and updates:
 #### Miscellaneous operational fixes
 
 - Resolve the compaction queue stats flutter.
-- Ensure TSI index compacts log files that are old or too large.
+- Ensure the TSI index compacts log files that meet one of the following criteria:
+  - Log file hasn't been updated (no new series have been added to the shard) for 4 (or more) hours (to change this duration, specify a new [`storage-compact-full-write-cold-duration`](/influxdb/v2.0/reference/config-options/#storage-compact-full-write-cold-duration))
+  - Log file is one (or more) megabytes (to update this size, specify a new [`storage-max-index-log-file-size`](/influxdb/v2.0/reference/config-options/#storage-max-index-log-file-size))
 - Repair bad port dropping return value names.
 - Use consistent path separator in permission string representation.
 - (Windows only) Copy snapshot files being backed up.
