@@ -18,7 +18,7 @@ menu:
 - Stackdriver (`stackdriver`): Migrate to `cloud.google.com/go/monitoring/apiv3/v2`.
 
 ### Parser plugin updates
-- JSON V2 (`json_v2`): Duplicate line_protocol when using object and fields
+- JSON V2 (`json_v2`): Duplicate line_protocol when using object and fields.
 - Influx (`influx`): Fix memory leak.
 
 ## v1.20.1 [2021-10-06]
@@ -43,7 +43,7 @@ menu:
 
 ### Output plugin updates
 
-- Loki (`loki`): Update http_headers setting to match sample config
+- Loki (`loki`): Update http_headers setting to match sample config.
 - MQTT (`mqtt`): Add "keep alive" config option and documentation around issue with eclipse/mosquito version.
 
 ## v.1.20 [2021-09-16]
