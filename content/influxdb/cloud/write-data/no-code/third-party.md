@@ -14,25 +14,21 @@ A number of third-party technologies can be configured to send line protocol dir
 
 If you're using any of the following technologies, check out the handy links below to configure these technologies to write data to InfluxDB (**no additional software to download or install**):
 
-- (Write metrics and log events only) [Vector 0.9 or later](#configure-vector)
-
-- [Apache NiFi 1.8 or later](#configure-apache-nifi)
-
-- [OpenHAB 3.0 or later](#configure-openhab)
-
-- [Apache JMeter 5.2 or later](#configure-apache-jmeter)
-
-- [FluentD 1.x or later](#configure-fluentd)
+- (Write metrics and log events only) [Configure Vector 0.9 or later](#configure-vector)
+- [Configure Apache NiFi 1.8 or later](#configure-apache-nifi)
+- [Configure OpenHAB 3.0 or later](#configure-openhab)
+- [Configure Apache JMeter 5.2 or later](#configure-apache-jmeter)
+- [Configure FluentD 1.x or later](#configure-fluentd)
 
 #### Configure Vector
 
 1. View the **Vector documentation**:
-  - For write metrics, [InfluxDB Metrics Sink](https://vector.dev/docs/reference/sinks/influxdb_metrics/)
-  - For log events, [InfluxDB Logs Sink](https://vector.dev/docs/reference/sinks/influxdb_logs/)
+   - For write metrics, [InfluxDB Metrics Sink](https://vector.dev/docs/reference/sinks/influxdb_metrics/)
+   - For log events, [InfluxDB Logs Sink](https://vector.dev/docs/reference/sinks/influxdb_logs/)
 2. Under **Configuration**, click **v2** to view configuration settings.
 3. Scroll down to **How It Works** for more detail:
-  - [InfluxDB Metrics Sink – How It Works ](https://vector.dev/docs/reference/sinks/influxdb_metrics/#how-it-works)
-  - [InfluxDB Logs Sink – How It Works](https://vector.dev/docs/reference/sinks/influxdb_logs/#how-it-works)
+   - [InfluxDB Metrics Sink – How It Works ](https://vector.dev/docs/reference/sinks/influxdb_metrics/#how-it-works)
+   - [InfluxDB Logs Sink – How It Works](https://vector.dev/docs/reference/sinks/influxdb_logs/#how-it-works)
 
 #### Configure Apache NiFi
 

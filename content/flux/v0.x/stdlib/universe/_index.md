@@ -25,12 +25,19 @@ The `universe` package provides the following options:
 
 ```js
 option now = () => system.time
+option location = "UTC"
 ```
 
 ### now {data-type="function"}
 Function option that, by default, returns the current system time.
 The value of `now()` is cached at query time, so all instances of `now()` in a
 script return the same time value.
+
+### location {data-type="string"}
+Location used to determine timezone. Default is `"UTC"`.
+
+Flux uses the timezone information (commonly referred to as "tz" or "zoneinfo")
+provided by the operating system.
 
 ## Functions
 {{< children type="functions" >}}

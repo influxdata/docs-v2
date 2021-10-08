@@ -2,7 +2,7 @@
 title: Load data from sources in the InfluxDB user interface (UI)
 seotitle: Load data source in UI
 list_title: Load data source in UI
-weight: 105
+weight: 101
 description: >
   Load data from sources in the InfluxDB user interface (UI). Choose from popular client libraries (such as Python, Ruby, Scala, and more!) or load data with a Telegraf plugin (like MQTT Consumer, MySQL, File, and many more!).
 menu:
@@ -13,18 +13,34 @@ menu:
 
 Load data from the following sources in the InfluxDB user interface (UI):
 
-- [CSV](#load-data-using-csv)
+- [CSV or line protocol file](#load-csv-or-line-protocol-in-ui)
 - [Line protocol](#load-data-using-line-protocol)
 - [Client libraries](#load-data-from-a-client-library-in-the-ui)
 - [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
 
-### Load data using CSV 
+### Load CSV or line protocol in UI
 
-Use CSV data to write data to InfluxDB using the different [methods](/influxdb/cloud/write-data/developer-tools/csv/). 
+Load CSV or line protocol data by uploading a file or pasting the data manually into the UI.
 
-### Load data using line protocol 
+1. In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
+    {{< nav-icon "data" >}}
+2. Under **File Upload**, select the type of data to upload:
+    - **Annotated CSV**. Verify your CSV file follows the supported [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) syntax.
+    - **Line Protocol**. Verify your line protocol file adheres to the following conventions:  
+       - Each line represents a data point.
+        - Each data point requires a:  
+          - [*measurement*](/influxdb/cloud/reference/syntax/line-protocol/#measurement)
+          - [*field set*](/influxdb/cloud/reference/syntax/line-protocol/#field-set)
+          - (Optional) [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set) 
+          - [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp)
+         
+          For more information, see supported [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) syntax.
 
-Use line protocol to write data to InfluxDB using the different [methods](/influxdb/cloud/write-data/developer-tools/line-protocol/). 
+2. Select the bucket to write to.
+4. Select the **Precision** in the dropdown menu. By default, the precision is set to nanoseconds.
+5. Do one of the following:
+   - To upload file, drag and drop your file onto the UI, and then click **Write Data**.
+   - To enter data manually, select the **Enter Manually** tab, paste your data, and then click **Write Data**.
 
 ### Load data from a client library in the UI
 

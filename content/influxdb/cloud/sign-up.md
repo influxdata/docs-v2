@@ -189,7 +189,7 @@ Click one of the following buttons to download and install the `influx` CLI appr
 
 ```sh
 # Unpackage contents to the current working directory
-tar xvfz influxdb-client-{{< latest-cli >}}-linux-amd64.tar.gz
+tar xvfz influxdb2-client-{{< latest-cli >}}-linux-amd64.tar.gz
 ```
 
 #### Step 3: (Optional) Place the binary in your $PATH
@@ -201,7 +201,7 @@ prefix the executable with `./` to run in place. If the binary is on your $PATH,
 
 ```sh
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-client-{{< latest-cli >}}-linux-amd64/influx /usr/local/bin/
+sudo cp influxdb2-client-{{< latest-cli >}}-linux-amd64/influx /usr/local/bin/
 ```
 
 {{% note %}}

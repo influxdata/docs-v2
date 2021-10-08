@@ -13,6 +13,7 @@ const latestVersions = {
 };
 
 const archiveDomain = 'https://archive.docs.influxdata.com';
+const docsDomain = 'https://docs.influxdata.com';
 
 exports.handler = (event, context, callback) => {
 
@@ -156,6 +157,13 @@ exports.handler = (event, context, callback) => {
   // Generic Flux stdlib redirect
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\//, `/flux/${latestVersions['flux']}/stdlib/`));
 
+  // Redirect outdated Chronograf links
+  temporaryRedirect(/\/flux\/v[0,1]\.x\/stdlib\/built-in\/(?:inputs\/|outputs\/|misc\/|tests\/)(\w+\/$)/.test(request.uri), request.uri.replace(/\/flux\/v[0,1]\.x\/stdlib\/built-in\/(?:inputs\/|outputs\/|misc\/|tests\/)(\w+\/$)/, `/flux/${latestVersions['flux']}/stdlib/universe/$1`));
+  temporaryRedirect(/\/flux\/v[0,1]\.x\/stdlib\/built-in\/transformations\/(?:aggregates\/|selectors\/|stream-table\/|type-conversions\/)(\w+\/$)/.test(request.uri), request.uri.replace(/\/flux\/v[0,1]\.x\/stdlib\/built-in\/transformations\/(?:aggregates\/|selectors\/|stream-table\/|type-conversions\/)(\w+\/$)/, `/flux/${latestVersions['flux']}/stdlib/universe/$1`));
+  temporaryRedirect(/\/flux\/v[0,1]\.x\/stdlib\/built-in\/transformations\/(\w+\/$)/.test(request.uri), request.uri.replace(/\/flux\/v[0,1]\.x\/stdlib\/built-in\/transformations\/(\w+\/$)/, `/flux/${latestVersions['flux']}/stdlib/universe/$1`));
+  temporaryRedirect(/\/flux\/v[0,1]\.x\/stdlib\/secrets\//.test(request.uri), request.uri.replace(/\/flux\/v[0,1]\.x\/stdlib\/secrets\//, `/flux/${latestVersions['flux']}/stdlib/influxdata/influxdb/secrets/`));
+  temporaryRedirect(/\/flux\/v[0,1]\.x\/stdlib\/influxdb-v1\//.test(request.uri), request.uri.replace(/\/flux\/v[0,1]\.x\/stdlib\/influxdb-v1\//, `/flux/${latestVersions['flux']}/stdlib/influxdata/influxdb/v1/`));
+
   // Redirect Flux release notes
   permanentRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/release-notes\/flux\//.test(request.uri), `/flux/${latestVersions['flux']}/release-notes/`);
 
@@ -173,13 +181,13 @@ exports.handler = (event, context, callback) => {
   /////////////////////// END PRODUCT-SPECIFIC REDIRECTS ///////////////////////
 
   // Redirect to the a trailing slash
-  permanentRedirect(!request.uri.endsWith('/'), request.uri + '/');
+  permanentRedirect(!request.uri.endsWith('/'), `${docsDomain}${request.uri}/`);
 
   // Use index.html if the path doesn't have an extension
   // or if the version number is parsed as an extension.
   let newUri;
 
-  if (parsedPath.ext === '' || /\.[x0-9]{1,}/.test(parsedPath.ext)) {
+  if (parsedPath.ext === '' || /\.(?:x$|[0-9]{1,})/.test(parsedPath.ext)) {
     newUri = path.join(parsedPath.dir, parsedPath.base, indexPath);
   } else {
     newUri = request.uri;
