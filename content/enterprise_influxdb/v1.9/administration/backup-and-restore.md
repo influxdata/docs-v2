@@ -252,6 +252,9 @@ for a complete list of the global `influxd-ctl` options.
 
 ##### Restore options
 
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore)
+for a complete list of `influxd-ctl restore` options.
+
 - `-db <string>`: the name of the single database to restore
 - `-list`: shows the contents of the backup
 - `-newdb <string>`: the name of the new database to restore to (must specify with `-db`)
@@ -281,6 +284,9 @@ See the [`influxd-ctl` documentation](/enterprise_influxdb/v1.9/tools/influxd-ct
 for a complete list of the global `influxd-ctl` options.
 
 ##### Restore options
+
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore)
+for a complete list of `influxd-ctl restore` options.
 
 - `-db <string>`: the name of the single database to restore
 - `-list`: shows the contents of the backup
