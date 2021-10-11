@@ -29,24 +29,30 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Update to Flux [0.127.3](/flux/v0.x/release-notes/#v01273-2021-09-01).
 
 ### Bug fixes
-- Require read authorization on a database to see continuous queries linked to that database.
-- Limit field size to 1MB while parsing line protocol.
+#### Data
 - Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
-- Return an error instead of panic when InfluxDB Enterprise tries to restore with OSS.
-- Ensure correct JSON log formatting.
-- Handle HTTPS errors during systemd service startup.
-- Fix issue incorrectly reporting compaction queue of zero.
 - Prevent dropped writes with overlapping shards in certain edge cases.
-- Add logging for shard write errors.
 - Prevent lost writes during hinted handoff when purging short queues.
+#### Errors
+- Return an error instead of panic when InfluxDB Enterprise tries to restore with OSS.
+- Handle HTTPS errors during systemd service startup.
+- Return correct number of unexecuted statements when multi-statement query fails.
+#### Flux
 - Fix Flux panic that caused node to crash when querying empty pre-created shards.
+- Fix Flux query problems with large datasets when replication factor is less than cluster size.
+#### Logging
+- Fix issue incorrectly reporting compaction queue of zero.
+- Ensure correct JSON log formatting.
+- Add logging for shard write errors.
+- Avoid incorrect logging about "broken pipe" when entropy is detected.
+#### Performance
+- Limit field size to 1MB while parsing line protocol.
+- Fix potential crash due to race between reading TSI index and TSI compaction.
+- Delay hinted handoff writes (by less than one second) if `retry-rate-limit` is exceeded.
+#### Security
+- Require read authorization on a database to see continuous queries linked to that database.
 - Fix incorrect TLS handling for `influxd-ctl entropy` commands.
 - Use TLS for nested LDAP connections when TLS is enabled.
-- Fix Flux query problems with large datasets when replication factor is less than cluster size.
-- Avoid incorrect logging about "broken pipe" when entropy is detected.
-- Return correct number of unexecuted statements when multi-statement query fails.
-- Delay hinted handoff writes (by less than one second) if `retry-rate-limit` is exceeded.
-- Fix potential crash due to race between reading TSI index and TSI compaction.
 
 ## v1.9.3 [2021-07-19]
 
