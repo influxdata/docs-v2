@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.0.9 [2021-09-23]
+## v2.0.9 [2021-09-27]
 
 This release includes several new [features](#features) and [bug fixes](#bug-fixes).
 
