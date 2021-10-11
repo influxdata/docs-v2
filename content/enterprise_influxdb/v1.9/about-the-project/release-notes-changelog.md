@@ -17,14 +17,19 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 {{% /note %}}
 
 ### Features
+
+#### New restore options
 - Add the following options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) InfluxDB Enterprise databases:
   - Restore data with a new retention policy into an existing database.
   - Override the duration of a retention policy while restoring.
   - Specify a destination shard when restoring a specific shard.
+#### Operational enhancements
+- Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-tag-values) by retention policy.
 - Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
   to measure memory usage in bytes across all subscriptions.
-- Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-tag-values) by retention policy.
+#### Performance enhancement
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
+#### Maintenance updates 
 - Update Protocol Buffers library versions.
 - Update to Flux [0.127.3](/flux/v0.x/release-notes/#v01273-2021-09-01).
 
