@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 set -e
 
@@ -53,7 +52,6 @@ weight: 304
 
   # Use Redoc to generate the v2 API html
   npm_config_yes=true npx $redocCLI bundle $version/swagger.yml \
-
     -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
     --options.sortPropsAlphabetically \
@@ -65,7 +63,6 @@ weight: 304
 
   # Use Redoc to generate the v1 compatibility API html
   npm_config_yes=true npx $redocCLI bundle $version/swaggerV1Compat.yml \
-
     -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
     --options.sortPropsAlphabetically \
