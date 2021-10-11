@@ -19,7 +19,9 @@ The **InfluxDB 2.0 platform** consolidates InfluxDB, Chronograf, and Kapacitor f
   - [InfluxDB Cloud](/influxdb/cloud/get-started/) (**commercial offering**): hosted cloud solution
   - [Telegraf](#telegraf): collect data
 
-InfluxDB Enterprise 2.0 is in development.
+InfluxDB Enterprise provides forward compatibility APIs for Read (via Flux) and Write based on v2. More details are available 
+[here](/enterprise_influxdb/latest/tools/api/#influxdb-20-api-compatibility-endpoints).  This allows applications and solutions built on 
+InfluxDB OSS 2.x and/or InfluxDB Cloud to work with InfluxDB Enterprise seamlessly.
 
 ## InfluxData 1.x
 
