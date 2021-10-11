@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## v1.9.5
+## v1.9.5 [2021-10-11]
 
 {{% note %}}
 InfluxDB Enterprise 1.9.4 was not released.
