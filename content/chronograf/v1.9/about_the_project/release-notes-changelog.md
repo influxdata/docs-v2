@@ -11,9 +11,10 @@ menu:
 ## v1.9.1 [2021-10-11]
 
 ### Features
+- Distinguish tasks created from templates in task list by appending "created from template".
+- Upgrade Golang to 1.17.1.
 
 ### Bug fixes
-
 #### Flux and task fixes
 - Repair paginated retrieval of Flux tasks.
 - Repair calculation of Flux query range duration.
