@@ -9,6 +9,18 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
+## v1.8.10 [2021-10-11]
+
+### Bug fixes
+
+- Ensure `curl` dependency for InfluxDB packages.
+- Ensure snapshot service reads payload correctly.
+- Handle 40x errors by blocking indefinitely in systemd scripts.
+- Fix the following bugs in `influxd restore`:
+  - Correctly validate parameters.
+  - Improve error message when returning empty snapshots.
+  - Fix temporary file deletion on Windows.
+
 ## v1.8.9 [2021-08-05]
 
 ### Bug fixes 
