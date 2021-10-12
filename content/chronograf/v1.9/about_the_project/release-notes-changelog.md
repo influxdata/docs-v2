@@ -11,8 +11,6 @@ menu:
 ## v1.9.1 [2021-10-12]
 
 ### Features
-- Distinguish tasks created from templates in task list by appending "created from template".
-- Upgrade Golang to 1.17.1.
 
 ### Bug Fixes
 
