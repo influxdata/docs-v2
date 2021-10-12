@@ -8,25 +8,39 @@ menu:
     parent: About the project
 ---
 
-## v1.9.1 [TK]
+## v1.9.1 [2021-10-12]
+
+security updates,
+web browser fixes,
+visualization updates...?
 
 ### Features
 - Distinguish tasks created from templates in task list by appending "created from template".
 - Upgrade Golang to 1.17.1.
 
 ### Bug Fixes
-- Fix issue displaying single-statistic dashboard in Safari.
-- Rename ARM RPMs with yum-compatible names.
-- Avoid useless browser history change.
-- Repair time rendering in horizontal table.
-- Name TICKscript after a task `name` variable when defined.
-- Make template tasks read-only.
-- Repair paginated retrival of flux Tasks.
-- Enforce one organization between browser tabs.
+
+#### Flux and task fixes
+- Repair paginated retrival of Flux Tasks.
 - Repair calculation of Flux query range duration.
 - Update time range of Flux queries when zooming in on dashboard.
+- Name TICKscript after a task `name` variable when defined.
+- Make template tasks read-only.
+
+#### Browser support
+- Fix issue displaying single-statistic dashboard in Safari.
+- Avoid useless browser history change.
+- Enforce one organization between browser tabs.
 - Support Firefox private mode.
+
+#### Visualization fixes
+- Repair time rendering in horizontal table.
 - Skip missing values in line chart instead of returning zeros.
+
+#### Package fixes
+- Rename ARM RPMs with yum-compatible names.
+
+#### Security
 - Upgrade `github.com/microcosm-cc/bluemonday` to resolve CVE-2021-29272.
 - Upgrade `github.com/golang-jwt/jwt` to resolve CVE-2020-26160.
 
