@@ -15,7 +15,7 @@ menu:
 ### Bug Fixes
 
 #### Flux and task fixes
-- Repair paginated retrival of Flux Tasks.
+- Repair paginated retrieval of Flux tasks.
 - Repair calculation of Flux query range duration.
 - Update time range of Flux queries when zooming in on dashboard.
 - Name TICKscript after a task `name` variable when defined.
