@@ -940,7 +940,8 @@ Show the contents of the backup.
 
 ###### [ `-newdb <newdb_name>` ]
 
-Name of the new database to restore to (must specify with `-db`).
+Name of the new database to restore to.
+(Requires the `-db` argument.)
 
 ###### [ `-newrf <newrf_integer>` ]
 
@@ -948,11 +949,22 @@ Integer of the new [replication factor](/enterprise_influxdb/v1.9/concepts/gloss
 
 ###### [ `-newrp <newrp_name>` ]
 
-Name of the new [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) to restore to (must specify with `-rp`).
+Name of the new [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) to restore to.
+(Requires the `-rp` argument)
+
+###### [ `-newduration <new_duration>` ]
+The shard duration when restoring.
+(Requires the `-rp` argument.)
+
+###### [ `-newshard <new_shard_name` ]
+
+Name of a new destination shard ID, if the target shard differs from the shard ID in the backup.
+(Requires the `-shard` argument.)
 
 ###### [ `-rp <rp_name>` ]
 
 Name of the single retention policy to restore.
+(Requires the `-db` argument.)
 
 ###### [ `-shard <shard_ID>` ]
 

@@ -87,7 +87,6 @@ tls-key = "/path/to/influxdb.key"
 Only non-default settings need to be defined in the configuration file.
 {{% /note %}}
 
-
 ## Configuration options
 
 To configure InfluxDB, use the following configuration options when starting the
@@ -97,6 +96,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [bolt-path](#bolt-path)
 - [e2e-testing](#e2e-testing)
 - [engine-path](#engine-path)
+- [flux-log-enabled](#flux-log-enabled)
 - [http-bind-address](#http-bind-address)
 - [http-idle-timeout](#http-idle-timeout)
 - [http-read-header-timeout](#http-read-header-timeout)
@@ -338,6 +338,64 @@ engine-path = "/users/user/.influxdbv2/engine"
 ```json
 {
   "engine-path": "/users/user/.influxdbv2/engine"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### flux-log-enabled
+
+Include option to show detailed logs for Flux queries, including the following log fields:
+
+- `compiler_type`: Compiler used for processing the query (will always be Flux).
+- `response_size`: Size of the response, in bytes.
+- `query`: The textual representation of the query.
+- `err`: Errors encountered while processing the query.
+- `stat_total_duration`: Total duration to process the query.
+- `stat_compile_duration`: Duration to compile the query.
+- `stat_execute_duration`: Duration to execute the query.
+- `stat_max_allocated`: Maximum amount of memory allocated while processing the query, in - bytes.
+- `stat_total_allocated`: Total amount of memory allocated while processing the query, in bytes. This includes memory that was freed and then used again.
+
+**Default:** `false`  
+
+| influxd flag         | Environment variable       | Configuration key |
+|:------------         |:--------------------       |:----------------- |
+| `--flux-log-enabled` | `INFLUXD_FLUX_LOG_ENABLED` | `flux-log-enabled`|
+
+###### influxd flag
+```sh
+influxd --flux-log-enabled=true
+```
+
+###### Environment variable
+```sh
+export INFLUXD_FLUX_LOG_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+flux-log-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+flux-log-enabled = "true"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "flux-log-enabled": "true"
 }
 ```
 {{% /code-tab-content %}}

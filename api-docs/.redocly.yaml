@@ -1,0 +1,11 @@
+lint:
+  extends:
+    - recommended
+  plugins:
+    - './plugins/servers-plugin.js'
+  rules:
+    no-server-trailing-slash: off
+    servers/validate-servers-url: error
+  decorators:
+    servers/replace-servers-url: error
+    servers/set-servers-url: error

@@ -9,6 +9,56 @@ menu:
     parent: About the project
 ---
 
+## v1.9.5 [2021-10-11]
+
+{{% note %}}
+InfluxDB Enterprise 1.9.4 was not released.
+Changes below are included in InfluxDB Enterprise 1.9.5.
+{{% /note %}}
+
+### Features
+
+#### New restore options
+- Add the following options for [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) InfluxDB Enterprise databases:
+  - Restore data with a new retention policy into an existing database.
+  - Override the duration of a retention policy while restoring.
+  - Specify a destination shard when restoring a specific shard.
+#### Operational enhancements
+- Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-tag-values) by retention policy.
+- Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1.9/tools/api/#debugvars-http-endpoint) endpoint
+  to measure memory usage in bytes across all subscriptions.
+#### Performance enhancement
+- Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
+#### Maintenance updates 
+- Update Protocol Buffers library versions.
+- Update to Flux [0.127.3](/flux/v0.x/release-notes/#v01273-2021-09-01).
+
+### Bug fixes
+#### Data
+- Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
+- Prevent dropped writes with overlapping shards in certain edge cases.
+- Prevent lost writes during hinted handoff when purging short queues.
+#### Errors
+- Return an error instead of panic when InfluxDB Enterprise tries to restore with OSS.
+- Handle HTTPS errors during systemd service startup.
+- Return correct number of unexecuted statements when multi-statement query fails.
+#### Flux
+- Fix Flux panic that caused node to crash when querying empty pre-created shards.
+- Fix Flux query problems with large datasets when replication factor is less than cluster size.
+#### Logging
+- Fix issue incorrectly reporting compaction queue of zero.
+- Ensure correct JSON log formatting.
+- Add logging for shard write errors.
+- Avoid incorrect logging about "broken pipe" when entropy is detected.
+#### Performance
+- Limit field size to 1MB while parsing line protocol.
+- Fix potential crash due to race between reading TSI index and TSI compaction.
+- Delay hinted handoff writes (by less than one second) if `retry-rate-limit` is exceeded.
+#### Security
+- Require read authorization on a database to see continuous queries linked to that database.
+- Fix incorrect TLS handling for `influxd-ctl entropy` commands.
+- Use TLS for nested LDAP connections when TLS is enabled.
+
 ## v1.9.3 [2021-07-19]
 
 ### Features
