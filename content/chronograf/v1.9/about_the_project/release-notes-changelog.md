@@ -29,7 +29,7 @@ visualization updates...?
 
 #### Browser support
 - Fix issue displaying single-statistic dashboard in Safari.
-- Avoid useless browser history change.
+- Avoid extraneous browser history change.
 - Enforce one organization between browser tabs.
 - Support Firefox private mode.
 
