@@ -31,7 +31,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
 #### Maintenance updates 
 - Update Protocol Buffers library versions.
-- Update to Flux [0.127.3](/flux/v0.x/release-notes/#v01273-2021-09-01).
+- Update to Flux [0.131.0](/flux/v0.x/release-notes/#v01310-2021-09-20).
 
 ### Bug fixes
 #### Data
