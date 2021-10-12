@@ -12,7 +12,7 @@ menu:
 
 ### Features
 
-### Bug Fixes
+### Bug fixes
 
 #### Flux and task fixes
 - Repair paginated retrieval of Flux tasks.
