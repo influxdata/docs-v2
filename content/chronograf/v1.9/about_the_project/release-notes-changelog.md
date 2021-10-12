@@ -8,7 +8,7 @@ menu:
     parent: About the project
 ---
 
-## v1.9.1 [2021-10-12]
+## v1.9.1 [2021-10-11]
 
 ### Features
 
