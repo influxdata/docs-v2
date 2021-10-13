@@ -15,12 +15,24 @@ menu:
 - Upgrade Golang to 1.17.1.
 
 ### Bug fixes
-#### Flux and task fixes
-- Repair paginated retrieval of Flux tasks.
-- Repair calculation of Flux query range duration.
+#### Flux fixes
 - Update time range of Flux queries when zooming in on dashboard.
-- Name TICKscript after a task `name` variable when defined.
-- Make template tasks read-only.
+- Repair calculation of Flux query range duration.
+
+<!-- @pierwill let's create a new section for "Kapacitor integration" to identify -->
+<!-- the following issues require the Kapacitor 1.6.2 release (pulled from Tim's -->
+<!-- blog-looks like this would be line 21, 22, and line 18 in Flux section): -->
+
+#### Kapacitor integration
+
+- When using a `name` task variable, the TICKscript name that appears in the Alert portion of Chronograf now reflects that variable.
+  Previously, name variables were ignored and this led to confusion.
+- TICKscripts created from templates are now visible in a read-only mode from within Chronograf.
+  In addition, TICKscripts created from templates will _not_ appear in the Alert Rule section of the UI.
+  {{% note %}}
+This requires Kapacitor 1.6.2, which now provides information about the template used to create the underlying TICKscript.
+  {{% /note %}}
+- Pagination of more than 500 Flux tasks was broken. This has now been addressed.
 
 #### Browser support
 -  Safari only: Fix issue displaying Single Stat cells in dashboard.
