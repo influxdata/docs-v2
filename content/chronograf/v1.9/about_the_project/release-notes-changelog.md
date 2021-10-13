@@ -14,7 +14,7 @@ menu:
 - Distinguish tasks created from templates by appending "created from template" on the Manage Tasks page.
 - Upgrade Golang to 1.17.1.
 
-### Bug fixes
+### Bug Fixes
 #### Flux fixes
 - Update time range of Flux queries when zooming in on dashboard.
 - Repair calculation of Flux query range duration.
