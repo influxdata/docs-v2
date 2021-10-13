@@ -25,7 +25,7 @@ menu:
 #### Browser support
 -  Safari only: Fix issue displaying Single Stat cells in dashboard.
 - Avoid extraneous browser history change.
-- Enforce one organization between browser tabs.
+- Resolve issues that occurred attempting to open multiple organizations across tabs in one browser. Now, the session enforces one organization across browser tabs.
 - Support Firefox private mode.
 
 #### Visualization fixes
