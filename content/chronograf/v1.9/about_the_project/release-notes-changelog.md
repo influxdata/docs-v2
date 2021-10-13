@@ -19,10 +19,6 @@ menu:
 - Update time range of Flux queries when zooming in on dashboard.
 - Repair calculation of Flux query range duration.
 
-<!-- @pierwill let's create a new section for "Kapacitor integration" to identify -->
-<!-- the following issues require the Kapacitor 1.6.2 release (pulled from Tim's -->
-<!-- blog-looks like this would be line 21, 22, and line 18 in Flux section): -->
-
 #### Kapacitor integration
 
 - When using a `name` task variable, the TICKscript name that appears in the Alert portion of Chronograf now reflects that variable.
@@ -43,6 +39,8 @@ This requires Kapacitor 1.6.2, which now provides information about the template
 #### Visualization fixes
 - Repair time rendering in horizontal table.
 - Skip missing values in line chart instead of returning zeros.
+- Fix calculations to use the appropriate `v.windowPeriod` value.
+  Previously, `v.windowPeriod` was stuck at `3ms`.
 
 #### Package fixes
 - Rename ARM RPMs with yum-compatible names.
