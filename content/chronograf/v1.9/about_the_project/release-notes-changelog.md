@@ -23,7 +23,7 @@ menu:
 - Make template tasks read-only.
 
 #### Browser support
-- Fix issue displaying single-statistic dashboard in Safari.
+-  Safari only: Fix issue displaying Single Stat cells in dashboard.
 - Avoid extraneous browser history change.
 - Enforce one organization between browser tabs.
 - Support Firefox private mode.
