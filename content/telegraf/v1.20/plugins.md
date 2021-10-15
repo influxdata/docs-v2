@@ -9,6 +9,16 @@ menu:
     weight: 40
 weight: 6
 aliases:
+  - /telegraf/v1.20/plugins/plugins-list/
+  - /telegraf/v1.20/plugins/aggregators/
+  - /telegraf/v1.20/plugins/inputs/
+  - /telegraf/v1.20/plugins/outputs/
+  - /telegraf/v1.20/plugins/processors/
+  - /telegraf/v1.19/plugins/plugins-list/
+  - /telegraf/v1.19/plugins/aggregators/
+  - /telegraf/v1.19/plugins/inputs/
+  - /telegraf/v1.19/plugins/outputs/
+  - /telegraf/v1.19/plugins/processors/
   - /telegraf/v1.18/plugins/plugins-list/
   - /telegraf/v1.18/plugins/aggregators/
   - /telegraf/v1.18/plugins/inputs/
