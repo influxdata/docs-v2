@@ -63,7 +63,6 @@ If you plan to monitor a Windows host using the System plugin, you must complete
 
 3. Save the file and place it in a directory that **telegraf.exe** can access.
 
-    {{% /note %}}
 
 ## Start Telegraf
 
