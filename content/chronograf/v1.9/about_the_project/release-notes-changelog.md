@@ -8,7 +8,7 @@ menu:
     parent: About the project
 ---
 
-## v1.9.1 [2021-10-11]
+## v1.9.1 [2021-10-08]
 
 ### Features
 - Distinguish tasks created from templates by appending "created from template" on the Manage Tasks page.
