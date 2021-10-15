@@ -10,6 +10,7 @@ menu:
     name: opsgenie.sendAlert
     parent: opsgenie
 weight: 301
+flux/v0.x/tags: [single notification]
 introduced: 0.84.0
 ---
 

@@ -11,6 +11,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/victorops/event/
   - /influxdb/cloud/reference/flux/stdlib/contrib/victorops/event/
   - /flux/v0.x/stdlib/contrib/bonitoo-io/victorops/event/
+flux/v0.x/tags: [single notification]
 introduced: 0.108.0
 ---
 

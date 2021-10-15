@@ -11,12 +11,14 @@ menu:
     name: teams.endpoint
     parent: teams
 weight: 202
-flux/v0.x/tags: [notification endpoints]
+flux/v0.x/tags: [transformations, notification endpoints]
 introduced: 0.70.0
 ---
 
 The `teams.endpoint()` function sends a message to a Microsoft Teams channel
 using data from table rows.
+Output tables include a `_sent` column that indicates whether or not the
+the row's notification sent successfully (`true` or `false`).
 
 ```js
 import "contrib/sranka/teams"

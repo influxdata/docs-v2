@@ -12,6 +12,7 @@ menu:
     name: slack.message
     parent: slack
 weight: 202
+flux/v0.x/tags: [single notification]
 introduced: 0.41.0
 ---
 

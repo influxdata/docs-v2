@@ -11,11 +11,13 @@ weight: 202
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/endpoint/
   - /influxdb/cloud/reference/flux/stdlib/contrib/webexteams/endpoint/
-flux/v0.x/tags: [notification endpoints]
+flux/v0.x/tags: [transformations, notification endpoints]
 ---
 
 The `webexteams.endpoint()` function returns a function that sends a message that
 includes data from input rows to a Webex room.
+Output tables include a `_sent` column that indicates whether or not the
+the row's notification sent successfully (`true` or `false`).
 
 ```js
 import "contrib/sranka/webexteams"

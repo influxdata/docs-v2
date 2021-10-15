@@ -225,6 +225,13 @@ The following notification endpoint functions are available:
 
 {{< list-all-functions filters="notification endpoints" >}}
 
+There are also functions that send a single message to a remote endpoint:
+
+{{< list-all-functions filters="single notification" >}}
+
+For more information on how to send notifications with Flux,
+see [Send notifications](/flux/v0.x/notifications/).
+
 ---
 
 ### Geotemporal

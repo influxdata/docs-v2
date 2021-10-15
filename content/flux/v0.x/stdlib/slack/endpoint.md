@@ -11,11 +11,13 @@ menu:
     name: slack.endpoint
     parent: slack
 weight: 202
-flux/v0.x/tags: [notification endpoints]
+flux/v0.x/tags: [transformations, notification endpoints]
 introduced: 0.41.0
 ---
 
 The `slack.endpoint()` function sends a message to Slack that includes output data.
+Output tables include a `_sent` column that indicates whether or not the
+the row's notification sent successfully (`true` or `false`).
 
 ```js
 import "slack"

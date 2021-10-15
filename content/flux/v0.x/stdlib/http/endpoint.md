@@ -11,11 +11,13 @@ menu:
     name: http.endpoint
     parent: http
 weight: 202
-flux/v0.x/tags: [notification endpoints]
+flux/v0.x/tags: [transformation, notification endpoints]
 introduced: 0.39.0
 ---
 
 The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.
+Output tables include a `_sent` column that indicates whether or not the
+the row's HTTP request sent successfully (`true` or `false`).
 
 ```js
 import "http"

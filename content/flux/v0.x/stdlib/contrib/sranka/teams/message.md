@@ -6,6 +6,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/teams/message/
   - /influxdb/cloud/reference/flux/stdlib/contrib/teams/message/
+flux/v0.x/tags: [single notification]
 menu:
   flux_0_x_ref:
     name: teams.message

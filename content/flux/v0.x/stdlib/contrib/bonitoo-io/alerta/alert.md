@@ -10,6 +10,7 @@ weight: 302
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/alerta/alert/
   - /influxdb/cloud/reference/flux/stdlib/contrib/alerta/alert/
+flux/v0.x/tags: [single notification]
 introduced: 0.115.0
 ---
 

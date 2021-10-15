@@ -12,6 +12,7 @@ menu:
     name: http.post
     parent: http
 weight: 202
+flux/v0.x/tags: [single notification]
 introduced: 0.40.0
 ---
 

@@ -10,6 +10,7 @@ weight: 202
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/sendAlert/
   - /influxdb/cloud/reference/flux/stdlib/contrib/bigpanda/sendAlert/
+flux/v0.x/tags: [single notification]
 introduced: 0.108.0
 ---
 

@@ -10,11 +10,13 @@ weight: 202
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/victorops/endpoint/
   - /influxdb/cloud/reference/flux/stdlib/contrib/victorops/endpoint/
-flux/v0.x/tags: [notification endpoints]
+flux/v0.x/tags: [transformations, notification endpoints]
 introduced: 0.108.0
 ---
 
 The `victorops.endpoint()` function sends events to VictorOps using data from input rows.
+Output tables include a `_sent` column that indicates whether or not the
+the row's notification sent successfully (`true` or `false`).
 
 {{% note %}}
 #### VictorOps is now Splunk On-Call

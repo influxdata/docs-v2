@@ -10,12 +10,14 @@ weight: 202
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/endpoint/
   - /influxdb/cloud/reference/flux/stdlib/contrib/bigpanda/endpoint/
-flux/v0.x/tags: [notification endpoints]
+flux/v0.x/tags: [transformations, notification endpoints]
 introduced: 0.108.0
 ---
 
 The `bigpanda.endpoint()` function sends alerts to [BigPanda](https://www.bigpanda.io/)
 using data from input rows.
+Output tables include a `_sent` column that indicates whether or not the
+the row's notification sent successfully (`true` or `false`).
 
 ```js
 import "contrib/rhajek/bigpanda"

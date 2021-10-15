@@ -10,12 +10,14 @@ weight: 302
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/alerta/endpoint/
   - /influxdb/cloud/reference/flux/stdlib/contrib/alerta/endpoint/
-flux/v0.x/tags: [notification endpoints]
+flux/v0.x/tags: [transformations, notification endpoints]
 introduced: 0.115.0
 ---
 
 The `alerta.endpoint()` function sends alerts to [Alerta](https://alerta.io/)
-using data from input rows.
+using data from each input row.
+Output tables include a `_sent` column that indicates whether or not the
+the row's notification sent successfully (`true` or `false`).
 
 _**Function type:** Output_
 

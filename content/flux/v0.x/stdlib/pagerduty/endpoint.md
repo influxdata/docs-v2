@@ -11,12 +11,14 @@ menu:
     name: pagerduty.endpoint
     parent: pagerduty
 weight: 202
-flux/v0.x/tags: [notification endpoints]
+flux/v0.x/tags: [transformations, notification endpoints]
 introduced: 0.43.0
 ---
 
 The `pagerduty.endpoint()` function returns a function that can be used to send
 a message to PagerDuty that includes output data.
+Output tables include a `_sent` column that indicates whether or not the
+the row's notification sent successfully (`true` or `false`).
 
 ```js
 import "pagerduty"

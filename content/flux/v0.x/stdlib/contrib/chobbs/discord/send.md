@@ -11,6 +11,7 @@ menu:
     name: discord.send
     parent: discord
 weight: 202
+flux/v0.x/tags: [single notification]
 introduced: 0.69.0
 ---
 

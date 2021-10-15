@@ -11,6 +11,7 @@ weight: 202
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/message/
   - /influxdb/cloud/reference/flux/stdlib/contrib/webexteams/message/
+flux/v0.x/tags: [single notification]
 ---
 
 The `webexteams.message()` function sends a single message to Webex using the

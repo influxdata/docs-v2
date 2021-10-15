@@ -11,6 +11,7 @@ menu:
     name: pushbullet.pushNote
     parent: pushbullet
 weight: 202
+flux/v0.x/tags: [single notification]
 introduced: 0.66.0
 ---
 
