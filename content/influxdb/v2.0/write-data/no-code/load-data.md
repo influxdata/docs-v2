@@ -63,7 +63,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
     {{< nav-icon "data" >}}
 2. Do one of the following:
    - Enter a specific Telegraf plugin to search for in the **Search data writing methods** field.
-   - Scroll down to browse available input plugins.
+   - Scroll down to **Telegraf Plugins** and browse available input plugins.
 3. Click the plugin to load data from. The plugin details page opens.
 4. Select one of the options from the **Use this plugin** dropdown:
   - **Create a new configuration**: Enter a configuration name and select an output bucket, then click **Continue Configuring**.
