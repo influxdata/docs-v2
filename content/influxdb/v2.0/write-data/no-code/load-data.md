@@ -66,8 +66,8 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
    - Scroll down to **Telegraf Plugins** and browse available input plugins.
 3. Click the plugin to load data from. The plugin details page opens.
 4. Select one of the options from the **Use this plugin** dropdown:
-  - **Create a new configuration**: Enter a configuration name and select an output bucket, then click **Continue Configuring**.
-  - **Add to an existing configuration**: Select an existing Telegraf configuration to add this plugin to, then click **Add to Existing Config**.
+   - **Create a new configuration**: Enter a configuration name and select an output bucket, and then click **Continue Configuring**.
+   - **Add to an existing configuration**: Select an existing Telegraf configuration to add this plugin to, and then click **Add to Existing Config**.
 5. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
 6. Adjust configuration settings as needed. To find configuration settings for a specific plugin, see [Telegraf plugins](/telegraf/latest/plugins/).
 7. Click **Save and Test**.
