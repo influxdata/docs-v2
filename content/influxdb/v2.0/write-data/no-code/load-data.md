@@ -73,7 +73,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 7. Click **Save and Test**.
 8. The **Test Your Configuration** page provides instructions for how to start
    Telegraf using the generated configuration.
-   _See [Start Telegraf](#start-telegraf) below for detailed information about what each step does._
+   _See [Start Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/auto-config/#start-telegraf) below for detailed information about what each step does._
 9. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully sending data to InfluxDB.
    Once confirmed, a **Connection Found!** message appears.
 10. Click **Finish**. Your Telegraf configuration name and the associated bucket name appears in the list of Telegraf configurations.
