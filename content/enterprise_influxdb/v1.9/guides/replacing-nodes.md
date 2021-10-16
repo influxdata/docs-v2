@@ -175,7 +175,7 @@ influxd-ctl remove-meta -force -tcpAddr enterprise-meta-02:8089 enterprise-meta-
 
 #### 2.3. Add the new meta node
 
-Once the non-leader meta node has been removed, use `influxd-ctl add-meta` to replace it with the new meta node:
+Once the non-leader meta node has been removed, on **one of the existing meta nodes**, run `influxd-ctl add-meta` to add the new meta node:
 
 ```bash
 # Pattern
