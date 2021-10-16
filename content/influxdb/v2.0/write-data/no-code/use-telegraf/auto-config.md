@@ -15,15 +15,9 @@ related:
   - /influxdb/v2.0/telegraf-configs/create/
 ---
 
-The InfluxDB user interface (UI) can automatically create
-Telegraf configuration files based on user-selected Telegraf plugins.
+The InfluxDB user interface (UI) can automatically create Telegraf configuration files based on user-selected Telegraf plugins.
 This article describes how to create a Telegraf configuration in the InfluxDB UI and
 start Telegraf using the generated configuration file.
-
-{{% note %}}
-Only a subset of plugins are configurable using the InfluxDB UI.
-To use plugins other than those listed, you must [manually configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config).
-{{% /note %}}
 
 {{< youtube M8KP7FAb2L0 >}}
 
@@ -46,23 +40,15 @@ for using Telegraf with InfluxDB v2.0._
    Plugins listed with a <span style="color:#32B08C">{{< icon "check" >}}</span>
    require no additional configuration.
    To configure a plugin or access plugin documentation, click the plugin name.
+5. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
+6. Adjust configuration settings as needed. To find configuration settings for a specific plugin, see [Telegraf plugins](/telegraf/latest/plugins/).
+7. Click **Save and Test**.
+8. The **Test Your Configuration** page provides instructions for how to start Telegraf using the generated configuration.
+  _See [Start Telegraf](#start-telegraf) below for detailed information about what each step does._
+9. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully sending data to InfluxDB.
+  Once confirmed, a **Connection Found!** message appears.
+10. Click **Finish**. Your Telegraf configuration name and the associated bucket name appears in the list of Telegraf configurations.
 
-   {{% note %}}
-   Not all available plugins are listed on this screen. For more information on manually configuring additional plugins, see [Manually add Telegraf plugins](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/).
-   {{% /note %}}
-
-8. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
-9. Click **Create and Verify**.
-10. The **Test Your Configuration** page provides instructions for how to start
-   Telegraf using the generated configuration.
-   _See [Start Telegraf](#start-telegraf) below for detailed information about what each step does._
-11. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully
-   sending data to InfluxDB.
-   Once confirmed, a **Connection Found!** message appears.
-12. Click **Finish**. Your Telegraf configuration name and the associated bucket name appears
-   in the list of Telegraf configurations.
-
-    {{% note %}}
 
 ### Windows
 
@@ -72,12 +58,11 @@ If you plan to monitor a Windows host using the System plugin, you must complete
     Telegraf configuration, and then click **Download Config**.
 2. Open the downloaded Telegraf configuration file and replace the `[[inputs.processes]]` plugin with one of the following Windows plugins, depending on your Windows configuration:
 
-  - [`[[inputs.win_perf_counters]]`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/win_perf_counters)
-  -  [`[[inputs.win_services]]`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/win_services)
+   - [`[[inputs.win_perf_counters]]`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/win_perf_counters)
+   -  [`[[inputs.win_services]]`](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/win_services)
 
 3. Save the file and place it in a directory that **telegraf.exe** can access.
 
-    {{% /note %}}
 
 ## Start Telegraf
 
