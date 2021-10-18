@@ -10,6 +10,23 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.134.0 [2021-10-15]
+
+### Features
+- Add short mode to `fluxdoc dump` command.
+- Add Analyzer API to `libflux`.
+- Add [`timezone` package](/flux/v0.x/stdlib/timezone/) with fixed offset location.
+- Add [`record.get()` function](/flux/v0.x/stdlib/experimental/record/get/) to
+  dynamically retrieve record properties.
+- Embed the compiled standard library instead of compiling at runtime.
+
+### Bug fixes
+- Create new annotations when group key columns change.
+- Update [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/experimental/prometheus/histogramquantile/)
+  to support multiple histograms and metric format versions.
+
+---
+
 ## v0.133.0 [2021-10-04]
 
 ### Features
