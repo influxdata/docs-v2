@@ -15,7 +15,7 @@ flux/v0.x/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/metric_types/, Prometheus metric types
   - /{{< latest "influxdb" >}}/reference/prometheus-metrics/
-  - /flux/v0.x/stdlib/experimental/prometheus/histogramQuantile/
+  - /flux/v0.x/stdlib/experimental/prometheus/histogramquantile/
 ---
 
 Use Flux to query and transform Prometheus **histogram** metrics stored in InfluxDB.
@@ -71,7 +71,7 @@ is **not compatible** with the format of Prometheus histogram data stored in Inf
 2.  Filter results by the `prometheus` measurement and **histogram metric name** field.
 3.  _(Recommended)_ Use [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/)
     to downsample data and optimize the query.
-4.  Use [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/experimental/prometheus/histogramQuantile/)
+4.  Use [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/experimental/prometheus/histogramquantile/)
     to calculate a specific quantile.
 
 ```js
@@ -92,7 +92,7 @@ from(bucket: "example-bucket")
 3.  _(Recommended)_ Use [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/)
     to downsample data and optimize the query.
     **Set the `createEmpty` parameter to `false`.**
-4.  Use [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/experimental/prometheus/histogramQuantile)
+4.  Use [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/experimental/prometheus/histogramquantile)
     to calculate a specific quantile. Specify the `metricVersion` as `1`.
 
 ```js
