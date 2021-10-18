@@ -31,21 +31,19 @@ tool and configuration used to scrape the metrics.
 
 {{% oss-only %}}
 
-| Scraping mechanism                                                                                    | Metric version |
-| :---------------------------------------------------------------------------------------------------- | -------------: |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` |              1 |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` |              2 |
-| [InfluxDB scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)                                    |              1 |
-| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)            |              2 |
+| Scraping tool                                                                              |                               InfluxDB Metric version |
+| :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}/plugins/#prometheus)               | _Determined by `metric_version` configuration option_ |
+| [InfluxDB scraper](/influxdb/v2.0/write-data/no-code/scrape-data/)                         |                                                     1 |
+| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
 {{% /oss-only %}}
 {{% cloud-only %}}
 
-| Scraping mechanism                                                                                    | Metric version |
-| :---------------------------------------------------------------------------------------------------- | -------------: |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 1` |              1 |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}plugins/#prometheus) with `metric_version = 2` |              2 |
-| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)            |              2 |
+| Scraping tool                                                                              |                               InfluxDB Metric version |
+| :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}/plugins/#prometheus)               | _Determined by `metric_version` configuration option_ |
+| Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
 {{% /cloud-only %}}
 

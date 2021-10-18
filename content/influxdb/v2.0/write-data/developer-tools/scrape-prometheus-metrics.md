@@ -44,11 +44,11 @@ To use Telegraf to scrape Prometheus-formatted metrics from an HTTP-accessible
 endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}:
 
 1. Add the [Prometheus input plugin](/plugins/#prometheus) to your Telegraf configuration file.
-2. Set the `urls` to scrape metrics from.
-3. Set the `metric_version` configuration option to specify which
-   [metric parsing version](#metric-parsing-versions) to use
-   _(version `2` is recommended)_.
-4. Add the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb_v2)
+    1. Set the `urls` to scrape metrics from.
+    2. Set the `metric_version` configuration option to specify which
+      [metric parsing version](/influxdb/v2.0/reference/prometheus-metrics/) to use
+      _(version `2` is recommended)_.
+2. Add the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb_v2)
    to your Telegraf configuration file and configure it to to write to
    InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}.
   
