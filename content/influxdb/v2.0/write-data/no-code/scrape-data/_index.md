@@ -1,6 +1,5 @@
 ---
-title: Scrape data
-seotitle: Scrape data using InfluxDB scrapers
+title: Scrape data using InfluxDB scrapers
 weight: 103
 description: >
   Scrape data from InfluxDB instances or remote endpoints using InfluxDB scrapers.
@@ -15,7 +14,6 @@ menu:
   influxdb_2_0:
     name: Scrape data
     parent: No-code solutions
-products: [oss]
 ---
 
 InfluxDB scrapers collect data from specified targets at regular intervals,
