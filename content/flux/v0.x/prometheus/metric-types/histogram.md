@@ -24,11 +24,11 @@ Use Flux to query and transform Prometheus **histogram** metrics stored in Influ
 > response sizes) and counts them in configurable buckets.
 > It also provides a sum of all observed values.
 >
-> {{% cite %}}[Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/#gauge){{% /cite %}}
+> {{% cite %}}[Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/#histogram){{% /cite %}}
 
 ##### Example histogram metric in Prometheus data
 ```sh
-# HELP example_histogram_duration Duration of given tasks and example histogram metric
+# HELP example_histogram_duration Duration of given tasks as example histogram metric
 # TYPE example_histogram_duration histogram
 example_histogram_duration_bucket{le="0.1"} 80
 example_histogram_duration_bucket{le="0.25"} 85

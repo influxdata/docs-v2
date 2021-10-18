@@ -17,15 +17,13 @@ related:
   - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
 ---
 
-When scraping [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/)
-and writing them to InfluxDB, metrics are parsed and stored in InfluxDB in different formats.
-The following formats are available:
+[Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/)
+are parsed and written to InfluxDB in one of two formats, depending on the scraping tool used:
 
 - [Metric version 1](#metric-version-1)
 - [Metric version 2](#metric-version-2)
 
-
-#### Scraping tools and formats
+#### Scraping tools and parsing format
 The format that Prometheus metrics are written to InfluxDB in depends on the
 tool and configuration used to scrape the metrics.
 
