@@ -197,10 +197,9 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
     ```
     {{% note %}}
 #### Upgrade `.deb` packages
-InfluxDB 1.x and InfluxDB 2, when installed from a `.deb` package,
-both run under the `influxdb` user.
-If you've installed both versions, from `.deb` packages run the upgrade command
-as the influxdb user:
+When installed from a `.deb` package, InfluxDB 1.x and 2.x run under the `influxdb` user.
+If you've installed both versions from `.deb` packages, run the upgrade command
+as the `influxdb` user:
 
 ```sh
 sudo -u influxdb influxd upgrade
