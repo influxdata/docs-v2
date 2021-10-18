@@ -21,12 +21,12 @@ Use Flux to query and transform Prometheus **gauge** metrics stored in InfluxDB.
 
 ##### Example gauge metric in Prometheus data
 ```sh
-# HELP example_gauge_current Current number of items and example gauge metric
+# HELP example_gauge_current Current number of items as example gauge metric
 # TYPE example_gauge_current gauge
 example_gauge_current 128
 ```
 
-Generally gauge metrics can be use as they are reported and don't require any
+Generally gauge metrics can be used as they are reported and don't require any
 additional processing.
 
 The examples below include example data collected from the **InfluxDB OSS 2.x `/metrics` endpoint**

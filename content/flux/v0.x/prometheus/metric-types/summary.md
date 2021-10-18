@@ -3,7 +3,7 @@ title: Work with Prometheus summaries
 list_title: Summary
 description: >
   Use Flux to query and transform Prometheus **summary** metrics stored in InfluxDB.
-  A summary samples observations (usually things like request durations and response sizes).
+  A summary samples observations, e.g. request durations and response sizes.
   While it also provides a total count of observations and a sum of all observed
   values, it calculates configurable quantiles over a sliding time window.
 menu:

@@ -1,8 +1,8 @@
 ---
 title: Scrape Prometheus metrics
 description: >
-  Use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape) to
-  scrape Prometheus-formatted metrics from an HTTP-accessible endpoint using Flux.
+  Use the Flux [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape/) function to
+  scrape Prometheus-formatted metrics from an HTTP-accessible endpoint.
 menu:
   flux_0_x:
     parent: Work with Prometheus
@@ -17,8 +17,8 @@ related:
   - /{{< latest "influxdb" >}}/write-data/developer-tools/scrape-prometheus-metrics, Scrape Prometheus metrics with InfluxDB OSS
 ---
 
-To scrape [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/) 
-from an HTTP-accessible endpoint using Flux:
+To use Flux to scrape [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/) 
+from an HTTP-accessible endpoint:
 
 1. Import the [`experimental/prometheus` package](/flux/v0.x/stdlib/experimental/prometheus/).
 2. Use [`prometheus.scrape`](/flux/v0.x/stdlib/experimental/prometheus/scrape/) and
@@ -149,7 +149,7 @@ When scraped by Flux, these metrics return the following stream of tables:
 [Telegraf](/{{< latest "telegraf" >}}/) and [InfluxDB](/{{< latest "influxdb" >}}/) 
 provide tools that scrape Prometheus metrics and store them in InfluxDB.
 Depending on the tool and and configuration you use to scrape metrics, 
-the resulting data structure may differ than the structure returned by `prometheus.scrape()`
+the resulting data structure may differ from the structure returned by `prometheus.scrape()`
 described [above](#output-structure).
 
 For information about the different data structures of scraped Prometheus metrics
