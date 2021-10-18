@@ -16,12 +16,13 @@ aliases:
 - Add short mode to `fluxdoc dump` command.
 - Add Analyzer API to `libflux`.
 - Add [`timezone` package](/flux/v0.x/stdlib/timezone/) with fixed offset location.
-- Add `record.get()` function to dynamically retrieve record properties.
+- Add [`record.get()` function](/flux/v0.x/stdlib/experimental/record/get/) to
+  dynamically retrieve record properties.
 - Embed the compiled standard library instead of compiling at runtime.
 
 ### Bug fixes
 - Create new annotations when group key columns change.
-- Update [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/prometheus/histogramquantile/)
+- Update [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/experimental/prometheus/histogramquantile/)
   to support multiple histograms and metric format versions.
 
 ---
