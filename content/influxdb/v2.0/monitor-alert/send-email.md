@@ -43,12 +43,6 @@ Send an alert email using a third-party service, such as [SendGrid](https://send
    - Use the `map()` function to evaluate the criteria to send an alert using `http.post()`.
    - Specify your email service `url` (endpoint), include applicable request `headers`, and verify your request `data` format follows the format specified for your email service.
 
-{{% note %}}
-#### Escape double quotes in your request body
-To successfully byte-encode request bodies (`data`) in the `http.post()` function,
-escape all double-quote characters with a backslash (`\"`).
-{{% /note %}}
-
 #### Examples
 
 {{< tabs-wrapper >}}
