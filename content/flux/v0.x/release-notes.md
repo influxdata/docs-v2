@@ -16,7 +16,8 @@ aliases:
 - Add short mode to `fluxdoc dump` command.
 - Add Analyzer API to `libflux`.
 - Add `timezone` package with fixed offset location.
-- Add `record.get()` function to dynamically retrieve record properties.
+- Add [`record.get()` function](/flux/v0.x/stdlib/experimental/record/get/) to
+  dynamically retrieve record properties.
 - Embed the compiled standard library instead of compiling at runtime.
 
 ### Bug fixes
