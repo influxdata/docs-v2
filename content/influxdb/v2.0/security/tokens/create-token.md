@@ -43,8 +43,19 @@ Only tokens with the `write: authorizations` permission can create tokens.
 ```sh
 # Syntax
 influx auth create -o <org-name> [permission-flags]
+```
 
-# Example
+### Examples
+#### Create an all-access token
+
+```sh
+influx auth create -o my-org \
+  --all-access
+```
+
+#### Create a token with specified read permissions
+
+```sh
 influx auth create -o my-org \
   --read-bucket 03a2bbf46309a000 \
   --read-bucket 3a87c03ace269000 \

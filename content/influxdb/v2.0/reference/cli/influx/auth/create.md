@@ -19,13 +19,15 @@ influx auth create [flags]
 | Flag |                                 | Description                                                           | Input type  | {{< cli/mapped >}}    |
 |:-----|:--------------------------------|:----------------------------------------------------------------------|:-----------:|:----------------------|
 | `-c` | `--active-config`               | CLI configuration to use for command                                  | string      |                       |
+| `-c` | `--all-access`                  | Create an all-access API token                                       | string      |                       |
 |      | `--configs-path`                | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      | `INFLUX_CONFIGS_PATH` |
 | `-d` | `--description`                 | API token description                                                 | string      |                       |
 | `-h` | `--help`                        | Help for the `create` command                                         |             |                       |
 |      | `--hide-headers`                | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`                        | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
-|      | `--http-debug`                  | Inspect communication with InfluxDB servers.                          | string      |                       |
+|      | `--http-debug`                  | Inspect communication with InfluxDB servers                           | string      |                       |
 |      | `--json`                        | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
+|      | `--operator`                    | Create an operator API token                                          | string      | `INFLUX_ORG`          |
 | `-o` | `--org`                         | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
 |      | `--org-id`                      | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
 |      | `--read-bucket`                 | Grant permission to read a specified bucket ID                        | stringArray |                       |
@@ -58,11 +60,20 @@ influx auth create [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Create an API token with read and write permissions](#create-an-authentication-token-with-read-and-write-permissions)
-- [Create a token with read and write access to specific buckets](#create-a-token-with-read-and-write-access-to-specific-buckets)
+- [Create an API token with read and write permissions to all resources in an organization](#create-an-api-token-with-read-and-write-permissions-to-all-resources-in-an-organization)
+- [Create an API token with specified read and write permissions](#create-an-api-token-with-specified-read-and-write-permissions)
+- [Create a token with read and write access to specific buckets](#create-a-api-token-with-read-and-write-access-to-specific-buckets)
 - [Create a read-only API token](#create-a-read-only-authentication-token)
 
-##### Create an API token with read and write permissions
+##### Create an API token with read and write permissions to all resources in an organization
+
+```sh
+influx auth create \
+  --all-access 
+```
+
+##### Create an API token with specified read and write permissions
+
 ```sh
 influx auth create \
   --read-buckets \
@@ -87,7 +98,8 @@ influx auth create \
   --write-user
 ```
 
-##### Create a token with read and write access to specific buckets
+##### Create an API token with read and write access to specific buckets
+
 ```sh
 influx auth create \
   --read-bucket 0000000000000001 \
