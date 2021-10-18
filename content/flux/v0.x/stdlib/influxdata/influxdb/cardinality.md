@@ -15,11 +15,7 @@ related:
 introduced: 0.92.0
 ---
 
-The `influxdb.cardinality()` function returns the [series cardinality](/{{< latest "influxdb" "v2" >}}/reference/glossary#series-cardinality) of data stored in InfluxDB Cloud.
-
-{{% cloud %}}
-**InfluxDB Cloud** supports the `influxdb.cardinality()` function, but **InfluxDB OSS does not**.
-{{% /cloud %}}
+The `influxdb.cardinality()` function returns the [series cardinality](/{{< latest "influxdb" "v2" >}}/reference/glossary#series-cardinality) of a specified dataset.
 
 ```js
 import "influxdata/influxdb"

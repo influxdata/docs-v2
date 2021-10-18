@@ -1,9 +1,9 @@
-#!/bin/bash -e
+#!/bin/bash
 
 set -e
 
 # Get list of versions from directory names
-versions="$(ls -d -- */ | grep -v 'node_modules')"
+versions="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'plugins')"
 
 for version in $versions
 do
@@ -57,9 +57,9 @@ weight: 304
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
+    --options.noAutoAuth \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
-
 
   # Use Redoc to generate the v1 compatibility API html
   npm_config_yes=true npx $redocCLI bundle $version/swaggerV1Compat.yml \
@@ -71,7 +71,6 @@ weight: 304
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
     --output=redoc-static-v1-compat.html \
-
 
   # Create temp file with frontmatter and Redoc html
   echo "$v2frontmatter" >> $version.tmp
