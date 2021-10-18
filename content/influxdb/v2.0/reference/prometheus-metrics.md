@@ -24,9 +24,6 @@ are parsed and written to InfluxDB in one of two formats, depending on the scrap
 - [Metric version 2](#metric-version-2)
 
 #### Scraping tools and parsing format
-The format that Prometheus metrics are written to InfluxDB in depends on the
-tool and configuration used to scrape the metrics.
-
 {{% oss-only %}}
 
 | Scraping tool                                                                              |                               InfluxDB Metric version |
