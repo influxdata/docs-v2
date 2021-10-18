@@ -21,7 +21,7 @@ aliases:
 
 ### Bug fixes
 - Create new annotations when group key columns change.
-- Update [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/prometheus/histogramquantile/)
+- Update [`prometheus.histogramQuantile()`](/flux/v0.x/stdlib/experimental/prometheus/histogramquantile/)
   to support multiple histograms and metric format versions.
 
 ---
