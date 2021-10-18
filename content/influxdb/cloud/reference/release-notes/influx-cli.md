@@ -18,7 +18,7 @@ This release makes it easier to create tokens in the CLI, adds support for viewi
 
 ### Create an all-access token in the CLI
 
-- Add ability to [use the influx CLI to create an all-access API token](/influxdb/cloud/reference/cli/influx/auth/create/#create-an-api-token-with-read-and-write-permissions-to-all-resources-in-an-organization) with read and write permissions to all resources in an organization.
+- Add ability to [use the influx CLI to create an all-access API token](/influxdb/cloud/security/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
 
   {{% oss-only %}}
 
@@ -27,16 +27,18 @@ This release makes it easier to create tokens in the CLI, adds support for viewi
 - [influx auth create](/influxdb/cloud/reference/cli/influx/auth/create/): Add ability to create an [Operator token](/influxdb/v2.0/security/tokens/#operator-token) using `influx auth create --operator`.
   {{% /oss-only %}}
 
-### View more buckets in the CLI  
+### View more buckets in the CLI
+
 - [influx bucket list](/influxdb/cloud/reference/cli/influx/bucket/list/): Update pagination to support displaying more than 20 buckets.
 
 ### New bucket shorthand for influx delete
+
 - [influx delete](/influxdb/cloud/reference/cli/influx/delete/): Add shorthand `-b` for `--bucket` in [`influx delete`].
 
 ## Bug fixes
 
-- Detect and warn when restore --full changes the operator token.
-- Set newly-created config as active in setup.
+- Detect and warn when `influx restore --full` changes the operator token.
+- Set newly-created config as active in `setup`.
 - Embed timezone data into Windows builds to avoid errors.
 
 ## v2.1.1 [2021-09-24]
