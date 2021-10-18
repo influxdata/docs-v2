@@ -27,7 +27,7 @@ Running `influx delete` without the `-p` or `--predicate` flag deletes all data 
 | Flag |                   | Description                                                                                               | Input type | {{< cli/mapped >}}    |
 |:-----|:------------------|:----------------------------------------------------------------------------------------------------------|:----------:|:----------------------|
 | `-c` | `--active-config` | CLI configuration to use for command                                                                      | string     |                       |
-|      | `--bucket`        | Name of bucket to remove data from (mutually exclusive with `--bucket-id`)                                | string     | `INFLUX_BUCKET_NAME`  |
+| `-b` | `--bucket`        | Name of bucket to remove data from (mutually exclusive with `--bucket-id`)                                | string     | `INFLUX_BUCKET_NAME`  |
 |      | `--bucket-id`     | Bucket ID (mutually exclusive with `--bucket`)                                                            | string     | `INFLUX_BUCKET_ID`    |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                                     | string     | `INFLUX_CONFIGS_PATH` |
 | `-h` | `--help`          | Help for the `delete` command                                                                             |            |                       |
