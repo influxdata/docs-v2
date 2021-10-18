@@ -61,17 +61,22 @@ influx auth create [flags]
 {{< cli/influx-creds-note >}}
 
 - [Create an API token with read and write permissions to all resources in an organization](#create-an-api-token-with-read-and-write-permissions-to-all-resources-in-an-organization)
+- [Create an API token with read and write permissions to all resources in all organizations](#create-an-api-token-with-read-and-write-permissions-to-all-resources-in-all-organizations)
 - [Create an API token with specified read and write permissions](#create-an-api-token-with-specified-read-and-write-permissions)
 - [Create a token with read and write access to specific buckets](#create-a-api-token-with-read-and-write-access-to-specific-buckets)
 - [Create a read-only API token](#create-a-read-only-authentication-token)
 
-##### Create an API token with read and write permissions to all resources in all organization
+##### Create an All-Access API token with read and write permissions to all resources in all organizations
+
+Create an All-Access token to grant permissions to all resources in an organization.
 
 ```sh
 influx auth create \
   --operator 
 ```
-##### Create an API token with read and write permissions to all resources in an organization
+##### Create an Operator API token with read and write permissions to all resources in an organization
+
+Create an Operator token to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create \

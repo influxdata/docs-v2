@@ -48,7 +48,7 @@ influx auth create -o <org-name> [permission-flags]
 ### Examples
 #### Create an all-access token
 
-An all-access token grants permissions to all resources in an organization.
+Create an All-Access token to grant permissions to all resources in an organization.
 
 ```sh
 influx auth create -o my-org \
@@ -57,7 +57,7 @@ influx auth create -o my-org \
 
 #### Create an operator token
 
-An operator token grants permissions to all resources across all organizations.
+Create an Operator token to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create -o my-org \
