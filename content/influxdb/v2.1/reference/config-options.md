@@ -120,6 +120,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [secret-store](#secret-store)
 - [session-length](#session-length)
 - [session-renew-disabled](#session-renew-disabled)
+- [sqlite-path](#sqlite-path)
 - [storage-cache-max-memory-size](#storage-cache-max-memory-size)
 - [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
 - [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
@@ -1528,7 +1529,6 @@ session-renew-disabled = true
 ---
 
 
-<!--
 ### sqlite-path
 
 Path to the SQLite database file.
@@ -1577,7 +1577,6 @@ sqlite_path = "/users/user/.influxdbv2/influxd.sqlite"
 {{< /code-tabs-wrapper >}}
 
 ---
--->
 
 ### storage-cache-max-memory-size
 Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
@@ -2308,8 +2307,13 @@ storage-wal-fsync-delay = "0s"
 ### store
 Specifies the data store for REST resources.
 
-**Options:** `bolt`, `memory`  
-**Default:** `bolt`  
+**Options:** `disk`, `memory`  
+**Default:** `disk`  
+
+{{% note %}}
+For backwards compatibility, this flag also acceptss `bolt` as a value.
+When using `disk`, REST resources are stored on disk using the [bolt-path](#bolt-path) and [sqlite-path](#sqlite-path).
+{{% /note %}}
 
 {{% note %}}
 `memory` is meant for transient environments, such as testing environments, where
