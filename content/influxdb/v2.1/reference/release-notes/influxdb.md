@@ -25,7 +25,7 @@ weight: 101
 - [22254](https://github.com/influxdata/influxdb/pull/22254): Implement metadata management for remote connections
 - [22258](https://github.com/influxdata/influxdb/pull/22258): Add logging and metrics middlewares to remotes api
 
-##### Replications
+#### Replications
 
 - [22581](https://github.com/influxdata/influxdb/pull/22581): Implement replication validation; validate replication to the `/api/v2/write` on remote server?
 - [22302](https://github.com/influxdata/influxdb/pull/22302): Implement metadata management for replications
@@ -61,19 +61,23 @@ weight: 101
 
 #### Flux
 
+- Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
+
 - [22634](https://github.com/influxdata/influxdb/pull/22634): Enable writing to remote hosts via `to()` and `experimental.to()`
-- [22441](https://github.com/influxdata/influxdb/pull/22441): Support for flux cardinality query
+- [22441](https://github.com/influxdata/influxdb/pull/22441): Support for flux cardinality query  (pull out warning you can't use in OSS (Flux docs))
 - [22366](https://github.com/influxdata/influxdb/pull/22366): Add additional log to flux e2e tests
-- [22378](https://github.com/influxdata/influxdb/pull/22378): Partial support for series cardinality flux query
+
+#### Logging
+
 - [22072](https://github.com/influxdata/influxdb/pull/22072): Add `--flux-log-enabled` flag for detailed flux logs
 
 (in 2.0.9)
 
-Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
-Add support for influxdb.cardinality() function.
-Operational improvements:
-Add logging to Flux end-to-end tests (TestFluxEndToEnd) to help diagnose test failures.
-Add --flux-log-enabled option to influxd to show detailed logs for Flux queries.
+
+  - Add support for influxdb.cardinality() function.
+- Operational improvements:
+  - Add logging to Flux end-to-end tests (TestFluxEndToEnd) to help diagnose test failures.
+  - Add --flux-log-enabled option to influxd to show detailed logs for Flux queries.
 
 #### Offsets support location changes?
 
