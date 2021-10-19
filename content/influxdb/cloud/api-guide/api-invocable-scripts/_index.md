@@ -100,7 +100,7 @@ Provide the following in your request:
 
 ### Request query parameters
 - **org**: your organization name (mutually exclusive with **orgID**)
-- **orgID**: your organization ID (mutually exclusive with **org*)
+- **orgID**: your organization ID (mutually exclusive with **org**)
 - **limit**: (Optional) number of scripts to return 
 - **offset**: (Optional) number to offset the pagination 
 
@@ -121,7 +121,7 @@ Provide the following in your request:
 
 ### Request query parameters
 - **org**: your organization name (mutually exclusive with **orgID**)
-- **orgID**: your organization ID (mutually exclusive with **org*)
+- **orgID**: your organization ID (mutually exclusive with **org**)
 - **limit**: (Optional) number of scripts to return 
 - **offset**: (Optional) number to offset the pagination 
 
