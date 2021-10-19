@@ -233,18 +233,18 @@ export INFLUXD_BOLT_PATH=~/.influxdbv2/influxd.bolt
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-bolt-path: /users/user/.influxdbv2/influxd.bolt
+bolt-path: ~/.influxdbv2/influxd.bolt
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-bolt-path = "/users/user/.influxdbv2/influxd.bolt"
+bolt-path = "~/.influxdbv2/influxd.bolt"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "bolt-path": "/users/user/.influxdbv2/influxd.bolt"
+  "bolt-path": "~/.influxdbv2/influxd.bolt"
 }
 ```
 {{% /code-tab-content %}}
@@ -327,18 +327,18 @@ export INFLUXD_ENGINE_PATH=~/.influxdbv2/engine
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-engine-path: /users/user/.influxdbv2/engine
+engine-path: ~/.influxdbv2/engine
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-engine-path = "/users/user/.influxdbv2/engine"
+engine-path = "~/.influxdbv2/engine"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "engine-path": "/users/user/.influxdbv2/engine"
+  "engine-path": "~/.influxdbv2/engine"
 }
 ```
 {{% /code-tab-content %}}
@@ -1559,18 +1559,18 @@ export INFLUXD_SQLITE_PATH=~/.influxdbv2/influxd.sqlite
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-sqlite_path: /users/user/.influxdbv2/influxd.sqlite
+sqlite_path: ~/.influxdbv2/influxd.sqlite
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-sqlite_path = "/users/user/.influxdbv2/influxd.sqlite"
+sqlite_path = "~/.influxdbv2/influxd.sqlite"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "sqlite_path": "/users/user/.influxdbv2/influxd.sqlite"
+  "sqlite_path": "~/.influxdbv2/influxd.sqlite"
 }
 ```
 {{% /code-tab-content %}}
