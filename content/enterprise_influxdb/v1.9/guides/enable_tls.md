@@ -1,16 +1,18 @@
 ---
-title: Enable HTTPS for InfluxDB Enterprise
+title: Enable HTTPS over TLS for InfluxDB Enterprise
 description: >
-  Enabling HTTPS encrypts the communication between clients and the InfluxDB Enterprise server, and between nodes in the cluster.
+  Enabling HTTPS over TLS encrypts the communication between clients and the InfluxDB Enterprise server, and between nodes in the cluster.
 menu:
   enterprise_influxdb_1_9:
-    name: Enable HTTPS
+    name: Enable TLS
     weight: 100
     parent: Guides
+aliases:
+  - /enterprise_influxdb/v1.9/guides/https_setup/
 ---
 
-Enabling HTTPS encrypts the communication between clients and the InfluxDB Enterprise server, and between nodes in the cluster.
-When configured with a signed certificate, HTTPS can also verify the authenticity of the InfluxDB Enterprise server to connecting clients.
+Enabling HTTPS over TLS encrypts the communication between clients and the InfluxDB Enterprise server, and between nodes in the cluster.
+When configured with a signed certificate, HTTPS over TLS can also verify the authenticity of the InfluxDB Enterprise server to connecting clients.
 
 This pages outlines how to set up HTTPS with InfluxDB Enterprise using either a signed or self-signed certificate.
 
