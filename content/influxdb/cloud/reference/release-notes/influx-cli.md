@@ -14,7 +14,7 @@ This release includes three new features and bug fixes.
 
 ## Features
 
-This release makes it easier to create tokens in the `influx` CLI, adds support for viewing more than 20 buckets, and adds bucket shorthand to influx delete.
+This release makes it easier to create tokens in the `influx` CLI, adds support for viewing more than 20 buckets, and adds bucket shorthand (`-b`) to `influx delete`.
 
 ### Create an all-access token in the CLI
 
