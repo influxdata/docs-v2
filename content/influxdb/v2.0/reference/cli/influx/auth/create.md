@@ -72,7 +72,7 @@ Create an All-Access token to grant permissions to all resources in an organizat
 
 ```sh
 influx auth create \
-  --operator 
+  --all-access 
 ```
 ##### Create an Operator API token
 
