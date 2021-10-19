@@ -16,7 +16,7 @@ command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
 Tokens are visible to the user who created the token. {{% oss-only %}} Users who own a token with Operator permissions also have access to all tokens. {{% /oss-only %}} Tokens stop working when the user who create the token is deactivated.
-We recommend creating a generic IT user to create and manage tokens for writing data.
+**We recommend creating a generic IT user to create and manage tokens for writing data.**
 {{% /note %}} 
 
 ## Create a token in the InfluxDB UI
