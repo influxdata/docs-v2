@@ -24,7 +24,7 @@ This release makes it easier to create tokens in the CLI, adds support for viewi
 
 ### Create an operator token in the CLI
 
-- [influx auth create](/influxdb/cloud/reference/cli/influx/auth/create/): Add ability to create an [Operator token](/influxdb/v2.0/security/tokens/#operator-token) using `influx auth create --operator`.
+- Add ability to [use the influx CLI to create an Operator token](/influxdb/v2.0/security/tokens/#operator-token) with read and write permissions to all resources in all organizations.
   {{% /oss-only %}}
 
 ### View more buckets in the CLI
