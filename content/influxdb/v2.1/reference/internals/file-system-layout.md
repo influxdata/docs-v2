@@ -75,6 +75,7 @@ For more information about using InfluxDB configuration files, see
       - _<span style="opacity:.4">WAL directories and files</span>_
   - configs
   - influxd.bolt
+  - influxd.sqlite
 {{% /filesystem-diagram %}}
 {{% /tab-content %}}
 <!----------------------------- END MACOS CONTENT ----------------------------->
@@ -108,6 +109,7 @@ Which installation method you use determines the file system layout.
       - _<span style="opacity:.4">WAL directories and files</span>_
   - configs
   - influxd.bolt
+  - influxd.sqlite
 {{% /filesystem-diagram %}}
 
 ### Installed as a package
@@ -133,6 +135,7 @@ The file system layout is the same with each.
       - _<span style="opacity:.4">WAL directories and files</span>_
   - configs
   - influxd.bolt
+  - influxd.sqlite
 - /etc/influxdb/
   - config.toml _<span style="opacity:.4">(influxd configuration file)</span>_
 {{% /filesystem-diagram %}}
@@ -160,6 +163,7 @@ The file system layout is the same with each.
       - _<span style="opacity:.4">WAL directories and files</span>_
   - configs
   - influxd.bolt
+  - influxd.sqlite
 {{% /filesystem-diagram %}}
 {{% /tab-content %}}
 <!---------------------------- END WINDOWS CONTENT ---------------------------->
@@ -198,6 +202,7 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
     - wal/
       - _<span style="opacity:.4">WAL directories and files</span>_
   - influxd.bolt
+  - influxd.sqlite
 - /etc/influxdb2/
   - configs
 {{% /filesystem-diagram %}}
@@ -222,6 +227,7 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
       - _<span style="opacity:.4">WAL directories and files</span>_
   - configs
   - influxd.bolt
+  - influxd.sqlite
 {{% /filesystem-diagram %}}
 {{% /tab-content %}}
 <!----------------------------- END DOCKER CONTENT ---------------------------->
@@ -245,6 +251,7 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
     - wal/
       - _<span style="opacity:.4">WAL directories and files</span>_
   - influxd.bolt
+  - influxd.sqlite
 - /etc/influxdb2/
   - configs
 {{% /filesystem-diagram %}}
