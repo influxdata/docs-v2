@@ -60,7 +60,8 @@ influx auth create -o my-org \
 Create an Operator token to grant permissions to all resources in all organizations.
 
 ```sh
-influx auth create -o my-org \
+influx auth create \
+  --org my-org \
   --operator
 ```
 
