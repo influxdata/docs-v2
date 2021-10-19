@@ -440,7 +440,7 @@ and on [Regular expressions in queries](/influxdb/v1.8/query_language/explore-da
 
 The following queries with wildcards characters (`*`) are also allowed:
 
-- `SHOW MEASUREMENTS ON *.*` to show all databases and all retention policies
+- `SHOW MEASUREMENTS ON *.*` to show all databases and all RPs
 - `SHOW MEASUREMENTS ON <db>.*` to show a specific database and all its RPs
 
 ### Examples
