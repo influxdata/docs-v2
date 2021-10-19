@@ -70,9 +70,6 @@ Replace *`SCRIPT_ID`* with the ID of the script you want to execute. To find the
 
 Provide the following in your request:
 
-### Request URL path
-- **SCRIPT_ID**: ID of the script you want to execute 
-
 ### Request headers
 - **Content-Type**: application/json
 - **Accept**: application/csv
