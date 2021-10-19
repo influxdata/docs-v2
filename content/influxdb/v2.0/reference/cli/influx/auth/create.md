@@ -80,7 +80,7 @@ Create an Operator token to grant permissions to all resources in all organizati
 
 ```sh
 influx auth create \
-  --all-access 
+  --operator
 ```
 
 ##### Create an API token with specified read and write permissions
