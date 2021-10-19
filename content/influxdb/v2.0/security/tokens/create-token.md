@@ -51,7 +51,8 @@ influx auth create -o <org-name> [permission-flags]
 Create an All-Access token to grant permissions to all resources in an organization.
 
 ```sh
-influx auth create -o my-org \
+influx auth create \
+  --org my-org \
   --all-access
 ```
 
