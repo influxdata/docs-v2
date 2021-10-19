@@ -16,18 +16,18 @@ This release includes three new features and bug fixes.
 
 This release makes it easier to create tokens in the `influx` CLI, adds support for viewing more than 20 buckets, and adds bucket shorthand (`-b`) to `influx delete`.
 
-### Create an All-Access token in the CLI
+### Create an All-Access token in the influx CLI
 
 - Add ability to [use the influx CLI to create an All-Access API token](/influxdb/cloud/security/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
 
   {{% oss-only %}}
 
-### Create an Operator token in the CLI
+### Create an Operator token in the influx CLI
 
 - Add ability to [use the influx CLI to create an Operator token](/influxdb/v2.0/security/tokens/#operator-token) with read and write permissions to all resources in all organizations.
   {{% /oss-only %}}
 
-### View more buckets in the CLI
+### View more buckets in the influx CLI
 
 - [influx bucket list](/influxdb/cloud/reference/cli/influx/bucket/list/): Update pagination to support displaying more than 20 buckets.
 
