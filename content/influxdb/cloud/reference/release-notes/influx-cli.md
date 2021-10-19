@@ -29,7 +29,7 @@ This release makes it easier to create tokens in the `influx` CLI, adds support 
 
 ### View more buckets in the influx CLI
 
-- [`influx bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/): Update pagination to support displaying more than 20 buckets.
+-  [`influx bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/): Update pagination to support displaying more than 20 buckets. By default, buckets are fetched in batches of 20; set `--page-size` to override this default value. You may also limit the total number of buckets to display with `--limit` (by default, there's no limit).
 
 ### New bucket shorthand for influx delete
 
