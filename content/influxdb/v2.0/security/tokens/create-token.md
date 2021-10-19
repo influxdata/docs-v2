@@ -51,7 +51,8 @@ influx auth create -o <org-name> [permission-flags]
 Create an All-Access token to grant permissions to all resources in an organization.
 
 ```sh
-influx auth create -o my-org \
+influx auth create \
+  --org my-org \
   --all-access
 ```
 
@@ -68,7 +69,8 @@ influx auth create \
 #### Create a token with specified read permissions
 
 ```sh
-influx auth create -o my-org \
+influx auth create \
+  --org my-org \
   --read-bucket 03a2bbf46309a000 \
   --read-bucket 3a87c03ace269000 \
   --read-dashboards \
