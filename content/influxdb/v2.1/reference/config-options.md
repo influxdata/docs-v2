@@ -1559,18 +1559,18 @@ export INFLUXD_SQLITE_PATH=~/.influxdbv2/influxd.sqlite
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-sqlite_path: ~/.influxdbv2/influxd.sqlite
+sqlite-path: ~/.influxdbv2/influxd.sqlite
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-sqlite_path = "~/.influxdbv2/influxd.sqlite"
+sqlite-path = "~/.influxdbv2/influxd.sqlite"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "sqlite_path": "~/.influxdbv2/influxd.sqlite"
+  "sqlite-path": "~/.influxdbv2/influxd.sqlite"
 }
 ```
 {{% /code-tab-content %}}
