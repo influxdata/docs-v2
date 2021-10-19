@@ -10,6 +10,8 @@ weight: 101
 
 ## v2.1 [unreleased]
 
+- This release includes several new [features](#features) and [bug fixes](#bug-fixes).
+
 ### Features
 
 #### API
@@ -23,10 +25,9 @@ weight: 101
 - [22254](https://github.com/influxdata/influxdb/pull/22254): Implement metadata management for remote connections
 - [22258](https://github.com/influxdata/influxdb/pull/22258): Add logging and metrics middlewares to remotes api
 
-
 ##### Replications
 
-- [22581](https://github.com/influxdata/influxdb/pull/22581): Implement replication validation; validate replication to the `/api/v2/write` on remote server? 
+- [22581](https://github.com/influxdata/influxdb/pull/22581): Implement replication validation; validate replication to the `/api/v2/write` on remote server?
 - [22302](https://github.com/influxdata/influxdb/pull/22302): Implement metadata management for replications
 - [22196](https://github.com/influxdata/influxdb/pull/22196): Add replication-stream backend feature flag to enable/disable the APIs and underlying storage components of the new replication-stream feature.
 - [22287](https://github.com/influxdata/influxdb/pull/22287): Add apis for management of replication streams
@@ -46,6 +47,7 @@ weight: 101
 #### Telegraf
 
 - [22476](https://github.com/influxdata/influxdb/pull/22476): Allow new telegraf input plugins and update toml. [Looks like this pulls in new Telegraf UI updates Nora recently updated?](https://github.com/influxdata/ui/pull/2605)
+
 #### Token
 
 - [22498](https://github.com/influxdata/influxdb/pull/22498): Add bearer token auth
@@ -65,6 +67,14 @@ weight: 101
 - [22378](https://github.com/influxdata/influxdb/pull/22378): Partial support for series cardinality flux query
 - [22072](https://github.com/influxdata/influxdb/pull/22072): Add `--flux-log-enabled` flag for detailed flux logs
 
+(in 2.0.9)
+
+Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
+Add support for influxdb.cardinality() function.
+Operational improvements:
+Add logging to Flux end-to-end tests (TestFluxEndToEnd) to help diagnose test failures.
+Add --flux-log-enabled option to influxd to show detailed logs for Flux queries.
+
 #### Offsets support location changes?
 
 - [22635](https://github.com/influxdata/influxdb/pull/22635): Update window planner rules for location changes to support fixed offsets
@@ -80,7 +90,7 @@ weight: 101
 - [22607](https://github.com/influxdata/influxdb/pull/22607): Update push down window logic for location option
 - [22535](https://github.com/influxdata/influxdb/pull/22535): Set x-influxdb-version and x-influxdb-build headers
 
-- ### Bug Fixes
+- ### Bug fixes
 
 - [22650](https://github.com/influxdata/influxdb/pull/22650): Don't drop shard-group durations when upgrading dbs
 - [22632](https://github.com/influxdata/influxdb/pull/22632): Change session cookie name used by ui to avoid conflict with - incompatible 2.0.x cookie
