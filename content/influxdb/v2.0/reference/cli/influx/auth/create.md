@@ -72,16 +72,20 @@ Create an All-Access token to grant permissions to all resources in an organizat
 
 ```sh
 influx auth create \
-  --operator 
+  --all-access 
 ```
+
+
 ##### Create an Operator API token
 
 Create an Operator token to grant permissions to all resources in all organizations.
-
+  {{% oss-only %}}
 ```sh
 influx auth create \
-  --all-access 
+  --operator
 ```
+
+  {{% /oss-only %}}
 
 ##### Create an API token with specified read and write permissions
 
