@@ -27,7 +27,7 @@ influx auth create [flags]
 |      | `--host`                        | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
 |      | `--http-debug`                  | Inspect communication with InfluxDB servers                           | string      |                       |
 |      | `--json`                        | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
-|      | `--operator`                    | Grants all permissions in all organizations                           | string      |                       |
+|      | `--operator`                    | _(InfluxDB OSS only)_ Grants all permissions in all organizations     | string      |                       |
 | `-o` | `--org`                         | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
 |      | `--org-id`                      | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
 |      | `--read-bucket`                 | Grant permission to read a specified bucket ID                        | stringArray |                       |
