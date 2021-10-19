@@ -63,8 +63,8 @@ influx auth create [flags]
 - [Create an All-Access API token](#create-an-all-access-api-token)
 - (_InfluxDB OSS only_) [Create an Operator API token](#create-an-operator-api-token)
 - [Create an API token with specified read and write permissions](#create-an-api-token-with-specified-read-and-write-permissions)
-- [Create a token with read and write access to specific buckets](#create-a-api-token-with-read-and-write-access-to-specific-buckets)
-- [Create a read-only API token](#create-a-read-only-authentication-token)
+- [Create a token with read and write access to specific buckets](#create-an-api-token-with-read-and-write-access-to-specific-buckets)
+- [Create a read-only API token](#create-a-read-only-api-token)
 
 ### Create an All-Access API token
 
