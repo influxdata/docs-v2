@@ -38,7 +38,7 @@ This release makes it easier to create tokens in the `influx` CLI, adds support 
 ## Bug fixes
 
 - Detect and warn when `influx restore --full` changes the operator token.
-- Set newly-created config as active in `setup`.
+- Set newly-created connection configuration as active in `setup`.
 - Embed timezone data into Windows builds to avoid errors.
 
 ## v2.1.1 [2021-09-24]
