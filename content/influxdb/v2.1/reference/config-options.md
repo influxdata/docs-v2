@@ -120,6 +120,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [secret-store](#secret-store)
 - [session-length](#session-length)
 - [session-renew-disabled](#session-renew-disabled)
+- [sqlite-path](#sqlite-path)
 - [storage-cache-max-memory-size](#storage-cache-max-memory-size)
 - [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
 - [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
@@ -232,18 +233,18 @@ export INFLUXD_BOLT_PATH=~/.influxdbv2/influxd.bolt
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-bolt-path: /users/user/.influxdbv2/influxd.bolt
+bolt-path: ~/.influxdbv2/influxd.bolt
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-bolt-path = "/users/user/.influxdbv2/influxd.bolt"
+bolt-path = "~/.influxdbv2/influxd.bolt"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "bolt-path": "/users/user/.influxdbv2/influxd.bolt"
+  "bolt-path": "~/.influxdbv2/influxd.bolt"
 }
 ```
 {{% /code-tab-content %}}
@@ -326,18 +327,18 @@ export INFLUXD_ENGINE_PATH=~/.influxdbv2/engine
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-engine-path: /users/user/.influxdbv2/engine
+engine-path: ~/.influxdbv2/engine
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-engine-path = "/users/user/.influxdbv2/engine"
+engine-path = "~/.influxdbv2/engine"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "engine-path": "/users/user/.influxdbv2/engine"
+  "engine-path": "~/.influxdbv2/engine"
 }
 ```
 {{% /code-tab-content %}}
@@ -1528,7 +1529,6 @@ session-renew-disabled = true
 ---
 
 
-<!--
 ### sqlite-path
 
 Path to the SQLite database file.
@@ -1559,25 +1559,24 @@ export INFLUXD_SQLITE_PATH=~/.influxdbv2/influxd.sqlite
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-sqlite_path: /users/user/.influxdbv2/influxd.sqlite
+sqlite-path: ~/.influxdbv2/influxd.sqlite
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-sqlite_path = "/users/user/.influxdbv2/influxd.sqlite"
+sqlite-path = "~/.influxdbv2/influxd.sqlite"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "sqlite_path": "/users/user/.influxdbv2/influxd.sqlite"
+  "sqlite-path": "~/.influxdbv2/influxd.sqlite"
 }
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
 ---
--->
 
 ### storage-cache-max-memory-size
 Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
@@ -2308,8 +2307,13 @@ storage-wal-fsync-delay = "0s"
 ### store
 Specifies the data store for REST resources.
 
-**Options:** `bolt`, `memory`  
-**Default:** `bolt`  
+**Options:** `disk`, `memory`  
+**Default:** `disk`  
+
+{{% note %}}
+For backwards compatibility, this flag also acceptss `bolt` as a value.
+When using `disk`, REST resources are stored on disk using the [bolt-path](#bolt-path) and [sqlite-path](#sqlite-path).
+{{% /note %}}
 
 {{% note %}}
 `memory` is meant for transient environments, such as testing environments, where
