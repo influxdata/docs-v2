@@ -29,16 +29,16 @@ This release makes it easier to create tokens in the `influx` CLI, adds support 
 
 ### View more buckets in the influx CLI
 
-- [influx bucket list](/influxdb/cloud/reference/cli/influx/bucket/list/): Update pagination to support displaying more than 20 buckets.
+- [`influx bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/): Update pagination to support displaying more than 20 buckets.
 
 ### New bucket shorthand for influx delete
 
-- [influx delete](/influxdb/cloud/reference/cli/influx/delete/): Add shorthand `-b` for `--bucket` in [`influx delete`].
+- [`influx delete`](/influxdb/cloud/reference/cli/influx/delete/): Add shorthand `-b` for `--bucket`.
 
 ## Bug fixes
 
 - Detect and warn when `influx restore --full` changes the operator token.
-- Set newly-created config as active in `setup`.
+- Set newly-created connection configuration as active in `setup`.
 - Embed timezone data into Windows builds to avoid errors.
 
 ## v2.1.1 [2021-09-24]
