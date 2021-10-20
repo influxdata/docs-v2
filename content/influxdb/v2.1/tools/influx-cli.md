@@ -17,7 +17,7 @@ related:
 ---
 
 Use the `influx` CLI to interact with and manage your
-**InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}}** instance.
+InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} instance.
 Write and query data, generate InfluxDB templates, export data, and more.
 
 {{% oss-only %}}
@@ -45,89 +45,120 @@ separately from the InfluxDB server (`influxd`).
 <!-------------------------------- BEGIN macOS -------------------------------->
 {{% tab-content %}}
 
+Do one of the following:
+
+- [Use Homebrew](#use-homebrew)
+- [Manually download and install](#manually-download-and-install)
+
 ### Use Homebrew
 ```sh
-brew install influx-cli
+brew install influxdb-cli
 ```
 
 {{% oss-only %}}
 
 {{% note %}}
-If you used Homebrew to install **InfluxDB v{{< current-version >}}**, the `influx-cli`
+If you used Homebrew to install **InfluxDB v{{< current-version >}}**, the `influxdb-cli`
 formula was downloaded as a dependency and should already be installed.
+If installed, `influxdb-cli` will appear in the output of the following command:
+
+```sh
+brew list | grep influxdb-cli
+```
 {{% /note %}}
 
 {{% /oss-only %}}
 
-### Manually download
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI v{{< latest-patch cli=true >}} (macOS)</a>
+### Manually download and install
 
-#### Unpackage the downloaded package
+1. **Download the `influx` CLI package.**
 
-To unpackage the downloaded archive, **double-click the archive file in Finder**
-or run the following command in a macOS command prompt application such
-**Terminal** or **[iTerm2](https://www.iterm2.com/)**:
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI v{{< latest-patch cli=true >}} (macOS)</a>
 
-```sh
-# Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz
-```
+2. **Unpackage the downloaded package.**
 
-{{% note %}}
-#### Install the influx CLI on macOS Catalina and newer
+    Do one of the following:
+    
+    - Double-click the downloaded package file in **Finder**.
+    - Run the following command in a macOS command prompt application such
+    **Terminal** or **[iTerm2](https://www.iterm2.com/)**:
 
-macOS Catalina and newer macOS versions require downloaded binaries to be signed by registered Apple developers.
-Currently, when you first attempt to run `influx`, macOS will prevent it from running.
-To manually authorize the `influx` binary:
+        ```sh
+        # Unpackage contents to the current working directory
+        tar zxvf ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz
+        ```
 
-1. Attempt to run an `influx` command.
-2. Open **System Preferences** and click **Security & Privacy**.
-3. Under the **General** tab, there is a message about `influx` being blocked.
-   Click **Open Anyway**.
+3. **(Optional) Place the binary in your `$PATH`.**
 
-We are in the process of updating our build process to ensure released binaries are signed by InfluxData.
-{{% /note %}}
+    ```sh
+    # (Optional) Copy the influx binary to your $PATH
+    sudo cp ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64/influx /usr/local/bin/
+    ```
 
-#### (Optional) Place the binary in your $PATH
+    If you do not move the `influx` binary into your `$PATH`, prefix the executable
+    `./` to run it in place.
 
-If you choose, you can place `influx` in your `$PATH` or you can prefix the
-executable with `./` to run it in place.
+4. **(macOS Catalina and newer) Authorize the `influx` binary.**
 
-```sh
-# (Optional) Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64/influx /usr/local/bin/
-```
+    macOS requires downloaded binaries to be signed by registered Apple developers.
+    When you first attempt to run `influx`, macOS will prevent it from running.
+    To authorize the `influx` binary:
+
+    1. Attempt to run an `influx` command.
+    2. Open **System Preferences** and click **Security & Privacy**.
+    3. Under the **General** tab, there is a message about `influx` being blocked.
+      Click **Open Anyway**.
+
 {{% /tab-content %}}
 <!--------------------------------- END macOS --------------------------------->
 
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 
-### Download and unpackage the influx CLI
+1. **Download the influx CLI package.**
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (arm)</a>
+    Download the `influx` CLI pakcage [from your browser](#download-from-your-browser)
+    or [from the command line](#download-from-the-command-line).
 
-#### From the command line
-```sh
-# amd64
-wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
-tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
+    #### Download from your browser
 
-# arm
-wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
-tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
-```
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (amd64)</a>
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (arm)</a>
 
-### Place the executables in your $PATH
-Place the unpackaged `influx` executable in your system `$PATH`.
+    #### Download from the command line
 
-_**Note:** The following commands are examples. Adjust the file names, paths, and utilities to your own needs._
+    ```sh
+    # amd64
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
 
-```sh
-# Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
-```
+    # arm
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+    ```
+
+4. **Unpackage the downloaded packages.**
+
+    _**Note:** The following commands are examples. Adjust the filenames, paths, and utilities if necessary._
+
+    ```sh
+    # amd64
+    tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
+
+    # arm
+    tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+    ```
+
+3. **(Optional) Place the unpackaged `influx` executable in your system `$PATH`.**
+
+    ```sh
+    # amd64
+    sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
+
+    # arm
+    sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
+    ```
+
+    If you do not move the `influx` binary into your `$PATH`, prefix the executable
+    `./` to run it in place.
 
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
@@ -135,23 +166,30 @@ sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/l
 <!-------------------------------- BEGIN Windows -------------------------------->
 {{% tab-content %}}
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download>influx CLI v{{< latest-patch cli=true >}} (Windows)</a>
+1. **Download the `influx` CLI package.**
 
-Expand the downloaded archives into `C:\Program Files\InfluxData\` and rename them if desired.
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download>influx CLI v{{< latest-patch cli=true >}} (Windows)</a>
 
-```powershell
-> Expand-Archive .\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
-> mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch cli=true >}}-windows-amd64' 'C:\Program Files\InfluxData\influx'
-```
+2. **Expand the downloaded archive.**
+  
+    Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
 
-#### Grant network access
-When using the `influx` CLI for the first time, **Windows Defender** will appear with
-the following message:
+    ```powershell
+    > Expand-Archive .\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
+    > mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch cli=true >}}-windows-amd64' 'C:\Program Files\InfluxData\influx'
+    ```
 
-> Windows Defender Firewall has blocked some features of this app.
+3. **Grant network access to the `influx` CLI.**
 
-1. Select **Private networks, such as my home or work network**.
-2. Click **Allow access**.
+    When using the `influx` CLI for the first time, **Windows Defender** displays
+    the following message:
+
+    > Windows Defender Firewall has blocked some features of this app.
+
+    To grant the `influx` CLI the required access, do the following:
+
+    1. Select **Private networks, such as my home or work network**.
+    2. Click **Allow access**.
 
 {{% /tab-content %}}
 <!--------------------------------- END Windows --------------------------------->

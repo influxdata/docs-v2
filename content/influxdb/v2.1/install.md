@@ -24,6 +24,8 @@ Download, install, and set up InfluxDB OSS.
 {{% tab-content %}}
 ## Install InfluxDB v{{< current-version >}}
 
+Do one of the following:
+
 - [Use Homebrew](#use-homebrew)
 - [Manually download and install](#manually-download-and-install)
 
@@ -46,16 +48,43 @@ brew install influxdb
 ```
 
 {{% note %}}
-When installing InfluxDB {{< current-version >}}, Homebrew also downloads the 
-`influx-cli` formula as a dependency of InfluxDB and installs the
-[`influx` CLI](/influxdb/v2.1/reference/cli/influx/).
+Homebrew also installs `influx-cli` as a dependency.
+For information about using the `influx` CLI, see the
+[`influx` CLI reference documentation](/influxdb/v2.1/reference/cli/influx/).
 {{% /note %}}
 
 ### Manually download and install
 
-You can also download the InfluxDB v{{< current-version >}} binaries for macOS directly:
+To download the InfluxDB v{{< current-version >}} binaries for macOS directly,
+do the following:
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz" download>InfluxDB v{{< current-version >}} (macOS)</a>
+1. **Download the InfluxDB package.**
+    
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz" download>InfluxDB v{{< current-version >}} (macOS)</a>
+
+
+2. **Unpackage the InfluxDB binary.**
+
+    Do one of the following:
+
+    - Double-click the downloaded package file in **Finder**.
+    - Run the following command in a macOS command prompt application such
+      **Terminal** or **[iTerm2](https://www.iterm2.com/)**:
+
+    ```sh
+    # Unpackage contents to the current working directory
+    tar zxvf ~/Downloads/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz
+    ```
+
+3. **(Optional) Place the binary in your `$PATH`**
+
+    ```sh
+    # (Optional) Copy the influxd binary to your $PATH
+    sudo cp influxdb2-{{< latest-patch >}}-darwin-amd64/influxd /usr/local/bin/
+    ```
+
+    If you do not move the `influxd` binary into your `$PATH`, prefix the executable
+    `./` to run it in place.
 
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Verify the authenticity of downloaded binary" %}}
@@ -71,7 +100,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
-   For example:
+For example:
 
     ```
     wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz.asc
@@ -90,27 +119,6 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-#### Unpackage the InfluxDB binary
-
-To unpackage the downloaded archive, **double-click the archive file in Finder**
-or run the following command in a macOS command prompt application such
-**Terminal** or **[iTerm2](https://www.iterm2.com/)**:
-
-```sh
-# Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz
-```
-
-#### (Optional) Place the binary in your $PATH
-
-If you choose, you can place `influxd` in your `$PATH` or you can prefix the
-executable with `./` to run it in place.
-
-```sh
-# (Optional) Copy the influxd binary to your $PATH
-sudo cp influxdb2-{{< latest-patch >}}-darwin-amd64/influxd /usr/local/bin/
-```
 
 {{% note %}}
 Both InfluxDB 1.x and 2.x have associated `influxd` and `influx` binaries.
