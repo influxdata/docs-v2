@@ -7,7 +7,6 @@ menu:
     parent: Release notes
 weight: 101
 ---
-
 ## v2.1 [unreleased]
 
 - This release includes several new [features](#features) and [bug fixes](#bug-fixes).
