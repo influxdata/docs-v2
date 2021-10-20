@@ -8,6 +8,134 @@ menu:
 weight: 101
 ---
 
+## v2.1 [unreleased]
+
+- This release includes several new [features](#features) and [bug fixes](#bug-fixes).
+
+### Features
+
+#### API
+
+- [22674](https://github.com/influxdata/influxdb/pull/22674): List-bucket api supports pagination when filtering by org
+
+#### Flux
+
+- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
+
+- [22634](https://github.com/influxdata/influxdb/pull/22634): Enable writing to remote hosts via `to()` and `experimental.to()`
+- [22441](https://github.com/influxdata/influxdb/pull/22441): Support for flux cardinality query (pull out the following warning frorm the docs:
+https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/: InfluxDB Cloud supports the influxdb.cardinality() function, but InfluxDB OSS does not.)
+- [22366](https://github.com/influxdata/influxdb/pull/22366): Add additional log to flux e2e tests
+
+#### Remote connections
+
+- [22219](https://github.com/influxdata/influxdb/pull/22219): Add apis for management of remote influxdb connections
+- [22237](https://github.com/influxdata/influxdb/pull/22237): Add sql migration for remote connection metadata
+- [22254](https://github.com/influxdata/influxdb/pull/22254): Implement metadata management for remote connections
+- [22258](https://github.com/influxdata/influxdb/pull/22258): Add logging and metrics middlewares to remotes api
+
+#### Replications
+
+- [22581](https://github.com/influxdata/influxdb/pull/22581): Implement replication validation; validate replication to the `/api/v2/write` on remote server?
+- [22302](https://github.com/influxdata/influxdb/pull/22302): Implement metadata management for replications
+- [22196](https://github.com/influxdata/influxdb/pull/22196): Add replication-stream backend feature flag to enable/disable the APIs and underlying storage components of the new replication-stream feature.
+- [22287](https://github.com/influxdata/influxdb/pull/22287): Add apis for management of replication streams
+- [22288](https://github.com/influxdata/influxdb/pull/22288): Add sql migration for replication metadata
+- [22291](https://github.com/influxdata/influxdb/pull/22291): Add logging and metrics middlewares to replications api
+- [22424](https://github.com/influxdata/influxdb/pull/22424): Deleting a bucket also deletes all associated replications.
+
+#### CLI
+
+- New `influxd recovery` subcommand lets you create a recovery user/token. [doc issue](https://github.com/influxdata/docs-v2/issues/3222)
+- Show measurement database and retention policy wildcards. [doc issue](https://github.com/influxdata/docs-v2/issues/3201)
+- [22617](https://github.com/influxdata/influxdb/pull/22617): Add `--storage-write-timeout` flag to set write request timeouts
+
+#### Optimizations
+
+- [22301](https://github.com/influxdata/influxdb/pull/22301): Multi-measurement query optimization
+- [22322](https://github.com/influxdata/influxdb/pull/22322): Add hyper log log operators (is this related to 2.0.9 (or in another release?) re optimizing series iteration for queries that can be answered without inspecting TSM data.)
+- [22316](https://github.com/influxdata/influxdb/pull/22316): Optimize series iteration
+
+#### Telegraf
+
+- [22476](https://github.com/influxdata/influxdb/pull/22476): Allow new telegraf input plugins and update toml. [Looks like this pulls in new Telegraf UI updates Nora recently updated?](https://github.com/influxdata/ui/pull/2605)
+
+#### Token
+
+- [22498](https://github.com/influxdata/influxdb/pull/22498): Add bearer token auth
+- [22629](https://github.com/influxdata/influxdb/pull/22629): Return new operator token during backup overwrite
+
+#### Logging
+
+- [22072](https://github.com/influxdata/influxdb/pull/22072): Add `--flux-log-enabled` flag for detailed flux logs
+  - Add support for influxdb.cardinality() function.
+- Operational improvements:
+  - Add logging to Flux end-to-end tests (`TestFluxEndToEnd`) to help diagnose test failures.
+  - Add `--flux-log-enabled` option to `influxd` to show detailed logs for Flux queries.
+
+#### Offsets support location changes?
+
+- [22635](https://github.com/influxdata/influxdb/pull/22635): Update window planner rules for location changes to support fixed offsets
+
+#### Maintenance
+ 
+- [22607](https://github.com/influxdata/influxdb/pull/22607): Update push down window logic for location option
+- [22535](https://github.com/influxdata/influxdb/pull/22535): Set x-influxdb-version and x-influxdb-build headers
+
+#### Visualizations
+
+- [22669](https://github.com/influxdata/influxdb/pull/22669): Enable new dashboard autorefresh
+- [22266](https://github.com/influxdata/influxdb/pull/22266): Add logging and metrics to notebooks service
+- [22271](https://github.com/influxdata/influxdb/pull/22271): Add logging and metrics to annotations service
+
+- ### Bug fixes
+
+- Fix `influxd upgrade` to ensure shard group durations are no longer dropped during upgrade.
+- Change InfluxDB UI session cookie name to ensure logging into UI is accessible when upgrading from InfluxDB 2.0 to InfluxDB 2.1.
+- [22604](https://github.com/influxdata/influxdb/pull/22604): Do not allow shard creation to create overlapping shards
+- [22574](https://github.com/influxdata/influxdb/pull/22574): Allow empty reqeust bodies to write api
+- [22545](https://github.com/influxdata/influxdb/pull/22545): Sync series segment to disk after writing
+- [22537](https://github.com/influxdata/influxdb/pull/22537): Suggest setting flux content-type when query fails to parse as json
+- [22562](https://github.com/influxdata/influxdb/pull/22562): For windows, copy snapshot files being backed up (#22551)
+- [22500](https://github.com/influxdata/influxdb/pull/22500): Upgrade influxql to latest version & fix predicate handling for show - tag values metaqueries
+- [22228](https://github.com/influxdata/influxdb/pull/22228): Influxdb-server packages should depend on curl
+- [22211](https://github.com/influxdata/influxdb/pull/22211): Inactive task runs when updated
+- [22235](https://github.com/influxdata/influxdb/pull/22235): Avoid compaction queue stats flutter
+- [22257](https://github.com/influxdata/influxdb/pull/22257): Migrate all-access tokens to grant notebook/annotation permissions
+- [22272](https://github.com/influxdata/influxdb/pull/22272): Auth requests use org and user names if present
+- [22293](https://github.com/influxdata/influxdb/pull/22293): Add created_at and updated_at columns to replications table
+- [22311](https://github.com/influxdata/influxdb/pull/22311): Hard limit on field size while parsing line protocol
+- [22334](https://github.com/influxdata/influxdb/pull/22334): Make tsi index compact old and too-large log files
+- [22307](https://github.com/influxdata/influxdb/pull/22307): Repair bad port dropping return value names
+- [22367](https://github.com/influxdata/influxdb/pull/22367): Upgrade golang.org/x/sys to avoid panics on macs
+- [22391](https://github.com/influxdata/influxdb/pull/22391): Discard excessive errors (#22379)
+- [22412](https://github.com/influxdata/influxdb/pull/22412): Use consistent path separator in permission string representation
+- [22442](https://github.com/influxdata/influxdb/pull/22442): Detect noninteractive prompt when displaying warning in buildtsi
+- [22458](https://github.com/influxdata/influxdb/pull/22458): Ensure files are closed before they are deleted or moved in - `deletetsm`
+- [22448](https://github.com/influxdata/influxdb/pull/22448): More expressive errors
+- [22228](https://github.com/influxdata/influxdb/pull/22228): Influxdb-server packages should depend on curl
+- [22211](https://github.com/influxdata/influxdb/pull/22211): Inactive task runs when updated
+- [22235](https://github.com/influxdata/influxdb/pull/22235): Avoid compaction queue stats flutter
+- [22257](https://github.com/influxdata/influxdb/pull/22257): Migrate all-access tokens to grant notebook/annotation permissions
+- [22272](https://github.com/influxdata/influxdb/pull/22272): Auth requests use org and user names if present
+- [22293](https://github.com/influxdata/influxdb/pull/22293): Add created_at and updated_at columns to plications table
+- [22311](https://github.com/influxdata/influxdb/pull/22311): Hard limit on field size while parsing le
+- [22334](https://github.com/influxdata/influxdb/pull/22334): Make tsi index compact old and too-lare
+- [22307](https://github.com/influxdata/influxdb/pull/22307): Repair bad port dropping return value e
+- [22367](https://github.com/influxdata/influxdb/pull/22367): Upgrade golang.org/x/sys to avoid panie
+- [22391](https://github.com/influxdata/influxdb/pull/22391): Discard excessive errors (#22379)e
+- [22412](https://github.com/influxdata/influxdb/pull/22412): Use consistent path separator in permission string representation
+- [22442](https://github.com/influxdata/influxdb/pull/22442): Detect noninteractive prompt when displaying warning in buildtsi
+- [22458](https://github.com/influxdata/influxdb/pull/22458): Ensure files are closed before they are deleted or moved in - `deletetsm`
+- [22448](https://github.com/influxdata/influxdb/pull/22448): More expressive errors
+- [22650](https://github.com/influxdata/influxdb/pull/22650): Don't drop shard-group durations when upgrading dbs
+- [22632](https://github.com/influxdata/influxdb/pull/22632): Change session cookie name used by ui to avoid  conflict with incompatible 2.0.x cookie.
+- [22604](https://github.com/influxdata/influxdb/pull/22604): Do not allow shard creation to create overlapping shard
+- [22574](https://github.com/influxdata/influxdb/pull/22574): Allow empty reqeust bodies to write api
+- [22545](https://github.com/influxdata/influxdb/pull/22545): Sync series segment to disk after writing 
+- [22537](https://github.com/influxdata/influxdb/pull/22537): Suggest setting flux content-type when query fails to parse as json
+- [22562](https://github.com/influxdata/influxdb/pull/22562): For windows, copy snapshot files being backed up (#22551)
+- [22500](https://github.com/influxdata/influxdb/pull/22500): Upgrade INFLUXQL to latest version and fix predicate handling for show tag values metaqueries.
 
 - ## v2.0.9 [2021-09-27]
 - 
