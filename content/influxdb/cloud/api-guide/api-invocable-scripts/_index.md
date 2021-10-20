@@ -14,9 +14,8 @@ Use API-invocable scripts to create InfluxDB API endpoints that query, process, 
 
 - [Create a script](#create-an-invocable-script)
 - [Invoke a script](#invoke-a-script)
-- [Update a script](#update-an-invocable-script)
 - [List scripts](#list-invocable-scripts)
-- [Find a script](#find-an-invocable-script)
+- [Update a script](#update-an-invocable-script)
 
 ## Create an invocable script
 - [Create a Flux script](#create-an-invocable-flux-script)
@@ -31,9 +30,9 @@ Provide the following in your API request:
 ### Request body
 JSON object with the following fields:
 
-- **script** : raw Flux or Python script as a string
-- **language** : language of your script ("flux" or "python")
-- **name** : script name that will be used to invoke the script
+- **script** : [Flux](/{{% latest "flux" %}}) script as a string
+- **language** : language of your script ("flux")
+- **name** : script name
 - **description** : script description
 - **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
 
@@ -48,14 +47,14 @@ Replace the following:
 - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
 - *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
 
-InfluxDB returns the newly created script.
+InfluxDB returns the newly created script. Next, see how to [invoke a script](#invoke-a-script]).
 
 ```json
 {
   "id": "084d693d93048000",
   "orgID": "INFLUX_ORG_ID",
   "name": "getLastPoint",
-  "script": "from(bucket:params.mybucket)      |> range(start: -7d)      |> limit(n:2)",
+  "script": "from(bucket:params.mybucket)      |> range(start: -7d)      |> limit(n:1)",
   "description": "getLastPoint finds the last point in a bucket",
   "language": "flux",
   "createdAt": "2021-10-15T20:32:04.172938Z",
@@ -78,13 +77,20 @@ Provide the following in your request:
 ### Request body
 JSON object that contains a `params` object. In `params`, provide key/value pairs for parameters used in your script.
 
+In the [create](#create-an-invocable-script) example, you defined the dynamic parameter `params.mybucket`.
+```json
+  "from(bucket: params.mybucket) \
+   |> range(start: -7d) \
+   |> limit(n:1)"
+```
+
 The following example invokes the script and passes "air_sensor" as the value for `params.mybucket`.
 
 ```sh
 {{% get-shared-text "api/v2.0/api-invocable-scripts/invoke-post.sh" %}}
 ```
 
-InfluxDB returns query results for the `air_sensor` bucket.
+InfluxDB returns query results in [line protocol](/influxdb/v2.0/reference/syntax/line-protocol) from the `air_sensor` bucket.
 
 ## List invocable scripts
 To list scripts for an organization, send a request using the `GET` method to the `/api/v2/functions` endpoint.
@@ -105,23 +111,41 @@ Provide the following in your request:
 {{% get-shared-text "api/v2.0/api-invocable-scripts/find.sh" %}}
 ```
 
-## Find an invocable script
 To find a specific script for an organization, send a request using the `GET` method to the `/api/v2/functions/SCRIPT_ID` endpoint.
-
 Replace *`SCRIPT_ID`* with the ID of the script you want to find. 
 
 Provide the following in your request:
 
 ### Request headers
-- **Content-Type**: application/json
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
+- **Accept**: application/json'
 
-### Request query parameters
-- **org**: your organization name (mutually exclusive with **orgID**)
-- **orgID**: your organization ID (mutually exclusive with **org**)
-- **limit**: (Optional) number of scripts to return 
-- **offset**: (Optional) number to offset the pagination 
+## Update an invocable script
+To update an existing script for an organization, send a request using the `PATCH` method to the `/api/v2/functions/SCRIPT_ID` endpoint.
 
+Replace *`SCRIPT_ID`* with the ID of the script you want to update. 
+
+Provide the following in your request:
+
+### Request headers
+- **Authorization**: Token *`INFLUX_API_TOKEN`*
+- **Content-Type**: application/json
+- **Accept**: application/json'
+
+### Request body
+
+A modified **invocable script** as a JSON object. 
+
+The following example finds an invocable script containing a numeric date range,
+replaces the date with a new parameter, and updates the invocable script.
 ```sh
-{{% get-shared-text "api/v2.0/api-invocable-scripts/find.sh" %}}
+{{% get-shared-text "api/v2.0/api-invocable-scripts/update-flux-script.sh" %}}
 ```
+The example performs the following steps:
+1. Use `GET /api/v2/functions` to retrieve a list of scripts.
+2. In the list, find the first **invocable script** object that has a `script` property that contains a hard-coded numeric date range.
+3. Replace the hard-coded date range in the `script` property with a new `params.myrangestart` dynamic parameter and assign the object to a `new_script` variable.
+4. Assign the script ID to a `script_id` variable.
+5. Update the script by sending a request to `PATCH /api/v2/functions/` with `$script_id` in the URL path and `$new_script` as data (in the request body).
+
+InfluxDB returns the updated invocable script.
