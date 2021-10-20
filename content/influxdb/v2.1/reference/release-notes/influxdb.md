@@ -1,3 +1,5 @@
+
+
 ---
 title: InfluxDB 2.1 release notes
 description: Important changes and what's new in each version of InfluxDB.
@@ -18,19 +20,16 @@ weight: 101
 
 - [22674](https://github.com/influxdata/influxdb/pull/22674): List-bucket api supports pagination when filtering by org
 
-#### CLI
+#### Flux
 
-- New `influxd recovery` subcommand lets you create a recovery user/token. [doc issue](https://github.com/influxdata/docs-v2/issues/3222)
-- Show measurement database and retention policy wildcards. [doc issue](https://github.com/influxdata/docs-v2/issues/3201)
-- [22617](https://github.com/influxdata/influxdb/pull/22617): Add `--storage-write-timeout` flag to set write request timeouts
+- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
 
-#### Optimizations
+- [22634](https://github.com/influxdata/influxdb/pull/22634): Enable writing to remote hosts via `to()` and `experimental.to()`
+- [22441](https://github.com/influxdata/influxdb/pull/22441): Support for flux cardinality query (pull out the following warning frorm the docs:
+https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/: InfluxDB Cloud supports the influxdb.cardinality() function, but InfluxDB OSS does not.)
+- [22366](https://github.com/influxdata/influxdb/pull/22366): Add additional log to flux e2e tests
 
-- [22301](https://github.com/influxdata/influxdb/pull/22301): Multi-measurement query optimization
-- [22322](https://github.com/influxdata/influxdb/pull/22322): Add hyper log log operators (is this related to 2.0.9 (or in another release?) re optimizing series iteration for queries that can be answered without inspecting TSM data.)
-- [22316](https://github.com/influxdata/influxdb/pull/22316): Optimize series iteration
-
-##### Remote connections
+#### Remote connections
 
 - [22219](https://github.com/influxdata/influxdb/pull/22219): Add apis for management of remote influxdb connections
 - [22237](https://github.com/influxdata/influxdb/pull/22237): Add sql migration for remote connection metadata
@@ -47,6 +46,18 @@ weight: 101
 - [22291](https://github.com/influxdata/influxdb/pull/22291): Add logging and metrics middlewares to replications api
 - [22424](https://github.com/influxdata/influxdb/pull/22424): Deleting a bucket also deletes all associated replications.
 
+#### CLI
+
+- New `influxd recovery` subcommand lets you create a recovery user/token. [doc issue](https://github.com/influxdata/docs-v2/issues/3222)
+- Show measurement database and retention policy wildcards. [doc issue](https://github.com/influxdata/docs-v2/issues/3201)
+- [22617](https://github.com/influxdata/influxdb/pull/22617): Add `--storage-write-timeout` flag to set write request timeouts
+
+#### Optimizations
+
+- [22301](https://github.com/influxdata/influxdb/pull/22301): Multi-measurement query optimization
+- [22322](https://github.com/influxdata/influxdb/pull/22322): Add hyper log log operators (is this related to 2.0.9 (or in another release?) re optimizing series iteration for queries that can be answered without inspecting TSM data.)
+- [22316](https://github.com/influxdata/influxdb/pull/22316): Optimize series iteration
+
 #### Telegraf
 
 - [22476](https://github.com/influxdata/influxdb/pull/22476): Allow new telegraf input plugins and update toml. [Looks like this pulls in new Telegraf UI updates Nora recently updated?](https://github.com/influxdata/ui/pull/2605)
@@ -55,15 +66,6 @@ weight: 101
 
 - [22498](https://github.com/influxdata/influxdb/pull/22498): Add bearer token auth
 - [22629](https://github.com/influxdata/influxdb/pull/22629): Return new operator token during backup overwrite
-
-#### Flux
-
-- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
-
-- [22634](https://github.com/influxdata/influxdb/pull/22634): Enable writing to remote hosts via `to()` and `experimental.to()`
-- [22441](https://github.com/influxdata/influxdb/pull/22441): Support for flux cardinality query (pull out the following warning frorm the docs:
-https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/: InfluxDB Cloud supports the influxdb.cardinality() function, but InfluxDB OSS does not.)
-- [22366](https://github.com/influxdata/influxdb/pull/22366): Add additional log to flux e2e tests
 
 #### Logging
 
