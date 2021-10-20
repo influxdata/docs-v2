@@ -53,7 +53,7 @@ InfluxDB returns the newly created script.
 ```json
 {
   "id": "084d693d93048000",
-  "orgID": "INFLUX_ORG",
+  "orgID": "INFLUX_ORG_ID",
   "name": "getLastPoint",
   "script": "from(bucket:params.mybucket)      |> range(start: -7d)      |> limit(n:2)",
   "description": "getLastPoint finds the last point in a bucket",
@@ -64,7 +64,7 @@ InfluxDB returns the newly created script.
 ```
 
 ## Invoke a script
-To invoke your script, send a request using the `POST` method to the `/api/v2/functions/SCRIPT_ID/invoke` endpoint. 
+To invoke a script, send a request using the `POST` method to the `/api/v2/functions/SCRIPT_ID/invoke` endpoint. 
 
 Replace *`SCRIPT_ID`* with the ID of the script you want to execute. To find the script ID, see how to [list scripts](#list-scripts).
 
