@@ -18,6 +18,18 @@ weight: 101
 
 - [22674](https://github.com/influxdata/influxdb/pull/22674): List-bucket api supports pagination when filtering by org
 
+#### CLI
+
+- New `influxd recovery` subcommand lets you create a recovery user/token. [doc issue](https://github.com/influxdata/docs-v2/issues/3222)
+- Show measurement database and retention policy wildcards. [doc issue](https://github.com/influxdata/docs-v2/issues/3201)
+- [22617](https://github.com/influxdata/influxdb/pull/22617): Add `--storage-write-timeout` flag to set write request timeouts
+
+#### Optimizations
+
+- [22301](https://github.com/influxdata/influxdb/pull/22301): Multi-measurement query optimization
+- [22322](https://github.com/influxdata/influxdb/pull/22322): Add hyper log log operators (is this related to 2.0.9 (or in another release?) re optimizing series iteration for queries that can be answered without inspecting TSM data.)
+- [22316](https://github.com/influxdata/influxdb/pull/22316): Optimize series iteration
+
 ##### Remote connections
 
 - [22219](https://github.com/influxdata/influxdb/pull/22219): Add apis for management of remote influxdb connections
@@ -33,16 +45,7 @@ weight: 101
 - [22287](https://github.com/influxdata/influxdb/pull/22287): Add apis for management of replication streams
 - [22288](https://github.com/influxdata/influxdb/pull/22288): Add sql migration for replication metadata
 - [22291](https://github.com/influxdata/influxdb/pull/22291): Add logging and metrics middlewares to replications api
-
-#### Deletes
-
 - [22424](https://github.com/influxdata/influxdb/pull/22424): Deleting a bucket also deletes all associated replications.
-
-#### Optimizations
-
-- [22301](https://github.com/influxdata/influxdb/pull/22301): Multi-measurement query optimization
-- [22322](https://github.com/influxdata/influxdb/pull/22322): Add hyper log log operators (is this related to 2.0.9 (or in another release?) re optimizing series iteration for queries that can be answered without inspecting TSM data.)
-- [22316](https://github.com/influxdata/influxdb/pull/22316): Optimize series iteration
 
 #### Telegraf
 
@@ -53,51 +56,42 @@ weight: 101
 - [22498](https://github.com/influxdata/influxdb/pull/22498): Add bearer token auth
 - [22629](https://github.com/influxdata/influxdb/pull/22629): Return new operator token during backup overwrite
 
-#### Visualizations
-
-- [22669](https://github.com/influxdata/influxdb/pull/22669): Enable new dashboard autorefresh
-- [22266](https://github.com/influxdata/influxdb/pull/22266): Add logging and metrics to notebooks service
-- [22271](https://github.com/influxdata/influxdb/pull/22271): Add logging and metrics to annotations service
-
 #### Flux
 
-- Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
+- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
 
 - [22634](https://github.com/influxdata/influxdb/pull/22634): Enable writing to remote hosts via `to()` and `experimental.to()`
-- [22441](https://github.com/influxdata/influxdb/pull/22441): Support for flux cardinality query  (pull out warning you can't use in OSS (Flux docs))
+- [22441](https://github.com/influxdata/influxdb/pull/22441): Support for flux cardinality query (pull out the following warning frorm the docs:
+https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/: InfluxDB Cloud supports the influxdb.cardinality() function, but InfluxDB OSS does not.)
 - [22366](https://github.com/influxdata/influxdb/pull/22366): Add additional log to flux e2e tests
 
 #### Logging
 
 - [22072](https://github.com/influxdata/influxdb/pull/22072): Add `--flux-log-enabled` flag for detailed flux logs
-
-(in 2.0.9)
-
-
   - Add support for influxdb.cardinality() function.
 - Operational improvements:
-  - Add logging to Flux end-to-end tests (TestFluxEndToEnd) to help diagnose test failures.
-  - Add --flux-log-enabled option to influxd to show detailed logs for Flux queries.
+  - Add logging to Flux end-to-end tests (`TestFluxEndToEnd`) to help diagnose test failures.
+  - Add `--flux-log-enabled` option to `influxd` to show detailed logs for Flux queries.
 
 #### Offsets support location changes?
 
 - [22635](https://github.com/influxdata/influxdb/pull/22635): Update window planner rules for location changes to support fixed offsets
-
-#### CLI
-
-- New `influxd recovery` subcommand lets you create a recovery user/token. [doc issue](https://github.com/influxdata/docs-v2/issues/3222)
-- Show measurement database and retention policy wildcards. [doc issue](https://github.com/influxdata/docs-v2/issues/3201)
-- [22617](https://github.com/influxdata/influxdb/pull/22617): Add `--storage-write-timeout` flag to set write request timeouts
 
 #### Maintenance
  
 - [22607](https://github.com/influxdata/influxdb/pull/22607): Update push down window logic for location option
 - [22535](https://github.com/influxdata/influxdb/pull/22535): Set x-influxdb-version and x-influxdb-build headers
 
+#### Visualizations
+
+- [22669](https://github.com/influxdata/influxdb/pull/22669): Enable new dashboard autorefresh
+- [22266](https://github.com/influxdata/influxdb/pull/22266): Add logging and metrics to notebooks service
+- [22271](https://github.com/influxdata/influxdb/pull/22271): Add logging and metrics to annotations service
+
 - ### Bug fixes
 
-- [22650](https://github.com/influxdata/influxdb/pull/22650): Don't drop shard-group durations when upgrading dbs
-- [22632](https://github.com/influxdata/influxdb/pull/22632): Change session cookie name used by ui to avoid conflict with - incompatible 2.0.x cookie
+- Fix `influxd upgrade` to ensure shard group durations are no longer dropped during upgrade.
+- Change InfluxDB UI session cookie name to ensure logging into UI is accessible when upgrading from InfluxDB 2.0 to InfluxDB 2.1.
 - [22604](https://github.com/influxdata/influxdb/pull/22604): Do not allow shard creation to create overlapping shards
 - [22574](https://github.com/influxdata/influxdb/pull/22574): Allow empty reqeust bodies to write api
 - [22545](https://github.com/influxdata/influxdb/pull/22545): Sync series segment to disk after writing
