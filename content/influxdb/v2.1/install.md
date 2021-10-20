@@ -33,7 +33,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2.1/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Use InfluxDB CLIs](/influxdb/v2.1/tools/influx-cli/).
+[Install and use the influx CLI](/influxdb/v2.1/tools/influx-cli/).
 {{% /note %}}
 
 ### Use Homebrew
@@ -379,7 +379,7 @@ For information about installing the `influx` CLI, see
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v{{< current-version >}} (Windows)</a>
 
-Expand the downloaded archives into `C:\Program Files\InfluxData\` and rename them if desired.
+Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename the files if desired.
 
 ```powershell
 > Expand-Archive .\influxdb2-{{< latest-patch >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
@@ -489,9 +489,9 @@ To mount an InfluxDB configuration file and use it from within Docker:
 
 (Find more about configuring InfluxDB [here](https://docs.influxdata.com/influxdb/v2.1/reference/config-options/).)
 
-## Console into the InfluxDB container
+## Open a shell in the InfluxDB container
 
-To use the `influx` command line interface, console into the `influxdb` Docker container:
+To use the `influx` command line interface, open a shell in the `influxdb` Docker container:
 
 ```sh
 docker exec -it influxdb /bin/bash
@@ -658,10 +658,8 @@ You are ready to [write or collect data](/influxdb/v2.1/write-data).
 ### (Optional) Set up and use the influx CLI
 
 If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influxdb/v2.1/reference/cli/influx),
-we recommend setting up a configuration profile.
-This lets you avoid having to pass your InfluxDB
-[API token](/influxdb/v2.1/security/tokens/) with each `influx` command.
-Complete the following steps to set up a configuration profile that stores your credentials.
+To avoid having to pass your InfluxDB
+[API token](/influxdb/v2.1/security/tokens/) with each `influx` command, set up a configuration profile to store your credentials. To do this, complete the following steps:
 
 1. In a terminal, run the following command:
 
@@ -676,7 +674,7 @@ Complete the following steps to set up a configuration profile that stores your 
 
     This configures a new profile named `default` and makes the profile active
     so your `influx` CLI commands run against this instance.
-    For more detail, see [influx config](/influxdb/v2.1/reference/cli/influx/config/).
+    For more detail, see [`influx config`](/influxdb/v2.1/reference/cli/influx/config/).
 
 2. Learn `influx` CLI commands. To see all available `influx` commands, type
    `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/v2.1/reference/cli/influx/).
