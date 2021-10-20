@@ -7,9 +7,10 @@ curl -X 'POST' \
   {
     "name": "getLastPoint",
     "description": "getLastPoint finds the last point in a bucket",
-    "orgID": "${INFLUX_ORG}",
+    "orgID": "${INFLUX_ORG_ID}",
     "script": "from(bucket:params.mybucket) \
      |> range(start: -7d) \
-     |> limit(n:2)",
+     |> limit(n:1)",
      "language": "flux"
   }
+EOF
