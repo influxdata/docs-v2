@@ -202,7 +202,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2.1/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Use InfluxDB CLIs](/influxdb/v2.1/tools/influx-cli/).
+[Install and use the influx CLI](/influxdb/v2.1/tools/influx-cli/).
 {{% /note %}}
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz" download >InfluxDB v{{< current-version >}} (amd64)</a>
@@ -382,7 +382,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2.1/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Use InfluxDB CLIs](/influxdb/v2.1/tools/influx-cli/).
+[Install and use the influx CLI](/influxdb/v2.1/tools/influx-cli/).
 {{% /note %}}
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v{{< current-version >}} (Windows)</a>
@@ -665,7 +665,6 @@ You are ready to [write or collect data](/influxdb/v2.1/write-data).
 
 ### (Optional) Set up and use the influx CLI
 
-If you set up InfluxDB through the UI and want to use the [`influx` CLI](/influxdb/v2.1/reference/cli/influx),
 To avoid having to pass your InfluxDB
 [API token](/influxdb/v2.1/security/tokens/) with each `influx` command, set up a configuration profile to store your credentials. To do this, complete the following steps:
 
@@ -681,7 +680,7 @@ To avoid having to pass your InfluxDB
     ```
 
     This configures a new profile named `default` and makes the profile active
-    so your `influx` CLI commands run against this instance.
+    so your `influx` CLI commands run against the specified InfluxDB instance.
     For more detail, see [`influx config`](/influxdb/v2.1/reference/cli/influx/config/).
 
 2. Learn `influx` CLI commands. To see all available `influx` commands, type
@@ -713,7 +712,7 @@ influx setup
 
 InfluxDB is now initialized with a primary user, organization, bucket, and API token.
 InfluxDB also creates a configuration profile for you so that you don't have to
-add organization and token to every command.
+add your InfluxDB host, organization, and token to every command.
 To view that config profile, use the [`influx config list`](/influxdb/v2.1/reference/cli/influx/config) command.
 
 To continue to use InfluxDB via the CLI, you need the API token created during setup.
