@@ -1,0 +1,5 @@
+{{ if .Page.Params.metadata }}
+{{ range .Page.Params.metadata }}
+<p class="meta">{{ . }}</p>
+{{ end }}
+{{ end }}

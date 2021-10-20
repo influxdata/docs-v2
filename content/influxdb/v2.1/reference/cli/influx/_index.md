@@ -10,17 +10,26 @@ menu:
     parent: Command line tools
 weight: 101
 influxdb/v2.1/tags: [cli]
+related:
+  - /influxdb/v2.1/tools/clis/
 ---
 
 The `influx` command line interface (CLI) includes commands to manage many aspects of InfluxDB,
 including buckets, organizations, users, tasks, etc.
 
-## Usage
+{{% oss-only %}}
 
-```
-influx [flags]
-influx [command]
-```
+{{% note %}}
+#### InfluxDB OSS and influx CLI versions
+Beginning with **InfluxDB 2.1**, the `influx` CLI is packaged and versioned separately
+from InfluxDB.
+InfluxDB and `influx` CLI versions may differ, but compatibility is noted for each command.
+{{% /note %}}
+
+{{% /oss-only %}}
+
+## Download and install the influx CLI
+<a class="btn" href="/influxdb/v2.1/tools/clis/">Download and install the influx CLI</a>
 
 ### Provide required authentication credentials
 To avoid having to pass your InfluxDB **host**, **API token**, and **organization**
@@ -42,12 +51,19 @@ influx config create --config-name <config-name> \
 For more information about managing CLI configurations, see the
 [`influx config` documentation](/influxdb/v2.1/reference/cli/influx/config/).
 
+## Usage
+
+```
+influx [flags]
+influx [command]
+```
+
 ## Commands
 
 | Command                                                      | Description                                          |
-|:-------                                                      |:-----------                                          |
+| :----------------------------------------------------------- | :--------------------------------------------------- |
 | [apply](/influxdb/v2.1/reference/cli/influx/apply)           | Apply an InfluxDB template                           |
-| [auth](/influxdb/v2.1/reference/cli/influx/auth)             | API token management commands             |
+| [auth](/influxdb/v2.1/reference/cli/influx/auth)             | API token management commands                        |
 | [backup](/influxdb/v2.1/reference/cli/influx/backup)         | Back up data                                         |
 | [bucket](/influxdb/v2.1/reference/cli/influx/bucket)         | Bucket management commands                           |
 | [completion](/influxdb/v2.1/reference/cli/influx/completion) | Generate completion scripts                          |
