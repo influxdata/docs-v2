@@ -205,8 +205,50 @@ For information about installing the `influx` CLI, see
 [Install and use the influx CLI](/influxdb/v2.1/tools/influx-cli/).
 {{% /note %}}
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz" download >InfluxDB v{{< current-version >}} (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-arm64.tar.gz" download >InfluxDB v{{< current-version >}} (arm)</a>
+1. **Download the InfluxDB package.**
+
+    Download the InfluxDB package [from your browser](#download-from-your-browser)
+    or [from the command line](#download-from-the-command-line).
+
+    #### Download from your browser
+
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz" download >InfluxDB v{{< current-version >}} (amd64)</a>
+    <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-arm64.tar.gz" download >InfluxDB v{{< current-version >}} (arm)</a>
+
+    #### Download from the command line
+
+    ```sh
+    # amd64
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz
+
+    # arm
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-arm64.tar.gz
+    ```
+
+4. **Unpackage the downloaded package.**
+
+    _**Note:** The following commands are examples. Adjust the filenames, paths, and utilities if necessary._
+
+    ```sh
+    # amd64
+    tar xvzf path/to/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz
+
+    # arm
+    tar xvzf path/to/influxdb2-{{< latest-patch >}}-linux-arm64.tar.gz
+    ```
+
+3. **(Optional) Place the unpackaged `influxd` executable in your system `$PATH`.**
+
+    ```sh
+    # amd64
+    sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/influxd /usr/local/bin/
+
+    # arm
+    sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/influxd /usr/local/bin/
+    ```
+
+    If you do not move the `influxd` binary into your `$PATH`, prefix the executable
+    `./` to run it in place.
 
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Verify the authenticity of downloaded binary" %}}
@@ -241,27 +283,6 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
     ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-### Place the executables in your $PATH
-
-Unpackage the downloaded archive and place the `influxd` executable in your system `$PATH`.
-
-_**Note:** The following commands are examples. Adjust the file names, paths, and utilities to your own needs._
-
-```sh
-# Unpackage contents to the current working directory
-tar xvzf path/to/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz
-
-# Copy the influxd binary to your $PATH
-sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/influxd /usr/local/bin/
-```
-
-{{% note %}}
-Both InfluxDB 1.x and 2.x have associated `influx` and `influxd` binaries.
-If InfluxDB 1.x binaries are already in your `$PATH`, run the {{< current-version >}} binaries in place
-or rename them before putting them in your `$PATH`.
-If you rename the binaries, all references to `influx` and `influxd` in this documentation refer to your renamed binaries.
-{{% /note %}}
 
 ## Start InfluxDB
 
@@ -334,7 +355,7 @@ See InfluxDB [configuration options](/influxdb/v2.1/reference/config-options/) f
    ExecStart=/usr/bin/influxd $ARG1 $ARG2
    ```
 
-## Networking ports
+### Networking ports
 
 By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.1/reference/api/).

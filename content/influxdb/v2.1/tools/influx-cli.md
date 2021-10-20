@@ -117,7 +117,7 @@ brew list | grep influxdb-cli
 
 1. **Download the influx CLI package.**
 
-    Download the `influx` CLI pakcage [from your browser](#download-from-your-browser)
+    Download the `influx` CLI package [from your browser](#download-from-your-browser)
     or [from the command line](#download-from-the-command-line).
 
     #### Download from your browser
@@ -135,7 +135,7 @@ brew list | grep influxdb-cli
     wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
     ```
 
-4. **Unpackage the downloaded packages.**
+4. **Unpackage the downloaded package.**
 
     _**Note:** The following commands are examples. Adjust the filenames, paths, and utilities if necessary._
 
