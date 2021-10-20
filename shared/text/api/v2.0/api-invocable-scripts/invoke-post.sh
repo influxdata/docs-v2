@@ -1,4 +1,4 @@
-invoke_with_post() {
+invoke() {
   SCRIPT_ID=085138a111448000
 
   curl -vv -X 'POST' \
@@ -8,5 +8,4 @@ invoke_with_post() {
     --header 'Content-Type: application/json' \
     --data-binary '{ "params": { "mybucket": "air_sensor" } }'
 }
-
-invoke_with_post
+invoke
