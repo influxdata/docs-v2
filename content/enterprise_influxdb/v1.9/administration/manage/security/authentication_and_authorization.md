@@ -24,71 +24,6 @@ This document covers setting up and managing authentication and authorization in
   - [User Management Commands](#user-management-commands)
 - [HTTP Errors](#authentication-and-authorization-http-errors)
 
-## Authentication
-
-Enable authentication in InfluxDB Enterprise
-to only allow requests that are sent with valid credentials to execute.
-
-{{% note %}}
-#### Plugins not authenticated
-Authentication only occurs at the HTTP request scope.
-Plugins do not currently have the ability to authenticate requests and service
-endpoints (for example, Graphite, collectd, etc.) are not authenticated.
-{{% /note %}}
-
-{{% note %}}
-#### Authentication recommended on public endpoints
-If InfluxDB Enterprise is being deployed on a publicly accessible endpoint,
-we **strongly recommend** enabling authentication.
-Otherwise, data and potentially destructive commands will be publicly available to any unauthenticated user.
-For additional security,
-InfluxDB Enterprise should be run behind a third-party service.
-Authentication and authorization should not be soley relied upon
-to prevent access and protect data from malicious actors.
-{{% /note %}}
-
-### Enable authentication
-
-Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
-All credentials are silently ignored, and all users have all privileges.
-
-To enable authentication in a cluster, do the following:
-
-1. **Create at least one [admin user](#admin-users)**.
-
-   To create an admin user,
-   run the following command using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/):
-   ```
-   CREATE USER admin WITH PASSWORD 'mypassword' WITH ALL PRIVILEGES
-   ```
-
-2. **Enable authentication in your meta and data configuration files**.
-
-   Set the `auth-enabled` options to `true` in the `[http]` section:
-
-   ```toml
-   [http]
-     enabled = true
-     bind-address = ":8086"
-     auth-enabled = true # Set to true
-     log-enabled = true
-     write-tracing = false
-     pprof-enabled = true
-     pprof-auth-enabled = true
-     debug-pprof-enabled = false
-     ping-auth-enabled = true
-     https-enabled = true
-     https-certificate = "/etc/ssl/influxdb.pem"
-   ```
-
-   {{% note %}}
-If `pprof-enabled` is set to `true`, set `pprof-auth-enabled` and `ping-auth-enabled`
-to `true` to require authentication on profiling and ping endpoints.
-   {{% /note %}}
-
-3. **Restart InfluxDB Enterprise**.
-   Once restarted, InfluxDB Enterprise checks user credentials on every request and only
-   processes requests that have valid credentials for an existing user.
 
 ### Authenticate requests
 
@@ -274,9 +209,26 @@ To enable authorization, first [enable authentication](#enable-authentication).
 
 This page shows examples of basic user and permission management using InfluxQL statements.
 However, *only a subset of Enterprise permissions can be managed with InfluxQL.*
+Using InfluxQL, you can perform the following actions:
+
+- Create new users and assign them the either admin role (or no role).
+- grant READ and/or WRITE permissions to users.  (READ, WRITE, ALL)
+- REVOKE permissions from users.
+- GRANT or REVOKE specific database access to individual users.
+
 Consider using [Chronograf](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/)
 and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
 to manage InfluxDB Enterprise users and roles.
+
+
+However, InfluxDB Enterprise offers more granular permissions than InfluxDB OSS.  You can use Chronograf to
+access and assign these more granular permissions to individual users.
+
+The [InfluxDB Enterprise meta API]() provides the most comprehensive way to manage users, roles, permission 
+and other [fine grained authorization]() (FGA) capabilities.
+
+Provide the links to FGA....and to the other meta API usage.
+
 <!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
 
 ### User types and privileges
