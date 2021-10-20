@@ -9,6 +9,8 @@ menu:
     identifier: influx-cli-task-based
 weight: 101
 influxdb/cloud/tags: [cli]
+aliases:
+  - /influxdb/cloud/tools/clis/
 related:
   - /influxdb/cloud/reference/cli/influx/
 ---

@@ -33,7 +33,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2.1/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Use InfluxDB CLIs](/influxdb/v2.1/tools/clis/).
+[Use InfluxDB CLIs](/influxdb/v2.1/tools/influx-cli/).
 {{% /note %}}
 
 ### Use Homebrew
@@ -194,7 +194,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2.1/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Use InfluxDB CLIs](/influxdb/v2.1/tools/clis/).
+[Use InfluxDB CLIs](/influxdb/v2.1/tools/influx-cli/).
 {{% /note %}}
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-amd64.tar.gz" download >InfluxDB v{{< current-version >}} (amd64)</a>
@@ -374,7 +374,7 @@ The InfluxDB server ([`influxd`](/influxdb/v2.1/reference/cli/influxd/)) and the
 [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Use InfluxDB CLIs](/influxdb/v2.1/tools/clis/).
+[Use InfluxDB CLIs](/influxdb/v2.1/tools/influx-cli/).
 {{% /note %}}
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v{{< current-version >}} (Windows)</a>
@@ -613,7 +613,7 @@ to collect and send data to:
 The [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) lets you manage InfluxDB
 from your command line.
 
-<a class="btn" href="/influxdb/v2.1/tools/clis/" target="_blank">Download and install the influx CLI</a>
+<a class="btn" href="/influxdb/v2.1/tools/influx-cli/" target="_blank">Download and install the influx CLI</a>
 
 ## Set up InfluxDB
 

@@ -11,7 +11,7 @@ menu:
 weight: 101
 influxdb/v2.1/tags: [cli]
 related:
-  - /influxdb/v2.1/tools/clis/
+  - /influxdb/v2.1/tools/influx-cli/
 ---
 
 The `influx` command line interface (CLI) includes commands to manage many aspects of InfluxDB,
@@ -29,7 +29,7 @@ InfluxDB and `influx` CLI versions may differ, but compatibility is noted for ea
 {{% /oss-only %}}
 
 ## Download and install the influx CLI
-<a class="btn" href="/influxdb/v2.1/tools/clis/">Download and install the influx CLI</a>
+<a class="btn" href="/influxdb/v2.1/tools/influx-cli/">Download and install the influx CLI</a>
 
 ### Provide required authentication credentials
 To avoid having to pass your InfluxDB **host**, **API token**, and **organization**

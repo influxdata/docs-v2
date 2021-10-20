@@ -1,33 +1,24 @@
 ---
-title: Use InfluxDB CLIs
+title: Install and use the influx CLI
 description:
   Use the `influx` and `influxd` command line interfaces to interact with and
   manage InfluxDB.
 menu:
   influxdb_2_1:
+    name: Use the influx CLI
     parent: Tools & integrations
-weight: 102
+    identifier: influx-cli-task-based
+weight: 101
 influxdb/v2.1/tags: [cli]
+aliases:
+  - /influxdb/v2.1/tools/clis/
 related:
   - /influxdb/v2.1/reference/cli/influx/
-  - /influxdb/v2.1/reference/cli/influxd/
 ---
 
-{{% oss-only %}}
-
-Use the `influx` and `influxd` command line interfaces (CLIs) to interact with and
-manage InfluxDB.
-
-- [influx CLI](#influx-cli)
-- [influxd CLI](#influxd-cli)
-
-## influx CLI
-
-{{% /oss-only %}}
-
-Use the `influx` CLI to interact with and manage your **InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}}** instance.
-Write and query data, generate InfluxDB templates, export data, manage organizations
-and users, and more.
+Use the `influx` CLI to interact with and manage your
+**InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}}** instance.
+Write and query data, generate InfluxDB templates, export data, and more.
 
 {{% oss-only %}}
 
@@ -38,7 +29,11 @@ separately from the InfluxDB server (`influxd`).
 
 {{% /oss-only %}}
 
-### Download, install, and set up the influx CLI
+- [Install the influx CLI](#install-the-influx-cli)
+- [Set up the influx CLI](#set-up-the-influx-cli)
+- [Use influx CLI commands](#use-influx-cli-commands)
+
+## Install the influx CLI
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -55,6 +50,15 @@ separately from the InfluxDB server (`influxd`).
 brew install influx-cli
 ```
 
+{{% oss-only %}}
+
+{{% note %}}
+If you used Homebrew to install **InfluxDB v{{< current-version >}}**, the `influx-cli`
+formula was downloaded as a dependency and should already be installed.
+{{% /note %}}
+
+{{% /oss-only %}}
+
 ### Manually download
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI v{{< latest-patch cli=true >}} (macOS)</a>
 
@@ -70,9 +74,9 @@ tar zxvf ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64
 ```
 
 {{% note %}}
-#### Run InfluxDB on macOS Catalina
+#### Install the influx CLI on macOS Catalina and newer
 
-macOS Catalina requires downloaded binaries to be signed by registered Apple developers.
+macOS Catalina and newer macOS versions require downloaded binaries to be signed by registered Apple developers.
 Currently, when you first attempt to run `influx`, macOS will prevent it from running.
 To manually authorize the `influx` binary:
 
@@ -99,21 +103,30 @@ sudo cp influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64/influx /usr/
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 
+### Download and unpackage the influx CLI
+
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (amd64)</a>
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (arm)</a>
 
-### Place the executables in your $PATH
+#### From the command line
+```sh
+# amd64
+wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
+tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
 
-Unpackage the downloaded archive and place the `influx` executable in your system `$PATH`.
+# arm
+wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+```
+
+### Place the executables in your $PATH
+Place the unpackaged `influx` executable in your system `$PATH`.
 
 _**Note:** The following commands are examples. Adjust the file names, paths, and utilities to your own needs._
 
 ```sh
-# Unpackage contents to the current working directory
-tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
-
 # Copy the influx and influxd binary to your $PATH
-sudo cp influxdb2-client={{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
+sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
 ```
 
 {{% /tab-content %}}
@@ -144,6 +157,11 @@ the following message:
 <!--------------------------------- END Windows --------------------------------->
 {{< /tabs-wrapper >}}
 
+## Set up the influx CLI
+
+- [Provide required authentication credentials](#provide-required-authentication-credentials)
+- [Enable shell completion (Optional)](#enable-shell-completion-optional)
+
 ### Provide required authentication credentials
 To avoid having to pass your InfluxDB **host**, **API token**, and **organization**
 with each command, store them in an `influx` CLI configuration (config).
@@ -166,20 +184,9 @@ For more information about managing CLI configurations, see the
 
 ### Enable shell completion (Optional)
 
-To install `influx` shell completion scripts, see [`influx completion`](/influxdb/v2.1/reference/cli/influx/completion/#install-completion-scripts).
+To install `influx` shell completion scripts, see
+[`influx completion`](/influxdb/v2.1/reference/cli/influx/completion/#install-completion-scripts).
 
-### Use influx CLI commands
+## Use influx CLI commands
 _For information about `influx` CLI commands, see the
-[`influx` reference documentation](/influxdb/v2.1/reference/cli/influx/)._
-
-{{% oss-only %}}
-
-## influxd CLI
-
-Use the `influxd` CLI to start the **InfluxDB OSS** server and manage the InfluxDB storage engine.
-Restore data, rebuild the time series index (TSI), assess the health of the
-underlying storage engine, and more.
-
-_For more information, see the [`influxd` reference documentation](/influxdb/v2.1/reference/cli/influxd/)._
-
-{{% /oss-only %}}
+[`influx` CLI reference documentation](/influxdb/v2.1/reference/cli/influx/)._
