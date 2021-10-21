@@ -23,7 +23,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 3. Do the following at the top of the page:
    - Select your local time zone or UTC.
    - Choose a time range for your data.
-4. Consider which notebook cells to add to your notebook. You need to have one input cell for other cells to run properly. By default, each notebook includes **Metric Selector**, **Data Validation**, and **Visualization** cells.
+4. Consider which notebook cells to add to your notebook. You need to have one input cell for other cells to run properly. The default notebook cell types included in your notebook (**Data Source**, **Visualization**, and **Action**) vary depending on the type of notebook you selected in step 2. 
 5. Select your bucket in **Metric Selector** and then select the filters to narrow your data.
 6. Do one of the following:
     - To view results in your cells (for example, **Data Validation** and **Visualization**) *without writing data*, click **Preview** (or press **CTRL + Enter**).
