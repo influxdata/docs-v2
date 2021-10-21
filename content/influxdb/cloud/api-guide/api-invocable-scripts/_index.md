@@ -120,7 +120,7 @@ Provide the following in your request:
 
 #### Request headers
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
-- **Accept**: application/json'
+- **Accept**: application/json
 
 ## Update an invocable script
 To update an existing script for an organization, send a request using the `PATCH` method to the `/api/v2/functions/SCRIPT_ID` endpoint.
