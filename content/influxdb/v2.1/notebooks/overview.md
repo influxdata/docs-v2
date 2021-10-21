@@ -67,10 +67,9 @@ At least one input cell is required in a notebook for other cells to run.
 
 ### Visualization
 
-- **Flux Script**:
-Modify your data with Flux Script. `__PREVIOUS_RESULT__` refers to your previous inputs from the Metric Selector.
-- **Downsample**:
-Downsample data through aggregates.
+- **Table**: View your data in a table.
+- **Graph**:  View your data in a graph.
+- **Note**:  Create explanatory notes or other information for yourself or one of your team members.
 
 ### Pass-through
 
