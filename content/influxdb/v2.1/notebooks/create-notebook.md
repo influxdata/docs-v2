@@ -3,7 +3,7 @@ title: Create a notebook
 description: >
   Create a notebook to explore, visualize, and process your data.
 weight: 102
-influxdb/v2.1/tags:
+influxdb/v2.1/tags: [notebooks]
 menu:
   influxdb_2_1:
     name: Create a notebook
