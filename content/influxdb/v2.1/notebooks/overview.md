@@ -79,6 +79,6 @@ At least one input cell is required in a notebook for other cells to run.
 
 ### Output
 
-- **Notification**: Set up alerts.
-- **Output to Bucket**: In **Preview** mode, this cell represents what would be written if the data was going to be committed to a bucket.
-- **Output: Schedule**: Run tasks at specific times.
+- **Alert**: Set up alerts. See how to [monitor data and send alerts](https://docs.influxdata.com/influxdb/v2.0/monitor-alert/).
+- **Tasks**: Set up tasks. See how to [manage tasks in InfluxDB] (https://docs.influxdata.com/influxdb/v2.0/process-data/manage-tasks/).
+- **Output to Bucket**: In **Preview** mode, this cell represents what would be written if the data was going to be committed to a bucket. In **Run** mode, this writes data to the specified bucket.
