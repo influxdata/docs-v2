@@ -1,7 +1,8 @@
 ---
-title: Use API-invocable scripts to perform custom REST operations
+title: Use API-invocable scripts
+seotitle: Use InfluxDB API-invocable scripts
 description: >
-  Use API-invocable scripts to create your own InfluxDB API endpoints that execute your custom scripts. 
+  Use API-invocable scripts to create your own InfluxDB API endpoints that execute custom scripts. 
 weight: 101
 menu:
   influxdb_cloud:
