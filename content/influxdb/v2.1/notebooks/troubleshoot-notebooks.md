@@ -2,7 +2,7 @@
 title: Troubleshoot notebooks
 description: Common issues with the notebooks feature.
 weight: 106
-influxdb/v2.1/tags:
+influxdb/v2.1/tags: [notebooks]
 menu:
   influxdb_2_1:
     name: Troubleshoot notebooks
