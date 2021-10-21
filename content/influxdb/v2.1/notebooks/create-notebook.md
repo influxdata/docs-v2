@@ -26,7 +26,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 4. Consider which notebook cells to add to your notebook. You need to have one input cell for other cells to run properly. The default notebook cell types included in your notebook (**Data Source**, **Visualization**, and **Action**) vary depending on the type of notebook you selected in step 2. 
 5. Select your bucket in your query or Flux script, and then select the filters to narrow your data.
 6. Do one of the following:
-    - To view results in your cells (for example, **Data Validation** and **Visualization**) *without writing data*, click **Preview** (or press **CTRL + Enter**).
+    - To view results in your cells (for example, to view your **Visualization** or **Action**) *without writing data*, click **Preview** (or press **CTRL + Enter**).
     - To view the results of each cell and write the results to the specified output bucket, click **Run**.
 7. (Optional) Change your visualization settings with the dropdown menus and gear icon at the top of the **Visualization** cell.
 8. (Optional) Click the **+** icon, and then add one or more of the following cell types to your notebook:
