@@ -37,8 +37,9 @@ JSON object with the following fields:
 - **name** : script name
 - **description** : script description
 - **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+## Examples
 
-## Create an invocable Flux script
+### Create an invocable Flux script
 
 The following example adds a new Flux script that, when invoked with a `params.mybucket` parameter, returns the last point from that [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 
