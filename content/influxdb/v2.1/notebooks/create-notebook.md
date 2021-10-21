@@ -100,7 +100,7 @@ Select one of the following action cell-types:
 1. Select a bucket.
 2. Click **Preview** to see what would be written to the bucket without commiting, or click **Run** in the upper left to write, or select **Export as Task** to schedule your output as a task.
 
-#### Schedule
+#### Task
 
 1. Enter a time and an offset to schedule the task.
 2. Click **Export as Task** to save.
