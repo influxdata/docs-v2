@@ -9,6 +9,7 @@ weight: 201
 aliases:
   - /influxdb/v2.1/reference/cli/influx/bucket/find
   - /influxdb/v2.1/reference/cli/influx/bucket/list/
+updated_in: CLI v2.2.0
 ---
 
 The `influx bucket list` command lists and searches for buckets in InfluxDB.
@@ -22,21 +23,24 @@ influx bucket list [flags]
 `list`, `ls`, `find`
 
 ## Flags
-| Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}    |
-|:-----|:------------------|:----------------------------------------------------------------------|:----------:|:----------------------|
-| `-c` | `--active-config` | CLI configuration to use for command                                  | string     |                       |
-|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     | `INFLUX_CONFIGS_PATH` |
-| `-h` | `--help`          | Help for the `list` command                                           |            |                       |
-|      | `--hide-headers`  | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
-|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
-|      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
-| `-i` | `--id`            | Bucket ID                                                             | string     |                       |
-|      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
-| `-n` | `--name`          | Bucket name                                                           | string     | `INFLUX_BUCKET_NAME`  |
-| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string     | `INFLUX_ORG`          |
-|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string     | `INFLUX_ORG_ID`       |
-|      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
-| `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
+| Flag |                   | Description                                                                  | Input type | {{< cli/mapped >}}    |
+| :--- | :---------------- | :--------------------------------------------------------------------------- | :--------: | :-------------------- |
+| `-c` | `--active-config` | CLI configuration to use for command                                         |   string   |                       |
+|      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)        |   string   | `INFLUX_CONFIGS_PATH` |
+| `-h` | `--help`          | Help for the `list` command                                                  |            |                       |
+|      | `--hide-headers`  | Hide table headers (default `false`)                                         |            | `INFLUX_HIDE_HEADERS` |
+|      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                   |   string   | `INFLUX_HOST`         |
+|      | `--http-debug`    | Inspect communication with InfluxDB servers.                                 |   string   |                       |
+| `-i` | `--id`            | Bucket ID                                                                    |   string   |                       |
+|      | `--json`          | Output data as JSON (default `false`)                                        |            | `INFLUX_OUTPUT_JSON`  |
+|      | `--limit`         | Total number of buckets to fetch from the server, or 0 to return all buckets |   string   |                       |
+| `-n` | `--name`          | Bucket name                                                                  |   string   | `INFLUX_BUCKET_NAME`  |
+|      | `--offset`        | Number of buckets to skip over in the list                                   |            | `INFLUX_ORG`          |
+| `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                       |   string   | `INFLUX_ORG`          |
+|      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                            |   string   | `INFLUX_ORG_ID`       |
+|      | `--page-size`     | Number of buckets to fetch per request to the server (default 20)            |            |                       |
+|      | `--skip-verify`   | Skip TLS certificate verification                                            |            | `INFLUX_SKIP_VERIFY`  |
+| `-t` | `--token`         | API token                                                                    |   string   | `INFLUX_TOKEN`        |
 
 ## Examples
 
