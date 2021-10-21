@@ -142,10 +142,9 @@ Provide the following in your request:
 
 The following example finds an invocable script containing a numeric date range,
 replaces the date with a new parameter, and updates the invocable script.
+
 ```sh
 {{% get-shared-text "api/v2.0/api-invocable-scripts/update-flux-script.sh" %}}
-```
-The example performs the following steps:
 1. Use `GET /api/v2/functions` to retrieve a list of scripts.
 2. In the list, find the first **invocable script** object that has a `script` property that contains a hard-coded numeric date range.
 3. Replace the hard-coded date range in the `script` property with a new `params.myrangestart` dynamic parameter and assign the object to a `new_script` variable.
