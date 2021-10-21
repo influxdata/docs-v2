@@ -8,7 +8,7 @@ menu:
     name: influx CLI 
 ---
 
-## v2.2.0 [unreleased]
+## v2.2.0 [2021-10-21]
 
 This release includes three new features and bug fixes.
 
