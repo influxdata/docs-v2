@@ -53,10 +53,9 @@ Select from the options in the dropdown list or select **Custom Time Range** to 
 ## Notebook cell types
 
 The following cell types are available for your notebook:
-- [Inputs](#inputs)
-- [Transform](#transform)
-- [Pass-through](#pass-through)
-- [Output](#output)
+- [Data source](#data-source)
+- [Visualization](#visualization)
+- [Actions](#actions)
 
 ### Inputs
 
