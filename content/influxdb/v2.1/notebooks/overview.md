@@ -3,7 +3,7 @@ title: Overview of notebooks
 description: >
   Learn about the building blocks of a notebook.
 weight: 101
-influxdb/v2.1/tags:
+influxdb/v2.1/tags: [notebooks]
 menu:
   influxdb_2_1:
     name: Overview of notebooks
