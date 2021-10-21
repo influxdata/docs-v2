@@ -7562,7 +7562,7 @@ components:
           type: object
           additionalProperties: true
           description: |
-            Enumeration of key/value pairs that respresent parameters to be injected into query (can only specify either this field or extern and not both)
+            Enumeration of key-value pairs that respresent parameters to be injected into query (can only specify either this field or extern and not both)
         dialect:
           $ref: '#/components/schemas/Dialect'
         now:
@@ -7808,7 +7808,7 @@ components:
           items:
             $ref: '#/components/schemas/DictItem'
     DictItem:
-      description: A key/value pair in a dictionary
+      description: A key-value pair in a dictionary
       type: object
       properties:
         type:

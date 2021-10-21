@@ -350,7 +350,7 @@ When the InfluxDB project began, we picked LevelDB as the storage engine because
 We knew that it had great properties for write throughput and everything seemed to "just work".
 
 LevelDB is an implementation of a Log Structured Merge Tree (or LSM Tree) that was built as an open source project at Google.
-It exposes an API for a key/value store where the key space is sorted.
+It exposes an API for a key-value store where the key space is sorted.
 This last part is important for time series data as it allowed us to quickly scan ranges of time as long as the timestamp was in the key.
 
 LSM Trees are based on a log that takes writes and two structures known as Mem Tables and SSTables.

@@ -2015,13 +2015,13 @@ storage-series-file-max-concurrent-snapshot-compactions = 0
 Size of the internal cache used in the TSI index to store
 previously calculated series results.
 Cached results are returned quickly rather than needing to be recalculated when
-a subsequent query with the same tag key/value predicate is executed.
+a subsequent query with the same tag key-value predicate is executed.
 Setting this value to `0` will disable the cache and may decrease query performance.
 
 **Default:** `100`
 
 {{% note %}}
-This value should only be increased if the set of regularly used tag key/value
+This value should only be increased if the set of regularly used tag key-value
 predicates across all measurements for a database is larger than 100.
 An increase in cache size may lead to an increase in heap usage.
 {{% /note %}}
