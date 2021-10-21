@@ -78,7 +78,7 @@ influx auth create \
 
 ### Create an Operator API token
 
-Create an Operator token to grant permissions to all resources in all organizations.
+Create an [Operator token](/influxdb/v2.0/security/tokens/#operator-token) to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create \
