@@ -14,7 +14,7 @@ This release includes three new features and bug fixes.
 
 ## Features
 
-This release makes it easier to create tokens in the `influx` CLI, adds support for viewing more than 20 buckets using `influx bucket list`, and adds bucket shorthand (`-b`) to `influx delete`.
+This release makes it easier to create API tokens with the `influx` CLI, adds support for viewing more than 20 buckets using `influx bucket list`, and adds a shorthand flag for bucket (`-b`) to `influx delete`.
 
 ### Create an All-Access token in the influx CLI
 
@@ -29,11 +29,11 @@ This release makes it easier to create tokens in the `influx` CLI, adds support 
 
 ### View more buckets in the influx CLI
 
--  [`influx bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/): Update pagination to support displaying more than 20 buckets. By default, buckets are fetched in batches of 20; set `--page-size` to override this default value. You may also limit the total number of buckets to display with `--limit` (by default, there's no limit).
+Update [`influx bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/) with pagination to support displaying more than 20 buckets. By default, buckets are fetched in batches of 20; set `--page-size` to override this default value. You may also limit the total number of buckets to display with `--limit` (by default, there's no limit).
 
 ### New bucket shorthand for influx delete
 
-- [`influx delete`](/influxdb/cloud/reference/cli/influx/delete/): Add shorthand `-b` for `--bucket`.
+Add the shorthand flag `-b` for `--bucket` to [`influx delete`](/influxdb/cloud/reference/cli/influx/delete/).
 
 ## Bug fixes
 
