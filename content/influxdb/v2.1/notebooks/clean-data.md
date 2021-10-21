@@ -3,7 +3,7 @@ title: Normalize data with notebooks
 description: >
   Clean, standardize, or normalize you data to make it easier to compare with other measurements.
 weight: 105
-influxdb/v2.1/tags:
+influxdb/v2.1/tags: [notebooks]
 menu:
   influxdb_2_1:
     name: Normalize data with notebooks
