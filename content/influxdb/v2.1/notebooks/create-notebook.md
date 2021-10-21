@@ -57,7 +57,6 @@ If your cell contains a custom script that uses any output function to write dat
 
 Select one of the following visualization cell-types:
 
-- To change visability and name of columns, select [Column Editor](#column-editor).
 - Table
 - Graph
 - Note
