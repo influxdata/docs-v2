@@ -57,7 +57,7 @@ The following cell types are available for your notebook:
 - [Visualization](#visualization)
 - [Actions](#actions)
 
-### Inputs
+### Data source
 
 At least one input cell is required in a notebook for other cells to run.
 
