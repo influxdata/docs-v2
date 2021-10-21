@@ -25,11 +25,11 @@ To create an API-invocable script, send a request using the `POST` method to the
 
 Provide the following in your API request:
 
-### Request headers
+#### Request headers
 - **Content-Type**: application/json
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
 
-### Request body
+#### Request body
 JSON object with the following fields:
 
 - **script** : [Flux](/{{% latest "flux" %}}) script as a string
