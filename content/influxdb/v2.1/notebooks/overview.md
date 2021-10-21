@@ -62,8 +62,8 @@ The following cell types are available for your notebook:
 
 At least one input cell is required in a notebook for other cells to run.
 
-- **Metric Selector**: Filter out your data using a single list.
-- **Query Builder**: Filter out your data using lists separated by group keys.
+- **Flux Script**: Input your data using a Flux script.
+- **Query Builder**: Input your data using a query.
 
 ### Transform
 
