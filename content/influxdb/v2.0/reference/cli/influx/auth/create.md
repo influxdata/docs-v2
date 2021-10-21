@@ -67,7 +67,7 @@ influx auth create [flags]
 
 ### Create an All-Access API token
 
-Create an All-Access token to grant permissions to all resources in an organization.
+Create an [All-Access token](/influxdb/cloud/security/tokens/#all-access-token) to grant permissions to all resources in an organization.
 
 ```sh
 influx auth create \
