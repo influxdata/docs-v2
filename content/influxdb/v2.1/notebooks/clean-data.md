@@ -37,4 +37,4 @@ Learn how to create a notebook that normalizes data. Walk through the following 
 5. Click **Preview** in the upper left to verify that your notebook runs and preview the output.
 6. Run your notebook:
   - Click **Run** to run the notebook and write to the output bucket a single time.
-  - To write continuously, click **Export as Task** in the upper right corner of the **Output to Bucket** cell. For details about working with tasks, see [Manage tasks](/influxdb/cloud/process-data/manage-tasks/).
+  - To write continuously, click **Export as Task** in the upper right corner of the **Output to Bucket** cell. For details about working with tasks, see [Manage tasks](/influxdb/v2.1/process-data/manage-tasks/).
