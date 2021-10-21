@@ -38,7 +38,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 
 ### Add a data source cell
 
-1. Select **Metric Builder** or **Query Builder** as your input, and then select the bucket to pull data from.
+1. Select **Flux Script** or **Query Builder** as your input, and then select or enter the bucket to pull data from.
 2. Select filters to narrow your data.
 3. Select **Preview** (**CTRL + Enter**) or **Run** in the upper left dropdown menu.
 
