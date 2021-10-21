@@ -78,7 +78,7 @@ For detail on available visualization types and how to use them, see [Visualizat
 
 ### Add an output cell
 
-Select one of the following output cell-types:
+Select one of the following action cell-types:
 
 - To recieve a notification, select [Alert](#alert) and complete the steps below.
 - To write output to a bucket, select [Output to Bucket](#output-to-bucket) and complete the steps below.
