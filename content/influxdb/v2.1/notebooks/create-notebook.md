@@ -42,7 +42,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 
 1. Select one of the following transform cell-types:
     - **Flux Script**: Use `__PREVIOUS_RESULT__` to build from data in the previous cell, enter a Flux script to transform your data.
-    - **Downsample**: Window data by time and apply an aggregate to each window to downsample data. For more information, see [Downsample data with notebooks](/influxdb/cloud/notebooks/downsample/).
+    - **Downsample**: Window data by time and apply an aggregate to each window to downsample data. For more information, see [Downsample data with notebooks](/influxdb/v2.1/notebooks/downsample/).
 2. Select **Preview** (**CTRL + Enter**) or **Run** in the upper left dropdown menu.
 
 {{% warn %}}
