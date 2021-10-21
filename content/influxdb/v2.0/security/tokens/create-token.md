@@ -15,9 +15,9 @@ Create API tokens using the InfluxDB user interface (UI), the `influx`
 command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
-Tokens are visible to the user who created the token. {{% oss-only %}} Users who own a token with Operator permissions also have access to all tokens. {{% /oss-only %}} Tokens stop working when the user who create the token is deactivated.
+Tokens are visible to the user who created the token. {{% oss-only %}} Users who own a token with Operator permissions also have access to all tokens. {{% /oss-only %}} Tokens stop working when the user who created the token is deleted.
 **We recommend creating a generic IT user to create and manage tokens for writing data.**
-{{% /note %}} 
+{{% /note %}}
 
 ## Create a token in the InfluxDB UI
 
