@@ -31,10 +31,9 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 7. (Optional) Change your visualization settings with the dropdown menus and gear icon at the top of the **Visualization** cell.
 8. (Optional) Click the **+** icon, and then add one or more of the following cell types to your notebook:
 
-    - [Input](#add-an-input-cell): to pull information into your notebook
-    - [Transform](#add-a-transform-cell): to filter and apply changes to your data
-    - [Pass-through](#add-a-pass-through-cell): to visualize and add notes to your data
-    - [Output](#add-an-output-cell): to write data to a bucket, preview output before writing, or schedule an output task
+    - [Data source](#add-a-data-source-cell): to pull information into your notebook
+    - [Visualization](#add-a-visualization-cell): to 
+    - [Action](#add-an-action-cell): filter and apply changes to your data, for example, create an alert, process data with a task, or output data to a bucket
 9. (Optional) [Convert a cell into raw Flux script](#view-and-edit-flux-script-in-a-cell) to view and edit the code.
 
 ### Add an input cell
