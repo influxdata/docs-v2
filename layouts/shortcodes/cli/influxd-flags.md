@@ -49,6 +49,7 @@
 - [\--tls-min-version](/influxdb/v2.0/reference/config-options/#tls-min-version)
 - [\--tls-strict-ciphers](/influxdb/v2.0/reference/config-options/#tls-strict-ciphers)
 - [\--tracing-type](/influxdb/v2.0/reference/config-options/#tracing-type)
+- [\--ui-disabled](/influxdb/v2.0/reference/config-options/#ui-disabled)
 - [\--vault-client-key](/influxdb/v2.0/reference/config-options/#vault-client-key)
 - [\--vault-client-timeout](/influxdb/v2.0/reference/config-options/#vault-client-timeout)
 - [\--vault-max-retries](/influxdb/v2.0/reference/config-options/#vault-max-retries)
