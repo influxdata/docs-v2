@@ -18,13 +18,13 @@ This release makes it easier to create tokens in the `influx` CLI, adds support 
 
 ### Create an All-Access token in the influx CLI
 
-- Add ability to use the `influx` CLI to [create an All-Access API token](/influxdb/cloud/security/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
+- Add the ability to use the `influx` CLI to [create an All-Access API token](/influxdb/cloud/security/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
 
   {{% oss-only %}}
 
 ### Create an Operator token in the influx CLI
 
-- Add ability to use the `influx` CLI to [create an Operator token](/influxdb/v2.0/security/tokens/#operator-token) with read and write permissions to all resources in all organizations available in InfluxDB. (Note, this is the same permissions generated for the initial token created by `influx setup` or `influxd upgrade`.)
+- Add the ability to use the `influx` CLI to [create an Operator token](/influxdb/v2.0/security/tokens/#operator-token) with read and write permissions to all resources in all organizations available in InfluxDB. (Note, this is the same permissions generated for the initial token created by `influx setup` or `influxd upgrade`.)
   {{% /oss-only %}}
 
 ### View more buckets in the influx CLI
