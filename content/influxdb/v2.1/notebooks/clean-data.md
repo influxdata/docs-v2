@@ -18,7 +18,7 @@ Learn how to create a notebook that normalizes data. Walk through the following 
 
 ## Requirements
 - This example uses [NOAA water database data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data). Note that using this data counts towards your total usage.  
-- Create a destination bucket to write normalized data to. For details, see [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/).
+- Create a destination bucket to write normalized data to. For details, see [Create a bucket](/influxdb/v2.1/organizations/buckets/create-bucket/).
 
 ## Normalize data with a notebook
 1. Create a new notebook (see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/)).
