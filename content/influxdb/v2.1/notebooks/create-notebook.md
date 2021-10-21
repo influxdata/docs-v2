@@ -53,7 +53,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 If your cell contains a custom script that uses any output function to write data to InfluxDB (for example: the `to()` function) or sends data to a third-party service, clicking Preview will write data.
 {{% /warn %}}
 
-### Add a pass-through cell
+### Add a visualization cell
 
 Select one of the following pass-through cell-types:
 
