@@ -19,9 +19,10 @@ Use API-invocable scripts to create InfluxDB API endpoints that query, process, 
 - [Update a script](#update-an-invocable-script)
 
 ## Create an invocable script
-- [Create a Flux script](#create-an-invocable-flux-script)
+To create an API-invocable script, send a request using the `POST` method to the `/api/v2/functions` InfluxDB API endpoint.
 
-Send a request using the **POST** method to the `/api/v2/functions` InfluxDB API endpoint.
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/functions" >}}
+
 Provide the following in your API request:
 
 ### Request headers
