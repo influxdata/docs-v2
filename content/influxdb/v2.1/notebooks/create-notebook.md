@@ -36,7 +36,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
     - [Action](#add-an-action-cell): filter and apply changes to your data, for example, create an alert, process data with a task, or output data to a bucket
 9. (Optional) [Convert a cell into raw Flux script](#view-and-edit-flux-script-in-a-cell) to view and edit the code.
 
-### Add an input cell
+### Add a data source cell
 
 1. Select **Metric Builder** or **Query Builder** as your input, and then select the bucket to pull data from.
 2. Select filters to narrow your data.
