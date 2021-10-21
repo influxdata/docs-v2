@@ -132,14 +132,13 @@ InfluxDB API endpoint.
 
 Provide the following in your request:
 
-### Request headers
+#### Request headers
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
 - **Content-Type**: application/json
 - **Accept**: application/json'
 
-### Request body
-
-A modified **invocable script** as a JSON object. 
+#### Request body
+- A modified **invocable script** as a JSON object. 
 
 The following example finds an invocable script containing a numeric date range,
 replaces the date with a new parameter, and updates the invocable script.
