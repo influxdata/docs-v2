@@ -71,7 +71,7 @@ At least one input cell is required in a notebook for other cells to run.
 - **Graph**:  View your data in a graph.
 - **Note**:  Create explanatory notes or other information for yourself or one of your team members.
 
-### Pass-through
+### Action
 
 - **Column Editor**: Modify column visibility and naming.
 - **Markdown**: Create explanatory notes or other information for yourself or one of your team members.
