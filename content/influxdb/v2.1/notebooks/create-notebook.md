@@ -42,7 +42,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 2. Select filters to narrow your data.
 3. Select **Preview** (**CTRL + Enter**) or **Run** in the upper left dropdown menu.
 
-### Add a transform cell
+### Add an action cell
 
 1. Select one of the following transform cell-types:
     - **Flux Script**: Use `__PREVIOUS_RESULT__` to build from data in the previous cell, enter a Flux script to transform your data.
