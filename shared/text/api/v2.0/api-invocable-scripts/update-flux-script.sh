@@ -1,6 +1,6 @@
 find_and_update() {
   script=$(curl -X 'GET' \
-    "http://localhost:8086/api/v2/functions" \
+    "http://cloud2.influxdata.com/api/v2/functions" \
     --header "Authorization: Token ${INFLUX_API_TOKEN}" \
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json' \
