@@ -33,7 +33,7 @@ This release makes it easier to create API tokens with the `influx` CLI, adds su
 
 ### New bucket shorthand for influx delete
 
-- [`influx delete`](/influxdb/cloud/reference/cli/influx/delete/): Add shorthand `-b` for `--bucket`.
+Add the shorthand flag `-b` for `--bucket` to [`influx delete`](/influxdb/cloud/reference/cli/influx/delete/).
 
 ## Bug fixes
 
