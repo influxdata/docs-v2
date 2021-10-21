@@ -23,7 +23,8 @@ _`prometheus.histogramQuantile()` is an [aggregate function](/flux/v0.x/function
 import "experimental/prometheus"
 
 prometheus.histogramQuantile(
-  quantile: 0.99
+  quantile: 0.99,
+  metricVersion: 2
 )
 ```
 
@@ -32,16 +33,35 @@ prometheus.histogramQuantile(
 ### quantile {data-type="float"}
 A value between 0.0 and 1.0 indicating the desired quantile.
 
+### metricVersion {data-type="int"}
+[Prometheus metric parsing format](/{{< latest "influxdb" >}}/reference/prometheus-metrics/)
+used to parse queried Prometheus data.
+Available versions are `1` and `2`.
+Default is `2`.
+
 ### tables {data-type="stream of tables"}
 Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Examples
 
-### Calculate the 99th quantile in Prometheus data
+### Compute the 0.99 quantile of a Prometheus histogram
+{{< keep-url >}}
 ```js
 import "experimental/prometheus"
 
-prometheus.scrape(url: "https://example-url.com/metrics")
-  |> prometheus.histogramQuantile(quantile: 0.99)
+prometheus.scrape(url: "http://localhost:8086/metrics")
+    |> filter(fn: (r) => r._measurement == "prometheus")
+    |> filter(fn: (r) => r._field == "qc_all_duration_seconds")
+    |> prometheus.histogramQuantile(quantile: 0.99)
+```
+
+### Compute the 0.99 quantile of a Prometheus histogram parsed with metric version 1
+```js
+import "experimental/prometheus"
+
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "qc_all_duration_seconds")
+    |> prometheus.histogramQuantile(quantile: 0.99, metricVersion: 1)
 ```

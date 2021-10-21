@@ -6,4 +6,4 @@ node_modules
 *.log
 /resources
 /content/influxdb/*/api/*.html
-/api-docs/redoc-static.html
+/api-docs/redoc-static.html*

@@ -31,9 +31,9 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
         - Each data point requires a:  
           - [*measurement*](/influxdb/cloud/reference/syntax/line-protocol/#measurement)
           - [*field set*](/influxdb/cloud/reference/syntax/line-protocol/#field-set)
-          - (Optional) [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set) 
+          - (Optional) [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set)
           - [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp)
-         
+
           For more information, see supported [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) syntax.
 
 2. Select the bucket to write to.
@@ -63,9 +63,17 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
     {{< nav-icon "data" >}}
 2. Do one of the following:
    - Enter a specific Telegraf plugin to search for in the **Search data writing methods** field.
-   - Scroll down to browse available plugins.
-3. Click the plugin to load data from.
-4. [Install Telegraf](/telegraf/v1.15/introduction/installation/).
-5. Copy the default configuration script in the UI, and then add the script to [Configure Telegraf](/telegraf/v1.15/introduction/getting-started/#configure-telegraf).
-6. Adjust configuration settings as needed. To find configuration settings for a specific plugin, see [Telegraf plugins](/telegraf/v1.15/plugins/).
-7. (Optional) To add the Telegraf configuration to InfluxDB, see [Telegraf configuration](/influxdb/v2.0/telegraf-configs/).
+   - Scroll down to **Telegraf Plugins** and browse available input plugins.
+3. Click the plugin to load data from. The plugin details page opens.
+4. Select one of the options from the **Use this plugin** dropdown:
+   - **Create a new configuration**: Enter a configuration name and select an output bucket, and then click **Continue Configuring**.
+   - **Add to an existing configuration**: Select an existing Telegraf configuration to add this plugin to, and then click **Add to Existing Config**.
+5. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.
+6. Adjust configuration settings as needed. To find configuration settings for a specific plugin, see [Telegraf plugins](/telegraf/latest/plugins/).
+7. Click **Save and Test**.
+8. The **Test Your Configuration** page provides instructions for how to start
+   Telegraf using the generated configuration.
+   _See [Start Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/auto-config/#start-telegraf) below for detailed information about what each step does._
+9. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully sending data to InfluxDB.
+   Once confirmed, a **Connection Found!** message appears.
+10. Click **Finish**. Your Telegraf configuration name and the associated bucket name appears in the list of Telegraf configurations.

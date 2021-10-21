@@ -75,6 +75,7 @@ Use the following schemes with clients that support the InfluxDB 1.x convention 
 
 Username and password schemes require the following credentials:
 - **username**: InfluxDB Cloud username
+  (Use the email address you signed up with as your username, _e.g._ `exampleuser@influxdata.com`.)
 - **password**: InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/)
 
 #### Basic authentication
