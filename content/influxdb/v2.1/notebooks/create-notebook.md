@@ -93,7 +93,7 @@ Select one of the following action cell-types:
    - HTTP post
    - Pager Duty
 4. (Optional) Personalize your message. By default, the message is "${strings.title(v: r._type)} for ${r._source_measurement} triggered at ${time(v: r._source_timestamp)}!"
-5. Click **Export as Task** to create your alarm.
+5. Click **Export as Task** to create your alert.
 
 #### Output to bucket
 
