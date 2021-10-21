@@ -8,6 +8,7 @@ menu:
     parent: influx v1 auth
 weight: 101
 influxdb/v2.1/tags: [authorization]
+updated_in: CLI v2.0.3
 ---
 
 The `influx v1 auth set-password` command sets a password for an existing authorization in the [InfluxDB 1.x compatibility API](/influxdb/v2.1/reference/api/influxdb-1x/).

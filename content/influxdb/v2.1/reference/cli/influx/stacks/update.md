@@ -7,6 +7,7 @@ menu:
     parent: influx stacks
 weight: 201
 influxdb/v2.1/tags: [templates]
+updated_in: CLI v2.0.4
 ---
 
 The `influx stacks update` command updates an InfluxDB stack.
