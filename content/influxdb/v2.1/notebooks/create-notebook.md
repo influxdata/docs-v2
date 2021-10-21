@@ -63,7 +63,6 @@ Select one of the following pass-through cell-types:
 - Graph
 - Note
 For detail on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
-- To enter explanatory notes, select [Markdown](#markdown).
 
 #### Column Editor  
 
