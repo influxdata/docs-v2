@@ -76,10 +76,6 @@ For detail on available visualization types and how to use them, see [Visualizat
 - To download results as an annotated CSV file, click the **CSV** button.
 - To export to the dashboard, click **Export to Dashboard**.  
 
-#### Markdown
-
-- Type in notes as needed.
-
 ### Add an output cell
 
 Select one of the following output cell-types:
