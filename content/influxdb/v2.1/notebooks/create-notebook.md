@@ -82,7 +82,7 @@ Select one of the following action cell-types:
 
 - To recieve a notification, select [Alert](#alert) and complete the steps below.
 - To write output to a bucket, select [Output to Bucket](#output-to-bucket) and complete the steps below.
-- To create a task, select [Schedule](#schedule) and complete the steps below.
+- To create a task, select [Task](#task) and complete the steps below.
 
 #### Alert
 
