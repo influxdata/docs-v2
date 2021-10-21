@@ -1,5 +1,5 @@
 curl -X 'POST' \
-  "http://cloud2.influxdata.com/api/v2/functions" \
+  "http://cloud2.influxdata.com/api/v2/scripts" \
   --header "Authorization: Token ${INFLUX_API_TOKEN}" \
   --header 'accept: application/json' \
   --header 'Content-Type: application/json' \

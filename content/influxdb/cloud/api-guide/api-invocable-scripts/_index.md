@@ -19,9 +19,9 @@ Use API-invocable scripts to create InfluxDB API endpoints that query, process, 
 - [Update a script](#update-an-invocable-script)
 
 ## Create an invocable script
-To create an API-invocable script, send a request using the `POST` method to the `/api/v2/functions` InfluxDB API endpoint.
+To create an API-invocable script, send a request using the `POST` method to the `/api/v2/scripts` InfluxDB API endpoint.
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/functions" >}}
+[{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/scripts" >}}](/influxdb/v2.0/api/scripts)
 
 Provide the following in your API request:
 
@@ -66,7 +66,7 @@ InfluxDB returns the newly created script. Next, see how to [invoke a script](#i
 ```
 
 ## Invoke a script
-To invoke a script, send a request using the `POST` method to the `/api/v2/functions/SCRIPT_ID/invoke` endpoint. 
+To invoke a script, send a request using the `POST` method to the `/api/v2/scripts/SCRIPT_ID/invoke` endpoint. 
 
 Replace *`SCRIPT_ID`* with the ID of the script you want to execute. To find the script ID, see how to [list scripts](#list-scripts).
 
@@ -96,7 +96,7 @@ The following example invokes the script and passes "air_sensor" as the value fo
 InfluxDB returns query results in [line protocol](/influxdb/v2.0/reference/syntax/line-protocol) from the `air_sensor` bucket.
 
 ## List invocable scripts
-To list scripts for an organization, send a request using the `GET` method to the `/api/v2/functions` endpoint.
+To list scripts for an organization, send a request using the `GET` method to the `/api/v2/scripts` endpoint.
 
 Provide the following in your request:
 
@@ -114,7 +114,7 @@ Provide the following in your request:
 {{% get-shared-text "api/v2.0/api-invocable-scripts/find.sh" %}}
 ```
 
-To find a specific script for an organization, send a request using the `GET` method to the `/api/v2/functions/SCRIPT_ID` endpoint.
+To find a specific script for an organization, send a request using the `GET` method to the `/api/v2/scripts/SCRIPT_ID` endpoint.
 Replace *`SCRIPT_ID`* with the ID of the script you want to find. 
 
 Provide the following in your request:
@@ -124,11 +124,11 @@ Provide the following in your request:
 - **Accept**: application/json
 
 ## Update an invocable script
-To update an existing script for an organization, send a request using the `PATCH` method to the `/api/v2/functions/SCRIPT_ID` endpoint.
+To update an existing script for an organization, send a request using the `PATCH` method to the `/api/v2/scripts/SCRIPT_ID` endpoint.
 Replace *`SCRIPT_ID`* with the ID of the script you want to update. 
 
 InfluxDB API endpoint.
-{{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/functions/SCRIPT_ID" >}}
+{{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" >}}
 
 Provide the following in your request:
 
@@ -145,10 +145,11 @@ replaces the date with a new parameter, and updates the invocable script.
 
 ```sh
 {{% get-shared-text "api/v2.0/api-invocable-scripts/update-flux-script.sh" %}}
-1. Use `GET /api/v2/functions` to retrieve a list of scripts.
-2. In the list, find the first **invocable script** object that has a `script` property that contains a hard-coded numeric date range.
+```
+1. Use `GET /api/v2/scripts` to retrieve an object that contains a list of scripts.
+2. With the scripts array, use [`jq`](https://stedolan.github.io/jq/) to find the first **invocable script** object that has a `script` property that contains a hard-coded numeric date range.
 3. Replace the hard-coded date range in the `script` property with a new `params.myrangestart` dynamic parameter and assign the object to a `new_script` variable.
 4. Assign the script ID to a `script_id` variable.
-5. Update the script by sending a request to `PATCH /api/v2/functions/` with `$script_id` in the URL path and `$new_script` as data (in the request body).
+5. Update the script by sending a request to `PATCH /api/v2/scripts/` with `$script_id` in the URL path and `$new_script` as data (in the request body).
 
 InfluxDB returns the updated invocable script.
