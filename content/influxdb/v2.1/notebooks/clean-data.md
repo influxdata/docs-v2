@@ -21,7 +21,7 @@ Learn how to create a notebook that normalizes data. Walk through the following 
 - Create a destination bucket to write normalized data to. For details, see [Create a bucket](/influxdb/v2.1/organizations/buckets/create-bucket/).
 
 ## Normalize data with a notebook
-1. Create a new notebook (see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/)).
+1. Create a new notebook (see [Create a notebook](/influxdb/v2.1/notebooks/create-notebook/)).
 2. Add a **Metric Selector** cell to select a bucket to query data from:
   - In the **Choose a bucket** dropdown, select your NOAA bucket.
   - Select the **h2o_temperature** field.
