@@ -14,7 +14,12 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
-2. Click **+Create Notebook**, and then enter a name for your notebook in the **Name this notebook** field. By default, the notebook name appears as `<username>-notebook-<year>-<month>-<day and time>`.
+2. Click one of the following options under **Create a Notebook**:
+    - New Notebook
+    - Set an Alert
+    - Schedule a Task
+    - Write a Flux Script
+3.  Enter a name for your notebook in the **Untitled Notebook** field. 
 3. Do the following at the top of the page:
    - Select your local time zone or UTC.
    - Choose a time range for your data.
