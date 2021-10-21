@@ -125,8 +125,10 @@ Provide the following in your request:
 
 ## Update an invocable script
 To update an existing script for an organization, send a request using the `PATCH` method to the `/api/v2/functions/SCRIPT_ID` endpoint.
-
 Replace *`SCRIPT_ID`* with the ID of the script you want to update. 
+
+InfluxDB API endpoint.
+{{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/functions/SCRIPT_ID" >}}
 
 Provide the following in your request:
 
