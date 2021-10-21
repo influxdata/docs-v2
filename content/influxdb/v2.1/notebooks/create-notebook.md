@@ -76,7 +76,7 @@ For detail on available visualization types and how to use them, see [Visualizat
 - To download results as an annotated CSV file, click the **CSV** button.
 - To export to the dashboard, click **Export to Dashboard**.  
 
-### Add an output cell
+### Add an action cell
 
 Select one of the following action cell-types:
 
