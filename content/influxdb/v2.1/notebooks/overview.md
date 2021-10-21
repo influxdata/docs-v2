@@ -65,7 +65,7 @@ At least one input cell is required in a notebook for other cells to run.
 - **Flux Script**: Input your data using a Flux script.
 - **Query Builder**: Input your data using a query.
 
-### Transform
+### Visualization
 
 - **Flux Script**:
 Modify your data with Flux Script. `__PREVIOUS_RESULT__` refers to your previous inputs from the Metric Selector.
