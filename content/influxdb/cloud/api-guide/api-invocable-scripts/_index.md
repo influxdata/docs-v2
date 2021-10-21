@@ -118,7 +118,7 @@ Replace *`SCRIPT_ID`* with the ID of the script you want to find.
 
 Provide the following in your request:
 
-### Request headers
+#### Request headers
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
 - **Accept**: application/json'
 
