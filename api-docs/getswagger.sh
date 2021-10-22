@@ -89,12 +89,12 @@ function showArgs {
 
 function updateCloud {
   echo "Updating Cloud swagger..."
-  curl ${verbose} ${baseUrl}/contracts/cloud.yml -s -o cloud/swagger.yml
+  curl ${verbose} ${baseUrl}/contracts/ref/cloud.yml -s -o cloud/swagger.yml
 }
 
 function updateOSS {
   echo "Updating OSS ${ossVersion} swagger..."
-  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrl}/contracts/oss.yml -s -o $_/swagger.yml
+  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrl}/contracts/ref/oss.yml -s -o $_/swagger.yml
 }
 
 function updateV1Compat {
