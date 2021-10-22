@@ -1,8 +1,120 @@
 openapi: 3.0.0
 info:
-  title: Complete InfluxDB OSS API
+  title: Influx OSS API Service
+  version: 2.0.0
+  description: |
+    The InfluxDB v2 API provides a programmatic interface for all interactions with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 servers:
 - url: ""
+tags:
+  - name: Authentication
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB API:
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+    x-traitTag: true
+  - name: Quick start
+    x-traitTag: true
+    description: |
+      See the [**API Quick Start**](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/) to get up and running authenticating with tokens, writing to buckets, and querying data.
+
+      [**InfluxDB API client libraries**](https://docs.influxdata.com/influxdb/v2.0/api-guide/client-libraries/) are available for popular languages and ready to import into your application.
+  - name: Response codes
+    x-traitTag: true
+    description: |
+      The InfluxDB API uses standard HTTP status codes for success and failure responses.
+      The response body may include additional details. For details about a specific operation's response, see **Responses** and **Response Samples** for that operation.
+
+      API operations may return the following HTTP status codes:
+
+      | &nbsp;Code&nbsp; | Status                   | Description      |
+      |:-----------:|:------------------------ |:--------------------- |
+      | `200`       | Success                  |                       |
+      | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
+      | `400`       | Bad request              | `Authorization` header is missing or malformed or the API token does not have permission for the operation. |
+      | `401`       | Unauthorized             | May indicate one of the following: <li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token does not have permission. For more information about token types and permissions, see [Manage API tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/)</li> |
+      | `404`       | Not found                | Requested resource was not found. `message` in the response body contains details about the requested resource. |
+      | `413`       | Request entity too large | Request payload exceeds the size limit. |
+      | `422`       | Unprocessible entity     | Request data is invalid. `code` and `message` in the response body describe the reason for the failure.  |
+      | `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |
+      | `500`       | Internal server error    |                       |
+      | `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |
+  - name: Query
+    description: |
+      Retrieve data, analyze queries, and get query suggestions.
+  - name: Write
+    description: |
+      Write time series data to buckets.
+  - name: Authorizations
+    description: |
+      Create and manage API tokens. An **authorization** associates a list of permissions to an **organization** and provides a token for API access. To assign a token to a specific user, scope the authorization to the user ID.
+x-tagGroups:
+  - name: Overview
+    tags:
+      - Quick start
+      - Authentication
+      - Response codes
+  - name: Data I/O endpoints
+    tags:
+      - Write
+      - Query
+  - name: Resource endpoints
+    tags:
+      - Buckets
+      - Dashboards
+      - Tasks
+      - Resources
+  - name: Security and access endpoints
+    tags:
+      - Authorizations
+      - Organizations
+      - Users
+  - name: System information endpoints
+    tags:
+      - Health
+      - Ping
+      - Ready
+      - Routes
+  - name: All endpoints
+    tags:
+      - Authorizations
+      - Backup
+      - Buckets
+      - Cells
+      - Checks
+      - DBRPs
+      - Dashboards
+      - Delete
+      - Health
+      - Labels
+      - Legacy Authorizations
+      - NotificationEndpoints
+      - NotificationRules
+      - Organizations
+      - Ping
+      - Query
+      - Ready
+      - RemoteConnections
+      - Replications
+      - Resources
+      - Restore
+      - Routes
+      - Rules
+      - Scraper Targets
+      - Secrets
+      - Setup
+      - Signin
+      - Signout
+      - Sources
+      - Tasks
+      - Telegraf Plugins
+      - Telegrafs
+      - Templates
+      - Users
+      - Variables
+      - Write
 paths:
   /api/v2/:
     get:
@@ -13488,8 +13600,71 @@ components:
       type: object
   responses:
     ServerError:
+      description: Non 2XX error response from server.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-      description: Non 2XX error response from server.
+  securitySchemes:
+    TokenAuthentication:
+      type: http
+      scheme: token
+      bearerFormat: InfluxDB Token String
+      description: |
+        ### Token authentication scheme
+
+        InfluxDB API tokens ensure secure interaction between users and data. A token belongs to an organization and identifies InfluxDB permissions within the organization.
+
+        Include your API token in an `Authentication: Token YOUR_API_TOKEN` HTTP header with each request.
+
+        ### Example
+
+          `curl http://localhost:8086/ping
+              --header "Authentication: Token YOUR_API_TOKEN"`
+
+        For more information and examples, see the following:
+          - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/#authentication).
+          - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens).
+          - [`/authorizations`](#tag/Authorizations) endpoint.
+    BasicAuthentication:
+      type: http
+      scheme: basic
+      description: |
+        ### Basic authentication scheme
+
+        Use HTTP Basic Auth with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme).
+
+        Username and password schemes require the following credentials:
+          - **username**: 1.x username (this is separate from the UI login username)
+          - **password**: 1.x password or InfluxDB API token
+
+        ### Example
+
+        `curl --get "http://localhost:8086/query"
+              --user "YOUR_1.x_USERNAME":"YOUR_TOKEN_OR_PASSWORD"`
+
+        For more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+    QuerystringAuthentication:
+      type: apiKey
+      in: query
+      name: u=&p=
+      description: |
+        ### Querystring authentication scheme
+
+        Use InfluxDB 1.x API parameters to provide credentials through the query string.
+
+        Username and password schemes require the following credentials:
+          - **username**: 1.x username (this is separate from the UI login username)
+          - **password**: 1.x password or InfluxDB API token
+
+        ### Example
+
+        `curl --get "http://localhost:8086/query"
+              --data-urlencode "u=YOUR_1.x_USERNAME"
+              --data-urlencode "p=YOUR_TOKEN_OR_PASSWORD"`
+
+        For more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+security:
+  - TokenAuthentication: []
+  - BasicAuthentication: []
+  - QuerystringAuthentication: []
