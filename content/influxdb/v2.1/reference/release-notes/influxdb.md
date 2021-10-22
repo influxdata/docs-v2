@@ -82,10 +82,10 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 
 - Update to [Telegraf 1.20.2](/telegraf/v1.20/about_the_project/release-notes-changelog/#v1202-2021-10-07).
 
-#### Token
+#### Tokens
 
 - Add support for standard Bearer token syntax. Now you can specify token credentials as: `Authorization: Bearer xxxxxxxx`.
-- Return new Operator token during backup overwrite
+- Return new Operator token during backup overwrite.
 
 #### Offsets support location changes
 
