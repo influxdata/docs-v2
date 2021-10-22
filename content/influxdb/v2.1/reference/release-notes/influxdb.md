@@ -19,13 +19,26 @@ The `influx` CLI has been moved to its own GitHub [repository](https://github.co
 - Release archives (.tar.gz and .zip) no longer contain the `influx` binary.
 - The `influxdb2` package (.deb and .rpm) no longer contains the `influx` binary. Instead, the package declares a recommended dependency on the new influx-cli package.
 - The `quay.io/influxdb/influxdb` image no longer contains the `influx` binary. We recommended migrating to the `influxdb` image hosted in DockerHub.
-- With this change, versions of the `influx` CLI and `influxd` server are not guaranteed to exactly match. Please see `influxd version` or curl `<your-server-url>/health` to check the version of the `influxd` server. [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
+- With this change, versions of the `influx` CLI and `influxd` server are not guaranteed to exactly match. Please see `influxd version` or curl `<your-server-url>/health` to check the version of the `influxd` server. The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
 
 ### Features
 
-#### Notebooks and annotations
+This release includes the following new features:
 
-Add support for [notebooks](/influxdb/v2.1/notebooks/) and [annotations](/influxdb/v2.1/visualize-data/annotations/).
+- [Notebooks, annotations, and visualization updates](#notebooks-annotations-and-visualization-updates)
+- [SQLite metadata store](#sqlite-metadata-store)
+- [API](#api) and [CLI](#cli) updates
+- Latest [Flux](#flux) and [Telegraf](#telegraf) releases
+- Updates to [InfluxQL engine](#influxql-engine)
+- [Token](#tokens) updates
+- [Offsets support location changes?](#offsets-support-location-changes)
+
+#### Notebooks, annotations, and visualization updates
+
+- Add support for [notebooks](/influxdb/v2.1/notebooks/) and [annotations](/influxdb/v2.1/visualize-data/annotations/).
+- Add the properties of a static legend for line graphs and band plots.
+- Allow hiding the tooltip independently of the static legend.
+- Enable new dashboard auto-refresh.
 
 #### SQLite metadata store
 
@@ -37,11 +50,6 @@ Add an embedded SQLite database for storing metadata required by the latest UI f
 - GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) via the API now supports pagination.
 - Add the `api/v2/backup/metadata` endpoint for backing up both KV and SQL metadata, and the `api/v2/restore/sql` for restoring SQL metadata.
 - Add a route to delete individual secrets in preparation to remove the old post to /secrets/delete route.
-
-#### Flux
-
-- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
-- Enable writing to remote hosts using the Flux [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/{{< latest "flux" >}}/v0.x/stdlib/experimental/to/) functions.
 
 #### CLI
 
@@ -73,6 +81,11 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 - influxd inspect verify-tombstone
 - influx inspect verify-wal
 
+#### Flux
+
+- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
+- Enable writing to remote hosts using the Flux [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/{{< latest "flux" >}}/v0.x/stdlib/experimental/to/) functions.
+
 #### InfluxQL engine
 
 - `SHOW MEASUREMENTS ON` now supports database and retention policy wildcards. For example, `SHOW MEASUREMENTS ON *.*` to show all databases and `SHOW MEASUREMENTS ON <db>.*` to show all retention policies.
@@ -91,13 +104,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 
 - Update window planner rules for location changes to support fixed offsets.
 
-#### Visualizations
-
-- Add the properties of a static legend for line graphs and band plots.
-- Allow hiding the tooltip independently of the static legend.
-- Enable new dashboard auto-refresh.
-
-- ### Bug fixes
+### Bug fixes
 
 - Change static legend's `hide` to `show` to let you decide if you want to view static legends.
 - Log API errors to server logs and tell clients to check the server logs for the error message.
@@ -105,17 +112,17 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 - Do not allow shard creation to create overlapping shards.
 - Don't drop shard group durations when upgrading InfluxDB.
 
-- ## v2.0.9 [2021-09-27]
-- 
-- This release includes several new [features](#features) and [bug fixes](#bug-fixes).
-- 
-- ### Features
-- 
-- New features include:
-- 
-- - [API updates](#api-updates)
-- - [Flux updates](#flux-updates)
-- - [Performance enhancements](#performance-enhancements)
+## v2.0.9 [2021-09-27]
+
+This release includes several new [features](#features) and [bug fixes](#bug-fixes).
+
+### Features
+
+New features include:
+
+- [API updates](#api-updates)
+- [Flux updates](#flux-updates)
+- [Performance enhancements](#performance-enhancements)
 
 #### API updates
 
