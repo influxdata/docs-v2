@@ -1,0 +1,212 @@
+# List of all influxd flags used to build flag lists with links to the influxd
+# configuration options documentation.
+#
+# - flag: "--flag-name"
+#   added: InfluxDB minor version the flag was added
+#   nolink: Do not create a link to the config options doc for this flag
+# 
+
+- flag: "--assets-path"
+  added: 2.0
+
+- flag: "--bolt-path"
+  added: 2.0
+
+- flag: "--e2e-testing"
+  added: 2.0
+
+- flag: "--engine-path"
+  added: 2.0
+
+- flag: "--feature-flags"
+  added: 2.0
+
+- flag: "--flux-log-enabled"
+  added: 2.0
+
+- flag: "-h, --help"
+  added: 2.0
+  nolink: true
+
+- flag: "--http-bind-address"
+  added: 2.0
+
+- flag: "--http-idle-timeout"
+  added: 2.0
+
+- flag: "--http-read-header-timeout"
+  added: 2.0
+
+- flag: "--http-read-timeout"
+  added: 2.0
+
+- flag: "--http-write-timeout"
+  added: 2.0
+
+- flag: "--influxql-max-select-buckets"
+  added: 2.0
+
+- flag: "--influxql-max-select-point"
+  added: 2.0
+
+- flag: "--influxql-max-select-series"
+  added: 2.0
+
+- flag: "--log-level"
+  added: 2.0
+
+- flag: "--metrics-disabled"
+  added: 2.0
+
+- flag: "--nats-max-payload-bytes"
+  added: 2.0
+
+- flag: "--nats-port"
+  added: 2.0
+
+- flag: "--no-tasks"
+  added: 2.0
+
+- flag: "--pprof-disabled"
+  added: 2.0
+
+- flag: "--query-concurrency"
+  added: 2.0
+
+- flag: "--query-initial-memory-bytes"
+  added: 2.0
+
+- flag: "--query-max-memory-bytes"
+  added: 2.0
+
+- flag: "--query-memory-bytes"
+  added: 2.0
+
+- flag: "--query-queue-size"
+  added: 2.0
+
+- flag: "--reporting-disabled"
+  added: 2.0
+
+- flag: "--secret-store"
+  added: 2.0
+
+- flag: "--session-length"
+  added: 2.0
+
+- flag: "--session-renew-disabled"
+  added: 2.0
+
+- flag: "--sqlite-path"
+  added: 2.1
+
+- flag: "--storage-cache-max-memory-size"
+  added: 2.0
+
+- flag: "--storage-cache-snapshot-memory-size"
+  added: 2.0
+
+- flag: "--storage-cache-snapshot-write-cold-duration"
+  added: 2.0
+
+- flag: "--storage-compact-full-write-cold-duration"
+  added: 2.0
+
+- flag: "--storage-compact-throughput-burst"
+  added: 2.0
+
+- flag: "--storage-max-concurrent-compactions"
+  added: 2.0
+
+- flag: "--storage-max-index-log-file-size"
+  added: 2.0
+
+- flag: "--storage-no-validate-field-size"
+  added: 2.0
+
+- flag: "--storage-retention-check-interval"
+  added: 2.0
+
+- flag: "--storage-series-file-max-concurrent-snapshot-compactions"
+  added: 2.0
+
+- flag: "--storage-series-id-set-cache-size"
+  added: 2.0
+
+- flag: "--storage-shard-precreator-advance-period"
+  added: 2.0
+
+- flag: "--storage-shard-precreator-check-interval"
+  added: 2.0
+
+- flag: "--storage-tsm-use-madv-willneed"
+  added: 2.0
+
+- flag: "--storage-validate-keys"
+  added: 2.0
+
+- flag: "--storage-wal-fsync-delay"
+  added: 2.0
+
+- flag: "--storage-wal-max-concurrent-writes"
+  added: 2.0
+
+- flag: "--storage-wal-max-write-delay"
+  added: 2.0
+
+- flag: "--storage-write-timeout"
+  added: 2.0
+
+- flag: "--store"
+  added: 2.0
+
+- flag: "--testing-always-allow-setup"
+  added: 2.0
+
+- flag: "--tls-cert"
+  added: 2.0
+
+- flag: "--tls-key"
+  added: 2.0
+
+- flag: "--tls-min-version"
+  added: 2.0
+
+- flag: "--tls-strict-ciphers"
+  added: 2.0
+
+- flag: "--tracing-type"
+  added: 2.0
+
+- flag: "--ui-disabled"
+  added: 2.0
+
+- flag: "--vault-addr"
+  added: 2.0
+
+- flag: "--vault-cacert"
+  added: 2.0
+
+- flag: "--vault-capath"
+  added: 2.0
+
+- flag: "--vault-client-cert"
+  added: 2.0
+
+- flag: "--vault-client-key"
+  added: 2.0
+
+- flag: "--vault-client-timeout"
+  added: 2.0
+
+- flag: "--vault-max-retries"
+  added: 2.0
+
+- flag: "--vault-skip-verify"
+  added: 2.0
+
+- flag: "--vault-tls-server-name"
+  added: 2.0
+
+- flag: "--vault-token"
+  added: 2.0
