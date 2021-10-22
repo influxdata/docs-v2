@@ -1,13 +1,16 @@
 ---
 title: influxd recovery org
-description: The `influxd recovery org` command and subcommands ...
+description: >
+  The `influxd recovery org` command and subcommands manage on-disk organization 
+  data for recovery purposes.
 menu:
   influxdb_2_1_ref:
     parent: influxd recovery
 weight: 301
 ---
 
-On-disk organization management commands, for recovery
+The `influxd recovery org` command and subcommands manage on-disk organization 
+data for recovery purposes.
 
 ## Usage
 ```sh

@@ -1,13 +1,17 @@
 ---
 title: influxd recovery user
-description: The `influxd recovery user` command and subcommands ...
+description: >
+  The `influxd recovery user` command and subcommands manage on-disk user 
+  data for recovery purposes.
+menu:
 menu:
   influxdb_2_1_ref:
     parent: influxd recovery
 weight: 301
 ---
 
-On-disk user management commands, for recovery
+The `influxd recovery user` command and subcommands manage on-disk user 
+data for recovery purposes.
 
 ## Usage
 ```sh

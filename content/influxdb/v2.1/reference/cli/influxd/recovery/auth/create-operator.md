@@ -1,13 +1,18 @@
 ---
 title: influxd recovery auth create-operator
-description: The `influxd recovery auth create-operator` command ...
+description: >
+  The `influxd recovery auth create-operator` command creates new
+  [operator token](/influxdb/v2.1/security/tokens/#operator-token) directly on disk
+  for a specified user.
 menu:
   influxdb_2_1_ref:
     parent: influxd recovery auth
 weight: 401
 ---
 
-Create new operator token for a user
+The `influxd recovery auth create-operator` command creates new
+[Operator token](/influxdb/v2.1/security/tokens/#operator-token) directly on disk
+for a specified user.
 
 {{% note %}}
 This command can only be executed when the InfluxDB server (`influxd`) is not running.
@@ -23,5 +28,14 @@ influxd recovery auth create-operator [flags]
 | :--- | :------------ | :------------------------------------------------------------- | :--------: |
 |      | `--bolt-path` | Path to the BoltDB file (default `~/.influxdbv2/influxd.bolt`) |   string   |
 | `-h` | `--help`      | Help for `create-operator`                                     |            |
-|      | `--org`       | Organization name                                              |   string   |
-|      | `--username`  | Username to assign the operator token to                       |   string   |
+|      | `--org`       | ({{< req >}}) Organization name                                |   string   |
+|      | `--username`  | ({{< req >}}) Username to assign the operator token to         |   string   |
+
+## Examples
+
+##### Generate a new operator token
+```sh
+influxd \
+  --org example-org \
+  --username example-user
+```

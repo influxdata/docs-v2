@@ -8,7 +8,6 @@ menu:
   influxdb_2_1_ref:
     parent: influxd inspect
 weight: 301
-draft: true
 ---
 
 The `influxd inspect build-tsi` command rebuilds the TSI index and, if necessary,
@@ -45,15 +44,16 @@ Altering the batch size can improve performance but may result in significantly
 higher memory usage.
 
 ## Flags
-| Flag |                       | Description                                                                                     | Input Type |
-|:---- |:---                   |:-----------                                                                                     |:----------:|
-|      | `--batch-size`        | The size of the batches to write to the index. Defaults to `10000`. [See above](#--batch-size). | integer    |
-|      | `--concurrency`       | Number of workers to dedicate to shard index building. Defaults to `GOMAXPROCS` (8 by default). | integer    |
-| `-h` | `--help`              | Help for the `build-tsi` command.                                                               |            |
-|      | `--max-cache-size`    | Maximum cache size. Defaults to `1073741824`. [See above](#--max-cache-size).                   | uinteger   |
-|      | `--max-log-file-size` | Maximum log file size. Defaults to `1048576`. [See above](#--max-log-file-size) .               | integer    |
-|      | `--sfile-path`        | Path to the series file directory. Defaults to `~/.influxdbv2/engine/_series`.                  | string     |
-|      | `--tsi-path`          | Path to the TSI index directory. Defaults to `~/.influxdbv2/engine/index`.                      | string     |
-|      | `--tsm-path`          | Path to the TSM data directory. Defaults to `~/.influxdbv2/engine/data`.                        | string     |
-| `-v` | `--verbose`           | Enable verbose output.                                                                          |            |
-|      | `--wal-path`          | Path to the WAL data directory. Defaults to `~/.influxdbv2/engine/wal`.                         | string     |
+| Flag |                         | Description                                                                                     | Input Type |
+| :--- | :---------------------- | :---------------------------------------------------------------------------------------------- | :--------: |
+|      | `--batch-size`          | Size of the batches to write to the index. Defaults to `10000`. [See above](#--batch-size).     |  integer   |
+|      | `--bucket-id`           | Bucket ID (required if `--shard-id` is present).                                                |   string   |
+|      | `--compact-series-file` | Compact existing series file. Does not rebuilt index.                                           |            |
+|      | `--concurrency`         | Number of workers to dedicate to shard index building. Defaults to `GOMAXPROCS` (8 by default). |  integer   |
+|      | `--data-path`           | Path to the TSM data directory. Default is `~/.influxdbv2/engine/data`.                         |   string   |
+| `-h` | `--help`                | Help for the `build-tsi` command.                                                               |            |
+|      | `--max-cache-size`      | Maximum cache size. Defaults to `1073741824`. [See above](#--max-cache-size).                   |  uinteger  |
+|      | `--max-log-file-size`   | Maximum log file size. Defaults to `1048576`. [See above](#--max-log-file-size) .               |  integer   |
+|      | `--shard-id`            | Shard ID (requires a `--bucket-id`)                                                             |   string   |
+| `-v` | `--verbose`             | Enable verbose output.                                                                          |            |
+|      | `--wal-path`            | Path to the WAL data directory. Defaults to `~/.influxdbv2/engine/wal`.                         |   string   |

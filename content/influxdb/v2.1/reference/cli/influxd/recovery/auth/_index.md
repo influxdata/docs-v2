@@ -1,13 +1,16 @@
 ---
 title: influxd recovery auth
-description: The `influxd recovery auth` command and subcommands ...
+description: >
+  The `influxd recovery auth` command and subcommands manage on-disk authorization 
+  data for recovery purposes.
 menu:
   influxdb_2_1_ref:
     parent: influxd recovery
 weight: 301
 ---
 
-On-disk authorization management commands, for recovery
+The `influxd recovery auth` command and subcommands manage on-disk authorization 
+data for recovery purposes.
 
 ## Usage
 ```sh

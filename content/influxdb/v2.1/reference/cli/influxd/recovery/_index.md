@@ -1,6 +1,9 @@
 ---
 title: influxd recovery
-description: The `influxd recovery` commands and subcommands recover ...
+description: >
+  The `influxd recovery` command and subcommands provide tools for recovering
+  operator access to InfluxDB by directly modifying authorization, organization,
+  and user data stored on disk.
 menu:
   influxdb_2_1_ref:
     parent: influxd
