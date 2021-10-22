@@ -112,11 +112,11 @@ To list scripts for an organization, send a request using the `GET` method to th
 
 Provide the following in your request:
 
-### Request headers
+#### Request headers
 - **Content-Type**: application/json
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
 
-### Request query parameters
+#### Request query parameters
 - **org**: your organization name (mutually exclusive with **orgID**)
 - **orgID**: your organization ID (mutually exclusive with **org**)
 - **limit**: (Optional) number of scripts to return 
