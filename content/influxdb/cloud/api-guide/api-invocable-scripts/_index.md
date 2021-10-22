@@ -13,6 +13,7 @@ influxdb/cloud/tags: [api guides]
 
 Use API-invocable scripts to create InfluxDB API endpoints that query, process, and shape data. Execute your script endpoint as a standard REST operation.
 
+Use the `/api/v2/functions` endpoint to:
 - [Create a script](#create-an-invocable-script)
 - [Invoke a script](#invoke-a-script)
 - [List scripts](#list-invocable-scripts)
