@@ -5,7 +5,7 @@ info:
   description: |
     The InfluxDB v2 API provides a programmatic interface for all interactions with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 servers:
-- url: ""
+- url: "/"
 tags:
   - name: Authentication
     description: |
