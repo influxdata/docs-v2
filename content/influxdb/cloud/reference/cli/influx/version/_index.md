@@ -6,6 +6,7 @@ menu:
   influxdb_cloud_ref:
     parent: influx
 weight: 202
+metadata: [influx CLI 2.0.0+]
 ---
 
 {{< duplicate-oss >}}

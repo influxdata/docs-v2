@@ -56,7 +56,7 @@ influx bucket-schema update [flags]
 - [Update a schema and print column information](#update-a-schema-and-print-column-information)
 - [Update a schema with columns format](#update-a-schema-specifying-the-columns-format)
 
-## Update a schema using the influx CLI
+### Update a schema using the influx CLI
 
 ```sh
 influx bucket-schema update \
@@ -65,7 +65,7 @@ influx bucket-schema update \
   --columns-file columns.csv
 ```
 
-## Update a schema and print column information
+### Update a schema and print column information
 ```sh
 influx bucket-schema update \
   --bucket example-bucket \
@@ -74,7 +74,7 @@ influx bucket-schema update \
   -extended-output
 ```
 
-## Update a schema with columns format
+### Update a schema with columns format
 
 By default, InfluxDB attempts to detect the **columns file** format.
 If your file's extension doesn't match the format, set the format with the `columns-format` flag.

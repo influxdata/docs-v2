@@ -6,7 +6,6 @@ menu:
     name: influx auth create
     parent: influx auth
 weight: 201
-metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 updated_in: CLI v2.2.0
 ---
 

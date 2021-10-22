@@ -49,7 +49,7 @@ influx bucket-schema create [flags]
 - [Create a schema and print column information](#create-a-schema-and-print-column-information)
 - [Create a schema with columns format](#create-a-schema-with-columns-format)
 
-## Create a schema using the influx CLI
+### Create a schema using the influx CLI
 
 ```sh
 influx bucket-schema create \
@@ -58,7 +58,7 @@ influx bucket-schema create \
   --columns-file columns.csv
 ```
 
-## Create a schema and print column information
+### Create a schema and print column information
 
 ```sh
 influx bucket-schema create \
@@ -68,7 +68,7 @@ influx bucket-schema create \
   --extended-output
 ```
 
-## Create a schema with columns format
+### Create a schema with columns format
 
 By default, InfluxDB attempts to detect the **columns file** format.
 If your file's extension doesn't match the format, set the format with the [`columns-format` flag](/influxdb/cloud/reference/cli/influx/bucket-schema/create).

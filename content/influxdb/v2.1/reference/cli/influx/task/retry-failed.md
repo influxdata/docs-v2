@@ -6,7 +6,7 @@ menu:
     name: influx task retry-failed
     parent: influx task
 weight: 201
-metadata: [influx CLI 2.0.5+, InfluxDB 2.0.0+]
+metadata: [influx CLI 2.0.5+, InfluxDB 2.0.5+]
 ---
 
 The `influx task retry-failed` command retries failed InfluxDB task runs.
