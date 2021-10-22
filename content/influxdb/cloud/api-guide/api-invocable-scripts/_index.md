@@ -37,18 +37,21 @@ Provide the following in your API request:
 #### Request body
 JSON object with the following fields:
 
-- **script** : [Flux](/{{% latest "flux" %}}) script as a string. To use variables in your script, reference them as properties of the `params` object, e.g. `param.myfirstparam`.
+- **script** : [Flux](/{{% latest "flux" %}}) script as a string.
 - **language** : language of your script ("flux")
 - **name** : script name, unique within your organization
 - **description** : script description
 - **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+
+### Use parameters in a script
+To create an invocable script that accepts parameters (variables),
+reference the parameters as properties of the `params` object, e.g. `params.firstparam`.
+`params` is an InfluxDB object that defines runtime variables.
+You provide values for `params` when you [invoke a script](#invoke-a-script).
+
 ## Examples
 
 ### Create an invocable Flux script
-
-To create an invocable Flux script that accepts parameters,
-reference the parameters as properties of the `params` object, e.g. `param.firstparam`.
-`params` is an InfluxDB object that stores runtime variables.
 The following example creates a new Flux script that references the `params.mybucket` parameter and returns the last point from the [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 
 ```sh
