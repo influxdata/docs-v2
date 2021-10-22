@@ -79,7 +79,7 @@ Provide the following in your request:
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
 
 ### Request body
-JSON object that contains a `params` object. In `params`, provide key/value pairs for parameters used in your script.
+JSON object that contains a `params` object. In `params`, provide key-value pairs for parameters used in your script.
 
 In the [create](#create-an-invocable-script) example, you defined the dynamic parameter `params.mybucket`.
 ```json
