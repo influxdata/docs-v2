@@ -68,7 +68,7 @@ InfluxDB returns the newly created script. Next, see how to [invoke a script](#i
   "id": "084d693d93048000",
   "orgID": "INFLUX_ORG_ID",
   "name": "getLastPoint",
-  "script": "from(bucket:params.mybucket)      |> range(start: -7d)      |> limit(n:1)",
+  "script": "from(bucket: params.mybucket)      |> range(start: -7d)      |> limit(n:1)",
   "description": "getLastPoint finds the last point in a bucket",
   "language": "flux",
   "createdAt": "2021-10-15T20:32:04.172938Z",
