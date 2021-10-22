@@ -1,6 +1,7 @@
 openapi: 3.0.0
 info:
   title: Influx Cloud API Service
+  version: 2.0.1
   description: |
     The InfluxDB v2 API provides a programmatic interface for all interactions with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 servers:
@@ -34,9 +35,9 @@ tags:
       | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
       | `400`       | Bad request              | `Authorization` header is missing or malformed or the API token does not have permission for the operation. |
       | `401`       | Unauthorized             | May indicate one of the following: <li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token does not have permission. For more information about token types and permissions, see [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/)</li> |
-      | `404`       | Not found                | Requested resource was not found. `message` in the response body contains details about the requested resource. |
+      | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
       | `413`       | Request entity too large | Request payload exceeds the size limit. |
-      | `422`       | Unprocessible entity     | Request data is invalid. `code` and `message` in the response body describe the reason for the failure.  |
+      | `422`       | Unprocessible entity     | Request data is invalid. `code` and `message` in the response body provide details about the problem. |
       | `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |
       | `500`       | Internal server error    |                       |
       | `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |
@@ -78,7 +79,6 @@ x-tagGroups:
     tags:
       - Annotations
       - Authorizations
-      - Bucket Schemas
       - Buckets
       - Cells
       - Checks
@@ -2290,241 +2290,6 @@ paths:
       summary: Delete data
       tags:
       - Delete
-  /api/v2/documents/templates:
-    get:
-      operationId: GetDocumentsTemplates
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: Specifies the name of the organization of the template.
-        in: query
-        name: org
-        schema:
-          type: string
-      - description: Specifies the organization ID of the template.
-        in: query
-        name: orgID
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Documents'
-          description: A list of template documents
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List all templates
-      tags:
-      - Templates
-    post:
-      operationId: PostDocumentsTemplates
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentCreate'
-        description: Template that will be created
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document'
-          description: Template created
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Create a template
-      tags:
-      - Templates
-  /api/v2/documents/templates/{templateID}:
-    delete:
-      operationId: DeleteDocumentsTemplatesID
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      responses:
-        "204":
-          description: Delete has been accepted
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Delete a template
-      tags:
-      - Templates
-    get:
-      operationId: GetDocumentsTemplatesID
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document'
-          description: The template requested
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Retrieve a template
-      tags:
-      - Templates
-    put:
-      operationId: PutDocumentsTemplatesID
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentUpdate'
-        description: Template that will be updated
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document'
-          description: The newly updated template
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Update a template
-      tags:
-      - Templates
-  /api/v2/documents/templates/{templateID}/labels:
-    get:
-      operationId: GetDocumentsTemplatesIDLabels
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabelsResponse'
-          description: A list of all labels for a template
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List all labels for a template
-      tags:
-      - Templates
-    post:
-      operationId: PostDocumentsTemplatesIDLabels
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LabelMapping'
-        description: Label to add
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabelResponse'
-          description: The label added to the template
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Add a label to a template
-      tags:
-      - Templates
-  /api/v2/documents/templates/{templateID}/labels/{labelID}:
-    delete:
-      operationId: DeleteDocumentsTemplatesIDLabelsID
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      - description: The label ID.
-        in: path
-        name: labelID
-        required: true
-        schema:
-          type: string
-      responses:
-        "204":
-          description: Delete has been accepted
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Template not found
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Delete a label from a template
-      tags:
-      - Templates
   /api/v2/experimental/sampledata/buckets:
     get:
       operationId: GetDemoDataBuckets
@@ -4276,12 +4041,8 @@ paths:
           description: Internal server error
       summary: List all known resources
       tags:
-      - Resources 
+      - Resources
   /api/v2/scripts:
-    summary: API Invocable Scripts
-    description: |
-      An API Invocable Script maps your custom Flux script to a new InfluxDB API endpoint.
-      You can invoke your script with an HTTP request to the endpoint and provide query parameters that are passed as parameters to the script.
     get:
       operationId: GetScripts
       parameters:
@@ -4291,7 +4052,7 @@ paths:
         required: false
         schema:
           type: integer
-      - description: Offset for pagination
+      - description: The offset for pagination.
         in: query
         name: offset
         required: false
@@ -4334,7 +4095,7 @@ paths:
       - Invocable Scripts
   /api/v2/scripts/{scriptID}:
     delete:
-      description: Deletes a script and all associated records
+      description: Deletes a script and all associated records.
       operationId: DeleteScriptsID
       parameters:
       - description: The ID of the script to delete.
@@ -4345,7 +4106,7 @@ paths:
           type: string
       responses:
         "204":
-          description: Script deleted
+          description: The script is deleted.
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
@@ -4353,6 +4114,7 @@ paths:
       tags:
       - Invocable Scripts
     get:
+      description: Uses script ID to retrieve details of an invocable script.
       operationId: GetScriptsID
       parameters:
       - description: The script ID.
@@ -4367,7 +4129,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Script'
-          description: Script details
+          description: The requested script object.
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
@@ -4375,7 +4137,8 @@ paths:
       tags:
       - Invocable Scripts
     patch:
-      description: Update a script
+      description: |
+        Updates properties (`name`, `description`, and `script`) of an invocable script.
       operationId: PatchScriptsID
       parameters:
       - description: The script ID.
@@ -4397,7 +4160,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Script'
-          description: Updated script
+          description: The updated script.
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
@@ -4406,6 +4169,8 @@ paths:
       - Invocable Scripts
   /api/v2/scripts/{scriptID}/invoke:
     post:
+      description: Invokes a script and substitutes `params` keys referenced in the
+        script with `params` key-values sent in the request body.
       operationId: PostScriptsIDInvoke
       parameters:
       - in: path
@@ -4424,11 +4189,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ScriptHTTPResponseData'
-          description: Response defined by script
+          description: The result of the script execution.
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      summary: Manually invoke a script with params in request body
+      summary: Invoke a script
       tags:
       - Invocable Scripts
   /api/v2/setup:
@@ -8517,112 +8282,6 @@ components:
         val:
           $ref: '#/components/schemas/Expression'
       type: object
-    Document:
-      properties:
-        content:
-          type: object
-        id:
-          readOnly: true
-          type: string
-        labels:
-          $ref: '#/components/schemas/Labels'
-        links:
-          example:
-            self: /api/v2/documents/templates/1
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-              description: The document URL.
-          readOnly: true
-          type: object
-        meta:
-          $ref: '#/components/schemas/DocumentMeta'
-      required:
-      - id
-      - meta
-      - content
-      type: object
-    DocumentCreate:
-      properties:
-        content:
-          type: object
-        labels:
-          description: An array of label IDs to be added as labels to the document.
-          items:
-            type: string
-          type: array
-        meta:
-          $ref: '#/components/schemas/DocumentMeta'
-        org:
-          description: The organization Name. Specify either `orgID` or `org`.
-          type: string
-        orgID:
-          description: The organization Name. Specify either `orgID` or `org`.
-          type: string
-      required:
-      - meta
-      - content
-      type: object
-    DocumentListEntry:
-      properties:
-        id:
-          readOnly: true
-          type: string
-        labels:
-          $ref: '#/components/schemas/Labels'
-        links:
-          example:
-            self: /api/v2/documents/templates/1
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-              description: The document URL.
-          readOnly: true
-          type: object
-        meta:
-          $ref: '#/components/schemas/DocumentMeta'
-      required:
-      - id
-      - meta
-      type: object
-    DocumentMeta:
-      properties:
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        description:
-          type: string
-        name:
-          type: string
-        templateID:
-          type: string
-        type:
-          type: string
-        updatedAt:
-          format: date-time
-          readOnly: true
-          type: string
-        version:
-          type: string
-      required:
-      - name
-      - version
-      type: object
-    DocumentUpdate:
-      properties:
-        content:
-          type: object
-        meta:
-          $ref: '#/components/schemas/DocumentMeta'
-      type: object
-    Documents:
-      properties:
-        documents:
-          items:
-            $ref: '#/components/schemas/DocumentListEntry'
-          type: array
-      type: object
     Duration:
       description: A pair consisting of length of time and the unit of time measured.
         It is the atomic unit from which all duration literals are composed.
@@ -11743,14 +11402,14 @@ components:
       - script
     ScriptCreateRequest:
       properties:
-        description:
-          type: string
         language:
           $ref: '#/components/schemas/ScriptLanguage'
         name:
+          description: The name of the script. The name must be unique within the
+            organization.
           type: string
         script:
-          description: script to be executed
+          description: The script to execute.
           type: string
       required:
       - name
@@ -11760,9 +11419,9 @@ components:
       - description
       type: object
     ScriptHTTPResponseData:
-      description: The data sent to end user when a script is invoked using http.
-        User defined and dynamic
-      type: object
+      description: The data sent in the response body when a script is invoked by
+        an HTTP request. User defined and dynamic.
+      type: string
     ScriptInvocationParams:
       properties:
         params:

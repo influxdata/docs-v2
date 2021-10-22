@@ -35,9 +35,9 @@ tags:
       | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
       | `400`       | Bad request              | `Authorization` header is missing or malformed or the API token does not have permission for the operation. |
       | `401`       | Unauthorized             | May indicate one of the following: <li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token does not have permission. For more information about token types and permissions, see [Manage API tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/)</li> |
-      | `404`       | Not found                | Requested resource was not found. `message` in the response body contains details about the requested resource. |
+      | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
       | `413`       | Request entity too large | Request payload exceeds the size limit. |
-      | `422`       | Unprocessible entity     | Request data is invalid. `code` and `message` in the response body describe the reason for the failure.  |
+      | `422`       | Unprocessible entity     | Request data is invalid. `code` and `message` in the response body provide details about the problem. |
       | `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |
       | `500`       | Internal server error    |                       |
       | `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |
@@ -2186,241 +2186,6 @@ paths:
       summary: Delete data
       tags:
       - Delete
-  /api/v2/documents/templates:
-    get:
-      operationId: GetDocumentsTemplates
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: Specifies the name of the organization of the template.
-        in: query
-        name: org
-        schema:
-          type: string
-      - description: Specifies the organization ID of the template.
-        in: query
-        name: orgID
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Documents'
-          description: A list of template documents
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List all templates
-      tags:
-      - Templates
-    post:
-      operationId: PostDocumentsTemplates
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentCreate'
-        description: Template that will be created
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document'
-          description: Template created
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Create a template
-      tags:
-      - Templates
-  /api/v2/documents/templates/{templateID}:
-    delete:
-      operationId: DeleteDocumentsTemplatesID
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      responses:
-        "204":
-          description: Delete has been accepted
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Delete a template
-      tags:
-      - Templates
-    get:
-      operationId: GetDocumentsTemplatesID
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document'
-          description: The template requested
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Retrieve a template
-      tags:
-      - Templates
-    put:
-      operationId: PutDocumentsTemplatesID
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentUpdate'
-        description: Template that will be updated
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document'
-          description: The newly updated template
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Update a template
-      tags:
-      - Templates
-  /api/v2/documents/templates/{templateID}/labels:
-    get:
-      operationId: GetDocumentsTemplatesIDLabels
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabelsResponse'
-          description: A list of all labels for a template
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List all labels for a template
-      tags:
-      - Templates
-    post:
-      operationId: PostDocumentsTemplatesIDLabels
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LabelMapping'
-        description: Label to add
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabelResponse'
-          description: The label added to the template
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Add a label to a template
-      tags:
-      - Templates
-  /api/v2/documents/templates/{templateID}/labels/{labelID}:
-    delete:
-      operationId: DeleteDocumentsTemplatesIDLabelsID
-      parameters:
-      - $ref: '#/components/parameters/TraceSpan'
-      - description: The template ID.
-        in: path
-        name: templateID
-        required: true
-        schema:
-          type: string
-      - description: The label ID.
-        in: path
-        name: labelID
-        required: true
-        schema:
-          type: string
-      responses:
-        "204":
-          description: Delete has been accepted
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Template not found
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Delete a label from a template
-      tags:
-      - Templates
   /api/v2/flags:
     get:
       operationId: GetFlags
@@ -4593,7 +4358,7 @@ paths:
           description: Internal server error
       summary: List all known resources
       tags:
-      - resource list
+      - Resources
   /api/v2/restore/bucket/{bucketID}:
     post:
       deprecated: true
@@ -5806,6 +5571,16 @@ paths:
           maximum: 500
           minimum: 1
           type: integer
+      - description: Type of task, unset by default.
+        in: query
+        name: type
+        required: false
+        schema:
+          default: ""
+          enum:
+          - basic
+          - system
+          type: string
       responses:
         "200":
           content:
@@ -8783,112 +8558,6 @@ components:
           $ref: '#/components/schemas/NodeType'
         val:
           $ref: '#/components/schemas/Expression'
-      type: object
-    Document:
-      properties:
-        content:
-          type: object
-        id:
-          readOnly: true
-          type: string
-        labels:
-          $ref: '#/components/schemas/Labels'
-        links:
-          example:
-            self: /api/v2/documents/templates/1
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-              description: The document URL.
-          readOnly: true
-          type: object
-        meta:
-          $ref: '#/components/schemas/DocumentMeta'
-      required:
-      - id
-      - meta
-      - content
-      type: object
-    DocumentCreate:
-      properties:
-        content:
-          type: object
-        labels:
-          description: An array of label IDs to be added as labels to the document.
-          items:
-            type: string
-          type: array
-        meta:
-          $ref: '#/components/schemas/DocumentMeta'
-        org:
-          description: The organization Name. Specify either `orgID` or `org`.
-          type: string
-        orgID:
-          description: The organization Name. Specify either `orgID` or `org`.
-          type: string
-      required:
-      - meta
-      - content
-      type: object
-    DocumentListEntry:
-      properties:
-        id:
-          readOnly: true
-          type: string
-        labels:
-          $ref: '#/components/schemas/Labels'
-        links:
-          example:
-            self: /api/v2/documents/templates/1
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-              description: The document URL.
-          readOnly: true
-          type: object
-        meta:
-          $ref: '#/components/schemas/DocumentMeta'
-      required:
-      - id
-      - meta
-      type: object
-    DocumentMeta:
-      properties:
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        description:
-          type: string
-        name:
-          type: string
-        templateID:
-          type: string
-        type:
-          type: string
-        updatedAt:
-          format: date-time
-          readOnly: true
-          type: string
-        version:
-          type: string
-      required:
-      - name
-      - version
-      type: object
-    DocumentUpdate:
-      properties:
-        content:
-          type: object
-        meta:
-          $ref: '#/components/schemas/DocumentMeta'
-      type: object
-    Documents:
-      properties:
-        documents:
-          items:
-            $ref: '#/components/schemas/DocumentListEntry'
-          type: array
       type: object
     Duration:
       description: A pair consisting of length of time and the unit of time measured.
@@ -13600,11 +13269,11 @@ components:
       type: object
   responses:
     ServerError:
-      description: Non 2XX error response from server.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+      description: Non 2XX error response from server.
   securitySchemes:
     TokenAuthentication:
       type: http
