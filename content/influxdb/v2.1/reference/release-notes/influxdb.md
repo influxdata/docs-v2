@@ -100,7 +100,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 - Add support for standard Bearer token syntax. Now you can specify token credentials as: `Authorization: Bearer xxxxxxxx`.
 - Return new Operator token during backup overwrite.
 
-#### Offsets support location changes
+#### Flux location support
 
 - Update window planner rules for location changes to support fixed offsets.
 
