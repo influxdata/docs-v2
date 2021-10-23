@@ -59,10 +59,10 @@ Added several new configuration options to [`influxd`](/influxdb/v2.1/reference/
 
 - Add `influxd recovery` command to let you create a recovery [Operator token](/influxdb/v2.1/security/tokens/#operator-token).
 - Add `--sqlite-path` flag for specifying a user-defined path to the SQLite database file.
-- Add `storage-wal-max-concurrent-write` flag to enable tuning memory pressure under heavy write load.
-- Add `storage-wal-max-write-delay` flag to prevent deadlocks when the WAL is overloaded with concurrent writes.
+- Add `--storage-wal-max-concurrent-writes` flag to enable tuning memory pressure under heavy write load.
+- Add `--storage-wal-max-write-delay` flag to prevent deadlocks when the WAL is overloaded with concurrent writes.
 - Add `--storage-write-timeout` flag to set write request timeouts.
-- Add `storage-no-validate-field-size` flag to disable enforcement of max field size.
+- Add `--storage-no-validate-field-size` flag to disable enforcement of max field size.
 - Update `--store` flag to work with string values disk or memory. Memory continues to store metadata in-memory for testing; disk persists metadata to disk via bolt and SQLite.
 
 For more information, see [InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
