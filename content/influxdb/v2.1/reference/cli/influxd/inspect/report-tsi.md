@@ -8,25 +8,11 @@ menu:
   influxdb_2_1_ref:
     parent: influxd inspect
 weight: 301
-draft: true
 ---
 
-The `influxd inspect report-tsi` command analyzes Time Series Index (TSI) files
-in a storage directory and reports the cardinality of data stored in the files
-by organization and bucket.
-
-## Output details
-`influxd inspect report-tsi` outputs the following:
-
-- All organizations and buckets in the index.
-- The series cardinality within each organization and bucket.
-- Time to read the index.
-
-When the `--measurements` flag is included, series cardinality is grouped by:
-
-- organization
-- bucket
-- measurement
+The `influxd inspect report-tsi` command analyzes Time Series Index (TSI) within
+a specified bucket and reports the cardinality of data stored in the bucket
+segmented by shard and measurement .
 
 ## Usage
 ```sh
@@ -34,12 +20,10 @@ influxd inspect report-tsi [flags]
 ```
 
 ## Flags
-| Flag |                  | Description                                                               | Input Type |
-|:---- |:---              |:-----------                                                               |:----------:|
-|      | `--bucket-id`    | Process data for specified bucket ID. _Requires `org-id` flag to be set._ | string     |
-| `-h` | `--help`         | View Help for the `report-tsi` command.                                   |            |
-| `-m` | `--measurements` | Group cardinality by measurements.                                        |            |
-| `-o` | `--org-id`       | Process data for specified organization ID.                               | string     |
-|      | `--path`         | Specify path to index. Defaults to `~/.influxdbv2/engine/index`.          | string     |
-|      | `--series-file`  | Specify path to series file. Defaults to `~/.influxdbv2/engine/_series`.  | string     |
-| `-t` | `-top`           | Limit results to the top n.                                               | integer    |
+| Flag  |                  | Description                                                                                  | Input Type |
+| :---- | :--------------- | :------------------------------------------------------------------------------------------- | :--------: |
+| `-b`  | `--bucket-id`    | ({{< req >}}) Process data for specified bucket ID.                                          |   string   |
+| `-c ` | `--concurrency`  | Number of workers to run concurrently (default is the number of available processing units). |  integer   |
+|       | `--data-path`    | Path to data directory (default `~/.influxdbv2/engine/data`).                                |   string   |
+| `-h`  | `--help`         | View Help for the `report-tsi` command.                                                      |            |
+| `-t`  | `-top`           | Limit results to the top n.                                                                  |  integer   |
