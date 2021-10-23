@@ -19,7 +19,7 @@ The `influx` CLI has been moved to its own GitHub [repository](https://github.co
 - Release archives (.tar.gz and .zip) no longer contain the `influx` binary.
 - The `influxdb2` package (.deb and .rpm) no longer contains the `influx` binary. Instead, the package declares a recommended dependency on the new influx-cli package.
 - The `quay.io/influxdb/influxdb` image no longer contains the `influx` binary. We recommended migrating to the `influxdb` image hosted in DockerHub.
-- With this change, versions of the `influx` CLI and `influxd` server are not guaranteed to exactly match. Please see `influxd version` or curl `<your-server-url>/health` to check the version of the `influxd` server. The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
+- With this change, versions of the `influx` CLI and InfluxDB (`influxd`) server are not guaranteed to exactly match. Please see `influxd version` or curl `<your-server-url>/health` to check the version of the `influxd` server. The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
 
 ### Features
 
@@ -28,7 +28,7 @@ This release includes the following new features:
 - [Notebooks, annotations, and visualization updates](#notebooks-annotations-and-visualization-updates)
 - [SQLite metadata store](#sqlite-metadata-store)
 - [API](#api) and [CLI](#cli) updates
-- Latest [Flux](#flux) and [Telegraf](#telegraf) releases
+- Support for latest [Flux](#flux) and [Telegraf](#telegraf) releases
 - Updates to [InfluxQL engine](#influxql-engine)
 - [Token](#tokens) updates
 - [Offsets support location changes?](#offsets-support-location-changes)
@@ -93,7 +93,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 
 #### Telegraf
 
-- Update to [Telegraf 1.20.2](/telegraf/v1.20/about_the_project/release-notes-changelog/#v1202-2021-10-07).
+- Support for latest plugins in [Telegraf 1.20.2](/telegraf/v1.20/about_the_project/release-notes-changelog/#v1202-2021-10-07).
 
 #### Tokens
 
@@ -146,7 +146,6 @@ New features include:
    - `UsersResourceType`
    - `VariablesResourceType`
    - `ViewsResourceType`
-
 
 #### Flux updates
 
