@@ -79,7 +79,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 - influxd inspect report-tsm
 - influxd inspect verify-seriesfile
 - influxd inspect verify-tombstone
-- influx inspect verify-wal
+- influxd inspect verify-wal
 
 #### Flux
 
