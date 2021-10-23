@@ -31,7 +31,7 @@ This release includes the following new features:
 - Support for latest [Flux](#flux) and [Telegraf](#telegraf) releases
 - Updates to the [InfluxQL engine](#influxql-engine)
 - [Token](#tokens) updates
-- [Offsets support location changes?](#offsets-support-location-changes)
+- [Flux location support](#flux-location-support)
 
 #### Notebooks, annotations, and visualization updates
 
