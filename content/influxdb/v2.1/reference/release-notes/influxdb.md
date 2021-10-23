@@ -48,7 +48,7 @@ Add an embedded SQLite database for storing metadata required by the latest UI f
 
 - Add support for pagination to the GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when filtering by organization, including the following new parameters: `limit` `after` and `descending`.
 - GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) via the API now supports pagination.
-- Add the `api/v2/backup/metadata` endpoint for backing up both KV and SQL metadata, and the `api/v2/restore/sql` for restoring SQL metadata.
+- Add the `api/v2/backup/metadata` endpoint for backing up both key-value and SQL metadata, and the `api/v2/restore/sql` for restoring SQL metadata.
 - Add a route to delete individual secrets in preparation to remove the old post to /secrets/delete route.
 
 #### CLI
