@@ -102,7 +102,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 
 #### Flux location support
 
-- Update window planner rules for location changes to support fixed offsets.
+- Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
 
 ### Bug fixes
 
