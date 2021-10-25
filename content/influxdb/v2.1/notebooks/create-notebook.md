@@ -19,11 +19,11 @@ To learn how notebooks can be useful and to see an overview of different cell ty
     - Set an Alert
     - Schedule a Task
     - Write a Flux Script
-3.  Enter a name for your notebook in the **Untitled Notebook** field. 
+3.  Enter a name for your notebook in the **Untitled Notebook** field.
 3. Do the following at the top of the page:
    - Select your local time zone or UTC.
    - Choose a time range for your data.
-4. Consider which notebook cells to add to your notebook. You need to have one input cell for other cells to run properly. The default notebook cell types included in your notebook (**Data Source**, **Visualization**, and **Action**) vary depending on the type of notebook you selected in step 2. 
+4. Consider which notebook cells to add to your notebook. You need to have one input cell for other cells to run properly. The default notebook cell types included in your notebook (**Data Source**, **Visualization**, and **Action**) vary depending on the type of notebook you selected in step 2.
 5. Select your bucket in your query or Flux script, and then select the filters to narrow your data.
 6. Do one of the following:
     - To view results in your cells (for example, to view your **Visualization** or **Action**) *without writing data*, click **Preview** (or press **CTRL + Enter**).
@@ -32,7 +32,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 8. (Optional) Click the **+** icon, and then add one or more of the following cell types to your notebook:
 
     - [Data source](#add-a-data-source-cell): to pull information into your notebook
-    - [Visualization](#add-a-visualization-cell): to 
+    - [Visualization](#add-a-visualization-cell): to
     - [Action](#add-an-action-cell): filter and apply changes to your data, for example, create an alert, process data with a task, or output data to a bucket
 9. (Optional) [Convert a cell into raw Flux script](#view-and-edit-flux-script-in-a-cell) to view and edit the code.
 
@@ -61,11 +61,6 @@ Select one of the following visualization cell-types:
 - Graph
 - Note
 For detail on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
-
-#### Column Editor  
-
-- Click the toggle to hide or view your column.
-- Rename your columns by hovering over the column name and pressing the pencil icon.
 
 #### Visualization
 

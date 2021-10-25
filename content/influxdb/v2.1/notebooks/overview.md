@@ -19,8 +19,6 @@ To use different notebook cell types, controls, and uses to process data, see:
 
 ## Notebook concepts
 
-{{< youtube Rs16uhxK0h8 >}}
-
 Using notebooks, you can:
 
 - Create documents with live code, equations, visualizations, and explanatory notes.
