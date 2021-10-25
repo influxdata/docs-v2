@@ -17,7 +17,7 @@ weight: 101
 The `influx` CLI has been moved to its own GitHub [repository](https://github.com/influxdata/influx-cli/). Release artifacts produced by `influxdb` are impacted as follows:
 
 - Release archives (`.tar.gz` and `.zip`) no longer contain the `influx` binary.
-- The `influxdb2` package (`.deb` and `.rpm`) no longer contains the `influx` binary. Instead, the package declares a recommended dependency on the new `influx-cli` package.
+- The `influxdb2` package (`.deb` and `.rpm`) no longer contains the `influx` binary. Instead, the package declares a recommended dependency on the new `influxdb2-cli` package.
 - The `quay.io/influxdb/influxdb` image no longer contains the `influx` binary. We recommend migrating to the `influxdb` image hosted on [DockerHub](https://hub.docker.com/_/influxdb).
 - With this change, versions of the `influx` CLI and InfluxDB server (`influxd`) are not guaranteed to exactly match. Please see `influxd version` or curl `<your-server-url>/health` to check the version of the `influxd` server. The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
 
@@ -36,18 +36,18 @@ This release includes the following new features:
 #### Notebooks, annotations, and visualization updates
 
 - Add support for [notebooks](/influxdb/v2.1/notebooks/) and [annotations](/influxdb/v2.1/visualize-data/annotations/).
-- Add the properties of a static legend for line graphs and band plots.
-- Allow hiding the tooltip independently of the static legend.
+- Add support for static legends to line graphs and band plots.
 - Enable new dashboard auto-refresh.
+- Simplify display of data for table visualizations.
 
 #### SQLite metadata store
 
-Add an embedded SQLite database for storing metadata required by the latest UI features like notebooks and annotations.
+Add an embedded SQLite database for storing UI metadata, currently required by notebooks and annotations.
 
 #### API
 
-- Add support for pagination to the GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when filtering by organization, including the following new parameters: `limit` `after` and `descending`.
-- GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) via the API now supports pagination.
+- Add support for pagination to the GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when filtering by organization, including the following new parameters: `limit` and `after`.
+- Add support for pagination to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API when filtering by organization, including the following new parameters: `limit` and `after`.
 - Add the `api/v2/backup/metadata` endpoint for backing up both key-value and SQL metadata, and the `api/v2/restore/sql` for restoring SQL metadata.
 - Add a route to delete individual secrets in preparation to remove the old post to /secrets/delete route.
 
@@ -89,7 +89,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 #### InfluxQL engine
 
 - `SHOW MEASUREMENTS ON` now supports database and retention policy wildcards. For example, `SHOW MEASUREMENTS ON *.*` to show all databases and `SHOW MEASUREMENTS ON <db>.*` to show all retention policies.
--  Add hyper log operators (`merge_hll`, `sum_hll`, and `count_hll`) in InfluxQL to optimize series iteration for queries that can be answered without inspecting TSM data.
+-  Add hyper log operators `merge_hll`, `sum_hll`, and `count_hll` in InfluxQL to optimize series iteration. (`count_hll` optimizes queries that can be answered without inspecting TSM data.)
 
 #### Telegraf
 
@@ -98,7 +98,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 #### Tokens
 
 - Add support for standard Bearer token syntax. Now you can specify token credentials as: `Authorization: Bearer xxxxxxxx`.
-- Return new Operator token during backup overwrite.
+- If restoring a backup overwrites the Operator token, the new token value is returned.
 
 #### Flux location support
 
@@ -106,7 +106,6 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 
 ### Bug fixes
 
-- Change static legend's `hide` to `show` to let you decide if you want to view static legends.
 - Log API errors to server logs and tell clients to check the server logs for the error message.
 - Sync series segment to disk after writing.
 - Do not allow shard creation to create overlapping shards.
