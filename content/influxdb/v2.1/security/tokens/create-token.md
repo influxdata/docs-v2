@@ -66,7 +66,7 @@ Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`write: authorizations`](/influxdb/v2.1/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
+| API token with the [`write: authorizations`](/influxdb/v2.0/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% oss-only %}}`Bearer` or {{% /oss-only %}}`Token` scheme. |
 | Organization         | Pass as `orgID` in the request body.
 | Permissions list     | Pass as a `permissions` array in the request body.
 
