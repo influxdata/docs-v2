@@ -37,9 +37,9 @@ Tokens stop working when the user who created the token is deleted.
 
 ## Create a token using the influx CLI
 
-Use the [`influx auth create` command](/influxdb/v2.0/reference/cli/influx/auth/create) to create a token.
+Use the [`influx auth create` command](/influxdb/v2.1/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
-See the [available flags](/influxdb/v2.0/reference/cli/influx/auth/create#flags).
+See the [available flags](/influxdb/v2.1/reference/cli/influx/auth/create#flags).
 Only tokens with the `write: authorizations` permission can create tokens.
 
 ```sh
@@ -81,7 +81,7 @@ influx auth create \
   --read-user
 ```
 
-See the [`influx auth create` documentation](/influxdb/v2.0/reference/cli/influx/auth/create) for information about other available flags.
+See the [`influx auth create` documentation](/influxdb/{{< latest "influxdb" >}}/reference/cli/influx/auth/create) for information about other available flags.
 
 ## Create a token using the InfluxDB API
 
@@ -91,11 +91,11 @@ Use the `/authorizations` endpoint of the InfluxDB API to create a token.
 
 Include the following in your request:
 
-| Requirement                                                                                               | Include by                                            |
-| :-------------------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
-| API token with the [`write: authorizations`](/influxdb/v2.0/api/#operation/PostAuthorizations) permission | Use the `Authorization: Token YOUR_API_TOKEN` header. |
-| Organization                                                                                              | Pass as `orgID` in the request body.                  |
-| Permissions list                                                                                          | Pass as a `permissions` array in the request body.    |
+| Requirement          | Include by                                               |
+|:-----------          |:----------                                               |
+| API token with the [`write: authorizations`](/influxdb/v2.1/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% oss-only %}}`Bearer` or {{% /oss-only %}}`Token` scheme. |
+| Organization         | Pass as `orgID` in the request body.
+| Permissions list     | Pass as a `permissions` array in the request body.
 
 ```sh
 {{% get-shared-text "api/v2.0/auth/oss/token-create.sh" %}}
@@ -111,5 +111,5 @@ body.
 ```
 
 See the
-[`POST /api/v2/authorizations` documentation](/influxdb/v2.0/api/#operation/PostAuthorizations)
+[`POST /api/v2/authorizations` documentation](/influxdb/v2.1/api/#operation/PostAuthorizations)
 for more information about options.
