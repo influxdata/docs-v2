@@ -220,12 +220,14 @@ The following metadata functions are available:
 ---
 
 ### Notification endpoints
-Flux notification endpoint functions send notifications to external endpoints or services.
+Flux notification endpoint functions iterate over rows in an input stream of tables
+and send a notification to external endpoints or services per row.
 The following notification endpoint functions are available:
 
 {{< list-all-functions filters="notification endpoints" >}}
 
-There are also functions that send a single message to a remote endpoint:
+#### Single notification functions
+Single notification functions send a single message to a remote endpoint.
 
 {{< list-all-functions filters="single notification" >}}
 
