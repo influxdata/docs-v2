@@ -60,7 +60,7 @@ Add an embedded SQLite database for storing UI metadata, currently required by n
 
 - Add new parameters to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
 - Add the [`api/v2/backup/metadata`](/influxdb/v2.0/api/#operation/GetBackupMetadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2.0/api/#operation/GetRoutes) for restoring SQL metadata.
-- Add a route to delete individual secrets in preparation to remove the old post to /secrets/delete route.
+- Deprecated [`POST .../secrets/delete`](/influxdb/v2.0/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}](/influxdb/v2.0/api/#operation/DeleteOrgsIDSecretsID).
 
 #### CLI
 
