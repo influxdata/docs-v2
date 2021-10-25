@@ -96,6 +96,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 
 - Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
 - Enable writing to remote hosts using the Flux [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/{{< latest "flux" >}}/v0.x/stdlib/experimental/to/) functions.
+- Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
 
 #### InfluxQL engine
 
@@ -110,10 +111,6 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 
 - Add support for standard Bearer token syntax. Now you can specify token credentials as: `Authorization: Bearer xxxxxxxx`.
 - If restoring a backup overwrites the Operator token, the new token value is returned.
-
-#### Flux location support
-
-- Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
 
 ### Bug fixes
 
