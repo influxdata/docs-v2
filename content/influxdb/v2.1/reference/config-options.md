@@ -2954,7 +2954,6 @@ ui-disabled = true
 
 ---
 
-
 ### vault-addr
 Specifies the address of the Vault server expressed as a URL and port.
 For example: `https://127.0.0.1:8200/`.

@@ -15,8 +15,10 @@ Create API tokens using the InfluxDB user interface (UI), the `influx`
 command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
-Tokens are visible only to the user who created them and stop working when the user is deactivated.
-We recommend creating a generic IT user to create and manage tokens for writing data.
+Tokens are visible to the user who created the token.
+{{% oss-only %}}Users who own a token with Operator permissions also have access to all tokens.{{% /oss-only %}}
+Tokens stop working when the user who created the token is deleted.
+**We recommend creating a generic user to create and manage tokens for writing data.**
 {{% /note %}}
 
 ## Create a token in the InfluxDB UI
@@ -43,9 +45,34 @@ Only tokens with the `write: authorizations` permission can create tokens.
 ```sh
 # Syntax
 influx auth create -o <org-name> [permission-flags]
+```
 
-# Example
-influx auth create -o my-org \
+### Examples
+#### Create an All-Access token
+
+Create an All-Access token to grant permissions to all resources in an organization.
+
+```sh
+influx auth create \
+  --org my-org \
+  --all-access
+```
+
+#### Create an Operator token
+
+Create an Operator token to grant permissions to all resources in all organizations.
+
+```sh
+influx auth create \
+  --org my-org \
+  --operator
+```
+
+#### Create a token with specified read permissions
+
+```sh
+influx auth create \
+  --org my-org \
   --read-bucket 03a2bbf46309a000 \
   --read-bucket 3a87c03ace269000 \
   --read-dashboards \
@@ -54,19 +81,19 @@ influx auth create -o my-org \
   --read-user
 ```
 
-See the [`influx auth create` documentation](/influxdb/v2.1/reference/cli/influx/auth/create) for information about other available flags.
+See the [`influx auth create` documentation](/influxdb/{{< latest "influxdb" >}}/reference/cli/influx/auth/create) for information about other available flags.
 
 ## Create a token using the InfluxDB API
 
 Use the `/authorizations` endpoint of the InfluxDB API to create a token.
 
-{{% api-endpoint method="POST" endpoint="/api/v2/authorizations" %}}
+{{% api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" %}}
 
 Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`write: authorizations`](/influxdb/v2.1/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
+| API token with the [`write: authorizations`](/influxdb/v2.1/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% oss-only %}}`Bearer` or {{% /oss-only %}}`Token` scheme. |
 | Organization         | Pass as `orgID` in the request body.
 | Permissions list     | Pass as a `permissions` array in the request body.
 
@@ -86,4 +113,3 @@ body.
 See the
 [`POST /api/v2/authorizations` documentation](/influxdb/v2.1/api/#operation/PostAuthorizations)
 for more information about options.
-

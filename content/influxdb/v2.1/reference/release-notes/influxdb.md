@@ -12,37 +12,40 @@ weight: 101
 
 - This release includes several new [features](#features) and [bug fixes](#bug-fixes).
 
+#### influx CLI moved to separate repository
+
+The `influx` CLI moved to a separate GitHub [repository](https://github.com/influxdata/influx-cli/). Release artifacts produced by `influxdb` are impacted as follows:
+
+- Release archives (.tar.gz and .zip) no longer contain the `influx` binary.
+- The `influxdb2` package (.deb and .rpm) no longer contain the `influx` binary. Instead, the package declares a recommended dependency on the new `influx-cli` package.
+- The `quay.io/influxdb/influxdb` image no longer contains the `influx` binary. We recommend migrating to the `influxdb` image hosted in DockerHub.
+- Versions of the `influx` CLI and `influxd` server are not guaranteed to exactly match. Please use `influxd` version or curl `<your-server-url>/health` when checking the server version.
+
 ### Features
+
+#### Notebooks and annotations
+
+Support for notebooks and annotations.
+
 
 #### API
 
-- [22674](https://github.com/influxdata/influxdb/pull/22674): List-bucket api supports pagination when filtering by org
+- [22674](https://github.com/influxdata/influxdb/pull/22674): [`/users`](https://docs.influxdata.com/influxdb/v2.0/api/#operation/GetUsers) API now supports pagination. (but when I click issue, it says now supports offset, limit or after parameters
+- Update swagger to include view options for Static Legend
 
+StaticLegend is an object with the following properties
+
+colorizeRows
+disable
+heightRatio
+layer
+orientationThreshold
+widthRatio
+As Static Legend is a work-in-progress, some additional properties may be added and some may be removed.
 #### Flux
 
 - Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
-
-- [22634](https://github.com/influxdata/influxdb/pull/22634): Enable writing to remote hosts via `to()` and `experimental.to()`
-- [22441](https://github.com/influxdata/influxdb/pull/22441): Support for flux cardinality query (pull out the following warning frorm the docs:
-https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/: InfluxDB Cloud supports the influxdb.cardinality() function, but InfluxDB OSS does not.)
-- [22366](https://github.com/influxdata/influxdb/pull/22366): Add additional log to flux e2e tests
-
-#### Remote connections
-
-- [22219](https://github.com/influxdata/influxdb/pull/22219): Add apis for management of remote influxdb connections
-- [22237](https://github.com/influxdata/influxdb/pull/22237): Add sql migration for remote connection metadata
-- [22254](https://github.com/influxdata/influxdb/pull/22254): Implement metadata management for remote connections
-- [22258](https://github.com/influxdata/influxdb/pull/22258): Add logging and metrics middlewares to remotes api
-
-#### Replications
-
-- [22581](https://github.com/influxdata/influxdb/pull/22581): Implement replication validation; validate replication to the `/api/v2/write` on remote server?
-- [22302](https://github.com/influxdata/influxdb/pull/22302): Implement metadata management for replications
-- [22196](https://github.com/influxdata/influxdb/pull/22196): Add replication-stream backend feature flag to enable/disable the APIs and underlying storage components of the new replication-stream feature.
-- [22287](https://github.com/influxdata/influxdb/pull/22287): Add apis for management of replication streams
-- [22288](https://github.com/influxdata/influxdb/pull/22288): Add sql migration for replication metadata
-- [22291](https://github.com/influxdata/influxdb/pull/22291): Add logging and metrics middlewares to replications api
-- [22424](https://github.com/influxdata/influxdb/pull/22424): Deleting a bucket also deletes all associated replications.
+- Enable writing to remote hosts via `to()` and `experimental.to()`
 
 #### CLI
 
@@ -90,52 +93,50 @@ https://docs.influxdata.com/influxdb/v2.0/reference/flux/stdlib/influxdb/cardina
 
 - ### Bug fixes
 
+#### Upgrades
+
 - Fix `influxd upgrade` to ensure shard group durations are no longer dropped during upgrade.
-- Change InfluxDB UI session cookie name to ensure logging into UI is accessible when upgrading from InfluxDB 2.0 to InfluxDB 2.1.
-- [22604](https://github.com/influxdata/influxdb/pull/22604): Do not allow shard creation to create overlapping shards
-- [22574](https://github.com/influxdata/influxdb/pull/22574): Allow empty reqeust bodies to write api
-- [22545](https://github.com/influxdata/influxdb/pull/22545): Sync series segment to disk after writing
-- [22537](https://github.com/influxdata/influxdb/pull/22537): Suggest setting flux content-type when query fails to parse as json
-- [22562](https://github.com/influxdata/influxdb/pull/22562): For windows, copy snapshot files being backed up (#22551)
-- [22500](https://github.com/influxdata/influxdb/pull/22500): Upgrade influxql to latest version & fix predicate handling for show - tag values metaqueries
-- [22228](https://github.com/influxdata/influxdb/pull/22228): Influxdb-server packages should depend on curl
-- [22211](https://github.com/influxdata/influxdb/pull/22211): Inactive task runs when updated
-- [22235](https://github.com/influxdata/influxdb/pull/22235): Avoid compaction queue stats flutter
-- [22257](https://github.com/influxdata/influxdb/pull/22257): Migrate all-access tokens to grant notebook/annotation permissions
-- [22272](https://github.com/influxdata/influxdb/pull/22272): Auth requests use org and user names if present
-- [22293](https://github.com/influxdata/influxdb/pull/22293): Add created_at and updated_at columns to replications table
-- [22311](https://github.com/influxdata/influxdb/pull/22311): Hard limit on field size while parsing line protocol
-- [22334](https://github.com/influxdata/influxdb/pull/22334): Make tsi index compact old and too-large log files
-- [22307](https://github.com/influxdata/influxdb/pull/22307): Repair bad port dropping return value names
-- [22367](https://github.com/influxdata/influxdb/pull/22367): Upgrade golang.org/x/sys to avoid panics on macs
-- [22391](https://github.com/influxdata/influxdb/pull/22391): Discard excessive errors (#22379)
-- [22412](https://github.com/influxdata/influxdb/pull/22412): Use consistent path separator in permission string representation
-- [22442](https://github.com/influxdata/influxdb/pull/22442): Detect noninteractive prompt when displaying warning in buildtsi
-- [22458](https://github.com/influxdata/influxdb/pull/22458): Ensure files are closed before they are deleted or moved in - `deletetsm`
-- [22448](https://github.com/influxdata/influxdb/pull/22448): More expressive errors
-- [22228](https://github.com/influxdata/influxdb/pull/22228): Influxdb-server packages should depend on curl
-- [22211](https://github.com/influxdata/influxdb/pull/22211): Inactive task runs when updated
-- [22235](https://github.com/influxdata/influxdb/pull/22235): Avoid compaction queue stats flutter
-- [22257](https://github.com/influxdata/influxdb/pull/22257): Migrate all-access tokens to grant notebook/annotation permissions
-- [22272](https://github.com/influxdata/influxdb/pull/22272): Auth requests use org and user names if present
-- [22293](https://github.com/influxdata/influxdb/pull/22293): Add created_at and updated_at columns to plications table
-- [22311](https://github.com/influxdata/influxdb/pull/22311): Hard limit on field size while parsing le
-- [22334](https://github.com/influxdata/influxdb/pull/22334): Make tsi index compact old and too-lare
-- [22307](https://github.com/influxdata/influxdb/pull/22307): Repair bad port dropping return value e
-- [22367](https://github.com/influxdata/influxdb/pull/22367): Upgrade golang.org/x/sys to avoid panie
-- [22391](https://github.com/influxdata/influxdb/pull/22391): Discard excessive errors (#22379)e
-- [22412](https://github.com/influxdata/influxdb/pull/22412): Use consistent path separator in permission string representation
-- [22442](https://github.com/influxdata/influxdb/pull/22442): Detect noninteractive prompt when displaying warning in buildtsi
-- [22458](https://github.com/influxdata/influxdb/pull/22458): Ensure files are closed before they are deleted or moved in - `deletetsm`
-- [22448](https://github.com/influxdata/influxdb/pull/22448): More expressive errors
-- [22650](https://github.com/influxdata/influxdb/pull/22650): Don't drop shard-group durations when upgrading dbs
-- [22632](https://github.com/influxdata/influxdb/pull/22632): Change session cookie name used by ui to avoid  conflict with incompatible 2.0.x cookie.
-- [22604](https://github.com/influxdata/influxdb/pull/22604): Do not allow shard creation to create overlapping shard
-- [22574](https://github.com/influxdata/influxdb/pull/22574): Allow empty reqeust bodies to write api
-- [22545](https://github.com/influxdata/influxdb/pull/22545): Sync series segment to disk after writing 
-- [22537](https://github.com/influxdata/influxdb/pull/22537): Suggest setting flux content-type when query fails to parse as json
-- [22562](https://github.com/influxdata/influxdb/pull/22562): For windows, copy snapshot files being backed up (#22551)
-- [22500](https://github.com/influxdata/influxdb/pull/22500): Upgrade INFLUXQL to latest version and fix predicate handling for show tag values metaqueries.
+- Ensure InfluxDB UI is accessible when upgrading from InfluxDB 2.0 to InfluxDB 2.1 by changing InfluxDB UI session cookie name.
+
+#### Writes
+
+- Allow empty request bodies to write API.
+- Sync series segment to disk after writing.
+- Add `MaxFieldValueLength=1048576` to limit field value size while parsing line protocol. Previously, larger writes were accepted, causing failures during internal engine operations (especially compactions).
+
+#### Storage
+
+- Prevent shard creation from creating overlapping shards.
+- Make TSI index compact old and too large log files.
+
+#### Maintenance
+
+- Upgrade INFLUXQL to latest version and fix predicate handling for `SHOW TAG` values metaqueries.
+- Include `curl` as package dependency in InfluxDB server packages.
+- Ensure only tasks with an active status are scheduled to run.
+- Avoid compaction queue stats flutter by updating `compact()` to ensure queue lengths are not updated if the files to be compacted are locked.
+- Detect non-interactive prompt when displaying warning in `buildtsi`. Ensures unit tests pass when running as root user.
+- Repair bad port dropping return value names.
+
+#### Windows
+
+- On Windows, running `influxd.exe backup -portable` no longer leaves temporary folders in the Windows data directory.
+- Previously `authz` unit tests would fail on Windows. Fix by using `path.Join` instead of `filepath.Join` so authentication resources have a consistent string representation across Linux, Mac, and Windows.
+- Prevent Windows permission errors by ensuring files are closed before they are deleted or moved in `deletetsm`.
+
+#### Security
+
+- Ensure All-access tokens are granted permissions on notebooks and annotations.
+- Ensure the `/api/v2/authorizations/?user` query parameter filter authorizations by user. Now, requests are correctly filtered by both the organization and username.
+- [22293](https://github.com/influxdata/influxdb/pull/22293): Add `created_at` and `updated_at` columns to replications table
+
+#### Errors and logging
+
+- Add more expressive errors to server logs.
+- Update error message to recommend setting the Flux `content-type` when a query fails to parse as JSON.
+- Upgrade `golang.org/x/sys` to avoid panics on macOS.
+- `tsmBatchKeyIterator` discards errors that exceed `DefaultMaxSavedErrors` (100) to avoid out-of-memory crashes when compacting very corrupt files.
+
 
 ## v2.0.9 [2021-09-27]
 
