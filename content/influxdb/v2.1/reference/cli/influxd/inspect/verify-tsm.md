@@ -18,9 +18,9 @@ influxd inspect verify-tsm [flags]
 ```
 
 ## Flags
-| Flag |                 | Description                                                                        | Input Type |
-| :--- | :-------------- | :--------------------------------------------------------------------------------- | :--------: |
-|      | `--check-utf8`  | Verify series keys are valid UTF-8 (skips block checksum verification).            |            |
-|      | `--engine-path` | Storage engine directory path (default "/Users/scottanderson/.influxdbv2/engine"). |   string   |
-| `-h` | `--help`        | Help for `verify-tsm`.                                                             |            |
-| `-v` | `--verbose`     | Enable verbose logging.                                                            |            |
+| Flag |                 | Description                                                             | Input Type |
+| :--- | :-------------- | :---------------------------------------------------------------------- | :--------: |
+|      | `--check-utf8`  | Verify series keys are valid UTF-8 (skips block checksum verification). |            |
+|      | `--engine-path` | Storage engine directory path (default is `~/.influxdbv2/engine`).      |   string   |
+| `-h` | `--help`        | Help for `verify-tsm`.                                                  |            |
+| `-v` | `--verbose`     | Enable verbose logging.                                                 |            |
