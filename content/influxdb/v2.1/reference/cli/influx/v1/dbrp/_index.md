@@ -9,6 +9,8 @@ menu:
     parent: influx v1
 weight: 101
 influxdb/v2.1/tags: [DBRP]
+cascade:
+  metadata: [influx CLI 2.0.2+, InfluxDB 2.0.1+]
 ---
 
 The `influx v1 dbrp` subcommands manage database and retention policy mappings (DBRP)

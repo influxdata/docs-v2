@@ -12,6 +12,8 @@ related:
   - /influxdb/v2.1/reference/syntax/delete-predicate
   - /influxdb/v2.1/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2.1/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+metadata: [influx CLI 2.0.3+, InfluxDB 2.0.3+]
+updated_in: CLI v2.2.0
 ---
 
 The `influx delete` command deletes [points](/influxdb/v2.1/reference/glossary/#point)
@@ -27,7 +29,7 @@ Running `influx delete` without the `-p` or `--predicate` flag deletes all data 
 | Flag |                   | Description                                                                                               | Input type | {{< cli/mapped >}}    |
 |:-----|:------------------|:----------------------------------------------------------------------------------------------------------|:----------:|:----------------------|
 | `-c` | `--active-config` | CLI configuration to use for command                                                                      | string     |                       |
-|      | `--bucket`        | Name of bucket to remove data from (mutually exclusive with `--bucket-id`)                                | string     | `INFLUX_BUCKET_NAME`  |
+| `-b` | `--bucket`        | Name of bucket to remove data from (mutually exclusive with `--bucket-id`)                                | string     | `INFLUX_BUCKET_NAME`  |
 |      | `--bucket-id`     | Bucket ID (mutually exclusive with `--bucket`)                                                            | string     | `INFLUX_BUCKET_ID`    |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)                                     | string     | `INFLUX_CONFIGS_PATH` |
 | `-h` | `--help`          | Help for the `delete` command                                                                             |            |                       |

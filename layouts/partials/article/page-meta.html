@@ -1,5 +1,8 @@
 {{ if .Page.Params.metadata }}
 {{ range .Page.Params.metadata }}
-<p class="meta">{{ . }}</p>
+<p class="meta">{{ . | markdownify }}</p>
 {{ end }}
+{{ end }}
+{{ if .Page.Params.updated_in }}
+<p class="meta updated-in">Updated in {{ .Page.Params.updated_in }}</p>
 {{ end }}

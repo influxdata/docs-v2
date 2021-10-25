@@ -143,6 +143,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [tls-min-version](#tls-min-version)
 - [tls-strict-ciphers](#tls-strict-ciphers)
 - [tracing-type](#tracing-type)
+- [ui-disabled](#ui-disabled)
 - [vault-addr](#vault-addr)
 - [vault-cacert](#vault-cacert)
 - [vault-capath](#vault-capath)
@@ -2647,6 +2648,52 @@ tracing-type = "log"
 ```json
 {
   "tracing-type": "log"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### ui-disabled
+Disable the InfluxDB user interface (UI).
+The UI is enabled by default.
+
+| influxd flag     | Environment variable   | Configuration key |
+|:------------     |:--------------------   |:----------------- |
+| `--ui-disabled` | `INFLUXD_UI_DISABLED` | `ui-disabled`    |
+
+###### influxd flag
+```sh
+influxd --ui-disabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_UI_DISABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+ui-disabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+ui-disabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "ui-disabled": true
 }
 ```
 {{% /code-tab-content %}}
