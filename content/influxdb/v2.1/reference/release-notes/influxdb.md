@@ -46,8 +46,7 @@ Add an embedded SQLite database for storing UI metadata, currently required by n
 
 #### API
 
-- Add support for pagination to the GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when filtering by organization, including the following new parameters: `limit` and `after`.
-- Add support for pagination to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API when filtering by organization, including the following new parameters: `limit` and `after`.
+- Add new parameters to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
 - Add the `api/v2/backup/metadata` endpoint for backing up both key-value and SQL metadata, and the `api/v2/restore/sql` for restoring SQL metadata.
 - Add a route to delete individual secrets in preparation to remove the old post to /secrets/delete route.
 
@@ -107,6 +106,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 ### Bug fixes
 
 - Log API errors to server logs and tell clients to check the server logs for the error message.
+- Fix pagination for GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an organization filter AND the after request parameter. Also fix `descending` parameter to correctly sort when an org filter is used and saved.
 - Sync series segment to disk after writing.
 - Do not allow shard creation to create overlapping shards.
 - Don't drop shard group durations when upgrading InfluxDB.
