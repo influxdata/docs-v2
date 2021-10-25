@@ -11,7 +11,7 @@ weight: 301
 
 The `influxd inspect dump-wal` command outputs data from Write Ahead Log (WAL)
 files for debugging purposes.
-Given at least one WAL file path as an argument, the tool will parse and print
+Given at least one WAL file path as an argument, the tool parses and prints
 out the entries in each file.
 It has two modes of operation, depending on the `--find-duplicates` flag.
 

@@ -19,7 +19,7 @@ influxd inspect verify-seriesfile [flags]
 ## Flags
 | Flag |                 | Description                                                                                   | Input Type |
 | :--- | :-------------- | :-------------------------------------------------------------------------------------------- | :--------: |
-|      | `--bucket-id`   | Only verify series files from a specific bucket.                                              |   string   |
+|      | `--bucket-id`   | Verify series files from a specific bucket.                                              |   string   |
 | `-c` | `--concurrency` | Number of workers to run concurrently (defaults to the number of available processing units). |  integer   |
 |      | `--data-path`   | Path to data directory (defaults to `~/.influxdbv2/engine/data`).                             |   string   |
 | `-h` | `--help`        | Help for the `verify-seriesfile` command.                                                     |            |

@@ -54,6 +54,6 @@ higher memory usage.
 | `-h` | `--help`                | Help for the `build-tsi` command.                                                               |            |
 |      | `--max-cache-size`      | Maximum cache size. Defaults to `1073741824`. [See above](#--max-cache-size).                   |  uinteger  |
 |      | `--max-log-file-size`   | Maximum log file size. Defaults to `1048576`. [See above](#--max-log-file-size) .               |  integer   |
-|      | `--shard-id`            | Shard ID (requires a `--bucket-id`)                                                             |   string   |
+|      | `--shard-id`            | Shard ID (requires a `--bucket-id`).                                                            |   string   |
 | `-v` | `--verbose`             | Enable verbose output.                                                                          |            |
 |      | `--wal-path`            | Path to the WAL data directory. Defaults to `~/.influxdbv2/engine/wal`.                         |   string   |

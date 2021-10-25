@@ -12,7 +12,7 @@ weight: 301
 
 The `influxd inspect report-tsi` command analyzes Time Series Index (TSI) within
 a specified bucket and reports the cardinality of data stored in the bucket
-segmented by shard and measurement .
+segmented by shard and measurement.
 
 ## Usage
 ```sh

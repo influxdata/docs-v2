@@ -10,7 +10,7 @@ menu:
 weight: 401
 ---
 
-The `influxd recovery auth create-operator` command creates new
+The `influxd recovery auth create-operator` command creates a new
 [Operator token](/influxdb/v2.1/security/tokens/#operator-token) directly on disk
 for a specified user.
 
