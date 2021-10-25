@@ -8,7 +8,6 @@ menu:
   influxdb_2_1_ref:
     parent: influxd inspect
 weight: 301
-draft: true
 ---
 
 The `influxd inspect verify-wal` command analyzes the Write-Ahead Log (WAL)
@@ -34,7 +33,8 @@ After the verification is complete, it returns a summary with:
 - A list of files found to be corrupt.
 
 ## Flags
-| Flag |              | Description                                                      | Input Type |
-|:---- |:---          |:-----------                                                      |:----------:|
-|      | `--data-dir` | The data directory to scan (default `~/.influxdbv2/engine/wal`). | string     |
-| `-h` | `--help`     | Help for the `verify-wal` command.                               |            |
+| Flag |              | Description                                                   | Input Type |
+| :--- | :----------- | :------------------------------------------------------------ | :--------: |
+| `-h` | `--help`     | Help for the `verify-wal` command.                            |            |
+| `-v` | `--verbose`  | Enable verbose logging.                                       |            |
+|      | `--wal-path` | Path to WAL directory (default is `~/.influxdbv2/engine/wal`) |   string   |

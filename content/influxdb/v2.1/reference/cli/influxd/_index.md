@@ -28,14 +28,17 @@ For information about other available InfluxDB configuration methods, see
 
 ## Commands
 
-| Command                                                           | Description                                                  |
-| :---------------------------------------------------------------- | :----------------------------------------------------------- |
-| [inspect](/influxdb/v2.1/reference/cli/influxd/inspect)           | Inspect on-disk database data                                |
-| [print-config](/influxdb/v2.1/reference/cli/influxd/print-config) | Print full influxd configuration for the current environment |
-| [run](/influxdb/v2.1/reference/cli/influxd/run)                   | Start the influxd server _**(default)**_                     |
-| [upgrade](/influxdb/v2.1/reference/cli/influxd/upgrade)           | Upgrade a 1.x version of InfluxDB to {{< current-version >}} |
-| [version](/influxdb/v2.1/reference/cli/influxd/version)           | Output the current version of InfluxDB                       |
+| Command                                                            | Description                                                  |
+| :----------------------------------------------------------------- | :----------------------------------------------------------- |
+| help                                                               | Output help information for `influxd`                        |
+| [inspect](/influxdb/v2.1/reference/cli/influxd/inspect/)           | Inspect on-disk database data                                |
+| [print-config](/influxdb/v2.1/reference/cli/influxd/print-config/) | Print full influxd configuration for the current environment |
+| [recovery](/influxdb/v2.1/reference/cli/influxd/recovery/)         | Recover operator access to InfluxDB                          |
+| [run](/influxdb/v2.1/reference/cli/influxd/run/)                   | Start the influxd server _**(default)**_                     |
+| [upgrade](/influxdb/v2.1/reference/cli/influxd/upgrade/)           | Upgrade a 1.x version of InfluxDB to {{< current-version >}} |
+| [version](/influxdb/v2.1/reference/cli/influxd/version/)           | Output the current version of InfluxDB                       |
 
 ## Flags
 
-{{% cli/influxd-flags %}}
+<!-- Influxd flags are maintained in data/influxd_flags.yml -->
+{{< cli/influxd-flags >}}
