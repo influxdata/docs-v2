@@ -92,7 +92,7 @@ Provide the following in your request:
 
 ### Request body
 JSON object that contains a `params` object. In `params`, provide key-value pairs for parameters referenced in your script.
-The [create](#create-an-invocable-script) example, references the parameter `params.mybucket`.
+The [create](#create-an-invocable-script) example references the parameter `params.mybucket`.
 ```json
   "from(bucket: params.mybucket) \
    |> range(start: -7d) \
