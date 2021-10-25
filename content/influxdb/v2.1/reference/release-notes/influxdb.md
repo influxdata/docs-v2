@@ -41,7 +41,7 @@ This release includes the following new features:
 - [SQLite metadata store](#sqlite-metadata-store)
 - [API](#api) and [CLI](#cli) updates
 - Support for latest [Flux](#flux) and [Telegraf](#telegraf) releases
-- Updates to the [InfluxQL engine](#influxql-engine)
+- Updates to the [InfluxQL](#influxql)
 - [Token](#tokens) updates
 - [Flux location support](#flux-location-support)
 
