@@ -15,6 +15,18 @@ tags:
       - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
       <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
+  - name: Invocable Scripts
+    description: |
+        Manage and execute scripts as API endpoints in InfluxDB.
+
+        An API Invocable Script assigns your custom Flux script to a new InfluxDB API endpoint for your organization.
+        Invocable scripts let you execute your script as an HTTP request to the endpoint.
+
+        Invocable scripts accept parameters. Add parameter references in your script as `params.myparameter`.
+        When you `invoke` your script, you send parameters as key-value pairs in the `params` object.
+        InfluxDB executes your script with the key-value pairs as arguments and returns the result.
+
+        For more information and examples, see [Invoke custom scripts](https://docs.influxdata.com/influxdb/cloud/api-guide/api-invocable-scripts).
   - name: Quick start
     x-traitTag: true
     description: |
