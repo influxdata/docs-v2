@@ -13,7 +13,7 @@ influxdb/cloud/tags: [api guides]
 
 Use API invocable scripts to create custom InfluxDB API endpoints that query, process, and shape data. API invocable scripts let you assign scripts to API endpoints and then execute them as standard REST operations in InfluxDB Cloud. Learn how to manage API invocable scripts and invoke them with runtime parameters.
 
-Use the `/api/v2/functions` InfluxDB API endpoint to:
+Use the `/api/v2/scripts` InfluxDB API endpoint to:
 - [Create a script](#create-an-invocable-script)
 - [Invoke a script](#invoke-a-script)
 - [List scripts](#list-invocable-scripts)
@@ -92,7 +92,7 @@ Provide the following in your request:
 
 ### Request body
 JSON object that contains a `params` object. In `params`, provide key-value pairs for parameters referenced in your script.
-The [create](#create-an-invocable-script) example, references the parameter `params.mybucket`.
+The [create](#create-an-invocable-script) example references the parameter `params.mybucket`.
 ```json
   "from(bucket: params.mybucket) \
    |> range(start: -7d) \
