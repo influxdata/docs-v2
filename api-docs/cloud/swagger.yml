@@ -41,6 +41,17 @@ tags:
       | `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |
       | `500`       | Internal server error    |                       |
       | `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |
+  - name: Invocable Scripts
+    description: |
+      Manage and execute scripts in InfluxDB.
+      An API Invocable Script assigns your custom Flux script to a new InfluxDB API endpoint for your organization.
+      Invocable scripts let you execute your script with an HTTP request to the endpoint.
+
+      You can reference parameters in your script as `params.myparameter`.
+      When you `invoke` your script, you send parameters as key-value pairs in the `params` object.
+      InfluxDB executes your script with the key-value pairs as arguments and returns the result.
+
+      For more information and examples, see [Invoke custom scripts](https://docs.influxdata.com/influxdb/cloud/api-guide/api-invocable-scripts).
   - name: Query
     description: |
       Retrieve data, analyze queries, and get query suggestions.
