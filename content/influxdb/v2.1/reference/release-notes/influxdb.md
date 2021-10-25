@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.1 [unreleased]
+## v2.1 [2021-10-25]
 
 - This release includes several new [features](#features) and [bug fixes](#bug-fixes).
 
@@ -52,10 +52,6 @@ This release includes the following new features:
 - Enable new dashboard auto-refresh.
 - Simplify display of data for table visualizations.
 
-#### SQLite metadata store
-
-Add an embedded SQLite database for storing UI metadata, currently required by notebooks and annotations.
-
 #### API
 
 - Add new parameters to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
@@ -98,7 +94,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 - Enable writing to remote hosts using the Flux [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/{{< latest "flux" >}}/v0.x/stdlib/experimental/to/) functions.
 - Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
 
-#### InfluxQL engine
+#### InfluxQL
 
 - `SHOW MEASUREMENTS ON` now supports database and retention policy wildcards. For example, `SHOW MEASUREMENTS ON *.*` to show all databases and `SHOW MEASUREMENTS ON <db>.*` to show all retention policies.
 -  Add hyper log operators `merge_hll`, `sum_hll`, and `count_hll` in InfluxQL to optimize series iteration. (`count_hll` optimizes queries that can be answered without inspecting TSM data.)
