@@ -14,12 +14,24 @@ weight: 101
 
 ### `influx` CLI moved to separate repository
 
-The `influx` CLI has been moved to its own GitHub [repository](https://github.com/influxdata/influx-cli/). Release artifacts produced by `influxdb` are impacted as follows:
+The `influx` CLI has been moved to its own GitHub [repository](https://github.com/influxdata/influx-cli/).
 
-- Release archives (`.tar.gz` and `.zip`) no longer contain the `influx` binary.
-- The `influxdb2` package (`.deb` and `.rpm`) no longer contains the `influx` binary. Instead, the package declares a recommended dependency on the new `influxdb2-cli` package.
-- The `quay.io/influxdb/influxdb` image no longer contains the `influx` binary. We recommend migrating to the `influxdb` image hosted on [DockerHub](https://hub.docker.com/_/influxdb).
-- With this change, versions of the `influx` CLI and InfluxDB server (`influxd`) are not guaranteed to exactly match. Please see `influxd version` or curl `<your-server-url>/health` to check the version of the `influxd` server. The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
+#### `influxdb` release artifacts affected
+
+{{% warn %}} Release artifacts produced by `influxdb` are impacted as follows:
+
+- Release archives (`.tar.gz` and `.zip`) **no longer contain** the `influx` binary.
+- The `influxdb2` package (`.deb` and `.rpm`) **no longer contains** the `influx` binary. Instead, the package declares a recommended dependency on the new `influxdb2-cli` package.
+- The `quay.io/influxdb/influxdb` image **no longer contains** the `influx` binary. We recommend migrating to the `influxdb` image hosted on [DockerHub](https://hub.docker.com/_/influxdb).
+{{% /warn %}}
+
+#### Find supported `influx` CLI commands
+
+With this change, versions of the `influx` CLI and InfluxDB server (`influxd`) are not guaranteed to exactly match. To check the version of the `influxd` server, see `influxd version` in `influx` CLI or curl `<your-server-url>/health`.
+
+  {{% note %}}
+  The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
+  {{% /note %}}
 
 ### Features
 
