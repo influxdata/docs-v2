@@ -118,7 +118,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 ### Bug fixes
 
 - Log API errors to server logs and tell clients to check the server logs for the error message.
-- Fix pagination for GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an organization filter AND the after request parameter. Also fix `descending` parameter to correctly sort when an org filter is used and saved.
+- Fix pagination for GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an `org` filter AND the `after` request parameter. Also corrects `descending` parameter to sort when an `org` filter is used and saved.
 - Sync series segment to disk after writing.
 - Do not allow shard creation to create overlapping shards.
 - Don't drop shard group durations when upgrading InfluxDB.
