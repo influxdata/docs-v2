@@ -52,6 +52,13 @@
       }
     }
   }
+  &.small {
+    p { justify-content: flex-start; }
+    a {
+      flex-grow: unset;
+      padding: 0rem .5rem;
+    }
+  }
 }
 
 .code-tabs {

@@ -8,9 +8,42 @@ menu:
     name: influx CLI 
 ---
 
+## v2.2.0 [2021-10-21]
+
+This release includes three new features and bug fixes.
+
+## Features
+
+This release makes it easier to create API tokens with the `influx` CLI, adds support for viewing more than 20 buckets using `influx bucket list`, and adds a shorthand flag for bucket (`-b`) to `influx delete`.
+
+### Create an All-Access token in the influx CLI
+
+- Add the ability to use the `influx` CLI to [create an All-Access API token](/influxdb/cloud/security/tokens/create-token/#create-a-token-using-the-influx-cli) with read and write permissions to all resources in an organization.
+
+  {{% oss-only %}}
+
+### Create an Operator token in the influx CLI
+
+- Add the ability to use the `influx` CLI to [create an Operator token](/influxdb/v2.0/security/tokens/#operator-token) with read and write permissions to all resources in all organizations available in InfluxDB. (Note, this is the same permissions generated for the initial token created by `influx setup` or `influxd upgrade`.)
+  {{% /oss-only %}}
+
+### View more buckets in the influx CLI
+
+Update [`influx bucket list`](/influxdb/cloud/reference/cli/influx/bucket/list/) with pagination to support displaying more than 20 buckets. By default, buckets are fetched in batches of 20; set `--page-size` to override this default value. You may also limit the total number of buckets to display with `--limit` (by default, there's no limit).
+
+### New bucket shorthand for influx delete
+
+Add the shorthand flag `-b` for `--bucket` to [`influx delete`](/influxdb/cloud/reference/cli/influx/delete/).
+
+## Bug fixes
+
+- Detect and warn when the Operator token is changed using `influx restore` (either setting a new `--active` config or updating the `INFLUX_TOKEN` variable).
+- Set newly-created connection configuration as active in `influx setup`.
+- Embed timezone data into Windows builds to avoid errors.
+
 ## v2.1.1 [2021-09-24]
 
-## Go version 
+## Go version
 
 Upgrade to Go 1.17.
 

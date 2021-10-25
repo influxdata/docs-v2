@@ -23,6 +23,13 @@ blockquote {
     color: rgba($article-text, .5);
   }
   *:last-child {margin-bottom: 0;}
+  .cite {
+    display: block;
+    margin-top: -1rem;
+    font-style: italic;
+    font-size: .85rem;
+    opacity: .8;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

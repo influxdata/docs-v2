@@ -21,6 +21,7 @@ The `prometheus.scrape()` function retrieves [Prometheus-formatted metrics](http
 from a specified URL.
 The function groups metrics (including histogram and summary values) into individual tables.
 
+{{< keep-url >}}
 ```js
 import "experimental/prometheus"
 

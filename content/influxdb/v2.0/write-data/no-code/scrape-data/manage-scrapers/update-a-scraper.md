@@ -1,15 +1,15 @@
 ---
-title: Update a scraper
-seotitle: Update an InfluxDB scraper
+title: Update an InfluxDB scraper
+list_title: Update a scraper
 description: Update an InfluxDB scraper that collects data from InfluxDB or a remote endpoint.
 aliases:
   - /influxdb/v2.0/collect-data/scrape-data/manage-scrapers/update-a-scraper
   - /influxdb/v2.0/write-data/scrape-data/manage-scrapers/update-a-scraper
 menu:
   influxdb_2_0:
+    name: Update a scraper
     parent: Manage scrapers
 weight: 302
-products: [oss]
 ---
 
 Update a scraper in the InfluxDB user interface (UI).

@@ -49,7 +49,7 @@ The Javascript client library includes the following convenient features for wri
    - *`YOUR_BUCKET`*: InfluxDB bucket name
 
 3. To apply one or more [tags](/influxdb/v2.0/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
-   Provide tags as an object of key/value pairs.
+   Provide tags as an object of key-value pairs.
 
     ```js
     writeApi.useDefaultTags({region: 'west'})

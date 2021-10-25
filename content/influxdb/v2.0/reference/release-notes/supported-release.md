@@ -3,7 +3,7 @@ title: Supported releases
 description: >
   Supported releases made to InfluxData. 
 menu:
-  influxdb_2_0:
+  influxdb_2_0_ref:
     name: Supported releases 
     parent: Release notes
 weight: 204

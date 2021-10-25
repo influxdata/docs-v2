@@ -7,8 +7,8 @@ influxdb:
   latest: v2.0
   latest_override: v2.0
   latest_patches:
-    "2.0": 8
-    "1.8": 9
+    "2.0": 9
+    "1.8": 10
     "1.7": 11
     "1.6": 6
     "1.5": 5
@@ -73,8 +73,8 @@ enterprise_influxdb:
   versions: [v1.5, v1.6, v1.7, v1.8, v1.9]
   latest: v1.9
   latest_patches:
-    "1.9": 3
-    "1.8": 7
+    "1.9": 5
+    "1.8": 10
     "1.7": 10
     "1.6": 6
     "1.5": 4
