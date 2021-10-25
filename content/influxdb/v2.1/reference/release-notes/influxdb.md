@@ -1,5 +1,5 @@
 ---
-title: InfluxDB 2.1 release notes
+title: InfluxDB v2.0 release notes
 description: Important changes and what's new in each version of InfluxDB.
 menu:
   influxdb_2_1_ref:
