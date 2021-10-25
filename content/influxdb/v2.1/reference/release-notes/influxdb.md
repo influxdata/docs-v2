@@ -38,7 +38,6 @@ With this change, versions of the `influx` CLI and InfluxDB server (`influxd`) a
 This release includes the following new features:
 
 - [Notebooks, annotations, and visualization updates](#notebooks-annotations-and-visualization-updates)
-- [SQLite metadata store](#sqlite-metadata-store)
 - [API](#api) and [CLI](#cli) updates
 - Support for latest [Flux](#flux) and [Telegraf](#telegraf) releases
 - Updates to the [InfluxQL](#influxql)
