@@ -164,7 +164,7 @@ The following `params` object provides a key-value pair for each parameter refer
 }
 ```
 
-The following example uses `/api/v2/scripts` to create the script and invoke the new script ID with `params`.
+The following example uses the `/api/v2/scripts` InfluxDB API endpoint to create the script and invoke the new script ID with `params`.
 ```sh
 {{% get-shared-text "api/v2.0/api-invocable-scripts/invoke_with_params.sh" %}}
 ```
