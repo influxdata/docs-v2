@@ -16,9 +16,9 @@ weight: 101
 
 The `influx` CLI has been moved to its own GitHub [repository](https://github.com/influxdata/influx-cli/).
 
+{{% warn %}}
 #### `influxdb` release artifacts affected
-
-{{% warn %}} Release artifacts produced by `influxdb` are impacted as follows:
+Release artifacts produced by `influxdb` are impacted as follows:
 
 - Release archives (`.tar.gz` and `.zip`) **no longer contain** the `influx` binary.
 - The `influxdb2` package (`.deb` and `.rpm`) **no longer contains** the `influx` binary. Instead, the package declares a recommended dependency on the new `influxdb2-cli` package.
@@ -27,11 +27,11 @@ The `influx` CLI has been moved to its own GitHub [repository](https://github.co
 
 #### Find supported `influx` CLI commands
 
-With this change, versions of the `influx` CLI and InfluxDB server (`influxd`) are not guaranteed to exactly match. To check the version of the `influxd` server, see `influxd version` in `influx` CLI or curl `<your-server-url>/health`.
+With this change, versions of the `influx` CLI and InfluxDB server (`influxd`) are not guaranteed to exactly match. To check the version of the `influxd` server, see `influxd version` in `influx` CLI or use the `/health` endpoint of your InfluxDB server.
 
-  {{% note %}}
-  The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
-  {{% /note %}}
+{{% note %}}
+The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
+{{% /note %}}
 
 ### Features
 
