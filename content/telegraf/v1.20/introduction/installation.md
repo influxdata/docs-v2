@@ -46,13 +46,7 @@ aren't synchronized with NTP, the timestamps on the data can be inaccurate.
 {{% tab-content %}}
 Debian and Ubuntu users can install the latest stable version of Telegraf using the `apt-get` package manager.
 
-### Ubuntu
-Telegraf is available in **Ubuntu 21.04+**.
-Install by running:
-
-```sh
-sudo apt-get update && sudo apt-get install telegraf
-```
+### Ubuntu & Debian
 
 Install Telegraf from the InfluxData repository with the following commands:
 
@@ -64,77 +58,22 @@ Install Telegraf from the InfluxData repository with the following commands:
 
 {{% code-tab-content %}}
 ```bash
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-source /etc/lsb-release
-echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+wget -qO- https://repos.influxdata.com/influxdb.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
+source /etc/os-release
+echo "deb https://repos.influxdata.com/${ID} ${VERSION_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+sudo apt-get update && sudo apt-get install telegraf
 ```
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 ```bash
-curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-source /etc/lsb-release
-echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+curl -s https://repos.influxdata.com/influxdb.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
+source /etc/os-release
+echo "deb https://repos.influxdata.com/${ID} ${VERSION_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+sudo apt-get update && sudo apt-get install telegraf
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-### Debian
-Add the InfluxData repository with the following commands:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[wget](#)
-[curl](#)
-{{% /code-tabs %}}
-
-{{< code-tab-content >}}
-```bash
-# Before adding Influx repository, run this so that apt will be able to read the repository.
-
-sudo apt-get update && sudo apt-get install apt-transport-https
-
-# Add the InfluxData key
-
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -  
-source /etc/os-release  
-test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-test $VERSION_ID = "9" && echo "deb https://repos.influxdata.com/debian stretch stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-test $VERSION_ID = "10" && echo "deb https://repos.influxdata.com/debian buster stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-```
-{{< /code-tab-content >}}
-
-{{< code-tab-content >}}
-```bash
-# Before adding Influx repository, run this so that apt will be able to read the repository.
-
-sudo apt-get update && sudo apt-get install apt-transport-https
-
-# Add the InfluxData key
-
-curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-source /etc/os-release
-test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-test $VERSION_ID = "9" && echo "deb https://repos.influxdata.com/debian stretch stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-test $VERSION_ID = "10" && echo "deb https://repos.influxdata.com/debian buster stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-```
-{{< /code-tab-content >}}
-{{< /code-tabs-wrapper >}}
-
-Then, install and start the Telegraf service:
-
-```bash
-sudo apt-get update && sudo apt-get install telegraf
-sudo service telegraf start
-```
-
-Or if your operating system is using systemd (Ubuntu 15.04+, Debian 8+):
-```
-sudo apt-get update && sudo apt-get install telegraf
-sudo systemctl start telegraf
-```
 
 **Install from a `.deb` file**:
 
@@ -145,7 +84,7 @@ To manually install the Debian package from a `.deb` file:
 2. Run the following command (making sure to supply the correct version number for the downloaded file):
 
    ```sh
-   sudo sudo dpkg -i telegraf_{{< latest-patch >}}-1_amd64.deb
+   sudo dpkg -i telegraf_{{< latest-patch >}}-1_amd64.deb
    ```
 
 {{% telegraf/verify %}}
@@ -185,18 +124,10 @@ gpgkey = https://repos.influxdata.com/influxdb.key
 EOF
 ```
 
-Once repository is added to the `yum` configuration,
-install and start the Telegraf service by running:
+Install telegraf once repository is added to the `yum` configuration:
 
 ```bash
 sudo yum install telegraf
-sudo service telegraf start
-```
-
-Or if your operating system is using systemd (CentOS 7+, RHEL 7+):
-```
-sudo yum install telegraf
-sudo systemctl start telegraf
 ```
 
 {{% telegraf/verify %}}
