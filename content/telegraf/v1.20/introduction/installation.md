@@ -124,7 +124,7 @@ gpgkey = https://repos.influxdata.com/influxdb.key
 EOF
 ```
 
-Install telegraf once repository is added to the `yum` configuration:
+Install telegraf once the repository is added to the `yum` configuration:
 
 ```bash
 sudo yum install telegraf
