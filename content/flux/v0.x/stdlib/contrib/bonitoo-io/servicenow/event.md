@@ -81,7 +81,7 @@ Resource related to the event (for example, `CPU-1`).
 Default is an empty string (`""`).
 
 ### metricName {data-type="string"}
-Metric name related to the event (for example, "usage_idle").
+Metric name related to the event (for example, `usage_idle`).
 Default is an empty string (`""`).
 
 ### messageKey {data-type="string"}

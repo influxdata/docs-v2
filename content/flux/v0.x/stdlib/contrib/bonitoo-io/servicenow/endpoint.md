@@ -77,7 +77,6 @@ endpoint = servicenow.endpoint(
     password: password
 )
 
-
 crit_events = from(bucket: "example-bucket")
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
