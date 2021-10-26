@@ -1,7 +1,7 @@
 new_script_id=$(
   curl -v -X 'POST' \
     "${INFLUX_URL}/api/v2/scripts" \
-    --header "Authorization: Token ${INFLUX_API_TOKEN}" \
+    --header "Authorization: Token ${INFLUX_TOKEN}" \
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json' \
     --data-binary @- << EOF | jq -r '.id' 
@@ -20,7 +20,7 @@ EOF
 
 curl -vv -X 'POST' \
   "${INFLUX_URL}/api/v2/scripts/${new_script_id}/invoke" \
-  --header "Authorization: Token ${INFLUX_API_TOKEN}" \
+  --header "Authorization: Token ${INFLUX_TOKEN}" \
   --header 'Accept: application/csv' \
   --header 'Content-Type: application/json' \
   --data-binary @- << EOF
