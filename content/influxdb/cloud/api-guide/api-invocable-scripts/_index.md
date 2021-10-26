@@ -142,7 +142,7 @@ The Flux script references the following parameters:
 
 To provide values for the parameters, send a `POST` request to `/api/v2/scripts/SCRIPT_ID/invoke` and provide a [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) object that contains a `params` object. Inside the params object, define a key-value pair for each parameter referenced in the script. The object must be valid [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON).
 
-Consider an `air_sensor` bucket that contains `airSensors` measurements. Each measurement has a `temperature`, `humidity`, or `co` field.
+Consider an `air_sensor` bucket that contains `airSensors` measurements. Each point has a `temperature`, `humidity`, or `co` field.
 ```csv
 ,result,table,_start,_stop,_time,_value,_field,_measurement,sensor_id
 ,_result,0,2021-09-25T22:20:11.493547551Z,2021-10-25T22:20:11.493547551Z,2021-09-28T16:13:05Z,75.30007505999716,temperature,airSensors,TLM0202
