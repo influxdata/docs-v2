@@ -48,6 +48,13 @@ To create an invocable script that accepts parameters (variables),
 reference the parameters as properties of the `params` object, e.g. `params.firstparam`.
 `params` is an InfluxDB object that defines runtime variables.
 You provide values for `params` when you [invoke a script](#invoke-a-script).
+If you don't provide a value for a referenced parameter, InfluxDB returns the following error:
+```json
+{
+  "code":"invalid",
+  "message":"invalid parameters provided"
+}
+```
 
 ## Examples
 
@@ -106,6 +113,75 @@ The following example invokes the created script and passes "air_sensor" as the 
 ```
 
 InfluxDB returns query results in [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) from the `air_sensor` bucket.
+
+### Pass multiple parameter values to a script
+If the script references multiple parameters, provide values for all parameters.
+To provide values for multiple parameters, send an object that contains a `params` object.
+In `params`, add the parameter names as keys and define a value for each key.
+
+The following **invocable script** object references four parameters:
+
+```json
+    {
+      "name": "filter-and-group",
+      "description": "Filters and groups points in a bucket. Expects parameters bucket, filterField, filterField2, and groupColumn.",
+      "orgID": "${INFLUX_ORG_ID}",
+      "script": "from(bucket: params.bucket) \
+                 |> range(start: -30d) \
+                 |> filter(fn: (r) => r._field == params.filterField or r._field == params.filterField2) \
+                 |> group(columns: [params.groupColumn])",
+       "language": "flux"
+    }
+```
+
+The Flux script references the following parameters:
+- `params.bucket`
+- `params.filterField`
+- `params.filterField2`
+- `params.groupColumn`
+
+To provide values for the parameters, send a `POST` request to `/api/v2/scripts/SCRIPT_ID/invoke` and provide a [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) object that contains a `params` object. Inside the params object, define a key-value pair for each parameter referenced in the script. The object must be valid [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON).
+
+Consider an `air_sensor` bucket that contains `airSensors` measurements. Each measurement has a `temperature`, `humidity`, or `co` field.
+```csv
+,result,table,_start,_stop,_time,_value,_field,_measurement,sensor_id
+,_result,0,2021-09-25T22:20:11.493547551Z,2021-10-25T22:20:11.493547551Z,2021-09-28T16:13:05Z,75.30007505999716,temperature,airSensors,TLM0202
+,_result,1,2021-09-25T22:20:11.493547551Z,2021-10-25T22:20:11.493547551Z,2021-09-28T16:13:05Z,73,temperature,airSensors,TLM0201
+,_result,2,2021-09-25T22:20:11.493547551Z,2021-10-25T22:20:11.493547551Z,2021-09-28T16:13:05Z,35,humidity,airSensors,TLM0201
+,_result,3,2021-09-25T22:20:11.493547551Z,2021-10-25T22:20:11.493547551Z,2021-09-28T16:13:05Z,0.5141876544505826,co,airSensors,TLM0202
+,_result,4,2021-09-25T22:20:11.493547551Z,2021-10-25T22:20:11.493547551Z,2021-09-28T16:13:05Z,0.48445310567793615,co,airSensors,TLM0201
+,_result,5,2021-09-25T22:20:11.493547551Z,2021-10-25T22:20:11.493547551Z,2021-09-28T16:13:05Z,35.651929918691714,humidity,airSensors,TLM0202
+```
+The following `params` object provides a key-value pair for each parameter referenced in the script. 
+```json
+{ "params":
+  {
+    "bucket": "air_sensor",
+    "filterField": "temperature",
+    "filterField2": "humidity",
+    "groupColumn": "_time"
+  }
+}
+```
+
+The following example uses `/api/v2/scripts` to create the script and invoke the new script ID with `params`.
+```sh
+{{% get-shared-text "api/v2.0/api-invocable-scripts/invoke_with_params.sh" %}}
+```
+
+InfluxDB returns points from `air_sensor` that have `temperature` or `humidity` fields.
+Points are grouped by the `_time` column.
+Each unique `table` value represents a group.
+
+```sh
+,result,table,_start,_stop,_time,_value,_field,_measurement,sensor_id
+,_result,0,2021-09-25T21:10:01.810564864Z,2021-10-25T21:10:01.810564864Z,2021-09-28T16:13:05Z,73,temperature,airSensors,TLM0201
+,_result,0,2021-09-25T21:10:01.810564864Z,2021-10-25T21:10:01.810564864Z,2021-09-28T16:13:05Z,75.30007505999716,temperature,airSensors,TLM0202
+,_result,0,2021-09-25T21:10:01.810564864Z,2021-10-25T21:10:01.810564864Z,2021-09-28T16:13:05Z,35,humidity,airSensors,TLM0201
+,_result,0,2021-09-25T21:10:01.810564864Z,2021-10-25T21:10:01.810564864Z,2021-09-28T16:13:05Z,35.651929918691714,humidity,airSensors,TLM0202
+,_result,1,2021-09-25T21:10:01.810564864Z,2021-10-25T21:10:01.810564864Z,2021-09-28T16:57:57Z,75.30007505999716,temperature,airSensors,TLM0202
+,_result,1,2021-09-25T21:10:01.810564864Z,2021-10-25T21:10:01.810564864Z,2021-09-28T16:57:57Z,35.651929918691714,humidity,airSensors,TLM0202
+```
 
 ## List invocable scripts
 To list scripts for an organization, send a request using the `GET` method to the `/api/v2/scripts` InfluxDB API endpoint.
