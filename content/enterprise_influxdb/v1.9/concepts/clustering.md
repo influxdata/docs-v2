@@ -17,7 +17,7 @@ and then outlines implementation details.
 
 ## Architectural overview
 
-An InfluxDB Enterprise installation consists of two separate software processes: data nodes and meta nodes.
+An InfluxDB Enterprise installation consists of two groups of software processes: data nodes and meta nodes.
 Communication within a cluster looks like this:
 
 {{< diagram >}}

@@ -158,7 +158,7 @@ sudo systemctl stop influxdb
 
     {{% note %}}
 Stopping the `influxdb` process the data node takes longer than disabling
-traffic at the load balancer, but but ensures all writes stop, including writes
+traffic at the load balancer, but it ensures all writes stop, including writes
 from other data nodes in the cluster.
     {{% /note %}}
 
