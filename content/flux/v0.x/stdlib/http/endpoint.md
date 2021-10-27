@@ -16,8 +16,8 @@ introduced: 0.39.0
 ---
 
 The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.
-Output tables include a `_sent` column that indicates whether or not the
-the row's HTTP request sent successfully (`true` or `false`).
+Output tables include a `_sent` column that indicates whether the
+the row's HTTP request was sent successfully (`true` or `false`).
 
 ```js
 import "http"

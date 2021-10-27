@@ -23,8 +23,8 @@ introduced: 0.90.0
 The `sensu.endpoint()` function sends an event to the
 [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
 using data from table rows.
-Output tables include a `_sent` column that indicates whether or not the
-the row's notification sent successfully (`true` or `false`).
+Output tables include a `_sent` column that indicates whether the
+the row's notification was sent successfully (`true` or `false`).
 
 ```js
 import "contrib/sranka/sensu"

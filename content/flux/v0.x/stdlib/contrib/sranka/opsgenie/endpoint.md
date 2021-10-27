@@ -15,8 +15,8 @@ introduced: 0.84.0
 ---
 
 The `opsgenie.endpoint()` function sends an alert message to Opsgenie using data from table rows.
-Output tables include a `_sent` column that indicates whether or not the
-the row's notification sent successfully (`true` or `false`).
+Output tables include a `_sent` column that indicates whether the
+the row's notification was sent successfully (`true` or `false`).
 
 ```js
 import "contrib/sranka/opsgenie"

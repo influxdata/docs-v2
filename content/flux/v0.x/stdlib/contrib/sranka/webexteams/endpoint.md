@@ -16,8 +16,8 @@ flux/v0.x/tags: [transformations, notification endpoints]
 
 The `webexteams.endpoint()` function returns a function. The returned function sends a message that
 includes data from input rows to a Webex room.
-Output tables include a `_sent` column that indicates whether or not the
-the row's notification sent successfully (`true` or `false`).
+Output tables include a `_sent` column that indicates whether the
+the row's notification was sent successfully (`true` or `false`).
 
 ```js
 import "contrib/sranka/webexteams"

@@ -19,7 +19,7 @@ Discord, SMTP providers, and others.
 Each notification-related package includes the following:
 
 - One or more functions to send a single notification.
-- An `endpoint` function that, in practive, iterates over a stream of tables and
+- An `endpoint` function that, in practice, iterates over a stream of tables and
   sends a notification for each input row.
 
 ## Notification conventions
@@ -125,7 +125,7 @@ data
 {{< /expand-wrapper >}}
 
 ### Endpoint notification convention
-The endpoint convention uses [notification endpoint functions](flux/v0.x/function-types/#notification-endpoints) 
+The endpoint convention uses [notification endpoint functions](/flux/v0.x/function-types/#notification-endpoints) 
 to iterate over all input rows and send a notification for each row.
 
 {{% note %}}
@@ -160,7 +160,7 @@ The example below does the following:
     2.  `()` executes the function returned by `endpoint() => (mapFn)`
 
 **This example sends four notifications to Slack**, one notification for each row with a
-`_value` above 15.0 and appends the a boolean value indicating the success of
+`_value` above 15.0, and appends a boolean value indicating the success of
 the notification request.
 
 ```js

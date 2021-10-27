@@ -19,8 +19,8 @@ introduced: 0.74.0
 The `discord.endpoint()` function sends a single message to a Discord channel using
 a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3)
 and data from table rows.
-Output tables include a `_sent` column that indicates whether or not the
-the row's notification sent successfully (`true` or `false`).
+Output tables include a `_sent` column that indicates whether the
+the row's notification was sent successfully (`true` or `false`).
 
 ```js
 import "contrib/chobbs/discord"

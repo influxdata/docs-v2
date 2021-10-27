@@ -17,8 +17,8 @@ introduced: 0.66.0
 
 The `pushbullet.endpoint()` function creates the endpoint for the Pushbullet API
 and sends a notification of type `note`.
-Output tables include a `_sent` column that indicates whether or not the
-the row's notification sent successfully (`true` or `false`).
+Output tables include a `_sent` column that indicates whether the
+the row's notification was sent successfully (`true` or `false`).
 
 ```js
 import "pushbullet"

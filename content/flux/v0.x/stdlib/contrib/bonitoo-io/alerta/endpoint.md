@@ -16,8 +16,8 @@ introduced: 0.115.0
 
 The `alerta.endpoint()` function sends alerts to [Alerta](https://alerta.io/)
 using data from each input row.
-Output tables include a `_sent` column that indicates whether or not the
-the row's notification sent successfully (`true` or `false`).
+Output tables include a `_sent` column that indicates whether the
+the row's notification was sent successfully (`true` or `false`).
 
 _**Function type:** Output_
 
