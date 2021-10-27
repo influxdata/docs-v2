@@ -51,8 +51,8 @@ slack.message(
     url: "https://slack.com/api/chat.postMessage",
     token: "mySuPerSecRetSlackTokEn",
     channel: "#my-channel",
-    text: "*${p.fname} ${p.lname}* is *${r._value}* at ${r._time}."
-    color: "warning"
+    text: "*${p.fname} ${p.lname}* is *${p.age}*."
+    color: "good"
 )
 ```
 
