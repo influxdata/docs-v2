@@ -1,7 +1,7 @@
 ---
 title: Clustering in InfluxDB Enterprise
 description: >
-  Learn how meta nodes, data nodes, and the Enterprise web server interact in InfluxDB Enterprise.
+  Learn how meta nodes and data nodes interact in InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.9/concepts/clustering/
 menu:
@@ -11,11 +11,14 @@ menu:
     parent: Concepts
 ---
 
-This document describes in detail how clustering works in InfluxDB Enterprise. It starts with a high level description of the different components of a cluster and then delves into the implementation details.
+This document describes in detail how clustering works in InfluxDB Enterprise.
+It starts with a high level description of the different components of a cluster
+and then outlines implementation details.
 
 ## Architectural overview
 
-An InfluxDB Enterprise installation consists of three separate software processes: data nodes, meta nodes, and the Enterprise web server. To run an InfluxDB cluster, only the meta and data nodes are required. Communication within a cluster looks like this:
+An InfluxDB Enterprise installation consists of two separate software processes: data nodes and meta nodes.
+Communication within a cluster looks like this:
 
 {{< diagram >}}
 flowchart TB
@@ -27,7 +30,6 @@ flowchart TB
     Data1 <-- TCP :8088 --> Data2
   end
 {{< /diagram >}}
-
 
 The meta nodes communicate with each other via a TCP protocol and the Raft consensus protocol that all use port `8089` by default. This port must be reachable between the meta nodes. The meta nodes also expose an HTTP API bound to port `8091` by default that the `influxd-ctl` command uses.
 
