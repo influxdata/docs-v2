@@ -16,14 +16,14 @@ Discord, SMTP providers, and others.
 {{< children >}}
 
 ## Notification packages
-Notification-related packages each include the following:
+Each notification-related package includes the following:
 
 - One or more functions to send a single notification.
 - An `endpoint` function that, in practive, iterates over a stream of tables and
   sends a notification for each input row.
 
 ## Notification conventions
-There are three primary conventions for sending notifications with Flux:
+Three primary conventions exist for sending notifications with Flux:
 
 - [One-off notification convention](#one-off-notification-convention)
 - [Map notification convention](#map-notfication-convention)
@@ -49,7 +49,7 @@ p = {fname: "John", lname: "Doe" age: 42}
 
 slack.message(
     url: "https://slack.com/api/chat.postMessage",
-    token: "mySuPerSecRetTokEn",
+    token: "mySuPerSecRetSlackTokEn",
     channel: "#my-channel",
     text: "*${p.fname} ${p.lname}* is *${r._value}* at ${r._time}."
     color: "warning"
@@ -71,8 +71,8 @@ The example below does the following:
     populate the `sent` column with the output of [`slack.message()`](/flux/v0.x/stdlib/slack/message/).
     Row data is used to populate parameters in `slack.message()`.
 
-**This example sends four notifications to Slack**; one for each row with a `_value`
-above 15.0 and appends the HTTP response code of the message request to each row.
+**This example sends four notifications to Slack**, one for each row with a `_value`
+above 15.0 and appends the HTTP status code of the message request to each row.
 
 ```js
 import "sampledata"
@@ -85,7 +85,7 @@ data
   |> map(fn: (r) => ({
       r with sent: slack.message(
           url: "https://slack.com/api/chat.postMessage",
-          token: "mySuPerSecRetTokEn",
+          token: "mySuPerSecRetSlackTokEn",
           channel: "#my-channel",
           text: "Oh no! *${r.tag}* had a value of *${r._value}* at ${r._time}."
           color: "warning"
@@ -136,7 +136,7 @@ but behaves essentially the same as the [map convention](#map-notification-conve
 
 `*.endpoint()` function parameters are typically connection credentials required
 to connect to the external service.
-The `endpoint()` functions returns another function with a single `mapFn`
+The `endpoint()` function returns another function with a single `mapFn`
 parameter used to produce a [record](/flux/v0.x/data-types/composite/record/)
 that maps row data to fields required by the external service's API.
 This function also returns a function that iterates over each input row,
@@ -159,7 +159,7 @@ The example below does the following:
         other data required by the Slack API.
     2.  `()` executes the function returned by `endpoint() => (mapFn)`
 
-**This example sends four notifications to Slack**; one for each row with a
+**This example sends four notifications to Slack**, one notification for each row with a
 `_value` above 15.0 and appends the a boolean value indicating the success of
 the notification request.
 
@@ -169,7 +169,7 @@ import "slack"
 
 endpoint = slack.endpoint(
   url: "https://slack.com/api/chat.postMessage",
-  token: "mySuPerSecRetTokEn"
+  token: "mySuPerSecRetSlackTokEn"
 )
 
 data = sampledata.float()
