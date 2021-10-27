@@ -39,6 +39,8 @@ A **permission** (also *privilege*) is the ability to access a resource in some 
 The level of access and the resource are combined in predefined keys.
 <!-- The enforcement of privileges is handled by the respective TICK stack services. -->
 
+### List of available privileges
+
 Predefined key tokens take the form of verb-object pairs.
 When the token lacks the verb part, full management privileges are implied.
 These predefined tokens are:

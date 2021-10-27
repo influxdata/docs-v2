@@ -220,13 +220,13 @@ Consider using [Chronograf](/{{< latest "chronograf" >}}/administration/managing
 and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
 to manage InfluxDB Enterprise users and roles.
 
-
-However, InfluxDB Enterprise offers more granular permissions than InfluxDB OSS.  You can use Chronograf to
-access and assign these more granular permissions to individual users.
+However, InfluxDB Enterprise offers more granular permissions than InfluxDB OSS.
+You can use Chronograf to access and assign these more granular permissions to individual users.
 
 The [InfluxDB Enterprise meta API]() provides the most comprehensive way to manage users, roles, permission 
 and other [fine grained authorization]() (FGA) capabilities.
 
+<!-- TODO -->
 Provide the links to FGA....and to the other meta API usage.
 
 <!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
