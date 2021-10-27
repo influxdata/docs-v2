@@ -55,7 +55,7 @@ This release includes the following new features:
 
 - Add new parameters to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
 - Add the [`api/v2/backup/metadata`](/influxdb/v2.0/api/#operation/GetBackupMetadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2.0/api/#operation/GetRoutes) for restoring SQL metadata.
-- Deprecated [`POST .../secrets/delete`](/influxdb/v2.0/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}](/influxdb/v2.0/api/#operation/DeleteOrgsIDSecretsID).
+- Deprecated [`POST .../secrets/delete`](/influxdb/v2.0/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}`](/influxdb/v2.0/api/#operation/DeleteOrgsIDSecretsID).
 
 #### CLI
 
