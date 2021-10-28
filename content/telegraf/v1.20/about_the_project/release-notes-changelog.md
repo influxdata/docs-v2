@@ -63,7 +63,7 @@ menu:
 - [Elasticsearch Query](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/elasticsearch_query) - Contributed by @lpic10
 - [Internet Speed Monitor](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/internet_speed) - Contributed by @ersanyamarya
 - [mdstat](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mdstat) - Contributed by @johnseekins
-- [ROCm System Management Interface (SMI)](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/amd_rocm_smi) - Contributed by @mconcas
+- [AMD ROCm System Management Interface (SMI)](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/amd_rocm_smi) - Contributed by @mconcas
 
 #### Output
 - [OpenTelemetry](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/opentelemetry) - Contributed by @jacobmarble

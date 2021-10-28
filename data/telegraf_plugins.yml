@@ -1549,7 +1549,7 @@ input:
   - name: AMD ROCm System Management Interface (SMI)
     id: amd_rocm_smi
     description: |
-      The ROCm System Management Interface plugin pulls statistics from AMD GPUs including memory, usage, and temperature.
+      The AMD ROCm System Management Interface plugin pulls statistics from AMD GPUs including memory, usage, and temperature.
     introduced: 1.20.0
     tags: [linux, macos, windows, systems]
 
