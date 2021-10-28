@@ -12,7 +12,13 @@ related:
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
-<!--
+This guide covers the basics of securing and managing access to an InfluxDB Enterprise cluster.
+There are two aspects to consider:
+*authentication* (verifying a user's identity)
+and *authorization* (verifying what the user has access to).
+
+After enabling authentication, we will walk through some basic examples of managing users and permissions.
+
 {{% note %}}
 #### Authentication recommended on public endpoints
 If InfluxDB Enterprise is being deployed on a publicly accessible endpoint,
@@ -23,24 +29,15 @@ InfluxDB Enterprise should be run behind a third-party service.
 Authentication and authorization should not be soley relied upon
 to prevent access and protect data from malicious actors.
 {{% /note %}}
--->
-
-This guide covers the basics of securing and managing access to an InfluxDB Enterprise cluster.
-There are two aspects to consider: 
-*authentication* (verifying a user's identity)
-and *authorization* (verifying what the user has access to).
-
-<!-- After enabling authentication, we will walk through some basic examples of managing users and permissions. -->
 
 ## Enable authentication
 
-In InfluxDB Enterprise authentication must be enabled *before* authorization can be managed.
-
 Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
-
 Once you have a working cluster
 (that is, after [installing the data nodes](/enterprise_influxdb/v1.9/introduction/install-and-deploy/installation/data_node_installation/)),
 we recommend enabling authenticatiion right away to control access to you cluster.
+
+Authentication must be enabled _**before**_ authorization can be managed.
 
 To enable authentication in a cluster, do the following:
 
@@ -50,7 +47,7 @@ To enable authentication in a cluster, do the following:
      # ...
      auth-enabled = true
    ```
-1. Next, create an admin user.
+1. Next, create an admin user (if you haven't already).
    Using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/),
    run the following command:
    ```
@@ -64,38 +61,42 @@ To enable authentication in a cluster, do the following:
 
 ## Permissions in InfluxDB Enterprise
 
-InfluxDB Enterprise has an expanded set of permissions, compared to InfluxDB OSS.
-In InfluxB 1.x OSS, there are only database-level privileges.
-([Fine-grained authorization]() is not available.)
-The three privileges in OSS are `read`, `write`, and `all`.
+Compared to InfluxDB OSS, InfluxDB Enterprise has an expanded set of permissions,
+In InfluxB 1.x OSS, there only database-level privileges: `READ` and `WRITE`.
+A third permission, `ALL`, grants admin privileges.
 
+InfluxDB Enterprise has these permissions and more.
 In addition to these three basic database-level permissions,
 _which can only be granted by InfluxQL_,
 InfluxDB Enterprise's [full set of permissions](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/#list-of-available-privileges)
-allows for controling read and write access to data to all databases at once,
+allows for controling read and write access to data for all databases at once,
 as well as cluster-management actions like creating or deleting resources.
 
 ## Available methods for managing authorization
 
 There are three ways to manage authorizations in InfluxDB Enterprise.
 Each is useful in different scenarios.
-The methods are:
+They are:
 
-- the [`influx` CLI](#influxql) (1.x) with [InfluxQL](#influxql)
-- [Chronograf]()
-- the InfluxDB Enterprise meta API
+- the [`influx` CLI](#influxql) (1.x) with [InfluxQL](#manage-read-and-write-privileges-with-influxql)
+- [Chronograf](#manage-specific-privileges-with-chronograf)
+- the [InfluxDB Enterprise meta API](#influxdb-enterprise-meta-api)
 
-Each of these allows you to manage specific permissions for users by database.
-
-<!-- Also need to handle Chronograf and Kapacitor permssions. -->
+Each of these allows you to manage permissions for specific users.
 
 ### Manage read and write privileges with InfluxQL
+
+{{% note %}}
+InfluxQL provides a quick way to grant read and write privileges.
+However, you can only grant `READ`, `WRITE`, and `ALL PRIVILEGES` privileges with this method.
+For more, see [Manage specific privileges with Chronograf](#manage-specific-privileges-with-chronograf) below.
+{{% /note %}}
 
 InfluxQL can be used to manage basic read and write privileges.
 For example, you can grant Alice the ability to write to a database *X*,
 and then grant Bob the ability to read from that database.
 
-To demonstrate, let's create a new user and allow them some access.
+To demonstrate, let's create a new user and allow her some access.
 First, log in as an admin user.
 The simplest way to do this is to use the `auth` command.
 
@@ -139,86 +140,21 @@ database privilege
 test     WRITE
 ```
 
-InfluxQL provides a quick way to grant read and write privileges.
-However, you can only grant `READ`, `WRITE`, and `ALL` (admin) privileges with this method.
-
 ### Manage specific privileges with Chronograf
 
 The Chronograf user interface can manage the [full set of permissions](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/#list-of-available-privileges).
 
 The permissions listed in Chronograf (and available through the API) are global for the cluster.
-Outside of [FGA](), the only database-level permissions available are read and write.
+Outside of [FGA](), the only database-level permissions available are the basic `READ` and `WRITE`.
 These can only be managed using [the `influx` CLI and InfluxQL](#manage-read-and-write-privileges-with-influxql).
 
-### API
+To manage privileges in Chronograf:
 
-The API offers the greatest flexibility when managing authorization.
-It can be used to automate.
+1. Login to Chronograf as an admin user.
+2. Click on **InfluxDB Admin** → **Users**.
+3. Each user has a dropdown for **Permissions**.
+   Select the desired permissions and click **Apply**.
 
-<!-- How does `NoPermissions` behave? https://github.com/influxdata/plutonium/blob/master/meta/data.go#L1833 -->
+### InfluxDB Enterprise meta API
 
-- How can I use the API to grant N permissions to N users?
-
-```sh
-curl -v \
-    -H "Content-Type: application/json" \
-    -X POST \
-    -d '{"action":"create", "user":{"name": "admin", "password": "admin", "permissions":{"":["CreateDatabase","CreateUserAndRole","DropData","DropDatabase","ManageQuery","ManageContinuousQuery","ManageShard","ManageSubscription","Monitor","ReadData","ViewAdmin","ViewChronograf","WriteData"]}}}' \
-    -H "Authorization: Bearer $(./influxd-ctl -auth-type jwt -secret foo2 token)" \
-    localhost:8191/user
-
-{
-  "action": "create",
-  "user": {
-    "name": "admin",
-    "password": "admin",
-    "permissions": {
-      "": [
-        "CreateDatabase",
-        "CreateUserAndRole",
-        "DropData",
-        "DropDatabase",
-        "ManageQuery",
-        "ManageContinuousQuery",
-        "ManageShard",
-        "ManageSubscription",
-        "Monitor",
-        "ReadData",
-        "ViewAdmin",
-        "ViewChronograf",
-        "WriteData"
-      ]
-    }
-  }
-}
-```
-
-Create a user with some permissions:
-
-```json
-{
-  "action": "create",
-  "user": {
-    "name": "admin",
-    "password": "admin",
-    "permissions": {
-      "": [
-        "CreateDatabase",
-        "CreateUserAndRole",
-        "DropData",
-        "DropDatabase",
-        "ManageQuery",
-        "ManageContinuousQuery",
-        "ManageShard",
-        "ManageSubscription",
-        "Monitor",
-        "ReadData",
-        "ViewAdmin",
-        "ViewChronograf",
-        "WriteData"
-      ]
-    }
-  }
-}
-```
-
+For information on using the meta API, see [here](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api).
