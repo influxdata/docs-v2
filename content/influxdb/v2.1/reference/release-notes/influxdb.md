@@ -8,135 +8,112 @@ menu:
 weight: 101
 ---
 
-## v2.1 [unreleased]
+## v2.1 [2021-10-26]
 
 - This release includes several new [features](#features) and [bug fixes](#bug-fixes).
 
-#### influx CLI moved to separate repository
+### `influx` CLI moved to separate repository
 
-The `influx` CLI moved to a separate GitHub [repository](https://github.com/influxdata/influx-cli/). Release artifacts produced by `influxdb` are impacted as follows:
+The `influx` CLI has been moved to its own GitHub [repository](https://github.com/influxdata/influx-cli/).
 
-- Release archives (.tar.gz and .zip) no longer contain the `influx` binary.
-- The `influxdb2` package (.deb and .rpm) no longer contain the `influx` binary. Instead, the package declares a recommended dependency on the new `influx-cli` package.
-- The `quay.io/influxdb/influxdb` image no longer contains the `influx` binary. We recommend migrating to the `influxdb` image hosted in DockerHub.
-- Versions of the `influx` CLI and `influxd` server are not guaranteed to exactly match. Please use `influxd` version or curl `<your-server-url>/health` when checking the server version.
+{{% warn %}}
+#### `influxdb` release artifacts affected
+Release artifacts produced by `influxdb` are impacted as follows:
+
+- Release archives (`.tar.gz` and `.zip`) **no longer contain** the `influx` binary.
+- The `influxdb2` package (`.deb` and `.rpm`) **no longer contains** the `influx` binary. Instead, the package declares a recommended dependency on the new `influxdb2-cli` package.
+- The `quay.io/influxdb/influxdb` image **no longer contains** the `influx` binary. We recommend migrating to the `influxdb` image hosted on [DockerHub](https://hub.docker.com/_/influxdb).
+{{% /warn %}}
+
+#### Find supported `influx` CLI commands
+
+With this change, versions of the `influx` CLI and InfluxDB server (`influxd`) are not guaranteed to exactly match. To check the version of the `influxd` server, see `influxd version` in `influx` CLI or use the `/health` endpoint of your InfluxDB server.
+
+{{% note %}}
+The [`influx` CLI documentation](/influxdb/v2.1/reference/cli/influx/) has been updated to reflect which `influx` CLI commands work with which versions of InfluxDB.
+{{% /note %}}
 
 ### Features
 
-#### Notebooks and annotations
+This release includes the following new features:
 
-Support for notebooks and annotations.
+- [Notebooks, annotations, and visualization updates](#notebooks-annotations-and-visualization-updates)
+- [API](#api) and [CLI](#cli) updates
+- Support for latest [Flux](#flux) and [Telegraf](#telegraf) releases
+- Updates to the [InfluxQL](#influxql)
+- [Token](#tokens) updates
+- [Flux location support](#flux-location-support)
 
+#### Notebooks, annotations, and visualization updates
+
+- Add support for [notebooks](/influxdb/v2.1/notebooks/) and [annotations](/influxdb/v2.1/visualize-data/annotations/).
+- Add support for static legends to line graphs and band plots.
+- Enable new dashboard auto-refresh.
+- Simplify display of data for table visualizations.
 
 #### API
 
-- [22674](https://github.com/influxdata/influxdb/pull/22674): [`/users`](https://docs.influxdata.com/influxdb/v2.0/api/#operation/GetUsers) API now supports pagination. (but when I click issue, it says now supports offset, limit or after parameters
-- Update swagger to include view options for Static Legend
-
-StaticLegend is an object with the following properties
-
-colorizeRows
-disable
-heightRatio
-layer
-orientationThreshold
-widthRatio
-As Static Legend is a work-in-progress, some additional properties may be added and some may be removed.
-#### Flux
-
-- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
-- Enable writing to remote hosts via `to()` and `experimental.to()`
+- Add new parameters to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
+- Add the [`api/v2/backup/metadata`](/influxdb/v2.0/api/#operation/GetBackupMetadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2.0/api/#operation/GetRoutes) for restoring SQL metadata.
+- Deprecated [`POST .../secrets/delete`](/influxdb/v2.0/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}`](/influxdb/v2.0/api/#operation/DeleteOrgsIDSecretsID).
 
 #### CLI
 
-- New `influxd recovery` subcommand lets you create a recovery user/token. [doc issue](https://github.com/influxdata/docs-v2/issues/3222)
-- Show measurement database and retention policy wildcards. [doc issue](https://github.com/influxdata/docs-v2/issues/3201)
-- [22617](https://github.com/influxdata/influxdb/pull/22617): Add `--storage-write-timeout` flag to set write request timeouts
+##### influxd configuration
 
-#### Optimizations
+Added several new configuration options to [`influxd`](/influxdb/v2.1/reference/cli/influxd/):
 
-- [22301](https://github.com/influxdata/influxdb/pull/22301): Multi-measurement query optimization
-- [22322](https://github.com/influxdata/influxdb/pull/22322): Add hyper log log operators (is this related to 2.0.9 (or in another release?) re optimizing series iteration for queries that can be answered without inspecting TSM data.)
-- [22316](https://github.com/influxdata/influxdb/pull/22316): Optimize series iteration
+- Add `influxd recovery` command to let you create a recovery [Operator token](/influxdb/v2.1/security/tokens/#operator-token).
+- Add `--sqlite-path` flag for specifying a user-defined path to the SQLite database file.
+- Add `--storage-wal-max-concurrent-writes` flag to enable tuning memory pressure under heavy write load.
+- Add `--storage-wal-max-write-delay` flag to prevent deadlocks when the WAL is overloaded with concurrent writes.
+- Add `--storage-write-timeout` flag to set write request timeouts.
+- Add `--storage-no-validate-field-size` flag to disable enforcement of max field size.
+- Update `--store` flag to work with string values disk or memory. Memory continues to store metadata in-memory for testing; disk persists metadata to disk via bolt and SQLite.
+
+For more information, see [InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
+##### influxd inspect
+
+Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/inspect/) commands from InfluxDB 1.x:
+
+- influxd inspect build-tsi
+- influxd inspect deletetsm
+- influxd inspect dumptsi
+- influxd inspect dump-tsm
+- influxd inspect dump-wal
+- influxd inspect report-tsi
+- influxd inspect report-tsm
+- influxd inspect verify-seriesfile
+- influxd inspect verify-tombstone
+- influxd inspect verify-wal
+
+#### Flux
+
+- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
+- Enable writing to remote hosts using the Flux [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/{{< latest "flux" >}}/v0.x/stdlib/experimental/to/) functions.
+- Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
+
+#### InfluxQL
+
+- `SHOW MEASUREMENTS ON` now supports database and retention policy wildcards. For example, `SHOW MEASUREMENTS ON *.*` to show all databases and `SHOW MEASUREMENTS ON <db>.*` to show all retention policies.
+-  Add hyper log operators `merge_hll`, `sum_hll`, and `count_hll` in InfluxQL to optimize series iteration. (`count_hll` optimizes queries that can be answered without inspecting TSM data.)
 
 #### Telegraf
 
-- [22476](https://github.com/influxdata/influxdb/pull/22476): Allow new telegraf input plugins and update toml. [Looks like this pulls in new Telegraf UI updates Nora recently updated?](https://github.com/influxdata/ui/pull/2605)
+- Support for latest plugins in [Telegraf 1.20.2](/telegraf/v1.20/about_the_project/release-notes-changelog/#v1202-2021-10-07).
 
-#### Token
+#### Tokens
 
-- [22498](https://github.com/influxdata/influxdb/pull/22498): Add bearer token auth
-- [22629](https://github.com/influxdata/influxdb/pull/22629): Return new operator token during backup overwrite
+- Add support for standard Bearer token syntax. Now you can specify token credentials as: `Authorization: Bearer xxxxxxxx`.
+- If restoring a backup overwrites the Operator token, the new token value is returned.
 
-#### Logging
+### Bug fixes
 
-- [22072](https://github.com/influxdata/influxdb/pull/22072): Add `--flux-log-enabled` flag for detailed flux logs
-  - Add support for influxdb.cardinality() function.
-- Operational improvements:
-  - Add logging to Flux end-to-end tests (`TestFluxEndToEnd`) to help diagnose test failures.
-  - Add `--flux-log-enabled` option to `influxd` to show detailed logs for Flux queries.
-
-#### Offsets support location changes?
-
-- [22635](https://github.com/influxdata/influxdb/pull/22635): Update window planner rules for location changes to support fixed offsets
-
-#### Maintenance
- 
-- [22607](https://github.com/influxdata/influxdb/pull/22607): Update push down window logic for location option
-- [22535](https://github.com/influxdata/influxdb/pull/22535): Set x-influxdb-version and x-influxdb-build headers
-
-#### Visualizations
-
-- [22669](https://github.com/influxdata/influxdb/pull/22669): Enable new dashboard autorefresh
-- [22266](https://github.com/influxdata/influxdb/pull/22266): Add logging and metrics to notebooks service
-- [22271](https://github.com/influxdata/influxdb/pull/22271): Add logging and metrics to annotations service
-
-- ### Bug fixes
-
-#### Upgrades
-
-- Fix `influxd upgrade` to ensure shard group durations are no longer dropped during upgrade.
-- Ensure InfluxDB UI is accessible when upgrading from InfluxDB 2.0 to InfluxDB 2.1 by changing InfluxDB UI session cookie name.
-
-#### Writes
-
-- Allow empty request bodies to write API.
+- Log API errors to server logs and tell clients to check the server logs for the error message.
+- Fix pagination for GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an `org` filter AND the `after` request parameter. Also corrects `descending` parameter to sort when an `org` filter is used and saved.
 - Sync series segment to disk after writing.
-- Add `MaxFieldValueLength=1048576` to limit field value size while parsing line protocol. Previously, larger writes were accepted, causing failures during internal engine operations (especially compactions).
-
-#### Storage
-
-- Prevent shard creation from creating overlapping shards.
-- Make TSI index compact old and too large log files.
-
-#### Maintenance
-
-- Upgrade INFLUXQL to latest version and fix predicate handling for `SHOW TAG` values metaqueries.
-- Include `curl` as package dependency in InfluxDB server packages.
-- Ensure only tasks with an active status are scheduled to run.
-- Avoid compaction queue stats flutter by updating `compact()` to ensure queue lengths are not updated if the files to be compacted are locked.
-- Detect non-interactive prompt when displaying warning in `buildtsi`. Ensures unit tests pass when running as root user.
-- Repair bad port dropping return value names.
-
-#### Windows
-
-- On Windows, running `influxd.exe backup -portable` no longer leaves temporary folders in the Windows data directory.
-- Previously `authz` unit tests would fail on Windows. Fix by using `path.Join` instead of `filepath.Join` so authentication resources have a consistent string representation across Linux, Mac, and Windows.
-- Prevent Windows permission errors by ensuring files are closed before they are deleted or moved in `deletetsm`.
-
-#### Security
-
-- Ensure All-access tokens are granted permissions on notebooks and annotations.
-- Ensure the `/api/v2/authorizations/?user` query parameter filter authorizations by user. Now, requests are correctly filtered by both the organization and username.
-- [22293](https://github.com/influxdata/influxdb/pull/22293): Add `created_at` and `updated_at` columns to replications table
-
-#### Errors and logging
-
-- Add more expressive errors to server logs.
-- Update error message to recommend setting the Flux `content-type` when a query fails to parse as JSON.
-- Upgrade `golang.org/x/sys` to avoid panics on macOS.
-- `tsmBatchKeyIterator` discards errors that exceed `DefaultMaxSavedErrors` (100) to avoid out-of-memory crashes when compacting very corrupt files.
-
+- Do not allow shard creation to create overlapping shards.
+- Don't drop shard group durations when upgrading InfluxDB.
 
 ## v2.0.9 [2021-09-27]
 
@@ -172,7 +149,6 @@ New features include:
    - `UsersResourceType`
    - `VariablesResourceType`
    - `ViewsResourceType`
-
 
 #### Flux updates
 
