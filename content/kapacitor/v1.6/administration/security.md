@@ -363,9 +363,6 @@ connecting, the authorization and authentication handler in the open-source
 distribution does not enforce checks against a user-store, nor does it verify
 access permissions to resources using an Access Control List (ACL).  
 
-A true authentication and authorization handler is available only in the
-Enterprise Kapacitor distribution.      
-
 ### Note on HTTP API Configuration and Restarting Kapacitor
 
 Please be aware that when configuration values are set using the HTTP API, that
