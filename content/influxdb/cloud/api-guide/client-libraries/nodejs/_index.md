@@ -13,6 +13,7 @@ weight: 201
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/js/
   - /influxdb/cloud/reference/api/client-libraries/nodejs/
+  - /influxdb/cloud/tools/client-libraries/js/
 ---
 
 {{< duplicate-oss >}}
