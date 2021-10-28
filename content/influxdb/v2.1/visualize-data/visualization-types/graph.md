@@ -76,21 +76,34 @@ the visualization dropdown.
   - **Stacked**: Display graph lines stacked on top of each other.
 
 ###### Legend
-- **Orientation**: Select the orientation of the legend that appears:
-  - **Horizontal**: Select to display the legend horizontally.
-  - **Vertical**: Select to display the legend vertically.
-- **Opacity**: Adjust the legend opacity using the slider.
-- **Colorize Rows**: Select to display legend rows in colors.
+- **Hover Legend**:
+  - **Hide**: Hide the legend that appears upon hover.
+  - **Show**: Show the legend upon hover.
+    - **Orientation**: Select the orientation of the legend:
+      - **Horizontal**: Select to display the legend horizontally.
+      - **Vertical**: Select to display the legend vertically.
+    - **Opacity**: Adjust the hover legend opacity using the slider.
+    - **Colorize Rows**: Select to display hover legend rows in colors.
+- **Static Legend**:
+  - **Hide**: Hide the static legend.
+  - **Show**: Always show the static legend.
+    - **Orientation**: Select the orientation of the legend:
+      - **Horizontal**: Select to display the legend horizontally.
+      - **Vertical**: Select to display the legend vertically.
+    - **Opacity**: Adjust the static legend opacity using the slider.
+    - **Colorize Rows**: Select to display static legend rows in colors.
+    - **Displayed Value**: Select **Latest Y Axis** or **Latest X Axis** to determine whether the y or x axis appears on the legend.
+    - **Height**: Adjust the height of the static legend using the slider.
 
 ## Graph Examples
 
-##### Graph with linear interpolation
-{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-example-8.png" alt="Line Graph example" />}}
+##### Graph with linear interpolation and static legend
+{{< img-hd src="/img/influxdb/2-0-visualizations-graph-linear-static.png" alt="Line Graph example" />}}
 
-##### Graph with smooth interpolation
-{{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-smooth-example-8.png" alt="Step-Plot Graph example" />}}
+##### Graph with smooth interpolation and hover legend
+{{< img-hd src="/img/influxdb/2-0-visualizations-graph-smooth-hover.png" alt="Step-Plot Graph example" />}}
 
-##### Graph with step interpolation
+##### Graph with step interpolation and no visible legend
 {{< img-hd src="/img/influxdb/2-0-visualizations-line-graph-step-example-8.png" alt="Step-Plot Graph example" />}}
 
 <!-- ##### Stacked Graph example
