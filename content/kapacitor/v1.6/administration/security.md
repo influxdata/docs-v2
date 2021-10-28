@@ -355,13 +355,13 @@ chronograf-v1-3586109e-8b7d-437a-80eb-a9c50d00ad53 stream    enabled   true     
 
 ### Kapacitor Authentication and Authorization
 
-The following applies to the open-source distribution of Kapacitor.  While it is
-possible to add parameters such as `username`, `password` and `auth-enabled` to
-the section `[http]` of the configuration file, `kapacitor.conf`, and while the
-Kapacitor server will then expect a username and password to be supplied when
-connecting, the authorization and authentication handler in the open-source
-distribution does not enforce checks against a user-store, nor does it verify
-access permissions to resources using an Access Control List (ACL).  
+Basic authentication can be enabled with the `username`, `password`, and `auth-enabled` 
+paramenters in the `[http]` section  of `kapacitor.conf`.
+Kapacitor will then expect a username and password to be supplied when connecting.
+
+Kapacitor also supports using InfluxDB Enterprise
+to manage authentication and authorization for interactions with the Kapacitor API.
+For instructions, see ["Set up InfluxDB Enterprise authorizations"](/kapacitor/v1.6/administration/auth/influxdb-enterprise-auth).
 
 ### Note on HTTP API Configuration and Restarting Kapacitor
 
