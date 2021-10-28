@@ -45,7 +45,7 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
 
 2. Click **Script Editor**.
 3. Select the **Band Plot** option from the visualization dropdown in the upper left.
-4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/influxdb/v2.1/reference/flux/stdlib/built-in/transformations/aggregates/mean/), [`max()`](/influxdb/v2.1/reference/flux/stdlib/built-in/transformations/selectors/max/), and [`min()`](/influxdb/v2.1/reference/flux/stdlib/built-in/transformations/selectors/min) functions:
+4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/{{< latest "flux" >}}/stdlib/universe/mean/), [`max()`](/{{< latest "flux" >}}/stdlib/universe/max/), and [`min()`](/{{< latest "flux" >}}/stdlib/universe/min) functions:
 
 ```js
 from(bucket: "bucket_1")
