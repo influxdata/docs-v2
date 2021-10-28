@@ -25,7 +25,7 @@ After you create a bucket schema, you're ready to [write data](/influxdb/cloud/w
 
 #### Before you begin
 
-The `bucket-schema` examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/). We recommend reviewing data elements and [**InfluxDB key concepts**](/influxdb/cloud/reference/key-concepts/) if you aren't familiar with these concepts.
+The `bucket-schema` examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/). We recommend reviewing data elements, [**InfluxDB key concepts**](/influxdb/cloud/reference/key-concepts/), and [**elements of line protocol**](/influxdb/cloud/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
 {{% /note %}}
 
 - [Create a bucket schema](#create-a-bucket-schema)
@@ -41,37 +41,67 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
     ```
 
 2. Use your text editor to create a schema columns file for each measurement you want to add.
-The file defines the column names, tags, fields, and data types to require for a measurement.
-Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/),
-as in the following examples:
-{{% code-tabs-wrapper %}}
-{{% code-tabs %}}
-[usage-resources.csv](#)
-[usage-cpu.json](#)
-[sensor.ndjson](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sh
-{{< get-shared-text "bucket-schema/usage-resources.csv" >}}
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{{< get-shared-text "bucket-schema/usage-cpu.json" >}}
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{{< get-shared-text "bucket-schema/sensor.ndjson" >}}
-```
-{{% /code-tab-content %}}
-{{% /code-tabs-wrapper %}}
+   The file defines the column names, tags, fields, and data types to require for a measurement.
+
+   Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/),
+   as in the following examples:
+   {{% code-tabs-wrapper %}}
+   {{% code-tabs %}}
+   [usage-resources.csv](#)
+   [usage-cpu.json](#)
+   [sensor.ndjson](#)
+   {{% /code-tabs %}}
+   {{% code-tab-content %}}
+   ```sh
+   {{< get-shared-text "bucket-schema/usage-resources.csv" >}}
+   ```
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+   ```json
+   {{< get-shared-text "bucket-schema/usage-cpu.json" >}}
+   ```
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+   ```json
+   {{< get-shared-text "bucket-schema/sensor.ndjson" >}}
+   ```
+   {{% /code-tab-content %}}
+   {{% /code-tabs-wrapper %}}
+
+   #### Write valid schemas 
+   To ensure your schema is valid, review [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/) and [naming restrictions](/influxdb/cloud/reference/syntax/line-protocol/#naming-restrictions).
+   Follow these rules when creating your schema columns file: 
+   1. Use valid measurement and column names that:
+      - Are unique within the schema
+      - Are 1 to 128 characters long
+      - Contain only [Unicode](https://www.unicode.org/charts/) characters
+      - Don't start with underscore `_`
+      - Don't start with a number `0-9`
+      - Don't contain single quote `'` or double quote `"`
+   2. Include a column with the [`timestamp`](/influxdb/cloud/reference/key-concepts/data-elements/#timestamp) type.
+   3. Include at least one column with the [`field`](/influxdb/cloud/reference/key-concepts/data-elements/#fields) type (since without a field, there is no time-series data), as in the following example:
+
+      **Valid**: a schema with [`timestamp`]() and [`field`]() columns. 
+      ```json
+      [
+       {"name":"time","type":"timestamp"},
+       {"name":"fsWrite","type":"field","dataType":"float"}
+      ]
+      ```
+   
+      **Invalid**: a schema without a `field` column.
+      ```json
+      [
+       {"name":"time","type":"timestamp"},
+       {"name":"host","type":"tag"}
+      ]
+      ```
 
 3. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to add the schema for each measurement to your bucket.
 
     Provide the following:
     - location of your file with the `columns-file` flag
-    - measurement name with the `name` flag. This will match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data.
+    - a valid measurement name with the `name` flag. This will match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data. To be valid, the measurement names must be unique within the bucket and follow the [naming rules](#write-valid-schemas).
 
     ```sh
     influx bucket-schema create \
