@@ -3806,7 +3806,7 @@ paths:
         - **API token** – _See [View tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/)
          for instructions on viewing your API token._
         - **InfluxDB URL** – _See [InfluxDB URLs](https://docs.influxdata.com/influxdb/cloud/reference/urls/)_.
-        - [Flux](https://docs.influxdata.com/influxdb/cloud/reference/flux) or [InfluxQL](https://docs.influxdata.com/influxdb/cloud/query-data/influxql/) query.
+        - **Flux query** – _See [Flux](https://docs.influxdata.com/flux/v0.x/)._
 
         For more information and examples, see [Query with the InfluxDB API](https://docs.influxdata.com/influxdb/cloud/query-data/execute-queries/influx-api/).
       operationId: PostQuery
@@ -3848,12 +3848,14 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
-              - $ref: '#/components/schemas/Query'
-              - $ref: '#/components/schemas/InfluxQLQuery'
+              $ref: '#/components/schemas/Query'
           application/vnd.flux:
             schema:
               type: string
+            example: |
+              from(bucket: "example-bucket")
+                  |> range(start: -5m)
+                  |> filter(fn: (r) => r._measurement == "example-measurement")
         description: Flux query or specification to execute
       responses:
         "200":
@@ -3922,7 +3924,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Query'
-        description: Flux or InfluxQL query to analyze
+        description: Flux query to analyze
       responses:
         "200":
           content:
@@ -3946,7 +3948,7 @@ paths:
               description: Reference code unique to the error type
               schema:
                 type: integer
-      summary: Analyze an InfluxQL or Flux query
+      summary: Analyze a Flux query
       tags:
       - Query
   /api/v2/query/ast:
@@ -8510,24 +8512,6 @@ components:
           $ref: '#/components/schemas/Expression'
         type:
           $ref: '#/components/schemas/NodeType'
-      type: object
-    InfluxQLQuery:
-      description: Query influx using the InfluxQL language
-      properties:
-        bucket:
-          description: Bucket is to be used instead of the database and retention
-            policy specified in the InfluxQL query.
-          type: string
-        query:
-          description: InfluxQL query execute.
-          type: string
-        type:
-          description: The type of query. Must be "influxql".
-          enum:
-          - influxql
-          type: string
-      required:
-      - query
       type: object
     IntegerLiteral:
       description: Represents integer numbers
