@@ -2,7 +2,7 @@
 title: Upgrade InfluxDB Enterprise clusters
 description: Upgrade to the latest version of InfluxDB Enterprise.
 aliases:
-    - /enterprise/v1.8/administration/upgrading/
+    - /enterprise/v1.9/administration/upgrading/
 menu:
   enterprise_influxdb_1_9:
     name: Upgrade
@@ -114,8 +114,8 @@ Ensure that the meta cluster is healthy before upgrading the data nodes.
 
 Complete the following steps to upgrade data nodes:
 
-1. [Download the data node package](#download-the-data-node-package).
-2. [Stop traffic to data nodes](#stop-traffic-to-the-data-node).
+1. [Stop traffic to data nodes](#stop-traffic-to-the-data-node).
+2. [Download the data node package](#download-the-data-node-package).
 3. [Install the data node package](#install-the-data-node-package).
 4. [Update the data node configuration file](#update-the-data-node-configuration-file).
 5. For Time Series Index (TSI) only. [Rebuild TSI indexes](#rebuild-tsi-indexes).
@@ -124,32 +124,68 @@ Complete the following steps to upgrade data nodes:
 8. Repeat steps 1-7 for each data node in your cluster.
 9. [Confirm the data nodes upgrade](#confirm-the-data-nodes-upgrade).
 
+### Stop traffic to the data node
+To stop traffic to data nodes, **do one of the following:**
+
+- **Disable traffic to data nodes in the node balancer**
+    
+    - If you have access to the load balancer configuration, use your load balancer to stop routing read and write requests to the data node server (port 8086).
+    - If you cannot access the load balancer configuration, work with your networking team to prevent traffic to the data node server before continuing to upgrade.
+
+    {{% note %}}
+Disabling traffic to a data node in the load balancer still allows other data
+node in the cluster to write to current data node.
+    {{% /note %}}
+
+- **Stop the `influxdb` service on the data node** 
+
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[sysvinit](#)
+[systemd](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+service influxdb stop
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+sudo systemctl stop influxdb
+```
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
+
+    {{% note %}}
+Stopping the `influxdb` process the data node takes longer than disabling
+traffic at the load balancer, but it ensures all writes stop, including writes
+from other data nodes in the cluster.
+    {{% /note %}}
+
 ### Download the data node package
 
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}_c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
-
-### Stop traffic to the data node
-
-- If you have access to the load balancer configuration, use your load balancer to stop routing read and write requests to the data node server (port 8086).
-
-- If you cannot access the load balancer configuration, work with your networking team to prevent traffic to the data node server before continuing to upgrade.
 
 ### Install the data node package
 
-When you run the install command, you're prompted to keep or overwrite your current configuration file with the file for version {{< latest-patch >}}. Enter `N` or `O` to keep your current configuration file. You'll make the configuration changes for version {{< latest-patch >}}. in the next procedure, [Update the data node configuration file](#update-the-data-node-configuration-file).
+When you run the install command, you're prompted to keep or overwrite your
+current configuration file with the file for version {{< latest-patch >}}.
+Enter `N` or `O` to keep your current configuration file.
+You'll make the configuration changes for version {{< latest-patch >}} in the
+next procedure, [Update the data node configuration file](#update-the-data-node-configuration-file).
 
 
-##### Ubuntu and Debian (64-bit)
+##### Ubuntu & Debian (64-bit)
 
 ```bash
 sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
@@ -199,18 +235,45 @@ Complete the following steps for Time Series Index (TSI) only.
 ### Restart the `influxdb` service
 
 Restart the `influxdb` service to restart the data nodes.
+Do one of the following:
 
-##### sysvinit systems
+- **If the `influxdb` service is still running**, but isn't receiving traffic from the load balancer:
 
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[sysvinit](#)
+[systemd](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```bash
 service influxdb restart
 ```
-
-##### systemd systems
-
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```bash
 sudo systemctl restart influxdb
 ```
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
+
+- **If the `influxdb` service is stopped**:
+
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[sysvinit](#)
+[systemd](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+service influxdb start
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+sudo systemctl start influxdb
+```
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
 
 ### Restart traffic to data nodes
 
