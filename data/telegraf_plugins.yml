@@ -662,6 +662,14 @@ input:
     introduced: 0.12.1
     tags: [linux, macos, windows, servers, web]
 
+  - name: IBM DB2
+    id: db2
+    description: |
+      The IBM DB2 plugin collects metrics from DB2 RDBMS using performance monitor tables.
+    introduced: 1.20.3
+    external: true
+    tags: [linux, macos, windows, IBM]
+
   - name: Icinga 2
     id: icinga2
     description: |
@@ -1328,6 +1336,14 @@ input:
       Collect current weather and forecast data from OpenWeatherMap.
     introduced: 1.11.0
     tags: [linux, macos, windows, applications]
+
+  - name: Oracle
+    id: oracle
+    description: |
+      The Oracle plugin collects metrics from Oracle RDBMS using Dynamic Performance Views.
+    introduced: 1.20.3
+    external: true
+    tags: [linux, macos, windows, oracle]
 
   - name: PF
     id: pf
