@@ -19,17 +19,6 @@ and *authorization* (verifying what the user has access to).
 
 After enabling authentication, we will walk through some basic examples of managing users and permissions.
 
-{{% note %}}
-#### Authentication recommended on public endpoints
-If InfluxDB Enterprise is being deployed on a publicly accessible endpoint,
-we strongly recommend enabling authentication.
-Otherwise, data and potentially destructive commands will be publicly available to any unauthenticated user.
-For additional security,
-InfluxDB Enterprise should be run behind a third-party service.
-Authentication and authorization should not be soley relied upon
-to prevent access and protect data from malicious actors.
-{{% /note %}}
-
 ## Enable authentication
 
 Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
@@ -53,11 +42,9 @@ To enable authentication in a cluster, do the following:
    ```
    CREATE USER admin WITH PASSWORD 'mypassword' WITH ALL PRIVILEGES
    ```
-   <!-- when you run this command, it gives all but the 4 extra permissions -->
 1. Restart InfluxDB Enterprise.
    Once restarted, InfluxDB Enterprise will now check user credentials on every request
    and only processes requests that have valid credentials.
-   <!-- What's the best way to restart? -->
 
 ## Permissions in InfluxDB Enterprise
 
