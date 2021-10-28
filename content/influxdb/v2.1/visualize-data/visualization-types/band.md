@@ -7,7 +7,7 @@ weight: 201
 menu:
   influxdb_2_1:
     name: Band
-    parent: Visualization types
+    parent: Visualization types 
 ---
 
 The **Band** visualization displays the upper and lower boundaries for groups of data over time. Boundaries are determined by applying aggregate functions to your data for a specified window period, and then setting the aggregate functions for a specified upper, main, or lower boundary.
@@ -22,7 +22,7 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
 
     {{< nav-icon "data-explorer" >}}
 
-2. Enter your query (see [Explore data with Flux and the Data Explorer](/influxdb/v2.1/visualize-data/explore-metrics/#explore-data-with-flux-and-the-data-explorer)). You must include the aggregate functions used to determine the Band Plot visualization boundaries in your query.
+2. Enter your query (see [Explore data with Flux and the Data Explorer](/influxdb/v2.0/visualize-data/explore-metrics/#explore-data-with-flux-and-the-data-explorer)). You must include the aggregate functions used to determine the Band Plot visualization boundaries in your query.
 3. Select the **Band Plot** option from the visualization dropdown in the upper left, and then click **Customize**.
 4. Under **Data**, select the following:
    - For **X Column** and **Y Column**, select the columns to display for the x- and y- axes.
@@ -45,7 +45,7 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
 
 2. Click **Script Editor**.
 3. Select the **Band Plot** option from the visualization dropdown in the upper left.
-4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/{{< latest "flux" >}}/stdlib/universe/mean/), [`max()`](/{{< latest "flux" >}}/stdlib/universe/max/), and [`min()`](/{{< latest "flux" >}}/stdlib/universe/min) functions:
+4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/), [`max()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/max/), and [`min()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/min) functions:
 
 ```js
 from(bucket: "bucket_1")
@@ -73,7 +73,7 @@ from(bucket: "bucket_1")
   |> yield(name: "min")
 ```
 
-5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/{{< latest "flux" >}}/stdlib/universe/yield/) function.
+5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/) function.
 For example, to change the name of the first function from  `mean` to `Average`, modify the last line to the following:
   ```js
     |> yield(name: "Average")
@@ -83,7 +83,7 @@ For example, to change the name of the first function from  `mean` to `Average`,
    - In the **Upper Column Name** field, enter the result set to use for the upper boundary.
    - In the **Main Column Name** field, enter the result set to use for the main boundary.
    - In the **Lower Column Name** field, enter the function for the lower boundary.
-7. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](#options) and [Y Axis](#y-axis) below.
+7. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, static legend, and y-axis settings. For more information, see [Options](#options) and [Y Axis](#y-axis) below.
 
 ### Customize column names
 
@@ -152,11 +152,23 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
     - **Min**: Enter the minimum y-axis value.
     - **Max**: Enter the maximum y-axis value.
 
-
 ###### Legend
 
-- **Orientation**: Select the orientation of the legend:
-  - **Horizontal**: Select to display the legend horizontally.
-  - **Vertical**: Select to display the legend vertically.
-- **Opacity**: Adjust the legend opacity using the slider.
-- **Colorize Rows**: Select to display legend rows in colors.
+- **Hover Legend**:
+  - **Hide**: Hide the legend that appears upon hover.
+  - **Show**: Show the legend upon hover.
+    - **Orientation**: Select the orientation of the legend:
+      - **Horizontal**: Select to display the legend horizontally.
+      - **Vertical**: Select to display the legend vertically.
+    - **Opacity**: Adjust the hover legend opacity using the slider.
+    - **Colorize Rows**: Select to display hover legend rows in colors.
+- **Static Legend**:
+  - **Hide**: Hide the static legend.
+  - **Show**: Always show the static legend.
+    - **Orientation**: Select the orientation of the legend:
+      - **Horizontal**: Select to display the legend horizontally.
+      - **Vertical**: Select to display the legend vertically.
+    - **Opacity**: Adjust the static legend opacity using the slider.
+    - **Colorize Rows**: Select to display static legend rows in colors.
+    - **Displayed Value**: Select **Latest Y Axis** or **Latest X Axis** to determine whether the y or x axis appears on the legend.
+    - **Height**: Adjust the height of the static legend using the slider.
