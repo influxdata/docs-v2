@@ -57,7 +57,7 @@ In general, each node node should have its own certificate, whether signed or un
 
 ## Set up HTTPS in an InfluxDB Enterprise cluster
 
-1. **Download or generate certificate files**
+1. **Download or generate certificate files.**
 
     If using a certificate provided by a CA, follow their instructions to download the certificate files.
 
@@ -79,7 +79,7 @@ You can choose to fill out these fields or leave them blank; both actions genera
 In subsequent steps, you will need to copy the certificate and key (or `.pem` file) to each node in the cluster.
     {{% /note %}}
 
-2. **Install the SSL/TLS certificate in each Node**
+2. **Install the SSL/TLS certificate in each Node.**
 
     Place the private key file (`.key`) and the signed certificate file (`.crt`)
     or the single bundled file (`.pem`)
@@ -90,7 +90,7 @@ Some Certificate Authorities provide certificate files with other extensions.
 Consult your CA if you are unsure about how to use these files.
     {{% /note %}}
 
-3. **Ensure file permissions for each Node**
+3. **Ensure file permissions for each Node.**
 
     Certificate files require read and write access by the `influxdb` user.
     Ensure that you have the correct file permissions in each meta node and data node by running the following commands:
@@ -101,7 +101,7 @@ Consult your CA if you are unsure about how to use these files.
     sudo chmod 600 /etc/ssl/<private-key-file>
     ```
 
-4. **Enable HTTPS within the configuration file for each meta node**
+4. **Enable HTTPS within the configuration file for each meta node.**
 
     Enable HTTPS for each meta node within the `[meta]` section of the meta node configuration file (`influxdb-meta.conf`) by setting:
 
@@ -128,32 +128,28 @@ Consult your CA if you are unsure about how to use these files.
 
     ```
 
-5. **Enable HTTPS within the configuration file for each data node**
+5. **Enable HTTPS within the configuration file for each data node.**
 
     Make the following sets of changes in the configuration file (`influxdb.conf`) on each data node:
-
     1. Enable HTTPS for each data node within the `[http]` section of the configuration file by setting:
+       ```toml
+       [http]
 
-      ```toml
-      [http]
+         [...]
 
-        [...]
+          # Determines whether HTTPS is enabled.
+          https-enabled = true
 
-        # Determines whether HTTPS is enabled.
-        https-enabled = true
+          [...]
 
-        [...]
+          # The SSL certificate to use when HTTPS is enabled.
+          https-certificate = "influxdb-data.crt"
 
-        # The SSL certificate to use when HTTPS is enabled.
-        https-certificate = "influxdb-data.crt"
-
-        # Use a separate private key location.
-        https-private-key = "influxdb-data.key"
-      ```
-
+          # Use a separate private key location.
+          https-private-key = "influxdb-data.key"
+       ```
     2. Configure the data nodes to use HTTPS when communicating with other data nodes.
        In the `[cluster]` section of the configuration file, set the following:
-
        ```toml
        [cluster]
 
@@ -171,10 +167,8 @@ Consult your CA if you are unsure about how to use these files.
          # If using a self-signed certificate:
          https-insecure-tls = true
        ```
-
     3. Configure the data nodes to use HTTPS when communicating with the meta nodes.
        In the `[meta]` section of the configuration file, set the following:
-
        ```toml
        [meta]
 
@@ -184,8 +178,7 @@ Consult your CA if you are unsure about how to use these files.
            # If using a self-signed certificate:
            meta-insecure-tls = true
        ```
-
-6. **Restart InfluxDB Enterprise**
+6. **Restart InfluxDB Enterprise.**
 
     Restart the InfluxDB Enterprise processes for the configuration changes to take effect:
 
@@ -199,7 +192,7 @@ Consult your CA if you are unsure about how to use these files.
     sudo systemctl restart influxdb
     ```
 
-7. **Verify the HTTPS Setup**
+7. **Verify the HTTPS Setup.**
 
     Verify that HTTPS is working on the meta nodes by using `influxd-ctl`.
 
