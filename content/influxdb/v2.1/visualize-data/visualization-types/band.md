@@ -83,7 +83,7 @@ For example, to change the name of the first function from  `mean` to `Average`,
    - In the **Upper Column Name** field, enter the result set to use for the upper boundary.
    - In the **Main Column Name** field, enter the result set to use for the main boundary.
    - In the **Lower Column Name** field, enter the function for the lower boundary.
-7. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](#options) and [Y Axis](#y-axis) below.
+7. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, static legend, and y-axis settings. For more information, see [Options](#options) and [Y Axis](#y-axis) below.
 
 ### Customize column names
 
@@ -152,11 +152,23 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
     - **Min**: Enter the minimum y-axis value.
     - **Max**: Enter the maximum y-axis value.
 
-
 ###### Legend
 
-- **Orientation**: Select the orientation of the legend:
-  - **Horizontal**: Select to display the legend horizontally.
-  - **Vertical**: Select to display the legend vertically.
-- **Opacity**: Adjust the legend opacity using the slider.
-- **Colorize Rows**: Select to display legend rows in colors.
+- **Hover Legend**:
+  - **Hide**: Hide the legend that appears upon hover.
+  - **Show**: Show the legend upon hover.
+    - **Orientation**: Select the orientation of the legend:
+      - **Horizontal**: Select to display the legend horizontally.
+      - **Vertical**: Select to display the legend vertically.
+    - **Opacity**: Adjust the hover legend opacity using the slider.
+    - **Colorize Rows**: Select to display hover legend rows in colors.
+- **Static Legend**:
+  - **Hide**: Hide the static legend.
+  - **Show**: Always show the static legend.
+    - **Orientation**: Select the orientation of the legend:
+      - **Horizontal**: Select to display the legend horizontally.
+      - **Vertical**: Select to display the legend vertically.
+    - **Opacity**: Adjust the static legend opacity using the slider.
+    - **Colorize Rows**: Select to display static legend rows in colors.
+    - **Displayed Value**: Select **Latest Y Axis** or **Latest X Axis** to determine whether the y or x axis appears on the legend.
+    - **Height**: Adjust the height of the static legend using the slider.
