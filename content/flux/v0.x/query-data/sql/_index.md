@@ -49,6 +49,7 @@ The following drivers are available:
 - `snowflake`
 - `sqlite3`
 - `sqlserver`, `mssql`
+- `vertica`, `vertigo`
 
 ## Data source names
 Each [SQL driver](#drivers) supports unique data source name (DSN) syntaxes

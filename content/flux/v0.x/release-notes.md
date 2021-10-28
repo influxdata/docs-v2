@@ -10,6 +10,16 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.137.0 [2021-10-28]
+
+### Features
+- Add support for [Vertica](https://www.vertica.com/) to the [`sql` package](/flux/v0.x/stdlib/sql/).
+
+### Bug fixes
+- Correctly handle HTTP errors from the InfluxDB writer.
+
+---
+
 ## v0.136.0 [2021-10-25]
 
 ### Features
