@@ -51,7 +51,7 @@ it should use if it doesn't find a matching tag key in the loaded files.
 
 ## Setup
 With the `sideload` function, you can create what is essentially a white- or
-black-list of hosts to ignore during scheduled downtime.
+deny-list of hosts to ignore during scheduled downtime.
 For this example, assume that maintenance will happen on both individual hosts
 and hostgroups, both of which are included as tags on each point in the data set.
 

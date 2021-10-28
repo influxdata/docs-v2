@@ -384,11 +384,11 @@ variables.
 
 To deny access to Kapacitor from certain [CIDR ranges](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
 (classes of IP addresses),
-use the `-blacklist-cidrs` flag.
+use the `-denylist-cidrs` flag.
 Pass a comma-separated list of CIDRs to deny for most HTTP GET/POST operations:
 
 ```sh
-kapacitor -blacklist 10.0.0.0/8,0.0.0.0/32
+kapacitor -denylist 10.0.0.0/8,0.0.0.0/32
 ```
 
 ### Disable specific alert handlers
