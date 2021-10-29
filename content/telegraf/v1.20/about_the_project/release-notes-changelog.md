@@ -9,6 +9,48 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v1.20.3 [2021-10-28]
+
+- Update Go to 1.17.2.
+- Update `gjson` module to v1.10.2.
+- Update Snowflake database driver module to 1.6.2.
+- Update `github.com/apache/thrift` module from 0.14.2 to 0.15.0.
+- Update `github.com/aws/aws-sdk-go-v2/config` module from 1.8.2 to 1.8.3.
+- Update `github.com/Azure/azure-kusto-go` module from 0.3.2 to 0.4.0.
+- Update `github.com/docker/docker` module from 20.10.7+incompatible to 20.10.9+incompatible.
+- Update `github.com/golang-jwt/jwt/v4` module from 4.0.0 to 4.1.0.
+- Update `github.com/jaegertracing/jaeger` module from 1.15.1 to 1.26.0.
+- Update `github.com/prometheus/common` module from 0.26.0 to 0.31.1.
+
+### Input plugin updates
+- IPMI Sensor (`ipmi_sensor`): Redact IPMI password in logs.
+- Kube Inventory (`kube_inventory`):
+  - Do not skip resources with zero s/ns timestamps.
+  - Fix segfault in ingress, persistentvolumeclaim, statefulset.
+- Procstat (`procstat`): Revert and fix tag creation.
+- SQL Server (`sqlserver`): Add integration tests.
+- Amazon CloudWatch (`cloudwatch`): Use the AWS SDK v2 library.
+- ZFS (`zfs`): Check return code of zfs command for FreeBSD.
+- Ethtool (`ethtool`): Add normalization of tags.
+- Internet Speed (`internet_speed`): Resolve missing latency field.
+- Prometheus (`prometheus`):
+  - Decode Prometheus scrape path from Kubernetes labels.
+  -  Move err check to correct place.
+- Procstat (`procstat`): Correct conversion of int with specific bit size.
+- Webhooks (`webhooks`): Provide more fields.
+- MongoDB (`mongodb`): Solve compatibility issue when using 5.x relicaset.
+- Intel RDT (`intel_rdt`): Allow sudo usage.
+- MySQL (`mysql`): Fix inconsistent metric types.
+
+### Processor plugin updates
+- Starlark (`starlark`): Pop operation for non-existing keys.
+
+### New plugins
+
+#### External
+- [IBM DB2](https://github.com/bonitoo-io/telegraf-input-db2): Contributed by @sranka.
+- [Oracle Database](https://github.com/bonitoo-io/telegraf-input-oracle): Contributed by @sranka.
+
 ## v1.20.2 [2021-10-07]
 
 - Fix makefile typo that prevented i386 tar and rpm packages from being built.
