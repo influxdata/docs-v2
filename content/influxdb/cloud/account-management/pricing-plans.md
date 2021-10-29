@@ -32,9 +32,7 @@ Use this plan as much and as long as you want within the Free Plan limits below.
 - **Query:** 300MB every 5 minutes
 - **Series cardinality:** 10,000
 - **Storage:** 30-day data retention
-{{% note %}}
-To write historical data older than 30 days or retain data for more than 30 days, upgrade to the Cloud [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
-{{% /note %}}
+
 
 ### Resource limits
 
