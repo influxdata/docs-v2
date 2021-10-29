@@ -24,6 +24,11 @@ This document covers setting up and managing authentication and authorization in
   - [User Management Commands](#user-management-commands)
 - [HTTP Errors](#authentication-and-authorization-http-errors)
 
+## Authentication
+### Enable Authentication
+
+For an introduction to authentication in InfluxDB Enterprise,
+see ["Get started with authentication and authorization"](/enterprise_influxdb/v1.9/administration/manage/security/get-started-auth).
 
 ### Authenticate requests
 
