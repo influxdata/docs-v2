@@ -87,7 +87,7 @@ The environment variables above add the following configuration settings to Tele
 
 ```
 
-# Global tags
+## Global tags
 
 Global tags can be specified in the `[global_tags]` section of the config file
 in `key="value"` format. All metrics being gathered on this host will be tagged
@@ -126,16 +126,37 @@ be used for service inputs, such as `logparser` and `statsd`. Valid values are
 * **logfile**: Specify the log file name. The empty string means to log to `stderr`.
 * **debug**: Run Telegraf in debug mode.
 * **quiet**: Run Telegraf in quiet mode (error messages only).
+* **logtarget**: Control the destination for logs. Can be one of "file", 
+"stderr" or, on Windows, "eventlog".  When set to "file", the output file is
+determined by the "logfile" setting.
+* **logfile**: Name the file to be logged to when using the "file" logtarget.  If set 
+to the empty then logs are written to stderr.
+* **logfile_rotation_interval**: Rotates logfile after the time interval specified.  When 
+set to 0 no time based rotation is performed.
+* **logfile_rotation_max_size**: Rotates logfile when it becomes larger than the specified 
+size. When set to 0 no size based rotation is performed.
+* **logfile_rotation_max_archives**: Maximum number of rotated archives to keep, any 
+older logs are deleted.  If set to -1, no archives are removed.
+* **log_with_timezone**: Set a timezone to use when logging or type 'local' for local time. Example: 'America/Chicago'.
+  [See this page for options/formats.](https://socketloop.com/tutorials/golang-display-list-of-timezones-with-gmt)
 * **hostname**: Override default hostname, if empty use `os.Hostname()`.
 * **omit_hostname**: If true, do no set the `host` tag in the Telegraf agent.
+  
 
 ## Input configuration
 
 The following config parameters are available for all inputs:
 
+* **alias**: Name an instance of a plugin.
 * **interval**: How often to gather this metric. Normal plugins use a single
 global interval, but if one particular input should be run less or more often,
-you can configure that here.
+you can configure that here. `interval` can be increased to reduce data-in rate limits. 
+* **precision**: Overrides the `precision` setting of the agent. Collected 
+metrics are rounded to the precision specified as an `interval`. When this value is 
+set on a service input (ex: `statsd`), multiple events occuring at the same 
+timestamp may be merged by the output database.
+* **collection_jitter**: Overrides the `collection_jitter` setting of the agent.  
+Collection jitter is used to jitter the collection by a random `interval`
 * **name_override**: Override the base name of the measurement.
 (Default is the name of the input).
 * **name_prefix**: Specifies a prefix to attach to the measurement name.
@@ -144,12 +165,25 @@ you can configure that here.
 
 ## Output configuration
 
-There are no generic configuration options available for all outputs.
+* **alias**: Name an instance of a plugin.
+* **flush_interval**: Maximum time between flushes. Use this setting to
+  override the agent `flush_interval` on a per plugin basis.
+* **flush_jitter**: Amount of time to jitter the flush interval. Use this
+  setting to override the agent `flush_jitter` on a per plugin basis.
+* **metric_batch_size**: Maximum number of metrics to send at once. Use
+  this setting to override the agent `metric_batch_size` on a per plugin basis.
+* **metric_buffer_limit**: Maximum number of unsent metrics to buffer.
+  Use this setting to override the agent `metric_buffer_limit` on a per plugin basis.
+* **name_override**: Override the base name of the measurement.
+(Default is the name of the output).
+* **name_prefix**: Specifies a prefix to attach to the measurement name.
+* **name_suffix**: Specifies a suffix to attach to the measurement name.
 
 ## Aggregator configuration
 
 The following config parameters are available for all aggregators:
 
+* **alias**: Name an instance of a plugin.
 * **period**: The period on which to flush & clear each aggregator. All metrics
 that are sent with timestamps outside of this period will be ignored by the
 aggregator.
@@ -157,6 +191,10 @@ aggregator.
 how long for aggregators to wait before receiving metrics from input plugins,
 in the case that aggregators are flushing and inputs are gathering on the
 same interval.
+* **grace**: The duration the metrics will still be aggregated by the plugin
+even though they're outside of the aggregation period. This setting is needed 
+in a situation when the agent is expected to receive late metrics and can 
+be rolled into next aggregation period.
 * **drop_original**: If true, the original metric will be dropped by the
 aggregator and will not get sent to the output plugins.
 * **name_override**: Override the base name of the measurement.
@@ -169,10 +207,15 @@ aggregator and will not get sent to the output plugins.
 
 The following config parameters are available for all processors:
 
+* **alias**: Name an instance of a plugin.
 * **order**: This is the order in which processors are executed. If this
 is not specified, then processor execution order will be random.
 
-#### Measurement filtering
+The [metric filtering][] parameters can be used to limit what metrics are
+handled by the processor.  Excluded metrics are passed downstream to the next
+processor.
+
+## Metric filtering
 
 Filters can be configured per input, output, processor, or aggregator,
 see below for examples.
@@ -211,6 +254,8 @@ will be discarded from the point.
 must be defined at the _end_ of the plugin definition, otherwise subsequent
 plugin config options will be interpreted as part of the tagpass/tagdrop
 tables.
+
+## Examples
 
 #### Input configuration examples
 
