@@ -12,15 +12,15 @@ menu:
 ## v1.20.3 [2021-10-28]
 
 - Update Go to 1.17.2.
-- Update gjson module to v1.10.2.
-- Update snowflake database driver module to 1.6.2.
+- Update `gjson` module to v1.10.2.
+- Update Snowflake database driver module to 1.6.2.
+- Update `github.com/apache/thrift` module from 0.14.2 to 0.15.0.
 - Update `github.com/aws/aws-sdk-go-v2/config` module from 1.8.2 to 1.8.3.
 - Update `github.com/Azure/azure-kusto-go` module from 0.3.2 to 0.4.0.
-- Update `github.com/golang-jwt/jwt/v4` module from 4.0.0 to 4.1.0.
-- Update `github.com/apache/thrift` module from 0.14.2 to 0.15.0
 - Update `github.com/docker/docker` module from 20.10.7+incompatible to 20.10.9+incompatible.
-- Update `github.com/prometheus/common` module from 0.26.0 to 0.31.1.
+- Update `github.com/golang-jwt/jwt/v4` module from 4.0.0 to 4.1.0.
 - Update `github.com/jaegertracing/jaeger` module from 1.15.1 to 1.26.0.
+- Update `github.com/prometheus/common` module from 0.26.0 to 0.31.1.
 
 ### Input plugin updates
 - IPMI Sensor (`ipmi_sensor`): Redact IPMI password in logs.
