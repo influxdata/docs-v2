@@ -34,7 +34,7 @@ menu:
 - Ethtool (`ethtool`): Add normalization of tags.
 - Internet Speed (`internet_speed`): Resolve missing latency field.
 - Prometheus (`prometheus`):
-  - Decode Prometheus scrape path from Kuberentes labels.
+  - Decode Prometheus scrape path from Kubernetes labels.
   -  Move err check to correct place.
 - Procstat (`procstat`): Correct conversion of int with specific bit size.
 - Webhooks (`webhooks`): Provide more fields.
@@ -48,8 +48,8 @@ menu:
 ### New plugins
 
 #### External
-- [IBM DB2](https://github.com/bonitoo-io/telegraf-input-db2): - Contributed by @sranka.
-- [Oracle Database](https://github.com/bonitoo-io/telegraf-input-oracle): - Contributed by @sranka.
+- [IBM DB2](https://github.com/bonitoo-io/telegraf-input-db2): Contributed by @sranka.
+- [Oracle Database](https://github.com/bonitoo-io/telegraf-input-oracle): Contributed by @sranka.
 
 ## v1.20.2 [2021-10-07]
 
