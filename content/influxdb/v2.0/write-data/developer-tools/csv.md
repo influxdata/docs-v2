@@ -48,7 +48,7 @@ influx write -b example-bucket -f path/to/example.csv
 
 ##### example.csv
 ```
-#datatype measurement,tag,double,dateTime:RFC3339
+#datatype,measurement,tag,double,dateTime:RFC3339
 m,host,used_percent,time
 mem,host1,64.23,2020-01-01T00:00:00Z
 mem,host2,72.01,2020-01-01T00:00:00Z
@@ -392,7 +392,7 @@ to ignore columns when writing CSV data to InfluxDB.
 {{% flex-content %}}
 ##### CSV data with ignored column
 ```
-#datatype measurement,long,time,ignored
+#datatype,measurement,long,time,ignored
 m,count,time,foo
 example,1,2020-01-01T00:00:00Z,bar
 example,4,2020-01-02T00:00:00Z,bar
@@ -435,7 +435,7 @@ You can also [define a custom column separator](/influxdb/v2.0/reference/syntax/
 {{% flex-content %}}
 ##### CSV with non-default float values
 ```
-#datatype measurement,"double:.,",dateTime:RFC3339
+#datatype,measurement,"double:.,",dateTime:RFC3339
 m,lbs,time
 example,"1,280.7",2020-01-01T00:00:00Z
 example,"1,352.5",2020-01-02T00:00:00Z
@@ -460,7 +460,7 @@ example lbs=2014.9 1578096000000000000
 {{% flex-content %}}
 ##### CSV with non-default integer values
 ```
-#datatype measurement,"long:.,",dateTime:RFC3339
+#datatype,measurement,"long:.,",dateTime:RFC3339
 m,lbs,time
 example,"1,280.0",2020-01-01T00:00:00Z
 example,"1,352.0",2020-01-02T00:00:00Z
@@ -485,7 +485,7 @@ example lbs=2014i 1578096000000000000
 {{% flex-content %}}
 ##### CSV with non-default uinteger values
 ```
-#datatype measurement,"unsignedLong:.,",dateTime:RFC3339
+#datatype,measurement,"unsignedLong:.,",dateTime:RFC3339
 m,lbs,time
 example,"1,280.0",2020-01-01T00:00:00Z
 example,"1,352.0",2020-01-02T00:00:00Z
@@ -519,7 +519,7 @@ in the `boolean` datatype annotation.
 ##### CSV with non-default boolean values
 ```
 sep=;
-#datatype measurement,"boolean:y,Y,1:n,N,0",dateTime:RFC3339
+#datatype,measurement,"boolean:y,Y,1:n,N,0",dateTime:RFC3339
 m,verified,time
 example,y,2020-01-01T00:00:00Z
 example,n,2020-01-02T00:00:00Z
@@ -550,7 +550,7 @@ in the `dateTime` datatype annotation.
 {{% flex-content %}}
 ##### CSV with non-default timestamps
 ```
-#datatype measurement,dateTime:2006-01-02,field
+#datatype,measurement,dateTime:2006-01-02,field
 m,time,lbs
 example,2020-01-01,1280.7
 example,2020-01-02,1352.5

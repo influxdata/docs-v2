@@ -215,7 +215,7 @@ Time column values should be **Unix timestamps** (in an [accepted timestamp prec
 
 ##### Example line protocol elements in datatype annotation
 ```
-#datatype measurement,tag,tag,field,field,ignored,time
+#datatype,measurement,tag,tag,field,field,ignored,time
 m,cpu,host,time_steal,usage_user,nothing,time
 cpu,cpu1,host1,0,2.7,a,1482669077000000000
 cpu,cpu1,host2,0,2.2,b,1482669087000000000
@@ -230,7 +230,7 @@ cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 
 ##### Example of mixing data types line protocol elements
 ```
-#datatype measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
+#datatype,measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
 #default test,annotatedDatatypes,,,,,,
 m,name,s,d,b,l,ul,dur,time
 ,,str1,1.0,true,1,1,1ms,1
