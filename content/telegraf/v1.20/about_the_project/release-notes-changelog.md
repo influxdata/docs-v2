@@ -49,7 +49,7 @@ menu:
 
 #### External
 - [IBM DB2](https://github.com/bonitoo-io/telegraf-input-db2): - Contributed by @sranka.
-- [Oracle Database](https://github.com/bonitoo-io/telegraf-input-oracle): - Contributed by @sranka.
+- [Oracle Database](https://github.com/bonitoo-io/telegraf-input-oracle): Contributed by @sranka.
 
 ## v1.20.2 [2021-10-07]
 
