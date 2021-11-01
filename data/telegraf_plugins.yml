@@ -668,7 +668,7 @@ input:
       The IBM DB2 plugin collects metrics from DB2 RDBMS using performance monitor tables.
     introduced: 1.20.3
     external: true
-    tags: [linux, macos, windows, IBM]
+    tags: [linux, macos, windows, IBM, datastores]
 
   - name: Icinga 2
     id: icinga2
@@ -1343,7 +1343,7 @@ input:
       The Oracle plugin collects metrics from Oracle RDBMS using Dynamic Performance Views.
     introduced: 1.20.3
     external: true
-    tags: [linux, macos, windows, oracle]
+    tags: [linux, macos, windows, oracle, datastores]
 
   - name: PF
     id: pf
@@ -2339,7 +2339,7 @@ output:
     description: |
       The SQL output plugin saves Telegraf metric data to an SQL database.
     introduced: 1.19.0
-    tags: [data stores]
+    tags: [datastores]
 
   - name: Sumo Logic
     id: sumologic
