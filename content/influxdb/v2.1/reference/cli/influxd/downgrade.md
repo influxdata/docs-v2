@@ -14,7 +14,7 @@ related:
 Use the `influxd downgrade` command to downgrade the metadata schema used by
 `influxd` to match the metadata schema of a older release.
 
-InfluxDB does not guarantee backwards-compatibility with older releases in its embedded metadata stores.
+InfluxDB does not guarantee backwards-compatibility with earlier releases.
 Attempting to start an older `influxd` binary with a BoltDB or SQLite file that
 has been migrated to a newer schema will result in a startup error.
 This command downgrades metadata schemas to match the schemas of an older release

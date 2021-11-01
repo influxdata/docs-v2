@@ -13,14 +13,12 @@ related:
   - /influxdb/v2.1/install/
 ---
 
-To upgrade from InfluxDB 2.x to InfluxDB {{< current-version >}},
+Upgrade to InfluxDB {{< current-version >}} from an earlier version of InfluxDB 2.x.
 
 {{% note %}}
-#### Upgrade from beta version of InfluxDB 2.x
-To upgrade to **InfluxDB {{< current-version >}}** from **InfluxDB 2.0 beta-16 or earlier**:
-
-1. [Upgrade to InfluxDB 2.0](http://localhost:1313/influxdb/v2.0/upgrade/v2-beta-to-v2/).
-2. Complete the {{< current-version >}} upgrade process below.
+#### InfluxDB 2.0 beta-16 or earlier
+If you're upgrading from InfluxDB 2.0 beta-16 or earlier, you must first [upgrade to InfluxDB 2.0](http://localhost:1313/influxdb/v2.0/upgrade/v2-beta-to-v2/), 
+and then complete the steps below.
 {{% /note %}}
 
 {{< tabs-wrapper >}}
