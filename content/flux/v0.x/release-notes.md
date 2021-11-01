@@ -10,6 +10,30 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.139.0 [2021-11-01]
+
+### Features
+- Always continue type inference on error.
+
+### Bugfix
+- Revert `runtime.now()` and related updates.
+
+---
+
+## v0.138.0 [2021-11-01]
+
+### Features
+- Create a BigTable dependency to let Flux mimic or control BigTable API usage.
+- Report multiple type inference errors.
+- Add [bitwise operations](/flux/v0.x/stdlib/experimental/bitwise/).
+
+### Bug fixes
+- Update [`fill()`](/flux/v0.x/stdlib/universe/fill/) to return tables unchanged
+  when using `usePrevious` to fill a non-existent column.
+- Add `runtime.now()` to return the same time throughout a script execution.
+
+---
+
 ## v0.137.0 [2021-10-28]
 
 ### Features
