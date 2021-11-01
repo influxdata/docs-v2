@@ -52,14 +52,12 @@ The `_field` column stores the **field key** and the `_value` column stores the 
 | timestamp | measurement-name | field key | field value |
 
 #### Data structure expected by experimental to()
-`experimental.to()` requires both the `_time` and `_measurement` columns
-Field keys and values are stored in single columns
-with the **field key** as the **column name**
-and the **field value** as the **column value**.
+`experimental.to()` requires both a `_time` and a `_measurement` column.
+All columns _in the group key_ (other than `_measurement`) are written as tags
+with the column name as the **tag key** and the column value as the **tag value**.
 
-All columns in the group key (other than `_measurement`) are written as tags.
-All columns *not* in the group key (other than `_time`) are written as fields
-with the column name as the **field key** and the column values as the **field value**.
+All columns _**not** in the group key_ (other than `_time`) are written as fields
+with the column name as the **field key** and the column value as the **field value**.
 
 | _time     | _measurement     | field_key   |
 | -----     | ------------     | ---------   |
@@ -90,7 +88,7 @@ Only required when writing to a different organization or a remote host.
 `orgID` and `org` are mutually exclusive.
 
 {{% warn %}}
-It is not possible to write to from one InfluxDB Cloud organization to another
+`experimental.to()` cannot write to from one InfluxDB Cloud organization to another.
 {{% /warn %}}
 
 ### host {data-type="string"}

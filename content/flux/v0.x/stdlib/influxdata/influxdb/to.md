@@ -92,7 +92,7 @@ InfluxDB organization ID.
 _`orgID` and `org` are mutually exclusive._
 
 {{% warn %}}
-It is not possible to write to from one InfluxDB Cloud organization to another
+`to()` cannot write to from one InfluxDB Cloud organization to another.
 {{% /warn %}}
 
 ### host {data-type="string"}
