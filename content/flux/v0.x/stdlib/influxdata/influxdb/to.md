@@ -91,6 +91,10 @@ _`org` and `orgID` are mutually exclusive._
 InfluxDB organization ID.
 _`orgID` and `org` are mutually exclusive._
 
+{{% warn %}}
+`to()` cannot write to from one InfluxDB Cloud organization to another.
+{{% /warn %}}
+
 ### host {data-type="string"}
 [InfluxDB URL](/{{< latest "influxdb" >}}/reference/urls/) or
 [InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL to write to.
