@@ -192,7 +192,7 @@ Consult your CA if you are unsure about how to use these files.
     sudo systemctl restart influxdb
     ```
 
-7. **Verify the HTTPS Setup.**
+7. **Verify the HTTPS setup.**
 
     Verify that HTTPS is working on the meta nodes by using `influxd-ctl`.
 
