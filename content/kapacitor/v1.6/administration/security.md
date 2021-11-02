@@ -358,7 +358,6 @@ chronograf-v1-3586109e-8b7d-437a-80eb-a9c50d00ad53 stream    enabled   true     
 To ensure Kapacitor requires a username and password to connect, enable basic authentication.
 To do this, set up the `username`, `password`, and `auth-enabled` 
 paramenters in the `[http]` section  of `kapacitor.conf`.
-Kapacitor will then expect a username and password to be supplied when connecting.
 
 Kapacitor also supports using InfluxDB Enterprise
 to manage authentication and authorization for interactions with the Kapacitor API.
