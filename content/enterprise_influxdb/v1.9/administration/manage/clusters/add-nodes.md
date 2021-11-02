@@ -6,7 +6,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Add nodes
     parent: Manage clusters
-weight: 20
+weight: 19
 ---
 
 To add a data node to an existing cluster, follow the steps below.

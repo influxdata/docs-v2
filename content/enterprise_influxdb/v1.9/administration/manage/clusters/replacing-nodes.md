@@ -6,8 +6,8 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Replace nodes
-    weight: 21
     parent: Manage clusters
+weight: 20
 ---
 
 ## Introduction

@@ -7,8 +7,8 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Rebalance clusters
-    weight: 19
     parent: Manage clusters
+weight: 21
 ---
 
 ## Introduction
