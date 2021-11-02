@@ -24,5 +24,4 @@ To add a data node to an existing cluster, follow the steps below.
              influxd-ctl -bind <existing_meta_node:8091> add-data <new data node 
              address>:<port>
               ```
-3. You may need to [rebalance the cluster](/enterprise_influxdb/v1.9/administration/manage/clusters/rebalance/)
-   after adding new nodes to your cluster.
+3. (Optional) [Rebalance the cluster](/enterprise_influxdb/v1.9/administration/manage/clusters/rebalance/).
