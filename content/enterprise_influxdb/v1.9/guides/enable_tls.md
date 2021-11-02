@@ -79,7 +79,7 @@ You can choose to fill out these fields or leave them blank; both actions genera
 In subsequent steps, you will need to copy the certificate and key (or `.pem` file) to each node in the cluster.
     {{% /note %}}
 
-2. **Install the SSL/TLS certificate in each Node.**
+2. **Install the SSL/TLS certificate in each node.**
 
     Place the private key file (`.key`) and the signed certificate file (`.crt`)
     or the single bundled file (`.pem`)
