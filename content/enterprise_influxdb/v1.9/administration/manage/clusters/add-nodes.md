@@ -18,7 +18,7 @@ To add a data node to an existing cluster, follow the steps below.
         ```sh
          influxd-ctl add-data <new data node address>:<port>
          ```
-      - From any? remote location, run:
+      - From a remote server, run:
 
         ```sh
              influxd-ctl -bind <existing_meta_node:8091> add-data <new data node 
