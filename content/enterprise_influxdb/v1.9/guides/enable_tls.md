@@ -90,7 +90,7 @@ Some Certificate Authorities provide certificate files with other extensions.
 Consult your CA if you are unsure about how to use these files.
     {{% /note %}}
 
-3. **Ensure file permissions for each Node.**
+3. **Ensure file permissions for each node.**
 
     Certificate files require read and write access by the `influxdb` user.
     Ensure that you have the correct file permissions in each meta node and data node by running the following commands:
