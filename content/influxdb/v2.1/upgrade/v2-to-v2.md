@@ -17,7 +17,8 @@ Upgrade to InfluxDB {{< current-version >}} from an earlier version of InfluxDB 
 
 {{% note %}}
 #### InfluxDB 2.0 beta-16 or earlier
-If you're upgrading from InfluxDB 2.0 beta-16 or earlier, you must first [upgrade to InfluxDB 2.0](http://localhost:1313/influxdb/v2.0/upgrade/v2-beta-to-v2/), 
+If you're upgrading from InfluxDB 2.0 beta-16 or earlier, you must first
+[upgrade to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2/), 
 and then complete the steps below.
 {{% /note %}}
 
