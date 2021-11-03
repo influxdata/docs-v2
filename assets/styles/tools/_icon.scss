@@ -1,0 +1,525 @@
+/*
+   Icon Font
+   -----------------------------------------------------------------------------
+   Created using a tool called IcoMoon
+   See more at http://icomoon.io
+*/
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('./Fonts/icomoon.eot') format('embedded-opentype');
+  src: url('./Fonts/icomoon.eot') format('embedded-opentype'),
+    url('./Fonts/icomoon.woff2') format('woff2'),
+    url('./Fonts/icomoon.ttf') format('truetype'),
+    url('./Fonts/icomoon.woff') format('woff'),
+    url('./Fonts/icomoon.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.cf-icon {
+  font-family: 'icomoon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  // Better Font Rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.add-cell-new:before {
+    content: '\e976';
+  }
+  &.alert-triangle-new:before {
+    content: '\e977';
+  }
+  &.annotate-new:before {
+    content: '\e978';
+  }
+  &.arrow-down-new:before {
+    content: '\e979';
+  }
+  &.arrow-left-new:before {
+    content: '\e97a';
+  }
+  &.arrow-right-new:before {
+    content: '\e97b';
+  }
+  &.arrow-up-new:before {
+    content: '\e97c';
+  }
+  &.bar-chart-new:before {
+    content: '\e97d';
+  }
+  &.build-outline-new:before {
+    content: '\e97e';
+  }
+  &.caret-down-new:before {
+    content: '\e97f';
+  }
+  &.caret-left-new:before {
+    content: '\e980';
+  }
+  &.caret-right-new:before {
+    content: '\e981';
+  }
+  &.caret-up-new:before {
+    content: '\e982';
+  }
+  &.checkmark-new:before {
+    content: '\e983';
+  }
+  &.clipboard-new:before {
+    content: '\e984';
+  }
+  &.clock-new:before {
+    content: '\e985';
+  }
+  &.cog-outline-new:before {
+    content: '\e986';
+  }
+  &.cog-solid-new:before {
+    content: '\e987';
+  }
+  &.crown-solid-new:before {
+    content: '\e988';
+  }
+  &.dark-mode-new:before {
+    content: '\e989';
+  }
+  &.download-new:before {
+    content: '\e98a';
+  }
+  &.duplicate-new:before {
+    content: '\e98b';
+  }
+  &.expand-new:before {
+    content: '\e98c';
+  }
+  &.export-new:before {
+    content: '\e98d';
+  }
+  &.eye-open-new:before {
+    content: '\e98e';
+  }
+  &.graph-line-new:before {
+    content: '\e98f';
+  }
+  &.handle-new:before {
+    content: '\e990';
+  }
+  &.home-outline-new:before {
+    content: '\e991';
+  }
+  &.info-new:before {
+    content: '\e992';
+  }
+  &.ingest-new:before {
+    content: '\e993';
+  }
+  &.light-mode-new:before {
+    content: '\e994';
+  }
+  &.lock-outline-new:before {
+    content: '\e995';
+  }
+  &.log-out-new:before {
+    content: '\e996';
+  }
+  &.pin-new:before {
+    content: '\e997';
+  }
+  &.plus-new:before {
+    content: '\e998';
+  }
+  &.question-mark-new:before {
+    content: '\e999';
+  }
+  &.refresh-new:before {
+    content: '\e99a';
+  }
+  &.remove-new:before {
+    content: '\e99b';
+  }
+  &.search-new:before {
+    content: '\e99c';
+  }
+  &.sidebar-close-new:before {
+    content: '\e99d';
+  }
+  &.sidebar-open-new:before {
+    content: '\e99e';
+  }
+  &.stop-new:before {
+    content: '\e99f';
+  }
+  &.switch-new:before {
+    content: '\e9a0';
+  }
+  &.text-new:before {
+    content: '\e9a1';
+  }
+  &.trash-new:before {
+    content: '\e9a2';
+  }
+  &.user-outline-new:before {
+    content: '\e9a3';
+  }
+  &.more:before {
+    content: '\e974';
+  }
+  &.drag-to-expand-white:before {
+    content: '\e901';
+    color: #fff;
+  }
+  &.drag-to-expand:before {
+    content: '\e902';
+  }
+  &.shield-solid:before {
+    content: '\e903';
+  }
+  &.lock:before {
+    content: '\e900';
+  }
+  &.heart-solid:before {
+    content: '\e96f';
+  }
+  &.bucket-outline:before {
+    content: '\e961';
+  }
+  &.chat:before {
+    content: '\e933';
+  }
+  &.currency-eur:before {
+    content: '\e968';
+  }
+  &.currency-gbp:before {
+    content: '\e969';
+  }
+  &.currency-usd:before {
+    content: '\e96a';
+  }
+  &.moon:before {
+    content: '\e95c';
+  }
+  &.share-solid:before {
+    content: '\e96e';
+  }
+  &.shield:before {
+    content: '\e96b';
+  }
+  &.sun:before {
+    content: '\e95d';
+  }
+  &.upgrade:before {
+    content: '\e95f';
+  }
+  &.merge:before {
+    content: '\e975';
+  }
+  &.add-cell:before {
+    content: '\e925';
+  }
+  &.alert-triangle:before {
+    content: '\e926';
+  }
+  &.alerts:before {
+    content: '\e921';
+  }
+  &.annotate:before {
+    content: '\e953';
+  }
+  &.annotate-plus:before {
+    content: '\e952';
+  }
+  &.authzero:before {
+    content: '\e951';
+  }
+  &.bar-chart:before {
+    content: '\e913';
+  }
+  &.bell:before {
+    content: '\e934';
+  }
+  &.bell-solid:before {
+    content: '\e937';
+  }
+  &.brush:before {
+    content: '\e93d';
+  }
+  &.capacitor2:before {
+    content: '\e923';
+  }
+  &.caret-down:before {
+    content: '\e904';
+  }
+  &.caret-left:before {
+    content: '\e905';
+  }
+  &.caret-right:before {
+    content: '\e906';
+  }
+  &.caret-up:before {
+    content: '\e907';
+  }
+  &.checkmark:before {
+    content: '\e918';
+  }
+  &.circle:before {
+    content: '\e940';
+  }
+  &.circle-thick:before {
+    content: '\e90e';
+  }
+  &.clock:before {
+    content: '\e920';
+  }
+  &.cog-outline:before {
+    content: '\e91c';
+  }
+  &.cog-thick:before {
+    content: '\e90c';
+  }
+  &.collapse:before {
+    content: '\e91b';
+  }
+  &.crown-outline:before {
+    content: '\e908';
+  }
+  &.crown2:before {
+    content: '\e94b';
+  }
+  &.cube:before {
+    content: '\e90b';
+  }
+  &.cubo:before {
+    content: '\e95e';
+  }
+  &.cubo-uniform:before {
+    content: '\e93c';
+  }
+  &.dash-f:before {
+    content: '\e927';
+  }
+  &.dash-h:before {
+    content: '\e929';
+  }
+  &.dash-j:before {
+    content: '\e92b';
+  }
+  &.disks:before {
+    content: '\e950';
+  }
+  &.download:before {
+    content: '\e91d';
+  }
+  &.duplicate:before {
+    content: '\e917';
+  }
+  &.erlenmeyer:before {
+    content: '\e958';
+  }
+  &.expand-a:before {
+    content: '\e944';
+  }
+  &.expand-b:before {
+    content: '\e942';
+  }
+  &.export:before {
+    content: '\e90f';
+  }
+  &.eye:before {
+    content: '\e91f';
+  }
+  &.eye-closed:before {
+    content: '\e956';
+  }
+  &.eye-open:before {
+    content: '\e957';
+  }
+  &.fn:before {
+    content: '\e960';
+  }
+  &.github:before {
+    content: '\e928';
+  }
+  &.google:before {
+    content: '\e92a';
+  }
+  &.group:before {
+    content: '\e909';
+  }
+  &.heroku:before {
+    content: '\e947';
+  }
+  &.heroku-simple:before {
+    content: '\e948';
+  }
+  &.import:before {
+    content: '\e910';
+  }
+  &.link:before {
+    content: '\e92e';
+  }
+  &.maximize:before {
+    content: '\e955';
+  }
+  &.minimize:before {
+    content: '\e954';
+  }
+  &.nav-chat:before {
+    content: '\e941';
+  }
+  &.oauth:before {
+    content: '\e94f';
+  }
+  &.octagon:before {
+    content: '\e92d';
+  }
+  &.okta:before {
+    content: '\e912';
+  }
+  &.pause:before {
+    content: '\e94a';
+  }
+  &.pencil:before {
+    content: '\e92f';
+  }
+  &.play:before {
+    content: '\e914';
+  }
+  &.plus:before {
+    content: '\e90a';
+  }
+  &.plus-skinny:before {
+    content: '\e922';
+  }
+  &.polaroid:before {
+    content: '\e95b';
+  }
+  &.pulse-c:before {
+    content: '\e936';
+  }
+  &.redo:before {
+    content: '\e959';
+  }
+  &.refresh:before {
+    content: '\e949';
+  }
+  &.remove:before {
+    content: '\e90d';
+  }
+  &.search:before {
+    content: '\e916';
+  }
+  &.server2:before {
+    content: '\e94c';
+  }
+  &.shuffle:before {
+    content: '\e94e';
+  }
+  &.square:before {
+    content: '\e93e';
+  }
+  &.square-check:before {
+    content: '\e943';
+  }
+  &.star:before {
+    content: '\e930';
+  }
+  &.stop:before {
+    content: '\e931';
+  }
+  &.text-block:before {
+    content: '\e911';
+  }
+  &.trash:before {
+    content: '\e915';
+  }
+  &.triangle:before {
+    content: '\e92c';
+  }
+  &.undo:before {
+    content: '\e95a';
+  }
+  &.user:before {
+    content: '\e919';
+  }
+  &.user-add:before {
+    content: '\e91e';
+  }
+  &.user-outline:before {
+    content: '\e932';
+  }
+  &.user-remove:before {
+    content: '\e939';
+  }
+  &.users-trio:before {
+    content: '\e945';
+  }
+  &.wand:before {
+    content: '\e94d';
+  }
+  &.wood:before {
+    content: '\e970';
+  }
+  &.wrench:before {
+    content: '\e971';
+  }
+  &.zap:before {
+    content: '\e973';
+  }
+  &.bell-ringing:before {
+    content: '\e935';
+  }
+  &.calendar:before {
+    content: '\e938';
+  }
+  &.cloud:before {
+    content: '\e93f';
+  }
+  &.cubo-nav:before {
+    content: '\e91a';
+  }
+  &.dashboards:before {
+    content: '\e93a';
+  }
+  &.disks-nav:before {
+    content: '\e946';
+  }
+  &.graphline-2:before {
+    content: '\e924';
+  }
+  &.users-duo:before {
+    content: '\e93b';
+  }
+  &.wrench-nav:before {
+    content: '\e972';
+  }
+  &.book:before {
+    content: '\e966';
+  }
+  &.book-code:before {
+    content: '\e967';
+  }
+  &.book-pencil:before {
+    content: '\e965';
+  }
+  &.bucket-solid:before {
+    content: '\e962';
+  }
+  &.funnel-outline:before {
+    content: '\e963';
+  }
+  &.funnel-solid:before {
+    content: '\e964';
+  }
+  &.layers:before {
+    content: '\e96c';
+  }
+  &.share:before {
+    content: '\e96d';
+  }
+}

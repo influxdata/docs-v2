@@ -22,7 +22,7 @@ _For details, see [Manage checks](/influxdb/v2.0/monitor-alert/checks/) and
     {{< nav-icon "alerts" >}}
 
 2. Select **Notification Rules** near to top of the page.
-3. Click **{{< icon "plus" >}} Create**.
+3. Click **{{< icon "plus" "v2" >}} Create**.
 4. Complete the **About** section:
   1. In the **Name** field, enter a name for the notification rule.
   2. In the **Schedule Every** field, enter how frequently the rule should run.
@@ -40,5 +40,5 @@ _For details, see [Manage checks](/influxdb/v2.0/monitor-alert/checks/) and
     {{< nav-icon "alerts" >}}
 
 2. Select **Notification Rules** near to top of the page.
-3. Hover over the rule you want to clone and click the **{{< icon "clone" >}}** icon and select **Clone**.
+3. Hover over the rule you want to clone and click the **{{< icon "clone" "v2" >}}** icon and select **Clone**.
    The cloned rule appears.

@@ -46,7 +46,7 @@ Accounts can have up to 50 pending invitations at one time.
 
     {{< nav-icon "account" >}}
 
-2. Click the {{< icon "delete" >}} next to the invitation you want to withdraw.
+2. Click the {{< icon "delete" "v2" >}} next to the invitation you want to withdraw.
 3. Confirm the withdrawl.
 
 {{% warn %}}

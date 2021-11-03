@@ -27,7 +27,7 @@ If you change an organization name, be sure to update the organization in the ab
 
     {{< img-hd src="/img/influxdb/user-icon.png" alt="User Icon" />}}
 
-2. Click **{{< icon "edit" >}} Rename**. A verification window appears.
+2. Click **{{< icon "edit" "v2" >}} Rename**. A verification window appears.
 3. Review the information, and then click **I understand, let's rename my organization**.
 4. Enter a new name for your organization, and then click **Change organization name**.
 

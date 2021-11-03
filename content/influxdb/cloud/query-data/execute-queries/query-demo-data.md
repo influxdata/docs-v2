@@ -40,7 +40,7 @@ Choose from the following demo data sets:
 
     {{< nav-icon "data" >}}
 
-2.  Click **{{< icon "plus" >}} Add Demo Data**, and then select the demo data bucket to add.
+2.  Click **{{< icon "plus" "v2" >}} Add Demo Data**, and then select the demo data bucket to add.
 3.  The Demo Data bucket appears in your list of buckets.
 
 ## Explore demo data

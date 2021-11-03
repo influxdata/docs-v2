@@ -23,7 +23,7 @@ Delete secrets using the {{< cloud-name "short" >}} UI, `influx` command line in
     {{< nav-icon "settings" >}}
 2. Click the **Secrets** tab.
 3. Hover over the secret you want to delete.
-4. Click the {{< icon "delete" >}} button.
+4. Click the {{< icon "delete" "v2" >}} button.
 
 ## Delete a secret using the influx CLI
 Use the [`influx secret delete` command](/influxdb/cloud/reference/cli/influx/secret/delete/)

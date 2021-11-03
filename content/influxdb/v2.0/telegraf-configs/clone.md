@@ -16,6 +16,6 @@ Use the InfluxDB user interface (UI) to clone a Telegraf configuration.
 
     {{< nav-icon "load data" >}}
 
-2. Hover over the configuration you want to clone, click the **{{< icon "clone" >}}**
+2. Hover over the configuration you want to clone, click the **{{< icon "clone" "v2" >}}**
    icon, and then click **Clone**.
    The clone appears in your list of Telegraf configurations.

@@ -22,7 +22,7 @@ There are two places you can create a bucket in the UI.
 
     {{< nav-icon "data" >}}
 
-2. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
+2. Click **{{< icon "plus" "v2" >}} Create Bucket** in the upper right.
 3. Enter a **Name** for the bucket.
 4. Select when to **Delete Data**:
     - **Never** to retain data forever.  

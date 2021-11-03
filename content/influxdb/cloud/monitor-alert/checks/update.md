@@ -34,18 +34,18 @@ To update checks, select **Alerts** in the navigation menu on the left.
 _For details about using the check builder, see [Create checks](/influxdb/cloud/monitor-alert/checks/create/)._
 
 ## Enable or disable a check
-Click the {{< icon "toggle" >}} toggle next to a check to enable or disable it.
+Click the {{< icon "toggle" "v2" >}} toggle next to a check to enable or disable it.
 
 ## Rename a check
 1.  Hover over the name of the check you want to update.
-2.  Click the **{{< icon "edit" >}}** icon that appears next to the check name.
+2.  Click the **{{< icon "edit" "v2" >}}** icon that appears next to the check name.
 2.  Enter a new name and click out of the name field or press enter to save.
 
 _You can also rename a check in the [check builder](#update-check-queries-and-logic)._
 
 ## Add or update a check description
 1.  Hover over the check description you want to update.
-2.  Click the **{{< icon "edit" >}}** icon that appears next to the description.
+2.  Click the **{{< icon "edit" "v2" >}}** icon that appears next to the description.
 2.  Enter a new description and click out of the name field or press enter to save.
 
 ## Add a label to a check
@@ -57,4 +57,4 @@ _You can also rename a check in the [check builder](#update-check-queries-and-lo
     - In the **Description** field, enter an optional description for the label.
     - Select a color for the label.
     - Click **Create Label**.
-4.  To remove a label, hover over the label under to a rule and click **{{< icon "x" >}}**.
+4.  To remove a label, hover over the label under to a rule and click **{{< icon "x" "v2" >}}**.
