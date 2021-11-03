@@ -15,7 +15,7 @@ aliases:
 ### Features
 - Always continue type inference on error.
 
-### Bugfix
+### Bug fixes
 - Revert `runtime.now()` and related updates.
 
 ---
