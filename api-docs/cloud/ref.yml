@@ -12981,9 +12981,8 @@ security:
   - BasicAuthentication: []
   - QuerystringAuthentication: []
 servers:
-  - url: ''
+  - url: /
 tags:
-  - Annotations
   - name: Authentication
     description: >
       Use one of the following schemes to authenticate to the InfluxDB API:
@@ -13038,10 +13037,8 @@ tags:
   - Limits
   - NotificationEndpoints
   - NotificationRules
-  - OAuth
   - Organizations
   - Ping
-  - Public Flags
   - name: Query
     description: |
       Retrieve data, analyze queries, and get query suggestions.
@@ -13123,7 +13120,6 @@ tags:
   - Setup
   - Signin
   - Signout
-  - Streams
   - Tasks
   - Telegraf Plugins
   - Telegrafs
@@ -13162,7 +13158,6 @@ x-tagGroups:
       - Routes
   - name: All endpoints
     tags:
-      - Annotations
       - Authorizations
       - Bucket Schemas
       - Buckets
@@ -13177,10 +13172,8 @@ x-tagGroups:
       - Limits
       - NotificationEndpoints
       - NotificationRules
-      - OAuth
       - Organizations
       - Ping
-      - Public Flags
       - Query
       - Resources
       - Routes
@@ -13189,7 +13182,6 @@ x-tagGroups:
       - Setup
       - Signin
       - Signout
-      - Streams
       - Tasks
       - Telegraf Plugins
       - Telegrafs

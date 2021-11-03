@@ -2310,32 +2310,6 @@ paths:
       summary: Return the feature flags for the currently authenticated user
       tags:
         - Users
-  /api/v2/health:
-    get:
-      operationId: GetHealth
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HealthCheck'
-          description: The instance is healthy
-        '503':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HealthCheck'
-          description: The instance is unhealthy
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      servers:
-        - url: /
-      summary: Get the health of an instance
-      tags:
-        - Health
   /api/v2/labels:
     get:
       operationId: GetLabels
@@ -2481,187 +2455,6 @@ paths:
       summary: Update a label
       tags:
         - Labels
-  /api/v2/legacy/authorizations:
-    get:
-      operationId: GetLegacyAuthorizations
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - description: Only show legacy authorizations that belong to a user ID.
-          in: query
-          name: userID
-          schema:
-            type: string
-        - description: Only show legacy authorizations that belong to a user name.
-          in: query
-          name: user
-          schema:
-            type: string
-        - description: Only show legacy authorizations that belong to an organization ID.
-          in: query
-          name: orgID
-          schema:
-            type: string
-        - description: Only show legacy authorizations that belong to a organization name.
-          in: query
-          name: org
-          schema:
-            type: string
-        - description: Only show legacy authorizations with a specified token (auth name).
-          in: query
-          name: token
-          schema:
-            type: string
-        - description: Only show legacy authorizations with a specified auth ID.
-          in: query
-          name: authID
-          schema:
-            type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authorizations'
-          description: A list of legacy authorizations
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: List all legacy authorizations
-      tags:
-        - Legacy Authorizations
-    post:
-      operationId: PostLegacyAuthorizations
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LegacyAuthorizationPostRequest'
-        description: Legacy authorization to create
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authorization'
-          description: Legacy authorization created
-        '400':
-          $ref: '#/components/responses/ServerError'
-          description: Invalid request
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Create a legacy authorization
-      tags:
-        - Legacy Authorizations
-    servers:
-      - url: /private
-  /api/v2/legacy/authorizations/{authID}:
-    delete:
-      operationId: DeleteLegacyAuthorizationsID
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - description: The ID of the legacy authorization to delete.
-          in: path
-          name: authID
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: Legacy authorization deleted
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Delete a legacy authorization
-      tags:
-        - Legacy Authorizations
-    get:
-      operationId: GetLegacyAuthorizationsID
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - description: The ID of the legacy authorization to get.
-          in: path
-          name: authID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authorization'
-          description: Legacy authorization details
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Retrieve a legacy authorization
-      tags:
-        - Legacy Authorizations
-    patch:
-      operationId: PatchLegacyAuthorizationsID
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - description: The ID of the legacy authorization to update.
-          in: path
-          name: authID
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AuthorizationUpdateRequest'
-        description: Legacy authorization to update
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authorization'
-          description: The active or inactive legacy authorization
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Update a legacy authorization to be active or inactive
-      tags:
-        - Legacy Authorizations
-    servers:
-      - url: /private
-  /api/v2/legacy/authorizations/{authID}/password:
-    post:
-      operationId: PostLegacyAuthorizationsIDPassword
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-        - description: The ID of the legacy authorization to update.
-          in: path
-          name: authID
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PasswordResetBody'
-        description: New password
-        required: true
-      responses:
-        '204':
-          description: Legacy authorization password set
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Set a legacy authorization password
-      tags:
-        - Legacy Authorizations
-    servers:
-      - url: /private
   /api/v2/maps/mapToken:
     get:
       operationId: getMapboxToken
@@ -4101,26 +3894,6 @@ paths:
       summary: Retrieve query suggestions for a branching suggestion
       tags:
         - Query
-  /api/v2/ready:
-    get:
-      operationId: GetReady
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Ready'
-          description: The instance is ready
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      servers:
-        - url: /
-      summary: Get the readiness of an instance at startup
-      tags:
-        - Ready
   /api/v2/remotes:
     get:
       operationId: GetRemoteConnections
@@ -7530,6 +7303,233 @@ paths:
       summary: Write data
       tags:
         - Write
+  /health:
+    get:
+      operationId: GetHealth
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+          description: The instance is healthy
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+          description: The instance is unhealthy
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers:
+        - url: /
+      summary: Get the health of an instance
+      tags:
+        - Health
+  /legacy/authorizations:
+    get:
+      operationId: GetLegacyAuthorizations
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: Only show legacy authorizations that belong to a user ID.
+          in: query
+          name: userID
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to a user name.
+          in: query
+          name: user
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to an organization ID.
+          in: query
+          name: orgID
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to a organization name.
+          in: query
+          name: org
+          schema:
+            type: string
+        - description: Only show legacy authorizations with a specified token (auth name).
+          in: query
+          name: token
+          schema:
+            type: string
+        - description: Only show legacy authorizations with a specified auth ID.
+          in: query
+          name: authID
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorizations'
+          description: A list of legacy authorizations
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: List all legacy authorizations
+      tags:
+        - Legacy Authorizations
+    post:
+      operationId: PostLegacyAuthorizations
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegacyAuthorizationPostRequest'
+        description: Legacy authorization to create
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: Legacy authorization created
+        '400':
+          $ref: '#/components/responses/ServerError'
+          description: Invalid request
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Create a legacy authorization
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
+  /legacy/authorizations/{authID}:
+    delete:
+      operationId: DeleteLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to delete.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Legacy authorization deleted
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Delete a legacy authorization
+      tags:
+        - Legacy Authorizations
+    get:
+      operationId: GetLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to get.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: Legacy authorization details
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Retrieve a legacy authorization
+      tags:
+        - Legacy Authorizations
+    patch:
+      operationId: PatchLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to update.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizationUpdateRequest'
+        description: Legacy authorization to update
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: The active or inactive legacy authorization
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Update a legacy authorization to be active or inactive
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
+  /legacy/authorizations/{authID}/password:
+    post:
+      operationId: PostLegacyAuthorizationsIDPassword
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to update.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetBody'
+        description: New password
+        required: true
+      responses:
+        '204':
+          description: Legacy authorization password set
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Set a legacy authorization password
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
+  /ready:
+    get:
+      operationId: GetReady
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ready'
+          description: The instance is ready
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers:
+        - url: /
+      summary: Get the readiness of an instance at startup
+      tags:
+        - Ready
 components:
   parameters:
     After:
