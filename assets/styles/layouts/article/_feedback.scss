@@ -33,7 +33,7 @@
         color: $article-heading-alt;
         margin: 0 .25rem 0 -.25rem;
         font-size: 1.65rem;
-        font-family: 'icomoon';
+        font-family: 'icomoon-v2';
         vertical-align: middle;
       }
       &.slack:before {
@@ -70,7 +70,7 @@
     &:before {
       display: inline-block;
       margin-right: .5rem;
-      font-family: 'icomoon';
+      font-family: 'icomoon-v2';
     }
 
     &.edit:before {

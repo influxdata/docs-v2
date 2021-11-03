@@ -11,7 +11,7 @@
     &:after {
       content: "\e905";
       display: block;
-      font-family: 'icomoon';
+      font-family: 'icomoon-v2';
       position: absolute;
       top: .15rem;
       right: .25rem;
@@ -287,7 +287,7 @@
       &.platform, &.flux {
         &:after {
           content: "\e911";
-          font-family: "icomoon";
+          font-family: "icomoon-v2";
           font-style: normal;
           font-size: 1rem;
           opacity: .4;

@@ -7,7 +7,7 @@
   z-index: 1;
 
   .influx-home {
-    font-family: 'icomoon';
+    font-family: 'icomoon-v2';
     font-size: 1.9rem;
     color: $topnav-link;
     text-decoration: none;
@@ -76,7 +76,7 @@
 
     &:after {
       content: "\e918";
-      font-family: 'icomoon';
+      font-family: 'icomoon-v2';
       position: absolute;
       top: .45rem;
       right: .4rem;
@@ -137,7 +137,7 @@
         position: relative;
         &:after {
           content: "\e911";
-          font-family: "icomoon";
+          font-family: "icomoon-v2";
           position: absolute;
           opacity: .4;
           margin-left: .25rem;
