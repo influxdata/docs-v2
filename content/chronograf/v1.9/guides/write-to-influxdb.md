@@ -19,7 +19,7 @@ Choose from the following methods:
 
 ## Upload line protocol through the Chronograf UI
 
-1.  Select **{{< icon "data-explorer" "v2" >}} Explore** in the left navigation bar.
+1.  Select **{{< icon "data-explorer" >}} Explore** in the left navigation bar.
 2.  Click **Write Data** in the top right corner of the Data Explorer.
 
     {{< img-hd src="/img/chronograf/1-9-write-data.png" alt="Write data to InfluxDB with Chronograf" />}}
@@ -53,7 +53,7 @@ To write data back to InfluxDB with an InfluxQL query, include the
 [`INTO` clause](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause)
 in your query:
 
-1.  Select **{{< icon "data-explorer" "v2" >}} Explore** in the left navigation bar.
+1.  Select **{{< icon "data-explorer" >}} Explore** in the left navigation bar.
 2.  Select **InfluxQL** as your data source type.
 3.  Write an InfluxQL query that includes the `INTO` clause. Specify the database,
     retention policy, and measurement to write to. For example:
@@ -80,7 +80,7 @@ To write data back to InfluxDB with an InfluxQL query, include the
 [`INTO` clause](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause)
 in your query:
 
-1.  Select **{{< icon "data-explorer" "v2" >}} Explore** in the left navigation bar.
+1.  Select **{{< icon "data-explorer" >}} Explore** in the left navigation bar.
 2.  Select **Flux** as your data source type.
 
     {{% note %}}

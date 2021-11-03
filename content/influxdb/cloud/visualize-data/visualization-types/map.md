@@ -33,9 +33,9 @@ To view geo-temporal data on a geographic map, set up a Map visualization.
 
         Click the name of the dashboard to update and then do one of the following:
 
-        - **To edit an existing cell**, click the **{{< icon "cog" "v2" >}}** icon on
-          the cell and then **{{< icon "edit" "v2" >}} Configure**.
-        - **To create a new cell**, click **{{< icon "add-cell" "v2" >}} Add Cell**.
+        - **To edit an existing cell**, click the **{{< icon "cog" >}}** icon on
+          the cell and then **{{< icon "edit" >}} Configure**.
+        - **To create a new cell**, click **{{< icon "add-cell" >}} Add Cell**.
 
 2.  Use the **Query Builder** or the **Script Editor** to enter your query.
     To determine the location of points on a geographic map, query results must

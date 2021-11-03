@@ -94,10 +94,10 @@ To copy the complete, un-truncated log message, select the message cell and clic
 ## Show or hide the log status histogram
 The Chronograf Log Viewer displays a histogram of log status.
 
-**To hide the log status histogram**, click the **{{< icon "hide" "v2" >}} icon** in 
+**To hide the log status histogram**, click the **{{< icon "hide" >}} icon** in 
 the top right corner of the histogram.
 
-**To show the log status histogram**, click the **{{< icon "bar-chart" "v2" >}} icon**
+**To show the log status histogram**, click the **{{< icon "bar-chart" >}} icon**
 in the top right corner of the log output.
 
 ## Logs in dashboards

@@ -33,11 +33,11 @@ for using Telegraf with InfluxDB v2.0._
 
     {{< nav-icon "load data" >}}
 
-4. Click **{{< icon "plus" "v2" >}} Create Configuration**.
+4. Click **{{< icon "plus" >}} Create Configuration**.
 5. In the **Bucket** dropdown, select the bucket where Telegraf will store collected data.
 6. Select one or more of the available plugin groups and click **Continue**.
 7. Review the list of **Plugins to Configure** for configuration requirements.
-   Plugins listed with a <span style="color:#32B08C">{{< icon "check" "v2" >}}</span>
+   Plugins listed with a <span style="color:#32B08C">{{< icon "check" >}}</span>
    require no additional configuration.
    To configure a plugin or access plugin documentation, click the plugin name.
 5. Provide a **Telegraf Configuration Name** and an optional **Telegraf Configuration Description**.

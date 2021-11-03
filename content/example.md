@@ -10,7 +10,7 @@ related:
 products: [cloud, oss, enterprise]
 ---
 
-This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
+This is a paragraph. Lorem ipsum dolor ({{< icon "trash" >}}) sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 
 [Ref link][foo]
 
@@ -28,68 +28,68 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< nav-icon "settings" >}}
 {{< nav-icon "notebooks" >}}
 
-{{< icon "add-cell" "v2" >}} add-cell  
-{{< icon "add-label" "v2" >}} add-label  
-{{< icon "alert" "v2" >}} alert  
-{{< icon "calendar" "v2" >}} calendar  
-{{< icon "chat" "v2" >}} chat  
-{{< icon "checkmark" "v2" >}} checkmark  
-{{< icon "clone" "v2" >}} clone  
-{{< icon "cloud" "v2" >}} cloud  
-{{< icon "cog" "v2" >}} cog  
-{{< icon "config" "v2" >}} config  
-{{< icon "copy" "v2" >}} copy  
-{{< icon "crown" "v2" >}} crown  
-{{< icon "dashboard" "v2" >}} dashboard  
-{{< icon "dashboards" "v2" >}} dashboards  
-{{< icon "data-explorer" "v2" >}} data-explorer  
-{{< icon "delete" "v2" >}} delete  
-{{< icon "download" "v2" >}} download  
-{{< icon "duplicate" "v2" >}} duplicate  
-{{< icon "edit" "v2" >}} edit  
-{{< icon "expand" "v2" >}} expand  
-{{< icon "export" "v2" >}} export  
-{{< icon "eye" "v2" >}} eye  
-{{< icon "eye-closed" "v2" >}} eye-closed  
-{{< icon "eye-open" "v2" >}} eye-open  
-{{< icon "feedback" "v2" >}} feedback  
-{{< icon "fullscreen" "v2" >}} fullscreen  
-{{< icon "gear" "v2" >}} gear  
-{{< icon "graph" "v2" >}} graph  
-{{< icon "hide" "v2" >}} hide  
-{{< icon "influx" "v2" >}} influx  
-{{< icon "influx-icon" "v2" >}} influx-icon  
-{{< icon "nav-admin" "v2" >}} nav-admin  
-{{< icon "nav-config" "v2" >}} nav-config  
-{{< icon "nav-configuration" "v2" >}} nav-configuration  
-{{< icon "nav-dashboards" "v2" >}} nav-dashboards  
-{{< icon "nav-data-explorer" "v2" >}} nav-data-explorer  
-{{< icon "nav-organizations" "v2" >}} nav-organizations  
-{{< icon "nav-orgs" "v2" >}} nav-orgs  
-{{< icon "nav-tasks" "v2" >}} nav-tasks  
-{{< icon "note" "v2" >}} note  
-{{< icon "notebook" "v2" >}} notebook  
-{{< icon "notebooks" "v2" >}} notebooks  
-{{< icon "org" "v2" >}} org  
-{{< icon "orgs" "v2" >}} orgs  
-{{< icon "pause" "v2" >}} pause  
-{{< icon "pencil" "v2" >}} pencil  
-{{< icon "play" "v2" >}} play  
-{{< icon "plus" "v2" >}} plus  
-{{< icon "refresh" "v2" >}} refresh  
-{{< icon "remove" "v2" >}} remove  
-{{< icon "replay" "v2" >}} replay  
-{{< icon "save-as" "v2" >}} save-as  
-{{< icon "search" "v2" >}} search  
-{{< icon "settings" "v2" >}} settings  
-{{< icon "tasks" "v2" >}} tasks  
-{{< icon "toggle" "v2" >}} toggle  
-{{< icon "trash" "v2" >}} trash  
-{{< icon "trashcan" "v2" >}} trashcan  
-{{< icon "triangle" "v2" >}} triangle  
-{{< icon "view" "v2" >}} view  
-{{< icon "wrench" "v2" >}} wrench  
-{{< icon "x" "v2" >}} x  
+{{< icon "add-cell" >}} add-cell  
+{{< icon "add-label" >}} add-label  
+{{< icon "alert" >}} alert  
+{{< icon "calendar" >}} calendar  
+{{< icon "chat" >}} chat  
+{{< icon "checkmark" >}} checkmark  
+{{< icon "clone" >}} clone  
+{{< icon "cloud" >}} cloud  
+{{< icon "cog" >}} cog  
+{{< icon "config" >}} config  
+{{< icon "copy" >}} copy  
+{{< icon "crown" >}} crown  
+{{< icon "dashboard" >}} dashboard  
+{{< icon "dashboards" >}} dashboards  
+{{< icon "data-explorer" >}} data-explorer  
+{{< icon "delete" >}} delete  
+{{< icon "download" >}} download  
+{{< icon "duplicate" >}} duplicate  
+{{< icon "edit" >}} edit  
+{{< icon "expand" >}} expand  
+{{< icon "export" >}} export  
+{{< icon "eye" >}} eye  
+{{< icon "eye-closed" >}} eye-closed  
+{{< icon "eye-open" >}} eye-open  
+{{< icon "feedback" >}} feedback  
+{{< icon "fullscreen" >}} fullscreen  
+{{< icon "gear" >}} gear  
+{{< icon "graph" >}} graph  
+{{< icon "hide" >}} hide  
+{{< icon "influx" >}} influx  
+{{< icon "influx-icon" >}} influx-icon  
+{{< icon "nav-admin" >}} nav-admin  
+{{< icon "nav-config" >}} nav-config  
+{{< icon "nav-configuration" >}} nav-configuration  
+{{< icon "nav-dashboards" >}} nav-dashboards  
+{{< icon "nav-data-explorer" >}} nav-data-explorer  
+{{< icon "nav-organizations" >}} nav-organizations  
+{{< icon "nav-orgs" >}} nav-orgs  
+{{< icon "nav-tasks" >}} nav-tasks  
+{{< icon "note" >}} note  
+{{< icon "notebook" >}} notebook  
+{{< icon "notebooks" >}} notebooks  
+{{< icon "org" >}} org  
+{{< icon "orgs" >}} orgs  
+{{< icon "pause" >}} pause  
+{{< icon "pencil" >}} pencil  
+{{< icon "play" >}} play  
+{{< icon "plus" >}} plus  
+{{< icon "refresh" >}} refresh  
+{{< icon "remove" >}} remove  
+{{< icon "replay" >}} replay  
+{{< icon "save-as" >}} save-as  
+{{< icon "search" >}} search  
+{{< icon "settings" >}} settings  
+{{< icon "tasks" >}} tasks  
+{{< icon "toggle" >}} toggle  
+{{< icon "trash" >}} trash  
+{{< icon "trashcan" >}} trashcan  
+{{< icon "triangle" >}} triangle  
+{{< icon "view" >}} view  
+{{< icon "wrench" >}} wrench  
+{{< icon "x" >}} x  
 
 ## h2 This is a header2
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.

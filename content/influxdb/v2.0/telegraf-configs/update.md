@@ -33,7 +33,7 @@ Telegraf doesn't detect changes to remote configurations. If you edit a remote c
 
     {{< nav-icon "load data" >}}
 
-2. Hover over the configuration you want to edit and click **{{< icon "pencil" "v2" >}}**
+2. Hover over the configuration you want to edit and click **{{< icon "pencil" >}}**
    to update the name or description.
 3. Press **Return** or click out of the editable field to save your changes.
 

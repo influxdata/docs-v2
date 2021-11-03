@@ -34,7 +34,7 @@ This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add t
 
     {{< nav-icon "data" >}}
 
-2.  Click **{{< icon "plus" "v2" >}} Add Demo Data**, and then select the **Website Monitoring** bucket.
+2.  Click **{{< icon "plus" >}} Add Demo Data**, and then select the **Website Monitoring** bucket.
 3.  The Demo Data bucket appears in your list of buckets.
 
 ## Add sample data
@@ -107,7 +107,7 @@ By default, a visualization cell appears below your initial metric selector cell
 1. Use the function dropdown menu to view different functions to apply to your data. By default, the visualization is set to the mean function.
 2. Use the visualization type dropdown to view different visualization types available.
 For a complete list of options, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
-3. Click the gear icon ({{< icon "gear" "v2" >}}) to edit specific settings for the visualization type, such as colors, orientation, and labels.
+3. Click the gear icon ({{< icon "gear" >}}) to edit specific settings for the visualization type, such as colors, orientation, and labels.
 
 ### Process data
 
@@ -124,7 +124,7 @@ For more information on how to process data, see [here](/influxdb/cloud/process-
 
 Get notifications every time your data crosses a threshold. Specify your alerts by time and decide how the information will be sent to you. 
 
-1. In your notebook, click **{{< icon "plus" "v2" >}}** to add a cell, then select **Output > Alert**.
+1. In your notebook, click **{{< icon "plus" >}}** to add a cell, then select **Output > Alert**.
 2. Customize the conditions to send an alert.
 3. Enter a time range to automatically check the data and enter your query offset.
 4. Select an endpoint to receive an alert:

@@ -47,7 +47,7 @@ in a specified amount of time.
 
     {{< nav-icon "alerts" >}}
 
-2.  Click **{{< icon "plus" "v2" >}} Create** and select the [type of check](#check-types) to create.
+2.  Click **{{< icon "plus" >}} Create** and select the [type of check](#check-types) to create.
 3.  Click **Name this check** in the top left corner and provide a unique name for the check.
 
 #### Configure the check query
@@ -60,7 +60,7 @@ in a specified amount of time.
     (for example, "Every 5 minutes") and an aggregate function from the list of functions.
 
 3. Click **Submit** to run the query and preview the results.
-   To see the raw query results, click the **{{< icon "toggle" "v2" >}} View Raw Data** toggle.
+   To see the raw query results, click the **{{< icon "toggle" >}} View Raw Data** toggle.
 
 #### Configure the check
 1.  Click **2. Configure Check** near the top of the window.
@@ -143,10 +143,10 @@ count = 12
     3.  In the **And stop checking after** field, enter the time to stop monitoring the series.
         For example, `30m`, `2h`, `3h15m`, etc.
 
-5. Click the green **{{< icon "check" "v2" >}}** in the top right corner to save the check.
+5. Click the green **{{< icon "check" >}}** in the top right corner to save the check.
 
 ## Clone a check
 Create a new check by cloning an existing check.
 
 1. In the **Checks** column, hover over the check you want to clone.
-2. Click the **{{< icon "clone" "v2" >}}** icon, then **Clone**.
+2. Click the **{{< icon "clone" >}}** icon, then **Clone**.

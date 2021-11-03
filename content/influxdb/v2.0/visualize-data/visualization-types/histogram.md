@@ -33,7 +33,7 @@ To work properly, query results **should not** be structured as histogram data.
 {{% /note %}}
 
 ## Histogram Controls
-To view **Histogram** controls, click **{{< icon "gear" "v2" >}} Customize** next to
+To view **Histogram** controls, click **{{< icon "gear" >}} Customize** next to
 the visualization dropdown.
 
 ###### Data

@@ -32,14 +32,14 @@ For more information, see [Configuring Chronograf](/chronograf/v1.9/administrati
 ## Build a dashboard
 
 1.  #### Create a new dashboard
-    Click **Dashboards** in the navigation bar and then click the **{{< icon "plus" "v2" >}} Create Dashboard** button.
+    Click **Dashboards** in the navigation bar and then click the **{{< icon "plus" >}} Create Dashboard** button.
     A new dashboard is created and ready to begin adding cells.
 
 2.  #### Name your dashboard
     Click **Name This Dashboard** and type a new name. For example, "ChronoDash".
 
 3.  #### Enter cell editor mode
-    In the first cell, titled "Untitled Cell", click **{{< icon "plus" "v2" >}} Add Data**
+    In the first cell, titled "Untitled Cell", click **{{< icon "plus" >}} Add Data**
     to open the cell editor mode.
 
     {{< img-hd src="/img/chronograf/1-9-dashboard-cell-add-data.png" alt="Add data to a Chronograf cell" />}}
@@ -155,7 +155,7 @@ Select from a variety of dashboard templates to import and customize based on wh
 
 ### Full screen mode
 
-View your dashboard in full screen mode by clicking on the full screen icon (**{{< icon "fullscreen" "v2" >}}**) in the top right corner of your dashboard.
+View your dashboard in full screen mode by clicking on the full screen icon (**{{< icon "fullscreen" >}}**) in the top right corner of your dashboard.
 To exit full screen mode, press the Esc key.
 
 ### Template variables

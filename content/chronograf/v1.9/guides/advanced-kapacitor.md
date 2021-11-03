@@ -33,7 +33,7 @@ of the default retention policy.
 Use the Chronograf **Admin page** to modify the retention policy in the `chronograf` database.
 In the Databases tab:
 
-1.  Click **{{< icon "crown" "v2" >}} InfluxDB Admin** in the left navigation bar.
+1.  Click **{{< icon "crown" >}} InfluxDB Admin** in the left navigation bar.
 2.  Hover over the retention policy list of the `chronograf` database and click **Edit**
     next to the retention policy to update.
 3.  Update the **Duration** of the retention policy.

@@ -22,7 +22,7 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS 2.0** and 
 
 ## Create an InfluxDB connection
 1. In Choronograf, click **Configuration** in the left navigation bar,
-   and then click **{{< icon "plus" "v2" >}} Add Connection**.
+   and then click **{{< icon "plus" >}} Add Connection**.
 2. Toggle the **InfluxDB v2 Auth** option at the bottom of the form.
 
     {{< img-hd src="/img/influxdb/2-0-tools-chronograf-v2-auth.png" alt="InfluxDB v2 Auth toggle" />}}
@@ -83,7 +83,7 @@ For example, you **cannot** do the following:
 - Kill queries
 
 When connected to an InfluxDB Cloud or InfluxDB 2.0 database, functionality in the
-**{{< icon "crown" "v2" >}} InfluxDB Admin** section of Chronograf is disabled.
+**{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
 
 To complete administrative tasks, use the following:
 

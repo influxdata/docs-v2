@@ -48,7 +48,7 @@ The InfluxDB UI provides multiple ways to create a task:
 
     {{< nav-icon "tasks" >}}
 
-2. Click **{{< icon "plus" "v2" >}} Create Task** in the upper right.
+2. Click **{{< icon "plus" >}} Create Task** in the upper right.
 3. Select **New Task**.
 4. In the left panel, specify the task options.
    See [Task options](/influxdb/v2.0/process-data/task-options) for detailed information about each option.
@@ -92,7 +92,7 @@ fields in the left panel when you save the task.
 
     {{< nav-icon "tasks" >}}
 
-2. Hover over the task you would like to clone and click the **{{< icon "duplicate" "v2" >}}** icon that appears.
+2. Hover over the task you would like to clone and click the **{{< icon "duplicate" >}}** icon that appears.
 4. Click **Clone**.
 
 ## Create a task using the influx CLI

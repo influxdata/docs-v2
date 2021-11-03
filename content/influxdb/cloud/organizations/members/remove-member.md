@@ -23,7 +23,7 @@ Removing a member from an organization removes all permissions associated with t
 
     {{< nav-icon "org" >}}
 
-2. Hover over the member you would like to delete and click the **{{< icon "delete" "v2" >}}** icon.
+2. Hover over the member you would like to delete and click the **{{< icon "delete" >}}** icon.
 3. Click **Delete**.
 
 ## Remove a member from an organization using the influx CLI

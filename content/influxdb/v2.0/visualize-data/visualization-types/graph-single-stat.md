@@ -38,7 +38,7 @@ For consistent Single Stat results, the query should return a single table.
 {{% /note %}}
 
 ## Graph + Single Stat Controls
-To view **Graph + Single Stat** controls, click **{{< icon "gear" "v2" >}} Customize** next to
+To view **Graph + Single Stat** controls, click **{{< icon "gear" >}} Customize** next to
 the visualization dropdown.
 
 ###### Data

@@ -25,7 +25,7 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 
     {{< nav-icon "tasks" >}}
 
-2. Click **{{< icon "plus" "v2" >}} Create Task**, and then select **New Task**.
+2. Click **{{< icon "plus" >}} Create Task**, and then select **New Task**.
 3. In the **Name** field, enter a descriptive name,
    and then enter how often to run the task in the **Every** field (for example, `10m`).
    For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.0/process-data/task-options/).

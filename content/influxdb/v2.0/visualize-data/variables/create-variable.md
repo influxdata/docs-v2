@@ -66,7 +66,7 @@ InfluxDB lets you import variables exported from InfluxDB in JSON format.
     {{< nav-icon "settings" >}}
 
 2.  Select the **Variables** tab.
-3. Click the **{{< icon "plus" "v2" >}} Create Variable** drop-down menu and select **Import Variable**.
+3. Click the **{{< icon "plus" >}} Create Variable** drop-down menu and select **Import Variable**.
 4. In the window that appears:
   - Select **Upload File** to drag and drop or select a file.
   - Select **Paste JSON** to paste in JSON.
