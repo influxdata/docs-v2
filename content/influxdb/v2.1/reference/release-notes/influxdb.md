@@ -110,7 +110,7 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
   - Internet Speed Monitor (`internet_speed`)
   - KNX (`knx_listener`)
   - Mdstat (`mdstat`)
-  - Net Stat (`net_stat`)
+  - Netstat (`netstat`)
   - NFS Client (`nfsclient`)
   - OpenTelemetry (`opentelemetry`)
   - RavenDB (`ravendb`)
