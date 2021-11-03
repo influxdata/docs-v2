@@ -35,5 +35,8 @@ Error: up: reading migrations: migration "...": migration specification not foun
     influxd downgrade 2.0
     ```
 
-2. Install the older version of InfluxDB.
-3. Start InfluxDB with the **older `influxd` binary**.
+2. Install the **earlier version** of InfluxDB:
+
+    {{< influxdb/install-old-versions >}}
+
+3. Start InfluxDB with the **earlier versioned `influxd` binary**.
