@@ -100,7 +100,25 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 
 #### Telegraf
 
-- Support for latest plugins in [Telegraf 1.20.2](/telegraf/v1.20/about_the_project/release-notes-changelog/#v1202-2021-10-07).
+- Add the following new [Telegraf plugins](https://docs.influxdata.com/telegraf/v1.20/plugins/) to the Load Data page:
+  - Alibaba (Aliyun) CloudMonitor Service Statistics (`aliyuncms`)
+  - AMD ROCm System Management Interface (SMI) (`amd_rocm_smi`)
+  - Counter-Strike: Global Offensive (CS:GO) (`csgo`)
+  - Directory Monitoring (`directory_monitor`)
+  - Intel Data Plane Development Kit (DPDK) (`dpdk`)
+  - Elasticsearch Query (`elasticsearch_query`)
+  - Internet Speed Monitor (`internet_speed`)
+  - KNX (`knx_listener`)
+  - Mdstat (`mdstat`)
+  - Net Stat (`net_stat`)
+  - NFS Client (`nfsclient`)
+  - OpenTelemetry (`opentelemetry`)
+  - RavenDB (`ravendb`)
+  - SQL (`sql`)
+  - Trig (`trig`)
+  - Twemproxy (`twemproxy`)
+
+For more information about each plugin, see [Telegraf plugins](/telegraf/v1.20/plugins/), and search for the plugin name.
 
 #### Tokens
 
