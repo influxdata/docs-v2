@@ -26,7 +26,7 @@ to view task run histories and associated logs.
 
     {{< nav-icon "tasks" >}}
 
-2. Hover over the task you want to run and click the **{{< icon "gear" >}}** icon.
+2. Hover over the task you want to run and click the **{{< icon "gear" "v2" >}}** icon.
 3. Select **View Task Runs**.
 
 ### View task run logs

@@ -15,7 +15,7 @@ To delete a dashboard from the InfluxDB user interface (UI):
 
     {{< nav-icon "dashboards" >}}
 
-2. Hover over the dashboard  in the list of dashboards  and click **{{< icon "trash" >}}**.    
+2. Hover over the dashboard  in the list of dashboards  and click **{{< icon "trash" "v2" >}}**.    
 3. Click **Delete**.
 
 {{% warn %}}

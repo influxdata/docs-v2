@@ -1,74 +1,80 @@
-{{ $_hugo_config := `{ "version": 1 }` }}
-{{ $icon :=  .Get 0 | default "influx" }}
+{{- $_hugo_config := `{ "version": 1 }` -}}
+{{- $icon := .Get 0 | default "influx" -}}
+{{- $version := .Get 1 | default "v3" -}}
 
-{{ if or (eq $icon "nav-admin") (eq $icon "influx") (eq $icon "influx-icon") }}
-<span class="inline icon-influx-icon middle"></span>
-{{ else if or (eq $icon "nav-data-explorer") (eq $icon "data-explorer") (eq $icon "graph") }}
-<span class="inline icon-data-explorer middle large"></span>
-{{ else if or (eq $icon "nav-dashboards") (eq $icon "dashboard") (eq $icon "dashboards") }}
-<span class="inline icon-dashboards middle"></span>
-{{ else if or (eq $icon "nav-tasks") (eq $icon "calendar") (eq $icon "tasks") }}
-<span class="inline icon-calendar"></span>
-{{ else if or (eq $icon "nav-organizations") (eq $icon "nav-orgs") (eq $icon "orgs") (eq $icon "org") }}
-<span class="inline icon-organizations middle"></span>
-{{ else if or (eq $icon "nav-configuration") (eq $icon "nav-config") (eq $icon "wrench") }}
-<span class="inline icon-wrench-2 middle large"></span>
-{{ else if eq $icon "add-cell" }}
-<span class="inline icon-add-cell small"></span>
-{{ else if eq $icon "alert" }}
-<span class="inline icon-alert middle"></span>
-{{ else if or (eq $icon "checkmark") (eq $icon "check") }}
-<span class="inline icon-checkmark middle"></span>
-{{ else if or (eq $icon "gear") (eq $icon "cog") (eq $icon "settings") (eq $icon "config") }}
-<span class="inline icon-cog-thick middle small"></span>
-{{ else if eq $icon "download" }}
-<span class="inline icon-download middle"></span>
-{{ else if or (eq $icon "duplicate") (eq $icon "copy") (eq $icon "clone") }}
-<span class="inline icon-duplicate middle small"></span>
-{{ else if or (eq $icon "export") (eq $icon "save-as") }}
-<span class="inline icon-export middle small"></span>
-{{ else if or (eq $icon "expand") (eq $icon "fullscreen") }}
-<span class="inline icon-fullscreen middle large"></span>
-{{ else if eq $icon "note" }}
-<span class="inline icon-note middle small"></span>
-{{ else if eq $icon "pause" }}
-<span class="inline icon-pause middle"></span>
-{{ else if or (eq $icon "pencil") (eq $icon "edit") }}
-<span class="inline icon-pencil middle small"></span>
-{{ else if eq $icon "play" }}
-<span class="inline icon-play middle small"></span>
-{{ else if eq $icon "plus" }}
-<span class="inline icon-ui-plus middle xsmall"></span>
-{{ else if or (eq $icon "refresh") (eq $icon "replay") }}
-<span class="inline icon-refresh middle small"></span>
-{{ else if or (eq $icon "remove") (eq $icon "x") }}
-<span class="inline icon-remove top small"></span>
-{{ else if eq $icon "search" }}
-<span class="inline icon-search middle small"></span>
-{{ else if or (eq $icon "trash") (eq $icon "trashcan") (eq $icon "delete") }}
-<span class="inline icon-trash top small"></span>
-{{ else if eq $icon "triangle" }}
-<span class="inline icon-triangle middle"></span>
-{{ else if eq $icon "cloud" }}
-<span class="inline icon-cloud large"></span>
-{{ else if eq $icon "feedback" }}
-<span class="inline icon-nav-chat large"></span>
-{{ else if eq $icon "chat" }}
-<span class="inline icon-chat large"></span>
-{{ else if or (eq $icon "eye-open") (eq $icon "eye") (eq $icon "view") }}
-<span class="inline icon-eye-open large"></span>
-{{ else if or (eq $icon "eye-closed") (eq $icon "hide") }}
-<span class="inline icon-eye-closed large"></span>
-{{ else if or (eq $icon "notebook") (eq $icon "notebooks") }}
-<span class="inline icon-book-pencil"></span>
-{{ else if eq $icon "crown" }}
-<span class="inline icon-crown large"></span>
-{{ else if or (eq $icon "bar-chart") (eq $icon "bar-graph") }}
-<span class="inline icon-bar-chart top small"></span>
-{{ else if eq $icon "add-label" }}
-<span class="inline add-btn-round">&#59696;</span>
-{{ else if or (eq $icon "toggle") (eq $icon "toggle-blue") }}
-<span class="inline ui-toggle blue"><span class="circle"></span></span>
-{{ else if eq $icon "toggle-green" }}
-<span class="inline ui-toggle green"><span class="circle"></span></span>
-{{ end }}
+{{- if eq $version "v2" -}}
+  {{- if or (eq $icon "nav-admin") (eq $icon "influx") (eq $icon "influx-icon") -}}
+  <span class="inline v2 icon-influx-icon middle"></span>
+  {{- else if or (eq $icon "nav-data-explorer") (eq $icon "data-explorer") (eq $icon "graph") -}}
+  <span class="inline v2 icon-data-explorer middle large"></span>
+  {{- else if or (eq $icon "nav-dashboards") (eq $icon "dashboard") (eq $icon "dashboards") -}}
+  <span class="inline v2 icon-dashboards middle"></span>
+  {{- else if or (eq $icon "nav-tasks") (eq $icon "calendar") (eq $icon "tasks") -}}
+  <span class="inline v2 icon-calendar"></span>
+  {{- else if or (eq $icon "nav-organizations") (eq $icon "nav-orgs") (eq $icon "orgs") (eq $icon "org") -}}
+  <span class="inline v2 icon-organizations middle"></span>
+  {{- else if or (eq $icon "nav-configuration") (eq $icon "nav-config") (eq $icon "wrench") -}}
+  <span class="inline v2 icon-wrench-2 middle large"></span>
+  {{- else if eq $icon "add-cell" -}}
+  <span class="inline v2 icon-add-cell small"></span>
+  {{- else if eq $icon "alert" -}}
+  <span class="inline v2 icon-alert middle"></span>
+  {{- else if or (eq $icon "checkmark") (eq $icon "check") -}}
+  <span class="inline v2 icon-checkmark middle"></span>
+  {{- else if or (eq $icon "gear") (eq $icon "cog") (eq $icon "settings") (eq $icon "config") -}}
+  <span class="inline v2 icon-cog-thick middle small"></span>
+  {{- else if eq $icon "download" -}}
+  <span class="inline v2 icon-download middle"></span>
+  {{- else if or (eq $icon "duplicate") (eq $icon "copy") (eq $icon "clone") -}}
+  <span class="inline v2 icon-duplicate middle small"></span>
+  {{- else if or (eq $icon "export") (eq $icon "save-as") -}}
+  <span class="inline v2 icon-export middle small"></span>
+  {{- else if or (eq $icon "expand") (eq $icon "fullscreen") -}}
+  <span class="inline v2 icon-fullscreen middle large"></span>
+  {{- else if eq $icon "note" -}}
+  <span class="inline v2 icon-note middle small"></span>
+  {{- else if eq $icon "pause" -}}
+  <span class="inline v2 icon-pause middle"></span>
+  {{- else if or (eq $icon "pencil") (eq $icon "edit") -}}
+  <span class="inline v2 icon-pencil middle small"></span>
+  {{- else if eq $icon "play" -}}
+  <span class="inline v2 icon-play middle small"></span>
+  {{- else if eq $icon "plus" -}}
+  <span class="inline v2 icon-ui-plus middle xsmall"></span>
+  {{- else if or (eq $icon "refresh") (eq $icon "replay") -}}
+  <span class="inline v2 icon-refresh middle small"></span>
+  {{- else if or (eq $icon "remove") (eq $icon "x") -}}
+  <span class="inline v2 icon-remove top small"></span>
+  {{- else if eq $icon "search" -}}
+  <span class="inline v2 icon-search middle small"></span>
+  {{- else if or (eq $icon "trash") (eq $icon "trashcan") (eq $icon "delete") -}}
+  <span class="inline v2 icon-trash top small"></span>
+  {{- else if eq $icon "triangle" -}}
+  <span class="inline v2 icon-triangle middle"></span>
+  {{- else if eq $icon "cloud" -}}
+  <span class="inline v2 icon-cloud large"></span>
+  {{- else if eq $icon "feedback" -}}
+  <span class="inline v2 icon-nav-chat large"></span>
+  {{- else if eq $icon "chat" -}}
+  <span class="inline v2 icon-chat large"></span>
+  {{- else if or (eq $icon "eye-open") (eq $icon "eye") (eq $icon "view") -}}
+  <span class="inline v2 icon-eye-open large"></span>
+  {{- else if or (eq $icon "eye-closed") (eq $icon "hide") -}}
+  <span class="inline v2 icon-eye-closed large"></span>
+  {{- else if or (eq $icon "notebook") (eq $icon "notebooks") -}}
+  <span class="inline v2 icon-book-pencil"></span>
+  {{- else if eq $icon "crown" -}}
+  <span class="inline v2 icon-crown large"></span>
+  {{- else if or (eq $icon "bar-chart") (eq $icon "bar-graph") -}}
+  <span class="inline v2 icon-bar-chart top small"></span>
+  {{- else if eq $icon "add-label" -}}
+  <span class="inline v2 add-btn-round">&#xe931;</span>
+  {{- else if or (eq $icon "toggle") (eq $icon "toggle-blue") -}}
+  <span class="inline v2 ui-toggle blue"><span class="circle"></span></span>
+  {{- else if eq $icon "toggle-green" -}}
+  <span class="inline v2 ui-toggle green"><span class="circle"></span></span>
+  {{- end -}}
+{{- else -}}
+  
+
+{{- end -}}

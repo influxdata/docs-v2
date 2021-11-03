@@ -17,7 +17,7 @@ weight: 201
 
     {{< nav-icon "dashboards" >}}
 
-2. Click the **{{< icon "plus" >}} Create Dashboard** menu in the upper right and select **New Dashboard**.
+2. Click the **{{< icon "plus" "v2" >}} Create Dashboard** menu in the upper right and select **New Dashboard**.
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
 
 **To import an existing dashboard**:
@@ -40,19 +40,19 @@ weight: 201
 
     {{< nav-icon "dashboards" >}}
 
-2. Hover over the dashboard and click **{{< icon "copy" >}}**.
+2. Hover over the dashboard and click **{{< icon "copy" "v2" >}}**.
 3. Click **Clone**. The cloned dashboard opens.
 
 #### Add data to your dashboard
 
-1. From your dashboard, click **{{< icon "add-cell" >}} Add Cell**.
+1. From your dashboard, click **{{< icon "add-cell" "v2" >}} Add Cell**.
 2. Create a query in the Data Explorer following the instructions in [Explore metrics](/influxdb/cloud/visualize-data/explore-metrics).
 3. Enter a name for your cell in the upper left.
-4. Click the checkmark icon (**{{< icon "checkmark" >}}**) to save the cell to your dashboard.
+4. Click the checkmark icon (**{{< icon "checkmark" "v2" >}}**) to save the cell to your dashboard.
    You can also send data to your dashboard directly from the Data Explorer. For details, [Explore metrics](/influxdb/cloud/visualize-data/explore-metrics).
 
 #### Add a note to your dashboard
-1. From your dashboard, click **{{< icon "note" >}} Add Note** in the upper left.
+1. From your dashboard, click **{{< icon "note" "v2" >}} Add Note** in the upper left.
 2. Enter your note in the window that appears. You can use Markdown syntax to format your note.
 3. To preview your Markdown formatting, click the **Preview** option.
 4. Click **Save**.

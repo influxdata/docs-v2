@@ -20,7 +20,7 @@ To manage labels:
 
 
 #### Create a label
-1. Click **{{< icon "plus" >}} Create Label**.
+1. Click **{{< icon "plus" "v2" >}} Create Label**.
 2. Enter a **Name** for the label.
 3. Enter a description for the label _(Optional)_.
 4. Select a **Color** for the label.
@@ -33,12 +33,12 @@ To manage labels:
 3. Click **Save Changes**.
 
 #### Delete a label
-1. In the label list view, hover over the label you would like to delete and click **{{< icon "trash" >}}**.
+1. In the label list view, hover over the label you would like to delete and click **{{< icon "trash" "v2" >}}**.
 2. Click **Delete**.
 
 ### Add labels to dashboard items
 1. In the list view of dashboards, tasks, or other assets, hover over the item to which you would like to add a label.
-2. Click the {{< icon "add-label" >}} icon that appears below the name.
+2. Click the {{< icon "add-label" "v2" >}} icon that appears below the name.
    The **Add Labels** overlay will appear.
 3. Type the name of the label you would like to add to filter the list of available labels.
    Click the label you would like to add.

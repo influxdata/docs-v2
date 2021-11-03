@@ -44,7 +44,7 @@ View notification endpoint details and history in the InfluxDB user interface (U
     {{< nav-icon "alerts" >}}
 
 2. Select **Notification Endpoints** near to top of the page.
-3. Hover over the notification endpoint, click the **{{< icon "view" >}}** icon, then **View History**.
+3. Hover over the notification endpoint, click the **{{< icon "view" "v2" >}}** icon, then **View History**.
    The Check Statuses History page displays:
 
     - Statuses generated for the selected notification endpoint
