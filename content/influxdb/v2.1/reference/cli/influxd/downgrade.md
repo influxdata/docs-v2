@@ -34,7 +34,7 @@ influxd downgrade [flags] <target-version>
 
 | Flag |               | Description                                                       | Input type |
 | :--- | :------------ | :---------------------------------------------------------------- | :--------: |
-| `-m` | `--bolt-path` | Path to boltdb database (default is `~/.influxdbv2/influxd.bolt`) |   string   |
+|      | `--bolt-path` | Path to boltdb database (default is `~/.influxdbv2/influxd.bolt`) |   string   |
 | `-h` | `--help`      | Help for `downgrade`                                              |            |
 |      | `--log-level` | Log level (`debug`, `info` _(default_), `warn` or  `error`)       |   string   |
 
