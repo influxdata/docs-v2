@@ -9,20 +9,6 @@ components:
       required: false
       schema:
         type: string
-    AnnotationDeleteFilter:
-      description: Annotations to delete
-      in: query
-      name: AnnotationDeleteFilter
-      required: true
-      schema:
-        $ref: '#/components/schemas/AnnotationDeleteFilter'
-    AnnotationListFilter:
-      description: Filter for returned annotations
-      in: query
-      name: AnnotationListFilter
-      required: false
-      schema:
-        $ref: '#/components/schemas/AnnotationListFilter'
     Descending:
       in: query
       name: descending
@@ -52,20 +38,6 @@ components:
       required: false
       schema:
         type: string
-    StreamDeleteFilter:
-      description: Stream to delete
-      in: query
-      name: StreamDeleteFilter
-      required: true
-      schema:
-        $ref: '#/components/schemas/StreamDeleteFilter'
-    StreamListFilter:
-      description: Filter for returned streams
-      in: query
-      name: StreamListFilter
-      required: false
-      schema:
-        $ref: '#/components/schemas/StreamListFilter'
     TraceSpan:
       description: OpenTracing span context
       example:
@@ -79,8 +51,6 @@ components:
       schema:
         type: string
   responses:
-    NoContent:
-      description: No content
     ServerError:
       content:
         application/json:
@@ -118,111 +88,6 @@ components:
                 type: string
             type: object
           type: array
-      type: object
-    Annotation:
-      properties:
-        endTime:
-          format: date-time
-          type: string
-        message:
-          type: string
-        startTime:
-          format: date-time
-          type: string
-        stickers:
-          additionalProperties:
-            type: string
-          type: object
-        summary:
-          type: string
-      type: object
-    AnnotationCreate:
-      allOf:
-        - $ref: '#/components/schemas/Annotation'
-        - properties:
-            stream:
-              type: string
-          type: object
-    AnnotationCreateList:
-      items:
-        $ref: '#/components/schemas/AnnotationCreate'
-      type: array
-    AnnotationDeleteFilter:
-      properties:
-        endTime:
-          format: date-time
-          type: string
-        startTime:
-          format: date-time
-          type: string
-        stickers:
-          additionalProperties:
-            type: string
-          type: object
-        stream:
-          type: string
-        streamID:
-          type: string
-      required:
-        - stream
-        - startTime
-        - endTime
-      type: object
-    AnnotationEvent:
-      allOf:
-        - $ref: '#/components/schemas/Annotation'
-        - properties:
-            id:
-              type: string
-            stream:
-              type: string
-          type: object
-    AnnotationEventList:
-      items:
-        $ref: '#/components/schemas/AnnotationEvent'
-      type: array
-    AnnotationList:
-      items:
-        properties:
-          annotations:
-            items:
-              $ref: '#/components/schemas/AnnotationResponse'
-            type: array
-          stream:
-            type: string
-        type: object
-      type: array
-    AnnotationListFilter:
-      allOf:
-        - $ref: '#/components/schemas/BasicFilter'
-        - properties:
-            stickerIncludes:
-              additionalProperties:
-                type: string
-              type: object
-            streamIncludes:
-              items:
-                type: string
-              type: array
-          type: object
-    AnnotationResponse:
-      properties:
-        endTime:
-          format: date-time
-          type: string
-        id:
-          type: string
-        message:
-          type: string
-        startTime:
-          format: date-time
-          type: string
-        stickers:
-          additionalProperties:
-            type: string
-          type: object
-        summary:
-          type: string
       type: object
     ArrayExpression:
       description: Used to create and directly specify the elements of an array object
@@ -470,15 +335,6 @@ components:
         - colors
         - note
         - showNoteWhenEmpty
-      type: object
-    BasicFilter:
-      properties:
-        endTime:
-          format: date-time
-          type: string
-        startTime:
-          format: date-time
-          type: string
       type: object
     BinaryExpression:
       description: uses binary operators to act on two operands in an expression
@@ -1583,18 +1439,6 @@ components:
             $ref: '#/components/schemas/FluxSuggestion'
           type: array
       type: object
-    ForbiddenRequestError:
-      properties:
-        code:
-          description: returns error code 403
-          enum:
-            - forbidden
-          readOnly: true
-          type: string
-        message:
-          description: message is a human-readable message.
-          readOnly: true
-          type: string
     FunctionExpression:
       description: Function expression
       properties:
@@ -2166,18 +2010,6 @@ components:
         value:
           type: string
       type: object
-    InvalidRequestError:
-      properties:
-        code:
-          description: returns error code 400
-          enum:
-            - invalid
-          readOnly: true
-          type: string
-        message:
-          description: message is a human-readable message.
-          readOnly: true
-          type: string
     IsOnboarding:
       properties:
         allowed:
@@ -2415,54 +2247,6 @@ components:
         - check
         - notificationRule
         - notificationEndpoint
-      type: object
-    LimitEvent:
-      properties:
-        orgID:
-          type: string
-        timestamp:
-          format: date-time
-          readOnly: true
-          type: string
-        type:
-          enum:
-            - limited_quota
-            - limited_write
-            - limited_query
-            - limited_cardinality
-          type: string
-      type: object
-    LimitEvents:
-      properties:
-        events:
-          items:
-            $ref: '#/components/schemas/LimitEvent'
-          type: array
-        links:
-          $ref: '#/components/schemas/Links'
-      type: object
-    LimitStatus:
-      properties:
-        status:
-          enum:
-            - ok
-            - exceeded
-          type: string
-      required:
-        - status
-      type: object
-    LimitStatuses:
-      properties:
-        cardinality:
-          $ref: '#/components/schemas/LimitStatus'
-        read:
-          $ref: '#/components/schemas/LimitStatus'
-        write:
-          $ref: '#/components/schemas/LimitStatus'
-      required:
-        - read
-        - write
-        - cardinality
       type: object
     LinePlusSingleStatProperties:
       properties:
@@ -3250,24 +3034,6 @@ components:
           items:
             $ref: '#/components/schemas/NotificationRule'
           type: array
-    OAuthClientConfig:
-      properties:
-        clientID:
-          type: string
-        domain:
-          format: uri
-          type: string
-        redirectURL:
-          format: uri
-          type: string
-        state:
-          type: string
-      required:
-        - clientID
-        - domain
-        - redirectURL
-        - state
-      type: object
     ObjectExpression:
       description: Allows the declaration of an anonymous object within a declaration
       properties:
@@ -3305,344 +3071,12 @@ components:
       properties:
         auth:
           $ref: '#/components/schemas/Authorization'
-          allOf:
-            - properties:
-                description:
-                  description: A description of the token.
-                  type: string
-                status:
-                  default: active
-                  description: >-
-                    If inactive the token is inactive and requests using the
-                    token will be rejected.
-                  enum:
-                    - active
-                    - inactive
-                  type: string
-            - properties:
-                createdAt:
-                  format: date-time
-                  readOnly: true
-                  type: string
-                id:
-                  readOnly: true
-                  type: string
-                links:
-                  example:
-                    self: /api/v2/authorizations/1
-                    user: /api/v2/users/12
-                  properties:
-                    self:
-                      $ref: '#/components/schemas/Link'
-                      readOnly: true
-                    user:
-                      $ref: '#/components/schemas/Link'
-                      readOnly: true
-                  readOnly: true
-                  type: object
-                org:
-                  description: Name of the org token is scoped to.
-                  readOnly: true
-                  type: string
-                orgID:
-                  description: ID of org that authorization is scoped to.
-                  type: string
-                permissions:
-                  description: >-
-                    List of permissions for an auth.  An auth must have at least
-                    one Permission.
-                  items:
-                    properties:
-                      action:
-                        enum:
-                          - read
-                          - write
-                        type: string
-                      resource:
-                        properties:
-                          id:
-                            description: >-
-                              If ID is set that is a permission for a specific
-                              resource. if it is not set it is a permission for
-                              all resources of that resource type.
-                            nullable: true
-                            type: string
-                          name:
-                            description: >-
-                              Optional name of the resource if the resource has
-                              a name field.
-                            nullable: true
-                            type: string
-                          org:
-                            description: >-
-                              Optional name of the organization of the
-                              organization with orgID.
-                            nullable: true
-                            type: string
-                          orgID:
-                            description: >-
-                              If orgID is set that is a permission for all
-                              resources owned my that org. if it is not set it
-                              is a permission for all resources of that resource
-                              type.
-                            nullable: true
-                            type: string
-                          type:
-                            enum:
-                              - authorizations
-                              - buckets
-                              - dashboards
-                              - orgs
-                              - tasks
-                              - telegrafs
-                              - users
-                              - variables
-                              - secrets
-                              - labels
-                              - views
-                              - documents
-                              - notificationRules
-                              - notificationEndpoints
-                              - checks
-                              - dbrp
-                              - flows
-                              - annotations
-                              - functions
-                            type: string
-                        required:
-                          - type
-                        type: object
-                    required:
-                      - action
-                      - resource
-                  minItems: 1
-                  type: array
-                token:
-                  description: >-
-                    Passed via the Authorization Header and Token Authentication
-                    type.
-                  readOnly: true
-                  type: string
-                updatedAt:
-                  format: date-time
-                  readOnly: true
-                  type: string
-                user:
-                  description: Name of user that created and owns the token.
-                  readOnly: true
-                  type: string
-                userID:
-                  description: ID of user that created and owns the token.
-                  readOnly: true
-                  type: string
-              type: object
-          required:
-            - orgID
-            - permissions
         bucket:
           $ref: '#/components/schemas/Bucket'
-          properties:
-            createdAt:
-              format: date-time
-              readOnly: true
-              type: string
-            description:
-              type: string
-            id:
-              readOnly: true
-              type: string
-            labels:
-              items:
-                properties:
-                  id:
-                    readOnly: true
-                    type: string
-                  name:
-                    type: string
-                  orgID:
-                    readOnly: true
-                    type: string
-                  properties:
-                    additionalProperties:
-                      type: string
-                    description: >-
-                      Key/Value pairs associated with this label. Keys can be
-                      removed by sending an update with an empty value.
-                    example:
-                      color: ffb3b3
-                      description: this is a description
-                    type: object
-                type: object
-              type: array
-            links:
-              example:
-                labels: /api/v2/buckets/1/labels
-                members: /api/v2/buckets/1/members
-                org: /api/v2/orgs/2
-                owners: /api/v2/buckets/1/owners
-                self: /api/v2/buckets/1
-                write: /api/v2/write?org=2&bucket=1
-              properties:
-                labels:
-                  $ref: '#/components/schemas/Link'
-                  description: URL to retrieve labels for this bucket
-                members:
-                  $ref: '#/components/schemas/Link'
-                  description: URL to retrieve members that can read this bucket
-                org:
-                  $ref: '#/components/schemas/Link'
-                  description: URL to retrieve parent organization for this bucket
-                owners:
-                  $ref: '#/components/schemas/Link'
-                  description: >-
-                    URL to retrieve owners that can read and write to this
-                    bucket.
-                self:
-                  $ref: '#/components/schemas/Link'
-                  description: URL for this bucket
-                write:
-                  $ref: '#/components/schemas/Link'
-                  description: URL to write line protocol for this bucket
-              readOnly: true
-              type: object
-            name:
-              type: string
-            orgID:
-              type: string
-            retentionRules:
-              description: >-
-                Rules to expire or retain data.  No rules means data never
-                expires.
-              items:
-                properties:
-                  everySeconds:
-                    description: >-
-                      Duration in seconds for how long data will be kept in the
-                      database. 0 means infinite.
-                    example: 86400
-                    format: int64
-                    minimum: 0
-                    type: integer
-                  shardGroupDurationSeconds:
-                    description: Shard duration measured in seconds.
-                    format: int64
-                    type: integer
-                  type:
-                    default: expire
-                    enum:
-                      - expire
-                    type: string
-                required:
-                  - type
-                  - everySeconds
-                type: object
-              type: array
-            rp:
-              type: string
-            schemaType:
-              default: implicit
-              enum:
-                - implicit
-                - explicit
-              type: string
-            type:
-              default: user
-              enum:
-                - user
-                - system
-              readOnly: true
-              type: string
-            updatedAt:
-              format: date-time
-              readOnly: true
-              type: string
-          required:
-            - name
-            - retentionRules
         org:
           $ref: '#/components/schemas/Organization'
-          properties:
-            createdAt:
-              format: date-time
-              readOnly: true
-              type: string
-            description:
-              type: string
-            id:
-              readOnly: true
-              type: string
-            links:
-              example:
-                buckets: /api/v2/buckets?org=myorg
-                dashboards: /api/v2/dashboards?org=myorg
-                labels: /api/v2/orgs/1/labels
-                members: /api/v2/orgs/1/members
-                owners: /api/v2/orgs/1/owners
-                secrets: /api/v2/orgs/1/secrets
-                self: /api/v2/orgs/1
-                tasks: /api/v2/tasks?org=myorg
-              properties:
-                buckets:
-                  $ref: '#/components/schemas/Link'
-                dashboards:
-                  $ref: '#/components/schemas/Link'
-                labels:
-                  $ref: '#/components/schemas/Link'
-                members:
-                  $ref: '#/components/schemas/Link'
-                owners:
-                  $ref: '#/components/schemas/Link'
-                secrets:
-                  $ref: '#/components/schemas/Link'
-                self:
-                  $ref: '#/components/schemas/Link'
-                tasks:
-                  $ref: '#/components/schemas/Link'
-              readOnly: true
-              type: object
-            name:
-              type: string
-            status:
-              default: active
-              description: If inactive the organization is inactive.
-              enum:
-                - active
-                - inactive
-              type: string
-            updatedAt:
-              format: date-time
-              readOnly: true
-              type: string
-          required:
-            - name
         user:
           $ref: '#/components/schemas/UserResponse'
-          properties:
-            id:
-              readOnly: true
-              type: string
-            links:
-              example:
-                self: /api/v2/users/1
-              properties:
-                self:
-                  format: uri
-                  type: string
-              readOnly: true
-              type: object
-            name:
-              type: string
-            oauthID:
-              type: string
-            status:
-              default: active
-              description: If inactive the user is inactive.
-              enum:
-                - active
-                - inactive
-              type: string
-          required:
-            - name
       type: object
     OptionStatement:
       description: A single variable declaration
@@ -3653,23 +3087,6 @@ components:
             - $ref: '#/components/schemas/MemberAssignment'
         type:
           $ref: '#/components/schemas/NodeType'
-      type: object
-    OrgSetting:
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-      type: object
-    OrgSettings:
-      properties:
-        orgID:
-          description: the influxDB ID of the created organization
-          type: string
-        settings:
-          items:
-            $ref: '#/components/schemas/OrgSetting'
-          type: array
       type: object
     Organization:
       properties:
@@ -3726,24 +3143,6 @@ components:
           type: string
       required:
         - name
-    OrganizationRequest:
-      properties:
-        bucket:
-          description: the name of the bucket to be created
-          type: string
-        limit:
-          $ref: '#/components/schemas/Limit'
-        org:
-          description: the name of the organization to be added
-          type: string
-        retentionSeconds:
-          description: length of time to retain data in seconds
-          type: integer
-        username:
-          description: username of the Quartz user to be added in IDPE
-          example: user@email.com
-          type: string
-      type: object
     Organizations:
       properties:
         links:
@@ -4019,21 +3418,6 @@ components:
             - max
             - within
           type: object
-    ReadStream:
-      properties:
-        createdAt:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        stream:
-          type: string
-        updatedAt:
-          format: date-time
-          type: string
-      type: object
     Ready:
       properties:
         started:
@@ -4828,33 +4212,6 @@ components:
         previousLevel:
           $ref: '#/components/schemas/RuleStatusLevel'
       type: object
-    Stream:
-      properties:
-        description:
-          type: string
-        stream:
-          type: string
-      type: object
-    StreamDeleteFilter:
-      properties:
-        stream:
-          type: string
-      type: object
-    StreamList:
-      items:
-        $ref: '#/components/schemas/ReadStream'
-      type: array
-    StreamListFilter:
-      allOf:
-        - $ref: '#/components/schemas/BasicFilter'
-        - properties:
-            allStreams:
-              type: boolean
-            streamIncludes:
-              items:
-                type: string
-              type: array
-          type: object
     StringLiteral:
       description: Expressions begin and end with double quote marks
       properties:
@@ -6199,18 +5556,6 @@ components:
         type:
           $ref: '#/components/schemas/NodeType'
       type: object
-    UnauthorizedRequestError:
-      properties:
-        code:
-          description: returns error code 401
-          enum:
-            - unauthorized
-          readOnly: true
-          type: string
-        message:
-          description: message is a human-readable message.
-          readOnly: true
-          type: string
     UnsignedIntegerLiteral:
       description: Represents integer numbers
       properties:
@@ -6640,8 +5985,6 @@ paths:
       summary: List all top level routes
       tags:
         - Routes
-      servers:
-        - url: /
   /api/v2/authorizations:
     get:
       operationId: GetAuthorizations
@@ -10293,7 +9636,7 @@ paths:
               schema:
                 type: integer
       servers:
-        - url: /
+        - url: ''
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       tags:
         - Ping
@@ -10312,7 +9655,7 @@ paths:
               schema:
                 type: integer
       servers:
-        - url: /
+        - url: ''
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       tags:
         - Ping
