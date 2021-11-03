@@ -22,7 +22,6 @@
     & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
   }
-  .title { margin-bottom: 2.65rem; }
   h1 {
     font-weight: normal;
     font-size: 2.65rem;
@@ -128,6 +127,7 @@
           "article/tables",
           "article/tags",
           "article/telegraf-plugins",
+          "article/title",
           "article/truncate",
           "article/video",
           "article/warn";
@@ -213,10 +213,6 @@
   .article {
     padding: 1.5rem 1.5rem 3rem;
 
-    .title {
-      margin-bottom: 2rem;
-      h1 { margin: .35em 0 .2em; font-size: 2.4rem; }
-    }
     h2 { font-size: 1.9rem; }
     h3 { font-size: 1.55rem; }
     h4 { font-size: 1.3rem; }

@@ -6,7 +6,6 @@ menu:
     name: influx secret list
     parent: influx secret
 weight: 101
-influxdb/cloud/tags: [secrets]
 ---
 
 {{< duplicate-oss >}}

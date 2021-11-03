@@ -94,6 +94,8 @@ prepend: # Prepend markdown content to an article (especially powerful with casc
 append: # Append markdown content to an article (especially powerful with cascade)
   block: # (Optional) Wrap content in a block style (note, warn, cloud)
   content: # Content to append to article
+metadata: [] # List of metadata messages to include under the page h1
+updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 ```
 
 ### Title usage
