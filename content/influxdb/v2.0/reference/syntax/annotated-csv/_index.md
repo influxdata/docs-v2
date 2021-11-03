@@ -215,7 +215,7 @@ Time column values should be **Unix timestamps** (in an [accepted timestamp prec
 
 ##### Example line protocol elements in datatype annotation
 ```
-#datatype,measurement,tag,tag,field,field,ignored,time
+#datatype measurement,tag,tag,field,field,ignored,time
 m,cpu,host,time_steal,usage_user,nothing,time
 cpu,cpu1,host1,0,2.7,a,1482669077000000000
 cpu,cpu1,host2,0,2.2,b,1482669087000000000
@@ -230,7 +230,7 @@ cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 
 ##### Example of mixing data types line protocol elements
 ```
-#datatype,measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
+#datatype measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
 #default test,annotatedDatatypes,,,,,,
 m,name,s,d,b,l,ul,dur,time
 ,,str1,1.0,true,1,1,1ms,1
@@ -252,16 +252,16 @@ to read annotated CSV in Flux:
 ```js
 import "csv"
 
-csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
-#group,false,false,false,false,false,false,false,false
-#default,,,,,,,,
-,result,table,_start,_stop,_time,region,host,_value
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
+csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double,string
+#group,false,false,false,false,false,false,false,false,false
+#default,,,,,,,,,
+,result,table,_start,_stop,_time,region,host,_value,_measurement
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43,cpu
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25,cpu
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62,cpu
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73,cpu
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83,cpu
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62,cpu
 "
 
 csv.from(csv: csvData)
