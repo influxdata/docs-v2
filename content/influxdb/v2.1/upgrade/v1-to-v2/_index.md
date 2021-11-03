@@ -7,7 +7,7 @@ menu:
   influxdb_2_1:
     parent: Upgrade InfluxDB
     name: InfluxDB 1.x to 2.1
-weight: 10
+weight: 11
 ---
 
 Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {{< current-version >}} and

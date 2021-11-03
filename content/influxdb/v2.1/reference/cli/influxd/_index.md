@@ -30,6 +30,7 @@ For information about other available InfluxDB configuration methods, see
 
 | Command                                                            | Description                                                  |
 | :----------------------------------------------------------------- | :----------------------------------------------------------- |
+| [downgrade](/influxdb/v2.1/reference/cli/influxd/downgrade/)       | Downgrade metadata schema to match an older release          |
 | help                                                               | Output help information for `influxd`                        |
 | [inspect](/influxdb/v2.1/reference/cli/influxd/inspect/)           | Inspect on-disk database data                                |
 | [print-config](/influxdb/v2.1/reference/cli/influxd/print-config/) | Print full influxd configuration for the current environment |
