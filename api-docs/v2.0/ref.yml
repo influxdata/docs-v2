@@ -13516,14 +13516,14 @@ components:
         within the organization.
 
 
-        Include your API token in an `Authentication: Token YOUR_API_TOKEN` HTTP
+        Include your API token in an `Authorization: Token YOUR_API_TOKEN` HTTP
         header with each request.
 
 
         ### Example
 
           `curl http://localhost:8086/ping
-              --header "Authentication: Token YOUR_API_TOKEN"`
+              --header "Authorization: Token YOUR_API_TOKEN"`
 
         For more information and examples, see the following:
           - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/#authentication).
