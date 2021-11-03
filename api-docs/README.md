@@ -2,7 +2,7 @@
 InfluxDB uses [Redoc](https://github.com/Redocly/redoc/),
 [redoc-cli](https://github.com/Redocly/redoc/blob/master/cli/README.md),
 and Redocly's [OpenApi CLI](https://redoc.ly/docs/cli/) to generate
-API documentation from the InfluxDB `swagger.yml`.
+API documentation from the InfluxDB openapi contracts.
 
 To minimize repo size, the generated API documentation HTML is gitignored, therefore
 not committed directly to the docs repo.
@@ -13,19 +13,28 @@ to generate version-specific API documentation.
 The structure versions swagger files using the following pattern:
 
 ```
-  │     └── swagger.yml
+api-docs/
+  ├── v2.0/
+  │     └── ref.yml
+  ├── v2.1/
+  │     └── ref.yml
+  ├── v2.2/
+  │     └── ref.yml
   └── etc...
 ```
 
-### OpenAPI CLI configuration
+### Configure OpenAPI CLI linting and bundling
 `.redoc.yaml` sets linting and bundling options for `openapi` CLI.
-`./plugins` contains custom OpenAPI CLI plugins composed of *rules* (for linting) and *decorators* (for bundle customization).
-api-docs/
-  ├── v2.0/
-  │     └── swagger.yml
-  ├── v2.1/
-  │     └── swagger.yml
-  ├── v2.2/
+`./openapi/plugins` contains custom OpenAPI CLI plugins composed of *rules* (for linting) and *decorators* (for bundle customization).
+
+### Custom content
+`./openapi/content` contains custom OAS (OpenAPI Spec) content in YAML files. The content structure and Markdown must be valid OAS.
+
+`./openapi/plugins` use `./openapi/plugins/decorators` to apply the content to the contracts.
+`.yml` files in `./openapi/content/` set content for sections (nodes) in the contract. To update the content for those nodes, you only need to update the YAML files.
+
+To add new YAML files for other nodes in the openapi contracts, configure the new content YAML file in `./openapi/content/content.js`. Then, write a decorator module for the node and configure the decorator in the plugin, e.g. `./openapi/plugins/docs-plugin.js`. See the [complete list of OAS v3.0 nodes](https://github.com/Redocly/openapi-cli/blob/master/packages/core/src/types/oas3.ts#L529).
+
 `openapi` CLI requires that modules use CommonJS `require` syntax for imports. 
 
 ### Generate API docs locally
