@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.1 [2021-10-26]
+## v2.1.0 [2021-11-03]
 
 - This release includes several new [features](#features) and [bug fixes](#bug-fixes).
 
@@ -72,26 +72,38 @@ Added several new configuration options to [`influxd`](/influxdb/v2.1/reference/
 - Update `--store` flag to work with string values disk or memory. Memory continues to store metadata in-memory for testing; disk persists metadata to disk via bolt and SQLite.
 
 For more information, see [InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
+
 ##### influxd inspect
 
 Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/inspect/) commands from InfluxDB 1.x:
 
-- influxd inspect build-tsi
-- influxd inspect deletetsm
-- influxd inspect dumptsi
-- influxd inspect dump-tsm
-- influxd inspect dump-wal
-- influxd inspect report-tsi
-- influxd inspect report-tsm
-- influxd inspect verify-seriesfile
-- influxd inspect verify-tombstone
-- influxd inspect verify-wal
+- [influxd inspect build-tsi](/influxdb/v2.1/reference/cli/influxd/inspect/build-tsi/)
+- [influxd inspect delete-tsm](/influxdb/v2.1/reference/cli/influxd/inspect/delete-tsm/)
+- [influxd inspect dump-tsi](/influxdb/v2.1/reference/cli/influxd/inspect/dump-tsi/)
+- [influxd inspect dump-tsm](/influxdb/v2.1/reference/cli/influxd/inspect/dump-tsm/)
+- [influxd inspect dump-wal](/influxdb/v2.1/reference/cli/influxd/inspect/dump-wal/)
+- [influxd inspect report-tsi](/influxdb/v2.1/reference/cli/influxd/inspect/report-tsi/)
+- [influxd inspect report-tsm](/influxdb/v2.1/reference/cli/influxd/inspect/report-tsm/)
+- [influxd inspect verify-seriesfile](/influxdb/v2.1/reference/cli/influxd/inspect/verify-seriesfile/)
+- [influxd inspect verify-tombstone](/influxdb/v2.1/reference/cli/influxd/inspect/verify-tombstone/)
+- [influxd inspect verify-wal](/influxdb/v2.1/reference/cli/influxd/inspect/verify-wal/)
+
+##### influxd downgrade
+
+Added the [influxd downgrade command](/influxdb/v2.1/reference/cli/influxd/downgrade/)
+to migrate InfluxDB key-value metadata schemas to earlier 2.x versions when necessary.
 
 #### Flux
 
-- Update to [Flux v0.134.0](/flux/v0.x/release-notes/#v01340-2021-10-15).
+- Update to [Flux v0.139.0](/flux/v0.x/release-notes/#v01390-2021-11-01).
 - Enable writing to remote hosts using the Flux [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/{{< latest "flux" >}}/v0.x/stdlib/experimental/to/) functions.
 - Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
+- Perform [bitwise operations](/{{< latest "flux" >}}/stdlib/experimental/bitwise/)
+  on integers and unsigned integers.
+- [Query](/{{< latest "flux" >}}/query-data/sql/vertica/) and
+  [write to Vertica](/{{< latest "flux" >}}/query-data/sql/vertica/) SQL databases.
+- Add the [`hex` package](/{{< latest "flux" >}}/stdlib/contrib/bonitoo-io/hex/)
+  for working with hexadecimal string values.
 
 #### InfluxQL
 
