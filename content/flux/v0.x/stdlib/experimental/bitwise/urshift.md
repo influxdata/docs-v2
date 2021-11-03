@@ -8,6 +8,8 @@ menu:
     name: bitwise.urshift
     parent: bitwise
 weight: 401
+related:
+  - /flux/v0.x/data-types/basic/uint/
 flux/v0.x/tags: [bitwise]
 ---
 

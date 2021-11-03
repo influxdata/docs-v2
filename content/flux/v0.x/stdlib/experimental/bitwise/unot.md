@@ -8,6 +8,8 @@ menu:
     name: bitwise.unot
     parent: bitwise
 weight: 401
+related:
+  - /flux/v0.x/data-types/basic/uint/
 flux/v0.x/tags: [bitwise]
 ---
 

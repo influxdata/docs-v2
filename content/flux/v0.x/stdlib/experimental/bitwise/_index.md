@@ -24,7 +24,7 @@ import "experimental/bitwise"
 ```
 
 ## Functions
-Functions prefixed with `s` operate on [signed integers (int)](/flux/v0.x/data-types/basic/int).
-Functions prefixed with `u` operate on [unsigned integers (uint)](/flux/v0.x/data-types/basic/uint).
+Functions prefixed with `s` operate on [signed integers (int)](/flux/v0.x/data-types/basic/int/#perform-bitwise-operations-on-integers).
+Functions prefixed with `u` operate on [unsigned integers (uint)](/flux/v0.x/data-types/basic/uint/#perform-bitwise-operations-on-uintegers).
 
 {{< children type="functions" show="pages" >}}

@@ -8,6 +8,8 @@ menu:
     name: bitwise.sclear
     parent: bitwise
 weight: 401
+related:
+  - /flux/v0.x/data-types/basic/int/
 flux/v0.x/tags: [bitwise]
 ---
 

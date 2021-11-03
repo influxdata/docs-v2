@@ -13,7 +13,7 @@ aliases:
 ## v0.139.0 [2021-11-01]
 
 ### Features
-- Always continue type inference on error.
+- Continue type inference through errors at runtime.
 
 ### Bug fixes
 - Revert `runtime.now()` and related updates.
