@@ -1,0 +1,56 @@
+TokenAuthentication:
+  type: http
+  scheme: token
+  bearerFormat: InfluxDB token string
+  description: |
+    ### Token authentication scheme
+
+    InfluxDB API tokens ensure secure interaction between users and data. A token belongs to an organization and identifies InfluxDB permissions within the organization.
+
+    Include your API token in an `Authentication: Token YOUR_API_TOKEN` HTTP header with each request.
+
+    ### Example
+
+    `curl https://us-east-1-1.aws.cloud2.influxdata.com/
+          --header "Authentication: Token YOUR_API_TOKEN"`
+
+    For more information and examples, see the following:
+      - [Use tokens in API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
+      - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
+      - [`/authorizations`](#tag/Authorizations) endpoint.
+BasicAuthentication:
+  type: http
+  scheme: basic
+  description: |
+    ### Basic authentication scheme
+
+    Use the Basic authentication scheme with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
+      - **username**: InfluxDB Cloud username
+      - **password**: InfluxDB Cloud API token
+
+    ### Example
+
+    `curl --get "https://europe-west1-1.gcp.cloud2.influxdata.com/query"
+          --user "YOUR_USERNAME":"YOUR_TOKEN_OR_PASSWORD"`
+
+    For more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
+QuerystringAuthentication:
+  type: apiKey
+  in: query
+  name: u=&p=
+  description: |
+    ### Querystring authentication scheme
+
+    Use InfluxDB 1.x API parameters to provide credentials through the query string.
+
+    Username and password schemes require the following credentials:
+    - **username**: InfluxDB Cloud username
+    - **password**: InfluxDB Cloud API token
+
+    ### Example
+
+    `curl --get "https://europe-west1-1.gcp.cloud2.influxdata.com/query"
+          --data-urlencode "u=YOUR_USERNAME"
+          --data-urlencode "p=YOUR_TOKEN_OR_PASSWORD"`
+
+    For more information and examples, see how to [authenticate with a username and password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).

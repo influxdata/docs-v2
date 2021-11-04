@@ -14,6 +14,7 @@ related:
   - /flux/v0.x/stdlib/universe/int/
   - /flux/v0.x/stdlib/universe/toint/
   - /flux/v0.x/stdlib/contrib/bonitoo-io/hex/int/
+  - /flux/v0.x/stdlib/experimental/bitwise/
 list_code_example: |
   ```js
   0
@@ -178,6 +179,7 @@ data
 ## Operate on integers
 
 - [Perform arithmetic operations on integers](#perform-arithmetic-operations-on-integers)
+- [Perform bitwise operations on integers](#perform-bitwise-operations-on-integers)
 - [Compare integers](#compare-integers)
 
 ### Perform arithmetic operations on integers
@@ -205,6 +207,35 @@ When operating with integer operands, fractional results are truncated at the de
 
 10 ^ 2
 // Returns 100
+```
+
+### Perform bitwise operations on integers
+Use the [`experimental/bitwise` package](/flux/v0.x/stdlib/experimental/bitwise/)
+to perform bitwise operations on integers.
+
+```js
+import "experimental/bitwise"
+
+bitwise.sand(a: 12, b: 21)
+// Returns 4
+
+bitwise.sor(a: 12, b: 21)
+// Returns 29
+
+bitwise.sxor(a: 12, b: 21)
+// Returns 25
+
+bitwise.sclear(a: 12, b: 21)
+// Returns 8
+
+bitwise.snot(a: 12)
+// Returns -13
+
+bitwise.slshift(a: 12, b: 21)
+// Returns 25165824
+
+bitwise.srshift(a: 21, b: 4)
+// Returns 1
 ```
 
 ### Compare integers

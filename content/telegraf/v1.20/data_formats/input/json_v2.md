@@ -89,7 +89,7 @@ In the sections that follow these configuration keys are defined in more detail.
 The following describes the high-level approach when parsing arrays and objects:
 
 - **Array**: Every element in an array is treated as a *separate* metric
-- **Object**: Every key/value in a object is treated as a *single* metric
+- **Object**: Every key-value in a object is treated as a *single* metric
 
 When handling nested arrays and objects, the rules above continue to apply as the parser creates metrics.
 When an object has multiple arrays as values,

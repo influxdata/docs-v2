@@ -297,9 +297,6 @@ If not, there may be artifacts of a previous cluster in the metastore.
 If you do not see your data nodes in the output, please retry adding them
 to the cluster.
 
-Once your data nodes are part of your cluster move on to [the final step
-to set up Chronograf](/enterprise_influxdb/v1.9/install-and-deploy/installation/chrono_install).
-
 ## Step 4: Create an admin user
 
 In [Step 2](#b-edit-the-data-node-configuration-files), you enabled authentication.
@@ -309,3 +306,13 @@ To create an admin user, use the [`influx` CLI](/enterprise_influxdb/v1.9/tools/
 ```sql
 CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
 ```
+
+---
+
+## Next steps
+
+Once your data nodes are part of your cluster:
+
+- [Set up Chronograf](/enterprise_influxdb/v1.9/install-and-deploy/installation/chrono_install)
+  for UI visualization, dashboards, and management.
+- [Enable TLS](/enterprise_influxdb/v1.9/guides/enable-tls/) for increased security (recommended).

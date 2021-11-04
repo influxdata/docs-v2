@@ -129,7 +129,7 @@ Provide the following in your API request:
 
 ##### Request headers
 - **Content-Type**: application/json
-- **Authorization**: Token _YOURINFLUXDBTOKEN_**
+- **Authorization**: Token *`YOUR_INFLUXDB_TOKEN`*
 
 ##### Request body
 JSON object with the following fields:
@@ -142,11 +142,16 @@ JSON object with the following fields:
 ```sh
 curl --request POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks' \
   --header 'Content-Type: application/json' \
-  --header 'Authorization: Token <YOURTOKEN>' \
+  --header 'Authorization: Token INFLUX_TOKEN' \
   --data-raw '{
-    "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nfrom(bucket: \"telegraf\")\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", org: \"<MYORG>\")",
-    "orgID": "<YOURORGID>",
+    "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nfrom(bucket: \"telegraf\")\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", org: \"INFLUX_ORG\")",
+    "orgID": "INFLUX_ORG_ID",
     "status": "active",
     "description": "This task downsamples CPU data every hour"
 }'
 ```
+Replace the following:
+- *`INFLUX_TOKEN`*: your [InfluxDB API token](/influxdb/v2.0/security/tokens/)
+- *`INFLUX_ORG`*: your [InfluxDB organization name](influxdb/2.0/organizations/view-orgs/)
+- *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+
