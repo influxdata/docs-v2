@@ -1,7 +1,7 @@
 TokenAuthentication:
   type: http
   scheme: token
-  bearerFormat: InfluxDB Token String
+  bearerFormat: InfluxDB token string
   description: |
     ### Token authentication scheme
 

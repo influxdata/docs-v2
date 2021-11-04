@@ -180,7 +180,7 @@ paths:
                 type: string
                 format: binary
         "429":
-          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
+          description: InfluxDB API token is temporarily over quota. The `Retry-After` header describes when to try the read again.
           headers:
             Retry-After:
               description: A non-negative decimal integer indicating the seconds to delay after the response is received.
