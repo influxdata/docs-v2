@@ -69,7 +69,7 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
    {{% /code-tabs-wrapper %}}
 
    #### Write valid schemas 
-   To ensure your schema is valid, review [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/) and [naming restrictions](/influxdb/cloud/reference/syntax/line-protocol/#naming-restrictions).
+   To ensure your schema is valid, review [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/).
    Follow these rules when creating your schema columns file: 
    1. Use valid measurement and column names that:
       - Are unique within the schema
@@ -79,7 +79,7 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
       - Don't start with a number `0-9`
       - Don't contain single quote `'` or double quote `"`
    2. Include a column with the [`timestamp`](/influxdb/cloud/reference/key-concepts/data-elements/#timestamp) type.
-   3. Include at least one column with the [`field`](/influxdb/cloud/reference/key-concepts/data-elements/#fields) type (since without a field, there is no time-series data), as in the following example:
+   3. Include at least one column with the [`field`](/influxdb/cloud/reference/key-concepts/data-elements/#fields) type (without a field, there is no time-series data), as in the following example:
 
       **Valid**: a schema with [`timestamp`]() and [`field`]() columns. 
       ```json
@@ -89,7 +89,7 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
       ]
       ```
    
-      **Invalid**: a schema without a `field` column.
+      **Not valid**: a schema without a `field` column.
       ```json
       [
        {"name":"time","type":"timestamp"},
@@ -101,7 +101,7 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
 
     Provide the following:
     - location of your file with the `columns-file` flag
-    - a valid measurement name with the `name` flag. This will match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data. To be valid, the measurement names must be unique within the bucket and follow the [naming rules](#write-valid-schemas).
+    - measurement name with the `name` flag. The name must match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data, obey [naming rules](#write-valid-schemas), and be unique within the bucket.
 
     ```sh
     influx bucket-schema create \
