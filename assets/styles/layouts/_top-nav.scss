@@ -154,7 +154,6 @@
   .theme-switcher, #search-btn, .url-trigger {
     display: inline-block;
     padding: 0;
-    font-size: 1.8rem;
     line-height: 0;
     color: rgba($topnav-link, .5);
     background: none;
@@ -171,8 +170,8 @@
       color: rgba($topnav-link, 1);
       cursor: pointer;
     }
-    &#theme-switch-dark { display: $theme-switch-dark; }
-    &#theme-switch-light { display: $theme-switch-light; }
+    &#theme-switch-dark { display: $theme-switch-dark; font-size: 1.15rem; }
+    &#theme-switch-light { display: $theme-switch-light; font-size: 1.35rem; }
   }
 
   .url-trigger {

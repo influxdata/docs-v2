@@ -21,6 +21,16 @@
       height: 20px;
       padding-left: .29rem;
       line-height: 1.25rem;
+
+      &.v3 {
+        position: relative;
+        background: $g5-pepper;
+        width: 18px;
+        height: 18px;
+        font-size: .65rem;
+        line-height: 0rem;
+        padding: 9px 0 0 4px;
+      }
     }
 
     &.ui-toggle {
@@ -44,6 +54,16 @@
         background: $g20-white;
         top: 4px;
         right: 4px;
+      }
+
+      &.v3 {
+        width: 26px;
+        .circle {
+          height: 12px;
+          width: 12px;
+          top: 2px;
+          right: 2px;
+        }
       }
     }
   }
