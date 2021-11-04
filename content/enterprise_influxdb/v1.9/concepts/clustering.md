@@ -12,8 +12,7 @@ menu:
 ---
 
 This document describes in detail how clustering works in InfluxDB Enterprise.
-It starts with a high level description of the different components of a cluster
-and then outlines implementation details.
+Includes a high-level description of the cluster components, and outlines implementation details.
 
 ## Architectural overview
 

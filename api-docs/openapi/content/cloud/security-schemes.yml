@@ -24,7 +24,7 @@ BasicAuthentication:
   description: |
     ### Basic authentication scheme
 
-    Use HTTP Basic Auth with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
+    Use the Basic authentication scheme with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
       - **username**: InfluxDB Cloud username
       - **password**: InfluxDB Cloud API token
 
@@ -53,4 +53,4 @@ QuerystringAuthentication:
           --data-urlencode "u=YOUR_USERNAME"
           --data-urlencode "p=YOUR_TOKEN_OR_PASSWORD"`
 
-    For more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
+    For more information and examples, see how to [authenticate with a username and password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
