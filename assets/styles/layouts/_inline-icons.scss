@@ -231,13 +231,14 @@
     background: linear-gradient(rgba(#052943, .9), rgba(#062238, .9));
     color: $g20-white;
     height: 60px;
+    border-radius: $radius;
 
     &.account {
       padding: 8px;
 
       .acct-inner-v3 {
         display: flex;
-        background-color: #10344f;
+        background-color: #f1f1f30d;
         border-radius: $radius;
       }
 
