@@ -15,7 +15,7 @@ InfluxDB lets you export dashboards from the InfluxDB user interface (UI).
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 
 2. Hover over a dashboard and click the gear icon (**{{< icon "gear" "v2" >}}**),
    and then select **Export**.

@@ -42,7 +42,7 @@ If you also want to explore Cloud, we offer a way to explore data without incurr
 
 1. Visit the **InfluxDB templates page** in the InfluxDB OSS UI. Click **Settings** > **Templates** in the navigation menu on the left.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "settings" "v2" >}}
       
 2. Paste the Sample Data community temple URL in **resource manifest file** field:
 
@@ -56,13 +56,13 @@ to query and visualize data in sample data buckets.
 
 In the navigation menu on the left, click **Explore (Data Explorer)**.
 
-{{< nav-icon "explore" >}}
+{{< nav-icon "explore" "v2" >}}
 
 ### Add sample data
 
 1. In the navigation menu on the left, click **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+    {{< nav-icon "data" "v2" >}}
 
 2. Click **{{< icon "plus" "v2" >}} Create bucket**, and then name your bucket. The bucket will appear in your list of buckets.
 3. View the [sample datasets document](/influxdb/cloud/reference/sample-data/#sample-datasets) and choose a sample data to query.
@@ -79,7 +79,7 @@ After adding a sample data bucket, create a dashboard specific to the sample dat
 
 1. Click **Boards (Dashboards)** in the navigation menu on the left.
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 
 2. Click **Create Dashboard > New Dashboard**, and name the dashboard after your bucket. 
 3. Click **Add Cell**, and select your sample data bucket.

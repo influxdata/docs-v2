@@ -45,7 +45,7 @@ in a specified amount of time.
 ## Create a check in the InfluxDB UI
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2.  Click **{{< icon "plus" "v2" >}} Create** and select the [type of check](#check-types) to create.
 3.  Click **Name this check** in the top left corner and provide a unique name for the check.

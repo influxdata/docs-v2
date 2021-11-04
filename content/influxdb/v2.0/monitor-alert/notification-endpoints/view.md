@@ -23,7 +23,7 @@ View notification endpoint details and history in the InfluxDB user interface (U
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Endpoints** near to top of the page.
 
@@ -31,7 +31,7 @@ View notification endpoint details and history in the InfluxDB user interface (U
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Endpoints** near to top of the page.
 3. Click the name of the notification endpoint you want to view.
@@ -41,7 +41,7 @@ View notification endpoint details and history in the InfluxDB user interface (U
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Endpoints** near to top of the page.
 3. Hover over the notification endpoint, click the **{{< icon "view" "v2" >}}** icon, then **View History**.

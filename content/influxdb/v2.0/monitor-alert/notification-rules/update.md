@@ -15,7 +15,7 @@ related:
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Rules** near to top of the page.
 3. Click **{{< icon "add-label" "v2" >}} Add a label** next to the rule you want to add a label to.
@@ -33,7 +33,7 @@ related:
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Rules** near to top of the page.
 3. Click the {{< icon "toggle" "v2" >}} toggle to disable the notification rule.
@@ -42,7 +42,7 @@ related:
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Rules** near to top of the page.
 3. Hover over the name or description of a rule and click the pencil icon

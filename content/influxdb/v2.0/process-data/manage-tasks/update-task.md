@@ -15,7 +15,7 @@ related:
 ## Update a task in the InfluxDB UI
 Click the **Tasks** icon in the left navigation to view the lists of tasks.
 
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 
 Click the name of a task to update it.
 

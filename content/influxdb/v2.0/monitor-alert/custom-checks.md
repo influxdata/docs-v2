@@ -23,7 +23,7 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 
 1. In the InfluxDB UI, select **Tasks** in the navigation menu on the left.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
 2. Click **{{< icon "plus" "v2" >}} Create Task**, and then select **New Task**.
 3. In the **Name** field, enter a descriptive name,

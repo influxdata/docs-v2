@@ -27,7 +27,7 @@ See [Get started with Flux](/influxdb/v2.0/query-data/get-started) to learn more
 
 1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Use the Flux builder in the bottom panel to create a Flux query:
   - Select a bucket to define your data source or select `+ Create Bucket` to add a new bucket.

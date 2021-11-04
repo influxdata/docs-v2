@@ -34,7 +34,7 @@ The [Table visualization type](/influxdb/v2.0/visualize-data/visualization-types
 
 1. Click the **Data Explorer** icon in the sidebar.
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Use the **Query Builder** or **Script Editor** to build a query.
 3. Use the [Table visualization type](/influxdb/v2.0/visualize-data/visualization-types/table/)
@@ -50,7 +50,7 @@ _For information about common Query variables, see [Common variable queries](/in
 
 1. Click the **Settings** icon in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "settings" "v2" >}}
 
 2. Select the **Variables** tab.
 3. Enter a name for your variable.
@@ -63,7 +63,7 @@ InfluxDB lets you import variables exported from InfluxDB in JSON format.
 
 1. Click the **Settings** icon in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "settings" "v2" >}}
 
 2.  Select the **Variables** tab.
 3. Click the **{{< icon "plus" "v2" >}} Create Variable** drop-down menu and select **Import Variable**.

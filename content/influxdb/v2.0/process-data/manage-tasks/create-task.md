@@ -33,7 +33,7 @@ The InfluxDB UI provides multiple ways to create a task:
 ### Create a task from the Data Explorer
 1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Build a query and click **Save As** in the upper right.
 3. Select the **Task** option.
@@ -46,7 +46,7 @@ The InfluxDB UI provides multiple ways to create a task:
 ### Create a task in the Task UI
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
 2. Click **{{< icon "plus" "v2" >}} Create Task** in the upper right.
 3. Select **New Task**.
@@ -68,7 +68,7 @@ fields in the left panel when you save the task.
 ### Import a task
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
 2. Click **+ Create Task** in the upper right.
 3. Select **Import Task**.
@@ -81,7 +81,7 @@ fields in the left panel when you save the task.
 ### Create a task from a template
 1. In the navigation menu on the left, select **Settings** > **Templates**.
 
-    {{< nav-icon "Settings" >}}
+    {{< nav-icon "Settings" "v2" >}}
 
 2. Select **Templates**.
 3. Hover over the template to use to create the task and click **Create**.
@@ -90,7 +90,7 @@ fields in the left panel when you save the task.
 ### Clone a task
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
 2. Hover over the task you would like to clone and click the **{{< icon "duplicate" "v2" >}}** icon that appears.
 4. Click **Clone**.

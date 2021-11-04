@@ -16,7 +16,7 @@ To manage labels:
 
 - In the navigation menu on the left, select **Settings** > **Labels**.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "settings" "v2" >}}
 
 
 #### Create a label

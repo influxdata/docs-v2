@@ -18,7 +18,7 @@ To send notifications about changes in your data, start by creating a notificati
 
 1.  In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2.  Select **Notification Endpoints** near to top of the page.
 3.  Click **{{< icon "plus" "v2" >}} Create**.

@@ -18,7 +18,7 @@ If notifications are no longer sent to an endpoint, complete the steps below to 
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Endpoints** near to top of the page.
    find the rule you want to delete.

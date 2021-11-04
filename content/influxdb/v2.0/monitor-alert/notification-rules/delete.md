@@ -15,7 +15,7 @@ related:
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Rules** near to top of the page.
 3. Hover over the rule you want to delete and click the **{{< icon "trash" "v2" >}}** icon.

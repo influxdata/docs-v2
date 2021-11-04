@@ -20,7 +20,7 @@ Deleting a check cannot be undone.
 
 1.  In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2.  Hover over the check you want to delete, click the **{{< icon "delete" "v2" >}}**
     icon, and then **Delete**.

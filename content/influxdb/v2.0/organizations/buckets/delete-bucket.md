@@ -16,7 +16,7 @@ to delete a bucket.
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+    {{< nav-icon "data" "v2" >}}
 
 2. Hover over the bucket you would like to delete.
 3. Click **{{< icon "delete" "v2" >}} Delete Bucket** and **Confirm** to delete the bucket.

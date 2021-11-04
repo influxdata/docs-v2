@@ -15,7 +15,7 @@ Variables are exported as downloadable JSON files.
 
 1. Click the **Settings** icon in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "settings" "v2" >}}
 
 2. Select the **Variables** tab.
 3. Hover over a variable in the list, then click the gear icon (**{{< icon "gear" "v2" >}}**)

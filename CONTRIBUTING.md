@@ -818,9 +818,11 @@ The following table shows which children types use which frontmatter properties:
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
 It's meant to clarify references to specific elements in the InfluxDB user interface.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< icon "icon-name" >}}
+{{< icon "icon-name" "v2" >}}
 ```
 
 Below is a list of available icons (some are aliases):
@@ -890,9 +892,11 @@ Below is a list of available icons (some are aliases):
 ### InfluxDB UI left navigation icons
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 ```
 
 The following case insensitive values are supported:
@@ -1046,6 +1050,14 @@ only render in the InfluxDB Cloud documentation.
 This is necessary to get the first sentence/paragraph to render correctly.
 
 {{% /cloud-only %}}
+```
+
+#### All-Caps
+Clockface v3 introduces many buttons with text formatted as all-caps.
+Use the `{{< caps >}}` shortcode to format text to match those buttons.
+
+```md
+Click {{< caps >}}Add Data{{< /caps >}}
 ```
 
 ### Reference content

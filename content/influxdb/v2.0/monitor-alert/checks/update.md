@@ -23,7 +23,7 @@ Common updates include:
 
 To update checks, select **Alerts** in the navigation menu on the left.
 
-{{< nav-icon "alerts" >}}
+{{< nav-icon "alerts" "v2" >}}
 
 
 ## Update check queries and logic

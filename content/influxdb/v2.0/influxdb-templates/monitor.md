@@ -122,7 +122,7 @@ To see your data in real time, view the Monitoring dashboard.
 
 1. Select **Boards** (**Dashboards**) in your **InfluxDB Cloud** account.
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 
 2. Click **InfluxDB OSS Metrics**. Metrics appear in your dashboard.
 3. Customize your monitoring dashboard as needed. For example, send an alert in the following cases:
@@ -143,7 +143,7 @@ To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB Cl
 
 1.  To view the deadman check, click **Alerts** in the navigation bar of your **InfluxDB Cloud** account.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
       {{< img-hd src="/img/influxdb/2-0-monitor-oss-deadman.png" />}}
 2. Choose a InfluxDB OSS field or create a new OSS field for your deadman alert:

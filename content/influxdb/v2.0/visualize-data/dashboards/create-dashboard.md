@@ -16,7 +16,7 @@ weight: 201
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 
 2. Click the **{{< icon "plus" "v2" >}} Create Dashboard** menu in the upper right and select **New Dashboard**.
 3. Enter a name for your dashboard in the **Name this dashboard** field in the upper left.
@@ -26,7 +26,7 @@ weight: 201
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 
 2. Click the **Create Dashboard** menu in the upper right and select **Import Dashboard**.
 3. In the window that appears:
@@ -38,7 +38,7 @@ weight: 201
 
 1. In the navigation menu on the left, select **Boards** (**Dashboards**).
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 
 2. Hover over the dashboard and click **{{< icon "copy" "v2" >}}**.
 3. Click **Clone**. The cloned dashboard opens.
