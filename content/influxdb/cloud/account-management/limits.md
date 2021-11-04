@@ -12,15 +12,15 @@ products: [cloud]
 
 InfluxDB Cloud has adjustable organization limits and hard system limits:
 
-- [Adjustable limits](#adjustable-limits)
-- [System limits](#system-limits)
+- [Account limits](#account-limits)
+- [Global limits](#global-limits)
 - [Limit errors](#limit-errors)
 
 <!--To estimate your projected usage costs, use the [InfluxDB Cloud pricing calculator](/influxdb/cloud/account-management/pricing-calculator/). -->
 
-## Adjustable limits
+## Account limits
 
-InfluxDB Cloud has adjustable limits to reduce the chance of unexpected charges and protect the service for all users.
+InfluxDB Cloud has adjustable limits applied per-account to reduce the chance of unexpected charges and protect the service for all users.
 
 _To request higher limits, reach out to [InfluxData Support](https://support.influxdata.com/)._
 
@@ -61,9 +61,9 @@ Free Plan limits
     To write historical data older than 30 days, retain data for more than 30 days, or increase rate limits, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
     {{% /note %}
 
-## System limits
+## Global limits
 
-InfluxDB Cloud also has limits that cannot be adjusted and apply to all accounts.
+InfluxDB Cloud also has global system limits that cannot be adjusted and apply to all accounts.
 These hard limits are typically dictated by the capabilities of the underlying InfluxDB Cloud infrastructure.
 
 - Write/ingest request limits
