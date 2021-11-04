@@ -28,7 +28,7 @@ Delete a single-user organization from one of the following:
 
     {{< nav-icon "account" >}}
 
-2. Hover over the user you want to remove and then click the {{< icon "delete" "v2" >}} icon that appears.
+2. Hover over the user you want to remove and then click the {{< icon "delete" >}} icon that appears.
 3. Confirm the removal.
 
 #### Usage-based plan 

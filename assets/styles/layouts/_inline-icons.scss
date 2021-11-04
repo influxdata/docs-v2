@@ -1,229 +1,312 @@
 // Helper styles for inline icons used with the "icon" shortcode
-.article--content {
-  .inline {
-    margin: 0 .15rem;
-    &.middle:before { vertical-align: middle; }
-    &.top:before { vertical-align: text-top; }
-    &.xsmall:before { font-size: .8rem; }
-    &.small:before { font-size: .9rem; }
-    &.large:before { font-size: 1.1rem; }
+.inline {
+  margin: 0 .15rem;
+  &.middle:before { vertical-align: middle; }
+  &.top:before { vertical-align: text-top; }
+  &.xsmall:before { font-size: .8rem; }
+  &.small:before { font-size: .9rem; }
+  &.large:before { font-size: 1.1rem; }
 
-    &.add-btn-round {
-      font-family: "icomoon-v2";
-      color:#fff;
-      background: linear-gradient(45deg,#5c10a0,#8e1fc3);
-      border-radius:50%;
-      margin:0 .25rem;
-      display: inline-block;
-      vertical-align: text-top;
-      font-size: .7rem;
-      width: 20px;
-      height: 20px;
-      padding-left: .29rem;
-      line-height: 1.25rem;
+  &.add-btn-round {
+    font-family: "icomoon-v2";
+    color:#fff;
+    background: linear-gradient(45deg,#5c10a0,#8e1fc3);
+    border-radius:50%;
+    margin:0 .25rem;
+    display: inline-block;
+    vertical-align: text-top;
+    font-size: .7rem;
+    width: 20px;
+    height: 20px;
+    padding-left: .29rem;
+    line-height: 1.25rem;
 
-      &.v3 {
-        position: relative;
-        background: $g5-pepper;
-        width: 18px;
-        height: 18px;
-        font-size: .65rem;
-        line-height: 0rem;
-        padding: 9px 0 0 4px;
-      }
-    }
-
-    &.ui-toggle {
-      display: inline-block;
+    &.v3 {
       position: relative;
-      width: 28px;
-      height: 16px;
-      border-radius: .7rem;
-      vertical-align: text-top;
-      margin-top: 2px;
-
-      &.blue { background: $b-pool; }
-      &.green { background: $gr-viridian; }
-
-      .circle {
-        display: inline-block;
-        position: absolute;
-        border-radius: 50%;
-        height: 8px;
-        width: 8px;
-        background: $g20-white;
-        top: 4px;
-        right: 4px;
-      }
-
-      &.v3 {
-        width: 26px;
-        .circle {
-          height: 12px;
-          width: 12px;
-          top: 2px;
-          right: 2px;
-        }
-      }
+      background: $g5-pepper;
+      width: 18px;
+      height: 18px;
+      font-size: .65rem;
+      line-height: 0rem;
+      padding: 9px 0 0 4px;
     }
   }
 
-  .nav-item {
+  &.ui-toggle {
     display: inline-block;
     position: relative;
-    vertical-align: top;
-    margin-bottom: 1.25rem;
+    width: 28px;
+    height: 16px;
+    border-radius: .7rem;
+    vertical-align: text-top;
+    margin-top: 2px;
 
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 2px;
-      height: 100%;
-      background: #be2ee4;
-      background: linear-gradient(180deg,#be2ee4 0,#00a3ff);
-    }
+    &.blue { background: $b-pool; }
+    &.green { background: $gr-viridian; }
 
-    &:first-child {
-      margin-right: 1.25rem;
-    }
-
-    &.account {
-      padding: .25rem;
-      position: relative;
-      width: 210px;
-      height: 56px;
-
-      &:after { display: none; }
-
-      .acct-inner {
-        display: flex;
-        position: relative;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        background: $article-nav-acct-bg;
-        border-radius: 6px;
-        border: 3px solid $g8-storm;
-
-        &:after {
-          content: "";
-          position: absolute;
-          right: 1rem;
-          width: 0;
-          height: 0;
-          border-style: solid;
-          border-width: 5px 5px 0 5px;
-          border-color: $g16-pearl transparent transparent transparent;
-        }
-      }
-
-      .acct-icon {
-        margin: 0 .9rem 0 .5rem;
-        border-radius: 50%;
-        height: 28px;
-        width: 28px;
-        background: linear-gradient(45deg,#00a3ff,#67d74e);
-        color: $g20-white;
-        text-align: center;
-        line-height: 0;
-        overflow: hidden;
-        .icon {
-          margin-left: -.1rem;
-          font-size: 2rem;
-        }
-      }
-
-      .acct-label {
-        .username { color: $g16-pearl; font-weight: $medium; font-size: .85rem; line-height: 1.2rem; }
-        .orgname { color: $g11-sidewalk; font-size: .75rem; line-height: .75rem; }
-      }
-
-      &.small {
-        width: 56px;
-        .acct-inner {
-          justify-content: center;
-          align-items: center;
-          &:after { display: none; }
-        }
-        .acct-icon { margin: 0 }
-      }
-    }
-  }
-
-  .nav-icon {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    color: $g20-white;
-    width: 210px;
-    height: 56px;
-    font-family: $rubik;
-    font-weight: $medium;
-    padding: .9rem 1.1rem;
-    font-size: 1rem;
-    position: relative;
-    background: $article-nav-icon-bg;
-
-    .icon {
+    .circle {
       display: inline-block;
-      font-size: 1.35rem;
-      margin-right: 1rem;
-    }
-
-    .nav-icon-label {
-      display: inline-block;
-      padding: 0;
-      font-size: 1rem;
-    }
-
-    &:before, &:after {
-      content: "";
       position: absolute;
-      left: 0;
-      height: 2px;
-      z-index: 2;
-      width: 12px;
+      border-radius: 50%;
+      height: 8px;
+      width: 8px;
+      background: $g20-white;
+      top: 4px;
+      right: 4px;
     }
 
-    &:before {
-      top: 0;
-      background: #be2ee4;
-      background: linear-gradient(90deg,#be2ee4 0,rgba(190,46,228,0));
-    }
-
-    &:after {
-      bottom: 0;
-      background: #00a3ff;
-      background: linear-gradient(90deg,#00a3ff 0,rgba(190,46,228,0));
-    }
-
-    &.small {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-      width: 56px;
-      flex-direction: column;
-
-      .icon {
-        position: relative;
-        margin: 0;
-      }
-
-      .nav-icon-label {
-        padding: 0;
-        margin-top: .75rem;
-        font-size: .67rem;
-        line-height: 0;
+    &.v3 {
+      width: 26px;
+      .circle {
+        height: 12px;
+        width: 12px;
+        top: 2px;
+        right: 2px;
       }
     }
   }
 }
 
+.nav-item {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  margin-bottom: 1.25rem;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: #be2ee4;
+    background: linear-gradient(180deg,#be2ee4 0,#00a3ff);
+  }
+
+  &:first-child {
+    margin-right: 1.25rem;
+  }
+
+  &.account {
+    padding: .25rem;
+    position: relative;
+    width: 210px;
+    height: 56px;
+
+    &:after { display: none; }
+
+    .acct-inner {
+      display: flex;
+      position: relative;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: $article-nav-acct-bg;
+      border-radius: 6px;
+      border: 3px solid $g8-storm;
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: 1rem;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 5px 0 5px;
+        border-color: $g16-pearl transparent transparent transparent;
+      }
+    }
+
+    .acct-icon {
+      margin: 0 .9rem 0 .5rem;
+      border-radius: 50%;
+      height: 28px;
+      width: 28px;
+      background: linear-gradient(45deg,#00a3ff,#67d74e);
+      color: $g20-white;
+      text-align: center;
+      line-height: 0;
+      overflow: hidden;
+      .icon {
+        margin-left: -.1rem;
+        font-size: 2rem;
+      }
+    }
+
+    .acct-label {
+      .username { color: $g16-pearl; font-weight: $medium; font-size: .85rem; line-height: 1.2rem; }
+      .orgname { color: $g11-sidewalk; font-size: .75rem; line-height: .75rem; }
+    }
+
+    &.small {
+      width: 56px;
+      .acct-inner {
+        justify-content: center;
+        align-items: center;
+        &:after { display: none; }
+      }
+      .acct-icon { margin: 0 }
+    }
+  }
+}
+
+.nav-icon {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  color: $g20-white;
+  width: 210px;
+  height: 56px;
+  font-family: $rubik;
+  font-weight: $medium;
+  padding: .9rem 1.1rem;
+  font-size: 1rem;
+  position: relative;
+  background: $article-nav-icon-bg;
+
+  .icon {
+    display: inline-block;
+    font-size: 1.35rem;
+    margin-right: 1rem;
+  }
+
+  .nav-icon-label {
+    display: inline-block;
+    padding: 0;
+    font-size: 1rem;
+  }
+
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 2px;
+    z-index: 2;
+    width: 12px;
+  }
+
+  &:before {
+    top: 0;
+    background: #be2ee4;
+    background: linear-gradient(90deg,#be2ee4 0,rgba(190,46,228,0));
+  }
+
+  &:after {
+    bottom: 0;
+    background: #00a3ff;
+    background: linear-gradient(90deg,#00a3ff 0,rgba(190,46,228,0));
+  }
+
+  &.small {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 56px;
+    flex-direction: column;
+
+    .icon {
+      position: relative;
+      margin: 0;
+    }
+
+    .nav-icon-label {
+      padding: 0;
+      margin-top: .75rem;
+      font-size: .67rem;
+      line-height: 0;
+    }
+  }
+}
+
+///////////////////////////////// CLOCKFACE V3 /////////////////////////////////
+
+.nav-items-v3 {
+  .nav-item-v3 {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 1rem 1.25rem 0;
+    max-width: 225px;
+    background: linear-gradient(rgba(#052943, .9), rgba(#062238, .9));
+    color: $g20-white;
+    height: 60px;
+
+    &.account {
+      padding: 8px;
+
+      .acct-inner-v3 {
+        display: flex;
+        background-color: #10344f;
+        border-radius: $radius;
+      }
+
+      .acct-icon-v3 {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        font-weight: bold;
+        width: 44px;
+        height: 44px;
+        @include gradient($grad-Miyazakisky, 54deg);
+        border-radius: $radius;
+
+        .initial {
+          align-self: center;
+        }
+      }
+
+      .acct-label-v3 {
+        display: inline-block;
+        padding: 5px 0px 0px 8px;
+        width: 165px;
+
+        .username {
+          font-size: .75rem;
+          font-weight: 500;
+          color: #9e9ead;
+        }
+        .orgname {
+          font-size: .85rem;
+          line-height: 1.1rem;
+        }
+      }
+
+    }
+  }
+
+  .nav-icon-v3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  p.nav-label-v3 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 1.15rem;
+    min-width: 225px;
+    color: $g20-white;
+  }
+
+  .cf-icon {
+    display: inline-block;
+    font-size: 1.35rem;
+  }
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////// 
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 @include media(small) {
-  .article--content .nav-item:nth-child(2) {display: none;}
+  .nav-item:nth-child(2) {display: none;}
+  .nav-item-v3:nth-child(2) {display: none;}
 }

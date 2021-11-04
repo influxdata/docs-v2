@@ -18,7 +18,7 @@ related:
     {{< nav-icon "alerts" >}}
 
 2. Select **Notification Rules** near to top of the page.
-3. Click **{{< icon "add-label" "v2" >}} Add a label** next to the rule you want to add a label to.
+3. Click **{{< icon "add-label" >}} Add a label** next to the rule you want to add a label to.
    The **Add Labels** box opens.
 4. To add an existing label, select the label from the list.
 5. To create and add a new label:
@@ -26,7 +26,7 @@ related:
   - In the **Description** field, enter an optional description for the label.
   - Select a color for the label.
   - Click **Create Label**.
-6. To remove a label, hover over the label under to a rule and click **{{< icon "x" "v2" >}}**.
+6. To remove a label, hover over the label under to a rule and click **{{< icon "x" >}}**.
 
 
 ## Disable notification rules
@@ -36,7 +36,7 @@ related:
     {{< nav-icon "alerts" >}}
 
 2. Select **Notification Rules** near to top of the page.
-3. Click the {{< icon "toggle" "v2" >}} toggle to disable the notification rule.
+3. Click the {{< icon "toggle" >}} toggle to disable the notification rule.
 
 ## Update the name or description for notification rules
 
@@ -46,5 +46,5 @@ related:
 
 2. Select **Notification Rules** near to top of the page.
 3. Hover over the name or description of a rule and click the pencil icon
-   (**{{< icon "edit" "v2" >}}**) to edit the field.
+   (**{{< icon "edit" >}}**) to edit the field.
 4. Click outside of the field to save your changes.

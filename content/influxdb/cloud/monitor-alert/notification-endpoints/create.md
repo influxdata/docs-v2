@@ -21,15 +21,15 @@ To send notifications about changes in your data, start by creating a notificati
     {{< nav-icon "alerts" >}}
 
 2.  Select **Notification Endpoints** near to top of the page.
-3.  Click **{{< icon "plus" "v2" >}} Create**.
+3.  Click **{{< icon "plus" >}} Create**.
 4.  From the **Destination** drop-down list, select a destination endpoint to send notifications.
     The following endpoints are available for the InfluxDB Cloud Free Plan and Usage-based Plan:
 
     | Endpoint      | Free Plan                | Usage-based Plan             |
     |:--------      |:-------------------:     |:----------------------------:|
-    | **Slack**     | **{{< icon "check" "v2" >}}** | **{{< icon "check" "v2" >}}**     |
-    | **PagerDuty** |                          | **{{< icon "check" "v2" >}}**     |
-    | **HTTP**      |                          | **{{< icon "check" "v2" >}}**     |
+    | **Slack**     | **{{< icon "check" >}}** | **{{< icon "check" >}}**     |
+    | **PagerDuty** |                          | **{{< icon "check" >}}**     |
+    | **HTTP**      |                          | **{{< icon "check" >}}**     |
 
 5.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
 6.  Enter enter information to connect to the endpoint:

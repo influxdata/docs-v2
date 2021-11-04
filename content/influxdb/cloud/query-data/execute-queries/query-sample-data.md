@@ -62,7 +62,7 @@ In the navigation menu on the left, click **Explore (Data Explorer)**.
 
     {{< nav-icon "data" >}}
 
-2. Click **{{< icon "plus" "v2" >}} Create bucket**, and then name your bucket. The bucket will appear in your list of buckets.
+2. Click **{{< icon "plus" >}} Create bucket**, and then name your bucket. The bucket will appear in your list of buckets.
 3. View the [sample datasets document](/influxdb/cloud/reference/sample-data/#sample-datasets) and choose a sample data to query.
 4. Copy the `sample.data()` function listed underneath.
 5. Click **Explore** on the left navigation of InfluxDB Cloud and click your bucket, and then click **Script Editor**.

@@ -37,8 +37,8 @@ for the upgrade process.
 1. Click **Data (Load Data) > Tokens** in the left navigation bar.
 
     {{< nav-icon "data" >}}
-2. Click **{{< icon "plus" "v2" >}} Generate**, and then select **All-Access Token**.
-3. Enter a description for the token, and then click **{{< icon "check" "v2" >}} Save**.
+2. Click **{{< icon "plus" >}} Generate**, and then select **All-Access Token**.
+3. Enter a description for the token, and then click **{{< icon "check" >}} Save**.
 
 _For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/security/tokens/)._
 

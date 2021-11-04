@@ -95,7 +95,7 @@ For example, in the band chart above, the lines represent the mean `usage_system
 
 ## Band controls
 
-To view **Band** controls, click **{{< icon "gear" "v2" >}} Customize** next to the visualization dropdown.
+To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
 
 ###### Data
 

@@ -18,15 +18,15 @@ This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, con
 
 This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 
-{{< nav-icon "account" >}}
-{{< nav-icon "data" >}}
-{{< nav-icon "explore" >}}
-{{< nav-icon "org" >}}
-{{< nav-icon "boards" >}}
-{{< nav-icon "tasks" >}}
-{{< nav-icon "alerts" >}}
-{{< nav-icon "settings" >}}
-{{< nav-icon "notebooks" >}}
+{{< nav-icon "account" "v2" >}}
+{{< nav-icon "data" "v2" >}}
+{{< nav-icon "explore" "v2" >}}
+{{< nav-icon "org" "v2" >}}
+{{< nav-icon "boards" "v2" >}}
+{{< nav-icon "tasks" "v2" >}}
+{{< nav-icon "alerts" "v2" >}}
+{{< nav-icon "settings" "v2" >}}
+{{< nav-icon "notebooks" "v2" >}}
 
 {{< icon "add-cell" "v2" >}} add-cell  
 {{< icon "add-label" "v2" >}} add-label  
@@ -95,7 +95,6 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< nav-icon "account" >}}
 {{< nav-icon "data" >}}
 {{< nav-icon "explore" >}}
-{{< nav-icon "org" >}}
 {{< nav-icon "boards" >}}
 {{< nav-icon "tasks" >}}
 {{< nav-icon "alerts" >}}

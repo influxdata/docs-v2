@@ -25,7 +25,7 @@ When multiple series are present, it automatically assigns colors based on the s
 When using a line graph, all points within a single table are connected. When multiple series are present, it automatically assigns colors based on the selected [Line Colors option](#options).
 
 ## Graph controls
-To view **Graph** controls, click **{{< icon "gear" "v2" >}} Customize** next to
+To view **Graph** controls, click **{{< icon "gear" >}} Customize** next to
 the visualization dropdown.
 
 ###### Data
