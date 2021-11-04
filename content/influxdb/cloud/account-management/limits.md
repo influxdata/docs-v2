@@ -14,69 +14,64 @@ InfluxDB Cloud has adjustable organization limits and hard system limits:
 
 - [Adjustable limits](#adjustable-limits)
 - [System limits](#system-limits)
+- [Limit errors](#limit-errors)
 
 <!--To estimate your projected usage costs, use the [InfluxDB Cloud pricing calculator](/influxdb/cloud/account-management/pricing-calculator/). -->
 
 ## Adjustable limits
 
-All organizations in InfluxDB Cloud have limits. These limits vary 
+InfluxDB Cloud has adjustable limits to reduce the chance of unexpected charges and protect the service for all users.
 
-### Calculation and enforcement
+_To request higher limits, reach out to [InfluxData Support](https://support.influxdata.com/)._
 
-Rate limits are accured against a five minute window.
+### Rate limits
 
-### Limits for Free accounts
+Rate limits are acrued against a five minute window.
+<!-- Inclue something about how the rate limit is calculated. -->
 
-#### Rate limits
+Usage-Based Plan rate limits
 
-Data queried: 300MB every 5 minutes
-Write: 5.1MB every 5 minutes
-<!-- Delete: ? -->
+- Read: 3 GB every 5 minutes
+- Write: 3 GB every 5 minutes
+<!-- - Delete: ? -->
 
-#### Static limits
+Free Plan rate limits
 
-Max series cardinality: 10,000 series
-Max buckets: 2
-Max retention duration: 30 days
-Max notification rules: 2
-Max dashboards: 5
-Max tasks: 5
-Max checks: 2
-Allowed notification rules and endpoints: http, pagerduty
+- Data queried: 300MB every 5 minutes
+- Write: 5.1MB every 5 minutes
 
-{{% note %}}
-To write historical data older than 30 days or retain data for more than 30 days, upgrade to the Cloud [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
-{{% /note %}}
+### Other limits
 
-_To raise rate limits on a Free account, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan) or [reach out](https://www.influxdata.com/contact-sales/)._
+Usage-Based Plan limits
 
-### Limits for Usage-based accounts
+- Maximum of 1,000,000 series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
 
-#### Rate limits
+Free Plan limits
 
-Read: 3 GB every 5 minutes
-Write: 3 GB every 5 minutes
-<!-- Delete: ? -->
-
-#### Static limits
-
-Max series cardinality: 1,000,000 series
-Unlimited buckets, retention duration, notification rules, dashboards, tasks, and checks.
-All notification rules and endpoints are allowed
-
-_To raise rate limits on a Usage-based account, please [reach out to our Support team](https://support.influxdata.com/s/)._
+- Maximum of 10,000 series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
+- Allowed resources
+  - 2 buckets
+  - 2 notification rules
+  - 5 dashboards
+  - 5 tasks
+  - 2 checks
+  - `http` and `pagerduty` notification endpoints
+- 30 days of data retention (see [retention period](/influxdb/cloud/reference/glossary/#retention-period))
+  - {{% note %}}
+    To write historical data older than 30 days, retain data for more than 30 days, or increase rate limits, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
+    {{% /note %}
 
 ## System limits
 
-InfluxDB Cloud has limits which are inherent restrictions of the system. These hard limits are typically dictated by the capabilities of the underlying InfluxDB Cloud infrastructure.
+InfluxDB Cloud also has limits that cannot be adjusted and apply to all accounts.
+These hard limits are typically dictated by the capabilities of the underlying InfluxDB Cloud infrastructure.
 
-Max write request batch size: 50MB (defined via `Content-Type` header)
+- Write/ingest request limits
+  - Maximum request batch size: 50MB (defined via `Content-Type` header)
+  - Maximum decompressed request batch size: 250MB
+    <!-- http status code 413 with message {"code":"request too large","message":"cannot read data: points batch is too large"} -->
 
-
-
--------
-
-## Exceeded rate limits
+## Limit errors
 
 If you exceed your [plan's data limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} UI displays a notification message, and the following occurs:
 
