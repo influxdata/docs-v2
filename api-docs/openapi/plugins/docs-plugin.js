@@ -46,7 +46,6 @@ module.exports = {
 	'docs/remove-private-paths': 'error',
 	'docs/strip-version-prefix': 'error',
 	'docs/set-info': 'error',
-	'docs/set-security-schemes': 'error',
         'docs/set-tags': 'error',
 	'docs/set-tag-groups': 'error',
       },
