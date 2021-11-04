@@ -3,6 +3,7 @@
     <div class="title">
       <h1>{{ .Title }}</h1>
       {{ partial "article/supported-versions.html" . }}
+      {{ partial "article/page-meta.html" . }}
     </div>
     {{ partial "article/stable-version.html" . }}
     {{ partial "article/flux-experimental.html" . }}

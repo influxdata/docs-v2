@@ -9962,6 +9962,18 @@ components:
           type: array
         generateXAxisTicks:
           items:
+            $ref: '#/components/schemas/LogEvent'
+          readOnly: true
+          type: array
+      type: object
+    MapVariableProperties:
+      properties:
+        type:
+          enum:
+            - map
+          type: string
+        values:
+          additionalProperties:
             type: string
           type: array
         hoverDimension:
@@ -11816,6 +11828,8 @@ components:
     StringLiteral:
       description: Expressions begin and end with double quote marks
       properties:
+        assignment:
+          $ref: '#/components/schemas/VariableAssignment'
         type:
           $ref: '#/components/schemas/NodeType'
         value:
@@ -13520,7 +13534,8 @@ components:
         header with each request.
 
 
-        ### Example
+      - [Querystring
+      authentication](#section/Authentication/QuerystringAuthentication)
 
           `curl http://localhost:8086/ping
               --header "Authorization: Token YOUR_API_TOKEN"`
@@ -13541,11 +13556,8 @@ components:
         `Authorization: Token` scheme).
 
 
-        Username and password schemes require the following credentials:
-          - **username**: 1.x username (this is separate from the UI login username)
-          - **password**: 1.x password or InfluxDB API token
 
-        ### Example
+      API operations may return the following HTTP status codes:
 
 
         `curl --get "http://localhost:8086/query"
@@ -13566,11 +13578,11 @@ components:
         string.
 
 
-        Username and password schemes require the following credentials:
-          - **username**: 1.x username (this is separate from the UI login username)
-          - **password**: 1.x password or InfluxDB API token
+      | `200`       | Success                  |                       |
 
-        ### Example
+      | `204`       | No content               | For a `POST` request, `204`
+      indicates that InfluxDB accepted the request and request data is valid.
+      Asynchronous operations, such as `write`, might not have completed yet. |
 
 
         `curl --get "http://localhost:8086/query"

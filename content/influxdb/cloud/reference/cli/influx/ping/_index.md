@@ -12,10 +12,11 @@ influxdb/cloud/tags: [ping, health]
 related:
   - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 ---
 
 {{% note %}}
-#### Available with InfluxDB OSS 2.x only
+#### Works with InfluxDB OSS 2.x
 The `influx ping` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
 {{% /note %}}
 
