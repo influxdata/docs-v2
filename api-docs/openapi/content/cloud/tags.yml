@@ -1,3 +1,6 @@
+- name: Quick start
+  description: Some quickness
+  x-traitTag: true
 - name: Authentication
   description: |
     Use one of the following schemes to authenticate to the InfluxDB API:
@@ -10,18 +13,18 @@
   description: |
     Manage and execute scripts as API endpoints in InfluxDB.
 
-    An API invocable script assigns your custom Flux script to a new InfluxDB API endpoint for your organization.
+    An API Invocable Script assigns your custom Flux script to a new InfluxDB API endpoint for your organization.
     Invocable scripts let you execute your script as an HTTP request to the endpoint.
 
     Invocable scripts accept parameters. Add parameter references in your script as `params.myparameter`.
     When you `invoke` your script, you send parameters as key-value pairs in the `params` object.
-   Then, InfluxDB executes your script with the key-value pairs as arguments, and returns the result.
+    InfluxDB executes your script with the key-value pairs as arguments and returns the result.
 
     For more information and examples, see [Invoke custom scripts](https://docs.influxdata.com/influxdb/cloud/api-guide/api-invocable-scripts).
 - name: Quick start
   x-traitTag: true
   description: |
-    See the [**API Quick Start**](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/) to quickly start authenticating with tokens to write to buckets and query data.
+    See the [**API Quick Start**](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/) to get up and running authenticating with tokens, writing to buckets, and querying data.
 
     [**InfluxDB API client libraries**](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/) are available for popular languages and ready to import into your application.
 - name: Response codes

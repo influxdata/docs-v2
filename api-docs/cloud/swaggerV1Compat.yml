@@ -29,7 +29,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The bucket to write to. If the specified bucket does not exist, a bucket is created with a default 3 day retention policy.
+          description: The bucket to write to. If none exist a bucket will be created with a default 3 day retention policy.
         - in: query
           name: rp
           schema:
@@ -54,7 +54,7 @@ paths:
         "204":
           description: Write data is correctly formatted and accepted for writing to the bucket.
         "400":
-          description: Line protocol is malformed. All request data was rejected. The response message can be used to determine the first malformed line in the data.
+          description: Line protocol poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
           content:
             application/json:
               schema:
@@ -86,7 +86,7 @@ paths:
                 type: integer
                 format: int32
         "503":
-          description: Server is temporarily unavailable to accept writes. The Retry-After header describes when to try the write again.
+          description: Server is temporarily unavailable to accept writes.  The Retry-After header describes when to try the write again.
           headers:
             Retry-After:
               description: A non-negative decimal integer indicating the seconds to delay after the response is received.
@@ -128,7 +128,7 @@ paths:
               - application/x-msgpack
         - in: header
           name: Accept-Encoding
-          description: The Accept-Encoding request HTTP header indicates which content encoding (usually a compression algorithm) the client is able to understand.
+          description: The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.
           schema:
             type: string
             description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
@@ -152,7 +152,7 @@ paths:
           description: Query results
           headers:
             Content-Encoding:
-              description: The Content-Encoding entity header is used to compress the media-type. When present, its value indicates which encodings were applied to the entity-body.
+              description: The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body
               schema:
                 type: string
                 description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
@@ -180,7 +180,7 @@ paths:
                 type: string
                 format: binary
         "429":
-          description: InfluxDB API token is temporarily over quota. The `Retry-After` header describes when to try the read again.
+          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
           headers:
             Retry-After:
               description: A non-negative decimal integer indicating the seconds to delay after the response is received.
@@ -301,7 +301,7 @@ components:
           type: string
         err:
           readOnly: true
-          description: Err is a stack of errors that occur when processing the request. Useful for debugging.
+          description: Err is a stack of errors that occurred during processing of the request. Useful for debugging.
           type: string
         line:
           readOnly: true

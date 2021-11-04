@@ -1,18 +1,18 @@
 TokenAuthentication:
   type: http
   scheme: token
-  bearerFormat: InfluxDB token string
+  bearerFormat: InfluxDB Token String
   description: |
     ### Token authentication scheme
 
     InfluxDB API tokens ensure secure interaction between users and data. A token belongs to an organization and identifies InfluxDB permissions within the organization.
 
-    Include your API token in an `Authentication: Token YOUR_API_TOKEN` HTTP header with each request.
+    Include your API token in an `Authorization: Token YOUR_API_TOKEN` HTTP header with each request.
 
     ### Example
 
     `curl https://us-east-1-1.aws.cloud2.influxdata.com/
-          --header "Authentication: Token YOUR_API_TOKEN"`
+          --header "Authorization: Token YOUR_API_TOKEN"`
 
     For more information and examples, see the following:
       - [Use tokens in API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
@@ -24,7 +24,7 @@ BasicAuthentication:
   description: |
     ### Basic authentication scheme
 
-    Use the Basic authentication scheme with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
+    Use HTTP Basic Auth with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
       - **username**: InfluxDB Cloud username
       - **password**: InfluxDB Cloud API token
 
@@ -53,4 +53,4 @@ QuerystringAuthentication:
           --data-urlencode "u=YOUR_USERNAME"
           --data-urlencode "p=YOUR_TOKEN_OR_PASSWORD"`
 
-    For more information and examples, see how to [authenticate with a username and password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
+    For more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
