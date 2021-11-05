@@ -5896,7 +5896,7 @@ components:
           - **username**: InfluxDB Cloud username
           - **password**: InfluxDB Cloud API token
 
-        ### Example
+        #### Example
 
 
         `curl --get "https://europe-west1-1.gcp.cloud2.influxdata.com/query"
@@ -5908,7 +5908,7 @@ components:
         with
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token) 
+        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)
 
 
         For more information and examples, see how to [authenticate with a
@@ -5932,7 +5932,7 @@ components:
         - **password**: InfluxDB Cloud API token
 
 
-        ### Example
+        #### Example
 
 
         `curl --get "https://europe-west1-1.gcp.cloud2.influxdata.com/query"
@@ -5945,7 +5945,7 @@ components:
         with
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token) 
+        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)
 
 
         For more information and examples, see how to [authenticate with a
@@ -5969,11 +5969,15 @@ components:
         header with each request.
 
 
-        ### Example
+        #### Example
 
 
         `curl https://us-east-1-1.aws.cloud2.influxdata.com/
            --header "Authorization: Token INFLUX_API_TOKEN"`
+
+        Replace *`INFLUX_API_TOKEN`* with your [InfluxDB API
+        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token).
+
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
@@ -12345,8 +12349,7 @@ security:
 servers:
   - url: /
 tags:
-  - name: Authentication
-    description: >
+  - description: >
       Use one of the following schemes to authenticate to the InfluxDB API:
 
       - [Token authentication](#section/Authentication/TokenAuthentication)
@@ -12357,12 +12360,20 @@ tags:
       authentication](#section/Authentication/QuerystringAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
+    name: Authentication
     x-traitTag: true
-  - name: Authorizations
-    description: >
+  - description: >
       Create and manage API tokens. An **authorization** associates a list of
-      permissions to an **organization** and provides a token for API access. To
-      assign a token to a specific user, scope the authorization to the user ID.
+      permissions to an **organization** and provides a token for API access.
+      Optionally, you can restrict an authorization and its token to a specific
+      user.
+
+
+      For more information and examples, see the following:
+        - [Use tokens in API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
+        - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
+        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token).
+    name: Authorizations
   - Bucket Schemas
   - Buckets
   - Cells
@@ -12371,56 +12382,31 @@ tags:
   - DBRPs
   - Delete
   - DemoDataBuckets
-  - name: Invocable Scripts
-    description: >
-      Manage and execute scripts as API endpoints in InfluxDB.
-
-
-      An API invocable script assigns your custom Flux script to a new InfluxDB
-      API endpoint for your organization.
-
-      Invocable scripts let you execute your script as an HTTP request to the
-      endpoint.
-
-
-      Invocable scripts accept parameters. Add parameter references in your
-      script as `params.myparameter`.
-
-      When you `invoke` your script, you send parameters as key-value pairs in
-      the `params` object.
-
-      Then, InfluxDB executes your script with the key-value pairs as arguments,
-      and returns the result.
-
-
-      For more information and examples, see [Invoke custom
-      scripts](https://docs.influxdata.com/influxdb/cloud/api-guide/api-invocable-scripts).
+  - Invocable Scripts
   - Labels
   - Limits
   - NotificationEndpoints
   - NotificationRules
   - Organizations
   - Ping
-  - name: Query
-    description: |
+  - description: |
       Retrieve data, analyze queries, and get query suggestions.
-  - name: Quick start
-    x-traitTag: true
-    description: >
+    name: Query
+  - description: >
       See the [**API Quick
       Start**](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/)
-      to quickly start authenticating with tokens to write to buckets and query
-      data.
+      to get up and running authenticating with tokens, writing to buckets, and
+      querying data.
 
 
       [**InfluxDB API client
       libraries**](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/)
       are available for popular languages and ready to import into your
       application.
-  - Resources
-  - name: Response codes
+    name: Quick start
     x-traitTag: true
-    description: >
+  - Resources
+  - description: >
       The InfluxDB API uses standard HTTP status codes for success and failure
       responses.
 
@@ -12473,6 +12459,8 @@ tags:
       | `503`       | Service unavailable      | Server is temporarily
       unavailable to process the request. The `Retry-After` header describes
       when to try the request again. |
+    name: Response codes
+    x-traitTag: true
   - Routes
   - Rules
   - Secrets
@@ -12487,9 +12475,9 @@ tags:
   - Users
   - Variables
   - Views
-  - name: Write
-    description: |
+  - description: |
       Write time series data to buckets.
+    name: Write
 x-tagGroups:
   - name: Overview
     tags:

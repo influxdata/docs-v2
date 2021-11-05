@@ -5828,13 +5828,13 @@ components:
           - **username**: 1.x username (this is separate from the UI login username)
           - **password**: 1.x password or InfluxDB API token
 
-        ### Example
+        #### API token example
 
 
         `curl --get "http://localhost:8086/query"
               --user "1.x_USERNAME":"INFLUX_API_TOKEN"`
 
-        or
+        #### 1.x password example
 
 
         `curl --get "http://localhost:8086/query"
@@ -5844,15 +5844,15 @@ components:
 
         - *`1.x_USERNAME`*: your InfluxDB v1.x username
 
-        - *`1.x_PASSWORD`*: your InfluxDB v1.x password 
+        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.0/reference/glossary/#token) 
+        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token)
 
 
         For more information and examples, see how to [authenticate with a
         username and password
-        scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+        scheme](https://docs.influxdata.com/influxdb/v2.1/reference/api/influxdb-1x/)
       scheme: basic
       type: http
     QuerystringAuthentication:
@@ -5868,14 +5868,15 @@ components:
           - **username**: 1.x username (this is separate from the UI login username)
           - **password**: 1.x password or InfluxDB API token
 
-        ### Example
+        #### API token example
 
 
         `curl --get "http://localhost:8086/query"
               --data-urlencode "u=1.x_USERNAME"
               --data-urlencode "p=INFLUX_API_TOKEN"`
 
-         or
+        #### 1.x password example
+
 
         `curl --get "http://localhost:8086/query"
               --data-urlencode "u=1.x_USERNAME"
@@ -5885,15 +5886,15 @@ components:
 
         - *`1.x_USERNAME`*: your InfluxDB v1.x username
 
-        - *`1.x_PASSWORD`*: your InfluxDB v1.x password 
+        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.0/reference/glossary/#token) 
+        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token)
 
 
         For more information and examples, see how to [authenticate with a
         username and password
-        scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+        scheme](https://docs.influxdata.com/influxdb/v2.1/reference/api/influxdb-1x/)
       in: query
       name: u=&p=
       type: apiKey
@@ -5914,20 +5915,27 @@ components:
         each request.
 
 
-        ### Example
+        #### Example
 
           `curl http://localhost:8086/ping
              --header "Authorization: Token INFLUX_API_TOKEN"`
 
+        Replace *`INFLUX_API_TOKEN`* with your [InfluxDB API
+        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token).
+
+
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/#authentication).
-          - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens).
-          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.0/security/tokens/create-token).
+          - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
+          - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
+          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
       scheme: token
       type: http
 info:
-  title: Complete InfluxDB OSS API
+  title: Influx OSS API Service
+  description: >
+    The InfluxDB v2 API provides a programmatic interface for all interactions
+    with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 openapi: 3.0.0
 paths:
   /api/v2/:
@@ -9579,20 +9587,20 @@ paths:
         To query data, you need the following:
 
         - **organization** – _See [View
-        organizations](https://docs.influxdata.com/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+        organizations](https://docs.influxdata.com/influxdb/v2.1/organizations/view-orgs/#view-your-organization-id)
         for instructions on viewing your organization ID._
 
         - **API token** – _See [View
-        tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/view-tokens/)
+        tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/view-tokens/)
          for instructions on viewing your API token._
         - **InfluxDB URL** – _See [InfluxDB
-        URLs](https://docs.influxdata.com/influxdb/v2.0/reference/urls/)_.
+        URLs](https://docs.influxdata.com/influxdb/v2.1/reference/urls/)_.
 
         - **Flux query** – _See [Flux](https://docs.influxdata.com/flux/v0.x/)._
 
 
         For more information and examples, see [Query with the InfluxDB
-        API](https://docs.influxdata.com/influxdb/v2.0/query-data/execute-queries/influx-api/).
+        API](https://docs.influxdata.com/influxdb/v2.1/query-data/execute-queries/influx-api/).
       operationId: PostQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12707,26 +12715,26 @@ paths:
         To write data into InfluxDB, you need the following:
 
         - **organization** – _See [View
-        organizations](https://docs.influxdata.com/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+        organizations](https://docs.influxdata.com/influxdb/v2.1/organizations/view-orgs/#view-your-organization-id)
         for instructions on viewing your organization ID._
 
         - **bucket** – _See [View
-        buckets](https://docs.influxdata.com/influxdb/v2.0/organizations/buckets/view-buckets/)
+        buckets](https://docs.influxdata.com/influxdb/v2.1/organizations/buckets/view-buckets/)
         for
          instructions on viewing your bucket ID._
         - **API token** – _See [View
-        tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/view-tokens/)
+        tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/view-tokens/)
          for instructions on viewing your API token._
         - **InfluxDB URL** – _See [InfluxDB
-        URLs](https://docs.influxdata.com/influxdb/v2.0/reference/urls/)_.
+        URLs](https://docs.influxdata.com/influxdb/v2.1/reference/urls/)_.
 
         - data in [line
-        protocol](https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol)
+        protocol](https://docs.influxdata.com/influxdb/v2.1/reference/syntax/line-protocol)
         format.
 
 
         For more information and examples, see [Write data with the InfluxDB
-        API](https://docs.influxdata.com/influxdb/v2.0/write-data/developer-tools/api).
+        API](https://docs.influxdata.com/influxdb/v2.1/write-data/developer-tools/api).
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12823,7 +12831,7 @@ paths:
             InfluxDB validated the request data format and accepted the data for
             writing to the bucket. `204` doesn't indicate a successful write
             operation since writes are asynchronous. See [how to check for write
-            errors](https://docs.influxdata.com/influxdb/v2.0/write-data/troubleshoot).
+            errors](https://docs.influxdata.com/influxdb/v2.1/write-data/troubleshoot).
         '400':
           content:
             application/json:
@@ -12945,9 +12953,9 @@ tags:
 
 
       For more information and examples, see the following:
-        - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/#authentication).
-        - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens).
-        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.0/security/tokens/create-token).
+        - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
+        - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
+        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
     name: Authorizations
   - Backup
   - Buckets
@@ -12968,13 +12976,13 @@ tags:
     name: Query
   - description: >
       See the [**API Quick
-      Start**](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/)
+      Start**](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/)
       to get up and running authenticating with tokens, writing to buckets, and
       querying data.
 
 
       [**InfluxDB API client
-      libraries**](https://docs.influxdata.com/influxdb/v2.0/api-guide/client-libraries/)
+      libraries**](https://docs.influxdata.com/influxdb/v2.1/api-guide/client-libraries/)
       are available for popular languages and ready to import into your
       application.
     name: Quick start
@@ -13012,7 +13020,7 @@ tags:
       malformed</li><li>API token value is missing from the header</li><li>API
       token does not have permission. For more information about token types and
       permissions, see [Manage API
-      tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/)</li> |
+      tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/)</li> |
 
       | `404`       | Not found                | Requested resource was not
       found. `message` in the response body provides details about the requested
@@ -13088,8 +13096,8 @@ x-tagGroups:
       - Buckets
       - Cells
       - Checks
-      - DBRPs
       - Dashboards
+      - DBRPs
       - Delete
       - Health
       - Labels
@@ -13100,8 +13108,6 @@ x-tagGroups:
       - Ping
       - Query
       - Ready
-      - RemoteConnections
-      - Replications
       - Resources
       - Restore
       - Routes
@@ -13118,4 +13124,5 @@ x-tagGroups:
       - Templates
       - Users
       - Variables
+      - Views
       - Write

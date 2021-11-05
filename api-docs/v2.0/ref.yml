@@ -5828,13 +5828,13 @@ components:
           - **username**: 1.x username (this is separate from the UI login username)
           - **password**: 1.x password or InfluxDB API token
 
-        ### Example
+        #### API token example
 
 
         `curl --get "http://localhost:8086/query"
               --user "1.x_USERNAME":"INFLUX_API_TOKEN"`
 
-        or
+        #### 1.x password example
 
 
         `curl --get "http://localhost:8086/query"
@@ -5868,14 +5868,15 @@ components:
           - **username**: 1.x username (this is separate from the UI login username)
           - **password**: 1.x password or InfluxDB API token
 
-        ### Example
+        #### API token example
 
 
         `curl --get "http://localhost:8086/query"
               --data-urlencode "u=1.x_USERNAME"
               --data-urlencode "p=INFLUX_API_TOKEN"`
 
-         or
+        #### 1.x password example
+
 
         `curl --get "http://localhost:8086/query"
               --data-urlencode "u=1.x_USERNAME"
@@ -5892,8 +5893,8 @@ components:
 
 
         For more information and examples, see how to [authenticate with a
-        username and password
-        scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+        username and
+        password](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
       in: query
       name: u=&p=
       type: apiKey
@@ -5914,10 +5915,13 @@ components:
         each request.
 
 
-        ### Example
+        #### Example
 
           `curl http://localhost:8086/ping
              --header "Authorization: Token INFLUX_API_TOKEN"`
+
+        Replace *`INFLUX_API_TOKEN`* with your [InfluxDB API
+        token](https://docs.influxdata.com/influxdb/v2.0/reference/glossary/#token).
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
