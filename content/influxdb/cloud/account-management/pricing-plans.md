@@ -24,7 +24,7 @@ All new {{< cloud-name >}} accounts start with Free Plan that provides a limited
 
 ## Usage-Based Plan
 
-The Usage-Based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/cloud/account-management/data-usage/).
+The Usage-Based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/cloud/account-management/data-usage/). Usage-Based Plans are based on consumption as measured by usage on the [pricing vectors](#pricing-vectors).
 
 ### Pricing vectors
 
@@ -39,3 +39,12 @@ The Usage-Based Plan uses the following pricing vectors to calculate InfluxDB Cl
 - **Storage** is the amount of data you’re storing in InfluxDB (measured in GB/hour).
 
 Discover how to [manage InfluxDB Cloud billing](/influxdb/cloud/account-management/billing/).
+
+## Annual Plan
+<!-- Maybe this should be "annual commitment"? -->
+
+An Annual Plan offers a discount for a commitment to a specific amount of usage over set period of time. This plan uses the same pricing vectors and calculation methodology as Usage-Based Plans.
+
+__Interested in an Annual Plan? Reach out to [InfluxData Sales](https://www.influxdata.com/contact-sales/).__
+
+<!-- ## Pricing FAQs -->

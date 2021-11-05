@@ -110,9 +110,13 @@ Combine predicate expressions (if possible) into a single request. InfluxDB limi
 
 ### Errors in InfluxDB API response
 
+<!-- Make this section into a table. -->
+
 The InfluxDB API returns the following HTTP responses when requests exceed specified rate limits or payload limits.
 
 #### Request limits
+
+When a request exceeds your plan's write requests (Data In) or query requests (Reads) within a five minute window, the InfluxDB API returns the following responses:
 
 - When a **read** or **write** or **delete** request exceeds request limit:
 
@@ -126,7 +130,6 @@ The InfluxDB API returns the following HTTP responses when requests exceed speci
   ```
   HTTP 413 “Payload Too Large”
   {"code":"request too large","message":"cannot read data: points batch is too large"}
-
   ```
 
 #### Cardinality limits
