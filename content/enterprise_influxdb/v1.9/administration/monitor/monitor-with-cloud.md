@@ -32,7 +32,7 @@ Before you begin, make sure you have access to the following:
  - An InfluxDB Cloud account. ([Sign up for free here](https://cloud2.influxdata.com/signup)).
  - Command line access to a machine [running InfluxDB Enterprise 1.x](/enterprise_influxdb/v1.9/introduction/install-and-deploy/) and permissions to install Telegraf on this machine.
  - Internet connectivity from the machine running InfluxDB Enterprise 1.x and Telegraf to InfluxDB Cloud.
- - Sufficient resource availability to install the template. (InfluxDB Cloud Free Plan accounts include [resource limits](/influxdb/cloud/account-management/pricing-plans/#resource-limits/influxdb/cloud/account-management/pricing-plans/#resource-limits).)
+ - Sufficient resource availability to install the template. (InfluxDB Cloud Free Plan accounts include a finite number of [available resources](/influxdb/cloud/account-management/limits/#free-plan-limits).)
 
 ## Install the InfluxDB Enterprise Monitoring template
 

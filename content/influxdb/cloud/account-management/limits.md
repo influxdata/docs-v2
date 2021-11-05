@@ -10,7 +10,7 @@ menu:
 products: [cloud]
 ---
 
-InfluxDB Cloud has adjustable organization limits and hard system limits:
+InfluxDB Cloud has adjustable account limits per organization and hard global system limits. Review the following InfluxDB Cloud limits and errors to plan for your bandwidth needs:
 
 - [Account limits](#account-limits)
 - [Global limits](#global-limits)
@@ -26,30 +26,29 @@ _To request higher limits, reach out to [InfluxData Support](https://support.inf
 
 ### Rate limits
 
-Rate limits are acrued against a five minute window.
-<!-- Inclue something about how the rate limit is calculated. -->
+{{% warn %}}
+Rate limits are accrued against a five-minute window.
+{{% /warn %}}
+<!-- Include something about how the rate limit is calculated. -->
 
-Usage-Based Plan rate limits
+#### Free Plan rate limits
 
-- Read: 3 GB every 5 minutes
-- Write: 3 GB every 5 minutes
-<!-- - Delete: ? -->
+- Read: 300 MB data every 5 minutes
+- Write: 5.1 MB data every 5 minutes
 
-Free Plan rate limits
+#### Usage-Based Plan rate limits
 
-- Data queried: 300MB every 5 minutes
-- Write: 5.1MB every 5 minutes
+- Read: 3 GB data every 5 minutes
+- Write: 3 GB data every 5 minutes
 
 ### Other limits
 
-Usage-Based Plan limits
+Other limits include all adjustable limits other than rate limits.
 
-- Maximum of 1,000,000 series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
-
-Free Plan limits
+#### Free Plan limits
 
 - Maximum of 10,000 series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
-- Allowed resources
+- Available resources:
   - 2 buckets
   - 2 notification rules
   - 5 dashboards
@@ -57,42 +56,66 @@ Free Plan limits
   - 2 checks
   - `http` and `pagerduty` notification endpoints
 - 30 days of data retention (see [retention period](/influxdb/cloud/reference/glossary/#retention-period))
-  - {{% note %}}
-    To write historical data older than 30 days, retain data for more than 30 days, or increase rate limits, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
-    {{% /note %}
+
+  {{% note %}}
+To write historical data older than 30 days, retain data for more than 30 days, or increase rate limits, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
+  {{% /note %}}
+
+#### Usage-Based Plan limits
+
+- Maximum of 1,000,000 series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
 
 ## Global limits
 
-InfluxDB Cloud also has global system limits that cannot be adjusted and apply to all accounts.
+InfluxDB Cloud global system limits cannot be adjusted and apply to all accounts.
 These hard limits are typically dictated by the capabilities of the underlying InfluxDB Cloud infrastructure.
+Limits include:
 
-- Write/ingest request limits
-  - Maximum request batch size: 50MB (defined via `Content-Type` header)
-  - Maximum decompressed request batch size: 250MB
+- Write request limits:
+  - 50 MB maximum request batch size (defined in the `Content-Type` header)
+  - 250 MB maximum decompressed request batch size
     <!-- http status code 413 with message {"code":"request too large","message":"cannot read data: points batch is too large"} -->
+- Delete request limit: 300 every 5 minutes
 
 ## Limit errors
 
-If you exceed your [plan's data limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} UI displays a notification message, and the following occurs:
+If you exceed your plan's limits, the following errors occur.
 
-- When **write or read requests or series cardinality exceed** the specified limit within a five-minute window, the request is rejected and the following events appears under **Limit Events** on the Usage page as applicable: `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality`
+### Errors in InfluxDB Cloud UI
+
+{{< cloud-name >}} UI displays a notification message in the UI.
+
+- When **write requests**, **read requests**, or **series cardinality** exceeds the specified limit within a five-minute window, the request is rejected and the following events appears under **Limit Events** on the Usage page as applicable: `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality`
 
 - When **delete requests exceed** the specified limit within a five-minute window, the request is rejected and `event_type_limited_delete_rate` appears under **Limit Events** on the Usage page.
+  
   {{% note %}}
 **Tip:**
-Combine predicate expressions (if possible) into a single request. InfluxDB rate limits per number of requests (not points in request).
+Combine predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points in request).
 {{% /note %}}
 
-### InfluxDB API: HTTP rate limit responses
+### Errors in InfluxDB API response
 
-The InfluxDB API returns the following responses:
+The InfluxDB API returns the following HTTP responses when requests exceed specified rate limits or payload limits.
 
-- When a **read or write or delete request exceeds** limits:
+#### Request limits
+
+- When a **read** or **write** or **delete** request exceeds request limit:
 
   ```
   HTTP 429 “Too Many Requests”
   Retry-After: xxx (seconds to wait before retrying the request)
   ```
+
+- When a **write** request maximum payload (or decompressed payload) exceeds limits:
+
+  ```
+  HTTP 413 “Payload Too Large”
+  {"code":"request too large","message":"cannot read data: points batch is too large"}
+
+  ```
+
+#### Cardinality limits
 
 - When **series cardinality exceeds** your plan's limit:
 
