@@ -5927,10 +5927,7 @@ components:
       scheme: token
       type: http
 info:
-  title: Influx OSS API Service
-  description: >
-    The InfluxDB v2 API provides a programmatic interface for all interactions
-    with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
+  title: Complete InfluxDB OSS API
 openapi: 3.0.0
 paths:
   /api/v2/:
@@ -12927,8 +12924,7 @@ security:
 servers:
   - url: /
 tags:
-  - name: Authentication
-    description: >
+  - description: >
       Use one of the following schemes to authenticate to the InfluxDB API:
 
       - [Token authentication](#section/Authentication/TokenAuthentication)
@@ -12939,12 +12935,20 @@ tags:
       authentication](#section/Authentication/QuerystringAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
+    name: Authentication
     x-traitTag: true
-  - name: Authorizations
-    description: >
+  - description: >
       Create and manage API tokens. An **authorization** associates a list of
-      permissions to an **organization** and provides a token for API access. To
-      assign a token to a specific user, scope the authorization to the user ID.
+      permissions to an **organization** and provides a token for API access.
+      Optionally, you can restrict an authorization and its token to a specific
+      user.
+
+
+      For more information and examples, see the following:
+        - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/#authentication).
+        - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens).
+        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.0/security/tokens/create-token).
+    name: Authorizations
   - Backup
   - Buckets
   - Cells
@@ -12959,12 +12963,10 @@ tags:
   - NotificationRules
   - Organizations
   - Ping
-  - name: Query
-    description: |
+  - description: |
       Retrieve data, analyze queries, and get query suggestions.
-  - name: Quick start
-    x-traitTag: true
-    description: >
+    name: Query
+  - description: >
       See the [**API Quick
       Start**](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/)
       to get up and running authenticating with tokens, writing to buckets, and
@@ -12975,11 +12977,11 @@ tags:
       libraries**](https://docs.influxdata.com/influxdb/v2.0/api-guide/client-libraries/)
       are available for popular languages and ready to import into your
       application.
+    name: Quick start
+    x-traitTag: true
   - Ready
   - Resources
-  - name: Response codes
-    x-traitTag: true
-    description: >
+  - description: >
       The InfluxDB API uses standard HTTP status codes for success and failure
       responses.
 
@@ -13031,6 +13033,8 @@ tags:
       | `503`       | Service unavailable      | Server is temporarily
       unavailable to process the request. The `Retry-After` header describes
       when to try the request again. |
+    name: Response codes
+    x-traitTag: true
   - Restore
   - Routes
   - Rules
@@ -13047,9 +13051,9 @@ tags:
   - Users
   - Variables
   - Views
-  - name: Write
-    description: |
+  - description: |
       Write time series data to buckets.
+    name: Write
 x-tagGroups:
   - name: Overview
     tags:
@@ -13084,8 +13088,8 @@ x-tagGroups:
       - Buckets
       - Cells
       - Checks
-      - Dashboards
       - DBRPs
+      - Dashboards
       - Delete
       - Health
       - Labels
@@ -13096,6 +13100,8 @@ x-tagGroups:
       - Ping
       - Query
       - Ready
+      - RemoteConnections
+      - Replications
       - Resources
       - Restore
       - Routes
@@ -13112,5 +13118,4 @@ x-tagGroups:
       - Templates
       - Users
       - Variables
-      - Views
       - Write

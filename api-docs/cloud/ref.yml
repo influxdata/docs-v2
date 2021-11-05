@@ -5976,9 +5976,10 @@ components:
            --header "Authorization: Token INFLUX_API_TOKEN"`
 
         For more information and examples, see the following:
+          - [`/authorizations`](#tag/Authorizations) endpoint.
           - [Use tokens in API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
           - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
-          - [`/authorizations`](#tag/Authorizations) endpoint.
+          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token).
       scheme: token
       type: http
 info:
