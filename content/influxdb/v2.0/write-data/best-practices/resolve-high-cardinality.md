@@ -10,6 +10,49 @@ menu:
 ---
 
 If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality) (too many series) may be causing memory issues.
+Take steps to understand and resolve high series cardinality.
+
+1. [Learn the causes of high cardinality](#learn-the-causes-of-high-series-cardinality)
+2. [Measure series cardinality](#measure-series-cardinality)
+3. [Resolve high cardinality](#resolve-high-cardinality)
+
+## Learn the causes of high series cardinality
+
+{{% oss-only %}}
+
+  IndexDB indexes the following data elements to speed up reads:
+  - [measurement](/influxdb/v2.0/reference/glossary/#measurement)
+  - [tags](/influxdb/v2.0/reference/glossary/#tag)
+
+{{% /oss-only %}}
+{{% cloud-only %}}
+
+  IndexDB indexes the following data elements to speed up reads:
+  - [measurement](/influxdb/v2.0/reference/glossary/#measurement)
+  - [tags](/influxdb/v2.0/reference/glossary/#tag)
+  - [field keys](/influxdb/cloud/reference/glossary/#field-key)
+
+{{% /cloud-only %}}
+
+Each unique set of indexed data elements forms a [series key](/influxdb/v2.0/reference/glossary/#series-key).
+[Tags](/influxdb/v2.0/reference/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/influxdb/v2.0/reference/glossary/#series), also known as high [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality).
+High series cardinality is a primary driver of high memory usage for many database workloads.
+Therefore, to reduce memory overhead, consider storing high-cardinality values in fields rather than in tags.
+
+## Measure series cardinality
+{{% oss-only %}}
+
+  The [`SHOW SERIES CARDINALITY`](/influxdb/v2.0/query_language/spec/#show-series-cardinality) InfluxQL command returns the number of unique [series keys](/influxdb/v2.0/reference/glossary/#series) from your data.
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+  The [`influxdb.cardinality()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/cardinality) Flux function returns the number of unique [series keys](/influxdb/v2.0/reference/glossary/#series) from your data.
+
+{{% /cloud-only %}}
+
+## Resolve high cardinality
 
 To resolve high series cardinality, complete the following steps (for multiple buckets if applicable):
 
@@ -80,38 +123,16 @@ cardinalityByTag(bucket: "example-bucket")
       |> count()
     ```
 
-These queries should help to identify the sources of high cardinality in each of your buckets. To determine which specific tags are growing, check the cardinality again after 24 hours to see if one or more tags have grown significantly.
+These queries should help identify the sources of high cardinality in each of your buckets. To determine which specific tags are growing, check the cardinality again after 24 hours to see if one or more tags have grown significantly.
 
 ## Adjust your schema
 
-Usually, resolving high cardinality is as simple as changing a tag with many unique values to a field. Review the following potential solutions for resolving high cardinality:
-
-- Delete data to reduce high cardinality
-- Design schema for read performance
+Review the following potential solutions for resolving high cardinality:
+- If a tag has many unique values, change it to a field.
+- [Delete data to reduce high cardinality](#delete-data-to-reduce-high-cardinality).
+- Review [best practices for schema design](/influxdb/v2.0/write-data/best-practices/schema-design/).
 
 ### Delete data to reduce high cardinality
 
-Consider whether you need the data causing high cardinality. In some cases, you may decide you no longer need this data, in which case you may choose to [delete the whole bucket](/influxdb/v2.0/organizations/buckets/delete-bucket/) or [delete a range of data](/influxdb/v2.0/write-data/delete-data/).
-
-### Design schema for read performance
-
-Tags are valuable for indexing, so during a query, the query engine doesn't need to scan every single record in a bucket. However, too many indexes may create performance problems. The trick is to create a middle ground between scanning and indexing.
-
-For example, if you query for specific user IDs with thousands of users, a simple query like this, where `userId` is a field, requires InfluxDB to scan every row for the `userId`:
-
-```js
-from(bucket: "example-bucket")
-  |> range(start: -7d)
-  |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
-```
-
-If you include a tag in your schema that can be reasonably indexed, such as a `company` tag, you can reduce the number of rows scanned and retrieve data more quickly:
-
-```js
-from(bucket: "example-bucket")
-  |> range(start: -7d)
-  |> filter(fn: (r) => r.company == "Acme")
-  |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
-```
-
-Consider tags that can be reasonably indexed to make your queries more performant. For more guidelines to consider, see [InfluxDB schema design](/influxdb/v2.0/write-data/best-practices/schema-design/).
+Consider whether you need the data that is causing high cardinality.
+If you no longer need this data, you can [delete the whole bucket](/influxdb/v2.0/organizations/buckets/delete-bucket/) or [delete a range of data](/influxdb/v2.0/write-data/delete-data/).

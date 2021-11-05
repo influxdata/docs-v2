@@ -31,7 +31,7 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
    - **Bird migration sample data**: Explore, visualize, and monitor the latitude and longitude of bird migration patterns.
    - **NOAA NDBC sample data**: Explore, visualize, and monitor NDBC's observations from their buoys. This data observes air temperature, wind speed, and more from specific locations.
    - **NOAA water sample data**: Explore, visualize, and monitor temperature, water level, pH, and quality from specific locations.
-   - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitide, and more.  
+   - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitude, and more.  
 2. Do one of the following to download sample data:
    - [Add sample data with community template](#add-sample-data-with-community-templates)
    - [Add sample data using the InfluxDB UI](#add-sample-data)
@@ -41,6 +41,8 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "settings" >}}
+
+2. Paste the Sample Data community temple URL in **resource manifest file** field:
 
 2. Paste the [Sample Data community template URL](https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml) in the **resource manifest file** field and click the **{{< caps >}}Lookup Template{{< /caps >}}** button.
 
