@@ -1,5 +1,5 @@
 ---
-title: InfluxDB v2.0 release notes
+title: InfluxDB v2.1 release notes
 description: Important changes and what's new in each version of InfluxDB.
 menu:
   influxdb_2_1_ref:
@@ -53,9 +53,9 @@ This release includes the following new features:
 
 #### API
 
-- Add new parameters to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
-- Add the [`api/v2/backup/metadata`](/influxdb/v2.0/api/#operation/GetBackupMetadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2.0/api/#operation/GetRoutes) for restoring SQL metadata.
-- Deprecated [`POST .../secrets/delete`](/influxdb/v2.0/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}`](/influxdb/v2.0/api/#operation/DeleteOrgsIDSecretsID).
+- Add new parameters to GET [`/users`](/influxdb/v2.1/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
+- Add the [`api/v2/backup/metadata`](/influxdb/v2.1/api/#operation/GetBackupMetadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2.1/api/#operation/GetRoutes) for restoring SQL metadata.
+- Deprecated [`POST .../secrets/delete`](/influxdb/v2.1/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}`](/influxdb/v2.1/api/#operation/DeleteOrgsIDSecretsID).
 
 #### CLI
 
