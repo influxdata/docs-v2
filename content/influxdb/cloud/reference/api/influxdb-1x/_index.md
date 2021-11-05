@@ -42,7 +42,7 @@ token to InfluxDB.
 
 ##### Syntax
 ```sh
-Authorization: Token <token>
+Authorization: Token INFLUXDB_API_TOKEN 
 ```
 
 ##### Example
@@ -85,7 +85,7 @@ Use the `Authorization` header with the `Basic` scheme to provide username and p
 
 ##### Syntax
 ```sh
-Authorization: Basic <username>:<password>
+Authorization: Basic INFLUX_USERNAME:INFLUX_API_TOKEN
 ```
 
 ##### Example
@@ -97,15 +97,20 @@ Authorization: Basic <username>:<password>
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-{{% get-shared-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
 ```
 {{% /code-tab-content %}}
+
 {{% code-tab-content %}}
 ```js
 {{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+Replace the following:
+- *`exampleuser@influxdata.com`*: the email address that you signed up with
+- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token) 
 
 #### Query string authentication
 Use InfluxDB 1.x API parameters to provide username and password credentials through the query string.
@@ -120,8 +125,8 @@ Use InfluxDB 1.x API parameters to provide username and password credentials thr
 ##### Syntax
 
 ```sh
- /query/?u=<username>&p=<password>
- /write/?u=<username>&p=<password>
+ /query/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
+ /write/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
  ```
 
 ##### Example
@@ -133,15 +138,19 @@ Use InfluxDB 1.x API parameters to provide username and password credentials thr
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
-{{% get-shared-text "api/v1-compat/auth/oss/querystring-auth.sh" %}}
+{{% get-shared-text "api/v1-compat/auth/cloud/querystring-auth.sh" %}}
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{% get-shared-text "api/v1-compat/auth/oss/querystring-auth.js" %}}
+{{% get-shared-text "api/v1-compat/auth/cloud/querystring-auth.js" %}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+Replace the following:
+- *`exampleuser@influxdata.com`*: the email address that you signed up with
+- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token) 
 
 ## InfluxQL support
 

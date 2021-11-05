@@ -1,25 +1,27 @@
 /**
-  * Use an InfluxDB Cloud username and token
-  * with Basic Authentication
+  * Use an InfluxDB 1.x compatible username and password
   * to query the InfluxDB 1.x compatibility API
+  *
+  * Use authentication query parameters:
+  *   ?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
+  *
+  * Use default retention policy.
   */
 
 const https = require('https');
 const querystring = require('querystring');
 
-function queryWithUsername() {
+function queryWithToken() {
   const queryparams = {
-      db: 'mydb',
-      q: 'SELECT * FROM cpu_usage',
+    db: 'mydb',
+    q: 'SELECT * FROM cpu_usage',
+    u: 'exampleuser@influxdata.com',
+    p: 'INFLUX_API_TOKEN'
   };
 
   const options = {
     host: 'localhost:8086',
-    path: '/query?' + querystring.stringify(queryparams),
-    auth: 'exampleuser@influxdata.com:INFLUX_API_TOKEN',
-    headers: {
-      'Content-type': 'application/json'
-    },
+    path: "/query?" + querystring.stringify(queryparams)
   };
 
   const request = https.get(options, (response) => {
