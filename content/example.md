@@ -2,7 +2,7 @@
 title: Example post
 description: This is just an example post to show the format of new 2.0 posts
 weight: 1
-draft: true
+# draft: true
 related:
   - /influxdb/v2.0/write-data/
   - /influxdb/v2.0/write-data/quick-start
@@ -852,3 +852,29 @@ This is truncated content.
 This is truncated content.  
 This is truncated content.  
 {{% /truncate %}}
+
+{{< tabs-wrapper >}}
+{{% tabs "small" %}}
+[Small tab 2.1](#)
+[Small tab 2.2](#)
+[Small tab 2.3](#)
+[Small tab 2.4](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+This is small tab 2.1 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is small tab 2.2 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is small tab 2.3 content.
+{{% /tab-content %}}
+
+{{% tab-content %}}
+This is small tab 2.4 content.
+{{% /tab-content %}}
+
+{{< /tabs-wrapper >}}
