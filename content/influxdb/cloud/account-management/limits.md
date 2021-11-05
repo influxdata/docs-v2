@@ -57,6 +57,10 @@ Other limits include all adjustable limits other than rate limits.
   - `http` and `pagerduty` notification endpoints
 - 30 days of data retention (see [retention period](/influxdb/cloud/reference/glossary/#retention-period))
 
+{{% note %}}
+Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
+{{% /note %}}
+
   {{% note %}}
 To write historical data older than 30 days, retain data for more than 30 days, or increase rate limits, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
   {{% /note %}}
@@ -64,6 +68,16 @@ To write historical data older than 30 days, retain data for more than 30 days, 
 #### Usage-Based Plan limits
 
 - Maximum of 1,000,000 series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
+
+### Unlimited resources
+
+  - Dashboards
+  - Tasks
+  - Buckets
+  - Users
+  - Checks
+  - Notification rules
+  - PagerDuty, Slack, and HTTP notification endpoints
 
 ## Global limits
 
