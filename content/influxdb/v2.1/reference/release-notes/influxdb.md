@@ -71,7 +71,7 @@ Added several new configuration options to [`influxd`](/influxdb/v2.1/reference/
 - Add `--storage-no-validate-field-size` flag to disable enforcement of max field size.
 - Update `--store` flag to work with string values disk or memory. Memory continues to store metadata in-memory for testing; disk persists metadata to disk via bolt and SQLite.
 
-For more information, see [InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
+For more information, see [InfluxDB configuration options](/influxdb/v2.1/reference/config-options/).
 
 ##### influxd inspect
 
@@ -140,7 +140,7 @@ For more information about each plugin, see [Telegraf plugins](/telegraf/v1.20/p
 ### Bug fixes
 
 - Log API errors to server logs and tell clients to check the server logs for the error message.
-- Fix pagination for GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an `org` filter AND the `after` request parameter. Also corrects `descending` parameter to sort when an `org` filter is used and saved.
+- Fix pagination for GET [`/buckets`](/influxdb/v2.1/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an `org` filter AND the `after` request parameter. Also corrects `descending` parameter to sort when an `org` filter is used and saved.
 - Sync series segment to disk after writing.
 - Do not allow shard creation to create overlapping shards.
 - Don't drop shard group durations when upgrading InfluxDB.
