@@ -84,8 +84,9 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 - [influxd inspect dump-wal](/influxdb/v2.1/reference/cli/influxd/inspect/dump-wal/)
 - [influxd inspect report-tsi](/influxdb/v2.1/reference/cli/influxd/inspect/report-tsi/)
 - [influxd inspect report-tsm](/influxdb/v2.1/reference/cli/influxd/inspect/report-tsm/)
-- [influxd inspect verify-seriesfile](/influxdb/v2.1/reference/cli/influxd/inspect/verify-seriesfile/)
+- [influxd inspect verify-seriesfile](/influxdb/v2.1/reference/cli/influxd/inspect/verify-seriesfile/) 
 - [influxd inspect verify-tombstone](/influxdb/v2.1/reference/cli/influxd/inspect/verify-tombstone/)
+- [influxd inspect verify-tsm](/influxdb/v2.1/reference/cli/influxd/inspect/verify-tsm/)
 - [influxd inspect verify-wal](/influxdb/v2.1/reference/cli/influxd/inspect/verify-wal/)
 
 ##### influxd downgrade
