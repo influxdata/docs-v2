@@ -161,6 +161,28 @@ components:
       required:
         - orgID
         - permissions
+    AuthorizationPostRequest:
+      allOf:
+        - $ref: '#/components/schemas/AuthorizationUpdateRequest'
+        - properties:
+            orgID:
+              description: ID of org that authorization is scoped to.
+              type: string
+            permissions:
+              description: >-
+                List of permissions for an auth.  An auth must have at least one
+                Permission.
+              items:
+                $ref: '#/components/schemas/Permission'
+              minItems: 1
+              type: array
+            userID:
+              description: ID of user that authorization is scoped to.
+              type: string
+          type: object
+      required:
+        - orgID
+        - permissions
     AuthorizationUpdateRequest:
       properties:
         description:
@@ -434,6 +456,50 @@ components:
       required:
         - name
         - retentionRules
+    BucketMetadataManifest:
+      properties:
+        bucketID:
+          type: string
+        bucketName:
+          type: string
+        defaultRetentionPolicy:
+          type: string
+        description:
+          type: string
+        organizationID:
+          type: string
+        organizationName:
+          type: string
+        retentionPolicies:
+          $ref: '#/components/schemas/RetentionPolicyManifests'
+      required:
+        - organizationID
+        - organizationName
+        - bucketID
+        - bucketName
+        - defaultRetentionPolicy
+        - retentionPolicies
+      type: object
+    BucketMetadataManifests:
+      items:
+        $ref: '#/components/schemas/BucketMetadataManifest'
+      type: array
+    BucketShardMapping:
+      properties:
+        newId:
+          format: int64
+          type: integer
+        oldId:
+          format: int64
+          type: integer
+      required:
+        - oldId
+        - newId
+      type: object
+    BucketShardMappings:
+      items:
+        $ref: '#/components/schemas/BucketShardMapping'
+      type: array
     Buckets:
       properties:
         buckets:
@@ -728,21 +794,6 @@ components:
           type: array
         links:
           $ref: '#/components/schemas/Links'
-    ColumnDataType:
-      enum:
-        - integer
-        - float
-        - boolean
-        - string
-        - unsigned
-      type: string
-    ColumnSemanticType:
-      enum:
-        - timestamp
-        - tag
-        - field
-      nullable: false
-      type: string
     ConditionalExpression:
       description: >-
         Selects one of two expressions, `Alternate` or `Consequent`, depending
@@ -1120,80 +1171,6 @@ components:
       required:
         - start
         - stop
-      type: object
-    DemoDataBucket:
-      properties:
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        description:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        labels:
-          $ref: '#/components/schemas/Labels'
-        links:
-          example:
-            labels: /api/v2/buckets/1/labels
-            members: /api/v2/buckets/1/members
-            org: /api/v2/orgs/2
-            owners: /api/v2/buckets/1/owners
-            self: /api/v2/buckets/1
-            write: /api/v2/write?org=2&bucket=1
-          properties:
-            labels:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve labels for this bucket
-            members:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve members that can read this bucket
-            org:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve parent organization for this bucket
-            owners:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve owners that can read and write to this bucket.
-            self:
-              $ref: '#/components/schemas/Link'
-              description: URL for this bucket
-            write:
-              $ref: '#/components/schemas/Link'
-              description: URL to write line protocol for this bucket
-          readOnly: true
-          type: object
-        name:
-          type: string
-        orgID:
-          type: string
-        retentionRules:
-          $ref: '#/components/schemas/RetentionRules'
-        rp:
-          type: string
-        schemaType:
-          $ref: '#/components/schemas/SchemaType'
-          default: implicit
-        type:
-          default: demodata
-          readOnly: true
-          type: string
-        updatedAt:
-          format: date-time
-          readOnly: true
-          type: string
-      required:
-        - name
-        - retentionRules
-    DemoDataBuckets:
-      properties:
-        buckets:
-          items:
-            $ref: '#/components/schemas/DemoDataBucket'
-          type: array
-        links:
-          $ref: '#/components/schemas/Links'
-          readOnly: true
       type: object
     Dialect:
       description: >-
@@ -2130,6 +2107,31 @@ components:
         - lat
         - lon
       type: object
+    LegacyAuthorizationPostRequest:
+      allOf:
+        - $ref: '#/components/schemas/AuthorizationUpdateRequest'
+        - properties:
+            orgID:
+              description: ID of org that authorization is scoped to.
+              type: string
+            permissions:
+              description: >-
+                List of permissions for an auth.  An auth must have at least one
+                Permission.
+              items:
+                $ref: '#/components/schemas/Permission'
+              minItems: 1
+              type: array
+            token:
+              description: Token (name) of the authorization
+              type: string
+            userID:
+              description: ID of user that authorization is scoped to.
+              type: string
+          type: object
+      required:
+        - orgID
+        - permissions
     LesserThreshold:
       allOf:
         - $ref: '#/components/schemas/ThresholdBase'
@@ -2145,109 +2147,6 @@ components:
             - type
             - value
           type: object
-    Limit:
-      description: These are org limits similar to those configured in/by quartz.
-      properties:
-        bucket:
-          properties:
-            maxBuckets:
-              type: integer
-            maxRetentionDuration:
-              description: Max bucket retention duration in nanoseconds. 0 is unlimited.
-              type: integer
-          required:
-            - maxBuckets
-            - maxRetentionDuration
-          type: object
-        check:
-          properties:
-            maxChecks:
-              type: integer
-          required:
-            - maxChecks
-          type: object
-        dashboard:
-          properties:
-            maxDashboards:
-              type: integer
-          required:
-            - maxDashboards
-          type: object
-        features:
-          properties:
-            allowDelete:
-              description: allow delete predicate endpoint
-              type: boolean
-          type: object
-        notificationEndpoint:
-          properties:
-            blockedNotificationEndpoints:
-              description: comma separated list of notification endpoints
-              example: http,pagerduty
-              type: string
-          required:
-            - blockNotificationEndpoints
-          type: object
-        notificationRule:
-          properties:
-            blockedNotificationRules:
-              description: comma separated list of notification rules
-              example: http,pagerduty
-              type: string
-            maxNotifications:
-              type: integer
-          required:
-            - maxNotifications
-            - blockNotificationRules
-          type: object
-        orgID:
-          type: string
-        rate:
-          properties:
-            cardinality:
-              description: Allowed organization total cardinality. 0 is unlimited.
-              type: integer
-            concurrentDeleteRequests:
-              description: Allowed organization concurrent outstanding delete requests.
-              type: integer
-            concurrentReadRequests:
-              description: Allowed concurrent queries. 0 is unlimited.
-              type: integer
-            concurrentWriteRequests:
-              description: Allowed concurrent writes. 0 is unlimited.
-              type: integer
-            deleteRequestsPerSecond:
-              description: Allowed organization delete request rate.
-              type: integer
-            readKBs:
-              description: Query limit in kb/sec. 0 is unlimited.
-              type: integer
-            writeKBs:
-              description: Write limit in kb/sec. 0 is unlimited.
-              type: integer
-          required:
-            - readKBs
-            - concurrentReadRequests
-            - writeKBs
-            - concurrentWriteRequests
-            - cardinality
-          type: object
-        task:
-          properties:
-            maxTasks:
-              type: integer
-          required:
-            - maxTasks
-          type: object
-      required:
-        - rate
-        - bucket
-        - task
-        - dashboard
-        - check
-        - notificationRule
-        - notificationEndpoint
-      type: object
     LinePlusSingleStatProperties:
       properties:
         axes:
@@ -2490,161 +2389,6 @@ components:
         - shape
         - note
       type: object
-    MeasurementSchema:
-      description: The schema definition for a single measurement
-      example:
-        bucketID: ba3c5e7f9b0a0010
-        columns:
-          - name: time
-            type: timestamp
-          - name: host
-            type: tag
-          - name: region
-            type: tag
-          - dataType: float
-            name: usage_user
-            type: field
-          - dataType: float
-            name: usage_user
-            type: field
-        createdAt: 2021-01-21T00:48:40.993Z
-        id: 1a3c5e7f9b0a8642
-        name: cpu
-        orgID: 0a3c5e7f9b0a0001
-        updatedAt: 2021-01-21T00:48:40.993Z
-      properties:
-        bucketID:
-          description: ID of the bucket that the measurement schema is associated with.
-          type: string
-        columns:
-          description: An ordered collection of column definitions
-          items:
-            $ref: '#/components/schemas/MeasurementSchemaColumn'
-          type: array
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        id:
-          readOnly: true
-          type: string
-        name:
-          nullable: false
-          type: string
-        orgID:
-          description: ID of organization that the measurement schema is associated with.
-          type: string
-        updatedAt:
-          format: date-time
-          readOnly: true
-          type: string
-      required:
-        - id
-        - name
-        - columns
-        - createdAt
-        - updatedAt
-      type: object
-    MeasurementSchemaColumn:
-      description: Definition of a measurement column
-      example:
-        name: time
-        type: timestamp
-      properties:
-        dataType:
-          $ref: '#/components/schemas/ColumnDataType'
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/ColumnSemanticType'
-      required:
-        - name
-        - type
-      type: object
-    MeasurementSchemaCreateRequest:
-      description: Create a new measurement schema
-      example:
-        columns:
-          - name: time
-            type: timestamp
-          - name: host
-            type: tag
-          - name: region
-            type: tag
-          - dataType: float
-            name: usage_user
-            type: field
-          - dataType: float
-            name: usage_user
-            type: field
-        name: cpu
-      properties:
-        columns:
-          description: An ordered collection of column definitions
-          items:
-            $ref: '#/components/schemas/MeasurementSchemaColumn'
-          type: array
-        name:
-          type: string
-      required:
-        - name
-        - columns
-      type: object
-    MeasurementSchemaList:
-      description: A list of measurement schemas returning summary information
-      example:
-        measurementSchemas:
-          - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
-            id: 1a3c5e7f9b0a8642
-            name: cpu
-            orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
-          - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
-            id: 1a3c5e7f9b0a8643
-            name: memory
-            orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
-          - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
-            id: 1a3c5e7f9b0a8644
-            name: disk
-            orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
-      properties:
-        measurementSchemas:
-          items:
-            $ref: '#/components/schemas/MeasurementSchema'
-          type: array
-      required:
-        - measurementSchemas
-      type: object
-    MeasurementSchemaUpdateRequest:
-      description: Update an existing measurement schema
-      example:
-        columns:
-          - name: time
-            type: timestamp
-          - name: host
-            type: tag
-          - name: region
-            type: tag
-          - dataType: float
-            name: usage_user
-            type: field
-          - dataType: float
-            name: usage_user
-            type: field
-      properties:
-        columns:
-          description: An ordered collection of column definitions
-          items:
-            $ref: '#/components/schemas/MeasurementSchemaColumn'
-          type: array
-      required:
-        - columns
-      type: object
     MemberAssignment:
       description: Object property assignment
       properties:
@@ -2664,6 +2408,21 @@ components:
           $ref: '#/components/schemas/PropertyKey'
         type:
           $ref: '#/components/schemas/NodeType'
+      type: object
+    MetadataBackup:
+      properties:
+        buckets:
+          $ref: '#/components/schemas/BucketMetadataManifests'
+        kv:
+          format: binary
+          type: string
+        sql:
+          format: binary
+          type: string
+      required:
+        - kv
+        - sql
+        - buckets
       type: object
     MosaicViewProperties:
       properties:
@@ -3049,17 +2808,25 @@ components:
       properties:
         bucket:
           type: string
-        limit:
-          $ref: '#/components/schemas/Limit'
         org:
           type: string
         password:
           type: string
         retentionPeriodHrs:
           deprecated: true
+          description: >
+            Retention period *in nanoseconds* for the new bucket. This key's
+            name has been misleading since OSS 2.0 GA, please transition to use
+            `retentionPeriodSeconds`
           type: integer
         retentionPeriodSeconds:
+          format: int64
           type: integer
+        token:
+          description: >
+            Authentication token to set on the initial user. If not specified,
+            the server will generate a token.
+          type: string
         username:
           type: string
       required:
@@ -3462,22 +3229,18 @@ components:
           description: >-
             If ID is set that is a permission for a specific resource. if it is
             not set it is a permission for all resources of that resource type.
-          nullable: true
           type: string
         name:
           description: Optional name of the resource if the resource has a name field.
-          nullable: true
           type: string
         org:
           description: Optional name of the organization of the organization with orgID.
-          nullable: true
           type: string
         orgID:
           description: >-
             If orgID is set that is a permission for all resources owned my that
             org. if it is not set it is a permission for all resources of that
             resource type.
-          nullable: true
           type: string
         type:
           enum:
@@ -3485,10 +3248,12 @@ components:
             - buckets
             - dashboards
             - orgs
+            - sources
             - tasks
             - telegrafs
             - users
             - variables
+            - scrapers
             - secrets
             - labels
             - views
@@ -3497,9 +3262,10 @@ components:
             - notificationEndpoints
             - checks
             - dbrp
-            - flows
+            - notebooks
             - annotations
-            - functions
+            - remotes
+            - replications
           type: string
       required:
         - type
@@ -3550,6 +3316,48 @@ components:
             $ref: '#/components/schemas/ResourceOwner'
           type: array
       type: object
+    RestoredBucketMappings:
+      properties:
+        id:
+          description: New ID of the restored bucket
+          type: string
+        name:
+          type: string
+        shardMappings:
+          $ref: '#/components/schemas/BucketShardMappings'
+      required:
+        - id
+        - name
+        - shardMappings
+      type: object
+    RetentionPolicyManifest:
+      properties:
+        duration:
+          format: int64
+          type: integer
+        name:
+          type: string
+        replicaN:
+          type: integer
+        shardGroupDuration:
+          format: int64
+          type: integer
+        shardGroups:
+          $ref: '#/components/schemas/ShardGroupManifests'
+        subscriptions:
+          $ref: '#/components/schemas/SubscriptionManifests'
+      required:
+        - name
+        - replicaN
+        - duration
+        - shardGroupDuration
+        - shardGroups
+        - subscriptions
+      type: object
+    RetentionPolicyManifests:
+      items:
+        $ref: '#/components/schemas/RetentionPolicyManifest'
+      type: array
     RetentionRule:
       properties:
         everySeconds:
@@ -3892,86 +3700,71 @@ components:
         - implicit
         - explicit
       type: string
-    Script:
+    ScraperTargetRequest:
       properties:
-        createdAt:
-          format: date-time
-          readOnly: true
+        allowInsecure:
+          default: false
+          description: Skip TLS verification on endpoint.
+          type: boolean
+        bucketID:
+          description: The ID of the bucket to write to.
           type: string
-        description:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        language:
-          $ref: '#/components/schemas/ScriptLanguage'
         name:
+          description: The name of the scraper target.
           type: string
         orgID:
+          description: The organization ID.
           type: string
-        script:
-          description: script to be executed
-          type: string
-        updatedAt:
-          format: date-time
-          readOnly: true
+        type:
+          description: The type of the metrics to be parsed.
+          enum:
+            - prometheus
           type: string
         url:
-          description: invocation endpoint address
+          description: The URL of the metrics endpoint.
+          example: http://localhost:9090/metrics
           type: string
-      required:
-        - name
-        - orgID
-        - script
-    ScriptCreateRequest:
-      properties:
-        description:
-          type: string
-        language:
-          $ref: '#/components/schemas/ScriptLanguage'
-        name:
-          description: >-
-            The name of the script. The name must be unique within the
-            organization.
-          type: string
-        script:
-          description: The script to execute.
-          type: string
-      required:
-        - name
-        - script
-        - language
-        - description
       type: object
-    ScriptHTTPResponseData:
-      description: >-
-        The data sent in the response body when a script is invoked by an HTTP
-        request. User defined and dynamic.
-      type: string
-    ScriptInvocationParams:
-      properties:
-        params:
+    ScraperTargetResponse:
+      allOf:
+        - $ref: '#/components/schemas/ScraperTargetRequest'
+        - properties:
+            bucket:
+              description: The bucket name.
+              type: string
+            id:
+              readOnly: true
+              type: string
+            links:
+              example:
+                bucket: /api/v2/buckets/1
+                members: /api/v2/scrapers/1/members
+                organization: /api/v2/orgs/1
+                owners: /api/v2/scrapers/1/owners
+                self: /api/v2/scrapers/1
+              properties:
+                bucket:
+                  $ref: '#/components/schemas/Link'
+                members:
+                  $ref: '#/components/schemas/Link'
+                organization:
+                  $ref: '#/components/schemas/Link'
+                owners:
+                  $ref: '#/components/schemas/Link'
+                self:
+                  $ref: '#/components/schemas/Link'
+              readOnly: true
+              type: object
+            org:
+              description: The name of the organization.
+              type: string
           type: object
       type: object
-    ScriptLanguage:
-      enum:
-        - flux
-      type: string
-    ScriptUpdateRequest:
+    ScraperTargetResponses:
       properties:
-        description:
-          type: string
-        name:
-          type: string
-        script:
-          description: script is script to be executed
-          type: string
-      type: object
-    Scripts:
-      properties:
-        scripts:
+        configurations:
           items:
-            $ref: '#/components/schemas/Script'
+            $ref: '#/components/schemas/ScraperTargetResponse'
           type: array
       type: object
     SecretKeys:
@@ -3999,6 +3792,63 @@ components:
         type: string
       example:
         apikey: abc123xyz
+    ShardGroupManifest:
+      properties:
+        deletedAt:
+          format: date-time
+          type: string
+        endTime:
+          format: date-time
+          type: string
+        id:
+          format: int64
+          type: integer
+        shards:
+          $ref: '#/components/schemas/ShardManifests'
+        startTime:
+          format: date-time
+          type: string
+        truncatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - startTime
+        - endTime
+        - shards
+      type: object
+    ShardGroupManifests:
+      items:
+        $ref: '#/components/schemas/ShardGroupManifest'
+      type: array
+    ShardManifest:
+      properties:
+        id:
+          format: int64
+          type: integer
+        shardOwners:
+          $ref: '#/components/schemas/ShardOwners'
+      required:
+        - id
+        - shardOwners
+      type: object
+    ShardManifests:
+      items:
+        $ref: '#/components/schemas/ShardManifest'
+      type: array
+    ShardOwner:
+      properties:
+        nodeID:
+          description: ID of the node that owns a shard.
+          format: int64
+          type: integer
+      required:
+        - nodeID
+      type: object
+    ShardOwners:
+      items:
+        $ref: '#/components/schemas/ShardOwner'
+      type: array
     SimpleTableViewProperties:
       properties:
         note:
@@ -4108,6 +3958,75 @@ components:
       required:
         - type
         - messageTemplate
+      type: object
+    Source:
+      properties:
+        default:
+          type: boolean
+        defaultRP:
+          type: string
+        id:
+          type: string
+        insecureSkipVerify:
+          type: boolean
+        languages:
+          items:
+            enum:
+              - flux
+              - influxql
+            type: string
+          readOnly: true
+          type: array
+        links:
+          properties:
+            buckets:
+              type: string
+            health:
+              type: string
+            query:
+              type: string
+            self:
+              type: string
+          type: object
+        metaUrl:
+          format: uri
+          type: string
+        name:
+          type: string
+        orgID:
+          type: string
+        password:
+          type: string
+        sharedSecret:
+          type: string
+        telegraf:
+          type: string
+        token:
+          type: string
+        type:
+          enum:
+            - v1
+            - v2
+            - self
+          type: string
+        url:
+          format: uri
+          type: string
+        username:
+          type: string
+      type: object
+    Sources:
+      properties:
+        links:
+          properties:
+            self:
+              format: uri
+              type: string
+          type: object
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
       type: object
     Stack:
       properties:
@@ -4220,6 +4139,25 @@ components:
         value:
           type: string
       type: object
+    SubscriptionManifest:
+      properties:
+        destinations:
+          items:
+            type: string
+          type: array
+        mode:
+          type: string
+        name:
+          type: string
+      required:
+        - name
+        - mode
+        - destinations
+      type: object
+    SubscriptionManifests:
+      items:
+        $ref: '#/components/schemas/SubscriptionManifest'
+      type: array
     TableViewProperties:
       properties:
         colors:
@@ -5573,13 +5511,6 @@ components:
           type: string
         oauthID:
           type: string
-        org_id:
-          type: string
-        role:
-          enum:
-            - owner
-            - member
-          type: string
         status:
           default: active
           description: If inactive the user is inactive.
@@ -5664,8 +5595,6 @@ components:
           items:
             type: string
           type: array
-        sort_order:
-          type: integer
         updatedAt:
           format: date-time
           type: string
@@ -5890,30 +5819,40 @@ components:
         ### Basic authentication scheme
 
 
-        Use the HTTP Basic authentication scheme with clients that support the
-        InfluxDB 1.x convention of username and password (that don't support the
-        `Authorization: Token` scheme):
-          - **username**: InfluxDB Cloud username
-          - **password**: InfluxDB Cloud API token
-
-        #### Example
+        Use HTTP Basic Auth with clients that support the InfluxDB 1.x
+        convention of username and password (that don't support the
+        `Authorization: Token` scheme).
 
 
-        `curl --get "https://europe-west1-1.gcp.cloud2.influxdata.com/query"
-              --user "exampleuser@influxdata.com":"INFLUX_API_TOKEN"`
+        Username and password schemes require the following credentials:
+          - **username**: 1.x username (this is separate from the UI login username)
+          - **password**: 1.x password or InfluxDB API token
+
+        #### API token example
+
+
+        `curl --get "http://localhost:8086/query"
+              --user "1.x_USERNAME":"INFLUX_API_TOKEN"`
+
+        #### 1.x password example
+
+
+        `curl --get "http://localhost:8086/query"
+              --user "1.x_USERNAME":"1.x_PASSWORD"`
 
         Replace the following:
 
-        - *`exampleuser@influxdata.com`*: the email address that you signed up
-        with
+        - *`1.x_USERNAME`*: your InfluxDB v1.x username
+
+        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)
+        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token)
 
 
         For more information and examples, see how to [authenticate with a
-        username and
-        password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
+        username and password
+        scheme](https://docs.influxdata.com/influxdb/v2.1/reference/api/influxdb-1x/)
       scheme: basic
       type: http
     QuerystringAuthentication:
@@ -5926,68 +5865,74 @@ components:
 
 
         Username and password schemes require the following credentials:
+          - **username**: 1.x username (this is separate from the UI login username)
+          - **password**: 1.x password or InfluxDB API token
 
-        - **username**: InfluxDB Cloud username
-
-        - **password**: InfluxDB Cloud API token
-
-
-        #### Example
+        #### API token example
 
 
-        `curl --get "https://europe-west1-1.gcp.cloud2.influxdata.com/query"
-              --data-urlencode "u=exampleuser@influxdata.com"
+        `curl --get "http://localhost:8086/query"
+              --data-urlencode "u=1.x_USERNAME"
               --data-urlencode "p=INFLUX_API_TOKEN"`
+
+        #### 1.x password example
+
+
+        `curl --get "http://localhost:8086/query"
+              --data-urlencode "u=1.x_USERNAME"
+              --data-urlencode "p=1.x_PASSWORD"`
 
         Replace the following:
 
-        - *`exampleuser@influxdata.com`*: the email address that you signed up
-        with
+        - *`1.x_USERNAME`*: your InfluxDB v1.x username
+
+        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)
+        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token)
 
 
         For more information and examples, see how to [authenticate with a
         username and password
-        scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
+        scheme](https://docs.influxdata.com/influxdb/v2.1/reference/api/influxdb-1x/)
       in: query
       name: u=&p=
       type: apiKey
     TokenAuthentication:
-      bearerFormat: InfluxDB token string
+      bearerFormat: InfluxDB Token String
       description: >
         ### Token authentication scheme
 
 
-        InfluxDB API tokens ensure secure interaction between users and data. A
-        token belongs to an organization and identifies InfluxDB permissions
+        InfluxDB API tokens enable authentication and authorization of API
+        clients.
+
+        A token belongs to an organization and identifies InfluxDB permissions
         within the organization.
 
 
-        Include your API token in an `Authorization: Token INFLUX_TOKEN` HTTP
-        header with each request.
+        Include your API token in an `Authorization: Token` HTTP header with
+        each request.
 
 
         #### Example
 
-
-        `curl https://us-east-1-1.aws.cloud2.influxdata.com/
-           --header "Authorization: Token INFLUX_API_TOKEN"`
+          `curl http://localhost:8086/ping
+             --header "Authorization: Token INFLUX_API_TOKEN"`
 
         Replace *`INFLUX_API_TOKEN`* with your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token).
+        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token).
 
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Use tokens in API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
-          - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
-          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token).
+          - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
+          - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
+          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
       scheme: token
       type: http
 info:
-  title: Influx Cloud API Service
+  title: Influx OSS API Service
   description: >
     The InfluxDB v2 API provides a programmatic interface for all interactions
     with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
@@ -6033,11 +5978,6 @@ paths:
           name: org
           schema:
             type: string
-        - description: Find a token by value.
-          in: query
-          name: token
-          schema:
-            type: string
       responses:
         '200':
           content:
@@ -6059,7 +5999,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Authorization'
+              $ref: '#/components/schemas/AuthorizationPostRequest'
         description: Authorization to create
         required: true
       responses:
@@ -6083,7 +6023,7 @@ paths:
       operationId: DeleteAuthorizationsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: The identifier of the authorization to delete.
+        - description: The ID of the authorization to delete.
           in: path
           name: authID
           required: true
@@ -6102,7 +6042,7 @@ paths:
       operationId: GetAuthorizationsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: The identifier of the authorization to get.
+        - description: The ID of the authorization to get.
           in: path
           name: authID
           required: true
@@ -6122,11 +6062,10 @@ paths:
       tags:
         - Authorizations
     patch:
-      description: Update an authorization's status to `active` or `inactive`.
       operationId: PatchAuthorizationsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: The identifier of the authorization to update.
+        - description: The ID of the authorization to update.
           in: path
           name: authID
           required: true
@@ -6137,7 +6076,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthorizationUpdateRequest'
-        description: The updated Authorization object.
+        description: Authorization to update
         required: true
       responses:
         '200':
@@ -6145,13 +6084,152 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Authorization'
-          description: The updated authorization.
+          description: The active or inactive authorization
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      summary: Update authorization status
+      summary: Update an authorization to be active or inactive
       tags:
         - Authorizations
+  /api/v2/backup/kv:
+    get:
+      deprecated: true
+      operationId: GetBackupKV
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Snapshot of KV metadata
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: >-
+        Download snapshot of metadata stored in the server's embedded KV store.
+        Should not be used in versions greater than 2.1.x, as it doesn't include
+        metadata stored in embedded SQL.
+      tags:
+        - Backup
+  /api/v2/backup/metadata:
+    get:
+      operationId: GetBackupMetadata
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >-
+            The Accept-Encoding request HTTP header advertises which content
+            encoding, usually a compression algorithm, the client is able to
+            understand.
+          in: header
+          name: Accept-Encoding
+          schema:
+            default: identity
+            description: >-
+              Specifies that the query response in the body should be encoded
+              with gzip or not encoded with identity.
+            enum:
+              - gzip
+              - identity
+            type: string
+      responses:
+        '200':
+          content:
+            multipart/mixed:
+              schema:
+                $ref: '#/components/schemas/MetadataBackup'
+          description: Snapshot of metadata
+          headers:
+            Content-Encoding:
+              description: >-
+                The Content-Encoding entity header is used to compress the
+                media-type.  When present, its value indicates which encodings
+                were applied to the entity-body
+              schema:
+                default: identity
+                description: >-
+                  Specifies that the response in the body is encoded with gzip
+                  or not encoded with identity.
+                enum:
+                  - gzip
+                  - identity
+                type: string
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Download snapshot of all metadata in the server
+      tags:
+        - Backup
+  /api/v2/backup/shards/{shardID}:
+    get:
+      operationId: GetBackupShardId
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >-
+            The Accept-Encoding request HTTP header advertises which content
+            encoding, usually a compression algorithm, the client is able to
+            understand.
+          in: header
+          name: Accept-Encoding
+          schema:
+            default: identity
+            description: >-
+              Specifies that the query response in the body should be encoded
+              with gzip or not encoded with identity.
+            enum:
+              - gzip
+              - identity
+            type: string
+        - description: The shard ID.
+          in: path
+          name: shardID
+          required: true
+          schema:
+            format: int64
+            type: integer
+        - description: Earliest time to include in the snapshot. RFC3339 format.
+          in: query
+          name: since
+          schema:
+            format: date-time
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: TSM snapshot.
+          headers:
+            Content-Encoding:
+              description: >-
+                The Content-Encoding entity header is used to compress the
+                media-type.  When present, its value indicates which encodings
+                were applied to the entity-body
+              schema:
+                default: identity
+                description: >-
+                  Specifies that the response in the body is encoded with gzip
+                  or not encoded with identity.
+                enum:
+                  - gzip
+                  - identity
+                type: string
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Shard not found.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Download snapshot of all TSM data in a shard
+      tags:
+        - Backup
   /api/v2/buckets:
     get:
       operationId: GetBuckets
@@ -6590,234 +6668,6 @@ paths:
       summary: Remove an owner from a bucket
       tags:
         - Buckets
-  /api/v2/buckets/{bucketID}/schema/measurements:
-    get:
-      operationId: getMeasurementSchemas
-      parameters:
-        - description: The name of the organization.
-          in: query
-          name: org
-          schema:
-            type: string
-        - description: The identifier of the organization.
-          in: query
-          name: orgID
-          schema:
-            type: string
-        - description: The name of the measurement to return schemas for.
-          in: query
-          name: name
-          schema:
-            type: string
-        - description: The identifier of the bucket.
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MeasurementSchemaList'
-          description: A list of measurement schemas returning summary information.
-          headers:
-            ETag:
-              description: The current version of the bucket schema
-              schema:
-                type: string
-        '404':
-          $ref: '#/components/responses/ServerError'
-          description: Bucket not found
-      summary: List all measurement schemas of a bucket
-      tags:
-        - Bucket Schemas
-    post:
-      operationId: createMeasurementSchema
-      parameters:
-        - description: The name of the organization.
-          in: query
-          name: org
-          schema:
-            type: string
-        - description: The identifier of the organization.
-          in: query
-          name: orgID
-          schema:
-            type: string
-        - description: The identifier of the bucket.
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MeasurementSchemaCreateRequest'
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MeasurementSchema'
-          description: The created measurement schema.
-          headers:
-            ETag:
-              description: The current version of the measurement schema
-              schema:
-                type: string
-        '400':
-          content:
-            application/json:
-              examples:
-                badNameExample:
-                  description: >-
-                    The error returned when the name is invalid, such as too few
-                    or too many characters or the name contains non-printable
-                    ASCII or is not valid UTF-8.
-                  summary: Invalid name
-                  value:
-                    code: invalid
-                    message: name is invalid
-                duplicateColumnNamesExample:
-                  description: >-
-                    The error returned when the request body contains duplicate
-                    column names.
-                  summary: Duplicate column names
-                  value:
-                    code: invalid
-                    message: Duplicate column names
-                missingColumnsExample:
-                  description: >-
-                    The error returned when the request body is missing the
-                    columns property.
-                  summary: Missing columns
-                  value:
-                    code: invalid
-                    message: columns is required
-                missingFieldExample:
-                  description: >-
-                    The error returned when the request body is missing at least
-                    one field type column.
-                  summary: Missing field
-                  value:
-                    code: invalid
-                    message: At least one field column is required
-                missingTimestampExample:
-                  description: >-
-                    The error returned when the request body is missing a
-                    timestamp type column.
-                  summary: Missing timestamp
-                  value:
-                    code: invalid
-                    message: Timestamp column is required
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client error with create request
-      summary: Create a measurement schema for a bucket
-      tags:
-        - Bucket Schemas
-    summary: Bucket schemas
-  /api/v2/buckets/{bucketID}/schema/measurements/{measurementID}:
-    get:
-      operationId: getMeasurementSchema
-      parameters:
-        - description: The name of the organization.
-          in: query
-          name: org
-          schema:
-            type: string
-        - description: The identifier of the organization.
-          in: query
-          name: orgID
-          schema:
-            type: string
-        - description: The identifier of the bucket.
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-        - description: The identifier of the measurement.
-          in: path
-          name: measurementID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MeasurementSchema'
-          description: Schema definition for a single measurement
-          headers:
-            ETag:
-              description: The current version of the measurement schema
-              schema:
-                type: string
-      summary: Retrieve measurement schema information
-      tags:
-        - Bucket Schemas
-    patch:
-      operationId: updateMeasurementSchema
-      parameters:
-        - description: The name of the organization.
-          in: query
-          name: org
-          schema:
-            type: string
-        - description: The identifier of the organization.
-          in: query
-          name: orgID
-          schema:
-            type: string
-        - description: The identifier of the bucket.
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-        - description: The identifier of the measurement.
-          in: path
-          name: measurementID
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MeasurementSchemaUpdateRequest'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MeasurementSchema'
-          description: The updated measurement schema
-        '400':
-          content:
-            application/json:
-              examples:
-                missingColumnsExample:
-                  description: >-
-                    The error returned when the request body does not contain
-                    all the columns from the source.
-                  summary: Deleted columns
-                  value:
-                    code: invalid
-                    message: Unable to delete columns from schema
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Client error updating measurement schema
-      summary: Update a measurement schema
-      tags:
-        - Bucket Schemas
-    summary: Bucket Schema
   /api/v2/checks:
     get:
       operationId: GetChecks
@@ -7145,15 +6995,8 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Descending'
-        - description: The non-zero number of dashboards to return
-          in: query
-          name: limit
-          schema:
-            default: 20
-            maximum: 100
-            minimum: -1
-            type: integer
         - description: >-
             A user identifier. Returns only dashboards where this user has the
             `owner` role.
@@ -8182,69 +8025,6 @@ paths:
       summary: Delete data
       tags:
         - Delete
-  /api/v2/experimental/sampledata/buckets:
-    get:
-      operationId: GetDemoDataBuckets
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DemoDataBuckets'
-          description: A list of demo data buckets
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
-  /api/v2/experimental/sampledata/buckets/{bucketID}/members:
-    delete:
-      operationId: DeleteDemoDataBucketMembers
-      parameters:
-        - description: bucket id
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: if sampledata route is not available gateway responds with 200
-        '204':
-          description: A list of demo data buckets
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
-    post:
-      operationId: GetDemoDataBucketMembers
-      parameters:
-        - description: bucket id
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: if sampledata route is not available gateway responds with 200
-        '204':
-          description: A list of demo data buckets
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
   /api/v2/flags:
     get:
       operationId: GetFlags
@@ -8266,6 +8046,32 @@ paths:
       summary: Return the feature flags for the currently authenticated user
       tags:
         - Users
+  /health:
+    get:
+      operationId: GetHealth
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+          description: The instance is healthy
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+          description: The instance is unhealthy
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers:
+        - url: ''
+      summary: Get the health of an instance
+      tags:
+        - Health
   /api/v2/labels:
     get:
       operationId: GetLabels
@@ -8411,6 +8217,187 @@ paths:
       summary: Update a label
       tags:
         - Labels
+  /legacy/authorizations:
+    get:
+      operationId: GetLegacyAuthorizations
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: Only show legacy authorizations that belong to a user ID.
+          in: query
+          name: userID
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to a user name.
+          in: query
+          name: user
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to an organization ID.
+          in: query
+          name: orgID
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to a organization name.
+          in: query
+          name: org
+          schema:
+            type: string
+        - description: Only show legacy authorizations with a specified token (auth name).
+          in: query
+          name: token
+          schema:
+            type: string
+        - description: Only show legacy authorizations with a specified auth ID.
+          in: query
+          name: authID
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorizations'
+          description: A list of legacy authorizations
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: List all legacy authorizations
+      tags:
+        - Legacy Authorizations
+    post:
+      operationId: PostLegacyAuthorizations
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegacyAuthorizationPostRequest'
+        description: Legacy authorization to create
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: Legacy authorization created
+        '400':
+          $ref: '#/components/responses/ServerError'
+          description: Invalid request
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Create a legacy authorization
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
+  /legacy/authorizations/{authID}:
+    delete:
+      operationId: DeleteLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to delete.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Legacy authorization deleted
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Delete a legacy authorization
+      tags:
+        - Legacy Authorizations
+    get:
+      operationId: GetLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to get.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: Legacy authorization details
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Retrieve a legacy authorization
+      tags:
+        - Legacy Authorizations
+    patch:
+      operationId: PatchLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to update.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizationUpdateRequest'
+        description: Legacy authorization to update
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: The active or inactive legacy authorization
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Update a legacy authorization to be active or inactive
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
+  /legacy/authorizations/{authID}/password:
+    post:
+      operationId: PostLegacyAuthorizationsIDPassword
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to update.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetBody'
+        description: New password
+        required: true
+      responses:
+        '204':
+          description: Legacy authorization password set
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Set a legacy authorization password
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
   /api/v2/maps/mapToken:
     get:
       operationId: getMapboxToken
@@ -9249,34 +9236,6 @@ paths:
       summary: Update an organization
       tags:
         - Organizations
-  /api/v2/orgs/{orgID}/limits:
-    get:
-      parameters:
-        - description: The identifier of the organization.
-          in: path
-          name: orgID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                description: These are org limits similar to those configured in/by quartz.
-                properties:
-                  limits:
-                    $ref: '#/components/schemas/Limit'
-                  links:
-                    $ref: '#/components/schemas/Links'
-                type: object
-          description: The Limits defined for the organization.
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: unexpected error
-      summary: Retrieve limits for an organization
-      tags:
-        - Limits
   /api/v2/orgs/{orgID}/members:
     get:
       operationId: GetOrgsIDMembers
@@ -9580,69 +9539,6 @@ paths:
       summary: Delete secrets from an organization
       tags:
         - Secrets
-  /api/v2/orgs/{orgID}/usage:
-    get:
-      parameters:
-        - description: The identifier of the organization.
-          in: path
-          name: orgID
-          required: true
-          schema:
-            type: string
-        - description: start time
-          in: query
-          name: start
-          required: true
-          schema:
-            type: timestamp
-        - description: stop time
-          in: query
-          name: stop
-          required: false
-          schema:
-            type: timestamp
-        - description: return raw usage data
-          in: query
-          name: raw
-          required: false
-          schema:
-            default: false
-            type: boolean
-      responses:
-        '200':
-          content:
-            text/csv:
-              schema:
-                example: >
-                  #group,false,false,true,true,false,false,true,true,true,true
-                  #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string
-                  #default,_result,,,,,,,,,
-                  ,result,table,_start,_stop,_time,_value,_field,_measurement,bucket_id,org_id
-                  ,,0,2021-05-10T14:25:10.865702397Z,2021-05-10T15:25:10.865702397Z,2021-05-10T15:00:00Z,5434066,gauge,storage_usage_bucket_bytes,2f6ba0cf9a2fdcbb,cec6fc1d2176dc11
-                  ,,1,2021-05-10T14:25:10.865702397Z,2021-05-10T15:25:10.865702397Z,2021-05-10T15:00:00Z,9924053.966666665,gauge,storage_usage_bucket_bytes,8af67bcaf69d9daf,cec6fc1d2176dc11
-                type: string
-          description: Usage data
-          headers:
-            Content-Encoding:
-              description: >-
-                The Content-Encoding entity header is used to compress the
-                media-type. When present, its value indicates which encodings
-                were applied to the entity-body
-              schema:
-                default: identity
-                description: >-
-                  Specifies that the response in the body is encoded with gzip
-                  or not encoded with identity.
-                enum:
-                  - gzip
-                  - identity
-                type: string
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: unexpected error
-      summary: Retrieve usage for an organization
-      tags:
-        - Usage
   /ping:
     get:
       operationId: GetPing
@@ -9691,20 +9587,20 @@ paths:
         To query data, you need the following:
 
         - **organization** – _See [View
-        organizations](https://docs.influxdata.com/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
+        organizations](https://docs.influxdata.com/influxdb/v2.1/organizations/view-orgs/#view-your-organization-id)
         for instructions on viewing your organization ID._
 
         - **API token** – _See [View
-        tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/)
+        tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/view-tokens/)
          for instructions on viewing your API token._
         - **InfluxDB URL** – _See [InfluxDB
-        URLs](https://docs.influxdata.com/influxdb/cloud/reference/urls/)_.
+        URLs](https://docs.influxdata.com/influxdb/v2.1/reference/urls/)_.
 
         - **Flux query** – _See [Flux](https://docs.influxdata.com/flux/v0.x/)._
 
 
         For more information and examples, see [Query with the InfluxDB
-        API](https://docs.influxdata.com/influxdb/cloud/query-data/execute-queries/influx-api/).
+        API](https://docs.influxdata.com/influxdb/v2.1/query-data/execute-queries/influx-api/).
       operationId: PostQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9941,6 +9837,26 @@ paths:
       summary: Retrieve query suggestions for a branching suggestion
       tags:
         - Query
+  /ready:
+    get:
+      operationId: GetReady
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ready'
+          description: The instance is ready
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers:
+        - url: ''
+      summary: Get the readiness of an instance at startup
+      tags:
+        - Ready
   /api/v2/resources:
     get:
       operationId: GetResources
@@ -9964,141 +9880,343 @@ paths:
       summary: List all known resources
       tags:
         - Resources
-  /api/v2/scripts:
-    get:
-      operationId: GetScripts
+  /api/v2/restore/bucket/{bucketID}:
+    post:
+      deprecated: true
+      operationId: PostRestoreBucketID
       parameters:
-        - description: The number of scripts to return.
-          in: query
-          name: limit
-          required: false
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The bucket ID.
+          in: path
+          name: bucketID
+          required: true
           schema:
-            type: integer
-        - description: The offset for pagination.
-          in: query
-          name: offset
-          required: false
+            type: string
+        - in: header
+          name: Content-Type
           schema:
-            type: integer
+            default: application/octet-stream
+            enum:
+              - application/octet-stream
+            type: string
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              format: byte
+              type: string
+        description: Database info serialized as protobuf.
+        required: true
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Scripts'
-          description: The list of scripts.
+                format: byte
+                type: string
+          description: ID mappings for shards in bucket.
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      summary: List scripts
+      summary: Overwrite storage metadata for a bucket with shard info from a backup.
       tags:
-        - Invocable Scripts
+        - Restore
+  /api/v2/restore/bucketMetadata:
     post:
-      operationId: PostScripts
+      operationId: PostRestoreBucketMetadata
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ScriptCreateRequest'
-        description: The script to create.
+              $ref: '#/components/schemas/BucketMetadataManifest'
+        description: Metadata manifest for a bucket.
         required: true
       responses:
         '201':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Script'
-          description: The created script.
+                $ref: '#/components/schemas/RestoredBucketMappings'
+          description: ID mappings for shards in new bucket.
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      summary: Create a script
+      summary: Create a new bucket pre-seeded with shard info from a backup.
       tags:
-        - Invocable Scripts
-  /api/v2/scripts/{scriptID}:
-    delete:
-      description: Deletes a script and all associated records.
-      operationId: DeleteScriptsID
+        - Restore
+  /api/v2/restore/kv:
+    post:
+      operationId: PostRestoreKV
       parameters:
-        - description: The ID of the script to delete.
-          in: path
-          name: scriptID
-          required: true
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >-
+            When present, its value indicates to the database that compression
+            is applied to the line-protocol body.
+          in: header
+          name: Content-Encoding
           schema:
+            default: identity
+            description: >-
+              Specifies that the line protocol in the body is encoded with gzip
+              or not encoded with identity.
+            enum:
+              - gzip
+              - identity
             type: string
-      responses:
-        '204':
-          description: The script is deleted.
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Delete a script
-      tags:
-        - Invocable Scripts
-    get:
-      description: Uses script ID to retrieve details of an invocable script.
-      operationId: GetScriptsID
-      parameters:
-        - description: The script ID.
-          in: path
-          name: scriptID
-          required: true
+        - in: header
+          name: Content-Type
           schema:
-            type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Script'
-          description: The requested script object.
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Retrieve a script
-      tags:
-        - Invocable Scripts
-    patch:
-      description: >
-        Updates properties (`name`, `description`, and `script`) of an invocable
-        script.
-      operationId: PatchScriptsID
-      parameters:
-        - description: The script ID.
-          in: path
-          name: scriptID
-          required: true
-          schema:
+            default: application/octet-stream
+            enum:
+              - application/octet-stream
             type: string
       requestBody:
         content:
-          application/json:
+          text/plain:
             schema:
-              $ref: '#/components/schemas/ScriptUpdateRequest'
-        description: Script update to apply
+              format: binary
+              type: string
+        description: Full KV snapshot.
         required: true
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Script'
-          description: The updated script.
+                properties:
+                  token:
+                    description: >-
+                      token is the root token for the instance after restore
+                      (this is overwritten during the restore)
+                    type: string
+                type: object
+          description: KV store successfully overwritten.
+        '204':
+          description: KV store successfully overwritten.
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      summary: Update a script
+      summary: Overwrite the embedded KV store on the server with a backed-up snapshot.
       tags:
-        - Invocable Scripts
-  /api/v2/scripts/{scriptID}/invoke:
+        - Restore
+  /api/v2/restore/shards/{shardID}:
     post:
-      description: >-
-        Invokes a script and substitutes `params` keys referenced in the script
-        with `params` key-values sent in the request body.
-      operationId: PostScriptsIDInvoke
+      operationId: PostRestoreShardId
       parameters:
-        - in: path
-          name: scriptID
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >-
+            When present, its value indicates to the database that compression
+            is applied to the line-protocol body.
+          in: header
+          name: Content-Encoding
+          schema:
+            default: identity
+            description: >-
+              Specifies that the line protocol in the body is encoded with gzip
+              or not encoded with identity.
+            enum:
+              - gzip
+              - identity
+            type: string
+        - in: header
+          name: Content-Type
+          schema:
+            default: application/octet-stream
+            enum:
+              - application/octet-stream
+            type: string
+        - description: The shard ID.
+          in: path
+          name: shardID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              format: binary
+              type: string
+        description: TSM snapshot.
+        required: true
+      responses:
+        '204':
+          description: TSM snapshot successfully restored.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Restore a TSM snapshot into a shard.
+      tags:
+        - Restore
+  /api/v2/restore/sql:
+    post:
+      operationId: PostRestoreSQL
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >-
+            When present, its value indicates to the database that compression
+            is applied to the line-protocol body.
+          in: header
+          name: Content-Encoding
+          schema:
+            default: identity
+            description: >-
+              Specifies that the line protocol in the body is encoded with gzip
+              or not encoded with identity.
+            enum:
+              - gzip
+              - identity
+            type: string
+        - in: header
+          name: Content-Type
+          schema:
+            default: application/octet-stream
+            enum:
+              - application/octet-stream
+            type: string
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              format: binary
+              type: string
+        description: Full SQL snapshot.
+        required: true
+      responses:
+        '204':
+          description: SQL store successfully overwritten.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: >-
+        Overwrite the embedded SQL store on the server with a backed-up
+        snapshot.
+      tags:
+        - Restore
+  /api/v2/scrapers:
+    get:
+      operationId: GetScrapers
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: Specifies the name of the scraper target.
+          in: query
+          name: name
+          schema:
+            type: string
+        - description: >-
+            List of scraper target IDs to return. If both `id` and `owner` are
+            specified, only `id` is used.
+          in: query
+          name: id
+          schema:
+            items:
+              type: string
+            type: array
+        - description: Specifies the organization ID of the scraper target.
+          in: query
+          name: orgID
+          schema:
+            type: string
+        - description: Specifies the organization name of the scraper target.
+          in: query
+          name: org
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScraperTargetResponses'
+          description: All scraper targets
+      summary: List all scraper targets
+      tags:
+        - Scraper Targets
+    post:
+      operationId: PostScrapers
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScraperTargetRequest'
+        description: Scraper target to create
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScraperTargetResponse'
+          description: Scraper target created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal server error
+      summary: Create a scraper target
+      tags:
+        - Scraper Targets
+  /api/v2/scrapers/{scraperTargetID}:
+    delete:
+      operationId: DeleteScrapersID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The identifier of the scraper target.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Scraper target deleted
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal server error
+      summary: Delete a scraper target
+      tags:
+        - Scraper Targets
+    get:
+      operationId: GetScrapersID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The identifier of the scraper target.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScraperTargetResponse'
+          description: The scraper target
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal server error
+      summary: Retrieve a scraper target
+      tags:
+        - Scraper Targets
+    patch:
+      operationId: PatchScrapersID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The identifier of the scraper target.
+          in: path
+          name: scraperTargetID
           required: true
           schema:
             type: string
@@ -10106,25 +10224,303 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ScriptInvocationParams'
+              $ref: '#/components/schemas/ScraperTargetRequest'
+        description: Scraper target update to apply
+        required: true
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScriptHTTPResponseData'
-          description: The result of the script execution.
+                $ref: '#/components/schemas/ScraperTargetResponse'
+          description: Scraper target updated
         default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Invoke a script
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal server error
+      summary: Update a scraper target
       tags:
-        - Invocable Scripts
+        - Scraper Targets
+  /api/v2/scrapers/{scraperTargetID}/labels:
+    get:
+      operationId: GetScrapersIDLabels
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelsResponse'
+          description: A list of labels for a scraper target.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List all labels for a scraper target
+      tags:
+        - Scraper Targets
+    post:
+      operationId: PostScrapersIDLabels
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabelMapping'
+        description: Label to add
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelResponse'
+          description: The newly added label
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Add a label to a scraper target
+      tags:
+        - Scraper Targets
+  /api/v2/scrapers/{scraperTargetID}/labels/{labelID}:
+    delete:
+      operationId: DeleteScrapersIDLabelsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+        - description: The label ID.
+          in: path
+          name: labelID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Delete has been accepted
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Scraper target not found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Delete a label from a scraper target
+      tags:
+        - Scraper Targets
+  /api/v2/scrapers/{scraperTargetID}/members:
+    get:
+      operationId: GetScrapersIDMembers
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMembers'
+          description: A list of scraper target members
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List all users with member privileges for a scraper target
+      tags:
+        - Scraper Targets
+    post:
+      operationId: PostScrapersIDMembers
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddResourceMemberRequestBody'
+        description: User to add as member
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMember'
+          description: Member added to scraper targets
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Add a member to a scraper target
+      tags:
+        - Scraper Targets
+  /api/v2/scrapers/{scraperTargetID}/members/{userID}:
+    delete:
+      operationId: DeleteScrapersIDMembersID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of member to remove.
+          in: path
+          name: userID
+          required: true
+          schema:
+            type: string
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Member removed
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Remove a member from a scraper target
+      tags:
+        - Scraper Targets
+  /api/v2/scrapers/{scraperTargetID}/owners:
+    get:
+      operationId: GetScrapersIDOwners
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceOwners'
+          description: A list of scraper target owners
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List all owners of a scraper target
+      tags:
+        - Scraper Targets
+    post:
+      operationId: PostScrapersIDOwners
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddResourceMemberRequestBody'
+        description: User to add as owner
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceOwner'
+          description: Scraper target owner added
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Add an owner to a scraper target
+      tags:
+        - Scraper Targets
+  /api/v2/scrapers/{scraperTargetID}/owners/{userID}:
+    delete:
+      operationId: DeleteScrapersIDOwnersID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of owner to remove.
+          in: path
+          name: userID
+          required: true
+          schema:
+            type: string
+        - description: The scraper target ID.
+          in: path
+          name: scraperTargetID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Owner removed
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Remove an owner from a scraper target
+      tags:
+        - Scraper Targets
   /api/v2/setup:
     get:
       description: >-
-        Check if setup is allowed. Returns `true` if no default user,
-        organization, or bucket have been created.
+        Returns `true` if no default user, organization, or bucket has been
+        created.
       operationId: GetSetup
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10134,14 +10530,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IsOnboarding'
-          description: Setup is allowed, true or false
-      summary: Retrieve setup status
+          description: allowed true or false
+      summary: Check if database has default user, org, bucket
       tags:
         - Setup
     post:
-      description: >-
-        Post an onboarding request to create an initial user, organization, and
-        bucket.
+      description: Post an onboarding request to set up initial user, org and bucket.
       operationId: PostSetup
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10158,37 +10552,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OnboardingResponse'
-          description: The created default user, bucket, and organization
+          description: Created default user, bucket, org
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      summary: Create an initial user, organization, and bucket
-      tags:
-        - Setup
-  /api/v2/setup/user:
-    post:
-      description: >-
-        Post an onboarding request to create a new user, organization, and
-        bucket.
-      operationId: PostSetupUser
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/OnboardingRequest'
-        description: Source to create
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OnboardingResponse'
-          description: The created default user, bucket, and organization.
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: Create a new user, organization, and bucket
+      summary: Set up initial user, org and bucket
       tags:
         - Setup
   /api/v2/signin:
@@ -10249,6 +10617,231 @@ paths:
       summary: Expire the current UI session
       tags:
         - Signout
+  /api/v2/sources:
+    get:
+      operationId: GetSources
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The name of the organization.
+          in: query
+          name: org
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sources'
+          description: A list of sources
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List all sources
+      tags:
+        - Sources
+    post:
+      operationId: PostSources
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Source'
+        description: Source to create
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+          description: Created Source
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Create a source
+      tags:
+        - Sources
+  /api/v2/sources/{sourceID}:
+    delete:
+      operationId: DeleteSourcesID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The source ID.
+          in: path
+          name: sourceID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Delete has been accepted
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: View not found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Delete a source
+      tags:
+        - Sources
+    get:
+      operationId: GetSourcesID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The source ID.
+          in: path
+          name: sourceID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+          description: A source
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Source not found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve a source
+      tags:
+        - Sources
+    patch:
+      operationId: PatchSourcesID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The source ID.
+          in: path
+          name: sourceID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Source'
+        description: Source update
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+          description: Created Source
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Source not found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Update a Source
+      tags:
+        - Sources
+  /api/v2/sources/{sourceID}/buckets:
+    get:
+      operationId: GetSourcesIDBuckets
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The source ID.
+          in: path
+          name: sourceID
+          required: true
+          schema:
+            type: string
+        - description: The name of the organization.
+          in: query
+          name: org
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Buckets'
+          description: A source
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Source not found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get buckets in a source
+      tags:
+        - Sources
+        - Buckets
+  /api/v2/sources/{sourceID}/health:
+    get:
+      operationId: GetSourcesIDHealth
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The source ID.
+          in: path
+          name: sourceID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+          description: The source is healthy
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+          description: The source is not healthy
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get the health of a source
+      tags:
+        - Sources
   /api/v2/stacks:
     get:
       operationId: ListStacks
@@ -10503,13 +11096,13 @@ paths:
               - active
               - inactive
             type: string
-        - description: The non-zero number of tasks to return
+        - description: The number of tasks to return
           in: query
           name: limit
           schema:
             default: 100
             maximum: 500
-            minimum: -1
+            minimum: 1
             type: integer
         - description: Type of task, unset by default.
           in: query
@@ -11704,6 +12297,17 @@ paths:
       operationId: GetUsers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/After'
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: id
+          schema:
+            type: string
       responses:
         '200':
           content:
@@ -11867,7 +12471,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Variables'
-          description: A list of variables for an organization.
+          description: A list of variables for an organization
         '400':
           $ref: '#/components/responses/ServerError'
           description: Invalid request
@@ -12110,28 +12714,27 @@ paths:
 
         To write data into InfluxDB, you need the following:
 
-
-        - **organization name or ID** – _See [View
-        organizations](https://docs.influxdata.com/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
+        - **organization** – _See [View
+        organizations](https://docs.influxdata.com/influxdb/v2.1/organizations/view-orgs/#view-your-organization-id)
         for instructions on viewing your organization ID._
 
         - **bucket** – _See [View
-        buckets](https://docs.influxdata.com/influxdb/cloud/organizations/buckets/view-buckets/)
+        buckets](https://docs.influxdata.com/influxdb/v2.1/organizations/buckets/view-buckets/)
         for
          instructions on viewing your bucket ID._
         - **API token** – _See [View
-        tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/)
+        tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/view-tokens/)
          for instructions on viewing your API token._
         - **InfluxDB URL** – _See [InfluxDB
-        URLs](https://docs.influxdata.com/influxdb/cloud/reference/urls/)_.
+        URLs](https://docs.influxdata.com/influxdb/v2.1/reference/urls/)_.
 
         - data in [line
-        protocol](https://docs.influxdata.com/influxdb/cloud/reference/syntax/line-protocol)
+        protocol](https://docs.influxdata.com/influxdb/v2.1/reference/syntax/line-protocol)
         format.
 
 
         For more information and examples, see [Write data with the InfluxDB
-        API](https://docs.influxdata.com/influxdb/cloud/write-data/developer-tools/api).
+        API](https://docs.influxdata.com/influxdb/v2.1/write-data/developer-tools/api).
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12228,13 +12831,15 @@ paths:
             InfluxDB validated the request data format and accepted the data for
             writing to the bucket. `204` doesn't indicate a successful write
             operation since writes are asynchronous. See [how to check for write
-            errors](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot).
+            errors](https://docs.influxdata.com/influxdb/v2.1/write-data/troubleshoot).
         '400':
           content:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: Field type conflict thrown by an explicit bucket schema
+                  summary: >-
+                    Example of a field type conflict thrown by an explicit
+                    bucket schema
                   value:
                     code: invalid
                     message: >-
@@ -12284,36 +12889,14 @@ paths:
             `bucket`, and name.
         '413':
           content:
-            text/html:
-              examples:
-                dataExceedsSizeLimit:
-                  summary: Cloud response
-                  value: |
-                    <html>
-                      <head><title>413 Request Entity Too Large</title></head>
-                      <body>
-                        <center><h1>413 Request Entity Too Large</h1></center>
-                        <hr>
-                        <center>nginx</center>
-                      </body>
-                    </html>
+            application/json:
               schema:
-                type: string
-          description: >-
-            Request entity too large. The payload exceeded the 50MB size limit.
-            InfluxDB rejected the batch and did not write any data.
-        '429':
-          description: >-
-            The token is temporarily over quota. The Retry-After header
-            describes when to try the write again.
-          headers:
-            Retry-After:
-              description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
-              schema:
-                format: int32
-                type: integer
+                $ref: '#/components/schemas/LineProtocolLengthError'
+          description: >
+            All request data was rejected and not written. InfluxDB OSS only
+            returns this error if the [Go (golang)
+            `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function
+            raises an error.
         '500':
           content:
             application/json:
@@ -12370,21 +12953,20 @@ tags:
 
 
       For more information and examples, see the following:
-        - [Use tokens in API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
-        - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
-        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token).
+        - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
+        - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
+        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
     name: Authorizations
-  - Bucket Schemas
+  - Backup
   - Buckets
   - Cells
   - Checks
   - Dashboards
   - DBRPs
   - Delete
-  - DemoDataBuckets
-  - Invocable Scripts
+  - Health
   - Labels
-  - Limits
+  - Legacy Authorizations
   - NotificationEndpoints
   - NotificationRules
   - Organizations
@@ -12394,17 +12976,18 @@ tags:
     name: Query
   - description: >
       See the [**API Quick
-      Start**](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/)
+      Start**](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/)
       to get up and running authenticating with tokens, writing to buckets, and
       querying data.
 
 
       [**InfluxDB API client
-      libraries**](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/)
+      libraries**](https://docs.influxdata.com/influxdb/v2.1/api-guide/client-libraries/)
       are available for popular languages and ready to import into your
       application.
     name: Quick start
     x-traitTag: true
+  - Ready
   - Resources
   - description: >
       The InfluxDB API uses standard HTTP status codes for success and failure
@@ -12437,8 +13020,7 @@ tags:
       malformed</li><li>API token value is missing from the header</li><li>API
       token does not have permission. For more information about token types and
       permissions, see [Manage API
-      tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/)</li>
-      |
+      tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/)</li> |
 
       | `404`       | Not found                | Requested resource was not
       found. `message` in the response body provides details about the requested
@@ -12461,17 +13043,19 @@ tags:
       when to try the request again. |
     name: Response codes
     x-traitTag: true
+  - Restore
   - Routes
   - Rules
+  - Scraper Targets
   - Secrets
   - Setup
   - Signin
   - Signout
+  - Sources
   - Tasks
   - Telegraf Plugins
   - Telegrafs
   - Templates
-  - Usage
   - Users
   - Variables
   - Views
@@ -12501,39 +13085,43 @@ x-tagGroups:
       - Users
   - name: System information endpoints
     tags:
+      - Health
       - Ping
+      - Ready
       - Routes
   - name: All endpoints
     tags:
       - Authorizations
-      - Bucket Schemas
+      - Backup
       - Buckets
       - Cells
       - Checks
       - Dashboards
       - DBRPs
       - Delete
-      - DemoDataBuckets
-      - Invocable Scripts
+      - Health
       - Labels
-      - Limits
+      - Legacy Authorizations
       - NotificationEndpoints
       - NotificationRules
       - Organizations
       - Ping
       - Query
+      - Ready
       - Resources
+      - Restore
       - Routes
       - Rules
+      - Scraper Targets
       - Secrets
       - Setup
       - Signin
       - Signout
+      - Sources
       - Tasks
       - Telegraf Plugins
       - Telegrafs
       - Templates
-      - Usage
       - Users
       - Variables
       - Views

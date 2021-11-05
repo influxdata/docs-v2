@@ -1,5 +1,5 @@
 ---
-title: InfluxDB v2.0 release notes
+title: InfluxDB v2.1 release notes
 description: Important changes and what's new in each version of InfluxDB.
 menu:
   influxdb_2_1_ref:
@@ -53,9 +53,9 @@ This release includes the following new features:
 
 #### API
 
-- Add new parameters to GET [`/users`](/influxdb/v2.0/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
-- Add the [`api/v2/backup/metadata`](/influxdb/v2.0/api/#operation/GetBackupMetadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2.0/api/#operation/GetRoutes) for restoring SQL metadata.
-- Deprecated [`POST .../secrets/delete`](/influxdb/v2.0/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}`](/influxdb/v2.0/api/#operation/DeleteOrgsIDSecretsID).
+- Add new parameters to GET [`/users`](/influxdb/v2.1/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
+- Add the [`api/v2/backup/metadata`](/influxdb/v2.1/api/#operation/GetBackupMetadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2.1/api/#operation/GetRoutes) for restoring SQL metadata.
+- Deprecated [`POST .../secrets/delete`](/influxdb/v2.1/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}`](/influxdb/v2.1/api/#operation/DeleteOrgsIDSecretsID).
 
 #### CLI
 
@@ -71,7 +71,7 @@ Added several new configuration options to [`influxd`](/influxdb/v2.1/reference/
 - Add `--storage-no-validate-field-size` flag to disable enforcement of max field size.
 - Update `--store` flag to work with string values disk or memory. Memory continues to store metadata in-memory for testing; disk persists metadata to disk via bolt and SQLite.
 
-For more information, see [InfluxDB configuration options](/influxdb/v2.0/reference/config-options/).
+For more information, see [InfluxDB configuration options](/influxdb/v2.1/reference/config-options/).
 
 ##### influxd inspect
 
@@ -84,8 +84,9 @@ Ported the following [`influxd inspect`](/influxdb/v2.1/reference/cli/influxd/in
 - [influxd inspect dump-wal](/influxdb/v2.1/reference/cli/influxd/inspect/dump-wal/)
 - [influxd inspect report-tsi](/influxdb/v2.1/reference/cli/influxd/inspect/report-tsi/)
 - [influxd inspect report-tsm](/influxdb/v2.1/reference/cli/influxd/inspect/report-tsm/)
-- [influxd inspect verify-seriesfile](/influxdb/v2.1/reference/cli/influxd/inspect/verify-seriesfile/)
+- [influxd inspect verify-seriesfile](/influxdb/v2.1/reference/cli/influxd/inspect/verify-seriesfile/) 
 - [influxd inspect verify-tombstone](/influxdb/v2.1/reference/cli/influxd/inspect/verify-tombstone/)
+- [influxd inspect verify-tsm](/influxdb/v2.1/reference/cli/influxd/inspect/verify-tsm/)
 - [influxd inspect verify-wal](/influxdb/v2.1/reference/cli/influxd/inspect/verify-wal/)
 
 ##### influxd downgrade
@@ -140,7 +141,7 @@ For more information about each plugin, see [Telegraf plugins](/telegraf/v1.20/p
 ### Bug fixes
 
 - Log API errors to server logs and tell clients to check the server logs for the error message.
-- Fix pagination for GET [`/buckets`](/influxdb/v2.0/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an `org` filter AND the `after` request parameter. Also corrects `descending` parameter to sort when an `org` filter is used and saved.
+- Fix pagination for GET [`/buckets`](/influxdb/v2.1/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an `org` filter AND the `after` request parameter. Also corrects `descending` parameter to sort when an `org` filter is used and saved.
 - Sync series segment to disk after writing.
 - Do not allow shard creation to create overlapping shards.
 - Don't drop shard group durations when upgrading InfluxDB.

@@ -6,24 +6,12 @@
     - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
     <!-- ReDoc-Inject: <security-definitions> -->
   x-traitTag: true
-- name: Invocable Scripts
-  description: |
-    Manage and execute scripts as API endpoints in InfluxDB.
-
-    An API Invocable Script assigns your custom Flux script to a new InfluxDB API endpoint for your organization.
-    Invocable scripts let you execute your script as an HTTP request to the endpoint.
-
-    Invocable scripts accept parameters. Add parameter references in your script as `params.myparameter`.
-    When you `invoke` your script, you send parameters as key-value pairs in the `params` object.
-    Then, InfluxDB executes your script with the key-value pairs as arguments, and returns the result.
-
-    For more information and examples, see [Invoke custom scripts](https://docs.influxdata.com/influxdb/cloud/api-guide/api-invocable-scripts).
 - name: Quick start
   x-traitTag: true
   description: |
-    See the [**API Quick Start**](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/) to get up and running authenticating with tokens, writing to buckets, and querying data.
+    See the [**API Quick Start**](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/) to get up and running authenticating with tokens, writing to buckets, and querying data.
 
-    [**InfluxDB API client libraries**](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/) are available for popular languages and ready to import into your application.
+    [**InfluxDB API client libraries**](https://docs.influxdata.com/influxdb/v2.1/api-guide/client-libraries/) are available for popular languages and ready to import into your application.
 - name: Response codes
   x-traitTag: true
   description: |
@@ -37,7 +25,7 @@
     | `200`       | Success                  |                       |
     | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
     | `400`       | Bad request              | `Authorization` header is missing or malformed or the API token does not have permission for the operation. |
-    | `401`       | Unauthorized             | May indicate one of the following: <li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token does not have permission. For more information about token types and permissions, see [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/)</li> |
+    | `401`       | Unauthorized             | May indicate one of the following: <li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token does not have permission. For more information about token types and permissions, see [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/)</li> |
     | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
     | `413`       | Request entity too large | Request payload exceeds the size limit. |
     | `422`       | Unprocessible entity     | Request data is invalid. `code` and `message` in the response body provide details about the problem. |
