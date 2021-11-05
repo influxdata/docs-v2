@@ -14,7 +14,7 @@
   <div class="section hero">
     {{ partial "svgs/homepage-hero.svg" }}
     <div class="half">
-      <h2>InfluxDB Cloud & <br />InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</h2>
+      <h2>InfluxDB Cloud & <br />InfluxDB OSS 2.x</h2>
       <p>
         The most powerful time series database.
         Designed to handle high write and query loads.
@@ -22,7 +22,7 @@
       </p>
       <div class="actions">
         <a class="btn" href="/influxdb/cloud/">InfluxDB Cloud Docs</a>
-        <a class="btn" href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS 2.x Docs</a>
+        <a class="btn" href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }} Docs</a>
       </div>
     </div>
   </div>
