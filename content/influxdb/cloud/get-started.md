@@ -18,8 +18,10 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
    - Add [sample data](#add-sample-data). 
    - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
 2. [Create a notebook](#create-a-notebook):
-    1.  Clicking **Books > Create Notebook** in the navigation menu on the left.
+    1.  Clicking **Notebooks** in the navigation menu on the left.
+
         {{< nav-icon "books" >}}
+
     2. [Select metrics](#select-metrics)
     3. [Visualize data](#visualize-data)
     4. (Optional) [Process data](#process-data)
@@ -30,11 +32,11 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
 
 This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add the demo data bucket:
 
-1.  Click **Data (Load Data)** > **Buckets** in the navigation menu on the left.
+1.  Click **Load Data** > **Buckets** in the navigation menu on the left.
 
     {{< nav-icon "data" >}}
 
-2.  Click **{{< icon "plus" >}} Add Demo Data**, and then select the **Website Monitoring** bucket.
+2.  Click **{{< icon "plus" >}} {{< caps >}}Add Demo Data{{< /caps >}}**, and then select the **Website Monitoring** bucket.
 3.  The Demo Data bucket appears in your list of buckets.
 
 ## Add sample data

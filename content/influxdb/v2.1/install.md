@@ -571,12 +571,10 @@ InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) a
     kubectl apply -f https://raw.githubusercontent.com/influxdata/docs-v2/master/static/downloads/influxdb-k8-minikube.yaml
     ```
 
-    {{% warn %}}
-Always inspect YAML manifests before running `kubectl apply -f <url>`!
-    {{% /warn %}}
-
     This creates an `influxdb` Namespace, Service, and StatefulSet.
     A PersistentVolumeClaim is also created to store data written to InfluxDB.
+
+    **Important**: Always inspect YAML manifests before running `kubectl apply -f <url>`!
 
 4. Ensure the Pod is running:
 

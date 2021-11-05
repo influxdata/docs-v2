@@ -1,83 +1,149 @@
 {{ $navIcon := lower (.Get 0) | default "influx" }}
+{{ $version := lower (.Get 1) | default "v3" }}
 
-{{ if or (eq $navIcon "admin") (eq $navIcon "influx") }}
-  {{ .Scratch.Set "icon" "influx-icon" }}
-  {{ .Scratch.Set "title" "username (org-name)" }}
-  {{ .Scratch.Set "short_title" "User" }}
-{{ else if or (eq $navIcon "data-explorer") (eq $navIcon "data explorer") (eq $navIcon "explore") }}
-  {{ .Scratch.Set "icon" "data-explorer" }}
-  {{ .Scratch.Set "title" "Data Explorer" }}
-  {{ .Scratch.Set "short_title" "Explore" }}
-{{ else if or (eq $navIcon "notebooks") (eq $navIcon "books") }}
-  {{ .Scratch.Set "icon" "book-pencil" }}
-  {{ .Scratch.Set "title" "Notebooks" }}
-  {{ .Scratch.Set "short_title" "Books" }}
-{{ else if or (eq $navIcon "dashboards") (eq $navIcon "boards") }}
-  {{ .Scratch.Set "icon" "dashboards" }}
-  {{ .Scratch.Set "title" "Dashboards" }}
-  {{ .Scratch.Set "short_title" "Dashboards" }}
-  {{ .Scratch.Set "short_title" "Boards" }}
-{{ else if eq $navIcon "tasks" }}
-  {{ .Scratch.Set "icon" "calendar" }}
-  {{ .Scratch.Set "title" "Tasks" }}
-  {{ .Scratch.Set "short_title" "Tasks" }}
-{{ else if or (eq $navIcon "monitor") (eq $navIcon "alerts") (eq $navIcon "bell") }}
-  {{ .Scratch.Set "icon" "bell" }}
-  {{ .Scratch.Set "title" "Alerts" }}
-  {{ .Scratch.Set "short_title" "Alerts" }}
-{{ else if or (eq $navIcon "disks") (eq $navIcon "load data") (eq $navIcon "load-data") (eq $navIcon "data") }}
-  {{ .Scratch.Set "icon" "disks-nav" }}
-  {{ .Scratch.Set "title" "Load Data" }}
-  {{ .Scratch.Set "short_title" "Data" }}
-{{ else if eq $navIcon "settings" }}
-  {{ .Scratch.Set "icon" "wrench-nav" }}
-  {{ .Scratch.Set "title" "Settings" }}
-  {{ .Scratch.Set "short_title" "Settings" }}
-{{ else if or (eq $navIcon "org") (eq $navIcon "organization") }}
-  {{ .Scratch.Set "icon" "users-trio" }}
-  {{ .Scratch.Set "title" "Organization" }}
-  {{ .Scratch.Set "short_title" "Org" }}
-{{ end }}
+{{ if eq $version "v2" }}
+  {{ if or (eq $navIcon "admin") (eq $navIcon "influx") }}
+    {{ .Scratch.Set "icon" "influx-icon" }}
+    {{ .Scratch.Set "title" "username (org-name)" }}
+    {{ .Scratch.Set "short_title" "User" }}
+  {{ else if or (eq $navIcon "data-explorer") (eq $navIcon "data explorer") (eq $navIcon "explore") }}
+    {{ .Scratch.Set "icon" "data-explorer" }}
+    {{ .Scratch.Set "title" "Data Explorer" }}
+    {{ .Scratch.Set "short_title" "Explore" }}
+  {{ else if or (eq $navIcon "notebooks") (eq $navIcon "books") }}
+    {{ .Scratch.Set "icon" "book-pencil" }}
+    {{ .Scratch.Set "title" "Notebooks" }}
+    {{ .Scratch.Set "short_title" "Books" }}
+  {{ else if or (eq $navIcon "dashboards") (eq $navIcon "boards") }}
+    {{ .Scratch.Set "icon" "dashboards" }}
+    {{ .Scratch.Set "title" "Dashboards" }}
+    {{ .Scratch.Set "short_title" "Boards" }}
+  {{ else if eq $navIcon "tasks" }}
+    {{ .Scratch.Set "icon" "calendar" }}
+    {{ .Scratch.Set "title" "Tasks" }}
+    {{ .Scratch.Set "short_title" "Tasks" }}
+  {{ else if or (eq $navIcon "monitor") (eq $navIcon "alerts") (eq $navIcon "bell") }}
+    {{ .Scratch.Set "icon" "bell" }}
+    {{ .Scratch.Set "title" "Alerts" }}
+    {{ .Scratch.Set "short_title" "Alerts" }}
+  {{ else if or (eq $navIcon "disks") (eq $navIcon "load data") (eq $navIcon "load-data") (eq $navIcon "data") }}
+    {{ .Scratch.Set "icon" "disks-nav" }}
+    {{ .Scratch.Set "title" "Load Data" }}
+    {{ .Scratch.Set "short_title" "Data" }}
+  {{ else if eq $navIcon "settings" }}
+    {{ .Scratch.Set "icon" "wrench-nav" }}
+    {{ .Scratch.Set "title" "Settings" }}
+    {{ .Scratch.Set "short_title" "Settings" }}
+  {{ else if or (eq $navIcon "org") (eq $navIcon "organization") }}
+    {{ .Scratch.Set "icon" "users-trio" }}
+    {{ .Scratch.Set "title" "Organization" }}
+    {{ .Scratch.Set "short_title" "Org" }}
+  {{ end }}
 
-{{ if or (eq $navIcon "profile") (eq $navIcon "account") }}
-  <div class="nav-items">
-    <div class="nav-item account small">
-      <div class="acct-inner">
-        <div class="acct-icon">
-          <span class="icon icon-user"></span>
+  {{ if or (eq $navIcon "profile") (eq $navIcon "account") }}
+    <div class="nav-items">
+      <div class="nav-item account small">
+        <div class="acct-inner">
+          <div class="acct-icon">
+            <span class="icon icon-user"></span>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item account">
+        <div class="acct-inner">
+          <div class="acct-icon"><span class="icon icon-user"></span></div>
+          <div class="acct-label">
+            <div class="username">username</div>
+            <div class="orgname">org-name</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="nav-item account">
-      <div class="acct-inner">
-        <div class="acct-icon"><span class="icon icon-user"></span></div>
-        <div class="acct-label">
+  {{ else }}
+    {{ $icon := .Scratch.Get "icon" }}
+    {{ $title := .Scratch.Get "title" }}
+    {{ $shortTitle := .Scratch.Get "short_title" }}
+    <div class="nav-items">
+      <div class="nav-item">
+        <div class="nav-icon small">
+          <span class ="icon icon-{{ $icon }}"></span>
+          <div class="nav-icon-label">
+            {{ $shortTitle }}
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">
+          <span class ="icon icon-{{ $icon }}"></span>
+          <div class="nav-icon-label">
+            {{ $title }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {{ end }}
+
+{{ else }}
+
+  {{/* ----------------------- CLOCKFACE v3 ----------------------- */}}
+
+  {{ if or (eq $navIcon "data-explorer") (eq $navIcon "data explorer") (eq $navIcon "explore") }}
+    {{ .Scratch.Set "icon" "graphline-2" }}
+    {{ .Scratch.Set "title" "Data Explorer" }}
+  {{ else if or (eq $navIcon "notebooks") (eq $navIcon "books") }}
+    {{ .Scratch.Set "icon" "book-pencil" }}
+    {{ .Scratch.Set "title" "Notebooks" }}
+  {{ else if or (eq $navIcon "dashboards") (eq $navIcon "boards") }}
+    {{ .Scratch.Set "icon" "graph-line-new" }}
+    {{ .Scratch.Set "title" "Dashboards" }}
+  {{ else if eq $navIcon "tasks" }}
+    {{ .Scratch.Set "icon" "calendar" }}
+    {{ .Scratch.Set "title" "Tasks" }}
+  {{ else if or (eq $navIcon "monitor") (eq $navIcon "alerts") (eq $navIcon "bell") }}
+    {{ .Scratch.Set "icon" "bell" }}
+    {{ .Scratch.Set "title" "Alerts" }}
+  {{ else if or (eq $navIcon "load data") (eq $navIcon "load-data") (eq $navIcon "data") }}
+    {{ .Scratch.Set "icon" "ingest-new" }}
+    {{ .Scratch.Set "title" "Load Data" }}
+  {{ else if eq $navIcon "settings" }}
+    {{ .Scratch.Set "icon" "wrench-nav" }}
+    {{ .Scratch.Set "title" "Settings" }}
+  {{ end }}
+
+  {{ if or (eq $navIcon "profile") (eq $navIcon "account") }}
+  <div class="nav-items-v3">
+    <div class="nav-item-v3 account">
+      <div class="acct-inner-v3">
+        <div class="acct-icon-v3"><span class="initial">u</span></div>
+      </div>
+    </div>
+    <div class="nav-item-v3 account">
+      <div class="acct-inner-v3">
+        <div class="acct-icon-v3"><span class="initial">u</span></div>
+        <div class="acct-label-v3">
           <div class="username">username</div>
           <div class="orgname">org-name</div>
         </div>
       </div>
     </div>
   </div>
-{{ else }}
-  {{ $icon := .Scratch.Get "icon" }}
-  {{ $title := .Scratch.Get "title" }}
-  {{ $shortTitle := .Scratch.Get "short_title" }}
-  <div class="nav-items">
-    <div class="nav-item">
-      <div class="nav-icon small">
-        <span class ="icon icon-{{ $icon }}"></span>
-        <div class="nav-icon-label">
-          {{ $shortTitle }}
+  {{ else }}
+    {{ $icon := .Scratch.Get "icon" }}
+    {{ $title := .Scratch.Get "title" }}
+    <div class="nav-items-v3">
+      <div class="nav-item-v3">
+        <div class="nav-icon-v3">
+          <span class="cf-icon {{ $icon }}"></span>
         </div>
       </div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon">
-        <span class ="icon icon-{{ $icon }}"></span>
-        <div class="nav-icon-label">
-          {{ $title }}
+      <div class="nav-item-v3">
+        <div class="nav-icon-v3">
+          <span class="cf-icon {{ $icon }}"></span>
         </div>
+        <p class="nav-label-v3">{{ $title }}</p>
       </div>
     </div>
-  </div>
+  {{ end }}
+
 {{ end }}
+

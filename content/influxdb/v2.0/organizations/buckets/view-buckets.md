@@ -13,7 +13,7 @@ weight: 202
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+    {{< nav-icon "data" "v2" >}}
 
     A list of buckets with their retention policies and IDs appears.
 
