@@ -11,12 +11,14 @@ related:
   - /influxdb/v2.1/monitor-alert/notification-endpoints/
 ---
 
+If you no longer need to receive an alert, delete the associated notification rule.
+
 ## Delete a notification rule in the UI
 
-1. In the navigation menu on the left, select **Alerts**.
+1. In the navigation menu on the left, select **Alerts > Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2. Select **Notification Rules** near to top of the page.
-3. Hover over the rule you want to delete and click the **{{< icon "trash" >}}** icon.
-4. Click **Delete** to confirm.
+2. Select **{{< caps >}}Notification Rules{{< /caps >}}** near to top of the page.
+3. Click the **{{< icon "trash" >}}** icon on the notification rule you want to delete.
+4. Click **{{< caps >}}Confirm{{< /caps >}}**.

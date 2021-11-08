@@ -28,7 +28,9 @@ The Windows System Monitoring template includes the following:
     ```
     For more information, see [influx apply](/influxdb/v2.1/reference/cli/influx/apply/).
 
-    > **Note:** Ensure your `influx` CLI is configured with your account credentials and that configuration is active. For more information, see [influx config](/influxdb/v2.1/reference/cli/influx/config/).
+    {{% note %}}
+Ensure your `influx` CLI is configured with your account credentials and that configuration is active. For more information, see [influx config](/influxdb/v2.1/reference/cli/influx/config/).
+    {{% /note %}}
 
 2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both the Windows system and [InfluxDB v2 API](/influxdb/v2.1/reference/api/).
 3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2.1/telegraf-configs/), do the following:
@@ -42,9 +44,10 @@ The Windows System Monitoring template includes the following:
 
 ## View incoming data
 
-1. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
+1. In the InfluxDB user interface (UI), select **Dashboards** in the left navigation.
 
     {{< nav-icon "dashboards" >}}
+
 2. Open the **Windows System** dashboard to start monitoring.
 
    {{% note %}}

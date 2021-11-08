@@ -16,13 +16,13 @@ To send notifications about changes in your data, start by creating a notificati
 
 ## Create a notification endpoint in the UI
 
-1.  In the navigation menu on the left, select **Alerts**.
+1.  In the navigation menu on the left, select **Alerts > Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2.  Select **Notification Endpoints** near to top of the page.
-3.  Click **{{< icon "plus" >}} Create**.
-4.  From the **Destination** drop-down list, select a destination endpoint to send notifications
+2.  Select **{{< caps >}}Notification Endpoints{{< /caps >}}** near to top of the page.
+3.  Click **{{< caps >}}{{< icon "plus" >}} Create{{< /caps >}}**.
+4.  From the **Destination** drop-down list, select a destination endpoint to send notifications to.
 5.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
 6.  Enter information to connect to the endpoint:
 
@@ -38,4 +38,4 @@ To send notifications about changes in your data, start by creating a notificati
           "client_url": "http://localhost:8086/orgs/<your-org-ID>/alert-history"
           ```
 
-6. Click **Create Notification Endpoint**.
+6. Click **{{< caps >}}Create Notification Endpoint{{< /caps >}}**.

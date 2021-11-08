@@ -12,15 +12,17 @@ related:
   - /influxdb/v2.1/monitor-alert/notification-rules/
 ---
 
-If notifications are no longer sent to an endpoint, complete the steps below to delete the endpoint, and then [update notification rules](/influxdb/v2.1/monitor-alert/notification-rules/update) with a new notification endpoint as needed.
+If notifications are no longer sent to an endpoint, complete the steps below to
+delete the endpoint, and then [update notification rules](/influxdb/v2.1/monitor-alert/notification-rules/update)
+with a new notification endpoint as needed.
 
 ## Delete a notification endpoint in the UI
 
-1. In the navigation menu on the left, select **Alerts**.
+1. In the navigation menu on the left, select **Alerts > Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2. Select **Notification Endpoints** near to top of the page.
+2. Select **{{< caps >}}Notification Endpoints{{< /caps >}}** near to top of the page.
    find the rule you want to delete.
-3. Hover over the endpoint you want to delete and click the **{{< icon "trash" >}}** icon.
-4. Click **Delete** to confirm.
+3. Click the **{{< icon "trash" >}}** icon on the notification you want to delete
+    and then click **{{< caps >}}Confirm{{< /caps >}}**.
