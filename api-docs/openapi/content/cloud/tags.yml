@@ -1,6 +1,3 @@
-- name: Quick start
-  description: Some quickness
-  x-traitTag: true
 - name: Authentication
   description: |
     Use one of the following schemes to authenticate to the InfluxDB API:
@@ -18,7 +15,7 @@
 
     Invocable scripts accept parameters. Add parameter references in your script as `params.myparameter`.
     When you `invoke` your script, you send parameters as key-value pairs in the `params` object.
-    InfluxDB executes your script with the key-value pairs as arguments and returns the result.
+    Then, InfluxDB executes your script with the key-value pairs as arguments, and returns the result.
 
     For more information and examples, see [Invoke custom scripts](https://docs.influxdata.com/influxdb/cloud/api-guide/api-invocable-scripts).
 - name: Quick start

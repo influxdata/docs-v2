@@ -27,9 +27,9 @@ There are two places you can create a bucket in the UI.
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+    {{< nav-icon "data" "v2" >}}
 
-2. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
+2. Click **{{< icon "plus" "v2" >}} Create Bucket** in the upper right.
 3. Enter a **Name** for the bucket.
 4. Select when to **Delete Data**:
     - **Never** to retain data forever.  
@@ -40,7 +40,7 @@ There are two places you can create a bucket in the UI.
 
 1. In the navigation menu on the left, select **Explore* (**Data Explorer**).
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. In the **From** panel in the Flux Builder, select `+ Create Bucket`.
 3. Enter a **Name** for the bucket.

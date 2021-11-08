@@ -11,7 +11,7 @@
     &:after {
       content: "\e905";
       display: block;
-      font-family: 'icomoon';
+      font-family: 'icomoon-v2';
       position: absolute;
       top: .15rem;
       right: .25rem;
@@ -167,46 +167,7 @@
       text-decoration: none;
       font-weight: $medium;
       display: inline-block;
-
-      /////////////////////// Product exclusivity labels ///////////////////////
-      span:after{
-        display: inline-block;
-        position: relative;
-        top: -2px;
-        margin-left: .15rem;
-        padding: .45rem .18rem .35rem;
-        line-height: 0;
-        font-size: .6rem;
-        font-style: italic;
-        border-radius: 8px;
-      }
-
-      .cloud {
-        &:after {
-          content: "CLOUD";
-          color: $product-cloud;
-          border: 1px solid rgba($product-cloud, .5);
-          background: rgba($product-cloud, .1);
-        }
-      }
-      .oss {
-        &:after {
-          content: "OSS";
-          color: $product-oss;
-          border: 1px solid rgba($product-oss, .5);
-          background: rgba($product-oss, .1);
-        }
-      }
-      .enterprise {
-        &:after {
-          content: "ENT";
-          color: $product-enterprise;
-          border: 1px solid rgba($product-enterprise, .5);
-          background: rgba($product-enterprise, .1);
-        }
-      }
     }
-    ////////////////////// End Product exclusivity labels //////////////////////
 
     .nav-category > a {
       color: $nav-category;
@@ -277,7 +238,7 @@
     // Nav section title styles
     h4 {
       margin: 2rem 0 0 -1rem;
-      color: rgba($article-heading-alt, .6);
+      color: rgba($article-heading-alt, .5);
       font-style: italic;
       font-weight: 700;
       text-transform: uppercase;
@@ -287,7 +248,7 @@
       &.platform, &.flux {
         &:after {
           content: "\e911";
-          font-family: "icomoon";
+          font-family: "icomoon-v2";
           font-style: normal;
           font-size: 1rem;
           opacity: .4;

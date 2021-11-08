@@ -26,7 +26,7 @@ Because each organization is created with a bucket, we do not recommend more tha
 
 1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "account" >}}
+    {{< nav-icon "account" "v2" >}}
 
 2. Select **Create Organization**.
 3. In the window that appears, enter an **Organization Name** and **Bucket Name** and click **Create**.
