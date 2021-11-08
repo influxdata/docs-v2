@@ -81,7 +81,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Error instead of panic for statement rewrite failure.
 - Fix `SHOW SHARDS` showing expiration time for shard groups with no expiration.
 - Change default limit for memory usage from 4GB to unlimited.
-  Memory limits were claimed to be configurable, but are in fact hard-coded.
+- Make `total-max-memory-bytes` configuration work correctly.
 - Use a constant amount of RAM as HH grows, instead of growing RAM usage.
 
 ## v1.9.2 [2021-06-17]
