@@ -2159,7 +2159,7 @@ output:
   - name: InfluxDB v2
     id: influxdb_v2
     description: |
-      The InfluxDB v2 output plugin writes metrics to [InfluxDB 2.0](https://github.com/influxdata/influxdb).
+      The InfluxDB v2 output plugin writes metrics to [InfluxDB 2.0](https://github.com/influxdata/influxdb) OSS or Cloud.
     introduced: 1.8.0
     tags: [linux, macos, windows, data-stores]
 
