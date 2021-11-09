@@ -28,55 +28,29 @@ telegraf [flags]
 
 ## Flags
 
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| Flag                   | Description                                                                                                                    |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--aggregator-filter <filter>`  | Filter the aggregators to enable. Separator is `:`.                                                                            |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--config <file>`          | Specify the configuration file to load.                                                                                        |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--config-directory <directory>`   | Specify a directory containing additional *.conf files                                                                         |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--watch-config`       | Telegraf will restart on local config changes.                                                                                 |
-|                        |  Monitor changes using either fs notifications or polling. Valid values are `inotify` or `poll`.                               |
-|                        |  Monitoring is off by default.                                                                                                 |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--plugin-directory <directory>`   | Specify the directory containing *.so files to search recursively for plugins. Any plugin found will be loaded, tagged, and identified. |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--debug`              | Enable debug logging.                                                                                                          |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--input-filter <filter>`      | Filter the inputs to enable. Separator is `:`.                                                                                 |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--input-list`         | Print available input plugins.                                                                                                 |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--output-filter `     | Filter the outputs to enable. Separator is `:`.                                                                                |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--output-list`        | Print available output plugins.                                                                                                |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--pidfile <file>`           | Specify the file to write PID to.                                                                                          |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--pprof-addr <address>`         | Specify pprof address to listen on. This flag  will not activate pprof if empty.                                               |
-|                        |                                                                                                                                |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--processor-filter <filter>`  | Filter the processors to enable. Separator is `:`.                                                                             |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--quiet`              | Run in quiet mode.                                                                                                             |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--section-filter <filter>`     | Filter config sections to output. Separator is `:`.                                                                            |
-|                        |  Valid values are `agent`, `global_tags`, `outputs`, `processors`, `aggregators` and `inputs`.                                 |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--sample-config`      | Print out full sample configuration.                                                                                           |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--once`               | Enable once mode: gather metrics once, write them, and exit.                                                                   |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--test`               | Enable test mode: gather metrics once and print them.                                                                          |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--test-wait`          | Wait up to the specified number of seconds for service inputs to complete in test or once mode.                                |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--usage <plugin>`              | Print usage for a plugin. For example, `telegraf --usage mysql`.                                                               |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
-| `--version`            | Display the version and exit.                                                                                                  |
-+------------------------+--------------------------------------------------------------------------------------------------------------------------------+
+| Flag                             | Description                                                                                                                       |
+| :------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| `--aggregator-filter <filter>`   | Filter aggregators to enable. Separator is `:`.                                                                                   |
+| `--config <file>`                | Configuration file to load.                                                                                                       |
+| `--config-directory <directory>` | Directory containing additional `*.conf` files                                                                                    |
+| `--watch-config`                 | Restart Telegraf on local config changes. Use either fs notifications (`inotify`) or polling (`poll`). Disabled by default        |
+| `--plugin-directory <directory>` | Directory containing `*.so` files to search recursively for plugins. Found plugins are loaded, tagged, and identified.            |
+| `--debug`                        | Enable debug logging.                                                                                                             |
+| `--input-filter <filter>`        | Filter inputs to enable. Separator is `:`.                                                                                        |
+| `--input-list`                   | Print available input plugins.                                                                                                    |
+| `--output-filter`                | Filter outputs to enable. Separator is `:`.                                                                                       |
+| `--output-list`                  | Print available output plugins.                                                                                                   |
+| `--pidfile <file>`               | File to write PID to.                                                                                                             |
+| `--pprof-addr <address>`         | pprof address to listen on. Disabled by default.                                                                                  |
+| `--processor-filter <filter>`    | Filter processors to enable. Separator is `:`.                                                                                    |
+| `--quiet`                        | Run in quiet mode.                                                                                                                |
+| `--section-filter <filter>`      | Filter config sections to output (`agent`, `global_tags`, `outputs`, `processors`, `aggregators` and `inputs`). Separator is `:`. |
+| `--sample-config`                | Print full sample configuration.                                                                                                  |
+| `--once`                         | Gather metrics once, write them, and exit.                                                                                        |
+| `--test`                         | Gather metrics once and print them.                                                                                               |
+| `--test-wait`                    | Number of seconds to wait for service inputs to complete in test or once mode.                                                    |
+| `--usage <plugin>`               | Print plugin usage (example: `telegraf --usage mysql`).                                                                           |
+| `--version`                      | Print Telegraf version                                                                                                            |
 
 ## Examples
 
