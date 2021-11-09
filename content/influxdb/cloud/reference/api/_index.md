@@ -20,7 +20,7 @@ Include your API token as an `Authorization` header in each request.
 
 ```sh
 curl --request POST https://cloud2.influxdata.com/api/v2/write \
-  --header "Authorization: Token YOURAUTHTOKEN" \
+  --header "Authorization: Token YOUR_API_TOKEN" \
   --data-urlencode "org=myorg" \
   --data-urlencode "bucket=example-bucket"
 ```

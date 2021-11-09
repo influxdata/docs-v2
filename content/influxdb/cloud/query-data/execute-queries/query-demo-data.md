@@ -6,10 +6,10 @@ menu:
   influxdb_cloud:
     name: Query with demo data
     parent: Execute queries
-weight: 10
+weight: 110
 aliases:
   - /influxdb/cloud/write-data/#demo-data-for-influxdb-cloud
-  - influxdb/cloud/query-data/query-demo-data/
+  - /influxdb/cloud/query-data/query-demo-data/
 ---
 
 Use **InfluxDB Cloud** demo data buckets for quick and easy access to different
@@ -64,5 +64,3 @@ After adding a demo data bucket, view the pre-built dashboard specific to the de
 #### Other sample data sets
 See [Sample data](/influxdb/cloud/reference/sample-data) for more sample InfluxDB data sets.
 {{% /note %}}
-
-

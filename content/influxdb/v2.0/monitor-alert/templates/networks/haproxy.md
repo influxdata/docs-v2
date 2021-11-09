@@ -44,5 +44,5 @@ The HAProxy for InfluxDB v2 template includes the following:
 
 1. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 2. Open the **HAProxy** dashboard to start monitoring.

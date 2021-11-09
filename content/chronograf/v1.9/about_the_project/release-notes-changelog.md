@@ -8,6 +8,47 @@ menu:
     parent: About the project
 ---
 
+## v1.9.1 [2021-10-08]
+
+### Features
+- Distinguish tasks created from templates by appending "created from template" on the Manage Tasks page.
+- Upgrade Golang to 1.17.1.
+
+### Bug Fixes
+#### Flux fixes
+- Update time range of Flux queries when zooming in on dashboard.
+- Repair calculation of Flux query range duration.
+
+#### Kapacitor integration
+
+- When using a `name` task variable, the TICKscript name that appears in the Alert portion of Chronograf now reflects that variable.
+  Previously, name variables were ignored and this led to confusion.
+- TICKscripts created from templates are now visible in a read-only mode from within Chronograf.
+  In addition, TICKscripts created from templates will _not_ appear in the Alert Rule section of the UI.
+  {{% note %}}
+This requires Kapacitor 1.6.2, which now provides information about the template used to create the underlying TICKscript.
+  {{% /note %}}
+- Pagination of more than 500 Flux tasks was broken. This has now been addressed.
+
+#### Browser support
+-  Safari only: Fix issue displaying Single Stat cells in dashboard.
+- Avoid extraneous browser history change.
+- Resolve issues that occurred attempting to open multiple organizations across tabs in one browser. Now, the session enforces one organization across browser tabs.
+- Support Firefox private mode.
+
+#### Visualization fixes
+- Repair time rendering in horizontal table.
+- Skip missing values in line chart instead of returning zeros.
+- Fix calculations to use the appropriate `v.windowPeriod` value.
+  Previously, `v.windowPeriod` was stuck at `3ms`.
+
+#### Package fixes
+- Rename ARM RPMs with yum-compatible names.
+
+#### Security
+- Upgrade `github.com/microcosm-cc/bluemonday` to resolve CVE-2021-29272.
+- Upgrade `github.com/golang-jwt/jwt` to resolve CVE-2020-26160.
+
 ## v1.9.0 [2021-06-25]
 
 {{% warn %}}

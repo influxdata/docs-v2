@@ -16,7 +16,7 @@ to view organizations.
 
 1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "account" >}}
+    {{< nav-icon "account" "v2" >}}
 
 2. Select **Switch Organizations**. The list of organizations appears.
 

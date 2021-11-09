@@ -1,0 +1,8 @@
+apiDefintions:
+  main: ref.yaml
+lint:
+  plugins:
+    - './openapi/plugins/docs-plugin.js'
+  extends:
+    - recommended
+    - docs/all

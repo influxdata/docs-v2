@@ -8,6 +8,7 @@ menu:
     parent: influx v1 auth
 weight: 101
 influxdb/cloud/tags: [authorization]
+updated_in: CLI v2.0.3
 ---
 
 {{% cloud %}}
