@@ -10,6 +10,8 @@ menu:
 
 ## v2.2.1 [2021-11-09]
 
+This release includes two new bug fixes.
+
 ## Bug fixes
 
 - Improve error messages for unknown subcommands (`Error: command “…” not recognized.`) by describing how to 
