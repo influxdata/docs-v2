@@ -68,7 +68,9 @@ telegraf [flags]
 
 ### Run telegraf with all plugins defined in config file:**
 
-`telegraf --config telegraf.conf`
+```sh
+telegraf --config telegraf.conf
+```
 
 ### Run Telegraf, enabling the CPU and memory inputs and InfluxDB output plugins:**
 
