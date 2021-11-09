@@ -50,7 +50,7 @@ The sample configuration below uses the [InfluxDB v2 output plugin](https://gith
   token = "$INFLUX_TOKEN"
 
   ## Organization is the name of the organization you want to write to. It must already exist.
-  organization = "swang@influxdata.com"
+  organization = "example@domain.com"
 
   ## Destination bucket to write into.
   bucket = "telegraf"
