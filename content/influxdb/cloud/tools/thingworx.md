@@ -14,7 +14,7 @@ influxdb/cloud/tags: [thingworx, ptc, iiot, persistence provider]
 InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. Therefore, PTC recommends using ThingWorx on [PTC Cloud](https://www.ptc.com/en/customer-success/cloud). Alternatively, use this guide to configure self-managed ThingWorx to use InfluxDB Cloud as a persistence provider.
 {{% /note %}}
 
-**To use InfluxDB Cloud as persistence provider in ThingWorx**
+**To use InfluxDB Cloud as a persistence provider in ThingWorx**
 
 1. Set up an [InfluxDB Cloud account compatible with ThingWorx](#set-up-an-influxdb-cloud-account-compatible-with-thingworx)
 2. [Set up PTC ThingWorx](#set-up-ptc-thingworx)
