@@ -11,7 +11,7 @@ Write to both InfluxDB OSS and InfluxDB Cloud with Telegraf.
 
 You might want to set up dual write if you want a backup of your data in two places, or if you're migrating from OSS to Cloud.
 
-The sample configuration below uses the [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the cloud instance.
+The sample configuration below uses the [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the cloud instance. Without any metric filtering or setting changes to your output plugins, the configuration below writes your data identically to your OSS and Cloud instances.
 
 ## Sample configuration
 
@@ -20,7 +20,6 @@ The sample configuration below uses the [InfluxDB v2 output plugin](https://gith
 [[inputs.mem]]
 
 ## Any other inputs, processors, aggregators that you want to include into your config.
-## Without any namepass, tagpass filters, or settings changes, your data should get identically written to the two outputs below.
 
 # Send data to InfluxDB OSS v2
 [[outputs.influxdb_v2]]
@@ -31,8 +30,8 @@ The sample configuration below uses the [InfluxDB v2 output plugin](https://gith
   ## urls exp: http://127.0.0.1:9999
   urls = ["http://localhost:8086"]
 
-  ## Token for authentication.
-  token = "$INFLUX_TOKEN"
+  ## OSS token for authentication.
+  token = "$INFLUX_TOKEN_OSS"
 
   ## Organization is the name of the organization you want to write to. It must already exist.
   organization = "influxdata"
@@ -46,8 +45,8 @@ The sample configuration below uses the [InfluxDB v2 output plugin](https://gith
 
   urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
 
-  ## Token for authentication.
-  token = "$INFLUX_TOKEN"
+  ## Cloud token for authentication.
+  token = "$INFLUX_TOKEN_CLOUD"
 
   ## Organization is the name of the organization you want to write to. It must already exist.
   organization = "example@domain.com"
