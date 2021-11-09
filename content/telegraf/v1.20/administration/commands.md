@@ -72,7 +72,9 @@ telegraf [flags]
 
 ### Run Telegraf, enabling the CPU and memory inputs and InfluxDB output plugins:**
 
-`telegraf --config telegraf.conf --input-filter cpu:mem --output-filter influxdb`
+```sh
+telegraf --config telegraf.conf --input-filter cpu:mem --output-filter influxdb
+```
 
 ### Run Telegraf with pprof
 
