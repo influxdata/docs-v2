@@ -11,7 +11,7 @@ weight: 101
 ## v2.1.1 [2021-11-08]
 
 {{% note %}}
-To address underlying installation package issues, we bumped up the 2.1 release version to 2.1.1.
+To address underlying installation package issues, we bumped the 2.1 release version to 2.1.1.
 {{% /note %}}
 
 This release includes several new [features](#features) and [bug fixes](#bug-fixes).
