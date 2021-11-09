@@ -438,6 +438,11 @@ See the Data Exploration page for documentation on the
 [`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
 and on [Regular expressions in queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
 
+The following queries with wildcards characters (`*`) are also allowed:
+
+- `SHOW MEASUREMENTS ON *.*` to show all databases and all RPs
+- `SHOW MEASUREMENTS ON <db>.*` to show a specific database and all its RPs
+
 ### Examples
 
 #### Run a `SHOW MEASUREMENTS` query with the `ON` clause

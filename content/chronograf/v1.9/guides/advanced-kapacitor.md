@@ -33,7 +33,7 @@ of the default retention policy.
 Use the Chronograf **Admin page** to modify the retention policy in the `chronograf` database.
 In the Databases tab:
 
-1.  Click **{{< icon "crown" >}} InfluxDB Admin** in the left navigation bar.
+1.  Click **{{< icon "crown" "v2" >}} InfluxDB Admin** in the left navigation bar.
 2.  Hover over the retention policy list of the `chronograf` database and click **Edit**
     next to the retention policy to update.
 3.  Update the **Duration** of the retention policy.
@@ -55,7 +55,7 @@ Chronograf lets you manage Kapacitor TICKscript tasks created in Kapacitor or in
 Chronograf when [creating a Chronograf alert rule](/chronograf/v1.9/guides/create-alert-rules/).
 
 To manage Kapacitor TICKscript tasks in Chronograf, click
-**{{< icon "alert">}} Alerts** in the left navigation bar.
+**{{< icon "alert" "v2">}} Alerts** in the left navigation bar.
 On this page, you can:
 
 - View Kapacitor TICKscript tasks.
@@ -70,7 +70,7 @@ On this page, you can:
 Chronograf lets you view and manage [Kapacitor Flux tasks](/{{< latest "kapacitor" >}}/working/flux/).
 
 To manage Kapacitor Flux tasks in Chronograf, click
-**{{< icon "alert">}} Alerts** in the left navigation bar.
+**{{< icon "alert" "v2">}} Alerts** in the left navigation bar.
 On this page, you can:
 
 - View Kapacitor Flux tasks.

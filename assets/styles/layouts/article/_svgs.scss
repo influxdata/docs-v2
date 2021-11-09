@@ -1,23 +1,5 @@
 svg {
 
-  &#join-vs-union {
-    max-width: 525px;
-    width: 100%;
-    margin-bottom: 2rem;
-
-    .st0{fill: $svg-table-code-bg;}
-  	.st1{fill: $svg-table-header;}
-  	.st2{fill: $svg-table-row-alt1;}
-  	.st3{fill:none;stroke: $svg-table-stroke;stroke-width:2;stroke-miterlimit:10;}
-  	.st4{fill:none;stroke: $svg-table-stroke;stroke-width:4;stroke-miterlimit:10;}
-  	.st5{fill: $svg-table-row-alt2;}
-  	.st6{fill: $svg-table-code;}
-  	.st7{font-family:'Roboto Mono';}
-  	.st8{font-size:14.2px;}
-  	.st9{fill: $svg-table-code-operator;}
-  	.st10{fill: $svg-table-code-string;}
-  }
-
   &[id^='geo-s2-cells-'] {
     max-width: 250px;
     .geo-cell{fill:rgba($svg-geo-s2-cell, 0.25);stroke:$svg-geo-s2-cell;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;}

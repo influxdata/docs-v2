@@ -1,0 +1,12 @@
+{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
+{{- $currentVersion := index $productPathData 1 -}}
+{{- $influxdbVersions := .Site.Data.products.influxdb.versions -}}
+<ul>
+  {{- range $influxdbVersions -}}
+  {{- if in . "v2" -}}
+  {{- if lt (float (replaceRE "v" "" .)) (float (replaceRE "v" "" $currentVersion)) -}}
+  <li><a href="/influxdb/{{ . }}/install/">Install InfluxDB {{ replaceRE "v" "" . }}</a></li>
+  {{- end -}}
+  {{- end -}}
+  {{- end -}}
+</ul>

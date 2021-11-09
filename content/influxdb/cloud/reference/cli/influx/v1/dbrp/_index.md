@@ -8,6 +8,8 @@ menu:
     parent: influx v1
 weight: 101
 influxdb/cloud/tags: [DBRP]
+cascade:
+  metadata: [influx CLI 2.0.2+]
 ---
 
 {{< duplicate-oss >}}
