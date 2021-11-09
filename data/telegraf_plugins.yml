@@ -1655,6 +1655,13 @@ input:
     introduced: 1.3.0
     tags: [linux, macos, windows, networking]
 
+  - name: SQL
+    id: sql
+    description: |
+      The SQL plugin reads and ingests SQL data from a variety of SQL databases into InfluxDB.
+    introduced: 1.20.0
+    tags: [linux, macos, windows, sql]
+
   - name: Stackdriver
     id: stackdriver
     description: |
