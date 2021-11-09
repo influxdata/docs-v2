@@ -76,4 +76,6 @@ telegraf [flags]
 
 ### Run Telegraf with pprof
 
-`telegraf --config telegraf.conf --pprof-addr localhost:6060`
+```sh
+telegraf --config telegraf.conf --pprof-addr localhost:6060
+```
