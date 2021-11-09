@@ -64,7 +64,9 @@ telegraf [flags]
 
 ### Run a single Telegraf collection, outputting metrics to stdout
 
-`telegraf --config telegraf.conf --test`
+```sh
+telegraf --config telegraf.conf --test
+```
 
 ### Run telegraf with all plugins defined in config file:**
 
