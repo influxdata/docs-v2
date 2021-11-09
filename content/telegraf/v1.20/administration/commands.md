@@ -56,7 +56,9 @@ telegraf [flags]
 
 ### Generate a telegraf config file
 
-`telegraf config > telegraf.conf`
+```sh
+telegraf config > telegraf.conf
+```
 
 ### Generate config with only CPU input and InfluxDB output plugins defined
 
