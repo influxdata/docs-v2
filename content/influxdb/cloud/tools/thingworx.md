@@ -22,41 +22,41 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
 
 ## Set up an InfluxDB Cloud account compatible with ThingWorx
 
-1. [Sign up for a Cloud account](https://cloud2.influxdata.com/signup), and do the following when signing up:
+1. [Sign up for a Cloud account](/influxdb/cloud/sign-up/), and do the following when signing up:
    - Select an AWS or Google region to store your data. To deploy on Azure region, see [use PTC Cloud](https://www.ptc.com/en/customer-success/cloud).
    - Select a Usage-based plan by entering credit card information.
-  For more information, see [how to sign up for InfluxDB Cloud](/influxdb/cloud/sign-up/).
 2. [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/) with an infinite retention period (select **Never** for when to **Delete Data**), and then copy the new bucket ID and save for step 4.
 {{% note %}}
 **Tip:** We recommend naming your bucket “thingworx”. In ThingWorx, this bucket name becomes the database name selected for the InfluxDB persistence provider configuration.
 {{% /note %}}
-3. [Create an All-Access token](/influxdb/v2.0/security/tokens/create-token/) in InfluxDB Cloud, and save the token string for step 4. To access this string in the UI, double-clicking the new token name, and copy the string at the top of the dialog.
-4. In terminal, create a DBRP mapping for your bucket by running the following command, replacing all parameters within the brackets (`${}`) below:
+3. [Create an All-Access token](/influxdb/cloud/security/tokens/create-token/) in InfluxDB Cloud, and save the token string for step 4. To access this string in the UI, double-clicking the new token name, and copy the string at the top of the dialog.
+4. Create a DBRP mapping for your bucket by sending an HTTP `POST` request to the `/api/v2/dbrps/` InfluxDB API endpoint.  running the following command:
 
     ```sh
     curl --request POST "${influxdb-cloud-url}/api/v2/dbrps" \
     --header 'Content-Type: application/json' \
-    --header "Authorization: Token ${token}" \
+    --header "Authorization: Token ${INFLUX_API_TOKEN}" \
     --data-raw "{
-        \"bucket_id\": \"${bucket_id}\",
-        \"organization_id\": \"${org_id}\",
-        \"database\": \"thingworx",
-        \"retention_policy\": \"autogen\",
+        \"bucketID\": \"${INFLUX_BUCKET_ID}\",
+        \"orgID\": \"${INFLUX_ORG_ID}\",
+        \"database\": \"${INFLUX_BUCKET}\",
+        \"retention_policy\": \"${INFLUX_RETENTION_PERIOD}\",
         \"default\": true
     }"
     ```
 
-   - `bucket_id` created in step 2
-   - `token` created in step 3
-   - `org-id` in your URL (for example, if your URL includes: `.../orgs/039ax0d07d962000`, the org ID is `039ax0d07d962000`)
-   - `database` same as bucket name created in step 2
-   - `retention_policy` is the retention period, typically "autogen"
+    Replace the following:
+    - *`INFLUX_BUCKET_ID`*: your [InfluxDB bucket](/influxdb/cloud/reference/glossary/#bucket) ID, created in step 2
+    - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token), created in step 3
+    - *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+    - *`INFLUX_BUCKET`*: your [InfluxDB bucket](/influxdb/cloud/reference/glossary/#bucket) name (`thingworx`), created in step 2
+    - *`INFLUX_RETENTION_PERIOD`*: your [InfluxDB retention period](/influxdb/cloud/reference/glossary/#retention-period), typically `autogen`
 
-5. (Optional) We recommend [creating a new Read/Write token](/influxdb/v2.0/security/tokens/create-token/) with read/write access to the bucket that you set up in step 2. A read/write token is useful for non-admin users to access configuration settings in ThingWorx. Copy and save the new token string to [set up PTC ThingWorx](#set-up-ptc-thingworx). (To do this, double-click the token in the UI, and copy the string at the top of the dialog.)
+5. (Optional) We recommend [creating a new Read/Write token](/influxdb/cloud/security/tokens/create-token/) with read/write access to the bucket that you set up in step 2. A read/write token is useful for non-admin users to access configuration settings in ThingWorx. Copy and save the new token string to [set up PTC ThingWorx](#set-up-ptc-thingworx). (To do this, double-click the token in the UI, and copy the string at the top of the dialog.)
 
 ## Set up PTC ThingWorx
 
-1. If you haven't already, [start at step 4 in Using InfluxDB as the Persistence Provider](https://support.ptc.com/help/thingworx_hc/thingworx_8_hc/en/index.html#page/ThingWorx%2FHelp%2FComposer%2FDataStorage%2FPersistenceProviders%2Fusing_influxdb_as_the_persistence_provider.html). (Steps 1-3 are covered being InfluxDB Cloud is already configured.)
+1. If you haven't already, [start at step 4 in Using InfluxDB as the Persistence Provider](https://support.ptc.com/help/thingworx_hc/thingworx_8_hc/en/index.html#page/ThingWorx%2FHelp%2FComposer%2FDataStorage%2FPersistenceProviders%2Fusing_influxdb_as_the_persistence_provider.html). (Steps 1-3 are covered in [Set up an InfluxDB Cloud account compatible with ThingWorx](#set-up-an-influxdb-cloud-account-compatible-with-thingworx).)
 2. For the persistence provider configuration settings, enter the following values:
 
     - **Connection URL**: Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions)
