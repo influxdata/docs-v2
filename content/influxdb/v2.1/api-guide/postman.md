@@ -2,7 +2,7 @@
 title: Use Postman with the InfluxDB API
 description: >
   Use [Postman](https://www.postman.com/), a popular tool for exploring APIs,
-  to interact with the [InfluxDB API](/influxdb/v2.1/reference/api).
+  to interact with the [InfluxDB API](/influxdb/v2.1/api-guide/).
 menu:
   influxdb_2_1:
     parent: Tools & integrations
@@ -14,7 +14,7 @@ aliases:
 ---
 
 Use [Postman](https://www.postman.com/), a popular tool for exploring APIs,
-to interact with the [InfluxDB API](/influxdb/v2.1/reference/api).
+to interact with the [InfluxDB API](/influxdb/v2.1/api-guide/).
 
 ## Install Postman
 
@@ -28,21 +28,30 @@ brew cask install postman
 
 ## Send authenticated API requests with Postman
 
-All requests to the InfluxDB API must be authenticated.
-Postman lets you configure the headers and body of HTTP requests.
+All requests to the [InfluxDB v2 API](/influxdb/v2.1/api-guide/) must include an [InfluxDB API token](/influxdb/v2.1/security/tokens/).
 
-Use the **Authorization** tab in Postman to include the credentials required when interacting with the InfluxDB API.
+{{% note %}}
+
+#### Authenticate with a username and password
+
+If you need to send a username and password (`Authorization: Basic`) to the [InfluxDB 1.x compatibility API](/influxdb/v2.1/reference/api/influxdb-1x/), see how to [authenticate with a username and password scheme](/influxdb/v2.1/reference/api/influxdb-1x/#authenticate-with-the-token-scheme).
+
+{{% /note %}}
+
+To configure Postman to send an [InfluxDB API token](/influxdb/v2.1/security/tokens/) with the `Authorization: Token` HTTP header, do the following:
 
 1. If you have not already, [create a token](/influxdb/v2.1/security/tokens/create-token/).
-2. In the **Authorization** tab, select **API Key** in the **Type** dropdown.
+2. In the Postman **Authorization** tab, select **API Key** in the **Type** dropdown.
 3. For **Key**, enter `Authorization`.
-4. For **Value**, enter `Token <token string>`, replacing `<token string>` with the token generated in step 1.
+4. For **Value**, enter `Token INFLUX_API_TOKEN`, replacing *`INFLUX_API_TOKEN`* with the token generated in step 1.
 5. Ensure that the **Add to** option is set to **Header**.
 
 #### Test authentication credentials
-To test the authentication, enter the root endpoint of an InfluxDB OSS instance URL and click **Send**.
 
-###### InfluxDB API endpoint
+To test the authentication, in Postman, enter your InfluxDB API `/api/v2/` root endpoint URL and click **Send**.
+
+###### InfluxDB v2 API root endpoint
+
 ```sh
 http://localhost:8086/api/v2
 ```
