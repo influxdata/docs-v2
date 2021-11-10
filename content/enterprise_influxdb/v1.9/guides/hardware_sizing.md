@@ -69,16 +69,6 @@ Meta nodes do not need very much computing power. Regardless of the cluster load
 * RAM: 512 MB - 1 GB
 * IOPS: 50
 
-### Web node
-
-The InfluxDB Enterprise web server is primarily an HTTP server with similar load requirements. For most applications, the server doesn't need to be very robust. A cluster can function with only one web server, but for redundancy, we recommend connecting multiple web servers to a single back-end Postgres database.
-
-> **Note:** Production clusters should not use the SQLite database (lacks support for redundant web servers and handling high loads).
-
-* vCPU or CPU: 2-4 cores
-* RAM: 2-4 GB
-* IOPS: 100
-
 ### Data nodes
 
 A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
