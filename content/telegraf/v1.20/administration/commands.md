@@ -32,7 +32,7 @@ telegraf [flags]
 | :------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
 | `--aggregator-filter <filter>`   | Filter aggregators to enable. Separator is `:`.                                                                                   |
 | `--config <file>`                | Configuration file to load.                                                                                                       |
-| `--config-directory <directory>` | Directory containing additional `*.conf` files                                                                                    |
+| `--config-directory <directory>` | Directory containing additional `*.conf` files.                                                                                    |
 | `--watch-config`                 | Restart Telegraf on local config changes. Use either fs notifications (`inotify`) or polling (`poll`). Disabled by default        |
 | `--plugin-directory <directory>` | Directory containing `*.so` files to search recursively for plugins. Found plugins are loaded, tagged, and identified.            |
 | `--debug`                        | Enable debug logging.                                                                                                             |
