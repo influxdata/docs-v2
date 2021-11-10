@@ -36,7 +36,7 @@ telegraf [flags]
 | `--watch-config`                 | Restart Telegraf on local config changes. Use either fs notifications (`inotify`) or polling (`poll`). Disabled by default        |
 | `--plugin-directory <directory>` | Directory containing `*.so` files to search recursively for plugins. Found plugins are loaded, tagged, and identified.            |
 | `--debug`                        | Enable debug logging.                                                                                                             |
-| `--input-filter <filter>`        | Filter inputs to enable. Separator is `:`.                                                                                        |
+| `--input-filter <filter>`        | Filter input plugins to enable. Separator is `:`.                                                                                        |
 | `--input-list`                   | Print available input plugins.                                                                                                    |
 | `--output-filter`                | Filter outputs to enable. Separator is `:`.                                                                                       |
 | `--output-list`                  | Print available output plugins.                                                                                                   |
