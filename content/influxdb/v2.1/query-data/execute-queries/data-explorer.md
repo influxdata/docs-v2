@@ -25,7 +25,7 @@ Flux is a functional data scripting language designed for querying,
 analyzing, and acting on time series data.
 See [Get started with Flux](/influxdb/v2.1/query-data/get-started) to learn more about Flux.
 
-1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
+1. In the navigation menu on the left, select **Data Explorer**.
 
     {{< nav-icon "data-explorer" >}}
 

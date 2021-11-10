@@ -1,7 +1,7 @@
 ---
-title: Query demo data 
+title: Query demo data
 description: >
-  Explore InfluxDB Cloud with our demo data buckets. 
+  Explore InfluxDB Cloud with our demo data buckets.
 menu:
   influxdb_cloud:
     name: Query with demo data
@@ -47,7 +47,7 @@ Choose from the following demo data sets:
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
 to query and visualize data in demo data buckets.
 
-In the navigation menu on the left, click **Explore (Data Explorer)**.
+In the navigation menu on the left, select **Data Explorer**.
 
 {{< nav-icon "explore" >}}
 

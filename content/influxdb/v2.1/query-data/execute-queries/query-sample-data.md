@@ -54,7 +54,7 @@ If you also want to explore Cloud, we offer a way to explore data without incurr
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
 to query and visualize data in sample data buckets.
 
-In the navigation menu on the left, click **Explore (Data Explorer)**.
+In the navigation menu on the left, select **Data Explorer**.
 
 {{< nav-icon "explore" >}}
 
