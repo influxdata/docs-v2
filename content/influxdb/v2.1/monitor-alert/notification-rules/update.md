@@ -13,7 +13,6 @@ related:
 
 Update notification rules to update the notification message or change the schedule or conditions.
 
-To manage notifications rules:
 
 1. In the navigation menu on the left, select **Alerts > Alerts**.
 
@@ -26,7 +25,7 @@ To manage notifications rules:
 - [Add a label to notification rules](#add-a-label-to-notification-rules)
 
 ## Update the name or description for notification rules
-On the notification rules page:
+On the Notification Rules page:
 
 1. Hover over the name or description of a rule and click the pencil icon
    (**{{< icon "edit" >}}**) to edit the field.

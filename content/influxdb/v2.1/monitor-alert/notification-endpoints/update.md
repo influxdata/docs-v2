@@ -12,21 +12,21 @@ related:
   - /influxdb/v2.1/monitor-alert/notification-rules/
 ---
 
-To update the notification endpoint details, complete the procedures below as needed.
+Complete the following steps to update notification endpoint details.
 To update the notification endpoint selected for a notification rule, see [update notification rules](/influxdb/v2.1/monitor-alert/notification-rules/update/).
 
-To manage notification endpoints:
+**To update a notification endpoint**
 
 1. In the navigation menu on the left, select **Alerts > Alerts**.
 
     {{< nav-icon "alerts" >}}
 
-2. Select **{{< caps >}}Notification Endpoints{{< /caps >}}** near to top of the page.
+2. Select **{{< caps >}}Notification Endpoints{{< /caps >}}** near to top of the page, and then do the following as needed:
 
-- [Update the name or description for notification endpoint](#update-the-name-or-description-for-notification-endpoint)
-- [Change endpoint details](#change-endpoint-details)
-- [Disable notification endpoint](#disable-notification-endpoint)
-- [Add a label to notification endpoint](#add-a-label-to-notification-endpoint)
+    - [Update the name or description for notification endpoint](#update-the-name-or-description-for-notification-endpoint)
+    - [Change endpoint details](#change-endpoint-details)
+    - [Disable notification endpoint](#disable-notification-endpoint)
+    - [Add a label to notification endpoint](#add-a-label-to-notification-endpoint)
 
 ## Update the name or description for notification endpoint
 1. Hover over the name or description of the endpoint and click the pencil icon
@@ -47,9 +47,9 @@ Click the {{< icon "toggle" >}} toggle to disable the notification endpoint.
 2. To add an existing label, select the label from the list.
 3. To create and add a new label:
 
-  - In the search field, enter the name of the new label. The **Create Label** box opens.
-  - In the **Description** field, enter an optional description for the label.
-  - Select a color for the label.
-  - Click **{{< caps >}}Create Label{{< /caps >}}**.
+    - In the search field, enter the name of the new label. The **Create Label** box opens.
+    - In the **Description** field, enter an optional description for the label.
+    - Select a color for the label.
+    - Click **{{< caps >}}Create Label{{< /caps >}}**.
 
 4. To remove a label, click **{{< icon "x" >}}** on the label.

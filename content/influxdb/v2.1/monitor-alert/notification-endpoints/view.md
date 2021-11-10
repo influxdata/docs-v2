@@ -15,7 +15,6 @@ related:
 
 View notification endpoint details and history in the InfluxDB user interface (UI).
 
-To view and manage notification endpoints:
 
 1. In the navigation menu on the left, select **Alerts**.
 
@@ -23,8 +22,8 @@ To view and manage notification endpoints:
 
 2. Select **{{< caps >}}Notification Endpoints{{< /caps >}}** near to top of the page.
 
-- [View notification endpoint details](#view-notification-endpoint-details)
-- [View history notification endpoint history](#view-notification-endpoint-history), including statues and notifications sent to the endpoint
+    - [View notification endpoint details](#view-notification-endpoint-details)
+    - [View history notification endpoint history](#view-notification-endpoint-history), including statues and notifications sent to the endpoint
 
 ## View notification endpoint details
 On the notification endpoints page:

@@ -51,7 +51,10 @@ in a specified amount of time.
     {{< nav-icon "alerts" >}}
 
 2.  Click **{{< caps >}}{{< icon "plus" >}} Create{{< /caps >}}** and select the [type of check](#check-types) to create.
-3.  Click **Name this check** in the top left corner and provide a unique name for the check.
+3.  Click **Name this check** in the top left corner and provide a unique name for the check, and then do the following:
+    - [Configure the check query](#configure-the-check-query)
+    - [Configure the check](#configure-the-check)
+4. _(Optional)_ In the **Name this check** field at the top, enter a unique name for the check.
 
 #### Configure the check query
 1.  Select the **bucket**, **measurement**, **field** and **tag sets** to query.
