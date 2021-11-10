@@ -30,7 +30,7 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
 **Tip:** We recommend naming your bucket “thingworx”. In ThingWorx, this bucket name becomes the database name selected for the InfluxDB persistence provider configuration.
 {{% /note %}}
 3. [Create an All-Access token](/influxdb/cloud/security/tokens/create-token/) in InfluxDB Cloud, and save the token string for step 4. To access this string in the UI, double-clicking the new token name, and copy the string at the top of the dialog.
-4. Create a DBRP mapping for your bucket by sending an HTTP `POST` request to the `/api/v2/dbrps/` InfluxDB API endpoint.  running the following command:
+4. Create a DBRP mapping for your bucket by sending an HTTP `POST` request to the `/api/v2/dbrps/` InfluxDB API endpoint.
 
     ```sh
     curl --request POST "${influxdb-cloud-url}/api/v2/dbrps" \
