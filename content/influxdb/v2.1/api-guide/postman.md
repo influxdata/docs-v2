@@ -48,7 +48,7 @@ To configure Postman to send an [InfluxDB API token](/influxdb/v2.1/security/tok
 
 #### Test authentication credentials
 
-To test the authentication, in Postman, enter your InfluxDB `/api/v2/` root endpoint and click **Send**.
+To test the authentication, in Postman, enter your InfluxDB API `/api/v2/` root endpoint URL and click **Send**.
 
 ###### InfluxDB v2 API root endpoint
 
