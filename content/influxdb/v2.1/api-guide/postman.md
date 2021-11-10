@@ -28,7 +28,7 @@ brew cask install postman
 
 ## Send authenticated API requests with Postman
 
-All requests to the [InfluxDB v2 API](/{{% latest "influxdb" %}}/cloud/api-guide/) must include an [InfluxDB API token](/{{% latest "influxdb" %}}/security/tokens/).
+All requests to the [InfluxDB v2 API](/influxdb/v2.1/api-guide/) must include an [InfluxDB API token](/influxdb/v2.1/security/tokens/).
 
 {{% note %}}
 
