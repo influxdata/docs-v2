@@ -18,7 +18,7 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
    - Add [sample data](#add-sample-data).
    - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
 2. [Create a notebook](#create-a-notebook):
-    1.  Clicking **Notebooks** in the navigation menu on the left.
+    1.  Click **Notebooks** in the navigation menu on the left.
 
         {{< nav-icon "books" >}}
 
