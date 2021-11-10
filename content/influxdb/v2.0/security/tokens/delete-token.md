@@ -19,7 +19,7 @@ have access to your InfluxDB instance.
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" "v2" >}}
+    {{< nav-icon "load-data" "v2" >}}
 
 2. Hover over the token you want to delete and click **Delete** and **Confirm**.
 
