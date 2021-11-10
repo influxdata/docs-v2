@@ -54,7 +54,7 @@ Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate In
 
 ### Add sample data with community templates
 
-1. In the navigation menu on the left, select **Settings** > **Templates**.
+1. In the navigation menu on the left, click **Settings** > **Templates**.
 
     {{< nav-icon "settings" >}}
 
