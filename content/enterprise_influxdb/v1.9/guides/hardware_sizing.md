@@ -55,20 +55,6 @@ For **simple** or **complex** queries, we recommend testing and adjusting the su
 |                  | May sample a very large time range of months or years                                 |
 |                  | Typically take multiple seconds to execute                                            |
 
-## InfluxDB OSS guidelines
-
-Run InfluxDB on locally attached solid state drives (SSDs). Other storage configurations have lower performance and may not be able to recover from small interruptions in normal processing.
-
-Estimated guidelines include writes per second, queries per second, and number of unique [series](/influxdb/v1.8/concepts/glossary/#series), CPU, RAM, and IOPS (input/output operations per second).
-
-| vCPU or CPU |   RAM   |   IOPS   | Writes per second | Queries* per second | Unique series |
-| ----------: | ------: | -------: | ----------------: | ------------------: | ------------: |
-|   2-4 cores |  2-4 GB |      500 |           < 5,000 |                 < 5 |     < 100,000 |
-|   4-6 cores | 8-32 GB | 500-1000 |         < 250,000 |                < 25 |   < 1,000,000 |
-|    8+ cores |  32+ GB |    1000+ |         > 250,000 |                > 25 |   > 1,000,000 |
-
-* **Queries per second for moderate queries.** Queries vary widely in their impact on the system. For simple or complex queries, we recommend testing and adjusting the suggested requirements as needed. See [query guidelines](#query-guidelines) for details.
-
 ## InfluxDB Enterprise cluster guidelines
 
 ### Meta nodes
