@@ -72,7 +72,7 @@ telegraf --input-filter cpu --output-filter influxdb config
 telegraf --config telegraf.conf --test
 ```
 
-### Run telegraf with all plugins defined in config file:**
+### Run Telegraf with all plugins defined in config file**
 
 ```sh
 telegraf --config telegraf.conf
