@@ -22,9 +22,9 @@ For information about deleting a user from InfluxDB, see [Delete a user](/influx
 
 1. In the navigation menu on the left, select **Org (Organization)** > **Members**.
 
-    {{< nav-icon "org" >}}
+    {{< nav-icon "org" "v2" >}}
 
-2. Hover over the member you would like to delete and click the **{{< icon "delete" >}}** icon.
+2. Hover over the member you would like to delete and click the **{{< icon "delete" "v2" >}}** icon.
 3. Click **Delete**.
 
 ## Remove a member from an organization using the influx CLI

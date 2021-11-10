@@ -53,5 +53,5 @@ The AWS CloudWatch Monitoring template includes the following:
 
 1. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 2. Open your AWS dashboards, and then set the `v.bucket` variable to specify the bucket to query data from (`kubernetes` or `cloudwatch`).

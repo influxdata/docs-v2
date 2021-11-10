@@ -23,9 +23,9 @@ Tokens are visible to the user who created the token. {{% oss-only %}} Users who
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" >}}
+    {{< nav-icon "load-data" "v2" >}}
 
-2. Click **{{< icon "plus" >}} Generate** and select a token type
+2. Click **{{< icon "plus" "v2" >}} Generate** and select a token type
    (**Read/Write Token** or **All-Access Token**).
 3. In the window that appears, enter a description for your token in the **Description** field.
 4. If generating a **read/write token**:
