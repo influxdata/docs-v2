@@ -26,7 +26,7 @@ To send notifications about changes in your data, start by creating a notificati
 5.  In the **Name** and **Description** fields, enter a name and description for the endpoint.
 6.  Enter information to connect to the endpoint:
 
-    - For HTTP, enter the **URL** to send the notification. Select the **auth method** to use: **None** for no authentication. To authenticate with a username and password, select **Basic** and then enter credentials in the **Username** and **Password** fields. To authenticate with an API token, select **Bearer**, and then enter the API token in the **Token** field.
+    - For **HTTP**, enter the **URL** to send the notification. Select the **auth method** to use: **None** for no authentication. To authenticate with a username and password, select **Basic** and then enter credentials in the **Username** and **Password** fields. To authenticate with an API token, select **Bearer**, and then enter the API token in the **Token** field.
 
     - **For Slack**, create an [Incoming WebHook](https://api.slack.com/incoming-webhooks#posting_with_webhooks) in Slack, and then enter your webHook URL in the **Slack Incoming WebHook URL** field.
 
