@@ -38,7 +38,7 @@ telegraf [flags]
 | `--debug`                        | Enable debug logging.                                                                                                             |
 | `--input-filter <filter>`        | Filter input plugins to enable. Separator is `:`.                                                                                        |
 | `--input-list`                   | Print available input plugins.                                                                                                    |
-| `--output-filter`                | Filter outputs to enable. Separator is `:`.                                                                                       |
+| `--output-filter`                | Filter output plugins to enable. Separator is `:`.                                                                                       |
 | `--output-list`                  | Print available output plugins.                                                                                                   |
 | `--pidfile <file>`               | File to write PID to.                                                                                                             |
 | `--pprof-addr <address>`         | pprof address to listen on. Disabled by default.                                                                                  |
