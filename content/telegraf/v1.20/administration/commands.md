@@ -42,7 +42,7 @@ telegraf [flags]
 | `--output-list`                  | Print available output plugins.                                                                                                   |
 | `--pidfile <file>`               | File to write PID to.                                                                                                             |
 | `--pprof-addr <address>`         | pprof address to listen on. Disabled by default.                                                                                  |
-| `--processor-filter <filter>`    | Filter processors to enable. Separator is `:`.                                                                                    |
+| `--processor-filter <filter>`    | Filter processor plugins to enable. Separator is `:`.                                                                                    |
 | `--quiet`                        | Run in quiet mode.                                                                                                                |
 | `--section-filter <filter>`      | Filter config sections to output (`agent`, `global_tags`, `outputs`, `processors`, `aggregators` and `inputs`). Separator is `:`. |
 | `--sample-config`                | Print full sample configuration.                                                                                                  |
