@@ -42,7 +42,7 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 
     {{< nav-icon "settings" >}}
 
-2. Paste the [Sample Data community template URL](https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml) in the **resource manifest file** field and click the **{{< caps >>}}Lookup Template{{< /caps >}}** button.
+2. Paste the [Sample Data community template URL](https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml) in the **resource manifest file** field and click the **{{< caps >}}Lookup Template{{< /caps >}}** button.
 
 #### Sample Data community template URL
 
