@@ -15,11 +15,11 @@ related:
 ## View tasks in the InfluxDB UI
 Click the **Tasks** icon in the left navigation to view the lists of tasks.
 
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 
 ### Filter the list of tasks
 
-1. Click the **Show Inactive** {{< icon "toggle" >}} toggle to include or exclude
+1. Click the **Show Inactive** {{< icon "toggle" "v2" >}} toggle to include or exclude
    inactive tasks in the list.
 2. Enter text in the **Filter tasks** field to search for tasks by name or label.
 3. Click the heading of any column to sort by that field.

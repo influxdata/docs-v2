@@ -16,7 +16,7 @@ function queryWithUsername() {
   const options = {
     host: 'localhost:8086',
     path: '/query?' + querystring.stringify(queryparams),
-    auth: 'exampleuser@influxdata.com:YourAuthToken',
+    auth: 'exampleuser@influxdata.com:INFLUX_API_TOKEN',
     headers: {
       'Content-type': 'application/json'
     },

@@ -33,7 +33,7 @@ Learn how to create a notebook that downsamples data—walk through the followin
    - Select the **mean** function from the aggregate selector in the upper-right.
 3. Add a **Downsample** cell to bring in data from the previous cell and downsample it.
    - Select an aggregate function from the **Apply aggregate** dropdown menu.
-   - Enter a window period. 
+   - Enter a window period.
 4. Add an **Output to Bucket** cell, and then select the destination bucket for your downsampled data.
 5. Add a **Markdown** cell to add a note to your team about what this notebook does. For example, the cell might say, "Downsample to one value per hour so we can do week-over-week performance. Sending data to downsample bucket."
 6. Click **Preview** in the upper left to verify that your notebook runs and preview the output.
