@@ -54,7 +54,7 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
 to query and visualize data in sample data buckets.
 
-In the navigation menu on the left, select **Data Explorer**.
+In the navigation menu on the left, click **Data Explorer**.
 
 {{< nav-icon "explore" >}}
 
