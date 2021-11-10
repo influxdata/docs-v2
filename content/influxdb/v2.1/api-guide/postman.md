@@ -38,7 +38,7 @@ If you need to send a username and password (`Authorization: Basic`) to the [Inf
 
 {{% /note %}}
 
-To configure Postman to send an [InfluxDB API token](/{{% latest "influxdb" %}}/security/tokens/) with the `Authorization: Token` HTTP header, do the following:
+To configure Postman to send an [InfluxDB API token](/influxdb/v2.1/security/tokens/) with the `Authorization: Token` HTTP header, do the following:
 
 1. If you have not already, [create a token](/influxdb/v2.1/security/tokens/create-token/).
 2. In the Postman **Authorization** tab, select **API Key** in the **Type** dropdown.
