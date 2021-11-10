@@ -34,7 +34,7 @@ All requests to the [InfluxDB v2 API](/influxdb/v2.1/api-guide/) must include an
 
 #### Authenticate with a username and password
 
-If you need to send a username and password (`Authorization: Basic`) to the [InfluxDB 1.x compatibility API](/{{% latest "influxdb" %}}/reference/api/influxdb-1x/), see how to [authenticate with a username and password scheme](/{{% latest "influxdb" %}}/reference/api/influxdb-1x/#authenticate-with-the-token-scheme).
+If you need to send a username and password (`Authorization: Basic`) to the [InfluxDB 1.x compatibility API](/influxdb/v2.1/reference/api/influxdb-1x/), see how to [authenticate with a username and password scheme](/influxdb/v2.1/reference/api/influxdb-1x/#authenticate-with-the-token-scheme).
 
 {{% /note %}}
 
