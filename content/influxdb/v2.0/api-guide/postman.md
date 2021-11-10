@@ -2,7 +2,7 @@
 title: Use Postman with the InfluxDB API
 description: >
   Use [Postman](https://www.postman.com/), a popular tool for exploring APIs,
-  to interact with the [InfluxDB API](/influxdb/v2.0/api-guide).
+  to interact with the [InfluxDB API](/influxdb/v2.0/api-guide/).
 menu:
   influxdb_2_0:
     parent: Tools & integrations
