@@ -50,7 +50,7 @@ telegraf [flags]
 | `--test`                         | Gather metrics once and print them.                                                                                               |
 | `--test-wait`                    | Number of seconds to wait for service inputs to complete in test or once mode.                                                    |
 | `--usage <plugin>`               | Print plugin usage (example: `telegraf --usage mysql`).                                                                           |
-| `--version`                      | Print Telegraf version                                                                                                            |
+| `--version`                      | Print Telegraf version.                                                                                                            |
 
 ## Examples
 
