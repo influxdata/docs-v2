@@ -54,7 +54,7 @@ telegraf [flags]
 
 ## Examples
 
-### Generate a telegraf config file
+### Generate a Telegraf config file
 
 ```sh
 telegraf config > telegraf.conf
