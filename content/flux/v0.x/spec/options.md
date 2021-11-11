@@ -50,6 +50,8 @@ The location maps the UTC offset in use at that location for a given time.
 The default value is [`timezone.utc`](/flux/v0.x/stdlib/timezone/#constants).
 
 ```js
+import "timezone"
+
 // Set timezone to be 5 hours west of UTC.
 option location = timezone.fixed(offset: -5h)
 
