@@ -13,7 +13,7 @@ related:
 
 If you no longer need to receive an alert, delete the associated notification rule.
 
-## Delete a notification rule in the UI
+## Delete a notification rule
 
 1. In the navigation menu on the left, select **Alerts > Alerts**.
 

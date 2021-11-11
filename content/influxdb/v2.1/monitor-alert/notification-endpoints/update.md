@@ -21,7 +21,7 @@ To update the notification endpoint selected for a notification rule, see [updat
 
     {{< nav-icon "alerts" >}}
 
-2. Select **{{< caps >}}Notification Endpoints{{< /caps >}}** near to top of the page, and then do the following as needed:
+2. Select **{{< caps >}}Notification Endpoints{{< /caps >}}** and then do the following as needed:
 
     - [Update the name or description for notification endpoint](#update-the-name-or-description-for-notification-endpoint)
     - [Change endpoint details](#change-endpoint-details)

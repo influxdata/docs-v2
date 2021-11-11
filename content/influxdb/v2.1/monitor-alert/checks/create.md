@@ -45,7 +45,7 @@ inside, or outside of defined thresholds.
 A deadman check assigns a status to data when a series or group doesn't report
 in a specified amount of time.
 
-## Create a check in the InfluxDB UI
+## Create a check
 1. In the navigation menu on the left, select **Alerts > Alerts**.
 
     {{< nav-icon "alerts" >}}

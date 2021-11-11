@@ -25,7 +25,7 @@ _For details, see [Manage checks](/influxdb/v2.1/monitor-alert/checks/) and
     - [Create a new notification rule in the UI](#create-a-new-notification-rule-in-the-ui)
     - [Clone an existing notification rule in the UI](#clone-an-existing-notification-rule-in-the-ui)
 
-## Create a new notification rule in the UI
+## Create a new notification rule
 
 1. On the notification rules page, click **{{< caps >}}{{< icon "plus" >}} Create{{< /caps >}}**.
 2. Complete the **About** section:
@@ -38,7 +38,7 @@ _For details, see [Manage checks](/influxdb/v2.1/monitor-alert/checks/) and
 4. In the **Message** section, select an endpoint to notify.
 5. Click **{{< caps >}}Create Notification Rule{{< /caps >}}**.
 
-## Clone an existing notification rule in the UI
+## Clone an existing notification rule
 
 On the notification rules page, click the **{{< icon "gear" >}}** icon and select **Clone**.
 The cloned rule appears.
