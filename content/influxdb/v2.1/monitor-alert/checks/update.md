@@ -21,15 +21,15 @@ Common updates include:
 - [Add or update a check description](#add-or-update-a-check-description)
 - [Add a label to a check](#add-a-label-to-a-check)
 
-To update checks, select **Alerts** in the navigation menu on the left.
+To update checks, select **Alerts > Alerts** in the navigation menu on the left.
 
 {{< nav-icon "alerts" >}}
 
 
 ## Update check queries and logic
 1. Click the name of the check you want to update. The check builder appears.
-2. To edit the check query, click **1. Define Query** at the top of the check builder window.
-3. To edit the check logic, click **2. Configure Check** at the top of the check builder window.
+2. To edit the check query, click **{{< caps >}}1. Define Query{{< /caps >}}** at the top of the check builder window.
+3. To edit the check logic, click **{{< caps >}}2. Configure Check{{< /caps >}}** at the top of the check builder window.
 
 _For details about using the check builder, see [Create checks](/influxdb/v2.1/monitor-alert/checks/create/)._
 
@@ -49,12 +49,12 @@ _You can also rename a check in the [check builder](#update-check-queries-and-lo
 2.  Enter a new description and click out of the name field or press enter to save.
 
 ## Add a label to a check
-1.  Click **Add a label** next to the check you want to add a label to.
-    The **Add Labels** box opens.
+1.  Click **{{< icon "add-label" >}} Add a label** next to the check you want to add a label to.
+    The **Add Labels** box appears.
 2.  To add an existing label, select the label from the list.
 3.  To create and add a new label:
     - In the search field, enter the name of the new label. The **Create Label** box opens.
     - In the **Description** field, enter an optional description for the label.
     - Select a color for the label.
-    - Click **Create Label**.
-4.  To remove a label, hover over the label under to a rule and click **{{< icon "x" >}}**.
+    - Click **{{< caps >}}Create Label{{< /caps >}}**.
+4.  To remove a label, click **{{< icon "x" >}}** on the label.
