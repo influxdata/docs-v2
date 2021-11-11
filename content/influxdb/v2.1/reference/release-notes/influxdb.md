@@ -8,9 +8,13 @@ menu:
 weight: 101
 ---
 
-## v2.1.0 [2021-11-03]
+## v2.1.1 [2021-11-08]
 
-- This release includes several new [features](#features) and [bug fixes](#bug-fixes).
+{{% note %}}
+To address underlying installation package issues, we bumped the 2.1 release version to 2.1.1.
+{{% /note %}}
+
+This release includes several new [features](#features) and [bug fixes](#bug-fixes).
 
 ### `influx` CLI moved to separate repository
 
