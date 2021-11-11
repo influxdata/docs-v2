@@ -310,7 +310,7 @@ available flags and options._
     wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.rpm
     sudo yum localinstall influxdb2-{{< latest-patch >}}-xxx.rpm
     ```
-    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-{{< latest-patch >}}-amd64.rpm`)._
+    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-{{< latest-patch >}}.x86_64.rpm`)._
 
 2.  Start the InfluxDB service:
 
