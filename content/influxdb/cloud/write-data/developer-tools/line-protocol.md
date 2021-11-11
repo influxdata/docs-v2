@@ -120,6 +120,8 @@ influx write \
   --compression gzip
 ```
 
+There is a limit to the size of uncompressed data. As the data is uncompressed, if the uncompressed payload reaches that limit, the lines that have been uncompressed to that point will be written, but subsequent lines will not be. In such cases, the caller will receive a 413 from the server, and should retry with a smaller uncompressed payload. The current uncompressed limit is 250 MB, but this is subject to change.
+
 #### Timestamp precision
 
 When writing data to InfluxDB, we [recommend including a timestamp](/influxdb/cloud/reference/syntax/line-protocol/#timestamp) with each point.
