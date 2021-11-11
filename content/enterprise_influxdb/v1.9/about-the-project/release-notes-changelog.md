@@ -38,10 +38,12 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
 - Prevent dropped writes with overlapping shards in certain edge cases.
 - Prevent lost writes during hinted handoff when purging short queues.
+- Sync series segment to disk after writing
 #### Errors
 - Return an error instead of panic when InfluxDB Enterprise tries to restore with OSS.
 - Handle HTTPS errors during systemd service startup.
 - Return correct number of unexecuted statements when multi-statement query fails.
+- Fix crashes caused by TSM file corruption.
 #### Flux
 - Fix Flux panic that caused node to crash when querying empty pre-created shards.
 - Fix Flux query problems with large datasets when replication factor is less than cluster size.
@@ -71,7 +73,6 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 
 ### Bug fixes
 - Improve heap memory usage when HH queue grows.
-- Avoid rewriting `fields.idx` unnecessarily.
 - Do not close connection twice in `DigestWithOptions`.
 - Do not panic on cleaning up failed iterators.
 - Rename ARM RPMs with `yum`-compatible names.
@@ -79,6 +80,9 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Do not send non-UTF-8 characters to subscriptions.
 - Error instead of panic for statement rewrite failure.
 - Fix `SHOW SHARDS` showing expiration time for shard groups with no expiration.
+- Change default limit for memory usage from 4GB to unlimited.
+- Make `total-max-memory-bytes` and other flux controller configuration work correctly.
+- Use a constant amount of RAM as hinted handoff grows, instead of growing RAM usage.
 
 ## v1.9.2 [2021-06-17]
 
@@ -145,6 +149,7 @@ in that there is no corresponding InfluxDB OSS release.
 - Fix redundant registration for Prometheus collector metrics.
 - Re-add Flux CLI.
 - Use non-nil `context.Context` value in client.
+- Avoid rewriting `fields.idx` unnecessarily.
 
 ### Other changes
 
