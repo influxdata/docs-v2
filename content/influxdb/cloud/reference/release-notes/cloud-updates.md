@@ -30,11 +30,14 @@ Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
 
 ### Cancellation flow
 
+Update the cancellation workflow.
+
 ### VS code editor
 
-Were changes made after support for tasks? 
+Were changes made after we added support for tasks?
 ### Telegraf configuration UI
 
+Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/telegraf-configs/create/#use-the-influxdb-ui).
 
 ## September 2021
 
