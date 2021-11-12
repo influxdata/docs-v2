@@ -111,8 +111,7 @@ your **InfluxDB Cloud** instance.
 
 {{% note %}}
 #### InfluxDB Cloud Free Plan resource limits
-If upgrading to an [InfluxDB Cloud Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan),
-you are only able to create a limited number of resources.
+If upgrading to an InfluxDB Cloud Free Plan, you are only able to create a [limited number of resources](/influxdb/cloud/account-management/limits/#free-plan-limits).
 If your exported template exceeds these limits, the resource migration will fail.
 {{% /note %}}
 

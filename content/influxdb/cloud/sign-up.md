@@ -30,10 +30,10 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 Start using {{< cloud-name >}} at no cost with the [Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan).
 Use it as much and as long as you like within the plan's rate-limits.
-Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
+[Limits](#/influxdb/cloud/account-management/limits/) are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
 
 {{% note %}}
-Users on the Free Plan are limited to one organization. 
+Users on the Free Plan are limited to one organization.
 {{% /note %}}
 
 ## Sign up

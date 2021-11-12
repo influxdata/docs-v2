@@ -12,9 +12,9 @@ aliases:
   - /influxdb/cloud/users/
 ---
 
-{{< cloud-name >}} accounts support multiple users in an organization. 
+{{< cloud-name >}} accounts support multiple users in an organization.
 Collaborate with others using these features.
-By default, each user has full permissions on resources in your organization. 
+By default, each user has full permissions on resources in your organization.
 Every user on the [Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan) is able to work in exactly one organization.
 
 {{< youtube Qg7Zs3uM_wo >}}

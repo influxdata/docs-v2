@@ -24,7 +24,7 @@ types of demo data that let you explore and familiarize yourself with InfluxDB C
 {{% note %}}
 #### Free to use and read-only
 - InfluxDB Cloud demo data buckets are **free to use** and are **_not_ subject to
-  [Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan) rate limits**.
+  [Free Plan rate limits](influxdb/cloud/account-management/limits/#free-plan-rate-limits) rate limits**.
 - Demo data buckets are **read-only**. You cannot write data into demo data buckets.
 {{% /note %}}
 

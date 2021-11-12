@@ -238,8 +238,8 @@ See [Required InfluxDB Cloud credentials](#required-influxdb-cloud-credentials)
 
 {{% note %}}
 #### InfluxDB Cloud write rate limits
-Write requests are subject to rate limits associated with your
-[InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
+Read and write requests are subject to [rate limits](/influxdb/cloud/account-management/limits/#rate-limits) associated with your
+InfluxDB Cloud plan.
 If your exported line protocol size potentially exceeds your rate limits,
 include the `--rate-limit` flag with `influx write` to rate limit written data.
 

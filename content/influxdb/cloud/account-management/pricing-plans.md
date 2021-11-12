@@ -14,7 +14,7 @@ menu:
 products: [cloud]
 ---
 
-InfluxDB Cloud offers two plans, a [Free Plan](#free-plan) and a [Usage-Based Plan](#usage-based-plan).
+InfluxDB Cloud offers a [Free Plan](#free-plan), a [Usage-Based Plan](#usage-based-plan) to pay as you go, and a discounted [Annual Plan](#annual-plan).
 
 <!--To estimate your projected usage costs, use the [InfluxDB Cloud pricing calculator](/influxdb/cloud/account-management/pricing-calculator/). -->
 

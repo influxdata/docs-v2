@@ -27,8 +27,8 @@ Use it as much and as long as you like within the plan’s rate-limits.
 Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
 Monitoring a single InfluxDB OSS instance or even a modest InfluxDB Enterprise
 cluster should easily fit within the free plan limits.
-If you exceed the plan limits because of high resolution data or longer data retention,
-upgrade to the [pay-as-you-go plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
+If you exceed the plan [limits](/influxdb/cloud/account-management/limits/) because of high resolution data or longer data retention,
+upgrade to the [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
 
 Start monitoring your InfluxDB instance by signing up for an [InfluxDB Cloud account](https://cloud2.influxdata.com/signup).
 
