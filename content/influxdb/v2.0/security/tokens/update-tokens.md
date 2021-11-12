@@ -17,7 +17,7 @@ Update an API token's description using the InfluxDB user interface (UI).
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" "v2" >}}
+    {{< nav-icon "load-data" "v2" >}}
 
 2. Click the pencil icon {{< icon "pencil" "v2" >}} next to the token's name in the **Description** column.
 3. Update the token description, then click anywhere else to save.
@@ -26,6 +26,6 @@ Update an API token's description using the InfluxDB user interface (UI).
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" "v2" >}}
+    {{< nav-icon "load-data" "v2" >}}
 
 2. Click the **{{< icon "toggle-green" "v2" >}} Status** toggle.
