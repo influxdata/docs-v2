@@ -14,6 +14,28 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## October 2021
+
+### API invokable scripts
+
+Use [API invokable scripts](/influxdb/cloud/api-guide/api-invocable-scripts/) to assign and execute a script through an API endpoint.
+
+### Clockface v3
+
+Refresh look and feel of InfluxDB Cloud UI. Updated icons, fonts, and layouts to improve visibility, accessibility, and user experience.
+
+### Flux update
+
+Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
+
+### Cancellation flow
+
+### VS code editor
+
+Were changes made after support for tasks? 
+### Telegraf configuration UI
+
+
 ## September 2021
 
 - **Paginated tasks in UI**: Previously, the Tasks page only listed the first 100 tasks. Now, all tasks are accessible and paginated on the Tasks page.
