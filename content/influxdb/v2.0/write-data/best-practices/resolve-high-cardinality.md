@@ -40,17 +40,11 @@ High series cardinality is a primary driver of high memory usage for many databa
 Therefore, to reduce memory overhead, consider storing high-cardinality values in fields rather than in tags.
 
 ## Measure series cardinality
-{{% oss-only %}}
 
-  The [`SHOW SERIES CARDINALITY`](/influxdb/v2.0/query_language/spec/#show-series-cardinality) InfluxQL command returns the number of unique [series keys](/influxdb/v2.0/reference/glossary/#series) from your data.
+Use the following to measure series cardinality of your buckets:
+- [`influxdb.cardinality()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/cardinality): Flux function that returns the number of unique [series keys](/influxdb/v2.0/reference/glossary/#series) in your data.
 
-{{% /oss-only %}}
-
-{{% cloud-only %}}
-
-  The [`influxdb.cardinality()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/cardinality) Flux function returns the number of unique [series keys](/influxdb/v2.0/reference/glossary/#series) from your data.
-
-{{% /cloud-only %}}
+- [`SHOW SERIES CARDINALITY`](/influxdb/v2.0/query_language/spec/#show-series-cardinality): InfluxQL command that returns the number of unique [series keys](/influxdb/v2.0/reference/glossary/#series) in your data.
 
 ## Resolve high cardinality
 

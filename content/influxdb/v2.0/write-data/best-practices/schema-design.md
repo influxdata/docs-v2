@@ -1,7 +1,7 @@
 ---
 title: InfluxDB schema design
 description: >
-  Design your InfluxDB schema to reduce high cardinality and make your data more performant.
+  Design your schema for simpler and more performant queries.
 menu:
   influxdb_2_0:
     name: Schema design
@@ -63,11 +63,13 @@ To learn more about the performance impact of high series cardinality, see how t
 
 {{% /oss-only %}}
 
-The following example applies to measurements and keys. Compare the following valid schemas represented by line protocol.
+#### Compare schemas
 
-**Recommended**: the [_Good Measurements_](#good-measurements-schema) schema stores metadata in separate `crop`, `plot`, and `region` tags. The `temp` field contains variable numeric data.
+Compare the following valid schemas represented by line protocol.
 
-####  {id="good-measurements-schema"}
+**Recommended**: the following schema stores metadata in separate `crop`, `plot`, and `region` tags. The `temp` field contains variable numeric data.
+
+#####  {id="good-measurements-schema"}
 ```
 Good Measurements schema - Data encoded in tags (recommended)
 -------------
@@ -75,9 +77,9 @@ weather_sensor,crop=blueberries,plot=1,region=north temp=50.1 147251520000000000
 weather_sensor,crop=blueberries,plot=2,region=midwest temp=49.8 1472515200000000000
 ```
 
-**Not recommended**: the [_Bad Measurements_](#bad-measurements-schema) schema stores `plot` and `region` data (`blueberries.plot-1.north`) in the measurement, similar to Graphite metrics.
+**Not recommended**: the following schema stores multiple attributes (`crop`, `plot` and `region`) concatenated  (`blueberries.plot-1.north`) within the measurement, similar to Graphite metrics.
 
-####  {id="bad-measurements-schema"}
+#####  {id="bad-measurements-schema"}
 ```
 Bad Measurements schema - Data encoded in the measurement (not recommended)
 -------------
@@ -85,11 +87,22 @@ blueberries.plot-1.north temp=50.1 1472515200000000000
 blueberries.plot-2.midwest temp=49.8 1472515200000000000
 ```
 
+**Not recommended**: the following schema stores multiple attributes (`crop`, `plot` and `region`) concatenated  (`blueberries.plot-1.north`) within the field key.
+
+#####  {id="bad-keys-schema"}
+```
+Bad Keys schema - Data encoded in field keys (not recommended)
+-------------
+weather_sensor blueberries.plot-1.north.temp=50.1 1472515200000000000
+weather_sensor blueberries.plot-2.midwest.temp=49.8 1472515200000000000
+```
+
 #### Compare queries
 
-For the [_Good Measurements_](#good-measurements-schema) and [_Bad Measurements_](#bad-measurements-schema) schemas, use Flux to calculate the average `temp` for blueberries in the `north` region:
+Compare the following queries of the [_Good Measurements_](#good-measurements-schema) and [_Bad Measurements_](#bad-measurements-schema) schemas.
+The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blueberries in the `north` region
 
-**Easy to query**: doesn't require regular expressions to filter the measurement or the tag values in [_Good Measurements_](#good-measurements-schema).
+**Easy to query**: [_Good Measurements_](#good-measurements-schema) data is easily filtered by `region` tag values, as in the following example.
 
 ```js
 // Query *Good Measurements*, data stored in separate tags (recommended)
@@ -99,7 +112,7 @@ from(bucket:"example-bucket")
   |> mean()
 ```
 
-**Difficult to query**: requires regular expressions to extract `plot` and `region` from the measurement in [_Bad Measurements_](#bad-measurements-schema).
+**Difficult to query**: [_Bad Measurements_](#bad-measurements-schema) requires regular expressions to extract `plot` and `region` from the measurement, as in the following example.
 
 ```js
 // Query *Bad Measurements*, data encoded in the measurement (not recommended)
@@ -113,7 +126,7 @@ Complex measurements make some queries impossible. For example, calculating the 
 
 #### Keep keys simple
 
-To make your keys easier to query, follow these additional guidelines:
+In addition to keeping your keys free of data, follow these additional guidelines to make them easier to query:
 - [Avoid keywords and special characters](#avoid-keywords-and-special-characters-in-keys)
 - [Avoid duplicate names for tags and fields](#avoid-duplicate-names-for-tags-and-fields)
 
@@ -122,7 +135,7 @@ To make your keys easier to query, follow these additional guidelines:
 To simplify query writing, don't include reserved keywords or special characters in tag and field keys.
 If you use [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) in keys,
 then you'll have to wrap the keys in double quotes.
-If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in Flux.
+If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux]((/{{< latest "flux" >}}/).
 
 ##### Avoid duplicate names for tags and fields
 
@@ -183,11 +196,13 @@ When each tag represents one attribute (not multiple concatenated attributes) of
 you'll reduce the need for regular expressions in your queries.
 Without regular expressions, your queries will be easier to write and more performant.
 
+#### Compare schemas
+
 Compare the following valid schemas represented by line protocol.
 
-**Recommended**: [_Good Tags_](#good-tags-schema) schema splits location data into `plot` and `region` tags.
+**Recommended**: the following schema splits location data into `plot` and `region` tags.
 
-####  {id="good-tags-schema"}
+#####  {id="good-tags-schema"}
 ```
 Good Tags schema - Data encoded in multiple tags
 -------------
@@ -195,9 +210,9 @@ weather_sensor,crop=blueberries,plot=1,region=north temp=50.1 147251520000000000
 weather_sensor,crop=blueberries,plot=2,region=midwest temp=49.8 1472515200000000000
 ```
 
-**Not recommended**: [_Bad Tags_](#bad-tags-schema) schema stores multiple attributes (`plot` and `region`) concatenated within the `location` tag value (`plot-1.north`).
+**Not recommended**: the following schema stores multiple attributes (`plot` and `region`) concatenated within the `location` tag value (`plot-1.north`).
 
-#### {id="bad-tags-schema"}
+##### {id="bad-tags-schema"}
 ```
 Bad Tags schema - Multiple data encoded in a single tag
 -------------
@@ -205,12 +220,12 @@ weather_sensor,crop=blueberries,location=plot-1.north temp=50.1 1472515200000000
 weather_sensor,crop=blueberries,location=plot-2.midwest temp=49.8 1472515200000000000
 ```
 
-### Compare queries
+#### Compare queries
 
 Compare queries of the [_Good Tags_](#good-tags-schema) and [_Bad Tags_](#bad-tags-schema) schemas.
-The following Flux queries calculate the average `temp` for blueberries in the `north` region.
+The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blueberries in the `north` region.
 
-**Easy to query**: doesn't require regular expressions to filter `region` values in [_Good Tags_](#good-tags-schema).
+**Easy to query**: [_Good Tags_](#good-tags-schema) data is easily filtered by `region` tag values, as in the following example.
 
 ```js
 // Query *Good Tags* schema, data encoded in multiple tags
@@ -220,7 +235,7 @@ from(bucket:"example-bucket")
   |> mean()
 ```
 
-**Difficult to query**: requires regular expressions to parse the complex `location` values of [_Bad Tags_](#bad-tags-schema).
+**Difficult to query**: [_Bad Tags_](#bad-tags-schema) requires regular expressions to parse the complex `location` values, as in the following example.
 
 ```js
 // Query *Bad Tags* schema, multiple data encoded in a single tag
