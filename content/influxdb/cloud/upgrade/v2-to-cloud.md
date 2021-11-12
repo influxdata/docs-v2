@@ -25,7 +25,7 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 #### Consider when upgrading
 - InfluxDB Cloud requires token authentication, and you must create all new API tokens.
 - InfluxDB Cloud does not support:
-  - Multiple [organizations](http://localhost:1313/influxdb/cloud/reference/glossary/#organization) per account.
+  - Multiple [organizations](/influxdb/cloud/reference/glossary/#organization) per account.
     Upgrade a single InfluxDB OSS 2.x organization to an InfluxDB Cloud organization.
     To upgrade multiple organizations, create a separate InfluxDB Cloud account for each organization.
   - [InfluxDB scrapers](/{{< latest "influxdb" >}}/write-data/no-code/scrape-data/).

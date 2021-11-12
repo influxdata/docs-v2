@@ -51,5 +51,5 @@ The Docker Monitoring template includes the following:
 
 1. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 2. Open the **vsphere** dashboard to start monitoring.

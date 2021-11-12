@@ -29,9 +29,9 @@ Send an alert email using a third-party service, such as [SendGrid](https://send
 
 1. In the InfluxDB UI, select **Tasks** in the navigation menu on the left.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
-2. Click **{{< icon "plus" >}} Create Task**, and then select **New Task**.
+2. Click **{{< icon "plus" "v2" >}} Create Task**, and then select **New Task**.
 3. In the **Name** field, enter a descriptive name, for example, **Send alert email**, and then enter how often to run the task in the **Every** field, for example, `10m`. For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.0/process-data/task-options/).
 
 4. In the right panel, enter the following detail in your **task script** (see [examples below](#examples)):

@@ -152,7 +152,7 @@ Detect state changes with the `monitor.stateChanges()` function. To use the `mon
 
 1. In the InfluxDB user interface, click the **Monitoring and Alerting** icon from the sidebar.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. If you haven't already, [create a check](/influxdb/v2.0/monitor-alert/checks/create/) that stores statuses (`CRIT`, `WARN`, `INFO`, `OK` or `ANY`) in the `_level` column. <!-- specify how to do this with monitor.check() function or in UI, with check threshold or deadman?
 3. Import the InfluxDB `monitor` package.

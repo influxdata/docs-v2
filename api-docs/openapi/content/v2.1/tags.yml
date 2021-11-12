@@ -1,0 +1,43 @@
+- name: Authentication
+  description: |
+    Use one of the following schemes to authenticate to the InfluxDB API:
+    - [Token authentication](#section/Authentication/TokenAuthentication)
+    - [Basic authentication](#section/Authentication/BasicAuthentication)
+    - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+    <!-- ReDoc-Inject: <security-definitions> -->
+  x-traitTag: true
+- name: Quick start
+  x-traitTag: true
+  description: |
+    See the [**API Quick Start**](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/) to get up and running authenticating with tokens, writing to buckets, and querying data.
+
+    [**InfluxDB API client libraries**](https://docs.influxdata.com/influxdb/v2.1/api-guide/client-libraries/) are available for popular languages and ready to import into your application.
+- name: Response codes
+  x-traitTag: true
+  description: |
+    The InfluxDB API uses standard HTTP status codes for success and failure responses.
+    The response body may include additional details. For details about a specific operation's response, see **Responses** and **Response Samples** for that operation.
+
+    API operations may return the following HTTP status codes:
+
+    | &nbsp;Code&nbsp; | Status                   | Description      |
+    |:-----------:|:------------------------ |:--------------------- |
+    | `200`       | Success                  |                       |
+    | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
+    | `400`       | Bad request              | `Authorization` header is missing or malformed or the API token does not have permission for the operation. |
+    | `401`       | Unauthorized             | May indicate one of the following: <li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token does not have permission. For more information about token types and permissions, see [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/)</li> |
+    | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
+    | `413`       | Request entity too large | Request payload exceeds the size limit. |
+    | `422`       | Unprocessible entity     | Request data is invalid. `code` and `message` in the response body provide details about the problem. |
+    | `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |
+    | `500`       | Internal server error    |                       |
+    | `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |
+- name: Query
+  description: |
+    Retrieve data, analyze queries, and get query suggestions.
+- name: Write
+  description: |
+    Write time series data to buckets.
+- name: Authorizations
+  description: |
+    Create and manage API tokens. An **authorization** associates a list of permissions to an **organization** and provides a token for API access. To assign a token to a specific user, scope the authorization to the user ID.

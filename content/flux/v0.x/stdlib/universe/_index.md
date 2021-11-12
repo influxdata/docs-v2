@@ -24,7 +24,7 @@ The "built-in" functions in the `universe` package provide a foundation for work
 The `universe` package provides the following options:
 
 ```js
-option now = () => system.time
+option now = () => system.time()
 option location = timezone.utc
 ```
 

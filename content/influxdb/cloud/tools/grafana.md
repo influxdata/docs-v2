@@ -21,7 +21,7 @@ to visualize data from InfluxDB Cloud.
 The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
 {{% /note %}}
 
-1. [Sign up for {{< cloud-name >}}](/influxdb/cloud/get-started/).
+1. [Sign up for {{< cloud-name >}}](/influxdb/cloud/sign-up/).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,

@@ -1,0 +1,3 @@
+{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
+{{- $currentVersion := replaceRE "v" "" (index $productPathData 1) -}}
+{{ $currentVersion }}

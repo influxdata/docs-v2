@@ -27,7 +27,7 @@ Select other output tables in the far left column of the table visualization.
 Tables are identified by their [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key).
 
 ## Table Controls
-To view **Table** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Table** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 ###### Formatting
