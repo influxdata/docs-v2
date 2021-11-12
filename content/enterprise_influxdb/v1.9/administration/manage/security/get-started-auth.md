@@ -12,19 +12,16 @@ related:
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
-This guide covers the basics of securing and managing access to an InfluxDB Enterprise cluster.
-There are two aspects to consider:
-*authentication* (verifying a user's identity)
-and *authorization* (verifying what the user has access to).
-
-After enabling authentication, we will walk through some basic examples of managing users and permissions.
+To secure and manage access to an InfluxDB Enterprise cluster, consider the following two aspects:
+- *authentication* (verifying a user's identity)
+- *authorization* (verifying what the user has access to)
 
 ## Enable authentication
 
 Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
 Once you have a working cluster
 (that is, after [installing the data nodes](/enterprise_influxdb/v1.9/introduction/install-and-deploy/installation/data_node_installation/)),
-we recommend enabling authenticatiion right away to control access to you cluster.
+we recommend enabling authentication right away to control access to you cluster.
 
 Authentication must be enabled _**before**_ authorization can be managed.
 
@@ -43,8 +40,8 @@ To enable authentication in a cluster, do the following:
    CREATE USER admin WITH PASSWORD 'mypassword' WITH ALL PRIVILEGES
    ```
 1. Restart InfluxDB Enterprise.
-   Once restarted, InfluxDB Enterprise will now check user credentials on every request
-   and only processes requests that have valid credentials.
+   Once restarted, InfluxDB Enterprise checks user credentials on every request
+   and only processes requests with valid credentials.
 
 ## Permissions in InfluxDB Enterprise
 
@@ -59,7 +56,7 @@ InfluxDB Enterprise's [full set of permissions](/enterprise_influxdb/v1.9/admini
 allows for controling read and write access to data for all databases at once,
 as well as cluster-management actions like creating or deleting resources.
 
-## Available methods for managing authorization
+## Manage user authorization
 
 There are three ways to manage authorizations in InfluxDB Enterprise.
 Each is useful in different scenarios.
@@ -76,7 +73,7 @@ Each of these allows you to manage permissions for specific users.
 {{% note %}}
 InfluxQL provides a quick way to grant read and write privileges.
 However, you can only grant `READ`, `WRITE`, and `ALL PRIVILEGES` privileges with this method.
-For more, see [Manage specific privileges with Chronograf](#manage-specific-privileges-with-chronograf) below.
+To apply more fine-grained permissions, see [Manage specific privileges with Chronograf](#manage-specific-privileges-with-chronograf).
 {{% /note %}}
 
 InfluxQL can be used to manage basic read and write privileges.

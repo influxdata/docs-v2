@@ -216,7 +216,7 @@ This page shows examples of basic user and permission management using InfluxQL 
 However, *only a subset of Enterprise permissions can be managed with InfluxQL.*
 Using InfluxQL, you can perform the following actions:
 
-- Create new users and assign them the either admin role (or no role).
+- Create new users and assign them either the admin role (or no role).
 - grant READ and/or WRITE permissions to users.  (READ, WRITE, ALL)
 - REVOKE permissions from users.
 - GRANT or REVOKE specific database access to individual users.
