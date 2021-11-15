@@ -7,15 +7,15 @@ menu:
 weight: 201
 ---
 
-Write to both InfluxDB OSS and InfluxDB Cloud with Telegraf.
+If you want to back up your data in two places, or if you're migrating from OSS to Cloud, you may want to set up dual write. 
 
-You might want to set up dual write if you want a backup of your data in two places, or if you're migrating from OSS to Cloud.
+Use Telegraf to write to both InfluxDB OSS and InfluxDB Cloud simuiltaneously.
 
 The sample configuration below uses:
   - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the cloud instance.
   - Two different tokens, one for OSS and one for Cloud. You'll need to configure both tokens as environment variables (see [Configure your token as an environment variable](/influxdb/{{< latest "influxdb" "v2" >}}/write-data/no-code/use-telegraf/auto-config/#configure-your-token-as-an-environment-variable)).
 
-Without any metric filtering or setting changes to your output plugins, the configuration below writes your data identically to your OSS and Cloud instances.
+Use the configuration below to write your data to both OSS and Cloud instances simultaneously. 
 
 ## Sample configuration
 
@@ -23,7 +23,7 @@ Without any metric filtering or setting changes to your output plugins, the conf
 [[inputs.cpu]]
 [[inputs.mem]]
 
-## Any other inputs, processors, aggregators that you want to include into your config.
+## Any other inputs, processors, aggregators that you want to include in your configuration.
 
 # Send data to InfluxDB OSS v2
 [[outputs.influxdb_v2]]
@@ -40,7 +40,7 @@ Without any metric filtering or setting changes to your output plugins, the conf
   ## Organization is the name of the organization you want to write to. It must already exist.
   organization = "influxdata"
 
-  ## Destination bucket to write into.
+  ## Destination bucket to write to.
   bucket = "telegraf"
 
 # Send data to InfluxDB Cloud - AWS West cloud instance
