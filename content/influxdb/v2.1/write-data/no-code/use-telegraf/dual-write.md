@@ -7,9 +7,9 @@ menu:
 weight: 201
 ---
 
-Write to both InfluxDB OSS and InfluxDB Cloud with Telegraf.
+If you want to back up your data in two places, or if you're migrating from OSS to Cloud, you may want to set up dual write. 
 
-You might want to set up dual write if you want a backup of your data in two places, or if you're migrating from OSS to Cloud.
+Use Telegraf to write to both InfluxDB OSS and InfluxDB Cloud simuiltaneously.
 
 The sample configuration below uses:
   - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the cloud instance.
