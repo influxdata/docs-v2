@@ -349,14 +349,10 @@ To replace an existing column header row with annotation shorthand:
 1. Use the `--skipHeader` flag to ignore the existing column header row.
 2. Use the `--header` flag to inject a new column header row that uses annotation shorthand.
 
-{{% note %}}
-`--skipHeader` is the same as `--skipHeader=1`.
-{{% /note %}}
-
 ```sh
 influx write -b example-bucket \
   -f example.csv \
-  --skipHeader
+  --skipHeader=1
   --header="m|measurement,count|long|0,time|dateTime:RFC3339"
 ```
 
@@ -518,7 +514,6 @@ in the `boolean` datatype annotation.
 {{% flex-content %}}
 ##### CSV with non-default boolean values
 ```
-sep=;
 #datatype measurement,"boolean:y,Y,1:n,N,0",dateTime:RFC3339
 m,verified,time
 example,y,2020-01-01T00:00:00Z
@@ -586,8 +581,19 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 ```
 
 {{% note %}}
-#### Required columns
-To write data to InfluxDB with Flux, data must include the following columns:
+#### Required annotations and columns
+To write CSV data to InfluxDB with Flux, _all_ of the following annotations and columns must be present.
+Required annotations:
+
+- `datatype`
+- `group`
+- `default`
+
+See [annotations](/influxdb/v2.1/reference/syntax/annotated-csv/#annotations) for more information.
+With Flux, there must also be a comma between the annotation name and the annotation values (this differs from the `influx write` command).
+An example of valid Flux syntax can be found [here](/influxdb/v2.1/reference/syntax/annotated-csv/#annotated-csv-in-flux).
+
+Required columns:
 
 - `_time`
 - `_measurement`
