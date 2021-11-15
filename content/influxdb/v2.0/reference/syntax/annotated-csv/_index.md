@@ -253,7 +253,7 @@ to read annotated CSV in Flux:
 import "csv"
 
 csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double,string
-#group,false,false,false,false,false,false,false,false,false
+#group,false,false,true,true,false,true,false,false,true
 #default,,,,,,,,,
 ,result,table,_start,_stop,_time,region,host,_value,_measurement
 ,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43,cpu
