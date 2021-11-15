@@ -15,7 +15,7 @@ The sample configuration below uses:
   - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the cloud instance.
   - Two different tokens, one for OSS and one for Cloud. You'll need to configure both tokens as environment variables (see [Configure your token as an environment variable](/influxdb/{{< latest "influxdb" "v2" >}}/write-data/no-code/use-telegraf/auto-config/#configure-your-token-as-an-environment-variable)).
 
-Without any metric filtering or setting changes to your output plugins, the configuration below writes your data identically to your OSS and Cloud instances.
+Use the configuration below to write your data to both OSS and Cloud instances simultaneously. 
 
 ## Sample configuration
 
