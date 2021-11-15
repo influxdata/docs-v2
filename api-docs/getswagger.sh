@@ -1,15 +1,15 @@
 #!/bin/bash -e
 
-# This script provides a simple way grab the latest fully resolved swagger files
+# This script provides a simple way grab the latest fully resolved openapi (OAS, OpenAPI Specification) contract files
 # from the influxdata/openapi repo.
 #
 # Specify a context to retrieve (cloud, oss, v1compat, all).
 # Optionally specify:
 # - an OSS version as the second argument or using the -o flag.
-#   The version specifies where to write the updated swagger.
+#   The version specifies where to write the updated openapi.
 #   The default version is the latest OSS version directory in the api-docs directory.
 # - a base URL using the -b flag.
-#   The baseURL specifies where to retrieve the swagger files from.
+#   The baseURL specifies where to retrieve the openapi files from.
 #   The default baseUrl is the master branch of the influxdata/openapi repo.
 #   For local development, pass your openapi directory using the file:/// protocol.
 #
@@ -88,17 +88,17 @@ function showArgs {
 }
 
 function updateCloud {
-  echo "Updating Cloud swagger..."
-  curl ${verbose} ${baseUrl}/contracts/cloud.yml -s -o cloud/swagger.yml
+  echo "Updating Cloud openapi..."
+  curl ${verbose} ${baseUrl}/contracts/ref/cloud.yml -s -o cloud/ref.yml
 }
 
 function updateOSS {
-  echo "Updating OSS ${ossVersion} swagger..."
-  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrl}/contracts/oss.yml -s -o $_/swagger.yml
+  echo "Updating OSS ${ossVersion} openapi..."
+  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrl}/contracts/ref/oss.yml -s -o $_/ref.yml
 }
 
 function updateV1Compat {
-  echo "Updating Cloud and ${ossVersion} v1 compatibilty swagger..."
+  echo "Updating Cloud and ${ossVersion} v1 compatibilty openapi..."
   curl ${verbose} ${baseUrl}/contracts/swaggerV1Compat.yml -s -o cloud/swaggerV1Compat.yml
   mkdir -p ${ossVersion} && cp cloud/swaggerV1Compat.yml $_/swaggerV1Compat.yml
 }

@@ -24,5 +24,5 @@ To modify either, [create a new scraper](/influxdb/v2.0/write-data/no-code/scrap
 
     {{< nav-icon "load data" >}}
 
-3. Hover over the scraper you would like to update and click the **{{< icon "pencil" >}}** that appears next to the scraper name.
+3. Hover over the scraper you would like to update and click the **{{< icon "pencil" "v2" >}}** that appears next to the scraper name.
 4. Enter a new name for the scraper. Press Return or click out of the name field to save the change.

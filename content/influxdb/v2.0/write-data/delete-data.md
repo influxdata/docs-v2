@@ -38,7 +38,7 @@ Delete data from buckets you've created. You cannot delete data from system buck
 
 1. Click the **Data Explorer** icon in the sidebar.
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Click **Delete Data** in the top navigation bar.
 3. In the **Delete Data** window that appears:

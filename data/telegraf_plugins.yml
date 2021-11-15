@@ -662,6 +662,14 @@ input:
     introduced: 0.12.1
     tags: [linux, macos, windows, servers, web]
 
+  - name: IBM DB2
+    id: db2
+    description: |
+      The IBM DB2 plugin collects metrics from DB2 RDBMS using performance monitor tables.
+    introduced: 1.20.3
+    external: true
+    tags: [linux, macos, windows, IBM, datastores]
+
   - name: Icinga 2
     id: icinga2
     description: |
@@ -1329,6 +1337,14 @@ input:
     introduced: 1.11.0
     tags: [linux, macos, windows, applications]
 
+  - name: Oracle
+    id: oracle
+    description: |
+      The Oracle plugin collects metrics from Oracle RDBMS using Dynamic Performance Views.
+    introduced: 1.20.3
+    external: true
+    tags: [linux, macos, windows, oracle, datastores]
+
   - name: PF
     id: pf
     description: |
@@ -1546,10 +1562,10 @@ input:
     introduced: 1.17.0
     tags: [linux, macos, windows]
 
-  - name: ROCm System Management Interface (SMI)
+  - name: AMD ROCm System Management Interface (SMI)
     id: amd_rocm_smi
     description: |
-      The ROCm System Management Interface plugin pulls statistics from NVIDIA GPU stats including memory, usage, and temperature.
+      The AMD ROCm System Management Interface plugin pulls statistics from AMD GPUs including memory, usage, and temperature.
     introduced: 1.20.0
     tags: [linux, macos, windows, systems]
 
@@ -1638,6 +1654,13 @@ input:
       [Telegraf Input Data Formats](/{{< latest "telegraf" >}}/data_formats/input/).
     introduced: 1.3.0
     tags: [linux, macos, windows, networking]
+
+  - name: SQL
+    id: sql
+    description: |
+      The SQL plugin reads and ingests SQL data from a variety of SQL databases into InfluxDB.
+    introduced: 1.19.0
+    tags: [linux, macos, windows, data-stores]
 
   - name: Stackdriver
     id: stackdriver
@@ -2323,7 +2346,7 @@ output:
     description: |
       The SQL output plugin saves Telegraf metric data to an SQL database.
     introduced: 1.19.0
-    tags: [data stores]
+    tags: [datastores]
 
   - name: Sumo Logic
     id: sumologic

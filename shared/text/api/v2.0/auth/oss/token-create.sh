@@ -1,9 +1,9 @@
 INFLUX_ORG_ID=YOUR_ORG_ID
-INFLUX_API_TOKEN=YOUR_API_TOKEN
+INFLUX_TOKEN=YOUR_API_TOKEN
 
 curl -v --request POST \
   http://localhost:8086/api/v2/authorizations \
-  --header "Authorization: Token ${INFLUX_API_TOKEN}" \
+  --header "Authorization: Token ${INFLUX_TOKEN}" \
   --header 'Content-type: application/json' \
   --data '{
   "status": "active",

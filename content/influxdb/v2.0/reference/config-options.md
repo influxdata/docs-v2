@@ -96,6 +96,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [bolt-path](#bolt-path)
 - [e2e-testing](#e2e-testing)
 - [engine-path](#engine-path)
+- [feature-flags](#feature-flags)
 - [flux-log-enabled](#flux-log-enabled)
 - [http-bind-address](#http-bind-address)
 - [http-idle-timeout](#http-idle-timeout)
@@ -142,6 +143,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [tls-min-version](#tls-min-version)
 - [tls-strict-ciphers](#tls-strict-ciphers)
 - [tracing-type](#tracing-type)
+- [ui-disabled](#ui-disabled)
 - [vault-addr](#vault-addr)
 - [vault-cacert](#vault-cacert)
 - [vault-capath](#vault-capath)
@@ -232,18 +234,18 @@ export INFLUXD_BOLT_PATH=~/.influxdbv2/influxd.bolt
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-bolt-path: /users/user/.influxdbv2/influxd.bolt
+bolt-path: ~/.influxdbv2/influxd.bolt
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-bolt-path = "/users/user/.influxdbv2/influxd.bolt"
+bolt-path = "~/.influxdbv2/influxd.bolt"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "bolt-path": "/users/user/.influxdbv2/influxd.bolt"
+  "bolt-path": "~/.influxdbv2/influxd.bolt"
 }
 ```
 {{% /code-tab-content %}}
@@ -326,18 +328,75 @@ export INFLUXD_ENGINE_PATH=~/.influxdbv2/engine
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-engine-path: /users/user/.influxdbv2/engine
+engine-path: ~/.influxdbv2/engine
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-engine-path = "/users/user/.influxdbv2/engine"
+engine-path = "~/.influxdbv2/engine"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "engine-path": "/users/user/.influxdbv2/engine"
+  "engine-path": "~/.influxdbv2/engine"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### feature-flags
+Enable, disable, or override default values for feature flags.
+
+{{% note %}}
+Feature flags are used to develop and test experimental features and are
+intended for internal use only.
+{{% /note %}}
+
+| influxd flag      | Environment variable    | Configuration key |
+| :---------------- | :---------------------- | :---------------- |
+| `--feature-flags` | `INFLUXD_FEATURE_FLAGS` | `feature-flags`   |
+
+###### influxd flag
+```sh
+influxd --feature-flags flag1=value2,flag2=value2
+```
+
+###### Environment variable
+```sh
+export INFLUXD_FEATURE_FLAGS="{\"flag1\":\value1\",\"flag2\":\"value2\"}"
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+feature-flags:
+  flag1: "value1"
+  flag2: "value2"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+[feature-flags]
+  flag1 = "value1"
+  glag2 = "value2"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "feature-flags": {
+    "flag1": "value1",
+    "flag2": "value2"
+  }
 }
 ```
 {{% /code-tab-content %}}
@@ -1527,58 +1586,6 @@ session-renew-disabled = true
 
 ---
 
-
-<!--
-### sqlite-path
-
-Path to the SQLite database file.
-The SQLite database is used to store metadata for notebooks and annotations.
-
-**Default:** _`influxd.sqlite` in the same directory as the [bolt-path](#bolt-path)._
-
-| influxd flag    | Environment variable  | Configuration key |
-|:----------------|:----------------------|:------------------|
-| `--sqlite-path` | `INFLUXD_SQLITE_PATH` | `sqlite-path`     |
-
-###### influxd flag
-```sh
-influxd --sqlite-path ~/.influxdbv2/influxd.sqlite
-```
-
-###### Environment variable
-```sh
-export INFLUXD_SQLITE_PATH=~/.influxdbv2/influxd.sqlite
-```
-
-###### Configuration file
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[YAML](#)
-[TOML](#)
-[JSON](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```yml
-sqlite_path: /users/user/.influxdbv2/influxd.sqlite
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```toml
-sqlite_path = "/users/user/.influxdbv2/influxd.sqlite"
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{
-  "sqlite_path": "/users/user/.influxdbv2/influxd.sqlite"
-}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
----
--->
-
 ### storage-cache-max-memory-size
 Maximum size (in bytes) a shard's cache can reach before it starts rejecting writes.
 
@@ -2308,8 +2315,13 @@ storage-wal-fsync-delay = "0s"
 ### store
 Specifies the data store for REST resources.
 
-**Options:** `bolt`, `memory`  
-**Default:** `bolt`  
+**Options:** `disk`, `memory`  
+**Default:** `disk`  
+
+{{% note %}}
+For backwards compatibility, this flag also acceptss `bolt` as a value.
+When using `disk`, REST resources are stored on disk using the [bolt-path](#bolt-path) and [sqlite-path](#sqlite-path).
+{{% /note %}}
 
 {{% note %}}
 `memory` is meant for transient environments, such as testing environments, where
@@ -2411,7 +2423,7 @@ testing-always-allow-setup = true
 Path to TLS certificate file.
 Requires the [`tls-key`](#tls-key) to be set.
 
-_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.1/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |
@@ -2459,7 +2471,7 @@ tls-cert = "/path/to/influxdb.crt"
 Path to TLS key file.
 Requires the [`tls-cert`](#tls-cert) to be set.
 
-_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.1/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |
@@ -2649,6 +2661,55 @@ tracing-type = "log"
 {{< /code-tabs-wrapper >}}
 
 ---
+
+### ui-disabled
+Disable the InfluxDB user interface (UI).
+The UI is enabled by default.
+
+**Default:** `false`
+
+| influxd flag    | Environment variable  | Configuration key |
+| :-------------- | :-------------------- | :---------------- |
+| `--ui-disabled` | `INFLUXD_UI_DISABLED` | `ui-disabled`     |
+
+###### influxd flag
+```sh
+influxd --ui-disabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_UI_DISABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+ui-disabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+ui-disabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "ui-disabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 
 ### vault-addr
 Specifies the address of the Vault server expressed as a URL and port.
