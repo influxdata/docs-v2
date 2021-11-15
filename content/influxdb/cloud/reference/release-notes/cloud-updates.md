@@ -16,25 +16,25 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ## October 2021
 
+- [API invokable scripts](#api-invokable-scripts)
+- [New UI design](#new-ui-design)
+- [Flux update](#flux-update)
+- [Telegraf configuration UI](#telegraf-configuration-ui)
+
 ### API invokable scripts
 
 Use [API invokable scripts](/influxdb/cloud/api-guide/api-invocable-scripts/) to assign and execute a script through an API endpoint.
 
-### Clockface v3
+### New UI design
 
-Refresh look and feel of InfluxDB Cloud UI. Updated icons, fonts, and layouts to improve visibility, accessibility, and user experience.
+Refresh the look and feel of InfluxDB Cloud UI. The updated icons, fonts, and layouts improve visibility, accessibility, and user experience.
+
+ The updated icons, fonts, and layouts improve visibility, accessibility, and user experience. For those interested in the code, check out the [Clockface UI kit](https://github.com/influxdata/clockface).
 
 ### Flux update
 
 Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
 
-### Cancellation flow
-
-Update the cancellation workflow.
-
-### VS code editor
-
-Were changes made after we added support for tasks?
 ### Telegraf configuration UI
 
 Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/telegraf-configs/create/#use-the-influxdb-ui).
