@@ -8,27 +8,27 @@ menu:
     parent: Guides
 ---
 
-Review configuration and hardware guidelines for InfluxDB OSS (open source) and InfluxDB Enterprise:
+Review configuration and hardware guidelines for InfluxDB Enterprise:
 
-* [Single node or cluster?](#single-node-or-cluster)
+* [Enterprise overview](#enterprise-overview)
 * [Query guidelines](#query-guidelines)
-* [InfluxDB OSS guidelines](#influxdb-oss-guidelines)
 * [InfluxDB Enterprise cluster guidelines](#influxdb-enterprise-cluster-guidelines)
 * [When do I need more RAM?](#when-do-i-need-more-ram)
 * [Recommended cluster configurations](#recommended-cluster-configurations)
 * [Storage: type, amount, and configuration](#storage-type-amount-and-configuration)
 
+For OSS hardware sizing guidelines, click on following [LINK](https://docs.influxdata.com/influxdb/v1.8/guides/hardware_sizing/).
+
 > **Disclaimer:** Your numbers may vary from recommended guidelines. Guidelines provide estimated benchmarks for implementing the most performant system for your business.
 
-## Single node or cluster?
+## Enterprise overview
 
-If your InfluxDB performance requires any of the following, a single node (InfluxDB OSS) may not support your needs:
+InfluxDB Enterpise supports the following:
 
 - more than 750,000 field writes per second
 - more than 100 moderate queries per second ([see Query guides](#query-guidelines))
 - more than 10,000,000 [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality)
 
-We recommend InfluxDB Enterprise, which supports multiple data nodes (a cluster) across multiple server cores.
 InfluxDB Enterprise distributes multiple copies of your data across a cluster,
 providing high-availability and redundancy, so an unavailable node doesn’t significantly impact the cluster.
 Please [contact us](https://www.influxdata.com/contact-sales/) for assistance tuning your system.
