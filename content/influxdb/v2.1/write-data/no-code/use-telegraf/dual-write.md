@@ -23,7 +23,7 @@ Use the configuration below to write your data to both OSS and Cloud instances s
 [[inputs.cpu]]
 [[inputs.mem]]
 
-## Any other inputs, processors, aggregators that you want to include into your config.
+## Any other inputs, processors, aggregators that you want to include in your configuration.
 
 # Send data to InfluxDB OSS v2
 [[outputs.influxdb_v2]]
