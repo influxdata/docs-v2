@@ -40,7 +40,7 @@ Use the configuration below to write your data to both OSS and Cloud instances s
   ## Organization is the name of the organization you want to write to. It must already exist.
   organization = "influxdata"
 
-  ## Destination bucket to write into.
+  ## Destination bucket to write to.
   bucket = "telegraf"
 
 # Send data to InfluxDB Cloud - AWS West cloud instance
