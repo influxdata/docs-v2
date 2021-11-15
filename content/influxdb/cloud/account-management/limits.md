@@ -27,7 +27,7 @@ _To request higher limits, reach out to [InfluxData Support](https://support.inf
 ### Rate limits
 
 {{% warn %}}
-Rate limits are accrued against a five-minute window.
+Rate limits are accrued against a five-minute window. Rate limits for writes are applied to uncompressed payloads.
 {{% /warn %}}
 <!-- Include something about how the rate limit is calculated. -->
 
