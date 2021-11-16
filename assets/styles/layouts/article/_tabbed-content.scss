@@ -14,7 +14,7 @@
     position: relative;
     font-size: 0.875rem;
     font-weight: $medium;
-    padding: .35rem .75rem;
+    padding: .65rem 1.25rem;
     display: inline-block;
     text-align: center;
     color: $article-tab-text !important;
@@ -50,6 +50,13 @@
         opacity: 1;
         @include gradient($article-btn-gradient)
       }
+    }
+  }
+  &.small {
+    p { justify-content: flex-start; }
+    a {
+      flex-grow: unset;
+      padding: .35rem 1rem;
     }
   }
 }

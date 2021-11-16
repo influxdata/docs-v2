@@ -943,6 +943,7 @@ kapacitor show cpu_alert
 ##### Example show task output
 ```bash
 ID: cpu_alert
+Template: template_id (included if task was created from a template)
 Error:
 Template:
 Type: stream

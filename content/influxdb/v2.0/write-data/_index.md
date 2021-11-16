@@ -20,7 +20,7 @@ related:
 ---
 
 1. Learn the [best practices](/influxdb/v2.0/write-data/best-practices/) for writing data.
-2. Discover how to write data [without coding](/influxdb/v2.0/write-data/no-code/), by [loading data source in the UI](/influxdb/v2.0/write-data/load-data/), or using [developer tools](/influxdb/v2.0/write-data/developer-tools/).
+2. Discover how to write data [without coding](/influxdb/v2.0/write-data/no-code/), by [loading data source in the UI](/influxdb/v2.0/write-data/no-code/load-data/), or using [developer tools](/influxdb/v2.0/write-data/developer-tools/).
 3. Do any of the following:
    - [Troubleshoot the most common issues writing data](/influxdb/v2.0/write-data/troubleshoot/)
    - [Delete data you no longer need](/influxdb/v2.0/write-data/delete-data/)

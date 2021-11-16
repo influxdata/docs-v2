@@ -14,6 +14,37 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## October 2021
+
+- [API invokable scripts](#api-invokable-scripts)
+- [New UI design](#new-ui-design)
+- [Flux update](#flux-update)
+- [Telegraf configuration UI](#telegraf-configuration-ui)
+
+### API invokable scripts
+
+Use [API invokable scripts](/influxdb/cloud/api-guide/api-invocable-scripts/) to assign and execute a script through an API endpoint.
+
+### New UI design
+
+Refresh the look and feel of InfluxDB Cloud UI. The updated icons, fonts, and layouts improve visibility, accessibility, and user experience.
+
+ The updated icons, fonts, and layouts improve visibility, accessibility, and user experience. For those interested in the code, check out the [Clockface UI kit](https://github.com/influxdata/clockface).
+
+### Flux update
+
+Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
+
+### Telegraf configuration UI
+
+Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/telegraf-configs/create/#use-the-influxdb-ui).
+
+## September 2021
+
+- **Paginated tasks in UI**: Previously, the Tasks page only listed the first 100 tasks. Now, all tasks are accessible and paginated on the Tasks page.
+
+- **Enhanced Flux VS Code extension to include tasks**: Add ability to create and edit [InfluxDB tasks](/influxdb/v2.0/process-data/get-started/) in Visual Studio Code using the Flux extension. See how to [use the Flux VS Code extension](/influxdb/v2.0/tools/flux-vscode/).
+
 ## August 2021
 
 - Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.

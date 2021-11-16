@@ -1,15 +1,15 @@
 ---
-title: Query demo data 
+title: Query demo data
 description: >
-  Explore InfluxDB Cloud with our demo data buckets. 
+  Explore InfluxDB Cloud with our demo data buckets.
 menu:
   influxdb_cloud:
     name: Query with demo data
     parent: Execute queries
-weight: 10
+weight: 110
 aliases:
   - /influxdb/cloud/write-data/#demo-data-for-influxdb-cloud
-  - influxdb/cloud/query-data/query-demo-data/
+  - /influxdb/cloud/query-data/query-demo-data/
 ---
 
 Use **InfluxDB Cloud** demo data buckets for quick and easy access to different
@@ -47,7 +47,7 @@ Choose from the following demo data sets:
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
 to query and visualize data in demo data buckets.
 
-In the navigation menu on the left, click **Explore (Data Explorer)**.
+In the navigation menu on the left, click **Data Explorer**.
 
 {{< nav-icon "explore" >}}
 
@@ -64,5 +64,3 @@ After adding a demo data bucket, view the pre-built dashboard specific to the de
 #### Other sample data sets
 See [Sample data](/influxdb/cloud/reference/sample-data) for more sample InfluxDB data sets.
 {{% /note %}}
-
-

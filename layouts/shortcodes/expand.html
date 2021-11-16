@@ -2,7 +2,7 @@
 {{ $expandLabel := .Get 0 }}
 <div class="expand" id="{{ $expandLabel | anchorize }}">
   <p class="expand-label">
-      <span class="expand-toggle"></span><span>{{ $expandLabel }}</span>
+      <span class="expand-toggle"></span><span>{{ $expandLabel | safeHTML }}</span>
   </p>
   <div class="expand-content" style="display: none;" >
       {{ .Inner }}

@@ -2,7 +2,7 @@
 title: BatchNode
 description: >
   BatchNode handles creating several child QueryNode or QueryFluxNodes.
-  Each call to `query` or `fluxQuery` creates a child batch node that can further be configured.
+  Each call to `query` or `queryFlux` creates a child batch node that can further be configured.
   The `batch` variable in batch tasks is an instance of BatchNode.
 menu:
   kapacitor_1_6_ref:
@@ -13,7 +13,7 @@ menu:
 ---
 
 The `batch` node handles the creation of several child QueryNode or QueryFluxNodes.
-Each call to [`query`](/kapacitor/v1.6/nodes/query_node) or [`fluxQuery`](/kapacitor/v1.6/nodes/query_node)
+Each call to [`query`](/kapacitor/v1.6/nodes/query_node) or [`queryFlux`](/kapacitor/v1.6/nodes/query_flux_node)
 creates a child batch node that can further be configured.
 _See [QueryNode](/kapacitor/v1.6/nodes/query_node/) and [QueryFluxNode](/kapacitor/v1.6/nodes/query_flux_node/)._
 The `batch` variable in batch tasks is an instance of
@@ -43,14 +43,14 @@ var views = batch
 {{% code-tab-content %}}
 ```js
 var errors = batch
-              |query('''
+              |queryFlux('''
                 from(bucket: "example-bucket")
                   |> range(start: -1m) 
                   |> filter(fn: (r) => r._measurement == "errors")
               ''')
               ...
 var views = batch
-              |query('''
+              |queryFlux('''
                 from(bucket: "example-bucket")
                   |> range(start: -1m) 
                   |> filter(fn: (r) => r._measurement == "views")
@@ -83,7 +83,7 @@ Available Statistics:
 ### Chaining Methods
 [Deadman](#deadman),
 [Query](#query),
-[FluxQuery](#fluxquery),
+[FluxQuery](#queryflux),
 [Stats](#stats)
 
 ---
@@ -208,12 +208,12 @@ batch|query(q string)
 
 Returns: [QueryNode](/kapacitor/v1.6/nodes/query_node/)
 
-### FluxQuery
+### QueryFlux
 
 The Flux query to execute.
 
 ```js
-batch|fluxQuery(queryStr string)
+batch|QueryFlux(queryStr string)
 ```
 
 Returns: [QueryFluxNode](/kapacitor/v1.6/nodes/query_flux_node/)

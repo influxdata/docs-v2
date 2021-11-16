@@ -31,7 +31,7 @@ The `logfmt` data format parses [logfmt] data into Telegraf metrics.
 
 ## Metrics
 
-Each key/value pair in the line is added to a new metric as a field.  The type
+Each key-value pair in the line is added to a new metric as a field.  The type
 of the field is automatically determined based on the contents of the value.
 
 ## Examples

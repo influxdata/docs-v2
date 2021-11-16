@@ -9,7 +9,7 @@
     &.large:before { font-size: 1.1rem; }
 
     &.add-btn-round {
-      font-family: "icomoon";
+      font-family: "icomoon-v2";
       color:#fff;
       background: linear-gradient(45deg,#5c10a0,#8e1fc3);
       border-radius:50%;
@@ -21,6 +21,16 @@
       height: 20px;
       padding-left: .29rem;
       line-height: 1.25rem;
+
+      &.v3 {
+        position: relative;
+        background: $g5-pepper;
+        width: 18px;
+        height: 18px;
+        font-size: .65rem;
+        line-height: 0rem;
+        padding: 9px 0 0 4px;
+      }
     }
 
     &.ui-toggle {
@@ -44,6 +54,16 @@
         background: $g20-white;
         top: 4px;
         right: 4px;
+      }
+
+      &.v3 {
+        width: 26px;
+        .circle {
+          height: 12px;
+          width: 12px;
+          top: 2px;
+          right: 2px;
+        }
       }
     }
   }
@@ -200,10 +220,96 @@
       }
     }
   }
+
+  ///////////////////////////////// CLOCKFACE V3 /////////////////////////////////
 }
 
+.nav-items-v3 {
+  .nav-item-v3 {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 1rem 1.25rem 0;
+    max-width: 225px;
+    background: linear-gradient(rgba(#052943, .9), rgba(#062238, .9));
+    color: $g20-white;
+    height: 60px;
+    border-radius: $radius;
+
+    &.account {
+      padding: 8px;
+
+      .acct-inner-v3 {
+        display: flex;
+        background-color: #f1f1f30d;
+        border-radius: $radius;
+      }
+
+      .acct-icon-v3 {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        font-weight: bold;
+        width: 44px;
+        height: 44px;
+        @include gradient($grad-Miyazakisky, 54deg);
+        border-radius: $radius;
+
+        .initial {
+          align-self: center;
+        }
+      }
+
+      .acct-label-v3 {
+        display: inline-block;
+        padding: 5px 0px 0px 8px;
+        width: 165px;
+
+        .username {
+          font-size: .75rem;
+          font-weight: 500;
+          color: #9e9ead;
+        }
+        .orgname {
+          font-size: .85rem;
+          line-height: 1.1rem;
+        }
+      }
+
+    }
+  }
+
+  .nav-icon-v3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  p.nav-label-v3 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 1.15rem;
+    min-width: 225px;
+    color: $g20-white;
+  }
+
+  .cf-icon {
+    display: inline-block;
+    font-size: 1.35rem;
+  }
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////// 
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 @include media(small) {
-  .article--content .nav-item:nth-child(2) {display: none;}
+  .article--content.nav-item:nth-child(2) {display: none;}
+  .article--content.nav-item-v3:nth-child(2) {display: none;}
 }

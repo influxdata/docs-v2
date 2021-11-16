@@ -50,5 +50,5 @@ For more information about how checks, notification endpoints, and notifications
 
 1. In the InfluxDB user interface (UI), select **Boards** (**Dashboards**).
 
-    {{< nav-icon "dashboards" >}}
+    {{< nav-icon "dashboards" "v2" >}}
 2. Open the **Docker** dashboard to start monitoring.

@@ -9,12 +9,12 @@ weight: 201
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/delete/
 ---
 
-{{% cloud %}}
-#### Available with InfluxDB OSS 2.x only
+{{% note %}}
+#### Works with InfluxDB OSS 2.x
 The `influx user delete` command deletes users from **InfluxDB OSS 2.x**,
 but does not delete users from **InfluxDB Cloud**.
 For information about removing a user from your InfluxDB Cloud organization, see
 [Remove a user](/influxdb/cloud/account-management/multi-user/remove-user/).
-{{% /cloud %}}
+{{% /note %}}
 
 {{< duplicate-oss >}}

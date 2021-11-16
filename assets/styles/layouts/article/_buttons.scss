@@ -4,7 +4,7 @@ a.btn {
   position: relative;
   display: inline-block;
   margin: .5rem .25rem .5rem 0;
-  padding: .5rem 1rem;
+  padding: 0.85rem 1.5rem;
   color: $article-btn-text !important;
   border-radius: $radius;
   font-size: .95rem;
@@ -36,14 +36,14 @@ a.btn {
 
   &.download:before {
     content: "\e91d";
-    font-family: "icomoon";
+    font-family: "icomoon-v2";
     margin-right: .5rem;
     font-size: 1.1rem;
   }
 
   &.github:before {
     content: "\eab0";
-    font-family: "icomoon";
+    font-family: "icomoon-v2";
     margin-right: .5rem;
     font-size: 1.1rem;
   }
