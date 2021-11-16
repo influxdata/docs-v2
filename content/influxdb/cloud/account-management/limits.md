@@ -110,32 +110,13 @@ Combine predicate expressions (if possible) into a single request. InfluxDB limi
 
 ### Errors in InfluxDB API response
 
-<!-- Make this section into a table. -->
+The InfluxDB API returns the following HTTP responses when requests exceed specified rate limits or payload limits. Limits for write requests (Data In) and query requests (Reads) are applied within a five minute window.
 
-The InfluxDB API returns the following HTTP responses when requests exceed specified rate limits or payload limits.
+| Request limits      | Error response      |
+| :-------------------| :------------------ |
+| If a **read**, **write**, or **delete** request exceeds the request limit| *HTTP 429 “Too Many Requests” <br> Retry-After: xxx (seconds to wait before retrying the request)*
+| If a **write** request exceeds the maximum (*uncompressed* or *decompressed*) payload | *HTTP 413 “Payload Too Large” <br> {"code":"request too large","message":"cannot read data: points batch is too large"}* |
 
-#### Request limits
-
-When a request exceeds your plan's write requests (Data In) or query requests (Reads) within a five minute window, the InfluxDB API returns the following responses:
-
-- When a **read** or **write** or **delete** request exceeds request limit:
-
-  ```
-  HTTP 429 “Too Many Requests”
-  Retry-After: xxx (seconds to wait before retrying the request)
-  ```
-
-- When a **write** request maximum payload (or decompressed payload) exceeds limits:
-
-  ```
-  HTTP 413 “Payload Too Large”
-  {"code":"request too large","message":"cannot read data: points batch is too large"}
-  ```
-
-#### Cardinality limits
-
-- When **series cardinality exceeds** your plan's limit:
-
-  ```
-  HTTP 503 “Series cardinality exceeds your plan's limit”
-  ```
+| Cardinality limits  | Error response     |
+| :-------------------| :------------------|
+| When **series cardinality** exceeds your plan’s limit | *HTTP 503 “Series cardinality exceeds your plan's limit”* |
