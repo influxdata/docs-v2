@@ -37,7 +37,6 @@ Take steps to understand and resolve high series cardinality.
 Each unique set of indexed data elements forms a [series key](/influxdb/v2.0/reference/glossary/#series-key).
 [Tags](/influxdb/v2.0/reference/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/influxdb/v2.0/reference/glossary/#series), also known as high [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality).
 High series cardinality is a primary driver of high memory usage for many database workloads.
-Therefore, to reduce memory overhead, consider storing high-cardinality values in field values rather than in tags or field keys.
 
 ## Measure series cardinality
 
@@ -51,7 +50,8 @@ Use the following to measure series cardinality of your buckets:
 To resolve high series cardinality, complete the following steps (for multiple buckets if applicable):
 
 1. [Review tags](#review-tags).
-2. [Adjust your schema](#adjust-your-schema).
+2. [Improve your schema](#improve-your-schema).
+3. [Delete high cardinality data](#delete-data-to-reduce-high-cardinality).
 
 ## Review tags
 
@@ -119,14 +119,12 @@ cardinalityByTag(bucket: "example-bucket")
 
 These queries should help identify the sources of high cardinality in each of your buckets. To determine which specific tags are growing, check the cardinality again after 24 hours to see if one or more tags have grown significantly.
 
-## Adjust your schema
+## Improve your schema
 
-Review the following potential solutions for resolving high cardinality:
-- If a tag has many unique values, change it to a field.
-- [Delete data to reduce high cardinality](#delete-data-to-reduce-high-cardinality).
-- Review [best practices for schema design](/influxdb/v2.0/write-data/best-practices/schema-design/).
+To minimize cardinality in the future, design your schema for easy and performant querying.
+Review [best practices for schema design](/influxdb/v2.0/write-data/best-practices/schema-design/).
 
-### Delete data to reduce high cardinality
+## Delete data to reduce high cardinality
 
 Consider whether you need the data that is causing high cardinality.
 If you no longer need this data, you can [delete the whole bucket](/influxdb/v2.0/organizations/buckets/delete-bucket/) or [delete a range of data](/influxdb/v2.0/write-data/delete-data/).

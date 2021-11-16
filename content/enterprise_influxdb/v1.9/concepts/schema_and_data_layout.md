@@ -76,68 +76,81 @@ for information about how to query the data predictably and how to fix the issue
 
 ### Avoid encoding data in measurements and keys
 
-If you encode data in a [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement), tag key, or field key, you must use a regular expression to query the data, making queries less efficient and more difficult to write.
-In addition, the increased cardinality may further hurt performance because indexing assumes that measurements and field keys will have low cardinality.
+Store data in [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) or [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value), not in [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key), [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key), or [measurements](/enterprise_influxdb/v1.9/concepts/glossary/#measurement). If you design your schema to store data in tag and field values,
+your queries will be easier to write and more efficient.
 
-A measurement should describe the schema.
-Use a different measurement for each unique combination of [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) and [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+In addition, you'll keep cardinality low by not creating measurements and keys as you write data.
+To learn more about the performance impact of high series cardinality, see [how to find and reduce high series cardinality](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-does-series-cardinality-matter).
 
-Consider the following `air_sensor` and `water_quality_sensor` schemas:
+#### Compare schemas
 
-| measurement          | tag key   | tag key  | field key | field key |
-|----------------------|-----------|----------|-----------|-----------|
-| air_sensor           | sensor-id | location | pressure  | humidity  |
-| water_quality_sensor | sensor-id | location | pH        | salinity  |
+Compare the following valid schemas represented by line protocol.
 
-The measurement describes the schema, the tags store common metadata, and the fields store variable numeric data.
+**Recommended**: the following schema stores metadata in separate `crop`, `plot`, and `region` tags. The `temp` field contains variable numeric data.
 
-Consider the following schema represented by line protocol.
-
+#####  {id="good-measurements-schema"}
 ```
-Schema 1 - Data encoded in the measurement
--------------
-blueberries.plot-1.north temp=50.1 1472515200000000000
-blueberries.plot-2.midwest temp=49.8 1472515200000000000
-```
-
-The long measurements (`blueberries.plot-1.north`) with no tags are similar to Graphite metrics.
-Encoding the `plot` and `region` in the measurement makes the data more difficult to query.
-
-For example, calculating the average temperature of both plots 1 and 2 is not possible with schema 1.
-Compare this to schema 2:
-
-```
-Schema 2 - Data encoded in tags
+Good Measurements schema - Data encoded in tags (recommended)
 -------------
 weather_sensor,crop=blueberries,plot=1,region=north temp=50.1 1472515200000000000
 weather_sensor,crop=blueberries,plot=2,region=midwest temp=49.8 1472515200000000000
 ```
 
-Use Flux or InfluxQL to calculate the average `temp` for blueberries in the `north` region:
+**Not recommended**: the following schema stores multiple attributes (`crop`, `plot` and `region`) concatenated  (`blueberries.plot-1.north`) within the measurement, similar to Graphite metrics.
 
-##### Flux example to query schemas
+#####  {id="bad-measurements-schema"}
+```
+Bad Measurements schema - Data encoded in the measurement (not recommended)
+-------------
+blueberries.plot-1.north temp=50.1 1472515200000000000
+blueberries.plot-2.midwest temp=49.8 1472515200000000000
+```
+
+**Not recommended**: the following schema stores multiple attributes (`crop`, `plot` and `region`) concatenated  (`blueberries.plot-1.north`) within the field key.
+
+#####  {id="bad-keys-schema"}
+```
+Bad Keys schema - Data encoded in field keys (not recommended)
+-------------
+weather_sensor blueberries.plot-1.north.temp=50.1 1472515200000000000
+weather_sensor blueberries.plot-2.midwest.temp=49.8 1472515200000000000
+```
+
+#### Compare queries
+
+Compare the following queries of the [_Good Measurements_](#good-measurements-schema) and [_Bad Measurements_](#bad-measurements-schema) schemas.
+The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blueberries in the `north` region
+
+**Easy to query**: [_Good Measurements_](#good-measurements-schema) data is easily filtered by `region` tag values, as in the following example.
 
 ```js
-// Schema 1 - Query for data encoded in the measurement
-from(bucket:"<database>/<retention_policy>")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
-  |> mean()
-
-// Schema 2 - Query for data encoded in tags
-from(bucket:"<database>/<retention_policy>")
+// Query *Good Measurements*, data stored in separate tags (recommended)
+from(bucket: "<database>/<retention_policy>")
   |> range(start:2016-08-30T00:00:00Z)
   |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
   |> mean()
 ```
 
+**Difficult to query**: [_Bad Measurements_](#bad-measurements-schema) requires regular expressions to extract `plot` and `region` from the measurement, as in the following example.
+
+```js
+// Query *Bad Measurements*, data encoded in the measurement (not recommended)
+from(bucket: "<database>/<retention_policy>")
+  |> range(start:2016-08-30T00:00:00Z)
+  |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
+  |> mean()
+```
+
+Complex measurements make some queries impossible. For example, calculating the average temperature of both plots is not possible with the [_Bad Measurements_](#bad-measurements-schema) schema.
+
+
 ##### InfluxQL example to query schemas
 
 ```
-# Schema 1 - Query for data encoded in the measurement
+# Query *Bad Measurements*, data encoded in the measurement (not recommended)
 > SELECT mean("temp") FROM /\.north$/
 
-# Schema 2 - Query for data encoded in tags
+# Query *Good Measurements*, data stored in separate tag values (recommended)
 > SELECT mean("temp") FROM "weather_sensor" WHERE "region" = 'north'
 ```
 

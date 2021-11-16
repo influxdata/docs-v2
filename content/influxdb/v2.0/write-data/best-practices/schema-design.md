@@ -53,7 +53,8 @@ waterQualitySensor,sensorId=W0101,station=Harbor pH=6.1,temperature=16.103 14725
 
 ### Keep measurements and keys simple
 
-Store data in [tag values](/influxdb/v2.0/reference/glossary/#tag-value) or [field values](/influxdb/v2.0/reference/glossary/#field-value), not in [tag keys](/influxdb/v2.0/reference/glossary/#tag-key), [field keys](/influxdb/v2.0/reference/glossary/#field-key), or [measurements](/influxdb/v2.0/reference/glossary/#measurement). If you design your schema to store data in tag and field values,
+Store data in [tag values](/influxdb/v2.0/reference/glossary/#tag-value) or [field values](/influxdb/v2.0/reference/glossary/#field-value), not in [tag keys](/influxdb/v2.0/reference/glossary/#tag-key), [field keys](/influxdb/v2.0/reference/glossary/#field-key), or [measurements](/influxdb/v2.0/reference/glossary/#measurement).
+If you design your schema to store data in tag and field values,
 your queries will be easier to write and more efficient.
 
 {{% oss-only %}}
