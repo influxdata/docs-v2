@@ -114,8 +114,8 @@ The InfluxDB API returns the following HTTP responses when requests exceed speci
 
 | Request limits      | Error response      |
 | :-------------------| :------------------ |
-| If a **read**, **write**, or **delete** request exceeds your plan's request limit| *HTTP 429 “Too Many Requests” <br> Retry-After: xxx (seconds to wait before retrying the request)*
-| If a **write** request exceeds your plan's maximum (*uncompressed* or *decompressed*) payload | *HTTP 413 “Payload Too Large” <br> {"code":"request too large","message":"cannot read data: points batch is too large"}* |
+| If a **read** or **write** request exceeds your [plan's rate limits](/influxdb/cloud/account-management/limits/#rate-limits) or if a **delete** request exceeds the global limit | *HTTP 429 “Too Many Requests” <br> Retry-After: xxx (seconds to wait before retrying the request)*
+| If a **write** request exceeds the global maximum payload size (**50 MB** or **250 MB *decompressed***)  | *HTTP 413 “Payload Too Large” <br> {"code":"request too large","message":"cannot read data: points batch is too large"}* |
 
 | Cardinality limits  | Error response     |
 | :-------------------| :------------------|
