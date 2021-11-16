@@ -8,7 +8,9 @@ menu:
   influxdb_cloud:
     name: Invoke custom scripts 
     parent: Develop with the API 
-influxdb/cloud/tags: [api guides]
+aliases:
+  - /influxdb/cloud/api-guide/api-invocable-scripts/
+influxdb/cloud/tags: [api guides] 
 ---
 
 Use API invokable scripts to create custom InfluxDB API endpoints that query, process, and shape data. API invokable scripts let you assign scripts to API endpoints and then execute them as standard REST operations in InfluxDB Cloud. Learn how to manage API invokable scripts and invoke them with runtime parameters.
