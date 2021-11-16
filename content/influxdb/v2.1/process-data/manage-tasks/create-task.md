@@ -31,7 +31,7 @@ The InfluxDB UI provides multiple ways to create a task:
 - [Clone a task](#clone-a-task)
 
 ### Create a task from the Data Explorer
-1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
+1. In the navigation menu on the left, select **Data Explorer**.
 
     {{< nav-icon "data-explorer" >}}
 
@@ -52,15 +52,14 @@ The InfluxDB UI provides multiple ways to create a task:
 3. Select **New Task**.
 4. In the left panel, specify the task options.
    See [Task options](/influxdb/v2.1/process-data/task-options) for detailed information about each option.
-5. Select a token to use from the **Token** dropdown.
-6. In the right panel, enter your task script.
+5. In the right panel, enter your task script.
 
     {{% note %}}
 ##### Leave out the option tasks assignment
-When creating a _new_ task in the InfluxDB Task UI, leave out the `option task`
-assignment that defines [task options](/influxdb/v2.1/process-data/task-options/).
-The InfluxDB UI injects this code using settings specified in the **Task options**
-fields in the left panel when you save the task.
+When creating a _new_ task in the InfluxDB Task UI, leave the code editor empty.
+When you save the task, the Task UI uses the [task options](/influxdb/v2.1/process-data/task-options/) you specify in the **Task options** form to populate `option task = {task_options}` for you.
+
+When you edit the saved task, you'll see the injected `option task = {task_options}`.
     {{% /note %}}
 
 7. Click **Save** in the upper right.
@@ -71,20 +70,16 @@ fields in the left panel when you save the task.
     {{< nav-icon "tasks" >}}
 
 2. Click **+ Create Task** in the upper right.
-3. Select **Import Task**.
-4. Upload a JSON task file using one of the following options:
-    - Drag and drop a JSON task file in the specified area.
-    - Click to upload and the area to select the JSON task from from your file manager.
-    - Select the **JSON** option and paste in raw task JSON.
-5. Click **Import JSON as Task**.
+3. Paste a raw Flux task in the code editor to the right of the **Task options** form.
+4. Click **Save** in the upper right.
 
 ### Create a task from a template
 1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "Settings" >}}
 
-2. Select **Templates**.
-3. Hover over the template to use to create the task and click **Create**.
+2. Find the template you want to use and click its **Resources** list to expand the list of resources.
+3. In the **Resources** list, click the task you want to use.
 
 
 ### Clone a task
@@ -92,11 +87,11 @@ fields in the left panel when you save the task.
 
     {{< nav-icon "tasks" >}}
 
-2. Hover over the task you would like to clone and click the **{{< icon "duplicate" >}}** icon that appears.
+2. Find the task you would like to clone and click the **{{< icon "settings" >}}** icon located far right of the task name.
 4. Click **Clone**.
 
 ## Create a task using the influx CLI
-Use `influx task create` command to create a new task.
+Use the `influx task create` command to create a new task.
 It accepts either a file path or raw Flux.
 
 ###### Create a task using a file
@@ -129,7 +124,7 @@ Provide the following in your API request:
 
 ##### Request headers
 - **Content-Type**: application/json
-- **Authorization**: Token _YOURINFLUXDBTOKEN_**
+- **Authorization**: Token *`INFLUX_API_TOKEN`*
 
 ##### Request body
 JSON object with the following fields:
@@ -142,10 +137,10 @@ JSON object with the following fields:
 ```sh
 curl --request POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks' \
   --header 'Content-Type: application/json' \
-  --header 'Authorization: Token <YOURTOKEN>' \
+  --header 'Authorization: Token INFLUX_API_TOKEN' \
   --data-raw '{
     "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nfrom(bucket: \"telegraf\")\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", org: \"<MYORG>\")",
-    "orgID": "<YOURORGID>",
+    "orgID": "INFLUX_ORG_ID",
     "status": "active",
     "description": "This task downsamples CPU data every hour"
 }'

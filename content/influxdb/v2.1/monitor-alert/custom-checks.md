@@ -25,14 +25,15 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 
     {{< nav-icon "tasks" >}}
 
-2. Click **{{< icon "plus" >}} Create Task**, and then select **New Task**.
+2. Click **{{< caps >}}{{< icon "plus" >}} Create Task{{< /caps >}}**.
 3. In the **Name** field, enter a descriptive name,
    and then enter how often to run the task in the **Every** field (for example, `10m`).
    For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.1/process-data/task-options/).
 4. Enter the Flux script for your custom check, including the [`monitor.check`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/check/) function.
 
 {{% note %}}
-Use the the API endpoint `/checks/{checkID}/query` to see the Flux code for a check built in the UI.
+Use the [`/api/v2/checks/{checkID}/query` API endpoint](/influxdb/v2.1/api/#operation/DeleteDashboardsIDOwnersID)
+to see the Flux code for a check built in the UI.
 This can be useful for constructing custom checks.
 {{% /note %}}
 
@@ -59,38 +60,36 @@ import "influxdata/influxdb/schema"
 option task = {name: "Failed Tasks Check", every: 1h, offset: 4m}
 
 task_data = from(bucket: "_tasks")
-	|> range(start: -task.every)
-	|> filter(fn: (r) =>
-		(r["_measurement"] == "runs"))
-	|> filter(fn: (r) =>
-		(r["_field"] == "logs"))
-	|> map(fn: (r) => ({ r with name: strings.split(v: regexp.findString(r: /option task = \{([^\}]+)/, v: r._value), t: "\\\\\\\"")[1] }))
-	|> drop(columns: ["_value", "_start", "_stop"])
-	|> group(columns: ["name", "taskID", "status", "_measurement"])
-	|> map(fn: (r) =>
-		({r with _value: if r.status == "failed" then 1 else 0}))
-	|> last()
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r["_measurement"] == "runs")
+    |> filter(fn: (r) => r["_field"] == "logs")
+    |> map(fn: (r) => ({r with name: strings.split(v: regexp.findString(r: /option task = \{([^\}]+)/, v: r._value), t: "\\\\\\\"")[1]}))
+    |> drop(columns: ["_value", "_start", "_stop"])
+    |> group(columns: ["name", "taskID", "status", "_measurement"])
+    |> map(fn: (r) => ({r with _value: if r.status == "failed" then 1 else 0}))
+    |> last()
+
 check = {
-	_check_id: "0000000000000001",      // 16 characters, alphanumeric
-	_check_name: "Failed Tasks Check",  // string
-	_type: "custom",                    // can also use "threshold" or "deadman"
-	tags: {},
+		// 16 characters, alphanumeric
+    _check_id: "0000000000000001",
+		// Name string
+    _check_name: "Failed Tasks Check",
+		// Check type (threshold, deadman, or custom)
+    _type: "custom",
+    tags: {},
 }
-ok = (r) =>
-	(r["logs"] == 0)
-crit = (r) =>
-	(r["logs"] == 1)
-messageFn = (r) =>
-	("The task: ${r.taskID} - ${r.name} has a status of ${r.status}")
+ok = (r) => r["logs"] == 0
+crit = (r) => r["logs"] == 1
+messageFn = (r) => "The task: ${r.taskID} - ${r.name} has a status of ${r.status}"
 
 task_data
-	|> schema["fieldsAsCols"]()
-	|> monitor["check"](
-		data: check,
-		messageFn: messageFn,
-		ok: ok,
-		crit: crit,
-	)
+    |> schema["fieldsAsCols"]()
+    |> monitor["check"](
+        data: check,
+        messageFn: messageFn,
+        ok: ok,
+        crit: crit,
+    )
 ```
 
 {{% note %}}

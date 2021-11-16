@@ -1,27 +1,29 @@
 ---
 title: Invoke custom scripts as API endpoints
-seotitle: Use InfluxDB API-invocable scripts
+seotitle: Use InfluxDB API-invokable scripts
 description: >
-  Use API-invocable scripts to create your own InfluxDB API endpoints that execute custom scripts. 
+  Use API-invokable scripts to create your own InfluxDB API endpoints that execute custom scripts. 
 weight: 101
 menu:
   influxdb_cloud:
     name: Invoke custom scripts 
     parent: Develop with the API 
-influxdb/cloud/tags: [api guides]
+aliases:
+  - /influxdb/cloud/api-guide/api-invocable-scripts/
+influxdb/cloud/tags: [api guides] 
 ---
 
-Use API invocable scripts to create custom InfluxDB API endpoints that query, process, and shape data. API invocable scripts let you assign scripts to API endpoints and then execute them as standard REST operations in InfluxDB Cloud. Learn how to manage API invocable scripts and invoke them with runtime parameters.
+Use API invokable scripts to create custom InfluxDB API endpoints that query, process, and shape data. API invokable scripts let you assign scripts to API endpoints and then execute them as standard REST operations in InfluxDB Cloud. Learn how to manage API invokable scripts and invoke them with runtime parameters.
 
 Use the `/api/v2/scripts` InfluxDB API endpoint to:
-- [Create a script](#create-an-invocable-script)
+- [Create a script](#create-an-invokable-script)
 - [Invoke a script](#invoke-a-script)
-- [List scripts](#list-invocable-scripts)
-- [Update a script](#update-an-invocable-script)
-- [Delete a script](#delete-an-invocable-script)
+- [List scripts](#list-invokable-scripts)
+- [Update a script](#update-an-invokable-script)
+- [Delete a script](#delete-an-invokable-script)
 
-## Create an invocable script
-To create an API-invocable script
+## Create an invokable script
+To create an API-invokable script
 for your [organization](/influxdb/v2.0/reference/glossary/#organization),
 send a request using the `POST` method to the `/api/v2/scripts` InfluxDB API endpoint.
 
@@ -44,7 +46,7 @@ JSON object with the following fields:
 - **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
 
 ### Use parameters in a script
-To create an invocable script that accepts parameters (variables),
+To create an invokable script that accepts parameters (variables),
 reference the parameters as properties of the `params` object, e.g. `params.firstparam`.
 `params` is an InfluxDB object that defines runtime variables.
 You provide values for `params` when you [invoke a script](#invoke-a-script).
@@ -58,11 +60,11 @@ If you don't provide a value for a referenced parameter, InfluxDB returns the fo
 
 ## Examples
 
-### Create an invocable Flux script
+### Create an invokable Flux script
 The following example creates a new Flux script that references the `params.mybucket` parameter and returns the last point from the [bucket](/influxdb/v2.0/reference/glossary/#bucket).
 
 ```sh
-{{% get-shared-text "api/v2.0/api-invocable-scripts/create-flux-script.sh" %}}
+{{% get-shared-text "api/v2.0/api-invokable-scripts/create-flux-script.sh" %}}
 ```
 Replace the following:
 - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
@@ -99,7 +101,7 @@ Provide the following in your request:
 
 ### Request body
 JSON object that contains a `params` object. In `params`, provide key-value pairs for parameters referenced in your script.
-The [create](#create-an-invocable-script) example references the parameter `params.mybucket`.
+The [create](#create-an-invokable-script) example references the parameter `params.mybucket`.
 ```json
   "from(bucket: params.mybucket) \
    |> range(start: -7d) \
@@ -109,7 +111,7 @@ The [create](#create-an-invocable-script) example references the parameter `para
 The following example invokes the created script and passes "air_sensor" as the value for `params.mybucket`.
 
 ```sh
-{{% get-shared-text "api/v2.0/api-invocable-scripts/invoke-post.sh" %}}
+{{% get-shared-text "api/v2.0/api-invokable-scripts/invoke-post.sh" %}}
 ```
 
 InfluxDB returns query results in [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) from the `air_sensor` bucket.
@@ -119,7 +121,7 @@ If the script references multiple parameters, provide values for all parameters.
 To provide values for multiple parameters, send an object that contains a `params` object.
 In `params`, add the parameter names as keys and define a value for each key.
 
-The following **invocable script** object references four parameters:
+The following **invokable script** object references four parameters:
 
 ```json
     {
@@ -166,7 +168,7 @@ The following `params` object provides a key-value pair for each parameter refer
 
 The following example uses the `/api/v2/scripts` InfluxDB API endpoint to create the script and invoke the new script ID with `params`.
 ```sh
-{{% get-shared-text "api/v2.0/api-invocable-scripts/invoke_with_params.sh" %}}
+{{% get-shared-text "api/v2.0/api-invokable-scripts/invoke_with_params.sh" %}}
 ```
 
 InfluxDB returns points from `air_sensor` that have `temperature` or `humidity` fields.
@@ -183,7 +185,7 @@ Each unique `table` value represents a group.
 ,_result,1,2021-09-25T21:10:01.810564864Z,2021-10-25T21:10:01.810564864Z,2021-09-28T16:57:57Z,35.651929918691714,humidity,airSensors,TLM0202
 ```
 
-## List invocable scripts
+## List invokable scripts
 To list scripts for an organization, send a request using the `GET` method to the `/api/v2/scripts` InfluxDB API endpoint.
 
 Provide the following in your request:
@@ -199,7 +201,7 @@ Provide the following in your request:
 - **offset**: (Optional) number to offset the pagination 
 
 ```sh
-{{% get-shared-text "api/v2.0/api-invocable-scripts/list.sh" %}}
+{{% get-shared-text "api/v2.0/api-invokable-scripts/list.sh" %}}
 ```
 
 To find a specific script for an organization, send a request using the `GET` method to the `/api/v2/scripts/SCRIPT_ID` InfluxDB API endpoint.
@@ -215,10 +217,10 @@ Provide the following in your request:
 - **Accept**: application/json
 
 ```sh
-{{% get-shared-text "api/v2.0/api-invocable-scripts/find.sh" %}}
+{{% get-shared-text "api/v2.0/api-invokable-scripts/find.sh" %}}
 ```
-## Update an invocable script
-Use the API to replace the following properties of an invocable script:
+## Update an invokable script
+Use the API to replace the following properties of an invokable script:
 - name
 - description
 - script
@@ -236,23 +238,23 @@ Provide the following in your request:
 - **Accept**: application/json'
 
 #### Request body
-- A modified **invocable script** as a JSON object. 
+- A modified **invokable script** as a JSON object. 
 
-The following example finds an invocable script containing a numeric date range,
-replaces the date with a new parameter, and updates the invocable script.
+The following example finds an invokable script containing a numeric date range,
+replaces the date with a new parameter, and updates the invokable script.
 
 ```sh
-{{% get-shared-text "api/v2.0/api-invocable-scripts/update-flux-script.sh" %}}
+{{% get-shared-text "api/v2.0/api-invokable-scripts/update-flux-script.sh" %}}
 ```
 1. Use `GET /api/v2/scripts` to retrieve an object that contains a list of scripts.
-2. With the scripts array, use [`jq`](https://stedolan.github.io/jq/) to find the first **invocable script** object that has a `script` property that contains a hard-coded numeric date range.
+2. With the scripts array, use [`jq`](https://stedolan.github.io/jq/) to find the first **invokable script** object that has a `script` property that contains a hard-coded numeric date range.
 3. Replace the hard-coded date range in the `script` property with a new `params.myrangestart` dynamic parameter and assign the object to a `new_script` variable.
 4. Assign the script ID to a `script_id` variable.
 5. Update the script by sending a request to `PATCH /api/v2/scripts/` with `$script_id` in the URL path and `$new_script` as data (in the request body).
 
-InfluxDB returns the updated invocable script.
+InfluxDB returns the updated invokable script.
 
-## Delete an invocable script
+## Delete an invokable script
 To delete a script, send a request using the `DELETE` method to the `/api/v2/scripts/SCRIPT_ID` InfluxDB API endpoint.
 Replace *`SCRIPT_ID`* with the ID of the script you want to update. 
 
