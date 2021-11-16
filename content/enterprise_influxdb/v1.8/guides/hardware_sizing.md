@@ -1,5 +1,5 @@
 ---
-title: Hardware sizing guidelines
+title: Hardware sizing guidelines 
 Description: >
   Review configuration and hardware guidelines for InfluxDB OSS (open source) and InfluxDB Enterprise.
 menu:
@@ -317,8 +317,6 @@ Select one of the following replication factors to see the recommended cluster c
 |     3 x 32   |           609,000 |                178 |      60 + 162,000           |
 |     6 x 8    |           395,000 |                402 |     132 + 247,000           |
 |     6 x 16   |           679,000 |                894 |     150 + 527,000           |
-
-{{% /expand %}}
 
 {{% /expand %}}
 
