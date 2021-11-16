@@ -37,7 +37,7 @@ Take steps to understand and resolve high series cardinality.
 Each unique set of indexed data elements forms a [series key](/influxdb/v2.0/reference/glossary/#series-key).
 [Tags](/influxdb/v2.0/reference/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/influxdb/v2.0/reference/glossary/#series), also known as high [series cardinality](/influxdb/v2.0/reference/glossary/#series-cardinality).
 High series cardinality is a primary driver of high memory usage for many database workloads.
-Therefore, to reduce memory overhead, consider storing high-cardinality values in fields rather than in tags.
+Therefore, to reduce memory overhead, consider storing high-cardinality values in field values rather than in tags or field keys.
 
 ## Measure series cardinality
 
