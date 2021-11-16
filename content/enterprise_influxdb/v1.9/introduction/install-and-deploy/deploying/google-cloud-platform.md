@@ -21,7 +21,7 @@ Complete the following steps to deploy an InfluxDB Enterprise cluster on Google 
 
 After deploying your cluster, see [Getting started with InfluxDB](/platform/introduction/getting-started) for an introduction to InfluxDB database and the InfluxData platform.
 
->**Note:** InfluxDB Enterprise on GCP is a self-managed product. For a fully managed InfluxDB experience, check out [InfluxDB Cloud](/influxdb/cloud/get-started/).
+>**Note:** InfluxDB Enterprise on GCP is a self-managed product. For a fully managed InfluxDB experience, check out [InfluxDB Cloud](/influxdb/cloud/sign-up/).
 
 ## Verify prerequisites
 
@@ -49,10 +49,10 @@ Before deploying an InfluxDB Enterprise cluster on GCP, verify you have the foll
 4. Adjust data node fields as needed, including:
 
   - Data node instance count: Enter the number of data nodes to include in your cluster (we recommend starting with the default, 2).
-  - Data node machine type: Select the virtual machine type to use for data nodes (by default, 4 vCPUs). Use the down arrow to scroll through list. Notice the amount of memory available for the selected machine. To alter the number of cores and memory for your selected machine type, click the **Customize** link. 
-  
+  - Data node machine type: Select the virtual machine type to use for data nodes (by default, 4 vCPUs). Use the down arrow to scroll through list. Notice the amount of memory available for the selected machine. To alter the number of cores and memory for your selected machine type, click the **Customize** link.
+
   <!-- For detail, see our recommended [hardware sizing guidelines](/enterprise_influxdb/v1.9/reference/hardware_sizing/). -->
-  
+
   - (Optional) By default, the data node disk type is SSD Persistent Disk and the disk size is 250 GB. To alter these defaults, click More and update if needed.
 
         > **Note:** Typically, fields in collapsed sections don't need to be altered.

@@ -1,7 +1,7 @@
 ---
-title: Query sample data 
+title: Query sample data
 description: >
-  Explore InfluxDB Cloud with our sample data buckets. 
+  Explore InfluxDB Cloud with our sample data buckets.
 menu:
   influxdb_cloud:
     name: Query with sample data
@@ -29,30 +29,32 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 1. Choose from the following sample datasets:
    - **Air sensor sample data**: Explore, visualize, and monitor humidity, temperature, and carbon monoxide levels in the air.
    - **Bird migration sample data**: Explore, visualize, and monitor the latitude and longitude of bird migration patterns.
-   - **NOAA NDBC sample data**: Explore, visualize, and monitor NDBC's observations from their buoys. This data observes air temperature, wind speed, and more from specific locations. 
+   - **NOAA NDBC sample data**: Explore, visualize, and monitor NDBC's observations from their buoys. This data observes air temperature, wind speed, and more from specific locations.
    - **NOAA water sample data**: Explore, visualize, and monitor temperature, water level, pH, and quality from specific locations.
    - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitide, and more.  
-2. Do one of the following to download sample data: 
+2. Do one of the following to download sample data:
    - [Add sample data with community template](#add-sample-data-with-community-templates)
    - [Add sample data using the InfluxDB UI](#add-sample-data)
 
 ### Add sample data with community template
 
-1. Visit the **InfluxDB templates page** in the InfluxDB Cloud UI. Click **Settings** > **Templates** in the navigation menu on the left.
+1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "settings" >}}
-      
-2. Paste the Sample Data community temple URL in **resource manifest file** field:
 
-    ```
+2. Paste the [Sample Data community template URL](https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml) in the **resource manifest file** field and click the **{{< caps >}}Lookup Template{{< /caps >}}** button.
+
+#### Sample Data community template URL
+
+```
     https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml
-    ```
+```
 
 ## Explore sample data
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
 to query and visualize data in sample data buckets.
 
-In the navigation menu on the left, click **Explore (Data Explorer)**.
+In the navigation menu on the left, click **Data Explorer**.
 
 {{< nav-icon "explore" >}}
 
@@ -79,11 +81,9 @@ After adding a sample data bucket, create a dashboard specific to the sample dat
 
     {{< nav-icon "dashboards" >}}
 
-2. Click **Create Dashboard > New Dashboard**, and name the dashboard after your bucket. 
+2. Click **Create Dashboard > New Dashboard**, and name the dashboard after your bucket.
 3. Click **Add Cell**, and select your sample data bucket.
 4. Click **Script Editor**.
 5. Copy and paste the `sample.data()` function into the script editor.
 6. Click **Submit** to run the query.
 6. Define the variables of your sample data.
-
-

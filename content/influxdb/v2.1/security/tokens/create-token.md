@@ -25,7 +25,7 @@ Tokens stop working when the user who created the token is deleted.
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" >}}
+    {{< nav-icon "load-data" >}}
 
 2. Click **{{< icon "plus" >}} Generate** and select a token type
    (**Read/Write Token** or **All-Access Token**).
