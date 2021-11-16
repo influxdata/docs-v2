@@ -27,7 +27,7 @@ Use the configuration below to write your data to both OSS and Cloud instances s
 
 # Send data to InfluxDB OSS v2
 [[outputs.influxdb_v2]]
-  ## The URLs of the InfluxDB cluster nodes.
+  ## The URLs of the InfluxDB instance.
   ##
   ## Multiple URLs can be specified for a single cluster, only ONE of the
   ## urls will be written to each interval.
@@ -45,7 +45,7 @@ Use the configuration below to write your data to both OSS and Cloud instances s
 
 # Send data to InfluxDB Cloud - AWS West cloud instance
  [[outputs.influxdb_v2]]
-  ## The URLs of the InfluxDB Cloud cluster nodes.
+  ## The URLs of the InfluxDB Cloud instance.
 
   urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
 
