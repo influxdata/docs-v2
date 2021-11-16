@@ -9992,7 +9992,7 @@ paths:
           description: Unexpected error
       summary: List scripts
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
     post:
       operationId: PostScripts
       requestBody:
@@ -10014,7 +10014,7 @@ paths:
           description: Unexpected error
       summary: Create a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
   /api/v2/scripts/{scriptID}:
     delete:
       description: Deletes a script and all associated records.
@@ -10034,9 +10034,9 @@ paths:
           description: Unexpected error
       summary: Delete a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
     get:
-      description: Uses script ID to retrieve details of an invocable script.
+      description: Uses script ID to retrieve details of an invokable script.
       operationId: GetScriptsID
       parameters:
         - description: The script ID.
@@ -10057,10 +10057,10 @@ paths:
           description: Unexpected error
       summary: Retrieve a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
     patch:
       description: >
-        Updates properties (`name`, `description`, and `script`) of an invocable
+        Updates properties (`name`, `description`, and `script`) of an invokable
         script.
       operationId: PatchScriptsID
       parameters:
@@ -10089,7 +10089,7 @@ paths:
           description: Unexpected error
       summary: Update a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
   /api/v2/scripts/{scriptID}/invoke:
     post:
       description: >-
@@ -10119,7 +10119,7 @@ paths:
           description: Unexpected error
       summary: Invoke a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
   /api/v2/setup:
     get:
       description: >-
@@ -12382,7 +12382,7 @@ tags:
   - DBRPs
   - Delete
   - DemoDataBuckets
-  - Invocable Scripts
+  - Invokable Scripts
   - Labels
   - Limits
   - NotificationEndpoints
@@ -12514,7 +12514,7 @@ x-tagGroups:
       - DBRPs
       - Delete
       - DemoDataBuckets
-      - Invocable Scripts
+      - Invokable Scripts
       - Labels
       - Limits
       - NotificationEndpoints

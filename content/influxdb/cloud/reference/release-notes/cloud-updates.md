@@ -23,7 +23,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ### API invokable scripts
 
-Use [API invokable scripts](/influxdb/cloud/api-guide/api-invocable-scripts/) to assign and execute a script through an API endpoint.
+Use [API invokable scripts](/influxdb/cloud/api-guide/api-invokable-scripts/) to assign and execute a script through an API endpoint.
 
 ### New UI design
 
