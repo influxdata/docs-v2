@@ -59,7 +59,7 @@ For **simple** or **complex** queries, we recommend testing and adjusting the su
 
 ### Meta nodes
 
-> Set up clusters with an odd number of meta nodes──an even number may cause issues in certain configurations.
+> Set up clusters with an odd number of meta nodes─an even number may cause issues in certain configurations.
 
 A cluster must have a **minimum of three** independent meta nodes for data redundancy and availability. A cluster with `2n + 1` meta nodes can tolerate the loss of `n` meta nodes.
 
