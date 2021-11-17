@@ -9,6 +9,29 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v1.20.4 [2021-11-17]
+
+- Update `BurntSushi/toml` from 0.3.1 to 0.4.1.
+- Update `gosnmp` module from 1.32 to 1.33.
+- Update `go.opentelemetry.io/otel` from v0.23.0 to v0.24.0.
+- Fix plugin linters.
+
+### Input plugin updates
+- Cisco Model-Driven Telemetry (`cisco_telemetry_mdt`): Move to new protobuf library.
+- InfluxDB (`influxdb`): Update input schema docs.
+- Intel RDT (`intel_rdt`): Correct the timezone to use local timezone by default instead of UTC from metrics gathered from the `pqos` tool.
+- IPMI Sensor (`ipmi`): Redact passwords in log files to maintain security.
+- Modbus (`modbus`): Do not build on OpenBSD.
+- MySQL (`mysql`):
+  - Fix type conversion follow-up.
+  - Correctly set the default paths.
+- NVIDIA SMI (`nvidia_smi`): Correctly set the default paths.
+- Proxmox (`proxmox`): Parse the column types of the server status.
+- SQL Server (`sqlserver`): Add elastic pool in supported versions.
+
+### Output plugin updates
+- Loki (`loki`): Include the metric name as a label for improved query performance and metric filtering.
+
 ## v1.20.3 [2021-10-28]
 
 - Update Go to 1.17.2.
