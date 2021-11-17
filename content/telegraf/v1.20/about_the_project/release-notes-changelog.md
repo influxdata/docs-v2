@@ -20,7 +20,7 @@ menu:
 - Cisco Model-Driven Telemetry (`cisco_telemetry_mdt`): Move to new protobuf library.
 - InfluxDB (`influxdb`): Update input schema docs.
 - Intel RDT (`intel_rdt`): Correct the timezone to use local timezone by default instead of UTC from metrics gathered from the `pqos` tool.
-- IPMI Sensor (`ipmi`): Passwords will not be stored in log files and now display `REDACTED` text to maintain security.
+- IPMI Sensor (`ipmi`): Redact passwords in log files to maintain security.
 - Modbus (`modbus`): Do not build on OpenBSD.
 - MySQL (`mysql`):
   - Fix type conversion follow-up.
