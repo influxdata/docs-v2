@@ -44,7 +44,7 @@ For more information about sizing requirements for InfluxDB Enterprise, see [Inf
 For **simple** or **complex** queries, we recommend testing and adjusting the suggested requirements as needed. Query complexity is defined by the following criteria:
 
 | Query complexity | Criteria                                                                              |
-|:------------------|---------------------------------------------------------------------------------------|
+|:-----------------|:---------------------------------------------------------------------------------------|
 | Simple           | Have few or no functions and no regular expressions                                   |
 |                  | Are bounded in time to a few minutes, hours, or 24 hours at most                      |
 |                  | Typically execute in a few milliseconds to a few dozen milliseconds                   |

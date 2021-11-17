@@ -5,7 +5,7 @@ Description: >
 menu:
   enterprise_influxdb_1_8:
     weight: 40
-    parent: Guides
+    parent: Guides  
 ---
 
 Review configuration and hardware guidelines for InfluxDB Enterprise:
@@ -17,13 +17,13 @@ Review configuration and hardware guidelines for InfluxDB Enterprise:
 * [Recommended cluster configurations](#recommended-cluster-configurations)
 * [Storage: type, amount, and configuration](#storage-type-amount-and-configuration)
 
-For OSS hardware sizing guidelines, click on following [LINK](https://docs.influxdata.com/influxdb/v1.8/guides/hardware_sizing/).
+For InfluxDB OSS instances, see [OSS hardware sizing guidelines](https://docs.influxdata.com/influxdb/v1.8/guides/hardware_sizing/).
 
 > **Disclaimer:** Your numbers may vary from recommended guidelines. Guidelines provide estimated benchmarks for implementing the most performant system for your business.
 
 ## Enterprise overview
 
-InfluxDB Enterpise supports the following:
+InfluxDB Enterprise supports the following:
 
 - more than 750,000 field writes per second
 - more than 100 moderate queries per second ([see Query guides](#query-guidelines))

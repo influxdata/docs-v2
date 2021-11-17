@@ -24,7 +24,7 @@ For InfluxDB OSS instances, see [OSS hardware sizing guidelines](https://docs.in
 
 ## Enterprise overview
 
-InfluxDB Enterpise supports the following:
+InfluxDB Enterprise supports the following:
 
 - more than 750,000 field writes per second
 - more than 100 moderate queries per second ([see Query guides](#query-guidelines))
@@ -45,7 +45,7 @@ If you want a single node instance of InfluxDB that's fully open source, require
 For **simple** or **complex** queries, we recommend testing and adjusting the suggested requirements as needed. Query complexity is defined by the following criteria:
 
 | Query complexity | Criteria                                                                              |
-|------------------|---------------------------------------------------------------------------------------|
+|:------------------|:---------------------------------------------------------------------------------------|
 | Simple           | Have few or no functions and no regular expressions                                   |
 |                  | Are bounded in time to a few minutes, hours, or 24 hours at most                      |
 |                  | Typically execute in a few milliseconds to a few dozen milliseconds                   |
@@ -60,7 +60,7 @@ For **simple** or **complex** queries, we recommend testing and adjusting the su
 
 ### Meta nodes
 
-> Set up clusters with an odd number of meta nodes──an even number may cause issues in certain configurations.
+> Set up clusters with an odd number of meta nodes─an even number may cause issues in certain configurations.
 
 A cluster must have a **minimum of three** independent meta nodes for data redundancy and availability. A cluster with `2n + 1` meta nodes can tolerate the loss of `n` meta nodes.
 
