@@ -11,10 +11,10 @@ menu:
 ---
 ## v1.20.4 [2021-11-17]
 
-- Update BurntSushi/toml from 0.3.1 to 0.4.1.
-- Update gosnmp module from 1.32 to 1.33.
-- Update go.opentelemetry.io/otel from v0.23.0 to v0.24.0.
-- Linter fixes for plugins h-o (contributed by [@zak-pawel](https://github.com/zak-pawel)).
+- Update `BurntSushi/toml` from 0.3.1 to 0.4.1.
+- Update `gosnmp` module from 1.32 to 1.33.
+- Update `go.opentelemetry.io/otel` from v0.23.0 to v0.24.0.
+- Fix plugin linters.
 
 ### Input plugin updates
 - Cisco Model-Driven Telemetry (`cisco_telemetry_mdt`): Move to new protobuf library.
