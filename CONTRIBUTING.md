@@ -910,7 +910,7 @@ The following case insensitive values are supported:
 - tasks
 - monitor, alerts, bell
 - cloud, usage
-- disks, load data, load-data
+- data, load data, load-data
 - settings
 - feedback
 

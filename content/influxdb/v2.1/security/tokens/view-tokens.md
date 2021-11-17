@@ -23,7 +23,7 @@ We recommend creating a generic IT user to create and manage tokens for writing 
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" >}}
+    {{< nav-icon "load-data" >}}
 
 2. Click a token name from the list to view the token and a summary of access permissions.
 

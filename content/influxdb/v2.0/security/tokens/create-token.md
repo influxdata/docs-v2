@@ -23,7 +23,7 @@ Tokens are visible to the user who created the token. {{% oss-only %}} Users who
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" "v2" >}}
+    {{< nav-icon "load-data" "v2" >}}
 
 2. Click **{{< icon "plus" "v2" >}} Generate** and select a token type
    (**Read/Write Token** or **All-Access Token**).

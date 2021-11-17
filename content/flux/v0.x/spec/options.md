@@ -13,23 +13,17 @@ aliases:
   - /influxdb/cloud/reference/flux/language/options/
 ---
 
-{{% note %}}
-This document is a living document and may not represent the current implementation of Flux.
-Any section that is not currently implemented is commented with a **[IMPL#XXX]** where
-**XXX** is an issue number tracking discussion and progress towards implementation.
-{{% /note %}}
-
 An option represents a storage location for any value of a specified type.
 Options are mutable.
 An option can hold different values during its lifetime.
 
 Below is a list of built-in options currently implemented in the Flux language:
 
-- now
-- task
-- location
+- [now](#now)
+- [task](#task)
+- [location](#location)
 
-##### now
+#### now
 The `now` option is a function that returns a time value used as a proxy for the current system time.
 
 ```js
@@ -37,7 +31,7 @@ The `now` option is a function that returns a time value used as a proxy for the
 option now = () => 2006-01-02T15:04:05-07:00
 ```
 
-##### task
+#### task
 The `task` option schedules the execution of a Flux query.
 
 ```js
@@ -50,18 +44,19 @@ option task = {
 }
 ```
 
-##### location
+#### location
 The `location` option sets the default time zone of all times in the script.
 The location maps the UTC offset in use at that location for a given time.
-The default value is set using the time zone of the running process.
+The default value is [`timezone.utc`](/flux/v0.x/stdlib/timezone/#constants).
 
 ```js
-option location = fixedZone(offset:-5h) // Set timezone to be 5 hours west of UTC.
-option location = loadLocation(name:"America/Denver") // Set location to be America/Denver.
-```
+import "timezone"
 
-{{% note %}}
-[IMPL#406](https://github.com/influxdata/flux/issues/406) Implement Location option
-{{% /note %}}
+// Set timezone to be 5 hours west of UTC.
+option location = timezone.fixed(offset: -5h)
+
+// Set location to be America/Denver.
+option location = timezone.location(name: "America/Denver")
+```
 
 {{< page-nav prev="/flux/v0.x/spec/variables/" next="/flux/v0.x/spec/types/" >}}

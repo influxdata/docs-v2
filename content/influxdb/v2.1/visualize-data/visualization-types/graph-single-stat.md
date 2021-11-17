@@ -137,4 +137,4 @@ from(bucket: "example-bucket")
   )
 ```
 ###### Memory allocations percentage visualization with static legend
-{{< img-hd src="/img/influxdb/2-0-visualizations-graph-single-stat-static.png" alt="Graph + Single Stat Memory Usage Example" />}}
+{{< img-hd src="/img/influxdb/2-0-visualizations-graph-single-stat-mem-8.png" alt="Graph + Single Stat Memory Usage Example" />}}
