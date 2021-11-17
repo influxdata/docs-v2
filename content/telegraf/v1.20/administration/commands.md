@@ -33,7 +33,7 @@ telegraf [flags]
 | `--aggregator-filter <filter>`   | Filter aggregators to enable. Separator is `:`.                                                                                   |
 | `--config <file>`                | Configuration file to load.                                                                                                       |
 | `--config-directory <directory>` | Directory containing additional `*.conf` files.                                                                                    |
-| `--watch-config`                 | Restart Telegraf on local config changes. Use either fs notifications (`inotify`) or polling (`poll`). Disabled by default        |
+| `--watch-config`                 | Restart Telegraf on local configuration changes. Use either fs notifications (`inotify`) or polling (`poll`). Disabled by default        |
 | `--plugin-directory <directory>` | Directory containing `*.so` files to search recursively for plugins. Found plugins are loaded, tagged, and identified.            |
 | `--debug`                        | Enable debug logging.                                                                                                             |
 | `--input-filter <filter>`        | Filter input plugins to enable. Separator is `:`.                                                                                        |
@@ -44,7 +44,7 @@ telegraf [flags]
 | `--pprof-addr <address>`         | pprof address to listen on. Disabled by default.                                                                                  |
 | `--processor-filter <filter>`    | Filter processor plugins to enable. Separator is `:`.                                                                                    |
 | `--quiet`                        | Run in quiet mode.                                                                                                                |
-| `--section-filter <filter>`      | Filter config sections to output (`agent`, `global_tags`, `outputs`, `processors`, `aggregators` and `inputs`). Separator is `:`. |
+| `--section-filter <filter>`      | Filter configuration sections to output (`agent`, `global_tags`, `outputs`, `processors`, `aggregators` and `inputs`). Separator is `:`. |
 | `--sample-config`                | Print full sample configuration.                                                                                                  |
 | `--once`                         | Gather metrics once, write them, and exit.                                                                                        |
 | `--test`                         | Gather metrics once and print them.                                                                                               |
@@ -54,25 +54,25 @@ telegraf [flags]
 
 ## Examples
 
-### Generate a Telegraf config file
+### Generate a Telegraf configuration file
 
 ```sh
 telegraf config > telegraf.conf
 ```
 
-### Generate config with only CPU input and InfluxDB output plugins defined
+### Generate configuration with only CPU input and InfluxDB output plugins defined
 
 ```sh
 telegraf --input-filter cpu --output-filter influxdb config
 ```
 
-### Run a single Telegraf collection, outputting metrics to stdout
+### Run a single Telegraf configuration, outputting metrics to stdout
 
 ```sh
 telegraf --config telegraf.conf --test
 ```
 
-### Run Telegraf with all plugins defined in config file**
+### Run Telegraf with all plugins defined in configuration file**
 
 ```sh
 telegraf --config telegraf.conf
