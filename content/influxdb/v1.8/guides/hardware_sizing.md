@@ -12,7 +12,7 @@ Review configuration and hardware guidelines for InfluxDB OSS (open source) and 
 
 * [Single node or cluster?](#single-node-or-cluster)
 * [Query guidelines](#query-guidelines)
-* [InfluxDB OSS sizing guidelines](#influxdb-oss-sizing-guidelines)
+* [InfluxDB OSS guidelines](#influxdb-oss-guidelines)
 * [When do I need more RAM?](#when-do-i-need-more-ram)
 * [Recommended cluster configurations](#recommended-cluster-configurations)
 * [Storage: type, amount, and configuration](#storage-type-amount-and-configuration)
@@ -55,7 +55,7 @@ For **simple** or **complex** queries, we recommend testing and adjusting the su
 |                  | May sample a very large time range of months or years                                 |
 |                  | Typically take multiple seconds to execute                                            |
 
-## InfluxDB OSS sizing guidelines
+## InfluxDB OSS guidelines
 
 Run InfluxDB on locally attached solid state drives (SSDs). Other storage configurations have lower performance and may not be able to recover from small interruptions in normal processing.
 
