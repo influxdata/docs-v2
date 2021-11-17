@@ -30,7 +30,7 @@ menu:
 - SQL Server (`sqlserver`): Add elastic pool in supported versions.
 
 ### Output plugin updates
-- Loki (`loki`): Includes the metric name as a label for improved query performance and metric filtering.
+- Loki (`loki`): Include the metric name as a label for improved query performance and metric filtering.
 
 ## v1.20.3 [2021-10-28]
 
