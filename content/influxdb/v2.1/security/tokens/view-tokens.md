@@ -78,4 +78,4 @@ To filter authorizations by organization when using an operator token, include a
 
 {{% oss-only %}}
 
-See the [`/authorizations` endpoint documentation](/influxdb/v2.0/api/#tag/Authorizations) for more information about available parameters.
+See the [`/authorizations` endpoint documentation](/influxdb/v2.1/api/#tag/Authorizations) for more information about available parameters.
