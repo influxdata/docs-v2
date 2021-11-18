@@ -1094,10 +1094,13 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 Tokens (or API tokens) verify user and organization permissions in InfluxDB.
 There are different types of athentication tokens:
 
-- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
-  _InfluxDB Cloud does not support Operator tokens._
+{{% oss-only %}}
+
+- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**. _InfluxDB Cloud does not support Operator tokens._
 - **All-Access token:** grants full read and write access to all resources in an organization.
 - **Read/Write token:** grants read or write access to specific resources in an organization.
+
+{{% /oss-only %}}
 
 Related entries: [Create a token](/influxdb/v2.1/security/tokens/create-token/).
 

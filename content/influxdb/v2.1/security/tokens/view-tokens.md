@@ -71,7 +71,11 @@ To filter tokens by user, include `userID` as a query parameter in your request.
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view-filter.sh" %}}
 ```
 
+{{% oss-only %}}
+
 [***Operator tokens***](/{{% latest "influxdb" %}}/security/tokens/#operator-token) have access to all organizations' authorizations.
 To filter authorizations by organization when using an operator token, include an `org` or `orgID` query parameter in your request.
 
-See the [`/authorizations` endpoint documentation](/influxdb/v2.1/api/#tag/Authorizations) for more information about available parameters.
+See the [`/authorizations` endpoint documentation](/influxdb/v2.0/api/#tag/Authorizations) for more information about available parameters.
+
+{{% oss-only %}}
