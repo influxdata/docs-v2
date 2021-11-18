@@ -70,20 +70,6 @@ The `_monitoring` system bucket stores InfluxDB data used to
         - **\_source_timestamp:** original timestamp of the queried data
         - **\_status_timestamp:** timestamp when the status (`_level`) was evaluated
         - _other fields inherited from queried data_
-{{% cloud-only %}}
-- **rejected_points** _(measurement)_
-    - **tags:**
-      - **bucket:** ID of the bucket targeted in the write request
-      - **reason:** brief description of why InfluxDB rejected the point
-      - **field:** field name of the point (present if the point contained a field)
-      - **measurement:** measurement of the point (present if the point contained a measurement)
-      - **gotType:** InfluxDB field type in the point (present if type mismatch)
-      - **wantType:** InfluxDB field type in the bucket schema (present if type mismatch)
-    - **fields:**
-      - **count:** will always be `1`
-      - **error:** additional error detail (may be empty)
-    - **timestamp:** time the rejected point was logged
-{{% /cloud-only %}}
 
 ## \_tasks system bucket
 The `_tasks` system bucket stores data related to [InfluxDB task](/influxdb/v2.1/process-data/) executions.
