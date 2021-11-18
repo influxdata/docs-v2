@@ -244,7 +244,7 @@ For information about installing the `influx` CLI, see
     sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/influxd /usr/local/bin/
 
     # arm
-    sudo cp influxdb2-{{< latest-patch >}}-linux-amd64/influxd /usr/local/bin/
+    sudo cp influxdb2-{{< latest-patch >}}-linux-arm64/influxd /usr/local/bin/
     ```
 
     If you do not move the `influxd` binary into your `$PATH`, prefix the executable

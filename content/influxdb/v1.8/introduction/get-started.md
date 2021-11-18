@@ -7,6 +7,8 @@ aliases:
   - /influxdb/v1.8/introduction/getting-started/
   - /influxdb/v2.0/introduction/getting-started/
   - /influxdb/v2.0/introduction/getting_started/
+  - /influxdb/v2.1/introduction/getting-started/
+  - /influxdb/v2.1/introduction/getting_started/
 menu:
   influxdb_1_8:
     name: Get started with InfluxDB

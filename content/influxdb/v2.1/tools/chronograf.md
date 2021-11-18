@@ -20,16 +20,15 @@ that provides an InfluxQL data explorer, Kapacitor integrations, and more.
 Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< current-version >}}** and the
 [1.x compatibility API](/influxdb/v2.1/reference/api/influxdb-1x/).
 
+
 ## Create an InfluxDB connection
 1. In Chronograf, click **Configuration** in the left navigation bar,
    and then click **{{< icon "plus" >}} Add Connection**.
 2. Toggle the **InfluxDB v2 Auth** option at the bottom of the form.
-
     {{< img-hd src="/img/influxdb/2-0-tools-chronograf-v2-auth.png" alt="InfluxDB v2 Auth toggle" />}}
-
 3. Enter your InfluxDB connection credentials:
     - **Connection URL:** InfluxDB URL _(see [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
-      or [InfluxDB OSS URLs](/influxdb/v2.1/reference/urls/))_
+      or [InfluxDB OSS URLs](/influxdb/%762.1/reference/urls/))_
 
       ```
       http://localhost:8086
@@ -43,7 +42,7 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< curren
     - **Default Retention Policy:** default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp)
       _**(leave blank)**_
 
-    {{% note %}}
+        {{% note %}}
 #### DBRPs map to InfluxDB buckets
 In InfluxDB Cloud and InfluxDB OSS {{< current-version >}}, database/retention-policy (DBRP) combinations
 are mapped to buckets using the `database-name/retention-policy` naming convention.
@@ -51,7 +50,7 @@ are mapped to buckets using the `database-name/retention-policy` naming conventi
 
 For information, see [DBRP mapping](/influxdb/v2.1/reference/api/influxdb-1x/dbrp/)
 and [Map unmapped buckets](/influxdb/v2.1/query-data/influxql/#map-unmapped-buckets).
-    {{% /note %}}
+      {{% /note %}}
 
 3. Click **Add Connection**.
 4. Select the dashboards you would like to create, and then click **Next**.
