@@ -41,7 +41,7 @@ The following drivers are available:
 - mysql
 - postgres
 - snowflake
-- sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#query-an-sqlite-database)._
+- sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. For more information, see [Query SQLite](/flux/v0.x/query-data/sql/sqlite/)._
 - sqlserver, mssql
 - vertica, vertigo
 
