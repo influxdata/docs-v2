@@ -1101,6 +1101,12 @@ There are different types of API tokens:
 - **Read/Write token:** grants read or write access to specific resources in an organization.
 
 {{% /oss-only %}}
+{{% cloud-only %}}
+
+- **All-Access token:** grants full read and write access to all resources in an organization.
+- **Read/Write token:** grants read or write access to specific resources in an organization.
+
+{{% /cloud-only %}}
 
 Related entries: [Create a token](/influxdb/v2.0/security/tokens/create-token/).
 
