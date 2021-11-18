@@ -79,7 +79,8 @@ Include the following flags for each configuration:
   InfluxDB organization name. 
   The default organization name in InfluxDB Cloud is the email address associated with your account. 
 - **-\-token**: API token to use to connect to InfluxDB. 
-  Provide an **All-Access** token (or an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token) for 2.x). 
+    - **InfluxDB Cloud**: Provide an **All-Access** token.
+    - **InfluxDB OSS 2.x**: Provide an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token). 
 
 ##### Create an InfluxDB Cloud connection configuration
 ```sh
