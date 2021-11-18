@@ -1092,7 +1092,7 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 ### token
 
 Tokens (or API tokens) verify user and organization permissions in InfluxDB.
-There are different types of athentication tokens:
+There are different types of API tokens:
 
 {{% oss-only %}}
 
