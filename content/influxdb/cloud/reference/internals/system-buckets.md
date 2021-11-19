@@ -19,4 +19,4 @@ related:
   - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/notify/
 ---
 
-{{< duplicate-oss >}}
+{{% duplicate-oss %}}
