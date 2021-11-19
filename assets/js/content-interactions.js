@@ -157,8 +157,8 @@ $('.tooltip').each( function(){
 /////////////////// Style time columns in tables to not wrap ///////////////////
 
 $('.article--content table').each(function() {
-  var table = $(this)
-  var timeColumns = ['_time', '_start', '_stop']
+  var table = $(this);
+  var timeColumns = ['_time', '_start', '_stop'];
   let header = [];
   let timeColumnIndexes = [];
 
@@ -175,7 +175,7 @@ $('.article--content table').each(function() {
   // Add the nowrap class to cells with time column indexes
   table.find('td').each(function() {
     if (timeColumnIndexes.includes( $(this)[0].cellIndex )) {
-      $(this).addClass('nowrap')
+      $(this).addClass('nowrap');
     }
   })
 
