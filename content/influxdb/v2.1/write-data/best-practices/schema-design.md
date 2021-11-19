@@ -1,7 +1,7 @@
 ---
 title: InfluxDB schema design
 description: >
-  Improve InfluxDB schema design and data layout to reduce high cardinality and make your data more performant.
+  Design your schema for simpler and more performant queries.
 menu:
   influxdb_2_1:
     name: Schema design
@@ -9,220 +9,238 @@ menu:
     parent: write-best-practices
 ---
 
-Each InfluxDB use case is unique and your [schema](/influxdb/v2.1/reference/glossary/#schema) design reflects the uniqueness. We recommend the following design guidelines for most use cases:
+Design your [schema](/influxdb/v2.1/reference/glossary/#schema) for simpler and more performant queries.
+Follow design guidelines to make your schema easy to query.
+Learn how these guidelines lead to more performant queries.
 
-- [Where to store data (tag or field)](#where-to-store-data-tags-or-fields)
-- [Avoid too many series](#avoid-too-many-series)
-- [Use recommended naming conventions](#use-recommended-naming-conventions)
-<!-- - [Recommendations for managing shard group duration](#shard-group-duration-management)
--->
-
-{{% note %}}
-Follow these guidelines to minimize high series cardinality and make your data more performant.
-{{% /note %}}
-
-## Where to store data (tag or field)
-
-[Tags](/influxdb/v2.1/reference/glossary/#tag) are indexed and [fields](/influxdb/v2.1/reference/glossary/#field) are not.
-This means that querying by tags is more performant than querying by fields.
-
-In general, your queries should guide what gets stored as a tag and what gets stored as a field:
-
-- Store commonly-queried meta data in tags.
-- Store data in fields if each data point contains a different value.
-- Store numeric values as fields ([tag values](/influxdb/v2.1/reference/glossary/#tag-value) only support string values).
-
-## Avoid too many series
-
-[Tags](/influxdb/v2.1/reference/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/influxdb/v2.1/reference/glossary/#series), also known as high [series cardinality](/influxdb/v2.1/reference/glossary/#series-cardinality).
-
-High series cardinality is a primary driver of high memory usage for many database workloads.
-InfluxDB uses measurements and tags to create indexes and speed up reads. However, when too many indexes created, both writes and reads may start to slow down. Therefore, if a system has memory constraints, consider storing high-cardinality data as a field rather than a tag.
+- [Design to query](#design-to-query)
+  - [Keep measurements and keys simple](#keep-measurements-and-keys-simple)
+- [Use tags and fields](#use-tags-and-fields)
+  - [Use fields for unique and numeric data](#use-fields-for-unique-and-numeric-data)
+  - [Use tags to improve query performance](#use-tags-to-improve-query-performance)
+  - [Keep tags simple](#keep-tags-simple)
 
 {{% note %}}
-If reads and writes to InfluxDB start to slow down, you may have high series cardinality (too many series). See how to [resolve high cardinality](/influxdb/v2.1/write-data/best-practices/resolve-high-cardinality/).
+
+Good schema design can prevent high series cardinality, resulting in better performing queries. If you notice data reads and writes slowing down or want to learn how cardinality affects performance, see how to [resolve high cardinality](/influxdb/v2.1/write-data/best-practices/resolve-high-cardinality/).
+
 {{% /note %}}
 
-## Use recommended naming conventions
+## Design to query
 
-Use the following conventions when naming your tag and field keys:
+The schemas below demonstrate [measurements](/influxdb/v2.1/reference/glossary/#measurement), [tag keys](/influxdb/v2.1/reference/glossary/#tag-key), and [field keys](/influxdb/v2.1/reference/glossary/#field-key) that are easy to query.
 
-- [Avoid keywords in tag and field names](#avoid-keywords-as-tag-or-field-names)
-- [Avoid the same tag and field name](#avoid-the-same-name-for-a-tag-and-a-field)
-- [Avoid encoding data in measurement names](#avoid-encoding-data-in-measurement-names)
-- [Avoid more than one piece of information in one tag](#avoid-putting-more-than-one-piece-of-information-in-one-tag)
+| measurement          | tag key   | tag key | field key |  field key  |
+|----------------------|-----------|---------|-----------|-------------|
+| airSensor            | sensorId  | station | humidity  | temperature |
+| waterQualitySensor   | sensorId  | station | pH        | temperature |
 
-### Avoid keywords as tag or field names
+The `airSensor` and `waterQualitySensor` schemas illustrate the following guidelines:
+- Each measurement is a simple name that describes a schema.
+- Keys [don't repeat within a schema](#avoid-duplicate-names-for-tags-and-fields).
+- Keys [don't use reserved keywords or special characters](#avoid-keywords-and-special-characters-in-keys).
+- Tags (`sensorId` and `station`) [store metadata common across many data points](#use-tags-to-improve-query-performance).
+- Fields (`humidity`, `pH`, and `temperature`) [store numeric data](#use-fields-for-unique-and-numeric-data).
+- Fields [store unique or highly variable](#use-fields-for-unique-and-numeric-data) data.
+- Measurements and keys [don't contain data](#keep-measurements-and-keys-simple); tag values and field values will store data.
 
-Not required, but simplifies writing queries because you won't have to wrap tag or field names in double quotes.
-See [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) to avoid.
-
-Also, if a tag or field name contains non-alphanumeric characters, you must use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in Flux.
-
-### Avoid the same name for a tag and a field
-
-Avoid using the same name for a tag and field key, which may result in unexpected behavior when querying data.
-
-### Avoid encoding data in measurement names
-
-InfluxDB queries merge data that falls within the same [measurement](/influxdb/v2.1/reference/glossary/#measurement), so it's better to differentiate data with [tags](/influxdb/v2.1/reference/glossary/#tag) than with detailed measurement names. If you encode data in a measurement name, you must use a regular expression to query the data, making some queries more complicated.
-
-#### Example line protocol schemas
-
-Consider the following schema represented by line protocol.
+The following points (formatted as line protocol) use the `airSensor` and `waterQualitySensor` schemas:
 
 ```
-Schema 1 - Data encoded in the measurement name
+airSensor,sensorId=A0100,station=Harbor humidity=35.0658,temperature=21.667 1636729543000000000
+waterQualitySensor,sensorId=W0101,station=Harbor pH=6.1,temperature=16.103 1472515200000000000
+```
+
+### Keep measurements and keys simple
+
+Store data in [tag values](/influxdb/v2.1/reference/glossary/#tag-value) or [field values](/influxdb/v2.1/reference/glossary/#field-value), not in [tag keys](/influxdb/v2.1/reference/glossary/#tag-key), [field keys](/influxdb/v2.1/reference/glossary/#field-key), or [measurements](/influxdb/v2.1/reference/glossary/#measurement). If you design your schema to store data in tag and field values,
+your queries will be easier to write and more efficient.
+
+{{% oss-only %}}
+
+In addition, you'll keep cardinality low by not creating measurements and keys as you write data.
+To learn more about the performance impact of high series cardinality, see how to [resolve high cardinality](/influxdb/v2.1/write-data/best-practices/resolve-high-cardinality/).
+
+{{% /oss-only %}}
+
+#### Compare schemas
+
+Compare the following valid schemas represented by line protocol.
+
+**Recommended**: the following schema stores metadata in separate `crop`, `plot`, and `region` tags. The `temp` field contains variable numeric data.
+
+#####  {id="good-measurements-schema"}
+```
+Good Measurements schema - Data encoded in tags (recommended)
+-------------
+weather_sensor,crop=blueberries,plot=1,region=north temp=50.1 1472515200000000000
+weather_sensor,crop=blueberries,plot=2,region=midwest temp=49.8 1472515200000000000
+```
+
+**Not recommended**: the following schema stores multiple attributes (`crop`, `plot` and `region`) concatenated  (`blueberries.plot-1.north`) within the measurement, similar to Graphite metrics.
+
+#####  {id="bad-measurements-schema"}
+```
+Bad Measurements schema - Data encoded in the measurement (not recommended)
 -------------
 blueberries.plot-1.north temp=50.1 1472515200000000000
 blueberries.plot-2.midwest temp=49.8 1472515200000000000
 ```
 
-The long measurement names (`blueberries.plot-1.north`) with no tags are similar to Graphite metrics.
-Encoding the `plot` and `region` in the measurement name makes the data more difficult to query.
+**Not recommended**: the following schema stores multiple attributes (`crop`, `plot` and `region`) concatenated  (`blueberries.plot-1.north`) within the field key.
 
-For example, calculating the average temperature of both plots 1 and 2 is not possible with schema 1.
-Compare this to schema 2:
-
+#####  {id="bad-keys-schema"}
 ```
-Schema 2 - Data encoded in tags
+Bad Keys schema - Data encoded in field keys (not recommended)
 -------------
-weather_sensor,crop=blueberries,plot=1,region=north temp=50.1 1472515200000000000
-weather_sensor,crop=blueberries,plot=2,region=midwest temp=49.8 1472515200000000000
+weather_sensor blueberries.plot-1.north.temp=50.1 1472515200000000000
+weather_sensor blueberries.plot-2.midwest.temp=49.8 1472515200000000000
 ```
 
-#### Flux example to query schemas
+#### Compare queries
 
-Use Flux to calculate the average `temp` for blueberries in the `north` region:
+Compare the following queries of the [_Good Measurements_](#good-measurements-schema) and [_Bad Measurements_](#bad-measurements-schema) schemas.
+The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blueberries in the `north` region
+
+**Easy to query**: [_Good Measurements_](#good-measurements-schema) data is easily filtered by `region` tag values, as in the following example.
 
 ```js
-// Schema 1 - Query for data encoded in the measurement name
-from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
-  |> mean()
-
-// Schema 2 - Query for data encoded in tags
+// Query *Good Measurements*, data stored in separate tags (recommended)
 from(bucket:"example-bucket")
   |> range(start:2016-08-30T00:00:00Z)
   |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
   |> mean()
 ```
 
-In schema 1, we see that querying the `plot` and `region` in the measurement name makes the data more difficult to query.
+**Difficult to query**: [_Bad Measurements_](#bad-measurements-schema) requires regular expressions to extract `plot` and `region` from the measurement, as in the following example.
 
-### Avoid putting more than one piece of information in one tag
-
-Splitting a single tag with multiple pieces into separate tags simplifies your queries and reduces the need for regular expressions.
-
-#### Example line protocol schemas
-
-Consider the following schema represented by line protocol.
-
+```js
+// Query *Bad Measurements*, data encoded in the measurement (not recommended)
+from(bucket:"example-bucket")
+  |> range(start:2016-08-30T00:00:00Z)
+  |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
+  |> mean()
 ```
-Schema 1 - Multiple data encoded in a single tag
+
+Complex measurements make some queries impossible. For example, calculating the average temperature of both plots is not possible with the [_Bad Measurements_](#bad-measurements-schema) schema.
+
+#### Keep keys simple
+
+In addition to keeping your keys free of data, follow these additional guidelines to make them easier to query:
+- [Avoid keywords and special characters](#avoid-keywords-and-special-characters-in-keys)
+- [Avoid duplicate names for tags and fields](#avoid-duplicate-names-for-tags-and-fields)
+
+##### Avoid keywords and special characters in keys
+
+To simplify query writing, don't include reserved keywords or special characters in tag and field keys.
+If you use [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) in keys,
+then you'll have to wrap the keys in double quotes.
+If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux]((/{{< latest "flux" >}}/).
+
+##### Avoid duplicate names for tags and fields
+
+Avoid using the same name for a [tag key](/influxdb/v2.1/reference/glossary/#tag-key) and a [field key](/influxdb/v2.1/reference/glossary/#field-key) within the same schema.
+Your query results may be unpredictable if you have a tag and a field with the same name.
+
+{{% cloud-only %}}
+
+{{% note %}}
+Use [explicit bucket schemas]() to enforce unique tag and field keys within a schema.
+{{% /note %}}
+
+{{% /cloud-only %}}
+
+## Use tags and fields
+
+[Tag values](/influxdb/v2.1/reference/glossary/#tag-value) are indexed and [field values](/influxdb/v2.1/reference/glossary/#field-value) aren't.
+This means that querying tags is more performant than querying fields.
+Your queries should guide what you store in tags and what you store in fields.
+
+### Use fields for unique and numeric data
+
+- Store unique or frequently changing values as field values.
+- Store numeric values as field values. ([Tags](/influxdb/v2.1/reference/glossary/#tag-value) only store strings).
+
+### Use tags to improve query performance
+
+- Store values as tag values if they can be reasonably indexed.
+- Store values as [tag values](/influxdb/v2.1/reference/glossary/#tag-value) if the values are used in [filter()]({{< latest "flux" >}}/universe/filter/) or [group()](/{{< latest "flux" >}}/universe/group/) functions.
+- Store values as tag values if the values are shared across multiple data points, i.e. metadata about the field.
+
+Because InfluxDB indexes tags, the query engine doesn't need to scan every record in a bucket to locate a tag value.
+For example, consider a bucket that stores data about thousands of users. With `userId` stored in a [field](/influxdb/v2.1/reference/glossary/#field), a query for user `abcde` requires InfluxDB to scan `userId` in every row.
+
+```js
+from(bucket: "example-bucket")
+  |> range(start: -7d)
+  |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
+```
+
+To retrieve data more quickly, filter on a tag to reduce the number of rows scanned.
+The tag should store data that can be reasonably indexed.
+The following query filters by the `company` tag to reduce the number of rows scanned for `userId`.
+
+```js
+from(bucket: "example-bucket")
+  |> range(start: -7d)
+  |> filter(fn: (r) => r.company == "Acme")
+  |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
+```
+
+### Keep tags simple
+
+Use one tag for each data attribute.
+If your source data contains multiple data attributes in a single parameter,
+split each attribute into its own tag.
+When each tag represents one attribute (not multiple concatenated attributes) of your data,
+you'll reduce the need for regular expressions in your queries.
+Without regular expressions, your queries will be easier to write and more performant.
+
+#### Compare schemas
+
+Compare the following valid schemas represented by line protocol.
+
+**Recommended**: the following schema splits location data into `plot` and `region` tags.
+
+#####  {id="good-tags-schema"}
+```
+Good Tags schema - Data encoded in multiple tags
+-------------
+weather_sensor,crop=blueberries,plot=1,region=north temp=50.1 1472515200000000000
+weather_sensor,crop=blueberries,plot=2,region=midwest temp=49.8 1472515200000000000
+```
+
+**Not recommended**: the following schema stores multiple attributes (`plot` and `region`) concatenated within the `location` tag value (`plot-1.north`).
+
+##### {id="bad-tags-schema"}
+```
+Bad Tags schema - Multiple data encoded in a single tag
 -------------
 weather_sensor,crop=blueberries,location=plot-1.north temp=50.1 1472515200000000000
 weather_sensor,crop=blueberries,location=plot-2.midwest temp=49.8 1472515200000000000
 ```
 
-The schema 1 data encodes multiple parameters, the `plot` and `region`, into a long tag value (`plot-1.north`).
-Compare this to schema 2:
+#### Compare queries
 
-```
-Schema 2 - Data encoded in multiple tags
--------------
-weather_sensor,crop=blueberries,plot=1,region=north temp=50.1 1472515200000000000
-weather_sensor,crop=blueberries,plot=2,region=midwest temp=49.8 1472515200000000000
-```
+Compare queries of the [_Good Tags_](#good-tags-schema) and [_Bad Tags_](#bad-tags-schema) schemas.
+The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blueberries in the `north` region.
 
-Schema 2 is preferable because, with multiple tags, you don't need a regular expression.
-
-#### Flux example to query schemas
-
-The following Flux examples show how to calculate the average `temp` for blueberries in the `north` region; both for schema 1 and schema 2.
+**Easy to query**: [_Good Tags_](#good-tags-schema) data is easily filtered by `region` tag values, as in the following example.
 
 ```js
-// Schema 1 -  Query for multiple data encoded in a single tag
-from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
-  |> mean()
-
-// Schema 2 - Query for data encoded in multiple tags
+// Query *Good Tags* schema, data encoded in multiple tags
 from(bucket:"example-bucket")
   |> range(start:2016-08-30T00:00:00Z)
   |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
   |> mean()
 ```
-In schema 1, we see that querying the `plot` and `region` in a single tag makes the data more difficult to query.
 
-<!--
-## Shard group duration management
+**Difficult to query**: [_Bad Tags_](#bad-tags-schema) requires regular expressions to parse the complex `location` values, as in the following example.
 
-InfluxDB stores data in shard groups.
-Shard groups are organized by [buckets](/influxdb/v2.1/reference/glossary/#bucket) and store data with timestamps that fall within a specific time interval called the [shard duration](/influxdb/v1.8/concepts/glossary/#shard-duration).
-
-If no shard group duration is provided, the shard group duration is determined by the RP [duration](/influxdb/v1.8/concepts/glossary/#duration) at the time the RP is created. The default values are:
-
-| RP Duration  | Shard Group Duration  |
-|---|---|
-| < 2 days  | 1 hour  |
-| >= 2 days and <= 6 months  | 1 day  |
-| > 6 months  | 7 days  |
-
-The shard group duration is also configurable per RP.
-To configure the shard group duration, see [Retention Policy Management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
-
-### Shard group duration tradeoffs
-
-Determining the optimal shard group duration requires finding the balance between:
-
-- Better overall performance with longer shards
-- Flexibility provided by shorter shards
-
-#### Long shard group duration
-
-Longer shard group durations let InfluxDB store more data in the same logical location.
-This reduces data duplication, improves compression efficiency, and improves query speed in some cases.
-
-#### Short shard group duration
-
-Shorter shard group durations allow the system to more efficiently drop data and record incremental backups.
-When InfluxDB enforces an RP it drops entire shard groups, not individual data points, even if the points are older than the RP duration.
-A shard group will only be removed once a shard group's duration *end time* is older than the RP duration.
-
-For example, if your RP has a duration of one day, InfluxDB will drop an hour's worth of data every hour and will always have 25 shard groups. One for each hour in the day and an extra shard group that is partially expiring, but isn't removed until the whole shard group is older than 24 hours.
-
->**Note:** A special use case to consider: filtering queries on schema data (such as tags, series, measurements) by time. For example, if you want to filter schema data within a one hour interval, you must set the shard group duration to 1h. For more information, see [filter schema data by time](/influxdb/v1.8/query_language/explore-schema/#filter-meta-queries-by-time).
-
-### Shard group duration recommendations
-
-The default shard group durations work well for most cases. However, high-throughput or long-running instances will benefit from using longer shard group durations.
-Here are some recommendations for longer shard group durations:
-
-| RP Duration  | Shard Group Duration  |
-|---|---|
-| <= 1 day  | 6 hours  |
-| > 1 day and <= 7 days  | 1 day  |
-| > 7 days and <= 3 months  | 7 days  |
-| > 3 months  | 30 days  |
-| infinite  | 52 weeks or longer  |
-
-> **Note:** Note that `INF` (infinite) is not a [valid shard group duration](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
-In extreme cases where data covers decades and will never be deleted, a long shard group duration like `1040w` (20 years) is perfectly valid.
-
-Other factors to consider before setting shard group duration:
-
-* Shard groups should be twice as long as the longest time range of the most frequent queries
-* Shard groups should each contain more than 100,000 [points](/influxdb/v1.8/concepts/glossary/#point) per shard group
-* Shard groups should each contain more than 1,000 points per [series](/influxdb/v1.8/concepts/glossary/#series)
-
-#### Shard group duration for backfilling
-
-Bulk insertion of historical data covering a large time range in the past creates a large number of shards at once.
-The concurrent access and overhead of writing to hundreds or thousands of shards can quickly lead to slow performance and memory exhaustion.
-
-When writing historical data, consider your ingest rate limits, volume, and existing data schema affects performance and memory.
-
--->
+```js
+// Query *Bad Tags* schema, multiple data encoded in a single tag
+from(bucket:"example-bucket")
+  |> range(start:2016-08-30T00:00:00Z)
+  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
+  |> mean()
+```

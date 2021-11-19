@@ -46,12 +46,12 @@ to illustrate how `union()` transforms data.
 import "generate"
 
 t1 = generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
-  |> set(key: "tag", value: "foo")
-  |> group(columns: ["tag"])
+    |> set(key: "tag", value: "foo")
+    |> group(columns: ["tag"])
 
 t2 = generate.from(count: 4, fn: (n) => n * -1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
-  |> set(key: "tag", value: "bar")
-  |> group(columns: ["tag"])
+    |> set(key: "tag", value: "bar")
+    |> group(columns: ["tag"])
 
 union(tables: [t1, t2])
 ```
@@ -130,12 +130,12 @@ A single stream of tables
 import "generate"
 
 t1 = generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
-  |> set(key: "tag", value: "foo")
-  |> group()
+    |> set(key: "tag", value: "foo")
+    |> group()
 
 t2 = generate.from(count: 4, fn: (n) => n * -1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
-  |> set(key: "tag", value: "bar")
-  |> group()
+    |> set(key: "tag", value: "bar")
+    |> group()
 
 union(tables: [t1, t2])
 ```
@@ -248,8 +248,8 @@ union(tables: [t1, t2])
 #### join() output
 ```js
 join(
-  tables: {t1: t1, t2: t2}
-  on: ["_time", "tag"]
+    tables: {t1: t1, t2: t2},
+    on: ["_time", "tag"],
 )
 ```
 
