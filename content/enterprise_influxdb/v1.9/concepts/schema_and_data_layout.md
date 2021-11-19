@@ -40,7 +40,7 @@ However, when too many indexes are created, both writes and reads may start to s
 Each unique set of indexed data elements forms a [series key](/enterprise_influxdb/v1.9/concepts/glossary/#series-key).
 [Tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series), also known as high [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality).
 High series cardinality is a primary driver of high memory usage for many database workloads.
-Therefore, to reduce memory consumption, consider storing high-cardinality values in fields values rather than in tags or field keys.
+Therefore, to reduce memory consumption, consider storing high-cardinality values in field values rather than in tags or field keys.
 
 {{% note %}}
 
@@ -60,10 +60,10 @@ Use the following conventions when naming your tag and field keys:
 
 ### Avoid reserved keywords in tag and field keys
 
-Not required, but avoiding the use of reserved keywords in your tag and field keys simplifies writing queries because you won't have to wrap your keys in double quotes.
+Not required, but avoiding the use of reserved keywords in your tag keys and field keys simplifies writing queries because you won't have to wrap your keys in double quotes.
 See [InfluxQL](https://github.com/influxdata/influxql/blob/master/README.md#keywords) and  [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) to avoid.
 
-Also, if a tag or field key contains characters other than `[A-z,_]`, you must wrap it in double quotes in InfluxQL or use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in Flux.
+Also, if a tag key or field key contains characters other than `[A-z,_]`, you must wrap it in double quotes in InfluxQL or use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in Flux.
 
 ### Avoid the same name for a tag and a field
 
