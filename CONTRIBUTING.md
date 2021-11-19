@@ -457,7 +457,7 @@ WHERE time > now() - 15m
 
 To link to tabbed content, click on the tab and use the URL parameter shown.
 It will have the form `?t=`, plus a string.
-For example: 
+For example:
 
 ```
 [Windows installation](/influxdb/v2.0/install/?t=Windows)
@@ -1050,7 +1050,7 @@ This is necessary to get the first sentence/paragraph to render correctly.
 2.  {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
 3.  {{% oss-only %}}
 
-    This is a multi-paragraph list item that will only render in the InfluxDB OSS docs.
+     This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB OSS docs.
 
     **Note:** Notice shortcode is _inside_ of the line item.
     There also must be blank newline after the opening short-code tag.
@@ -1079,7 +1079,7 @@ This is necessary to get the first sentence/paragraph to render correctly.
 - {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
 - {{% cloud-only %}}
 
-  This is a multi-paragraph list item that will only render in the InfluxDB Cloud docs.
+  This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB Cloud docs.
 
   **Note:** Notice shortcode is _inside_ of the line item.
   There also must be blank newline after the opening short-code tag.
