@@ -237,7 +237,7 @@ Consider a bucket that has the following `airSensors` [`explicit bucket schema`]
 }
 ```
 
-The following [line protocol](/influxdb/cloud/reference/syntax/line-protocol) data has an `airSensors` measurement, a `sensorId` tag, and three fields (`temperature`, `humidity`, and `co`).
+The following [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) data has an `airSensors` measurement, a `sensorId` tag, and three fields (`temperature`, `humidity`, and `co`).
 
 ```
 airSensors,sensorId=L1 temperature=90.5,humidity=70.0,co=0.2 1637014074
