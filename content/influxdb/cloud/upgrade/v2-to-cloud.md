@@ -67,19 +67,20 @@ Use the `influx` CLI packaged with InfluxDB 2.x and the
 to set up the connection configurations for both your InfluxDB Cloud instance and
 your InfluxDB 2.x instance.
 
-Include the following flags for each configuration:
+Include the following flags for each configuration: 
 
-- **-\-config-name**:
-  Unique name for the connection configuration.
-  The examples below use `cloud` and `oss` respectively.
-- **-\-host-url**:
-  [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) or
-  [InfluxDB 2.x URL](/{{< latest "influxdb" >}}/reference/urls/).
-- **-\-org**:
-  InfluxDB organization name.
-  The default organization name in InfluxDB Cloud is the email address associated with your account.
-- **-\-token**: API token to use to connect to InfluxDB.
-  Provide an **All-Access** token (or an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token) for 2.x).
+- **-\-config-name**: 
+  Unique name for the connection configuration. 
+  The examples below use `cloud` and `oss` respectively. 
+- **-\-host-url**: 
+  [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) or 
+  [InfluxDB 2.x URL](/{{< latest "influxdb" >}}/reference/urls/). 
+- **-\-org**: 
+  InfluxDB organization name. 
+  The default organization name in InfluxDB Cloud is the email address associated with your account. 
+- **-\-token**: API token to use to connect to InfluxDB. 
+    - **InfluxDB Cloud**: Provide an **All-Access** token.
+    - **InfluxDB OSS 2.x**: Provide an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token). 
 
 ##### Create an InfluxDB Cloud connection configuration
 ```sh
