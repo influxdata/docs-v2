@@ -457,7 +457,7 @@ WHERE time > now() - 15m
 
 To link to tabbed content, click on the tab and use the URL parameter shown.
 It will have the form `?t=`, plus a string.
-For example: 
+For example:
 
 ```
 [Windows installation](/influxdb/v2.0/install/?t=Windows)

@@ -259,9 +259,9 @@ Related entries: [bucket](#bucket)
 
 ### data type
 
-A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it. 
+A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it.
 
-InfluxDB supports the following data types: 
+InfluxDB supports the following data types:
 | Data type        | Alias/annotation   |
 | :--------------- | :----------------- |
 | string           |                    |
@@ -797,6 +797,11 @@ A tuple of named values represented using a record type.
 ### regular expressions
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
+
+### rejected points
+
+In a batch of data, points that InfluxDB couldn't write to a bucket.
+Field type conflicts are a common cause of rejected points.
 
 ### retention period
 The duration of time that a bucket retains data.
