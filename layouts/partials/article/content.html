@@ -5,9 +5,9 @@
 {{ $influxdbCloud := and (eq $product "influxdb") (eq $version "cloud") }}
 
 {{ if $influxdbOSS }}
-  {{ .Content | replaceRE `(?U)(<span class=\'cloud\-only\'>.*<\/span><\!\-\- close \-\-\>)` "" | replaceRE `(?Us)(<div class=\'cloud\-only\'>.*<\/div><\!\-\- close \-\-\>)` "" | safeHTML}}
+  {{ .Content | replaceRE `(?Us)(<li>\s*<(?:div|span) class=\'cloud\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>\s*</li>)` "" | replaceRE `(?U)(<span class=\'cloud\-only\'>.*<\/span><\!\-\- close \-\-\>)` "" | replaceRE `(?Us)(<div class=\'cloud\-only\'>.*<\/div><\!\-\- close \-\-\>)` "" | safeHTML}}
 {{ else if $influxdbCloud }}
-  {{ .Content | replaceRE `(?U)(<span class=\'oss\-only\'>.*<\/span><\!\-\- close \-\-\>)` "" | replaceRE `(?Us)(<div class=\'oss\-only\'>.*<\/div><\!\-\- close \-\-\>)` "" | safeHTML}}
+  {{ .Content | replaceRE `(?Us)(<li>\s*<(?:div|span) class=\'oss\-only\'>.*<\/(?:div|span)><\!\-\- close \-\-\>\s*</li>)` "" | replaceRE `(?U)(<span class=\'oss\-only\'>.*<\/span><\!\-\- close \-\-\>)` "" | replaceRE `(?Us)(<div class=\'oss\-only\'>.*<\/div><\!\-\- close \-\-\>)` "" | safeHTML}}
 {{ else }}
   {{ .Content }}
 {{ end }}
