@@ -96,7 +96,7 @@ InfluxDB logs rejected data points and associated errors to your organization's 
 To get a log of rejected points, query the [`rejected_points` measurement](/influxdb/cloud/reference/internals/system-buckets/#_monitoring-bucket-schema) in your organization's `_monitoring` bucket.
 To more quickly locate `rejected_points`, keep the following in mind:
 
-- If your batch contains single lines with multiple [fields](/influxdb/cloud/reference/syntax/line-protocol/#field-set), InfluxDB logs an entry for each point (each unique field) that failed.
+- If your line protocol batch contains single lines with multiple [fields](/influxdb/cloud/reference/syntax/line-protocol/#field-set), InfluxDB logs an entry for each point (each unique field) that is rejected.
 - Each entry contains a `reason` tag that describes why the point was rejected.
 - Entries for [data type conflicts and schema rejections](#find-data-type-conflicts-and-schema-rejections) have a `count` field value of `1`.
 - Entries for [parsing errors](#find-parsing-errors) contain an `error` field (and don't contain a `count` field).
