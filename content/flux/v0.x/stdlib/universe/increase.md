@@ -44,7 +44,7 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Output tables
-For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.
+For each input table with `n` rows, `increase()` outputs a table with `n - 1` rows.
 
 ## Examples
 
