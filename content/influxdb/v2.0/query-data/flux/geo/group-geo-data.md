@@ -33,7 +33,7 @@ to populate the `sampleGeoData` variable in the queries below.
 {{% /note %}}
 
 ### Group data by area
-Use the [`geo.groupByArea()` function](/{{< latest "flux" >}}/stdlib/experimental/to/geo/groupbyarea/)
+Use the [`geo.groupByArea()` function](/{{< latest "flux" >}}/stdlib/experimental/geo/groupbyarea/)
 to group geo-temporal data points by geographic area.
 Areas are determined by [S2 grid cells](https://s2geometry.io/devguide/s2cell_hierarchy.html#s2cellid-numbering)
 
@@ -56,7 +56,7 @@ sampleGeoData
 ```
 
 ### Group data by track or route
-Use [`geo.asTracks()` function](/{{< latest "flux" >}}/stdlib/experimental/to/geo/astracks/)
+Use [`geo.asTracks()` function](/{{< latest "flux" >}}/stdlib/experimental/geo/astracks/)
 to group data points into tracks or routes and order them by time or other columns.
 Data must contain a unique identifier for each track. For example: `id` or `tid`.
 
