@@ -1034,6 +1034,29 @@ only render in the InfluxDB OSS documentation.
 This is necessary to get the first sentence/paragraph to render correctly.
 
 {{% /oss-only %}}
+
+- {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+- {{% oss-only %}}
+
+  This is a multi-paragraph list item that will only render in the InfluxDB OSS docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /oss-only %}}
+
+1.  Step 1
+2.  {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+3.  {{% oss-only %}}
+
+    This is a multi-paragraph list item that will only render in the InfluxDB OSS docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /oss-only %}}
 ```
 
 #### cloud-only
@@ -1052,6 +1075,29 @@ only render in the InfluxDB Cloud documentation.
 This is necessary to get the first sentence/paragraph to render correctly.
 
 {{% /cloud-only %}}
+
+- {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+- {{% cloud-only %}}
+
+  This is a multi-paragraph list item that will only render in the InfluxDB Cloud docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /cloud-only %}}
+
+1.  Step 1
+2.  {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+3.  {{% cloud-only %}}
+
+    This is a multi-paragraph list item that will only render in the InfluxDB Cloud docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /cloud-only %}}
 ```
 
 #### All-Caps
