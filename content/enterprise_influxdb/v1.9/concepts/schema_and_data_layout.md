@@ -40,7 +40,7 @@ However, when too many indexes are created, both writes and reads may start to s
 Each unique set of indexed data elements forms a [series key](/enterprise_influxdb/v1.9/concepts/glossary/#series-key).
 [Tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag) containing highly variable information like unique IDs, hashes, and random strings lead to a large number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series), also known as high [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality).
 High series cardinality is a primary driver of high memory usage for many database workloads.
-Therefore, to reduce memory consumption, consider storing high-cardinality values in fields rather than in tags.
+Therefore, to reduce memory consumption, consider storing high-cardinality values in fields values rather than in tags or field keys.
 
 {{% note %}}
 
