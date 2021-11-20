@@ -62,7 +62,9 @@ Write requests return the following status codes:
     For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud/security/tokens/)
 - `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found.
   The response body contains the requested resource type, e.g. "organization", and resource name.
-- `413` **Request entity too large**: The write request payload exceeded the size limit (**50 MB *uncompressed*** data or **250 MB *decompressed***).
+- `413` **Request entity too large**: Occurs in the following cases:
+   - The write request payload exceeds the size limit **50 MB** (compressed or uncompressed).
+   - A compressed payload attempts to uncompress more than **250 MB** of data.
 - `429` **Too many requests**: API token is temporarily over quota. The `Retry-After` header describes when to try the write request again.
 - `500` **Internal server error**: Default HTTP status for an error.
 - `503` **Service unavailable**: Server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
