@@ -70,7 +70,6 @@ from(bucket: "example-bucket")
     r._measurement == "prometheus" and
     r._field == "go_goroutines"
   )
-  |> increase()
   |> derivative(nonNegative: true)
 ```
 
@@ -128,7 +127,6 @@ from(bucket: "example-bucket")
     r._measurement == "go_goroutines" and
     r._field == "gauge"
   )
-  |> increase()
   |> derivative(nonNegative: true)
 ```
 
