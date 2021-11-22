@@ -30,9 +30,9 @@ The `bucket-schema` examples below reference [**InfluxDB data elements**](/influ
 
 - [Create a bucket schema](#create-a-bucket-schema)
 - [Update a bucket schema](#update-a-bucket-schema)
-- [Troubleshoot errors](#troubleshoot-errors)
+- [Troubleshoot write errors](#troubleshoot-write-errors)
 
-### Create a bucket schema
+## Create a bucket schema
 Use the `influx` CLI to set the schema-type and measurement schemas for your bucket:
 1. Create a bucket with the `schema-type` flag set to `explicit`.
 
@@ -68,9 +68,9 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
    {{% /code-tab-content %}}
    {{% /code-tabs-wrapper %}}
 
-   #### Write valid schemas 
+   #### Write valid schemas
    To ensure your schema is valid, review [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/).
-   Follow these rules when creating your schema columns file: 
+   Follow these rules when creating your schema columns file:
    1. Use valid measurement and column names that:
       - Are unique within the schema
       - Are 1 to 128 characters long
@@ -81,14 +81,14 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
    2. Include a column with the [`timestamp`](/influxdb/cloud/reference/key-concepts/data-elements/#timestamp) type.
    3. Include at least one column with the [`field`](/influxdb/cloud/reference/key-concepts/data-elements/#fields) type (without a field, there is no time-series data), as in the following example:
 
-      **Valid**: a schema with [`timestamp`]() and [`field`]() columns. 
+      **Valid**: a schema with [`timestamp`]() and [`field`]() columns.
       ```json
       [
        {"name":"time","type":"timestamp"},
        {"name":"fsWrite","type":"field","dataType":"float"}
       ]
       ```
-   
+
       **Not valid**: a schema without a `field` column.
       ```json
       [
@@ -120,7 +120,16 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
      --columns-file sensor.ndjson     
     ```
 
-### Update a bucket schema
+    ### Troubleshoot create errors
+
+    #### Failed to create measurement
+    If you attempt to `create` a schema for an existing measurement name, InfluxDB rejects the new schema and returns the following error:
+
+    ```sh
+    Error: failed to create measurement: 422 Unprocessable Entity
+    ```
+
+## Update a bucket schema
 
 Use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) to add new columns to a schema. You cannot modify or delete columns in bucket schemas.
 
@@ -164,42 +173,12 @@ Use the [`extended-output` flag](/influxdb/cloud/reference/cli/influx/bucket-sch
       --columns-file sensor.ndjson
     ```
 
-### Troubleshoot errors
+## Troubleshoot write errors
 
-Troubleshoot and resolve the following bucket schema errors:
-- [Not permitted by schema](#not-permitted-by-schema)
-- [No measurement schemas](#no-measurement-schemas)
-- [Failed to create measurement](#failed-to-create-measurement)
+InfluxDB returns an error for the following reasons:
 
-#### Not permitted by schema
-If data in the write request doesn't conform to the defined schema, InfluxDB returns an error.
+- data in the write request doesn't conform to a defined schema.
+- data in the write request doesn't have a schema defined for the bucket.
+- data in the write request has invalid syntax.
 
-In the following example, the *cpu* measurement has an incorrect `usage_user` [data type](/influxdb/cloud/reference/glossary/#data-type):
-
-```sh
-influx write -b my_explicit_bucket 'cpu,host=myHost usage_user="1001" 1556896326'
-```
-
-The following error occurs:
-
-```sh
-Error: failed to write data:
-unable to parse 'cpu,host=myHost usage_user="1001" 1556896326':
-schema: field type for field "usage_user" not permitted by schema; got String but expected Float
-  ```
-
-#### No measurement schemas
-If you attempt to write to a bucket that has schema-type `explicit` and doesn't have a defined schema, the
-bucket rejects write attempts and returns the following error:
-
-```sh
-Error: failed to write data: schema: bucket "my_explicit_bucket" contains
-no measurement schemas
-```
-
-#### Failed to create measurement
-If you attempt to `create` a schema for an existing measurement name, InfluxDB rejects the new schema and returns the following error:
-
-```sh
-Error: failed to create measurement: 422 Unprocessable Entity
-```
+To resolve failures and partial writes, see how to [troubleshoot writes](/influxdb/cloud/write-data/troubleshoot/).

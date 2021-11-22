@@ -93,14 +93,14 @@ to illustrate how `join()` transforms data.
 import "generate"
 
 t1 = generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
-  |> set(key: "tag", value: "foo")
+    |> set(key: "tag", value: "foo")
 
 t2 = generate.from(count: 4, fn: (n) => n * -1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
-  |> set(key: "tag", value: "foo")
+    |> set(key: "tag", value: "foo")
 
 join(
-  tables: {t1: t1, t2: t2},
-  on: ["_time", "tag"]
+    tables: {t1: t1, t2: t2},
+    on: ["_time", "tag"],
 )
 ```
 
@@ -146,22 +146,22 @@ joined with Flux.
 
 ```js
 data_1 = from(bucket:"example-bucket")
-  |> range(start:-15m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system"
-  )
+    |> range(start:-15m)
+    |> filter(fn: (r) =>
+        r._measurement == "cpu" and
+        r._field == "usage_system"
+    )
 
 data_2 = from(bucket:"example-bucket")
-  |> range(start:-15m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
+    |> range(start:-15m)
+    |> filter(fn: (r) =>
+        r._measurement == "mem" and
+        r._field == "used_percent"
+    )
 
 join(
-  tables: {d1: data_1, d2: data_2},
-  on: ["_time", "host"]
+    tables: {d1: data_1, d2: data_2},
+    on: ["_time", "host"],
 )
 ```
 
@@ -205,8 +205,8 @@ are illustrated below:
 #### join() output
 ```js
 join(
-  tables: {t1: t1, t2: t2}
-  on: ["_time", "tag"]
+    tables: {t1: t1, t2: t2},
+    on: ["_time", "tag"],
 )
 ```
 

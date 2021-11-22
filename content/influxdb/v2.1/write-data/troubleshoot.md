@@ -16,33 +16,38 @@ related:
 ---
 Learn how to handle and recover from errors when writing to InfluxDB.
 
-- [Discover common failure scenarios](#common-failure-scenarios)
-- [HTTP status codes](#http-status-codes)
+- [Discover common failure scenarios](#discover-common-failure-scenarios)
+- [Review HTTP status codes](#review-http-status-codes)
 - [Troubleshoot failures](#troubleshoot-failures)
 
-## Common failure scenarios
+## Discover common failure scenarios
 
 Write requests made to InfluxDB may fail for a number of reasons.
 Common failure scenarios that return an HTTP `4xx` or `5xx` error status code include the following:
 
-- Request exceeded a rate limit.
-- API token was invalid.
+- API token was invalid. . See how to [manage API tokens](/influxdb/v2.0/security/tokens/).
+- Payload size was too large.
 - Client or server reached a timeout threshold.
-- Size of the data payload was too large.
 - Data was not formatted correctly.
 
-Writes may fail partially or completely even though InfluxDB returns an HTTP `2xx` status code for a valid request. For example, a partial write may occur when InfluxDB writes all points that conform to the bucket schema, but rejects points that have the wrong data type in a field.
+To find the causes of a specific error, [review HTTP status codes](#review-http-status-codes).
 
-## HTTP status codes
+### Troubleshoot partial writes
+
+Writes may fail partially or completely even though InfluxDB returns an HTTP `2xx` status code for a valid request.
+For example, a partial write may occur when InfluxDB writes all points that conform to the bucket schema, but rejects points that have the wrong data type in a field.
+To resolve partial writes and rejected points, see [troubleshoot failures](#troubleshoot-failures).
+
+## Review HTTP status codes
 
 InfluxDB uses conventional HTTP status codes to indicate the success or failure of a request.
 Write requests return the following status codes:
 
 - `204` **Success**: InfluxDB validated the request data format and accepted the data for writing to the bucket.
-    {{% note %}}
+  {{% note %}}
   `204` doesn't indicate a successful write operation since writes are asynchronous.
   If some of your data did not write to the bucket, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).
-    {{% /note %}}
+  {{% /note %}}
 
 - `400` **Bad request**: The [line protocol](/influxdb/v2.1/reference/syntax/line-protocol/) data in the request was malformed.
         The response body contains the first malformed line in the data. All request data was rejected and not written.
@@ -51,7 +56,7 @@ Write requests return the following status codes:
   - [API token](/influxdb/v2.1/api-guide/api_intro/#authentication) value is missing from the header.
   - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2.1/security/tokens/)
 - `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found. The response body contains the requested resource type, e.g. "organization", and resource name.
-- `413` **Request entity too large**: All request data was rejected and not written. InfluxDB OSS only returns this error if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error. 
+- `413` **Request entity too large**: All request data was rejected and not written. InfluxDB OSS only returns this error if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
 - `500` **Internal server error**: Default HTTP status for an error.
 - `503` **Service unavailable**: Server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
 
@@ -66,7 +71,7 @@ If you notice data is missing in your bucket, do the following:
 - Verify the data types match other data points with the same series.
   For example, did you attempt to write `string` data to an `int` field?
 - Verify the timestamps match the [precision parameter](/influxdb/v2.1/write-data/#timestamp-precision).
-- Minimize payload size and network errors by [optimizing writes](/influxdb/v2.1/write-data/best-practices/optimize-writes/) 
+- Minimize payload size and network errors by [optimizing writes](/influxdb/v2.1/write-data/best-practices/optimize-writes/)
 
 ### Troubleshoot rejected points
 
