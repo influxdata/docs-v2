@@ -14,7 +14,7 @@ aliases:
 
 ### Breaking changes
 - Add new parameters added to [`difference()`](/flux/v0.x/stdlib/universe/difference/)
-  to support increase function.
+  to support [`increase()` function](/flux/v0.x/stdlib/universe/increase/).
 
 ### Features
 - Don't introduce constraints for default arguments.
