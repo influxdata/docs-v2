@@ -10,6 +10,13 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.143.1 [2021-11-22]
+
+### Bug fixes
+- Add targets to `rust-toolchain`.
+
+---
+
 ## v0.143.0 [2021-11-22]
 
 ### Breaking changes
