@@ -11,16 +11,15 @@ menu:
 ---
 
 Learn how to create a notebook that normalizes data.
-Data normalization is the process of modifying or cleaning data to be easier to
-work with. For example, adjusting numeric values to a uniform scale,
-modifying strings, etc.
+Data normalization is the process of modifying or cleaning data to make it easier to
+work with. Examples include adjusting numeric values to a uniform scale and modifying strings.
 
 Walk through the following example to create a notebook that does the following:
 
-1.  Queries [NOAA NDBC sample data](/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data)
-2.  Uses a Flux script notebook cell to normalizes degree-based wind directions
+1.  Queries [NOAA NDBC sample data](/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data).
+2.  Uses a Flux script notebook cell to normalize degree-based wind directions
     to cardinal directions.
-3.  Writes normalized data to a bucket
+3.  Writes normalized data to a bucket.
 
 {{< cloud-only >}}  
 {{% cloud %}}  
@@ -36,7 +35,7 @@ Walk through the following example to create a notebook that does the following:
         select **NOAA National Buoy Data**.
     2.  In the next **FILTER** column, select **_measurement** from the dropdown
         and select the **ndbc** measurement in the list of measurements.
-    3.  In the next **FILTER** column, select **_field** from the dropdown
+    3.  In the next **FILTER** column, select **_field** from the drop-down list,
         and select the **wind\_dir\_degt** field from the list of fields.
 
 3.  Click {{% icon "notebook-add-cell" %}} after your **Build a Query** cell to 
