@@ -1,17 +1,16 @@
 ---
-draft: true
 title: Hardware sizing guidelines
 Description: >
   Review configuration and hardware guidelines for InfluxDB OSS (open source) and InfluxDB Enterprise.
-menu: enterprise_influxdb_1_9_ref
-weight: 40
-aliases:
-  - /enterprise_influxdb/v1.9/guides/hardware_sizing/
+menu:
+  enterprise_influxdb_1_9:
+    weight: 40
+    parent: Guides
 ---
 
-Review configuration and hardware guidelines for InfluxDB OSS (open source) and InfluxDB Enterprise:
+Review configuration and hardware guidelines for InfluxDB Enterprise:
 
-* [Single node or cluster?](#single-node-or-cluster)
+* [Enterprise overview](#enterprise-overview)
 * [Query guidelines](#query-guidelines)
 * [InfluxDB OSS guidelines](#influxdb-oss-guidelines)
 * [InfluxDB Enterprise cluster guidelines](#influxdb-enterprise-cluster-guidelines)
@@ -19,17 +18,18 @@ Review configuration and hardware guidelines for InfluxDB OSS (open source) and 
 * [Recommended cluster configurations](#recommended-cluster-configurations)
 * [Storage: type, amount, and configuration](#storage-type-amount-and-configuration)
 
+For InfluxDB OSS instances, see [OSS hardware sizing guidelines](https://docs.influxdata.com/influxdb/v1.8/guides/hardware_sizing/).
+
 > **Disclaimer:** Your numbers may vary from recommended guidelines. Guidelines provide estimated benchmarks for implementing the most performant system for your business.
 
-## Single node or cluster?
+## Enterprise overview
 
-If your InfluxDB performance requires any of the following, a single node (InfluxDB OSS) may not support your needs:
+InfluxDB Enterprise supports the following:
 
 - more than 750,000 field writes per second
 - more than 100 moderate queries per second ([see Query guides](#query-guidelines))
-- more than 10,000,000 [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality)
+- more than 10,000,000 [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality)
 
-We recommend InfluxDB Enterprise, which supports multiple data nodes (a cluster) across multiple server cores.
 InfluxDB Enterprise distributes multiple copies of your data across a cluster,
 providing high-availability and redundancy, so an unavailable node doesn’t significantly impact the cluster.
 Please [contact us](https://www.influxdata.com/contact-sales/) for assistance tuning your system.
@@ -45,7 +45,7 @@ If you want a single node instance of InfluxDB that's fully open source, require
 For **simple** or **complex** queries, we recommend testing and adjusting the suggested requirements as needed. Query complexity is defined by the following criteria:
 
 | Query complexity | Criteria                                                                              |
-|------------------|---------------------------------------------------------------------------------------|
+|:------------------|:---------------------------------------------------------------------------------------|
 | Simple           | Have few or no functions and no regular expressions                                   |
 |                  | Are bounded in time to a few minutes, hours, or 24 hours at most                      |
 |                  | Typically execute in a few milliseconds to a few dozen milliseconds                   |
@@ -55,20 +55,6 @@ For **simple** or **complex** queries, we recommend testing and adjusting the su
 | Complex          | Have multiple aggregation or transformation functions or multiple regular expressions |
 |                  | May sample a very large time range of months or years                                 |
 |                  | Typically take multiple seconds to execute                                            |
-
-## InfluxDB OSS guidelines
-
-Run InfluxDB on locally attached solid state drives (SSDs). Other storage configurations have lower performance and may not be able to recover from small interruptions in normal processing.
-
-Estimated guidelines include writes per second, queries per second, and number of unique [series](/enterprise_influxdb/v1.9/concepts/glossary/#series), CPU, RAM, and IOPS (input/output operations per second).
-
-| vCPU or CPU |   RAM   |   IOPS   | Writes per second | Queries* per second | Unique series |
-| ----------: | ------: | -------: | ----------------: | ------------------: | ------------: |
-|   2-4 cores |  2-4 GB |      500 |           < 5,000 |                 < 5 |     < 100,000 |
-|   4-6 cores | 8-32 GB | 500-1000 |         < 250,000 |                < 25 |   < 1,000,000 |
-|    8+ cores |  32+ GB |    1000+ |         > 250,000 |                > 25 |   > 1,000,000 |
-
-* **Queries per second for moderate queries.** Queries vary widely in their impact on the system. For simple or complex queries, we recommend testing and adjusting the suggested requirements as needed. See [query guidelines](#query-guidelines) for details.
 
 ## InfluxDB Enterprise cluster guidelines
 
@@ -84,19 +70,9 @@ Meta nodes do not need very much computing power. Regardless of the cluster load
 * RAM: 512 MB - 1 GB
 * IOPS: 50
 
-### Web node
-
-The InfluxDB Enterprise web server is primarily an HTTP server with similar load requirements. For most applications, the server doesn't need to be very robust. A cluster can function with only one web server, but for redundancy, we recommend connecting multiple web servers to a single back-end Postgres database.
-
-> **Note:** Production clusters should not use the SQLite database (lacks support for redundant web servers and handling high loads).
-
-* vCPU or CPU: 2-4 cores
-* RAM: 2-4 GB
-* IOPS: 100
-
 ### Data nodes
 
-A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
+A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
 
 >**Note:** For optimal data distribution within the cluster, use an even number of data nodes.
 
@@ -114,7 +90,7 @@ Guidelines vary by writes per second per node, moderate queries per second per n
 
 ## When do I need more RAM?
 
-In general, more RAM helps queries return faster. Your RAM requirements are primarily determined by [series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality). Higher cardinality requires more RAM. Regardless of RAM, a series cardinality of 10 million or more can cause OOM (out of memory) failures. You can usually resolve OOM issues by redesigning your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema).
+In general, more RAM helps queries return faster. Your RAM requirements are primarily determined by [series cardinality](/influxdb/v1.8/concepts/glossary/#series-cardinality). Higher cardinality requires more RAM. Regardless of RAM, a series cardinality of 10 million or more can cause OOM (out of memory) failures. You can usually resolve OOM issues by redesigning your [schema](/influxdb/v1.8/concepts/glossary/#schema).
 
 
 ## Guidelines per cluster
@@ -205,39 +181,6 @@ Select one of the following replication factors to see the recommended cluster c
 
 {{% /expand %}}
 
-{{% expand "Replication factor, 4" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| -----------------:| ------------------:|:---------------------------:|
-|     4 x 8    |         1,028,000 |                116 |      98 + 365,000           |
-|     4 x 16   |         2,067,000 |                208 |     140 + 8,056,000         |
-|     4 x 32   |         3,290,000 |                428 |     228 + 1,892,000         |
-|     8 x 8    |         2,813,000 |                928 |     496 + 1,225,000         |
-|     8 x 16   |         5,225,000 |               2176 |     800 + 2,799,000         |
-|     8 x 32   |         8,555,000 |               5184 |    1088 + 6,055,000         |
-
-{{% /expand %}}
-
-{{% expand "Replication factor, 6" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| -----------------:| ------------------:|:---------------------------:|
-|     6 x 8    |         1,261,000 |                288 |     192 + 522,000           |
-|     6 x 16   |         2,370,000 |                576 |     288 + 1,275,000         |
-|     6 x 32   |         3,601,000 |               1056 |     336 + 2,390,000         |
-
-{{% /expand %}}
-
-{{% expand "Replication factor, 8" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| ----------------: | -----------------: |:---------------------------:|
-|     8 x 8    |         1,382,000 |               1184 |     416 + 915,000           |
-|     8 x 16   |         2,658,000 |               2504 |     448 + 2,204,000         |
-|     8 x 32   |         3,887,000 |               5184 |     602 + 4,120,000         |
-
-{{% /expand %}}
-
 {{% /tab-content %}}
 
 {{% tab-content %}}
@@ -292,39 +235,6 @@ Select one of the following replication factors to see the recommended cluster c
 
 {{% /expand %}}
 
-{{% expand "Replication factor, 4" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| -----------------:| ------------------:|:---------------------------:|
-|     4 x 8    |           635,000 |                112 |      80 + 207,000           |
-|     4 x 16   |         1,359,000 |                188 |     124 + 461,000           |
-|     4 x 32   |         2,320,000 |                416 |     192 + 1,102,000         |
-|     8 x 8    |         1,570,000 |               1360 |     816 + 572,000           |
-|     8 x 16   |         3,205,000 |               2720 |     832 + 2,053,000         |
-|     8 x 32   |         3,294,000 |               2592 |     804 + 2,174,000         |
-
-{{% /expand %}}
-
-{{% expand "Replication factor, 6" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| -----------------:| ------------------:|:---------------------------:|
-|     6 x 8    |           694,000 |                302 |     198 + 204,000           |
-|     6 x 16   |         1,397,000 |                552 |     360 + 450,000           |
-|     6 x 32   |         2,298,000 |               1248 |     384 + 1,261,000         |
-
-{{% /expand %}}
-
-{{% expand "Replication factor, 8" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| ----------------: | -----------------: |:---------------------------:|
-|     8 x 8    |           739,000 |               1296 |     480 + 371,000           |
-|     8 x 16   |         1,396,000 |               2592 |     672 + 843,000           |
-|     8 x 32   |         2,614,000 |               2496 |     960 + 1,371,000         |
-
-{{% /expand %}}
-
 {{% /tab-content %}}
 
 {{% tab-content %}}
@@ -361,39 +271,6 @@ Select one of the following replication factors to see the recommended cluster c
 |     6 x 8    |           593,000 |                318 |     144 + 288,000           |
 |     6 x 16   |         1,545,000 |                744 |     384 + 407,000           |
 |     6 x 32   |         3,204,000 |               1632 |     912 + 505,000           |
-
-{{% /expand %}}
-
-{{% expand "Replication factor, 4" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| -----------------:| ------------------:|:---------------------------:|
-|     4 x 8    |           258,000 |                116 |      68 + 73,000            |
-|     4 x 16   |           675,000 |                196 |     132 + 140,000           |
-|     4 x 32   |         1,513,000 |                244 |     176 + 476,000           |
-|     8 x 8    |           614,000 |               1096 |     400 + 258,000           |
-|     8 x 16   |         1,557,000 |               2496 |    1152 + 436,000           |
-|     8 x 32   |         3,265,000 |               4288 |    2240 + 820,000           |
-
-{{% /expand %}}
-
-{{% expand "Replication factor, 6" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| -----------------:| ------------------:|:---------------------------:|
-|     6 x 8    |           694,000 |                302 |     198 + 204,000           |
-|     6 x 16   |         1,397,000 |                552 |     360 + 450,000           |
-|     6 x 32   |         2,298,000 |               1248 |     384 + 1,261,000         |
-
-{{% /expand %}}
-
-{{% expand "Replication factor, 8" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| ----------------: | -----------------: |:---------------------------:|
-|     8 x 8    |           739,000 |               1296 |     480 + 371,000           |
-|     8 x 16   |         1,396,000 |               2592 |     672 + 843,000           |
-|     8 x 32   |         2,614,000 |               2496 |     960 + 1,371,000         |
 
 {{% /expand %}}
 
@@ -444,14 +321,6 @@ Select one of the following replication factors to see the recommended cluster c
 
 {{% /expand %}}
 
-{{% expand "Replication factor, 4" %}}
-
-| Nodes x Core | Writes per second | Queries per second | Queries + writes per second |
-|:------------:| -----------------:| ------------------:|:---------------------------:|
-|     4 x 8    |            183365 |                132 |      52 + 100,000           |
-
-{{% /expand %}}
-
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -465,7 +334,7 @@ See your cloud provider documentation for IOPS detail on your storage volumes.
 
 ### Bytes and compression
 
-Database names, [measurements](/enterprise_influxdb/v1.9/concepts/glossary/#measurement), [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key), [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key), and [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) are stored only once and always as strings. [Field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) and [timestamps](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) are stored for every point.
+Database names, [measurements](/influxdb/v1.8/concepts/glossary/#measurement), [tag keys](/influxdb/v1.8/concepts/glossary/#tag-key), [field keys](/influxdb/v1.8/concepts/glossary/#field-key), and [tag values](/influxdb/v1.8/concepts/glossary/#tag-value) are stored only once and always as strings. [Field values](/influxdb/v1.8/concepts/glossary/#field-value) and [timestamps](/influxdb/v1.8/concepts/glossary/#timestamp) are stored for every point.
 
 Non-string values require approximately three bytes. String values require variable space, determined by string compression.
 

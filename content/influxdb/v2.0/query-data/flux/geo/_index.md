@@ -18,7 +18,7 @@ list_code_example: |
   ```
 ---
 
-Use the [Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/to/geo) to
+Use the [Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo) to
 filter geo-temporal data and group by geographic location or track.
 
 {{% warn %}}

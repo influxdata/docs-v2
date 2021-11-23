@@ -56,6 +56,8 @@ influx auth create \
   --all-access
 ```
 
+{{% oss-only %}}
+
 #### Create an Operator token
 
 Create an Operator token to grant permissions to all resources in all organizations.
@@ -65,6 +67,7 @@ influx auth create \
   --org my-org \
   --operator
 ```
+{{% /oss-only %}}
 
 #### Create a token with specified read permissions
 
