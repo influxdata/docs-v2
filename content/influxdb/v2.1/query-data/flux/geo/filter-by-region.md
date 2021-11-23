@@ -22,7 +22,7 @@ list_code_example: |
   ```
 ---
 
-Use the [`geo.filterRows` function](/{{< latest "flux" >}}/stdlib/experimental/to/geo/filterrows/)
+Use the [`geo.filterRows` function](/{{< latest "flux" >}}/stdlib/experimental/geo/filterrows/)
 to filter geo-temporal data by geographic region:
 
 1. [Define a geographic region](#define-a-geographic-region)
