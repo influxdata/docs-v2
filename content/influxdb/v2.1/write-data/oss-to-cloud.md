@@ -15,12 +15,28 @@ To write data from InfluxDB OSS to InfluxDB Cloud, use the Flux
 [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) or
 [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) functions.
 Write data once with a single query execution or use [InfluxDB tasks](/influxdb/v2.1/process-data/)
-to routinely write data to InfluxDB Cloud.
+to [routinely write data to InfluxDB Cloud](#automate-writing-data-from-influxdb-oss-to-influxdb-cloud).
 
-1. Query data from InfluxDB OSS.
-2. _(Optional)_ Filter or process data to write to InfluxDB Cloud.
-3. Use `to` or `experimental.to` to write data to InfluxDB Cloud. 
-    _See [Identify which to() function to use](#identify-which-to-function-to-use)_.  
+{{% cloud %}}
+#### InfluxDB Cloud rate limits
+Write requests to InfluxDB Cloud are subject to the rate limits associated with your
+[InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
+{{% /cloud %}}
+
+1.  Query data from InfluxDB OSS.
+2.  _(Optional)_ Filter or process data to write to InfluxDB Cloud.
+3.  Use `to` or `experimental.to` to write data to InfluxDB Cloud.
+    For most use cases, `to()` is the correct function to use, but depending on
+    the structure of the data you're writing, `experimental.to` may be required.
+    
+    **Use the following guidelines**:
+    
+    - **to()**: Write data that is structured with the field key in the `_field`
+      column and the field value in the `_value` column.
+    - **experimental.to()**: Write data with column names that should be used as
+      field keys and column values that should be used as field values.
+
+    _See [input and output examples for `to()` functions](#input-and-output-data-for-to-functions)._
     
 4.  Provide the following parameters to either function:
 
@@ -29,8 +45,11 @@ to routinely write data to InfluxDB Cloud.
     - **org**: InfluxDB Cloud organization
     - **token**: InfluxDB Cloud API Token
       
-      {{% note %}}
-5. ({{< req "Recommended" >}}) To keep your raw API token out of queries, store your InfluxDB Cloud API token as an [InfluxDB secret](/influxdb/v2.1/security/secrets/) in your InfluxDB OSS instance and use [`secrets.get()`](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) to retrieve the secret value as shown in the following example (select the function you're using to see the correct format):
+5.  ({{< req "Recommended" >}}) To keep your raw API token out of queries, store
+    your InfluxDB Cloud API token as an [InfluxDB secret](/influxdb/v2.1/security/secrets/)
+    in your InfluxDB OSS instance and use [`secrets.get()`](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/)
+    to retrieve the secret value as shown in the following example
+    (select the function you're using to see the correct format):
 
 
 {{< code-tabs-wrapper >}}
@@ -76,22 +95,20 @@ from(bucket: "example-oss-bucket")
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-{{% cloud %}}
-	Write requests to InfluxDB Cloud are subject to the rate limits associated with your
-	[InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
-	{{% /cloud %}}
+## Input and output data for to() functions
 
-## Example input and output data for to() functions
-The structure of data piped-forward into the `to()` function determines which
-function use–`to()` or `experimental.to()`.
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[to()](#)
+[experimental.to()](#)
+{{% /tabs %}}
+{{% tab-content %}}
 
-### Use to()
-Use `to()` to write data that is structured with the field key in the `_field`
-column and the field value in the `_value` column.
+- `to()` requires `_time`, `_measurement`, `_field`, and `_value` columns.
+- `to()` writes all other columns as tags where the column name is the tag key
+  and the column value is the tag value.
 
-{{< expand-wrapper >}}
-{{% expand "View example `to()` data" %}}
-**Input data**
+#### Input data
 | _time                | _measurement | exampleTag | _field | _value |
 | :------------------- | :----------- | :--------: | :----- | -----: |
 | 2021-01-01T00:00:00Z | example-m    |     A      | temp   |   80.0 |
@@ -104,29 +121,23 @@ column and the field value in the `_value` column.
 | 2021-01-01T00:01:00Z | example-m    |     A      | rpm    |   4542 |
 | 2021-01-01T00:02:00Z | example-m    |     A      | rpm    |   4901 |
 
-**Output line protocol**
+#### Output line protocol
 ```
 example-m,exampleTag=A temp=80.0,rpm=4023i 1609459200000000000
 example-m,exampleTag=A temp=80.3,rpm=4542i 1609459260000000000
 example-m,exampleTag=A temp=81.1,rpm=4901i 1609459320000000000
 ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
+{{% /tab-content %}}
 
-#### Use experimental.to()
-Use `experimental.to()` to write data with column names that should be used as
-field keys and column values that should be used as field values.
-
+{{% tab-content %}}
 - `experimental.to()` requires `_time` and `_measurement` columns.
 - Columns **in** the [group key](/flux/v0.x/get-started/data-model/#grouop-key)
   (other than `_measurement`) are parsed as tags where the column name is the
   tag key and the column value is the tag value.
-- Columns **not in** the group key are parsed as fields where the column name is 
-  the field key and the column value is the field value.
+- Columns **not in** the group key (other than `_time_`) are parsed as fields
+  where the column name is the field key and the column value is the field value.
 
-{{< expand-wrapper >}}
-{{% expand "View example `experimental.to()` data" %}}
-**Input data**
+#### Input data {id="experimental-input-data"}
 {{< flux/group-key "[_measurement, exampleTag]">}}
 | _time                | _measurement | exampleTag | temp |  rpm |
 | :------------------- | :----------- | :--------: | ---: | ---: |
@@ -134,53 +145,16 @@ field keys and column values that should be used as field values.
 | 2021-01-01T00:01:00Z | example-m    |     A      | 80.3 | 4542 |
 | 2021-01-01T00:02:00Z | example-m    |     A      | 81.1 | 4901 |
 
-**Output line protocol**
+#### Output line protocol {id="experimental-output-line-protocol"}
 ```
 example-m,exampleTag=A temp=80.0,rpm=4023i 1609459200000000000
 example-m,exampleTag=A temp=80.3,rpm=4542i 1609459260000000000
 example-m,exampleTag=A temp=81.1,rpm=4901i 1609459320000000000
 ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
-## Selectively write data to InfluxDB Cloud
-`to()` and `experimental.to()` write data as it is pipe-forwarded.
-To selective write data to InfluxDB, use `filter()` to filter points and 
-pipe-forward the filtered data into `to()`.
-
-```js
-import "influxdata/influxdb/secrets"
-
-cloudToken = secrets.get(key: "INFLUX_CLOUD_API_TOKEN")
-
-from(bucket: "example-oss-bucket")
-    |> range(start: -10m)
-    |> filter(fn: (r) => r._measurement == "example-measurement")
-    |> filter(fn: (r) => r.exampleTag == "someTagValue")
-    |> filter(fn: (r) => r._field == "example-field")
-    |> filter(fn: (r) => r._value >= 80.0)
-    |> to(
-        bucket: "example-cloud-bucket",
-        host: "https://cloud2.influxdata.com",
-        org: "example-org",
-        token: cloudToken,
-    )
-```
-
-## Process data and write it to InfluxDB Cloud
-`to()` and `experimental.to()` write data as it is pipe-forwarded.
-Use [`map()`](/flux/v0.x/stdlib/universe/map/), [`set()`](/flux/v0.x/stdlib/universe/set/),
-[`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/)
-[aggregate](/flux/v0.x/function-types/#aggregates) or
-[selector functions](/flux/v0.x/function-types/#selectors), or other Flux
-functions to process and shape data as needed.
-
-{{% note %}}
-The shape of the processed data determines which `to()` function to use.
-_See [Identify which to() function to use](#identify-which-to-function-to-use)_. 
-{{% /note %}}
-
-### Examples
+## Examples
 
 - [Downsample and write data to InfluxDB Cloud](#downsample-and-write-data-to-influxdb-cloud)
 - [Write min, max, and mean values to InfluxDB Cloud](#write-min-max-and-mean-values-to-influxdb-cloud)
