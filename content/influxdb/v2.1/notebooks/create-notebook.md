@@ -67,7 +67,7 @@ Select one of the following visualization cell-types:
 - Graph
 - Note
 
-To modify a visualization cell, see [use a visualization cell](use-a-visualization-cell)
+To modify a visualization cell, see [use a visualization cell](use-a-visualization-cell).
 For detail on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
 
 ### Use a visualization cell
