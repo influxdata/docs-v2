@@ -582,8 +582,7 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 
 {{% note %}}
 #### Required annotations and columns
-To write CSV data to InfluxDB with Flux, _all_ of the following annotations and columns must be present.
-Required annotations:
+To write CSV data to InfluxDB with Flux, you must include _all_ of the following annotations and columns:
 
 - `datatype`
 - `group`
