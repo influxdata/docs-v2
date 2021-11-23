@@ -17,28 +17,10 @@ modifying strings, etc.
 
 Walk through the following example to create a notebook that does the following:
 
-1.  Queries NOAA NDBC sample data
+1.  Queries [NOAA NDBC sample data](/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data)
 2.  Uses a Flux script notebook cell to normalizes degree-based wind directions
     to cardinal directions.
 3.  Writes normalized data to a bucket
-
-## Set up sample data
-1.  [Create a new bucket](/influxdb/v2.1/organizations/buckets/create-bucket/) 
-    for the sample data named `noaa`.
-2.  [Create a new task](/influxdb/v2.1/process-data/manage-tasks/create-task/) that collects the [NOAA NDBC sample data](/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data) 
-    and writes it to your `noaa` bucket:
-
-    ```js
-    import "influxdata/influxdb/sample"
-
-    option task = {
-        name: "Collect NOAA NBDC sample data",
-        every: 15m,
-    }
-    
-    sample.data(set: "noaa")
-        |> to(bucket: "noaa")
-    ```
 
 {{< cloud-only >}}  
 {{% cloud %}}  
@@ -46,12 +28,12 @@ Walk through the following example to create a notebook that does the following:
 {{% /cloud %}}  
 {{< /cloud-only >}}
 
-
 ## Normalize data with a notebook
 1.  [Create a new notebook](/influxdb/v2.1/notebooks/create-notebook/).
 2.  In the **Build a Query** cell:
 
-    1.  In the **FROM** column, select your **noaa** bucket.
+    1.  In the **FROM** column under **{{% caps %}}Sample{{% /caps %%}},
+        select **NOAA National Buoy Data**.
     2.  In the next **FILTER** column, select **_measurement** from the dropdown
         and select the **ndbc** measurement in the list of measurements.
     3.  In the next **FILTER** column, select **_field** from the dropdown
