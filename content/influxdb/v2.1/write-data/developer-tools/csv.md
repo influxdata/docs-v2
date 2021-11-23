@@ -589,7 +589,7 @@ To write CSV data to InfluxDB with Flux, you must include _all_ of the following
 - `default`
 
 See [annotations](/influxdb/v2.1/reference/syntax/annotated-csv/#annotations) for more information.
-With Flux, there must also be a comma between the annotation name and the annotation values (this differs from the `influx write` command).
+With Flux, you must also include a comma between the annotation name and the annotation values (this differs from the `influx write` command).
 An example of valid Flux syntax can be found [here](/influxdb/v2.1/reference/syntax/annotated-csv/#annotated-csv-in-flux).
 
 Required columns:
