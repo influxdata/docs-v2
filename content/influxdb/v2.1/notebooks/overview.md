@@ -16,7 +16,7 @@ See an overview of [notebook concepts](/influxdb/v2.1/notebooks/overview/#notebo
 
 ## Notebook concepts
 
-You can think of an InfluxDB notebook as template that contains cells (building blocks) to define how to query, visualize, process, and write data to your buckets. Notebooks help you do the following:
+You can think of an InfluxDB notebook as a collection of sequential data processing steps. Each step is represented by a "cell" that performs an action such as querying, visualizing, processing, or writing data to your buckets. Notebooks help you do the following:
 
 - Create snippets of live code, equations, visualizations, and explanatory notes.
 - Create alerts or scheduled tasks.
