@@ -32,7 +32,7 @@ Walk through the following example to create a notebook that does the following:
 1.  [Create a new notebook](/influxdb/v2.1/notebooks/create-notebook/).
 2.  In the **Build a Query** cell:
 
-    1.  In the **FROM** column under **{{% caps %}}Sample{{% /caps %%}},
+    1.  In the **FROM** column under **{{% caps %}}Sample{{% /caps %}}**,
         select **NOAA National Buoy Data**.
     2.  In the next **FILTER** column, select **_measurement** from the dropdown
         and select the **ndbc** measurement in the list of measurements.
@@ -97,3 +97,17 @@ Walk through the following example to create a notebook that does the following:
     previews the output.
 6.  Click **Run** to run the notebook and write the normalized data back to the
     **noaa** bucket.
+
+## Continuously run a notebook
+To write continuously run your notebook, normalize data, and write it to a bucket,
+Export the notebook as a task:
+
+1.  Click {{% icon "notebook-add-cell" %}} to add a new cell and then select
+    **{{% caps %}}Task{{% /caps %}}**
+2.  Provide the following:
+
+    - **Every**: Interval that the task should run at.
+    - **Offset**: _(Optional)_ Time to wait after the defined interval to execute the task.
+      This allows then task to capture late-arriving data.
+
+4.  Click **{{% icon "export" %}} Export as Task**.
