@@ -120,7 +120,8 @@ influx write \
   --compression gzip
 ```
 
-There is a limit to the size of uncompressed data. As the data is uncompressed, if the uncompressed payload reaches that limit, the lines that have been uncompressed to that point will be written, but subsequent lines will not be. In such cases, the caller will receive a 413 from the server, and should retry with a smaller uncompressed payload. The current uncompressed limit is 250 MB, but this is subject to change.
+InfluxDB Cloud limits data in an uncompressed write request payload to 250 MB. After 250 MB is uncompressed and written, the remaining lines are not written, and the caller receives a 413 response. 
+We recommend the caller retry the request with a smaller uncompressed payload.
 
 #### Timestamp precision
 
