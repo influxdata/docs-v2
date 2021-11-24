@@ -70,8 +70,8 @@ The following cell types are available for your notebook:
 
 At least one data source (input) cell is required in a notebook for other cells to run.
 
-- {{< caps >}}Query Builder{{< /caps >}}: Input your data using a query.
-- {{< caps >}}Flux Script{{< /caps >}}: Input your data using a Flux script.
+- {{< caps >}}Query Builder{{< /caps >}}: Build a query with the Flux query builder.
+- {{< caps >}}Flux Script{{< /caps >}}: Enter a raw Flux script.
 
   Data source cells work like the **Query Builder** or **Script Editor** in Data Explorer. For more information, see how to [query data with Flux and the Data Explorer](/influxdb/v2.1/query-data/execute-queries/data-explorer/#query-data-with-flux-and-the-data-explorer).
 
