@@ -28,9 +28,21 @@ You can think of an InfluxDB notebook as a collection of sequential data process
 
 The following options appear at the top of each notebook.
 
+{{% oss-only %}}
+
+### Preview/Run mode
+
+- Select **Preview** (or press **Control+Enter**) to display results of each cell without writing data. Helps to verify that cells return expected results before writing data.
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
 ### Run
 
 Select {{< caps >}}Run{{< /caps >}} (or press **Control+Enter**) to display results of each cell and write data to the selected bucket.
+
+{{% /cloud-only %}}
 
 ### Save Notebook
 
