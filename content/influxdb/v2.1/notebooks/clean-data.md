@@ -136,7 +136,6 @@ the normalized data to a bucket.
 
     {{% /oss-only %}}
     
-
 5.  _(Optional)_ Click {{% icon "notebook-add-cell" %}} and select **Note** to
     add a cell containing notes about what this notebook does. For example, the
     cell might say, "This notebook converts decimal degree wind direction values
