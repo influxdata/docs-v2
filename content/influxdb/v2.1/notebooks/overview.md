@@ -49,7 +49,8 @@ Select {{< caps >}}Run{{< /caps >}} (or press **Control+Enter**) to display resu
 Select {{< caps >}}Save Notebook{{< /caps >}} to save all notebook cells. Once you've saved the notebook, this button disappears and the notebook automatically saves as subsequent changes are made.
 
 {{% note %}}
-Saving the notebook does not save cell results. When you open a saved notebook, click {{< caps >}}**Run**{{< /caps >}} to update cell results. {{% /note %}}
+Saving the notebook does not save cell results. When you open a saved notebook, click {{< caps >}}**Run**{{< /caps >}} to update cell results. 
+{{% /note %}}
 
 ### Local or UTC timezone
 
