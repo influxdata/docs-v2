@@ -46,7 +46,7 @@ downsampled data to an InfluxDB bucket.
         to window data into one hour intervals and return the average of each hour.
         Specify the following parameters:
 
-        - **every**: Window interval _(should be less than or equal to the selected query time range)_.
+        - **every**: Window interval _(should be less than or equal to the duration of the queried time range)_.
         - **fn**: [Aggregate](/{{< latest "flux" >}}/function-types/#aggregates)
           or [selector](/{{< latest "flux" >}}/function-types/#selectors) function
           to apply to each window.
