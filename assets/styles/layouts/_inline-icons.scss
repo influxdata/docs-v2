@@ -66,6 +66,24 @@
         }
       }
     }
+
+    &.notebook-add-cell {
+      display: inline-block;
+      position: relative;
+      border-radius: 50%;
+      height: 1.3rem;
+      width: 1.3rem;
+      background: linear-gradient(45deg, #5c10a0 0%, #8e1fc3 100%);
+      vertical-align: text-bottom;
+      text-align: center;
+      color: #fff;
+      font-size: .8rem;
+
+      & > span {
+        display: block;
+        margin: 0.3rem 0;
+      }
+    }
   }
 
   .nav-item {
