@@ -30,7 +30,7 @@ the normalized data to a bucket.
 
     1.  In the **FROM** column under **{{% caps %}}Sample{{% /caps %}}**,
         select **NOAA National Buoy Data**.
-    2.  In the next **FILTER** column, select **_measurement** from the dropdown
+    2.  In the next **FILTER** column, select **_measurement** from the drop-down list
         and select the **ndbc** measurement in the list of measurements.
     3.  In the next **FILTER** column, select **_field** from the drop-down list,
         and select the **wind\_dir\_degt** field from the list of fields.
@@ -149,8 +149,7 @@ the normalized data to a bucket.
     **noaa** bucket.
 
 ## Continuously run a notebook
-To write continuously run your notebook, normalize data, and write it to a bucket,
-Export the notebook as a task:
+To continuously run your notebook, export the notebook as a task:
 
 1.  Click {{% icon "notebook-add-cell" %}} to add a new cell and then select
     **{{% caps %}}Task{{% /caps %}}**.
