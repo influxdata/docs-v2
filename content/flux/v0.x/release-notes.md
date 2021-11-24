@@ -13,9 +13,8 @@ aliases:
 ## v0.143.0 [2021-11-22]
 
 ### Breaking changes
-- Add new parameters added to [`difference()`](/flux/v0.x/stdlib/universe/difference/)
-  to support [`increase()` function](/flux/v0.x/stdlib/universe/increase/).
-  This change updates `increase()` to return more accurate results on counter reset.
+- Add new parameters to [`difference()`](/flux/v0.x/stdlib/universe/difference/)
+  to ensure [`increase()`](/flux/v0.x/stdlib/universe/increase/) returns more accurate results on counter reset.
 
 ### Features
 - Don't introduce constraints for default arguments.
