@@ -120,6 +120,9 @@ influx write \
   --compression gzip
 ```
 
+InfluxDB Cloud limits data in an uncompressed write request payload to 250 MB. After 250 MB is uncompressed and written, the remaining lines are not written, and the caller receives a 413 response. 
+We recommend the caller retry the request with a smaller uncompressed payload.
+
 #### Timestamp precision
 
 When writing data to InfluxDB, we [recommend including a timestamp](/influxdb/cloud/reference/syntax/line-protocol/#timestamp) with each point.
