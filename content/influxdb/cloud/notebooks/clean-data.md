@@ -1,12 +1,13 @@
 ---
 title: Normalize data with notebooks
-description: >
-  Clean, standardize, or normalize you data to make it easier to compare with other measurements.
+description: >  
+  Learn how to create a notebook that normalizes or cleans data to make it
+  easier to work with.
 weight: 105
-influxdb/cloud/tags:
+influxdb/cloud/tags: [notebooks]
 menu:
   influxdb_cloud:
-    name: Normalize data with notebooks
+    name: Normalize data
     parent: Notebooks
 ---
 

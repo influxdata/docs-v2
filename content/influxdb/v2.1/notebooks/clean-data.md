@@ -1,12 +1,13 @@
 ---
 title: Normalize data with notebooks
 description: >
-  Clean, standardize, or normalize you data to make it easier to compare with other measurements.
+  Learn how to create a notebook that normalizes or cleans data to make it
+  easier to work with.
 weight: 105
 influxdb/v2.1/tags: [notebooks]
 menu:
   influxdb_2_1:
-    name: Normalize data with notebooks
+    name: Normalize data
     parent: Notebooks
 ---
 
@@ -52,7 +53,8 @@ the normalized data to a bucket.
         
         Use [`to()`](/{{< latest "flux">}}/stdlib/influxdata/influxdb/to/)
         to write the normalized data back to InfluxDB.
-        Specify the **noaa** bucket to write to.
+        Specify an existing bucket to write to or
+        [create a new bucket](/influxdb/v2.1/organizations/buckets/create-bucket/).
 
         {{% /cloud-only %}}
     
@@ -123,7 +125,7 @@ the normalized data to a bucket.
             _field: "wind_dir_cardinal",
             _value: cardinalDir(d: r._value),
         }))
-        |> to(bucket: "noaa")
+        |> to(bucket: "example-bucket")
     ```
     {{% /cloud-only %}}
 
@@ -131,8 +133,8 @@ the normalized data to a bucket.
     
     Click {{% icon "notebook-add-cell" %}} after your **Flux Script** cell to 
     add a new cell and select **{{% caps %}}Output to Bucket{{% /caps %}}**.
-    Select your **noaa** bucket from the **{{% icon "bucket" %}} Choose a bucket**
-    drop-down menu. 
+    Select a bucket from the **{{% icon "bucket" %}} Choose a bucket**
+    drop-down list. 
 
     {{% /oss-only %}}
     
@@ -145,8 +147,7 @@ the normalized data to a bucket.
     Click **Preview** in the upper left to verify that your notebook runs and previews the output.
     
     {{% /oss-only %}}
-6.  Click **Run** to run the notebook and write the normalized data back to the
-    **noaa** bucket.
+6.  Click **Run** to run the notebook and write the normalized data to your bucket.
 
 ## Continuously run a notebook
 To continuously run your notebook, export the notebook as a task:
@@ -157,6 +158,6 @@ To continuously run your notebook, export the notebook as a task:
 
     - **Every**: Interval that the task should run at.
     - **Offset**: _(Optional)_ Time to wait after the defined interval to execute the task.
-      This allows then task to capture late-arriving data.
+      This allows the task to capture late-arriving data.
 
 3.  Click **{{% icon "export" %}} Export as Task**.
