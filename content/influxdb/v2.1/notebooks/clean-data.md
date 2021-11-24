@@ -15,12 +15,10 @@ Data normalization is the process of modifying or cleaning data to be easier to
 work with. For example, adjusting numeric values to a uniform scale,
 modifying strings, etc.
 
-Walk through the following example to create a notebook that does the following:
-
-1.  Queries [NOAA NDBC sample data](/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data)
-2.  Uses a Flux script notebook cell to normalizes degree-based wind directions
-    to cardinal directions.
-3.  Writes normalized data to a bucket
+Walk through the following example to create a notebook that queries
+[NOAA NDBC sample data](/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data),
+normalizes degree-based wind directions to cardinal directions, and then writes
+the normalized data to a bucket.
 
 {{< cloud-only >}}  
 {{% cloud %}}  
@@ -28,7 +26,6 @@ Walk through the following example to create a notebook that does the following:
 {{% /cloud %}}  
 {{< /cloud-only >}}
 
-## Normalize data with a notebook
 1.  [Create a new notebook](/influxdb/v2.1/notebooks/create-notebook/).
 2.  In the **Build a Query** cell:
 
@@ -52,7 +49,16 @@ Walk through the following example to create a notebook that does the following:
         over each input row, update the field key to `wind_dir_cardinal`, and
         normalize the `_value` column to a cardinal direction using the custom
         `cardinalDir()` function.
+    4.  {{% cloud-only %}}
+        
+        Use [`to()`](/{{< latest "flux">}}/stdlib/influxdata/influxdb/to/)
+        to write the normalized data back to InfluxDB.
+        Specify the **noaa** bucket to write to.
+
+        {{% /cloud-only %}}
     
+    {{% oss-only %}}
+
     ```js
     import "array"
 
@@ -84,17 +90,63 @@ Walk through the following example to create a notebook that does the following:
             _value: cardinalDir(d: r._value),
         }))
     ```
+    {{% /oss-only %}}
 
-5.  Click {{% icon "notebook-add-cell" %}} after your **Flux Script** cell to 
+    {{% cloud-only %}}
+
+    ```js
+    import "array"
+
+    cardinalDir = (d) => {
+        _cardinal = if d >= 348.7 or d < 11.25 then "N"
+        else if d >= 11.25 and d < 33.75 then "NNE"
+        else if d >= 33.75 and d < 56.25 then "NE"
+        else if d >= 56.25 and d < 78.75 then "ENE"
+        else if d >= 78.75 and d < 101.25 then "E"
+        else if d >= 101.25 and d < 123.75 then "ESE"
+        else if d >= 123.75 and d < 146.25 then "SE"
+        else if d >= 146.25 and d < 168.75 then "SSE"
+        else if d >= 168.75 and d < 191.25 then "S"
+        else if d >= 191.25 and d < 213.75 then "SSW"
+        else if d >= 213.75 and d < 236.25 then "SW"
+        else if d >= 236.25 and d < 258.75 then "WSW"
+        else if d >= 258.75 and d < 281.25 then "W"
+        else if d >= 281.25 and d < 303.75 then "WNW"
+        else if d >= 303.75 and d < 326.25 then "NW"
+        else if d >= 326.25 and d < 348.75 then "NNW"
+        else ""
+
+        return _cardinal
+    }
+
+    __PREVIOUS_RESULT__
+        |> map(fn: (r) => ({r with
+            _field: "wind_dir_cardinal",
+            _value: cardinalDir(d: r._value),
+        }))
+        |> to(bucket: "noaa")
+    ```
+    {{% /cloud-only %}}
+
+4.  {{% oss-only %}}
+    
+    Click {{% icon "notebook-add-cell" %}} after your **Flux Script** cell to 
     add a new cell and select **{{% caps %}}Output to Bucket{{% /caps %}}**.
-6.  Select your **noaa** bucket from the **{{% icon "bucket" %}} Choose a bucket**
-    dropdown menu, 
-7.  _(Optional)_ Click {{% icon "notebook-add-cell" %}} and select **Note** to
+    Select your **noaa** bucket from the **{{% icon "bucket" %}} Choose a bucket**
+    drop-down menu. 
+
+    {{% /oss-only %}}
+    
+
+5.  _(Optional)_ Click {{% icon "notebook-add-cell" %}} and select **Note** to
     add a cell containing notes about what this notebook does. For example, the
     cell might say, "This notebook converts decimal degree wind direction values
     to cardinal directions."
-5.  Click **Preview** in the upper left to verify that your notebook runs and
-    previews the output.
+6.  {{% oss-only %}}
+
+    Click **Preview** in the upper left to verify that your notebook runs and previews the output.
+    
+    {{% /oss-only %}}
 6.  Click **Run** to run the notebook and write the normalized data back to the
     **noaa** bucket.
 
@@ -103,11 +155,11 @@ To write continuously run your notebook, normalize data, and write it to a bucke
 Export the notebook as a task:
 
 1.  Click {{% icon "notebook-add-cell" %}} to add a new cell and then select
-    **{{% caps %}}Task{{% /caps %}}**
+    **{{% caps %}}Task{{% /caps %}}**.
 2.  Provide the following:
 
     - **Every**: Interval that the task should run at.
     - **Offset**: _(Optional)_ Time to wait after the defined interval to execute the task.
       This allows then task to capture late-arriving data.
 
-4.  Click **{{% icon "export" %}} Export as Task**.
+3.  Click **{{% icon "export" %}} Export as Task**.
