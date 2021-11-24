@@ -24,17 +24,16 @@ Write requests to InfluxDB Cloud are subject to the rate limits associated with 
 {{% /cloud %}}
 
 1.  Query data from InfluxDB OSS.
-2.  _(Optional)_ Filter or process data to write to InfluxDB Cloud.
+2.  _(Optional)_ [Filter](/{{% latest "flux" %}}/stdlib/universe/filter/) or process data to write to InfluxDB Cloud.
 3.  Use `to` or `experimental.to` to write data to InfluxDB Cloud.
     For most use cases, `to()` is the correct function to use, but depending on
     the structure of the data you're writing, `experimental.to` may be required.
     
     **Use the following guidelines**:
     
-    - **to()**: Write data that is structured with the field key in the `_field`
-      column and the field value in the `_value` column.
-    - **experimental.to()**: Write data with column names that should be used as
-      field keys and column values that should be used as field values.
+- **to()**: Use to write data in field keys to the `_field` column and field values to the `_value` column.
+
+- **experimental.to()**: Use to write data in column names to corresponding field keys and column values to field values.
 
     _See [input and output examples for `to()` functions](#input-and-output-data-for-to-functions)._
     
