@@ -72,5 +72,4 @@ At least one data source (input) cell is required in a notebook for other cells 
 ### Action
 
 - {{< caps >}}Alert{{< /caps >}}: Set up alerts. See how to [monitor data and send alerts](/influxdb/v2.1/monitor-alert/).
-- {{< caps >}}Tasks{{< /caps >}}: Set up tasks. See how to [manage tasks in InfluxDB](/influxdb/v2.1/process-data/manage-tasks/).
-When an action is processed, the alert or task results are written to the specified bucket as applicable.
+- {{< caps >}}Tasks{{< /caps >}}: Use the notebook to set up and export a task. See how to [manage tasks in InfluxDB](/influxdb/v2.1/process-data/manage-tasks/).
