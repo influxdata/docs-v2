@@ -67,7 +67,7 @@ At least one data source (input) cell is required in a notebook for other cells 
 
 - {{< caps >}}Table{{< /caps >}}: View your data in a table.
 - {{< caps >}}Graph{{< /caps >}}: View your data in a graph.
-- {{< caps >}}Note{{< /caps >}}: Create explanatory notes or other information for yourself or one of your team members.
+- {{< caps >}}Note{{< /caps >}}: Create explanatory notes or other information for yourself or your team members.
 
 ### Action
 
