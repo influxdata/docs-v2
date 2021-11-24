@@ -41,7 +41,7 @@ Saving the notebook does not save cell results. When you open a saved notebook, 
 
 ### Local or UTC timezone
 
-Click the timezone dropdown list to select a timezone to use for the notebook. Select either the local time (default) or UTC.
+Click the timezone drop-down list to select a timezone to use for the notebook. Select either the local time (default) or UTC.
 
 ### Time range
 
