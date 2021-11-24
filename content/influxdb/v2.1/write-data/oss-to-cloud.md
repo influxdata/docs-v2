@@ -31,9 +31,9 @@ Write requests to InfluxDB Cloud are subject to the rate limits associated with 
     
     **Use the following guidelines**:
     
-- **to()**: Use to write data in field keys to the `_field` column and field values to the `_value` column.
+    - **to()**: Use to write data in field keys to the `_field` column and field values to the `_value` column.
 
-- **experimental.to()**: Use to write data in column names to corresponding field keys and column values to field values.
+    - **experimental.to()**: Use to write data in column names to corresponding field keys and column values to field values.
 
     _See [input and output examples for `to()` functions](#input-and-output-data-for-to-functions)._
     
