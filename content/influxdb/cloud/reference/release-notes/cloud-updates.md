@@ -14,6 +14,30 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## November 2021
+
+- [Remove Website demo data](#remove-website-demo-data)
+- [Add sample data buckets to notebooks](#add-sample-data-buckets-to-notebooks)
+- [Add ability to share notebooks](#add-ability-to-share-notebooks)
+- [Update Tokens UI](#update-tokens-ui)
+
+### Remove Website Demo Data
+
+To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer. If you're looking for a dataset to get started with in InfluxDB Cloud, check out sample data buckets, which support a variety of use cases.
+ (If folks are actively using Website data for exploring their monitoring use case, is there a corresponding sample data bucket to recommend?)
+
+### Add sample data buckets to notebooks
+
+- **Add sample data buckets**: To improve the user experience with system-delivered data in InfluxDB Cloud, we've removed the Website Demo Data bucket and added four sample data buckets to use in notebooks.
+
+  These sample data buckets provide a way to explore InfluxDB within ingesting you owning data.
+
+### Add ability to share notebooks
+
+### Update Tokens UI
+
+To enhance security, the Token UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you will not be able to view or copy the token.
+
 ## October 2021
 
 - [API invokable scripts](#api-invokable-scripts)
