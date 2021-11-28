@@ -11,10 +11,12 @@ menu:
 
 Manage your notebooks in the UI:
 
-- [Share a notebook](#share-a-notebook)
-- [Unshare a notebook](#unshare-a-notebook)
+- {{% cloud-only %}}[Share a notebook](#share-a-notebook){{% /cloud-only %}}
+- {{% cloud-only %}}[Unshare a notebook](#unshare-a-notebook){{% /cloud-only %}}
 - [View or update a notebook](#view-or-update-notebooks)
 - [Delete a notebook](#delete-a-notebook)
+
+{{% cloud-only %}}
 
 ## Share a notebook
 
@@ -23,18 +25,26 @@ Manage your notebooks in the UI:
     {{< nav-icon "notebooks" >}}
 2. Click the notebook to open it, and then click **Share Notebook** icon:
 
-    {{< img-hd src="/img/influxdb/share-notebook.png" alt="Share Notebook" />}}
-4. Select an API token with read-access to all resources in the notebook, and then click the **Set Token** icon:
+      {{< img-hd src="/img/influxdb/share-notebook.png" alt="Share Notebook" />}}
 
-    {{< img-hd src="/img/influxdb/set-token.png" alt="Set Token" />}}
+3. Select an API token with read-access to all resources in the notebook, and then click the **Set Token** icon:
 
-5. Share the generated notebook URL as needed.
+     {{< img-hd src="/img/influxdb/set-token.png" alt="Set Token" />}}
+
+4. Share the generated notebook URL as needed.
+
+{{% /cloud-only %}}
+
+
+{{% cloud-only %}}
 
 ## Unshare a notebook
 
 To stop sharing a notebook, select **Delete** next to the shared notebook URL:
 
 {{< img-hd src="/img/influxdb/delete.png" alt="Delete" />}}
+
+{{% /cloud-only %}}
 
 ## View or update notebooks
 
