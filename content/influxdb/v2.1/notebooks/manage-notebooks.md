@@ -9,9 +9,35 @@ menu:
     parent: Notebooks
 ---
 
-View, update, and delete notebooks in the UI.
+Manage your notebooks in the UI:
+
+- [Share a notebook](#share-a-notebook)
+- [Unshare a notebook](#unshare-a-notebook)
+- [View or update a notebook](#view-or-update-notebooks)
+- [Delete a notebook](#delete-a-notebook)
+
+## Share a notebook
+
+1. In the navigation menu on the left, click **Notebooks**.
+
+    {{< nav-icon "notebooks" >}}
+2. Click the notebook to open it, and then click **Share Notebook** icon:
+
+    {{< img-hd src="/img/influxdb/share-notebook.png" alt="Share Notebook" />}}
+4. Select an API token with read-access to all resources in the notebook, and then click the **Set Token** icon:
+
+    {{< img-hd src="/img/influxdb/set-token.png" alt="Set Token" />}}
+
+5. Share the generated notebook URL as needed.
+
+## Unshare a notebook
+
+To stop sharing a notebook, select **Delete** next to the shared notebook URL:
+
+{{< img-hd src="/img/influxdb/delete.png" alt="Delete" />}}
 
 ## View or update notebooks
+
 1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
@@ -21,6 +47,7 @@ View, update, and delete notebooks in the UI.
 3. To update, edit the notebook's cells and content. Changes are saved automatically.
 
 ## Delete a notebook
+
 1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}

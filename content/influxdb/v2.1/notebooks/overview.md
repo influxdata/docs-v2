@@ -49,7 +49,7 @@ Select {{< caps >}}Run{{< /caps >}} (or press **Control+Enter**) to display resu
 Select {{< caps >}}Save Notebook{{< /caps >}} to save all notebook cells. Once you've saved the notebook, this button disappears and the notebook automatically saves as subsequent changes are made.
 
 {{% note %}}
-Saving the notebook does not save cell results. When you open a saved notebook, click {{< caps >}}**Run**{{< /caps >}} to update cell results. 
+Saving the notebook does not save cell results. When you open a saved notebook, click {{< caps >}}**Run**{{< /caps >}} to update cell results.
 {{% /note %}}
 
 ### Local or UTC timezone
@@ -59,6 +59,15 @@ Click the timezone drop-down list to select a timezone to use for the notebook. 
 ### Time range
 
 Select from the options in the dropdown list or select **Custom Time Range** to enter a custom time range with precision up to nanoseconds, and then click {{< caps >}}Apply Time Range{{< /caps >}}.
+
+{{% cloud-only %}}
+
+### Share notebook
+
+To generate a URL for the notebook, click **Share Notebook**: {{< img-hd src="/img/influxdb/share-notebook.png" alt="Share Notebook" />}}
+For more detail, see how to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook).
+
+{{% /cloud-only %}}
 
 ## Notebook cell types
 
