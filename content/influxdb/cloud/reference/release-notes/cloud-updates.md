@@ -17,22 +17,26 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 ## November 2021
 
 - [Remove Website demo data](#remove-website-demo-data)
-- [Add sample data buckets to notebooks](#add-sample-data-buckets-to-notebooks)
+- [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)
 - [Add ability to share notebooks](#add-ability-to-share-notebooks)
 - [Update Tokens UI](#update-tokens-ui)
 
 ### Remove Website Demo Data
 
-To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer. If you're looking for a dataset to get started with in InfluxDB Cloud, check out sample data buckets, which support a variety of use cases.
- (If folks are actively using Website data for exploring their monitoring use case, is there a corresponding sample data bucket to recommend?)
+To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer. If you're looking for a data to get started with in InfluxDB Cloud, check out sample data buckets, which support a variety of use cases.
 
-### Add sample data buckets to notebooks
+### Add sample data buckets to Notebooks UI
 
-- **Add sample data buckets**: To improve the user experience with system-delivered data in InfluxDB Cloud, we've removed the Website Demo Data bucket and added four sample data buckets to use in notebooks.
+Sample data buckets provide a way to explore InfluxDB without ingesting your own data. Now, you can add sample data buckets directly into your notebooks:
 
-  These sample data buckets provide a way to explore InfluxDB within ingesting you owning data.
+- Air Sensor Data
+- Coinbase bitcoin price
+- NOAA National Buoy Data
+- USGS Earthquakes
 
 ### Add ability to share notebooks
+
+Add ability to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
 
 ### Update Tokens UI
 
