@@ -24,7 +24,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 3. Do the following at the top of the page:
    - Select your local time zone or UTC.
    - Choose a time [range](/{{% latest "flux" %}}/stdlib/universe/range/) for your data.
-4. Your notebook should have a **Data Source** cell as the first cell. It provides data to subsequent cells. The presets (listed in step 2) include either a **Query Builder** or a **Flux Script** as the first cell.
+4. Your notebook should have a **Data Source** cell as the first cell. The presets (listed in step 2) include either **Query Builder** or **Flux Script** as the first cell that provides data to subsequent cells.
 5. To define your data source query, do one of the following:
    - If your notebook uses a **Query Builder** cell, select your bucket and any additional filters for your query.
    - If your notebook uses a **Flux Script** cell, enter or paste a [Flux script](/influxdb/v2.1/query-data/flux/).
@@ -34,7 +34,7 @@ To learn how notebooks can be useful and to see an overview of different cell ty
 8. (Optional) Toggle the **Presentation** switch to display visualization cells and hide all other cells.
 7. (Optional) Configure notebook actions (**Alert**, **Task**, or **Output to Bucket**).
 7. (Optional) To run your notebook actions, select and click **Run** under the notebook title.
-8. (Optional) To add a new cell, follow the steps for one of the cell types:
+8. (Optional) Click the {{< icon "plus" >}} icon, and then add a new cell to your notebook:
 
     - [Add a data source cell](#add-a-data-source-cell)
     - [Add a validation cell](#add-a-validation-cell)
@@ -86,13 +86,13 @@ Add an action cell to filter and apply changes to your data, for example, create
 If your cell contains a custom script that uses any output function to write data to InfluxDB (for example: the `to()` function) or sends data to a third-party service, clicking Preview will write data.
 {{% /warn %}}
 
-- [Add an Alert cell](#add-an-alert-cell)
-- [Add an Output to Bucket cell](#add-an-output-to-bucket-cell)
-- [Add a Task cell](#add-a-task-cell)
+Select one of the following action cell-types:
 
-#### Add an Alert cell
+- To receive a notification, select [Alert](#alert) and complete the steps below.
+- To write output to a bucket, select [Output to Bucket](#output-to-bucket) and complete the steps below.
+- To create a task, select [Task](#task) and complete the steps below.
 
-To create an alert and receive a notification, do the following:
+#### Alert
 
 1. Enter a time range to automatically check the data and enter your query offset.
 2. Customize the conditions to send an alert.
@@ -104,20 +104,15 @@ To create an alert and receive a notification, do the following:
    ```
    ${strings.title(v: r._type)} for ${r._source_measurement} triggered at ${time(v: r._source_timestamp)}!
    ```
-5. Click **Test Alert** to send a test message to your configured **Endpoint**. The test will not schedule the new alert.
-6. Click **Export Alert Task** to create your alert.
+5. Click **Export as Task** to create your alert.
 
-#### Add an Output to Bucket cell
+#### Output to bucket
 
-To write output to a bucket, do the following:
+1. Select a bucket.
+2. Click **Preview** to see what would be written to the bucket without commiting, or click **Run** in the upper left to write, or select **Export as Task** to schedule your output as a task.
 
-1. Immediately after (below) a **Validate the Data** cell, click the {{< icon "notebook-add-cell" >}} (e.g., the output cell won't work if it follows a visualization cell).
-1. In the dropdown menu, select or create a bucket.
-2. Click **Preview** to view the query result in validation cells.
-3. Select and click **Run** in the upper left to write the query result to the bucket.
+#### Task
 
-#### Add a Task cell
-To create a task,
 1. Enter a time and an offset to schedule the task.
 2. Click **Export as Task** to save.
 
@@ -128,4 +123,4 @@ Convert your notebook cells into raw Flux script to view and edit the code. Conv
 
 1. Click the overflow menu icon in the cell you want to view as Flux, and then select **Convert to |> Flux**. You won't be able to undo this step.
     A Flux cell appears with underlying script for the selected cell.
-2. View and edit the Flux script as needed.
+3. View and edit the Flux script as needed.
