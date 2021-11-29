@@ -58,13 +58,13 @@ Click the timezone drop-down list to select a timezone to use for the notebook. 
 
 ### Time range
 
-Select from the options in the dropdown list or select **Custom Time Range** to enter a custom time range with precision up to nanoseconds, and then click {{< caps >}}Apply Time Range{{< /caps >}}.
+Select from the options in the dropdown list or select **Custom Time Range** to enter a custom time range with precision up to nanoseconds, and then click **{{< caps >}}Apply Time Range{{< /caps >}}**.
 
 {{% cloud-only %}}
 
 ### Share notebook
 
-To generate a URL for the notebook, click **Share Notebook**: {{< img-hd src="/img/influxdb/share-notebook.png" alt="Share Notebook" />}}
+To generate a URL for the notebook, click the **{{< icon "share" >}}** icon.
 For more detail, see how to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook).
 
 {{% /cloud-only %}}
@@ -80,18 +80,18 @@ The following cell types are available for your notebook:
 
 At least one data source (input) cell is required in a notebook for other cells to run.
 
-- {{< caps >}}Query Builder{{< /caps >}}: Build a query with the Flux query builder.
-- {{< caps >}}Flux Script{{< /caps >}}: Enter a raw Flux script.
+- **{{< caps >}}Query Builder{{< /caps >}}**: Build a query with the Flux query builder.
+- **{{< caps >}}Flux Script{{< /caps >}}**: Enter a raw Flux script.
 
   Data source cells work like the **Query Builder** or **Script Editor** in Data Explorer. For more information, see how to [query data with Flux and the Data Explorer](/influxdb/v2.1/query-data/execute-queries/data-explorer/#query-data-with-flux-and-the-data-explorer).
 
 ### Visualization
 
-- {{< caps >}}Table{{< /caps >}}: View your data in a table.
-- {{< caps >}}Graph{{< /caps >}}: View your data in a graph.
-- {{< caps >}}Note{{< /caps >}}: Create explanatory notes or other information for yourself or your team members.
+- **{{< caps >}}Table{{< /caps >}}**: View your data in a table.
+- **{{< caps >}}Graph{{< /caps >}}**: View your data in a graph.
+- **{{< caps >}}Note{{< /caps >}}**: Create explanatory notes or other information for yourself or your team members.
 
 ### Action
 
-- {{< caps >}}Alert{{< /caps >}}: Set up alerts. See how to [monitor data and send alerts](/influxdb/v2.1/monitor-alert/).
-- {{< caps >}}Tasks{{< /caps >}}: Use the notebook to set up and export a task. See how to [manage tasks in InfluxDB](/influxdb/v2.1/process-data/manage-tasks/).
+- **{{< caps >}}Alert{{< /caps >}}**: Set up alerts. See how to [monitor data and send alerts](/influxdb/v2.1/monitor-alert/).
+- **{{< caps >}}Tasks{{< /caps >}}**: Use the notebook to set up and export a task. See how to [manage tasks in InfluxDB](/influxdb/v2.1/process-data/manage-tasks/).
