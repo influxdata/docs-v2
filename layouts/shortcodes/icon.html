@@ -143,6 +143,8 @@
   <span class="inline add-btn-round {{ $version }}">&#xe931;</span>
   {{- else if or (eq $icon "toggle") (eq $icon "toggle-blue") -}}
   <span class="inline ui-toggle blue {{ $version }}"><span class="circle"></span></span>
+  {{- else if or (eq $icon "notebook-add") (eq $icon "notebook-add-cell") -}}
+  <span class="inline notebook-add-cell {{ $version }}"><span class="cf-icon plus-new"></span></span>
   {{- else if eq $icon "toggle-green" -}}
   <span class="inline ui-toggle green"><span class="circle"></span></span>
   {{- else if or (eq $icon "annotate") (eq $icon "pin") -}}
@@ -151,5 +153,11 @@
   <span class="inline cf-icon clock-new top small"></span>
   {{- else if or (eq $icon "handle") (eq $icon "move-cell") (eq $icon "move") -}}
   <span class="inline cf-icon handle-new middle xsmall"></span>
+  {{- else if eq $icon "share" -}}
+  <span class="inline cf-icon share middle"></span>
+  {{- else if eq $icon "bucket" -}}
+  <span class="inline cf-icon bucket-solid top"></span>
+  {{- else if or (eq $icon "more") (eq $icon "...") (eq $icon "ellipses") -}}
+  <span class="inline cf-icon more bottom"></span>
   {{- end -}}
 {{- end -}}
