@@ -25,7 +25,7 @@ To learn the benefits and concepts of notebooks, see [Overview of Notebooks](/in
 
 To create a new notebook, do the following:
 
-1. In the navigation menu on the left, click **Books** or **Notebooks**.
+1. In the navigation menu on the left, click **Notebooks**{{% oss-only %}} or **Books**{{% /oss-only %}}.
 
     {{< nav-icon "notebooks" >}}
 2. In the **Notebooks** page, select one of the following options under **Create a Notebook**:
