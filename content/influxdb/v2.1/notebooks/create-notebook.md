@@ -25,7 +25,7 @@ To learn the benefits and concepts of notebooks, see [Overview of Notebooks](/in
 
 To create a new notebook, do the following:
 
-1. In the navigation menu on the left, click **Notebooks**{{% oss-only %}} or **Books**{{% /oss-only %}}.
+1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
 2. In the **Notebooks** page, select one of the following options under **Create a Notebook**:
@@ -45,9 +45,9 @@ To create a new notebook, do the following:
 7. {{< oss-only >}}
 
     Select and click **Preview** (or press **CTRL + Enter**) under the notebook title.
-    InfluxDB displays query results in **Validate the Data** and **Visualize the Result** *without writing data or 
+    InfluxDB displays query results in **Validate the Data** and **Visualize the Result** *without writing data or
     running actions*.
-    
+
     {{< /oss-only >}}
 8. (Optional) Change your visualization settings with the drop-down menu and the {{< icon "gear" >}} **Configure** button at the top of the **Visualize the Result** cell.
 9. (Optional) Toggle the **Presentation** switch to display visualization cells and hide all other cells.
