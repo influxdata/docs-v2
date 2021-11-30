@@ -49,7 +49,7 @@ To create a new notebook, do the following:
     running actions*.
     
     {{< /oss-only >}}
-8. (Optional) Change your visualization settings with the dropdown menu and the {{< icon "gear" >}} **Configure** button at the top of the **Visualize the Result** cell.
+8. (Optional) Change your visualization settings with the drop-down menu and the {{< icon "gear" >}} **Configure** button at the top of the **Visualize the Result** cell.
 9. (Optional) Toggle the **Presentation** switch to display visualization cells and hide all other cells.
 10. (Optional) Configure notebook actions {{< oss-only >}}(**Alert**, **Task**, or **Output to Bucket**){{< /oss-only >}}{{< cloud-only >}}(**Alert** or **Task**){{< /cloud-only >}}.
 11. (Optional) To run your notebook actions, select and click **Run** under the notebook title.
@@ -91,10 +91,10 @@ You won't be able to undo this step.
 Add a [data source cell](/influxdb/v2.1/notebooks/overview/#data-source) to pull information into your notebook.
 
 To add a data source cell, do the following:
-1. Click the {{< icon "notebook-add-cell" >}}.
-2. Select **Flux Script** or **Query Builder** as your input, and then select or enter the bucket to pull data from.
+1. Click {{< icon "notebook-add-cell" >}}.
+2. Select **{{< caps >}}Flux Script{{< /caps >}}** or **{{< caps >}}Query Builder{{< /caps >}}** as your input, and then select or enter the bucket to pull data from.
 3. Select filters to narrow your data.
-4. Select **Preview** (**CTRL + Enter**) or **Run** in the upper left dropdown menu.
+4. Select {{< oss-only >}}**Preview** (**CTRL + Enter**) or {{< /oss-only >}}**Run** in the upper left drop-down list.
 
 ## Add a validation cell
 
@@ -102,8 +102,8 @@ A validation cell uses the **Table** [visualization type](/influxdb/v2.1/visuali
 
 To add a **Table** visualization cell, do the following:
 
-1. Click the {{< icon "notebook-add-cell" >}}.
-2. Under **Visualization**, click **Table**.
+1. Click {{< icon "notebook-add-cell" >}}.
+2. Under **Visualization**, click **{{< caps >}}Table{{< /caps >}}**.
 
 ## Add a visualization cell
 
@@ -111,26 +111,32 @@ Add a visualization cell to render query results as a [Visualization type](/infl
 
 To add a Table visualization cell, do the following:
 
-1. Click the {{< icon "notebook-add-cell" >}}.
+1. Click {{< icon "notebook-add-cell" >}}.
 2. Under **Visualization**, select one of the following visualization cell-types:
 
-   - Table
-   - Graph
-   - Note
+   - **{{< caps >}}Table{{< /caps >}}**: Display data in tabular format.
+   - **{{< caps >}}Graph{{< /caps >}}**: Visualize data using InfluxDB visualizations.
+   - **{{< caps >}}Note{{< /caps >}}**: Use Markdown to add notes or other information to your notebook.
 
 To modify a visualization cell, see [use visualization cells](#use-visualization-cells).
 For detail on available visualization types and how to use them, see [Visualization types](/influxdb/v2.1/visualize-data/visualization-types/).
 
 ## Add an action cell
 
-Add an [action cell](/influxdb/v2.1/notebooks/overview/#action) to filter and apply changes to your data, for example, create an [alert](/influxdb/v2.1/monitor-alert/), process data with a [task](/influxdb/v2.1/process-data/manage-tasks/), or output data to a bucket.
+Add an [action cell](/influxdb/v2.1/notebooks/overview/#action) to create an [alert](/influxdb/v2.1/monitor-alert/)
+{{< cloud-only >}}or{{< /cloud-only >}}{{< oss-only >}},{{< /oss-only >}} process data with a [task](/influxdb/v2.1/process-data/manage-tasks/)
+{{< oss-only >}}, or output data to a bucket{{< /oss-only >}}.
+
+{{< oss-only >}}
 
 {{% warn %}}
 If your cell contains a custom script that uses any output function to write data to InfluxDB (for example: the `to()` function) or sends data to a third-party service, clicking Preview will write data.
 {{% /warn %}}
 
+{{< /oss-only >}}
+
 - [Add an Alert cell](#add-an-alert-cell)
-- [Add an Output to Bucket cell](#add-an-output-to-bucket-cell)
+- {{< oss-only >}}[Add an Output to Bucket cell](#add-an-output-to-bucket-cell){{< /oss-only >}}
 - [Add a Task cell](#add-a-task-cell)
 
 ### Add an Alert cell
@@ -143,28 +149,31 @@ To add an [alert](/influxdb/v2.1/monitor-alert/) to your notebook, do the follow
    - Slack and a Slack Channel
    - HTTP post
    - Pager Duty
-4. (Optional) Personalize your message. By default, the message is
+4. (Optional) Personalize your message. By default, the message is:
    ```
    ${strings.title(v: r._type)} for ${r._source_measurement} triggered at ${time(v: r._source_timestamp)}!
    ```
-5. Click **Test Alert** to send a test message to your configured **Endpoint**. The test will not schedule the new alert.
-6. Click **Export Alert Task** to create your alert.
+5. Click **{{< caps >}}Test Alert{{< /caps >}}** to send a test message to your configured **Endpoint**. The test will not schedule the new alert.
+6. Click **{{< icon "export" >}} {{< caps >}}Export Alert Task{{< /caps >}}** to create your alert.
 
+{{< oss-only >}}
 ### Add an Output to Bucket cell
 
 To write **Data Source** results to a bucket, do the following:
 
-1. Click the {{% icon "notebook-add-cell" %}}.
-2. Click **Output to Bucket**.
-3. In the **Choose a bucket** dropdown menu, select or create a bucket.
+1. Click {{% icon "notebook-add-cell" %}}.
+2. Click **{{< caps >}}Output to Bucket{{< /caps >}}**.
+3. In the **{{< icon "bucket" >}} Choose a bucket** drop-down list, select or create a bucket.
 4. Click **Preview** to view the query result in validation cells.
 5. Select and click **Run** in the upper left to write the query result to the bucket.
+
+{{< /oss-only >}}
 
 ### Add a Task cell
 
 To add a [task](/influxdb/v2.1/process-data/manage-tasks/) to your notebook, do the following:
 
 1. Click {{% icon "notebook-add-cell" %}}.
-2. Click **Task**.
+2. Click **{{< caps >}}Task{{< /caps >}}**.
 3. Enter a time and an offset to schedule the task.
-4. Click **Export as Task** to save.
+4. Click **{{< icon "task" >}} {{< caps >}}Export as Task{{< /caps >}}** to save.
