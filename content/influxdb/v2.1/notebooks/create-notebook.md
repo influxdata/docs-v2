@@ -164,7 +164,7 @@ To write **Data Source** results to a bucket, do the following:
 
 To add a [task](/influxdb/v2.1/process-data/manage-tasks/) to your notebook, do the following:
 
-1. Click the {{% icon "notebook-add-cell" %}}.
+1. Click {{% icon "notebook-add-cell" %}}.
 2. Click **Task**.
 3. Enter a time and an offset to schedule the task.
 4. Click **Export as Task** to save.
