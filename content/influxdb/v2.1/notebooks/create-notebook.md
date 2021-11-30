@@ -9,76 +9,139 @@ menu:
     name: Create a notebook
     parent: Notebooks
 ---
-To learn how notebooks can be useful and to see an overview of different cell types available in notebooks, see [Overview of Notebooks](/influxdb/v2.1/notebooks/overview/).
+
+Create a notebook to explore, visualize, and process your data.
+Learn how to add and configure cells to customize your notebook.
+To learn the benefits and concepts of notebooks, see [Overview of Notebooks](/influxdb/v2.1/notebooks/overview/).
+
+- [Create a notebook from a preset](#create-a-notebook-from-a-preset)
+- [Use data source cells](#use-data-source-cells)
+- [Use visualization cells](#use-visualization-cells)
+- [Add a data source cell](#add-a-data-source-cell)
+- [Add a validation cell](#add-a-validation-cell)
+- [Add a visualization cell](#add-a-visualization-cell)
+
+## Create a notebook from a preset
+
+To create a new notebook, do the following:
 
 1. In the navigation menu on the left, click **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
-2. Click one of the following options under **Create a Notebook**:
-    - New Notebook
-    - Set an Alert
-    - Schedule a Task
-    - Write a Flux Script
+2. In the **Notebooks** page, select one of the following options under **Create a Notebook**:
+    - **New Notebook**: includes a [query builder cell](#add-a-data-source-cell), a [validation cell](#add-a-validation-cell), and a [visualization cell](#add-a-visualization-cell).
+    - **Set an Alert**: includes a [query builder cell](#add-a-data-source-cell), a [validation cell](#add-a-validation-cell), a [visualization cell](#add-a-visualization-cell), and an [alert builder cell](#add-an-action-cell).
+    - **Schedule a Task**: includes a [Flux Script editor cell](#add-a-data-source-cell), a [validation cell](#add-a-validation-cell), and a [task schedule cell](#add-an-action-cell).
+    - **Write a Flux Script**: includes a [Flux script editor cell](#add-a-data-source-cell), and a [validation cell](#add-a-validation-cell).
+
 3.  Enter a name for your notebook in the **Untitled Notebook** field.
-3. Do the following at the top of the page:
+4. Do the following at the top of the page:
    - Select your local time zone or UTC.
-   - Choose a time range for your data.
-4. Consider which notebook cells to add to your notebook. You need to have one input cell for other cells to run properly. The default notebook cell types included in your notebook (**Data Source**, **Visualization**, and **Action**) vary depending on the type of notebook you selected in step 2.
-5. Select your bucket in your query or Flux script, and then select the filters to narrow your data.
-6. Do one of the following:
-    - To view results in your cells (for example, to view your **Visualization** or **Action**) *without writing data*, click **Preview** (or press **CTRL + Enter**).
-    - To view the results of each cell and write the results to the specified output bucket, click **Run**.
-7. (Optional) Change your visualization settings with the dropdown menus and gear icon at the top of the **Visualization** cell.
-8. (Optional) Click the **+** icon, and then add one or more of the following cell types to your notebook:
+   - Choose a time [range](/{{% latest "flux" %}}/stdlib/universe/range/) for your data.
+5. Your notebook should have a **Data Source** cell as the first cell. **Data Source** cells provide data to subsequent cells. The presets (listed in step 2) include either a **Query Builder** or a **Flux Script** as the first cell.
+6. To define your data source query, do one of the following:
+   - If your notebook uses a **Query Builder** cell, select your bucket and any additional filters for your query.
+   - If your notebook uses a **Flux Script** cell, enter or paste a [Flux script](/influxdb/v2.1/query-data/flux/).
+7. {{< oss-only >}}
 
-    - [Data source](#add-a-data-source-cell): to pull information into your notebook
-    - [Visualization](#add-a-visualization-cell): to
-    - [Action](#add-an-action-cell): filter and apply changes to your data, for example, create an alert, process data with a task, or output data to a bucket
-9. (Optional) [Convert a cell into raw Flux script](#view-and-edit-flux-script-in-a-cell) to view and edit the code.
+    Select and click **Preview** (or press **CTRL + Enter**) under the notebook title.
+    InfluxDB displays query results in **Validate the Data** and **Visualize the Result** *without writing data or
+    running actions*.
 
-### Add a data source cell
+    {{< /oss-only >}}
+8. (Optional) Change your visualization settings with the drop-down menu and the {{< icon "gear" >}} **Configure** button at the top of the **Visualize the Result** cell.
+9. (Optional) Toggle the **Presentation** switch to display visualization cells and hide all other cells.
+10. (Optional) Configure notebook actions {{< oss-only >}}(**Alert**, **Task**, or **Output to Bucket**){{< /oss-only >}}{{< cloud-only >}}(**Alert** or **Task**){{< /cloud-only >}}.
+11. (Optional) To run your notebook actions, select and click **Run** under the notebook title.
+12. (Optional) To add a new cell, follow the steps for one of the cell types:
 
-1. Select **Flux Script** or **Query Builder** as your input, and then select or enter the bucket to pull data from.
-2. Select filters to narrow your data.
-3. Select **Preview** (**CTRL + Enter**) or **Run** in the upper left dropdown menu.
+    - [Add a data source cell](#add-a-data-source-cell)
+    - [Add a validation cell](#add-a-validation-cell)
+    - [Add a visualization cell](#add-a-visualization-cell)
+    - [Add an action cell](#add-an-action-cell)
+13. (Optional) [Convert a query builder cell into raw Flux script](#convert-a-query-builder-to-flux) to view and edit the code.
 
-### Add an action cell
+## Use Data Source cells
 
-1. Select one of the following action cell-types:
-    - **Alert**
-    - **Downsample**: Window data by time and apply an aggregate to each window to downsample data. For more information, see [Downsample data with notebooks](/influxdb/v2.1/notebooks/downsample/).
-2. Select **Preview** (**CTRL + Enter**) or **Run** in the upper left dropdown menu.
+### Convert a Query Builder to Flux
+To edit the raw Flux script of a **Query Builder** cell, convert the cell to Flux.
+
+{{% warn %}}
+You can't convert a **Flux Script** editor cell to a **Query Builder** cell.
+Once you convert a **Query Builder** cell to a **Flux Script** editor cell, you can't convert it back.
+{{% /warn %}}
+
+1. Click the {{% icon "more" %}} icon in the **Query Builder** cell you want to edit as Flux, and then select **Convert to |> Flux**.
+You won't be able to undo this step.
+
+   A **Flux Script** editor cell containing the raw Flux script replaces the **Query Builder** cell.
+
+2. View and edit the Flux script as needed.
+
+## Use visualization cells
+
+- To change your [visualization type](/influxdb/v2.1/visualize-data/visualization-types/), select a new type from the drop-down list at the top of the cell.
+- (For histogram only) To specify values, click **Select**.
+- To configure the visualization, click **Configure**.
+- To download results as an annotated CSV file, click the **CSV** button.
+- To export to the dashboard, click **Export to Dashboard**.
+
+## Add a data source cell
+
+Add a [data source cell](/influxdb/v2.1/notebooks/overview/#data-source) to pull information into your notebook.
+
+To add a data source cell, do the following:
+1. Click {{< icon "notebook-add-cell" >}}.
+2. Select **{{< caps >}}Flux Script{{< /caps >}}** or **{{< caps >}}Query Builder{{< /caps >}}** as your input, and then select or enter the bucket to pull data from.
+3. Select filters to narrow your data.
+4. Select {{< oss-only >}}**Preview** (**CTRL + Enter**) or {{< /oss-only >}}**Run** in the upper left drop-down list.
+
+## Add a validation cell
+
+A validation cell uses the **Table** [visualization type](/influxdb/v2.1/visualize-data/visualization-types/) to display query results from a data source cell.
+
+To add a **Table** visualization cell, do the following:
+
+1. Click {{< icon "notebook-add-cell" >}}.
+2. Under **Visualization**, click **{{< caps >}}Table{{< /caps >}}**.
+
+## Add a visualization cell
+
+Add a visualization cell to render query results as a [Visualization type](/influxdb/v2.1/visualize-data/visualization-types/).
+
+To add a Table visualization cell, do the following:
+
+1. Click {{< icon "notebook-add-cell" >}}.
+2. Under **Visualization**, select one of the following visualization cell-types:
+
+   - **{{< caps >}}Table{{< /caps >}}**: Display data in tabular format.
+   - **{{< caps >}}Graph{{< /caps >}}**: Visualize data using InfluxDB visualizations.
+   - **{{< caps >}}Note{{< /caps >}}**: Use Markdown to add notes or other information to your notebook.
+
+To modify a visualization cell, see [use visualization cells](#use-visualization-cells).
+For detail on available visualization types and how to use them, see [Visualization types](/influxdb/v2.1/visualize-data/visualization-types/).
+
+## Add an action cell
+
+Add an [action cell](/influxdb/v2.1/notebooks/overview/#action) to create an [alert](/influxdb/v2.1/monitor-alert/)
+{{< cloud-only >}}or{{< /cloud-only >}}{{< oss-only >}},{{< /oss-only >}} process data with a [task](/influxdb/v2.1/process-data/manage-tasks/)
+{{< oss-only >}}, or output data to a bucket{{< /oss-only >}}.
+
+{{< oss-only >}}
 
 {{% warn %}}
 If your cell contains a custom script that uses any output function to write data to InfluxDB (for example: the `to()` function) or sends data to a third-party service, clicking Preview will write data.
 {{% /warn %}}
 
-### Add a visualization cell
+{{< /oss-only >}}
 
-Select one of the following visualization cell-types:
+- [Add an Alert cell](#add-an-alert-cell)
+- {{< oss-only >}}[Add an Output to Bucket cell](#add-an-output-to-bucket-cell){{< /oss-only >}}
+- [Add a Task cell](#add-a-task-cell)
 
-- Table
-- Graph
-- Note
-For detail on available visualization types and how to use them, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
+### Add an Alert cell
 
-#### Visualization
-
-- To change your visualization type, select a new type from the dropdown menu at the top of the cell.
-- (For histogram only) To specify values, click **Select**.
-- To configure the visualization, click **Configure**.
-- To download results as an annotated CSV file, click the **CSV** button.
-- To export to the dashboard, click **Export to Dashboard**.  
-
-### Add an action cell
-
-Select one of the following action cell-types:
-
-- To recieve a notification, select [Alert](#alert) and complete the steps below.
-- To write output to a bucket, select [Output to Bucket](#output-to-bucket) and complete the steps below.
-- To create a task, select [Task](#task) and complete the steps below.
-
-#### Alert
+To add an [alert](/influxdb/v2.1/monitor-alert/) to your notebook, do the following:
 
 1. Enter a time range to automatically check the data and enter your query offset.
 2. Customize the conditions to send an alert.
@@ -86,24 +149,31 @@ Select one of the following action cell-types:
    - Slack and a Slack Channel
    - HTTP post
    - Pager Duty
-4. (Optional) Personalize your message. By default, the message is "${strings.title(v: r._type)} for ${r._source_measurement} triggered at ${time(v: r._source_timestamp)}!"
-5. Click **Export as Task** to create your alert.
+4. (Optional) Personalize your message. By default, the message is:
+   ```
+   ${strings.title(v: r._type)} for ${r._source_measurement} triggered at ${time(v: r._source_timestamp)}!
+   ```
+5. Click **{{< caps >}}Test Alert{{< /caps >}}** to send a test message to your configured **Endpoint**. The test will not schedule the new alert.
+6. Click **{{< icon "export" >}} {{< caps >}}Export Alert Task{{< /caps >}}** to create your alert.
 
-#### Output to bucket
+{{< oss-only >}}
+### Add an Output to Bucket cell
 
-1. Select a bucket.
-2. Click **Preview** to see what would be written to the bucket without commiting, or click **Run** in the upper left to write, or select **Export as Task** to schedule your output as a task.
+To write **Data Source** results to a bucket, do the following:
 
-#### Task
+1. Click {{% icon "notebook-add-cell" %}}.
+2. Click **{{< caps >}}Output to Bucket{{< /caps >}}**.
+3. In the **{{< icon "bucket" >}} Choose a bucket** drop-down list, select or create a bucket.
+4. Click **Preview** to view the query result in validation cells.
+5. Select and click **Run** in the upper left to write the query result to the bucket.
 
-1. Enter a time and an offset to schedule the task.
-2. Click **Export as Task** to save.
+{{< /oss-only >}}
 
-### View and edit Flux script in a cell
-Convert your notebook cells into raw Flux script to view and edit the code. Conversion to Flux is available for the following cell types:
-  - **Inputs: Metric Selector**
-  - **Transform: Column Editor** and **Downsample**
+### Add a Task cell
 
-1. Click the overflow menu icon in the cell you want to view as Flux, and then select **Convert to |> Flux**. You won't be able to undo this step.
-    A Flux cell appears with underlying script for the selected cell.
-3. View and edit the Flux script as needed.
+To add a [task](/influxdb/v2.1/process-data/manage-tasks/) to your notebook, do the following:
+
+1. Click {{% icon "notebook-add-cell" %}}.
+2. Click **{{< caps >}}Task{{< /caps >}}**.
+3. Enter a time and an offset to schedule the task.
+4. Click **{{< icon "task" >}} {{< caps >}}Export as Task{{< /caps >}}** to save.

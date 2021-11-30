@@ -157,5 +157,7 @@
   <span class="inline cf-icon share middle"></span>
   {{- else if eq $icon "bucket" -}}
   <span class="inline cf-icon bucket-solid top"></span>
+  {{- else if or (eq $icon "more") (eq $icon "...") (eq $icon "ellipses") -}}
+  <span class="inline cf-icon more bottom"></span>
   {{- end -}}
 {{- end -}}
