@@ -10,6 +10,113 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.143.1 [2021-11-22]
+
+### Bug fixes
+- Add targets to `rust-toolchain`.
+
+---
+
+## v0.143.0 [2021-11-22]
+
+### Breaking changes
+- Add new parameters to [`difference()`](/flux/v0.x/stdlib/universe/difference/)
+  to ensure [`increase()`](/flux/v0.x/stdlib/universe/increase/) returns more accurate results on counter reset.
+
+### Features
+- Don't introduce constraints for default arguments.
+- Make error messages more consistent.
+- Use new versions of `sort()` and `derivative()` by default.
+- Add inline documentation to the following packages:
+  - contrib/anaisdg/anomalydetection
+  - contrib/anaisdg/statsmodels
+  - contrib/bonitoo-io/victorops
+  - contrib/bonitoo-io/zenoss
+  - contrib/jsternberg/influxdb
+  - contrib/rhajek/bigpanda
+  - contrib/sranka/telegram
+  - experimental
+
+### Bug fixes
+- Validate examples in inline documentation as part of CI linting process.
+- Correctly handle trailing dollar signs in string expression.
+- Improve `fluxdoc` error messages.
+- Fix panic when `length()` is given a stream of tables.
+- Fix panic when `json.encode()` is given a stream of tables.
+
+---
+
+## v0.142.0 [2021-11-22]
+
+### Features
+- Default to erroring dependencies
+
+### Bug fixes
+- Fix Queryd panic when using the `experimental/geo` package.
+
+---
+
+## v0.141.0 [2021-11-22]
+
+### Features
+- Add `is_type` to query the runtime type.
+- Add ability to read options from the `Context`.
+- Ignore documentation for values prefixed with an underscore (`_`).
+- Add inline documentation to the following packages:
+  - contrib/RohanSreerama5/naiveBayesClassifier
+  - contrib/bonitoo-io/alerta
+  - contrib/bonitoo-io/hex
+  - contrib/bonitoo-io/servicenow
+  - contrib/bonitoo-io/tickscript
+  - contrib/chobbs/discord
+  - contrib/jsternberg/rows/
+  - contrib/sranka/opsgenie
+  - contrib/sranka/sensu/
+  - contrib/sranka/teams
+  - contrib/sranka/webexteams
+  - contrib/tomhollingworth/events
+  - generate
+  - http
+  - influxdata/influxdb
+  - influxdata/influxdb/monitor
+  - influxdata/influxdb/sample
+  - influxdata/influxdb/schema
+  - influxdata/influxdb/secrets
+  - influxdata/influxdb/tasks
+  - influxdata/influxdb/v1
+
+### Bug fixes
+- Propagate the element type through array constructors.
+- Catch unsupported input types in aggregate transformations.
+- Support pipe parameters (`<-`) in `fluxdoc`.
+- Fix documentation errors when running `cargo doc`.
+- Reduce the amount of extra parse errors.
+
+---
+
+## v0.140.0 [2021-11-22]
+
+### Features
+- Support reporting unlimited diagnostics.
+- Support type inference running on invalid ASTs.
+- Add erroring versions for each dependency.
+- Report multiple errors from type inference.
+- Add `fluxdoc` formatting documentation.
+- Add inline documentation to the following packages:
+  - array
+  - csv
+  - dict
+
+### Bug fixes
+- Handle errors when executing inline examples.
+- Convert fixed array to slice.
+- Compare sorted join keys.
+- Make multiline-formatting consistent.
+- Fix invalid syntax formatting.
+- Improve error checking for null and invalid types.
+
+---
+
 ## v0.139.0 [2021-11-01]
 
 ### Features
@@ -1882,7 +1989,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ## v0.37.2 [2019-07-24]
 
--  _General cleanup of internal code._
+- _General cleanup of internal code._
 
 ---
 

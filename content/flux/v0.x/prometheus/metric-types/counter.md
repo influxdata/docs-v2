@@ -105,12 +105,13 @@ from(bucket: "example-bucket")
 #### Example output {id="example-output-2"}
 | _time                | _measurement | _field                   | _value |
 | :------------------- | :----------- | :----------------------- | -----: |
+| 2021-01-01T00:00:00Z | prometheus   | http_query_request_bytes |      0 |
 | 2021-01-01T00:00:10Z | prometheus   | http_query_request_bytes |    542 |
 | 2021-01-01T00:00:20Z | prometheus   | http_query_request_bytes |    789 |
-| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    789 |
-| 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |    991 |
-| 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   1538 |
-| 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   1884 |
+| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    802 |
+| 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |   1004 |
+| 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   1551 |
+| 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   1897 |
 {{% /expand %}}
 {{< /expand-wrapper >}}
 {{% /tab-content %}}
@@ -163,12 +164,14 @@ from(bucket: "example-bucket")
 #### Example output {id="example-output-1"}
 | _time                | _measurement             | _field  | _value |
 | :------------------- | :----------------------- | :------ | -----: |
+| 2021-01-01T00:00:00Z | http_query_request_bytes | counter |      0 |
 | 2021-01-01T00:00:10Z | http_query_request_bytes | counter |    542 |
 | 2021-01-01T00:00:20Z | http_query_request_bytes | counter |    789 |
-| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    789 |
-| 2021-01-01T00:00:40Z | http_query_request_bytes | counter |    991 |
-| 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   1538 |
-| 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   1884 |
+| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    802 |
+| 2021-01-01T00:00:40Z | http_query_request_bytes | counter |   1004 |
+| 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   1551 |
+| 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   1897 |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 {{% /tab-content %}}
@@ -212,18 +215,20 @@ from(bucket: "example-bucket")
 #### Example normalized counter data  {id="example-normalized-counter-data-2"}
 | _time                | _measurement | _field                   | _value |
 | :------------------- | :----------- | :----------------------- | -----: |
+| 2021-01-01T00:00:00Z | prometheus   | http_query_request_bytes |      0 |
 | 2021-01-01T00:00:10Z | prometheus   | http_query_request_bytes |    542 |
 | 2021-01-01T00:00:20Z | prometheus   | http_query_request_bytes |    789 |
-| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    789 |
-| 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |    991 |
-| 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   1538 |
-| 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   1884 |
+| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    802 |
+| 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |   1004 |
+| 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   1551 |
+| 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   1897 |
 
 #### Example difference output {id="example-difference-output-2"}
 | _time                | _measurement | _field                   | _value |
 | :------------------- | :----------- | :----------------------- | -----: |
+| 2021-01-01T00:00:10Z | prometheus   | http_query_request_bytes |    542 |
 | 2021-01-01T00:00:20Z | prometheus   | http_query_request_bytes |    247 |
-| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |      0 |
+| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |     13 |
 | 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |    202 |
 | 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |    547 |
 | 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |    346 |
@@ -259,18 +264,20 @@ from(bucket: "example-bucket")
 #### Example normalized counter data {id="example-normalized-counter-data-1"}
 | _time                | _measurement             | _field  | _value |
 | :------------------- | :----------------------- | :------ | -----: |
+| 2021-01-01T00:00:00Z | http_query_request_bytes | counter |      0 |
 | 2021-01-01T00:00:10Z | http_query_request_bytes | counter |    542 |
 | 2021-01-01T00:00:20Z | http_query_request_bytes | counter |    789 |
-| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    789 |
-| 2021-01-01T00:00:40Z | http_query_request_bytes | counter |    991 |
-| 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   1538 |
-| 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   1884 |
+| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    802 |
+| 2021-01-01T00:00:40Z | http_query_request_bytes | counter |   1004 |
+| 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   1551 |
+| 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   1897 |
 
 #### Example difference output {id="example-difference-output-1"}
 | _time                | _measurement             | _field  | _value |
 | :------------------- | :----------------------- | :------ | -----: |
+| 2021-01-01T00:00:10Z | http_query_request_bytes | counter |    542 |
 | 2021-01-01T00:00:20Z | http_query_request_bytes | counter |    247 |
-| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |      0 |
+| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |     13 |
 | 2021-01-01T00:00:40Z | http_query_request_bytes | counter |    202 |
 | 2021-01-01T00:00:50Z | http_query_request_bytes | counter |    547 |
 | 2021-01-01T00:01:00Z | http_query_request_bytes | counter |    346 |
@@ -320,18 +327,20 @@ from(bucket: "example-bucket")
 #### Example normalized counter data {id="example-normalized-counter-data-2-1"}
 | _time                | _measurement | _field                   | _value |
 | :------------------- | :----------- | :----------------------- | -----: |
+| 2021-01-01T00:00:00Z | prometheus   | http_query_request_bytes |      0 |
 | 2021-01-01T00:00:10Z | prometheus   | http_query_request_bytes |    542 |
 | 2021-01-01T00:00:20Z | prometheus   | http_query_request_bytes |    789 |
-| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    789 |
-| 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |    991 |
-| 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   1538 |
-| 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   1884 |
+| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    802 |
+| 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |   1004 |
+| 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   1551 |
+| 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   1897 |
 
 #### Example derivative output {id="example-derivative-output-2"}
 | _time                | _measurement | _field                   | _value |
 | :------------------- | :----------- | :----------------------- | -----: |
+| 2021-01-01T00:00:10Z | prometheus   | http_query_request_bytes |   54.2 |
 | 2021-01-01T00:00:20Z | prometheus   | http_query_request_bytes |   24.7 |
-| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    0.0 |
+| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    1.3 |
 | 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |   20.2 |
 | 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   54.7 |
 | 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   34.6 |
@@ -367,18 +376,20 @@ from(bucket: "example-bucket")
 #### Example normalized counter data {id="example-normalized-counter-data-1-1"}
 | _time                | _measurement             | _field  | _value |
 | :------------------- | :----------------------- | :------ | -----: |
+| 2021-01-01T00:00:00Z | http_query_request_bytes | counter |      0 |
 | 2021-01-01T00:00:10Z | http_query_request_bytes | counter |    542 |
 | 2021-01-01T00:00:20Z | http_query_request_bytes | counter |    789 |
-| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    789 |
-| 2021-01-01T00:00:40Z | http_query_request_bytes | counter |    991 |
-| 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   1538 |
-| 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   1884 |
+| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    802 |
+| 2021-01-01T00:00:40Z | http_query_request_bytes | counter |   1004 |
+| 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   1551 |
+| 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   1897 |
 
 #### Example derivative output {id="example-derivative-output-1"}
 | _time                | _measurement             | _field  | _value |
 | :------------------- | :----------------------- | :------ | -----: |
+| 2021-01-01T00:00:10Z | http_query_request_bytes | counter |   54.2 |
 | 2021-01-01T00:00:20Z | http_query_request_bytes | counter |   24.7 |
-| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    0.0 |
+| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    1.3 |
 | 2021-01-01T00:00:40Z | http_query_request_bytes | counter |   20.2 |
 | 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   54.7 |
 | 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   34.6 |
@@ -444,19 +455,20 @@ from(bucket: "example-bucket")
 #### Example normalized counter data {id="example-normalized-counter-data-2-2"}
 | _time                | _measurement | _field                   | _value |
 | :------------------- | :----------- | :----------------------- | -----: |
+| 2021-01-01T00:00:00Z | prometheus   | http_query_request_bytes |      0 |
 | 2021-01-01T00:00:10Z | prometheus   | http_query_request_bytes |    542 |
 | 2021-01-01T00:00:20Z | prometheus   | http_query_request_bytes |    789 |
-| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    789 |
-| 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |    991 |
-| 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   1538 |
-| 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   1884 |
+| 2021-01-01T00:00:30Z | prometheus   | http_query_request_bytes |    802 |
+| 2021-01-01T00:00:40Z | prometheus   | http_query_request_bytes |   1004 |
+| 2021-01-01T00:00:50Z | prometheus   | http_query_request_bytes |   1551 |
+| 2021-01-01T00:01:00Z | prometheus   | http_query_request_bytes |   1897 |
 
 #### Example aggregate.rate output {id="example-aggregaterate-output-2"}
 | _time                | _value |
 | :------------------- | -----: |
-| 2021-01-01T00:00:15Z |        |
+| 2021-01-01T00:00:15Z |   54.2 |
 | 2021-01-01T00:01:30Z |   24.7 |
-| 2021-01-01T00:01:45Z |   10.1 |
+| 2021-01-01T00:01:45Z |  10.75 |
 | 2021-01-01T00:01:00Z |   54.7 |
 
 {{% /expand %}}
@@ -495,19 +507,20 @@ from(bucket: "example-bucket")
 #### Example normalized counter data {id="example-normalized-counter-data-1-2"}
 | _time                | _measurement             | _field  | _value |
 | :------------------- | :----------------------- | :------ | -----: |
+| 2021-01-01T00:00:00Z | http_query_request_bytes | counter |      0 |
 | 2021-01-01T00:00:10Z | http_query_request_bytes | counter |    542 |
 | 2021-01-01T00:00:20Z | http_query_request_bytes | counter |    789 |
-| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    789 |
-| 2021-01-01T00:00:40Z | http_query_request_bytes | counter |    991 |
-| 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   1538 |
-| 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   1884 |
+| 2021-01-01T00:00:30Z | http_query_request_bytes | counter |    802 |
+| 2021-01-01T00:00:40Z | http_query_request_bytes | counter |   1004 |
+| 2021-01-01T00:00:50Z | http_query_request_bytes | counter |   1551 |
+| 2021-01-01T00:01:00Z | http_query_request_bytes | counter |   1897 |
 
 #### Example aggregate.rate output {id="example-aggregaterate-output-1"}
 | _time                | _value |
 | :------------------- | -----: |
-| 2021-01-01T00:00:15Z |        |
+| 2021-01-01T00:00:15Z |   54.2 |
 | 2021-01-01T00:01:30Z |   24.7 |
-| 2021-01-01T00:01:45Z |   10.1 |
+| 2021-01-01T00:01:45Z |  10.75 |
 | 2021-01-01T00:01:00Z |   54.7 |
 
 {{% /expand %}}
