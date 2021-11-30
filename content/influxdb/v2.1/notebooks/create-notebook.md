@@ -28,7 +28,7 @@ To create a new notebook, do the following:
 1. In the navigation menu on the left, click **Books** or **Notebooks**.
 
     {{< nav-icon "notebooks" >}}
-2. In the **Notebooks** page, click one of the following options under **Create a Notebook**:
+2. In the **Notebooks** page, select one of the following options under **Create a Notebook**:
     - **New Notebook**: includes a [query builder cell](#add-a-data-source-cell), a [validation cell](#add-a-validation-cell), and a [visualization cell](#add-a-visualization-cell).
     - **Set an Alert**: includes a [query builder cell](#add-a-data-source-cell), a [validation cell](#add-a-validation-cell), a [visualization cell](#add-a-visualization-cell), and an [alert builder cell](#add-an-action-cell).
     - **Schedule a Task**: includes a [Flux Script editor cell](#add-a-data-source-cell), a [validation cell](#add-a-validation-cell), and a [task schedule cell](#add-an-action-cell).
