@@ -19,6 +19,7 @@ integration that lets you run Flux scripts natively and show results in VS Code.
 ##### On this page
 - [Install the Flux VS Code extension](#install-the-flux-vs-code-extension)
 - [Connect to InfluxDB](#connect-to-influxdb)
+  - [Manage InfluxDB connections](#manage-influxdb-connections)
 - [Query InfluxDB from VS Code](#query-influxdb-from-vs-code)
 - [Explore your schema](#explore-your-schema)
 - [Debug Flux queries](#debug-flux-queries)
@@ -33,17 +34,26 @@ see the [Extension Marketplace documentation](https://code.visualstudio.com/docs
 ## Connect to InfluxDB
 To create an InfluxDB connection in VS Code:
 
-1. Open the **VS Code Command Pallet** ({{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}).
-2. Run `influxdb.addConnection`.
-3. Provide the required connection credentials:
+1. Hover over the **InfluxDB** pane and then click the **{{< icon "plus" >}}** icon that appears.
+
+    {{< img-hd src="/img/influxdb/2-1-tools-vsflux-add-connection.png" alt="Add an InfluxDB connection in VS Code" />}}
+
+2. Provide the required connection credentials:
     - **Type:** type of InfluxDB data source. Select **InfluxDB v2**.
     - **Name:** unique identifier for your InfluxDB connection.
     - **Hostname and Port:** InfluxDB host and port
       (see [InfluxDB OSS URLs](/influxdb/v2.1/reference/urls/) or [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)).
     - **Token:** InfluxDB [API token](/influxdb/v2.1/security/tokens/).
     - **Organization:** InfluxDB organization name.
-4. Click **Test** to test the connection.
-5. Once tested successfully, click **Save**.
+3. Click **Test** to test the connection.
+4. Once tested successfully, click **Save**.
+
+### Manage InfluxDB connections
+In the **InfluxDB** pane:
+
+- **To edit a connection**, right click on the connection to edit and select **Edit Connection**.
+- **To remove a connection**, right click on the connection to remove and select **Remove Connection**.
+- **To switch to a connection**, right click on the connection to switch to and select **Switch To This Connection**.
 
 ## Query InfluxDB from VS Code
 1. Write your Flux query in a new VS Code file.
@@ -76,8 +86,4 @@ and then `Reload Window`) to initialize the updated extensions.
 | Command                     | Description       | Keyboard shortcut                            | Menu context      |
 |:-------                     |:-----------       |:-----------------:                           | ------------:     |
 | `influxdb.refresh`          | Refresh           |                                              |                   |
-| `influxdb.addConnection`    | Add Connection    |                                              | view/title        |
 | `influxdb.runQuery`         | Run Query         | {{< keybind mac="⌃⌥E" other="Ctrl+Alt+E" >}} | editor/context    |
-| `influxdb.removeConnection` | Remove Connection |                                              | view/item/context |
-| `influxdb.switchConnection` | Switch Connection |                                              |                   |
-| `influxdb.editConnection`   | Edit Connection   |                                              | view/item/context |
