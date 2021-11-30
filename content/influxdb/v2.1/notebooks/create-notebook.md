@@ -157,6 +157,7 @@ To add an [alert](/influxdb/v2.1/monitor-alert/) to your notebook, do the follow
 6. Click **{{< icon "export" >}} {{< caps >}}Export Alert Task{{< /caps >}}** to create your alert.
 
 {{< oss-only >}}
+
 ### Add an Output to Bucket cell
 
 To write **Data Source** results to a bucket, do the following:
