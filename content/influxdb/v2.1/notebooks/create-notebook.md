@@ -80,7 +80,7 @@ You won't be able to undo this step.
 
 ## Use visualization cells
 
-- To change your [visualization type](/influxdb/v2.1/visualize-data/visualization-types/), select a new type from the dropdown menu at the top of the cell.
+- To change your [visualization type](/influxdb/v2.1/visualize-data/visualization-types/), select a new type from the drop-down list at the top of the cell.
 - (For histogram only) To specify values, click **Select**.
 - To configure the visualization, click **Configure**.
 - To download results as an annotated CSV file, click the **CSV** button.
