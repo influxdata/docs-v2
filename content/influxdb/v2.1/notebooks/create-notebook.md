@@ -51,7 +51,7 @@ To create a new notebook, do the following:
     {{< /oss-only >}}
 8. (Optional) Change your visualization settings with the dropdown menu and the {{< icon "gear" >}} **Configure** button at the top of the **Visualize the Result** cell.
 9. (Optional) Toggle the **Presentation** switch to display visualization cells and hide all other cells.
-10. (Optional) Configure notebook actions (**Alert**, **Task**, or **Output to Bucket**).
+10. (Optional) Configure notebook actions {{< oss-only >}}(**Alert**, **Task**, or **Output to Bucket**){{< /oss-only >}}{{< cloud-only >}}(**Alert** or **Task**){{< /cloud-only >}}.
 11. (Optional) To run your notebook actions, select and click **Run** under the notebook title.
 12. (Optional) To add a new cell, follow the steps for one of the cell types:
 
