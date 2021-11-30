@@ -148,7 +148,7 @@ To add an [alert](/influxdb/v2.1/monitor-alert/) to your notebook, do the follow
 3. Select an endpoint to receive an alert:
    - Slack and a Slack Channel
    - HTTP post
-   - Pager Duty
+   - PagerDuty
 4. (Optional) Personalize your message. By default, the message is:
    ```
    ${strings.title(v: r._type)} for ${r._source_measurement} triggered at ${time(v: r._source_timestamp)}!
