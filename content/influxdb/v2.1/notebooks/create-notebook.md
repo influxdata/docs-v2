@@ -42,8 +42,13 @@ To create a new notebook, do the following:
 6. To define your data source query, do one of the following:
    - If your notebook uses a **Query Builder** cell, select your bucket and any additional filters for your query.
    - If your notebook uses a **Flux Script** cell, enter or paste a [Flux script](/influxdb/v2.1/query-data/flux/).
-7. Select and click **Preview** (or press **CTRL + Enter**) under the notebook title.
-   InfluxDB displays query results in **Validate the Data** and **Visualize the Result** *without writing data or running actions*.
+7. {{< oss-only >}}
+
+    Select and click **Preview** (or press **CTRL + Enter**) under the notebook title.
+    InfluxDB displays query results in **Validate the Data** and **Visualize the Result** *without writing data or 
+    running actions*.
+    
+    {{< /oss-only >}}
 8. (Optional) Change your visualization settings with the dropdown menu and the {{< icon "gear" >}} **Configure** button at the top of the **Visualize the Result** cell.
 9. (Optional) Toggle the **Presentation** switch to display visualization cells and hide all other cells.
 10. (Optional) Configure notebook actions (**Alert**, **Task**, or **Output to Bucket**).
