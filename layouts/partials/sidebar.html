@@ -8,6 +8,8 @@
 {{ .Scratch.Set "menuKey" "menu"}}
 {{ if eq $product "platform" }}
   {{ .Scratch.Set "menuKey" "platform" }}
+{{ else if eq $product "resources" }}
+  {{ .Scratch.Set "menuKey" "resources" }}
 {{ else }}
   {{ .Scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
 {{ end }}
