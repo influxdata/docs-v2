@@ -2294,11 +2294,6 @@ components:
             - invalid
           readOnly: true
           type: string
-        maxLength:
-          description: Max length in bytes for a body of line-protocol.
-          format: int32
-          readOnly: true
-          type: integer
         message:
           description: Message is a human-readable message.
           readOnly: true
@@ -2306,7 +2301,6 @@ components:
       required:
         - code
         - message
-        - maxLength
     Link:
       description: URI of resource.
       format: uri
@@ -12717,7 +12711,8 @@ paths:
 
         To write data into InfluxDB, you need the following:
 
-        - **organization** – _See [View
+
+        - **organization name or ID** – _See [View
         organizations](https://docs.influxdata.com/influxdb/v2.1/organizations/view-orgs/#view-your-organization-id)
         for instructions on viewing your organization ID._
 
@@ -12734,6 +12729,10 @@ paths:
         - data in [line
         protocol](https://docs.influxdata.com/influxdb/v2.1/reference/syntax/line-protocol)
         format.
+
+
+        InfluxDB Cloud enforces rate and size limits different from InfluxDB
+        OSS. For details, see Responses.
 
 
         For more information and examples, see the following:
@@ -12757,8 +12756,8 @@ paths:
           schema:
             default: identity
             description: >-
-              The header value specifies that the line protocol in the request
-              body is encoded with gzip or not encoded with identity.
+              The content coding. Use `gzip` for compressed data or `identity`
+              for unmodified, uncompressed data.
             enum:
               - gzip
               - identity
@@ -12848,9 +12847,7 @@ paths:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: >-
-                    Example of a field type conflict thrown by an explicit
-                    bucket schema
+                  summary: Field type conflict thrown by an explicit bucket schema
                   value:
                     code: invalid
                     message: >-
@@ -12901,13 +12898,52 @@ paths:
         '413':
           content:
             application/json:
+              examples:
+                dataExceedsSizeLimitOSS:
+                  summary: InfluxDB OSS response
+                  value: >
+                    {"code":"request too large","message":"unable to read data:
+                    points batch is too large"}
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
+            text/html:
+              examples:
+                dataExceedsSizeLimit:
+                  summary: InfluxDB Cloud response
+                  value: |
+                    <html>
+                      <head><title>413 Request Entity Too Large</title></head>
+                      <body>
+                        <center><h1>413 Request Entity Too Large</h1></center>
+                        <hr>
+                        <center>nginx</center>
+                      </body>
+                    </html>
+              schema:
+                type: string
           description: >
-            All request data was rejected and not written. InfluxDB OSS only
-            returns this error if the [Go (golang)
-            `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function
-            raises an error.
+            The request payload is too large. InfluxDB rejected the batch and
+            did not write any data.
+
+            #### InfluxDB Cloud:
+             - returns this error if the payload exceeds the 50MB size limit.
+             - returns `Content-Type: text/html` for this error.
+
+            #### InfluxDB OSS:
+             - returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
+             - returns `Content-Type: application/json` for this error.
+        '429':
+          description: >-
+            InfluxDB Cloud only. The token is temporarily over quota. The
+            Retry-After header describes when to try the write again.
+          headers:
+            Retry-After:
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
+              schema:
+                format: int32
+                type: integer
         '500':
           content:
             application/json:

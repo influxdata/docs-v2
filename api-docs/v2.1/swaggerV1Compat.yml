@@ -29,7 +29,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The bucket to write to. If the specified bucket does not exist, a bucket is created with a default 3 day retention policy.
+          description: The bucket to write to. If none exist a bucket will be created with a default 3 day retention policy.
         - in: query
           name: rp
           schema:
@@ -54,7 +54,7 @@ paths:
         "204":
           description: Write data is correctly formatted and accepted for writing to the bucket.
         "400":
-          description: Line protocol was not in correct format, and no points were written. Response can be used to determine the first malformed line in the line-protocol body. All data in body was rejected and not written.
+          description: Line protocol poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
           content:
             application/json:
               schema:
