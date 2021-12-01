@@ -50,13 +50,33 @@
   }
 }
 
+.video-content {
+  .video-date {
+    color: rgba($article-text, .6);
+    margin-top: -1.75rem;
+    font-weight: $medium;
+    font-size: .9rem;
+  }
+
+  .video{
+    max-width: none;
+    margin: 0 0 2rem;
+  }
+}
+
 .video {
   width: 100%;
   max-width: 620px;
   margin: 2rem 0;
 }
 
-.video-content .video{
-  max-width: none;
-  margin: 0 0 2rem;
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  .video-card {
+    max-width: 100%;
+    margin-right: 0;
+  }
 }

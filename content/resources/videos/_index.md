@@ -1,5 +1,6 @@
 ---
-title: InfluxDB and InfluxData videos
+title: InfluxData videos
+seotitle: InfluxDB and InfluxData videos
 description: >
   ...
 menu:
@@ -8,4 +9,5 @@ menu:
 ---
 
 ### Meet the Developer Series
+
 {{< resources/video-cards tags="Meet the Developers" >}}

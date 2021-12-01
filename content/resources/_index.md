@@ -4,7 +4,7 @@ description: >
   ...
 menu:
   resources:
-    name: Resources home
+    name: Additional resources
 ---
 
 {{< children >}}
