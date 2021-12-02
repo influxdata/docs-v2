@@ -53,7 +53,7 @@ weight: 304
 
   # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
   INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $version/ref.yml \
-    --config=./.redocly.yaml \
+    --config=./openapi/.redocly.yaml \
     -o $version/ref.yml
 
   # Use Redoc to generate the v2 API html

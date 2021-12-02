@@ -1318,7 +1318,6 @@ components:
           type: string
       required:
         - code
-        - message
     Expression:
       oneOf:
         - $ref: '#/components/schemas/ArrayExpression'
@@ -2384,9 +2383,6 @@ components:
           type: string
       required:
         - code
-        - message
-        - op
-        - err
     LineProtocolLengthError:
       properties:
         code:
@@ -2490,7 +2486,8 @@ components:
         bucketID: ba3c5e7f9b0a0010
         columns:
           - name: time
-            type: timestamp
+            type: integer
+            format: unix timestamp
           - name: host
             type: tag
           - name: region
@@ -2543,7 +2540,8 @@ components:
       description: Definition of a measurement column
       example:
         name: time
-        type: timestamp
+        type: integer
+        format: unix timestamp
       properties:
         dataType:
           $ref: '#/components/schemas/ColumnDataType'
@@ -2560,7 +2558,8 @@ components:
       example:
         columns:
           - name: time
-            type: timestamp
+            type: integer
+            format: unix timestamp
           - name: host
             type: tag
           - name: region
@@ -2619,7 +2618,8 @@ components:
       example:
         columns:
           - name: time
-            type: timestamp
+            type: integer
+            format: unix timestamp
           - name: host
             type: tag
           - name: region
@@ -5985,9 +5985,10 @@ info:
   description: >
     The InfluxDB v2 API provides a programmatic interface for all interactions
     with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
+  version: cloud
 openapi: 3.0.0
 paths:
-  /api/v2/:
+  /api/v2:
     get:
       operationId: GetRoutes
       parameters:
@@ -8407,6 +8408,7 @@ paths:
         - Labels
   /api/v2/maps/mapToken:
     get:
+      summary: Get a mapbox token
       operationId: getMapboxToken
       responses:
         '200':
@@ -9245,6 +9247,7 @@ paths:
         - Organizations
   /api/v2/orgs/{orgID}/limits:
     get:
+      operationId: GetOrgLimitsID
       parameters:
         - description: The identifier of the organization.
           in: path
@@ -9576,6 +9579,7 @@ paths:
         - Secrets
   /api/v2/orgs/{orgID}/usage:
     get:
+      operationId: GetOrgUsageId
       parameters:
         - description: The identifier of the organization.
           in: path
@@ -9588,13 +9592,15 @@ paths:
           name: start
           required: true
           schema:
-            type: timestamp
+            type: integer
+            format: unix timestamp
         - description: stop time
           in: query
           name: stop
           required: false
           schema:
-            type: timestamp
+            type: integer
+            format: unix timestamp
         - description: return raw usage data
           in: query
           name: raw
@@ -12367,7 +12373,7 @@ security:
   - BasicAuthentication: []
   - QuerystringAuthentication: []
 servers:
-  - url: /
+  - url: ""
 tags:
   - description: >
       Use one of the following schemes to authenticate to the InfluxDB API:
@@ -12394,21 +12400,36 @@ tags:
         - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
         - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token).
     name: Authorizations
-  - Bucket Schemas
-  - Buckets
-  - Cells
-  - Checks
-  - Dashboards
-  - DBRPs
-  - Delete
-  - DemoDataBuckets
-  - Invocable Scripts
-  - Labels
-  - Limits
-  - NotificationEndpoints
-  - NotificationRules
-  - Organizations
-  - Ping
+  - name: Bucket Schemas
+    description: Missing description
+  - name: Buckets
+    description: Missing description
+  - name: Cells
+    description: Missing description
+  - name: Checks
+    description: Missing description
+  - name: Dashboards
+    description: Missing description
+  - name: DBRPs
+    description: Missing description
+  - name: Delete
+    description: Missing description
+  - name: DemoDataBuckets
+    description: Missing description
+  - name: Invocable Scripts
+    description: Missing description
+  - name: Labels
+    description: Missing description
+  - name: Limits
+    description: Missing description
+  - name: NotificationEndpoints
+    description: Missing description
+  - name: NotificationRules
+    description: Missing description
+  - name: Organizations
+    description: Missing description
+  - name: Ping
+    description: Missing description
   - description: |
       Retrieve data, analyze queries, and get query suggestions.
     name: Query
@@ -12425,7 +12446,8 @@ tags:
       application.
     name: Quick start
     x-traitTag: true
-  - Resources
+  - name: Resources
+    description: Missing description
   - description: >
       The InfluxDB API uses standard HTTP status codes for success and failure
       responses.
@@ -12481,20 +12503,34 @@ tags:
       when to try the request again. |
     name: Response codes
     x-traitTag: true
-  - Routes
-  - Rules
-  - Secrets
-  - Setup
-  - Signin
-  - Signout
-  - Tasks
-  - Telegraf Plugins
-  - Telegrafs
-  - Templates
-  - Usage
-  - Users
-  - Variables
-  - Views
+  - name: Routes
+    description: Missing description
+  - name: Rules
+    description: Missing description
+  - name: Secrets
+    description: Missing description
+  - name: Setup
+    description: Missing description
+  - name: Signin
+    description: Missing description
+  - name: Signout
+    description: Missing description
+  - name: Tasks
+    description: Missing description
+  - name: Telegraf Plugins
+    description: Missing description
+  - name: Telegrafs
+    description: Missing description
+  - name: Templates
+    description: Missing description
+  - name: Usage
+    description: Missing description
+  - name: Users
+    description: Missing description
+  - name: Variables
+    description: Missing description
+  - name: Views
+    description: Missing description
   - description: |
       Write time series data to buckets.
     name: Write
