@@ -1,7 +1,7 @@
 ---
 title: The Basics of Time Series Data
 description: >
-  PLACEHOLDER
+  Paul Dix, founder and CTO of InfluxData, discusses what makes time series data unique, and why it is best managed using a time series database.
 menu:
   resources:
     parent: Videos

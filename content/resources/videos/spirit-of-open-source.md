@@ -1,7 +1,7 @@
 ---
 title: The Spirit of Open Source
 description: >
-  PLACEHOLDER
+  Paul Dix discusses why InfluxData champions open source.
 menu:
   resources:
     parent: Videos

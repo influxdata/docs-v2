@@ -1,7 +1,7 @@
 ---
 title: Using Geolocation data with InfluxDB
 description: >
-  PLACEHOLDER
+  To learn more about how to work with geolocation and InfluxDB, see [Work with geo-temporal data](https://docs.influxdata.com/influxdb/cloud/query-data/flux/geo/).
 menu:
   resources:
     name: Geolocation and InfluxDB
