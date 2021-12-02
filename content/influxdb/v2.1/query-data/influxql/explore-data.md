@@ -20,16 +20,16 @@ This document uses publicly available data from the
 See the [Sample Data](/enterprise_influxdb/v1.9/query_language/data_download/) page to download
 the data and follow along with the example queries in the sections below.
 
-Start by logging into the Influx CLI:
+<!-- Start by logging into the Influx CLI:
 
 ```bash
 $ influx -precision rfc3339 -database NOAA_water_database
 Connected to http://localhost:8086 version {{< latest-patch >}}
 InfluxDB shell {{< latest-patch >}}
 >
-```
+``` -->
 
-Next, get acquainted with this subsample of the data in the `h2o_feet` measurement:
+Let's get acquainted with this subsample of the data in the `h2o_feet` measurement:
 
 name: <span class="tooltip" data-tooltip-text="Measurement">h2o_feet</span>
 
