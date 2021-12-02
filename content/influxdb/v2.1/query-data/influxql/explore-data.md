@@ -10,46 +10,8 @@ menu:
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
-The following sections detail InfluxQL's `SELECT` statement and useful query syntax
+The following sections detail InfluxQL's `SELECT` statement, as well as other key clauses, and useful query syntax
 for exploring your data.
-
-<table style="width:100%">
-  <tr>
-    <td><b>The Basics:</b></td>
-    <td><b>Configure Query Results:</b></td>
-    <td><b>General Tips on Query Syntax:</b></td>
-  </tr>
-  <tr>
-    <td><a href="#the-basic-select-statement">The SELECT statement</a></td>
-    <td><a href="#order-by-time-desc">ORDER BY time DESC</a></td>
-    <td><a href="#time-syntax">Time Syntax</a></td>
-  </tr>
-  <tr>
-    <td><a href="#the-where-clause">The WHERE clause</a></td>
-    <td><a href="#the-limit-and-slimit-clauses">The LIMIT and SLIMIT clauses</a></td>
-    <td><a href="#regular-expressions">Regular Expressions</a></td>
-  </tr>
-  <tr>
-    <td><a href="#the-group-by-clause">The GROUP BY clause</a></td>
-    <td><a href="#the-offset-and-soffset-clauses">The OFFSET and SOFFSET clauses</a></td>
-    <td><a href="#data-types-and-cast-operations">Data types and cast operations</a></td>
-  </tr>
-  <tr>
-    <td><a href="#the-into-clause">The INTO clause</a></td>
-    <td><a href="#the-time-zone-clause">The Time Zone clause</a></td>
-    <td><a href="#merge-behavior">Merge behavior</a></td>
-  </tr>
-  <tr>
-    <td><a href="#"></a></td>
-    <td><a href="#"></a></td>
-    <td><a href="#multiple-statements">Multiple statements</a></td>
-  </tr>
-  <tr>
-    <td><a href="#"></a></td>
-    <td><a href="#"></a></td>
-    <td><a href="#subqueries">Subqueries</a></td>
-  </tr>
-</table>
 
 ### Sample data
 
