@@ -4,8 +4,9 @@ description: Useful query syntax for exploring schema in InfluxQL.
 menu:
   influxdb_2_1:
     name: Explore your schema
-    weight: 203
     parent: Query with InfluxQL
+    identifier: explore-schema-influxql
+weight: 203
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
