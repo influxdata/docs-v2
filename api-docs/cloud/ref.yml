@@ -5946,7 +5946,7 @@ components:
         username and password
         scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
       in: query
-      name: u=&p=
+      name: &u=
       type: apiKey
     TokenAuthentication:
       bearerFormat: InfluxDB token string
@@ -9657,8 +9657,6 @@ paths:
               description: The version of InfluxDB.
               schema:
                 type: integer
-      servers:
-        - url: ''
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       tags:
         - Ping
@@ -9676,8 +9674,6 @@ paths:
               description: The version of InfluxDB.
               schema:
                 type: integer
-      servers:
-        - url: ''
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       tags:
         - Ping

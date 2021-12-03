@@ -8537,7 +8537,7 @@
       "QuerystringAuthentication": {
         "description": "### Querystring authentication scheme\n\nUse InfluxDB 1.x API parameters to provide credentials through the query string.\n\nUsername and password schemes require the following credentials:\n- **username**: InfluxDB Cloud username\n- **password**: InfluxDB Cloud API token\n\n#### Example\n\n`curl --get \"https://europe-west1-1.gcp.cloud2.influxdata.com/query\"\n      --data-urlencode \"u=exampleuser@influxdata.com\"\n      --data-urlencode \"p=INFLUX_API_TOKEN\"`\n\nReplace the following:\n- *`exampleuser@influxdata.com`*: the email address that you signed up with\n- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)\n\nFor more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).\n",
         "in": "query",
-        "name": "u=&p=",
+        "name": null,
         "type": "apiKey"
       },
       "TokenAuthentication": {
@@ -14490,11 +14490,6 @@
             }
           }
         },
-        "servers": [
-          {
-            "url": ""
-          }
-        ],
         "summary": "Checks the status of InfluxDB instance and version of InfluxDB.",
         "tags": [
           "Ping"
@@ -14521,11 +14516,6 @@
             }
           }
         },
-        "servers": [
-          {
-            "url": ""
-          }
-        ],
         "summary": "Checks the status of InfluxDB instance and version of InfluxDB.",
         "tags": [
           "Ping"
