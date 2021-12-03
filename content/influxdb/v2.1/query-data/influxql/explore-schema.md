@@ -4,7 +4,7 @@ description: Useful query syntax for exploring schema in InfluxQL.
 menu:
   influxdb_2_1:
     name: Explore your schema
-    weight: 202
+    weight: 203
     parent: Query with InfluxQL
 ---
 
