@@ -13,8 +13,9 @@ aliases:
 ---
 
 To remove a user from your InfluxDB Cloud organization, select one of the following:
+
 - [Single-user organization](#single-user-organization)
-- [Multi-user orgaanization](#multi-user-organization)
+- [Multi-user organization](#multi-user-organization)
 
 ### Delete a single-user organization 
 
@@ -24,16 +25,19 @@ Delete a single-user organization from one of the following:
 
 #### Free plan 
 
-1. Click your user avatar in the left navigation bar and select **Users**.
+1. Click your user avatar in the left navigation bar and select **About**.
 
     {{< nav-icon "account" >}}
 
-2. Hover over the user you want to remove and then click the {{< icon "delete" >}} icon that appears.
+2. Under **Delete Organization**, click **{{< icon "delete" >}} {{< caps >}}Delete{{< /caps >}}**.
 3. Confirm the removal.
 
 #### Usage-based plan 
 
-1. Click on the **user icon > billing**. 
+1. Click your user avatar in the left navigation bar and select **Billing**.
+
+    {{< nav-icon "account" >}}
+
 2. [Cancel your service](/influxdb/cloud/account-management/offboarding/#cancel-service) to delete your organization. 
 
 ### Multi-user organization 
