@@ -231,8 +231,8 @@ You can use Chronograf to access and assign these more granular permissions to i
 The [InfluxDB Enterprise meta API]() provides the most comprehensive way to manage users, roles, permission 
 and other [fine grained authorization]() (FGA) capabilities.
 
-<!-- TODO -->
-Provide the links to FGA....and to the other meta API usage.
+<!-- TODO
+Provide the links to FGA....and to the other meta API usage.  -->
 
 <!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
 
