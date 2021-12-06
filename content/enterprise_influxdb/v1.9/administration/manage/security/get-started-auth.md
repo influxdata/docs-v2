@@ -64,7 +64,7 @@ They are:
 
 - the [`influx` CLI](#influxql) (1.x) with [InfluxQL](#manage-read-and-write-privileges-with-influxql)
 - [Chronograf](#manage-specific-privileges-with-chronograf)
-- the [InfluxDB Enterprise meta API](#influxdb-enterprise-meta-api)
+- the [InfluxDB Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api)
 
 Each of these allows you to manage permissions for specific users.
 
@@ -139,6 +139,9 @@ To manage privileges in Chronograf:
 3. Each user has a dropdown for **Permissions**.
    Select the desired permissions and click **Apply**.
 
+
+<!-- 
 ### InfluxDB Enterprise meta API
 
 For information on using the meta API, see [here](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api).
+ -->
