@@ -8,6 +8,7 @@
 
 .flex-container {
   margin-right: 1rem;
+
   &.half { width: calc(50% - 1rem); }
   &.third { width: calc(33.33% - 1rem); }
   &.quarter { width: calc(25% - 1rem); }
@@ -18,6 +19,7 @@
   }
 
   img { margin-bottom: 0;}
+  table { display: table; }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

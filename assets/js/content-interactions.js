@@ -153,3 +153,30 @@ $('.tooltip').each( function(){
   $toolTipElement = $('<div/>').addClass('tooltip-container').append($toolTipText);
   $(this).prepend($toolTipElement);
 });
+
+/////////////////// Style time columns in tables to not wrap ///////////////////
+
+$('.article--content table').each(function() {
+  var table = $(this);
+  var timeColumns = ['_time', '_start', '_stop'];
+  let header = [];
+  let timeColumnIndexes = [];
+
+  // Return an array of column headers
+  table.find('th').each(function () {
+    header.push($(this)[0].innerHTML);
+  });
+
+  // Return indexes of time columns
+  header.forEach(function(value, i) {
+    if ( timeColumns.includes(value) ) { timeColumnIndexes.push(i) };
+  });
+
+  // Add the nowrap class to cells with time column indexes
+  table.find('td').each(function() {
+    if (timeColumnIndexes.includes( $(this)[0].cellIndex )) {
+      $(this).addClass('nowrap');
+    }
+  })
+
+})

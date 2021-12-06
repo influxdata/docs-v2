@@ -27,8 +27,8 @@ _`reduce()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ```js
 reduce(
-  fn: (r, accumulator) => ({ sum: r._value + accumulator.sum }),
-  identity: {sum: 0.0}
+    fn: (r, accumulator) => ({ sum: r._value + accumulator.sum }),
+    identity: {sum: 0.0}
 )
 ```
 
@@ -62,10 +62,10 @@ If the output record keys and value types do not match the `identity` keys and v
 it will return a type error.
 {{% /note %}}
 
-#### r
+#### r {data-type=record}
 Record representing each row or record.
 
-#### accumulator
+#### accumulator {data-type=record}
 Reducer record defined by [`identity`](#identity).
 
 ### identity {data-type="record"}
@@ -108,9 +108,7 @@ import "sampledata"
 
 sampledata.int()
     |> reduce(
-        fn: (r, accumulator) => ({
-            sum: r._value + accumulator.sum
-        }),
+        fn: (r, accumulator) => ({sum: r._value + accumulator.sum}),
         identity: {sum: 0}
     )
 ```
@@ -147,8 +145,8 @@ import "sampledata"
 sampledata.int()
     |> reduce(
         fn: (r, accumulator) => ({
-          sum: r._value + accumulator.sum,
-          count: accumulator.count + 1
+            sum: r._value + accumulator.sum,
+            count: accumulator.count + 1,
         }),
         identity: {sum: 0, count: 0}
     )
@@ -185,9 +183,7 @@ import "sampledata"
 
 sampledata.int()
     |> reduce(
-        fn: (r, accumulator) => ({
-            prod: r._value * accumulator.prod
-        }),
+        fn: (r, accumulator) => ({prod: r._value * accumulator.prod}),
         identity: {prod: 1}        
     )
 ```
@@ -222,13 +218,14 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> reduce(fn: (r, accumulator) => ({
-      count: accumulator.count + 1,
-      total: accumulator.total + r._value,
-      avg: float(v: (accumulator.total + r._value)) / float(v: accumulator.count)
-    }),
-    identity: {count: 1, total: 0, avg: 0.0}
-  )
+    |> reduce(
+      fn: (r, accumulator) => ({
+        count: accumulator.count + 1,
+        total: accumulator.total + r._value,
+        avg: float(v: (accumulator.total + r._value)) / float(v: accumulator.count + 1)
+      }),
+      identity: {count: 0, total: 0, avg: 0.0}
+    )
 ```
 
 {{< expand-wrapper >}}
@@ -245,11 +242,11 @@ sampledata.int()
 ##### Output data
 | tag | avg | count | total |
 | :-- | --: | ----: | ----: |
-| t1  | 8.5 |     7 |    51 |
+| t1  | 8.5 |     6 |    51 |
 
-| tag |               avg | count | total |
-| :-- | ----------------: | ----: | ----: |
-| t2  | 8.834 |     7 |    53 |
+| tag |   avg | count | total |
+| :-- | ----: | ----: | ----: |
+| t2  | 8.834 |     6 |    53 |
 
 {{% /flex-content %}}
 {{< /flex >}}

@@ -1939,7 +1939,7 @@ influxd --storage-retention-check-interval=30m0s
 
 ###### Environment variable
 ```sh
-export INFLUXD_STORAGE_MAX_INDEX_LOG_FILE_SIZE=30m0s
+export INFLUXD_STORAGE_RETENTION_CHECK_INTERVAL=30m0s
 ```
 
 ###### Configuration file

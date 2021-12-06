@@ -17,9 +17,17 @@ related:
 
 Use fine-grained authorization (FGA) to control user access at the database, measurement, and series levels.
 
-<!-- > **Note:** InfluxDB OSS controls access at the database level only. -->
+{{% note %}}
+**Note:** InfluxDB OSS controls access at the database level only.
+{{% /note %}}
 
 You must have [admin permissions](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#admin-user-management) to set up FGA.
+
+{{% warn %}}
+#### FGA does not apply to Flux
+FGA does not restrict actions performed by Flux queries (both read and write).
+If using FGA, we recommend [disabling Flux](/enterprise_influxdb/v{{< current-version >}}/flux/installation/).
+{{% /warn %}}
 
 ## Set up fine-grained authorization
 
@@ -35,19 +43,25 @@ You must have [admin permissions](/enterprise_influxdb/v1.9/administration/authe
 
 3. Ensure that you can access the **meta node** API (port 8091 by default).
 
-    > In a typical cluster configuration, the HTTP ports for data nodes
-    > (8086 by default) are exposed to clients but the meta node HTTP ports are not.
-    > You may need to work with your network administrator to gain access to the meta node HTTP ports.
+    {{% note %}}
+In a typical cluster configuration, the HTTP ports for data nodes
+(8086 by default) are exposed to clients but the meta node HTTP ports are not.
+You may need to work with your network administrator to gain access to the meta node HTTP ports.
+    {{% /note %}}
 
 4. _(Optional)_ [Create roles](#manage-roles).
    Roles let you grant permissions to groups of users assigned to each role.
 
-    > For an overview of how users and roles work in InfluxDB Enterprise, see [InfluxDB Enterprise users](/enterprise_influxdb/v1.9/features/users/).
+    {{% note %}}
+For an overview of how users and roles work in InfluxDB Enterprise, see [InfluxDB Enterprise users](/enterprise_influxdb/v1.9/features/users/).
+    {{% /note %}}
 
 5. [Set up restrictions](#manage-restrictions).
    Restrictions apply to all non-admin users.
 
-    > Permissions (currently "read" and "write") may be restricted independently depending on the scenario.
+    {{% note %}}
+Permissions (currently "read" and "write") may be restricted independently depending on the scenario.
+    {{% /note %}}
 
 7. [Set up grants](#manage-grants) to remove restrictions for specified users and roles.
 

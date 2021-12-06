@@ -2294,11 +2294,6 @@ components:
             - invalid
           readOnly: true
           type: string
-        maxLength:
-          description: Max length in bytes for a body of line-protocol.
-          format: int32
-          readOnly: true
-          type: integer
         message:
           description: Message is a human-readable message.
           readOnly: true
@@ -2306,7 +2301,6 @@ components:
       required:
         - code
         - message
-        - maxLength
     Link:
       description: URI of resource.
       format: uri
@@ -5926,7 +5920,7 @@ components:
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
+          - [Authorize API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
           - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
           - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
       scheme: token
@@ -6120,16 +6114,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: >-
-            The Accept-Encoding request HTTP header advertises which content
-            encoding, usually a compression algorithm, the client is able to
-            understand.
+            Indicates the content encoding (usually a compression algorithm)
+            that the client can understand.
           in: header
           name: Accept-Encoding
           schema:
             default: identity
             description: >-
-              Specifies that the query response in the body should be encoded
-              with gzip or not encoded with identity.
+              The content coding.  Use `gzip` for compressed data or `identity`
+              for unmodified, uncompressed data.
             enum:
               - gzip
               - identity
@@ -6144,14 +6137,13 @@ paths:
           headers:
             Content-Encoding:
               description: >-
-                The Content-Encoding entity header is used to compress the
-                media-type.  When present, its value indicates which encodings
-                were applied to the entity-body
+                Lists any encodings (usually compression algorithms) that have
+                been applied to the response payload.
               schema:
                 default: identity
-                description: >-
-                  Specifies that the response in the body is encoded with gzip
-                  or not encoded with identity.
+                description: >
+                  The content coding: `gzip` for compressed data or `identity`
+                  for unmodified, uncompressed data.
                 enum:
                   - gzip
                   - identity
@@ -6168,16 +6160,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: >-
-            The Accept-Encoding request HTTP header advertises which content
-            encoding, usually a compression algorithm, the client is able to
-            understand.
+            Indicates the content encoding (usually a compression algorithm)
+            that the client can understand.
           in: header
           name: Accept-Encoding
           schema:
             default: identity
             description: >-
-              Specifies that the query response in the body should be encoded
-              with gzip or not encoded with identity.
+              The content coding.  Use `gzip` for compressed data or `identity`
+              for unmodified, uncompressed data.
             enum:
               - gzip
               - identity
@@ -6206,14 +6197,13 @@ paths:
           headers:
             Content-Encoding:
               description: >-
-                The Content-Encoding entity header is used to compress the
-                media-type.  When present, its value indicates which encodings
-                were applied to the entity-body
+                Lists any encodings (usually compression algorithms) that have
+                been applied to the response payload.
               schema:
                 default: identity
-                description: >-
-                  Specifies that the response in the body is encoded with gzip
-                  or not encoded with identity.
+                description: >
+                  The content coding: `gzip` for compressed data or `identity`
+                  for unmodified, uncompressed data.
                 enum:
                   - gzip
                   - identity
@@ -9605,16 +9595,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: >-
-            The Accept-Encoding request HTTP header advertises which content
-            encoding, usually a compression algorithm, the client is able to
-            understand.
+            Indicates the content encoding (usually a compression algorithm)
+            that the client can understand.
           in: header
           name: Accept-Encoding
           schema:
             default: identity
             description: >-
-              Specifies that the query response in the body should be encoded
-              with gzip or not encoded with identity.
+              The content coding.  Use `gzip` for compressed data or `identity`
+              for unmodified, uncompressed data.
             enum:
               - gzip
               - identity
@@ -9673,14 +9662,13 @@ paths:
           headers:
             Content-Encoding:
               description: >-
-                The Content-Encoding entity header is used to compress the
-                media-type.  When present, its value indicates which encodings
-                were applied to the entity-body
+                Lists any encodings (usually compression algorithms) that have
+                been applied to the response payload.
               schema:
                 default: identity
-                description: >-
-                  Specifies that the response in the body is encoded with gzip
-                  or not encoded with identity.
+                description: >
+                  The content coding: `gzip` for compressed data or `identity`
+                  for unmodified, uncompressed data.
                 enum:
                   - gzip
                   - identity
@@ -9951,16 +9939,19 @@ paths:
       operationId: PostRestoreKV
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: >-
-            When present, its value indicates to the database that compression
-            is applied to the line-protocol body.
+        - description: >
+            The value tells InfluxDB what compression is applied to the line
+            protocol in the request payload.
+
+            To make an API request with a GZIP payload, send `Content-Encoding:
+            gzip` as a request header.
           in: header
           name: Content-Encoding
           schema:
             default: identity
             description: >-
-              Specifies that the line protocol in the body is encoded with gzip
-              or not encoded with identity.
+              The content coding.  Use `gzip` for compressed data or `identity`
+              for unmodified, uncompressed data.
             enum:
               - gzip
               - identity
@@ -10006,9 +9997,12 @@ paths:
       operationId: PostRestoreShardId
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: >-
-            When present, its value indicates to the database that compression
-            is applied to the line-protocol body.
+        - description: >
+            The value tells InfluxDB what compression is applied to the line
+            protocol in the request payload.
+
+            To make an API request with a GZIP payload, send `Content-Encoding:
+            gzip` as a request header.
           in: header
           name: Content-Encoding
           schema:
@@ -10055,9 +10049,12 @@ paths:
       operationId: PostRestoreSQL
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: >-
-            When present, its value indicates to the database that compression
-            is applied to the line-protocol body.
+        - description: >
+            The value tells InfluxDB what compression is applied to the line
+            protocol in the request payload.
+
+            To make an API request with a GZIP payload, send `Content-Encoding:
+            gzip` as a request header.
           in: header
           name: Content-Encoding
           schema:
@@ -12714,7 +12711,8 @@ paths:
 
         To write data into InfluxDB, you need the following:
 
-        - **organization** – _See [View
+
+        - **organization name or ID** – _See [View
         organizations](https://docs.influxdata.com/influxdb/v2.1/organizations/view-orgs/#view-your-organization-id)
         for instructions on viewing your organization ID._
 
@@ -12733,21 +12731,33 @@ paths:
         format.
 
 
-        For more information and examples, see [Write data with the InfluxDB
+        InfluxDB Cloud enforces rate and size limits different from InfluxDB
+        OSS. For details, see Responses.
+
+
+        For more information and examples, see the following:
+
+        - [Write data with the InfluxDB
         API](https://docs.influxdata.com/influxdb/v2.1/write-data/developer-tools/api).
+
+        - [Optimize writes to
+        InfluxDB](https://docs.influxdata.com/influxdb/v2.1/write-data/best-practices/optimize-writes/).
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: >-
-            When present, the header value tells the database that compression
-            is applied to the line protocol in the request body.
+        - description: >
+            The value tells InfluxDB what compression is applied to the line
+            protocol in the request payload.
+
+            To make an API request with a GZIP payload, send `Content-Encoding:
+            gzip` as a request header.
           in: header
           name: Content-Encoding
           schema:
             default: identity
             description: >-
-              The header value specifies that the line protocol in the request
-              body is encoded with gzip or not encoded with identity.
+              The content coding. Use `gzip` for compressed data or `identity`
+              for unmodified, uncompressed data.
             enum:
               - gzip
               - identity
@@ -12837,9 +12847,7 @@ paths:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: >-
-                    Example of a field type conflict thrown by an explicit
-                    bucket schema
+                  summary: Field type conflict thrown by an explicit bucket schema
                   value:
                     code: invalid
                     message: >-
@@ -12890,13 +12898,52 @@ paths:
         '413':
           content:
             application/json:
+              examples:
+                dataExceedsSizeLimitOSS:
+                  summary: InfluxDB OSS response
+                  value: >
+                    {"code":"request too large","message":"unable to read data:
+                    points batch is too large"}
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
+            text/html:
+              examples:
+                dataExceedsSizeLimit:
+                  summary: InfluxDB Cloud response
+                  value: |
+                    <html>
+                      <head><title>413 Request Entity Too Large</title></head>
+                      <body>
+                        <center><h1>413 Request Entity Too Large</h1></center>
+                        <hr>
+                        <center>nginx</center>
+                      </body>
+                    </html>
+              schema:
+                type: string
           description: >
-            All request data was rejected and not written. InfluxDB OSS only
-            returns this error if the [Go (golang)
-            `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function
-            raises an error.
+            The request payload is too large. InfluxDB rejected the batch and
+            did not write any data.
+
+            #### InfluxDB Cloud:
+             - returns this error if the payload exceeds the 50MB size limit.
+             - returns `Content-Type: text/html` for this error.
+
+            #### InfluxDB OSS:
+             - returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
+             - returns `Content-Type: application/json` for this error.
+        '429':
+          description: >-
+            InfluxDB Cloud only. The token is temporarily over quota. The
+            Retry-After header describes when to try the write again.
+          headers:
+            Retry-After:
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
+              schema:
+                format: int32
+                type: integer
         '500':
           content:
             application/json:
@@ -12953,7 +13000,7 @@ tags:
 
 
       For more information and examples, see the following:
-        - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
+        - [Authorize API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
         - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
         - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
     name: Authorizations
