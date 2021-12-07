@@ -238,7 +238,7 @@ The `continuous_querier_execute` operation includes all continuous query executi
 
 #### TSI log file compaction
 
-The `tsi1_compact_log_file`
+The `tsi1_compact_log_file` operation includes all trace log entries related to log file compactions.
 
 #### TSI level compaction
 
