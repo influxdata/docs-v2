@@ -34,14 +34,14 @@ The following sections cover useful query syntax for exploring your [schema](/en
 
 The data used in this document are available for download on the [Sample Data](/enterprise_influxdb/v1.9/query_language/data_download/) page.
 
-Before proceeding, login to the Influx CLI.
+<!-- Before proceeding, login to the Influx CLI.
 
 ```bash
 $ influx -precision rfc3339
 Connected to http://localhost:8086 version {{< latest-patch >}}
 InfluxDB shell {{< latest-patch >}}
 >
-```
+``` -->
 
 ## `SHOW DATABASES`
 Returns a list of all [databases](/enterprise_influxdb/v1.9/concepts/glossary/#database) on your instance.
