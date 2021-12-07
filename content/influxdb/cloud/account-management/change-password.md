@@ -4,7 +4,7 @@ seotitle: Change your InfluxDB Cloud password
 description: >
   To update your InfluxDB Cloud password, click the **Forgot Password** link on
   the [InfluxDB Cloud login page](https://cloud2.influxdata.com/login).
-  Passwords should be at least 8 characters in length, and should not contain common words or personal information. 
+  Passwords must be at least 8 characters in length, and must not contain common words or personal information. 
 menu:
   influxdb_cloud:
     name: Change your password
