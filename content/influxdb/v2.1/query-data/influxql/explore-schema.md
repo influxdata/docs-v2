@@ -43,7 +43,7 @@ InfluxDB shell {{< latest-patch >}}
 >
 ``` -->
 
-## `SHOW DATABASES`
+<!-- ## `SHOW DATABASES`
 Returns a list of all [databases](/enterprise_influxdb/v1.9/concepts/glossary/#database) on your instance.
 
 ### Syntax
@@ -167,7 +167,7 @@ Specify the database with the `db` query string parameter:
 ```
 
 {{% /tab-content %}}
-{{< /tabs-wrapper >}}
+{{< /tabs-wrapper >}} -->
 
 ## `SHOW SERIES`
 
