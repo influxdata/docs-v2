@@ -11,14 +11,20 @@ related:
   - /influxdb/v2.1/reference/cli/influx/replication
 ---
 
+Delete an existing remote connection
 
-❯  bin/darwin/influx remote delete
-NAME:
-   influx remote delete - Delete an existing remote connection
+## Usage
+```
+influx remote delete [command options] [arguments...]
+```
 
-USAGE:
-   influx remote delete [command options] [arguments...]
+## Flags
 
+| Flag |        | Description                               | Input type | {{< cli/mapped >}} |
+|:-----|:-------|:------------------------------------------|:----------:|:-------------------|
+| `-i` | `--id` | ID of the remote connection to be deleted |            |                    |
+
+<!--
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
    --skip-verify                    Skip TLS certificate chain and host name verification [$INFLUX_SKIP_VERIFY]
@@ -29,7 +35,5 @@ COMMON OPTIONS:
    --hide-headers                   Hide the table headers in output data [$INFLUX_HIDE_HEADERS]
    --token value, -t value          Token to authenticate request [$INFLUX_TOKEN]
 
-OPTIONS:
-   --id value, -i value  ID of the remote connection to be deleted
-
 Error: Required flag "id" not set
+  -->

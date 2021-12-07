@@ -11,13 +11,24 @@ related:
   - /influxdb/v2.1/reference/cli/influx/replication
 ---
 
+Update an existing remote connection.
 
+## Usage
+```
+influx remote update [command options] [arguments...]
+```
 
-influx remote update - Update an existing remote connection
+## Flags
 
-USAGE:
-   influx remote update [command options] [arguments...]
+   --id value, -i value           Remote connection ID
+   --name value, -n value         New name for the remote connection
+   --description value, -d value  New description for the remote connection
+   --remote-url value             New url for the remote database
+   --remote-api-token value       New API token for the remote database
+   --remote-org-id value          New ID of the remote organization
+   --allow-insecure-tls           Allows insecure TLS
 
+<!-- 
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
    --skip-verify                    Skip TLS certificate chain and host name verification [$INFLUX_SKIP_VERIFY]
@@ -27,14 +38,4 @@ COMMON OPTIONS:
    --json                           Output data as JSON [$INFLUX_OUTPUT_JSON]
    --hide-headers                   Hide the table headers in output data [$INFLUX_HIDE_HEADERS]
    --token value, -t value          Token to authenticate request [$INFLUX_TOKEN]
-
-OPTIONS:
-   --id value, -i value           Remote connection ID
-   --name value, -n value         New name for the remote connection
-   --description value, -d value  New description for the remote connection
-   --remote-url value             New url for the remote database
-   --remote-api-token value       New API token for the remote database
-   --remote-org-id value          New ID of the remote organization
-   --allow-insecure-tls           Allows insecure TLS
-
-Error: Required flag "id" not set
+ -->

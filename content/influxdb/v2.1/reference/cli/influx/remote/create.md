@@ -32,7 +32,7 @@ influx remote create [commond options] [arguments...]
 |      | `--remote-org-id`      | The ID of the remote organization              | string     |                    |
 |      | `--allow-insecure-tls` | Allows insecure TLS (self-signed certificates) |            |                    |
 
-
+<!-- 
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
    --skip-verify                    Skip TLS certificate chain and host name verification [$INFLUX_SKIP_VERIFY]
@@ -42,4 +42,4 @@ COMMON OPTIONS:
    --json                           Output data as JSON [$INFLUX_OUTPUT_JSON]
    --hide-headers                   Hide the table headers in output data [$INFLUX_HIDE_HEADERS]
    --token value, -t value          Token to authenticate request [$INFLUX_TOKEN]
-
+ -->

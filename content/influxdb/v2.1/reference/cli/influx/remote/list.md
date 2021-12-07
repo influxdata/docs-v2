@@ -18,6 +18,16 @@ NAME:
 USAGE:
    influx remote list [command options] [arguments...]
 
+
+| Flag |                        | Description                                    | Input type | {{< cli/mapped >}} |
+|:-----|:-----------------------|:-----------------------------------------------|:----------:|:-------------------|
+
+--name value, -n value  Filter results to only connections with a specific name
+--org-id value          Local org ID [$INFLUX_ORG_ID]
+--org value, -o value   Local org name [$INFLUX_ORG]
+--remote-url value      Filter results to only connections for a specific remote URL
+
+<!--
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
    --skip-verify                    Skip TLS certificate chain and host name verification [$INFLUX_SKIP_VERIFY]
@@ -27,9 +37,4 @@ COMMON OPTIONS:
    --json                           Output data as JSON [$INFLUX_OUTPUT_JSON]
    --hide-headers                   Hide the table headers in output data [$INFLUX_HIDE_HEADERS]
    --token value, -t value          Token to authenticate request [$INFLUX_TOKEN]
-
-OPTIONS:
-   --name value, -n value  Filter results to only connections with a specific name
-   --org-id value          Local org ID [$INFLUX_ORG_ID]
-   --org value, -o value   Local org name [$INFLUX_ORG]
-   --remote-url value      Filter results to only connections for a specific remote URL
+-->
