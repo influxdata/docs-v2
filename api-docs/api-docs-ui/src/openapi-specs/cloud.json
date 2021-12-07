@@ -8530,21 +8530,21 @@
     },
     "securitySchemes": {
       "BasicAuthentication": {
-        "description": "### Basic authentication scheme\n\nUse the HTTP Basic authentication scheme with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):\n  - **username**: InfluxDB Cloud username\n  - **password**: InfluxDB Cloud API token\n\n#### Example\n\n`curl --get \"https://europe-west1-1.gcp.cloud2.influxdata.com/query\"\n      --user \"exampleuser@influxdata.com\":\"INFLUX_API_TOKEN\"`\n\nReplace the following:\n- *`exampleuser@influxdata.com`*: the email address that you signed up with\n- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)\n\nFor more information and examples, see how to [authenticate with a username and password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).\n",
+        "description": "Authenticate by sending InfluxDB 1.x Basic authentication credentials.\n\nUse the HTTP Basic authentication scheme with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme).\n\nProvide username and password as Basic authentication parameters:\n\n  - **username**: InfluxDB Cloud username\n  - **password**: InfluxDB Cloud API token\n\nFor more information and examples, see how to [authenticate with a username and password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).\n",
         "scheme": "basic",
         "type": "http"
       },
       "QuerystringAuthentication": {
-        "description": "### Querystring authentication scheme\n\nUse InfluxDB 1.x API parameters to provide credentials through the query string.\n\nUsername and password schemes require the following credentials:\n- **username**: InfluxDB Cloud username\n- **password**: InfluxDB Cloud API token\n\n#### Example\n\n`curl --get \"https://europe-west1-1.gcp.cloud2.influxdata.com/query\"\n      --data-urlencode \"u=exampleuser@influxdata.com\"\n      --data-urlencode \"p=INFLUX_API_TOKEN\"`\n\nReplace the following:\n- *`exampleuser@influxdata.com`*: the email address that you signed up with\n- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)\n\nFor more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).\n",
+        "description": "Authenticate by sending InfluxDB 1.x API parameters.\n\nProvide username and password credentials as query string parameters:\n\n  - **u**: InfluxDB Cloud username\n  - **p**: InfluxDB Cloud API token\n\nFor more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).\n",
         "in": "query",
-        "name": null,
+        "name": "&u=&p=",
         "type": "apiKey"
       },
       "TokenAuthentication": {
-        "bearerFormat": "InfluxDB token string",
-        "description": "### Token authentication scheme\n\nInfluxDB API tokens ensure secure interaction between users and data. A token belongs to an organization and identifies InfluxDB permissions within the organization.\n\nInclude your API token in an `Authorization: Token INFLUX_TOKEN` HTTP header with each request.\n\n#### Example\n\n`curl https://us-east-1-1.aws.cloud2.influxdata.com/\n   --header \"Authorization: Token INFLUX_API_TOKEN\"`\n\nReplace *`INFLUX_API_TOKEN`* with your [InfluxDB API token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token).\n\nFor more information and examples, see the following:\n  - [`/authorizations`](#tag/Authorizations) endpoint.\n  - [Authorize API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).\n  - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).\n  - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token).\n",
-        "scheme": "token",
-        "type": "http"
+        "description": "Authenticate by sending an `Authorization` header that uses the Token scheme.\n\nFor the `Authorization` header value, provide the word `Token` followed by a space and an InfluxDB API token.\n\n`Authorization: Token YOUR_INFLUX_TOKEN`\n\nFor more information and examples, see the following:\n- [Authorize API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).\n- [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).\n",
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
       }
     }
   },
@@ -8648,6 +8648,13 @@
         "summary": "List all authorizations",
         "tags": [
           "Authorizations"
+        ],
+        "x-code-samples": [
+          {
+            "lang": "js",
+            "label": "JS - Node",
+            "source": "var request = require(\"request\");\n\nvar options = {\n    method: 'GET',\n    url: 'https://cloud.influxdb/api/v2/authorizations',\n    headers:\n    {   'authorization': 'token INFLUX_TOKEN',\n    }\n};\n\nrequest(options, function (error, response, body) {\n    if (error) throw new Error(error);\n    console.log(body);\n});\n"
+          }
         ]
       },
       "post": {
