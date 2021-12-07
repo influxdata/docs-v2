@@ -6,7 +6,7 @@ menu:
     name: InfluxQL internals
     parent: Query with InfluxQL
     identifier: internals-2_1
-weight: 208
+weight: 210
 ---
 
 Learn about the implementation of InfluxQL to understand how
