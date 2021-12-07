@@ -27,7 +27,7 @@ By default, each user has full permissions on resources in your organization.
   - [Remove yourself from an organization](#remove-yourself-from-an-organization)
 
 ## Users management page
-Manage your organization's users from your organizations **Users management page**.
+Manage your organization's users from your organization's **Users management page**.
 In the {{< cloud-name "short" >}} user interface (UI), click your user avatar in the left
 navigation menu, and select **Users**.
 
