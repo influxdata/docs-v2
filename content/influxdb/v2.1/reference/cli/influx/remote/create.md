@@ -1,6 +1,6 @@
 ---
 title: influx remote create
-description: Manage remote connections for replicating data
+description: Create a new remote connection
 menu:
   influxdb_2_1_ref:
     name: influx remote create
@@ -11,13 +11,27 @@ related:
   - /influxdb/v2.1/reference/cli/influx/replication
 ---
 
+Create a new remote connection
 
-❯  bin/darwin/influx remote create
-NAME:
-   influx remote create - Create a new remote connection
 
-USAGE:
-   influx remote create [command options] [arguments...]
+## Usage
+```
+influx remote create [commond options] [arguments...]
+```
+
+## Flags
+
+| Flag |                        | Description                                    | Input type | {{< cli/mapped >}} |
+|:-----|:-----------------------|:-----------------------------------------------|:----------:|:-------------------|
+|      | `--org-id`             | The ID of the organization                     | string     | [$INFLUX_ORG_ID]   |
+| `-o` | `--org`                | The name of the organization                   | string     | [$INFLUX_ORG]      |
+| `-n` | `--name`               | Name for the new remote connection             | string     |                    |
+| `-d` | `--description`        | Description for the new remote connection      | string     |                    |
+|      | `--remote-url`         | The url for the remote database                | string     |                    |
+|      | `--remote-api-token`   | The API token for the remote database          | string     |                    |
+|      | `--remote-org-id`      | The ID of the remote organization              | string     |                    |
+|      | `--allow-insecure-tls` | Allows insecure TLS (self-signed certificates) |            |                    |
+
 
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
@@ -29,14 +43,3 @@ COMMON OPTIONS:
    --hide-headers                   Hide the table headers in output data [$INFLUX_HIDE_HEADERS]
    --token value, -t value          Token to authenticate request [$INFLUX_TOKEN]
 
-OPTIONS:
-   --org-id value                 The ID of the organization [$INFLUX_ORG_ID]
-   --org value, -o value          The name of the organization [$INFLUX_ORG]
-   --name value, -n value         Name for the new remote connection
-   --description value, -d value  Description for the new remote connection
-   --remote-url value             The url for the remote database
-   --remote-api-token value       The API token for the remote database
-   --remote-org-id value          The ID of the remote organization
-   --allow-insecure-tls           Allows insecure TLS
-
-Error: Required flags "name, remote-url, remote-api-token, remote-org-id" not set
