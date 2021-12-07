@@ -164,12 +164,11 @@ For an example of this, see [Finding all starting log entries](#finding-all-star
 **Example:** `op_event=start`
 
 ##### `op_elapsed`
-Amount of time the operation spent executing.
+Duration of the operation execution.
 Logged with the ending trace log entry.
-Time unit displayed depends on how much time has elapsed -- if it was seconds, it will be suffixed with `s`.
-Valid time units are `ns`, `µs`, `ms`, and `s`.
+Valid duration units are `ns`, `µs`, `ms`, and `s`.
 
-**Example:** `op_elapsed=0.352ms`
+**Example:** `op_elapsed=352ms`
 
 
 #### Log identifier context key
@@ -181,13 +180,10 @@ There are other ways a log file could be split by a single execution, but the co
 
 #### Database context keys
 
-`db_instance`: Database name
-
-`db_rp`: Retention policy name
-
-`db_shard_id`: Shard identifier
-
-`db_shard_group` Shard group identifier
+- **db\_instance**: Database name
+- **db\_rp**: Retention policy name
+- **db\_shard\_id**: Shard identifier
+- **db\_shard\_group**: Shard group identifier
 
 ### Tooling
 
@@ -195,12 +191,12 @@ Here are a couple of popular tools available for processing and filtering log fi
 
 #### hutils
 
-The [hutils](https://blog.heroku.com/hutils-explore-your-structured-data-logs), provided by Heroku, is a collection of command line utilities for working with logs with `logfmt` encoding, including:
+The [hutils](https://blog.heroku.com/hutils-explore-your-structured-data-logs) utility collection, provided by Heroku, provides tools for working with `logfmt`-encoded logs, including:
 
-* `lcut`: Extracts values from a `logfmt` trace based on a specified field name.
-* `lfmt`: Prettifies `logfmt` lines as they emerge from a stream, and highlights their key sections.
-* `ltap`: Accesses messages from log providers in a consistent way to allow easy parsing by other utilities that operate on `logfmt` traces.
-* `lviz`: Visualizes `logfmt` output by building a tree out of a dataset combining common sets of key-value pairs into shared parent nodes.
+- **lcut**: Extracts values from a `logfmt` trace based on a specified field name.
+- **lfmt**: Prettifies `logfmt` lines as they emerge from a stream, and highlights their key sections.
+- **ltap**: Accesses messages from log providers in a consistent way to allow easy parsing by other utilities that operate on `logfmt` traces.
+- **lviz**: Visualizes `logfmt` output by building a tree out of a dataset combining common sets of key-value pairs into shared parent nodes.
 
 #### lnav (Log File Navigator)
 
@@ -228,9 +224,9 @@ The `tsm1_cache_snapshot` operation represents the snapshotting of the TSM in-me
 
 The `tsm1_compact_group` operation includes all trace log entries related to TSM compaction strategies and displays the related TSM compaction strategy keys:
 
-* `tsm1_strategy`: `level` | `full`
-* `tsm1_level`: `1` | `2` | `3`
-* `tsm1_optimize`: `true` | `false`
+- **tsm1\_strategy**: level or full
+- **tsm1\_level**: 1, 2, or 3
+- **tsm\_optimize**: true or false
 
 #### Series file compactions
 
@@ -255,7 +251,9 @@ The `tsi1_compact_to_level` operation includes all trace log entries for TSI lev
 
 In the example below, you can see the log entries for all trace operations related to a "TSM compaction" process.
 Note that the initial entry shows the message "TSM compaction (start)" and the final entry displays the message "TSM compaction (end)".
-\[Note: Log entries were grepped using the `trace_id` value and then the specified key values were displayed using `lcut` (an hutils tool).\]
+{{% note %}}
+ Log entries were grepped using the `trace_id` value and then the specified key values were displayed using `lcut` (an `hutils` tool).
+ {{% /note %}}\]
 
 ```
 $ grep "06QW92x0000" influxd.log | lcut ts lvl msg strategy level
