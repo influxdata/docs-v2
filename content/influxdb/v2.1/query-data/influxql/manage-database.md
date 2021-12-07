@@ -12,7 +12,7 @@ weight: 204
 
 InfluxQL offers a full suite of administrative commands.
 
-<table style="width:100%">
+<!-- <table style="width:100%">
   <tr>
     <td><b>Data Management:</b></td>
     <td><b>Retention Policy Management:</br></td>
@@ -41,7 +41,7 @@ InfluxQL offers a full suite of administrative commands.
     <td><a href="#delete-a-shard-with-drop-shard">DROP SHARD</a></td>
     <td></td>
   </tr>
-</table>
+</table> -->
 
 If you're looking for `SHOW` queries (for example, `SHOW DATABASES` or `SHOW RETENTION POLICIES`), see [Schema Exploration](/enterprise_influxdb/v1.9/query_language/explore-schema).
 

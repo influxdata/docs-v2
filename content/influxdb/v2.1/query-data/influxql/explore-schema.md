@@ -12,7 +12,7 @@ weight: 203
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
 The following sections cover useful query syntax for exploring your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema).
 
-<table style="width:100%">
+<!-- <table style="width:100%">
   <tr>
     <td><a href="#show-databases">SHOW DATABASES</a></td>
     <td><a href="#show-retention-policies">SHOW RETENTION POLICIES</a></td>
@@ -28,7 +28,7 @@ The following sections cover useful query syntax for exploring your [schema](/en
     <td><a href="#filter-meta-queries-by-time">Filter meta queries by time</a></td>
     <td></td>
   </tr>
-</table>
+</table> -->
 
 **Sample data**
 
