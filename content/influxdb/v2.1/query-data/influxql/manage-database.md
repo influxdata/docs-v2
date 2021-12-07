@@ -9,9 +9,6 @@ menu:
     parent: Query with InfluxQL
     identifier: manage-database
 weight: 204
-
-aliases:
-  - /enterprise_influxdb/v1.9/query_language/database_management/
 ---
 
 InfluxQL offers a full suite of administrative commands.
