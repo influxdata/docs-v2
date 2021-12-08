@@ -1,6 +1,6 @@
 ---
 title: influx replication
-description: >
+description: Manage replication streams
 menu:
   influxdb_2_1_ref:
     name: influx replication
@@ -17,11 +17,11 @@ influx replication [commond options] [arguments...]
 ```
 
 ## Subcommands
-|:-----------------------------------------------------------------|:--|
-| [create](/influxdb/v2.1/reference/cli/influx/replication/create) |   |
-| [delete](/influxdb/v2.1/reference/cli/influx/replication/delete) |   |
-| [list](/influxdb/v2.1/reference/cli/influx/replication/list)     |   |
-| [update](/influxdb/v2.1/reference/cli/influx/replication/update) |   |
+|:-----------------------------------------------------------------|:-------------------------------------------------------|
+| [create](/influxdb/v2.1/reference/cli/influx/replication/create) | Create a new replication stream                        |
+| [delete](/influxdb/v2.1/reference/cli/influx/replication/delete) | Delete an existing replication stream                  |
+| [list](/influxdb/v2.1/reference/cli/influx/replication/list)     | List all replication streams and corresponding metrics |
+| [update](/influxdb/v2.1/reference/cli/influx/replication/update) | Update an existing replication stream                  |
 
 ## Flags
 | Flag |          | Description                        | Input type | {{< cli/mapped >}} |
