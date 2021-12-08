@@ -3,14 +3,11 @@ const winston = require('winston');
 const morgan = require("morgan");
 const servers = require("./Servers");
 
-/** Define your API servers **/
+/** Set token authorization instead of using the form, e.g. for development **/
+// const apiKey = process.env.REACT_APP_INFLUX_TOKEN;
 
-
-/** Set the target API name. **/
-const target = 'oss';
 
 /** Set the URL path that the proxy will match (and rewrite). **/
-const targetPath = `^/${target}`;
 const logProvider = function (provider) {
   const logger = new winston.createLogger({
     transports: [
@@ -23,23 +20,29 @@ const logProvider = function (provider) {
 };
 
 // proxy middleware options
-const pathRewrite = {};
-pathRewrite[targetPath] = '';
-
 const options = {
-  target: servers[target].url, // target host
+  target: '', // target host
   changeOrigin: true, // needed for virtual hosted sites
 //  ws: true, // proxy websockets
-  pathRewrite,
+  pathRewrite: {},
   logProvider
 };
 
-const proxy = createProxyMiddleware(options);
+function buildProxyOptions(targetName, targetProps) {
+  const opts = options;
+  opts.target = targetProps.url;
+  opts.pathRewrite[`^/${targetName}`] = '';
+  return opts;
+}
 
 module.exports = app => {
   app.use(morgan('combined'));
-  app.use(
-    `/${target}/*`,
-    proxy
-  );
+  /** Add proxy server handlers **/
+  Object.keys(servers).forEach(s => {
+    const proxyOptions = buildProxyOptions(s, servers[s]);
+    app.use(
+      `/${s}/*`,
+      createProxyMiddleware(proxyOptions)
+    );
+  });
 };

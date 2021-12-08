@@ -8,7 +8,7 @@ import { useCookies } from "react-cookie";
 /** Set the default server environment ('oss', 'cloud', or 'dev'). **/
 const defaultServerName='oss';
 
-function setDevApiUrls(apiServers) {
+function setDevApiServers(apiServers) {
   if(apiServers && process.env.NODE_ENV === 'development') {
     Object.keys(apiServers).forEach(k => {
       console.log(k)
@@ -18,19 +18,10 @@ function setDevApiUrls(apiServers) {
   }
 }
 
-console.log(`INFLUX_TOKEN: ${process.env.REACT_APP_INFLUX_TOKEN}`)
-const apiKey = process.env.REACT_APP_INFLUX_TOKEN;
-
-function handleBeforeTry(event) {
-  console.log('before try...')
-  if(!event?.detail?.request) {
-     return;
-  }
-
-  /** Set token authorization instead of using the form, e.g. for development **/
-  if(apiKey) {
-    event.detail.request.headers.append('Authorization', `token ${apiKey}`);
-  }
+function findApiKey(request) {
+  const header = request.headers.get('authorization');
+  const token = header?.match(/^token .*/);
+  return token && token[0];
 }
 
 function App() {
@@ -38,6 +29,7 @@ function App() {
   const rapidocEl = useRef(null);
   const [cookies, setCookie] = useCookies(["influxdb_cloud_url"]);
   const [spec, setSpec] = useState();
+  const [apiKey, setApiKey] = useState('');
 
   useEffect(() => {
     function setRapidocListeners() {
@@ -51,7 +43,7 @@ function App() {
 
         let servers;
         if(Servers) {
-          servers = setDevApiUrls(Servers);
+          servers = setDevApiServers(Servers);
         }
 
         const specServers = Object.keys(servers).map(s => ({url: servers[s].url, description: servers[s].description}));
@@ -66,7 +58,9 @@ function App() {
                   if(paths[pathn][opn]['x-code-samples'][i]?.source) {
                     paths[pathn][opn]['x-code-samples'][i].source = code.source.replace(/https:\/\/cloud.influxdb/gi, props.baseUrl);
                     paths[pathn][opn]['x-code-samples'][i].source = code.source.replace(/http:\/\/localhost:8086/gi, props.baseUrl);
-                    paths[pathn][opn]['x-code-samples'][i].source = code.source.replace('token INFLUX_TOKEN', `token ${apiKey}`)
+                    if(apiKey) {
+                      paths[pathn][opn]['x-code-samples'][i].source = code.source.replace('token INFLUX_TOKEN', `${apiKey}`);
+                    }
                   }
                 });
               });
@@ -84,7 +78,30 @@ function App() {
         console.log(e);
       });
       rapidocEl.current && rapidocEl.current.addEventListener('before-try', (e) => {
-         handleBeforeTry(e);
+        console.log('before try...')
+        if(!e?.detail?.request) {
+           return;
+        }
+
+        function personalizeCodeSamples(props) {
+          const samples = e.target.shadowRoot.querySelectorAll('code > *');
+          samples.forEach(s => {
+            s.textContent = s.textContent.replace('token INFLUX_TOKEN', `${props.apiKey}`)
+          });
+        }
+
+        const userApiKey = findApiKey(e.detail.request);
+        if(userApiKey) {
+            setApiKey(userApiKey);
+            personalizeCodeSamples({apiKey: userApiKey});
+        }
+
+        /** Set the token from elsewhere, e.g. custom form field **/
+        // const apiKeyOverride = '';
+        // if(apiKeyOverride) {
+        //   setApiKey(apiKeyOverride);
+        //   e.detail.request.headers.append('Authorization', `token ${apiKeyOverride}`);
+        // }
       });
     }
 
