@@ -11,12 +11,10 @@ related:
   - /influxdb/v2.1/reference/cli/influx/replication
 ---
 
-
    influx replication create - Create a new replication stream
 
 USAGE:
    influx replication create [command options] [arguments...]
-
 
 OPTIONS:
    --name value, -n value         Name for new replication stream
@@ -29,8 +27,8 @@ OPTIONS:
    --max-queue-bytes value        Max queue size in bytes (default: 67108860)
    --drop-non-retryable-data      Drop data when a non-retryable error is encountered instead of retrying
    --no-drop-non-retryable-data   Do not drop data when a non-retryable error is encountered
-   
-   <!-- 
+
+   <!--
    COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
    --skip-verify                    Skip TLS certificate chain and host name verification [$INFLUX_SKIP_VERIFY]

@@ -22,9 +22,7 @@ OPTIONS:
 
 Error: Required flag "id" not set
 
-
-
-<!-- 
+<!--
 
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]

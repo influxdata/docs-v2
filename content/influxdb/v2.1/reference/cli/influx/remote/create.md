@@ -13,7 +13,6 @@ related:
 
 Create a new remote connection
 
-
 ## Usage
 ```
 influx remote create [commond options] [arguments...]
@@ -32,7 +31,7 @@ influx remote create [commond options] [arguments...]
 |      | `--remote-org-id`      | The ID of the remote organization              | string     |                    |
 |      | `--allow-insecure-tls` | Allows insecure TLS (self-signed certificates) |            |                    |
 
-<!-- 
+<!--
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
    --skip-verify                    Skip TLS certificate chain and host name verification [$INFLUX_SKIP_VERIFY]

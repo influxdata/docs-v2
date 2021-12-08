@@ -16,7 +16,6 @@ related:
 USAGE:
    influx replication update [command options] [arguments...]
 
-
 OPTIONS:
    --id value, -i value           ID of the replication stream to be updated
    --name value, -n value         New name for the replication stream
@@ -27,7 +26,7 @@ OPTIONS:
    --drop-non-retryable-data      Drop data when a non-retryable error is encountered instead of retrying
    --no-drop-non-retryable-data   Do not drop data when a non-retryable error is encountered
 
-<!-- 
+<!--
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
    --skip-verify                    Skip TLS certificate chain and host name verification [$INFLUX_SKIP_VERIFY]

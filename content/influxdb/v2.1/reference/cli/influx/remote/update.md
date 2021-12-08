@@ -28,7 +28,7 @@ influx remote update [command options] [arguments...]
    --remote-org-id value          New ID of the remote organization
    --allow-insecure-tls           Allows insecure TLS
 
-<!-- 
+<!--
 COMMON OPTIONS:
    --host value                     HTTP address of InfluxDB [$INFLUX_HOST]
    --skip-verify                    Skip TLS certificate chain and host name verification [$INFLUX_SKIP_VERIFY]

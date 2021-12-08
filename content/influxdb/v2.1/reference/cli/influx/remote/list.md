@@ -11,21 +11,22 @@ related:
   - /influxdb/v2.1/reference/cli/influx/replication
 ---
 
-✗  bin/darwin/influx remote list -h
-NAME:
-   influx remote list - List all remote connections
+List all remote connections.
 
-USAGE:
-   influx remote list [command options] [arguments...]
+## Usage
 
+```
+influx remote list [command options] [arguments...]
+```
 
-| Flag |                        | Description                                    | Input type | {{< cli/mapped >}} |
-|:-----|:-----------------------|:-----------------------------------------------|:----------:|:-------------------|
+## Flags
 
---name value, -n value  Filter results to only connections with a specific name
---org-id value          Local org ID [$INFLUX_ORG_ID]
---org value, -o value   Local org name [$INFLUX_ORG]
---remote-url value      Filter results to only connections for a specific remote URL
+| Flag |                | Description                                                  | Input type | {{< cli/mapped >}} |
+|:-----|----------------|--------------------------------------------------------------|------------|--------------------|
+| `-n` | `--name`       | Filter results to only connections with a specific name      |            |                    |
+|      | `--org-id`     | Local org ID [$INFLUX_ORG_ID]                                |            |                    |
+| `-o` | `--org`        | Local org name [$INFLUX_ORG]                                 |            |                    |
+|      | `--remote-url` | Filter results to only connections for a specific remote URL |            |                    |
 
 <!--
 COMMON OPTIONS:
