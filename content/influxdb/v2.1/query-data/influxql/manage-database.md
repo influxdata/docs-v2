@@ -54,7 +54,7 @@ For more on using the InfluxDB API, see [Querying data](/enterprise_influxdb/v1.
 
 ## Data management
 
-### CREATE DATABASE
+<!-- ### CREATE DATABASE
 
 Creates a new database.
 
@@ -96,7 +96,7 @@ The query creates a database called `NOAA_water_database`.
 ```
 
 The query creates a database called `NOAA_water_database`.
-It also creates a default retention policy for `NOAA_water_database` with a `DURATION` of three days, a [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor) of one, a [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group) duration of one hour, and with the name `liquid`.
+It also creates a default retention policy for `NOAA_water_database` with a `DURATION` of three days, a [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor) of one, a [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group) duration of one hour, and with the name `liquid`. -->
 
 ### Delete a database with DROP DATABASE
 
@@ -224,7 +224,7 @@ A successful `DROP SHARD` query returns an empty result.
 InfluxDB does not return an error if you attempt to drop a shard that does not
 exist.
 
-## Retention policy management
+<!-- ## Retention policy management
 
 The following sections cover how to create, alter, and delete retention policies.
 Note that when you create a database, InfluxDB automatically creates a retention policy named `autogen` which has infinite retention.
@@ -258,9 +258,9 @@ duration is `INF`.
 
 > **Important:** If you have four or more data nodes, verify that the database replication factor is correct.
 
-- Replication factors do not serve a purpose with single node instances.
+- Replication factors do not serve a purpose with single node instances. -->
 
-##### `SHARD DURATION`
+<!-- ##### `SHARD DURATION`
 
 - Optional. The `SHARD DURATION` clause determines the time range covered by a [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group).
 - The `<duration>` is a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#durations)
@@ -338,9 +338,9 @@ Modify `what_is_time` to have a three week `DURATION`, a two hour shard group du
 ```
 In the last example, `what_is_time` retains its original replication factor of 1.
 
-A successful `ALTER RETENTION POLICY` query returns an empty result.
+A successful `ALTER RETENTION POLICY` query returns an empty result. -->
 
-### Delete retention policies with DROP RETENTION POLICY
+<!-- ### Delete retention policies with DROP RETENTION POLICY
 
 Delete all measurements and data in a specific retention policy:
 
@@ -359,4 +359,4 @@ Delete the retention policy `what_is_time` in the `NOAA_water_database` database
 ```
 
 A successful `DROP RETENTION POLICY` query returns an empty result.
-If you attempt to drop a retention policy that does not exist, InfluxDB does not return an error.
+If you attempt to drop a retention policy that does not exist, InfluxDB does not return an error. -->
