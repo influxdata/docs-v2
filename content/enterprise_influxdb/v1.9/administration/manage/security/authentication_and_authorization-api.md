@@ -10,7 +10,7 @@ weight: 42
 ---
 
 - [Overview](#overview)
-- [API examples](#user-and-privilege-management-over-the-influxd-meta-api)
+- [API examples](#user-and-privilege-management-over-the-influxdb-enterprise-meta-api)
 
 ## Overview
 
