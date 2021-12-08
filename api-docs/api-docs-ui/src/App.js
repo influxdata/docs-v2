@@ -56,6 +56,23 @@ function App() {
 
         const specServers = Object.keys(servers).map(s => ({url: servers[s].url, description: servers[s].description}));
         e.detail.spec.servers = specServers;
+        function personalizeCodeSamples(props) {
+          const paths = e.detail.spec.paths;
+          const pathNodes = Object.keys(paths);
+          pathNodes?.forEach((pathn) => {
+            const ops = Object.keys(paths[pathn]);
+              ops.forEach(opn => {
+                paths[pathn][opn] && paths[pathn][opn]['x-code-samples']?.forEach((code, i) => {
+                  if(paths[pathn][opn]['x-code-samples'][i]?.source) {
+                    paths[pathn][opn]['x-code-samples'][i].source = code.source.replace(/https:\/\/cloud.influxdb/gi, props.baseUrl);
+                    paths[pathn][opn]['x-code-samples'][i].source = code.source.replace(/http:\/\/localhost:8086/gi, props.baseUrl);
+                    paths[pathn][opn]['x-code-samples'][i].source = code.source.replace('token INFLUX_TOKEN', `token ${apiKey}`)
+                  }
+                });
+              });
+            });
+        }
+        personalizeCodeSamples({baseUrl: cookies.influxdb_cloud_url});
       });
       rapidocEl.current && rapidocEl.current.addEventListener('spec-loaded', (e) => {
         console.log("spec loaded!")
