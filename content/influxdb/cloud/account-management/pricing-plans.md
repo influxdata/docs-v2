@@ -77,7 +77,7 @@ The Usage-Based Plan uses the following pricing vectors to calculate InfluxDB Cl
    - Each individual operation—including queries, tasks, alerts, notifications, and Data Explorer activity—is one billable query operation.
    - Refreshing a dashboard with multiple cells will incur multiple query operations.
    - Failed operations aren’t counted.
-- **Data In** is the amount of data you’re writing into InfluxDB (measured in MB/second).
+- **Data In** is the amount of data you’re writing into InfluxDB (measured in MB).
 - **Storage** is the amount of data you’re storing in InfluxDB (measured in GB/hour).
 
 Discover how to [manage InfluxDB Cloud billing](/influxdb/cloud/account-management/billing/).

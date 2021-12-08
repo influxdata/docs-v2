@@ -154,7 +154,7 @@ brew list | grep influxdb-cli
     sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
 
     # arm
-    sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
+    sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64/influx /usr/local/bin/
     ```
 
     If you do not move the `influx` binary into your `$PATH`, prefix the executable
