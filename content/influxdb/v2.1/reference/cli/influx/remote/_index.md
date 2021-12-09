@@ -9,16 +9,11 @@ weight: 101
 influxdb/v2.1/tags: [write]
 related:
   - /influxdb/v2.1/reference/cli/influx/replication
+  - /influxdb/v2.1/write-data/replication
 ---
 
 Use the `influx remote` command to replicate data at the bucket level to
 one or more remote instances of InfluxDB.
-
-<!-- If you have multiple edge deployments of InfluxDB OSS that are collecting data locally, -->
-<!-- and and would like an easy way to analyze this data in aggregate. -->
-<!-- As a user, I have multiple edge deployments of InfluxDB OSS -->
-<!-- that are collecting data locally with limited or no connectivity to the cloud. -->
-<!-- I would like an easy way to analyze this data in aggregate once network connection is restored. -->
 
 ## Usage
 ```
@@ -36,5 +31,3 @@ influx remote [commond options] [arguments...]
 | Flag |          | Description                   | Input type | {{< cli/mapped >}} |
 |:-----|:---------|:------------------------------|:----------:|:-------------------|
 | `-h` | `--help` | Help for the `remote` command |            |                    |
-
-
