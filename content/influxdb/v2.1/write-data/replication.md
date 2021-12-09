@@ -30,7 +30,7 @@ influx remote create --name <name> --remote-url <url> --remote-api-token <token>
 ```
 
 or use an existing connection.
-(To view existing connections, run `influx remote list`.)
+To view existing connections, run `influx remote list`.
 
 ## Create replication stream
 
@@ -43,17 +43,17 @@ To create a replication stream:
 influx replication create --name <name> --remote-id <id> --local-bucket <id> --remote-bucket <id>
 ```
 
-Once a replication stream is created, you can view information
-such as the current queue size, max queue size, and latest status code
-using the `influx replication list` command.
+Once a replication stream is created,
+use the `influx replication list` command 
+to view information such as the current queue size, max queue size, and latest status code.
 
 {{% note %}}
 Note:
 
 - Only writes are streamed.
-- Other data operations (e.g. deletes, backup restores) do not affect replication.
+  Other data operations (e.g. deletes, backup restores) do not affect replication.
   This can cause data in the local bucket to be different than the remote.
 - Large writes are always written together locally, but they will be batched when sent to the remote bucket.
-  The maximum batch size is 500 kB, which is typically about 250 to 500 lines.
+  The maximum batch size is 500 kB<!-- , which is typically about 250 to 500 lines -->.
   This may result in scenarios where some batches fail and others do not.
 {{% /note %}}
