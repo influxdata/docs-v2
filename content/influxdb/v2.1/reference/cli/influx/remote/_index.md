@@ -12,8 +12,8 @@ related:
   - /influxdb/v2.1/write-data/replication
 ---
 
-Use the `influx remote` command to replicate data at the bucket level to
-one or more remote instances of InfluxDB.
+Use the `influx remote` command to manage connections to remote instances of InfluxDB.
+Remote connections are used to replicate data at the bucket level.
 
 ## Usage
 ```
