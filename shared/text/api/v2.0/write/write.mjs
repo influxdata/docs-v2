@@ -7,7 +7,7 @@ import { InfluxDB, Point } from '@influxdata/influxdb-client'
 
 /** Environment variables **/
 const url = process.env.INFLUX_URL
-const token = process.env.INFLUX_API_TOKEN
+const token = process.env.INFLUX_TOKEN
 const org = process.env.INFLUX_ORG
 const bucket = process.env.INFLUX_BUCKET
 

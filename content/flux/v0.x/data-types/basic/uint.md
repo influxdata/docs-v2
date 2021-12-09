@@ -14,6 +14,7 @@ related:
   - /flux/v0.x/stdlib/universe/uint/
   - /flux/v0.x/stdlib/universe/touint/
   - /flux/v0.x/stdlib/contrib/bonitoo-io/hex/uint/
+  - /flux/v0.x/stdlib/experimental/bitwise/
 list_code_example: |
   ```js
   uint(v: 123)
@@ -176,6 +177,7 @@ data
 ## Operate on uintegers
 
 - [Perform arithmetic operations on uintegers](#perform-arithmetic-operations-on-uintegers)
+- [Perform bitwise operations on uintegers](#perform-bitwise-operations-on-uintegers)
 - [Compare uintegers](#compare-uintegers)
 
 ### Perform arithmetic operations on uintegers
@@ -203,6 +205,35 @@ uint(v: 100) / uint(v: 200)
 
 uint(v: 10) ^ uint(v: 2)
 // Returns 100
+```
+
+### Perform bitwise operations on uintegers
+Use the [`experimental/bitwise` package](/flux/v0.x/stdlib/experimental/bitwise/)
+to perform bitwise operations on uintegers.
+
+```js
+import "experimental/bitwise"
+
+bitwise.uand(a: uint(v: 12), b: uint(v: 21))
+// Returns 4
+
+bitwise.uor(a: uint(v: 12), b: uint(v: 21))
+// Returns 29
+
+bitwise.uxor(a: uint(v: 12), b: uint(v: 21))
+// Returns 25
+
+bitwise.uclear(a: uint(v: 12), b: uint(v: 21))
+// Returns 8
+
+bitwise.unot(a: uint(v: 12))
+// Returns 18446744073709551603
+
+bitwise.ulshift(a: uint(v: 12), b: uint(v: 21))
+// Returns 25165824
+
+bitwise.urshift(a: uint(v: 21), b: uint(v: 4))
+// Returns 1
 ```
 
 ### Compare uintegers

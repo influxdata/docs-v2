@@ -27,22 +27,22 @@ See [Get started with Flux](/influxdb/v2.0/query-data/get-started) to learn more
 
 1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Use the Flux builder in the bottom panel to create a Flux query:
-  - Select a bucket to define your data source or select `+ Create Bucket` to add a new bucket.
-  - Edit your time range with the [time range option](#select-time-range) in the dropdown menu.
-  - Add filters to narrow your data by selecting attributes or columns in the dropdown menu.
-  - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/influxdb/v2.0/query-data/flux/group-data/).    
+   - Select a bucket to define your data source or select `+ Create Bucket` to add a new bucket.
+   - Edit your time range with the [time range option](#select-time-range) in the dropdown menu.
+   - Add filters to narrow your data by selecting attributes or columns in the dropdown menu.
+   - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/influxdb/v2.0/query-data/flux/group-data/).    
 3. Alternatively, click **Script Editor** to manually edit the query.
    To switch back to the query builder, click **Query Builder**. Note that your updates from the Script Editor will not be saved.
 4. Use the **Functions** list to review the available Flux functions.
    Click a function from the list to add it to your query.
 5. Click **Submit** (or press `Control+Enter`) to run your query. You can then preview your graph in the above pane.
   To cancel your query while it's running, click **Cancel**.
-6. To work on multiple queries at once, click the {{< icon "plus" >}} to add another tab.
-  * Click the eye icon on a tab to hide or show a query's visualization.
-  * Click the name of the query in the tab to rename it.
+6. To work on multiple queries at once, click the {{< icon "plus" "v2" >}} to add another tab.
+   - Click the eye icon on a tab to hide or show a query's visualization.
+   - Click the name of the query in the tab to rename it.
 
 ## Visualize your query
 
@@ -57,7 +57,7 @@ To open the cell editor overlay, click the gear icon in the upper right of a cel
 
 ### View raw data
 
-Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Scroll through raw data using arrows, or click page numbers to find specific tables. [Group keys](/influxdb/cloud/reference/glossary/#group-key) and [data types](/influxdb/cloud/reference/glossary/#data-type) are easily identifiable at the top of each column underneath the headings. Use this option when data can't be visualized using a visualization type. 
+Toggle the **View Raw Data** {{< icon "toggle" "v2" >}} option to see your data in table format instead of a graph. Scroll through raw data using arrows, or click page numbers to find specific tables. [Group keys](/influxdb/cloud/reference/glossary/#group-key) and [data types](/influxdb/cloud/reference/glossary/#data-type) are easily identifiable at the top of each column underneath the headings. Use this option when data can't be visualized using a visualization type. 
 
  {{< img-hd src="/img/influxdb/cloud-controls-view-raw-data.png" alt="View raw data" />}}
 
@@ -67,7 +67,7 @@ Click the CSV icon to save the cells contents as a CSV file.
 
 ### Manually refresh dashboard
 
-Click the refresh button ({{< icon "refresh" >}}) to manually refresh the dashboard's data.
+Click the refresh button ({{< icon "refresh" "v2" >}}) to manually refresh the dashboard's data.
 
 ### Select time range
 

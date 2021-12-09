@@ -15,7 +15,7 @@ Use the `influx` command line interface (CLI) to add a member to an organization
 
 1. In the navigation menu on the left, select **Org (Organization)** > **Members**.
 
-    {{< nav-icon "org" >}}
+    {{< nav-icon "org" "v2" >}}
 
 _Complete content coming soon_ -->
 

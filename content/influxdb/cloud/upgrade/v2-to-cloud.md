@@ -25,7 +25,7 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 #### Consider when upgrading
 - InfluxDB Cloud requires token authentication, and you must create all new API tokens.
 - InfluxDB Cloud does not support:
-  - Multiple [organizations](http://localhost:1313/influxdb/cloud/reference/glossary/#organization) per account.
+  - Multiple [organizations](/influxdb/cloud/reference/glossary/#organization) per account.
     Upgrade a single InfluxDB OSS 2.x organization to an InfluxDB Cloud organization.
     To upgrade multiple organizations, create a separate InfluxDB Cloud account for each organization.
   - [InfluxDB scrapers](/{{< latest "influxdb" >}}/write-data/no-code/scrape-data/).
@@ -67,19 +67,20 @@ Use the `influx` CLI packaged with InfluxDB 2.x and the
 to set up the connection configurations for both your InfluxDB Cloud instance and
 your InfluxDB 2.x instance.
 
-Include the following flags for each configuration:
+Include the following flags for each configuration: 
 
-- **-\-config-name**:
-  Unique name for the connection configuration.
-  The examples below use `cloud` and `oss` respectively.
-- **-\-host-url**:
-  [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) or
-  [InfluxDB 2.x URL](/{{< latest "influxdb" >}}/reference/urls/).
-- **-\-org**:
-  InfluxDB organization name.
-  The default organization name in InfluxDB Cloud is the email address associated with your account.
-- **-\-token**: API token to use to connect to InfluxDB.
-  Provide an **All-Access** token (or an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token) for 2.x).
+- **-\-config-name**: 
+  Unique name for the connection configuration. 
+  The examples below use `cloud` and `oss` respectively. 
+- **-\-host-url**: 
+  [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) or 
+  [InfluxDB 2.x URL](/{{< latest "influxdb" >}}/reference/urls/). 
+- **-\-org**: 
+  InfluxDB organization name. 
+  The default organization name in InfluxDB Cloud is the email address associated with your account. 
+- **-\-token**: API token to use to connect to InfluxDB. 
+    - **InfluxDB Cloud**: Provide an **All-Access** token.
+    - **InfluxDB OSS 2.x**: Provide an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token). 
 
 ##### Create an InfluxDB Cloud connection configuration
 ```sh
@@ -208,44 +209,7 @@ to your InfluxDB Cloud instance.
 ## Dual write to InfluxDB 2.x and InfluxDB Cloud
 Update external clients to write to your InfluxDB Cloud instance.
 **We recommend writing data to both InfluxDB 2.x and InfluxDB Cloud until you
-finish [migrating your existing time series data](#migrate-time-series-data)**.
-
-Configure external clients with your InfluxDB Cloud **host**, **organization**,
-and **API token**.
-
-### Update Telegraf configurations
-If using Telegraf configurations migrated to or stored in InfluxDB Cloud,
-[update your Telegraf configurations](/influxdb/cloud/telegraf-configs/update/)
-**in InfluxDB Cloud** to write to both InfluxDB 2.x and InfluxDB Cloud:
-
-1.  [Update your Telegraf configuration](/influxdb/cloud/telegraf-configs/update/)
-    with a second `influxdb_v2` output to write to your InfluxDB Cloud instance.
-
-    ##### Example dual-write Telegraf configuration
-    ```toml
-    # Write metrics to InfluxDB 2.x
-    [[outputs.influxdb_v2]]
-      urls = ["https://localhost:8086"]
-      token = "$INFLUX_TOKEN"
-      organization = "example-org"
-      bucket = "example-bucket"
-
-    # Write metrics to InfluxDB Cloud
-    [[outputs.influxdb_v2]]
-      urls = ["https://cloud2.influxdata.com"]
-      token = "$INFLUX_CLOUD_TOKEN"
-      organization = "your.email@example.com"
-      bucket = "example-bucket"
-    ```
-
-2.  Add the following environment variables to your Telegraf environment(s):
-
-    - `INFLUX_TOKEN`: InfluxDB 2.x API token
-    - `INFLUX_CLOUD_TOKEN`: InfluxDB Cloud API token
-
-3.  Use the command provided in your [Telegraf Setup Instructions](/influxdb/cloud/telegraf-configs/#use-influxdb-telegraf-configurations)
-    to restart Telegraf with the updated configuration and begin writing to both
-    InfluxDB 2.x and InfluxDB Cloud.
+finish [migrating your existing time series data](#migrate-time-series-data)**. For step-by-step instructions, see [Dual write](/influxdb/cloud/write-data/no-code/use-telegraf/dual-write/).
 
 ## Migrate time series data
 To migrate your time series data from your InfluxDB 2.x instance to your

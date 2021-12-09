@@ -49,7 +49,7 @@ to update a secret in your organization.
 <!-- -->
 ```sh
 curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-type: application/json' \
   --data '{
 	"<secret-key>": "<secret-value>"

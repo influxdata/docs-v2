@@ -3,7 +3,7 @@
 set -e
 
 # Get list of versions from directory names
-versions="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'plugins')"
+versions="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'openapi')"
 
 for version in $versions
 do
@@ -46,12 +46,18 @@ weight: 304
   # npm_config_yes=true npx overrides the prompt
   # and (vs. npx --yes) is compatible with npm@6 and npm@7.
 
+  openapiCLI="@redocly/openapi-cli"
   redocCLI="redoc-cli@0.12.3"
 
   npm --version
 
+  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
+  INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $version/ref.yml \
+    --config=./.redocly.yaml \
+    -o $version/ref.yml
+
   # Use Redoc to generate the v2 API html
-  npm_config_yes=true npx $redocCLI bundle $version/swagger.yml \
+  npm_config_yes=true npx $redocCLI bundle $version/ref.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
     --options.sortPropsAlphabetically \
