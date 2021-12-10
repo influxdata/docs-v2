@@ -43,12 +43,15 @@ For more information on clustering, see [Clustering in InfluxDB Enterprise](/ent
 
 InfluxDB Enterprise offers security enhancements for access controls.
 
-Authorization can be managed with an expanded list [user permissions and roles](/enterprise_influxdb/v1.9/features/users/).
-For example, administrators can give users permission to read and write to databases,
+Enterprise authorization uses an expanded set of [*16 user permissions and roles*](/enterprise_influxdb/v1.9/features/users/).
+(InfluxDB OSS only has `READ` and `WRITE` permissions.)
+Administrators can give users permission to read and write to databases,
 create and remove databases, rebalance a cluster, and manage particular resources.
 
-[Fine-grained authorization](/enterprise_influxdb/v1.9/guides/fine-grained-authorization/) for particular data is also available,
-as is [support for authentication with LDAP ](/enterprise_influxdb/v1.9/administration/manage/security/ldap/)
+[Fine-grained authorization](/enterprise_influxdb/v1.9/guides/fine-grained-authorization/)
+for particular data is also available.
+
+InfluxDB Enterprise can also use [LDAP for managing authentication](/enterprise_influxdb/v1.9/administration/manage/security/ldap/).
 
 For FIPS compliance, InfluxDB Enterprise password hashing alogrithms are configurable.
 
