@@ -398,6 +398,13 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 {"error":"user not found"}
 ```
 
+##### Change password
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{"action": "change-password", "user": {"name": "<username>", "password": "newpassword"}}' localhost:8091/user
+```
+
+
 #### Roles
 
 The Influxd-Meta API provides an endpoint `/role` for managing roles.
