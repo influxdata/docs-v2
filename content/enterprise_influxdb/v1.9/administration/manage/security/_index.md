@@ -6,8 +6,6 @@ menu:
     name: Manage security
     weight: 40
     parent: Manage
-aliases:
-  - /enterprise_influxdb/v1.9/administration/security/
 ---
 
 <!--
@@ -56,5 +54,7 @@ For InfluxDB Enterprise, [backing up and restoring](/enterprise_influxdb/v1.9/ad
 InfluxData recommends implementing on-disk encryption; InfluxDB does not offer built-in support to encrypt the data.
 
 -->
+
+_For configuration, see [Configure security](/enterprise_influxdb/v1.9/administration/configure/security/)._
 
 {{< children >}}

@@ -10,4 +10,6 @@ aliases:
   - /enterprise_influxdb/v1.9/administration/security/
 ---
 
+_For authorization management, see [Manage security](/enterprise_influxdb/v1.9/administration/configure/security/)._
+
 {{< children >}}
