@@ -7,6 +7,9 @@ menu:
     name: Manage security with Meta API
     parent: Manage security
 weight: 42
+aliases:
+  - /enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/
+  - /enterprise_influxdb/v1.9/administration/security/authentication_and_authorization-api/
 ---
 
 - [Overview](#overview)
