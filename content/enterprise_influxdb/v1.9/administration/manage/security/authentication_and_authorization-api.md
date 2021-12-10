@@ -1,7 +1,7 @@
 ---
 title: Manage users and privileges with the InfluxDB Enterprise Meta API
 description: >
-  Set up and manage authentication and authorization in InfluxDB Enterprise.
+  Manage authorization with the InfluxDB Enterprise Meta API.
 menu:
   enterprise_influxdb_1_9:
     name: Manage security with Meta API
@@ -14,7 +14,7 @@ weight: 42
 
 ## Overview
 
-Authentication and authorization can be managed using the InfluxDB Enterprise Meta API.
+Use the InfluxDB Enterprise Meta API to manage authorization for a cluster.
 
 User and privilege management means
 managing the contents of a user store and the permissions that users can be granted.
