@@ -5,8 +5,8 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Enable TLS for cluster
-    weight: 10
     parent: Configure security
+weight: 20
 aliases:
   - /enterprise_influxdb/v1.9/guides/https_setup/
   - /enterprise_influxdb/v1.9/guides/enable_tls/
