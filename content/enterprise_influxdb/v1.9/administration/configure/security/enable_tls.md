@@ -5,8 +5,8 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Enable TLS
-    weight: 100
-    parent: Guides
+    weight: 10
+    parent: Configure security
 aliases:
   - /enterprise_influxdb/v1.9/guides/https_setup/
 ---

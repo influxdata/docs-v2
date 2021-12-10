@@ -5,8 +5,8 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Configure LDAP authentication
-    parent: Manage security
-weight: 43
+    parent: Configure security
+    weight: 30
 aliases:
   - /enterprise_influxdb/v1.9/administration/ldap/
 ---
