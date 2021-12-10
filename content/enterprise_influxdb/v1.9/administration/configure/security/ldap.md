@@ -9,6 +9,7 @@ menu:
     weight: 30
 aliases:
   - /enterprise_influxdb/v1.9/administration/ldap/
+  - /enterprise_influxdb/v1.9/administration/manage/security/ldap/
 ---
 
 Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol) to:

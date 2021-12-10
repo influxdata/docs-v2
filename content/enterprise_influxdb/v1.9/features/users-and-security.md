@@ -5,6 +5,8 @@ menu:
   enterprise_influxdb_1_9:
     weight: 30
     parent: Enterprise features
+aliases:
+  - /enterprise_influxdb/v1.9/features/users/
 ---
 
 <!--
