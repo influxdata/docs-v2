@@ -8,8 +8,8 @@ menu:
     parent: Manage security
 weight: 44
 aliases:
-  -/docs/v1.5/administration/fga
-  -/enterprise_influxdb/v1.9/guides/fine-grained-authorization/
+  - /docs/v1.5/administration/fga
+  - /enterprise_influxdb/v1.9/guides/fine-grained-authorization/
 related:
   - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
