@@ -17,10 +17,6 @@ related:
 
 Use fine-grained authorization (FGA) to control user access at the database, measurement, and series levels.
 
-{{% note %}}
-**Note:** InfluxDB OSS controls access at the database level only.
-{{% /note %}}
-
 You must have [admin permissions](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#admin-user-management) to set up FGA.
 
 {{% warn %}}
@@ -28,6 +24,11 @@ You must have [admin permissions](/enterprise_influxdb/v1.9/administration/authe
 FGA does not restrict actions performed by Flux queries (both read and write).
 If using FGA, we recommend [disabling Flux](/enterprise_influxdb/v{{< current-version >}}/flux/installation/).
 {{% /warn %}}
+
+{{% note %}}
+FGA is only available in InfluxDB Enterprise.
+InfluxDB OSS 1.x controls access at the database level only.
+{{% /note %}}
 
 ## Set up fine-grained authorization
 
