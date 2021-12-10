@@ -64,7 +64,7 @@ They are:
 
 - the [`influx` CLI](#influxql) (1.x) with [InfluxQL](#manage-read-and-write-privileges-with-influxql)
 - [Chronograf](#manage-specific-privileges-with-chronograf)
-- the [InfluxDB Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api)
+- the [InfluxDB Enterprise meta API](#influxdb-enterprise-meta-api)
 
 Each of these allows you to manage permissions for specific users.
 
@@ -139,9 +139,100 @@ To manage privileges in Chronograf:
 3. Each user has a dropdown for **Permissions**.
    Select the desired permissions and click **Apply**.
 
-
-<!-- 
 ### InfluxDB Enterprise meta API
 
-For information on using the meta API, see [here](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api).
- -->
+Programmatically manage permissions with the InfluxDB Enterprise API.
+
+```sh
+./influx
+Connected to http://localhost:8086 version 1.9.5-c1.9.5
+InfluxDB shell version: unknown
+
+> create user admin with password 'pass' with all privileges
+> create user bob with password 'pass'
+> grant read on mydb to bob
+```
+
+then turn on admin perms
+
+```sh
+./influx -username bob -password pass
+Connected to http://localhost:8086 version 1.9.5-c1.9.5
+InfluxDB shell version: unknown
+> use mydb
+Using database mydb
+> delete where 1=1
+ERR: error authorizing query: bob not authorized to execute statement 'DELETE WHERE 1 = 1'
+```
+
+
+
+```
+$ curl -Lv http://localhost:8091/user\?name\=bob | jq
+{
+  "users": [
+    {
+      "name": "bob",
+      "hash": "$2a$10$rnR2Q/8b4GXij1YWLVQMfO3l7B.tXbv9Hp3jNNy2RNHXuH/r83oQa",
+      "permissions": {
+        "mydb": [
+          "ReadData"
+        ]
+      }
+    }
+  ]
+}
+```
+
+```
+$ curl -Lv http://localhost:8091/user -d '{"action":"add-permissions","user":{ "name": "bob", "permissions": {"mydb": ["DropData"]}}}'
+```
+
+```
+curl http://localhost:8091/user | jq
+{
+  "users": [
+    {
+      "name": "admin",
+      "hash": "$2a$10$LZVXUAZcN2OCzmTcnuoQLubuRRrBOlNcHF4NMwXPGFHA1mEfz3oeS",
+      "permissions": {
+        "": [
+          "ViewAdmin",
+          "ViewChronograf",
+          "CreateDatabase",
+          "CreateUserAndRole",
+          "DropDatabase",
+          "DropData",
+          "ReadData",
+          "WriteData",
+          "ManageShard",
+          "ManageContinuousQuery",
+          "ManageQuery",
+          "ManageSubscription",
+          "Monitor"
+        ]
+      }
+    },
+    {
+      "name": "bob",
+      "hash": "$2a$10$rnR2Q/8b4GXij1YWLVQMfO3l7B.tXbv9Hp3jNNy2RNHXuH/r83oQa",
+      "permissions": {
+        "mydb": [
+          "DropData",
+          "ReadData"
+        ]
+      }
+    }
+  ]
+}
+```
+
+Now bob is authorized to do delete on mydb
+
+```
+> delete where 1=1
+>
+```
+
+For more information on using the meta API,
+see [here](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api).
