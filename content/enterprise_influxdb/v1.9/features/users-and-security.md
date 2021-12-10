@@ -1,9 +1,9 @@
 ---
-title: InfluxDB Enterprise users
-description: Overview of users in InfluxDB Enterprise.
+title: User management and security
+description: Overview of user management and security in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
-    weight: 0
+    weight: 30
     parent: Enterprise features
 ---
 
