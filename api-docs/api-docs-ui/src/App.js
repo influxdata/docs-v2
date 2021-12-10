@@ -59,7 +59,7 @@ function App() {
                     paths[pathn][opn]['x-code-samples'][i].source = code.source.replace(/https:\/\/cloud.influxdb/gi, props.baseUrl);
                     paths[pathn][opn]['x-code-samples'][i].source = code.source.replace(/http:\/\/localhost:8086/gi, props.baseUrl);
                     if(apiKey) {
-                      paths[pathn][opn]['x-code-samples'][i].source = code.source.replace('token INFLUX_TOKEN', `${apiKey}`);
+                      paths[pathn][opn]['x-code-samples'][i].source = code.source.replace('Token INFLUX_TOKEN', `${apiKey}`);
                     }
                   }
                 });
@@ -86,7 +86,7 @@ function App() {
         function personalizeCodeSamples(props) {
           const samples = e.target.shadowRoot.querySelectorAll('code > *');
           samples.forEach(s => {
-            s.textContent = s.textContent.replace('token INFLUX_TOKEN', `${props.apiKey}`)
+            s.textContent = s.textContent.replace('Token INFLUX_TOKEN', `${props.apiKey}`)
           });
         }
 

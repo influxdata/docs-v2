@@ -7,12 +7,11 @@ const servers = require("./Servers");
 // const apiKey = process.env.REACT_APP_INFLUX_TOKEN;
 
 
-/** Set the URL path that the proxy will match (and rewrite). **/
 const logProvider = function (provider) {
   const logger = new winston.createLogger({
     transports: [
-      new winston.transports.Console({ level: 'info'}),
-      new winston.transports.File({ filename: 'proxy.log', level: 'info' }),
+      new winston.transports.Console({ level: 'http'}),
+      new winston.transports.File({ filename: 'proxy.log', level: 'http' }),
     ],
   });
 
@@ -36,7 +35,7 @@ function buildProxyOptions(targetName, targetProps) {
 }
 
 module.exports = app => {
-  app.use(morgan('combined'));
+  //app.use(morgan('combined'));
   /** Add proxy server handlers **/
   Object.keys(servers).forEach(s => {
     const proxyOptions = buildProxyOptions(s, servers[s]);

@@ -8529,19 +8529,8 @@
       }
     },
     "securitySchemes": {
-      "BasicAuthentication": {
-        "description": "Authenticate by sending InfluxDB 1.x Basic authentication credentials.\n\nUse the HTTP Basic authentication scheme with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme).\n\nProvide username and password as Basic authentication parameters:\n\n  - **username**: InfluxDB Cloud username\n  - **password**: InfluxDB Cloud API token\n\nFor more information and examples, see how to [authenticate with a username and password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).\n",
-        "scheme": "basic",
-        "type": "http"
-      },
-      "QuerystringAuthentication": {
-        "description": "Authenticate by sending InfluxDB 1.x API parameters.\n\nProvide username and password credentials as query string parameters:\n\n  - **u**: InfluxDB Cloud username\n  - **p**: InfluxDB Cloud API token\n\nFor more information and examples, see how to [authenticate with a username and password scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).\n",
-        "in": "query",
-        "name": "&u=&p=",
-        "type": "apiKey"
-      },
       "TokenAuthentication": {
-        "description": "Authenticate by sending an `Authorization` header that uses the Token scheme.\n\nFor the `Authorization` header value, provide the word `Token` followed by a space and an InfluxDB API token.\n\n`Authorization: Token YOUR_INFLUX_TOKEN`\n\nFor more information and examples, see the following:\n- [Authorize API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).\n- [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).\n",
+        "description": "Authenticate by sending an `Authorization` header that uses the Token scheme.\n\nFor the `Authorization` header value, provide the word `Token` followed by a space and an InfluxDB API token. The word `Token` is case-sensitive.\n### Syntax\n`Authorization: Token YOUR_INFLUX_TOKEN`\n\nFor more information and examples, see the following:\n- [Authorize API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).\n- [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).\n",
         "type": "apiKey",
         "name": "Authorization",
         "in": "header"
@@ -18585,12 +18574,6 @@
   "security": [
     {
       "TokenAuthentication": []
-    },
-    {
-      "BasicAuthentication": []
-    },
-    {
-      "QuerystringAuthentication": []
     }
   ],
   "servers": [
@@ -18600,7 +18583,7 @@
   ],
   "tags": [
     {
-      "description": "Use one of the following schemes to authenticate to the InfluxDB API:\n- [Token authentication](#section/Authentication/TokenAuthentication)\n- [Basic authentication](#section/Authentication/BasicAuthentication)\n- [Querystring authentication](#section/Authentication/QuerystringAuthentication)\n<!-- ReDoc-Inject: <security-definitions> -->\n",
+      "description": "Use one of the following schemes to authenticate to the InfluxDB API:\n- [Token authentication](#section/Authentication/TokenAuthentication)\n<!-- ReDoc-Inject: <security-definitions> -->\n",
       "name": "Authentication",
       "x-traitTag": true
     },

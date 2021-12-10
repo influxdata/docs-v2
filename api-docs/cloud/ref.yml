@@ -5879,49 +5879,15 @@ components:
         - position
       type: object
   securitySchemes:
-    BasicAuthentication:
-      description: >
-        Authenticate by sending InfluxDB 1.x Basic authentication credentials.
-
-
-        Use the HTTP Basic authentication scheme with clients that support the
-        InfluxDB 1.x convention of username and password (that don't support the
-        `Authorization: Token` scheme).
-
-
-        Provide username and password as Basic authentication parameters:
-
-          - **username**: InfluxDB Cloud username
-          - **password**: InfluxDB Cloud API token
-
-        For more information and examples, see how to [authenticate with a
-        username and
-        password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
-      scheme: basic
-      type: http
-    QuerystringAuthentication:
-      description: >
-        Authenticate by sending InfluxDB 1.x API parameters.
-
-
-        Provide username and password credentials as query string parameters:
-
-          - **u**: InfluxDB Cloud username
-          - **p**: InfluxDB Cloud API token
-
-        For more information and examples, see how to [authenticate with a
-        username and password
-        scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
-      in: query
-      name: '&u=&p='
-      type: apiKey
     TokenAuthentication:
       description: >
         Authenticate by sending an `Authorization` header that uses the Token scheme.
 
 
         For the `Authorization` header value, provide the word `Token` followed by a space and an InfluxDB API token.
+        The word `Token` is case-sensitive.
 
+        ### Syntax
 
         `Authorization: Token YOUR_INFLUX_TOKEN`
 
@@ -12338,20 +12304,12 @@ paths:
         - Write
 security:
   - TokenAuthentication: []
-  - BasicAuthentication: []
-  - QuerystringAuthentication: []
 servers:
   - url: ""
 tags:
   - description: >
-      Use one of the following schemes to authenticate to the InfluxDB API:
+      Use the [Token authentication](#section/Authentication/TokenAuthentication) scheme to authenticate to the InfluxDB API.
 
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-      - [Querystring
-      authentication](#section/Authentication/QuerystringAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
