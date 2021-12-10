@@ -48,6 +48,8 @@ Enterprise authorization uses an expanded set of [*16 user permissions and roles
 Administrators can give users permission to read and write to databases,
 create and remove databases, rebalance a cluster, and manage particular resources.
 
+Organizations can automate managing permissions with the [InfluxDB Enterprise Meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/).
+
 [Fine-grained authorization](/enterprise_influxdb/v1.9/guides/fine-grained-authorization/)
 for particular data is also available.
 
