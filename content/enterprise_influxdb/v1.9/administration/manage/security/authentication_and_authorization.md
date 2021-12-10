@@ -1,7 +1,7 @@
 ---
-title: Manage authentication and authorization
+title: Manage authorization
 description: >
-  Set up and manage authentication and authorization in InfluxDB Enterprise.
+  Set up and manage authorization in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Manage authentication and authorization
