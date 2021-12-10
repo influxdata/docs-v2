@@ -4,7 +4,7 @@ description: >
   Set up and manage authorization in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
-    name: Manage authentication and authorization
+    name: Manage authorization
     parent: Manage security
 weight: 41
 related:
@@ -16,18 +16,14 @@ aliases:
 
 This document covers setting up and managing authorization in InfluxDB Enterprise.
 
-- [Authentication](#authentication)
-  - [Enable Authentication](#enable-authentication)
-  - [Authenticate Requests](#authenticate-requests)
-- [Authorization](#authorization)
-  - [User Types and Privileges](#user-types-and-privileges)
-  - [User Management Commands](#user-management-commands)
+- [User Types and Privileges](#user-types-and-privileges)
+- [User Management Commands](#user-management-commands)
 - [HTTP Errors](#authentication-and-authorization-http-errors)
 
 ## Authorization
 
 Authorization in InfluxDB Enterprise refers to managing user permissions.
-To enable authorization, first [enable authentication](#enable-authentication).
+To enable authorization, you must first [enable authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/).
 
 This page shows examples of basic user and permission management using InfluxQL statements.
 However, *only a subset of Enterprise permissions can be managed with InfluxQL.*
