@@ -235,7 +235,7 @@ If there are no existing incremental backups, the system automatically performs 
 #### Syntax
 
 ```
-influxd-ctl backup [ -db <database> | -from <data-node-TCP-bind-address> | -full | -rp <retention-policy> | -shard <shard-id> | -strategy <only-meta|incremental|full|> ] <backup-directory>
+influxd-ctl backup [ -db <database> | -from <data-node-TCP-bind-address> | <-estimate> | -full | -rp <retention-policy> | -shard <shard-id> | -strategy <only-meta|incremental|full|> ] <backup-directory>
 ```
 
 ##### Arguments
@@ -245,6 +245,10 @@ Optional arguments are in brackets.
 ###### [ `-db <db_name>` ]
 
 Name of the single database to back up.
+
+###### [ `-estimate` ]
+
+Provide estimated backup size and progress messages during backup.
 
 ###### [ `-from <data-node-TCP-address>` ]
 
@@ -351,7 +355,10 @@ Copied shard 22 from cluster-data-node-01:8088 to cluster-data-node-02:8088
 
 ### `copy-shard-status`
 
-Shows all in-progress [copy shard](#copy-shard) operations, including the shard's source node, destination node, database, [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp), shard ID, total size, current size, and the operation's start time.
+Shows all in-progress [copy shard](#copy-shard) operations,
+including the shard's source node, destination node, database,
+[retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp),
+shard ID, total size, current size, and the operation's start time.
 
 #### Syntax
 
