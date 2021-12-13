@@ -16,32 +16,19 @@ To secure and manage access to an InfluxDB Enterprise cluster, consider the foll
 - *authentication* (verifying a user's identity)
 - *authorization* (verifying what the user has access to)
 
-## Enable authentication
 
-Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
-Once you have a working cluster
-(that is, after [installing the data nodes](/enterprise_influxdb/v1.9/introduction/install-and-deploy/installation/data_node_installation/)),
-we recommend enabling authentication right away to control access to you cluster.
+You must [enable authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/)
+_**before**_ authorization can be managed.
 
-Authentication must be enabled _**before**_ authorization can be managed.
+<!--
+NO EXAMPLES ON THIS PAGE. JUST STRAIGHT TRUTH
 
-To enable authentication in a cluster, do the following:
+3 levels
 
-1. Set `auth-enabled` to `true` in the `[http]` section of the config files for all meta and data nodes:
-   ```toml
-   [http]
-     # ...
-     auth-enabled = true
-   ```
-1. Next, create an admin user (if you haven't already).
-   Using the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/),
-   run the following command:
-   ```
-   CREATE USER admin WITH PASSWORD 'mypassword' WITH ALL PRIVILEGES
-   ```
-1. Restart InfluxDB Enterprise.
-   Once restarted, InfluxDB Enterprise checks user credentials on every request
-   and only processes requests with valid credentials.
+If simple, stick w/ influxql
+
+If need more, HIGHLY REC API
+-->
 
 ## Permissions in InfluxDB Enterprise
 
@@ -62,24 +49,26 @@ There are three ways to manage authorizations in InfluxDB Enterprise.
 Each is useful in different scenarios.
 They are:
 
-- the [`influx` CLI](#influxql) (1.x) with [InfluxQL](#manage-read-and-write-privileges-with-influxql)
+- [InfluxQL](#manage-read-and-write-privileges-with-influxql)
 - [Chronograf](#manage-specific-privileges-with-chronograf)
-- the [InfluxDB Enterprise meta API](#influxdb-enterprise-meta-api)
+- the [InfluxDB Enterprise meta API](#influxdb-enterprise-meta-api) (**Recommended**)
 
 Each of these allows you to manage permissions for specific users.
 
 ### Manage read and write privileges with InfluxQL
 
 {{% note %}}
-InfluxQL provides a quick way to grant read and write privileges.
-However, you can only grant `READ`, `WRITE`, and `ALL PRIVILEGES` privileges with this method.
-To apply more fine-grained permissions, see [Manage specific privileges with Chronograf](#manage-specific-privileges-with-chronograf).
+InfluxQL can can only grant `READ`, `WRITE`, and `ALL PRIVILEGES` privileges.
+
+TO use full set of avialbe permissions, use chrono or API
+To apply more permissions, see [Manage specific privileges with Chronograf](#manage-specific-privileges-with-chronograf).
 {{% /note %}}
 
 InfluxQL can be used to manage basic read and write privileges.
 For example, you can grant Alice the ability to write to a database *X*,
 and then grant Bob the ability to read from that database.
 
+<!--
 To demonstrate, let's create a new user and allow her some access.
 First, log in as an admin user.
 The simplest way to do this is to use the `auth` command.
@@ -123,7 +112,8 @@ database privilege
 -------- ---------
 test     WRITE
 ```
-
+-->
+  
 ### Manage specific privileges with Chronograf
 
 The Chronograf user interface can manage the [full set of permissions](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/#list-of-available-privileges).
@@ -143,6 +133,7 @@ To manage privileges in Chronograf:
 
 Programmatically manage permissions with the InfluxDB Enterprise API.
 
+<!--
 ```sh
 ./influx
 Connected to http://localhost:8086 version 1.9.5-c1.9.5
@@ -233,6 +224,7 @@ Now bob is authorized to do delete on mydb
 > delete where 1=1
 >
 ```
-
+-->
+  
 For more information on using the meta API,
 see [here](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api).
