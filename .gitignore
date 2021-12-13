@@ -8,3 +8,4 @@ node_modules
 .hugo_build.lock
 /content/influxdb/*/api/*.html
 /api-docs/redoc-static.html*
+.vscode/*
