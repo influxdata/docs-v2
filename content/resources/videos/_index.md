@@ -2,7 +2,7 @@
 title: InfluxData videos
 seotitle: InfluxDB and InfluxData videos
 description: >
-  ...
+  View informational videos related to InfluxDB and other InfluxData products.
 menu:
   resources:
     name: Videos
