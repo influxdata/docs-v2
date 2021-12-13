@@ -206,31 +206,30 @@ Environment variable: `INFLUXDB_META_CONSENSUS_TIMEOUT`
 
 #### `cluster-tracing = false`
 
-<!-- Cluster tracing toggles the logging of Raft logs on Raft nodes. -->
-<!-- Enable this setting when debugging Raft consensus issues. -->
+Enable audit log for sensitive actions.
+Prints sanitized POST request information to show actual commands.
 
-Turn on logging of all requests....
-
-Prints sanitized POST form values to show actual commands.
-
-Includes form data from POST requests.
-
-Some differences from [data node access logs]():
+Some differences from data node access logs:
 
 - No filtering by status code.
-  Data node access logs permit the user to provide filters, so, for instance, to only log requests that return 5XX codes.
-  See [`access-log-status-filters`](https://docs.influxdata.com/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#access-log-status-filters--)
+  <!-- Data node access logs permit the user to provide filters -->
+  <!-- So, for instance, to only log requests that return 5XX codes. -->
+  See [`access-log-status-filters`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#access-log-status-filters--)
   in the data node configuration for how it is handled differently.
-- no `[http]` prefix on the logs
+- No `[http]` prefix on the logs.
 - No ability to specify a separate log file for HTTP logging.
   It goes into the same log file descriptor as the rest of the meta-node logging.
-  See [`access-log-path`](https://docs.influxdata.com/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#access-log-path--)
+  See [`access-log-path`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#access-log-path--)
   in the data node configuration for how it is handled differently.
 
+**Sample log output:**
+
 ```
-meta_2_1  | ts=2021-11-22T19:37:49.844370Z lvl=info msg=weblog log_id=0XzHsyQW001 service=meta-http host=172.18.0.5 user-id= username= method=POST uri=/announce protocol=HTTP/1.1 status=200 size=297 referrer= user-agent="InfluxDB Meta Service" request-id=ad3b2a4e-4bcb-11ec-8058-0242ac120004 execution-time=2.076ms execution-time-readable=2.076181ms
-meta_1_1  | ts=2021-11-22T19:37:49.845767Z lvl=info msg=weblog log_id=0XzHszPW000 service=meta-http host=172.18.0.2 user-id= username= method=POST uri=/announce protocol=HTTP/1.1 status=200 size=294 referrer= user-agent="InfluxDB Meta Service" request-id=ad3b3bdc-4bcb-11ec-805f-0242ac120005 execution-time=3.030ms execution-time-readable=3.030174ms
-meta_0_1  | ts=2021-11-22T19:37:50.666370Z lvl=info msg=weblog log_id=0XzHsygW001 service=meta-http host=172.18.0.7 user-id= username= method=POST uri=/announce protocol=HTTP/1.1 status=204 size=0 referrer= user-agent="InfluxDB DataNode" request-id=adb8e34c-4bcb-11ec-81ad-0242ac120002 execution-time=0.144ms execution-time-readable=144.116µs
+ts=2021-12-08T02:00:54.864731Z lvl=info msg=weblog log_id=0YHxBFZG001 service=meta-http host=172.18.0.1 user-id= username=admin method=POST uri=/user protocol=HTTP/1.1 command="{'{\"action\":\"create\",\"user\":{\"name\":\"fipple\",\"password\":[REDACTED]}}': ''}" status=307 size=0 referrer= user-agent=curl/7.68.0 request-id=ad87ce47-57ca-11ec-8026-0242ac120004 execution-time=63.571ms execution-time-readable=63.570738ms
+ts=2021-12-08T02:01:00.070137Z lvl=info msg=weblog log_id=0YHxBEhl001 service=meta-http host=172.18.0.1 user-id= username=admin method=POST uri=/user protocol=HTTP/1.1 command="{'{\"action\":\"create\",\"user\":{\"name\":\"fipple\",\"password\":[REDACTED]}}': ''}" status=200 size=0 referrer= user-agent=curl/7.68.0 request-id=b09eb13a-57ca-11ec-800d-0242ac120003 execution-time=85.823ms execution-time-readable=85.823406ms
+ts=2021-12-08T02:01:29.062313Z lvl=info msg=weblog log_id=0YHxBEhl001 service=meta-http host=172.18.0.1 user-id= username=admin method=POST uri=/user protocol=HTTP/1.1 command="{'{\"action\":\"create\",\"user\":{\"name\":\"gremch\",\"hash\":[REDACTED]}}': ''}" status=200 size=0 referrer= user-agent=curl/7.68.0 request-id=c1f3614a-57ca-11ec-8015-0242ac120003 execution-time=1.722ms execution-time-readable=1.722089ms
+ts=2021-12-08T02:01:47.457607Z lvl=info msg=weblog log_id=0YHxBEhl001 service=meta-http host=172.18.0.1 user-id= username=admin method=POST uri=/user protocol=HTTP/1.1 command="{'{\"action\":\"create\",\"user\":{\"name\":\"gremchy\",\"hash\":[REDACTED]}}': ''}" status=400 size=37 referrer= user-agent=curl/7.68.0 request-id=ccea84b7-57ca-11ec-8019-0242ac120003 execution-time=0.154ms execution-time-readable=154.417µs
+ts=2021-12-08T02:02:05.522571Z lvl=info msg=weblog log_id=0YHxBEhl001 service=meta-http host=172.18.0.1 user-id= username=admin method=POST uri=/user protocol=HTTP/1.1 command="{'{\"action\":\"create\",\"user\":{\"name\":\"thimble\",\"password\":[REDACTED]}}': ''}" status=400 size=37 referrer= user-agent=curl/7.68.0 request-id=d7af0082-57ca-11ec-801f-0242ac120003 execution-time=0.227ms execution-time-readable=227.853µs
 ```
 
 Environment variable: `INFLUXDB_META_CLUSTER_TRACING`
