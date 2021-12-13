@@ -206,8 +206,32 @@ Environment variable: `INFLUXDB_META_CONSENSUS_TIMEOUT`
 
 #### `cluster-tracing = false`
 
-Cluster tracing toggles the logging of Raft logs on Raft nodes.
-Enable this setting when debugging Raft consensus issues.
+<!-- Cluster tracing toggles the logging of Raft logs on Raft nodes. -->
+<!-- Enable this setting when debugging Raft consensus issues. -->
+
+Turn on logging of all requests....
+
+Prints sanitized POST form values to show actual commands.
+
+Includes form data from POST requests.
+
+Some differences from [data node access logs]():
+
+- No filtering by status code.
+  Data node access logs permit the user to provide filters, so, for instance, to only log requests that return 5XX codes.
+  See [`access-log-status-filters`](https://docs.influxdata.com/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#access-log-status-filters--)
+  in the data node configuration for how it is handled differently.
+- no `[http]` prefix on the logs
+- No ability to specify a separate log file for HTTP logging.
+  It goes into the same log file descriptor as the rest of the meta-node logging.
+  See [`access-log-path`](https://docs.influxdata.com/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#access-log-path--)
+  in the data node configuration for how it is handled differently.
+
+```
+meta_2_1  | ts=2021-11-22T19:37:49.844370Z lvl=info msg=weblog log_id=0XzHsyQW001 service=meta-http host=172.18.0.5 user-id= username= method=POST uri=/announce protocol=HTTP/1.1 status=200 size=297 referrer= user-agent="InfluxDB Meta Service" request-id=ad3b2a4e-4bcb-11ec-8058-0242ac120004 execution-time=2.076ms execution-time-readable=2.076181ms
+meta_1_1  | ts=2021-11-22T19:37:49.845767Z lvl=info msg=weblog log_id=0XzHszPW000 service=meta-http host=172.18.0.2 user-id= username= method=POST uri=/announce protocol=HTTP/1.1 status=200 size=294 referrer= user-agent="InfluxDB Meta Service" request-id=ad3b3bdc-4bcb-11ec-805f-0242ac120005 execution-time=3.030ms execution-time-readable=3.030174ms
+meta_0_1  | ts=2021-11-22T19:37:50.666370Z lvl=info msg=weblog log_id=0XzHsygW001 service=meta-http host=172.18.0.7 user-id= username= method=POST uri=/announce protocol=HTTP/1.1 status=204 size=0 referrer= user-agent="InfluxDB DataNode" request-id=adb8e34c-4bcb-11ec-81ad-0242ac120002 execution-time=0.144ms execution-time-readable=144.116µs
+```
 
 Environment variable: `INFLUXDB_META_CLUSTER_TRACING`
 
