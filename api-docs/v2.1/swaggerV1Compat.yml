@@ -143,6 +143,17 @@ paths:
             enum:
               - application/vnd.influxql
         - in: query
+          name: db
+          schema:
+            type: string
+          required: true
+          description: The bucket to query.
+        - in: query
+          name: rp
+          schema:
+            type: string
+          description: The retention policy name.
+        - in: query
           name: q
           description: Defines the influxql query to run.
           schema:
@@ -327,3 +338,65 @@ components:
           type: integer
           format: int32
       required: [code, message, maxLength]
+  securitySchemes:
+    TokenAuthentication:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: |
+        Use the [Token authentication](#section/Authentication/TokenAuthentication)
+        scheme to authenticate to the InfluxDB API.
+
+
+        In your API requests, send an `Authorization` header.
+        For the header value, provide the word `Token` followed by a space and an InfluxDB API token.
+        The word `Token` is case-sensitive.
+
+
+        ### Syntax
+
+        `Authorization: Token YOUR_INFLUX_TOKEN`
+
+
+        For examples and more information, see the following:
+          - [`/authorizations`](#tag/Authorizations) endpoint.
+          - [Authorize API requests]({{% INFLUXDB_DOCS_URL %}}/api-guide/api_intro/#authentication).
+          - [Manage API tokens]({{% INFLUXDB_DOCS_URL %}}/security/tokens).
+    BasicAuthentication:
+      type: http
+      scheme: basic
+      description: |
+        ### Basic authentication scheme
+
+        Use the HTTP Basic authentication scheme with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
+
+
+        For examples and more information, see how to [authenticate with a username and password]({{% INFLUXDB_DOCS_URL %}}/reference/api/influxdb-1x/).
+    QuerystringAuthentication:
+       type: apiKey
+       in: query
+       name: u=&p=
+       description: |
+         ### Querystring authentication scheme
+
+         Use InfluxDB 1.x API parameters to provide credentials through the query string.
+
+
+         For examples and more information, see how to [authenticate with a username and password scheme]({{% INFLUXDB_DOCS_URL %}}/reference/api/influxdb-1x/).
+security:
+  - TokenAuthentication: []
+  - BasicAuthentication: []
+  - QuerystringAuthentication: []
+tags:
+  - name: Authentication
+    description: |
+      The InfluxDB 1.x API requires authentication for all requests.
+      InfluxDB Cloud uses InfluxDB API tokens to authenticate requests.
+
+
+      For more information, see the following:
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+    x-traitTag: true
