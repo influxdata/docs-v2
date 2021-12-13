@@ -1,10 +1,10 @@
 ---
-title: Enable HTTPS over TLS for InfluxDB Enterprise
+title: Configure HTTPS over TLS for InfluxDB Enterprise
 description: >
   Enabling HTTPS over TLS encrypts the communication between clients and the InfluxDB Enterprise server, and between nodes in the cluster.
 menu:
   enterprise_influxdb_1_9:
-    name: Enable TLS for cluster
+    name: Configure TLS for cluster
     parent: Configure security
 weight: 20
 aliases:

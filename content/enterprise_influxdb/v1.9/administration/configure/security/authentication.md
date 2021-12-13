@@ -5,7 +5,7 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     parent: Configure security
-    name: Enable authentication
+    name: Configure authentication
 weight: 10
 ---
 
