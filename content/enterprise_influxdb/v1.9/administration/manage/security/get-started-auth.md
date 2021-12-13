@@ -75,6 +75,8 @@ Outside of [FGA](/enterprise_influxdb/v1.9/administration/manage/security/fine-g
 the only database-level permissions available are the basic `READ` and `WRITE`.
 These can only be managed using [InfluxQL](#manage-read-and-write-privileges-with-influxql).
 
+<!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
+
 See ["Manage InfluxDB users in Chronograf"](/chronograf/v1.9/administration/managing-influxdb-users/)
 for instructions.
 

@@ -14,6 +14,12 @@ aliases:
   - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
 ---
 
+{{% note %}}
+Consider using [Chronograf](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/)
+and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
+to manage InfluxDB Enterprise users and roles.
+{{% /note %}}
+
 This document covers setting up and managing authorization in InfluxDB Enterprise.
 
 - [User Types and Privileges](#user-types-and-privileges)
@@ -33,10 +39,6 @@ Using InfluxQL, you can perform the following actions:
 - grant READ and/or WRITE permissions to users.  (READ, WRITE, ALL)
 - REVOKE permissions from users.
 - GRANT or REVOKE specific database access to individual users.
-
-Consider using [Chronograf](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/)
-and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
-to manage InfluxDB Enterprise users and roles.
 
 However, InfluxDB Enterprise offers more granular permissions than InfluxDB OSS.
 You can use Chronograf to access and assign these more granular permissions to individual users.
