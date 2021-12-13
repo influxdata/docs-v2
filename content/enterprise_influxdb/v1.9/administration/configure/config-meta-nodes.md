@@ -206,21 +206,8 @@ Environment variable: `INFLUXDB_META_CONSENSUS_TIMEOUT`
 
 #### `cluster-tracing = false`
 
-Enable audit log for sensitive actions.
+Log all HTTP requests made to meta nodes.
 Prints sanitized POST request information to show actual commands.
-
-Some differences from data node access logs:
-
-- No filtering by status code.
-  <!-- Data node access logs permit the user to provide filters -->
-  <!-- So, for instance, to only log requests that return 5XX codes. -->
-  See [`access-log-status-filters`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#access-log-status-filters--)
-  in the data node configuration for how it is handled differently.
-- No `[http]` prefix on the logs.
-- No ability to specify a separate log file for HTTP logging.
-  It goes into the same log file descriptor as the rest of the meta-node logging.
-  See [`access-log-path`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#access-log-path--)
-  in the data node configuration for how it is handled differently.
 
 **Sample log output:**
 
