@@ -4,7 +4,7 @@ description: >
   Manage authorization with the InfluxDB Enterprise Meta API.
 menu:
   enterprise_influxdb_1_9:
-    name: Manage security with Meta API
+    name: Manage authorization with the API
     parent: Manage security
 weight: 42
 aliases:
