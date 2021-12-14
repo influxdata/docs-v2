@@ -30,7 +30,7 @@ function sortName(a, b) {
 function isPresent(collection, item) {
   const itemName = getName(item);
   return (
-    collection.indexOf(itemName) > -1 
+    collection.indexOf(itemName) > -1
     || collection.filter(ci => ci.name && ci.name === itemName).length > 0
   );
 }
@@ -42,7 +42,7 @@ function isPresent(collection, item) {
 function collect(collection, items) {
   if(Array.isArray(items)) {
     collection = collection
-      .concat(items.filter(item => !isPresent(collection, item))); 
+      .concat(items.filter(item => !isPresent(collection, item)));
   }
   return collection;
 }
@@ -51,7 +51,7 @@ function toJSON(yamlPath) {
   try {
     return yaml.load(fs.readFileSync(yamlPath, 'utf8'));
   } catch (e) {
-    /** No file. No harm, no foul. **/
+    /** No file, no harm, no foul. **/
     // console.log(e);
   }
 }
@@ -63,4 +63,3 @@ module.exports = {
   sortName,
   toJSON,
 }
-

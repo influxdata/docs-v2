@@ -9,6 +9,11 @@ function replaceDocsUrl(node) {
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 function docsUrl() {
   return {
+    Info: {
+      leave(info, ctx) {
+        info.description = replaceDocsUrl(info);
+      }
+    },
     PathItem: {
       leave(pathItem, ctx) {
         pathItem.description = replaceDocsUrl(pathItem);
@@ -26,9 +31,9 @@ function docsUrl() {
     }
   }
 }
+
 function ReplaceShortcodes() {
   return {
-    docsUrl
-
+    docsUrl,
   };
 }

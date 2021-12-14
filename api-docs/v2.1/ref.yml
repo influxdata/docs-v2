@@ -5814,35 +5814,6 @@ components:
         - position
       type: object
   securitySchemes:
-    BearerAuthentication:
-      description: >
-        Use the [Bearer
-        authentication](#section/Authentication/BearerAuthentication)
-
-        scheme to authenticate to the InfluxDB API.
-
-
-
-        In your API requests, send an `Authorization` header.
-
-        For the header value, provide the word `Bearer` followed by a space and
-        an InfluxDB API token.
-
-
-
-        ### Syntax
-
-
-        `Authorization: Bearer YOUR_INFLUX_TOKEN`
-
-
-
-        For more information and examples, see the following:
-          - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Authorize API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
-          - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
-      scheme: bearer
-      type: http
     TokenAuthentication:
       description: >
         Use the [Token
@@ -12881,7 +12852,6 @@ paths:
       tags:
         - Write
 security:
-  - BearerAuthentication: []
   - TokenAuthentication: []
 servers:
   - url: /
@@ -12891,9 +12861,8 @@ tags:
       InfluxDB Cloud uses InfluxDB API tokens to authenticate requests.
 
 
-      For examples and more information, see the following:
-      - [Bearer authentication](#section/Authentication/BearerAuthentication)
-      - [Token authentication](#section/Authentication/TokenAuthentication)
+      For examples and more information, see
+      [Token authentication](#section/Authentication/TokenAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication

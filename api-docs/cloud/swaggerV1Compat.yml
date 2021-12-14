@@ -2,6 +2,14 @@ openapi: 3.0.0
 info:
   title: Influx API Service (V1 compatible endpoints)
   version: 0.1.0
+  description: |
+    The InfluxDB 1.x compatibility /write and /query endpoints work with
+    InfluxDB 1.x client libraries and third-party integrations like Grafana
+    and others.
+
+
+    If you want to use the latest InfluxDB `/api/v2` API instead,
+    see the [InfluxDB v2 API documentation](/influxdb/cloud/api).
 servers:
   - url: /
 paths:
@@ -428,12 +436,11 @@ components:
       type: http
       scheme: basic
       description: >
-        ### Basic authentication scheme
+        Use the HTTP [Basic
+        authentication](#section/Authentication/BasicAuthentication)
 
-
-        Use the HTTP Basic authentication scheme with clients that support the
-        InfluxDB 1.x convention of username and password (that don't support the
-        `Authorization: Token` scheme):
+        scheme with clients that support the InfluxDB 1.x convention of username
+        and password (that don't support the `Authorization: Token` scheme):
 
 
 
@@ -444,17 +451,16 @@ components:
       in: query
       name: u=&p=
       description: >
-        ### Querystring authentication scheme
+        Use the [Querystring
+        authentication](#section/Authentication/QuerystringAuthentication)
 
-
-        Use InfluxDB 1.x API parameters to provide credentials through the query
-        string.
+        scheme with InfluxDB 1.x API parameters to provide credentials through
+        the query string.
 
 
 
         For examples and more information, see how to [authenticate with a
-        username and password
-        scheme](/influxdb/cloud/reference/api/influxdb-1x/).
+        username and password](/influxdb/cloud/reference/api/influxdb-1x/).
 security:
   - TokenAuthentication: []
   - BasicAuthentication: []
