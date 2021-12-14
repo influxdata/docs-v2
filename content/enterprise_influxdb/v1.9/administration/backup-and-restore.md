@@ -316,12 +316,12 @@ Restored from my-incremental-backup/ in 83.892591ms, transferred 588800 bytes
 
 ##### Restore from a metadata backup
 
-In this example, the `restore` command restores an metadata backup stored
+In this example, the `restore` command restores a metadata backup stored
 in the `metadata-backup/` directory.
 
 ```bash
 # Syntax
-influxd-ctl restore <path-to-backup-directory>
+influxd-ctl restore -meta-only <path-to-backup-directory>
 
 # Example
 $ influxd-ctl restore metadata-backup/
