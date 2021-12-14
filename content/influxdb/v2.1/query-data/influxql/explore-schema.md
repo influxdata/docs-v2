@@ -12,6 +12,10 @@ weight: 203
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
 The following sections cover useful query syntax for exploring your [schema](/enterprise_influxdb/v1.9/concepts/glossary/#schema).
 
+Note that in InfluxDB 1.x, data is stored in databases and retention policies. In InfluxDB OSS 2.x versions, data is stored in buckets. Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
+
+To learn about mapping buckets, see [Query data with InfluxQL](https://docs.influxdata.com/influxdb/v2.1/query-data/influxql/)
+
 <!-- <table style="width:100%">
   <tr>
     <td><a href="#show-databases">SHOW DATABASES</a></td>
