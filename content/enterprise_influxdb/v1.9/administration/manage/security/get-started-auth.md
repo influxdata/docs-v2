@@ -62,7 +62,7 @@ you can continue to use InfluxQL as before.)
 {{% warn %}}
 We recommend operators *do not* mix and match InfluxQL
 with other authorization management methods (Chronograf and the API).
-Doing so can cause issues.
+Doing so may lead to inconsistencies in user permissions.
 {{% /warn %}}
 
 ### Manage specific privileges with Chronograf
