@@ -250,7 +250,7 @@ The `NOAA_water_database` has five different measurements and 14 different serie
 
 Specify the database with `USE <database_name>`
 
-<!-- ```sql
+```sql
 > USE NOAA_water_database
 Using database NOAA_water_database
 
@@ -276,7 +276,7 @@ h2o_temperature,location=santa_monica
 
 {{% /tab-content %}}
 
-{{% tab-content %}} -->
+{{% tab-content %}}
 
 Specify the database with the `db` query string parameter:
 
@@ -471,7 +471,7 @@ The database has five measurements: `average_temperature`, `h2o_feet`,
 
 {{% tab-content %}}
 
-<!-- Specify the database with `USE <database_name>`
+Specify the database with `USE <database_name>`
 
 ```sql
 > USE NOAA_water_database
@@ -490,7 +490,7 @@ h2o_temperature
 
 {{% /tab-content %}}
 
-{{% tab-content %}} -->
+{{% tab-content %}}
 
 Specify the database with the `db` query string parameter:
 ```
@@ -648,7 +648,7 @@ it shows that every measurement has the `location` tag key and that the
 {{% /tabs %}}
 {{% tab-content %}}
 
-<!-- Specify the database with `USE <database_name>`
+Specify the database with `USE <database_name>`
 
 ```sql
 > USE NOAA_water_database
@@ -685,7 +685,7 @@ location
 
 {{% /tab-content %}}
 
-{{% tab-content %}} -->
+{{% tab-content %}}
 
 Specify the database with the `db` query string parameter:
 
@@ -863,7 +863,7 @@ database.
 {{% /tabs %}}
 {{% tab-content %}}
 
-<!-- Specify the database with `USE <database_name>`
+Specify the database with `USE <database_name>`
 
 ```sql
 > USE NOAA_water_database
@@ -881,7 +881,7 @@ randtag   3
 
 {{% /tab-content %}}
 
-{{% tab-content %}} -->
+{{% tab-content %}}
 
 Specify the database with the `db` query string parameter:
 
@@ -1014,7 +1014,7 @@ measurement in the `NOAA_water_database` database.
 {{% /tabs %}}
 {{% tab-content %}}
 
-<!-- Specify the database with `USE <database_name>`
+Specify the database with `USE <database_name>`
 
 ```sql
 > USE NOAA_water_database
@@ -1051,7 +1051,7 @@ degrees             float
 
 {{% /tab-content %}}
 
-{{% tab-content %}} -->
+{{% tab-content %}}
 
 Specify the database with the `db` query string parameter:
 
