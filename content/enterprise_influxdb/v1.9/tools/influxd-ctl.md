@@ -235,7 +235,7 @@ If there are no existing incremental backups, the system automatically performs 
 #### Syntax
 
 ```
-influxd-ctl backup [ -db <database> | -from <data-node-TCP-bind-address> | <-estimate> | -full | -rp <retention-policy> | -shard <shard-id> | -strategy <only-meta|incremental|full|> ] <backup-directory>
+influxd-ctl backup [ -db <database> | -from <data-node-TCP-bind-address> | -full | -rp <retention-policy> | -shard <shard-id> | -strategy <only-meta|incremental|full|> ] <backup-directory>
 ```
 
 ##### Arguments
@@ -249,6 +249,16 @@ Name of the single database to back up.
 ###### [ `-estimate` ]
 
 Provide estimated backup size and progress messages during backup.
+
+**Sample output:**
+
+```
+Backing up node backup_data_0_1:8088, db stress, rp autogen, shard 14
+Files: 8 / 9 Bytes: 189543424 / 231921095 Completed: 82% in 22s Estimated remaining: 3s
+Files: 8 / 9 Bytes: 189543424 / 231921095 Completed: 82% in 23s Estimated remaining: 2s
+Files: 9 / 9 Bytes: 231736320 / 231921095 Completed: 100% in 24s Estimated remaining: 447µs
+Done backing up node backup_data_0_1:8088, db stress, rp autogen, shard 14 in 67ms: 42192896 bytes transferred
+```
 
 ###### [ `-from <data-node-TCP-address>` ]
 
