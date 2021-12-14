@@ -6,7 +6,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Configure password hashing
     parent: Configure security
-weight: 30
+weight: 40
 related:
     - /enterprise_influxdb/v1.9/administration/configuration/
 aliases:
