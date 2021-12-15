@@ -44,7 +44,6 @@ Write results directly to a bucket in the new organization with the Flux
 If writes are prevented by rate limiting,
 use the [`influx write --rate-limit`](/influxdb/cloud/reference/cli/influx/write/#write-annotated-csv-data-using-rate-limiting)
 flag to control the rate of writes.
-
 For more information on rate limits in InfluxDB Cloud,
-see ["Exceeded rate limits"](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits).
+see [Exceeded rate limits](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits).
 {{% /note %}}
