@@ -25,7 +25,7 @@ If authentication is not enabled, *permissions will not be enforced*.
 
 ## Permissions in InfluxDB Enterprise
 
-Compared to InfluxDB OSS, InfluxDB Enterprise has an [expanded set of 16 permissions](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/#list-of-available-privileges).
+InfluxDB Enterprise has an [expanded set of 16 permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/#permissions).
 These permissions allow for
 controlling read and write access to data for all databases at once,
 as well as permitting certain cluster-management actions like creating or deleting resources.
@@ -68,7 +68,7 @@ Doing so may lead to inconsistencies in user permissions.
 ### Manage Enterprise permissions with Chronograf
 
 The Chronograf user interface can manage the
-[full set of InfluxDB Enterprise permissions](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/#list-of-available-privileges).
+[full set of InfluxDB Enterprise permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/#permissions).
 
 The permissions listed in Chronograf are global for the cluster, and available through the API.
 Outside of [FGA](/enterprise_influxdb/v1.9/administration/manage/security/fine-grained-authorization),
