@@ -27,10 +27,7 @@ with other authorization management methods (Chronograf and the API).
 Doing so may lead to inconsistencies in user permissions.
 {{% /warn %}}
 
-## Authorization
-
-Authorization in InfluxDB Enterprise refers to managing user permissions.
-To enable authorization, you must first [enable authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/).
+{{% enterprise-authn-b4-authz %}}
 
 This page shows examples of basic user and permission management using InfluxQL statements.
 However, *only a subset of Enterprise permissions can be managed with InfluxQL.*
