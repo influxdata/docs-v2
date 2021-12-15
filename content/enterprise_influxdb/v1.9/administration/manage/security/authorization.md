@@ -1,5 +1,5 @@
 ---
-title: Manage authorization
+title: Manage authorization with InfluxQL
 description: >
   Set up and manage authorization in InfluxDB Enterprise.
 menu:
@@ -21,11 +21,11 @@ and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage
 to manage InfluxDB Enterprise users and roles.
 {{% /note %}}
 
-This document covers setting up and managing authorization in InfluxDB Enterprise.
-
-- [User Types and Privileges](#user-types-and-privileges)
-- [User Management Commands](#user-management-commands)
-- [HTTP Errors](#authentication-and-authorization-http-errors)
+{{% warn %}}
+We recommend operators *do not* mix and match InfluxQL
+with other authorization management methods (Chronograf and the API).
+Doing so may lead to inconsistencies in user permissions.
+{{% /warn %}}
 
 ## Authorization
 
@@ -41,8 +41,8 @@ Using InfluxQL, you can perform the following actions:
 - `REVOKE` permissions from users.
 - `GRANT` or `REVOKE` specific database access to individual users.
 
-However, InfluxDB Enterprise offers more granular permissions than InfluxDB OSS.
-You can use Chronograf to access and assign these more granular permissions to individual users.
+However, InfluxDB Enterprise offers an [*expanded set of permissions*](/enterprise_influxdb/v1.9/administration/manage/security/permissions/#permissions).
+You can use the Meta API and Chronograf to access and assign these more granular permissions to individual users.
 
 The [InfluxDB Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
 provides the most comprehensive way to manage users, roles, permission
@@ -50,66 +50,6 @@ and other [fine grained authorization](/enterprise_influxdb/v1.9/administration/
 
 <!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
 
-### User types and privileges
-
-InfluxDB Enterprise has the following kinds of users:
-
-- [Admin users](#admin-users)
-- [Non-admin users](#non-admin-users)
-
-#### Admin users
-
-Admin users have the following permissions:
-
-| Permission                | Description                                             | Token                  |
-|:--------------------------|---------------------------------------------------------|------------------------|
-| View Admin                | Permission to view or edit admin screens                | `ViewAdmin`            |
-| View Chronograf           | Permission to use Chronograf tools                      | `ViewChronograf`       |
-| Create Databases          | Permission to create databases                          | `CreateDatabase`       |
-| Create Users & Roles      | Permission to create users and roles                    | `CreateUserAndRole`    |
-| Add/Remove Nodes          | Permission to add/remove nodes from a cluster           | `AddRemoveNode`        |
-| Drop Databases            | Permission to drop databases                            | `DropDatabase`         |
-| Drop Data                 | Permission to drop measurements and series              | `DropData`             |
-| Read                      | Permission to read data                                 | `ReadData`             |
-| Write                     | Permission to write data                                | `WriteData`            |
-| Rebalance                 | Permission to rebalance a cluster                       | `Rebalance`            |
-| Manage Shards             | Permission to copy and delete shards                    | `ManageShard`          |
-| Manage Continuous Queries | Permission to create, show, and drop continuous queries | `ManageContnuousQuery` |
-| Manage Queries            | Permission to show and kill queries                     | `ManageQuery`          |
-| Manage Subscriptions      | Permission to show, add, and drop subscriptions         | `ManageSubscription`   |
-| Monitor                   | Permission to show stats and diagnostics                | `Monitor`              |
-| Copy Shard                | Permission to copy shards                               | `CopyShard`            |
-
-{{% caption %}}
-For more information about these commands,
-see [Database management](/enterprise_influxdb/v1.9/query_language/manage-database/) and
-[Continuous queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/).
-{{% /caption %}}
-
-<!--
-Admin users have access to the following user management commands:
-
-| Admin user management                                                           | Non-admin user management                                                                        | General user management                   |
-|:--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|-------------------------------------------|
-| [`CREATE USER`](#user-management-commands)                                      | [`CREATE USER`](#user-management-commands)                                                       | [`SET PASSWORD`](#reset-a-users-password) |
-| [`GRANT ALL PRIVILEGES`](#grant-administrative-privileges-to-an-existing-user)  | [`GRANT [READ,WRITE,ALL]`](#grant-read-write-or-all-database-privileges-to-an-existing-user)     | [`DROP USER`](#drop-a-user)               |
-| [`REVOKE ALL PRIVILEGES`](#revoke-administrative-privileges-from-an-admin-user) | [`REVOKE [READ,WRITE,ALL]`](#revoke-read-write-or-all-database-privileges-from-an-existing-user) |                                           |
-| [`SHOW USERS`](#show-all-existing-users-and-their-admin-status)                 |                                                                                                  |                                           |
-
-{{% caption %}}
-See [below](#user-management-commands) for a complete discussion of the user management commands.
-{{% /caption %}}
--->
-
-#### Non-admin users
-
-When authentication is enabled
-a new non-admin user has no access to any database
-until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user)
-by an admin user.
-
-Non-admin users can [`SHOW`](/enterprise_influxdb/v1.9/query_language/explore-schema/#show-databases)
-the databases for which they have `ReadData` or `WriteData` permissions.
 
 ### User management commands
 
@@ -305,8 +245,3 @@ CLI example:
 > DROP USER "todd"
 ```
 
-## Authentication and authorization HTTP errors
-
-Requests with no authentication credentials or incorrect credentials yield the `HTTP 401 Unauthorized` response.
-
-Requests by unauthorized users yield the `HTTP 403 Forbidden` response.
