@@ -4,15 +4,12 @@ description: >
   Set up and manage authorization in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
-    name: Manage authorization
     parent: Manage security
-weight: 41
+weight: 42
 related:
   - /enterprise_influxdb/v1.9/administration/manage/security/fine-grained-authorization/
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
   - /enterprise_influxdb/v1.9/administration/manage/security/authorization-api.md
-aliases:
-  - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
 ---
 
 {{% note %}}
