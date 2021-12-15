@@ -69,6 +69,16 @@ InfluxDB Enterprise clusters have 16 permissions:
 | Monitor                   | Permission to show stats and diagnostics                | `Monitor`              |
 | Copy Shard                | Permission to copy shards                               | `CopyShard`            |
 
+In addition, two tokens govern Kapacitor permissions:
+
+* `KapacitorAPI`:
+  Grants the user permission to create, read, update and delete
+  tasks, topics, handlers and similar Kapacitor artefacts.
+* `KapacitorConfigAPI`:
+  Grants the user permission to override the Kapacitor configuration
+  dynamically using the configuration endpoint.
+
+
 ### Permission to Statement
 
 The following table describes permissions required to execute the associated database statement.
