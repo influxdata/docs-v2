@@ -1,7 +1,7 @@
 ---
 title: Using Geolocation data with InfluxDB
 description: >
-  Geolocation devices produce massive amounts of data.  Learn how to manage this data by using InfluxDB.
+  Geolocation produces massive amounts of data.  Learn how to manage this data by using InfluxDB.
 menu:
   resources:
     name: Geolocation and InfluxDB
