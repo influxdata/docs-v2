@@ -66,7 +66,7 @@ Use the `/user` endpoint of the InfluxDB Enterprise Meta API to manage users.
 View a list of existing users.
 
 ```
-$ curl -u "admin:changeit" -s https://cluster_node_1:8091/user | python -m json.tool
+$ curl -L -u "admin:changeit" -s https://cluster_node_1:8091/user | python -m json.tool
 {
     "users": [
         {
@@ -107,7 +107,7 @@ If the node returns a 307 redirect message,
 try resending the request to the lead node as indicated by the `Location` field in the HTTP response header.
 
 ```
-$ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom2","password":"changeit"}}' https://cluster_node_2:8091/user
+$ curl -L -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom2","password":"changeit"}}' https://cluster_node_2:8091/user
 *   Trying 172.31.16.140...
 * Connected to cluster_node_2 (172.31.16.140) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -151,7 +151,7 @@ $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom2
 ##### Create a user against the lead node
 
 ```
-$ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom","password":"changeit"}}' https://cluster_node_1:8091/user
+$ curl -L -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom","password":"changeit"}}' https://cluster_node_1:8091/user
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -193,7 +193,7 @@ $ curl -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom"
 ##### Retrieve a user details document
 
 ```
-$ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | python -m json.tool
+$ curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | python -m json.tool
 {
     "users": [
         {
@@ -207,7 +207,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 ##### Grant permissions to a user
 
 ```
-$ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/user
+$ curl -L --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/user
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -247,7 +247,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","us
 ##### Verify user permissions
 
 ```
-$ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | python -m json.tool
+$ curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | python -m json.tool
 {
     "users": [
         {
@@ -267,7 +267,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 ##### Remove permissions from a user
 
 ```
-$ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions","user":{"name":"phantom","permissions":{"":["KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/user
+$ curl -L --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions","user":{"name":"phantom","permissions":{"":["KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/user
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -307,7 +307,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions",
 ##### Remove a user
 
 ```
-$ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"name":"phantom2"}}' https://cluster_node_1:8091/user
+$ curl -L --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"name":"phantom2"}}' https://cluster_node_1:8091/user
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -347,7 +347,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"nam
 ##### Verify user removal
 
 ```
-$ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom
+$ curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom
 {"error":"user not found"}
 ```
 
@@ -365,7 +365,7 @@ The Influxd-Meta API provides an endpoint `/role` for managing roles.
 ##### List roles
 
 ```
-$ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | python -m json.tool
+$ curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | python -m json.tool
 {}
 ```
 
@@ -375,7 +375,7 @@ As when creating a user the lead node must be used.
 ##### Create a role
 
 ```
-$ curl --negotiate -u "admin:changeit"  -v -d '{"action":"create","role":{"name":"spectre"}}' https://cluster_node_1:8091/role
+$ curl -L --negotiate -u "admin:changeit"  -v -d '{"action":"create","role":{"name":"spectre"}}' https://cluster_node_1:8091/role
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -417,7 +417,7 @@ $ curl --negotiate -u "admin:changeit"  -v -d '{"action":"create","role":{"name"
 Verify the role has been created.
 
 ```
-$ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | python -m json.tool
+$ curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | python -m json.tool
 {
     "roles": [
         {
@@ -435,7 +435,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | pyt
 Retrieve a record for a single node.
 
 ```
-curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
+curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
 {
    "roles": [
        {
@@ -449,7 +449,7 @@ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=sp
 Add permissions to a role.
 
 ```
-$ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/role
+$ curl -L --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/role
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -491,7 +491,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","ro
 Verify permissions have been added.
 
 ```
-$ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
+$ curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
 {
     "roles": [
         {
@@ -510,7 +510,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=
 ##### Add a user to a role
 
 ```
-$ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-users","role":{"name":"spectre","users":["phantom"]}}'  https://cluster_node_1:8091/role
+$ curl -L --negotiate -u "admin:changeit" -s -v -d '{"action":"add-users","role":{"name":"spectre","users":["phantom"]}}'  https://cluster_node_1:8091/role
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -552,7 +552,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"add-users","role":{"
 Verify user has been added to role.
 
 ```
-$ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
+$ curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
 {
     "roles": [
         {
@@ -574,7 +574,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=
 ##### Remove a user from a role
 
 ```
-$ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-users","role":{"name":"spectre","users":["phantom"]}}' https://admin:changeit@cluster_node_1:8091/role
+$ curl -L --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-users","role":{"name":"spectre","users":["phantom"]}}' https://admin:changeit@cluster_node_1:8091/role
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -615,7 +615,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-users","role"
 ##### Remove a permission from a role
 
 ```
-$ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions","role":{"name":"spectre","permissions":{"":["KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/role
+$ curl -L --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions","role":{"name":"spectre","permissions":{"":["KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/role
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -656,7 +656,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions",
 ##### Delete a role
 
 ```
-$ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","role":{"name":"spectre"}}' https://cluster_node_1:8091/role
+$ curl -L --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","role":{"name":"spectre"}}' https://cluster_node_1:8091/role
 *   Trying 172.31.16.108...
 * Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
 * found 149 certificates in /etc/ssl/certs/ca-certificates.crt
@@ -697,7 +697,7 @@ $ curl --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","role":{"nam
 ##### Verify role deletion
 
 ```
-$ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
+$ curl -L --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
 {
     "error": "role not found"
 }
