@@ -12,6 +12,8 @@ related:
   - /enterprise_influxdb/v1.9/administration/manage/security/authorization-api.md
 ---
 
+{{% enterprise-warning-authn-b4-authz %}}
+
 {{% note %}}
 We recommend using [Chronograf](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/)
 and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
@@ -23,8 +25,6 @@ We recommend operators *do not* mix and match InfluxQL
 with other authorization management methods (Chronograf and the API).
 Doing so may lead to inconsistencies in user permissions.
 {{% /warn %}}
-
-{{% enterprise-authn-b4-authz %}}
 
 This page shows examples of basic user and permission management using InfluxQL statements.
 However, *only a subset of Enterprise permissions can be managed with InfluxQL.*

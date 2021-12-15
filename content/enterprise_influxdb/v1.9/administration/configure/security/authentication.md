@@ -16,7 +16,7 @@ Once you have a working cluster
 (that is, after [installing the data nodes](/enterprise_influxdb/v1.9/introduction/install-and-deploy/installation/data_node_installation/)),
 we recommend enabling authentication right away to control access to you cluster.
 
-{{% enterprise-authn-b4-authz %}}
+{{% enterprise-warning-authn-b4-authz %}}
 
 To enable authentication in a cluster, do the following:
 

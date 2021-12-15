@@ -12,7 +12,7 @@ aliases:
   - /enterprise_influxdb/v1.9/administration/security/authentication_and_authorization-api/
 ---
 
-{{% enterprise-authn-b4-authz %}}
+{{% enterprise-warning-authn-b4-authz %}}
 
 - [Overview](#overview)
 - [API examples](#user-and-privilege-management-over-the-influxdb-enterprise-meta-api)
