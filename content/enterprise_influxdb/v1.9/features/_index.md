@@ -41,8 +41,6 @@ For more information on clustering, see [Clustering in InfluxDB Enterprise](/ent
 
 ## Security
 
-InfluxDB Enterprise offers security enhancements for access controls.
-
 Enterprise authorization uses an expanded set of [*16 user permissions and roles*](/enterprise_influxdb/v1.9/features/users/).
 (InfluxDB OSS only has `READ` and `WRITE` permissions.)
 Administrators can give users permission to read and write to databases,

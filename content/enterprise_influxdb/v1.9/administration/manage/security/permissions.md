@@ -1,5 +1,5 @@
 ---
-title: Enterprise users  permissions
+title: Enterprise users and permissions
 description: Overview of user management and security in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
