@@ -107,3 +107,8 @@ curl -G "http://localhost:8086/query?db=demodb" \
   --header "Authorization: Bearer <header>.<payload>.<signature>"
 ```
 
+## Authentication and authorization HTTP errors
+
+Requests with no authentication credentials or incorrect credentials yield the `HTTP 401 Unauthorized` response.
+
+Requests by unauthorized users yield the `HTTP 403 Forbidden` response.
