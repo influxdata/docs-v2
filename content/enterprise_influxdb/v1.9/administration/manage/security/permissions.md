@@ -1,6 +1,7 @@
 ---
-title: Enterprise users and permissions
-description: Overview of user management and security in InfluxDB Enterprise.
+title: Enterprise users and permissions reference
+description: >
+  Detailed reference for users, roles, permissions, and permission-to-statement mappings.
 menu:
   enterprise_influxdb_1_9:
     parent: Manage security
