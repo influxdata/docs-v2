@@ -6,6 +6,8 @@ menu:
     name: Manage security
     weight: 40
     parent: Manage
+aliases:
+  - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
 ---
 
 <!--

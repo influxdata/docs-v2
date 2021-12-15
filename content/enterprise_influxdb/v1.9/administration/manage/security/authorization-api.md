@@ -6,7 +6,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Manage authorization with the API
     parent: Manage security
-weight: 42
+weight: 41
 aliases:
   - /enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/
   - /enterprise_influxdb/v1.9/administration/security/authentication_and_authorization-api/
