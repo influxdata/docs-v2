@@ -1,7 +1,7 @@
 ---
 title: Get started with authentication and authorization
 description: >
-  Learn the basics of managing authentication and authorization in InfluxDB Enterprise
+  Learn the basics of managing authentication and authorization in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Get started with authentication and authorization
