@@ -1,6 +1,6 @@
 ---
 title: Configure security
-description: Configure security features in InfluxDB enterprise.
+description: Configure security features in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Configure security
