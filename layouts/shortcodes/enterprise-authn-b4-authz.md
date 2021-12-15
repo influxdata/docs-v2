@@ -1,0 +1,20 @@
+<!-- don't link to authentication docs
+     if we're already in the authentication docs.-->
+{{ if eq .Page.Title "Configure authentication" }}
+<div class="warn block">
+
+**Important**  
+Authentication _must be enabled **before**_ authorization can be managed.
+_**before**_ authorization can be managed.
+If authentication is not enabled, *permissions will not be enforced*.
+
+</div>
+{{ else }}
+<div class="warn block">
+
+**Important**  
+Authentication [must be enabled](/enterprise_influxdb/v1.9/administration/configure/security/authentication/)
+If authentication is not enabled, *permissions will not be enforced*.
+
+</div>
+{{ end }}
