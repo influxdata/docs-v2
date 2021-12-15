@@ -73,7 +73,7 @@ menu:
 
 #### Performance
 
-- Improve meta node join.
+- Improve meta node join performance.
 
 ## v1.9.5 [2021-10-11]
 
