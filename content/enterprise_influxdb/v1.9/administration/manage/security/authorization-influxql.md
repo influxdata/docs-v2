@@ -7,9 +7,9 @@ menu:
     parent: Manage security
 weight: 42
 related:
-  - /enterprise_influxdb/v1.9/administration/manage/security/fine-grained-authorization/
-  - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
   - /enterprise_influxdb/v1.9/administration/manage/security/authorization-api.md
+  - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
+  - /enterprise_influxdb/v1.9/administration/manage/security/fine-grained-authorization/
 ---
 
 {{% enterprise-warning-authn-b4-authz %}}
