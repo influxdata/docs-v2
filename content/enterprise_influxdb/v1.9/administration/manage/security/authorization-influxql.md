@@ -1,7 +1,7 @@
 ---
 title: Manage authorization with InfluxQL
 description: >
-  Set up and manage authorization in InfluxDB Enterprise.
+  Manage users and permissions with InfluxQL.
 menu:
   enterprise_influxdb_1_9:
     parent: Manage security
@@ -42,46 +42,9 @@ The [InfluxDB Enterprise meta API](/enterprise_influxdb/v1.9/administration/mana
 provides the most comprehensive way to manage users, roles, permission
 and other [fine grained authorization](/enterprise_influxdb/v1.9/administration/manage/security/fine-grained-authorization/) (FGA) capabilities.
 
-### User types and privileges
-
-InfluxDB Enterprise has the following kinds of users:
-
-- [Admin users](#admin-users)
-- [Non-admin users](#non-admin-users)
-
-#### Admin users
-
-Admin users have the following permissions:
-
-| Permission                | Description                                             | Token                  |
-|:--------------------------|---------------------------------------------------------|------------------------|
-| View Admin                | Permission to view or edit admin screens                | `ViewAdmin`            |
-| View Chronograf           | Permission to use Chronograf tools                      | `ViewChronograf`       |
-| Create Databases          | Permission to create databases                          | `CreateDatabase`       |
-| Create Users & Roles      | Permission to create users and roles                    | `CreateUserAndRole`    |
-| Add/Remove Nodes          | Permission to add/remove nodes from a cluster           | `AddRemoveNode`        |
-| Drop Databases            | Permission to drop databases                            | `DropDatabase`         |
-| Drop Data                 | Permission to drop measurements and series              | `DropData`             |
-| Read                      | Permission to read data                                 | `ReadData`             |
-| Write                     | Permission to write data                                | `WriteData`            |
-| Rebalance                 | Permission to rebalance a cluster                       | `Rebalance`            |
-| Manage Shards             | Permission to copy and delete shards                    | `ManageShard`          |
-| Manage Continuous Queries | Permission to create, show, and drop continuous queries | `ManageContnuousQuery` |
-| Manage Queries            | Permission to show and kill queries                     | `ManageQuery`          |
-| Manage Subscriptions      | Permission to show, add, and drop subscriptions         | `ManageSubscription`   |
-| Monitor                   | Permission to show stats and diagnostics                | `Monitor`              |
-| Copy Shard                | Permission to copy shards                               | `CopyShard`            |
-
-{{% caption %}}
-For more information about these commands,
-see [Database management](/enterprise_influxdb/v1.9/query_language/manage-database/) and
-[Continuous queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/).
-{{% /caption %}}
-
-
 #### Non-admin users
 
-When authentication is enabled
+When authentication is enabled,
 a new non-admin user has no access to any database
 until they are specifically [granted privileges to a database](#grant-read-write-or-all-database-privileges-to-an-existing-user)
 by an admin user.
@@ -95,6 +58,10 @@ User management commands apply to either
 [admin users](#manage-admin-users),
 [non-admin users](#manage-non-admin-users),
 or [both](#manage-admin-and-non-admin-users).
+
+For more information about these commands,
+see [Database management](/enterprise_influxdb/v1.9/query_language/manage-database/) and
+[Continuous queries](/enterprise_influxdb/v1.9/query_language/continuous_queries/).
 
 #### Manage admin users
 
