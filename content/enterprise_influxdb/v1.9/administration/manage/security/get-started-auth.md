@@ -16,12 +16,7 @@ To secure and manage access to an InfluxDB Enterprise cluster, consider the foll
 - *authentication* (verifying a user's identity)
 - *authorization* (verifying what the user has access to)
 
-{{% warn %}}
-**Important**  
-Authentication [must be enabled](/enterprise_influxdb/v1.9/administration/configure/security/authentication/)
-_**before**_ authorization can be managed.
-If authentication is not enabled, *permissions will not be enforced*.
-{{% /warn %}}
+{{% enterprise-warning-authn-b4-authz %}}
 
 ## Permissions in InfluxDB Enterprise
 
