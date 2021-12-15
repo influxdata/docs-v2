@@ -13,32 +13,25 @@ menu:
 
 ### Features
 
-#### Overwrite metadata during a restore
+#### Backup enhancements
 
-- Add option to overwrite metadata when [restoring](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) an InfluxDB Enterprise database.
+- **Revert damaged meta nodes to a previous state**: Add the `meta-only-overwrite-force` option to [`influxd-ctl restore`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) to revert damaged meta nodes in an existing cluster to a previous state when restoring an InfluxDB Enterprise database.
 
-#### influxd-ctl enhancements
+- **Estimate the size of a backup** (full or incremental) and provide progress messages. Add `-estimate` option to [`influxd-ctl backup`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#backup) to estimate the size of a backup (full or incremental) and provide progress messages. Prints the number of files to back up, the percentage of bytes transferred for each file (organized by shard), and the estimated time remaining to complete the backup.
 
-- Previously, `influxd-ctl show` displayed data from the gossip network (version numbers for each instance) and from the metadata. However, in some cases the metadata and the peers store diverged. To help identify these cases, add the following information to `influxd-ctl show`:
-  - The metadata stored by the raft cluster, which includes information about meta and data node TCP and HTTP addresses.
-  - The raft peers store, which keeps track of the raft (TCP) addresses for each meta node participating in the raft consensus and identifies which node is the leader of the metadata cluster.
+#### Logging enhancements
 
-- Update `influxd-ctl backup` to estimate the size of a backup (full or incremental) and provide progress messages. Prints the number of files to back up, the percentage of bytes transferred for each file (organized by shard), and the estimated time remaining to complete the backup.
+- **Log active queries when a process is terminated**: Add the [`termination-query-log = false`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#termination-query-log--false) configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a k8s process exceeds the container memory limit or the process is terminated).
 
-#### Log active queries when a process is terminated
-
-- Add the `termination-query-log = false` configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a k8s process exceeds the container memory limit or the process is terminated).
+- **Log all HTTP requests to meta nodes**. View updated logs when [`cluster-tracing`](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#cluster-tracing--false) is enabled.
 
 ### Maintenance updates
 
-- ?Example config for configurable password hashing.
-
-
 #### Build maintenance
 
+- Update to [Flux v0.133](/flux/v0.x/release-notes/#v01330-2021-10-04).
 - Upgrade to Go 1.17.
-- Upgrade grpc, some others.
-- Update Flux version.
+- Upgrade miscellaneous dependencies, including `grpc`.
 - Upgrade `protobuf` library.
 - Export package signatures currently being created in Jenkins to AWS s3.
 - Add `go vet` and `goimports` static checks prior to building binaries.
@@ -53,26 +46,24 @@ menu:
 - Update AWS secret environment variables.
 - Remove Azure, AWS, and GCP entitlements.
 - Add test for field valid size limit.
-- Fix Flux e2e tester.
+- Fix Flux end-to-end tester.
 - Increase meta client timeout in tests.
-
 
 ### Bug fixes
 
 #### Data
 
 - Create shards without overlaps.
-- Drop shard now successfully ignores shard not found errors.
+- `DROP SHARD` now successfully ignores "shard not found errors."
 
 #### Errors
 
 - Fix panic when running `influxd config`.
-- Ensure `influxd-ctl entropy` commands use correct the TLS settings.
-- Resolve race condition in `meta.Service.Open` and  `meta.Service.Close`.
+- Ensure `influxd-ctl entropy` commands use the correct TLS settings.
+- Resolve race condition in `meta.Service.Open` and `meta.Service.Close`.
 
-#### Logging and profiling
+#### Profiling
 
-- Show `POST` contents in metanode HTTP logs.
 - Resolve issue to enable [mutex profiling](/enterprise_influxdb/v1.9/tools/api/#debugpprof-http-endpoint).
 
 #### Packages
@@ -83,7 +74,6 @@ menu:
 #### Performance
 
 - Improve meta node join.
-
 
 ## v1.9.5 [2021-10-11]
 
