@@ -20,7 +20,8 @@ function setDevApiServers(apiServers) {
 
 function findApiKey(request) {
   const header = request.headers.get('authorization');
-  const token = header?.match(/^token .*/);
+  console.log(header)
+  const token = header?.match(/^token .*/i);
   return token && token[0];
 }
 
@@ -68,33 +69,56 @@ function App() {
         }
         personalizeCodeSamples({baseUrl: cookies.influxdb_cloud_url});
       });
+
       rapidocEl.current && rapidocEl.current.addEventListener('spec-loaded', (e) => {
         console.log("spec loaded!")
         console.log(e);
         e.target.setApiServer(Servers[defaultServerName].url);
       });
-      rapidocEl.current && rapidocEl.current.addEventListener('api-server-change', (e) => {
-        console.log('api server changed!');
-        console.log(e);
-      });
-      rapidocEl.current && rapidocEl.current.addEventListener('before-try', (e) => {
-        console.log('before try...')
-        if(!e?.detail?.request) {
-           return;
+
+      const docRoot = document.querySelector('rapi-doc')?.shadowRoot;
+
+        function createAuthButtonEvents(props) {
+          function personalizeCodeSamples(props) {
+            /** TODO: This doesn't work as is.
+                Substituting parameter values in code Samples
+                will likely
+                require re-rendering or re-loading one or
+                all the samples with the new values because
+                the code highlighter tokenizes the code into
+                <code> tags and makes match/replace patterns
+                difficult. It might be easier to store the
+                samples separately in the doc or in the Cloud
+                and re-render with new values. **/
+            const samples = docRoot.querySelectorAll('code');
+            samples && samples.forEach(s => {
+              const tokenRE = /Token .*/i
+              s.textContent = s.textContent.replace(tokenRE, `${props.apiKey}`)
+            });
+          }
+          const field = props.button.parentNode.querySelector('.apiKey');
+          const userApiKey = field && field.value;
+          userApiKey && personalizeCodeSamples({apiKey: userApiKey});
         }
 
-        function personalizeCodeSamples(props) {
-          const samples = e.target.shadowRoot.querySelectorAll('code > *');
-          samples.forEach(s => {
-            s.textContent = s.textContent.replace('Token INFLUX_TOKEN', `${props.apiKey}`)
-          });
-        }
+        docRoot?.addEventListener('click', (e) => {
+            if(e.target.type === 'submit') {
+              createAuthButtonEvents({button: e.target});
+            }
+        });
 
-        const userApiKey = findApiKey(e.detail.request);
-        if(userApiKey) {
-            setApiKey(userApiKey);
-            personalizeCodeSamples({apiKey: userApiKey});
-        }
+      window.addEventListener('DOMContentLoaded', (e) => {
+        rapidocEl.current && rapidocEl.current.addEventListener('api-server-change', (e) => {
+          console.log('api server changed!');
+          console.log(e);
+        });
+
+        rapidocEl.current && rapidocEl.current.addEventListener('before-try', (e) => {
+          console.log('before try...')
+          if(!e?.detail?.request) {
+             return;
+          }
+        });
 
         /** Set the token from elsewhere, e.g. custom form field **/
         // const apiKeyOverride = '';
