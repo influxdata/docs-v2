@@ -1,5 +1,5 @@
 ---
-title: List of Enterprise permissions
+title: Enterprise users  permissions
 description: Overview of user management and security in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
@@ -10,6 +10,9 @@ aliases:
 ---
 
 {{% enterprise-warning-authn-b4-authz %}}
+
+- [Users](#users)
+- [Permissions](#permissions)
 
 ## Users
 
@@ -36,28 +39,35 @@ permissions to:
 * Manage Shards
 * Rebalance
 
-### Permissions
+## Permissions
+
+A **permission** (also *privilege*) is the ability to access a resource in some way, including:
+- viewing the resource
+- copying the resource
+- dropping the resource
+- writing to the resource
+- full management capabilities
 
 InfluxDB Enterprise clusters have 16 permissions:
 
-| Permission                | Description                                             |
-|:--------------------------|---------------------------------------------------------|
-| View Admin                | Permission to view or edit admin screens                |
-| View Chronograf           | Permission to use Chronograf tools                      |
-| Create Databases          | Permission to create databases                          |
-| Create Users & Roles      | Permission to create users and roles                    |
-| Add/Remove Nodes          | Permission to add/remove nodes from a cluster           |
-| Drop Databases            | Permission to drop databases                            |
-| Drop Data                 | Permission to drop measurements and series              |
-| Read                      | Permission to read data                                 |
-| Write                     | Permission to write data                                |
-| Rebalance                 | Permission to rebalance a cluster                       |
-| Manage Shards             | Permission to copy and delete shards                    |
-| Manage Continuous Queries | Permission to create, show, and drop continuous queries |
-| Manage Queries            | Permission to show and kill queries                     |
-| Manage Subscriptions      | Permission to show, add, and drop subscriptions         |
-| Monitor                   | Permission to show stats and diagnostics                |
-| Copy Shard                | Permission to copy shards                               |
+| Permission                | Description                                             | Token                  |
+|:--------------------------|---------------------------------------------------------|------------------------|
+| View Admin                | Permission to view or edit admin screens                | `ViewAdmin`            |
+| View Chronograf           | Permission to use Chronograf tools                      | `ViewChronograf`       |
+| Create Databases          | Permission to create databases                          | `CreateDatabase`       |
+| Create Users & Roles      | Permission to create users and roles                    | `CreateUserAndRole`    |
+| Add/Remove Nodes          | Permission to add/remove nodes from a cluster           | `AddRemoveNode`        |
+| Drop Databases            | Permission to drop databases                            | `DropDatabase`         |
+| Drop Data                 | Permission to drop measurements and series              | `DropData`             |
+| Read                      | Permission to read data                                 | `ReadData`             |
+| Write                     | Permission to write data                                | `WriteData`            |
+| Rebalance                 | Permission to rebalance a cluster                       | `Rebalance`            |
+| Manage Shards             | Permission to copy and delete shards                    | `ManageShard`          |
+| Manage Continuous Queries | Permission to create, show, and drop continuous queries | `ManageContnuousQuery` |
+| Manage Queries            | Permission to show and kill queries                     | `ManageQuery`          |
+| Manage Subscriptions      | Permission to show, add, and drop subscriptions         | `ManageSubscription`   |
+| Monitor                   | Permission to show stats and diagnostics                | `Monitor`              |
+| Copy Shard                | Permission to copy shards                               | `CopyShard`            |
 
 ### Permission to Statement
 
