@@ -39,8 +39,8 @@ These can only be _can only be granted by using InfluxQL_.
 There are three ways to manage authorizations in InfluxDB Enterprise:
 
 - via [InfluxQL](#manage-read-and-write-privileges-with-influxql)
-- via [Chronograf](#manage-specific-privileges-with-chronograf)
-- via the [InfluxDB Enterprise meta API](#influxdb-enterprise-meta-api) (**Recommended**)
+- via [Chronograf](#manage-enterprise-permissions-with-chronograf)
+- via the [InfluxDB Enterprise meta API](#manage-enterprise-permissions-with-the-meta-api) (**Recommended**)
 
 ### Manage read and write privileges with InfluxQL
 
@@ -65,7 +65,7 @@ with other authorization management methods (Chronograf and the API).
 Doing so may lead to inconsistencies in user permissions.
 {{% /warn %}}
 
-### Manage specific privileges with Chronograf
+### Manage Enterprise permissions with Chronograf
 
 The Chronograf user interface can manage the
 [full set of InfluxDB Enterprise permissions](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/#list-of-available-privileges).
@@ -75,12 +75,13 @@ Outside of [FGA](/enterprise_influxdb/v1.9/administration/manage/security/fine-g
 the only database-level permissions available are the basic `READ` and `WRITE`.
 These can only be managed using [InfluxQL](#manage-read-and-write-privileges-with-influxql).
 
-<!-- You cannot specify per-database permissions (grants) for users via Chronograf. -->
+Chronograf can only set permissions globally, for all databases, within a cluster.
+If you need to set permissions at the database level, use the [Meta API](#influxdb-enterprise-meta-api).
 
 See ["Manage InfluxDB users in Chronograf"](/chronograf/v1.9/administration/managing-influxdb-users/)
 for instructions.
 
-### InfluxDB Enterprise Meta API
+### Manage Enterprise permissions with the Meta API
 
 The InfluxDB Enterprise API is the
 recommended method for managing permissions.
