@@ -9,14 +9,14 @@ menu:
 weight: 10
 ---
 
+{{% enterprise-warning-authn-b4-authz %}}
+
 ## Enable authentication
 
 Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
 Once you have a working cluster
 (that is, after [installing the data nodes](/enterprise_influxdb/v1.9/introduction/install-and-deploy/installation/data_node_installation/)),
 we recommend enabling authentication right away to control access to you cluster.
-
-{{% enterprise-warning-authn-b4-authz %}}
 
 To enable authentication in a cluster, do the following:
 
