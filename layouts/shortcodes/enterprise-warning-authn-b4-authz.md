@@ -5,7 +5,6 @@
 
 **Important**  
 Authentication _must be enabled **before**_ authorization can be managed.
-_**before**_ authorization can be managed.
 If authentication is not enabled, *permissions will not be enforced*.
 
 </div>
