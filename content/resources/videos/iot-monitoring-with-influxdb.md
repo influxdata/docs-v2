@@ -1,9 +1,7 @@
 ---
 title: IoT Monitoring with InfluxDB
 description: >
-  For more information on InfluxDB and monitoring, see [Monitor data and send alerts](https://docs.influxdata.com/influxdb/cloud/monitor-alert/).\
-
-  To learn more about extracting information from IoT sensor data using InfluxDB, see [IoT sensor common queries](https://docs.influxdata.com/influxdb/cloud/query-data/common-queries/iot-common-queries/).
+  Learn how InfluxDB manages IoT sensor data in real-time, and how to quickly set up monitoring and alerts based on thresholds. 
 menu:
   resources:
     parent: Videos
@@ -12,6 +10,9 @@ youtubeID: EzFEy-xJYhM
 date: 2021-11-22
 tags: [Meet the Developers]
 metadata: [Meet the Developer Series]
+related:
+  - /influxdb/cloud/monitor-alert/
+  - /influxdb/cloud/query-data/common-queries/iot-common-queries/
 ---
 
 {{< resources/video-content >}}

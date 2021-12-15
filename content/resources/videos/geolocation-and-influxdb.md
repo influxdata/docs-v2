@@ -1,7 +1,7 @@
 ---
 title: Using Geolocation data with InfluxDB
 description: >
-  To learn more about how to work with geolocation and InfluxDB, see [Work with geo-temporal data](https://docs.influxdata.com/influxdb/cloud/query-data/flux/geo/).
+  Geolocation devices produce massive amounts of data.  Learn how to manage this data by using InfluxDB.
 menu:
   resources:
     name: Geolocation and InfluxDB
@@ -11,6 +11,8 @@ youtubeID: Mj1KdzC6EKU
 date: 2021-11-22
 tags: [Meet the Developers]
 metadata: [Meet the Developer Series]
+related:  
+  - /influxdb/cloud/query-data/flux/geo/
 ---
 
 {{< resources/video-content >}}
