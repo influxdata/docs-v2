@@ -1,7 +1,7 @@
 ---
-title: Manage users and privileges with the InfluxDB Enterprise Meta API
+title: Manage authorization with the InfluxDB Enterprise Meta API
 description: >
-  Manage authorization with the InfluxDB Enterprise Meta API.
+  Manage users and permissions with the InfluxDB Enterprise Meta API.
 menu:
   enterprise_influxdb_1_9:
     name: Manage authorization with the API
@@ -17,71 +17,18 @@ aliases:
 - [Overview](#overview)
 - [API examples](#user-and-privilege-management-over-the-influxdb-enterprise-meta-api)
 
-## Overview
-
 Use the InfluxDB Enterprise Meta API to manage authorization for a cluster.
 
-User and privilege management means
-managing the contents of a user store and the permissions that users can be granted.
-It entails creating and deleting users and roles, granting them privileges, and assigning roles to users.
-
-Managing users, roles and privileges can be done using the Chronograf InfluxDB Admin console.
-However, certain operations are only available through the Enterprise meta API.
-<!-- TODO which operations are API-only? -->
-
-**Users** are granted a set of privileges.
-<!-- which define a set of TICK stack resources and APIs available for use. -->
-
-A **role** is a predefined collection of privileges that can be assigned to a user.
-
-A **permission** (also *privilege*) is the ability to access a resource in some way, including:
-- viewing the resource
-- copying the resource
-- dropping the resource
-- writing to the resource
-- full management capabilities
-
-The level of access and the resource are combined in predefined keys.
-<!-- The enforcement of privileges is handled by the respective TICK stack services. -->
-
-### List of available privileges
-
+<!--
+## permission "tokens"
 Predefined key tokens take the form of verb-object pairs.
 When the token lacks the verb part, full management privileges are implied.
 These predefined tokens are:
+-->
 
-* `ViewAdmin`
-* `ViewChronograf`
-* `CreateDatabase`
-* `CreateUserAndRole`
-* `AddRemoveNode`
-* `DropDatabase`
-* `DropData`
-* `ReadData`
-* `WriteData`
-* `Rebalance`
-* `ManageShard`
-* `ManageContinuousQuery`
-* `ManageQuery`
-* `ManageSubscription`
-* `Monitor`
-* `CopyShard`
+<!-- For more information, see ["List of Enterprise permissions"](/enterprise_influxdb/v1.9/administration/manage/security/permissions/). -->
 
-{{% note %}}
-These privileges are system privileges and are separate from the database-specific privileges
-that can be inspected using the `show grants for "<USER>"` command when connected to a data node.
-{{% /note %}}
-
-In addition, two tokens govern Kapacitor permissions:
-
-* `KapacitorAPI`:
-  Grants the user permission to create, read, update and delete
-  tasks, topics, handlers and similar Kapacitor artefacts.
-* `KapacitorConfigAPI`:
-  Grants the user permission to override the Kapacitor configuration
-  dynamically using the configuration endpoint.
-
-### User and privilege management over the InfluxDB Enterprise meta API
+### Example API requests
 
 **Users**:
 
@@ -94,6 +41,7 @@ In addition, two tokens govern Kapacitor permissions:
 - [Remove permissions from a user](#remove-permissions-from-a-user)
 - [Remove a user](#remove-a-user)
 - [Verify user removal](#verify-user-removal)
+- [Change a user's password](#change-a-users-password)
 
 **Roles**:
 
@@ -403,7 +351,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 {"error":"user not found"}
 ```
 
-##### Change password
+##### Change a user's password
 
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"action": "change-password", "user": {"name": "<username>", "password": "newpassword"}}' localhost:8091/user
