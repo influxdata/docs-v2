@@ -9,6 +9,8 @@ aliases:
   - /enterprise_influxdb/v1.9/features/users/
 ---
 
+{{% enterprise-warning-authn-b4-authz %}}
+
 ## Users
 
 Users have permissions and roles.
