@@ -354,7 +354,7 @@ $ curl --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=
 ##### Change a user's password
 
 ```
-curl -X POST -H "Content-Type: application/json" -d '{"action": "change-password", "user": {"name": "<username>", "password": "newpassword"}}' localhost:8091/user
+$ curl -Lv -u "admin:changeit" -H "Content-Type: application/json" -d '{"action": "change-password", "user": {"name": "<username>", "password": "newpassword"}}' localhost:8091/user
 ```
 
 
