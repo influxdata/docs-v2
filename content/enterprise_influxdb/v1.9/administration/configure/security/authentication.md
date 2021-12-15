@@ -19,7 +19,7 @@ we recommend enabling authentication to control access to your cluster.
 
 To enable authentication in a cluster, do the following:
 
-1. Set `auth-enabled` to `true` in the `[http]` section of the config files 
+1. Set `auth-enabled` to `true` in the `[http]` section of the configuration files 
    for all meta **and** data nodes:
    ```toml
    [http]
@@ -40,7 +40,7 @@ To enable authentication in a cluster, do the following:
 
 For a more secure alternative to using passwords,
 include JWT tokens with requests to the InfluxDB API.
-This is currently only possible through the [InfluxDB HTTP API](/enterprise_influxdb/v1.9/tools/api/).
+This is only available through the [InfluxDB HTTP API](/enterprise_influxdb/v1.9/tools/api/).
 
 1. **Add a shared secret in your InfluxDB Enterprise configuration file**.
 
@@ -48,7 +48,7 @@ This is currently only possible through the [InfluxDB HTTP API](/enterprise_infl
    By default, `shared-secret` is set to an empty string, in which case no JWT authentication takes place.
    <!-- TODO: meta, data, or both? -->
    Add a custom shared secret in your [InfluxDB configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#shared-secret--).
-   The longer the secret string, the more secure it is:
+   Longer strings are more secure:
 
    ```toml
    [http]
@@ -74,12 +74,11 @@ This is currently only possible through the [InfluxDB HTTP API](/enterprise_infl
    ```
 
    - **username** - The name of your InfluxDB user.
-   - **exp** - The expiration time of the token in UNIX epoch time.
+   - **exp** - The expiration time of the token in UNIX [epoch time](/enterprise_influxdb/v1.9/query_language/explore-data/#epoch_time).
      For increased security, keep token expiration periods short.
      For testing, you can manually generate UNIX timestamps using [https://www.unixtimestamp.com/index.php](https://www.unixtimestamp.com/index.php).
 
-   Encode the payload using your shared secret.
-   You can do this with either a JWT library in your own authentication server or by hand at [https://jwt.io/](https://jwt.io/).
+   To encode the payload using your shared secret, use a JWT library in your own authentication server or encode by hand at [https://jwt.io/](https://jwt.io/).
 
    The generated token follows this format: `<header>.<payload>.<signature>`
 
