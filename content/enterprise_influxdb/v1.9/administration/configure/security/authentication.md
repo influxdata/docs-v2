@@ -11,6 +11,11 @@ weight: 10
 
 {{% enterprise-warning-authn-b4-authz %}}
 
+To configure authentication, do one of the following: 
+
+- [Enable authentication](#enable-authentication)
+- [Configure authentication using JWT tokens](#configure-authentication-using-jwt-tokens)
+
 ## Enable authentication
 
 Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
