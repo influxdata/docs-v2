@@ -58,6 +58,6 @@ InfluxData recommends implementing on-disk encryption; InfluxDB does not offer b
 -->
 
 _For information on configuring security features such as authentication and TLS,
-see ["Configure security"](/enterprise_influxdb/v1.9/administration/configure/security/)._
+see [Configure security](/enterprise_influxdb/v1.9/administration/configure/security/)._
 
 {{< children >}}
