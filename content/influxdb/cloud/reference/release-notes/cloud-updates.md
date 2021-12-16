@@ -24,7 +24,6 @@ To enhance security, the Token UI will only display an InfluxDB Cloud token when
 - [Remove Website demo data](#remove-website-demo-data)
 - [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)
 - [Add ability to share notebooks](#add-ability-to-share-notebooks)
-- [Update Tokens UI](#update-tokens-ui)
 
 ### Remove Website Demo Data
 
