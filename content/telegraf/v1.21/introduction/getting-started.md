@@ -4,6 +4,7 @@ description: Configure and start the Telegraf service.
 aliases:
   - /telegraf/v1.15/introduction/getting_started/
 menu:
+  telegraf_1_21:
   
     name: Get started
     weight: 30

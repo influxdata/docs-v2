@@ -3,6 +3,7 @@ title: Prometheus Remote Write input data format
 description: |
   Use the Prometheus Remote Write input data format to write samples directly into Telegraf metrics.
 menu:
+  telegraf_1_21:
 
     name: Prometheus Remote Write
     weight: 40

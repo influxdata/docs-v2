@@ -2,6 +2,7 @@
 title: Troubleshoot Telegraf
 description: Capture Telegraf output, submit sample metrics, and see how Telegraf formats and emits points to its output plugins.
 menu:
+  telegraf_1_21:
   
     name: Troubleshoot
     weight: 30

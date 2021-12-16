@@ -2,6 +2,7 @@
  title: Contributing to Telegraf
 
  menu:
+  telegraf_1_21:
    
      name: Contributing
      parent: About the project

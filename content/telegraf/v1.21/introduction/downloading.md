@@ -2,6 +2,7 @@
 title: Download Telegraf
 description: Download the latest version of Telegraf.
 menu:
+  telegraf_1_21:
   
     name: Download
     weight: 10

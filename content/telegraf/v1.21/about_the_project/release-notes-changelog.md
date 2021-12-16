@@ -4,6 +4,7 @@ description: Important features and changes in the latest version of Telegraf.
 alias:
   - /telegraf/v1.20/reference/release-notes/influxdb/
 menu:
+  telegraf_1_21:
 
     name: Release notes
     weight: 10

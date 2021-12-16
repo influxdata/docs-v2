@@ -2,6 +2,7 @@
 title: Nagios input data format
 description: Use the Nagios input data format to parse the output of Nagios plugins into Telegraf metrics.
 menu:
+  telegraf_1_21:
   
     name: Nagios
     weight: 90

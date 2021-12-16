@@ -2,6 +2,7 @@
 title: Graphite output data format
 description: Use the Graphite output data format to serialize data from Telegraf metrics.
 menu:
+  telegraf_1_21:
   
     name: Graphite output
     weight: 20

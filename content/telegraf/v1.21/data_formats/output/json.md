@@ -2,6 +2,7 @@
 title: JSON output data format
 description: Telegraf's `json` output data format converts metrics into JSON documents.
 menu:
+  telegraf_1_21:
   
     name: JSON
     weight: 40

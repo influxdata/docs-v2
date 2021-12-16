@@ -2,6 +2,7 @@
  title: License
 
  menu:
+  telegraf_1_21:
    
      name: License
      parent: About the project
