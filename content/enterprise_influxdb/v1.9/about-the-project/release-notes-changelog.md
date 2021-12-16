@@ -27,27 +27,10 @@ menu:
 
 ### Maintenance updates
 
-#### Build maintenance
-
-- Update to [Flux v0.133](/flux/v0.x/release-notes/#v01330-2021-10-04).
+- Update to [Flux v0.140](/flux/v0.x/release-notes/#v01400-2021-11-22).
 - Upgrade to Go 1.17.
-- Upgrade miscellaneous dependencies, including `grpc`.
 - Upgrade `protobuf` library.
-- Export package signatures currently being created in Jenkins to AWS s3.
-- Add `go vet` and `goimports` static checks prior to building binaries.
-- Verify rustup script in CI.
-- Fix rust-install script in CI.
-- Update ear-scaffold build instructions on Ubuntu.
-
-#### Test maintenance
-
-- Improve test runner to use `gotestsum`.
-- Update comments on permissions types.
-- Update AWS secret environment variables.
 - Remove Azure, AWS, and GCP entitlements.
-- Add test for field valid size limit.
-- Fix Flux end-to-end tester.
-- Increase meta client timeout in tests.
 
 ### Bug fixes
 
@@ -60,7 +43,6 @@ menu:
 
 - Fix panic when running `influxd config`.
 - Ensure `influxd-ctl entropy` commands use the correct TLS settings.
-- Resolve race condition in `meta.Service.Open` and `meta.Service.Close`.
 
 #### Profiling
 
@@ -71,9 +53,9 @@ menu:
 - Rename ARM `.rpms` packages with `yum` -compatible names.
 - Ensure package versions generally start with the digit `1`. 
 
-#### Performance
+### Meta node join messaging
 
-- Improve meta node join performance.
+- Improve meta node join messaging to convey that a new meta node has been added to metadata and peer nodes.
 
 ## v1.9.5 [2021-10-11]
 
