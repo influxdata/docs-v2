@@ -94,7 +94,7 @@ menu:
 
 ## New plugins
 
-### Inputs
+#### Inputs
 
 - [Intel PMU Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/intel_pmu/README.md)(`intel_pmu`) - Contributed by [@bkoltowski](https://github.com/bkotlowski).
 - [Logical Volume Manager Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/lvm/README.md)(`lvm`) - Contributed by @InfluxData.
@@ -105,7 +105,7 @@ menu:
 - [GroundWork Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/groundwork/README.md)(`groundwork`) - Contributed by [@VladislavSenkevich)(https://github.com/VladislavSenkevich).
 - [MongoDB Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/mongodb/README.md)(`mongodb`) - Contributed by [@bustedware](https://github.com/bustedware).
 
-### Aggregator
+#### Aggregator
 - [Starlark Aggregator](https://github.com/influxdata/telegraf/blob/master/plugins/aggregators/starlark/README.md)(`starlark`) - Contributed by [@essobedo](https://github.com/essobedo).
 
 ## v1.20.4 [2021-11-17]
