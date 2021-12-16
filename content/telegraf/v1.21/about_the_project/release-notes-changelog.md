@@ -94,7 +94,7 @@ menu:
 
 ## New plugins
 
-### Inputs
+#### Inputs
 
 - [Intel PMU Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/intel_pmu/README.md)(`intel_pmu`) - Contributed by [@bkoltowski](https://github.com/bkotlowski).
 - [Logical Volume Manager Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/lvm/README.md)(`lvm`) - Contributed by @InfluxData.
