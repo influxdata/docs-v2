@@ -28,17 +28,6 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
     5. (Optional) [Monitor data](#monitor-data)
     6. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
 
-## Add demo data
-
-This example uses InfluxDB Cloud's Website Monitoring demo data bucket. To add the demo data bucket:
-
-1.  Click **Load Data** > **Buckets** in the navigation menu on the left.
-
-    {{< nav-icon "data" >}}
-
-2.  Click **{{< icon "plus" >}} {{< caps >}}Add Demo Data{{< /caps >}}**, and then select the **Website Monitoring** bucket.
-3.  The Demo Data bucket appears in your list of buckets.
-
 ## Add sample data
 
 {{% note %}}
