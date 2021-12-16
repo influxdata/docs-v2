@@ -14,6 +14,13 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+<!-->
+## January 2022
+### Update Tokens UI
+
+To enhance security, the Token UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you will not be able to view or copy the token.
+<-->
+
 ## November 2021
 
 - [Remove Website demo data](#remove-website-demo-data)
@@ -37,10 +44,6 @@ Sample data buckets provide a way to explore InfluxDB without ingesting your own
 ### Add ability to share notebooks
 
 Add ability to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
-
-### Update Tokens UI
-
-To enhance security, the Token UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you will not be able to view or copy the token.
 
 ## October 2021
 
