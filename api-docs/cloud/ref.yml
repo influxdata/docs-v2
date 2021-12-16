@@ -2395,11 +2395,6 @@ components:
             - invalid
           readOnly: true
           type: string
-        maxLength:
-          description: Max length in bytes for a body of line-protocol.
-          format: int32
-          readOnly: true
-          type: integer
         message:
           description: Message is a human-readable message.
           readOnly: true
@@ -2407,7 +2402,6 @@ components:
       required:
         - code
         - message
-        - maxLength
     Link:
       description: URI of resource.
       format: uri
@@ -9989,7 +9983,7 @@ paths:
           description: Unexpected error
       summary: List scripts
       tags:
-        - Invokable Scripts
+        - Invocable Scripts
     post:
       operationId: PostScripts
       requestBody:
@@ -10011,7 +10005,7 @@ paths:
           description: Unexpected error
       summary: Create a script
       tags:
-        - Invokable Scripts
+        - Invocable Scripts
   /api/v2/scripts/{scriptID}:
     delete:
       description: Deletes a script and all associated records.
@@ -10031,9 +10025,9 @@ paths:
           description: Unexpected error
       summary: Delete a script
       tags:
-        - Invokable Scripts
+        - Invocable Scripts
     get:
-      description: Uses script ID to retrieve details of an invokable script.
+      description: Uses script ID to retrieve details of an invocable script.
       operationId: GetScriptsID
       parameters:
         - description: The script ID.
@@ -10054,10 +10048,10 @@ paths:
           description: Unexpected error
       summary: Retrieve a script
       tags:
-        - Invokable Scripts
+        - Invocable Scripts
     patch:
       description: >
-        Updates properties (`name`, `description`, and `script`) of an invokable
+        Updates properties (`name`, `description`, and `script`) of an invocable
         script.
       operationId: PatchScriptsID
       parameters:
@@ -10086,7 +10080,7 @@ paths:
           description: Unexpected error
       summary: Update a script
       tags:
-        - Invokable Scripts
+        - Invocable Scripts
   /api/v2/scripts/{scriptID}/invoke:
     post:
       description: >-
@@ -10116,7 +10110,7 @@ paths:
           description: Unexpected error
       summary: Invoke a script
       tags:
-        - Invokable Scripts
+        - Invocable Scripts
   /api/v2/setup:
     get:
       description: >-
@@ -12127,6 +12121,10 @@ paths:
         format.
 
 
+        InfluxDB Cloud enforces rate and size limits different from InfluxDB
+        OSS. For details, see Responses.
+
+
         For more information and examples, see the following:
 
         - [Write data with the InfluxDB
@@ -12289,10 +12287,19 @@ paths:
             `bucket`, and name.
         '413':
           content:
+            application/json:
+              examples:
+                dataExceedsSizeLimitOSS:
+                  summary: InfluxDB OSS response
+                  value: >
+                    {"code":"request too large","message":"unable to read data:
+                    points batch is too large"}
+              schema:
+                $ref: '#/components/schemas/LineProtocolLengthError'
             text/html:
               examples:
                 dataExceedsSizeLimit:
-                  summary: Cloud response
+                  summary: InfluxDB Cloud response
                   value: |
                     <html>
                       <head><title>413 Request Entity Too Large</title></head>
@@ -12304,13 +12311,21 @@ paths:
                     </html>
               schema:
                 type: string
-          description: >-
-            Request entity too large. The payload exceeded the 50MB size limit.
-            InfluxDB rejected the batch and did not write any data.
+          description: >
+            The request payload is too large. InfluxDB rejected the batch and
+            did not write any data.
+
+            #### InfluxDB Cloud:
+             - returns this error if the payload exceeds the 50MB size limit.
+             - returns `Content-Type: text/html` for this error.
+
+            #### InfluxDB OSS:
+             - returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
+             - returns `Content-Type: application/json` for this error.
         '429':
           description: >-
-            The token is temporarily over quota. The Retry-After header
-            describes when to try the write again.
+            InfluxDB Cloud only. The token is temporarily over quota. The
+            Retry-After header describes when to try the write again.
           headers:
             Retry-After:
               description: >-
@@ -12387,7 +12402,7 @@ tags:
   - DBRPs
   - Delete
   - DemoDataBuckets
-  - Invokable Scripts
+  - Invocable Scripts
   - Labels
   - Limits
   - NotificationEndpoints
@@ -12519,7 +12534,7 @@ x-tagGroups:
       - DBRPs
       - Delete
       - DemoDataBuckets
-      - Invokable Scripts
+      - Invocable Scripts
       - Labels
       - Limits
       - NotificationEndpoints

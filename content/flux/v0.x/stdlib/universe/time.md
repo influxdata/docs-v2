@@ -48,7 +48,7 @@ time(v: "2021-01-01T00:00:00Z")
 
 #### Convert an integer to a time value
 ```js
-int(v: 609459200000000000)
+time(v: 609459200000000000)
 
 // Returns 2021-01-01T00:00:00Z
 ```
