@@ -4502,6 +4502,39 @@ components:
         type:
           type: string
       type: object
+    TelegrafPluginRequest:
+      properties:
+        config:
+          type: string
+        description:
+          type: string
+        metadata:
+          properties:
+            buckets:
+              items:
+                type: string
+              type: array
+          type: object
+        name:
+          type: string
+        orgID:
+          type: string
+        plugins:
+          items:
+            properties:
+              alias:
+                type: string
+              config:
+                type: string
+              description:
+                type: string
+              name:
+                type: string
+              type:
+                type: string
+            type: object
+          type: array
+      type: object
     TelegrafPlugins:
       properties:
         os:
@@ -5879,109 +5912,40 @@ components:
         - position
       type: object
   securitySchemes:
-    BasicAuthentication:
-      description: >
-        ### Basic authentication scheme
-
-
-        Use the HTTP Basic authentication scheme with clients that support the
-        InfluxDB 1.x convention of username and password (that don't support the
-        `Authorization: Token` scheme):
-          - **username**: InfluxDB Cloud username
-          - **password**: InfluxDB Cloud API token
-
-        #### Example
-
-
-        `curl --get "https://europe-west1-1.gcp.cloud2.influxdata.com/query"
-              --user "exampleuser@influxdata.com":"INFLUX_API_TOKEN"`
-
-        Replace the following:
-
-        - *`exampleuser@influxdata.com`*: the email address that you signed up
-        with
-
-        - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)
-
-
-        For more information and examples, see how to [authenticate with a
-        username and
-        password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
-      scheme: basic
-      type: http
-    QuerystringAuthentication:
-      description: >
-        ### Querystring authentication scheme
-
-
-        Use InfluxDB 1.x API parameters to provide credentials through the query
-        string.
-
-
-        Username and password schemes require the following credentials:
-
-        - **username**: InfluxDB Cloud username
-
-        - **password**: InfluxDB Cloud API token
-
-
-        #### Example
-
-
-        `curl --get "https://europe-west1-1.gcp.cloud2.influxdata.com/query"
-              --data-urlencode "u=exampleuser@influxdata.com"
-              --data-urlencode "p=INFLUX_API_TOKEN"`
-
-        Replace the following:
-
-        - *`exampleuser@influxdata.com`*: the email address that you signed up
-        with
-
-        - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)
-
-
-        For more information and examples, see how to [authenticate with a
-        username and password
-        scheme](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
-      in: query
-      name: u=&p=
-      type: apiKey
     TokenAuthentication:
-      bearerFormat: InfluxDB token string
       description: >
-        ### Token authentication scheme
+        Use the [Token
+        authentication](#section/Authentication/TokenAuthentication)
+
+        scheme to authenticate to the InfluxDB API.
 
 
-        InfluxDB API tokens ensure secure interaction between users and data. A
-        token belongs to an organization and identifies InfluxDB permissions
-        within the organization.
+
+        In your API requests, send an `Authorization` header.
+
+        For the header value, provide the word `Token` followed by a space and
+        an InfluxDB API token.
+
+        The word `Token` is case-sensitive.
 
 
-        Include your API token in an `Authorization: Token INFLUX_TOKEN` HTTP
-        header with each request.
+
+        ### Syntax
 
 
-        #### Example
+        `Authorization: Token YOUR_INFLUX_TOKEN`
 
-
-        `curl https://us-east-1-1.aws.cloud2.influxdata.com/
-           --header "Authorization: Token INFLUX_API_TOKEN"`
-
-        Replace *`INFLUX_API_TOKEN`* with your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token).
 
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
           - [Authorize API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
           - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
-          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token).
-      scheme: token
-      type: http
+      in: header
+      name: Authorization
+      type: apiKey
 info:
-  title: Influx Cloud API Service
+  title: InfluxDB Cloud API Service
   description: >
     The InfluxDB v2 API provides a programmatic interface for all interactions
     with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
@@ -11213,7 +11177,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TelegrafRequest'
+              $ref: '#/components/schemas/TelegrafPluginRequest'
         description: Telegraf configuration to create
         required: true
       responses:
@@ -11317,7 +11281,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TelegrafRequest'
+              $ref: '#/components/schemas/TelegrafPluginRequest'
         description: Telegraf configuration update to apply
         required: true
       responses:
@@ -12364,20 +12328,16 @@ paths:
         - Write
 security:
   - TokenAuthentication: []
-  - BasicAuthentication: []
-  - QuerystringAuthentication: []
 servers:
   - url: /
 tags:
-  - description: >
-      Use one of the following schemes to authenticate to the InfluxDB API:
+  - description: |
+      The InfluxDB `/api/v2` API requires authentication for all requests.
+      Use InfluxDB API tokens to authenticate requests to the `/api/v2` API.
 
-      - [Token authentication](#section/Authentication/TokenAuthentication)
 
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-      - [Querystring
-      authentication](#section/Authentication/QuerystringAuthentication)
+      For more information, see
+      [Token authentication](#section/Authentication/TokenAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
