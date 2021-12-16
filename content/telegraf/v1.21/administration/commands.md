@@ -27,7 +27,7 @@ telegraf [flags]
 | `config`  | Print out full sample configuration to stdout. |
 | `version` | Print version to stdout.                       |
 
-## Flags
+## Flags {id="telegraf-command-flags"}
 
 | Flag                             | Description                                                                                                                       |
 | :------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
