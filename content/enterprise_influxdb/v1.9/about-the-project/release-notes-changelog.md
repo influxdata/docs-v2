@@ -53,9 +53,9 @@ menu:
 - Rename ARM `.rpms` packages with `yum` -compatible names.
 - Ensure package versions generally start with the digit `1`. 
 
-### Meta node join messaging
+### Meta node join
 
-- Improve meta node join messaging to convey that a new meta node has been added to metadata and peer nodes.
+- Improve `meta node join` robustness and provide better error messages on failure.
 
 ## v1.9.5 [2021-10-11]
 
