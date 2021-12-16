@@ -23,7 +23,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ### Remove Website Demo Data
 
-To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer. If you're looking for a data to get started with in InfluxDB Cloud, check out sample data buckets, which support a variety of use cases.
+To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer. If you're looking for data to get started with in InfluxDB Cloud, check out sample data buckets, which support a variety of use cases.
 
 ### Add sample data buckets to Notebooks UI
 
