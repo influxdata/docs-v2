@@ -980,7 +980,7 @@ input:
     description: |
       The Logical Volume Manager collects information about physical volumes, volume groups, and logical volumes in Linux.
     introduced: 1.21.0
-    tags: [linux]
+    tags: [linux, systems]
 
   - name: Logparser
     id: logparser
