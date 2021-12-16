@@ -4,6 +4,7 @@
     margin: 0 .15rem;
     &.middle:before { vertical-align: middle; }
     &.top:before { vertical-align: text-top; }
+    &.bottom:before { vertical-align: bottom; }
     &.xsmall:before { font-size: .8rem; }
     &.small:before { font-size: .9rem; }
     &.large:before { font-size: 1.1rem; }
@@ -64,6 +65,24 @@
           top: 2px;
           right: 2px;
         }
+      }
+    }
+
+    &.notebook-add-cell {
+      display: inline-block;
+      position: relative;
+      border-radius: 50%;
+      height: 1.3rem;
+      width: 1.3rem;
+      background: linear-gradient(45deg, #5c10a0 0%, #8e1fc3 100%);
+      vertical-align: text-bottom;
+      text-align: center;
+      color: #fff;
+      font-size: .8rem;
+
+      & > span {
+        display: block;
+        margin: 0.3rem 0;
       }
     }
   }
@@ -261,17 +280,18 @@
 
       .acct-label-v3 {
         display: inline-block;
-        padding: 5px 0px 0px 8px;
+        padding: 8px 0px 0px 8px;
         width: 165px;
 
         .username {
           font-size: .75rem;
+          line-height: .75rem;
           font-weight: 500;
           color: #9e9ead;
         }
         .orgname {
           font-size: .85rem;
-          line-height: 1.1rem;
+          line-height: 1rem;
         }
       }
 
@@ -305,7 +325,7 @@
 }
 
 
-//////////////////////////////////////////////////////////////////////////////// 
+////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 

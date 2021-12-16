@@ -159,23 +159,18 @@ does the same thing and is much more performant._
 {{% code-tab-content %}}
 
 ```js
-average = (tables=<-, outputField="average") =>
-  tables
+average = (tables=<-, outputField="average") => tables
     |> reduce(
-      // Define the initial accumulator record
-      identity: {
-        count: 1.0,
-        sum:   0.0,
-        avg:   0.0
-      },
-      fn: (r, accumulator) => ({
-        // Increment the counter on each reduce loop
-        count: accumulator.count + 1.0,
-        // Add the _value to the existing sum
-        sum:   accumulator.sum + r._value,
-        // Divide the existing sum by the existing count for a new average
-        avg:   accumulator.sum / accumulator.count
-      })
+        // Define the initial accumulator record
+        identity: {count: 0.0, sum: 0.0, avg: 0.0},
+        fn: (r, accumulator) => ({
+            // Increment the counter on each reduce loop
+            count: accumulator.count + 1.0,
+            // Add the _value to the existing sum
+            sum: accumulator.sum + r._value,
+            // Divide the existing sum by the existing count for a new average
+            avg: (accumulator.sum + r._value) / (accumulator.count + 1.0),
+        }),
     )
     // Drop the sum and the count columns since they are no longer needed
     |> drop(columns: ["sum", "count"])
@@ -189,21 +184,16 @@ average = (tables=<-, outputField="average") =>
 
 {{% code-tab-content %}}
 ```js
-average = (tables=<-, outputField="average") =>
-  tables
+average = (tables=<-, outputField="average") => tables
     |> reduce(
-      identity: {
-        count: 1.0,
-        sum:   0.0,
-        avg:   0.0
-      },
-      fn: (r, accumulator) => ({
-        count: accumulator.count + 1.0,
-        sum:   accumulator.sum + r._value,
-        avg:   accumulator.sum / accumulator.count
-      })
+        identity: {count: 0.0, sum: 0.0, avg: 0.0},
+        fn: (r, accumulator) => ({
+            count: accumulator.count + 1.0,
+            sum: accumulator.sum + r._value,
+            avg: (accumulator.sum + r._value) / (accumulator.count + 1.0),
+        }),
     )
-    |> drop(columns: ["sum", "count"])    
+    |> drop(columns: ["sum", "count"])
     |> set(key: "_field", value: outputField)
     |> rename(columns: {avg: "_value"})
 ```
@@ -218,23 +208,22 @@ The following function expects input tables to have `c1_value` and `c2_value`
 columns and generates an average for each.
 
 ```js
-multiAvg = (tables=<-) =>
-  tables
+multiAvg = (tables=<-) => tables
     |> reduce(
-      identity: {
-        count:  1.0,
-        c1_sum: 0.0,
-        c1_avg: 0.0,
-        c2_sum: 0.0,
-        c2_avg: 0.0
-      },
-      fn: (r, accumulator) => ({
-        count:  accumulator.count + 1.0,
-        c1_sum: accumulator.c1_sum + r.c1_value,
-        c1_avg: accumulator.c1_sum / accumulator.count,
-        c2_sum: accumulator.c2_sum + r.c2_value,
-        c2_avg: accumulator.c2_sum / accumulator.count
-      })
+        identity: {
+            count: 1.0,
+            c1_sum: 0.0,
+            c1_avg: 0.0,
+            c2_sum: 0.0,
+            c2_avg: 0.0,
+        },
+        fn: (r, accumulator) => ({
+            count: accumulator.count + 1.0,
+            c1_sum: accumulator.c1_sum + r.c1_value,
+            c1_avg: accumulator.c1_sum / accumulator.count,
+            c2_sum: accumulator.c2_sum + r.c2_value,
+            c2_avg: accumulator.c2_sum / accumulator.count,
+        }),
     )
 ```
 
@@ -243,16 +232,13 @@ Use `reduce()` to create a function that aggregates gross and net profit.
 This example expects `profit` and `expenses` columns in the input tables.
 
 ```js
-profitSummary = (tables=<-) =>
-  tables
+profitSummary = (tables=<-) => tables
     |> reduce(
-      identity: {
-        gross: 0.0,
-        net:   0.0
-      },
-      fn: (r, accumulator) => ({
-        gross: accumulator.gross + r.profit,
-        net:   accumulator.net + r.profit - r.expenses
-      })
+        identity: {gross: 0.0, net: 0.0},
+        fn: (r, accumulator) => ({
+            gross: accumulator.gross + r.profit,
+            net: accumulator.net + r.profit - r.expenses
+            }
+        )
     )
 ```

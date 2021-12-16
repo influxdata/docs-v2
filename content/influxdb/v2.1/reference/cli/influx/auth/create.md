@@ -41,7 +41,7 @@ influx auth create [flags]
 |      | `--read-orgs`                   | Grant permission to read organizations                                |             |                       |
 |      | `--read-tasks`                  | Grant permission to read tasks                                        |             |                       |
 |      | `--read-telegrafs`              | Grant permission to read Telegraf configurations                      |             |                       |
-|      | `--read-user`                   | Grant permission to read organization users                           |             |                       |
+|      | `--read-users`                  | Grant permission to read organization users                           |             |                       |
 |      | `--skip-verify`                 | Skip TLS certificate verification                                     |             | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`                       | API token                                                             | string      | `INFLUX_TOKEN`        |
 | `-u` | `--user`                        | Username                                                              | string      |                       |
@@ -55,7 +55,7 @@ influx auth create [flags]
 |      | `--write-orgs`                  | Grant permission to create and update organizations                   |             |                       |
 |      | `--write-tasks`                 | Grant permission to create and update tasks                           |             |                       |
 |      | `--write-telegrafs`             | Grant permission to create and update Telegraf configurations         |             |                       |
-|      | `--write-user`                  | Grant permission to create and update organization users              |             |                       |
+|      | `--write-users`                  | Grant permission to create and update organization users              |             |                       |
 
 ## Examples
 
@@ -100,7 +100,7 @@ influx auth create \
   --read-orgs \
   --read-tasks \
   --read-telegrafs \
-  --read-user \
+  --read-users \
   --write-buckets \
   --write-checks \
   --write-dashboards \
@@ -110,7 +110,7 @@ influx auth create \
   --write-orgs \
   --write-tasks \
   --write-telegrafs \
-  --write-user
+  --write-users
 ```
 
 ### Create an API token with read and write access to specific buckets
@@ -136,5 +136,5 @@ influx auth create \
   --read-orgs \
   --read-tasks \
   --read-telegrafs \
-  --read-user
+  --read-users
 ```

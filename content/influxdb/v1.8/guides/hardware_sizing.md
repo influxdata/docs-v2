@@ -35,7 +35,7 @@ We recommend InfluxDB Enterprise, which supports multiple data nodes (a cluster)
 InfluxDB Enterprise distributes multiple copies of your data across a cluster,
 providing high-availability and redundancy, so an unavailable node doesn’t significantly impact the cluster.
 
-For more information about sizing requirements for InfluxDB Enterprise, see [InfluxDB Enterprise hardware sizing guidelines](/enterprise_influxdb/v1.9/guides/hardware_sizing//guides/hardware_sizing/).
+For more information about sizing requirements for InfluxDB Enterprise, see [InfluxDB Enterprise hardware sizing guidelines](/enterprise_influxdb/v1.8/guides/hardware_sizing/).
 
 ## Query guidelines
 
