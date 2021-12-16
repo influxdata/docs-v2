@@ -763,7 +763,7 @@ input:
     description: |
       The Intel PMU input plugin exposes Intel PMU (Performance Monitoring Unit) metrics available through Linux Perf subsystem.
     introduced: 1.21.0
-    tags: [linux]
+    tags: [linux, systems]
 
   - name: Intel Powerstat
     id: intel_powerstat
