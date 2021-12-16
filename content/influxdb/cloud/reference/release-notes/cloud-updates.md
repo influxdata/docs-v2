@@ -25,18 +25,17 @@ To enhance security, the Token UI will only display an InfluxDB Cloud token when
 - [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)
 - [Add ability to share notebooks](#add-ability-to-share-notebooks)
 
-### Remove Website Demo Data
+### Replace Website Demo Data bucket with new sample data buckets in Notebooks UI
 
-To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer. If you're looking for data to get started with in InfluxDB Cloud, check out sample data buckets in the Notebooks UI, which support a variety of use cases.
+To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer, and now provide new sample data buckets in notebooks. (If you've used the Website Demo Data bucket in the past, your existing demo data isn't affected, and you may continue to use as needed.)
 
-### Add sample data buckets to Notebooks UI
-
-Sample data buckets provide a way to explore InfluxDB without ingesting your own data. Now, you can add sample data buckets directly into your notebooks:
+To get started with sample data in InfluxDB Cloud (without ingesting your own data), add sample data buckets directly into your notebooks:
 
 - Air Sensor Data
 - Coinbase bitcoin price
 - NOAA National Buoy Data
 - USGS Earthquakes
+See how [create a notebook](/influxdb/cloud/notebooks/create-notebook/).
 
 ### Add ability to share notebooks
 
