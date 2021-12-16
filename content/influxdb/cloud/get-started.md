@@ -14,7 +14,6 @@ influxdb/cloud/tags: [get-started, install]
 After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to get started:
 
 1. Do one of the following:
-   - Add [demo data](#add-demo-data).
    - Add [sample data](#add-sample-data).
    - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
 2. [Create a notebook](#create-a-notebook):
