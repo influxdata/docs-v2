@@ -19,9 +19,6 @@ The sample data below contains both static and live datasets. A static sample da
 If writing a static sample dataset to a bucket with a limited retention period, use [sample.alignToNow()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/aligntonow/) to shift timestamps to align the last point in the set to now. This will prevent writing points with timestamps beyond the bucket's retention period.
 {{% /note %}}
 
-- [Sample datasets](#sample-datasets)
-- [InfluxDB Cloud demo data](#influxdb-cloud-demo-data)
-
 ## Sample datasets
 
 Do one of the following: 
@@ -196,13 +193,3 @@ option task = {
 sample.data(set: "noaa")
   |> to(bucket: "noaa"  )
  ```
-
-## InfluxDB Cloud demo data
-Use [InfluxDB Cloud demo data buckets](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data) for quick,
-free access to different time series datasets.
-
-{{< youtube GSaByPC1Bdc >}}
-
-{{% note %}}
-Demo data is not available for use with third-party integrations such as Grafana.
-{{% /note %}}
