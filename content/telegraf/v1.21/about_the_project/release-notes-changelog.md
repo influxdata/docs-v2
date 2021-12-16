@@ -12,6 +12,10 @@ menu:
 ---
 ## v1.21 [2021-12-15]
 
+{{% note %}}
+The signing for RPM digest has changed to use sha256 to improve security. Due to this change, RPM builds might not be compatible with RHEL6 and older releases. (Telegraf only supports releases in RHEL production.)
+{{% /note %}}
+
 - Restart Telegraf service if it's already running and upgraded via RPM.
 - Print loaded plugins and deprecations for once and test flags.
 - Update `eclipse/paho.mqtt.golang` module from 1.3.0 to 1.3.5.
