@@ -55,7 +55,7 @@ menu:
 
 ### Meta node join
 
-- Improve `meta node join` robustness and provide better error messages on failure.
+- Improve [`influxd-ctl join`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#join) robustness and provide better error messages on failure.
 
 ## v1.9.5 [2021-10-11]
 
