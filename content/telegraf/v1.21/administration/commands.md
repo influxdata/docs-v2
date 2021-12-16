@@ -3,7 +3,7 @@ title: Telegraf commands and flags
 description: The `telegraf` command starts and runs all the processes necessary for Telegraf to function.
 menu:
   telegraf_1_21:
-  
+
     name: Commands
     weight: 20
     parent: Administration
@@ -34,6 +34,7 @@ telegraf [flags]
 | `--aggregator-filter <filter>`   | Filter aggregators to enable. Separator is `:`.                                                                                   |
 | `--config <file>`                | Configuration file to load.                                                                                                       |
 | `--config-directory <directory>` | Directory containing additional `*.conf` files.                                                                                    |
+| `--deprecation-list` | Print all deprecated plugins or plugin options.                                                                                    |
 | `--watch-config`                 | Restart Telegraf on local configuration changes. Use either fs notifications (`inotify`) or polling (`poll`). Disabled by default        |
 | `--plugin-directory <directory>` | Directory containing `*.so` files to search recursively for plugins. Found plugins are loaded, tagged, and identified.            |
 | `--debug`                        | Enable debug logging.                                                                                                             |
