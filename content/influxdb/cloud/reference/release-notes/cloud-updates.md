@@ -27,7 +27,7 @@ To enhance security, the Token UI will only display an InfluxDB Cloud token when
 
 ### Remove Website Demo Data
 
-To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer. If you're looking for data to get started with in InfluxDB Cloud, check out sample data buckets, which support a variety of use cases.
+To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer. If you're looking for data to get started with in InfluxDB Cloud, check out sample data buckets in the Notebooks UI, which support a variety of use cases.
 
 ### Add sample data buckets to Notebooks UI
 
