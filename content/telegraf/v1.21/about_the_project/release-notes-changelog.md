@@ -10,7 +10,7 @@ menu:
     weight: 10
     parent: About the project
 ---
-## v1.21 [2021-12-16
+## v1.21 [2021-12-16]
 
 ## Bug fixes
 - Fix panic in parsers due to missing log.
@@ -18,7 +18,6 @@ menu:
 - Fix typo in OpenStack input plugin.
 
 ## Features
-- Enable Darwin arm64 build.
 - Add SMART input plugin concurrency configuration option, `nvme-cli v1.14+` support, and lint fixes.
 
 ## v1.21 [2021-12-15]
