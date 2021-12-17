@@ -30,3 +30,13 @@ smartDashes = false
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = false
+    disable = false
+    respectDoNotTrack = true
+    useSessionStorage = false
+  [privacy.youtube]
+    disable = false
+    privacyEnhanced = true
