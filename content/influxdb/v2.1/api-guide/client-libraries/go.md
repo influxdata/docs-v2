@@ -15,7 +15,7 @@ aliases:
   - /influxdb/v2.1/tools/client-libraries/go/
 ---
 
-Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go/v2) to integrate InfluxDB into Go scripts and applications.
+Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to integrate InfluxDB into Go scripts and applications.
 
 This guide presumes some familiarity with Go and InfluxDB.
 If just getting started, see [Get started with InfluxDB](/influxdb/v2.1/get-started/).
