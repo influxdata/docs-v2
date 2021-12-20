@@ -17,7 +17,7 @@ docsearch({
   debug: true,
   algoliaOptions: {
     'facetFilters': [
-      {{ if or (eq $product "platform") (le (len $productPathData) 1) }}
+      {{ if or (eq $product "platform") (eq $product "resources") (le (len $productPathData) 1) }}
         'latest:true'
       {{ else if $includeFlux }}
         ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true']
