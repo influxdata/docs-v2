@@ -5841,6 +5841,17 @@ components:
         - position
       type: object
   securitySchemes:
+    BasicAuthentication:
+      description: >
+        Use the HTTP Basic authentication scheme for InfluxDB `/api/v2` API
+        operations that support it.
+
+
+        Username and password schemes require the following credentials:
+          - **username**
+          - **password**
+      scheme: basic
+      type: http
     TokenAuthentication:
       description: >
         Use the [Token
@@ -5873,17 +5884,6 @@ components:
       in: header
       name: Authorization
       type: apiKey
-    BasicAuthentication:
-      description: |
-        ### Basic authentication scheme
-
-        Use the HTTP Basic authentication scheme for InfluxDB `/api/v2` API operations that support it:
-          - **username**
-          - **password**
-
-        Replace the following:
-        - *`exampleuser@influxdata.com`*: the email address that you signed up with
-        - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)
 info:
   title: InfluxDB OSS API Service
   description: >
