@@ -8,6 +8,7 @@ menu:
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/
   - /influxdb/cloud/reference/flux/stdlib/influxdb/cardinality/
+  - /flux/v0.x/stdlib/influxdb/cardinality/
 weight: 302
 flux/v0.x/tags: [metadata]
 related:
