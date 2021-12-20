@@ -117,7 +117,7 @@ Authorization: Basic INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN
 {{% cloud-only %}}
 
 ```sh
-Authorization: Basic INFLUX_USERNAME:INFLUX_API_TOKEN
+Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
 ```
 
 {{% /cloud-only %}}
