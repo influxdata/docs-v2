@@ -109,7 +109,7 @@ The following precisions are available:
 ##### Query a non-default retention policy
 ```sh
 curl --get http://localhost:8086/query \
-  --user "OneDotXUsername":"myPasswordOrAuthToken" \
+  --user "INFLUX_USERNAME":"INFLUX_PASSWORD" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"

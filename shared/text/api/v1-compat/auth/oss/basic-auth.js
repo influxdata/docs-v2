@@ -1,8 +1,12 @@
 /**
-  * Use an InfluxDB 1.x compatible username and password
-  * to query the InfluxDB 1.x compatibility API
-  *
-  * Use Basic authentication
+  * Use Basic authentication with an
+  * InfluxDB 1.x compatible username and password
+  * to query the InfluxDB 1.x compatibility API.
+
+  * Replace INFLUX_USERNAME with your 1.x-compatible username.
+  * Replace INFLUX_PASSWORD_OR_TOKEN with your InfluxDB API token
+  * or 1.x-compatible password.
+  * Use the default retention policy.
   */
 
 const https = require('https');
@@ -17,7 +21,7 @@ function queryWithUsername() {
   const options = {
     host: 'localhost:8086',
     path: '/query?' + querystring.stringify(queryparams),
-    auth: 'OneDotXUsername:yourPasswordOrToken',
+    auth: 'INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN',
     headers: {
       'Content-type': 'application/json'
     },
