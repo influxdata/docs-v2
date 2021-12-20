@@ -195,8 +195,10 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 {{% cloud-only %}}
 
+```sh
 /query/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
 /write/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
+```
 
 {{% /cloud-only %}}
 
