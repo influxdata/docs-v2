@@ -36,7 +36,7 @@ To learn about mapping buckets, see [Query data with InfluxQL](https://docs.infl
 
 **Sample data**
 
-The data used in this document are available for download on the [Sample Data](/enterprise_influxdb/v1.9/query_language/data_download/) page.
+The NOAA sample data used in the follwong examples is available for download on the [Sample Data](/influxdb/v2.1/reference/sample-data/) page.
 
 <!-- Before proceeding, login to the Influx CLI.
 
@@ -213,26 +213,27 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 #### Run a `SHOW SERIES` query with the `ON` clause
 
 ```sql
-// Returns series for all shards in the database
-> SHOW SERIES ON NOAA_water_database
-
-key
----
-average_temperature,location=coyote_creek
-average_temperature,location=santa_monica
-h2o_feet,location=coyote_creek
-h2o_feet,location=santa_monica
-h2o_pH,location=coyote_creek
-h2o_pH,location=santa_monica
-h2o_quality,location=coyote_creek,randtag=1
-h2o_quality,location=coyote_creek,randtag=2
-h2o_quality,location=coyote_creek,randtag=3
-h2o_quality,location=santa_monica,randtag=1
-h2o_quality,location=santa_monica,randtag=2
-h2o_quality,location=santa_monica,randtag=3
-h2o_temperature,location=coyote_creek
-h2o_temperature,location=santa_monica
+-- Returns series for all shards in the database
+SHOW SERIES ON NOAA_water_database
 ```
+//keep below this is current
+| key                                         |
+| :------------------------------------------ |
+| average_temperature,location=coyote_creek   |
+| average_temperature,location=santa_monica   |
+| h2o_feet,location=coyote_creek              |
+| h2o_feet,location=santa_monica              |
+| h2o_pH,location=coyote_creek                |
+| h2o_pH,location=santa_monica                |
+| h2o_quality,location=coyote_creek,randtag=1 |
+| h2o_quality,location=coyote_creek,randtag=2 |
+| h2o_quality,location=coyote_creek,randtag=3 |
+| h2o_quality,location=santa_monica,randtag=1 |
+| h2o_quality,location=santa_monica,randtag=2 |
+| h2o_quality,location=santa_monica,randtag=3 |
+| h2o_temperature,location=coyote_creek       |
+
+
 
 The query's output is similar to the [line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol) format.
 Everything before the first comma is the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) name.
@@ -240,43 +241,6 @@ Everything after the first comma is either a [tag key](/enterprise_influxdb/v1.9
 The `NOAA_water_database` has five different measurements and 14 different series.
 
 #### Run a `SHOW SERIES` query without the `ON` clause
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-<!-- [CLI](#) -->
-[InfluxDB API](#)
-{{% /tabs %}}
-{{% tab-content %}}
-
-Specify the database with `USE <database_name>`
-
-```sql
-> USE NOAA_water_database
-Using database NOAA_water_database
-
-> SHOW SERIES
-
-key
----
-average_temperature,location=coyote_creek
-average_temperature,location=santa_monica
-h2o_feet,location=coyote_creek
-h2o_feet,location=santa_monica
-h2o_pH,location=coyote_creek
-h2o_pH,location=santa_monica
-h2o_quality,location=coyote_creek,randtag=1
-h2o_quality,location=coyote_creek,randtag=2
-h2o_quality,location=coyote_creek,randtag=3
-h2o_quality,location=santa_monica,randtag=1
-h2o_quality,location=santa_monica,randtag=2
-h2o_quality,location=santa_monica,randtag=3
-h2o_temperature,location=coyote_creek
-h2o_temperature,location=santa_monica
-```
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
 
 Specify the database with the `db` query string parameter:
 
@@ -342,9 +306,6 @@ Specify the database with the `db` query string parameter:
     ]
 }
 ```
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
 
 #### Run a `SHOW SERIES` query with several clauses
 
@@ -1207,7 +1168,7 @@ SHOW FIELD KEY EXACT CARDINALITY ON mydb
 ```
 
 
-### `SHOW MEASUREMENT KEY CARDINALITY`
+<!-- ### `SHOW MEASUREMENT KEY CARDINALITY`
 
 ```sql
 -- show estimated cardinality of measurement set on current database
@@ -1227,7 +1188,7 @@ SHOW SERIES CARDINALITY ON mydb
 -- show exact series cardinality
 SHOW SERIES EXACT CARDINALITY
 -- show series cardinality of the series on specified database
-SHOW SERIES EXACT CARDINALITY ON mydb
+SHOW SERIES EXACT CARDINALITY ON mydb -->
 ```
 
 

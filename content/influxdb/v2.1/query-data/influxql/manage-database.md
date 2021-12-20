@@ -10,7 +10,7 @@ menu:
 weight: 204
 ---
 
-InfluxQL offers a full suite of administrative commands.
+Use of InfluxQL database management commands in 2.x versions is limited.  
 
 <!-- <table style="width:100%">
   <tr>
@@ -43,10 +43,10 @@ InfluxQL offers a full suite of administrative commands.
   </tr>
 </table> -->
 
-If you're looking for `SHOW` queries (for example, `SHOW DATABASES` or `SHOW RETENTION POLICIES`), see [Schema Exploration](/enterprise_influxdb/v1.9/query_language/explore-schema).
+<!-- If you're looking for `SHOW` queries (for example, `SHOW DATABASES` or `SHOW RETENTION POLICIES`), see [Schema Exploration](/enterprise_influxdb/v1.9/query_language/explore-schema). -->
 
-The examples in the sections below use the InfluxDB [Command Line Interface (CLI)](/enterprise_influxdb/v1.9/introduction/getting-started/).
-You can also execute the commands using the InfluxDB API; simply  send a `GET` request to the `/query` endpoint and include the command in the URL parameter `q`.
+<!-- The examples in the sections below use the InfluxDB [Command Line Interface (CLI)](/enterprise_influxdb/v1.9/introduction/getting-started/). -->
+Execute the commands using the InfluxDB API; simply  send a `GET` request to the `/query` endpoint and include the command in the URL parameter `q`.
 For more on using the InfluxDB API, see [Querying data](/enterprise_influxdb/v1.9/guides/querying_data/).
 
 > **Note:** When authentication is enabled, only admin users can execute most of the commands listed on this page.
@@ -98,7 +98,7 @@ The query creates a database called `NOAA_water_database`.
 The query creates a database called `NOAA_water_database`.
 It also creates a default retention policy for `NOAA_water_database` with a `DURATION` of three days, a [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor) of one, a [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group) duration of one hour, and with the name `liquid`. -->
 
-### Delete a database with DROP DATABASE
+<!-- ### Delete a database with DROP DATABASE
 
 The `DROP DATABASE` query deletes all of the data, measurements, series, continuous queries, and retention policies from the specified database.
 The query takes the following form:
@@ -140,7 +140,7 @@ Drop all points in the series that have a specific tag pair from all measurement
 > DROP SERIES WHERE "location" = 'santa_monica'
 ```
 
-A successful `DROP SERIES` query returns an empty result.
+A successful `DROP SERIES` query returns an empty result. -->
 
 ### Delete series with DELETE
 
@@ -205,7 +205,7 @@ A successful `DROP MEASUREMENT` query returns an empty result.
 See GitHub Issue [#4275](https://github.com/influxdb/influxdb/issues/4275) for more information.
 {{% /warn %}}
 
-### Delete a shard with DROP SHARD
+<!-- ### Delete a shard with DROP SHARD
 
 The `DROP SHARD` query deletes a shard. It also drops the shard from the
 [metastore](/enterprise_influxdb/v1.9/concepts/glossary/#metastore).
@@ -222,7 +222,7 @@ Delete the shard with the id `1`:
 
 A successful `DROP SHARD` query returns an empty result.
 InfluxDB does not return an error if you attempt to drop a shard that does not
-exist.
+exist. -->
 
 <!-- ## Retention policy management
 
