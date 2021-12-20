@@ -50,7 +50,7 @@ You may need to work with your network administrator to gain access to the meta 
 
 4. [Create roles](#manage-roles).  
    Roles let you grant permissions to groups of users assigned to each role.
-   Create the user with a standard grant, as shown in the example below, and then restrict via GRANT or by creating ROLES. 
+   As administrator, create the user with a standard grant, as shown in the example below, and then restrict via GRANT or by creating ROLES. 
    You **must** set up coarse permissions **FIRST**, before eventually restricting to a fine grain.
    
     ```sql
