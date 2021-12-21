@@ -113,7 +113,7 @@ paths:
                 format: int32
         '503':
           description: >-
-            Server is temporarily unavailable to accept writes.  The Retry-After
+            Server is temporarily unavailable to accept writes. The Retry-After
             header describes when to try the write again.
           headers:
             Retry-After:
