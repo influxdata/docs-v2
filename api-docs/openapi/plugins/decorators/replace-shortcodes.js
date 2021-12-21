@@ -2,8 +2,11 @@ module.exports = ReplaceShortcodes;
 
 function replaceDocsUrl(node) {
   const shortcode = /\{\{\% INFLUXDB_DOCS_URL \%\}\}/g;
-  const replacement = `/influxdb/${process.env.INFLUXDB_VERSION}`;
-  return node.description?.replace(shortcode, replacement);
+  let replacement = `/influxdb/${process.env.INFLUXDB_VERSION}`;
+  let description = node.description?.replace(shortcode, replacement);
+  const fullUrl = /https:\/\/docs\.influxdata\.com\/influxdb\//g;
+  replacement = "/influxdb/";
+  return description?.replace(fullUrl, replacement);
 }
 
 /** @type {import('@redocly/openapi-cli').OasDecorator} */

@@ -5950,7 +5950,7 @@ components:
         with
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#token)
+        token](/influxdb/cloud/reference/glossary/#token)
       scheme: basic
       type: http
     TokenAuthentication:
@@ -5980,8 +5980,8 @@ components:
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Authorize API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
-          - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
+          - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
+          - [Manage API tokens](/influxdb/cloud/security/tokens).
       in: header
       name: Authorization
       type: apiKey
@@ -12391,9 +12391,9 @@ tags:
 
 
       For more information and examples, see the following:
-        - [Authorize API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
-        - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens).
-        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token).
+        - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
+        - [Manage API tokens](/influxdb/cloud/security/tokens).
+        - [Assign a token to a specific user](/influxdb/cloud/security/tokens/create-token).
     name: Authorizations
   - Bucket Schemas
   - Buckets
@@ -12414,16 +12414,14 @@ tags:
       Retrieve data, analyze queries, and get query suggestions.
     name: Query
   - description: >
-      See the [**API Quick
-      Start**](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/)
-      to get up and running authenticating with tokens, writing to buckets, and
+      See the [**API Quick Start**](/influxdb/cloud/api-guide/api_intro/) to get
+      up and running authenticating with tokens, writing to buckets, and
       querying data.
 
 
       [**InfluxDB API client
-      libraries**](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/)
-      are available for popular languages and ready to import into your
-      application.
+      libraries**](/influxdb/cloud/api-guide/client-libraries/) are available
+      for popular languages and ready to import into your application.
     name: Quick start
     x-traitTag: true
   - Resources
@@ -12458,8 +12456,7 @@ tags:
       malformed</li><li>API token value is missing from the header</li><li>API
       token does not have permission. For more information about token types and
       permissions, see [Manage API
-      tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/)</li>
-      |
+      tokens](/influxdb/cloud/security/tokens/)</li> |
 
       | `404`       | Not found                | Requested resource was not
       found. `message` in the response body provides details about the requested

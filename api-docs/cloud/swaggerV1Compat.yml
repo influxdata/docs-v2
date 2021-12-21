@@ -1,20 +1,15 @@
 openapi: 3.0.0
 info:
-  title: InfluxDB API Service (V1 compatible endpoints)
+  title: InfluxDB Cloud v1 compatibility API documentation
   version: 0.1.0
-  description: >
+  description: |
     The InfluxDB 1.x compatibility /write and /query endpoints work with
-
     InfluxDB 1.x client libraries and third-party integrations like Grafana
-
     and others.
 
 
-
     If you want to use the latest InfluxDB `/api/v2` API instead,
-
-    see the [InfluxDB v2 API
-    documentation](https://docs.influxdata.com/influxdb/cloud/api/).
+    see the [InfluxDB v2 API documentation](/influxdb/cloud/api/).
 servers:
   - url: /
 paths:
@@ -435,8 +430,8 @@ components:
 
         For examples and more information, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Authorize API requests](https://docs.influxdata.com/influxdb/cloud/api-guide/api_intro/#authentication).
-          - [Manage API tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/).
+          - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
+          - [Manage API tokens](/influxdb/cloud/security/tokens/).
     BasicAuthentication:
       type: http
       scheme: basic
@@ -450,8 +445,7 @@ components:
 
 
         For examples and more information, see how to [authenticate with a
-        username and
-        password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
+        username and password](/influxdb/cloud/reference/api/influxdb-1x/).
     QuerystringAuthentication:
       type: apiKey
       in: query
@@ -466,8 +460,7 @@ components:
 
 
         For examples and more information, see how to [authenticate with a
-        username and
-        password](https://docs.influxdata.com/influxdb/cloud/reference/api/influxdb-1x/).
+        username and password](/influxdb/cloud/reference/api/influxdb-1x/).
 security:
   - TokenAuthentication: []
   - BasicAuthentication: []
