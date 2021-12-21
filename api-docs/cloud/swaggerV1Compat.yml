@@ -36,7 +36,7 @@ paths:
             type: string
           required: true
           description: >-
-            The bucket to write to. If none exist a bucket will be created with
+            Bucket to write to. If none exist a bucket will be created with
             a default 3 day retention policy.
         - in: query
           name: rp
