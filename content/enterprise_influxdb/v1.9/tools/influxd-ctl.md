@@ -935,7 +935,7 @@ To restore metadata, [restore a metadata backup](#restore-from-a-metadata-backup
 
 Show the contents of the backup.
 
-###### [ `-meta-only` ]
+###### [ `-meta-only-overwrite-force` ]
 
 Restore from a metadata only backup.
 

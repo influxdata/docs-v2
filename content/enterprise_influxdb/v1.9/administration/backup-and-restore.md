@@ -321,7 +321,7 @@ in the `metadata-backup/` directory.
 
 ```bash
 # Syntax
-influxd-ctl restore -meta-only <path-to-backup-directory>
+influxd-ctl restore -meta-only-overwrite-force <path-to-backup-directory>
 
 # Example
 $ influxd-ctl restore metadata-backup/
