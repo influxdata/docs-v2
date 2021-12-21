@@ -199,7 +199,7 @@ influxd --reporting-disabled
 Do one of the following:
 
 - [Install InfluxDB as a service with systemd](#install-influxdb-as-a-service-with-systemd)
-- [Manually download and install linux binary](#manually-download-and-install-linux-binary)
+- [Manually download and install the influxd binary](#manually-download-and-install-the-influxd-binary)
 
 {{% note %}}
 #### InfluxDB and the influx CLI are separate packages
@@ -245,11 +245,8 @@ For information about installing the `influx` CLI, see
       Active: active (running)
     ```
 
-When installed as a service, InfluxDB stores data in the following locations:
-
-- **Time series data:** `/var/lib/influxdb/engine/`
-- **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
-- **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.1/reference/cli/influx/config/) for more information)_ .
+For information about where InfluxDB stores data on disk when running as a service,
+see [File system layout](/influxdb/v2.1/reference/internals/file-system-layout/?t=Linux#installed-as-a-package).
 
 To customize your InfluxDB configuration, use either
 [command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
@@ -270,7 +267,7 @@ See InfluxDB [configuration options](/influxdb/v2.1/reference/config-options/) f
    ExecStart=/usr/bin/influxd $ARG1 $ARG2
    ```
 
-### Manually Download and Install Linux Binary
+### Manually download and install the influxd binary
 
 1. **Download the InfluxDB binary.**
 
@@ -353,7 +350,8 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 
 ## Start InfluxDB
 
-If InfluxDB was installed as a systemd service, systemd will manage starting and stopping the `influxd` daemon and no further action is required. If the binary was manually downloaded and added to the system `$PATH`, the `influxd` daemon can be started using the following command:
+If InfluxDB was installed as a systemd service, systemd manages the `influxd` daemon and no further action is required.
+If the binary was manually downloaded and added to the system `$PATH`, start the `influxd` daemon with the following command:
 
 ```bash
 influxd
