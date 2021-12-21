@@ -71,7 +71,7 @@ When you edit the saved task, you'll see the injected `option task = {task_optio
 3. In the left panel, specify the task options.
    See [Task options](/influxdb/v2.1/process-data/task-options) for detailed information about each option.
 4. Paste a raw Flux task in the code editor to the right of the task options fields.
-5. Click **{{< caps >}}Save**{{< /caps >}}** in the upper right.
+5. Click **{{< caps >}}Save{{< /caps >}}** in the upper right.
 
 ### Create a task from a template
 1. In the navigation menu on the left, select **Settings** > **Templates**.
