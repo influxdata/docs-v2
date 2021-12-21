@@ -35,12 +35,22 @@ to write data to that bucket with the `/write` compatibility API.
 
 ## Authentication
 
+{{% oss-only %}}
+
 Use one of the following authentication methods:
 * **token authentication**
 * **basic authentication with username and password**
 * **query string authentication with username and password**
 
 _For more information, see [Authentication](/influxdb/v2.1/reference/api/influxdb-1x/#authentication)._
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+{{% api/v1-compat/cloud/authentication %}}
+
+{{% /cloud-only %}}
 
 ## Request body
 Include your line protocol in the request body.
@@ -50,6 +60,8 @@ encode the line protocol.
 
 ## Query string parameters
 
+{{% oss-only %}}
+
 ### u
 (Optional) The 1.x **username** to authenticate the request.
 _See [query string authentication](/influxdb/v2.1/reference/api/influxdb-1x/#query-string-authentication)._
@@ -57,6 +69,20 @@ _See [query string authentication](/influxdb/v2.1/reference/api/influxdb-1x/#que
 ### p
 (Optional) The 1.x **password** to authenticate the request.
 _See [query string authentication](/influxdb/v2.1/reference/api/influxdb-1x/#query-string-authentication)._
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+### u
+(Optional) The InfluxDB Cloud **username** to authenticate the request.
+_See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)._
+
+### p
+(Optional) The InfluxDB Cloud **API token** to authenticate the request.
+_See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#query-string-authentication)._
+
+{{% /cloud-only %}}
 
 ### db
 ({{< req >}}) The **database** to write data to.
@@ -89,30 +115,48 @@ The following precisions are available:
 - [Use curl to write data from a file](#use-curl-to-write-data-from-a-file)
 
 ##### Write data using basic authentication
+
+{{% oss-only %}}
+
 ```sh
 curl --request POST http://localhost:8086/write?db=mydb \
-  --user "myusername:PasswordOrAuthToken" \
+  --user "INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+```sh
+curl --request POST https://cloud2.influxdata.com/write?db=mydb \
+  --user "exampleuser@influxdata.com:INFLUX_API_TOKEN" \
+  --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
+```
+
+{{% /cloud-only %}}
 
 ##### Write data using token authentication
 ```sh
 curl --request POST http://localhost:8086/write?db=mydb \
-  --header "Authorization: Token YourAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
 
 ##### Write data to a non-default retention policy
+
 ```sh
 curl --request POST http://localhost:8086/write?db=mydb&rp=customrp \
-  --user "myusername:PasswordOrAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000"
 ```
+
+
 
 ##### Write multiple lines of line protocol
 ```sh
 curl --request POST http://localhost:8086/write?db=mydb \
-  --header "Authorization: Token YourAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000000000
 measurement,host=host2 field1=14i,field2=12.7 1577836800000000000
 measurement,host=host3 field1=5i,field2=6.8 1577836800000000000"
@@ -121,13 +165,30 @@ measurement,host=host3 field1=5i,field2=6.8 1577836800000000000"
 ##### Write data with millisecond Unix timestamps
 ```sh
 curl --request POST http://localhost:8086/write?db=mydb&precision=ms \
-  --header "Authorization: Token YourAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-binary "measurement,host=host1 field1=2i,field2=2.0 1577836800000"
 ```
 
 ##### Use curl to write data from a file
 ```sh
 curl --request POST http://localhost:8086/write?db=mydb \
-  --header "Authorization: Token YourAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-binary @path/to/line-protocol.txt
 ```
+
+{{% oss-only %}}
+
+Replace the following:
+- *`INFLUX_USERNAME`*: [InfluxDB 1.x username](/influxdb/v2.1/reference/api/influxdb-1x/#manage-credentials)
+- *`INFLUX_PASSWORD_OR_TOKEN`*: [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2.1/reference/api/influxdb-1x/#manage-credentials)
+- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/v2.1/reference/glossary/#token)
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+Replace the following:
+- *`exampleuser@influxdata.com`*: the email address that you signed up with
+- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
+
+{{% /cloud-only %}}

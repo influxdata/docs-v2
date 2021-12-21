@@ -1,0 +1,14 @@
+
+{{ $series := .Get "series" }}
+{{ $videos := (union .Page.Pages .Page.Sections) }}
+{{ $tags := split (.Get "tags") ", " }}
+
+<div class="videos-wrapper">
+{{ range where $videos "Params.tags" "intersect" $tags }}
+  <div class="video-card">
+    <a href="{{ .RelPermalink }}"><img src="https://img.youtube.com/vi/{{ .Params.youtubeID }}/mqdefault.jpg" alt="{{ .Title }}"></a>
+    <p class="video-title">{{ .Title }}</p>
+    {{ if .Params.date }}<p class="video-date">{{ time.Format "Jan 2, 2006" .Params.date }}</p>{{ end }}
+  </div>
+{{ end }}
+</div>
