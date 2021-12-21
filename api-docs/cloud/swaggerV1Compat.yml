@@ -190,7 +190,7 @@ paths:
           name: rp
           schema:
             type: string
-          description: The retention policy name.
+          description: Retention policy name.
         - in: query
           name: q
           description: Defines the influxql query to run.
