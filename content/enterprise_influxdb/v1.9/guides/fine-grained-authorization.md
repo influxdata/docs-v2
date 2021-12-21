@@ -48,10 +48,9 @@ In a typical cluster configuration, the HTTP ports for data nodes
 You may need to work with your network administrator to gain access to the meta node HTTP ports.
     {{% /note %}}
 
-4. [Create roles](#manage-roles).  
-   Roles let you grant permissions to groups of users assigned to each role.
-   As administrator, create the user with a standard grant, as shown in the example below, and then restrict via GRANT or by creating ROLES. 
-   You **must** set up coarse permissions **FIRST**, before eventually restricting to a fine grain.
+4. [Create roles](#manage-roles). Roles let you grant permissions to groups of users assigned to each role.
+   As administrator, create a user with a standard grant, as shown in the example below, and then restrict by role or via grants. 
+   You **must** set up coarse read/write permissions **FIRST**, then restrict to a fine grain.
    
     ```sql
     CREATE DATABASE datacenters
