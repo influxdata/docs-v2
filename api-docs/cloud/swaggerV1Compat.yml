@@ -185,7 +185,7 @@ paths:
           schema:
             type: string
           required: true
-          description: The bucket to query.
+          description: Bucket to query.
         - in: query
           name: rp
           schema:
