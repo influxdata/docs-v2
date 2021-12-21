@@ -728,6 +728,19 @@ components:
           type: array
         links:
           $ref: '#/components/schemas/Links'
+    ColorMapping:
+      additionalProperties:
+        type: int
+      description: >-
+        A color mapping is an object that maps time series data to a UI color
+        scheme to allow the UI to render graphs consistent colors across
+        reloads.
+      example:
+        configcat_deployments-autopromotionblocker: 0
+        measurement_birdmigration_europe: 0
+        series_id_1: 0
+        series_id_2: 1
+      type: object
     ColumnDataType:
       enum:
         - integer
@@ -5821,6 +5834,9 @@ components:
       properties:
         axes:
           $ref: '#/components/schemas/Axes'
+        colorMapping:
+          $ref: '#/components/schemas/ColorMapping'
+          description: An object that contains information about the color mapping
         colors:
           description: Colors define color encoding of data into a visualization
           items:
