@@ -154,4 +154,3 @@ Replace the following:
 - *`INFLUX_TOKEN`*: your [InfluxDB API token](/influxdb/v2.0/security/tokens/)
 - *`INFLUX_ORG`*: your [InfluxDB organization name](influxdb/2.0/organizations/view-orgs/)
 - *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
-
