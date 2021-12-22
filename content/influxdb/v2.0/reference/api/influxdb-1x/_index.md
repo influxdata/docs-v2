@@ -74,7 +74,8 @@ Username and password schemes require the following credentials:
 
 {{% note %}}
 #### Password or Token
-{{% api/v1-compat/oss/password-or-token %}}
+If you have [set a password](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
+If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2.0/security/tokens/) as the password.
 {{% /note %}}
 
 For information about creating and managing 1.x-compatible authorizations, see:

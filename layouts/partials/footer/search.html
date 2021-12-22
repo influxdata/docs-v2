@@ -16,8 +16,9 @@ docsearch({
   // Set debug to true if you want to inspect the dropdown
   debug: true,
   algoliaOptions: {
+    hitsPerPage: 10,
     'facetFilters': [
-      {{ if or (eq $product "platform") (le (len $productPathData) 1) }}
+      {{ if or (eq $product "platform") (eq $product "resources") (le (len $productPathData) 1) }}
         'latest:true'
       {{ else if $includeFlux }}
         ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true']

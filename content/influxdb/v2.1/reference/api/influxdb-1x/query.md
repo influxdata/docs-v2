@@ -89,6 +89,9 @@ The following precisions are available:
 - [Execute InfluxQL queries from a file](#execute-influxql-queries-from-a-file)
 
 ##### Query using basic authentication
+
+{{% oss-only %}}
+
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
@@ -106,10 +109,34 @@ The following precisions are available:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+
+{{% /cloud-only %}}
+
 ##### Query a non-default retention policy
 ```sh
 curl --get http://localhost:8086/query \
-  --user "OneDotXUsername":"myPasswordOrAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=customrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1"
@@ -118,7 +145,7 @@ curl --get http://localhost:8086/query \
 ##### Execute multiple queries
 ```sh
 curl --get http://localhost:8086/query \
-  --header "Authorization: Token YourAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-urlencode "db=mydb" \
   --data-urlencode "q=SELECT * FROM mem WHERE host=host1;SELECT mean(used_percent) FROM mem WHERE host=host1 GROUP BY time(10m)"
 ```
@@ -126,7 +153,7 @@ curl --get http://localhost:8086/query \
 ##### Return query results with millisecond Unix timestamps
 ```sh
 curl --get http://localhost:8086/query \
-  --header "Authorization: Token YourAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-urlencode "db=mydb" \
   --data-urlencode "rp=myrp" \
   --data-urlencode "q=SELECT used_percent FROM mem WHERE host=host1" \
@@ -136,8 +163,11 @@ curl --get http://localhost:8086/query \
 ##### Execute InfluxQL queries from a file
 ```sh
 curl --get http://localhost:8086/query \
-  --header "Authorization: Token YourAuthToken" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-urlencode "db=mydb" \
   --form "q=@path/to/influxql.txt" \
   --form "async=true"
 ```
+
+Replace the following:
+- *`INFLUX_API_TOKEN`*: InfluxDB API token

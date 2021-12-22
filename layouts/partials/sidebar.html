@@ -8,6 +8,8 @@
 {{ .Scratch.Set "menuKey" "menu"}}
 {{ if eq $product "platform" }}
   {{ .Scratch.Set "menuKey" "platform" }}
+{{ else if eq $product "resources" }}
+  {{ .Scratch.Set "menuKey" "resources" }}
 {{ else }}
   {{ .Scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
 {{ end }}
@@ -64,7 +66,7 @@
   {{ end }}
 
   <!-- Flux links for InfluxDB docs -->
-  {{ $fluxWhitelist := slice "influxdb/v1.7" "influxdb/v1.8" "influxdb/v2.0" "influxdb/cloud" }}
+  {{ $fluxWhitelist := slice "influxdb/v1.7" "influxdb/v1.8" "influxdb/v2.0" "influxdb/v2.1" "influxdb/cloud" }}
   {{ $productAndVersion := print $product "/" $currentVersion }}
   {{ $latestFlux := $.Site.Data.products.flux.latest }}
   {{ if in $fluxWhitelist $productAndVersion }}
@@ -79,6 +81,12 @@
   {{ if gt (len (findRE $platformWhitelist $menuKey)) 0 }}
     <h4 class="platform">InfluxData Platform</h4>
     {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $platformMenu) . }}
+  {{ end }}
+
+  <!-- Additional resources for all docs -->
+  {{ if ne $product "resources" }}
+    <h4 class="resources">Additional resources</h4>
+    <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
   {{ end }}
 
   </ul>
