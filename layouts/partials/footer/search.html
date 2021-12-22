@@ -17,6 +17,12 @@ docsearch({
   debug: true,
   algoliaOptions: {
     hitsPerPage: 10,
+    transformData: function(hits) {
+      hits.map(hit => {
+          hit.title = hit.title + hit.product;
+      });
+      return hits
+    },
     'facetFilters': [
       {{ if or (eq $product "platform") (eq $product "resources") (le (len $productPathData) 1) }}
         'latest:true'
