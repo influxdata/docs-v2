@@ -5844,15 +5844,14 @@ components:
 
         - *`1.x_USERNAME`*: your InfluxDB v1.x username
 
-        - *`1.x_PASSWORD`*: your InfluxDB v1.x password 
+        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.0/reference/glossary/#token) 
+        token](/influxdb/v2.0/reference/glossary/#token)
 
 
         For more information and examples, see how to [authenticate with a
-        username and password
-        scheme](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+        username and password scheme](/influxdb/v2.0/reference/api/influxdb-1x/)
       scheme: basic
       type: http
     QuerystringAuthentication:
@@ -5886,15 +5885,14 @@ components:
 
         - *`1.x_USERNAME`*: your InfluxDB v1.x username
 
-        - *`1.x_PASSWORD`*: your InfluxDB v1.x password 
+        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
 
         - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.0/reference/glossary/#token) 
+        token](/influxdb/v2.0/reference/glossary/#token)
 
 
         For more information and examples, see how to [authenticate with a
-        username and
-        password](https://docs.influxdata.com/influxdb/v2.0/reference/api/influxdb-1x/)
+        username and password](/influxdb/v2.0/reference/api/influxdb-1x/)
       in: query
       name: u=&p=
       type: apiKey
@@ -5921,17 +5919,17 @@ components:
              --header "Authorization: Token INFLUX_API_TOKEN"`
 
         Replace *`INFLUX_API_TOKEN`* with your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.0/reference/glossary/#token).
+        token](/influxdb/v2.0/reference/glossary/#token).
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Use tokens in API requests](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/#authentication).
-          - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens).
-          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.0/security/tokens/create-token).
+          - [Use tokens in API requests](/influxdb/v2.0/api-guide/api_intro/#authentication).
+          - [Manage API tokens](/influxdb/v2.0/security/tokens).
+          - [Assign a token to a specific user](/influxdb/v2.0/security/tokens/create-token).
       scheme: token
       type: http
 info:
-  title: Influx OSS API Service
+  title: InfluxDB OSS API Service
   description: >
     The InfluxDB v2 API provides a programmatic interface for all interactions
     with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
@@ -12969,16 +12967,14 @@ tags:
   - name: Quick start
     x-traitTag: true
     description: >
-      See the [**API Quick
-      Start**](https://docs.influxdata.com/influxdb/v2.0/api-guide/api_intro/)
-      to get up and running authenticating with tokens, writing to buckets, and
+      See the [**API Quick Start**](/influxdb/v2.0/api-guide/api_intro/) to get
+      up and running authenticating with tokens, writing to buckets, and
       querying data.
 
 
       [**InfluxDB API client
-      libraries**](https://docs.influxdata.com/influxdb/v2.0/api-guide/client-libraries/)
-      are available for popular languages and ready to import into your
-      application.
+      libraries**](/influxdb/v2.0/api-guide/client-libraries/) are available for
+      popular languages and ready to import into your application.
   - Ready
   - Resources
   - name: Response codes
@@ -13013,8 +13009,8 @@ tags:
       following: <li>`Authorization: Token` header is missing or
       malformed</li><li>API token value is missing from the header</li><li>API
       token does not have permission. For more information about token types and
-      permissions, see [Manage API
-      tokens](https://docs.influxdata.com/influxdb/v2.0/security/tokens/)</li> |
+      permissions, see [Manage API tokens](/influxdb/v2.0/security/tokens/)</li>
+      |
 
       | `404`       | Not found                | Requested resource was not
       found. `message` in the response body provides details about the requested
