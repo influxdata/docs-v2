@@ -16,38 +16,27 @@ related:
 
 Use the InfluxDB user interface (UI) and the `influx export` command to
 create InfluxDB templates.
-Add resources (buckets, Telegraf configurations, tasks, and more) in the InfluxDB
+Add [resources](/influxdb/v2.1/influxdb-templates/#template-resources) (buckets, Telegraf configurations, tasks, and more) in the InfluxDB
 UI and export the resources as a template.
 
 {{< youtube 714uHkxKM6U >}}
 
 {{% note %}}
-Templatable resources are scoped to a single organization, so the simplest way to create a
+[Templatable resources](/influxdb/v2.1/influxdb-templates/#template-resources) are scoped to a single organization, so the simplest way to create a
 template is to create a new organization, build the template within the organization,
 and then [export all resources](#export-all-resources) as a template.
 {{% /note %}}
 
-**To create a template:**
+## Create a template
 
 1. [Start InfluxDB](/influxdb/v2.1/get-started/).
 2. [Create a new organization](/influxdb/v2.1/organizations/create-org/).
-3. In the InfluxDB UI add one or more of the following templatable resources:
-
-   - [buckets](/influxdb/v2.1/organizations/buckets/create-bucket/)
-   - [checks](/influxdb/v2.1/monitor-alert/checks/create/)
-   - [dashboards](/influxdb/v2.1/visualize-data/dashboards/create-dashboard/)
-   - [dashboard variables](/influxdb/v2.1/visualize-data/variables/create-variable/)
-   - [labels](/influxdb/v2.1/visualize-data/labels/)
-   - [notification endpoints](/influxdb/v2.1/monitor-alert/notification-endpoints/create/)
-   - [notification rules](/influxdb/v2.1/monitor-alert/notification-rules/create/)
-   - [tasks](/influxdb/v2.1/process-data/manage-tasks/create-task/)
-   - [Telegraf configurations](/influxdb/v2.1/write-data/no-code/use-telegraf/)
-
+3. In the InfluxDB UI add one or more [templatable resources](/influxdb/v2.1/influxdb-templates/#template-resources).
 4. Export the template _(see [below](#export-a-template))_.
 
 ## Export a template
 
-Do one of the following to export a template:
+Do one of the following to export resources to template manifests:
 
 - [Export all resources in an organization](#export-all-resources)
 - [Export specific resources in an organization](#export-specific-resources)
@@ -55,25 +44,42 @@ Do one of the following to export a template:
 
 ### Export all resources
 
-To export all templatable resources within an organization to a template manifest,
+To export all [templatable resources](/influxdb/v2.1/influxdb-templates/#template-resources) within an organization to a template manifest,
 use the `influx export all` command.
 Provide the following:
 
-- **Organization name** or **ID**
-- **API token** with read access to the organization
+- **Organization ID**
+- **API token** with read access to the resources
 - **Destination path and filename** for the template manifest.
   The filename extension determines the template format—both **YAML** (`.yml`) and
   **JSON** (`.json`) are supported.
 
-###### Export all resources to a template
+{{% note %}}
+#### Troubleshoot permissions and template results
+The API token must have **read** access to resources that you want to export. The `influx export all` command will only export the resources that the API token can read. For example, consider an organization with ID `abc123`. To export all resources within the organization, the API token must have the `read:/orgs/abc123` permission.
+
+Additionally, if you use a token that doesn't have **read** access to the organization, use the `--org-id <org-id>` flag instead of `-o <org-name>` or `--org <org-name>` to provide the organization.
+
+To learn more about permissions, see [how to view authorizations](/influxdb/v2.1/security/tokens/view-tokens/) or [how to create a token](/influxdb/v2.1/security/tokens/create-token/) with specific permissions.
+{{% /note %}}
+
+#### Export all resources in the configured organization
+
+If you have set an active `influx` configuration, `influx export` will use the configured `token` and `org` properties by default.
+
+```sh
+influx export all
+```
+
+#### Export all resources to a template file
 
 ```sh
 # Syntax
-influx export all -o <org-name> -f <file-path> -t <token>
+influx export all --org-id <org-id> -f <file-path> -t <token>
 
 # Example
 influx export all \
-  -o my-org \
+  --org-id ed32b47572a0137b \
   -f ~/templates/awesome-template.yml \
   -t $INFLUX_TOKEN
 ```
@@ -84,7 +90,7 @@ The `influx export all` command has an optional `--filter` flag that exports
 only resources that match specified label names or resource kinds.
 Provide multiple filters for both `labelName` and `resourceKind`.
 
-###### Export only dashboards and buckets with specific labels
+#### Export only dashboards and buckets with specific labels
 
 The following example exports resources that match this predicate logic:
 
@@ -96,7 +102,7 @@ and
 
 ```sh
 influx export all \
-  -o my-org \
+  --org-id ed32b47572a0137b \
   -f ~/templates/awesome-template.yml \
   -t $INFLUX_TOKEN \
   --filter=resourceKind=Bucket \
@@ -113,7 +119,7 @@ For information about flags, see the
 To export specific resources within an organization to a template manifest, use the `influx export` with resource flags for each resource to include.
 Provide the following:
 
-- **Organization name** or **ID**
+- **Organization ID**
 - **API token** with read access to the organization
 - **Destination path and filename** for the template manifest.
   The filename extension determines the template format—both **YAML** (`.yml`) and
@@ -130,7 +136,7 @@ influx export all -o <org-name> -f <file-path> -t <token> [resource-flags]
 
 # Export specific resources by ID
 influx export all \
-  -o my-org \
+  --org-id ed32b47572a0137b \
   -f ~/templates/awesome-template.yml \
   -t $INFLUX_TOKEN \
   --buckets=00x000ooo0xx0xx,o0xx0xx00x000oo \
@@ -139,7 +145,7 @@ influx export all \
 
 # Export specific resources by name
 influx export all \
-  -o my-org \
+  --org-id ed32b47572a0137b \
   -f ~/templates/awesome-template.yml \
   -t $INFLUX_TOKEN \
   --bucket-names=bucket1,bucket2 \
@@ -149,7 +155,7 @@ influx export all \
 
 ### Export a stack
 
-To export a stack and all its associated resources as a template, use the
+To export an InfluxDB [stack](/influxdb/v2.1/influxdb-templates/stacks/) and all its associated resources as a template, use the
 `influx export stack` command.
 Provide the following:
 
@@ -160,7 +166,7 @@ Provide the following:
   **JSON** (`.json`) are supported.
 - **Stack ID**
 
-###### Export a stack as a template
+#### Export a stack as a template
 
 ```sh
 # Syntax
