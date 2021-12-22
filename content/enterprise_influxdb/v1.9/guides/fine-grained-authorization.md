@@ -48,12 +48,13 @@ In a typical cluster configuration, the HTTP ports for data nodes
 You may need to work with your network administrator to gain access to the meta node HTTP ports.
     {{% /note %}}
 
-4. [Create roles](#manage-roles) to grant permissions to users assigned to a role. Do the following:
-   a.  As administrator, grant users all permissions. The example below grants users `east` and `west` all permissions on the `datacenters` database.  
-   b. Add a fine grain permission to users as needed.
+4. Create users. Do the following:
+   1.  As Administrator, create users and grant users all permissions. The example below grants users `east` and `west` all permissions on the `datacenters` database.  
+   2. Add a fine grain permission to users as needed.
    
     ```sql
     CREATE DATABASE datacenters
+
     CREATE USER east WITH PASSWORD 'east'
     GRANT ALL ON datacenters TO east
 
@@ -62,17 +63,24 @@ You may need to work with your network administrator to gain access to the meta 
     ```
 
     {{% note %}}
+NOTE:  You **must** set up coarse (read/write) permissions **FIRST**, then restrict to a fine grain.
+    {{% /note %}}
+
+
+5. [Create roles](#manage-roles) to grant permissions to users assigned to a role.
+
+    {{% note %}}
 For an overview of how users and roles work in InfluxDB Enterprise, see [InfluxDB Enterprise users](/enterprise_influxdb/v1.9/features/users/).
     {{% /note %}}
 
-5. [Set up restrictions](#manage-restrictions).
+6.  [Set up restrictions](#manage-restrictions).
    Restrictions apply to all non-admin users.
 
     {{% note %}}
 Permissions (currently "read" and "write") may be restricted independently depending on the scenario.
     {{% /note %}}
 
-6. [Set up grants](#manage-grants) to remove restrictions for specified users and roles.
+7. [Set up grants](#manage-grants) to remove restrictions for specified users and roles.
 
 ---
 
