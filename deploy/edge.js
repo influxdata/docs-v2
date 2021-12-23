@@ -72,6 +72,7 @@ exports.handler = (event, context, callback) => {
     '.eot': true,
     '.ttf': true,
     '.woff': true,
+    '.woff2': true,
     '.otf': true,
     '.gz': true,
     '.tar': true,
