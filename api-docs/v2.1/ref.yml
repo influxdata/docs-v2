@@ -794,6 +794,19 @@ components:
           type: array
         links:
           $ref: '#/components/schemas/Links'
+    ColorMapping:
+      additionalProperties:
+        type: int
+      description: >-
+        A color mapping is an object that maps time series data to a UI color
+        scheme to allow the UI to render graphs consistent colors across
+        reloads.
+      example:
+        configcat_deployments-autopromotionblocker: 0
+        measurement_birdmigration_europe: 0
+        series_id_1: 0
+        series_id_2: 1
+      type: object
     ConditionalExpression:
       description: >-
         Selects one of two expressions, `Alternate` or `Consequent`, depending
@@ -4440,6 +4453,39 @@ components:
         type:
           type: string
       type: object
+    TelegrafPluginRequest:
+      properties:
+        config:
+          type: string
+        description:
+          type: string
+        metadata:
+          properties:
+            buckets:
+              items:
+                type: string
+              type: array
+          type: object
+        name:
+          type: string
+        orgID:
+          type: string
+        plugins:
+          items:
+            properties:
+              alias:
+                type: string
+              config:
+                type: string
+              description:
+                type: string
+              name:
+                type: string
+              type:
+                type: string
+            type: object
+          type: array
+      type: object
     TelegrafPlugins:
       properties:
         os:
@@ -5717,6 +5763,9 @@ components:
       properties:
         axes:
           $ref: '#/components/schemas/Axes'
+        colorMapping:
+          $ref: '#/components/schemas/ColorMapping'
+          description: An object that contains information about the color mapping
         colors:
           description: Colors define color encoding of data into a visualization
           items:
@@ -5810,123 +5859,49 @@ components:
   securitySchemes:
     BasicAuthentication:
       description: >
-        ### Basic authentication scheme
-
-
-        Use HTTP Basic Auth with clients that support the InfluxDB 1.x
-        convention of username and password (that don't support the
-        `Authorization: Token` scheme).
+        Use the HTTP Basic authentication scheme for InfluxDB `/api/v2` API
+        operations that support it.
 
 
         Username and password schemes require the following credentials:
-          - **username**: 1.x username (this is separate from the UI login username)
-          - **password**: 1.x password or InfluxDB API token
-
-        #### API token example
-
-
-        `curl --get "http://localhost:8086/query"
-              --user "1.x_USERNAME":"INFLUX_API_TOKEN"`
-
-        #### 1.x password example
-
-
-        `curl --get "http://localhost:8086/query"
-              --user "1.x_USERNAME":"1.x_PASSWORD"`
-
-        Replace the following:
-
-        - *`1.x_USERNAME`*: your InfluxDB v1.x username
-
-        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
-
-        - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token)
-
-
-        For more information and examples, see how to [authenticate with a
-        username and password
-        scheme](https://docs.influxdata.com/influxdb/v2.1/reference/api/influxdb-1x/)
+          - **username**
+          - **password**
       scheme: basic
       type: http
-    QuerystringAuthentication:
-      description: >
-        ### Querystring authentication scheme
-
-
-        Use InfluxDB 1.x API parameters to provide credentials through the query
-        string.
-
-
-        Username and password schemes require the following credentials:
-          - **username**: 1.x username (this is separate from the UI login username)
-          - **password**: 1.x password or InfluxDB API token
-
-        #### API token example
-
-
-        `curl --get "http://localhost:8086/query"
-              --data-urlencode "u=1.x_USERNAME"
-              --data-urlencode "p=INFLUX_API_TOKEN"`
-
-        #### 1.x password example
-
-
-        `curl --get "http://localhost:8086/query"
-              --data-urlencode "u=1.x_USERNAME"
-              --data-urlencode "p=1.x_PASSWORD"`
-
-        Replace the following:
-
-        - *`1.x_USERNAME`*: your InfluxDB v1.x username
-
-        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
-
-        - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token)
-
-
-        For more information and examples, see how to [authenticate with a
-        username and password
-        scheme](https://docs.influxdata.com/influxdb/v2.1/reference/api/influxdb-1x/)
-      in: query
-      name: u=&p=
-      type: apiKey
     TokenAuthentication:
-      bearerFormat: InfluxDB Token String
       description: >
-        ### Token authentication scheme
+        Use the [Token
+        authentication](#section/Authentication/TokenAuthentication)
+
+        scheme to authenticate to the InfluxDB API.
 
 
-        InfluxDB API tokens enable authentication and authorization of API
-        clients.
 
-        A token belongs to an organization and identifies InfluxDB permissions
-        within the organization.
+        In your API requests, send an `Authorization` header.
 
+        For the header value, provide the word `Token` followed by a space and
+        an InfluxDB API token.
 
-        Include your API token in an `Authorization: Token` HTTP header with
-        each request.
+        The word `Token` is case-sensitive.
 
 
-        #### Example
 
-          `curl http://localhost:8086/ping
-             --header "Authorization: Token INFLUX_API_TOKEN"`
+        ### Syntax
 
-        Replace *`INFLUX_API_TOKEN`* with your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token).
+
+        `Authorization: Token YOUR_INFLUX_TOKEN`
+
 
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Authorize API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
-          - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
-          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
-      scheme: token
-      type: http
+          - [Authorize API requests](/influxdb/v2.1/api-guide/api_intro/#authentication).
+          - [Manage API tokens](/influxdb/v2.1/security/tokens/).
+      in: header
+      name: Authorization
+      type: apiKey
 info:
-  title: Influx OSS API Service
+  title: InfluxDB OSS API Service
   description: >
     The InfluxDB v2 API provides a programmatic interface for all interactions
     with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
@@ -11812,7 +11787,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TelegrafRequest'
+              $ref: '#/components/schemas/TelegrafPluginRequest'
         description: Telegraf configuration to create
         required: true
       responses:
@@ -11916,7 +11891,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TelegrafRequest'
+              $ref: '#/components/schemas/TelegrafPluginRequest'
         description: Telegraf configuration update to apply
         required: true
       responses:
@@ -12974,20 +12949,16 @@ paths:
         - Write
 security:
   - TokenAuthentication: []
-  - BasicAuthentication: []
-  - QuerystringAuthentication: []
 servers:
   - url: /
 tags:
-  - description: >
-      Use one of the following schemes to authenticate to the InfluxDB API:
+  - description: |
+      The InfluxDB `/api/v2` API requires authentication for all requests.
+      Use InfluxDB API tokens to authenticate requests to the `/api/v2` API.
 
-      - [Token authentication](#section/Authentication/TokenAuthentication)
 
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-      - [Querystring
-      authentication](#section/Authentication/QuerystringAuthentication)
+      For examples and more information, see
+      [Token authentication](#section/Authentication/TokenAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
@@ -13000,9 +12971,9 @@ tags:
 
 
       For more information and examples, see the following:
-        - [Authorize API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
-        - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
-        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
+        - [Authorize API requests](/influxdb/v2.1/api-guide/api_intro/#authentication).
+        - [Manage API tokens](/influxdb/v2.1/security/tokens/).
+        - [Assign a token to a specific user](/influxdb/v2.1/security/tokens/create-token).
     name: Authorizations
   - Backup
   - Buckets
@@ -13022,16 +12993,14 @@ tags:
       Retrieve data, analyze queries, and get query suggestions.
     name: Query
   - description: >
-      See the [**API Quick
-      Start**](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/)
-      to get up and running authenticating with tokens, writing to buckets, and
+      See the [**API Quick Start**](/influxdb/v2.1/api-guide/api_intro/) to get
+      up and running authenticating with tokens, writing to buckets, and
       querying data.
 
 
       [**InfluxDB API client
-      libraries**](https://docs.influxdata.com/influxdb/v2.1/api-guide/client-libraries/)
-      are available for popular languages and ready to import into your
-      application.
+      libraries**](/influxdb/v2.1/api-guide/client-libraries/) are available for
+      popular languages and ready to import into your application.
     name: Quick start
     x-traitTag: true
   - Ready
@@ -13066,8 +13035,8 @@ tags:
       following: <li>`Authorization: Token` header is missing or
       malformed</li><li>API token value is missing from the header</li><li>API
       token does not have permission. For more information about token types and
-      permissions, see [Manage API
-      tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/)</li> |
+      permissions, see [Manage API tokens](/influxdb/v2.1/security/tokens/)</li>
+      |
 
       | `404`       | Not found                | Requested resource was not
       found. `message` in the response body provides details about the requested

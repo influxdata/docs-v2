@@ -10,6 +10,25 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.147.0 [2021-12-14]
+
+### Features
+- Optimize [`union()` transformation](/flux/v0.x/stdlib/universe/union/).
+- Optimize [`timeShift()` transformation](/flux/v0.x/stdlib/universe/timeshift/).
+- Add inline documentation to the following packages:
+  - experimental/prometheus
+  - experimental/query
+  - experimental/record
+  - experimental/table
+  - experimental/usage
+
+### Bug fixes
+- Add mutex to the optimized `union` transformation.
+- Ensure arrays are not table streams before calling `Len()`.
+- Disable flakey `geo.filterRows` tests.
+
+---
+
 ## v0.146.0 [2021-12-13]
 
 ### Features

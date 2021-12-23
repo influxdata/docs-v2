@@ -1,6 +1,7 @@
 const ReportTags = require('./rules/report-tags');
 const ValidateServersUrl = require('./rules/validate-servers-url');
 const RemovePrivatePaths = require('./decorators/paths/remove-private-paths');
+const ReplaceShortcodes = require('./decorators/replace-shortcodes');
 const SetInfo = require('./decorators/set-info');
 const SetServers = require('./decorators/servers/set-servers');
 const SetSecuritySchemes = require('./decorators/security/set-security-schemes');
@@ -24,6 +25,7 @@ const decorators = {
   oas3: {
     'set-servers': () => SetServers({data: servers}),
     'remove-private-paths': RemovePrivatePaths,
+    'replace-docs-url-shortcode': ReplaceShortcodes().docsUrl,
     'strip-version-prefix': StripVersionPrefix,
     'set-info': () => SetInfo({data: info}),
     'set-security': () => SetSecurity({data: security}),
@@ -44,6 +46,7 @@ module.exports = {
       decorators: {
         'docs/set-servers': 'error',
 	'docs/remove-private-paths': 'error',
+	'docs/replace-docs-url-shortcode': 'error',
 	'docs/strip-version-prefix': 'error',
 	'docs/set-info': 'error',
 	'docs/set-tag-groups': 'error',
