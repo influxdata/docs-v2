@@ -104,6 +104,18 @@
   }
 }
 
+// Search result version tags
+.algolia-autocomplete .algolia-docsearch-suggestion .search-product-version {
+  font-size: .8em;
+  font-weight: $medium;
+  opacity: .5;
+  margin-left: .5rem;
+}
+
+.algolia-autocomplete .algolia-docsearch-suggestion--title .search-product-version {
+  display: none;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
