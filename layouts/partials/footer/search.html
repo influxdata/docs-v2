@@ -16,6 +16,7 @@ docsearch({
   // Set debug to true if you want to inspect the dropdown
   debug: true,
   transformData: function (hits) {
+    console.log(hits)
     function fmtVersion (version) {
       if (version == null) {
         return '';
@@ -47,8 +48,8 @@ docsearch({
       hit.hierarchy.lvl0 =
         hit.hierarchy.lvl0 +
         ` <span class=\"search-product-version\">${product} ${version}</span>`;
-      hit._highlightResult.hierarchy.lvl0 =
-        hit._highlightResult.hierarchy.lvl0 +
+      hit._highlightResult.hierarchy.lvl0.value =
+        hit._highlightResult.hierarchy.lvl0.value +
         ` <span class=\"search-product-version\">${product} ${version}</span>`;
     });
     return hits;
