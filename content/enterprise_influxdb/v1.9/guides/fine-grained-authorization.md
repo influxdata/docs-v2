@@ -49,23 +49,19 @@ You may need to work with your network administrator to gain access to the meta 
     {{% /note %}}
 
 4. Create users. Do the following:
-   1.  As Administrator, create users and grant users all permissions. The example below grants users `east` and `west` all permissions on the `datacenters` database.  
+   1.  As Administrator, create users and grant users all permissions. The example below grants users `east` and `west` all permissions on the `datacenters` database.
+
+       ```sql
+       CREATE DATABASE datacenters
+
+       CREATE USER east WITH PASSWORD 'east'
+       GRANT ALL ON datacenters TO east
+
+       CREATE USER west WITH PASSWORD 'west'
+       GRANT ALL ON datacenters TO west
+       ```
+
    2. Add a fine grain permission to users as needed.
-   
-    ```sql
-    CREATE DATABASE datacenters
-
-    CREATE USER east WITH PASSWORD 'east'
-    GRANT ALL ON datacenters TO east
-
-    CREATE USER west WITH PASSWORD 'west'
-    GRANT ALL ON datacenters TO west
-    ```
-
-    {{% note %}}
-NOTE:  You **must** set up coarse (read/write) permissions **FIRST**, then restrict to a fine grain.
-    {{% /note %}}
-
 
 5. [Create roles](#manage-roles) to grant permissions to users assigned to a role.
 
