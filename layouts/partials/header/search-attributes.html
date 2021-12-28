@@ -4,6 +4,7 @@
 {{ $latestFlux := .Site.Data.products.flux.latest }}
 {{ $fluxPath := print "/flux/" $latestFlux "/" }}
 {{ $isFluxLatest := cond (in .RelPermalink $fluxPath) true false }}
+{{ $isResources :=  cond (eq $product "resources") true false}}
 {{ $searchTag := print $product "-" $currentVersion }}
 
 {{ if not .IsHome }}
@@ -17,4 +18,8 @@
 
 {{ if $isFluxLatest }}
   <meta name="docsearch:flux" content="true">
+{{ end }}
+
+{{ if $isResources }}
+  <meta name="docsearch:resources" content="true">
 {{ end }}
