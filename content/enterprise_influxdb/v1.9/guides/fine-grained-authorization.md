@@ -61,7 +61,7 @@ You may need to work with your network administrator to gain access to the meta 
        GRANT ALL ON datacenters TO west
        ```
 
-   2. Add a fine grain permission to users as needed.
+   2. Add fine-grained permission to users as needed.
 
 5. [Create roles](#manage-roles) to grant permissions to users assigned to a role.
 
