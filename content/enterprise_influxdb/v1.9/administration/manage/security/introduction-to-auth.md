@@ -33,15 +33,15 @@ These can only be _can only be granted by using InfluxQL_.
 
 There are three ways to manage authorizations in InfluxDB Enterprise:
 
-- via [InfluxQL](#manage-read-and-write-privileges-with-influxql)
+- using [InfluxQL](#manage-read-and-write-privileges-with-influxql)
   {{% note %}}
 InfluxQL can can only grant `READ`, `WRITE`, and `ALL PRIVILEGES` privileges.
 To use the full set of InfluxDB Enterprise [permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/),
 use [Chronograf](#manage-specific-privileges-with-chronograf)
 or the [Meta API (recommended)](#influxdb-enterprise-meta-api).
   {{% /note %}}
-- via [Chronograf](#manage-enterprise-permissions-with-chronograf)
-- via the [InfluxDB Enterprise meta API](#manage-enterprise-permissions-with-the-meta-api) (**Recommended**)
+- using [Chronograf](#manage-enterprise-permissions-with-chronograf)
+- using the [InfluxDB Enterprise meta API](#manage-enterprise-permissions-with-the-meta-api) (**Recommended**)
 
 ### Manage read and write privileges with InfluxQL
 
