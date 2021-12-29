@@ -36,11 +36,10 @@ The InfluxDB UI provides multiple ways to create a task:
     {{< nav-icon "data-explorer" >}}
 
 2. Build a query and click **Save As** in the upper right.
-3. Select the **Task** option.
+3. Select the **{{< caps >}}Task{{< /caps >}}** heading.
 4. Specify the task options. See [Task options](/influxdb/v2.1/process-data/task-options)
    for detailed information about each option.
-5. Select a token to use from the **Token** dropdown.
-6. Click **Save as Task**.
+5. Click **{{< caps >}}Save as Task{{< /caps >}}**.
 
 
 ### Create a task in the Task UI
@@ -48,11 +47,10 @@ The InfluxDB UI provides multiple ways to create a task:
 
     {{< nav-icon "tasks" >}}
 
-2. Click **{{< icon "plus" >}} Create Task** in the upper right.
-3. Select **New Task**.
-4. In the left panel, specify the task options.
+2. Click **{{< caps >}}{{< icon "plus" >}} Create Task{{< /caps >}}** in the upper right.
+3. In the left panel, specify the task options.
    See [Task options](/influxdb/v2.1/process-data/task-options) for detailed information about each option.
-5. In the right panel, enter your task script.
+4. In the right panel, enter your task script.
 
     {{% note %}}
 ##### Leave out the option tasks assignment
@@ -69,9 +67,11 @@ When you edit the saved task, you'll see the injected `option task = {task_optio
 
     {{< nav-icon "tasks" >}}
 
-2. Click **+ Create Task** in the upper right.
-3. Paste a raw Flux task in the code editor to the right of the **Task options** form.
-4. Click **Save** in the upper right.
+2. Click **{{< caps >}}{{< icon "plus" >}} Create Task{{< /caps >}}** in the upper right.
+3. In the left panel, specify the task options.
+   See [Task options](/influxdb/v2.1/process-data/task-options) for detailed information about each option.
+4. Paste a raw Flux task in the code editor to the right of the task options fields.
+5. Click **{{< caps >}}Save{{< /caps >}}** in the upper right.
 
 ### Create a task from a template
 1. In the navigation menu on the left, select **Settings** > **Templates**.
