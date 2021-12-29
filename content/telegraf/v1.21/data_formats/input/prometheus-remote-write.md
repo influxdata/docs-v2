@@ -15,7 +15,8 @@ Use the Prometheus Remote Write plugin to convert [Prometheus Remote Write](http
 {{% note %}}
 If you are using InfluxDB 1.x and the [Prometheus Remote Write endpoint](https://github.com/react-monaco-editor/react-monaco-editor/)
 to write in metrics, you can migrate to InfluxDB 2.0 and use this parser.
-For the metrics to completely align with the 1.x endpoint, add a Starlark processor as described [here][]
+For the metrics to completely align with the 1.x endpoint, add a Starlark processor as described [here](https://github.com/influxdata/telegraf/blob/master/plugins/processors/starlark/README.md).
+
 {{% /note %}}
 
 ### Configuration
