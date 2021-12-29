@@ -48,14 +48,28 @@ In a typical cluster configuration, the HTTP ports for data nodes
 You may need to work with your network administrator to gain access to the meta node HTTP ports.
     {{% /note %}}
 
-4. _(Optional)_ [Create roles](#manage-roles).
-   Roles let you grant permissions to groups of users assigned to each role.
+4. Create users. Do the following:
+   1.  As Administrator, create users and grant users all permissions. The example below grants users `east` and `west` all permissions on the `datacenters` database.
+
+       ```sql
+       CREATE DATABASE datacenters
+
+       CREATE USER east WITH PASSWORD 'east'
+       GRANT ALL ON datacenters TO east
+
+       CREATE USER west WITH PASSWORD 'west'
+       GRANT ALL ON datacenters TO west
+       ```
+
+   2. Add fine-grained permissions to users as needed.
+
+5. [Create roles](#manage-roles) to grant permissions to users assigned to a role.
 
     {{% note %}}
 For an overview of how users and roles work in InfluxDB Enterprise, see [InfluxDB Enterprise users](/enterprise_influxdb/v1.9/features/users/).
     {{% /note %}}
 
-5. [Set up restrictions](#manage-restrictions).
+6.  [Set up restrictions](#manage-restrictions).
    Restrictions apply to all non-admin users.
 
     {{% note %}}

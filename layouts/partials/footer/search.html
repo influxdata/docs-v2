@@ -15,15 +15,53 @@ docsearch({
   inputSelector: '#algolia-search-input',
   // Set debug to true if you want to inspect the dropdown
   debug: true,
+  transformData: function (hits) {
+    function fmtVersion (version) {
+      if (version == null) {
+        return '';
+      } else if (version === 'cloud') {
+        return 'Cloud';
+      } else if (/v\d\./.test(version)) {
+        return version;
+      } else {
+        return '';
+      }
+    };
+    productNames = {
+      influxdb: 'InfluxDB',
+      enterprise_influxdb: 'InfluxDB Enterprise',
+      flux: 'Flux',
+      telegraf: 'Telegraf',
+      chronograf: 'Chronograf',
+      kapacitor: 'Kapacitor',
+      platform: 'InfluxData Platform',
+      resources: 'Additional Resources',
+    };
+    hits.map(hit => {
+      pathData = new URL(hit.url).pathname.split('/').filter(n => n);
+      product = productNames[pathData[0]];
+      version = fmtVersion(pathData[1]);
+
+      hit.product = product;
+      hit.version = version;
+      hit.hierarchy.lvl0 =
+        hit.hierarchy.lvl0 +
+        ` <span class=\"search-product-version\">${product} ${version}</span>`;
+      hit._highlightResult.hierarchy.lvl0.value =
+        hit._highlightResult.hierarchy.lvl0.value +
+        ` <span class=\"search-product-version\">${product} ${version}</span>`;
+    });
+    return hits;
+  },
   algoliaOptions: {
     hitsPerPage: 10,
     'facetFilters': [
       {{ if or (eq $product "platform") (eq $product "resources") (le (len $productPathData) 1) }}
         'latest:true'
       {{ else if $includeFlux }}
-        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true']
+        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true', 'resources:true']
       {{ else }}
-        'searchTag: {{ $product }}-{{ $currentVersion }}'
+        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'resources:true']
       {{ end }}
     ]
   },
