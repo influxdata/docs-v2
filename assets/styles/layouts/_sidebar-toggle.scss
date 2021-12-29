@@ -37,7 +37,7 @@ $vertical-offset: -14px;
 
 .content-wrapper .sidebar-toggle {
   display: none;
-  padding: .3rem .3rem .3rem .4rem;
+  padding: .4rem .6rem;
   width: 35px;
   left: 0;
   background-color: $body-bg;
@@ -52,12 +52,12 @@ $vertical-offset: -14px;
   &:before { transform: rotateY(180deg); }
   &:after { transform: rotate(180deg); }
   & > a {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 
 .sidebar .sidebar-toggle {
-  padding: .2rem;
+  padding: .4rem .6rem;
   width: 30px;
   right: 0;
   background-color: $article-bg;
@@ -70,7 +70,7 @@ $vertical-offset: -14px;
     right: 0;
   }
   & > a {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 }
 
