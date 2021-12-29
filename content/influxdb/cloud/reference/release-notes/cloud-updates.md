@@ -33,7 +33,7 @@ To improve user experience and consolidate system-delivered data, we removed the
 
 To get started with sample data in InfluxDB Cloud, check out the new sample data buckets in the Notebooks UI, which support a variety of use cases. Sample data buckets provide a way to explore InfluxDB without ingesting your own data.
 
-Now, you can add the following buckets with packaged sample data to your notebooks:
+Now, you can add the following buckets with sample data to your notebooks:
 
 - Air Sensor Data
 - Coinbase bitcoin price
