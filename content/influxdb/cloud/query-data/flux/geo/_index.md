@@ -8,6 +8,8 @@ menu:
     name: Geo-temporal data
     parent: Query with Flux
 weight: 220
+related:
+  - /resources/videos/geolocation-and-influxdb/
 list_code_example: |
   ```js
   import "experimental/geo"

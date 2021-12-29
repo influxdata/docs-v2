@@ -1,5 +1,82 @@
+.videos-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.video-card {
+  max-width: 240px;
+  margin: 0 1.75rem .75rem 0;
+
+  a {
+    display: block;
+    position: relative;
+
+    &:after {
+      content: "\e914";
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "icomoon";
+      top: .65rem;
+      right: .65rem;
+      height: 1.5rem;
+      width: 1.5rem;
+      color: $g20-white;
+      padding: .35rem;
+      border-radius: 50%;
+      background-color: rgba($g20-white, .25);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    &:hover:after { opacity: 1; }
+
+  }
+  img { margin-bottom: 0; }
+
+  .video-title {
+    margin: .25rem 0 0;
+    font-weight: $medium;
+    font-size: .9rem;
+    color: $article-bold;
+    line-height: 1.25rem;
+  }
+  .video-date {
+    font-size: .8rem;
+    color: rgba($article-text, .6);
+    line-height: 1rem;
+  }
+}
+
+.video-content {
+  .video-date {
+    color: rgba($article-text, .6);
+    margin-top: -1.75rem;
+    font-weight: $medium;
+    font-size: .9rem;
+  }
+
+  .video{
+    max-width: none;
+    margin: 0 0 2rem;
+  }
+}
+
 .video {
   width: 100%;
   max-width: 620px;
   margin: 2rem 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  .video-card {
+    max-width: 100%;
+    margin-right: 0;
+  }
 }

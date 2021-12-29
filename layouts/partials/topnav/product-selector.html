@@ -6,7 +6,7 @@
 {{ $isOSSv2 := in (print $product "/" $currentVersion ) "influxdb/v2."}}
 
 <div class="dropdown">
-  {{ if or (eq $product nil) (eq $product "platform") }}
+  {{ if or (eq $product nil) (eq $product "platform") (eq $product "resources") }}
     <p class="selected">Select product</p>
   {{ else if $isCloud }}
     <p class="selected">{{ index .Site.Data.products.influxdb_cloud.altname }}</p>

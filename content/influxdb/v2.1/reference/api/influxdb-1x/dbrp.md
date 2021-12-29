@@ -16,8 +16,8 @@ related:
 
 The InfluxDB 1.x data model includes [databases](/influxdb/v1.8/concepts/glossary/#database)
 and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
-InfluxDB OSS {{< current-version >}} replaces both with [buckets](/influxdb/v2.1/reference/glossary/#bucket).
-To support InfluxDB 1.x query and write patterns in InfluxDB OSS {{< current-version >}}, databases and retention
+InfluxDB Cloud and InfluxDB OSS {{< current-version >}} replace databases and retention policies with [buckets](/influxdb/v2.1/reference/glossary/#bucket).
+To support InfluxDB 1.x query and write patterns in InfluxDB OSS {{< current-version >}} and Cloud, databases and retention
 policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
 
 The DBRP mapping service uses the **database** and **retention policy** specified in
@@ -41,9 +41,25 @@ When writing data using the
 [`/write` compatibility endpoint](/influxdb/v2.1/reference/api/influxdb-1x/write/),
 the DBRP mapping service checks for a bucket mapped to the database and retention policy:
 
+{{% oss-only %}}
+
 - If a mapped bucket is found, data is written to the bucket.
-- If an unmapped bucket, InfluxDB returns an error.
+- If the bucket is unmapped, InfluxDB returns an error.
   See how to [Map unmapped buckets](/influxdb/v2.1/query-data/influxql/#map-unmapped-buckets).
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+- If a mapped bucket is found, data is written to the bucket.
+- If an unmapped bucket with a name matching:
+    - **database/retention policy** exists, a DBRP mapping is added to the bucket,
+      and data is written to the bucket.
+    - **database** exists (without a specified retention policy), the default
+      database retention policy is used, a DBRP mapping is added to the bucket,
+      and data is written to the bucket.
+
+{{% /cloud-only %}}
 
 ### When querying data
 

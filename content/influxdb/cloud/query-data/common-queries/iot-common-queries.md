@@ -8,6 +8,8 @@ menu:
     name: IoT common queries
     parent: Common queries
 weight: 205
+related: 
+  - /resources/videos/iot-monitoring-with-influxdb/
 ---
 
 {{< duplicate-oss >}}

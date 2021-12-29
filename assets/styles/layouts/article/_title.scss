@@ -2,25 +2,37 @@
 
 .title {
   margin-bottom: 2.65rem;
- 
-  .meta {
-    margin-bottom: 0;
-    padding: 0 .65em 0 .75em;
-    color: $article-heading;
-    background: rgba($article-heading, .07);
-    font-size: .9rem;
-    font-weight: $medium;
-    border-radius: 1em;
-    display: inline-block;
+  
 
-    &.updated-in {
-      padding: 0 0 0 .4em;
-      background: none;
-      font-weight: normal;
-      font-style: italic;
-      color: rgba($article-heading, .6)
+  .metadata {
+    padding: 0;
+    margin: 0;
+  
+    li {
+      margin-bottom: 0;
+      padding: 0 .65em 0 .75em;
+      color: $article-heading;
+      background: rgba($article-heading, .07);
+      font-size: .9rem;
+      font-weight: $medium;
+      border-radius: 1em;
+      display: inline-block;
+
+      &.updated-in, &.date {
+        padding: 0 0 0 .4em;
+        background: none;
+        font-weight: normal;
+        font-style: italic;
+        color: rgba($article-heading, .6)
+      }
     }
-  }
+
+    .updated-in + .date::before {
+      content: "•" !important;
+      display: inline;
+      margin-right: .5rem;
+    }
+  }  
 }
 
 ////////////////////////////////////////////////////////////////////////////////
