@@ -1,11 +1,11 @@
 ---
-title: Get started with authentication and authorization
+title: Introduction to authentication and authorization
 description: >
   Learn the basics of managing authentication and authorization in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
-    name: Get started with authentication and authorization
-    parent: Manage security
+    name: Introduction to authentication and authorization
+    parent: Manage users and permissions
 weight: 30
 related:
   - /enterprise_influxdb/v1.9/guides/fine-grained-authorization/
@@ -32,6 +32,8 @@ These can only be _can only be granted by using InfluxQL_.
 ## Manage user authorization
 
 There are three ways to manage authorizations in InfluxDB Enterprise:
+
+<!-- briefly describe use cases here -->
 
 - via [InfluxQL](#manage-read-and-write-privileges-with-influxql)
 - via [Chronograf](#manage-enterprise-permissions-with-chronograf)

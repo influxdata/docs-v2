@@ -1,9 +1,9 @@
 ---
-title: Manage security
+title: Manage users and permissions
 description: Configuration, security, and logging in InfluxDB enterprise.
 menu:
   enterprise_influxdb_1_9:
-    name: Manage security
+    name: Manage users and permissions
     weight: 40
     parent: Manage
 aliases:

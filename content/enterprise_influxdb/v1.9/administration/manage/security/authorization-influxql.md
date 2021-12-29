@@ -4,7 +4,7 @@ description: >
   Manage users and permissions with InfluxQL.
 menu:
   enterprise_influxdb_1_9:
-    parent: Manage security
+    parent: Manage users and permissions
 weight: 40
 related:
   - /enterprise_influxdb/v1.9/administration/manage/security/authorization-api.md

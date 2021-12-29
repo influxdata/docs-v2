@@ -4,7 +4,7 @@ description: >
   Detailed reference for users, roles, permissions, and permission-to-statement mappings.
 menu:
   enterprise_influxdb_1_9:
-    parent: Manage security
+    parent: Manage users and permissions
 weight: 100
 aliases:
   - /enterprise_influxdb/v1.9/features/users/
