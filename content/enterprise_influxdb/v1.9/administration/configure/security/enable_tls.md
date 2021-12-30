@@ -10,6 +10,7 @@ weight: 20
 aliases:
   - /enterprise_influxdb/v1.9/guides/https_setup/
   - /enterprise_influxdb/v1.9/guides/enable_tls/
+  - /enterprise_influxdb/v1.9/guides/enable-tls/
 ---
 
 Enabling HTTPS over TLS encrypts the communication between clients and the InfluxDB Enterprise server, and between nodes in the cluster.
