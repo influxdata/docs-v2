@@ -10,7 +10,7 @@ influxdb/v2.1/tags: [templates]
 
 InfluxDB templates are preconfigured InfluxDB resources and can contain everything
 from dashboards and Telegraf configurations to notifications and alerts.
-Use templates to bootstrap monitoring of your technology stack,
+Use templates to monitor your technology stack,
 set up a fresh instance of InfluxDB, back up your dashboard configuration, or
 [share your configuration](https://github.com/influxdata/community-templates/) with the InfluxData community.
 
