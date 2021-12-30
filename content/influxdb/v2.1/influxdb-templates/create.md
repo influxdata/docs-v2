@@ -31,7 +31,7 @@ and then [export all resources](#export-all-resources) as a template.
 
 1. [Start InfluxDB](/influxdb/v2.1/get-started/).
 2. [Create a new organization](/influxdb/v2.1/organizations/create-org/). Because resources are associated with a single organization, creating a new organization is an easy way to ensure only resources associated with a given organization are exported to a template.
-3. In the InfluxDB UI add one or more [templatable resources](/influxdb/v2.1/influxdb-templates/#template-resources).
+3. In the InfluxDB UI add one or more [template resources](/influxdb/v2.1/influxdb-templates/#template-resources).
 4. Export the template _(see [below](#export-a-template))_.
 
 ## Export a template
