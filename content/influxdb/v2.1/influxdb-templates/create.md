@@ -22,7 +22,7 @@ UI and export the resources as a template.
 {{< youtube 714uHkxKM6U >}}
 
 {{% note %}}
-[Templatable resources](/influxdb/v2.1/influxdb-templates/#template-resources) are scoped to a single organization, so the simplest way to create a
+[Template resources](/influxdb/v2.1/influxdb-templates/#template-resources) are scoped to a single organization, so the simplest way to create a
 template is to create a new organization, build the template within the organization,
 and then [export all resources](#export-all-resources) as a template.
 {{% /note %}}
