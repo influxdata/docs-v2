@@ -49,7 +49,7 @@ generating template manifests._
 
 ### Template resources
 
-Use template manifests to define the following InfluxDB **resources**:
+Customize and group the following InfluxDB resources to create a template:
 
 - [buckets](/influxdb/v2.1/organizations/buckets/create-bucket/)
 - [checks](/influxdb/v2.1/monitor-alert/checks/create/)
