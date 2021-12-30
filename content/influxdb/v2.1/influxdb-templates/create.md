@@ -36,7 +36,7 @@ and then [export all resources](#export-all-resources) as a template.
 
 ## Export a template
 
-Do one of the following to export resources to template manifests:
+Do one of the following to export resources to a template:
 
 - [Export all resources in an organization](#export-all-resources)
 - [Export specific resources in an organization](#export-specific-resources)
