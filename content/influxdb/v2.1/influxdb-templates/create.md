@@ -56,7 +56,7 @@ Provide the following:
 
 {{% note %}}
 #### Troubleshoot permissions and template results
-The API token must have **read** access to resources that you want to export. The `influx export all` command will only export the resources that the API token can read. For example, consider an organization with ID `abc123`. To export all resources within the organization, the API token must have the `read:/orgs/abc123` permission.
+The API token must have **read** access to resources that you want to export. The `influx export all` command only exports resources that the API token can read. For example, to export all resources in an organization that has ID `abc123`, the API token must have the `read:/orgs/abc123` permission.
 
 Additionally, if you use a token that doesn't have **read** access to the organization, use the `--org-id <org-id>` flag instead of `-o <org-name>` or `--org <org-name>` to provide the organization.
 
