@@ -23,7 +23,6 @@ If using [InfluxDB Cloud](/influxdb/cloud/) or a hosted InfluxDB OSS instance,
 you may see additional network bandwidth costs when using this function.
 Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/v2.1/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.1/reference/flux/stdlib/influxdb-sample/list/). 
 
-If you also want to explore Cloud, we offer a way to explore data without incurring network bandwidth costs, using [demo data](/influxdb/cloud/query-data/execute-queries/query-demo-data/).
 {{% /note %}}
 
 ## Choose sample data

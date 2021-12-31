@@ -6,6 +6,7 @@ menu:
   influxdb_cloud_ref:
     parent: Release notes
     name: InfluxDB Cloud updates
+draft: true
 aliases:
   - /cloud/about/release-notes
   - /influxdb/cloud/reference/release-notes/influxdb-cloud
