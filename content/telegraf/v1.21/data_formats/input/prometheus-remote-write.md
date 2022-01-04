@@ -13,7 +13,7 @@ menu:
 Use the Prometheus Remote Write plugin to convert [Prometheus Remote Write](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) samples directly into Telegraf metrics.
 
 {{% note %}}
-If you are using InfluxDB 1.x and the [Prometheus Remote Write endpoint](https://github.com/react-monaco-editor/react-monaco-editor/)
+If you are using InfluxDB 1.x and the [Prometheus Remote Write endpoint](https://github.com/influxdata/telegraf/blob/master/plugins/parsers/prometheusremotewrite/README.md
 to write in metrics, you can migrate to InfluxDB 2.0 and use this parser.
 For the metrics to completely align with the 1.x endpoint, add a Starlark processor as described [here](https://github.com/influxdata/telegraf/blob/master/plugins/processors/starlark/README.md).
 
