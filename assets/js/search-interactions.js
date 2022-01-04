@@ -4,7 +4,7 @@ $('#algolia-search-input').focus(function() {
 })
 
 // Hide search dropdown when leaving search input
-// $('#algolia-search-input').blur(function() {
-//   $('.content-wrapper, .group-wrapper').fadeTo(200, 1);
-//   $('.ds-dropdown-menu').hide();
-// })
+$('#algolia-search-input').blur(function() {
+  $('.content-wrapper, .group-wrapper').fadeTo(200, 1);
+  $('.ds-dropdown-menu').hide();
+})
