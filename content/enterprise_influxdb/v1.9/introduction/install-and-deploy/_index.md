@@ -4,6 +4,7 @@ description: Install InfluxDB Enterprise to on-premise or cloud providers, inclu
 aliases:
 - /enterprise_influxdb/v1.9/install-and-deploy/deploying/
 - /enterprise_influxdb/v1.9/install-and-deploy/
+- /enterprise_influxdb/v1.9/production_installation/
 menu:
   enterprise_influxdb_1_9:
     name: Install and deploy
