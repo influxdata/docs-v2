@@ -1,10 +1,10 @@
 ---
-title: Introduction to permissions in InfluxDB Enterprise
+title: Overview of authorization in InfluxDB Enterprise
 description: >
-  Learn the basics of managing authentication and authorization in InfluxDB Enterprise.
+  Learn the basics of managing users and permissions in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
-    name: Introduction to authentication and authorization
+    name: Overview of authorization
     parent: Manage users and permissions
 weight: 30
 related:
