@@ -9,6 +9,7 @@ weight: 103
 aliases:
   - /influxdb/v2.0/reference/flux/language/lexical-elements/
   - /influxdb/cloud/reference/flux/language/lexical-elements/
+  - /flux/v0.x/language/lexical-elements/
 ---
 
 {{% note %}}
