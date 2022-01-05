@@ -5,6 +5,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/groupbyarea/
+  - /flux/v0.x/stdlib/experimental/to/geo/groupbyarea/
 menu:
   flux_0_x_ref:
     name: geo.groupByArea
