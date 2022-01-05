@@ -7,6 +7,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/influxdb/api/
   - /influxdb/cloud/reference/flux/stdlib/experimental/influxdb/api/
+  - /influxdb/v0.8/api/
 menu:
   flux_0_x_ref:
     name: influxdb.api
