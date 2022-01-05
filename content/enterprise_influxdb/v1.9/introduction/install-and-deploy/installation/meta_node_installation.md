@@ -257,5 +257,4 @@ Note that your cluster must have at least three meta nodes.
 If you do not see your meta nodes in the output, retry adding them to
 the cluster.
 
-Once your meta nodes are part of your cluster, [install data nodes](/enterprise_influxdb/v1.9/install-and-deploy/installation/data_node_installation/).
-Do not continue if your meta nodes are not part of the cluster.
+After your meta nodes are part of your cluster, [install data nodes](/enterprise_influxdb/v1.9/install-and-deploy/installation/data_node_installation/).
