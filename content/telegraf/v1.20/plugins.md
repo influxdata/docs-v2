@@ -29,6 +29,7 @@ aliases:
   - /telegraf/v1.17/plugins/inputs/
   - /telegraf/v1.17/plugins/outputs/
   - /telegraf/v1.17/plugins/processors/
+  - /telegraf/v1.20/plugins/inputs/
 ---
 
 Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.
