@@ -15,6 +15,7 @@ weight: 101
 related:
   - /influxdb/v2.1/process-data/manage-tasks/
   - /influxdb/v2.1/process-data/manage-tasks/create-task/
+  - /resources/videos/influxdb-tasks/
 ---
 
 An **InfluxDB task** is a scheduled Flux script that takes a stream of input data, modifies or analyzes
