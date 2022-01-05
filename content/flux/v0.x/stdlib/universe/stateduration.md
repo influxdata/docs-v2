@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stateduration/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stateduration/
+  - /cloud/reference/flux/stdlib/built-in/transformations/stateduration/
 menu:
   flux_0_x_ref:
     name: stateDuration
