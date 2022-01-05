@@ -7,6 +7,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/bigtable/
   - /influxdb/cloud/reference/flux/stdlib/experimental/bigtable/
+  - /flux/v0.65/stdlib/experimental/bigtable/
 menu:
   flux_0_x_ref:
     name: bigtable
