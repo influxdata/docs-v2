@@ -14,5 +14,5 @@ curl --request POST \
         "everySeconds": 86400,
         "shardGroupDurationSeconds": 0
       }
-    ],
+    ]
   }'

@@ -10,7 +10,7 @@ menu:
     weight: 10
     parent: About the project
 ---
-## v1.21 [2021-12-16]
+## v1.21.1 [2021-12-16]
 
 ## Bug fixes
 - Fix panic in parsers due to missing log.
