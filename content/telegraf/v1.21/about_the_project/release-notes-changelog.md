@@ -10,6 +10,34 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v1.21.2 [2022-1-5]
+
+- Add arm64 MacOS builds for M1 devices.
+- Add RISC-V64 Linux builds.
+- Complete numerous changes to CircleCI config to ensure more timely completion and more clear execution flow.
+- Update `github.com/djherbis/times` module from v1.2.0 to v1.5.0.
+- Update `github.com/go-ldap/ldap/v3` module from v3.1.0 to v3.4.1.
+- Update `github.com/gwos/tcg/sdk` module to v0.0.0-20211223101342-35fbd1ae683c.
+
+
+### Input plugin updates
+- Disk (`disk`): Fix issue of missing disks when running Telegraf in a container.
+- DPDK (`dpdk`): Add a note to documentation about socket availability.
+- Logparser: Resolve  panic in the logparser plugins due to a missing `Log`.
+- SNMP (`snmp`):
+  - Resolve panic due to a missing `gosmi` module.
+  - Resolve panic to check the index before assignment where a floating `::` exists.
+  - Resolve a panic when no MIBs folder was found.
+  - Ensure the module load order to avoid an SNMP marshal error.
+  - Now more accurately grabs MIB table columns.
+  - Networking no longer required during tests.
+- SNMP Trap (`snmp_trap`): Documented deprecation of the `timeout` setting.
+
+
+### Parser plugin updates
+- CSV (`csv`): Use an empty import of `tzdata` to correctly set the time zone.
+
+
 ## v1.21.1 [2021-12-16]
 
 ## Bug fixes
