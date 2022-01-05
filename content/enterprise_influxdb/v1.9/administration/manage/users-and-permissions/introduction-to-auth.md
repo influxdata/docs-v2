@@ -22,7 +22,7 @@ To secure and manage access to an InfluxDB Enterprise cluster, consider the foll
 
 InfluxDB Enterprise has an [expanded set of 16 permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/#permissions).
 These permissions allow for
-controlling read and write access to data for all databases at once,
+controlling read and write access to data for all databases and for individual databases,
 as well as permitting certain cluster-management actions like creating or deleting resources.
 
 InfluxB 1.x OSS only supports database-level privileges: `READ` and `WRITE`.
