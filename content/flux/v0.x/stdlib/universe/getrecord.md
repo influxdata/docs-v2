@@ -7,6 +7,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/getrecord/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/getrecord/
+  - /flux/v0.x/stdlib/universe/stream-table/getrecord/
 menu:
   flux_0_x_ref:
     name: getRecord
