@@ -32,7 +32,7 @@ They can _only be granted by using InfluxQL_.
 
 ## Manage user authorization
 
-There are three ways to manage authorizations in InfluxDB Enterprise:
+Choose one of the following methods manage authorizations in InfluxDB Enterprise:
 
 - using [InfluxQL](#manage-read-and-write-privileges-with-influxql)
   {{% note %}}
