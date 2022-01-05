@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/window/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/window/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/window/
+  - /flux/v0.x/stdlib/built-in/transformations/window/
 menu:
   flux_0_x_ref:
     name: window
