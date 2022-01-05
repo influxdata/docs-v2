@@ -10,6 +10,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/sql/
   - /influxdb/v2.0/reference/flux/stdlib/sql/
   - /influxdb/cloud/reference/flux/stdlib/sql/
+  - /flux/v0.65/stdlib/sql/
 menu:
   flux_0_x_ref:
     name: sql
