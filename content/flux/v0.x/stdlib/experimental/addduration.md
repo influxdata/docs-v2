@@ -6,6 +6,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/addduration/
   - /influxdb/cloud/reference/flux/stdlib/experimental/addduration/
+  - /flux/v0.x/stdlib/experimental/to/addduration/
 menu:
   flux_0_x_ref:
     name: experimental.addDuration
