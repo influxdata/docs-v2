@@ -5,6 +5,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/aggregate/rate/
   - /influxdb/cloud/reference/flux/stdlib/experimental/aggregate/rate/
+  - /flux/v0.x/stdlib/experimental/to/aggregate/rate/
 menu:
   flux_0_x_ref:
     name: aggregate.rate
