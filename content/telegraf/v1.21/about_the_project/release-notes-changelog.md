@@ -23,7 +23,7 @@ menu:
 ### Input plugin updates
 - Disk (`disk`): Fix issue of missing disks when running Telegraf in a container.
 - DPDK (`dpdk`): Add a note to documentation about socket availability.
-- Logparser: Resolve  panic in the logparser plugins due to a missing `Log`.
+- Logparser (`logparser`): Resolve  panic in the logparser plugins due to a missing `Log`.
 - SNMP (`snmp`):
   - Resolve panic due to a missing `gosmi` module.
   - Resolve panic to check the index before assignment where a floating `::` exists.
