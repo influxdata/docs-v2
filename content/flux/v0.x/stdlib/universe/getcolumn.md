@@ -7,6 +7,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/
+  - /flux/v0.x/stdlib/universe/stream-table/getcolumn/
 menu:
   flux_0_x_ref:
     name: getColumn
