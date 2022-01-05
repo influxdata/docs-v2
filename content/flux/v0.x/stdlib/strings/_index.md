@@ -8,6 +8,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/strings/
   - /influxdb/v2.0/reference/flux/stdlib/strings/
   - /influxdb/cloud/reference/flux/stdlib/strings/
+  - /flux/v0.x/stdlib/universe/type-conversions/string/
 menu:
   flux_0_x_ref:
     name: strings
