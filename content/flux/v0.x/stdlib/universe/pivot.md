@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/pivot/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/pivot/
+  - /flux/v0.65/stdlib/built-in/transformations/pivot/
 menu:
   flux_0_x_ref:
     name: pivot
