@@ -6,6 +6,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/subduration/
   - /influxdb/cloud/reference/flux/stdlib/experimental/subduration/
+  - /flux/v0.x/stdlib/experimental/to/subduration/
 menu:
   flux_0_x_ref:
     name: experimental.subDuration
