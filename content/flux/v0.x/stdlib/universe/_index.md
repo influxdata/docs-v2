@@ -8,6 +8,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/
   - /influxdb/cloud/reference/flux/stdlib/built-in/
+  - /flux/v0.65/stdlib/built-in/transformations/selectors/
 menu:
   flux_0_x_ref:
     name: universe (built-in)
