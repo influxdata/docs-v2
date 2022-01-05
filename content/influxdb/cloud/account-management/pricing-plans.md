@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/cloud/rate-limits/
   - /influxdb/v2.0/cloud/pricing-plans/
   - /influxdb/v2.0/pricing-plans/
+  - /influxdb/cloud/account-management/pricing-plans/influxdb/cloud/reference/cli/influx/
 weight: 102
 menu:
   influxdb_cloud:
