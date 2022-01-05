@@ -13,7 +13,7 @@ menu:
 {{% note %}}
 _For an overview of InfluxDB Enterprise security features,
 see ["InfluxDB Enterprise features - Security"](/enterprise_influxdb/v1.9/features/#security).
-For more information, see
+To secure your InfluxDB Enterprise cluster, see
 ["Configure security"](/enterprise_influxdb/v1.9/administration/configure/security/)
 and ["Manage security"](/enterprise_influxdb/v1.9/administration/manage/security/)_.
 {{% /note %}}
