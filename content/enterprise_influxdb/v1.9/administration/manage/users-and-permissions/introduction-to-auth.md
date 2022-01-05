@@ -12,6 +12,10 @@ related:
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
+To secure and manage access to an InfluxDB Enterprise cluster,
+first [configure authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/).
+You can then manage users and permissions as necessary.
+
 This page is meant to help new users choose the best method for managing permissions in InfluxDB Enterprise.
 
 ## Permissions in InfluxDB Enterprise
