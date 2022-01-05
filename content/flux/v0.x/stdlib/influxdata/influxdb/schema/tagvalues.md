@@ -5,6 +5,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagvalues/
   - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagvalues/
   - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/tagvalues/
+  - /flux/v0.x/stdlib/influxdb-v1/tagvalues/
 menu:
   flux_0_x_ref:
     name: schema.tagValues
