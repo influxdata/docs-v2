@@ -8,6 +8,7 @@ menu:
 aliases:
   - /influxdb/v2.0/reference/release-notes/flux/
   - /influxdb/cloud/reference/release-notes/flux/
+  - /flux/v0.x/stdlib/universe/stream-table/
 ---
 
 ## v0.147.0 [2021-12-14]
