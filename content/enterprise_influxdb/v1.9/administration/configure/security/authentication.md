@@ -14,13 +14,13 @@ weight: 10
 To configure authentication, do one of the following: 
 
 - [Enable authentication](#enable-authentication)
-- [Configure authentication using JWT tokens](#configure-authentication-using-jwt-tokens)
+- [Configure authentication using JWT tokens](#configure-authentication-using-jwt-tokens) ([InfluxDB HTTP API](/enterprise_influxdb/v1.9/tools/api/) only)
 
 ## Enable authentication
 
 Authentication is disabled by default in InfluxDB and InfluxDB Enterprise.
-After [installing the data nodes](/enterprise_influxdb/v1.9/introduction/install-and-deploy/installation/data_node_installation/)),
-we recommend enabling authentication to control access to your cluster.
+After [installing the data nodes](/enterprise_influxdb/v1.9/introduction/install-and-deploy/installation/data_node_installation/),
+enable authentication to control access to your cluster.
 
 To enable authentication in a cluster, do the following:
 
@@ -43,7 +43,6 @@ To enable authentication in a cluster, do the following:
 
 ## Configure authentication using JWT tokens
 
-([InfluxDB HTTP API](/enterprise_influxdb/v1.9/tools/api/) only)
 For a more secure alternative to using passwords, include JWT tokens in requests to the InfluxDB API.
 
 1. **Add a shared secret in your InfluxDB Enterprise configuration file**.
