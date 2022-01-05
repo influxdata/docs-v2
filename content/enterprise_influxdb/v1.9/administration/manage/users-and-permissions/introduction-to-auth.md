@@ -27,7 +27,7 @@ as well as permitting certain cluster-management actions like creating or deleti
 
 InfluxB 1.x OSS only supports database-level privileges: `READ` and `WRITE`.
 A third permission, `ALL`, grants admin privileges.
-These can only be _can only be granted by using InfluxQL_.
+These permissions _can only be granted by using InfluxQL_.
 
 ## Manage user authorization
 
