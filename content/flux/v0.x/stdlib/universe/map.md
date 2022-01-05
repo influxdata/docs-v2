@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/map/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/map/
+  - /flux/v0.x/stdlib/built-in/transformations/map/
 menu:
   flux_0_x_ref:
     name: map
