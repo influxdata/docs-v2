@@ -8,6 +8,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/
+  - /flux/v0.x/stdlib/experimental/to/geo/
 menu:
   flux_0_x_ref:
     name: geo
