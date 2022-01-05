@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/statecount/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/statecount/
+  - /cloud/reference/flux/stdlib/built-in/transformations/statecount/
 menu:
   flux_0_x_ref:
     name: stateCount
