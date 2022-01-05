@@ -9,8 +9,6 @@ menu:
 weight: 10
 ---
 
-{{% enterprise-warning-authn-b4-authz %}}
-
 To configure authentication, do one of the following: 
 
 - [Enable authentication](#enable-authentication)
@@ -106,3 +104,11 @@ curl -G "http://localhost:8086/query?db=demodb" \
 Requests with no authentication credentials or incorrect credentials yield the `HTTP 401 Unauthorized` response.
 
 Requests by unauthorized users yield the `HTTP 403 Forbidden` response.
+
+## Next steps
+
+After configuring authentication,
+you can [manage users and permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/)
+as necessary.
+
+{{% enterprise-warning-authn-b4-authz %}}
