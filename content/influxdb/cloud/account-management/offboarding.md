@@ -7,6 +7,7 @@ weight: 106
 aliases:
   - /influxdb/v2.0/account-management/offboarding
   - /influxdb/v2.0/cloud/account-management/offboarding
+  - /influxdb/cloud/account-management/offboarding/support@influxdata.com/
 menu:
   influxdb_cloud:
     parent: Account management
