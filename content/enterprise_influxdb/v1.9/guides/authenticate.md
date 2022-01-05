@@ -2,7 +2,7 @@
 title: Authenticate requests to InfluxDB Enterprise
 description: >
   Calculate percentages using basic math operators available in InfluxQL or Flux.
-  This guide walks through use-cases and examples of calculating percentages from two values in a single query.
+  This guide walks through use cases and examples of calculating percentages from two values in a single query.
 menu:
   enterprise_influxdb_1_9:
     weight: 25

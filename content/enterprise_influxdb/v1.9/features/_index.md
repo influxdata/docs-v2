@@ -13,23 +13,22 @@ InfluxDB Enterprise has additional capabilities that enhance
 [availability](#clustering),
 [scalability](#clustering), and
 [security](#security),
-as well as providing [eventual consistency](#eventual-consistency).
+and provide [eventual consistency](#eventual-consistency).
 
 ## Clustering
 
 InfluxDB Enterprise runs on a network of independent servers, a *cluster*,
 to provide fault tolerance, availability, and horizontal scalability of the database.
 
-Many InfluxDB Enterprise features are available
-when run with a single meta node and a single data node
-However this does not take advantage of the clustering capablity,
-and therefore does not provide high availablity assurances.
+While many InfluxDB Enterprise features are available
+when run with a single meta node and a single data node, this configuration does not take advantage of the clustering capablity
+or ensure high availablity.
 
 Nodes can be added to an existing cluster to improve database performance for querying and writing data.
 Certain configurations (e.g., 3 meta and 2 data node) provide high-availability assurances
 while making certain tradeoffs in query peformance when compared to a single node.
 
-Further increasing the number of nodes can improve performance in both respects
+Further increasing the number of nodes can improve performance in both respects.
 For example, a cluster with 4 data nodes and a [replication factor]() of 2
 can support a higher volume of write traffic than a single node could.
 It can also support a higher *query* workload, as the data is replicated
@@ -57,7 +56,7 @@ For FIPS compliance, InfluxDB Enterprise password hashing alogrithms are configu
 
 {{% note %}}
 Kapacitor OSS can also delegate its LDAP and security setup to InfluxDB Enterprise.
-For details, see ["Set up InfluxDB Enterprise authorizations"](https://test2.docs.influxdata.com/kapacitor/latest/administration/auth/influxdb-enterprise-auth/).
+For details, see ["Set up InfluxDB Enterprise authorizations"](/kapacitor/latest/administration/auth/influxdb-enterprise-auth/).
 {{% /note %}}
 
 ## Eventual consistency
@@ -71,7 +70,7 @@ For more information, see ["Hinted handoff"](/enterprise_influxdb/v1.9/concepts/
 
 ### Anti-entropy
 
-Anti-entropy is an optional services to eliminate edge cases related to cluster consistency.
+Anti-entropy is an optional service to eliminate edge cases related to cluster consistency.
 
 For more information, see ["Use Anti-Entropy service in InfluxDB Enterprise"](/enterprise_influxdb/v1.9/administration/anti-entropy/).
 
