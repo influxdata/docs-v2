@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/misc/logarithmicbins/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins/
   - /influxdb/cloud/reference/flux/stdlib/built-in/misc/logarithmicbins/
+  - /flux/v0.x/stdlib/built-in/misc/logarithmicbins/
 menu:
   flux_0_x_ref:
     name: logarithmicBins
