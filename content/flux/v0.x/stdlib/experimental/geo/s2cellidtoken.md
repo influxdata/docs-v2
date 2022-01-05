@@ -5,6 +5,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/s2cellidtoken/
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/s2cellidtoken/
+  - /flux/v0.x/stdlib/experimental/to/geo/s2cellidtoken/
 menu:
   flux_0_x_ref:
     name: geo.s2CellIDToken
