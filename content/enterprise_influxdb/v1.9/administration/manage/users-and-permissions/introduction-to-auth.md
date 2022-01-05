@@ -1,5 +1,5 @@
 ---
-title: Introduction to authentication and authorization
+title: Introduction to permissions in InfluxDB Enterprise
 description: >
   Learn the basics of managing authentication and authorization in InfluxDB Enterprise.
 menu:
@@ -12,11 +12,7 @@ related:
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
-To secure and manage access to an InfluxDB Enterprise cluster, consider the following two aspects:
-- *authentication* (verifying a user's identity)
-- *authorization* (verifying what the user has access to)
-
-{{% enterprise-warning-authn-b4-authz %}}
+This page is meant to help new users choose the best method for managing permissions in InfluxDB Enterprise.
 
 ## Permissions in InfluxDB Enterprise
 
@@ -27,7 +23,8 @@ as well as permitting certain cluster-management actions like creating or deleti
 
 InfluxB 1.x OSS only supports database-level privileges: `READ` and `WRITE`.
 A third permission, `ALL`, grants admin privileges.
-These permissions _can only be granted by using InfluxQL_.
+These three permissions exist in InfluxDB Enterprise as well.
+They can _only be granted by using InfluxQL_.
 
 ## Manage user authorization
 
