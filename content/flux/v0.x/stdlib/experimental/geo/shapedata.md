@@ -7,6 +7,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/shapedata/
+  - /flux/v0.x/stdlib/experimental/to/geo/shapedata/
 menu:
   flux_0_x_ref:
     name: geo.shapeData
