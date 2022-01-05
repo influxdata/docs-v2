@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/misc/linearbins/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/linearbins/
   - /influxdb/cloud/reference/flux/stdlib/built-in/misc/linearbins/
+  - /flux/v0.x/stdlib/built-in/misc/linearbins/
 menu:
   flux_0_x_ref:
     name: linearBins
