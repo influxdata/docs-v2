@@ -8,6 +8,7 @@ menu:
 weight: 101
 alias:
   - /influxdb/v2.1/reference/cli/influxd/restore/
+  - /influxdb/v2.0/administration/backup_and_restore/
 related:
   - /influxdb/v2.1/backup-restore/restore/
   - /influxdb/v2.1/reference/cli/influx/backup/
