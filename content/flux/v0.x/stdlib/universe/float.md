@@ -5,6 +5,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/float/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/float/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/float/
+  - /flux/v0.x/stdlib/universe/type-conversions/float/
 menu:
   flux_0_x_ref:
     name: float
