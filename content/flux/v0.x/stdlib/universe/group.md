@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/group/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/group/
+  - /flux/v0.x/stdlib/built-in/transformations/group/
 menu:
   flux_0_x_ref:
     name: group
