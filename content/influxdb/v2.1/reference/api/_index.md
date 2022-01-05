@@ -8,6 +8,7 @@ weight: 3
 influxdb/v2.1/tags: [api]
 aliases:
   - /influxdb/v2.1/concepts/api/
+  - /influxdb/v0.6/api/
 ---
 
 The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.
