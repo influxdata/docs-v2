@@ -5,6 +5,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagkeys/
   - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/tagkeys/
   - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagkeys/
+  - /flux/v0.x/stdlib/influxdb-v1/tagkeys/
 menu:
   flux_0_x_ref:
     name: v1.tagKeys
