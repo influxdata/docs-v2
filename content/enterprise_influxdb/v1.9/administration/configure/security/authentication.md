@@ -83,8 +83,6 @@ For a more secure alternative to using passwords, include JWT tokens in requests
 
    To encode the payload using your shared secret, use a JWT library in your own authentication server or encode by hand at [https://jwt.io/](https://jwt.io/).
 
-   Ensure the generated token uses the following format: `<header>.<payload>.<signature>`
-
 3. **Include the token in HTTP requests**.
 
    Include your generated token as part of the `Authorization` header in HTTP requests:
