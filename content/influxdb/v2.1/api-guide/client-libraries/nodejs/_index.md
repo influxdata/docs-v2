@@ -13,6 +13,7 @@ weight: 201
 aliases:
   - /influxdb/v2.1/reference/api/client-libraries/nodejs/
   - /influxdb/v2.1/reference/api/client-libraries/js/  
+  - /influxdb/cloud/tags/node.js/
 ---
 
 Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into your Node.js application.
