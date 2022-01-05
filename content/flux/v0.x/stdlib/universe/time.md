@@ -5,6 +5,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/time/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/time/
+  - /flux/v0.x/stdlib/universe/type-conversions/time/
 menu:
   flux_0_x_ref:
     name: time
