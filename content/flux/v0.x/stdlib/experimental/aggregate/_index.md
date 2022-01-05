@@ -7,6 +7,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/aggregate/
   - /influxdb/cloud/reference/flux/stdlib/experimental/aggregate/
+  - /flux/v0.65/stdlib/built-in/transformations/aggregates/mean/
 menu:
   flux_0_x_ref:
     name: aggregate
