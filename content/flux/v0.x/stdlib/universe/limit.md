@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/limit/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/limit/
+  - /flux/v0.x/stdlib/built-in/transformations/limit/
 menu:
   flux_0_x_ref:
     name: limit
