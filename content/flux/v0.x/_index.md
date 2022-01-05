@@ -10,6 +10,7 @@ weight: 1
 aliases:
   - /influxdb/v2.0/reference/flux/
   - /influxdb/cloud/reference/flux/
+  - /flux/v0.65/
 ---
 
 Flux is an open source functional data scripting language designed for querying,
