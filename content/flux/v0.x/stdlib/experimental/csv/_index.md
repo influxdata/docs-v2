@@ -8,6 +8,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/csv/
   - /influxdb/cloud/reference/flux/stdlib/experimental/csv/
+  - /flux/v0.65/stdlib/csv/
 menu:
   flux_0_x_ref:
     name: csv
