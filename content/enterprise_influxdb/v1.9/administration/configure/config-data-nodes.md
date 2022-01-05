@@ -9,6 +9,7 @@ menu:
     parent: Configure
 aliases:
   - /enterprise_influxdb/v1.9/administration/config-data-nodes/
+  - /enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/enterprise_influxdb/v1.9/administration/config-data-nodes/
 ---
 
 * [Data node configuration settings](#data-node-configuration-settings)
