@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/aggregatewindow/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/
+  - /flux/v0.65/stdlib/built-in/transformations/aggregates/
 menu:
   flux_0_x_ref:
     name: aggregateWindow
