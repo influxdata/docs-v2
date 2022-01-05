@@ -10,6 +10,13 @@ aliases:
   - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
 ---
 
+{{% enterprise-warning-authn-b4-authz %}}
+
+_For information about how to configure HTTPs over TLS, LDAP authentication, and password hashing,
+see [Configure security](/enterprise_influxdb/v1.9/administration/configure/security/)._
+
+{{< children >}}
+
 <!--
 Some customers may choose to install InfluxDB Enterprise with public internet access,
 however doing so can inadvertently expose your data and invite unwelcome attacks on your database.
@@ -56,8 +63,3 @@ For InfluxDB Enterprise, [backing up and restoring](/enterprise_influxdb/v1.9/ad
 InfluxData recommends implementing on-disk encryption; InfluxDB does not offer built-in support to encrypt the data.
 
 -->
-
-_For information on configuring security features such as authentication and TLS,
-see [Configure security](/enterprise_influxdb/v1.9/administration/configure/security/)._
-
-{{< children >}}
