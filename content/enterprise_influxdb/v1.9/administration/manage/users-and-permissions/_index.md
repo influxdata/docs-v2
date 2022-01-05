@@ -1,6 +1,6 @@
 ---
 title: Manage users and permissions
-description: Configuration, security, and logging in InfluxDB enterprise.
+description: Manage authorization in InfluxDB Enterprise clusters with users, roles, and permissions.
 menu:
   enterprise_influxdb_1_9:
     name: Manage users and permissions
