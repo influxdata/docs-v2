@@ -10,6 +10,7 @@ weight: 110
 aliases:
   - /influxdb/v2.0/reference/flux/language/operators/
   - /influxdb/cloud/reference/flux/language/operators/
+  - /flux/v0.x/language/operators/
 flux/v0.x/tags: [operators]
 ---
 
