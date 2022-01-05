@@ -7,6 +7,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/monitor/statechanges/
   - /influxdb/v2.0/reference/flux/stdlib/monitor/statechanges/
   - /influxdb/cloud/reference/flux/stdlib/monitor/statechanges/
+  - /cloud/reference/flux/stdlib/monitor/statechanges/
 menu:
   flux_0_x_ref:
     name: monitor.stateChanges
