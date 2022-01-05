@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/last/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/last/
+  - /flux/v0.65/stdlib/built-in/transformations/selectors/last/
 menu:
   flux_0_x_ref:
     name: last
