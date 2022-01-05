@@ -6,6 +6,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/transformations/drop/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/drop/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/drop/
+  - /flux/v0.65/stdlib/built-in/transformations/drop/
 menu:
   flux_0_x_ref:
     name: drop
