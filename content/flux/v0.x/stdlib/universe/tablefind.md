@@ -7,6 +7,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
   - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
+  - /flux/v0.x/stdlib/universe/stream-table/tablefind/
 menu:
   flux_0_x_ref:
     name: tableFind
