@@ -5,6 +5,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/built-in/misc/now/
   - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
   - /influxdb/cloud/reference/flux/stdlib/built-in/misc/now/
+  - /flux/v0.x/stdlib/built-in/misc/now/
 menu:
   flux_0_x_ref:
     name: now
