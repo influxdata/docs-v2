@@ -5,6 +5,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/astracks/
   - /influxdb/cloud/reference/flux/stdlib/experimental/geo/astracks/
+  - /flux/v0.x/stdlib/experimental/to/geo/astracks/
 menu:
   flux_0_x_ref:
     name: geo.asTracks
