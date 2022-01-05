@@ -5,6 +5,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurements/
   - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurements/
   - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurements/
+  - /flux/v0.x/stdlib/influxdb-v1/measurements/
 menu:
   flux_0_x_ref:
     name: v1.measurements
