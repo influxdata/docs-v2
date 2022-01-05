@@ -14,6 +14,7 @@ aliases:
   - /influxdb/cloud/account-management/multi-user/invite-user/
   - /influxdb/cloud/account-management/multi-user/remove-user/
   - /influxdb/cloud/users/
+  - /influxdb/cloud/account-management/multi-user/remove-user/support@influxdata.com/
 ---
 
 {{< cloud-name >}} lets you invite and collaborate with multiple users in your organization. 
