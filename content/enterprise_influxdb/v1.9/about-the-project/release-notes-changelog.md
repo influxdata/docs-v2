@@ -15,7 +15,7 @@ menu:
 
 #### Backup enhancements
 
-- **Revert damaged meta nodes to a previous state**: Add the `meta-only-overwrite-force` option to [`influxd-ctl restore`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) to revert damaged meta nodes in an existing cluster to a previous state when restoring an InfluxDB Enterprise database.
+- **Revert damaged meta nodes to a previous state**: Add the `-meta-only-overwrite-force` option to [`influxd-ctl restore`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) to revert damaged meta nodes in an existing cluster to a previous state when restoring an InfluxDB Enterprise database.
 
 - **Estimate the size of a backup** (full or incremental) and provide progress messages. Add `-estimate` option to [`influxd-ctl backup`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#backup) to estimate the size of a backup (full or incremental) and provide progress messages. Prints the number of files to back up, the percentage of bytes transferred for each file (organized by shard), and the estimated time remaining to complete the backup.
 
