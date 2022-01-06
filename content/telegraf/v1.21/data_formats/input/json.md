@@ -10,7 +10,7 @@ menu:
 ---
 
 {{% note %}}
-The following information applies to the legacy JSON input data format. For most cases, we recommend using the [JSON v2 input data format](/telegraf/v1.20/data_formats/input/json_v2/) instead.
+The following information applies to the legacy JSON input data format. For most cases, we recommend using the [JSON v2 input data format](/telegraf/v1.21/data_formats/input/json_v2/) instead.
 {{% /note %}}
 
 The JSON input data format parses a [JSON][json] object or an array of objects
