@@ -16,10 +16,11 @@ related:
   - /influxdb/cloud/reference/syntax/line-protocol
   - /influxdb/cloud/reference/syntax/annotated-csv
   - /influxdb/cloud/reference/cli/influx/write
+  - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
 {{% note %}}
-To explore InfluxDB using existing data (*without writing your own data*), see how to [add sample data](/influxdb/cloud/query-data/execute-queries/query-sample-data/#add-sample) or [add a demo data bucket](/influxdb/cloud/query-data/execute-queries/query-demo-data/#add-a-demo-data-bucket).
+To explore InfluxDB using existing data (*without writing your own data*), see how to [add sample data](/influxdb/cloud/query-data/execute-queries/query-sample-data/#add-sample).
 {{% /note %}}
 
 1. Learn the [best practices](/influxdb/cloud/write-data/best-practices/) for writing data.
