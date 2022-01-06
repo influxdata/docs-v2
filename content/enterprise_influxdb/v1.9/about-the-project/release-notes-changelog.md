@@ -36,7 +36,7 @@ menu:
 
 #### Data
 
--  Adjust shard start and end times to avoid overlaps in existing shards, for example, existing truncated shards or existing shards with a different shard duration than the current default.
+-  Adjust shard start and end times to avoid overlaps in existing shards. This resolves issues with existing shards (truncated or not) that have a different shard duration than the current default.
 - `DROP SHARD` now successfully ignores "shard not found errors."
 
 #### Errors
