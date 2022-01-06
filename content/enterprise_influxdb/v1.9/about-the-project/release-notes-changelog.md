@@ -48,11 +48,6 @@ menu:
 
 - Resolve issue to enable [mutex profiling](/enterprise_influxdb/v1.9/tools/api/#debugpprof-http-endpoint).
 
-#### Packages
-
-- Rename ARM `.rpms` packages with `yum` -compatible names.
-- Ensure package versions generally start with the digit `1`. 
-
 ### Meta node join
 
 - Improve [`influxd-ctl join`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#join) robustness and provide better error messages on failure.
