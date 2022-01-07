@@ -10,13 +10,15 @@ related:
   - /enterprise_influxdb/v1.9/administration/manage/security/authorization-api.md
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
   - /enterprise_influxdb/v1.9/administration/manage/security/fine-grained-authorization/
+aliases:
+  - /enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/
 ---
 
 {{% enterprise-warning-authn-b4-authz %}}
 
 {{% note %}}
 We recommend using [Chronograf](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/)
-and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
+and/or the [Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authorization-api/)
 to manage InfluxDB Enterprise users and roles.
 {{% /note %}}
 
@@ -36,12 +38,12 @@ Using InfluxQL, you can perform the following actions:
 - `REVOKE` permissions from users.
 - `GRANT` or `REVOKE` specific database access to individual users.
 
-However, InfluxDB Enterprise offers an [*expanded set of permissions*](/enterprise_influxdb/v1.9/administration/manage/security/permissions/#permissions).
+However, InfluxDB Enterprise offers an [*expanded set of permissions*](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/#permissions).
 You can use the Meta API and Chronograf to access and assign these more granular permissions to individual users.
 
-The [InfluxDB Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api/)
+The [InfluxDB Enterprise meta API](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authorization-api/)
 provides the most comprehensive way to manage users, roles, permission
-and other [fine grained authorization](/enterprise_influxdb/v1.9/administration/manage/security/fine-grained-authorization/) (FGA) capabilities.
+and other [fine grained authorization](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/fine-grained-authorization/) (FGA) capabilities.
 
 #### Non-admin users
 
