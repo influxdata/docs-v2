@@ -7,6 +7,8 @@ menu:
     name: Schema design
     weight: 201
     parent: write-best-practices
+related:
+  - /resources/videos/data-model-building-blocks/
 ---
 
 {{< duplicate-oss >}}
