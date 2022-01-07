@@ -11,7 +11,7 @@ menu:
 weight: 202
 aliases:
   - /influxdb/v2.0/query-data/guides/group-data/
-  - /influxdb/v2.0/query-data/flux/grouping-data.md
+  - /influxdb/v2.0/query-data/flux/grouping-data/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/group
   - /{{< latest "flux" >}}/stdlib/experimental/group
