@@ -7,6 +7,8 @@ menu:
     name: Query basics
     parent: Get started
 weight: 103
+related:
+  - /resources/videos/flux-basics/
 ---
 
 Most Flux queries follow the same basic structure.
