@@ -46,7 +46,7 @@ or the [Meta API (recommended)](#influxdb-enterprise-meta-api).
 
 ### Manage read and write privileges with InfluxQL
 
-If you only need to manage basic `READ`, `WRITE`, and `ALL` privileges.
+If you only need to manage basic `READ`, `WRITE`, and `ALL` privileges,
 use InfluxQL to manage authorizations.
 (For instance, if you upgraded from InfluxDB OSS 1.x
 and do not need the more detailed authorization in InfluxDB Enterprise, continue to use InfluxQL.)
