@@ -1,10 +1,10 @@
 ---
-title: Overview of authorization in InfluxDB Enterprise
+title: Introduction to authorization in InfluxDB Enterprise
 description: >
   Learn the basics of managing users and permissions in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
-    name: Overview of authorization
+    name: Introduction to authorization
     parent: Manage users and permissions
 weight: 30
 related:
@@ -12,15 +12,17 @@ related:
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
+Authorization in InfluxDB Enterprise refers to managing user permissions.
 To secure and manage access to an InfluxDB Enterprise cluster,
 first [configure authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/).
 You can then manage users and permissions as necessary.
 
-This page is meant to help new users choose the best method for managing permissions in InfluxDB Enterprise.
+This page is meant to help new users choose the best method
+for managing permissions in InfluxDB Enterprise.
 
 ## Permissions in InfluxDB Enterprise
 
-InfluxDB Enterprise has an [expanded set of 16 permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/#permissions).
+InfluxDB Enterprise has an [expanded set of 16 permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/#permissions).
 These permissions allow for
 controlling read and write access to data for all databases and for individual databases,
 as well as permitting certain cluster-management actions like creating or deleting resources.
@@ -37,7 +39,7 @@ Choose one of the following methods manage authorizations in InfluxDB Enterprise
 - using [InfluxQL](#manage-read-and-write-privileges-with-influxql)
   {{% note %}}
 InfluxQL can can only grant `READ`, `WRITE`, and `ALL PRIVILEGES` privileges.
-To use the full set of InfluxDB Enterprise [permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/),
+To use the full set of InfluxDB Enterprise [permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/),
 use [Chronograf](#manage-specific-privileges-with-chronograf)
 or the [Meta API (recommended)](#influxdb-enterprise-meta-api).
   {{% /note %}}
@@ -60,10 +62,10 @@ Doing so may lead to inconsistencies in user permissions.
 ### Manage Enterprise permissions with Chronograf
 
 The Chronograf user interface can manage the
-[full set of InfluxDB Enterprise permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/#permissions).
+[full set of InfluxDB Enterprise permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/#permissions).
 
 The permissions listed in Chronograf are global for the cluster, and available through the API.
-Outside of [FGA](/enterprise_influxdb/v1.9/administration/manage/security/fine-grained-authorization),
+Outside of [FGA](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/fine-grained-authorization),
 the only database-level permissions available are the basic `READ` and `WRITE`.
 These can only be managed using [InfluxQL](#manage-read-and-write-privileges-with-influxql).
 
@@ -79,4 +81,4 @@ The InfluxDB Enterprise API is the
 recommended method for managing permissions.
 
 For more information on using the meta API,
-see [here](/enterprise_influxdb/v1.9/administration/manage/security/authentication_and_authorization-api).
+see [here](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authentication_and_authorization-api).
