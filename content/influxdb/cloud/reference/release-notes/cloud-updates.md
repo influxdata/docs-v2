@@ -14,6 +14,67 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+<!-- ## January 2022
+### Update Tokens UI
+
+To enhance security, the Token UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you will not be able to view or copy the token. -->
+
+## November 2021
+
+- [Remove Website demo data](#remove-website-demo-data)
+- [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)
+- [Add ability to share notebooks](#add-ability-to-share-notebooks)
+
+### Remove Website Demo Data
+
+To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer, and now provide new sample data buckets in notebooks (see [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)). If you've used the Website Demo Data bucket in the past, your existing demo data isn't affected, and you may continue to use the data as needed.
+
+### Add sample data buckets to Notebooks UI
+
+To get started with sample data in InfluxDB Cloud, check out the new sample data buckets in the Notebooks UI, which support a variety of use cases. Sample data buckets provide a way to explore InfluxDB without ingesting your own data.
+
+Now, you can add the following buckets with sample data to your notebooks:
+
+- Air Sensor Data
+- Coinbase bitcoin price
+- NOAA National Buoy Data
+- USGS Earthquakes
+
+### Add ability to share notebooks
+
+Add ability to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
+
+## October 2021
+
+- [API invokable scripts](#api-invokable-scripts)
+- [New UI design](#new-ui-design)
+- [Flux update](#flux-update)
+- [Telegraf configuration UI](#telegraf-configuration-ui)
+
+### API invokable scripts
+
+Use [API invokable scripts](/influxdb/cloud/api-guide/api-invokable-scripts/) to assign and execute a script through an API endpoint.
+
+### New UI design
+
+Refresh the look and feel of InfluxDB Cloud UI. The updated icons, fonts, and layouts improve visibility, accessibility, and user experience.
+
+ The updated icons, fonts, and layouts improve visibility, accessibility, and user experience. For those interested in the code, check out the [Clockface UI kit](https://github.com/influxdata/clockface).
+
+### Flux update
+
+Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
+
+### Telegraf configuration UI
+
+Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/telegraf-configs/create/#use-the-influxdb-ui).
+
+## September 2021
+
+- **Paginated tasks in UI**: Previously, the Tasks page only listed the first 100 tasks. Now, all tasks are accessible and paginated on the Tasks page.
+
+- **Enhanced Flux VS Code extension to include tasks**: Add ability to create and edit [InfluxDB tasks](/influxdb/v2.0/process-data/get-started/) in Visual Studio Code using the Flux extension. See how to [use the Flux VS Code extension](/influxdb/v2.0/tools/flux-vscode/).
+
 ## August 2021
 
 - Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
@@ -75,7 +136,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ### Load Data updates
 
-  - Redesign the Load Data page to increase discovery and ease of use. Now, you can [load data from sources directly in the InfluxDB user interface](/influxdb/cloud/write-data/load-data/).
+  - Redesign the Load Data page to increase discovery and ease of use. Now, you can [load data from sources directly in the InfluxDB user interface](/influxdb/cloud/write-data/no-code/load-data/).
   - Add support for new data sources:
     - InfluxDB v2 Listener
     - NSD

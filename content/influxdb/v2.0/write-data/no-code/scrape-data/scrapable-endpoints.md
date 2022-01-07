@@ -12,7 +12,7 @@ menu:
   influxdb_2_0:
     parent: Scrape data
 weight: 202
-influxdb/v2.0/tags: [scraper]
+influxdb/v2.0/tags: [scraper, prometheus]
 ---
 
 InfluxDB scrapers can collect data from any HTTP(S)-accessible endpoint that returns data

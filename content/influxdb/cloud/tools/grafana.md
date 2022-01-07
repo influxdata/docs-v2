@@ -21,7 +21,7 @@ to visualize data from InfluxDB Cloud.
 The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
 {{% /note %}}
 
-1. [Sign up for {{< cloud-name >}}](/influxdb/cloud/get-started/).
+1. [Sign up for {{< cloud-name >}}](/influxdb/cloud/sign-up/).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
@@ -209,4 +209,4 @@ With your InfluxDB connection configured, use Grafana and Flux to query and
 visualize time series data stored in **{{< cloud-name >}}**.
 
 For more information about using Grafana, see the [Grafana documentation](https://grafana.com/docs/).
-If you're just learning Flux, see [Get started with Flux](/influxdb/cloud/query-data/get-started/).
+If you're just learning Flux, see [Get started with Flux](/{{< latest "flux" >}}/get-started/).

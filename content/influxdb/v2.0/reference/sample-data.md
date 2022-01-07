@@ -12,7 +12,7 @@ weight: 7
 
 Use sample data to familiarize yourself with time series data and InfluxDB.
 InfluxData provides many sample time series datasets to use with InfluxDB.
-You can also use the [Flux InfluxDB sample package](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/)
+You can also use the [Flux InfluxDB sample package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/)
 to view, download, and output sample datasets.
 
 - [Air sensor sample data](#air-sensor-sample-data)
@@ -32,7 +32,7 @@ Air sensor sample data represents an "Internet of Things" (IoT) use case by simu
 temperature, humidity, and carbon monoxide levels for multiple rooms in a building.
 
 To download and output the air sensor sample dataset, use the
-[`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/).
+[`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/).
 
 ```js
 import "influxdata/influxdb/sample"
@@ -60,7 +60,7 @@ Bird migration sample data is adapted from the
 and represents animal migratory movements throughout 2019.
 
 To download and output the bird migration sample dataset, use the
-[`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/).
+[`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/).
 
 ```js
 import "influxdata/influxdb/sample"
@@ -90,7 +90,7 @@ observations from the NOAA NDBC network of buoys throughout the world.
 Observations are updated approximately every 15 minutes.
 
 To download and output the most recent NOAA NDBC observations, use the
-[`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/).
+[`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/).
 
 ```js
 import "influxdata/influxdb/sample"
@@ -152,7 +152,7 @@ collected from USGS seismic sensors around the world over the last week.
 Data is updated approximately every 15m.
 
 To download and output the last week of USGS seismic data, use the
-[`sample.data()` function](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/data/).
+[`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/).
 
 ```js
 import "influxdata/influxdb/sample"

@@ -922,16 +922,16 @@ Use the `[fluxtask]` configuration group to enable and configure Kapacitor Flux 
   # to store historical task run data in 
   # Not recommended: use "none" to turn off historical task run data storage.
   task-run-influxdb = "localhost"
-  # Bucket to store historical task run data in.
-  # If using InfluxDB 1.x, use the "db/rp" convention.
-  # This bucket or database must already exist in the task-run-influxdb instance.
-  task-run-bucket = "db/rp"
+  # Bucket to store historical task run data in. We recommend leaving this empty; by default, data is written to the `kapacitor_fluxtask_logs` bucket or database.
+  # If you have multiple Kapacitor instances and want to keep your data separate, specify the InfluxDB 2.x bucket or InfluxDB 1.x database to write to. For InfluxDB 1.x, use the `"mydb"` convention--the `"mydb/rp"` convention with the retention policy is not supported.  
+  task-run-bucket=" " 
   # The organization name or ID if storing historical task run data
   # in InfluxDB 2.x or InfluxDB Cloud
   task-run-org = ""
   task-run-orgid = ""
   # The measurement name for the historical task run data
-  task-run-measurement = "runs"
+  task-run-measurement = "runs" 
+
 # ...
 ```
 

@@ -32,7 +32,7 @@ menu:
 
 #### Miscellaneous event updates
 
-- Send the full event payload to [Pagerduty](/influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent) when the `eventAction` is `resolve`, thanks @asvinours!
+- Send the full event payload to [Pagerduty](/kapacitor/v1.5/event_handlers/pagerduty/v2/) when the `eventAction` is `resolve`, thanks @asvinours!
 - Add the default color theme to [Microsoft Teams](/kapacitor/v1.5/event_handlers/microsoftteams/) alerts, thanks @NoamShaish!
 - Add barrier handling to [FlattenNode](/kapacitor/v1.5/nodes/flatten_node/) to ensure points are successfully emitted.
 

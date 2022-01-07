@@ -11,7 +11,7 @@ menu:
     parent: Query with Flux
 influxdb/cloud/tags: [query, select, where]
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter/
+  - /{{< latest "flux" >}}/stdlib/universe/filter/
   - /influxdb/cloud/query-data/flux/conditional-logic/
   - /influxdb/cloud/query-data/flux/regular-expressions/
 list_code_example: |

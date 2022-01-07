@@ -18,10 +18,11 @@ related:
 ---
 
 Write CSV data with the following methods:
+
+- [Upload a file or manually paste data in the UI](/influxdb/cloud/write-data/no-code/load-data/#load-data-by-uploading-a-csv-or-line-protocol-file)
 - [influx write command](#influx-write-command)
 - [Telegraf](#telegraf)
 - [Flux](#flux)
-
 
 ## influx write command
 
@@ -348,14 +349,10 @@ To replace an existing column header row with annotation shorthand:
 1. Use the `--skipHeader` flag to ignore the existing column header row.
 2. Use the `--header` flag to inject a new column header row that uses annotation shorthand.
 
-{{% note %}}
-`--skipHeader` is the same as `--skipHeader=1`.
-{{% /note %}}
-
 ```sh
 influx write -b example-bucket \
   -f example.csv \
-  --skipHeader
+  --skipHeader=1
   --header="m|measurement,count|long|0,time|dateTime:RFC3339"
 ```
 
@@ -517,7 +514,6 @@ in the `boolean` datatype annotation.
 {{% flex-content %}}
 ##### CSV with non-default boolean values
 ```
-sep=;
 #datatype measurement,"boolean:y,Y,1:n,N,0",dateTime:RFC3339
 m,verified,time
 example,y,2020-01-01T00:00:00Z
@@ -570,11 +566,11 @@ example lbs=2014.9 1578096000000000000
 
 ## Flux
 
-Use the [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) and [to()](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/) Flux functions to write an annotated CSV to the bucket of your choice.
+Use the [csv.from()](/{{< latest "flux" >}}/stdlib/csv/from/) and [to()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) Flux functions to write an annotated CSV to the bucket of your choice.
 
 {{< youtube wPKZ9i0DulQ >}}
 
-The experimental [csv.from()](/influxdb/v2.0/reference/flux/stdlib/csv/from/) function lets you write CSV from a URL.
+The experimental [csv.from()](/{{< latest "flux" >}}/stdlib/csv/from/) function lets you write CSV from a URL.
 The example below writes [NOAA water sample data](/influxdb/v2.0/reference/sample-data/#noaa-water-sample-data) to an example `noaa` bucket in an example organization:
 
 ```js
@@ -585,8 +581,18 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 ```
 
 {{% note %}}
-#### Required columns
-To write data to InfluxDB with Flux, data must include the following columns:
+#### Required annotations and columns
+To write CSV data to InfluxDB with Flux, you must include _all_ of the following annotations and columns:
+
+- `datatype`
+- `group`
+- `default`
+
+See [annotations](/influxdb/v2.0/reference/syntax/annotated-csv/#annotations) for more information.
+With Flux, there must also be a comma between the annotation name and the annotation values (this differs from the `influx write` command).
+See an example of valid syntax for [annotated CSV in Flux](/influxdb/v2.1/reference/syntax/annotated-csv/#annotated-csv-in-flux).
+
+Required columns:
 
 - `_time`
 - `_measurement`

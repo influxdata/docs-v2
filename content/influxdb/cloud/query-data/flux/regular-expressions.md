@@ -10,7 +10,7 @@ menu:
 weight: 220
 related:
   - /influxdb/cloud/query-data/flux/query-fields/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/
+  - /{{< latest "flux" >}}/stdlib/regexp/
 list_query_example: regular_expressions
 ---
 

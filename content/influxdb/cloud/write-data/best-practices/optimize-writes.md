@@ -7,6 +7,8 @@ menu:
   influxdb_cloud:
     parent: write-best-practices
 influxdb/cloud/tags: [best practices, write]
+related:
+  - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
 Use these tips to optimize performance and system overhead when writing data to InfluxDB.

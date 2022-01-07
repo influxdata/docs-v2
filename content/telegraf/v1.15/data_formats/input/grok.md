@@ -65,7 +65,7 @@ See https://golang.org/pkg/time/#Parse for more details.
 
 Telegraf has many of its own [built-in patterns](https://github.com/influxdata/telegraf/blob/master/plugins/parsers/grok/influx_patterns.go),
 as well as support for most of
-[logstash's builtin patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/master/patterns/grok-patterns).
+[logstash's builtin patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/main/patterns/ecs-v1/grok-patterns.
 _Golang regular expressions do not support lookahead or lookbehind.
 logstash patterns that depend on these are not supported._
 

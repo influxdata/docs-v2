@@ -38,7 +38,7 @@ Delete data from buckets you've created. You cannot delete data from system buck
 
 1. Click the **Data Explorer** icon in the sidebar.
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Click **Delete Data** in the top navigation bar.
 3. In the **Delete Data** window that appears:
@@ -119,7 +119,7 @@ deletes all data in the specified bucket with timestamps between the specified `
 
 ##### Delete points in a specific measurement with a specific tag value
 ```sh
-curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=example-bucket \
+curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=example-bucket \
   --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -131,7 +131,7 @@ curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=
 
 ##### Delete all points in a specified time range
 ```sh
-curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=example-bucket \
+curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=example-bucket \
   --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{

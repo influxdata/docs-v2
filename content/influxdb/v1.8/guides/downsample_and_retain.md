@@ -13,7 +13,7 @@ v2: /influxdb/v2.0/process-data/common-tasks/downsample-data/
 InfluxDB can handle hundreds of thousands of data points per second. Working with that much data over a long period of time can create storage concerns.
 A natural solution is to downsample the data; keep the high precision raw data for only a limited time, and store the lower precision, summarized data longer.
 This guide describes how to automate the process of downsampling data and expiring old data using InfluxQL. To downsample and retain data using Flux and InfluxDB 2.0,
-see [Process Data with InfluxDB tasks](/influxdb/v2.0/process-data/).
+see [Process data with InfluxDB tasks](/influxdb/v2.0/process-data/).
 
 ### Definitions
 

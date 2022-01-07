@@ -51,6 +51,10 @@ table {
   img { margin-bottom: 0; }
 }
 
+table + table {
+  margin-top: -1.5rem;
+}
+
 #flags:not(.no-shorthand), #global-flags {
   & + table {
     td:nth-child(2) code { margin-left: -2rem; }

@@ -42,7 +42,7 @@ input:
     description: |
       The Amazon CloudWatch Alarms input plugin pulls alarm statistics from Amazon CloudWatch.
     introduced: 1.16.0
-    link: https://github.com/vipinvkmenon/awsalarms
+    link: https://github.com/vipinvkmenon/awsalarms/blob/master/README.MD
     tags: [linux, macos, windows, cloud, external]
     external: true
 
@@ -200,6 +200,7 @@ input:
     description: |
       The BigBlueButton Input Plugin gathers metrics from a BigBlueButton server.
     introduced: 1.19.0
+    link: https://github.com/SLedunois/bigbluebutton-telegraf-plugin/blob/main/README.md
     tags: [external]
     external: true
 
@@ -394,6 +395,7 @@ input:
     description: |
       This plugin gathers dnsmasq statistics on the DNS side.
     introduced: 1.19.0
+    link: https://github.com/machinly/dnsmasq-telegraf-plugin/blob/main/README.md
     tags: [external]
     external: true
 
@@ -430,6 +432,7 @@ input:
     description: |
       This plugin gathers metrics from 389 Directory Servers' cn=Monitor backend.
     introduced: 1.19.0
+    link: https://github.com/falon/CSI-telegraf-plugins/blob/master/plugins/inputs/ds389/README.md
     tags: [external]
     external: true
 
@@ -440,6 +443,13 @@ input:
       and optionally [cluster-health](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html)
       or [cluster-stats](https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-stats.html) metrics.
     introduced: 0.1.5
+    tags: [linux, macos, windows, data-stores]
+
+  - name: Elasticsearch Query
+    id: elasticsearch_query
+    description: |
+      This elasticsearch query plugin queries endpoints to obtain metrics from data stored in an Elasticsearch cluster.
+    introduced: 1.20.0
     tags: [linux, macos, windows, data-stores]
 
   - name: Ethtool
@@ -655,6 +665,15 @@ input:
     introduced: 0.12.1
     tags: [linux, macos, windows, servers, web]
 
+  - name: IBM DB2
+    id: db2
+    description: |
+      The IBM DB2 plugin collects metrics from DB2 RDBMS using performance monitor tables.
+    introduced: 1.20.3
+    link: https://github.com/bonitoo-io/telegraf-input-db2/blob/main/README.md
+    external: true
+    tags: [linux, macos, windows, IBM, datastores]
+
   - name: Icinga 2
     id: icinga2
     description: |
@@ -739,6 +758,13 @@ input:
     introduced: 1.16.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Intel PMU
+    id: intel_pmu
+    description: |
+      The Intel PMU input plugin exposes Intel PMU (Performance Monitoring Unit) metrics available through Linux Perf subsystem.
+    introduced: 1.21.0
+    tags: [linux, systems]
+
   - name: Intel Powerstat
     id: intel_powerstat
     description: |
@@ -759,6 +785,13 @@ input:
       The Intel RDT input plugin collects information provided by the monitoring features of Intel Resource Director Technology (RDT).
     introduced: 1.16.0
     tags: [linux, macos, windows, systems]
+
+  - name: Internet Speed Monitor
+    id: internet_speed
+    description: |
+      The Internet Speed Monitor plugin collects data about the internet speed on the system.
+    introduced: 1.20.0
+    tags: [linux, macos, windows, systems, iot, networking]
 
   - name: Interrupts
     id: interrupts
@@ -921,6 +954,7 @@ input:
     description: |
       This plugin monitors the number of entries inside LDAP trees.
     introduced: 1.19.0
+    link: https://github.com/falon/CSI-telegraf-plugins/blob/master/plugins/inputs/ldap_org/README.md
     tags: [external]
     external: true
 
@@ -940,6 +974,13 @@ input:
       The documentation on these fields can be found [here](https://www.kernel.org/doc/Documentation/sysctl/fs.txt).
     introduced: 1.3.0
     tags: [linux, macos, windows, systems]
+
+  - name: Logical Volume Manager
+    id: lvm
+    description: |
+      The Logical Volume Manager collects information about physical volumes, volume groups, and logical volumes in Linux.
+    introduced: 1.21.0
+    tags: [linux, systems]
 
   - name: Logparser
     id: logparser
@@ -991,6 +1032,13 @@ input:
       handles almost 5 billion requests per second at peak.
     introduced: 1.7.0
     tags: [linux, macos, windows, networking]
+
+  - name: Mdstat
+    id: mdstat
+    description: |
+      The mdstat plugin gathers statistics about any Linux MD RAID arrays configured on the host by reading /proc/mdstat.
+    introduced: 1.20.0
+    tags: [linux, macos, windows, systems]
 
   - name: Mem
     id: mem
@@ -1260,7 +1308,7 @@ input:
     description: |
       The Octoprint input plugin gathers metrics from the [Octoprint API](https://docs.octoprint.org/en/master/api/index.html).
     introduced: 1.16.0
-    link: https://github.com/BattleBas/octoprint-telegraf-plugin
+    link: https://github.com/sspaink/octoprint-telegraf-plugin/blob/master/README.md
     tags: [linux, macos, windows, external]
     external: true
 
@@ -1294,6 +1342,13 @@ input:
     introduced: 1.5.0
     tags: [linux, macos, windows, applications]
 
+  - name: OpenStack
+    id: openstack
+    description: |
+      The OpenStack input plugin collects metrics on [OpenStack services](https://www.openstack.org/).
+    introduced: 1.21.0
+    tags: [linux, macos, windows, applications]
+
   - name: OpenTelemetry
     id: opentelemetry
     description: |
@@ -1307,6 +1362,15 @@ input:
       Collect current weather and forecast data from OpenWeatherMap.
     introduced: 1.11.0
     tags: [linux, macos, windows, applications]
+
+  - name: Oracle
+    id: oracle
+    description: |
+      The Oracle plugin collects metrics from Oracle RDBMS using Dynamic Performance Views.
+    introduced: 1.20.3
+    link: https://github.com/bonitoo-io/telegraf-input-oracle/blob/main/README.md
+    external: true
+    tags: [linux, macos, windows, oracle, datastores]
 
   - name: PF
     id: pf
@@ -1354,6 +1418,7 @@ input:
     description: |
       The Plex Webhook input plugin listens for events from [Plex Media Server Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).
     introduced: 1.18.0
+    link: https://github.com/russorat/telegraf-webhooks-plex/blob/master/README.md
     tags: [linux, macos, windows, applications, external]
     external: true
 
@@ -1525,6 +1590,13 @@ input:
     introduced: 1.17.0
     tags: [linux, macos, windows]
 
+  - name: AMD ROCm System Management Interface (SMI)
+    id: amd_rocm_smi
+    description: |
+      The AMD ROCm System Management Interface plugin pulls statistics from AMD GPUs including memory, usage, and temperature.
+    introduced: 1.20.0
+    tags: [linux, macos, windows, systems]
+
   - name: Salesforce
     id: salesforce
     description: |
@@ -1555,6 +1627,7 @@ input:
     description: |
       This plugin gathers information from Siemens PLC (Programmatic Logic Controller).
     introduced: 1.19.0
+    link: https://github.com/nicolasme/s7comm/blob/main/README.md
     tags: [external, iot]
 
   - name: SMCIPMITool
@@ -1610,6 +1683,13 @@ input:
       [Telegraf Input Data Formats](/{{< latest "telegraf" >}}/data_formats/input/).
     introduced: 1.3.0
     tags: [linux, macos, windows, networking]
+
+  - name: SQL
+    id: sql
+    description: |
+      The SQL plugin reads and ingests SQL data from a variety of SQL databases into InfluxDB.
+    introduced: 1.19.0
+    tags: [linux, macos, windows, data-stores]
 
   - name: Stackdriver
     id: stackdriver
@@ -1694,7 +1774,7 @@ input:
       The SystemD Timings plugin collects systemd boot timing metrics.
     introduced: 1.16.0
     tags: [linux, macos, windows, systems, external]
-    link: https://github.com/pdmorrow/telegraf-execd-systemd-timings
+    link: https://github.com/pdmorrow/telegraf-execd-systemd-timings/blob/main/README.md
     external: true
 
   - name: Systemd Units
@@ -1891,6 +1971,7 @@ input:
     description: |
       This plugin provides information about X509 CRL (Certificate Revocation Lists) accessible via a file.
     introduced: 1.19.0
+    link: https://github.com/jcgonnard/telegraf-input-x590crl/blob/master/README.md
     tags: [external]
     external: true
 
@@ -1899,7 +1980,7 @@ input:
     description: |
       The YouTube input plugin gathers information from YouTube channels, including views, subscribers, and videos.
     introduced: 1.16.0
-    link: https://github.com/inabagumi/youtube-telegraf-plugin
+    link: https://github.com/inabagumi/youtube-telegraf-plugin/blob/main/README.md
     tags: [linux, macos, windows, external]
     external: true
 
@@ -1983,6 +2064,20 @@ output:
       acting a Kafka Producer.
     introduced: 0.1.7
     tags: [linux, macos, windows, messaging]
+
+  - name: Azure Data Explorer
+    id: azure_data_explorer
+    description: |
+      The Azure Data Explorer output plugin writes metrics to [Azure Data Explorer](https://azure.microsoft.com/en-au/services/data-explorer/).
+    introduced: 1.20.0
+    tags: [linux, macos, windows, cloud, datastores]
+
+  - name: Azure Event Hubs
+    id: event_hubs
+    description: |
+      The Azure Data Explorer output plugin writes metrics to a single Azure Event Hub within an [Event Hubs](https://azure.microsoft.com/en-gb/services/event-hubs/) namespace.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, cloud, datastores]
 
   - name: BigQuery
     id: bigquery
@@ -2082,6 +2177,13 @@ output:
     introduced: 1.0.0
     tags: [linux, macos, windows, logging]
 
+  - name: GroundWork
+    id: groundwork
+    description: |
+      The  Graylog output plugin writes to a [GroundWork Monitor](https://www.gwos.com/product/groundwork-monitor/) instance.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, logging]
+
   - name: HTTP
     id: http
     description: |
@@ -2108,7 +2210,7 @@ output:
   - name: InfluxDB v2
     id: influxdb_v2
     description: |
-      The InfluxDB v2 output plugin writes metrics to [InfluxDB 2.0](https://github.com/influxdata/influxdb).
+      The InfluxDB v2 output plugin writes metrics to [InfluxDB 2.x](https://github.com/influxdata/influxdb) OSS or Cloud.
     introduced: 1.8.0
     tags: [linux, macos, windows, data-stores]
 
@@ -2172,6 +2274,13 @@ output:
     introduced: 1.8.0
     tags: [linux, macos, windows, cloud]
 
+  - name: MongoDB
+    id: mongodb
+    description: |
+      The MongoDB output plugin writes to MongoDB and automatically creates the collections as time series collections when they don't already exist.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, data-stores]
+
   - name: MQTT Producer
     id: mqtt
     description: |
@@ -2201,6 +2310,13 @@ output:
       It requires a server name and a topic name.
     introduced: 0.2.1
     tags: [linux, macos, windows, messaging]
+
+  - name: OpenTelemetry
+    id: opentelemetry
+    description: |
+      The OpenTelemetry plugin sends metrics to [OpenTelemetry](https://opentelemetry.io/) servers and agents via gRPC.
+    introduced: 1.20.0
+    tags: [linux, macos, windows, logging, messaging]
 
   - name: OpenTSDB
     id: opentsdb
@@ -2281,7 +2397,7 @@ output:
     description: |
       The SQL output plugin saves Telegraf metric data to an SQL database.
     introduced: 1.19.0
-    tags: [data stores]
+    tags: [datastores]
 
   - name: Sumo Logic
     id: sumologic
@@ -2409,6 +2525,13 @@ aggregator:
     introduced: 1.18.0
     tags: []
 
+  - name: Starlark
+    id: starlark
+    description: |
+      The Starlark aggregator plugin allows a user to implement a custom aggregator plugin with a [Starlark](https://github.com/google/starlark-go/blob/master/doc/spec.md) script.
+    introduced: 1.21.0
+    tags: []
+
   - name: ValueCounter
     id: valuecounter
     description: |
@@ -2497,7 +2620,7 @@ processor:
   - name: Execd
     id: execd
     description: |
-      The `execd` processor plugin aruns an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
+      The `execd` processor plugin executes an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
     introduced: 1.15.0
     tags: [linux, macos, windows]
 
@@ -2513,6 +2636,7 @@ processor:
     description: |
       The GeoIP processor plugin looks up IP addresses in the [MaxMind GeoLite2 database](https://dev.maxmind.com/geoip/geoip2/geolite2/) and adds the respective ISO country code, city name, latitude and longitude.
     introduced: 1.18.0
+    link: https://github.com/a-bali/telegraf-geoip/blob/master/README.md
     tags: [linux, macos, windows]
     external: true
 

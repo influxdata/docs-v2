@@ -15,15 +15,15 @@ View API tokens and permissions using the InfluxDB user interface (UI),
 the `influx` command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
-Tokens are visible only to the user who created them and stop working when the user is deactivated.
-We recommend creating a generic IT user to create and manage tokens for writing data.
+Tokens are visible to the user who created the token. {{% oss-only %}} Users who own a token with Operator permissions also have access to all tokens. {{% /oss-only %}} Tokens stop working when the user who created the token is deleted.
+**We recommend creating a generic user to create and manage tokens for writing data.**
 {{% /note %}}
 
 ## View tokens in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" >}}
+    {{< nav-icon "load-data" "v2" >}}
 
 2. Click a token name from the list to view the token and a summary of access permissions.
 
@@ -71,7 +71,11 @@ To filter tokens by user, include `userID` as a query parameter in your request.
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view-filter.sh" %}}
 ```
 
+{{% oss-only %}}
+
 [***Operator tokens***](/{{% latest "influxdb" %}}/security/tokens/#operator-token) have access to all organizations' authorizations.
 To filter authorizations by organization when using an operator token, include an `org` or `orgID` query parameter in your request.
+
+{{% oss-only %}}
 
 See the [`/authorizations` endpoint documentation](/influxdb/v2.0/api/#tag/Authorizations) for more information about available parameters.

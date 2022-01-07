@@ -63,7 +63,7 @@ From your terminal, download the text file that contains the data in [line proto
 curl https://s3.amazonaws.com/noaa.water-database/NOAA_data.txt -o NOAA_data.txt
 ```
 
-Write the data to InfluxDB via the [CLI](../../tools/use-influx/):
+Write the data to InfluxDB via the [`influx` CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/):
 ```
 influx -import -path=NOAA_data.txt -precision=s -database=NOAA_water_database
 ```
@@ -113,7 +113,7 @@ time			                 level description	      location	       water_level
 ```
 
 ### Data sources and things to note
-The sample data is publicly available data from the [National Oceanic and Atmospheric Administration’s (NOAA) Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html?type=Water+Levels).
+The sample data is publicly available data from the [National Oceanic and Atmospheric Administration’s (NOAA) Center for Operational Oceanographic Products and Services](https://tidesandcurrents.noaa.gov/map/index.html?type=Water+Levels).
 The data include 15,258 observations of water levels (ft) collected every six minutes at two stations (Santa Monica, CA (ID 9410840) and Coyote Creek, CA (ID 9414575)) over the period from August 18, 2015 through September 18, 2015.
 
 Note that the measurements `average_temperature`, `h2o_pH`, `h2o_quality`, and `h2o_temperature` contain fictional data.

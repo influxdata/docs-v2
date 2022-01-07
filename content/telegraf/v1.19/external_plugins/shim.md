@@ -13,8 +13,8 @@ processor, or output plugin from the main Telegraf repo out to a stand-alone
 repo. This allows anyone to build and run it as a separate app using one of the
 `execd` plugins:
 - [inputs.execd](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/execd)
-- [processors.execd](https://github.com/influxdata/telegraf/blob/master//plugins/processors/execd)
-- [outputs.execd](https://github.com/influxdata/telegraf/blob/master//plugins/outputs/execd)
+- [processors.execd](https://github.com/influxdata/telegraf/blob/master/plugins/processors/execd)
+- [outputs.execd](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/execd)
 
 ## Extract a plugin using the shim wrapper
 

@@ -15,7 +15,7 @@ v2: /influxdb/v2.0/query-data/flux/mathematic-operations/
 ---
 
 Flux supports mathematic expressions in data transformations.
-This article describes how to use [Flux arithmetic operators](/{{< latest "influxdb" "v2" >}}/reference/flux/language/operators/#arithmetic-operators)
+This article describes how to use [Flux arithmetic operators](/{{< latest "flux" >}}/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
 If you're just getting started with Flux queries, check out the following:
@@ -48,7 +48,7 @@ Otherwise, you will get an error similar to:
 Error: type error: float != int
 ```
 
-To convert operands to the same type, use [type-conversion functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/type-conversions/)
+To convert operands to the same type, use [type-conversion functions](/{{< latest "flux" >}}/stdlib/universe/type-conversions/)
 or manually format operands.
 The operand data type determines the output data type.
 For example:
@@ -91,7 +91,7 @@ To transform multiple values in an input stream, your function needs to:
 
 - [Handle piped-forward data](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
-- Use the [`map()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
+- Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
 
@@ -155,7 +155,7 @@ data
 #### Include partial gigabytes
 Because the original metric (bytes) is an integer, the output of the operation is an integer and does not include partial GBs.
 To calculate partial GBs, convert the `_value` column and its values to floats using the
-[`float()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/type-conversions/float)
+[`float()` function](/{{< latest "flux" >}}/stdlib/universe/type-conversions/float)
 and format the denominator in the division operation as a float.
 
 ```js

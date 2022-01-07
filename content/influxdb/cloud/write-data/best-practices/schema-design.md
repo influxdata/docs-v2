@@ -1,12 +1,14 @@
 ---
 title: InfluxDB schema design
 description: >
-  Improve InfluxDB schema design and data layout. Store unique values in fields and other tips to make your data more performant.
+  Design your schema for simpler and more performant queries.
 menu:
   influxdb_cloud:
     name: Schema design
     weight: 201
     parent: write-best-practices
+related:
+  - /resources/videos/data-model-building-blocks/
 ---
 
 {{< duplicate-oss >}}

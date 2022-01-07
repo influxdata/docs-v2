@@ -11,7 +11,7 @@
 
   <!-- Only include plugins supported by the currently viewed Telegraf version -->
   {{ if $supported }}
-    <div class="plugin-card visible{{ if eq $minorVer $currentTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $currentTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
+    <div class="plugin-card filter-item visible{{ if eq $minorVer $currentTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $currentTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
       <div class="info">
         <h3 id="{{ .id }}">{{ .name }}</h3>
         {{ if in .tags "external"}}<p class="external">External</p>{{ end }}

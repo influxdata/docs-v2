@@ -1,6 +1,6 @@
 {{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 1 }}
-{{ $expRiskURL := print "/influxdb/" $currentVersion "/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk" }}
-{{ $expPath := print "/influxdb/" $currentVersion "/reference/flux/stdlib/experimental/" }}
+{{ $expRiskURL := print "/flux/v0.x/stdlib/experimental/#experimental-functions-are-subject-to-change" }}
+{{ $expPath := print "/flux/v0.x/stdlib/experimental/" }}
 
 {{ if in .RelPermalink $expPath }}
   {{ if not (eq .RelPermalink $expPath) }}
@@ -14,8 +14,10 @@
       </div>
     {{ else if eq .Kind "section" }}
       <div class="warn block">
+        {{ $packageTitle := cond (isset .Params "list_title") $.Params.list_title .Title }}
+        {{ $packageName := replaceRE `^(.*)( package)` "<code>$1</code>$2" $packageTitle }}
         <p>
-          The {{ if $.Params.list_title }}{{ $.Params.list_title }}{{ else }}{{ .Title }}{{ end }} is experimental and subject to change at any time.
+          The {{ $packageName | safeHTML }} is experimental and subject to change at any time.
           By using this package, you accept the <a href="{{ $expRiskURL }}">risks of experimental functions</a>.
         </p>
       </div>

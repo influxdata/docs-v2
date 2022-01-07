@@ -1,6 +1,6 @@
 ---
-title: Process Data with InfluxDB tasks
-seotitle: Process Data with InfluxDB tasks
+title: Process data with InfluxDB tasks
+seotitle: Process data with InfluxDB tasks
 description: >
   InfluxDB's task engine runs scheduled Flux tasks that process and analyze data.
   This collection of articles provides information about creating and managing InfluxDB tasks.
@@ -9,6 +9,8 @@ menu:
     name: Process data
 weight: 5
 influxdb/cloud/tags: [tasks]
+related:
+  - /resources/videos/influxdb-tasks/
 ---
 
 Process and analyze your data with tasks in the InfluxDB **task engine**. Use tasks (scheduled Flux queries)

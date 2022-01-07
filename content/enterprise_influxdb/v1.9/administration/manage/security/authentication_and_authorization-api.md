@@ -1,16 +1,16 @@
 ---
-title: Manage users and privileges with Meta API
+title: Manage users and privileges with the InfluxDB Enterprise Meta API
 description: >
   Set up and manage authentication and authorization in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Manage security with Meta API
-    weight: 30
     parent: Manage security
+weight: 42
 ---
 
 - [Overview](#overview)
-- [API examples](#user-and-privilege-management-over-the-influxd-meta-api)
+- [API examples](#user-and-privilege-management-over-the-influxdb-enterprise-meta-api)
 
 ## Overview
 

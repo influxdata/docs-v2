@@ -94,6 +94,8 @@ prepend: # Prepend markdown content to an article (especially powerful with casc
 append: # Append markdown content to an article (especially powerful with cascade)
   block: # (Optional) Wrap content in a block style (note, warn, cloud)
   content: # Content to append to article
+metadata: [] # List of metadata messages to include under the page h1
+updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 ```
 
 ### Title usage
@@ -455,7 +457,7 @@ WHERE time > now() - 15m
 
 To link to tabbed content, click on the tab and use the URL parameter shown.
 It will have the form `?t=`, plus a string.
-For example: 
+For example:
 
 ```
 [Windows installation](/influxdb/v2.0/install/?t=Windows)
@@ -509,6 +511,27 @@ The following colors are available:
 ```md
 {{< req color="magenta" text="This is required" >}}
 ```
+
+### Page navigation buttons
+Use the `{{< page-nav >}}` shortcode to add page navigation buttons to a page.
+These are useful for guiding users through a set of docs that should be read in sequential order.
+The shortcode has the following parameters:
+
+- **prev:** path of the previous document _(optional)_
+- **next:** path of the next document _(optional)_
+- **prevText:** override the button text linking to the previous document _(optional)_
+- **nextText:** override the button text linking to the next document _(optional)_
+
+The shortcode generates buttons that link to both the previous and next documents.
+By default, the shortcode uses either the `list_title` or the `title` of the linked
+document, but you can use `prevText` and `nextText` to override button text.
+
+```md
+<!-- Simple example -->
+{{ page-nav prev="/path/to/prev/" next="/path/to/next" >}}
+
+<!-- Override button text -->
+{{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
 
 ### Keybinds
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
@@ -683,7 +706,7 @@ To include a horizontal rule after each child summary, set `hr=true`.
 _Only the `articles` list type supports horizontal rules._
 
 ```md
-{{< children readmore=true >}}
+{{< children hr=true >}}
 ```
 
 #### Include a code example with a child summary
@@ -797,9 +820,11 @@ The following table shows which children types use which frontmatter properties:
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
 It's meant to clarify references to specific elements in the InfluxDB user interface.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< icon "icon-name" >}}
+{{< icon "icon-name" "v2" >}}
 ```
 
 Below is a list of available icons (some are aliases):
@@ -869,9 +894,11 @@ Below is a list of available icons (some are aliases):
 ### InfluxDB UI left navigation icons
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 ```
 
 The following case insensitive values are supported:
@@ -883,7 +910,7 @@ The following case insensitive values are supported:
 - tasks
 - monitor, alerts, bell
 - cloud, usage
-- disks, load data, load-data
+- data, load data, load-data
 - settings
 - feedback
 
@@ -930,6 +957,156 @@ I like {{< tooltip "Butterflies are awesome!" "butterflies" >}}.
 
 The example above renders as "I like butterflies" with "butterflies" highlighted.
 When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
+
+### Flux sample data tables
+The Flux `sample` package provides basic sample datasets that can be used to
+illustrate how Flux functions work. To quickly display one of the raw sample
+datasets, use the `{{% flux/sample %}}` shortcode.
+
+The `flux/sample` shortcode has the following arguments that can be specified
+by name or positionally.
+
+#### set
+Sample dataset to output. Use either `set` argument name or provide the set
+as the first argument. The following sets are available:
+
+- float
+- int
+- uint
+- string
+- bool
+- numericBool
+
+#### includeNull
+Specify whether or not to include _null_ values in the dataset.
+Use either `includeNull` argument name or provide the boolean value as the second argument.
+
+#### includeRange
+Specify whether or not to include time range columns (`_start` and `_stop`) in the dataset.
+This is only recommended when showing how functions that require a time range
+(such as `window()`) operate on input data.
+Use either `includeRange` argument name or provide the boolean value as the third argument.
+
+##### Example Flux sample data shortcodes
+```md
+<!-- No arguments, defaults to "float" set without nulls -->
+{{% flux/sample %}}
+
+<!-- Output the "string" set without nulls or time range columns -->
+{{% flux/sample set="string" includeNull=false %}}
+
+<!-- Output the "int" set with nulls but without time range columns -->
+{{% flux/sample "int" true %}}
+
+<!-- Output the "int" set with nulls and time range columns -->
+<!-- The following shortcode examples render the same -->
+{{% flux/sample set="int" includeNull=true includeRange=true %}}
+{{% flux/sample "int" true true %}}
+```
+
+### Duplicate OSS content in Cloud
+Docs for InfluxDB OSS and InfluxDB Cloud share a majority of content.
+To prevent duplication of content between versions, use the following shortcodes:
+
+- `{{< duplicate-oss >}}`
+- `{{% oss-only %}}`
+- `{{% cloud-only %}}`
+
+#### duplicate-oss
+The `{{< duplicate-oss >}}` shortcode copies the page content of the file located
+at the identical file path in the most recent InfluxDB OSS version.
+The Cloud version of this markdown file should contain the frontmatter required
+for all pages, but the body content should just be the `{{< duplicate-oss >}}` shortcode.
+
+#### oss-only
+Wrap content that should only appear in the OSS version of the doc with the `{{% oss-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% oss-only %}}This is inline content that only renders in the InfluxDB OSS docs{{% /oss-only %}}
+
+{{% oss-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and  will
+only render in the InfluxDB OSS documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /oss-only %}}
+
+- {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+- {{% oss-only %}}
+
+  This is a multi-paragraph list item that will only render in the InfluxDB OSS docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /oss-only %}}
+
+1.  Step 1
+2.  {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+3.  {{% oss-only %}}
+
+     This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB OSS docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /oss-only %}}
+```
+
+#### cloud-only
+Wrap content that should only appear in the Cloud version of the doc with the `{{% cloud-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% cloud-only %}}This is inline content that only renders in the InfluxDB Cloud docs{{% /cloud-only %}}
+
+{{% cloud-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and will
+only render in the InfluxDB Cloud documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /cloud-only %}}
+
+- {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+- {{% cloud-only %}}
+
+  This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB Cloud docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /cloud-only %}}
+
+1.  Step 1
+2.  {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+3.  {{% cloud-only %}}
+
+    This is a multi-paragraph list item that will only render in the InfluxDB Cloud docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /cloud-only %}}
+```
+
+#### All-Caps
+Clockface v3 introduces many buttons with text formatted as all-caps.
+Use the `{{< caps >}}` shortcode to format text to match those buttons.
+
+```md
+Click {{< caps >}}Add Data{{< /caps >}}
+```
 
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on

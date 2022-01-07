@@ -38,4 +38,5 @@ For information about other available InfluxDB configuration methods, see
 
 ## Flags
 
-{{% cli/influxd-flags %}}
+<!-- Influxd flags are maintained in data/influxd_flags.yml -->
+{{< cli/influxd-flags >}}

@@ -12,11 +12,11 @@ influxdb/v2.0/tags: [buckets]
 related:
   - /influxdb/v2.0/monitor-alert/
   - /influxdb/v2.0/process-data/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/check/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/deadman/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/from/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/logs/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/notify/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/check/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/deadman/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/from/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/logs/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/notify/
 ---
 
 InfluxDB system buckets contain time series data used by and generated from the

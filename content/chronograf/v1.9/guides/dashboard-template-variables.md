@@ -104,7 +104,7 @@ Use dot or bracket notation to reference the variable key inside of the `v` reco
 
 ```js
 from(bucket: v.bucket)
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStart)
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r._field == v["Field key"])
   |> aggregateWindow(every: v.windowPeriod, fn: v.aggregateFunction)
 ```

@@ -27,34 +27,34 @@ Most pushdowns are supported when querying an InfluxDB 2.0 or InfluxDB Cloud dat
 
 | Functions                      | InfluxDB 2.0         | InfluxDB Cloud       |
 |:---------                      |:------------:        |:--------------:      |
-| **count()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
-| **drop()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
-| **duplicate()**                | {{< icon "check" >}} | {{< icon "check" >}} |
-| **filter()** {{% req " \*" %}} | {{< icon "check" >}} | {{< icon "check" >}} |
-| **fill()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
-| **first()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
-| **keep()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
-| **last()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
-| **max()**                      | {{< icon "check" >}} | {{< icon "check" >}} |
-| **mean()**                     | {{< icon "check" >}} | {{< icon "check" >}} |
-| **min()**                      | {{< icon "check" >}} | {{< icon "check" >}} |
-| **range()**                    | {{< icon "check" >}} | {{< icon "check" >}} |
-| **rename()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **sum()**                      | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()**                   | {{< icon "check" >}} | {{< icon "check" >}} |
+| **count()**                    | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **drop()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **duplicate()**                | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **filter()** {{% req " \*" %}} | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **fill()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **first()**                    | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **keep()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **last()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **max()**                      | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **mean()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **min()**                      | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **range()**                    | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **rename()**                   | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **sum()**                      | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **window()**                   | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 | _Function combinations_        |                      |                      |
-| **group()** \|> **count()**    |                      | {{< icon "check" >}} |
-| **group()** \|> **first()**    |                      | {{< icon "check" >}} |
-| **group()** \|> **last()**     |                      | {{< icon "check" >}} |
-| **group()** \|> **max()**      |                      | {{< icon "check" >}} |
-| **group()** \|> **min()**      |                      | {{< icon "check" >}} |
-| **group()** \|> **sum()**      |                      | {{< icon "check" >}} |
-| **window()** \|> **count()**   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **first()**   | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **last()**    | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **max()**     | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **min()**     | {{< icon "check" >}} | {{< icon "check" >}} |
-| **window()** \|> **sum()**     | {{< icon "check" >}} | {{< icon "check" >}} |
+| **group()** \|> **count()**    |                      | {{< icon "check" "v2" >}} |
+| **group()** \|> **first()**    |                      | {{< icon "check" "v2" >}} |
+| **group()** \|> **last()**     |                      | {{< icon "check" "v2" >}} |
+| **group()** \|> **max()**      |                      | {{< icon "check" "v2" >}} |
+| **group()** \|> **min()**      |                      | {{< icon "check" "v2" >}} |
+| **group()** \|> **sum()**      |                      | {{< icon "check" "v2" >}} |
+| **window()** \|> **count()**   | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **window()** \|> **first()**   | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **window()** \|> **last()**    | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **window()** \|> **max()**     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **window()** \|> **min()**     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
+| **window()** \|> **sum()**     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 
 {{% caption %}}
 {{< req "\*" >}} **filter()** only pushes down when all parameter values are static.
@@ -116,20 +116,20 @@ Reasonable window durations depend on the total time range queried.
 The following functions use more memory or CPU than others.
 Consider their necessity in your data processing before using them:
 
-- [map()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
-- [reduce()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/)
-- [join()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/)
-- [union()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/union/)
-- [pivot()](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pivot/)
+- [map()](/{{< latest "flux" >}}/stdlib/universe/map/)
+- [reduce()](/{{< latest "flux" >}}/stdlib/universe/reduce/)
+- [join()](/{{< latest "flux" >}}/stdlib/universe/join/)
+- [union()](/{{< latest "flux" >}}/stdlib/universe/union/)
+- [pivot()](/{{< latest "flux" >}}/stdlib/universe/pivot/)
 
 {{% note %}}
 We're continually optimizing Flux and this list may not represent its current state.
 {{% /note %}}
 
 ## Use set() instead of map() when possible
-[`set()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/),
-[`experimental.set()`](/influxdb/v2.0/reference/flux/stdlib/experimental/set/),
-and [`map`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/)
+[`set()`](/{{< latest "flux" >}}/stdlib/universe/set/),
+[`experimental.set()`](/{{< latest "flux" >}}/stdlib/experimental/set/),
+and [`map`](/{{< latest "flux" >}}/stdlib/universe/map/)
 can each set columns value in data, however **set** functions have performance
 advantages over `map()`.
 
@@ -165,7 +165,7 @@ Flux must store these points in memory to generate a response. Use [pushdowns](#
 To query data over large periods of time, create a task to [downsample data](/influxdb/v2.0/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
 
 ## Measure query performance with Flux profilers
-Use the [Flux Profiler package](/influxdb/v2.0/reference/flux/stdlib/profiler/)
+Use the [Flux Profiler package](/{{< latest "flux" >}}/stdlib/profiler/)
 to measure query performance and append performance metrics to your query output.
 The following Flux profilers are available:
 
@@ -182,4 +182,4 @@ option profiler.enabledProfilers = ["query", "operator"]
 // Query to profile
 ```
 
-For more information about Flux profilers, see the [Flux Profiler package](/influxdb/v2.0/reference/flux/stdlib/profiler/).
+For more information about Flux profilers, see the [Flux Profiler package](/{{< latest "flux" >}}/stdlib/profiler/).

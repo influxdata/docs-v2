@@ -1,0 +1,49 @@
+telegraf:
+  - category: Plugin type
+    values:
+      - Input
+      - Output
+      - Aggregator
+      - Processor
+      - External
+  - category: Plugin category
+    values:
+      - Applications
+      - Build & Deploy
+      - Cloud
+      - Containers
+      - Data Stores
+      - IoT
+      - Logging
+      - Messaging
+      - Networking
+      - Servers
+      - Systems
+      - Web
+  - category: Operating system
+    values:
+      - Linux
+      - macOS
+      - Windows
+  - category: Status
+    values:
+      - New
+      - Deprecated
+
+flux:
+  - category: Function types
+    values:
+      - Inputs
+      - Outputs
+      - Transformations
+      - Aggregates
+      - Selectors
+      - Dynamic queries
+  - category: Function Categories
+    values:
+      - Type-conversions
+      - Tests
+      - Date/time
+      - Metadata
+      - Notification endpoints
+      - Geotemporal

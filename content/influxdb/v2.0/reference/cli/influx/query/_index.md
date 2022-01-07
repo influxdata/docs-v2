@@ -76,7 +76,7 @@ influx query 'from(bucket:"example-bucket") |> range(start:-1m)' --raw
 ```
 
 ##### Query InfluxDB and append query profile data to results
-_For more information about profilers, see [Flux profilers](/influxdb/v2.0/reference/flux/stdlib/profiler/#available-profilers)._
+_For more information about profilers, see [Flux profilers](/{{< latest "flux" >}}/stdlib/profiler/#available-profilers)._
 
 ```sh
 influx query \

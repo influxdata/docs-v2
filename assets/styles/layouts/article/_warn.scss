@@ -1,6 +1,6 @@
 .warn {
   border-color: $article-warn-base;
-  background: rgba($article-warn-base, .08);
+  background: $article-warn-bg;
   h1,h2,h3,h4,h5,h6 {
     color: $article-warn-heading;
   }

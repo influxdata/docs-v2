@@ -39,6 +39,11 @@ influx task retry-failed [flags]
 
 {{< cli/influx-creds-note >}}
 
+{{% note %}}
+#### Required permissions
+Use an [{{% oss-only %}}**Operator** or{{% /oss-only %}} **All-Access** token](/influxdb/v2.0/security/tokens/) to retry failed tasks.
+{{% /note %}}
+
 - [Retry failed task runs for a specific task ID](#retry-failed-task-runs-for-a-specific-task-id)
 - [Retry failed task runs that occurred before a specific time](#retry-failed-task-runs-that-occurred-before-a-specific-time)
 - [Retry failed task runs that occurred after a specific time](#retry-failed-task-runs-that-occurred-after-a-specific-time)
