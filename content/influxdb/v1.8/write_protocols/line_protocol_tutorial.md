@@ -3,7 +3,6 @@ title: InfluxDB line protocol tutorial
 description: Tutorial for using InfluxDB line protocol.
 aliases:
     - /influxdb/v1.8/write_protocols/line/
-    - /influxdb/v2.0/write_protocols/line/
 menu:
   influxdb_1_8:
     weight: 20
