@@ -11,7 +11,7 @@ influxdb/v2.1/tags: [write, line protocol, syntax]
 aliases:
   - /influxdb/v2.1/reference/line-protocol
   - /influxdb/v2.1/write_protocols/line_protocol_tutorial/
-  - /influxdb/v2.0/write_protocols/line_protocol_reference/
+  - /influxdb/v2.1/write_protocols/line_protocol_reference/
 related:
   - /influxdb/v2.1/write-data/
 ---
