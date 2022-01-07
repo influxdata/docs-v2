@@ -21,7 +21,8 @@ to manage InfluxDB Enterprise users and roles.
 {{% /note %}}
 
 {{% warn %}}
-We recommend operators *do not* mix and match InfluxQL
+Outside of [creating users](/enterprise_influxdb/v1.9/query_language/spec/#create-user),
+we recommend operators *do not* mix and match InfluxQL
 with other authorization management methods (Chronograf and the API).
 Doing so may lead to inconsistencies in user permissions.
 {{% /warn %}}
