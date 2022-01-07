@@ -25,7 +25,7 @@ These permissions allow for
 controlling read and write access to data for all databases and for individual databases,
 as well as permitting certain cluster-management actions like creating or deleting resources.
 
-InfluxB 1.x OSS only supports database-level privileges: `READ` and `WRITE`.
+InfluxDB 1.x OSS only supports database-level privileges: `READ` and `WRITE`.
 A third permission, `ALL`, grants admin privileges.
 These three permissions exist in InfluxDB Enterprise as well.
 They can _only be granted by using InfluxQL_.
