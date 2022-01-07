@@ -253,7 +253,7 @@ To enable a new "Generic API" service using TICKscript, see [AlertNode (Kapacito
 
 1. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
    click the **Slack** tab.
-2. Click **{{< icon "plus" >}} Add Another Config**.
+2. Click **{{< icon "plus" "v2" >}} Add Another Config**.
 3. Complete steps 2-4 [above](#slack).
 
 ### SMTP

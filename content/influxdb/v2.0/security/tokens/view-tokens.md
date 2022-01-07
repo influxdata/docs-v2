@@ -23,7 +23,7 @@ Tokens are visible to the user who created the token. {{% oss-only %}} Users who
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" >}}
+    {{< nav-icon "load-data" "v2" >}}
 
 2. Click a token name from the list to view the token and a summary of access permissions.
 
@@ -71,7 +71,11 @@ To filter tokens by user, include `userID` as a query parameter in your request.
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view-filter.sh" %}}
 ```
 
+{{% oss-only %}}
+
 [***Operator tokens***](/{{% latest "influxdb" %}}/security/tokens/#operator-token) have access to all organizations' authorizations.
 To filter authorizations by organization when using an operator token, include an `org` or `orgID` query parameter in your request.
+
+{{% oss-only %}}
 
 See the [`/authorizations` endpoint documentation](/influxdb/v2.0/api/#tag/Authorizations) for more information about available parameters.

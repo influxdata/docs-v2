@@ -194,21 +194,21 @@ sampledata.int()
 ##### Output data
 | _time                | tag | _value | server    | valueFloat |
 | :------------------- | :-- | -----: | :-------- | ---------: |
-| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} | t1  |     -2 | {{% nowrap %}}server-t1{{% /nowrap %}} |       -2.0 |
-| {{% nowrap %}}2021-01-01T00:00:10Z{{% /nowrap %}} | t1  |     10 | {{% nowrap %}}server-t1{{% /nowrap %}} |       10.0 |
-| {{% nowrap %}}2021-01-01T00:00:20Z{{% /nowrap %}} | t1  |      7 | {{% nowrap %}}server-t1{{% /nowrap %}} |        7.0 |
-| {{% nowrap %}}2021-01-01T00:00:30Z{{% /nowrap %}} | t1  |     17 | {{% nowrap %}}server-t1{{% /nowrap %}} |       17.0 |
-| {{% nowrap %}}2021-01-01T00:00:40Z{{% /nowrap %}} | t1  |     15 | {{% nowrap %}}server-t1{{% /nowrap %}} |       15.0 |
-| {{% nowrap %}}2021-01-01T00:00:50Z{{% /nowrap %}} | t1  |      4 | {{% nowrap %}}server-t1{{% /nowrap %}} |        4.0 |
+| 2021-01-01T00:00:00Z | t1  |     -2 | server-t1 |       -2.0 |
+| 2021-01-01T00:00:10Z | t1  |     10 | server-t1 |       10.0 |
+| 2021-01-01T00:00:20Z | t1  |      7 | server-t1 |        7.0 |
+| 2021-01-01T00:00:30Z | t1  |     17 | server-t1 |       17.0 |
+| 2021-01-01T00:00:40Z | t1  |     15 | server-t1 |       15.0 |
+| 2021-01-01T00:00:50Z | t1  |      4 | server-t1 |        4.0 |
 
 | _time                | tag | _value | server    | valueFloat |
 | :------------------- | :-- | -----: | :-------- | ---------: |
-| {{% nowrap %}}2021-01-01T00:00:00Z{{% /nowrap %}} | t2  |     19 | {{% nowrap %}}server-t2{{% /nowrap %}} |       19.0 |
-| {{% nowrap %}}2021-01-01T00:00:10Z{{% /nowrap %}} | t2  |      4 | {{% nowrap %}}server-t2{{% /nowrap %}} |        4.0 |
-| {{% nowrap %}}2021-01-01T00:00:20Z{{% /nowrap %}} | t2  |     -3 | {{% nowrap %}}server-t2{{% /nowrap %}} |       -3.0 |
-| {{% nowrap %}}2021-01-01T00:00:30Z{{% /nowrap %}} | t2  |     19 | {{% nowrap %}}server-t2{{% /nowrap %}} |       19.0 |
-| {{% nowrap %}}2021-01-01T00:00:40Z{{% /nowrap %}} | t2  |     13 | {{% nowrap %}}server-t2{{% /nowrap %}} |       13.0 |
-| {{% nowrap %}}2021-01-01T00:00:50Z{{% /nowrap %}} | t2  |      1 | {{% nowrap %}}server-t2{{% /nowrap %}} |        1.0 |
+| 2021-01-01T00:00:00Z | t2  |     19 | server-t2 |       19.0 |
+| 2021-01-01T00:00:10Z | t2  |      4 | server-t2 |        4.0 |
+| 2021-01-01T00:00:20Z | t2  |     -3 | server-t2 |       -3.0 |
+| 2021-01-01T00:00:30Z | t2  |     19 | server-t2 |       19.0 |
+| 2021-01-01T00:00:40Z | t2  |     13 | server-t2 |       13.0 |
+| 2021-01-01T00:00:50Z | t2  |      1 | server-t2 |        1.0 |
 
 {{% /flex-content %}}
 {{< /flex >}}

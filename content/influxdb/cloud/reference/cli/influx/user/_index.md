@@ -11,11 +11,12 @@ cascade:
   related:
     - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/
 ---
 
 {{% note %}}
-#### Available with InfluxDB OSS 2.x only
+#### Works with InfluxDB OSS 2.x
 The `influx user` command and its subcommands manage **InfluxDB OSS 2.x** users,
 but do not manage users in **InfluxDB Cloud**.
 Use the InfluxDB Cloud user interface to manage account information.

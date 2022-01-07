@@ -30,7 +30,7 @@ For consistent results, the Single Stat query should return a single table.
 {{% /note %}}
 
 ## Single Stat Controls
-To view **Single Stat** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Single Stat** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 - **Prefix**: Prefix to be added to the single stat.

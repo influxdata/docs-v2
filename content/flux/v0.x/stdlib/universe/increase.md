@@ -44,7 +44,7 @@ Input data.
 Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
 ## Output tables
-For each input table with `n` rows, `derivative()` outputs a table with `n - 1` rows.
+For each input table with `n` rows, `increase()` outputs a table with `n - 1` rows.
 
 ## Examples
 
@@ -72,19 +72,21 @@ sampledata.int()
 
 | _time                | tag | _value |
 | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | t1  |      0 |
 | 2021-01-01T00:00:10Z | t1  |     12 |
-| 2021-01-01T00:00:20Z | t1  |     12 |
-| 2021-01-01T00:00:30Z | t1  |     22 |
-| 2021-01-01T00:00:40Z | t1  |     22 |
-| 2021-01-01T00:00:50Z | t1  |     22 |
+| 2021-01-01T00:00:20Z | t1  |     19 |
+| 2021-01-01T00:00:30Z | t1  |     29 |
+| 2021-01-01T00:00:40Z | t1  |     44 |
+| 2021-01-01T00:00:50Z | t1  |     48 |
 
 | _time                | tag | _value |
 | :------------------- | :-- | -----: |
-| 2021-01-01T00:00:10Z | t2  |      0 |
-| 2021-01-01T00:00:20Z | t2  |      0 |
-| 2021-01-01T00:00:30Z | t2  |     22 |
-| 2021-01-01T00:00:40Z | t2  |     22 |
-| 2021-01-01T00:00:50Z | t2  |     22 |
+| 2021-01-01T00:00:00Z | t2  |      0 |
+| 2021-01-01T00:00:10Z | t2  |      4 |
+| 2021-01-01T00:00:20Z | t2  |      4 |
+| 2021-01-01T00:00:30Z | t2  |     26 |
+| 2021-01-01T00:00:40Z | t2  |     39 |
+| 2021-01-01T00:00:50Z | t2  |     40 |
 
 {{% /flex-content %}}
 {{< /flex >}}
@@ -93,8 +95,7 @@ sampledata.int()
 
 ## Function definition
 ```js
-increase = (tables=<-, column="_value") =>
-  tables
-    |> difference(nonNegative: true, column:column)
+increase = (tables=<-, columns=["_value"]) => tables
+    |> difference(nonNegative: true, columns: column, keepFirst: true, initialZero: true)
     |> cumulativeSum()
 ```

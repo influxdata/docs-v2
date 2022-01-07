@@ -14,7 +14,7 @@
 
 @import "tools/color-palette";
 
-$body-bg: $g0-obsidian;
+$body-bg: $grey5;
 
 // TopNav Colors
 $topnav-link: $g20-white;
@@ -24,7 +24,7 @@ $theme-switch-light: inline-block;
 $theme-switch-dark: none;
 
 // Search
-$sidebar-search-bg: $g2-kevlar;
+$sidebar-search-bg: $grey15;
 $sidebar-search-shadow: rgba($g0-obsidian, .05);
 $sidebar-search-highlight: $b-pool;
 $sidebar-search-text: $g20-white;
@@ -34,7 +34,7 @@ $nav-category: $b-pool;
 $nav-category-hover: $g20-white;
 $nav-item: $g15-platinum;
 $nav-item-hover: $b-pool;
-$nav-border: $g5-pepper;
+$nav-border: $grey25;
 $nav-toggle: $g16-pearl;
 $nav-toggle-hover: $g16-pearl;
 $nav-toggle-bg-hover: $b-pool;
@@ -46,7 +46,7 @@ $product-oss: $p-potassium;
 $product-enterprise: $br-galaxy;
 
 // Article Content
-$article-bg: $g1-raven;
+$article-bg: $grey10;
 $article-heading: $g20-white;
 $article-heading-alt: $g19-ghost;
 $article-text: $g15-platinum;
@@ -54,11 +54,11 @@ $article-bold: $g19-ghost;
 $article-link: $b-pool;
 $article-link-hover: $g20-white;
 $article-hr: $g5-pepper;
-$article-shadow: $g0-obsidian;
+$article-shadow: $grey5;
 
 // Article Code
 $article-code: $cp-munchkin;
-$article-code-bg: $g0-obsidian;
+$article-code-bg: $grey5;
 $article-code-shadow: $g0-obsidian;
 $article-code-accent1: $g7-graphite;
 $article-code-accent2: $b-pool;
@@ -74,7 +74,7 @@ $article-code-scrollbar: $g3-castle;
 
 // Article Tables
 $article-table-header: $grad-GundamPilot;
-$article-table-row-alt: $g3-castle;
+$article-table-row-alt: $grey20;
 $article-table-scrollbar: $g0-obsidian;
 
 // Article Notes, Warnings, & Messages
@@ -89,7 +89,7 @@ $article-note-table-row-alt: #1a3c34;
 $article-note-table-scrollbar: #162627;
 $article-note-shadow: $g0-obsidian;
 $article-note-code: $br-galaxy;
-$article-note-code-bg: #0d1617;
+$article-note-code-bg: #040d0e;
 $article-note-code-accent1: #567375;
 $article-note-code-accent2: $b-pool;
 $article-note-code-accent3: $gr-viridian;
@@ -100,6 +100,7 @@ $article-note-code-accent7: #e90;
 $article-note-code-scrollbar: #162627;
 
 $article-warn-base: $r-dreamsicle;
+$article-warn-bg: #ff61851a;
 $article-warn-heading: $g20-white;
 $article-warn-text: $r-tungsten;
 $article-warn-link: $r-marmelade;
@@ -107,9 +108,9 @@ $article-warn-link-hover: $g20-white;
 $article-warn-table-header: $grad-red;
 $article-warn-table-row-alt: #4a2a2a;
 $article-warn-table-scrollbar: #1f181b;
-$article-warn-shadow: $g0-obsidian;
+$article-warn-shadow: #0d0610;
 $article-warn-code: #ec6e6e;
-$article-warn-code-bg: $g0-obsidian;
+$article-warn-code-bg: #0d0610;
 $article-warn-code-accent1: #844c4c;
 $article-warn-code-accent2: $b-pool;
 $article-warn-code-accent3: $gr-viridian;
@@ -129,7 +130,7 @@ $article-cloud-table-row-alt: #1b3a58;
 $article-cloud-table-scrollbar: #192a3a;
 $article-cloud-shadow: $g0-obsidian;
 $article-cloud-code: $b-laser;
-$article-cloud-code-bg: #110d2b;
+$article-cloud-code-bg: #0a071c;
 $article-cloud-code-accent1: #567375;
 $article-cloud-code-accent2: $b-pool;
 $article-cloud-code-accent3: $gr-viridian;
@@ -146,7 +147,7 @@ $article-enterprise-link-hover: $g20-white;
 
 // Article Tabs for tabbed content
 $article-tab-text: $g12-forge;
-$article-tab-bg: $g0-obsidian;
+$article-tab-bg: $grey5;
 $article-tab-active-text: $g20-white;
 $article-tab-active-bg: $b-pool;
 
@@ -180,7 +181,7 @@ $landing-btn-grad-hover: $grad-blue-light;
 // Home page colors
 $home-btn-gradient: $grad-NineteenEightyFour;
 $home-btn-gradient-hover: $grad-PastelGothic;
-$home-tick-bg-gradient: $grad-grey-abyss;
+$home-tick-bg-gradient: $grad-cool-grey-abyss;
 $default-home-card-gradient: $grad-Miyazakisky;
 
 // Tooltip colors
@@ -190,7 +191,7 @@ $tooltip-bg: $br-chartreuse;
 $tooltip-text: $g2-kevlar;
 
 // Support and feedback buttons
-$feedback-btn-bg: $g3-castle;
+$feedback-btn-bg: $grey25;
 
 // URL Modal colors
 $modal-field-bg: $g1-raven;

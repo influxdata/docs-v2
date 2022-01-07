@@ -25,7 +25,7 @@ If you change a bucket name, be sure to update the bucket in the above places as
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+    {{< nav-icon "data" "v2" >}}
 
 2. Click **Settings** under the bucket you want to rename.
 3. Click **Rename**.
@@ -36,7 +36,7 @@ If you change a bucket name, be sure to update the bucket in the above places as
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+    {{< nav-icon "data" "v2" >}}
 
 2. Click **Settings** next to the bucket you want to update.
 3. In the window that appears, edit the bucket's retention period.

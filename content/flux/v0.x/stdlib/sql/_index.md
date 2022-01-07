@@ -35,6 +35,7 @@ The Flux `sql` package provides functions for working with SQL databases such as
 - Snowflake
 - Microsoft SQL Server
 - SQLite
+- Vertica
 
 Import the `sql` package:
 

@@ -177,13 +177,13 @@
     }
   }
 
-  #flux {
+  #flux, #resources {
     padding-bottom: 2.5rem;
     .card .card-content {
       h2 {margin-bottom: .5rem;}
       p {margin: 0 0 1rem;}
     }
-    .card.flux-btns {
+    .card.cta-btns {
       flex-direction: row;
       margin-bottom: .75rem;
       justify-content: flex-end;
@@ -380,9 +380,9 @@
           }
         }
       }
-      &#flux {
+      &#flux, &#resources {
         order: 3; padding-left: 0; padding-right: 0;
-        .card.flux-btns {
+        .card.cta-btns {
           padding-top: 0;
           a.btn {
             display: block;

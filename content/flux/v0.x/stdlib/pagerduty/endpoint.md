@@ -54,7 +54,9 @@ Requires an `r` parameter.
 - `component`
 - `source`
 - `summary`
+- `component`
 - `timestamp`
+- `customDetails`
 
 _For more information, see [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/)_
 
@@ -84,7 +86,12 @@ crit_statuses
       component: r.component,
       source: r.source,
       summary: r.summary,
+      component: r.component,
       timestamp: r._time,
+      customDetails: {
+        "ping time": lastReported.ping,
+        load: lastReported.load
+      }
     })
   )()
 ```

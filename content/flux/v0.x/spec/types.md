@@ -108,6 +108,10 @@ Durations can be added to times to produce a new time.
 3d12h4m25s // 3 days, 12 hours, 4 minutes, and 25 seconds
 ```
 
+{{% note %}}
+[IMPL#2026](https://github.com/influxdata/flux/issues/2026) Operator for time arithmetic
+{{% /note %}}
+
 ### String types
 A _string type_ represents a possibly empty sequence of characters.
 Strings are immutable and cannot be modified once created.

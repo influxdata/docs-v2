@@ -30,8 +30,10 @@ pagerduty.sendEvent(
   severity: "ok",
   eventAction: "trigger",
   source: "monitoringtool:vendor:region",
+  component: "example-component",
   summary: "This is an example summary.",
-  timestamp: "2016-07-17T08:42:58.315+0000"
+  timestamp: "2016-07-17T08:42:58.315+0000",
+  customDetails: {exampleDetail: "Details"}
 )
 ```
 
@@ -93,9 +95,49 @@ The severity of the event.
 The unique location of the affected system.
 For example, the hostname or fully qualified domain name (FQDN).
 
+### component {data-type="string"}
+Component responsible for the event.
+
 ### summary {data-type="string"}
 A brief text summary of the event used as the summaries or titles of associated alerts.
 The maximum permitted length is 1024 characters.
 
 ### timestamp {data-type="string"}
 The time the detected event occurred in [RFC3339nano format](https://golang.org/pkg/time/#RFC3339Nano).
+
+### customDetails {data-type="record"}
+Additional event details.
+
+## Examples
+
+## Send the last reported status to PagerDuty
+```js
+import "pagerduty"
+import "influxdata/influxdb/secrets"
+
+lastReported =
+  from(bucket: "example-bucket")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "statuses")
+    |> last()
+    |> findRecord(fn: (key) => true, idx: 0)
+
+pagerduty.sendEvent(
+  routingKey: "example-routing-key",
+  client: lastReported.client,
+  clientURL: lastReported.clientURL,
+  class: lastReported.class,
+  eventAction: lastReported.eventAction,
+  group: lastReported.group,
+  severity: lastReported.severity,
+  component: lastReported.component,
+  source: lastReported.source,
+  component: lastReported.component,
+  summary: lastReported.summary,
+  timestamp: lastReported._time,
+  customDetails: {
+    "ping time": lastReported.ping,
+    load: lastReported.load
+  }
+)
+```

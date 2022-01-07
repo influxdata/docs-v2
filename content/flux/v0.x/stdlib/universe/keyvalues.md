@@ -96,26 +96,26 @@ data
 
 {{< flux/group-key "[ _field, _measurement, sensor_id]" >}}
 
-| _field | _measurement | sensor_id | _time                                             |              _value |
-| :----- | :----------- | :-------- | :------------------------------------------------ | ------------------: |
-| co     | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:21:57Z{{% /nowrap %}} | 0.31069912185103726 |
-| co     | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:07Z{{% /nowrap %}} |  0.2958765656451926 |
-| co     | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:17Z{{% /nowrap %}} |  0.3148598993377045 |
-| co     | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:27Z{{% /nowrap %}} |  0.3138373097388317 |
+| _field | _measurement | sensor_id | _time                |              _value |
+| :----- | :----------- | :-------- | :------------------- | ------------------: |
+| co     | airSensors   | TLM0100   | 2021-09-08T14:21:57Z | 0.31069912185103726 |
+| co     | airSensors   | TLM0100   | 2021-09-08T14:22:07Z |  0.2958765656451926 |
+| co     | airSensors   | TLM0100   | 2021-09-08T14:22:17Z |  0.3148598993377045 |
+| co     | airSensors   | TLM0100   | 2021-09-08T14:22:27Z |  0.3138373097388317 |
 
-| _field   | _measurement | sensor_id | _time                                             |             _value |
-| :------- | :----------- | :-------- | :------------------------------------------------ | -----------------: |
-| humidity | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:21:57Z{{% /nowrap %}} | 36.032121180773785 |
-| humidity | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:07Z{{% /nowrap %}} | 36.078174038253856 |
-| humidity | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:17Z{{% /nowrap %}} |  36.10019403559529 |
-| humidity | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:27Z{{% /nowrap %}} |  36.12069055726357 |
+| _field   | _measurement | sensor_id | _time                |             _value |
+| :------- | :----------- | :-------- | :------------------- | -----------------: |
+| humidity | airSensors   | TLM0100   | 2021-09-08T14:21:57Z | 36.032121180773785 |
+| humidity | airSensors   | TLM0100   | 2021-09-08T14:22:07Z | 36.078174038253856 |
+| humidity | airSensors   | TLM0100   | 2021-09-08T14:22:17Z |  36.10019403559529 |
+| humidity | airSensors   | TLM0100   | 2021-09-08T14:22:27Z |  36.12069055726357 |
 
-| _field      | _measurement | sensor_id | _time                                             |            _value |
-| :---------- | :----------- | :-------- | :------------------------------------------------ | ----------------: |
-| temperature | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:21:57Z{{% /nowrap %}} | 70.84122391403946 |
-| temperature | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:07Z{{% /nowrap %}} | 70.86036165985708 |
-| temperature | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:17Z{{% /nowrap %}} | 70.89253177998165 |
-| temperature | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:27Z{{% /nowrap %}} | 70.85193833073798 |
+| _field      | _measurement | sensor_id | _time                |            _value |
+| :---------- | :----------- | :-------- | :------------------- | ----------------: |
+| temperature | airSensors   | TLM0100   | 2021-09-08T14:21:57Z | 70.84122391403946 |
+| temperature | airSensors   | TLM0100   | 2021-09-08T14:22:07Z | 70.86036165985708 |
+| temperature | airSensors   | TLM0100   | 2021-09-08T14:22:17Z | 70.89253177998165 |
+| temperature | airSensors   | TLM0100   | 2021-09-08T14:22:27Z | 70.85193833073798 |
 
 ##### Example output data
 
@@ -163,26 +163,26 @@ data
 
 {{< flux/group-key "[ _field, _measurement, sensor_id]" >}}
 
-| _field | _measurement | sensor_id | _time                                             |              _value |
-| :----- | :----------- | :-------- | :------------------------------------------------ | ------------------: |
-| co     | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:21:57Z{{% /nowrap %}} | 0.31069912185103726 |
-| co     | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:07Z{{% /nowrap %}} |  0.2958765656451926 |
-| co     | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:17Z{{% /nowrap %}} |  0.3148598993377045 |
-| co     | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:27Z{{% /nowrap %}} |  0.3138373097388317 |
+| _field | _measurement | sensor_id | _time                |              _value |
+| :----- | :----------- | :-------- | :------------------- | ------------------: |
+| co     | airSensors   | TLM0100   | 2021-09-08T14:21:57Z | 0.31069912185103726 |
+| co     | airSensors   | TLM0100   | 2021-09-08T14:22:07Z |  0.2958765656451926 |
+| co     | airSensors   | TLM0100   | 2021-09-08T14:22:17Z |  0.3148598993377045 |
+| co     | airSensors   | TLM0100   | 2021-09-08T14:22:27Z |  0.3138373097388317 |
 
-| _field   | _measurement | sensor_id | _time                                             |             _value |
-| :------- | :----------- | :-------- | :------------------------------------------------ | -----------------: |
-| humidity | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:21:57Z{{% /nowrap %}} | 36.032121180773785 |
-| humidity | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:07Z{{% /nowrap %}} | 36.078174038253856 |
-| humidity | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:17Z{{% /nowrap %}} |  36.10019403559529 |
-| humidity | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:27Z{{% /nowrap %}} |  36.12069055726357 |
+| _field   | _measurement | sensor_id | _time                |             _value |
+| :------- | :----------- | :-------- | :------------------- | -----------------: |
+| humidity | airSensors   | TLM0100   | 2021-09-08T14:21:57Z | 36.032121180773785 |
+| humidity | airSensors   | TLM0100   | 2021-09-08T14:22:07Z | 36.078174038253856 |
+| humidity | airSensors   | TLM0100   | 2021-09-08T14:22:17Z |  36.10019403559529 |
+| humidity | airSensors   | TLM0100   | 2021-09-08T14:22:27Z |  36.12069055726357 |
 
-| _field      | _measurement | sensor_id | _time                                             |            _value |
-| :---------- | :----------- | :-------- | :------------------------------------------------ | ----------------: |
-| temperature | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:21:57Z{{% /nowrap %}} | 70.84122391403946 |
-| temperature | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:07Z{{% /nowrap %}} | 70.86036165985708 |
-| temperature | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:17Z{{% /nowrap %}} | 70.89253177998165 |
-| temperature | airSensors   | TLM0100   | {{% nowrap %}}2021-09-08T14:22:27Z{{% /nowrap %}} | 70.85193833073798 |
+| _field      | _measurement | sensor_id | _time                |            _value |
+| :---------- | :----------- | :-------- | :------------------- | ----------------: |
+| temperature | airSensors   | TLM0100   | 2021-09-08T14:21:57Z | 70.84122391403946 |
+| temperature | airSensors   | TLM0100   | 2021-09-08T14:22:07Z | 70.86036165985708 |
+| temperature | airSensors   | TLM0100   | 2021-09-08T14:22:17Z | 70.89253177998165 |
+| temperature | airSensors   | TLM0100   | 2021-09-08T14:22:27Z | 70.85193833073798 |
 
 ##### Example output data
 

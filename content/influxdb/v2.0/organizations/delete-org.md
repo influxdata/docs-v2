@@ -18,7 +18,7 @@ to delete an organization.
 
 1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "account" >}}
+    {{< nav-icon "account" "v2" >}}
 
   The list of organizations appears.
 

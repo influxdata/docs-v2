@@ -7,7 +7,7 @@ menu:
   influxdb_cloud:
     name: Delete data
     parent: Write data
-weight: 106
+weight: 107
 influxdb/cloud/tags: [delete]
 related:
   - /influxdb/v2.0/reference/syntax/delete-predicate/
