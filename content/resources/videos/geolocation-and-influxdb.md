@@ -6,10 +6,10 @@ menu:
   resources:
     name: Geolocation and InfluxDB
     parent: Videos
-weight: 105
+weight: 115
 youtubeID: Mj1KdzC6EKU
 date: 2021-11-22
-tags: [Meet the Developers]
+series: [Meet the Developers S1]
 metadata: [Meet the Developer Series]
 related:  
   - /influxdb/cloud/query-data/flux/geo/
