@@ -12,6 +12,7 @@ aliases:
   - /influxdb/v2.0/reference/line-protocol
   - /influxdb/v2.0/write_protocols/line_protocol_tutorial/
   - /influxdb/v2.0/write_protocols/line/
+  - /influxdb/v2.0/write_protocols/line_protocol_reference/
 related:
   - /influxdb/v2.0/write-data/
 ---

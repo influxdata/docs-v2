@@ -17,6 +17,7 @@ related:
   - /influxdb/v2.1/reference/syntax/line-protocol
   - /influxdb/v2.1/reference/syntax/annotated-csv
   - /influxdb/v2.1/reference/cli/influx/write
+  - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
 1. Learn the [best practices](/influxdb/v2.1/write-data/best-practices/) for writing data.
