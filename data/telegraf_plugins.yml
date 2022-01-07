@@ -2620,7 +2620,7 @@ processor:
   - name: Execd
     id: execd
     description: |
-      The `execd` processor plugin aruns an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
+      The `execd` processor plugin executes an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
     introduced: 1.15.0
     tags: [linux, macos, windows]
 
