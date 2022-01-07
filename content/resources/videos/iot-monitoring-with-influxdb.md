@@ -5,10 +5,10 @@ description: >
 menu:
   resources:
     parent: Videos
-weight: 104
+weight: 114
 youtubeID: EzFEy-xJYhM
 date: 2021-11-22
-tags: [Meet the Developers]
+series: [Meet the Developers S1]
 metadata: [Meet the Developer Series]
 related:
   - /influxdb/cloud/monitor-alert/
