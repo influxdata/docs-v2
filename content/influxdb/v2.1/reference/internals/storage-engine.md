@@ -9,6 +9,8 @@ menu:
     parent: InfluxDB internals
 influxdb/v2.1/tags: [storage, internals]
 products: [oss]
+related:
+  - /resources/videos/tsm-engine/
 ---
 
 The InfluxDB storage engine ensures that:
