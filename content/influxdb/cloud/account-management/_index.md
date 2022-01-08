@@ -8,7 +8,6 @@ products: [cloud]
 aliases:
   - /influxdb/v2.0/cloud/account-management/
   - /influxdb/v2.0/account-management
-  - /influxdb/v1.5/administration/subscription-management/
 menu:
   influxdb_cloud:
     name: Account management
