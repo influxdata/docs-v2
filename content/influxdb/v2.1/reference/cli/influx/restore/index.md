@@ -6,8 +6,9 @@ menu:
   influxdb_2_1_ref:
     parent: influx
 weight: 101
-alias:
+aliases:
   - /influxdb/v2.1/reference/cli/influxd/restore/
+  - /influxdb/v2.1/administration/backup_and_restore/
 related:
   - /influxdb/v2.1/backup-restore/restore/
   - /influxdb/v2.1/reference/cli/influx/backup/
