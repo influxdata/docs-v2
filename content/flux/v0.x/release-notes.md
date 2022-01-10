@@ -41,7 +41,6 @@ aliases:
 - Relocate the mutex in the optimized union to avoid a data race.
 - Split the entire pipe chain on multiple lines (if necessary).
 
-
 ---
 
 ## v0.147.0 [2021-12-14]
