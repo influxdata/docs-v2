@@ -1,14 +1,14 @@
 ---
 title: InfluxDB templates
 description: >
-  InfluxDB templates define preconfigured InfluxDB resources and can contain everything
+  InfluxDB templates are prepackaged InfluxDB configurations that contain everything
   from dashboards and Telegraf configurations to notifications and alerts.
 menu: influxdb_2_1
 weight: 9
 influxdb/v2.1/tags: [templates]
 ---
 
-InfluxDB templates define preconfigured InfluxDB resources and can contain everything
+InfluxDB templates are prepackaged InfluxDB configurations that contain everything
 from dashboards and Telegraf configurations to notifications and alerts.
 Use templates to monitor your technology stack,
 set up a fresh instance of InfluxDB, back up your dashboard configuration, or
