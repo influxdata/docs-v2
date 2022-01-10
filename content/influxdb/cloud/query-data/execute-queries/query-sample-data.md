@@ -9,11 +9,11 @@ menu:
 weight: 10
 ---
 
-Use **InfluxDB Cloud** sample datasets to quickly access data that lets you explore and familiarize yourself with InfluxDB Cloud without requiring you to have or write your own data.
+Use **InfluxDB Cloud** sample datasets to quickly access data that lets you explore and familiarize yourself with InfluxDB Cloud without requiring you to have to write your own data.
 
 - [Choose sample data](#choose-sample-data)
 - [Explore sample data](#explore-sample-data)
-- [create sample data dashboards](#create-sample-data-dashboards)
+- [Create sample data dashboards](#create-sample-data-dashboards)
 
 {{% note %}}
 #### Network bandwidth
@@ -21,7 +21,7 @@ Use **InfluxDB Cloud** sample datasets to quickly access data that lets you expl
 Each execution of `sample.data()` downloads the specified dataset from **Amazon S3**.
 If using [InfluxDB Cloud](/influxdb/cloud/) or a hosted InfluxDB OSS instance,
 you may see additional network bandwidth costs when using this function.
-Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/cloud/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/). To explore data without incurring network bandwidth costs, see how to [query demo data](/influxdb/cloud/query-data/execute-queries/query-demo-data/).
+Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/cloud/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/).
 {{% /note %}}
 
 ## Choose sample data
@@ -53,6 +53,7 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 ```
 
 ## Explore sample data
+
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
 to query and visualize data in sample data buckets.
 

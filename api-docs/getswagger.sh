@@ -98,7 +98,7 @@ function updateOSS {
 }
 
 function updateV1Compat {
-  echo "Updating Cloud and ${ossVersion} v1 compatibilty openapi..."
+  echo "Updating Cloud and ${ossVersion} v1 compatibility openapi..."
   curl ${verbose} ${baseUrl}/contracts/swaggerV1Compat.yml -s -o cloud/swaggerV1Compat.yml
   mkdir -p ${ossVersion} && cp cloud/swaggerV1Compat.yml $_/swaggerV1Compat.yml
 }

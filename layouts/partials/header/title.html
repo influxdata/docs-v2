@@ -3,12 +3,19 @@
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 {{ $version := title (replaceRE "v" "" $currentVersion) }}
+{{ $resourceSection := cond (and (eq $product "resources") (eq $version nil)) (title (replaceRE "-" " " $currentVersion)) "" }}
 
 {{ $scratch.Set "siteTitle" "InfluxData Documentation" }}
 {{ if eq $product nil }}
   {{ $scratch.Set "siteTitle" "InfluxData Documentation" }}
 {{ else if eq $product "platform"}}
   {{ $scratch.Set "siteTitle" "InfluxData Platform Documentation" }}
+{{ else if eq $product "resources"}}
+  {{ if (gt (len $resourceSection) 0) }}
+    {{ $scratch.Set "siteTitle" (print $resourceSection " | InfluxData Documentation") }}
+  {{ else }}
+    {{ $scratch.Set "siteTitle" "Additional resources | InfluxData Documentation" }}
+  {{ end }}
 {{ else if eq $currentVersion "cloud"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud Documentation" }}
 {{ else if eq $currentVersion nil}}

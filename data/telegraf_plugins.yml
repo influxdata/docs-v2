@@ -758,6 +758,13 @@ input:
     introduced: 1.16.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Intel PMU
+    id: intel_pmu
+    description: |
+      The Intel PMU input plugin exposes Intel PMU (Performance Monitoring Unit) metrics available through Linux Perf subsystem.
+    introduced: 1.21.0
+    tags: [linux, systems]
+
   - name: Intel Powerstat
     id: intel_powerstat
     description: |
@@ -967,6 +974,13 @@ input:
       The documentation on these fields can be found [here](https://www.kernel.org/doc/Documentation/sysctl/fs.txt).
     introduced: 1.3.0
     tags: [linux, macos, windows, systems]
+
+  - name: Logical Volume Manager
+    id: lvm
+    description: |
+      The Logical Volume Manager collects information about physical volumes, volume groups, and logical volumes in Linux.
+    introduced: 1.21.0
+    tags: [linux, systems]
 
   - name: Logparser
     id: logparser
@@ -1326,6 +1340,13 @@ input:
       The OpenSMTPD input plugin gathers stats from [OpenSMTPD](https://www.opensmtpd.org/),
       a free implementation of the server-side SMTP protocol.
     introduced: 1.5.0
+    tags: [linux, macos, windows, applications]
+
+  - name: OpenStack
+    id: openstack
+    description: |
+      The OpenStack input plugin collects metrics on [OpenStack services](https://www.openstack.org/).
+    introduced: 1.21.0
     tags: [linux, macos, windows, applications]
 
   - name: OpenTelemetry
@@ -2051,6 +2072,13 @@ output:
     introduced: 1.20.0
     tags: [linux, macos, windows, cloud, datastores]
 
+  - name: Azure Event Hubs
+    id: event_hubs
+    description: |
+      The Azure Data Explorer output plugin writes metrics to a single Azure Event Hub within an [Event Hubs](https://azure.microsoft.com/en-gb/services/event-hubs/) namespace.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, cloud, datastores]
+
   - name: BigQuery
     id: bigquery
     description: |
@@ -2149,6 +2177,13 @@ output:
     introduced: 1.0.0
     tags: [linux, macos, windows, logging]
 
+  - name: GroundWork
+    id: groundwork
+    description: |
+      The  Graylog output plugin writes to a [GroundWork Monitor](https://www.gwos.com/product/groundwork-monitor/) instance.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, logging]
+
   - name: HTTP
     id: http
     description: |
@@ -2238,6 +2273,13 @@ output:
       on each Azure Monitor metric.
     introduced: 1.8.0
     tags: [linux, macos, windows, cloud]
+
+  - name: MongoDB
+    id: mongodb
+    description: |
+      The MongoDB output plugin writes to MongoDB and automatically creates the collections as time series collections when they don't already exist.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, data-stores]
 
   - name: MQTT Producer
     id: mqtt
@@ -2483,6 +2525,13 @@ aggregator:
     introduced: 1.18.0
     tags: []
 
+  - name: Starlark
+    id: starlark
+    description: |
+      The Starlark aggregator plugin allows a user to implement a custom aggregator plugin with a [Starlark](https://github.com/google/starlark-go/blob/master/doc/spec.md) script.
+    introduced: 1.21.0
+    tags: []
+
   - name: ValueCounter
     id: valuecounter
     description: |
@@ -2571,7 +2620,7 @@ processor:
   - name: Execd
     id: execd
     description: |
-      The `execd` processor plugin aruns an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
+      The `execd` processor plugin executes an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
     introduced: 1.15.0
     tags: [linux, macos, windows]
 
