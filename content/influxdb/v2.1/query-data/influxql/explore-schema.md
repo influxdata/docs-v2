@@ -66,7 +66,6 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 SHOW SERIES ON NOAA_water_database
 ```
 Output:
-
 | key                                         |
 | :------------------------------------------ |
 | average_temperature,location=coyote_creek   |
@@ -280,8 +279,8 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 
 ```sql
 > SHOW TAG KEYS ON "NOAA_water_database"
-
-name: average_temperature
+```
+<!-- name: average_temperature
 tagKey
 ------
 location
@@ -305,8 +304,17 @@ randtag
 name: h2o_temperature
 tagKey
 ------
-location
-```
+location -->
+
+Output:
+|measurement	|tagKey |
+| :------------------ |:---------------|
+|average_temperature	|location|
+|h2o_feet	|location|
+|h2o_pH	|location|
+|h2o_quality	|location|
+|h2o_quality	|randtag|
+|h2o_temperature |location|
 
 The query returns the list of tag keys in the `NOAA_water_database` database.
 The output groups tag keys by measurement name;
@@ -360,79 +368,6 @@ location
 
 {{% tab-content %}}
 
-Specify the database with the `db` query string parameter:
-
-```sql
-~# curl -G "http://localhost:8086/query?db=NOAA_water_database&pretty=true" --data-urlencode "q=SHOW TAG KEYS"
-
-{
-    "results": [
-        {
-            "statement_id": 0,
-            "series": [
-                {
-                    "name": "average_temperature",
-                    "columns": [
-                        "tagKey"
-                    ],
-                    "values": [
-                        [
-                            "location"
-                        ]
-                    ]
-                },
-                {
-                    "name": "h2o_feet",
-                    "columns": [
-                        "tagKey"
-                    ],
-                    "values": [
-                        [
-                            "location"
-                        ]
-                    ]
-                },
-                {
-                    "name": "h2o_pH",
-                    "columns": [
-                        "tagKey"
-                    ],
-                    "values": [
-                        [
-                            "location"
-                        ]
-                    ]
-                },
-                {
-                    "name": "h2o_quality",
-                    "columns": [
-                        "tagKey"
-                    ],
-                    "values": [
-                        [
-                            "location"
-                        ],
-                        [
-                            "randtag"
-                        ]
-                    ]
-                },
-                {
-                    "name": "h2o_temperature",
-                    "columns": [
-                        "tagKey"
-                    ],
-                    "values": [
-                        [
-                            "location"
-                        ]
-                    ]
-                }
-            ]
-        }
-    ]
-}
-```
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -486,7 +421,7 @@ SHOW TAG VALUES [ON <database_name>][FROM_clause] WITH KEY [ [<operator> "<tag_k
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
+database with the `db` query string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
 
 The `WITH` clause is required.
 It supports specifying a single tag key, a regular expression, and multiple tag keys.
@@ -538,9 +473,6 @@ database.
 Specify the database with `USE <database_name>`
 
 ```sql
-> USE NOAA_water_database
-Using database NOAA_water_database
-
 > SHOW TAG VALUES WITH KEY = "randtag"
 
 name: h2o_quality
@@ -555,42 +487,6 @@ randtag   3
 
 {{% tab-content %}}
 
-Specify the database with the `db` query string parameter:
-
-```bash
-~# curl -G "http://localhost:8086/query?db=NOAA_water_database&pretty=true" --data-urlencode 'q=SHOW TAG VALUES WITH KEY = "randtag"'
-
-{
-    "results": [
-        {
-            "statement_id": 0,
-            "series": [
-                {
-                    "name": "h2o_quality",
-                    "columns": [
-                        "key",
-                        "value"
-                    ],
-                    "values": [
-                        [
-                            "randtag",
-                            "1"
-                        ],
-                        [
-                            "randtag",
-                            "2"
-                        ],
-                        [
-                            "randtag",
-                            "3"
-                        ]
-                    ]
-                }
-            ]
-        }
-    ]
-}
-```
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

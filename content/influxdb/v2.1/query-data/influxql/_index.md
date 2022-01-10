@@ -41,13 +41,12 @@ For more information, see [Database and retention policy mapping](/influxdb/v2.1
 If you're not sure how data was written into a bucket, verify the bucket has a mapping.
 {{% /note %}}
 
-Use the [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.1/reference/api/)
+Use the [InfluxDB API](/influxdb/v2.1/reference/api/)
 to verify the buckets you want to query are mapped to a database and retention policy.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[influx CLI](#)
-[InfluxDB API](#)
+
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -116,13 +115,11 @@ If you **do not find a DBRP mapping for a bucket**, complete the next procedure 
 _For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.1/api/#tag/DBRPs)._
 
 ## Map unmapped buckets
-Use the [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.1/reference/api/)
-to manually create DBRP mappings for unmapped buckets.
+Use the [InfluxDB API](/influxdb/v2.1/reference/api/) to manually create DBRP mappings for unmapped buckets.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[influx CLI](#)
-[InfluxDB API](#)
+
 {{% /tabs %}}
 {{% tab-content %}}
 
