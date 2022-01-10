@@ -9,7 +9,6 @@ weight: 106
 aliases:
   - /influxdb/v2.0/reference/flux/language/types/
   - /influxdb/cloud/reference/flux/language/types/
-  - /flux/v0.x/spec/string-interpolation/
 ---
 
 {{% note %}}
