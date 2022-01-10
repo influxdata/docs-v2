@@ -3,7 +3,7 @@ title: Using the HTTP input plugin with Citi Bike data
 description: Collect live metrics on Citi Bike stations in New York City with the HTTP input plugin.
 menu:
   telegraf_1_21:
-  
+
     name: Using the HTTP plugin
     weight: 30
     parent: Guides
@@ -66,7 +66,7 @@ The timezone We'll set this to the Unix TZ value where our bike data takes place
   tagexclude = ["url", "host"]
 
   #Data from HTTP in JSON format
-  data_format = "json"
+  data_format = "json_v2"
 
   #Parse `stationBeanList` array only
   json_query = "stationBeanList"
