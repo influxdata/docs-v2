@@ -33,7 +33,7 @@ InfluxDB OSS 1.x controls access at the database level only.
 
 ## Set up fine-grained authorization
 
-1. [Enable authentication](/enterprise_influxdb/v1.9/administration/configure/users-and-permissions/authentication/) in your InfluxDB configuration file.
+1. [Enable authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/) in your InfluxDB configuration file.
 
 2. Create users through the InfluxDB query API.
 
