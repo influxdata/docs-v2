@@ -39,7 +39,7 @@ aliases:
 ### Bug fixes
 - Classify IP validation failures as `Invalid`.
 - Relocate the mutex in the optimized union to avoid a data race.
-- Split the entire pipe chain on multiple lines (if necessary).
+- Split the entire pipe chain into multiple lines (if necessary).
 
 ---
 
