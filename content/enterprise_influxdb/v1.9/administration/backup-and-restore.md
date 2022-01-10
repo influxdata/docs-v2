@@ -316,12 +316,16 @@ Restored from my-incremental-backup/ in 83.892591ms, transferred 588800 bytes
 
 ##### Restore from a metadata backup
 
+<!-- i want new cluster, copy of old metadata -->
+<!-- 1. metadata only back -->
+<!-- 2. full restore -->
+
 In this example, the `restore` command restores a metadata backup stored
 in the `metadata-backup/` directory.
 
 ```bash
 # Syntax
-influxd-ctl restore -meta-only-overwrite-force <path-to-backup-directory>
+influxd-ctl restore <path-to-backup-directory>
 
 # Example
 $ influxd-ctl restore metadata-backup/
@@ -330,6 +334,23 @@ Using meta backup: 20200101T000000Z.meta
 Restoring meta data... Done. Restored in 21.373019ms, 1 shards mapped
 Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
 ```
+
+##### Restore from a metadata backup (to fix corrupted metadata)
+
+1. Identify a backup with uncorrupted metadata from which to restore.
+2. Restore with `meta-only-overwrite-force`
+
+   ```bash
+   # Syntax
+   influxd-ctl restore -meta-only-overwrite-force <path-to-backup-directory>
+
+   # Example
+   $ influxd-ctl restore -meta-only-overwrite-force my-incremental-backup/
+   Using backup directory: my-incremental-backup/
+   Using meta backup: 20200101T000000Z.meta
+   Restoring meta data... Done. Restored in 21.373019ms, 1 shards mapped
+   Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
+   ```
 
 ##### Restore from a `-full` backup
 

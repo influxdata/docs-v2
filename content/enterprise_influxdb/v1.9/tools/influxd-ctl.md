@@ -937,7 +937,13 @@ Show the contents of the backup.
 
 ###### [ `-meta-only-overwrite-force` ]
 
-Restore from a metadata only backup.
+Restore *metadata only* from a backup.
+
+{{% warn %}}
+Only use this flag to restore from backups of the target cluster.
+If you use this flag with metadata from a different cluster, you will lose data.
+(since metadata includes shard assignments to data nodes).
+{{% /warn %}}
 
 ###### [ `-newdb <newdb_name>` ]
 
