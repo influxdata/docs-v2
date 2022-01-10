@@ -10,6 +10,40 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.148.0 [2022-01-10]
+
+### Features
+- Report multiple errors from a single `unify` call.
+- Update [`to`](/flux/v0.x/stdlib/influxdata/influxdb/to/) transformation to use
+  narrow transformation.
+- Provide specific error information on function calls.
+- Allow errors to be formatted via `codespan`.
+- Add an `internal/debug.opaque` function.
+- Provide which package exported a symbol.
+- Add timeable support to [`experimental.addDuration()`](/flux/v0.x/stdlib/experimental/addduration/)
+  and [`experimental.subDuration()`](/flux/v0.x/stdlib/experimental/subduration/).
+- Add inline documentation to the following packages:
+  - interpolate
+  - json
+  - kafka
+  - math
+  - regexp
+  - runtime
+  - sampledata
+  - slack
+  - system
+  - pagerduty
+  - profiler
+  - pushbullet
+
+### Bug fixes
+- Classify IP validation failures as `Invalid`.
+- Relocate the mutex in the optimized union to avoid a data race.
+- Split the entire pipe chain on multiple (if necessary).
+
+
+---
+
 ## v0.147.0 [2021-12-14]
 
 ### Features
