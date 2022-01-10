@@ -8,8 +8,8 @@ weight: 9
 influxdb/v2.1/tags: [templates]
 ---
 
-InfluxDB templates are preconfigured InfluxDB resources and can contain everything
-from dashboards and Telegraf configurations to notifications and alerts.
+InfluxDB templates contain preconfigured InfluxDB resources such as
+dashboards, Telegraf configurations, notifications, and alerts.
 Use templates to monitor your technology stack,
 set up a fresh instance of InfluxDB, back up your dashboard configuration, or
 [share your configuration](https://github.com/influxdata/community-templates/) with the InfluxData community.
@@ -26,7 +26,7 @@ set up a fresh instance of InfluxDB, back up your dashboard configuration, or
 
 ## Template manifests
 
-A template consists of one or more files known as **manifests** that define the
+A template **manifest** is a file that defines
 InfluxDB [resources](#template-resources).
 Template manifests support the following formats:
 
@@ -41,15 +41,39 @@ Template manifests are compatible with
 
 The `metadata.name` field in manifests uniquely identifies each resource in the template.
 `metadata.name` values must be [DNS-1123](https://tools.ietf.org/html/rfc1123) compliant.
-If resources in the template depend on other InfluxDB [resources](#template-resources), all dependencies
-should be included in the template, otherwise, the resources may not be usable.
+The `spec` object contains the resource configuration.
+
+#### Example
+
+```yaml
+# bucket-template.yml
+# Template manifest that defines two buckets.
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: thirsty-shaw-91b005
+spec:
+    description: My IoT Center Bucket
+    name: iot-center
+    retentionRules:
+      - everySeconds: 86400
+        type: expire
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: upbeat-fermat-91b001
+spec:
+    name: air_sensor
+---
+```
 
 _See [Create an InfluxDB template](/influxdb/v2.1/influxdb-templates/create/) for information about
 generating template manifests._
 
 ### Template resources
 
-Customize and group the following InfluxDB resources to create a template:
+Templates may contain the following InfluxDB resources:
 
 - [buckets](/influxdb/v2.1/organizations/buckets/create-bucket/)
 - [checks](/influxdb/v2.1/monitor-alert/checks/create/)

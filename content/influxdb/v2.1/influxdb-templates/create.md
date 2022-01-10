@@ -22,10 +22,10 @@ UI and then export those resources as a template.
 {{< youtube 714uHkxKM6U >}}
 
 - [Create a template](#create-a-template)
-- [Export resources to a template]()
-- [Include user-definable resource names]()
-- [Share your InfluxDB templates]()
+- [Export resources to a template](#export-resources-to-a-template)
+- [Include user-definable resource names](#include-user-definable-resource-names)
 - [Troubleshoot template results and permissions](#troubleshoot-template-results-and-permissions)
+- [Share your InfluxDB templates](#share-your-influxdb-templates)
 
 ## Create a template
 
@@ -35,8 +35,8 @@ Follow these steps to create a template from a new organization.
 
 1. [Start InfluxDB](/influxdb/v2.1/get-started/).
 2. [Create a new organization](/influxdb/v2.1/organizations/create-org/).
-3. In the InfluxDB UI, add one or more [template resources](/influxdb/v2.1/influxdb-templates/#template-resources).
-4. [Create an **All-Access** API token](/influxdb/v2.1/security/tokens/create-token/) (which has **read** access to the organization).
+3. In the InfluxDB UI, add one or more [resources](/influxdb/v2.1/influxdb-templates/#template-resources).
+4. [Create an **All-Access** API token](/influxdb/v2.1/security/tokens/create-token/) (or a token that has **read** access to the organization).
 5. Use the API token from **Step 4** with the [`influx export all` subcommand](/influxdb/v2.1/reference/cli/influx/export/all/) to [export all resources]() in the organization to a template file.
 
    ```sh
@@ -49,8 +49,12 @@ Follow these steps to create a template from a new organization.
 ## Export resources to a template
 
 The [`influx export` command](/influxdb/v2.1/reference/cli/influx/export/) and subcommands let you
-export resources from an organization.
-Your API token must have **read** access to resources that you want to export.
+export [resources](#template-resources) from an organization to a template manifest.
+Your [API token](/influxdb/v2.1/security/tokens/) must have **read** access to resources that you want to export.
+
+If you want to export resources that depend on other resources, be sure to export the dependencies.
+
+{{< cli/influx-creds-note >}}
 
 To create a template that **adds, modifies, and deletes resources** when applied to an organization, use [InfluxDB stacks](/influxdb/v2.1/influxdb-templates/stacks/).
 First, [initialize the stack](/influxdb/v2.1/influxdb-templates/stacks/init/)
@@ -60,12 +64,6 @@ To create a template that only **adds resources** when applied to an organizatio
 - [Export all resources](#export-all-resources) to export all resources or a filtered
   subset of resources to a template.
 - [Export specific resources](#export-specific-resources) by name or ID to a template.
-
-{{< cli/influx-creds-note >}}
-
-- [Export all resources](#export-all-resources)
-- [Export specific resources](#export-specific-resources)
-- [Export a stack and associated resources](#export-a-stack)
 
 ### Export all resources
 
@@ -77,8 +75,9 @@ with the `--file` (`-f`) option.
 Provide the following:
 
 - **Destination path and filename** for the template manifest.
-  The filename extension determines the template format—both **YAML** (`.yml`) and
-  **JSON** (`.json`) are supported.
+  The filename extension determines the output format:
+  - `your-template.yml`: [YAML](https://yaml.org/) format
+  - `your-template.json`: [JSON](https://json.org/) format
 
 ```sh
 # Syntax
@@ -116,13 +115,14 @@ For more options and examples, see the
 
 ### Export specific resources
 
-To export specific resources by name or ID to a template manifest, use the **[`influx export` command](/influxdb/v2.1/reference/cli/influx/export/)** with one or more lists of resources to include.
+To export specific [resources](/influxdb/v2.1/influxdb-templates/#template-resources) by name or ID, use the **[`influx export` command](/influxdb/v2.1/reference/cli/influx/export/)** with one or more lists of resources to include.
 
 Provide the following:
 
 - **Destination path and filename** for the template manifest.
-  The filename extension determines the template format — both **YAML** (`.yml`) and
-  **JSON** (`.json`) are supported.
+  The filename extension determines the output format:
+  - `your-template.yml`: [YAML](https://yaml.org/) format
+  - `your-template.json`: [JSON](https://json.org/) format
 - **Resource options** with corresponding lists of resource IDs or resource names to include in the template.
   For information about what resource options are available, see the
   [`influx export` command](/influxdb/v2.1/reference/cli/influx/export/).
@@ -146,6 +146,7 @@ influx export \
 #### Export specific resources by name
 ```sh
 influx export \
+  --org-id ed32b47572a0137b \
   -f ~/templates/template.yml \
   --bucket-names=bucket1,bucket2 \
   --dashboard-names=dashboard1,dashboard2 \
@@ -161,8 +162,9 @@ Provide the following:
 - **Organization name** or **ID**
 - **API token** with read access to the organization
 - **Destination path and filename** for the template manifest.
-  The filename extension determines the template format - both **YAML** (`.yml`) and
-  **JSON** (`.json`) are supported.
+  The filename extension determines the output format:
+  - `your-template.yml`: [YAML](https://yaml.org/) format
+  - `your-template.json`: [JSON](https://json.org/) format
 - **Stack ID**
 
 #### Export a stack as a template
@@ -259,17 +261,31 @@ Only the following fields support environment references:
 - `spec.associations.name`
 {{% /note %}}
 
+## Troubleshoot template results and permissions
+
+If you get unexpected results, missing resources, or errors when exporting
+templates, check the following:
+- [Ensure `read` access](#ensure-read-access)
+- [Use Organization ID](#use-organization-id)
+- [Check for resource dependencies](#check-for-resource-dependencies)
+
+### Ensure read access
+
+The [API token](/influxdb/v2.1/security/tokens/) must have **read** access to resources that you want to export. The `influx export all` command only exports resources that the API token can read. For example, to export all resources in an organization that has ID `abc123`, the API token must have the `read:/orgs/abc123` permission.
+
+To learn more about permissions, see [how to view authorizations](/influxdb/v2.1/security/tokens/view-tokens/) and [how to create a token](/influxdb/v2.1/security/tokens/create-token/) with specific permissions.
+
+### Use Organization ID
+
+If your token doesn't have **read** access to the organization and you want to [export specific resources](#export-specific-resources), use the `--org-id <org-id>` flag (instead of `-o <org-name>` or `--org <org-name>`) to provide the organization.
+
+### Check for resource dependencies
+
+If you want to export resources that depend on other resources, be sure to export the dependencies as well. Otherwise, the resources may not be usable.
+
 ## Share your InfluxDB templates
 
 Share your InfluxDB templates with the entire InfluxData community.
-**Contribute your template to the [InfluxDB Community Templates](https://github.com/influxdata/community-templates/)
-repository on GitHub.**
+Contribute your template to the [InfluxDB Community Templates](https://github.com/influxdata/community-templates/) repository on GitHub.
 
 <a class="btn" href="https://github.com/influxdata/community-templates/" target="\_blank">View InfluxDB Community Templates</a>
-
-## Troubleshoot template results and permissions
-The API token must have **read** access to resources that you want to export. The `influx export all` command only exports resources that the API token can read. For example, to export all resources in an organization that has ID `abc123`, the API token must have the `read:/orgs/abc123` permission.
-
-Additionally, if you use a token that doesn't have **read** access to the organization, use the `--org-id <org-id>` flag instead of `-o <org-name>` or `--org <org-name>` to provide the organization.
-
-To learn more about permissions, see [how to view authorizations](/influxdb/v2.1/security/tokens/view-tokens/) or [how to create a token](/influxdb/v2.1/security/tokens/create-token/) with specific permissions.
