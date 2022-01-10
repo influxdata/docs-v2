@@ -18,7 +18,7 @@ related:
 
 Use fine-grained authorization (FGA) to control user access at the database, measurement, and series levels.
 
-You must have [admin permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/#admin) to set up FGA.
+You must have [admin permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/#admin) to set up FGA.
 
 {{% warn %}}
 #### FGA does not apply to Flux
@@ -33,7 +33,7 @@ InfluxDB OSS 1.x controls access at the database level only.
 
 ## Set up fine-grained authorization
 
-1. [Enable authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/) in your InfluxDB configuration file.
+1. [Enable authentication](/enterprise_influxdb/v1.9/administration/configure/users-and-permissions/authentication/) in your InfluxDB configuration file.
 
 2. Create users through the InfluxDB query API.
 
@@ -41,7 +41,7 @@ InfluxDB OSS 1.x controls access at the database level only.
     CREATE USER username WITH PASSWORD 'password'
     ```
 
-    For more information, see [User management commands](/enterprise_influxdb/v1.9/administration/manage/security/authorization-influxql/#user-management-commands).
+    For more information, see [User management commands](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authorization-influxql/#user-management-commands).
 
 3. Ensure that you can access the **meta node** API (port 8091 by default).
 

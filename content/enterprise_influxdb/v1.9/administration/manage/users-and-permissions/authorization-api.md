@@ -26,7 +26,7 @@ When the token lacks the verb part, full management privileges are implied.
 These predefined tokens are:
 -->
 
-For more information, see [Enterprise users and permissions](/enterprise_influxdb/v1.9/administration/manage/security/permissions/).
+For more information, see [Enterprise users and permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/).
 
 ### Example API requests
 

@@ -81,4 +81,4 @@ The InfluxDB Enterprise API is the
 recommended method for managing permissions.
 
 For more information on using the meta API,
-see [here](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authentication_and_authorization-api).
+see [here](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authorization-api).
