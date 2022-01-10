@@ -430,12 +430,16 @@ The default location is `$HOME/.influxdb`.
 #### Syntax
 
 ```
-influx_inspect report [ options ]
+influx_inspect report [ options ] <path>
 ```
 
 #### Options
 
 Optional arguments are in brackets.
+
+##### `<path>`
+
+The path to the InfluxDB [`data` directory](/influxdb/v1.8/concepts/file-system-layout/#file-system-layout).
 
 ##### [ `-pattern "<regular expression/wildcard>"` ]
 

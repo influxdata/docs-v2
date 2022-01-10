@@ -9,6 +9,8 @@ menu:
     name: Process data
 weight: 6
 influxdb/v2.1/tags: [tasks]
+related:
+  - /resources/videos/influxdb-tasks/
 ---
 
 Process and analyze your data with tasks in the InfluxDB **task engine**. Use tasks (scheduled Flux queries)

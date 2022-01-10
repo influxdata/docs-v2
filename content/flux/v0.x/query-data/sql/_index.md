@@ -48,7 +48,7 @@ The following drivers are available:
 - `postgres`
 - `snowflake`
 - `sqlite3`
-- `sqlserver`, `mssql`
+- `sqlserver`
 - `vertica`, `vertigo`
 
 ## Data source names

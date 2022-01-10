@@ -8,6 +8,8 @@ menu:
     parent: Key concepts
     name: Data elements
 influxdb/v2.1/tags: [key concepts, schema]
+related: 
+  - /resources/videos/data-model-building-blocks/
 ---
 
 InfluxDB {{< current-version >}} includes the following data elements:

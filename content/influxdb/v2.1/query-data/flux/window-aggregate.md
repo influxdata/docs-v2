@@ -13,6 +13,7 @@ weight: 204
 influxdb/v2.1/tags: [flux, aggregates]
 aliases:
   - /influxdb/v2.1/query-data/guides/window-aggregate/
+  - /influxdb/v2.1/query-data/flux/windowing-aggregating/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/aggregatewindow
   - /{{< latest "flux" >}}/stdlib/universe/window
