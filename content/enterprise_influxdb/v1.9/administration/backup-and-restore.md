@@ -338,7 +338,13 @@ Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
 ##### Restore (overwrite) metadata from a full or incremental backup to fix damaged metadata
 
 1. Identify a backup with uncorrupted metadata from which to restore.
-2. Restore with `meta-only-overwrite-force`
+2. Restore with `-meta-only-overwrite-force`
+
+   {{% warn %}}
+   Only use the `-meta-only-overwrite-force` flag to restore from backups of the target cluster.
+   If you use this flag with metadata from a different cluster, you will lose data.
+   (since metadata includes shard assignments to data nodes).
+   {{% /warn %}}
 
    ```bash
    # Syntax
