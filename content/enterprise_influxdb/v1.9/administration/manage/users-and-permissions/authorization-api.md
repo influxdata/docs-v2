@@ -374,8 +374,10 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"del
 curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom
 ```
 
-```
-{"error":"user not found"}
+```json
+{
+    "error": "user not found"
+}
 ```
 
 ##### Change a user's password
