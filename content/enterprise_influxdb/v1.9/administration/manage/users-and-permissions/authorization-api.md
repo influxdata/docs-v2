@@ -383,7 +383,7 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 ##### Change a user's password
 
 ```sh
-curl --location-trustedv -u "admin:changeit" -H "Content-Type: application/json" -d '{"action": "change-password", "user": {"name": "<username>", "password": "newpassword"}}' localhost:8091/user
+curl --location-trusted -u "admin:changeit" -H "Content-Type: application/json" -d '{"action": "change-password", "user": {"name": "<username>", "password": "newpassword"}}' localhost:8091/user
 ```
 
 <!-- TODO -->
