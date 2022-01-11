@@ -387,9 +387,6 @@ curl --location-trusted -u "admin:changeit" -H "Content-Type: application/json" 
 ```
 
 <!-- TODO -->
-```
-```
-
 
 #### Roles
 
