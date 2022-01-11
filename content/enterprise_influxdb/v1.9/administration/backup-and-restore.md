@@ -176,9 +176,9 @@ $ ls ./telegrafbackup
 20160803T222811Z.manifest  20160803T222811Z.meta  20160803T222811Z.s4.tar.gz
 ```
 
-#### Perform a metastore only backup
+#### Perform a metadata only backup
 
-Perform a meta store only backup into a specific directory with the command below.
+Perform a metadata only backup into a specific directory with the command below.
 The directory must already exist.
 
 ```bash
@@ -316,12 +316,8 @@ Restored from my-incremental-backup/ in 83.892591ms, transferred 588800 bytes
 
 ##### Restore from a metadata backup
 
-<!-- i want new cluster, copy of old metadata -->
-<!-- 1. metadata only back -->
-<!-- 2. full restore -->
-
-In this example, the `restore` command restores a metadata backup stored
-in the `metadata-backup/` directory.
+In this example, the `restore` command restores a [metadata backup](#perform-a-metadata-only-backup)
+stored in the `metadata-backup/` directory.
 
 ```bash
 # Syntax
@@ -428,7 +424,6 @@ time                  written
    Restoring meta data... Done. Restored in 21.373019ms, 1 shards mapped
    Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
    ```
-
 
 #### Common issues with restore
 
