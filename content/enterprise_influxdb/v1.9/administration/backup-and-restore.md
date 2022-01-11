@@ -335,7 +335,7 @@ Restoring meta data... Done. Restored in 21.373019ms, 1 shards mapped
 Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
 ```
 
-##### Restore from a metadata backup (to fix corrupted metadata)
+##### Restore (overwrite) metadata from a full or incremental backup to fix damaged metadata
 
 1. Identify a backup with uncorrupted metadata from which to restore.
 2. Restore with `meta-only-overwrite-force`
