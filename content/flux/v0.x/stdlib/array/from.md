@@ -7,6 +7,7 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/array/from/
   - /influxdb/v2.0/reference/flux/stdlib/experimental/array/from/
   - /influxdb/cloud/reference/flux/stdlib/experimental/array/from/
+  - /flux/v0.x/stdlib/experimental/array/from/
 menu:
   flux_0_x_ref:
     name: array.from

@@ -97,6 +97,9 @@ exports.handler = (event, context, callback) => {
   //////////////////////////// v2 subdomain redirect ///////////////////////////
   permanentRedirect(request.headers.host[0].value === 'v2.docs.influxdata.com', `https://docs.influxdata.com${request.uri}`);
 
+  ///////////////////////// Force v in version numbers /////////////////////////
+  permanentRedirect(/(^\/[\w]*\/)(\d\.)/.test(request.uri), request.uri.replace(/(^\/[\w]*\/)(\d\.)/, `$1v$2`));
+
   ////////////////////////// Latest version redirects //////////////////////////
   temporaryRedirect(/\/influxdb\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['influxdb']}`));
   temporaryRedirect(/\/telegraf\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['telegraf']}`));
@@ -130,6 +133,15 @@ exports.handler = (event, context, callback) => {
   temporaryRedirect(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/built-in\/transformations\/$/.test(request.uri), `/flux/${latestVersions['flux']}/function-types/`);
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/built-in\/$/.test(request.uri), `/flux/${latestVersions['flux']}/stdlib/universe/`);
 
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/built-in\/(?:inputs\/|outputs\/|misc\/|tests\/)(\w+\/$)/.test(request.uri), request.uri.replace(/\/flux\/v0\.x\/stdlib\/built-in\/(?:inputs\/|outputs\/|misc\/|tests\/)(\w+\/$)/, `/flux/${latestVersions['flux']}/stdlib/universe/$1`));
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/built-in\/(?:inputs\/|outputs\/|misc\/|tests\/)$/.test(request.uri), `/flux/${latestVersions['flux']}/function-types/`);
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/built-in\/transformations\/(?:aggregates\/|selectors\/|stream-table\/|type-conversions\/)(\w+\/$)/.test(request.uri), request.uri.replace(/\/flux\/v0\.x\/stdlib\/built-in\/transformations\/(?:aggregates\/|selectors\/|stream-table\/|type-conversions\/)(\w+\/$)/, `/flux/${latestVersions['flux']}/stdlib/universe/$1`));
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/built-in\/transformations\/(?:aggregates\/|selectors\/|stream-table\/|type-conversions\/)/.test(request.uri), `/flux/${latestVersions['flux']}/function-types/`);
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/built-in\/transformations\/(\w+\/$)/.test(request.uri), request.uri.replace(/\/flux\/v0\.x\/stdlib\/built-in\/transformations\/(\w+\/$)/, `/flux/${latestVersions['flux']}/stdlib/universe/$1`));
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/built-in\/transformations\/$/.test(request.uri), `/flux/${latestVersions['flux']}/function-types/`);
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/built-in\/$/.test(request.uri), `/flux/${latestVersions['flux']}/stdlib/universe/`);
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/universe\/(?:inputs\/|outputs\/|misc\/|tests\/|transformations\/)$/.test(request.uri), `/flux/${latestVersions['flux']}/function-types/`);
+
   // Redirect Flux stdlib/influxdb sections to Flux stdlib/influxdata docs
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/influxdb\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/influxdb\//, `/flux/${latestVersions['flux']}/stdlib/influxdata/influxdb/`));
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/monitor\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/monitor\//, `/flux/${latestVersions['flux']}/stdlib/influxdata/influxdb/monitor/`));
@@ -138,6 +150,8 @@ exports.handler = (event, context, callback) => {
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/secrets\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/secrets\//, `/flux/${latestVersions['flux']}/stdlib/influxdata/influxdb/secrets/`));
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/influxdb-tasks\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/influxdb-tasks\//, `/flux/${latestVersions['flux']}/stdlib/influxdata/influxdb/tasks/`));
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/influxdb-v1\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/influxdb-v1\//, `/flux/${latestVersions['flux']}/stdlib/influxdata/influxdb/v1/`));
+
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/influxdb-v1\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/influxdb-v1\//, `/flux/${latestVersions['flux']}/stdlib/influxdata/influxdb/v1/`));
 
   // Redirect Flux stdlib/contrib sections to Flux stdlib/contrib/user docs
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/contrib\/alerta\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\/contrib\/alerta\//, `/flux/${latestVersions['flux']}/stdlib/contrib/bonitoo-io/alerta/`));
@@ -157,6 +171,7 @@ exports.handler = (event, context, callback) => {
 
   // Generic Flux stdlib redirect
   temporaryRedirect(/\/influxdb\/(v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\//.test(request.uri), request.uri.replace(/\/influxdb\/(?:v2\.[0-9]{1,2}|cloud)\/reference\/flux\/stdlib\//, `/flux/${latestVersions['flux']}/stdlib/`));
+  temporaryRedirect(/\/flux\/v0\.x\/stdlib\/experimental\/to\/.+/.test(request.uri), request.uri.replace(/(\/flux\/v0\.x\/stdlib\/experimental\/)to\/(.+)/, `$1$2`));
 
   // Redirect outdated Chronograf links
   temporaryRedirect(/\/flux\/v[0,1]\.x\/stdlib\/built-in\/(?:inputs\/|outputs\/|misc\/|tests\/)(\w+\/$)/.test(request.uri), request.uri.replace(/\/flux\/v[0,1]\.x\/stdlib\/built-in\/(?:inputs\/|outputs\/|misc\/|tests\/)(\w+\/$)/, `/flux/${latestVersions['flux']}/stdlib/universe/$1`));

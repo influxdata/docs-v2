@@ -5,6 +5,7 @@ aliases:
   - /influxdb/v2.0/reference/flux/functions/all-functions/
   - /influxdb/v2.0/reference/flux/stdlib/all-functions/
   - /influxdb/cloud/reference/flux/stdlib/all-functions/
+  - /flux/v0.x/flux-functions/
 menu:
   flux_0_x_ref:
     name: View all functions
