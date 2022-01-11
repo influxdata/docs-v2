@@ -335,29 +335,6 @@ Restoring meta data... Done. Restored in 21.373019ms, 1 shards mapped
 Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
 ```
 
-##### Restore (overwrite) metadata from a full or incremental backup to fix damaged metadata
-
-1. Identify a backup with uncorrupted metadata from which to restore.
-2. Restore with `-meta-only-overwrite-force`
-
-   {{% warn %}}
-   Only use the `-meta-only-overwrite-force` flag to restore from backups of the target cluster.
-   If you use this flag with metadata from a different cluster, you will lose data.
-   (since metadata includes shard assignments to data nodes).
-   {{% /warn %}}
-
-   ```bash
-   # Syntax
-   influxd-ctl restore -meta-only-overwrite-force <path-to-backup-directory>
-
-   # Example
-   $ influxd-ctl restore -meta-only-overwrite-force my-incremental-backup/
-   Using backup directory: my-incremental-backup/
-   Using meta backup: 20200101T000000Z.meta
-   Restoring meta data... Done. Restored in 21.373019ms, 1 shards mapped
-   Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
-   ```
-
 ##### Restore from a `-full` backup
 
 ```bash
@@ -428,6 +405,30 @@ name: result
 time                  written
 1970-01-01T00:00:00Z  471
 ```
+
+##### Restore (overwrite) metadata from a full or incremental backup to fix damaged metadata
+
+1. Identify a backup with uncorrupted metadata from which to restore.
+2. Restore with `-meta-only-overwrite-force`
+
+   {{% warn %}}
+   Only use the `-meta-only-overwrite-force` flag to restore from backups of the target cluster.
+   If you use this flag with metadata from a different cluster, you will lose data.
+   (since metadata includes shard assignments to data nodes).
+   {{% /warn %}}
+
+   ```bash
+   # Syntax
+   influxd-ctl restore -meta-only-overwrite-force <path-to-backup-directory>
+
+   # Example
+   $ influxd-ctl restore -meta-only-overwrite-force my-incremental-backup/
+   Using backup directory: my-incremental-backup/
+   Using meta backup: 20200101T000000Z.meta
+   Restoring meta data... Done. Restored in 21.373019ms, 1 shards mapped
+   Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
+   ```
+
 
 #### Common issues with restore
 
