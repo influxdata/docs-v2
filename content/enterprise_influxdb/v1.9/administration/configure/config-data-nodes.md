@@ -526,6 +526,12 @@ A value of `0` will make the maximum number of buckets unlimited.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_SELECT_BUCKETS`
 
+#### `termination-query-log = false`
+
+Set to `true` to print all running queries to the log when a data node process receives a `SIGTERM` (for example, a k8s process exceeds the container memory limit or the process is terminated).
+
+Environment variable: `INFLUXDB_CLUSTER_TERMINATION_QUERY_LOG`
+
 -----
 
 ## Hinted Handoff settings

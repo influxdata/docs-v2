@@ -27,7 +27,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.1/get-star
 
     ```sh
     # Add InfluxDB Go client package to your project go.mod
-    go get github.com/influxdata/influxdb-client-go
+    go get github.com/influxdata/influxdb-client-go/v2
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.1/reference/urls/).
