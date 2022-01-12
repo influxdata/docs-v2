@@ -509,7 +509,7 @@ Add permissions to a role.
 
 ```sh
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
-   -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}'
+   -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' \
    https://cluster_node_1:8091/role
 ```
 
