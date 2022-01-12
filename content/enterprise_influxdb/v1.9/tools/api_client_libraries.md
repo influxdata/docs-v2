@@ -96,7 +96,7 @@ To install and use the Python client library, follow the [instructions below](#i
     token=token,
     ```
 
-    > **Note:** The database (and retention policy, if applicable) are converted to a [bucket](https://v2. docs.influxdata.com/v2.0/reference/glossary/#bucket) data store compatible with InfluxDB 2.0.
+    > **Note:** The database (and retention policy, if applicable) are converted to a [bucket](/v2.0/reference/glossary/#bucket) data store compatible with InfluxDB 2.0.
 
 5. Instantiate a writer object using the client object and the write_api method. Use the `write_api` method to configure the writer object.
 

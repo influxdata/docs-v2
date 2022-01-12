@@ -1,14 +1,15 @@
 ---
-title: Configure LDAP authentication in InfluxDB Enterprise
+title: Configure LDAP authentication
 description: >
   Configure LDAP authentication in InfluxDB Enterprise and test LDAP connectivity.
 menu:
   enterprise_influxdb_1_9:
     name: Configure LDAP authentication
-    parent: Manage security
-weight: 43
+    parent: Configure security
+weight: 30
 aliases:
   - /enterprise_influxdb/v1.9/administration/ldap/
+  - /enterprise_influxdb/v1.9/administration/manage/security/ldap/
 ---
 
 Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol) to:
