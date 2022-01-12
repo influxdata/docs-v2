@@ -15,6 +15,7 @@ to delete a bucket.
 ## Delete a bucket in the InfluxDB UI
 
 {{% oss-only %}}
+
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
     {{< nav-icon "data" >}}
@@ -24,6 +25,7 @@ to delete a bucket.
 {{% /oss-only %}}
 
 {{% cloud-only %}}
+
 1. In the navigation menu on the left, select **Load Data** > **Buckets**.
 
     {{< nav-icon "data" >}}

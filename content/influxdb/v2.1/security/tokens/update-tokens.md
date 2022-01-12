@@ -58,7 +58,7 @@ using the InfluxDB user interface (UI).
 Use the [`influx auth active` command](/influxdb/v2.1/reference/cli/influx/auth/active)
 to activate a token.
 
-_This command requires an auth ID, which is available in the output of `influx auth find`._
+_This command requires an authorization ID, which is available in the output of `influx auth find`._
 
 ```sh
 # Syntax
@@ -78,7 +78,7 @@ influx auth find --json
 Use the [`influx auth inactive` command](/influxdb/v2.1/reference/cli/influx/auth/active)
 to deactivate a token.
 
-_This command requires an auth ID, which is available in the output of `influx auth find`._
+_This command requires an authorization ID, which is available in the output of `influx auth find`._
 
 ```sh
 # Syntax
