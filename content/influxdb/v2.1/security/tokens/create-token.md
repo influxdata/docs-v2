@@ -23,15 +23,18 @@ Tokens stop working when the user who created the token is deleted.
 {{% /oss-only %}}
 
 {{% cloud-only %}}
-To follow best practices for secure API token generation and retrieval, InfluxDB Cloud enforces access restrictions on API tokens.
-  - Tokens are visible to the user who created the token.
-  - InfluxDB Cloud UI only allows access to the API token value immediately after the token is created.
-  - You can't change access (**read/write**) permissions for an API token after it's created.
-  - Tokens stop working when the user who created the token is deleted.
 
-We recommend the following for managing your tokens:
+To follow best practices for secure API token generation and retrieval, InfluxDB Cloud enforces access restrictions on API tokens.
+
+- Tokens are visible to the user who created the token.
+- InfluxDB Cloud UI only allows access to the API token value immediately after the token is created.
+- You can't change access (**read/write**) permissions for an API token after it's created.
+- Tokens stop working when the user who created the token is deleted.
+
+**We recommend the following for managing your tokens:**
 - Create a generic user to create and manage tokens for writing data.
 - Store your tokens in a secure password vault for future access.
+
 {{% /cloud-only %}}
 {{% /note %}}
 
@@ -62,7 +65,7 @@ We recommend the following for managing your tokens:
 
 ### Create an All-Access token
 
-1. In the navigation menu on the left, select **Load Data** > **Tokens**.
+1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
     {{< nav-icon "load-data" >}}
 
@@ -71,14 +74,14 @@ We recommend the following for managing your tokens:
 
 ### Create a Custom token
 
-1. In the navigation menu on the left, select **Load Data** > **Tokens**.
+1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
     {{< nav-icon "load-data" >}}
 
 2. Click the **{{< icon "plus" >}} {{< caps >}}Generate API Token{{< /caps >}}** button.
 3. Select **Custom API Token**.
 4. When the **Generate a Personal API Token** window appears, enter a description. If you don't provide a description for the token, InfluxDB will generate a description from the permissions you assign.
-   For example, if you select **Read** for a bucket named "_monitoring" and **Write** for a bucket named "_tasks", InfluxDB will generate the description "Read buckets _monitoring Write buckets _tasks".
+   For example, if you select **Read** for a bucket named "\_monitoring" and **Write** for a bucket named "\_tasks", InfluxDB will generate the description "Read buckets \_monitoring Write buckets \_tasks".
 5. Select checkboxes in the **Read** and **Write** columns to assign access permissions for the token. You can enable access to all buckets, individual buckets, Telegraf configurations, and other InfluxDB resources. By default, the new token has no access permissions.
 6. When you're finished, click **{{< caps >}}Generate{{< /caps >}}**.
 7. When InfluxDB displays the token value, click **{{< caps >}}Copy to Clipboard{{< /caps >}}**. This is your only chance to access and copy the token value from InfluxDB.
@@ -86,9 +89,9 @@ We recommend the following for managing your tokens:
 
 ### Clone a token
 
-To create a token that has the same authorizations as an existing token, clone the existing token.
+To create a token with the same authorizations as an existing token, clone the existing token.
 
-1. In the navigation menu on the left, select **Load Data** > **Tokens**.
+1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
     {{< nav-icon "load-data" >}}
 
