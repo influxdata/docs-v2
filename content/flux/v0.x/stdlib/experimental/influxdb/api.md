@@ -18,7 +18,9 @@ The `influxdb.api()` function submits an HTTP request to the specified InfluxDB
 API path and returns a record containing the HTTP status code, response headers,
 and response body as a byte array.
 
-`influxdb.api()` requests use the authorization of the `token` (if provided) or the invoking user. InfluxDB applies the same access permissions and limits as when directly accessing the API.
+`influxdb.api()` uses the authorization of the specified `token` or, if executed from
+the InfluxDB UI, the authorization of the InfluxDB user that invokes the script.
+Authorization permissions and limits apply to each request.
 
 ```js
 import "experimental/influxdb"
