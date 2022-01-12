@@ -14,9 +14,6 @@ aliases:
 
 {{% enterprise-warning-authn-b4-authz %}}
 
-- [Overview](#overview)
-- [API examples](#user-and-privilege-management-over-the-influxdb-enterprise-meta-api)
-
 Use the InfluxDB Enterprise Meta API to manage authorization for a cluster.
 
 <!--
