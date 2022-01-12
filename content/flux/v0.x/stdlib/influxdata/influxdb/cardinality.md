@@ -13,6 +13,7 @@ weight: 302
 flux/v0.x/tags: [metadata]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality, SHOW CARDINALITY in InfluxQL
+  - /flux/v0.x/stdlib/experimental/usage/limits/
 introduced: 0.92.0
 ---
 
@@ -87,6 +88,11 @@ _Default is `(r) => true`_.
 
 ## Examples
 
+- [Query series cardinality in a bucket](#query-series-cardinality-in-a-bucket)
+- [Query series cardinality in a measurement](#query-series-cardinality-in-a-measurement)
+- [Query series cardinality for a specific tag](#query-series-cardinality-for-a-specific-tag)
+- [Query total cardinality across all buckets](#query-total-cardinality-across-all-buckets)
+
 ##### Query series cardinality in a bucket
 ```js
 import "influxdata/influxdb"
@@ -117,4 +123,21 @@ influxdb.cardinality(
   start: -1y,
   predicate: (r) => r.exampleTag == "foo"
 )
+```
+
+##### Query total cardinality across all buckets
+```js
+import "influxdata/influxdb"
+
+bucketCardinality = (bucket) =>
+    (influxdb.cardinality(
+        bucket: bucket,
+        start: time(v: 0),
+    )
+        |> findColumn(fn: (key) => true, column: "_value"))[0]
+
+buckets()
+    |> filter(fn: (r) => not r.name =~ /^_/)
+    |> map(fn: (r) => ({bucket: r.name, "Total Cardinality": bucketCardinality(bucket: r.name)}))
+    |> sum(column: "Total Cardinality")
 ```

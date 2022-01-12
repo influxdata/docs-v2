@@ -6,6 +6,8 @@ menu:
   flux_0_x:
     name: Get started
 weight: 1
+related:
+  - /resources/videos/purpose-of-flux/
 ---
 
 Flux is a **functional data scripting** language designed to unify querying,

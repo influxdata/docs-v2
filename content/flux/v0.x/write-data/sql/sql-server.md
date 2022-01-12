@@ -2,8 +2,8 @@
 title: Write to SQL Server
 list_title: SQL Server
 description: >
-  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `sqlserver` or `mssql`
-  driver to write data to SQL Server.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `sqlserver` driver to
+  write data to SQL Server.
 menu:
   flux_0_x:
     name: SQL Server
@@ -31,7 +31,7 @@ To write data to [Microsoft SQL Server](https://www.microsoft.com/sql-server/) w
 2. Pipe-forward data into [`sql.to()`](/flux/v0.x/stdlib/sql/to/) and provide
    the following parameters:
 
-    - **driverName**: sqlserver _or_ mssql
+    - **driverName**: sqlserver
     - **dataSourceName**: _See [data source name](#sql-server-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
@@ -51,7 +51,7 @@ data
 ---
 
 ## SQL Server data source name
-The `sqlserver` and `mssql` drivers use the following DSN syntaxes (also known as a **connection string**):
+The `sqlserver` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
 sqlserver://username:password@localhost:1433?database=examplebdb
