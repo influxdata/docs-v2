@@ -36,13 +36,13 @@ paths:
             type: string
           required: true
           description: >-
-            The bucket to write to. If none exist a bucket will be created with
-            a default 3 day retention policy.
+            Bucket to write to. If none exist a bucket will be created with a
+            default 3 day retention policy.
         - in: query
           name: rp
           schema:
             type: string
-          description: The retention policy name.
+          description: Retention policy name.
         - in: query
           name: precision
           schema:
@@ -185,12 +185,12 @@ paths:
           schema:
             type: string
           required: true
-          description: The bucket to query.
+          description: Bucket to query.
         - in: query
           name: rp
           schema:
             type: string
-          description: The retention policy name.
+          description: Retention policy name.
         - in: query
           name: q
           description: Defines the influxql query to run.
