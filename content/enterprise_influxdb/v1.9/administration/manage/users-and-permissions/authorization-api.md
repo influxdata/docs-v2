@@ -113,7 +113,9 @@ If the node returns a 307 redirect message,
 try resending the request to the lead node as indicated by the `Location` field in the HTTP response header.
 
 ```sh
-curl --location-trusted -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom2","password":"changeit"}}' https://cluster_node_2:8091/user
+curl --location-trusted -u "admin:changeit" -s -v \
+  -d '{"action":"create","user":{"name":"phantom2","password":"changeit"}}' \
+  https://cluster_node_2:8091/user
 ```
 
 ```
@@ -160,7 +162,9 @@ curl --location-trusted -u "admin:changeit" -s -v -d '{"action":"create","user":
 ##### Create a user against the lead node
 
 ```sh
-curl --location-trusted -u "admin:changeit" -s -v -d '{"action":"create","user":{"name":"phantom","password":"changeit"}}' https://cluster_node_1:8091/user
+curl --location-trusted -u "admin:changeit" -s -v \
+  -d '{"action":"create","user":{"name":"phantom","password":"changeit"}}' \
+  https://cluster_node_1:8091/user
 ```
 
 ```
@@ -222,7 +226,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 ##### Grant permissions to a user
 
 ```
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/user
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+  -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' \
+  https://cluster_node_1:8091/user
 ```
 
 ```
@@ -288,7 +294,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 ##### Remove permissions from a user
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions","user":{"name":"phantom","permissions":{"":["KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/user
+curl --location-trusted --negotiate -u "admin:changeit" -s -v -d \
+  '{"action":"remove-permissions","user":{"name":"phantom","permissions":{"":["KapacitorConfigAPI"]}}}' \
+  https://cluster_node_1:8091/user
 ```
 
 ```
@@ -331,7 +339,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"rem
 ##### Remove a user
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","user":{"name":"phantom2"}}' https://cluster_node_1:8091/user
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+  -d '{"action":"delete","user":{"name":"phantom2"}}' \
+  https://cluster_node_1:8091/user
 ```
 
 ```
@@ -411,7 +421,9 @@ As when creating a user the lead node must be used.
 ##### Create a role
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit"  -v -d '{"action":"create","role":{"name":"spectre"}}' https://cluster_node_1:8091/role
+curl --location-trusted --negotiate -u "admin:changeit"  -v -d \
+  '{"action":"create","role":{"name":"spectre"}}' \
+  https://cluster_node_1:8091/role
 ```
 
 ```
@@ -494,7 +506,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 Add permissions to a role.
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/role
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+   -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}'
+   https://cluster_node_1:8091/role
 ```
 
 ```
@@ -561,7 +575,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 ##### Add a user to a role
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"add-users","role":{"name":"spectre","users":["phantom"]}}'  https://cluster_node_1:8091/role
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+  -d '{"action":"add-users","role":{"name":"spectre","users":["phantom"]}}' \
+  https://cluster_node_1:8091/role
 ```
 
 ```
@@ -631,7 +647,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 ##### Remove a user from a role
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-users","role":{"name":"spectre","users":["phantom"]}}' https://admin:changeit@cluster_node_1:8091/role
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+  -d '{"action":"remove-users","role":{"name":"spectre","users":["phantom"]}}' \
+  https://admin:changeit@cluster_node_1:8091/role
 ```
 
 ```
@@ -675,7 +693,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"rem
 ##### Remove a permission from a role
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"remove-permissions","role":{"name":"spectre","permissions":{"":["KapacitorConfigAPI"]}}}' https://cluster_node_1:8091/role
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+  -d '{"action":"remove-permissions","role":{"name":"spectre","permissions":{"":["KapacitorConfigAPI"]}}}' \
+  https://cluster_node_1:8091/role
 ```
 
 ```
@@ -719,7 +739,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"rem
 ##### Delete a role
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"delete","role":{"name":"spectre"}}' https://cluster_node_1:8091/role
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+  -d '{"action":"delete","role":{"name":"spectre"}}' \
+  https://cluster_node_1:8091/role
 ```
 
 ```
