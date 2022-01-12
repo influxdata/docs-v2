@@ -208,7 +208,6 @@ The database has five measurements: `average_temperature`, `h2o_feet`,
 
 
 #### Run a `SHOW MEASUREMENTS` query with several clauses (i)
-I CANNOT GET THIS TO WORK, no matter what I try
 
 ```sql
 > SHOW MEASUREMENTS ON NOAA_water_database WITH MEASUREMENT =~ /h2o.*/ LIMIT 2 OFFSET 1
@@ -321,67 +320,19 @@ The output groups tag keys by measurement name;
 it shows that every measurement has the `location` tag key and that the
 `h2o_quality` measurement has an additional `randtag` tag key.
 
-#### Run a `SHOW TAG KEYS` query without the `ON` clause
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-
-{{% /tabs %}}
-{{% tab-content %}}
-
-Specify the database with `USE <database_name>`
-
-```sql
-> USE NOAA_water_database
-Using database NOAA_water_database
-
-> SHOW TAG KEYS
-
-name: average_temperature
-tagKey
-------
-location
-
-name: h2o_feet
-tagKey
-------
-location
-
-name: h2o_pH
-tagKey
-------
-location
-
-name: h2o_quality
-tagKey
-------
-location
-randtag
-
-name: h2o_temperature
-tagKey
-------
-location
-```
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
-
 #### Run a `SHOW TAG KEYS` query with several clauses
 
 ```sql
 > SHOW TAG KEYS ON "NOAA_water_database" FROM "h2o_quality" LIMIT 1 OFFSET 1
 
-name: h2o_quality
-tagKey
-------
-randtag
 ```
+
+Output:
+| ​​tagKey |
+| :------- |
+| randtag  |
+|          |
+
 
 The query returns tag keys from the `h2o_quality` measurement in the
 `NOAA_water_database` database.
