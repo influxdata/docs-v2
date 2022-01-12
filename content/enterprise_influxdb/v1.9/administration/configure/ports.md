@@ -64,7 +64,7 @@ This port should not be exposed outside the cluster.
 ### 2003
 
 The default port that runs the Graphite service.
-[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config#bind-address-2003)
+[Enable and configure this port](/enterprise_influxdb/v1.9/administration/config-data-nodes/#bind-address-2003)
 in the configuration file.
 
 **Resources** [Graphite README](https://github.com/influxdata/influxdb/tree/1.8/services/graphite/README.md)

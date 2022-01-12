@@ -6617,7 +6617,7 @@ KAMA will adjust when the data swings widen and follow data from a greater dista
 This trend-following indicator can be used to identify the overall trend,
 time turning points and filter data movements.
 
-<sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average" target="\_blank">Source</a>
+<sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://school.stockcharts.com/doku.php?id=technical_indicators:kaufman_s_adaptive_moving_average" target="\_blank">Source</a>
 
 #### Basic syntax
 
