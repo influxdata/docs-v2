@@ -294,8 +294,8 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 ##### Remove permissions from a user
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s -v -d \
-  '{"action":"remove-permissions","user":{"name":"phantom","permissions":{"":["KapacitorConfigAPI"]}}}' \
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+  -d '{"action":"remove-permissions","user":{"name":"phantom","permissions":{"":["KapacitorConfigAPI"]}}}' \
   https://cluster_node_1:8091/user
 ```
 
@@ -396,7 +396,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 ##### Change a user's password
 
 ```sh
-curl --location-trusted -u "admin:changeit" -H "Content-Type: application/json" -d '{"action": "change-password", "user": {"name": "<username>", "password": "newpassword"}}' localhost:8091/user
+curl --location-trusted -u "admin:changeit" -H "Content-Type: application/json" \
+  -d '{"action": "change-password", "user": {"name": "<username>", "password": "newpassword"}}' \
+  localhost:8091/user
 ```
 
 <!-- TODO -->
@@ -421,8 +423,8 @@ As when creating a user the lead node must be used.
 ##### Create a role
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit"  -v -d \
-  '{"action":"create","role":{"name":"spectre"}}' \
+curl --location-trusted --negotiate -u "admin:changeit" -v \
+  -d '{"action":"create","role":{"name":"spectre"}}' \
   https://cluster_node_1:8091/role
 ```
 
