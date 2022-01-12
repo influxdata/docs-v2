@@ -31,8 +31,9 @@ For more information, see [Enterprise users and permissions](/enterprise_influxd
 ### Example API requests
 
 {{% note %}}
-Some examples below use the `jq` utility to process JSON output.
-[Install `jq`](https://stedolan.github.io/jq/download/) to use these examples.
+Many of the examples below use the `jq` utility to format JSON output for readability.
+[Install `jq`](https://stedolan.github.io/jq/download/) to process JSON output.
+If you don’t have access to `jq`, remove the `| jq` shown in the example.
 {{% /note %}}
 
 **Users**:
