@@ -16,6 +16,10 @@ aliases:
 
 Use the InfluxDB Enterprise Meta API to manage authorization for a cluster.
 
+The API can be used to manage both cluster-wide and database-specific [permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/#permissions).
+Chronograf can only manage cluster-wide permissions.
+To manage permissions at the database level, use the API.
+
 <!--
 ## permission "tokens"
 Predefined key tokens take the form of verb-object pairs.
@@ -39,7 +43,8 @@ If you don’t have access to `jq`, remove the `| jq` shown in the example.
 - [Create a user against a follower node](#create-a-user-against-a-follower-node)
 - [Create a user against the lead node](#create-a-user-against-the-lead-node)
 - [Retrieve a user details document](#retrieve-a-user-details-document)
-- [Grant permissions to a user](#grant-permissions-to-a-user)
+- [Grant permissions to a user for all databases](#grant-permissions-to-a-user-for-all-databases)
+- [Grant permissions to a user for a specific database](#grant-permissions-to-a-user-for-a-specific-database)
 - [Verify user permissions](#verify-user-permissions)
 - [Remove permissions from a user](#remove-permissions-from-a-user)
 - [Remove a user](#remove-a-user)
@@ -52,7 +57,8 @@ If you don’t have access to `jq`, remove the `| jq` shown in the example.
 - [Create a role](#create-a-role)
 - [Verify roles](#verify-roles)
 - [Retrieve a role document](#retrieve-a-role-document)
-- [Add permissions to a role](#add-permissions-to-a-role)
+- [Add permissions to a role for all databases](#add-permissions-to-a-role-for-all-databases)
+- [Add permissions to a role for a specific database](#add_permissions_to_a_role_for_a_specific_database)
 - [Verify role permissions](#verify-role-permissions)
 - [Add a user to a role](#add-a-user-to-a-role)
 - [Verify user in role](#verify-user-in-role)
@@ -143,11 +149,24 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 }
 ```
 
-##### Grant permissions to a user
+##### Grant permissions to a user for all databases
+
+To grant a list of permissions for all databases in a cluster,
+use the `""` key in the permissions object, as shown in the example below.
 
 ```
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
-  -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' \
+  -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"":["ReadData", "WriteData"]}}}' \
+  https://cluster_node_1:8091/user
+```
+
+##### Grant permissions to a user for a specific database
+
+Grant `ReadData` and `WriteData` permissions to the user named `phantom` for `MyDatabase`.
+
+```
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+  -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"MyDatabase":["ReadData","WriteData"]}}}' \
   https://cluster_node_1:8091/user
 ```
 
@@ -164,9 +183,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
             "hash": "$2a$10$hR.Ih6DpIHUaynA.uqFhpOiNUgrADlwg3rquueHDuw58AEd7zk5hC",
             "name": "phantom",
             "permissions": {
-                "": [
-                    "KapacitorAPI",
-                    "KapacitorConfigAPI"
+                "MyDatabase": [
+                    "ReadData",
+                    "WriteData"
                 ]
             }
         }
@@ -275,12 +294,25 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 }
 ```
 
-##### Add permissions to a role
-Add permissions to a role.
+##### Add permissions to a role for all databases
+
+To grant a list of permissions to a role for all databases in a cluster,
+use the `""` key in the permissions object, as shown in the example below.
 
 ```sh
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
    -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' \
+   https://cluster_node_1:8091/role
+```
+
+
+##### Add permissions to a role for all databases for a specific database
+
+Grant `ReadData` and `WriteData` permissions to the role named `spectre` for `MyDatabase`.
+
+```sh
+curl --location-trusted --negotiate -u "admin:changeit" -s -v \
+   -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"MyDatabase":["ReadData"]}}}' \
    https://cluster_node_1:8091/role
 ```
 
@@ -297,9 +329,9 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
         {
             "name": "spectre",
             "permissions": {
-                "": [
-                    "KapacitorAPI",
-                    "KapacitorConfigAPI"
+                "MyDatabase": [
+                    "ReadData",
+                    "WriteData"
                 ]
             }
         }
