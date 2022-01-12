@@ -1,26 +1,24 @@
 ---
-title: Use fine-grained authorization in InfluxDB Enterprise
+title: Manage fine-grained authorization
 description: >
   Fine-grained authorization (FGA) in InfluxDB Enterprise controls user access at the database, measurement, and series levels.
-alias:
-  -/docs/v1.5/administration/fga
 menu:
   enterprise_influxdb_1_9:
-    name: Use fine-grained authorization
-    weight: 10
-    parent: Guides
+    parent: Manage users and permissions
+weight: 44
+aliases:
+  - /docs/v1.5/administration/fga
+  - /enterprise_influxdb/v1.9/guides/fine-grained-authorization/
 related:
   - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
-Use fine-grained authorization (FGA) in InfluxDB Enterprise to control user access at the database, measurement, and series levels.
+{{% enterprise-warning-authn-b4-authz %}}
 
-{{% note %}}
-**Note:** InfluxDB OSS controls access at the database level only.
-{{% /note %}}
+Use fine-grained authorization (FGA) to control user access at the database, measurement, and series levels.
 
-You must have [admin permissions](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#admin-user-management) to set up FGA.
+You must have [admin permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/#admin) to set up FGA.
 
 {{% warn %}}
 #### FGA does not apply to Flux
@@ -28,9 +26,14 @@ FGA does not restrict actions performed by Flux queries (both read and write).
 If using FGA, we recommend [disabling Flux](/enterprise_influxdb/v{{< current-version >}}/flux/installation/).
 {{% /warn %}}
 
+{{% note %}}
+FGA is only available in InfluxDB Enterprise.
+InfluxDB OSS 1.x controls access at the database level only.
+{{% /note %}}
+
 ## Set up fine-grained authorization
 
-1. [Enable authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication) in your InfluxDB configuration file.
+1. [Enable authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/) in your InfluxDB configuration file.
 
 2. Create users through the InfluxDB query API.
 
@@ -38,7 +41,7 @@ If using FGA, we recommend [disabling Flux](/enterprise_influxdb/v{{< current-ve
     CREATE USER username WITH PASSWORD 'password'
     ```
 
-    For more information, see [User management commands](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#user-management-commands).
+    For more information, see [User management commands](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authorization-influxql/#user-management-commands).
 
 3. Ensure that you can access the **meta node** API (port 8091 by default).
 
