@@ -405,7 +405,7 @@ time                  written
 ##### Restore (overwrite) metadata from a full or incremental backup to fix damaged metadata
 
 1. Identify a backup with uncorrupted metadata from which to restore.
-2. Restore with `-meta-only-overwrite-force`
+2. Restore from backup with `-meta-only-overwrite-force`.
 
    {{% warn %}}
    Only use the `-meta-only-overwrite-force` flag to restore from backups of the target cluster.
