@@ -31,7 +31,7 @@ For more information, see [Enterprise users and permissions](/enterprise_influxd
 ### Example API requests
 
 {{% note %}}
-Some examples below use the `jq` utility.
+Some examples below use the `jq` utility to process JSON output.
 [Install `jq`](https://stedolan.github.io/jq/download/) to use these examples.
 {{% /note %}}
 
