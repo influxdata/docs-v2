@@ -30,6 +30,11 @@ For more information, see [Enterprise users and permissions](/enterprise_influxd
 
 ### Example API requests
 
+{{% note %}}
+Some examples below use the `jq` utility.
+[Install `jq`](https://stedolan.github.io/jq/download/) to use these examples.
+{{% /note %}}
+
 **Users**:
 
 - [List users](#list-users)
@@ -66,7 +71,7 @@ Use the `/user` endpoint of the InfluxDB Enterprise Meta API to manage users.
 View a list of existing users.
 
 ```sh
-curl --location-trusted -u "admin:changeit" -s https://cluster_node_1:8091/user | python -m json.tool
+curl --location-trusted -u "admin:changeit" -s https://cluster_node_1:8091/user | jq
 ```
 
 ```json
@@ -202,7 +207,7 @@ curl --location-trusted -u "admin:changeit" -s -v -d '{"action":"create","user":
 ##### Retrieve a user details document
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | python -m json.tool
+curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | jq
 ```
 
 ```json
@@ -262,7 +267,7 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"add
 ##### Verify user permissions
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | python -m json.tool
+curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/user?name=phantom | jq
 ```
 
 ```json
@@ -395,7 +400,7 @@ The Influxd-Meta API provides an endpoint `/role` for managing roles.
 ##### List roles
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | python -m json.tool
+curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | jq
 ```
 
 ```
@@ -453,7 +458,7 @@ curl --location-trusted --negotiate -u "admin:changeit"  -v -d '{"action":"creat
 Verify the role has been created.
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | python -m json.tool
+curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role | jq
 ```
 
 ```json
@@ -474,7 +479,7 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 Retrieve a record for a single node.
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
+curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | jq
 ```
 
 ```json
@@ -536,7 +541,7 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"add
 Verify permissions have been added.
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
+curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | jq
 ```
 
 ```json
@@ -603,7 +608,7 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"add
 Verify user has been added to role.
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
+curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | jq
 ```
 
 ```json
@@ -760,7 +765,7 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v -d '{"action":"del
 ##### Verify role deletion
 
 ```sh
-curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | python -m json.tool
+curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_1:8091/role?name=spectre | jq
 ```
 
 ```json
