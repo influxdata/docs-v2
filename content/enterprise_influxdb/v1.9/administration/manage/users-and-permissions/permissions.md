@@ -74,7 +74,7 @@ In addition, two tokens govern Kapacitor permissions:
 
 * `KapacitorAPI`:
   Grants the user permission to create, read, update and delete
-  tasks, topics, handlers and similar Kapacitor artefacts.
+  tasks, topics, handlers and similar Kapacitor artifacts.
 * `KapacitorConfigAPI`:
   Grants the user permission to override the Kapacitor configuration
   dynamically using the configuration endpoint.
