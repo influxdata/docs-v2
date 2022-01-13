@@ -306,7 +306,7 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v \
 ```
 
 
-##### Add permissions to a role for all databases for a specific database
+##### Add permissions to a role for a specific database
 
 Grant `ReadData` and `WriteData` permissions to the role named `spectre` for `MyDatabase`.
 
