@@ -301,7 +301,7 @@ use the `""` key in the permissions object, as shown in the example below.
 
 ```sh
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
-   -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' \
+   -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"":["ReadData","WriteData"]}}}' \
    https://cluster_node_1:8091/role
 ```
 
@@ -312,7 +312,7 @@ Grant `ReadData` and `WriteData` permissions to the role named `spectre` for `My
 
 ```sh
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
-   -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"MyDatabase":["ReadData"]}}}' \
+   -d '{"action":"add-permissions","role":{"name":"spectre","permissions":{"MyDatabase":["ReadData","WriteData"]}}}' \
    https://cluster_node_1:8091/role
 ```
 
