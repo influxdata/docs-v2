@@ -118,92 +118,12 @@ curl --location-trusted -u "admin:changeit" -s -v \
   https://cluster_node_2:8091/user
 ```
 
-```
-*   Trying 172.31.16.140...
-* Connected to cluster_node_2 (172.31.16.140) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_2 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_2
-* 	 start date: Tue, 27 Mar 2018 12:34:09 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:34:09 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-* Server auth using Basic with user 'admin'
-> POST /user HTTP/1.1
-> Host: cluster_node_2:8091
-> Authorization: Basic YWRtaW46Y2hhbmdlaXQ=
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 68
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 68 out of 68 bytes
-< HTTP/1.1 307 Temporary Redirect
-< Influxdb-Metaindex: 33402
-< Location: https://cluster_node_1:8091/user
-< Request-Id: b7489b68-38c4-11e8-9cf7-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 11:30:17 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
-```
-
 ##### Create a user against the lead node
 
 ```sh
 curl --location-trusted -u "admin:changeit" -s -v \
   -d '{"action":"create","user":{"name":"phantom","password":"changeit"}}' \
   https://cluster_node_1:8091/user
-```
-
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-* Server auth using Basic with user 'admin'
-> POST /user HTTP/1.1
-> Host: cluster_node_1:8091
-> Authorization: Basic YWRtaW46Y2hhbmdlaXQ=
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 68
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 68 out of 68 bytes
-< HTTP/1.1 200 OK
-< Request-Id: 6711760c-38c4-11e8-b7ff-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 11:28:02 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
 ```
 
 ##### Retrieve a user details document
@@ -229,43 +149,6 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
   -d '{"action":"add-permissions","user":{"name":"phantom","permissions":{"":["KapacitorAPI","KapacitorConfigAPI"]}}}' \
   https://cluster_node_1:8091/user
-```
-
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /user HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 111
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 111 out of 111 bytes
-< HTTP/1.1 200 OK
-< Request-Id: 604141f2-38c6-11e8-bc15-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 11:42:10 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
 ```
 
 ##### Verify user permissions
@@ -299,86 +182,12 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v \
   https://cluster_node_1:8091/user
 ```
 
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /user HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 99
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 99 out of 99 bytes
-< HTTP/1.1 200 OK
-< Request-Id: 1d84744c-38c7-11e8-bd97-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 11:47:27 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
-```
-
 ##### Remove a user
 
 ```sh
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
   -d '{"action":"delete","user":{"name":"phantom2"}}' \
   https://cluster_node_1:8091/user
-```
-
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /user HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 46
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 46 out of 46 bytes
-< HTTP/1.1 200 OK
-< Request-Id: 8dda5513-38c7-11e8-be84-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 11:50:36 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
 ```
 
 ##### Verify user removal
@@ -428,44 +237,6 @@ curl --location-trusted --negotiate -u "admin:changeit" -v \
   https://cluster_node_1:8091/role
 ```
 
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /role HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 45
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 45 out of 45 bytes
-< HTTP/1.1 200 OK
-< Influxdb-Metaindex: 33408
-< Request-Id: 733b3294-38c8-11e8-805f-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 11:57:01 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
-```
-
 ##### Verify roles
 Verify the role has been created.
 
@@ -513,44 +284,6 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v \
    https://cluster_node_1:8091/role
 ```
 
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /role HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 111
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 111 out of 111 bytes
-< HTTP/1.1 200 OK
-< Influxdb-Metaindex: 33412
-< Request-Id: 603934f5-38c9-11e8-8252-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 12:03:38 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
-```
-
 ##### Verify role permissions
 Verify permissions have been added.
 
@@ -580,44 +313,6 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
   -d '{"action":"add-users","role":{"name":"spectre","users":["phantom"]}}' \
   https://cluster_node_1:8091/role
-```
-
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /role HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 68
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 68 out of 68 bytes
-< HTTP/1.1 200 OK
-< Influxdb-Metaindex: 33413
-< Request-Id: 2f3f4310-38ca-11e8-83f4-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 12:09:26 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
 ```
 
 ##### Verify user in role
@@ -654,44 +349,6 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v \
   https://admin:changeit@cluster_node_1:8091/role
 ```
 
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /role HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 71
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 71 out of 71 bytes
-< HTTP/1.1 200 OK
-< Influxdb-Metaindex: 33414
-< Request-Id: 840896df-38ca-11e8-84a9-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 12:11:48 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
-```
-
 ##### Remove a permission from a role
 
 ```sh
@@ -700,88 +357,12 @@ curl --location-trusted --negotiate -u "admin:changeit" -s -v \
   https://cluster_node_1:8091/role
 ```
 
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /role HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 99
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 99 out of 99 bytes
-< HTTP/1.1 200 OK
-< Influxdb-Metaindex: 33415
-< Request-Id: a1d9a3e4-38ca-11e8-84f0-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 12:12:38 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
-```
-
 ##### Delete a role
 
 ```sh
 curl --location-trusted --negotiate -u "admin:changeit" -s -v \
   -d '{"action":"delete","role":{"name":"spectre"}}' \
   https://cluster_node_1:8091/role
-```
-
-```
-*   Trying 172.31.16.108...
-* Connected to cluster_node_1 (172.31.16.108) port 8091 (#0)
-* found 149 certificates in /etc/ssl/certs/ca-certificates.crt
-* found 596 certificates in /etc/ssl/certs
-* ALPN, offering http/1.1
-* SSL connection using TLS1.2 / ECDHE_RSA_AES_128_GCM_SHA256
-* 	 server certificate verification OK
-* 	 server certificate status verification SKIPPED
-* 	 common name: cluster_node_1 (matched)
-* 	 server certificate expiration date OK
-* 	 server certificate activation date OK
-* 	 certificate public key: RSA
-* 	 certificate version: #1
-* 	 subject: C=CZ,ST=Praha,L=Hlavni-mesto,O=Bonitoo.io,OU=QA,CN=cluster_node_1
-* 	 start date: Tue, 27 Mar 2018 12:29:36 GMT
-* 	 expire date: Thu, 26 Mar 2020 12:29:36 GMT
-* 	 issuer: C=CZ,ST=Praha,L=Hlavni-mesto,O=bonitoo.io,OU=QA,CN=bonitoo.io,EMAIL=tester@qa.org
-* 	 compression: NULL
-* ALPN, server did not agree to a protocol
-> POST /role HTTP/1.1
-> Host: cluster_node_1:8091
-> User-Agent: curl/7.47.0
-> Accept: */*
-> Content-Length: 45
-> Content-Type: application/x-www-form-urlencoded
->
-* upload completely sent off: 45 out of 45 bytes
-< HTTP/1.1 200 OK
-< Influxdb-Metaindex: 33416
-< Request-Id: c9ae3c8b-38ca-11e8-8546-000000000000
-< X-Influxdb-Version: 1.5.1-c1.5.1
-< Date: Thu, 05 Apr 2018 12:13:45 GMT
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-<
 ```
 
 ##### Verify role deletion
