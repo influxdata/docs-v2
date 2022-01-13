@@ -952,6 +952,19 @@ To restore metadata, [restore a metadata backup](#restore-from-a-metadata-backup
 
 Show the contents of the backup.
 
+###### [ `-meta-only-overwrite-force` ]
+
+Restore *metadata only* from a backup.
+
+{{% warn %}}
+Only use this flag to restore from backups of the target cluster.
+If you use this flag with metadata from a different cluster, you will lose data
+(since metadata includes shard assignments to data nodes).
+
+See ["Back up and restore"](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore-overwrite-metadata-from-a-full-or-incremental-backup-to-fix-damaged-metadata)
+for instructions on using this flag.
+{{% /warn %}}
+
 ###### [ `-newdb <newdb_name>` ]
 
 Name of the new database to restore to.
