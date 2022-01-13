@@ -58,7 +58,7 @@ If you don’t have access to `jq`, remove the `| jq` shown in the example.
 - [Verify roles](#verify-roles)
 - [Retrieve a role document](#retrieve-a-role-document)
 - [Add permissions to a role for all databases](#add-permissions-to-a-role-for-all-databases)
-- [Add permissions to a role for a specific database](#add_permissions_to_a_role_for_a_specific_database)
+- [Add permissions to a role for a specific database](#add-permissions-to-a-role-for-a-specific-database)
 - [Verify role permissions](#verify-role-permissions)
 - [Add a user to a role](#add-a-user-to-a-role)
 - [Verify user in role](#verify-user-in-role)
