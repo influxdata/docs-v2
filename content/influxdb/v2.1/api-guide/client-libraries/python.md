@@ -110,7 +110,7 @@ write_api.write(bucket=bucket, org=org, record=p)
    query_api = client.query_api()
    ```
 
-2. Create a Flux query (format as Python string).
+2. Create a Flux query, and then format it as Python string.
 
    ```python
    query = ' from(bucket:"my-bucket")\
