@@ -9,6 +9,7 @@ menu:
 weight: 1
 aliases:
   - /influxdb/v2.0/reference/flux/
+  - /influxdb/v2.1/reference/flux/
   - /influxdb/cloud/reference/flux/
 ---
 

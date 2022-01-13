@@ -1,5 +1,7 @@
 ---
 title: Configuring InfluxDB OSS
+aliases:
+  - /influxdb/v1.5/administration/subscription-management/
 menu:
   influxdb_1_5:
     name: Configuring InfluxDB

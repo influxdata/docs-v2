@@ -311,8 +311,12 @@ CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
 
 ## Next steps
 
-Once your data nodes are part of your cluster:
+Once your data nodes are part of your cluster, do the following:
 
+- Set up [authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/).
+  Once you cluster is configured for authentication,
+  if you want to add more users in addition to admin user,
+  see [Manage users and permissions](/enterprise_influxdb/v1.9/administration/manage/security/).
+- [Enable TLS](/enterprise_influxdb/v1.9/guides/enable-tls/).
 - [Set up Chronograf](/enterprise_influxdb/v1.9/install-and-deploy/installation/chrono_install)
   for UI visualization, dashboards, and management.
-- [Enable TLS](/enterprise_influxdb/v1.9/guides/enable-tls/) for increased security (recommended).
