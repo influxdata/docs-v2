@@ -7,8 +7,8 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Use Anti-entropy service
-    weight: 60
     parent: Configure
+weight: 50
 ---
 
 {{% warn %}}
