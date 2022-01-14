@@ -12,6 +12,7 @@ influxdb/v2.0/tags: [templates, monitor]
 related:
   - /influxdb/v2.0/reference/cli/influx/apply/
   - /influxdb/v2.0/reference/cli/influx/template/
+  - /influxdb/cloud/influxdb-templates/monitor
 ---
 
-{{< duplicate-oss >}} 
+{{< duplicate-oss >}}

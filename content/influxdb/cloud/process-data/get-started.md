@@ -15,6 +15,7 @@ weight: 101
 related:
   - /influxdb/cloud/process-data/manage-tasks/
   - /influxdb/cloud/process-data/manage-tasks/create-task/
+  - /resources/videos/influxdb-tasks/
 ---
 
 {{< duplicate-oss >}}

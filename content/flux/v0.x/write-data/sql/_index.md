@@ -50,7 +50,7 @@ The following drivers are available:
 - `postgres`
 - `snowflake`
 - `sqlite3`
-- `sqlserver`, `mssql`
+- `sqlserver`
 
 ## Data source names
 Each [SQL driver](#drivers) supports unique data source name (DSN) syntaxes
