@@ -14,36 +14,48 @@ menu:
 products: [cloud]
 ---
 
-To view your {{< cloud-name >}} data usage, click the **user avatar** in the top
-right corner of your {{< cloud-name "short" >}} user interface (UI) and select **Usage**.
+View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs (pricing vectors) and other usage data, including delete limits, does not affect pricing. For more information about costs and limits, see the [pricing plans](/influxdb/cloud/account-management/pricing-plans/).
 
-Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
+To view your {{< cloud-name >}} data usage, do the following:
 
-- **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
-- **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
-- **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity.
-- **Storage Usage:** Total disk usage in gigabytes.
-- **API Request Count:** The total number of query and write API requests received during the specified time frame.
-- **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
-- **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
+1. Click the **user avatar** on the left-side navigation.
+2. Select **Usage**.
+3. Select a time range to review data usage (by default, `Past 24h`), and then select one of the following:
 
-{{< img-hd src="/img/influxdb/2-0-cloud-usage.png" />}}
+   - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
+   - **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity.
+   - **Storage:** Total disk usage in gigabytes.
+   - **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
+
+A line graph displays usage for the selected vector for the specified time period.
 
 ## Exceeded rate limits
 
-If you exceed your plan's [rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}}
-will provide a notification in the {{< cloud-name "short" >}} user interface (UI)
-and add a rate limit event to your **Usage** page for review.
+If you exceed your [plan's data limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} UI displays a notification message, and the following occurs:
 
-All rate-limited requests are rejected; including both read and write requests.
-_Rate-limited requests are **not** queued._
+- When **write or read requests or series cardinality exceed** the specified limit within a five-minute window, the request is rejected and the following events appears under **Limit Events** on the Usage page as applicable: `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality`
 
-_To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
+  _To raise these rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
 
-### Rate-limited HTTP response code
-When a request exceeds your plan's rate limit, the InfluxDB API returns the following response:
+- When **delete requests exceed** the specified limit within a five-minute window, the request is rejected and `event_type_limited_delete_rate` appears under **Limit Events** on the Usage page.
+  {{% note %}}
+**Tip:**
+Combine predicate expressions (if possible) into a single request. InfluxDB rate limits per number of requests (not points in request).
+{{% /note %}}
 
-```
-HTTP 429 “Too Many Requests”
-Retry-After: xxx (seconds to wait before retrying the request)
-```
+### InfluxDB API: HTTP rate limit responses
+
+The InfluxDB API returns the following responses:
+
+- When a **read or write or delete request exceeds** limits:
+
+  ```
+  HTTP 429 “Too Many Requests”
+  Retry-After: xxx (seconds to wait before retrying the request)
+  ```
+
+- When **series cardinality exceeds** your plan's limit:
+
+  ```
+  HTTP 503 “Series cardinality exceeds your plan's limit”
+  ```

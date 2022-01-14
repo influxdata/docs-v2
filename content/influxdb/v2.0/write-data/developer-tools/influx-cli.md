@@ -19,7 +19,7 @@ Include the following in your command:
 | Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                                         |
 | Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                                                  |
 | Precision            | Use the `-p`, `--precision` flag.                                                                  |
-| Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag.                        |
+| API token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag.                        |
 | Data                 | Write data using **line protocol** or **annotated CSV**. Pass a file with the `-f`, `--file` flag. |
 
 _See [Line protocol](/influxdb/v2.0/reference/syntax/line-protocol/) and [Annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv)_

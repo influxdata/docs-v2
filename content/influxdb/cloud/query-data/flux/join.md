@@ -10,7 +10,7 @@ menu:
     parent: Query with Flux
 weight: 210
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/join
+  - /{{< latest "flux" >}}/stdlib/universe/join
 list_query_example: join
 ---
 

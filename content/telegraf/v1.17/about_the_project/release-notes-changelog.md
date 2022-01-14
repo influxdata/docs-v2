@@ -246,7 +246,7 @@ menu:
 
 - [Amazon Cloudwatch Alarms Input Plugin](https://github.com/vipinvkmenon/awsalarms)(`awsalarms`) - Contributed by [@vipinvkmenon](https://github.com/vipinvkmenon)
 - [YouTube Input Plugin](https://github.com/inabagumi/youtube-telegraf-plugin)(`youtube`) - Contrbuted by [@inabagumi](https://github.com/inabagumi)
-- [Octoprint Input Plugin](https://github.com/BattleBas/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@BattleBas](https://github.com/battlebas)
+- [Octoprint Input Plugin](https://github.com/sspaink/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@sspaink](https://github.com/sspaink/)
 - [Systemd Timings Input Plugin](https://github.com/pdmorrow/telegraf-execd-systemd-timings)(`systemd-timings`) - Contributed by [@pdmorrow](https://github.com/pdmorrow)
 
 
@@ -370,7 +370,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 #### Outputs
 
 - [Execd Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/execd/README.md)(`execd`) - Contributed by [@influxdata](https://github.com/influxdata)
-- [New Relic Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/newrelic/README.md)(`newrelic`) - Contributed by [@hsingkalsi](https://github.com/hsingkalsi)
+- [New Relic Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/newrelic/README.md)(`newrelic`) - Contributed by @hsingkalsi
 
 #### Processors
 
@@ -379,7 +379,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - [Filepath Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/filepath/README.md)(`filepath`) - Contributed by [@kir4h](https://github.com/kir4h)
 - [Network Interface Name Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/ifname/README.md)(`ifname`) - Contributed by [@influxdata](https://github.com/influxdata)
 - [Port Name Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/port_name/README.md)(`port_name`) - Contributed by [@influxdata](https://github.com/influxdata)
-- [Reverse DNS Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/reverse_DNS/README.md)(`reverse_dns`) - Contributed by [@influxdata](https://github.com/influxdata)
+- [Reverse DNS Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/reverse_dns/README.md)(`reverse_dns`) - Contributed by [@influxdata](https://github.com/influxdata)
 - [Starlark Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/starlark/README.md)(`starlark`) - Contributed by [@influxdata](https://github.com/influxdata)
 
 ### Features
@@ -2399,7 +2399,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 - Use own client for improved through-put and less allocations in the [InfluxDB output plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/outputs/influxdb).
 - Keep -config-directory when running as Windows service.
 - Rewrite the [Riemann output plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/outputs/riemann).
-- Add support for name templates and udev tags to the [DiskIO input plugin](https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/system/DISK_README.md#diskio-input-plugin).
+- Add support for name templates and udev tags to the [DiskIO input plugin](https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/diskio/README.md).
 - Add integer metrics for [Consul](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/consul) check health state.
 - Add lock option to the [IPtables input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/iptables).
 - Support [ipmi_sensor input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/ipmi_sensor) querying local ipmi sensors.

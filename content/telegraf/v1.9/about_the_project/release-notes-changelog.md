@@ -1030,7 +1030,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 - Use own client for improved through-put and less allocations in the [InfluxDB output plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/outputs/influxdb).
 - Keep -config-directory when running as Windows service.
 - Rewrite the [Riemann output plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/outputs/riemann).
-- Add support for name templates and udev tags to the [DiskIO input plugin](https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/system/DISK_README.md#diskio-input-plugin).
+- Add support for name templates and udev tags to the [DiskIO input plugin](https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/diskio/README.md).
 - Add integer metrics for [Consul](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/consul) check health state.
 - Add lock option to the [IPtables input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/iptables).
 - Support [ipmi_sensor input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/ipmi_sensor) querying local ipmi sensors.

@@ -12,10 +12,10 @@ menu:
 weight: 204
 influxdb/cloud/tags: [flux, aggregates]
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/window
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors
+  - /{{< latest "flux" >}}/stdlib/universe/aggregatewindow
+  - /{{< latest "flux" >}}/stdlib/universe/window
+  - /{{< latest "flux" >}}/function-types/#aggregates, Flux aggregate functions
+  - /{{< latest "flux" >}}/function-types/#selectors, Flux selector functions
 list_query_example: aggregate_window
 ---
 

@@ -60,7 +60,7 @@ use the `influx export all` command.
 Provide the following:
 
 - **Organization name** or **ID**
-- **Authentication token** with read access to the organization
+- **API token** with read access to the organization
 - **Destination path and filename** for the template manifest.
   The filename extension determines the template format—both **YAML** (`.yml`) and
   **JSON** (`.json`) are supported.
@@ -114,7 +114,7 @@ To export specific resources within an organization to a template manifest, use 
 Provide the following:
 
 - **Organization name** or **ID**
-- **Authentication token** with read access to the organization
+- **API token** with read access to the organization
 - **Destination path and filename** for the template manifest.
   The filename extension determines the template format—both **YAML** (`.yml`) and
   **JSON** (`.json`) are supported.
@@ -154,7 +154,7 @@ To export a stack and all its associated resources as a template, use the
 Provide the following:
 
 - **Organization name** or **ID**
-- **Authentication token** with read access to the organization
+- **API token** with read access to the organization
 - **Destination path and filename** for the template manifest.
   The filename extension determines the template format—both **YAML** (`.yml`) and
   **JSON** (`.json`) are supported.

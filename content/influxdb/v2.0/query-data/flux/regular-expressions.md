@@ -12,7 +12,7 @@ aliases:
   - /influxdb/v2.0/query-data/guides/regular-expressions/
 related:
   - /influxdb/v2.0/query-data/flux/query-fields/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/
+  - /{{< latest "flux" >}}/stdlib/regexp/
 list_query_example: regular_expressions
 ---
 
@@ -23,7 +23,7 @@ This guide shows how to use regular expressions in your Flux scripts.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/influxdb/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Go regular expression syntax

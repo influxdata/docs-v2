@@ -90,8 +90,9 @@ The InfluxDB system has internal defaults for all of the settings in the configu
 
 The local InfluxDB configuration file is located here:
 
-- Linux: `/etc/influxdb/influxdb.conf`
-- macOS: `/usr/local/etc/influxdb.conf`
+- **Linux**: `/etc/influxdb/influxdb.conf`
+- **macOS**: `/usr/local/etc/influxdb.conf`
+- **Windows**: _Same directory as `influxd.exe`_
 
 Settings that are commented out are set to the internal system defaults. Uncommented settings override the internal defaults.
 Note that the local configuration file does not need to include every configuration setting.
@@ -278,8 +279,8 @@ Environment variable: `INFLUXDB_DATA_STRICT_ERROR_HANDLING`
 
 #### `validate-keys = false`
 
-Validates incoming writes to ensure keys only have valid Unicode characters.
-This setting will incur a small overhead because every key must be checked.
+Validates incoming writes to ensure measurement keys and tag keys only have valid Unicode characters.
+This setting will incur a small overhead because every key must be checked. This will not validate field keys.
 
 
 ### Settings for the TSM engine

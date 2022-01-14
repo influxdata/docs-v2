@@ -1,9 +1,12 @@
 {{ $latestInfluxDBVersion := cond (isset .Site.Data.products.influxdb "latest_override" ) .Site.Data.products.influxdb.latest_override .Site.Data.products.influxdb.latest }}
+{{ $latestEnterpriseVersion := .Site.Data.products.enterprise_influxdb.latest }}
 {{ $OSSLink := print "/influxdb/" $latestInfluxDBVersion "/reference/urls/ "}}
 {{ $CloudLink := "/influxdb/cloud/reference/regions/" }}
-{{ $isInfluxDB := cond (in .RelPermalink "/influxdb/") true false }}
+{{ $EnterpriseLink := print "/enterprise_influxdb/" $latestEnterpriseVersion "/administration/config-data-nodes/#http-endpoint-settings" }}
+{{ $isInfluxDB := cond (gt (len (findRE `^/influxdb/|^/enterprise_influxdb/` .RelPermalink)) 0) true false }}
 {{ $isOSS := cond (in .RelPermalink "/influxdb/v") true false }}
 {{ $isCloud := cond (in .RelPermalink "/influxdb/cloud/") true false }}
+{{ $isEnterprise := cond (in .RelPermalink "/enterprise_influxdb/") true false }}
 
 {{ .Scratch.Set "modalTitle" "Where are you running InfluxDB?" }}
 {{ if $isOSS }}
@@ -15,6 +18,8 @@
 {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region** or your **InfluxDB OSS URL** and we'll customize code examples for you." }}
 {{ if $isOSS }}
   {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB OSS URL** and we'll update code examples for you." }}
+{{ else if $isEnterprise }}
+  {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB Enterprise URL** and we'll update code examples for you." }}
 {{ else if $isCloud }}
   {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region** and we'll customize code examples for you." }}
 {{ end }}
@@ -22,6 +27,8 @@
 {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Cloud regions](" $CloudLink ") or [InfluxDB OSS URLs](" $OSSLink ")") }}
 {{ if $isOSS }}
   {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB OSS URLs](" $OSSLink ")") }}
+{{ else if $isEnterprise }}
+  {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Enterprise HTTP settings](" $EnterpriseLink ")") }}
 {{ else if $isCloud }}
   {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Cloud regions](" $CloudLink ")") }}
 {{ end }}
@@ -89,7 +96,7 @@
             {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" "initialState" "inactive"}}
           {{ else if $isCloud }}
             {{ template "productSection" dict "product" .Site.Data.influxdb_urls.cloud "formID" "cloud" }}
-          {{ else if $isOSS }}
+          {{ else if or $isOSS $isEnterprise }}
             {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" }}
           {{ end }}
         </div>

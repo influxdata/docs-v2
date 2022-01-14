@@ -1,7 +1,7 @@
 ---
 title: Create a token
-seotitle: Create an authentication token in InfluxDB
-description: Create an authentication token in InfluxDB using the InfluxDB UI or the `influx` CLI.
+seotitle: Create an API token in InfluxDB
+description: Create an API token in InfluxDB using the InfluxDB UI, the `influx` CLI, or the InfluxDB API.
 menu:
   influxdb_cloud:
     name: Create a token

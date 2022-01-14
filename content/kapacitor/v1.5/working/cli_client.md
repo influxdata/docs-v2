@@ -144,7 +144,7 @@ Host:                         localhost
 Tasks:                        8
 Enabled Tasks:                2
 Subscriptions:                12
-Version:                      1.5.1~n201711280812
+Version:                      {{< latest-patch >}}~n201711280812
 ```
 
 #### `stats ingress`

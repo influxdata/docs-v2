@@ -17,7 +17,7 @@ The [InfluxDB v2 API](/influxdb/v2.0/reference/api) provides a programmatic inte
 In your request, set the following:
 
 - Your organization via the `org` or `orgID` URL parameters.
-- `Authorization` header to `Token ` + your authentication token.
+- `Authorization` header to `Token ` + your API token.
 - `Accept` header to `application/csv`.
 - `Content-type` header to `application/vnd.flux` (Flux only) or `application/json` (Flux or InfluxQL).
 - Query in Flux or InfluxQL with the request's raw data.
@@ -43,7 +43,7 @@ Below is an example `curl` request that sends a Flux query to InfluxDB 2.0:
 ```bash
 curl --request POST \
   http://localhost:8086/api/v2/query?org=my-org  \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/vnd.flux' \
   --data 'from(bucket:"example-bucket")
@@ -57,7 +57,7 @@ curl --request POST \
 ```bash
 curl --request POST \
   http://localhost:8086/api/v2/query?org=my-org \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/vnd.flux' \
   --header 'Accept-Encoding: gzip' \
@@ -82,7 +82,7 @@ Below is an example `curl` request that sends an InfluxQL query to InfluxDB 2.0:
 {{% code-tab-content %}}
 ```bash
 curl --request -G http://localhost:8086/query?org=my-org?database=MyDB&retention_policy=MyRP \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
@@ -92,7 +92,7 @@ curl --request -G http://localhost:8086/query?org=my-org?database=MyDB&retention
 {{% code-tab-content %}}
 ```bash
 curl --request -G http://localhost:8086/query?org=my-org?database=MyDB&retention_policy=MyRP \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
   --header 'Accept-Encoding: gzip' \

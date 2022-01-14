@@ -101,15 +101,15 @@ Perform the following steps on each data node.
 #### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.8.5-c1.8.5_amd64.deb
-sudo dpkg -i influxdb-data_1.8.5-c1.8.5_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 #### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.5_c1.8.5.x86_64.rpm
-sudo yum localinstall influxdb-data-1.8.5_c1.8.5.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 #### Verify the authenticity of release download (recommended)
@@ -126,13 +126,13 @@ For added security, follow these steps to verify the signature of your InfluxDB 
    For example:
 
     ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.5_c1.8.5.x86_64.rpm.asc
+    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-data-1.8.5-c1.8.5.x86_64.rpm.asc influxdb-data-1.8.5_c1.8.5.x86_64.rpm
+    gpg --verify influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
     ```
 
     The output from this command should include the following:
@@ -264,16 +264,16 @@ The expected output is:
     Data Nodes
     ==========
     ID   TCP Address               Version
-    4    enterprise-data-01:8088   1.8.5-c1.8.5
-    5    enterprise-data-02:8088   1.8.5-c1.8.5
+    4    enterprise-data-01:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+    5    enterprise-data-02:8088   {{< latest-patch >}}-c{{< latest-patch >}}
 
 
     Meta Nodes
     ==========
     TCP Address               Version
-    enterprise-meta-01:8091   1.8.5-c1.8.5
-    enterprise-meta-02:8091   1.8.5-c1.8.5
-    enterprise-meta-03:8091   1.8.5-c1.8.5
+    enterprise-meta-01:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+    enterprise-meta-02:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+    enterprise-meta-03:8091   {{< latest-patch >}}-c{{< latest-patch >}}
        {{% /note %}}
 
 The output should include every data node that was added to the cluster.

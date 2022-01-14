@@ -3,9 +3,7 @@ title: Query first and last values
 seotitle: Query first and last values in Flux
 list_title: First and last
 description: >
-  Use the [`first()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/) or
-  [`last()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) functions
-  to return the first or last point in an input table.
+  Use `first()` or `last()` to return the first or last point in an input table.
 weight: 210
 menu:
   influxdb_2_0:
@@ -13,14 +11,14 @@ menu:
     name: First & last
 influxdb/v2.0/tags: [query]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/
+  - /{{< latest "flux" >}}/stdlib/universe/first/
+  - /{{< latest "flux" >}}/stdlib/universe/last/
 list_query_example: first_last
 ---
 
-Use the [`first()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/first/) or
-[`last()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/last/) functions
-to return the first or last record in an input table.
+Use [`first()`](/{{< latest "flux" >}}/stdlib/universe/first/) or
+[`last()`](/{{< latest "flux" >}}/stdlib/universe/last/) to return the first or
+last record in an input table.
 
 ```js
 data
@@ -34,7 +32,7 @@ data
 
 {{% note %}}
 By default, InfluxDB returns results sorted by time, however you can use the
-[`sort()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort/)
+[`sort()` function](/{{< latest "flux" >}}/stdlib/universe/sort/)
 to change how results are sorted.
 `first()` and `last()` respect the sort order of input data and return records
 based on the order they are received in.
@@ -94,7 +92,7 @@ based on the order they are received in.
 {{< /flex >}}
 
 ## Use first() or last() with aggregateWindow()
-Use `first()` and `last()` with [`aggregateWindow()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+Use `first()` and `last()` with [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
 to select the first or last records in time-based groups.
 `aggregateWindow()` segments data into windows of time, aggregates data in each window into a single
 point using aggregate or selector functions, and then removes the time-based segmentation.

@@ -1,7 +1,7 @@
 .caption {
   margin: -2rem 0 2rem;
   padding-left: .25rem;
-  font-size: .8rem;
+  font-size: .85rem;
   font-style: italic;
   opacity: .8;
 
@@ -11,5 +11,21 @@
 .code-tabs-wrapper, .code-tab-content {
   & + .caption {
     margin-top: -2.75rem;
+  }
+}
+
+p {
+  & + .caption {
+    padding: 0;
+    margin: -.75rem 0 0;
+    opacity: 1;
+  }
+}
+
+h2,h3,h4,h5,h6 {
+  & + .caption {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
   }
 }

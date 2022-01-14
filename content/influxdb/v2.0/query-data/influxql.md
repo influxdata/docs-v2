@@ -18,7 +18,7 @@ related:
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
 In InfluxDB OSS 2.0, data is stored in [buckets](/influxdb/v2.0/reference/glossary/#bucket).
-Because InfluxQL uses the 1.x data model, before querying in InfluxQL, a bucket must be mapped to a database and retention policy (DBRP).
+Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 
 {{% note %}}
 #### InfluxQL reference documentation
@@ -26,7 +26,7 @@ For complete InfluxQL reference documentation, see
 [Influx Query Language in the latest InfluxDB 1.x documentation](/{{< latest "influxdb" "v1" >}}/query_language/).
 {{% /note %}}
 
-**Complete the following steps:**
+**To use InfluxQL to query bucket data, complete the following steps:**
 
 1. [Verify buckets have a mapping](#verify-buckets-have-a-mapping).
 2. [Map unmapped buckets](#map-unmapped-buckets).
@@ -36,7 +36,7 @@ For complete InfluxQL reference documentation, see
 
 {{% note %}}
 When [upgrading from InfluxDB 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/),
-Database and retention policy combinations are mapped to InfluxDB 2.0 buckets.
+database and retention policy combinations are mapped to InfluxDB 2.0 buckets.
 For more information, see [Database and retention policy mapping](/influxdb/v2.0/reference/api/influxdb-1x/dbrp/).
 If you're not sure how data was written into a bucket, verify the bucket has a mapping.
 {{% /note %}}
@@ -54,9 +54,9 @@ to verify the buckets you want to query are mapped to a database and retention p
 Use the [`influx v1 dbrp list` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/) to list DBRP mappings.
 
 {{% note %}}
-The examples below assume that your organization and authentication token are
+The examples below assume that your organization and API token are
 provided by the active [InfluxDB connection configuration](/influxdb/v2.0/reference/cli/influx/config/) in the `influx` CLI.
-If not, include your organization (`--org`) and authentication token (`--token`) with each command.
+If not, include your organization (`--org`) and API token (`--token`) with each command.
 {{% /note %}}
 
 ##### View all DBRP mappings
@@ -80,7 +80,7 @@ Include the following:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2.0/security/tokens/)
 - **Query parameters:**  
   {{< req type="key" >}}
   - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
@@ -154,7 +154,7 @@ Include the following:
 
 - **Request method:** `POST`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2.0/security/tokens/)
   - **Content-type:** `application/json`
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}
@@ -197,11 +197,9 @@ Include the following in your request:
 - **Query parameters:**
   - **db**: 1.x database to query
   - **rp**: 1.x retention policy to query _(if no retention policy is specified, InfluxDB uses the default retention policy for the specified database)_
-  - **q**: InfluxQL query
+  - **q**: URL-encoded InfluxQL query
 
-{{% note %}}
-**URL-encode** the InfluxQL query to ensure it's formatted correctly when submitted to InfluxDB.
-{{% /note %}}
+{{% api/url-encode-note %}}
 
 ```sh
 curl --get http://localhost:8086/query?db=example-db \

@@ -2,21 +2,20 @@
 title: Annotated CSV
 description: >
   InfluxDB and Flux return query results in annotated CSV format.
-  You can also read annotated CSV directly from Flux with the `csv.from()` function
-  or write data to InfluxDB using annotated CSV and the `influx write` command.
+  You can also read annotated CSV directly from Flux with the `csv.from()` function,
+  write data to InfluxDB using annotated CSV and the `influx write` command, or upload a CSV file in the UI.
 weight: 103
 menu:
   influxdb_2_0_ref:
     parent: Syntax
 influxdb/v2.0/tags: [csv, syntax]
 related:
-  - /influxdb/v2.0/reference/flux/stdlib/csv/from/
+  - /{{< latest "flux" >}}/stdlib/csv/from/
   - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
 ---
 
 InfluxDB and Flux return query results in annotated CSV format.
-You can also read annotated CSV directly from Flux with the [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/)
-or write data to InfluxDB using annotated CSV and the `influx write` command.
+You can also read annotated CSV directly from Flux with the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/), write data to InfluxDB using annotated CSV and the `influx write` command, or [upload a CSV file](/influxdb/cloud/write-data/no-code/load-data/#load-data-by-uploading-a-csv-or-line-protocol-file) in the UI.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
 InfluxDB removes carriage returns before newline characters.
@@ -247,22 +246,22 @@ test,name=annotatedDatatypes s="str2",d=2,b=false,l=2i,ul=2u,dur=2000i 157873741
 
 ## Annotated CSV in Flux
 Flux requires all annotation and header rows in annotated CSV.
-The example below illustrates how to use the [`csv.from()` function](/influxdb/v2.0/reference/flux/stdlib/csv/from/)
+The example below illustrates how to use the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/)
 to read annotated CSV in Flux:
 
 ```js
 import "csv"
 
-csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
-#group,false,false,false,false,false,false,false,false
-#default,,,,,,,,
-,result,table,_start,_stop,_time,region,host,_value
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
+csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double,string
+#group,false,false,true,true,false,true,false,false,true
+#default,,,,,,,,,
+,result,table,_start,_stop,_time,region,host,_value,_measurement
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43,cpu
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25,cpu
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62,cpu
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73,cpu
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83,cpu
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62,cpu
 "
 
 csv.from(csv: csvData)

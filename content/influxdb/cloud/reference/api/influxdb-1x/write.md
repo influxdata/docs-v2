@@ -19,4 +19,4 @@ related:
   - /influxdb/cloud/reference/syntax/line-protocol
 ---
 
-{{< duplicate-oss >}}
+{{% duplicate-oss %}}

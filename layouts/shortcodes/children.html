@@ -61,7 +61,7 @@
 			{{ end }}
 
 			{{ if and (eq $readMore true) ( or (isset .Params "list_query_example") (isset .Params "list_code_example") ) }}
-				<p style="text-align: right"><em><a href="{{ $url }}" target="{{ $target }}">Read more <span class="icon-chevron-right"></span></a></em></p>
+				<p class="read-more"><a href="{{ $url }}" target="{{ $target }}">Read more <span class="icon-chevron-right"></span></a></p>
 			{{ end }}
 			{{ if eq $hr true }}
 				<hr />

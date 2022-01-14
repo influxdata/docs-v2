@@ -9,7 +9,47 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
+## v1.8.10 [2021-10-11]
+
+### Bug fixes
+
+- Ensure `curl` dependency for InfluxDB packages.
+- Ensure snapshot service reads payload correctly.
+- Handle 40x errors by blocking indefinitely in systemd scripts.
+- Fix the following bugs in `influxd restore`:
+  - Correctly validate parameters.
+  - Improve error message when returning empty snapshots.
+  - Fix temporary file deletion on Windows.
+
+## v1.8.9 [2021-08-05]
+
+### Bug fixes 
+
+- Prevent silently dropped writes when there are overlapping shards.
+- Resolve `influxd restore -portable` backup bug.
+- Ensure systemd-startup script is executable by group and others.
+- Handle https in systemd wrapper, and prevent it from looping forever.
+- Log error instead of panic when restoring a backup to InfluxDB Enterprise cluster using InfluxDB OSS. 
+
+## v1.8.8 [unreleased]
+
+Due to encountering several issues with build dependencies in v.1.8.8, this version will not be released.  
+
+## v1.8.7 [2021-07-21]
+
+### Bug fixes
+
+- Renamed ARM RPMs with yum-compatible names.
+- Convert ARM arch names for RPMs during builds via Docker.
+- Systemd unit now blocks on startup until HTTP endpoint is ready.
+- Updated protobuf libraries to current version.
+
+## v1.8.6 [2021-05-21]
+
+This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific changes were made for InfluxDB 1.8.6--updates were made to the code base to support [InfluxDB Enterprise 1.8.6](/enterprise_influxdb/v1.8/about-the-project/release-notes-changelog/#v186-2021-05-21).
+
 ## v1.8.5 [2021-04-20]
+
 ### Features
 
 - Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.

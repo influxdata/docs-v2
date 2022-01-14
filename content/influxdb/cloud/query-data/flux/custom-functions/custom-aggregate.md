@@ -8,7 +8,7 @@ menu:
     parent: Custom functions
 weight: 301
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /{{< latest "flux" >}}/stdlib/universe/reduce/
 ---
 
 {{< duplicate-oss >}}

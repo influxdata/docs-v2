@@ -25,7 +25,7 @@
   h1 {
     font-weight: normal;
     font-size: 2.65rem;
-    margin: .4em 0 1em;
+    margin: .4em 0 .2em;
   }
   h2 {
     font-size: 2rem;
@@ -112,8 +112,10 @@
           "article/expand",
           "article/feedback",
           "article/flex",
+          "article/flux",
           "article/html-diagrams",
           "article/keybinding",
+          "article/list-filters",
           "article/lists",
           "article/note",
           "article/pagination-btns",
@@ -125,6 +127,7 @@
           "article/tables",
           "article/tags",
           "article/telegraf-plugins",
+          "article/title",
           "article/truncate",
           "article/video",
           "article/warn";
@@ -147,6 +150,10 @@
       font-size: .9rem;
       font-weight: $medium;
     }
+    
+    &.blue {color: $b-dodger;}
+    &.green {color: $gr-viridian;}
+    &.magenta {color: $p-comet;}
   }
 
   h2,h3,h4,h5,h6 {
@@ -164,6 +171,25 @@
     opacity: .5;
     transition: opacity .2s;
     &:hover {opacity: 1;}
+  }
+
+  p.read-more {
+    text-align: right;
+    font-style: italic;
+  }
+
+  .highlight, pre, code, .flex-wrapper {
+    & + p.read-more {
+      margin: -.75rem 0 .5rem;
+    }
+  }
+
+  .nowrap { white-space: nowrap }
+  .all-caps {
+    text-transform: uppercase;
+    font-size: .95rem;
+    letter-spacing: .07em;
+    font-weight: $medium !important;
   }
 
   /////////////////////////// Getting Started Buttons //////////////////////////
@@ -193,7 +219,6 @@
   .article {
     padding: 1.5rem 1.5rem 3rem;
 
-    h1 { margin: .35rem 0 2rem; font-size: 2.4rem; }
     h2 { font-size: 1.9rem; }
     h3 { font-size: 1.55rem; }
     h4 { font-size: 1.3rem; }

@@ -24,10 +24,10 @@ The table visualization renders queried data in structured, easy-to-read tables.
 Columns and rows match those in the query output.
 If query results contain multiple tables, only one table is shown at a time.
 Select other output tables in the far left column of the table visualization.
-Tables are identified by their [group key](/influxdb/v2.0/query-data/get-started/#group-keys).
+Tables are identified by their [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key).
 
 ## Table Controls
-To view **Table** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Table** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 ###### Formatting

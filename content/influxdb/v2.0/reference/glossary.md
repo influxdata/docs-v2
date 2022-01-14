@@ -2,7 +2,7 @@
 title: Glossary
 description: >
   Terms related to InfluxData products and platforms.
-weight: 8
+weight: 9
 menu:
   influxdb_2_0_ref:
     name: Glossary
@@ -30,7 +30,7 @@ Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin),
 ### aggregate
 
 A function that returns an aggregated value across a set of points.
-For a list of available aggregation functions, see [Flux built-in aggregate functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/).
+For a list of available aggregation functions, see [Flux aggregate functions](/{{< latest "flux" >}}/function-types#aggregates).
 
 Related entries: [function](#function), [selector](#selector), [transformation](#transformation)
 
@@ -98,6 +98,15 @@ boolean values are annotated with the `boolean` datatype.
 A bucket is a named location where time series data is stored.
 All buckets have a [retention period](#retention-period).
 A bucket belongs to an organization.
+
+
+### bucket schema
+
+In InfluxDB Cloud, an explicit bucket schema lets you strictly enforce the data that can be written into one or more measurements in a bucket by defining the column names, tags, fields, and data types allowed for each measurement. By default, buckets in InfluxDB 2.0 have an `implicit` schema that lets you write data without restrictions on columns, fields, or data types.
+
+Learn how to [manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/) in InfluxDB Cloud.
+
+Related entries: [data type](#data-type), [field](#field), [measurement](#measurement)
 
 ## C
 
@@ -250,9 +259,25 @@ Related entries: [bucket](#bucket)
 
 ### data type
 
-A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it.
+A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it. 
 
-InfluxDB supports the following data types: float, integer, string, boolean, and timestamp.
+InfluxDB supports the following data types: 
+| Data type        | Alias/annotation   |
+| :--------------- | :----------------- |
+| string           |                    |
+| boolean          |                    |
+| float            | double             |
+| integer          | int, long          |
+| unsigned integer | uint, unsignedLong |
+| time             | dateTime           |
+
+For more information about different data types, see:
+- [annotated CSV](/influxdb/v2.0/reference/syntax/annotated-csv/)
+- [extended annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/extended/#datatype)
+- [line protocol](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)
+- [InfluxQL](/influxdb/v1.8/query_language/spec/#literals)
+- [Flux](/influxdb/v2.0/reference/flux/language/types/)
+- [InfluxDB](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)
 
 ### database
 
@@ -370,7 +395,7 @@ A lightweight scripting language for querying databases (like InfluxDB) and work
 ### function
 
 Flux functions aggregate, select, and transform time series data.
-For a complete list of Flux functions, see [Flux functions](/influxdb/v2.0/reference/flux/stdlib/all-functions/).
+For a complete list of Flux functions, see [Flux functions](/{{< latest "flux" >}}/stdlib/all-functions/).
 
 Related entries: [aggregate](#aggregate), [selector](#selector), [transformation](#transformation)
 
@@ -420,7 +445,7 @@ A visual representation of statistical information that uses rectangles to show 
 
 Identifiers are tokens that refer to task names, bucket names, field keys,
 measurement names, tag keys, and user names.
-For examples and rules, see [Flux language lexical elements](/influxdb/v2.0/reference/flux/language/lexical-elements/#identifiers).
+For examples and rules, see [Flux language lexical elements](/{{< latest "flux" >}}/spec/lexical-elements/#identifiers).
 
 Related entries:
 [bucket](#bucket)
@@ -511,7 +536,7 @@ JavaScript Object Notation (JSON) is an open-standard file format that uses huma
 A keyword is reserved by a program because it has special meaning.
 Every programming language has a set of keywords (reserved names) that cannot be used as an identifier.
 
-See a list of [Flux keywords](/influxdb/v2.0/reference/flux/language/lexical-elements/#keywords).
+See a list of [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords).
 
 ## L
 
@@ -520,7 +545,7 @@ See a list of [Flux keywords](/influxdb/v2.0/reference/flux/language/lexical-ele
 A literal is value in an expression, a number, character, string, function, record, or array.
 Literal values are interpreted as defined.
 
-See examples of [Flux literals](/influxdb/v2.0/reference/flux/language/expressions/#examples-of-function-literals).
+See examples of [Flux literals](/{{< latest "flux" >}}/spec/expressions/#examples-of-function-literals).
 
 <!-- enterprise
 ### load balancing
@@ -600,7 +625,7 @@ Related entries: [output plugin](#output-plugin)
 Denoted by a null value.
 Identifies missing information, which may be useful to include in an error message.
 
-The Flux data model includes [Missing values (null)](/influxdb/v2.0/reference/flux/language/data-model/#missing-values-null).
+The Flux data model includes [Missing values (null)](/{{< latest "flux" >}}/spec/data-model/#missing-values-null).
 
 ## N
 
@@ -652,13 +677,13 @@ The object or value on either side of an operator.
 Represents a storage location for any value of a specified type.
 Mutable, can hold different values during its lifetime.
 
-See built-in Flux [options](/influxdb/v2.0/reference/flux/language/options/).
+See built-in Flux [options](/{{< latest "flux" >}}/spec/options/).
 
 ### option assignment
 
 An option assignment binds an identifier to an option.
 
-Learn about the [option assignment](/influxdb/v2.0/reference/flux/language/assignment-scope/#option-assignment) in Flux.
+Learn about the [option assignment](/{{< latest "flux" >}}/spec/assignment-scope/#option-assignment) in Flux.
 
 ### organization
 
@@ -773,6 +798,13 @@ A tuple of named values represented using a record type.
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
+### rejected point
+
+A data point that InfluxDB could not write to the target bucket.
+InfluxDB logs information about rejected points to the `_monitoring` system bucket.
+
+See how to [review rejected writes](/influxdb/v2.0/write-data/troubleshoot/#review-rejected-writes) for more information.
+
 ### retention period
 The duration of time that a bucket retains data.
 Points with timestamps older than their bucket's retention period are dropped.
@@ -826,7 +858,7 @@ Secrets are key-value pairs that contain information you want to control access 
 ### selector
 
 A Flux function that returns a single point from the range of specified points.
-See [Flux built-in selector functions](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/) for a complete list of available built-in selector functions.
+See [Flux selector functions](/{{< latest "flux" >}}/stdlib/universe/) for a complete list of available selector functions.
 
 Related entries: [aggregate](#aggregate), [function](#function), [transformation](#transformation)
 
@@ -872,7 +904,7 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com | finish | clifford  |
 
 ##### Query for cardinality:
-- **Flux:** [influxdb.cardinality()](/influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/)
+- **Flux:** [influxdb.cardinality()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/cardinality/)
 - **InfluxQL:** [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality)
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
@@ -923,16 +955,10 @@ Related entries: [series](#series), [shard duration](#shard-duration),
 
 ### shard group
 
-<<<<<<< HEAD
-Shard groups are logical containers for shards and contain all shards with data
-for a specified interval known as the [shard group duration](#shard-group-duration).
-Every bucket that contains data has at least one shard group.
-=======
 Shard groups are logical containers for shards organized by [bucket](#bucket).
 Every bucket with data has at least one shard group.
 A shard group contains all shards with data for the time interval covered by the shard group.
 The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
->>>>>>> cb4186ba2075d97882bc5974623adbdd1e88934a
 
 For more information, see [Shards and shard groups (OSS)](/influxdb/%762.0/reference/internals/shards/).
 
@@ -1072,13 +1098,22 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 
 ### token
 
-Tokens (or authentication tokens) verify user and organization permissions in InfluxDB.
-There are different types of athentication tokens:
+Tokens (or API tokens) verify user and organization permissions in InfluxDB.
+There are different types of API tokens:
 
-- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
-  _InfluxDB Cloud does not support Operator tokens._
+{{% oss-only %}}
+
+- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**. _InfluxDB Cloud does not support Operator tokens._
 - **All-Access token:** grants full read and write access to all resources in an organization.
 - **Read/Write token:** grants read or write access to specific resources in an organization.
+
+{{% /oss-only %}}
+{{% cloud-only %}}
+
+- **All-Access token:** grants full read and write access to all resources in an organization.
+- **Read/Write token:** grants read or write access to specific resources in an organization.
+
+{{% /cloud-only %}}
 
 Related entries: [Create a token](/influxdb/v2.0/security/tokens/create-token/).
 
@@ -1153,7 +1188,7 @@ Related entries: [integer](#integer)
 ### user
 
 InfluxDB users are granted permission to access to InfluxDB.
-Users are added as a member of an organization and are given a unique authentication token.
+Users are added as a member of an organization and are given a unique API token.
 
 ## V
 

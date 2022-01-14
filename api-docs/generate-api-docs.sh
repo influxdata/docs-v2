@@ -1,7 +1,9 @@
-#!/bin/bash -e
+#!/bin/bash
+
+set -e
 
 # Get list of versions from directory names
-versions="$(ls -d -- */)"
+versions="$(ls -d -- */ | grep -v 'node_modules' | grep -v 'openapi')"
 
 for version in $versions
 do
@@ -23,14 +25,14 @@ layout: api
 menu:
   $menu:
     parent: InfluxDB v2 API
-    name: View v2 API docs
+    name: v2 API docs
 weight: 102
 ---
 "
   v1frontmatter="---
-title: InfluxDB $titleVersion v1 compatiblity API documentation
+title: InfluxDB $titleVersion v1 compatibility API documentation
 description: >
-  The InfluxDB v1 compatility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibly endpoints.
+  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibly endpoints.
 layout: api
 menu:
   $menu:
@@ -40,32 +42,72 @@ weight: 304
 ---
 "
 
+  # Use npx to install and run the specified version of redoc-cli.
+  # npm_config_yes=true npx overrides the prompt
+  # and (vs. npx --yes) is compatible with npm@6 and npm@7.
+
+  openapiCLI="@redocly/openapi-cli"
+  redocCLI="redoc-cli@0.12.3"
+
+  npm --version
+
+  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
+  INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $version/ref.yml \
+    --config=./.redocly.yaml \
+    -o $version/ref.yml
+
   # Use Redoc to generate the v2 API html
-  redoc-cli bundle -t template.hbs \
+  npm_config_yes=true npx $redocCLI bundle $version/ref.yml \
+    -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
+    --options.noAutoAuth \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
-    $version/swagger.yml
+
+  # Use Redoc's openapi-cli to regenerate the v1-compat spec with custom decorations.
+  INFLUXDB_API_VERSION=v1compat INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $version/swaggerV1Compat.yml \
+    --config=./.redocly.yaml \
+    -o $version/swaggerV1Compat.yml
 
   # Use Redoc to generate the v1 compatibility API html
-  redoc-cli bundle -t template.hbs \
+  npm_config_yes=true npx $redocCLI bundle $version/swaggerV1Compat.yml \
+    -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
+    --options.noAutoAuth \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
     --output=redoc-static-v1-compat.html \
-    $version/swaggerV1Compat.yml
 
   # Create temp file with frontmatter and Redoc html
   echo "$v2frontmatter" >> $version.tmp
   echo "$v1frontmatter" >> $version-v1-compat.tmp
+
+  V2LEN_INIT=$(wc -c $version.tmp | awk '{print $1}')
+  V1LEN_INIT=$(wc -c $version-v1-compat.tmp | awk '{print $1}')
+
   cat redoc-static.html >> $version.tmp
   cat redoc-static-v1-compat.html >> $version-v1-compat.tmp
+
+  V2LEN=$(wc -c $version.tmp | awk '{print $1}')
+  V1LEN=$(wc -c $version-v1-compat.tmp | awk '{print $1}')
+
+  if ! [[ $V2LEN -gt $V2LEN_INIT  ]]
+   then
+     echo "Error: bundle was not appended to $version.tmp"
+     exit $?
+  fi
+
+  if ! [[ $V1LEN -gt $V1LEN_INIT  ]]
+  then
+    echo "Error: bundle was not appended to $version-v1-compat.tmp"
+    exit $?
+  fi
 
   # Remove redoc file and move the tmp file to it's proper place
   rm -f redoc-static.html

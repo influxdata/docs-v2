@@ -76,12 +76,12 @@ If you plan to monitor a Windows host using the System plugin, you must complete
 
 ## Start Telegraf
 
-Requests to the [InfluxDB v2 API](/influxdb/cloud/reference/api/) must include an authentication token.
+Requests to the [InfluxDB v2 API](/influxdb/cloud/reference/api/) must include an API token.
 A token identifies specific permissions to the InfluxDB instance.
 
 ### Configure your token as an environment variable
 
-1. Find your authentication token. _For information about viewing tokens, see [View tokens](/influxdb/cloud/security/tokens/view-tokens/)._
+1. Find your API token. _For information about viewing tokens, see [View tokens](/influxdb/cloud/security/tokens/view-tokens/)._
 
 2. To configure your token as the `INFLUX_TOKEN` environment variable, run the command appropriate for your operating system and command-line tool:
 

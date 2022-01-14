@@ -19,6 +19,7 @@ _Before creating a task, review the [basics criteria for writing a task](/influx
 
 - [InfluxDB UI](#create-a-task-in-the-influxdb-ui)
 - [`influx` CLI](#create-a-task-using-the-influx-cli)
+- [InfluxDB API](#create-a-task-using-the-influxdb-api)
 
 ## Create a task in the InfluxDB UI
 The InfluxDB UI provides multiple ways to create a task:
@@ -32,7 +33,7 @@ The InfluxDB UI provides multiple ways to create a task:
 ### Create a task from the Data Explorer
 1. In the navigation menu on the left, select **Explore** (**Data Explorer**).
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Build a query and click **Save As** in the upper right.
 3. Select the **Task** option.
@@ -45,9 +46,9 @@ The InfluxDB UI provides multiple ways to create a task:
 ### Create a task in the Task UI
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
-2. Click **{{< icon "plus" >}} Create Task** in the upper right.
+2. Click **{{< icon "plus" "v2" >}} Create Task** in the upper right.
 3. Select **New Task**.
 4. In the left panel, specify the task options.
    See [Task options](/influxdb/v2.0/process-data/task-options) for detailed information about each option.
@@ -67,7 +68,7 @@ fields in the left panel when you save the task.
 ### Import a task
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
 2. Click **+ Create Task** in the upper right.
 3. Select **Import Task**.
@@ -80,7 +81,7 @@ fields in the left panel when you save the task.
 ### Create a task from a template
 1. In the navigation menu on the left, select **Settings** > **Templates**.
 
-    {{< nav-icon "Settings" >}}
+    {{< nav-icon "Settings" "v2" >}}
 
 2. Select **Templates**.
 3. Hover over the template to use to create the task and click **Create**.
@@ -89,9 +90,9 @@ fields in the left panel when you save the task.
 ### Clone a task
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
-2. Hover over the task you would like to clone and click the **{{< icon "duplicate" >}}** icon that appears.
+2. Hover over the task you would like to clone and click the **{{< icon "duplicate" "v2" >}}** icon that appears.
 4. Click **Clone**.
 
 ## Create a task using the influx CLI
@@ -120,3 +121,36 @@ option task = {
 
 # <ctrl-d> to close the pipe and submit the command
 ```
+
+## Create a task using the InfluxDB API
+
+Send a request using the **POST** method to the `/api/v2/tasks` InfluxDB API endpoint.
+Provide the following in your API request:
+
+##### Request headers
+- **Content-Type**: application/json
+- **Authorization**: Token *`YOUR_INFLUXDB_TOKEN`*
+
+##### Request body
+JSON object with the following fields:
+
+- **flux** : raw Flux task string
+- **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+- **status**: task status ("active" or "inactive")
+- **description**: task description
+
+```sh
+curl --request POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token INFLUX_TOKEN' \
+  --data-raw '{
+    "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nfrom(bucket: \"telegraf\")\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", org: \"INFLUX_ORG\")",
+    "orgID": "INFLUX_ORG_ID",
+    "status": "active",
+    "description": "This task downsamples CPU data every hour"
+}'
+```
+Replace the following:
+- *`INFLUX_TOKEN`*: your [InfluxDB API token](/influxdb/v2.0/security/tokens/)
+- *`INFLUX_ORG`*: your [InfluxDB organization name](influxdb/2.0/organizations/view-orgs/)
+- *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)

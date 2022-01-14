@@ -101,7 +101,7 @@ menu:
 
 - [Amazon Cloudwatch Alarms Input Plugin](https://github.com/vipinvkmenon/awsalarms)(`awsalarms`) - Contributed by [@vipinvkmenon](https://github.com/vipinvkmenon)
 - [YouTube Input Plugin](https://github.com/inabagumi/youtube-telegraf-plugin)(`youtube`) - Contrbuted by [@inabagumi](https://github.com/inabagumi)
-- [Octoprint Input Plugin](https://github.com/BattleBas/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@BattleBas](https://github.com/battlebas)
+- [Octoprint Input Plugin](https://github.com/sspaink/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@sspaink](https://github.com/sspaink/)
 - [Systemd Timings Input Plugin](https://github.com/pdmorrow/telegraf-execd-systemd-timings)(`systemd-timings`) - Contributed by [@pdmorrow](https://github.com/pdmorrow)
 
 

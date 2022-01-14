@@ -357,11 +357,13 @@ export HEROKU_ORGS=hill-valley-preservation-sociey,the-pinheads
     GENERIC_TOKEN_URL=https://login.microsoftonline.com/<<TENANT-ID>>/oauth2/token
     TENANT=<<TENANT-ID>>
     GENERIC_NAME=AzureAD
-    GENERIC_API_KEY=userPrincipalName
+    GENERIC_API_KEY=upn
     GENERIC_SCOPES=openid
     GENERIC_CLIENT_ID=<<APPLICATION-ID>>
     GENERIC_AUTH_URL=https://login.microsoftonline.com/<<TENANT-ID>>/oauth2/authorize?resource=https://graph.windows.net
     GENERIC_CLIENT_SECRET=<<APPLICATION-KEY>>
+    USE_ID_TOKEN: true
+    JWKS_URL: "https://login.microsoftonline.com/${tenantId}/discovery/v2.0/keys"
     TOKEN_SECRET=secret
     GENERIC_API_URL=https://graph.windows.net/<<TENANT-ID>>/me?api-version=1.6
     PUBLIC_URL=http://localhost:8888
@@ -494,10 +496,10 @@ Only use basic authentication in cases where an OAuth 2.0 integration is not pos
 When using basic authentication, *all users have SuperAdmin status*; Chronograf authorization rules are not enforced.
 For more information, see [Cross-organization SuperAdmin status](/chronograf/v1.8/administration/managing-chronograf-users/#cross-organization-superadmin-status).
 
-To enable basic authentication, run chronograf with the `-htpasswd` flag or use the `HTPASSWD` environment variable.
+To enable basic authentication, run chronograf with the `--htpasswd` flag or use the `HTPASSWD` environment variable.
 
 ```sh
-chronograf —-htpasswd <path to .htpasswd file>
+chronograf --htpasswd <path to .htpasswd file>
 ```
 
 The `.htpasswd` file contains users and their passwords, and should be created with a password file utility tool such as `apache2-utils`.

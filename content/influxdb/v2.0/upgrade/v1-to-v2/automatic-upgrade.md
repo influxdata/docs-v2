@@ -45,7 +45,7 @@ Consider whether you need to address any of the following before upgrading.
 - [Dashboards](#dashboards)
 - [Other data](#other-data)
 - [Secure by default](#secure-by-default)
-- [`inmem` indexing option](#inmem-indexing-option)
+- [`inmem` indexing option](#in-memory-indexing-option)
 
 ### Available operating system, container, and platform support
 
@@ -172,6 +172,10 @@ InfluxDB 2.0 doesn't support [in-memory (`inmem`) indexing](/influxdb/v1.8/admin
 - `max-series-per-database`
 - `max-values-per-tag`
 
+### Interactive shell
+
+The InfluxDB 2.x `influx` CLI does not include an interactive shell for executing InfluxQL queries or Flux queries. For information about executing InfluxQL queries, see [Query data with InfluxQL](/influxdb/v2.0/query-data/influxql/). To build an interactive shell to execute Flux queries, [compile and build a command line Flux REPL from source](https://github.com/influxdata/flux/blob/master/README.md#getting-started). 
+
 ## Perform the upgrade
 
 If you've considered the [guidance above](#before-you-begin-important-considerations)
@@ -188,11 +192,19 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
 3. Use `influxd version` to ensure you are running InfluxDB 2.0 from the command line.
    The `influxd upgrade` command is only available in InfluxDB 2.0.
 4. If your 1.x configuration file is at the [default location](/influxdb/v1.8/administration/config/#using-the-configuration-file), run:
-
     ```sh
     influxd upgrade
     ```
+    {{% note %}}
+#### Upgrade `.deb` packages
+When installed from a `.deb` package, InfluxDB 1.x and 2.x run under the `influxdb` user.
+If you've installed both versions from `.deb` packages, run the upgrade command
+as the `influxdb` user:
 
+```sh
+sudo -u influxdb influxd upgrade
+```
+    {{% /note %}}
     If your 1.x configuration file is not at the default location, run:
 
     ```sh
@@ -204,7 +216,8 @@ and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to Inf
     ```sh
     influxd upgrade --v2-config-path <destination path for v2 config file>
     ```
-
+    
+    
 5. Follow the prompts to set up a new InfluxDB 2.0 instance.
 
    ```

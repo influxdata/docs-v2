@@ -38,7 +38,7 @@ For consistent Single Stat results, the query should return a single table.
 {{% /note %}}
 
 ## Graph + Single Stat Controls
-To view **Graph + Single Stat** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Graph + Single Stat** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 ###### Data
@@ -101,11 +101,12 @@ the visualization dropdown.
   Choose **Background** for the background of the graph to change color based on the configured thresholds.
 
 ###### Legend
-- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+- **Orientation**: Select the orientation of the legend that appears:
   - **Horizontal**: Select to display the legend horizontally.
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.
 - **Colorize Rows**: Select to display legend rows in colors.
+
 
 ## Graph + Single Stat examples
 The primary use case for the Graph + Single Stat visualization is to show the current or latest

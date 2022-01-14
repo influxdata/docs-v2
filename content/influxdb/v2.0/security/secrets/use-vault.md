@@ -4,8 +4,8 @@ description: Use Vault as an InfluxDB secret store and manage secrets through th
 influxdb/v2.0/tags: [secrets, security]
 menu:
   influxdb_2_0:
-    parent: Store and use secrets
-weight: 201
+    parent: Manage secrets
+weight: 306
 ---
 
 [Vault](https://www.vaultproject.io/) secures, stores, and controls access

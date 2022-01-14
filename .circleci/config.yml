@@ -6,6 +6,9 @@ jobs:
         environment:
           HUGO_VERSION: "0.81.0"
           S3DEPLOY_VERSION: "2.3.5"
+          # From https://github.com/bep/s3deploy/releases
+          S3DEPLOY_VERSION_HASH: "95de91ed207ba32abd0df71f9681c1ede952f8358f3510b980b02550254c941a"
+
     steps:
       - checkout
       - restore_cache:
@@ -16,14 +19,14 @@ jobs:
           name: Make bin folder
           command: mkdir -p $HOME/bin
       - run:
-          name: Install Hugo
-          command: ./deploy/ci-install-hugo.sh
-      - run:
           name: Install s3deploy
           command: ./deploy/ci-install-s3deploy.sh
       - run:
           name: Install NodeJS dependencies
-          command: sudo yarn global add postcss-cli@8.3.0 autoprefixer@9.8.6 redoc-cli@0.9.13
+          command: yarn install
+      - run:
+          name: Install API documentation dependencies
+          command: cd api-docs && yarn install
       - run:
           name: Generate API documentation
           command: cd api-docs && bash generate-api-docs.sh
@@ -33,7 +36,7 @@ jobs:
             - /home/circleci/bin
       - run:
           name: Hugo Build
-          command: $HOME/bin/hugo -v --minify --destination workspace/public
+          command: npx hugo -v --minify --destination workspace/public
       - persist_to_workspace:
           root: workspace
           paths:

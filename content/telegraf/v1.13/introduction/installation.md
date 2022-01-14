@@ -233,13 +233,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.13.1_linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/telegraf/releases/telegraf-{{< latest-patch >}}_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify telegraf-1.13.1_linux_amd64.tar.gz.asc telegraf-1.13.1_linux_amd64.tar.gz
+    gpg --verify telegraf-{{< latest-patch >}}_linux_amd64.tar.gz.asc telegraf-{{< latest-patch >}}_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:

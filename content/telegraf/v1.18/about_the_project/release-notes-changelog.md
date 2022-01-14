@@ -10,6 +10,34 @@ menu:
     parent: About the project
 ---
 
+## v1.18.3 [2021-05-21]
+
+- Add FreeBSD ARMv7 build.
+- Dependencies:
+  - Migrate from `soniah/gosnmp` to `gosnmp/gosnmp` v1.32.0.
+  - Migrate from `docker/libnetwork/ipvs` to `moby/ipvs`.
+  - Migrate from `ericchiang/k8s` to `kubernetes/client-go`.
+  - Update `hashicorp/consul/api` module to v1.8.1.
+  - Update `shirou/gopsutil` to v3.21.3.
+  - Update `microsoft/ApplicationInsights-Go` to v0.4.4
+  - Update `gogo/protobuf` to v1.3.2.
+  - Update `Azure/go-autorest/autorest/azure/auth` to v0.5.6 and `Azure/go-autorest/autorest` to v0.11.17.
+  - Update `collectd.org` to v0.5.0.
+  - Update `nats-io/nats.go` to v1.10.0.
+  - Update `golang/protobuf` to v1.5.1.
+
+
+### Input plugin updates
+
+- [Prometheus Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/prometheus): Add ability to set user agent when scraping Prometheus metrics.
+- [Kinesis Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/kinesis_consumer): Fix repeating parser error.
+- [SQL Server Input](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/sqlserver): Remove disallowed white space from `sqlServerRingBufferCPU` query.
+
+### Output plugin updates
+
+- [Elasticsearch Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/elasticsearch/README.md): Add ability to to enable gzip compression.
+
+
 ## v1.18.2 [2021-04-29]
 
 - Make JSON format compatible with nulls to ensure Telegraf successfully detects null values and returns an empty metric without error.
@@ -351,7 +379,7 @@ menu:
 
 - [Amazon Cloudwatch Alarms Input Plugin](https://github.com/vipinvkmenon/awsalarms)(`awsalarms`) - Contributed by [@vipinvkmenon](https://github.com/vipinvkmenon)
 - [YouTube Input Plugin](https://github.com/inabagumi/youtube-telegraf-plugin)(`youtube`) - Contrbuted by [@inabagumi](https://github.com/inabagumi)
-- [Octoprint Input Plugin](https://github.com/BattleBas/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@BattleBas](https://github.com/battlebas)
+- [Octoprint Input Plugin](https://github.com/sspaink/octoprint-telegraf-plugin)[`octoprint`] - Contributed by [@sspaink](https://github.com/sspaink/)
 - [Systemd Timings Input Plugin](https://github.com/pdmorrow/telegraf-execd-systemd-timings)(`systemd-timings`) - Contributed by [@pdmorrow](https://github.com/pdmorrow)
 
 
@@ -475,8 +503,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 #### Outputs
 
 - [Execd Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/execd/README.md)(`execd`) - Contributed by [@influxdata](https://github.com/influxdata)
-- [New Relic Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/newrelic/README.md)(`newrelic`) - Contributed by [@hsingkalsi](https://github.com/hsingkalsi)
-
+- [New Relic Output Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/newrelic/README.md)(`newrelic`) - Contributed by @hsingkalsi
 #### Processors
 
 - [Defaults Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/defaults/README.md)(`defaults`) - Contributed by [@jregistr](https://github.com/jregistr)
@@ -484,7 +511,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - [Filepath Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/filepath/README.md)(`filepath`) - Contributed by [@kir4h](https://github.com/kir4h)
 - [Network Interface Name Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/ifname/README.md)(`ifname`) - Contributed by [@influxdata](https://github.com/influxdata)
 - [Port Name Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/port_name/README.md)(`port_name`) - Contributed by [@influxdata](https://github.com/influxdata)
-- [Reverse DNS Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/reverse_DNS/README.md)(`reverse_dns`) - Contributed by [@influxdata](https://github.com/influxdata)
+- [Reverse DNS Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/reverse_dns/README.md)(`reverse_dns`) - Contributed by [@influxdata](https://github.com/influxdata)
 - [Starlark Processor Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/processors/starlark/README.md)(`starlark`) - Contributed by [@influxdata](https://github.com/influxdata)
 
 ### Features
@@ -2504,7 +2531,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 - Use own client for improved through-put and less allocations in the [InfluxDB output plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/outputs/influxdb).
 - Keep -config-directory when running as Windows service.
 - Rewrite the [Riemann output plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/outputs/riemann).
-- Add support for name templates and udev tags to the [DiskIO input plugin](https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/system/DISK_README.md#diskio-input-plugin).
+- Add support for name templates and udev tags to the [DiskIO input plugin](https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/diskio/README.md).
 - Add integer metrics for [Consul](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/consul) check health state.
 - Add lock option to the [IPtables input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/iptables).
 - Support [ipmi_sensor input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/ipmi_sensor) querying local ipmi sensors.
@@ -2527,7 +2554,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 - Check signature in the [GitHub webhook input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/webhooks/github).
 - Add [papertrail](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/webhooks/papertrail) support to webhooks.
 - Change [jolokia input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/jolokia) to use bulk requests.
-- Add [DiskIO input plugin](https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/system/DISK_README.md#diskio-input-plugin) for Darwin.
+- Add [DiskIO input plugin](https://github.com/influxdata/telegraf/blob/release-1.8/plugins/inputs/diskio/README.md) for Darwin.
 - Add use_random_partitionkey option to the [Kinesis output plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/outputs/kinesis).
 - Add tcp keep-alive to [Socket Listener input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/socket_listener) and [Socket Writer output plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/outputs/socket_writer).
 - Add [Kapacitor input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/kapacitor).

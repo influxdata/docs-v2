@@ -184,9 +184,9 @@ You can always run the desired version by specifying the full path:
 
 ```sh
 $ /usr/local/opt/influxdb/bin/influxd version
-InfluxDB 2.0.5 (git: none) build_date: 2021-04-01T17:55:08Z
+InfluxDB {{< latest-patch >}} (git: none) build_date: 2021-04-01T17:55:08Z
 $ /usr/local/opt/influxdb@1/bin/influxd version
-InfluxDB v1.8.4 (git: unknown unknown)
+InfluxDB v{{< latest-patch version="1.8" >}} (git: unknown unknown)
 ```
 
 {{% /note %}}
@@ -211,13 +211,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.5_linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-{{< latest-patch >}}_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-1.8.5_linux_amd64.tar.gz.asc influxdb-1.8.5_linux_amd64.tar.gz
+    gpg --verify influxdb-{{< latest-patch >}}_linux_amd64.tar.gz.asc influxdb-{{< latest-patch >}}_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -232,12 +232,14 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 The system has internal defaults for every configuration file setting.
 View the default configuration settings with the `influxd config` command.
 
-> **Note:** If InfluxDB is being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled.
+{{% note %}}
+**Note:** If InfluxDB is being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled.
 Otherwise the data will be publicly available to any unauthenticated user. The default settings do **NOT** enable
 authentication and authorization. Further, authentication and authorization should not be solely relied upon to prevent access
 and protect data from malicious actors. If additional security or compliance features are desired, InfluxDB should be run
 behind a third-party service. Review the [authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/)
 settings.
+{{% /note %}}
 
 Most of the settings in the local configuration file
 (`/etc/influxdb/influxdb.conf`) are commented out; all
@@ -275,7 +277,9 @@ See the [Configuration](/influxdb/v1.8/administration/config/) documentation for
 
 Make sure the directories in which data and the [write ahead log](/influxdb/v1.8/concepts/glossary#wal-write-ahead-log) (WAL) are stored are writable for the user running the `influxd` service.
 
-> **Note:** If the data and WAL directories are not writable, the `influxd` service will not start.
+{{% note %}}
+**Note:** If the data and WAL directories are not writable, the `influxd` service will not start.
+{{% /note %}}
 
 Information about `data` and `wal` directory paths is available in the [Data settings](/influxdb/v1.8/administration/config/#data-settings) section of the [Configuring InfluxDB](/influxdb/v1.8/administration/config/) documentation.
 
@@ -300,7 +304,7 @@ For more information on how to do that see the Amazon documentation on how to [A
 ### Configuration file
 You'll have to update the configuration file appropriately for each InfluxDB instance you have.
 
-```
+```toml
 ...
 
 [meta]

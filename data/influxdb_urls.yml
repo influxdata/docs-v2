@@ -23,6 +23,9 @@ cloud:
         - name: EU Frankfurt
           location: Frankfurt, Germany
           url: https://eu-central-1-1.aws.cloud2.influxdata.com
+        - name: Asia Pacific (Australia)
+          location: Sydney, Australia
+          url: https://ap-southeast-2-1.aws.cloud2.influxdata.com
     - name: Google Cloud Platform
       short_name: GCP
       regions:
@@ -32,7 +35,6 @@ cloud:
         - name: Europe West (Belgium)
           location: St. Ghislain, Belgium
           url: https://europe-west1-1.gcp.cloud2.influxdata.com
-          status: beta
     - name: Microsoft Azure
       short_name: Azure
       regions:

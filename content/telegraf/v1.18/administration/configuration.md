@@ -144,7 +144,20 @@ you can configure that here.
 
 ## Output configuration
 
-There are no generic configuration options available for all outputs.
+The following config parameters are available for all outputs:
+
+- **alias**: Name an instance of a plugin.
+- **flush_interval**: Maximum time between flushes. Use this setting to
+  override the agent `flush_interval` on a per plugin basis.
+- **flush_jitter**: Amount of time to jitter the flush interval. Use this
+  setting to override the agent `flush_jitter` on a per plugin basis.
+- **metric_batch_size**: Maximum number of metrics to send at once. Use
+  this setting to override the agent `metric_batch_size` on a per plugin basis.
+- **metric_buffer_limit**: Maximum number of unsent metrics to buffer.
+  Use this setting to override the agent `metric_buffer_limit` on a per plugin basis.
+- **name_override**: Override original name of the measurement.
+- **name_prefix**: Prefix to attach to the measurement name.
+- **name_suffix**: Suffix to attach to the measurement name.
 
 ## Aggregator configuration
 

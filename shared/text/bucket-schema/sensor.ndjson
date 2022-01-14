@@ -1,0 +1,5 @@
+{"name": "time", "type": "timestamp"}
+{"name": "service", "type": "tag"}
+{"name": "sensor", "type": "tag"}
+{"name": "temperature", "type": "field", "dataType": "float"}
+{"name": "humidity", "type": "field", "dataType": "float"}
