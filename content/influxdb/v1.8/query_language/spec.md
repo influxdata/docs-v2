@@ -8,6 +8,7 @@ menu:
     parent: InfluxQL
 aliases:
   - /influxdb/v2.0/query_language/spec/
+  - /influxdb/v2.1/query_language/spec/
 ---
 
 ## Introduction

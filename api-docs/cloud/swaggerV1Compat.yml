@@ -36,13 +36,13 @@ paths:
             type: string
           required: true
           description: >-
-            Bucket to write to. If none exist a bucket will be created with
-            a default 3 day retention policy.
+            Bucket to write to. If none exists, a bucket will be created with a
+            default 3-day retention policy.
         - in: query
           name: rp
           schema:
             type: string
-          description: The retention policy name.
+          description: Retention policy name.
         - in: query
           name: precision
           schema:
@@ -113,7 +113,7 @@ paths:
                 format: int32
         '503':
           description: >-
-            Server is temporarily unavailable to accept writes. The Retry-After
+            Server is temporarily unavailable to accept writes.  The Retry-After
             header describes when to try the write again.
           headers:
             Retry-After:
