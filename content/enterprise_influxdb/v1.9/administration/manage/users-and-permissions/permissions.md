@@ -74,11 +74,17 @@ In addition, two tokens govern Kapacitor permissions:
 
 * `KapacitorAPI`:
   Grants the user permission to create, read, update and delete
-  tasks, topics, handlers and similar Kapacitor artefacts.
+  tasks, topics, handlers and similar Kapacitor artifacts.
 * `KapacitorConfigAPI`:
   Grants the user permission to override the Kapacitor configuration
   dynamically using the configuration endpoint.
 
+### Permissions scope
+
+Using the InfluxDB Enterprise Meta API,
+these permissions can be set at the cluster-wide level (for all databases at once)
+and for specific databases.
+For examples, see [Manage authorization with the InfluxDB Enterprise Meta API](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authorization-api/).
 
 ### Permission to Statement
 
