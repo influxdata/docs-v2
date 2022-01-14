@@ -5,8 +5,8 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Configure data nodes
-    weight: 20
     parent: Configure
+weight: 20
 aliases:
   - /enterprise_influxdb/v1.9/administration/config-data-nodes/
 ---
