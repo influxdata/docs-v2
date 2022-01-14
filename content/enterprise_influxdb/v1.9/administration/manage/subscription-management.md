@@ -5,8 +5,8 @@ description: >
 menu:
   enterprise_influxdb_1_9:
     name: Manage subscriptions
-    weight: 100
     parent: Manage
+weight: 30
 aliases:
   - /enterprise_influxdb/v1.9/administration/subscription-management/
 ---
