@@ -40,7 +40,7 @@ The following drivers are available:
 - postgres
 - snowflake
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. For more information, see [Write to SQLite](/flux/v0.x/write-data/sql/sqlite/)._
-- sqlserver, mssql
+- sqlserver
 - vertica, vertigo
 
 {{% warn %}}

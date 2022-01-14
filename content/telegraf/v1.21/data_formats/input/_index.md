@@ -3,7 +3,7 @@ title: Telegraf input data formats
 description: Telegraf supports parsing input data formats into Telegraf metrics.
 menu:
   telegraf_1_21:
-  
+
     name: Input data formats
     weight: 1
     parent: Data formats
@@ -31,7 +31,7 @@ desired parser:
   ## Each data format has its own unique set of configuration options, read
   ## more about them here:
   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
-  data_format = "json"
+  data_format = "json_v2"
 ```
 
 [metrics]: /telegraf/v1.15/concepts/metrics/

@@ -5,7 +5,7 @@ aliases:
   - /telegraf/v1.15/introduction/getting_started/
 menu:
   telegraf_1_21:
-  
+
     name: Get started
     weight: 30
     parent: Introduction
@@ -39,13 +39,27 @@ Follow the instructions in the Telegraf section on the [Downloads page](https://
 
 Before starting the Telegraf server, create or edit the initial configuration to specify your [inputs](/telegraf/v1.15/plugins/inputs/) (where the metrics come from) and [outputs](/telegraf/v1.15/plugins/outputs/) (where the metrics go). You can do this [several ways](/telegraf/v1.15/administration/configuration/).
 
-The following example shows how to create a configuration file called `telegraf.conf` and specify two inputs (`cpu` and `mem`) with the `--input-filter` flag and specify InfluxDB as the output with the `--output-filter` flag.
+You can use Telegraf to generate a configuration file for you, you can run the following command to get a complete sample config called `telegraf.conf` with all possible plugins.
 
 ```bash
-telegraf -sample-config --input-filter cpu:mem --output-filter influxdb > telegraf.conf
+telegraf --sample-config > telegraf.conf
 ```
 
-`cpu` and `mem` reads metrics about the system's cpu usage and memory usage, and then output this data to InfluxDB.
+You can simplify this config by specifying which plugins you want to use with the filter flags. For example you can specify two inputs (`cpu` and `mem`) with the `--input-filter` flag and specify InfluxDB as the output with the `--output-filter` flag.
+
+```bash
+telegraf --sample-config --input-filter cpu:mem --output-filter influxdb_v2 > telegraf.conf
+```
+
+The resulting config will have `cpu` and `mem` reading metrics about the system's cpu usage and memory usage, and then output this data to InfluxDB. Note that after running the following command, the output plugin `influxdb_v2` will still need to be configured with your url, orginization and bucket.
+
+The resulting config file will also contain all available aggegators and processors, you can filter them out as well like so:
+
+```bash
+telegraf --sample-config --input-filter cpu:mem --output-filter influxdb_v2 --aggregator-filter : --processor-filter : > telegraf.conf
+```
+
+Learn more about the possible commands and flags in this [document](https://github.com/influxdata/telegraf/blob/526dcb4bc8d7674e062492fda2c3350d7b087b64/docs/COMMANDS_AND_FLAGS.md).
 
 ## Start Telegraf service
 
