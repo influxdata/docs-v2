@@ -13,7 +13,6 @@ weight: 201
 aliases:
   - /influxdb/v2.1/reference/api/client-libraries/go/
   - /influxdb/v2.1/tools/client-libraries/go/
-  - /influxdb/cloud/tools/client-libraries/go/
 ---
 
 Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to integrate InfluxDB into Go scripts and applications.
