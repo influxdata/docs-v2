@@ -259,9 +259,9 @@ Related entries: [bucket](#bucket)
 
 ### data type
 
-A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it. 
+A data type is defined by the values it can take, the programming language used, or the operations that can be performed on it.
 
-InfluxDB supports the following data types: 
+InfluxDB supports the following data types:
 | Data type        | Alias/annotation   |
 | :--------------- | :----------------- |
 | string           |                    |
@@ -798,6 +798,11 @@ A tuple of named values represented using a record type.
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
+### rejected points
+
+In a batch of data, points that InfluxDB couldn't write to a bucket.
+Field type conflicts are a common cause of rejected points.
+
 ### retention period
 The duration of time that a bucket retains data.
 Points with timestamps older than their bucket's retention period are dropped.
@@ -1092,12 +1097,21 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 ### token
 
 Tokens (or API tokens) verify user and organization permissions in InfluxDB.
-There are different types of athentication tokens:
+There are different types of API tokens:
 
-- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
-  _InfluxDB Cloud does not support Operator tokens._
+{{% oss-only %}}
+
+- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**. _InfluxDB Cloud does not support Operator tokens._
 - **All-Access token:** grants full read and write access to all resources in an organization.
 - **Read/Write token:** grants read or write access to specific resources in an organization.
+
+{{% /oss-only %}}
+{{% cloud-only %}}
+
+- **All-Access token:** grants full read and write access to all resources in an organization.
+- **Read/Write token:** grants read or write access to specific resources in an organization.
+
+{{% /cloud-only %}}
 
 Related entries: [Create a token](/influxdb/v2.1/security/tokens/create-token/).
 

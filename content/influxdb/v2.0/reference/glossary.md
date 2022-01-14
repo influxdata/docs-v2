@@ -798,6 +798,13 @@ A tuple of named values represented using a record type.
 
 Regular expressions (regex or regexp) are patterns used to match character combinations in strings.
 
+### rejected point
+
+A data point that InfluxDB could not write to the target bucket.
+InfluxDB logs information about rejected points to the `_monitoring` system bucket.
+
+See how to [review rejected writes](/influxdb/v2.0/write-data/troubleshoot/#review-rejected-writes) for more information.
+
 ### retention period
 The duration of time that a bucket retains data.
 Points with timestamps older than their bucket's retention period are dropped.
@@ -897,7 +904,7 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com | finish | clifford  |
 
 ##### Query for cardinality:
-- **Flux:** [influxdb.cardinality()](/{{< latest "flux" >}}/stdlib/influxdb/cardinality/)
+- **Flux:** [influxdb.cardinality()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/cardinality/)
 - **InfluxQL:** [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality)
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
@@ -1092,12 +1099,21 @@ Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 ti
 ### token
 
 Tokens (or API tokens) verify user and organization permissions in InfluxDB.
-There are different types of athentication tokens:
+There are different types of API tokens:
 
-- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
-  _InfluxDB Cloud does not support Operator tokens._
+{{% oss-only %}}
+
+- **Operator token:** grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**. _InfluxDB Cloud does not support Operator tokens._
 - **All-Access token:** grants full read and write access to all resources in an organization.
 - **Read/Write token:** grants read or write access to specific resources in an organization.
+
+{{% /oss-only %}}
+{{% cloud-only %}}
+
+- **All-Access token:** grants full read and write access to all resources in an organization.
+- **Read/Write token:** grants read or write access to specific resources in an organization.
+
+{{% /cloud-only %}}
 
 Related entries: [Create a token](/influxdb/v2.0/security/tokens/create-token/).
 

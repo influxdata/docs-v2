@@ -9,11 +9,11 @@ menu:
 weight: 10
 ---
 
-Use **InfluxDB Cloud** sample datasets to quickly access data that lets you explore and familiarize yourself with InfluxDB Cloud without requiring you to have or write your own data.
+Use **InfluxDB Cloud** sample datasets to quickly access data that lets you explore and familiarize yourself with InfluxDB Cloud without requiring you to have to write your own data.
 
 - [Choose sample data](#choose-sample-data)
 - [Explore sample data](#explore-sample-data)
-- [create sample data dashboards](#create-sample-data-dashboards)
+- [Create sample data dashboards](#create-sample-data-dashboards)
 
 {{% note %}}
 #### Network bandwidth
@@ -21,7 +21,7 @@ Use **InfluxDB Cloud** sample datasets to quickly access data that lets you expl
 Each execution of `sample.data()` downloads the specified dataset from **Amazon S3**.
 If using [InfluxDB Cloud](/influxdb/cloud/) or a hosted InfluxDB OSS instance,
 you may see additional network bandwidth costs when using this function.
-Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/cloud/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/). To explore data without incurring network bandwidth costs, see how to [query demo data](/influxdb/cloud/query-data/execute-queries/query-demo-data/).
+Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/cloud/reference/sample-data/#sample-datasets) and in the output of [`sample.list()`](/influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list/).
 {{% /note %}}
 
 ## Choose sample data
@@ -31,7 +31,7 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
    - **Bird migration sample data**: Explore, visualize, and monitor the latitude and longitude of bird migration patterns.
    - **NOAA NDBC sample data**: Explore, visualize, and monitor NDBC's observations from their buoys. This data observes air temperature, wind speed, and more from specific locations.
    - **NOAA water sample data**: Explore, visualize, and monitor temperature, water level, pH, and quality from specific locations.
-   - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitide, and more.  
+   - **USGS Earthquake data**: Explore, visualize, and monitor earthquake monitoring data. This data includes alerts, cdi, quarry blast, magnitude, and more.  
 2. Do one of the following to download sample data:
    - [Add sample data with community template](#add-sample-data-with-community-templates)
    - [Add sample data using the InfluxDB UI](#add-sample-data)
@@ -42,6 +42,8 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 
     {{< nav-icon "settings" >}}
 
+2. Paste the Sample Data community temple URL in **resource manifest file** field:
+
 2. Paste the [Sample Data community template URL](https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml) in the **resource manifest file** field and click the **{{< caps >}}Lookup Template{{< /caps >}}** button.
 
 #### Sample Data community template URL
@@ -51,6 +53,7 @@ Approximate sample dataset sizes are listed for each [sample dataset](/influxdb/
 ```
 
 ## Explore sample data
+
 Use the [Data Explorer](/influxdb/cloud/visualize-data/explore-metrics/)
 to query and visualize data in sample data buckets.
 

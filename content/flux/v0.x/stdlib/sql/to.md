@@ -39,8 +39,8 @@ The following drivers are available:
 - mysql
 - postgres
 - snowflake
-- sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. More information [below](#write-data-to-an-sqlite-database)._
-- sqlserver, mssql
+- sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. For more information, see [Write to SQLite](/flux/v0.x/write-data/sql/sqlite/)._
+- sqlserver
 - vertica, vertigo
 
 {{% warn %}}

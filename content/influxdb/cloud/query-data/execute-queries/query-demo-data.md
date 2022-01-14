@@ -7,6 +7,7 @@ menu:
     name: Query with demo data
     parent: Execute queries
 weight: 110
+draft: true
 aliases:
   - /influxdb/cloud/write-data/#demo-data-for-influxdb-cloud
   - /influxdb/cloud/query-data/query-demo-data/

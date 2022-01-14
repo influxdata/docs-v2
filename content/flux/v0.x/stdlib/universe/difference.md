@@ -24,9 +24,10 @@ _**Output data type:** Float_
 
 ```js
 difference(
-  nonNegative: false,
-  columns: ["_value"],
-  keepFirst: false
+    nonNegative: false,
+    columns: ["_value"],
+    keepFirst: false,
+    initialZero: false,
 )
 ```
 
@@ -34,7 +35,8 @@ difference(
 
 ### nonNegative {data-type="bool"}
 Indicates if the difference is allowed to be negative.
-When set to `true`, if a value is less than the previous value, it is assumed the previous value should have been a zero.
+When set to `true`, if a value is less than the previous value, the function
+assumes the previous value should have been a zero.
 Default is `false`.
 
 ### columns {data-type="array of strings"}
@@ -44,6 +46,12 @@ Default is `["_value"]`.
 ### keepFirst {data-type="bool"}
 Indicates the first row should be kept.
 If `true`, the difference will be `null`.
+Default is `false`.
+
+### initialZero {data-type="bool"}
+Use zero (`0`) as the initial value in the difference calculation when the
+subsequent value is less than the previous value and [`nonNegative`](#nonnegative)
+is `true`.
 Default is `false`.
 
 ### tables {data-type="stream of tables"}
@@ -56,6 +64,9 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 - `null` minus some value is always `null`;
 - Some value `v` minus `null` is `v` minus the last non-null value seen before `v`;
   or `null` if `v` is the first non-null value seen.
+- If `nonNegative` and `initialZero` are set to true, `difference()` returns the
+  difference between 0 and the subsequent value. If the subsequent value is 
+  less than zero, `difference()` returns _null_.
 
 ## Output tables
 For each input table with `n` rows, `difference()` outputs a table with `n - 1` rows.
@@ -71,12 +82,12 @@ For each input table with `n` rows, `difference()` outputs a table with `n - 1` 
 #### Calculate the difference between subsequent values
 
 ```js
-import "sample"
+import "sampledata"
 
-data = sample.int()
+data = sampledata.int()
 
 data
-  |> difference()
+    |> difference()
 ```
 
 {{< expand-wrapper >}}
@@ -119,7 +130,7 @@ import "sampledata"
 data = sampledata.int()
 
 data
-  |> difference(nonNegative: true):
+    |> difference(nonNegative: true):
 ```
 
 {{< expand-wrapper >}}
@@ -163,7 +174,7 @@ import "sampledata"
 data = sampledata.int(includeNull: true)
 
 data
-  |> difference()
+    |> difference()
 ```
 
 {{< expand-wrapper >}}
@@ -204,7 +215,7 @@ data
 import "sampledata"
 
 sampledata.int()
-  |> difference(keepFirst: true)
+    |> difference(keepFirst: true)
 ```
 
 {{% expand "View input and output" %}}

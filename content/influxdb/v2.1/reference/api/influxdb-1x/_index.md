@@ -20,12 +20,13 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 <a class="btn" href="/influxdb/v2.1/api/v1-compatibility/">View full v1 compatibility API documentation</a>
 
 ## Authentication
-InfluxDB {{< current-version >}} requires all query and write requests to be authenticated with an
-[API token](/influxdb/v2.1/security/tokens/) or 1.x compatible
+
+InfluxDB 1.x compatibility endpoints require all query and write requests to be authenticated with an
+[API token](/influxdb/v2.1/security/tokens/) or 1.x-compatible
 credentials.
 
 * [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
-* [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
+* [Authenticate with a 1.x username and password scheme](#authenticate-with-a-username-and-password-scheme)
 
 ### Authenticate with the Token scheme
 Token authentication requires the following credential:
@@ -37,7 +38,7 @@ Use the `Authorization` header with the `Token` scheme to provide your token to 
 #### Syntax
 
 ```sh
-Authorization: Token <token>
+Authorization: Token INFLUX_API_TOKEN
 ```
 
 #### Example
@@ -66,7 +67,9 @@ Use the following authentication schemes with clients that support the InfluxDB 
 - [Basic authentication](#basic-authentication)
 - [Query string authentication](#query-string-authentication)
 
-##### Manage credentials
+#### Manage credentials
+
+{{% oss-only %}}
 
 Username and password schemes require the following credentials:
 - **username**: 1.x username (this is separate from the UI login username)
@@ -74,13 +77,24 @@ Username and password schemes require the following credentials:
 
 {{% note %}}
 #### Password or Token
-{{% api/v1-compat/oss/password-or-token %}}
+If you have [set a password](/influxdb/v2.1/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
+If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2.1/security/tokens/) as the password.
 {{% /note %}}
 
 For information about creating and managing 1.x-compatible authorizations, see:
 
 - [`influx v1 auth` command](/influxdb/v2.1/reference/cli/influx/v1/auth/)
 - [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.1/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+- **username**: InfluxDB Cloud username
+  (Use the email address you signed up with as your username, _e.g._ `exampleuser@influxdata.com`.)
+- **password**: InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/)
+
+{{% /cloud-only %}}
 
 #### Basic authentication
 
@@ -90,11 +104,27 @@ password credentials to InfluxDB.
 {{% api/v1-compat/basic-auth-syntax %}}
 
 ##### Syntax
+
+{{% oss-only %}}
+
 ```sh
-Authorization: Basic <username>:<password>
+Authorization: Basic INFLUX_USERNAME:INFLUX_PASSWORD_OR_TOKEN
 ```
 
+{{% /oss-only %}}
+
+
+{{% cloud-only %}}
+
+```sh
+Authorization: Basic exampleuser@influxdata.com:INFLUX_API_TOKEN
+```
+
+{{% /cloud-only %}}
+
 ##### Example
+
+{{% oss-only %}}
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -113,6 +143,35 @@ Authorization: Basic <username>:<password>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+{{% /oss-only %}}
+
+
+{{% cloud-only %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```js
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+Replace the following:
+- *`exampleuser@influxdata.com`*: the email address that you signed up with
+- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
+
+{{% /cloud-only %}}
+
 #### Query string authentication
 Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
@@ -125,13 +184,27 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 
 ##### Syntax
 
+{{% oss-only %}}
+
 ```sh
- /query/?u=<username>&p=<password>
- /write/?u=<username>&p=<password>
+ /query/?u=INFLUX_USERNAME&p=INFLUX_PASSWORD_OR_TOKEN
+ /write/?u=INFLUX_USERNAME&p=INFLUX_PASSWORD_OR_TOKEN
  ```
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+```sh
+/query/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
+/write/?u=INFLUX_USERNAME&p=INFLUX_API_TOKEN
+```
+
+{{% /cloud-only %}}
 
 ##### Example
 
+{{% oss-only %}}
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [curl](#curl)
@@ -148,6 +221,38 @@ Use InfluxDB 1.x API parameters to provide credentials through the query string.
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+Replace the following:
+- *`INFLUX_USERNAME`*: [InfluxDB 1.x username](#manage-credentials)
+- *`INFLUX_PASSWORD_OR_TOKEN`*: [InfluxDB 1.x password or InfluxDB API token](#manage-credentials)
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.sh" %}}
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```js
+{{% get-shared-text "api/v1-compat/auth/cloud/basic-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+Replace the following:
+- *`exampleuser@influxdata.com`*: the email address that you signed up with
+- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
+
+{{% /cloud-only %}}
 
 ##### InfluxQL support
 

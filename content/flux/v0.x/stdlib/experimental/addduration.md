@@ -29,8 +29,8 @@ See [influxdata/flux#413](https://github.com/influxdata/flux/issues/413).
 import "experimental"
 
 experimental.addDuration(
-  d: 12h,
-  to: now(),
+    d: 12h,
+    to: now(),
 )
 ```
 
@@ -39,8 +39,10 @@ experimental.addDuration(
 ### d {data-type="duration"}
 The duration to add.
 
-### to {data-type="time"}
+### to {data-type="time, duration"}
 The time to add the [duration](#d) to.
+Use an absolute time or a relative duration.
+Durations are relative to [`now()`](/flux/v0.x/stdlib/universe/now/).
 
 ## Examples
 
@@ -48,10 +50,18 @@ The time to add the [duration](#d) to.
 ```js
 import "experimental"
 
-experimental.addDuration(
-  d: 6h,
-  to: 2019-09-16T12:00:00Z,
-)
+experimental.addDuration(d: 6h, to: 2019-09-16T12:00:00Z)
 
 // Returns 2019-09-16T18:00:00.000000000Z
+```
+
+### Add six hours to a relative duration
+```js
+import "experimental"
+
+option now = () => 2022-01-01T12:00:00Z
+
+experimental.addDuration(d: 6h, to: 3h)
+
+// Returns 2022-01-01T21:00:00.000000000Z
 ```

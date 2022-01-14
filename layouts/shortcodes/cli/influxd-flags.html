@@ -3,10 +3,10 @@
 {{- $flags := .Site.Data.influxd_flags -}}
 
 <ul>
-  {{ range $flags }}
-    {{ $flagAnchor := replaceRE "--" "#" .flag }}
-    {{ if ge (float $currentVersion) .added }}
-      <li>{{ if .nolink }}{{ .flag }}{{ else }}<a href="/influxdb/v{{ $currentVersion }}/reference/config-options/{{ $flagAnchor }}">{{ .flag }}</a>{{ end }}</li>
-    {{ end }}
-  {{ end }}
+{{- range $flags -}}
+{{- $flagAnchor := replaceRE "--" "#" .flag -}}
+{{- if ge (float $currentVersion) .added -}}
+  <li>{{ if .nolink }}{{ .flag }}{{ else }}<a href="/influxdb/v{{ $currentVersion }}/reference/config-options/{{ $flagAnchor }}">{{ .flag }}</a>{{ end }}</li>
+{{- end -}}
+{{- end -}}
 </ul>

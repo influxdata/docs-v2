@@ -9,8 +9,8 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Manage clusters
-    weight: 30
     parent: Manage
+weight: 10
 ---
 
 Use the following tools to manage and interact with your InfluxDB Enterprise clusters:

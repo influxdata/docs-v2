@@ -4,6 +4,7 @@ description: >
   Learn how meta nodes and data nodes interact in InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.9/concepts/clustering/
+    - /enterprise_influxdb/v1.9/high_availability/clusters/
 menu:
   enterprise_influxdb_1_9:
     name: Clustering

@@ -10,6 +10,7 @@ weight: 2
 aliases:
   - /influxdb/v2.0/reference/flux/language/
   - /influxdb/cloud/reference/flux/language/
+  - /flux/v0.x/language/
 flux/v0.x/tags: [flux]
 ---
 

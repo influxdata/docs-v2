@@ -106,7 +106,7 @@ join(
 ### Sort by tags
 InfluxQL's sorting capabilities are very limited, allowing you only to control the
 sort order of `time` using the `ORDER BY time` clause.
-Flux's [`sort()` function](/{{< latest "flux" >}}/stdlib/universer/sort) sorts records based on list of columns.
+Flux's [`sort()` function](/{{< latest "flux" >}}/stdlib/universe/sort) sorts records based on list of columns.
 Depending on the column type, records are sorted lexicographically, numerically, or chronologically.
 
 ```js

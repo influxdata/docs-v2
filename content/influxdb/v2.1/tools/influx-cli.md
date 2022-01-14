@@ -154,7 +154,7 @@ brew list | grep influxdb-cli
     sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
 
     # arm
-    sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
+    sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64/influx /usr/local/bin/
     ```
 
     If you do not move the `influx` binary into your `$PATH`, prefix the executable
@@ -176,7 +176,7 @@ brew list | grep influxdb-cli
 
     ```powershell
     > Expand-Archive .\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
-    > mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch cli=true >}}-windows-amd64' 'C:\Program Files\InfluxData\influx'
+    > mv 'C:\Program Files\InfluxData\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64' 'C:\Program Files\InfluxData\influx'
     ```
 
 3. **Grant network access to the `influx` CLI.**
@@ -219,6 +219,8 @@ influx config create --config-name <config-name> \
 
 For more information about managing CLI configurations, see the
 [`influx config` documentation](/influxdb/v2.1/reference/cli/influx/config/).
+
+For instructions on how to create API tokens, see [Create a token](/influxdb/v2.1/security/tokens/create-token/).
 
 ### Enable shell completion (Optional)
 
