@@ -10,6 +10,23 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.149.0 [2022-01-12]
+
+### Features
+- Add `Get` methods to `metadata`.
+- Optimized `sort |> limit` operations.
+- Add [`location` option](/flux/v0.x/stdlib/universe/#location) support to the `date` package.
+- Use reference equality for `Symbol`.
+- Add inline documentation to the following packages:
+    - socket
+    - sql
+    - strings
+
+### Bug fixes
+- Do not attempt IP validation for BigQuery data source names (DSNs).
+
+---
+
 ## v0.148.0 [2022-01-10]
 
 ### Features
