@@ -54,7 +54,7 @@ Other limits include all adjustable limits other than rate limits.
   - 5 dashboards
   - 5 tasks
   - 2 checks
-  - `http` and `pagerduty` notification endpoints
+  - Unlimited Slack notification endpoints
 - 30 days of data retention (see [retention period](/influxdb/cloud/reference/glossary/#retention-period))
 
 {{% note %}}
