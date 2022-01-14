@@ -30,21 +30,25 @@ to migrate data from OSS to an InfluxDB Enterprise cluster without downtime or m
    add the IP and hostname of your OSS instance to the `/etc/hosts` file.
    This will allow the nodes to communicate with the OSS instance.
 
-3. On the OSS instance, take a portable backup from OSS:
+3. On the OSS instance, take a portable backup from OSS using the **influxd backup** command 
+with the `-portable` flag:
 
    ```sh
-   influxd-ctl backup -portable -host <IP address>:8088 /tmp/mysnapshot
+   influxd backup -portable -host <IP address>:8088 /tmp/mysnapshot
    ```
 
    Note the current date and time when you take the backup.
-   For more information, see [`-backup`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#backup).
+   For more information, see [influxd backup](/influxdb/v1.8/tools/influxd/backup/).
 
 4. Restore the backup on the cluster by running the following:
 
    ```sh
-   influxd-ctl restore -portable  [ -host <host:port> ] <path-to-backup-files>
+   influxd-ctl restore [ -host <host:port> ] <path-to-backup-files>
    ```
-   For more information, see [`-restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore).
+   
+    > NOTE:  InfluxDB Enterprise uses the **influxd-ctl utility** to backup and restore data.  For more information, 
+see [influxd-ctl](/enterprise_influxdb/v1.9/tools/influxd-ctl) 
+and [`restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore).
 
 5. To avoid data loss, dual write to both OSS and Enterprise while completing the remaining steps.
    This keeps the OSS and cluster active for testing and acceptance work. For more information, see [Write data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/write_data/).
