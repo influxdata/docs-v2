@@ -4,8 +4,8 @@ description: Manage authorization in InfluxDB Enterprise clusters with users, ro
 menu:
   enterprise_influxdb_1_9:
     name: Manage users and permissions
-    weight: 40
     parent: Manage
+weight: 20
 aliases:
   - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
 ---
