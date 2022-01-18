@@ -77,8 +77,8 @@ for instructions.
 
 ### Manage Enterprise permissions with the Meta API
 
-The InfluxDB Enterprise API is the
-recommended method for managing permissions.
+The InfluxDB Enterprise API is the recommended method for managing permissions.
+Use the API to manage setting cluster-wide and database-specific permissions.
 
 For more information on using the meta API,
 see [here](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authorization-api).
