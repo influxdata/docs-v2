@@ -1,11 +1,11 @@
 ---
-title: TCP and UDP ports used in InfluxDB Enterprise
+title: Configure TCP and UDP ports used in InfluxDB Enterprise
 description: Configure TCP and UDP ports in InfluxDB Enterprise.
 menu:
   enterprise_influxdb_1_9:
     name: Configure TCP and UDP Ports
-    weight: 120
     parent: Configure
+weight: 60
 aliases:
   - /enterprise/v1.9/administration/ports/
   - /enterprise_influxdb/v1.9/administration/ports/
