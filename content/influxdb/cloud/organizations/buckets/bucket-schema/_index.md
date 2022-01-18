@@ -97,9 +97,9 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
       ]
       ```
 
-   The default field data type is `string`.
+   The default [field data type](/influxdb/cloud/reference/key-concepts/data-elements/#field-value) is `string`.
    To set the data type of a field column, provide the `dataType` property and a valid
-   [field data type](/influxdb/cloud/reference/key-concepts/data-elements/#field-value),
+   [field data type](/influxdb/cloud/reference/key-concepts/data-elements/#field-value) (`string`, `float`, `integer`, or `boolean`),
    as in the following example:
 
    ```json
