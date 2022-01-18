@@ -19,6 +19,12 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 To enhance security, the Token UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you will not be able to view or copy the token. -->
 
+## December 2021
+
+- **Paginated tasks in UI**: Previously, the Dashboards page only listed the first 100 dashboards. Now, all tasks are accessible and paginated on the Dashboards page.
+- **$250 usage credit**: <!-- is this something we want to share here? -->
+
+
 ## November 2021
 
 - [Remove Website demo data](#remove-website-demo-data)
