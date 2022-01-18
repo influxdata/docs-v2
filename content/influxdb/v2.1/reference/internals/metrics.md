@@ -15,7 +15,7 @@ performance, resource, and usage metrics formatted in the [Prometheus plain-text
 
 [{{< api-endpoint method="GET" endpoint="http://localhost:8086/metrics" >}}](/influxdb/v2.1/api/#operation/GetMetrics)
 
-Metrics contain a name and a set of optional key-value pairs.
+Metrics contain a name, an optional set of key-value pairs, and a value.
 
 The following descriptors precede each metric:
 
@@ -35,15 +35,18 @@ go_memstats_alloc_bytes 2.27988488e+08
 # TYPE go_memstats_alloc_bytes_total counter
 go_memstats_alloc_bytes_total 9.68016566648e+11
 ```
-- [Boltdb](#boltdb)
-- [Go](#go)
-- [HTTP](#http)
-- [InfluxDB](#influxdb)
-- [QC (query controller)](#qc-query-controller)
-- [Service](#service)
-- [Task](#task)
 
-## Boltdb
+The InfluxDB `/metrics` endpoint returns the following metrics:
+
+- [Boltdb](#boltdb-statistics)
+- [Go runtime](#go-runtime-statistics)
+- [HTTP API](#http-api-statistics)
+- [InfluxDB objects and queries](#influxdb-object-and-query-statistics)
+  - [QC (query controller)](#qc-query-controller-statistics)
+- [InfluxDB services](#influxdb-service-statistics)
+- [InfluxDB tasks](#influxdb-task-statistics)
+
+## Boltdb statistics
 
 ### Reads total
 
@@ -68,9 +71,13 @@ Total number of boltdb writes.
 boltdb_writes_total 201591
 ```
 
-## Go
+## Go runtime statistics
 
-###  GC (garbage collection)  duration seconds
+For more detail about Go runtime statistics, see the following:
+- [Go diagostics documentation](https://go.dev/doc/diagnostics)
+- [Go mstats](https://github.com/golang/go/blob/master/src/runtime/mstats.go)
+
+### GC (garbage collection) duration seconds
 
 A summary of the pause duration of garbage collection cycles.
 
@@ -107,7 +114,7 @@ Information about the Go environment.
 go_info{version="go1.17"} 1
 ```
 
-### Memstats alloc bytes
+### Memory allocated bytes
 
 Number of bytes allocated and still in use.
 
@@ -119,7 +126,7 @@ Number of bytes allocated and still in use.
 go_memstats_alloc_bytes 2.27988488e+08
 ```
 
-### Memstats alloc bytes total
+### Memory allocated bytes total
 
 Total number of bytes allocated, even if freed.
 
@@ -131,7 +138,7 @@ Total number of bytes allocated, even if freed.
 go_memstats_alloc_bytes_total 9.68016566648e+11
 ```
 
-### Memstats buck hash system bytes
+### Memory bucket hash system bytes
 
 Number of bytes used by the profiling bucket hash table.
 
@@ -143,7 +150,7 @@ Number of bytes used by the profiling bucket hash table.
 go_memstats_buck_hash_sys_bytes 1.0067613e+07
 ```
 
-### Memstats frees total
+### Memory frees total
 
 Total number of frees.
 
@@ -155,7 +162,7 @@ Total number of frees.
 go_memstats_frees_total 1.3774541795e+10
 ```
 
-### Memstats GC (garbage collection) CPU fraction
+### Memory GC (garbage collection) CPU fraction
 
 The fraction of this program's available CPU time used by the GC since the program started.
 
@@ -167,7 +174,7 @@ The fraction of this program's available CPU time used by the GC since the progr
 go_memstats_gc_cpu_fraction 0.011634918451016558
 ```
 
-### Memstats GC (garbage collection) system bytes
+### Memory GC (garbage collection) system bytes
 
 Number of bytes used for garbage collection system metadata.
 
@@ -179,7 +186,7 @@ Number of bytes used for garbage collection system metadata.
 go_memstats_gc_sys_bytes 4.63048016e+08
 ```
 
-### Memstats heap allocated bytes
+### Memory heap allocated bytes
 
 Number of heap bytes allocated and still in use.
 
@@ -191,7 +198,7 @@ Number of heap bytes allocated and still in use.
 go_memstats_heap_alloc_bytes 2.27988488e+08
 ```
 
-### Memstats heap idle bytes
+### Memory heap idle bytes
 
 Number of heap bytes waiting to be used.
 
@@ -203,7 +210,7 @@ Number of heap bytes waiting to be used.
 go_memstats_heap_idle_bytes 1.0918273024e+10
 ```
 
-### Memstats heap in use bytes
+### Memory heap in use bytes
 
 Number of heap bytes that are in use.
 
@@ -215,9 +222,11 @@ Number of heap bytes that are in use.
 go_memstats_heap_inuse_bytes 3.5975168e+08
 ```
 
-### Memstats heap objects
+### Memory heap objects
 
 Number of allocated objects.
+_Allocated_ heap objects include all reachable objects, as
+well as unreachable objects that the garbage collector has not yet freed.
 
 #### Example
 
@@ -227,7 +236,7 @@ Number of allocated objects.
 go_memstats_heap_objects 2.404017e+06
 ```
 
-### Memstats heap released bytes
+### Memory heap released bytes
 
 Number of heap bytes released to the OS.
 
@@ -239,7 +248,7 @@ Number of heap bytes released to the OS.
 go_memstats_heap_released_bytes 2.095038464e+09
 ```
 
-### Memstats heap system bytes
+### Memory heap system bytes
 
 Number of heap bytes obtained from the system.
 
@@ -251,7 +260,7 @@ Number of heap bytes obtained from the system.
 go_memstats_heap_sys_bytes 1.1278024704e+10
 ```
 
-### Memstats last GC (garbage collection) time seconds
+### Memory last GC (garbage collection) time seconds
 
 Number of seconds since 1970 of the last garbage collection.
 
@@ -263,7 +272,7 @@ Number of seconds since 1970 of the last garbage collection.
 go_memstats_last_gc_time_seconds 1.64217120199452e+09
 ```
 
-### Memstats lookups total
+### Memory lookups total
 
 Total number of pointer lookups.
 
@@ -275,9 +284,9 @@ Total number of pointer lookups.
 go_memstats_lookups_total 0
 ```
 
-### Memstats mallocs total
+### Memory allocations total
 
-Total number of mallocs.
+The cumulative count of heap objects allocated.
 
 #### Example
 
@@ -287,7 +296,7 @@ Total number of mallocs.
 go_memstats_mallocs_total 1.3776945812e+10
 ```
 
-### Memstats mcache in use bytes
+### Memory mcache in use bytes
 
 Number of bytes in use by mcache structures.
 
@@ -299,7 +308,7 @@ Number of bytes in use by mcache structures.
 go_memstats_mcache_inuse_bytes 9600
 ```
 
-### Memstats mcache system bytes
+### Memory mcache system bytes
 
 Number of bytes used for mcache structures obtained from system.
 
@@ -311,9 +320,9 @@ Number of bytes used for mcache structures obtained from system.
 go_memstats_mcache_sys_bytes 16384
 ```
 
-### Memstats mspan in use bytes
+### Memory mspan in use bytes
 
-Number of bytes in use by mspan structures.
+Number of bytes of allocated mspan structures.
 
 #### Example
 
@@ -323,9 +332,9 @@ Number of bytes in use by mspan structures.
 go_memstats_mspan_inuse_bytes 4.199e+06
 ```
 
-### Memstats mspan system bytes
+### Memory mspan system bytes
 
-Number of bytes used for mspan structures obtained from system.
+Bytes of memory obtained from the OS for mspan structures.
 
 #### Example
 
@@ -335,7 +344,7 @@ Number of bytes used for mspan structures obtained from system.
 go_memstats_mspan_sys_bytes 1.65609472e+08
 ```
 
-### Memstats next GC (garbage collection) bytes
+### Memory next GC (garbage collection) bytes
 
 Number of heap bytes when next garbage collection will take place.
 
@@ -347,7 +356,7 @@ Number of heap bytes when next garbage collection will take place.
 go_memstats_next_gc_bytes 4.45628016e+08
 ```
 
-### Memstats other system bytes
+### Memory other system bytes
 
 Number of bytes used for other system allocations.
 
@@ -359,7 +368,7 @@ Number of bytes used for other system allocations.
 go_memstats_other_sys_bytes 8.1917722e+07
 ```
 
-### Memstats stack in use bytes
+### Memory stack in use bytes
 
 Number of bytes in use by the stack allocator.
 
@@ -371,7 +380,7 @@ Number of bytes in use by the stack allocator.
 go_memstats_stack_inuse_bytes 8.84736e+06
 ```
 
-### Memstats stack system bytes
+### Memory stack system bytes
 
 Number of bytes obtained from system for stack allocator.
 
@@ -383,7 +392,7 @@ Number of bytes obtained from system for stack allocator.
 go_memstats_stack_sys_bytes 8.84736e+06
 ```
 
-### Memstats system bytes
+### Memory system bytes
 
 Number of bytes obtained from system.
 
@@ -407,7 +416,7 @@ Number of OS threads created.
 go_threads 27
 ```
 
-## HTTP
+## HTTP API statistics
 
 ### API request duration seconds
 
@@ -424,7 +433,7 @@ http_api_request_duration_seconds_bucket{handler="platform",method="DELETE",path
 
 ### API requests total
 
-Number of http requests received.
+Number of HTTP requests received.
 
 #### Example
 
@@ -471,7 +480,7 @@ Count of bytes returned by the query.
 http_query_response_bytes{endpoint="/api/v2/query",org_id="48c88459ee424a04",status="200"} 103
 ```
 
-## InfluxDB
+## InfluxDB object and query statistics
 
 ### Buckets total
 
@@ -499,7 +508,7 @@ influxdb_dashboards_total 2
 
 ### Info
 
-Information about the influxdb environment.
+Information about the InfluxDB environment.
 
 #### Example
 
@@ -545,7 +554,7 @@ Number of total telegraf configurations on the server.
 influxdb_telegrafs_total 0
 ```
 
-### Tokens total
+### Token services total
 
 Number of total tokens on the server.
 
@@ -581,7 +590,7 @@ Number of total users on the server
 influxdb_users_total 84
 ```
 
-## QC (query controller)
+## QC (query controller) statistics
 
 ### All active
 
@@ -713,7 +722,7 @@ qc_requests_total{org="48c88459ee424a04",result="success"} 2
 --
 ```
 
-### Query influxdb source read request duration seconds
+### Read request duration
 
 Histogram of times spent in read requests.
 
@@ -726,9 +735,9 @@ query_influxdb_source_read_request_duration_seconds_bucket{op="readTagKeys",org=
 --
 ```
 
-## Service
+## InfluxDB service statistics
 
-### Bucket new call total
+### Bucket service new call total
 
 Number of calls.
 
@@ -741,7 +750,7 @@ service_bucket_new_call_total{method="find_bucket"} 6177
 --
 ```
 
-### Bucket new duration
+### Bucket service new duration
 
 Duration of calls.
 
@@ -754,7 +763,7 @@ service_bucket_new_duration_bucket{method="find_bucket",le="0.005"} 5876
 --
 ```
 
-### Bucket new error total
+### Bucket service new error total
 
 Number of errors encountered.
 
@@ -766,7 +775,7 @@ Number of errors encountered.
 service_bucket_new_error_total{code="not found",method="find_bucket_by_id"} 76
 ```
 
-### Onboard new call total
+### Onboard service new call total
 
 Number of calls.
 
@@ -778,7 +787,7 @@ Number of calls.
 service_onboard_new_call_total{method="is_onboarding"} 11
 ```
 
-### Onboard new duration
+### Onboard service new duration
 
 Duration of calls.
 
@@ -791,7 +800,7 @@ service_onboard_new_duration_bucket{method="is_onboarding",le="0.005"} 11
 --
 ```
 
-### Org call total
+### Organization service call total
 
 Number of calls.
 
@@ -803,7 +812,7 @@ Number of calls.
 service_org_call_total{method="find_labels_for_resource"} 10
 ```
 
-### Org duration
+### Organization service duration
 
 Duration of calls.
 
@@ -816,7 +825,7 @@ service_org_duration_bucket{method="find_labels_for_resource",le="0.005"} 10
 --
 ```
 
-### Org new call total
+### Organization service new call total
 
 Number of calls.
 
@@ -829,7 +838,7 @@ service_org_new_call_total{method="find_org"} 1572
 --
 ```
 
-### Org new duration
+### Organization service new duration
 
 Duration of calls.
 
@@ -842,7 +851,7 @@ service_org_new_duration_bucket{method="find_org",le="0.005"} 1475
 --
 ```
 
-### Org new error total
+### Organization service new error total
 
 Number of errors encountered.
 
@@ -854,7 +863,7 @@ Number of errors encountered.
 service_org_new_error_total{code="not found",method="find_orgs"} 1
 ```
 
-### Password new call total
+### Password service new call total
 
 Number of calls.
 
@@ -866,7 +875,7 @@ Number of calls.
 service_password_new_call_total{method="compare_password"} 4
 ```
 
-### Password new duration
+### Password service new duration
 
 Duration of calls.
 
@@ -879,7 +888,7 @@ service_password_new_duration_bucket{method="compare_password",le="0.005"} 0
 --
 ```
 
-### Password new error total
+### Password service new error total
 
 Number of errors encountered.
 
@@ -891,7 +900,7 @@ Number of errors encountered.
 service_password_new_error_total{code="forbidden",method="compare_password"} 1
 ```
 
-### Pkger call total
+### Pkger service call total
 
 Number of calls.
 
@@ -903,7 +912,7 @@ Number of calls.
 service_pkger_call_total{method="export"} 3
 ```
 
-### Pkger duration
+### Pkger service duration
 
 Duration of calls.
 
@@ -916,7 +925,7 @@ service_pkger_duration_bucket{method="export",le="0.005"} 0
 --
 ```
 
-### Pkger template export
+### Pkger service template export
 
 Metrics for resources being exported
 
@@ -928,7 +937,7 @@ Metrics for resources being exported
 service_pkger_template_export{buckets="0",by_stack="false",checks="0",dashboards="0",endpoints="0",label_mappings="0",labels="0",method="export",num_org_ids="1",rules="0",tasks="0",telegraf_configs="0",variables="0"} 3
 ```
 
-### Session call total
+### Session service call total
 
 Number of calls.
 
@@ -941,7 +950,7 @@ service_session_call_total{method="create_session"} 3
 --
 ```
 
-### Session duration
+### Session service duration
 
 Duration of calls.
 
@@ -954,7 +963,7 @@ service_session_duration_bucket{method="create_session",le="0.005"} 3
 --
 ```
 
-### Session error total
+### Session service error total
 
 Number of errors encountered.
 
@@ -966,7 +975,7 @@ Number of errors encountered.
 service_session_error_total{code="not found",method="find_session"} 4
 ```
 
-### Token call total
+### Token service call total
 
 Number of calls.
 
@@ -979,7 +988,7 @@ service_token_call_total{method="delete_authorization"} 3
 --
 ```
 
-### Token duration
+### Token service duration
 
 Duration of calls.
 
@@ -992,7 +1001,7 @@ service_token_duration_bucket{method="delete_authorization",le="0.005"} 1
 --
 ```
 
-### Token error total
+### Token service error total
 
 Number of errors encountered.
 
@@ -1051,9 +1060,9 @@ service_user_new_duration_bucket{method="find_permission_for_user",le="0.005"} 4
 --
 ```
 
-## Task
+## InfluxDB task statistics
 
-### Executor errors counter
+### Task executor errors counter
 
 The number of errors thrown by the executor with the type of error (ex. Invalid, Internal, etc.)
 
@@ -1066,7 +1075,7 @@ task_executor_errors_counter{errorType="internal error",task_type="system"} 1183
 --
 ```
 
-### Executor promise queue usage
+### Task executor promise queue usage
 
 Percent of the promise queue that is currently full.
 
@@ -1078,7 +1087,7 @@ Percent of the promise queue that is currently full.
 task_executor_promise_queue_usage 0
 ```
 
-### Executor run duration
+### Task executor run duration
 
 The duration in seconds between a run starting and finishing.
 
@@ -1091,7 +1100,7 @@ task_executor_run_duration{taskID="08017725990f6000",task_type="",quantile="0.5"
 --
 ```
 
-### Executor run latency seconds
+### Task executor run latency seconds
 
 Records the latency between the time the run was due to run and the time the task started execution, by task type.
 
@@ -1104,7 +1113,7 @@ task_executor_run_latency_seconds_bucket{task_type="system",le="0.005"} 0
 --
 ```
 
-### Executor run queue delta
+### Task executor run queue delta
 
 The duration in seconds between a run being due to start and actually starting.
 
@@ -1117,7 +1126,7 @@ task_executor_run_queue_delta{taskID="08017725990f6000",task_type="",quantile="0
 --
 ```
 
-### Executor total runs active
+### Task executor total runs active
 
 Total number of workers currently running tasks.
 
@@ -1129,7 +1138,7 @@ Total number of workers currently running tasks.
 task_executor_total_runs_active 0
 ```
 
-### Executor total runs complete
+### Task executor total runs complete
 
 Total number of runs completed across all tasks, split out by success or failure.
 
@@ -1142,7 +1151,7 @@ task_executor_total_runs_complete{status="failed",task_type="system"} 1384
 --
 ```
 
-### Executor workers busy
+### Task executor workers busy
 
 Percent of total available workers that are currently busy.
 
@@ -1154,7 +1163,7 @@ Percent of total available workers that are currently busy.
 task_executor_workers_busy 0
 ```
 
-### Scheduler current execution
+### Task scheduler current execution
 
 Number of tasks currently being executed.
 
@@ -1166,7 +1175,7 @@ Number of tasks currently being executed.
 task_scheduler_current_execution 128
 ```
 
-### Scheduler execute delta
+### Task scheduler execute delta
 
 The duration in seconds between a run starting and finishing.
 
@@ -1179,7 +1188,7 @@ task_scheduler_execute_delta{quantile="0.5"} NaN
 --
 ```
 
-### Scheduler schedule delay
+### Task scheduler schedule delay
 
 The duration between when a Item should be scheduled and when it is told to execute.
 
@@ -1192,7 +1201,7 @@ task_scheduler_schedule_delay{quantile="0.5"} NaN
 --
 ```
 
-### Scheduler total execute failure
+### Task scheduler total execute failure
 
 Total number of times an execution has failed.
 
@@ -1204,7 +1213,7 @@ Total number of times an execution has failed.
 task_scheduler_total_execute_failure 0
 ```
 
-### Scheduler total execution calls
+### Task scheduler total execution calls
 
 Total number of executions across all tasks.
 
@@ -1216,7 +1225,7 @@ Total number of executions across all tasks.
 task_scheduler_total_execution_calls 4806
 ```
 
-### Scheduler total release calls
+### Task scheduler total release calls
 
 Total number of release requests.
 
@@ -1228,7 +1237,7 @@ Total number of release requests.
 task_scheduler_total_release_calls 0
 ```
 
-### Scheduler total schedule calls
+### Task scheduler total schedule calls
 
 Total number of schedule requests.
 
@@ -1240,7 +1249,7 @@ Total number of schedule requests.
 task_scheduler_total_schedule_calls 6
 ```
 
-### Scheduler total schedule fails
+### Task scheduler total schedule fails
 
 Total number of schedule requests that fail to schedule.
 
