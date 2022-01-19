@@ -490,6 +490,13 @@ This limit can be disabled by setting it to `0`.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_QUERIES`
 
+#### `max-concurrent-deletes = 1`
+
+The maximum number of allowed simultaneous `DELETE` calls on a shard.
+The default is 1.
+
+Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_DELETES`
+
 #### `query-timeout = "0s"`
 
 The maximum time a query is allowed to execute before being killed by the system.
