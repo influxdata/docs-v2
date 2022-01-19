@@ -27,7 +27,6 @@ influx remote list [command options] [arguments...]
 |      | `--org-id`     | Local org ID [$INFLUX_ORG_ID]                                |            |                    |
 | `-o` | `--org`        | Local org name [$INFLUX_ORG]                                 |            |                    |
 |      | `--remote-url` | Filter results to only connections for a specific remote URL |            |                    |
-
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     | `INFLUX_CONFIGS_PATH` |

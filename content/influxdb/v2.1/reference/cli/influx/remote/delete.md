@@ -11,7 +11,7 @@ related:
   - /influxdb/v2.1/reference/cli/influx/replication
 ---
 
-Delete an existing remote connection
+Delete an existing remote connection.
 
 ## Usage
 ```
