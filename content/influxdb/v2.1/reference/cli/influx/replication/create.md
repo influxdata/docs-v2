@@ -11,22 +11,25 @@ related:
   - /influxdb/v2.1/reference/cli/influx/replication
 ---
 
-   influx replication create - Create a new replication stream
+Create a new replication stream.
 
-USAGE:
-   influx replication create [command options] [arguments...]
+## Usage
+```   
+influx replication create [command options] [arguments...]
+```
 
-OPTIONS:
-   --name value, -n value         Name for new replication stream
-   --description value, -d value  Description for new replication stream
-   --org-id value                 The ID of the local organization [$INFLUX_ORG_ID]
-   --org value, -o value          The name of the local organization [$INFLUX_ORG]
-   --remote-id value              Remote connection the new replication stream should send data to
-   --local-bucket value           ID of local bucket data should be replicated from
-   --remote-bucket value          ID of remote bucket data should be replicated to
-   --max-queue-bytes value        Max queue size in bytes (default: 67108860)
-   --drop-non-retryable-data      Drop data when a non-retryable error is encountered instead of retrying
-   --no-drop-non-retryable-data   Do not drop data when a non-retryable error is encountered
+## Flags
+
+| `-n` | `--name`                       | Name for new replication stream                                         | string |                 |
+| `-d` | `--description`                | Description for new replication stream                                  | string |                 |
+|      | `--org-id`                     | The ID of the local organization                                        | string | `INFLUX_ORG_ID` |
+| `-o` | `--org`                        | The name of the local organization                                      | string | `INFLUX_ORG`    |
+|      | `--remote-id`                  | Remote connection the new replication stream should send data to        | string |                 |
+|      | `--local-bucket`               | ID of local bucket data should be replicated from                       | string |                 |
+|      | `--remote-bucket`              | ID of remote bucket data should be replicated to                        | string |                 |
+|      | `--max-queue-bytes`            | Max queue size in bytes (default: 67108860)                             |        |                 |
+|      | `--drop-non-retryable-data`    | Drop data when a non-retryable error is encountered instead of retrying |        |                 |
+|      | `--no-drop-non-retryable-data` | Do not drop data when a non-retryable error is encountered              |        |                 |
 
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
