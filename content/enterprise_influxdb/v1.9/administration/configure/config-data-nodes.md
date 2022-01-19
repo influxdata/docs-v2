@@ -495,6 +495,8 @@ Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_QUERIES`
 The maximum number of simultaneous `DELETE` calls on a shard.
 The default is 1.
 
+Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_DELETES`
+
 #### `query-timeout = "0s"`
 
 The maximum time a query is allowed to execute before being killed by the system.
