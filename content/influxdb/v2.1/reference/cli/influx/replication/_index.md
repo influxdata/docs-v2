@@ -17,6 +17,7 @@ influx replication [commond options] [arguments...]
 ```
 
 ## Subcommands
+|                                                                  |                                                        |
 |:-----------------------------------------------------------------|:-------------------------------------------------------|
 | [create](/influxdb/v2.1/reference/cli/influx/replication/create) | Create a new replication stream                        |
 | [delete](/influxdb/v2.1/reference/cli/influx/replication/delete) | Delete an existing replication stream                  |

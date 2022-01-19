@@ -22,8 +22,8 @@ influx remote create [commond options] [arguments...]
 
 | Flag |                        | Description                                                           | Input type | {{< cli/mapped >}}    |
 |:-----|:-----------------------|:----------------------------------------------------------------------|:----------:|:----------------------|
-|      | `--org-id`             | The ID of the organization                                            | string     | [$INFLUX_ORG_ID]      |
-| `-o` | `--org`                | The name of the organization                                          | string     | [$INFLUX_ORG]         |
+|      | `--org-id`             | The ID of the organization                                            | string     | `INFLUX_ORG_ID`       |
+| `-o` | `--org`                | The name of the organization                                          | string     | `INFLUX_ORG`          |
 | `-n` | `--name`               | Name for the new remote connection                                    | string     |                       |
 | `-d` | `--description`        | Description for the new remote connection                             | string     |                       |
 |      | `--remote-url`         | The url for the remote database                                       | string     |                       |

@@ -20,6 +20,8 @@ influx replication create [command options] [arguments...]
 
 ## Flags
 
+| Flag |          | Description                        | Input type | {{< cli/mapped >}} |
+|:-----|:---------|:-----------------------------------|:----------:|:-------------------|
 | `-n` | `--name`                       | Name for new replication stream                                         | string |                 |
 | `-d` | `--description`                | Description for new replication stream                                  | string |                 |
 |      | `--org-id`                     | The ID of the local organization                                        | string | `INFLUX_ORG_ID` |
@@ -30,7 +32,6 @@ influx replication create [command options] [arguments...]
 |      | `--max-queue-bytes`            | Max queue size in bytes (default: 67108860)                             |        |                 |
 |      | `--drop-non-retryable-data`    | Drop data when a non-retryable error is encountered instead of retrying |        |                 |
 |      | `--no-drop-non-retryable-data` | Do not drop data when a non-retryable error is encountered              |        |                 |
-
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     | `INFLUX_CONFIGS_PATH` |

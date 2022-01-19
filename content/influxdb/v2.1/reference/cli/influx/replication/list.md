@@ -19,13 +19,13 @@ influx replication list [command options] [arguments...]
 ```
 
 ## Flags
-
-| `-n` | `--name`         | Filter results to only replication streams with a specific name             | string |                 |
-|      | `--org-id`       | Local org ID                                                                | string | `INFLUX_ORG_ID` |
-| `-o` | `--org`          | Local org name                                                              | string | `INFLUX_ORG`    |
-|      | `--remote-id`    | Filter results to only replication streams for a specific remote connection | string |                 |
-|      | `--local-bucket` | Filter results to only replication streams for a specific local bucket      | string |                 |
-
+| Flag |                  | Description                                                                 | Input type | {{< cli/mapped >}} |
+|:-----|:-----------------|:----------------------------------------------------------------------------|:----------:|:-------------------|
+| `-n` | `--name`         | Filter results to only replication streams with a specific name             | string     |                    |
+|      | `--org-id`       | Local org ID                                                                | string     | `INFLUX_ORG_ID`    |
+| `-o` | `--org`          | Local org name                                                              | string     | `INFLUX_ORG`       |
+|      | `--remote-id`    | Filter results to only replication streams for a specific remote connection | string     |                    |
+|      | `--local-bucket` | Filter results to only replication streams for a specific local bucket      | string     |                    |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)                  | string | `INFLUX_HOST`         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                           |        | `INFLUX_SKIP_VERIFY`  |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)       | string | `INFLUX_CONFIGS_PATH` |
