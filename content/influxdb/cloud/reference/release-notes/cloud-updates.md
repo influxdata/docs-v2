@@ -21,7 +21,7 @@ To enhance security, the Token UI will only display an InfluxDB Cloud token when
 
 ## December 2021
 
-- **Paginated tasks in UI**: Previously, the Dashboards page only listed the first 100 dashboards. Now, all tasks are accessible and paginated on the Dashboards page.
+- **Paginated dashboards in UI**: Previously, the Dashboards page could take awhile to load with more than a few dashboards. Now, all dashboarrds are  immediately paginated and accessible on the Dashboards page.
 - **$250 usage credit**: <!-- is this something we want to share here? -->
 
 
