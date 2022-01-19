@@ -15,13 +15,13 @@
   {{ .Scratch.Set "modalTitle" "Select your InfluxDB Cloud region" }}
 {{ end }}
 
-{{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region** or your **InfluxDB OSS URL** and we'll customize code examples for you." }}
+{{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region and cluster** or your **InfluxDB OSS URL** and we'll customize code examples for you. _[Identify your InfluxDB Cloud cluster](/influxdb/cloud/reference/regions/#regions-with-multiple-clusters)_." }}
 {{ if $isOSS }}
   {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB OSS URL** and we'll update code examples for you." }}
 {{ else if $isEnterprise }}
   {{ .Scratch.Set "modalMessage" "Customize your **InfluxDB Enterprise URL** and we'll update code examples for you." }}
 {{ else if $isCloud }}
-  {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region** and we'll customize code examples for you." }}
+  {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region and cluster** and we'll customize code examples for you. _[Identify your InfluxDB Cloud cluster](/influxdb/cloud/reference/regions/#regions-with-multiple-clusters)_." }}
 {{ end }}
 
 {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Cloud regions](" $CloudLink ") or [InfluxDB OSS URLs](" $OSSLink ")") }}
@@ -62,12 +62,30 @@
             <h5>{{ if .short_name}}{{ .short_name }}{{ else }}{{ .name }}{{ end }}</h5>
             <ul>
             {{ range .regions }}
-              <li>
-                <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
-                  <input type="radio" name="influxdb-{{ $formID }}-url" id="{{ anchorize .name }}" value="{{ .url }}" checked>
-                  <span class="radio"></span>
-                  {{ .name }}
-                </label>
+              <li class="region-group">
+                {{ if .clusters }}
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    {{ .name }}
+                  </p>
+                  <ul class="clusters">
+                  {{ range .clusters }}
+                    <li>
+                      <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
+                      <input type="radio" name="influxdb-{{ $formID }}-url" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                      <span class="radio"></span>
+                      {{ .name }}
+                    </label>
+                    </li>
+                  {{ end }}
+                  </ul>
+                {{ else }}
+                  <label for="{{ anchorize .name }}" {{ if .status }}class="{{ .status }}"{{ end }}>
+                    <input type="radio" name="influxdb-{{ $formID }}-url" id="{{ anchorize .name }}" value="{{ .url }}" checked>
+                    <span class="radio"></span>
+                    {{ .name }}
+                  </label>
+                {{ end }}
               </li>
             {{ end }}
           {{ end }}
