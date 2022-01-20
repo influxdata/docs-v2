@@ -21,9 +21,9 @@ Use the URLs below to interact with your InfluxDB Cloud instances with the
 
 {{% note %}}
 #### Regions with multiple clusters
-Some InfluxDB Cloud regions have multiple InfluxDB clusters, each with a unique URL.
-To find out which cluster you're using, [login to your InfluxDB Cloud organization](https://cloud2.influxdata.com)
-and look at the URL of your organization. The first subdomain identifies your 
+Some InfluxDB Cloud regions have multiple Cloud clusters, each with a unique URL.
+To find your cluster URL, [log in to your InfluxDB Cloud organization](https://cloud2.influxdata.com)
+and review your organization URL. The first subdomain identifies your 
 InfluxDB Cloud cluster. For example:
 
 <pre class="highlight">
