@@ -97,7 +97,7 @@ Include the following in your request:
 | Format of scraped data | Pass as `type` in the request body. Prometheus data format (`prometheus`) is the only supported type. |
 | URL endpoint to scrape | Pass as `url` in the request body. |
 
-Optionally, to force the scraper to skip TLS verification and ignore self-signed certificates at the `url`, pass `"allowInsecure": "true"` in the request body.
+Optionally, to force the scraper to skip TLS verification and ignore self-signed certificates at the `url`, pass `"allowInsecure": true` in the request body.
 
 #### Example
 
