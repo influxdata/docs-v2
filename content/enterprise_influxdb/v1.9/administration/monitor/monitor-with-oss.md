@@ -8,6 +8,8 @@ menu:
     name: Monitor with OSS
     parent: Monitor
 weight: 101
+related:
+  - /platform/monitoring/influxdata-platform/tools/measurements-internal
 aliases:
   - /enterprise_influxdb/v1.9/administration/monitor-enterprise/monitor-with-oss/
 ---
