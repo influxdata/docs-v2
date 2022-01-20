@@ -93,9 +93,11 @@ Include the following in your request:
 |:-----------          |:----------                                               |
 | API token with [`write: orgs/YOUR_ORG_ID/scrapers`](/influxdb/v2.1/api/#operation/PostAuthorizations) permission | Use the `Authorization` header and the `Bearer` or `Token` scheme. |
 | Organization         | Pass as `orgID` in the request body. |
-| Scraper target name         | Pass as `name` in the request body. |
-| Format of scraped data | Pass as `type: "prometheus"` in the request body. Prometheus data format (`prometheus`) is the only supported type. |
-| Target URL to scrape data from | Pass as `url` in the request body. |
+| Scraper name         | Pass as `name` in the request body. |
+| Format of scraped data | Pass as `type` in the request body. Prometheus data format (`prometheus`) is the only supported type. |
+| URL endpoint to scrape | Pass as `url` in the request body. |
+
+Optionally, to force the scraper to skip TLS verification and ignore self-signed certificates at the `url`, pass `"allowInsecure": "true"` in the request body.
 
 #### Example
 
