@@ -7,6 +7,20 @@ menu:
     name: Release notes
 ---
 
+## v1.6.3 [2022-01-20]
+
+### Features
+
+- Support for the `attributes` field in Alerta node.
+- Add BigPanda handler options.
+- The `env var` config can now handle new items.
+- `Topic queue length` is now configurable.
+- Add new `address template` to email alert.
+
+### Bug fixes
+- Deprecations in response to feedback from sweet32 - thank you!
+- Add additional detail to the error message `missing flux data`.
+
 ## v1.6.2 [2021-09-24]
 
 ### Features
