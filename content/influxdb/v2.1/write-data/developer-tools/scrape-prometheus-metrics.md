@@ -50,7 +50,7 @@ endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, 
 2. Add the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb_v2)
    to your Telegraf configuration file and configure it to to write to
    InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}.
-  
+
 ##### Example telegraf.conf
 ```toml
 # ...
@@ -73,9 +73,51 @@ endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, 
 {{% oss-only %}}
 
 ## Use an InfluxDB scraper
-InfluxDB scrapers automatically scrape Prometheus-formatted metrics from an 
+InfluxDB scrapers automatically scrape Prometheus-formatted metrics from an
 HTTP-accessible endpoint at a regular interval.
-For information about setting up an InfluxDB scraper, see
+
+- [Create a scraper with the InfluxDB API](#create-a-scraper-with-the-influxdb-api)
+- [Create a scraper with the InfluxDB UI](#create-a-scraper-with-the-influxdb-ui)
+
+### Create a scraper with the InfluxDB API
+
+Use the InfluxDB API [`/api/v2/scrapers`](/influxdb/v2.1/api/#tag/Scraper-Targets) endpoint to manage scrapers and member privileges for scrapers.
+
+To create a scraper, send an HTTP `POST` request to the `/api/v2/scrapers` endpoint.
+
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/scrapers" >}}
+
+Include the following in your request:
+
+| Requirement          | Include by                                               |
+|:-----------          |:----------                                               |
+| API token with [`write: orgs/YOUR_ORG_ID/scrapers`](/influxdb/v2.1/api/#operation/PostAuthorizations) permission | Use the `Authorization` header and the `Bearer` or `Token` scheme. |
+| Organization         | Pass as `orgID` in the request body. |
+| Scraper target name         | Pass as `name` in the request body. |
+| Format of scraped data | Pass as `type: "prometheus"` in the request body. Prometheus data format (`prometheus`) is the only supported type. |
+| Target URL to scrape data from | Pass as `url` in the request body. |
+
+#### Example
+
+```sh
+curl -v --request POST http://localhost:8086/api/v2/scrapers \
+  --header "Authorization: Token ${INFLUX_TOKEN}" \
+  --header 'Content-type: application/json' \
+  --data-binary @- << JSON
+    {
+      "name": "Scraper name",
+      "type": "prometheus",
+      "url": "http://localhost:9090/metrics",
+      "orgID": "${INFLUX_ORG}",
+      "bucketID": "c55193a037c3b0ca",
+      "allowInsecure": true
+    }
+JSON
+```
+
+### Create a scraper with the InfluxDB UI
+
+To use the InfluxDB UI to manage scrapers, see
 [Scrape data using InfluxDB scrapers](/influxdb/v2.1/write-data/no-code/scrape-data/).
 
 {{% /oss-only %}}
