@@ -46,7 +46,7 @@ with the `-portable` flag:
    influxd-ctl restore [ -host <host:port> ] <path-to-backup-files>
    ```
    
-    > NOTE:  InfluxDB Enterprise uses the **influxd-ctl utility** to backup and restore data.  For more information, 
+    > **Note:**  InfluxDB Enterprise uses the **influxd-ctl utility** to back up and restore data. For more information, 
 see [influxd-ctl](/enterprise_influxdb/v1.9/tools/influxd-ctl) 
 and [`restore`](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore).
 
