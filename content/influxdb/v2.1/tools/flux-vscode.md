@@ -31,6 +31,11 @@ The Flux VS Code extension is available in the **Visual Studio Marketplace**.
 For information about installing extensions from the Visual Studio marketplace,
 see the [Extension Marketplace documentation](https://code.visualstudio.com/docs/editor/extension-gallery).
 
+Once installed, open the **Explorer** area of your VS Code user interface.
+A new **InfluxDB** pane is available below your file explorer.
+
+{{< img-hd src="/img/influxdb/2-1-tools-vsflux-influxdb-pane.png" alt="InfluxDB pane in VS Code" />}}
+
 ## Connect to InfluxDB
 To create an InfluxDB connection in VS Code:
 
