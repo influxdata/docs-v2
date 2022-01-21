@@ -11,9 +11,12 @@ menu:
 
 ### Features
 
-- Support for the `attributes` field in Alerta node.
-- Add BigPanda handler options.
-- The `env var` config can now handle new items.
+- Add support for custom `attributes` attribute in Alerta node. 
+- Add `host` and `attribute` options to BigPanda node. 
+  - `host`: Corresponds to host alert payload parameter; identifies the main object that caused the alert.
+  - `attribute`: Option to add additional attribute(s) to the alert payload.
+- Add new `auto-attributes` configuration option to BigPanda node.
+- Capability to add new items to the `env var` config.
 - `Topic queue length` is now configurable.
 - Add new `address template` to email alert.
 
