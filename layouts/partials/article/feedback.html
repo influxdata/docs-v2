@@ -21,6 +21,14 @@
 {{ $pageGithubLink := .Scratch.Get "pageGithubLink" }}
 {{ $productGithubLink := .Scratch.Get "productGithubLink" }}
 
+{{ $docsIssueLinkBody := print `_Describe the issue here._
+
+%23%23%23%23%23 Relevant URLs
+- ` (.RelPermalink | absURL) `
+- _Provide other relevant URLs (project issues, community threads, etc.)_
+` }}
+{{ $pageGithubIssueLink := print "https://github.com/influxdata/docs-v2/issues/new?body=" $docsIssueLinkBody }}
+
 <hr/>
 <div class="feedback block">
   <div class="support">
@@ -40,7 +48,9 @@
   </div>
   <div class="actions">
     <a href="{{ $pageGithubLink }}" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new/choose" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="{{ $pageGithubIssueLink }}" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="{{ $productGithubLink }}" class="btn issue" target="_blank">Submit {{ $productName }} issue</a>
   </div>
 </div>
+
+

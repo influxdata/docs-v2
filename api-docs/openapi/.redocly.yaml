@@ -1,5 +1,4 @@
-apiDefinitions:
-  main: ref.yaml
+apiDefintions:
 lint:
   plugins:
     - './plugins/docs-plugin.js'

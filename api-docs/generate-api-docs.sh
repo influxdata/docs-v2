@@ -67,6 +67,11 @@ weight: 304
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
 
+  # Use Redoc's openapi-cli to regenerate the v1-compat spec with custom decorations.
+  INFLUXDB_API_VERSION=v1compat INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $version/swaggerV1Compat.yml \
+    --config=./.redocly.yaml \
+    -o $version/swaggerV1Compat.yml
+
   # Use Redoc to generate the v1 compatibility API html
   npm_config_yes=true npx $redocCLI bundle $version/swaggerV1Compat.yml \
     -t template.hbs \
@@ -74,6 +79,7 @@ weight: 304
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
+    --options.noAutoAuth \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
     --output=redoc-static-v1-compat.html \

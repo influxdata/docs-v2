@@ -55,6 +55,7 @@ As shown in the following table, a handful of pushdowns are not supported in Inf
 | **group()** \|> **max()**      |                                  | {{< icon "check" >}} |
 | **group()** \|> **min()**      |                                  | {{< icon "check" >}} |
 | **group()** \|> **sum()**      |                                  | {{< icon "check" >}} |
+| **sort()** \|> **limit()**     |                                  | {{< icon "check" >}} |
 | **window()** \|> **count()**   | {{< icon "check" >}}             | {{< icon "check" >}} |
 | **window()** \|> **first()**   | {{< icon "check" >}}             | {{< icon "check" >}} |
 | **window()** \|> **last()**    | {{< icon "check" >}}             | {{< icon "check" >}} |

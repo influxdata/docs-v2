@@ -14,7 +14,7 @@ canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/create/
 The `influx user create` command creates users in **InfluxDB OSS 2.x**,
 but does not create users in **InfluxDB Cloud**.
 For information about inviting users into your InfluxDB Cloud organization, see
-[Manage multiple users](/influxdb/cloud/account-management/multi-user/).
+[Manage users](/influxdb/cloud/organizations/users/).
 {{% /note %}}
 
 {{< duplicate-oss >}}

@@ -6,6 +6,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/monitor/statechangesonly/
   - /influxdb/cloud/reference/flux/stdlib/monitor/statechangesonly/
+  - /cloud/reference/flux/stdlib/monitor/statechangesonly/
 menu:
   flux_0_x_ref:
     name: monitor.stateChangesOnly

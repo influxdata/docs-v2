@@ -13,7 +13,7 @@ weight: 301
 The `influx org members add` command adds members to organizations in **InfluxDB OSS 2.x**,
 but cannot add organization members to **InfluxDB Cloud**.
 For information about inviting users into your InfluxDB Cloud organization, see
-[Manage multiple users](/influxdb/cloud/account-management/multi-user/).
+[Manage users](/influxdb/cloud/organizations/users/).
 {{% /note %}}
 
 {{< duplicate-oss >}}
