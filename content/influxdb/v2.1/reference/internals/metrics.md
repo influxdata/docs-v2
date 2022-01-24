@@ -1177,7 +1177,7 @@ task_scheduler_current_execution 128
 
 ### Task scheduler execute delta
 
-The duration in seconds between a run starting and finishing.
+Duration (in seconds) between a task run starting and finishing.
 
 #### Example
 
