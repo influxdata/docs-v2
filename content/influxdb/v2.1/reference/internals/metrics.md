@@ -1203,7 +1203,7 @@ task_scheduler_schedule_delay{quantile="0.5"} NaN
 
 ### Task scheduler total execute failure
 
-Total number of times an execution has failed.
+Total number of times a scheduled task execution has failed.
 
 #### Example
 
