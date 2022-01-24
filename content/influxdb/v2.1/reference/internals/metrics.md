@@ -20,7 +20,7 @@ Metrics contain a name, an optional set of key-value pairs, and a value.
 The following descriptors precede each metric:
 
 - `HELP`: description of the metric
-- `TYPE`: type of the metric—one of the [Prometheus core metric types](https://prometheus.io/docs/concepts/metric_types/) (`counter`, `gauge`, `histogram`, or `summary`)
+- `TYPE`: [Prometheus metric type](https://prometheus.io/docs/concepts/metric_types/) (`counter`, `gauge`, `histogram`, or `summary`)
 
 #### Example
 
