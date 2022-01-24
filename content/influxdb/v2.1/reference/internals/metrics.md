@@ -1190,7 +1190,7 @@ task_scheduler_execute_delta{quantile="0.5"} NaN
 
 ### Task scheduler schedule delay
 
-The duration between when a Item should be scheduled and when it is told to execute.
+Delay between when a task is scheduled to run and when it is told to execute.
 
 #### Example
 
