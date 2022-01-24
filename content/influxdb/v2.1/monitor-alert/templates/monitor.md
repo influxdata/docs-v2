@@ -96,7 +96,7 @@ On each InfluxDB OSS instance you want to monitor, do the following:
 
     {{< nav-icon "load-data" >}}
 
-2. In the **TELEGRAF** page, find the **Scrape InfluxDB OSS Metrics** configuration and click **Setup Instructions**.
+2. In the **Telegraf** page, find the **Scrape InfluxDB OSS Metrics** configuration and click **Setup Instructions**.
 3. Complete the Telegraf Setup instructions to start Telegraf using the Scrape InfluxDB OSS Metrics
    Telegraf configuration stored in InfluxDB Cloud.
 
