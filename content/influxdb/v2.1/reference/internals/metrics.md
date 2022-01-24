@@ -1215,7 +1215,7 @@ task_scheduler_total_execute_failure 0
 
 ### Task scheduler total execution calls
 
-Total number of executions across all tasks.
+Total number of scheduled executions across all tasks.
 
 #### Example
 
