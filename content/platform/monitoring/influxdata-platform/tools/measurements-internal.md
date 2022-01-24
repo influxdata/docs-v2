@@ -282,7 +282,7 @@ The number of internal requests for iterator cost.
 
 Tracks the number of open connections
 being handled by the data node
-(including counting logical cnnections multiplexed onto a single yamux connection).
+(including counting logical connections multiplexed onto a single yamux connection).
 
 #### removeShardReq
 The number of internal requests to delete a shard from this data node.
