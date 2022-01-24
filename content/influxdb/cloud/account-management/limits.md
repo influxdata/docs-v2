@@ -84,7 +84,9 @@ Limits include:
   - 50 MB maximum request batch size (defined in the `Content-Type` header)
   - 250 MB maximum decompressed request batch size
     <!-- http status code 413 with message {"code":"request too large","message":"cannot read data: points batch is too large"} -->
-- Delete request limit: 300 every 5 minutes
+- Query processing time: 90 seconds
+- Task processing time: 150 seconds
+- Delete request limit: 300 requests every 5 minutes
 
 ## Limit errors
 
