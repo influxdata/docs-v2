@@ -1259,3 +1259,4 @@ Total number of schedule requests that fail to schedule.
 # HELP task_scheduler_total_schedule_fails Total number of schedule requests that fail to schedule.
 # TYPE task_scheduler_total_schedule_fails counter
 task_scheduler_total_schedule_fails 0
+```
