@@ -14,7 +14,7 @@ menu:
 products: [cloud]
 ---
 
-View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs ([pricing vectors](/influxdb/cloud/account-management/pricing-plans/#pricing-vectors)) and other usage data (for example, delete limits), does not affect pricing. For more information about limits, see the [InfluxDB Cloud limits](/influxdb/cloud/account-management/limits/).
+View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs ([pricing vectors](/influxdb/cloud/account-management/pricing-plans/#pricing-vectors)) and other usage data (for example, delete limits), does not affect pricing. For more information, see the [InfluxDB Cloud limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
 
 To view your {{< cloud-name >}} data usage, do the following:
 
