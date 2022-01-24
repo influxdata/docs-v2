@@ -6,7 +6,7 @@ weight: 110
 menu:
   influxdb_cloud:
     parent: Account management
-    name: Limits
+    name: Adjustable quotas and limits
 products: [cloud]
 ---
 
