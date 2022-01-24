@@ -79,7 +79,7 @@ For more detail about Go runtime statistics, see the following:
 
 ### GC (garbage collection) duration seconds
 
-A summary of the pause duration of garbage collection cycles.
+Summary of the pause duration of garbage collection cycles.
 
 #### Example
 
