@@ -36,7 +36,7 @@ go_memstats_alloc_bytes 2.27988488e+08
 go_memstats_alloc_bytes_total 9.68016566648e+11
 ```
 
-The InfluxDB `/metrics` endpoint returns the following metrics:
+The InfluxDB `/metrics` endpoint returns metrics associated with the following categories:
 
 - [Boltdb](#boltdb-statistics)
 - [Go runtime](#go-runtime-statistics)
