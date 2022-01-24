@@ -164,7 +164,7 @@ go_memstats_frees_total 1.3774541795e+10
 
 ### Memory GC (garbage collection) CPU fraction
 
-The fraction of this program's available CPU time used by the GC since the program started.
+Fraction of this program's available CPU time used by the GC since the program started.
 
 #### Example
 
