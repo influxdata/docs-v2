@@ -1140,7 +1140,7 @@ task_executor_total_runs_active 0
 
 ### Task executor total runs complete
 
-Total number of runs completed across all tasks, split out by success or failure.
+Total number of task runs completed across all tasks, split out by success or failure.
 
 #### Example
 
