@@ -470,7 +470,7 @@ http_query_request_count{endpoint="/api/v2/query",org_id="48c88459ee424a04",stat
 
 ### Query response bytes
 
-Count of bytes returned by the query.
+Count of bytes returned by the query endpoint.
 
 #### Example
 
