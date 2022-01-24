@@ -21,8 +21,11 @@ To enhance security, the Token UI will only display an InfluxDB Cloud token when
 
 ## December 2021
 
-- **Paginated tasks in UI**: Previously, the Dashboards page only listed the first 100 dashboards. Now, all tasks are accessible and paginated on the Dashboards page.
-- **$250 usage credit**: <!-- is this something we want to share here? -->
+- **Paginated dashboards in UI**: Previously, the Dashboards could take a while to load with more than a few dashboards. Now, all tasks are immediately accessible on the Dashboards page.
+- **$250 usage credit**: Available when you choose a usage-based plan during signup.
+- **Improved task reliability and reporting**: Moved task runs from `etcd/kv` to `Redis`.
+- **Improved error handling** for InfluxQL queries.
+- When you select a bucket from **Data (Load Data) > Buckets**, the bucket opens in Notebooks.
 
 
 ## November 2021
