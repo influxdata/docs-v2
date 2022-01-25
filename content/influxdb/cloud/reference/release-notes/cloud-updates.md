@@ -23,7 +23,7 @@ To enhance security, the Token UI will only display an InfluxDB Cloud token when
 
 - **Paginated dashboards in UI**: Previously, the Dashboards page could take awhile to load with more than a few dashboards. Now, all dashboards are immediately paginated and accessible on the Dashboards page.
 - **$250 usage credit**: Available when you choose a usage-based plan during signup.
-- **Improved task reliability and reporting**: Moved task runs from `etcd/kv` to `Redis`.
+- **Improved task reliability and reporting**
 - **Improved error handling** for InfluxQL queries.
 - When you select a bucket from **Data (Load Data) > Buckets**, the bucket opens in Notebooks.
 
