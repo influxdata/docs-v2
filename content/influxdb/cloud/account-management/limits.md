@@ -22,6 +22,9 @@ InfluxDB Cloud has adjustable account quotas per organization and hard global sy
 
 To reduce the chance of unexpected charges and protect the service for all users, InfluxDB Cloud has adjustable service quotas applied per account.
 
+{{% note %}} Data-in, reads, and deletes are counted in 5 minutes intervals. If you send more than your plan's allotted quota, you must wait for 5 minute window interval for additional data to process.
+{{% /note %}}
+
 _To request higher service quotas, reach out to [InfluxData Support](https://support.influxdata.com/)._
 
 ### Free Plan
@@ -32,7 +35,7 @@ Data-in (writes) and queries (reads) are accrued against a five-minute window. Q
 <!-- Include something about how this is calculated. -->
 
 - **Data-in**:
-   - 5 MB per 5 minutes (normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/))
+   - Rate of 5 MB per 5 minutes (normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)).
    - Maximum payload 50 MB (HTTP)
 - **Read**: 300 MB per 5 minutes (response bytes)
 - **Cardinality**: 10k series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
@@ -105,6 +108,8 @@ If you exceed your plan's limits, the following errors occur.
 Combine predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points in request).
 {{% /note %}}
 
+<!-- will add these to API docs and link to
+
 ### Errors in InfluxDB API response
 
 The InfluxDB API returns the following HTTP responses when requests exceed specified rate limits or payload limits. Limits for write requests (Data In) and query requests (Reads) are applied within a five minute window.
@@ -117,3 +122,5 @@ The InfluxDB API returns the following HTTP responses when requests exceed speci
 | Cardinality limits  | Error response     |
 | :-------------------| :------------------|
 | When **series cardinality** exceeds your plan’s limit | *HTTP 503 “Series cardinality exceeds your plan's limit”* |
+
+-->
