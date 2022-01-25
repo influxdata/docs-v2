@@ -93,11 +93,7 @@ Limits include:
 
 ## Limit errors
 
-If you exceed your plan's limits, the following errors occur.
-
-### Errors in InfluxDB Cloud UI
-
-{{< cloud-name >}} UI displays a notification message in the UI.
+If you exceed your plan's limits, the following errors occur in InfluxDB Cloud UI on the Usage page:
 
 - When **write requests**, **read requests**, or **series cardinality** exceeds the specified limit within a five-minute window, the request is rejected and the following events appears under **Limit Events** on the Usage page as applicable: `event_type_limited_query` or `event_type_limited_write` or `event_type_limited_cardinality`
 
