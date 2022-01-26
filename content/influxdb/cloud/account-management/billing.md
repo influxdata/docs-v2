@@ -38,7 +38,8 @@ Learn how to upgrade your plan, access billing details, and review and resolve p
 ## Access billing details
 
 1. In the {{< cloud-name "short" >}} UI, select the **user avatar** in the left
-   navigation menu, and select **Billing**.
+   navigation menu, and select **Account** >
+   **Billing**.
 
     {{< nav-icon "account" >}}
 
