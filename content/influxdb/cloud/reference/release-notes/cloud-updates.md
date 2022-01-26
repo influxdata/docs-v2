@@ -14,10 +14,15 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
-<!-- ## January 2022
+## January 2022
+
 ### Update Tokens UI
 
-To enhance security, the Token UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you will not be able to view or copy the token. -->
+To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you won't be able to view or copy the token.
+
+### Multi-account support
+
+ You can now invite a user to join an organization using the same email they've used in another InfluxDB Cloud account. Users have an option under Account > Settings to switch between accounts.
 
 ## December 2021
 

@@ -31,7 +31,7 @@ Learn how to upgrade your plan, access billing details, and review and resolve p
 
 ## Upgrade to Usage-Based Plan
 
-1. Click **Upgrade Now** in the lower left corner of the {{< cloud-name "short" >}} user interface (UI).
+1. Click **Upgrade Now** in the upper right corner of the {{< cloud-name "short" >}} user interface (UI).
 2. Set your limits (opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). All service updates, security notifications, and other important information are sent to the email address you provide.
 3. Enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
@@ -127,4 +127,3 @@ Billing occurs on the first day of the month for the previous month. For example
 | **One week later**          | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account. |
 | **10-14 days later**        | Account completely disabled. During this period, you must contact us at support@influxdata.com to process your payment and enable your account. |
 | **21 days later**           | Account suspended. Contact support@influxdata.com to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on.|
-
