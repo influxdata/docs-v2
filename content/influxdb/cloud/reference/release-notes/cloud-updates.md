@@ -22,7 +22,7 @@ To enhance security, the Tokens UI will only display an InfluxDB Cloud token whe
 
 ### Multi-account support
 
- You can now invite a user to join an organization using the same email they've used in another InfluxDB Cloud account. Users have an option under Account > Settings to switch between accounts.
+ You can now invite a user to join an organization using the same email they've used in another InfluxDB Cloud account. Users [can switch between accounts in the UI](/influxdb/cloud/account-management/switch-account/)
 
 ## December 2021
 
