@@ -10,6 +10,290 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.149.0 [2022-01-12]
+
+### Features
+- Add `Get` methods to `metadata`.
+- Optimized `sort |> limit` operations.
+- Add [`location` option](/flux/v0.x/stdlib/universe/#location) support to the `date` package.
+- Use reference equality for `Symbol`.
+- Add inline documentation to the following packages:
+    - socket
+    - sql
+    - strings
+
+### Bug fixes
+- Do not attempt IP validation for BigQuery data source names (DSNs).
+
+---
+
+## v0.148.0 [2022-01-10]
+
+### Features
+- Report multiple errors from a single `unify` call.
+- Update [`to`](/flux/v0.x/stdlib/influxdata/influxdb/to/) transformation to use
+  narrow transformation.
+- Provide specific error information on function calls.
+- Allow errors to be formatted via `codespan`.
+- Add an `internal/debug.opaque` function.
+- Provide which package exported a symbol.
+- Add timeable support to [`experimental.addDuration()`](/flux/v0.x/stdlib/experimental/addduration/)
+  and [`experimental.subDuration()`](/flux/v0.x/stdlib/experimental/subduration/).
+- Add inline documentation to the following packages:
+  - interpolate
+  - json
+  - kafka
+  - math
+  - regexp
+  - runtime
+  - sampledata
+  - slack
+  - system
+  - pagerduty
+  - profiler
+  - pushbullet
+
+### Bug fixes
+- Classify IP validation failures as `Invalid`.
+- Relocate the mutex in the optimized union to avoid a data race.
+- Split the entire pipe chain into multiple lines (if necessary).
+
+---
+
+## v0.147.0 [2021-12-14]
+
+### Features
+- Optimize [`union()` transformation](/flux/v0.x/stdlib/universe/union/).
+- Optimize [`timeShift()` transformation](/flux/v0.x/stdlib/universe/timeshift/).
+- Add inline documentation to the following packages:
+  - experimental/prometheus
+  - experimental/query
+  - experimental/record
+  - experimental/table
+  - experimental/usage
+
+### Bug fixes
+- Add mutex to the optimized `union` transformation.
+- Ensure arrays are not table streams before calling `Len()`.
+- Disable flakey `geo.filterRows` tests.
+
+---
+
+## v0.146.0 [2021-12-13]
+
+### Features
+- Update `pkg-config` to support `aarch64-apple-darwin`.
+- Add inline documentation to the following packages:
+  - experimental/geo
+  - experimental/http
+  - experimental/influxdb
+  - experimental/json
+  - experimental/mqtt
+  - experimental/oee
+
+### Bug fixes
+- Update the default `epsilon` parameter for `testing.diff` to `0.000001`.
+- Fix unsigned integer conversion tests to correctly use an defined conversion.
+
+---
+
+## v0.145.0 [2021-12-08]
+
+### Features
+- Add inline documentation to the following packages:
+  - experimental/aggregate
+  - experimental/array
+  - experimental/bigtable
+  - experimental/bitwise
+  - experimental/csv
+
+### Bug fixes
+- Return an error from join operations if a column is not found in the schema.
+
+---
+
+## v0.144.0 [2021-12-06]
+
+### Features
+- Add location and message methods to `semantic::Error`.
+- Return multiple errors from conversions.
+- Add a vectorized field to semantic graph, `FunctionExpr`.
+
+### Bug fixes
+- Set `GOPATH` in `Dockerfile_build`.
+
+---
+
+## v0.143.1 [2021-11-22]
+
+### Bug fixes
+- Add targets to `rust-toolchain`.
+
+---
+
+## v0.143.0 [2021-11-22]
+
+### Breaking changes
+- Add new parameters to [`difference()`](/flux/v0.x/stdlib/universe/difference/)
+  to ensure [`increase()`](/flux/v0.x/stdlib/universe/increase/) returns more accurate results on counter reset.
+
+### Features
+- Don't introduce constraints for default arguments.
+- Make error messages more consistent.
+- Use new versions of `sort()` and `derivative()` by default.
+- Add inline documentation to the following packages:
+  - contrib/anaisdg/anomalydetection
+  - contrib/anaisdg/statsmodels
+  - contrib/bonitoo-io/victorops
+  - contrib/bonitoo-io/zenoss
+  - contrib/jsternberg/influxdb
+  - contrib/rhajek/bigpanda
+  - contrib/sranka/telegram
+  - experimental
+
+### Bug fixes
+- Validate examples in inline documentation as part of CI linting process.
+- Correctly handle trailing dollar signs in string expression.
+- Improve `fluxdoc` error messages.
+- Fix panic when `length()` is given a stream of tables.
+- Fix panic when `json.encode()` is given a stream of tables.
+
+---
+
+## v0.142.0 [2021-11-22]
+
+### Features
+- Default to erroring dependencies
+
+### Bug fixes
+- Fix Queryd panic when using the `experimental/geo` package.
+
+---
+
+## v0.141.0 [2021-11-22]
+
+### Features
+- Add `is_type` to query the runtime type.
+- Add ability to read options from the `Context`.
+- Ignore documentation for values prefixed with an underscore (`_`).
+- Add inline documentation to the following packages:
+  - contrib/RohanSreerama5/naiveBayesClassifier
+  - contrib/bonitoo-io/alerta
+  - contrib/bonitoo-io/hex
+  - contrib/bonitoo-io/servicenow
+  - contrib/bonitoo-io/tickscript
+  - contrib/chobbs/discord
+  - contrib/jsternberg/rows/
+  - contrib/sranka/opsgenie
+  - contrib/sranka/sensu/
+  - contrib/sranka/teams
+  - contrib/sranka/webexteams
+  - contrib/tomhollingworth/events
+  - generate
+  - http
+  - influxdata/influxdb
+  - influxdata/influxdb/monitor
+  - influxdata/influxdb/sample
+  - influxdata/influxdb/schema
+  - influxdata/influxdb/secrets
+  - influxdata/influxdb/tasks
+  - influxdata/influxdb/v1
+
+### Bug fixes
+- Propagate the element type through array constructors.
+- Catch unsupported input types in aggregate transformations.
+- Support pipe parameters (`<-`) in `fluxdoc`.
+- Fix documentation errors when running `cargo doc`.
+- Reduce the amount of extra parse errors.
+
+---
+
+## v0.140.0 [2021-11-22]
+
+### Features
+- Support reporting unlimited diagnostics.
+- Support type inference running on invalid ASTs.
+- Add erroring versions for each dependency.
+- Report multiple errors from type inference.
+- Add `fluxdoc` formatting documentation.
+- Add inline documentation to the following packages:
+  - array
+  - csv
+  - dict
+
+### Bug fixes
+- Handle errors when executing inline examples.
+- Convert fixed array to slice.
+- Compare sorted join keys.
+- Make multiline-formatting consistent.
+- Fix invalid syntax formatting.
+- Improve error checking for null and invalid types.
+
+---
+
+## v0.139.0 [2021-11-01]
+
+### Features
+- Continue type inference through errors at runtime.
+
+### Bug fixes
+- Revert `runtime.now()` and related updates.
+
+---
+
+## v0.138.0 [2021-11-01]
+
+### Features
+- Create a BigTable dependency to let Flux mimic or control BigTable API usage.
+- Report multiple type inference errors.
+- Add [bitwise operations](/flux/v0.x/stdlib/experimental/bitwise/).
+
+### Bug fixes
+- Update [`fill()`](/flux/v0.x/stdlib/universe/fill/) to return tables unchanged
+  when using `usePrevious` to fill a non-existent column.
+- Add `runtime.now()` to return the same time throughout a script execution.
+
+---
+
+## v0.137.0 [2021-10-28]
+
+### Features
+- Add support for [Vertica](https://www.vertica.com/) to the [`sql` package](/flux/v0.x/stdlib/sql/).
+
+### Bug fixes
+- Correctly handle HTTP errors from the InfluxDB writer.
+
+---
+
+## v0.136.0 [2021-10-25]
+
+### Features
+- Enable executable examples to documentation generated by `fluxdoc`.
+- Enforces IP validation and timeouts when using `mqtt`.
+- Add an alternate `flux` CLI that starts the REPL if no argument is given.
+- Update lint formatting.
+- Add [`contrib/bonitoo-io/servicenow` package](/flux/v0.x/stdlib/contrib/bonitoo-io/servicenow/)
+  and support for [ServiceNow](https://servicenow.com/) events.
+- Add `component` and `customDetails` parameters to [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/).
+- Update the `fluxdoc` parser to capture more data.
+- Create a formatter for semantic graph.
+
+### Bug fixes
+- Add `contrib/bonitoo-io/servicenow` to the list of `fluxdoc` exceptions.
+- Disable write retries for the InfluxDB `http` provider.
+
+---
+
+## v0.135.1 [2021-10-18]
+
+### Features
+- Add a disposable interface for transformations.
+
+### Bug fixes
+- Improve error message when regrouping is required in `map()`.
+
+---
+
 ## v0.134.0 [2021-10-15]
 
 ### Features
@@ -1819,7 +2103,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ## v0.37.2 [2019-07-24]
 
--  _General cleanup of internal code._
+- _General cleanup of internal code._
 
 ---
 

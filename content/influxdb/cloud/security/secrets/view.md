@@ -50,5 +50,5 @@ to view your organization's secrets keys.
 <!-- -->
 ```sh
 curl -XGET https://cloud2.influxdata.com/api/v2/orgs/<org-id>/secrets \
-  -H 'Authorization: Token YOURAUTHTOKEN'
+  -H 'Authorization: Token YOUR_API_TOKEN'
 ```

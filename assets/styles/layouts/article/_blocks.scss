@@ -12,6 +12,14 @@ blockquote,
   ul,ol {
     &:last-child { margin-bottom: 1.85rem; }
   }
+
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6 {
+    &:first-child {margin-top: 0; padding-top: 0.25em;}
+  }
 }
 
 blockquote {

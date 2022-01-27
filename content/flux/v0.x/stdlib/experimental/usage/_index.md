@@ -17,6 +17,8 @@ weight: 301
 flux/v0.x/tags: [functions, usage, package]
 cascade:
   introduced: 0.114.0
+  related:
+    - https://www.influxdata.com/influxdb-templates/influxdb-cloud-usage-dashboard/, InfluxDB Cloud Usage – Community Template
 ---
 
 The Flux experimental usage package provides tools for collecting usage and usage

@@ -65,7 +65,7 @@ _To request higher soft data limits, contact [InfluxData Support](mailto:support
 - **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact InfluxData Support](mailto:support@influxdata.com))
 - **Storage:** Unlimited retention
 {{% note %}}
-Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
+Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](/influxdb/cloud/reference/cli/influx/).
 {{% /note %}}
 
 ### Pricing vectors
@@ -77,7 +77,7 @@ The Usage-Based Plan uses the following pricing vectors to calculate InfluxDB Cl
    - Each individual operation—including queries, tasks, alerts, notifications, and Data Explorer activity—is one billable query operation.
    - Refreshing a dashboard with multiple cells will incur multiple query operations.
    - Failed operations aren’t counted.
-- **Data In** is the amount of data you’re writing into InfluxDB (measured in MB/second).
+- **Data In** is the amount of data you’re writing into InfluxDB (measured in MB).
 - **Storage** is the amount of data you’re storing in InfluxDB (measured in GB/hour).
 
 Discover how to [manage InfluxDB Cloud billing](/influxdb/cloud/account-management/billing/).

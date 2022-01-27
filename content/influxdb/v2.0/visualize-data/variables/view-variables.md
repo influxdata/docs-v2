@@ -15,7 +15,7 @@ View a list of dashboard variables in the InfluxDB user interface (UI) from an o
 
 1. Click the **Settings** icon in the navigation bar.
 
-    {{< nav-icon "settings" >}}
+    {{< nav-icon "settings" "v2" >}}
 
 3. Select the **Variables** tab.
 
@@ -23,7 +23,7 @@ View a list of dashboard variables in the InfluxDB user interface (UI) from an o
 
 1. Click the **Data Explorer** icon in the navigation bar.
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Switch to **Script Editor**.
 3. Click the **Variables** tab to the right of the script editor.

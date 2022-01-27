@@ -110,7 +110,7 @@ For detail about physical security within Microsoft Azure data centers, see [Mic
 ### Data encryption
 
 InfluxDB Cloud enforces TLS encryption for data in transit from all clients, including Telegraf agents, browsers, and custom applications.
-Requests using TLS 1.2 or earlier are rejected.
+Requests using TLS 1.1 or earlier are rejected.
 
 By default, data at rest is encrypted using strong encrypted methods (AES-256) within AWS, GCP, and Microsoft Azure.
 

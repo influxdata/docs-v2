@@ -19,7 +19,7 @@ Create a new scraper in the InfluxDB user interface (UI).
 
     {{< nav-icon "load data" >}}
 
-3. Click **{{< icon "plus" >}} Create Scraper**.
+3. Click **{{< icon "plus" "v2" >}} Create Scraper**.
 4. Enter a **Name** for the scraper.
 5. Select a **Bucket** to store the scraped data.
 6. Enter the **Target URL** to scrape.

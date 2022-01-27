@@ -94,6 +94,8 @@ prepend: # Prepend markdown content to an article (especially powerful with casc
 append: # Append markdown content to an article (especially powerful with cascade)
   block: # (Optional) Wrap content in a block style (note, warn, cloud)
   content: # Content to append to article
+metadata: [] # List of metadata messages to include under the page h1
+updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 ```
 
 ### Title usage
@@ -455,7 +457,7 @@ WHERE time > now() - 15m
 
 To link to tabbed content, click on the tab and use the URL parameter shown.
 It will have the form `?t=`, plus a string.
-For example: 
+For example:
 
 ```
 [Windows installation](/influxdb/v2.0/install/?t=Windows)
@@ -818,9 +820,11 @@ The following table shows which children types use which frontmatter properties:
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
 It's meant to clarify references to specific elements in the InfluxDB user interface.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< icon "icon-name" >}}
+{{< icon "icon-name" "v2" >}}
 ```
 
 Below is a list of available icons (some are aliases):
@@ -890,9 +894,11 @@ Below is a list of available icons (some are aliases):
 ### InfluxDB UI left navigation icons
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 ```
 
 The following case insensitive values are supported:
@@ -904,7 +910,7 @@ The following case insensitive values are supported:
 - tasks
 - monitor, alerts, bell
 - cloud, usage
-- disks, load data, load-data
+- data, load data, load-data
 - settings
 - feedback
 
@@ -1028,6 +1034,29 @@ only render in the InfluxDB OSS documentation.
 This is necessary to get the first sentence/paragraph to render correctly.
 
 {{% /oss-only %}}
+
+- {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+- {{% oss-only %}}
+
+  This is a multi-paragraph list item that will only render in the InfluxDB OSS docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /oss-only %}}
+
+1.  Step 1
+2.  {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+3.  {{% oss-only %}}
+
+     This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB OSS docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /oss-only %}}
 ```
 
 #### cloud-only
@@ -1046,6 +1075,37 @@ only render in the InfluxDB Cloud documentation.
 This is necessary to get the first sentence/paragraph to render correctly.
 
 {{% /cloud-only %}}
+
+- {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+- {{% cloud-only %}}
+
+  This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB Cloud docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /cloud-only %}}
+
+1.  Step 1
+2.  {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+3.  {{% cloud-only %}}
+
+    This is a multi-paragraph list item that will only render in the InfluxDB Cloud docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /cloud-only %}}
+```
+
+#### All-Caps
+Clockface v3 introduces many buttons with text formatted as all-caps.
+Use the `{{< caps >}}` shortcode to format text to match those buttons.
+
+```md
+Click {{< caps >}}Add Data{{< /caps >}}
 ```
 
 ### Reference content

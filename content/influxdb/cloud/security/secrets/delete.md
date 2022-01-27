@@ -51,7 +51,7 @@ to delete one or more secrets.
 <!-- -->
 ```bash
 curl -XGET https://cloud2.influxdata.com/api/v2/orgs/<org-id>/secrets/delete \
-  --H 'Authorization: Token YOURAUTHTOKEN'
+  --H 'Authorization: Token YOUR_API_TOKEN'
   --data '{
   "secrets": [
     "<secret-key>"

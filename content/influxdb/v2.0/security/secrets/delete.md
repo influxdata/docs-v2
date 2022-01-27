@@ -41,7 +41,7 @@ to delete one or more secrets.
 <!-- -->
 ```bash
 curl --request GET http://localhost:8086/api/v2/orgs/<org-id>/secrets/delete \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --data '{
   "secrets": [
     "<secret-key>"

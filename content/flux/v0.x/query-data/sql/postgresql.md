@@ -64,9 +64,3 @@ postgres://username:password@localhost:5432/dbname?param=value
 {{% caption %}}
 All other PostgreSQL data types are converted to strings.
 {{% /caption %}}
-
-## Results structure
-`sql.from()` returns a [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables)
-with no grouping (all rows in a single table).
-For more information about table grouping, see
-[Flux data model - Restructure tables](/flux/v0.x/get-started/data-model/#restructure-tables).

@@ -234,7 +234,7 @@ to store your database credentials as secrets.
 {{% tab-content %}}
 ```sh
 curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-type: application/json' \
   --data '{
   "POSTGRES_HOST": "http://example.com",

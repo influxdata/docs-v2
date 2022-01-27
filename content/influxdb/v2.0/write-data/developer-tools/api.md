@@ -36,7 +36,7 @@ The URL in the examples depends on the version and location of your InfluxDB 2.0
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-{{< get-shared-text "api/v2.0/write/write.sh" >}}
+{{< get-shared-text "api/v2.0/write/write.mjs" >}}
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

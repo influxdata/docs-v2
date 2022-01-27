@@ -17,6 +17,12 @@ Use fine-grained authorization (FGA) in InfluxDB Enterprise to control user acce
 
 You must have [admin permissions](/influxdb/v1.8/administration/authentication_and_authorization/#admin-user-management) to set up FGA.
 
+{{% warn %}}
+#### FGA does not apply to Flux
+FGA does not restrict actions performed by Flux queries (both read and write).
+If using FGA, we recommend [disabling Flux](/enterprise_influxdb/v{{< current-version >}}/flux/installation/).
+{{% /warn %}}
+
 ## Set up fine-grained authorization
 
 1. [Enable authentication](/influxdb/v1.8/administration/authentication_and_authorization/#set-up-authentication) in your InfluxDB configuration file.

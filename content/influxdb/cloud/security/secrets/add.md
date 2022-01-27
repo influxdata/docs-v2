@@ -64,7 +64,7 @@ add a new secret to your organization.
 <!-- -->
 ```sh
 curl -XPATCH https://cloud2.influxdata.com/api/v2/orgs/<org-id>/secrets \
-  -H 'Authorization: Token YOURAUTHTOKEN' \
+  -H 'Authorization: Token YOUR_API_TOKEN' \
   -H 'Content-type: application/json' \
   --data '{
 	"<secret-key>": "<secret-value>"
