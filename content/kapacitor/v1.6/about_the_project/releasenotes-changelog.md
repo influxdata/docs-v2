@@ -7,24 +7,26 @@ menu:
     name: Release notes
 ---
 
-## v1.6.3 [2022-01-20]
+
+## v1.6.3 [2022-01-25]
 
 ### Features
 
-- Add support for custom `attributes` field in [Alerta event handler](/kapacitor/v1.6/event_handlers/alerta/). 
-- Add `host` and `attribute` options to [BigPanda event handler](/kapacitor/v1.6/event_handlers/bigpanda/). 
-  - `host`: Corresponds to host alert payload parameter; identifies the main object that caused the alert.
-  - `attribute`: Option to add additional attribute(s) to the alert payload.
+- Add support for custom `attributes` field in [Alerta event handler](/kapacitor/v1.6/event_handlers/alerta/).
+- Add `host` and `attribute` options to [BigPanda event handler](/kapacitor/v1.6/event_handlers/bigpanda/):
+  - `host`: Identifies the main object that caused the alert.
+  - `attribute`: Adds additional attribute(s) to the alert payload.
 - Add new `auto-attributes` configuration option to BigPanda node.
--  Ability to add new headers to HTTP posts directly in `env var` config. 
+- Ability to add new headers to HTTP posts directly in `env var` config. 
 - `Topic queue length` is now configurable. This allows you to set a `topic-buffer-length` parameter in the Kapacitor config file in the
-[alert](https://docs.influxdata.com/kapacitor/v1.6/administration/configuration/#alert) section. The default is 5000.  Minimum length
+[alert](https://docs.influxdata.com/kapacitor/v1.6/administration/configuration/#alert) section. The default is 5000. Minimum length
 is 1000.
 - Add new `address template` to email alert. Email addresses no longer need to be hardcoded; can be derived directly from data.
 
 ### Bug fixes
-- Deprecation in response to [sweet32](https://sweet32.info/): stopped using block ciphers.
-- Add additional detail to the error message `missing flux data`. This error is generated when issues occur when running a **Flux** query within a Batch TICKscript.
+
+- Deprecated ciphers identified as "weak" in response to the [sweet32](https://sweet32.info/) attack.
+- Add additional detail to the error message `missing flux data`. This error is generated when issues occur when running a **Flux** query within a batch TICKscript.
 
 ## v1.6.2 [2021-09-24]
 
