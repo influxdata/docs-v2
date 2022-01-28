@@ -26,6 +26,8 @@ All new {{< cloud-name >}} accounts start with Free Plan that provides a limited
 
 The Usage-Based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/cloud/account-management/data-usage/). Usage-Based Plans are based on consumption as measured by usage on the [pricing vectors](#pricing-vectors).
 
+Usage-Based Plans also offer access to all notification endpoints such as PagerDuty, Slack, HTTP, and [endpoints available in Flux](/flux/v0.x/tags/notification-endpoints/).
+
 ### Pricing vectors
 
 The Usage-Based Plan uses the following pricing vectors to calculate InfluxDB Cloud billing costs:
