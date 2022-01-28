@@ -59,7 +59,7 @@ To write historical data older than 30 days, retain data for more than 30 days, 
 - **Data-in**: Rate of 3 GB per 5 minutes
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 3 GB data per 5 minutes
-  - Uncompressed bytes in HTTP in response payload
+  - Bytes (uncompressed or compressed) in HTTP in response payload
 - **Cardinality**: 1M series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
 - **Unlimited resources**
   - dashboards
