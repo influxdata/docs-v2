@@ -91,7 +91,7 @@ Optional arguments are enclosed in brackets.
 
 - `[ -retention <rp_name> ]`: Retention policy for the backup. If not specified, the default is to use all retention policies. If specified, then `-database` is required.
 
-- `[ -shard <ID> ]`: Shard ID of the shard to be backed up. If specified, then `-retention <name>` is required.
+- `[ -shard <ID> ]`: Shard ID of the shard to be backed up. May be given without `-retention <rp_name>` or `-database <db_name>`, but if they are specified the shard's database and retention are checked against the command line parameters.
 
 - `[ -start <timestamp> ]`: Include all points starting with the specified timestamp ([RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt)). Not compatible with `-since`. Example: `-start 2015-12-24T08:12:23Z`
 
