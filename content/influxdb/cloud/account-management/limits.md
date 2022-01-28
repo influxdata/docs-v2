@@ -10,42 +10,31 @@ menu:
 products: [cloud]
 ---
 
-InfluxDB Cloud has adjustable account quotas per organization and hard global system limits. Review adjustable service quotas and global limits to plan for your bandwidth needs:
+InfluxDB Cloud has adjustable account quotas per organization and hard global system limits.
+
+{{% warn %}}
+All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window. Once a rate is exceeded an error response is returned until the current five-minute window resets.
+{{% /warn %}}
+
+Review adjustable service quotas and global limits to plan for your bandwidth needs:
 
 - [Adjustable service quotas](#adjustable-service-quotas)
 - [Global limits](#global-limits)
 - [UI Error Messages](#ui-error-messages)
 <!-- - [API Error Responses](#api-error-responses) -->
 
-{{% warn %}}
-All __rates__ for service quotas and global limits are accrued within a fixed five-minute window. Once a rate is exceeded an error response is returned until the current five-minute window resets.
-
-Data-in (writes) and queries (reads) are accrued against a five-minute window. Quotas are applied to uncompressed payloads.
-
-All service Limits for write requests (Data In) and query requests (Reads) are applied within a five minute window.
-{{% /warn %}}
-<!-- Include something about how this is calculated. -->
-
 ## Adjustable service quotas
 
 To reduce the chance of unexpected charges and protect the service for all users, InfluxDB Cloud has adjustable service quotas applied per account.
-
-{{% note %}} Data-in, reads, and deletes are counted in 5 minutes intervals. If you send more than your plan's allotted quota, you must wait for 5 minute window interval for additional data to process.
-{{% /note %}}
 
 _To request higher service quotas, reach out to [InfluxData Support](https://support.influxdata.com/)._
 
 ### Free Plan
 
-{{% warn %}}
-Data-in (writes) and queries (reads) are accrued against a five-minute window. Quotas are applied to uncompressed payloads.
-{{% /warn %}}
-<!-- Include something about how this is calculated. -->
-
 - **Data-in**: Rate of 5 MB per 5 minutes (average of 17 kb/s)
-  - Bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
+  - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 300 MB per 5 minutes (average of 1000 kb/s)
-  - Bytes in HTTP response
+  - Uncompressed bytes in HTTP in response payload
 - **Cardinality**: 10k series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
 - **Available resources**:
   - 2 buckets (excluding `_monitoring` and `_tasks` buckets)
@@ -68,10 +57,9 @@ To write historical data older than 30 days, retain data for more than 30 days, 
 ### Usage-Based Plan
 
 - **Data-in**: Rate of 3 GB per 5 minutes
-  - Bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
-  - Maximum payload 50 MB (HTTP)
+  - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 3 GB data per 5 minutes
-  - Bytes in HTTP response
+  - Uncompressed bytes in HTTP in response payload
 - **Cardinality**: 1M series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
 - **Unlimited resources**
   - dashboards
@@ -90,8 +78,8 @@ These hard limits are typically dictated by the capabilities of the underlying I
 Limits include:
 
 - Write request limits:
-  - 50 MB maximum request batch size (defined in the `Content-Type` header)
-  - 250 MB maximum decompressed request batch size
+  - 50 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Type` header)
+  - 250 MB maximum HTTP request batch size after decompression
 - Query processing time: 90 seconds
 - Task processing time: 150 seconds
 - Delete request limit: Rate of 300 every 5 minutes
