@@ -18,7 +18,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ### Update Tokens UI
 
-To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you won't be able to view or copy the token.
+To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's [first created](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token/). If you return to the Token page later, you won't be able to view or copy the token. To learn more about token access restrictions, see [Create an API token](https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token/)
 
 ### Multi-account support
 
