@@ -34,7 +34,7 @@ _To request higher service quotas, reach out to [InfluxData Support](https://sup
 - **Data-in**: Rate of 5 MB per 5 minutes (average of 17 kb/s)
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 300 MB per 5 minutes (average of 1000 kb/s)
-  - Bytes (uncompressed or compressed) in HTTP in response payload
+  - Bytes in HTTP in response payload
 - **Cardinality**: 10k series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
 - **Available resources**:
   - 2 buckets (excluding `_monitoring` and `_tasks` buckets)
