@@ -33,3 +33,7 @@ To explore InfluxDB using existing data (*without writing your own data*), see h
    - [Process data](/influxdb/cloud/process-data/)
    - [Visualize data](/influxdb/cloud/visualize-data/)
    - [Monitor and alert](/influxdb/cloud/monitor-alert/)
+
+The following video discusses different ways to write data to InfluxDB:
+
+{{< youtube xYnFVvRTlkQ >}}

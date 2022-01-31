@@ -29,3 +29,7 @@ related:
    - [Process data](/influxdb/v2.1/process-data/)
    - [Visualize data](/influxdb/v2.1/visualize-data/)
    - [Monitor and alert](/influxdb/v2.1/monitor-alert/)
+
+The following video discusses different ways to write data to InfluxDB:
+
+{{< youtube xYnFVvRTlkQ >}}
