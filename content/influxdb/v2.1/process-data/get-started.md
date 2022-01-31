@@ -163,7 +163,7 @@ data
 
 ```
 
-To learn more about tasks and how they work, watch the following video:
+To learn more about InfluxDB tasks and how they work, watch the following video:
 
 {{< youtube zgCmdtZaH9M >}}
 
