@@ -148,7 +148,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>InfluxData API Docs Rapidoc Demo</h2>
+        <h2>InfluxDB API Rapidoc Demo</h2>
       </header>
 
       <rapi-doc

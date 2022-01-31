@@ -58,3 +58,9 @@ cd api-docs
 # Generate the API docs
 sh generate-api-docs.sh
 ```
+
+## Generate Rapidoc UI with Vue.js
+1. Install @vue/cli globally ([Vue.js CLI official instructions](https://cli.vuejs.org/guide/installation.html).
+   `yarn global add @vue/cli`
+
+

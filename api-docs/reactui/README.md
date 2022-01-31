@@ -1,6 +1,15 @@
 # Getting Started with Create React App
 
+**Migrating this to the ./reference-ui Vue.JS**
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Generate OpenAPI JSON from ref.yml
+
+Rapidoc requires OpenAPI specs in JSON format.
+To generate the JSON from the influxdata/openapi ref.yml files, run the following commands from `docs-v2/api-docs`:
+`npx openapi bundle v2.1/ref.yml --output api-docs-ui/src/openapi-specs/v2.1.json --format json
+ npx openapi bundle cloud/ref.yml --output api-docs-ui/src/openapi-specs/cloud.json --format json
+`
 
 ## Available Scripts
 
@@ -69,10 +78,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-### Generate OpenAPI JSON from ref.yml
-
-Rapidoc requires OpenAPI specs in JSON format.
-To generate the JSON from the influxdata/openapi ref.yml files, run the following commands from `docs-v2/api-docs`:
-`npx openapi bundle v2.1/ref.yml --output api-docs-ui/src/openapi-specs/v2.1.json --format json
- npx openapi bundle cloud/ref.yml --output api-docs-ui/src/openapi-specs/cloud.json --format json
-`
