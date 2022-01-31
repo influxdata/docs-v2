@@ -246,3 +246,7 @@ from(bucket:"example-bucket")
   |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
   |> mean()
 ```
+
+For an overview of the InfluxDB data model, watch the following video:
+
+{{< youtube 3qTTqsL27lI >}}

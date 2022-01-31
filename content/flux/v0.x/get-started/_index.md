@@ -87,3 +87,7 @@ _For detailed information about basic Flux queries,
 see [Flux query basics](/flux/v0.x/get-started/query-basics/)._
 
 {{< page-nav next="/flux/v0.x/get-started/data-model/" >}}
+
+For an introduction to Flux and how it works with time series data, watch the following video:
+
+{{< youtube QwOJttyg858 >}}

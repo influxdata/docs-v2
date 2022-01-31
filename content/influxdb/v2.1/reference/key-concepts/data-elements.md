@@ -201,3 +201,7 @@ If you're just starting out, we recommend taking a look at the following guides:
 - [Get started](/influxdb/v2.1/get-started)
 - [Write data](/influxdb/v2.1/write-data)
 - [Query data](/influxdb/v2.1/query-data)
+
+For an overview of how these elements interconnect within InfluxDB's data model, watch the follwoing video:
+
+{{< youtube 3qTTqsL27lI >}}
