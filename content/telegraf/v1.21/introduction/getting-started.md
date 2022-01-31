@@ -148,3 +148,7 @@ time			               usage_idle
 Notice that the timestamps occur at rounded ten second intervals (that is, `:00`, `:10`, `:20`, and so on) - this is a configurable setting.
 
 That's it! You ready to use Telegraf to collect metrics and write them to your output of choice.
+
+For an introduction to Telegraf and an overview of how it works, watch the following video:
+
+{{< youtube vGJeo3FaMds >}}
