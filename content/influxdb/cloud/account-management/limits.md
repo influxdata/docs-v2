@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Cloud limits and adjustable quotas
 description: >
-  InfluxDB Cloud has adjustable service quotas and hard system limits.
+  InfluxDB Cloud has adjustable service quotas and global (non-adjustable) system limits.
 weight: 110
 menu:
   influxdb_cloud:
