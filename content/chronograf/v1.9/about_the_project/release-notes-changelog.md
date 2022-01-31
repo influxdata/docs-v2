@@ -8,7 +8,31 @@ menu:
     parent: About the project
 ---
 
+## v1.9.3 [2022-02-01]
+
+### Features
+- Add ability to rename TICKscripts.
+- Changes to the `Queries` page:
+  - Add `CSV download` button. 
+  - Rename `Running` column to `Duration`.
+  - Add `Status` column.  When hovering over the `Duration` column, status shows `Kill` confirmation button.
+  - Modify `CSV` export to also contain the `Status` column.
+- Upgrade to use new `google.golang protobuf` library.
+
+### Bug Fixes
+- Log remote URL when ping fails.
+- Repair retrieval of background job results. Allows for the database to wait to store response before alerting the 
+browser's main thraed that the response is ready.
+- Repair enforcement of one organization between multiple tabs.
+- Configure HTTP proxy from environment variables in HTTP clients.
+
+#### Security
+- Upgrade `github.com/microcosm-cc/bluemonday` to resolve CVE-2021-42576.
+
 ## v1.9.1 [2021-10-08]
+{{% warn %}} **Warning:** The 1.9.1 version of Chronograf was released with a bug which impacted communication between the browser's main thread 
+and background workers.  As a result, we highly recommend upgrading to the 1.9.3 version, where this is resolved.
+{{% /warn %}}
 
 ### Features
 - Distinguish tasks created from templates by appending "created from template" on the Manage Tasks page.
