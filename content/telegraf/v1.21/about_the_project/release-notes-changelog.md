@@ -10,7 +10,7 @@ menu:
     weight: 10
     parent: About the project
 ---
-## v1.21.3 [2022-1-31]
+## v1.21.3 [2022-1-27]
 
 - Update `grpc` module to v1.44.0.
 - Update `google.golang.org/api` module from 0.54.0 to 0.65.0.
