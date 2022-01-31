@@ -10,6 +10,51 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v1.21.3 [2022-1-31]
+
+- Update `grpc` module to v1.44.0.
+- Update `google.golang.org/api` module from 0.54.0 to 0.65.0.
+- Update `antchfx/xmlquery` module from 1.3.6 to 1.3.9.
+- Update `nsqio/go-nsq` module from 1.0.8 to 1.1.0.
+- Update `prometheus/common` module from 0.31.1 to 0.32.1.
+- Update `cloud.google.com/go/pubsub` module from 1.17.0 to 1.17.1.
+- Update `influxdata/influxdb-observability/influx2otel` module from 0.2.8 to 0.2.10.
+- Update `shirou/gopsutil/v3` module from 3.21.10 to 3.21.12.
+- Update `jackc/pgx/v4` module from 4.6.0 to 4.14.1.
+- Update `Azure/azure-event-hubs-go/v3` module from 3.3.13 to 3.3.17.
+- Update `gosnmp/gosnmp` module from 1.33.0 to 1.34.0.
+- Update `hashicorp/consul/api` module from 1.9.1 to 1.12.0.
+- Update `antchfx/xpath` module from 1.1.11 to 1.2.0.
+- Update `antchfx/jsonquery` module from 1.1.4 to 1.1.5.
+- Update `prometheus/procfs` module from 0.6.0 to 0.7.3.
+- Update `aws/aws-sdk-go-v2/service/cloudwatchlogs` module from 1.5.2 to 1.12.0.
+- Update `kardianos/service` module from 1.0.0 to 1.2.1.
+- Update `couchbase/go-couchbase` module from 0.1.0 to 0.1.1.
+- Update `pion/dtls/v2` module from 2.0.9 to 2.0.13.
+- Update `containerd/containerd` module to 1.5.9.
+
+### Input plugin updates
+- Execd (`execd`): Resolve a text format parsing error for Prometheus parsing.
+- IPset (`ipset`): Prevent panic from occurring after startup.
+- OPC-UA (`opc_ua`): Fix issue where fields were being duplicated.
+- HTTP (`http`): Prevent server side error message.
+- SNMP (`snmp`): Fix error when a MIBs folder doesn't exist.
+- SNMP Trap (`snmp_trap`): Fix translation of partially resolved OIDs.
+
+### Output plugin updates
+- AMQP (`amqp`): Update to avoid connection leaks.
+- Timestream (`timestream`):
+  - Fix an issue with batching logic of write records.
+   - Introduce concurrent requests.
+- Stackdriver (`stackdriver`): Send correct interval start times for all counter metrics.
+- Syslog (`syslog`): Correctly set the ASCII trailer per RFC 6587.
+
+### Parser plugin updates
+- Nagios (`nagios`): Log correct errors when executing commands to aid in debugging.
+- JSON v2 (`json_v2`): Fix timestamp precision when using `unix_ns` timestamp format.
+- Wavefront (`wavefront`): Add missing setting `wavefront_disable_prefix_conversion`.
+
+
 ## v1.21.2 [2022-1-5]
 
 - Add arm64 MacOS builds for M1 devices.
