@@ -196,9 +196,8 @@ Results from this basic query should be similar to the following:
 |   co   |  airSensors  |  TLM0202  |  0.3336370208486757 |
 |   co   |  airSensors  |  TLM0203  |  0.4948166816959906 |
 
-{{< page-nav prev="/flux/v0.x/get-started/syntax-basics/" >}}
-
-
-Watch the following video to learn more about Flux concepts and basic functions, and see an example of how to write a basic Flux query:
+To learn more about Flux concepts and basic functions and see an example of how to write a basic Flux query, watch the following video:
 
 {{< youtube osSJueQW-EE >}}
+
+{{< page-nav prev="/flux/v0.x/get-started/syntax-basics/" >}}
