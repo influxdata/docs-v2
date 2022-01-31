@@ -100,7 +100,7 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 If you exceed your plan's [adjustable quotas or limits](/influxdb/cloud/account-management/limits/), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI) **Usage** page.
 
-If you exceed the series cardinality limit, InfluxDB adds a rate limit event to your **Usage** page for review, and begins to reject write requests. To start processing write requests again, do the following as needed:
+If you exceed the series cardinality limit, InfluxDB adds a rate limit event warning on the **Usage** page, and begins to reject write requests with new series. To start processing write requests again, do the following as needed:
 
 - **Usage-Based plan**: To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com).
 - **Series cardinality limits**: If you exceed the series cardinality limit, see how to [resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.0/write-data/best-practices/resolve-high-cardinality/).

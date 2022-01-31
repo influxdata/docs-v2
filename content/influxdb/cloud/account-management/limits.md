@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Cloud limits and adjustable quotas
 description: >
-  InfluxDB Cloud has adjustable account limits and hard system limits.
+  InfluxDB Cloud has adjustable service quotas and hard system limits.
 weight: 110
 menu:
   influxdb_cloud:
@@ -10,7 +10,7 @@ menu:
 products: [cloud]
 ---
 
-InfluxDB Cloud has adjustable account quotas per organization and hard global system limits.
+InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis. Currently, InfluxDB Cloud supports one organization per account.
 
 {{% warn %}}
 All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window. Once a rate is exceeded an error response is returned until the current five-minute window resets.
@@ -47,10 +47,6 @@ _To request higher service quotas, reach out to [InfluxData Support](https://sup
 - **Storage**: 30 days of data retention (see [retention period](/influxdb/cloud/reference/glossary/#retention-period))
 
 {{% note %}}
-Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
-{{% /note %}}
-
-{{% note %}}
 To write historical data older than 30 days, retain data for more than 30 days, or increase rate limits, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
 {{% /note %}}
 
@@ -59,7 +55,7 @@ To write historical data older than 30 days, retain data for more than 30 days, 
 - **Data-in**: Rate of 3 GB per 5 minutes
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 3 GB data per 5 minutes
-  - Bytes in HTTP response payload
+  - Bytes in HTTP in response payload
 - **Cardinality**: 1M series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
 - **Unlimited resources**
   - dashboards
@@ -70,15 +66,16 @@ To write historical data older than 30 days, retain data for more than 30 days, 
   - Unlimited checks
   - Unlimited notification rules
   - Unlimited notification endpoints for [all endpoints](/flux/v0.x/tags/notification-endpoints/)
+- **Storage**: Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
 
 ## Global limits
 
-InfluxDB Cloud global system limits cannot be adjusted and apply to all accounts.
-These hard limits are typically dictated by the capabilities of the underlying InfluxDB Cloud infrastructure.
+InfluxDB Cloud applies global (non-adjustable) system limits to all accounts, which protects the InfluxDB Cloud infrastructure for all users. As the service continues to evolve, we'll continue to review these global limits and adjust them as appropriate.
+
 Limits include:
 
 - Write request limits:
-  - 50 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Type` header)
+  - 5 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Type` header)
   - 250 MB maximum HTTP request batch size after decompression
 - Query processing time: 90 seconds
 - Task processing time: 150 seconds
