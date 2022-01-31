@@ -14,7 +14,8 @@ aliases:
 
 ### Features
 - Add the `experimental/http/requests` package to support generic HTTP requests.
-- Add `experimental/iox` package and a placeholder for the `iox.from()` function.
+- Add [`experimental/iox` package](/flux/v0.x/stdlib/experimental/iox/) and a
+  placeholder for the `iox.from()` function.
 - Add dependency hooks to the dependency subsystem.
 - Remove unneeded feature flags.
 
