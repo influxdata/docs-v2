@@ -34,7 +34,7 @@ menu:
 - Update `containerd/containerd` module to 1.5.9.
 
 ### Input plugin updates
-- Execd (`execd`): Resolve a text format parsing error for Prometheus parsing.
+- Execd (`execd`): Resolve a Promethues text format parsing error.
 - IPset (`ipset`): Prevent panic from occurring after startup.
 - OPC-UA (`opc_ua`): Fix issue where fields were being duplicated.
 - HTTP (`http`): Prevent server side error message.
