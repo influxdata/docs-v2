@@ -47,7 +47,7 @@ menu:
   - Fix an issue with batching logic of write records.
   - Introduce concurrent requests.
 - Stackdriver (`stackdriver`): Send correct interval start times for all counter metrics.
-- Syslog (`syslog`): Correctly set the ASCII trailer per RFC 6587.
+- Syslog (`syslog`): Correctly set the ASCII trailer per [RFC 6587](https://datatracker.ietf.org/doc/html/rfc6587).
 
 ### Parser plugin updates
 - Nagios (`nagios`): Log correct errors when executing commands to aid in debugging.
