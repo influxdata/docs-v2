@@ -45,7 +45,7 @@ menu:
 - AMQP (`amqp`): Update to avoid connection leaks.
 - Timestream (`timestream`):
   - Fix an issue with batching logic of write records.
-   - Introduce concurrent requests.
+  - Introduce concurrent requests.
 - Stackdriver (`stackdriver`): Send correct interval start times for all counter metrics.
 - Syslog (`syslog`): Correctly set the ASCII trailer per RFC 6587.
 
