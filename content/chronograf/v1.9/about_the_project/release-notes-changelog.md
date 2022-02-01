@@ -15,7 +15,7 @@ menu:
 - Changes to the `Queries` page:
   - Add `CSV download` button. 
   - Rename `Running` column to `Duration`.
-  - Add `Status` column.  When hovering over the `Duration` column, status shows `Kill` confirmation button.
+  - Add `Status` column. When hovering over the `Duration` column, status shows `Kill` confirmation button.
   - Modify the `CSV` export to include the `Status` column.
 - Upgrade to use new `google.golang protobuf` library.
 
