@@ -11,7 +11,6 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: Pricing plans
-products: [cloud]
 ---
 
 InfluxDB Cloud offers a [Free Plan](#free-plan), a [Usage-Based Plan](#usage-based-plan) to pay as you go, and a discounted [Annual Plan](#annual-plan).
