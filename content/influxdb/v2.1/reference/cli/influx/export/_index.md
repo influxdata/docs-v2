@@ -21,7 +21,7 @@ Use the `influx export` command to export existing resources--including buckets,
 [Create an InfluxDB template](/influxdb/v2.1/influxdb-templates/create/)._
 
 {{% note %}}
-InfluxDB Cloud no longer supports exporting dashboards in the InfluxDB Cloud UI. To export one or more dashboards using the CLI, see how to [export specific resources](/influxdb/v2.1/influxdb-templates/create/#export-specific-resources)._.
+InfluxDB Cloud no longer supports exporting dashboards in the InfluxDB Cloud UI. To export one or more dashboards using the CLI, see how to [export specific resources](/influxdb/v2.1/influxdb-templates/create/#export-specific-resources).
 {{% /note %}}
 
 ## Usage
