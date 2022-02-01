@@ -22,7 +22,7 @@ menu:
 ### Bug Fixes
 - Log remote URL when ping fails.
 - Repair retrieval of background job results. Allows for the database to wait to store response before alerting the 
-browser's main thraed that the response is ready.
+browser's main thread that the response is ready.
 - Repair enforcement of one organization between multiple tabs.
 - Configure HTTP proxy from environment variables in HTTP clients.
 
