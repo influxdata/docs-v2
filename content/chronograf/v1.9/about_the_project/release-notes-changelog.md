@@ -15,19 +15,22 @@ menu:
 
 ### Features
 - Add ability to rename TICKscripts.
-- Changes to the `Queries` page:
-  - Add `CSV download` button. 
+- Add the following enhancements to the `InfluxDB Query Management` page:
+  - `CSV download` button. 
   - Rename `Running` column to `Duration`.
   - Add `Status` column. When hovering over the `Duration` column, status shows `Kill` confirmation button.
   - Modify the `CSV` export to include the `Status` column.
 - Upgrade to use new `google.golang protobuf` library.
 
 ### Bug Fixes
-- Log remote URL when ping fails.
-- Repair retrieval of background job results. Allows for the database to wait to store response before alerting the 
-browser's main thread that the response is ready.
+- Ability to log the InfluxDB instance URL when a ping fails, making connection issues easier to identify.
 - Repair enforcement of one organization between multiple tabs.
-- Configure HTTP proxy from environment variables in HTTP clients.
+- Configure HTTP proxy from environment variables in HTTP clients. Improvements were made to:
+  - Token command within `chronoctl` 
+  - OAuth client
+  - Kapacitor client 
+  - Flux client
+
 
 #### Security
 - Upgrade `github.com/microcosm-cc/bluemonday` to resolve CVE-2021-42576.
