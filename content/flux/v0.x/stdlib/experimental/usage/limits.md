@@ -106,6 +106,7 @@ usage.limits(host: "https://cloud2.influxdata.com", orgID: "x000X0x0xx0X00x0", t
 
 ##### Output organization limits in a table
 ```js
+import "array"
 import "experimental/usage"
 import "influxdata/influxdb/secrets"
 

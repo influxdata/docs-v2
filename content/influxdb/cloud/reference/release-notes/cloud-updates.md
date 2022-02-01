@@ -19,6 +19,15 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 To enhance security, the Token UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you will not be able to view or copy the token. -->
 
+## December 2021
+
+- **Paginated dashboards in UI**: Previously, the Dashboards page could take awhile to load with more than a few dashboards. Now, all dashboards are immediately paginated and accessible on the Dashboards page.
+- **$250 usage credit**: Available when you choose a usage-based plan during signup.
+- **Improved task reliability and reporting**
+- **Improved error handling** for InfluxQL queries.
+- When you select a bucket from **Data (Load Data) > Buckets**, the bucket opens in Notebooks.
+
+
 ## November 2021
 
 - [Remove Website demo data](#remove-website-demo-data)
