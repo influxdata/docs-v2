@@ -15,7 +15,6 @@ related:
   - /flux/v0.x/stdlib/influxdata/influxdb/cardinality/
   - /influxdb/cloud/account-management/data-usage/
   - /influxdb/cloud/account-management/limits/
-
 ---
 
 The `usage.limits()` function returns a record containing usage limits for an
