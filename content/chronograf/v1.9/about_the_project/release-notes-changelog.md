@@ -10,6 +10,9 @@ menu:
 
 ## v1.9.3 [2022-02-01]
 
+{{% note %}} To address a bug that impacted communication between the browser’s main thread and background workers, we bumped the 1.9.2 release version to 1.9.3.
+{{% /note %}}
+
 ### Features
 - Add ability to rename TICKscripts.
 - Changes to the `Queries` page:
