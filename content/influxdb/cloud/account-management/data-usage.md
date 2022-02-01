@@ -30,5 +30,3 @@ To view your {{< cloud-name >}} data usage, do the following:
    - **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
 
 A line graph displays usage for the selected vector for the specified time period.
-
-<!-- Link to limits page, i.e. if you have received and error about rate limits exceeded and want more info, go here. -->
