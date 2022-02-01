@@ -16,7 +16,7 @@ menu:
   - Add `CSV download` button. 
   - Rename `Running` column to `Duration`.
   - Add `Status` column.  When hovering over the `Duration` column, status shows `Kill` confirmation button.
-  - Modify `CSV` export to also contain the `Status` column.
+  - Modify the `CSV` export to include the `Status` column.
 - Upgrade to use new `google.golang protobuf` library.
 
 ### Bug Fixes
