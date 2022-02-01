@@ -7,6 +7,8 @@ menu:
 weight: 101
 aliases:
   - /influxdb/v2.1/reference/cli/influx/pkg/export/
+  - /influxdb/cloud/visualize-data/dashboards/export-dashboard
+
 related:
   - /influxdb/v2.1/influxdb-templates/create/
   - /influxdb/v2.1/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
@@ -15,9 +17,12 @@ cascade:
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
-The `influx export` command exports existing resources as an InfluxDB template.
-_For detailed examples of exporting InfluxDB templates, see
+Use the `influx export` command to export existing resources, including buckets, labels, and dashboards as an InfluxDB template. _For detailed examples of exporting InfluxDB templates, see
 [Create an InfluxDB template](/influxdb/v2.1/influxdb-templates/create/)._
+
+{{% note %}}
+InfluxDB Cloud no longer supports exporting dashboards in the InfluxDB Cloud UI. To export one or more dashboards using the CLI, see how to [export specific resources](/influxdb/v2.1/influxdb-templates/create/#export-specific-resources)._.
+{{% /note %}}
 
 ## Usage
 
