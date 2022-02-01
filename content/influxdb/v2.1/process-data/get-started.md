@@ -162,3 +162,8 @@ data
   |> to(bucket: "example-downsampled")
 
 ```
+
+To learn more about InfluxDB tasks and how they work, watch the following video:
+
+{{< youtube zgCmdtZaH9M >}}
+
