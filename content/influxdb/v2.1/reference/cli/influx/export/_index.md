@@ -17,7 +17,7 @@ cascade:
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
-Use the `influx export` command to export existing resources, including buckets, labels, and dashboards as an InfluxDB template. _For detailed examples of exporting InfluxDB templates, see
+Use the `influx export` command to export existing resources--including buckets, labels, and dashboards--as an InfluxDB template. _For detailed examples of exporting InfluxDB templates, see
 [Create an InfluxDB template](/influxdb/v2.1/influxdb-templates/create/)._
 
 {{% note %}}
