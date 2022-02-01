@@ -13,7 +13,8 @@ aliases:
 ## v0.152.0 [2022-01-31]
 
 ### Features
-- Add the `experimental/http/requests` package to support generic HTTP requests.
+- Add the [`experimental/http/requests` package](/flux/v0.x/stdlib/experimental/http/requests/)
+  to support generic HTTP requests.
 - Add [`experimental/iox` package](/flux/v0.x/stdlib/experimental/iox/) and a
   placeholder for the `iox.from()` function.
 - Add dependency hooks to the dependency subsystem.
