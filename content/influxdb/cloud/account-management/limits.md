@@ -95,11 +95,10 @@ Errors can also be viewed in the [Usage page](/influxdb/cloud/account-management
 
 ## API error responses
 
-The following API error responses occur when your plan's service quotas or limits are exceeded.
+The following API error responses occur when your plan's service quotas are exceeded.
 
-| HTTP Response Code | HTTP Error Message | Service quota or limit description |
-| :-------------------| :------------------ |  :------------------ |
-| 503 - service unavailable | Series cardinality exceeds your plan's limit | Service quota:  |
-| 413 - request too large | cannot read data: points batch is too large | Limit: 250 MB maximum decompressed request batch size exceeded |
-| If a **read** or **write** request exceeds your [plan's rate limits](/influxdb/cloud/account-management/limits/#rate-limits) or if a **delete** request exceeds the global limit | *HTTP 429 “Too Many Requests” <br> Retry-After: xxx (seconds to wait before retrying the request)*
-| If a **write** request exceeds the global maximum payload size (**50 MB** or **250 MB *decompressed***)  | *HTTP 413 “Payload Too Large” <br> {"code":"request too large","message":"cannot read data: points batch is too large"}* |
+| HTTP response code              | Error message                               | Description  |
+| :-----------------------------  | :-----------------------------------------  | :----------- |
+| `HTTP 413 “Request Too Large”`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits)|  
+| `HTTP 429 “Too Many Requests”`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits)|
+| `HTTP 503 “Service unavailable“` |Series cardinality exceeds your plan's service quota| If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |
