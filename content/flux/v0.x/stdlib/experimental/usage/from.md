@@ -11,6 +11,9 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/usage/from/
 weight: 401
 flux/v0.x/tags: [inputs]
+related:
+  - /influxdb/cloud/account-management/data-usage/
+  - /influxdb/cloud/account-management/limits/
 ---
 
 `usage.from()` returns usage data from an **InfluxDB Cloud** organization.
