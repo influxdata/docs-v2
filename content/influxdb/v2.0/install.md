@@ -574,8 +574,8 @@ If you have a 32-bit Raspberry Pi, [use Telegraf](/{{< latest "telegraf" >}}/)
 to collect and send data to:
 
 - [InfluxDB OSS](/influxdb/v2.0/), running on a 64-bit system
-- InfluxDB Cloud with a [**Free Tier**](/influxdb/cloud/account-management/pricing-plans/#free-plan) account
-- InfluxDB Cloud with a paid [**Usage-Based**](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) account with relaxed resource restrictions.
+- InfluxDB Cloud [Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan)
+- InfluxDB Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan)
 
 {{% /tab-content %}}
 <!--------------------------------- END Rasberry Pi --------------------------->
