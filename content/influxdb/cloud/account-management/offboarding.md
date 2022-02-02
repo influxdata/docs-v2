@@ -11,7 +11,6 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: Cancel InfluxDB Cloud
-products: [cloud]
 ---
 
 To cancel your {{< cloud-name >}} subscription, complete the following steps:
