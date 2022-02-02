@@ -31,14 +31,10 @@ menu:
   - Kapacitor client 
   - Flux client
 
-
 #### Security
 - Upgrade `github.com/microcosm-cc/bluemonday` to resolve CVE-2021-42576.
 
 ## v1.9.1 [2021-10-08]
-{{% warn %}} **Warning:** Chronograf 1.9.1 was released with a bug which impacted communication between the browser's main thread 
-and background workers. As a result, we strongly recommend upgrading to the 1.9.3 version, which resolves this issue.
-{{% /warn %}}
 
 ### Features
 - Distinguish tasks created from templates by appending "created from template" on the Manage Tasks page.
