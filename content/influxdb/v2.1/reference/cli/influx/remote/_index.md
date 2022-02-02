@@ -1,12 +1,12 @@
 ---
 title: influx remote
-description: Manage remote connections for replicating data
+description: Manage remote InfluxDB connections for replicating data.
 menu:
   influxdb_2_1_ref:
     name: influx remote
     parent: influx
 weight: 101
-influxdb/v2.1/tags: [write]
+influxdb/v2.1/tags: [write, replication]
 related:
   - /influxdb/v2.1/reference/cli/influx/replication
   - /influxdb/v2.1/write-data/replication
@@ -22,14 +22,14 @@ influx remote [commond options] [arguments...]
 
 ## Subcommands
 
-|                                                               |                                      |
+|  Subcommand                                                 |  Description                           |
 |:--------------------------------------------------------------|--------------------------------------|
 | [`create`](/influxdb/v2.1/reference/cli/influx/remote/create) | Create a new remote connection       |
-| [`delete`](/influxdb/v2.1/reference/cli/influx/remote/delete) | Delete an existing remote connection |
+| [`delete`](/influxdb/v2.1/reference/cli/influx/remote/delete) | Delete a remote connection |
 | [`list`](/influxdb/v2.1/reference/cli/influx/remote/list)     | List all remote connections          |
-| [`update`](/influxdb/v2.1/reference/cli/influx/remote/update) | Update an existing remote connection |
+| [`update`](/influxdb/v2.1/reference/cli/influx/remote/update) | Update a remote connection |
 
 ## Flags
-| Flag |          | Description                   | Input type | {{< cli/mapped >}} |
-|:-----|:---------|:------------------------------|:----------:|:-------------------|
-| `-h` | `--help` | Help for the `remote` command |            |                    |
+| Flag |          | Description                   |
+|:-----|:---------|:------------------------------|
+| `-h` | `--help` | Help for the `remote` command |

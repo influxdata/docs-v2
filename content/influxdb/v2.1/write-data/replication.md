@@ -1,12 +1,12 @@
 ---
-title: Replicate data remotely
-seotitle:
+title: Replicate data to a remote InfluxDB instance
 weight: 106
 description: >
-
+  Use InfluxDB replication streams to replicate all data written to an InfluxDB OSS
+  instance to InfluxDB Cloud or a remote InfluxDB OSS instance.
 menu:
   influxdb_2_1:
-    name: Troubleshoot issues
+    name: Replicate data
     parent: Write data
 influxdb/v2.1/tags: []
 related:
@@ -14,38 +14,51 @@ related:
   - /influxdb/v2.1/reference/cli/influx/replication
 ---
 
-Create a new replication stream to write DATA.
+Use InfluxDB replication streams to replicate all data written to an InfluxDB OSS
+bucket to an InfluxDB Cloud or a remote InfluxDB OSS bucket.
 
-A replication stream uses a *remote connection*.
+**To configure a replication stream:**
 
-## Create a remote connection
+1. [Download and install the `influx` CLI](https://docs.influxdata.com/influxdb/v2.1/tools/influx-cli/).
+2. Use the `influx remote create` command to create a remote connection to replicate data to.
+    Provide the following:
+    
+    - Remote connection name
+    - Remote InfluxDB instance URL
+    - Remote InfluxDB API token _(API token must have write access to the target bucket)_
+    - Remote InfluxDB organization ID
 
-You will need a remote connection
-with which to associate the replication stream
+    ```sh
+    influx remote create \
+      --name example-remote-name \
+      --remote-url cloud2.influxdata.com \
+      --remote-api-token mYsuP3r5Ecr37t0k3n \
+      --remote-org-id 00xoXXoxXX00
+    ```
 
-Create a new remote connection by running:
+    If you already have remote InfluxDB connections configured, you can use an existing connection.
+    To view existing connections, run `influx remote list`.
 
-```sh
-influx remote create --name <name> --remote-url <url> --remote-api-token <token> --remote-org-id <id>
-```
+2. Use the `influx replication create` command to create a replication stream.
+    Provide the following:
 
-or use an existing connection.
-To view existing connections, run `influx remote list`.
+    - Replication stream name
+    - Remote connection ID
+    - Local bucket ID to replicate writes from
+    - Remote bucket ID to replicate writes to
 
-## Create replication stream
+    ```sh
+    influx replication create \
+      --name example-replication-stream-name \
+      --remote-id 00xoXXXo0X0x \
+      --local-bucket Xxxo00Xx000o \
+      --remote-bucket 0xXXx00oooXx
+    ```
 
-Once you have a remote connection registered,
-you can then create a replication stream to be associated with that remote connection.
-
-To create a replication stream:
-
-```sh
-influx replication create --name <name> --remote-id <id> --local-bucket <id> --remote-bucket <id>
-```
-
-Once a replication stream is created,
-use the `influx replication list` command 
-to view information such as the current queue size, max queue size, and latest status code.
+Once a replication stream is created, InfluxDB will replicate all writes to the specified bucket
+to the remote InfluxDB bucket.
+Use the `influx replication list` command to view information such as the current queue size,
+max queue size, and latest status code.
 
 {{% note %}}
 Note:

@@ -6,10 +6,12 @@ menu:
     name: influx replication
     parent: influx
 weight: 101
-influxdb/v2.1/tags: [write]
+influxdb/v2.1/tags: [write, replication]
 related:
   - /influxdb/v2.1/reference/cli/influx/remote
 ---
+
+The `influx replication` command and its subcommands manage InfluxDB replication streams.
 
 ## Usage
 ```
@@ -17,14 +19,15 @@ influx replication [commond options] [arguments...]
 ```
 
 ## Subcommands
-|                                                                  |                                                        |
-|:-----------------------------------------------------------------|:-------------------------------------------------------|
-| [create](/influxdb/v2.1/reference/cli/influx/replication/create) | Create a new replication stream                        |
-| [delete](/influxdb/v2.1/reference/cli/influx/replication/delete) | Delete an existing replication stream                  |
-| [list](/influxdb/v2.1/reference/cli/influx/replication/list)     | List all replication streams and corresponding metrics |
-| [update](/influxdb/v2.1/reference/cli/influx/replication/update) | Update an existing replication stream                  |
+| Subcommand                                                       | Description                              |
+| :--------------------------------------------------------------- | :--------------------------------------- |
+| [create](/influxdb/v2.1/reference/cli/influx/replication/create) | Create a new replication stream          |
+| [delete](/influxdb/v2.1/reference/cli/influx/replication/delete) | Delete a replication stream              |
+| [list](/influxdb/v2.1/reference/cli/influx/replication/list)     | List all replication streams and metrics |
+| [update](/influxdb/v2.1/reference/cli/influx/replication/update) | Update a replication stream              |
 
 ## Flags
-| Flag |          | Description                        | Input type | {{< cli/mapped >}} |
-|:-----|:---------|:-----------------------------------|:----------:|:-------------------|
-| `-h` | `--help` | Help for the `replication` command |            |                    |
+| Flag |          | Description                        |
+| :--- | :------- | :--------------------------------- |
+| `-h` | `--help` | Help for the `replication` command |
+
