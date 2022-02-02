@@ -87,13 +87,13 @@ Limits include:
 Combine predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points in request).
 {{% /note %}}
 
-## UI Error Messages
+## UI error messages
 
 The {{< cloud-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
 
 Errors can also be viewed in the [Usage page](/influxdb/cloud/account-management/data-usage/) under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
 
-## API Error Responses
+## API error responses
 
 The following API error responses occur when your plan's service quotas or limits are exceeded.
 
