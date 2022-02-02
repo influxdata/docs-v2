@@ -27,34 +27,35 @@ It is a text-based format that provides the measurement, tag set, field set, and
 - [Naming restrictions](#naming-restrictions)
 - [Duplicate points](#duplicate-points)
 
-```js
-// Syntax
-<measurement>[,<tag_key>=<tag_value>[,<tag_key>=<tag_value>]] <field_key>=<field_value>[,<field_key>=<field_value>] [<timestamp>]
+#### Syntax
 
-// Example
+```py
+# Line protocol syntax
+<measurement>[,<tag_key>=<tag_value>[,<tag_key>=<tag_value>]] <field_key>=<field_value>[,<field_key>=<field_value>] [<timestamp>]
+```
+#### Example
+
+```py
+# Line protocol example
 myMeasurement,tag1=value1,tag2=value2 fieldKey="fieldValue" 1556813561098000000
 ```
 
 ## Lines
 
-Line protocol consists of zero or more lines, each terminated by a newline character `\n`.
+Line protocol consists of zero or more lines, each terminated by the newline character (`\n`).
 A line may represent one of the following:
-- [data point]() that represents a [point]() in InfluxDB
-- blank line that consists entirely of [whitespace]()
-- comment that starts with `#`
+- [data point](#elements-of-line-protocol) that represents a [point](/influxdb/v2.1/reference/key-concepts/data-elements) in InfluxDB
+- blank line that consists entirely of [whitespace](#whitespace)
+- [comment](#comments) that starts with `#`
 
-Line protocol is [whitespace-sensitive]().
+Line protocol is [whitespace-sensitive](#whitespace).
 Line protocol string elements may support certain [special characters](#special-characters).
-
-## Character set
-
-Line protocol is encoded as a sequence of UTF-8-encoded Unicode characters.
 
 ## Elements of line protocol
 
-Lines that represent data points contain a [measurement name], optional [tags], at least one [field], and an optional [timestamp].
+Lines that represent data points contain a [measurement name](#measurement), optional [tags](#tag-set), at least one [field](#field-set), and an optional [timestamp](#timestamp).
 
-```
+```js
 measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
 --------------- --------------- --------------------- -------------------
        |               |                  |                    |
@@ -70,11 +71,12 @@ _Measurement names are case-sensitive and subject to [naming restrictions](#nami
 
 _**Data type:** [String](#string)_
 
+To learn more about designing efficient measurements, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
 
 ### Tag set
 
 _**Optional**_ –
-All tag key-value pairs for the point.
+All [tag]() key-value pairs for the point.
 Key-value relationships are denoted with the `=` operand.
 Multiple tag key-value pairs are comma-delimited.
 _Tag keys and tag values are case-sensitive.
@@ -83,10 +85,24 @@ Tag keys are subject to [naming restrictions](#naming-restrictions)._
 _**Key data type:** [String](#string)_  
 _**Value data type:** [String](#string)_
 
+#### Canonical form
+
+**Canonical form** describes a [tag set](/influxdb/v2.1/reference/key-concepts/data-elements/#tag-set) in which the tags' decoded values are in lexical order, lowest to highest.
+Decoding line protocol is often more efficient when points are written with tags in canonical form.
+
+The data point in the following example has a tag set in canonical form:
+
+```py
+# The tag set below is in canonical form.
+foo,a\ b=x,aB=y value=99
+```
+
+To learn more about designing efficient tags, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+
 ### Field set
 
 ({{< req >}})
-All field key-value pairs for the point.
+All [field]() key-value pairs for the point.
 Points must have at least one field.
 _Field keys and string values are case-sensitive.
 Field keys are subject to [naming restrictions](#naming-restrictions)._
@@ -95,41 +111,47 @@ _**Key data type:** [String](#string)_
 _**Value data type:** [Float](#float) | [Integer](#integer) | [UInteger](#uinteger) | [String](#string) | [Boolean](#boolean)_
 
 {{% note %}}
-_Always double quote string field values. More on quotes [below](#quotes)._
 
-```sh
-measurementName fieldKey="field string value" 1556813561098000000
+Always double quote string field values. Learn more about using [quotes in line protocol](#quotes).
+
+```py
+measurementName fieldKey="string field value" 1556813561098000000
+measurementName fieldKey="\"quoted words\" in a string field value" 1556813561098000000
 ```
+
 {{% /note %}}
+
+To learn more about designing efficient fields, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
 
 ### Timestamp
 
 _**Optional**_ –
-The [unix timestamp](/influxdb/v2.1/reference/glossary/#unix-timestamp) for the data point.
+Unix timestamp for the data point.
 InfluxDB accepts one timestamp per point.
-If no timestamp is provided, InfluxDB uses the system time (UTC) of its host machine.
+
+If no timestamp is provided, InfluxDB uses the system time (UTC) of its host machine. To ensure a data point includes the time a metric is observed (not received by InfluxDB), include the timestamp.
+
+Nanoseconds is the default precision for timestamps. If your timestamps are not in nanoseconds, specify the precision when [writing the data to InfluxDB](/influxdb/v2.1/write-data/#timestamp-precision).
 
 _**Data type:** [Unix timestamp](#unix-timestamp)_
 
-{{% note %}}
+#### Example
 
-#### Important notes about timestamps
-
-- To ensure a data point includes the time a metric is observed (not received by InfluxDB),
-  include the timestamp.
-- If your timestamps are not in nanoseconds, specify the precision of your timestamps
-  when [writing the data to InfluxDB](/influxdb/v2.1/write-data/#timestamp-precision).
-
-{{% /note %}}
+```py
+myMeasurementName fieldKey="fieldValue" 1556813561098000000
+                                        -------------------
+                                                  |
+                                              Timestamp
+```
 
 ### Whitespace
 
 Whitespace in line protocol determines how InfluxDB interprets the data point.
-Allowed whitespace characters are regular spaces ` ` and carriage-returns `\r`.
-The **first unescaped space** delimits the measurement and the tag set from the field set.
-The **second unescaped space** delimits the field set from the timestamp.
+Allowed whitespace characters are regular spaces (` `) and carriage-returns (`\r`).
+The **first unescaped space** delimits the [measurement](#measurement) and the [tag set](#tag-set) from the [field set](#field-set).
+The **second unescaped space** delimits the field set from the [timestamp](#timestamp).
 
-```
+```js
 measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
                                |                     |
                            1st space             2nd space
@@ -137,20 +159,28 @@ measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
 
 ## Data types and format
 
+### Character set
+
+Line protocol is composed of Unicode characters encoded in UTF-8.
+
 ### Float
 
-IEEE-754 64-bit floating-point numbers.
+64-bit floating-point numbers.
 Default numerical type.
-_InfluxDB supports scientific notation in float field values._
 
-##### Float field value examples
+#### Float field value examples
 
-```js
+```py
 myMeasurement fieldKey=1.0
 myMeasurement fieldKey=1
-myMeasurement fieldKey=-1.234456e+78
 ```
 
+InfluxDB supports scientific notation in float field values.
+
+```py
+myMeasurement fieldKey=-1.234456e+78
+
+```
 ### Integer
 
 Signed 64-bit integers.
@@ -160,9 +190,9 @@ Trailing `i` on the number specifies an integer.
 | ---------------         | ---------------        |
 | `-9223372036854775808i` | `9223372036854775807i` |
 
-##### Integer field value examples
+#### Integer field value examples
 
-```js
+```py
 myMeasurement fieldKey=1i
 myMeasurement fieldKey=12485903i
 myMeasurement fieldKey=-12485903i
@@ -177,9 +207,9 @@ Trailing `u` on the number specifies an unsigned integer.
 | ---------------- | ----------------        |
 | `0u`             | `18446744073709551615u` |
 
-##### UInteger field value examples
+#### UInteger field value examples
 
-```js
+```py
 myMeasurement fieldKey=1u
 myMeasurement fieldKey=12485903u
 ```
@@ -187,11 +217,11 @@ myMeasurement fieldKey=12485903u
 ### String
 
 Plain text string.
-Length limit 64KB.
+Length limit is 1.8432MB. 64K is the recommended length limit.
 
-##### String example
+#### String example
 
-```sh
+```py
 # String measurement name, field key, and field value
 myMeasurement fieldKey="this is a string"
 ```
@@ -205,9 +235,9 @@ Stores `true` or `false` values.
 | True          | `t`, `T`, `true`, `True`, `TRUE`    |
 | False         | `f`, `F`, `false`, `False`, `FALSE` |
 
-##### Boolean field value examples
+#### Boolean field value examples
 
-```js
+```py
 myMeasurement fieldKey=true
 myMeasurement fieldKey=false
 myMeasurement fieldKey=t
@@ -217,63 +247,43 @@ myMeasurement fieldKey=FALSE
 ```
 
 {{% note %}}
+
 Do not quote boolean field values.
 Quoted field values are interpreted as strings.
+
 {{% /note %}}
 
 ### Unix timestamp
 
-Unix timestamp in a [specified precision](/influxdb/v2.1/reference/glossary/#unix-timestamp).
-A timestamp is the number of seconds, milliseconds, microseconds or nanoseconds since Jan 1st 1970 UTC.
-InfluxDB uses nanoseconds (`ns`) as the default precision.
-Given InfluxDB cannot determine the unit of precision from the timestamp value,
-precision is passed as external metadata (e.g., in the `?precision=` HTTP query parameter).
+[Unix timestamp](/influxdb/v2.1/reference/glossary/#unix-timestamp) within the range `1677-09-21T00:12:43.145224194Z` to `2262-04-11T23:47:16.854775806Z` (i.e., almost the range of a 64-bit signed integer when expressed as nanoseconds from the epoch, but with a few nanoseconds removed at either end to allow for sentinel values).
 
 | Minimum timestamp      | Maximum timestamp     |
 | -----------------      | -----------------     |
 | `-9223372036854775806` | `9223372036854775806` |
 
-##### Unix timestamp example
-
-```js
-myMeasurementName fieldKey="fieldValue" 1556813561098000000
-```
-
-## Quotes
-
-Line protocol supports single and double quotes as described in the following table:
-
-| Element     | Double quotes                           | Single quotes                           |
-| :------     | :------------:                          |:-------------:                          |
-| Measurement | _Limited_ <sup class="required">*</sup> | _Limited_ <sup class="required">*</sup> |
-| Tag key     | _Limited_ <sup class="required">*</sup> | _Limited_ <sup class="required">*</sup> |
-| Tag value   | _Limited_ <sup class="required">*</sup> | _Limited_ <sup class="required">*</sup> |
-| Field key   | _Limited_ <sup class="required">*</sup> | _Limited_ <sup class="required">*</sup> |
-| Field value | **Strings only**                        | Never                                   |
-| Timestamp   | Never                                   | Never                                   |
-
-<sup class="required">\*</sup> _Line protocol accepts double and single quotes in
-measurement names, tag keys, tag values, and field keys, but interprets them as
-part of the name, key, or value._
-
-## Special Characters
+## Special characters
 
 Line protocol supports special characters in [string elements](#string).
-In the following contexts, it requires escaping certain characters with a backslash (`\`):
+The following contexts require [escaping](#escaping-backslashes) certain characters with a backslash (`\`):
 
-|: Escape sequence :|: Applies to elements :|
-| `\n` is replaced by `U+000A` (newline) | field string values only |
-| `\r` is replaced by `U+000D` (carriage-return) | [field string values only |
-| `\t` is replaced by `U+0009` (tab) | field string values only |
-| `\` is replaced by space `U+0020` (space) | all except field string values |
-| `\,` is replaced with `,` | all except field string values |
-| `\=` is replaced with `=` | all except field string values and measurements |
-| `\”` is replaced with `”` | field string values only |
-| `\\` is replaced with `\` | field string values only |
+| Escape sequence | Applies to elements |
+|:---------------|:-------------------|
+| `\n` is replaced by `U+000A` (newline) | string field values |
+| `\r` is replaced by `U+000D` (carriage-return) | string field values |
+| `\t` is replaced by `U+0009` (tab) | string field values |
+| `\` is replaced by space `U+0020` (space) | all except string field values |
+| `\,` is replaced with `,` | all except string field values |
+| `\=` is replaced with `=` | all except string field values and measurements |
+| `\”` is replaced with `”` | string field values |
+| `\\` is replaced with `\` | string field values |
 
-To unescape a character within a backslash escape sequence, InfluxDB removes _the last backslash_ and its following character and replaces them with the replacement character.
-If the backslash is followed by a character not supported by the element, both the backslash and its following character remain in place, unchanged.
-Note that the above rules imply that a tag key, tag value, field key, or measurement cannot end with a backslash character.
+{{% note %}}
+
+The escaping rules imply the following for [tag keys](/influxdb/v2.1/reference/glossary/#tag-key), [tag values](/influxdb/v2.1/reference/glossary/#tag-value), [field keys](/influxdb/v2.1/reference/glossary/#field-key), and [measurements](/influxdb/v2.1/reference/glossary/#measurement):
+- they cannot end with a backslash (`\`).
+- they accept double quote (`"`) and single quote (`'`) characters as part of the name, key, or value.
+
+{{% /note %}}
 
 ### Escaping backslashes
 
@@ -290,9 +300,13 @@ For example:
 | `\\\\\`     | `\\\`         |
 | `\\\\\\`    | `\\\`         |
 
-##### Examples of special characters in line protocol
 
-```sh
+To unescape a character within a backslash escape sequence, InfluxDB removes _the last backslash_ and its following character and replaces them with the replacement character.
+If the backslash is followed by a character that the line protocol element doesn't support, InfluxDB leaves the backslash and the following character in place, unchanged.
+
+#### Examples of special characters in line protocol
+
+```py
 # Measurement name with spaces
 my\ Measurement fieldKey="string value"
 
@@ -301,6 +315,9 @@ myMeasurement fieldKey="\"string\" within a string"
 
 # Tag keys and values with spaces
 myMeasurement,tag\ Key1=tag\ Value1,tag\ Key2=tag\ Value2 fieldKey=100
+
+# Measurement name and tag key with quotes
+joe'smeasurement,pat'sTag=tag1 fieldKey=100
 
 # Emojis
 myMeasurement,tagKey=🍭 fieldKey="Launch 🚀" 1556813561098000000
@@ -311,27 +328,19 @@ myMeasurement,tagKey=🍭 fieldKey="Launch 🚀" 1556813561098000000
 Line protocol interprets `#` at the beginning of a line as a comment character
 and ignores all subsequent characters until the next newline `\n`.
 
-```sh
+```py
 # This is a comment
 myMeasurement fieldKey="string value" 1556813561098000000
 ```
 
 ## Naming restrictions
 
-Measurement names, tag keys, and field keys cannot begin with an underscore `_`.
-The `_` namespace is reserved for InfluxDB system use.
+### Reserved names
 
-## Canonical form
-
-**Canonical form** describes a [tag set](/influxdb/v2.1/reference/key-concepts/data-elements/#tag-set) in which the tags' decoded values are in lexical order, lowest to highest.
-Decoding line protocol is often more efficient when points are written with tags in canonical form.
-
-The data point in the following example has a tag set in canonical form:
-
-```sh
-# The tag set below is in canonical form.
-foo,a\ b=x,aB=y value=99
-```
+InfluxDB reserves the underscore ('_') namespace and certain words for system use.
+- Measurement names, tag keys, and field keys cannot begin with an underscore (`_`).
+- Field keys and tag keys cannot be named `time`.
+- Tag keys cannot be named `field`.
 
 ## Duplicate points
 
@@ -340,15 +349,19 @@ If you submit line protocol with the same measurement, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
 
+See how InfluxDB [handles duplicate data points](influxdb/v2.1/write-data/best-practices/duplicate-points/).
+
 ## Out of range values
 
-Fields can hold numeric values, which have the potential for falling outside supported ranges.
-Integer and float values should be considered **out of range** if they can't fit within a 64-bit value of the appropriate type. Out of range values may generate [parsing errors](#parsing-errors).
+Fields can contain numeric values, which have the potential for falling outside supported ranges.
+Integer and float values should be considered **out of range** if they can't fit within a 64-bit value of the appropriate type. Out of range values may cause [parsing errors](#parsing-errors).
 
-A timestamp must fall within the range 1677-09-21T00:12:43.145224194Z to 2262-04-11T23:47:16.854775806Z (this is almost the range of a 64-bit signed integer when expressed as nanoseconds from the epoch, but with a few nanoseconds removed at either end to allow for sentinel values).
+For detail about supported ranges, see the minimum and maximum values for each field type.
 
-## Parsing errors
+## Parse errors
 
-When a line protocol decoder encounters an invalid line, tag or field (e.g., with an [out-of-range value]),
-it may choose to recover from the error by ignoring the offending value or it may fail the decoding.
+When a line protocol decoder encounters an invalid line, tag, or field (e.g., with an [out-of-range value](#out-of-range-values)),
+the decoder may choose to recover from the error by ignoring the offending value or it may fail the decoding.
 One common approach to handling syntax errors is for the decoder to recover by discarding data until the next newline character and then resume parsing.
+
+See [how to troubleshoot issues writing data](/influxdb/v2.1/write-data/troubleshoot/) to InfluxDB.

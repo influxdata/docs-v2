@@ -134,10 +134,16 @@ In addition to keeping your keys free of data, follow these additional guideline
 
 ##### Avoid keywords and special characters in keys
 
-To simplify query writing, don't include reserved keywords or special characters in tag and field keys.
+To simplify query writing, don't include Flux keywords or special characters in tag and field keys.
 If you use [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) in keys,
 then you'll have to wrap the keys in double quotes.
 If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux]((/{{< latest "flux" >}}/).
+
+{{% warn %}}
+
+InfluxDB doesn't allow writing points that use the following **reserved tag keys**: `time`, `field`, `_measurement`.
+
+{{% /warn %}}
 
 ##### Avoid duplicate names for tags and fields
 
