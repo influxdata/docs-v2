@@ -8,14 +8,14 @@ menu:
     parent: About the project
 ---
 
-## v1.9.3 [2022-02-01]
+## v1.9.3 [2022-02-02]
 
 {{% note %}} To address a bug that impacted communication between the browser’s main thread and background workers, we bumped the 1.9.2 release version to 1.9.3.
 {{% /note %}}
 
 ### Features
 - Add ability to rename TICKscripts.
-- Add the following enhancements to the `InfluxDB Query Management` page:
+- Add the following enhancements to the `InfluxDB Admin - Queries` tab:
   - `CSV download` button. 
   - Rename `Running` column to `Duration`.
   - Add `Status` column. When hovering over the `Duration` column, status shows `Kill` confirmation button.
