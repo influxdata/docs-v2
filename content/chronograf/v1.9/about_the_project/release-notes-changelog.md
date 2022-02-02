@@ -10,7 +10,7 @@ menu:
 
 ## v1.9.3 [2022-02-02]
 
-{{% note %}} To address a bug that impacted communication between the browser’s main thread and background workers, we bumped the 1.9.2 release version to 1.9.3.
+{{% note %}} **NOTE:** We did not release version 1.9.2 due to a bug that impacted communication between the browser’s main thread and background workers.  This bug has been fixed in the 1.9.3 release.
 {{% /note %}}
 
 ### Features
