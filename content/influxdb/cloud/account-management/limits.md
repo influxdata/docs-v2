@@ -15,15 +15,15 @@ related:
 InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis. Currently, InfluxDB Cloud supports one organization per account.
 
 {{% warn %}}
-All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window. Once a rate is exceeded an error response is returned until the current five-minute window resets.
+All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window. Once a rate is exceeded, an error response is returned until the current five-minute window resets.
 {{% /warn %}}
 
 Review adjustable service quotas and global limits to plan for your bandwidth needs:
 
 - [Adjustable service quotas](#adjustable-service-quotas)
 - [Global limits](#global-limits)
-- [UI Error Messages](#ui-error-messages)
-<!-- - [API Error Responses](#api-error-responses) -->
+- [UI error messages](#ui-error-messages)
+- [API error responses](#api-error-responses)
 
 ## Adjustable service quotas
 
@@ -93,21 +93,13 @@ The {{< cloud-name >}} UI displays a notification message when service quotas or
 
 Errors can also be viewed in the [Usage page](/influxdb/cloud/account-management/data-usage/) under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
 
-<!-- Put in a screenshot of the error message in UI -->
-
-<!-- 
 ## API Error Responses
 
 The following API error responses occur when your plan's service quotas or limits are exceeded.
--->
-<!-- will add these to API docs and inlude a link -->
-<!-- Add in link to API doc on error responses -->
 
-<!-- 
 | HTTP Response Code | HTTP Error Message | Service quota or limit description |
 | :-------------------| :------------------ |  :------------------ |
 | 503 - service unavailable | Series cardinality exceeds your plan's limit | Service quota:  |
 | 413 - request too large | cannot read data: points batch is too large | Limit: 250 MB maximum decompressed request batch size exceeded |
 | If a **read** or **write** request exceeds your [plan's rate limits](/influxdb/cloud/account-management/limits/#rate-limits) or if a **delete** request exceeds the global limit | *HTTP 429 “Too Many Requests” <br> Retry-After: xxx (seconds to wait before retrying the request)*
 | If a **write** request exceeds the global maximum payload size (**50 MB** or **250 MB *decompressed***)  | *HTTP 413 “Payload Too Large” <br> {"code":"request too large","message":"cannot read data: points batch is too large"}* |
--->
