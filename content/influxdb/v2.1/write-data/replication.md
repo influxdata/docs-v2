@@ -61,12 +61,11 @@ Use the `influx replication list` command to view information such as the curren
 max queue size, and latest status code.
 
 {{% note %}}
-Note:
+#### Important things to note
 
-- Only writes are streamed.
-  Other data operations (e.g. deletes, backup restores) do not affect replication.
-  This can cause data in the local bucket to be different than the remote.
-- Large writes are always written together locally, but they will be batched when sent to the remote bucket.
-  The maximum batch size is 500 kB<!-- , which is typically about 250 to 500 lines -->.
-  This may result in scenarios where some batches fail and others do not.
+- Only write operations are replicated. Other data operations (like deletes or restores) are not replicated.
+- In InfluxDB OSS, large write request bodies are written entirely.
+  When replicated, write requests are sent to the remote bucket in batches.
+  The maximum batch size is 500 kB (typically between 250 to 500 lines of line protocol).
+  This may result in scenarios where some batches succeed and others fail.
 {{% /note %}}
