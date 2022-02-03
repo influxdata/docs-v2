@@ -88,7 +88,7 @@ _**Value data type:** [String](#string)_
 #### Canonical form
 
 **Canonical form** describes a [tag set](/influxdb/v2.1/reference/key-concepts/data-elements/#tag-set) in which the tags' decoded values are in lexical order, lowest to highest.
-Decoding line protocol is often more efficient when points are written with tags in canonical form.
+Line protocol decoders are often more efficient at decoding points with tags in canonical form.
 
 The data point in the following example has a tag set in canonical form:
 
@@ -263,8 +263,12 @@ Quoted field values are interpreted as strings.
 
 ## Special characters
 
-Line protocol supports special characters in [string elements](#string).
+- Line protocol supports special characters in [string elements](#string).
+- Line protocol supports both literal backslashes and backslashes as an escape character.
+
 The following contexts require [escaping](#escaping-backslashes) certain characters with a backslash (`\`):
+
+### Escaping rules
 
 | Escape sequence | Supported in elements |
 |:----------------|:----------------------|
@@ -280,31 +284,11 @@ The following contexts require [escaping](#escaping-backslashes) certain charact
 To unescape a character within a backslash escape sequence, InfluxDB removes _the last backslash_ and its following character and replaces them with the replacement character.
 If the backslash is followed by a character that the line protocol element doesn't support, InfluxDB leaves the backslash and the following character in place, unchanged.
 
-For example, given the following line protocol:
-
-```py
-airSensor,sensor_id=TLM\=0201 temp=70.0,humidity=0.5,desc="\\\\==My data\==\\\"
-
-```
-
-InfluxDB writes the following point data:
-
-| _measurement | _sensor_id | _field | _value |
-|:-------------|------------|--------|--------|
-| `airSensor`  | `TLM=0201` | `desc` | `\==My data\==\` |
-
-{{% note %}}
-
-The escaping rules imply the following for [tag keys](/influxdb/v2.1/reference/glossary/#tag-key), [tag values](/influxdb/v2.1/reference/glossary/#tag-value), [field keys](/influxdb/v2.1/reference/glossary/#field-key), and [measurements](/influxdb/v2.1/reference/glossary/#measurement):
+The [escaping rules](#escaping-rules) imply the following for [tag keys](/influxdb/v2.1/reference/glossary/#tag-key), [tag values](/influxdb/v2.1/reference/glossary/#tag-value), [field keys](/influxdb/v2.1/reference/glossary/#field-key), and [measurements](/influxdb/v2.1/reference/glossary/#measurement):
 - they cannot end with a backslash (`\`).
 - they accept double quote (`"`) and single quote (`'`) characters as part of the name, key, or value.
 
-{{% /note %}}
-
-### Escaping backslashes
-
-Line protocol supports both literal backslashes and backslashes as an escape character.
-With two contiguous backslashes, the first is interpreted as an escape character.
+In _string_ [field values](/influxdb/v2.1/reference/glossary/#field-value) with two contiguous backslashes, the first backslash is interpreted as an escape character.
 For example:
 
 | Backslashes | Interpreted as |
@@ -315,6 +299,21 @@ For example:
 | `\\\\`      | `\\`          |
 | `\\\\\`     | `\\\`         |
 | `\\\\\\`    | `\\\`         |
+
+Given the following line protocol:
+
+```py
+# Measurement name with literal backslashes.
+# Escaped = in tag value and \ in string field value.
+air\\\\\Sensor,sensor_id=TLM\=0201 temp=70.0,humidity=0.5,desc="\\\\==My data\==\\\"
+```
+
+InfluxDB writes the following point data:
+
+| _measurement | _sensor_id | _field | _value |
+|:-------------|------------|--------|--------|
+| `air\\\\\Sensor`  | `TLM=0201` | `desc` | `\==My data\==\` |
+
 
 #### Examples of special characters in line protocol
 
@@ -347,12 +346,12 @@ myMeasurement fieldKey="string value" 1556813561098000000
 
 ## Naming restrictions
 
-### Reserved names
-
 InfluxDB reserves the underscore ('_') namespace and certain words for system use.
 - Measurement names, tag keys, and field keys cannot begin with an underscore (`_`).
 - Field keys and tag keys cannot be named `time`.
 - Tag keys cannot be named `field`.
+
+To make your schema easier to query, [avoid using Flux keywords and special characters](/influxdb/v2.1/write-data/best-practices/schema-design/#keep-keys-simple) in keys.
 
 ## Duplicate points
 
