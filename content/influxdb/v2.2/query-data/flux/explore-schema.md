@@ -6,7 +6,7 @@ description: >
   data stored in InfluxDB.
 influxdb/v2.2/tags: [schema]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Explore your schema
     parent: Query with Flux
 weight: 206

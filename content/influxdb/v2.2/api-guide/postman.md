@@ -4,7 +4,7 @@ description: >
   Use [Postman](https://www.postman.com/), a popular tool for exploring APIs,
   to interact with the [InfluxDB API](/influxdb/v2.2/api-guide/).
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Tools & integrations
     name: Use Postman
 weight: 105

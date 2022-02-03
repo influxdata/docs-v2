@@ -6,7 +6,7 @@ description: >
   **without providing a stack ID**.
   To manually create or initialize a new stack, use the [`influx stacks init` command](/influxdb/v2.2/reference/cli/influx/stacks/init/).
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: InfluxDB stacks
     name: Initialize a stack
 weight: 202

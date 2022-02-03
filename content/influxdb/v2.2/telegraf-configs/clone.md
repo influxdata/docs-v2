@@ -4,7 +4,7 @@ description: >
   Use the InfluxDB UI to clone an Telegraf configuration.
 weight: 101
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Clone a config
     parent: Telegraf configurations
 ---

@@ -4,7 +4,7 @@ description: >
   Explore different methods for upgrading from InfluxDB 1.x to InfluxDB 2.2 and
   choose the best one for your use case.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Upgrade InfluxDB
     name: InfluxDB 1.x to 2.2
 weight: 11

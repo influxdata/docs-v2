@@ -6,7 +6,7 @@ description: >
   The Scatter view uses a scatter plot to display time series data.
 weight: 202
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Scatter
     parent: Visualization types
 related:

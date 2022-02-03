@@ -3,7 +3,7 @@ title: Create a user
 seotitle: Create a user in InfluxDB
 description: Create a user in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Create a user
     parent: Manage users
 weight: 101

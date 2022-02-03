@@ -3,7 +3,7 @@ title: Manage InfluxDB dashboards
 description: Create, edit, and manage custom dashboards in the InfluxDB user interface (UI).
 influxdb/v2.2/tags: [dashboards]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Manage dashboards
     parent: Visualize data
 weight: 102

@@ -5,7 +5,7 @@ description: >
   with InfluxDB and other data sources.
 influxdb/v2.2/tags: [flux]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Use the Flux REPL
     parent: Tools & integrations
 weight: 103

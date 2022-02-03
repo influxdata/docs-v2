@@ -4,7 +4,7 @@ weight: 206
 description: >
   Use the `/write` endpoint of the InfluxDB API to write data to InfluxDB.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: InfluxDB API
     parent: Developer tools
 ---

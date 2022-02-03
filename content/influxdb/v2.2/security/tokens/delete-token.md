@@ -5,7 +5,7 @@ description: Delete an API token from InfluxDB using the InfluxDB UI or the `inf
 aliases:
   - /influxdb/v2.2/users/tokens/delete-token
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Delete a token
     parent: Manage tokens
 weight: 204

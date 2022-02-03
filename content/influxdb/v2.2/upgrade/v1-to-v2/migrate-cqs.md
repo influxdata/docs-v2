@@ -5,7 +5,7 @@ description: >
   To migrate continuous queries to InfluxDB 2.x, convert InfluxDB 1.x CQs into Flux and create new
   InfluxDB 2.x tasks.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: InfluxDB 1.x to 2.1
     name: Migrate CQs
 weight: 102

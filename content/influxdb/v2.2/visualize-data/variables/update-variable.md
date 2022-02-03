@@ -3,7 +3,7 @@ title: Update a variable
 seotitle: Update a dashboard variable
 description: Update a dashboard variable in the InfluxDB user interface.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Use and manage variables
 weight: 203
 influxdb/v2.2/tags: [variables]

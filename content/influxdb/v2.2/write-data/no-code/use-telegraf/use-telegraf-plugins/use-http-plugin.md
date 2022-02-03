@@ -7,7 +7,7 @@ description: >
 aliases:
   - /influxdb/v2.2/write-data/use-telegraf/use-telegraf-plugins/use-http-plugin/
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: HTTP input plugin
     parent: Use Telegraf plugins
 weight: 202

@@ -5,7 +5,7 @@ description: >
   Use the [`influx stacks` command](/influxdb/v2.2/reference/cli/influx/stacks/)
   to view installed InfluxDB stacks and their associated resources.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: InfluxDB stacks
     name: View stacks
 weight: 204

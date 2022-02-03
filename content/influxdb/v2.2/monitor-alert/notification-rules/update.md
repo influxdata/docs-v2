@@ -4,7 +4,7 @@ description: >
   Update notification rules to update the notification message or change the schedule or conditions.
 weight: 203
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Manage notification rules
 related:
   - /influxdb/v2.2/monitor-alert/checks/

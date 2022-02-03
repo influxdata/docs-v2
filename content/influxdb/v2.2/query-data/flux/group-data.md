@@ -5,7 +5,7 @@ description: >
   Use `group()` to group data with common values in specific columns.
 influxdb/v2.2/tags: [group]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Group
     parent: Query with Flux
 weight: 202

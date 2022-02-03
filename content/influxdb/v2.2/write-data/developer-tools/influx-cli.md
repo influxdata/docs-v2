@@ -4,7 +4,7 @@ weight: 205
 description: >
   Use the `influx write` command to write data to InfluxDB from the command line.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Influx CLI
     parent: Developer tools
 related:

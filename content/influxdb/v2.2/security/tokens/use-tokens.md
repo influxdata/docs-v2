@@ -5,7 +5,7 @@ description: Use an API token in the InfluxDB UI, the `influx` CLI, or the Influ
 aliases:
   - /influxdb/v2.2/users/tokens/use-tokens
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Use tokens
     parent: Manage tokens
 weight: 204

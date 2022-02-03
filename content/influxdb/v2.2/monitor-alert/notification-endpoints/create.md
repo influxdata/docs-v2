@@ -3,7 +3,7 @@ title: Create notification endpoints
 description: >
    Create notification endpoints to send alerts on your time series data.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Create endpoints
     parent: Manage notification endpoints
 weight: 201

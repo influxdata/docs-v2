@@ -3,7 +3,7 @@ title: Calculate a weekly mean
 description: >
   Calculate a weekly mean and add it to a new bucket.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Calculate a weekly mean
     parent: Common tasks
 weight: 202

@@ -4,7 +4,7 @@ seotitle: Different ways to query InfluxDB
 description: There are multiple ways to query data from InfluxDB including the InfluxDB UI, CLI, and API.
 weight: 103
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Execute queries
     parent: Query data
 influxdb/v2.2/tags: [query]

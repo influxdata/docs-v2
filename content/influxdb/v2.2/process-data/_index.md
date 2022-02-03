@@ -5,7 +5,7 @@ description: >
   InfluxDB's task engine runs scheduled Flux tasks that process and analyze data.
   This collection of articles provides information about creating and managing InfluxDB tasks.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Process data
 weight: 6
 influxdb/v2.2/tags: [tasks]

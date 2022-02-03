@@ -5,7 +5,7 @@ list_title: Node.js
 description: >
   Use the InfluxDB Node.js JavaScript client library to interact with InfluxDB.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Node.js
     parent: Client libraries
 influxdb/v2.2/tags: [client libraries, JavaScript]

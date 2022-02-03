@@ -4,7 +4,7 @@ seotitle: Manage monitoring checks in InfluxDB
 description: >
   Checks in InfluxDB query data and apply a status or level to each data point based on specified conditions.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Monitor & alert
 weight: 101
 influxdb/v2.2/tags: [monitor, checks, notifications, alert]

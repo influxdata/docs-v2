@@ -9,7 +9,7 @@ aliases:
   - /influxdb/v2.2/collect-data/use-telegraf/manual-config
   - /influxdb/v2.2/write-data/use-telegraf/manual-config
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Telegraf (agent)
 weight: 202
 influxdb/v2.2/tags: [manually, plugin, mqtt]

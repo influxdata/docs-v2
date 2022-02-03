@@ -4,7 +4,7 @@ list_title: Delete data
 description: >
   Delete data in the InfluxDB CLI and API.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Delete data
     parent: Write data
 weight: 107

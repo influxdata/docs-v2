@@ -3,7 +3,7 @@ title: Update notification endpoints
 description: >
   Update notification endpoints in the InfluxDB UI.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Update endpoints
     parent: Manage notification endpoints
 weight: 203

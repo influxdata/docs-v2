@@ -5,7 +5,7 @@ aliases:
   - /influxdb/v2.2/collect-data/scrape-data/manage-scrapers
   - /influxdb/v2.2/write-data/scrape-data/manage-scrapers
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Manage scrapers
     parent: Scrape data
 weight: 201

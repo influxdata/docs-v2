@@ -9,7 +9,7 @@ description: >
   making values easily comparable.
 weight: 210
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Query with Flux
     name: Rate
 influxdb/v2.2/tags: [query, rate]

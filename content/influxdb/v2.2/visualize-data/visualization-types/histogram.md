@@ -7,7 +7,7 @@ description: >
   The y-axis is dedicated to count, and the x-axis is divided into bins.
 weight: 202
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Histogram
     parent: Visualization types
 ---

@@ -5,7 +5,7 @@ list_title: Go
 description: >
   Use the InfluxDB Go client library to interact with InfluxDB.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Go
     parent: Client libraries
 influxdb/v2.2/tags: [client libraries, Go]

@@ -6,7 +6,7 @@ description: >
   Use `map()` to remap column values and apply mathematic operations.
 influxdb/v2.2/tags: [math, flux]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Transform data with math
     parent: Query with Flux
 weight: 208

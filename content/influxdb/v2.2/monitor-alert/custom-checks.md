@@ -4,7 +4,7 @@ seotitle: Custom checks
 description: >
   Create custom checks with a Flux task.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Monitor & alert
 weight: 201
 influxdb/v2.2/tags: [alerts, checks, tasks, Flux]

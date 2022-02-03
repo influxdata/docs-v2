@@ -5,7 +5,7 @@ description: >
   lets you create reports and dashboards in Google Data Studio with data from
   InfluxDB Cloud or InfluxDB OSS 2.x.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Tools & integrations
 weight: 104
 influxdb/v2.2/tags: [google]

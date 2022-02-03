@@ -3,7 +3,7 @@ title: InfluxDB schema design
 description: >
   Design your schema for simpler and more performant queries.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Schema design
     weight: 201
     parent: write-best-practices

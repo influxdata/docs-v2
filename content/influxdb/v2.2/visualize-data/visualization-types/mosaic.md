@@ -7,7 +7,7 @@ description: >
   This visualization type is useful when you want to show changes in string-based states over time.
 weight: 202
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Mosaic
     parent: Visualization types
 ---

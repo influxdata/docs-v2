@@ -6,7 +6,7 @@ description: >
   Use `fill()` function to replace _null_ values.
 weight: 210
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Query with Flux
     name: Fill
 influxdb/v2.2/tags: [query, fill]

@@ -5,7 +5,7 @@ description: >
   Compare the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a threshold check.
 influxdb/v2.2/tags: [queries]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Compare values from different buckets
     parent: Common queries
 weight: 104

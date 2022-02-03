@@ -6,7 +6,7 @@ description: Use the InfluxDB Arduino client library to interact with InfluxDB.
 external_url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino
 list_note: _– contributed by [tobiasschuerg](https://github.com/tobiasschuerg)_
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Arduino
     parent: Client libraries
     url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino

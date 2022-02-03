@@ -5,7 +5,7 @@ description: >
   Learn about the recommendations and best practices for writing data to InfluxDB.
 weight: 105
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Best practices
     identifier: write-best-practices
     parent: Write data

@@ -6,7 +6,7 @@ description: >
   in InfluxDB.
 influxdb/v2.2/tags: [backup, restore]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Back up & restore data
 weight: 9
 products: [oss]

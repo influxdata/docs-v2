@@ -5,7 +5,7 @@ description: >
   Use `json.encode()` to convert query results to JSON and `http.post()` to send them
   to a URL endpoint.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Convert results to JSON
     parent: Common tasks
 weight: 203

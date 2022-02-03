@@ -5,7 +5,7 @@ description: >
   to remove Telegraf configurations from InfluxDB.
 weight: 104
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Remove a config
     parent: Telegraf configurations
 aliases:

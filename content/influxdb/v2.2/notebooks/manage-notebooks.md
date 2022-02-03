@@ -4,7 +4,7 @@ description: View, update, and delete notebooks.
 weight: 103
 influxdb/v2.2/tags: [notebooks]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Manage notebooks
     parent: Notebooks
 ---

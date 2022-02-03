@@ -6,7 +6,7 @@ description: >
   The Gauge view displays the single value most recent value for a time series in a gauge view.
 weight: 201
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Gauge
     parent: Visualization types
 ---
