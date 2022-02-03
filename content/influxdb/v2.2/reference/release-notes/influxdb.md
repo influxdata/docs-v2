@@ -14,7 +14,7 @@ weight: 101
 
 #### Flux
 
-- Update to [Flux v0.150.0](/flux/v0.x/release-notes/#v?).
+- Update to [Flux v0.150.0](/flux/v0.x/release-notes/#v01500-2022-01-19).
 - (https://github.com/influxdata/influxdb/commit/b02c89e): Option to log flux queries cancelled because of server shutdown.
 
 #### Miscellaneous upgrades
