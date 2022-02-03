@@ -348,7 +348,7 @@ myMeasurement fieldKey="string value" 1556813561098000000
 
 ## Naming restrictions
 
-InfluxDB reserves the underscore ('_') namespace and certain words for system use.
+InfluxDB reserves the underscore (`_`) namespace and certain words for system use.
 - Measurement names, tag keys, and field keys cannot begin with an underscore (`_`).
 - Field keys and tag keys cannot be named `time`.
 - Tag keys cannot be named `field`.
