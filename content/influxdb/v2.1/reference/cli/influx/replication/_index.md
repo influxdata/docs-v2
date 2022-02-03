@@ -1,6 +1,6 @@
 ---
 title: influx replication
-description: Manage replication streams
+description: Use the `influx` CLI to manage InfluxDB replication streams.
 menu:
   influxdb_2_1_ref:
     name: influx replication
