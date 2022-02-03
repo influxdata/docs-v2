@@ -22,7 +22,7 @@ bucket to an InfluxDB Cloud or a remote InfluxDB OSS bucket.
 1. [Download and install the `influx` CLI](/influxdb/v2.2/tools/influx-cli/).
 2. Use the `influx remote create` command to create a remote connection to replicate data to.
     Provide the following:
-    
+
     - Remote connection name
     - Remote InfluxDB instance URL
     - Remote InfluxDB API token _(API token must have write access to the target bucket)_
