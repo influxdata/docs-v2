@@ -26,6 +26,8 @@ It is a text-based format that provides the measurement, tag set, field set, and
 - [Comments](#comments)
 - [Naming restrictions](#naming-restrictions)
 - [Duplicate points](#duplicate-points)
+- [Out of range values](#out-of-range-values)
+- [Parse errors](#parse-errors)
 
 #### Syntax
 
