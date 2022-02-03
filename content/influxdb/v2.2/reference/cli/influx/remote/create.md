@@ -2,13 +2,13 @@
 title: influx remote create
 description: Create a new remote InfluxDB connection for replicating data.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx remote create
     parent: influx remote
 weight: 101
-influxdb/v2.1/tags: [write, replication]
+influxdb/v2.2/tags: [write, replication]
 related:
-  - /influxdb/v2.1/reference/cli/influx/replication
+  - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
 The `influx remote create` command creates a new remote InfluxDB connection for replicating data.

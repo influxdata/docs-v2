@@ -2,13 +2,13 @@
 title: influx remote delete
 description: Delete remote InfluxDB connections used for replicating data.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx remote delete
     parent: influx remote
 weight: 102
-influxdb/v2.1/tags: [write, replication]
+influxdb/v2.2/tags: [write, replication]
 related:
-  - /influxdb/v2.1/reference/cli/influx/replication
+  - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
 The `influx remote delete` command delete an existing remote InfluxDB connection used for replication.

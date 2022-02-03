@@ -2,13 +2,13 @@
 title: influx replication update
 description: Update InfluxDB replication streams.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx replication update
     parent: influx replication
 weight: 102
-influxdb/v2.1/tags: [write, replication]
+influxdb/v2.2/tags: [write, replication]
 related:
-  - /influxdb/v2.1/reference/cli/influx/replication
+  - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
 The `influx replication update` command updates an InfluxDB replication stream.

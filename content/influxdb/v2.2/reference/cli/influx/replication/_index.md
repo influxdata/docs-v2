@@ -2,13 +2,13 @@
 title: influx replication
 description: Use the `influx` CLI to manage InfluxDB replication streams.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx replication
     parent: influx
 weight: 101
-influxdb/v2.1/tags: [write, replication]
+influxdb/v2.2/tags: [write, replication]
 related:
-  - /influxdb/v2.1/reference/cli/influx/remote
+  - /influxdb/v2.2/reference/cli/influx/remote
 ---
 
 The `influx replication` command and its subcommands manage InfluxDB replication streams.
@@ -21,10 +21,10 @@ influx replication [commond options] [arguments...]
 ## Subcommands
 | Subcommand                                                       | Description                              |
 | :--------------------------------------------------------------- | :--------------------------------------- |
-| [create](/influxdb/v2.1/reference/cli/influx/replication/create) | Create a new replication stream          |
-| [delete](/influxdb/v2.1/reference/cli/influx/replication/delete) | Delete a replication stream              |
-| [list](/influxdb/v2.1/reference/cli/influx/replication/list)     | List all replication streams and metrics |
-| [update](/influxdb/v2.1/reference/cli/influx/replication/update) | Update a replication stream              |
+| [create](/influxdb/v2.2/reference/cli/influx/replication/create) | Create a new replication stream          |
+| [delete](/influxdb/v2.2/reference/cli/influx/replication/delete) | Delete a replication stream              |
+| [list](/influxdb/v2.2/reference/cli/influx/replication/list)     | List all replication streams and metrics |
+| [update](/influxdb/v2.2/reference/cli/influx/replication/update) | Update a replication stream              |
 
 ## Flags
 | Flag |          | Description                        |

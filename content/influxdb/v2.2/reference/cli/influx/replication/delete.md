@@ -2,13 +2,13 @@
 title: influx replication delete
 description: Delete an InfluxDB replication stream.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx replication delete
     parent: influx replication
 weight: 102
-influxdb/v2.1/tags: [write, replication]
+influxdb/v2.2/tags: [write, replication]
 related:
-  - /influxdb/v2.1/reference/cli/influx/replication
+  - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
 The `influx replication delete` command deletes an InfluxDB replication stream.

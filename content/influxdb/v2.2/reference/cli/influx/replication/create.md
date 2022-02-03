@@ -2,13 +2,13 @@
 title: influx replication create
 description: Create a new InfluxDB replication stream.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx replication create
     parent: influx replication
 weight: 101
-influxdb/v2.1/tags: [write]
+influxdb/v2.2/tags: [write]
 related:
-  - /influxdb/v2.1/reference/cli/influx/replication
+  - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
 The `influx replication create` command creates a new InfluxDB replication stream.
