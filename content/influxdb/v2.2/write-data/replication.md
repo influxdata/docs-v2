@@ -5,13 +5,13 @@ description: >
   Use InfluxDB replication streams to replicate all data written to an InfluxDB OSS
   instance to InfluxDB Cloud or a remote InfluxDB OSS instance.
 menu:
-  influxdb_2_1:
+  influxdb_2.2:
     name: Replicate data
     parent: Write data
-influxdb/v2.1/tags: []
+influxdb/v2.2/tags: []
 related:
-  - /influxdb/v2.1/reference/cli/influx/remote
-  - /influxdb/v2.1/reference/cli/influx/replication
+  - /influxdb/v2.2/reference/cli/influx/remote
+  - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
 Use InfluxDB replication streams to replicate all data written to an InfluxDB OSS
@@ -19,7 +19,7 @@ bucket to an InfluxDB Cloud or a remote InfluxDB OSS bucket.
 
 **To configure a replication stream:**
 
-1. [Download and install the `influx` CLI](https://docs.influxdata.com/influxdb/v2.1/tools/influx-cli/).
+1. [Download and install the `influx` CLI](/influxdb/v2.2/tools/influx-cli/).
 2. Use the `influx remote create` command to create a remote connection to replicate data to.
     Provide the following:
     
