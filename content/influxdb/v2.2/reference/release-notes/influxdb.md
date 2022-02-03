@@ -8,44 +8,43 @@ menu:
 weight: 101
 ---
 
-## v2.2 [2022-02-04]
+## v2.2 [TBD]
 
 ### Features
-
+ 
 #### Flux
-
+ 
 - Update to [Flux v0.150.0](/flux/v0.x/release-notes/#v01500-2022-01-19).
-- (https://github.com/influxdata/influxdb/commit/b02c89e): Option to log flux queries cancelled because of server shutdown.
-
-#### Miscellaneous upgrades
-
-https://github.com/influxdata/influxdb/commit/f4e9ae9): Build: upgrade protobuf library
-
+- Option to log Flux queries that are cancelled because of server shutdown.
+ 
+#### Build maintenance
+ 
+- Upgrade `protobuf` library.
+- https://github.com/influxdata/influxdb/commit/5a1e375): Build: allow to build on FreeBSD
+ 
 #### Task metadata
-
-(https://github.com/influxdata/influxdb/commit/504f0e4): Passing `type=basic` returns task metadata without query text
-
+ 
+(https://github.com/influxdata/influxdb/commit/504f0e4): Passing `type=basic` returns task metadata without query text.
+ 
 #### Remotes and replications
-
+ 
+Add the option to replicate data from a specified bucket locally to buckets on remote InfluxDB instance(s).
+ 
+This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and send the data to buckets on remote InfluxDB instance(s). Also helps to collect data from edge deployments with limited or no connectivity to the cloud, and sending data to the cloud once network connection is restored.
+ 
 (https://github.com/influxdata/influxdb/commit/5a919b6): Enable remotes and replication streams feature
 (https://github.com/influxdata/influxdb/commit/58139c4): Add auth to remotes & replications APIs
 (https://github.com/influxdata/influxdb/commit/8825cd5): Replication apis durable queue management
-(https://github.com/influxdata/influxdb/commit/cd0243d): Added replications queue management to launcher tasks
-(https://github.com/influxdata/influxdb/commit/6b56af3): Mirror writes to registered replications
-(https://github.com/influxdata/influxdb/commit/40d9587): Add replications queue scanner
 (https://github.com/influxdata/influxdb/commit/ad52815): Add field for dropping data resulting in non-retryable errors to individual replications
-(https://github.com/influxdata/influxdb/commit/9873ccd): Remote write function for replications
 (https://github.com/influxdata/influxdb/commit/f05d013): Metrics collection for replications remote writes
-(https://github.com/influxdata/influxdb/commit/3460f1c): Replication remote writes do not block local writes
-(https://github.com/influxdata/influxdb/commit/28bcd41): Batch replications remote writes to avoid payload limit errors
 (https://github.com/influxdata/influxdb/commit/a7a5233): Advance queue scanner periodically instead of every remote write
-
+ 
 #### Performance?
-
+ 
 (https://github.com/influxdata/influxdb/commit/fea3037): Configure perf tests with yaml
-
+ 
 #### Metrics
-
+ 
 (https://github.com/influxdata/influxdb/commit/dece95d): Tsm compaction metrics via prometheus
 (https://github.com/influxdata/influxdb/commit/3a81166): Added metrics collection for replications
 (https://github.com/influxdata/influxdb/commit/6096ee2): Replications metrics include failure to enqueue
@@ -54,16 +53,16 @@ https://github.com/influxdata/influxdb/commit/f4e9ae9): Build: upgrade protobuf 
 (https://github.com/influxdata/influxdb/commit/feb459c): Metrics for cache subsystem
 (https://github.com/influxdata/influxdb/commit/edb21ab): Metrics for wal subsystem
 (https://github.com/influxdata/influxdb/commit/b970e35): Remaining storage metrics from OSS engine
-
+ 
 #### Miscellaneous updates
-
+ 
 (https://github.com/influxdata/influxdb/commit/c51a0df): Error out when config file contains 1.x config values
 (https://github.com/influxdata/influxdb/commit/afb167a): `query-memory-bytes` zero-value is unlimited
 (https://github.com/influxdata/influxdb/commit/f78f9ed): Api/v2/config endpoint displays runtime configuration
 (https://github.com/influxdata/influxdb/commit/4f74049): Add downgrade target for 2.1
-
+ 
 ### Bug fixes
-
+ 
 https://github.com/influxdata/influxdb/commit/84776d7): Manual task runs are scheduled asyncronously
 https://github.com/influxdata/influxdb/commit/5e6b0d5): Extend snapshot copy to filesystems that cannot link
 https://github.com/influxdata/influxdb/commit/88afa92): Detect misquoted tag values and return an error
@@ -78,18 +77,11 @@ https://github.com/influxdata/influxdb/commit/e5cbd27): Advance replications que
 https://github.com/influxdata/influxdb/commit/4fd4bd0): Use copy when a rename spans volumes
 https://github.com/influxdata/influxdb/commit/11c0081): Disable use of jsonnet with `/api/v2/templates/apply`
 https://github.com/influxdata/influxdb/commit/0c30afd): Updating a check does not require an owner id
-
+ 
 ### Other
-
-#### Build updates
-
-https://github.com/influxdata/influxdb/commit/0ecde93): Build: stop building & pushing images to quay.io
-https://github.com/influxdata/influxdb/commit/11f6052): Build: better versioning and verification for releases
-https://github.com/influxdata/influxdb/commit/0572ae0): Build: replace cross_build job with parallelized build matrix
-https://github.com/influxdata/influxdb/commit/e7a77f0): Build: follow-up fixes after CI refactor
-https://github.com/influxdata/influxdb/commit/a5f6431): Build: pull SHA-specific image before tagging it as latest
-https://github.com/influxdata/influxdb/commit/5a1e375): Build: allow to build on FreeBSD
-
+ 
+ 
+ 
 #### Chores
 https://github.com/influxdata/influxdb/commit/de7f052): Chore: fix `dump_tsi` deadlock
 https://github.com/influxdata/influxdb/commit/ca633cd): Chore: Remove outdated query readme
@@ -104,19 +96,21 @@ https://github.com/influxdata/influxdb/commit/a8ca413): Chore: add deprecation n
 https://github.com/influxdata/influxdb/commit/0e5b14f): Chore: increase replications batch size limits
 https://github.com/influxdata/influxdb/commit/c889d0f): Chore: remove outdated `/docs` folder
 https://github.com/influxdata/influxdb/commit/2a957c9): Chore(query/influxql): remove the influxql transpiler
-
+ 
 #### Refactor
-
+ 
 https://github.com/influxdata/influxdb/commit/1aac92c): Refactor: remove replications.current_queue_size_bytes from sqlite
 https://github.com/influxdata/influxdb/commit/6ee4727): Refactor: use remote write func in NewDurableQueueManager
 https://github.com/influxdata/influxdb/commit/f47d514): Refactor: move replications store functionality to separate package
 https://github.com/influxdata/influxdb/commit/6023496): Refactor: replications local write optimization
-
+ 
 #### Test
-
+ 
 https://github.com/influxdata/influxdb/commit/9060150): Test: add e2e test for replication streams
 https://github.com/influxdata/influxdb/commit/e3ff434): Test: fix flaky replications tests
 https://github.com/influxdata/influxdb/commit/c1d384d): Test: fix flaky enqueue test
+ 
+
 
 ## v2.1.1 [2021-11-08]
 
