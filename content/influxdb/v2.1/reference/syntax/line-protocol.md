@@ -266,16 +266,32 @@ Quoted field values are interpreted as strings.
 Line protocol supports special characters in [string elements](#string).
 The following contexts require [escaping](#escaping-backslashes) certain characters with a backslash (`\`):
 
-| Escape sequence | Applies to elements |
-|:---------------|:-------------------|
-| `\n` is replaced by `U+000A` (newline) | string field values |
-| `\r` is replaced by `U+000D` (carriage-return) | string field values |
-| `\t` is replaced by `U+0009` (tab) | string field values |
-| `\` is replaced by space `U+0020` (space) | all except string field values |
+| Escape sequence | Supported in elements |
+|:----------------|:----------------------|
+| `\n` is replaced with `U+000A` (newline) | string field values |
+| `\r` is replaced with `U+000D` (carriage-return) | string field values |
+| `\t` is replaced with `U+0009` (tab) | string field values |
+| `\` is replaced with `U+0020` (space) | all except string field values |
 | `\,` is replaced with `,` | all except string field values |
 | `\=` is replaced with `=` | all except string field values and measurements |
 | `\”` is replaced with `”` | string field values |
 | `\\` is replaced with `\` | string field values |
+
+To unescape a character within a backslash escape sequence, InfluxDB removes _the last backslash_ and its following character and replaces them with the replacement character.
+If the backslash is followed by a character that the line protocol element doesn't support, InfluxDB leaves the backslash and the following character in place, unchanged.
+
+For example, given the following line protocol:
+
+```py
+airSensor,sensor_id=TLM\=0201 temp=70.0,humidity=0.5,desc="\\\\==My data\==\\\"
+
+```
+
+InfluxDB writes the following point data:
+
+| _measurement | _sensor_id | _field | _value |
+|:-------------|------------|--------|--------|
+| `airSensor`  | `TLM=0201` | `desc` | `\==My data\==\` |
 
 {{% note %}}
 
@@ -299,10 +315,6 @@ For example:
 | `\\\\`      | `\\`          |
 | `\\\\\`     | `\\\`         |
 | `\\\\\\`    | `\\\`         |
-
-
-To unescape a character within a backslash escape sequence, InfluxDB removes _the last backslash_ and its following character and replaces them with the replacement character.
-If the backslash is followed by a character that the line protocol element doesn't support, InfluxDB leaves the backslash and the following character in place, unchanged.
 
 #### Examples of special characters in line protocol
 
