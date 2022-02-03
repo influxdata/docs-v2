@@ -137,7 +137,7 @@ In addition to keeping your keys free of data, follow these additional guideline
 To simplify query writing, don't include Flux keywords or special characters in tag and field keys.
 If you use [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) in keys,
 then you'll have to wrap the keys in double quotes.
-If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux]((/{{< latest "flux" >}}/).
+If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux](/{{< latest "flux" >}}/).
 
 {{% warn %}}
 
