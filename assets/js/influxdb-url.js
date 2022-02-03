@@ -276,6 +276,29 @@ $("#modal-close, .modal-overlay, .url-trigger").click(function(e) {
   toggleModal()
 })
 
+
+// Add checked to fake-radio if cluster is selected on page load
+if ($("ul.clusters label input").is(":checked")) {
+  var group = $("ul.clusters label input:checked").parent().parent().parent().siblings();
+  $(".fake-radio", group).addClass("checked");
+};
+
+// Select first cluster when region is clicked
+$("p.region").click(function () {
+  if (!$(".fake-radio", this).hasClass("checked")) {
+    $(".fake-radio", this).addClass("checked");
+    $("+ ul.clusters li:first label", this).trigger("click");
+  };
+});
+
+// Remove checked class from fake-radio when another region is selected
+$(".region-group").click(function () {
+  if (!$(".fake-radio", this).hasClass("checked")) {
+    $(".fake-radio", !this).removeClass("checked");
+    $(".fake-radio", this).addClass("checked");
+  }
+})
+
 // Update URLs and URL preference when selected/clicked in the modal
 $('input[name="influxdb-cloud-url"]').change(function() {
   var newUrl = $(this).val()
