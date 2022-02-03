@@ -11,6 +11,10 @@ related:
   - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
+{{% cloud %}}
+Replication remotes and replication streams can only be configured for InfluxDB OSS.
+{{% /cloud %}}
+
 The `influx remote list` command lists all remote InfluxDB connections used for replication.
 
 ## Usage

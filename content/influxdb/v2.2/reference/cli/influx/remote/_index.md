@@ -12,6 +12,10 @@ related:
   - /influxdb/v2.2/write-data/replication
 ---
 
+{{% cloud %}}
+Replication remotes and replication streams can only be configured for InfluxDB OSS.
+{{% /cloud %}}
+
 Use the `influx remote` command to manage connections to remote instances of InfluxDB.
 Remote connections are used to replicate data at the bucket level.
 

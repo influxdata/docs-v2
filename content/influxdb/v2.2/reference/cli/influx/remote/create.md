@@ -11,6 +11,10 @@ related:
   - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
+{{% cloud %}}
+Replication remotes and replication streams can only be configured for InfluxDB OSS.
+{{% /cloud %}}
+
 The `influx remote create` command creates a new remote InfluxDB connection for replicating data.
 
 ## Usage
