@@ -4,8 +4,8 @@ influxdb:
   namespace: influxdb
   list_order: 2
   versions: [v1.3, v1.4, v1.5, v1.6, v1.7, v1.8, v2.0, v2.1]
-  latest: v2.1
-  latest_override: v2.1
+  latest: v2.2
+  latest_override: v2.2
   latest_patches:
     "2.1": 1
     "2.0": 9
