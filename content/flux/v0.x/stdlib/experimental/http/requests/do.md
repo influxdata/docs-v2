@@ -66,6 +66,7 @@ Data to send with the request.
 
 ### config {data-type="record"}
 Set of request configuration options.
+_See [HTTP configuration option examples](/flux/v0.x/stdlib/experimental/http/requests/#examples)._
 
 ## Examples
 
@@ -98,10 +99,28 @@ requests.do(
 ```js
 import "experimental/http/requests"
 
-resp = requests.do(
+requests.do(
     method: "GET",
     url: "http://example.com",
     params: ["start": ["100"]],
 )
 ```
 
+### Output HTTP response data in a table
+```js
+import "array"
+import "dict"
+import "experimental/http/requests"
+
+resp = requests.do(method: "GET", url: "http://example.com")
+
+array.from(
+    rows: [
+        {
+            body: string(v: resp.body),
+            statusCode: resp.statusCode,
+            date: dict.get(dict: resp.headers, key: "Date", default: ""),
+        },
+    ],
+)
+```
