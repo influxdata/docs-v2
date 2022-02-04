@@ -42,3 +42,17 @@ influx remote create [commond options] [arguments...]
 |      | `--json`               | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--hide-headers`       | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 | `-t` | `--token`              | InfluxDB API token                                                    |   string   | `INFLUX_TOKEN`        |
+
+## Examples
+
+### Create a new remote with InfluxDB Cloud
+
+```sh
+influx remote create \
+  --name myremote \
+  --org-id <OSS org ID \
+  --token <OSS token> \
+  --remote-url <remote URL> \
+  --remote-api-token <remote token> \
+  --remote-org-id <remote ord ID> \
+```
