@@ -14,7 +14,7 @@ weight: 101
 
 #### Replicate data remotely
 
-- Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/cloud/write-data/replication).
+- Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
 This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and then send the data to one or more buckets on a remote InfluxDB Cloud instance. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent once the network connectivity is restored.
 
