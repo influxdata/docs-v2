@@ -5,7 +5,7 @@ description: >
   Use [`pivot()` or `join()`](/influxdb/v2.2/query-data/flux/mathematic-operations/#pivot-vs-join)
   and the `map()` function to align operand values into rows and calculate a percentage.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Calculate percentages
     parent: Query with Flux
 weight: 209

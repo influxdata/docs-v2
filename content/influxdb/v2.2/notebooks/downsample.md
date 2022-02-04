@@ -7,7 +7,7 @@ description: >
 weight: 104
 influxdb/v2.2/tags: [notebooks]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Downsample data
     identifier: notebooks-downsample
     parent: Notebooks

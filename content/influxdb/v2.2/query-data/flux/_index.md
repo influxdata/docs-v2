@@ -4,7 +4,7 @@ description: Guides that walk through both common and complex queries and use ca
 weight: 102
 influxdb/v2.2/tags: [flux, query]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Query with Flux
     parent: Query data
 alias:

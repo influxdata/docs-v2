@@ -6,7 +6,7 @@ weight: 102
 description: >
   Use developer tools such as the InfluxDB API and `influx` CLI to write data to InfluxDB.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Developer tools
     parent: Write data
 ---

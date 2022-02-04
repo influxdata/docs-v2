@@ -3,7 +3,7 @@ title: Write data with the InfluxDB JavaScript client library
 description: >
   Use the JavaScript client library to write data with the InfluxDB API in Node.js.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Write
     parent: Node.js
 influxdb/v2.2/tags: [client libraries, JavaScript]

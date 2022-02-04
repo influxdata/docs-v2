@@ -4,7 +4,7 @@ description: >
   To upgrade from InfluxDB 2.0 beta 16 or earlier to InfluxDB 2.2 (stable),
   manually upgrade all resources and data to the latest version by completing these steps.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Upgrade InfluxDB
     name: InfluxDB 2.x to 2.2
 weight: 10

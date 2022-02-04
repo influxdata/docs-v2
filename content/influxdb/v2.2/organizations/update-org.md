@@ -3,7 +3,7 @@ title: Update an organization
 seotitle: Update an organization in InfluxDB
 description: Update an organization's name and assets in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Update an organization
     parent: Manage organizations
 weight: 103

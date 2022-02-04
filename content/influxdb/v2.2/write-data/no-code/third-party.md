@@ -4,7 +4,7 @@ weight: 103
 description: >
   Write data to InfluxDB using third-party technologies that do not require coding.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Third-party technologies
     parent: No-code solutions
 ---

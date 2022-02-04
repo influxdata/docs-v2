@@ -3,7 +3,7 @@ title: Delete a bucket
 seotitle: Delete a bucket from InfluxDB
 description: Delete a bucket from InfluxDB using the InfluxDB UI or the influx CLI
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Delete a bucket
     parent: Manage buckets
 weight: 203

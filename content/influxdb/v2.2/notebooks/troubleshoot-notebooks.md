@@ -4,7 +4,7 @@ description: Common issues with the notebooks feature.
 weight: 106
 influxdb/v2.2/tags: [notebooks]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Troubleshoot notebooks
     parent: Notebooks
 ---

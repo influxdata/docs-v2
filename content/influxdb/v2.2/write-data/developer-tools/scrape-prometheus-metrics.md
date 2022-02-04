@@ -7,7 +7,7 @@ description: >
   scrape Prometheus-formatted metrics from an HTTP-accessible endpoint and store
   them in InfluxDB.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Scrape Prometheus metrics
     parent: Developer tools
 related:

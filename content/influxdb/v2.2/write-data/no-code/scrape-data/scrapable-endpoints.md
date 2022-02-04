@@ -9,7 +9,7 @@ description: >
 aliases:
   - /influxdb/v2.2/collect-data/scrape-data/scrapable-endpoints
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Scrape data
 weight: 202
 influxdb/v2.2/tags: [scraper, prometheus]

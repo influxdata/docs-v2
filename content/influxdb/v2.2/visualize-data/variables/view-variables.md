@@ -3,7 +3,7 @@ title: View variables
 seotitle: View dashboard variables
 description: View dashboard variables in the InfluxDB user interface.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Use and manage variables
 weight: 203
 influxdb/v2.2/tags: [variables]

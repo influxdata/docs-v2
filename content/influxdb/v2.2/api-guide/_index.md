@@ -4,7 +4,7 @@ seotitle: Use the InfluxDB API
 description: Interact with InfluxDB 2.2 using a rich API for writing and querying data and more.
 weight: 4
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Develop with the API
 influxdb/v2.2/tags: [api]
 ---

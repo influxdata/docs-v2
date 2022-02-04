@@ -4,7 +4,7 @@ description: >
   Simple tips to optimize performance and system overhead when writing data to InfluxDB.
 weight: 203
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: write-best-practices
 influxdb/v2.2/tags: [best practices, write]
 ---

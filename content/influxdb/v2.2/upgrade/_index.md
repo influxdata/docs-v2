@@ -2,7 +2,7 @@
 title: Upgrade InfluxDB
 description: >
   Upgrade your version of InfluxDB
-menu: influxdb_2_1
+menu: influxdb_2_2
 weight: 3
 aliases:
   - /influxdb/v2.2/reference/upgrading/

@@ -11,7 +11,7 @@ aliases:
   - /influxdb/v2.2/collect-data/use-telegraf
   - /influxdb/v2.2/write-data/use-telegraf/
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Telegraf (agent)
     parent: No-code solutions
 ---

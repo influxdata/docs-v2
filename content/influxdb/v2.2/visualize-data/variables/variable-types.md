@@ -3,7 +3,7 @@ title: Variable types
 seotitle: Dashboard variable types
 description: Overview of the types of dashboard variables available in InfluxDB
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Use and manage variables
 weight: 207
 influxdb/v2.2/tags: [variables]

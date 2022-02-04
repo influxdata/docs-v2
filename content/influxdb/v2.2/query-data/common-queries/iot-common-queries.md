@@ -4,7 +4,7 @@ description: >
   Use Flux to address common IoT use cases that query data collected from sensors.
 influxdb/v2.2/tags: [queries]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: IoT common queries
     parent: Common queries
 weight: 205

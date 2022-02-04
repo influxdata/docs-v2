@@ -6,7 +6,7 @@ description: >
   1.x-compatible authorizations, and create database and retention policy
   (DBRP) mappings.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: InfluxDB 1.x to 2.2
     name: Manually upgrade
 weight: 11

@@ -3,7 +3,7 @@ title: Monitor Raspberry Pi
 description: >
   Use the Raspberry Pi system template to monitor your Raspberry Pi 4 or 400 Linux system. 
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Monitor infrastructure
     name: Raspberry Pi
 weight: 201

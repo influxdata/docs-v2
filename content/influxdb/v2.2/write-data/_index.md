@@ -8,7 +8,7 @@ aliases:
   - /influxdb/v2.2/write-data/quick-start/
   - /influxdb/v2.2/write-data/sample-data/demo-data/
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Write data
 influxdb/v2.2/tags: [write, line protocol]
 related:

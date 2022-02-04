@@ -5,7 +5,7 @@ list_title: JavaScript for browsers
 description: >
   Use the InfluxDB JavaScript client library to interact with InfluxDB in web clients.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: JavaScript for browsers
     identifier: client_js_browsers
     parent: Client libraries

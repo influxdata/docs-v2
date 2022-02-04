@@ -5,7 +5,7 @@ description: >
   create alerts, run ETL (Extract, Transform and Load) jobs and detect anomalies.
   Use Kapacitor with **InfluxDB OSS 2.x**.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Use Kapacitor
     parent: Tools & integrations
 weight: 102

@@ -4,7 +4,7 @@ seotitle: Control an InfluxDB dashboard
 description: Control an InfluxDB dashboard in the InfluxDB user interface (UI).
 influxdb/v2.2/tags: [dashboards]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Control a dashboard
     parent: Manage dashboards
 weight: 203

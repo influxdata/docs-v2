@@ -5,7 +5,7 @@ description: >
   Enable Transport Layer Security (TLS) and use the HTTPS protocol to secure communication between clients and InfluxDB.
 weight: 101
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Security & authorization
 influxdb/v2.2/tags: [security, authentication, tls, https, ssl]
 products: [oss]

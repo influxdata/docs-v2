@@ -4,7 +4,7 @@ description: Create your own custom Flux functions to transform and operate on d
 list_title: Custom functions
 influxdb/v2.2/tags: [functions, custom, flux]
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Custom functions
     parent: Query with Flux
 weight: 220

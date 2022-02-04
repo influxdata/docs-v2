@@ -6,7 +6,7 @@ weight: 101
 description: >
   Load data from sources in the InfluxDB user interface (UI). Choose from popular client libraries (such as Python, Ruby, Scala, and more!) or load data with a Telegraf plugin (like MQTT Consumer, MySQL, File, and many more!).
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Load data source in UI
     parent: Write data
 ---

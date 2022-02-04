@@ -9,7 +9,7 @@ description: >
   InfluxDB updates, adds, and removes resources to resolve differences between
   the current state of the stack and the newly applied template.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: InfluxDB stacks
     name: Update a stack
 weight: 203

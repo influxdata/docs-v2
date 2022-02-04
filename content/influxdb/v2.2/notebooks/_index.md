@@ -4,7 +4,7 @@ seotitle: Build notebooks in InfluxDB Cloud
 description: >
   Use notebooks to build and annotate processes and data flows for time series data.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: Notebooks
 weight: 6
 influxdb/v2.2/tags: [notebooks]

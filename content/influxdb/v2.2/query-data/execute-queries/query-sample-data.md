@@ -3,7 +3,7 @@ title: Query sample data
 description: >
   Explore InfluxDB OSS with our sample data buckets. 
 menu:
-  influxdb_2_1::
+  influxdb_2_2::
     name: Query with sample data
     parent: Execute queries
 weight: 10

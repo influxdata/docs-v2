@@ -3,7 +3,7 @@ title: View users
 seotitle: View users in InfluxDB
 description: Review a list of users in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     name: View users
     parent: Manage users
 weight: 102

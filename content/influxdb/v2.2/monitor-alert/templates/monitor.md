@@ -4,7 +4,7 @@ description: >
   Monitor your InfluxDB OSS instance using InfluxDB Cloud and
   a pre-built InfluxDB template.
 menu:
-  influxdb_2_1:
+  influxdb_2_2:
     parent: Monitor with templates
     name: Monitor InfluxDB OSS
 weight: 102
