@@ -11,106 +11,77 @@ weight: 101
 ## v2.2 [TBD]
 
 ### Features
- 
-#### Flux
- 
+
+#### Replicate data remotely
+
+- Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](content/influxdb/cloud/write-data/replication.md).
+
+This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and then send the data to one or more buckets on a remote InfluxDB Cloud instance. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent once the network connectivity is restored.
+
+#### Flux updates
+
 - Update to [Flux v0.150.0](/flux/v0.x/release-notes/#v01500-2022-01-19).
 - Option to log Flux queries that are cancelled because of server shutdown.
- 
+
 #### Build maintenance
- 
+
 - Upgrade `protobuf` library.
 - https://github.com/influxdata/influxdb/commit/5a1e375): Build: allow to build on FreeBSD
- 
-#### Task metadata
- 
-(https://github.com/influxdata/influxdb/commit/504f0e4): Passing `type=basic` returns task metadata without query text.
- 
-#### Remotes and replications
- 
-Add the option to replicate data from a specified bucket locally to buckets on remote InfluxDB instance(s).
- 
-This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and send the data to buckets on remote InfluxDB instance(s). Also helps to collect data from edge deployments with limited or no connectivity to the cloud, and sending data to the cloud once network connection is restored.
- 
-(https://github.com/influxdata/influxdb/commit/5a919b6): Enable remotes and replication streams feature
-(https://github.com/influxdata/influxdb/commit/58139c4): Add auth to remotes & replications APIs
-(https://github.com/influxdata/influxdb/commit/8825cd5): Replication apis durable queue management
-(https://github.com/influxdata/influxdb/commit/ad52815): Add field for dropping data resulting in non-retryable errors to individual replications
-(https://github.com/influxdata/influxdb/commit/f05d013): Metrics collection for replications remote writes
-(https://github.com/influxdata/influxdb/commit/a7a5233): Advance queue scanner periodically instead of every remote write
- 
-#### Performance?
- 
-(https://github.com/influxdata/influxdb/commit/fea3037): Configure perf tests with yaml
- 
-#### Metrics
- 
-(https://github.com/influxdata/influxdb/commit/dece95d): Tsm compaction metrics via prometheus
-(https://github.com/influxdata/influxdb/commit/3a81166): Added metrics collection for replications
-(https://github.com/influxdata/influxdb/commit/6096ee2): Replications metrics include failure to enqueue
-(https://github.com/influxdata/influxdb/commit/0a74085): Point write requests have metrics
-(https://github.com/influxdata/influxdb/commit/a74e051): Disk size metrics per shard
-(https://github.com/influxdata/influxdb/commit/feb459c): Metrics for cache subsystem
-(https://github.com/influxdata/influxdb/commit/edb21ab): Metrics for wal subsystem
-(https://github.com/influxdata/influxdb/commit/b970e35): Remaining storage metrics from OSS engine
- 
-#### Miscellaneous updates
- 
-(https://github.com/influxdata/influxdb/commit/c51a0df): Error out when config file contains 1.x config values
-(https://github.com/influxdata/influxdb/commit/afb167a): `query-memory-bytes` zero-value is unlimited
-(https://github.com/influxdata/influxdb/commit/f78f9ed): Api/v2/config endpoint displays runtime configuration
-(https://github.com/influxdata/influxdb/commit/4f74049): Add downgrade target for 2.1
- 
-### Bug fixes
- 
-https://github.com/influxdata/influxdb/commit/84776d7): Manual task runs are scheduled asyncronously
-https://github.com/influxdata/influxdb/commit/5e6b0d5): Extend snapshot copy to filesystems that cannot link
-https://github.com/influxdata/influxdb/commit/88afa92): Detect misquoted tag values and return an error
-https://github.com/influxdata/influxdb/commit/2bace77): Unhandled errors returned by Sketch.Merge
-https://github.com/influxdata/influxdb/commit/fa9ba8e): Duplicated X-version and X-Build headers for /ping endpoint
-https://github.com/influxdata/influxdb/commit/8aa3a8f): Add causal error when meta.db is missing
-https://github.com/influxdata/influxdb/commit/799d349): Sync index file before close
-https://github.com/influxdata/influxdb/commit/5ce164f): Remove influx CLI output from CONTRIBUTING
-https://github.com/influxdata/influxdb/commit/e4e1633): Replications remote writes do not block server shutdown
-https://github.com/influxdata/influxdb/commit/39eeb3e): Fix race condition which could cause restore command to fail
-https://github.com/influxdata/influxdb/commit/e5cbd27): Advance replications queue after successful remote writes
-https://github.com/influxdata/influxdb/commit/4fd4bd0): Use copy when a rename spans volumes
-https://github.com/influxdata/influxdb/commit/11c0081): Disable use of jsonnet with `/api/v2/templates/apply`
-https://github.com/influxdata/influxdb/commit/0c30afd): Updating a check does not require an owner id
- 
-### Other
- 
- 
- 
-#### Chores
-https://github.com/influxdata/influxdb/commit/de7f052): Chore: fix `dump_tsi` deadlock
-https://github.com/influxdata/influxdb/commit/ca633cd): Chore: Remove outdated query readme
-https://github.com/influxdata/influxdb/commit/16e3b16): Chore: refactor performance test to generate queries and data together
-https://github.com/influxdata/influxdb/commit/9d8173c): Chore: delete dead pprof related code
-https://github.com/influxdata/influxdb/commit/90baa80): Chore: use tagged version of pkg-config
-https://github.com/influxdata/influxdb/commit/b9b86a1): Chore: remove remote validation code
-https://github.com/influxdata/influxdb/commit/4ee93a9): Chore: fix up message when build fails due to OS
-https://github.com/influxdata/influxdb/commit/9308b65): Chore: remove unused member from TagSet
-https://github.com/influxdata/influxdb/commit/b0a0e73): Chore: remove unused user http code
-https://github.com/influxdata/influxdb/commit/a8ca413): Chore: add deprecation notice for print-config command
-https://github.com/influxdata/influxdb/commit/0e5b14f): Chore: increase replications batch size limits
-https://github.com/influxdata/influxdb/commit/c889d0f): Chore: remove outdated `/docs` folder
-https://github.com/influxdata/influxdb/commit/2a957c9): Chore(query/influxql): remove the influxql transpiler
- 
-#### Refactor
- 
-https://github.com/influxdata/influxdb/commit/1aac92c): Refactor: remove replications.current_queue_size_bytes from sqlite
-https://github.com/influxdata/influxdb/commit/6ee4727): Refactor: use remote write func in NewDurableQueueManager
-https://github.com/influxdata/influxdb/commit/f47d514): Refactor: move replications store functionality to separate package
-https://github.com/influxdata/influxdb/commit/6023496): Refactor: replications local write optimization
- 
-#### Test
- 
-https://github.com/influxdata/influxdb/commit/9060150): Test: add e2e test for replication streams
-https://github.com/influxdata/influxdb/commit/e3ff434): Test: fix flaky replications tests
-https://github.com/influxdata/influxdb/commit/c1d384d): Test: fix flaky enqueue test
- 
 
+#### Task metadata
+
+- (https://github.com/influxdata/influxdb/commit/504f0e4): Passing `type=basic` returns task metadata without query text.
+
+#### Metrics
+
+(https://github.com/influxdata/influxdb/commit/3a81166): Added metrics collection for replications
+(https://github.com/influxdata/influxdb/commit/dece95d): TSM compaction metrics via prometheus
+
+- Add the following metrics when data fails to be added to the replication queue:
+  `PointsFailedToQueue`
+  `BytesFailedToQueue`
+
+- Add the following metrics for writes, to indicate the status:
+	- `pointsWriteRequested`
+	- `pointsWriteOk`
+	- `pointsWriteDropped`
+	- `pointsWriteErr`
+	- `timeout`
+
+- Add disk size metrics per shard:
+  - `total`: number of files per shard
+  - `disk_bytes`: data size in bytes for each shard
+
+- Add cache subsystem metrics:
+  - `inuse_bytes`: Current memory consumption of cache
+  - `diskBytes`: Size of most recent snapshot"
+  - `latest_snapshot`: Unix time of most recent snapshot.
+  - `writes_total`: Counter of all writes to cache
+  - `writes_err`: Counter of failed writes to cache.
+  - `writes_dropped`: Counter of writes (with any dropped points) to cache.
+
+- Add WAL subsystem metrics:
+  - `size`: Gauge of size of WAL in bytes
+  - `writes`: Number of write attempts to the WAL
+  - `writes_err`: Number of failed write attempts to the WAL
+
+#### Display runtime configuration in use by `influxd`
+
+- Update `api/v2/config` endpoint to display the correct runtime configuration (for example, when you run `influxd print-config`).
+
+### Bug fixes
+
+- Update to ensure manual task runs can happen concurrently.
+- Extend snapshot copy of backup to filesystems that do not support hard links.
+- Detect misquoted tag values and return an error.
+- Successfully handle errors returned by `Sketch.Merge`.
+- Return `X-version` and `X-Build` headers for all requests to `/ping` endpoint.
+- Add error when `meta.db` is missing.
+- Sync TSI index file before closing.
+- Fix race condition that could cause `restore` command to fail.
+- To successfully restore a backup, use copy when a rename spans volumes.
+- Disable use of jsonnet with `/api/v2/templates/apply`.
+- Ensure that updating a check (`/checks/{checkID}`) does not require an owner ID.
 
 ## v2.1.1 [2021-11-08]
 
