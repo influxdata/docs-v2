@@ -5,7 +5,7 @@ description: >
   This collection of articles walks through common use cases for Flux queries.
 influxdb/v2.2/tags: [queries]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Common queries
     parent: Query data
 weight: 104

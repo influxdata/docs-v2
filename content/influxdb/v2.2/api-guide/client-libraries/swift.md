@@ -5,7 +5,7 @@ list_title: Swift
 description: Use the InfluxDB Swift client library to interact with InfluxDB.
 external_url: https://github.com/influxdata/influxdb-client-swift
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Swift
     parent: Client libraries
     url: https://github.com/influxdata/influxdb-client-swift

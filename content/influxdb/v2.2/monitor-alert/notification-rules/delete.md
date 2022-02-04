@@ -4,7 +4,7 @@ description: >
   If you no longer need to receive an alert, delete the associated notification rule.
 weight: 204
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Manage notification rules
 related:
   - /influxdb/v2.2/monitor-alert/checks/

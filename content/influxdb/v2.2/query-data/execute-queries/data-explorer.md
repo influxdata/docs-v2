@@ -6,7 +6,7 @@ aliases:
   - /influxdb/v2.2/visualize-data/explore-metrics/
 weight: 201
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Query with Data Explorer
     parent: Execute queries
 influxdb/v2.2/tags: [query]

@@ -5,7 +5,7 @@ description: >
   Use the automated upgrade process built into the InfluxDB 2.x Docker image to
   update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: InfluxDB 1.x to 2.2
     name: Upgrade with Docker
 weight: 101

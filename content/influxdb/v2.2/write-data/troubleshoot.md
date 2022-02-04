@@ -5,7 +5,7 @@ weight: 106
 description: >
   Troubleshoot issues writing data. Find response codes for failed writes. Discover how writes fail, from exceeding rate or payload limits, to syntax errors and schema conflicts.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Troubleshoot issues
     parent: Write data
 influxdb/v2.2/tags: [write, line protocol, errors]

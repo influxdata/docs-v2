@@ -5,7 +5,7 @@ description: >
   a format that makes the most sense for your use case. Use the available customization
   options to customize each visualization.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Visualize data
 weight: 105
 ---

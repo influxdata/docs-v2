@@ -3,7 +3,7 @@ title: Use Grafana with InfluxDB OSS
 description: >
   Use [Grafana](https://grafana.com/) to visualize data from your **InfluxDB** instance.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Use Grafana
     parent: Tools & integrations
 weight: 104

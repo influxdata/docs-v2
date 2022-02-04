@@ -4,7 +4,7 @@ description:
   Use the `influx` and `influxd` command line interfaces to interact with and
   manage InfluxDB.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Use the influx CLI
     parent: Tools & integrations
     identifier: influx-cli-task-based

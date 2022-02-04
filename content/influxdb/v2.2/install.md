@@ -1,7 +1,7 @@
 ---
 title: Install InfluxDB
 description: Download, install, and set up InfluxDB OSS.
-menu: influxdb_2_2
+menu: influxdb_2_1
 weight: 2
 influxdb/v2.2/tags: [install]
 ---

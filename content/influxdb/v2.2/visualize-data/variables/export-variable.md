@@ -3,7 +3,7 @@ title: Export a variable
 seotitle: Export a dashboard variable
 description: Export a dashboard variable in the InfluxDB user interface.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Use and manage variables
 weight: 204
 influxdb/v2.2/tags: [variables]

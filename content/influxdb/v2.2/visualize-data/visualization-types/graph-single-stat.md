@@ -7,7 +7,7 @@ description: >
   and overlays the single most recent value as a large numeric value.
 weight: 202
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Graph + Single Stat
     parent: Visualization types
 related:

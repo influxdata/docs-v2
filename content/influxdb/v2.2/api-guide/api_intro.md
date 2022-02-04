@@ -4,7 +4,7 @@ seotitle: Use the InfluxDB API
 description: Interact with InfluxDB 1 using a rich API for writing and querying data and more.
 weight: 3
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Quick Start
     parent: Develop with the API
 aliases:

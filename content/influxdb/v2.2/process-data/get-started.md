@@ -8,7 +8,7 @@ aliases:
   - /influxdb/v2.2/process-data/write-a-task/
 influxdb/v2.2/tags: [tasks]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Get started with tasks
     parent: Process data
 weight: 101

@@ -6,7 +6,7 @@ description: >
   This section provides information about managing the security of your InfluxDB instance.
 weight: 12
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Security & authorization
 influxdb/v2.2/tags: [security, authentication]
 ---

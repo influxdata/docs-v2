@@ -4,7 +4,7 @@ seotitle: Update monitoring checks in InfluxDB
 description: >
   Update, rename, enable or disable checks in the InfluxDB UI.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Manage checks
 weight: 203
 related:

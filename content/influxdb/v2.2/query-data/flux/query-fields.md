@@ -7,7 +7,7 @@ description: >
     clause in InfluxQL and other SQL-like query languages.
 weight: 201
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Query with Flux
 influxdb/v2.2/tags: [query, select, where]
 related:

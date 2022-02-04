@@ -3,7 +3,7 @@ title: Create an organization
 seotitle: Create an organization in InfluxDB
 description: Create an organization in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Create an organization
     parent: Manage organizations
 weight: 101

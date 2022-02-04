@@ -7,7 +7,7 @@ aliases:
   - /influxdb/v2.2/collect-data/advanced-telegraf
   - /influxdb/v2.2/collect-data/use-telegraf
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: No-code solutions
     parent: Write data
 ---

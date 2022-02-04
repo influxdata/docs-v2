@@ -8,7 +8,7 @@ description: >
   wrap over time or periodically reset.
 weight: 210
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Query with Flux
     name: Increase
 influxdb/v2.2/tags: [query, increase, counters]

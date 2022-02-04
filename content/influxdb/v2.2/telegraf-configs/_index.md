@@ -4,7 +4,7 @@ description: >
   InfluxDB OSS lets you automatically generate Telegraf configurations or upload custom
   Telegraf configurations that collect metrics and write them to InfluxDB OSS.
 weight: 12
-menu: influxdb_2_2
+menu: influxdb_2_1
 influxdb/v2.2/tags: [telegraf]
 related:
   - /influxdb/v2.2/write-data/no-code/use-telegraf/manual-config/

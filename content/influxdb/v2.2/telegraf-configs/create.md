@@ -5,7 +5,7 @@ description: >
   to create an Telegraf configuration.
 weight: 101
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Create a config
     parent: Telegraf configurations
 related:

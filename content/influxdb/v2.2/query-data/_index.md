@@ -7,7 +7,7 @@ description: >
 aliases:
   - /influxdb/v2.2/query_language/data_exploration/
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Query data
 weight: 5
 influxdb/v2.2/tags: [query, flux]

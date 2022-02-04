@@ -5,7 +5,7 @@ list_title: Join
 description: This guide walks through joining data with Flux and outlines how it shapes your data in the process.
 influxdb/v2.2/tags: [join, flux]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Join
     parent: Query with Flux
 weight: 210

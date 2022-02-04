@@ -7,7 +7,7 @@ description: >
   represents different concentrations of data points.
 weight: 202
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Heatmap
     parent: Visualization types
 related:

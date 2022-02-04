@@ -6,7 +6,7 @@ description: >
 weight: 105
 influxdb/v2.2/tags: [notebooks]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Normalize data
     parent: Notebooks
 ---

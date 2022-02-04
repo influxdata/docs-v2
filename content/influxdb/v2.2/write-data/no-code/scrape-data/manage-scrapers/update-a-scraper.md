@@ -6,7 +6,7 @@ aliases:
   - /influxdb/v2.2/collect-data/scrape-data/manage-scrapers/update-a-scraper
   - /influxdb/v2.2/write-data/scrape-data/manage-scrapers/update-a-scraper
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Update a scraper
     parent: Manage scrapers
 weight: 302

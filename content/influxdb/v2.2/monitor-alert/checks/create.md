@@ -4,7 +4,7 @@ seotitle: Create monitoring checks in InfluxDB
 description: >
   Create a check in the InfluxDB UI.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Manage checks
 weight: 201
 related:

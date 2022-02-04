@@ -8,7 +8,7 @@ aliases:
 weight: 101
 influxdb/v2.2/tags: [query, flux, get-started]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Get started with Flux
     parent: Query data
 related:

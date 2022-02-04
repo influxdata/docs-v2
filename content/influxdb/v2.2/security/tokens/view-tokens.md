@@ -5,7 +5,7 @@ description: View API tokens in InfluxDB using the InfluxDB UI, the `influx` CLI
 aliases:
   - /influxdb/v2.2/users/tokens/view-tokens
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: View tokens
     parent: Manage tokens
 weight: 202

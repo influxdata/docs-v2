@@ -3,7 +3,7 @@ title: Use the Flux LSP with Vim
 description: >
   Use the Flux LSP with Vim to add auto-completion, syntax checking, and other language-specific features to your editor.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Tools & integrations
 weight: 102
 ---

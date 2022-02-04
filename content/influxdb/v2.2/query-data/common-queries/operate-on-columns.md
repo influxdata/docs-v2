@@ -8,7 +8,7 @@ aliases:
   - /influxdb/v2.2/query-data/common-queries/recalculate_value_column/
   - /influxdb/v2.2/query-data/common-queries/calculate_new_column/
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Operate on columns
     parent: Common queries
 weight: 100  

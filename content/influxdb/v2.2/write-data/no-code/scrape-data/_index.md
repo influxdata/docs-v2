@@ -11,7 +11,7 @@ aliases:
   - /influxdb/v2.2/write-data/scrapable-endpoints
 influxdb/v2.2/tags: [scraper]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Scrape data
     parent: No-code solutions
 ---

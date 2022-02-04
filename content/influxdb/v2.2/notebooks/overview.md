@@ -5,7 +5,7 @@ description: >
 weight: 101
 influxdb/v2.2/tags: [notebooks]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Overview of notebooks
     parent: Notebooks
 ---

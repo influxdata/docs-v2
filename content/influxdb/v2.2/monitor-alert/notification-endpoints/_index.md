@@ -5,7 +5,7 @@ description: >
   Create, read, update, and delete endpoints in the InfluxDB UI.
 influxdb/v2.2/tags: [monitor, endpoints, notifications, alert]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Monitor & alert
 weight: 102
 related:

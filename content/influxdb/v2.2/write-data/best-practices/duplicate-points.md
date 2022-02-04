@@ -7,7 +7,7 @@ description: >
   measurement, tag set, and timestamp but a different field set.
 weight: 204
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Handle duplicate points
     parent: write-best-practices
 influxdb/v2.2/tags: [best practices, write]

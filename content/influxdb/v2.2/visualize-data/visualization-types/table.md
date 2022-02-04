@@ -7,7 +7,7 @@ description: >
   sometimes easier to analyze than graph views of data.
 weight: 202
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Table
     parent: Visualization types
 ---

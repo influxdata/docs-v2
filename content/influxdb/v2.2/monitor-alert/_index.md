@@ -5,7 +5,7 @@ description: >
   Monitor your time series data and send alerts by creating checks, notification
   rules, and notification endpoints. Or use community templates to monitor supported environments.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Monitor & alert
 weight: 7
 influxdb/v2.2/tags: [monitor, alert, checks, notification, endpoints]

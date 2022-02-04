@@ -6,7 +6,7 @@ description: >
   The Graph view lets you select from multiple graph types such as line graphs and bar graphs *(Coming)*.
 weight: 201
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Graph
     parent: Visualization types
 ---

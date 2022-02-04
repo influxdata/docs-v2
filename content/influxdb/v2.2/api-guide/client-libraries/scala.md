@@ -5,7 +5,7 @@ list_title: Scala
 description: Use the InfluxDB Scala client library to interact with InfluxDB.
 external_url: https://github.com/influxdata/influxdb-client-java/tree/master/client-scala
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Scala
     parent: Client libraries
     url: https://github.com/influxdata/influxdb-client-java/tree/master/client-scala

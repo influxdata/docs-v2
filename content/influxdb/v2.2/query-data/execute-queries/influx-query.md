@@ -3,7 +3,7 @@ title: Use the influx query command
 description: Query InfluxDB using the influx CLI. Discover how to query data in InfluxDB 2.1 using `influx query`.
 weight: 204
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Use the influx CLI
     parent: Execute queries
 influxdb/v2.2/tags: [query]

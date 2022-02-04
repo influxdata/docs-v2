@@ -5,7 +5,7 @@ list_title: Java
 description: Use the Java client library to interact with InfluxDB.
 external_url: https://github.com/influxdata/influxdb-client-java
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Java
     parent: Client libraries
     url: https://github.com/influxdata/influxdb-client-java

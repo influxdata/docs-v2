@@ -4,7 +4,7 @@ description: >
   Optimize your Flux queries to reduce their memory and compute (CPU) requirements.
 weight: 104
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Optimize queries
     parent: Query data
 influxdb/v2.2/tags: [query]

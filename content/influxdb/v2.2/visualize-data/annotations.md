@@ -4,7 +4,7 @@ description: >
   Add annotations to your InfluxDB dashboards to provide useful, contextual information about single points in time.
 influxdb/v2.2/tags: [labels, annotations]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Use annotations
     parent: Visualize data
 weight: 105

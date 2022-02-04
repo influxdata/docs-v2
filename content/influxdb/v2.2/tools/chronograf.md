@@ -6,7 +6,7 @@ description: >
   Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS 2.x** and the
   [1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/).
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Use Chronograf
     parent: Tools & integrations
 weight: 103

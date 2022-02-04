@@ -5,7 +5,7 @@ description: >
 aliases:
   - /influxdb/v2.2/write-data/use-telegraf/use-telegraf-plugins/
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Use Telegraf plugins
     parent: Telegraf (agent)
 weight: 202

@@ -5,7 +5,7 @@ description: >
   Include annotations with the CSV data to determine how the data translates into
   [line protocol](/influxdb/v2.2/reference/syntax/line-protocol/).
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Write CSV data
     parent: Developer tools
 aliases:

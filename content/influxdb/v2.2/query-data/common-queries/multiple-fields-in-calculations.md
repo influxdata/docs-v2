@@ -5,7 +5,7 @@ description: >
   calculate new values in query results.
 influxdb/v2.2/tags: [queries]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Common queries
 weight: 103
 ---

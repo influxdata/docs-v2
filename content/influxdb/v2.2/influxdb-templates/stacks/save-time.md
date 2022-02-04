@@ -4,7 +4,7 @@ list_title: Save time with stacks
 description: >
   Discover how to use InfluxDB stacks to save time.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: InfluxDB stacks
     name: Save time with stacks
 weight: 201

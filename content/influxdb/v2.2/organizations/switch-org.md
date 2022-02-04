@@ -3,7 +3,7 @@ title: Switch organizations
 seotitle: Switch organizations in InfluxDB
 description: Switch from one organization to another in the InfluxDB UI
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Switch organizations
     parent: Manage organizations
 weight: 105

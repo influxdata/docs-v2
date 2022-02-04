@@ -5,7 +5,7 @@ description: Update API tokens' descriptions in InfluxDB using the InfluxDB UI.
 aliases:
   - /influxdb/v2.2/users/tokens/update-tokens
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Update a token
     parent: Manage tokens
 weight: 203

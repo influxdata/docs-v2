@@ -3,7 +3,7 @@ title: Manage secrets
 description: Manage, use, and store secrets in InfluxDB.
 influxdb/v2.2/tags: [secrets, security]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Security & authorization
 weight: 102
 aliases:

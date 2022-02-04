@@ -4,7 +4,7 @@ seotitle: Install the InfluxDB Node.js JavaScript client library
 description: >
   Install the JavaScript client library to interact with the InfluxDB API in Node.js.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Install
     parent: Node.js
 influxdb/v2.2/tags: [client libraries, JavaScript]

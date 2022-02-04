@@ -5,7 +5,7 @@ description: >
   Use `histogram()` to create cumulative histograms with Flux.
 influxdb/v2.2/tags: [histogram]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Histograms
     parent: Query with Flux
 weight: 210

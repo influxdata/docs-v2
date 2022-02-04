@@ -3,7 +3,7 @@ title: Query InfluxDB with Flux
 description: Learn the basics of using Flux to query data from InfluxDB.
 influxdb/v2.2/tags: [query, flux]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Query InfluxDB
     parent: Get started with Flux
 weight: 201

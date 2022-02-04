@@ -6,7 +6,7 @@ description: >
 weight: 102
 influxdb/v2.2/tags: [influxql, query]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Query with InfluxQL
     parent: Query data
 related:

@@ -3,7 +3,7 @@ title: View buckets
 seotitle: View buckets in InfluxDB
 description: View a list of all the buckets for an organization in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: View buckets
     parent: Manage buckets
 weight: 202

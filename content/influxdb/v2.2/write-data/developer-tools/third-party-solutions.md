@@ -5,7 +5,7 @@ description: >
   Write data to InfluxDB using third-party developer tools.
 aliases:
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Third-party developer tools
     parent: Developer tools
 ---

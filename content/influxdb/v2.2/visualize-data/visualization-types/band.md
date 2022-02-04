@@ -5,7 +5,7 @@ list_image: /img/influxdb/2-0-visualizations-Band-example.png
 description:
 weight: 201
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Band
     parent: Visualization types
 ---

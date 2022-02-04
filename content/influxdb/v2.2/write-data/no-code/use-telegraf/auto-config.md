@@ -8,7 +8,7 @@ aliases:
   - /influxdb/v2.2/collect-data/use-telegraf/auto-config
   - /influxdb/v2.2/write-data/use-telegraf/auto-config
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Telegraf (agent)
 weight: 201
 related:

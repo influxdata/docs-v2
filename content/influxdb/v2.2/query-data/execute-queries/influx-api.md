@@ -3,7 +3,7 @@ title: Query with the InfluxDB API
 description: Query InfluxDB with the InfluxDB API. Discover how to query data in InfluxDB 2.1 using the InfluxDB API.
 weight: 202
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Query with the InfluxDB API
     parent: Execute queries
 influxdb/v2.2/tags: [query]

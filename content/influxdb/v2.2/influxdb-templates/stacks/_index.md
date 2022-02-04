@@ -3,7 +3,7 @@ title: InfluxDB stacks
 description: >
   Use an InfluxDB stack to manage your InfluxDB templates—add, update, or remove templates over time.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: InfluxDB templates
 weight: 105
 related:

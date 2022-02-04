@@ -9,7 +9,7 @@ aliases:
   - /influxdb/v2.2/reference/api/client-libraries/
   - /influxdb/v2.2/tools/client-libraries/
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Client libraries
     parent: Develop with the API
 influxdb/v2.2/tags: [client libraries]

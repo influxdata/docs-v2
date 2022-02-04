@@ -3,7 +3,7 @@ title: Manage buckets
 seotitle: Manage buckets in InfluxDB
 description: Manage buckets in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Manage buckets
     parent: Manage organizations
 weight: 105

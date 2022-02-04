@@ -5,7 +5,7 @@ description: >
 weight: 103
 influxdb/v2.2/tags: [monitor, notifications, alert]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Monitor & alert
 related:
   - /influxdb/v2.2/monitor-alert/checks/

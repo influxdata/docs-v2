@@ -3,7 +3,7 @@ title: Use secrets
 description: Use secrets in a query with Flux.
 influxdb/v2.2/tags: [secrets, security]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Manage secrets
 weight: 305
 aliases:

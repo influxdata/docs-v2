@@ -7,7 +7,7 @@ description: >
   `limit()` to limit the number of records in output tables to a fixed number, `n`.
 influxdb/v2.2/tags: [sort, limit]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Sort and limit
     parent: Query with Flux
 weight: 203

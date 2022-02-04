@@ -4,7 +4,7 @@ seotitle: Delete monitoring checks in InfluxDB
 description: >
   Delete checks in the InfluxDB UI.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Manage checks
 weight: 204
 related:

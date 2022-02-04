@@ -4,7 +4,7 @@ description: >
   Use the `geo.groupByArea()` to group geo-temporal data by area and `geo.asTracks()`
   to group data into tracks or routes.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Geo-temporal data
 weight: 302
 related:

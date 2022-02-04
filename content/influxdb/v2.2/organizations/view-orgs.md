@@ -3,7 +3,7 @@ title: View organizations
 seotitle: View organizations in InfluxDB
 description: Review a list of organizations in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: View organizations
     parent: Manage organizations
 weight: 102

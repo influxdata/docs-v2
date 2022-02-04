@@ -7,7 +7,7 @@ description: >
   using both the `influx` CLI and the InfluxDB UI.
 influxdb/v2.2/tags: [tasks]
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Manage tasks
     parent: Process data
 weight: 102

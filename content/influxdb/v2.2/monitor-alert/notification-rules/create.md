@@ -4,7 +4,7 @@ description: >
   Create notification rules to send alerts on your time series data.
 weight: 201
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     parent: Manage notification rules
 related:
   - /influxdb/v2.2/monitor-alert/checks/

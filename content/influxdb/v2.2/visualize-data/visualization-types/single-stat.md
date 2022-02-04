@@ -6,7 +6,7 @@ description: >
   The Single Stat view displays the most recent value of the specified time series as a numerical value.
 weight: 202
 menu:
-  influxdb_2_2:
+  influxdb_2_1:
     name: Single Stat
     parent: Visualization types
 ---
