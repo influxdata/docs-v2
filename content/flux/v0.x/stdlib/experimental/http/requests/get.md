@@ -54,6 +54,7 @@ Data to send with the request.
 
 ### config {data-type="record"}
 Set of request configuration options.
+_See [HTTP configuration option examples](/flux/v0.x/stdlib/experimental/http/requests/#examples)._
 
 ## Examples
 
@@ -62,4 +63,33 @@ Set of request configuration options.
 import "experimental/http/requests"
 
 requests.get(url:"http://example.com")
+```
+
+### Make a GET request with authorization
+```js
+import "experimental/http/requests"
+import "influxdata/influxdb/secrets"
+
+token = secrets.get(key: "TOKEN")
+
+requests.get(url: "http://example.com", headers: ["Authorization": "Bearer ${token}"])
+```
+
+### Output HTTP response data in a table
+```js
+import "array"
+import "dict"
+import "experimental/http/requests"
+
+resp = requests.get(url: "http://example.com")
+
+array.from(
+    rows: [
+        {
+            body: string(v: resp.body),
+            statusCode: resp.statusCode,
+            date: dict.get(dict: resp.headers, key: "Date", default: ""),
+        },
+    ],
+)
 ```
