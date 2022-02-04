@@ -39,3 +39,12 @@ influx remote list [command options] [arguments...]
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 | `-t` | `--token`         | InfluxDB API token                                                    |   string   | `INFLUX_TOKEN`        |
+
+
+## Examples
+
+### List all remotes
+
+```sh
+influx remote list --org-id <OSS org ID> --token <OSS token>
+```
