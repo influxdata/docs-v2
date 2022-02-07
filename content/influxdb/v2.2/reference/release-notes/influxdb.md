@@ -10,13 +10,23 @@ weight: 101
 
 ## v2.2 [TBD]
 
+This release includes the following new [features](#features) and several [bug fixes](#bug-fixes).
+
 ### Features
 
-#### Replicate data remotely
+- [Technical preview of replicating data remotely](#replicate-data-remotely-technical-preview)
+- [Flux updates](#flux-updates)
+- [Build maintenance](#build-maintenance)
+- [Task metadata](#task-metadata)
+- [Metrics](#metrics)
+- [Display runtime configuration in use by `influxd`](#display-runtime-configuration-in-use-by-influxd)
+
+#### Replicate data remotely (technical preview)
 
 - Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
-This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and then send the data to one or more buckets on a remote InfluxDB Cloud instance. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent when network connectivity is restored.
+  In this **technical preview**, you can replicate inbound data using the HTTP API. Support for replicating data via tasks (for example, downsampling) is targeted prior to the official release of this feature.
+  This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and then send the data to one or more buckets on a remote InfluxDB Cloud instance. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent when network connectivity is restored.
 
 #### Flux updates
 
