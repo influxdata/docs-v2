@@ -65,7 +65,7 @@ from(bucket: "example-bucket")
 ```
 
 ### Use a regex to filter by field key
-The following example excludes records that do not have `_percent` in a field key.
+The following example includes records that have `_percent` in a field key.
 
 ```js
 from(bucket: "example-bucket")
