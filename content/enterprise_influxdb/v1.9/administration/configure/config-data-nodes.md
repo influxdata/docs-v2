@@ -49,25 +49,33 @@ All commented-out settings will be determined by the internal defaults.
 
 ## Global settings
 
-#### `reporting-disabled = false`
+#### `reporting-disabled`
+
+Default is `false`.
 
 Once every 24 hours InfluxDB Enterprise will report usage data to usage.influxdata.com.
 The data includes a random ID, os, arch, version, the number of series and other usage data. No data from user databases is ever transmitted.
 Change this option to true to disable reporting.
 
-#### `bind-address = ":8088"`
+#### `bind-address`
+
+Default is `":8088"`.
 
 The TCP bind address used by the RPC service for inter-node communication and [backup and restore](/enterprise_influxdb/v1.9/administration/backup-and-restore/).
 
 Environment variable: `INFLUXDB_BIND_ADDRESS`
 
-#### `hostname = "localhost"`
+#### `hostname`
+
+Default is `"localhost"`.
 
 The hostname of the [data node](/enterprise_influxdb/v1.9/concepts/glossary/#data-node). This must be resolvable by all other nodes in the cluster.
 
 Environment variable: `INFLUXDB_HOSTNAME`
 
-#### `gossip-frequency = "3s"`
+#### `gossip-frequency`
+
+Default is `"3s"`.
 
 How often to update the cluster with this node's internal status.
 
@@ -81,7 +89,9 @@ Environment variable: `INFLUXDB_GOSSIP_FREQUENCY`
 
 The `[enterprise]` section contains the parameters for the meta node's registration with the [InfluxDB Enterprise License Portal](https://portal.influxdata.com/).
 
-#### `license-key = ""`
+#### `license-key`
+
+Default is `""`.
 
 The license key created for you on [InfluxPortal](https://portal.influxdata.com). The meta node transmits the license key to [portal.influxdata.com](https://portal.influxdata.com) over port 80 or port 443 and receives a temporary JSON license file in return.
 The server caches the license file locally.
@@ -98,7 +108,9 @@ mutually exclusive and one must remain set to the empty string.
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
-#### `license-path = ""`
+#### `license-path`
+
+Default is `""`.
 
 The local path to the permanent JSON license file that you received from InfluxData for instances that do not have access to the internet.
 The data process will only function for a limited time without a valid license file.
@@ -124,7 +136,9 @@ Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_PATH`
 
 Settings related to how the data nodes interact with the meta nodes.
 
-#### `dir = "/var/lib/influxdb/meta"`
+#### `dir`
+
+Default is `"/var/lib/influxdb/meta"`.
 
 The directory where the cluster metadata is stored.
 
@@ -132,14 +146,18 @@ The directory where the cluster metadata is stored.
 
 Environment variable: `INFLUXDB_META_DIR`
 
-#### `meta-tls-enabled = false`
+#### `meta-tls-enabled`
+
+Default is `false`.
 
 Whether to use TLS when connecting to meta nodes.
 Set to `true` to if [`https-enabled`](#https-enabled-false) is set to `true`.
 
 Environment variable: `INFLUXDB_META_META_TLS_ENABLED`
 
-#### `meta-insecure-tls = false`
+#### `meta-insecure-tls`
+
+Default is `false`.
 
 Allows insecure TLS connections to meta nodes.
 This is useful when testing with self-signed certificates.
@@ -148,7 +166,9 @@ Set to `true` to allow the data node to accept self-signed certificates if [`htt
 
 Environment variable: `INFLUXDB_META_META_INSECURE_TLS`
 
-#### `meta-auth-enabled = false`
+#### `meta-auth-enabled`
+
+Default is `false`.
 
 This setting must have the same value as the meta nodes' `[meta] auth-enabled` configuration.
 
@@ -157,14 +177,18 @@ For JWT authentication, also see the [`meta-internal-shared-secret`](#meta-inter
 
 Environment variable: `INFLUXDB_META_META_AUTH_ENABLED`
 
-#### `meta-internal-shared-secret = ""`
+#### `meta-internal-shared-secret`
+
+Default is `""`.
 
 The shared secret used by the internal API for JWT authentication between InfluxDB nodes.
 This value must be the same as the [`internal-shared-secret`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#internal-shared-secret) specified in the meta node configuration file.
 
 Environment variable: `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`
 
-#### `retention-autocreate = true`
+#### `retention-autocreate`
+
+Default is `true`.
 
 Automatically creates a default [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) (RP) when the system creates a database.
 The default RP (`autogen`) has an infinite duration, a shard group duration of seven days, and a replication factor set to the number of data nodes in the cluster.
@@ -173,13 +197,17 @@ Set this option to `false` to prevent the system from creating the `autogen` RP 
 
 Environment variable: `INFLUXDB_META_RETENTION_AUTOCREATE`
 
-#### `logging-enabled = true`
+#### `logging-enabled`
+
+Default is `true`.
 
 Whether log messages are printed for the meta service.
 
 Environment variable: `INFLUXDB_META_LOGGING_ENABLED`
 
-#### `password-hash = bcrypt`
+#### `password-hash`
+
+Default is `bcrypt`.
 
 Configures password hashing algorithm.
 Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
@@ -189,7 +217,9 @@ For detailed configuration information, see [`meta.password-hash`](/enterprise_i
 
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
-#### `ensure-fips = false`
+#### `ensure-fips`
+
+Default is `false`.
 
 When `true`, enables a FIPS-readiness check on startup.
 Default is `false`.
@@ -208,33 +238,43 @@ Controls where the actual shard data for InfluxDB lives and how it is compacted 
 "dir" may need to be changed to a suitable place for your system.
 The defaults should work for most systems.
 
-#### `dir = "/var/lib/influxdb/data"`
+#### `dir`
+
+Default is `"/var/lib/influxdb/data"`.
 
 The directory where the TSM storage engine stores TSM (read-optimized) files.
 
 Environment variable: `INFLUXDB_DATA_DIR`
 
-#### `wal-dir = "/var/lib/influxdb/wal"`
+#### `wal-dir`
+
+Default is `"/var/lib/influxdb/wal"`.
 
 The directory where the TSM storage engine stores WAL (write-optimized) files.
 
 Environment variable: `INFLUXDB_DATA_WAL_DIR`
 
-#### `trace-logging-enabled = false`
+#### `trace-logging-enabled`
+
+Default is `false`.
 
 Trace logging provides more verbose output around the TSM engine.
 Turning this on can provide more useful output for debugging TSM engine issues.
 
 Environmental variable: `INFLUXDB_DATA_TRACE_LOGGING_ENABLED`
 
-#### `query-log-enabled = true`
+#### `query-log-enabled`
+
+Default is `true`.
 
 Whether queries should be logged before execution.
 Very useful for troubleshooting, but will log any sensitive data contained within a query.
 
 Environment variable: `INFLUXDB_DATA_QUERY_LOG_ENABLED`
 
-#### `wal-fsync-delay = "0s"`
+#### `wal-fsync-delay`
+
+Default is `"0s"`.
 
 The amount of time that a write waits before fsyncing.
 Use a duration greater than 0 to batch up multiple fsync calls.
@@ -244,14 +284,18 @@ InfluxData recommends values ranging from `0ms` to `100ms` for non-SSD disks.
 
 Environment variable: `INFLUXDB_DATA_WAL_FSYNC_DELAY`
 
-#### `ingress-metric-by-measurement-enabled = false`
+#### `ingress-metric-by-measurement-enabled`
+
+Default is `false`.
 
 When `true`, collect statistics of points, values and new series written per-measurement. Metrics are gathered per data node. 
 These can be accessed via the `/debug/vars` endpoint and in the `_internal` database if enabled.
 
 Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_MEASUREMENT_ENABLED`
 
-#### `ingress-metric-by-login-enabled = false`
+#### `ingress-metric-by-login-enabled`
+
+Default is `false`.
 
 When `true`, collect statistics of points, values and new series written per-login. Metrics are gathered per data node.
 These can be accessed via the `/debug/vars` endpoint and in the `_internal` database if enabled.
@@ -260,25 +304,33 @@ Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_LOGIN_ENABLED`
 
 ### Data settings for the TSM engine
 
-#### `cache-max-memory-size = "1g"`
+#### `cache-max-memory-size`
+
+Default is `"1g"`.
 
 The maximum size a shard cache can reach before it starts rejecting writes.
 
 Environment variable: `INFLUXDB_DATA_CACHE_MAX_MEMORY_SIZE`
 
-#### `cache-snapshot-memory-size = "25m"`
+#### `cache-snapshot-memory-size`
+
+Default is `"25m"`.
 
 The size at which the TSM engine will snapshot the cache and write it to a TSM file, freeing up memory.
 
 Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_MEMORY_SIZE`
 
-#### `cache-snapshot-write-cold-duration = "10m"`
+#### `cache-snapshot-write-cold-duration`
+
+Default is `"10m"`.
 
 The length of time at which the TSM engine will snapshot the cache and write it to a new TSM file if the shard hasn't received writes or deletes.
 
 Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_WRITE_COLD_DURATION`
 
-#### `max-concurrent-compactions = 0`
+#### `max-concurrent-compactions`
+
+Default is `0`.
 
 The maximum number of concurrent full and level compactions that can run at one time.  
 A value of `0` (unlimited compactions) results in 50% of `runtime.GOMAXPROCS(0)` used at runtime,
@@ -288,26 +340,34 @@ This setting does not apply to cache snapshotting.
 
 Environmental variable: `INFLUXDB_DATA_CACHE_MAX_CONCURRENT_COMPACTIONS`
 
-#### `compact-throughput = "48m"`
+#### `compact-throughput`
+
+Default is `"48m"`.
 
 The maximum number of bytes per seconds TSM compactions write to disk. Default is `"48m"` (48 million).
 Note that short bursts are allowed to happen at a possibly larger value, set by `compact-throughput-burst`.
 
 Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`  
 
-#### `compact-throughput-burst = "48m"`
+#### `compact-throughput-burst`
+
+Default is `"48m"`.
 
 The maximum number of bytes per seconds TSM compactions write to disk during brief bursts. Default is `"48m"` (48 million).
 
 Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST`  
 
-#### `compact-full-write-cold-duration = "4h"`
+#### `compact-full-write-cold-duration`
+
+Default is `"4h"`.
 
 The duration at which to compact all TSM and TSI files in a shard if it has not received a write or delete.
 
 Environment variable: `INFLUXDB_DATA_COMPACT_FULL_WRITE_COLD_DURATION`
 
-#### `index-version = "inmem"`
+#### `index-version`
+
+Default is `"inmem"`.
 
 The type of shard index to use for new shards.
 The default (`inmem`) is to use an in-memory index that is recreated at startup.
@@ -318,7 +378,9 @@ Environment variable: `INFLUXDB_DATA_INDEX_VERSION`
 
 ### In-memory (`inmem`) index settings
 
-#### `max-series-per-database = 1000000`
+#### `max-series-per-database`
+
+Default is `1000000`.
 
 The maximum number of [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) allowed per database before writes are dropped.
 The default setting is `1000000` (one million).
@@ -338,7 +400,9 @@ If a point causes the number of series in a database to exceed
 
 Environment variable: `INFLUXDB_DATA_MAX_SERIES_PER_DATABASE`
 
-#### `max-values-per-tag = 100000`
+#### `max-values-per-tag`
+
+Default is `100000`.
 
 The maximum number of [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) allowed per [tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key).
 The default value is `100000` (one hundred thousand).
@@ -356,7 +420,9 @@ Environment variable: `INFLUXDB_DATA_MAX_VALUES_PER_TAG`
 
 ### TSI (`tsi1`) index settings
 
-#### `max-index-log-file-size = "1m"`
+#### `max-index-log-file-size`
+
+Default is "1m"`
 
 The threshold, in bytes, when an index write-ahead log (WAL) file will compact
 into an index file. Lower sizes will cause log files to be compacted more
@@ -368,7 +434,9 @@ Values without a size suffix are in bytes.
 
 Environment variable: `INFLUXDB_DATA_MAX_INDEX_LOG_FILE_SIZE`
 
-#### `series-id-set-cache-size = 100`
+#### `series-id-set-cache-size`
+
+Default is `100`.
 
 The size of the internal cache used in the TSI index to store previously
 calculated series results. Cached results will be returned quickly from the cache rather
@@ -400,14 +468,18 @@ a single-use TCP connection may be used.
 For information on InfluxDB `_internal` measurement statistics related to clusters, RPCs, and shards,
 see [Measurements for monitoring InfluxDB Enterprise (`_internal`)](/platform/monitoring/influxdata-platform/tools/measurements-internal/#cluster-enterprise-only).
 
-#### `dial-timeout = "1s"`
+#### `dial-timeout`
+
+Default is `"1s"`.
 
 The duration for which the meta node waits for a connection to a remote data node before the meta node attempts to connect to a different remote data node.
 This setting applies to queries only.
 
 Environment variable: `INFLUXDB_CLUSTER_DIAL_TIMEOUT`
 
-#### `pool-max-idle-time = "60s"`
+#### `pool-max-idle-time`
+
+Default is `"60s"`.
 
 The maximum time that a TCP connection to another data node remains idle in the connection pool.
 When the connection is idle longer than the specified duration, the inactive connection is reaped —
@@ -416,7 +488,9 @@ idle connections minimizes inactive connections, decreases system load, and prev
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_TIME`
 
-#### `pool-max-idle-streams = 100`
+#### `pool-max-idle-streams`
+
+Default is `100`.
 
 The maximum number of idle RPC stream connections to retain in an idle pool between two nodes.
 When a new RPC request is issued, a connection is temporarily pulled from the idle pool, used, and then returned.
@@ -428,7 +502,9 @@ so it is unlikely that changing this value will measurably improve performance b
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_STREAMS`
 
-#### `allow-out-of-order-writes = false`
+#### `allow-out-of-order-writes`
+
+Default is `false`.
 
 By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
 
@@ -442,33 +518,45 @@ Point 1 (`cpu v=1.0 1234`) arrives at `node1`, attempts to replicate on `node2`,
 
 Environment variable: `INFLUXDB_CLUSTER_ALLOW_OUT_OF_ORDER`
 
-#### `shard-reader-timeout = "0"`
+#### `shard-reader-timeout`
+
+Default is `"0"`.
 
 The default timeout set on shard readers.
 The time in which a query connection must return its response after which the system returns an error.
 
 Environment variable: `INFLUXDB_CLUSTER_SHARD_READER_TIMEOUT`
 
-#### `https-enabled = false`
+#### `https-enabled`
+
+Default is `false`.
 
 Determines whether data nodes use HTTPS to communicate with each other.
 
-#### `https-certificate = ""`
+#### `https-certificate`
+
+Default is `""`.
 
 The SSL certificate to use when HTTPS is enabled.  
 The certificate should be a PEM-encoded bundle of the certificate and key.  
 If it is just the certificate, a key must be specified in `https-private-key`.
 
-#### `https-private-key = ""`
+#### `https-private-key`
+
+Default is `""`.
 
 Use a separate private key location.
 
-#### `https-insecure-tls = false`
+#### `https-insecure-tls`
+
+Default is `false`.
 
 Whether data nodes will skip certificate validation communicating with each other over HTTPS.
 This is useful when testing with self-signed certificates.
 
-#### `cluster-tracing = false`
+#### `cluster-tracing`
+
+Default is `false`.
 
 Enables cluster trace logging.
 Set to `true` to enable logging of cluster communications.
@@ -476,13 +564,17 @@ Enable this setting to verify connectivity issues between data nodes.
 
 Environment variable: `INFLUXDB_CLUSTER_CLUSTER_TRACING`
 
-#### `write-timeout = "10s"`
+#### `write-timeout`
+
+Default is `"10s"`.
 
 The duration a write request waits until a "timeout" error is returned to the caller. The default value is 10 seconds.
 
 Environment variable: `INFLUXDB_CLUSTER_WRITE_TIMEOUT`
 
-#### `max-concurrent-queries = 0`
+#### `max-concurrent-queries`
+
+Default is `0`.
 
 The maximum number of concurrent queries allowed to be executing at one time.  
 If a query is executed and exceeds this limit, an error is returned to the caller.  
@@ -490,14 +582,18 @@ This limit can be disabled by setting it to `0`.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_QUERIES`
 
-#### `query-timeout = "0s"`
+#### `query-timeout`
+
+Default is `"0s"`.
 
 The maximum time a query is allowed to execute before being killed by the system.
 This limit can help prevent run away queries.  Setting the value to `0` disables the limit.
 
 Environment variable: `INFLUXDB_CLUSTER_QUERY_TIMEOUT`
 
-#### `log-queries-after = "0s"`
+#### `log-queries-after`
+
+Default is `"0s"`.
 
 The time threshold when a query will be logged as a slow query.  
 This limit can be set to help discover slow or resource intensive queries.  
@@ -505,21 +601,27 @@ Setting the value to `0` disables the slow query logging.
 
 Environment variable: `INFLUXDB_CLUSTER_LOG_QUERIES_AFTER`
 
-#### `max-select-point = 0`
+#### `max-select-point`
+
+Default is `0`.
 
 The maximum number of points a SELECT statement can process.  
 A value of `0` will make the maximum point count unlimited.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_SELECT_POINT`
 
-#### `max-select-series = 0`
+#### `max-select-series`
+
+Default is `0`.
 
 The maximum number of series a SELECT can run.
 A value of `0` will make the maximum series count unlimited.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_SELECT_SERIES`
 
-#### `max-select-buckets = 0`
+#### `max-select-buckets`
+
+Default is `0`.
 
 The maximum number of group by time buckets a SELECT can create.  
 A value of `0` will make the maximum number of buckets unlimited.
@@ -534,32 +636,42 @@ Environment variable: `INFLUXDB_CLUSTER_MAX_SELECT_BUCKETS`
 
 Controls the hinted handoff (HH) queue, which allows data nodes to temporarily cache writes destined for another data node when that data node is unreachable.
 
-#### `batch-size = 512000`
+#### `batch-size`
+
+Default is `512000`.
 
 The maximum number of bytes to write to a shard in a single request.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_BATCH_SIZE`
 
-#### `max-pending-writes = 1024`
+#### `max-pending-writes`
+
+Default is `1024`.
 
 The maximum number of incoming pending writes allowed in the hinted handoff queue.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_PENDING_WRITES`
 
-#### `dir = "/var/lib/influxdb/hh"`
+#### `dir`
+
+Default is `"/var/lib/influxdb/hh"`.
 
 The hinted handoff directory where the durable queue will be stored on disk.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_DIR`
 
-#### `enabled = true`
+#### `enabled`
+
+Default is `true`.
 
 Set to `false` to disable hinted handoff.
 Disabling hinted handoff is not recommended and can lead to data loss if another data node is unreachable for any length of time.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_ENABLED`
 
-#### `max-size = 10737418240`
+#### `max-size`
+
+Default is `10737418240`.
 
 The maximum size of the hinted handoff queue in bytes.
 Each queue is for one and only one other data node in the cluster.
@@ -567,7 +679,9 @@ If there are N data nodes in the cluster, each data node may have up to N-1 hint
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_SIZE`
 
-#### `max-age = "168h0m0s"`
+#### `max-age`
+
+Default is `"168h0m0s"`.
 
 The time interval that writes sit in the queue before they are purged.
 The time is determined by how long the batch has been in the queue, not by the timestamps in the data.
@@ -575,7 +689,9 @@ If another data node is unreachable for more than the `max-age` it can lead to d
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_AGE`
 
-#### `retry-concurrency = 20`
+#### `retry-concurrency`
+
+Default is `20`.
 
 The maximum number of hinted handoff blocks that the source data node attempts to write to each destination data node.
 Hinted handoff blocks are sets of data that belong to the same shard and have the same destination data node.
@@ -590,13 +706,17 @@ Note that increasing `retry-concurrency` also increases network traffic.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_CONCURRENCY`
 
-#### `retry-rate-limit = 0`
+#### `retry-rate-limit`
+
+Default is `0`.
 
 The rate limit (in bytes per second) that hinted handoff retries hints. A value of `0` disables the rate limit.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_RATE_LIMIT`
 
-#### `retry-interval = "1s"`
+#### `retry-interval`
+
+Default is `"1s"`.
 
 The time period after which the hinted handoff retries a write after the write fails.
 
