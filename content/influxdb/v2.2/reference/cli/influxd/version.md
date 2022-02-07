@@ -3,7 +3,7 @@ title: influxd version
 description: The `influxd version` command outputs the current version of InfluxDB.
 influxdb/v2.2/tags: [influxd, cli]
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: influxd
 weight: 202
 products: [oss]

@@ -2,7 +2,7 @@
 title: influx secret delete
 description: The `influx secret delete` command deletes secrets.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx secret delete
     parent: influx secret
 weight: 101

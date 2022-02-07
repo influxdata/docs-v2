@@ -2,7 +2,7 @@
 title: influx user
 description: The `influx user` command and its subcommands manage user information in InfluxDB.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx user
     parent: influx
 weight: 101

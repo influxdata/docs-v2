@@ -2,7 +2,7 @@
 title: influx org create
 description: The `influx org create` creates an organization in InfluxDB.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx org create
     parent: influx org
 weight: 201

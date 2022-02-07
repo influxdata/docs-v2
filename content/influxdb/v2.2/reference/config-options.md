@@ -5,7 +5,7 @@ description: >
   configuration flags, setting environment variables, or defining configuration
   options in a configuration file.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: Configuration options
 weight: 3
 products: [oss]

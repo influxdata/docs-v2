@@ -4,7 +4,7 @@ description: >
   InfluxDB uses line protocol to write data points.
   It is a text-based format that provides the measurement, tag set, field set, and timestamp of a data point.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: Syntax
 weight: 102
 influxdb/v2.2/tags: [write, line protocol, syntax]

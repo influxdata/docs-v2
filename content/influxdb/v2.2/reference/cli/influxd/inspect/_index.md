@@ -3,7 +3,7 @@ title: influxd inspect
 description: The `influxd inspect` commands and subcommands inspecting on-disk InfluxDB time series data.
 influxdb/v2.2/tags: [inspect]
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: influxd
 weight: 201
 ---

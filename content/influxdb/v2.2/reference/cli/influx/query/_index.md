@@ -4,7 +4,7 @@ description: >
   The `influx query` command executes a literal Flux query provided as a string
   or a literal Flux query contained in a file.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx query
     parent: influx
 weight: 101

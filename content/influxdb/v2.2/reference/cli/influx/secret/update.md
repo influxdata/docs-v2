@@ -2,7 +2,7 @@
 title: influx secret update
 description: The `influx secret update` command adds and updates secrets.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx secret update
     parent: influx secret
 weight: 101

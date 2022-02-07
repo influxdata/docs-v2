@@ -2,7 +2,7 @@
 title: influx config set
 description: The `influx config set` command updates an InfluxDB connection configuration.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx config set
     parent: influx config
 weight: 201

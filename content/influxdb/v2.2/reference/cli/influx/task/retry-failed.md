@@ -2,7 +2,7 @@
 title: influx task retry-failed
 description: The `influx task retry-failed` command retries failed InfluxDB task runs.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx task retry-failed
     parent: influx task
 weight: 201

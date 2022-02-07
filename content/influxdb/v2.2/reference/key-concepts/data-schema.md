@@ -6,7 +6,7 @@ aliases:
   - /influxdb/v2.2/reference/key-concepts/table-structure
 weight: 103
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: Key concepts
     name: Data schema
 influxdb/v2.2/tags: [key concepts]

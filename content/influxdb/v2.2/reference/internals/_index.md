@@ -1,7 +1,7 @@
 ---
 title: InfluxDB internals
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: InfluxDB internals
 weight: 7
 ---

@@ -2,7 +2,7 @@
 title: influx auth create
 description: The `influx auth create` command creates an API token in InfluxDB.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx auth create
     parent: influx auth
 weight: 201

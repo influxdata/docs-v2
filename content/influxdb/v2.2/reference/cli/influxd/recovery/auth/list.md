@@ -4,7 +4,7 @@ description: >
   The `influxd recovery auth list` command lists authorizations and data 
   associated with each authorization stored on disk.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: influxd recovery auth
 weight: 401
 ---

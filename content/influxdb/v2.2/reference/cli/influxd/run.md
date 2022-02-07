@@ -3,7 +3,7 @@ title: influxd run
 description: The `influxd run` command is the default `influxd` command and starts the influxd server.
 influxdb/v2.2/tags: [influxd, cli]
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: influxd
 weight: 201
 related:

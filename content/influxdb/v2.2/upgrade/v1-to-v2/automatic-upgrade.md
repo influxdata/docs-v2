@@ -5,7 +5,7 @@ description: >
   Use the `influx upgrade` tool to automatically upgrade from InfluxDB 1.x to InfluxDB 2.1.
 menu:
   influxdb_2_2:
-    parent: InfluxDB 1.x to 2.1
+    parent: InfluxDB 1.x to 2.2
     name: Automatically upgrade
 weight: 10
 aliases:

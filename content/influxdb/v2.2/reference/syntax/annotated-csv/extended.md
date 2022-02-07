@@ -5,7 +5,7 @@ description: >
   how CSV data should be converted to [line protocol](/influxdb/v2.2/reference/syntax/line-protocol/)
   and written to InfluxDB.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: Extended annotated CSV
     parent: Annotated CSV
 weight: 201

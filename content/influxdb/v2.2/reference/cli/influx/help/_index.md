@@ -2,7 +2,7 @@
 title: influx help
 description: The `influx help` command provides help for any command in the `influx` command line interface.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx help
     parent: influx
 weight: 101
