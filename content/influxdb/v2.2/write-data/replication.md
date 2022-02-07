@@ -5,28 +5,41 @@ description: >
   Use InfluxDB replication streams to replicate all data written to an InfluxDB OSS
   instance to InfluxDB Cloud or a remote InfluxDB OSS instance.
 menu:
-  influxdb_2.2:
+  influxdb_2_2:
     name: Replicate data
     parent: Write data
-influxdb/v2.2/tags: []
+influxdb/v2.2/tags: [write, replication]
 related:
   - /influxdb/v2.2/reference/cli/influx/remote
   - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
 Use InfluxDB replication streams to replicate all data written to an InfluxDB OSS
-bucket to an InfluxDB Cloud or a remote InfluxDB OSS bucket.
+bucket to an InfluxDB Cloud {{% oss-only %}}or a remote InfluxDB OSS{{% /oss-only %}} bucket.
 
 **To configure a replication stream:**
 
 1. [Download and install the `influx` CLI](/influxdb/v2.2/tools/influx-cli/).
-2. Use the `influx remote create` command to create a remote connection to replicate data to.
+2. In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use the
+    `influx remote create` command to create a remote connection to replicate data to.
     Provide the following:
     
+    {{% oss-only %}}
+
     - Remote connection name
     - Remote InfluxDB instance URL
     - Remote InfluxDB API token _(API token must have write access to the target bucket)_
     - Remote InfluxDB organization ID
+
+    {{% /oss-only %}}
+    {{% cloud-only %}}
+
+    - Remote connection name
+    - [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
+    - InfluxDB Cloud API token _(API token must have write access to the target bucket)_
+    - InfluxDB Cloud organization ID
+
+    {{% /cloud-only %}}
 
     ```sh
     influx remote create \
@@ -39,13 +52,26 @@ bucket to an InfluxDB Cloud or a remote InfluxDB OSS bucket.
     If you already have remote InfluxDB connections configured, you can use an existing connection.
     To view existing connections, run `influx remote list`.
 
-2. Use the `influx replication create` command to create a replication stream.
+2. In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use the
+    `influx replication create` command to create a replication stream.
     Provide the following:
+
+    {{% oss-only %}}
 
     - Replication stream name
     - Remote connection ID
     - Local bucket ID to replicate writes from
     - Remote bucket ID to replicate writes to
+
+    {{% /oss-only %}}
+    {{% cloud-only %}}
+
+    - Replication stream name
+    - Remote connection ID
+    - InfluxDB OSS bucket ID to replicate writes from
+    - InfluxDB Cloud bucket ID to replicate writes to
+
+    {{% /cloud-only %}}
 
     ```sh
     influx replication create \
@@ -55,8 +81,9 @@ bucket to an InfluxDB Cloud or a remote InfluxDB OSS bucket.
       --remote-bucket 0xXXx00oooXx
     ```
 
-Once a replication stream is created, InfluxDB will replicate all writes to the specified bucket
-to the remote InfluxDB bucket.
+Once a replication stream is created, InfluxDB {{% oss-only %}}OSS{{% /oss-only %}}
+will replicate all writes to the specified bucket to the {{% oss-only %}}remote {{% /oss-only %}}
+InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}bucket.
 Use the `influx replication list` command to view information such as the current queue size,
 max queue size, and latest status code.
 

@@ -8,7 +8,7 @@ menu:
     name: Write from OSS to Cloud
     parent: Write data
 weight: 105
-influxdb/v2.2/tags: [write, ]
+influxdb/v2.2/tags: [write]
 ---
 
 To write data from InfluxDB OSS to InfluxDB Cloud, use the Flux
@@ -16,6 +16,12 @@ To write data from InfluxDB OSS to InfluxDB Cloud, use the Flux
 [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) functions.
 Write data once with a single query execution or use [InfluxDB tasks](/influxdb/v2.2/process-data/)
 to [routinely write data to InfluxDB Cloud](#automate-writing-data-from-influxdb-oss-to-influxdb-cloud).
+
+{{% note %}}
+#### Replicate writes to InfluxDB OSS to InfluxDB Cloud
+To replicate all writes to your InfluxDB OSS instance to an InfluxDB Cloud instance,
+use [InfluxDB replication streams](/influxdb/v2.2/write-data/replication/).
+{{% /note %}}
 
 {{% cloud %}}
 #### InfluxDB Cloud rate limits
