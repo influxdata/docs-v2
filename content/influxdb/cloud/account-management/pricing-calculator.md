@@ -7,7 +7,6 @@ weight: 2
 menu:
   influxdb_cloud:
     name: Pricing calculator
-products: [cloud]
 draft: true
 ---
 

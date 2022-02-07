@@ -9,7 +9,6 @@ menu:
   influxdb_cloud:
     name: Bulk ingest
     parent: Write data
-products: [cloud]
 alias:
   - /influxdb/v2.0/write-data/bulk-ingest-cloud
 ---
