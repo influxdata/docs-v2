@@ -2,7 +2,7 @@
 title: influx auth
 description: The `influx auth` command and its subcommands manage API tokens in InfluxDB.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx auth
     parent: influx
 weight: 101

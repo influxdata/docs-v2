@@ -4,7 +4,7 @@ description: >
   The `influxd recovery org` command and subcommands manage on-disk organization 
   data for recovery purposes.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: influxd recovery
 weight: 301
 ---

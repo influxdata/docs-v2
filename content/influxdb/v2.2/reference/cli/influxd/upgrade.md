@@ -2,7 +2,7 @@
 title: influxd upgrade
 description: The `influxd upgrade` command upgrades a InfluxdDB 1.x instance to 2.x.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: influxd
 weight: 201
 products: [oss]

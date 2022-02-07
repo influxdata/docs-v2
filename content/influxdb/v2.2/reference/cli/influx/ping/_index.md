@@ -4,7 +4,7 @@ description: >
   The `influx ping` command checks the health of a running InfluxDB instance by
   querying the `/health` endpoint.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx ping
     parent: influx
 weight: 101

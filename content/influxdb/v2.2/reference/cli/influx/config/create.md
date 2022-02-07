@@ -2,7 +2,7 @@
 title: influx config create
 description: The `influx config create` command creates a InfluxDB connection configuration.
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     name: influx config create
     parent: influx config
 weight: 201

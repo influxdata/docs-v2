@@ -3,7 +3,7 @@ title: influx restore
 description: The `influx restore` command restores backup data and metadata from an InfluxDB backup directory.
 influxdb/v2.2/tags: [restore]
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: influx
 weight: 101
 aliases:

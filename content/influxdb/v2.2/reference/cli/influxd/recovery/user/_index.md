@@ -5,7 +5,7 @@ description: >
   data for recovery purposes.
 menu:
 menu:
-  influxdb_2_1_ref:
+  influxdb_2_2_ref:
     parent: influxd recovery
 weight: 301
 ---
