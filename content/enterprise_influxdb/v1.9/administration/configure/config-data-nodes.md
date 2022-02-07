@@ -356,7 +356,7 @@ Environment variable: `INFLUXDB_DATA_MAX_VALUES_PER_TAG`
 
 ### TSI (`tsi1`) index settings
 
-#### `max-index-log-file-size = "131072"  # 1m`
+#### `max-index-log-file-size = "1048576"  # 1m`
 
 The threshold, in bytes, when an index write-ahead log (WAL) file will compact
 into an index file. Lower sizes will cause log files to be compacted more
