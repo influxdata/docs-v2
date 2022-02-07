@@ -286,7 +286,7 @@ go_memstats_lookups_total 0
 
 ### Memory allocations total
 
-The cumulative count of heap objects allocated.
+Cumulative count of heap objects allocated.
 
 #### Example
 
@@ -484,7 +484,7 @@ http_query_response_bytes{endpoint="/api/v2/query",org_id="48c88459ee424a04",sta
 
 ### Buckets total
 
-Number of total buckets on the server.
+Total number of buckets on the server.
 
 #### Example
 
@@ -496,7 +496,7 @@ influxdb_buckets_total 9
 
 ### Dashboards total
 
-Number of total dashboards on the server.
+Total number of dashboards on the server.
 
 #### Example
 
@@ -520,7 +520,7 @@ influxdb_info{arch="amd64",build_date="2021-12-28T22:12:40Z",commit="657e1839de"
 
 ### Organizations total
 
-Number of total organizations on the server.
+Total number of organizations on the server.
 
 #### Example
 
@@ -532,7 +532,7 @@ influxdb_organizations_total 2
 
 ### Scrapers total
 
-Number of total scrapers on the server.
+Total number of scrapers on the server.
 
 #### Example
 
@@ -544,7 +544,7 @@ influxdb_scrapers_total 0
 
 ### Telegrafs total
 
-Number of total telegraf configurations on the server.
+Total number of Telegraf configurations on the server.
 
 #### Example
 
@@ -556,7 +556,7 @@ influxdb_telegrafs_total 0
 
 ### Token services total
 
-Number of total tokens on the server.
+Total number of API tokens on the server.
 
 #### Example
 
@@ -580,7 +580,7 @@ influxdb_uptime_seconds{id="077238f9ca108000"} 343354.914499305
 
 ### Users total
 
-Number of total users on the server
+Total number of users on the server.
 
 #### Example
 
@@ -594,7 +594,7 @@ influxdb_users_total 84
 
 ### All active
 
-Number of queries in all states
+Number of queries in all states.
 
 #### Example
 
@@ -672,7 +672,7 @@ qc_executing_duration_seconds_bucket{org="48c88459ee424a04",le="0.001"} 0
 
 ### Memory unused bytes
 
-The free memory as seen by the internal memory manager.
+Free memory as seen by the internal memory manager.
 
 #### Example
 
@@ -739,7 +739,7 @@ query_influxdb_source_read_request_duration_seconds_bucket{op="readTagKeys",org=
 
 ### Bucket service new call total
 
-Number of calls.
+Number of calls to the bucket creation service.
 
 #### Example
 
@@ -752,7 +752,7 @@ service_bucket_new_call_total{method="find_bucket"} 6177
 
 ### Bucket service new duration
 
-Duration of calls.
+Duration of calls to the bucket creation service.
 
 #### Example
 
@@ -765,7 +765,7 @@ service_bucket_new_duration_bucket{method="find_bucket",le="0.005"} 5876
 
 ### Bucket service new error total
 
-Number of errors encountered.
+Number of errors encountered by the bucket creation service.
 
 #### Example
 
@@ -777,7 +777,7 @@ service_bucket_new_error_total{code="not found",method="find_bucket_by_id"} 76
 
 ### Onboard service new call total
 
-Number of calls.
+Number of calls to the onboarding service.
 
 #### Example
 
@@ -789,7 +789,7 @@ service_onboard_new_call_total{method="is_onboarding"} 11
 
 ### Onboard service new duration
 
-Duration of calls.
+Duration of calls to the onboarding service.
 
 #### Example
 
@@ -802,7 +802,7 @@ service_onboard_new_duration_bucket{method="is_onboarding",le="0.005"} 11
 
 ### Organization service call total
 
-Number of calls.
+Number of calls to the organization service.
 
 #### Example
 
@@ -814,7 +814,7 @@ service_org_call_total{method="find_labels_for_resource"} 10
 
 ### Organization service duration
 
-Duration of calls.
+Duration of calls to the organization service.
 
 #### Example
 
@@ -827,7 +827,7 @@ service_org_duration_bucket{method="find_labels_for_resource",le="0.005"} 10
 
 ### Organization service new call total
 
-Number of calls.
+Number of calls to the organization creation service.
 
 #### Example
 
@@ -840,7 +840,7 @@ service_org_new_call_total{method="find_org"} 1572
 
 ### Organization service new duration
 
-Duration of calls.
+Duration of calls to the organization creation service.
 
 #### Example
 
@@ -853,7 +853,7 @@ service_org_new_duration_bucket{method="find_org",le="0.005"} 1475
 
 ### Organization service new error total
 
-Number of errors encountered.
+Number of errors encountered by the organization creation service.
 
 #### Example
 
@@ -865,7 +865,7 @@ service_org_new_error_total{code="not found",method="find_orgs"} 1
 
 ### Password service new call total
 
-Number of calls.
+Number of calls to the password creation service.
 
 #### Example
 
@@ -877,7 +877,7 @@ service_password_new_call_total{method="compare_password"} 4
 
 ### Password service new duration
 
-Duration of calls.
+Duration of calls to the password creation service.
 
 #### Example
 
@@ -890,7 +890,7 @@ service_password_new_duration_bucket{method="compare_password",le="0.005"} 0
 
 ### Password service new error total
 
-Number of errors encountered.
+Number of errors encountered by the password creation service.
 
 #### Example
 
@@ -902,7 +902,7 @@ service_password_new_error_total{code="forbidden",method="compare_password"} 1
 
 ### Pkger service call total
 
-Number of calls.
+Number of calls to the `pkger` service.
 
 #### Example
 
@@ -914,7 +914,7 @@ service_pkger_call_total{method="export"} 3
 
 ### Pkger service duration
 
-Duration of calls.
+Duration of calls to the `pkger` service.
 
 #### Example
 
@@ -927,7 +927,7 @@ service_pkger_duration_bucket{method="export",le="0.005"} 0
 
 ### Pkger service template export
 
-Metrics for resources being exported
+Metrics for exported resources.
 
 #### Example
 
@@ -939,7 +939,7 @@ service_pkger_template_export{buckets="0",by_stack="false",checks="0",dashboards
 
 ### Session service call total
 
-Number of calls.
+Number of calls to the session service.
 
 #### Example
 
@@ -952,7 +952,7 @@ service_session_call_total{method="create_session"} 3
 
 ### Session service duration
 
-Duration of calls.
+Duration of calls to the session service.
 
 #### Example
 
@@ -965,7 +965,7 @@ service_session_duration_bucket{method="create_session",le="0.005"} 3
 
 ### Session service error total
 
-Number of errors encountered.
+Number of errors encountered by the session service.
 
 #### Example
 
@@ -977,7 +977,7 @@ service_session_error_total{code="not found",method="find_session"} 4
 
 ### Token service call total
 
-Number of calls.
+Number of calls to the token service.
 
 #### Example
 
@@ -990,7 +990,7 @@ service_token_call_total{method="delete_authorization"} 3
 
 ### Token service duration
 
-Duration of calls.
+Duration of calls to the token service.
 
 #### Example
 
@@ -1003,7 +1003,7 @@ service_token_duration_bucket{method="delete_authorization",le="0.005"} 1
 
 ### Token service error total
 
-Number of errors encountered.
+Number of errors encountered by the token service.
 
 #### Example
 
@@ -1013,8 +1013,8 @@ Number of errors encountered.
 service_token_error_total{code="not found",method="delete_authorization"} 1
 ```
 
-urm new call total
-Number of calls.
+### URM new call total
+Number of calls to the URM (unified resource management) creation service.
 
 #### Example
 
@@ -1024,8 +1024,8 @@ Number of calls.
 service_urm_new_call_total{method="find_urms"} 6451
 ```
 
-urm new duration
-Duration of calls.
+### urm new duration
+Duration of calls to the URM creation service.
 
 #### Example
 
@@ -1036,8 +1036,8 @@ service_urm_new_duration_bucket{method="find_urms",le="0.005"} 6198
 --
 ```
 
-user new call total
-Number of calls.
+### User new call total
+Number of calls to the user creation service.
 
 #### Example
 
@@ -1048,8 +1048,8 @@ service_user_new_call_total{method="find_permission_for_user"} 4806
 --
 ```
 
-user new duration
-Duration of calls.
+### User new duration
+Duration of calls  to the user creation service.
 
 #### Example
 
@@ -1064,7 +1064,7 @@ service_user_new_duration_bucket{method="find_permission_for_user",le="0.005"} 4
 
 ### Task executor errors counter
 
-The number of errors thrown by the executor with the type of error (ex. Invalid, Internal, etc.)
+Number of errors thrown by the executor with the type of error (ex. Invalid, Internal, etc.)
 
 #### Example
 
@@ -1089,7 +1089,7 @@ task_executor_promise_queue_usage 0
 
 ### Task executor run duration
 
-The duration in seconds between a run starting and finishing.
+Duration (in seconds) between a task run starting and finishing.
 
 #### Example
 
@@ -1102,7 +1102,7 @@ task_executor_run_duration{taskID="08017725990f6000",task_type="",quantile="0.5"
 
 ### Task executor run latency seconds
 
-Records the latency between the time the run was due to run and the time the task started execution, by task type.
+Latency between the task run's scheduled start time and the execution time, by task type.
 
 #### Example
 
@@ -1115,7 +1115,7 @@ task_executor_run_latency_seconds_bucket{task_type="system",le="0.005"} 0
 
 ### Task executor run queue delta
 
-The duration in seconds between a run being due to start and actually starting.
+Duration (in seconds) between the task run's scheduled start time and the execution time.
 
 #### Example
 
