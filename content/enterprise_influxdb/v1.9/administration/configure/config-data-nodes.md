@@ -151,7 +151,7 @@ Environment variable: `INFLUXDB_META_DIR`
 Default is `false`.
 
 Whether to use TLS when connecting to meta nodes.
-Set to `true` to if [`https-enabled`](#https-enabled-false) is set to `true`.
+Set to `true` to if [`https-enabled`](#https-enabled) is set to `true`.
 
 Environment variable: `INFLUXDB_META_META_TLS_ENABLED`
 
@@ -162,7 +162,7 @@ Default is `false`.
 Allows insecure TLS connections to meta nodes.
 This is useful when testing with self-signed certificates.
 
-Set to `true` to allow the data node to accept self-signed certificates if [`https-enabled`](#https-enabled-false) is set to `true`.
+Set to `true` to allow the data node to accept self-signed certificates if [`https-enabled`](#https-enabled) is set to `true`.
 
 Environment variable: `INFLUXDB_META_META_INSECURE_TLS`
 
@@ -172,7 +172,7 @@ Default is `false`.
 
 This setting must have the same value as the meta nodes' `[meta] auth-enabled` configuration.
 
-Set to `true` if [`auth-enabled`](#auth-enabled-false) is set to `true` in the meta node configuration files.
+Set to `true` if [`auth-enabled`](#auth-enabled) is set to `true` in the meta node configuration files.
 For JWT authentication, also see the [`meta-internal-shared-secret`](#meta-internal-shared-secret) configuration option.
 
 Environment variable: `INFLUXDB_META_META_AUTH_ENABLED`
@@ -211,9 +211,9 @@ Default is `bcrypt`.
 
 Configures password hashing algorithm.
 Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
-This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
+This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash).
 
-For detailed configuration information, see [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt).
+For detailed configuration information, see [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash).
 
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
@@ -224,7 +224,7 @@ Default is `false`.
 When `true`, enables a FIPS-readiness check on startup.
 Default is `false`.
 
-For detailed configuration information, see [`meta.ensure-fips`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips--false).
+For detailed configuration information, see [`meta.ensure-fips`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips).
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 

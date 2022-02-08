@@ -309,7 +309,7 @@ If true, you will need to use `influxd ldap set-config` and set enabled=true to 
 Default is `""`.
 
 The shared secret to be used by the public API for creating custom JWT authentication.
-If you use this setting, set [`auth-enabled`](#auth-enabled-false) to `true`.
+If you use this setting, set [`auth-enabled`](#auth-enabled) to `true`.
 
 Environment variable: `INFLUXDB_META_SHARED_SECRET`
 
@@ -322,7 +322,7 @@ inter-node communication within the cluster.
 Set this to a long pass phrase.
 This value must be the same value as the
 [`[meta] meta-internal-shared-secret`](/enterprise_influxdb/v1.9/administration/config-data-nodes#meta-internal-shared-secret) in the data node configuration file.
-To use this option, set [`auth-enabled`](#auth-enabled-false) to `true`.
+To use this option, set [`auth-enabled`](#auth-enabled) to `true`.
 
 Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`
 
