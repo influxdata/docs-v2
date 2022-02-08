@@ -19,7 +19,7 @@ to [routinely write data to InfluxDB Cloud](#automate-writing-data-from-influxdb
 
 {{% note %}}
 #### Replicate writes to InfluxDB OSS to InfluxDB Cloud
-To replicate all writes to your InfluxDB OSS instance to an InfluxDB Cloud instance,
+To replicate all writes to an InfluxDB OSS instance to an InfluxDB Cloud instance,
 use [InfluxDB replication streams](/influxdb/v2.2/write-data/replication/).
 {{% /note %}}
 
