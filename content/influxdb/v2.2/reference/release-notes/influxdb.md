@@ -45,7 +45,14 @@ This release includes the following new [features](#features) and several [bug f
 #### Metrics
 
 (https://github.com/influxdata/influxdb/commit/3a81166): Added metrics collection for replications
-(https://github.com/influxdata/influxdb/commit/dece95d): TSM compaction metrics via prometheus
+- Add Prometheus metrics for TSM compactions, including:
+   - `storage_compaction`
+   - `storage_compactions_active`
+   - `storage_compactions_duration_seconds_bucket`
+   - `storage_compactions_duration_seconds_count`
+   - `storage_compactions_duration_seconds_sum`
+   - `storage_compactions_queued`
+   - `storage_compactions_total`
 
 - Add the following metrics when data fails to be added to the replication queue:
   `PointsFailedToQueue`
