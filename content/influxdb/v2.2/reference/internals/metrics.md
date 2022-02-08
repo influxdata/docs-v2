@@ -3,10 +3,10 @@ title: InfluxDB OSS metrics
 description: >
  Get metrics about the workload performance of an InfluxDB OSS instance.
 menu:
- influxdb_2_1_ref:
+ influxdb_2_2_ref:
    parent: InfluxDB internals
    name: Metrics
-influxdb/v2.1/tags: [cpu, memory, metrics, performance, Prometheus, usage]
+influxdb/v2.2/tags: [cpu, memory, metrics, performance, Prometheus, storage, usage]
 ---
 Get metrics about the workload performance of an InfluxDB OSS instance.
 
@@ -44,6 +44,7 @@ The InfluxDB `/metrics` endpoint returns metrics associated with the following c
 - [InfluxDB objects and queries](#influxdb-object-and-query-statistics)
   - [QC (query controller)](#qc-query-controller-statistics)
 - [InfluxDB services](#influxdb-service-statistics)
+- [InfluxDB storage](#influxdb-storage-statistics)
 - [InfluxDB tasks](#influxdb-task-statistics)
 
 ## Boltdb statistics
@@ -1049,7 +1050,7 @@ service_user_new_call_total{method="find_permission_for_user"} 4806
 ```
 
 ### User new duration
-Duration of calls  to the user creation service.
+Duration of calls to the user creation service.
 
 #### Example
 
@@ -1060,9 +1061,462 @@ service_user_new_duration_bucket{method="find_permission_for_user",le="0.005"} 4
 --
 ```
 
+## InfluxDB storage statistics
+
+To learn how InfluxDB writes, stores, and caches data, see [InfluxDB storage engine](/influxdb/v2.2/reference/internals/storage-engine/).
+
+### Bucket measurement number
+
+Gauge of measurement cardinality per bucket.
+
+#### Example
+
+```sh
+# HELP storage_bucket_measurement_num Gauge of measurement cardinality per bucket
+# TYPE storage_bucket_measurement_num gauge
+storage_bucket_measurement_num{bucket="0c3dd7d2d97f4b23"} 4
+--
+```
+
+### Bucket series number
+
+Gauge of series cardinality per bucket.
+
+#### Example
+
+```sh
+# HELP storage_bucket_series_num Gauge of series cardinality per bucket
+# TYPE storage_bucket_series_num gauge
+storage_bucket_series_num{bucket="0c3dd7d2d97f4b23"} 38
+--
+```
+
+### Cache disk bytes
+
+Gauge of the size of the most recent [snapshot](/influxdb/v2.2/reference/internals/storage-engine/#cache).
+
+#### Example
+
+```sh
+# HELP storage_cache_disk_bytes Gauge of size of most recent snapshot
+# TYPE storage_cache_disk_bytes gauge
+storage_cache_disk_bytes{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Cache in use bytes
+
+Gauge of current memory consumption of the [cache](/influxdb/v2.2/reference/internals/storage-engine/#cache).
+
+#### Example
+
+```sh
+# HELP storage_cache_inuse_bytes Gauge of current memory consumption of cache
+# TYPE storage_cache_inuse_bytes gauge
+storage_cache_inuse_bytes{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Cache latest snapshot
+
+[Unix time](/influxdb/v2.2/reference/glossary/#unix-timestamp) of the most recent [snapshot](/influxdb/v2.2/reference/internals/storage-engine/#cache).
+
+#### Example
+
+```sh
+# HELP storage_cache_latest_snapshot Unix time of most recent snapshot
+# TYPE storage_cache_latest_snapshot gauge
+storage_cache_latest_snapshot{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 1.644269658196893e+09
+--
+```
+
+### Cache writes with dropped points
+
+Counter of [cached](/influxdb/v2.2/reference/internals/storage-engine/#cache) writes that had [rejected points](/influxdb/v2.2/reference/glossary/#rejected-point). Writes with rejected points also increment the [write errors counter (`storage_cache_writes_err`)](#cache-writes-failed).
+
+#### Example
+
+```sh
+# HELP storage_cache_writes_dropped Counter of writes to cache with some dropped points
+# TYPE storage_cache_writes_dropped counter
+storage_cache_writes_dropped{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Cache writes failed
+
+Counter of [cached](/influxdb/v2.2/reference/internals/storage-engine/#cache) writes that [failed](/influxdb/v2.0/write-data/troubleshoot/#troubleshoot-failures), inclusive of [cache writes with dropped points (`storage_cache_writes_dropped`)](#cache-writes-with-dropped-points).
+
+#### Example
+
+```sh
+# HELP storage_cache_writes_err Counter of failed writes to cache
+# TYPE storage_cache_writes_err counter
+storage_cache_writes_err{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Cache writes total
+
+Counter of total writes to [cache](/influxdb/v2.2/reference/internals/storage-engine/#cache).
+
+#### Example
+
+```sh
+# HELP storage_cache_writes_total Counter of all writes to cache
+# TYPE storage_cache_writes_total counter
+storage_cache_writes_total{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Compactions active
+
+Gauge of currently running [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
+
+#### Example
+
+```sh
+# HELP storage_compactions_active Gauge of compactions (by level) currently running
+# TYPE storage_compactions_active gauge
+storage_compactions_active{bucket="ec3f82d1de90eddf",engine="tsm1",id="565",level="1",path="/Users/me/.influxdbv2/engine/data/ec3f82d1de90eddf/autogen/565",walPath="/Users/me/.influxdbv2/engine/wal/ec3f82d1de90eddf/autogen/565"} 0
+--
+```
+
+### Compactions since startup
+
+Histogram of [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level) since startup.
+
+#### Example
+
+```sh
+# HELP storage_compactions_duration_seconds Histogram of compactions by level since startup
+# TYPE storage_compactions_duration_seconds histogram
+storage_compactions_duration_seconds_bucket{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="567",level="cache",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/567",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/567",le="60"} 1
+storage_compactions_duration_seconds_bucket{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="567",level="cache",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/567",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/567",le="600"} 1
+storage_compactions_duration_seconds_bucket{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="567",level="cache",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/567",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/567",le="6000"} 1
+storage_compactions_duration_seconds_bucket{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="567",level="cache",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/567",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/567",le="+Inf"} 1
+storage_compactions_duration_seconds_sum{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="567",level="cache",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/567",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/567"} 0.167250668
+storage_compactions_duration_seconds_count{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="567",level="cache",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/567",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/567"} 1
+--
+```
+
+### Compactions failed
+
+Counter of failed [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
+
+#### Example
+
+```sh
+# HELP storage_compactions_failed Counter of TSM compactions (by level) that have failed due to error
+# TYPE storage_compactions_failed counter
+storage_compactions_failed{bucket="ec3f82d1de90eddf",engine="tsm1",id="565",level="1",path="/Users/me/.influxdbv2/engine/data/ec3f82d1de90eddf/autogen/565",walPath="/Users/me/.influxdbv2/engine/wal/ec3f82d1de90eddf/autogen/565"} 0
+--
+```
+
+### Compactions queued
+
+Counter of queued [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
+
+#### Example
+
+```sh
+# HELP storage_compactions_queued Counter of TSM compactions (by level) that are currently queued
+# TYPE storage_compactions_queued gauge
+storage_compactions_queued{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="567",level="1",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/567",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/567"} 0
+--
+```
+
+### Retention check duration
+
+Histogram of retention policy check duration (in seconds).
+
+#### Example
+
+```sh
+# HELP storage_retention_check_duration Histogram of duration of retention check (in seconds)
+# TYPE storage_retention_check_duration histogram
+storage_retention_check_duration_bucket{le="0.005"} 1
+storage_retention_check_duration_bucket{le="0.01"} 1
+storage_retention_check_duration_bucket{le="0.025"} 1
+storage_retention_check_duration_bucket{le="0.05"} 1
+storage_retention_check_duration_bucket{le="0.1"} 1
+storage_retention_check_duration_bucket{le="0.25"} 1
+storage_retention_check_duration_bucket{le="0.5"} 1
+storage_retention_check_duration_bucket{le="1"} 1
+storage_retention_check_duration_bucket{le="2.5"} 1
+storage_retention_check_duration_bucket{le="5"} 1
+storage_retention_check_duration_bucket{le="10"} 1
+storage_retention_check_duration_bucket{le="+Inf"} 1
+storage_retention_check_duration_sum 0.000351857
+storage_retention_check_duration_count 1
+--
+```
+
+### Shard disk size
+
+Gauge of disk size (in bytes) for the [shard](/influxdb/v2.2/reference/internals/shards/).
+
+#### Example
+
+```sh
+# HELP storage_shard_disk_size Gauge of the disk size for the shard
+# TYPE storage_shard_disk_size gauge
+storage_shard_disk_size{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 4.188743e+06
+--
+```
+
+### Shard fields created
+
+Number of [shard](/influxdb/v2.2/reference/internals/shards/) fields created.
+
+#### Example
+
+```sh
+# HELP storage_shard_fields_created Counter of the number of fields created
+# TYPE storage_shard_fields_created counter
+storage_shard_fields_created{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Shard series
+
+Gauge of the number of series in the [shard](/influxdb/v2.2/reference/internals/shards/) index.
+
+#### Example
+
+```sh
+# HELP storage_shard_series Gauge of the number of series in the shard index
+# TYPE storage_shard_series gauge
+storage_shard_series{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 38
+--
+```
+
+### Shard writes
+
+Number of [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests.
+
+#### Example
+
+```sh
+# HELP storage_shard_write_count Count of the number of write requests
+# TYPE storage_shard_write_count counter
+storage_shard_write_count{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Shard dropped points
+
+Number of [rejected points](/influxdb/v2.2/reference/glossary/#rejected-point) in [shard writes](/influxdb/v2.2/reference/internals/shards/#shard-writes).
+
+#### Example
+
+```sh
+# HELP storage_shard_write_dropped_sum Counter of the number of points dropped
+# TYPE storage_shard_write_dropped_sum counter
+storage_shard_write_dropped_sum{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Shard writes with errors
+
+Number of [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests with errors.
+
+#### Example
+
+```sh
+# HELP storage_shard_write_err_count Count of the number of write requests with errors
+# TYPE storage_shard_write_err_count counter
+storage_shard_write_err_count{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Points in shard writes with errors
+
+Number of points in [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests with errors.
+
+#### Example
+
+```sh
+# HELP storage_shard_write_err_sum Counter of the number of points for write requests with errors
+# TYPE storage_shard_write_err_sum counter
+storage_shard_write_err_sum{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Points in shard writes
+
+Number of points in [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests.
+
+#### Example
+
+```sh
+# HELP storage_shard_write_sum Counter of the number of points for write requests
+# TYPE storage_shard_write_sum counter
+storage_shard_write_sum{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+### Shard data size
+
+Gauge of the data size (in bytes) for each [shard](/influxdb/v2.2/reference/internals/shards/).
+
+#### Example
+
+```sh
+# HELP storage_tsm_files_disk_bytes Gauge of data size in bytes for each shard
+# TYPE storage_tsm_files_disk_bytes gauge
+storage_tsm_files_disk_bytes{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 4.188743e+06
+--
+```
+
+### Shard files
+
+Gauge of the number of files per [shard](/influxdb/v2.2/reference/internals/shards/).
+
+#### Example
+
+```sh
+# HELP storage_tsm_files_total Gauge of number of files per shard
+# TYPE storage_tsm_files_total gauge
+storage_tsm_files_total{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 1
+--
+```
+
+### WAL size
+
+Gauge of the [WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal) size (in bytes).
+
+#### Example
+
+```sh
+# HELP storage_wal_size Gauge of size of WAL in bytes
+# TYPE storage_wal_size gauge
+storage_wal_size{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+## WAL write attempts
+
+Number of write attempts to the [WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal).
+
+#### Example
+
+```sh
+# HELP storage_wal_writes Number of write attempts to the WAL
+# TYPE storage_wal_writes counter
+storage_wal_writes{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+## WAL failed write attempts
+
+Number of failed write attempts to the [WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal).
+
+#### Example
+
+```sh
+# HELP storage_wal_writes_err Number of failed write attempts to the WAL
+# TYPE storage_wal_writes_err counter
+storage_wal_writes_err{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/me/.influxdbv2/engine/data/0c3dd7d2d97f4b23/autogen/561",walPath="/Users/me/.influxdbv2/engine/wal/0c3dd7d2d97f4b23/autogen/561"} 0
+--
+```
+
+## Points dropped due to partial writes
+
+Histogram of the number of points dropped due to partial writes.
+
+#### Example
+
+```sh
+# HELP storage_writer_dropped_points Histogram of number of points dropped due to partial writes
+# TYPE storage_writer_dropped_points histogram
+storage_writer_dropped_points_bucket{path="/Users/me/.influxdbv2/engine",le="10"} 0
+storage_writer_dropped_points_bucket{path="/Users/me/.influxdbv2/engine",le="100"} 0
+storage_writer_dropped_points_bucket{path="/Users/me/.influxdbv2/engine",le="1000"} 0
+storage_writer_dropped_points_bucket{path="/Users/me/.influxdbv2/engine",le="10000"} 0
+storage_writer_dropped_points_bucket{path="/Users/me/.influxdbv2/engine",le="100000"} 0
+storage_writer_dropped_points_bucket{path="/Users/me/.influxdbv2/engine",le="+Inf"} 0
+storage_writer_dropped_points_sum{path="/Users/me/.influxdbv2/engine"} 0
+storage_writer_dropped_points_count{path="/Users/me/.influxdbv2/engine"} 0
+--
+```
+
+## Points in shard write requests with errors
+
+Histogram of the number of points in [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests with errors.
+
+#### Example
+
+```sh
+# HELP storage_writer_err_points Histogram of number of points in errored shard write requests
+# TYPE storage_writer_err_points histogram
+storage_writer_err_points_bucket{path="/Users/me/.influxdbv2/engine",le="10"} 0
+storage_writer_err_points_bucket{path="/Users/me/.influxdbv2/engine",le="100"} 0
+storage_writer_err_points_bucket{path="/Users/me/.influxdbv2/engine",le="1000"} 0
+storage_writer_err_points_bucket{path="/Users/me/.influxdbv2/engine",le="10000"} 0
+storage_writer_err_points_bucket{path="/Users/me/.influxdbv2/engine",le="100000"} 0
+storage_writer_err_points_bucket{path="/Users/me/.influxdbv2/engine",le="+Inf"} 0
+storage_writer_err_points_sum{path="/Users/me/.influxdbv2/engine"} 0
+storage_writer_err_points_count{path="/Users/me/.influxdbv2/engine"} 0
+--
+```
+
+## Points in successful shard write requests
+
+Histogram of the number of points in successful [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests.
+
+#### Example
+
+```sh
+# HELP storage_writer_ok_points Histogram of number of points in successful shard write requests
+# TYPE storage_writer_ok_points histogram
+storage_writer_ok_points_bucket{path="/Users/me/.influxdbv2/engine",le="10"} 6
+storage_writer_ok_points_bucket{path="/Users/me/.influxdbv2/engine",le="100"} 6
+storage_writer_ok_points_bucket{path="/Users/me/.influxdbv2/engine",le="1000"} 8
+storage_writer_ok_points_bucket{path="/Users/me/.influxdbv2/engine",le="10000"} 20
+storage_writer_ok_points_bucket{path="/Users/me/.influxdbv2/engine",le="100000"} 24
+storage_writer_ok_points_bucket{path="/Users/me/.influxdbv2/engine",le="+Inf"} 24
+storage_writer_ok_points_sum{path="/Users/me/.influxdbv2/engine"} 125787
+storage_writer_ok_points_count{path="/Users/me/.influxdbv2/engine"} 24
+--
+```
+
+## Points in write requests
+
+Histogram of the number of points in write requests.
+
+#### Example
+
+```sh
+# HELP storage_writer_req_points Histogram of number of points requested to be written
+# TYPE storage_writer_req_points histogram
+storage_writer_req_points_bucket{path="/Users/me/.influxdbv2/engine",le="10"} 6
+storage_writer_req_points_bucket{path="/Users/me/.influxdbv2/engine",le="100"} 6
+storage_writer_req_points_bucket{path="/Users/me/.influxdbv2/engine",le="1000"} 6
+storage_writer_req_points_bucket{path="/Users/me/.influxdbv2/engine",le="10000"} 14
+storage_writer_req_points_bucket{path="/Users/me/.influxdbv2/engine",le="100000"} 18
+storage_writer_req_points_bucket{path="/Users/me/.influxdbv2/engine",le="+Inf"} 18
+storage_writer_req_points_sum{path="/Users/me/.influxdbv2/engine"} 125787
+storage_writer_req_points_count{path="/Users/me/.influxdbv2/engine"} 18
+--
+```
+
+## Shard write request timeouts
+
+Number of [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) request timeouts.
+
+#### Example
+
+```sh
+# HELP storage_writer_timeouts Number of shard write request timeouts
+# TYPE storage_writer_timeouts counter
+storage_writer_timeouts{path="/Users/me/.influxdbv2/engine"} 0
+--
+```
+
 ## InfluxDB task statistics
 
-### Task executor errors counter
+### Task executor errors
 
 Number of errors thrown by the executor with the type of error (ex. Invalid, Internal, etc.)
 
@@ -1089,20 +1543,25 @@ task_executor_promise_queue_usage 0
 
 ### Task executor run duration
 
-Duration (in seconds) between a task run starting and finishing.
+Summary of duration (in seconds) between a task run starting and finishing.
 
 #### Example
 
 ```sh
 # HELP task_executor_run_duration The duration in seconds between a run starting and finishing.
 # TYPE task_executor_run_duration summary
-task_executor_run_duration{taskID="08017725990f6000",task_type="",quantile="0.5"} NaN
+
+task_executor_run_duration{taskID="08017725990f6000",task_type="",quantile="0.5"} 0.865043855
+task_executor_run_duration{taskID="08017725990f6000",task_type="",quantile="0.9"} 0.865043855
+task_executor_run_duration{taskID="08017725990f6000",task_type="",quantile="0.99"} 0.865043855
+task_executor_run_duration_sum{taskID="08017725990f6000",task_type=""} 1.524920552
+task_executor_run_duration_count{taskID="08017725990f6000",task_type=""} 2
 --
 ```
 
 ### Task executor run latency seconds
 
-Latency between the task run's scheduled start time and the execution time, by task type.
+Histogram of latency between the task run's scheduled start time and the execution time, by task type.
 
 #### Example
 
@@ -1110,25 +1569,42 @@ Latency between the task run's scheduled start time and the execution time, by t
 # HELP task_executor_run_latency_seconds Records the latency between the time the run was due to run and the time the task started execution, by task type
 # TYPE task_executor_run_latency_seconds histogram
 task_executor_run_latency_seconds_bucket{task_type="system",le="0.005"} 0
+task_executor_run_latency_seconds_bucket{task_type="system",le="0.01"} 0
+task_executor_run_latency_seconds_bucket{task_type="system",le="0.025"} 0
+task_executor_run_latency_seconds_bucket{task_type="system",le="0.05"} 0
+task_executor_run_latency_seconds_bucket{task_type="system",le="0.1"} 0
+task_executor_run_latency_seconds_bucket{task_type="system",le="0.25"} 2
+task_executor_run_latency_seconds_bucket{task_type="system",le="0.5"} 6
+task_executor_run_latency_seconds_bucket{task_type="system",le="1"} 6
+task_executor_run_latency_seconds_bucket{task_type="system",le="2.5"} 6
+task_executor_run_latency_seconds_bucket{task_type="system",le="5"} 6
+task_executor_run_latency_seconds_bucket{task_type="system",le="10"} 6
+task_executor_run_latency_seconds_bucket{task_type="system",le="+Inf"} 6
+task_executor_run_latency_seconds_sum{task_type="system"} 2.237636
+task_executor_run_latency_seconds_count{task_type="system"} 6
 --
 ```
 
 ### Task executor run queue delta
 
-Duration (in seconds) between the task run's scheduled start time and the execution time.
+Summary of duration (in seconds) between the task run's scheduled start time and the execution time.
 
 #### Example
 
 ```sh
 # HELP task_executor_run_queue_delta The duration in seconds between a run being due to start and actually starting.
 # TYPE task_executor_run_queue_delta summary
-task_executor_run_queue_delta{taskID="08017725990f6000",task_type="",quantile="0.5"} NaN
+task_executor_run_queue_delta{taskID="08017725990f6000",task_type="",quantile="0.5"} 0.324742
+task_executor_run_queue_delta{taskID="08017725990f6000",task_type="",quantile="0.9"} 0.324742
+task_executor_run_queue_delta{taskID="08017725990f6000",task_type="",quantile="0.99"} 0.324742
+task_executor_run_queue_delta_sum{taskID="08017725990f6000",task_type=""} 0.674875
+task_executor_run_queue_delta_count{taskID="08017725990f6000",task_type=""} 2
 --
 ```
 
 ### Task executor total runs active
 
-Total number of workers currently running tasks.
+Number of workers currently running tasks.
 
 #### Example
 
@@ -1140,7 +1616,7 @@ task_executor_total_runs_active 0
 
 ### Task executor total runs complete
 
-Total number of task runs completed across all tasks, split out by success or failure.
+Number of task runs completed across all tasks, split out by success or failure.
 
 #### Example
 
@@ -1148,6 +1624,7 @@ Total number of task runs completed across all tasks, split out by success or fa
 # HELP task_executor_total_runs_complete Total number of runs completed across all tasks, split out by success or failure.
 # TYPE task_executor_total_runs_complete counter
 task_executor_total_runs_complete{status="failed",task_type="system"} 1384
+task_executor_total_runs_complete{status="success",task_type="system"} 6
 --
 ```
 
@@ -1190,20 +1667,24 @@ task_scheduler_execute_delta{quantile="0.5"} NaN
 
 ### Task scheduler schedule delay
 
-Delay between when a task is scheduled to run and when it is told to execute.
+Summary of the delay between when a task is scheduled to run and when it is told to execute.
 
 #### Example
 
 ```sh
 # HELP task_scheduler_schedule_delay The duration between when a Item should be scheduled and when it is told to execute.
 # TYPE task_scheduler_schedule_delay summary
-task_scheduler_schedule_delay{quantile="0.5"} NaN
+task_scheduler_schedule_delay{quantile="0.5"} 120.001036
+task_scheduler_schedule_delay{quantile="0.9"} 120.001074
+task_scheduler_schedule_delay{quantile="0.99"} 120.001074
+task_scheduler_schedule_delay_sum 720.0033010000001
+task_scheduler_schedule_delay_count 6
 --
 ```
 
 ### Task scheduler total execute failure
 
-Total number of times a scheduled task execution has failed.
+Number of times a scheduled task execution has failed.
 
 #### Example
 
@@ -1215,7 +1696,7 @@ task_scheduler_total_execute_failure 0
 
 ### Task scheduler total execution calls
 
-Total number of scheduled executions across all tasks.
+Number of scheduled executions across all tasks.
 
 #### Example
 
@@ -1227,7 +1708,7 @@ task_scheduler_total_execution_calls 4806
 
 ### Task scheduler total release calls
 
-Total number of release requests.
+Number of release requests.
 
 #### Example
 
@@ -1239,7 +1720,7 @@ task_scheduler_total_release_calls 0
 
 ### Task scheduler total schedule calls
 
-Total number of schedule requests.
+Number of schedule requests.
 
 #### Example
 
@@ -1251,7 +1732,7 @@ task_scheduler_total_schedule_calls 6
 
 ### Task scheduler total schedule fails
 
-Total number of schedule requests that fail to schedule.
+Number of schedule requests that fail to schedule.
 
 #### Example
 

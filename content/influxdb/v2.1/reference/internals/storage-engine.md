@@ -72,7 +72,10 @@ The cache:
 - Stores uncompressed data.
 - Gets updates from the WAL each time the storage engine restarts.
   The cache is queried at runtime and merged with the data stored in TSM files.
+- Uses a maximum `maxSize` bytes of memory.
 
+Cache snapshots are cache objects currently being written to TSM files.
+They're kept in memory while flushing so they can be queried along with the cache.
 Queries to the storage engine merge data from the cache with data from the TSM files.
 Queries execute on a copy of the data that is made from the cache at query processing time.
 This way writes that come in while a query is running do not affect the result.
