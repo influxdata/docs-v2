@@ -40,7 +40,7 @@ This release includes the following new [features](#features) and several [bug f
 
 #### Task metadata
 
-- Add option to pass `type=basic` to [`/api/v2/tasks`](/influxdb/v2.1/api/#tag/Tasks) to retrieve task metadata without the query text.
+- Add option to pass `type=basic` to [`/api/v2/tasks`](/influxdb/v2.1/api/#tag/Tasks) to return task metadata without the query text.
 
 #### Metrics
 
