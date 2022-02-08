@@ -1067,7 +1067,7 @@ To learn how InfluxDB writes, stores, and caches data, see [InfluxDB storage eng
 
 ### Bucket measurement number
 
-Gauge of measurement cardinality per bucket.
+Number of measurements in a bucket.
 
 #### Example
 
@@ -1080,7 +1080,7 @@ storage_bucket_measurement_num{bucket="0c3dd7d2d97f4b23"} 4
 
 ### Bucket series number
 
-Gauge of series cardinality per bucket.
+Number of series in a bucket.
 
 #### Example
 
@@ -1093,7 +1093,7 @@ storage_bucket_series_num{bucket="0c3dd7d2d97f4b23"} 38
 
 ### Cache disk bytes
 
-Gauge of the size of the most recent [snapshot](/influxdb/v2.2/reference/internals/storage-engine/#cache).
+Size (in bytes) of the most recent [snapshot](/influxdb/v2.2/reference/internals/storage-engine/#cache).
 
 #### Example
 
@@ -1106,7 +1106,7 @@ storage_cache_disk_bytes{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="
 
 ### Cache in use bytes
 
-Gauge of current memory consumption of the [cache](/influxdb/v2.2/reference/internals/storage-engine/#cache).
+Current memory consumption (in bytes) of the [cache](/influxdb/v2.2/reference/internals/storage-engine/#cache).
 
 #### Example
 
@@ -1132,7 +1132,7 @@ storage_cache_latest_snapshot{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",p
 
 ### Cache writes with dropped points
 
-Counter of [cached](/influxdb/v2.2/reference/internals/storage-engine/#cache) writes that had [rejected points](/influxdb/v2.2/reference/glossary/#rejected-point). Writes with rejected points also increment the [write errors counter (`storage_cache_writes_err`)](#cache-writes-failed).
+Cumulative number of [cached](/influxdb/v2.2/reference/internals/storage-engine/#cache) writes that had [rejected points](/influxdb/v2.2/reference/glossary/#rejected-point). Writes with rejected points also increment the [write errors counter (`storage_cache_writes_err`)](#cache-writes-failed).
 
 #### Example
 
@@ -1145,7 +1145,7 @@ storage_cache_writes_dropped{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",pa
 
 ### Cache writes failed
 
-Counter of [cached](/influxdb/v2.2/reference/internals/storage-engine/#cache) writes that [failed](/influxdb/v2.0/write-data/troubleshoot/#troubleshoot-failures), inclusive of [cache writes with dropped points (`storage_cache_writes_dropped`)](#cache-writes-with-dropped-points).
+Cumulative number of  [cached](/influxdb/v2.2/reference/internals/storage-engine/#cache) writes that [failed](/influxdb/v2.2/write-data/troubleshoot/#troubleshoot-failures), inclusive of [cache writes with dropped points (`storage_cache_writes_dropped`)](#cache-writes-with-dropped-points).
 
 #### Example
 
@@ -1158,7 +1158,7 @@ storage_cache_writes_err{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="
 
 ### Cache writes total
 
-Counter of total writes to [cache](/influxdb/v2.2/reference/internals/storage-engine/#cache).
+Cumulative number of  writes to [cache](/influxdb/v2.2/reference/internals/storage-engine/#cache).
 
 #### Example
 
@@ -1171,7 +1171,7 @@ storage_cache_writes_total{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path
 
 ### Compactions active
 
-Gauge of currently running [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
+Currently running [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
 
 #### Example
 
@@ -1184,7 +1184,7 @@ storage_compactions_active{bucket="ec3f82d1de90eddf",engine="tsm1",id="565",leve
 
 ### Compactions since startup
 
-Histogram of [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level) since startup.
+[TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level) since startup.
 
 #### Example
 
@@ -1202,7 +1202,7 @@ storage_compactions_duration_seconds_count{bucket="0c3dd7d2d97f4b23",engine="tsm
 
 ### Compactions failed
 
-Counter of failed [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
+Failed [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
 
 #### Example
 
@@ -1215,7 +1215,7 @@ storage_compactions_failed{bucket="ec3f82d1de90eddf",engine="tsm1",id="565",leve
 
 ### Compactions queued
 
-Counter of queued [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
+Queued [TSM](/influxdb/v2.2/reference/internals/storage-engine/#time-structured-merge-tree-tsm) compactions (by level).
 
 #### Example
 
@@ -1228,7 +1228,7 @@ storage_compactions_queued{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="567",leve
 
 ### Retention check duration
 
-Histogram of retention policy check duration (in seconds).
+Retention policy check duration (in seconds).
 
 #### Example
 
@@ -1254,7 +1254,7 @@ storage_retention_check_duration_count 1
 
 ### Shard disk size
 
-Gauge of disk size (in bytes) for the [shard](/influxdb/v2.2/reference/internals/shards/).
+Disk size (in bytes) of the [shard](/influxdb/v2.2/reference/internals/shards/).
 
 #### Example
 
@@ -1280,7 +1280,7 @@ storage_shard_fields_created{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",pa
 
 ### Shard series
 
-Gauge of the number of series in the [shard](/influxdb/v2.2/reference/internals/shards/) index.
+Number of series in the [shard](/influxdb/v2.2/reference/internals/shards/) index.
 
 #### Example
 
@@ -1371,7 +1371,7 @@ storage_tsm_files_disk_bytes{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",pa
 
 ### Shard files
 
-Gauge of the number of files per [shard](/influxdb/v2.2/reference/internals/shards/).
+Number of files per [shard](/influxdb/v2.2/reference/internals/shards/).
 
 #### Example
 
@@ -1384,7 +1384,7 @@ storage_tsm_files_total{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/
 
 ### WAL size
 
-Gauge of the [WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal) size (in bytes).
+[WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal) size (in bytes).
 
 #### Example
 
@@ -1397,7 +1397,7 @@ storage_wal_size{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users/m
 
 ## WAL write attempts
 
-Number of write attempts to the [WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal).
+Cumulative number of write attempts to the [WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal).
 
 #### Example
 
@@ -1410,7 +1410,7 @@ storage_wal_writes{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/Users
 
 ## WAL failed write attempts
 
-Number of failed write attempts to the [WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal).
+Cumulative number of failed write attempts to the [WAL](/influxdb/v2.2/reference/internals/storage-engine/#write-ahead-log-wal).
 
 #### Example
 
@@ -1423,7 +1423,7 @@ storage_wal_writes_err{bucket="0c3dd7d2d97f4b23",engine="tsm1",id="561",path="/U
 
 ## Points dropped due to partial writes
 
-Histogram of the number of points dropped due to partial writes.
+Number of points dropped due to partial writes.
 
 #### Example
 
@@ -1443,7 +1443,7 @@ storage_writer_dropped_points_count{path="/Users/me/.influxdbv2/engine"} 0
 
 ## Points in shard write requests with errors
 
-Histogram of the number of points in [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests with errors.
+Number of points in [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests with errors.
 
 #### Example
 
@@ -1463,7 +1463,7 @@ storage_writer_err_points_count{path="/Users/me/.influxdbv2/engine"} 0
 
 ## Points in successful shard write requests
 
-Histogram of the number of points in successful [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests.
+Number of points in successful [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) requests.
 
 #### Example
 
@@ -1483,7 +1483,7 @@ storage_writer_ok_points_count{path="/Users/me/.influxdbv2/engine"} 24
 
 ## Points in write requests
 
-Histogram of the number of points in write requests.
+Number of points in write requests.
 
 #### Example
 
@@ -1503,7 +1503,7 @@ storage_writer_req_points_count{path="/Users/me/.influxdbv2/engine"} 18
 
 ## Shard write request timeouts
 
-Number of [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) request timeouts.
+Cumulative number of [shard write](/influxdb/v2.2/reference/internals/shards/#shard-writes) request timeouts.
 
 #### Example
 
@@ -1543,7 +1543,7 @@ task_executor_promise_queue_usage 0
 
 ### Task executor run duration
 
-Summary of duration (in seconds) between a task run starting and finishing.
+Duration (in seconds) between a task run starting and finishing.
 
 #### Example
 
@@ -1561,7 +1561,7 @@ task_executor_run_duration_count{taskID="08017725990f6000",task_type=""} 2
 
 ### Task executor run latency seconds
 
-Histogram of latency between the task run's scheduled start time and the execution time, by task type.
+Latency between the task run's scheduled start time and the execution time, by task type.
 
 #### Example
 
@@ -1587,7 +1587,7 @@ task_executor_run_latency_seconds_count{task_type="system"} 6
 
 ### Task executor run queue delta
 
-Summary of duration (in seconds) between the task run's scheduled start time and the execution time.
+Duration (in seconds) between the task run's scheduled start time and the execution time.
 
 #### Example
 
