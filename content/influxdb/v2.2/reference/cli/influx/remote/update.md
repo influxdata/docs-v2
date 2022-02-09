@@ -42,3 +42,24 @@ influx remote update [command options] [arguments...]
 |      | `--json`               | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--hide-headers`       | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 | `-t` | `--token`              | InfluxDB API token                                                    | string     | `INFLUX_TOKEN`        |
+
+## Example
+
+### Update a remote
+1. Use `influx remote list` to get the ID for the remote you want to update.
+   ```sh
+   $ influx remote list --org-id <OSS org ID> --token <OSS token>
+   ID			        Name		Org ID
+   <remote ID>  	    myremote    [...]
+   ```
+2. Use the following command to update the remote:
+    ```sh
+    influx remote delete \
+      --id <remote ID>
+      --name <new name>
+      --description <new description>
+      --remote-url <new remote URL>
+      --remote-api-token <new token>
+      --remote-org-id <new org>
+    ```
+

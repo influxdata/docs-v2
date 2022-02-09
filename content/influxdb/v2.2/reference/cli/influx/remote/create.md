@@ -54,5 +54,5 @@ influx remote create \
   --token <OSS token> \
   --remote-url <remote URL> \
   --remote-api-token <remote token> \
-  --remote-org-id <remote ord ID> \
+  --remote-org-id <remote ord ID>
 ```
