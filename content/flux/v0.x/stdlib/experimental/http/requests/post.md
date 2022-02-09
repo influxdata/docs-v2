@@ -7,7 +7,7 @@ menu:
     name: requests.post
     parent: requests
 weight: 401
-flux/v0.x/tags: [http, inputs]
+flux/v0.x/tags: [http, inputs, outputs]
 introduced: 0.152.0
 ---
 
@@ -18,8 +18,8 @@ import "experimental/http/requests"
 
 requests.post(
     url: "http://example.com",
-    params: [:],
-    headers: [:],
+    params: ["example-param": ["example-param-value"]],
+    headers: ["Example-Header": "example-header-value"],
     body: bytes(v: ""),
     config: requests.defaultConfig,
 )
@@ -58,6 +58,11 @@ _See [HTTP configuration option examples](/flux/v0.x/stdlib/experimental/http/re
 
 ## Examples
 
+- [Make a POST request](#make-a-post-request)
+- [Make a POST request with authorization](#make-a-post-request-with-authorization)
+- [Make a POST request with a JSON body](#make-a-post-request-with-a-json-body)
+- [Output HTTP POST response data in a table](#output-http-post-response-data-in-a-table)
+
 ### Make a POST request
 ```js
 import "json"
@@ -81,21 +86,29 @@ requests.post(
 )
 ```
 
-### Output HTTP response data in a table
+### Make a POST request with a JSON body
+Use [`json.encode()`](/flux/v0.x/stdlib/json/encode/) to encode a Flux record as
+a JSON object.
+
 ```js
-import "array"
-import "dict"
+import "experimental/http/requests"
+import "json"
+
+requests.post(
+    url: "https://goolnk.com/api/v1/shorten",
+    body: json.encode(v: {url: "http://www.influxdata.com"}),
+    headers: ["Content-Type": "application/json"],
+)
+```
+
+### Output HTTP POST response data in a table
+To quickly inspect HTTP response data, use [`requests.peek()`](/flux/v0.x/stdlib/experimental/http/requests/peek/)
+to output HTTP response data in a table.
+
+```js
 import "experimental/http/requests"
 
-resp = requests.post(url: "http://example.com")
+response = requests.post(url: "http://example.com")
 
-array.from(
-    rows: [
-        {
-            body: string(v: resp.body),
-            statusCode: resp.statusCode,
-            date: dict.get(dict: resp.headers, key: "Date", default: ""),
-        },
-    ],
-)
+requests.peek(repsonse: response)
 ```
