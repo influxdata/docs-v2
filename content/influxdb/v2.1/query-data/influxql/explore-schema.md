@@ -20,7 +20,7 @@ Note that using the API to query with InfluxQL will return all data in JSON form
 
 **Sample data**
 
-The NOAA sample data used in the follwong examples is available for download on the [Sample Data](/influxdb/v2.1/reference/sample-data/) page.
+The NOAA sample data used in the follwong examples is available for download on the [Sample Data](/influxdb/v2.1/reference/sample-data/) page. 
 
 ## `SHOW SERIES`
 
@@ -277,33 +277,8 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 #### Run a `SHOW TAG KEYS` query with the `ON` clause
 
 ```sql
-> SHOW TAG KEYS ON "NOAA_water_database"
+> SHOW TAG KEYS ON NOAA_water_database
 ```
-<!-- name: average_temperature
-tagKey
-------
-location
-
-name: h2o_feet
-tagKey
-------
-location
-
-name: h2o_pH
-tagKey
-------
-location
-
-name: h2o_quality
-tagKey
-------
-location
-randtag
-
-name: h2o_temperature
-tagKey
-------
-location -->
 
 Output:
 |measurement	|tagKey |
@@ -323,7 +298,7 @@ it shows that every measurement has the `location` tag key and that the
 #### Run a `SHOW TAG KEYS` query with several clauses
 
 ```sql
-> SHOW TAG KEYS ON "NOAA_water_database" FROM "h2o_quality" LIMIT 1 OFFSET 1
+> SHOW TAG KEYS ON NOAA_water_database FROM "h2o_quality" LIMIT 1 OFFSET 1
 
 ```
 
@@ -342,20 +317,18 @@ and offsets the results by one.
 #### Run a `SHOW TAG KEYS` query with a `WITH KEY IN` clause
 
 ```sql
-> SHOW TAG KEYS ON "telegraf" WITH KEY IN ("host","region")
-
-"measurement","tagKey"
-"cpu","host"
-"cpu_load_short","host"
-"cpu_load_short","region"
-"disk","host"
-"diskio","host"
-"docker","host"
-"docker_container_blkio","host"
-"docker_container_cpu","host"
-"docker_container_mem","host"
-"docker_container_status","host"
+> SHOW TAG KEYS ON NOAA_water_database WITH KEY IN ("location") 
 ```
+
+Output:
+|measurement	    |tagKey|
+| :------------------ |:---------------|
+|average_temperature	    |location|
+|h2o_feet	|location|
+|h2o_pH	 |location|
+|h2o_quality	|location|
+|h2o_temperature	|location|
+
 
 ## `SHOW TAG VALUES`
 
@@ -401,46 +374,17 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 ```sql
 > SHOW TAG VALUES ON "NOAA_water_database" WITH KEY = "randtag"
 
-name: h2o_quality
-key       value
----       -----
-randtag   1
-randtag   2
-randtag   3
 ```
+Output:
+|key	|value|
+| :-----------|:-------|
+|randtag	|1|
+|randtag	|2|
+|randtag	|3|
 
 The query returns all tag values of the `randtag` tag key in the `NOAA_water_database`
 database.
 `SHOW TAG VALUES` groups query results by measurement name.
-
-#### Run a `SHOW TAG VALUES` query without the `ON` clause
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-
-{{% /tabs %}}
-{{% tab-content %}}
-
-Specify the database with `USE <database_name>`
-
-```sql
-> SHOW TAG VALUES WITH KEY = "randtag"
-
-name: h2o_quality
-key       value
----       -----
-randtag   1
-randtag   2
-randtag   3
-```
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
 
 #### Run a `SHOW TAG VALUES` query with several clauses
 
