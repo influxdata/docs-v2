@@ -10,6 +10,32 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.154.0 [2022-02-09]
+
+### Features
+- Add `requests.peek()` to return HTTP response data in a table.
+- Add `display()` to represent any value as a string.
+- Create a version of `map()` that is columnar and supports vectorization.
+- Support vectorized functions.
+
+### Bug fixes
+- Add time vector to the `values` package.
+- Set the correct type for vectorized functions.
+
+---
+
+## v0.153.0 [2022-02-07]
+
+### Features
+- Connect language server protocol (LSP) features through the Flux crate.
+- Add conversion from `flux.Bounds` to `plan/execute.Bounds`.
+- Re-index all bound variables to start from 0.
+
+### Bug fixes
+- Int feature flags work properly when returned as floats.
+
+---
+
 ## v0.152.0 [2022-01-31]
 
 ### Features
