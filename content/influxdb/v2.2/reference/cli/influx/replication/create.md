@@ -45,3 +45,26 @@ influx replication create [command options] [arguments...]
 |      | `--json`                       | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--hide-headers`               | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 | `-t` | `--token`                      | InfluxDB API token                                                    |   string   | `INFLUX_TOKEN`        |
+
+
+## Examples
+
+### Create a replication stream
+
+1. Create a remote connection, if you haven't already.
+2. Use `influx remote list` to get the ID for the remote you want to replicate data to.
+   ```sh
+   $ influx remote list --org-id <OSS org ID> --token <OSS token>
+   ID			        Name		Org ID
+   <remote ID>  	    myremote    [...]
+   ```
+3. Create the replication:
+   ```sh
+   influx replication create --host http://localhost:8086 \
+     --name myreplication
+     --org-id <OSS org ID>
+     --local-bucket <bucket name>
+     --remote-bucket <bucket name>
+     --remote-id <remote ID>
+     -t <token>
+   ```
