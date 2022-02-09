@@ -579,6 +579,9 @@ Use the `[alert]` group to globally configure alerts created by the
   # Persisting topics can become an I/O bottleneck under high load.
   # This setting disables them entirely.
   persist-topics = false
+  # This setting sets the topic queue length.
+  # Default is 5000. Minimum length is 1000.
+  topic-buffer-length = 5000
 
 # ...
 ```

@@ -13,6 +13,8 @@ aliases:
 weight: 401
 related:
   - /flux/v0.x/stdlib/influxdata/influxdb/cardinality/
+  - /influxdb/cloud/account-management/data-usage/
+  - /influxdb/cloud/account-management/limits/
 ---
 
 The `usage.limits()` function returns a record containing usage limits for an
@@ -106,6 +108,7 @@ usage.limits(host: "https://cloud2.influxdata.com", orgID: "x000X0x0xx0X00x0", t
 
 ##### Output organization limits in a table
 ```js
+import "array"
 import "experimental/usage"
 import "influxdata/influxdb/secrets"
 

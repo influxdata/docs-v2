@@ -10,7 +10,6 @@ menu:
     parent: 1.x compatibility
 weight: 301
 influxdb/cloud/tags: [write]
-products: [cloud]
 list_code_example: |
   <pre>
   <span class="api post">POST</span> https://cloud2.influxdata.com/write

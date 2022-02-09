@@ -6,8 +6,8 @@
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^10.2.5",
-    "hugo-extended": "^0.83.1",
+    "hugo-extended": "^0.92.1",
     "postcss": "^8.2.13",
-    "postcss-cli": "^8.3.1"
+    "postcss-cli": "^9.1.0"
   }
 }
