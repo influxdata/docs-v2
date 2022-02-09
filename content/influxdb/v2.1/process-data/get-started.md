@@ -50,16 +50,16 @@ _See [Task configuration options](/influxdb/v2.2/process-data/task-options) for 
 about each option._
 
 {{% note %}}
-When creating a task in the InfluxDB user interface (UI), task options are
-defined in form fields.
+The InfluxDB UI provides a form for defining task options.
 {{% /note %}}
 
 ## Define a data source
 
 1.  Use [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/)
-    to query data from InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} or any
+    to query data from InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}}.
+    Use
     other [Flux input functions](/{{< latest "flux" >}}/function-types/#inputs)
-    to retrieve data form another source.
+    to retrieve data from other sources.
 2.  Use [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) to define the time
     range to return data from.
 3.  Use [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to filter
@@ -75,7 +75,7 @@ from(bucket: "example-bucket")
 
 #### Use task options in your Flux script
 
-Task options defined in a `task` option record and can be referenced in your Flux script.
+Task options are defined in a `task` option record and can be referenced in your Flux script.
 In the example above, the time range is defined as `-task.every`.
 
 `task.every` is dot notation that references the `every` property of the `task` option record.
@@ -86,7 +86,7 @@ Using task options to define values in your Flux script can make reusing your ta
 
 ## Process or transform your data
 
-The purpose of tasks is to automatically process or transform data in some way
+Tasks automatically process or transform data in some way
 at regular intervals.
 Data processing can include operations such as downsampling data, detecting
 anomalies, sending notifications, and more.
@@ -100,7 +100,7 @@ A task that runs at one hour intervals (`every: 1h`) with an offset of five minu
 executes 5 minutes after the hour, but queries data from the original one hour interval.
 {{% /note %}}
 
-The example below illustrates a task that downsamples data by calculating the average of set intervals.
+The task example below downsamples data by calculating the average of set intervals.
 It uses [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
 to group points into 5 minute windows and calculate the average of each
 window with [`mean()`](/{{< latest "flux" >}}/stdlib/universe/mean/).
@@ -118,8 +118,8 @@ _See [Common tasks](/influxdb/v2.2/process-data/common-tasks) for examples of ta
 
 ## Define a destination
 
-In the vast majority of task use cases, once data is transformed, it needs to be sent and stored somewhere.
-This could be a separate InfluxDB measurement or bucket.
+In most cases, you'll want to send and store data after the task has transformed it.
+The destination could be a separate InfluxDB measurement or bucket.
 
 The example below uses [`to()`](/{{< latest "flux" >}}/stdlib/universe/to)
 to write the transformed data back to another InfluxDB bucket:
