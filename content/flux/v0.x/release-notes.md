@@ -14,7 +14,7 @@ aliases:
 
 ### Features
 - Add `requests.peek()` to return HTTP response data in a table.
-- Add `display()` to represent any value as a string.
+- Add [`display()`](/flux/v0.x/stdlib/universe/display/) to represent any value as a string.
 - Create a version of `map()` that is columnar and supports vectorization.
 - Support vectorized functions.
 
