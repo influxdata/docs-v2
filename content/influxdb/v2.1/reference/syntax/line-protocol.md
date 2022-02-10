@@ -44,11 +44,11 @@ myMeasurement,tag1=value1,tag2=value2 fieldKey="fieldValue" 1556813561098000000
 
 ## Lines
 
-Line protocol consists of zero or more lines, each terminated by the newline character (`\n`).
-A line may represent one of the following:
+Line protocol consists of zero or more entries, each terminated by the newline character (`\n`).
+A line contains one of the following:
 - [data point](#elements-of-line-protocol) that represents a [point](/influxdb/v2.1/reference/key-concepts/data-elements) in InfluxDB
 - blank line that consists entirely of [whitespace](#whitespace)
-- [comment](#comments) that starts with `#`
+- [comment](#comments) that starts with `#` optionally preceded by whitespace.
 
 Line protocol is [whitespace-sensitive](#whitespace).
 Line protocol string elements may support certain [special characters](#special-characters).
@@ -79,7 +79,7 @@ To learn more about designing efficient measurements, see [best practices for sc
 
 _**Optional**_ –
 All [tag]() key-value pairs for the point.
-Key-value relationships are denoted with the `=` operand.
+Key-value relationships are denoted by the `=` operand.
 Multiple tag key-value pairs are comma-delimited.
 _Tag keys and tag values are case-sensitive.
 Tag keys are subject to [naming restrictions](#naming-restrictions)._
@@ -90,7 +90,7 @@ _**Value data type:** [String](#string)_
 #### Canonical form
 
 **Canonical form** describes a [tag set](/influxdb/v2.1/reference/key-concepts/data-elements/#tag-set) in which the tags' decoded values are in lexical order, lowest to highest.
-Line protocol decoders are often more efficient at decoding points with tags in canonical form.
+Line protocol consumers are often more efficient at decoding points with tags in canonical form.
 
 The data point in the following example has a tag set in canonical form:
 
@@ -104,7 +104,7 @@ To learn more about designing efficient tags, see [best practices for schema des
 ### Field set
 
 ({{< req >}})
-All [field]() key-value pairs for the point.
+All [field](#field-set) key-value pairs for the point.
 Points must have at least one field.
 _Field keys and string values are case-sensitive.
 Field keys are subject to [naming restrictions](#naming-restrictions)._
@@ -149,8 +149,8 @@ myMeasurementName fieldKey="fieldValue" 1556813561098000000
 ### Whitespace
 
 Whitespace in line protocol determines how InfluxDB interprets the data point.
-Allowed whitespace characters are regular spaces (` `) and carriage-returns (`\r`).
-The **first unescaped space** delimits the [measurement](#measurement) and the [tag set](#tag-set) from the [field set](#field-set).
+Allowed whitespace characters are regular spaces (` `) and carriage-returns (`\r`). Carriage-returns (`\r`) are only allowed as whitespace when they immediately precede a newline (`\n`).
+The **first unescaped space** after the start of the measurement delimits the [measurement](#measurement) and the [tag set](#tag-set) from the [field set](#field-set).
 The **second unescaped space** delimits the field set from the [timestamp](#timestamp).
 
 ```js
@@ -163,11 +163,11 @@ measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
 
 ### Character set
 
-Line protocol is composed of Unicode characters encoded in UTF-8.
+Line protocol is composed of Unicode characters encoded in UTF-8. Non-printable ASCII characters (0x00 - 0x1f and 0x7f) are not allowed.
 
 ### Float
 
-64-bit floating-point numbers.
+64-bit floating-point numbers. Note that non-finite numbers (NaN and Inf) are not allowed.
 Default numerical type.
 
 #### Float field value examples
@@ -277,7 +277,7 @@ The following contexts require [escaping](#escaping-backslashes) certain charact
 | `\n` is replaced with `U+000A` (newline) | string field values |
 | `\r` is replaced with `U+000D` (carriage-return) | string field values |
 | `\t` is replaced with `U+0009` (tab) | string field values |
-| `\` is replaced with `U+0020` (space) | all except string field values |
+| `\ ` is replaced with `U+0020` (space) | all except string field values |
 | `\,` is replaced with `,` | all except string field values |
 | `\=` is replaced with `=` | all except string field values and measurements |
 | `\”` is replaced with `”` | string field values |
@@ -338,7 +338,7 @@ myMeasurement,tagKey=🍭 fieldKey="Launch 🚀" 1556813561098000000
 
 ## Comments
 
-Line protocol interprets `#` at the beginning of a line as a comment character
+If a line contains `#` as the first non-whitespace character, line protocol interprets it as a comment
 and ignores all subsequent characters until the next newline `\n`.
 
 ```py
