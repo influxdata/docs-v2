@@ -42,3 +42,23 @@ influx replication update [command options] [arguments...]
 |      | `--json`                       | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--hide-headers`               | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 | `-t` | `--token`                      | InfluxDB API token                                                    |   string   | `INFLUX_TOKEN`        |
+
+## Example
+
+### Update a replication
+1. Use `influx replication list` to get the ID for the replication you want to update.
+   ```sh
+   $ influx replication list --org-id <OSS org ID> --token <OSS token>
+   ID			        Name		Org ID
+   <replication ID>  	    myreplication    [...]
+   ```
+2. Use the following command to update the replication:
+    ```sh
+    influx replication replication \
+      --id <replication ID>
+      --name <new name>
+      --description <new description>
+      --replication-url <new replication URL>
+      --replication-api-token <new token>
+      --replication-org-id <new org>
+    ```

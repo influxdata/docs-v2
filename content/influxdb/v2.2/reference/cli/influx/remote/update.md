@@ -54,7 +54,7 @@ influx remote update [command options] [arguments...]
    ```
 2. Use the following command to update the remote:
     ```sh
-    influx remote delete \
+    influx remote remote \
       --id <remote ID>
       --name <new name>
       --description <new description>
