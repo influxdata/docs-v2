@@ -14,6 +14,8 @@ aliases:
   - /influxdb/v2.1/write_protocols/line_protocol_reference/
 related:
   - /influxdb/v2.1/write-data/
+  - /influxdb/v2.1/reference/key-concepts/data-elements/
+  - /influxdb/v2.1/write-data/best-practices/schema-design/
 ---
 
 InfluxDB uses line protocol to write data points.
@@ -73,12 +75,16 @@ _Measurement names are case-sensitive and subject to [naming restrictions](#nami
 
 _**Data type:** [String](#string)_
 
-To learn more about designing efficient measurements, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+{{% note %}}
+
+To learn more about designing efficient measurements for InfluxDB, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+
+{{% /note %}}
 
 ### Tag set
 
 _**Optional**_ –
-All [tag]() key-value pairs for the point.
+All [tag](/influxdb/v2.1/reference/key-concepts/data-elements/#tags) key-value pairs for the point.
 Key-value relationships are denoted by the `=` operand.
 Multiple tag key-value pairs are comma-delimited.
 _Tag keys and tag values are case-sensitive.
@@ -99,12 +105,16 @@ The data point in the following example has a tag set in canonical form:
 foo,a\ b=x,aB=y value=99
 ```
 
-To learn more about designing efficient tags, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+{{% note %}}
+
+To learn more about designing efficient tags for InfluxDB, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+
+{{% /note %}}
 
 ### Field set
 
 ({{< req >}})
-All [field](#field-set) key-value pairs for the point.
+All [field](/influxdb/v2.1/reference/key-concepts/data-elements/#fields) key-value pairs for the point.
 Points must have at least one field.
 _Field keys and string values are case-sensitive.
 Field keys are subject to [naming restrictions](#naming-restrictions)._
@@ -123,7 +133,11 @@ measurementName fieldKey="\"quoted words\" in a string field value" 155681356109
 
 {{% /note %}}
 
-To learn more about designing efficient fields, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+{{% note %}}
+
+To learn more about designing efficient fields for InfluxDB, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+
+{{% /note %}}
 
 ### Timestamp
 
@@ -291,31 +305,27 @@ The [escaping rules](#escaping-rules) imply the following for [tag keys](/influx
 - they accept double quote (`"`) and single quote (`'`) characters as part of the name, key, or value.
 
 In _string_ [field values](/influxdb/v2.1/reference/glossary/#field-value) with two contiguous backslashes, the first backslash is interpreted as an escape character.
-For example:
-
-| Backslashes | Interpreted as |
-|:-----------:|:-------------:|
-| `\`         | `\`           |
-| `\\`        | `\`           |
-| `\\\`       | `\\`          |
-| `\\\\`      | `\\`          |
-| `\\\\\`     | `\\\`         |
-| `\\\\\\`    | `\\\`         |
 
 Given the following line protocol:
 
 ```py
+# Escaped = in tag value.
+# Literal backslash at start of string field value.
+# Escaped backslash at end of string field value.
+airSensor,sensor_id=TLM\=0201 desc="\=My data==\\"
+
 # Measurement name with literal backslashes.
-# Escaped = in tag value and \ in string field value.
-air\\\\\Sensor,sensor_id=TLM\=0201 temp=70.0,humidity=0.5,desc="\\\\==My data\==\\\"
+# Escaped = in tag value.
+# Escaped \ and escaped " in string field value.
+air\\\\\Sensor,sensor_id=TLM\=0201 desc="\\\"==My data\==\\"
 ```
 
-InfluxDB writes the following point data:
+InfluxDB writes the following points:
 
-| _measurement | _sensor_id | _field | _value |
-|:-------------|------------|--------|--------|
-| `air\\\\\Sensor`  | `TLM=0201` | `desc` | `\==My data\==\` |
-
+| _measurement     | _sensor_id | _field     | _value |
+|:-----------------|------------|------------|--------|
+| `airSensor`      | `TLM=0201` | `desc`     | `\=My data==\`        |
+| `air\\\\\Sensor` | `TLM=0201` | `desc`     | `\"==My data\==\`     |
 
 #### Examples of special characters in line protocol
 
@@ -350,7 +360,8 @@ myMeasurement fieldKey="string value" 1556813561098000000
 
 InfluxDB reserves the underscore (`_`) namespace and certain words for system use.
 - Measurement names, tag keys, and field keys cannot begin with an underscore (`_`).
-- Field keys and tag keys cannot be named `time`.
+- Tag keys and tag values cannot end with a backslash (`\`).
+- Tag keys and field keys cannot be named `time`.
 - Tag keys cannot be named `field`.
 
 To make your schema easier to query, [avoid using Flux keywords and special characters](/influxdb/v2.1/write-data/best-practices/schema-design/#keep-keys-simple) in keys.
@@ -362,14 +373,14 @@ If you submit line protocol with the same measurement, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
 
-See how InfluxDB [handles duplicate data points](influxdb/v2.1/write-data/best-practices/duplicate-points/).
+See how InfluxDB [handles duplicate points](influxdb/v2.1/write-data/best-practices/duplicate-points/).
 
 ## Out of range values
 
 Fields can contain numeric values, which have the potential for falling outside supported ranges.
 Integer and float values should be considered **out of range** if they can't fit within a 64-bit value of the appropriate type. Out of range values may cause [parsing errors](#parsing-errors).
 
-For detail about supported ranges, see the minimum and maximum values for each field type.
+For detail about supported ranges, see the minimum and maximum values for [data types](#data-types-and-format).
 
 ## Parse errors
 

@@ -8,7 +8,7 @@ menu:
     parent: Key concepts
     name: Data elements
 influxdb/v2.1/tags: [key concepts, schema]
-related: 
+related:
   - /resources/videos/data-model-building-blocks/
 ---
 
@@ -55,15 +55,15 @@ A field includes a field key stored in the `_field` column and a field value sto
 
 ### Field key
 
-A field key is a string that represents the name of the field. In the sample data above, `bees` and `ants` are field keys.
+A field key is a string that represents the name of the field. In the [sample data](#sample-data) above, `bees` and `ants` are field keys.
 
 ### Field value
 
-A field value represents the value of an associated field. Field values can be strings, floats, integers, or booleans. The field values in the sample data show the number of `bees` at specified times: `23`, and `28` and the number of `ants` at a specified time: `30` and `32`.
+A field value represents the value of an associated field. Field values can be strings, floats, integers, or booleans. The field values in the [sample data](#sample-data) show the number of `bees` at specified times: `23`, and `28` and the number of `ants` at a specified time: `30` and `32`.
 
 ### Field set
 
-A field set is a collection of field key-value pairs associated with a timestamp. The sample data includes the following field sets:
+A field set is a collection of field key-value pairs associated with a timestamp. The [sample data](#sample-data) includes the following field sets:
 
 ```bash
 
@@ -75,17 +75,20 @@ census bees=28i,ants=32i 1566086760000000000
 ```
 
 {{% note %}}
-**Fields aren't indexed:** Fields are required in InfluxDB data and are not indexed. Queries that filter field values must scan all field values to match query conditions. As a result, queries on tags > are more performant than queries on fields. **Store commonly queried metadata in tags.**
+**Fields aren't indexed:** Fields are required in InfluxDB data and are not indexed. Queries that filter field values must scan all field values to match query conditions. As a result, queries on tags > are more performant than queries on fields. **Store commonly queried metadata in tags**.
+
+To learn how to make your schema easy to query, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
 {{% /note %}}
 
 ## Tags
 
-The columns in the sample data, `location` and `scientist`, are tags.
-Tags include tag keys and tag values that are stored as strings and metadata.
+In the [sample data](#sample-data), the columns `location` and `scientist` are tags that provide
+metadata for the point.
+Tags include tag keys and tag values that are stored as strings.
 
 ### Tag key
 
-The tag keys in the sample data are `location` and `scientist`.
+The tag keys in the [sample data](#sample-data) are `location` and `scientist`.
 _For information about tag key requirements, see [Line protocol – Tag set](/influxdb/v2.1/reference/syntax/line-protocol/#tag-set)._
 
 ### Tag value
@@ -96,7 +99,7 @@ _For information about tag value requirements, see [Line protocol – Tag set](/
 
 ### Tag set
 
-The collection of tag key-value pairs make up a tag set. The sample data includes the following four tag sets:
+The collection of tag key-value pairs make up a tag set. The [sample data](#sample-data) includes the following four tag sets:
 
 ```bash
 location = klamath, scientist = anderson
@@ -125,7 +128,7 @@ from(bucket: "bucket-name")
   |> filter(fn: (r) => r._field == "bees" and r._value == 23)
 ```
 
-InfluxDB scans every field value in the dataset for `bees` before the query returns a response. If our sample `census` data grew to millions of rows, to optimize your query, you could rearrange your [schema](/influxdb/v2.1/reference/glossary/#schema) so the fields (`bees` and `ants`) becomes tags and the tags (`location` and `scientist`) become fields:
+InfluxDB scans every field value in the dataset for `bees` before the query returns a response. If our `census` [sample data](#sample-data) grew to millions of rows, to optimize your query, you could rearrange your [schema](/influxdb/v2.1/reference/glossary/#schema) so the fields (`bees` and `ants`) becomes tags and the tags (`location` and `scientist`) become fields:
 
 | _time                | _measurement | {{< tooltip "Tag key" "bees" >}} | _field                                 | _value                                   |
 |:-------------------  |:------------ |:-------                          |:--                                     |:------                                   |
