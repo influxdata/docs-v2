@@ -85,6 +85,7 @@ config = {defaultConfig with
      // extending the default.
      timeout: 60s,
 }
+response = requests.get(url:"http://example.com", config: config)
 
-requests.get(url:"http://example.com", config: config)
+requests.peek(response: response)
 ```
