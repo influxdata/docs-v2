@@ -373,7 +373,7 @@ If you submit line protocol with the same measurement, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
 
-See how InfluxDB [handles duplicate points](influxdb/v2.1/write-data/best-practices/duplicate-points/).
+See how InfluxDB [handles duplicate points](/influxdb/v2.1/write-data/best-practices/duplicate-points/).
 
 ## Out of range values
 
