@@ -9,6 +9,7 @@
 #   c. Return the new token.
 ######################################################
 
+INFLUX_ORG_ID=YOUR_ORG_ID
 INFLUX_TOKEN=YOUR_API_TOKEN
 
 function create_token_with_user() {
@@ -25,7 +26,7 @@ function create_token_with_user() {
   
   jq --arg USER $1 '.users[0] // error("User missing")
     | {
-        "orgID": "YOUR_ORG_ID",
+        "orgID": "'"${INFLUX_ORG_ID}"'",
         "userID": .id,
         "description": $USER,
         "permissions": [
