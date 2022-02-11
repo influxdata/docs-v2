@@ -25,8 +25,7 @@ This release includes the following new [features](#features) and several [bug f
 
 - Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
-  In this **technical preview**, you can replicate inbound data using the HTTP API. Support for replicating data via tasks (for example, downsampling) is targeted prior to the official release of this feature.
-  This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and then send the data to one or more buckets on a remote InfluxDB Cloud instance. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent when network connectivity is restored.
+  In this **technical preview**, you can replicate inbound data using the HTTP API. This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and then send the data to one or more buckets on a remote InfluxDB Cloud instance. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent when network connectivity is restored.
 
 #### Flux updates
 
@@ -36,7 +35,7 @@ This release includes the following new [features](#features) and several [bug f
 #### Build maintenance
 
 - Upgrade `protobuf` library.
-- https://github.com/influxdata/influxdb/commit/5a1e375): Build: allow to build on FreeBSD
+
 
 #### Task metadata
 
@@ -44,7 +43,9 @@ This release includes the following new [features](#features) and several [bug f
 
 #### Metrics
 
-(https://github.com/influxdata/influxdb/commit/3a81166): Added metrics collection for replications
+- Add metrics collection for replications. For the full list see 
+[InfluxDB OSS metrics](/influxdb/v2.2/reference/internals/metrics). 
+
 - Add Prometheus metrics for TSM compactions, including:
    - `storage_compaction`
    - `storage_compactions_active`
@@ -55,11 +56,11 @@ This release includes the following new [features](#features) and several [bug f
    - `storage_compactions_total`
 
 - Add the following metrics when data fails to be added to the replication queue:
-  `PointsFailedToQueue`
-  `BytesFailedToQueue`
+   - `PointsFailedToQueue`
+   - `BytesFailedToQueue`
 
 - Add the following metrics for writes, to indicate the status:
-	- `pointsWriteRequested`
+re	- `pointsWriteRequested`
 	- `pointsWriteOk`
 	- `pointsWriteDropped`
 	- `pointsWriteErr`
@@ -99,6 +100,9 @@ This release includes the following new [features](#features) and several [bug f
 - To successfully restore a backup, use copy when a rename spans volumes.
 - Disable use of jsonnet with `/api/v2/templates/apply`.
 - Ensure that updating a check (`/checks/{checkID}`) does not require an owner ID.
+- Remove NATS for scraper processing. 
+  - ``nats-port`` and ``nats-max-payload-bytes`` flags have been deprecated.
+  -  NATS is no longer embedded in InfluxDB. Because InfluxDB no longer requires a port for NATS, port conflct issues are reduced.
 
 ## v2.1.1 [2021-11-08]
 
