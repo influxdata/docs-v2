@@ -71,7 +71,7 @@ for information about other available flags.
 
 ## View tokens using the InfluxDB API
 
-Use the `/authorizations` endpoint of the InfluxDB API to view tokens and permissions.
+Use the `/api/v2/authorizations` InfluxDB API endpoint to view tokens and permissions.
 
 [{{< api-endpoint method="GET" endpoint="/api/v2/authorizations" >}}](/influxdb/cloud/api/#operation/GetAuthorizations)
 

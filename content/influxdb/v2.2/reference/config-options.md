@@ -25,6 +25,7 @@ InfluxDB honors configuration settings using the following precedence:
 3. Configuration file settings
 
 ### InfluxDB configuration file
+
 When `influxd` starts, it checks for a file named `config.*` **in the current working directory**.
 The file extension depends on the syntax of the configuration file.
 InfluxDB configuration files support the following syntaxes:
@@ -41,6 +42,27 @@ export INFLUXD_CONFIG_PATH=/path/to/custom/config/directory
 ```
 
 On startup, `influxd` will check for a `config.*` in the `INFLUXD_CONFIG_PATH` directory.
+
+### View your run-time server configuration
+  Use the `influx` CLI or the InfluxDB API to get the run-time server configuration of your InfluxDB instance.
+
+  Server configuration commands require an API token with operator permissions.
+  See how to create an op token.
+
+#### View your server configuration with the CLI
+
+Use the [`influx server-config` command](/influxdb/v2.2/reference/cli/influx/server-config/)
+to get your run-time server configuration.
+
+```sh
+influx server-config
+```
+
+### View your server configuration with the API
+
+Use the `/api/v2/config` InfluxDB API endpoint to get your run-time server configuration.
+
+[{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/config" >}}]((/influxdb/v2.2/api/#operation/GetConfig))
 
 ##### Example configuration file
 {{< code-tabs-wrapper >}}

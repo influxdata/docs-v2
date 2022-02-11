@@ -62,7 +62,7 @@ influx auth delete -i 03a2bee5a9c9a000
 
 ## Delete a token using the InfluxDB API
 
-Use the `/authorizations` endpoint of the InfluxDB API to delete a token.
+Use the `/api/v2/authorizations` InfluxDB API endpoint to delete a token.
 
 [{{< api-endpoint method="DELETE" endpoint="http://localhost:8086/api/v2/authorizations/AUTH_ID" >}}](/influxdb/v2.2/api/#operation/DeleteAuthorizationsID)
 

@@ -24,10 +24,12 @@ Learn how to create, view, update, or delete an API token.
 - [Read/Write token](#readwrite-token)
 
 #### Operator token
-Grants full read and write access to all resources in **all organizations in InfluxDB OSS 2.x**.
+Grants full read and write access to **all organizations and all organization resources in InfluxDB OSS 2.x**.
+Some operations, e.g. [retrieving the server configuration](/influxdb/v2.2/reference/config-options/), require operator permissions.
+Operator tokens are created in the InfluxDB setup process.
+To [create an operator token manually](/influxdb/v2.2/security/tokens/create-token/), you must use an existing operator token.
 
 {{% note %}}
-Operator tokens are created in the InfluxDB setup process and cannot be created manually.
 Because Operator tokens have full read and write access to all organizations in the database,
 we recommend [creating an All-Access token](/influxdb/v2.2/security/tokens/create-token/)
 for each organization and using those to manage InfluxDB.
