@@ -31,7 +31,7 @@ This release includes the following new [features](#features) and several [bug f
 #### Flux updates
 
 - Update to [Flux v0.150.0](/flux/v0.x/release-notes/#v01500-2022-01-19).
-- Option to log Flux queries that are cancelled because of server shutdown.
+- Add option to log Flux queries that are cancelled because of server shutdown.
 
 #### Build maintenance
 
