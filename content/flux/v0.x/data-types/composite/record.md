@@ -185,7 +185,7 @@ Equality is based on keys, their values, and types.
 ```
 
 ### Return the string representation of a record
-Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return Flux literal
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return the Flux literal
 representation of a record as a string.
 
 ```js
@@ -197,7 +197,7 @@ display(v: x)
 ```
 
 ### Include the string representation of a record in a table
-Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return Flux literal
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return the Flux literal
 representation of a record as a string and include it as a column value.
 
 ```js
