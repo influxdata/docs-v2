@@ -51,7 +51,7 @@ The  `_measurement` column shows the name of the measurement `census`. Measureme
 
 ## Fields
 
-A field includes a field key stored in the `_field` column and a field value stored in the `_value` column.
+A field includes a field key stored in the `_field` column and a field value stored in the `_value` column. A [measurement](#measurement) requires at least one field.
 
 ### Field key
 
@@ -63,7 +63,7 @@ A field value represents the value of an associated field. Field values can be s
 
 ### Field set
 
-A field set is a collection of field key-value pairs associated with a timestamp. The [sample data](#sample-data) includes the following field sets:
+A field set is a collection of field key-value pairs associated with a timestamp. A [measurement](#measurement) requires at least one field. The [sample data](#sample-data) includes the following field sets:
 
 ```bash
 
@@ -75,15 +75,16 @@ census bees=28i,ants=32i 1566086760000000000
 ```
 
 {{% note %}}
-**Fields aren't indexed:** Fields are required in InfluxDB data and are not indexed. Queries that filter field values must scan all field values to match query conditions. As a result, queries on tags > are more performant than queries on fields. **Store commonly queried metadata in tags**.
 
-To learn how to make your schema easy to query, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+**Field values aren't indexed**. Store commonly queried metadata in tags.
+
+To learn how to use fields and tags to improve your queries, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+
 {{% /note %}}
 
 ## Tags
 
-In the [sample data](#sample-data), the columns `location` and `scientist` are tags that provide
-metadata for the point.
+In the [sample data](#sample-data), the columns `location` and `scientist` are tags that provide metadata for the point.
 Tags include tag keys and tag values that are stored as strings.
 
 ### Tag key
@@ -109,12 +110,11 @@ location = portland, scientist = mullen
 ```
 
 {{% note %}}
-**Tags are indexed:** Tags are optional. You don't need tags in your data structure, but it's typically a good idea to include tags.
-Because tags are indexed, queries on tags are faster than queries on fields. This makes tags ideal for storing commonly-queried metadata.
-{{% /note %}}
 
-{{% note %}}
-Tags containing highly variable information like UUIDs, hashes, and random strings will lead to a large number of unique series in the database, known as **high series cardinality**. High series cardinality is a primary driver of high memory usage for many database workloads. See [series cardinality](/influxdb/v2.1/reference/glossary/#series-cardinality) for more information.   
+**Field values aren't indexed**. Store commonly queried metadata in tags.
+
+To learn how to use fields and tags to improve your queries, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+
 {{% /note %}}
 
 
@@ -145,6 +145,12 @@ InfluxDB scans every field value in the dataset for `bees` before the query retu
 | 2019-08-18T00:06:00Z | census       | 32                               | scientist                              | mullen                                   |
 
 Now that `bees` and `ants` are tags, InfluxDB doesn't have to scan all `_field` and `_value` columns. This makes your queries faster.
+
+{{% note %}}
+
+For more information about designing measurements, tags, and fields for querying, see [best practices for schema design](/influxdb/v2.1/write-data/best-practices/schema-design/).
+
+{{% /note %}}
 
 ## Bucket schema
 

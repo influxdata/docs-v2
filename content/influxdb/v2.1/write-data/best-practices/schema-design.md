@@ -164,6 +164,12 @@ Use [explicit bucket schemas]() to enforce unique tag and field keys within a sc
 This means that querying tags is more performant than querying fields.
 Your queries should guide what you store in tags and what you store in fields.
 
+{{% note %}}
+
+For more information about indexing and query performance, see how to [resolve high series cardinality](/influxdb/v2.1/write-data/best-practices/resolve-high-cardinality/).
+
+{{% /note %}}
+
 ### Use fields for unique and numeric data
 
 - Store unique or frequently changing values as field values.
