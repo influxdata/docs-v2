@@ -108,8 +108,8 @@ To configure InfluxDB, use the following configuration options when starting the
 - [influxql-max-select-series](#influxql-max-select-series)
 - [log-level](#log-level)
 - [metrics-disabled](#metrics-disabled)
-- [nats-max-payload-bytes](#nats-max-payload-bytes)
-- [nats-port](#nats-port)
+- [nats-max-payload-bytes](#nats-max-payload-bytes) <em style="opacity:.65">- (deprecated)</em>
+- [nats-port](#nats-port) <em style="opacity:.65">- (deprecated)</em>
 - [no-tasks](#no-tasks)
 - [pprof-disabled](#pprof-disabled)
 - [query-concurrency](#query-concurrency)
@@ -965,6 +965,11 @@ metrics-disabled = true
 ---
 
 ### nats-max-payload-bytes
+
+{{% warn %}}
+`nats-max-payload-bytes` was **deprecated in InfluxDB 2.2** and no longer has any effect.
+{{% /warn %}}
+
 Maximum number of bytes allowed in a NATS message payload.
 
 **Default:** `1048576`
@@ -1012,6 +1017,11 @@ nats-max-payload-bytes = 1048576
 ---
 
 ### nats-port
+
+{{% warn %}}
+`nats-port` was **deprecated in InfluxDB 2.2** and no longer has any effect.
+{{% /warn %}}
+
 Port for the NATS streaming server. `-1` selects a random port.
 
 **Default:** `-1`

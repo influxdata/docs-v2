@@ -5,8 +5,14 @@
 <ul>
 {{- range $flags -}}
 {{- $flagAnchor := replaceRE "--" "#" .flag -}}
-{{- if ge (float $currentVersion) .added -}}
-  <li>{{ if .nolink }}{{ .flag }}{{ else }}<a href="/influxdb/v{{ $currentVersion }}/reference/config-options/{{ $flagAnchor }}">{{ .flag }}</a>{{ end }}</li>
+{{- $removed := cond (isset . "removed") .removed 1000.0 -}}
+{{- $deprecated := cond (isset . "deprecated") true false -}}
+{{- $deprecatedVersion := cond $deprecated .deprecated 0.0 -}}
+{{- if and (ge (float $currentVersion) .added) (lt (float $currentVersion) $removed) -}}
+  <li>
+    {{ if .nolink }}{{ .flag }}{{ else }}<a href="/influxdb/v{{ $currentVersion }}/reference/config-options/{{ $flagAnchor }}">{{ .flag }}</a>{{ end }} 
+    {{ if and $deprecated (ge (float $currentVersion) $deprecatedVersion) }}<em style="opacity:.65;"> - (deprecated in InfluxDB {{ $deprecatedVersion }})</em>{{ end }}
+  </li>
 {{- end -}}
 {{- end -}}
 </ul>

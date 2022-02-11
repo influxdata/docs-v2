@@ -3,6 +3,8 @@
 #
 # - flag: "--flag-name"
 #   added: InfluxDB minor version the flag was added
+#   deprecated: InfluxDB minor version the flag was deprecated
+#   removed: InfluxDB minor version the flag was removed
 #   nolink: Do not create a link to the config options doc for this flag
 # 
 
@@ -60,9 +62,13 @@
 
 - flag: "--nats-max-payload-bytes"
   added: 2.0
+  deprecated: 2.2
+  # removed: 2.2
 
 - flag: "--nats-port"
   added: 2.0
+  deprecated: 2.2
+  # removed: 2.2
 
 - flag: "--no-tasks"
   added: 2.0
