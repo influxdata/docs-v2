@@ -59,6 +59,18 @@ Flux supports the following unit specifiers:
 3d12h4m25s // 3 days, 12 hours, 4 minutes, and 25 seconds
 ```
 
+{{% note %}}
+#### Do not include leading zeros in duration literals
+The integer part of a duration literal should not contain leading zeros.
+Leading zeros are parsed as separate integer literals.
+For example:
+
+```js
+01m // parsed as 0 (integer literal) and 1m (duration literal)
+02h05m // parsed as 0 (integer literal), 2h (duration literal), 0 (integer literal), and 5m (duration literal)
+```
+{{% /note %}}
+
 ## Convert data types to durations
 Use the [`duration()` function](/flux/v0.x/stdlib/universe/duration/) to convert
 the following [basic types](/flux/v0.x/data-types/basic/) to durations:

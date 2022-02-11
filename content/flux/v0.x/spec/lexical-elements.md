@@ -144,6 +144,7 @@ decimals  = decimal_digit { decimal_digit } .
 
 A _duration literal_ is a representation of a length of time.
 It has an integer part and a duration unit part.
+The integer part must be a valid Flux integer and should not contain leading zeros.
 Multiple durations may be specified together and the resulting duration is the sum of each smaller part.
 When several durations are specified together, larger units must appear before smaller ones, and there can be no repeated units.
 
