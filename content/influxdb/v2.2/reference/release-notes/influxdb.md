@@ -89,7 +89,7 @@ re	- `pointsWriteRequested`
 
 ### Bug fixes
 
-- Update to ensure manual task runs can happen concurrently.
+- Ensure manual task runs can happen concurrently.
 - Extend snapshot copy of backup to filesystems that do not support hard links.
 - Detect misquoted tag values and return an error.
 - Successfully handle errors returned by `Sketch.Merge`.
