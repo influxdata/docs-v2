@@ -23,7 +23,7 @@ This release includes the following new [features](#features) and several [bug f
 
 #### Replicate data remotely (technical preview)
 
-- Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
+- Add the option to [Replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
   In this **technical preview**, you can replicate inbound data using the HTTP API. This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and then send the data to one or more buckets on a remote InfluxDB Cloud instance. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent when network connectivity is restored.
 
@@ -73,10 +73,10 @@ re	- `pointsWriteRequested`
 - Add cache subsystem metrics:
   - `inuse_bytes`: Current memory consumption of cache
   - `diskBytes`: Size of most recent snapshot"
-  - `latest_snapshot`: Unix time of most recent snapshot.
+  - `latest_snapshot`: Unix time of most recent snapshot
   - `writes_total`: Counter of all writes to cache
-  - `writes_err`: Counter of failed writes to cache.
-  - `writes_dropped`: Counter of writes (with any dropped points) to cache.
+  - `writes_err`: Counter of failed writes to cache
+  - `writes_dropped`: Counter of writes (with any dropped points) to cache
 
 - Add WAL subsystem metrics:
   - `size`: Size of WAL in bytes
