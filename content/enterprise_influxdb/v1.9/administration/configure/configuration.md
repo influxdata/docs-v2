@@ -10,8 +10,8 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Configure clusters
-    weight: 10
     parent: Configure
+weight: 10
 ---
 
 This page contains general information about configuring InfluxDB Enterprise clusters.

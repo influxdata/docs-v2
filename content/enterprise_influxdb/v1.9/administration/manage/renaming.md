@@ -7,8 +7,8 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Rename hosts
-    weight: 100
     parent: Manage
+weight: 40
 ---
 
 ## Host renaming

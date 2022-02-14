@@ -61,6 +61,7 @@ The format used to interpret the designated `timestamp_key`. The `last_reported`
   # Data from HTTP in JSON format
   data_format = "json_v2"
 
+
         # Add a subtable to use the `json_v2` parser
         [[inputs.http.json_v2]]
 

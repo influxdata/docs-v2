@@ -94,6 +94,10 @@ The TSM compaction code is quite complex.
 However, the high-level goal is quite simple:
 organize values for a series together into long runs to best optimize compression and scanning queries.
 
+For more information on the TSM engine, watch the video below:
+
+{{< youtube C5sv0CtuMCw >}}
+
 ## Time Series Index (TSI)
 
 As data cardinality (the number of series) grows, queries read more series keys and become slower.

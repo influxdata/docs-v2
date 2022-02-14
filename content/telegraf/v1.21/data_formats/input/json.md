@@ -3,12 +3,15 @@ title: JSON input data format
 description: Use the JSON input data format to parse [JSON][json] objects, or an array of objects, into Telegraf metric fields.
 menu:
   telegraf_1_21:
-  
+
     name: JSON input
     weight: 70
     parent: Input data formats
 ---
 
+{{% note %}}
+The following information applies to the legacy JSON input data format. For most cases, we recommend using the [JSON v2 input data format](/{{< latest "telegraf" >}}/data_formats/input/json_v2/) instead.
+{{% /note %}}
 
 The JSON input data format parses a [JSON][json] object or an array of objects
 into Telegraf metric fields.
@@ -189,7 +192,7 @@ Config:
 ```toml
 [[inputs.file]]
   files = ["example"]
-  data_format = "json"
+  data_format = "json_v2"
   tag_keys = ["first"]
   json_string_fields = ["last"]
   json_query = "obj.friends"

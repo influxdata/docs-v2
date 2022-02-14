@@ -49,6 +49,15 @@ table {
   }
 
   img { margin-bottom: 0; }
+
+  &.cloud-urls {
+    a { white-space: nowrap; }
+    p {
+      margin: 0 0 .5rem 0;
+      &:last-child { margin-bottom: 0 }
+    }
+    .cluster-name { font-weight: $medium; color: $article-bold; }
+  }
 }
 
 table + table {

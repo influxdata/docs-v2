@@ -1,26 +1,24 @@
 ---
-title: Use fine-grained authorization in InfluxDB Enterprise
+title: Manage fine-grained authorization
 description: >
   Fine-grained authorization (FGA) in InfluxDB Enterprise controls user access at the database, measurement, and series levels.
-alias:
-  -/docs/v1.5/administration/fga
 menu:
   enterprise_influxdb_1_9:
-    name: Use fine-grained authorization
-    weight: 10
-    parent: Guides
+    parent: Manage users and permissions
+weight: 44
+aliases:
+  - /docs/v1.5/administration/fga
+  - /enterprise_influxdb/v1.9/guides/fine-grained-authorization/
 related:
   - /enterprise_influxdb/v1.9/administration/authentication_and_authorization/
   - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
 ---
 
-Use fine-grained authorization (FGA) in InfluxDB Enterprise to control user access at the database, measurement, and series levels.
+{{% enterprise-warning-authn-b4-authz %}}
 
-{{% note %}}
-**Note:** InfluxDB OSS controls access at the database level only.
-{{% /note %}}
+Use fine-grained authorization (FGA) to control user access at the database, measurement, and series levels.
 
-You must have [admin permissions](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#admin-user-management) to set up FGA.
+You must have [admin permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/permissions/#admin) to set up FGA.
 
 {{% warn %}}
 #### FGA does not apply to Flux
@@ -28,9 +26,14 @@ FGA does not restrict actions performed by Flux queries (both read and write).
 If using FGA, we recommend [disabling Flux](/enterprise_influxdb/v{{< current-version >}}/flux/installation/).
 {{% /warn %}}
 
+{{% note %}}
+FGA is only available in InfluxDB Enterprise.
+InfluxDB OSS 1.x controls access at the database level only.
+{{% /note %}}
+
 ## Set up fine-grained authorization
 
-1. [Enable authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication) in your InfluxDB configuration file.
+1. [Enable authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/) in your InfluxDB configuration file.
 
 2. Create users through the InfluxDB query API.
 
@@ -38,7 +41,7 @@ If using FGA, we recommend [disabling Flux](/enterprise_influxdb/v{{< current-ve
     CREATE USER username WITH PASSWORD 'password'
     ```
 
-    For more information, see [User management commands](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#user-management-commands).
+    For more information, see [User management commands](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/authorization-influxql/#user-management-commands).
 
 3. Ensure that you can access the **meta node** API (port 8091 by default).
 
@@ -132,7 +135,7 @@ The following examples create two new roles:
 
 ```sh
 # Create east role
-curl -s -L -XPOST "http://localhost:8091/role" \
+curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -143,7 +146,7 @@ curl -s -L -XPOST "http://localhost:8091/role" \
   }'
 
 # Create west role
-curl -s -L -XPOST "http://localhost:8091/role" \
+curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -162,7 +165,7 @@ Specify the [permissions](/chronograf/v1.8/administration/managing-influxdb-user
 The following example sets read and write permissions on `db1` for both `east` and `west` roles.
 
 ```sh
-curl -s -L -XPOST "http://localhost:8091/role" \
+curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -175,7 +178,7 @@ curl -s -L -XPOST "http://localhost:8091/role" \
     }
   }'
 
-curl -s -L -XPOST "http://localhost:8091/role" \
+curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -197,7 +200,7 @@ Specify the [permissions](/{{< latest "chronograf" >}}/administration/managing-i
 The following example removes read and write permissions from `db1` for the `east` role.
 
 ```sh
-curl -s -L -XPOST "http://localhost:8091/role" \
+curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -219,7 +222,7 @@ The following examples add user1, user2 and the ops user to the `east` and `west
 
 ```sh
 # Add user1 and ops to the east role
-curl -s -L -XPOST "http://localhost:8091/role" \
+curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -231,7 +234,7 @@ curl -s -L -XPOST "http://localhost:8091/role" \
   }'
 
 # Add user1 and ops to the west role
-curl -s -L -XPOST "http://localhost:8091/role" \
+curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -248,7 +251,7 @@ To view existing roles with their assigned permissions and users, use the `GET`
 request method with the InfluxDB Meta API `/role` endpoint.
 
 ```sh
-curl -L -XGET http://localhost:8091/role | jq
+curl --location-trusted -XGET http://localhost:8091/role | jq
 ```
 
 ### Delete a role
@@ -256,7 +259,7 @@ To delete a role, the InfluxDB Meta API `/role` endpoint and set the `action`
 field to `delete` and include the name of the role to delete.
 
 ```sh
-curl -s -L -XPOST "http://localhost:8091/role" \
+curl -s --location-trusted -XPOST "http://localhost:8091/role" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -282,7 +285,7 @@ Restrictions apply to all non-admin users.
 Manage restrictions using the InfluxDB Meta API `acl/restrictions` endpoint.
 
 ```sh
-curl -L -XGET "http://localhost:8091/influxdb/v2/acl/restrictions"
+curl --location-trusted -XGET "http://localhost:8091/influxdb/v2/acl/restrictions"
 ```
 
 - [Restrict by database](#restrict-by-database)
@@ -299,7 +302,7 @@ In most cases, restricting the database is the simplest option, and has minimal 
 The following example restricts reads and writes on the `my_database` database.
 
 ```sh
-curl -L -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
+curl --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -314,7 +317,7 @@ measurement in the `my_database` database.
 _This restriction does not apply to other measurements in the `my_database` database._
 
 ```sh
-curl -L -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
+curl --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -331,7 +334,7 @@ The following example restricts read and write permissions on the `datacenter=ea
 _This restriction does not apply to other tags or tag values in the `network` measurement._
 
 ```sh
-curl -L -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
+curl --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -347,7 +350,7 @@ writes to `network` with a tag key of `datacenter` and a tag value of anything b
 
 ##### Apply restrictions to a series defined by multiple tags
 ```sh
-curl -L -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
+curl --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -368,7 +371,7 @@ To create multiple restrictions for a list of values, use a bash `for` loop:
 
 ```sh
 for value in val1 val2 val3 val4; do
-  curl -L -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
+  curl --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/restrictions" \
     -u "admin-username:admin-password" \
     -H "Content-Type: application/json" \
     --data-binary '{
@@ -385,7 +388,7 @@ done
 To view existing restrictions, use the `GET` request method with the `acl/restrictions` endpoint.
 
 ```sh
-curl -L -u "admin-username:admin-password" -XGET "http://localhost:8091/influxdb/v2/acl/restrictions" | jq
+curl --location-trusted -u "admin-username:admin-password" -XGET "http://localhost:8091/influxdb/v2/acl/restrictions" | jq
 ```
 
 ### Update a restriction
@@ -399,11 +402,11 @@ Use the `DELETE` request method to delete a restriction by ID.
 
 ```sh
 # Obtain the restriction ID from the list of restrictions
-curl -L -u "admin-username:admin-password" \
+curl --location-trusted -u "admin-username:admin-password" \
   -XGET "http://localhost:8091/influxdb/v2/acl/restrictions" | jq
 
 # Delete the restriction using the restriction ID
-curl -L -u "admin-username:admin-password" \
+curl --location-trusted -u "admin-username:admin-password" \
   -XDELETE "http://localhost:8091/influxdb/v2/acl/restrictions/<restriction_id>"
 ```
 
@@ -414,7 +417,7 @@ permissions on InfluxDB assets.
 Manage grants using the InfluxDB Meta API `acl/grants` endpoint.
 
 ```sh
-curl -L -u "admin-username:admin-password" \
+curl --location-trusted -u "admin-username:admin-password" \
   -XGET "http://localhost:8091/influxdb/v2/acl/grants"
 ```
 
@@ -432,7 +435,7 @@ The following examples grant read and write permissions on the `my_database` dat
 
 ##### Grant database-level permissions to users
 ```sh
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -447,7 +450,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
 
 ##### Grant database-level permissions to roles
 ```sh
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -467,7 +470,7 @@ guarantee that users will use the correct tags.
 
 ##### Grant measurement-level permissions to users
 ```sh
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -484,7 +487,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
 To grant access for roles, run:
 
 ```sh
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -506,7 +509,7 @@ _Neither guarantees the users will use the `network` measurement._
 ##### Grant series-level permissions to users
 ```sh
 # Grant user1 read/write permissions on data with the 'datacenter=east' tag set.
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -517,7 +520,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   }'
 
 # Grant user2 read/write permissions on data with the 'datacenter=west' tag set.
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -531,7 +534,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
 ##### Grant series-level permissions to roles
 ```sh
 # Grant role1 read/write permissions on data with the 'datacenter=east' tag set.
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -542,7 +545,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   }'
 
 # Grant role2 read/write permissions on data with the 'datacenter=west' tag set.
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -562,7 +565,7 @@ _They each specify the measurement in the request body._
 ```sh
 # Grant user1 read/write permissions on data with the 'datacenter=west' tag set
 # inside the 'network' measurement.
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -575,7 +578,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
 
 # Grant user2 read/write permissions on data with the 'datacenter=west' tag set
 # inside the 'network' measurement.
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -591,7 +594,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
 ```sh
 # Grant role1 read/write permissions on data with the 'datacenter=west' tag set
 # inside the 'network' measurement.
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -604,7 +607,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
 
 # Grant role2 read/write permissions on data with the 'datacenter=west' tag set
 # inside the 'network' measurement.
-curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
+curl -s --location-trusted -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   -u "admin-username:admin-password" \
   -H "Content-Type: application/json" \
   --data-binary '{
@@ -632,7 +635,7 @@ Note that this is only the requirement of the presence of that tag;
 To view existing grants, use the `GET` request method with the `acl/grants` endpoint.
 
 ```sh
-curl -L -u "admin-username:admin-password" \
+curl --location-trusted -u "admin-username:admin-password" \
   -XGET "http://localhost:8091/influxdb/v2/acl/grants" | jq
 ```
 
@@ -647,10 +650,10 @@ Use the `DELETE` request method to delete a grant by ID.
 
 ```sh
 # Obtain the grant ID from the list of grants
-curl -L -u "admin-username:admin-password" \
+curl --location-trusted -u "admin-username:admin-password" \
   -XGET "http://localhost:8091/influxdb/v2/acl/grants" | jq
 
 # Delete the grant using the grant ID
-curl -L -u "admin-username:admin-password" \
+curl --location-trusted -u "admin-username:admin-password" \
   -XDELETE "http://localhost:8091/influxdb/v2/acl/grants/<grant_id>"
 ```

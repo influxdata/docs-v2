@@ -11,6 +11,10 @@ aliases:
   - /influxdb/v2.0/reference/flux/stdlib/experimental/usage/limits/
   - /influxdb/cloud/reference/flux/stdlib/experimental/usage/limits/
 weight: 401
+related:
+  - /flux/v0.x/stdlib/influxdata/influxdb/cardinality/
+  - /influxdb/cloud/account-management/data-usage/
+  - /influxdb/cloud/account-management/limits/
 ---
 
 The `usage.limits()` function returns a record containing usage limits for an
@@ -104,6 +108,7 @@ usage.limits(host: "https://cloud2.influxdata.com", orgID: "x000X0x0xx0X00x0", t
 
 ##### Output organization limits in a table
 ```js
+import "array"
 import "experimental/usage"
 import "influxdata/influxdb/secrets"
 
@@ -130,19 +135,20 @@ array.from(
 
 ##### Output current cardinality with your cardinality limit
 ```js
-import "array"
 import "experimental/usage"
 import "influxdata/influxdb"
-import "influxdata/influxdb/secrets"
 
-host = "https://cloud2.influxdata.com"
-orgID = "x000X0x0xx0X00x0"
-token = secrets.get(key: "INFLUX_TOKEN")
+limits = usage.limits()
+bucketCardinality = (bucket) =>
+    (influxdb.cardinality(
+        bucket: bucket,
+        start: time(v: 0),
+    )
+        |> findColumn(fn: (key) => true, column: "_value"))[0]
 
-cardinality = (influxdb.cardinality(bucket: "example-bucket", orgID: orgID, host: host, token: token)
-    |> findColumn(fn: (key) => true, column: "_value"))[0]
-
-limits = usage.limits(host: host, orgID: orgID, token: token)
-
-array.from(rows: [{cardinality: cardinality, cardinalityLimit: limits.rate.cardinality}])
+buckets()
+    |> filter(fn: (r) => not r.name =~ /^_/)
+    |> map(fn: (r) => ({bucket: r.name, Cardinality: bucketCardinality(bucket: r.name)}))
+    |> sum(column: "Cardinality")
+    |> map(fn: (r) => ({r with "Cardinality Limit": limits.rate.cardinality}))
 ```

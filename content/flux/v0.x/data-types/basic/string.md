@@ -13,6 +13,7 @@ flux/v0.x/tags: ["basic types", "data types"]
 aliases:
   - /influxdb/v2.0/reference/flux/language/string-interpolation/
   - /influxdb/cloud/reference/flux/language/string-interpolation/
+  - /flux/v0.x/spec/string-interpolation/
 related:
   - /flux/v0.x/stdlib/universe/string/
   - /flux/v0.x/stdlib/universe/tostring/
