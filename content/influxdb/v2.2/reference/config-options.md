@@ -17,6 +17,11 @@ Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.2/refere
 configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
+- [View your run-time server configuration](#view-your-run-time-server-configuration)
+- [Configuration precedence](#configuration-precedence)
+- [InfluxDB configuration file](#influxdb-configuration-file)
+- [Configuration options](#configuration-options)
+
 ### View your run-time server configuration
 
 Use the `influx` CLI or the InfluxDB API to get the run-time server configuration of your InfluxDB instance.
