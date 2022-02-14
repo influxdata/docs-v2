@@ -55,7 +55,7 @@ This release includes the following new [features](#features) and several [bug f
    - `storage_compactions_queued`
    - `storage_compactions_total`
 
-- Add the following metrics when data fails to be added to the replication queue:
+- Add the following metrics tracking when data fails to be added to the replication queue:
    - `PointsFailedToQueue`
    - `BytesFailedToQueue`
 
