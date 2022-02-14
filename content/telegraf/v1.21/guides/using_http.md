@@ -3,7 +3,7 @@ title: Using the HTTP input plugin with Citi Bike data
 description: Collect live metrics on Citi Bike stations in New York City with the HTTP input plugin.
 menu:
   telegraf_1_21:
-  
+
     name: Using the HTTP plugin
     weight: 30
     parent: Guides
@@ -28,13 +28,13 @@ The format of the data in the HTTP endpoints that Telegraf will ingest. For this
 
 ## Add parser information to your Telegraf configuration
 
-Specify the following JSON-specific options. In this example, we use the objects subtable to gather 
+Specify the following JSON-specific options. In this example, we use the objects subtable to gather
 data from [JSON Objects](https://www.w3schools.com/js/js_json_objects.asp).
 
 ### JSON
 
 #### `path`
-To parse a JSON object, set the `path` option with a [GJSON](https://github.com/tidwall/gjson) path. The result of the query should contain a JSON object or an array of objects. The [GJSON playground](https://gjson.dev/) is a very helpful tool in checking your query. 
+To parse a JSON object, set the `path` option with a [GJSON](https://github.com/tidwall/gjson) path. The result of the query should contain a JSON object or an array of objects. The [GJSON playground](https://gjson.dev/) is a very helpful tool in checking your query.
 
 #### `tags`
 List of one or more JSON keys that should be added as tags. For this example, we'll use the tag key `station_id`.
@@ -51,22 +51,22 @@ The format used to interpret the designated `timestamp_key`. The `last_reported`
 [[inputs.http]]
   # URL for NYC's Citi Bike station data in JSON format
   urls = ["https://gbfs.citibikenyc.com/gbfs/en/station_status.json"]
-  
+
   # Overwrite measurement name from default `http` to `citibikenyc`
   name_override = "citibike"
-  
+
   # Exclude url and host items from tags
   tagexclude = ["url", "host"]
-  
+
   # Data from HTTP in JSON format
   data_format = "json_v2"
-        
+
         # Add a subtable to use the `json_v2` parser
         [[inputs.http.json_v2]]
-            
+
             # Add an object subtable for to parse a JSON object
             [[inputs.http.json_v2.object]]
-                
+
                 # Parse data in `data.stations` path only
                 path = "data.stations"
 
@@ -84,7 +84,7 @@ The format used to interpret the designated `timestamp_key`. The `last_reported`
 
 ## Start Telegraf and verify data appears
 
-[Start the Telegraf service](/telegraf/latest/introduction/getting-started/#start-telegraf-service).
+[Start the Telegraf service](/{{< latest "telegraf" >}}/introduction/getting-started/#start-telegraf-service).
 
 To test that the data is being sent to InfluxDB, run the following (replacing `telegraf.conf` with the path to your configuration file):
 
@@ -102,4 +102,4 @@ citibike,station_id=4711 eightd_has_available_keys=false,is_installed=1,is_renti
 
 Now, you can explore and query the Citi Bike data in InfluxDB. The example below is an Flux query and visualization showing the number of available bikes over the past 15 minutes.
 
-![Citi Bike visualization](/img/telegraf/1-13-citibike_query.png)
+![Citi Bike visualization](/img/telegraf/new-citibike_query.png)
