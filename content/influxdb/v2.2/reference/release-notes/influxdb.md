@@ -79,7 +79,7 @@ re	- `pointsWriteRequested`
   - `writes_dropped`: Counter of writes (with any dropped points) to cache.
 
 - Add WAL subsystem metrics:
-  - `size`: Gauge of size of WAL in bytes
+  - `size`: Size of WAL in bytes
   - `writes`: Number of write attempts to the WAL
   - `writes_err`: Number of failed write attempts to the WAL
 
