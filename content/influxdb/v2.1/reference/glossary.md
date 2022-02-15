@@ -1065,6 +1065,11 @@ For more information, see [Process Data with InfluxDB tasks](/influxdb/v2.1/proc
 
 Related entries: [function](#function)
 
+### technical preview
+
+A new feature released to gather feedback from customers and the InfluxDB community. Send feedback to InfluxData via 
+[Community Slack](https://influxcommunity.slack.com/) or our [Community Site](https://community.influxdata.com/).
+
 ### Telegraf
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
@@ -1127,11 +1132,6 @@ An InfluxQL function that returns a value or a set of values calculated from spe
 See [InfluxQL functions](/{{< latest "influxdb" "v1" >}}/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
 Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
-
-### technical preview
-
-A new feature released to gather feedback from customers and the InfluxDB community. Send feedback to InfluxData via 
-[Community Slack](https://influxcommunity.slack.com/) or our [Community Site](https://community.influxdata.com/).
 
 ### TSI (Time Series Index)
 
