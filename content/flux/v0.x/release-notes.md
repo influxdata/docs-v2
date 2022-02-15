@@ -10,6 +10,89 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.154.0 [2022-02-09]
+
+### Features
+- Add [`requests.peek()`](/flux/v0.x/stdlib/experimental/http/requests/peek/) to
+  return HTTP response data in a table.
+- Add [`display()`](/flux/v0.x/stdlib/universe/display/) to represent any value as a string.
+- Create a version of `map()` that is columnar and supports vectorization.
+- Support vectorized functions.
+
+### Bug fixes
+- Add time vector to the `values` package.
+- Set the correct type for vectorized functions.
+
+---
+
+## v0.153.0 [2022-02-07]
+
+### Features
+- Connect language server protocol (LSP) features through the Flux crate.
+- Add conversion from `flux.Bounds` to `plan/execute.Bounds`.
+- Re-index all bound variables to start from 0.
+
+### Bug fixes
+- Int feature flags work properly when returned as floats.
+
+---
+
+## v0.152.0 [2022-01-31]
+
+### Features
+- Add the [`experimental/http/requests` package](/flux/v0.x/stdlib/experimental/http/requests/)
+  to support generic HTTP requests.
+- Add [`experimental/iox` package](/flux/v0.x/stdlib/experimental/iox/) and a
+  placeholder for the `iox.from()` function.
+- Add dependency hooks to the dependency subsystem.
+- Remove unneeded feature flags.
+
+### Bug fixes
+- Revert update to the dependencies package.
+- Return false if contains gets invalid value.
+
+---
+
+## v0.151.1 [2022-01-24]
+
+### Features
+- Update to Rust 1.58.1.
+
+---
+
+## v0.151.0 [2022-01-20]
+
+### Features
+- Expose `MonoType::parameter` and `MonoType::field`.
+
+### Bug fixes
+- Support writing unsigned integers with the `http` provider.
+
+---
+
+## v0.150.1 [2022-01-19]
+
+### Bug fixes
+- Remove duplicate `die` builtin in the `universe` package.
+
+---
+
+## v0.150.0 [2022-01-19]
+
+### Features
+- Update inline documentation in the following packages:
+  - date
+  - experimental
+  - testing
+  - timezone
+  - types
+
+### Bug fixes
+- Make iterating the hashmap deterministic.
+- Quote SQL identifiers to mitigate the risk of SQL injection.
+
+---
+
 ## v0.149.0 [2022-01-12]
 
 ### Features

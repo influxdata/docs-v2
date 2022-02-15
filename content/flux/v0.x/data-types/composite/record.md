@@ -136,6 +136,8 @@ _To dynamically reference keys in a composite type, consider using a
 - [Extend a record](#extend-a-record)
 - [List keys in a record](#list-keys-in-a-record)
 - [Compare records](#compare-records)
+- [Return the string representation of a record](#return-the-string-representation-of-a-record)
+- [Include the string representation of a record in a table](#include-the-string-representation-of-a-record-in-a-table)
 
 ### Extend a record
 Use the **`with` operator** to extend a record.
@@ -181,3 +183,43 @@ Equality is based on keys, their values, and types.
 {foo: 12300.0, bar: 34500.0} == {bar: float(v: "3.45e+04"), foo: float(v: "1.23e+04")}
 // Returns true
 ```
+
+### Return the string representation of a record
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return the Flux literal
+representation of a record as a string.
+
+```js
+x = {a: 1, b: 2, c: 3}
+
+display(v: x)
+
+// Returns "{a: 1, b: 2, c: 3}"
+```
+
+### Include the string representation of a record in a table
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return the Flux literal
+representation of a record as a string and include it as a column value.
+
+```js
+import "sampledata"
+
+sampledata.string()
+    |> map(fn: (r) => ({_time: r._time, exampleRecord: display(v: {tag: r.tag, value:r._value})}))
+```
+
+#### Output
+
+| \_time <em style="opacity:.5">(time)</em> | exampleRecord <em style="opacity:.5">(string)</em> |
+| :---------------------------------------- | :----------------------------------------------- |
+| 2021-01-01T00:00:00Z                      | {tag: t1, value: smpl_g9qczs}                    |
+| 2021-01-01T00:00:10Z                      | {tag: t1, value: smpl_0mgv9n}                    |
+| 2021-01-01T00:00:20Z                      | {tag: t1, value: smpl_phw664}                    |
+| 2021-01-01T00:00:30Z                      | {tag: t1, value: smpl_guvzy4}                    |
+| 2021-01-01T00:00:40Z                      | {tag: t1, value: smpl_5v3cce}                    |
+| 2021-01-01T00:00:50Z                      | {tag: t1, value: smpl_s9fmgy}                    |
+| 2021-01-01T00:00:00Z                      | {tag: t2, value: smpl_b5eida}                    |
+| 2021-01-01T00:00:10Z                      | {tag: t2, value: smpl_eu4oxp}                    |
+| 2021-01-01T00:00:20Z                      | {tag: t2, value: smpl_5g7tz4}                    |
+| 2021-01-01T00:00:30Z                      | {tag: t2, value: smpl_sox1ut}                    |
+| 2021-01-01T00:00:40Z                      | {tag: t2, value: smpl_wfm757}                    |
+| 2021-01-01T00:00:50Z                      | {tag: t2, value: smpl_dtn2bv}                    |

@@ -7,7 +7,10 @@ menu:
     weight: 100
     parent: Guides
 related:
+  - /{{< latest "kapacitor" >}}/introduction/getting-started/
+  - /{{< latest "kapacitor" >}}/working/kapa-and-chrono/
   - /{{< latest "kapacitor" >}}/working/flux/
+
 ---
 
 Chronograf provides a user interface for [Kapacitor](/{{< latest "kapacitor" >}}/),
@@ -41,6 +44,7 @@ In the Databases tab:
     _See [supported duration units](/{{< latest "influxdb" "v1" >}}/query_language/spec/#duration-units)._
 4.  Click **Save**.
 
+
 If you set the retention policy's duration to one hour (`1h`), InfluxDB
 automatically deletes any alerts that occurred before the past hour.
 
@@ -54,23 +58,26 @@ automatically deletes any alerts that occurred before the past hour.
 Chronograf lets you manage Kapacitor TICKscript tasks created in Kapacitor or in
 Chronograf when [creating a Chronograf alert rule](/chronograf/v1.9/guides/create-alert-rules/).
 
-To manage Kapacitor TICKscript tasks in Chronograf, click
-**{{< icon "alert" "v2">}} Alerts** in the left navigation bar.
-On this page, you can:
+1. To manage Kapacitor TICKscript tasks in Chronograf, click
+**{{< icon "alert" "v2">}} Alerting** in the left navigation bar.
+Do one or more of the following:
 
-- View Kapacitor TICKscript tasks.
-- View TICKscript task activity.
-- Create new TICKscript tasks.
-- Update TICKscript tasks.
-- Enable and disable TICKscript tasks.
-- Delete TICKscript tasks.
+    - View Kapacitor TICKscript tasks.
+    - View TICKscript task activity.
+    - Create new TICKscript tasks. 
+    - Update TICKscript tasks.
+    - Enable and disable TICKscript tasks.
+    - Rename a TICKscript. Note, renaming a TICKscript updates the `var name` variable within the TICKscript.
+    - Delete TICKscript tasks.
+
+2. Click **Save Changes** when finished.
 
 ### Manage Kapacitor Flux tasks
 **Kapacitor 1.6+** supports Flux tasks.
 Chronograf lets you view and manage [Kapacitor Flux tasks](/{{< latest "kapacitor" >}}/working/flux/).
 
 To manage Kapacitor Flux tasks in Chronograf, click
-**{{< icon "alert" "v2">}} Alerts** in the left navigation bar.
+**{{< icon "alert" "v2">}} Alerting** in the left navigation bar.
 On this page, you can:
 
 - View Kapacitor Flux tasks.
