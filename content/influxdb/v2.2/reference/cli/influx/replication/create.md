@@ -54,17 +54,15 @@ influx replication create [command options] [arguments...]
 1. Create a remote connection, if you haven't already.
 2. Use `influx remote list` to get the ID for the remote you want to replicate data to.
    ```sh
-   $ influx remote list --org-id <OSS org ID> --token <OSS token>
+   $ influx remote list
    ID			        Name		Org ID
-   <remote ID>  	    myremote    [...]
+   0ooxX0xxXo0x 	    myremote    [...]
    ```
 3. Create the replication:
    ```sh
-   influx replication create --host http://localhost:8086 \
+   influx replication create \
      --name myreplication
-     --org-id <OSS org ID>
-     --local-bucket <bucket name>
-     --remote-bucket <bucket name>
-     --remote-id <remote ID>
-     -t <token>
+     --local-bucket example-local-bucket
+     --remote-bucket example-remote-bucket
+     --remote-id 0ooxX0xxXo0x
    ```

@@ -43,12 +43,12 @@ influx remote delete [command options] [arguments...]
    ```sh
    $ influx remote list --org-id <OSS org ID> --token <OSS token>
    ID			        Name		Org ID
-   <remote ID>  	    myremote    [...]
+   0ooxX0xxXo0x 	    myremote    [...]
    ```
 2. Use the following command to delete the remote:
     ```sh
     influx remote delete \
       --org-id <OSS org ID> \
       --token <OSS token> \
-      --id <remote ID>
+      --id 0ooxX0xxXo0x
     ```

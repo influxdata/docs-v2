@@ -46,5 +46,11 @@ influx remote list [command options] [arguments...]
 ### List all remotes
 
 ```sh
-influx remote list --org-id <OSS org ID> --token <OSS token>
+influx remote list
+```
+
+### List a specific remote by name
+
+```sh
+influx remote list --name example-name
 ```

@@ -50,16 +50,16 @@ influx remote update [command options] [arguments...]
    ```sh
    $ influx remote list --org-id <OSS org ID> --token <OSS token>
    ID			        Name		Org ID
-   <remote ID>  	    myremote    [...]
+   0ooxX0xxXo0x 	    myremote    [...]
    ```
 2. Use the following command to update the remote:
     ```sh
     influx remote remote \
-      --id <remote ID>
-      --name <new name>
-      --description <new description>
-      --remote-url <new remote URL>
-      --remote-api-token <new token>
-      --remote-org-id <new org>
+      --id 0ooxX0xxXo0x
+      --name new-example-name
+      --description new-examle-description
+      --remote-url http://new-example-url.com
+      --remote-api-token myN3wS3crE7t0k3n==
+      --remote-org-id new-example-org-id
     ```
 

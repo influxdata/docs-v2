@@ -42,8 +42,14 @@ influx replication list [command options] [arguments...]
 
 ## Examples
 
-### List all remotes
+### List all replication streams
 
 ```sh
 influx replication list --org-id <OSS org ID> --token <OSS token>
+```
+
+### List a replication stream by name
+
+```sh
+influx replication list --name example-replication-name
 ```

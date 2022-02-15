@@ -30,7 +30,7 @@ influx remote [commond options] [arguments...]
 |:--------------------------------------------------------------|--------------------------------------|
 | [`create`](/influxdb/v2.2/reference/cli/influx/remote/create) | Create a new remote connection       |
 | [`delete`](/influxdb/v2.2/reference/cli/influx/remote/delete) | Delete a remote connection |
-| [`list`](/influxdb/v2.2/reference/cli/influx/remote/list)     | List all remote connections          |
+| [`list`](/influxdb/v2.2/reference/cli/influx/remote/list)     | List remote connections          |
 | [`update`](/influxdb/v2.2/reference/cli/influx/remote/update) | Update a remote connection |
 
 ## Flags
