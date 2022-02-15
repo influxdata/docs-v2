@@ -66,6 +66,8 @@ arr[2]
 - [Get the length of an array](#get-the-length-of-an-array)
 - [Create a stream of tables from an array](#create-a-stream-of-tables-from-an-array)
 - [Compare arrays](#compare-arrays)
+- [Return the string representation of an array](#return-the-string-representation-of-an-array)
+- [Include the string representation of an array in a table](#include-the-string-representation-of-an-array-in-a-table)
 
 ### Iterate over an array
 {{% note %}}
@@ -120,7 +122,6 @@ array.from(rows: arr)
 | Jane  | Doe   |  32 |
 | Jack  | Smith |  56 |
 
-
 ### Compare arrays
 Use the `==` [comparison operator](/flux/v0.x/spec/operators/#comparison-operators)
 to check if two arrays are equal.
@@ -133,3 +134,42 @@ Equality is based on values, their type, and order.
 [12300.0, 34500.0] == [float(v: "1.23e+04"), float(v: "3.45e+04")]
 // Returns true
 ```
+
+### Return the string representation of an array
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return Flux literal 
+representation of an array as a string.
+
+```js
+arr = [1, 2, 3]
+
+display(v: arr)
+
+// Returns "[1, 2, 3]"
+```
+
+### Include the string representation of an array in a table
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return Flux literal
+representation of an array as a string and include it as a column value.
+
+```js
+import "sampledata"
+
+sampledata.string()
+    |> map(fn: (r) => ({_time: r._time, exampleArray: display(v: [r.tag, r._value])}))
+```
+
+#### Output
+| _time <em style="opacity:.5">(time)</em> | exampleArray <em style="opacity:.5">(string)</em> |
+| :--------------------------------------- | :----------------------------------------------- |
+| 2021-01-01T00:00:00Z                     | [t1, smpl_g9qczs]                                |
+| 2021-01-01T00:00:10Z                     | [t1, smpl_0mgv9n]                                |
+| 2021-01-01T00:00:20Z                     | [t1, smpl_phw664]                                |
+| 2021-01-01T00:00:30Z                     | [t1, smpl_guvzy4]                                |
+| 2021-01-01T00:00:40Z                     | [t1, smpl_5v3cce]                                |
+| 2021-01-01T00:00:50Z                     | [t1, smpl_s9fmgy]                                |
+| 2021-01-01T00:00:00Z                     | [t2, smpl_b5eida]                                |
+| 2021-01-01T00:00:10Z                     | [t2, smpl_eu4oxp]                                |
+| 2021-01-01T00:00:20Z                     | [t2, smpl_5g7tz4]                                |
+| 2021-01-01T00:00:30Z                     | [t2, smpl_sox1ut]                                |
+| 2021-01-01T00:00:40Z                     | [t2, smpl_wfm757]                                |
+| 2021-01-01T00:00:50Z                     | [t2, smpl_dtn2bv]                                |
