@@ -1130,7 +1130,7 @@ Related entries: [aggregate](#aggregate), [function](#function), [selector](#sel
 
 ### technical preview
 
-A feature release with the intention of gathering feedback from customers and the InfluxDB community about the new feature. Send feedback to InfluxData via 
+A new feature released to gather feedback from customers and the InfluxDB community. Send feedback to InfluxData via 
 [Community Slack](https://influxcommunity.slack.com/) or our [Community Site](https://community.influxdata.com/).
 
 ### TSI (Time Series Index)
