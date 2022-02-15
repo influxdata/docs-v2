@@ -25,7 +25,7 @@ This release includes the following new [features](#features) and several [bug f
 
 - Add the option to [Replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
-  In this **technical preview**, you can replicate inbound data using the HTTP API. This feature helps you to collect data locally from multiple InfluxDB OSS edge deployments, analyze and aggregate the data, and then send the data to one or more buckets on a remote InfluxDB Cloud instance. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent when network connectivity is restored.
+  This [**technical preview**](/influxdb/v2.1/reference/glossary/#technical-preview) feature allows you to create a durable subscription on a per bucket basis for the purposes of replicating data from an InfluxDB OSS instance to InfluxDB Cloud. This allows users to store, analyze and aggregate data locally while also forwarding newly arriving data to a centralized InfluxDB Cloud account. If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data is sent when network connectivity is restored. Configuration options include a maximum buffer size and data age restrictions to restrict the amount of data stored on disk.
 
 #### Flux updates
 
@@ -42,9 +42,6 @@ This release includes the following new [features](#features) and several [bug f
 - Add option to pass `type=basic` to [`/api/v2/tasks`](/influxdb/v2.1/api/#tag/Tasks) to return task metadata without the query text.
 
 #### Metrics
-
-- Add metrics collection for replications. For the full list see 
-[InfluxDB OSS metrics](/influxdb/v2.2/reference/internals/metrics). 
 
 - Add Prometheus metrics for TSM compactions, including:
    - `storage_compaction`
