@@ -262,13 +262,13 @@ Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_LOGIN_ENABLED`
 
 #### `cache-max-memory-size = "1000000000"  # 1g`
 
-The maximum size a shard cache can reach before it starts rejecting writes.
+The maximum size in bytes that a shard cache can reach before it starts rejecting writes.
 
 Environment variable: `INFLUXDB_DATA_CACHE_MAX_MEMORY_SIZE`
 
 #### `cache-snapshot-memory-size = "26214400"  # 25m`
 
-The size at which the TSM engine will snapshot the cache and write it to a TSM file, freeing up memory.
+The size in bytes at which the TSM engine will snapshot the cache and write it to a TSM file, freeing up memory.
 
 Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_MEMORY_SIZE`
 
