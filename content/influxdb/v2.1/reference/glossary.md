@@ -1128,6 +1128,11 @@ See [InfluxQL functions](/{{< latest "influxdb" "v1" >}}/query_language/function
 
 Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
 
+### technical preview
+
+A new feature released to gather feedback from customers and the InfluxDB community. Send feedback to InfluxData via 
+[Community Slack](https://influxcommunity.slack.com/) or our [Community Site](https://community.influxdata.com/).
+
 ### TSI (Time Series Index)
 
 TSI uses the operating system's page cache to pull frequently accessed data into memory and keep infrequently accessed data on disk.
