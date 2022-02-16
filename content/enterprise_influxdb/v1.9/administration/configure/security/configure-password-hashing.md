@@ -83,5 +83,5 @@ run: create server: passwordhash: not FIPS-ready: config: 'bcrypt'
 ```
 
 [FIPS]: https://csrc.nist.gov/publications/detail/fips/140/3/final
-[`password-hash`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash--bcrypt
-[`ensure-fips`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips--false
+[`password-hash`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash
+[`ensure-fips`]: /enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips

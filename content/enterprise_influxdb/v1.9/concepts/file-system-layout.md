@@ -28,19 +28,19 @@ The InfluxDB file structure includes the following:
 ### Data directory
 (**Data nodes only**)
 Directory path where InfluxDB Enterprise stores time series data (TSM files).
-To customize this path, use the [`[data].dir`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#dir--varlibinfluxdbdata)
+To customize this path, use the [`[data].dir`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#dir)
 configuration option.
 
 ### WAL directory
 (**Data nodes only**)
 Directory path where InfluxDB Enterprise stores Write Ahead Log (WAL) files.
-To customize this path, use the [`[data].wal-dir`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#wal-dir--varlibinfluxdbwal)
+To customize this path, use the [`[data].wal-dir`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#wal-dir)
 configuration option.
 
 ### Hinted handoff directory
 (**Data nodes only**)
 Directory path where hinted handoff (HH) queues are stored.
-To customize this path, use the [`[hinted-handoff].dir`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#dir--varlibinfluxdbhh)
+To customize this path, use the [`[hinted-handoff].dir`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#dir)
 configuration option.
 
 ### Metastore directory
@@ -48,10 +48,10 @@ Directory path of the InfluxDB Enterprise metastore, which stores information
 about the cluster, users, databases, retention policies, shards, and continuous queries.
 
 **On data nodes**, the metastore contains information about InfluxDB Enterprise meta nodes.
-To customize this path, use the [`[meta].dir` configuration option in your data node configuration file](/enterprise_influxdb/v1.9/administration/config-data-nodes/#dir--varlibinfluxdbmeta).
+To customize this path, use the [`[meta].dir` configuration option in your data node configuration file](/enterprise_influxdb/v1.9/administration/config-data-nodes/#dir).
 
 **On meta nodes**, the metastore contains information about the InfluxDB Enterprise RAFT cluster.
-To customize this path, use the [`[meta].dir` configuration option in your meta node configuration file](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#dir--varlibinfluxdbmeta).
+To customize this path, use the [`[meta].dir` configuration option in your meta node configuration file](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#dir).
 
 ### InfluxDB Enterprise configuration files
 InfluxDB Enterprise stores default data and meta node configuration file on disk.
