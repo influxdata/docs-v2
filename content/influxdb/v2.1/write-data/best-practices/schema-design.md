@@ -134,10 +134,16 @@ In addition to keeping your keys free of data, follow these additional guideline
 
 ##### Avoid keywords and special characters in keys
 
-To simplify query writing, don't include reserved keywords or special characters in tag and field keys.
+To simplify query writing, don't include Flux keywords or special characters in tag and field keys.
 If you use [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) in keys,
 then you'll have to wrap the keys in double quotes.
-If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux]((/{{< latest "flux" >}}/).
+If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux](/{{< latest "flux" >}}/).
+
+{{% warn %}}
+
+InfluxDB doesn't allow writing points that use the following **reserved tag keys**: `time`, `field`, `_measurement`.
+
+{{% /warn %}}
 
 ##### Avoid duplicate names for tags and fields
 
@@ -157,6 +163,12 @@ Use [explicit bucket schemas]() to enforce unique tag and field keys within a sc
 [Tag values](/influxdb/v2.1/reference/glossary/#tag-value) are indexed and [field values](/influxdb/v2.1/reference/glossary/#field-value) aren't.
 This means that querying tags is more performant than querying fields.
 Your queries should guide what you store in tags and what you store in fields.
+
+{{% note %}}
+
+For more information about indexing and query performance, see how to [resolve high series cardinality](/influxdb/v2.1/write-data/best-practices/resolve-high-cardinality/).
+
+{{% /note %}}
 
 ### Use fields for unique and numeric data
 
