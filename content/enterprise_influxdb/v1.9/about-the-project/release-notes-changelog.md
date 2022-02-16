@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## 1.9.6 [2021-12-xx]
+## 1.9.6 [2022-02-16]
 
 ### Features
 
