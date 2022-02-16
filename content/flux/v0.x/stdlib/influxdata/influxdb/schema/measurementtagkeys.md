@@ -37,16 +37,36 @@ Bucket to return tag keys from for a specific measurement.
 ### measurement {data-type="string"}
 Measurement to return tag keys from.
 
-## Function definition
-```js
-package schema
+### start {data-type="duration, time"}
+Earliest time to include in results.
+_Default is `-30d`._
 
-measurementTagKeys = (bucket, measurement) =>
-  tagKeys(
-    bucket: bucket,
-    predicate: (r) => r._measurement == measurement
-  )
+Relative start times are defined using negative durations.
+Negative durations are relative to now.
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+
+### stop {data-type="duration, time"}
+Latest time to include in results.
+_Default is `now()`._
+
+The `stop` time is exclusive, meaning values with a time equal to stop time are
+excluded from results.
+Relative start times are defined using negative durations.
+Negative durations are relative to `now()`.
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+
+## Examples
+
+### Return all tag keys in a measurement
+```js
+import "influxdata/influxdb/schema"
+
+schema.measurementTagKeys(bucket: "example-bucket", measurement: "example-measurement")
 ```
 
-_**Used functions:**
-[schema.tagKeys()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagkeys)_
+### Return all tag keys in a measurement during a non-default time range
+```js
+import "influxdata/influxdb/schema"
+
+schema.measurementTagKeys(bucket: "example-bucket", measurement: "example-measurement", start: -90d, stop: -60d)
+```
