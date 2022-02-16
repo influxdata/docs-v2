@@ -12,7 +12,7 @@ menu:
 ---
 ## v1.21.4 [2022-2-16]
 
-- Update all `go.opentelemetry.io` from 0.24.0 to 0.27.0.
+- Update all `go.opentelemetry.io` dependencies from 0.24.0 to 0.27.0.
 - Update `github.com/signalfx/golib/v3` from 3.3.38 to 3.3.43.
 - Update `github.com/aliyun/alibaba-cloud-sdk-go` from 1.61.1004 to 1.61.1483.
 - Update `github.com/denisenkom/go-mssqldb` from 0.10.0 to 0.12.0.
