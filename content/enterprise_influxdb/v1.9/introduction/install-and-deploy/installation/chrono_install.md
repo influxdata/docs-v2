@@ -7,7 +7,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Install Chronograf
     weight: 30
-    parent: Install
+    parent: Install in your environment
     identifier: chrono_install
 ---
 
