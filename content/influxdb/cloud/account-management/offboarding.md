@@ -11,7 +11,6 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: Cancel InfluxDB Cloud
-products: [cloud]
 ---
 
 To cancel your {{< cloud-name >}} subscription, complete the following steps:
@@ -59,7 +58,7 @@ To request a backup of data in your {{< cloud-name "short" >}} instance, contact
 {{% note %}}
 Cancelling your usage-based plan will delete your organization.
 However, those in multi-user organizations must contact
-[InfluxData Support](support@influxdata.com) to delete your organization. 
+[InfluxData Support](mailto:support@influxdata.com) to delete your organization. 
 {{% /note %}}
 
 1. Click the **user avatar** in the top right corner of your {{< cloud-name "short" >}}

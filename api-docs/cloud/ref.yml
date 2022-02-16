@@ -730,16 +730,16 @@ components:
           $ref: '#/components/schemas/Links'
     ColorMapping:
       additionalProperties:
-        type: int
+        type: string
       description: >-
         A color mapping is an object that maps time series data to a UI color
         scheme to allow the UI to render graphs consistent colors across
         reloads.
       example:
-        configcat_deployments-autopromotionblocker: 0
-        measurement_birdmigration_europe: 0
-        series_id_1: 0
-        series_id_2: 1
+        configcat_deployments-autopromotionblocker: '#663cd0'
+        measurement_birdmigration_europe: '#663cd0'
+        series_id_1: '#edf529'
+        series_id_2: '#edf529'
       type: object
     ColumnDataType:
       enum:
@@ -5981,7 +5981,7 @@ components:
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
           - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
-          - [Manage API tokens](/influxdb/cloud/security/tokens).
+          - [Manage API tokens](/influxdb/cloud/security/tokens/).
       in: header
       name: Authorization
       type: apiKey
@@ -12236,7 +12236,7 @@ paths:
             InfluxDB validated the request data format and accepted the data for
             writing to the bucket. `204` doesn't indicate a successful write
             operation since writes are asynchronous. See [how to check for write
-            errors](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot).
+            errors](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot/).
         '400':
           content:
             application/json:
@@ -12352,7 +12352,7 @@ paths:
           description: Internal server error.
         '503':
           description: >-
-            The server is temporarily unavailable to accept writes.  The
+            The server is temporarily unavailable to accept writes. The
             `Retry-After` header describes when to try the write again.
           headers:
             Retry-After:
@@ -12392,8 +12392,8 @@ tags:
 
       For more information and examples, see the following:
         - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
-        - [Manage API tokens](/influxdb/cloud/security/tokens).
-        - [Assign a token to a specific user](/influxdb/cloud/security/tokens/create-token).
+        - [Manage API tokens](/influxdb/cloud/security/tokens/).
+        - [Assign a token to a specific user](/influxdb/cloud/security/tokens/create-token/).
     name: Authorizations
   - Bucket Schemas
   - Buckets

@@ -215,7 +215,7 @@ getRow = (tables=<-, field, idx=0) => {
 // Use the helper function to define a variable
 lastReported = sampleData
   |> last()
-  |> getRow(idx: 0)
+  |> getRow(field: "temp")
 
 "The last location to report was ${lastReported.location}.
 The temperature was ${string(v: lastReported._value)}°F."

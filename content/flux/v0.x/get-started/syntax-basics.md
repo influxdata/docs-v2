@@ -28,6 +28,7 @@ This guide walks through how Flux handles a few simple expressions.
     - [Dictionaries](#dictionaries)
     - [Functions](#functions)
   - [Regular expression types](#regular-expression-types)
+  - [View the string representation of any Flux type](#view-the-string-representation-of-any-flux-type)
 - [Packages](#packages)
 - [Examples of basic syntax](#examples-of-basic-syntax)
   - [Define data stream variables](#define-data-stream-variables)
@@ -149,6 +150,7 @@ The following basic types do not have a literal syntax, but can be created in ot
 ### Composite Types
 Flux [composite types](/flux/v0.x/data-types/composite/) are constructed from
 Flux [basic types](#basic-types).
+All composite types have a Flux literal representation.
 
 - [Records](#records)
 - [Arrays](#arrays)
@@ -279,6 +281,17 @@ regex = /^foo/
 
 "bar" =~ regex
 // Returns false
+```
+
+### View the string representation of any Flux type
+Use [`display()`](/flux/v0.x/stdlib/universe/display) to output the Flux literal
+representation of any value as a string.
+
+```js
+x = bytes(v: "foo")
+
+display(v: x)
+// Returns "0x666f6f"
 ```
 
 ## Packages

@@ -80,6 +80,8 @@ dict.get(dict: positions, key: "Teller", default: "Unknown position")
 - [Create a dictionary from a list](#create-a-dictionary-from-a-list)
 - [Insert a key-value pair into a dictionary](#insert-a-key-value-pair-into-a-dictionary)
 - [Remove a key-value pair from a dictionary](#remove-a-key-value-pair-from-a-dictionary)
+- [Return the string representation of a dictionary](#return-the-string-representation-of-a-dictionary)
+- [Include the string representation of a dictionary in a table](#include-the-string-representation-of-a-dictionary-in-a-table)
 
 ### Create a dictionary from a list
 1. Import the [`dict` package](/flux/v0.x/stdlib/dict/).
@@ -133,3 +135,43 @@ dict.remove(
 )
 // Returns [k1: v1]
 ```
+
+### Return the string representation of a dictionary
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return Flux literal
+representation of a dictionary as a string.
+
+```js
+x = ["a": 1, "b": 2, "c": 3]
+
+display(v: x)
+
+// Returns "[a: 1, b: 2, c: 3]"
+```
+
+### Include the string representation of a dictionary in a table
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return Flux literal
+representation of a dictionary as a string and include it as a column value.
+
+```js
+import "sampledata"
+
+sampledata.string()
+    |> map(fn: (r) => ({_time: r._time, exampleDict: display(v: ["tag": r.tag, "value":r._value])}))
+```
+
+#### Output
+
+| \_time <em style="opacity:.5">(time)</em> | exampleDict <em style="opacity:.5">(string)</em> |
+| :---------------------------------------- | :----------------------------------------------- |
+| 2021-01-01T00:00:00Z                      | [tag: t1, value: smpl_g9qczs]                    |
+| 2021-01-01T00:00:10Z                      | [tag: t1, value: smpl_0mgv9n]                    |
+| 2021-01-01T00:00:20Z                      | [tag: t1, value: smpl_phw664]                    |
+| 2021-01-01T00:00:30Z                      | [tag: t1, value: smpl_guvzy4]                    |
+| 2021-01-01T00:00:40Z                      | [tag: t1, value: smpl_5v3cce]                    |
+| 2021-01-01T00:00:50Z                      | [tag: t1, value: smpl_s9fmgy]                    |
+| 2021-01-01T00:00:00Z                      | [tag: t2, value: smpl_b5eida]                    |
+| 2021-01-01T00:00:10Z                      | [tag: t2, value: smpl_eu4oxp]                    |
+| 2021-01-01T00:00:20Z                      | [tag: t2, value: smpl_5g7tz4]                    |
+| 2021-01-01T00:00:30Z                      | [tag: t2, value: smpl_sox1ut]                    |
+| 2021-01-01T00:00:40Z                      | [tag: t2, value: smpl_wfm757]                    |
+| 2021-01-01T00:00:50Z                      | [tag: t2, value: smpl_dtn2bv]                    |

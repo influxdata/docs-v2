@@ -51,11 +51,13 @@ The following BigPanda event handler options can be set in a
 [handler file](/kapacitor/v1.6/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.bigPanda()` in a TICKscript. 
 
-| Name                | Type                   | Description                                                                                              |
-| ----                | ----                   | -----------                                                                                              |
-| appKey              | string                 | BigPanda appKey |
-| primaryProperty     | string                 | BigPanda primary property |
-| secondaryProperty   | string                 | BigPanda secondary property |
+| Name              | Type   | Description                                                 |
+| ----------------- | ------ | ----------------------------------------------------------- |
+| appKey            | string | BigPanda appKey                                             |
+| primaryProperty   | string | BigPanda primary property                                   |
+| secondaryProperty | string | BigPanda secondary property                                 |
+| host              | string | Host alert payload parameter (object that caused the alert) |
+| attributes        | map of key value pairs    | Option to add additional attribute(s) to the alert payload  |
 
 BigPanda uses the [primary property](https://docs.bigpanda.io/docs/primary_property) to construct the title 
 and the [secondary property](https://docs.bigpanda.io/docs/secondary_property) to construct the subtitle of an incident.
@@ -107,4 +109,8 @@ stream
     .crit(lambda: "total_used" > 90)
     .stateChangesOnly()
     .appKey('...')
+    bigPanda()
+      .host('{{ .Tags.host }}')
+      .attribute('monitor_link', 'http://example.com/monitor?node={{ .Tags.host }}')
+      .attribute('x_total_used', '{{ .Fields.total_used }}')
 ```
