@@ -21,7 +21,7 @@ menu:
 
 #### Logging enhancements
 
-- **Log active queries when a process is terminated**: Add the [`termination-query-log = false`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#termination-query-log--false) configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a Kubernetes process exceeds the container memory limit or the process is terminated).
+- **Log active queries when a process is terminated**: Add the [`termination-query-log`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#termination-query-log--false) configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a Kubernetes process exceeds the container memory limit or the process is terminated).
 
 - **Log details of HTTP calls to meta nodes**. When [`cluster-tracing`](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#cluster-tracing--false) is enabled, all API calls to meta nodes are now logged with details providing an audit trail including IP address of caller, specific API being invoked, action being invoked, and more.
 
