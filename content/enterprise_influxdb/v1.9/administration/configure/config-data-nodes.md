@@ -583,6 +583,14 @@ This limit can be disabled by setting it to `0`.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_QUERIES`
 
+#### `max-concurrent-deletes`
+
+The default is `1`.
+
+The maximum number of allowed simultaneous `DELETE` calls on a shard.
+
+Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_DELETES`
+
 #### `query-timeout`
 
 Default is `"0s"`.
@@ -628,6 +636,12 @@ The maximum number of group by time buckets a SELECT can create.
 A value of `0` will make the maximum number of buckets unlimited.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_SELECT_BUCKETS`
+
+#### `termination-query-log = false`
+
+Set to `true` to print all running queries to the log when a data node process receives a `SIGTERM` (for example, a k8s process exceeds the container memory limit or the process is terminated).
+
+Environment variable: `INFLUXDB_CLUSTER_TERMINATION_QUERY_LOG`
 
 -----
 
