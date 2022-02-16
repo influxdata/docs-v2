@@ -307,17 +307,17 @@ Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_LOGIN_ENABLED`
 
 #### `cache-max-memory-size`
 
-Default is `"1g"`.
+Default is `1000000000`.
 
-The maximum size a shard cache can reach before it starts rejecting writes.
+The maximum size in bytes that a shard cache can reach before it starts rejecting writes.
 
 Environment variable: `INFLUXDB_DATA_CACHE_MAX_MEMORY_SIZE`
 
 #### `cache-snapshot-memory-size`
 
-Default is `"25m"`.
+Default is `26214400`.
 
-The size at which the TSM engine will snapshot the cache and write it to a TSM file, freeing up memory.
+The size in bytes at which the TSM engine will snapshot the cache and write it to a TSM file, freeing up memory.
 
 Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_MEMORY_SIZE`
 
@@ -343,16 +343,17 @@ Environmental variable: `INFLUXDB_DATA_CACHE_MAX_CONCURRENT_COMPACTIONS`
 
 #### `compact-throughput`
 
-Default is `"48m"`.
+Default is `50331648`.
 
 The maximum number of bytes per seconds TSM compactions write to disk. Default is `"48m"` (48 million).
 Note that short bursts are allowed to happen at a possibly larger value, set by `compact-throughput-burst`.
 
 Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`  
 
+
 #### `compact-throughput-burst`
 
-Default is `"48m"`.
+Default is `50331648`.
 
 The maximum number of bytes per seconds TSM compactions write to disk during brief bursts. Default is `"48m"` (48 million).
 
@@ -423,7 +424,7 @@ Environment variable: `INFLUXDB_DATA_MAX_VALUES_PER_TAG`
 
 #### `max-index-log-file-size`
 
-Default is "1m"`
+Default is `1048576`.
 
 The threshold, in bytes, when an index write-ahead log (WAL) file will compact
 into an index file. Lower sizes will cause log files to be compacted more
