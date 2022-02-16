@@ -21,7 +21,7 @@ This release includes the following new [features](#features) and several [bug f
 - [Metrics](#metrics)
 - [Display runtime configuration in use by `influxd`](#display-runtime-configuration-in-use-by-influxd)
 
-#### Replicate data remotely (technical preview)
+#### Technical preview: Durable subscription to replicate data
 
 - Add the option to [Replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
