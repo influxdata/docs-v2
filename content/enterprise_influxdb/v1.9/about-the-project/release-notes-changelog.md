@@ -67,7 +67,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Add [configurable password hashing](/enterprise_influxdb/v1.9/administration/configure-password-hashing/) with `bcrypt` and `pbkdf2` support.
 - Add retry with exponential back-off to anti-entropy repair.
 - Add logging to compaction.
-- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions.
+- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#total-buffer-bytes) configuration parameter to subscriptions.
   This option is intended to help alleviate out-of-memory errors.
 - Update to [Flux v0.120.1.](/influxdb/v2.0/reference/release-notes/flux/#v01201-2021-07-06)
 
@@ -99,7 +99,7 @@ in that there is no corresponding InfluxDB OSS release.
   These queries now return a `cardinality estimation` column header where before they returned `count`.
 - Improve diagnostics for license problems.
   Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
-- Add improved [ingress metrics](/enterprise_influxdb/v1.9/administration/config-data-nodes/#ingress-metric-by-measurement-enabled--false) to track points written by measurement and by login.
+- Add improved [ingress metrics](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#ingress-metric-by-measurement-enabled) to track points written by measurement and by login.
   Allow for collection of statistics regarding points, values, and new series written per measurement and by login.
   This data is collected and exposed at the data node level.
   With these metrics you can, for example:
@@ -107,7 +107,7 @@ in that there is no corresponding InfluxDB OSS release.
   monitor the growth of series within a measurement,
   and track what user credentials are being used to write data.
 - Support authentication for Kapacitor via LDAP.
-- Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
+- Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
 - Upgrade to [Flux v0.113.0](/influxdb/v2.0/reference/release-notes/flux/#v01130-2021-04-21).
 - Update Prometheus remote protocol to allow streamed reading.
 - Improve performance of sorted merge iterator.

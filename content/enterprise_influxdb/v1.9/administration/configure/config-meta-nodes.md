@@ -341,7 +341,7 @@ Optional sections after this are `key=value` password hash configuration options
 Each scheme has its own set of options.
 Any options not specified default to reasonable values as specified below.
 
-This setting must have the same value as the data node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#password-hash--bcrypt).
+This setting must have the same value as the data node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#password-hash).
 
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
