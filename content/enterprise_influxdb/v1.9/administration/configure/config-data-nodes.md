@@ -182,7 +182,8 @@ Environment variable: `INFLUXDB_META_META_AUTH_ENABLED`
 Default is `""`.
 
 The shared secret used by the internal API for JWT authentication between InfluxDB nodes.
-This value must be the same as the [`internal-shared-secret`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#internal-shared-secret) specified in the meta node configuration file.
+This value must be the same as the [`internal-shared-secret`](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#internal-shared-secret)
+specified in the meta node configuration file.
 
 Environment variable: `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`
 
@@ -211,9 +212,9 @@ Default is `bcrypt`.
 
 Configures password hashing algorithm.
 Supported options are: `bcrypt` (the default), `pbkdf2-sha256`, and `pbkdf2-sha512`
-This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash).
+This setting must have the same value as the meta node option [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#password-hash).
 
-For detailed configuration information, see [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#password-hash).
+For detailed configuration information, see [`meta.password-hash`](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#password-hash).
 
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
@@ -224,7 +225,7 @@ Default is `false`.
 When `true`, enables a FIPS-readiness check on startup.
 Default is `false`.
 
-For detailed configuration information, see [`meta.ensure-fips`](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#ensure-fips).
+For detailed configuration information, see [`meta.ensure-fips`](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#ensure-fips).
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
