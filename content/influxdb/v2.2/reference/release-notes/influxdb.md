@@ -82,6 +82,8 @@ This release includes the following new [features](#features) and several [bug f
   - `writes`: Number of write attempts to the WAL
   - `writes_err`: Number of failed write attempts to the WAL
 
+See [InfluxDB OSS metrics](/influxdb/v2.1/reference/internals/metrics/) for additional detail.
+
 #### Display runtime configuration in use by `influxd`
 
 - Update `api/v2/config` endpoint to display the correct runtime configuration (for example, when you run `influxd print-config`).
