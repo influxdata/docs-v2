@@ -110,7 +110,7 @@ This is currently only possible through the [InfluxDB HTTP API](/enterprise_infl
    InfluxDB Enterprise uses the shared secret to encode the JWT signature.
    By default, `shared-secret` is set to an empty string, in which case no JWT authentication takes place.
    <!-- TODO: meta, data, or both? -->
-   Add a custom shared secret in your [InfluxDB configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#shared-secret--).
+   Add a custom shared secret in your [InfluxDB configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#shared-secret).
    The longer the secret string, the more secure it is:
 
    ```toml
