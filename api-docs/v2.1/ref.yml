@@ -158,9 +158,64 @@ components:
               readOnly: true
               type: string
           type: object
+      - $ref: '#/components/schemas/AuthorizationUpdateRequest'
+      - properties:
+          createdAt:
+            format: date-time
+            readOnly: true
+            type: string
+          id:
+            readOnly: true
+            type: string
+          links:
+            example:
+              self: /api/v2/authorizations/1
+              user: /api/v2/users/12
+            properties:
+              self:
+                $ref: '#/components/schemas/Link'
+                readOnly: true
+              user:
+                $ref: '#/components/schemas/Link'
+                readOnly: true
+            readOnly: true
+            type: object
+          org:
+            description: Name of the organization that the token is scoped to.
+            readOnly: true
+            type: string
+          orgID:
+            description: ID of the organization that the authorization is scoped to.
+            type: string
+          permissions:
+            description: List of permissions for an authorization.  An authorization
+              must have at least one permission.
+            items:
+              $ref: '#/components/schemas/Permission'
+            minItems: 1
+            type: array
+          token:
+            description: Token used to authenticate API requests.
+            readOnly: true
+            type: string
+          updatedAt:
+            format: date-time
+            readOnly: true
+            type: string
+          user:
+            description: Name of the user that created and owns the token.
+            readOnly: true
+            type: string
+          userID:
+            description: ID of the user that created and owns the token.
+            readOnly: true
+            type: string
+        type: object
       required:
         - orgID
         - permissions
+      - orgID
+      - permissions
     AuthorizationPostRequest:
       allOf:
         - $ref: '#/components/schemas/AuthorizationUpdateRequest'
@@ -180,9 +235,27 @@ components:
               description: ID of user that authorization is scoped to.
               type: string
           type: object
+      - $ref: '#/components/schemas/AuthorizationUpdateRequest'
+      - properties:
+          orgID:
+            description: ID of org that authorization is scoped to.
+            type: string
+          permissions:
+            description: List of permissions for an auth.  An auth must have at least
+              one Permission.
+            items:
+              $ref: '#/components/schemas/Permission'
+            minItems: 1
+            type: array
+          userID:
+            description: ID of user that authorization is scoped to.
+            type: string
+        type: object
       required:
         - orgID
         - permissions
+      - orgID
+      - permissions
     AuthorizationUpdateRequest:
       properties:
         description:
@@ -193,6 +266,8 @@ components:
           description: >-
             If inactive the token is inactive and requests using the token will
             be rejected.
+          description: Status of the token. If `inactive`, requests using the token
+            will be rejected.
           enum:
             - active
             - inactive
