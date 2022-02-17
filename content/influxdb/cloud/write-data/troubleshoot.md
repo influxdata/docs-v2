@@ -30,8 +30,8 @@ Write requests made to InfluxDB may fail for a number of reasons.
 Common failure scenarios that return an HTTP `4xx` or `5xx` error status code include the following:
 
 - API token was invalid. See how to [manage API tokens](/influxdb/cloud/security/tokens/).
-- Exceeded a rate limit.
-- Payload size was too large.
+- [Service quota](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) was exceeded.
+- Payload size was exceeded [global limits](/influxdb/cloud/account-management/limits/#global-limits).
 - Client or server reached a timeout threshold.
 - Data was not formatted correctly. See how to [find parsing errors](#find-parsing-errors)
 - Data did not conform to the [explicit bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
@@ -59,7 +59,7 @@ Write requests return the following status codes:
 | HTTP response code              | Message                                                                 | Description    |
 | :-------------------------------| :---------------------------------------------------------------        | :------------- |
 | `204 "Success"`                 |                                                                         | If InfluxDB validated the request data format and accepted the data for writing to the bucket |
-| `400 "Bad request"`             | error `code` and `message`                                      | If data is formatted incorrectly    |
+| `400 "Bad request"`             | `message` contains the first malformed line                             | If data is malformed    |
 | `401 "Unauthorized"`            |                                                                         | If the [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed or if the [API token](/influxdb/cloud/api-guide/api_intro/#authentication) doesn't have [permission](/influxdb/cloud/security/tokens/) to write to the bucket |
 | `404 "Not found"`               | requested **resource type**, e.g. "organization", and **resource name**     | If a requested resource (e.g. organization or bucket) wasn't found. |
 | `413 “Request too large”`       | cannot read data: points in batch is too large                          | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |  
