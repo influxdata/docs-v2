@@ -30,8 +30,8 @@ Write requests made to InfluxDB may fail for a number of reasons.
 Common failure scenarios that return an HTTP `4xx` or `5xx` error status code include the following:
 
 - API token was invalid. See how to [manage API tokens](/influxdb/cloud/security/tokens/).
-- [Service quota](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) was exceeded.
-- Payload size was exceeded [global limits](/influxdb/cloud/account-management/limits/#global-limits).
+- Requests exceeded [service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
+- Payload size exceeded [global limits](/influxdb/cloud/account-management/limits/#global-limits).
 - Client or server reached a timeout threshold.
 - Data was not formatted correctly. See how to [find parsing errors](#find-parsing-errors)
 - Data did not conform to the [explicit bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
