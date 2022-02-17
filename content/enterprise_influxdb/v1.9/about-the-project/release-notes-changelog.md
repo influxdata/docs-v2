@@ -11,6 +11,8 @@ menu:
 
 ## 1.9.6 [2022-02-16]
 
+{{% note %}} InfluxDB Enterprise offerings are no longer available on AWS, Azure, GCP marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/) to request an Enterprise license key. {{% /note %}}
+
 ### Features
 
 #### Backup enhancements
@@ -30,7 +32,6 @@ menu:
 - Update to [Flux v0.140](/flux/v0.x/release-notes/#v01400-2021-11-22).
 - Upgrade to Go 1.17.
 - Upgrade `protobuf` library.
-- Remove Azure, AWS, and GCP entitlements.
 
 ### Bug fixes
 
