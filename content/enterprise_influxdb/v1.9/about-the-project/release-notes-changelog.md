@@ -11,7 +11,7 @@ menu:
 
 ## 1.9.6 [2022-02-16]
 
-{{% note %}} InfluxDB Enterprise offerings are no longer available on AWS, Azure, and GCP marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/) to request an Enterprise license key.
+{{% note %}} InfluxDB Enterprise offerings are no longer available on AWS, Azure, and GCP marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/) to request an license key to [install InfluxDB Enterprise in your own environment](/enterprise_influxdb/v1.9/introduction/installation/).
 {{% /note %}}
 
 ### Features
