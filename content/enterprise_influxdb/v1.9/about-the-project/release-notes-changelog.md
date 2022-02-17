@@ -9,6 +9,50 @@ menu:
     parent: About the project
 ---
 
+## 1.9.6 [2022-02-16]
+
+### Features
+
+#### Backup enhancements
+
+- **Revert damaged meta nodes to a previous state**: Add the `-meta-only-overwrite-force` option to [`influxd-ctl restore`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) to revert damaged meta nodes in an existing cluster to a previous state when restoring an InfluxDB Enterprise database.
+
+- **Estimate the size of a backup** (full or incremental) and provide progress messages. Add `-estimate` option to [`influxd-ctl backup`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#backup) to estimate the size of a backup (full or incremental) and provide progress messages. Prints the number of files to back up, the percentage of bytes transferred for each file (organized by shard), and the estimated time remaining to complete the backup.
+
+#### Logging enhancements
+
+- **Log active queries when a process is terminated**: Add the [`termination-query-log`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#termination-query-log--false) configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a Kubernetes process exceeds the container memory limit or the process is terminated).
+
+- **Log details of HTTP calls to meta nodes**. When [`cluster-tracing`](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#cluster-tracing--false) is enabled, all API calls to meta nodes are now logged with details providing an audit trail including IP address of caller, specific API being invoked, action being invoked, and more.
+
+### Maintenance updates
+
+- Update to [Flux v0.140](/flux/v0.x/release-notes/#v01400-2021-11-22).
+- Upgrade to Go 1.17.
+- Upgrade `protobuf` library.
+- Remove Azure, AWS, and GCP entitlements.
+
+### Bug fixes
+
+#### Data
+
+-  Adjust shard start and end times to avoid overlaps in existing shards. This resolves issues with existing shards (truncated or not) that have a different shard duration than the current default.
+- `DROP SHARD` now successfully ignores "shard not found errors."
+
+#### Errors
+
+- Fix panic when running `influxd config`.
+- Ensure `influxd-ctl entropy` commands use the correct TLS settings.
+
+#### Profiling
+
+- Resolve issue to enable [mutex profiling](/enterprise_influxdb/v1.9/tools/api/#debugpprof-http-endpoint).
+
+### influx-ctl updates
+
+- Improve [`influxd-ctl join`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#join) robustness and provide better error messages on failure.
+- Add user friendly error message when accessing a TLS-enabled server without TLS enabled on client.
+
 ## v1.9.5 [2021-10-11]
 
 {{% note %}}
