@@ -14,8 +14,7 @@ menu:
 _For an overview of InfluxDB Enterprise security features,
 see ["InfluxDB Enterprise features - Security"](/enterprise_influxdb/v1.9/features/#security).
 To secure your InfluxDB Enterprise cluster, see
-["Configure security"](/enterprise_influxdb/v1.9/administration/configure/security/)
-and ["Manage security"](/enterprise_influxdb/v1.9/administration/manage/security/)_.
+["Configure security"](/enterprise_influxdb/v1.9/administration/configure/security/).
 {{% /note %}}
 
 ## Entitlements
