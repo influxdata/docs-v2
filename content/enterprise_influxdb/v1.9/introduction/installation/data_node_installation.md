@@ -7,7 +7,7 @@ menu:
   enterprise_influxdb_1_9:
     name: Install data nodes
     weight: 20
-    parent: Install in your environment
+    parent: Install
 ---
 
 InfluxDB Enterprise offers highly scalable clusters on your infrastructure
@@ -316,7 +316,7 @@ Once your data nodes are part of your cluster, do the following:
 - Set up [authentication](/enterprise_influxdb/v1.9/administration/configure/security/authentication/).
   Once you cluster is configured for authentication,
   if you want to add more users in addition to admin user,
-  see [Manage users and permissions](/enterprise_influxdb/v1.9/administration/manage/security/).
+  see [Manage users and permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/).
 - [Enable TLS](/enterprise_influxdb/v1.9/guides/enable-tls/).
 - [Set up Chronograf](/enterprise_influxdb/v1.9/install-and-deploy/installation/chrono_install)
   for UI visualization, dashboards, and management.
