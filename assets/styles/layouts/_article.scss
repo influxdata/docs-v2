@@ -5,7 +5,7 @@
 }
 
 .article--content{
-  max-width: 820px;
+  max-width: 850px;
   h1,h2,h3,h4,h5,h6 {
     color: $article-heading;
     a {
@@ -24,24 +24,24 @@
   }
   h1 {
     font-weight: normal;
-    font-size: 2.65rem;
+    font-size: 2.75rem;
     margin: .4em 0 .2em;
   }
   h2 {
-    font-size: 2rem;
+    font-size: 2.1rem;
     margin: -.25rem 0 .5rem;
     padding-top: 1.75rem;
     font-weight: $medium;
     color: $article-heading-alt;
   }
   h3 {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
     font-weight: $medium;
     margin: -1rem 0 .5rem;
     padding-top: 1.75rem;
   }
   h4 {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-style: italic;
     font-weight: $medium;
     margin: -1.25rem 0 .5rem;
@@ -49,12 +49,12 @@
     color: $article-heading-alt;
   }
   h5 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: -1.25rem 0 .25rem;
     padding-top: 1.75rem;
   }
   h6 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-style: italic;
     margin: -1.25rem 0 .25rem;
     padding-top: 1.75rem;
@@ -62,7 +62,8 @@
 
   p,li {
     color: $article-text;
-    line-height: 1.7rem;
+    line-height: 1.8rem;
+    font-size: 1.1rem;
   }
 
   p {
