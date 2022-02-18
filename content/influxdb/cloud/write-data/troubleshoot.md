@@ -51,7 +51,7 @@ InfluxDB uses conventional HTTP status codes to indicate the success or failure 
 {{% warn %}}
 #### Asynchronous writes
 
-`204` doesn't indicate a successful write operation given writes are asynchronous. If some of your data did not write to the bucket, see how to [check for rejected points](#review-rejected-points).
+`204` indicates InfluxDB validated the request data format. Because data is written to InfluxDB asynchronously, data may not yet be written to a bucket. If some of your data didn't write to the bucket, see how to [check for rejected points](#review-rejected-points).
 {{% /warn %}}
 
 Write requests return the following status codes:
