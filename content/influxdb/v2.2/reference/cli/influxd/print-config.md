@@ -23,12 +23,12 @@ The command formats output as YAML.
 
 `influxd print-config` is deprecated in InfluxDB v2.2.
 
-To display the run-time server configuration, use the [`influx server-config` command](/influxdb/v2.2/reference/cli/influx/server-config/)
+To display the runtime server configuration, use the [`influx server-config` command](/influxdb/v2.2/reference/cli/influx/server-config/)
 or the [`/api/v2/config`](/influxdb/v2.2/api/#operation/GetConfig) InfluxDB API endpoint.
-For more information, see [how to view your server configuration](/influxdb/v2.2/reference/config-options/#view-your-run-time-server-configuration).
+For more information, see [how to view your server configuration](/influxdb/v2.2/reference/config-options/#view-your-runtime-server-configuration).
 {{% /warn %}}
 
-`influxd print-config` does not output the configuration of the running server. Rather, it evaluates the current environment, config file, and _flags passed to the `influxd print-config` command_. It is unaware of configuration options passed to the `influxd` command at run-time.
+`influxd print-config` does not output the configuration of the running server. Rather, it evaluates the current environment, config file, and _flags passed to the `influxd print-config` command_. It is unaware of configuration options passed to the `influxd` command at runtime.
 
 For example, with the following configuration value:
 ```sh

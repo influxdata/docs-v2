@@ -1,6 +1,6 @@
 ---
 title: influx server-config
-description: The `influx server-config` command displays the run-time server configuration.
+description: The `influx server-config` command displays the runtime server configuration.
 menu:
   influxdb_2_2_ref:
     name: influx server-config
@@ -14,7 +14,7 @@ cascade:
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
-The `influx server-config` command displays the InfluxDB run-time [server configuration](/influxdb/v2.2/reference/config-options/).
+The `influx server-config` command displays the InfluxDB runtime [server configuration](/influxdb/v2.2/reference/config-options/).
 
 {{% note %}}
 To display the server configuration, you must use an [operator token](/influxdb/v2.2/security/tokens/#operator-token).

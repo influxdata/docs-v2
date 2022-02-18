@@ -17,21 +17,21 @@ Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.2/refere
 configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
-- [View your run-time server configuration](#view-your-run-time-server-configuration)
+- [View your runtime server configuration](#view-your-runtime-server-configuration)
 - [Configuration precedence](#configuration-precedence)
 - [InfluxDB configuration file](#influxdb-configuration-file)
 - [Configuration options](#configuration-options)
 
-### View your run-time server configuration
+### View your runtime server configuration
 
-Use the `influx` CLI or the InfluxDB API to get the run-time server configuration of your InfluxDB instance.
+Use the `influx` CLI or the InfluxDB API to get the runtime server configuration of your InfluxDB instance.
 
 Server configuration commands require an [Operator token](/influxdb/v2.2/security/tokens/#operator-token).
 
 #### View your server configuration with the CLI
 
 Use the [`influx server-config` command](/influxdb/v2.2/reference/cli/influx/server-config/)
-to retrieve your run-time server configuration.
+to retrieve your runtime server configuration.
 
 ```sh
 influx server-config
@@ -39,7 +39,7 @@ influx server-config
 
 ### View your server configuration with the API
 
-Use the `/api/v2/config` InfluxDB API endpoint to retrieve your run-time server configuration.
+Use the `/api/v2/config` InfluxDB API endpoint to retrieve your runtime server configuration.
 
 [{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/config" >}}]((/influxdb/v2.2/api/#operation/GetConfig))
 
