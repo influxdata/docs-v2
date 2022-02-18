@@ -8,7 +8,6 @@ const SetSecuritySchemes = require('./decorators/security/set-security-schemes')
 const SetTags = require('./decorators/tags/set-tags');
 const SetTagGroups = require('./decorators/tags/set-tag-groups');
 const StripVersionPrefix = require('./decorators/paths/strip-version-prefix');
-const {info, securitySchemes, servers, tags, tagGroups } = require('../content/content')
 
 const id = 'docs';
 
@@ -23,15 +22,15 @@ const rules = {
 /** @type {import('@redocly/openapi-cli').CustomRulesConfig} */
 const decorators = {
   oas3: {
-    'set-servers': () => SetServers({data: servers}),
+    'set-servers': SetServers,
     'remove-private-paths': RemovePrivatePaths,
     'replace-docs-url-shortcode': ReplaceShortcodes().docsUrl,
     'strip-version-prefix': StripVersionPrefix,
-    'set-info': () => SetInfo({data: info}),
-    'set-security': () => SetSecurity({data: security}),
-    'set-security-schemes': () => SetSecuritySchemes({data: securitySchemes}),
-    'set-tags': () => SetTags({data: tags}),
-    'set-tag-groups': () => SetTagGroups({data: tagGroups}),
+    'set-info': SetInfo,
+//    'set-security': SetSecurity,
+    'set-security-schemes': SetSecuritySchemes,
+    'set-tags': SetTags,
+    'set-tag-groups': SetTagGroups,
   }
 };
 
@@ -40,16 +39,16 @@ module.exports = {
   configs: {
     all: {
       rules: {
-	'no-server-trailing-slash': 'off',
+      	'no-server-trailing-slash': 'off',
         'docs/validate-servers-url': 'error',
       },
       decorators: {
         'docs/set-servers': 'error',
-	'docs/remove-private-paths': 'error',
-	'docs/replace-docs-url-shortcode': 'error',
-	'docs/strip-version-prefix': 'error',
-	'docs/set-info': 'error',
-	'docs/set-tag-groups': 'error',
+      	'docs/remove-private-paths': 'error',
+      	'docs/replace-docs-url-shortcode': 'error',
+      	'docs/strip-version-prefix': 'error',
+      	'docs/set-info': 'error',
+      	'docs/set-tag-groups': 'error',
       },
     },
   },

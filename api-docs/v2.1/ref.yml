@@ -2,8 +2,8 @@ components:
   parameters:
     After:
       description: >
-        The last resource ID from which to seek from (but not including). This
-        is to be used instead of `offset`.
+        Resource ID to seek from. Results are not inclusive of this ID. Use
+        `after` instead of `offset`.
       in: query
       name: after
       required: false
@@ -125,24 +125,22 @@ components:
               readOnly: true
               type: object
             org:
-              description: Name of the org token is scoped to.
+              description: Name of the organization that the token is scoped to.
               readOnly: true
               type: string
             orgID:
-              description: ID of org that authorization is scoped to.
+              description: ID of the organization that the authorization is scoped to.
               type: string
             permissions:
               description: >-
-                List of permissions for an auth.  An auth must have at least one
-                Permission.
+                List of permissions for an authorization.  An authorization must
+                have at least one permission.
               items:
                 $ref: '#/components/schemas/Permission'
               minItems: 1
               type: array
             token:
-              description: >-
-                Passed via the Authorization Header and Token Authentication
-                type.
+              description: Token used to authenticate API requests.
               readOnly: true
               type: string
             updatedAt:
@@ -150,72 +148,17 @@ components:
               readOnly: true
               type: string
             user:
-              description: Name of user that created and owns the token.
+              description: Name of the user that created and owns the token.
               readOnly: true
               type: string
             userID:
-              description: ID of user that created and owns the token.
+              description: ID of the user that created and owns the token.
               readOnly: true
               type: string
           type: object
-      - $ref: '#/components/schemas/AuthorizationUpdateRequest'
-      - properties:
-          createdAt:
-            format: date-time
-            readOnly: true
-            type: string
-          id:
-            readOnly: true
-            type: string
-          links:
-            example:
-              self: /api/v2/authorizations/1
-              user: /api/v2/users/12
-            properties:
-              self:
-                $ref: '#/components/schemas/Link'
-                readOnly: true
-              user:
-                $ref: '#/components/schemas/Link'
-                readOnly: true
-            readOnly: true
-            type: object
-          org:
-            description: Name of the organization that the token is scoped to.
-            readOnly: true
-            type: string
-          orgID:
-            description: ID of the organization that the authorization is scoped to.
-            type: string
-          permissions:
-            description: List of permissions for an authorization.  An authorization
-              must have at least one permission.
-            items:
-              $ref: '#/components/schemas/Permission'
-            minItems: 1
-            type: array
-          token:
-            description: Token used to authenticate API requests.
-            readOnly: true
-            type: string
-          updatedAt:
-            format: date-time
-            readOnly: true
-            type: string
-          user:
-            description: Name of the user that created and owns the token.
-            readOnly: true
-            type: string
-          userID:
-            description: ID of the user that created and owns the token.
-            readOnly: true
-            type: string
-        type: object
       required:
         - orgID
         - permissions
-      - orgID
-      - permissions
     AuthorizationPostRequest:
       allOf:
         - $ref: '#/components/schemas/AuthorizationUpdateRequest'
@@ -235,27 +178,9 @@ components:
               description: ID of user that authorization is scoped to.
               type: string
           type: object
-      - $ref: '#/components/schemas/AuthorizationUpdateRequest'
-      - properties:
-          orgID:
-            description: ID of org that authorization is scoped to.
-            type: string
-          permissions:
-            description: List of permissions for an auth.  An auth must have at least
-              one Permission.
-            items:
-              $ref: '#/components/schemas/Permission'
-            minItems: 1
-            type: array
-          userID:
-            description: ID of user that authorization is scoped to.
-            type: string
-        type: object
       required:
         - orgID
         - permissions
-      - orgID
-      - permissions
     AuthorizationUpdateRequest:
       properties:
         description:
@@ -264,10 +189,8 @@ components:
         status:
           default: active
           description: >-
-            If inactive the token is inactive and requests using the token will
-            be rejected.
-          description: Status of the token. If `inactive`, requests using the token
-            will be rejected.
+            Status of the token. If `inactive`, requests using the token will be
+            rejected.
           enum:
             - active
             - inactive
@@ -294,10 +217,10 @@ components:
         - 'y'
       type: object
     Axis:
-      description: The description of a particular axis for a visualization.
+      description: Axis used in a visualization.
       properties:
         base:
-          description: Base represents the radix for formatting axis values.
+          description: Radix for formatting axis values.
           enum:
             - ''
             - '2'
@@ -305,23 +228,23 @@ components:
           type: string
         bounds:
           description: >-
-            The extents of an axis in the form [lower, upper]. Clients determine
-            whether bounds are to be inclusive or exclusive of their limits
+            The extents of the axis in the form [lower, upper]. Clients
+            determine whether bounds are inclusive or exclusive of their limits.
           items:
             type: string
           maxItems: 2
           minItems: 0
           type: array
         label:
-          description: Label is a description of this Axis
+          description: Description of the axis.
           type: string
         prefix:
-          description: Prefix represents a label prefix for formatting axis values.
+          description: Label prefix for formatting axis values.
           type: string
         scale:
           $ref: '#/components/schemas/AxisScale'
         suffix:
-          description: Suffix represents a label suffix for formatting axis values.
+          description: Label suffix for formatting axis values.
           type: string
       type: object
     AxisScale:
@@ -488,22 +411,22 @@ components:
           properties:
             labels:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve labels for this bucket
+              description: URL to retrieve labels for this bucket.
             members:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve members that can read this bucket
+              description: URL to retrieve members that can read this bucket.
             org:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve parent organization for this bucket
+              description: URL to retrieve parent organization for this bucket.
             owners:
               $ref: '#/components/schemas/Link'
               description: URL to retrieve owners that can read and write to this bucket.
             self:
               $ref: '#/components/schemas/Link'
-              description: URL for this bucket
+              description: URL for this bucket.
             write:
               $ref: '#/components/schemas/Link'
-              description: URL to write line protocol for this bucket
+              description: URL to write line protocol to this bucket.
           readOnly: true
           type: object
         name:
@@ -737,10 +660,12 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp (in RFC3339 date/time
+            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
+            latest scheduled and completed run.
           format: date-time
           readOnly: true
-          type: string
         links:
           example:
             labels: /api/v2/checks/1/labels
@@ -896,6 +821,11 @@ components:
         type:
           $ref: '#/components/schemas/NodeType'
       type: object
+    Config:
+      properties:
+        config:
+          type: object
+      type: object
     ConstantVariableProperties:
       properties:
         type:
@@ -954,24 +884,24 @@ components:
     DBRP:
       properties:
         bucketID:
-          description: the bucket ID used as target for the translation.
+          description: ID of the bucket used as the target for the translation.
           type: string
         database:
           description: InfluxDB v1 database
           type: string
         default:
           description: >-
-            Specify if this mapping represents the default retention policy for
-            the database specificed.
+            Mapping represents the default retention policy for the database
+            specified.
           type: boolean
         id:
-          description: the mapping identifier
+          description: ID of the DBRP mapping.
           readOnly: true
           type: string
         links:
           $ref: '#/components/schemas/Links'
         orgID:
-          description: the organization ID that owns this mapping.
+          description: ID of the organization that owns this mapping.
           type: string
         retention_policy:
           description: InfluxDB v1 retention policy
@@ -987,21 +917,21 @@ components:
     DBRPCreate:
       properties:
         bucketID:
-          description: the bucket ID used as target for the translation.
+          description: ID of the bucket used as the target for the translation.
           type: string
         database:
           description: InfluxDB v1 database
           type: string
         default:
           description: >-
-            Specify if this mapping represents the default retention policy for
-            the database specificed.
+            Mapping represents the default retention policy for the database
+            specified.
           type: boolean
         org:
-          description: the organization that owns this mapping.
+          description: Name of the organization that owns this mapping.
           type: string
         orgID:
-          description: the organization ID that owns this mapping.
+          description: ID of the organization that owns this mapping.
           type: string
         retention_policy:
           description: InfluxDB v1 retention policy
@@ -1367,23 +1297,22 @@ components:
           type: string
         err:
           description: >-
-            err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+            Stack of errors that occurred during processing of the request.
+            Useful for debugging.
           readOnly: true
           type: string
         message:
-          description: message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
         op:
           description: >-
-            op describes the logical code operation during error. Useful for
-            debugging.
+            Describes the logical code operation when the error occurred. Useful
+            for debugging.
           readOnly: true
           type: string
       required:
         - code
-        - message
     Expression:
       oneOf:
         - $ref: '#/components/schemas/ArrayExpression'
@@ -2350,30 +2279,27 @@ components:
           type: string
         err:
           description: >-
-            Err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+            Stack of errors that occurred during processing of the request.
+            Useful for debugging.
           readOnly: true
           type: string
         line:
-          description: First line within sent body containing malformed data
+          description: First line in the request body that contains malformed data.
           format: int32
           readOnly: true
           type: integer
         message:
-          description: Message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
         op:
           description: >-
-            Op describes the logical code operation during error. Useful for
-            debugging.
+            Describes the logical code operation when the error occurred. Useful
+            for debugging.
           readOnly: true
           type: string
       required:
         - code
-        - message
-        - op
-        - err
     LineProtocolLengthError:
       properties:
         code:
@@ -2383,7 +2309,7 @@ components:
           readOnly: true
           type: string
         message:
-          description: Message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
       required:
@@ -2757,7 +2683,10 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp (in RFC3339 date/time
+            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
+            latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -3270,7 +3199,7 @@ components:
     Ready:
       properties:
         started:
-          example: 2019-03-13T10:09:33.891196-04:00
+          example: '2019-03-13T10:09:33.891196-04:00'
           format: date-time
           type: string
         status:
@@ -3291,6 +3220,82 @@ components:
         value:
           type: string
       type: object
+    RemoteConnection:
+      properties:
+        allowInsecureTLS:
+          default: false
+          type: boolean
+        description:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        orgID:
+          type: string
+        remoteOrgID:
+          type: string
+        remoteURL:
+          format: uri
+          type: string
+      required:
+        - id
+        - name
+        - orgID
+        - remoteURL
+        - remoteOrgID
+        - allowInsecureTLS
+      type: object
+    RemoteConnectionCreationRequest:
+      properties:
+        allowInsecureTLS:
+          default: false
+          type: boolean
+        description:
+          type: string
+        name:
+          type: string
+        orgID:
+          type: string
+        remoteAPIToken:
+          type: string
+        remoteOrgID:
+          type: string
+        remoteURL:
+          format: uri
+          type: string
+      required:
+        - name
+        - orgID
+        - remoteURL
+        - remoteAPIToken
+        - remoteOrgID
+        - allowInsecureTLS
+      type: object
+    RemoteConnectionUpdateRequest:
+      properties:
+        allowInsecureTLS:
+          default: false
+          type: boolean
+        description:
+          type: string
+        name:
+          type: string
+        remoteAPIToken:
+          type: string
+        remoteOrgID:
+          type: string
+        remoteURL:
+          format: uri
+          type: string
+      type: object
+    RemoteConnections:
+      properties:
+        remotes:
+          items:
+            $ref: '#/components/schemas/RemoteConnection'
+          type: array
+      type: object
     RenamableField:
       description: Describes a field that can be renamed and made visible or invisible.
       properties:
@@ -3304,6 +3309,98 @@ components:
         visible:
           description: Indicates whether this field should be visible on the table.
           type: boolean
+      type: object
+    Replication:
+      properties:
+        currentQueueSizeBytes:
+          format: int64
+          type: integer
+        description:
+          type: string
+        dropNonRetryableData:
+          type: boolean
+        id:
+          type: string
+        latestErrorMessage:
+          type: string
+        latestResponseCode:
+          type: integer
+        localBucketID:
+          type: string
+        maxQueueSizeBytes:
+          format: int64
+          type: integer
+        name:
+          type: string
+        orgID:
+          type: string
+        remoteBucketID:
+          type: string
+        remoteID:
+          type: string
+      required:
+        - id
+        - name
+        - remoteID
+        - orgID
+        - localBucketID
+        - remoteBucketID
+        - maxQueueSizeBytes
+        - currentQueueSizeBytes
+      type: object
+    ReplicationCreationRequest:
+      properties:
+        description:
+          type: string
+        dropNonRetryableData:
+          default: false
+          type: boolean
+        localBucketID:
+          type: string
+        maxQueueSizeBytes:
+          default: 67108860
+          format: int64
+          minimum: 33554430
+          type: integer
+        name:
+          type: string
+        orgID:
+          type: string
+        remoteBucketID:
+          type: string
+        remoteID:
+          type: string
+      required:
+        - name
+        - orgID
+        - remoteID
+        - localBucketID
+        - remoteBucketID
+        - maxQueueSizeBytes
+      type: object
+    ReplicationUpdateRequest:
+      properties:
+        description:
+          type: string
+        dropNonRetryableData:
+          type: boolean
+        maxQueueSizeBytes:
+          format: int64
+          minimum: 33554430
+          type: integer
+        name:
+          type: string
+        remoteBucketID:
+          type: string
+        remoteID:
+          type: string
+      type: object
+    Replications:
+      properties:
+        replications:
+          items:
+            $ref: '#/components/schemas/Replication'
+          type: array
       type: object
     Resource:
       properties:
@@ -4332,8 +4429,8 @@ components:
       properties:
         authorizationID:
           description: >-
-            The ID of the authorization used when this task communicates with
-            the query engine.
+            ID of the authorization used when the task communicates with the
+            query engine.
           type: string
         createdAt:
           format: date-time
@@ -4341,17 +4438,27 @@ components:
           type: string
         cron:
           description: >-
-            A task repetition schedule in the form '* * * * * *'; parsed from
-            Flux.
+            [Cron expression](https://en.wikipedia.org/wiki/Cron#Overview) that
+            defines the schedule on which the task runs. Cron scheduling is
+            based on system time.
+
+            Value is a [Cron
+            expression](https://en.wikipedia.org/wiki/Cron#Overview).
           type: string
         description:
-          description: An optional description of the task.
+          description: Description of the task.
           type: string
         every:
-          description: A simple task repetition schedule; parsed from Flux.
+          description: >-
+            Interval at which the task runs. `every` also determines when the
+            task first runs, depending on the specified time.
+
+            Value is a [duration
+            literal](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals)).
+          format: duration
           type: string
         flux:
-          description: The Flux script to run for this task.
+          description: Flux script to run for this task.
           type: string
         id:
           readOnly: true
@@ -4369,7 +4476,11 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp of the latest scheduled and completed run.
+
+            Value is a timestamp in [RFC3339 date/time
+            format](https://docs.influxdata.com/flux/v0.x/data-types/basic/time/#time-syntax).
           format: date-time
           readOnly: true
           type: string
@@ -4397,29 +4508,31 @@ components:
           readOnly: true
           type: object
         name:
-          description: The name of the task.
+          description: Name of the task.
           type: string
         offset:
           description: >-
-            Duration to delay after the schedule, before executing the task;
-            parsed from flux, if set to zero it will remove this option and use
-            0 as the default.
+            [Duration](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals)
+            to delay execution of the task after the scheduled time has elapsed.
+            `0` removes the offset.
+
+            The value is a [duration
+            literal](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals).
+          format: duration
           type: string
         org:
-          description: The name of the organization that owns this Task.
+          description: Name of the organization that owns the task.
           type: string
         orgID:
-          description: The ID of the organization that owns this Task.
+          description: ID of the organization that owns the task.
           type: string
         ownerID:
-          description: The ID of the user who owns this Task.
+          description: ID of the user who owns this Task.
           type: string
         status:
           $ref: '#/components/schemas/TaskStatusType'
         type:
-          description: >-
-            The type of task, this can be used for filtering tasks on list
-            actions.
+          description: Type of the task, useful for filtering a task list.
           type: string
         updatedAt:
           format: date-time
@@ -5982,7 +6095,7 @@ info:
     with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 openapi: 3.0.0
 paths:
-  /api/v2/:
+  /api/v2:
     get:
       operationId: GetRoutes
       parameters:
@@ -7029,6 +7142,27 @@ paths:
       summary: Retrieve a check query
       tags:
         - Checks
+  /api/v2/config:
+    get:
+      operationId: GetConfig
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Config'
+          description: >-
+            Payload body contains the run-time configuration of the InfluxDB
+            instance.
+        '401':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Get the run-time configuration of the instance
+      tags:
+        - Config
   /api/v2/dashboards:
     get:
       operationId: GetDashboards
@@ -8447,13 +8581,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Token'
-          description: A temp token for Mapbox
+          description: Temporary token for Mapbox.
         '401':
           $ref: '#/components/responses/ServerError'
         '500':
           $ref: '#/components/responses/ServerError'
         default:
           $ref: '#/components/responses/ServerError'
+      summary: Get a mapbox token
   /api/v2/me:
     get:
       operationId: GetMe
@@ -8537,7 +8672,8 @@ paths:
                 externalDocs:
                   description: Prometheus exposition formats
                   url: https://prometheus.io/docs/instrumenting/exposition_formats
-                type: Prometheus text-based exposition
+                format: Prometheus text-based exposition
+                type: string
           description: >
             Payload body contains metrics about the InfluxDB instance.
 
@@ -9960,6 +10096,308 @@ paths:
       summary: Get the readiness of an instance at startup
       tags:
         - Ready
+  /api/v2/remotes:
+    get:
+      operationId: GetRemoteConnections
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The organization ID.
+          in: query
+          name: orgID
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: remoteURL
+          schema:
+            format: uri
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnections'
+          description: List of remote connections
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: List all remote connections
+      tags:
+        - RemoteConnections
+    post:
+      operationId: PostRemoteConnection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteConnectionCreationRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+          description: Remote connection saved
+        '400':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Register a new remote connection
+      tags:
+        - RemoteConnections
+  /api/v2/remotes/{remoteID}:
+    delete:
+      operationId: DeleteRemoteConnectionByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Remote connection info deleted.
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Delete a remote connection
+      tags:
+        - RemoteConnections
+    get:
+      operationId: GetRemoteConnectionByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+          description: Remote connection
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Retrieve a remote connection
+      tags:
+        - RemoteConnections
+    patch:
+      operationId: PatchRemoteConnectionByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteConnectionUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+          description: Updated information saved
+        '400':
+          $ref: '#/components/responses/ServerError'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Update a remote connection
+      tags:
+        - RemoteConnections
+  /api/v2/replications:
+    get:
+      operationId: GetReplications
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The organization ID.
+          in: query
+          name: orgID
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: remoteID
+          schema:
+            type: string
+        - in: query
+          name: localBucketID
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replications'
+          description: List of replications
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: List all replications
+      tags:
+        - Replications
+    post:
+      operationId: PostReplication
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: If true, validate the replication, but don't save it.
+          in: query
+          name: validate
+          schema:
+            default: false
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplicationCreationRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+          description: Replication saved
+        '204':
+          description: Replication validated, but not saved
+        '400':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Register a new replication
+      tags:
+        - Replications
+  /api/v2/replications/{replicationID}:
+    delete:
+      operationId: DeleteReplicationByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Replication deleted.
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Delete a replication
+      tags:
+        - Replications
+    get:
+      operationId: GetReplicationByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+          description: Replication
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Retrieve a replication
+      tags:
+        - Replications
+    patch:
+      operationId: PatchReplicationByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          required: true
+          schema:
+            type: string
+        - description: If true, validate the updated information, but don't save it.
+          in: query
+          name: validate
+          schema:
+            default: false
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplicationUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+          description: Updated information saved
+        '204':
+          description: Updated replication validated, but not saved
+        '400':
+          $ref: '#/components/responses/ServerError'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Update a replication
+      tags:
+        - Replications
+  /api/v2/replications/{replicationID}/validate:
+    post:
+      operationId: PostValidateReplicationByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Replication is valid
+        '400':
+          $ref: '#/components/responses/ServerError'
+          description: Replication failed validation
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Validate a replication
+      tags:
+        - Replications
   /api/v2/resources:
     get:
       operationId: GetResources
@@ -12362,6 +12800,22 @@ paths:
             summary of the run. The summary contains newly created resources.
             The diff compares the initial state to the state after the package
             applied. This corresponds to `"dryRun": true`.
+        '422':
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/TemplateSummary'
+                  - properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                    required:
+                      - message
+                      - code
+                    type: object
+          description: Template failed validation
         default:
           content:
             application/json:
@@ -13119,6 +13573,7 @@ tags:
   - Buckets
   - Cells
   - Checks
+  - Config
   - Dashboards
   - DBRPs
   - Delete
@@ -13145,6 +13600,8 @@ tags:
     name: Quick start
     x-traitTag: true
   - Ready
+  - RemoteConnections
+  - Replications
   - Resources
   - description: >
       The InfluxDB API uses standard HTTP status codes for success and failure
@@ -13242,7 +13699,10 @@ x-tagGroups:
       - Users
   - name: System information endpoints
     tags:
+      - Config
+      - Debug
       - Health
+      - Metrics
       - Ping
       - Ready
       - Routes
@@ -13253,6 +13713,7 @@ x-tagGroups:
       - Buckets
       - Cells
       - Checks
+      - Config
       - Dashboards
       - DBRPs
       - Delete
@@ -13266,6 +13727,8 @@ x-tagGroups:
       - Ping
       - Query
       - Ready
+      - RemoteConnections
+      - Replications
       - Resources
       - Restore
       - Routes
