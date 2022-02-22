@@ -65,7 +65,7 @@
       color: $article-btn-text !important;
       border-radius: $radius;
       font-weight: $medium;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       text-decoration: none;
       text-align: center;
       z-index: 1;
@@ -196,7 +196,7 @@
         padding: .75rem 1.5rem;
         color: $article-btn-text !important;
         border-radius: $radius;
-        font-size: .95rem;
+        font-size: 1.05rem;
         z-index: 1;
         @include gradient($article-btn-gradient);
 

@@ -8,6 +8,7 @@ menu:
   influxdb_cloud:
     name: PHP
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-php
+    params:
+      url: https://github.com/influxdata/influxdb-client-php
 weight: 201
 ---

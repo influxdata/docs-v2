@@ -10,6 +10,52 @@ menu:
     weight: 10
     parent: About the project
 ---
+## v1.21.4 [2022-2-16]
+
+- Update to Go 1.17.7 to address [three security issues](https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ/m/gx45t8JEAgAJ?pli=1) in the library.
+- Update all `go.opentelemetry.io` from 0.24.0 to 0.27.0.
+- Update `github.com/signalfx/golib/v3` from 3.3.38 to 3.3.43.
+- Update `github.com/aliyun/alibaba-cloud-sdk-go` from 1.61.1004 to 1.61.1483.
+- Update `github.com/denisenkom/go-mssqldb` from 0.10.0 to 0.12.0.
+- Update `github.com/gopcua/opcua` from 0.2.3 to 0.3.1.
+- Update `github.com/nats-io/nats-server/v2` from 2.6.5 to 2.7.2.
+- Update `k8s.io/client-go` from 0.22.2 to 0.23.3.
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.6.0 to 1.13.0.
+- Update `github.com/benbjohnson/clock` from 1.1.0 to 1.3.0.
+- Update `github.com/Azure/azure-kusto-go` from 0.5.0 to 0.5.2.
+- Update `github.com/vmware/govmomi` from 0.27.2 to 0.27.3.
+- Update `github.com/prometheus/client_golang` from 1.11.0 to 1.12.1.
+- Update `go.mongodb.org/mongo-driver` from 1.7.3 to 1.8.3.
+- Update `github.com/google/go-cmp` from 0.5.6 to 0.5.7.
+- Update `go.opentelemetry.io/collector/model` from 0.39.0 to 0.43.2.
+- Update `github.com/multiplay/go-ts3` from 1.0.0 to 1.0.1.
+- Update `cloud.google.com/go/monitoring` from 0.2.0 to 1.2.0.
+- Update `github.com/vmware/govmomi` from 0.26.0 to 0.27.2.
+
+### Input plugin updates
+- Docker (`docker`): Update memory usage calculation.
+- ECS (`ecs`): Use current time as timestamp.
+- SNMP (`snmp`): Ensure folders do not get loaded more than once.
+- Windows Performance Counters (`win_perf_counters`): Add deprecated warning and version.
+
+### Output plugin updates
+- AMQP (`amqp`): Check for nil client before closing.
+- Azure Data Explorer (`azure_data_explorer`): Lower RAM usage.
+- ElasticSearch (`elasticsearch`): Add scheme to fix error in sniffing option.
+
+### Parser plugin updates
+- JSON v2 (`json_v2`):
+  - Fix timestamp change during execution.
+  - Fix incorrect handling of `timestamp_path`.
+  - Allow optional paths and handle wrong paths correctly.
+
+### Serializer updates
+- Prometheus serializer (`prometheusremotewrite`): Use correct timestamp unit.
+
+### New External Plugins
+- [apt](https://github.com/x70b1/telegraf-apt/blob/master/README.md)(`telegraf-apt`) - Contributed by [@x70b1](https://github.com/x70b1).
+- [knot](https://github.com/x70b1/telegraf-knot/blob/master/README.md)(`telegraf-knot`) - Contributed by [@x70b1](https://github.com/x70b1).
+
 ## v1.21.3 [2022-1-27]
 
 - Update `grpc` module to v1.44.0.

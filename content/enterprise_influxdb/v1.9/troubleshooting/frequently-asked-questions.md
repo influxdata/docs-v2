@@ -177,7 +177,7 @@ an RP every 30 minutes.
 You may need to wait for the next RP check for InfluxDB to drop data that are
 outside the RP's new `DURATION` setting.
 The 30 minute interval is
-[configurable](/enterprise_influxdb/v1.9/administration/config-data-nodes/#check-interval--30m0s).
+[configurable](/enterprise_influxdb/v1.9/administration/config-data-nodes/#check-interval).
 
 Second, altering both the `DURATION` and `SHARD DURATION` of an RP can result in
 unexpected data retention.

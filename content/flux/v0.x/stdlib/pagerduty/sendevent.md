@@ -24,7 +24,7 @@ pagerduty.sendEvent(
   routingKey: "ExampleRoutingKey",
   client: "ExampleClient",
   clientURL: "http://examplepagerdutyclient.com",
-  dedupkey: "ExampleDedupKey",
+  dedupKey: "ExampleDedupKey",
   class: "cpu usage",
   group: "app-stack",
   severity: "ok",
@@ -52,14 +52,14 @@ The name of the client sending the alert.
 ### clientURL {data-type="string"}
 The URL of the client sending the alert.
 
-### dedupkey {data-type="string"}
+### dedupKey {data-type="string"}
 A per-alert ID that acts as deduplication key and allows you to acknowledge or
 change the severity of previous messages.
 Supports a maximum of 255 characters.
 
 {{% note %}}
 When using [`pagerduty.endpoint()`](/flux/v0.x/stdlib/pagerduty/endpoint/)
-to send data to PagerDuty, the function uses the [`pagerduty.dedupKey()` function](/flux/v0.x/stdlib/pagerduty/dedupkey/) to populate the `dedupkey` parameter.
+to send data to PagerDuty, the function uses the [`pagerduty.dedupKey()` function](/flux/v0.x/stdlib/pagerduty/dedupkey/) to populate the `dedupKey` parameter.
 {{% /note %}}
 
 ### class {data-type="string"}
