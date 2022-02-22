@@ -20,7 +20,8 @@ aliases:
 ## v0.155.0 [2022-02-14]
 
 ### Features
-- Add new experimental array functions for operating on arrays.
+- Add new [experimental array functions](/flux/v0.x/stdlib/experimental/array/)
+  for operating on arrays.
 
 ### Bug fixes
 - Add `stop` parameter to [InfluxDB schema functions](/flux/v0.x/stdlib/influxdata/influxdb/schema/).
