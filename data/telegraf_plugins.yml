@@ -2196,7 +2196,7 @@ output:
   - name: GroundWork
     id: groundwork
     description: |
-      The  Graylog output plugin writes to a [GroundWork Monitor](https://www.gwos.com/product/groundwork-monitor/) instance.
+      The  GroundWork output plugin writes to a [GroundWork Monitor](https://www.gwos.com/product/groundwork-monitor/) instance.
     introduced: 1.21.0
     tags: [linux, macos, windows, logging]
 
