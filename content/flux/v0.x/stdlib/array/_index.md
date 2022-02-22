@@ -9,7 +9,6 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/experimental/array/
   - /influxdb/v2.0/reference/flux/stdlib/array/
   - /influxdb/cloud/reference/flux/stdlib/array/
-  - /flux/v0.x/stdlib/experimental/array/
 menu:
   flux_0_x_ref:
     name: array

@@ -40,30 +40,35 @@ Predicate function that filters tag keys.
 _Default is `(r) => true`._
 
 ### start {data-type="duration, time"}
-Oldest time to include in results.
+Earliest time to include in results.
 _Default is `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
 Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
 
+### stop {data-type="duration, time"}
+Latest time to include in results.
+_Default is `now()`._
+
+The `stop` time is exclusive, meaning values with a time equal to stop time are
+excluded from results.
+Relative start times are defined using negative durations.
+Negative durations are relative to `now()`.
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+
 ## Examples
+
+### Return all tag keys in a bucket
 ```js
 import "influxdata/influxdb/schema"
 
-schema.tagKeys(bucket: "my-bucket")
+schema.tagKeys(bucket: "example-bucket")
 ```
 
-
-## Function definition
+### Return all tag keys in a bucket during a non-default time range
 ```js
-package schema
+import "influxdata/influxdb/schema"
 
-tagKeys = (bucket, predicate=(r) => true, start=-30d) =>
-  from(bucket: bucket)
-    |> range(start: start)
-    |> filter(fn: predicate)
-    |> keys()
-    |> keep(columns: ["_value"])
-    |> distinct()
+schema.tagKeys(bucket: "example-bucket", start: -90d, stop: -60d)
 ```

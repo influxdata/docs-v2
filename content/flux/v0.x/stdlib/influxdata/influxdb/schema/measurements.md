@@ -31,13 +31,36 @@ schema.measurements(bucket: "example-bucket")
 ### bucket {data-type="string"}
 Bucket to retrieve measurements from.
 
-## Function definition
-```js
-package schema
+### start {data-type="duration, time"}
+Earliest time to include in results.
+_Default is `-30d`._
 
-measurements = (bucket) =>
-  tagValues(bucket: bucket, tag: "_measurement")
+Relative start times are defined using negative durations.
+Negative durations are relative to now.
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+
+### stop {data-type="duration, time"}
+Latest time to include in results.
+_Default is `now()`._
+
+The `stop` time is exclusive, meaning values with a time equal to stop time are
+excluded from results.
+Relative start times are defined using negative durations.
+Negative durations are relative to `now()`.
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+
+## Examples
+
+### Return all measurements in a bucket
+```js
+import "influxdata/influxdb/schema"
+
+measurements(bucket: "example-bucket")
 ```
 
-_**Used functions:**
-[schema.tagValues()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues)_
+### Return all measurements in a bucket from a non-default time range
+```js
+import "influxdata/influxdb/schema"
+
+measurements(bucket: "example-bucket", start: -90d, stop: -60d)
+```
