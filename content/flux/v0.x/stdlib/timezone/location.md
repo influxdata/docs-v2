@@ -14,6 +14,8 @@ flux/v0.x/tags: [timezone, location, data/time]
 Setting the timezone by location accounts for location-based time shifts in the
 clock such as daylight savings time or summertime.
 
+See [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of possible location codes.
+
 ```js
 import "timezone"
 
