@@ -6,5 +6,6 @@ menu:
     name: Contributing
     weight: 10
     parent: About the project
-    url: https://github.com/influxdata/kapacitor/blob/master/CONTRIBUTING.md
+    params:
+      url: https://github.com/influxdata/kapacitor/blob/master/CONTRIBUTING.md
 ---
