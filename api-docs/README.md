@@ -72,15 +72,15 @@ sh getswagger.sh oss -b file:///Users/me/github/openapi
 
 After you fetch them, run the linter or generate HTML to test your changes before you commit them to `influxdata/openapi`.
 By default, `getswagger.sh` doesn't run the linter when bundling
-the specs. Manually run the linter rules to get a report of errors and warnings.
+the specs. Manually run the [linter rules](https://redoc.ly/docs/cli/resources/built-in-rules/) to get a report of errors and warnings.
 
 ```sh
 npx @redocly/openapi-cli lint v2.1/ref.yml
 ```
 
 ### Configure OpenAPI CLI linting and bundling
-The `.redoc.yaml` configuration file sets linting and bundling options for the `@redocly/openapi-cli` CLI.
-`./openapi/plugins` contains custom @redocly/openapi-cli plugins composed of *rules* (for validating and linting) and *decorators* (for customizing).
+The `.redoc.yaml` configuration file sets options for the `@redocly/openapi-cli` [`lint`](https://redoc.ly/docs/cli/commands/lint/) and [`bundle`](https://redoc.ly/docs/cli/commands/bundle/) commands.
+`./openapi/plugins` contains custom InfluxData Docs plugins composed of *rules* (for validating and linting) and *decorators* (for customizing). For more configuration options, see `@redocly/openapi-cli` [configuration file documentation](https://redoc.ly/docs/cli/configuration/configuration-file/).
 
 ### Custom content
 `./openapi/content` contains custom OAS (OpenAPI Spec) content in YAML files. The content structure and Markdown must be valid OAS.
