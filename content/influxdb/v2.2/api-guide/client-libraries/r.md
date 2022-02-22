@@ -8,6 +8,7 @@ menu:
   influxdb_2_2:
     name: R
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-r
+    params:
+      url: https://github.com/influxdata/influxdb-client-r
 weight: 201
 ---

@@ -9,6 +9,7 @@ menu:
   influxdb_2_2:
     name: Arduino
     parent: Client libraries
-    url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino
+    params:
+      url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino
 weight: 201
 ---
