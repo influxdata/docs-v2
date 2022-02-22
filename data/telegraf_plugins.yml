@@ -157,6 +157,14 @@ input:
     introduced: 1.12.0
     tags: [linux, macos, windows, systems]
 
+  - name: Apt
+    id: apt
+    description: |
+      The apt input plugin checks Debian for package updates.
+    introduced: 1.21.4
+    tags: [debian, ubuntu]
+    external: true
+
   - name: Arista LANZ Consumer
     id: lanz
     description: |
@@ -910,6 +918,14 @@ input:
       status of Kibana and some useful metrics.
     introduced: 1.8.0
     tags: [linux, macos, windows, applications]
+
+  - name: Knot
+    id: knot
+    description: |
+      The Knot input plugin checks Debian for package updates.
+    introduced: 1.21.4
+    tags: [server]
+    external: true
 
   - name: KNX
     id: knx_listener

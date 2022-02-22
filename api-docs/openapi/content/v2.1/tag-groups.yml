@@ -20,7 +20,10 @@
     - Users
 - name: System information endpoints
   tags:
+    - Config
+    - Debug
     - Health
+    - Metrics
     - Ping
     - Ready
     - Routes

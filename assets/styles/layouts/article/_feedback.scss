@@ -31,8 +31,8 @@
       &.community:before {
         content: "\e900";
         color: $article-heading-alt;
-        margin: 0 .25rem 0 -.25rem;
-        font-size: 1.65rem;
+        margin: 0 .5rem 0 -.25rem;
+        font-size: 1.2rem;
         font-family: 'icomoon-v2';
         vertical-align: middle;
       }
@@ -55,7 +55,7 @@
   a {
     display: block;
     padding-left: 1rem;
-    font-size: .85rem;
+    font-size: .95rem;
 
     &.btn {
       color: $article-text !important;
@@ -75,12 +75,11 @@
 
     &.edit:before {
       content: "\e92f";
-      font-size: .75rem;
-      vertical-align: top;
+      font-size: .85rem;
     }
     &.issue:before {
       content: "\e934";
-      font-size: .95rem;
+      font-size: 1rem;
     }
   }
 }
