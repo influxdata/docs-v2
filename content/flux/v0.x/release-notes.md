@@ -23,7 +23,7 @@ aliases:
 - Add new experimental array functions for operating on arrays.
 
 ### Bug fixes
-- Add `stop` parameter to InfluxDB schema functions.
+- Add `stop` parameter to [InfluxDB schema functions](/flux/v0.x/stdlib/influxdata/influxdb/schema/).
 - Remove `os.Exit` calls and allow `defer executor.Close` to run.
 - Properly handle time zone transitions when there is no daylight savings time
   in the specified time zone.
