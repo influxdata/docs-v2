@@ -10,6 +10,27 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.155.1 [2022-02-15]
+
+### Bug fixes
+- Update tests to use an explicit yield.
+
+---
+
+## v0.155.0 [2022-02-14]
+
+### Features
+- Add new [experimental array functions](/flux/v0.x/stdlib/experimental/array/)
+  for operating on arrays.
+
+### Bug fixes
+- Add `stop` parameter to [InfluxDB schema functions](/flux/v0.x/stdlib/influxdata/influxdb/schema/).
+- Remove `os.Exit` calls and allow `defer executor.Close` to run.
+- Properly handle time zone transitions when there is no daylight savings time
+  in the specified time zone.
+
+---
+
 ## v0.154.0 [2022-02-09]
 
 ### Features
