@@ -10,6 +10,24 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.156.0 [2022-02-22]
+
+### Features
+- Add second pass to physical planner for parallelization rules.
+- Separate streams from arrays in the type system.
+- Add function to internal/debug to check feature flag values.
+- Allow feature flags to record metrics if configured.
+- Add extra verbose level to dump AST of test.
+- Explain what `[A], [A:B]` etc means in errors.
+
+### Bug fixes
+- Make `buckets()` function return a stream.
+- Remove unnecessary `TableObject` guards.
+- Copy `TagColumns` in `to()` that may get modified into the transformation.
+- Update tests to use explicit yields.
+
+---
+
 ## v0.155.1 [2022-02-15]
 
 ### Bug fixes
