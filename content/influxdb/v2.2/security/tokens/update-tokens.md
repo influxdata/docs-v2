@@ -96,7 +96,7 @@ influx auth find --json
 
 ## Update a token using the InfluxDB API
 
-Use the `/authorizations` endpoint of the InfluxDB API to update the description and status of a token.
+Use the `/api/v2/authorizations` InfluxDB API endpoint to update the description and status of a token.
 
 [{{< api-endpoint method="PATCH" endpoint="http://localhost:8086/api/v2/authorizations/AUTH_ID" >}}](/influxdb/v2.2/api/#operation/PatchAuthorizationsID)
 

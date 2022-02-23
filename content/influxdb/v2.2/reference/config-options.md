@@ -17,6 +17,32 @@ Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.2/refere
 configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
+- [View your runtime server configuration](#view-your-runtime-server-configuration)
+- [Configuration precedence](#configuration-precedence)
+- [InfluxDB configuration file](#influxdb-configuration-file)
+- [Configuration options](#configuration-options)
+
+### View your runtime server configuration
+
+Use the `influx` CLI or the InfluxDB API to get the runtime server configuration of your InfluxDB instance.
+
+Server configuration commands require an [Operator token](/influxdb/v2.2/security/tokens/#operator-token).
+
+#### View your server configuration with the CLI
+
+Use the [`influx server-config` command](/influxdb/v2.2/reference/cli/influx/server-config/)
+to retrieve your runtime server configuration.
+
+```sh
+influx server-config
+```
+
+### View your server configuration with the API
+
+Use the `/api/v2/config` InfluxDB API endpoint to retrieve your runtime server configuration.
+
+[{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/config" >}}]((/influxdb/v2.2/api/#operation/GetConfig))
+
 ### Configuration precedence
 InfluxDB honors configuration settings using the following precedence:
 
@@ -25,6 +51,7 @@ InfluxDB honors configuration settings using the following precedence:
 3. Configuration file settings
 
 ### InfluxDB configuration file
+
 When `influxd` starts, it checks for a file named `config.*` **in the current working directory**.
 The file extension depends on the syntax of the configuration file.
 InfluxDB configuration files support the following syntaxes:
@@ -918,7 +945,7 @@ log-level = "info"
 ---
 
 ### metrics-disabled
-Disable the HTTP `/metrics` endpoint which exposes internal InfluxDB metrics.
+Disable the HTTP `/metrics` endpoint which exposes [internal InfluxDB metrics](/influxdb/v2.2/reference/internals/metrics/).
 
 **Default:** `false`  
 
