@@ -47,7 +47,7 @@ For a more secure alternative to using passwords, include JWT tokens in requests
 
    InfluxDB Enterprise uses the shared secret to encode the JWT signature.
    By default, `shared-secret` is set to an empty string (no JWT authentication).
-   Add a custom shared secret in your [InfluxDB configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#shared-secret--)
+   Add a custom shared secret in your [InfluxDB configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#shared-secret)
    for each meta and data node.
    Longer strings are more secure:
 

@@ -33,34 +33,42 @@ schema.fieldKeys(
 ## Parameters
 
 ### bucket {data-type="string"}
-The bucket to list field keys from.
+Bucket to list field keys from.
 
 ### predicate {data-type="function"}
-The predicate function that filters field keys.
+Predicate function that filters field keys.
 _Default is `(r) => true`._
 
 ### start {data-type="duration, time"}
-The oldest time to include in results.
+Earliest time to include in results.
 _Default is `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
 Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
 
+### stop {data-type="duration, time"}
+Latest time to include in results.
+_Default is `now()`._
+
+The `stop` time is exclusive, meaning values with a time equal to stop time are
+excluded from results.
+Relative start times are defined using negative durations.
+Negative durations are relative to `now()`.
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+
 ## Examples
+
+### Return all field keys in a bucket
 ```js
 import "influxdata/influxdb/schema"
 
-schema.fieldKeys(bucket: "my-bucket")
+schema.fieldKeys(bucket: "example-bucket")
 ```
 
-## Function definition
+### Return all field keys in a bucket from a non-default time range
 ```js
-package schema
+import "influxdata/influxdb/schema"
 
-fieldKeys = (bucket, predicate=(r) => true, start=-30d) =>
-  tagValues(bucket: bucket, tag: "_field", predicate: predicate, start: start)
+schema.fieldKeys(bucket: "example-bucket", start: -90d, stop: -60d)
 ```
-
-_**Used functions:**
-[schema.tagValues](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues/)_
