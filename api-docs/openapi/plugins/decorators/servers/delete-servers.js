@@ -1,6 +1,4 @@
-module.exports = SetServers;
-
-const { servers } = require('../../../content/content')
+module.exports = DeleteServers;
 
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 
@@ -9,13 +7,15 @@ const { servers } = require('../../../content/content')
  * The key instructs openapi when to invoke the key's Visitor object.
  * Object key "Server" is an OAS 3.0 node type.
  */
-function SetServers() {
-  const data = servers();
+function DeleteServers() {
   return {
-    DefinitionRoot: {
-      leave(root) {
-        root.servers = data;
+    Operation: {
+      leave(op) {
+        /** Delete servers with empty url. **/
+        if(Array.isArray(op.servers)) {
+          op.servers = op.servers.filter(server => server.url);
+        }
       }
-    },
+    }
   }
 };

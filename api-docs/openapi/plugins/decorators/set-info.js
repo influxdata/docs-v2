@@ -4,7 +4,8 @@ const { info } = require('../../content/content')
 
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 function SetInfo() {
-  data = info();
+  const data = info();
+
   return {
     Info: {
       leave(info, ctx) {
@@ -12,7 +13,11 @@ function SetInfo() {
           if(data.hasOwnProperty('title')) {
              info.title =  data.title;
           }
-	        if(data.hasOwnProperty('description')) {
+	        if(data.hasOwnProperty('version')) {
+
+             info.version = data.version;
+          }
+          if(data.hasOwnProperty('description')) {
              info.description = data.description;
           }
 	      }

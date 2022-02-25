@@ -16,7 +16,7 @@ const { collect, getName, sortName } = require('../../helpers/content-helper.js'
  */
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 function SetTagGroups() {
-  data = tagGroups();
+  const data = tagGroups();
   let tags = [];
   return {
     Operation: {
