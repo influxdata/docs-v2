@@ -21,8 +21,8 @@ The `slack.endpoint()` function sends a message to Slack that includes output da
 import "slack"
 
 slack.endpoint(
-  url: "https://slack.com/api/chat.postMessage",
-  token: "mySuPerSecRetTokEn"
+    url: "https://slack.com/api/chat.postMessage",
+    token: "mySuPerSecRetTokEn",
 )
 ```
 
@@ -73,14 +73,9 @@ token = secrets.get(key: "SLACK_TOKEN")
 toSlack = slack.endpoint(token: token)
 
 crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
 
 crit_statuses
-  |> toSlack(mapFn: (r) => ({
-      channel: "Alerts",
-      text: r._message,
-      color: "danger",
-    })
-  )()
+    |> toSlack(mapFn: (r) => ({channel: "Alerts", text: r._message, color: "danger"}))()
 ```

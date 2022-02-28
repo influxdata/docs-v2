@@ -34,11 +34,11 @@ _See [Non-strict and strict filtering](#non-strict-and-strict-filtering) below._
 import "experimental/geo"
 
 geo.gridFilter(
-  region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
-  minSize: 24,
-  maxSize: -1,
-  level: -1,
-  s2cellIDLevel: -1
+    region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
+    minSize: 24,
+    maxSize: -1,
+    level: -1,
+    s2cellIDLevel: -1,
 )
 ```
 
@@ -52,7 +52,7 @@ To add `s2_cell_id` to the group key, use [`experimental.group`](/flux/v0.x/stdl
 import "experimental"
 
 // ...
-  |> experimental.group(columns: ["s2_cell_id"], mode: "extend")
+    |> experimental.group(columns: ["s2_cell_id"], mode: "extend")
 ```
 {{% /note %}}
 
@@ -116,53 +116,44 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ## Examples
 
+- [Filter data in a box-shaped region](#filter-data-in-a-box-shaped-region)
+- [Filter data in a circular region](#filter-data-in-a-circular-region)
+- [Filter data in a custom polygon region](#filter-data-in-a-custom-polygon-region)
+
 ##### Filter data in a box-shaped region
 ```js
 import "experimental/geo"
 
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
+
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.gridFilter(
-    region: {
-      minLat: 40.51757813,
-      maxLat: 40.86914063,
-      minLon: -73.65234375,
-      maxLon: -72.94921875
-    }
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.gridFilter(region: region)
 ```
 
 ##### Filter data in a circular region
 ```js
 import "experimental/geo"
 
+region = {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
+
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.gridFilter(
-    region: {
-      lat: 40.69335938,
-      lon: -73.30078125,
-      radius: 20.0
-    }
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.gridFilter(region: region)
 ```
 
 ##### Filter data in a custom polygon region
 ```js
 import "experimental/geo"
 
+region = {
+    points: [{lat: 40.671659, lon: -73.936631}, {lat: 40.706543, lon: -73.749177}, {lat: 40.791333, lon: -73.880327}],
+}
+
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.gridFilter(
-    region: {
-      points: [
-        {lat: 40.671659, lon: -73.936631},
-        {lat: 40.706543, lon: -73.749177},
-        {lat: 40.791333, lon: -73.880327}
-      ]
-    }
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.gridFilter(region: region)
 ```

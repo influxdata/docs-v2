@@ -21,9 +21,7 @@ a PagerDuty severity.
 ```js
 import "pagerduty"
 
-pagerduty.severityFromLevel(
-  level: "crit"
-)
+pagerduty.severityFromLevel(level: "crit")
 
 // Returns "critical"
 ```
@@ -39,18 +37,3 @@ pagerduty.severityFromLevel(
 
 ### level {data-type="string"}
 The InfluxDB status level to convert to a PagerDuty severity.
-
-## Function definition
-```js
-import "strings"
-
-severityFromLevel = (level) => {
-  lvl = strings.toLower(v:level)
-  sev = if lvl == "warn" then "warning"
-      else if lvl == "crit" then "critical"
-      else if lvl == "info" then "info"
-      else if lvl == "ok" then "info"
-      else "error"
-  return sev
-}
-```

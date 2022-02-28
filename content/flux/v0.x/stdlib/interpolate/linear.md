@@ -46,7 +46,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "interpolate"
 
 data
-  |> interpolate.linear(every: 1d)
+    |> interpolate.linear(every: 1d)
 ```
 
 {{< flex >}}

@@ -21,8 +21,8 @@ includes data from input rows to a Webex room.
 import "contrib/sranka/webexteams"
 
 webexteams.endpoint(
-  url: "https://webexapis.com",
-  token: "token"
+    url: "https://webexapis.com",
+    token: "token",
 )
 ```
 
@@ -63,13 +63,16 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "WEBEX_API_KEY")
 
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses")
-  |> last()
-  |> tableFind(fn: (key) => true)
-  |> webexteams.endpoint(token: token)(mapFn: (r) => ({
-      roomId: "Y2lzY29zcGFyazovL3VzL1JPT00vYmJjZWIxYWQtNDNmMS0zYjU4LTkxNDctZjE0YmIwYzRkMTU0",
-      text: "",
-      markdown: "Disk usage is **${r.status}**.", 
-  })
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "statuses")
+    |> last()
+    |> tableFind(fn: (key) => true)
+    |> webexteams.endpoint(token: token)(
+        mapFn: (r) =>
+            ({
+                roomId: "Y2lzY29zcGFyazovL3VzL1JPT00vYmJjZWIxYWQtNDNmMS0zYjU4LTkxNDctZjE0YmIwYzRkMTU0",
+                text: "",
+                markdown: "Disk usage is **${r.status}**.",
+            }),
+    )
 ```

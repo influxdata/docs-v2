@@ -20,7 +20,7 @@ The `query.filterMeasurement()` function filters input data by measurement.
 import "experimental/query"
 
 query.filterMeasurement(
-  measurement: "example-measurement"
+    measurement: "example-measurement"
 )
 ```
 
@@ -40,19 +40,5 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "experimental/query"
 
 query.fromRange(bucket: "example-bucket", start: -1h)
-  |> query.filterMeasurement(
-    measurement: "example-measurement"
-  )
+    |> query.filterMeasurement(measurement: "example-measurement")
 ```
-
-## Function definition
-```js
-package query
-
-filterMeasurement = (tables=<-, measurement) =>
-  tables
-    |> filter(fn: (r) => r._measurement == measurement)
-```
-
-_**Used functions:**_  
-[filter()](/flux/v0.x/stdlib/universe/filter/)

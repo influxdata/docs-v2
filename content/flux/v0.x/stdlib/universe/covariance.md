@@ -50,12 +50,12 @@ to generate sample data and show how `covariance()` transforms data.
 ```js
 import "generate"
 
-data = generate.from(count: 5, fn: (n) => n * n, start: 2021-01-01T00:00:00Z,stop: 2021-01-01T00:01:00Z  ) 
-  |> toFloat()
-  |> map(fn: (r) => ({_time: r._time, x: r._value, y: r._value * r._value / 2.0}))
- 
+data = generate.from(count: 5, fn: (n) => n * n, start: 2021-01-01T00:00:00Z, stop: 2021-01-01T00:01:00Z)
+    |> toFloat()
+    |> map(fn: (r) => ({_time: r._time, x: r._value, y: r._value * r._value / 2.0}))
+
 data
-  |> covariance(columns: ["x", "y"])
+    |> covariance(columns: ["x", "y"])
 ```
 
 {{% expand "View input and output" %}}

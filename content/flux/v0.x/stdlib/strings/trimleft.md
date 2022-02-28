@@ -48,9 +48,5 @@ Only characters that match the `cutset` string exactly are removed.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      variables: strings.trimLeft(v: r.variables, cutset: ".")
-    })
-  )
+    |> map(fn: (r) => ({r with variables: strings.trimLeft(v: r.variables, cutset: ".")}))
 ```

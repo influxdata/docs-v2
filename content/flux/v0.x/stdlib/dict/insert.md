@@ -23,9 +23,9 @@ If the key already exists in the dictionary, the function overwrites the existin
 import "dict"
 
 dict.insert(
-  dict: [1: "foo", 2: "bar"],
-  key: 3,
-  value: "baz"
+    dict: [1: "foo", 2: "bar"],
+    key: 3,
+    value: "baz",
 )
 ```
 
@@ -54,11 +54,7 @@ import "dict"
 
 d = [1: "foo", 2: "bar"]
 
-dNew = dict.insert(
-  dict: d,
-  key: 3,
-  value: "baz"
-)
+dNew = dict.insert(dict: d, key: 3, value: "baz")
 
 // Verify the new key-value pair was inserted
 dict.get(dict: dNew, key: 3, default: "")
@@ -72,11 +68,7 @@ import "dict"
 
 d = [1: "foo", 2: "bar"]
 
-dNew = dict.insert(
-  dict: d,
-  key: 2,
-  value: "baz"
-)
+dNew = dict.insert(dict: d, key: 2, value: "baz")
 
 // Verify the new key-value pair was overwritten
 dict.get(dict: dNew, key: 2, default: "")

@@ -24,12 +24,12 @@ anomalies or rate limiting.
 import "experimental/usage"
 
 usage.from(
-  start: -30d,
-  stop: now(),
-  host: "",
-  orgID: "",
-  token: "",
-  raw: false
+    start: -30d,
+    stop: now(),
+    host: "",
+    orgID: "",
+    token: "",
+    raw: false,
 )
 ```
 
@@ -126,7 +126,7 @@ usage.from(
     stop: now(),
     host: "https://cloud2.influxdata.com",
     orgID: "x000X0x0xx0X00x0",
-    token: token
+    token: token,
 )
 ```
 
@@ -161,8 +161,8 @@ usage.from(start: -30d, stop: now())
 import "experimental/usage"
 
 checkLimit = (tables=<-, limit) => tables
-    |> map(fn: (r) => ({ r with _value: r._value / 1000, limit: int(v: limit) * 60 * 5 }))
-    |> map(fn: (r) => ({ r with limitReached: r._value > r.limit}))
+    |> map(fn: (r) => ({r with _value: r._value / 1000, limit: int(v: limit) * 60 * 5}))
+    |> map(fn: (r) => ({r with limitReached: r._value > r.limit}))
 
 read = usage.from(start: -30d, stop: now())
     |> filter(fn: (r) => r._measurement == "http_request")

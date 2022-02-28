@@ -26,8 +26,8 @@ using values in an input table.
 
 ```js
 kaufmansAMA(
-  n: 10,
-  column: "_value"
+    n: 10,
+    column: "_value",
 )
 ```
 
@@ -55,7 +55,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> kaufmansAMA(n: 3)
+    |> kaufmansAMA(n: 3)
 ```
 
 {{% expand "View input and output" %}}

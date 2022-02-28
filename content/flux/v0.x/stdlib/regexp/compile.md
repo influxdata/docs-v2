@@ -40,14 +40,9 @@ The string value to parse into a regular expression.
 import "regexp"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      regexStr: r.regexStr,
-      _value: r._value,
-      firstRegexMatch: findString(
-        r: regexp.compile(v: regexStr),
-        v: r._value
-      )
-    })
-  )
+    |> map(fn: (r) => ({r with
+        regexStr: r.regexStr,
+        _value: r._value,
+        firstRegexMatch: findString(r: regexp.compile(v: regexStr), v: r._value)
+    }))
 ```

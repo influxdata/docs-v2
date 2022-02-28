@@ -25,19 +25,19 @@ a [different structure](#expected-data-structure) than the
 import "experimental"
 
 experimental.to(
-  bucket: "my-bucket",
-  org: "my-org",
-  host: "http://localhost:8086",
-  token: "mY5uPeRs3Cre7tok3N"
+    bucket: "my-bucket",
+    org: "my-org",
+    host: "http://localhost:8086",
+    token: "mY5uPeRs3Cre7tok3N",
 )
 
 // OR
 
 experimental.to(
-  bucketID: "1234567890",
-  orgID: "0987654321",
-  host: "http://localhost:8086",
-  token: "mY5uPeRs3Cre7tok3N"
+    bucketID: "1234567890",
+    orgID: "0987654321",
+    host: "http://localhost:8086",
+    token: "mY5uPeRs3Cre7tok3N",
 )
 ```
 
@@ -118,13 +118,7 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> pivot(
-      rowKey:["_time"],
-      columnKey: ["_field"],
-      valueColumn: "_value")
-  |> experimental.to(
-      bucket: "bucket-name",
-      org: "org-name"
-  )
+    |> range(start: -1h)
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> experimental.to(bucket: "bucket-name", org: "org-name")
 ```

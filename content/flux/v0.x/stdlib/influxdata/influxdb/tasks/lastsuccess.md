@@ -35,12 +35,9 @@ The default time value returned if the task has never successfully run.
 ```js
 import "influxdata/influxdb/tasks"
 
-options task = {
-  name: "Example task",
-  every: 30m
-}
+option task = {name: "Example task", every: 30m}
 
 from(bucket: "example-bucket")
-  |> range(start: tasks.lastSuccess(orTime: -task.every))
-  // ...
+    |> range(start: tasks.lastSuccess(orTime: -task.every))
+    // ...
 ```

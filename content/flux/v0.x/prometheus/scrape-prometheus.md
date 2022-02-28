@@ -166,14 +166,9 @@ To write scraped Prometheus metrics to InfluxDB:
 
 ```js
 import "experimental/prometheus"
-  
+
 prometheus.scrape(url: "http://example.com/metrics")
-  |> to(
-    bucket: "example-bucket",
-    host: "http://localhost:8086",
-    org: "example-org",
-    token: "mYsuP3R5eCR37t0K3n"  
-  )
+    |> to(bucket: "example-bucket", host: "http://localhost:8086", org: "example-org", token: "mYsuP3R5eCR37t0K3n")
 ```
 
 ### Write Prometheus metrics to InfluxDB at regular intervals
@@ -183,11 +178,8 @@ scrape Prometheus metrics in an [InfluxDB task](/influxdb/cloud/process-data/get
 ```js
 import "experimental/prometheus"
 
-option task = {
-  name: "Scrape Prometheus metrics",
-  every: 10s
-}
-  
+option task = {name: "Scrape Prometheus metrics", every: 10s}
+
 prometheus.scrape(url: "http://example.com/metrics")
-  |> to(bucket: "example-bucket")
+    |> to(bucket: "example-bucket")
 ```

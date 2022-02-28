@@ -62,7 +62,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> drop(columns: ["_time", "tid"])
+    |> drop(columns: ["_time", "tid"])
 ```
 
 {{< expand-wrapper >}}
@@ -103,7 +103,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> drop(fn: (column) => column =~ /^t/)
+    |> drop(fn: (column) => column =~ /^t/)
 ```
 
 {{% expand "View input and output" %}}

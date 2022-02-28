@@ -23,11 +23,11 @@ or with a [Slack webhook](https://api.slack.com/incoming-webhooks).
 import "slack"
 
 slack.message(
-  url: "https://slack.com/api/chat.postMessage",
-  token: "mySuPerSecRetTokEn",
-  channel: "#flux",,
-  text: "This is a message from the Flux slack.message() function.",
-  color: "good"
+    url: "https://slack.com/api/chat.postMessage",
+    token: "mySuPerSecRetTokEn",
+    channel: "#flux",
+    text: "This is a message from the Flux slack.message() function.",
+    color: "good",
 )
 ```
 
@@ -73,8 +73,7 @@ A token is only required if using the Slack chat.postMessage API.
 ```js
 import "slack"
 
-lastReported =
-  from(bucket: "example-bucket")
+lastReported = from(bucket: "example-bucket")
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
@@ -82,10 +81,10 @@ lastReported =
     |> getRecord(idx: 0)
 
 slack.message(
-  url: "https://slack.com/api/chat.postMessage",
-  token: "mySuPerSecRetTokEn",
-  channel: "#system-status",
-  text: "The last reported status was \"${lastReported.status}\"."
-  color: "warning"
+    url: "https://slack.com/api/chat.postMessage",
+    token: "mySuPerSecRetTokEn",
+    channel: "#system-status",
+    text: "The last reported status was \"${lastReported.status}\".",
+    color: "warning",
 )
 ```

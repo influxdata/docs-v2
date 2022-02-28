@@ -67,14 +67,14 @@ This example converts an integer to a duration and stores the value as a string.
 import "generate"
 
 data = generate.from(
-  count: 5,
-  fn: (n) => (n + 1) * 3600000000000,
-  start: 2021-01-01T00:00:00Z,
-  stop: 2021-01-01T05:00:00Z,
+    count: 5,
+    fn: (n) => (n + 1) * 3600000000000,
+    start: 2021-01-01T00:00:00Z,
+    stop: 2021-01-01T05:00:00Z,
 )
 
 data
-  |> map(fn:(r) => ({ r with _value: string(v: duration(v: r._value)) }))
+    |> map(fn:(r) => ({ r with _value: string(v: duration(v: r._value)) }))
 ```
 
 {{% expand "View input and output" %}}

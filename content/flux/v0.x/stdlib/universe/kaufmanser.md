@@ -49,7 +49,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> kaufmansER(n: 3)
+    |> kaufmansER(n: 3)
 ```
 
 {{% expand "View input and output" %}}

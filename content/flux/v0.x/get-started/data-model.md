@@ -89,7 +89,7 @@ to modify group keys in a stream of tables.
 
 ```js
 data
-  |> group(columns: ["foo", "bar"], mode: "by")
+    |> group(columns: ["foo", "bar"], mode: "by")
 ```
 
 ### Table grouping example

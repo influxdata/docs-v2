@@ -19,18 +19,18 @@ The `opsgenie.sendAlert()` function sends an alert message to Opsgenie.
 import "contrib/sranka/opsgenie"
 
 opsgenie.sendAlert(
-  url: "https://api.opsgenie.com/v2/alerts",
-  apiKey: "YoUrSup3R5ecR37AuThK3y",
-  message: "Example message",
-  alias: "Example alias",
-  description: "Example description",
-  priority: "P3",
-  responders: ["user:john@example.com", "team:itcrowd"],
-  tags: ["tag1", "tag2"],
-  entity: "example-entity",
-  actions: ["action1", "action2"],
-  details: "{}",
-  visibleTo: []
+    url: "https://api.opsgenie.com/v2/alerts",
+    apiKey: "YoUrSup3R5ecR37AuThK3y",
+    message: "Example message",
+    alias: "Example alias",
+    description: "Example description",
+    priority: "P3",
+    responders: ["user:john@example.com", "team:itcrowd"],
+    tags: ["tag1", "tag2"],
+    entity: "example-entity",
+    actions: ["action1", "action2"],
+    details: "{}",
+    visibleTo: [],
 )
 ```
 
@@ -99,16 +99,16 @@ import "contrib/sranka/opsgenie"
 apiKey = secrets.get(key: "OPSGENIE_APIKEY")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
-    opsgenie.sendAlert(
-      apiKey: apiKey,
-      message: "Disk usage is: ${lastReported.status}.",
-      alias: "example-disk-usage",
-      responders: ["user:john@example.com", "team:itcrowd"]
-    )
+opsgenie.sendAlert(
+    apiKey: apiKey,
+    message: "Disk usage is: ${lastReported.status}.",
+    alias: "example-disk-usage",
+    responders: ["user:john@example.com", "team:itcrowd"],
+)
 ```

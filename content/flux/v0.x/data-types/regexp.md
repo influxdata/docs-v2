@@ -100,11 +100,7 @@ regexp.compile(v: "^- [a-z0-9]{7}")
 ```js
 import "regexp"
 
-regexp.replaceAllString(
-  r: /a(x*)b/,
-  v: "-ab-axxb-",
-  t: "T"
-)
+regexp.replaceAllString(r: /a(x*)b/, v: "-ab-axxb-", t: "T")
 // Returns "-T-T-"
 ```
 
@@ -120,10 +116,7 @@ regexp.replaceAllString(
 ```js
 import "regexp"
 
-regexp.findString(
-  r: /foo.?/,
-  v: "seafood fool"
-)
+regexp.findString(r: /foo.?/, v: "seafood fool")
 // Returns "food"
 ```
 

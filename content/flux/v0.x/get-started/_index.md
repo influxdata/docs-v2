@@ -39,10 +39,10 @@ To see how to retrieve data from a source, select the data source: InfluxDB, CSV
 {{% code-tab-content %}}
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1d)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> mean()
-  |> yield(name: "_results")
+    |> range(start: -1d)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> mean()
+    |> yield(name: "_results")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
@@ -50,10 +50,10 @@ from(bucket: "example-bucket")
 import "csv"
 
 csv.from(file: "path/to/example/data.csv")
-  |> range(start: -1d)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> mean()
-  |> yield(name: "_results")
+    |> range(start: -1d)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> mean()
+    |> yield(name: "_results")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
@@ -63,11 +63,11 @@ import "sql"
 sql.from(
     driverName: "postgres",
     dataSourceName: "postgresql://user:password@localhost",
-    query:"SELECT * FROM TestTable"
-  )
-  |> filter(fn: (r) => r.UserID == "123ABC456DEF")
-  |> mean(column: "purchase_total")
-  |> yield(name: "_results")
+    query: "SELECT * FROM TestTable",
+)
+    |> filter(fn: (r) => r.UserID == "123ABC456DEF")
+    |> mean(column: "purchase_total")
+    |> yield(name: "_results")
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

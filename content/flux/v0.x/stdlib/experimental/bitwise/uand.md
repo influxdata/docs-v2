@@ -19,10 +19,7 @@ flux/v0.x/tags: [bitwise]
 ```js
 import "experimental/bitwise"
 
-bitwise.uand(
-  a: uint(v: 12),
-  b: uint(v: 21)
-)
+bitwise.uand(a: uint(v: 12), b: uint(v: 21))
 
 // Returns 4 (uint)
 ```
