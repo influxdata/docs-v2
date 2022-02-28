@@ -36,7 +36,7 @@ to calculate the rate of change per unit of time between subsequent _non-null_ v
 
 ```js
 data
-  |> derivative(unit: 1s)
+    |> derivative(unit: 1s)
 ```
 
 By default, `derivative()` returns only positive derivative values and replaces negative values with _null_.
@@ -94,10 +94,7 @@ To return negative derivative values, set the `nonNegative` parameter to `false`
 **The following returns:**
 
 ```js
-|> derivative(
-  unit: 1m,
-  nonNegative: false
-)
+|> derivative(unit: 1m, nonNegative: false)
 ```
 
 | _time                | _value |
@@ -123,11 +120,7 @@ to calculate the average rate of change per window of time.
 import "experimental/aggregate"
 
 data
-  |> aggregate.rate(
-    every: 1m,
-    unit: 1s,
-    groupColumns: ["tag1", "tag2"]
-  )
+    |> aggregate.rate(every: 1m, unit: 1s, groupColumns: ["tag1", "tag2"])
 ```
 
 `aggregate.rate()` returns the average rate of change (as a [float](/{{< latest "flux" >}}/spec/types/#numeric-types))
@@ -156,10 +149,7 @@ Negative values are replaced with _null_.
 **The following returns:**
 
 ```js
-|> aggregate.rate(
-  every: 20m,
-  unit: 1m
-)
+|> aggregate.rate(every: 20m, unit: 1m)
 ```
 
 | _time                | _value |

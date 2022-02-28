@@ -15,9 +15,7 @@ flux/v0.x/tags: [inputs, sample data]
 ```js
 import "sampledata"
 
-sampledata.numericBool(
-  includeNull: false
-)
+sampledata.numericBool(includeNull: false)
 ```
 
 ## Parameters
@@ -39,6 +37,7 @@ import "sampledata"
 
 sampledata.numericBool()
 ```
+
 ##### Output tables
 {{% flux/sample "numericBool" %}}
 
@@ -50,5 +49,6 @@ import "sampledata"
 
 sampledata.numericBool(includeNull: true)
 ```
+
 ##### Output tables
 {{% flux/sample "numericBool" true %}}

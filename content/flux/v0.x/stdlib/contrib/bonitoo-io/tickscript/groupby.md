@@ -29,9 +29,7 @@ or [`tickscript.selectWindow()`](/flux/v0.x/stdlib/contrib/bonitoo-io/tickscript
 ```js
 import "contrib/bonitoo-io/tickscript"
 
-tickscript.groupBy(
-  columns: ["exampleColumn"]
-)
+tickscript.groupBy(columns: ["exampleColumn"])
 ```
 
 ## Parameters
@@ -51,7 +49,5 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "contrib/bonitoo-io/tickscript"
 
 data
-  |> tickscript.groupBy(
-    columns: ["host", "region"]
-  )
+    |> tickscript.groupBy(columns: ["host", "region"])
 ```

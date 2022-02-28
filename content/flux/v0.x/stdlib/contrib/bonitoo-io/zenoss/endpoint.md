@@ -20,13 +20,13 @@ The `zenoss.endpoint()` function sends events to Zenoss using data from input ro
 import "contrib/bonitoo-io/zenoss"
 
 zenoss.endpoint(
-  url: "https://example.zenoss.io:8080/zport/dmd/evconsole_router",
-  username: "example-user",
-  password: "example-password",
-  action: "EventsRouter",
-  method: "add_event",
-  type: "rpc",
-  tid: 1
+    url: "https://example.zenoss.io:8080/zport/dmd/evconsole_router",
+    username: "example-user",
+    password: "example-password",
+    action: "EventsRouter",
+    method: "add_event",
+    type: "rpc",
+    tid: 1,
 )
 ```
 
@@ -94,26 +94,25 @@ import "influxdata/influxdb/secrets"
 url = "https://tenant.zenoss.io:8080/zport/dmd/evconsole_router"
 username = secrets.get(key: "ZENOSS_USERNAME")
 password = secrets.get(key: "ZENOSS_PASSWORD")
-endpoint = zenoss.endpoint(
-  url: url,
-  username: username,
-  password: password
-)
+endpoint = zenoss.endpoint(url: url, username: username, password: password)
 
-crit_events = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_events
-  |> endpoint(mapFn: (r) => ({
-      summary: "Critical event for ${r.host}",
-      device: r.deviceID,
-      component: r.host,
-      severity: "Critical",
-      eventClass: "/App",
-      eventClassKey: "",
-      collector: "",
-      message: "${r.host} is in a critical state.",
-    })
-  )()
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                summary: "Critical event for ${r.host}",
+                device: r.deviceID,
+                component: r.host,
+                severity: "Critical",
+                eventClass: "/App",
+                eventClassKey: "",
+                collector: "",
+                message: "${r.host} is in a critical state.",
+            }),
+    )()
 ```

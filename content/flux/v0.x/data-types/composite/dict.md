@@ -62,11 +62,12 @@ To reference values in a dictionary:
 ```js
 import "dict"
 
-positions = [
-  "Manager": "Jane Doe",
-  "Asst. Manager": "Jack Smith",
-  "Clerk": "John Doe"
-]
+positions =
+    [
+        "Manager": "Jane Doe",
+        "Asst. Manager": "Jack Smith",
+        "Clerk": "John Doe",
+    ]
 
 dict.get(dict: positions, key: "Manager", default: "Unknown position")
 // Returns Jane Doe
@@ -92,10 +93,7 @@ dict.get(dict: positions, key: "Teller", default: "Unknown position")
 ```js
 import "dict"
 
-list = [
-  {key: "k1", value: "v1"},
-  {key: "k2", value: "v2"}
-]
+list = [{key: "k1", value: "v1"}, {key: "k2", value: "v2"}]
 
 dict.fromList(pairs: list)
 // Returns [k1: v1, k2: v2]
@@ -111,11 +109,7 @@ import "dict"
 
 exampleDict = ["k1": "v1", "k2": "v2"]
 
-dict.insert(
-  dict: exampleDict,
-  key: "k3",
-  value: "v3"
-)
+dict.insert(dict: exampleDict, key: "k3", value: "v3")
 // Returns [k1: v1, k2: v2, k3: v3]
 ```
 
@@ -129,10 +123,7 @@ import "dict"
 
 exampleDict = ["k1": "v1", "k2": "v2"]
 
-dict.remove(
-  dict: exampleDict,
-  key: "k2"
-)
+dict.remove(dict: exampleDict, key: "k2")
 // Returns [k1: v1]
 ```
 

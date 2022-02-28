@@ -47,7 +47,7 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 data
-  |> experimental.first()
+    |> experimental.first()
 ```
 
 {{< flex >}}

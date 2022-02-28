@@ -58,6 +58,6 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> experimental.group(columns: ["_value"], mode: "extend")
+    |> range(start: -1m)
+    |> experimental.group(columns: ["_value"], mode: "extend")
 ```

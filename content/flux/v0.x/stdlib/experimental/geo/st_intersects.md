@@ -24,8 +24,8 @@ system (GIS) geometry intersects with the specified region and returns `true` or
 import "experimental/geo"
 
 geo.ST_Intersects(
-  region: {lat: 40.7, lon: -73.3, radius: 20.0},
-  geometry: {linestring: "39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433"}
+    region: {lat: 40.7, lon: -73.3, radius: 20.0},
+    geometry: {linestring: "39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433"},
 )
 
 // Returns false
@@ -49,16 +49,9 @@ _See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry
 ```js
 import "experimental/geo"
 
-region = {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
-}
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
 
 data
-  |> geo.toRows()
-  |> map(fn: (r) => ({
-    r with st_within: geo.ST_Intersects(region: box, geometry: {lat: r.lat, lon: r.lon})
-  }))
+    |> geo.toRows()
+    |> map(fn: (r) => ({r with st_within: geo.ST_Intersects(region: box, geometry: {lat: r.lat, lon: r.lon})}))
 ```

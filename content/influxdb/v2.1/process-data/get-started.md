@@ -66,7 +66,7 @@ The InfluxDB UI provides a form for defining task options.
     data based on column values.
 
 ```js
-from(bucket: "example-bucket")
+data = from(bucket: "example-bucket")
     |> range(start: -task.every)
     |> filter(fn: (r) => r._measurement == "mem" and r.host == "myHost")
 ```
@@ -106,7 +106,7 @@ to group points into 5 minute windows and calculate the average of each
 window with [`mean()`](/{{< latest "flux" >}}/stdlib/universe/mean/).
 
 ```js
-option task = {name: "downsample_5m_precision", every: 1h, offset: 0m}
+option task = {name: "downsample_5m_precision", every: 1h, offset: 5m}
 
 from(bucket: "example-bucket")
     |> range(start: -task.every)

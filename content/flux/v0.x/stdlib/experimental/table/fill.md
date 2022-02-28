@@ -35,7 +35,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "experimental/table"
 
 data
-  |> table.fill()
+    |> table.fill()
 ```
 
 {{< flex >}}

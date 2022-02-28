@@ -41,8 +41,8 @@ The function returns the value of the specified quantile from the histogram in t
 import "experimental"
 
 experimental.histogramQuantile(
-  quantile: 0.5,
-  minValue: 0.0
+    quantile: 0.5,
+    minValue: 0.0,
 )
 ```
 
@@ -76,10 +76,7 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket")
-  |> range(start: -1d)
-  |> filter(fn: (r) =>
-    r._meausrement == "example-measurement" and
-    r._field == "example-field"
-  )
-  |> experimental.histogramQuantile(quantile: 0.9)
+    |> range(start: -1d)
+    |> filter(fn: (r) => r._meausrement == "example-measurement" and r._field == "example-field")
+    |> experimental.histogramQuantile(quantile: 0.9)
 ```

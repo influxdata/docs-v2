@@ -38,20 +38,21 @@ to create two streams of tables to compare in the test.
 import "testing"
 import "array"
 
-got = array.from(rows: [
-  {_time: 2021-01-01T00:00:00Z, _measurement: "m", _field: "t", _value: 1.2},
-  {_time: 2021-01-01T01:00:00Z, _measurement: "m", _field: "t", _value: 0.8},
-  {_time: 2021-01-01T02:00:00Z, _measurement: "m", _field: "t", _value: 3.2}
-])
-
-want = array.from(rows: [
-  {_time: 2021-01-01T00:00:00Z, _measurement: "m", _field: "t", _value: 1.2},
-  {_time: 2021-01-01T01:00:00Z, _measurement: "m", _field: "t", _value: 0.8},
-  {_time: 2021-01-01T02:00:00Z, _measurement: "m", _field: "t", _value: 3.1}
-])
-
-testing.diff(
-  got: testing.load(tables: got),
-  want: testing.load(tables: want)
+got = array.from(
+    rows: [
+        {_time: 2021-01-01T00:00:00Z, _measurement: "m", _field: "t", _value: 1.2},
+        {_time: 2021-01-01T01:00:00Z, _measurement: "m", _field: "t", _value: 0.8},
+        {_time: 2021-01-01T02:00:00Z, _measurement: "m", _field: "t", _value: 3.2},
+    ]
 )
+
+want = array.from(
+    rows: [
+        {_time: 2021-01-01T00:00:00Z, _measurement: "m", _field: "t", _value: 1.2},
+        {_time: 2021-01-01T01:00:00Z, _measurement: "m", _field: "t", _value: 0.8},
+        {_time: 2021-01-01T02:00:00Z, _measurement: "m", _field: "t", _value: 3.1},
+    ]
+)
+
+testing.diff(got: testing.load(tables: got), want: testing.load(tables: want))
 ```

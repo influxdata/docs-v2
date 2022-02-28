@@ -50,7 +50,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> timeShift(duration: 12h)
+    |> timeShift(duration: 12h)
 ```
 
 {{< expand-wrapper >}}
@@ -92,7 +92,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> timeShift(duration: -12h)
+    |> timeShift(duration: -12h)
 ```
 
 {{< expand-wrapper >}}

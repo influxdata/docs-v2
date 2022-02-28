@@ -85,12 +85,9 @@ The following example uses Chronograf's [predefined template variables](#predefi
 
 ```js
 from(bucket: "telegraf/autogen")
-  |> filter(fn: (r) => r._measurement == "cpu")
-  |> range(
-    start: dashboardTime,
-    stop: upperDashboardTime
-  )
-  window(every: autoInterval)
+    |> filter(fn: (r) => r._measurement == "cpu")
+    |> range(start: dashboardTime, stop: upperDashboardTime)
+    |> window(every: autoInterval)
 ```
 
 ### Predefined template variables
@@ -102,9 +99,7 @@ It should be used to define the `start` parameter of the `range()` function.
 
 ```js
 dataSet
-  |> range(
-    start: dashboardTime
-  )
+    |> range(start: dashboardTime)
 ```
 
 #### upperDashboardTime
@@ -114,10 +109,7 @@ It should be used to define the `stop` parameter of the `range()` function.
 
 ```js
 dataSet
-  |> range(
-    start: dashboardTime,
-    stop: upperDashboardTime
-  )
+    |> range(start: dashboardTime, stop: upperDashboardTime)
 ```
 > As a best practice, always set the `stop` parameter of the `range()` function to `upperDashboardTime` in cell queries.
 > Without it, `stop` defaults to "now" and the absolute upper range bound selected in the time dropdown is not honored,
@@ -131,14 +123,8 @@ It's typically used to align window intervals created in
 
 ```js
 dataSet
-  |> range(
-    start: dashboardTime,
-    stop: upperDashboardTime
-  )
-  |> aggregateWindow(
-    every: autoInterval,
-    fn: mean
-  )
+    |> range(start: dashboardTime, stop: upperDashboardTime)
+    |> aggregateWindow(every: autoInterval, fn: mean)
 ```
 
 ### Custom template variables

@@ -26,13 +26,10 @@ filtering that data by the `cpu` measurement and the `cpu=cpu-total` tag, window
 and calculating the average of each window:
 
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start:-1h)
-  |> filter(fn:(r) =>
-    r._measurement == "cpu" and
-    r.cpu == "cpu-total"
-  )
-  |> aggregateWindow(every: 1m, fn: mean)
+from(bucket: "telegraf/autogen")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r.cpu == "cpu-total")
+    |> aggregateWindow(every: 1m, fn: mean)
 ```
 
 {{< children >}}

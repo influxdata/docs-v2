@@ -42,11 +42,11 @@ _**Output data type:** Float_
 
 ```js
 histogramQuantile(
-  quantile: 0.5,
-  countColumn: "_value",
-  upperBoundColumn: "le",
-  valueColumn: "_value",
-  minValue: 0.0
+    quantile: 0.5,
+    countColumn: "_value",
+    upperBoundColumn: "le",
+    valueColumn: "_value",
+    minValue: 0.0,
 )
 ```
 
@@ -95,10 +95,10 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 data = sampledata.float()
-  |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
+    |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
 
 data
-  |> histogramQuantile(quantile: 0.9)
+    |> histogramQuantile(quantile: 0.9)
 ```
 
 {{% expand "View input and output" %}}

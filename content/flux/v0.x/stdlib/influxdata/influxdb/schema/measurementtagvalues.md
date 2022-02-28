@@ -26,9 +26,9 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/schema"
 
 schema.measurementTagValues(
-  bucket: "example-bucket",
-  measurement: "cpu",
-  tag: "host"
+    bucket: "example-bucket",
+    measurement: "cpu",
+    tag: "host",
 )
 ```
 
@@ -72,6 +72,8 @@ schema.measurementTagValues(bucket: "example-bucket", measurement: "example-meas
 
 ### Return all tag values in a measurement during a non-default time range
 ```js
+import "influxdata/influxdb/schema"
+
 schema.measurementTagValues(
     bucket: "example-bucket",
     measurement: "example-measurement",

@@ -25,15 +25,15 @@ The `sensu.event()` function sends a single event to the
 import "contrib/sranka/sensu"
 
 sensu.event(
-  url: "http://localhost:8080",
-  apiKey: "mYSuP3rs3cREtApIK3Y",
-  checkName: "checkName",
-  text: "Event output text",
-  handlers: [],
-  status: 0,
-  state: "passing",
-  namespace: "default",
-  entityName: "influxdb"
+    url: "http://localhost:8080",
+    apiKey: "mYSuP3rs3cREtApIK3Y",
+    checkName: "checkName",
+    text: "Event output text",
+    handlers: [],
+    status: 0,
+    state: "passing",
+    namespace: "default",
+    entityName: "influxdb",
 )
 ```
 
@@ -104,16 +104,16 @@ import "contrib/sranka/sensu"
 apiKey = secrets.get(key: "SENSU_API_KEY")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
-    sensu.event(
-      url: "http://localhost:8080",
-      apiKey: apiKey,
-      checkName: "diskUsage",
-      text: "Disk usage is **${lastReported.status}**.",
-    )
+sensu.event(
+    url: "http://localhost:8080",
+    apiKey: apiKey,
+    checkName: "diskUsage",
+    text: "Disk usage is **${lastReported.status}**.",
+)
 ```

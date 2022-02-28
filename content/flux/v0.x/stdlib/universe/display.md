@@ -55,11 +55,15 @@ observe any value.
 ```js
 import "array"
 
-array.from(rows:[{
-    dict: display(v: ["a":1, "b": 2]),
-    record: display(v:{x: 1, y: 2}),
-    array: display(v: [5,6,7])
-}])
+array.from(
+    rows: [
+        {
+            dict: display(v: ["a":1, "b": 2]),
+            record: display(v:{x: 1, y: 2}),
+            array: display(v: [5,6,7])
+        }
+    ]
+)
 ```
 
 #### Output data

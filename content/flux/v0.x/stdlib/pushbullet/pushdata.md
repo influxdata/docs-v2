@@ -20,15 +20,15 @@ The `pushbullet.pushData()` function sends a push notification to the
 import "pushbullet"
 
 pushbullet.pushData(
-  url: "https://api.pushbullet.com/v2/pushes",
-  token: "",
-  data: {
-    "type": "link",
-    "title": "This is a notification!",
-    "body": "This notification came from Flux.",
-    "url": "http://example.com"
-  }
-)
+    url: "https://api.pushbullet.com/v2/pushes",
+    token: "",
+    data: {
+        "type": "link",
+        "title": "This is a notification!",
+        "body": "This notification came from Flux.",
+        "url": "http://example.com"
+    },
+  )
 ```
 
 ## Parameters
@@ -56,8 +56,7 @@ import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "PUSHBULLET_TOKEN")
 
-lastReported =
-  from(bucket: "example-bucket")
+lastReported = from(bucket: "example-bucket")
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
@@ -65,12 +64,12 @@ lastReported =
     |> getRecord(idx: 0)
 
 pushbullet.pushData(
-  token: token,
-  data: {
-    "type": "link",
-    "title": "Last reported status",
-    "body": "${lastReported._time}: ${lastReported.status}."
-    "url": "${lastReported.statusURL}"
-  }
+    token: token,
+    data: {
+        "type": "link",
+        "title": "Last reported status",
+        "body": "${lastReported._time}: ${lastReported.status}.",
+        "url": "${lastReported.statusURL}",
+    }
 )
 ```

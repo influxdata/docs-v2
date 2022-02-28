@@ -19,8 +19,6 @@ introduced: 0.7.0
 
 The `int()` function converts a single value to an integer.
 
-_**Output data type:** Integer_
-
 ```js
 int(v: "4")
 ```
@@ -98,10 +96,10 @@ _The following example uses data provided by the [`sampledata` package](/flux/v0
 import "sampledata"
 
 data = sampledata.float()
-  |> rename(columns: {_value: "foo"})
+    |> rename(columns: {_value: "foo"})
 
 data
-  |> map(fn:(r) => ({ r with foo: int(v: r.foo) }))
+    |> map(fn: (r) => ({r with foo: int(v: r.foo)}))
 ```
 
 {{% expand "View input and output" %}}

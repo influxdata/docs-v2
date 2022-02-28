@@ -139,7 +139,7 @@ them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, do the following in
 import "experimental/prometheus"
 
 prometheus.scrape(url: "http://example.com/metrics")
-  |> to(bucket: "example-bucket")
+    |> to(bucket: "example-bucket")
 ```
 
 4. (Optional) To scrape Prometheus metrics at regular intervals using Flux, add your Flux

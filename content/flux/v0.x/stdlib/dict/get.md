@@ -21,9 +21,9 @@ or a default value if the key does not exist.
 import "dict"
 
 dict.get(
-  dict: [1: "foo", 2: "bar"],
-  key: 1,
-  default: ""
+    dict: [1: "foo", 2: "bar"],
+    key: 1,
+    default: "",
 )
 ```
 
@@ -51,11 +51,7 @@ import "dict"
 
 d = [1: "foo", 2: "bar"]
 
-dict.get(
-  dict: d,
-  key: 1,
-  default: ""
-)
+dict.get(dict: d, key: 1, default: "")
 
 // Returns foo
 ```

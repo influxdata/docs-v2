@@ -28,8 +28,8 @@ Bin counts are cumulative.
 import "experimental"
 
 experimental.histogram(
-  bins: [50.0, 75.0, 90.0],
-  normalize: false
+    bins: [50.0, 75.0, 90.0],
+    normalize: false,
 )
 ```
 
@@ -76,9 +76,7 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 data
-  |> experimental.histogram(
-    bins: linearBins(start:0.0, width:20.0, count:5)
-  )
+    |> experimental.histogram(bins: linearBins(start: 0.0, width: 20.0, count: 5))
 ```
 
 ##### Input data

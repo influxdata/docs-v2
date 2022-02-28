@@ -107,7 +107,7 @@ contain values in the 50th percentile of data in the table.
 
 ```js
 data
-  |> median()
+    |> median()
 ```
 
 ## Find the average of values closest to the median
@@ -116,7 +116,7 @@ average of the two values closest to the mathematical median of data in the tabl
 
 ```js
 data
-  |> median(method: "exact_mean")
+    |> median(method: "exact_mean")
 ```
 
 ## Find the point with the median value
@@ -125,7 +125,7 @@ value that 50% of values in the table are less than.
 
 ```js
 data
-  |> median(method: "exact_selector")
+    |> median(method: "exact_selector")
 ```
 
 ## Use median() with aggregateWindow()
@@ -139,8 +139,5 @@ To specify the [median calculation method](#select-a-method-for-calculating-the-
 
 ```js
 data
-  |> aggregateWindow(
-    every: 5m,
-    fn: (tables=<-, column) => tables |> median(method: "exact_selector")
-  )
+    |> aggregateWindow(every: 5m, fn: (tables=<-, column) => tables |> median(method: "exact_selector"))
 ```

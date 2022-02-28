@@ -41,11 +41,11 @@ To write data to [PostgreSQL](https://www.postgresql.org/) with Flux:
 import "sql"
   
 data
-  |> sql.to(
-    driverName: "postgres",
-    dataSourceName: "postgresql://username:password@localhost:5432",
-    table: "example_table"
-  )
+    |> sql.to(
+        driverName: "postgres",
+        dataSourceName: "postgresql://username:password@localhost:5432",
+        table: "example_table",
+    )
 ```
 
 ---
