@@ -25,13 +25,10 @@ In the histogram output, a column is added (le) that represents the upper bounds
 Bin counts are cumulative.
 
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(bins: [0.0, 10.0, 20.0, 30.0])
+from(bucket: "telegraf/autogen")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: [0.0, 10.0, 20.0, 30.0])
 ```
 
 > Values output by the `histogram` function represent points of data aggregated over time.
@@ -63,20 +60,10 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
 
 ### Generating a histogram with linear bins
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(
-    bins: linearBins(
-      start:65.5,
-      width: 0.5,
-      count: 20,
-      infinity:false
-    )
-  )
+from(bucket: "telegraf/autogen")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: linearBins(start: 65.5, width: 0.5, count: 20, infinity: false))
 ```
 
 ###### Output table
@@ -108,20 +95,10 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 
 ### Generating a histogram with logarithmic bins
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(
-    bins: logarithmicBins(
-      start:0.5,
-      factor: 2.0,
-      count: 10,
-      infinity:false
-    )
-  )
+from(bucket: "telegraf/autogen")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: logarithmicBins(start: 0.5, factor: 2.0, count: 10, infinity: false))
 ```
 
 ###### Output table
