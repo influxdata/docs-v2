@@ -48,12 +48,12 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    To prevent SQL injection attacks, avoid concatenating unsafe user input with queries.
    {{% /warn %}}
 
-   ```js
-   const fluxQuery =
-     'from(bucket: "YOUR_BUCKET")
-     |> range(start: 0)
-     |> filter(fn: (r) => r._measurement == "temperature")'
-   ```
+    ```js
+    const fluxQuery =
+      'from(bucket: "YOUR_BUCKET")
+        |> range(start: 0)
+        |> filter(fn: (r) => r._measurement == "temperature")'
+    ```
    Replace *`YOUR_BUCKET`* with the name of your InfluxDB bucket.
 
 4. Use the `queryRows()` method of the query client to query InfluxDB.

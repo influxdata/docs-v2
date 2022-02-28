@@ -24,7 +24,7 @@ wrap over time or periodically reset.
 
 ```js
 data
-  |> increase()
+    |> increase()
 ```
 
 `increase()` returns a cumulative sum of **non-negative** differences between rows in a table.

@@ -70,11 +70,11 @@ task_data = from(bucket: "_tasks")
     |> last()
 
 check = {
-		// 16 characters, alphanumeric
+    // 16 characters, alphanumeric
     _check_id: "0000000000000001",
-		// Name string
+    // Name string
     _check_name: "Failed Tasks Check",
-		// Check type (threshold, deadman, or custom)
+    // Check type (threshold, deadman, or custom)
     _type: "custom",
     tags: {},
 }
@@ -84,12 +84,7 @@ messageFn = (r) => "The task: ${r.taskID} - ${r.name} has a status of ${r.status
 
 task_data
     |> schema["fieldsAsCols"]()
-    |> monitor["check"](
-        data: check,
-        messageFn: messageFn,
-        ok: ok,
-        crit: crit,
-    )
+    |> monitor["check"](data: check, messageFn: messageFn, ok: ok, crit: crit)
 ```
 
 {{% note %}}

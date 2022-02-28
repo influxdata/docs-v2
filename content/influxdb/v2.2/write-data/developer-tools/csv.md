@@ -577,7 +577,7 @@ The example below writes [NOAA water sample data](/influxdb/v2.2/reference/sampl
 import "experimental/csv"
 
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-  |> to(bucket: "noaa", org: "example-org")
+    |> to(bucket: "noaa", org: "example-org")
 ```
 
 {{% note %}}

@@ -19,8 +19,8 @@ _**Flux functions:**
 
 ```js
 buckets()
-  |> rename(columns: {"name": "_value"})
-  |> keep(columns: ["_value"])
+    |> rename(columns: {"name": "_value"})
+    |> keep(columns: ["_value"])
 ```
 
 ## List measurements
@@ -45,9 +45,9 @@ _**Flux package:** [InfluxDB schema](/{{< latest "flux" >}}/stdlib/influxdata/in
 import "influxdata/influxdb/schema"
 
 schema.measurementTagValues(
-  bucket: "bucket-name",
-  measurement: "measurement-name",
-  tag: "_field"
+    bucket: "bucket-name",
+    measurement: "measurement-name",
+    tag: "_field",
 )
 ```
 
@@ -88,9 +88,9 @@ _**Flux functions:** [schema.measurementTagValues()](/{{< latest "flux" >}}/stdl
 import "influxdata/influxdb/schema"
 
 schema.measurementTagValues(
-  bucket: "bucket-name",
-  measurement: "kubernetes_pod_container",
-  tag: "pod_name"
+    bucket: "bucket-name",
+    measurement: "kubernetes_pod_container",
+    tag: "pod_name",
 )
 ```
 
@@ -105,8 +105,8 @@ _**Flux functions:** [schema.measurementTagValues()](/{{< latest "flux" >}}/stdl
 import "influxdata/influxdb/schema"
 
 schema.measurementTagValues(
-  bucket: "bucket-name",
-  measurement: "kubernetes_node",
-  tag: "node_name"
+    bucket: "bucket-name",
+    measurement: "kubernetes_node",
+    tag: "node_name",
 )
 ```

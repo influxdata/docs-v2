@@ -208,10 +208,7 @@ InfluxDB Cloud.
 ```js
 import "influxdata/influxdb/tasks"
 
-option task = {
-    name: "Downsample to InfluxDB Cloud",
-    every: 1h,
-}
+option task = {name: "Downsample to InfluxDB Cloud", every: 1h}
 
 from(bucket: "example-oss-bucket")
     |> range(start: -10m)

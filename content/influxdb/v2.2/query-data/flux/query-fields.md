@@ -17,12 +17,9 @@ related:
 list_code_example: |
   ```js
   from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) =>
-        r._measurement == "example-measurement" and
-        r._field == "example-field" and
-        r.tag == "example-tag"
-    )
+      |> range(start: -1h)
+      |> filter(fn: (r) => r._measurement == "example-measurement" and r.tag == "example-tag")
+      |> filter(fn: (r) => r._field == "example-field")
   ```
 ---
 
@@ -40,7 +37,7 @@ Rows that evaluate to `false` are **excluded** from the output data.
 
 ```js
 // ...
-  |> filter(fn: (r) => r._measurement == "example-measurement" )
+    |> filter(fn: (r) => r._measurement == "example-measurement" )
 ```
 
 The `fn` predicate function requires an `r` argument, which represents each row
@@ -73,10 +70,7 @@ and `filter()` represent the most basic Flux query:
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "example-field" and
-      r.tag == "example-tag"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r.tag == "example-tag")
+    |> filter(fn: (r) => r._field == "example-field")
 ```

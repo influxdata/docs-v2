@@ -43,11 +43,8 @@ This returns the amount of memory (in bytes) used.
 ###### memUsed stream definition
 ```js
 memUsed = from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used"
-  )
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used")
 ```
 
 {{% truncate %}}
@@ -97,11 +94,8 @@ This returns the number of running processes.
 ###### procTotal stream definition
 ```js
 procTotal = from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "processes" and
-    r._field == "total"
-  )
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "processes" and r._field == "total")
 ```
 
 {{% truncate %}}
@@ -158,8 +152,8 @@ _**Both tables must have all columns specified in this list.**_
 
 ```js
 join(
-  tables: {mem:memUsed, proc:procTotal},
-  on: ["_time", "_stop", "_start", "host"]
+    tables: {mem:memUsed, proc:procTotal},
+    on: ["_time", "_stop", "_start", "host"],
 )
 ```
 
@@ -222,12 +216,8 @@ column and dividing `_value_mem` by `_value_proc` and mapping it to a
 new `_value` column.
 
 ```js
-join(tables: {mem:memUsed, proc:procTotal}, on: ["_time", "_stop", "_start", "host"])
-  |> map(fn: (r) => ({
-      _time: r._time,
-      _value: r._value_mem / r._value_proc
-    })
-  )
+join(tables: {mem: memUsed, proc: procTotal}, on: ["_time", "_stop", "_start", "host"])
+    |> map(fn: (r) => ({_time: r._time, _value: r._value_mem / r._value_proc}))
 ```
 
 {{% truncate %}}
@@ -280,35 +270,21 @@ The results are grouped by cluster ID so you can make comparisons across cluster
 
 ```js
 batchSize = (cluster_id, start=-1m, interval=10s) => {
-  httpd = from(bucket:"telegraf")
-    |> range(start:start)
-    |> filter(fn:(r) =>
-      r._measurement == "influxdb_httpd" and
-      r._field == "writeReq" and
-      r.cluster_id == cluster_id
-    )
-    |> aggregateWindow(every: interval, fn: mean)
-    |> derivative(nonNegative:true,unit:60s)
+    httpd = from(bucket: "telegraf")
+        |> range(start: start)
+        |> filter(fn: (r) => r._measurement == "influxdb_httpd" and r._field == "writeReq" and r.cluster_id == cluster_id)
+        |> aggregateWindow(every: interval, fn: mean)
+        |> derivative(nonNegative: true, unit: 60s)
 
-  write = from(bucket:"telegraf")
-    |> range(start:start)
-    |> filter(fn:(r) =>
-      r._measurement == "influxdb_write" and
-      r._field == "pointReq" and
-      r.cluster_id == cluster_id
-    )
-    |> aggregateWindow(every: interval, fn: max)
-    |> derivative(nonNegative:true,unit:60s)
+    write = from(bucket: "telegraf")
+        |> range(start: start)
+        |> filter(fn: (r) => r._measurement == "influxdb_write" and r._field == "pointReq" and r.cluster_id == cluster_id)
+        |> aggregateWindow(every: interval, fn: max)
+        |> derivative(nonNegative: true, unit: 60s)
 
-  return join(
-      tables:{httpd:httpd, write:write},
-      on:["_time","_stop","_start","host"]
-    )
-    |> map(fn:(r) => ({
-        _time: r._time,
-        _value: r._value_httpd / r._value_write,
-    }))
-    |> group(columns: cluster_id)
+    return join(tables: {httpd: httpd, write: write}, on: ["_time", "_stop", "_start", "host"])
+        |> map(fn: (r) => ({_time: r._time, _value: r._value_httpd / r._value_write}))
+        |> group(columns: cluster_id)
 }
 
 batchSize(cluster_id: "enter cluster id here")

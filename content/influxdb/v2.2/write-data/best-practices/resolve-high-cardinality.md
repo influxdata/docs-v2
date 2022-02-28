@@ -76,17 +76,19 @@ The following example Flux query shows you which tags are contributing the most 
 // Count unique values for each tag in a bucket
 import "influxdata/influxdb/schema"
 
-cardinalityByTag = (bucket) =>
-  schema.tagKeys(bucket: bucket)
-    |> map(fn: (r) => ({
-      tag: r._value,
-      _value:
-        if contains(set: ["_stop","_start"], value:r._value) then 0
-        else (schema.tagValues(bucket: bucket, tag: r._value)
-          |> count()
-          |> findRecord(fn: (key) => true, idx: 0))._value
-    }))
-    |> group(columns:["tag"])
+cardinalityByTag = (bucket) => schema.tagKeys(bucket: bucket)
+    |> map(
+        fn: (r) => ({
+            tag: r._value,
+            _value: if contains(set: ["_stop", "_start"], value: r._value) then
+                0
+            else
+                (schema.tagValues(bucket: bucket, tag: r._value)
+                    |> count()
+                    |> findRecord(fn: (key) => true, idx: 0))._value,
+        }),
+    )
+    |> group(columns: ["tag"])
     |> sum()
 
 cardinalityByTag(bucket: "example-bucket")
@@ -114,7 +116,7 @@ cardinalityByTag(bucket: "example-bucket")
     tag = "example-tag-key"
 
     schema.tagValues(bucket: "my-bucket", tag: tag)
-      |> count()
+        |> count()
     ```
 
 These queries should help identify the sources of high cardinality in each of your buckets. To determine which specific tags are growing, check the cardinality again after 24 hours to see if one or more tags have grown significantly.

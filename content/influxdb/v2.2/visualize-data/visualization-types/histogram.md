@@ -73,11 +73,8 @@ _It utilizes data from the [Telegraf Syslog plugin](/{{< latest "telegraf" >}}/p
 ##### Query for errors by severity code
 ```js
 from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "syslog" and
-      r._field == "severity_code"
-  )
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "syslog" and r._field == "severity_code")
 ```
 
 ##### Histogram settings

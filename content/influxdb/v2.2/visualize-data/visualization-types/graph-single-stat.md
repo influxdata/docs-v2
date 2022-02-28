@@ -130,11 +130,8 @@ The following example shows the current percentage of memory used as well as mem
 ###### Query memory usage percentage
 ```js
 from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "mem" and
-      r._field == "used_percent"
-  )
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
 ```
 ###### Memory allocations percentage visualization with static legend
 {{< img-hd src="/img/influxdb/2-0-visualizations-graph-single-stat-mem-8.png" alt="Graph + Single Stat Memory Usage Example" />}}

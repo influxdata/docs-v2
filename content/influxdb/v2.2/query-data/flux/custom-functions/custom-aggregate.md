@@ -45,11 +45,12 @@ The following example `reduce()` function produces a sum and product of all valu
 in an input table.
 
 ```js
-|> reduce(fn: (r, accumulator) => ({
-    sum: r._value + accumulator.sum,
-    product: r._value * accumulator.product
-  }),
-  identity: {sum: 0.0, product: 1.0}
+|> reduce(
+    fn: (r, accumulator) => ({
+        sum: r._value + accumulator.sum,
+        product: r._value * accumulator.product
+    }),
+    identity: {sum: 0.0, product: 1.0},
 )
 ```
 

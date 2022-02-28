@@ -22,12 +22,12 @@ last record in an input table.
 
 ```js
 data
-  |> first()
+    |> first()
 
 // OR
 
 data
-  |> last()
+    |> last()
 ```
 
 {{% note %}}
@@ -121,10 +121,7 @@ point using aggregate or selector functions, and then removes the time-based seg
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```js
-|> aggregateWindow(
-  every: 1h,
-  fn: first
-)
+|> aggregateWindow(every: 1h, fn: first)
 ```
 | _time                | _value |
 |:-----                | ------:|
@@ -134,10 +131,7 @@ point using aggregate or selector functions, and then removes the time-based seg
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
-|> aggregateWindow(
-  every: 1h,
-  fn: last
-)
+|> aggregateWindow(every: 1h, fn: last)
 ```
 
 | _time                | _value |

@@ -30,13 +30,9 @@ Use the query built in the previous [Query data from InfluxDB](/influxdb/v2.2/qu
 guide, but update the range to pull data from the last hour:
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
 ```
 
 ## Flux functions
@@ -70,14 +66,10 @@ including **calendar months (`1mo`)** and **years (`1y`)**.
 For this example, window data in five minute intervals (`5m`).
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> window(every: 5m)
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> window(every: 5m)
 ```
 
 As data is gathered into windows of time, each window is output as its own table.
@@ -90,15 +82,11 @@ Flux aggregate functions take the `_value`s in each table and aggregate them in 
 Use the [`mean()` function](/{{< latest "flux" >}}/stdlib/universe/mean) to average the `_value`s of each table.
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> window(every: 5m)
-  |> mean()
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> window(every: 5m)
+    |> mean()
 ```
 
 As rows in each window are aggregated, their output table contains only a single row with the aggregate value.
@@ -117,16 +105,12 @@ To add one, use the [`duplicate()` function](/{{< latest "flux" >}}/stdlib/unive
 to duplicate the `_stop` column as the `_time` column for each windowed table.
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> window(every: 5m)
-  |> mean()
-  |> duplicate(column: "_stop", as: "_time")
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> window(every: 5m)
+    |> mean()
+    |> duplicate(column: "_stop", as: "_time")
 ```
 
 ## Unwindow aggregate tables
@@ -135,17 +119,13 @@ Use the `window()` function with the `every: inf` parameter to gather all points
 into a single, infinite window.
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> window(every: 5m)
-  |> mean()
-  |> duplicate(column: "_stop", as: "_time")
-  |> window(every: inf)
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> window(every: 5m)
+    |> mean()
+    |> duplicate(column: "_stop", as: "_time")
+    |> window(every: inf)
 ```
 
 Once ungrouped and combined into a single table, the aggregate data points will appear connected in your visualization.
@@ -161,14 +141,10 @@ The same operation performed in this guide can be accomplished using
 [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow).
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> aggregateWindow(every: 5m, fn: mean)
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> aggregateWindow(every: 5m, fn: mean)
 ```
 
 ## Congratulations!

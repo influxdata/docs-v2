@@ -69,8 +69,8 @@ Use `level description` as the **Fill Column** in the [visualization controls](#
 
 ```js
 from(bucket: "noaa")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "h2o_feet")
-  |> filter(fn: (r) => r._field == "level description")
-  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "h2o_feet")
+    |> filter(fn: (r) => r._field == "level description")
+    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```

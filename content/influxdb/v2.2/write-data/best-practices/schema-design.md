@@ -109,9 +109,9 @@ The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blu
 ```js
 // Query *Good Measurements*, data stored in separate tags (recommended)
 from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
+    |> mean()
 ```
 
 **Difficult to query**: [_Bad Measurements_](#bad-measurements-schema) requires regular expressions to extract `plot` and `region` from the measurement, as in the following example.
@@ -119,9 +119,9 @@ from(bucket:"example-bucket")
 ```js
 // Query *Bad Measurements*, data encoded in the measurement (not recommended)
 from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
+    |> mean()
 ```
 
 Complex measurements make some queries impossible. For example, calculating the average temperature of both plots is not possible with the [_Bad Measurements_](#bad-measurements-schema) schema.
@@ -174,8 +174,8 @@ For example, consider a bucket that stores data about thousands of users. With `
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -7d)
-  |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
+    |> range(start: -7d)
+    |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
 ```
 
 To retrieve data more quickly, filter on a tag to reduce the number of rows scanned.
@@ -184,9 +184,9 @@ The following query filters by the `company` tag to reduce the number of rows sc
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -7d)
-  |> filter(fn: (r) => r.company == "Acme")
-  |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
+    |> range(start: -7d)
+    |> filter(fn: (r) => r.company == "Acme")
+    |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
 ```
 
 ### Keep tags simple
@@ -232,9 +232,9 @@ The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blu
 ```js
 // Query *Good Tags* schema, data encoded in multiple tags
 from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
+    |> mean()
 ```
 
 **Difficult to query**: [_Bad Tags_](#bad-tags-schema) requires regular expressions to parse the complex `location` values, as in the following example.
@@ -242,9 +242,9 @@ from(bucket:"example-bucket")
 ```js
 // Query *Bad Tags* schema, multiple data encoded in a single tag
 from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
+    |> mean()
 ```
 
 For an overview of the InfluxDB data model, watch the following video:

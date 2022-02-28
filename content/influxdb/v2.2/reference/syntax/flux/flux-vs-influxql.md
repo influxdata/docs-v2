@@ -45,23 +45,14 @@ each data set includes the columns to join on.
 
 ```js
 dataStream1 = from(bucket: "example-bucket1")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "network" and
-    r._field == "bytes-transferred"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "network" and r._field == "bytes-transferred")
 
 dataStream2 = from(bucket: "example-bucket2")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "httpd" and
-    r._field == "requests-per-sec"
-    )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "httpd" and r._field == "requests-per-sec")
 
-join(
-    tables: {d1:dataStream1, d2:dataStream2},
-    on: ["_time", "_stop", "_start", "host"]
-  )
+join(tables: {d1: dataStream1, d2: dataStream2}, on: ["_time", "_stop", "_start", "host"])
 ```
 
 _For an in-depth walkthrough of using the `join()` function, see [how to join data with Flux](/influxdb/v2.2/query-data/flux/join/)._
@@ -75,31 +66,18 @@ joins them, and then calculates the average amount of memory used per running pr
 ```js
 // Memory used (in bytes)
 memUsed = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used")
 
 // Total processes running
 procTotal = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "processes" and
-    r._field == "total"
-    )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "processes" and r._field == "total")
 
 // Join memory used with total processes to calculate
 // the average memory (in MB) used for running processes.
-join(
-    tables: {mem:memUsed, proc:procTotal},
-    on: ["_time", "_stop", "_start", "host"]
-  )
-  |> map(fn: (r) => ({
-    _time: r._time,
-    _value: (r._value_mem / r._value_proc) / 1000000
-  })
-)
+join(tables: {mem: memUsed, proc: procTotal}, on: ["_time", "_stop", "_start", "host"])
+    |> map(fn: (r) => ({_time: r._time, _value: r._value_mem / r._value_proc / 1000000}))
 ```
 
 ### Sort by tags
@@ -110,13 +88,10 @@ sorts records based on a list of columns.
 Depending on the column type, Flux sorts records lexicographically, numerically, or chronologically.
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -12h)
-  |> filter(fn: (r) =>
-    r._measurement == "system" and
-    r._field == "uptime"
-  )
-  |> sort(columns:["region", "host", "_value"])
+from(bucket: "example-bucket")
+    |> range(start: -12h)
+    |> filter(fn: (r) => r._measurement == "system" and r._field == "uptime")
+    |> sort(columns: ["region", "host", "_value"])
 ```
 
 ### Group by any column
@@ -127,9 +102,9 @@ to define which columns to group data by.
 
 ```js
 from(bucket:"example-bucket")
-  |> range(start: -12h)
-  |> filter(fn: (r) => r._measurement == "system" and r._field == "uptime" )
-  |> group(columns:["host", "_value"])
+    |> range(start: -12h)
+    |> filter(fn: (r) => r._measurement == "system" and r._field == "uptime" )
+    |> group(columns:["host", "_value"])
 ```
 
 ### Window by calendar months and years
@@ -139,9 +114,9 @@ window and aggregate data by calendar month and year.
 
 ```js
 from(bucket:"example-bucket")
-  |> range(start:-1y)
-  |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent" )
-  |> aggregateWindow(every: 1mo, fn: mean)
+    |> range(start:-1y)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent" )
+    |> aggregateWindow(every: 1mo, fn: mean)
 ```
 
 ### Work with multiple data sources
@@ -159,20 +134,22 @@ import "csv"
 import "sql"
 
 csvData = csv.from(csv: rawCSV)
+
 sqlData = sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
-  query:"SELECT * FROM example_table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://user:password@localhost",
+    query: "SELECT * FROM example_table",
 )
+
 data = from(bucket: "example-bucket")
-  |> range(start: -24h)
-  |> filter(fn: (r) => r._measurement == "sensor")
+    |> range(start: -24h)
+    |> filter(fn: (r) => r._measurement == "sensor")
 
 auxData = join(tables: {csv: csvData, sql: sqlData}, on: ["sensor_id"])
 enrichedData = join(tables: {data: data, aux: auxData}, on: ["sensor_id"])
 
 enrichedData
-  |> yield(name: "enriched_data")
+    |> yield(name: "enriched_data")
 ```
 
 _For an in-depth walkthrough of querying SQL data, see [Query SQL data sources](/influxdb/v2.2/query-data/flux/sql/)._
@@ -184,12 +161,9 @@ returns only data with time values in a specified hour range.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r.cpu == "cpu-total"
-  )
-  |> hourSelection(start: 9, stop: 17)
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r.cpu == "cpu-total")
+    |> hourSelection(start: 9, stop: 17)
 ```
 
 ### Pivot
@@ -199,16 +173,9 @@ to pivot data tables by `rowKey`, `columnKey`, and `valueColumn` parameters.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r.cpu == "cpu-total"
-  )
-  |> pivot(
-    rowKey:["_time"],
-    columnKey: ["_field"],
-    valueColumn: "_value"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r.cpu == "cpu-total")
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
 ```
 
 ### Histograms
@@ -218,14 +185,9 @@ generate a cumulative histogram.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(
-    buckets: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(buckets: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
 ```
 
 _For more examples, see [how to create histograms with Flux](/influxdb/v2.2/query-data/flux/histograms/)._
@@ -239,23 +201,19 @@ to calculate the covariance between two data streams.
 ###### Covariance between two columns
 ```js
 from(bucket: "example-bucket")
-  |> range(start:-5m)
-  |> covariance(columns: ["x", "y"])
+    |> range(start:-5m)
+    |> covariance(columns: ["x", "y"])
 ```
 
 ###### Covariance between two streams of data
 ```js
 table1 = from(bucket: "example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "measurement_1"
-  )
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "measurement_1")
 
 table2 = from(bucket: "example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "measurement_2"
-  )
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "measurement_2")
 
 cov(x: table1, y: table2, on: ["_time", "_field"])
 ```
@@ -268,12 +226,9 @@ to perform many more type conversions, including casting boolean values to integ
 ##### Cast boolean field values to integers
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "m" and
-    r._field == "bool_field"
-  )
-  |> toInt()
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "m" and r._field == "bool_field")
+    |> toInt()
 ```
 
 ### String manipulation and data shaping
@@ -285,17 +240,16 @@ Combine functions in this package with the [`map()` function](/{{< latest "flux"
 import "strings"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "weather" and
-    r._field == "temp"
-  )
-  |> map(fn: (r) => ({
-    r with
-    location: strings.toTitle(v: r.location),
-    sensor: strings.replaceAll(v: r.sensor, t: " ", u: "-"),
-    status: strings.substring(v: r.status, start: 0, end: 8)
-  }))
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "weather" and r._field == "temp")
+    |> map(
+        fn: (r) => ({
+            r with
+            location: strings.toTitle(v: r.location),
+            sensor: strings.replaceAll(v: r.sensor, t: " ", u: "-"),
+            status: strings.substring(v: r.status, start: 0, end: 8)
+        })
+    )
 ```
 
 ### Work with geo-temporal data
@@ -307,14 +261,11 @@ let you shape, filter, and group geo-temporal data.
 import "experimental/geo"
 
 from(bucket: "geo/autogen")
-  |> range(start: -1w)
-  |> filter(fn: (r) => r._measurement == "taxi")
-  |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 20)
-  |> geo.filterRows(
-    region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0},
-    strict: true
-  )
-  |> geo.asTracks(groupBy: ["fare-id"])
+    |> range(start: -1w)
+    |> filter(fn: (r) => r._measurement == "taxi")
+    |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 20)
+    |> geo.filterRows(region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0}, strict: true)
+    |> geo.asTracks(groupBy: ["fare-id"])
 ```
 
 

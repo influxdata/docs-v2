@@ -55,12 +55,8 @@ in a facility and displays it as a gauge.
 ###### Query pressure data from a specific sensor
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-      r._measurement == "steam-sensors" and
-      r._field == "psi"
-      r.sensorID == "a211i"
-  )
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "steam-sensors" and r._field == "psi" <INVALID_OP> r.sensorID == "a211i")
 ```
 
 ###### Visualization options for pressure gauge

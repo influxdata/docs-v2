@@ -85,8 +85,8 @@ to list **field keys in a measurement**.
 import "influxdata/influxdb/schema"
 
 schema.measurementFieldKeys(
-  bucket: "example-bucket",
-  measurement: "example-measurement"
+    bucket: "example-bucket",
+    measurement: "example-measurement",
 )
 ```
 
@@ -109,8 +109,8 @@ _This function returns results from the last 30 days._
 import "influxdata/influxdb/schema"
 
 schema.measurementTagKeys(
-  bucket: "example-bucket",
-  measurement: "example-measurement"
+    bucket: "example-bucket",
+    measurement: "example-measurement",
 )
 ```
 
@@ -133,8 +133,8 @@ _This function returns results from the last 30 days._
 import "influxdata/influxdb/schema"
 
 schema.measurementTagValues(
-  bucket: "example-bucket",
-  tag: "example-tag",
-  measurement: "example-measurement"
+    bucket: "example-bucket",
+    tag: "example-tag",
+    measurement: "example-measurement",
 )
 ```

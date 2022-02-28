@@ -126,7 +126,7 @@ operations where points should align by time, but timestamps vary slightly.
 
 ```js
 data
-  |> truncateTimeColumn(unit: 1m)
+    |> truncateTimeColumn(unit: 1m)
 ```
 
 {{< flex >}}
@@ -170,10 +170,7 @@ By using `experimental.addDuration()`, you accept the
 ```js
 import "experimental"
 
-experimental.addDuration(
-  d: 6h,
-  to: 2019-09-16T12:00:00Z,
-)
+experimental.addDuration(d: 6h, to: 2019-09-16T12:00:00Z)
 
 // Returns 2019-09-16T18:00:00.000000000Z
 ```
@@ -190,10 +187,7 @@ By using `experimental.subDuration()`, you accept the
 ```js
 import "experimental"
 
-experimental.subDuration(
-  d: 6h,
-  from: 2019-09-16T12:00:00Z,
-)
+experimental.subDuration(d: 6h, from: 2019-09-16T12:00:00Z)
 
 // Returns 2019-09-16T06:00:00.000000000Z
 ```
@@ -206,13 +200,13 @@ Shift forward in time:
 
 ```js
 from(bucket: "example-bucket")
-	|> range(start: -5m)
-	|> timeShift(duration: 12h)
+    |> range(start: -5m)
+    |> timeShift(duration: 12h)
 ```
 Shift backward in time:
 
 ```js
 from(bucket: "example-bucket")
-	|> range(start: -5m)
-	|> timeShift(duration: -12h)
+    |> range(start: -5m)
+    |> timeShift(duration: -12h)
 ```

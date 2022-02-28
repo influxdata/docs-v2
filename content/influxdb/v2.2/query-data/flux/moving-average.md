@@ -22,12 +22,12 @@ to return the moving average of data.
 
 ```js
 data
-  |> movingAverage(n: 5)
+    |> movingAverage(n: 5)
 
 // OR
 
 data
-  |> timedMovingAverage(every: 5m, period: 10m)
+    |> timedMovingAverage(every: 5m, period: 10m)
 ```
 
 ### movingAverage()
@@ -102,10 +102,7 @@ If `every = 30m` and `period = 1h`:
 **The following would return:**
 
 ```js
-|> timedMovingAverage(
-  every: 30m,
-  period: 1h
-)
+|> timedMovingAverage(every: 30m, period: 1h)
 ```  
 
 | _time                | _value |

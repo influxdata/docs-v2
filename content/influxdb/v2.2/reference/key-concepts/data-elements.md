@@ -121,8 +121,8 @@ If most of your queries focus on values in the fields, for example, a query to f
 
 ```js
 from(bucket: "bucket-name")
-  |> range(start: 2019-08-17T00:00:00Z, stop: 2019-08-19T00:00:00Z)
-  |> filter(fn: (r) => r._field == "bees" and r._value == 23)
+    |> range(start: 2019-08-17T00:00:00Z, stop: 2019-08-19T00:00:00Z)
+    |> filter(fn: (r) => r._field == "bees" and r._value == 23)
 ```
 
 InfluxDB scans every field value in the dataset for `bees` before the query returns a response. If our sample `census` data grew to millions of rows, to optimize your query, you could rearrange your [schema](/influxdb/v2.2/reference/glossary/#schema) so the fields (`bees` and `ants`) becomes tags and the tags (`location` and `scientist`) become fields:

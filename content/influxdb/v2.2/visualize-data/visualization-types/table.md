@@ -63,15 +63,12 @@ The following example queries the latest reported memory usage from a cluster of
 ###### Query the latest memory usage from each host
 ```js
 from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "mem" and
-      r._field == "used_percent"
-  )
-  |> group(columns: ["host"])
-  |> last()
-  |> group()
-  |> keep(columns: ["_value", "host"])
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> group(columns: ["host"])
+    |> last()
+    |> group()
+    |> keep(columns: ["_value", "host"])
 ```
 
 ###### Cluster metrics in a table

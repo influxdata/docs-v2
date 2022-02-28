@@ -35,13 +35,10 @@ In the histogram output, a column is added (`le`) that represents the upper boun
 Bin counts are cumulative.
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(bins: [0.0, 10.0, 20.0, 30.0])
+from(bucket: "example-bucket")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: [0.0, 10.0, 20.0, 30.0])
 ```
 
 {{% note %}}
@@ -94,20 +91,10 @@ View the example [below](#visualize-errors-by-severity).
 
 ### Generate a histogram with linear bins
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(
-    bins: linearBins(
-      start:65.5,
-      width: 0.5,
-      count: 20,
-      infinity:false
-    )
-  )
+from(bucket: "example-bucket")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: linearBins(start: 65.5, width: 0.5, count: 20, infinity: false))
 ```
 
 ###### Output table
@@ -139,20 +126,10 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 
 ### Generate a histogram with logarithmic bins
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(
-    bins: logarithmicBins(
-      start:0.5,
-      factor: 2.0,
-      count: 10,
-      infinity:false
-    )
-  )
+from(bucket: "example-bucket")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: logarithmicBins(start: 0.5, factor: 2.0, count: 10, infinity: false))
 ```
 
 ###### Output table
@@ -179,11 +156,8 @@ Query the `severity_code` field in the `syslog` measurement:
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "syslog" and
-      r._field == "severity_code"
-  )
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "syslog" and r._field == "severity_code")
 ```
 
 In the Histogram visualization options, select `_time` as the **X Column**
