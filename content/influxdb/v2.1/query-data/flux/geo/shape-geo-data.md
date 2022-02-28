@@ -16,7 +16,7 @@ list_code_example: |
   import "experimental/geo"
 
   sampleGeoData
-    |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 10)
+      |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 10)
   ```
 ---
 
@@ -37,13 +37,9 @@ into row-wise sets, and generate S2 cell ID tokens for each point.
 import "experimental/geo"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.shapeData(
-    latField: "latitude",
-    lonField: "longitude",
-    level: 10
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 10)
 ```
 
 ## Generate S2 cell ID tokens
@@ -107,12 +103,14 @@ to pivot **lat** and **lon** fields into row-wise sets:
 import "experimental/geo"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.toRows()
-  |> map(fn: (r) => ({ r with
-    s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)
-  }))
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.toRows()
+    |> map(
+        fn: (r) => ({ r with
+            s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)
+        })
+    )
 ```
 
 {{% note %}}

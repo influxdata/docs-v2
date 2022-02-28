@@ -30,15 +30,15 @@ Results are similar to those returned by InfluxQL `SELECT` statements.
 import "contrib/jsternberg/influxdb"
 
 influxdb.select(
-  from: "example-bucket",
-  start: -1d,
-  stop: now(),
-  m: "example-measurement",
-  fields: [],
-  where: (r) => true,
-  host: "https://example.com",
-  org: "example-org",
-  token: "MySuP3rSecr3Tt0k3n"
+    from: "example-bucket",
+    start: -1d,
+    stop: now(),
+    m: "example-measurement",
+    fields: [],
+    where: (r) => true,
+    host: "https://example.com",
+    org: "example-org",
+    token: "MySuP3rSecr3Tt0k3n",
 )
 ```
 
@@ -109,24 +109,14 @@ InfluxDB [API token](/{{< latest "influxdb" >}}/security/tokens/).
 ```js
 import "contrib/jsternberg/influxdb"
 
-influxdb.select(
-  from: "example-bucket",
-  start: -1d,
-  m: "example-measurement",
-  fields: ["field1"]
-)
+influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fields: ["field1"])
 ```
 
 ##### Query multiple fields
 ```js
 import "contrib/jsternberg/influxdb"
 
-influxdb.select(
-  from: "example-bucket",
-  start: -1d,
-  m: "example-measurement",
-  fields: ["field1", "field2", "field3"]
-)
+influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fields: ["field1", "field2", "field3"])
 ```
 
 ##### Query all fields and filter by tags
@@ -134,10 +124,10 @@ influxdb.select(
 import "contrib/jsternberg/influxdb"
 
 influxdb.select(
-  from: "example-bucket",
-  start: -1d,
-  m: "example-measurement",
-  where: (r) => r.host == "host1" and r.region == "us-west"
+    from: "example-bucket",
+    start: -1d,
+    m: "example-measurement",
+    where: (r) => r.host == "host1" and r.region == "us-west",
 )
 ```
 
@@ -149,12 +139,12 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "INFLUXDB_CLOUD_TOKEN")
 
 influxdb.select(
-  from: "example-bucket",
-  start: -1d,
-  m: "example-measurement",
-  fields: ["field1", "field2"],
-  host: "https://cloud2.influxdata.com",
-  org: "example-org",
-  token: token
+    from: "example-bucket",
+    start: -1d,
+    m: "example-measurement",
+    fields: ["field1", "field2"],
+    host: "https://cloud2.influxdata.com",
+    org: "example-org",
+    token: token,
 )
 ```

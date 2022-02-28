@@ -27,7 +27,7 @@ _Once sufficiently vetted, `experimental.set()` will replace the existing
 import "experimental"
 
 experimental.set(
-  o: {column1: "value1", column2: "value2"}
+    o: {column1: "value1", column2: "value2"}
 )
 ```
 
@@ -58,13 +58,13 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 data
-  |> experimental.set(
-    o: {
-      _field: "temperature",
-      unit: "°F",
-      location: "San Francisco"
-    }
-  )
+    |> experimental.set(o:
+        {
+            _field: "temperature",
+            unit: "°F",
+            location: "San Francisco"
+        }
+    )
 ```
 
 ##### Example output table

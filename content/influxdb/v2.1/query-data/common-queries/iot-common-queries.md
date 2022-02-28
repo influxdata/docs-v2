@@ -38,19 +38,22 @@ To visualize the time in state, see the [Mosaic visualization](#mosaic-visualiza
 
 ```js
 import "contrib/tomhollingworth/events"
- 
+
 from(bucket: "machine")
-  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:30:00Z)
-  |> filter(fn: (r) => r["_measurement"] == "machinery")
-  |> filter(fn: (r) => r["_field"] == "state")
-  |> events.duration(unit: 1h, columnName: "duration",)
-  |> group(columns: ["_value", "_start", "_stop", "station_id"])
-  |> sum(column: "duration")
-  |> pivot(rowKey:["_stop"], columnKey: ["_value"], valueColumn: "duration")
-  |> map(fn: (r) => {
-    totalTime = float(v: r.NOK + r.OK)
-    return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / totalTime * 100.0}
-  })
+    |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:30:00Z)
+    |> filter(fn: (r) => r["_measurement"] == "machinery")
+    |> filter(fn: (r) => r["_field"] == "state")
+    |> events.duration(unit: 1h, columnName: "duration")
+    |> group(columns: ["_value", "_start", "_stop", "station_id"])
+    |> sum(column: "duration")
+    |> pivot(rowKey: ["_stop"], columnKey: ["_value"], valueColumn: "duration")
+    |> map(
+        fn: (r) => {
+            totalTime = float(v: r.NOK + r.OK)
+    
+            return {r with NOK: float(v: r.NOK) / totalTime * 100.0, OK: float(v: r.OK) / totalTime * 100.0}
+        },
+    )
 ```
 
 The query above focuses on a specific time range of state changes reported in the production line.
@@ -98,10 +101,10 @@ The [mosaic visualization](/influxdb/v2.1/visualize-data/visualization-types/mos
 
 ```js
 from(bucket: "machine")
-  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:30:00Z)
-  |> filter(fn: (r) => r._measurement == "machinery")
-  |> filter(fn: (r) => r._field == "state")
-  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
+    |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:30:00Z)
+    |> filter(fn: (r) => r._measurement == "machinery")
+    |> filter(fn: (r) => r._field == "state")
+    |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
 ```
 
 When visualizing data, it is possible to have more data points than available pixels. To divide data into time windows that span a single pixel, use `aggregateWindow` with the `every` parameter set to `v.windowPeriod`.
@@ -117,11 +120,9 @@ The example below queries the `oil_temp` field in the `machinery` measurement. T
 
 ```js
 from(bucket: "machine")
-  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:30Z)
-  |> filter(fn: (r) =>
-    r._measurement == "machinery" and r._field == "oil_temp"
-  )
-  |> timeWeightedAvg(unit: 5s)
+    |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-01T00:00:30Z)
+    |> filter(fn: (r) => r._measurement == "machinery" and r._field == "oil_temp")
+    |> timeWeightedAvg(unit: 5s)
 ```
 
 ##### Output data
@@ -146,12 +147,9 @@ batchStart = 2021-08-01T00:00:00Z
 batchStop = 2021-08-01T00:00:20Z
 
 from(bucket: "machine")
-  |> range(start: batchStart, stop: batchStop)
-  |> filter(fn: (r) =>
-    r._measurement == "machinery" and
-    r._field == "oil_temp"
-  )
-  |> mean()
+    |> range(start: batchStart, stop: batchStop)
+    |> filter(fn: (r) => r._measurement == "machinery" and r._field == "oil_temp")
+    |> mean()
 ```
 
 ##### Output
@@ -181,13 +179,13 @@ To determine a state by comparing existing fields:
 import "math"
 
 from(bucket: "machine")
-  |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:00:00Z)
-  |> filter(fn: (r) => r["_measurement"] == "machinery")
-  |> filter(fn: (r) => r["_field"] == "pressure" or r["_field"] == "pressure_target")
-  |> aggregateWindow(every: 12h, fn: mean)
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with pressureDiff: r.pressure - r.pressure_target }))
-  |> map(fn: (r) => ({ r with needsMaintenance: if math.abs(x: r.pressureDiff) >= 15.0 then true else false }))
+    |> range(start: 2021-08-01T00:00:00Z, stop: 2021-08-02T00:00:00Z)
+    |> filter(fn: (r) => r["_measurement"] == "machinery")
+    |> filter(fn: (r) => r["_field"] == "pressure" or r["_field"] == "pressure_target")
+    |> aggregateWindow(every: 12h, fn: mean)
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({r with pressureDiff: r.pressure - r.pressure_target}))
+    |> map(fn: (r) => ({r with needsMaintenance: if math.abs(x: r.pressureDiff) >= 15.0 then true else false}))
 ```
 
 ##### Output

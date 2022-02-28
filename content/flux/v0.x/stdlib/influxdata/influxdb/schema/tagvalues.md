@@ -24,10 +24,10 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/schema"
 
 schema.tagValues(
-  bucket: "example-bucket",
-  tag: "host",
-  predicate: (r) => true,
-  start: -30d
+    bucket: "example-bucket",
+    tag: "host",
+    predicate: (r) => true,
+    start: -30d,
 )
 ```
 

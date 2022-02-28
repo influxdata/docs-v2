@@ -39,9 +39,9 @@ to the [`from()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/fro
 
 ```js
 from(
-  host: "http://localhost:8086",
-  org: "example-org",
-  token: "My5uP3rS3cRetT0k3n"
+    host: "http://localhost:8086",
+    org: "example-org",
+    token: "My5uP3rS3cRetT0k3n",
 )
 ```
 

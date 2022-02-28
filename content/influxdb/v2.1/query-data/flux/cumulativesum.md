@@ -49,7 +49,7 @@ The examples below use the [example data variable](/influxdb/v2.1/query-data/flu
 ##### Calculate the running total of values
 ```js
 data
-  |> cumulativeSum()
+    |> cumulativeSum()
 ```
 
 ## Use cumulativeSum() with aggregateWindow()
@@ -65,6 +65,6 @@ then calculate the running total of the aggregate values with `cumulativeSum()`.
 <!-- -->
 ```js
 data
-  |> aggregateWindow(every: 5m, fn: sum)
-  |> cumulativeSum()
+    |> aggregateWindow(every: 5m, fn: sum)
+    |> cumulativeSum()
 ```

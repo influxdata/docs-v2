@@ -25,19 +25,19 @@ Each record in the table represents a single point in the series.
 
 ```js
 from(
-  bucket: "example-bucket",
-  host: "https://example.com",
-  org: "example-org",
-  token: "MySuP3rSecr3Tt0k3n"
+    bucket: "example-bucket",
+    host: "https://example.com",
+    org: "example-org",
+    token: "MySuP3rSecr3Tt0k3n",
 )
 
 // OR
 
 from(
-  bucketID: "0261d8287f4d6000",
-  host: "https://example.com",
-  orgID: "867f3fcf1846f11f",
-  token: "MySuP3rSecr3Tt0k3n"
+    bucketID: "0261d8287f4d6000",
+    host: "https://example.com",
+    orgID: "867f3fcf1846f11f",
+    token: "MySuP3rSecr3Tt0k3n",
 )
 ```
 
@@ -122,12 +122,13 @@ data() |> filter(fn: (r) => r._measurement == "m1") |> yield(name: "m1")
 
 ### Filter
 
-`filter()` transformations that compare `r._measurement`, `r._field`, `r._value` or any tag value are pushed down to the storage layer.
+`filter()` transformations that compare `r._measurement`, `r._field`, `r._value`
+or any tag value are pushed down to the storage layer.
 Comparisons that use functions do not.
 If the function produces a static value, evaluate the function outside of `filter()`.
 For example:
 
-```js\
+```js
 import "strings"
 
 // filter() is NOT pushed down
@@ -141,7 +142,8 @@ data
     |> filter(fn: (r) => r.example == exVar)
 ```
 
-Multiple consecutive `filter()` transformations that can be pushed down are merged together into a single filter that gets pushed down.
+Multiple consecutive `filter()` transformations that can be pushed down are
+merged together into a single filter that gets pushed down.
 
 ### Aggregates
 
@@ -186,10 +188,10 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "INFLUXDB_CLOUD_TOKEN")
 
 from(
-  bucket: "example-bucket",
-  host: "https://cloud2.influxdata.com",
-  org: "example-org",
-  token: token
+    bucket: "example-bucket",
+    host: "https://cloud2.influxdata.com",
+    org: "example-org",
+    token: token,
 )
 ```
 
@@ -231,7 +233,7 @@ from(bucket: "example-bucket")
 // Use a function. If you use a variable, this will stop
 // Flux from pushing down the operation.
 data = () => from(bucket: "example-bucket")
-  |> range(start: -1h)
+    |> range(start: -1h)
 
 data() |> filter(fn: (r) => r._measurement == "m0")
 data() |> filter(fn: (r) => r._measurement == "m1")
@@ -243,8 +245,8 @@ data() |> filter(fn: (r) => r._measurement == "m1")
 // The push down chain is not broken until after the push down
 // is complete. In this case, it is more efficient to use a variable.
 data = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "m0")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "m0")
 
 data |> derivative() |> yield(name: "derivative")
 data |> movingAverage(n: 5) |> yield(name: "movingAverage")

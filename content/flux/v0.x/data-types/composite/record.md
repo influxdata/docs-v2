@@ -58,11 +58,7 @@ and specify the key to reference.
 Specify the record to access followed by a period (`.`) and the property key.
 
 ```js
-c = {
-  name: "John Doe",
-  address: "123 Main St.",
-  id: 1123445
-}
+c = {name: "John Doe", address: "123 Main St.", id: 1123445}
 
 c.name
 // Returns John Doe
@@ -80,11 +76,7 @@ Use bracket notation to access keys with special or whitespace characters.
 {{% /note %}}
 
 ```js
-c = {
-  "Company Name": "ACME",
-  "Street Address": "123 Main St.",
-  id: 1123445
-}
+c = {"Company Name": "ACME", "Street Address": "123 Main St.", id: 1123445}
 
 c["Company Name"]
 // Returns ACME
@@ -97,14 +89,15 @@ c["id"]
 To reference nested records, use chained dot or bracket notation for each nested level.
 
 ```js
-customer = {
-  name: "John Doe",
-  address: {
-    street: "123 Main St.",
-    city: "Pleasantville",
-    state: "New York"
-  }
-}
+customer = 
+    {
+        name: "John Doe",
+        address: {
+            street: "123 Main St.",
+            city: "Pleasantville",
+            state: "New York"
+        }
+    }
 
 customer.address.street
 // Returns 123 Main St.
@@ -145,10 +138,7 @@ The `with` operator overwrites record properties if the specified keys exists or
 adds the new properties if the keys do not exist.
 
 ```js
-c = {
-  name: "John Doe",
-  id: 1123445
-}
+c = {name: "John Doe", id: 1123445}
 
 {c with spouse: "Jane Doe", pet: "Spot"}
 // Returns {id: 1123445, name: John Doe, pet: Spot, spouse: Jane Doe}
@@ -162,10 +152,7 @@ c = {
 ```js
 import "experimental"
 
-c = {
-  name: "John Doe",
-  id: 1123445
-}
+c = {name: "John Doe", id: 1123445}
 
 experimental.objectKeys(o: c)
 // Returns [name, id]

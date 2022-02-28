@@ -35,10 +35,7 @@ and queries data points **within 200km of Cairo, Egypt**:
 import "experimental/geo"
 
 sampleGeoData
-  |> geo.filterRows(
-    region: {lat: 30.04, lon: 31.23, radius: 200.0},
-    strict: true
-  )
+    |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0}, strict: true)
 ```
 
 ## Define a geographic region
@@ -60,10 +57,10 @@ Define a box-shaped region by specifying a record containing the following prope
 ##### Example box-shaped region
 ```js
 {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
+    minLat: 40.51757813,
+    maxLat: 40.86914063,
+    minLon: -73.65234375,
+    maxLon: -72.94921875,
 }
 ```
 
@@ -77,9 +74,9 @@ Define a circular region by specifying a record containing the following propert
 ##### Example circular region
 ```js
 {
-  lat: 40.69335938,
-  lon: -73.30078125,
-  radius: 20.0
+    lat: 40.69335938,
+    lon: -73.30078125,
+    radius: 20.0,
 }
 ```
 
@@ -97,11 +94,11 @@ each point in the polygon:
 ##### Example polygonal region
 ```js
 {
-  points: [
-    {lat: 40.671659, lon: -73.936631},
-    {lat: 40.706543, lon: -73.749177},
-    {lat: 40.791333, lon: -73.880327}
-  ]
+    points: [
+        {lat: 40.671659, lon: -73.936631},
+        {lat: 40.706543, lon: -73.749177},
+        {lat: 40.791333, lon: -73.880327},
+    ]
 }
 ```
 

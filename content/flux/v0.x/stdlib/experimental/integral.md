@@ -26,8 +26,8 @@ _`integral()` is an [aggregate function](/flux/v0.x/function-types/#aggregates).
 
 ```js
 integral(
-  unit: 10s,
-  interpolate: ""
+    unit: 10s,
+    interpolate: "",
 )
 ```
 
@@ -55,21 +55,15 @@ Default is piped-forward data (`<-`).
 ##### Calculate the integral
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system"
-  )
-  |> integral(unit:10s)
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system")
+    |> integral(unit: 10s)
 ```
 
 ##### Calculate the integral with linear interpolation
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system"
-  )
-  |> integral(unit:10s, interpolate: "linear")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system")
+    |> integral(unit: 10s, interpolate: "linear")
 ```

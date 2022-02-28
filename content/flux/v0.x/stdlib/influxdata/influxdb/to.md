@@ -26,25 +26,25 @@ written data.
 
 ```js
 to(
-  bucket: "my-bucket",
-  org: "my-org",
-  host: "localhost:8086",
-  token: "mY5uP3rS3cRe7t0k3n",
-  timeColumn: "_time",
-  tagColumns: ["tag1", "tag2", "tag3"],
-  fieldFn: (r) => ({ r._field: r._value })
+    bucket: "my-bucket",
+    org: "my-org",
+    host: "http://localhost:8086",
+    token: "mY5uP3rS3cRe7t0k3n",
+    timeColumn: "_time",
+    tagColumns: ["tag1", "tag2", "tag3"],
+    fieldFn: (r) => ({ r._field: r._value }),
 )
 
 // OR
 
 to(
-  bucketID: "1234567890",
-  orgID: "0987654321",
-  host: "localhost:8086",
-  token: "mY5uP3rS3cRe7t0k3n",
-  timeColumn: "_time",
-  tagColumns: ["tag1", "tag2", "tag3"],
-  fieldFn: (r) => ({ r._field: r._value })
+    bucketID: "1234567890",
+    orgID: "0987654321",
+    host: "http://localhost:8086",
+    token: "mY5uP3rS3cRe7t0k3n",
+    timeColumn: "_time",
+    tagColumns: ["tag1", "tag2", "tag3"],
+    fieldFn: (r) => ({ r._field: r._value }),
 )
 ```
 
@@ -184,7 +184,7 @@ data
         bucket:"my-bucket",
         org:"my-org",
         tagColumns:["tag1"],
-        fieldFn: (r) => ({"hum": r.hum, "temp": r.temp})
+        fieldFn: (r) => ({"hum": r.hum, "temp": r.temp}),
     )
 ```
 

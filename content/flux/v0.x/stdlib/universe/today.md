@@ -37,5 +37,5 @@ today()
 ##### Query data from today
 ```js
 from(bucket: "example-bucket")
-  |> range(start: today())
+    |> range(start: today())
 ```

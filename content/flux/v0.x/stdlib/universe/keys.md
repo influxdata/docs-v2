@@ -55,12 +55,12 @@ to simulate data queried from InfluxDB and illustrate how `keys()` transforms da
 ```js
 import "influxdata/influxdb/sample"
 
-data = sample.data(set: "airSensor") 
-  |> range(start: -30m)
-  |> filter(fn: (r) => r.sensor_id == "TLM0100")
+data = sample.data(set: "airSensor")
+    |> range(start: -30m)
+    |> filter(fn: (r) => r.sensor_id == "TLM0100")
 
 data
-  |> keys()
+    |> keys()
 ```
 
 {{< expand-wrapper >}}
@@ -122,14 +122,14 @@ data
 ```js
 import "influxdata/influxdb/sample"
 
-data = sample.data(set: "airSensor") 
-  |> range(start: -30m)
-  |> filter(fn: (r) => r.sensor_id == "TLM0100")
+data = sample.data(set: "airSensor")
+    |> range(start: -30m)
+    |> filter(fn: (r) => r.sensor_id == "TLM0100")
 
 data
-  |> keys()
-  |> keep(columns: ["_value"])
-  |> distinct()
+    |> keys()
+    |> keep(columns: ["_value"])
+    |> distinct()
 ```
 
 {{< expand-wrapper >}}
@@ -182,13 +182,13 @@ To return group key columns as an array:
 ```js
 import "influxdata/influxdb/sample"
 
-data = sample.data(set: "airSensor") 
-  |> range(start: -30m)
-  |> filter(fn: (r) => r.sensor_id == "TLM0100")
+data = sample.data(set: "airSensor")
+    |> range(start: -30m)
+    |> filter(fn: (r) => r.sensor_id == "TLM0100")
 
 data
-  |> keys()
-  |> findColumn(fn: (key) => true, column: "_value")
+    |> keys()
+    |> findColumn(fn: (key) => true, column: "_value")
 
 // Returns [_start, _stop, _field, _measurement, sensor_id]
 ```

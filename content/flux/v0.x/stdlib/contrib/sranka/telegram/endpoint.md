@@ -22,10 +22,10 @@ using data from table rows.
 import "contrib/sranka/telegram"
 
 telegram.endpoint(
-  url: "https://api.telegram.org/bot",
-  token: "S3crEtTel3gRamT0k3n",
-  parseMode: "MarkdownV2",
-  disableWebPagePreview: false,
+    url: "https://api.telegram.org/bot",
+    token: "S3crEtTel3gRamT0k3n",
+    parseMode: "MarkdownV2",
+    disableWebPagePreview: false,
 )
 ```
 
@@ -79,15 +79,11 @@ import "contrib/sranka/telegram"
 token = secrets.get(key: "TELEGRAM_TOKEN")
 endpoint = telegram.endpoint(token: token)
 
-crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-  |> endpoint(mapFn: (r) => ({
-      channel: "-12345",
-      text: "Disk usage is **${r.status}**.",
-      silent: true
-    })
-  )()
+    |> endpoint(mapFn: (r) => ({channel: "-12345", text: "Disk usage is **${r.status}**.", silent: true}))()
 ```

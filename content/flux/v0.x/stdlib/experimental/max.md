@@ -44,7 +44,7 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 data
-  |> experimental.max()
+    |> experimental.max()
 ```
 
 {{< flex >}}

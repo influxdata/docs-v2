@@ -24,8 +24,8 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/schema"
 
 schema.measurementTagKeys(
-  bucket: "example-bucket",
-  measurement: "cpu"
+    bucket: "example-bucket",
+    measurement: "cpu",
 )
 ```
 

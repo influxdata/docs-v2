@@ -28,7 +28,7 @@ _`reduce()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 ```js
 reduce(
     fn: (r, accumulator) => ({ sum: r._value + accumulator.sum }),
-    identity: {sum: 0.0}
+    identity: {sum: 0.0},
 )
 ```
 
@@ -109,7 +109,7 @@ import "sampledata"
 sampledata.int()
     |> reduce(
         fn: (r, accumulator) => ({sum: r._value + accumulator.sum}),
-        identity: {sum: 0}
+        identity: {sum: 0},
     )
 ```
 
@@ -182,10 +182,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-    |> reduce(
-        fn: (r, accumulator) => ({prod: r._value * accumulator.prod}),
-        identity: {prod: 1}        
-    )
+    |> reduce(fn: (r, accumulator) => ({prod: r._value * accumulator.prod}), identity: {prod: 1})
 ```
 
 {{< expand-wrapper >}}
@@ -219,12 +216,12 @@ import "sampledata"
 
 sampledata.int()
     |> reduce(
-      fn: (r, accumulator) => ({
-        count: accumulator.count + 1,
-        total: accumulator.total + r._value,
-        avg: float(v: (accumulator.total + r._value)) / float(v: accumulator.count + 1)
-      }),
-      identity: {count: 0, total: 0, avg: 0.0}
+        fn: (r, accumulator) => ({
+            count: accumulator.count + 1,
+            total: accumulator.total + r._value,
+            avg: float(v: (accumulator.total + r._value)) / float(v: accumulator.count + 1)
+        }),
+        identity: {count: 0, total: 0, avg: 0.0},
     )
 ```
 

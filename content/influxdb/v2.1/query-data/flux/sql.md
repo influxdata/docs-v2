@@ -21,9 +21,9 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://user:password@localhost",
-    query: "SELECT * FROM example_table"
+      driverName: "postgres",
+      dataSourceName: "postgresql://user:password@localhost",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -70,9 +70,9 @@ To query a SQL data source:
 import "sql"
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
-  query: "SELECT * FROM example_table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://user:password@localhost",
+    query: "SELECT * FROM example_table",
 )
 ```
 {{% /code-tab-content %}}
@@ -82,9 +82,9 @@ sql.from(
 import "sql"
 
 sql.from(
-  driverName: "mysql",
-  dataSourceName: "user:password@tcp(localhost:3306)/db",
-  query: "SELECT * FROM example_table"
+    driverName: "mysql",
+    dataSourceName: "user:password@tcp(localhost:3306)/db",
+    query: "SELECT * FROM example_table",
 )
 ```
 {{% /code-tab-content %}}
@@ -94,9 +94,9 @@ sql.from(
 import "sql"
 
 sql.from(
-  driverName: "snowflake",
-  dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
-  query: "SELECT * FROM example_table"
+    driverName: "snowflake",
+    dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
+    query: "SELECT * FROM example_table",
 )
 ```
 {{% /code-tab-content %}}
@@ -110,9 +110,9 @@ sql.from(
 import "sql"
 
 sql.from(
-  driverName: "sqlite3",
-  dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
-  query: "SELECT * FROM example_table"
+    driverName: "sqlite3",
+    dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
+    query: "SELECT * FROM example_table",
 )
 ```
 {{% /code-tab-content %}}
@@ -122,9 +122,9 @@ sql.from(
 import "sql"
 
 sql.from(
-  driverName: "sqlserver",
-  dataSourceName: "sqlserver://user:password@localhost:1234?database=examplebdb",
-  query: "GO SELECT * FROM Example.Table"
+    driverName: "sqlserver",
+    dataSourceName: "sqlserver://user:password@localhost:1234?database=examplebdb",
+    query: "GO SELECT * FROM Example.Table",
 )
 ```
 
@@ -136,9 +136,9 @@ see [SQL Server ADO authentication](/{{< latest "flux" >}}/stdlib/sql/from/#sql-
 ```js
 import "sql"
 sql.from(
-  driverName: "awsathena",
-  dataSourceName: "s3://myorgqueryresults/?accessID=12ab34cd56ef&region=region-name&secretAccessKey=y0urSup3rs3crEtT0k3n",
-  query: "GO SELECT * FROM Example.Table"
+    driverName: "awsathena",
+    dataSourceName: "s3://myorgqueryresults/?accessID=12ab34cd56ef&region=region-name&secretAccessKey=y0urSup3rs3crEtT0k3n",
+    query: "GO SELECT * FROM Example.Table",
 )
 ```
 
@@ -149,9 +149,9 @@ see [Athena connection string](/{{< latest "flux" >}}/stdlib/sql/from/#athena-co
 ```js
 import "sql"
 sql.from(
-  driverName: "bigquery",
-  dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
-  query: "SELECT * FROM exampleTable"
+    driverName: "bigquery",
+    dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+    query: "SELECT * FROM exampleTable",
 )
 ```
 
@@ -178,15 +178,15 @@ import "sql"
 
 // Query data from PostgreSQL
 sensorInfo = sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://localhost?sslmode=disable",
-  query: "SELECT * FROM sensors"
+    driverName: "postgres",
+    dataSourceName: "postgresql://localhost?sslmode=disable",
+    query: "SELECT * FROM sensors",
 )
 
 // Query data from InfluxDB
 sensorMetrics = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "airSensors")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "airSensors")
 
 // Join InfluxDB query results with PostgreSQL query results
 join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])
@@ -205,9 +205,9 @@ sql.from(
     driverName: "postgres",
     dataSourceName: "postgresql://localhost?sslmode=disable",
     query: "SELECT * FROM sensors"
-  )
-  |> rename(columns: {location: "_value"})
-  |> keep(columns: ["_value"])
+)
+    |> rename(columns: {location: "_value"})
+    |> keep(columns: ["_value"])
 ```
 
 Use the variable to manipulate queries in your dashboards.
@@ -283,9 +283,9 @@ POSTGRES_USER = secrets.get(key: "POSTGRES_USER")
 POSTGRES_PASS = secrets.get(key: "POSTGRES_PASS")
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://${POSTGRES_USER}:${POSTGRES_PASS}@${POSTGRES_HOST}",
-  query: "SELECT * FROM sensors"
+    driverName: "postgres",
+    dataSourceName: "postgresql://${POSTGRES_USER}:${POSTGRES_PASS}@${POSTGRES_HOST}",
+    query: "SELECT * FROM sensors",
 )
 ```
 
@@ -324,16 +324,10 @@ Sample sensor information is stored in PostgreSQL.
     ```js
     import "influxdata/influxdb/sample"
 
-    option task = {
-      name: "Collect sample air sensor data",
-      every: 15m
-    }
+    option task = {name: "Collect sample air sensor data", every: 15m}
 
     sample.data(set: "airSensor")
-      |> to(
-        org: "example-org",
-        bucket: "example-bucket"
-      )
+        |> to(org: "example-org", bucket: "example-bucket")
     ```
 
 3.  [Query your target bucket](/influxdb/v2.1/query-data/execute-queries/) after
@@ -341,8 +335,8 @@ Sample sensor information is stored in PostgreSQL.
 
     ```js
     from(bucket: "example-bucket")
-       |> range(start: -1m)
-       |> filter(fn: (r) => r._measurement == "airSensors")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "airSensors")
     ```
 
 #### Import the sample sensor information

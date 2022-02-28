@@ -22,8 +22,8 @@ and sends a notification of type `note`.
 import "pushbullet"
 
 pushbullet.endpoint(
-  url: "https://api.pushbullet.com/v2/pushes",
-  token: ""
+    url: "https://api.pushbullet.com/v2/pushes",
+    token: "",
 )
 ```
 
@@ -62,17 +62,11 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "PUSHBULLET_TOKEN")
 e = pushbullet.endpoint(token: token)
 
-lastReported =
-  from(bucket: "example-bucket")
+lastReported = from(bucket: "example-bucket")
     |> range(start: -10m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
 
 lastReported
-  |> e(mapFn: (r) => ({
-      r with
-      title: r.title,
-      text: "${string(v: r._time)}: ${r.status}."
-    })
-  )()
+    |> e(mapFn: (r) => ({r with title: r.title, text: "${string(v: r._time)}: ${r.status}."}))()
 ```

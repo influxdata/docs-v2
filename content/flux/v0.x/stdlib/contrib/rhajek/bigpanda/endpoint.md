@@ -21,9 +21,9 @@ using data from input rows.
 import "contrib/rhajek/bigpanda"
 
 bigpanda.endpoint(
-  url: "https://api.bigpanda.io/data/v2/alerts",
-  token: "my5uP3rS3cRe7t0k3n",
-  appKey: "example-app-key"
+    url: "https://api.bigpanda.io/data/v2/alerts",
+    token: "my5uP3rS3cRe7t0k3n",
+    appKey: "example-app-key",
 )
 ```
 
@@ -67,22 +67,21 @@ import "influxdata/influxdb/secrets"
 import "json"
 
 token = secrets.get(key: "BIGPANDA_API_KEY")
-endpoint = bigpanda.endpoint(
-  token: token,
-  appKey: "example-app-key"
-)
+endpoint = bigpanda.endpoint(token: token, appKey: "example-app-key")
 
-crit_events = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_events
-  |> endpoint(mapFn: (r) => {
-    return { r with
-      status: "critical",
-      check: "critical-status-check",
-      description: "${r._field} is critical: ${string(v: r._value)}"
-      tags: json.encode(v: [{"name": "host", "value": r.host}]),
-    }
-  })()
+    |> endpoint(
+        mapFn: (r) => {
+            return {r with status: "critical",
+                check: "critical-status-check",
+                description: "${r._field} is critical: ${string(v: r._value)}",
+                tags: json.encode(v: [{"name": "host", "value": r.host}]),
+            }
+        },
+    )()
 ```

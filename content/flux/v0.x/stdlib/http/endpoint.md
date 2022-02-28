@@ -21,7 +21,7 @@ The `http.endpoint()` function sends output data to an HTTP URL using the POST r
 import "http"
 
 http.endpoint(
-  url: "http://localhost:1234/"
+    url: "http://localhost:1234/"
 )
 ```
 

@@ -17,15 +17,17 @@ list_code_example: |
   import "experimental/geo"
 
   sampleGeoData
-    |> map(fn: (r) => ({ r with
-      _field:
-        if r._field == "latitude" then "lat"
-        else if r._field == "longitude" then "lon"
-        else r._field
-      }))
-    |> map(fn: (r) => ({ r with
-      s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)
-    }))  
+      |> map(
+          fn: (r) => ({r with
+              _field: if r._field == "latitude" then
+                  "lat"
+              else if r._field == "longitude" then
+                  "lon"
+              else
+                  r._field,
+          }),
+      )
+      |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(point: {lon: r.lon, lat: r.lat}, level: 10)}))
   ```
 ---
 

@@ -42,12 +42,12 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 data = sampledata.int(includeNull: true)
-  |> range(start: sampledata.start, stop: sampledata.stop)
-  |> fill(usePrevious: true)
-  |> unique()
+    |> range(start: sampledata.start, stop: sampledata.stop)
+    |> fill(usePrevious: true)
+    |> unique()
 
 data
-  |> timeWeightedAvg(unit: 1s)
+    |> timeWeightedAvg(unit: 1s)
 ```
 
 {{< expand-wrapper >}}
@@ -78,16 +78,3 @@ data
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-timeWeightedAvg = (tables=<-, unit) => tables
-  |> integral(
-    unit: unit,
-    interpolate: "linear"
-  )
-  |> map(fn: (r) => ({
-    r with
-    _value: (r._value * float(v: uint(v: unit))) / float(v: int(v: r._stop) - int(v: r._start))
-  }))
-```

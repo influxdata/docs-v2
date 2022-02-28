@@ -22,8 +22,8 @@ If the value is not a member of the set, the functions returns `false`.
 
 ```js
 contains(
-  value: 1,
-  set: [1,2,3]
+    value: 1,
+    set: [1,2,3],
 )
 ```
 
@@ -44,8 +44,8 @@ import "influxdata/influxdb/sample"
 fields = ["temperature", "humidity"]
 
 sample.data(set: "airSensor")
-  |> range(start: -30m)
-  |> filter(fn: (r) => contains(value: r._field, set: fields))
+    |> range(start: -30m)
+    |> filter(fn: (r) => contains(value: r._field, set: fields))
 ```
 
 {{% expand "View example input and output" %}}

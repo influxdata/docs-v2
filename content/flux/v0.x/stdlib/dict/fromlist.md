@@ -20,12 +20,7 @@ The `dict.fromList()` function creates a dictionary from a list of records with
 ```js
 import "dict"
 
-dict.fromList(
-  pairs: [
-    {key: 1, value: "foo"},
-    {key: 2, value: "bar"}
-  ]
-)
+dict.fromList(pairs: [{key: 1, value: "foo"},{key: 2, value: "bar"}])
 ```
 
 ## Parameters
@@ -40,12 +35,7 @@ dict.fromList(
 import "dict"
 
 // Define a new dictionary using an array of records
-d = dict.fromList(
-  pairs: [
-    {key: 1, value: "foo"},
-    {key: 2, value: "bar"}
-  ]
-)
+d = dict.fromList(pairs: [{key: 1, value: "foo"}, {key: 2, value: "bar"}])
 
 // Return a property of the dictionary
 dict.get(dict: d, key: 1, default: "")

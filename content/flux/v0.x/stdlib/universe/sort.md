@@ -57,7 +57,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> sort()
+    |> sort()
 ```
 
 {{< expand-wrapper >}}
@@ -99,7 +99,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> sort(desc: true)
+    |> sort(desc: true)
 ```
 
 {{< expand-wrapper >}}
@@ -141,7 +141,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> sort(columns: ["tag", "_value"])
+    |> sort(columns: ["tag", "_value"])
 ```
 
 {{< expand-wrapper >}}

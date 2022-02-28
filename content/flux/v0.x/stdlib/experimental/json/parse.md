@@ -38,15 +38,17 @@ JSON data to parse.
 import "experimental/json"
 
 data
-  |> map(fn: (r) => {
-      jsonData = json.parse(data: bytes(v: r._value))
-
-      return {
-        _time: r._time,
-        _field: r._field,
-        a: jsonData.a,
-        b: jsonData.b,
-        c: jsonData.c,
-      }
-    })
+    |> map(
+        fn: (r) => {
+            jsonData = json.parse(data: bytes(v: r._value))
+    
+            return {
+                _time: r._time,
+                _field: r._field,
+                a: jsonData.a,
+                b: jsonData.b,
+                c: jsonData.c,
+            }
+        },
+    )
 ```

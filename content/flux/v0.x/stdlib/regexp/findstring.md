@@ -43,11 +43,10 @@ The string value to search.
 import "regexp"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      message: r.message,
-      regexp: r.regexp,
-      match: regexp.findString(r: r.regexp, v: r.message)
-    })
-  )
+    |> map(fn: (r) => ({r with
+          message: r.message,
+          regexp: r.regexp,
+          match: regexp.findString(r: r.regexp, v: r.message)
+        })
+    )
 ```

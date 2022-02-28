@@ -15,9 +15,7 @@ flux/v0.x/tags: [inputs, sample data]
 ```js
 import "sampledata"
 
-sampledata.bool(
-  includeNull: false
-)
+sampledata.bool(includeNull: false)
 ```
 
 ## Parameters
@@ -39,6 +37,7 @@ import "sampledata"
 
 sampledata.bool()
 ```
+
 ##### Output tables
 {{% flux/sample "bool" %}}
 
@@ -50,5 +49,6 @@ import "sampledata"
 
 sampledata.bool(includeNull: true)
 ```
+
 ##### Output tables
 {{% flux/sample "bool" true %}}

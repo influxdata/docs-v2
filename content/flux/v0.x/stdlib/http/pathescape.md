@@ -21,7 +21,7 @@ and replaces non-ASCII characters with hexadecimal representations (`%XX`).
 import "http"
 
 http.pathEscape(
-  inputString: "/this/is/an/example-path.html"
+    inputString: "/this/is/an/example-path.html"
 )
 
 // Returns %2Fthis%2Fis%2Fan%2Fexample-path.html
@@ -39,7 +39,5 @@ The string to escape.
 import "http"
 
 data
-  |> map(fn: (r) => ({ r with
-    path: http.pathEscape(inputString: r.path)
-  }))
+    |> map(fn: (r) => ({r with path: http.pathEscape(inputString: r.path)}))
 ```

@@ -50,11 +50,12 @@ b = a |> array.map(fn: (x) => ({_value: x}))
 
 ### Iterate over and modify an array of records
 ```js
-a = [
-   {a: 1, b: 2, c: 3},
-   {a: 4, b: 5, c: 6},
-   {a: 7, b: 8, c: 9},
-]
+a = 
+    [
+        {a: 1, b: 2, c: 3},
+        {a: 4, b: 5, c: 6},
+        {a: 7, b: 8, c: 9},
+    ]
 
 b = a |> array.map(fn: (x) => ({x with a: x.a * x.a, d: x.b + x.c}))
 // b returns:
