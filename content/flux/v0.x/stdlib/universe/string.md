@@ -18,8 +18,6 @@ introduced: 0.7.0
 
 The `string()` function converts a single value to a string.
 
-_**Output data type:** String_
-
 ```js
 string(v: 123456789)
 ```
@@ -78,10 +76,10 @@ _The following example uses data provided by the [`sampledata` package](/flux/v0
 import "sampledata"
 
 data = sampledata.int()
-  |> rename(columns: {_value: "foo"})
+    |> rename(columns: {_value: "foo"})
 
 data
-  |> map(fn:(r) => ({ r with foo: string(v: r.foo) }))
+    |> map(fn: (r) => ({r with foo: string(v: r.foo)}))
 ```
 
 {{% expand "View input and output" %}}

@@ -27,8 +27,8 @@ values in an input table.
 
 ```js
 relativeStrengthIndex(
-  n: 5,
-  columns: ["_value"]
+    n: 5,
+    columns: ["_value"],
 )
 ```
 
@@ -67,7 +67,7 @@ with `x - n` rows.
 import "sampledata"
 
 sampledata.int()
-  |> relativeStrengthIndex(n: 3)
+    |> relativeStrengthIndex(n: 3)
 ```
 
 {{< expand-wrapper >}}

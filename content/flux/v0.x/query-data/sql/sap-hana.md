@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
   
   sql.from(
-    driverName: "hdb",
-    dataSourceName: "hdb://username:password@myserver:30015",
-    query: "SELECT * FROM SCHEMA.TABLE"
+      driverName: "hdb",
+      dataSourceName: "hdb://username:password@myserver:30015",
+      query: "SELECT * FROM SCHEMA.TABLE",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [SAP HANA](https://www.sap.com/products/hana.html) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "hdb",
-  dataSourceName: "hdb://username:password@myserver:30015",
-  query: "SELECT * FROM SCHEMA.TABLE"
+    driverName: "hdb",
+    dataSourceName: "hdb://username:password@myserver:30015",
+    query: "SELECT * FROM SCHEMA.TABLE",
 )
 ```
 

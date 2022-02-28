@@ -123,9 +123,9 @@ To find parsing error details, query `rejected_points` entries that contain the 
 
 ```js
 from(bucket: "_monitoring")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "rejected_points")
-  |> filter(fn: (r) => r._field == "error")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "rejected_points")
+    |> filter(fn: (r) => r._field == "error")
 ```
 
 #### Find data type conflicts and schema rejections
@@ -135,9 +135,9 @@ query for the `count` field.
 
 ```js
 from(bucket: "_monitoring")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "rejected_points")
-  |> filter(fn: (r) => r._field == "count")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "rejected_points")
+    |> filter(fn: (r) => r._field == "count")
 ```
 
 ### Resolve data type conflicts

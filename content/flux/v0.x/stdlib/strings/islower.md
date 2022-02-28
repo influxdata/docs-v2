@@ -40,5 +40,5 @@ The single-character string value to test.
 import "strings"
 
 data
-  |> filter(fn: (r) => strings.isLower(v: r.host))
+    |> filter(fn: (r) => strings.isLower(v: r.host))
 ```

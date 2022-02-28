@@ -48,8 +48,8 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> tableFind(fn: (key) => key.tag == "t1")
-  |> getRecord(idx: 0)
-
+    |> tableFind(fn: (key) => key.tag == "t1")
+    |> getRecord(idx: 0)
+    
 // Returns {_time: 2021-01-01T00:00:00.000000000Z, _value: -2, tag: t1}
 ```

@@ -19,8 +19,6 @@ introduced: 0.7.0
 
 The `uint()` function converts a single value to a UInteger.
 
-_**Output data type:** UInteger_
-
 ```js
 uint(v: "4")
 ```
@@ -98,10 +96,10 @@ _The following example uses data provided by the [`sampledata` package](/flux/v0
 import "sampledata"
 
 data = sampledata.float()
-  |> rename(columns: {_value: "foo"})
+    |> rename(columns: {_value: "foo"})
 
 data
-  |> map(fn:(r) => ({ r with foo: uint(v: r.foo) }))
+    |> map(fn: (r) => ({r with foo: uint(v: r.foo)}))
 ```
 
 {{% expand "View input and output" %}}

@@ -30,15 +30,11 @@ import "influxdata/influxdb/sample"
 option now = () => 2021-01-01T00:00:00Z
 
 data = sample.data(set: "birdMigration")
-  |> filter(fn: (r) =>
-    r._field == "lon" and
-    r.s2_cell_id == "471ed2c" and
-    r.id == "91916A"
-  )
-  |> tail(n: 3)
+    |> filter(fn: (r) => r._field == "lon" and r.s2_cell_id == "471ed2c" and r.id == "91916A")
+    |> tail(n: 3)
 
 data
-  |> sample.alignToNow()
+    |> sample.alignToNow()
 ```
 
 {{% expand "View input and output" %}}

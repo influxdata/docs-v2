@@ -16,15 +16,15 @@ The `mqtt.publish()` function outputs data to an MQTT broker using MQTT protocol
 import "experimental/mqtt"
 
 mqtt.publish(
-  broker: "tcp://localhost:8883",
-  topic: "example-topic",
-  message: "Example message",
-  qos: 0,
-  retain: false,
-  clientid: "flux-mqtt",
-  username: "username",
-  password: "password",
-  timeout: 1s
+    broker: "tcp://localhost:8883",
+    topic: "example-topic",
+    message: "Example message",
+    qos: 0,
+    retain: false,
+    clientid: "flux-mqtt",
+    username: "username",
+    password: "password",
+    timeout: 1s,
 )
 ```
 
@@ -72,11 +72,11 @@ Default is `1s`.
 import "experimental/mqtt"
 
 mqtt.publish(
-  broker: "tcp://localhost:8883",
-  topic: "alerts",
-  message: "wake up",
-  clientid: "alert-watcher",
-  retain: true
+    broker: "tcp://localhost:8883",
+    topic: "alerts",
+    message: "wake up",
+    clientid: "alert-watcher",
+    retain: true,
 )
 ```
 
@@ -86,15 +86,16 @@ import "experimental/mqtt"
 import "influxdata/influxdb/sample"
 
 sample.data(set: "airSensor")
-  |> range(start: -20m)
-  |> last()
-  |> map(fn: (r) => ({
-    r with
-      sent: mqtt.publish(
-        broker: "tcp://localhost:8883",
-        topic: "air-sensors/last/${r.sensorID}",
-        message: string(v: r._value),
-        clientid: "sensor-12a4"
-      )
-  }))
+    |> range(start: -20m)
+    |> last()
+    |> map(fn: (r) => ({
+        r with
+            sent: mqtt.publish(
+                broker: "tcp://localhost:8883",
+                topic: "air-sensors/last/${r.sensorID}",
+                message: string(v: r._value),
+                clientid: "sensor-12a4",
+            )
+        })
+    )
 ```

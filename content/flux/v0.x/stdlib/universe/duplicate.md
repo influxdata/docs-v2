@@ -48,7 +48,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-	|> duplicate(column: "tag", as: "tag_dup")
+    |> duplicate(column: "tag", as: "tag_dup")
 ```
 
 {{< expand-wrapper >}}

@@ -71,12 +71,9 @@ On counter reset, `increase()` assumes no increase.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "prometheus" and
-    r._field == "http_query_request_bytes"
-  )
-  |> increase()
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "prometheus" and r._field == "http_query_request_bytes")
+    |> increase()
 ```
 
 {{< flex >}}
@@ -130,12 +127,9 @@ On counter reset, `increase()` assumes no increase.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "http_query_request_bytes" and
-    r._field == "counter"
-  )
-  |> increase()
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "http_query_request_bytes" and r._field == "counter")
+    |> increase()
 ```
 
 {{< flex >}}
@@ -191,13 +185,10 @@ between subsequent values.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "prometheus" and
-    r._field == "http_query_request_bytes"
-  )
-  |> increase()
-  |> difference()
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "prometheus" and r._field == "http_query_request_bytes")
+    |> increase()
+    |> difference()
 ```
 
 {{< flex >}}
@@ -240,13 +231,10 @@ from(bucket: "example-bucket")
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "http_query_request_bytes" and
-    r._field == "counter"
-  )
-  |> increase()
-  |> difference()
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "http_query_request_bytes" and r._field == "counter")
+    |> increase()
+    |> difference()
 ```
 
 {{< flex >}}
@@ -303,13 +291,10 @@ customize the rate unit.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "prometheus" and
-    r._field == "http_query_request_bytes"
-  )
-  |> increase()
-  |> derivative()
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "prometheus" and r._field == "http_query_request_bytes")
+    |> increase()
+    |> derivative()
 ```
 
 {{< flex >}}
@@ -352,13 +337,10 @@ from(bucket: "example-bucket")
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "http_query_request_bytes" and
-    r._field == "counter"
-  )
-  |> increase()
-  |> derivative()
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "http_query_request_bytes" and r._field == "counter")
+    |> increase()
+    |> derivative()
 ```
 
 {{< flex >}}
@@ -427,13 +409,10 @@ in specified time windows:
 import "experimental/aggregate"
 
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "prometheus" and
-    r._field == "http_query_request_bytes"
-  )
-  |> increase()
-  |> aggregate.rate(every: 15s, unit: 1s)
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "prometheus" and r._field == "http_query_request_bytes")
+    |> increase()
+    |> aggregate.rate(every: 15s, unit: 1s)
 ```
 
 {{< flex >}}
@@ -479,13 +458,10 @@ from(bucket: "example-bucket")
 import "experimental/aggregate"
 
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "http_query_request_bytes" and
-    r._field == "counter"
-  )
-  |> increase()
-  |> aggregate.rate(every: 15s, unit: 1s)
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "http_query_request_bytes" and r._field == "counter")
+    |> increase()
+    |> aggregate.rate(every: 15s, unit: 1s)
 ```
 
 {{< flex >}}

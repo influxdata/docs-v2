@@ -65,12 +65,11 @@ Add the following as an [InfluxDB task](/influxdb/cloud/process-data/manage-task
 
 ```js
 import "influxdata/influxdb/sample"
-option task = {
-  name: "Collect NOAA NDBC data"
-  every: 15m,
-}
+
+option task = {name: "Collect NOAA NDBC data", every: 15m}
+
 sample.data(set: "noaa")
-  |> to(bucket: "noaa"  )
+    |> to(bucket: "noaa")
  ```
 
 For more information about this and other InfluxDB sample datasets, see [InfluxDB sample data](/influxdb/cloud/reference/sample-data/).

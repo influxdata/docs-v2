@@ -23,12 +23,11 @@ measurement in the `_monitoring` bucket.
 import "influxdata/influxdb/monitor"
 
 monitor.from(
-  start: -1h,
-  stop: now(),
-  fn: (r) => true
+    start: -1h,
+    stop: now(),
+    fn: (r) => true,
 )
 ```
-
 
 ## Parameters
 
@@ -60,8 +59,5 @@ Records that evaluate to _null_ or `false` are not included in output tables.
 ```js
 import "influxdata/influxdb/monitor"
 
-monitor.from(
-  start: -1h,
-  fn: (r) => r._level == "crit"
-)
+monitor.from(start: -1h, fn: (r) => r._level == "crit")
 ```

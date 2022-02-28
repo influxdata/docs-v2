@@ -65,12 +65,9 @@ Select the appropriate metric format version below.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "prometheus" and
-    r._field == "go_goroutines"
-  )
-  |> derivative(nonNegative: true)
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "prometheus" and r._field == "go_goroutines")
+    |> derivative(nonNegative: true)
 ```
 
 {{< flex >}}
@@ -122,12 +119,9 @@ from(bucket: "example-bucket")
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "go_goroutines" and
-    r._field == "gauge"
-  )
-  |> derivative(nonNegative: true)
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "go_goroutines" and r._field == "gauge")
+    |> derivative(nonNegative: true)
 ```
 
 {{< flex >}}
@@ -194,12 +188,9 @@ from(bucket: "example-bucket")
 import "experimental/aggregate"
 
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "prometheus" and
-    r._field == "go_goroutines"
-  )
-  |> aggregate.rate(every: 10s, unit: 1s)
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "prometheus" and r._field == "go_goroutines")
+    |> aggregate.rate(every: 10s, unit: 1s)
 ```
 
 {{< flex >}}
@@ -262,12 +253,9 @@ from(bucket: "example-bucket")
 import "experimental/aggregate"
 
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "go_goroutines" and
-    r._field == "gauge"
-  )
-  |> aggregate.rate(every: 10s, unit: 1s)
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "go_goroutines" and r._field == "gauge")
+    |> aggregate.rate(every: 10s, unit: 1s)
 ```
 
 {{< flex >}}

@@ -20,20 +20,20 @@ The `pagerduty.sendEvent()` function sends an event to PagerDuty.
 import "pagerduty"
 
 pagerduty.sendEvent(
-  pagerdutyURL: "https://events.pagerduty.com/v2/enqueue",
-  routingKey: "ExampleRoutingKey",
-  client: "ExampleClient",
-  clientURL: "http://examplepagerdutyclient.com",
-  dedupKey: "ExampleDedupKey",
-  class: "cpu usage",
-  group: "app-stack",
-  severity: "ok",
-  eventAction: "trigger",
-  source: "monitoringtool:vendor:region",
-  component: "example-component",
-  summary: "This is an example summary.",
-  timestamp: "2016-07-17T08:42:58.315+0000",
-  customDetails: {exampleDetail: "Details"}
+    pagerdutyURL: "https://events.pagerduty.com/v2/enqueue",
+    routingKey: "ExampleRoutingKey",
+    client: "ExampleClient",
+    clientURL: "http://examplepagerdutyclient.com",
+    dedupKey: "ExampleDedupKey",
+    class: "cpu usage",
+    group: "app-stack",
+    severity: "ok",
+    eventAction: "trigger",
+    source: "monitoringtool:vendor:region",
+    component: "example-component",
+    summary: "This is an example summary.",
+    timestamp: "2016-07-17T08:42:58.315+0000",
+    customDetails: {exampleDetail: "Details"},
 )
 ```
 
@@ -115,29 +115,25 @@ Additional event details.
 import "pagerduty"
 import "influxdata/influxdb/secrets"
 
-lastReported =
-  from(bucket: "example-bucket")
+lastReported = from(bucket: "example-bucket")
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
     |> findRecord(fn: (key) => true, idx: 0)
 
 pagerduty.sendEvent(
-  routingKey: "example-routing-key",
-  client: lastReported.client,
-  clientURL: lastReported.clientURL,
-  class: lastReported.class,
-  eventAction: lastReported.eventAction,
-  group: lastReported.group,
-  severity: lastReported.severity,
-  component: lastReported.component,
-  source: lastReported.source,
-  component: lastReported.component,
-  summary: lastReported.summary,
-  timestamp: lastReported._time,
-  customDetails: {
-    "ping time": lastReported.ping,
-    load: lastReported.load
-  }
+    routingKey: "example-routing-key",
+    client: lastReported.client,
+    clientURL: lastReported.clientURL,
+    class: lastReported.class,
+    eventAction: lastReported.eventAction,
+    group: lastReported.group,
+    severity: lastReported.severity,
+    component: lastReported.component,
+    source: lastReported.source,
+    component: lastReported.component,
+    summary: lastReported.summary,
+    timestamp: lastReported._time,
+    customDetails: {"ping time": lastReported.ping, load: lastReported.load},
 )
 ```

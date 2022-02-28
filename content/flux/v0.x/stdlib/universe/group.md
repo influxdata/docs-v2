@@ -46,8 +46,8 @@ after `group()`.
 
 ```js
 data
-  |> group()
-  |> sort(columns: ["_time"])
+    |> group()
+    |> sort(columns: ["_time"])
 ```
 {{% /warn %}}
 
@@ -80,7 +80,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> group(columns: ["_time", "tag"])
+    |> group(columns: ["_time", "tag"])
 ```
 
 {{< expand-wrapper >}}
@@ -156,7 +156,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> group(columns: ["_time"], mode: "except")
+    |> group(columns: ["_time"], mode: "except")
 ```
 
 {{< expand-wrapper >}}
@@ -231,7 +231,7 @@ import "sampledata"
 
 // Merge all tables into a single table
 sampledata.int()
-  |> group()
+    |> group()
 ```
 
 {{% expand "View input and output" %}}

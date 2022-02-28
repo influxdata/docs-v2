@@ -110,5 +110,5 @@ import "experimental/http/requests"
 
 response = requests.post(url: "http://example.com")
 
-requests.peek(repsonse: response)
+requests.peek(response: response)
 ```

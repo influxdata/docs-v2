@@ -60,7 +60,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> keep(columns: ["_time", "_value"])
+    |> keep(columns: ["_time", "_value"])
 ```
 
 {{< expand-wrapper >}}
@@ -101,7 +101,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> keep(fn: (column) => column =~ /^_?t/)
+    |> keep(fn: (column) => column =~ /^_?t/)
 ```
 
 {{< expand-wrapper >}}

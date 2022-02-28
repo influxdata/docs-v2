@@ -32,7 +32,7 @@ system.time()
 import "system"
 
 data
-  |> set(key: "processed_at", value: string(v: system.time() ))
+    |> set(key: "processed_at", value: string(v: system.time() ))
 ```
 
 {{% note %}}

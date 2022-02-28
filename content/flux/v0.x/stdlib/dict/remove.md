@@ -20,10 +20,7 @@ an updated dictionary.
 ```js
 import "dict"
 
-dict.remove(
-  dict: [1: "foo", 2: "bar"],
-  key: 1
-)
+dict.remove(dict: [1: "foo", 2: "bar"], key: 1)
 ```
 
 ## Parameters
@@ -47,10 +44,7 @@ import "dict"
 
 d = [1: "foo", 2: "bar"]
 
-dNew = dict.remove(
-  dict: d,
-  key: 1
-)
+dNew = dict.remove(dict: d, key: 1)
 
 // Verify the key-value pairs was removed
 

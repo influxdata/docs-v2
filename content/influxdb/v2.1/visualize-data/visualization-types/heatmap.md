@@ -92,19 +92,12 @@ Each row in the output table contains `_value_cpu` and `_value_mem` columns.
 
 ```js
 cpu = from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "cpu" and
-      r._field == "usage_system" and
-      r.cpu == "cpu-total"
-  )
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
 
 mem = from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "mem" and
-      r._field == "used_percent"
-  )
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
 
 join(tables: {cpu: cpu, mem: mem}, on: ["_time"], method: "inner")
 ```

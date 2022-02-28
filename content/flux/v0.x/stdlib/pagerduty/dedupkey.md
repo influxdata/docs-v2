@@ -24,7 +24,7 @@ the group key to create a unique deduplication key for each input table.
 import "pagerduty"
 
 pagerduty.dedupKey(
-  exclude: ["_start", "_stop", "_level"]
+    exclude: ["_start", "_stop", "_level"],
 )
 ```
 
@@ -41,9 +41,9 @@ Default is `["_start", "_stop", "_level"]`.
 import "pagerduty"
 
 from(bucket: "default")
-  |> range(start: -5m)
-  |> filter(fn: (r) => r._measurement == "mem")
-  |> pagerduty.dedupKey()
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem")
+    |> pagerduty.dedupKey()
 ```
 
 {{% expand "View function updates" %}}

@@ -25,7 +25,7 @@ Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experiment
 import "experimental/geo"
 
 geo.ST_Length(
-  geometry: {linestring: "39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433"}
+    geometry: {linestring: "39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433"},
 )
 
 // Returns 346.1023974652474 (km)
@@ -45,18 +45,11 @@ _See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry
 ```js
 import "experimental/geo"
 
-region = {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
-}
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
 
 data
-  |> geo.toRows()
-  |> geo.asTracks()
-  |> geo.ST_LineString()
-  |> map(fn: (r) => ({
-    r with st_length: geo.ST_Length(geometry: {linestring: r.st_linestring})
-  }))
+    |> geo.toRows()
+    |> geo.asTracks()
+    |> geo.ST_LineString()
+    |> map(fn: (r) => ({r with st_length: geo.ST_Length(geometry: {linestring: r.st_linestring})}))
 ```

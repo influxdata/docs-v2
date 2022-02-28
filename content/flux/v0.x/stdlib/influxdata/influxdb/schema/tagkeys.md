@@ -24,9 +24,9 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/schema"
 
 schema.tagKeys(
-  bucket: "example-bucket",
-  predicate: (r) => true,
-  start: -30d
+    bucket: "example-bucket",
+    predicate: (r) => true,
+    start: -30d,
 )
 ```
 

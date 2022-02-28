@@ -23,9 +23,9 @@ measurement in the `_monitoring` bucket.
 import "influxdata/influxdb/monitor"
 
 monitor.logs(
-  start: -1h,
-  stop: now(),
-  fn: (r) => true
+    start: -1h,
+    stop: now(),
+    fn: (r) => true,
 )
 ```
 

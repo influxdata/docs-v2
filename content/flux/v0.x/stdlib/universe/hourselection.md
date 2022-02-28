@@ -21,9 +21,9 @@ The `hourSelection()` function retains all rows with time values in a specified 
 
 ```js
 hourSelection(
-  start: 9,
-  stop: 17,
-  timeColumn: "_time"
+    start: 9,
+    stop: 17,
+    timeColumn: "_time",
 )
 ```
 
@@ -56,14 +56,14 @@ to generate sample data and show how `covariance()` transforms data.
 import "generate"
 
 data = generate.from(
-  count: 8,
-  fn: (n) => n * n,
-  start: 2021-01-01T00:00:00Z,
-  stop: 2021-01-02T00:00:00Z
+    count: 8,
+    fn: (n) => n * n,
+    start: 2021-01-01T00:00:00Z,
+    stop: 2021-01-02T00:00:00Z,
 )
   
 data 
-  |> hourSelection(start: 9, stop: 17)
+    |> hourSelection(start: 9, stop: 17)
 ```
 
 {{< expand-wrapper >}}

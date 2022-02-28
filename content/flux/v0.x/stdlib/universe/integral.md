@@ -27,10 +27,10 @@ _**Output data type:** Float_
 
 ```js
 integral(
-  unit: 10s,
-  column: "_value",
-  timeColumn: "_time",
-  interpolate: ""
+    unit: 10s,
+    column: "_value",
+    timeColumn: "_time",
+    interpolate: "",
 )
 ```
 
@@ -69,8 +69,8 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> range(start: sampledata.start, stop: sampledata.stop)
-  |> integral(unit:10s)
+    |> range(start: sampledata.start, stop: sampledata.stop)
+    |> integral(unit:10s)
 ```
 
 {{< expand-wrapper >}}
@@ -97,8 +97,8 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int(includeNull: true)
-  |> range(start: sampledata.start, stop: sampledata.stop)
-  |> integral(unit:10s, interpolate: "linear")
+    |> range(start: sampledata.start, stop: sampledata.stop)
+    |> integral(unit:10s, interpolate: "linear")
 ```
 
 {{% expand "View input and output" %}}

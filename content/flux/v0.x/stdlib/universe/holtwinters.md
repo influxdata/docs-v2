@@ -25,12 +25,12 @@ _**Output data type:** Float_
 
 ```js
 holtWinters(
-  n: 10,
-  seasonality: 4,
-  interval: 30d,
-  withFit: false,
-  timeColumn: "_time",
-  column: "_value",
+    n: 10,
+    seasonality: 4,
+    interval: 30d,
+    withFit: false,
+    timeColumn: "_time",
+    column: "_value",
 )
 ```
 
@@ -119,7 +119,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> holtWinters(n: 6, interval: 10s)
+    |> holtWinters(n: 6, interval: 10s)
 ```
 
 {{< expand-wrapper >}}
@@ -162,11 +162,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> holtWinters(
-    n: 4,
-    interval: 10s,
-    seasonality: 4
-  )
+    |> holtWinters(n: 4, interval: 10s, seasonality: 4)
 ```
 
 {{< expand-wrapper >}}
@@ -205,11 +201,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> holtWinters(
-    n: 3,
-    interval: 10s,
-    withFit: true
-  )
+    |> holtWinters(n: 3, interval: 10s, withFit: true)
 ```
 
 {{% expand "View input and output" %}}

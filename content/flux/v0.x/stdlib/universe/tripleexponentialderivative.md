@@ -72,7 +72,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float()
-  |> tripleExponentialDerivative(n: 2)
+    |> tripleExponentialDerivative(n: 2)
 ```
 
 {{< expand-wrapper >}}

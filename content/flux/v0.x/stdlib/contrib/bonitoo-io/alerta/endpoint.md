@@ -23,10 +23,10 @@ _**Function type:** Output_
 import "contrib/bonitoo-io/alerta"
 
 alerta.endpoint(
-  url: "https://alerta.io:8080/alert,
-  apiKey: "0Xx00xxXx00Xxx0x0X",
-  environment: "",
-  origin: "InfluxDB"
+    url: "https://alerta.io:8080/alert",
+    apiKey: "0Xx00xxXx00Xxx0x0X",
+    environment: "",
+    origin: "InfluxDB"
 )
 ```
 
@@ -87,31 +87,30 @@ import "contrib/bonitoo-io/alerta"
 import "influxdata/influxdb/secrets"
 
 apiKey = secrets.get(key: "ALERTA_API_KEY")
-endpoint = alerta.endpoint(
-  url: "https://alerta.io:8080/alert",
-  apiKey: apiKey,
-  environment: "Production",
-  origin: "InfluxDB"
-)
+endpoint =
+    alerta.endpoint(url: "https://alerta.io:8080/alert", apiKey: apiKey, environment: "Production", origin: "InfluxDB")
 
-crit_events = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_events
-  |> endpoint(mapFn: (r) => {
-    return { r with
-      resource: "example-resource",
-      event: "example-event",
-      severity: "critical",
-      service: r.service,
-      group: "example-group",
-      value: r.status,
-      text: "Status is critical.",
-      tags: ["ex1", "ex2"],
-      attributes: {},
-      type: "exampleAlertType",
-      timestamp: now(),
-    }
-  })()
+    |> endpoint(
+        mapFn: (r) => {
+            return {r with
+                resource: "example-resource",
+                event: "example-event",
+                severity: "critical",
+                service: r.service,
+                group: "example-group",
+                value: r.status,
+                text: "Status is critical.",
+                tags: ["ex1", "ex2"],
+                attributes: {},
+                type: "exampleAlertType",
+                timestamp: now(),
+            }
+        },
+    )()
 ```
