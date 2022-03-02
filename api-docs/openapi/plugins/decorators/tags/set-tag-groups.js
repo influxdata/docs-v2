@@ -24,7 +24,7 @@ function SetTagGroups() {
       leave(op, ctx, parents) {
         let opTags = op.tags?.map(
           function(t) {
-            return typeof t === 'string' ? { name: t, description: t } : t;
+            return typeof t === 'string' ? { name: t, description: '' } : t;
           }
         ) || [];
         tags = collect(tags, opTags);
