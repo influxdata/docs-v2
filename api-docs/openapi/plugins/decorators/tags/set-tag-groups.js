@@ -16,12 +16,18 @@ const { collect, getName, sortName } = require('../../helpers/content-helper.js'
  */
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 function SetTagGroups() {
-  data = tagGroups();
+  const data = tagGroups();
   let tags = [];
+  /** Collect tags for each operation and convert string tags to object tags. **/
   return {
     Operation: {
       leave(op, ctx, parents) {
-        tags = collect(tags, op.tags);
+        let opTags = op.tags?.map(
+          function(t) {
+            return typeof t === 'string' ? { name: t, description: '' } : t;
+          }
+        ) || [];
+        tags = collect(tags, opTags);
       }
     },
     DefinitionRoot: {

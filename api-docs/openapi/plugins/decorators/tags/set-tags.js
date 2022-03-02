@@ -10,7 +10,7 @@ const { tags } = require('../../../content/content')
  */
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 function SetTags() {
-  data = tags();
+  const data = tags();
   let tags = [];
   return {
     DefinitionRoot: {

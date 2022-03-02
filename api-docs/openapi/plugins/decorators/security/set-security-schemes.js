@@ -4,7 +4,7 @@ const { securitySchemes } = require('../../../content/content')
 
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 function SetSecuritySchemes() {
-  data = securitySchemes();
+  const data = securitySchemes();
   return {
     Components: {
       leave(comps, ctx) {

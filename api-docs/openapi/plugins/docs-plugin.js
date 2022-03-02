@@ -3,6 +3,7 @@ const ValidateServersUrl = require('./rules/validate-servers-url');
 const RemovePrivatePaths = require('./decorators/paths/remove-private-paths');
 const ReplaceShortcodes = require('./decorators/replace-shortcodes');
 const SetInfo = require('./decorators/set-info');
+const DeleteServers = require('./decorators/servers/delete-servers');
 const SetServers = require('./decorators/servers/set-servers');
 const SetSecuritySchemes = require('./decorators/security/set-security-schemes');
 const SetTags = require('./decorators/tags/set-tags');
@@ -23,6 +24,7 @@ const rules = {
 const decorators = {
   oas3: {
     'set-servers': SetServers,
+    'delete-servers': DeleteServers,
     'remove-private-paths': RemovePrivatePaths,
     'replace-docs-url-shortcode': ReplaceShortcodes().docsUrl,
     'strip-version-prefix': StripVersionPrefix,
@@ -44,6 +46,7 @@ module.exports = {
       },
       decorators: {
         'docs/set-servers': 'error',
+        'docs/delete-servers': 'error',
       	'docs/remove-private-paths': 'error',
       	'docs/replace-docs-url-shortcode': 'error',
       	'docs/strip-version-prefix': 'error',
