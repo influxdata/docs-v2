@@ -354,17 +354,26 @@ showPreference()
 
 // Validate custom URLs
 function validateUrl(url) {
-  var validProtocol = /^http(s?)/
-  var invalidDomain =/[A-Z\s\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\\\|\;\'\"\,\<\>\/\?]/
-  var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
-  var domain = url.replace(protocol, "")
-
-  if (validProtocol.test(protocol) == false) {
-    return {valid: false, error: "Invalid protocol, use http[s]"}
-  } else if (domain.length == 0 || invalidDomain.test(domain) == true) {
-    return {valid: false, error: "Invalid domain"}
-  } else {
+  try {
+    new URL(url);
     return {valid: true, error: ""}
+  } catch(e) {
+    var validProtocol = /^http(s?)/
+    // var invalidDomain =/[A-Z\s\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\\\|\;\'\"\,\<\>\/\?]/
+    var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
+    var domain = url.replace(protocol, "")
+    /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
+    var validDomain = new RegExp(`([a-z0-9\-._~%]+`
+                               + `|\[[a-f0-9:.]+\]`
+                               + `|\[v[a-f0-9][a-z0-9\-._~%!$&'()*+,;=:]+\])`
+                               + `(:[0-9]+)?`);
+    if (validProtocol.test(protocol) == false) {
+      return {valid: false, error: "Invalid protocol, use http[s]"}
+    } else if (validDomain.test(domain) == false) {
+      return {valid: false, error: "Invalid domain"}
+    } else if (e) {
+      return {valid: false, error: "Invalid URL"}
+    }
   }
 }
 
