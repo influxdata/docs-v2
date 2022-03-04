@@ -419,17 +419,28 @@ $('#custom-url-field').blur(function() {
   applyCustomUrl()
 })
 
+/** Delay execution of a function `fn` for a number of milliseconds `ms`
+  * e.g., delay a validation handler to avoid annoying the user.
+  */
+function delay(fn, ms) {
+  let timer = 0
+  return function(...args) {
+    clearTimeout(timer)
+    timer = setTimeout(fn.bind(this, ...args), ms || 0)
+  }
+}
+
+function handleUrlValidation() {
+  let url = $('#custom-url-field').val()
+  let urlValidation = validateUrl(url)
+  if (urlValidation.valid) {
+    hideValidationMessage()
+  } else {
+    showValidationMessage(urlValidation)
+  }
+}
 // When in erred state, revalidate custom URL on keyup
-$(document).on("keyup", ".error #custom-url-field", function() {
-    console.log("keyed up")
-    let url = $('#custom-url-field').val()
-    let urlValidation = validateUrl(url)
-    if (urlValidation.valid) {
-      hideValidationMessage()
-    } else {
-      showValidationMessage(urlValidation)
-    }
-})
+$(document).on("keyup", "#custom-url-field", delay(handleUrlValidation, 500));
 
 // Populate the custom InfluxDB URL field on page load
 if ( Cookies.get('influxdb_custom_url') != undefined ) {
