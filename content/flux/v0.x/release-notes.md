@@ -10,6 +10,24 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.157.0 [2022-03-03]
+
+### Features
+- Update `fill()` to use narrow transformation.
+- Add an attribute-based instantiation of parallel execution nodes.
+- Expose the `Record::fields` iterator.
+- Allow the `estimate_tdigest` method in `quantile()` to process any numeric value.
+- Optimize `aggregateWindow()` for specific aggregate transformations.
+
+### Bug fixes
+- Update vectorized `map()` to handle missing columns.
+- Remove duplicate line in `Makefile`.
+- Fix `cargo doc` build errors.
+- Reclassify CSV-decoding errors as user errors.
+- Update `iox.from()` and `generate.from()` to use proper stream annotation.
+
+---
+
 ## v0.156.0 [2022-02-22]
 
 ### Features
