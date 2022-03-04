@@ -139,21 +139,21 @@ function updateUrls(prevUrls, newUrls) {
     oss: {}
   }
 
-    Object.keys(prevUrls).forEach(function(k) {
-      try {
-        prevUrlsParsed[k] = new URL(prevUrls[k])
-      } catch {
-        prevUrlsParsed[k] = { host: prevUrls[k] }
-      }
-    })
+  Object.keys(prevUrls).forEach(function(k) {
+    try {
+      prevUrlsParsed[k] = new URL(prevUrls[k])
+    } catch {
+      prevUrlsParsed[k] = { host: prevUrls[k] }
+    }
+  })
 
-    Object.keys(newUrls).forEach(function(k) {
-      try {
-        newUrlsParsed[k] = new URL(newUrls[k])
-      } catch {
-        newUrlsParsed[k] = { host: newUrls[k] }
-      }
-    })
+  Object.keys(newUrls).forEach(function(k) {
+    try {
+      newUrlsParsed[k] = new URL(newUrls[k])
+    } catch {
+      newUrlsParsed[k] = { host: newUrls[k] }
+    }
+  })
 
   /**
     * Match and replace <prev> host with <new> host
