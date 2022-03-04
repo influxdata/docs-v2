@@ -175,37 +175,43 @@ function updateUrls(prevUrls, newUrls) {
 
   replacements.forEach(function (o) {
     if (o.replace.origin != o.with.origin) {
+      var fuzzyOrigin = new RegExp(o.replace.origin + "(:[0-9]+)?", "g");
       $(elementSelector).each(function() {
         $(this).html(
-          $(this).html().replace(RegExp(o.replace.origin, "g"), function(match){
-            return o.with.origin || match;
+          $(this).html().replace(fuzzyOrigin, function(m){
+            return o.with.origin || m;
           })
         );
       })
     }
   });
+
+  function replaceWholename(startStr, endStr, replacement) {
+    var startsWithSeparator = new RegExp('[/.]');
+    var endsWithSeparator = new RegExp('[-.:]');
+    if(!startsWithSeparator.test(startStr) && !endsWithSeparator.test(endStr)) {
+      var newHost = startStr + replacement + endStr
+      return startStr + replacement + endStr;
+    }
+  }
+
   replacements
   .map(function(o) {
      return {replace: o.replace.host, with: o.with.host}
    })
   .forEach(function (o) {
-     if (o.replace != o.with) {
+    if (o.replace != o.with) {
+        var fuzzyHost = new RegExp("(.?)" + o.replace + "(.?)", "g");
        $(elementSelector).each(function() {
-         /**
-	  * Hostname pattern
-	  * 1. Lookbehind (?<!) matches if o.replace is not preceded by :[/.].
-	  * 2. Match 1 or no slashes following the hostname.
-	  * 3. Negative lookahead (?!) matches if not followed by word char, dash, or dot.
-	  */
-         var hostnameOnly = new RegExp("(?<![/.])" + o.replace + "\/?(?![/w/-/.])", "g")
-         $(this).html(
-           $(this).html().replace(hostnameOnly, function(match) {
-             return o.with.host || o.with;
-           })
-         );
-       })
-     }
-   })
+        $(this).html(
+          $(this).html().replace(fuzzyHost, function(m, p1, p2) {
+            var r = replaceWholename(p1, p2, o.with) || m;
+            return r
+          })
+        );
+      })
+    }
+  });
 }
 
 // Append the URL selector button to each codeblock with an InfluxDB Cloud or OSS URL
