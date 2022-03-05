@@ -806,6 +806,7 @@ Field type conflicts are a common cause of rejected points.
 ### retention period
 The duration of time that a bucket retains data.
 Points with timestamps older than their bucket's retention period are dropped.
+The minimum retention period is **one hour**.
 
 Related entries: [bucket](#bucket), [shard group duration](#shard-group-duration)
 

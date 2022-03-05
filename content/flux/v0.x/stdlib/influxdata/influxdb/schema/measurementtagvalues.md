@@ -32,6 +32,19 @@ schema.measurementTagValues(
 )
 ```
 
+{{% note %}}
+#### Deleted tags
+Tags [explicitly deleted from InfluxDB](/{{< latest "influxdb" >}}/write-data/delete-data/)
+**do not** appear in results.
+
+#### Expired tags
+- **InfluxDB Cloud**: tags associated with points outside of the bucket's
+  retention policy **do not** appear in results.
+- **InfluxDB OSS**: tags associated with points outside of the bucket's
+  retention policy **may** appear in results.
+  For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
+{{% /note %}}
+
 ## Parameters
 
 ### bucket {data-type="string"}

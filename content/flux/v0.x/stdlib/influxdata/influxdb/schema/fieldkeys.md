@@ -30,6 +30,19 @@ schema.fieldKeys(
 )
 ```
 
+{{% note %}}
+#### Deleted fields
+Fields [explicitly deleted from InfluxDB Cloud](/influxdb/cloud/write-data/delete-data/)
+**do not** appear in results.
+
+#### Expired fields
+- **InfluxDB Cloud**: field keys associated with points outside of the bucket's
+  retention policy **do not** appear in results.
+- **InfluxDB OSS**: field keys associated with points outside of the bucket's
+  retention policy **may** appear in results.
+  For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
+{{% /note %}}
+
 ## Parameters
 
 ### bucket {data-type="string"}
