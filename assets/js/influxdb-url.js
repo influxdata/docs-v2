@@ -359,7 +359,6 @@ function validateUrl(url) {
     return {valid: true, error: ""}
   } catch(e) {
     var validProtocol = /^http(s?)/
-    // var invalidDomain =/[A-Z\s\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\\\|\;\'\"\,\<\>\/\?]/
     var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
     var domain = url.replace(protocol, "")
     /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
