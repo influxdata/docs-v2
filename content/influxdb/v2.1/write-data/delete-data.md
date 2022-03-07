@@ -3,7 +3,7 @@ title: Delete data
 list_title: Delete data
 description: >
   Use the `influx` CLI or the InfluxDB API `/api/v2/delete` endpoint to delete
-  data from an InfluxDB Bucket.
+  data from an InfluxDB bucket.
 menu:
   influxdb_2_1:
     name: Delete data
@@ -17,7 +17,7 @@ related:
 
 Use the [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) or the InfluxDB API
 [`/api/v2/delete`](/influxdb/v2.1/api/#operation/PostDelete) endpoint to delete
-data from an InfluxDB Bucket.
+data from an InfluxDB bucket.
 
 - [Delete data using the influx CLI](#delete-data-using-the-influx-cli)
 - [Delete data using the API](#delete-data-using-the-api)

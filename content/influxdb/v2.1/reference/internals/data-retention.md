@@ -20,8 +20,9 @@ timestamps beyond the defined retention period of the
 This service is designed to automatically delete "expired" data and optimize disk
 usage without any user intervention.
 
-By default, the retention enforcement service runs every 30 minutes, but you can
-custom-configure how often the service runs with the
+By default, the retention enforcement service runs every 30 minutes.
+You can
+configure this interval with the
 [`storage-retention-check-interval`](/influxdb/v2.1/reference/config-options/#storage-retention-check-interval)
 configuration option.
 
@@ -38,7 +39,7 @@ beyond the defined retention period (relative to now) are _eligible_ for deletio
 ## Shard group duration
 InfluxDB stores data on disk in [shards](/influxdb/v2.1/reference/glossary/#shard).
 Each shard belongs to a shard group and each shard group has a shard group duration.
-The **shard group duration** defines the duration of time or interval that each
+The **shard group duration** defines the duration of time that each
 shard in the shard group covers.
 Each shard contains only points with timestamps in specific time range defined
 by the shard group duration.

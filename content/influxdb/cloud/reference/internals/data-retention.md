@@ -38,5 +38,5 @@ The InfluxDB Cloud retention enforcement service **runs hourly** and tombstones
 all points with timestamps beyond the bucket retention period.
 Tombstoned points persist on disk, but are filtered from all query results until
 the next [compaction](/influxdb/cloud/reference/glossary/#compaction) cycle,
-when the are removed from disk.
+when they are removed from disk.
 Compaction cycle intervals vary.
