@@ -32,7 +32,7 @@ schema.fieldKeys(
 
 {{% note %}}
 #### Deleted fields
-Fields [explicitly deleted from InfluxDB Cloud](/influxdb/cloud/write-data/delete-data/)
+Fields [deleted from InfluxDB Cloud using the `/api/v2/delete` endpoint or the `influx delete` command](/influxdb/cloud/write-data/delete-data/)
 **do not** appear in results.
 
 #### Expired fields
