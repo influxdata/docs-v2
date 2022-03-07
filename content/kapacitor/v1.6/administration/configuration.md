@@ -35,7 +35,7 @@ Kapacitor looks for configuration files at specific locations depends on your op
 
 **macOS**: `/usr/local/etc/kapacitor.conf`
 
-**Windows**: _same directory as the `kapacitord.exe`._
+**Windows**: _same directory as the `kapacitord.exe`_
 
 
 Define a custom location for your `kapacitor.conf` at startup with the `-config` flag.
