@@ -29,7 +29,7 @@ Any property key can be located by following its path in the configuration file 
 Values for configuration keys are declared in the configuration file.
 
 #### Kapacitor configuration file location
-Kapacitor looks for configuration files at specific locations depends on your operating system:
+Kapacitor looks for configuration files at specific locations, depending on your operating system:
 
 - **Linux**: `/etc/kapacitor/kapacitor.conf`
 - **macOS**: `/usr/local/etc/kapacitor.conf`
