@@ -38,7 +38,7 @@ Tags [explicitly deleted from InfluxDB](/{{< latest "influxdb" >}}/write-data/de
 
 #### Expired tags
 - **InfluxDB Cloud**: tags associated with points outside of the bucket's
-  retention policy **do not** appear in results.
+  retention policy **may** appear in results up to an hour after expiring.
 - **InfluxDB OSS**: tags associated with points outside of the bucket's
   retention policy **may** appear in results.
   For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).

@@ -37,7 +37,7 @@ Fields [explicitly deleted from InfluxDB Cloud](/influxdb/cloud/write-data/delet
 
 #### Expired fields
 - **InfluxDB Cloud**: field keys associated with points outside of the bucket's
-  retention policy **do not** appear in results.
+  retention policy **may** appear in results up to an hour after expiring.
 - **InfluxDB OSS**: field keys associated with points outside of the bucket's
   retention policy **may** appear in results.
   For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
