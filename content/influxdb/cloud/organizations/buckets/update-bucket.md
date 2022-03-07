@@ -71,7 +71,20 @@ influx bucket update -i 034ad714fdd6f000 -n my-new-bucket
 
 ##### Update a bucket's retention period
 
-Valid retention period duration units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), or weeks (`w`).
+Valid retention period duration units:
+
+- nanoseconds (`ns`)
+- microseconds (`us` or `µs`)
+- milliseconds (`ms`)
+- seconds (`s`)
+- minutes (`m`)
+- hours (`h`)
+- days (`d`)
+- weeks (`w`)
+
+{{% note %}}
+The minimum retention period is **one hour**.
+{{% /note %}}
 
 ```sh
 # Syntax
