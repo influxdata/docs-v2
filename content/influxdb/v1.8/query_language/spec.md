@@ -1034,7 +1034,20 @@ show_shards_stmt = "SHOW SHARDS" .
 
 ```sql
 SHOW SHARDS
+
+name: telegraf
+id  database   retention_policy shard_group start_time           end_time             expiry_time          owners
+--  --------   ---------------- ----------- ----------           --------             -----------          ------
+16  telegraf   autogen          6           2020-10-19T00:00:00Z 2020-10-26T00:00:00Z 2020-10-26T00:00:00Z 6,7,8
+17  telegraf   autogen          6           2020-10-19T00:00:00Z 2020-10-26T00:00:00Z 2020-10-26T00:00:00Z 9,4,5
+21  telegraf   autogen          8           2020-10-26T00:00:00Z 2020-11-02T00:00:00Z 2020-11-02T00:00:00Z 8,9,4
+22  telegraf   autogen          8           2020-10-26T00:00:00Z 2020-11-02T00:00:00Z 2020-11-02T00:00:00Z 5,6,7
+26  telegraf   autogen          10          2020-11-02T00:00:00Z 2020-11-09T00:00:00Z 2020-11-09T00:00:00Z 9,4,5
+27  telegraf   autogen          10          2020-11-02T00:00:00Z 2020-11-09T00:00:00Z 2020-11-09T00:00:00Z 6,7,8
+31  telegraf   autogen          12          2020-11-09T00:00:00Z 2020-11-16T00:00:00Z 2020-11-16T00:00:00Z 6,7,8
 ```
+In the example above, the `SHOW SHARDS` output displays the id number of the shard under the `id`column, the `database` and `retention policy` 
+to which the shard belongs, the `shard_group` number, the start time, end time and expiration time of each shard, and the data nodes that own the shard in the `owners` column.  Multiple nodes can own a single shard based on the replication factor, and in this example the replication factor is 3. 
 
 ### SHOW STATS
 

@@ -988,8 +988,7 @@ Estimates or counts exactly the cardinality of the series for the current databa
 
 [Series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
--<!-- [When do I need more RAM?](/enterprise_influxdb/v1.9/reference/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/enterprise_influxdb/v1.9/reference/hardware_sizing/) -->
-
+- [When do I need more RAM?](/enterprise_influxdb/v1.9/guides/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/enterprise_influxdb/v1.9/guides/hardware_sizing/)
 - [Don't have too many series](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/#avoid-too-many-series)
 
 > **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
@@ -1037,7 +1036,20 @@ show_shards_stmt = "SHOW SHARDS" .
 
 ```sql
 SHOW SHARDS
+
+name: telegraf
+id  database   retention_policy shard_group start_time           end_time             expiry_time          owners
+--  --------   ---------------- ----------- ----------           --------             -----------          ------
+16  telegraf   autogen          6           2020-10-19T00:00:00Z 2020-10-26T00:00:00Z 2020-10-26T00:00:00Z 6,7,8
+17  telegraf   autogen          6           2020-10-19T00:00:00Z 2020-10-26T00:00:00Z 2020-10-26T00:00:00Z 9,4,5
+21  telegraf   autogen          8           2020-10-26T00:00:00Z 2020-11-02T00:00:00Z 2020-11-02T00:00:00Z 8,9,4
+22  telegraf   autogen          8           2020-10-26T00:00:00Z 2020-11-02T00:00:00Z 2020-11-02T00:00:00Z 5,6,7
+26  telegraf   autogen          10          2020-11-02T00:00:00Z 2020-11-09T00:00:00Z 2020-11-09T00:00:00Z 9,4,5
+27  telegraf   autogen          10          2020-11-02T00:00:00Z 2020-11-09T00:00:00Z 2020-11-09T00:00:00Z 6,7,8
+31  telegraf   autogen          12          2020-11-09T00:00:00Z 2020-11-16T00:00:00Z 2020-11-16T00:00:00Z 6,7,8
 ```
+In the example above, the `SHOW SHARDS` output displays the id number of the shard under the `id`column, the `database` and `retention policy` 
+to which the shard belongs, the `shard_group` number, the start time, end time and expiration time of each shard, and the data nodes that own the shard in the `owners` column.  Multiple nodes can own a single shard based on the replication factor, and in this example the replication factor is 3. 
 
 ### SHOW STATS
 
