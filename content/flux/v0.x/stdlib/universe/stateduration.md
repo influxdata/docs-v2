@@ -71,7 +71,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> stateDuration(fn: (r) => r._value > 10)
+    |> stateDuration(fn: (r) => r._value > 10)
 ```
 
 {{< expand-wrapper >}}

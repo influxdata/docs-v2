@@ -24,10 +24,7 @@ _`stddev()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 _**Output data type:** Float_
 
 ```js
-stddev(
-  column: "_value",
-  mode: "sample"
-)
+stddev(column: "_value", mode: "sample")
 ```
 
 ## Parameters
@@ -59,7 +56,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> stddev()
+    |> stddev()
 ```
 
 {{< expand-wrapper >}}

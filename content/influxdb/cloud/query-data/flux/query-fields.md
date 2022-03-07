@@ -17,12 +17,8 @@ related:
 list_code_example: |
   ```js
   from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) =>
-        r._measurement == "example-measurement" and
-        r._field == "example-field" and
-        r.tag == "example-tag"
-    )
+      |> range(start: -1h)
+      |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field" and r.tag == "example-tag")
   ```
 ---
 

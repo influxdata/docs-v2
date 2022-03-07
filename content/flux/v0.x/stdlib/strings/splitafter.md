@@ -48,5 +48,5 @@ The string value that acts as the separator.
 import "strings"
 
 data
-  |> map (fn:(r) => strings.splitAfter(v: r.searchTags, t: ","))
+    |> map (fn:(r) => strings.splitAfter(v: r.searchTags, t: ","))
 ```

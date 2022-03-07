@@ -52,10 +52,10 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 data = sampledata.int()
-  |> range(start: sampledata.start, stop: sampledata.stop)
+    |> range(start: sampledata.start, stop: sampledata.stop)
 
 data
-  |> truncateTimeColumn(unit: 1m)
+    |> truncateTimeColumn(unit: 1m)
 ```
 
 {{< expand-wrapper >}}

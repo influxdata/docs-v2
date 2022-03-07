@@ -28,7 +28,7 @@ now()
 ##### Use the current UTC time as a query boundary
 ```js
 data
-  |> range(start: -10h, stop: now())
+    |> range(start: -10h, stop: now())
 ```
 
 ##### Return the now option time

@@ -142,16 +142,15 @@ To do so, run the following:
 ```js
 import "experimental/csv"
 
-relativeToNow = (tables=<-) =>
-  tables
+relativeToNow = (tables=<-) => tables
     |> elapsed()
     |> sort(columns: ["_time"], desc: true)
     |> cumulativeSum(columns: ["elapsed"])
-    |> map(fn: (r) => ({ r with _time: time(v: int(v: now()) - (r.elapsed * 1000000000))}))
+    |> map(fn: (r) => ({r with _time: time(v: int(v: now()) - r.elapsed * 1000000000)}))
 
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-  |> relativeToNow()
-  |> to(bucket: "noaa", org: "example-org")
+    |> relativeToNow()
+    |> to(bucket: "noaa", org: "example-org")
 ```
 {{% /note %}}
 
@@ -186,10 +185,9 @@ Add the following as an [InfluxDB task](/influxdb/cloud/process-data/manage-task
 
 ```js
 import "influxdata/influxdb/sample"
-option task = {
-  name: "Collect NOAA NDBC data"
-  every: 15m,
-}
+
+option task = {name: "Collect NOAA NDBC data", every: 15m}
+
 sample.data(set: "noaa")
-  |> to(bucket: "noaa"  )
+    |> to(bucket: "noaa")
  ```

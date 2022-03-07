@@ -54,10 +54,10 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 data = sampledata.int()
-  |> map(fn: (r) => ({ r with _value: r._value * 1000000000 }))
+    |> map(fn: (r) => ({r with _value: r._value * 1000000000}))
 
 data
-  |> toTime()
+    |> toTime()
 ```
 
 {{< expand-wrapper >}}
@@ -107,10 +107,3 @@ data
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toTime = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: time(v:r._value) }))
-```

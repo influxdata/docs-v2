@@ -33,9 +33,9 @@ the [`method`](#method) used._
 import "experimental"
 
 experimental.quantile(
-  q: 0.99,
-  method: "estimate_tdigest",
-  compression: 1000.0
+    q: 0.99,
+    method: "estimate_tdigest",
+    compression: 1000.0,
 )
 ```
 
@@ -86,15 +86,9 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket")
-	|> range(start: -5m)
-	|> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field")
-	|> experimental.quantile(
-    q: 0.99,
-    method: "estimate_tdigest",
-    compression: 1000.0
-  )
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+    |> experimental.quantile(q: 0.99, method: "estimate_tdigest", compression: 1000.0)
 ```
 
 ###### Quantile as a selector
@@ -102,12 +96,7 @@ from(bucket: "example-bucket")
 import "experimental"
 
 from(bucket: "example-bucket")
-	|> range(start: -5m)
-	|> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field")
-	|> experimental.quantile(
-    q: 0.99,
-    method: "exact_selector"
-  )
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+    |> experimental.quantile(q: 0.99, method: "exact_selector")
 ```

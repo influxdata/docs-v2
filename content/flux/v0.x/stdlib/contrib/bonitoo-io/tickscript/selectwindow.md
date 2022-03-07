@@ -25,11 +25,11 @@ and applies an aggregate or selector function the specified column for each wind
 import "contrib/bonitoo-io/tickscript"
 
 tickscript.selectWindow(
-  column: "_value",
-  fn: sum,
-  as: "example-name",
-  every: 1m,
-  defaultValue: 0.0,
+    column: "_value",
+    fn: sum,
+    as: "example-name",
+    every: 1m,
+    defaultValue: 0.0,
 )
 ```
 
@@ -81,12 +81,12 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "contrib/bonitoo-io/tickscript"
 
 data
-  |> tickscript.selectWindow(
-    fn: sum,
-    as: "example-name",
-    every: 1h,
-    defaultValue: 0.0
-  )
+    |> tickscript.selectWindow(
+        fn: sum,
+        as: "example-name",
+        every: 1h,
+        defaultValue: 0.0,
+    )
 ```
 
 {{< flex >}}

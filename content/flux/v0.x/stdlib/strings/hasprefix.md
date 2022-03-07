@@ -40,5 +40,5 @@ The prefix to search for.
 import "strings"
 
 data
-  |> filter(fn:(r) => strings.hasPrefix(v: r.metric, prefix: "int_" ))
+    |> filter(fn:(r) => strings.hasPrefix(v: r.metric, prefix: "int_" ))
 ```

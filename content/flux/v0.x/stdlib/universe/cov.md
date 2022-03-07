@@ -52,18 +52,20 @@ to generate sample data and show how `cov()` transforms data.
 import "generate"
 
 stream1 = generate.from(
-  count: 5,
-  fn: (n) => n * n,
-  start: 2021-01-01T00:00:00Z,
-  stop: 2021-01-01T00:01:00Z
-) |> toFloat()
+    count: 5,
+    fn: (n) => n * n,
+    start: 2021-01-01T00:00:00Z,
+    stop: 2021-01-01T00:01:00Z,
+)
+    |> toFloat()
 
 stream2 = generate.from(
-  count: 5,
-  fn: (n) => n * n * n / 2,
-  start: 2021-01-01T00:00:00Z,
-  stop: 2021-01-01T00:01:00Z
-) |> toFloat()
+    count: 5,
+    fn: (n) => n * n * n / 2,
+    start: 2021-01-01T00:00:00Z,
+    stop: 2021-01-01T00:01:00Z,
+)
+    |> toFloat()
 
 cov(x: stream1, y: stream2, on: ["_time"])
 ```
@@ -102,10 +104,3 @@ cov(x: stream1, y: stream2, on: ["_time"])
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-cov = (x,y,on,pearsonr=false) =>
-  join( tables:{x:x, y:y}, on:on )
-    |> covariance(pearsonr:pearsonr, columns:["_value_x","_value_y"])
-```

@@ -45,6 +45,6 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket"):
-  |> range(start: -7d)
-  |> experimental.kaufmansAMA(n: 10)
+    |> range(start: -7d)
+    |> experimental.kaufmansAMA(n: 10)
 ```

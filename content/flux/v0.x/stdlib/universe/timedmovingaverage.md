@@ -29,9 +29,9 @@ range at a specified frequency.
 
 ```js
 timedMovingAverage(
-  every: 1d,
-  period: 5d,
-  column: "_value"
+    every: 1d,
+    period: 5d,
+    column: "_value",
 )
 ```
 
@@ -81,20 +81,13 @@ to generate sample data and illustrate how `timedMovingAverage()` transforms dat
 
 #### Calculate a five year moving average every year
 ```js
-import "generate"
-
 timeRange = {start: 2015-01-01T00:00:00Z, stop: 2021-01-01T00:00:00Z}
 
-data = generate.from(
-    count: 6,
-    fn: (n) => n * n,
-    start: timeRange.start,
-    stop: timeRange.stop
-  )
-  |> range(start: timeRange.start, stop: timeRange.stop)
+data = generate.from(count: 6, fn: (n) => n * n, start: timeRange.start, stop: timeRange.stop)
+    |> range(start: timeRange.start, stop: timeRange.stop)
 
 data
-  |> timedMovingAverage(every: 1y, period: 5y)
+    |> timedMovingAverage(every: 1y, period: 5y)
 ```
 
 {{< expand-wrapper >}}
@@ -132,16 +125,11 @@ import "generate"
 
 timeRange = {start: 2021-01-01T00:00:00Z, stop: 2021-01-08T00:00:00Z}
 
-data = generate.from(
-    count: 7,
-    fn: (n) => n + n,
-    start: timeRange.start,
-    stop: timeRange.stop
-  )
-  |> range(start: timeRange.start, stop: timeRange.stop)
+data = generate.from(count: 7, fn: (n) => n + n, start: timeRange.start, stop: timeRange.stop)
+    |> range(start: timeRange.start, stop: timeRange.stop)
 
 data
-  |> timedMovingAverage(every: 1d, period: 7d)
+    |> timedMovingAverage(every: 1d, period: 7d)
 ```
 
 {{< expand-wrapper >}}
@@ -176,13 +164,3 @@ data
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-timedMovingAverage = (every, period, column="_value", tables=<-) =>
-  tables
-    |> window(every: every, period: period)
-    |> mean(column:column)
-    |> duplicate(column: "_stop", as: "_time")
-    |> window(every: inf)
-```

@@ -51,8 +51,8 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    ```js
    const fluxQuery =
      'from(bucket: "YOUR_BUCKET")
-     |> range(start: 0)
-     |> filter(fn: (r) => r._measurement == "temperature")'
+      |> range(start: 0)
+      |> filter(fn: (r) => r._measurement == "temperature")'
    ```
    Replace *`YOUR_BUCKET`* with the name of your InfluxDB bucket.
 

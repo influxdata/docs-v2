@@ -21,10 +21,10 @@ _**Output data type:** Array of floats_
 
 ```js
 logarithmicBins(
-  start:1.0, 
-  factor: 2.0, 
-  count: 10, 
-  infinity: true
+    start:1.0, 
+    factor: 2.0, 
+    count: 10, 
+    infinity: true,
 )
 ```
 

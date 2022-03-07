@@ -23,9 +23,9 @@ _`oee.APQ()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 import "experimental/oee"
 
 oee.APQ(
-  runningState: "running",
-  plannedTime: 8h,
-  idealCycleTime: 2m
+    runningState: "running",
+    plannedTime: 8h,
+    idealCycleTime: 2m,
 )
 ```
 
@@ -98,12 +98,8 @@ import "experimental/oee"
 productionData = // ...
 
 productionData
-  |> oee.APQ(
-    runningState: "running",
-    plannedTime: 8h,
-    idealCycleTime: 21s
-  )
-  |> drop(columns: ["_start","_stop"])
+    |> oee.APQ(runningState: "running", plannedTime: 8h, idealCycleTime: 21s)
+    |> drop(columns: ["_start", "_stop"])
 ```
 
 #### Output data

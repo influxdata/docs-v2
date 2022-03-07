@@ -26,7 +26,7 @@ The function groups metrics (including histogram and summary values) into indivi
 import "experimental/prometheus"
 
 prometheus.scrape(
-  url: "http://localhost:8086/metrics"
+    url: "http://localhost:8086/metrics"
 )
 ```
 
@@ -42,8 +42,5 @@ The URL to scrape Prometheus-formatted metrics from.
 import "experimental/prometheus"
 
 prometheus.scrape(url: "https://example-url.com/metrics")
-  |> to(
-    org: "example-org",
-    bucket: "example-bucket"
-  )
+    |> to(org: "example-org", bucket: "example-bucket")
 ```

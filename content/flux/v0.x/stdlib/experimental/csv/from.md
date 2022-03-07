@@ -43,15 +43,5 @@ The URL to retrieve annotated CSV from.
 import "experimental/csv"
 
 csv.from(url: "http://example.com/csv/example.csv")
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-```
-
-## Function definition
-```js
-package csv
-
-import c "csv"
-import "experimental/http"
-
-from = (url) => c.from(csv: string(v: http.get(url: url).body))
+    |> filter(fn: (r) => r._measurement == "example-measurement")
 ```

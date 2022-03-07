@@ -19,8 +19,8 @@ _**Flux functions:**
 
 ```js
 buckets()
-  |> rename(columns: {"name": "_value"})
-  |> keep(columns: ["_value"])
+    |> rename(columns: {"name": "_value"})
+    |> keep(columns: ["_value"])
 ```
 
 ## List measurements
@@ -31,6 +31,7 @@ _**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-
 
 ```js
 import "influxdata/influxdb/v1"
+
 v1.measurements(bucket: "bucket-name")
 ```
 
@@ -42,10 +43,11 @@ _**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-
 
 ```js
 import "influxdata/influxdb/v1"
+
 v1.measurementTagValues(
-  bucket: "bucket-name",
-  measurement: "measurment-name",
-  tag: "_field"
+    bucket: "bucket-name",
+    measurement: "measurment-name",
+    tag: "_field",
 )
 ```
 
@@ -58,6 +60,7 @@ _**Flux functions:** [v1.tagValues()](/influxdb/cloud/reference/flux/stdlib/infl
 
 ```js
 import "influxdata/influxdb/v1"
+
 v1.tagValues(bucket: "bucket-name", tag: "host")
 ```
 
@@ -70,6 +73,7 @@ _**Flux functions:** [v1.tagValues()](/influxdb/cloud/reference/flux/stdlib/infl
 
 ```js
 import "influxdata/influxdb/v1"
+
 v1.tagValues(bucket: "bucket-name", tag: "container_name")
 ```
 
@@ -82,10 +86,11 @@ _**Flux functions:** [v1.measurementTagValues()](/influxdb/cloud/reference/flux/
 
 ```js
 import "influxdata/influxdb/v1"
+
 v1.measurementTagValues(
-  bucket: "bucket-name",
-  measurement: "kubernetes_pod_container",
-  tag: "pod_name"
+    bucket: "bucket-name",
+    measurement: "kubernetes_pod_container",
+    tag: "pod_name",
 )
 ```
 
@@ -98,9 +103,10 @@ _**Flux functions:** [v1.measurementTagValues()](/influxdb/cloud/reference/flux/
 
 ```js
 import "influxdata/influxdb/v1"
+
 v1.measurementTagValues(
-  bucket: "bucket-name",
-  measurement: "kubernetes_node",
-  tag: "node_name"
+    bucket: "bucket-name",
+    measurement: "kubernetes_node",
+    tag: "node_name",
 )
 ```

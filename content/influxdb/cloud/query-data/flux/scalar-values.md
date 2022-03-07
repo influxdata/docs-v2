@@ -14,11 +14,11 @@ related:
   - /{{< latest "flux" >}}/function-types/#dynamic-queries, Flux dynamic query functions
 list_code_example: |
   ```js
-  scalarValue = {
-    _record =
-      data
-        |> findRecord(fn: key => true, idx: 0)
-    return _record._value
+  scalarValue = (tables=<-) => {
+      _record = tables
+          |> findRecord(fn: (key) => true, idx: 0)
+
+      return _record._value
   }
   ```
 ---

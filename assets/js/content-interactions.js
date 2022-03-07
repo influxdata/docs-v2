@@ -17,7 +17,8 @@ var elementWhiteList = [
   ".truncate-toggle",
   ".children-links a",
   ".list-links a",
-  "a.url-trigger"
+  "a.url-trigger",
+  "a.fullscreen-close"
 ]
 
 function scrollToAnchor(target) {

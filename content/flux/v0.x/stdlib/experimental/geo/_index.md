@@ -88,11 +88,11 @@ to add `s2_cell_id` tags to data that includes fields with latitude and longitud
 
 ```js
 //...
-  |> shapeData(
-    latField: "latitude",
-    lonField: "longitude",
-    level: 10
-  )
+    |> shapeData(
+        latField: "latitude",
+        lonField: "longitude",
+        level: 10,
+    )
 ```
 
 ## Latitude and longitude values
@@ -123,10 +123,10 @@ Define a box-shaped region by specifying a record containing the following prope
 ##### Example box-shaped region
 ```js
 {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
+    minLat: 40.51757813,
+    maxLat: 40.86914063,
+    minLon: -73.65234375,
+    maxLon: -72.94921875,
 }
 ```
 
@@ -140,9 +140,9 @@ Define a circular region by specifying a record containing the following propert
 ##### Example circular region
 ```js
 {
-  lat: 40.69335938,
-  lon: -73.30078125,
-  radius: 20.0
+    lat: 40.69335938,
+    lon: -73.30078125,
+    radius: 20.0,
 }
 ```
 
@@ -155,8 +155,8 @@ Define a point region by specifying a record containing the following properties
 ##### Example point region
 ```js
 {
-  lat: 40.671659,
-  lon: -73.936631
+    lat: 40.671659,
+    lon: -73.936631,
 }
 ```
 
@@ -173,11 +173,11 @@ Define a custom polygon region using a record containing the following propertie
 ##### Example polygonal region
 ```js
 {
-  points: [
-    {lat: 40.671659, lon: -73.936631},
-    {lat: 40.706543, lon: -73.749177},
-    {lat: 40.791333, lon: -73.880327}
-  ]
+    points: [
+        {lat: 40.671659, lon: -73.936631},
+        {lat: 40.706543, lon: -73.749177},
+        {lat: 40.791333, lon: -73.880327},
+    ],
 }
 ```
 
@@ -195,9 +195,7 @@ Define a geographic linestring path using a record containing the following prop
   coordinate pairs (`lon lat,`):
 
 ```js
-{
-  linestring: "39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433"
-}
+{linestring: "39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433"}
 ```
 
 ## Distance units

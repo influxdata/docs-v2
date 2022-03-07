@@ -23,11 +23,11 @@ _`oee.computeAPQ()` is an [aggregate function](/flux/v0.x/function-types/#aggreg
 import "experimental/oee"
 
 oee.computeAPQ(
-  productionEvents: exampleProductionScheme,
-  partEvents: examplePartsStream,
-  runningState: "running",
-  plannedTime: 8h,
-  idealCycleTime: 2m,
+    productionEvents: exampleProductionScheme,
+    partEvents: examplePartsStream,
+    runningState: "running",
+    plannedTime: 8h,
+    idealCycleTime: 2m,
 )
 ```
 
@@ -120,13 +120,13 @@ productionData = // ...
 partsData = // ...
 
 oee.computeAPQ(
-  productionEvents: productionData,
-  partEvents: partsData,
-  runningState: "running",
-  plannedTime: 8h,
-  idealCycleTime: 21s
+    productionEvents: productionData,
+    partEvents: partsData,
+    runningState: "running",
+    plannedTime: 8h,
+    idealCycleTime: 21s,
 )
-|> drop(columns: ["_start","_stop"])
+    |> drop(columns: ["_start", "_stop"])
 ```
 
 #### Output data

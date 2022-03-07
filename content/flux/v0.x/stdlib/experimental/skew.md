@@ -38,10 +38,7 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
-  |> experimental.skew()
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+    |> experimental.skew()
 ```

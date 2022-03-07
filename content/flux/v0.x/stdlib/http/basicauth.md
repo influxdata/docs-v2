@@ -21,10 +21,7 @@ header using a specified username and password combination.
 ```js
 import "http"
 
-http.basicAuth(
-  u: "username",
-  p: "passw0rd"
-)
+http.basicAuth(u: "username", p: "passw0rd")
 
 // Returns "Basic dXNlcm5hbWU6cGFzc3cwcmQ="
 ```
@@ -48,8 +45,8 @@ username = "myawesomeuser"
 password = "mySupErSecRetPasSW0rD"
 
 http.post(
-  url: "http://myawesomesite.com/api/",
-  headers: {Authorization: http.basicAuth(u:username, p:password)},
-  data: bytes(v: "something I want to send.")
+    url: "http://myawesomesite.com/api/",
+    headers: {Authorization: http.basicAuth(u:username, p:password)},
+    data: bytes(v: "something I want to send."),
 )
 ```
