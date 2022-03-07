@@ -31,9 +31,12 @@ Values for configuration keys are declared in the configuration file.
 #### Kapacitor configuration file location
 Kapacitor looks for configuration files at specific locations depends on your operating system:
 
-**Linux**: `/etc/kapacitor/kapacitor.conf`
+**Linux**: `/etc/kapacitor/kapacitor.conf` 
+
 **macOS**: `/usr/local/etc/kapacitor.conf`
+
 **Windows**: _same directory as the `kapacitord.exe`._
+
 
 Define a custom location for your `kapacitor.conf` at startup with the `-config` flag.
 The path to the configuration file can also be declared using the environment variable `KAPACITOR_CONFIG_PATH`.
