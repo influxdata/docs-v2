@@ -99,6 +99,6 @@ The following API error responses occur when your plan's service quotas are exce
 
 | HTTP response code              | Error message                               | Description  |
 | :-----------------------------  | :-----------------------------------------  | :----------- |
-| `HTTP 413 “Request Too Large”`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |  
-| `HTTP 429 “Too Many Requests”`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
-| `HTTP 503 “Service unavailable“` | Series cardinality exceeds your plan's service quota | If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |
+| `HTTP 413 "Request Too Large"`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |  
+| `HTTP 429 "Too Many Requests"`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
+| `HTTP 429 "Too Many Requests"` | Series cardinality exceeds your plan's service quota | If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |
