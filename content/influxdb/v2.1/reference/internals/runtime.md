@@ -1,7 +1,7 @@
 ---
 title: InfluxDB runtime
 description: >
-  InfluxDB provides server runtime information to help with performance analysis, execution tracing, and debugging.
+  Learn how to collect Go runtime profiling and tracing information to help with InfluxDB performance analysis and debugging.
 menu:
   influxdb_2_1_ref:
     name: Runtime
