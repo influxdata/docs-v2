@@ -1048,9 +1048,12 @@ id  database   retention_policy shard_group start_time           end_time       
 27  telegraf   autogen          10          2020-11-02T00:00:00Z 2020-11-09T00:00:00Z 2020-11-09T00:00:00Z 6,7,8
 31  telegraf   autogen          12          2020-11-09T00:00:00Z 2020-11-16T00:00:00Z 2020-11-16T00:00:00Z 6,7,8
 ```
-In the example above, the `SHOW SHARDS` output displays the id number of the shard under the `id`column, the `database` and `retention policy` 
-to which the shard belongs, the `shard_group` number, the start time, end time and expiration time of each shard, and the data nodes that own the shard in the `owners` column.  Multiple nodes can own a single shard based on the replication factor, and in this example the replication factor is 3. 
 
+`SHOW SHARDS` outputs the following data:
+- `id` column: Shard IDs that belong to the specified `database` and `retention policy`.
+- `shard_group` column: Group number that a shard belongs to. Shards in the same shard group have the same `start_time` and `end_time`. This interval indicates how long the shard is active, and the `expiry_time` columns shows when the shard group expires. No timestamps will show under `expiry_time` if the retention policy duration is set to infinite.
+- `owners` column: Shows the data nodes that own a shard. The number of nodes that own a shard is equal to the replication factor. In this example, the replication factor is 3, so 3 nodes own each shard.
+  
 ### SHOW STATS
 
 Returns detailed statistics on available components of an InfluxDB node and available (enabled) components.
