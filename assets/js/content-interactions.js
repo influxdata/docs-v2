@@ -86,7 +86,7 @@ tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 
 // Retrieve the user's programming language (client library) preference.
 function getApiLibPreference() {
-  return Cookies.get('influx-docs-api-lib');
+  return Cookies.get('influx-docs-api-lib') || '';
 }
 
 function getTabQueryParam() {

@@ -31,9 +31,11 @@ Use [logical operators](#logical-operators) to combine two or more predicate exp
 ```sql
 key1="value1" AND key2="value"
 ```
-{{% note %}}
-Predicate expressions can use any column or tag except `_time` or `_value`.
-{{% /note %}}
+
+{{% warn %}}
+With **InfluxDB {{< current-version >}}**, delete predicates can use any column
+or tag **except** `_time`{{% oss-only %}}, `_field`, {{% /oss-only %}}or `_value`.
+{{% /warn %}}
 
 ## Logical operators
 Logical operators join two or more predicate expressions.
@@ -51,22 +53,29 @@ Comparison operators compare left and right operands and return `true` or `false
 
 ## Delete predicate examples
 
-### Delete points with a specific measurement
+- [Delete points by measurement](#delete-points-by-measurement)
+- {{% cloud-only %}}[Delete points by field](#delete-points-by-field){{% /cloud-only %}}
+- [Delete points by tag set](#delete-points-by-tag-set)
+
+### Delete points by measurement
 The following will delete points in the `sensorData` measurement:
 
 ```sql
 _measurement="sensorData"
 ```
 
-<!--
-### Delete points with a specific field
+{{% cloud-only %}}
+
+### Delete points by field
 The following will delete points with the `temperature` field:
 
 ```sql
 _field="temperature"
 ```
- -->
-### Delete points with a specific tag set
+
+{{% /cloud-only %}}
+
+### Delete points by tag set
 The following will delete points from the `prod-1.4` host in the `us-west` region:
 
 ```sql
@@ -79,4 +88,5 @@ The delete predicate syntax has the following limitations.
 - Delete predicates do not support regular expressions.
 - Delete predicates do not support the `OR` logical operator.
 - Delete predicates only support equality (`=`), not inequality (`!=`).
-- Delete predicates can use any column or tag except `_time` or `_value`.
+- Delete predicates can use any column or tag **except** `_time`
+  {{% oss-only %}}, `_field`, {{% /oss-only %}}or `_value`.
