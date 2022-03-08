@@ -8,7 +8,7 @@ menu:
   influxdb_2_2_ref:
     name: Shards & shard groups
     parent: InfluxDB internals
-weight: 102
+weight: 103
 influxdb/v2.2/tags: [storage, internals]
 related:
   - /influxdb/v2.2/reference/internals/storage-engine/

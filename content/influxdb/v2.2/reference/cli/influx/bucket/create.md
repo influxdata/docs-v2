@@ -46,8 +46,17 @@ influx bucket create [flags]
 | `-t` | `--token`                | API token                                                                                                                                                                   |   string   | `INFLUX_TOKEN`        |
 
 {{% note %}}
-Valid `--retention` units are nanoseconds (`ns`), microseconds (`us` or `µs`),
-milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
+#### Retention periods
+The minimum retention period is **one hour**. Valid `--retention` units:
+
+- nanoseconds (`ns`)
+- microseconds (`us` or `µs`)
+- milliseconds (`ms`)
+- seconds (`s`)
+- minutes (`m`)
+- hours (`h`)
+- days (`d`)
+- weeks (`w`)
 {{% /note %}}
 
 ## Examples
