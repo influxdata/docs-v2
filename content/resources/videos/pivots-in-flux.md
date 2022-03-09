@@ -1,7 +1,7 @@
 ---
 title: Pivots in Flux
 description: >
-    How do you pivot data in Flux?  Watch Scott Anderson explain how to use Flux's pivot function 
+    How do you pivot data in Flux?  Watch Scott Anderson explain how to use Flux's pivot function.
 menu:
   resources:
     parent: Videos

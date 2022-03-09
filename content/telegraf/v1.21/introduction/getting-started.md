@@ -149,6 +149,11 @@ Notice that the timestamps occur at rounded ten second intervals (that is, `:00`
 
 That's it! You ready to use Telegraf to collect metrics and write them to your output of choice.
 
-For an introduction to Telegraf and an overview of how it works, watch the following video:
+For an introduction to Telegraf and an overview of how it works, watch the following videos:
 
 {{< youtube vGJeo3FaMds >}}
+
+
+{{< youtube k5m7SHgXRYQ >}}
+
+

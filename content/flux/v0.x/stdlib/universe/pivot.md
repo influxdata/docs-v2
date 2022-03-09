@@ -62,9 +62,22 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ## Examples
 
-- [Align fields within each measurement that have the same timestamp](#align-fields-within-each-measurement-that-have-the-same-timestamp)
-- [Align fields and measurements that have the same timestamp ](#align-fields-and-measurements-that-have-the-same-timestamp )
-- [Align values for each tag](#align-values-for-each-tag)
+- [Parameters](#parameters)
+  - [rowKey {data-type="array of strings"}](#rowkey-data-typearray-of-strings)
+  - [columnKey {data-type="array of strings"}](#columnkey-data-typearray-of-strings)
+  - [valueColumn {data-type="string"}](#valuecolumn-data-typestring)
+  - [tables {data-type="stream of tables"}](#tables-data-typestream-of-tables)
+- [Examples](#examples)
+    - [Align fields within each measurement that have the same timestamp](#align-fields-within-each-measurement-that-have-the-same-timestamp)
+      - [Input data](#input-data)
+      - [Output data](#output-data)
+    - [Align fields and measurements that have the same timestamp](#align-fields-and-measurements-that-have-the-same-timestamp)
+        - [Note the effects of:](#note-the-effects-of)
+      - [Input data](#input-data-1)
+      - [Output data](#output-data-1)
+    - [Align values for each tag](#align-values-for-each-tag)
+      - [Input data](#input-data-2)
+      - [Output data](#output-data-2)
 
 #### Align fields within each measurement that have the same timestamp
 
@@ -181,3 +194,7 @@ sampledata.int()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+To see an overview of the pivot function, watch the following video:
+
+{{< youtube LuPcShbE0J4 >}}

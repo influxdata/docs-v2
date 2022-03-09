@@ -1,7 +1,7 @@
 ---
 title: Joins in Flux
 description: >
-    Joining data 
+    Scott Anderson discusses the two primary use cases for joining data and how join works in InfluxDB.
 menu:
   resources:
     parent: Videos
