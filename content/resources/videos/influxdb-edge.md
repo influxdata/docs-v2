@@ -1,7 +1,7 @@
 ---
 title: InfluxDB at the Edge
 description: >
-    In this video Scott Anderson and Alan Pope discuss how InfluxDB helps efficiently collect, store and analyze vast amounts of data commonly associated with IoT and edge devices.
+  Scott Anderson and Alan Pope discuss how InfluxDB helps efficiently collect, store and analyze vast amounts of data commonly associated with IoT and edge devices.
 menu:
   resources:
     parent: Videos
