@@ -13,10 +13,6 @@ series: [Meet the Developers S3]
 metadata: [Meet the Developer Series]
 related: 
   - /{{< latest "telegraf" >}}/plugins/
-<<<<<<< HEAD
-
-=======
->>>>>>> 188ce176f0eac5350ccb1f58b714d6a0ff77b9d8
 ---
 
 {{< resources/video-content >}}
