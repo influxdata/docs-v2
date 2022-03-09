@@ -2,8 +2,7 @@
 title: Telegraf Data Ingest with Plugins
 description: >
   Telegraf has hundreds of plugins that can collect data from a wide variety of sources, ranging from IoT devices to databases to endpoints.
-  Here, Mya Longmire and Alan Pope talk about data ingest using three of Telegraf's most widely used plugins.
-
+  Mya Longmire and Alan Pope talk about data ingest using three of Telegraf's most widely used plugins.
 menu:
   resources:
     parent: Videos
