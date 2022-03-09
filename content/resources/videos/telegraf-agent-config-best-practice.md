@@ -1,7 +1,7 @@
 ---
 title: Telegraf Agent Configuration Best Practices
 description: >
-  In this video, Alan Pope and Josh Powers discuss key configuration options to optimize data ingest for Telegraf plugins.
+  Alan Pope and Josh Powers discuss key configuration options to optimize data ingest for Telegraf plugins.
 menu:
   resources:
     parent: Videos
