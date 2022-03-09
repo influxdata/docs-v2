@@ -219,6 +219,3 @@ union(tables: [t1, t2])
 | 2021-01-04T00:00:00Z | foo |      4 |
 {{% /expand %}}
 
-To see how join works in InfluxDB, watch the following video:
-
-{{< youtube g-HY1Q11iGg >}}

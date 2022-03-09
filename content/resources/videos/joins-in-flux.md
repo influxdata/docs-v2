@@ -11,10 +11,9 @@ date: 2022-03-01
 series: [Meet the Developers S3]
 metadata: [Meet the Developer Series]
 related: 
-
- - /{{< latest "flux" >}}/stdlib/universe/join/
+  - /{{< latest "flux" >}}/stdlib/universe/join/
+  - /{{< latest "influxdb" >}}/query-data/flux/join/
  
-
 ---
 
 {{< resources/video-content >}}
