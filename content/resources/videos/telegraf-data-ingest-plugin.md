@@ -21,8 +21,3 @@ related:
 
 {{< resources/video-content >}}
 
-
-
-
-
-
