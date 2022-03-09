@@ -13,28 +13,32 @@ influxdb/v2.1/tags: [go, internals, performance]
 InfluxDB provides Go runtime profiles, trace, and other information
 useful for analyzing and debugging the server runtime execution.
 
+- [Overview of Go runtime profiles](#overview-of-go-runtime-profiles)
 - [Analyze Go runtime profiles](#analyze-go-runtime-profiles)
 - [Analyze the Go runtime trace](#analyze-the-go-runtime-trace)
 - [View the command line that invoked InfluxDB](#view-the-command-line-that-invoked-influxdb)
 
-## Analyze Go runtime profiles
+## Overview of Go runtime profiles
 
-A [Go runtime profile](https://pkg.go.dev/runtime/pprof) is a collection of stack traces showing call sequences that led to
-instances of a particular event, such as memory allocation.
+A **Go runtime profile** is a collection of stack traces showing call sequences that led to instances of a particular event. InfluxDB provides profile data for the following events:
 
-When you send a profile request to InfluxDB, the [Golang runtime pprof package](https://pkg.go.dev/runtime/pprof) samples the
-current runtime to collect profiling data, and then returns the profile as a compressed protocol buffer file in
-[profile.proto](https://github.com/google/pprof/blob/master/proto/profile.proto) format.
+- blocks
+- CPU usage
+- memory allocation
+- mutual exclusion (mutex)
+- OS thread creation
 
-To fetch and process **profile.proto** profiles, use the [`go tool pprof` command](https://github.com/google/pprof).
-`pprof` provides the following support for the **profile.proto** format:
+When you send a profile request to InfluxDB, the [Golang runtime pprof package](https://pkg.go.dev/runtime/pprof) samples the events on the runtime to collect stack traces and statistics (e.g., number of bytes of memory for heap allocation events). For some profiles, you can set the number of seconds that InfluxDB will collect profile data.
+
+Once data collection is complete, InfluxDB returns the profile data. The default response format is a compressed protocol buffer in
+[profile.proto](https://github.com/google/pprof/blob/master/proto/profile.proto) format. **profile.proto** files are compatible with the [pprof](https://github.com/google/pprof) and [`go tool pprof`](https://go.dev/blog/pprof) analysis tools. For some profiles, InfluxDB provides an alternative human-readable plain text format with comments that translate to function calls and line numbers, but the `pprof` tools and **profile.proto** format offer the following advantages:
+
 - Read profiles from disk or HTTP.
 - Aggregate and compare multiple profiles of the same type.
 - Analyze and filter profile data.
 - Generate visualizations and reports.
 
-For most profiles, InfluxDB provides an alternative "legacy" plain text format with comments that translate to function calls and line numbers, but
-`pprof` and the **profile.proto** format offer many advantages over plain text.
+## Analyze Go runtime profiles
 
 Use the `/debug/pprof` InfluxDB endpoints to download all the profiles at once or request them individually.
 
@@ -49,11 +53,11 @@ Use the `/debug/pprof` InfluxDB endpoints to download all the profiles at once o
 
 ### Get all runtime profiles
 
-To download all runtime profiles at once, use an HTTP client like `curl` or `wget` to send a `GET` request to the `/debug/pprof/all` endpoint. `go tool pprof` can't fetch profiles directly from `/debug/pprof/all`.
+To download all runtime profiles at once, use an HTTP client to send a `GET` request to the `/debug/pprof/all` endpoint. `go tool pprof` can't fetch profiles directly from `/debug/pprof/all`.
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/all" %}}
 
-InfluxDB returns a gzipped tar file that contains profiles in the **profile.proto** format:
+InfluxDB returns a gzipped tar file that contains the following profiles in the **profile.proto** format:
 
 - `profiles/allocs.pb.gz`: [profile all memory allocations](#profile-all-memory-allocations)
 - `profiles/block.pb.gz`: [profile blocking operations](#profile-blocking-operations)
@@ -63,10 +67,11 @@ InfluxDB returns a gzipped tar file that contains profiles in the **profile.prot
 - `profiles/mutex.pb.gz`: [profile mutual exclusions](#profile-mutual-exclusions-mutexes)
 - `profiles/threadcreate.pb.gz`: [profile thread creation](#profile-thread-creation)
 
-| Option  | Include by | Value |
-|:--------|:-----------|:-------|
-| Profile CPU | Use the `cpu` query parameter in your request URL | [duration of seconds](/influxdb/v2.1/reference/glossary/#duration) |
+| Option  | Include by |
+|:--------|:-----------|
+| Profile CPU | Pass a [duration of seconds](/influxdb/v2.1/reference/glossary/#duration) with the `cpu` query parameter in your request URL |
 
+Use an HTTP client like `curl` or `wget` to download profiles from `/debug/pprof/all`.
 
 #### Example
 
@@ -88,10 +93,10 @@ the total number of bytes allocated since the program began (including garbage-c
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/allocs" %}}
 
-| Option  | Include by | Value |
-|:--------|:-----------|:-------|
-| Output plain text (mutually exclusive with `seconds`) | Use the `debug` query parameter in your request URL | `1` |
-| Seconds to sample (mutually exclusive with `debug=1`) | Use the `seconds` query parameter in your request URL | [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) |
+| Option  | Include by |
+|:--------|:-----------|
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 ```sh
 # Analyze the profile in interactive mode.
@@ -113,9 +118,9 @@ Profiles operations that led to blocking on synchronization primitives and cause
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/block" %}}
 
-| Option  | Include by | Value |
-|:--------|:-----------|:-------|
-| Output plain text | Use the `debug` query parameter in your request URL | `1` |
+| Option  | Include by |
+|:--------|:-----------|
+| Output plain text | Pass `1` with the `debug` query parameter in your request URL |
 
 ```sh
 # Analyze the profile in interactive mode.
@@ -133,13 +138,13 @@ go tool pprof http://localhost:8086/debug/pprof/block
 
 ### Profile CPU
 
-Profiles program counters sampled from the execution stack. To download the profile, use an HTTP client to send a `GET` request to the `/debug/pprof/profile` endpoint. (`go tool pprof` can't fetch the CPU profile directly.)
+Profiles program counters sampled from the execution stack. To download the profile, use an HTTP client to send a `GET` request to the `/debug/pprof/profile` endpoint. `go tool pprof` can't fetch the CPU profile directly.
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/profile" %}}
 
-| Option  | Include by | Value |
-|:--------|:-----------|:-------|
-| Seconds to sample CPU (default `30`) | Use the `seconds` query parameter in your request URL | [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) |
+| Option  | Include by |
+|:--------|:-----------|
+| Seconds to sample (default `30`) | Pass an [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
 
 Use an HTTP client like `curl` or `wget` to download the profile.
 
@@ -186,10 +191,10 @@ Profiles all current goroutines.
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/goroutine" %}}
 
-| Option  | Include by | Value |
-|:--------|:-----------|:-------|
-| Output plain text (mutually exclusive with `seconds`) | Use the `debug` query parameter in your request URL | `1` |
-| Seconds to sample (mutually exclusive with `debug=1`) | Use the `seconds` query parameter in your request URL | [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) |
+| Option  | Include by |
+|:--------|:-----------|
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 #### Example
 
@@ -213,11 +218,11 @@ Profiles heap, or memory allocations for live objects.
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/heap" %}}
 
-| Option  | Include by | Value |
-|:--------|:-----------|:-------|
-| Output plain text (mutually exclusive with `seconds`) | Use the `debug` query parameter in your request URL | `1` |
-| Run garbage control before sampling | Use the `gc` query parameter in your request URL | `1` |
-| Seconds to sample (mutually exclusive with `debug=1`) | Use the `seconds` query parameter in your request URL | [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) |
+| Option  | Include by |
+|:--------|:-----------|
+| Run garbage control before sampling | Pass `1` with the `gc` query parameter in your request URL |
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 #### Example
 
@@ -246,10 +251,10 @@ Profiles holders of contended mutual exclusions (mutexes).
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/mutex" %}}
 
-| Option  | Include by | Value |
-|:--------|:-----------|:-------|
-| Output plain text (mutually exclusive with `seconds`) | Use the `debug` query parameter in your request URL | `1` |
-| Seconds to sample (mutually exclusive with `debug=1`) | Use the `seconds` query parameter in your request URL | [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) |
+| Option  | Include by |
+|:--------|:-----------|
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 #### Example
 
@@ -273,10 +278,10 @@ Profiles operations that led to the creation of OS threads.
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/threadcreate" %}}
 
-| Option  | Include by | Value |
-|:--------|:-----------|:-------|
-| Output plain text (mutually exclusive with `seconds`) | Use the `debug` query parameter in your request URL | `1` |
-| Seconds to sample (mutually exclusive with `debug=1`) | Use the `seconds` query parameter in your request URL | [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) |
+| Option  | Include by |
+|:--------|:-----------|
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.1/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 #### Example
 
@@ -316,7 +321,7 @@ go tool trace ./trace.out
 #### Generate a pprof-like profile from trace
 
 You can use `go tool trace` to generate _pprof-like_ profiles from
-a trace file, and then analyze them with `go tool pprof`.
+a trace file and then analyze them with `go tool pprof`.
 
 #### Example
 
