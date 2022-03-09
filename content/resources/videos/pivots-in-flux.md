@@ -1,7 +1,7 @@
 ---
 title: Pivots in Flux
 description: >
-    How do you pivot data in Flux?  Watch Scott Anderson explain how to use Flux's pivot function.
+  Scott Anderson explains how to use the Flux `pivot()` function to pivot unique values in a column into individual columns on each row.
 menu:
   resources:
     parent: Videos
