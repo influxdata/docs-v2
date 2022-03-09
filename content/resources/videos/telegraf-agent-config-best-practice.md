@@ -17,5 +17,3 @@ related:
 
 {{< resources/video-content >}}
 
-
-
