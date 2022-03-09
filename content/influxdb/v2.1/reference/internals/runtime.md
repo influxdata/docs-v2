@@ -23,7 +23,7 @@ A [Go runtime profile](https://pkg.go.dev/runtime/pprof) is a collection of stac
 instances of a particular event, such as memory allocation.
 
 When you send a profile request to InfluxDB, the [Golang runtime pprof package](https://pkg.go.dev/runtime/pprof) samples the
-current runtime to collect profiling data and then returns the profile as a compressed protocol buffer file in
+current runtime to collect profiling data, and then returns the profile as a compressed protocol buffer file in
 [profile.proto](https://github.com/google/pprof/blob/master/proto/profile.proto) format.
 
 To fetch and process **profile.proto** profiles, use the [`go tool pprof` command](https://github.com/google/pprof).
@@ -49,7 +49,7 @@ Use the `/debug/pprof` InfluxDB endpoints to download all the profiles at once o
 
 ### Get all runtime profiles
 
-To download all runtime profiles at once, use an HTTP client to send a `GET` request to the `/debug/pprof/all` endpoint. `go tool pprof` can't fetch profiles directly from `/debug/pprof/all`.
+To download all runtime profiles at once, use an HTTP client like `curl` or `wget` to send a `GET` request to the `/debug/pprof/all` endpoint. `go tool pprof` can't fetch profiles directly from `/debug/pprof/all`.
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/all" %}}
 
@@ -67,7 +67,6 @@ InfluxDB returns a gzipped tar file that contains profiles in the **profile.prot
 |:--------|:-----------|:-------|
 | Profile CPU | Use the `cpu` query parameter in your request URL | [duration of seconds](/influxdb/v2.1/reference/glossary/#duration) |
 
-Use an HTTP client like `curl` or `wget` to download profiles from `/debug/pprof/all`.
 
 #### Example
 
@@ -134,7 +133,7 @@ go tool pprof http://localhost:8086/debug/pprof/block
 
 ### Profile CPU
 
-Profiles program counters sampled from the execution stack. To download the profile, use an HTTP client to send a `GET` request to the `/debug/pprof/profile` endpoint. `go tool pprof` can't fetch the CPU profile directly.
+Profiles program counters sampled from the execution stack. To download the profile, use an HTTP client to send a `GET` request to the `/debug/pprof/profile` endpoint. (`go tool pprof` can't fetch the CPU profile directly.)
 
 {{% api-endpoint method="GET" endpoint="http://localhost:8086/debug/pprof/profile" %}}
 
@@ -317,7 +316,7 @@ go tool trace ./trace.out
 #### Generate a pprof-like profile from trace
 
 You can use `go tool trace` to generate _pprof-like_ profiles from
-a trace file and then analyze them with `go tool pprof`.
+a trace file, and then analyze them with `go tool pprof`.
 
 #### Example
 
