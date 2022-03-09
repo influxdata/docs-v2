@@ -151,9 +151,16 @@ That's it! You ready to use Telegraf to collect metrics and write them to your o
 
 For an introduction to Telegraf and an overview of how it works, watch the following videos:
 
+{{< tabs-wrapper >}}
+{{% tabs "small" %}}
+[Intro to Telegraf](#)
+[Telegraf Plugin Overview](#)
+{{% /tabs %}}
+{{% tab-content %}}
 {{< youtube vGJeo3FaMds >}}
-
-
+{{% /tab-content %}}
+{{% tab-content %}}
 {{< youtube k5m7SHgXRYQ >}}
-
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 

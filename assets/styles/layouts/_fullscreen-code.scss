@@ -34,5 +34,7 @@
   pre {
     display: block;
     line-height: 1.75rem;
+
+    @import "article/code-api-methods";
   }
 }

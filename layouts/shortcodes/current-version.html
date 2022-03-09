@@ -1,3 +1,5 @@
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
 {{- $currentVersion := replaceRE "v" "" (index $productPathData 1) -}}
-{{ $currentVersion }}
+{{- $keep := .Get "keep" | default false -}}
+{{- $keepClass := cond ( $keep ) " keep" "" -}}
+<span class="current-version{{ $keepClass }}">{{ $currentVersion }}</span>
