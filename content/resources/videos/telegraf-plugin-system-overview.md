@@ -2,7 +2,7 @@
 title: Telegraf Plugin System Overview
 description: >
   Telegraf has hundreds of plugins to chose from, as well as configuration options.
-  Alan Pope and Josh Powers discuss how do you decide which ones to use?      
+  Alan Pope and Josh Powers discuss how do you decide which ones to use.      
 menu:
   resources:
     parent: Videos
