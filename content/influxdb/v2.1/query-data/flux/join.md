@@ -289,3 +289,8 @@ batchSize = (cluster_id, start=-1m, interval=10s) => {
 
 batchSize(cluster_id: "enter cluster id here")
 ```
+
+To see how join works in InfluxDB, watch the following video:
+
+{{< youtube g-HY1Q11iGg >}}
+

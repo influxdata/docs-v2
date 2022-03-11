@@ -70,21 +70,8 @@ pre {
     line-height: 1.7rem;
     white-space: pre;
   }
-}
 
-pre .api {
-  margin-right: .35rem;
-  padding: .15rem .5rem .25rem;
-  border-radius: $radius;
-  color: $g20-white;
-  font-weight: bold;
-  font-size: .9rem;
-
-  &.get { background: $gr-viridian; }
-  &.post { background: $b-ocean; }
-  &.patch { background: $y-topaz; }
-  &.delete { background: $r-ruby; }
-  &.put {background: $br-pulsar; }
+  @import "code-api-methods";
 }
 
 ///////////////////////// Codeblocks fullscreen toggle /////////////////////////

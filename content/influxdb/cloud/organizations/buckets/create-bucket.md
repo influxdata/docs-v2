@@ -59,6 +59,10 @@ to create a new bucket. A bucket requires the following:
   - days (`d`)
   - weeks (`w`)
 
+  {{% note %}}
+  The minimum retention period is **one hour**.
+  {{% /note %}}
+
 ```sh
 # Syntax
 influx bucket create -n <bucket-name> -o <org-name> -r <retention-period-duration>

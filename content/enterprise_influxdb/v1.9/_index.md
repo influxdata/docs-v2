@@ -30,7 +30,7 @@ and get started!
 
 ## Next steps
 
-- [Install and deploy](/enterprise_influxdb/v1.9/install-and-deploy/)
+- [Install and deploy](/enterprise_influxdb/v1.9/introduction/installation/)
 - Review key [concepts](/enterprise_influxdb/v1.9/concepts/)
 - [Get started](/enterprise_influxdb/v1.9/introduction/getting-started/)
 
