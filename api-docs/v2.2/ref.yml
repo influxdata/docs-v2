@@ -666,6 +666,7 @@ components:
             latest scheduled and completed run.
           format: date-time
           readOnly: true
+          type: string
         links:
           example:
             labels: /api/v2/checks/1/labels
@@ -6089,7 +6090,11 @@ components:
       name: Authorization
       type: apiKey
 info:
-  title: Complete InfluxDB OSS API
+  title: InfluxDB OSS API Service
+  description: >
+    The InfluxDB v2 API provides a programmatic interface for all interactions
+    with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
+  version: 2.0.0
 openapi: 3.0.0
 paths:
   /api/v2:
@@ -8131,6 +8136,858 @@ paths:
       summary: Update a database retention policy mapping
       tags:
         - DBRPs
+  /debug/pprof/all:
+    get:
+      description: >
+        Get reports for the following [Go runtime
+        profiles](https://pkg.go.dev/runtime/pprof):
+
+
+        - **allocs**: All past memory allocations
+
+        - **block**: Stack traces that led to blocking on synchronization
+        primitives
+
+        - **cpu**: (Optional) Program counters sampled from the executing stack.
+          Include by passing the `cpu` query parameter with a [duration](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#duration) value.
+          Equivalent to the report from [`GET /debug/pprof/profile?seconds=NUMBER_OF_SECONDS`](#operation/GetDebugPprofProfile).
+        - **goroutine**: All current goroutines
+
+        - **heap**: Memory allocations for live objects
+
+        - **mutex**: Holders of contended mutexes
+
+        - **threadcreate**: Stack traces that led to the creation of new OS
+        threads
+      operationId: GetDebugPprofAllProfiles
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >
+            Collects and returns CPU profiling data for the specified
+            [duration](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#duration).
+          in: query
+          name: cpu
+          schema:
+            externalDocs:
+              description: InfluxDB duration
+              url: >-
+                https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#duration
+            format: duration
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                description: >
+                  GZIP compressed TAR file (`.tar.gz`) that contains
+
+                  [Go runtime profile](https://pkg.go.dev/runtime/pprof)
+                  reports.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: binary
+                type: string
+          description: |
+            [Go runtime profile](https://pkg.go.dev/runtime/pprof) reports.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get all runtime profiles
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: Get all profiles'
+          lang: Shell
+          source: >
+            # Download and extract a `tar.gz` of all profiles after 10 seconds
+            of CPU sampling.
+
+
+            curl "http://localhost:8086/debug/pprof/all?cpu=10s" | tar -xz
+
+
+            # x profiles/cpu.pb.gz
+
+            # x profiles/goroutine.pb.gz
+
+            # x profiles/block.pb.gz
+
+            # x profiles/mutex.pb.gz
+
+            # x profiles/heap.pb.gz
+
+            # x profiles/allocs.pb.gz
+
+            # x profiles/threadcreate.pb.gz
+
+
+            # Analyze a profile.
+
+
+            go tool pprof profiles/heap.pb.gz
+        - label: 'Shell: Get all profiles except CPU'
+          lang: Shell
+          source: |
+            # Download and extract a `tar.gz` of all profiles except CPU.
+
+            curl http://localhost:8086/debug/pprof/all | tar -xz
+
+            # x profiles/goroutine.pb.gz
+            # x profiles/block.pb.gz
+            # x profiles/mutex.pb.gz
+            # x profiles/heap.pb.gz
+            # x profiles/allocs.pb.gz
+            # x profiles/threadcreate.pb.gz
+
+            # Analyze a profile.
+
+            go tool pprof profiles/heap.pb.gz
+  /debug/pprof/allocs:
+    get:
+      description: >
+        Get a [Go runtime profile](https://pkg.go.dev/runtime/pprof) report of
+
+        all past memory allocations.
+
+        **allocs** is the same as the **heap** profile,
+
+        but changes the default [pprof](https://pkg.go.dev/runtime/pprof)
+
+        display to __-alloc_space__,
+
+        the total number of bytes allocated since the program began (including
+        garbage-collected bytes).
+      operationId: GetDebugPprofAllocs
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >
+            - `0`: (Default) Return the report as a gzip-compressed protocol
+            buffer.
+
+            - `1`: Return a response body with the report formatted as
+            human-readable text.
+              The report contains comments that translate addresses to function names and line numbers for debugging.
+
+            `debug=1` is mutually exclusive with the `seconds` query parameter.
+          in: query
+          name: debug
+          schema:
+            enum:
+              - 0
+              - 1
+            format: int64
+            type: integer
+        - description: |
+            Number of seconds to collect statistics.
+
+            `seconds` is mutually exclusive with `debug=1`.
+          in: query
+          name: seconds
+          schema:
+            format: int64
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                description: >
+                  [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+                  in protocol buffer format.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: binary
+                type: string
+            text/plain:
+              schema:
+                description: |
+                  Response body contains a report formatted in plain text.
+                  The report contains comments that translate addresses to
+                  function names and line numbers for debugging.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: Go runtime profile
+                type: string
+          description: >
+            [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+            compatible
+
+            with [pprof](https://github.com/google/pprof) analysis and
+            visualization tools.
+
+            If debug is enabled (`?debug=1`), response body contains a
+            human-readable profile.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the memory allocations runtime profile
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: go tool pprof'
+          lang: Shell
+          source: >
+            # Analyze the profile in interactive mode.
+
+
+            go tool pprof http://localhost:8086/debug/pprof/allocs
+
+
+            # `pprof` returns the following prompt:
+
+            #   Entering interactive mode (type "help" for commands, "o" for
+            options)
+
+            #   (pprof)
+
+
+            # At the prompt, get the top N memory allocations.
+
+
+            (pprof) top10
+  /debug/pprof/block:
+    get:
+      description: |
+        Get a [Go runtime profile](https://pkg.go.dev/runtime/pprof) report of
+        stack traces that led to blocking on synchronization primitives.
+      operationId: GetDebugPprofBlock
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >
+            - `0`: (Default) Return the report as a gzip-compressed protocol
+            buffer.
+
+            - `1`: Return a response body with the report formatted as
+            human-readable text.
+              The report contains comments that translate addresses to function names and line numbers for debugging.
+
+            `debug=1` is mutually exclusive with the `seconds` query parameter.
+          in: query
+          name: debug
+          schema:
+            enum:
+              - 0
+              - 1
+            format: int64
+            type: integer
+        - description: |
+            Number of seconds to collect statistics.
+
+            `seconds` is mutually exclusive with `debug=1`.
+          in: query
+          name: seconds
+          schema:
+            format: int64
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                description: >
+                  [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+                  in protocol buffer format.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: binary
+                type: string
+            text/plain:
+              schema:
+                description: |
+                  Response body contains a report formatted in plain text.
+                  The report contains comments that translate addresses to
+                  function names and line numbers for debugging.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: Go runtime profile
+                type: string
+          description: >
+            [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+            compatible
+
+            with [pprof](https://github.com/google/pprof) analysis and
+            visualization tools.
+
+            If debug is enabled (`?debug=1`), response body contains a
+            human-readable profile.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the block runtime profile
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: go tool pprof'
+          lang: Shell
+          source: >
+            # Analyze the profile in interactive mode.
+
+
+            go tool pprof http://localhost:8086/debug/pprof/block
+
+
+            # `pprof` returns the following prompt:
+
+            #   Entering interactive mode (type "help" for commands, "o" for
+            options)
+
+            #   (pprof)
+
+
+            #  At the prompt, get the top N entries.
+
+
+            (pprof) top10
+  /debug/pprof/cmdline:
+    get:
+      description: |
+        Get the command line that invoked InfluxDB.
+      operationId: GetDebugPprofCmdline
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                format: Command line
+                type: string
+          description: Command line invocation.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the command line invocation
+      tags:
+        - Debug
+  /debug/pprof/goroutine:
+    get:
+      description: |
+        Get a [Go runtime profile](https://pkg.go.dev/runtime/pprof) report of
+        all current goroutines.
+      operationId: GetDebugPprofGoroutine
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >
+            - `0`: (Default) Return the report as a gzip-compressed protocol
+            buffer.
+
+            - `1`: Return a response body with the report formatted as
+            human-readable text.
+              The report contains comments that translate addresses to function names and line numbers for debugging.
+
+            `debug=1` is mutually exclusive with the `seconds` query parameter.
+          in: query
+          name: debug
+          schema:
+            enum:
+              - 0
+              - 1
+            format: int64
+            type: integer
+        - description: |
+            Number of seconds to collect statistics.
+
+            `seconds` is mutually exclusive with `debug=1`.
+          in: query
+          name: seconds
+          schema:
+            format: int64
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                description: >
+                  [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+                  in protocol buffer format.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: binary
+                type: string
+            text/plain:
+              schema:
+                description: |
+                  Response body contains a report formatted in plain text.
+                  The report contains comments that translate addresses to
+                  function names and line numbers for debugging.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: Go runtime profile
+                type: string
+          description: >
+            [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+            compatible
+
+            with [pprof](https://github.com/google/pprof) analysis and
+            visualization tools.
+
+            If debug is enabled (`?debug=1`), response body contains a
+            human-readable profile.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the goroutines runtime profile
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: go tool pprof'
+          lang: Shell
+          source: >
+            # Analyze the profile in interactive mode.
+
+
+            go tool pprof http://localhost:8086/debug/pprof/goroutine
+
+
+            # `pprof` returns the following prompt:
+
+            #   Entering interactive mode (type "help" for commands, "o" for
+            options)
+
+            #   (pprof)
+
+
+            #  At the prompt, get the top N entries.
+
+
+            (pprof) top10
+  /debug/pprof/heap:
+    get:
+      description: |
+        Get a [Go runtime profile](https://pkg.go.dev/runtime/pprof) report of
+        memory allocations for live objects.
+
+        To run **garbage collection** before sampling,
+        pass the `gc` query parameter with a value of `1`.
+      operationId: GetDebugPprofHeap
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >
+            - `0`: (Default) Return the report as a gzip-compressed protocol
+            buffer.
+
+            - `1`: Return a response body with the report formatted as
+            human-readable text.
+              The report contains comments that translate addresses to function names and line numbers for debugging.
+
+            `debug=1` is mutually exclusive with the `seconds` query parameter.
+          in: query
+          name: debug
+          schema:
+            enum:
+              - 0
+              - 1
+            format: int64
+            type: integer
+        - description: |
+            Number of seconds to collect statistics.
+
+            `seconds` is mutually exclusive with `debug=1`.
+          in: query
+          name: seconds
+          schema:
+            format: int64
+            type: string
+        - description: |
+            - `0`: (Default) don't force garbage collection before sampling.
+            - `1`: Force garbage collection before sampling.
+          in: query
+          name: gc
+          schema:
+            enum:
+              - 0
+              - 1
+            format: int64
+            type: integer
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                description: >
+                  [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+                  in protocol buffer format.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: binary
+                type: string
+            text/plain:
+              examples:
+                profileDebugResponse:
+                  summary: Profile in plain text
+                  value: "heap profile: 12431: 137356528 [149885081: 846795139976] @ heap/8192\n23: 17711104 [46: 35422208] @ 0x4c6df65 0x4ce03ec 0x4cdf3c5 0x4c6f4db 0x4c9edbc 0x4bdefb3 0x4bf822a 0x567d158 0x567ced9 0x406c0a1\n#\t0x4c6df64\tgithub.com/influxdata/influxdb/v2/tsdb/engine/tsm1.(*entry).add+0x1a4\t\t\t\t\t/Users/me/github/influxdb/tsdb/engine/tsm1/cache.go:97\n#\t0x4ce03eb\tgithub.com/influxdata/influxdb/v2/tsdb/engine/tsm1.(*partition).write+0x2ab\t\t\t\t/Users/me/github/influxdb/tsdb/engine/tsm1/ring.go:229\n#\t0x4cdf3c4\tgithub.com/influxdata/influxdb/v2/tsdb/engine/tsm1.(*ring).write+0xa4\t\t\t\t\t/Users/me/github/influxdb/tsdb/engine/tsm1/ring.go:95\n#\t0x4c6f4da\tgithub.com/influxdata/influxdb/v2/tsdb/engine/tsm1.(*Cache).WriteMulti+0x31a\t\t\t\t/Users/me/github/influxdb/tsdb/engine/tsm1/cache.go:343\n"
+              schema:
+                description: |
+                  Response body contains a report formatted in plain text.
+                  The report contains comments that translate addresses to
+                  function names and line numbers for debugging.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: Go runtime profile
+                type: string
+          description: >
+            [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+            compatible
+
+            with [pprof](https://github.com/google/pprof) analysis and
+            visualization tools.
+
+            If debug is enabled (`?debug=1`), response body contains a
+            human-readable profile.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the heap runtime profile
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: go tool pprof'
+          lang: Shell
+          source: >
+            # Analyze the profile in interactive mode.
+
+
+            go tool pprof http://localhost:8086/debug/pprof/heap
+
+
+            # `pprof` returns the following prompt:
+
+            #   Entering interactive mode (type "help" for commands, "o" for
+            options)
+
+            #   (pprof)
+
+
+            # At the prompt, get the top N memory-intensive nodes.
+
+
+            (pprof) top10
+
+
+            # pprof displays the list:
+
+            #   Showing nodes accounting for 142.46MB, 85.43% of 166.75MB total
+
+            #   Dropped 895 nodes (cum <= 0.83MB)
+
+            #   Showing top 10 nodes out of 143
+  /debug/pprof/mutex:
+    get:
+      description: >
+        Get a [Go runtime profile](https://pkg.go.dev/runtime/pprof) report of
+
+        lock contentions.
+
+        The profile contains stack traces of holders of contended mutual
+        exclusions (mutexes).
+      operationId: GetDebugPprofMutex
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >
+            - `0`: (Default) Return the report as a gzip-compressed protocol
+            buffer.
+
+            - `1`: Return a response body with the report formatted as
+            human-readable text.
+              The report contains comments that translate addresses to function names and line numbers for debugging.
+
+            `debug=1` is mutually exclusive with the `seconds` query parameter.
+          in: query
+          name: debug
+          schema:
+            enum:
+              - 0
+              - 1
+            format: int64
+            type: integer
+        - description: |
+            Number of seconds to collect statistics.
+
+            `seconds` is mutually exclusive with `debug=1`.
+          in: query
+          name: seconds
+          schema:
+            format: int64
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                description: >
+                  [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+                  in protocol buffer format.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: binary
+                type: string
+            text/plain:
+              schema:
+                description: |
+                  Response body contains a report formatted in plain text.
+                  The report contains comments that translate addresses to
+                  function names and line numbers for debugging.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: Go runtime profile
+                type: string
+          description: >
+            [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+            compatible
+
+            with [pprof](https://github.com/google/pprof) analysis and
+            visualization tools.
+
+            If debug is enabled (`?debug=1`), response body contains a
+            human-readable profile.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the mutual exclusion (mutex) runtime profile
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: go tool pprof'
+          lang: Shell
+          source: >
+            # Analyze the profile in interactive mode.
+
+
+            go tool pprof http://localhost:8086/debug/pprof/mutex
+
+
+            # `pprof` returns the following prompt:
+
+            #   Entering interactive mode (type "help" for commands, "o" for
+            options)
+
+            #   (pprof)
+
+
+            #  At the prompt, get the top N entries.
+
+
+            (pprof) top10
+  /debug/pprof/profile:
+    get:
+      description: |
+        Get a [Go runtime profile](https://pkg.go.dev/runtime/pprof) report of
+        program counters on the executing stack.
+      operationId: GetDebugPprofProfile
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: Number of seconds to collect profile data. Default is `30` seconds.
+          in: query
+          name: seconds
+          schema:
+            format: int64
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                description: >
+                  [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+                  in protocol buffer format.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: binary
+                type: string
+          description: >
+            [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+            compatible
+
+            with [pprof](https://github.com/google/pprof) analysis and
+            visualization tools.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the CPU runtime profile
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: go tool pprof'
+          lang: Shell
+          source: |
+            # Download the profile report.
+
+            curl http://localhost:8086/debug/pprof/profile -o cpu
+
+            # Analyze the profile in interactive mode.
+
+            go tool pprof ./cpu
+
+            # At the prompt, get the top N functions most often running
+            # or waiting during the sample period.
+
+            (pprof) top10
+  /debug/pprof/threadcreate:
+    get:
+      description: |
+        Get a [Go runtime profile](https://pkg.go.dev/runtime/pprof) report of
+        stack traces that led to the creation of new OS threads.
+      operationId: GetDebugPprofThreadCreate
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: >
+            - `0`: (Default) Return the report as a gzip-compressed protocol
+            buffer.
+
+            - `1`: Return a response body with the report formatted as
+            human-readable text.
+              The report contains comments that translate addresses to function names and line numbers for debugging.
+
+            `debug=1` is mutually exclusive with the `seconds` query parameter.
+          in: query
+          name: debug
+          schema:
+            enum:
+              - 0
+              - 1
+            format: int64
+            type: integer
+        - description: |
+            Number of seconds to collect statistics.
+
+            `seconds` is mutually exclusive with `debug=1`.
+          in: query
+          name: seconds
+          schema:
+            format: int64
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                description: >
+                  [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+                  in protocol buffer format.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: binary
+                type: string
+            text/plain:
+              examples:
+                profileDebugResponse:
+                  summary: Profile in plain text
+                  value: "threadcreate profile: total 26\n25 @\n#\t0x0\n\n1 @ 0x403dda8 0x403e54b 0x403e810 0x403a90c 0x406c0a1\n#\t0x403dda7\truntime.allocm+0xc7\t\t\t/Users/me/.gvm/gos/go1.17/src/runtime/proc.go:1877\n#\t0x403e54a\truntime.newm+0x2a\t\t\t/Users/me/.gvm/gos/go1.17/src/runtime/proc.go:2201\n#\t0x403e80f\truntime.startTemplateThread+0x8f\t/Users/me/.gvm/gos/go1.17/src/runtime/proc.go:2271\n#\t0x403a90b\truntime.main+0x1cb\t\t\t/Users/me/.gvm/gos/go1.17/src/runtime/proc.go:234\n"
+              schema:
+                description: |
+                  Response body contains a report formatted in plain text.
+                  The report contains comments that translate addresses to
+                  function names and line numbers for debugging.
+                externalDocs:
+                  description: Golang pprof package
+                  url: https://pkg.go.dev/net/http/pprof
+                format: Go runtime profile
+                type: string
+          description: >
+            [Go runtime profile](https://pkg.go.dev/runtime/pprof) report
+            compatible
+
+            with [pprof](https://github.com/google/pprof) analysis and
+            visualization tools.
+
+            If debug is enabled (`?debug=1`), response body contains a
+            human-readable profile.
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the threadcreate runtime profile
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: go tool pprof'
+          lang: Shell
+          source: >
+            # Analyze the profile in interactive mode.
+
+
+            go tool pprof http://localhost:8086/debug/pprof/threadcreate
+
+
+            # `pprof` returns the following prompt:
+
+            #   Entering interactive mode (type "help" for commands, "o" for
+            options)
+
+            #   (pprof)
+
+
+            #  At the prompt, get the top N entries.
+
+
+            (pprof) top10
+  /debug/pprof/trace:
+    get:
+      description: |
+        Trace execution events for the current program.
+      operationId: GetDebugPprofTrace
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: Number of seconds to collect profile data.
+          in: query
+          name: seconds
+          schema:
+            format: int64
+            type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                externalDocs:
+                  description: Golang trace package
+                  url: https://pkg.go.dev/runtime/trace
+                format: binary
+                type: string
+          description: |
+            [Trace file](https://pkg.go.dev/runtime/trace) compatible
+            with the [Golang `trace` command](https://pkg.go.dev/cmd/trace).
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers: []
+      summary: Get the runtime execution trace
+      tags:
+        - Debug
+      x-codeSamples:
+        - label: 'Shell: go tool trace'
+          lang: Shell
+          source: |
+            # Download the trace file.
+
+            curl http://localhost:8086/debug/pprof/trace -o trace
+
+            # Analyze the trace.
+
+            go tool trace ./trace
   /api/v2/delete:
     post:
       operationId: PostDelete
@@ -8238,8 +9095,7 @@ paths:
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      servers:
-        - url: ''
+      servers: []
       summary: Get the health of an instance
       tags:
         - Health
@@ -8694,8 +9550,7 @@ paths:
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      servers:
-        - url: ''
+      servers: []
       summary: Get metrics of an instance
       tags:
         - Metrics
@@ -9792,8 +10647,7 @@ paths:
               description: The version of InfluxDB.
               schema:
                 type: integer
-      servers:
-        - url: ''
+      servers: []
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       tags:
         - Ping
@@ -9811,8 +10665,7 @@ paths:
               description: The version of InfluxDB.
               schema:
                 type: integer
-      servers:
-        - url: ''
+      servers: []
       summary: Checks the status of InfluxDB instance and version of InfluxDB.
       tags:
         - Ping
@@ -9864,16 +10717,16 @@ paths:
               - application/vnd.flux
             type: string
         - description: >-
-            Specifies the name of the organization executing the query. Takes
-            either the ID or Name. If both `orgID` and `org` are specified,
-            `org` takes precedence.
+            Name of the organization executing the query. Accepts either the ID
+            or Name. If you provide both `orgID` and `org`, `org` takes
+            precedence.
           in: query
           name: org
           schema:
             type: string
         - description: >-
-            Specifies the ID of the organization executing the query. If both
-            `orgID` and `org` are specified, `org` takes precedence.
+            ID of the organization executing the query. If you provide both
+            `orgID` and `org`, `org` takes precedence.
           in: query
           name: orgID
           schema:
@@ -9894,10 +10747,6 @@ paths:
       responses:
         '200':
           content:
-            application/vnd.influx.arrow:
-              schema:
-                format: binary
-                type: string
             text/csv:
               schema:
                 example: >
@@ -9915,28 +10764,33 @@ paths:
               schema:
                 default: identity
                 description: >
-                  The content coding: `gzip` for compressed data or `identity`
-                  for unmodified, uncompressed data.
+                  Content coding: `gzip` for compressed data or `identity` for
+                  unmodified, uncompressed data.
                 enum:
                   - gzip
                   - identity
                 type: string
             Trace-Id:
-              description: >-
-                The Trace-Id header reports the request's trace ID, if one was
-                generated.
+              description: If generated, trace ID of the request.
               schema:
-                description: Specifies the request's trace ID.
+                description: Trace ID of a request.
                 type: string
         '429':
-          description: >-
-            Token is temporarily over quota. The Retry-After header describes
-            when to try the read again.
+          description: |
+            #### InfluxDB Cloud:
+              - returns this error if a **read** or **write** request exceeds your
+                plan's [adjustable service quotas](https://docs.influxdata.com/influxdb/v2.1/account-management/limits/#adjustable-service-quotas)
+                or if a **delete** request exceeds the maximum
+                [global limit](https://docs.influxdata.com/influxdb/v2.1/account-management/limits/#global-limits)
+              - returns `Retry-After` header that describes when to try the write again.
+
+            #### InfluxDB OSS:
+              - doesn't return this error.
           headers:
             Retry-After:
               description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+                Non-negative decimal integer indicating seconds to wait before
+                retrying the request.
               schema:
                 format: int32
                 type: integer
@@ -10088,8 +10942,7 @@ paths:
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
-      servers:
-        - url: ''
+      servers: []
       summary: Get the readiness of an instance at startup
       tags:
         - Ready
@@ -12797,6 +13650,22 @@ paths:
             summary of the run. The summary contains newly created resources.
             The diff compares the initial state to the state after the package
             applied. This corresponds to `"dryRun": true`.
+        '422':
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/TemplateSummary'
+                  - properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                    required:
+                      - message
+                      - code
+                    type: object
+          description: Template failed validation
         default:
           content:
             application/json:
@@ -13292,6 +14161,9 @@ paths:
 
         - [Optimize writes to
         InfluxDB](https://docs.influxdata.com/influxdb/v2.1/write-data/best-practices/optimize-writes/).
+
+        - [Troubleshoot issues writing
+        data](https://docs.influxdata.com/influxdb/v2.1/write-data/troubleshoot/)
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13306,51 +14178,66 @@ paths:
           schema:
             default: identity
             description: >-
-              The content coding. Use `gzip` for compressed data or `identity`
-              for unmodified, uncompressed data.
+              Content coding. Use `gzip` for compressed data or `identity` for
+              unmodified, uncompressed data.
             enum:
               - gzip
               - identity
             type: string
-        - description: >-
-            The header value indicates the format of the data in the request
-            body.
+        - description: >
+            Format of the data in the request body.
+
+            To make an API request with a line protocol payload, send
+            `Content-Type: text/plain; charset=utf-8` as a request header.
           in: header
           name: Content-Type
           schema:
             default: text/plain; charset=utf-8
             description: >
-              `text/plain` specifies line protocol. `UTF-8` is the default
-              character set.
+              `text/plain` is the content type for line protocol. `UTF-8` is the
+              default character set.
             enum:
               - text/plain
               - text/plain; charset=utf-8
-              - application/vnd.influx.arrow
             type: string
         - description: >-
-            The header value indicates the size of the entity-body, in bytes,
-            sent to the database. If the length is greater than the database's
-            `max body` configuration option, the server responds with status
-            code `413`.
+            Size of the entity-body, in bytes, sent to the database. If the
+            length is greater than the database's `max body` configuration
+            option, the server responds with status code `413`.
           in: header
           name: Content-Length
           schema:
             description: The length in decimal number of octets.
             type: integer
-        - description: The header value specifies the response format.
+        - description: >
+            Content type that the client can understand. Writes only return a
+            response body if they fail, e.g. due to a formatting problem or
+            quota limit.
+
+            #### InfluxDB Cloud
+              - returns only `application/json` for format and limit errors.
+              - returns only `text/html` for some quota limit errors.
+
+
+            #### InfluxDB OSS
+              - returns only `application/json` for format and limit errors.
+
+
+            For more information about write errors, see how to [troubleshoot
+            issues writing
+            data](https://docs.influxdata.com/influxdb/v2.1/write-data/troubleshoot/).
           in: header
           name: Accept
           schema:
             default: application/json
-            description: The response format for errors.
+            description: Error content type.
             enum:
               - application/json
             type: string
         - description: >-
-            The parameter value specifies the destination organization for
-            writes. The database writes all points in the batch to this
-            organization. If you provide both `orgID` and `org` parameters,
-            `org` takes precedence.
+            Destination organization for writes. The database writes all points
+            in the batch to this organization. If you provide both `orgID` and
+            `org` parameters, `org` takes precedence.
           in: query
           name: org
           required: true
@@ -13358,21 +14245,22 @@ paths:
             description: Organization name or ID.
             type: string
         - description: >-
-            The parameter value specifies the ID of the destination organization
-            for writes. If both `orgID` and `org` are specified, `org` takes
-            precedence.
+            ID of the destination organization for writes. If both `orgID` and
+            `org` are specified, `org` takes precedence.
           in: query
           name: orgID
           schema:
             type: string
-        - description: The destination bucket for writes.
+        - description: Destination bucket for writes.
           in: query
           name: bucket
           required: true
           schema:
             description: All points within batch are written to this bucket.
             type: string
-        - description: The precision for the unix timestamps within the body line-protocol.
+        - description: >-
+            Precision for unix timestamps in the line protocol of the request
+            payload.
           in: query
           name: precision
           schema:
@@ -13389,15 +14277,18 @@ paths:
         '204':
           description: >-
             InfluxDB validated the request data format and accepted the data for
-            writing to the bucket. `204` doesn't indicate a successful write
-            operation since writes are asynchronous. See [how to check for write
+            writing to the bucket. Because data is written to InfluxDB
+            asynchronously, data may not yet be written to a bucket. If some of
+            your data didn’t write to the bucket, see [how to check for write
             errors](https://docs.influxdata.com/influxdb/v2.1/write-data/troubleshoot/).
         '400':
           content:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: Field type conflict thrown by an explicit bucket schema
+                  summary: >-
+                    InfluxDB Cloud field type conflict thrown by an explicit
+                    bucket schema
                   value:
                     code: invalid
                     message: >-
@@ -13409,7 +14300,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
           description: >-
-            Bad request. The line protocol data in the request is malformed. The
+            Bad request. Line protocol data in the request is malformed. The
             response body contains the first malformed line in the data.
             InfluxDB rejected the batch and did not write any data.
         '401':
@@ -13476,21 +14367,28 @@ paths:
             did not write any data.
 
             #### InfluxDB Cloud:
-             - returns this error if the payload exceeds the 50MB size limit.
-             - returns `Content-Type: text/html` for this error.
+              - returns this error if the request exceeds the maximum [global limit](https://docs.influxdata.com/influxdb/v2.1/account-management/limits/#global-limits).
+              - returns `Content-Type: text/html` for this error.
 
             #### InfluxDB OSS:
-             - returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
-             - returns `Content-Type: application/json` for this error.
+              - returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
+              - returns `Content-Type: application/json` for this error.
         '429':
-          description: >-
-            InfluxDB Cloud only. The token is temporarily over quota. The
-            Retry-After header describes when to try the write again.
+          description: |
+            #### InfluxDB Cloud:
+              - returns this error if a **read** or **write** request exceeds your
+                plan's [adjustable service quotas](https://docs.influxdata.com/influxdb/v2.1/account-management/limits/#adjustable-service-quotas)
+                or if a **delete** request exceeds the maximum
+                [global limit](https://docs.influxdata.com/influxdb/v2.1/account-management/limits/#global-limits).
+              - returns `Retry-After` header that describes when to try the write again.
+
+            #### InfluxDB OSS:
+              - doesn't return this error.
           headers:
             Retry-After:
               description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+                Non-negative decimal integer indicating seconds to wait before
+                retrying the request.
               schema:
                 format: int32
                 type: integer
@@ -13506,14 +14404,21 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Internal server error.
         '503':
-          description: >-
-            The server is temporarily unavailable to accept writes. The
-            `Retry-After` header describes when to try the write again.
+          description: |
+            #### InfluxDB Cloud:
+              - returns this error if series cardinality exceeds your plan's
+                [adjustable service quotas](https://docs.influxdata.com/influxdb/v2.1/account-management/limits/#adjustable-service-quotas).
+                See [how to resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.1/write-data/best-practices/resolve-high-cardinality/).
+
+            #### InfluxDB OSS:
+              - returns this error if
+                the server is temporarily unavailable to accept writes.
+              - returns `Retry-After` header that describes when to try the write again.
           headers:
             Retry-After:
               description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+                Non-negative decimal integer indicating seconds to wait before
+                retrying the request.
               schema:
                 format: int32
                 type: integer
@@ -13531,7 +14436,6 @@ tags:
       The InfluxDB `/api/v2` API requires authentication for all requests.
       Use InfluxDB API tokens to authenticate requests to the `/api/v2` API.
 
-
       For examples and more information, see
       [Token authentication](#section/Authentication/TokenAuthentication)
 
@@ -13541,6 +14445,7 @@ tags:
   - description: >
       Create and manage API tokens. An **authorization** associates a list of
       permissions to an **organization** and provides a token for API access.
+
       Optionally, you can restrict an authorization and its token to a specific
       user.
 
@@ -13550,22 +14455,54 @@ tags:
         - [Manage API tokens](/influxdb/v2.1/security/tokens/).
         - [Assign a token to a specific user](/influxdb/v2.1/security/tokens/create-token/).
     name: Authorizations
-  - Backup
-  - Buckets
-  - Cells
-  - Checks
-  - Config
-  - Dashboards
-  - DBRPs
-  - Delete
-  - Health
-  - Labels
-  - Legacy Authorizations
-  - Metrics
-  - NotificationEndpoints
-  - NotificationRules
-  - Organizations
-  - Ping
+  - name: Backup
+    description: ''
+  - name: Buckets
+    description: ''
+  - name: Cells
+    description: ''
+  - name: Checks
+    description: ''
+  - name: Config
+    description: ''
+  - name: Dashboards
+    description: ''
+  - name: DBRPs
+    description: ''
+  - description: >
+      Routes under `/debug/pprof` generate profiling and trace reports
+
+      you can use to analyze the Go runtime of InfluxDB.
+
+      [Go runtime profiles](https://pkg.go.dev/runtime/pprof) are
+
+      collections of stack traces that show call sequences
+
+      leading to instances of a particular event, such as allocation.
+
+      For more information about **pprof profile** and **trace** reports, see
+      the following resources:
+        - [Google pprof tool](https://github.com/google/pprof)
+        - [Golang diagnostics](https://go.dev/doc/diagnostics)
+    name: Debug
+  - name: Delete
+    description: ''
+  - name: Health
+    description: ''
+  - name: Labels
+    description: ''
+  - name: Legacy Authorizations
+    description: ''
+  - name: Metrics
+    description: ''
+  - name: NotificationEndpoints
+    description: ''
+  - name: NotificationRules
+    description: ''
+  - name: Organizations
+    description: ''
+  - name: Ping
+    description: ''
   - description: |
       Retrieve data, analyze queries, and get query suggestions.
     name: Query
@@ -13580,10 +14517,14 @@ tags:
       popular languages and ready to import into your application.
     name: Quick start
     x-traitTag: true
-  - Ready
-  - RemoteConnections
-  - Replications
-  - Resources
+  - name: Ready
+    description: ''
+  - name: RemoteConnections
+    description: ''
+  - name: Replications
+    description: ''
+  - name: Resources
+    description: ''
   - description: >
       The InfluxDB API uses standard HTTP status codes for success and failure
       responses.
@@ -13638,22 +14579,38 @@ tags:
       when to try the request again. |
     name: Response codes
     x-traitTag: true
-  - Restore
-  - Routes
-  - Rules
-  - Scraper Targets
-  - Secrets
-  - Setup
-  - Signin
-  - Signout
-  - Sources
-  - Tasks
-  - Telegraf Plugins
-  - Telegrafs
-  - Templates
-  - Users
-  - Variables
-  - Views
+  - name: Restore
+    description: ''
+  - name: Routes
+    description: ''
+  - name: Rules
+    description: ''
+  - name: Scraper Targets
+    description: ''
+  - name: Secrets
+    description: ''
+  - name: Setup
+    description: ''
+  - name: Signin
+    description: ''
+  - name: Signout
+    description: ''
+  - name: Sources
+    description: ''
+  - name: Tasks
+    description: ''
+  - name: Telegraf Plugins
+    description: ''
+  - name: Telegrafs
+    description: ''
+  - name: Templates
+    description: ''
+  - name: Users
+    description: ''
+  - name: Variables
+    description: ''
+  - name: Views
+    description: ''
   - description: |
       Write time series data to buckets.
     name: Write
@@ -13680,6 +14637,8 @@ x-tagGroups:
       - Users
   - name: System information endpoints
     tags:
+      - Config
+      - Debug
       - Health
       - Metrics
       - Ping
@@ -13693,13 +14652,14 @@ x-tagGroups:
       - Cells
       - Checks
       - Config
-      - DBRPs
       - Dashboards
+      - DBRPs
+      - Debug
       - Delete
       - Health
-      - Metrics
       - Labels
       - Legacy Authorizations
+      - Metrics
       - NotificationEndpoints
       - NotificationRules
       - Organizations
@@ -13724,4 +14684,5 @@ x-tagGroups:
       - Templates
       - Users
       - Variables
+      - Views
       - Write
