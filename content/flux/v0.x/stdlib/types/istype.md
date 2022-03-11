@@ -93,86 +93,82 @@ data
 
 
 ### Aggregate or select data based on type
-```
-# import "csv"
-# import "sampledata"
-import "types"
+```javascript
+data = () => from(bucket: "example-bucket")
+    |> range(start: -1m)
 
-< nonNumericData = data
+nonNumericData = data()
     |> filter(fn: (r) => types.isType(v: r._value, type: "string") or types.isType(v: r._value, type: "bool"))
     |> aggregateWindow(every: 30s, fn: last)
 
-numericData = data
+numericData = data()
     |> filter(fn: (r) => types.isType(v: r._value, type: "int") or types.isType(v: r._value, type: "float"))
     |> aggregateWindow(every: 30s, fn: mean)
 
 > union(tables: [nonNumericData, numericData])
 ```
-<!--
 
-##### Input data
+{{< expand-wrapper >}}
+{{% expand "View example input and output" %}}
 
-| _time                | _field | _value <span style="opacity:.5">(int)</span> |
-|:---------------------|--------|----------------------------------------------|
-| 2021-01-01T00:00:00Z | x      | -2.18                                        |
-| 2021-01-01T00:00:10Z | x      | 10.92                                        |
-| 2021-01-01T00:00:20Z | x      | 7.35                                         |
-| 2021-01-01T00:00:30Z | x      | 17.53                                        |
-| 2021-01-01T00:00:40Z | x      | 15.23                                        |
-| 2021-01-01T00:00:50Z | x       | 4.43                                         |
+#### Input data
+| _start               | _stop                | _time                | type  | _value |
+| :------------------- | :------------------- | :------------------- | :---- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | float |  -2.18 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | float |  10.92 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | float |   7.35 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | float |  17.53 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | float |  15.23 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | float |   4.43 |
 
-##### Output data
+| _start               | _stop                | _time                | type | _value |
+| :------------------- | :------------------- | :------------------- | :--- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | bool |   true |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | bool |   true |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | bool |  false |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | bool |   true |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | bool |  false |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | bool |  false |
 
-| _time                | _field | _value <span style="opacity:.5">(string)</span> |
+| _start               | _stop                | _time                | type   |      _value |
+| :------------------- | :------------------- | :------------------- | :----- | ----------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | string | smpl_g9qczs |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | string | smpl_0mgv9n |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | string | smpl_phw664 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | string | smpl_guvzy4 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | string | smpl_5v3cce |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | string | smpl_s9fmgy |
 
-// #
-// # data = csv.from(
-// #     csv: "
-// # #group,false,false,false,true,false
-// # #datatype,string,long,dateTime:RFC3339,string,double
-// # #default,_result,,,,
-// # ,result,table,_time,type,_value
-// # ,,0,,float,
-// # ,,0,,float,
-// # ,,0,,float,
-// # ,,0,,float,
-// # ,,0,,float,
-// # ,,0,,float,
-// #
-// # #group,false,false,false,true,false
-// # #datatype,string,long,dateTime:RFC3339,string,boolean
-// # #default,_result,,,,
-// # ,result,table,_time,type,_value
-// # ,,0,2021-01-01T00:00:00Z,bool,true
-// # ,,0,2021-01-01T00:00:10Z,bool,true
-// # ,,0,2021-01-01T00:00:20Z,bool,false
-// # ,,0,2021-01-01T00:00:30Z,bool,true
-// # ,,0,2021-01-01T00:00:40Z,bool,false
-// # ,,0,2021-01-01T00:00:50Z,bool,false
-// #
-// # #group,false,false,false,true,false
-// # #datatype,string,long,dateTime:RFC3339,string,string
-// # #default,_result,,,,
-// # ,result,table,_time,type,_value
-// # ,,0,2021-01-01T00:00:00Z,string,smpl_g9qczs
-// # ,,0,2021-01-01T00:00:10Z,string,smpl_0mgv9n
-// # ,,0,2021-01-01T00:00:20Z,string,smpl_phw664
-// # ,,0,2021-01-01T00:00:30Z,string,smpl_guvzy4
-// # ,,0,2021-01-01T00:00:40Z,string,smpl_5v3cce
-// # ,,0,2021-01-01T00:00:50Z,string,smpl_s9fmgy
-// #
-// # #group,false,false,false,false,true
-// # #datatype,string,long,dateTime:RFC3339,long,string
-// # #default,_result,,,,
-// # ,result,table,_time,_value,type
-// # ,,0,2021-01-01T00:00:00Z,-2,int
-// # ,,0,2021-01-01T00:00:10Z,10,int
-// # ,,0,2021-01-01T00:00:20Z,7,int
-// # ,,0,2021-01-01T00:00:30Z,17,int
-// # ,,0,2021-01-01T00:00:40Z,15,int
-// # ,,0,2021-01-01T00:00:50Z,4,int
-// # ",
-// # )
-// #     |> range(start: sampledata.start, stop: sampledata.stop)
+| _start               | _stop                | _time                | type | _value |
+| :------------------- | :------------------- | :------------------- | :--- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | int  |     -2 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | int  |     10 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | int  |      7 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | int  |     17 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | int  |     15 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | int  |      4 |
 
-  -->
+#### Output data
+
+| _start               | _stop                | _time                | type | _value |
+| :------------------- | :------------------- | :------------------- | :--- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | bool |  false |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | bool |  false |
+
+| _start               | _stop                | _time                | type  |             _value |
+| :------------------- | :------------------- | :------------------- | :---- | -----------------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | float |  5.363333333333333 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | float | 12.396666666666668 |
+
+| _start               | _stop                | _time                | type | _value |
+| :------------------- | :------------------- | :------------------- | :--- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | int  |      5 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | int  |     12 |
+
+| _start               | _stop                | _time                | type   |      _value |
+| :------------------- | :------------------- | :------------------- | :----- | ----------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | string | smpl_phw664 |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | string | smpl_s9fmgy |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
