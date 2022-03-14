@@ -41,6 +41,7 @@ influx replication list [command options] [arguments...]
 | `-t` | `--token`         | InfluxDB API token                                                    |   string   | `INFLUX_TOKEN`        |
 
 ## Examples
+{{< cli/influx-creds-note >}}
 
 ### List all replication streams
 
