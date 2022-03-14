@@ -348,7 +348,7 @@ certificate is used, which has not been added to the system certificate store,
 an addition argument `-skipVerify` will also need to be provided.
 
 ```
-$ kapacitord -url https://localhost:9092 -skipVerify list tasks
+$ kapacitor -url https://localhost:9092 -skipVerify list tasks
 ID                                                 Type      Status    Executing Databases and Retention Policies
 chronograf-v1-3586109e-8b7d-437a-80eb-a9c50d00ad53 stream    enabled   true      ["telegraf"."autogen"]
 ```
