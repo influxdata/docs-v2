@@ -348,7 +348,7 @@ certificate is used, which has not been added to the system certificate store,
 an addition argument `-skipVerify` will also need to be provided.
 
 ```
-$ kapacitor -url https://localhost:9092 -skipVerify list tasks
+$ kapacitord -url https://localhost:9092 -skipVerify list tasks
 ID                                                 Type      Status    Executing Databases and Retention Policies
 chronograf-v1-3586109e-8b7d-437a-80eb-a9c50d00ad53 stream    enabled   true      ["telegraf"."autogen"]
 ```
@@ -385,7 +385,7 @@ use the `-blacklist-cidrs` flag.
 Pass a comma-separated list of CIDRs to deny for most HTTP GET/POST operations:
 
 ```sh
-kapacitor -blacklist 10.0.0.0/8,0.0.0.0/32
+kapacitord -blacklist 10.0.0.0/8,0.0.0.0/32
 ```
 
 ### Disable specific alert handlers
@@ -394,7 +394,7 @@ Use the `-disable-handlers` flag to disable a set of alert handlers.
 Pass a comma-separated list of [handlers](/kapacitor/v1.6/event_handlers/):
 
 ```sh
-kapacitor -disable-handlers exec,httppost
+kapacitord -disable-handlers exec,httppost
 ```
 
 
