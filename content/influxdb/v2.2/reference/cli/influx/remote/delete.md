@@ -37,6 +37,7 @@ influx remote delete [command options] [arguments...]
 | `-t` | `--token`         | InfluxDB API token                                                    |   string   | `INFLUX_TOKEN`        |
 
 ## Examples
+{{< cli/influx-creds-note >}}
 
 ### Delete a remote
 1. Use `influx remote list` to get the ID for the remote you want to delete.

@@ -37,6 +37,7 @@ influx replication delete [command options] [arguments...]
 | `-t` | `--token`         | InfluxDB API token                                                    |   string   | `INFLUX_TOKEN`        |
 
 ## Examples
+{{< cli/influx-creds-note >}}
 
 ### Delete a replication
 1. Use `influx replication list` to get the ID for the replication you want to delete.

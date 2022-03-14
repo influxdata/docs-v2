@@ -48,7 +48,7 @@ influx remote update [command options] [arguments...]
 ### Update a remote
 1. Use `influx remote list` to get the ID for the remote you want to update.
    ```sh
-   $ influx remote list --org-id <OSS org ID> --token <OSS token>
+   $ influx remote list
    ID			        Name		Org ID
    0ooxX0xxXo0x 	    myremote    [...]
    ```
