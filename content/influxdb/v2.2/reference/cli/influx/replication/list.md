@@ -30,7 +30,7 @@ influx replication list [command options] [arguments...]
 |      | `--org-id`        | Local organization ID                                                 |   string   | `INFLUX_ORG_ID`       |
 | `-o` | `--org`           | Local organization name                                               |   string   | `INFLUX_ORG`          |
 |      | `--remote-id`     | Filter replication streams by remote connection ID                    |   string   |                       |
-|      | `--local-bucket`  | Filter replication streams by local bucket                            |   string   |                       |
+|      | `--local-bucket-id`  | Filter replication streams by local bucket                            |   string   |                       |
 |      | `--host`          | InfluxDB HTTP address (default `http://localhost:8086`)               |   string   | `INFLUX_HOST`         |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
