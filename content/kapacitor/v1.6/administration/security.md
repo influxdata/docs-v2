@@ -385,7 +385,7 @@ use the `-blacklist-cidrs` flag.
 Pass a comma-separated list of CIDRs to deny for most HTTP GET/POST operations:
 
 ```sh
-kapacitord -blacklist 10.0.0.0/8,0.0.0.0/32
+kapacitord -blacklist-cidrs 10.0.0.0/8,0.0.0.0/32
 ```
 
 ### Disable specific alert handlers
