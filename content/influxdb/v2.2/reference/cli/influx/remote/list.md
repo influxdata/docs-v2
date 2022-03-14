@@ -42,6 +42,7 @@ influx remote list [command options] [arguments...]
 
 
 ## Examples
+{{< cli/influx-creds-note >}}
 
 ### List all remotes
 
