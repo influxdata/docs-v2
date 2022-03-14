@@ -10,6 +10,7 @@ menu:
 related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
+  - /influxdb/cloud/write-data/best-practices/resolve-high-cardinality/
 ---
 
 InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis. Currently, InfluxDB Cloud supports one organization per account.
@@ -37,7 +38,7 @@ _To request higher service quotas, reach out to [InfluxData Support](https://sup
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 300 MB per 5 minutes (average of 1000 kb/s)
   - Bytes in HTTP in response payload
-- **Cardinality**: 10k series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
+- **Cardinality**: 10k series (see [how to measure and resolve high cardinality](/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/))
 - **Available resources**:
   - 2 buckets (excluding `_monitoring` and `_tasks` buckets)
   - 5 dashboards
@@ -58,7 +59,7 @@ To write historical data older than 30 days, retain data for more than 30 days, 
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 3 GB data per 5 minutes
   - Bytes in HTTP in response payload
-- **Cardinality**: 1M series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
+- **Cardinality**: 1M series (see [how to measure and resolve high cardinality](/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/))
 - **Unlimited resources**
   - dashboards
   - tasks
