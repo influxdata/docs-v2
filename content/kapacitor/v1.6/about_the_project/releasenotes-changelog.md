@@ -7,6 +7,12 @@ menu:
     name: Release notes
 ---
 
+## v1.6.4 [TBD]
+
+### Features
+
+- Add SASL support to Kafka alerts.
+- Update Kafka client to use the Sarama Go client library.
 
 ## v1.6.3 [2022-01-25]
 
