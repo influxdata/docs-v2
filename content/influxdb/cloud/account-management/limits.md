@@ -78,7 +78,7 @@ InfluxDB Cloud applies global (non-adjustable) system limits to all accounts, wh
 Limits include:
 
 - Write request limits:
-  - 5 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Encoding` header)
+  - 50 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Encoding` header)
   - 250 MB maximum HTTP request batch size after decompression
 - Query processing time: 90 seconds
 - Task processing time: 150 seconds
