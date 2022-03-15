@@ -168,7 +168,8 @@ To learn more about InfluxDB data elements, schemas, and design principles, see 
 
 ### Introducing IoT Center
 
-Our IoT Center architecture has four layers:
+The IoT Center architecture has four layers:
+
 - **InfluxDB API**: InfluxDB v2 API.
 - **IoT device**: Virtual or physical devices write IoT data to the InfluxDB API.
 - **IoT Center UI**: User interface sends requests to IoT Center server and renders views for the browser.
@@ -177,24 +178,17 @@ Our IoT Center architecture has four layers:
 
 ## Install IoT Center
 
-IoT Center server needs an [API token](#authorization) with permission to query (_read_) buckets
-and create (_write_) authorizations for IoT devices.
+
 
 ## Install InfluxDB
 
 If you don't already have an InfluxDB instance, [create an InfluxDB Cloud account or install InfluxDB OSS]().
 
-## Setup IoT Center
-
-env.js
-
-### Add your InfluxDB URL
-
-### Add your InfluxDB organization
+## Setup InfluxDB
 
 ### Add an InfluxDB All-Access token
 
-For convenience, you can use an _All-Access_ token to read and write from your application.
+For convenience in development, use an _All-Access_ token to read and write from your application.
 To create an All-Access token, use one of the following:
 - [InfluxDB UI](influxdb/v2.1/security/tokens/create-token/#create-an-all-access-token)
 - [InfluxDB CLI](/influxdb/v2.1/security/tokens/create-token/#create-an-all-access-token-1)
@@ -204,6 +198,25 @@ To create an All-Access token, use one of the following:
 For a production application, we recommend you create a token with minimal permissions and only use it in that application.
 
 {{% /note %}}
+
+## Configure IoT Center
+
+env.js
+
+### Add your InfluxDB URL
+
+### Add your InfluxDB organization
+
+### Add your InfluxDB API token
+
+IoT Center server needs an [API token](#authorization) with permission to query (_read_) buckets
+and create (_write_) authorizations for IoT devices.
+Use the All-Access token you created in [Add an InfluxDB All-Access token](#add-an-influxdb-all-access-token).
+
+## Make an API request
+
+Now that you have an InfluxDB environment setup and a client library installed,
+send an API to InfluxDB.
 
 #### Example: make a request with an API token
 
