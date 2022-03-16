@@ -203,20 +203,20 @@ For a production application, we recommend you create a token with minimal permi
 
 env.js
 
-### Add your InfluxDB URL
-
-### Add your InfluxDB organization
-
 ### Add your InfluxDB API token
 
 IoT Center server needs an [API token](#authorization) with permission to query (_read_) buckets
 and create (_write_) authorizations for IoT devices.
 Use the All-Access token you created in [Add an InfluxDB All-Access token](#add-an-influxdb-all-access-token).
 
+### Add your InfluxDB URL
+
+### Add your InfluxDB organization
+
 ## Make an API request
 
 Now that you have an InfluxDB environment setup and a client library installed,
-send an API to InfluxDB.
+make a test request to the InfluxDB API.
 
 #### Example: make a request with an API token
 
@@ -244,31 +244,24 @@ To learn more, see how to [use an authorization](/influxdb/v2.1/security/tokens/
 
 ### IoT Center: register and list IoT devices
 
-In IoT Center, a **registered device** is a virtual or physical IoT device with a matching InfluxDB authorization.
-The **Device Registrations** page lists registered IoT devices
+The IoT Center **Device Registrations** page lists registered IoT devices
 and lets you register new devices.
-For each registered device, you can view the dashboard and configuration or remove the device.
+In IoT Center, a **registered device** is a virtual or physical IoT device with a unique InfluxDB authorization.
+For each registered device, you can do the following:
+- view a dashboard with data visualizations
+- view configuration
+- remove the device
 
 ### IoT Center: register a device
 
-When you register a new device, IoT Center creates an InfluxDB **authorization** with the device ID and write permission to your configured bucket.
-IoT Center uses the constant `DESC_PREFIX` (`= "IoT Center: "`) to identify and retrieve registered devices.
+When you click the "Register" button, IoT Center takes the following steps to create an InfluxDB **authorization**:
 
-1. When you click the "Register" button, IoT Center UI calls the `/api/devices/DEVICE_ID` IoT Center API endpoint.
-2. IoT Center server app calls the `/api/v2/authorizations` InfluxDB API endpoint to find an authorization with the description **IoT Center: `DEVICE_ID`**.
-3. If no authorization exists (i.e., the device is not registered), IoT Center server app sends a `POST` request to the
+1. IoT Center UI calls the `/api/devices/DEVICE_ID` IoT Center server endpoint.
+2. IoT Center server queries the `INFLUX_BUCKET_AUTH` bucket to find a `deviceauth` point with the device ID.
+3. If no point exists (i.e., the device is not registered), IoT Center server sends a `POST` request to the
   `/api/v2/authorizations` InfluxDB API endpoint to create an authorization with the description **IoT Center: `DEVICE_ID`** and write permission to the configured bucket (`INFLUX_BUCKET`).
-4. You configure your device to use the authorization's API token to authenticate to InfluxDB.
-
-{{% note %}}
-
-In InfluxDB Cloud, use the `/api/v2/authorizations` InfluxDB API endpoint to view the API token for your device.
-
-{{% api-endpoint method="GET" endpoint="/api/v2/authorizations" %}}
-
-You can't view API tokens in InfluxDB Cloud UI.
-
-{{% /note %}}
+4. After receiving the new authorization, IoT Center server sends a `POST` request
+   with the authorization details and the `INFLUX_BUCKET_AUTH` bucket to the `/api/v2/write` InfluxDB API endpoint.
 
 #### Example: create a device authorization
 
