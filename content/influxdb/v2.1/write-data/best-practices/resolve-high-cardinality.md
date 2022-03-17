@@ -9,7 +9,8 @@ menu:
     parent: write-best-practices
 ---
 
-If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2.1/reference/glossary/#series-cardinality) (too many series) may be causing memory issues.
+If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2.1/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% cloud-only %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /cloud-only %}}
+
 Take steps to understand and resolve high series cardinality.
 
 1. [Learn the causes of high cardinality](#learn-the-causes-of-high-series-cardinality)
