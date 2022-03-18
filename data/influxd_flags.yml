@@ -24,6 +24,9 @@
 - flag: "--flux-log-enabled"
   added: 2.0
 
+- flag: "--hardening-enabled"
+  added: 2.2
+
 - flag: "-h, --help"
   added: 2.0
   nolink: true
