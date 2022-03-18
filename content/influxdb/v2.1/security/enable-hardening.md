@@ -9,7 +9,7 @@ menu:
   influxdb_2_1:
     parent: Security & authorization
 influxdb/v2.1/tags: [security, hardening]
-products: [oss]
+draft: true
 ---
 
 InfluxDB is used in many environments and depending on your environment, enabling additional security features may be appropriate.
