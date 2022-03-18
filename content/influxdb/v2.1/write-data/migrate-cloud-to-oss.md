@@ -13,7 +13,7 @@ weight: 106
 To migrate data from InfluxDB Cloud to InfluxDB OSS, query the data
 from InfluxDB Cloud and write the data to InfluxDB OSS.
 Because full data migrations will likely exceed your organization's limits and
-adjustable quotas, data needs to be migrated in batches.
+adjustable quotas, migrate your data in batches.
 
 The following guide provides instructions for setting up an InfluxDB OSS task
 that queries data from an InfluxDB Cloud bucket in time-based batches and writes
@@ -53,8 +53,7 @@ All queries against data in InfluxDB Cloud are subject to your organization's
     6.  Save the task.
 
         {{% note %}}
-Newly created tasks are enabled by default, so once saved, the data migration
-will begin.
+Newly-created tasks are enabled by default, so the data migration begins when you save the task.
         {{% /note %}}
 
 **After the migration is complete**, each subsequent migration task execution
@@ -145,7 +144,7 @@ finished =
     else
         "Migration in progress"
 
-// Query all data from the from the specified InfluxDB Cloud bucket within the
+// Query all data from the specified InfluxDB Cloud bucket within the
 // batch-defined time range. To limit migrated data by measurement, tag, or
 // field, add a `filter()` function after `range()` with the appropriate
 // predicate fn.
@@ -219,7 +218,7 @@ InfluxDB Cloud rate limits and quotas reset every five minutes, so
 You can do shorter task intervals and execute the migration task more often,
 but you need to balance the task interval with your [batch interval](#determine-your-batch-interval) 
 and the amount of data returned in each batch.
-If the total amount of data queried in each five minute window exceeds your
+If the total amount of data queried in each five-minute interval exceeds your
 InfluxDB Cloud organization's [rate limits and quotas](/influxdb/cloud/account-management/limits/),
 the batch will fail until rate limits and quotas reset.
 
@@ -257,10 +256,10 @@ and how that correlates with your InfluxDB Cloud organization's
 
 If points occur at regular intervals, you can get a fairly accurate estimate of
 how much data will be returned in a given time range by using the `/api/v2/query`
-endpoint to execute a query for a defined duration of time and measuring the
+endpoint to execute a query for the time range duration and then measuring the
 size of the response body.
 
-The following `curl` command queries an InfluxDB cloud bucket for the last day
+The following `curl` command queries an InfluxDB Cloud bucket for the last day
 and returns the size of the response body in bytes.
 You can customize the range duration to match your specific use case and
 data density.
@@ -306,7 +305,7 @@ So in this example, **it would be best to set your `batchInterval` to `35d`**.
 
 ##### Important things to note
 - This assumes no other queries are running in your InfluxDB Cloud organization.
-- You should also consider your network speeds and that a batch can be fully
+- You should also consider your network speeds and whether a batch can be fully
   downloaded within the [task interval](#determine-your-task-interval).
 
 {{% /expand %}}
@@ -353,12 +352,12 @@ unauthorized access
 **Possible solutions**:
 - Ensure the API token has read access to your InfluxDB Cloud bucket.
 - Generate a new InfluxDB Cloud API token with read access to the bucket you
-  want to migration. Then update the `INFLUXDB_CLOUD_TOKEN` secret in your
+  want to migrate. Then, update the `INFLUXDB_CLOUD_TOKEN` secret in your
   InfluxDB OSS instance with the new token.
 
 ### Query timeout
 The InfluxDB Cloud query timeout is 90 seconds. If it takes longer than this to
-return the data from the batche's time range, the query will time out and the
+return the data from the batch interval, the query will time out and the
 task will fail.
 
 **Possible solutions**:
