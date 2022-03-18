@@ -27,15 +27,20 @@ start InfluxDB with the `--hardening-enabled` command line flag:
 
 ### Private IP Validation
 
-Certain flux functions (eg, `to()`, `from()`, etc) and [template fetching](/influxdb/v2.1/influxdb-templates/) cause InfluxDB to make HTTP requests over the network.
-When private IP validation is enabled, InfluxDB will first verify that the IP address of the URL is not a private IP address.
+Some Flux functions ([`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/),
+[`from()`](/flux/v0.x/stdlib/influxdata/influxdb/from/), [`http.post()`](/flux/v0.x/stdlib/http/post/), etc.)
+and [template fetching](/influxdb/v2.1/influxdb-templates/) can require InfluxDB to make
+HTTP requests over the network.
+With private IP validation enabled, InfluxDB first verifies that the IP address of the URL is not a private IP address.
+
 IP addresses are considered private if they fall into one of the following categories:
-* IPv4 loopback (`127.0.0.0/8`)
-* RFC1918 (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`)
-* RFC3927 (`169.254.0.0/16`)
-* IPv6 loopback (`::1/128`)
-* IPv6 link-local (`fe80::/10`)
-* IPv6 unique local (`fc00::/7`)
+
+- IPv4 loopback (`127.0.0.0/8`)
+- RFC1918 (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`)
+- RFC3927 (`169.254.0.0/16`)
+- IPv6 loopback (`::1/128`)
+- IPv6 link-local (`fe80::/10`)
+- IPv6 unique local (`fc00::/7`)
 
 {{% note %}}
 #### Private IP considerations
