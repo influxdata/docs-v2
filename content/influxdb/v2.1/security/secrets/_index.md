@@ -5,7 +5,7 @@ influxdb/v2.1/tags: [secrets, security]
 menu:
   influxdb_2_1:
     parent: Security & authorization
-weight: 102
+weight: 103
 aliases:
   - /influxdb/v2.1/security/secrets/manage-secrets/
 ---
