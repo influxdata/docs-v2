@@ -112,9 +112,10 @@ migration = {
 }
 
 // batchRange dynamically returns a record with start and stop properties for
-// the current batch based on the stop time of the previous batch stored in the
-// migration.batchBucket for the specific migration.cloudOrg and
-// migration.cloudBucket.
+// the current batch. It queries migration metadata stored in the
+// `migration.batchBucket` to determine the stop time of the previous batch.
+// It uses the previous stop time as the new start time for the current batch
+// and adds the `migration.batchInterval` to determine the current batch stop time.
 batchRange = () => {
     _lastBatchStop =
         (from(bucket: migration.batchBucket)
@@ -249,10 +250,16 @@ from(bucket: "example-cloud-bucket")
 <!----------------------- BEGIN Determine batch interval ---------------------->
 {{% expand "Determine your batch interval" %}}
 
-The `migration.batchInterval` setting determines the time range queried by each batch.
-Batches are primarily limited by the amount of data returned in each batch interval
-and how that correlates with your InfluxDB Cloud organization's
-[rate limits and quotas](/influxdb/cloud/account-management/limits/).
+The `migration.batchInterval` setting controls the time range queried by each batch.
+The "density" of the data in your InfluxDB Cloud bucket and your InfluxDB Cloud
+organization's [rate limits and quotas](/influxdb/cloud/account-management/limits/)
+determine what your batch interval should be.
+
+For example, if you are migrating data collected from hundreds of sensors with
+points recorded every second, your batch interval will need to be shorter.
+If your migrating data collected from five sensors with points recorded every
+minute, your batch interval can be longer.
+It all depends on how much data gets returned in a single batch.
 
 If points occur at regular intervals, you can get a fairly accurate estimate of
 how much data will be returned in a given time range by using the `/api/v2/query`
