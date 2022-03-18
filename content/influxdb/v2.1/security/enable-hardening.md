@@ -47,3 +47,4 @@ IP addresses are considered private if they fall into one of the following categ
 If your environment requires that these authenticated HTTP requests be made to private IP addresses,
 omit the use of `--hardening-enabled` and
 consider instead setting up egress firewalling to limit which hosts InfluxDB is allowed to connect.
+{{% /note %}}
