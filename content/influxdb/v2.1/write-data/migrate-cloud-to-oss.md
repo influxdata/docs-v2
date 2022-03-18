@@ -161,7 +161,7 @@ rowCount =
         |> count()
 
 // emptyRange is a stream of tables that acts as filler data if the batch is
-// emtpy. This is used to generate batch metadata for empty batches and is
+// empty. This is used to generate batch metadata for empty batches and is
 // necessary to correctly increment the time range for the next batch.
 emptyRange = array.from(rows: [{_start: batch.start, _stop: batch.stop, _value: 0}])
 
