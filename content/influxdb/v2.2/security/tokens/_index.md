@@ -9,7 +9,7 @@ menu:
   influxdb_2_2:
     name: Manage tokens
     parent: Security & authorization
-weight: 103
+weight: 104
 ---
 
 InfluxDB **API tokens** ensure secure interaction between InfluxDB and external tools such as clients or applications.
