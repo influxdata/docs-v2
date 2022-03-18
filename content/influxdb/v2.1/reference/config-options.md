@@ -159,6 +159,9 @@ To configure InfluxDB, use the following configuration options when starting the
 - [vault-skip-verify](#vault-skip-verify)
 - [vault-tls-server-name](#vault-tls-server-name)
 - [vault-token](#vault-token)
+<!-- TODO: when 2.2 is released and/or 2.1 is patched, move this above
+- [hardening-enabled](#hardening-enabled)
+-->
 
 ---
 
@@ -466,7 +469,55 @@ flux-log-enabled = "true"
 {{< /code-tabs-wrapper >}}
 
 ---
+<!-- uncomment when 2.2 is released and/or 2.1 is patched
+### hardening-enabled
+Enable [additional security features](/influxdb/v2.1/security/enable-hardening/)
+in InfluxDB.
 
+**Default:** `false`
+
+| influxd flag          | Environment variable        | Configuration key   |
+| :-------------------- | :-------------------------- | :------------------ |
+| `--hardening-enabled` | `INFLUXD_HARDENING_ENABLED` | `hardening-enabled` |
+
+###### influxd flag
+```sh
+influxd --hardening-enabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HARDENING_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+hardening-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+hardening-enabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "hardening-enabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+-->
 ### http-bind-address
 Bind address for the InfluxDB HTTP API.
 Customize the URL and port for the InfluxDB API and UI.
