@@ -1,6 +1,6 @@
 ---
 title: Enable security features
-seotitle: Enable security/hardening features
+seotitle: Enable security and hardening features in InfluxDB
 description: >
   Enable additional security features in InfluxDB.
 weight: 102
