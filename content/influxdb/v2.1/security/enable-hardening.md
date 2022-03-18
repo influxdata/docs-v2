@@ -12,14 +12,12 @@ influxdb/v2.1/tags: [security, hardening]
 draft: true
 ---
 
-InfluxDB is used in many environments and depending on your environment, enabling additional security features may be appropriate.
-To enable all security hardening options now and in the future,
-start InfluxDB with the `--hardening-enabled` command line flag:
+InfluxDB {{< current-version >}} provides optional security features that ensure your
+InfluxDB instance is secure in whatever environment it's used in.
 
-    ```bash
-    influxd \
-    --hardening-enabled
-    ```
+To enable all [additional security features](#security-features), use the
+[`hardening-enabled` configuration option](/influxdb/v2.1/reference/config-options/#hardening-enabled)
+when starting InfluxDB.
 
 ## Security features
 
