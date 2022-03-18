@@ -2,7 +2,8 @@
 title: Enable security features
 seotitle: Enable security and hardening features in InfluxDB
 description: >
-  Enable additional security features in InfluxDB.
+  Enable a collection of additional security and hardening features in InfluxDB OSS to better
+  secure your InfluxDB instance.
 weight: 102
 menu:
   influxdb_2_1:
