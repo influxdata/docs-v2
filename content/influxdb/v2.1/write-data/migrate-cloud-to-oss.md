@@ -255,9 +255,9 @@ The "density" of the data in your InfluxDB Cloud bucket and your InfluxDB Cloud
 organization's [rate limits and quotas](/influxdb/cloud/account-management/limits/)
 determine what your batch interval should be.
 
-For example, if you are migrating data collected from hundreds of sensors with
+For example, if you're migrating data collected from hundreds of sensors with
 points recorded every second, your batch interval will need to be shorter.
-If your migrating data collected from five sensors with points recorded every
+If you're migrating data collected from five sensors with points recorded every
 minute, your batch interval can be longer.
 It all depends on how much data gets returned in a single batch.
 
