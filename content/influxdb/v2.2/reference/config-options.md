@@ -125,6 +125,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [engine-path](#engine-path)
 - [feature-flags](#feature-flags)
 - [flux-log-enabled](#flux-log-enabled)
+- [hardening-enabled](#hardening-enabled)
 - [http-bind-address](#http-bind-address)
 - [http-idle-timeout](#http-idle-timeout)
 - [http-read-header-timeout](#http-read-header-timeout)
@@ -487,6 +488,53 @@ flux-log-enabled = "true"
 ```json
 {
   "flux-log-enabled": "true"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### hardening-enabled
+
+Enable [additional security features](/influxdb/v2.2/security/enable-hardening/)
+in InfluxDB.
+**Default:** `false`
+| influxd flag          | Environment variable        | Configuration key   |
+| :-------------------- | :-------------------------- | :------------------ |
+| `--hardening-enabled` | `INFLUXD_HARDENING_ENABLED` | `hardening-enabled` |
+
+###### influxd flag
+```sh
+influxd --hardening-enabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HARDENING_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+hardening-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+hardening-enabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "hardening-enabled": true
 }
 ```
 {{% /code-tab-content %}}
