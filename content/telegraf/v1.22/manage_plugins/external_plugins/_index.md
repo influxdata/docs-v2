@@ -1,5 +1,5 @@
 ---
-title: External plugins
+title: Integrate with external plugins
 description:
 menu:
   telegraf_1_22:
