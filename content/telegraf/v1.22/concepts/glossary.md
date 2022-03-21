@@ -2,7 +2,7 @@
 title: Telegraf glossary of terms
 description: This section includes definitions of important terms for related to Telegraf.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
   
     name: Glossary of terms
     weight: 30

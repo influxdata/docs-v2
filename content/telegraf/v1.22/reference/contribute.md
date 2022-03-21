@@ -2,9 +2,9 @@
 title: Contribute to Telegraf
 description:
 menu:
-  telegraf_1_21:
-    name: Contribute to InfluxDB
-    weight: 10
+  telegraf_1_22:
+    name: Contribute to Telegraf
+    parent: Reference
 ---
 
 To contribute to the Telegraf project, complete the following steps:

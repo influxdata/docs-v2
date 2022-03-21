@@ -2,7 +2,7 @@
 title: MessagePack output data format
 description: Use the MessagePack output data format (serializer) to convert Telegraf metrics into MessagePack format.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
   
     name: MessagePack
     weight: 10

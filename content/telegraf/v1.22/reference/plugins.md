@@ -5,11 +5,16 @@ description: >
   It supports four categories of plugins including input, output, aggregator, and processor.
   View and search all available Telegraf plugins.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
 
     weight: 40
 weight: 6
 aliases:
+  - /telegraf/v1.22/plugins/plugins-list/
+  - /telegraf/v1.22/plugins/aggregators/
+  - /telegraf/v1.22/plugins/inputs/
+  - /telegraf/v1.22/plugins/outputs/
+  - /telegraf/v1.22/plugins/processors/
   - /telegraf/v1.21/plugins/plugins-list/
   - /telegraf/v1.21/plugins/aggregators/
   - /telegraf/v1.21/plugins/inputs/

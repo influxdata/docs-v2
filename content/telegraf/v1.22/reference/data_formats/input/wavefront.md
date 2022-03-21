@@ -2,7 +2,7 @@
 title: Wavefront input data format
 description: Use the Wavefront input data format to parse Wavefront data into Telegraf metrics.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
   
     name: Wavefront
     weight: 110

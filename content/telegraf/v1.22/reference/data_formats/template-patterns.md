@@ -2,7 +2,7 @@
 title: Telegraf template patterns
 description: Use template patterns to describe how dot-delimited strings should map to and from Telegraf metrics.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
   
     name: Template patterns
     weight: 30

@@ -2,11 +2,11 @@
 title: Telegraf commands and flags
 description: The `telegraf` command starts and runs all the processes necessary for Telegraf to function.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
 
     name: Commands
     weight: 20
-    parent: Administration
+    parent: Reference
 ---
 
 The `telegraf` command starts and runs all the processes necessary for Telegraf to function.

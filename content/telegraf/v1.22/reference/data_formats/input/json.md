@@ -2,7 +2,7 @@
 title: JSON input data format
 description: Use the JSON input data format to parse [JSON][json] objects, or an array of objects, into Telegraf metric fields.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
 
     name: JSON input
     weight: 70

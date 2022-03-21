@@ -2,10 +2,11 @@
 title: External plugins
 description:
 menu:
-  telegraf_1_21:
-  
+  telegraf_1_22:
+
      name: External plugins
      weight: 50
+     parent: Manage plugins
 ---
 
 [External plugins](/EXTERNAL_PLUGINS.md) are external programs that are built outside

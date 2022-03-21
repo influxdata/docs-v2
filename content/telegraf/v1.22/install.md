@@ -2,14 +2,13 @@
 title: Install Telegraf
 description: Install Telegraf on your operating system.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
 
     name: Install
     weight: 20
-    parent: Introduction
 ---
 
-## download
+## Download
 
 Download the latest Telegraf release at the [InfluxData download page](https://portal.influxdata.com/downloads).
 
@@ -21,7 +20,7 @@ Installation of the Telegraf package may require `root` or administrator privile
 
 ### Networking
 
-Telegraf offers multiple service [input plugins](/telegraf/v1.21/plugins/inputs/) that may
+Telegraf offers multiple service [input plugins](/telegraf/v1.22/plugins/inputs/) that may
 require custom ports.
 Modify port mappings through the configuration file (`telegraf.conf`).
 
@@ -110,7 +109,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.21/administration/configuration/).
+[configuration documentation](/telegraf/v1.22/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN RedHat & CentOS ---------->
 {{% tab-content %}}
@@ -153,7 +152,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.21/administration/configuration/).
+[configuration documentation](/telegraf/v1.22/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN SLES & openSUSE ---------->
 {{% tab-content %}}
@@ -184,7 +183,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.21/administration/configuration/).
+[configuration documentation](/telegraf/v1.22/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN FreeBSD/PC-BSD ---------->
 {{% tab-content %}}
@@ -215,7 +214,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.21/administration/configuration/).
+[configuration documentation](/telegraf/v1.22/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN macOS ---------->
 {{% tab-content %}}
@@ -259,77 +258,94 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.21/administration/configuration/).
+[configuration documentation](/telegraf/v1.22/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN Windows ---------->
 {{% tab-content %}}
 
-## Installation
+## Download and run Telegraf as a Windows service
 
-Download the Telegraf ZIP archive for Windows from the [InfluxData downloads page](https://portal.influxdata.com/downloads).
+{{% note %}}
+Installing a Windows service requires administrative permissions.
+To run PowerShell as an administrator,
+see [Launch PowerShell as administrator](https://docs.microsoft.com/en-us/powershell/scripting/windows-powershell/starting-windows-powershell?view=powershell-7#with-administrative-privileges-run-as-administrator).
+{{% /note %}}
 
-Extract the contents of the ZIP archive to `C:\Program Files\InfluxData\Telegraf`.
+In PowerShell _as an administrator_, do the following:
 
-##### Verify the integrity of the downloaded Telegraf binary (optional)
+1.  Use the following commands to download the Telegraf Windows binary
+    and extract its contents to `C:\Program Files\InfluxData\telegraf\`:
 
-To obtain the SHA256 hash for the Windows Telegraf download, use the following PowerShell command:
+    ```powershell
+    > wget https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip -UseBasicParsing -OutFile telegraf-{{< latest-patch >}}_windows_amd64.zip
+    > Expand-Archive .\telegraf-{{% latest-patch %}}_windows_amd64.zip -DestinationPath 'C:\Program Files\InfluxData\telegraf\'
+    ```
 
-```powershell
-CertUtil -hashfile <path to your download>/telegraf-{{< latest-patch >}}_windows_amd64.zip SHA256
-```
+2.  Move the `telegraf.exe` and `telegraf.conf` files from
+    `C:\Program Files\InfluxData\telegraf\telegraf-{{% latest-patch %}}`
+    up a level to `C:\Program Files\InfluxData\telegraf`:
 
-Compare the output from this command to the hash listed on the downloads page to ensure the integrity of the download.
+    ```powershell
+    > cd "C:\Program Files\InfluxData\telegraf"
+    > mv .\telegraf-{{% latest-patch %}}\telegraf.* .
+    ```
 
-### Configure an input plugin
+    Or create a [Windows symbolic link (Symlink)](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/)
+    to point to this directory.
 
-The Telegraf ZIP archive contains a default configuration file (`telegraf.conf`).
-In this file, the input plugin for capturing basic [Windows system metrics](/telegraf/v1.21/plugins/#win_perf_counters) is already activated.
-With this plugin, Telegraf monitors the following defined Windows Operating System objects:
+    {{% note %}}
+The instructions below assume that either the `telegraf.exe` and `telegraf.conf` files are stored in
+`C:\Program Files\InfluxData\telegraf`, or you've created a Symlink to point to this directory.
+    {{% /note %}}
 
-- Processor
-- LogicalDisk
-- PhysicalDisk
-- Network Interface
-- System
-- Memory
-- Paging File
+3.  Install Telegraf as a service:
 
-Telegraf can capture metrics and log information from a wide variety of sources.
-For more advanced configuration details, see the [configuration documentation](/telegraf/v1.21/administration/configuration/).
+    ```powershell
+    > .\telegraf.exe --service install --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
+    ```
 
-### Configure an output plugin
+    Make sure to provide the absolute path of the `telegraf.conf` configuration file,
+    otherwise the Windows service may fail to start.
 
-Before you start the Telegraf agent, configure an output plugin to send data to InfluxDB.
-Choose the appropriate plugin based on the version of InfluxDB you are using.
+3.  To test that the installation works, run:
 
-The `telegraf.conf` file included in the ZIP archive contains sections for configuring
-both the [InfluxDB v1](/telegraf/v1.21/plugins/#influxdb) and
-[InfluxDB v2](/telegraf/v1.21/plugins/#influxdb_v2) output plugins.
+    ```powershell
+    > C:\"Program Files"\InfluxData\telegraf\telegraf.exe --config C:\"Program Files"\InfluxData\telegraf\telegraf.conf --test
+    ```
 
-#### Writing data to InfluxDB 1.x
+4.  To start collecting data, run:
 
-Open `telegraf.conf` in a text editor and fill in the `database` field under `[[outputs.influxdb]]`.
+    ```powershell
+    telegraf.exe --service start
+    ```
 
-#### Writing data to InfluxDB 2.0
+<!--
+#### (Optional) Specify multiple configuration files
 
-Open `telegraf.conf` in a text editor and comment out the InfluxDB v1 plugin
-by placing a `#` in front of `[[outputs.influxdb]]`.
-Then remove the `#` in front of `[[outputs.influxdb_v2]]`.
+If you have multiple Telegraf configuration files, you can specify a `--config-directory` for the service to use:
 
-For detailed instructions on configuring Telegraf to write to InfluxDB 2.0, see
-[Enable and configure the InfluxDB v2 output plugin](/{{< latest "influxdb" "v2" >}}/write-data/use-telegraf/manual-config/#enable-and-configure-the-influxdb-v2-output-plugin).
+1. Create a directory for configuration snippets at `C:\Program Files\Telegraf\telegraf.d`.
+2. Include the `--config-directory` option when registering the service:
+   ```powershell
+   > C:\"Program Files"\Telegraf\telegraf.exe --service install --config C:\"Program Files"\Telegraf\telegraf.conf --config-directory C:\"Program Files"\Telegraf\telegraf.d
+   ```
+-->
 
-### Start the agent
+### Logging and troubleshooting
 
-Once configured, run the following commands in PowerShell to begin sending metrics with Telegraf:
+When Telegraf runs as a Windows service, Telegraf logs messages to Windows event logs.
+If the Telegraf service fails to start, view error logs by selecting **Event Viewer**→**Windows Logs**→**Application**.
 
-```powershell
-> cd C:\Program Files\InfluxData\Telegraf        # path to extracted Telegraf directory
-> .\telegraf.exe -config <path_to_telegraf.conf>
-```
-## Install Telegraf as a Windows Service
+### Windows service commands
 
-See [Running Telegraf as a Windows service](/telegraf/v1.21/administration/windows_service).
+The following commands are available:
+
+| Command                            | Effect                        |
+|------------------------------------|-------------------------------|
+| `telegraf.exe --service install`   | Install telegraf as a service |
+| `telegraf.exe --service uninstall` | Remove the telegraf service   |
+| `telegraf.exe --service start`     | Start the telegraf service    |
+| `telegraf.exe --service stop`      | Stop the telegraf service     |
 
 {{< /tab-content >}}
 {{< /tabs-wrapper >}}

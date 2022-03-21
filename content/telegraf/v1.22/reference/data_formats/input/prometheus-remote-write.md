@@ -3,7 +3,7 @@ title: Prometheus Remote Write input data format
 description: |
   Use the Prometheus Remote Write input data format to write samples directly into Telegraf metrics.
 menu:
-  telegraf_1_21:
+  telegraf_1_22:
 
     name: Prometheus Remote Write
     weight: 40
@@ -21,7 +21,7 @@ For the metrics to completely align with the 1.x endpoint, add a Starlark proces
 
 ### Configuration
 
-Use the [`inputs.http_listener_v2`](/telegraf/v1.21/plugins/#http_listener_v2) plug and set `data_format = "prometheusremotewrite"`
+Use the [`inputs.http_listener_v2`](/telegraf/v1.22/plugins/#http_listener_v2) plug and set `data_format = "prometheusremotewrite"`
 
 ```toml
 [[inputs.http_listener_v2]]
