@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_2_1:
     name: Migrate from Cloud to OSS
-    parent: Write data
+    parent: Migrate data
 weight: 106
 ---
 
