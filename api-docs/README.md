@@ -9,6 +9,13 @@ not committed directly to the docs repo.
 The InfluxDB docs deployment process uses swagger files in the `api-docs` directory
 to generate version-specific API documentation.
 
+Install the following packages in your terminal, from the root of the docs repo:
+```sh
+npm install redoc
+npm install redoc-cli
+npm install @redocly/openapi-cli
+```
+
 ### Versioned swagger files
 The structure versions swagger files using the following pattern:
 
