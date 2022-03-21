@@ -10,6 +10,30 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.159.0 [2022-03-14]
+
+### Features
+- Added a `finish` state to parallel-merge and always protect with a mutex lock.
+
+### Bug fixes
+- Use a fork of the `gosnowflake` library to prevent file transfers.
+- When encoding Flux types as JSON, encode dictionary types as JSON objects.
+- Upgrade Apache Arrow to v7.
+
+---
+
+## v0.158.0 [2022-03-09]
+
+### Features
+- Add inline documentation to the `universe` package.
+- Factor parallel execution into the concurrency quota calculation.
+
+### Bug fixes
+- Add parallel merges with no successors to the results set.
+- Correctly use range in an updated `map()` test.
+
+---
+
 ## v0.157.0 [2022-03-03]
 
 ### Features
