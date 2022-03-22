@@ -1,6 +1,6 @@
 ---
 title: Get started
-description: Install Telegraf on your operating system.
+description: Configure and start Telegraf
 menu:
   telegraf_1_22:
 
@@ -8,53 +8,45 @@ menu:
     weight: 25
 ---
 
-Use Telegraf to collect and write metrics into InfluxDB and other supported outputs.
-
+After you've [downloaded and installed Telegraf](/{{< latest "telegraf" >}}/plugins/outputs/), you're ready to begin collecting and sending data.  
 
 ## Configure Telegraf
 
+Define which plugins Telegraf will use in the configuration file. Each configuration file needs at least one enabled [input plugin](/{{< latest "telegraf" >}}/plugins/inputs/) (where the metrics come from) and at least one enabled [output plugin](/{{< latest "telegraf" >}}/plugins/outputs/) (where the metrics go).
 
-Before starting the Telegraf server, create or edit the initial configuration file. Each configuration file needs at least one [input plugin]((/{{< latest "telegraf" >}}/plugins/inputs/) (where the metrics come from) and at least one [output plugin](({{< latest "telegraf" >}}/plugins/outputs/) (where the metrics go).
-
-The following example generates a sample configuration file with all available plugins, then uses `filter` flags to enable specific plugins. For a complete list of commands and flags, see .
+The following example generates a sample configuration file with all available plugins, then uses `filter` flags to enable specific plugins.
+{{% note %}} For details on `filter` and other flags, see [Telegraf commands and flags](/{{< latest "telegraf" >}}/commands/). {{% /note %}}
 
 1. Run the following command to create a configuration file:
 ```bash
 telegraf --sample-config > telegraf.conf
 ```
-
-2. Locate the configuration file:
+2. Locate the configuration file. The location varies depending on your system:
 * macOS [Homebrew](http://brew.sh/): `/usr/local/etc/telegraf.conf`
 * Linux debian and RPM packages: `/etc/telegraf/telegraf.conf`
 * Standalone Binary: see the next section for how to create a configuration file
 
 > **Note:** You can also specify a remote URL endpoint to pull a configuration file from. See [Configuration file locations](/telegraf/v1.15/administration/configuration/#configuration-file-locations).
 
-3. Edit the configuration file?
-  - This example doesn't show that.
-  - Ask sam: vim or use text editor. Each plugin has its own corresponding readme.
+3. Edit the configuration file using `vim` or a text editor. Because this example uses [InfluxDB V2 output plugin](https://github.com/influxdata/telegraf/blob/release-1.21/plugins/outputs/influxdb_v2/README.md), we need to add the InfluxDB URL, authentication token, organization, and bucket details to this section of the configuration file.
 
-4. Simplify this configuration file by specifying which plugins you want to use with `filter` flags.
-For this example, you can specify two inputs (`cpu` and `mem`) with the `--input-filter` flag.
+4. For this example, specify two inputs (`cpu` and `mem`) with the `--input-filter` flag.
 Specify InfluxDB as the output with the `--output-filter` flag.
 
 ```bash
 telegraf --sample-config --input-filter cpu:mem --output-filter influxdb_v2 > telegraf.conf
 ```
 
-The resulting config will have `cpu` and `mem` reading metrics about the system's cpu usage and memory usage, and then output this data to InfluxDB. Note that after running the following command, the output plugin `influxdb_v2` will still need to be configured with your url, organization and bucket.
+The resulting configuration will collect CPU and memory data and sends it to InfluxDB V2.
 
+## Start Telegraf
 
-## Start Telegraf service
-
-Start the Telegraf service and direct it to the relevant configuration file or URL to pull a configuration file from a remote endpoint:
+Next, you need to start the Telegraf service and direct it to your configuration file:
 
 ### macOS [Homebrew](http://brew.sh/)
 ```bash
 telegraf --config telegraf.conf
 ```
-
-<!--so for the other ones, you have to do a custom start but not mac?-->
 
 ### Linux (sysvinit and upstart installations)
 ```bash
@@ -66,8 +58,6 @@ sudo service telegraf start
 systemctl start telegraf
 ```
 
-## Results
+## Next steps
 
-Telegraf starts collecting and writing data to the specified output.
-
-That's it! You ready to use Telegraf to collect metrics and write them to your output of choice.
+Learn more about how you can gather, transform, and output data with [all the plugins available in Telegraf](/{{< latest "telegraf" >}}/plugins/).

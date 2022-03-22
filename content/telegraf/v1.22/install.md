@@ -32,8 +32,8 @@ The default location is `C:\InfluxData\telegraf`.
 ### NTP
 
 Telegraf uses a host's local time in UTC to assign timestamps to data.
-Use the Network Time Protocol (NTP) to synchronize time between hosts; if hosts' clocks
-aren't synchronized with NTP, the timestamps on the data can be inaccurate.
+Use the Network Time Protocol (NTP) to synchronize time between hosts. If hosts' clocks
+aren't synchronized with NTP, the timestamps on the data might be inaccurate.
 
 ## Installation
 
