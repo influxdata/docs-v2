@@ -7,6 +7,16 @@ menu:
     name: Release notes
 ---
 
+## v1.6.4 [2022-03-15]
+
+### Features
+
+- Add `SASL` support to `Kafka` alerts.
+
+### Bug fixes
+
+- Fully deprecate DES based ciphers, RC4 based ciphers and TLS 1.1 and 1.0 ciphers. 
+- Adjust `Flux` injected dependencies so that large data sets can be downloaded without issue.
 
 ## v1.6.3 [2022-01-25]
 
