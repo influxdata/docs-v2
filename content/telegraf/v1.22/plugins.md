@@ -1,5 +1,5 @@
 ---
-title: Plugins
+title: Plugin directory
 description: >
   Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.
   It supports four categories of plugins including input, output, aggregator, and processor.
@@ -7,7 +7,7 @@ description: >
 menu:
   telegraf_1_22_ref:
 
-    weight: 40
+    weight: 10
 weight: 6
 aliases:
   - /telegraf/v1.22/plugins/plugins-list/

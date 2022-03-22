@@ -7,8 +7,7 @@ menu:
   telegraf_1_22_ref:
 
     name: Release notes
-    weight: 10
-    parent: About the project
+    weight: 60
 ---
 ## v1.21.4 [2022-2-16]
 

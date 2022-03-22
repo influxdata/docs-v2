@@ -4,6 +4,7 @@ description:
 menu:
   telegraf_1_22_ref:
     name: Contribute to Telegraf
+    weight: 80
 ---
 
 To contribute to the Telegraf project, complete the following steps:

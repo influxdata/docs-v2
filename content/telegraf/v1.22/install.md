@@ -16,7 +16,7 @@ This page provides directions for installing, starting, and configuring Telegraf
 
 ## Requirements
 
-Installation of the Telegraf package may require `root` or administrator privileges in order to complete successfully.
+Installation of the Telegraf package may require `root` or administrator privileges in order to complete successfully. <!--check instruction for each one to clarify-->
 
 ### Networking
 

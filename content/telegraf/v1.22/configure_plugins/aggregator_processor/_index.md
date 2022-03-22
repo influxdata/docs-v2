@@ -6,7 +6,7 @@ menu:
 
      name: Aggregator and processor plugins
      weight: 50
-     parent: Manage plugins
+     parent: Configure plugins
 ---
 
 

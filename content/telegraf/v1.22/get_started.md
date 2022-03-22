@@ -32,7 +32,7 @@ telegraf --sample-config > telegraf.conf
 
 3. Edit the configuration file?
   - This example doesn't show that.
-  - Ask sam
+  - Ask sam: vim or use text editor. Each plugin has its own corresponding readme.
 
 4. Simplify this configuration file by specifying which plugins you want to use with `filter` flags.
 For this example, you can specify two inputs (`cpu` and `mem`) with the `--input-filter` flag.
