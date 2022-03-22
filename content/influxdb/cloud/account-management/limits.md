@@ -10,6 +10,7 @@ menu:
 related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
+  - /influxdb/cloud/write-data/best-practices/resolve-high-cardinality/
 ---
 
 InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis. Currently, InfluxDB Cloud supports one organization per account.
@@ -37,7 +38,7 @@ _To request higher service quotas, reach out to [InfluxData Support](https://sup
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 300 MB per 5 minutes (average of 1000 kb/s)
   - Bytes in HTTP in response payload
-- **Cardinality**: 10k series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
+- **Cardinality**: 10k series (see [how to measure and resolve high cardinality](/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/))
 - **Available resources**:
   - 2 buckets (excluding `_monitoring` and `_tasks` buckets)
   - 5 dashboards
@@ -58,7 +59,7 @@ To write historical data older than 30 days, retain data for more than 30 days, 
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 3 GB data per 5 minutes
   - Bytes in HTTP in response payload
-- **Cardinality**: 1M series (see [cardinality](/influxdb/cloud/reference/glossary/#series-cardinality))
+- **Cardinality**: 1M series (see [how to measure and resolve high cardinality](/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/))
 - **Unlimited resources**
   - dashboards
   - tasks
@@ -77,7 +78,7 @@ InfluxDB Cloud applies global (non-adjustable) system limits to all accounts, wh
 Limits include:
 
 - Write request limits:
-  - 5 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Encoding` header)
+  - 50 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Encoding` header)
   - 250 MB maximum HTTP request batch size after decompression
 - Query processing time: 90 seconds
 - Task processing time: 150 seconds
@@ -99,6 +100,6 @@ The following API error responses occur when your plan's service quotas are exce
 
 | HTTP response code              | Error message                               | Description  |
 | :-----------------------------  | :-----------------------------------------  | :----------- |
-| `HTTP 413 “Request Too Large”`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |  
-| `HTTP 429 “Too Many Requests”`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
-| `HTTP 503 “Service unavailable“` | Series cardinality exceeds your plan's service quota | If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |
+| `HTTP 413 "Request Too Large"`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |  
+| `HTTP 429 "Too Many Requests"`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
+| `HTTP 429 "Too Many Requests"` | Series cardinality exceeds your plan's service quota | If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |

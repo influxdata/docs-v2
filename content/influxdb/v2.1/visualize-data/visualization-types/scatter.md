@@ -91,26 +91,14 @@ It scales the CPU usage metric to better align with baseline memory usage.
 
 ```js
 cpu = from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "cpu" and
-      r._field == "usage_system" and
-      r.cpu == "cpu-total"
-  )
-  // Scale CPU usage
-  |> map(fn: (r) => ({
-      r with
-      _value: r._value + 60.0,
-      _time: r._time
-      })
-  )
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    // Scale CPU usage
+    |> map(fn: (r) => ({r with _value: r._value + 60.0, _time: r._time}))
 
 mem = from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "mem" and
-      r._field == "used_percent"
-  )
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
 
 union(tables: [cpu, mem])
 ```

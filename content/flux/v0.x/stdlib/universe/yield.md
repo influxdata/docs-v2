@@ -43,6 +43,6 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ## Examples
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> yield(name: "1")
+    |> range(start: -5m)
+    |> yield(name: "result-name")
 ```

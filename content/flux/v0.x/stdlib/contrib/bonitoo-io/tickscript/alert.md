@@ -36,7 +36,7 @@ tickscript.alert(
     warn: (r) => false,
     info: (r) => false,
     ok: (r) => true,
-    topic: ""
+    topic: "",
 )
 ```
 
@@ -92,28 +92,24 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 [TICKscript](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```javascript
+```js
 import "contrib/bonitoo-io/tickscript"
 
-option task = {name: "Example task", every: 1m;}
+option task = {name: "Example task", every: 1m}
 
-check = tickscript.defineCheck(
-  id: "000000000000",
-  name: "Errors",
-  type: "threshold"
-)
+check = tickscript.defineCheck(id: "000000000000", name: "Errors", type: "threshold")
 
 from(bucket: "example-bucket")
-  |> range(start: -task.every)
-  |> filter(fn: (r) => r._measurement == "errors" and r._field == "value")
-  |> count()
-  |> tickscript.alert(
-    check: {check with _check_id: "task/${r.service}"},
-    message: "task/${r.service} is ${r._level} value: ${r._value}",
-    crit: (r) => r._value > 30,
-    warn: (r) => r._value > 20,
-    info: (r) => r._value > 10    
-  )
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "errors" and r._field == "value")
+    |> count()
+    |> tickscript.alert(
+        check: {check with _check_id: "task/${r.service}"},
+        message: "task/${r.service} is ${r._level} value: ${r._value}",
+        crit: (r) => r._value > 30,
+        warn: (r) => r._value > 20,
+        info: (r) => r._value > 10,
+    )
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}

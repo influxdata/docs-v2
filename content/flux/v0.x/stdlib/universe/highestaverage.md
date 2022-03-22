@@ -21,9 +21,9 @@ _`highestAverage()` is a [selector function](/flux/v0.x/function-types/#selector
 
 ```js
 highestAverage(
-  n:10,
-  column: "_value",
-  groupColumns: []
+    n:10,
+    column: "_value",
+    groupColumns: [],
 )
 ```
 
@@ -56,7 +56,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> highestAverage(n: 2, groupColumns: ["tag"])
+    |> highestAverage(n: 2, groupColumns: ["tag"])
 ```
 
 {{< expand-wrapper >}}

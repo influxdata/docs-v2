@@ -26,8 +26,8 @@ The following example queries two fields, `A` and `B`:
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._field == "A" or r._field == "B")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._field == "A" or r._field == "B")
 ```
 
 This query returns one or more tables for each field. For example:
@@ -63,11 +63,7 @@ If timestamps are irregular or do not align perfectly, see
 
 ```js
 // ...
-  |> pivot(
-    rowKey:["_time"],
-    columnKey: ["_field"],
-    valueColumn: "_value"
-  )
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
 ```
 
 Using the queried data [above](#filter-by-fields), this `pivot()` function returns:
@@ -87,8 +83,8 @@ The following example uses values in the `A` and `B` columns to calculate a new 
 
 ```js
 // ...
-  |> map(fn: (r) => ({ r with _value: r.A * r.B }))
-```
+    |> map(fn: (r) => ({ r with _value: r.A * r.B }))
+  ```
 
 Using the pivoted data above, this `map()` function returns:
 
@@ -103,8 +99,8 @@ Using the pivoted data above, this `map()` function returns:
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._field == "A" or r._field == "B")
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with _value: r.A * r.B }))
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._field == "A" or r._field == "B")
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({r with _value: r.A * r.B}))
 ```

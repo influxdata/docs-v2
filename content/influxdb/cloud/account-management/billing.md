@@ -45,19 +45,19 @@ Learn how to upgrade your plan, access billing details, and review and resolve p
 2. Do one of the following:
     - If you subscribed to an InfluxDB Cloud plan through [**AWS Marketplace**](https://aws.amazon.com/marketplace/pp/B08234JZPS), [**Azure Marketplace**](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud), or [**GCP Marketplace**](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod?pli=1), click the **AWS**, **Microsoft**, or **GCP** link to access your billing and subscription information.
 
-  - If you subscribed to an InfluxDB Cloud plan through **InfluxData**, complete the following procedures as needed:
+   - If you subscribed to an InfluxDB Cloud plan through **InfluxData**, complete the following procedures as needed:
 
-        - [Add or update your payment method](#add-or-update-your-payment-method)
-        - [Add or update your contact information](#add-or-update-your-contact-information)
-        - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
+       - [Add or update your payment method](#add-or-update-your-payment-method)
+       - [Add or update your contact information](#add-or-update-your-contact-information)
+       - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
 
-        View information about:
+3. View information about:
 
-        - [Usage-Based Plan](#view-usage-based-plan-information)
-        - [Free Plan](#view-free-plan-information)
-        - [Exceeded rate limits](#exceeded-rate-limits)
-        - [Billing cycle](#billing-cycle)
-        - [Declined or late payments](#declined-or-late-payments)
+    - [Usage-Based Plan](#view-usage-based-plan-information)
+    - [Free Plan](#view-free-plan-information)
+    - [Exceeded rate limits](#review-and-resolve-plan-limit-overages)
+    - [Billing cycle](#billing-cycle)
+    - [Declined or late payments](#declined-or-late-payments)
 
 ### Add or update your payment method
 

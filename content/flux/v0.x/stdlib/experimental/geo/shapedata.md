@@ -32,9 +32,9 @@ Use `geo.shapeData()` to ensure geo-temporal data meets the
 import "experimental/geo"
 
 geo.shapeData(
-  latField: "latitude",
-  lonField: "longitude",
-  level: 10
+    latField: "latitude",
+    lonField: "longitude",
+    level: 10,
 )
 ```
 
@@ -63,13 +63,9 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "experimental/geo"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.shapeData(
-    latField: "latitude",
-    lonField: "longitude",
-    level: 10
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 10)
 ```
 
 ### geo.shapeData input and output
@@ -92,14 +88,15 @@ from(bucket: "example-bucket")
 {{% /flex-content %}}
 {{% flex-content %}}
 
-**The following function would output:**
+**The following would output:**
 
 ```js
-|> geo.shapeData(
-  latField: "latitude",
-  lonField: "longitude",
-  level: 5
-)
+data
+    |> geo.shapeData(
+        latField: "latitude",
+        lonField: "longitude",
+        level: 5,
+    )
 ```
 
 | _time | lat      | lon       | s2_cell_id |

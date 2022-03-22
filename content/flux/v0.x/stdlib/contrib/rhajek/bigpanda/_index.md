@@ -53,6 +53,6 @@ Sending alert timestamps to BigPanda is optional, but if you choose to send them
 convert timestamps to **epoch second timestamps**:
 
 ```js
-//
-  |> map(fn: (r) => ({ r with secTime: int(v: r._time) / 1000000000 }))
+data
+    |> map(fn: (r) => ({ r with secTime: int(v: r._time) / 1000000000 }))
 ```

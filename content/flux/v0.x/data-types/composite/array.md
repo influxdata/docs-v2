@@ -129,9 +129,9 @@ length(arr: names)
 import "array"
 
 arr = [
-  {fname: "John", lname: "Doe", age: "37"},
-  {fname: "Jane", lname: "Doe", age: "32"},
-  {fname: "Jack", lname: "Smith", age: "56"}
+    {fname: "John", lname: "Doe", age: "37"},
+    {fname: "Jane", lname: "Doe", age: "32"},
+    {fname: "Jack", lname: "Smith", age: "56"},
 ]
 
 array.from(rows: arr)

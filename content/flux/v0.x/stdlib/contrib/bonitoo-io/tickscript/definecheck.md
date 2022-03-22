@@ -23,9 +23,9 @@ This check data specifies information about the check in the InfluxDB monitoring
 import "contrib/bonitoo-io/tickscript"
 
 tickscript.defineCheck(
-  id: "000000000000",
-  name: "Example check name",
-  type: "custom"
+    id: "000000000000",
+    name: "Example check name",
+    type: "custom",
 )
 ```
 
@@ -55,10 +55,7 @@ Default is `custom`.
 ```javascript
 import "contrib/bonitoo-io/tickscript"
 
-tickscript.defineCheck(
-  id: "000000000000",
-  name: "Example check name",
-)
+tickscript.defineCheck(id: "000000000000", name: "Example check name")
 
 // The function above returns: {
 //   _check_id: "000000000000",

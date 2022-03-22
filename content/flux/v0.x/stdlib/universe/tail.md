@@ -22,10 +22,7 @@ Each output table contains the last `n` records before the [`offset`](#offset).
 If the input table has less than `offset + n` records, `tail()` outputs all records before the `offset`.
 
 ```js
-tail(
-  n:10,
-  offset: 0
-)
+tail(n: 10, offset: 0)
 ```
 
 ## Parameters
@@ -53,7 +50,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> tail(n: 3)
+    |> tail(n: 3)
 ```
 
 {{< expand-wrapper >}}
@@ -89,7 +86,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> tail(n: 3, offset: 1)
+    |> tail(n: 3, offset: 1)
 ```
 
 {{< expand-wrapper >}}

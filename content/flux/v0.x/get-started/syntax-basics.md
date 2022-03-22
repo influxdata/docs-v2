@@ -323,17 +323,18 @@ to query sample air sensor data and assigns different streams of data to unique 
 ```js
 import "influxdata/influxdb/sample"
 
-data = sample.data(set: "airSensor")
-    |> range(start: -15m)
-    |> filter(fn: (r) => r._measurement == "airSensors")
+data =
+    sample.data(set: "airSensor")
+        |> range(start: -15m)
+        |> filter(fn: (r) => r._measurement == "airSensors")
 
 temperature =
-  data
-    |> filter(fn: (r) => r._field == "temperature")
+    data
+        |> filter(fn: (r) => r._field == "temperature")
 
 humidity =
-  data
-    |> filter(fn: (r) => r._field == "humidity")
+    data
+        |> filter(fn: (r) => r._field == "humidity")
 ```
 
 These variables can be used in other functions, such as  `join()`, while keeping
@@ -347,9 +348,9 @@ to find the top `n` results in the data set.
 
 ```js
 topN = (tables=<-, n) =>
-  tables
-    |> sort(desc: true)
-    |> limit(n: n)
+    tables
+        |> sort(desc: true)
+        |> limit(n: n)
 ```
 
 Use the custom function `topN` and the `humidity` data stream variable defined
@@ -357,7 +358,7 @@ above to return the top three data points in each input table.
 
 ```js
 humidity
-  |> topN(n:3)
+    |> topN(n:3)
 ```
 
 _For more information about creating custom functions, see [Define custom functions](/flux/v0.x/define-functions)._

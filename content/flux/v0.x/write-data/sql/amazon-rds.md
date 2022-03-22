@@ -15,13 +15,13 @@ related:
 list_code_example: |
   ```js
   import "sql"
-  
+
   data
-    |> sql.to(
-      driverName: "snowflake",
-      dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
-      query: "SELECT * FROM example_table"
-    )
+      |> sql.to(
+          driverName: "postgres",
+          dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
+          table: "example_table",
+      )
   ```
 ---
 
@@ -43,11 +43,11 @@ with Flux:
 import "sql"
 
 data
-  |> sql.to(
-    driverName: "postgres",
-    dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
-    table: "example_table"
-  )
+    |> sql.to(
+        driverName: "postgres",
+        dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
+        table: "example_table",
+    )
 ```
 
 ## Supported database engines

@@ -114,11 +114,12 @@ _The following example uses data provided by the [`sampledata` package](/flux/v0
 import "sampledata"
 import "contrib/bonitoo-io/hex"
 
-data = sampledata.int()
-  |> map(fn: (r) => ({ r with _value: r._value * 1000 }))
+data =
+    sampledata.int()
+        |> map(fn: (r) => ({r with _value: r._value * 1000}))
 
 data
-  |> map(fn:(r) => ({ r with _value: hex.string(v: r.foo) }))
+    |> map(fn: (r) => ({r with _value: hex.string(v: r.foo)}))
 ```
 
 {{< expand-wrapper >}}

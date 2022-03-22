@@ -52,6 +52,6 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> experimental.count()
+    |> range(start: -5m)
+    |> experimental.count()
 ```

@@ -71,7 +71,7 @@ and convert columns to booleans.
 
 ```js
 data
-  |> toBool()
+    |> toBool()
 ```
 
 {{< flex >}}
@@ -103,7 +103,7 @@ data
 
 ```js
 data
-  |> map(fn: (r) => ({ r with running: bool(v: r.running) }))
+    |> map(fn: (r) => ({ r with running: bool(v: r.running) }))
 ```
 
 {{< flex >}}

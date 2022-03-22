@@ -30,9 +30,9 @@ the [`method`](#method) used._
 
 ```js
 median(
-  column: "_value",
-  method: "estimate_tdigest",
-  compression: 0.0
+    column: "_value",
+    method: "estimate_tdigest",
+    compression: 0.0,
 )
 ```
 
@@ -91,7 +91,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float()
-  |> median()
+    |> median()
 ```
 
 {{< expand-wrapper >}}
@@ -124,7 +124,7 @@ sampledata.float()
 import "sampledata"
 
 sampledata.float()
-  |> median(method: "exact_selector")
+    |> median(method: "exact_selector")
 ```
 
 {{< expand-wrapper >}}
@@ -151,13 +151,3 @@ sampledata.float()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-median = (method="estimate_tdigest", compression=0.0, tables=<-) =>
-  quantile(
-    q:0.5,
-    method:method,
-    compression:compression
-  )
-```

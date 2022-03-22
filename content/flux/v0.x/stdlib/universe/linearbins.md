@@ -21,10 +21,10 @@ _**Output data type:** Array of floats_
 
 ```js
 linearBins(
-  start: 0.0,
-  width: 5.0,
-  count: 20,
-  infinity: true
+    start: 0.0,
+    width: 5.0,
+    count: 20,
+    infinity: true,
 )
 ```
 

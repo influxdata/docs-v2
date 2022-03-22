@@ -49,9 +49,5 @@ The prefix to remove.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      sensorID: strings.trimPrefix(v: r.sensorId, prefix: "s12_")
-    })
-  )
+    |> map(fn: (r) => ({r with sensorID: strings.trimPrefix(v: r.sensorId, prefix: "s12_")}))
 ```
