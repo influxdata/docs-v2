@@ -187,3 +187,35 @@ Add the handler:
 ```bash
 kapacitor define-topic-handler email_cpu_handler.yaml
 ```
+
+### Email alerts using a template
+
+
+
+```js
+stream
+	|from()
+		.measurement('cpu')
+		.where(lambda: "host" == 'serverA')
+		.groupBy('host')
+	|window()
+		.period(10s)
+		.every(10s)
+	|count('value')
+	|default()
+		.field('extraemail','bob@example.com')
+		.tag('tagemail','bob2@example.com')
+	|alert()
+		.id('kapacitor.{{ .Name }}.{{ index .Tags "host" }}')
+		.details('''
+<b>{{.Message}}</b>
+Value: {{ index .Fields "count" }}
+<a href="http://graphs.example.com/host/{{index .Tags "host"}}">Details</a>
+''')
+		.info(lambda: "count" > 6.0)
+		.warn(lambda: "count" > 7.0)
+		.crit(lambda: "count" > 8.0)
+		.email()
+			.to('user1@example.com', 'user2@example.com')
+			.toTemplates('{{ index .Fields "extraemail" }}')
+```
