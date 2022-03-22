@@ -9,6 +9,113 @@ menu:
     name: Release notes
     weight: 60
 ---
+
+
+
+- [#10515](https://github.com/influxdata/telegraf/pull/10515) `aggregators.histogram` add push only updated values flag to histogram aggregator
+- [#10598](https://github.com/influxdata/telegraf/pull/10598) bump github.com/azure/azure-kusto-go from 0.5.0 to 0.5.2
+- [#10326](https://github.com/influxdata/telegraf/pull/10326) `common.cookie` address flaky tests in cookie_test.go and graylog_test.go
+- [#10689](https://github.com/influxdata/telegraf/pull/10689) `common.shim` linter fixes for &#34;import-shadowing: the name &#39;...&#39; shadows an import name&#34;
+- [#10684](https://github.com/influxdata/telegraf/pull/10684) `dedup` modifying slice while iterating is dangerous
+- [#10464](https://github.com/influxdata/telegraf/pull/10464) do not save cache on i386 builds
+- [#10681](https://github.com/influxdata/telegraf/pull/10681) error msg for missing env variables in config
+- [#10288](https://github.com/influxdata/telegraf/pull/10288) fix panic in parsers due to missing log for all plugins using setparserfunc.
+- [#10295](https://github.com/influxdata/telegraf/pull/10295) grab table columns more accurately
+- [#10132](https://github.com/influxdata/telegraf/pull/10132) `http_listener_v2` fix panic on close
+- [#10497](https://github.com/influxdata/telegraf/pull/10497) improve parser tests by using go-cmp/cmp
+- [#10332](https://github.com/influxdata/telegraf/pull/10332) `inputs.directory_monitor` update djherbis/times and fix dependabot
+- [#10318](https://github.com/influxdata/telegraf/pull/10318) `inputs.disk` fix missing storage in container with disk plugin
+- [#10711](https://github.com/influxdata/telegraf/pull/10711) `inputs.docker` keep field type of tasks_desired the same
+- [#10491](https://github.com/influxdata/telegraf/pull/10491) `inputs.docker` update docker memory usage calculation
+- [#10636](https://github.com/influxdata/telegraf/pull/10636) `inputs.ecs` use current time as ecs timestamp
+- [#10463](https://github.com/influxdata/telegraf/pull/10463) `inputs.execd` add newline in execd for prometheus parsing
+- [#10575](https://github.com/influxdata/telegraf/pull/10575) `inputs.file` statefull parser handling
+- [#10660](https://github.com/influxdata/telegraf/pull/10660) `inputs.graylog` add graylog toml tags
+- [#10481](https://github.com/influxdata/telegraf/pull/10481) `inputs.graylog` graylog readme to use graylog 3 urls
+- [#10396](https://github.com/influxdata/telegraf/pull/10396) `inputs.http` ensure http body is empty
+- [#10474](https://github.com/influxdata/telegraf/pull/10474) `inputs.ipset` ipset crash when command not found
+- [#10479](https://github.com/influxdata/telegraf/pull/10479) `inputs.logparser` add comment to logparser
+- [#10296](https://github.com/influxdata/telegraf/pull/10296) `inputs.logparser` fix panic in logparser due to missing log.
+- [#10701](https://github.com/influxdata/telegraf/pull/10701) `inputs.mdstat` mdstat when sync is less than 10%
+- [#10246](https://github.com/influxdata/telegraf/pull/10246) `inputs.modbus` make telegraf compile on windows with golang 1.16.2
+- [#10385](https://github.com/influxdata/telegraf/pull/10385) `inputs.modbus` re-enable openbsd modbus support
+- [#10501](https://github.com/influxdata/telegraf/pull/10501) `inputs.modbus` update modbus readme
+- [#10500](https://github.com/influxdata/telegraf/pull/10500) `inputs.modbus` update readme.md
+- [#10208](https://github.com/influxdata/telegraf/pull/10208) `inputs.mqtt_consumer` mqtt topic extracting no longer requires all three fields
+- [#10790](https://github.com/influxdata/telegraf/pull/10790) `inputs.ntpq` correctly read ntpq long poll output
+- [#10384](https://github.com/influxdata/telegraf/pull/10384) `inputs.opcua` accept non-standard opc ua ok status by implementing a configurable workaround
+- [#10465](https://github.com/influxdata/telegraf/pull/10465) `inputs.opcua` add more data to error log
+- [#10478](https://github.com/influxdata/telegraf/pull/10478) `inputs.opcua` remove duplicate addition of fields
+- [#10343](https://github.com/influxdata/telegraf/pull/10343) `inputs.openldap` update go-ldap to v3.4.1
+- [#10284](https://github.com/influxdata/telegraf/pull/10284) `inputs.openstack` typo in openstack neutron input plugin (newtron)
+- [#10705](https://github.com/influxdata/telegraf/pull/10705) `inputs.openweathermap` openweathermap add feels_like field
+- [#10457](https://github.com/influxdata/telegraf/pull/10457) `inputs.phpfpm` ensure ci tests runs against i386
+- [#10648](https://github.com/influxdata/telegraf/pull/10648) `inputs.` revert deprecation of http_listener_v2
+- [#10268](https://github.com/influxdata/telegraf/pull/10268) inputs.snmp to respect number of retries configured
+- [#10748](https://github.com/influxdata/telegraf/pull/10748) `inputs.snmp`  use the correct path when evaluating symlink
+- [#10430](https://github.com/influxdata/telegraf/pull/10430) `inputs.snmp_trap` collapsed fields by calling more indepth function
+- [#10802](https://github.com/influxdata/telegraf/pull/10802) `inputs.snmp` add option to select translator
+- [#10299](https://github.com/influxdata/telegraf/pull/10299) `inputs.snmp` check index before assignment
+- [#10321](https://github.com/influxdata/telegraf/pull/10321) `inputs.snmp` do not require networking during tests
+- [#10551](https://github.com/influxdata/telegraf/pull/10551) `inputs.snmp` ensure folders do not get loaded more than once
+- [#10303](https://github.com/influxdata/telegraf/pull/10303) `inputs.snmp` panic due to no module
+- [#10354](https://github.com/influxdata/telegraf/pull/10354) `inputs.snmp` snmp input plugin errors if mibs folder doesn&#39;t exist (#10346)
+- [#10466](https://github.com/influxdata/telegraf/pull/10466) `inputs.statsd` sanitize stasd names
+- [#10480](https://github.com/influxdata/telegraf/pull/10480) `inputs.syslog` add rfc3164 to rfc5424 translation to docs
+- [#10527](https://github.com/influxdata/telegraf/pull/10527) `inputs.system` remove verbose logging from disk input plugin
+- [#10279](https://github.com/influxdata/telegraf/pull/10279) `inputs.x509_cert` mark testgatherudpcert as an integration test
+- [#10099](https://github.com/influxdata/telegraf/pull/10099) `inputs.zfs` pool detection and metrics gathering for zfs &gt;= 2.1.x
+- [#10777](https://github.com/influxdata/telegraf/pull/10777) `json_v2` allow multiple optional objects
+- [#10413](https://github.com/influxdata/telegraf/pull/10413) `json_v2` use raw values for timestamps
+- [#10630](https://github.com/influxdata/telegraf/pull/10630) license doc outdated causing ci failure
+- [#10710](https://github.com/influxdata/telegraf/pull/10710) linter fixes for config/config.go
+- [#10735](https://github.com/influxdata/telegraf/pull/10735) log err when loading mibs
+- [#10293](https://github.com/influxdata/telegraf/pull/10293) mac signing issue with arm64
+- [#10528](https://github.com/influxdata/telegraf/pull/10528) move &#34;starting telegraf&#34; log
+- [#10635](https://github.com/influxdata/telegraf/pull/10635) `outputs.amqp` check for nil client before closing in amqp
+- [#10196](https://github.com/influxdata/telegraf/pull/10196) `outputs.elasticsearch` implement nan and inf handling for elasticsearch output
+- [#10209](https://github.com/influxdata/telegraf/pull/10209) `outputs.graylog` ensure graylog spec fields not prefixed with ??
+- [#10623](https://github.com/influxdata/telegraf/pull/10623) `outputs.groundwork` set nextchecktime to lastchecktime to avoid groundwork to invent a value
+- [#10255](https://github.com/influxdata/telegraf/pull/10255) `outputs.groundwork` update groundwork sdk and improve logging
+- [#10706](https://github.com/influxdata/telegraf/pull/10706) `outputs.influxdb_v2` include influxdb bucket name in error messages
+- [#10673](https://github.com/influxdata/telegraf/pull/10673) `outputs.sql` sql unsigned settings
+- [#10097](https://github.com/influxdata/telegraf/pull/10097) `outputs.stackdriver` cumulative interval start times for stackdriver output
+- [#10393](https://github.com/influxdata/telegraf/pull/10393) `outputs.syslog` correctly set ascii trailer for syslog output
+- [#8947](https://github.com/influxdata/telegraf/pull/8947) `outputs.timestream` fix batching logic with write records, introduce concurrent requests
+- [#10225](https://github.com/influxdata/telegraf/pull/10225) `outputs.wavefront` flush wavefront output sender on error to clean up broken connections
+- [#10274](https://github.com/influxdata/telegraf/pull/10274) `outputs.wavefront` run gofmt
+- [#10301](https://github.com/influxdata/telegraf/pull/10301) panic is no mibs folder is found
+- [#10377](https://github.com/influxdata/telegraf/pull/10377) `parsers.csv` empty import tzdata for windows binaries
+- [#10742](https://github.com/influxdata/telegraf/pull/10742) `parsers.csv` typo metadata support in csv parser
+- [#10468](https://github.com/influxdata/telegraf/pull/10468) `parsers.json_v2` allow optional paths and handle wrong paths correctly
+- [#10799](https://github.com/influxdata/telegraf/pull/10799) `parsers.json_v2` check if gpath exists and support optional in fields/tags
+- [#10618](https://github.com/influxdata/telegraf/pull/10618) `parsers.json_v2` incorrect handling of json_v2 timestamp_path
+- [#10221](https://github.com/influxdata/telegraf/pull/10221) `parsers.json_v2` json_v2 parser timestamp setting
+- [#10657](https://github.com/influxdata/telegraf/pull/10657) `parsers.json_v2` timestamp change during execution of json_v2 parser.
+- [#10473](https://github.com/influxdata/telegraf/pull/10473) `parsers.nagios` nagios parser now uses real error for logging #10472
+- [#10188](https://github.com/influxdata/telegraf/pull/10188) `parsers.xpath` handle duplicate registration of protocol-buffer files gracefully.
+- [#10441](https://github.com/influxdata/telegraf/pull/10441) `parsers.xpath` typo in docs
+- [#10205](https://github.com/influxdata/telegraf/pull/10205) print loaded plugins and deprecations for once and test
+- [#10214](https://github.com/influxdata/telegraf/pull/10214) `processors.ifname` eliminate mib dependency for ifname processor
+- [#10007](https://github.com/influxdata/telegraf/pull/10007) `processors.ifname` parallelism fix for ifname processor
+- [#10560](https://github.com/influxdata/telegraf/pull/10560) remove signed macos dotfile artifacts
+- [#10727](https://github.com/influxdata/telegraf/pull/10727) revert &#34;fix: error msg for missing env variables in config (#10681)&#34;
+- [#10203](https://github.com/influxdata/telegraf/pull/10203) revert unintented corruption of the makefile from #10200.
+- [#10273](https://github.com/influxdata/telegraf/pull/10273) run go mod tidy
+-  `serializers.prometheusremotewrite` prometheusremotewrite wrong timestamp unit
+-  snmp marshal error
+- sudden close of telegraf caused by opc ua input plugin
+-  update containerd to 1.5.9
+- update go-sensu to v2.12.0
+- update gosmi from v0.4.3 to v0.4.4
+-  update parsing logic of config.duration
+-  update the precision parameter default value
+-  use sha256 for rpm digest
+-  warning output when running with --test
+-  wavefront_disable_prefix_conversion case missing from missingtomlfield func
+- windows service - graceful shutdown of telegraf
+
+
 ## v1.21.4 [2022-2-16]
 
 - Update to Go 1.17.7 to address [three security issues](https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ/m/gx45t8JEAgAJ?pli=1) in the library.
