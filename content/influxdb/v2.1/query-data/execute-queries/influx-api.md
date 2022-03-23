@@ -82,7 +82,7 @@ Below is an example `curl` request that sends an InfluxQL query to InfluxDB {{< 
 
 {{% code-tab-content %}}
 ```bash
-curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>?database=MyDB&retention_policy=MyRP \
+curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>&database=MyDB&retention_policy=MyRP \
   --header 'Authorization: Token <INFLUX_TOKEN>' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
@@ -92,7 +92,7 @@ curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>?database=MyD
 
 {{% code-tab-content %}}
 ```bash
-curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>?database=MyDB&retention_policy=MyRP \
+curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>&database=MyDB&retention_policy=MyRP \
   --header 'Authorization: Token <INFLUX_TOKEN>' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
