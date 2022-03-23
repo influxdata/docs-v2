@@ -2,9 +2,10 @@
 title: Troubleshoot Telegraf
 description: Resolve common issues with Telegraf.
 menu:
-  telegraf_1_22_ref:
+  telegraf_1_22:
 
     name: Troubleshoot
+    Parent: Configure plugins
     weight: 79
 ---
 
