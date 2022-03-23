@@ -9,6 +9,247 @@ menu:
     name: Release notes
     weight: 60
 ---
+## v1.22.0 [2022-3-22]
+
+## Features
+
+- Add `autorestart` and `restartdelay` flags to Windows service
+- Add builds for `riscv64`.
+- Add file version and icon to `win.exe`.
+- Add `systemd` notify support.
+- Check TLS configuration early to catch missing certificates.
+- Implement collection offset.
+- `common.auth`: HTTP basic auth.
+- `common.cookie`: Support headers with cookie auth.
+- `common.proxy`: Add `socks5` proxy support.
+- Improve error logging on plugin initialization.
+
+## Bug fixes
+
+- Print loaded plugins and deprecations for once and test.
+- Remove signed MacOS artifacts.
+- Run `go mod tidy`.
+- Fix `prometheusremotewrite` wrong timestamp unit.
+- Fix sudden close ccaused by OPC UA inpu.
+- Update `containerd` to 1.5.9.
+- Update `go-sensu` to v2.12.0.
+- Update `gosmi` from v0.4.3 to v0.4.4.
+- Update parsing logic of `config.duration`.
+- Update precision parameter default value.
+- Use `sha256` for rpm digest.
+- Warning output when running with `--test`.
+- Graceful shutdown of Telegraf with Windows service.
+- Add push-only updated values flag to histogram aggregator.
+- `common.cookie`: Address flaky tests in cookie_test.go and graylog_test.go.
+- `common.shim`: Linter fixes.
+- Do not save cache on i386 builds.
+- Add error msg for missing environment variables in configuration file.
+- Fix panic in parsers due to missing log for all plugins using `setparserfunc`.
+- Grab table columns more accurately.
+- Improve parser tests by using `go-cmp/cmp`.
+- Linter fixes for `config/config.go`.
+- Log error when loading mibs.
+- Fix Mac signing issue with arm64.
+
+## New plugins
+
+### Inputs
+
+- [Hashicorp Consul Agent Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/consul_metrics)(`consul_agent`) - Contributed by [@efbar](https://github.com/efbar).
+- [Hashicorp Nomad Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nomad)(`nomad`) - Contributed by [@efbar](https://github.com/efbar).
+- [Hashicorp Vault Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/vault)(`vault`) - Contributed by [@efbar](https://github.com/efbar).
+- [Hugepages Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/hugepages)(`hugepages`) - Contributed by [@zak-pawel](https://github.com/zak-pawel).
+- [Mock Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mock)(`mock`) - Contributed by [InfluxData](https://github.com/influxdata).
+- [Redis Sentinel Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/redis_sentinel)(`redis_sentinel`) - Contributed by [@spideyfusion](https://github.com/spideyfusion).
+- [Socketstat Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/socketstat)(`socketstat`) - Contributed by [@sajoupa](https://github.com/sajoupa).
+- [XtremIO Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/xtremio)(`xtremio`) - Contributed by [@cthiel42](https://github.com/cthiel42).
+
+### Processors
+
+- [Noise Processor](https://github.com/influxdata/telegraf/tree/master/plugins/processors/noise) (`noise`) - Contributed by [@wizarq](https://github.com/wizarq).
+
+### Input plugin updates
+
+- Aerospike (`aerospike`): Update `github.com/aerospike/aerospike-client-go` from 1.27.0 to 5.7.0.
+- Bond (`bond`): Add additional stats.
+- Directory Monitor (`directory_monitor`):
+  - Update `djherbis/times` and fix `dependabot`.
+  - Plugin restructuring.
+- Disk (`disk`): Fix missing storage in container.
+- Docker (`docker`):
+  - Keep field type of `tasks_desired` the same.
+  - Update memory usage calculation.
+  - Update client API version.
+- ECS (`ecs`): Use current time as timestamp.
+- Execd `execd`: Add newline for Prometheus parsing.
+- File (`file`): Statefull parser handling.
+- GNMI (`gnmi`): Add dynamic tagging.
+- Graylog (`graylog`):
+  - Add `toml` tags.
+  - Add `timeout-setting`.
+  - Update documentation to use current URLs.
+- HTTP (`http`): Ensure http body is empty.
+- HTTP Listener v2 (`http_listener_v2`): Revert deprecation.
+- Internet speed (`internet_speed`): Add caching.
+- IPset (`ipset`): Fix crash when command not found.
+- JSON V2 (`json_v2`):
+  - Allow multiple optional objects.
+  - Use raw values for timestamps.
+- Kibana (`kibana`): Add `heap_size_limit` field.
+- Logparser (`logparser`):
+  - Add comment.
+  - Fix panic due to missing log.
+- MDStat (`mdstat`): Fix when sync is less than 10%.
+- Memcached (`memcached`): Gather additional stats.
+- Modbus `modbus`:
+    - Make Telegraf compile on Windows with golang 1.16.2.
+    - Re-enable openbsd support.
+    - Update documentation.
+    - Add `per-request` tags.
+    - Support multiple slaves (gateway feature).
+- MQTT Consumer (`mqtt_consumer`): Topic extracting no longer requires all three fields.
+- NFS Client (`nfsclient`): Add new field.
+- NTPQ (`ntpq`): Correctly read long poll output.
+- OPCUA (`opcua`):
+  - Accept non-standard OK status by implementing a configurable workaround.
+  - Add more data to error log.
+  - Remove duplicate addition of fields.
+- OpenLDAP (`openldap`): Update go-ldap to v3.4.1.
+- OpenStack (`openstack`): Fix typo.
+- OpenWeatherMap (`openweathermap`): Add `feels_like` field.
+- PHPfpm (`phpfpm`): Ensure CI tests runs against i386.
+- PostgreSQL (`postgresql`): Add option to disable prepared statements.
+- SMART (`smart`): Add concurrency configuration option, support and lint fixes.
+- SNMP `(snmp`):
+  - Respect number of retries configured.
+  - Use the correct path when evaluating symlink.
+  - Add option to select translator.
+  - Check index before assignment.
+  - Do not require networking during tests.
+  - Ensure folders do not get loaded more than once.
+  - Fix panic due to no module.
+  - Fix errors if mibs folder doesn't exist.
+  - Optimize locking for mibs loading.
+- SNMP Trap (`snmp_trap`):
+  - Collapsed fields by calling more in-depth function.
+  - Deprecate unused timeout configuration option.
+- SQL (`sql`): Add Clickhouse driver.
+- StatsD (`statsd`): Sanitize names.
+- Syslog (`syslog`): Add rfc3164 to rfc5424 translation to docs.
+- System (`system`): Remove verbose logging.
+- Windows Performance Counter (`win_perf_counter`):
+  - Allow errors to be ignored.
+  - Implemented support for reading raw values, added tests, and  update documentation.
+- X.509 Certificate (`x509_cert`):
+  - Mark `testgatherudpcert` as an integration test.
+  - Add `exclude_root_certs` option.
+- ZFS (`zfs`): Pool detection and metrics gathering for ZFS 2.1.x.
+
+
+### Output plugin updates
+
+- AMQP (`amqp`): Check for nil client before closing.
+- ElasticSearch (`elasticsearch`):
+  - Implement `nan` and `inf` handling.
+  - Add bearer token support.
+- Graylog (`graylog`): Fix to field prefixes.
+- Groundwork (`groundwork`):
+  - Set `nextchecktime` to `lastchecktime`.
+  - Update SDK and improve logging.
+  - Process group tag.
+- InfluxDB V2 (`influxdb_v2`): Include bucket name in error messages.
+- SQL (`sql`): Fix unsigned settings.
+- Stackdriver (`stackdriver`): Cumulative interval start times.
+- Syslog (`syslog`): Correctly set trailer.
+- Timestream (`timestream`): Fix batching logic with write record and introduce concurrent requests.
+- Datadog (`datadog`): Add compression.
+- HTTP (`http`):
+  - Add optional list of non-retryable status codes.
+  - Support AWS managed service for Prometheus.
+- Websocket `websocket`: `socks5` proxy support.
+- Wavefront (`wavefront`):
+    - Flush sender on error to clean up broken connections.
+    - Run `gofmt`.
+    - Fix panic if no mibs folder is found.
+
+## Parser plugin updates
+
+- CSV (`csv`):
+  - Empty import tzdata for Windows binaries.
+  - Fix typo.
+- Ifname (`ifname`):
+  - Eliminate mib dependency.
+  - Parallelism fix.
+- JSON V2 (`parsers.json_v2`):
+  - Allow optional paths and handle wrong paths correctly.
+  - Check if gpath exists and support optional in fields/tags.
+  - Fixes to timestamp setting.
+- Nagios (`nagios`): Use real error for logging.
+- XPath (`xpath`):
+  - Handle duplicate registration of protocol-buffer files gracefully.
+  - Fix typo.
+
+### Dependency updates
+
+- Update `github.com/azure/azure-kusto-go` from 0.5.0 to 0.5.2.
+- Update `github.com/nats-io/nats-server/v2` from 2.7.3 to 2.7.4.
+- Update `github.com/shopify/sarama` from 1.29.1 to 1.32.0.
+- Update `github.com/shirou/gopsutil`/v3 from 3.21.12 to 3.22.2.
+- Update `github.com/aws/aws-sdk-go-v2/feature/ec2/imds`.
+- Update `github.com/miekg/dns` from 1.1.43 to 1.1.46.
+- Update `github.com/aws/aws-sdk-go-v2/service/dynamodb`.
+- Update `github.com/nats-io/nats-server/v2` from 2.7.2 to 2.7.3.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.8.3 to 1.13.1.
+- Update `github.com/testcontainers/testcontainers-go`.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs`.
+- Update `github.com/aws/aws-sdk-go-v2/feature/ec2/imds`.
+- Update `github.com/wavefronthq/wavefront-sdk-go` from 0.9.9 to 0.9.10.
+- Update `github.com/clickhouse/clickhouse-go` from 1.5.1 to 1.5.4.
+- Update `k8s.io/api` from 0.23.3 to 0.23.4.
+- Update `cloud.google.com/go/pubsub` from 1.17.1 to 1.18.0.
+- Update `github.com/newrelic/newrelic-telemetry-sdk-go`.
+- Update `github.com/aws/aws-sdk-go-v2/service/dynamodb` from 1.5.0 to 1.13.0.
+- Update `github.com/sensu/sensu-go/api/core/v2` from 2.12.0 to 2.13.0.
+- Update `github.com/gophercloud/gophercloud` from 0.16.0 to 0.24.0.
+- Update `github.com/jackc/pgx/v4` from 4.14.1 to 4.15.0.
+- Update `github.com/aws/aws-sdk-go-v2/service/sts` from 1.7.2 to 1.14.0.
+- Update all `go.opentelemetry.io` dependencies.
+- Update `github.com/signalfx/golib/v3` from 3.3.38 to 3.3.43.
+- Update `github.com/aliyun/alibaba-cloud-sdk-go`.
+- Update `github.com/denisenkom/go-mssqldb` from 0.10.0 to 0.12.0.
+- Update `github.com/gopcua/opcua` from 0.2.3 to 0.3.1.
+- Update `github.com/nats-io/nats-server/v2` from 2.6.5 to 2.7.2.
+- Update `k8s.io/client-go` from 0.22.2 to 0.23.3.
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.6.0 to 1.13.0.
+- Update `github.com/benbjohnson/clock` from 1.1.0 to 1.3.0.
+- Update `github.com/vmware/govmomi` from 0.27.2 to 0.27.3.
+- Update `github.com/prometheus/client_golang` from 1.11.0 to 1.12.1.
+- Update `go.mongodb.org/mongo-driver` from 1.7.3 to 1.8.3.
+- Update `github.com/google/go-cmp` from 0.5.6 to 0.5.7.
+- Update `go.opentelemetry.io/collector/model` from 0.39.0 to 0.43.2.
+- Update `github.com/multiplay/go-ts3` from 1.0.0 to 1.0.1.
+- Update `cloud.google.com/go/monitoring` from 0.2.0 to 1.2.0.
+- Update `github.com/vmware/govmomi` from 0.26.0 to 0.27.2.
+- Update `google.golang.org/api` from 0.54.0 to 0.65.0.
+- Update `github.com/antchfx/xmlquery` from 1.3.6 to 1.3.9.
+- Update `github.com/nsqio/go-nsq` from 1.0.8 to 1.1.0.
+- Update `github.com/prometheus/common` from 0.31.1 to 0.32.1.
+- Update `cloud.google.com/go/pubsub` from 1.17.0 to 1.17.1.
+- Update `github.com/influxdata/influxdb-observability/influx2otel` from 0.2.8 to 0.2.10.
+- Update `github.com/shirou/gopsutil/v3` from 3.21.10 to 3.21.12.
+- Update `github.com/jackc/pgx/v4` from 4.6.0 to 4.14.1.
+- Update `github.com/azure/azure-event-hubs-go/v3` from 3.3.13 to 3.3.17.
+- Update `github.com/gosnmp/gosnmp` from 1.33.0 to 1.34.0.
+- Update `github.com/hashicorp/consul/api` from 1.9.1 to 1.12.0.
+- Update `github.com/antchfx/xpath` from 1.1.11 to 1.2.0.
+- Update `github.com/antchfx/jsonquery` from 1.1.4 to 1.1.5.
+- Update `github.com/prometheus/procfs` from 0.6.0 to 0.7.3.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.5.2 to 1.12.0.
+- Update `github.com/kardianos/service` from 1.0.0 to 1.2.1.
+- Update `github.com/couchbase/go-couchbase` from 0.1.0 to 0.1.1.
+- Update `github.com/pion/dtls/v2` from 2.0.9 to 2.0.13.
+- Update `github.com/eclipse/paho.mqtt.golang` from 1.3.0 to 1.3.5.
+
 ## v1.21.4 [2022-2-16]
 
 - Update to Go 1.17.7 to address [three security issues](https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ/m/gx45t8JEAgAJ?pli=1) in the library.
