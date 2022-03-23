@@ -43,8 +43,8 @@ Below is an example `curl` request that sends a Flux query to InfluxDB {{< curre
 {{% code-tab-content %}}
 ```bash
 curl --request POST \
-  http://localhost:8086/api/v2/query?org=my-org  \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  http://localhost:8086/api/v2/query?orgID=INFLUX_ORG_ID  \
+  --header 'Authorization: Token INFLUX_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/vnd.flux' \
   --data 'from(bucket:"example-bucket")
@@ -57,8 +57,8 @@ curl --request POST \
 {{% code-tab-content %}}
 ```bash
 curl --request POST \
-  http://localhost:8086/api/v2/query?org=my-org \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+  http://localhost:8086/api/v2/query?orgID=INFLUX_ORG_ID \
+  --header 'Authorization: Token INFLUX_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/vnd.flux' \
   --header 'Accept-Encoding: gzip' \
@@ -82,8 +82,8 @@ Below is an example `curl` request that sends an InfluxQL query to InfluxDB {{< 
 
 {{% code-tab-content %}}
 ```bash
-curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>&database=MyDB&retention_policy=MyRP \
-  --header 'Authorization: Token <INFLUX_TOKEN>' \
+curl --request -G http://localhost:8086/query?orgID=INFLUX_ORG_ID&database=MyDB&retention_policy=MyRP \
+  --header 'Authorization: Token INFLUX_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
@@ -92,8 +92,8 @@ curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>&database=MyD
 
 {{% code-tab-content %}}
 ```bash
-curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>&database=MyDB&retention_policy=MyRP \
-  --header 'Authorization: Token <INFLUX_TOKEN>' \
+curl --request -G http://localhost:8086/query?orgID=INFLUX_ORG_ID&database=MyDB&retention_policy=MyRP \
+  --header 'Authorization: Token INFLUX_TOKEN' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
   --header 'Accept-Encoding: gzip' \
