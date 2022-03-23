@@ -82,8 +82,8 @@ Below is an example `curl` request that sends an InfluxQL query to InfluxDB {{< 
 
 {{% code-tab-content %}}
 ```bash
-curl --request -G http://localhost:8086/query?org=my-org?database=MyDB&retention_policy=MyRP \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>?database=MyDB&retention_policy=MyRP \
+  --header 'Authorization: Token <INFLUX_TOKEN>' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
   --data-urlencode "q=SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1"
@@ -92,8 +92,8 @@ curl --request -G http://localhost:8086/query?org=my-org?database=MyDB&retention
 
 {{% code-tab-content %}}
 ```bash
-curl --request -G http://localhost:8086/query?org=my-org?database=MyDB&retention_policy=MyRP \
-  --header 'Authorization: Token YOURAUTHTOKEN' \
+curl --request -G http://localhost:8086/query?orgID=<INFLUX_ORG_ID>?database=MyDB&retention_policy=MyRP \
+  --header 'Authorization: Token <INFLUX_TOKEN>' \
   --header 'Accept: application/csv' \
   --header 'Content-type: application/json' \
   --header 'Accept-Encoding: gzip' \
