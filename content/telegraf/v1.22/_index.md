@@ -10,6 +10,7 @@ weight: 1
 related:
   - /resources/videos/intro-to-telegraf/
 ---
+
 Telegraf, a server-based agent, collects and sends metrics and events from databases, systems, and IoT sensors.
 Written in Go, Telegraf compiles into a single binary with no external dependencies--requiring very minimal memory.
 
