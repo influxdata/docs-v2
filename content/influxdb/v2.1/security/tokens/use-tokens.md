@@ -17,7 +17,7 @@ Authenticate requests using the [`influx` CLI](/influxdb/v2.1/reference/cli/infl
 ### Add a token to a CLI request
 
 ```sh
-influx write -t <INFLUX_TOKEN> -b <BUCKET> -o org-name <LINE_PROTOCOL>
+influx write -t <INFLUX_TOKEN> -b <BUCKET_NAME> -o org-name <LINE_PROTOCOL>
 ```
 
 ```
