@@ -81,7 +81,7 @@ Provide the following:
 
 ```sh
 # Syntax
-influx export all -f <file-path>
+influx export all -f <FILE_PATH>
 ```
 
 #### Export resources filtered by labelName or resourceKind
@@ -172,10 +172,10 @@ Provide the following:
 ```sh
 # Syntax
 influx export stack \
-  -o <org-name> \
-  -t <token> \
-  -f <file-path> \
-  <stack-id>
+  -o <INFLUX_ORG> \
+  -t <INFLUX_TOKEN> \
+  -f <FILE_PATH> \
+  <STACK_ID>
 
 # Example
 influx export stack \

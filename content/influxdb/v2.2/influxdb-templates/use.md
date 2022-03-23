@@ -63,7 +63,7 @@ View a summary of a template stored in your local filesystem or from a URL.
 {{% code-tab-content %}}
 ```sh
 # Syntax
-influx template -f <template-file-path>
+influx template -f <FILE_PATH>
 
 # Example
 influx template -f /path/to/template.yml
@@ -72,7 +72,7 @@ influx template -f /path/to/template.yml
 {{% code-tab-content %}}
 ```sh
 # Syntax
-influx template -u <template-url>
+influx template -u <FILE_URL>
 
 # Example
 influx template -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
@@ -93,7 +93,7 @@ Validate a template stored in your local filesystem or from a URL.
 {{% code-tab-content %}}
 ```sh
 # Syntax
-influx template validate -f <template-file-path>
+influx template validate -f <FILE_PATH>
 
 # Example
 influx template validate -f /path/to/template.yml
@@ -102,7 +102,7 @@ influx template validate -f /path/to/template.yml
 {{% code-tab-content %}}
 ```sh
 # Syntax
-influx template validate -u <template-url>
+influx template validate -u <FILE_URL>
 
 # Example
 influx template validate -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
@@ -135,7 +135,7 @@ to provide the **file path** of the template manifest.
 
 ```sh
 # Syntax
-influx apply -o <org-name> -f <template-file-path>
+influx apply -o <INFLUX_ORG> -f <FILE_PATH>
 
 # Examples
 # Apply a single template
@@ -156,7 +156,7 @@ include the `-R`, `--recurse` flag.
 
 ```sh
 # Syntax
-influx apply -o <org-name> -f <template-directory-path>
+influx apply -o <INFLUX_ORG> -f <DIRECTORY_PATH>
 
 # Examples
 # Apply all templates in a directory
@@ -172,7 +172,7 @@ of the template manifest.
 
 ```sh
 # Syntax
-influx apply -o <org-name> -u <template-url>
+influx apply -o <INFLUX_ORG> -u <FILE_URL>
 
 # Examples
 # Apply a single template from a URL
@@ -190,7 +190,7 @@ file or directory paths and URLs, each with the appropriate `-f` or `-u` flag.
 
 ```sh
 # Syntax
-influx apply -o <org-name> -u <template-url> -f <template-path>
+influx apply -o <INFLUX_ORG> -u <FILE_URL> -f <FILE_PATH>
 
 # Example
 influx apply -o example-org \
@@ -224,7 +224,7 @@ with the secret key-value pair.
 
 ```sh
 # Syntax
-influx apply -o <org-name> -f <template-file-path> \
+influx apply -o <INFLUX_ORG> -f <FILE_PATH> \
   --secret=<secret-key>=<secret-value>
 
 # Examples
