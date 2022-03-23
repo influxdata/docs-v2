@@ -8,11 +8,15 @@ menu:
     weight: 20
 ---
 
+This page provides directions for installing, starting, and configuring Telegraf. To install Telegraf, do the following:
+
+1. [Download Telegraf](#download)
+2. [Review requirements](#requirements)
+3. [Complete the installation](#installation)
+
 ## Download
 
 Download the latest Telegraf release at the [InfluxData download page](https://portal.influxdata.com/downloads).
-
-This page provides directions for installing, starting, and configuring Telegraf.
 
 ## Requirements
 
@@ -138,7 +142,7 @@ sudo yum install telegraf
 
 ## Configuration
 
-### Create a configuration file with default input and output plugins.
+### Create a configuration file with default input and output plugins
 
 Every plugin will be in the file, but most will be commented out.
 
@@ -263,7 +267,7 @@ For more advanced configuration details, see the
 <!---------- BEGIN Windows ---------->
 {{% tab-content %}}
 
-## Download and run Telegraf as a Windows service
+#### Download and run Telegraf as a Windows service
 
 {{% note %}}
 Installing a Windows service requires administrative permissions.
@@ -293,10 +297,7 @@ In PowerShell _as an administrator_, do the following:
     Or create a [Windows symbolic link (Symlink)](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/)
     to point to this directory.
 
-    {{% note %}}
-The instructions below assume that either the `telegraf.exe` and `telegraf.conf` files are stored in
-`C:\Program Files\InfluxData\telegraf`, or you've created a Symlink to point to this directory.
-    {{% /note %}}
+    > The instructions below assume that either the `telegraf.exe` and `telegraf.conf` files are stored in `C:\Program Files\InfluxData\telegraf`, or you've created a Symlink to point to this directory.
 
 3.  Install Telegraf as a service:
 
@@ -307,13 +308,13 @@ The instructions below assume that either the `telegraf.exe` and `telegraf.conf`
     Make sure to provide the absolute path of the `telegraf.conf` configuration file,
     otherwise the Windows service may fail to start.
 
-3.  To test that the installation works, run:
+4.  To test that the installation works, run:
 
     ```powershell
     > C:\"Program Files"\InfluxData\telegraf\telegraf.exe --config C:\"Program Files"\InfluxData\telegraf\telegraf.conf --test
     ```
 
-4.  To start collecting data, run:
+5.  To start collecting data, run:
 
     ```powershell
     telegraf.exe --service start

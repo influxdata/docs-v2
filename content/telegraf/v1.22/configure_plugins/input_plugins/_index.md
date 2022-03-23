@@ -10,4 +10,4 @@ menu:
 ---
 For a complete list of input plugins and links to their detailed configuration options, see [input plugins](/{{< latest "telegraf" >}}/plugins/inputs/).
 
-In addition to plugin-specific data formats, Telegraf supports a set of [common data formats]({{< latest "telegraf" >}}//data_formats/input/) available when configuring many of the Telegraf input plugins.
+In addition to plugin-specific data formats, Telegraf supports a set of [common data formats](/{{< latest "telegraf" >}}/data_formats/input/) available when configuring many of the Telegraf input plugins.

@@ -16,7 +16,7 @@ more flexibility compared to internal Telegraf plugins. Benefits to using extern
 - Using licensed software (not available to open source community)
 - Including large dependencies that would otherwise bloat Telegraf
 - Using your external plugin immediately without waiting for the Telegraf team to publish
-- Easily convert plugins between internal and external using the [shim](/telegraf/latest/external_plugins/shim/)
+- Easily convert plugins between internal and external using the [shim](/{{< latest "telegraf" >}}/external_plugins/shim/)
 
 
 

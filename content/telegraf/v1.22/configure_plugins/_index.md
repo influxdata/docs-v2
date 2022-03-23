@@ -8,6 +8,6 @@ menu:
      weight: 50
 ---
 
-Telegraf is a server-based agent for collecting and sending all metrics and events from databases, systems, and IoT sensors.
+Telegraf is a server-based agent for collecting and sending metrics and events from databases, systems, and IoT sensors.
 
 {{< children hlevel="h2" >}}
