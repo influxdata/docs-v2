@@ -32,6 +32,21 @@ Below is an example configuration:
   ssl-cert = ""
   ssl-key = ""
   insecure-skip-verify = false
+  # Optional SASL configuration
+  sasl-username = "xxxxx"
+  sasl-password = "xxxxxxxx"
+  sasl-mechanism = ""
+  sasl-version = ""
+  # Use if sasl-mechanism is GSSAPI. GSSAPI is for organizations using Kerberos.
+  sasl-gssapi-service-name = ""
+  sasl-gssapi-auth-type = "KRB5_USER_AUTH"
+  sasl-gssapi-disable-pafxfast = false
+  sasl-gssapi-kerberos-config-path = "/"
+  sasl-gssapi-key-tab-path = ""
+  sasl-gssapi-realm = "realm"
+  # Use if sasl-mechanism is `OAUTHBEARER` (experimental).
+  sasl-access-token = ""
+
 ```
 
 {{% note %}}
@@ -76,6 +91,41 @@ Path to certificate private key file.
 #### insecure-skip-verify
 Use SSL but skip chain and host verification.
 _(Required if using a self-signed certificate.)_
+
+### (Optional) SASL configuration
+
+#### sasl-username
+Username to use for SASL authentication.
+
+#### sasl-password
+Password to use for SASL authentication.
+
+#### sasl-mechanism
+SASL mechanism type. Options include `GSSAPI`, `OAUTHBEARER`, `PLAIN`.
+
+#### sasl-version
+SASL protocol version.
+
+#### sasl-gssapi-service-name
+The service name for GSSAPI.
+
+#### sasl-gssapi-auth-type
+The authorization type for GSSAPI.
+
+####  sasl-gssapi-disable-pafxfast
+Set to `true` or `false`.
+
+####  sasl-gssapi-kerberos-config-path
+Path to the Kerberos config file.
+
+#### sasl-gssapi-key-tab-path
+Path to the Kerberos key tab.
+
+####  sasl-gssapi-realm
+Default Kerberos realm.
+
+#### sasl-access-token
+Used if the SASL mechanism is `OAUTHBEARER` (experimental).
 
 ## Options
 The following Kafka event handler options can be set in a
@@ -221,3 +271,29 @@ Add the handler:
 ```bash
 kapacitor define-topic-handler kafka_cpu_handler.yaml
 ```
+
+### Using SASL with Kapacitor
+
+Kapacitor can be configured to use SASL if you want to use methods of authentication other than SSL. 
+An example would be using Kapacitor to authenticate directly against Kafka with a username/password. 
+Multiple configuration options are available, but the most common usage is username and password as shown in the following example:
+
+```toml
+[[kafka]]
+  enabled = true
+  id = "infra-monitoring"
+  brokers = ["123.45.67.89:9092", "123.45.67.90:9092"]
+  timeout = "10s"
+  batch-size = 100
+  batch-timeout = "1s"
+  use-ssl = true
+  ssl-ca = "/etc/ssl/certs/ca.crt"
+  ssl-cert = "/etc/ssl/certs/cert.crt"
+  ssl-key = "/etc/ssl/certs/cert-key.key"
+  insecure-skip-verify = true
+  sasl-username = "kafka"
+  sasl-password = "kafkapassword"
+```
+
+
+
