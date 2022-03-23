@@ -1,6 +1,7 @@
 ---
 title: Transform data with aggregator and processor plugins
-description: Aggregator and processor plugins aggregate and process metrics.
+description: |
+  Aggregator and processor plugins aggregate and process metrics.
 menu:
   telegraf_1_22:
      name: Aggregator and processor plugins
