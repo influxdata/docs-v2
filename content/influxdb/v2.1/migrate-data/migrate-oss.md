@@ -2,7 +2,7 @@
 title: Migrate data from InfluxDB OSS to other InfluxDB instances
 description: >
   Migrate data from an InfluxDB OSS bucket to another InfluxDB OSS or InfluxDB
-  Cloud bucket
+  Cloud bucket.
 menu:
   influxdb_2_1:
     name: Migrate data from OSS
@@ -14,8 +14,8 @@ To migrate data from an InfluxDB OSS bucket to another InfluxDB OSS or InfluxDB
 Cloud bucket:
 
 1. [Find the ID of the bucket](/influxdb/v2.1/organizations/buckets/view-buckets/)
-    you want to migrate.
-2. Use the `influxd inspect export-lp` command to export data in a bucket as
+   that contains data you want to migrate.
+2.  Use the `influxd inspect export-lp` command to export data in a bucket as
     [line protocol](/influxdb/v2.1/reference/syntax/line-protocol/).
     Provide the following:
 
@@ -41,3 +41,19 @@ Cloud bucket:
       --end 2022-01-31T23:59:59Z \
       --compress
     ```
+
+    {{% cloud %}}
+#### InfluxDB Cloud write limits
+- InfluxDB Cloud write limits per five minutes free plan (5 MB), PAYG (3 GB)
+- InfluxDB Cloud global limit: 250 MB (uncompressed) batch size
+    {{% /cloud %}}
+
+3.  Write the exported line protocol to your InfluxDB Cloud or InfluxDB OSS instance.
+    
+    Use one of the following methods:
+
+    - Import line protocol in the **InfluxDB UI**:
+        - [InfluxDB Cloud](/influxdb/cloud/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
+        - [InfluxDB OSS {{< current-version >}}](/influxdb/v2.1/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
+    - [Bulk ingest data (InfluxDB Cloud)](/influxdb/cloud/write-data/bulk-ingest-cloud/)
+    - 
