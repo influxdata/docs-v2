@@ -14,7 +14,7 @@ aliases:
 ---
 
 
-## Install Node.js 
+## Install Node.js
 
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
@@ -22,11 +22,11 @@ aliases:
    For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.2/reference/urls/).
 
 3. Start a new Node.js project.
-   The `npm` package manager is included with Node.js.
+  The `npm` package manager is included with Node.js.
 
-   ```sh
-   npm init -y influx-node-app
-   ```
+  ```sh
+  npm init -y influx-node-app
+  ```
 
 ## Install TypeScript
 
@@ -69,7 +69,7 @@ Add both as dependencies of your project.
 
 Once you've installed the Javascript client library, you're ready to [write data](/influxdb/v2.2/api-guide/client-libraries/nodejs/write/) to InfluxDB or [get started](#get-started-with-examples) with other examples from the client library.
 
-## Get started with examples 
+## Get started with examples
 
 {{% note %}}
 The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for accessing your InfluxDB properties from environment variables or from `env.js`.
