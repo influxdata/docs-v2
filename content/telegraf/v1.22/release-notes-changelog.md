@@ -9,112 +9,246 @@ menu:
     name: Release notes
     weight: 60
 ---
+## v1.22.0 [2022-3-22]
+
+## Features
+
+- Add `autorestart` and `restartdelay` flags to Windows service
+- Add builds for `riscv64`.
+- Add file version and icon to `win.exe`.
+- Add `systemd` notify support.
+- Check TLS configuration early to catch missing certificates.
+- Implement collection offset.
+- `common.auth`: HTTP basic auth.
+- `common.cookie`: Support headers with cookie auth.
+- `common.proxy`: Add `socks5` proxy support.
+- Improve error logging on plugin initialization.
+
+## Bug fixes
+
+- Print loaded plugins and deprecations for once and test.
+- Remove signed MacOS artifacts.
+- Run `go mod tidy`.
+- Fix `prometheusremotewrite` wrong timestamp unit.
+- Fix sudden close ccaused by OPC UA inpu.
+- Update `containerd` to 1.5.9.
+- Update `go-sensu` to v2.12.0.
+- Update `gosmi` from v0.4.3 to v0.4.4.
+- Update parsing logic of `config.duration`.
+- Update precision parameter default value.
+- Use `sha256` for rpm digest.
+- Warning output when running with `--test`.
+- Graceful shutdown of Telegraf with Windows service.
+- Add push-only updated values flag to histogram aggregator.
+- `common.cookie`: Address flaky tests in cookie_test.go and graylog_test.go.
+- `common.shim`: Linter fixes.
+- Do not save cache on i386 builds.
+- Add error msg for missing environment variables in configuration file.
+- Fix panic in parsers due to missing log for all plugins using `setparserfunc`.
+- Grab table columns more accurately.
+- Improve parser tests by using `go-cmp/cmp`.
+- Linter fixes for `config/config.go`.
+- Log error when loading mibs.
+- Fix Mac signing issue with arm64.
+
+## New plugins
+
+### Inputs
+
+- [Hashicorp Consul Agent Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/consul_metrics)(`consul_agent`) - Contributed by [@efbar](https://github.com/efbar).
+- [Hashicorp Nomad Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nomad)(`nomad`) - Contributed by [@efbar](https://github.com/efbar).
+- [Hashicorp Vault Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/vault)(`vault`) - Contributed by [@efbar](https://github.com/efbar).
+- [Hugepages Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/hugepages)(`hugepages`) - Contributed by [@zak-pawel](https://github.com/zak-pawel).
+- [Mock Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mock)(`mock`) - Contributed by [InfluxData](https://github.com/influxdata).
+- [Redis Sentinel Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/redis_sentinel)(`redis_sentinel`) - Contributed by [@spideyfusion](https://github.com/spideyfusion).
+- [Socketstat Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/socketstat)(`socketstat`) - Contributed by [@sajoupa](https://github.com/sajoupa).
+- [XtremIO Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/xtremio)(`xtremio`) - Contributed by [@cthiel42](https://github.com/cthiel42).
+
+### Processors
+
+- [Noise Processor](https://github.com/influxdata/telegraf/tree/master/plugins/processors/noise) (`noise`) - Contributed by [@wizarq](https://github.com/wizarq).
+
+### Input plugin updates
+
+- Aerospike (`aerospike`): Update `github.com/aerospike/aerospike-client-go` from 1.27.0 to 5.7.0.
+- Bond (`bond`): Add additional stats.
+- Directory Monitor (`directory_monitor`):
+  - Update `djherbis/times` and fix `dependabot`.
+  - Plugin restructuring.
+- Disk (`disk`): Fix missing storage in container.
+- Docker (`docker`):
+  - Keep field type of `tasks_desired` the same.
+  - Update memory usage calculation.
+  - Update client API version.
+- ECS (`ecs`): Use current time as timestamp.
+- Execd `execd`: Add newline for Prometheus parsing.
+- File (`file`): Statefull parser handling.
+- GNMI (`gnmi`): Add dynamic tagging.
+- Graylog (`graylog`):
+  - Add `toml` tags.
+  - Add `timeout-setting`.
+  - Update documentation to use current URLs.
+- HTTP (`http`): Ensure http body is empty.
+- HTTP Listener v2 (`http_listener_v2`): Revert deprecation.
+- Internet speed (`internet_speed`): Add caching.
+- IPset (`ipset`): Fix crash when command not found.
+- JSON V2 (`json_v2`):
+  - Allow multiple optional objects.
+  - Use raw values for timestamps.
+- Kibana (`kibana`): Add `heap_size_limit` field.
+- Logparser (`logparser`):
+  - Add comment.
+  - Fix panic due to missing log.
+- MDStat (`mdstat`): Fix when sync is less than 10%.
+- Memcached (`memcached`): Gather additional stats.
+- Modbus `modbus`:
+    - Make Telegraf compile on Windows with golang 1.16.2.
+    - Re-enable openbsd support.
+    - Update documentation.
+    - Add `per-request` tags.
+    - Support multiple slaves (gateway feature).
+- MQTT Consumer (`mqtt_consumer`): Topic extracting no longer requires all three fields.
+- NFS Client (`nfsclient`): Add new field.
+- NTPQ (`ntpq`): Correctly read long poll output.
+- OPCUA (`opcua`):
+  - Accept non-standard OK status by implementing a configurable workaround.
+  - Add more data to error log.
+  - Remove duplicate addition of fields.
+- OpenLDAP (`openldap`): Update go-ldap to v3.4.1.
+- OpenStack (`openstack`): Fix typo.
+- OpenWeatherMap (`openweathermap`): Add `feels_like` field.
+- PHPfpm (`phpfpm`): Ensure CI tests runs against i386.
+- PostgreSQL (`postgresql`): Add option to disable prepared statements.
+- SMART (`smart`): Add concurrency configuration option, support and lint fixes.
+- SNMP `(snmp`):
+  - Respect number of retries configured.
+  - Use the correct path when evaluating symlink.
+  - Add option to select translator.
+  - Check index before assignment.
+  - Do not require networking during tests.
+  - Ensure folders do not get loaded more than once.
+  - Fix panic due to no module.
+  - Fix errors if mibs folder doesn't exist.
+  - Optimize locking for mibs loading.
+- SNMP Trap (`snmp_trap`):
+  - Collapsed fields by calling more in-depth function.
+  - Deprecate unused timeout configuration option.
+- SQL (`sql`): Add Clickhouse driver.
+- StatsD (`statsd`): Sanitize names.
+- Syslog (`syslog`): Add rfc3164 to rfc5424 translation to docs.
+- System (`system`): Remove verbose logging.
+- Windows Performance Counter (`win_perf_counter`):
+  - Allow errors to be ignored.
+  - Implemented support for reading raw values, added tests, and  update documentation.
+- X.509 Certificate (`x509_cert`):
+  - Mark `testgatherudpcert` as an integration test.
+  - Add `exclude_root_certs` option.
+- ZFS (`zfs`): Pool detection and metrics gathering for ZFS 2.1.x.
 
 
+### Output plugin updates
 
-- [#10515](https://github.com/influxdata/telegraf/pull/10515) `aggregators.histogram` add push only updated values flag to histogram aggregator
-- [#10598](https://github.com/influxdata/telegraf/pull/10598) bump github.com/azure/azure-kusto-go from 0.5.0 to 0.5.2
-- [#10326](https://github.com/influxdata/telegraf/pull/10326) `common.cookie` address flaky tests in cookie_test.go and graylog_test.go
-- [#10689](https://github.com/influxdata/telegraf/pull/10689) `common.shim` linter fixes for &#34;import-shadowing: the name &#39;...&#39; shadows an import name&#34;
-- [#10684](https://github.com/influxdata/telegraf/pull/10684) `dedup` modifying slice while iterating is dangerous
-- [#10464](https://github.com/influxdata/telegraf/pull/10464) do not save cache on i386 builds
-- [#10681](https://github.com/influxdata/telegraf/pull/10681) error msg for missing env variables in config
-- [#10288](https://github.com/influxdata/telegraf/pull/10288) fix panic in parsers due to missing log for all plugins using setparserfunc.
-- [#10295](https://github.com/influxdata/telegraf/pull/10295) grab table columns more accurately
-- [#10132](https://github.com/influxdata/telegraf/pull/10132) `http_listener_v2` fix panic on close
-- [#10497](https://github.com/influxdata/telegraf/pull/10497) improve parser tests by using go-cmp/cmp
-- [#10332](https://github.com/influxdata/telegraf/pull/10332) `inputs.directory_monitor` update djherbis/times and fix dependabot
-- [#10318](https://github.com/influxdata/telegraf/pull/10318) `inputs.disk` fix missing storage in container with disk plugin
-- [#10711](https://github.com/influxdata/telegraf/pull/10711) `inputs.docker` keep field type of tasks_desired the same
-- [#10491](https://github.com/influxdata/telegraf/pull/10491) `inputs.docker` update docker memory usage calculation
-- [#10636](https://github.com/influxdata/telegraf/pull/10636) `inputs.ecs` use current time as ecs timestamp
-- [#10463](https://github.com/influxdata/telegraf/pull/10463) `inputs.execd` add newline in execd for prometheus parsing
-- [#10575](https://github.com/influxdata/telegraf/pull/10575) `inputs.file` statefull parser handling
-- [#10660](https://github.com/influxdata/telegraf/pull/10660) `inputs.graylog` add graylog toml tags
-- [#10481](https://github.com/influxdata/telegraf/pull/10481) `inputs.graylog` graylog readme to use graylog 3 urls
-- [#10396](https://github.com/influxdata/telegraf/pull/10396) `inputs.http` ensure http body is empty
-- [#10474](https://github.com/influxdata/telegraf/pull/10474) `inputs.ipset` ipset crash when command not found
-- [#10479](https://github.com/influxdata/telegraf/pull/10479) `inputs.logparser` add comment to logparser
-- [#10296](https://github.com/influxdata/telegraf/pull/10296) `inputs.logparser` fix panic in logparser due to missing log.
-- [#10701](https://github.com/influxdata/telegraf/pull/10701) `inputs.mdstat` mdstat when sync is less than 10%
-- [#10246](https://github.com/influxdata/telegraf/pull/10246) `inputs.modbus` make telegraf compile on windows with golang 1.16.2
-- [#10385](https://github.com/influxdata/telegraf/pull/10385) `inputs.modbus` re-enable openbsd modbus support
-- [#10501](https://github.com/influxdata/telegraf/pull/10501) `inputs.modbus` update modbus readme
-- [#10500](https://github.com/influxdata/telegraf/pull/10500) `inputs.modbus` update readme.md
-- [#10208](https://github.com/influxdata/telegraf/pull/10208) `inputs.mqtt_consumer` mqtt topic extracting no longer requires all three fields
-- [#10790](https://github.com/influxdata/telegraf/pull/10790) `inputs.ntpq` correctly read ntpq long poll output
-- [#10384](https://github.com/influxdata/telegraf/pull/10384) `inputs.opcua` accept non-standard opc ua ok status by implementing a configurable workaround
-- [#10465](https://github.com/influxdata/telegraf/pull/10465) `inputs.opcua` add more data to error log
-- [#10478](https://github.com/influxdata/telegraf/pull/10478) `inputs.opcua` remove duplicate addition of fields
-- [#10343](https://github.com/influxdata/telegraf/pull/10343) `inputs.openldap` update go-ldap to v3.4.1
-- [#10284](https://github.com/influxdata/telegraf/pull/10284) `inputs.openstack` typo in openstack neutron input plugin (newtron)
-- [#10705](https://github.com/influxdata/telegraf/pull/10705) `inputs.openweathermap` openweathermap add feels_like field
-- [#10457](https://github.com/influxdata/telegraf/pull/10457) `inputs.phpfpm` ensure ci tests runs against i386
-- [#10648](https://github.com/influxdata/telegraf/pull/10648) `inputs.` revert deprecation of http_listener_v2
-- [#10268](https://github.com/influxdata/telegraf/pull/10268) inputs.snmp to respect number of retries configured
-- [#10748](https://github.com/influxdata/telegraf/pull/10748) `inputs.snmp`  use the correct path when evaluating symlink
-- [#10430](https://github.com/influxdata/telegraf/pull/10430) `inputs.snmp_trap` collapsed fields by calling more indepth function
-- [#10802](https://github.com/influxdata/telegraf/pull/10802) `inputs.snmp` add option to select translator
-- [#10299](https://github.com/influxdata/telegraf/pull/10299) `inputs.snmp` check index before assignment
-- [#10321](https://github.com/influxdata/telegraf/pull/10321) `inputs.snmp` do not require networking during tests
-- [#10551](https://github.com/influxdata/telegraf/pull/10551) `inputs.snmp` ensure folders do not get loaded more than once
-- [#10303](https://github.com/influxdata/telegraf/pull/10303) `inputs.snmp` panic due to no module
-- [#10354](https://github.com/influxdata/telegraf/pull/10354) `inputs.snmp` snmp input plugin errors if mibs folder doesn&#39;t exist (#10346)
-- [#10466](https://github.com/influxdata/telegraf/pull/10466) `inputs.statsd` sanitize stasd names
-- [#10480](https://github.com/influxdata/telegraf/pull/10480) `inputs.syslog` add rfc3164 to rfc5424 translation to docs
-- [#10527](https://github.com/influxdata/telegraf/pull/10527) `inputs.system` remove verbose logging from disk input plugin
-- [#10279](https://github.com/influxdata/telegraf/pull/10279) `inputs.x509_cert` mark testgatherudpcert as an integration test
-- [#10099](https://github.com/influxdata/telegraf/pull/10099) `inputs.zfs` pool detection and metrics gathering for zfs &gt;= 2.1.x
-- [#10777](https://github.com/influxdata/telegraf/pull/10777) `json_v2` allow multiple optional objects
-- [#10413](https://github.com/influxdata/telegraf/pull/10413) `json_v2` use raw values for timestamps
-- [#10630](https://github.com/influxdata/telegraf/pull/10630) license doc outdated causing ci failure
-- [#10710](https://github.com/influxdata/telegraf/pull/10710) linter fixes for config/config.go
-- [#10735](https://github.com/influxdata/telegraf/pull/10735) log err when loading mibs
-- [#10293](https://github.com/influxdata/telegraf/pull/10293) mac signing issue with arm64
-- [#10528](https://github.com/influxdata/telegraf/pull/10528) move &#34;starting telegraf&#34; log
-- [#10635](https://github.com/influxdata/telegraf/pull/10635) `outputs.amqp` check for nil client before closing in amqp
-- [#10196](https://github.com/influxdata/telegraf/pull/10196) `outputs.elasticsearch` implement nan and inf handling for elasticsearch output
-- [#10209](https://github.com/influxdata/telegraf/pull/10209) `outputs.graylog` ensure graylog spec fields not prefixed with ??
-- [#10623](https://github.com/influxdata/telegraf/pull/10623) `outputs.groundwork` set nextchecktime to lastchecktime to avoid groundwork to invent a value
-- [#10255](https://github.com/influxdata/telegraf/pull/10255) `outputs.groundwork` update groundwork sdk and improve logging
-- [#10706](https://github.com/influxdata/telegraf/pull/10706) `outputs.influxdb_v2` include influxdb bucket name in error messages
-- [#10673](https://github.com/influxdata/telegraf/pull/10673) `outputs.sql` sql unsigned settings
-- [#10097](https://github.com/influxdata/telegraf/pull/10097) `outputs.stackdriver` cumulative interval start times for stackdriver output
-- [#10393](https://github.com/influxdata/telegraf/pull/10393) `outputs.syslog` correctly set ascii trailer for syslog output
-- [#8947](https://github.com/influxdata/telegraf/pull/8947) `outputs.timestream` fix batching logic with write records, introduce concurrent requests
-- [#10225](https://github.com/influxdata/telegraf/pull/10225) `outputs.wavefront` flush wavefront output sender on error to clean up broken connections
-- [#10274](https://github.com/influxdata/telegraf/pull/10274) `outputs.wavefront` run gofmt
-- [#10301](https://github.com/influxdata/telegraf/pull/10301) panic is no mibs folder is found
-- [#10377](https://github.com/influxdata/telegraf/pull/10377) `parsers.csv` empty import tzdata for windows binaries
-- [#10742](https://github.com/influxdata/telegraf/pull/10742) `parsers.csv` typo metadata support in csv parser
-- [#10468](https://github.com/influxdata/telegraf/pull/10468) `parsers.json_v2` allow optional paths and handle wrong paths correctly
-- [#10799](https://github.com/influxdata/telegraf/pull/10799) `parsers.json_v2` check if gpath exists and support optional in fields/tags
-- [#10618](https://github.com/influxdata/telegraf/pull/10618) `parsers.json_v2` incorrect handling of json_v2 timestamp_path
-- [#10221](https://github.com/influxdata/telegraf/pull/10221) `parsers.json_v2` json_v2 parser timestamp setting
-- [#10657](https://github.com/influxdata/telegraf/pull/10657) `parsers.json_v2` timestamp change during execution of json_v2 parser.
-- [#10473](https://github.com/influxdata/telegraf/pull/10473) `parsers.nagios` nagios parser now uses real error for logging #10472
-- [#10188](https://github.com/influxdata/telegraf/pull/10188) `parsers.xpath` handle duplicate registration of protocol-buffer files gracefully.
-- [#10441](https://github.com/influxdata/telegraf/pull/10441) `parsers.xpath` typo in docs
-- [#10205](https://github.com/influxdata/telegraf/pull/10205) print loaded plugins and deprecations for once and test
-- [#10214](https://github.com/influxdata/telegraf/pull/10214) `processors.ifname` eliminate mib dependency for ifname processor
-- [#10007](https://github.com/influxdata/telegraf/pull/10007) `processors.ifname` parallelism fix for ifname processor
-- [#10560](https://github.com/influxdata/telegraf/pull/10560) remove signed macos dotfile artifacts
-- [#10727](https://github.com/influxdata/telegraf/pull/10727) revert &#34;fix: error msg for missing env variables in config (#10681)&#34;
-- [#10203](https://github.com/influxdata/telegraf/pull/10203) revert unintented corruption of the makefile from #10200.
-- [#10273](https://github.com/influxdata/telegraf/pull/10273) run go mod tidy
--  `serializers.prometheusremotewrite` prometheusremotewrite wrong timestamp unit
--  snmp marshal error
-- sudden close of telegraf caused by opc ua input plugin
--  update containerd to 1.5.9
-- update go-sensu to v2.12.0
-- update gosmi from v0.4.3 to v0.4.4
--  update parsing logic of config.duration
--  update the precision parameter default value
--  use sha256 for rpm digest
--  warning output when running with --test
--  wavefront_disable_prefix_conversion case missing from missingtomlfield func
-- windows service - graceful shutdown of telegraf
+- AMQP (`amqp`): Check for nil client before closing.
+- ElasticSearch (`elasticsearch`):
+  - Implement `nan` and `inf` handling.
+  - Add bearer token support.
+- Graylog (`graylog`): Fix to field prefixes.
+- Groundwork (`groundwork`):
+  - Set `nextchecktime` to `lastchecktime`.
+  - Update SDK and improve logging.
+  - Process group tag.
+- InfluxDB V2 (`influxdb_v2`): Include bucket name in error messages.
+- SQL (`sql`): Fix unsigned settings.
+- Stackdriver (`stackdriver`): Cumulative interval start times.
+- Syslog (`syslog`): Correctly set trailer.
+- Timestream (`timestream`): Fix batching logic with write record and introduce concurrent requests.
+- Datadog (`datadog`): Add compression.
+- HTTP (`http`):
+  - Add optional list of non-retryable status codes.
+  - Support AWS managed service for Prometheus.
+- Websocket `websocket`: `socks5` proxy support.
+- Wavefront (`wavefront`):
+    - Flush sender on error to clean up broken connections.
+    - Run `gofmt`.
+    - Fix panic if no mibs folder is found.
 
+## Parser plugin updates
+
+- CSV (`csv`):
+  - Empty import tzdata for Windows binaries.
+  - Fix typo.
+- Ifname (`ifname`):
+  - Eliminate mib dependency.
+  - Parallelism fix.
+- JSON V2 (`parsers.json_v2`):
+  - Allow optional paths and handle wrong paths correctly.
+  - Check if gpath exists and support optional in fields/tags.
+  - Fixes to timestamp setting.
+- Nagios (`nagios`): Use real error for logging.
+- XPath (`xpath`):
+  - Handle duplicate registration of protocol-buffer files gracefully.
+  - Fix typo.
+
+### Dependency updates
+
+- Update `github.com/azure/azure-kusto-go` from 0.5.0 to 0.5.2.
+- Update `github.com/nats-io/nats-server/v2` from 2.7.3 to 2.7.4.
+- Update `github.com/shopify/sarama` from 1.29.1 to 1.32.0.
+- Update `github.com/shirou/gopsutil`/v3 from 3.21.12 to 3.22.2.
+- Update `github.com/aws/aws-sdk-go-v2/feature/ec2/imds`.
+- Update `github.com/miekg/dns` from 1.1.43 to 1.1.46.
+- Update `github.com/aws/aws-sdk-go-v2/service/dynamodb`.
+- Update `github.com/nats-io/nats-server/v2` from 2.7.2 to 2.7.3.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.8.3 to 1.13.1.
+- Update `github.com/testcontainers/testcontainers-go`.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs`.
+- Update `github.com/aws/aws-sdk-go-v2/feature/ec2/imds`.
+- Update `github.com/wavefronthq/wavefront-sdk-go` from 0.9.9 to 0.9.10.
+- Update `github.com/clickhouse/clickhouse-go` from 1.5.1 to 1.5.4.
+- Update `k8s.io/api` from 0.23.3 to 0.23.4.
+- Update `cloud.google.com/go/pubsub` from 1.17.1 to 1.18.0.
+- Update `github.com/newrelic/newrelic-telemetry-sdk-go`.
+- Update `github.com/aws/aws-sdk-go-v2/service/dynamodb` from 1.5.0 to 1.13.0.
+- Update `github.com/sensu/sensu-go/api/core/v2` from 2.12.0 to 2.13.0.
+- Update `github.com/gophercloud/gophercloud` from 0.16.0 to 0.24.0.
+- Update `github.com/jackc/pgx/v4` from 4.14.1 to 4.15.0.
+- Update `github.com/aws/aws-sdk-go-v2/service/sts` from 1.7.2 to 1.14.0.
+- Update all `go.opentelemetry.io` dependencies.
+- Update `github.com/signalfx/golib/v3` from 3.3.38 to 3.3.43.
+- Update `github.com/aliyun/alibaba-cloud-sdk-go`.
+- Update `github.com/denisenkom/go-mssqldb` from 0.10.0 to 0.12.0.
+- Update `github.com/gopcua/opcua` from 0.2.3 to 0.3.1.
+- Update `github.com/nats-io/nats-server/v2` from 2.6.5 to 2.7.2.
+- Update `k8s.io/client-go` from 0.22.2 to 0.23.3.
+- Update `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.6.0 to 1.13.0.
+- Update `github.com/benbjohnson/clock` from 1.1.0 to 1.3.0.
+- Update `github.com/vmware/govmomi` from 0.27.2 to 0.27.3.
+- Update `github.com/prometheus/client_golang` from 1.11.0 to 1.12.1.
+- Update `go.mongodb.org/mongo-driver` from 1.7.3 to 1.8.3.
+- Update `github.com/google/go-cmp` from 0.5.6 to 0.5.7.
+- Update `go.opentelemetry.io/collector/model` from 0.39.0 to 0.43.2.
+- Update `github.com/multiplay/go-ts3` from 1.0.0 to 1.0.1.
+- Update `cloud.google.com/go/monitoring` from 0.2.0 to 1.2.0.
+- Update `github.com/vmware/govmomi` from 0.26.0 to 0.27.2.
+- Update `google.golang.org/api` from 0.54.0 to 0.65.0.
+- Update `github.com/antchfx/xmlquery` from 1.3.6 to 1.3.9.
+- Update `github.com/nsqio/go-nsq` from 1.0.8 to 1.1.0.
+- Update `github.com/prometheus/common` from 0.31.1 to 0.32.1.
+- Update `cloud.google.com/go/pubsub` from 1.17.0 to 1.17.1.
+- Update `github.com/influxdata/influxdb-observability/influx2otel` from 0.2.8 to 0.2.10.
+- Update `github.com/shirou/gopsutil/v3` from 3.21.10 to 3.21.12.
+- Update `github.com/jackc/pgx/v4` from 4.6.0 to 4.14.1.
+- Update `github.com/azure/azure-event-hubs-go/v3` from 3.3.13 to 3.3.17.
+- Update `github.com/gosnmp/gosnmp` from 1.33.0 to 1.34.0.
+- Update `github.com/hashicorp/consul/api` from 1.9.1 to 1.12.0.
+- Update `github.com/antchfx/xpath` from 1.1.11 to 1.2.0.
+- Update `github.com/antchfx/jsonquery` from 1.1.4 to 1.1.5.
+- Update `github.com/prometheus/procfs` from 0.6.0 to 0.7.3.
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.5.2 to 1.12.0.
+- Update `github.com/kardianos/service` from 1.0.0 to 1.2.1.
+- Update `github.com/couchbase/go-couchbase` from 0.1.0 to 0.1.1.
+- Update `github.com/pion/dtls/v2` from 2.0.9 to 2.0.13.
+- Update `github.com/eclipse/paho.mqtt.golang` from 1.3.0 to 1.3.5.
 
 ## v1.21.4 [2022-2-16]
 
