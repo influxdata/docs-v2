@@ -1,6 +1,7 @@
 ---
 title: Transform data with aggregator and processor plugins
-description:
+description: |
+Aggregator and processor plugins aggregate and process metrics as they pass through Telegraf.
 menu:
   telegraf_1_22:
 
@@ -10,7 +11,7 @@ menu:
 ---
 
 
-Besides the input plugins and output plugins, Telegraf includes aggregator and processor plugins, which are used to aggregate and process metrics as they pass through Telegraf.
+In addition to input plugins and output plugins, Telegraf includes aggregator and processor plugins, which are used to aggregate and process metrics as they pass through Telegraf.
 
 {{< diagram >}}
   graph TD

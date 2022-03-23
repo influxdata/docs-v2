@@ -1,6 +1,7 @@
 ---
 title: Collect data with input plugins
-description:
+description: |
+Collect data from a variety of sources with Telegraf input plugins.
 menu:
   telegraf_1_22:
 

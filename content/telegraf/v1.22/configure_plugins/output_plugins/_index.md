@@ -1,6 +1,7 @@
 ---
 title: Write data with output plugins
-description:
+description: |
+Output plugins define where Telegraf will deliver the collected metrics. 
 menu:
   telegraf_1_22:
 
