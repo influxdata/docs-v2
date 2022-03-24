@@ -75,8 +75,9 @@ The following Email event handler options can be set in a
 `.email()` in a TICKscript.
 
 | Name | Type            | Description              |
-| ---- | ----            | -----------              |
+| ---- | --------------- | ------------------------ |
 | to   | list of strings | List of email addresses. |
+| toTemplate(s)  | string template| Derived email addresses. |
 
 ### Example: handler file
 ```yaml
@@ -188,9 +189,12 @@ Add the handler:
 kapacitor define-topic-handler email_cpu_handler.yaml
 ```
 
-### Email alerts using a template
+### Send email alerts using the toTemplate option
 
-
+You can use `toTemplate` to derive email addresses directly from data instead of hardcoding them individually. 
+In the example below, we are using both the `to` option and `toTemplates` option in order to derive email addresses from a dataset and send email alerts directly to recipients. 
+Like the `to` option, the `toTemplates` option can be used more than once in a TICKscript. 
+You can combine the `to` and `toTemplates` options or use them individually depending on your use case.
 
 ```js
 stream
