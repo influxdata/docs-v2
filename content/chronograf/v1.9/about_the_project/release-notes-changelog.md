@@ -12,21 +12,21 @@ menu:
 
 ### Features
 
-This release renames the `Query Builder` to the `Flux Builder` (with new improvements), and improves on the Kapacitor integration.
+This release renames the Flux `Query Builder` to the Flux `Script Builder` (and adds improvements), and improves on the Kapacitor integration.
 
 #### Flux Builder improvements
 
 - Rename the Flux `Query Builder` to the Flux `Script Builder`.
-- ?Use time range in Flux schema explorer.
-- Ability to load truncated data in Flux Script Builder.
-- Highlight that Script Builder keys/values depend on the selected time range.
-- Make aggregation function selection optional.
+- Use time range in Flux schema explorer.
+- Ability to load truncated data into the Flux Script Builder.
+- Highlight that Script Builder `keys` and `values` depend on the selected time range.
+- Make the aggregation function selection (function name?) optional.
 - Autocomplete builtin v object in Flux editor.
 - Warn before overriding the existing Flux Editor script.
 
 #### Kapacitor integration improvements
 
-Improved pagination…and performance of the UI when you have large numbers of TICKscripts & Flux tasks.
+Improved pagination…and performance of the UI when you have large numbers of TICKscripts and Flux tasks.
 
 - Move Flux Tasks to own page.
 - Optimize Alert Rules API.
