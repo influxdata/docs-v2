@@ -17,7 +17,7 @@ Replication remotes and replication streams can only be configured for InfluxDB 
 {{% /cloud %}}
 
 Use the `influx remote` command to manage connections to remote instances of InfluxDB.
-Remote connections are used to replicate data at the bucket level.
+Remote connections are used to replicate data on write at the bucket level.
 
 ## Usage
 ```
