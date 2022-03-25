@@ -48,6 +48,7 @@ influx replication create [command options] [arguments...]
 
 
 ## Examples
+{{< cli/influx-creds-note >}}
 
 ### Create a replication stream
 
