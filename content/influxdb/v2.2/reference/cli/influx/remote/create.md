@@ -50,7 +50,7 @@ influx remote create [commond options] [arguments...]
 ```sh
 influx remote create \
   --name myremote \
-  --org-id <OSS org ID \
+  --org-id <OSS org ID> \
   --token <OSS token> \
   --remote-url <remote URL> \
   --remote-api-token <remote token> \
