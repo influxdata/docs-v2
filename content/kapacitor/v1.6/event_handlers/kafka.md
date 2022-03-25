@@ -274,7 +274,7 @@ kapacitor define-topic-handler kafka_cpu_handler.yaml
 
 ### Using SASL with Kapacitor
 
-Kapacitor can be configured to use SASL if you want to use methods of authentication other than SSL. 
+To use an authentication method other than SSL, configure Kapacitor to use SASL. 
 An example would be using Kapacitor to authenticate directly against Kafka with a username/password. 
 Multiple configuration options are available, but the most common usage is username and password as shown in the following example:
 
