@@ -44,6 +44,7 @@ influx remote update [command options] [arguments...]
 | `-t` | `--token`              | InfluxDB API token                                                    | string     | `INFLUX_TOKEN`        |
 
 ## Example
+{{< cli/influx-creds-note >}}
 
 ### Update a remote
 1. Use `influx remote list` to get the ID for the remote you want to update.
