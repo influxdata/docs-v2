@@ -105,6 +105,32 @@ See [InfluxDB OSS metrics](/influxdb/v2.1/reference/internals/metrics/) for addi
   - ``nats-port`` and ``nats-max-payload-bytes`` flags have been deprecated.
   -  NATS is no longer embedded in InfluxDB. Because InfluxDB no longer requires a port for NATS, port conflct issues are reduced.
 
+### Security
+
+Several security issues are fixed in this release:
+- Disable use of jsonnet with `/api/v2/templates/apply`.
+  This prevents crafted authenticated requests from exfiltrating files accessible to the user InfluxDB runs as.
+- Add read permissions check for querying data.
+  This prevents authenticated requests using a write-only token from reading data
+  via the InfluxQL `/query` compatibility API.
+- Add write permissions check for `DELETE` and `DROP MEASUREMENT`.
+  This prevents authenticated requests using a read-only token from deleting data
+  via the InfluxQL `/query` compatibility API.
+- Add the [`hardening-enabled`](/influxdb/v2.2/security/enable-hardening.md) option to limit flux/pkger HTTP requests.
+  By default, Flux HTTP and template fetching requests are allowed
+  to access localhost and private IP addresses.
+  The new `hardening-enabled` option makes InfluxDB first verify that the IP address of the URL is not a private IP address.
+
+Additionally, several security issues were fixed in dependencies and
+the toolchain used to build InfluxDB:
+- The cumulative security fixes for [Flux v0.161.0](/flux/v0.x/release-notes/) since 0.139.0 are included in this release:
+  - Quote db identifiers.
+    This addresses injection vulnerabilities in database connections using `to()`.
+  - Make substring check bounds correctly.
+    This prevents authenticated queries from crashing the Flux engine.
+- The cumulative security fixes for [Go 1.17.8](https://go.dev/doc/devel/release#go1.17.minor) since Go 1.17.2 are included in this release.
+  This addresses an issue in the InfluxDB testsuite.
+
 ## v2.1.1 [2021-11-08]
 
 {{% note %}}
