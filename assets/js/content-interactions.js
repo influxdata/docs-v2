@@ -17,7 +17,8 @@ var elementWhiteList = [
   ".truncate-toggle",
   ".children-links a",
   ".list-links a",
-  "a.url-trigger"
+  "a.url-trigger",
+  "a.fullscreen-close"
 ]
 
 function scrollToAnchor(target) {
@@ -85,7 +86,7 @@ tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 
 // Retrieve the user's programming language (client library) preference.
 function getApiLibPreference() {
-  return Cookies.get('influx-docs-api-lib');
+  return Cookies.get('influx-docs-api-lib') || '';
 }
 
 function getTabQueryParam() {

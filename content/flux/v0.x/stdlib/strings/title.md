@@ -41,5 +41,5 @@ The string value to convert.
 import "strings"
 
 data
-  |> map(fn: (r) => ({ r with pageTitle: strings.title(v: r.pageTitle) }))
+    |> map(fn: (r) => ({ r with pageTitle: strings.title(v: r.pageTitle) }))
 ```

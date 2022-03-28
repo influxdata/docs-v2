@@ -247,10 +247,7 @@ union(tables: [t1, t2])
 
 #### join() output
 ```js
-join(
-    tables: {t1: t1, t2: t2},
-    on: ["_time", "tag"],
-)
+join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])
 ```
 
 | _time                | tag | _value_t1 | _value_t2 |

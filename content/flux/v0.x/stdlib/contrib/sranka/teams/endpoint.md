@@ -21,9 +21,7 @@ using data from table rows.
 ```js
 import "contrib/sranka/teams"
 
-teams.endpoint(
- url: "https://outlook.office.com/webhook/example-webhook"
-)
+teams.endpoint(url: "https://outlook.office.com/webhook/example-webhook")
 ```
 
 ## Parameters
@@ -57,15 +55,14 @@ import "contrib/sranka/teams"
 url = "https://outlook.office.com/webhook/example-webhook"
 endpoint = teams.endpoint(url: url)
 
-crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-  |> endpoint(mapFn: (r) => ({
-      title: "Disk Usage"
-      text: "Disk usage is: **${r.status}**.",
-      summary: "Disk usage is ${r.status}"
-    })
-  )()
+    |> endpoint(
+        mapFn: (r) =>
+            ({title: "Disk Usage", text: "Disk usage is: **${r.status}**.", summary: "Disk usage is ${r.status}"}),
+    )()
 ```

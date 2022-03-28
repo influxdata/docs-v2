@@ -22,9 +22,9 @@ Given an input table, `elapsed()` returns the same table without the first recor
 
 ```js
 elapsed(
-  unit: 1s,
-  timeColumn: "_time",
-  columnName: "elapsed"
+    unit: 1s,
+    timeColumn: "_time",
+    columnName: "elapsed",
 )
 ```
 
@@ -56,7 +56,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-	|> elapsed(unit: 1s)
+    |> elapsed(unit: 1s)
 ```
 
 {{% expand "View input and output" %}}

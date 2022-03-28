@@ -54,11 +54,8 @@ The following example shows the current memory usage displayed has a human-reada
 ###### Query memory usage percentage
 ```js
 from(bucket: "example-bucket")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) =>
-      r._measurement == "mem" and
-      r._field == "used_percent"
-  )
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
 ```
 
 ###### Memory usage as a single stat

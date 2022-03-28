@@ -49,9 +49,5 @@ The suffix to remove.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      sensorID: strings.trimSuffix(v: r.sensorId, suffix: "_s12")
-    })
-  )
+    |> map(fn: (r) => ({r with sensorID: strings.trimSuffix(v: r.sensorId, suffix: "_s12")}))
 ```

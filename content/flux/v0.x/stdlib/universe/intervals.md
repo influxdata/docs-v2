@@ -85,23 +85,23 @@ intervals(every:1mo, period:-1d)
 ```js
 // 1 day intervals excluding weekends
 intervals(
-  every:1d,
-  filter: (interval) => !(weekday(time: interval.start) in [Sunday, Saturday]),
+    every: 1d,
+    filter: (interval) => !(weekday(time: interval.start) in [Sunday, Saturday]),
 )
 
 // Work hours from 9AM - 5PM on work days.
 intervals(
-  every:1d,
-  period:8h,
-  offset:9h,
-  filter:(interval) => !(weekday(time: interval.start) in [Sunday, Saturday]),
+    every: 1d,
+    period: 8h,
+    offset: 9h,
+    filter: (interval) => !(weekday(time: interval.start) in [Sunday, Saturday]),
 )
 ```
 
 ##### Using known start and stop dates
 ```js
 // Every hour for six hours on Sep 5th.
-intervals(every:1h)(start:2018-09-05T00:00:00-07:00, stop: 2018-09-05T06:00:00-07:00)
+intervals(every: 1h)(start: 2018-09-05T00:00:00-07:00, stop: 2018-09-05T06:00:00-07:00)
 
 // Generates
 // [2018-09-05T00:00:00-07:00, 2018-09-05T01:00:00-07:00)
@@ -112,7 +112,7 @@ intervals(every:1h)(start:2018-09-05T00:00:00-07:00, stop: 2018-09-05T06:00:00-0
 // [2018-09-05T05:00:00-07:00, 2018-09-05T06:00:00-07:00)
 
 // Every hour for six hours with 1h30m periods on Sep 5th
-intervals(every:1h, period:1h30m)(start:2018-09-05T00:00:00-07:00, stop: 2018-09-05T06:00:00-07:00)
+intervals(every: 1h, period: 1h30m)(start: 2018-09-05T00:00:00-07:00, stop: 2018-09-05T06:00:00-07:00)
 
 // Generates
 // [2018-09-05T00:00:00-07:00, 2018-09-05T01:30:00-07:00)
@@ -123,7 +123,7 @@ intervals(every:1h, period:1h30m)(start:2018-09-05T00:00:00-07:00, stop: 2018-09
 // [2018-09-05T05:00:00-07:00, 2018-09-05T06:30:00-07:00)
 
 // Every hour for six hours using the previous hour on Sep 5th
-intervals(every:1h, period:-1h)(start:2018-09-05T12:00:00-07:00, stop: 2018-09-05T18:00:00-07:00)
+intervals(every: 1h, period: -1h)(start: 2018-09-05T12:00:00-07:00, stop: 2018-09-05T18:00:00-07:00)
 
 // Generates
 // [2018-09-05T11:00:00-07:00, 2018-09-05T12:00:00-07:00)
@@ -135,7 +135,7 @@ intervals(every:1h, period:-1h)(start:2018-09-05T12:00:00-07:00, stop: 2018-09-0
 // [2018-09-05T17:00:00-07:00, 2018-09-05T18:00:00-07:00)
 
 // Every month for 4 months starting on Jan 1st
-intervals(every:1mo)(start:2018-01-01, stop: 2018-05-01)
+intervals(every: 1mo)(start: 2018-01-01T00:00:00Z, stop: 2018-05-01T00:00:00Z)
 
 // Generates
 // [2018-01-01, 2018-02-01)
@@ -144,7 +144,7 @@ intervals(every:1mo)(start:2018-01-01, stop: 2018-05-01)
 // [2018-04-01, 2018-05-01)
 
 // Every month for 4 months starting on Jan 15th
-intervals(every:1mo)(start:2018-01-15, stop: 2018-05-15)
+intervals(every: 1mo)(start: 2018-01-15T00:00:00Z, stop: 2018-05-15T00:00:00Z)
 
 // Generates
 // [2018-01-15, 2018-02-15)

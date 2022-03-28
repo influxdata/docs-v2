@@ -466,3 +466,7 @@ to the system load metrics due to the `namepass` parameter.
 [[outputs.file]]
   files = ["stdout"]
 ```
+
+To learn more about configuring the Telegraf agent, watch the following video:
+
+{{< youtube txUcAxMDBlQ >}}

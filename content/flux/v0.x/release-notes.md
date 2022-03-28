@@ -10,6 +10,48 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.159.0 [2022-03-14]
+
+### Features
+- Added a `finish` state to parallel-merge and always protect with a mutex lock.
+
+### Bug fixes
+- Use a fork of the `gosnowflake` library to prevent file transfers.
+- When encoding Flux types as JSON, encode dictionary types as JSON objects.
+- Upgrade Apache Arrow to v7.
+
+---
+
+## v0.158.0 [2022-03-09]
+
+### Features
+- Add inline documentation to the `universe` package.
+- Factor parallel execution into the concurrency quota calculation.
+
+### Bug fixes
+- Add parallel merges with no successors to the results set.
+- Correctly use range in an updated `map()` test.
+
+---
+
+## v0.157.0 [2022-03-03]
+
+### Features
+- Update `fill()` to use narrow transformation.
+- Add an attribute-based instantiation of parallel execution nodes.
+- Expose the `Record::fields` iterator.
+- Allow the `estimate_tdigest` method in `quantile()` to process any numeric value.
+- Optimize `aggregateWindow()` for specific aggregate transformations.
+
+### Bug fixes
+- Update vectorized `map()` to handle missing columns.
+- Remove duplicate line in `Makefile`.
+- Fix `cargo doc` build errors.
+- Reclassify CSV-decoding errors as user errors.
+- Update `iox.from()` and `generate.from()` to use proper stream annotation.
+
+---
+
 ## v0.156.0 [2022-02-22]
 
 ### Features

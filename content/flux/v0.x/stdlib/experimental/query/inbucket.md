@@ -23,12 +23,12 @@ time bounds, filters data by measurement, field, and optional predicate expressi
 import "experimental/query"
 
 query.inBucket(
-  bucket: "example-bucket",
-  start: -1h,
-  stop: now(),
-  measurement: "example-measurement",
-  fields: ["exampleField1", "exampleField2"],
-  predicate: (r) => true
+    bucket: "example-bucket",
+    start: -1h,
+    stop: now(),
+    measurement: "example-measurement",
+    fields: ["exampleField1", "exampleField2"],
+    predicate: (r) => true,
 )
 ```
 
@@ -74,34 +74,10 @@ Default is `(r) => true`.
 import "experimental/query"
 
 query.inBucket(
-  bucket: "telegraf",
-  start: -1h,
-  measurement: "mem",
-  fields: ["used_percent", "available_percent"],
-  predicate: (r) => r.host == "host1"
+    bucket: "telegraf",
+    start: -1h,
+    measurement: "mem",
+    fields: ["used_percent", "available_percent"],
+    predicate: (r) => r.host == "host1",
 )
 ```
-
-## Function definition
-```js
-package query
-
-inBucket = (
-  bucket,
-  start,
-  stop=now(),
-  measurement,  
-  fields=[],
-  predicate=(r) => true
-) =>
-  fromRange(bucket: bucket, start: start, stop: stop)
-    |> filterMeasurement(measurement)
-    |> filter(fn: predicate)
-    |> filterFields(fields)
-```
-
-_**Used functions:**_  
-[filter()](/flux/v0.x/stdlib/universe/filter/)  
-[query.filterFields()](/flux/v0.x/stdlib/experimental/query/filterfields/)  
-[query.filterMeasurement()](/flux/v0.x/stdlib/experimental/query/filtermeasurement/)  
-[query.fromRange()](/flux/v0.x/stdlib/experimental/query/fromrange/)  

@@ -1,0 +1,14 @@
+.api {
+  margin-right: .35rem;
+  padding: .15rem .5rem .25rem;
+  border-radius: $radius;
+  color: $g20-white;
+  font-weight: bold;
+  font-size: 1rem;
+
+  &.get { background: $gr-viridian; }
+  &.post { background: $b-ocean; }
+  &.patch { background: $y-topaz; }
+  &.delete { background: $r-ruby; }
+  &.put {background: $br-pulsar; }
+}

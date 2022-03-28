@@ -54,14 +54,14 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ---
 
-### Perform mathemtical operations on column values
+### Perform mathematical operations on column values
 The following example returns the square of each value in the `_value` column:
 
 ```js
 import "contrib/jsternberg/rows"
 
 data
-  |> rows.map(fn: (r) => ({ _value: r._value * r._value }))
+    |> rows.map(fn: (r) => ({ _value: r._value * r._value }))
 ```
 
 {{% note %}}
@@ -121,7 +121,7 @@ including those not in the group key, without explicitly remapping them.
 import "contrib/jsternberg/rows"
 
 data
-  |> rows.map(fn: (r) => ({ r with _value: r._value * r._value }))
+    |> rows.map(fn: (r) => ({ r with _value: r._value * r._value }))
 ```
 
 {{% note %}}
@@ -176,7 +176,7 @@ data
 import "contrib/jsternberg/rows"
 
 data
-  |> rows.map(fn: (r) => ({ r with tag: "tag3" }))
+    |> rows.map(fn: (r) => ({ r with tag: "tag3" }))
 ```
 
 {{% note %}}

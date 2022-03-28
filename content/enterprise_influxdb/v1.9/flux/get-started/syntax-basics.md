@@ -132,22 +132,13 @@ or more input data streams.
 ```js
 timeRange = -1h
 
-cpuUsageUser =
-  from(bucket:"telegraf/autogen")
+cpuUsageUser = from(bucket: "telegraf/autogen")
     |> range(start: timeRange)
-    |> filter(fn: (r) =>
-      r._measurement == "cpu" and
-      r._field == "usage_user" and
-      r.cpu == "cpu-total"
-    )
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_user" and r.cpu == "cpu-total")
 
-memUsagePercent =
-  from(bucket:"telegraf/autogen")
+memUsagePercent = from(bucket: "telegraf/autogen")
     |> range(start: timeRange)
-    |> filter(fn: (r) =>
-      r._measurement == "mem" and
-      r._field == "used_percent"
-    )
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
 ```
 
 These variables can be used in other functions, such as  `join()`, while keeping the syntax minimal and flexible.
@@ -158,8 +149,7 @@ To do this, pass the input stream (`tables`) and the number of results to return
 Then using Flux's `sort()` and `limit()` functions to find the top `n` results in the data set.
 
 ```js
-topN = (tables=<-, n) =>
-  tables
+topN = (tables=<-, n) => tables
     |> sort(desc: true)
     |> limit(n: n)
 ```
@@ -171,8 +161,8 @@ find the top five data points and yield the results.
 
 ```js
 cpuUsageUser
-  |> topN(n:5)
-  |> yield()
+    |> topN(n: 5)
+    |> yield()
 ```
 {{% /tab-content %}}
 
@@ -182,8 +172,14 @@ A common use case for variable assignments in Flux is creating variables for mul
 
 ```js
 timeRange = -1h
-cpuUsageUser = from(bucket:"telegraf/autogen") |> range(start: timeRange) |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_user" and r.cpu == "cpu-total")
-memUsagePercent = from(bucket:"telegraf/autogen") |> range(start: timeRange) |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+
+cpuUsageUser = from(bucket: "telegraf/autogen")
+    |> range(start: timeRange)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_user" and r.cpu == "cpu-total")
+
+memUsagePercent = from(bucket: "telegraf/autogen")
+    |> range(start: timeRange)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
 ```
 
 These variables can be used in other functions, such as  `join()`, while keeping the syntax minimal and flexible.

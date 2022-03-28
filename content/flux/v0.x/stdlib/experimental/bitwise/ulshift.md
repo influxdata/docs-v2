@@ -19,10 +19,7 @@ Both `a` and `b` are [unsigned integers](/flux/v0.x/data-types/basic/uint/).
 ```js
 import "experimental/bitwise"
 
-bitwise.ulshift(
-  a: uint(v: 12),
-  b: uint(v: 21)
-)
+bitwise.ulshift(a: uint(v: 12), b: uint(v: 21))
 
 // Returns 25165824 (uint)
 ```

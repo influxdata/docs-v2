@@ -57,7 +57,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> doubleEMA(n: 3)
+    |> doubleEMA(n: 3)
 ```
 
 {{< expand-wrapper >}}
@@ -86,14 +86,3 @@ sampledata.int()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-doubleEMA = (n, tables=<-) =>
-  tables
-    |> exponentialMovingAverage(n:n)
-    |> duplicate(column:"_value", as:"ema")
-    |> exponentialMovingAverage(n:n)
-    |> map(fn: (r) => ({r with _value: 2.0 * r.ema - r._value}))
-    |> drop(columns: ["ema"])
-```

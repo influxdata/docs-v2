@@ -23,8 +23,8 @@ username = secrets.get(key: "POSTGRES_USERNAME")
 password = secrets.get(key: "POSTGRES_PASSWORD")
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://${username}:${password}@localhost",
-  query:"SELECT * FROM example-table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://${username}:${password}@localhost",
+    query:"SELECT * FROM example-table",
 )
 ```

@@ -25,9 +25,9 @@ For more information, see [influxdata/flux#4073](https://github.com/influxdata/f
 import "experimental/record"
 
 record.get(
-  r: {foo, "bar"},
-  key: "foo",
-  default: "quz"  
+    r: {foo, "bar"},
+    key: "foo",
+    default: "quz",
 )
 ```
 
@@ -54,11 +54,6 @@ import "experimental/record"
 key = "foo"
 exampleRecord = {foo: 1.0, bar: "hello"}
 
-record.get(
-  r: exampleRecord,
-  key: key,
-  default: ""
-)
-
+record.get(r: exampleRecord, key: key, default: "")
 // Returns 1.0
 ```

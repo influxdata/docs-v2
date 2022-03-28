@@ -23,9 +23,9 @@ for each input table.
 import "experimental/aggregate"
 
 aggregate.rate(
-  every: 1m,
-  groupColumns: ["column1", "column2"],
-  unit: 1s
+    every: 1m,
+    groupColumns: ["column1", "column2"],
+    unit: 1s,
 )
 ```
 
@@ -57,15 +57,12 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "experimental/aggregate"
 import "sampledata"
 
-data = sampledata.int()
-  |> range(start: sampledata.start, stop: sampledata.stop)
+data =
+    sampledata.int()
+        |> range(start: sampledata.start, stop: sampledata.stop)
 
-data  
-  |> aggregate.rate(
-    every: 30s,
-    unit: 1s,
-    groupColumns: ["tag"]
-  )
+data
+    |> aggregate.rate(every: 30s, unit: 1s, groupColumns: ["tag"])
 ```
 
 {{< expand-wrapper >}}

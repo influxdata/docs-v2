@@ -38,10 +38,5 @@ The string that contains regular expression metacharacters to escape.
 import "regexp"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      notes: r.notes,
-      notes_escaped: regexp.quoteMeta(v: r.notes)
-    })
-  )
+    |> map(fn: (r) => ({r with notes: r.notes, notes_escaped: regexp.quoteMeta(v: r.notes)}))
 ```

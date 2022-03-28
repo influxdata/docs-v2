@@ -31,10 +31,10 @@ the [`method`](#method) used._
 
 ```js
 quantile(
-  column: "_value",
-  q: 0.99,
-  method: "estimate_tdigest",
-  compression: 1000.0
+    column: "_value",
+    q: 0.99,
+    method: "estimate_tdigest",
+    compression: 1000.0,
 )
 ```
 
@@ -90,11 +90,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float()
-  |> quantile(
-    q: 0.99,
-    method: "estimate_tdigest",
-    compression: 1000.0
-  )
+    |> quantile(q: 0.99, method: "estimate_tdigest", compression: 1000.0)
 ```
 
 {{< expand-wrapper >}}
@@ -127,10 +123,7 @@ sampledata.float()
 import "sampledata"
 
 sampledata.float()
-  |> quantile(
-    q: 0.5,
-    method: "exact_selector"
-  )
+    |> quantile(q: 0.5, method: "exact_selector")
 ```
 
 {{< expand-wrapper >}}

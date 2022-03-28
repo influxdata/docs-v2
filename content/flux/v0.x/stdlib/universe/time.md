@@ -66,11 +66,11 @@ To update values in columns other than `_value`:
 import "sampledata"
 
 data = sampledata.int()
-  |> map(fn: (r) => ({ r with _value: r._value * 1000000000 }))
-  |> rename(columns: {_value: "foo"})
+    |> map(fn: (r) => ({r with _value: r._value * 1000000000}))
+    |> rename(columns: {_value: "foo"})
 
 data
-  |> map(fn:(r) => ({ r with foo: time(v: r.foo) }))
+    |> map(fn: (r) => ({r with foo: time(v: r.foo)}))
 ```
 
 {{% expand "View input and output" %}}

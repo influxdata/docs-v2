@@ -32,6 +32,6 @@ The value to convert.
 ## Examples
 ```js
 from(bucket: "sensor-data")
-  |> range(start: -1m)
-  |> map(fn:(r) => ({ r with _value: bytes(v: r._value) }))
+    |> range(start: -1m)
+    |> map(fn: (r) => ({r with _value: bytes(v: r._value)}))
 ```

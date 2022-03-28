@@ -115,7 +115,7 @@ and convert columns to floats.
 
 ```js
 data
-  |> toFloat()
+    |> toFloat()
 ```
 
 {{< flex >}}
@@ -147,7 +147,7 @@ data
 
 ```js
 data
-  |> map(fn: (r) => ({ r with index: float(v: r.index) }))
+    |> map(fn: (r) => ({ r with index: float(v: r.index) }))
 ```
 
 {{< flex >}}

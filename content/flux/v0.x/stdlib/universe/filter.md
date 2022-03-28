@@ -25,8 +25,8 @@ The output tables have the same schema as the corresponding input tables.
 
 ```js
 filter(
-  fn: (r) => r._measurement == "cpu",
-  onEmpty: "drop"
+    fn: (r) => r._measurement == "cpu",
+    onEmpty: "drop",
 )
 ```
 
@@ -79,13 +79,9 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 #### Filter based on InfluxDB measurement, field, and tag
 ```js
-from(bucket:"example-bucket")
-  |> range(start:-1h)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
 ```
 
 #### Keep empty tables when filtering
@@ -96,7 +92,7 @@ import "sampledata"
 import "experimental/table"
 
 sampledata.int()
-  |> filter(fn: (r) => r._value > 18, onEmpty: "keep")
+    |> filter(fn: (r) => r._value > 18, onEmpty: "keep")
 ```
 
 {{% note %}}
@@ -135,7 +131,7 @@ The following example uses data provided by the [`sampledata` package](/flux/v0.
 import "sampledata"
 
 sampledata.int(includeNull: true)
-  |> filter(fn: (r) => exists r._value )
+    |> filter(fn: (r) => exists r._value )
 ```
 
 {{< expand-wrapper >}}
@@ -175,7 +171,7 @@ The following example uses data provided by the [`sampledata` package](/flux/v0.
 import "sampledata"
 
 sampledata.int()
-  |> filter(fn: (r) => r._value > 0 and r._value < 10 )
+    |> filter(fn: (r) => r._value > 0 and r._value < 10 )
 ```
 
 {{% expand "View input and output" %}}

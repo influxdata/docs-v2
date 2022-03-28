@@ -15,9 +15,7 @@ flux/v0.x/tags: [inputs, sample data]
 ```js
 import "sampledata"
 
-sampledata.uint(
-  includeNull: false
-)
+sampledata.uint(includeNull: false)
 ```
 
 ## Parameters
@@ -50,5 +48,6 @@ import "sampledata"
 
 sampledata.uint(includeNull: true)
 ```
+
 ##### Output tables
 {{% flux/sample "uint" true %}}

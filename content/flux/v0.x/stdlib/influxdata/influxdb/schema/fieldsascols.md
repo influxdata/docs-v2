@@ -39,9 +39,9 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "influxdata/influxdb/schema"
 
 from(bucket:"example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "cpu")
-  |> schema.fieldsAsCols()
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu")
+    |> schema.fieldsAsCols()
 ```
 
 {{< expand-wrapper >}}
@@ -74,16 +74,3 @@ _`_start` and `_stop` columns have been omitted._
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-package schema
-
-fieldsAsCols = (tables=<-) =>
-  tables
-    |> pivot(
-      rowKey:["_time"],
-      columnKey: ["_field"],
-      valueColumn: "_value"
-    )
-```

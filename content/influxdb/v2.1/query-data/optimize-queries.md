@@ -31,37 +31,37 @@ subsequent operations there.
 Most pushdowns are supported when querying an InfluxDB {{< current-version >}} or InfluxDB Cloud data source.
 As shown in the following table, a handful of pushdowns are not supported in InfluxDB {{< current-version >}}.
 
-| Functions                      | InfluxDB {{< current-version >}} | InfluxDB Cloud       |
-|:---------                      |:------------:                    |:--------------:      |
-| **count()**                    | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **drop()**                     | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **duplicate()**                | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **filter()** {{% req " \*" %}} | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **fill()**                     | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **first()**                    | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **keep()**                     | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **last()**                     | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **max()**                      | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **mean()**                     | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **min()**                      | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **range()**                    | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **rename()**                   | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **sum()**                      | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **window()**                   | {{< icon "check" >}}             | {{< icon "check" >}} |
-| _Function combinations_        |                                  |                      |
-| **group()** \|> **count()**    |                                  | {{< icon "check" >}} |
-| **group()** \|> **first()**    |                                  | {{< icon "check" >}} |
-| **group()** \|> **last()**     |                                  | {{< icon "check" >}} |
-| **group()** \|> **max()**      |                                  | {{< icon "check" >}} |
-| **group()** \|> **min()**      |                                  | {{< icon "check" >}} |
-| **group()** \|> **sum()**      |                                  | {{< icon "check" >}} |
-| **sort()** \|> **limit()**     |                                  | {{< icon "check" >}} |
-| **window()** \|> **count()**   | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **window()** \|> **first()**   | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **window()** \|> **last()**    | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **window()** \|> **max()**     | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **window()** \|> **min()**     | {{< icon "check" >}}             | {{< icon "check" >}} |
-| **window()** \|> **sum()**     | {{< icon "check" >}}             | {{< icon "check" >}} |
+| Functions                      | InfluxDB {{< current-version keep=true >}} |    InfluxDB Cloud    |
+| :----------------------------- | :----------------------------------------: | :------------------: |
+| **count()**                    |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **drop()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **duplicate()**                |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **filter()** {{% req " \*" %}} |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **fill()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **first()**                    |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **keep()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **last()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **max()**                      |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **mean()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **min()**                      |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **range()**                    |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **rename()**                   |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **sum()**                      |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **window()**                   |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| _Function combinations_        |                                            |                      |
+| **group()** \|> **count()**    |                                            | {{< icon "check" >}} |
+| **group()** \|> **first()**    |                                            | {{< icon "check" >}} |
+| **group()** \|> **last()**     |                                            | {{< icon "check" >}} |
+| **group()** \|> **max()**      |                                            | {{< icon "check" >}} |
+| **group()** \|> **min()**      |                                            | {{< icon "check" >}} |
+| **group()** \|> **sum()**      |                                            | {{< icon "check" >}} |
+| **sort()** \|> **limit()**     |                                            | {{< icon "check" >}} |
+| **window()** \|> **count()**   |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **window()** \|> **first()**   |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **window()** \|> **last()**    |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **window()** \|> **max()**     |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **window()** \|> **min()**     |            {{< icon "check" >}}            | {{< icon "check" >}} |
+| **window()** \|> **sum()**     |            {{< icon "check" >}}            | {{< icon "check" >}} |
 
 {{% caption %}}
 {{< req "\*" >}} **filter()** only pushes down when all parameter values are static.
@@ -75,13 +75,13 @@ subsequent operations there.
 ##### Pushdown functions in use
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)                       //
-  |> filter(fn: (r) => r.sensor == "abc123") //
-  |> group(columns: ["_field", "host"])      // Pushed to the data source
-  |> aggregateWindow(every: 5m, fn: max)     //
-  |> filter(fn: (r) => r._value >= 90.0)     //
+    |> range(start: -1h)                       //
+    |> filter(fn: (r) => r.sensor == "abc123") //
+    |> group(columns: ["_field", "host"])      // Pushed to the data source
+    |> aggregateWindow(every: 5m, fn: max)     //
+    |> filter(fn: (r) => r._value >= 90.0)     //
 
-  |> top(n: 10)                              // Run in memory
+    |> top(n: 10)                              // Run in memory
 ```
 
 ### Avoid processing filters inline
@@ -98,8 +98,8 @@ to the underlying data source and loads all data returned from `range()` into me
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)                      
-  |> filter(fn: (r) => r.region == v.provider + v.region)
+    |> range(start: -1h)                      
+    |> filter(fn: (r) => r.region == v.provider + v.region)
 ```
 
 To dynamically set filters and maintain the pushdown ability of the `filter()` function,
@@ -109,8 +109,8 @@ use variables to define filter values outside of `filter()`:
 region = v.provider + v.region
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)                      
-  |> filter(fn: (r) => r.region == region)
+    |> range(start: -1h)                      
+    |> filter(fn: (r) => r.region == region)
 ```
 
 ## Avoid short window durations
@@ -150,17 +150,17 @@ The following queries are functionally the same, but using `set()` is more perfo
 
 ```js
 data
-  |> map(fn: (r) => ({ r with foo: "bar" }))
+    |> map(fn: (r) => ({ r with foo: "bar" }))
 
 // Recommended
 data
-  |> set(key: "foo", value: "bar")
+    |> set(key: "foo", value: "bar")
 ```
 
 #### Dynamically set a column value using existing row data
 ```js
 data
-  |> map(fn: (r) => ({ r with foo: r.bar }))
+    |> map(fn: (r) => ({ r with foo: r.bar }))
 ```
 
 ## Balance time range and data precision
