@@ -3,7 +3,7 @@ title: Replicate data to a remote InfluxDB instance
 weight: 106
 description: >
   Use InfluxDB replication streams to replicate all data written to an InfluxDB OSS
-  instance to InfluxDB Cloud or a remote InfluxDB OSS instance.
+  bucket to InfluxDB Cloud or a remote InfluxDB OSS bucket.
 menu:
   influxdb_2_2:
     name: Replicate data
