@@ -1,6 +1,6 @@
 ---
 title: influxdb.cardinality() function
-description: The `influxdb.cardinality()` function returns the series cardinality of data stored in InfluxDB Cloud.
+description: The `influxdb.cardinality()` function returns the series cardinality of data stored in InfluxDB.
 menu:
   flux_0_x_ref:
     name: influxdb.cardinality
@@ -13,34 +13,35 @@ weight: 302
 flux/v0.x/tags: [metadata]
 related:
   - /{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality, SHOW CARDINALITY in InfluxQL
+  - /flux/v0.x/stdlib/experimental/usage/limits/
 introduced: 0.92.0
 ---
 
-The `influxdb.cardinality()` function returns the [series cardinality](/{{< latest "influxdb" "v2" >}}/reference/glossary#series-cardinality) of a specified dataset.
+The `influxdb.cardinality()` function returns the [series cardinality](/{{< latest "influxdb" "v2" >}}/reference/glossary#series-cardinality) of a specified dataset in InfluxDB.
 
 ```js
 import "influxdata/influxdb"
 
 influxdb.cardinality(
-  bucket: "example-bucket",
-  org: "example-org",
-  host: "https://cloud2.influxdata.com",
-  token: "MySuP3rSecr3Tt0k3n",
-  start: -30d,
-  stop: now(),
-  predicate: (r) => true
+    bucket: "example-bucket",
+    org: "example-org",
+    host: "https://cloud2.influxdata.com",
+    token: "MySuP3rSecr3Tt0k3n",
+    start: -30d,
+    stop: now(),
+    predicate: (r) => true,
 )
 
 // OR
 
 influxdb.cardinality(
-  bucketID: "00xXx0x00xXX0000",
-  orgID: "00xXx0x00xXX0000",
-  host: "https://cloud2.influxdata.com",
-  token: "MySuP3rSecr3Tt0k3n",
-  start: -30d,
-  stop: now(),
-  predicate: (r) => true
+    bucketID: "00xXx0x00xXX0000",
+    orgID: "00xXx0x00xXX0000",
+    host: "https://cloud2.influxdata.com",
+    token: "MySuP3rSecr3Tt0k3n",
+    start: -30d,
+    stop: now(),
+    predicate: (r) => true,
 )
 ```
 
@@ -87,14 +88,16 @@ _Default is `(r) => true`_.
 
 ## Examples
 
+- [Query series cardinality in a bucket](#query-series-cardinality-in-a-bucket)
+- [Query series cardinality in a measurement](#query-series-cardinality-in-a-measurement)
+- [Query series cardinality for a specific tag](#query-series-cardinality-for-a-specific-tag)
+- [Query total cardinality across all buckets](#query-total-cardinality-across-all-buckets)
+
 ##### Query series cardinality in a bucket
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(
-  bucket: "example-bucket",
-  start: -1y
-)
+influxdb.cardinality(bucket: "example-bucket", start: -1y)
 ```
 
 ##### Query series cardinality in a measurement
@@ -102,9 +105,9 @@ influxdb.cardinality(
 import "influxdata/influxdb"
 
 influxdb.cardinality(
-  bucket: "example-bucket",
-  start: -1y,
-  predicate: (r) => r._measurement == "example-measurement"
+    bucket: "example-bucket",
+    start: -1y,
+    predicate: (r) => r._measurement == "example-measurement",
 )
 ```
 
@@ -113,8 +116,21 @@ influxdb.cardinality(
 import "influxdata/influxdb"
 
 influxdb.cardinality(
-  bucket: "example-bucket",
-  start: -1y,
-  predicate: (r) => r.exampleTag == "foo"
+    bucket: "example-bucket",
+    start: -1y,
+    predicate: (r) => r.exampleTag == "foo",
 )
+```
+
+##### Query total cardinality across all buckets
+```js
+import "influxdata/influxdb"
+
+bucketCardinality = (bucket) => (influxdb.cardinality(bucket: bucket, start: time(v: 0))
+    |> findColumn(fn: (key) => true, column: "_value"))[0]
+
+buckets()
+    |> filter(fn: (r) => not r.name =~ /^_/)
+    |> map(fn: (r) => ({bucket: r.name, "Total Cardinality": bucketCardinality(bucket: r.name)}))
+    |> sum(column: "Total Cardinality")
 ```

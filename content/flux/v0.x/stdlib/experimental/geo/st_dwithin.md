@@ -26,9 +26,9 @@ returns `true` or `false`.
 import "experimental/geo"
 
 geo.ST_DWithin(
-  region: {lat: 40.7, lon: -73.3, radius: 20.0},
-  geometry: {lon: 39.7515, lat: 15.08433},
-  distance: 1000.0
+    region: {lat: 40.7, lon: -73.3, radius: 20.0},
+    geometry: {lon: 39.7515, lat: 15.08433},
+    distance: 1000.0,
 )
 
 // Returns false
@@ -56,16 +56,12 @@ _Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experimen
 ```js
 import "experimental/geo"
 
-region = {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
-}
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
 
 data
-  |> geo.toRows()
-  |> map(fn: (r) => ({
-    r with st_within: geo.ST_DWithin(region: box, geometry: {lat: r.lat, lon: r.lon}, distance: 15.0)
-  }))
+    |> geo.toRows()
+    |> map(
+        fn: (r) =>
+            ({r with st_within: geo.ST_DWithin(region: box, geometry: {lat: r.lat, lon: r.lon}, distance: 15.0)}),
+    )
 ```

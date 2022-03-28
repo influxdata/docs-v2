@@ -6,10 +6,10 @@ description: >
 menu:
   resources:
     parent: Videos
-weight: 101
+weight: 111
 youtubeID: iMKCe3WKFo0
 date: 2021-11-30
-tags: [Meet the Developers]
+series: [Meet the Developers S1]
 metadata: [Meet the Developer Series]
 ---
 

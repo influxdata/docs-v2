@@ -804,8 +804,9 @@ In a batch of data, points that InfluxDB couldn't write to a bucket.
 Field type conflicts are a common cause of rejected points.
 
 ### retention period
-The duration of time that a bucket retains data.
-Points with timestamps older than their bucket's retention period are dropped.
+The [duration](#duration) of time that a bucket retains data.
+InfluxDB drops points with timestamps older than their bucket's retention period.
+The minimum retention period is **one hour**.
 
 Related entries: [bucket](#bucket), [shard group duration](#shard-group-duration)
 
@@ -1064,6 +1065,11 @@ Examples include downsampling and batch jobs.
 For more information, see [Process Data with InfluxDB tasks](/influxdb/v2.1/process-data/).
 
 Related entries: [function](#function)
+
+### technical preview
+
+A new feature released to gather feedback from customers and the InfluxDB community. Send feedback to InfluxData via 
+[Community Slack](https://influxcommunity.slack.com/) or our [Community Site](https://community.influxdata.com/).
 
 ### Telegraf
 

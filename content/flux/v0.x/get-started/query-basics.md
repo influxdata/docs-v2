@@ -7,6 +7,8 @@ menu:
     name: Query basics
     parent: Get started
 weight: 103
+related:
+  - /resources/videos/flux-basics/
 ---
 
 Most Flux queries follow the same basic structure.
@@ -25,11 +27,11 @@ The majority of basic Flux queries include the following steps:
 - [Process](#process)
 
 ```js
-from(bucket: "example-bucket")            // ── Source
-  |> range(start: -1d)                    // ── Filter on time
-  |> filter(fn: (r) => r._field == "foo") // ── Filter on column values
-  |> group(columns: ["sensorID"])         // ── Shape
-  |> mean()                               // ── Process
+from(bucket: "example-bucket")              // ── Source
+    |> range(start: -1d)                    // ── Filter on time
+    |> filter(fn: (r) => r._field == "foo") // ── Filter on column values
+    |> group(columns: ["sensorID"])         // ── Shape
+    |> mean()                               // ── Process
 ```
 
 ### Source
@@ -133,7 +135,7 @@ To actually query data from InfluxDB, replace `sample.data()` with the
     import "influxdata/influxdb/sample"
 
     sample.data(set: "airSensor")
-      |> range(start: -1h)
+        |> range(start: -1h)
     ```
 
 3.  Use [`filter()`](/flux/v0.x/stdlib/universe/filter/) to filter rows based on
@@ -145,8 +147,8 @@ To actually query data from InfluxDB, replace `sample.data()` with the
     import "influxdata/influxdb/sample"
 
     sample.data(set: "airSensor")
-      |> range(start: -1h)
-      |> filter(fn: (r) => r._field == "co")
+        |> range(start: -1h)
+        |> filter(fn: (r) => r._field == "co")
     ```
 
 4.  Use [`mean()`](/flux/v0.x/stdlib/universe/mean/) to calculate the average value
@@ -159,9 +161,9 @@ To actually query data from InfluxDB, replace `sample.data()` with the
     import "influxdata/influxdb/sample"
 
     sample.data(set: "airSensor")
-      |> range(start: -1h)
-      |> filter(fn: (r) => r._field == "co")
-      |> mean()
+        |> range(start: -1h)
+        |> filter(fn: (r) => r._field == "co")
+        |> mean()
     ```
 
 5.  Use [`group()`](/flux/v0.x/stdlib/universe/group) to [restructure tables](/flux/v0.x/get-started/data-model/#restructure-tables)
@@ -171,10 +173,10 @@ To actually query data from InfluxDB, replace `sample.data()` with the
     import "influxdata/influxdb/sample"
 
     sample.data(set: "airSensor")
-      |> range(start: -1h)
-      |> filter(fn: (r) => r._field == "co")
-      |> mean()
-      |> group()
+        |> range(start: -1h)
+        |> filter(fn: (r) => r._field == "co")
+        |> mean()
+        |> group()
     ```
 
 Results from this basic query should be similar to the following:
@@ -193,5 +195,9 @@ Results from this basic query should be similar to the following:
 |   co   |  airSensors  |  TLM0201  |   0.297474366047375 |
 |   co   |  airSensors  |  TLM0202  |  0.3336370208486757 |
 |   co   |  airSensors  |  TLM0203  |  0.4948166816959906 |
+
+To learn more about Flux concepts and basic functions and see an example of how to write a basic Flux query, watch the following video:
+
+{{< youtube osSJueQW-EE >}}
 
 {{< page-nav prev="/flux/v0.x/get-started/syntax-basics/" >}}

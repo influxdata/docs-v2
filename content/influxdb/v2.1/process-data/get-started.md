@@ -15,6 +15,7 @@ weight: 101
 related:
   - /influxdb/v2.1/process-data/manage-tasks/
   - /influxdb/v2.1/process-data/manage-tasks/create-task/
+  - /resources/videos/influxdb-tasks/
 ---
 
 An **InfluxDB task** is a scheduled Flux script that takes a stream of input data, modifies or analyzes
@@ -66,11 +67,8 @@ the required time range and any relevant filters.
 
 ```js
 data = from(bucket: "example-bucket")
-  |> range(start: -task.every)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r.host == "myHost"
-  )
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "mem" and r.host == "myHost")
 ```
 
 {{% note %}}
@@ -105,10 +103,7 @@ window using the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/un
 
 ```js
 data
-  |> aggregateWindow(
-    every: 5m,
-    fn: mean
-  )
+    |> aggregateWindow(every: 5m, fn: mean)
 ```
 
 _See [Common tasks](/influxdb/v2.1/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
@@ -123,7 +118,7 @@ to send the transformed data to another bucket:
 
 ```js
 // ...
-|> to(bucket: "example-downsampled", org: "my-org")
+    |> to(bucket: "example-downsampled", org: "my-org")
 ```
 
 {{% note %}}
@@ -136,28 +131,21 @@ Below is a task script that combines all of the components described above:
 
 ```js
 // Task options
-option task = {
-    name: "cqinterval15m",
-    every: 1h,
-    offset: 0m,
-    concurrency: 1,
-}
+option task = {name: "cqinterval15m", every: 1h, offset: 0m, concurrency: 1}
 
 // Data source
 data = from(bucket: "example-bucket")
-  |> range(start: -task.every)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r.host == "myHost"
-  )
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "mem" and r.host == "myHost")
 
 data
-  // Data transformation
-  |> aggregateWindow(
-    every: 5m,
-    fn: mean
-  )
-  // Data destination
-  |> to(bucket: "example-downsampled")
-
+    // Data transformation
+    |> aggregateWindow(every: 5m, fn: mean)
+    // Data destination
+    |> to(bucket: "example-downsampled")
 ```
+
+To learn more about InfluxDB tasks and how they work, watch the following video:
+
+{{< youtube zgCmdtZaH9M >}}
+

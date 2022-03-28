@@ -71,7 +71,7 @@ The following Alerta event handler options can be set in a
 | correlate    | list of strings | List of related events, for example, `event1`, `event2`.                                                                                        |
 | service      | list of strings | List of effected Services.                                                                                                                      |
 | timeout      | duration string | Alerta timeout. Default is 24 hours.                                                                                                            |
-
+| attributes   | map of key value pairs | Alerta alert attributes. 
 > **Note:** The `resource` and `event` properties are required.
 > Alerta cannot be configured globally because of these required properties.
 
@@ -93,6 +93,10 @@ options:
   service: ['service1', 'service2']
   correlate: ['service1', 'service2']
   timeout: 24h
+  attributes:
+    key1: value1
+    key2: 8
+    booleanAttribute: TRUE
 ```
 
 ### Example: TICKscript
@@ -113,6 +117,8 @@ options:
     .service('service1', 'service2')
     .correlated('service1', 'service2')
     .timeout(24h)
+    .attribute('booleanAttribute', TRUE)
+    .attribute('key1', 'value1')
 ```
 
 ## Using the Alerta event handler

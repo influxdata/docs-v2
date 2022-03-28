@@ -59,11 +59,8 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket")
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
-  |> range(start:-12h)
-  |> window(every:10m)
-  |> experimental.mode()
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+    |> range(start: -12h)
+    |> window(every: 10m)
+    |> experimental.mode()
 ```

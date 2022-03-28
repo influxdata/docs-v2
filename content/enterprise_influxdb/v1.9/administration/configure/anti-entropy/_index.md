@@ -7,8 +7,8 @@ aliases:
 menu:
   enterprise_influxdb_1_9:
     name: Use Anti-entropy service
-    weight: 60
     parent: Configure
+weight: 50
 ---
 
 {{% warn %}}
@@ -34,7 +34,7 @@ If data inconsistencies are detected among shards in a shard group, [invoke the 
 In the repair process, the Anti-Entropy service will sync the necessary updates from other shards
 within a shard group.
 
-By default, the service performs consistency checks every 5 minutes. This interval can be modified in the [`anti-entropy.check-interval`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#check-interval-5m) configuration setting.
+By default, the service performs consistency checks every 5 minutes. This interval can be modified in the [`anti-entropy.check-interval`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#check-interval) configuration setting.
 
 The Anti-Entropy service can only address missing or inconsistent shards when
 there is at least one copy of the shard available.
@@ -178,7 +178,7 @@ until it either shows as being in the queue, being repaired, or no longer in the
 
 ## Configuration
 
-The configuration settings for the Anti-Entropy service are described in [Anti-Entropy settings](/enterprise_influxdb/v1.9/administration/config-data-nodes#anti-entropy) section of the data node configuration.
+The configuration settings for the Anti-Entropy service are described in [Anti-Entropy settings](/enterprise_influxdb/v1.9/administration/config-data-nodes/#anti-entropy-ae-settings) section of the data node configuration.
 
 To enable the Anti-Entropy service, change the default value of the `[anti-entropy].enabled = false` setting to `true` in the `influxdb.conf` file of each of your data nodes.
 

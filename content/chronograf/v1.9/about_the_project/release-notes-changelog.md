@@ -8,6 +8,32 @@ menu:
     parent: About the project
 ---
 
+## v1.9.3 [2022-02-02]
+
+{{% note %}} **NOTE:** We did not release version 1.9.2 due to a bug that impacted communication between the browser’s main thread and background workers.  This bug has been fixed in the 1.9.3 release.
+{{% /note %}}
+
+### Features
+- Add ability to rename TICKscripts.
+- Add the following enhancements to the `InfluxDB Admin - Queries` tab:
+  - `CSV download` button. 
+  - Rename `Running` column to `Duration`.
+  - Add `Status` column. When hovering over the `Duration` column, status shows `Kill` confirmation button.
+  - Modify the `CSV` export to include the `Status` column.
+- Upgrade to use new `google.golang protobuf` library.
+
+### Bug Fixes
+- Ability to log the InfluxDB instance URL when a ping fails, making connection issues easier to identify.
+- Repair enforcement of one organization between multiple tabs.
+- Configure HTTP proxy from environment variables in HTTP clients. Improvements were made to:
+  - Token command within `chronoctl` 
+  - OAuth client
+  - Kapacitor client 
+  - Flux client
+
+#### Security
+- Upgrade `github.com/microcosm-cc/bluemonday` to resolve CVE-2021-42576.
+
 ## v1.9.1 [2021-10-08]
 
 ### Features

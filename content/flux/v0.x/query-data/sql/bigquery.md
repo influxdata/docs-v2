@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "bigquery",
-    dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
-    query: "SELECT * FROM exampleTable"
+      driverName: "bigquery",
+      dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+      query: "SELECT * FROM exampleTable",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [Google BigQuery](https://cloud.google.com/bigquery) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "bigquery",
-  dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
-  query: "SELECT * FROM exampleTable"
+    driverName: "bigquery",
+    dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+    query: "SELECT * FROM exampleTable",
 )
 ```
 
@@ -60,13 +60,6 @@ Provide your authentication credentials using one of the following methods:
 
 - Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to identify the
   location of your credential JSON file.
-- Provide your BigQuery API key using the **apiKey** URL parameter in your BigQuery DSN.
-
-    ###### Example apiKey URL parameter
-    ```
-    bigquery://projectid/?apiKey=AIzaSyB6XK8IO5AzKZXoioQOVNTFYzbDBjY5hy4
-    ```
-
 - Provide your base-64 encoded service account, refresh token, or JSON credentials
   using the **credentials** URL parameter in your BigQuery DSN.
 

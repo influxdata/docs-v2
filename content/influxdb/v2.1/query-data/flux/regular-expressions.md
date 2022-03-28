@@ -56,24 +56,17 @@ It only keeps records for which the `cpu` is either `cpu0`, `cpu1`, or `cpu2`.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_user" and
-    r.cpu =~ /cpu[0-2]$/
-  )
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r.cpu =~ /cpu[0-2]$/)
 ```
 
 ### Use a regex to filter by field key
-The following example excludes records that do not have `_percent` in a field key.
+The following example includes records that have `_percent` in a field key.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field =~ /_percent/
-  )
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field =~ /_percent/)
 ```
 
 ### Drop columns matching a regex
@@ -81,9 +74,9 @@ The following example drops columns whose names do not being with `_`.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) => r._measurement == "mem")
-  |> drop(fn: (column) => column !~ /_.*/)
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "mem")
+    |> drop(fn: (column) => column !~ /_.*/)
 ```
 
 ## Helpful links

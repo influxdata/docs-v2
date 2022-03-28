@@ -10,6 +10,220 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.159.0 [2022-03-14]
+
+### Features
+- Added a `finish` state to parallel-merge and always protect with a mutex lock.
+
+### Bug fixes
+- Use a fork of the `gosnowflake` library to prevent file transfers.
+- When encoding Flux types as JSON, encode dictionary types as JSON objects.
+- Upgrade Apache Arrow to v7.
+
+---
+
+## v0.158.0 [2022-03-09]
+
+### Features
+- Add inline documentation to the `universe` package.
+- Factor parallel execution into the concurrency quota calculation.
+
+### Bug fixes
+- Add parallel merges with no successors to the results set.
+- Correctly use range in an updated `map()` test.
+
+---
+
+## v0.157.0 [2022-03-03]
+
+### Features
+- Update `fill()` to use narrow transformation.
+- Add an attribute-based instantiation of parallel execution nodes.
+- Expose the `Record::fields` iterator.
+- Allow the `estimate_tdigest` method in `quantile()` to process any numeric value.
+- Optimize `aggregateWindow()` for specific aggregate transformations.
+
+### Bug fixes
+- Update vectorized `map()` to handle missing columns.
+- Remove duplicate line in `Makefile`.
+- Fix `cargo doc` build errors.
+- Reclassify CSV-decoding errors as user errors.
+- Update `iox.from()` and `generate.from()` to use proper stream annotation.
+
+---
+
+## v0.156.0 [2022-02-22]
+
+### Features
+- Add second pass to physical planner for parallelization rules.
+- Separate streams from arrays in the type system.
+- Add function to internal/debug to check feature flag values.
+- Allow feature flags to record metrics if configured.
+- Add extra verbose level to dump AST of test.
+- Explain what `[A], [A:B]` etc means in errors.
+
+### Bug fixes
+- Make `buckets()` function return a stream.
+- Remove unnecessary `TableObject` guards.
+- Copy `TagColumns` in `to()` that may get modified into the transformation.
+- Update tests to use explicit yields.
+
+---
+
+## v0.155.1 [2022-02-15]
+
+### Bug fixes
+- Update tests to use an explicit yield.
+
+---
+
+## v0.155.0 [2022-02-14]
+
+### Features
+- Add new [experimental array functions](/flux/v0.x/stdlib/experimental/array/)
+  for operating on arrays.
+
+### Bug fixes
+- Add `stop` parameter to [InfluxDB schema functions](/flux/v0.x/stdlib/influxdata/influxdb/schema/).
+- Remove `os.Exit` calls and allow `defer executor.Close` to run.
+- Properly handle time zone transitions when there is no daylight savings time
+  in the specified time zone.
+
+---
+
+## v0.154.0 [2022-02-09]
+
+### Features
+- Add [`requests.peek()`](/flux/v0.x/stdlib/experimental/http/requests/peek/) to
+  return HTTP response data in a table.
+- Add [`display()`](/flux/v0.x/stdlib/universe/display/) to represent any value as a string.
+- Create a version of `map()` that is columnar and supports vectorization.
+- Support vectorized functions.
+
+### Bug fixes
+- Add time vector to the `values` package.
+- Set the correct type for vectorized functions.
+
+---
+
+## v0.153.0 [2022-02-07]
+
+### Features
+- Connect language server protocol (LSP) features through the Flux crate.
+- Add conversion from `flux.Bounds` to `plan/execute.Bounds`.
+- Re-index all bound variables to start from 0.
+
+### Bug fixes
+- Int feature flags work properly when returned as floats.
+
+---
+
+## v0.152.0 [2022-01-31]
+
+### Features
+- Add the [`experimental/http/requests` package](/flux/v0.x/stdlib/experimental/http/requests/)
+  to support generic HTTP requests.
+- Add [`experimental/iox` package](/flux/v0.x/stdlib/experimental/iox/) and a
+  placeholder for the `iox.from()` function.
+- Add dependency hooks to the dependency subsystem.
+- Remove unneeded feature flags.
+
+### Bug fixes
+- Revert update to the dependencies package.
+- Return false if contains gets invalid value.
+
+---
+
+## v0.151.1 [2022-01-24]
+
+### Features
+- Update to Rust 1.58.1.
+
+---
+
+## v0.151.0 [2022-01-20]
+
+### Features
+- Expose `MonoType::parameter` and `MonoType::field`.
+
+### Bug fixes
+- Support writing unsigned integers with the `http` provider.
+
+---
+
+## v0.150.1 [2022-01-19]
+
+### Bug fixes
+- Remove duplicate `die` builtin in the `universe` package.
+
+---
+
+## v0.150.0 [2022-01-19]
+
+### Features
+- Update inline documentation in the following packages:
+  - date
+  - experimental
+  - testing
+  - timezone
+  - types
+
+### Bug fixes
+- Make iterating the hashmap deterministic.
+- Quote SQL identifiers to mitigate the risk of SQL injection.
+
+---
+
+## v0.149.0 [2022-01-12]
+
+### Features
+- Add `Get` methods to `metadata`.
+- Optimized `sort |> limit` operations.
+- Add [`location` option](/flux/v0.x/stdlib/universe/#location) support to the `date` package.
+- Use reference equality for `Symbol`.
+- Add inline documentation to the following packages:
+    - socket
+    - sql
+    - strings
+
+### Bug fixes
+- Do not attempt IP validation for BigQuery data source names (DSNs).
+
+---
+
+## v0.148.0 [2022-01-10]
+
+### Features
+- Report multiple errors from a single `unify` call.
+- Update [`to`](/flux/v0.x/stdlib/influxdata/influxdb/to/) transformation to use
+  narrow transformation.
+- Provide specific error information on function calls.
+- Allow errors to be formatted via `codespan`.
+- Add an `internal/debug.opaque` function.
+- Provide which package exported a symbol.
+- Add timeable support to [`experimental.addDuration()`](/flux/v0.x/stdlib/experimental/addduration/)
+  and [`experimental.subDuration()`](/flux/v0.x/stdlib/experimental/subduration/).
+- Add inline documentation to the following packages:
+  - interpolate
+  - json
+  - kafka
+  - math
+  - regexp
+  - runtime
+  - sampledata
+  - slack
+  - system
+  - pagerduty
+  - profiler
+  - pushbullet
+
+### Bug fixes
+- Classify IP validation failures as `Invalid`.
+- Relocate the mutex in the optimized union to avoid a data race.
+- Split the entire pipe chain into multiple lines (if necessary).
+
+---
+
 ## v0.147.0 [2021-12-14]
 
 ### Features

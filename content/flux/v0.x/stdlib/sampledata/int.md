@@ -15,9 +15,7 @@ flux/v0.x/tags: [inputs, sample data]
 ```js
 import "sampledata"
 
-sampledata.int(
-  includeNull: false
-)
+sampledata.int(includeNull: false)
 ```
 
 ## Parameters
@@ -39,6 +37,7 @@ import "sampledata"
 
 sampledata.int()
 ```
+
 ##### Output tables
 {{% flux/sample "int" %}}
 
@@ -50,5 +49,6 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
 ```
+
 ##### Output tables
 {{% flux/sample "int" true %}}

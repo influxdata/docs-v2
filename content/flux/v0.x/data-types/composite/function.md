@@ -63,6 +63,3 @@ A Flux **function** literal contains the following:
 
 ## Define functions
 _For information about defining custom functions, see [Define custom functions](/flux/v0.x/define-functions/)._
-
-
-

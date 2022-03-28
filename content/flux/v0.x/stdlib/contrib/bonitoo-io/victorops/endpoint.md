@@ -26,7 +26,7 @@ Splunk acquired VictorOps and VictorOps is now
 import "contrib/bonitoo-io/victorops"
 
 victorops.endpoint(
-  url: "https://alert.victorops.com/integrations/generic/00000000/alert${apiKey}/${routingKey}",
+    url: "https://alert.victorops.com/integrations/generic/00000000/alert${apiKey}/${routingKey}",
 )
 ```
 
@@ -75,18 +75,21 @@ routingKey = secrets.get(key: "VICTOROPS_ROUTING_KEY")
 url = "https://alert.victorops.com/integrations/generic/00000000/alert/${apiKey}/${routingKey}"
 endpoint = victorops.endpoint(url: url)
 
-crit_events = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_events
-  |> endpoint(mapFn: (r) => ({
-      monitoringTool: "InfluxDB"
-      messageType: "CRITICAL",
-      entityID: "${r.host}-${r._field)-critical",
-      entityDisplayName: "Critical alert for ${r.host}",
-      stateMessage: "${r.host} is in a critical state. ${r._field} is ${string(v: r._value)}.",
-      timestamp: now()
-    })
-  )()
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                monitoringTool: "InfluxDB",
+                messageType: "CRITICAL",
+                entityID: "${r.host}-${r._field}-critical",
+                entityDisplayName: "Critical alert for ${r.host}",
+                stateMessage: "${r.host} is in a critical state. ${r._field} is ${string(v: r._value)}.",
+                timestamp: now(),
+            }),
+    )()
 ```

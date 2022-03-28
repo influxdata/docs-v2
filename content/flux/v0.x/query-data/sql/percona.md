@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
   
   sql.from(
-    driverName: "mysql",
-    dataSourceName: "user:password@tcp(localhost:3306)/db",
-    query: "SELECT * FROM example_table"
+      driverName: "mysql",
+      dataSourceName: "user:password@tcp(localhost:3306)/db",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [Percona](https://www.percona.com/) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "mysql",
-  dataSourceName: "user:password@tcp(localhost:3306)/db",
-  query: "SELECT * FROM example_table"
+    driverName: "mysql",
+    dataSourceName: "user:password@tcp(localhost:3306)/db",
+    query: "SELECT * FROM example_table",
 )
 ```
 

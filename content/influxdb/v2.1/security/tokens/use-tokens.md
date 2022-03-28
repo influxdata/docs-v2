@@ -17,11 +17,11 @@ Authenticate requests using the [`influx` CLI](/influxdb/v2.1/reference/cli/infl
 ### Add a token to a CLI request
 
 ```sh
-influx write -t <token> -b BUCKET -o org-name <LINE PROTOCOL>
+influx write -t <INFLUX_TOKEN> -b <BUCKET_NAME> -o org-name <LINE_PROTOCOL>
 ```
 
 ```
-export INFLUX_TOKEN=my-token
+export INFLUX_TOKEN=<INFLUX_TOKEN>
 influx write -t $INFLUX_TOKEN -b my-bucket -o my-org "measurement field=1"
 ```
 

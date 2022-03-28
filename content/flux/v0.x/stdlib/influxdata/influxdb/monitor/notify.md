@@ -22,8 +22,8 @@ in the `notifications` measurement in the [`_monitoring` bucket](/influxdb/cloud
 import "influxdata/influxdb/monitor"
 
 monitor.notify(
-  endpoint: endpoint,
-  data: {}
+    endpoint: endpoint,
+    data: {},
 )
 ```
 
@@ -66,25 +66,18 @@ import "slack"
 
 token = secrets.get(key: "SLACK_TOKEN")
 
-endpoint = slack.endpoint(token: token)(mapFn: (r) => ({
-    channel: "Alerts",
-    text: r._message,
-    color: "danger"
-  }))
+endpoint = slack.endpoint(token: token)(mapFn: (r) => ({channel: "Alerts", text: r._message, color: "danger"}))
 
 notification_data = {
-	_notification_rule_id: "0000000000000001",
-	_notification_rule_name: "example-rule-name",
-	_notification_endpoint_id: "0000000000000002",
-	_notification_endpoint_name: "example-endpoint-name",
+    _notification_rule_id: "0000000000000001",
+    _notification_rule_name: "example-rule-name",
+    _notification_endpoint_id: "0000000000000002",
+    _notification_endpoint_name: "example-endpoint-name"
 }
 
 from(bucket: "system")
-	|> range(start: -5m)
-	|> monitor.notify(
-    endpoint: endpoint,
-    data: notification_data
-  )
+    |> range(start: -5m)
+    |> monitor.notify(endpoint: endpoint, data: notification_data)
 ```
 
 ### Send a notification to PagerDuty
@@ -95,30 +88,29 @@ import "pagerduty"
 
 routingKey = secrets.get(key: "PAGERDUTY_ROUTING_KEY")
 
-endpoint = pagerduty.endpoint()(mapFn: (r) => ({
-    routingKey: routingKey,
-    client: "ExampleClient",
-    clientURL: "http://examplepagerdutyclient.com",
-    dedupkey: "ExampleDedupKey",
-    class: "cpu usage",
-    group: "app-stack",
-    severity: "ok",
-    eventAction: "trigger",
-    source: "monitoringtool:vendor:region",
-    timestamp: r._source_timestamp
-  }))
+endpoint = pagerduty.endpoint()(
+    mapFn: (r) => ({
+        routingKey: routingKey,
+        client: "ExampleClient",
+        clientURL: "http://examplepagerdutyclient.com",
+        dedupkey: "ExampleDedupKey",
+        class: "cpu usage",
+        group: "app-stack",
+        severity: "ok",
+        eventAction: "trigger",
+        source: "monitoringtool:vendor:region",
+        timestamp: r._source_timestamp,
+    }),
+)
 
 notification_data = {
-	_notification_rule_id: "0000000000000001",
-	_notification_rule_name: "example-rule-name",
-	_notification_endpoint_id: "0000000000000002",
-	_notification_endpoint_name: "example-endpoint-name",
+    _notification_rule_id: "0000000000000001",
+    _notification_rule_name: "example-rule-name",
+    _notification_endpoint_id: "0000000000000002",
+    _notification_endpoint_name: "example-endpoint-name"
 }
 
 from(bucket: "system")
-	|> range(start: -5m)
-	|> monitor.notify(
-    endpoint: endpoint,
-    data: notification_data
-  )
+    |> range(start: -5m)
+    |> monitor.notify(endpoint: endpoint, data: notification_data)
 ```

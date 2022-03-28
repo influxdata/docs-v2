@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "sqlite3",
-    dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
-    query: "SELECT * FROM example_table"
+      driverName: "sqlite3",
+      dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [SQLite](https://www.sqlite.org/index.html) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "sqlite3",
-  dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
-  query: "SELECT * FROM example_table"
+    driverName: "sqlite3",
+    dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
+    query: "SELECT * FROM example_table",
 )
 ```
 

@@ -20,10 +20,10 @@ The `sql.to()` function writes data to a SQL database.
 import "sql"
 
 sql.to(
-  driverName: "mysql",
-  dataSourceName: "username:password@tcp(localhost:3306)/dbname?param=value",
-  table: "example_table",
-  batchSize: 10000
+    driverName: "mysql",
+    dataSourceName: "username:password@tcp(localhost:3306)/dbname?param=value",
+    table: "example_table",
+    batchSize: 10000,
 )
 ```
 
@@ -40,7 +40,7 @@ The following drivers are available:
 - postgres
 - snowflake
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. For more information, see [Write to SQLite](/flux/v0.x/write-data/sql/sqlite/)._
-- sqlserver, mssql
+- sqlserver
 - vertica, vertigo
 
 {{% warn %}}

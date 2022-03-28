@@ -1,6 +1,8 @@
 ---
 title: to() function
-description: The `to()` function writes data to an InfluxDB v2.0 bucket.
+description: >
+  `to()` writes data to an **InfluxDB Cloud or v2.x** bucket and outputs the
+  written data.
 aliases:
   - /flux/v0.x/stdlib/universe/to
   - /influxdb/v2.0/reference/flux/functions/outputs/to
@@ -19,29 +21,30 @@ related:
 introduced: 0.7.0
 ---
 
-The `to()` function writes data to an **InfluxDB v2.0** bucket.
+`to()` writes data to an **InfluxDB Cloud or v2.x** bucket and outputs the
+written data.
 
 ```js
 to(
-  bucket: "my-bucket",
-  org: "my-org",
-  host: "localhost:8086",
-  token: "mY5uP3rS3cRe7t0k3n",
-  timeColumn: "_time",
-  tagColumns: ["tag1", "tag2", "tag3"],
-  fieldFn: (r) => ({ r._field: r._value })
+    bucket: "my-bucket",
+    org: "my-org",
+    host: "http://localhost:8086",
+    token: "mY5uP3rS3cRe7t0k3n",
+    timeColumn: "_time",
+    tagColumns: ["tag1", "tag2", "tag3"],
+    fieldFn: (r) => ({ r._field: r._value }),
 )
 
 // OR
 
 to(
-  bucketID: "1234567890",
-  orgID: "0987654321",
-  host: "localhost:8086",
-  token: "mY5uP3rS3cRe7t0k3n",
-  timeColumn: "_time",
-  tagColumns: ["tag1", "tag2", "tag3"],
-  fieldFn: (r) => ({ r._field: r._value })
+    bucketID: "1234567890",
+    orgID: "0987654321",
+    host: "http://localhost:8086",
+    token: "mY5uP3rS3cRe7t0k3n",
+    timeColumn: "_time",
+    tagColumns: ["tag1", "tag2", "tag3"],
+    fieldFn: (r) => ({ r._field: r._value }),
 )
 ```
 
@@ -65,8 +68,7 @@ that includes, at a minimum, the following columns:
 _All other columns are written to InfluxDB as [tags](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/#tags)._
 
 {{% note %}}
-The `to()` function ignores rows with a null `_time` value and does not write
-them to InfluxDB.
+`to()` drops rows with a null `_time` value and does not write them to InfluxDB.
 {{% /note %}}
 
 ## Parameters
@@ -134,6 +136,10 @@ To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-para
 
 ## Examples
 
+- [Default to() operation](#default-to-operation)
+- [Custom to() operation](#custom-to-operation)
+- [Write to multiple buckets](#write-to-multiple-buckets)
+
 ### Default to() operation
 
 Given the following table:
@@ -144,11 +150,11 @@ Given the following table:
 | 0006  | 0000   | 0009  | "a"          | "temp" | 99.3   |
 | 0007  | 0000   | 0009  | "a"          | "temp" | 99.9   |
 
-The default `to` operation:
+The default `to()` operation:
 
 ```js
-// ...
-|> to(bucket:"my-bucket", org:"my-org")
+data
+    |> to(bucket:"my-bucket", org:"my-org")
 ```
 
 is equivalent to writing the above data using the following line protocol:
@@ -161,7 +167,8 @@ _measurement=a temp=99.9 0007
 
 ### Custom to() operation
 
-The `to()` functions default operation can be overridden. For example, given the following table:
+The default `to()` operation can be overridden.
+For example, given the following table:
 
 | _time | _start | _stop | tag1 | tag2 | hum  | temp  |
 | ----- | ------ | ----- | ---- | ---- | ---- | ----- |
@@ -172,13 +179,13 @@ The `to()` functions default operation can be overridden. For example, given the
 The operation:
 
 ```js
-// ...
-|> to(
-  bucket:"my-bucket",
-  org:"my-org",
-  tagColumns:["tag1"],
-  fieldFn: (r) => ({"hum": r.hum, "temp": r.temp})
-)
+data
+    |> to(
+        bucket:"my-bucket",
+        org:"my-org",
+        tagColumns:["tag1"],
+        fieldFn: (r) => ({"hum": r.hum, "temp": r.temp}),
+    )
 ```
 
 is equivalent to writing the above data using the following line protocol:
@@ -187,4 +194,22 @@ is equivalent to writing the above data using the following line protocol:
 _tag1=a hum=55.3,temp=100.1 0005
 _tag1=a hum=55.4,temp=99.3 0006
 _tag1=a hum=55.5,temp=99.9 0007
+```
+
+### Write to multiple buckets
+The example below does the following:
+
+1. Writes data to `bucket1` and returns the data as it is written.
+2. Ungroups the returned data.
+3. Counts the number of rows.
+4. Maps columns required to write to InfluxDB.
+5. Writes the modified data to `bucket2`.
+
+```js
+data
+    |> to(bucket: "bucket1")
+    |> group()
+    |> count()
+    |> map(fn: (r) => ({r with _time: now(), _measurement: "writeStats", _field: "numPointsWritten"}))
+    |> to(bucket: "bucket2")
 ```

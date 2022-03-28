@@ -6,6 +6,7 @@ description: >
 aliases:
   - /influxdb/v2.0/reference/flux/stdlib/monitor/statechangesonly/
   - /influxdb/cloud/reference/flux/stdlib/monitor/statechangesonly/
+  - /cloud/reference/flux/stdlib/monitor/statechangesonly/
 menu:
   flux_0_x_ref:
     name: monitor.stateChangesOnly
@@ -37,7 +38,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "influxdata/influxdb/monitor"
 
 monitor.from(start: -1h)
-  |> monitor.stateChangesOnly()
+    |> monitor.stateChangesOnly()
 ```
 
 {{< flex >}}

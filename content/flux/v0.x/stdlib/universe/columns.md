@@ -51,7 +51,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.string()
-  |> columns(column: "labels")
+    |> columns(column: "labels")
 ```
 
 {{% expand "View input and output" %}}

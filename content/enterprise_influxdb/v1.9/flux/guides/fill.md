@@ -23,12 +23,12 @@ to replace _null_ values with:
 <!-- -->
 ```js
 data
-  |> fill(usePrevious: true)
+    |> fill(usePrevious: true)
 
 // OR
 
 data
-  |> fill(value: 0.0)
+    |> fill(value: 0.0)
 ```
 
 {{% note %}}
@@ -48,7 +48,7 @@ Values remain _null_ if there is no previous non-null value in the table.
 
 ```js
 data
-  |> fill(usePrevious: true)
+    |> fill(usePrevious: true)
 ```
 
 {{< flex >}}
@@ -83,7 +83,7 @@ of the [column](/{{< latest "flux" >}}/stdlib/universe/fill/#column)._
 
 ```js
 data
-  |> fill(value: 0.0)
+    |> fill(value: 0.0)
 ```
 
 {{< flex >}}

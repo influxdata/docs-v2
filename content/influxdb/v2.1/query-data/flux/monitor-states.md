@@ -37,10 +37,10 @@ If you're just getting started with Flux queries, check out the following:
 
         ```js
         |> stateDuration(
-           fn: (r) => r._column_to_search == "value_to_search_for",
-           column: "state_duration",
-           unit: 1s
-         )
+            fn: (r) => r._column_to_search == "value_to_search_for",
+            column: "state_duration",
+            unit: 1s,
+        )
         ```
 
 2. Use `stateDuration()` to search each point for the specified value:
@@ -53,13 +53,9 @@ If you're just getting started with Flux queries, check out the following:
 The following query searches the `doors` bucket over the past 5 minutes to find how many seconds a door has been `closed`.
 
 ```js
-  from(bucket: "doors")
-   |> range(start: -5m)
-   |> stateDuration(
-      fn: (r) =>
-      r._value == "closed",
-      column: "door_closed",
-      unit: 1s)
+from(bucket: "doors")
+    |> range(start: -5m)
+    |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed", unit: 1s)
 ```
 
 In this example, `door_closed` is the **State duration** column. If you write data to the `doors` bucket every minute, the state duration increases by `60s` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state duration is reset to `0`.
@@ -90,8 +86,8 @@ _time                   _value        door_closed
 
         ```js
         |> stateCount(
-          fn: (r) => r._column_to_search == "value_to_search_for",
-          column: "state_count"
+            fn: (r) => r._column_to_search == "value_to_search_for",
+            column: "state_count",
         )
         ```
 
@@ -106,11 +102,8 @@ The following query searches the `doors` bucket over the past 5 minutes and calc
 
 ```js
 from(bucket: "doors")
-  |> range(start: -5m)
-  |> stateDuration(
-    fn: (r) => r._value == "closed",
-    column: "door_closed"
-  )
+    |> range(start: -5m)
+    |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed")
 ```
 
 This example stores the **state count** in the `door_closed` column. If you write data to the `doors` bucket every minute, the state count increases by `1` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state count is reset to `-1`.
@@ -135,15 +128,11 @@ The following query checks the machine state every minute (idle, assigned, or bu
 
 ```js
 from(bucket: "servers")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-     r.machine_state == "idle" or
-     r.machine_state == "assigned" or
-     r.machine_state == "busy"
-  )
-  |> stateCount(fn: (r) => r.machine_state == "busy", column: "_count")
-  |> stateCount(fn: (r) => r.machine_state == "assigned", column: "_count")
-  |> stateCount(fn: (r) => r.machine_state == "idle", column: "_count")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r.machine_state == "idle" or r.machine_state == "assigned" or r.machine_state == "busy")
+    |> stateCount(fn: (r) => r.machine_state == "busy", column: "_count")
+    |> stateCount(fn: (r) => r.machine_state == "assigned", column: "_count")
+    |> stateCount(fn: (r) => r.machine_state == "idle", column: "_count")
 ```
 
 <!--## Detect state changes

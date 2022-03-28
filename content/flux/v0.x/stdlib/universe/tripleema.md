@@ -61,7 +61,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> tripleEMA(n: 3)
+    |> tripleEMA(n: 3)
 ```
 
 {{< expand-wrapper >}}

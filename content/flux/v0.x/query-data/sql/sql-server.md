@@ -2,8 +2,8 @@
 title: Query SQL Server
 list_title: SQL Server
 description: >
-  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `sqlserver` or `mssql`
-  driver to query SQL Server.
+  Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) with the `sqlserver` driver to
+  query SQL Server.
 menu:
   flux_0_x:
     name: SQL Server
@@ -16,9 +16,9 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "sqlserver",
-    dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-    query: "GO SELECT * FROM Example.Table"
+      driverName: "sqlserver",
+      dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+      query: "GO SELECT * FROM Example.Table",
   )
   ```
 ---
@@ -28,7 +28,7 @@ To query [Microsoft SQL Server](https://www.microsoft.com/sql-server/) with Flux
 1. Import the [`sql` package](/flux/v0.x/stdlib/sql/).
 2. Use [`sql.from()`](/flux/v0.x/stdlib/sql/from/) and provide the following parameters:
 
-    - **driverName**: sqlserver _or_ mssql
+    - **driverName**: sqlserver
     - **dataSourceName**: _See [data source name](#sql-server-data-source-name)_
     - **query**: SQL query to execute
 
@@ -36,9 +36,9 @@ To query [Microsoft SQL Server](https://www.microsoft.com/sql-server/) with Flux
 import "sql"
 
 sql.from(
-  driverName: "sqlserver",
-  dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-  query: "GO SELECT * FROM Example.Table"
+    driverName: "sqlserver",
+    dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+    query: "GO SELECT * FROM Example.Table",
 )
 ```
 
@@ -49,7 +49,7 @@ sql.from(
 - [SQL Server to Flux data type conversion](#sql-server-to-flux-data-type-conversion)
 
 ## SQL Server data source name
-The `sqlserver` and `mssql` drivers use the following DSN syntaxes (also known as a **connection string**):
+The `sqlserver` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
 sqlserver://username:password@localhost:1433?database=examplebdb

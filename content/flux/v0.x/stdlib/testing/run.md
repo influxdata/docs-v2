@@ -18,9 +18,7 @@ The `testing.run()` function executes a specified test case.
 ```js
 import "testing"
 
-testing.run(
-  case: exampleTestCase
-)
+testing.run(case: exampleTestCase)
 ```
 
 ## Parameters
@@ -52,13 +50,11 @@ outData = "
 ,,0,2021-01-01T00:00:00Z,2021-01-03T01:00:00Z,m,t,4.8
 "
 
-t_sum = (table=<-) =>
-  (table
-    |> range(start:2021-01-01T00:00:00Z, stop:2021-01-03T01:00:00Z)
-    |> sum())
+t_sum = (table=<-) => table
+    |> range(start: 2021-01-01T00:00:00Z, stop: 2021-01-03T01:00:00Z)
+    |> sum()
 
-test _sum = () =>
-  ({input: testing.loadStorage(csv: inData), want: testing.loadMem(csv: outData), fn: t_sum})
+test _sum = () => ({input: testing.loadStorage(csv: inData), want: testing.loadMem(csv: outData), fn: t_sum})
 
 testing.run(case: _sum)
 ```

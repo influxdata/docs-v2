@@ -21,9 +21,9 @@ _`lowestMin()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
 lowestMin(
-  n:10,
-  column: "_value",
-  groupColumns: []
+    n:10,
+    column: "_value",
+    groupColumns: [],
 )
 ```
 
@@ -56,7 +56,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> lowestMin(n: 2, groupColumns: ["tag"])
+    |> lowestMin(n: 2, groupColumns: ["tag"])
 ```
 
 {{< expand-wrapper >}}

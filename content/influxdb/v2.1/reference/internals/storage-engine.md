@@ -9,6 +9,8 @@ menu:
     parent: InfluxDB internals
 influxdb/v2.1/tags: [storage, internals]
 products: [oss]
+related:
+  - /resources/videos/tsm-engine/
 ---
 
 The InfluxDB storage engine ensures that:
@@ -91,6 +93,10 @@ After fields are stored safely in TSM files, the WAL is truncated and the cache 
 The TSM compaction code is quite complex.
 However, the high-level goal is quite simple:
 organize values for a series together into long runs to best optimize compression and scanning queries.
+
+For more information on the TSM engine, watch the video below:
+
+{{< youtube C5sv0CtuMCw >}}
 
 ## Time Series Index (TSI)
 

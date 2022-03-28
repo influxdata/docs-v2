@@ -1,12 +1,15 @@
 ---
 title: Flux data model
 description: >
-  ...
+  Learn how Flux structures data and how you can modify that structure to shape
+  data to your needs.
 menu:
   flux_0_x:
     name: Data model
     parent: Get started
 weight: 101
+related:
+  - /resources/videos/flux-basics/
 ---
 
 To get the most out of using Flux to process your data, you must understand
@@ -86,7 +89,7 @@ to modify group keys in a stream of tables.
 
 ```js
 data
-  |> group(columns: ["foo", "bar"], mode: "by")
+    |> group(columns: ["foo", "bar"], mode: "by")
 ```
 
 ### Table grouping example

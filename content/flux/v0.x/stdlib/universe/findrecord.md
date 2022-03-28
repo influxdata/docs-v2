@@ -23,8 +23,8 @@ The function returns an empty record if no table is found or if the index is out
 
 ```js
 findRecord(
-  fn: (key) => key._field == "fieldName"),
-  idx: 0
+    fn: (key) => key._field == "fieldName"),
+    idx: 0,
 )
 ```
 
@@ -48,10 +48,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> findRecord(
-    fn: (key) => key.tag == "t1",
-    idx: 0
-  )
-
+    |> findRecord(fn: (key) => key.tag == "t1", idx: 0)
+    
 // Returns {_time: 2021-01-01T00:00:00.000000000Z, _value: -2, tag: t1}
 ```

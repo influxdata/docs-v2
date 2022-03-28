@@ -43,7 +43,7 @@
 }
 
 ///////////////////////////////// Shard diagram ////////////////////////////////
-#shard-diagram {
+#shard-diagram, #data-retention {
   display: flex;
   flex-direction: column;
   max-width: 550px;
@@ -71,6 +71,26 @@
         border-left: 1px solid $article-text;
       }
     }
+
+    .one-quarter {width: 25%; height: .75rem;}
+    .three-quarters {width: 75%; height: .75rem;}
+    .border-left {border-left: 1px solid $article-text;}
+    .retention-label {
+      position: relative;
+      &:before {
+        content: "";
+        display: inline-block;
+        width: .65rem;
+        margin-right: .5rem;
+        border-top: 1px solid $article-text;
+        vertical-align: middle;
+      }
+    }
+    .deleted-label {
+      color: $r-ruby;
+      text-align: center;
+      font-size: .9rem;
+    }
   }
   .shard-groups {
     display: flex;
@@ -96,8 +116,13 @@
         padding: .65rem 1rem;
         color: #fff;
         border-radius: .25rem;
-        @include gradient($article-table-header, 90deg)
+        @include gradient($article-table-header, 90deg);
         background-attachment: fixed;
+      }
+
+      &.deleted {
+        opacity: .3;
+        .shard {@include gradient($grad-red-dark)}
       }
     }
   }

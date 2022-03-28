@@ -28,11 +28,11 @@ using data from table rows.
 import "contrib/sranka/sensu"
 
 sensu.endpoint(
-  url: "http://localhost:8080",
-  apiKey: "mYSuP3rs3cREtApIK3Y",
-  handlers: [],
-  namespace: "default",
-  entityName: "influxdb"
+    url: "http://localhost:8080",
+    apiKey: "mYSuP3rs3cREtApIK3Y",
+    handlers: [],
+    namespace: "default",
+    entityName: "influxdb",
 )
 ```
 
@@ -86,20 +86,13 @@ import "influxdata/influxdb/secrets"
 import "contrib/sranka/sensu"
 
 token = secrets.get(key: "TELEGRAM_TOKEN")
-endpoint = sensu.endpoint(
-  url: "http://localhost:8080",
-  apiKey: apiKey
-)
+endpoint = sensu.endpoint(url: "http://localhost:8080", apiKey: apiKey)
 
-crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-  |> endpoint(mapFn: (r) => ({
-      checkName: "critStatus",
-      text: "Status is critical",
-      status: 2
-    })
-  )()
+    |> endpoint(mapFn: (r) => ({checkName: "critStatus", text: "Status is critical", status: 2}))()
 ```

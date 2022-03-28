@@ -10,6 +10,13 @@ menu:
     parent: Enterprise features
 ---
 
+{{% note %}}
+_For an overview of InfluxDB Enterprise security features,
+see ["InfluxDB Enterprise features - Security"](/enterprise_influxdb/v1.9/features/#security).
+To secure your InfluxDB Enterprise cluster, see
+["Configure security"](/enterprise_influxdb/v1.9/administration/configure/security/).
+{{% /note %}}
+
 ## Entitlements
 
 A valid license key is required in order to start `influxd-meta` or `influxd`.
@@ -51,11 +58,11 @@ Subscriptions used by Kapacitor work in a cluster. Writes to any node will be fo
 It is important to understand how to configure InfluxDB Enterprise and how this impacts the continuous queries (CQ) engine’s behavior:
 
 - **Data node configuration** `[continuous queries]`
-[run-interval](/enterprise_influxdb/v1.9/administration/config-data-nodes#run-interval-1s)
+[run-interval](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#run-interval)
 -- The interval at which InfluxDB checks to see if a CQ needs to run. Set this option to the lowest interval
 at which your CQs run. For example, if your most frequent CQ runs every minute, set run-interval to 1m.
 - **Meta node configuration** `[meta]`
-[lease-duration](/enterprise_influxdb/v1.9/administration/config-meta-nodes#lease-duration-1m0s)
+[lease-duration](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#lease-duration)
 -- The default duration of the leases that data nodes acquire from the meta nodes. Leases automatically expire after the
 lease-duration is met.  Leases ensure that only one data node is running something at a given time. For example, Continuous
 Queries use a lease so that all data nodes aren’t running the same CQs at once.

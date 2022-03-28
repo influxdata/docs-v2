@@ -14,6 +14,50 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## January 2022
+
+### Update Tokens UI
+
+To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's [first created](/influxdb/cloud/security/tokens/create-token/). If you return to the Token page later, you won't be able to view or copy the token. To learn more about token access restrictions, see [Create an API token](/influxdb/cloud/security/tokens/create-token/).
+
+### Multi-account support
+
+You can now invite a user to join an organization using the same email they've used in another InfluxDB Cloud account. Users [can switch between accounts in the UI](/influxdb/cloud/account-management/switch-account/).
+
+## December 2021
+
+- **Paginated dashboards in UI**: Previously, the Dashboards page could take awhile to load with more than a few dashboards. Now, all dashboards are immediately paginated and accessible on the Dashboards page.
+- **$250 usage credit**: Available when you choose a usage-based plan during signup.
+- **Improved task reliability and reporting**
+- **Improved error handling** for InfluxQL queries.
+- When you select a bucket from **Data (Load Data) > Buckets**, the bucket opens in Notebooks.
+
+
+## November 2021
+
+- [Remove Website demo data](#remove-website-demo-data)
+- [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)
+- [Add ability to share notebooks](#add-ability-to-share-notebooks)
+
+### Remove Website Demo Data
+
+To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer, and now provide new sample data buckets in notebooks (see [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)). If you've used the Website Demo Data bucket in the past, your existing demo data isn't affected, and you may continue to use the data as needed.
+
+### Add sample data buckets to Notebooks UI
+
+To get started with sample data in InfluxDB Cloud, check out the new sample data buckets in the Notebooks UI, which support a variety of use cases. Sample data buckets provide a way to explore InfluxDB without ingesting your own data.
+
+Now, you can add the following buckets with sample data to your notebooks:
+
+- Air Sensor Data
+- Coinbase bitcoin price
+- NOAA National Buoy Data
+- USGS Earthquakes
+
+### Add ability to share notebooks
+
+Add ability to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
+
 ## October 2021
 
 - [API invokable scripts](#api-invokable-scripts)

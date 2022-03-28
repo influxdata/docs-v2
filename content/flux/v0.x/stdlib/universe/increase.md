@@ -27,8 +27,6 @@ when they hit a threshold or are reset.
 In the case of a wrap/reset, we can assume that the absolute delta between two
 points will be at least their non-negative difference.
 
-_**Output data type:** Float_
-
 ```js
 increase(columns: ["_value"])
 ```
@@ -54,7 +52,7 @@ For each input table with `n` rows, `increase()` outputs a table with `n - 1` ro
 import "sampledata"
 
 sampledata.int()
-  |> increase()
+    |> increase()
 ```
 
 {{< expand-wrapper >}}
@@ -92,10 +90,3 @@ sampledata.int()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-increase = (tables=<-, columns=["_value"]) => tables
-    |> difference(nonNegative: true, columns: column, keepFirst: true, initialZero: true)
-    |> cumulativeSum()
-```

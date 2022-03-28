@@ -78,8 +78,8 @@ curl -XPOST localhost:8086/api/v2/query -sS \
   -H 'Accept:application/csv' \
   -H 'Content-type:application/vnd.flux' \
   -d 'from(bucket:"telegraf")
-        |> range(start:-5m)
-        |> filter(fn:(r) => r._measurement == "cpu")'
+          |> range(start:-5m)
+          |> filter(fn:(r) => r._measurement == "cpu")'
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
@@ -89,8 +89,8 @@ curl -XPOST localhost:8086/api/v2/query -sS \
   -H 'Content-type:application/vnd.flux' \
   -H 'Authorization: Token <username>:<password>' \
   -d 'from(bucket:"telegraf")
-        |> range(start:-5m)
-        |> filter(fn:(r) => r._measurement == "cpu")'
+          |> range(start:-5m)
+          |> filter(fn:(r) => r._measurement == "cpu")'
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

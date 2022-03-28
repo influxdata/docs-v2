@@ -22,9 +22,9 @@ The `sql.from()` function retrieves data from a SQL data source.
 import "sql"
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
-  query:"SELECT * FROM TestTable"
+    driverName: "postgres",
+    dataSourceName: "postgresql://user:password@localhost",
+    query:"SELECT * FROM TestTable",
 )
 ```
 
@@ -42,7 +42,7 @@ The following drivers are available:
 - postgres
 - snowflake
 - sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. For more information, see [Query SQLite](/flux/v0.x/query-data/sql/sqlite/)._
-- sqlserver, mssql
+- sqlserver
 - vertica, vertigo
 
 ### dataSourceName {data-type="string"}

@@ -1,6 +1,8 @@
 ---
 title: Manage secrets
 description:  Manage and use secrets in InfluxDB Cloud.
+aliases:
+  - /influxdb/cloud/security/secrets/use-vault/
 influxdb/cloud/tags: [secrets, security]
 menu:
   influxdb_cloud:

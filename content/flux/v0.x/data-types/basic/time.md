@@ -72,7 +72,7 @@ and convert columns to time.
 
 ```js
 data
-  |> toTime()
+    |> toTime()
 ```
 
 {{< flex >}}
@@ -104,7 +104,7 @@ data
 
 ```js
 data
-  |> map(fn: (r) => ({ r with epoch_ns: time(v: r.epoch_ns) }))
+    |> map(fn: (r) => ({ r with epoch_ns: time(v: r.epoch_ns) }))
 ```
 
 {{< flex >}}
@@ -171,7 +171,7 @@ date.truncate(t: t0, unit: 1mo)
 
 ```js
 data
-  |> truncateTimeColumn(unit: 1m)
+    |> truncateTimeColumn(unit: 1m)
 ```
 
 {{< flex >}}

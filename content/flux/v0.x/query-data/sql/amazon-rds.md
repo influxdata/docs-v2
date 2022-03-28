@@ -14,11 +14,11 @@ related:
 list_code_example: |
   ```js
   import "sql"
-  
+
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
-    query: "SELECT * FROM example_table"
+      driverName: "postgres",
+      dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -39,9 +39,9 @@ with Flux:
 import "sql"
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
-  query: "SELECT * FROM example_table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://my-instance.123456789012.us-east-1.rds.amazonaws.com:5432",
+    query: "SELECT * FROM example_table",
 )
 ```
 
