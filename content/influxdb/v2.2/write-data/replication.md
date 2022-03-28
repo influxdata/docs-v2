@@ -96,3 +96,32 @@ max queue size, and latest status code.
   The maximum batch size is 500 kB (typically between 250 to 500 lines of line protocol).
   This may result in scenarios where some batches succeed and others fail.
 {{% /note %}}
+
+## Replicate downsampled or processed data
+In some cases, you may not want to write raw, high-precision data to a remote InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}} instance. To replicate only downsampled or processed data:
+
+1. Create a bucket in your InfluxDB OSS instance to store downsampled or processed data in.
+2. Create an InfluxDB task that downsamples or processes data and stores it in the new bucket. For example:
+
+    ```js
+    import "influxdata/influxdb/tasks"
+    import "types"
+
+    option task = {name: "Downsample raw data", every: 10m}
+
+    data = () => from(bucket: "example-bucket")
+        |> range(start: tasks.lastSuccess(orTime: -task.every))
+
+    numeric = data()
+        |> filter(fn: (r) => types.isType(v: r._value, type: "float") or types.isType(v: r._value, type: "int") or types.isType(v: r._value, type: "uint"))
+        |> aggregateWindow(every: -task.every, fn: mean)
+
+    nonNumeric = data()
+        |> filter(fn: (r) => types.isType(v: r._value, type: "string") or types.isType(v: r._value, type: "bool"))
+        |> aggregateWindow(every: -task.every, fn: last)
+
+    union(tables: [numeric, nonNumeric])
+        |> to(bucket: "example-downsampled-bucket"])
+    ```
+
+3. [Create a replication stream](#configure-a-replication-stream) to replicate data from the downsampled bucket to the remote InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}instance.
