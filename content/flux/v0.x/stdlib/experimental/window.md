@@ -17,7 +17,7 @@ flux/v0.x/tags: [transformations]
 introduced: 0.106.0
 ---
 
-The `window()` function groups records based on a time value.
+The `experimental.window()` function groups records based on a time value.
 New columns are added to uniquely identify each window.
 Those columns are added to the group key of the output tables.
 **Input tables must have `_start`, `_stop`, and `_time` columns.**
@@ -28,12 +28,14 @@ By default the start boundary of a window will align with the Unix epoch (zero t
 modified by the offset of the `location` option.
 
 ```js
-window(
-  every: 5m,
-  period: 5m,
-  offset: 12h,
-  location: "UTC",
-  createEmpty: false
+import "experimental"
+
+experimental.window(
+    every: 5m,
+    period: 5m,
+    offset: 12h,
+    location: "UTC",
+    createEmpty: false,
 )
 ```
 
@@ -80,16 +82,20 @@ Default is piped-forward data (`<-`).
 
 #### Window data into 10 minute intervals
 ```js
+import "experimental"
+
 from(bucket:"example-bucket")
   |> range(start: -12h)
-  |> window(every: 10m)
+  |> experimental.window(every: 10m)
   // ...
 ```
 
 #### Window by calendar month
 ```js
+import "experimental"
+
 from(bucket:"example-bucket")
   |> range(start: -1y)
-  |> window(every: 1mo)
+  |> experimental.window(every: 1mo)
   // ...
 ```

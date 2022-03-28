@@ -71,24 +71,28 @@ import "influxdata/influxdb/secrets"
 username = secrets.get(key: "SERVICENOW_USERNAME")
 password = secrets.get(key: "SERVICENOW_PASSWORD")
 
-endpoint = servicenow.endpoint(
-    url: "https://example-tenant.service-now.com/api/global/em/jsonv2",
-    username: username,
-    password: password
-)
+endpoint =
+    servicenow.endpoint(
+        url: "https://example-tenant.service-now.com/api/global/em/jsonv2",
+        username: username,
+        password: password,
+    )
 
-crit_events = from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_events
-    |> endpoint(mapFn: (r) => ({
-        node: r.host,
-        metricType: r._measurement,
-        resource: r.instance,
-        metricName: r._field,
-        severity: "critical",
-        additionalInfo: { "devId": r.dev_id }
-      })
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                node: r.host,
+                metricType: r._measurement,
+                resource: r.instance,
+                metricName: r._field,
+                severity: "critical",
+                additionalInfo: {"devId": r.dev_id},
+            }),
     )()
 ```

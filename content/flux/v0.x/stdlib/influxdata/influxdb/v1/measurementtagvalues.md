@@ -30,9 +30,9 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/v1"
 
 v1.measurementTagValues(
-  bucket: "example-bucket",
-  measurement: "cpu",
-  tag: "host"
+    bucket: "example-bucket",
+    measurement: "cpu",
+    tag: "host",
 )
 ```
 
@@ -46,18 +46,3 @@ Measurement to return tag values from.
 
 ### tag {data-type="string"}
 Tag to return all unique values from.
-
-## Function definition
-```js
-package v1
-
-measurementTagValues = (bucket, measurement, tag) =>
-  tagValues(
-    bucket: bucket,
-    tag: tag,
-    predicate: (r) => r._measurement == measurement
-  )
-```
-
-_**Used functions:**
-[v1.tagValues()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues)_

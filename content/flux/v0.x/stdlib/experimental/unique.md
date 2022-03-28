@@ -24,6 +24,7 @@ _`experimental.unique()` is a [selector function](/flux/v0.x/function-types/#sel
 
 ```js
 import "experimental"
+
 experimental.unique()
 ```
 
@@ -48,8 +49,9 @@ Default is piped-forward data (`<-`).
 ## Examples
 ```js
 import "experimental"
+
 data
- |> experimental.unique()
+    |> experimental.unique()
 ```
 
 {{< flex >}}

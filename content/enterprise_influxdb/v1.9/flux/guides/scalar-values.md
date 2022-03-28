@@ -64,10 +64,7 @@ each table.
 
 ```js
 sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp" and
-      key.location == "sfo"
-  )
+    |> tableFind(fn: (key) => key._field == "temp" and key.location == "sfo")
 ```
 
 The example above returns a single table:
@@ -95,11 +92,8 @@ to output an array of values from a specific column in the extracted table.
 
 ```js
 sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp"  and
-      key.location == "sfo"
-  )
-  |> getColumn(column: "_value")
+    |> tableFind(fn: (key) => key._field == "temp" and key.location == "sfo")
+    |> getColumn(column: "_value")
 
 // Returns [65.1, 66.2, 66.3, 66.8]
 ```
@@ -112,11 +106,8 @@ value at that index.
 
 ```js
 SFOTemps = sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp" and
-      key.location == "sfo"
-  )
-  |> getColumn(column: "_value")
+    |> tableFind(fn: (key) => key._field == "temp" and key.location == "sfo")
+    |> getColumn(column: "_value")
 
 SFOTemps
 // Returns [65.1, 66.2, 66.3, 66.8]
@@ -136,11 +127,8 @@ The function outputs a record with key-value pairs for each column.
 
 ```js
 sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp" and
-      key.location == "sfo"
-  )
-  |> getRecord(idx: 0)
+    |> tableFind(fn: (key) => key._field == "temp" and key.location == "sfo")
+    |> getRecord(idx: 0)
 
 // Returns {
 //   _time:2019-11-11T12:00:00Z,
@@ -158,11 +146,8 @@ keys in the record.
 
 ```js
 tempInfo = sampleData
-  |> tableFind(fn: (key) =>
-      key._field == "temp" and
-      key.location == "sfo"
-  )
-  |> getRecord(idx: 0)
+    |> tableFind(fn: (key) => key._field == "temp" and key.location == "sfo")
+    |> getRecord(idx: 0)
 
 tempInfo
 // Returns {
@@ -186,17 +171,18 @@ Create custom helper functions to extract scalar values from query output.
 ```js
 // Define a helper function to extract field values
 getFieldValue = (tables=<-, field) => {
-  extract = tables
-    |> tableFind(fn: (key) => key._field == field)
-    |> getColumn(column: "_value")
-  return extract[0]
+    extract = tables
+        |> tableFind(fn: (key) => key._field == field)
+        |> getColumn(column: "_value")
+
+    return extract[0]
 }
 
 // Use the helper function to define a variable
 lastJFKTemp = sampleData
-  |> filter(fn: (r) => r.location == "kjfk")
-  |> last()
-  |> getFieldValue(field: "temp")
+    |> filter(fn: (r) => r.location == "kjfk")
+    |> last()
+    |> getFieldValue(field: "temp")
 
 lastJFKTemp
 // Returns 71.2
@@ -206,16 +192,17 @@ lastJFKTemp
 ```js
 // Define a helper function to extract a row as a record
 getRow = (tables=<-, field, idx=0) => {
-  extract = tables
-    |> tableFind(fn: (key) => true)
-    |> getRecord(idx: idx)
-  return extract
+    extract = tables
+        |> tableFind(fn: (key) => true)
+        |> getRecord(idx: idx)
+
+    return extract
 }
 
 // Use the helper function to define a variable
 lastReported = sampleData
-  |> last()
-  |> getRow(idx: 0)
+    |> last()
+    |> getRow(field: "temp")
 
 "The last location to report was ${lastReported.location}.
 The temperature was ${string(v: lastReported._value)}°F."

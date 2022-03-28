@@ -46,9 +46,5 @@ Characters to search for.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      charIndex: strings.indexAny(v: r._field, chars: "_-")
-    })
-  )
+    |> map(fn: (r) => ({r with charIndex: strings.indexAny(v: r._field, chars: "_-")}))
 ```

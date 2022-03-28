@@ -34,11 +34,11 @@ which uses all other functions in this package.
 import "experimental/query"
 
 query.inBucket(
-  bucket: "example-bucket",
-  start: -1h,
-  stop: now(),
-  measurement: "example-measurement",
-  fields: ["exampleField1", "exampleField2"],
-  predicate: (r) => r.tagA == "foo" and r.tagB != "bar"
+    bucket: "example-bucket",
+    start: -1h,
+    stop: now(),
+    measurement: "example-measurement",
+    fields: ["exampleField1", "exampleField2"],
+    predicate: (r) => r.tagA == "foo" and r.tagB != "bar",
 )
 ```

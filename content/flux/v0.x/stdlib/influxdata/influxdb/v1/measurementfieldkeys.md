@@ -30,9 +30,9 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/v1"
 
 v1.measurementFieldKeys(
-  bucket: "example-bucket",
-  measurement: "example-measurement",
-  start: -30d
+    bucket: "example-bucket",
+    measurement: "example-measurement",
+    start: -30d,
 )
 ```
 
@@ -56,19 +56,5 @@ Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time
 ```js
 import "influxdata/influxdb/v1"
 
-v1.measurementFieldKeys(
-  bucket: "telegraf",
-  measurement: "cpu",
-)
+v1.measurementFieldKeys(bucket: "telegraf", measurement: "cpu")
 ```
-
-## Function definition
-```js
-package v1
-
-measurementFieldKeys = (bucket, measurement, start=-30d) =>
-  fieldKeys(bucket: bucket, predicate: (r) => r._measurement == measurement, start: start)
-```
-
-_**Used functions:**
-[v1.fieldKeys](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldkeys/)_

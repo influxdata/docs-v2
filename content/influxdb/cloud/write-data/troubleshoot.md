@@ -14,6 +14,7 @@ related:
   - /influxdb/cloud/api/#tag/Write, InfluxDB API /write endpoint
   - /influxdb/cloud/reference/internals
   - /influxdb/cloud/reference/cli/influx/write
+  - influxdb/cloud/account-management/limits
 ---
 
 Learn how to handle and recover from errors when writing to InfluxDB.
@@ -29,8 +30,8 @@ Write requests made to InfluxDB may fail for a number of reasons.
 Common failure scenarios that return an HTTP `4xx` or `5xx` error status code include the following:
 
 - API token was invalid. See how to [manage API tokens](/influxdb/cloud/security/tokens/).
-- Exceeded a rate limit.
-- Payload size was too large.
+- Requests exceeded [service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
+- Payload size exceeded [global limits](/influxdb/cloud/account-management/limits/#global-limits).
 - Client or server reached a timeout threshold.
 - Data was not formatted correctly. See how to [find parsing errors](#find-parsing-errors)
 - Data did not conform to the [explicit bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
@@ -46,28 +47,25 @@ To resolve partial writes and rejected points, see [troubleshoot failures](#trou
 ## Review HTTP status codes
 
 InfluxDB uses conventional HTTP status codes to indicate the success or failure of a request.
+
+{{% warn %}}
+#### Asynchronous writes
+
+`204` indicates InfluxDB validated the request data format. Because data is written to InfluxDB asynchronously, data may not yet be written to a bucket. If some of your data didn't write to the bucket, see how to [check for rejected points](#review-rejected-points).
+{{% /warn %}}
+
 Write requests return the following status codes:
 
-- `204` **Success**: InfluxDB validated the request data format and accepted the data for writing to the bucket.
-    {{% note %}}
-  `204` doesn't indicate a successful write operation given writes are asynchronous. If some of your data did not write to the bucket, see how to [check for rejected points](#review-rejected-points).
-    {{% /note %}}
-- `400` **Bad request**: InfluxDB rejected some or all of the request data.
-  `code` and `message` in the response body provide details about the problem.
-  For more information, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).
-- `401` **Unauthorized**: May indicate one of the following:
-  -  [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed.
-  - [API token](/influxdb/cloud/api-guide/api_intro/#authentication) value is missing from the header.
-  - API token does not have sufficient permissions to write to the organization and bucket.
-    For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud/security/tokens/)
-- `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found.
-  The response body contains the requested resource type, e.g. "organization", and resource name.
-- `413` **Request entity too large**: Occurs in the following cases:
-   - The write request payload exceeds the size limit **50 MB** (compressed or uncompressed).
-   - A compressed payload attempts to uncompress more than **250 MB** of data.
-- `429` **Too many requests**: API token is temporarily over quota. The `Retry-After` header describes when to try the write request again.
-- `500` **Internal server error**: Default HTTP status for an error.
-- `503` **Service unavailable**: Server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
+| HTTP response code              | Message                                                                 | Description    |
+| :-------------------------------| :---------------------------------------------------------------        | :------------- |
+| `204 "Success"`                 |                                                                         | If InfluxDB validated the request data format and accepted the data for writing to the bucket |
+| `400 "Bad request"`             | `message` contains the first malformed line                             | If data is malformed    |
+| `401 "Unauthorized"`            |                                                                         | If the [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed or if the [API token](/influxdb/cloud/api-guide/api_intro/#authentication) doesn't have [permission](/influxdb/cloud/security/tokens/) to write to the bucket |
+| `404 "Not found"`               | requested **resource type**, e.g. "organization", and **resource name**     | If a requested resource (e.g. organization or bucket) wasn't found. |
+| `413 “Request too large”`       | cannot read data: points in batch is too large                          | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |  
+| `429 “Too many requests”`       | `Retry-After` header: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
+| `500 "Internal server error"`   |                                                                         | Default status for an error |
+| `503 “Service unavailable“` | Series cardinality exceeds your plan's service quota                        | If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |
 
 The `message` property of the response body may contain additional details about the error.
 
@@ -125,9 +123,9 @@ To find parsing error details, query `rejected_points` entries that contain the 
 
 ```js
 from(bucket: "_monitoring")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "rejected_points")
-  |> filter(fn: (r) => r._field == "error")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "rejected_points")
+    |> filter(fn: (r) => r._field == "error")
 ```
 
 #### Find data type conflicts and schema rejections
@@ -137,9 +135,9 @@ query for the `count` field.
 
 ```js
 from(bucket: "_monitoring")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "rejected_points")
-  |> filter(fn: (r) => r._field == "count")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "rejected_points")
+    |> filter(fn: (r) => r._field == "count")
 ```
 
 ### Resolve data type conflicts

@@ -58,7 +58,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> movingAverage(n: 3)
+    |> movingAverage(n: 3)
 ```
 
 {{% expand-wrapper %}}
@@ -97,7 +97,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int(includeNull: true)
-  |> movingAverage(n: 3)
+    |> movingAverage(n: 3)
 ```
 
 {{% expand-wrapper %}}

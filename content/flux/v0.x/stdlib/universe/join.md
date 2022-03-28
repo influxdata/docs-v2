@@ -28,9 +28,9 @@ The resulting group key is the union of the input group keys.
 
 ```js
 join(
-  tables: {key1: table1, key2: table2},
-  on: ["_time", "_field"],
-  method: "inner"
+    tables: {key1: table1, key2: table2},
+    on: ["_time", "_field"],
+    method: "inner",
 )
 ```
 
@@ -95,13 +95,10 @@ import "generate"
 t1 = generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
     |> set(key: "tag", value: "foo")
 
-t2 = generate.from(count: 4, fn: (n) => n * -1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+t2 = generate.from(count: 4, fn: (n) => n * (-1), start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
     |> set(key: "tag", value: "foo")
 
-join(
-    tables: {t1: t1, t2: t2},
-    on: ["_time", "tag"],
-)
+join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])
 ```
 
 #### Input data streams
@@ -145,24 +142,15 @@ The following example shows how data in different InfluxDB measurements can be
 joined with Flux.
 
 ```js
-data_1 = from(bucket:"example-bucket")
-    |> range(start:-15m)
-    |> filter(fn: (r) =>
-        r._measurement == "cpu" and
-        r._field == "usage_system"
-    )
+data_1 = from(bucket: "example-bucket")
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system")
 
-data_2 = from(bucket:"example-bucket")
-    |> range(start:-15m)
-    |> filter(fn: (r) =>
-        r._measurement == "mem" and
-        r._field == "used_percent"
-    )
+data_2 = from(bucket: "example-bucket")
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
 
-join(
-    tables: {d1: data_1, d2: data_2},
-    on: ["_time", "host"],
-)
+join(tables: {d1: data_1, d2: data_2}, on: ["_time", "host"])
 ```
 
 ## join() versus union()
@@ -204,10 +192,7 @@ are illustrated below:
 
 #### join() output
 ```js
-join(
-    tables: {t1: t1, t2: t2},
-    on: ["_time", "tag"],
-)
+join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])
 ```
 
 | _time                | tag | _value_t1 | _value_t2 |
@@ -233,3 +218,4 @@ union(tables: [t1, t2])
 | 2021-01-03T00:00:00Z | foo |      3 |
 | 2021-01-04T00:00:00Z | foo |      4 |
 {{% /expand %}}
+

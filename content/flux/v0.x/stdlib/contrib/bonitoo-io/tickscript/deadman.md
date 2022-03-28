@@ -28,12 +28,12 @@ _This function is comparable to the [Kapacitor AlertNode deadman](/{{< latest "k
 import "contrib/bonitoo-io/tickscript"
 
 tickscript.deadman(
-  check: {},
-  measurement: "example-measurement",
-  threshold: 0,
-  id: (r)=>"${r._check_id}",
-  message: (r) => "Deadman Check: ${r._check_name} is: " + (if r.dead then "dead" else "alive"),
-  topic: ""
+    check: {},
+    measurement: "example-measurement",
+    threshold: 0,
+    id: (r) => "${r._check_id}",
+    message: (r) => "Deadman Check: ${r._check_name} is: " + (if r.dead then "dead" else "alive"),
+    topic: "",
 )
 ```
 
@@ -82,16 +82,16 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ```javascript
 import "contrib/bonitoo-io/tickscript"
 
-option task = {name: "Example task", every: 1m;}
+option task = {name: "Example task", every: 1m}
 
 from(bucket: "example-bucket")
-  |> range(start: -task.every)
-  |> filter(fn: (r) => r._measurement == "pulse" and r._field == "value")
-  |> tickscript.deadman(
-    check: tickscript.defineCheck(id: "000000000000", name: "task/${r.service}"),
-    measurement: "pulse",
-    threshold: 2
-  )
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "pulse" and r._field == "value")
+    |> tickscript.deadman(
+        check: tickscript.defineCheck(id: "000000000000", name: "task/${r.service}"),
+        measurement: "pulse",
+        threshold: 2,
+    )
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}

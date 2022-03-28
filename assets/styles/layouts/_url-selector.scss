@@ -131,6 +131,45 @@
         margin: .5rem .5rem .5rem 0;
         padding: 0;
         list-style: none;
+
+        &.clusters {
+          padding-left: 1.75rem;
+        }
+      }
+
+      p.region {
+
+        .fake-radio  {
+          position: relative;
+          display: inline-block;
+          height: 1.15em;
+          width: 1.15em;
+          margin: 0 0.3rem 0 0.1rem;
+          border-radius: $radius;
+          border: 1.5px solid transparent;
+          background: rgba($article-text, 0.05);
+          border: 1.5px solid rgba($article-text, 0.2);
+          vertical-align: text-top;
+          cursor: pointer;
+
+          &:after {
+            content: "";
+            position: absolute;
+            display: block;
+            height: .5rem;
+            width: .5rem;
+            top: .23rem;
+            left: .23rem;
+            border-radius: 50%;
+            background: rgba($article-text, .3);
+            opacity: 0;
+            transition: opacity .2s;
+          }
+
+          &.checked:after {
+            opacity: 1;
+          }
+        }
       }
     }
   }

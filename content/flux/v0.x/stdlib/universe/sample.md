@@ -52,7 +52,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> sample(n: 2, pos: 1)
+    |> sample(n: 2, pos: 1)
 ```
 
 {{< expand-wrapper >}}

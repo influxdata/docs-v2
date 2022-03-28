@@ -26,10 +26,10 @@ _**Output data type:** Float_
 
 ```js
 derivative(
-  unit: 1s,
-  nonNegative: true,
-  columns: ["_value"],
-  timeColumn: "_time"
+    unit: 1s,
+    nonNegative: true,
+    columns: ["_value"],
+    timeColumn: "_time",
 )
 ```
 
@@ -71,7 +71,7 @@ For each input table with `n` rows, `derivative()` outputs a table with `n - 1` 
 import "sampledata"
 
 sampledata.int()
-  |> derivative()
+    |> derivative()
 ```
 
 {{< expand-wrapper >}}
@@ -112,7 +112,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> derivative(nonNegative: true)
+    |> derivative(nonNegative: true)
 ```
 
 {{< expand-wrapper >}}
@@ -153,7 +153,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int(includeNull: true)
-  |> derivative()
+    |> derivative()
 ```
 {{% expand "View input and output" %}}
 {{< flex >}}

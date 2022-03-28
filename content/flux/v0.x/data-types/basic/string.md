@@ -13,6 +13,7 @@ flux/v0.x/tags: ["basic types", "data types"]
 aliases:
   - /influxdb/v2.0/reference/flux/language/string-interpolation/
   - /influxdb/cloud/reference/flux/language/string-interpolation/
+  - /flux/v0.x/spec/string-interpolation/
 related:
   - /flux/v0.x/stdlib/universe/string/
   - /flux/v0.x/stdlib/universe/tostring/
@@ -110,7 +111,7 @@ use the [`toString()` function](/flux/v0.x/stdlib/universe/tostring/).
 
 ```js
 data
-  |> toString()
+    |> toString()
 ```
 
 {{< flex >}}
@@ -142,7 +143,7 @@ data
 
 ```js
 data
-  |> map(fn: (r) => ({ r with level: string(v: r.level) }))
+    |> map(fn: (r) => ({ r with level: string(v: r.level) }))
 ```
 {{< flex >}}
 {{% flex-content %}}

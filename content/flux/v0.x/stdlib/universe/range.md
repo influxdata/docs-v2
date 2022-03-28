@@ -24,10 +24,7 @@ Each input table's group key value is modified to fit within the time bounds.
 Tables where all records exists outside the time bounds are filtered entirely.
 
 ```js
-range(
-  start: -15m,
-  stop: now()
-)
+range(start: -15m, stop: now())
 ```
 
 #### Behavior of start and stop times
@@ -72,28 +69,28 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 #### Time range relative to now
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -12h)
-  // ...
+from(bucket: "example-bucket")
+    |> range(start: -12h)
+    // ...
 ```
 
 #### Relative time range
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -12h, stop: -15m)
-  // ...
+from(bucket: "example-bucket")
+    |> range(start: -12h, stop: -15m)
+    // ...
 ```
 
 #### Absolute time range
 ```js
-from(bucket:"example-bucket")
-  |> range(start: 2018-05-22T23:30:00Z, stop: 2018-05-23T00:00:00Z)
-  // ...
+from(bucket: "example-bucket")
+    |> range(start: 2018-05-22T23:30:00Z, stop: 2018-05-23T00:00:00Z)
+    // ...
 ```
 
 #### Absolute time range with Unix timestamps
 ```js
-from(bucket:"example-bucket")
-  |> range(start: 1527031800, stop: 1527033600)
-  // ...
+from(bucket: "example-bucket")
+    |> range(start: 1527031800, stop: 1527033600)
+    // ...
 ```

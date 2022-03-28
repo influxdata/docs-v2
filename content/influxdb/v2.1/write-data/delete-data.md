@@ -2,7 +2,8 @@
 title: Delete data
 list_title: Delete data
 description: >
-  Delete data in the InfluxDB CLI and API.
+  Use the `influx` CLI or the InfluxDB API `/api/v2/delete` endpoint to delete
+  data from an InfluxDB bucket.
 menu:
   influxdb_2_1:
     name: Delete data
@@ -14,47 +15,30 @@ related:
   - /influxdb/v2.1/reference/cli/influx/delete/
 ---
 
-<!--
-## Delete data in the InfluxDB UI
-
-Delete data from buckets you've created. You cannot delete data from system buckets.
-
-### Delete data from buckets
-
-1. Click **Load Data** in the navigation bar.
-
-    {{< nav-icon "load data" >}}
-
-2. Select **Buckets**.
-3. Next to the bucket with data you want to delete, click **Delete Data by Filter**.
-4. In the **Delete Data** window that appears:
-  - Select a **Target Bucket** to delete data from.
-  - Enter a **Time Range** to delete data from.
-  - Click **+ Add Filter** to filter by tag key and value pair.
-  - Select **I understand that this cannot be undone**.
-5. Click **Confirm Delete** to delete the selected data.
-
-### Delete data from the Data Explorer
-
-1. Click the **Data Explorer** icon in the sidebar.
-
-    {{< nav-icon "data-explorer" >}}
-
-2. Click **Delete Data** in the top navigation bar.
-3. In the **Delete Data** window that appears:
-  - Select a **Target Bucket** to delete data from.
-  - Enter a **Time Range** to delete data from.
-  - Click **+ Add Filter** to filter by tag key-value pairs.
-  - Select **I understand that this cannot be undone**.
-4. Click **Confirm Delete** to delete the selected data.
-!-->
-
 Use the [`influx` CLI](/influxdb/v2.1/reference/cli/influx/) or the InfluxDB API
-[`/api/v2/delete`](/influxdb/v2.1/api/#operation/PostDelete) endpoint to delete data.
+[`/api/v2/delete`](/influxdb/v2.1/api/#operation/PostDelete) endpoint to delete
+data from an InfluxDB bucket.
 
 - [Delete data using the influx CLI](#delete-data-using-the-influx-cli)
 - [Delete data using the API](#delete-data-using-the-api)
 
+InfluxDB {{< current-version >}} supports deleting data by the following:
+
+- time range
+- measurement (`_measurement`)
+- tag
+- {{% cloud-only %}}field (`_field`){{% /cloud-only %}}
+
+{{% oss-only %}}
+
+{{% warn %}}
+InfluxDB {{< current-version >}} does not support deleting data by field.
+{{% /warn %}}
+
+{{% /oss-only %}}
+
+Once a delete request completes successfully, the deleted data is no longer queryable,
+but will remain on disk until the compaction service runs.
 
 ## Delete data using the influx CLI
 
@@ -80,8 +64,8 @@ deletes all data in the specified bucket with timestamps between the specified `
 ##### Delete points in a specific measurement with a specific tag value
 ```sh
 influx delete --bucket example-bucket \
-  --start '1970-01-01T00:00:00Z' \
-  --stop $(date +"%Y-%m-%dT%H:%M:%SZ") \
+  --start '1970-01-01T00:00:00Z' \
+  --stop $(date +"%Y-%m-%dT%H:%M:%SZ") \
   --predicate '_measurement="example-measurement" AND exampleTag="exampleTagValue"'
 ```
 
@@ -95,6 +79,9 @@ influx delete --bucket example-bucket \
 ## Delete data using the API
 Use the InfluxDB API [`/api/v2/delete` endpoint](/influxdb/v2.1/api/#operation/PostDelete)
 to delete points from InfluxDB.
+
+{{< api-endpoint method="post" endpoint="http://localhost:8086/api/v2/delete" >}}
+
 Include the following:
 
 - **Request method:** `POST`
@@ -115,7 +102,7 @@ Deleting data without a [delete predicate](/influxdb/v2.1/reference/syntax/delet
 deletes all data in the specified bucket with timestamps between the specified `start` and `stop` times.
        {{% /warn %}}
 
-#### Examples
+### Examples
 
 ##### Delete points in a specific measurement with a specific tag value
 ```sh

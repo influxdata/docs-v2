@@ -41,8 +41,5 @@ The string value to convert.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with exclamation: strings.toLower(v: r.exclamation)
-    })
-  )
+    |> map(fn: (r) => ({r with exclamation: strings.toLower(v: r.exclamation)}))
 ```

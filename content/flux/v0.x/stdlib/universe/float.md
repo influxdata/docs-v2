@@ -71,10 +71,10 @@ _The following example uses data provided by the [`sampledata` package](/flux/v0
 import "sampledata"
 
 data = sampledata.int()
-  |> rename(columns: {_value: "foo"})
+    |> rename(columns: {_value: "foo"})
 
 data
-  |> map(fn:(r) => ({ r with foo: float(v: r.foo) }))
+    |> map(fn: (r) => ({r with foo: float(v: r.foo)}))
 ```
 
 {{% expand "View input and output" %}}

@@ -6,7 +6,8 @@ menu:
   influxdb_1_3:
     weight: 70
     parent: Tools
-    url: https://github.com/influxdata/influxdb/blob/master/services/graphite/README.md
+    params:
+      url: https://github.com/influxdata/influxdb/blob/master/services/graphite/README.md
 ---
 
 See the [README](https://github.com/influxdata/influxdb/blob/master/services/graphite/README.md) on GitHub.

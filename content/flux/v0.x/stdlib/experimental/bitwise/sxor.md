@@ -19,10 +19,7 @@ flux/v0.x/tags: [bitwise]
 ```js
 import "experimental/bitwise"
 
-bitwise.sxor(
-  a: 12,
-  b: 21
-)
+bitwise.sxor(a: 12, b: 21)
 
 // Returns 25
 ```

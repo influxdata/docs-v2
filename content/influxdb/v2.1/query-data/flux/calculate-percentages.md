@@ -41,10 +41,10 @@ _See [Pivot vs join](/influxdb/v2.1/query-data/flux/mathematic-operations/#pivot
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "m1" and r._field =~ /field[1-2]/ )
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with _value: r.field1 / r.field2 * 100.0 }))
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "m1" and r._field =~ /field[1-2]/ )
+    |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({ r with _value: r.field1 / r.field2 * 100.0 }))
 ```
 
 ## GPU monitoring example
@@ -59,8 +59,8 @@ Data includes the following:
 ### Query mem_used and mem_total fields
 ```js
 from(bucket: "gpu-monitor")
-  |> range(start: 2020-01-01T00:00:00Z)
-  |> filter(fn: (r) => r._measurement == "gpu" and r._field =~ /mem_/)
+    |> range(start: 2020-01-01T00:00:00Z)
+    |> filter(fn: (r) => r._measurement == "gpu" and r._field =~ /mem_/)
 ```
 
 ###### Returns the following stream of tables:
@@ -91,7 +91,7 @@ Output includes `mem_used` and `mem_total` columns with values for each correspo
 
 ```js
 // ...
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
 ```
 
 ###### Returns the following:
@@ -117,12 +117,14 @@ below casts integer field values to floats and multiplies by a float value (`100
 
 ```js
 // ...
-  |> map(fn: (r) => ({
-    _time: r._time,
-    _measurement: r._measurement,
-    _field: "mem_used_percent",
-    _value: float(v: r.mem_used) / float(v: r.mem_total) * 100.0
-  }))
+    |> map(
+        fn: (r) => ({
+            _time: r._time,
+            _measurement: r._measurement,
+            _field: "mem_used_percent",
+            _value: float(v: r.mem_used) / float(v: r.mem_total) * 100.0
+        })
+    )
 ```
 ##### Query results:
 
@@ -138,15 +140,17 @@ below casts integer field values to floats and multiplies by a float value (`100
 ### Full query
 ```js
 from(bucket: "gpu-monitor")
-  |> range(start: 2020-01-01T00:00:00Z)
-  |> filter(fn: (r) => r._measurement == "gpu" and r._field =~ /mem_/ )
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({
-    _time: r._time,
-    _measurement: r._measurement,
-    _field: "mem_used_percent",
-    _value: float(v: r.mem_used) / float(v: r.mem_total) * 100.0
-  }))
+    |> range(start: 2020-01-01T00:00:00Z)
+    |> filter(fn: (r) => r._measurement == "gpu" and r._field =~ /mem_/)
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(
+        fn: (r) => ({
+            _time: r._time,
+            _measurement: r._measurement,
+            _field: "mem_used_percent",
+            _value: float(v: r.mem_used) / float(v: r.mem_total) * 100.0
+        })
+    )
 ```
 
 ## Examples
@@ -154,17 +158,11 @@ from(bucket: "gpu-monitor")
 #### Calculate percentages using multiple fields
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> filter(fn: (r) =>
-    r._field == "used_system" or
-    r._field == "used_user" or
-    r._field == "total"
-  )
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with
-    _value: float(v: r.used_system + r.used_user) / float(v: r.total) * 100.0
-  }))
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> filter(fn: (r) => r._field == "used_system" or r._field == "used_user" or r._field == "total")
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({r with _value: float(v: r.used_system + r.used_user) / float(v: r.total) * 100.0}))
 ```
 
 #### Calculate percentages using multiple measurements
@@ -178,14 +176,11 @@ from(bucket: "example-bucket")
 <!-- -->
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    (r._measurement == "m1" or r._measurement == "m2") and
-    (r._field == "field1" or r._field == "field2")    
-  )
-  |> group()
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with  _value: r.field1 / r.field2 * 100.0 }))
+    |> range(start: -1h)
+    |> filter(fn: (r) => (r._measurement == "m1" or r._measurement == "m2") and (r._field == "field1" or r._field == "field2"))
+    |> group()
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({r with _value: r.field1 / r.field2 * 100.0}))
 ```
 
 #### Calculate percentages using multiple data sources
@@ -198,18 +193,15 @@ pgPass = secrets.get(key: "POSTGRES_PASSWORD")
 pgHost = secrets.get(key: "POSTGRES_HOST")
 
 t1 = sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
-  query:"SELECT id, name, available FROM example_table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
+    query: "SELECT id, name, available FROM example_table",
 )
 
 t2 = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
 
 join(tables: {t1: t1, t2: t2}, on: ["id"])
-  |> map(fn: (r) => ({ r with _value: r._value_t2 / r.available_t1 * 100.0 }))
+    |> map(fn: (r) => ({r with _value: r._value_t2 / r.available_t1 * 100.0}))
 ```

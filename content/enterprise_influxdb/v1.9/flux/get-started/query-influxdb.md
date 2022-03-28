@@ -47,11 +47,11 @@ or **absolute** using [timestamps](/{{< latest "flux" >}}/spec/lexical-elements#
 ```js
 // Relative time range with start only. Stop defaults to now.
 from(bucket:"telegraf/autogen")
-  |> range(start: -1h)
+    |> range(start: -1h)
 
 // Relative time range with start and stop
 from(bucket:"telegraf/autogen")
-  |> range(start: -1h, stop: -10m)
+    |> range(start: -1h, stop: -10m)
 ```
 
 > Relative ranges are relative to "now."
@@ -59,7 +59,7 @@ from(bucket:"telegraf/autogen")
 ###### Example absolute time range
 ```js
 from(bucket:"telegraf/autogen")
-  |> range(start: 2018-11-05T23:30:00Z, stop: 2018-11-06T00:00:00Z)
+    |> range(start: 2018-11-05T23:30:00Z, stop: 2018-11-06T00:00:00Z)
 ```
 
 #### Use the following:
@@ -67,7 +67,7 @@ For this guide, use the relative time range, `-15m`, to limit query results to d
 
 ```js
 from(bucket:"telegraf/autogen")
-  |> range(start: -15m)
+    |> range(start: -15m)
 ```
 
 ## 3. Filter your data
@@ -95,27 +95,19 @@ Use the `AND` relational operator to chain multiple filters.
 For this example, filter by the `cpu` measurement, the `usage_system` field, and the `cpu-total` tag value:
 
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
+from(bucket: "telegraf/autogen")
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
 ```
 
 ## 4. Yield your queried data
 Use Flux's `yield()` function to output the filtered tables as the result of the query.
 
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> yield()
+from(bucket: "telegraf/autogen")
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> yield()
 ```
 
 > Chronograf and the `influx` CLI automatically assume a `yield()` function at

@@ -65,13 +65,13 @@ subsequent operations there.
 ##### Pushdown functions in use
 ```js
 from(bucket: "db/rp")
-  |> range(start: -1h)                       //
-  |> filter(fn: (r) => r.sensor == "abc123") //
-  |> group(columns: ["_field", "host"])      // Pushed to the data source
-  |> aggregateWindow(every: 5m, fn: max)     //
-  |> filter(fn: (r) => r._value >= 90.0)     //
+    |> range(start: -1h)                       //
+    |> filter(fn: (r) => r.sensor == "abc123") //
+    |> group(columns: ["_field", "host"])      // Pushed to the data source
+    |> aggregateWindow(every: 5m, fn: max)     //
+    |> filter(fn: (r) => r._value >= 90.0)     //
 
-  |> top(n: 10)                              // Run in memory
+    |> top(n: 10)                              // Run in memory
 ```
 
 ### Avoid processing filters inline
@@ -88,8 +88,8 @@ to the underlying data source and loads all data returned from `range()` into me
 
 ```js
 from(bucket: "db/rp")
-  |> range(start: -1h)                      
-  |> filter(fn: (r) => r.region == v.provider + v.region)
+    |> range(start: -1h)                      
+    |> filter(fn: (r) => r.region == v.provider + v.region)
 ```
 
 To dynamically set filters and maintain the pushdown ability of the `filter()` function,
@@ -99,8 +99,8 @@ use variables to define filter values outside of `filter()`:
 region = v.provider + v.region
 
 from(bucket: "db/rp")
-  |> range(start: -1h)                      
-  |> filter(fn: (r) => r.region == region)
+    |> range(start: -1h)                      
+    |> filter(fn: (r) => r.region == region)
 ```
 
 ## Avoid short window durations
@@ -136,17 +136,17 @@ The following queries are functionally the same, but using `set()` is more perfo
 
 ```js
 data
-  |> map(fn: (r) => ({ r with foo: "bar" }))
+    |> map(fn: (r) => ({ r with foo: "bar" }))
 
 // Recommended
 data
-  |> set(key: "foo", value: "bar")
+    |> set(key: "foo", value: "bar")
 ```
 
 #### Dynamically set a column value using existing row data
 ```js
 data
-  |> map(fn: (r) => ({ r with foo: r.bar }))
+    |> map(fn: (r) => ({ r with foo: r.bar }))
 ```
 
 ## Balance time range and data precision

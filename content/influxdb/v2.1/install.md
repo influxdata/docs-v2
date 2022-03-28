@@ -59,7 +59,7 @@ To download the InfluxDB v{{< current-version >}} binaries for macOS directly,
 do the following:
 
 1. **Download the InfluxDB package.**
-    
+
     <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz" download>InfluxDB v{{< current-version >}} (macOS)</a>
 
 
@@ -732,7 +732,32 @@ influx setup
    nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`),
    seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
    Enter nothing for an infinite retention period.
+
 7. Confirm the details for your primary user, organization, and bucket.
+
+    ```sh
+    $ influx setup --name kube1
+    > Welcome to InfluxDB 2.0!
+    ? Please type your primary username kube1-owner
+    ? Please type your password ********
+    ? Please type your password again ********
+    ? Please type your primary organization name kube1-org1
+    ? Please type your primary bucket name airSensor
+    ? Please type your retention period in hours, or 0 for infinite 0
+    ? Setup with these parameters?
+      Username:          kube1-owner
+      Organization:      kube1-org1
+      Bucket:            airSensor
+      Retention Period:  infinite
+     (y/N)
+    ```
+
+8. Once you confirm the setup, InfluxDB outputs a table of the configuration.
+
+    ```sh
+    User            Organization    Bucket
+    kube1-owner     kube1-org1      airSensor
+    ```
 
 InfluxDB is now initialized with a primary user, organization, bucket, and API token.
 InfluxDB also creates a configuration profile for you so that you don't have to

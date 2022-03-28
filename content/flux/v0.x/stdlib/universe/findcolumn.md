@@ -24,8 +24,8 @@ is not present in the set of columns.
 
 ```js
 findColumn(
-  fn: (key) => key._field == "fieldName",
-  column: "_value"
+    fn: (key) => key._field == "fieldName",
+    column: "_value",
 )
 ```
 
@@ -49,10 +49,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> findColumn(
-    fn: (key) => key.tag == "t1",
-    column: "_value"
-  )
-
+    |> findColumn(fn: (key) => key.tag == "t1", column: "_value")
+    
 // Returns [-2, 10, 7, 17, 15, 4]
 ```

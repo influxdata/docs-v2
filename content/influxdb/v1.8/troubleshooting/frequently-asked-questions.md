@@ -16,68 +16,68 @@ Where applicable, it links to outstanding issues on GitHub.
 
 **Administration**
 
-* [How do I include a single quote in a password?](#how-do-i-include-a-single-quote-in-a-password)
-* [How can I identify my version of InfluxDB?](#how-can-i-identify-my-version-of-influxdb)
-* [Where can I find InfluxDB logs?](#where-can-i-find-influxdb-logs)
-* [What is the relationship between shard group durations and retention policies?](#what-is-the-relationship-between-shard-group-durations-and-retention-policies)
-* [Why aren't data dropped after I've altered a retention policy?](#why-aren-t-data-dropped-after-i-ve-altered-a-retention-policy)
-* [Why does InfluxDB fail to parse microsecond units in the configuration file?](#why-does-influxdb-fail-to-parse-microsecond-units-in-the-configuration-file)
-* [Does InfluxDB have a file system size limit?](#does-influxdb-have-a-file-system-size-limit)
+- [How do I include a single quote in a password?](#how-do-i-include-a-single-quote-in-a-password)
+- [How can I identify my version of InfluxDB?](#how-can-i-identify-my-version-of-influxdb)
+- [Where can I find InfluxDB logs?](#where-can-i-find-influxdb-logs)
+- [What is the relationship between shard group durations and retention policies?](#what-is-the-relationship-between-shard-group-durations-and-retention-policies)
+- [Why aren't data dropped after I've altered a retention policy?](#why-aren-t-data-dropped-after-i-ve-altered-a-retention-policy)
+- [Why does InfluxDB fail to parse microsecond units in the configuration file?](#why-does-influxdb-fail-to-parse-microsecond-units-in-the-configuration-file)
+- [Does InfluxDB have a file system size limit?](#does-influxdb-have-a-file-system-size-limit)
 
 
 **Command line interface (CLI)**
 
-* [How do I make InfluxDB’s CLI return human readable timestamps?](#how-do-i-use-the-influxdb-cli-to-return-human-readable-timestamps)
-* [How can a non-admin user `USE` a database in the InfluxDB CLI?](#how-can-a-non-admin-user-use-a-database-in-the-influxdb-cli)
-* [How do I write to a non-`DEFAULT` retention policy with the InfluxDB CLI?](#how-do-i-write-to-a-non-default-retention-policy-with-the-influxdb-cli)
-* [How do I cancel a long-running query?](#how-do-i-cancel-a-long-running-query)
+- [How do I make InfluxDB’s CLI return human readable timestamps?](#how-do-i-use-the-influxdb-cli-to-return-human-readable-timestamps)
+- [How can a non-admin user `USE` a database in the InfluxDB CLI?](#how-can-a-non-admin-user-use-a-database-in-the-influxdb-cli)
+- [How do I write to a non-`DEFAULT` retention policy with the InfluxDB CLI?](#how-do-i-write-to-a-non-default-retention-policy-with-the-influxdb-cli)
+- [How do I cancel a long-running query?](#how-do-i-cancel-a-long-running-query)
 
 **Data types**
 
-* [Why can't I query Boolean field values?](#why-can-t-i-query-boolean-field-values)
-* [How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards)
-* [What are the minimum and maximum integers that InfluxDB can store?](#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store)
-* [What are the minimum and maximum timestamps that InfluxDB can store?](#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store)
-* [How can I tell what type of data is stored in a field?](#how-can-i-tell-what-type-of-data-is-stored-in-a-field)
-* [Can I change a field's data type?](#can-i-change-a-field-s-data-type)
+- [Why can't I query Boolean field values?](#why-can-t-i-query-boolean-field-values)
+- [How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards)
+- [What are the minimum and maximum integers that InfluxDB can store?](#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store)
+- [What are the minimum and maximum timestamps that InfluxDB can store?](#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store)
+- [How can I tell what type of data is stored in a field?](#how-can-i-tell-what-type-of-data-is-stored-in-a-field)
+- [Can I change a field's data type?](#can-i-change-a-field-s-data-type)
 
 **InfluxQL functions**
 
-* [How do I perform mathematical operations within a function?](#how-do-i-perform-mathematical-operations-within-a-function)
-* [Why does my query return epoch 0 as the timestamp?](#why-does-my-query-return-epoch-0-as-the-timestamp)
-* [Which InfluxQL functions support nesting?](#which-influxql-functions-support-nesting)
+- [How do I perform mathematical operations within a function?](#how-do-i-perform-mathematical-operations-within-a-function)
+- [Why does my query return epoch 0 as the timestamp?](#why-does-my-query-return-epoch-0-as-the-timestamp)
+- [Which InfluxQL functions support nesting?](#which-influxql-functions-support-nesting)
 
 **Querying data**
 
-* [What determines the time intervals returned by `GROUP BY time()` queries?](#what-determines-the-time-intervals-returned-by-group-by-time-queries)
-* [Why do my queries return no data or partial data?](#why-do-my-queries-return-no-data-or-partial-data)
-* [Why don't my `GROUP BY time()` queries return timestamps that occur after `now()`?](#why-don-t-my-group-by-time-queries-return-timestamps-that-occur-after-now)
-* [Can I perform mathematical operations against timestamps?](#can-i-perform-mathematical-operations-against-timestamps)
-* [Can I identify write precision from returned timestamps?](#can-i-identify-write-precision-from-returned-timestamps)
-* [When should I single quote and when should I double quote in queries?](#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)
-* [Why am I missing data after creating a new `DEFAULT` retention policy?](#why-am-i-missing-data-after-creating-a-new-default-retention-policy)
-* [Why is my query with a `WHERE OR` time clause returning empty results?](#why-is-my-query-with-a-where-or-time-clause-returning-empty-results)
-* [Why does `fill(previous)` return empty results?](#why-does-fill-previous-return-empty-results)
-* [Why are my `INTO` queries missing data?](#why-are-my-into-queries-missing-data)
-* [How do I query data with an identical tag key and field key?](#how-do-i-query-data-with-an-identical-tag-key-and-field-key)
-* [How do I query data across measurements?](#how-do-i-query-data-across-measurements)
-* [Does the order of the timestamps matter?](#does-the-order-of-the-timestamps-matter)
-* [How do I `SELECT` data with a tag that has no value?](#how-do-i-select-data-with-a-tag-that-has-no-value)
+- [What determines the time intervals returned by `GROUP BY time()` queries?](#what-determines-the-time-intervals-returned-by-group-by-time-queries)
+- [Why do my queries return no data or partial data?](#why-do-my-queries-return-no-data-or-partial-data)
+- [Why don't my `GROUP BY time()` queries return timestamps that occur after `now()`?](#why-don-t-my-group-by-time-queries-return-timestamps-that-occur-after-now)
+- [Can I perform mathematical operations against timestamps?](#can-i-perform-mathematical-operations-against-timestamps)
+- [Can I identify write precision from returned timestamps?](#can-i-identify-write-precision-from-returned-timestamps)
+- [When should I single quote and when should I double quote in queries?](#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)
+- [Why am I missing data after creating a new `DEFAULT` retention policy?](#why-am-i-missing-data-after-creating-a-new-default-retention-policy)
+- [Why is my query with a `WHERE OR` time clause returning empty results?](#why-is-my-query-with-a-where-or-time-clause-returning-empty-results)
+- [Why does `fill(previous)` return empty results?](#why-does-fill-previous-return-empty-results)
+- [Why are my `INTO` queries missing data?](#why-are-my-into-queries-missing-data)
+- [How do I query data with an identical tag key and field key?](#how-do-i-query-data-with-an-identical-tag-key-and-field-key)
+- [How do I query data across measurements?](#how-do-i-query-data-across-measurements)
+- [Does the order of the timestamps matter?](#does-the-order-of-the-timestamps-matter)
+- [How do I `SELECT` data with a tag that has no value?](#how-do-i-select-data-with-a-tag-that-has-no-value)
 
 **Series and series cardinality**
 
-* [Why does series cardinality matter?](#why-does-series-cardinality-matter)
-* [How can I remove series from the index?](#how-can-i-remove-series-from-the-index)
+- [Why does series cardinality matter?](#why-does-series-cardinality-matter)
+- [How can I remove series from the index?](#how-can-i-remove-series-from-the-index)
 
 **Writing data**
 
-* [How do I write integer field values?](#how-do-i-write-integer-field-values)
-* [How does InfluxDB handle duplicate points?](#how-does-influxdb-handle-duplicate-points)
-* [What newline character does the InfluxDB API require?](#what-newline-character-does-the-influxdb-api-require)
-* [What words and characters should I avoid when writing data to InfluxDB?](#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb)
-* [When should I single quote and when should I double quote when writing data?](#when-should-i-single-quote-and-when-should-i-double-quote-when-writing-data)
-* [Does the precision of the timestamp matter?](#does-the-precision-of-the-timestamp-matter)
-* [What are the configuration recommendations and schema guidelines for writing sparse, historical data?](#what-are-the-configuration-recommendations-and-schema-guidelines-for-writing-sparse-historical-data)
+- [How do I write integer field values?](#how-do-i-write-integer-field-values)
+- [How does InfluxDB handle duplicate points?](#how-does-influxdb-handle-duplicate-points)
+- [What newline character does the InfluxDB API require?](#what-newline-character-does-the-influxdb-api-require)
+- [What words and characters should I avoid when writing data to InfluxDB?](#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb)
+- [When should I single quote and when should I double quote when writing data?](#when-should-i-single-quote-and-when-should-i-double-quote-when-writing-data)
+- [Does the precision of the timestamp matter?](#does-the-precision-of-the-timestamp-matter)
+- [What are the configuration recommendations and schema guidelines for writing sparse, historical data?](#what-are-the-configuration-recommendations-and-schema-guidelines-for-writing-sparse-historical-data)
 
 ## How do I include a single quote in a password?
 
@@ -653,7 +653,7 @@ Avoid using the same name for a tag and field key. If you inadvertently add the 
     fieldKey   fieldType
     ------     ---------
     leaves     float
-```
+    ```
 
 4. If you query the `grape` measurement, you'll see the `leaves` tag key has an appended `_1`:
 
@@ -733,9 +733,9 @@ a `GROUP BY time()` clause must provide an alternative upper bound in the
 In the following example, the first query covers data with timestamps between
 `2015-09-18T21:30:00Z` and `now()`.
 The second query covers data with timestamps between `2015-09-18T21:30:00Z` and 180 weeks from `now()`.
-```
-> SELECT MEAN("boards") FROM "hillvalley" WHERE time >= '2015-09-18T21:30:00Z' GROUP BY time(12m) fill(none)
 
+```sql
+> SELECT MEAN("boards") FROM "hillvalley" WHERE time >= '2015-09-18T21:30:00Z' GROUP BY time(12m) fill(none)
 
 > SELECT MEAN("boards") FROM "hillvalley" WHERE time >= '2015-09-18T21:30:00Z' AND time <= now() + 180w GROUP BY time(12m) fill(none)
 ```
@@ -779,7 +779,9 @@ time                  value	 precision_supplied  timestamp_supplied
 1970-01-01T02:00:00Z  6      h                   2
 ```
 
-{{% warn %}} [GitHub Issue #2977](https://github.com/influxdb/influxdb/issues/2977) {{% /warn %}}
+{{% warn %}}
+[GitHub Issue #2977](https://github.com/influxdb/influxdb/issues/2977)
+{{% /warn %}}
 
 ## When should I single quote and when should I double quote in queries?
 

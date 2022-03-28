@@ -12,7 +12,7 @@ menu:
     parent: Introduction
 ---
 
-Review the installation requirements below, and then check out available options to [install and deploy InfluxDB Enterprise](/enterprise_influxdb/v1.9/install-and-deploy/). For an overview of the architecture and concepts in an InfluxDB Enterprise cluster, review [Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1.9/concepts/clustering/).
+Review the installation requirements below, and then check out available options to [install and deploy InfluxDB Enterprise](/enterprise_influxdb/v1.9/introduction/installation/). For an overview of the architecture and concepts in an InfluxDB Enterprise cluster, review [Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1.9/concepts/clustering/).
 
 ## Requirements for InfluxDB Enterprise clusters
 

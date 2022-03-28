@@ -102,16 +102,11 @@ The example `multiplyByX()` function below includes:
   It also multiples the `_value` column by `x`.
 
 ```js
-multiplyByX = (x, tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-        r with
-        _value: r._value * x
-      })
-    )
+multiplyByX = (x, tables=<-) => tables
+    |> map(fn: (r) => ({r with _value: r._value * x}))
 
 data
-  |> multiplyByX(x: 10)
+    |> multiplyByX(x: 10)
 ```
 
 ## Examples
@@ -125,31 +120,19 @@ a new `_value` by dividing the original `_value` by 1073741824.
 
 ```js
 from(bucket: "db/rp")
-  |> range(start: -10m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "active"
-  )
-  |> map(fn: (r) => ({
-      r with
-      _value: r._value / 1073741824
-    })
-  )
+    |> range(start: -10m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "active")
+    |> map(fn: (r) => ({r with _value: r._value / 1073741824}))
 ```
 
 You could turn that same calculation into a function:
 
 ```js
-bytesToGB = (tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-        r with
-        _value: r._value / 1073741824
-      })
-    )
+bytesToGB = (tables=<-) => tables
+    |> map(fn: (r) => ({r with _value: r._value / 1073741824}))
 
 data
-  |> bytesToGB()
+    |> bytesToGB()
 ```
 
 #### Include partial gigabytes
@@ -159,13 +142,8 @@ To calculate partial GBs, convert the `_value` column and its values to floats u
 and format the denominator in the division operation as a float.
 
 ```js
-bytesToGB = (tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-        r with
-        _value: float(v: r._value) / 1073741824.0
-      })
-    )
+bytesToGB = (tables=<-) => tables
+    |> map(fn: (r) => ({r with _value: float(v: r._value) / 1073741824.0}))
 ```
 
 ### Calculate a percentage
@@ -194,10 +172,8 @@ Use `join()` when querying data from different buckets or data sources.
 ##### Pivot fields into columns for mathematic calculations
 ```js
 data
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with
-    _value: (r.field1 + r.field2) / r.field3 * 100.0
-  }))
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({r with _value: (r.field1 + r.field2) / r.field3 * 100.0}))
 ```
 
 ##### Join multiple data sources for mathematic calculations
@@ -210,18 +186,15 @@ pgPass = secrets.get(key: "POSTGRES_PASSWORD")
 pgHost = secrets.get(key: "POSTGRES_HOST")
 
 t1 = sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
-  query:"SELECT id, name, available FROM exampleTable"
+    driverName: "postgres",
+    dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
+    query: "SELECT id, name, available FROM exampleTable",
 )
 
 t2 = from(bucket: "db/rp")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
 
 join(tables: {t1: t1, t2: t2}, on: ["id"])
-  |> map(fn: (r) => ({ r with _value: r._value_t2 / r.available_t1 * 100.0 }))
+    |> map(fn: (r) => ({r with _value: r._value_t2 / r.available_t1 * 100.0}))
 ```
