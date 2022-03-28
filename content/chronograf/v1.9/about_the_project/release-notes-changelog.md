@@ -8,31 +8,31 @@ menu:
     parent: About the project
 ---
 
-## v1.9.4 [2022-03-22]
+## v1.9.4 [2022-03-28]
 
 ### Features
 
-This release renames the Flux `Query Builder` to the Flux `Script Builder` (and adds improvements), and improves on the Kapacitor integration.
+This release renames the Flux `Query Builder` to the Flux `Script Builder` (and adds improvements), and improves on Kapacitor integration.
 
 #### Flux Builder improvements
 
-- Rename the Flux `Query Builder` to the Flux `Script Builder`.
-- Use time range in Flux schema explorer.
-- Ability to load truncated data into the Flux Script Builder.
-- Highlight that Script Builder `keys` and `values` depend on the selected time range.
-- Make the aggregation function selection (function name?) optional.
+- Rename the Flux `Query Builder` to the Flux `Script Builder`, and add new functionality including:
+  - Ability to load truncated data into the Flux Script Builder.
+  - Script Builder `tag keys` and `tag values` depend on a selected time range.
+- Choose a time range for data output in Flux schema explorer, reducing query time.
+- Make aggregation function selection optional.
 - Autocomplete builtin v object in Flux editor.
-- Warn before overriding the existing Flux Editor script.
+- Ad a warning before overriding the existing Flux Editor script.
 
 #### Kapacitor integration improvements
 
-Improved pagination…and performance of the UI when you have large numbers of TICKscripts and Flux tasks.
+Improved pagination and performance of the UI when you have large numbers of TICKscripts and Flux tasks.
 
-- Move Flux Tasks to own page.
+- Move Flux Tasks to a separate page under Alerting menu.
+- Add TICKscipts page under Alerting menu.
 - Optimize Alert Rules API.
-- Add TICKscipts page.
-- Open Alert Rule Builder from a TICKscript page.
-- Remove Manage Tasks page, add Alert Rules page.
+- Open `Alert Rule Builder` from a TICKscript page.
+- Remove `Manage Tasks` page, add `Alert Rules` page.
 - Add alert rule options to not send alert on state recovery and send regardless of state change.
 
 ### Bug fixes
@@ -41,7 +41,7 @@ Improved pagination…and performance of the UI when you have large numbers of T
 - Propagate InfluxQL errors to UI.
 - Rename Flux Query to Flux Script.
 - Repair time zone selector on Host page.
-- Report correct chronograf version.
+- Report correct Chronograf version.
 - Show failure reason on Queries page.
 - Reorder Alerting side menu.
 
