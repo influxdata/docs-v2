@@ -17,7 +17,7 @@ related:
 Use InfluxDB replication streams to replicate all data written to an InfluxDB OSS
 bucket to an InfluxDB Cloud {{% oss-only %}}or a remote InfluxDB OSS{{% /oss-only %}} bucket.
 
-**To configure a replication stream:**
+## Configure a replication stream
 
 1. [Download and install the `influx` CLI](/influxdb/v2.2/tools/influx-cli/).
 2. In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use the
