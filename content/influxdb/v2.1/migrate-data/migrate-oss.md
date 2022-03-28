@@ -1,29 +1,39 @@
 ---
 title: Migrate data from InfluxDB OSS to other InfluxDB instances
 description: >
-  Migrate data from an InfluxDB OSS bucket to another InfluxDB OSS or InfluxDB
-  Cloud bucket.
+  To migrate data from an InfluxDB OSS bucket to another InfluxDB OSS or InfluxDB
+  Cloud bucket, export your data as line protocol and write it to your other
+  InfluxDB bucket.
 menu:
   influxdb_2_1:
     name: Migrate data from OSS
     parent: Migrate data
-weight: 106
+weight: 101
 ---
 
 To migrate data from an InfluxDB OSS bucket to another InfluxDB OSS or InfluxDB
-Cloud bucket:
+Cloud bucket, export your data as line protocol and write it to your other
+InfluxDB bucket.
 
-1. [Find the ID of the bucket](/influxdb/v2.1/organizations/buckets/view-buckets/)
-   that contains data you want to migrate.
-2.  Use the `influxd inspect export-lp` command to export data in a bucket as
+{{% cloud %}}
+#### InfluxDB Cloud write limits
+If migrating data from InfluxDB OSS to InfluxDB Cloud, your are subject to your
+[InfluxDB Cloud organization's rate limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
+Consider exporting your data in either time-based batches to limit the file size
+of exported line protocol to match your InfluxDB Cloud organization's limits.
+{{% /cloud %}}
+
+1.  [Find the ID of the InfluxDB OSS bucket](/influxdb/v2.1/organizations/buckets/view-buckets/)
+    that contains data you want to migrate.
+2.  Use the `influxd inspect export-lp` command to export data in your bucket as
     [line protocol](/influxdb/v2.1/reference/syntax/line-protocol/).
     Provide the following:
 
     - **bucket ID**: ({{< req >}}) ID of the bucket to migrate.
     - **engine path**: ({{< req >}}) Path to the TSM storage files on disk.
       The default engine path [depends on your operating system](/influxdb/v2.1/reference/internals/file-system-layout/#file-system-layout),
-      but can also be customized with the
-      [`engine-path` configuration option](/influxdb/v2.1/reference/config-options/#engine-path).
+      If using a [custom engine-path](/influxdb/v2.1/reference/config-options/#engine-path)
+      provide your custom path.
     - **output path**: ({{< req >}}) File path to output line protocol to.
     - **start time**: Earliest time to export.
     - **end time**: Latest time to export.
@@ -42,18 +52,13 @@ Cloud bucket:
       --compress
     ```
 
-    {{% cloud %}}
-#### InfluxDB Cloud write limits
-- InfluxDB Cloud write limits per five minutes free plan (5 MB), PAYG (3 GB)
-- InfluxDB Cloud global limit: 250 MB (uncompressed) batch size
-    {{% /cloud %}}
-
-3.  Write the exported line protocol to your InfluxDB Cloud or InfluxDB OSS instance.
+3.  Write the exported line protocol to your InfluxDB OSS or InfluxDB Cloud instance.
     
     Use one of the following methods:
 
-    - Import line protocol in the **InfluxDB UI**:
-        - [InfluxDB Cloud](/influxdb/cloud/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
-        - [InfluxDB OSS {{< current-version >}}](/influxdb/v2.1/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
+    - Write line protocol in the **InfluxDB UI**:
+        - [InfluxDB Cloud UI](/influxdb/cloud/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
+        - [InfluxDB OSS {{< current-version >}} UI](/influxdb/v2.1/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
+    - [Write line protocol using the `influx write` command](/influxdb/v2.1/reference/cli/influx/write/)
+    - [Write line protocol using the InfluxDB API](/influxdb/v2.1/write-data/developer-tools/api/)
     - [Bulk ingest data (InfluxDB Cloud)](/influxdb/cloud/write-data/bulk-ingest-cloud/)
-    - 

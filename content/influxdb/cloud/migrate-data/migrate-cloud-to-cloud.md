@@ -1,26 +1,28 @@
 ---
-title: Migrate data from InfluxDB Cloud to InfluxDB OSS
+title: Migrate data between InfluxDB Cloud organizations
 description: >
-  To migrate data from InfluxDB Cloud to InfluxDB OSS, query the data from
-  InfluxDB Cloud in time-based batches and write the data to InfluxDB OSS.
+  To migrate data from one InfluxDB Cloud organization to another, query the
+  data from time-based batches and write the queried data to a bucket in another
+  InfluxDB Cloud organization.
 menu:
-  influxdb_2_1:
-    name: Migrate from Cloud to OSS
+  influxdb_cloud:
+    name: Migrate from Cloud to Cloud
     parent: Migrate data
 weight: 102
 ---
 
-To migrate data from InfluxDB Cloud to InfluxDB OSS, query the data
-from InfluxDB Cloud and write the data to InfluxDB OSS.
-Because full data migrations will likely exceed your organization's limits and
+To migrate data from one InfluxDB Cloud organization to another, query the
+data from time-based batches and write the queried data to a bucket in another
+InfluxDB Cloud organization.
+Because full data migrations will likely exceed your organizations' limits and
 adjustable quotas, migrate your data in batches.
 
-The following guide provides instructions for setting up an InfluxDB OSS task
+The following guide provides instructions for setting up an InfluxDB task
 that queries data from an InfluxDB Cloud bucket in time-based batches and writes
-each batch to an InfluxDB OSS bucket.
+each batch to another InfluxDB Cloud bucket in another organization.
 
 {{% cloud %}}
-All queries against data in InfluxDB Cloud are subject to your organization's
+All query and write requests are subject to your InfluxDB Cloud organization's
 [rate limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
 {{% /cloud %}}
 
@@ -33,20 +35,27 @@ All queries against data in InfluxDB Cloud are subject to your organization's
 - [Troubleshoot migration task failures](#troubleshoot-migration-task-failures)
 
 ## Set up the migration
-1.  [Install and set up InfluxDB OSS](/influxdb/{{< current-version-link >}}/install/).
 
-2.  **In InfluxDB Cloud**, [create an API token](/influxdb/cloud/security/tokens/create-token/)
-        with **read access** to the bucket you want to migrate.
+{{% note %}}
+The migration process requires two buckets in your destination InfluxDB
+organization—one bucket to store the migrated data and another bucket to store migration metadata.
+If the destination organization uses the [InfluxDB Cloud Free Plan](/influxdb/cloud/account-management/limits/#free-plan),
+any buckets in addition to these two will exceed the your plan's bucket limit.
+{{% /note %}}
 
-3.  **In InfluxDB OSS**:
-    1.  Add your **InfluxDB Cloud API token** as a secret using the key,
-        `INFLUXDB_CLOUD_TOKEN`.
-        _See [Add secrets](/influxdb/{{< current-version-link >}}/security/secrets/add/) for more information._
-    2.  [Create a bucket](/influxdb/{{< current-version-link >}}/organizations/buckets/create-bucket/)
+1.  **In the InfluxDB Cloud organization you're migrating data _from_**,
+    [create an API token](/influxdb/cloud/security/tokens/create-token/)
+    with **read access** to the bucket you want to migrate.
+
+2.  **In the InfluxDB Cloud organization you're migrating data _to_**:
+    1.  Add the **InfluxDB Cloud API token from the source organization** as a
+        secret using the key, `INFLUXDB_CLOUD_TOKEN`.
+        _See [Add secrets](/influxdb/cloud/security/secrets/add/) for more information._
+    2.  [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
         **to migrate data to**.
-    3.  [Create a bucket](/influxdb/{{< current-version-link >}}/organizations/buckets/create-bucket/)
+    3.  [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
         **to store temporary migration metadata**.
-    4.  [Create a new task](/influxdb/{{< current-version-link >}}/process-data/manage-tasks/create-task/)
+    4.  [Create a new task](/influxdb/cloud/process-data/manage-tasks/create-task/)
         using the provided [migration task](#migration-task).
         Update the necessary [migration configuration options](#configure-the-migration).
     5.  _(Optional)_ Set up [migration monitoring](#monitor-the-migration-progress).
@@ -79,7 +88,7 @@ Batch range is beyond the migration range. Migration is complete.
     - **stop**: Latest time to include in the migration.
     - **batchInterval**: Duration of each time-based batch.
       _See [Determine your batch interval](#determine-your-batch-interval)._
-    - **batchBucket**: InfluxDB OSS bucket to store migration batch metadata in.
+    - **batchBucket**: InfluxDB bucket to store migration batch metadata in.
     - **sourceHost**: [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions)
       to migrate data from.
     - **sourceOrg**: InfluxDB Cloud organization to migrate data from.
@@ -211,7 +220,7 @@ metadata()
 {{% expand "Determine your task interval" %}}
 
 The task interval determines how often the migration task runs and is defined by
-the [`task.every` option](/influxdb/v2.1/process-data/task-options/#every).
+the [`task.every` option](/influxdb/cloud/process-data/task-options/#every).
 InfluxDB Cloud rate limits and quotas reset every five minutes, so
 **we recommend a `5m` task interval**.
 
@@ -292,28 +301,27 @@ that provide the size of the response body.
 Divide the output of this command by 1000000 to convert it to megabytes (MB).
 
 ```
-batchInterval = (read-rate-limit-mb / response-body-size-mb) * range-duration
+batchInterval = (write-rate-limit-mb / response-body-size-mb) * range-duration
 ```
 
 For example, if the response body of your query that returns data from one day 
-is 8 MB and you're using the InfluxDB Cloud Free Plan with a read limit of
-300 MB per five minutes:
+is 1 MB and you're using the InfluxDB Cloud Free Plan with a write limit of
+5 MB per five minutes:
 
 ```js
-batchInterval = (300 / 8) * 1d
-// batchInterval = 37d
+batchInterval = (5 / 1) * 1d
+// batchInterval = 5d
 ```
 
-You could query 37 days of data before hitting your read limit, but this is just an estimate.
+You _could_ query 5 days of data before hitting your write limit, but this is just an estimate.
 We recommend setting the `batchInterval` slightly lower than the calculated interval
 to allow for variation between batches.
-So in this example, **it would be best to set your `batchInterval` to `35d`**.
+
+So in this example, **it would be best to set your `batchInterval` to `4d`**.
 
 ##### Important things to note
-- This assumes no other queries are running in your InfluxDB Cloud organization.
-- You should also consider your network speeds and whether a batch can be fully
-  downloaded within the [task interval](#determine-your-task-interval).
-
+- This assumes no other queries are running in your source InfluxDB Cloud organization.
+- This assumes no other writes are happening in your destination InfluxDB Cloud organization.
 {{% /expand %}}
 <!------------------------ END Determine batch interval ----------------------->
 {{< /expand-wrapper >}}
@@ -328,7 +336,7 @@ for monitoring running data migrations.
 <a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
 ## Troubleshoot migration task failures
-If the migration task fails, [view your task logs](/influxdb/v2.1/process-data/manage-tasks/task-run-history/)
+If the migration task fails, [view your task logs](/influxdb/cloud/process-data/manage-tasks/task-run-history/)
 to identify the specific error. Below are common causes of migration task failures.
 
 - [Exceeded rate limits](#exceeded-rate-limits)

@@ -4,7 +4,7 @@ description: >
   Migrate data to InfluxDB from other InfluxDB instances including by InfluxDB OSS
   and InfluxDB Cloud.
 menu:
-  influxdb_2_1:
+  influxdb_cloud:
     name: Migrate data
 weight: 9
 ---
