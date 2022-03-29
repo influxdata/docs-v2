@@ -6,8 +6,8 @@ description: >
 menu:
   influxdb_2_1:
     name: Migrate from Cloud to OSS
-    parent: Write data
-weight: 106
+    parent: Migrate data
+weight: 102
 ---
 
 To migrate data from InfluxDB Cloud to InfluxDB OSS, query the data
@@ -33,7 +33,7 @@ All queries against data in InfluxDB Cloud are subject to your organization's
 - [Troubleshoot migration task failures](#troubleshoot-migration-task-failures)
 
 ## Set up the migration
-1.  [Install and set up InfluxDB OSS](/influxdb/v2.1/install/).
+1.  [Install and set up InfluxDB OSS](/influxdb/{{< current-version-link >}}/install/).
 
 2.  **In InfluxDB Cloud**, [create an API token](/influxdb/cloud/security/tokens/create-token/)
         with **read access** to the bucket you want to migrate.
@@ -41,12 +41,12 @@ All queries against data in InfluxDB Cloud are subject to your organization's
 3.  **In InfluxDB OSS**:
     1.  Add your **InfluxDB Cloud API token** as a secret using the key,
         `INFLUXDB_CLOUD_TOKEN`.
-        _See [Add secrets](/influxdb/v2.1/security/secrets/add/) for more information._
-    2.  [Create a bucket](/influxdb/v2.1/organizations/buckets/create-bucket/)
+        _See [Add secrets](/influxdb/{{< current-version-link >}}/security/secrets/add/) for more information._
+    2.  [Create a bucket](/influxdb/{{< current-version-link >}}/organizations/buckets/create-bucket/)
         **to migrate data to**.
-    3.  [Create a bucket](/influxdb/v2.1/organizations/buckets/create-bucket/)
+    3.  [Create a bucket](/influxdb/{{< current-version-link >}}/organizations/buckets/create-bucket/)
         **to store temporary migration metadata**.
-    4.  [Create a new task](/influxdb/v2.1/process-data/manage-tasks/create-task/)
+    4.  [Create a new task](/influxdb/{{< current-version-link >}}/process-data/manage-tasks/create-task/)
         using the provided [migration task](#migration-task).
         Update the necessary [migration configuration options](#configure-the-migration).
     5.  _(Optional)_ Set up [migration monitoring](#monitor-the-migration-progress).
@@ -80,13 +80,13 @@ Batch range is beyond the migration range. Migration is complete.
     - **batchInterval**: Duration of each time-based batch.
       _See [Determine your batch interval](#determine-your-batch-interval)._
     - **batchBucket**: InfluxDB OSS bucket to store migration batch metadata in.
-    - **cloudHost**: [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions)
+    - **sourceHost**: [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions)
       to migrate data from.
-    - **cloudOrg**: InfluxDB Cloud organization to migrated data from.
-    - **cloudToken**: InfluxDB Cloud API token. To keep the API token secure, store
+    - **sourceOrg**: InfluxDB Cloud organization to migrate data from.
+    - **sourceToken**: InfluxDB Cloud API token. To keep the API token secure, store
       it as a secret in InfluxDB OSS.
-    - **cloudBucket**: InfluxDB Cloud bucket to migrate data from.
-    - **ossBucket**: InfluxDB OSS bucket to migrate data to.
+    - **sourceBucket**: InfluxDB Cloud bucket to migrate data from.
+    - **destinationBucket**: InfluxDB OSS bucket to migrate data to.
 
 ### Migration Flux script
 
@@ -104,11 +104,11 @@ migration = {
     stop: 2022-02-01T00:00:00Z,
     batchInterval: 1h,
     batchBucket: "migration",
-    cloudHost: "https://cloud2.influxdata.com",
-    cloudOrg: "example-cloud-org",
-    cloudToken: secrets.get(key: "INFLUXDB_CLOUD_TOKEN"),
-    cloudBucket: "example-cloud-bucket",
-    ossBucket: "example-oss-bucket",
+    sourceHost: "https://cloud2.influxdata.com",
+    sourceOrg: "example-cloud-org",
+    sourceToken: secrets.get(key: "INFLUXDB_CLOUD_TOKEN"),
+    sourceBucket: "example-cloud-bucket",
+    destinationBucket: "example-oss-bucket",
 }
 
 // batchRange dynamically returns a record with start and stop properties for
@@ -121,8 +121,8 @@ batchRange = () => {
         (from(bucket: migration.batchBucket)
             |> range(start: migration.start)
             |> filter(fn: (r) => r._field == "batch_stop")
-            |> filter(fn: (r) => r.srcOrg == migration.cloudOrg)
-            |> filter(fn: (r) => r.srcBucket == migration.cloudBucket)
+            |> filter(fn: (r) => r.srcOrg == migration.sourceOrg)
+            |> filter(fn: (r) => r.srcBucket == migration.sourceBucket)
             |> last()
             |> findRecord(fn: (key) => true, idx: 0))._value
     _batchStart =
@@ -145,12 +145,11 @@ finished =
     else
         "Migration in progress"
 
-// Query all data from the specified InfluxDB Cloud bucket within the
-// batch-defined time range. To limit migrated data by measurement, tag, or
-// field, add a `filter()` function after `range()` with the appropriate
-// predicate fn.
+// Query all data from the specified source bucket within the batch-defined time
+// range. To limit migrated data by measurement, tag, or field, add a `filter()`
+// function after `range()` with the appropriate predicate fn.
 data = () =>
-    from(host: migration.cloudHost, org: migration.cloudOrg, token: migration.cloudToken, bucket: migration.cloudBucket)
+    from(host: migration.sourceHost, org: migration.sourceOrg, token: migration.sourceToken, bucket: migration.sourceBucket)
         |> range(start: batch.start, stop: batch.stop)
 
 // rowCount is a stream of tables that contains the number of rows returned in
@@ -180,9 +179,9 @@ metadata = () => {
                     ({
                         _time: now(),
                         _measurement: "batches",
-                        srcOrg: migration.cloudOrg,
-                        srcBucket: migration.cloudBucket,
-                        dstBucket: migration.ossBucket,
+                        srcOrg: migration.sourceOrg,
+                        srcBucket: migration.sourceBucket,
+                        dstBucket: migration.destinationBucket,
                         batch_start: string(v: batch.start),
                         batch_stop: string(v: batch.stop),
                         rows: r._value,
@@ -197,7 +196,7 @@ metadata = () => {
 
 // Write the queried data to the specified InfluxDB OSS bucket.
 data()
-    |> to(bucket: migration.ossBucket)
+    |> to(bucket: migration.destinationBucket)
 
 // Generate and store batch metadata in the migration.batchBucket.
 metadata()
@@ -320,13 +319,13 @@ So in this example, **it would be best to set your `batchInterval` to `35d`**.
 {{< /expand-wrapper >}}
 
 ## Monitor the migration progress
-The [InfluxDB Cloud to OSS Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/)
+The [InfluxDB Cloud Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/)
 installs the migration task outlined in this guide as well as a dashboard
 for monitoring running data migrations.
 
-{{< img-hd src="/img/influxdb/2-1-migration-dashboard.png" alt="InfluxDB Cloud to OSS migration dashboard" />}}
+{{< img-hd src="/img/influxdb/2-1-migration-dashboard.png" alt="InfluxDB Cloud migration dashboard" />}}
 
-<a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/#quick-install">Install the InfluxDB Cloud to OSS Migration template</a>
+<a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
 ## Troubleshoot migration task failures
 If the migration task fails, [view your task logs](/influxdb/v2.1/process-data/manage-tasks/task-run-history/)
