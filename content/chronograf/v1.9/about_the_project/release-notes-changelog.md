@@ -17,21 +17,20 @@ This release renames the Flux `Query Builder` to the Flux `Script Builder` (and 
 #### Flux Builder improvements
 
 - Rename the Flux `Query Builder` to the Flux `Script Builder`, and add new functionality including:
-  - Ability to load truncated data into the Flux Script Builder.
-  - Script Builder `tag keys` and `tag values` depend on a selected time range.
-- Choose a time range for data output in Flux schema explorer, reducing query time.
+  - Ability to load truncated tags and keys into the Flux Script Builder when connected to InfluxDB Cloud.
+  - Script Builder tag keys and tag values depend on a selected time range.
 - Make aggregation function selection optional.
 - Autocomplete builtin v object in Flux editor.
-- Ad a warning before overriding the existing Flux Editor script.
+- Add a warning before overriding the existing Flux Editor script.
 
 #### Kapacitor integration improvements
 
 Improved pagination and performance of the UI when you have large numbers of TICKscripts and Flux tasks.
 
 - Move Flux Tasks to a separate page under Alerting menu.
-- Add TICKscipts page under Alerting menu.
+- Add `TICKscripts Page` under Alerting menu.
 - Optimize Alert Rules API.
-- Open `Alert Rule Builder` from a TICKscript page.
+- Open `Alert Rule Builder` from the TICKscripts page.
 - Remove `Manage Tasks` page, add `Alert Rules` page.
 - Add alert rule options to not send alert on state recovery and send regardless of state change.
 
