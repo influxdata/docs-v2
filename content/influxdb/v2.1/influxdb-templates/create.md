@@ -172,10 +172,10 @@ Provide the following:
 ```sh
 # Syntax
 influx export stack \
-  -o <org-name> \
-  -t <token> \
-  -f <file-path> \
-  <stack-id>
+  -o <INFLUX_ORG> \
+  -t <INFLUX_TOKEN> \
+  -f <FILE_PATH> \
+  <STACK_ID>
 
 # Example
 influx export stack \

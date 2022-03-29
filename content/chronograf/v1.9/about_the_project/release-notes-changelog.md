@@ -8,6 +8,42 @@ menu:
     parent: About the project
 ---
 
+## v1.9.4 [2022-03-28]
+
+### Features
+
+This release renames the Flux `Query Builder` to the Flux `Script Builder` (and adds improvements), and improves on Kapacitor integration.
+
+#### Flux Builder improvements
+
+- Rename the Flux `Query Builder` to the Flux `Script Builder`, and add new functionality including:
+  - Ability to load truncated tags and keys into the Flux Script Builder when connected to InfluxDB Cloud.
+  - Script Builder tag keys and tag values depend on a selected time range.
+- Make aggregation function selection optional.
+- Autocomplete builtin v object in Flux editor.
+- Add a warning before overriding the existing Flux Editor script.
+
+#### Kapacitor integration improvements
+
+Improved pagination and performance of the UI when you have large numbers of TICKscripts and Flux tasks.
+
+- Move Flux Tasks to a separate page under Alerting menu.
+- Add `TICKscripts Page` under Alerting menu.
+- Optimize Alert Rules API.
+- Open `Alert Rule Builder` from the TICKscripts page.
+- Remove `Manage Tasks` page, add `Alert Rules` page.
+- Add alert rule options to not send alert on state recovery and send regardless of state change.
+
+### Bug fixes
+
+- Respect `BASE_PATH` when serving API docs.
+- Propagate InfluxQL errors to UI.
+- Rename Flux Query to Flux Script.
+- Repair time zone selector on Host page.
+- Report correct Chronograf version.
+- Show failure reason on Queries page.
+- Reorder Alerting side menu.
+
 ## v1.9.3 [2022-02-02]
 
 {{% note %}} **NOTE:** We did not release version 1.9.2 due to a bug that impacted communication between the browser’s main thread and background workers.  This bug has been fixed in the 1.9.3 release.
