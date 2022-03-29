@@ -54,7 +54,7 @@ of exported line protocol to match your InfluxDB Cloud organization's limits.
 
 3.  Write the exported line protocol to your InfluxDB OSS or InfluxDB Cloud instance.
     
-    Use one of the following methods:
+    Do any of the following:
 
     - Write line protocol in the **InfluxDB UI**:
         - [InfluxDB Cloud UI](/influxdb/cloud/write-data/no-code/load-data/#load-csv-or-line-protocol-in-ui)
