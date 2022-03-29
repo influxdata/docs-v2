@@ -47,7 +47,7 @@ import "experimental"
 from(bucket: "example-bucket")
     |> range(start: -10m)
     |> group(columns: ["host"])
-    |> monitor.deadman(t: experimental.subDuration(d: 30s, from: now()))
+    |> monitor.deadman(t: experimental.subDuration(d: 5m, from: now()))
 ```
 
 {{< expand-wrapper >}}
