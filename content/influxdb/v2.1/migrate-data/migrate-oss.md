@@ -17,13 +17,13 @@ InfluxDB bucket.
 
 {{% cloud %}}
 #### InfluxDB Cloud write limits
-If migrating data from InfluxDB OSS to InfluxDB Cloud, your are subject to your
+If migrating data from InfluxDB OSS to InfluxDB Cloud, you are subject to your
 [InfluxDB Cloud organization's rate limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
-Consider exporting your data in either time-based batches to limit the file size
+Consider exporting your data in time-based batches to limit the file size
 of exported line protocol to match your InfluxDB Cloud organization's limits.
 {{% /cloud %}}
 
-1.  [Find the ID of the InfluxDB OSS bucket](/influxdb/v2.1/organizations/buckets/view-buckets/)
+1.  [Find the InfluxDB OSS bucket ID](/influxdb/v2.1/organizations/buckets/view-buckets/)
     that contains data you want to migrate.
 2.  Use the `influxd inspect export-lp` command to export data in your bucket as
     [line protocol](/influxdb/v2.1/reference/syntax/line-protocol/).
