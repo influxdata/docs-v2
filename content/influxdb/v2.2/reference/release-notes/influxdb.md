@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.2 [2022-02-17]
+## v2.2 [2022-03-29]
 
 This release includes the following new [features](#features) and several [bug fixes](#bug-fixes).
 
@@ -20,6 +20,8 @@ This release includes the following new [features](#features) and several [bug f
 - [Task metadata](#task-metadata)
 - [Metrics](#metrics)
 - [Display runtime configuration in use by `influxd`](#display-runtime-configuration-in-use-by-influxd)
+- [Recover user credentials](#recover-user-credentials)
+- [Security updates](#security-updates), including a new `hardening-enabled` option to enable additional security.
 
 #### Technical preview: Durable subscription to replicate data
 
@@ -88,11 +90,38 @@ See [InfluxDB OSS metrics](/influxdb/v2.1/reference/internals/metrics/) for addi
 
 - Update `api/v2/config` endpoint to display the correct runtime configuration (for example, when you run `influxd print-config`).
 
+#### Recover user credentials
+
+To recover user credentials, use [`influx recovery user list`](/influxdb/v2.2/reference/cli/influxd/recovery/user/list/) to retrieve a list of users, and then use [`influx recovery user update`](/influxdb/v2.2/reference/cli/influxd/recovery/user/update/) to update the password for a specified user.
+
+### Security updates
+
+- Add the [`hardening-enabled`](/influxdb/v2.2/security/enable-hardening.md) option to limit flux/pkger HTTP requests. The new `hardening-enabled` option ensures that InfluxDB first verifies the IP address of the URL is not a private.
+  By default, Flux HTTP and template fetching requests are allowed to access localhost and private IP addresses.
+  - Disable use of jsonnet with `/api/v2/templates/apply`.
+This prevents crafted authenticated requests from exfiltrating files accessible to the user InfluxDB runs as.
+- Add read permissions check for querying data.
+This prevents authenticated requests using a write-only token from reading data
+  via the InfluxQL `/query` compatibility API.
+- Add write permissions check for `DELETE` and `DROP MEASUREMENT`.
+  This prevents authenticated requests using a read-only token from deleting data
+  via the InfluxQL `/query` compatibility API.
+Additionally, several security issues were fixed in dependencies and
+the toolchain used to build InfluxDB, including:
+- The following cumulative security fixes for [Flux v0.161.0](/flux/v0.x/release-notes/) since 0.139.0 are included in this release:
+  - Quote db identifiers.
+    This addresses injection vulnerabilities in database connections using `to()`.
+  - Make substring check bounds correctly.
+    This prevents authenticated queries from crashing the Flux engine.
+- The cumulative security fixes for [Go 1.17.8](https://go.dev/doc/devel/release#go1.17.minor) since Go 1.17.2 are included in this release.
+  This addresses an issue in the InfluxDB test suite.
+
 ### Bug fixes
 
 - Ensure manual task runs can happen concurrently.
 - Extend snapshot copy of backup to filesystems that do not support hard links.
 - Detect misquoted tag values and return an error.
+- Fix potential deadlock in `influxd inspect dump-tsi`.
 - Successfully handle errors returned by `Sketch.Merge`.
 - Return `X-version` and `X-Build` headers for all requests to `/ping` endpoint.
 - Add error when `meta.db` is missing.
@@ -101,35 +130,11 @@ See [InfluxDB OSS metrics](/influxdb/v2.1/reference/internals/metrics/) for addi
 - To successfully restore a backup, use copy when a rename spans volumes.
 - Disable use of jsonnet with `/api/v2/templates/apply`.
 - Ensure that updating a check (`/checks/{checkID}`) does not require an owner ID.
-- Remove NATS for scraper processing. 
+- Remove NATS for scraper processing. Note, this fix does not alter scraper functionality--scrapers still work as they did before.
   - ``nats-port`` and ``nats-max-payload-bytes`` flags have been deprecated.
-  -  NATS is no longer embedded in InfluxDB. Because InfluxDB no longer requires a port for NATS, port conflct issues are reduced.
-
-### Security
-
-Several security issues are fixed in this release:
-- Disable use of jsonnet with `/api/v2/templates/apply`.
-  This prevents crafted authenticated requests from exfiltrating files accessible to the user InfluxDB runs as.
-- Add read permissions check for querying data.
-  This prevents authenticated requests using a write-only token from reading data
-  via the InfluxQL `/query` compatibility API.
-- Add write permissions check for `DELETE` and `DROP MEASUREMENT`.
-  This prevents authenticated requests using a read-only token from deleting data
-  via the InfluxQL `/query` compatibility API.
-- Add the [`hardening-enabled`](/influxdb/v2.2/security/enable-hardening.md) option to limit flux/pkger HTTP requests.
-  By default, Flux HTTP and template fetching requests are allowed
-  to access localhost and private IP addresses.
-  The new `hardening-enabled` option makes InfluxDB first verify that the IP address of the URL is not a private IP address.
-
-Additionally, several security issues were fixed in dependencies and
-the toolchain used to build InfluxDB:
-- The cumulative security fixes for [Flux v0.161.0](/flux/v0.x/release-notes/) since 0.139.0 are included in this release:
-  - Quote db identifiers.
-    This addresses injection vulnerabilities in database connections using `to()`.
-  - Make substring check bounds correctly.
-    This prevents authenticated queries from crashing the Flux engine.
-- The cumulative security fixes for [Go 1.17.8](https://go.dev/doc/devel/release#go1.17.minor) since Go 1.17.2 are included in this release.
-  This addresses an issue in the InfluxDB testsuite.
+  -  NATS is no longer embedded in InfluxDB. Because InfluxDB no longer requires a port for NATS, port conflict issues are reduced.
+- Resolve the issue that prevented the browser from tracking the cookie `expiry` correctly, causing the cookie to expire automatically when restarting the browser or changing tabs. Now, the cookie is correctly preserved.
+- Allow unlimited Flux http calls. Previously, http requests failed silently after 100MB of data transfer.
 
 ## v2.1.1 [2021-11-08]
 
