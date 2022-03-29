@@ -14,6 +14,12 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## March 2022
+
+### Deep linking
+
+Navigate to UI pages without having to enter your organization ID in the URL using deep links. For example, `cloud2.influxdata.com/me/billing` redirects to your organization's billing page.
+
 ## February 2022
 
 ### Remove yourself from an organization
