@@ -10,6 +10,36 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.161.0 [2022-03-24]
+
+### Features
+- Re-enable the dialer pool and update dependency injection.
+
+### Bug fixes
+- Check length boundary for lower bound of [`strings.substring()`](/flux/v0.x/stdlib/strings/substring/).
+
+---
+
+## v0.160.0 [2022-03-22]
+
+### Features
+- Remove the `concurrencyLimit` feature flag and keep it in the dependencies.
+- Add MQTT Docker integration test.
+- Enable dialer pool.
+- Add an IOx-specific unpivot function to the `internal` package.
+
+### Bug fixes
+- Update [`join()`](/flux/v0.x/stdlib/universe/join/) to properly handle divergent schemas.
+- Fix line endings in the `testcase` format to prevent unnecessarily nesting the
+  body of a test case.
+- Make [`strings.substring()`](/flux/v0.x/stdlib/strings/substring/) check bounds correctly.
+- Fix duration and integer literal scanning.
+- Make `testcase` a semantic check instead of an error.
+- Skip parallel merge when selecting the result name based on side effects.
+- Add metadata headers to inline documentation.
+
+---
+
 ## v0.159.0 [2022-03-14]
 
 ### Features
