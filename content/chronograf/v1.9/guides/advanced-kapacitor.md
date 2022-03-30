@@ -74,13 +74,18 @@ Do one or more of the following:
 
 ### Manage Kapacitor Flux tasks
 **Kapacitor 1.6+** supports Flux tasks.
-Chronograf lets you view and manage [Kapacitor Flux tasks](/{{< latest "kapacitor" >}}/working/flux/).
+Chronograf lets you view and manage Flux tasks on the **Flux Tasks** page.  
+
 
 To manage Kapacitor Flux tasks in Chronograf, click
 **{{< icon "alert" "v2">}} Alerting** in the left navigation bar.
 On this page, you can:
 
+Do one or more of the following:
+
 - View Kapacitor Flux tasks.
 - View Kapacitor Flux task activity.
 - Enable and disable Kapacitor Flux tasks.
 - Delete Kapacitor Flux tasks.
+
+For more information on Flux tasks and Kapacitor see [Use Flux tasks with Kapacitor](/{{< latest "kapacitor" >}}/working/flux/).
