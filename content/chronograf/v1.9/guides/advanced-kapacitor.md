@@ -55,22 +55,22 @@ automatically deletes any alerts that occurred before the past hour.
 
 ### Manage Kapacitor TICKscripts
 
-Chronograf lets you manage Kapacitor TICKscript tasks created in Kapacitor or in
-Chronograf when [creating a Chronograf alert rule](/chronograf/v1.9/guides/create-alert-rules/).
+Chronograf lets you view and manage all Kapacitor TICKscripts for a selected Kapacitor subscription using the **TICKscripts** page.  
 
-1. To manage Kapacitor TICKscript tasks in Chronograf, click
-**{{< icon "alert" "v2">}} Alerting** in the left navigation bar.
+1. To manage Kapacitor TICKscripts in Chronograf, click
+**{{< icon "alert" "v2">}} Alerting** in the left navigation bar and select **TICKscripts**. 
 Do one or more of the following:
 
-    - View Kapacitor TICKscript tasks.
-    - View TICKscript task activity.
+    - View Kapacitor TICKscript tasks. You can view up to 100 TICKscripts at a time. If you have more than 100 TICKscripts, the list will be paginated at the bottom of the page. You can also filter your TICKscripts by name.  
+    - View TICKscript task type.
+    - Enable and disable TICKscript tasks.
     - Create new TICKscript tasks. 
     - Update TICKscript tasks.
-    - Enable and disable TICKscript tasks.
     - Rename a TICKscript. Note, renaming a TICKscript updates the `var name` variable within the TICKscript.
     - Delete TICKscript tasks.
+    - Create alerts using the Alert Rule Builder.  See [Configure Chronograf alert rules](/chronograf/v1.9/guides/create-alert-rules/#configure-chronograf-alert-rules).
 
-2. Click **Save Changes** when finished.
+2. Click **Exit** when finished.
 
 ### Manage Kapacitor Flux tasks
 **Kapacitor 1.6+** supports Flux tasks.
