@@ -22,19 +22,19 @@ Load data from the following sources in the InfluxDB user interface (UI):
 
 Load CSV or line protocol data by uploading a file or pasting the data manually into the UI.
 
-1. In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
+1. In the navigation menu on the left, click **Load Data** > **Sources**.
     {{< nav-icon "data" >}}
 2. Under **File Upload**, select the type of data to upload:
     - **Annotated CSV**. Verify your CSV file follows the supported [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) syntax.
     - **Line Protocol**. Verify your line protocol file adheres to the following conventions:  
-       - Each line represents a data point.
-        - Each data point requires a:  
-          - [*measurement*](/influxdb/cloud/reference/syntax/line-protocol/#measurement)
-          - [*field set*](/influxdb/cloud/reference/syntax/line-protocol/#field-set)
-          - (Optional) [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set)
-          - [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp)
+      - Each line represents a data point.
+      - Each data point requires a:  
+         - [*measurement*](/influxdb/cloud/reference/syntax/line-protocol/#measurement)
+         - [*field set*](/influxdb/cloud/reference/syntax/line-protocol/#field-set)
+         - (Optional) [*tag set*](/influxdb/cloud/reference/syntax/line-protocol/#tag-set)
+         - [*timestamp*](/influxdb/cloud/reference/syntax/line-protocol/#timestamp)
 
-          For more information, see supported [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) syntax.
+      For more information, see supported [line protocol](/influxdb/cloud/reference/syntax/line-protocol/) syntax.
 
 2. Select the bucket to write to.
 4. Select the **Precision** in the dropdown menu. By default, the precision is set to nanoseconds.
@@ -44,7 +44,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 
 ### Load data from a client library in the UI
 
-1.  In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
+1.  In the navigation menu on the left, click **Load Data** > **Sources**.
     {{< nav-icon "data" >}}
 2. Do one of the following:
    - Enter a specific client library to search for in the **Search data writing methods** field.
@@ -59,7 +59,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 
 ### Load data from a Telegraf plugin in the UI
 
-1. In the navigation menu on the left, click **Data (Load Data)** > **Sources**.
+1. In the navigation menu on the left, click **Load Data** > **Sources**.
     {{< nav-icon "data" >}}
 2. Do one of the following:
    - Enter a specific Telegraf plugin to search for in the **Search data writing methods** field.
