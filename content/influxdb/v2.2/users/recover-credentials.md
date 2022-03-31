@@ -19,10 +19,12 @@ Use the `influx` command line interface (CLI) to recover user credentials, view 
 To recover all users in the system, run the following:
 
 ```sh
-influxd recovery user list \
-// by default, path to BoltDB file is `~.influxdbv2/influxd.bolt`, change as needed
---bolt-path
+influxd recovery user list
 ```
+
+{{% note %}}
+If you used a [custom `bolt-path`](/influxdb/v2.2/reference/config-options/#bolt-path) when starting InfluxDB, provide your custom bolt path to the `influx recovery user list` command with the `--bolt-path` flag.
+{{% /note %}}
 
 ### Create a user for recovery purposes
 
