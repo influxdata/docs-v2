@@ -14,7 +14,7 @@ related:
 
 Use the `influx` command line interface (CLI) to recover user credentials, view all users in the system, or update a password.
 
-### Recover all users
+### List all users in the InfluxDB instance
 
 To recover all users in the system, run the following:
 
