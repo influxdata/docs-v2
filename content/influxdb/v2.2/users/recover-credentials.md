@@ -8,6 +8,8 @@ menu:
     parent: Manage users
 weight: 106
 products: [oss]
+related:
+  - /influxdb/v2.2/reference/cli/influxd/recovery/
 ---
 
 Use the `influx` command line interface (CLI) to recover user credentials, view all users in the system, or update a password.
