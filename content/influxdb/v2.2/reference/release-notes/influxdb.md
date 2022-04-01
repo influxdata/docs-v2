@@ -134,7 +134,7 @@ the toolchain used to build InfluxDB, including:
   - `nats-port` and `nats-max-payload-bytes` flags have been deprecated.
   -  NATS is no longer embedded in InfluxDB. Because InfluxDB no longer requires a port for NATS, port conflict issues are reduced.
 - Resolve the issue that prevented the browser from tracking the cookie `expiry` correctly, causing the cookie to expire automatically when restarting the browser or changing tabs. Now, the cookie is correctly preserved.
-- Allow unlimited Flux http calls. Previously, http requests failed silently after 100MB of data transfer.
+- Allow unlimited Flux HTTP calls. Previously, HTTP requests failed silently after 100MB of data transfer.
 - Remove pagination limits on the `/telegrafs` API. Previously, pagination wasn't exposed to the API, so API requests were limited to the default 20 pages.
 
 ## v2.1.1 [2021-11-08]
