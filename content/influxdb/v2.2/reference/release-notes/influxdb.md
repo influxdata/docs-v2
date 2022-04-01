@@ -131,7 +131,7 @@ the toolchain used to build InfluxDB, including:
 - Disable use of jsonnet with `/api/v2/templates/apply`.
 - Ensure that updating a check (`/checks/{checkID}`) does not require an owner ID.
 - Remove NATS for scraper processing. Note, this fix does not alter scraper functionality--scrapers still work as they did before.
-  - ``nats-port`` and ``nats-max-payload-bytes`` flags have been deprecated.
+  - `nats-port` and `nats-max-payload-bytes` flags have been deprecated.
   -  NATS is no longer embedded in InfluxDB. Because InfluxDB no longer requires a port for NATS, port conflict issues are reduced.
 - Resolve the issue that prevented the browser from tracking the cookie `expiry` correctly, causing the cookie to expire automatically when restarting the browser or changing tabs. Now, the cookie is correctly preserved.
 - Allow unlimited Flux http calls. Previously, http requests failed silently after 100MB of data transfer.
