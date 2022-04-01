@@ -84,7 +84,7 @@ See [InfluxDB OSS metrics](/influxdb/v2.1/reference/internals/metrics/) for addi
 
 #### Display runtime configuration in use by `influxd`
 
-- Added `api/v2/config` endpoint to display the runtime configuration (for example, when you run `influxd print-config`). This endpoint lets you review runtime configuration while the instance is live.
+- Add `api/v2/config` endpoint to display the runtime configuration (for example, when you run `influxd print-config`). This endpoint lets you review runtime configuration while the instance is live.
 
 #### Recover user credentials
 
