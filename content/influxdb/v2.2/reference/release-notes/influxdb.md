@@ -8,13 +8,13 @@ menu:
 weight: 101
 ---
 
-## v2.2 [2022-03-29]
+## v2.2 [2022-04-04]
 
 This release includes the following new [features](#features) and several [bug fixes](#bug-fixes).
 
 ### Features
 
-- [Technical preview of remote data replication](#replicate-data-remotely-technical-preview)
+- [Technical preview: replicate data remotely](#technical-preview-replicate-data-remotely)
 - [Flux updates](#flux-updates)
 - [Build maintenance](#build-maintenance)
 - [Task metadata](#task-metadata)
@@ -23,14 +23,14 @@ This release includes the following new [features](#features) and several [bug f
 - [Recover user credentials](#recover-user-credentials)
 - [Security updates](#security-updates), including a new `hardening-enabled` option to enable additional security.
 
-#### Technical preview: Durable subscription to replicate data
+#### Technical preview: replicate data remotely
 
 - Add the option to [Replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
-  This [**technical preview**](/influxdb/v2.1/reference/glossary/#technical-preview) feature allows you to create a durable subscription on a per bucket basis for the purposes of replicating data from an InfluxDB OSS instance to InfluxDB Cloud. 
-  -  Allow users to store, analyze, and aggregate data locally while also forwarding newly arriving data to a centralized InfluxDB Cloud account. 
-  -  If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data gets sent when network connectivity is reestablished.
-  -  Configuration options include a maximum buffer size and data age restrictions to restrict the amount of data stored on disk.
+  This [**technical preview**](/influxdb/v2.1/reference/glossary/#technical-preview) feature lets you create a durable subscription on a per bucket basis for the purposes of replicating data from an InfluxDB OSS instance to InfluxDB Cloud.
+  - Lets you store, analyze, and aggregate data locally while also forwarding newly arriving data to a centralized InfluxDB Cloud account.
+  - If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data gets sent when network connectivity is reestablished.
+  - Configuration options include a maximum buffer size and data age restrictions to restrict the amount of data stored on disk.
 
 #### Flux updates
 
@@ -48,29 +48,26 @@ This release includes the following new [features](#features) and several [bug f
 #### Metrics
 
 - Add Prometheus metrics for TSM compactions, including:
-   - `storage_compaction`
-   - `storage_compactions_active`
-   - `storage_compactions_duration_seconds_bucket`
-   - `storage_compactions_duration_seconds_count`
-   - `storage_compactions_duration_seconds_sum`
-   - `storage_compactions_queued`
-   - `storage_compactions_total`
 
+  - `storage_compaction`
+  - `storage_compactions_active`
+  - `storage_compactions_duration_seconds_bucket`
+  - `storage_compactions_duration_seconds_count`
+  - `storage_compactions_duration_seconds_sum`
+  - `storage_compactions_queued`
+  - `storage_compactions_total`
 - Add the following metrics tracking when data fails to be added to the replication queue:
-   - `PointsFailedToQueue`
-   - `BytesFailedToQueue`
-
+  - `PointsFailedToQueue`
+  - `BytesFailedToQueue`
 - Add the following metrics for writes, to indicate the status:
   - `pointsWriteRequested`
 	- `pointsWriteOk`
 	- `pointsWriteDropped`
 	- `pointsWriteErr`
 	- `timeout`
-
 - Add disk size metrics per shard:
   - `total`: number of files per shard
   - `disk_bytes`: data size in bytes for each shard
-
 - Add cache subsystem metrics:
   - `inuse_bytes`: Current memory consumption of cache
   - `diskBytes`: Size of most recent snapshot"
@@ -78,7 +75,6 @@ This release includes the following new [features](#features) and several [bug f
   - `writes_total`: Counter of all writes to cache
   - `writes_err`: Counter of failed writes to cache
   - `writes_dropped`: Counter of writes (with any dropped points) to cache
-
 - Add WAL subsystem metrics:
   - `size`: Size of WAL in bytes
   - `writes`: Number of write attempts to the WAL
