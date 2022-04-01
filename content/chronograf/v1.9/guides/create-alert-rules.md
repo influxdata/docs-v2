@@ -26,7 +26,7 @@ To learn about managing Kapacitor TICKscripts in Chronograf, see [Manage Kapacit
 
 ## Requirements
 
-[Getting started with Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) offers step-by-step instructions for each of the following requirements:
+[Get started with Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) offers step-by-step instructions for each of the following requirements:
 
 * Download and install the entire TICKstack (Telegraf, InfluxDB, Chronograf, and Kapacitor).
 * [Create a Kapacitor connection in Chronograf](/{{< latest "chronograf" >}}/introduction/installation/#connect-chronograf-to-kapacitor).
