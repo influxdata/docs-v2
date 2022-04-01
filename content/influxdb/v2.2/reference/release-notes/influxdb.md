@@ -101,7 +101,7 @@ To recover user credentials, use [`influx recovery user list`](/influxdb/v2.2/re
   - Disable use of jsonnet with `/api/v2/templates/apply`.
 This prevents crafted authenticated requests from exfiltrating files accessible to the user InfluxDB runs as.
 - Add read permissions check for querying data.
-This prevents authenticated requests using a write-only token from reading data
+  This prevents authenticated requests using a write-only token from reading data
   via the InfluxQL `/query` compatibility API.
 - Add write permissions check for `DELETE` and `DROP MEASUREMENT`.
   This prevents authenticated requests using a read-only token from deleting data
