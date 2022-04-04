@@ -1066,6 +1066,10 @@ For more information, see [Process Data with InfluxDB tasks](/influxdb/v2.2/proc
 
 Related entries: [function](#function)
 
+### technical preview
+
+A new feature released to gather feedback from customers and the InfluxDB community. Send feedback to InfluxData via [Community Slack](https://app.slack.com/client/TH8RGQX5Z) or our [Community Site](https://community.influxdata.com/).
+
 ### Telegraf
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
