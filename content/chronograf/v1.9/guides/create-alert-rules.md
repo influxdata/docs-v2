@@ -70,9 +70,9 @@ From the **Alert Rules** page in Chronograf:
 4. Define the rule conditions. Condition options are determined by the alert type.
 
 5. Select and configure the alert handler.
-    The alert handler determines where the system sends the alert (the event handler).
-    Chronograf supports several event handlers and each handler has unique configurable options.
-    Multiple alert handlers can be added to send alerts to multiple endpoints.
+    - The alert handler determines where the system sends the alert (the event handler).
+    - Chronograf supports several event handlers and each handler has unique configurable options.
+    - Multiple alert handlers can be added to send alerts to multiple endpoints.
 
 6. Configure the alert message.
     - The alert message is the text that accompanies an alert.
