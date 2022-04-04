@@ -33,7 +33,14 @@ To learn about managing Kapacitor TICKscripts in Chronograf, see [Manage Kapacit
 
 ## Manage Chronograf alert rules
 
-Chronograf lets you create and manage alert rules for a selected Kapacitor subscription using the **Alert Rules** page.  
+Chronograf lets you create and manage Kapacitor alert rules. To manage alert rules:
+
+1. Click on  **{{< icon "alert" "v2">}} Alerting** in the left navigation bar and select **Alert Rules**.
+2. Do one of the following:
+    - [Create an alert rule](#create-an-alert-rule)
+    - [View alert history](#view-alert-history)
+    - [Enable and disable alert rules](#enable-and-disable-alert-rules)
+    - [Delete alert rules](#delete-alert-rules)
 
 To create and manage alert rules in Chronograf, click on
 **{{< icon "alert" "v2">}} Alerting** in the left navigation bar and select **Alert Rules**.
