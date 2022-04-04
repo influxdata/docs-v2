@@ -18,7 +18,7 @@ This release includes the following new [features](#features) and several [bug f
 - [Flux updates](#flux-updates)
 - [Build maintenance](#build-maintenance)
 - [Task metadata](#task-metadata)
-- [Metrics](#metrics)
+- [Troubleshoot with new metrics](#troubleshoot-with-new-metrics)
 - [Display runtime configuration in use by `influxd`](#display-runtime-configuration-in-use-by-influxd)
 - [Recover user credentials](#recover-user-credentials)
 - [Security updates](#security-updates), including a new `hardening-enabled` option to enable additional security.
@@ -45,42 +45,54 @@ This release includes the following new [features](#features) and several [bug f
 
 - Add option to pass `type=basic` to [`/api/v2/tasks`](/influxdb/v2.1/api/#tag/Tasks) to return task metadata without the query text.
 
-#### Metrics
+#### Troubleshoot with new metrics
 
-- Add Prometheus metrics for TSM compactions, including:
+To assist with troubleshooting and operational management, expose the following metrics in Prometheus Exposition Format.
 
-  - `storage_compaction`
-  - `storage_compactions_active`
-  - `storage_compactions_duration_seconds_bucket`
-  - `storage_compactions_duration_seconds_count`
-  - `storage_compactions_duration_seconds_sum`
-  - `storage_compactions_queued`
-  - `storage_compactions_total`
-- Add the following metrics tracking when data fails to be added to the replication queue:
-  - `PointsFailedToQueue`
-  - `BytesFailedToQueue`
-- Add the following metrics for writes, to indicate the status:
-  - `pointsWriteRequested`
-	- `pointsWriteOk`
-	- `pointsWriteDropped`
-	- `pointsWriteErr`
-	- `timeout`
-- Add disk size metrics per shard:
-  - `total`: number of files per shard
-  - `disk_bytes`: data size in bytes for each shard
-- Add cache subsystem metrics:
-  - `inuse_bytes`: Current memory consumption of cache
-  - `diskBytes`: Size of most recent snapshot"
-  - `latest_snapshot`: Unix time of most recent snapshot
-  - `writes_total`: Counter of all writes to cache
-  - `writes_err`: Counter of failed writes to cache
-  - `writes_dropped`: Counter of writes (with any dropped points) to cache
-- Add WAL subsystem metrics:
-  - `size`: Size of WAL in bytes
-  - `writes`: Number of write attempts to the WAL
-  - `writes_err`: Number of failed write attempts to the WAL
+##### TSM compaction metrics
 
-See [InfluxDB OSS metrics](/influxdb/v2.1/reference/internals/metrics/) for additional detail.
+- `storage_compaction`
+- `storage_compactions_active`
+- `storage_compactions_duration_seconds_bucket`
+- `storage_compactions_duration_seconds_count`
+- `storage_compactions_duration_seconds_sum`
+- `storage_compactions_queued`
+- `storage_compactions_total`
+
+##### Failed to add to replication queue metrics
+
+- `PointsFailedToQueue`
+- `BytesFailedToQueue`
+
+##### Write status metrics
+
+- `pointsWriteRequested`
+- `pointsWriteOk`
+- `pointsWriteDropped`
+- `pointsWriteErr`
+- `timeout`
+
+##### Disk size metrics per shard
+
+- `total`: number of files per shard
+- `disk_bytes`: data size in bytes for each shard
+
+##### Cache subsystem metrics
+
+- `inuse_bytes`: Current memory consumption of cache
+- `diskBytes`: Size of most recent snapshot"
+- `latest_snapshot`: Unix time of most recent snapshot
+- `writes_total`: Counter of all writes to cache
+- `writes_err`: Counter of failed writes to cache
+- `writes_dropped`: Counter of writes (with any dropped points) to cache
+
+##### WAL subsystem metrics
+
+- `size`: Size of WAL in bytes
+- `writes`: Number of write attempts to the WAL
+- `writes_err`: Number of failed write attempts to the WAL
+
+See [InfluxDB OSS metrics](/influxdb/v2.2/reference/internals/metrics/) for additional detail.
 
 #### Display runtime configuration in use by `influxd`
 
