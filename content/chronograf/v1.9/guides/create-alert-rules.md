@@ -59,7 +59,7 @@ From the **Alert Rules** page in Chronograf:
 
 1. Name the alert rule.
 
-2. Choose from three alert types:
+2. Choose the alert type:
     -  `Threshold` - alert if data crosses a boundary.
     -  `Relative` - alert if data changes relative to data in a different time range.
     -  `Deadman` - alert if InfluxDB receives no relevant data for a specified time duration.
