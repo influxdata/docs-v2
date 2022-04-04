@@ -49,6 +49,6 @@ To create a new user for recovery purposes, run the following:
 
 ```sh
 influxd recovery user create \
---username example-username \
---password ExAmPL3-paS5W0rD
+  --username example-username \
+  --password ExAmPL3-paS5W0rD
 ```
