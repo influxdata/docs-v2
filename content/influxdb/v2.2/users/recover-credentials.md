@@ -23,8 +23,8 @@ To update a password, run the following:
 
 ```sh
 influxd recovery user update \
---username example-username \
---password ExAmPL3-paS5W0rD
+  --username example-username \
+  --password ExAmPL3-paS5W0rD
 ```
 
 {{% note %}}
