@@ -65,7 +65,7 @@ From the **Alert Rules** page in Chronograf:
     -  `Deadman` - alert if InfluxDB receives no relevant data for a specified time duration.
 
 3. Select the time series data to use in the alert rule.
-    Navigate through databases, measurements, tags, and fields to select all relevant data.
+    - Navigate through databases, measurements, tags, and fields to select all relevant data.
 
 4. Define the rule conditions. Condition options are determined by the alert type.
 
