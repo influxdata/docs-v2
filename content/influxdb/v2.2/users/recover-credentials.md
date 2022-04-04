@@ -28,7 +28,7 @@ influxd recovery user update \
 If you're not sure of the username, [list existing users](#list-existing-users-in-the-influxdb-instance) or [create a user for recovery purposes](create-a-user-for-recovery-purposes).
 {{% /note %}}
 
-### List existing users in the InfluxDB instance
+## List existing users in the InfluxDB instance
 
 To list existing users in the system, run the following:
 
@@ -40,7 +40,7 @@ influxd recovery user list
 If you used a [custom `bolt-path`](/influxdb/v2.2/reference/config-options/#bolt-path) when starting InfluxDB, provide your custom bolt path to the `influx recovery user list` command with the `--bolt-path` flag.
 {{% /note %}}
 
-### Create a user for recovery purposes
+## Create a user for recovery purposes
 
 To create a new user for recovery purposes, run the following:
 
