@@ -51,7 +51,7 @@ Do one of the following:
   - Delete alert rules.
   - Create new alert rules using the **Alert Rule Builder**.
 
-## Create alert rules in Chronograf
+## Create an alert rule
 
 From the **Alert Rules** page in Chronograf:
 
