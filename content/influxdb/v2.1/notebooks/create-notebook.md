@@ -38,6 +38,10 @@ To create a new notebook, do the following:
 4. Do the following at the top of the page:
    - Select your local time zone or UTC.
    - Choose a time [range](/{{% latest "flux" %}}/stdlib/universe/range/) for your data.
+   - Select an auto-refresh interval. Click **Enable Auto Refresh**. In the window that appears, configure the following options:
+     - **Until**: Select **Indefinite** to automatically refresh continuously. Select **Custom** to set a time to stop automatically refreshing.
+     - **Inactivity Timeout**: Set how long the user should be inactive for the dashboard to time out and stop automatically refreshing.
+     - **Refresh Interval**: Enter how frequently the dashboard should refresh.
 5. Your notebook should have a **Data Source** cell as the first cell. **Data Source** cells provide data to subsequent cells. The presets (listed in step 2) include either a **Query Builder** or a **Flux Script** as the first cell.
 6. To define your data source query, do one of the following:
    - If your notebook uses a **Query Builder** cell, select your bucket and any additional filters for your query.
