@@ -24,7 +24,7 @@ Navigate to UI pages without having to enter your organization ID in the URL usi
 
 ### Remove yourself from an organization
 
-You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from you organization](/influxdb/cloud/organizations/users/#remove-a-user-from-your-organization/).
+You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from your organization](/influxdb/cloud/organizations/users/#remove-a-user-from-your-organization/).
 
 ### Add auto-refresh functionality to Notebooks
 
