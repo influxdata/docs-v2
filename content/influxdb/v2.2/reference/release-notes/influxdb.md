@@ -27,7 +27,7 @@ This release includes the following new [features](#features) and several [bug f
 
 - Add the option to [Replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
-  This [**technical preview**](/influxdb/v2.1/reference/glossary/#technical-preview) feature lets you create a durable subscription on a per bucket basis for the purposes of replicating data on-write from an InfluxDB OSS instance to InfluxDB Cloud.
+  This [**technical preview**](/influxdb/v2.2/reference/glossary/#technical-preview) feature lets you create a durable subscription on a per bucket basis for the purposes of replicating data on-write from an InfluxDB OSS instance to InfluxDB Cloud.
   - Lets you store, analyze, and aggregate data locally while also forwarding newly arriving data to a centralized InfluxDB Cloud account.
   - If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data gets sent when network connectivity is reestablished.
   - Configuration options include a maximum buffer size and data age restrictions to restrict the amount of data stored on disk.
@@ -43,7 +43,7 @@ This release includes the following new [features](#features) and several [bug f
 
 #### Task metadata
 
-- Add option to pass `type=basic` to [`/api/v2/tasks`](/influxdb/v2.1/api/#tag/Tasks) to return task metadata without the query text.
+- Add option to pass `type=basic` to [`/api/v2/tasks`](/influxdb/v2.2/api/#tag/Tasks) to return task metadata without the query text.
 
 #### Troubleshoot with new metrics
 
