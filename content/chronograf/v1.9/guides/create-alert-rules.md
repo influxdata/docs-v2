@@ -53,10 +53,9 @@ Do one of the following:
 
 ## Create alert rules in Chronograf
 
-To create alert rules in Chronograf, click on
-**{{< icon "alert" "v2">}} Alerting** in the left navigation bar and select **Alert Rules**.  Click on
-**+ Build Alert Rule**. 
-Do the following:
+From the **Alert Rules** page in Chronograf:
+
+1. Click **+ Build Alert Rule**. 
 
 1. Name the alert rule.
 
