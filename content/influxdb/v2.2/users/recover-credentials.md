@@ -14,9 +14,23 @@ related:
 
 Use the `influx` command line interface (CLI) to recover user credentials, view all users in the system, or update a password.
 
-### List all users in the InfluxDB instance
+## Update a password
 
-To recover all users in the system, run the following:
+To update a password, run the following:
+
+```sh
+influxd recovery user update \
+--username example-username \
+--password ExAmPL3-paS5W0rD
+```
+
+{{% note %}}
+If you're not sure of the username, [list existing users](#list-existing-users-in-the-influxdb-instance) or [create a user for recovery purposes](create-a-user-for-recovery-purposes).
+{{% /note %}}
+
+### List existing users in the InfluxDB instance
+
+To list existing users in the system, run the following:
 
 ```sh
 influxd recovery user list
@@ -32,16 +46,6 @@ To create a new user for recovery purposes, run the following:
 
 ```sh
 influxd recovery user create \
---username example-username \
---password ExAmPL3-paS5W0rD
-```
-
-## Update a password
-
-To update a password, run the following:
-
-```sh
-influxd recovery user update \
 --username example-username \
 --password ExAmPL3-paS5W0rD
 ```
