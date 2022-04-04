@@ -12,7 +12,7 @@ related:
   - /influxdb/v2.2/reference/cli/influxd/recovery/
 ---
 
-Use the `influx` command line interface (CLI) to recover user credentials:
+Use the `influx` command line interface (CLI) to recover user credentials and regain access to your InfluxDB instance:
 - [Update a password](#update-a-password)
 - [List existing users in the InfluxDB instance](#list-existing-users-in-the-influxdb-instance)
 - [Create a user for recovery purposes](#create-a-user-for-recovery-purposes)
