@@ -22,7 +22,7 @@ Common alerting use cases that can be managed using Chronograf include:
 * Deadman switches.
 
 Complex alerts and other tasks can be defined directly in Kapacitor as TICKscripts, but can be viewed and managed within Chronograf.
-To learn about managing Kapacitor TICKscripts in Chronograf, see [Manage Kapacitor TICKscripts](/{{< latest "chronograf" >}}/guides/advanced-kapacitor/#manage-kapacitor-tickscripts)
+To learn about managing Kapacitor TICKscripts in Chronograf, see [Manage Kapacitor TICKscripts](/{{< latest "chronograf" >}}/guides/advanced-kapacitor/#manage-kapacitor-tickscripts).
 
 ## Requirements
 
