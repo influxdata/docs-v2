@@ -188,8 +188,8 @@ SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<t
 If the query does not include `ON <database_name>`, you must specify the
 database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
-Show series will only show what's in the default RP,
-and will fail if no default RP is set.
+`SHOW SERIES` only returns series in the database's default retention policy,
+and fails if there is no default retention policy.
 
 The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
 The `WHERE` clause supports tag comparisons; field comparisons are not
