@@ -188,6 +188,8 @@ SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<t
 If the query does not include `ON <database_name>`, you must specify the
 database with `USE <database_name>` in the [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) or with the `db` query
 string parameter in the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters) request.
+Show series will only show what's in the default RP,
+and will fail if no default RP is set.
 
 The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
 The `WHERE` clause supports tag comparisons; field comparisons are not
@@ -211,7 +213,7 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 #### Run a `SHOW SERIES` query with the `ON` clause
 
 ```sql
-// Returns series for all shards in the database
+// Returns series for all shards in the database and default retention policy
 > SHOW SERIES ON NOAA_water_database
 
 key
