@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import os
+import requests
 import urllib3
 from influxdb_client import InfluxDBClient, WriteApi, Point, WriteOptions
 
@@ -14,7 +15,7 @@ config = {
 }
 
 
-def write() -> None:
+def client_write() -> None:
     influxdb_client = InfluxDBClient(url=config['influx_url'],
                                      token=config['influx_token'],
                                      org=config['influx_org'])
@@ -38,6 +39,4 @@ def write() -> None:
     print(f"Writing: {point.to_line_protocol()}")
     print(write_api.write(bucket=config['influx_bucket'], record=point))
 
-    if influxdb_client:
-        influxdb_client.__del__()
-
+    influxdb_client.close()
