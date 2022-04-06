@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.2 [2022-04-04]
+## v2.2 [2022-04-06]
 
 This release includes the following new [features](#features) and several [bug fixes](#bug-fixes).
 
