@@ -89,6 +89,7 @@ Where applicable, it links to outstanding issues on GitHub.
 * [Why am I seeing `error writing count stats ...: partial write` errors in my data node logs?](#why-am-i-seeing-error-writing-count-stats--partial-write-errors-in-my-data-node-logs)
 * [Why am I seeing `queue is full` errors in my data node logs?](#why-am-i-seeing-queue-is-full-errors-in-my-data-node-logs)
 * [Why am I seeing `unable to determine if "hostname" is a meta node` when I try to add a meta node with `influxd-ctl join`?](#why-am-i-seeing-unable-to-determine-if-hostname-is-a-meta-node-when-i-try-to-add-a-meta-node-with-influxd-ctl-join)
+* [Why is InfluxDB reporting an out of memory (OOM) exception when my system has free memory?](#why-is-influxdb-reporting-an-out-of-memory-oom-exception-when-my-system-has-free-memory)
 
 ---
 
@@ -1333,3 +1334,33 @@ Meta nodes use the `/status` endpoint to determine the current state of another 
 `"nodeType":"meta","leader":"","httpAddr":"<hostname>:8091","raftAddr":"<hostname>:8089","peers":null}`
 
 If you are getting an error message while attempting to `influxd-ctl join` a new meta node, it means that the JSON string returned from the `/status` endpoint is incorrect. This generally indicates that the meta node configuration file is incomplete or incorrect. Inspect the HTTP response with `curl -v "http://<hostname>:8091/status"` and make sure that the `hostname`, the `bind-address`, and the `http-bind-address` are correctly populated. Also check the `license-key` or `license-path` in the configuration file of the meta nodes. Finally, make sure that you specify the `http-bind-address` port in the join command, e.g. `influxd-ctl join hostname:8091`.
+## Why is InfluxDB reporting an out of memory (OOM) exception when my system has free memory?
+
+The `max_map_count` file contains the maximum number of memory map areas a process may have.
+While most applications need less than a thousand maps, certain programs may consume lots of them.
+
+To check the current number of maps a process uses, run the following:
+
+```sh
+wc -l /proc/$PID/maps
+```
+
+This will count the number of maps.
+
+When there are a lot of shards in a cluster this number of maps increases.
+If it hits more than the default value, then the node will be out of memory.
+
+The default value is `65536`.
+We recommend increasing this to `262144` (four times the default) by running the following:
+
+```sh
+echo vm.max_map_count=262144 > /etc/sysctl.d/90-vm.max_map_count.conf
+```
+
+To make the changes permanent
+
+```sh
+sysctl --system
+```
+
+Once the changes have been completed, please restart InfluxDB on each node.
