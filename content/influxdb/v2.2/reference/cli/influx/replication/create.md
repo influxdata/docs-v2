@@ -37,6 +37,7 @@ influx replication create [command options] [arguments...]
 |      | `--max-queue-bytes`            | Max queue size in bytes (default: `67108860`)                         |  integer   |                       |
 |      | `--drop-non-retryable-data`    | Drop data when a non-retryable error is encountered                   |            |                       |
 |      | `--no-drop-non-retryable-data` | Do not drop data when a non-retryable error is encountered            |            |                       |
+|      | `--max-age`                    | Specify a maximum age (in seconds) for data before it is dropped      |  integer   |                       |
 |      | `--host`                       | InfluxDB HTTP address (default `http://localhost:8086`)               |   string   | `INFLUX_HOST`         |
 |      | `--skip-verify`                | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--configs-path`               | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |   string   | `INFLUX_CONFIGS_PATH` |
