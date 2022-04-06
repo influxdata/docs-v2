@@ -104,7 +104,7 @@ To recover user credentials, use [`influx recovery user list`](/influxdb/v2.2/re
 
 ### Security updates
 
-- Add the [`hardening-enabled`](/influxdb/v2.2/security/enable-hardening.md) option to limit flux/pkger HTTP requests. The new `hardening-enabled` option ensures that InfluxDB first verifies the IP address of the URL is not private.
+- Add the [`hardening-enabled`](/influxdb/v2.2/security/enable-hardening) option to limit flux/pkger HTTP requests. The new `hardening-enabled` option ensures that InfluxDB first verifies the IP address of the URL is not private.
   By default, Flux HTTP and template fetching requests are allowed to access localhost and private IP addresses.
   - Disable use of jsonnet with `/api/v2/templates/apply`.
 This prevents crafted authenticated requests from exfiltrating files accessible to the user InfluxDB runs as.
