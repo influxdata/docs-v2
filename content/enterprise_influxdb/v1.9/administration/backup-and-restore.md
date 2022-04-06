@@ -91,7 +91,7 @@ for a complete list of the global `influxd-ctl` options.
       databases, continuous queries, retention policies. Shards are not exported.
 - `-full`: perform a full backup. Deprecated in favour of `-strategy=full`
 - `-rp <string>`: the name of the single retention policy to back up (must specify `-db` with `-rp`)
-- `-shard <unit>`: the ID of the single shard to back up
+- `-shard <unit>`: the ID of the single shard to back up (cannot be used with `-db`)
 
 ### Backup examples
 
