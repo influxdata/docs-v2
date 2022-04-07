@@ -8,6 +8,16 @@ menu:
     name: influx CLI 
 ---
 
+## v2.3 [2022-04-07]
+
+## Features
+
+- Add [`influx remote`](/{{< latest "influxdb" >}}/reference/cli/influx/remote/) command.
+- Add [`influx replication`](/{{< latest "influxdb" >}}/reference/cli/influx/replication/) command.
+- Add the following options to [`influx auth create`](/{{< latest "influxdb" >}}//reference/cli/influx/auth/create/) command:
+  - `drop-non-retryable-data`
+  - `max-age`
+
 ## v2.2.1 [2021-11-09]
 
 This release includes two new bug fixes.
