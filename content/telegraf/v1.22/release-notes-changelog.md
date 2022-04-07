@@ -9,7 +9,7 @@ menu:
     name: Release notes
     weight: 60
 ---
-## v1.22.0 [2022-4-6]
+## v1.22.1 [2022-4-6]
 
 - Update `gonum.org/v1/gonum` from 0.9.3 to 0.11.0.
 - Update `github.com/golang-jwt/jwt/v4` from 4.2.0 to 4.4.1.
