@@ -7,21 +7,30 @@ menu:
     weight: 80
 ---
 
+There are many ways InfluxData encourages it's community to contribute to it's open source products. Whether you want to report a bug, write a plugin, or answer support questions the following sections will guide you on the process. 
+
 ## Opening Issues
 
-### Bug reports
+### File bug reports
 
-Before you file an issue, please search existing issues in case it has already been filed, or perhaps even fixed. If you file an issue, please ensure you include all the requested details (e.g. Telegraf config and logs, platform, etc.)
+1. Search existing GitHub issues for an issue that was already filed or even fixed. 
+2. If an existing issue does not exist, file an issue.
+3. Ensure all the requested details are included (ex: Telegraf configuration and logs, platform, etc.)
 
-Please note that issues are not the place to file general support requests such as "How do I use the mongoDB plugin?" Questions of this nature should be sent to the [Community Slack](https://influxdata.com/slack) or [Community Page](https://community.influxdata.com/), not filed as issues.
+**Note:** Do not open general support requests as GitHub issues (ex: "How do I use the MongoDB plugin?"). Any questions should be directed to the [Community Slack](https://influxdata.com/slack) or [Community Page](https://community.influxdata.com/).
 
-### Feature requests
+### Open feature requests
 
-We really like to receive feature requests as it helps us prioritize our work. Before you file a feature request, please search existing issues, you can filter issues that have the label `feature request`. Please be clear about your requirements and goals, help us to understand what you would like to see added to Telegraf with examples and the reasons why it is important to you. If you find your feature request already exists as a Github issue please indicate your support for that feature by using the "thumbs up" reaction.
+We really like to receive feature requests as it helps us prioritize our work.
 
-### Support questions
+1. Search existing GitHub issues for to see if your feature request has already been requested and filed. Feature requests can be filtered with the `feature request` label.
+  2. If your feature request already exists as a Github issue please indicate your support for that feature by using the "thumbs up" reaction and comment your use case for the feature in a comment on the issue. 
+3. If an existing feature request does not exist, open and issue.
+4. In the issue, ensure clarity for the feature requests with specific requirements and goals. Provide clear understanding what you would like to see added to Telegraf with use case examples and why it is important to you.
 
-We recommend posting support questions in our [Community Slack](https://influxdata.com/slack) or [Community Page](https://community.influxdata.com/), we have a lot of talented community members there who could help answer your question more quickly.
+### Ask or answer support questions
+
+Post support questions in InfluxData's [Community Slack](https://influxdata.com/slack) or [Community Page](https://community.influxdata.com/). There are InfluxData employees and talented community members to quickly answer questions.
 
 ## Contributing code
 
@@ -43,8 +52,7 @@ We recommend posting support questions in our [Community Slack](https://influxda
 **Note:** If you have a pull request with only one commit, then that commit needs to follow the conventional commit format or the `Semantic Pull Request` check will fail. This is because github will use the pull request title if there are multiple commits, but if there is only one commit it will use it instead.
 
 ### When will your contribution get released?
-
-We have two kinds of releases: patch releases, which happen every few weeks, and feature releases, which happen once a quarter. If your fix is a bug fix, it will be released in the next patch release after it is merged to master. If your release is a new plugin or other feature, it will be released in the next quarterly release after it is merged to master. Quarterly releases are on the third Wednesday of March, June, September, and December.
+Telegraf currently has two kinds of releases: patch releases, which happen every few weeks, and feature releases, which happen once a quarter. If your pull request is a bug fix, it will be released in the next patch release after it is merged to master. If your contribution is a new plugin or other feature, it will be released in the next quarterly release after it is merged to master.
 
 ### Contributing an External Plugin
 
