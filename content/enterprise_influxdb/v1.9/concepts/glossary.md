@@ -9,75 +9,6 @@ menu:
     parent: Concepts
 ---
 
-## data node
-
-A node that runs the data service.
-
-For high availability, installations must have at least two data nodes.
-The number of data nodes in your cluster must be the same as your highest
-replication factor.
-Any replication factor greater than two gives you additional fault tolerance and
-query capacity within the cluster.
-
-Data node sizes will depend on your needs.
-The Amazon EC2 m4.large or m4.xlarge are good starting points.
-
-Related entries: [data service](#data-service), [replication factor](#replication-factor)
-
-## data service
-
-Stores all time series data and handles all writes and queries.
-
-Related entries: [data node](#data-node)
-
-## meta node
-
-A node that runs the meta service.
-
-For high availability, installations must have three meta nodes.
-Meta nodes can be very modestly sized instances like an EC2 t2.micro or even a
-nano.
-For additional fault tolerance installations may use five meta nodes; the
-number of meta nodes must be an odd number.
-
-Related entries: [meta service](#meta-service)
-
-## meta service
-
-The consistent data store that keeps state about the cluster, including which
-servers, databases, users, continuous queries, retention policies, subscriptions,
-and blocks of time exist.
-
-Related entries: [meta node](#meta-node)
-
-## replication factor
-
-The attribute of the retention policy that determines how many copies of the
-data are stored in the cluster.
-InfluxDB replicates data across `N` data nodes, where `N` is the replication
-factor.
-
-To maintain data availability for queries, the replication factor should be less
-than or equal to the number of data nodes in the cluster:
-
-* Data is fully available when the replication factor is greater than the
-number of unavailable data nodes.
-* Data may be unavailable when the replication factor is less than the number of
-unavailable data nodes.
-
-Any replication factor greater than two gives you additional fault tolerance and
-query capacity within the cluster.
-
-## web console
-
-Legacy user interface for the InfluxDB Enterprise.
-
-This has been deprecated and the suggestion is to use [Chronograf](/{{< latest "chronograf" >}}/introduction/).
-
-If you are transitioning from the Enterprise Web Console to Chronograf, see how to [transition from the InfluxDB Web Admin Interface](/chronograf/v1.7/guides/transition-web-admin-interface/).
-
-<!-- --- -->
-
 ## aggregation
 
 An InfluxQL function that returns an aggregated value across a set of points.
@@ -106,6 +37,27 @@ See [Continuous Queries](/enterprise_influxdb/v1.9/query_language/continuous_que
 
 
 Related entries: [function](#function)
+
+## data node
+
+A node that runs the data service.
+
+For high availability, installations must have at least two data nodes.
+The number of data nodes in your cluster must be the same as your highest
+replication factor.
+Any replication factor greater than two gives you additional fault tolerance and
+query capacity within the cluster.
+
+Data node sizes will depend on your needs.
+The Amazon EC2 m4.large or m4.xlarge are good starting points.
+
+Related entries: [data service](#data-service), [replication factor](#replication-factor)
+
+## data service
+
+Stores all time series data and handles all writes and queries.
+
+Related entries: [data node](#data-node)
 
 ## database
 
@@ -191,6 +143,26 @@ Measurements are strings.
 
 Related entries: [field](#field), [series](#series)
 
+## meta node
+
+A node that runs the meta service.
+
+For high availability, installations must have three meta nodes.
+Meta nodes can be very modestly sized instances like an EC2 t2.micro or even a
+nano.
+For additional fault tolerance installations may use five meta nodes; the
+number of meta nodes must be an odd number.
+
+Related entries: [meta service](#meta-service)
+
+## meta service
+
+The consistent data store that keeps state about the cluster, including which
+servers, databases, users, continuous queries, retention policies, subscriptions,
+and blocks of time exist.
+
+Related entries: [meta node](#meta-node)
+
 ## metastore
 
 Contains internal information about the status of the system.
@@ -198,9 +170,6 @@ The metastore contains the user information, databases, retention policies, shar
 
 Related entries: [database](#database), [retention policy](#retention-policy-rp), [user](#user)
 
-<!--
-## permission
--->
 ## node
 
 An independent `influxd` process.
@@ -210,6 +179,14 @@ Related entries: [server](#server)
 ## now()
 
 The local server's nanosecond timestamp.
+
+## passive node
+
+Passive nodes are data nodes that do not own any shards. They accept write calls but do not write to their own disks), perform shard lookup and RPC calls (on non-passive nodes) and distribute writes to the data node that owns the shard. 
+
+<!--
+## permission
+-->
 
 ## point
 
@@ -238,12 +215,23 @@ Related entries: [point](#point), [schema](#schema), [values per second](#values
 An operation that retrieves data from InfluxDB.
 See [Data Exploration](/enterprise_influxdb/v1.9/query_language/explore-data/), [Schema Exploration](/enterprise_influxdb/v1.9/query_language/explore-schema/), [Database Management](/enterprise_influxdb/v1.9/query_language/manage-database/).
 
-## replication factor  
+## replication factor (RF)
 
-The attribute of the retention policy that determines how many copies of data to concurrently store (or retain) in the cluster. Replicating copies ensures that data is available when a data node (or more) is unavailable.
+The attribute of the retention policy that determines how many copies of the
+data are stored in the cluster. Replicating copies ensures that data is accessible when one or more data nodes are unavailable. 
+InfluxDB replicates data across `N` data nodes, where `N` is the replication
+factor.
 
-For three nodes or less, the default replication factor equals the number of data nodes.
-For more than three nodes, the default replication factor is 3. To change the default replication factor, specify the replication factor `n` in the retention policy.
+To maintain data availability for queries, the replication factor should be less
+than or equal to the number of data nodes in the cluster:
+
+* Data is fully available when the replication factor is greater than the
+number of unavailable data nodes.
+* Data may be unavailable when the replication factor is less than the number of
+unavailable data nodes.
+
+Any replication factor greater than two gives you additional fault tolerance and
+query capacity within the cluster.
 
 Related entries: [duration](#duration), [node](#node),
 [retention policy](#retention-policy-rp)
@@ -457,11 +445,10 @@ Points in the WAL can be queried, and they persist through a system reboot. On p
 
 Related entries: [tsm](#tsm-time-structured-merge-tree)
 
-<!--
+## web console
 
+Legacy user interface for the InfluxDB Enterprise.
 
+This has been deprecated and the suggestion is to use [Chronograf](/{{< latest "chronograf" >}}/introduction/).
 
-## shard
-
-## shard group
--->
+If you are transitioning from the Enterprise Web Console to Chronograf, see how to [transition from the InfluxDB Web Admin Interface](/chronograf/v1.7/guides/transition-web-admin-interface/).
