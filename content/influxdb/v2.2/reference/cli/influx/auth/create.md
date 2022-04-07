@@ -55,7 +55,8 @@ influx auth create [flags]
 |      | `--write-orgs`                  | Grant permission to create and update organizations                   |             |                       |
 |      | `--write-tasks`                 | Grant permission to create and update tasks                           |             |                       |
 |      | `--write-telegrafs`             | Grant permission to create and update Telegraf configurations         |             |                       |
-|      | `--write-users`                  | Grant permission to create and update organization users              |             |                       |
+|      | `--write-users`                 | Grant permission to create and update organization users              |             |                       |
+|      | `--write-variables`             | Grant permission to create and update variables                       |             |                       |
 
 ## Examples
 
@@ -111,6 +112,7 @@ influx auth create \
   --write-tasks \
   --write-telegrafs \
   --write-users
+  --write-variables
 ```
 
 ### Create an API token with read and write access to specific buckets
