@@ -1,8 +1,6 @@
 from datetime import datetime
 
 import os
-import requests
-import urllib3
 from influxdb_client import InfluxDBClient, WriteApi, Point, WriteOptions
 
 # Set up configuration file needed to reach influxdb
