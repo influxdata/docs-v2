@@ -3188,7 +3188,7 @@ components:
     Ready:
       properties:
         started:
-          example: 2019-03-13T10:09:33.891196-04:00
+          example: '2019-03-13T10:09:33.891196-04:00'
           format: date-time
           type: string
         status:

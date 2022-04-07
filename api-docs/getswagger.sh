@@ -87,20 +87,43 @@ function showArgs {
   echo "ossVersion: $ossVersion";
 }
 
+function postProcess() {
+  # Use npx to install and run the specified version of openapi-cli.
+  # npm_config_yes=true npx overrides the prompt
+  # and (vs. npx --yes) is compatible with npm@6 and npm@7.
+  specPath=$1
+  version="$2"
+  apiVersion="$3"
+
+  openapiCLI="@redocly/openapi-cli"
+
+  npx --version
+
+  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
+  INFLUXDB_API_VERSION=$apiVersion INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $specPath \
+    --config=./.redocly.yaml \
+    -o $specPath
+}
+
 function updateCloud {
   echo "Updating Cloud openapi..."
   curl ${verbose} ${baseUrl}/contracts/ref/cloud.yml -s -o cloud/ref.yml
+  postProcess $_ cloud
 }
 
 function updateOSS {
   echo "Updating OSS ${ossVersion} openapi..."
   mkdir -p ${ossVersion} && curl ${verbose} ${baseUrl}/contracts/ref/oss.yml -s -o $_/ref.yml
+  postProcess $_ $ossVersion
 }
 
 function updateV1Compat {
   echo "Updating Cloud and ${ossVersion} v1 compatibility openapi..."
   curl ${verbose} ${baseUrl}/contracts/swaggerV1Compat.yml -s -o cloud/swaggerV1Compat.yml
+  postProcess $_ cloud v1compat
+
   mkdir -p ${ossVersion} && cp cloud/swaggerV1Compat.yml $_/swaggerV1Compat.yml
+  postProcess $_ $ossVersion v1compat
 }
 
 if [ ! -z ${verbose} ];
