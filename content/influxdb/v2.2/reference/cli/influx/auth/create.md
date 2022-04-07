@@ -45,6 +45,7 @@ influx auth create [flags]
 |      | `--skip-verify`                 | Skip TLS certificate verification                                     |             | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`                       | API token                                                             | string      | `INFLUX_TOKEN`        |
 | `-u` | `--user`                        | Username                                                              | string      |                       |
+|      | `--write-annotations`           | Grant permission to create annotations                                |             |                       |
 |      | `--write-bucket`                | Grant permission to write to specified a bucket ID                    | stringArray |                       |
 |      | `--write-buckets`               | Grant permission to create and update **all** organization buckets    |             |                       |
 |      | `--write-checks`                | Grant permission to create checks                                     |             |                       |
@@ -102,6 +103,7 @@ influx auth create \
   --read-tasks \
   --read-telegrafs \
   --read-users \
+  --write-annotations \
   --write-buckets \
   --write-checks \
   --write-dashboards \
@@ -111,7 +113,7 @@ influx auth create \
   --write-orgs \
   --write-tasks \
   --write-telegrafs \
-  --write-users
+  --write-users \
   --write-variables
 ```
 
