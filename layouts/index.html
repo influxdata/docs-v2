@@ -33,17 +33,19 @@
       <h2>Get started with <span class="magenta">InfluxDB</span></h2>
       <p class="subhead">The time series platform</p>
       
-      <div class="product-cards">
-        <div id="influxdbcloud" class="card">
-          <h3>InfluxDB Cloud</h3>
-          <p>Time series in the cloud.</p>
-          <a class="btn" href="/influxdb/cloud/" class="btn-lg"> Get started with <strong>InfluxDB Cloud</strong></a>
-        </div>
-        <div id="influxdboss" class="card">
-          <h3>InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</h3>
-          <p>Time series locally or on the edge.</p>
-          <a class="btn" href="/influxdb/{{ $influxdbVersionV2 }}/" class="btn-lg"> Get started with <strong>InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</strong></a>
-      </div>
+      <div class="influxdb-btns">
+        <a class="btn lg" href="/influxdb/cloud/">
+          <div class="btn-content-wrapper">
+            <h3>InfluxDB Cloud</h3>
+            <p>Time series in the cloud.</p>
+          </div>
+        </a>
+        <a class="btn lg" href="/influxdb/{{ $influxdbVersionV2 }}/">
+          <div class="btn-content-wrapper">
+            <h3>InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</h3>
+            <p>Time series on your own hardware or on the edge.</p>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -74,13 +76,19 @@
       <div class="product-cards">
         <div id="telegraf" class="card">
           <h3>Collect data with <span class="orange">Telegraf</span></h3>
-          <p>Collect time series data from many different sources.</p>
-          <a class="btn" href="/telegraf/{{ $telegrafVersion }}/">Get started with <strong>Telegraf {{ replaceRE "v" "" $telegrafVersion }}</strong></a>
+          <!-- <p>Collect time series data from many different sources.</p> -->
+          <div class="card-links">
+            <a href="/telegraf/{{ $telegrafVersion }}/">Get started with <strong>Telegraf {{ replaceRE "v" "" $telegrafVersion }}</strong></a>
+            <a href="/telegraf/{{ $telegrafVersion }}/plugins/">View Telegraf plugins</a>
+          </div>
         </div>
         <div id="flux" class="card">
           <h3>Query & process data with <span class="blue">Flux</span></h3>
-          <p>The data scripting language that queries, processes, alert ons, and writes data.</p>
-          <a class="btn" href="/flux/{{ $fluxVersion }}/">Get started with <strong>Flux {{ replaceRE "v" "" $fluxVersion }}</strong></a>
+          <!-- <p>The data scripting language that queries, processes, alert ons, and writes data.</p> -->
+          <div class="card-links">
+            <a href="/flux/{{ $fluxVersion }}/">Get started with <strong>Flux {{ replaceRE "v" "" $fluxVersion }}</strong></a>
+            <a href="/flux/{{ $fluxVersion }}/stdlib/">View the Flux standard library</a>
+          </div>
         </div>
       </div>
     </div>
@@ -150,5 +158,5 @@
       </div>
     </div>
   </div>
-
+</div>
 {{ partial "footer.html" . }}

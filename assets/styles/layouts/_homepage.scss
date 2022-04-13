@@ -69,6 +69,43 @@ $home-body-width: 1300px;
     &.blue {color: $b-pool;}
   }
 
+  /////////////////////////////////// BUTTONS //////////////////////////////////
+
+  a.btn {
+    display: block;
+    position: relative;
+    border-radius: 6px;
+    @include gradient($grad-burningDusk, 270deg);
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: $g20-white;
+    z-index: 1;
+
+    &.lg {padding: 2rem;}
+
+    &:after {
+      content: "";
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      @include gradient($grad-coolDusk);
+      border-radius: 6px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    &.lg {
+      border-radius: 30px;
+      &:after {border-radius: 30px;}
+    }
+
+    &:hover:after {opacity: 1;}
+  }
+
   //////////////////////////////// PRODUCT CARDS ///////////////////////////////
 
   .product-cards {
@@ -97,46 +134,35 @@ $home-body-width: 1300px;
         margin-bottom: 2rem;
       };
 
-      a.btn {
-        display: block;
-        position: relative;
-        border-radius: 6px;
-        @include gradient($grad-burningDusk, 270deg);
-        padding: 1rem;
-        text-align: center;
-        text-decoration: none;
-        color: $g20-white;
-        z-index: 1;
-
-        &:after {
-          content: "";
-          top: 0;
-          left: 0;
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          @include gradient($grad-coolDusk);
-          border-radius: 6px;
-          z-index: -1;
-          opacity: 0;
-          transition: opacity .2s;
-        }
-
-        &:hover:after {opacity: 1;}
-      }
-
       & > *:last-child {margin-top: auto;}
+
+      .card-links {
+        margin-top: 1.75rem;
+        
+        a {
+          position: relative;
+          display: block;
+          color: $article-text;
+          font-weight: $medium;
+          text-decoration: none;
+          margin-bottom: .3rem;
+          
+          &:after {
+            content: "";
+            display: block;
+            margin-top: .15rem;
+            border-top: 2px solid $br-new-magenta;
+            width: 0;
+            transition: width .2s;
+          }
+
+          &:hover{
+            color: $br-new-magenta;
+            &:after {width: 30%}
+          }
+        }
+      }
     }
-  }
-
-  #telegraf a.btn {
-    @include gradient($grad-ScotchBonnet, 270deg);
-    &:after {@include gradient($grad-SavannaHeat, 270deg)}
-  }
-
-  #flux a.btn {
-    @include gradient($grad-tealDream);
-    &:after {@include gradient($grad-tealDeepSleep)}
   }
 
   ///////////////////////// GENERAL BLUE SECTION STYLES ////////////////////////
@@ -176,6 +202,21 @@ $home-body-width: 1300px;
     
     .section-content {padding-top: .5rem;}
 
+    .influxdb-btns {
+      display: flex;
+
+      .btn {
+        flex: 1 1 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 240px;
+        margin-right: 2rem;
+
+        &:last-child {margin-right: 0;}
+      }
+    }
+
     h2 {
       margin: 0;
       font-size: 3.5rem;
@@ -187,7 +228,13 @@ $home-body-width: 1300px;
       }
     }
 
-    h3 {color: $br-new-magenta;}
+    h3 {
+      margin: 0;
+      color: $g20-white;
+      font-size: 2.25rem;
+
+      & + p {margin: .5rem 0;}
+    }
   }
 
   ///////////////////////////////// API SECTION ////////////////////////////////
@@ -213,15 +260,21 @@ $home-body-width: 1300px;
       display: block;
 
       .api-btn-wrapper {
-        background: $br-teal;
+        background: $br-dark-blue;
         border-radius: 6px;
-        color: $br-dark-blue;
+        color: $br-teal;
         padding: 1.5rem 2rem;
         font-weight: $medium;
         align-items: center;
         min-width: 340px;
         min-height: 70px;
         cursor: pointer;
+        transition: color .2s, background .2s;
+
+        &:hover, &.open {
+          background: $br-teal;
+          color: $br-dark-blue;
+        }
 
         p { margin: 0;}
 
@@ -259,9 +312,13 @@ $home-body-width: 1300px;
         }
       }
 
-      &.open li {
-        &:first-child a {padding: 0 2rem 1rem;}
-        &:last-child a {padding: 1rem 2rem 0;}
+      &.open {
+        // background: $br-teal;
+        
+        li {
+          &:first-child a {padding: 0 2rem 1rem;}
+          &:last-child a {padding: 1rem 2rem 0;}
+        }
       }
     }
 
