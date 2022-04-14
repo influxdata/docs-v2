@@ -1,17 +1,22 @@
-$('.api-btn-wrapper').click(function() {
-  $('#api-btn p').fadeOut(100);
+$('.exp-btn').click(function() {
+  var targetBtnElement = $(this).parent()
+  $('.exp-btn > p', targetBtnElement).fadeOut(100);
   setTimeout(function() {
-    $('.api-links').fadeIn(200).addClass('open');
-    $('.api-btn-wrapper').addClass('open');
-    $('#close-btn').fadeIn(200);
+    $('.exp-btn-links', targetBtnElement).fadeIn(200)
+    $('.exp-btn', targetBtnElement).addClass('open');
+    $('.close-btn', targetBtnElement).fadeIn(200);
   }, 100);
 })
 
-$('#close-btn').click(function() {
-  $('.api-links').fadeOut(100).removeClass('open');
-  $('.api-btn-wrapper').removeClass('open');
-  $('#close-btn').fadeOut(100);
+$('.close-btn').click(function() {
+  var targetBtnElement = $(this).parent().parent()
+  $('.exp-btn-links', targetBtnElement).fadeOut(100)
+  $('.exp-btn', targetBtnElement).removeClass('open');
+  $(this).fadeOut(100);
   setTimeout(function() {
-    $('#api-btn p').fadeIn(200);
+    $('p', targetBtnElement).fadeIn(100);
   }, 100);
 })
+
+/////////////////////////////// EXPANDING BUTTONS //////////////////////////////
+

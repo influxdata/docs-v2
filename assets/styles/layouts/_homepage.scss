@@ -7,22 +7,10 @@ $home-body-width: 1300px;
 .home {
   color: $article-bold;
 
-  .section {
+  .section{
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    position: relative;
-
-    &:before, &:after {
-      content: "";
-      display: block;
-      flex-grow: 1;
-    }
-  }
-
-  .section-content{
-    width: 100%;
-    padding: 2rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 0;
     max-width: $home-body-width;
     display: block;
     position: relative;
@@ -36,6 +24,8 @@ $home-body-width: 1300px;
       input {
         padding: .75em 2.35rem .75rem 1rem;
         border-radius: 10px;
+        position: relative;
+        box-shadow: none;
       }
 
       &:after {
@@ -43,7 +33,27 @@ $home-body-width: 1300px;
         top: .45rem;
         right: .45rem;
       }
+
+      .algolia-autocomplete {  
+        position: relative;      
+
+        &:after {
+          content: "";
+          position: absolute;
+          display: block;
+          border-radius: 10px;
+          top: 0;
+          left: 0;
+          box-shadow: 2px 2px 10px $sidebar-search-shadow;
+          height: 100%;
+          width: 100%;
+          mix-blend-mode: multiply;
+          z-index: -1;
+        }
+      }
+
       .algolia-autocomplete.algolia-autocomplete-left, .algolia-autocomplete.algolia-autocomplete-right {
+
         .ds-dropdown-menu {
           top: auto !important;
           left: 0 !important;
@@ -69,41 +79,88 @@ $home-body-width: 1300px;
     &.blue {color: $b-pool;}
   }
 
-  /////////////////////////////////// BUTTONS //////////////////////////////////
+  ///////////////////////////// EXPANDABLE BUTTONS /////////////////////////////
 
-  a.btn {
-    display: block;
+  .exp-btn-wrapper {
     position: relative;
-    border-radius: 6px;
-    @include gradient($grad-burningDusk, 270deg);
-    padding: 1rem;
-    text-align: center;
-    text-decoration: none;
-    color: $g20-white;
-    z-index: 1;
+    display: block;
 
-    &.lg {padding: 2rem;}
+    .exp-btn {
+      background: $br-dark-blue;
+      border-radius: 6px;
+      color: $br-teal;
+      padding: 1.5rem 2rem;
+      font-weight: $medium;
+      align-items: center;
+      min-width: 340px;
+      min-height: 70px;
+      cursor: pointer;
+      transition: color .2s, background .2s, padding .2s;
 
-    &:after {
-      content: "";
-      top: 0;
-      left: 0;
-      position: absolute;
+      &:hover, &.open {
+        background: $br-teal;
+        color: $br-dark-blue;
+      }
+
+      p {
+        margin: 0 !important;
+        text-align: center;
+      }
+      & > * {width: 100%;}
+
+      &.open {
+        padding: 0;        
+        li a {padding: 1rem 2rem;}
+      }
+    }
+
+    .exp-btn-links { 
+      border-radius: 6px;
+      color: $br-dark-blue;
+      margin: 0;
+      padding: 0;
+      list-style: none;
       width: 100%;
       height: 100%;
-      @include gradient($grad-coolDusk);
-      border-radius: 6px;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity .2s;
+      display: none;
+      
+      li {
+        background: $br-teal;
+  
+        &:first-child {
+          border-radius: 6px 6px 0 0;
+          border-bottom: 1px solid rgba($br-dark-blue, .5);
+        }
+        &:last-child {
+          border-radius: 0 0 6px 6px;
+          border-bottom: none;
+        }
+        a {
+          display: block;
+          padding: 0rem 2rem;
+          color: $br-dark-blue;
+          text-decoration: none;
+          text-align: center;
+          transition: padding .2s;
+        }
+      }
     }
-
-    &.lg {
-      border-radius: 30px;
-      &:after {border-radius: 30px;}
+  
+    .close-btn {
+      position: absolute;
+      top: 38%;
+      right: -32px;
+      color: rgba($br-teal, .6);
+      font-size: 1.5rem;
+      display: none;
+      cursor: pointer;
+      transition: color .2s;
+  
+      &:hover {
+        opacity: 1;
+        color: $br-teal;
+      }
     }
-
-    &:hover:after {opacity: 1;}
   }
 
   //////////////////////////////// PRODUCT CARDS ///////////////////////////////
@@ -125,7 +182,7 @@ $home-body-width: 1300px;
       &:last-child {margin-left: 1rem}
 
       h3 {
-        margin: 0;
+        margin: 0 0 1.5rem;
         line-height: 1.1em;
         font-size: 2.75rem;
       }
@@ -134,10 +191,8 @@ $home-body-width: 1300px;
         margin-bottom: 2rem;
       };
 
-      & > *:last-child {margin-top: auto;}
-
       .card-links {
-        margin-top: 1.75rem;
+        margin-top: auto;
         
         a {
           position: relative;
@@ -168,12 +223,7 @@ $home-body-width: 1300px;
   ///////////////////////// GENERAL BLUE SECTION STYLES ////////////////////////
 
   .section.blue {
-    color: $g20-white;
-
-    .section-content {
-      background: $br-dark-blue;
-      background-size: cover;
-    }
+    padding: 2rem;
 
     h2, h3, h4 {
       color: $br-teal;
@@ -182,17 +232,18 @@ $home-body-width: 1300px;
     .padding-wrapper {
       width: 100%;
       max-width: $home-body-width;
+      color: $g20-white;
+      background: $br-dark-blue;
+      background-size: cover;
+      border-radius: 30px;
     }
 
-    &.flush-left {
-      &:before {background: $br-dark-blue;}
-      .section-content {border-radius: 0 30px 30px 0; background-image: url('/svgs/home-bg-circle-right.svg');}
-      .padding-wrapper {padding-right: 2rem;}
-    }
-    &.flush-right {
-      &:after {background: $br-dark-blue;}
-      .section-content {border-radius: 30px 0 0 30px; background-image: url('/svgs/home-bg-circle-left.svg');}
-      .padding-wrapper {padding-left: 2rem;}
+    &.flush-left .padding-wrapper {
+      padding: 2rem;
+      background-image: url('/svgs/home-bg-circle-right.svg')}
+    &.flush-right .padding-wrapper {
+      padding: 2rem;
+      background-image: url('/svgs/home-bg-circle-left.svg');
     }
   }
 
@@ -200,31 +251,25 @@ $home-body-width: 1300px;
 
   #influxdb {
     
-    .section-content {padding-top: .5rem;}
+    padding-top: .5rem;
+    display: flex;
 
-    .influxdb-btns {
+    .actions {
       display: flex;
-
-      .btn {
-        flex: 1 1 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 240px;
-        margin-right: 2rem;
-
-        &:last-child {margin-right: 0;}
-      }
+      justify-content: center;
+      align-items: center;
+      max-width: 50%;
+      padding: 0 3rem 3rem;
+      flex: 1 1 0;
     }
 
     h2 {
       margin: 0;
       font-size: 3.5rem;
-      text-align: center;
+      line-height: 1.1em;
       & + p {
         font-size: 1.2rem;
         margin: .5rem 0 2rem;
-        text-align: center;
       }
     }
 
@@ -235,125 +280,133 @@ $home-body-width: 1300px;
 
       & + p {margin: .5rem 0;}
     }
+
+    .hero-img {
+      background-image: url('/img/wind-turbine.jpg');
+      background-size: cover;
+      max-width: 50%;
+      width: 100%;
+      margin: -.5rem .75rem 0 1rem;
+      z-index: -1;
+      min-height: 600px;
+      border-radius: 0 0 30px 30px;
+      flex: 1 1 0;
+    }
+  }
+
+  #influxdb-btn {
+  
+    .exp-btn {
+      @include gradient($grad-burningDusk, 270deg);
+      color: $g20-white;
+      position: relative;
+      z-index: 1;
+
+      &:after {
+        content: "";
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        @include gradient($grad-coolDusk);
+        border-radius: 6px;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity .2s;
+      }
+
+      &:hover, &.open {
+        &:after {opacity: 1;}  
+      }
+
+      &.open {
+        padding: 0;        
+        li a {padding: 1rem 2rem;}
+      }
+    }
+
+    .exp-btn-links { 
+      color: $g20-white;
+      
+      li {
+        @include gradient($grad-coolDusk);
+  
+        &:first-child {
+          border-bottom: 1px solid rgba($body-bg, .5);
+          a:after {border-radius: 6px 6px 0 0;}
+        }
+
+        &:last-child a:after {border-radius: 0 0 6px 6px;}
+
+        a {
+          color: $g20-white;
+          position: relative;
+          z-index: 1;
+          
+          &:after {
+            content: "";
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            @include gradient($grad-burningDusk, 270deg);
+            border-radius: 6px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity .2s;
+          }
+
+          &:hover:after {opacity: 1}
+          
+          
+        }
+      }
+    }
+  
+    .close-btn {
+      color: rgba($br-new-magenta, .6);  
+      &:hover {color: $br-new-magenta;}
+    }
   }
 
   ///////////////////////////////// API SECTION ////////////////////////////////
 
   #api-guides {
-
-    .section-content {
+    .padding-wrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 3.5rem;
-    }
 
-    h3 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
-
-    p {margin: .5rem 0;}
-
-    #api-btn {
-      position: relative;
-      display: block;
-
-      .api-btn-wrapper {
-        background: $br-dark-blue;
-        border-radius: 6px;
-        color: $br-teal;
-        padding: 1.5rem 2rem;
-        font-weight: $medium;
-        align-items: center;
-        min-width: 340px;
-        min-height: 70px;
-        cursor: pointer;
-        transition: color .2s, background .2s;
-
-        &:hover, &.open {
-          background: $br-teal;
-          color: $br-dark-blue;
-        }
-
-        p { margin: 0;}
-
-        & > * {width: 100%;}
-      }
-    }
-    .api-links { 
-      border-radius: 6px;
-      color: $br-dark-blue;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      width: 100%;
-      height: 100%;
-      display: none;
-      
-      li {
-        background: $br-teal;
-
-        &:first-child {
-          border-radius: 6px 6px 0 0;
-          border-bottom: 1px solid rgba($br-dark-blue, .5);
-        }
-        &:last-child {
-          border-radius: 0 0 6px 6px;
-          border-bottom: none;
-        }
-        a {
-          display: block;
-          padding: 0rem 2rem;
-          color: $br-dark-blue;
-          text-decoration: none;
-          text-align: center;
-          transition: padding .2s;
-        }
+      h3 {
+        margin: 0;
+        font-size: 1.8rem;
       }
 
-      &.open {
-        // background: $br-teal;
-        
-        li {
-          &:first-child a {padding: 0 2rem 1rem;}
-          &:last-child a {padding: 1rem 2rem 0;}
-        }
-      }
-    }
-
-    #close-btn {
-      position: absolute;
-      top: 38%;
-      right: -32px;
-      color: rgba($br-teal, .6);
-      font-size: 1.5rem;
-      display: none;
-      cursor: pointer;
-      transition: color .2s;
-
-      &:hover {
-        opacity: 1;
-        color: $br-teal;
-      }
+      p {margin: .5rem 0;}
     }
   }
+
+  //////////////////////////// TELEGRAF & FLUX CARDS ///////////////////////////
+
+  #popular {padding-top: 0;}
 
   ///////////////////////////////// LEARN ITEMS ////////////////////////////////
 
   #learn-more {
-    margin-bottom: 3rem;
-
-    .section-content{padding-top: 1rem;}
+    margin-bottom: 2rem;
 
     h4 {
       font-size: 1.8rem;
-      margin: 0 0 2rem;
+      margin: 1rem 0 2rem;
     }
 
     .learn-items {
       display: flex;
       flex-direction: row;
+      justify-content: flex-start;
 
       .item {
         max-width: 25%;
@@ -363,7 +416,7 @@ $home-body-width: 1300px;
         margin: 0 .75rem;
 
         .icon {
-          svg {max-height: 60px; }
+          svg {max-height: 60px; max-width: 60px}
           .c1 {fill: $home-icon-c1;}
           .c2 {fill: $home-icon-c2;}
           .magenta {fill: $br-new-magenta;}
@@ -400,66 +453,68 @@ $home-body-width: 1300px;
 
   ////////////////////////////// TICK STACK STYLES /////////////////////////////
 
-  #tick .section-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 2rem 3rem;
+  #tick {
+    padding-bottom: 0;
 
-    h4 {
-      margin: 0;
-      font-size: 1.5rem;
-      & > a {color: inherit; text-decoration: none;}
-      & + p {margin: .5rem 0;}
-    }
-    h5 {
-      margin: 0 0 .5rem;
-      text-transform: uppercase;
-      letter-spacing: .06rem;
-      // font-weight: $medium;
-    }
-
-    .tick-title {
-      padding-right: 3rem;
-    }
-
-    .tick-links {
-      border-left: 1px solid rgba($br-teal, .3);
-      padding: 0 3rem;
+    .padding-wrapper {
       display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 2rem 3rem;
 
-      ul {
-        padding: 0;
-        margin-right: 4rem;
-        list-style: none;
-  
-        li a {
-          color: $g20-white;
-          line-height: 1.6rem;
-          text-decoration: none;
-  
-          &:hover {color: $br-teal;}
-          span {
-            font-size: .75em;
-            opacity: .5;
+      h4 {
+        margin: 0;
+        font-size: 1.5rem;
+        & > a {color: inherit; text-decoration: none;}
+        & + p {margin: .5rem 0;}
+      }
+      h5 {
+        margin: 0 0 .5rem;
+        text-transform: uppercase;
+        letter-spacing: .06rem;
+        // font-weight: $medium;
+      }
+
+      .tick-title {
+        padding-right: 3rem;
+      }
+
+      .tick-links {
+        border-left: 1px solid rgba($br-teal, .3);
+        padding: 0 3rem;
+        display: flex;
+
+        ul {
+          padding: 0;
+          margin-right: 4rem;
+          list-style: none;
+    
+          li a {
+            color: $g20-white;
+            line-height: 1.6rem;
+            text-decoration: none;
+    
+            &:hover {color: $br-teal;}
+            span {
+              font-size: .75em;
+              opacity: .5;
+            }
           }
         }
-      }
-    }    
+      }    
+    }
   }
 
   #copyright {
-    .section-content {
-      width: 100vw;
-      max-width: $home-body-width;
-      padding: 1rem 2rem;
-      color: rgba($article-text, .5);
+    width: 100vw;
+    max-width: $home-body-width;
+    padding: 1rem 3rem;
+    color: rgba($article-text, .5);
 
-      p {
-        margin: 0;
-        text-align: right;
-        font-size: .9rem;      
-      }
+    p {
+      margin: 0;
+      text-align: right;
+      font-size: .9rem;      
     }
   }
 

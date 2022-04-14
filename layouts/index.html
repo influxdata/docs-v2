@@ -12,148 +12,141 @@
 <div class="home">
 
   <div class="section search">
-    <div class="section-content">
-      <div class="sidebar--search">
-        <input  class="sidebar--search-field"
-                id="algolia-search-input"
-                type="text"
-                accesskey="s"
-                autocomplete="off"
-                autocorrect="off"
-                autocapitalize="off"
-                spellcheck="false"
-                dir="auto"
-                placeholder='Search the docs'>
-      </div>
+    <div class="sidebar--search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search the docs'>
     </div>
   </div>
 
   <div id="influxdb" class="section group-wrapper">
-    <div class="section-content">
-      <h2>Get started with <span class="magenta">InfluxDB</span></h2>
-      <p class="subhead">The time series platform</p>
-      
-      <div class="influxdb-btns">
-        <a class="btn lg" href="/influxdb/cloud/">
-          <div class="btn-content-wrapper">
-            <h3>InfluxDB Cloud</h3>
-            <p>Time series in the cloud.</p>
+    <div class="actions">
+      <div>
+        <h2>Get started with <span class="magenta">InfluxDB</span></h2>
+        <p class="subhead">The time series platform</p>
+
+        <div id="influxdb-btn" class="exp-btn-wrapper">
+          <div class="exp-btn">
+            <p>View the InfluxDB documentation</p>
+            <ul class="exp-btn-links">
+              <li><a href="/influxdb/cloud/">InfluxDB Cloud</a></li>
+              <li><a href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</a></li>
+            </ul>
           </div>
-        </a>
-        <a class="btn lg" href="/influxdb/{{ $influxdbVersionV2 }}/">
-          <div class="btn-content-wrapper">
-            <h3>InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</h3>
-            <p>Time series on your own hardware or on the edge.</p>
+          <div class="close-btn">
+            <span class="icon-x"></span>
           </div>
-        </a>
+        </div>
       </div>
     </div>
+    <div class="hero-img"></div>
   </div>
 
   <div id="api-guides" class="section group-wrapper blue flush-left">
     <div class="padding-wrapper">
-      <div class="section-content">
-        <div>
-          <h3>Develop with the InfluxDB API</h3>
-          <p>Build your application using the InfluxDB Cloud and InfluxDB OSS APIs.</p>
+      <div>
+        <h3>Develop with the InfluxDB API</h3>
+        <p>Build your application using the InfluxDB Cloud and InfluxDB OSS APIs.</p>
+      </div>
+      <div id="api-guides-btn" class="exp-btn-wrapper">
+        <div class="exp-btn">
+          <p>View the InfluxDB API Dev Guides</p>
+          <ul class="exp-btn-links">
+            <li><a href="/influxdb/cloud/api-guide/">InfluxDB Cloud</a></li>
+            <li><a href="/influxdb/{{ $influxdbVersionV2 }}/api-guide/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</a></li>
+          </ul>
         </div>
-        <div id="api-btn">
-          <div class="api-btn-wrapper">
-            <p>View the InfluxDB API Dev Guides</p>
-            <ul class="api-links">
-              <li><a href="/influxdb/cloud/api-guide/">InfluxDB Cloud</a></li>
-              <li><a href="/influxdb/{{ $influxdbVersionV2 }}/api-guide/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</a></li>
-            </ul>
-          </div>
-        <div id="close-btn"><span class="icon-x"></span></div>
+        <div class="close-btn">
+          <span class="icon-x"></span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section group-wrapper">
-    <div class="section-content">
-      <div class="product-cards">
-        <div id="telegraf" class="card">
-          <h3>Collect data with <span class="orange">Telegraf</span></h3>
-          <!-- <p>Collect time series data from many different sources.</p> -->
-          <div class="card-links">
-            <a href="/telegraf/{{ $telegrafVersion }}/">Get started with <strong>Telegraf {{ replaceRE "v" "" $telegrafVersion }}</strong></a>
-            <a href="/telegraf/{{ $telegrafVersion }}/plugins/">View Telegraf plugins</a>
-          </div>
+  <div id="popular" class="section group-wrapper">
+    <div class="product-cards">
+      <div id="telegraf" class="card">
+        <h3>Collect data with <span class="orange">Telegraf</span></h3>
+        <!-- <p>Collect time series data from many different sources.</p> -->
+        <div class="card-links">
+          <a href="/telegraf/{{ $telegrafVersion }}/">Get started with <strong>Telegraf {{ replaceRE "v" "" $telegrafVersion }}</strong></a>
+          <a href="/telegraf/{{ $telegrafVersion }}/plugins/">View Telegraf plugins</a>
         </div>
-        <div id="flux" class="card">
-          <h3>Query & process data with <span class="blue">Flux</span></h3>
-          <!-- <p>The data scripting language that queries, processes, alert ons, and writes data.</p> -->
-          <div class="card-links">
-            <a href="/flux/{{ $fluxVersion }}/">Get started with <strong>Flux {{ replaceRE "v" "" $fluxVersion }}</strong></a>
-            <a href="/flux/{{ $fluxVersion }}/stdlib/">View the Flux standard library</a>
-          </div>
+      </div>
+      <div id="flux" class="card">
+        <h3>Query & process data with <span class="blue">Flux</span></h3>
+        <!-- <p>The data scripting language that queries, processes, alert ons, and writes data.</p> -->
+        <div class="card-links">
+          <a href="/flux/{{ $fluxVersion }}/">Get started with <strong>Flux {{ replaceRE "v" "" $fluxVersion }}</strong></a>
+          <a href="/flux/{{ $fluxVersion }}/stdlib/">View the Flux standard library</a>
         </div>
       </div>
     </div>
   </div> 
 
   <div id="learn-more" class="section group-wrapper">
-    <div class="section-content">
-      <h4>Learn more</h4>
-      <div class="learn-items">
-        <div class="item">
-          <div class="icon">{{ partial "svgs/influxdbu.svg" }}</div>
-          <h5>InfluxDB University</h5>
-          <p>Free online training for InfluxDB and more.</p>
-          <a href="https://influxdbu.com/" target="_blank">Go to InfluxDB University</a>
-        </div>
-        <div class="item">
-          <div class="icon">{{ partial "svgs/book.svg" }}</div>
-          <h5>Time to Awesome</h5>
-          <p>Free online about using InfluxDB and Flux.</p>
-          <a href="https://awesome.influxdata.com/" target="_blank">View the book</a>
-        </div>
-        <div class="item">
-          <div class="icon">{{ partial "svgs/video-arrow.svg" }}</div>
-          <h5>InfluxData Videos</h5>
-          <p>Videos on specific topics related to time series and InfluxData projects.</p>
-          <a href="/resources/videos/">View videos</a>
-        </div>
-        <div class="item">
-          <div class="icon">{{ partial "svgs/hatch.svg" }}</div>
-          <h5>Case Studies</h5>
-          <p>Learn about real world use cases and InfluxDB in the wild.</p>
-          <a href="https://www.influxdata.com/_resources/case-studies/" target="_blank">View case studies</a>
-        </div>
+    <h4>Learn more</h4>
+    <div class="learn-items">
+      <div class="item">
+        <div class="icon">{{ partial "svgs/influxdbu.svg" }}</div>
+        <h5>InfluxDB University</h5>
+        <p>Free online training for InfluxDB and more.</p>
+        <a href="https://influxdbu.com/" target="_blank">Go to InfluxDB University</a>
+      </div>
+      <div class="item">
+        <div class="icon">{{ partial "svgs/book.svg" }}</div>
+        <h5>Time to Awesome</h5>
+        <p>Free online about using InfluxDB and Flux.</p>
+        <a href="https://awesome.influxdata.com/" target="_blank">View the book</a>
+      </div>
+      <div class="item">
+        <div class="icon">{{ partial "svgs/video-arrow.svg" }}</div>
+        <h5>InfluxData Videos</h5>
+        <p>Videos on specific topics related to time series and InfluxData projects.</p>
+        <a href="/resources/videos/">View videos</a>
+      </div>
+      <div class="item">
+        <div class="icon">{{ partial "svgs/hatch.svg" }}</div>
+        <h5>Case Studies</h5>
+        <p>Learn about real world use cases and InfluxDB in the wild.</p>
+        <a href="https://www.influxdata.com/_resources/case-studies/" target="_blank">View case studies</a>
       </div>
     </div>
   </div>
 
   <div id="tick" class="section group-wrapper blue flush-right">
     <div class="padding-wrapper">
-      <div class="section-content">
-        <div class="tick-title">
-          <h4><a href="/platform/#influxdata-1x-tick-stack">The TICK stack</a></h4>
-          <p>The original time series platform</p>
-        </div>
-        <div class="tick-links">
-          <ul class="oss">
-            <h5>Open Source</h5>
-            <li><a href="/telegraf/{{ $telegrafVersion }}/">Telegraf {{ replaceRE "v" "" $telegrafVersion }}</a></li>
-            <li><a href="/influxdb/{{ $influxdbVersionV1 }}/">InfluxDB {{ replaceRE "v" "" $influxdbVersionV1 }}</a></li>
-            <li><a href="/chronograf/{{ $chronografVersion }}/">Chronograf {{ replaceRE "v" "" $chronografVersion }}</a></li>
-            <li><a href="/kapacitor/{{ $kapacitorVersion }}/">Kapacitor {{ replaceRE "v" "" $kapacitorVersion }}</a></li>
-          </ul>
-          <ul class="enterprise">
-            <h5>Enterprise</h5>
-            <li><a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">InfluxDB Enterprise {{ replaceRE "v" "" $enterpriseVersion }}</a></li>
-            <li><a href="https://archive.docs.influxdata.com/enterprise_kapacitor/v1.5/">Kapacitor Enterprise 1.5 <span class="cf-icon export-new"></span></a></li>
-          </ul>
-        </div>
+      <div class="tick-title">
+        <h4><a href="/platform/#influxdata-1x-tick-stack">The TICK stack</a></h4>
+        <p>The original time series platform</p>
+      </div>
+      <div class="tick-links">
+        <ul class="oss">
+          <h5>Open Source</h5>
+          <li><a href="/telegraf/{{ $telegrafVersion }}/">Telegraf {{ replaceRE "v" "" $telegrafVersion }}</a></li>
+          <li><a href="/influxdb/{{ $influxdbVersionV1 }}/">InfluxDB {{ replaceRE "v" "" $influxdbVersionV1 }}</a></li>
+          <li><a href="/chronograf/{{ $chronografVersion }}/">Chronograf {{ replaceRE "v" "" $chronografVersion }}</a></li>
+          <li><a href="/kapacitor/{{ $kapacitorVersion }}/">Kapacitor {{ replaceRE "v" "" $kapacitorVersion }}</a></li>
+        </ul>
+        <ul class="enterprise">
+          <h5>Enterprise</h5>
+          <li><a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">InfluxDB Enterprise {{ replaceRE "v" "" $enterpriseVersion }}</a></li>
+          <li><a href="https://archive.docs.influxdata.com/enterprise_kapacitor/v1.5/">Kapacitor Enterprise 1.5 <span class="cf-icon export-new"></span></a></li>
+        </ul>
       </div>
     </div>
   </div>
 
   <div id="copyright" class="section group-wrapper">
     <div class="padding-wrapper">
-      <div class="section-content">
+
         <p>© {{ now.Year }} InfluxData, Inc.</p>
       </div>
     </div>
