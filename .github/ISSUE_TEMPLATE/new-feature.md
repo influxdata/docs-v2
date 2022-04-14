@@ -6,6 +6,7 @@ labels: ''
 assignees: ''
 ---
 
+**ETA:** _Provide an estimated completion date for the feature (if available)_
 **PR:** _Provide PR URL(s) for this feature (if available)_
 
 _Describe the new feature here._
