@@ -2,8 +2,8 @@ components:
   parameters:
     After:
       description: >
-        The last resource ID from which to seek from (but not including). This
-        is to be used instead of `offset`.
+        Resource ID to seek from. Results are not inclusive of this ID. Use
+        `after` instead of `offset`.
       in: query
       name: after
       required: false
@@ -169,8 +169,8 @@ components:
         status:
           default: active
           description: >-
-            If inactive the token is inactive and requests using the token will
-            be rejected.
+            Status of the token. If `inactive`, requests using the token will be
+            rejected.
           enum:
             - active
             - inactive
@@ -197,10 +197,10 @@ components:
         - 'y'
       type: object
     Axis:
-      description: The description of a particular axis for a visualization.
+      description: Axis used in a visualization.
       properties:
         base:
-          description: Base represents the radix for formatting axis values.
+          description: Radix for formatting axis values.
           enum:
             - ''
             - '2'
@@ -208,23 +208,23 @@ components:
           type: string
         bounds:
           description: >-
-            The extents of an axis in the form [lower, upper]. Clients determine
-            whether bounds are to be inclusive or exclusive of their limits
+            The extents of the axis in the form [lower, upper]. Clients
+            determine whether bounds are inclusive or exclusive of their limits.
           items:
             type: string
           maxItems: 2
           minItems: 0
           type: array
         label:
-          description: Label is a description of this Axis
+          description: Description of the axis.
           type: string
         prefix:
-          description: Prefix represents a label prefix for formatting axis values.
+          description: Label prefix for formatting axis values.
           type: string
         scale:
           $ref: '#/components/schemas/AxisScale'
         suffix:
-          description: Suffix represents a label suffix for formatting axis values.
+          description: Label suffix for formatting axis values.
           type: string
       type: object
     AxisScale:
@@ -391,22 +391,22 @@ components:
           properties:
             labels:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve labels for this bucket
+              description: URL to retrieve labels for this bucket.
             members:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve members that can read this bucket
+              description: URL to retrieve members that can read this bucket.
             org:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve parent organization for this bucket
+              description: URL to retrieve parent organization for this bucket.
             owners:
               $ref: '#/components/schemas/Link'
               description: URL to retrieve owners that can read and write to this bucket.
             self:
               $ref: '#/components/schemas/Link'
-              description: URL for this bucket
+              description: URL for this bucket.
             write:
               $ref: '#/components/schemas/Link'
-              description: URL to write line protocol for this bucket
+              description: URL to write line protocol to this bucket.
           readOnly: true
           type: object
         name:
@@ -596,10 +596,12 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp (in RFC3339 date/time
+            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
+            latest scheduled and completed run.
           format: date-time
           readOnly: true
-          type: string
         links:
           example:
             labels: /api/v2/checks/1/labels
@@ -828,24 +830,24 @@ components:
     DBRP:
       properties:
         bucketID:
-          description: the bucket ID used as target for the translation.
+          description: ID of the bucket used as the target for the translation.
           type: string
         database:
           description: InfluxDB v1 database
           type: string
         default:
           description: >-
-            Specify if this mapping represents the default retention policy for
-            the database specificed.
+            Mapping represents the default retention policy for the database
+            specified.
           type: boolean
         id:
-          description: the mapping identifier
+          description: ID of the DBRP mapping.
           readOnly: true
           type: string
         links:
           $ref: '#/components/schemas/Links'
         orgID:
-          description: the organization ID that owns this mapping.
+          description: ID of the organization that owns this mapping.
           type: string
         retention_policy:
           description: InfluxDB v1 retention policy
@@ -861,21 +863,21 @@ components:
     DBRPCreate:
       properties:
         bucketID:
-          description: the bucket ID used as target for the translation.
+          description: ID of the bucket used as the target for the translation.
           type: string
         database:
           description: InfluxDB v1 database
           type: string
         default:
           description: >-
-            Specify if this mapping represents the default retention policy for
-            the database specificed.
+            Mapping represents the default retention policy for the database
+            specified.
           type: boolean
         org:
-          description: the organization that owns this mapping.
+          description: Name of the organization that owns this mapping.
           type: string
         orgID:
-          description: the organization ID that owns this mapping.
+          description: ID of the organization that owns this mapping.
           type: string
         retention_policy:
           description: InfluxDB v1 retention policy
@@ -1134,80 +1136,6 @@ components:
         - start
         - stop
       type: object
-    DemoDataBucket:
-      properties:
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        description:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        labels:
-          $ref: '#/components/schemas/Labels'
-        links:
-          example:
-            labels: /api/v2/buckets/1/labels
-            members: /api/v2/buckets/1/members
-            org: /api/v2/orgs/2
-            owners: /api/v2/buckets/1/owners
-            self: /api/v2/buckets/1
-            write: /api/v2/write?org=2&bucket=1
-          properties:
-            labels:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve labels for this bucket
-            members:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve members that can read this bucket
-            org:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve parent organization for this bucket
-            owners:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve owners that can read and write to this bucket.
-            self:
-              $ref: '#/components/schemas/Link'
-              description: URL for this bucket
-            write:
-              $ref: '#/components/schemas/Link'
-              description: URL to write line protocol for this bucket
-          readOnly: true
-          type: object
-        name:
-          type: string
-        orgID:
-          type: string
-        retentionRules:
-          $ref: '#/components/schemas/RetentionRules'
-        rp:
-          type: string
-        schemaType:
-          $ref: '#/components/schemas/SchemaType'
-          default: implicit
-        type:
-          default: demodata
-          readOnly: true
-          type: string
-        updatedAt:
-          format: date-time
-          readOnly: true
-          type: string
-      required:
-        - name
-        - retentionRules
-    DemoDataBuckets:
-      properties:
-        buckets:
-          items:
-            $ref: '#/components/schemas/DemoDataBucket'
-          type: array
-        links:
-          $ref: '#/components/schemas/Links'
-          readOnly: true
-      type: object
     Dialect:
       description: >-
         Dialect are options to change the default CSV output format;
@@ -1315,23 +1243,22 @@ components:
           type: string
         err:
           description: >-
-            err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+            Stack of errors that occurred during processing of the request.
+            Useful for debugging.
           readOnly: true
           type: string
         message:
-          description: message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
         op:
           description: >-
-            op describes the logical code operation during error. Useful for
-            debugging.
+            Describes the logical code operation when the error occurred. Useful
+            for debugging.
           readOnly: true
           type: string
       required:
         - code
-        - message
     Expression:
       oneOf:
         - $ref: '#/components/schemas/ArrayExpression'
@@ -2232,6 +2159,9 @@ components:
             deleteRequestsPerSecond:
               description: Allowed organization delete request rate.
               type: integer
+            queryTime:
+              description: Query Time in nanoseconds
+              type: integer
             readKBs:
               description: Query limit in kb/sec. 0 is unlimited.
               type: integer
@@ -2240,6 +2170,7 @@ components:
               type: integer
           required:
             - readKBs
+            - queryTime
             - concurrentReadRequests
             - writeKBs
             - concurrentWriteRequests
@@ -2376,30 +2307,27 @@ components:
           type: string
         err:
           description: >-
-            Err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+            Stack of errors that occurred during processing of the request.
+            Useful for debugging.
           readOnly: true
           type: string
         line:
-          description: First line within sent body containing malformed data
+          description: First line in the request body that contains malformed data.
           format: int32
           readOnly: true
           type: integer
         message:
-          description: Message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
         op:
           description: >-
-            Op describes the logical code operation during error. Useful for
-            debugging.
+            Describes the logical code operation when the error occurred. Useful
+            for debugging.
           readOnly: true
           type: string
       required:
         - code
-        - message
-        - op
-        - err
     LineProtocolLengthError:
       properties:
         code:
@@ -2409,7 +2337,7 @@ components:
           readOnly: true
           type: string
         message:
-          description: Message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
       required:
@@ -2498,12 +2426,13 @@ components:
         - note
       type: object
     MeasurementSchema:
-      description: The schema definition for a single measurement
+      description: Definition of a measurement schema.
       example:
         bucketID: ba3c5e7f9b0a0010
         columns:
-          - name: time
-            type: timestamp
+          - format: unix timestamp
+            name: time
+            type: integer
           - name: host
             type: tag
           - name: region
@@ -2514,17 +2443,17 @@ components:
           - dataType: float
             name: usage_user
             type: field
-        createdAt: 2021-01-21T00:48:40.993Z
+        createdAt: '2021-01-21T00:48:40.993Z'
         id: 1a3c5e7f9b0a8642
         name: cpu
         orgID: 0a3c5e7f9b0a0001
-        updatedAt: 2021-01-21T00:48:40.993Z
+        updatedAt: '2021-01-21T00:48:40.993Z'
       properties:
         bucketID:
           description: ID of the bucket that the measurement schema is associated with.
           type: string
         columns:
-          description: An ordered collection of column definitions
+          description: Ordered collection of column definitions.
           items:
             $ref: '#/components/schemas/MeasurementSchemaColumn'
           type: array
@@ -2539,7 +2468,9 @@ components:
           nullable: false
           type: string
         orgID:
-          description: ID of organization that the measurement schema is associated with.
+          description: >-
+            ID of the organization that the measurement schema is associated
+            with.
           type: string
         updatedAt:
           format: date-time
@@ -2553,10 +2484,11 @@ components:
         - updatedAt
       type: object
     MeasurementSchemaColumn:
-      description: Definition of a measurement column
+      description: Definition of a measurement schema column.
       example:
+        format: unix timestamp
         name: time
-        type: timestamp
+        type: integer
       properties:
         dataType:
           $ref: '#/components/schemas/ColumnDataType'
@@ -2569,11 +2501,12 @@ components:
         - type
       type: object
     MeasurementSchemaCreateRequest:
-      description: Create a new measurement schema
+      description: Create a new measurement schema.
       example:
         columns:
-          - name: time
-            type: timestamp
+          - format: unix timestamp
+            name: time
+            type: integer
           - name: host
             type: tag
           - name: region
@@ -2587,7 +2520,7 @@ components:
         name: cpu
       properties:
         columns:
-          description: An ordered collection of column definitions
+          description: Ordered collection of column definitions.
           items:
             $ref: '#/components/schemas/MeasurementSchemaColumn'
           type: array
@@ -2602,23 +2535,23 @@ components:
       example:
         measurementSchemas:
           - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
+            createdAt: '2021-01-21T00:48:40.993Z'
             id: 1a3c5e7f9b0a8642
             name: cpu
             orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
+            updatedAt: '2021-01-21T00:48:40.993Z'
           - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
+            createdAt: '2021-01-21T00:48:40.993Z'
             id: 1a3c5e7f9b0a8643
             name: memory
             orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
+            updatedAt: '2021-01-21T00:48:40.993Z'
           - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
+            createdAt: '2021-01-21T00:48:40.993Z'
             id: 1a3c5e7f9b0a8644
             name: disk
             orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
+            updatedAt: '2021-01-21T00:48:40.993Z'
       properties:
         measurementSchemas:
           items:
@@ -2631,8 +2564,9 @@ components:
       description: Update an existing measurement schema
       example:
         columns:
-          - name: time
-            type: timestamp
+          - format: unix timestamp
+            name: time
+            type: integer
           - name: host
             type: tag
           - name: region
@@ -2923,7 +2857,10 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp (in RFC3339 date/time
+            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
+            latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -3428,7 +3365,7 @@ components:
     Ready:
       properties:
         started:
-          example: 2019-03-13T10:09:33.891196-04:00
+          example: '2019-03-13T10:09:33.891196-04:00'
           format: date-time
           type: string
         status:
@@ -4319,8 +4256,8 @@ components:
       properties:
         authorizationID:
           description: >-
-            The ID of the authorization used when this task communicates with
-            the query engine.
+            ID of the authorization used when the task communicates with the
+            query engine.
           type: string
         createdAt:
           format: date-time
@@ -4328,17 +4265,27 @@ components:
           type: string
         cron:
           description: >-
-            A task repetition schedule in the form '* * * * * *'; parsed from
-            Flux.
+            [Cron expression](https://en.wikipedia.org/wiki/Cron#Overview) that
+            defines the schedule on which the task runs. Cron scheduling is
+            based on system time.
+
+            Value is a [Cron
+            expression](https://en.wikipedia.org/wiki/Cron#Overview).
           type: string
         description:
-          description: An optional description of the task.
+          description: Description of the task.
           type: string
         every:
-          description: A simple task repetition schedule; parsed from Flux.
+          description: >-
+            Interval at which the task runs. `every` also determines when the
+            task first runs, depending on the specified time.
+
+            Value is a [duration
+            literal](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals)).
+          format: duration
           type: string
         flux:
-          description: The Flux script to run for this task.
+          description: Flux script to run for this task.
           type: string
         id:
           readOnly: true
@@ -4356,7 +4303,11 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp of the latest scheduled and completed run.
+
+            Value is a timestamp in [RFC3339 date/time
+            format](https://docs.influxdata.com/flux/v0.x/data-types/basic/time/#time-syntax).
           format: date-time
           readOnly: true
           type: string
@@ -4384,29 +4335,31 @@ components:
           readOnly: true
           type: object
         name:
-          description: The name of the task.
+          description: Name of the task.
           type: string
         offset:
           description: >-
-            Duration to delay after the schedule, before executing the task;
-            parsed from flux, if set to zero it will remove this option and use
-            0 as the default.
+            [Duration](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals)
+            to delay execution of the task after the scheduled time has elapsed.
+            `0` removes the offset.
+
+            The value is a [duration
+            literal](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals).
+          format: duration
           type: string
         org:
-          description: The name of the organization that owns this Task.
+          description: Name of the organization that owns the task.
           type: string
         orgID:
-          description: The ID of the organization that owns this Task.
+          description: ID of the organization that owns the task.
           type: string
         ownerID:
-          description: The ID of the user who owns this Task.
+          description: ID of the user who owns this Task.
           type: string
         status:
           $ref: '#/components/schemas/TaskStatusType'
         type:
-          description: >-
-            The type of task, this can be used for filtering tasks on list
-            actions.
+          description: Type of the task, useful for filtering a task list.
           type: string
         updatedAt:
           format: date-time
@@ -5992,7 +5945,7 @@ info:
     with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 openapi: 3.0.0
 paths:
-  /api/v2/:
+  /api/v2:
     get:
       operationId: GetRoutes
       parameters:
@@ -8181,69 +8134,6 @@ paths:
       summary: Delete data
       tags:
         - Delete
-  /api/v2/experimental/sampledata/buckets:
-    get:
-      operationId: GetDemoDataBuckets
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DemoDataBuckets'
-          description: A list of demo data buckets
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
-  /api/v2/experimental/sampledata/buckets/{bucketID}/members:
-    delete:
-      operationId: DeleteDemoDataBucketMembers
-      parameters:
-        - description: bucket id
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: if sampledata route is not available gateway responds with 200
-        '204':
-          description: A list of demo data buckets
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
-    post:
-      operationId: GetDemoDataBucketMembers
-      parameters:
-        - description: bucket id
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: if sampledata route is not available gateway responds with 200
-        '204':
-          description: A list of demo data buckets
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
   /api/v2/flags:
     get:
       operationId: GetFlags
@@ -8419,13 +8309,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Token'
-          description: A temp token for Mapbox
+          description: Temporary token for Mapbox.
         '401':
           $ref: '#/components/responses/ServerError'
         '500':
           $ref: '#/components/responses/ServerError'
         default:
           $ref: '#/components/responses/ServerError'
+      summary: Get a mapbox token
   /api/v2/me:
     get:
       operationId: GetMe
@@ -9250,8 +9141,9 @@ paths:
         - Organizations
   /api/v2/orgs/{orgID}/limits:
     get:
+      operationId: GetOrgLimitsID
       parameters:
-        - description: The identifier of the organization.
+        - description: ID of the organization.
           in: path
           name: orgID
           required: true
@@ -9269,7 +9161,7 @@ paths:
                   links:
                     $ref: '#/components/schemas/Links'
                 type: object
-          description: The Limits defined for the organization.
+          description: Limits defined for the organization.
         default:
           $ref: '#/components/responses/ServerError'
           description: unexpected error
@@ -9581,25 +9473,38 @@ paths:
         - Secrets
   /api/v2/orgs/{orgID}/usage:
     get:
+      operationId: GetOrgUsageID
       parameters:
-        - description: The identifier of the organization.
+        - description: ID of the organization.
           in: path
           name: orgID
           required: true
           schema:
             type: string
-        - description: start time
+        - description: >
+            Earliest time to include in results.
+
+            For more information about timestamps, see [Manipulate timestamps
+            with
+            Flux](https://docs.influxdata.com/influxdb/cloud/query-data/flux/manipulate-timestamps/).
           in: query
           name: start
           required: true
           schema:
-            type: timestamp
-        - description: stop time
+            format: unix timestamp
+            type: integer
+        - description: >
+            Latest time to include in results.
+
+            For more information about timestamps, see [Manipulate timestamps
+            with
+            Flux](https://docs.influxdata.com/influxdb/cloud/query-data/flux/manipulate-timestamps/).
           in: query
           name: stop
           required: false
           schema:
-            type: timestamp
+            format: unix timestamp
+            type: integer
         - description: return raw usage data
           in: query
           name: raw
@@ -11653,6 +11558,22 @@ paths:
             summary of the run. The summary contains newly created resources.
             The diff compares the initial state to the state after the package
             applied. This corresponds to `"dryRun": true`.
+        '422':
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/TemplateSummary'
+                  - properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                    required:
+                      - message
+                      - code
+                    type: object
+          description: Template failed validation
         default:
           content:
             application/json:
@@ -12402,7 +12323,6 @@ tags:
   - Dashboards
   - DBRPs
   - Delete
-  - DemoDataBuckets
   - Invocable Scripts
   - Labels
   - Limits
@@ -12531,7 +12451,6 @@ x-tagGroups:
       - Dashboards
       - DBRPs
       - Delete
-      - DemoDataBuckets
       - Invocable Scripts
       - Labels
       - Limits

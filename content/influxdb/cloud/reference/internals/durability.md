@@ -18,12 +18,13 @@ data is consistent and readable.
 
 ##### On this page
 
-- [Data replication](#data-replication)
+<!-- [Data replication](#data-replication)
+-->
 - [Backup processes](#backup-processes)
 - [Recovery](#recovery)
 - [Data verification](#data-verification)
 
-## Data replication
+<!-- ## Data replication
 InfluxDB Cloud replicates data in both the write tier and the storage tier.
 
 - **Write tier:** all data written to InfluxDB is processed by a durable message queue.
@@ -31,6 +32,7 @@ InfluxDB Cloud replicates data in both the write tier and the storage tier.
   replicates each partition across other physical nodes in the message queue.
 - **Storage tier:** all data in the underlying storage tier is replicated across
   two availability zones in a cloud region.
+-->
 
 ## Backup processes
 InfluxDB Cloud backs up all data in the following way:

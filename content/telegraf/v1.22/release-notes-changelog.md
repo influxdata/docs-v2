@@ -9,6 +9,31 @@ menu:
     name: Release notes
     weight: 60
 ---
+## v1.22.0 [2022-4-6]
+
+- Update `gonum.org/v1/gonum` from 0.9.3 to 0.11.0.
+- Update `github.com/golang-jwt/jwt/v4` from 4.2.0 to 4.4.1.
+- Update `gopsutil` and associated dependencies for improved OpenBSD support.
+- Fix default value for logfile rotation interval.
+
+## Input plugin updates
+- Intel PMU (`intel_pmu`): Fix slow running intel-pmu test.
+- Cloud PubSub (`cloud_pubsub`): Skip longer integration tests on `-short` mode.
+- Cloud PubSub Push (`cloud_pubsub_push`): Reduce timeouts and sleeps.
+- SQL Server (`sqlserver`): Fix inconsistencies in `sql*Requests` queries.
+- ZFS (`zfs`): Fix redundant pool tag.
+- vSphere (`vsphere`): Update debug message information.
+
+## Output plugin updates
+- Azure Monitor (`azure_monitor`): Include body in error message.
+- HTTP (`http`): Switch HTTP 100 test case values.
+
+## Processor plugin updates
+- TopK (`topk`) Clarify the `k` and `fields` parameters.
+
+## New external plugins
+- [PSI External Plugin](https://github.com/gridscale/linux-psi-telegraf-plugin/blob/main/README.md)(`external.psi`) - Contributed by [@ajfriesen](https://github.com/ajfriesen).
+
 ## v1.22.0 [2022-3-22]
 
 ## Features
