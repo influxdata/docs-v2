@@ -1,5 +1,11 @@
 // Influx Color Palette
 
+// Brand Colors 2022
+$br-dark-blue: #020a47;
+$br-new-magenta: #d30971;
+$br-new-purple: #9b2aff;
+$br-teal: #5ee4e4;
+
 // Brand Colors
 $br-chartreuse: #D6F622;
 $br-deeppurple: #13002D;
@@ -166,3 +172,9 @@ $grey95: #F1F1F3;
 $white: #FFFFFF;
 
 $grad-cool-grey-abyss: $grey10, $grey15;
+
+////////////////////////////// NEW BRAND GRADIENTS /////////////////////////////
+$grad-burningDusk: $br-new-magenta, $br-new-purple;
+$grad-coolDusk: #771cc7, #b2025b;
+$grad-tealDream: $b-pool, $br-teal;
+$grad-tealDeepSleep: $b-ocean, #0ab8b8;
