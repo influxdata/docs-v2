@@ -28,12 +28,10 @@ Most pushdowns are supported when querying an InfluxDB 2.0 or InfluxDB Cloud dat
 | Functions                      | InfluxDB 2.0         | InfluxDB Cloud       |
 |:---------                      |:------------:        |:--------------:      |
 | **count()**                    | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
-| **drop()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 | **duplicate()**                | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 | **filter()** {{% req " \*" %}} | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 | **fill()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 | **first()**                    | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
-| **keep()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 | **last()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 | **max()**                      | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
 | **mean()**                     | {{< icon "check" "v2" >}} | {{< icon "check" "v2" >}} |
