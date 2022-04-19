@@ -48,7 +48,7 @@ For more information, see [InfluxQL support](/influxdb/cloud/query-data/influxql
 
 Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/{{< latest "influxdb" "v2" >}}/query-data/get-started).
 
-1. Open the Data Explorer by clicking on **Explore** in the left navigation bar. 
+1. Open the Data Explorer by clicking **Explore** in the left navigation bar.
 2. Select **Flux** as the source type.
 3. Click **Script Builder**.
 4. The **Schema**, **Script**, and **Flux Functions** panes appear.
