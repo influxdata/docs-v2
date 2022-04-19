@@ -1,6 +1,6 @@
 ---
 title: Explore data in Chronograf
-description: Query and visualize data in the Data Explorer
+description: Query and visualize data in the Data Explorer.
 menu:
   chronograf_1_9:
     name: Explore data in Chronograf
