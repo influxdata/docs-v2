@@ -52,7 +52,7 @@ Flux is InfluxData's new functional data scripting language designed for queryin
 2. Select **Flux** as the source type.
 3. Click **Script Builder**.
 4. The **Schema**, **Script**, and **Flux Functions** panes appear.
-    - Use the **Schema** pane to explore your available data. Click the **+** sign next to a bucket name to expand its content. 
+    - Use the **Schema** pane to explore your available data. Click the **{{< icon "plus" >}}** sign next to a bucket name to expand its content. 
     - Use the **Script** pane to enter and view your Flux script.
     - Use the **Flux Functions** pane to view details about the available Flux functions.
 5. To get started building a new script, click **Script Builder**. Using the Flux script builder, you can select a bucket, measurements and tags, fields and an aggregate function. Click **+Load More** to expand any truncated lists.  You can also choose a variety of time ranges on your schema data.
