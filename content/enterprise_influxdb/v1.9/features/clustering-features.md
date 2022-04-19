@@ -133,3 +133,10 @@ InfluxDB Enterprise clusters support backup and restore functionality starting w
 version 0.7.1.
 See [Backup and restore](/enterprise_influxdb/v1.9/administration/backup-and-restore/) for
 more information.
+
+## Passive node setup (experimental)
+
+Passive nodes are data nodes that do not own shards.  They accept write calls but do not write any data to their own disks.  They perform shard lookup and RPC calls (on non-passive nodes) and distribute writes to the data nodes that own shards.  In essence, they act as a kind of load balancer. 
+
+
+

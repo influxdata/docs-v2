@@ -12,7 +12,8 @@ menu:
 ## aggregation
 
 An InfluxQL function that returns an aggregated value across a set of points.
-For a complete list of the available and upcoming aggregations, see [InfluxQL functions](/enterprise_influxdb/v1.9/query_language/functions/#aggregations).
+For a complete list of the available and upcoming aggregations, 
+see [InfluxQL functions](/enterprise_influxdb/v1.9/query_language/functions/#aggregations).
 
 Related entries: [function](#function), [selector](#selector), [transformation](#transformation)
 
@@ -180,9 +181,10 @@ Related entries: [server](#server)
 
 The local server's nanosecond timestamp.
 
-## passive node
+## passive node (experimental)
 
-Passive nodes are data nodes that do not own any shards. They accept write calls but do not write to their own disks), perform shard lookup and RPC calls (on non-passive nodes) and distribute writes to the data node that owns the shard. 
+Passive nodes are data nodes that do not own any shards. They accept write calls but do not write to their own disks, perform shard lookup and RPC calls (on non-passive nodes) and distribute writes to the data node that own shards.  In essence, they act as a kind of load balancer. 
+**NOTE:**  This is an experimental feature.  
 
 <!--
 ## permission
