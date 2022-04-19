@@ -9,7 +9,8 @@
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
 {{ $fluxCurrentTime := resources.Get "js/flux-current-time.js" }}
 {{ $fullscreenCode := resources.Get "js/fullscreen-code.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $influxdbURLs $featureCallouts $notifications $keybindings $fullscreenCode | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $influxdbURLs $featureCallouts $notifications $keybindings $fullscreenCode $homepageInteractions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
 {{ $fluxCurrentTimejs := slice $fluxCurrentTime | resources.Concat "js/flux-current-time.js" | resources.Fingerprint }}
 
