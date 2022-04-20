@@ -1560,6 +1560,14 @@ input:
     introduced: 1.16.0
     tags: [linux, macos, windows]
 
+  - name: PSI
+    id: psi
+    description: |
+      The PSI input plugins push pressure stall information (PSI) from the Linux Kernel to InfluxDB.
+    introduced: 1.22.1
+    tags: [linux]
+    external: true
+
   - name: Puppet Agent
     id: puppetagent
     description: |
