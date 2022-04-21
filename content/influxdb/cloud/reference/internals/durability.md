@@ -67,9 +67,8 @@ When each compaction cycle completes, InfluxDB Cloud stores compressed
 in object storage.
 
 ### Periodic TSM snapshots
-Periodically the TSM files uploaded to object storage are snapshoted.
-Each TSM snapshot is a complete copy of all non-deleted data, as of the time the TSM snapshot is created.
-These snapshots are created weekly and preserved for 100 days, providing multiple recovery points.
+To provide multiple data recovery points, InfluxDB Cloud takes weekly snapshots of TSM files uploaded to object storage. The TSM snapshot includes a copy of all (non-deleted) data when the snapshot is created.
+These snapshots are preserved for 100 days.
 
 ## Recovery
 InfluxDB Cloud uses the following out-of-band backups stored in object storage to recover data:
