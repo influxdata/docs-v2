@@ -75,7 +75,7 @@ InfluxDB Cloud uses the following out-of-band backups stored in object storage t
 
 - **Message queue backup:** line protocol from inbound write requests within the last 96 hours
 - **Compaction backup:** TSM files
-- **TSM Snapshots:** Weekly snapshots of TSM files in objectstore
+- **TSM snapshots:** Weekly snapshots of TSM files in objectstore
 
 The Recovery Point Objective (RPO) is any accepted write.
 The Recovery Time Objective (RTO) is harder to definitively predict as potential failure modes can vary.
