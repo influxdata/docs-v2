@@ -45,6 +45,8 @@ influx remote create [commond options] [arguments...]
 
 ## Examples
 
+{{< cli/influx-creds-note >}}
+
 ### Create a new remote with InfluxDB Cloud
 
 ```sh

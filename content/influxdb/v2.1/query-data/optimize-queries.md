@@ -34,12 +34,10 @@ As shown in the following table, a handful of pushdowns are not supported in Inf
 | Functions                      | InfluxDB {{< current-version keep=true >}} |    InfluxDB Cloud    |
 | :----------------------------- | :----------------------------------------: | :------------------: |
 | **count()**                    |            {{< icon "check" >}}            | {{< icon "check" >}} |
-| **drop()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
 | **duplicate()**                |            {{< icon "check" >}}            | {{< icon "check" >}} |
 | **filter()** {{% req " \*" %}} |            {{< icon "check" >}}            | {{< icon "check" >}} |
 | **fill()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
 | **first()**                    |            {{< icon "check" >}}            | {{< icon "check" >}} |
-| **keep()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
 | **last()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |
 | **max()**                      |            {{< icon "check" >}}            | {{< icon "check" >}} |
 | **mean()**                     |            {{< icon "check" >}}            | {{< icon "check" >}} |

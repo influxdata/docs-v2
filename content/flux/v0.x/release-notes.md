@@ -10,6 +10,24 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.164.1 [2022-04-18]
+
+### Bug fixes
+- Remove an extraneous `go generate` statement.
+
+---
+
+## v0.164.0 [2022-04-13]
+
+### Features
+- Allow Go to pass compilation options to Rust.
+
+### Bug fixes
+- Do not assume integers are 64bit integers.
+- Update `prometheus.scrape` type signature to correctly return a stream.
+
+---
+
 ## v0.163.0 [2022-04-07]
 
 ### Features
