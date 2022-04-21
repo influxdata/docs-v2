@@ -81,7 +81,7 @@ The Recovery Point Objective (RPO) is any accepted write.
 The Recovery Time Objective (RTO) is harder to definitively predict as potential failure modes can vary.
 While most common failure modes can be resolved within minutes or hours,
 critical failure modes may take longer.
-For example, if we need to rebuild all data from the TSM Snapshots and message queue backup,
+For example, if we need to rebuild all data from the TSM snapshots and message queue backup,
 it could take 24 hours or longer.
 
 ## Data verification
