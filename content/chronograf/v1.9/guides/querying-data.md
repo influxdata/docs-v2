@@ -48,33 +48,20 @@ For more information, see [InfluxQL support](/influxdb/cloud/query-data/influxql
 
 Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. To learn more about Flux, see [Getting started with Flux](/{{< latest "influxdb" "v2" >}}/query-data/get-started).
 
-1. Open the Data Explorer and click **Add a Query**.
-2. To the right of the source dropdown above the graph placeholder, select **Flux** as the source type.
- The **Schema**, **Functions**, and **Script** panes appear.
-3. Use the **Schema** pane to explore your available data. Click the **+** sign next to a bucket name to expand its content.
-4. Use the **Functions** pane to view details about the available Flux functions.
-5. Use the **Script** pane to enter your Flux query.
+1. Open the Data Explorer by clicking **Explore** in the left navigation bar.
+2. Select **Flux** as the source type.
+3. Click **Script Builder**.
+4. The **Schema**, **Script**, and **Flux Functions** panes appear.
+    - Use the **Schema** pane to explore your available data. Click the **{{< icon "plus" >}}** sign next to a bucket name to expand its content. 
+    - Use the **Script** pane to enter and view your Flux script.
+    - Use the **Flux Functions** pane to view details about the available Flux functions.
+5. To get started building a new script, click **Script Builder**. Using the Flux script builder, you can select a bucket, measurements and tags, fields and an aggregate function. Click **{{< icon "plus" >}} Load More** to expand any truncated lists.  You can also choose a variety of time ranges on your schema data.
+6. When you are finished creating your script, click **Submit**.
+7. Click **Script Editor** to view and edit your query.
+8. If you make changes to the script using the **Script Builder**, you will receive a message when clicking **Submit** warning you
+that submitting changes will override the script in the Flux editor, and that the script cannot be recovered.
 
-    * To get started with your query, click the **Script Wizard**. In the wizard, you can select a bucket, measurement, fields and an aggregate.
-
-      <img src="/img/chronograf/1-7-flux-script-wizard.png" style="width:100%; max-width:400px; margin:2em 0; display:block;">
-
-    For example, if you make the above selections, the wizard inserts the following script:
-
-    ```js
-    from(bucket: "telegraf/autogen")
-      |> range(start: dashboardTime)
-      |> filter(fn: (r) => r._measurement == "cpu" and (r._field == "usage_system"))
-      |> window(every: autoInterval)
-      |> toFloat()
-      |> percentile(percentile: 0.95)
-      |> group(except: ["_time", "_start", "_stop", "_value"])
-    ```
-    * Alternatively, you can enter your entire script manually.
-
-6. Click **Run Script** in the top bar of the **Script** pane. You can then preview your graph in the above pane.
-
-## Visualize your query
+ ## Visualize your query
 
 Select the **Visualization** tab at the top of the **Data Explorer**. For details about all of the available visualization options, see [Visualization types in Chronograf](/chronograf/v1.9/guides/visualization-types/).
 

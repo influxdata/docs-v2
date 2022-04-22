@@ -15,15 +15,16 @@ flux/v0.x/tags: [date/time]
 related:
   - /flux/v0.x/stdlib/experimental/subduration/
 introduced: 0.39.0
+deprecated: 0.162.0
 ---
+
+{{% warn %}}
+This function was promoted to the [`date` package](/flux/v0.x/stdlib/date/addduration/)
+in **Flux v0.162.0**. This experimental version has been deprecated.
+{{% /warn %}}
 
 The `experimental.addDuration()` function adds a duration to a time value and
 returns the resulting time value.
-
-{{% warn %}}
-This function will be removed once duration vectors are implemented.
-See [influxdata/flux#413](https://github.com/influxdata/flux/issues/413).
-{{% /warn %}}
 
 ```js
 import "experimental"

@@ -14,6 +14,26 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## March 2022
+
+### Deep linking
+
+Navigate to UI pages without having to enter your organization ID in the URL using deep links. For example, `cloud2.influxdata.com/me/billing` redirects to your organization's billing page.
+
+## February 2022
+
+### Remove yourself from an organization
+
+You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from your organization](/influxdb/cloud/organizations/users/#remove-a-user-from-your-organization/).
+
+### Add auto-refresh functionality to Notebooks
+
+Automatically refresh Notebooks data. For details, see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/).
+
+## Performance improvements to dashboards and queries
+
+Previously, InfluxDB loaded all variables on the client side, even those not included in a dashboard or query. Now, InfluxDB only loads variables used by queries or dashboards.
+
 ## January 2022
 
 ### Update Tokens UI

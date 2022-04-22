@@ -71,8 +71,3 @@ Accounts can have up to 50 pending invitations at one time.
 1.  Navigate to your organization's [Members page](#members-page).
 2.  Click the **{{< icon "delete" >}}** icon next to the user you want to remove.
 3.  Click **{{< caps >}}Remove user access{{< /caps >}}**.
-
-### Remove yourself from an organization
-
-You cannot remove yourself from an organization.
-Have another member of your organization remove you.

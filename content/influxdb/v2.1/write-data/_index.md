@@ -17,6 +17,7 @@ related:
   - /influxdb/v2.1/reference/syntax/line-protocol
   - /influxdb/v2.1/reference/syntax/annotated-csv
   - /influxdb/v2.1/reference/cli/influx/write
+  - /influxdb/v2.1/migrate-data/
   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
@@ -28,6 +29,7 @@ related:
    - [Query and explore data](/influxdb/v2.1/query-data/)
    - [Process data](/influxdb/v2.1/process-data/)
    - [Visualize data](/influxdb/v2.1/visualize-data/)
+   - [Migrate data](/influxdb/v2.1/migrate-data/)
    - [Monitor and alert](/influxdb/v2.1/monitor-alert/)
 
 The following video discusses different ways to write data to InfluxDB:
