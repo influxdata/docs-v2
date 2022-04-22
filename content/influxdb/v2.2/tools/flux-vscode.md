@@ -64,7 +64,7 @@ In the **InfluxDB** pane:
 1. Write your Flux query in a new VS Code file.
 2. Save your Flux script with the `.flux` extension or set the
    [VS Code Language Mode](https://code.visualstudio.com/docs/languages/overview#_changing-the-language-for-the-selected-file) to **Flux**.
-3. Execute the query with the `influxdb.runQuery` command or {{< keybind mac="⌃⌥E" other="Ctrl+Alt+E" >}}.
+3. Execute the query with the `influxdb.runQuery` command or {{< keybind mac="F5" other="F5" >}}.
 4. Query results appear in a new tab. If query results do not appear, see [Debug Flux queries](#debug-flux-queries).
 
 ## Explore your schema
@@ -91,4 +91,4 @@ and then `Reload Window`) to initialize the updated extensions.
 | Command                     | Description       | Keyboard shortcut                            | Menu context      |
 |:-------                     |:-----------       |:-----------------:                           | ------------:     |
 | `influxdb.refresh`          | Refresh           |                                              |                   |
-| `influxdb.runQuery`         | Run Query         | {{< keybind mac="⌃⌥E" other="Ctrl+Alt+E" >}} | editor/context    |
+| `influxdb.runQuery`         | Run Query         | {{< keybind mac="F5" other="F5" >}} | editor/context    |
