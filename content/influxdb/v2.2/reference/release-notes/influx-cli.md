@@ -8,6 +8,23 @@ menu:
     name: influx CLI 
 ---
 
+## v2.3 [2022-04-08]
+
+## Features
+
+- Add [`influx remote`](/{{< latest "influxdb" >}}/reference/cli/influx/remote/) command.
+- Add [`influx replication`](/{{< latest "influxdb" >}}/reference/cli/influx/replication/) command.
+- Enhanced error messaging for InfluxDB and OSS specific commands.
+- Add `api/v2/config` endpoint to display the runtime configuration (for example, when you run `influxd print-config`). This endpoint lets you review runtime configuration while the instance is live.
+
+## Bug fixes
+
+- `Auth create` command supports multiple buckets.
+- Use `influx-debug-id` header for tracing.
+- Duration parser shows duration missing units on error.
+- Template apply uses improved diff checking.
+- Fix error applying `-e jsonnet` template.
+
 ## v2.2.1 [2021-11-09]
 
 This release includes two new bug fixes.

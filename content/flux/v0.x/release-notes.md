@@ -10,6 +10,56 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.164.1 [2022-04-18]
+
+### Bug fixes
+- Remove an extraneous `go generate` statement.
+
+---
+
+## v0.164.0 [2022-04-13]
+
+### Features
+- Allow Go to pass compilation options to Rust.
+
+### Bug fixes
+- Do not assume integers are 64bit integers.
+- Update `prometheus.scrape` type signature to correctly return a stream.
+
+---
+
+## v0.163.0 [2022-04-07]
+
+### Features
+- Report skipped tests.
+
+### Bug fixes
+- Update transformation transport adapter to always invoke `finish`.
+- Add support for "soft paragraphs" (paragraphs that contain single newline
+  characters) in inline Flux documentation.
+
+---
+
+## v0.162.0 [2022-04-05]
+
+### Features
+- Add [OpenTracing spans](https://opentracing.io/docs/overview/spans/) to the Flux runtime.
+- Add the `cffi` feature to reduce WASM binary size.
+- Replace the main `flux` CLI with a new `flux` CLI that starts a Flux REPL by
+  default or executes a Flux script via stdin.
+- Track freed memory with `SetFinalizer`.
+- Move [`addDuration()`](/flux/v0.x/stdlib/date/addduration/) and
+  [`subDuration()`](/flux/v0.x/stdlib/date/subduration/) from the `experimental`
+  package to the `date` package.
+
+### Bug fixes
+- Improve error messages for column conflicts in pivot operations.
+- Create OpenTracing spans for transformations using the proper context.
+- Add errors to OpenTracing spans created for transformations.
+- Restore required features hidden behind the `cffi` feature.
+
+---
+
 ## v0.161.0 [2022-03-24]
 
 ### Features
