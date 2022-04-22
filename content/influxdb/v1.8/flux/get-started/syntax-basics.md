@@ -18,11 +18,12 @@ This guide walks through a handful of simple expressions and how they are handle
 
 ## Use the influx CLI
 Use the `influx` CLI in "Flux mode" as you follow this guide.
-When started with `-type=flux`, the `influx` CLI is an interactive read-eval-print-loop (REPL) that supports Flux syntax.
+When started with `-type=flux` and `-path-prefix=/api/v2/query`, the `influx`
+CLI is an interactive read-eval-print-loop (REPL) that supports Flux syntax.
 
 ##### Start in the influx CLI in Flux mode
 ```bash
-influx -type=flux
+influx -type=flux -path-prefix=/api/v2/query
 ```
 
 > If using the [InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install), use the `./sandbox enter`
@@ -32,7 +33,7 @@ influx -type=flux
 ```bash
 ./sandbox enter influxdb
 
-root@9bfc3c08579c:/# influx -host influxdb -type=flux
+root@9bfc3c08579c:/# influx -host influxdb -type=flux -path-prefix=/api/v2/query
 ```
 
 ## Basic Flux syntax
