@@ -28,25 +28,27 @@ If you're just getting started with Flux queries, check out the following:
 
 ## Find how long a state persists
 
-1. Use the [`stateDuration()`](/{{< latest "flux" >}}/stdlib/universe/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
+Use [`stateDuration()`](/{{< latest "flux" >}}/stdlib/universe/stateduration/)
+to calculate the duration of consecutive rows with a specified state.
+For each consecutive point that matches the specified state, `stateDuration()`
+increments and stores the duration (in the specified unit) in a user-defined column.
 
-  - **Column to search:** any tag key, tag value, field key, field value, or measurement.
-  - **Value:** the value (or state) to search for in the specified column.
-  - **State duration column:** a new column to store the state duration─the length of time that the specified value persists.
-  - **Unit:** the unit of time (`1s` (by default), `1m`, `1h`) used to increment the state duration.
+Include the following information:
 
-      ```js
-      |> stateDuration(
-          fn: (r) => r._column_to_search == "value_to_search_for",
-          column: "state_duration",
-          unit: 1s,
-      )
-      ```
+- **Column to search:** any tag key, tag value, field key, field value, or measurement.
+- **Value:** the value (or state) to search for in the specified column.
+- **State duration column:** a new column to store the state duration─the length of time that the specified value persists.
+- **Unit:** the unit of time (`1s` (by default), `1m`, `1h`) used to increment the state duration.
 
-2. Use `stateDuration()` to search each point for the specified value:
+```js
+data
+    |> stateDuration(fn: (r) => r.column_to_search == "value_to_search_for", column: "state_duration", unit: 1s)
+```
 
-    - For the first point that evaluates `true`, the state duration is set to `0`. For each consecutive point that evaluates `true`, the state duration increases by the time interval between each consecutive point (in specified units).
-    - If the state is `false`, the state duration is reset to `-1`.
+- For the first point that evaluates `true`, the state duration is set to `0`.
+  For each consecutive point that evaluates `true`, the state duration
+  increases by the time interval between each consecutive point (in specified units).
+- If the state is `false`, the state duration is reset to `-1`.
 
 ### Example query with stateDuration()
 
@@ -55,51 +57,46 @@ The following query searches the `doors` bucket over the past 5 minutes to find 
 ```js
 from(bucket: "doors")
     |> range(start: -5m)
-    |> stateDuration(
-        fn: (r) =>
-        r._value == "closed",
-        column: "door_closed",
-        unit: 1s,
-    )
+    |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed", unit: 1s)
 ```
 
-In this example, `door_closed` is the **State duration** column. If you write data to the `doors` bucket every minute, the state duration increases by `60s` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state duration is reset to `0`.
+In this example, `door_closed` is the **State duration** column.
+If you write data to the `doors` bucket every minute, the state duration
+increases by `60s` for each consecutive point where `_value` is `closed`.
+If `_value` is not `closed`, the state duration is reset to `0`.
 
 #### Query results
 
 Results for the example query above may look like this (for simplicity, we've omitted the measurement, tag, and field columns):
 
-```sh
-_time                   _value        door_closed
-2019-10-26T17:39:16Z    closed        0
-2019-10-26T17:40:16Z    closed        60
-2019-10-26T17:41:16Z    closed        120
-2019-10-26T17:42:16Z    open          -1
-2019-10-26T17:43:16Z    closed        0
-2019-10-26T17:44:27Z    closed        60
-```
+| _time                | _value | door_closed |
+| :------------------- | :----: | ----------: |
+| 2019-10-26T17:39:16Z | closed |           0 |
+| 2019-10-26T17:40:16Z | closed |          60 |
+| 2019-10-26T17:41:16Z | closed |         120 |
+| 2019-10-26T17:42:16Z |  open  |          -1 |
+| 2019-10-26T17:43:16Z | closed |           0 |
+| 2019-10-26T17:44:27Z | closed |          60 |
 
 ## Count the number of consecutive states
 
-1. Use the [`stateCount()` function](/{{< latest "flux" >}}/stdlib/universe/statecount/)
-   and include the following information:
+Use the [`stateCount()` function](/{{< latest "flux" >}}/stdlib/universe/statecount/)
+and include the following information:
 
-  - **Column to search:** any tag key, tag value, field key, field value, or measurement.
-  - **Value:** to search for in the specified column.
-  - **State count column:** a new column to store the state count─the number of
-    consecutive records in which the specified value exists.
+- **Column to search:** any tag key, tag value, field key, field value, or measurement.
+- **Value:** to search for in the specified column.
+- **State count column:** a new column to store the state count─the number of
+  consecutive records in which the specified value exists.
 
-        ```js
-        |> stateCount(
-            fn: (r) => r._column_to_search == "value_to_search_for",
-            column: "state_count",
-        )
-        ```
+```js
+|> stateCount(
+    fn: (r) => r.column_to_search == "value_to_search_for",
+    column: "state_count",
+)
+```
 
-2. Use `stateCount()` to search each point for the specified value:
-
-    - For the first point that evaluates `true`, the state count is set to `1`. For each consecutive point that evaluates `true`, the state count increases by 1.
-    - If the state is `false`, the state count is reset to `-1`.
+- For the first point that evaluates `true`, the state count is set to `1`. For each consecutive point that evaluates `true`, the state count increases by 1.
+- If the state is `false`, the state count is reset to `-1`.
 
 ### Example query with stateCount()
 
@@ -117,15 +114,14 @@ This example stores the **state count** in the `door_closed` column. If you writ
 
 Results for the example query above may look like this (for simplicity, we've omitted the measurement, tag, and field columns):
 
-```bash
-_time                   _value        door_closed
-2019-10-26T17:39:16Z    closed        1
-2019-10-26T17:40:16Z    closed        2
-2019-10-26T17:41:16Z    closed        3
-2019-10-26T17:42:16Z    open          -1
-2019-10-26T17:43:16Z    closed        1
-2019-10-26T17:44:27Z    closed        2
-```
+| _time                | _value | door_closed |
+| :------------------- | :----: | ----------: |
+| 2019-10-26T17:39:16Z | closed |           1 |
+| 2019-10-26T17:40:16Z | closed |           2 |
+| 2019-10-26T17:41:16Z | closed |           3 |
+| 2019-10-26T17:42:16Z |  open  |          -1 |
+| 2019-10-26T17:43:16Z | closed |           1 |
+| 2019-10-26T17:44:27Z | closed |           2 |
 
 #### Example query to count machine state
 
