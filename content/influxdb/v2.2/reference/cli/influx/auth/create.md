@@ -39,6 +39,8 @@ influx auth create [flags]
 |      | `--read-notificationEndpoints`  | Grant permission to read notificationEndpoints                        |             |                       |
 |      | `--read-notificationRules`      | Grant permission to read notificationRules                            |             |                       |
 |      | `--read-orgs`                   | Grant permission to read organizations                                |             |                       |
+|      | `--read-remotes`                | Grant permission to read remote configurations                        |             |                       |
+|      | `--read-replications`           | Grant permission to read replication configurations                   |             |                       |
 |      | `--read-tasks`                  | Grant permission to read tasks                                        |             |                       |
 |      | `--read-telegrafs`              | Grant permission to read Telegraf configurations                      |             |                       |
 |      | `--read-users`                  | Grant permission to read organization users                           |             |                       |
@@ -53,9 +55,11 @@ influx auth create [flags]
 |      | `--write-notificationEndpoints` | Grant permission to create notificationEndpoints                      |             |                       |
 |      | `--write-notificationRules`     | Grant permission to create notificationRules                          |             |                       |
 |      | `--write-orgs`                  | Grant permission to create and update organizations                   |             |                       |
+|      | `--write-remotes`               | Grant permission to create and update remote configurations           |             |                       |
+|      | `--write-replications`          | Grant permission to create and update replication configurations      |             |                       |
 |      | `--write-tasks`                 | Grant permission to create and update tasks                           |             |                       |
 |      | `--write-telegrafs`             | Grant permission to create and update Telegraf configurations         |             |                       |
-|      | `--write-users`                  | Grant permission to create and update organization users              |             |                       |
+|      | `--write-users`                 | Grant permission to create and update organization users              |             |                       |
 
 ## Examples
 
@@ -98,6 +102,8 @@ influx auth create \
   --read-notificationEndpoints \
   --read-notificationRules \
   --read-orgs \
+  --read-remotes \
+  --read-replications \
   --read-tasks \
   --read-telegrafs \
   --read-users \
@@ -108,6 +114,8 @@ influx auth create \
   --write-notificationEndpoints \
   --write-notificationRules \
   --write-orgs \
+  --write-remotes \
+  --write-replications \
   --write-tasks \
   --write-telegrafs \
   --write-users
@@ -134,6 +142,8 @@ influx auth create \
   --read-notificationEndpoints \
   --read-notificationRules \
   --read-orgs \
+  --read-remotes \
+  --read-replications \
   --read-tasks \
   --read-telegrafs \
   --read-users
