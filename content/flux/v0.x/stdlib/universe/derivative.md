@@ -27,7 +27,7 @@ _**Output data type:** Float_
 ```js
 derivative(
     unit: 1s,
-    nonNegative: true,
+    nonNegative: false,
     columns: ["_value"],
     timeColumn: "_time",
 )
@@ -40,7 +40,7 @@ The time duration used when creating the derivative.
 Default is `1s`.
 
 ### nonNegative {data-type="bool"}
-Indicates if the derivative is allowed to be negative. Default is `true`.
+Indicates if the derivative is allowed to be negative. Default is `false`.
 When `true`, if a value is less than the previous value, it is assumed the
 previous value should have been a zero.
 
