@@ -11,41 +11,50 @@ const { collect, getName, sortName } = require('../../helpers/content-helper.js'
  * operation ('get', 'post', etc.) in every path.
  * The DefinitionRoot handler, executed when
  * the parser is leaving the root node,
- * sets `x-tagGroups` to the provided `data`
+ * adds custom `tagGroups` content to `x-tagGroups`
  * and sets the value of `All Endpoints` to the collected tags.
  */
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 function SetTagGroups() {
-  const data = tagGroups();
+  let data = tagGroups();
+  if(!Array.isArray(data)) {
+    data = [];
+  }
+
   let tags = [];
   /** Collect tags for each operation and convert string tags to object tags. **/
   return {
-    Operation: {
-      leave(op, ctx, parents) {
-        let opTags = op.tags?.map(
-          function(t) {
-            return typeof t === 'string' ? { name: t, description: '' } : t;
-          }
-        ) || [];
-        tags = collect(tags, opTags);
-      }
-    },
     DefinitionRoot: {
+      Operation: {
+        leave(op) {
+          let opTags = op.tags?.map(
+            function(t) {
+              return typeof t === 'string' ? { name: t } : t;
+            }
+          ) || [];
+          tags = collect(tags, opTags);
+        }
+      },
       leave(root) {
-	root.tags = root.tags || [];
-	root.tags = collect(root.tags, tags)
-	  .sort((a, b) => sortName(a, b));
+        root.tags = root.tags || [];
+        root.tags = collect(root.tags, tags)
+          .sort((a, b) => sortName(a, b));
 
-	if(!data) { return; }
+        endpointTags = root.tags
+          .filter(t => !t['x-traitTag'])
+          .map(t => getName(t));
 
-	endpointTags = root.tags
-	  .filter(t => !t['x-traitTag'])
-	  .map(t => getName(t));
-	root['x-tagGroups'] = data
-	  .map(function(grp) {
-	    grp.tags = grp.name === 'All endpoints' ? endpointTags : grp.tags;
-	    return grp;
-	  });
+        if(Array.isArray(root['x-tagGroups'])) {
+          root['x-tagGroups'].concat(data);
+        } else {
+          root['x-tagGroups'] = data;
+        }
+
+        root['x-tagGroups'].map(
+          function(grp) {
+            grp.tags = grp.name === 'All endpoints' ? endpointTags : grp.tags;
+            return grp;
+          });
       }
     }
   }

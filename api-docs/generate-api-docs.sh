@@ -51,6 +51,7 @@ weight: 304
   npx --version
 
   # Use Redoc to generate the v2 API html
+  echo "Bundling ${version}/ref.yml"
   npm_config_yes=true npx $redocCLI bundle $version/ref.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
@@ -62,6 +63,7 @@ weight: 304
     --templateOptions.titleVersion="$titleVersion" \
 
   # Use Redoc to generate the v1 compatibility API html
+  echo "Bundling ${version}/swaggerV1Compat.yml"
   npm_config_yes=true npx $redocCLI bundle $version/swaggerV1Compat.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
