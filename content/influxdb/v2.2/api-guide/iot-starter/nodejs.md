@@ -1,4 +1,14 @@
-
+---
+title: IoT Starter Guide
+seotitle: Use API client libraries to build an IoT Center
+description: Write, query, and manage authorizations with InfluxDB client libraries.
+weight: 3
+menu:
+  influxdb_2_2:
+    name: IoT Starter - Part 1
+    parent: IoT Starter
+influxdb/cloud/tags: [api]
+---
 
 ## Create your app
 
@@ -89,12 +99,6 @@ bucketsAPI.getBuckets({name: process.env.INFLUX_BUCKET, orgID: process.env.INFLU
 {{< /code-tabs-wrapper >}}
 
 ## Create UI layout
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 
 ### Create a shared layout in a custom app
 
@@ -539,7 +543,7 @@ To retrieve registered devices, send a Flux query to the `POST /api/v2/query` In
 
 ### Create the Flux query to find devices
 
-To retrieve registered devices from your `INFLUX_BUCKET_AUTH` bucket, get the last row of each [series]() that contains a `deviceauth` measurement. The example below returns rows that contain the `key` field (authorization ID) and excludes rows that contain a `token` field (to avoid exposing sensitive token values).
+To retrieve registered devices from your `INFLUX_BUCKET_AUTH` bucket, get the last row of each [series](/influxdb/v2.2/reference/glossary#series) that contains a `deviceauth` measurement. The example below returns rows that contain the `key` field (authorization ID) and excludes rows that contain a `token` field (to avoid exposing sensitive token values).
 
 ```js
 // Flux query finds devices
@@ -618,7 +622,7 @@ The example below exports a server request `handler` function that listens for r
 2. Paste the following example:
 
 ```js
-{{< get-shared-text "api/v2.0/client-library-examples/nodejs/server/devices/index.js" >}}
+{{< get-shared-text "api/v2.0/client-library-examples/nodejs/server/devices/_devices.js" >}}
 ```
 
 {{% /code-tab-content %}}
@@ -630,7 +634,7 @@ Next, learn how to add an endpoint that [registers a device](#register-a-device)
 
 In **IoT Starter**, a _registered device_ is a point that contains your device ID and authorization details (API token and authorization ID).
 A device authorization defines _read_ and _write_ permissions on `INFLUX_BUCKET`.
-To register devices, you'll add an `/api/devices/create` route that passes requests
+To register devices, you'll add the `/api/devices/create` route that passes requests
 to InfluxDB and returns the new authorization.
 `/api/devices/create` will use the following `/api/v2` InfluxDB API endpoints:
 
@@ -640,7 +644,7 @@ to InfluxDB and returns the new authorization.
 - `POST /api/v2/write`: to write the device authorization to `INFLUX_BUCKET_AUTH`
 
 - [Create an authorization for the device](#create-an-authorization-for-the-device)
-- [Write the device authorization to a bucket]()
+- [Write the device authorization to a bucket](#write-the-device-authorization-to-a-bucket)
 - [Copy the register device example](#copy-the-register-device-example)
 
 ### Get the bucket ID
@@ -686,7 +690,8 @@ In your request body, pass an authorization with the following:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-The example below creates an authorization with the Javascript client library in four steps:
+The example below uses the JavaScript client library to create an authorization
+in the following steps:
 
 1. Instantiates the `InfluxDB` client as `influxdb`
 2. Instantiates the Authorizations client with the `influxdb` configuration
