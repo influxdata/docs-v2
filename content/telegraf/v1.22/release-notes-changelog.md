@@ -9,9 +9,10 @@ menu:
     name: Release notes
     weight: 60
 ---
-## v1.22.2 [2022-4-26]
+## v1.22.2 [2022-4-25]
 
 - Allow Makefile to work on Windows.
+- Allow zero outputs when using `test-wait` parameter.
 
 ## Input plugin updates
 - Aerospike (`aerospike`): Fix statistics query bug.
@@ -29,7 +30,6 @@ menu:
 
 ## Output plugin updates
 - InfluxDB v2 (`influxdb_v2`): Improve error message.
-- Allow zero outputs when using `test-wait` parameter.
 
 ## Dependency updates
 - Update `github.com/Azure/azure-kusto-go` from 0.5.0 to 0.60.
