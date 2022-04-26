@@ -9,7 +9,44 @@ menu:
     name: Release notes
     weight: 60
 ---
-## v1.22.0 [2022-4-6]
+## v1.22.2 [2022-4-25]
+
+- Allow Makefile to work on Windows.
+- Allow zero outputs when using `test-wait` parameter.
+
+## Input plugin updates
+- Aerospike (`aerospike`): Fix statistics query bug.
+- Aliyun CMS (`aliyuncms`): Ensure metrics accept array.
+- Cisco Telemetry MDT (`cisco_telemetry_mdt`):
+  - Align the default value for message size.
+  - Remove overly verbose info message.
+- GNMI (`gnmi`):
+  - Add mutex to lookup map.
+  - Use sprint to cast to strings.
+- Consul agent (`consul_agent`): Use correct auth token.
+- MySQL (`mysql`): Add `mariadb_dialect` to address the MariaDB differences in `INNODB_METRICS`.
+- SMART (`smart`): Correctly parse various numeric forms
+- Prometheus (`prometheus`): Moved from watcher to informer.
+
+## Output plugin updates
+- InfluxDB v2 (`influxdb_v2`): Improve error message.
+
+## Dependency updates
+- Update `github.com/Azure/azure-kusto-go` from 0.5.0 to 0.60.
+- Update `opentelemetry` from v0.2.10 to v0.2.17.
+- Update `go.opentelemetry.io/collector/pdata` from v0.48.0 to v0.49.0.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.13.1 to 1.15.3
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs`.
+- Update `github.com/aws/aws-sdk-go-v2/credentials` from 1.8.0 to 1.11.2.
+- Update `github.com/containerd/containerd` from v1.5.9 to v1.5.11.
+- Update `github.com/miekg/dns` from 1.1.46 to 1.1.48.
+- Update `github.com/gopcua/opcua` from v0.3.1 to v0.3.3
+- Update `github.com/aws/aws-sdk-go-v2/service/dynamodb`.
+- Update `github.com/xdg/scram` from 1.0.3 to 1.0.5.
+- Update `go.mongodb.org/mongo-driver` from 1.8.3 to 1.9.0.
+- Update `starlark 7a1108eaa012->d1966c6b9fcd`.
+
+## v1.22.1 [2022-4-6]
 
 - Update `gonum.org/v1/gonum` from 0.9.3 to 0.11.0.
 - Update `github.com/golang-jwt/jwt/v4` from 4.2.0 to 4.4.1.
