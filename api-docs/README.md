@@ -39,16 +39,23 @@ Cloud API spec. We regenerate API reference docs from `influxdata/openapi`
  Given that
  `influxdata/openapi` **master** may contain OSS spec changes not implemented
  in the current OSS release, we (Docs team) maintain a release branch, `influxdata/openapi`
-**docs-release/influxdb-oss** used to generate OSS reference docs.
+**docs-release/influxdb-oss**, used to generate OSS reference docs.
 
-To update this branch, do the following:
+To update this branch to a new OSS release, (re)base on the commit or tag for the [latest release of InfluxDB OSS](#how-to-find-the-api-spec-used-by-an-influxdb-oss-version).
 
-  1. (Re)base on the commit used by the [latest release of InfluxDB OSS](#how-to-find-the-api-spec-used-by-an-influxdb-oss-version).
+```sh
+git checkout docs-release/influxdb-oss
+git rebase -i influxdb-oss-v2.2.0
+git push -f origin docs-release/influxdb-oss
+```
 
-  2. Cherry-pick your documentation fixes into the release branch.
-# on the release branch
-git cherry-pick <your commit hash>
-  3. Force push to the same release branch.
+To update this branch with documentation changes between OSS releases, cherry-pick your documentation commits into the release branch.
+
+```sh
+git checkout docs-release/influxdb-oss
+git cherry-pick <commit hashes>
+git push -f origin docs-release/influxdb-oss
+```
 
 ### How to find the API spec used by an InfluxDB OSS version
 
