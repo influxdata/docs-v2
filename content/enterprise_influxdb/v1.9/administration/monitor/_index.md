@@ -24,7 +24,7 @@ InfluxDB Aware and Influx Insights is a free Enterprise service that sends your 
 Aware assists you in monitoring your data by yourself.
 Insights assists you in monitoring your data with the help of the support team.
 
-To apply for this service, please contact the [support team](support@influxdata.com).
+To apply for this service, please contact the [support team](https://support.influxdata.com/s/login/).
 {{% /note %}}
 
 {{< children >}}

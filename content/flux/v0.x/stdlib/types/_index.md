@@ -12,7 +12,7 @@ menu:
 weight: 11
 flux/v0.x/tags: [types, functions, package]
 cascade:
-  introduced: 0.140.0
+  introduced: 0.141.0
 ---
 
 The Flux `types` package provides functions for working with

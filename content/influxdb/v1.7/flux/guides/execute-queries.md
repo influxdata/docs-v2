@@ -26,9 +26,11 @@ Chronograf v1.7+ supports Flux in its Data Explorer.
 Flux queries can be built, executed, and visualized from within the Chronograf user interface.
 
 ## Influx CLI
-InfluxDB v1.7+'s `influx` CLI includes a `-type` option which allows you specify
-what type of interactive session to start.
-`-type=flux` will start an interactive read-eval-print-loop (REPL) that supports Flux.
+To start an interactive Flux read-eval-print-loop (REPL) with the InfluxDB 1.7+
+`influx` CLI, run the `influx` command with the following flags:
+
+- `-type=flux`
+- `-path-prefix=/api/v2/query`
 
 {{% note %}}
 If [authentication is enabled](/influxdb/v1.7/administration/authentication_and_authorization)
@@ -44,12 +46,15 @@ the `-password` flag to provide your password.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash
-influx -type=flux
+influx -type=flux -path-prefix=/api/v2/query
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```bash
-influx -type=flux -username myuser -password PasSw0rd
+influx -type=flux \
+  -path-prefix=/api/v2/query \
+  -username myuser \
+  -password PasSw0rd
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -67,12 +72,18 @@ The accompanying string is executed as a Flux query and results are output in yo
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash
-influx -type=flux -execute '<flux query>'
+influx -type=flux \
+  -path-prefix=/api/v2/query \
+  -execute '<flux query>'
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```bash
-influx -type=flux -username myuser -password PasSw0rd -execute '<flux query>'
+influx -type=flux \
+  -path-prefix=/api/v2/query \
+  -username myuser \
+  -password PasSw0rd \
+  -execute '<flux query>'
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -88,12 +99,15 @@ Query results are otuput in your terminal.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash
-echo '<flux query>' | influx -type=flux
+echo '<flux query>' | influx -type=flux -path-prefix=/api/v2/query
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```bash
-echo '<flux query>' | influx -type=flux -username myuser -password PasSw0rd
+echo '<flux query>' | influx -type=flux \
+  -path-prefix=/api/v2/query \
+  -username myuser \
+  -password PasSw0rd
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
