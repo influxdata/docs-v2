@@ -137,7 +137,7 @@ In API reference docs, we use OpenAPI `tags` elements for navigation and the
 ## How to test your spec or API reference changes
 
 You can use `getswagger.sh` to fetch contracts from any URL.
-For example, if you've made changes to spec files and generated new contracts in your local `openapi` repo, use `getswagger.sh` to fetch and process them.
+For example, if you've made changes to spec files and generated new contracts in your local `openapi` repo, run `getswagger.sh` to fetch and process them.
 
 To fetch contracts from your own `openapi` repo, pass the
 `-b` `base_url` option and the full path to your `openapi` directory.
