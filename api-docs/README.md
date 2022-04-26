@@ -46,7 +46,8 @@ To update this branch, do the following:
   1. (Re)base on the commit used by the [latest release of InfluxDB OSS](#how-to-find-the-api-spec-used-by-an-influxdb-oss-version).
 
   2. Cherry-pick your documentation fixes into the release branch.
-
+# on the release branch
+git cherry-pick <your commit hash>
   3. Force push to the same release branch.
 
 ### How to find the API spec used by an InfluxDB OSS version
