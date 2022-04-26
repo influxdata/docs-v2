@@ -12,7 +12,7 @@ influxdb/v2.2/tags: [api]
 The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.
 Access the InfluxDB API using the `/api/v2/` endpoint.
 
-## InfluxDB developer guides
+## Developer guides
 
 
 ## InfluxDB client libraries
