@@ -61,7 +61,7 @@ git push -f origin docs-release/influxdb-oss
 
 `influxdata/openapi` does not version the InfluxData API.
 To find the `influxdata/openapi` commit SHA used in a specific version of InfluxDB OSS,
-check that version (commit or tag) of `/scripts/fetch-swagger.sh` in `influxdata/influxdb`,
+see `/scripts/fetch-swagger.sh` in `influxdata/influxdb`,
 e.g. https://github.com/influxdata/influxdb/blob/v2.2.0/scripts/fetch-swagger.sh#L13=.
 For convenience, we tag `influxdata/influxdb` (OSS) release points in `influxdata/openapi` as
 `influxdb-oss-v[OSS_VERSION]`. See <https://github.com/influxdata/openapi/tags>.
