@@ -124,7 +124,7 @@ See the [complete list of OAS v3.0 nodes](https://github.com/Redocly/openapi-cli
 
 `@redocly/openapi-cli` requires that modules use CommonJS `require` syntax for imports.
 
-### How add tag content or describe a group of paths
+### How to add tag content or describe a group of paths
 
 In API reference docs, we use OpenAPI `tags` elements for navigation and the
 `x-traitTag` vendor extension to define custom content.
