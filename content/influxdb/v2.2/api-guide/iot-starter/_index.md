@@ -5,7 +5,8 @@ description: Use your favorite language with the InfluxDB API to build the IoT C
 weight: 4
 menu:
   influxdb_2_2:
-    name: IoT Starter Guide
+    name: IoT Center
+    parent: Develop with the API
 influxdb/v2.2/tags: [api]
 ---
 
