@@ -10,10 +10,12 @@ menu:
 influxdb/v2.2/tags: [api]
 ---
 
-Follow step-by-step tutorials to build the IoT Center app with API client
+## IoT Center tutorials
+
+Follow step-by-step tutorials to build the IoT Center with API client
 libraries in your favorite framework or language.
 
 ## Node.js
 
-[Build an app with the JavaScript client library](/{{% latest "influxdb" %}}/api-guide/iot-starter/nodejs/)
-in Node.JS and React.
+[Build a Node.js and React app](/{{% latest "influxdb" %}}/api-guide/iot-starter/nodejs/)
+with the JavaScript client library.
