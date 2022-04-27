@@ -196,11 +196,11 @@ $ influxd-ctl -bind cluster-meta-node-01:8091 add-data cluster-data-node:8088
 Added data node 3 at cluster-data-node:8088
 ```
 
-###### Add a passive node to the cluster
+###### Add a passive node to a cluster
 **Passive nodes** are data nodes that do not own any shards. Passive nodes have the ability to acts as load balancers. They accept write calls, perform shard lookup and RPC calls and distribute writes to the data node that owns the shard. If you are using passive nodes, they should be the write endpoint for all data ingest. A cluster can have multiple passive nodes.
 
 ```bash
-influxd-ctl add-data -p <address>
+influxd-ctl add-data -p <passive-data-node-TCP-bind-address>
 ```
 
 ### `add-meta`
@@ -1096,6 +1096,18 @@ TCP Address             Version         Labels
 cluster-node-01:8091    1.9.x-c1.9.x    {}
 cluster-node-02:8091    1.9.x-c1.9.x    {}
 cluster-node-03:8091    1.9.x-c1.9.x    {}
+```
+##### Show active and passive data nodes in a cluster
+
+In this example, the `show` command output displays that the cluster includes a passive data node.
+
+```bash
+Data Nodes
+==========
+ID	TCP Address               Version		    Labels	  Passive
+4	 cluster-node_0_1:8088		  1.9.6-c1.9.6  {}	      false
+5	 cluster-node_1_1:8088		  1.9.6-c1.9.6  {}	      true
+6	 cluster-node_2_1:8088		  1.9.6-c1.9.6  {}	      false
 ```
 
 ### `show-shards`

@@ -136,7 +136,15 @@ more information.
 
 ## Passive node setup (experimental)
 
-Passive nodes are data nodes that do not own shards.  They accept write calls but do not write any data to their own disks.  They perform shard lookup and RPC calls (on non-passive nodes) and distribute writes to the data nodes that own shards.  In essence, they act as a kind of load balancer. 
+Passive nodes are data nodes that do not own shards.  They accept write calls but do not write any data to their own disks.  They perform shard lookup and RPC calls (on non-passive nodes) and distribute writes to the data nodes that own shards.  In essence, they act as a kind of load balancer. You can use this feature when you have a replication factor (RF) of 2 or more and your CPU usage is consistently above 80 percent.  Using the passive feature allows you to scale a cluster when you can no longer vertically scale. This active-passive node setup feature is especially useful if you experience a large amount of hinted handoff growth. The passive node writes the hinted handoff queue to its own disk and then communicates periodically with the appropriate node until it can send the queue contents there.
 
+Best practices when using an active-passive node setup: 
+  - Use when you have a large cluster setup, generally 8 or more nodes.
+  - You should have an equal number of active and passive nodes.  
+  - The passive nodes should receive all writes.  
 
+For instructions on how to add a paasive node to a cluster see [Add a passive node to a cluster](/enterprise_influxdb/v1.9/tools/influxd-ctl/#add-a-passive-node-to-the-cluster).
 
+{{% note %}}
+**NOTE:**  This feature is experimental and available only in Influx Enterprise.
+{{% /note %}}
