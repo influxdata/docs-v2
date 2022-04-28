@@ -11,10 +11,11 @@ const { tags } = require('../../../content/content')
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 function SetTags() {
   const data = tags();
-  let tags = [];
+
   return {
     DefinitionRoot: {
-      leave(root) {
+      /** Set tags from custom tags when visitor enters root. */
+      enter(root) {
 	      if(data) {
           root.tags = data;
       	}

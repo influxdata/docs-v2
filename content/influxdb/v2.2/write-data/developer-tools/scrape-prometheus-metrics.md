@@ -1,6 +1,6 @@
 ---
 title: Scrape Prometheus metrics
-seotitle: Scape Prometheus metrics into InfluxDB
+seotitle: Scrape Prometheus metrics into InfluxDB
 weight: 205
 description: >
   Use Telegraf, InfluxDB scrapers, or the `prometheus.scrape` Flux function to
