@@ -1240,7 +1240,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 - Add [DMCache input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/dmcache).
 - Add support for precision in [HTTP Listener input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/http_listener).
 - Add `message_len_max` option to the [Kafka consumer input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/kafka_consumer).
-- Add [collectd parser]((https://archive.docs.influxdata.com/telegraf/v1.3/concepts/data_formats_input/#collectd).
+- Add [collectd parser](https://archive.docs.influxdata.com/telegraf/v1.3/concepts/data_formats_input/#collectd).
 - Simplify plugin testing without outputs.
 - Check signature in the [GitHub webhook input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/webhooks/github).
 - Add [papertrail](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/webhooks/papertrail) support to webhooks.
