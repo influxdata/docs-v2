@@ -18,12 +18,17 @@ related:
 introduced: 0.7.0
 ---
 
-The `stateDuration()` function computes the duration of a given state.
-The state is defined via the function `fn`.
-For each consecutive point for that evaluates as `true`, the state duration will be
-incremented by the duration between points.
-When a point evaluates as `false`, the state duration is reset.
+`stateDuration()` returns the cumulative duration of a given state.
+
+The state is defined by the `fn` predicate function. For each consecutive
+record that evaluates to `true`, the state duration is incremented by the
+duration of time between records using the specified `unit`. When a record
+evaluates to `false`, the value is set to `-1` and the state duration is reset.
+If the record generates an error during evaluation, the point is discarded,
+and does not affect the state duration.
+
 The state duration is added as an additional column to each record.
+The duration is represented as an integer in the units specified.
 
 {{% note %}}
 As the first point in the given state has no previous point, its

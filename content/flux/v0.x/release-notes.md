@@ -10,6 +10,105 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.165.0 [2022-04-25]
+
+### Features
+- Add support for options in the `testcase` extension.
+- Vectorize addition operations in `map()`.
+- Add location support to `date.truncate()`.
+- Accept string literals in properties of a record type.
+- Add trace option to the `flux` CLI.
+- Add `EquiJoinPredicateRule`.
+
+### Bug fixes
+- Update `map()` test case to include a range.
+- Don't set `BaseLocation.file` to `Some("")`.
+- Fix `strings.joinStr` panic when it receives a null value.
+- Remove 64bit misalignment.
+- Fix memory releases and add checked allocator to the end of tests.
+
+---
+
+## v0.164.1 [2022-04-18]
+
+### Bug fixes
+- Remove an extraneous `go generate` statement.
+
+---
+
+## v0.164.0 [2022-04-13]
+
+### Features
+- Allow Go to pass compilation options to Rust.
+
+### Bug fixes
+- Do not assume integers are 64bit integers.
+- Update `prometheus.scrape` type signature to correctly return a stream.
+
+---
+
+## v0.163.0 [2022-04-07]
+
+### Features
+- Report skipped tests.
+
+### Bug fixes
+- Update transformation transport adapter to always invoke `finish`.
+- Add support for "soft paragraphs" (paragraphs that contain single newline
+  characters) in inline Flux documentation.
+
+---
+
+## v0.162.0 [2022-04-05]
+
+### Features
+- Add [OpenTracing spans](https://opentracing.io/docs/overview/spans/) to the Flux runtime.
+- Add the `cffi` feature to reduce WASM binary size.
+- Replace the main `flux` CLI with a new `flux` CLI that starts a Flux REPL by
+  default or executes a Flux script via stdin.
+- Track freed memory with `SetFinalizer`.
+- Move [`addDuration()`](/flux/v0.x/stdlib/date/addduration/) and
+  [`subDuration()`](/flux/v0.x/stdlib/date/subduration/) from the `experimental`
+  package to the `date` package.
+
+### Bug fixes
+- Improve error messages for column conflicts in pivot operations.
+- Create OpenTracing spans for transformations using the proper context.
+- Add errors to OpenTracing spans created for transformations.
+- Restore required features hidden behind the `cffi` feature.
+
+---
+
+## v0.161.0 [2022-03-24]
+
+### Features
+- Re-enable the dialer pool and update dependency injection.
+
+### Bug fixes
+- Check length boundary for lower bound of [`strings.substring()`](/flux/v0.x/stdlib/strings/substring/).
+
+---
+
+## v0.160.0 [2022-03-22]
+
+### Features
+- Remove the `concurrencyLimit` feature flag and keep it in the dependencies.
+- Add MQTT Docker integration test.
+- Enable dialer pool.
+- Add an IOx-specific unpivot function to the `internal` package.
+
+### Bug fixes
+- Update [`join()`](/flux/v0.x/stdlib/universe/join/) to properly handle divergent schemas.
+- Fix line endings in the `testcase` format to prevent unnecessarily nesting the
+  body of a test case.
+- Make [`strings.substring()`](/flux/v0.x/stdlib/strings/substring/) check bounds correctly.
+- Fix duration and integer literal scanning.
+- Make `testcase` a semantic check instead of an error.
+- Skip parallel merge when selecting the result name based on side effects.
+- Add metadata headers to inline documentation.
+
+---
+
 ## v0.159.0 [2022-03-14]
 
 ### Features

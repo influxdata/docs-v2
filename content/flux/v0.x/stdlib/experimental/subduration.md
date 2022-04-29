@@ -15,15 +15,16 @@ flux/v0.x/tags: [date/time]
 related:
   - /flux/v0.x/stdlib/experimental/addduration/
 introduced: 0.39.0
+deprecated: 0.162.0
 ---
+
+{{% warn %}}
+This function was promoted to the [`date` package](/flux/v0.x/stdlib/date/subduration/)
+in **Flux v0.162.0**. This experimental version has been deprecated.
+{{% /warn %}}
 
 The `experimental.subDuration()` function subtracts a duration from a time value and
 returns the resulting time value.
-
-{{% warn %}}
-This function will be removed once duration vectors are implemented.
-See [influxdata/flux#413](https://github.com/influxdata/flux/issues/413).
-{{% /warn %}}
 
 ```js
 import "experimental"
@@ -37,10 +38,10 @@ experimental.subDuration(
 ## Parameters
 
 ### d {data-type="duration"}
-The duration to subtract.
+Duration to subtract.
 
 ### from {data-type="time, duration"}
-The time to subtract the [duration](#d) from.
+Time to subtract the [duration](#d) from.
 Use an absolute time or a relative duration.
 Durations are relative to [`now()`](/flux/v0.x/stdlib/universe/now/).
 

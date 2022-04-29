@@ -347,7 +347,7 @@ Compare the output from this command to the hash listed on the downloads page to
 ### Configure an input plugin
 
 The Telegraf ZIP archive contains a default configuration file (`telegraf.conf`).
-In this file, the input plugin for capturing basic [Windows system metrics](/telegraf/v1.19/plugins/#win_perf_counters) is already activated.
+In this file, the input plugin for capturing basic [Windows system metrics](/telegraf/v1.19/plugins/#input-win_perf_counters) is already activated.
 With this plugin, Telegraf monitors the following defined Windows Operating System objects:
 
 - Processor
@@ -367,8 +367,8 @@ Before you start the Telegraf agent, configure an output plugin to send data to 
 Choose the appropriate plugin based on the version of InfluxDB you are using.
 
 The `telegraf.conf` file included in the ZIP archive contains sections for configuring
-both the [InfluxDB v1](/telegraf/v1.19/plugins/#influxdb) and
-[InfluxDB v2](/telegraf/v1.19/plugins/#influxdb_v2) output plugins.
+both the [InfluxDB v1](/telegraf/v1.19/plugins/#output-influxdb) and
+[InfluxDB v2](/telegraf/v1.19/plugins/#output-influxdb_v2) output plugins.
 
 #### Writing data to InfluxDB 1.x
 

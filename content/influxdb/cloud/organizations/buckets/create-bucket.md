@@ -65,7 +65,7 @@ to create a new bucket. A bucket requires the following:
 
 ```sh
 # Syntax
-influx bucket create -n <bucket-name> -o <org-name> -r <retention-period-duration>
+influx bucket create -n <BUCKET_NAME> -o <INFLUX_ORG> -r <RETENTION_PERIOD_DURATION>
 
 # Example
 influx bucket create -n my-bucket -o my-org -r 72h
