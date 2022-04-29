@@ -29,11 +29,11 @@ specified [`stop`](#stop) time.
 import "contrib/tomhollingworth/events"
 
 events.duration(
-  unit: 1ns,
-  columnName: "duration",
-  timeColumn: "_time",
-  stopColumn: "_stop",
-  stop: 2020-01-01T00:00:00Z
+    unit: 1ns,
+    columnName: "duration",
+    timeColumn: "_time",
+    stopColumn: "_stop",
+    stop: 2020-01-01T00:00:00Z,
 )
 ```
 
@@ -83,10 +83,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "contrib/tomhollingworth/events"
 
 data
-  |> events.duration(
-    unit: 1m,
-    stop: 2020-01-02T00:00:00Z
-  )
+    |> events.duration(unit: 1m, stop: 2020-01-02T00:00:00Z)
 ```
 
 {{< flex >}}
@@ -133,19 +130,11 @@ The example below includes output values of `events.duration()`, `elapsed()`, an
 {{% flex-content %}}
 ##### Functions
 ```js
-data |> events.duration(
-  unit: 1m,
-  stop: 2020-01-02T00:00:00Z
-)
+data |> events.duration(unit: 1m, stop: 2020-01-02T00:00:00Z)
 
-data |> elapsed(
-  unit: 1m
-)
+data |> elapsed(unit: 1m)
 
-data |> stateDuration(
-  unit: 1m,
-  fn: (r) => true
-)
+data |> stateDuration(unit: 1m, fn: (r) => true)
 ```
 {{% /flex-content %}}
 {{< /flex >}}

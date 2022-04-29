@@ -21,9 +21,7 @@ The `sample.data()` function downloads and outputs an InfluxDB sample dataset.
 ```js
 import "influxdata/influxdb/sample"
 
-sample.data(
-  set: "airSensor"
-)
+sample.data(set: "airSensor")
 ```
 
 {{% note %}}

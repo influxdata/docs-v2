@@ -38,14 +38,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "experimental/geo"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.toRows()
-```
-
-## Function definition
-```js
-toRows = (tables=<-) =>
-  tables
-    |> v1.fieldsAsCols()
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.toRows()
 ```

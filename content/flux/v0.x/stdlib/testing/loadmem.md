@@ -21,9 +21,7 @@ test data from memory to emulate query results returned by Flux.
 ```js
 import "testing"
 
-testing.loadMem(
-  csv: csvData
-)
+testing.loadMem(csv: csvData)
 ```
 
 ## Parameters

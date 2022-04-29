@@ -2,7 +2,7 @@
 title: Install InfluxDB Enterprise meta nodes
 aliases:
     - /enterprise_influxdb/v1.9/installation/meta_node_installation/
-    - /enterprise_influxdb/v1.9/install-and-deploy/installation/meta_node_installation/
+    - /enterprise_influxdb/v1.9/introduction/installation/installation/meta_node_installation/
 menu:
   enterprise_influxdb_1_9:
     name: Install meta nodes
@@ -257,4 +257,4 @@ Note that your cluster must have at least three meta nodes.
 If you do not see your meta nodes in the output, retry adding them to
 the cluster.
 
-After your meta nodes are part of your cluster, [install data nodes](/enterprise_influxdb/v1.9/install-and-deploy/installation/data_node_installation/).
+After your meta nodes are part of your cluster, [install data nodes](/enterprise_influxdb/v1.9/introduction/installation/installation/data_node_installation/).

@@ -83,11 +83,11 @@ to simulate data queried from InfluxDB and illustrate how `keys()` transforms da
 ```js
 import "influxdata/influxdb/sample"
 
-data = sample.data(set: "airSensor") 
-  |> filter(fn: (r) => r.sensor_id == "TLM0100")
+data = sample.data(set: "airSensor")
+    |> filter(fn: (r) => r.sensor_id == "TLM0100")
 
 data
-  |> keyValues(keyColumns: ["sensor_id", "_field"])
+    |> keyValues(keyColumns: ["sensor_id", "_field"])
 ```
 
 {{< expand-wrapper >}}
@@ -145,16 +145,16 @@ data
 ```js
 import "influxdata/influxdb/sample"
 
-data = sample.data(set: "airSensor") 
-  |> filter(fn: (r) => r.sensor_id == "TLM0100")
+data = sample.data(set: "airSensor")
+    |> filter(fn: (r) => r.sensor_id == "TLM0100")
 
 keyColumns = data
-  |> keys()
-  |> findColumn(fn: (key) => true, column: "_value")
-  // Returns [_field, _measurement, sensor_id]
+    |> keys()
+    |> findColumn(fn: (key) => true, column: "_value")
+// Returns [_field, _measurement, sensor_id]
 
 data
-  |> keyValues(keyColumns: keyColumns)
+    |> keyValues(keyColumns: keyColumns)
 ```
 
 {{< expand-wrapper >}}

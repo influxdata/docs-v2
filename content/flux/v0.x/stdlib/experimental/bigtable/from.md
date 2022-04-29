@@ -21,10 +21,10 @@ data source.
 import "experimental/bigtable"
 
 bigtable.from(
-  token: "mySuPeRseCretTokEn",
-  project: "exampleProjectID",
-  instance: "exampleInstanceID",
-  table: "example-table"
+    token: "mySuPeRseCretTokEn",
+    project: "exampleProjectID",
+    instance: "exampleInstanceID",
+    table: "example-table",
 )
 ```
 
@@ -64,9 +64,9 @@ bigtable_project = secrets.get(key: "BIGTABLE_PROJECT_ID")
 bigtable_instance = secrets.get(key: "BIGTABLE_INSTANCE_ID")
 
 bigtable.from(
-  token: bigtable_token,
-  project: bigtable_project,
-  instance: bigtable_instance,
-  table: "example-table"
+    token: bigtable_token,
+    project: bigtable_project,
+    instance: bigtable_instance,
+    table: "example-table"
 )
 ```

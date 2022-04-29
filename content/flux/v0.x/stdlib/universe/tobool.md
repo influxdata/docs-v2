@@ -51,7 +51,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.numericBool()
-  |> toBool()
+    |> toBool()
 ```
 
 {{< expand-wrapper >}}
@@ -87,10 +87,3 @@ sampledata.numericBool()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toBool = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: bool(v: r._value) }))
-```

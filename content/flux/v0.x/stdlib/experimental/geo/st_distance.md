@@ -25,8 +25,8 @@ Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experiment
 import "experimental/geo"
 
 geo.ST_Distance(
-  region: {lat: 40.7, lon: -73.3, radius: 20.0},
-  geometry: {lon: 39.7515, lat: 15.08433}
+    region: {lat: 40.7, lon: -73.3, radius: 20.0},
+    geometry: {lon: 39.7515, lat: 15.08433},
 )
 
 // Returns 10734.184618677662 (km)
@@ -50,18 +50,11 @@ _See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry
 ```js
 import "experimental/geo"
 
-region = {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
-}
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
 
 data
-  |> geo.toRows()
-  |> map(fn: (r) => ({
-    r with st_distance: ST_Distance(region: region, geometry: {lat: r.lat, lon: r.lon})
-  }))
+    |> geo.toRows()
+    |> map(fn: (r) => ({r with st_distance: ST_Distance(region: region, geometry: {lat: r.lat, lon: r.lon})}))
 ```
 
 ##### Find the point nearest to a geographic location
@@ -71,9 +64,7 @@ import "experimental/geo"
 fixedLocation = {lat: 40.7, lon: -73.3}
 
 data
-  |> geo.toRows()
-  |> map(fn: (r) => ({ r with
-    _value: geo.ST_Distance(region: {lat: r.lat, lon: r.lon}, geometry: fixedLocation)
-  }))
-  |> min()
+    |> geo.toRows()
+    |> map(fn: (r) => ({r with _value: geo.ST_Distance(region: {lat: r.lat, lon: r.lon}, geometry: fixedLocation)}))
+    |> min()
 ```

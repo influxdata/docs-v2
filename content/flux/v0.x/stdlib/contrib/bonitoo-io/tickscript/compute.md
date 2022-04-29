@@ -26,9 +26,9 @@ that changes a column's name and optionally applies an aggregate or selector fun
 import "contrib/bonitoo-io/tickscript"
 
 tickscript.compute(
-  column: "_value",
-  fn: sum,
-  as: "example-name"
+    column: "_value",
+    fn: sum,
+    as: "example-name",
 )
 ```
 

@@ -41,5 +41,5 @@ The suffix to search for.
 import "strings"
 
 data
-  |> filter(fn:(r) => strings.hasSuffix(v: r.metric, suffix: "_count" ))
+    |> filter(fn:(r) => strings.hasSuffix(v: r.metric, suffix: "_count" ))
 ```

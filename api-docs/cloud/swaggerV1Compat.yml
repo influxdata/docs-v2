@@ -36,7 +36,7 @@ paths:
             type: string
           required: true
           description: >-
-            Bucket to write to. If none exists, a bucket will be created with a
+            Bucket to write to. If none exists, InfluxDB creates a bucket with a
             default 3-day retention policy.
         - in: query
           name: rp
@@ -486,8 +486,8 @@ tags:
 
       <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
-  - Query
-  - Write
+  - name: Query
+  - name: Write
 x-tagGroups:
   - name: Overview
     tags:

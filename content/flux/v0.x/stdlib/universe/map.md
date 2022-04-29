@@ -126,11 +126,13 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> map(fn: (r) => ({
-    time: r._time,
-    source: r.tag,
-    alert: if r._value > 10 then true else false
-  }))
+    |> map(
+        fn: (r) => ({
+            time: r._time,
+            source: r.tag,
+            alert: if r._value > 10 then true else false
+        })
+    )
 ```
 
 {{< expand-wrapper >}}
@@ -173,11 +175,13 @@ operated on by the map operation.
 import "sampledata"
 
 sampledata.int()
-  |> map(fn: (r) => ({
-    r with
-    server: "server-${r.tag}",
-    valueFloat: float(v: r._value)
-  }))
+  |> map(
+      fn: (r) => ({
+          r with
+          server: "server-${r.tag}",
+          valueFloat: float(v: r._value)
+      })
+  )
 ```
 
 {{< expand-wrapper >}}

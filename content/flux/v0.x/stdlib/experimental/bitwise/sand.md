@@ -19,10 +19,7 @@ flux/v0.x/tags: [bitwise]
 ```js
 import "experimental/bitwise"
 
-bitwise.sand(
-  a: 12,
-  b: 21
-)
+bitwise.sand(a: 12, b: 21)
 
 // Returns 4
 ```

@@ -26,13 +26,13 @@ Splunk acquired VictorOps and VictorOps is now
 import "contrib/bonitoo-io/victorops"
 
 victorops.alert(
-  url: "https://alert.victorops.com/integrations/generic/00000000/alert/${api_key}/${routing_key}",
-  monitoringTool: "",
-  messageType: "CRITICAL",
-  entityID: "",
-  entityDisplayName: "",
-  stateMessage: "",
-  timestamp: now()
+    url: "https://alert.victorops.com/integrations/generic/00000000/alert/${api_key}/${routing_key}",
+    monitoringTool: "",
+    messageType: "CRITICAL",
+    entityID: "",
+    entityDisplayName: "",
+    stateMessage: "",
+    timestamp: now(),
 )
 ```
 
@@ -91,20 +91,23 @@ apiKey = secrets.get(key: "VICTOROPS_API_KEY")
 routingKey = secrets.get(key: "VICTOROPS_ROUTING_KEY")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_idle")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_idle")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 victorops.alert(
-  url: "https://alert.victorops.com/integrations/generic/00000000/alert/${apiKey}/${routingKey}",
-  messageType:
-    if lastReported._value < 1.0 then "CRITICAL"
-    else if lastReported._value < 5.0 then "WARNING"
-    else "INFO",
-  entityID: "example-alert-1",
-  entityDisplayName: "Example Alert 1",
-  stateMessage: "Last reported cpu_idle was ${string(v: r._value)}."
+    url: "https://alert.victorops.com/integrations/generic/00000000/alert/${apiKey}/${routingKey}",
+    messageType:
+        if lastReported._value < 1.0 then
+            "CRITICAL"
+        else if lastReported._value < 5.0 then
+            "WARNING"
+        else
+            "INFO",
+    entityID: "example-alert-1",
+    entityDisplayName: "Example Alert 1",
+    stateMessage: "Last reported cpu_idle was ${string(v: r._value)}.",
 )
 ```

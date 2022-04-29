@@ -43,10 +43,10 @@ to the [`from()` function](/influxdb/cloud/reference/flux/stdlib/built-in/inputs
 
 ```js
 from(
-  bucket: "example-bucket",
-  host: "https://cloud2.influxdata.com",
-  org: "example-org",
-  token: "My5uP3rS3cRetT0k3n"
+    bucket: "example-bucket",
+    host: "https://cloud2.influxdata.com",
+    org: "example-org",
+    token: "My5uP3rS3cRetT0k3n"
 )
 ```
 

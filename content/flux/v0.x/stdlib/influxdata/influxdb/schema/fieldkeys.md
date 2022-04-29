@@ -24,11 +24,24 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/schema"
 
 schema.fieldKeys(
-  bucket: "example-bucket",
-  predicate: (r) => true,
-  start: -30d
+    bucket: "example-bucket",
+    predicate: (r) => true,
+    start: -30d,
 )
 ```
+
+{{% note %}}
+#### Deleted fields
+Fields [deleted from InfluxDB Cloud using the `/api/v2/delete` endpoint or the `influx delete` command](/influxdb/cloud/write-data/delete-data/)
+**do not** appear in results.
+
+#### Expired fields
+- **InfluxDB Cloud**: field keys associated with points outside of the bucket's
+  retention policy **may** appear in results up to an hour after expiring.
+- **InfluxDB OSS**: field keys associated with points outside of the bucket's
+  retention policy **may** appear in results.
+  For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
+{{% /note %}}
 
 ## Parameters
 

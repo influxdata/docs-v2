@@ -37,13 +37,6 @@ The regular expression object to convert to a string.
 
 ###### Convert regular expressions into strings in each row
 ```js
-import "regexp"
-
 data
-  |> map(fn: (r) => ({
-      r with
-      regex: r.regex,
-      regexStr: regexp.getString(r: r.regex)
-    })
-  )
+    |> map(fn: (r) => ({r with regex: r.regex, regexStr: regexp.getString(r: r.regex)}))
 ```

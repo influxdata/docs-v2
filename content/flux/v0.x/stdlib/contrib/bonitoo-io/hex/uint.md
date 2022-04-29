@@ -49,13 +49,15 @@ hex.uint(v: "-d431")
 _The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/)._
 
 ```js
+import "contrib/bonitoo-io/hex"
 import "sampledata"
 
-data = sampledata.uint()
-  |> map(fn: (r) => ({ r with _value: hex.string(v: r._value) }))
+data =
+    sampledata.uint()
+        |> map(fn: (r) => ({r with _value: hex.string(v: r._value)}))
 
 data
-  |> map(fn:(r) => ({ r with _value: hex.uint(v: r._value) }))
+    |> map(fn: (r) => ({r with _value: hex.uint(v: r._value)}))
 ```
 
 {{< expand-wrapper >}}

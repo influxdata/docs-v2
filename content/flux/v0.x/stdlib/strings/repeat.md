@@ -40,10 +40,10 @@ The number of times to repeat `v`.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      laugh: r.laugh
-      intensity: r.intensity
-      laughter: strings.repeat(v: r.laugh, i: r.intensity)
-    })
-  )
+    |> map(fn: (r) => ({
+            laugh: r.laugh,
+            intensity: r.intensity,
+            laughter: strings.repeat(v: r.laugh, i: r.intensity),
+        })
+    )
 ```

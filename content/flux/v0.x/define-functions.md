@@ -107,14 +107,14 @@ each row, modify the `_value`, and then return the updated row.
 ##### Function definition
 ```js
 multByX = (tables=<-, x) =>
-  tables
-    |> map(fn: (r) => ({ r with _value: r._value * x }))
+    tables
+        |> map(fn: (r) => ({r with _value: r._value * x}))
 ```
 
 ##### Example usage 
 ```js
 data
-  |> multByX(x: 2.0)
+    |> multByX(x: 2.0)
 ```
 
 {{< flex >}}
@@ -162,20 +162,22 @@ the updated row with a new `speed` column.
 ##### Function definition
 ```js
 speed = (tables=<-, unit="m") =>
-  tables
-    |> map(fn: (r) => {
-      elapsedHours = float(v: int(v: duration(v: r.elapsed))) / float(v: int(v: 1h))
-      distance = float(v: r.distance)
-      speed = distance / elapsedHours
-      
-      return { r with speed: "${speed} ${unit}ph" }
-    })
+    tables
+        |> map(
+            fn: (r) => {
+                elapsedHours = float(v: int(v: duration(v: r.elapsed))) / float(v: int(v: 1h))
+                distance = float(v: r.distance)
+                speed = distance / elapsedHours
+
+                return {r with speed: "${speed} ${unit}ph"}
+            },
+        )
 ```
 
 ##### Example usage
 ```js
 data
-  |> speed()
+    |> speed()
 ```
 
 {{< flex >}}
@@ -212,9 +214,9 @@ To create custom functions with variables scoped to the function,
 
 ```js
 functionName = (param) => {
-  exampleVar = "foo"
+    exampleVar = "foo"
 
-  return exampleVar
+    return exampleVar
 }
 ```
 
@@ -229,12 +231,17 @@ a numeric input value:
 
 ```js
 alertLevel = (v) => {
-  level = if float(v:v) >= 90.0 then "crit"
-          else if float(v:v) >= 80.0 then "warn"
-          else if float(v:v) >= 65.0 then "info"
-          else "ok"
-  
-  return level
+    level =
+        if float(v: v) >= 90.0 then
+            "crit"
+        else if float(v: v) >= 80.0 then
+            "warn"
+        else if float(v: v) >= 65.0 then
+            "info"
+        else
+            "ok"
+
+    return level
 }
 
 alertLevel(v: 87.3)
@@ -252,27 +259,30 @@ to create a dictionary of HEX codes and their corresponding names.
 import "dict"
 
 hexName = (hex) => {
-  hexNames = dict.fromList(pairs: [
-    {key: "#00ffff", value: "Aqua"},
-    {key: "#000000", value: "Black"},
-    {key: "#0000ff", value: "Blue"},
-    {key: "#ff00ff", value: "Fuchsia"},
-    {key: "#808080", value: "Gray"},
-    {key: "#008000", value: "Green"},
-    {key: "#00ff00", value: "Lime"},
-    {key: "#800000", value: "Maroon"},
-    {key: "#000080", value: "Navy"},
-    {key: "#808000", value: "Olive"},
-    {key: "#800080", value: "Purple"},
-    {key: "#ff0000", value: "Red"},
-    {key: "#c0c0c0", value: "Silver"},
-    {key: "#008080", value: "Teal"},
-    {key: "#ffffff", value: "White"},
-    {key: "#ffff00", value: "Yellow"},
-  ])  
-  name = dict.get(dict: hexNames, key: hex, default: "No known name")
-  
-  return name
+    hexNames =
+        dict.fromList(
+            pairs: [
+                {key: "#00ffff", value: "Aqua"},
+                {key: "#000000", value: "Black"},
+                {key: "#0000ff", value: "Blue"},
+                {key: "#ff00ff", value: "Fuchsia"},
+                {key: "#808080", value: "Gray"},
+                {key: "#008000", value: "Green"},
+                {key: "#00ff00", value: "Lime"},
+                {key: "#800000", value: "Maroon"},
+                {key: "#000080", value: "Navy"},
+                {key: "#808000", value: "Olive"},
+                {key: "#800080", value: "Purple"},
+                {key: "#ff0000", value: "Red"},
+                {key: "#c0c0c0", value: "Silver"},
+                {key: "#008080", value: "Teal"},
+                {key: "#ffffff", value: "White"},
+                {key: "#ffff00", value: "Yellow"},
+            ],
+        )
+    name = dict.get(dict: hexNames, key: hex, default: "No known name")
+
+    return name
 }
 
 hexName(hex: "#000000")

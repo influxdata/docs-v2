@@ -28,7 +28,7 @@ _See [Strict and non-strict filtering](#strict-and-non-strict-filtering) below._
 import "experimental/geo"
 
 geo.strictFilter(
-  region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
+    region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0},
 )
 ```
 
@@ -77,52 +77,39 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ```js
 import "experimental/geo"
 
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
+
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.toRows()
-  |> geo.strictFilter(
-    region: {
-      minLat: 40.51757813,
-      maxLat: 40.86914063,
-      minLon: -73.65234375,
-      maxLon: -72.94921875
-    }
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.toRows()
+    |> geo.strictFilter(region: region)
 ```
 
 ##### Filter data in a circular region
 ```js
 import "experimental/geo"
 
+region = {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
+
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.toRows()
-  |> geo.strictFilter(
-    region: {
-      lat: 40.69335938,
-      lon: -73.30078125,
-      radius: 20.0
-    }
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.toRows()
+    |> geo.strictFilter(region: region)
 ```
 
 ##### Filter data in a custom polygon region
 ```js
 import "experimental/geo"
 
+region = {
+    points: [{lat: 40.671659, lon: -73.936631}, {lat: 40.706543, lon: -73.749177}, {lat: 40.791333, lon: -73.880327}],
+}
+
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.toRows()
-  |> geo.strictFilter(
-    region: {
-      points: [
-        {lat: 40.671659, lon: -73.936631},
-        {lat: 40.706543, lon: -73.749177},
-        {lat: 40.791333, lon: -73.880327}
-      ]
-    }
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.toRows()
+    |> geo.strictFilter(region: region)
 ```

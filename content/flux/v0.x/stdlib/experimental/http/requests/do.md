@@ -104,11 +104,7 @@ requests.do(
 ```js
 import "experimental/http/requests"
 
-requests.do(
-    method: "GET",
-    url: "http://example.com",
-    params: ["start": ["100"]],
-)
+requests.do(method: "GET", url: "http://example.com", params: ["start": ["100"]])
 ```
 
 ### Make a GET request and decode the JSON response

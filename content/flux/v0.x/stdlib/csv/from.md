@@ -25,15 +25,15 @@ Each record in the table represents a single point in the series.
 import "csv"
 
 csv.from(
-  csv: csvData,
-  mode: "annotations"
+    csv: csvData,
+    mode: "annotations",
 )
 
 // OR
 
 csv.from(
-  file: "/path/to/data-file.csv",
-  mode: "annotations"
+    file: "/path/to/data-file.csv",
+    mode: "annotations",
 )
 ```
 
@@ -87,17 +87,16 @@ csv.from(file: "/path/to/data-file.csv")
 ##### Query raw CSV data from a file
 ```js
 import "csv"
-csv.from(
-  file: "/path/to/data-file.csv",
-  mode: "raw"
-)
+
+csv.from(file: "/path/to/data-file.csv", mode: "raw")
 ```
 
 ##### Query an annotated CSV string
 ```js
 import "csv"
 
-csvData = "
+csvData =
+    "
 #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
 #group,false,false,false,false,false,false,false,false
 #default,,,,,,,,
@@ -109,22 +108,25 @@ csvData = "
 
 csv.from(csv: csvData)
 ```
+
 ##### Query a raw CSV string
 ```js
 import "csv"
-csvData = "
+
+csvData =
+    "
 _start,_stop,_time,region,host,_value
 2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
 2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
 2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
 "
-csv.from(
-  csv: csvData,
-  mode: "raw"
-)
+
+csv.from(csv: csvData, mode: "raw")
 ```
 
+{{< expand-wrapper >}}
 {{% expand "Function updates" %}}
 #### v0.109.0
 - Add `mode` parameter to support querying raw CSV data.
 {{% /expand %}}
+{{< /expand-wrapper >}}

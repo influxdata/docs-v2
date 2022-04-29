@@ -311,6 +311,8 @@ Default is `1000000000`.
 
 The maximum size in bytes that a shard cache can reach before it starts rejecting writes.
 
+Consider increasing this value if encountering `cache maximum memory size exceeded` errors.
+
 Environment variable: `INFLUXDB_DATA_CACHE_MAX_MEMORY_SIZE`
 
 #### `cache-snapshot-memory-size`

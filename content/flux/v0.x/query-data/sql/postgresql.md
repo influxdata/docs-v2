@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
   
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://username:password@localhost:5432",
-    query: "SELECT * FROM example_table"
+      driverName: "postgres",
+      dataSourceName: "postgresql://username:password@localhost:5432",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [PostgreSQL](https://www.postgresql.org/) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://username:password@localhost:5432",
-  query: "SELECT * FROM example_table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://username:password@localhost:5432",
+    query: "SELECT * FROM example_table",
 )
 ```
 

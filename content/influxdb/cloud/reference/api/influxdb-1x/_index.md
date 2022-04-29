@@ -13,4 +13,4 @@ related:
   - /influxdb/cloud/query-data/influxql
 ---
 
-{{% duplicate-oss %}}
+{{< duplicate-oss >}}

@@ -45,9 +45,9 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "influxdata/influxdb/v1"
 
 from(bucket:"example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "cpu")
-  |> v1.fieldsAsCols()
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu")
+    |> v1.fieldsAsCols()
 ```
 
 {{< expand-wrapper >}}
@@ -80,16 +80,3 @@ _`_start` and `_stop` columns have been omitted._
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-package v1
-
-fieldsAsCols = (tables=<-) =>
-  tables
-    |> pivot(
-      rowKey:["_time"],
-      columnKey: ["_field"],
-      valueColumn: "_value"
-    )
-```

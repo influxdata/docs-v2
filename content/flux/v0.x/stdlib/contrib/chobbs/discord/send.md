@@ -21,11 +21,11 @@ a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intr
 import "contrib/chobbs/discord"
 
 discord.send(
-  webhookToken: "mySuPerSecRetTokEn",
-  webhookID: "123456789",
-  username: "username",
-  content: "This is an example message",
-  avatar_url: "https://example.com/avatar_pic.jpg"
+    webhookToken: "mySuPerSecRetTokEn",
+    webhookID: "123456789",
+    username: "username",
+    content: "This is an example message",
+    avatar_url: "https://example.com/avatar_pic.jpg",
 )
 ```
 
@@ -50,24 +50,23 @@ Override the Discord webhook's default avatar.
 
 ##### Send the last reported status to Discord
 ```js
-import "contrib/chobbs/discord"
 import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "DISCORD_TOKEN")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 discord.send(
-  webhookToken:token,
-  webhookID: "1234567890",
-  username: "chobbs",
-  content: "The current status is \"${lastReported.status}\".",
-  avatar_url: "https://staff-photos.net/pic.jpg"
+    webhookToken: token,
+    webhookID: "1234567890",
+    username: "chobbs",
+    content: "The current status is \"${lastReported.status}\".",
+    avatar_url: "https://staff-photos.net/pic.jpg",
 )
 ```
 

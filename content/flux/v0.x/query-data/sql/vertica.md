@@ -16,9 +16,9 @@ list_code_example: |
   import "sql"
   
   sql.from(
-    driverName: "vertica",
-    dataSourceName: "vertica://username:password@localhost:5432",
-    query: "SELECT * FROM public.example_table"
+      driverName: "vertica",
+      dataSourceName: "vertica://username:password@localhost:5432",
+      query: "SELECT * FROM public.example_table",
   )
   ```
 ---
@@ -36,9 +36,9 @@ To query [Vertica](https://www.vertica.com/) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "vertica",
-  dataSourceName: "vertica://username:password@localhost:5433/dbname",
-  query: "SELECT * FROM public.example_table"
+    driverName: "vertica",
+    dataSourceName: "vertica://username:password@localhost:5433/dbname",
+    query: "SELECT * FROM public.example_table",
 )
 ```
 

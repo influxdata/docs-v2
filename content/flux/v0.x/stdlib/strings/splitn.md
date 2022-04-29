@@ -52,5 +52,5 @@ The last substring is the unsplit remainder.
 import "strings"
 
 data
-  |> map (fn:(r) => strings.splitN(v: r.searchTags, t: ","))
+    |> map (fn:(r) => strings.splitN(v: r.searchTags, t: ","))
 ```
