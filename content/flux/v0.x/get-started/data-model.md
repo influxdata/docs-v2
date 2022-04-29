@@ -69,7 +69,6 @@ For example, InfluxDB returns data grouped by [series](/{{< latest "influxdb" >}
 so each table in the returned stream of tables represents a unique series.
 However, [SQL data sources](/flux/v0.x/stdlib/sql/from/) return a stream of tables
 with a single table and an empty group key.
-{{% /note %}}
 
 ### Column labels beginning with underscores
 Some data sources return column labels prefixed with an underscore (`_`).
