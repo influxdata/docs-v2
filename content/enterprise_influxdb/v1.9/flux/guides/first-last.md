@@ -20,12 +20,12 @@ to return the first or last record in an input table.
 
 ```js
 data
-  |> first()
+    |> first()
 
 // OR
 
 data
-  |> last()
+    |> last()
 ```
 
 {{% note %}}
@@ -120,8 +120,8 @@ point using aggregate or selector functions, and then removes the time-based seg
 {{% code-tab-content %}}
 ```js
 |> aggregateWindow(
-  every: 1h,
-  fn: first
+    every: 1h,
+    fn: first,
 )
 ```
 | _time                | _value |
@@ -133,8 +133,8 @@ point using aggregate or selector functions, and then removes the time-based seg
 {{% code-tab-content %}}
 ```js
 |> aggregateWindow(
-  every: 1h,
-  fn: last
+    every: 1h,
+    fn: last,
 )
 ```
 

@@ -21,9 +21,7 @@ All other severities convert to `trigger`.
 ```js
 import "pagerduty"
 
-pagerduty.actionFromSeverity(
-  severity: "ok"
-)
+pagerduty.actionFromSeverity(severity: "ok")
 
 // Returns "resolve"
 ```
@@ -32,12 +30,3 @@ pagerduty.actionFromSeverity(
 
 ### severity {data-type="float"}
 The severity to convert to a PagerDuty action.
-
-## Function definition
-```js
-import "strings"
-
-actionFromSeverity = (severity) =>
-  if strings.toLower(v: severity) == "ok" then "resolve"
-  else "trigger"
-```

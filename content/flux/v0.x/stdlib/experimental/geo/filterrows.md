@@ -28,13 +28,13 @@ and [`geo.strictFilter()`](/flux/v0.x/stdlib/experimental/geo/strictfilter/).
 import "experimental/geo"
 
 geo.filterRows(
-  region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0},
-  minSize: 24,
-  maxSize: -1,
-  level: -1,
-  s2cellIDLevel: -1,
-  correlationKey: ["_time"],
-  strict: true
+    region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0},
+    minSize: 24,
+    maxSize: -1,
+    level: -1,
+    s2cellIDLevel: -1,
+    correlationKey: ["_time"],
+    strict: true,
 )
 ```
 
@@ -48,7 +48,7 @@ To add `s2_cell_id` to the group key, use [`experimental.group`](/flux/v0.x/stdl
 import "experimental"
 
 // ...
-  |> experimental.group(columns: ["s2_cell_id"], mode: "extend")
+    |> experimental.group(columns: ["s2_cell_id"], mode: "extend")
 ```
 {{% /note %}}
 
@@ -123,21 +123,20 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ## Examples
 
+- [Strictly filter data in a box-shaped region](#strictly-filter-data-in-a-box-shaped-region)
+- [Approximately filter data in a circular region](#approximately-filter-data-in-a-circular-region)
+- [Filter data in a polygonal region](#filter-data-in-a-polygonal-region)
+
 ##### Strictly filter data in a box-shaped region
 ```js
 import "experimental/geo"
 
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
+
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.filterRows(
-    region: {
-      minLat: 40.51757813,
-      maxLat: 40.86914063,
-      minLon: -73.65234375,
-      maxLon: -72.94921875
-    }
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.filterRows(region: region)
 ```
 
 ##### Approximately filter data in a circular region
@@ -147,78 +146,24 @@ covered by the defined region even though some points my be located outside of t
 ```js
 import "experimental/geo"
 
+region = {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
+
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.filterRows(
-    region: {
-      lat: 40.69335938,
-      lon: -73.30078125,
-      radius: 20.0
-    }
-    strict: false
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.filterRows(region: region, strict: false)
 ```
 
 ##### Filter data in a polygonal region
 ```js
 import "experimental/geo"
 
-from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.filterRows(
-    region: {
-      points: [
-        {lat: 40.671659, lon: -73.936631},
-        {lat: 40.706543, lon: -73.749177},
-        {lat: 40.791333, lon: -73.880327}
-      ]
-    }
-  )
-```
-
-## Function definition
-{{% truncate %}}
-```js
-filterRows = (
-  tables=<-,
-  region,
-  minSize=24,
-  maxSize=-1,
-  level=-1,
-  s2cellIDLevel=-1,
-  strict=true
-) => {
-  _columns =
-    |> columns(column: "_value")
-    |> tableFind(fn: (key) => true )
-    |> getColumn(column: "_value")
-  _rows =
-    if contains(value: "lat", set: _columns) then
-      tables
-        |> gridFilter(
-          region: region,
-          minSize: minSize,
-          maxSize: maxSize,
-          level: level,
-          s2cellIDLevel: s2cellIDLevel)
-    else
-      tables
-        |> gridFilter(
-          region: region,
-          minSize: minSize,
-          maxSize: maxSize,
-          level: level,
-          s2cellIDLevel: s2cellIDLevel)
-        |> toRows()
-  _result =
-    if strict then
-      _rows
-        |> strictFilter(region)
-    else
-      _rows
-  return _result
+region = {
+    points: [{lat: 40.671659, lon: -73.936631}, {lat: 40.706543, lon: -73.749177}, {lat: 40.791333, lon: -73.880327}],
 }
+
+from(bucket: "example-bucket")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.filterRows(region: region)
 ```
-{{% /truncate %}}

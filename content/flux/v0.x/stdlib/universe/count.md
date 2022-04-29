@@ -33,10 +33,10 @@ count(column: "_value")
 `count()` returns `0` for empty tables.
 To keep empty tables in your data, set the following parameters for the following functions:
 
-| Function                                                                                              | Parameter           |
-|:--------                                                                                              |:---------           |
-| [filter()](/flux/v0.x/stdlib/universe/filter/)                              | `onEmpty: "keep"`   |
-| [window()](/flux/v0.x/stdlib/universe/window/)                              | `createEmpty: true` |
+| Function                                                         | Parameter           |
+| :--------------------------------------------------------------- | :------------------ |
+| [filter()](/flux/v0.x/stdlib/universe/filter/)                   | `onEmpty: "keep"`   |
+| [window()](/flux/v0.x/stdlib/universe/window/)                   | `createEmpty: true` |
 | [aggregateWindow()](/flux/v0.x/stdlib/universe/aggregatewindow/) | `createEmpty: true` |
 {{% /note %}}
 
@@ -58,7 +58,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.string()
-  |> count()
+    |> count()
 ```
 
 {{% expand "View input and output" %}}

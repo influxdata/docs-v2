@@ -19,21 +19,21 @@ The `alerta.alert()` function sends an alert to [Alerta](https://www.alerta.io/)
 import "contrib/bonitoo-io/alerta"
 
 alerta.alert(
-  url: "https://alerta.io:8080/alert",
-  apiKey: "0Xx00xxXx00Xxx0x0X",
-  resource: "example-resource",
-  event: "Example event",
-  environment: "",
-  severity: "critical",
-  service: [],
-  group: "",
-  value: "",
-  text: "",
-  tags: [],
-  attributes: {},
-  origin: "InfluxDB",
-  type: "",
-  timestamp: now(),
+    url: "https://alerta.io:8080/alert",
+    apiKey: "0Xx00xxXx00Xxx0x0X",
+    resource: "example-resource",
+    event: "Example event",
+    environment: "",
+    severity: "critical",
+    service: [],
+    group: "",
+    value: "",
+    text: "",
+    tags: [],
+    attributes: {},
+    origin: "InfluxDB",
+    type: "",
+    timestamp: now(),
 )
 ```
 
@@ -116,32 +116,29 @@ import "influxdata/influxdb/secrets"
 apiKey = secrets.get(key: "ALERTA_API_KEY")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "level"
-    )
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "level")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 severity = if lastReported._value > 50 then "warning" else "ok"
 
 alerta.alert(
-  url: "https://alerta.io:8080/alert",
-  apiKey: apiKey,
-  resource: "example-resource",
-  event: "Example event",
-  environment: "Production",
-  severity: severity,
-  service: ["example-service"],
-  group: "example-group",
-  value: string(v: lastReported._value),
-  text: "Service is ${severity}. The last reported value was ${string(v: lastReported._value)}.",
-  tags: ["ex1", "ex2"],
-  attributes: {},
-  origin: "InfluxDB",
-  type: "exampleAlertType",
-  timestamp: now(),
+    url: "https://alerta.io:8080/alert",
+    apiKey: apiKey,
+    resource: "example-resource",
+    event: "Example event",
+    environment: "Production",
+    severity: severity,
+    service: ["example-service"],
+    group: "example-group",
+    value: string(v: lastReported._value),
+    text: "Service is ${severity}. The last reported value was ${string(v: lastReported._value)}.",
+    tags: ["ex1", "ex2"],
+    attributes: {},
+    origin: "InfluxDB",
+    type: "exampleAlertType",
+    timestamp: now(),
 )
 ```

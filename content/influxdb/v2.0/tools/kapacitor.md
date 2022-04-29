@@ -95,7 +95,7 @@ see [Write back to InfluxDB](#write-back-to-influxdb) below.
 InfluxDB Cloud and OSS 2.0 do not have subscription APIs and do not support Kapacitor stream tasks directly.
 To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapcitior `write` API](/{{< latest "kapacitor" >}}/working/api/#writing-data).
 
-We recommend using [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
+We recommend using [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb)
 to write data to both InfluxDB Cloud or OSS and Kapacitor.
 The following example Telegraf configuration writes data to both InfluxDB and Kapacitor:
 

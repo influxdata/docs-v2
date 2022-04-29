@@ -49,7 +49,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> last()
+    |> last()
 ```
 
 {{% expand "View input and output" %}}

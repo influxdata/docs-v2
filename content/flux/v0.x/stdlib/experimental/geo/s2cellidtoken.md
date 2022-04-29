@@ -22,8 +22,8 @@ The `geo.s2CellIDToken()` function returns an S2 cell ID token.
 import "experimental/geo"
 
 geo.s2CellIDToken(
-  point: {lat: 37.7858229, lon: -122.4058124},
-  level: 10
+    point: {lat: 37.7858229, lon: -122.4058124},
+    level: 10,
 )
 ```
 
@@ -53,15 +53,9 @@ when generating the S2 cell ID token.
 import "experimental/geo"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> map(fn: (r) => ({
-    r with
-    s2_cell_id: geo.s2CellIDToken(
-      point: {lat: r.lat, lon: r.lon},
-      level: 10
-    )})
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(point: {lat: r.lat, lon: r.lon}, level: 10)}))
 ```
 
 ##### Update S2 cell ID token level
@@ -69,13 +63,7 @@ from(bucket: "example-bucket")
 import "experimental/geo"
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> map(fn: (r) => ({
-    r with
-    s2_cell_id: geo.s2CellIDToken(
-      token: r.s2_cell_id,
-      level: 10
-    )})
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(token: r.s2_cell_id, level: 10)}))
 ```

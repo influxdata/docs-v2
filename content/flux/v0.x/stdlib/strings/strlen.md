@@ -48,9 +48,5 @@ data
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      length: strings.strlen(v: r._value)
-    })
-  )
+    |> map(fn: (r) => ({r with length: strings.strlen(v: r._value)}))
 ```

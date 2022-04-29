@@ -27,12 +27,12 @@ Columns not part of the group key are removed and an upper bound column and a co
 
 ```js
 histogram(
-  column: "_value",
-  upperBoundColumn: "le",
-  countColumn: "_value",
-  bins: [50.0, 75.0, 90.0],
-  normalize: false
-  )
+    column: "_value",
+    upperBoundColumn: "le",
+    countColumn: "_value",
+    bins: [50.0, 75.0, 90.0],
+    normalize: false,
+)
 ```
 
 ## Parameters
@@ -84,7 +84,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float()
-  |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
+    |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
 ```
 
 {{< expand-wrapper >}}
@@ -123,9 +123,7 @@ sampledata.float()
 import "sampledata"
 
 sampledata.float()
-  |> histogram(
-    bins: linearBins(start:0.0, width:4.0, count:3)
-  )
+    |> histogram(bins: linearBins(start: 0.0, width: 4.0, count: 3))
 ```
 
 {{% expand "View input and output" %}}

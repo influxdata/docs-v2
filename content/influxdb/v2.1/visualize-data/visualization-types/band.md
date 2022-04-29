@@ -49,34 +49,34 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
 
 ```js
 from(bucket: "bucket_1")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r["_measurement"] == "cpu")
-  |> filter(fn: (r) => r["_field"] == "usage_system")
-  |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
-  |> aggregateWindow(every: 15s, fn: mean, createEmpty: false)
-  |> yield(name: "mean")
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r["_measurement"] == "cpu")
+    |> filter(fn: (r) => r["_field"] == "usage_system")
+    |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
+    |> aggregateWindow(every: 15s, fn: mean, createEmpty: false)
+    |> yield(name: "mean")
 
 from(bucket: "bucket_1")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r["_measurement"] == "cpu")
-  |> filter(fn: (r) => r["_field"] == "usage_system")
-  |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
-  |> aggregateWindow(every: 15s, fn: max, createEmpty: false)
-  |> yield(name: "max")
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r["_measurement"] == "cpu")
+    |> filter(fn: (r) => r["_field"] == "usage_system")
+    |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
+    |> aggregateWindow(every: 15s, fn: max, createEmpty: false)
+    |> yield(name: "max")
 
 from(bucket: "bucket_1")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r["_measurement"] == "cpu")
-  |> filter(fn: (r) => r["_field"] == "usage_system")
-  |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
-  |> aggregateWindow(every: 15s, fn: min, createEmpty: false)
-  |> yield(name: "min")
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r["_measurement"] == "cpu")
+    |> filter(fn: (r) => r["_field"] == "usage_system")
+    |> filter(fn: (r) => r["cpu"] == "cpu0" or r["cpu"] == "cpu1")
+    |> aggregateWindow(every: 15s, fn: min, createEmpty: false)
+    |> yield(name: "min")
 ```
 
 5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/{{< latest "flux" >}}/stdlib/universe/yield/) function.
 For example, to change the name of the first function from  `mean` to `Average`, modify the last line to the following:
   ```js
-    |> yield(name: "Average")
+  |> yield(name: "Average")
   ```
 6. Click **Customize** in the upper left.
 7. Under **Aggregate Functions**, enter the functions you created to determine each boundary (column) for comparison. If you changed the `yield` name for any of the functions above, enter the modified name here instead of the function name:

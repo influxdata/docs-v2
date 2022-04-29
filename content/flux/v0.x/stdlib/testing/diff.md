@@ -20,11 +20,11 @@ The `testing.diff()` function produces a diff between two streams.
 import "testing"
 
 testing.diff(
-  got: stream2,
-  want: stream1,
-  epsilon: 0.000001,
-  nansEqual: false,
-  verbose: false  
+    got: stream2,
+    want: stream1,
+    epsilon: 0.000001,
+    nansEqual: false,
+    verbose: false,
 )
 ```
 
@@ -67,18 +67,20 @@ Default is `false`.
 import "testing"
 
 want = from(bucket: "backup-example-bucket")
-  |> range(start: -5m)
+    |> range(start: -5m)
 got = from(bucket: "example-bucket")
-  |> range(start: -5m)
+    |> range(start: -5m)
+
 testing.diff(got: got, want: want)
 ```
 
 ##### Inline diff
 ```js
-import "testing"
+iimport "testing"
 
 want = from(bucket: "backup-example-bucket") |> range(start: -5m)
+
 from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> testing.diff(want: want)
+    |> range(start: -5m)
+    |> testing.diff(want: want)
 ```

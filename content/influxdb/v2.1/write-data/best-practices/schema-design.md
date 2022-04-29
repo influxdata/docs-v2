@@ -109,9 +109,9 @@ The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blu
 ```js
 // Query *Good Measurements*, data stored in separate tags (recommended)
 from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
+    |> mean()
 ```
 
 **Difficult to query**: [_Bad Measurements_](#bad-measurements-schema) requires regular expressions to extract `plot` and `region` from the measurement, as in the following example.
@@ -119,9 +119,9 @@ from(bucket:"example-bucket")
 ```js
 // Query *Bad Measurements*, data encoded in the measurement (not recommended)
 from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
+    |> mean()
 ```
 
 Complex measurements make some queries impossible. For example, calculating the average temperature of both plots is not possible with the [_Bad Measurements_](#bad-measurements-schema) schema.
@@ -134,10 +134,16 @@ In addition to keeping your keys free of data, follow these additional guideline
 
 ##### Avoid keywords and special characters in keys
 
-To simplify query writing, don't include reserved keywords or special characters in tag and field keys.
+To simplify query writing, don't include Flux keywords or special characters in tag and field keys.
 If you use [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) in keys,
 then you'll have to wrap the keys in double quotes.
-If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux]((/{{< latest "flux" >}}/).
+If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux](/{{< latest "flux" >}}/).
+
+{{% warn %}}
+
+InfluxDB doesn't allow writing points that use the following **reserved tag keys**: `time`, `field`, `_measurement`.
+
+{{% /warn %}}
 
 ##### Avoid duplicate names for tags and fields
 
@@ -158,6 +164,12 @@ Use [explicit bucket schemas]() to enforce unique tag and field keys within a sc
 This means that querying tags is more performant than querying fields.
 Your queries should guide what you store in tags and what you store in fields.
 
+{{% note %}}
+
+For more information about indexing and query performance, see how to [resolve high series cardinality](/influxdb/v2.1/write-data/best-practices/resolve-high-cardinality/).
+
+{{% /note %}}
+
 ### Use fields for unique and numeric data
 
 - Store unique or frequently changing values as field values.
@@ -174,8 +186,8 @@ For example, consider a bucket that stores data about thousands of users. With `
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -7d)
-  |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
+    |> range(start: -7d)
+    |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
 ```
 
 To retrieve data more quickly, filter on a tag to reduce the number of rows scanned.
@@ -184,9 +196,9 @@ The following query filters by the `company` tag to reduce the number of rows sc
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -7d)
-  |> filter(fn: (r) => r.company == "Acme")
-  |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
+    |> range(start: -7d)
+    |> filter(fn: (r) => r.company == "Acme")
+    |> filter(fn: (r) => r._field == "userId" and r._value == "abcde")
 ```
 
 ### Keep tags simple
@@ -232,9 +244,9 @@ The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blu
 ```js
 // Query *Good Tags* schema, data encoded in multiple tags
 from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
+    |> mean()
 ```
 
 **Difficult to query**: [_Bad Tags_](#bad-tags-schema) requires regular expressions to parse the complex `location` values, as in the following example.
@@ -242,9 +254,9 @@ from(bucket:"example-bucket")
 ```js
 // Query *Bad Tags* schema, multiple data encoded in a single tag
 from(bucket:"example-bucket")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
+    |> mean()
 ```
 
 For an overview of the InfluxDB data model, watch the following video:

@@ -23,9 +23,9 @@ given time bounds.
 import "experimental/query"
 
 query.fromRange(
-  bucket: "example-bucket",
-  start: -1h,
-  stop: now()
+    bucket: "example-bucket",
+    start: -1h,
+    stop: now(),
 )
 ```
 
@@ -54,17 +54,5 @@ Defaults to `now()`.
 ```js
 import "experimental/query"
 
-query.fromRange(
-  bucket: "example-bucket",
-  start: 2020-01-01T00:00:00Z
-)
-```
-
-## Function definition
-```js
-package query
-
-fromRange = (bucket, start, stop=now()) =>
-  from(bucket: bucket)
-    |> range(start: start, stop: stop)
+query.fromRange(bucket: "example-bucket", start: 2020-01-01T00:00:00Z)
 ```

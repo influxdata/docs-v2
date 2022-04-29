@@ -139,21 +139,21 @@ function updateUrls(prevUrls, newUrls) {
     oss: {}
   }
 
-    Object.keys(prevUrls).forEach(function(k) {
-      try {
-        prevUrlsParsed[k] = new URL(prevUrls[k])
-      } catch {
-        prevUrlsParsed[k] = { host: prevUrls[k] }
-      }
-    })
+  Object.keys(prevUrls).forEach(function(k) {
+    try {
+      prevUrlsParsed[k] = new URL(prevUrls[k])
+    } catch {
+      prevUrlsParsed[k] = { host: prevUrls[k] }
+    }
+  })
 
-    Object.keys(newUrls).forEach(function(k) {
-      try {
-        newUrlsParsed[k] = new URL(newUrls[k])
-      } catch {
-        newUrlsParsed[k] = { host: newUrls[k] }
-      }
-    })
+  Object.keys(newUrls).forEach(function(k) {
+    try {
+      newUrlsParsed[k] = new URL(newUrls[k])
+    } catch {
+      newUrlsParsed[k] = { host: newUrls[k] }
+    }
+  })
 
   /**
     * Match and replace <prev> host with <new> host
@@ -175,37 +175,43 @@ function updateUrls(prevUrls, newUrls) {
 
   replacements.forEach(function (o) {
     if (o.replace.origin != o.with.origin) {
+      var fuzzyOrigin = new RegExp(o.replace.origin + "(:[0-9]+)?", "g");
       $(elementSelector).each(function() {
         $(this).html(
-          $(this).html().replace(RegExp(o.replace.origin, "g"), function(match){
-            return o.with.origin || match;
+          $(this).html().replace(fuzzyOrigin, function(m){
+            return o.with.origin || m;
           })
         );
       })
     }
   });
+
+  function replaceWholename(startStr, endStr, replacement) {
+    var startsWithSeparator = new RegExp('[/.]');
+    var endsWithSeparator = new RegExp('[-.:]');
+    if(!startsWithSeparator.test(startStr) && !endsWithSeparator.test(endStr)) {
+      var newHost = startStr + replacement + endStr
+      return startStr + replacement + endStr;
+    }
+  }
+
   replacements
   .map(function(o) {
      return {replace: o.replace.host, with: o.with.host}
    })
   .forEach(function (o) {
-     if (o.replace != o.with) {
+    if (o.replace != o.with) {
+        var fuzzyHost = new RegExp("(.?)" + o.replace + "(.?)", "g");
        $(elementSelector).each(function() {
-         /**
-	  * Hostname pattern
-	  * 1. Lookbehind (?<!) matches if o.replace is not preceded by :[/.].
-	  * 2. Match 1 or no slashes following the hostname.
-	  * 3. Negative lookahead (?!) matches if not followed by word char, dash, or dot.
-	  */
-         var hostnameOnly = new RegExp("(?<![/.])" + o.replace + "\/?(?![/w/-/.])", "g")
-         $(this).html(
-           $(this).html().replace(hostnameOnly, function(match) {
-             return o.with.host || o.with;
-           })
-         );
-       })
-     }
-   })
+        $(this).html(
+          $(this).html().replace(fuzzyHost, function(m, p1, p2) {
+            var r = replaceWholename(p1, p2, o.with) || m;
+            return r
+          })
+        );
+      })
+    }
+  });
 }
 
 // Append the URL selector button to each codeblock with an InfluxDB Cloud or OSS URL
@@ -276,6 +282,29 @@ $("#modal-close, .modal-overlay, .url-trigger").click(function(e) {
   toggleModal()
 })
 
+
+// Add checked to fake-radio if cluster is selected on page load
+if ($("ul.clusters label input").is(":checked")) {
+  var group = $("ul.clusters label input:checked").parent().parent().parent().siblings();
+  $(".fake-radio", group).addClass("checked");
+};
+
+// Select first cluster when region is clicked
+$("p.region").click(function () {
+  if (!$(".fake-radio", this).hasClass("checked")) {
+    $(".fake-radio", this).addClass("checked");
+    $("+ ul.clusters li:first label", this).trigger("click");
+  };
+});
+
+// Remove checked class from fake-radio when another region is selected
+$(".region-group").click(function () {
+  if (!$(".fake-radio", this).hasClass("checked")) {
+    $(".fake-radio", !this).removeClass("checked");
+    $(".fake-radio", this).addClass("checked");
+  }
+})
+
 // Update URLs and URL preference when selected/clicked in the modal
 $('input[name="influxdb-cloud-url"]').change(function() {
   var newUrl = $(this).val()
@@ -325,17 +354,25 @@ showPreference()
 
 // Validate custom URLs
 function validateUrl(url) {
-  var validProtocol = /^http(s?)/
-  var invalidDomain =/[A-Z\s\!\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\\\|\;\'\"\,\<\>\/\?]/
-  var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
-  var domain = url.replace(protocol, "")
-
-  if (validProtocol.test(protocol) == false) {
-    return {valid: false, error: "Invalid protocol, use http[s]"}
-  } else if (domain.length == 0 || invalidDomain.test(domain) == true) {
-    return {valid: false, error: "Invalid domain"}
-  } else {
+  try {
+    new URL(url);
     return {valid: true, error: ""}
+  } catch(e) {
+    var validProtocol = /^http(s?)/
+    var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
+    var domain = url.replace(protocol, "")
+    /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
+    var validDomain = new RegExp(`([a-z0-9\-._~%]+`
+                               + `|\[[a-f0-9:.]+\]`
+                               + `|\[v[a-f0-9][a-z0-9\-._~%!$&'()*+,;=:]+\])`
+                               + `(:[0-9]+)?`);
+    if (validProtocol.test(protocol) == false) {
+      return {valid: false, error: "Invalid protocol, use http[s]"}
+    } else if (validDomain.test(domain) == false) {
+      return {valid: false, error: "Invalid domain"}
+    } else if (e) {
+      return {valid: false, error: "Invalid URL"}
+    }
   }
 }
 
@@ -396,17 +433,28 @@ $('#custom-url-field').blur(function() {
   applyCustomUrl()
 })
 
+/** Delay execution of a function `fn` for a number of milliseconds `ms`
+  * e.g., delay a validation handler to avoid annoying the user.
+  */
+function delay(fn, ms) {
+  let timer = 0
+  return function(...args) {
+    clearTimeout(timer)
+    timer = setTimeout(fn.bind(this, ...args), ms || 0)
+  }
+}
+
+function handleUrlValidation() {
+  let url = $('#custom-url-field').val()
+  let urlValidation = validateUrl(url)
+  if (urlValidation.valid) {
+    hideValidationMessage()
+  } else {
+    showValidationMessage(urlValidation)
+  }
+}
 // When in erred state, revalidate custom URL on keyup
-$(document).on("keyup", ".error #custom-url-field", function() {
-    console.log("keyed up")
-    let url = $('#custom-url-field').val()
-    let urlValidation = validateUrl(url)
-    if (urlValidation.valid) {
-      hideValidationMessage()
-    } else {
-      showValidationMessage(urlValidation)
-    }
-})
+$(document).on("keyup", "#custom-url-field", delay(handleUrlValidation, 500));
 
 // Populate the custom InfluxDB URL field on page load
 if ( Cookies.get('influxdb_custom_url') != undefined ) {

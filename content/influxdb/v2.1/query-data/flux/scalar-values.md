@@ -16,11 +16,11 @@ aliases:
   - /influxdb/v2.1/query-data/guides/scalar-values/
 list_code_example: |
   ```js
-  scalarValue = {
-    _record =
-      data
-        |> findRecord(fn: key => true, idx: 0)
-    return _record._value
+  scalarValue = (tables=<-) => {
+      _record = tables
+          |> findRecord(fn: (key) => true, idx: 0)
+
+      return _record._value
   }
   ```
 ---
@@ -67,10 +67,10 @@ _See [Sample data](#sample-data) below._
 
 ```js
 sampleData
-  |> findColumn(
-    fn: (key) => key._field == "temp" and key.location == "sfo",
-    column: "_value"
-  )
+    |> findColumn(
+        fn: (key) => key._field == "temp" and key.location == "sfo",
+        column: "_value",
+    )
 
 // Returns [65.1, 66.2, 66.3, 66.8]
 ```
@@ -85,10 +85,10 @@ _See [Sample data](#sample-data) below._
 
 ```js
 SFOTemps = sampleData
-  |> findColumn(
-    fn: (key) => key._field == "temp" and key.location == "sfo",
-    column: "_value"
-  )
+    |> findColumn(
+        fn: (key) => key._field == "temp" and key.location == "sfo",
+        column: "_value",
+    )
 
 SFOTemps
 // Returns [65.1, 66.2, 66.3, 66.8]
@@ -108,10 +108,10 @@ The function outputs a record with key-value pairs for each column.
 
 ```js
 sampleData
-  |> findRecord(
-    fn: (key) => key._field == "temp" and key.location == "sfo",
-    idx: 0
-  )
+    |> findRecord(
+        fn: (key) => key._field == "temp" and key.location == "sfo",
+        idx: 0,
+    )
 
 // Returns {
 //   _time:2019-11-11T12:00:00Z,
@@ -129,10 +129,10 @@ to reference keys in the record.
 
 ```js
 tempInfo = sampleData
-  |> findRecord(
-    fn: (key) => key._field == "temp" and key.location == "sfo",
-    idx: 0
-  )
+    |> findRecord(
+        fn: (key) => key._field == "temp" and key.location == "sfo",
+        idx: 0,
+    )
 
 tempInfo
 // Returns {
@@ -156,19 +156,17 @@ Create custom helper functions to extract scalar values from query output.
 ```js
 // Define a helper function to extract field values
 getFieldValue = (tables=<-, field) => {
-  extract = tables
-    |> findColumn(
-      fn: (key) => key._field == field,
-      column: "_value"
-    )
-  return extract[0]
+    extract = tables
+        |> findColumn(fn: (key) => key._field == field, column: "_value")
+
+    return extract[0]
 }
 
 // Use the helper function to define a variable
 lastJFKTemp = sampleData
-  |> filter(fn: (r) => r.location == "kjfk")
-  |> last()
-  |> getFieldValue(field: "temp")
+    |> filter(fn: (r) => r.location == "kjfk")
+    |> last()
+    |> getFieldValue(field: "temp")
 
 lastJFKTemp
 // Returns 71.2
@@ -178,18 +176,16 @@ lastJFKTemp
 ```js
 // Define a helper function to extract a row as a record
 getRow = (tables=<-, field, idx=0) => {
-  extract = tables
-    |> findRecord(
-      fn: (key) => true,
-      idx: idx
-    )
-  return extract
+    extract = tables
+        |> findRecord(fn: (key) => true, idx: idx)
+
+    return extract
 }
 
 // Use the helper function to define a variable
 lastReported = sampleData
-  |> last()
-  |> getRow(idx: 0)
+    |> last()
+    |> getRow(field: "temp")
 
 "The last location to report was ${lastReported.location}.
 The temperature was ${string(v: lastReported._value)}°F."

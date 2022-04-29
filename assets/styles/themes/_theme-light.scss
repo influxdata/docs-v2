@@ -18,7 +18,7 @@ $body-bg: #f3f4fb !default;
 $radius: 2px !default;
 
 // TopNav Colors
-$topnav-link: $g8-storm !default;
+$topnav-link: #020a47 !default;
 $topnav-link-hover: $b-dodger !default;
 $default-dropdown-gradient: $grad-PastelGothic !default;
 $theme-switch-light: none !default;
@@ -28,7 +28,7 @@ $theme-switch-dark: inline-block !default;
 $sidebar-search-bg: $g20-white !default;
 $sidebar-search-shadow: #cfd1e5 !default;
 $sidebar-search-highlight: $b-pool !default;
-$sidebar-search-text: $g8-storm !default;
+$sidebar-search-text: $g6-smoke !default;
 
 // Left Navigation
 $nav-category: $b-dodger !default;
@@ -50,8 +50,8 @@ $product-enterprise: $br-pulsar !default;
 $article-bg: $g20-white !default;
 $article-heading: $br-pulsar !default;
 $article-heading-alt: $g5-pepper !default;
-$article-text: $g6-smoke !default;
-$article-bold: $g6-smoke !default;
+$article-text: $br-dark-blue !default;
+$article-bold: $br-dark-blue !default;
 $article-link: $b-pool !default;
 $article-link-hover: $br-magenta !default;
 $article-shadow: #cfd1e5 !default;
@@ -179,10 +179,8 @@ $landing-btn-grad: $grad-blue !default;
 $landing-btn-grad-hover: $grad-blue-light !default;
 
 // Home page colors
-$home-btn-gradient: $grad-NineteenEightyFour !default;
-$home-btn-gradient-hover: $grad-PastelGothic !default;
-$home-tick-bg-gradient: $grad-grey-mist !default;
-$default-home-card-gradient: $grad-PastelGothic !default;
+$home-icon-c1: $br-dark-blue !default;
+$home-icon-c2: $g20-white !default;
 
 // Tooltip colors
 $tooltip-color: $p-amethyst !default;

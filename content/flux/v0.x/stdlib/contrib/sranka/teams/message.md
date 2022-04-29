@@ -21,10 +21,10 @@ an [incoming webhook](https://docs.microsoft.com/microsoftteams/platform/webhook
 import "contrib/sranka/teams"
 
 teams.message(
-  url: "https://outlook.office.com/webhook/example-webhook",
-  title: "Example message title",
-  text: "Example message text",
-  summary: "",
+    url: "https://outlook.office.com/webhook/example-webhook",
+    title: "Example message title",
+    text: "Example message text",
+    summary: "",
 )
 ```
 
@@ -51,16 +51,16 @@ If no summary is provided, Flux generates the summary from the message text.
 import "contrib/sranka/teams"
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 teams.message(
-  url: "https://outlook.office.com/webhook/example-webhook",
-  title: "Disk Usage"
-  text: "Disk usage is: *${lastReported.status}*.",
-  summary: "Disk usage is ${lastReported.status}"
+    url: "https://outlook.office.com/webhook/example-webhook",
+    title: "Disk Usage",
+    text: "Disk usage is: *${lastReported.status}*.",
+    summary: "Disk usage is ${lastReported.status}",
 )
 ```

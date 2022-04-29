@@ -47,9 +47,5 @@ The string value to compare against.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      _value: strings.compare(v: r.tag1, t: r.tag2)
-    })
-  )  
+    |> map(fn: (r) => ({r with _value: strings.compare(v: r.tag1, t: r.tag2)}))
 ```

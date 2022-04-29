@@ -19,21 +19,21 @@ The `zenoss.event()` function sends an event to [Zenoss](https://www.zenoss.com/
 import "contrib/bonitoo-io/zenoss"
 
 zenoss.event(
-  url: "https://example.zenoss.io:8080/zport/dmd/evconsole_router",
-  username: "example-user",
-  password: "example-password",
-  action: "EventsRouter",
-  method: "add_event",
-  type: "rpc",
-  tid: 1,
-  summary: "",
-  device: "",
-  component: "",
-  severity: "Critical",
-  eventClass: "",
-  eventClassKey: "",
-  collector: "",
-  message: ""
+    url: "https://example.zenoss.io:8080/zport/dmd/evconsole_router",
+    username: "example-user",
+    password: "example-password",
+    action: "EventsRouter",
+    method: "add_event",
+    type: "rpc",
+    tid: 1,
+    summary: "",
+    device: "",
+    component: "",
+    severity: "Critical",
+    eventClass: "",
+    eventClassKey: "",
+    collector: "",
+    message: "",
 )
 ```
 
@@ -119,11 +119,11 @@ username = secrets.get(key: "ZENOSS_USERNAME")
 password = secrets.get(key: "ZENOSS_PASSWORD")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_idle")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_idle")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 zenoss.event(
     url: "https://tenant.zenoss.io:8080/zport/dmd/evconsole_router",
@@ -133,9 +133,13 @@ zenoss.event(
     component: "CPU",
     eventClass: "/App",
     severity:
-      if lastReported._value < 1.0 then "Critical"
-      else if lastReported._value < 5.0 then "Warning"
-      else if lastReported._value < 20.0 then "Info"
-      else "Clear"
+        if lastReported._value < 1.0 then
+            "Critical"
+        else if lastReported._value < 5.0 then
+            "Warning"
+        else if lastReported._value < 20.0 then
+            "Info"
+        else
+            "Clear",
 )
 ```

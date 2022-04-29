@@ -41,7 +41,7 @@ The string value to convert.
 import "strings"
 
 data
-  |> map(fn: (r) => ({ r with envVars: strings.toUpper(v: r.envVars) }))
+    |> map(fn: (r) => ({ r with envVars: strings.toUpper(v: r.envVars) }))
 ```
 
 {{% note %}}

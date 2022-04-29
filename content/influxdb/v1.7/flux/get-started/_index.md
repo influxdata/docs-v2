@@ -113,10 +113,11 @@ The Functions pane provides a list of functions available in your Flux queries.
 
 ### 2. influx CLI
 The `influx` CLI is an interactive shell for querying InfluxDB.
-With InfluxDB v1.7+, use the `-type=flux` option to open a Flux REPL where you write and run Flux queries.
+With InfluxDB v1.7+, use the `-type=flux` and `-path-prefix=/api/v2/query` options
+to open a Flux REPL where you write and run Flux queries.
 
 ```bash
-influx -type=flux
+influx -type=flux -path-prefix=/api/v2/query
 ```
 
 <div class="page-nav-btns">

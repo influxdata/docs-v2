@@ -15,9 +15,10 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "awsathena",
-    dataSourceName: "s3://myorgqueryresults/?accessID=12ab34cd56ef&region=region-name&secretAccessKey=y0urSup3rs3crEtT0k3n",
-    query: "GO SELECT * FROM Example.Table"
+      driverName: "awsathena",
+      dataSourceName:
+          "s3://myorgqueryresults/?accessID=12ab34cd56ef&region=region-name&secretAccessKey=y0urSup3rs3crEtT0k3n",
+      query: "GO SELECT * FROM Example.Table",
   )
   ```
 ---
@@ -35,9 +36,10 @@ To query [Amazon Athena](https://aws.amazon.com/athena) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "awsathena",
-  dataSourceName: "s3://myorgqueryresults/?accessID=12ab34cd56ef&region=region-name&secretAccessKey=y0urSup3rs3crEtT0k3n",
-  query: "GO SELECT * FROM Example.Table"
+    driverName: "awsathena",
+    dataSourceName:
+        "s3://myorgqueryresults/?accessID=12ab34cd56ef&region=region-name&secretAccessKey=y0urSup3rs3crEtT0k3n",
+    query: "GO SELECT * FROM Example.Table",
 )
 ```
 

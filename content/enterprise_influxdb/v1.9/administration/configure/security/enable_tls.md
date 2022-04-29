@@ -264,6 +264,7 @@ Also change `localhost` to the relevant domain name.
 The best practice in terms of security is to transfer the certificate to the client and make it trusted
 (either by putting in the operating system's trusted certificate system or using the `ssl_ca` option).
 The alternative is to sign the certificate using an internal CA and then trust the CA certificate.
+Provide the file paths of your key and certificate to the InfluxDB output plugin as shown below.
 
 If you're using a self-signed certificate,
 uncomment the `insecure_skip_verify` setting and set it to `true`.
@@ -284,7 +285,8 @@ uncomment the `insecure_skip_verify` setting and set it to `true`.
 [...]
 
   ## Optional SSL Config
-  [...]
+  tls_cert = "/etc/telegraf/cert.pem"
+  tls_key = "/etc/telegraf/key.pem"
   insecure_skip_verify = true # <-- Update only if you're using a self-signed certificate
 ```
 

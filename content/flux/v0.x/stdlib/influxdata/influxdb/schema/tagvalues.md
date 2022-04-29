@@ -24,12 +24,25 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/schema"
 
 schema.tagValues(
-  bucket: "example-bucket",
-  tag: "host",
-  predicate: (r) => true,
-  start: -30d
+    bucket: "example-bucket",
+    tag: "host",
+    predicate: (r) => true,
+    start: -30d,
 )
 ```
+
+{{% note %}}
+#### Deleted tags
+Tags [explicitly deleted from InfluxDB](/{{< latest "influxdb" >}}/write-data/delete-data/)
+**do not** appear in results.
+
+#### Expired tags
+- **InfluxDB Cloud**: tags associated with points outside of the bucket's
+  retention policy **may** appear in results up to an hour after expiring.
+- **InfluxDB OSS**: tags associated with points outside of the bucket's
+  retention policy **may** appear in results.
+  For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
+{{% /note %}}
 
 ## Parameters
 
@@ -44,32 +57,35 @@ Predicate function that filters tag values.
 _Default is `(r) => true`._
 
 ### start {data-type="duration, time"}
-Oldest time to include in results.
+Earliest time to include in results.
 _Default is `-30d`._
 
 Relative start times are defined using negative durations.
-Negative durations are relative to now.
+Negative durations are relative to `now()`.
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+
+### stop {data-type="duration, time"}
+Latest time to include in results.
+_Default is `now()`._
+
+The `stop` time is exclusive, meaning values with a time equal to stop time are
+excluded from results.
+Relative start times are defined using negative durations.
+Negative durations are relative to `now()`.
 Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
 
 ## Examples
+
+### Return all values for a tag in a bucket
 ```js
 import "influxdata/influxdb/schema"
 
-schema.tagValues(
-  bucket: "my-bucket",
-  tag: "host",
-)
+schema.tagValues(bucket: "example-bucket", tag: "host")
 ```
 
-## Function definition
+### Return all tag values in a bucket during a non-default time range
 ```js
-package schema
+import "influxdata/influxdb/schema"
 
-tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
-  from(bucket: bucket)
-    |> range(start: start)
-    |> filter(fn: predicate)
-    |> keep(columns: [tag])
-    |> group()
-    |> distinct(column: tag)
+schema.tagValues(bucket: "example-bucket", tag: "host", start: -90d, stop: -60d)
 ```

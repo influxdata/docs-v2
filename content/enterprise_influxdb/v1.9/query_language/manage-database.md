@@ -87,7 +87,7 @@ If you attempt to create a database that already exists, InfluxDB does nothing a
 ```
 
 The query creates a database called `NOAA_water_database`.
-[By default](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#retention-autocreate--true), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
+[By default](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#retention-autocreate), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
 
 ##### Create a database with a specific retention policy
 
@@ -229,7 +229,7 @@ exist.
 
 The following sections cover how to create, alter, and delete retention policies.
 Note that when you create a database, InfluxDB automatically creates a retention policy named `autogen` which has infinite retention.
-You may disable its auto-creation in the [configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#retention-autocreate--true).
+You may disable its auto-creation in the [configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#retention-autocreate).
 
 ### Create retention policies with CREATE RETENTION POLICY
 

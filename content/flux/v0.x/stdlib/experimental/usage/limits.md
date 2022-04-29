@@ -13,6 +13,8 @@ aliases:
 weight: 401
 related:
   - /flux/v0.x/stdlib/influxdata/influxdb/cardinality/
+  - /influxdb/cloud/account-management/data-usage/
+  - /influxdb/cloud/account-management/limits/
 ---
 
 The `usage.limits()` function returns a record containing usage limits for an
@@ -23,9 +25,9 @@ The `usage.limits()` function returns a record containing usage limits for an
 import "experimental/usage"
 
 usage.limits(
-  host: "",
-  orgID: "",
-  token: ""
+    host: "",
+    orgID: "",
+    token: "",
 )
 ```
 
@@ -33,34 +35,34 @@ usage.limits(
 {{% expand "View example usage limits record" %}}
 ```js
 {
-  orgID: "123",
-  rate: {
-    readKBs: 1000,
-    concurrentReadRequests: 0,
-    writeKBs: 17,
-    concurrentWriteRequests: 0,
-    cardinality: 10000
-  },
-  bucket: {
-    maxBuckets: 2,
-    maxRetentionDuration: 2592000000000000
-  },
-  task: {
-    maxTasks: 5
-  },
-  dashboard: {
-    maxDashboards: 5
-  },
-  check: {
-    maxChecks: 2
-  },
-  notificationRule: {
-    maxNotifications: 2,
-    blockedNotificationRules: "comma, delimited, list"
-  },
-  notificationEndpoint: {
-    blockedNotificationEndpoints: "comma, delimited, list"
-  }
+    orgID: "123",
+    rate: {
+        readKBs: 1000,
+        concurrentReadRequests: 0,
+        writeKBs: 17,
+        concurrentWriteRequests: 0,
+        cardinality: 10000
+    },
+    bucket: {
+        maxBuckets: 2,
+        maxRetentionDuration: 2592000000000000
+    },
+    task: {
+        maxTasks: 5
+    },
+    dashboard: {
+        maxDashboards: 5
+    },
+    check: {
+        maxChecks: 2
+    },
+    notificationRule: {
+        maxNotifications: 2,
+        blockedNotificationRules: "comma, delimited, list"
+    },
+    notificationEndpoint: {
+        blockedNotificationEndpoints: "comma, delimited, list"
+    }
 }
 ```
 {{% /expand %}}
@@ -137,12 +139,8 @@ import "experimental/usage"
 import "influxdata/influxdb"
 
 limits = usage.limits()
-bucketCardinality = (bucket) =>
-    (influxdb.cardinality(
-        bucket: bucket,
-        start: time(v: 0),
-    )
-        |> findColumn(fn: (key) => true, column: "_value"))[0]
+bucketCardinality = (bucket) => (influxdb.cardinality(bucket: bucket, start: time(v: 0))
+    |> findColumn(fn: (key) => true, column: "_value"))[0]
 
 buckets()
     |> filter(fn: (r) => not r.name =~ /^_/)
