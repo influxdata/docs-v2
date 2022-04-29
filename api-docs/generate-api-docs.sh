@@ -46,17 +46,12 @@ weight: 304
   # npm_config_yes=true npx overrides the prompt
   # and (vs. npx --yes) is compatible with npm@6 and npm@7.
 
-  openapiCLI="@redocly/openapi-cli"
   redocCLI="redoc-cli@0.12.3"
 
-  npm --version
-
-  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
-  INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $version/ref.yml \
-    --config=./.redocly.yaml \
-    -o $version/ref.yml
+  npx --version
 
   # Use Redoc to generate the v2 API html
+  echo "Bundling ${version}/ref.yml"
   npm_config_yes=true npx $redocCLI bundle $version/ref.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
@@ -67,12 +62,8 @@ weight: 304
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
 
-  # Use Redoc's openapi-cli to regenerate the v1-compat spec with custom decorations.
-  INFLUXDB_API_VERSION=v1compat INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $version/swaggerV1Compat.yml \
-    --config=./.redocly.yaml \
-    -o $version/swaggerV1Compat.yml
-
   # Use Redoc to generate the v1 compatibility API html
+  echo "Bundling ${version}/swaggerV1Compat.yml"
   npm_config_yes=true npx $redocCLI bundle $version/swaggerV1Compat.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \

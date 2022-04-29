@@ -23,7 +23,7 @@ The function returns an empty record if no table is found or if the index is out
 
 ```js
 findRecord(
-    fn: (key) => key._field == "fieldName"),
+    fn: (key) => key._field == "fieldName",
     idx: 0,
 )
 ```

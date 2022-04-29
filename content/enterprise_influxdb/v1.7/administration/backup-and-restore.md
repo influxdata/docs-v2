@@ -380,31 +380,35 @@ Use the InfluxDB `influx_inspect export` and `influx -import` commands to create
 
 ### Export data
 
-Use the [`influx_inspect export` command](/{{< latest "influxdb" "v1" >}}/tools/influx_inspect#export) to export data in line protocol format from your InfluxDB Enterprise cluster. Options include:
+Use the [`influx_inspect export` command](/influxdb/v1.7/tools/influx_inspect#export) to export data in line protocol format from your InfluxDB Enterprise cluster. Options include:
 
 - Exporting all, or specific, databases
 - Filtering with starting and ending timestamps
 - Using gzip compression for smaller files and faster exports
 
-For details on optional settings and usage, see [`influx_inspect export` command](/{{< latest "influxdb" "v1" >}}/tools/influx_inspect#export).
+For details on optional settings and usage, see [`influx_inspect export` command](/influxdb/v1.7/tools/influx_inspect#export).
 
 In the following example, the database is exported filtered to include only one day and compressed for optimal speed and file size.
 
 ```bash
-influx_inspect export -database myDB -compress -start 2019-05-19T00:00:00.000Z -end 2019-05-19T23:59:59.999Z
+influx_inspect export \
+  -database myDB \
+  -compress \
+  -start 2019-05-19T00:00:00.000Z \
+  -end 2019-05-19T23:59:59.999Z
 ```
 
 ### Import data
 
-After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/{{< latest "influxdb" "v1" >}}/tools/shell/#import).
+After exporting the data in line protocol format, you can import the data using the [`influx -import` CLI command](/influxdb/v1.7/tools/shell/#import).
 
 In the following example, the compressed data file is imported into the specified database.
 
 ```bash
-influx -import -database myDB -compress
+influx -import -database myDB -compressed
 ```
 
-For details on using the `influx -import` command, see [Import data from a file with -import](/{{< latest "influxdb" "v1" >}}/tools/shell/#import-data-from-a-file-with-import).
+For details on using the `influx -import` command, see [Import data from a file with -import](/influxdb/v1.7/tools/shell/#import-data-from-a-file-with-import).
 
 ## Take AWS snapshots as backup
 

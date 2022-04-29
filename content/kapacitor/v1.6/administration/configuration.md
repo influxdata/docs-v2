@@ -263,8 +263,6 @@ Use the query `SHOW DIAGNOSTICS` to see the version of Go used to build Kapacito
 Minimum version of the TLS protocol that will be negotiated.
 Valid values include: 
 
-- `tls1.0`
-- `tls1.1`
 - `tls1.2`
 - `tls1.3` _(default)_
 
@@ -273,8 +271,6 @@ Valid values include:
 Maximum version of the TLS protocol that will be negotiated. 
 Valid values include: 
 
-- `tls1.0`
-- `tls1.1`
 - `tls1.2`
 - `tls1.3` _(default)_
 

@@ -61,7 +61,7 @@ influx [command]
 ## Commands
 
 | Command                                                             | Description                                                                |
-| :------------------------------------------------------------------ | :------------------------------------------------------------------------- |
+|:--------------------------------------------------------------------|:---------------------------------------------------------------------------|
 | [apply](/influxdb/v2.1/reference/cli/influx/apply/)                 | Apply an InfluxDB template                                                 |
 | [auth](/influxdb/v2.1/reference/cli/influx/auth/)                   | API token management commands                                              |
 | [backup](/influxdb/v2.1/reference/cli/influx/backup/)               | Back up data _(InfluxDB OSS only)_                                         |
@@ -76,6 +76,8 @@ influx [command]
 | [org](/influxdb/v2.1/reference/cli/influx/org/)                     | Organization management commands                                           |
 | [ping](/influxdb/v2.1/reference/cli/influx/ping/)                   | Check the InfluxDB `/health` endpoint                                      |
 | [query](/influxdb/v2.1/reference/cli/influx/query/)                 | Execute a Flux query                                                       |
+| [remote](/influxdb/v2.1/reference/cli/influx/remote/)               | Manage remote InfluxDB connections                                         |
+| [replicate](/influxdb/v2.1/reference/cli/influx/resplicate/)        | Manage InfluxDB replication streams                                        |
 | [restore](/influxdb/v2.1/reference/cli/influx/restore/)             | Restore backup data _(InfluxDB OSS only)_                                  |
 | [secret](/influxdb/v2.1/reference/cli/influx/secret/)               | Manage secrets                                                             |
 | [setup](/influxdb/v2.1/reference/cli/influx/setup/)                 | Create default username, password, org, bucket, etc. _(InfluxDB OSS only)_ |
