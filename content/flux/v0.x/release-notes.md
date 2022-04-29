@@ -10,6 +10,25 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.165.0 [2022-04-25]
+
+### Features
+- Add support for options in the `testcase` extension.
+- Vectorize addition operations in `map()`.
+- Add location support to `date.truncate()`.
+- Accept string literals in properties of a record type.
+- Add trace option to the `flux` CLI.
+- Add `EquiJoinPredicateRule`.
+
+### Bug fixes
+- Update `map()` test case to include a range.
+- Don't set `BaseLocation.file` to `Some("")`.
+- Fix `strings.joinStr` panic when it receives a null value.
+- Remove 64bit misalignment.
+- Fix memory releases and add checked allocator to the end of tests.
+
+---
+
 ## v0.164.1 [2022-04-18]
 
 ### Bug fixes
