@@ -9,6 +9,15 @@ menu:
     name: Release notes
     weight: 60
 ---
+## v1.22.2 [2022-4-28]
+
+- Update Go to 1.18.1.
+
+### Input plugin updates
+- InfluxDB Listener (`influxdb_listener`): Remove duplicate writes with upstream parser.
+- GNMI (`gnmi`): Use external xpath parser.
+- System (`system`): Reduce log level back to original level.
+
 ## v1.22.2 [2022-4-25]
 
 - Allow Makefile to work on Windows.
