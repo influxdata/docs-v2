@@ -12,7 +12,7 @@ related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /influxdb/cloud/write-data/developer-tools/scrape-prometheus-metrics/
   - /{{< latest "flux" >}}/prometheus/, Work with Prometheus in Flux
-  - /{{< latest "telegraf" >}}/plugins/#prometheus, Telegraf Prometheus input plugin
+  - /{{< latest "telegraf" >}}/input-prometheus, Telegraf Prometheus input plugin
   - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
 ---
 
