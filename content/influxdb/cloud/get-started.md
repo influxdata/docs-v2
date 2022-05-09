@@ -13,10 +13,11 @@ influxdb/cloud/tags: [get-started, install]
 
 After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to get started:
 
-1. Do one of the following:
+- Do one of the following:
+   - [Write and query data using the programming language of your choice](#write-and-query-data-using-the-programming-language-of-your-choice).
    - Add [sample data](#add-sample-data).
    - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
-2. [Create a notebook](#create-a-notebook):
+- [Create a notebook](#create-a-notebook):
     1.  Click **Notebooks** in the navigation menu on the left.
 
         {{< nav-icon "books" >}}
@@ -26,6 +27,16 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
     4. (Optional) [Process data](#process-data)
     5. (Optional) [Monitor data](#monitor-data)
     6. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
+
+## Write and query data using the programming language of your choice
+
+Follow the steps to write data, execute a simple query, and execute a sample query in the selected programming language:
+
+Click one of the following:
+  - [Python](https://cloud2.influxdata.com/orgs/me/new-user-wizard/python)
+  - [JavaScript/Node](https://cloud2.influxdata.com/orgs/me/new-user-wizard/nodejs)
+  - [Go](https://cloud2.influxdata.com/orgs/me/new-user-wizard/go) 
+
 
 ## Add sample data
 
