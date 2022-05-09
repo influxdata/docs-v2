@@ -7,6 +7,8 @@ menu:
     weight: 11
     identifier: install-platform
     parent: install-and-deploy-platform
+aliases:
+  - /telegraf/v1.22/introduction/installation/
 ---
 
 To install and configure the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).
