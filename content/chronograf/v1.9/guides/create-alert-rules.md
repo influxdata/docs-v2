@@ -82,6 +82,23 @@ From the **Alert Rules** page in Chronograf:
 
 7. Click **Save Rule**.
 
+## Enable and disable alert rules
+
+To enable and disable alerts, click on **{{< icon "alert" "v2">}} Alerting** in the left navigation bar and select **Alert Rules**.
+
+  - To enable an alert rule, locate the alert rule and click the box **Task Enabled**. A blue dot shows the task is enabled. A message will appear letting you know the rule was enabled successfully. 
+  - To disable an alert rule, click the box **Task Enabled**. The blue dot will disappear and you will receive a message letting you know the alert was successfully disabled. 
+
+## Delete alert rules
+
+To delete an alert, click on **{{< icon "alert" "v2">}} Alerting** in the left navigation bar and select **Alert Rules**.
+
+1. Locate the alert you want to delete by its name.  
+2. Hover over the "Task Enabled" box for the specific rule, and a **Delete** button will appear to the right.  
+3. Click **Delete** to delete the rule. 
+
+**NOTE:** Once you delete a rule, it will be removed permanently. This action cannot be undone.
+
 ## View alert history
 
 Chronograf lets you view your alert history on the **Alert History** page.
