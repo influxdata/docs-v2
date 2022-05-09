@@ -6,6 +6,8 @@ menu:
 
     name: Install
     weight: 20
+aliases:
+- /telegraf/v1.22/introduction/installation/
 ---
 
 This page provides directions for installing, starting, and configuring Telegraf. To install Telegraf, do the following:
