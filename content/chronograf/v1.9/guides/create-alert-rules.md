@@ -96,7 +96,7 @@ To delete an alert, click on **{{< icon "alert" "v2">}} Alerting** in the left n
 1. Locate the alert you want to delete, and then hover over the "Task Enabled" box. A **Delete** button appears to the right.  
 3. Click **Delete** to delete the rule. 
 
-**NOTE:** Once you delete a rule, it will be removed permanently. This action cannot be undone.
+**Note:** Deleting a rule cannot be undone, and removes the rule permanently. 
 
 ## View alert history
 
