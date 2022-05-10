@@ -1,15 +1,16 @@
 ---
-title: Manipulate timestamps with Flux
-list_title: Manipulate timestamps
+title: Operate on timestamps with Flux
+list_title: Operate on timestamps
 description: >
-  Use Flux to process and manipulate timestamps.
+  Use Flux to process and operate on timestamps.
 menu:
   influxdb_2_2:
-    name: Manipulate timestamps
+    name: Operate on timestamps
     parent: Query with Flux
 weight: 220
 aliases:
   - /influxdb/v2.2/query-data/guides/manipulate-timestamps/
+  - /influxdb/v2.2/query-data/flux/manipulate-timestamps/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/now/
   - /{{< latest "flux" >}}/stdlib/system/time/
@@ -18,12 +19,12 @@ related:
   - /{{< latest "flux" >}}/stdlib/universe/int/
   - /{{< latest "flux" >}}/stdlib/universe/truncatetimecolumn/
   - /{{< latest "flux" >}}/stdlib/date/truncate/
-  - /{{< latest "flux" >}}/stdlib/experimental/addduration/
-  - /{{< latest "flux" >}}/stdlib/experimental/subduration/
+  - /{{< latest "flux" >}}/stdlib/date/add/
+  - /{{< latest "flux" >}}/stdlib/date/sub/
 ---
 
 Every point stored in InfluxDB has an associated timestamp.
-Use Flux to process and manipulate timestamps to suit your needs.
+Use Flux to process and operate on timestamps to suit your needs.
 
 - [Convert timestamp format](#convert-timestamp-format)
 - [Calculate the duration between two timestamps](#calculate-the-duration-between-two-timestamps)
@@ -159,35 +160,25 @@ data
 - [Subtract a duration from a timestamp](#subtract-a-duration-from-a-timestamp)
 
 ### Add a duration to a timestamp
-The [`experimental.addDuration()` function](/{{< latest "flux" >}}/stdlib/experimental/to/addduration/)
+[`date.add()`](/{{< latest "flux" >}}/stdlib/date/add/)
 adds a duration to a specified time and returns the resulting time.
 
-{{% warn %}}
-By using `experimental.addDuration()`, you accept the
-[risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/to/#experimental-functions-are-subject-to-change).
-{{% /warn %}}
-
 ```js
-import "experimental"
+import "date"
 
-experimental.addDuration(d: 6h, to: 2019-09-16T12:00:00Z)
+date.add(d: 6h, to: 2019-09-16T12:00:00Z)
 
 // Returns 2019-09-16T18:00:00.000000000Z
 ```
 
 ### Subtract a duration from a timestamp
-The [`experimental.subDuration()` function](/{{< latest "flux" >}}/stdlib/experimental/to/subduration/)
+[`date.sub()`](/{{< latest "flux" >}}/stdlib/date/sub/)
 subtracts a duration from a specified time and returns the resulting time.
 
-{{% warn %}}
-By using `experimental.subDuration()`, you accept the
-[risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/to/#experimental-functions-are-subject-to-change).
-{{% /warn %}}
-
 ```js
-import "experimental"
+import "date"
 
-experimental.subDuration(d: 6h, from: 2019-09-16T12:00:00Z)
+date.sub(d: 6h, from: 2019-09-16T12:00:00Z)
 
 // Returns 2019-09-16T06:00:00.000000000Z
 ```

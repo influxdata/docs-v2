@@ -9,6 +9,8 @@ menu:
     parent: date
 weight: 302
 flux/v0.x/tags: [date/time]
+aliases:
+  - /flux/v0.x/stdlib/date/subduration/
 related:
   - /flux/v0.x/stdlib/date/addduration/
 introduced: 0.162.0
