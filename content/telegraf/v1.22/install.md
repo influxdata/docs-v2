@@ -101,7 +101,7 @@ To manually install the Debian package from a `.deb` file:
 
 ### Create a configuration file with default input and output plugins.
 
-Every plugin will be in the file, but most will be commented out.
+Every plugin will be in the file, but most will be commented out. 
 
 ```
 telegraf config > telegraf.conf

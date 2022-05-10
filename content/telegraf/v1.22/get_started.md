@@ -7,7 +7,7 @@ menu:
     weight: 25
 ---
 
-After you've [downloaded and installed Telegraf](/telegraf/v1.22/install/), you're ready to begin collecting and sending data. To collect and send data, do the following:
+After you've [downloaded and installed Telegraf](/telegraf/v1.22/install/), you're ready to begin collecting and sending data. To collect and send data, do the following: 
 
 1. [Configure Telegraf](#configure-telegraf)
 2. [Start Telegraf](#start-telegraf)
