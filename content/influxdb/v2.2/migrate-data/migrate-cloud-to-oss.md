@@ -92,6 +92,7 @@ Batch range is beyond the migration range. Migration is complete.
 
 ```js
 import "array"
+import "date"
 import "experimental"
 import "influxdata/influxdb/secrets"
 
@@ -131,7 +132,7 @@ batchRange = () => {
         else
             migration.start
 
-    return {start: _batchStart, stop: experimental.addDuration(d: migration.batchInterval, to: _batchStart)}
+    return {start: _batchStart, stop: date.add(d: migration.batchInterval, to: _batchStart)}
 }
 
 // Define a static record with batch start and stop time properties

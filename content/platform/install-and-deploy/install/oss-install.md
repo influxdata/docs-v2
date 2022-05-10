@@ -19,7 +19,7 @@ to be installed, configured, and started separately.
 
 ## Install Telegraf
 
-The [Telegraf installation instructions](/{{< latest "telegraf" >}}/introduction/installation/)
+The [Telegraf installation instructions](/{{< latest "telegraf" >}}/install/)
 walk through installing and configuring Telegraf.
 
 ## Install InfluxDB
