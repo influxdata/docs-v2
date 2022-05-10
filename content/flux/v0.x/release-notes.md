@@ -10,6 +10,21 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.166.0 [2022-05-09]
+
+### Features
+- Add InfluxData semantic commit and pull request title validator.
+- Add an `Expr` node to the visitor API.
+- Add label polymorphism.
+- Vectorize remaining arithmetic operators.
+
+### Bug fixes
+- Remove `JoinOpSpec.TableNames` in favor of `JoinOpSpec.params` to stay
+  consistent inside `tableFind()`.
+- Fix `SortLimit` for empty input group.
+
+---
+
 ## v0.165.0 [2022-04-25]
 
 ### Features
