@@ -87,7 +87,7 @@ From the **Alert Rules** page in Chronograf:
 To enable and disable alerts, click on **{{< icon "alert" "v2">}} Alerting** in the left navigation bar and select **Alert Rules**.
 
   - To enable an alert rule, locate the alert rule and click the box **Task Enabled**. A blue dot shows the task is enabled. A message appears to confirm the rule was successfully enabled. 
-  - To disable an alert rule, click the box **Task Enabled**. The blue dot will disappear and you will receive a message letting you know the alert was successfully disabled. 
+  - To disable an alert rule, click the box **Task Enabled**. The blue dot disappears and a message confirms the alert was successfully disabled. 
 
 ## Delete alert rules
 
