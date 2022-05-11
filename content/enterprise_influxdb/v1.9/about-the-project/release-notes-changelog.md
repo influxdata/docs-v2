@@ -20,7 +20,6 @@ menu:
 - Add [isType()](/{{< latest "flux" >}}/stdlib/types/istype/) function.
 - Add [display()](/{{< latest "flux" >}}/stdlib/universe/display/) function.
 - Enhancements to the following functions: [increase()](/{{< latest "flux" >}}/stdlib/universe/increase/), [sort()](/{{< latest "flux" >}}/stdlib/universe/sort/), [derivative()](/{{< latest "flux" >}}/stdlib/universe/derivative/), [union()](/{{< latest "flux" >}}/stdlib/universe/union/), [timeShift()](/{{< latest "flux" >}}/stdlib/universe/timeshift/), vectorization to applicable functions such as [map()](/{{< latest "flux" >}}/stdlib/universe/map/).
-<!-- SAM NEEDS TO PROVIDE MORE DETAIL- Continue performance work (i.e., sort-> limit) -->
 - Add TCP connection pooling to [mqtt.publish()](/{{< latest "flux" >}}/stdlib/experimental/mqtt/publish/) function when called in a map() function.
 
 ### Bug fixes
