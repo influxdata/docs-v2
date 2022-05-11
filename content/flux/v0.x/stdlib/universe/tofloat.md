@@ -55,7 +55,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> toFloat()
+    |> toFloat()
 ```
 
 {{< expand-wrapper >}}
@@ -97,7 +97,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.bool()
-  |> toFloat()
+    |> toFloat()
 ```
 
 {{< expand-wrapper >}}
@@ -133,10 +133,3 @@ sampledata.bool()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toFloat = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: float(v: r._value) }))
-```

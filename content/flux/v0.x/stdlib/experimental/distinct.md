@@ -53,7 +53,7 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 data
-	|> experimental.distinct()
+    |> experimental.distinct()
 ```
 
 {{< flex >}}

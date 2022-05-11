@@ -23,9 +23,7 @@ center of an S2 cell.
 ```js
 import "experimental/geo"
 
-geo.s2CellLatLon(
-  token: "89c284"
-)
+geo.s2CellLatLon(token: "89c284")
 
 // Returns {lat: 40.812535546624574, lon: -73.55941282728273}
 ```

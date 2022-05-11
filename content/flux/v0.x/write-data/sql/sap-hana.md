@@ -17,11 +17,11 @@ list_code_example: |
   import "sql"
   
   data
-    |> sql.to(
-      driverName: "hdb",
-      dataSourceName: "hdb://username:password@myserver:30015",
-      table: "SCHEMA.TABLE"
-    )
+      |> sql.to(
+          driverName: "hdb",
+          dataSourceName: "hdb://username:password@myserver:30015",
+          table: "SCHEMA.TABLE",
+      )
   ```
 ---
 
@@ -41,11 +41,11 @@ To write data to [SAP HANA](https://www.sap.com/products/hana.html) with Flux:
 import "sql"
   
 data
-  |> sql.to(
-    driverName: "hdb",
-    dataSourceName: "hdb://username:password@myserver:30015",
-    table: "SCHEMA.TABLE"
-  )
+    |> sql.to(
+        driverName: "hdb",
+        dataSourceName: "hdb://username:password@myserver:30015",
+        table: "SCHEMA.TABLE",
+    )
 ```
 
 ---

@@ -33,7 +33,7 @@ The value to convert.
 ## Examples
 ```js
 from(bucket: "sensor-data")
-  |> range(start: -1m)
-  |> filter(fn:(r) => r._measurement == "system" )
-  |> map(fn:(r) => ({ r with responsive: bool(v: r.responsive) }))
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "system")
+    |> map(fn: (r) => ({r with responsive: bool(v: r.responsive)}))
 ```

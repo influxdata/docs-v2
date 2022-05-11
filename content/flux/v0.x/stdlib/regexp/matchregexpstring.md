@@ -43,10 +43,5 @@ The string value to search.
 import "regexp"
 
 data
-  |> filter(fn: (r) =>
-    regexp.matchRegexpString(
-      r: /Alert\:/,
-      v: r.message
-    )
-  )
+    |> filter(fn: (r) => regexp.matchRegexpString(r: /Alert:/, v: r.message))
 ```

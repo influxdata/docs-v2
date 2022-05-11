@@ -36,14 +36,3 @@ v1.measurements(bucket: "example-bucket")
 
 ### bucket {data-type="string"}
 Bucket to retrieve measurements from.
-
-## Function definition
-```js
-package v1
-
-measurements = (bucket) =>
-  tagValues(bucket: bucket, tag: "_measurement")
-```
-
-_**Used functions:**
-[v1.tagValues()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues)_

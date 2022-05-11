@@ -23,12 +23,12 @@ The `monitor.check()` function checks input data and assigns a level
 import "influxdata/influxdb/monitor"
 
 monitor.check(
-  crit: (r) => r._value > 90.0,
-  warn: (r) => r._value > 80.0,
-  info: (r) => r._value > 60.0,
-  ok:   (r) => r._value <= 20.0,
-  messageFn: (r) => "The current level is ${r._level}",
-  data: {}
+    crit: (r) => r._value > 90.0,
+    warn: (r) => r._value > 80.0,
+    info: (r) => r._value > 60.0,
+    ok: (r) => r._value <= 20.0,
+    messageFn: (r) => "The current level is ${r._level}",
+    data: {},
 )
 ```
 
@@ -71,27 +71,27 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "influxdata/influxdb/monitor"
 
 from(bucket: "telegraf")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-      r._measurement == "disk" and
-      r._field == "used_percent"
-  )
-  |> group(columns: ["_measurement"])
-  |> monitor.check(
-    crit: (r) => r._value > 90.0,
-    warn: (r) => r._value > 80.0,
-    info: (r) => r._value > 70.0,
-    ok:   (r) => r._value <= 60.0,
-    messageFn: (r) =>
-      if r._level == "crit" then "Critical alert!! Disk usage is at ${r._value}%!"
-      else if r._level == "warn" then "Warning! Disk usage is at ${r._value}%."
-      else if r._level == "info" then "Disk usage is at ${r._value}%."
-      else "Things are looking good.",
-    data: {
-      _check_name: "Disk Utilization (Used Percentage)",
-      _check_id: "disk_used_percent",
-      _type: "threshold",
-      tags: {}
-    }
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "disk" and r._field == "used_percent")
+    |> group(columns: ["_measurement"])
+    |> monitor.check(
+        crit: (r) => r._value > 90.0,
+        warn: (r) => r._value > 80.0,
+        info: (r) => r._value > 70.0,
+        ok: (r) => r._value <= 60.0,
+        messageFn: (r) => if r._level == "crit" then
+            "Critical alert!! Disk usage is at ${r._value}%!"
+        else if r._level == "warn" then
+            "Warning! Disk usage is at ${r._value}%."
+        else if r._level == "info" then
+            "Disk usage is at ${r._value}%."
+        else
+            "Things are looking good.",
+        data: {
+            _check_name: "Disk Utilization (Used Percentage)",
+            _check_id: "disk_used_percent",
+            _type: "threshold",
+            tags: {}
+        },
+    )
 ```

@@ -17,10 +17,7 @@ The `sleep()` function was removed in **Flux 0.123.0**.
 The `sleep()` function delays execution by a specified duration.
 
 ```js
-sleep(
-  v: x,
-  duration: 10s
-)
+sleep(v: x, duration: 10s)
 ```
 
 ## Parameters
@@ -40,8 +37,8 @@ Length of time to delay execution.
 ### Delay execution in a chained query
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> sleep(duration: 10s)
+    |> range(start: -1h)
+    |> sleep(duration: 10s)
 ```
 
 ### Delay execution using a stream variable

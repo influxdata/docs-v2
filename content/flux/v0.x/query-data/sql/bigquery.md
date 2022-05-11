@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "bigquery",
-    dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
-    query: "SELECT * FROM exampleTable"
+      driverName: "bigquery",
+      dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+      query: "SELECT * FROM exampleTable",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [Google BigQuery](https://cloud.google.com/bigquery) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "bigquery",
-  dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
-  query: "SELECT * FROM exampleTable"
+    driverName: "bigquery",
+    dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+    query: "SELECT * FROM exampleTable",
 )
 ```
 

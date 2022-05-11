@@ -24,10 +24,10 @@ and data from table rows.
 import "contrib/chobbs/discord"
 
 discord.endpoint(
-  webhookToken: "mySuPerSecRetTokEn",
-  webhookID: "123456789",
-  username: "username",
-  avatar_url: "https://example.com/avatar_pic.jpg"
+    webhookToken: "mySuPerSecRetTokEn",
+    webhookID: "123456789",
+    username: "username",
+    avatar_url: "https://example.com/avatar_pic.jpg",
 )
 ```
 
@@ -68,19 +68,13 @@ import "influxdata/influxdb/secrets"
 import "contrib/chobbs/discord"
 
 discordToken = secrets.get(key: "DISCORD_TOKEN")
-endpoint = telegram.endpoint(
-  webhookToken: discordToken,
-  webhookID: "123456789",
-  username: "critBot"
-)
+endpoint = telegram.endpoint(webhookToken: discordToken, webhookID: "123456789", username: "critBot")
 
-crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-  |> endpoint(mapFn: (r) => ({
-      content: "The status is critical!",
-    })
-  )()
+    |> endpoint(mapFn: (r) => ({content: "The status is critical!"}))()
 ```

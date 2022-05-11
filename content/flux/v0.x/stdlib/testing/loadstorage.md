@@ -27,9 +27,7 @@ Test data requires the following columns:
 ```js
 import "testing"
 
-testing.loadStorage(
-  csv: csvData
-)
+testing.loadStorage(csv: csvData)
 ```
 
 ## Parameters

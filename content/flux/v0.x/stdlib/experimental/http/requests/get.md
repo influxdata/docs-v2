@@ -90,7 +90,7 @@ import "experimental/http/requests"
 import "experimental/json"
 import "array"
 
-response = requests.get(url: "https://api.agify.io", params: ["name": ["nathaniel"]])
+response = requests.get(url: "https://api.agify.io", params: ["name": ["john"]])
 
 // api.agify.io returns JSON with the form
 //

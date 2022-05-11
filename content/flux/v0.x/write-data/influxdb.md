@@ -16,7 +16,7 @@ related:
 list_code_example: |
   ```js
   data
-    |> to(bucket: "example-bucket")
+      |> to(bucket: "example-bucket")
   ```
 ---
 
@@ -82,30 +82,24 @@ m,id=001,loc=SF temp=71.2,hum=52.8 1609466400000000000
 {{% code-tab-content %}}
 ```js
 data
-  |> to(
-    bucket: "example-bucket"
-  )
+    |> to(bucket: "example-bucket")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
 data
-  |> to(
-    bucket: "example-bucket",
-    org: "example-org",
-    token: "mY5uPeRs3Cre7tok3N"
-  )
+    |> to(bucket: "example-bucket", org: "example-org", token: "mY5uPeRs3Cre7tok3N")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
 data
-  |> to(
-    bucket: "example-bucket",
-    org: "example-org",
-    token: "mY5uPeRs3Cre7tok3N",
-    host: "https://myinfluxdbdomain.com/8086"
-  )
+    |> to(
+        bucket: "example-bucket",
+        org: "example-org",
+        token: "mY5uPeRs3Cre7tok3N",
+        host: "https://myinfluxdbdomain.com/8086",
+    )
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -137,7 +131,7 @@ Columns **not in the group key** are written to InfluxDB as [fields](/{{< latest
 import "experimental"
 
 data
-  |> experimental.to(bucket: "example-bucket")
+    |> experimental.to(bucket: "example-bucket")
 ```
 
 Given the following input [stream of tables](/flux/v0.x/get-started/data-model/#stream-of-tables):
@@ -181,9 +175,7 @@ m,id=001,loc=BK min=5i,max=3i,mean=6.5 1609466400000000000
 import "experimental"
 
 data
-  |> experimental.to(
-    bucket: "example-bucket"
-  )
+    |> experimental.to(bucket: "example-bucket")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
@@ -191,11 +183,7 @@ data
 import "experimental"
 
 data
-  |> experimental.to(
-    bucket: "example-bucket",
-    org: "example-org",
-    token: "mY5uPeRs3Cre7tok3N"
-  )
+    |> experimental.to(bucket: "example-bucket", org: "example-org", token: "mY5uPeRs3Cre7tok3N")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
@@ -203,12 +191,12 @@ data
 import "experimental"
 
 data
-  |> experimental.to(
-    bucket: "example-bucket",
-    org: "example-org",
-    token: "mY5uPeRs3Cre7tok3N",
-    host: "https://myinfluxdbdomain.com/8086"
-  )
+    |> experimental.to(
+        bucket: "example-bucket",
+        org: "example-org",
+        token: "mY5uPeRs3Cre7tok3N",
+        host: "https://myinfluxdbdomain.com/8086",
+    )
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

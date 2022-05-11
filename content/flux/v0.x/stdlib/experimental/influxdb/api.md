@@ -26,14 +26,14 @@ Authorization permissions and limits apply to each request.
 import "experimental/influxdb"
 
 influxdb.api(
-  method: "get",
-  path: "/example",
-  host: "http://localhost:8086",
-  token: "mySupeR53cre7t0k3n",
-  headers: ["header1": "header1Value", "header2": "header2Value"],
-  query: ["ex1": "example1", "ex2": "example2"],
-  timeout: 30s,
-  body: bytes(v: "Example body")
+    method: "get",
+    path: "/example",
+    host: "http://localhost:8086",
+    token: "mySupeR53cre7t0k3n",
+    headers: ["header1": "header1Value", "header2": "header2Value"],
+    query: ["ex1": "example1", "ex2": "example2"],
+    timeout: 30s,
+    body: bytes(v: "Example body"),
 )
 ```
 
@@ -41,9 +41,9 @@ influxdb.api(
 {{% expand "View response record schema" %}}
 ```js
 {
-  statusCode: int,
-  headers: dict,
-  body: bytes
+    statusCode: int,
+    headers: dict,
+    body: bytes,
 }
 ```
 {{% /expand %}}
@@ -90,15 +90,9 @@ import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "INFLUX_TOKEN")
 
-response = influxdb.api(
-  method: "get",
-  path: "/health",
-  host: "http://localhost:8086",
-  token: token,
-)
+response = influxdb.api(method: "get", path: "/health", host: "http://localhost:8086", token: token)
 
 string(v: response.body)
-
 // Returns something similar to:
 // {
 //   "name":"influxdb",
@@ -118,15 +112,17 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "INFLUX_TOKEN")
 
 influxdb.api(
-  method: "post",
-  path: "/api/v2/buckets",
-  host: "http://localhost:8086",
-  token: token,
-  body: bytes(v: "{
-    \"name\": \"example-bucket\",
-    \"description\": \"This is an example bucket.\",
-    \"orgID\": \"x000X0x0xx0X00x0\",
-    \"retentionRules\": []
-  }")
+    method: "post",
+    path: "/api/v2/buckets",
+    host: "http://localhost:8086",
+    token: token,
+    body: bytes(
+        v: "{
+          \"name\": \"example-bucket\",
+          \"description\": \"This is an example bucket.\",
+          \"orgID\": \"x000X0x0xx0X00x0\",
+          \"retentionRules\": []
+        }",
+    ),
 )
 ```

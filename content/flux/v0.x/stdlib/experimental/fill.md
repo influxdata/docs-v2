@@ -61,7 +61,7 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 data
-  |> experimental.fill(value: 0.0)
+    |> experimental.fill(value: 0.0)
 ```
 
 {{< flex >}}
@@ -96,7 +96,7 @@ data
 import "experimental"
 
 data
-  |> experimental.fill(usePrevious: true)
+    |> experimental.fill(usePrevious: true)
 ```
 
 {{< flex >}}

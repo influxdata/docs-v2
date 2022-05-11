@@ -15,13 +15,14 @@ related:
 list_code_example: |
   ```js
   import "sql"
-  
+
   data
-    |> sql.to(
-      driverName: "postgres",
-      dataSourceName: "postgresql://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
-      table: "example_table"
-    )
+      |> sql.to(
+          driverName: "postgres",
+          dataSourceName:
+              "postgresql://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
+          table: "example_table",
+      )
   ```
 ---
 
@@ -41,11 +42,12 @@ To write data to [CockroachDB](https://www.cockroachlabs.com/) with Flux:
 import "sql"
 
 data
-  |> sql.to(
-    driverName: "postgres",
-    dataSourceName: "postgresql://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
-    table: "example_table"
-  )
+    |> sql.to(
+        driverName: "postgres",
+        dataSourceName:
+            "postgresql://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
+        table: "example_table",
+    )
 ```
 
 ---

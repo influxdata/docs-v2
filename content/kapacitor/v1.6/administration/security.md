@@ -385,7 +385,7 @@ use the `-blacklist-cidrs` flag.
 Pass a comma-separated list of CIDRs to deny for most HTTP GET/POST operations:
 
 ```sh
-kapacitor -blacklist 10.0.0.0/8,0.0.0.0/32
+kapacitord -blacklist-cidrs 10.0.0.0/8,0.0.0.0/32
 ```
 
 ### Disable specific alert handlers
@@ -394,7 +394,7 @@ Use the `-disable-handlers` flag to disable a set of alert handlers.
 Pass a comma-separated list of [handlers](/kapacitor/v1.6/event_handlers/):
 
 ```sh
-kapacitor -disable-handlers exec,httppost
+kapacitord -disable-handlers exec,httppost
 ```
 
 

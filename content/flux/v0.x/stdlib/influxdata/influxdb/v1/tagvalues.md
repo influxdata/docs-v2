@@ -30,10 +30,10 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/v1"
 
 v1.tagValues(
-  bucket: "example-bucket",
-  tag: "host",
-  predicate: (r) => true,
-  start: -30d
+    bucket: "example-bucket",
+    tag: "host",
+    predicate: (r) => true,
+    start: -30d,
 )
 ```
 
@@ -61,21 +61,5 @@ Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time
 ```js
 import "influxdata/influxdb/v1"
 
-v1.tagValues(
-  bucket: "my-bucket",
-  tag: "host",
-)
-```
-
-## Function definition
-```js
-package v1
-
-tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
-  from(bucket: bucket)
-    |> range(start: start)
-    |> filter(fn: predicate)
-    |> group(columns: [tag])
-    |> distinct(column: tag)
-    |> keep(columns: ["_value"])
+v1.tagValues(bucket: "my-bucket", tag: "host")
 ```

@@ -33,8 +33,8 @@ _**Data type:** String_
 
 ```js
 option task = {
-  name: "taskName",
-  // ...
+    name: "taskName",
+    // ...
 }
 ```
 
@@ -46,8 +46,8 @@ _**Data type:** Duration_
 
 ```js
 option task = {
-  // ...
-  every: 1h,
+    // ...
+    every: 1h,
 }
 ```
 
@@ -70,8 +70,8 @@ _**Data type:** String_
 
 ```js
 option task = {
-  // ...
-  cron: "0 * * * *",
+    // ...
+    cron: "0 * * * *",
 }
 ```
 
@@ -87,8 +87,8 @@ _**Data type:** Duration_
 
 ```js
 option task = {
-  // ...
-  offset: 10m,
+    // ...
+    offset: 10m,
 }
 ```
 
@@ -101,7 +101,7 @@ _**Data type:** Integer_
 
 ```js
 option task = {
-  // ...
-  concurrency: 2,
+    // ...
+    concurrency: 2,
 }
 ```

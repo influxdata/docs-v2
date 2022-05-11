@@ -51,11 +51,12 @@ _The following example uses data provided by the [`sampledata` package](/flux/v0
 ```js
 import "sampledata"
 
-data = sampledata.int()
-  |> map(fn: (r) => ({ r with _value: hex.string(v: r._value) }))
+data =
+    sampledata.int()
+        |> map(fn: (r) => ({r with _value: hex.string(v: r._value)}))
 
 data
-  |> map(fn:(r) => ({ r with _value: hex.int(v: r._value) }))
+    |> map(fn: (r) => ({r with _value: hex.int(v: r._value)}))
 ```
 
 {{< expand-wrapper >}}

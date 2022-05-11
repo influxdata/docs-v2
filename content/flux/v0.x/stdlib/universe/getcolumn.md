@@ -48,8 +48,8 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> tableFind(fn: (key) => key.tag == "t1")
-  |> getColumn(column: "_value")
-
+    |> tableFind(fn: (key) => key.tag == "t1")
+    |> getColumn(column: "_value")
+    
 // Returns [-2, 10, 7, 17, 15, 4]
 ```

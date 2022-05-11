@@ -58,21 +58,15 @@ END
 
 ##### Equivalent Flux task
 ```js
-option task = {
-  name: "downsample-daily",
-  every: 1d
-}
+option task = {name: "downsample-daily", every: 1d}
 
 from(bucket: "my-db/")
-  |> range(start: -task.every)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> filter(fn: (r) => r._field == "example-field")
-  |> aggregateWindow(every: 1h, fn: mean)
-  |> set(key: "_measurement", value: "average-example-measurement")
-  |> to(
-    org: "example-org",
-    bucket: "my-db/example-rp"
-  )
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> filter(fn: (r) => r._field == "example-field")
+    |> aggregateWindow(every: 1h, fn: mean)
+    |> set(key: "_measurement", value: "average-example-measurement")
+    |> to(org: "example-org", bucket: "my-db/example-rp")
 ```
 
 ### Convert InfluxQL continuous queries to Flux
@@ -142,15 +136,15 @@ INTO "example-db"."example-rp"."example-measurement"
 {{% code-tab-content %}}
 ```js
 // ...
-  |> set(key: "_measurement", value: "example-measurement")
-  |> to(bucket: "example-db/example-rp")
+    |> set(key: "_measurement", value: "example-measurement")
+    |> to(bucket: "example-db/example-rp")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
 // ...
-  |> map(fn: (r) => ({ r with _measurement: "example-measurement"}))
-  |> to(bucket: "example-db/example-rp")
+    |> map(fn: (r) => ({ r with _measurement: "example-measurement"}))
+    |> to(bucket: "example-db/example-rp")
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -181,12 +175,12 @@ END
 // ...
 
 from(bucket: "my-db/")
-  |> range(start: -task.every)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> filter(fn: (r) => r._field == "example-field-1" or r._field == "example-field-2")
-  |> aggregateWindow(every: task.every, fn: mean)
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> experimental.to(bucket: "example-db/example-rp")
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> filter(fn: (r) => r._field == "example-field-1" or r._field == "example-field-2")
+    |> aggregateWindow(every: task.every, fn: mean)
+    |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> experimental.to(bucket: "example-db/example-rp")
 ```
 
 #### FROM clause
@@ -204,7 +198,7 @@ FROM "example-measurement"
 ###### Flux
 ```js
 // ...
-  |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> filter(fn: (r) => r._measurement == "example-measurement")
 ```
 
 #### AS clause
@@ -229,13 +223,13 @@ AS newfield
 {{% code-tab-content %}}
 ```js
 // ...
-  |> set(key: "_field", value: "newfield")
+    |> set(key: "_field", value: "newfield")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
 // ...
-  |> map(fn: (r) => ({ r with _field: "newfield"}))
+    |> map(fn: (r) => ({ r with _field: "newfield"}))
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -256,8 +250,8 @@ WHERE "example-tag" = "foo" AND time > now() - 7d
 ###### Flux
 ```js
 // ...
-  |> range(start: -7d)
-  |> filter(fn: (r) => r["example-tag"] == "foo")
+    |> range(start: -7d)
+    |> filter(fn: (r) => r["example-tag"] == "foo")
 ```
 
 #### GROUP BY clause
@@ -277,7 +271,7 @@ GROUP BY "location"
 ###### Flux
 ```js
 // ...
-  |> group(columns: ["location"])
+    |> group(columns: ["location"])
 ```
 
 ##### Group by time
@@ -296,17 +290,11 @@ GROUP BY time(1h)
 
 ###### Flux
 ```js
-option task = {
-  name: "task-name",
-  every: 1h
-}
+option task = {name: "task-name", every: 1h}
 
 // ...
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
-  |> aggregateWindow(every: task.every, fn: mean)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+    |> aggregateWindow(every: task.every, fn: mean)
 ```
 
 #### RESAMPLE clause
@@ -335,22 +323,15 @@ END
 
 ###### Flux
 ```js
-option task = {
-  name: "resample-example",
-  every: 1m
-}
+option task = {name: "resample-example", every: 1m}
 
 from(bucket: "my-db/")
-  |> range(start: -30m)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field" and
-    r.region == "example-region"
-  )
-  |> aggregateWindow(every: 1m, fn: mean)
-  |> exponentialMovingAverage(n: 30)
-  |> set(key: "_measurement", value: "resample-average-example-measurement")
-  |> to(bucket: "my-db/")
+    |> range(start: -30m)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field" and r.region == "example-region")
+    |> aggregateWindow(every: 1m, fn: mean)
+    |> exponentialMovingAverage(n: 30)
+    |> set(key: "_measurement", value: "resample-average-example-measurement")
+    |> to(bucket: "my-db/")
 ```
 
 ## Create new InfluxDB tasks

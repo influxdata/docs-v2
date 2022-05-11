@@ -24,12 +24,12 @@ anomalies or rate limiting.
 import "experimental/usage"
 
 usage.from(
-  start: -30d,
-  stop: now(),
-  host: "",
-  orgID: "",
-  token: "",
-  raw: false
+    start: -30d,
+    stop: now(),
+    host: "",
+    orgID: "",
+    token: "",
+    raw: false,
 )
 ```
 
@@ -98,23 +98,24 @@ Default is `false`.
 - [Query downsampled usage data for a different InfluxDB Cloud organization](#query-downsampled-usage-data-for-a-different-influxdb-cloud-organization)
 - [Query number of bytes in requests to the /api/v2/write endpoint](#query-number-of-bytes-in-requests-to-the-apiv2write-endpoint)
 - [Query number of bytes returned from the /api/v2/query endpoint](#query-number-of-bytes-returned-from-the-apiv2query-endpoint)
+- [Query the query count for InfluxDB Cloud query endpoints](#query-the-query-count-for-influxdb-cloud-query-endpoints)
 - [Compare usage metrics to organization usage limits](#compare-usage-metrics-to-organization-usage-limits)
 
-##### Query downsampled usage data for your InfluxDB Cloud organization
+### Query downsampled usage data for your InfluxDB Cloud organization
 ```js
 import "experimental/usage"
 
 usage.from(start: -30d, stop: now())
 ```
 
-##### Query raw usage data for your InfluxDB Cloud organization
+### Query raw usage data for your InfluxDB Cloud organization
 ```js
 import "experimental/usage"
 
 usage.from(start: -1h, stop: now(), raw: true)
 ```
 
-##### Query downsampled usage data for a different InfluxDB Cloud organization
+### Query downsampled usage data for a different InfluxDB Cloud organization
 ```js
 import "experimental/usage"
 import "influxdata/influxdb/secrets"
@@ -126,11 +127,11 @@ usage.from(
     stop: now(),
     host: "https://cloud2.influxdata.com",
     orgID: "x000X0x0xx0X00x0",
-    token: token
+    token: token,
 )
 ```
 
-##### Query number of bytes in requests to the /api/v2/write endpoint
+### Query number of bytes in requests to the /api/v2/write endpoint
 ```js
 import "experimental/usage"
 
@@ -143,7 +144,7 @@ usage.from(start: -30d, stop: now())
     |> group()
 ```
 
-##### Query number of bytes returned from the /api/v2/query endpoint
+### Query number of bytes returned from the /api/v2/query endpoint
 ```js
 import "experimental/usage"
 
@@ -156,13 +157,34 @@ usage.from(start: -30d, stop: now())
     |> group()
 ```
 
-##### Compare usage metrics to organization usage limits
+### Query the query count for InfluxDB Cloud query endpoints
+The following query returns query counts for the following query endpoints:
+
+- **/api/v2/query**: Flux queries
+- **/query**: InfluxQL queries
+
+```javascript
+import "experimental/usage"
+
+usage.from(start: -30d, stop: now())
+    |> filter(fn: (r) => r._measurement == "query_count")
+    |> sort(columns: ["_time"])
+```
+
+### Compare usage metrics to organization usage limits
+The following query compares the amount of data written to and queried from your
+InfluxDB Cloud organization to your organization's rate limits.
+It appends a `limitReached` column to each row that indicates if your rate
+limit was exceeded.
+
 ```js
 import "experimental/usage"
 
+limits = usage.limits()
+
 checkLimit = (tables=<-, limit) => tables
-    |> map(fn: (r) => ({ r with _value: r._value / 1000, limit: int(v: limit) * 60 * 5 }))
-    |> map(fn: (r) => ({ r with limitReached: r._value > r.limit}))
+    |> map(fn: (r) => ({r with _value: r._value / 1000, limit: int(v: limit) * 60 * 5}))
+    |> map(fn: (r) => ({r with limitReached: r._value > r.limit}))
 
 read = usage.from(start: -30d, stop: now())
     |> filter(fn: (r) => r._measurement == "http_request")
@@ -171,6 +193,7 @@ read = usage.from(start: -30d, stop: now())
     |> group(columns: ["_time"])
     |> sum()
     |> group()
+    |> checkLimit(limit: limits.rate.readKBs)
 
 write = usage.from(start: -30d, stop: now())
     |> filter(fn: (r) => r._measurement == "http_request")

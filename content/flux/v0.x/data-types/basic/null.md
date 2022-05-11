@@ -37,7 +37,7 @@ if a column value is _null_.
 ##### Filter out rows with null values
 ```js
 data
-  |> filter(fn: (r) => exists r._value)
+    |> filter(fn: (r) => exists r._value)
 ```
 
 {{< flex >}}

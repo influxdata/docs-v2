@@ -20,17 +20,17 @@ The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
 import "experimental/mqtt"
 
 mqtt.to(
-  broker: "tcp://localhost:8883",
-  topic: "example-topic",
-  qos: 0,
-  clientid: "flux-mqtt",
-  username: "username",
-  password: "password",
-  name: "name-example",
-  timeout: 1s,
-  timeColumn: "_time",
-  tagColumns: ["tag1", "tag2"],
-  valueColumns: ["_value"]
+    broker: "tcp://localhost:8883",
+    topic: "example-topic",
+    qos: 0,
+    clientid: "flux-mqtt",
+    username: "username",
+    password: "password",
+    name: "name-example",
+    timeout: 1s,
+    timeColumn: "_time",
+    tagColumns: ["tag1", "tag2"],
+    valueColumns: ["_value"],
 )
 ```
 
@@ -90,13 +90,13 @@ Default is `["_value"]`.
 import "experimental/mqtt"
 
 from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> filter(fn: (r) => r._measurement == "airSensor")
-  |> mqtt.to(
-    broker: "tcp://localhost:8883",
-    topic: "air-sensors",
-    clientid: "sensor-12a4",
-    tagColumns: ["sensorID"],
-    valueColumns: ["_value"]
-  )
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "airSensor")
+    |> mqtt.to(
+        broker: "tcp://localhost:8883",
+        topic: "air-sensors",
+        clientid: "sensor-12a4",
+        tagColumns: ["sensorID"],
+        valueColumns: ["_value"],
+    )
 ```

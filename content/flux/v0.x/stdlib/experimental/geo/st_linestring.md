@@ -47,7 +47,7 @@ geo.ST_LineString()
 import "experimental/geo"
 
 data
-  |> geo.ST_LineString()
+    |> geo.ST_LineString()
 ```
 
 ##### Output data
@@ -55,18 +55,3 @@ data
 | id    | st_linestring                                       |
 |:--    |:-------------                                       |
 | a213b | 39.7515 14.01433, 38.3527 13.9228, 36.9978 15.08433 |
-
-## Function definition
-```js
-ST_LineString = (tables=<-) =>
-  tables
-    |> reduce(fn: (r, accumulator) => ({
-        __linestring: accumulator.__linestring + (if accumulator.__count > 0 then ", " else "") + string(v: r.lat) + " " + string(v: r.lon),
-        __count: accumulator.__count + 1
-      }), identity: {
-        __linestring: "",
-        __count: 0
-      }
-    )
-    |> rename(columns: {__linestring: "st_linestring"})
-```
