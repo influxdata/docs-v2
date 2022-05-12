@@ -30,25 +30,20 @@
 {{ $pageGithubIssueLink := print "https://github.com/influxdata/docs-v2/issues/new?body=" $docsIssueLinkBody }}
 
 <hr/>
-
-<p>Was this page helpful?</p>
-
-<form onSubmit="return submitFormData()" id="pagefeedback">
-  <input type="text" name="name" class="honeypot" placeholder="Enter name">
-  <input type="text" name="product" class="honeypot" value="{{ index $productPathData 0 }}">
-  <input type="text" name="host" class="honeypot" value="{{ .Site.BaseURL }}">
-  <input type="text" name="path" class="honeypot" value="{{ .RelPermalink }}">
-  <label><input type="radio" name="helpful" value="true"/>Yes</label>
-  <label><input type="radio" name="helpful" value="false"/>No</label>
-</form>
-
-<!-- <div>
-  <input type="text" name="feedback-content" id="user-feedback" placeholder="How can we improve this page?">
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
 </div>
-<div class="form-example">
-  <input type="submit" value="Submit Feedback">
-</div> -->
-
 <hr/>
 <div class="feedback block">
   <div class="support">
@@ -56,7 +51,7 @@
     <p>
       Thank you for being part of our community!
       We welcome and encourage your feedback and bug reports for {{ $productName }} and this documentation.
-      To find support, the following resources are available:
+      To find support, use the following resources:
     </p>
     <ul>
       <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>

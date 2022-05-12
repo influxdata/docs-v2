@@ -3,7 +3,7 @@
 {{ $currentVersion := index $productPathData 1 | default "v2.0"}}
 
   <!-- Modals -->
-  {{ partial "footer/influxdb-url-modal.html" . }}
+  {{ partial "footer/modals.html" . }}
   {{ partial "footer/feature-callout.html" . }}
   {{ partial "footer/fullscreen-code.html" . }}
 
