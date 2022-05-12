@@ -32,7 +32,7 @@ weight: 102
   v1frontmatter="---
 title: InfluxDB $titleVersion v1 compatibility API documentation
 description: >
-  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibly endpoints.
+  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibility endpoints.
 layout: api
 menu:
   $menu:
@@ -58,6 +58,7 @@ weight: 304
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
+    --options.hideDownloadButton \
     --options.noAutoAuth \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
@@ -69,6 +70,7 @@ weight: 304
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
+    --options.hideDownloadButton \
     --options.hideHostname \
     --options.noAutoAuth \
     --templateOptions.version="$version" \

@@ -6038,7 +6038,15 @@ info:
   title: InfluxDB Cloud API Service
   description: >
     The InfluxDB v2 API provides a programmatic interface for all interactions
-    with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
+    with InfluxDB.
+
+    Access the InfluxDB API using the `/api/v2/` endpoint.
+
+
+    This documentation is generated from the
+
+    [InfluxDB OpenAPI
+    specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
 openapi: 3.0.0
 paths:
   /api/v2:
