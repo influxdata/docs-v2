@@ -51,7 +51,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float()
-  |> toString()
+    |> toString()
 ```
 
 {{< expand-wrapper >}}
@@ -87,10 +87,3 @@ sampledata.float()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toString = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: string(v: r._value) }))
-```

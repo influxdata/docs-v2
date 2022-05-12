@@ -25,9 +25,9 @@ an aggregate or selector function to values in the column.
 import "contrib/bonitoo-io/tickscript"
 
 tickscript.select(
-  column: "_value",
-  fn: sum,
-  as: "example-name"
+    column: "_value",
+    fn: sum,
+    as: "example-name",
 )
 ```
 
@@ -74,7 +74,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "contrib/bonitoo-io/tickscript"
 
 data
-  |> tickscript.select(as: "example-name")
+    |> tickscript.select(as: "example-name")
 ```
 
 {{< flex >}}
@@ -103,10 +103,7 @@ data
 import "contrib/bonitoo-io/tickscript"
 
 data
-  |> tickscript.select(
-    as: "sum",
-    fn: sum
-  )
+    |> tickscript.select(as: "sum", fn: sum)
 ```
 
 {{< flex >}}
@@ -133,10 +130,7 @@ data
 import "contrib/bonitoo-io/tickscript"
 
 data
-  |> tickscript.select(
-    as: "max",
-    fn: max
-  )
+    |> tickscript.select(as: "max", fn: max)
 ```
 
 {{< flex >}}

@@ -23,11 +23,8 @@ which represents a basic query that filters data by measurement and field.
 
 ```js
 data = from(bucket: "db/rp")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
 ```
 {{% /note %}}
 

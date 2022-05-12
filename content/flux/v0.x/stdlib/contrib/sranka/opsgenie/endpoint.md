@@ -20,9 +20,9 @@ The `opsgenie.endpoint()` function sends an alert message to Opsgenie using data
 import "contrib/sranka/opsgenie"
 
 opsgenie.endpoint(
-  url: "https://api.opsgenie.com/v2/alerts",
-  apiKey: "YoUrSup3R5ecR37AuThK3y",
-  entity: "example-entity"
+    url: "https://api.opsgenie.com/v2/alerts",
+    apiKey: "YoUrSup3R5ecR37AuThK3y",
+    entity: "example-entity",
 )
 ```
 
@@ -72,22 +72,25 @@ import "contrib/sranka/opsgenie"
 apiKey = secrets.get(key: "OPSGENIE_APIKEY")
 endpoint = opsgenie.endpoint(apiKey: apiKey)
 
-crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-  |> endpoint(mapFn: (r) => ({
-    message: "Great Scott!- Disk usage is: ${r.status}.",
-      alias: "disk-usage-${r.status}",
-      description: "",
-      priority: "P3",
-      responders: ["user:john@example.com", "team:itcrowd"],
-      tags: [],
-      entity: "my-lab",
-      actions: [],
-      details: "{}",
-      visibleTo: []
-    })
-  )()
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                message: "Great Scott!- Disk usage is: ${r.status}.",
+                alias: "disk-usage-${r.status}",
+                description: "",
+                priority: "P3",
+                responders: ["user:john@example.com", "team:itcrowd"],
+                tags: [],
+                entity: "my-lab",
+                actions: [],
+                details: "{}",
+                visibleTo: [],
+            }),
+    )()
 ```

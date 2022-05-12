@@ -68,7 +68,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float()
-  |> toUInt()
+    |> toUInt()
 ```
 
 {{< expand-wrapper >}}
@@ -95,7 +95,7 @@ sampledata.float()
 import "sampledata"
 
 sampledata.bool()
-  |> toUInt()
+    |> toUInt()
 ```
 
 {{< expand-wrapper >}}
@@ -122,7 +122,7 @@ sampledata.bool()
 import "sampledata"
 
 sampledata.uint()
-  |> toUInt()
+    |> toUInt()
 ```
 
 {{< expand-wrapper >}}
@@ -143,9 +143,3 @@ sampledata.uint()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toUInt = (tables=<-) => tables
-  |> map(fn:(r) => ({ r with _value: uint(v:r._value) }))
-```

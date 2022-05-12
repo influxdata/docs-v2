@@ -9,7 +9,8 @@ menu:
     parent: write-best-practices
 ---
 
-If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2.1/reference/glossary/#series-cardinality) (too many series) may be causing memory issues.
+If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2.1/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% cloud-only %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /cloud-only %}}
+
 Take steps to understand and resolve high series cardinality.
 
 1. [Learn the causes of high cardinality](#learn-the-causes-of-high-series-cardinality)
@@ -76,17 +77,19 @@ The following example Flux query shows you which tags are contributing the most 
 // Count unique values for each tag in a bucket
 import "influxdata/influxdb/schema"
 
-cardinalityByTag = (bucket) =>
-  schema.tagKeys(bucket: bucket)
-    |> map(fn: (r) => ({
-      tag: r._value,
-      _value:
-        if contains(set: ["_stop","_start"], value:r._value) then 0
-        else (schema.tagValues(bucket: bucket, tag: r._value)
-          |> count()
-          |> findRecord(fn: (key) => true, idx: 0))._value
-    }))
-    |> group(columns:["tag"])
+cardinalityByTag = (bucket) => schema.tagKeys(bucket: bucket)
+    |> map(
+        fn: (r) => ({
+            tag: r._value,
+            _value: if contains(set: ["_stop", "_start"], value: r._value) then
+                0
+            else
+                (schema.tagValues(bucket: bucket, tag: r._value)
+                    |> count()
+                    |> findRecord(fn: (key) => true, idx: 0))._value,
+        }),
+    )
+    |> group(columns: ["tag"])
     |> sum()
 
 cardinalityByTag(bucket: "example-bucket")
@@ -114,7 +117,7 @@ cardinalityByTag(bucket: "example-bucket")
     tag = "example-tag-key"
 
     schema.tagValues(bucket: "my-bucket", tag: tag)
-      |> count()
+        |> count()
     ```
 
 These queries should help identify the sources of high cardinality in each of your buckets. To determine which specific tags are growing, check the cardinality again after 24 hours to see if one or more tags have grown significantly.

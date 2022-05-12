@@ -19,13 +19,10 @@ strings to a string-encoded JSON array that can be embedded in an alert message.
 ```js
 import "contrib/sranka/opsgenie"
 
+import "contrib/sranka/opsgenie"
+
 opsgenie.respondersToJSON(
-  v: [
-    "user:example-user",
-    "team:example-team",
-    "escalation:example-escalation",
-    "schedule:example-schedule"
-  ]
+    v: ["user:example-user", "team:example-team", "escalation:example-escalation", "schedule:example-schedule"],
 )
 
 // Returns "[

@@ -51,9 +51,5 @@ The number of non-overlapping `t` matches to replace.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      content: strings.replace(v: r.content, t: "he", u: "her", i: 3)
-    })
-  )
+    |> map(fn: (r) => ({r with content: strings.replace(v: r.content, t: "he", u: "her", i: 3)}))
 ```

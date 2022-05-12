@@ -63,7 +63,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> rename(columns: {tag: "uid", _value: "val"})
+    |> rename(columns: {tag: "uid", _value: "val"})
 ```
 
 {{< expand-wrapper >}}
@@ -107,7 +107,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> rename(fn: (column) => "${column}_new")
+    |> rename(fn: (column) => "${column}_new")
 ```
 
 {{< expand-wrapper >}}

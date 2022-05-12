@@ -89,6 +89,7 @@ Where applicable, it links to outstanding issues on GitHub.
 * [Why am I seeing `error writing count stats ...: partial write` errors in my data node logs?](#why-am-i-seeing-error-writing-count-stats--partial-write-errors-in-my-data-node-logs)
 * [Why am I seeing `queue is full` errors in my data node logs?](#why-am-i-seeing-queue-is-full-errors-in-my-data-node-logs)
 * [Why am I seeing `unable to determine if "hostname" is a meta node` when I try to add a meta node with `influxd-ctl join`?](#why-am-i-seeing-unable-to-determine-if-hostname-is-a-meta-node-when-i-try-to-add-a-meta-node-with-influxd-ctl-join)
+* [Why is InfluxDB reporting an out of memory (OOM) exception when my system has free memory?](#why-is-influxdb-reporting-an-out-of-memory-oom-exception-when-my-system-has-free-memory)
 
 ---
 
@@ -1282,7 +1283,7 @@ The `journalctl` output can be redirected to print the logs to a text file. With
 This is the expected behavior if you haven't joined the meta node to the
 cluster.
 The `503` errors should stop showing up in the logs once you
-[join the meta node to the cluster](/enterprise_influxdb/v1.9/install-and-deploy/installation/meta_node_installation/#step-3-join-the-meta-nodes-to-the-cluster).
+[join the meta node to the cluster](/enterprise_influxdb/v1.9/introduction/installation/installation/meta_node_installation/#step-3-join-the-meta-nodes-to-the-cluster).
 
 ## Why am I seeing a `409` error in some of my data node logs?
 
@@ -1333,3 +1334,35 @@ Meta nodes use the `/status` endpoint to determine the current state of another 
 `"nodeType":"meta","leader":"","httpAddr":"<hostname>:8091","raftAddr":"<hostname>:8089","peers":null}`
 
 If you are getting an error message while attempting to `influxd-ctl join` a new meta node, it means that the JSON string returned from the `/status` endpoint is incorrect. This generally indicates that the meta node configuration file is incomplete or incorrect. Inspect the HTTP response with `curl -v "http://<hostname>:8091/status"` and make sure that the `hostname`, the `bind-address`, and the `http-bind-address` are correctly populated. Also check the `license-key` or `license-path` in the configuration file of the meta nodes. Finally, make sure that you specify the `http-bind-address` port in the join command, e.g. `influxd-ctl join hostname:8091`.
+
+## Why is InfluxDB reporting an out of memory (OOM) exception when my system has free memory?
+
+`mmap` is a Unix system call that maps files into memory.
+As the number of shards in an InfluxDB Enterprise cluster increases, the number of memory maps increase.
+If the number of maps exceeds the configured maximum limit, the node reports that it is out of memory.
+
+To check the current number of maps the `influxd` process is using:
+
+```sh
+# Get the influxd process ID (PID)
+PID=$(ps aux | awk '/influxd/ ${print 2}' 
+
+# Count the number of maps associated with the influxd process
+wc -l /proc/$PID/maps
+```
+
+The `max_map_count` file contains the maximum number of memory map areas a process may have.
+The default limit is `65536`.
+We recommend increasing this to `262144` (four times the default) by running the following:
+
+```sh
+echo vm.max_map_count=262144 > /etc/sysctl.d/90-vm.max_map_count.conf
+```
+
+To make the changes permanent:
+
+```sh
+sysctl --system
+```
+
+Restart the `influxd` process and repeat on each node in your cluster.

@@ -70,11 +70,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ```js
 data
-  |> pivot(
-    rowKey:["_time"],
-    columnKey: ["_field"],
-    valueColumn: "_value"
-  )
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
 ```
 
 {{< expand-wrapper >}}
@@ -116,11 +112,7 @@ data
 
 ```js
 data
-  |> pivot(
-    rowKey:["_time"],
-    columnKey: ["_measurement", "_field"],
-    valueColumn: "_value"
-  )
+    |> pivot(rowKey: ["_time"], columnKey: ["_measurement", "_field"], valueColumn: "_value")
 ```
 
 {{< expand-wrapper >}}
@@ -161,11 +153,7 @@ data
 import "sampledata"
 
 sampledata.int()
-  |> pivot(
-    rowKey: ["_time"],
-    columnKey: ["tag"],
-    valueColumn: "_value"
-  )
+    |> pivot(rowKey: ["_time"], columnKey: ["tag"], valueColumn: "_value")
 ```
 
 {{< expand-wrapper >}}
@@ -193,3 +181,4 @@ sampledata.int()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
+

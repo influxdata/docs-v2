@@ -17,11 +17,11 @@ list_code_example: |
   import "sql"
   
   data
-    |> sql.to(
-      driverName: "snowflake",
-      dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
-      table: "example_table"
-    )
+      |> sql.to(
+          driverName: "snowflake",
+          dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
+          table: "example_table",
+      )
   ```
 ---
 
@@ -41,11 +41,11 @@ To write data to [Snowflake](https://www.snowflake.com/) with Flux:
 import "sql"
   
 data
-  |> sql.to(
-    driverName: "snowflake",
-    dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
-    table: "example_table"
-  )
+    |> sql.to(
+        driverName: "snowflake",
+        dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
+        table: "example_table",
+    )
 ```
 
 ---

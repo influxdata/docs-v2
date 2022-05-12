@@ -21,10 +21,10 @@ to the Pushbullet API.
 import "pushbullet"
 
 pushbullet.pushNote(
-  url: "https://api.pushbullet.com/v2/pushes",
-  token: "",
-  title: "This is a push notification!",
-  text: "This push notification came from Flux."
+    url: "https://api.pushbullet.com/v2/pushes",
+    token: "",
+    title: "This is a push notification!",
+    text: "This push notification came from Flux.",
 )
 ```
 
@@ -56,8 +56,7 @@ import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "PUSHBULLET_TOKEN")
 
-lastReported =
-  from(bucket: "example-bucket")
+lastReported = from(bucket: "example-bucket")
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
@@ -65,8 +64,8 @@ lastReported =
     |> getRecord(idx: 0)
 
 pushbullet.pushNote(
-  token: token,
-  title: "Last reported status",
-  text: "${lastReported._time}: ${lastReported.status}."
+    token: token,
+    title: "Last reported status",
+    text: "${lastReported._time}: ${lastReported.status}.",
 )
 ```

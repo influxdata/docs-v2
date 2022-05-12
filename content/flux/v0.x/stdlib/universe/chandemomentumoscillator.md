@@ -24,8 +24,8 @@ developed by Tushar Chande.
 
 ```js
 chandeMomentumOscillator(
-  n: 10,
-  columns: ["_value"]
+    n: 10,
+    columns: ["_value"],
 )
 ```
 
@@ -61,7 +61,7 @@ with `x - n` rows.
 import "sampledata"
 
 sampledata.int()
-  |> chandeMomentumOscillator(n: 2)
+    |> chandeMomentumOscillator(n: 2)
 ```
 
 {{% expand "View input and output" %}}

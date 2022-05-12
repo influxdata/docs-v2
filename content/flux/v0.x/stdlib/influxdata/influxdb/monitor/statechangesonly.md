@@ -38,7 +38,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "influxdata/influxdb/monitor"
 
 monitor.from(start: -1h)
-  |> monitor.stateChangesOnly()
+    |> monitor.stateChangesOnly()
 ```
 
 {{< flex >}}

@@ -19,10 +19,7 @@ Both `a` and `b` are [integers](/flux/v0.x/data-types/basic/int/).
 ```js
 import "experimental/bitwise"
 
-bitwise.srshift(
-  a: 21,
-  b: 4
-)
+bitwise.srshift(a: 21, b: 4)
 
 // Returns 1
 ```

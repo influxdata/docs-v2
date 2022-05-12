@@ -10,6 +10,180 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.166.0 [2022-05-09]
+
+### Features
+- Add InfluxData semantic commit and pull request title validator.
+- Add an `Expr` node to the visitor API.
+- Add label polymorphism.
+- Vectorize remaining arithmetic operators.
+
+### Bug fixes
+- Remove `JoinOpSpec.TableNames` in favor of `JoinOpSpec.params` to stay
+  consistent inside `tableFind()`.
+- Fix `SortLimit` for empty input group.
+
+---
+
+## v0.165.0 [2022-04-25]
+
+### Features
+- Add support for options in the `testcase` extension.
+- Vectorize addition operations in `map()`.
+- Add location support to `date.truncate()`.
+- Accept string literals in properties of a record type.
+- Add trace option to the `flux` CLI.
+- Add `EquiJoinPredicateRule`.
+
+### Bug fixes
+- Update `map()` test case to include a range.
+- Don't set `BaseLocation.file` to `Some("")`.
+- Fix `strings.joinStr` panic when it receives a null value.
+- Remove 64bit misalignment.
+- Fix memory releases and add checked allocator to the end of tests.
+
+---
+
+## v0.164.1 [2022-04-18]
+
+### Bug fixes
+- Remove an extraneous `go generate` statement.
+
+---
+
+## v0.164.0 [2022-04-13]
+
+### Features
+- Allow Go to pass compilation options to Rust.
+
+### Bug fixes
+- Do not assume integers are 64bit integers.
+- Update `prometheus.scrape` type signature to correctly return a stream.
+
+---
+
+## v0.163.0 [2022-04-07]
+
+### Features
+- Report skipped tests.
+
+### Bug fixes
+- Update transformation transport adapter to always invoke `finish`.
+- Add support for "soft paragraphs" (paragraphs that contain single newline
+  characters) in inline Flux documentation.
+
+---
+
+## v0.162.0 [2022-04-05]
+
+### Features
+- Add [OpenTracing spans](https://opentracing.io/docs/overview/spans/) to the Flux runtime.
+- Add the `cffi` feature to reduce WASM binary size.
+- Replace the main `flux` CLI with a new `flux` CLI that starts a Flux REPL by
+  default or executes a Flux script via stdin.
+- Track freed memory with `SetFinalizer`.
+- Move [`addDuration()`](/flux/v0.x/stdlib/date/addduration/) and
+  [`subDuration()`](/flux/v0.x/stdlib/date/subduration/) from the `experimental`
+  package to the `date` package.
+
+### Bug fixes
+- Improve error messages for column conflicts in pivot operations.
+- Create OpenTracing spans for transformations using the proper context.
+- Add errors to OpenTracing spans created for transformations.
+- Restore required features hidden behind the `cffi` feature.
+
+---
+
+## v0.161.0 [2022-03-24]
+
+### Features
+- Re-enable the dialer pool and update dependency injection.
+
+### Bug fixes
+- Check length boundary for lower bound of [`strings.substring()`](/flux/v0.x/stdlib/strings/substring/).
+
+---
+
+## v0.160.0 [2022-03-22]
+
+### Features
+- Remove the `concurrencyLimit` feature flag and keep it in the dependencies.
+- Add MQTT Docker integration test.
+- Enable dialer pool.
+- Add an IOx-specific unpivot function to the `internal` package.
+
+### Bug fixes
+- Update [`join()`](/flux/v0.x/stdlib/universe/join/) to properly handle divergent schemas.
+- Fix line endings in the `testcase` format to prevent unnecessarily nesting the
+  body of a test case.
+- Make [`strings.substring()`](/flux/v0.x/stdlib/strings/substring/) check bounds correctly.
+- Fix duration and integer literal scanning.
+- Make `testcase` a semantic check instead of an error.
+- Skip parallel merge when selecting the result name based on side effects.
+- Add metadata headers to inline documentation.
+
+---
+
+## v0.159.0 [2022-03-14]
+
+### Features
+- Added a `finish` state to parallel-merge and always protect with a mutex lock.
+
+### Bug fixes
+- Use a fork of the `gosnowflake` library to prevent file transfers.
+- When encoding Flux types as JSON, encode dictionary types as JSON objects.
+- Upgrade Apache Arrow to v7.
+
+---
+
+## v0.158.0 [2022-03-09]
+
+### Features
+- Add inline documentation to the `universe` package.
+- Factor parallel execution into the concurrency quota calculation.
+
+### Bug fixes
+- Add parallel merges with no successors to the results set.
+- Correctly use range in an updated `map()` test.
+
+---
+
+## v0.157.0 [2022-03-03]
+
+### Features
+- Update `fill()` to use narrow transformation.
+- Add an attribute-based instantiation of parallel execution nodes.
+- Expose the `Record::fields` iterator.
+- Allow the `estimate_tdigest` method in `quantile()` to process any numeric value.
+- Optimize `aggregateWindow()` for specific aggregate transformations.
+
+### Bug fixes
+- Update vectorized `map()` to handle missing columns.
+- Remove duplicate line in `Makefile`.
+- Fix `cargo doc` build errors.
+- Reclassify CSV-decoding errors as user errors.
+- Update `iox.from()` and `generate.from()` to use proper stream annotation.
+
+---
+
+## v0.156.0 [2022-02-22]
+
+### Features
+- Add second pass to physical planner for parallelization rules.
+- Separate streams from arrays in the type system.
+- Add function to internal/debug to check feature flag values.
+- Allow feature flags to record metrics if configured.
+- Add extra verbose level to dump AST of test.
+- Explain what `[A], [A:B]` etc means in errors.
+
+### Bug fixes
+- Make `buckets()` function return a stream.
+- Remove unnecessary `TableObject` guards.
+- Copy `TagColumns` in `to()` that may get modified into the transformation.
+- Update tests to use explicit yields.
+
+---
+
 ## v0.155.1 [2022-02-15]
 
 ### Bug fixes

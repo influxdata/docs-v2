@@ -24,14 +24,14 @@ introduced: 0.7.0
 
 ```js
 aggregateWindow(
-  every: 1m,
-  period: 1m,
-  fn: mean,
-  column: "_value",
-  timeSrc: "_stop",
-  timeDst: "_time",
-  location: "UTC",
-  createEmpty: true
+    every: 1m,
+    period: 1m,
+    fn: mean,
+    column: "_value",
+    timeSrc: "_stop",
+    timeDst: "_time",
+    location: "UTC",
+    createEmpty: true,
 )
 ```
 
@@ -138,13 +138,10 @@ to aggregate time-based windows:
 import "sampledata"
 
 data = sampledata.float()
-  |> range(start: sampledata.start, stop: sampledata.stop)
+    |> range(start: sampledata.start, stop: sampledata.stop)
 
 data
-  |> aggregateWindow(
-    every: 20s,
-    fn: mean
-  )
+    |> aggregateWindow(every: 20s, fn: mean)
 ```
 
 {{< expand-wrapper >}}
@@ -177,14 +174,14 @@ tables into the aggregate or selector function with all required parameters defi
 import "sampledata"
 
 data = sampledata.float()
-  |> range(start: sampledata.start, stop: sampledata.stop)
+    |> range(start: sampledata.start, stop: sampledata.stop)
 
 data
-  |> aggregateWindow(
-    column: "_value",
-    every: 20s,
-    fn: (column, tables=<-) => tables |> quantile(q: 0.99, column:column)
-  )
+    |> aggregateWindow(
+        column: "_value",
+        every: 20s,
+        fn: (column, tables=<-) => tables |> quantile(q: 0.99, column: column),
+    )
 ```
 
 {{< expand-wrapper >}}
@@ -212,10 +209,10 @@ data
 import "sampledata"
 
 data = sampledata.float()
-  |> range(start: sampledata.start, stop: sampledata.stop)
+    |> range(start: sampledata.start, stop: sampledata.stop)
 
 data
-  |> aggregateWindow(every: 1mo, fn: mean)
+    |> aggregateWindow(every: 1mo, fn: mean)
 ```
 
 {{% expand "View input and output" %}}

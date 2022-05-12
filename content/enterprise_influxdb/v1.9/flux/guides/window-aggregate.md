@@ -37,12 +37,9 @@ The following example queries the memory usage of the host machine.
 
 ```js
 dataSet = from(bucket: "db/rp")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> drop(columns: ["host"])
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> drop(columns: ["host"])
 ```
 
 {{% note %}}
@@ -103,7 +100,7 @@ set into one minute windows.
 
 ```js
 dataSet
-  |> window(every: 1m)
+    |> window(every: 1m)
 ```
 
 {{% note %}}
@@ -195,8 +192,8 @@ to output the average of each window:
 
 ```js
 dataSet
-  |> window(every: 1m)
-  |> mean()
+    |> window(every: 1m)
+    |> mean()
 ```
 
 {{% truncate %}}
@@ -259,9 +256,9 @@ duplicate either the `_start` or `_stop` column as a new `_time` column.
 
 ```js
 dataSet
-  |> window(every: 1m)
-  |> mean()
-  |> duplicate(column: "_stop", as: "_time")
+    |> window(every: 1m)
+    |> mean()
+    |> duplicate(column: "_stop", as: "_time")
 ```
 
 {{% truncate %}}
@@ -310,10 +307,10 @@ Use the `window()` function to "unwindow" your data into a single infinite (`inf
 
 ```js
 dataSet
-  |> window(every: 1m)
-  |> mean()
-  |> duplicate(column: "_stop", as: "_time")
-  |> window(every: inf)
+    |> window(every: 1m)
+    |> mean()
+    |> duplicate(column: "_stop", as: "_time")
+    |> window(every: inf)
 ```
 
 {{% note %}}
@@ -350,5 +347,5 @@ The following Flux query will return the same results:
 ###### aggregateWindow function
 ```js
 dataSet
-  |> aggregateWindow(every: 1m, fn: mean)
+    |> aggregateWindow(every: 1m, fn: mean)
 ```
