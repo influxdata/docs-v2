@@ -26,6 +26,7 @@ menu:
 - Fix race condition causing `influxd-ctl restore` command to fail.
 #### Error Messaging
 - Improve error messaging for `max series per database exceeded`error.
+- Improve influxd-ctl error messages when invalid JSON is received.
 - Add detail to `error creating subscription` message.
 - `DROP SHARD` now successfully ignores "shard not found" errors.
 
