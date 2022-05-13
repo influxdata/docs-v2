@@ -18,4 +18,9 @@ libraries in your favorite framework or language.
 ## Node.js
 
 [Build a Node.js and React app](/{{% latest "influxdb" %}}/api-guide/iot-starter/nodejs/)
-with the JavaScript client library.
+with the InfluxDB client library for Javascript.
+
+## Python
+
+[Build a Flask and Jinja app](/{{% latest "influxdb" %}}/api-guide/iot-starter/python/)
+with the InfluxDB client library for Python.
