@@ -99,7 +99,7 @@ function postProcess() {
   version="$2"
   apiVersion="$3"
 
-  openapiCLI="@redocly/openapi-cli"
+  openapiCLI=" @redocly/cli"
 
   npx --version
 

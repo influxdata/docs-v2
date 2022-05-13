@@ -18,7 +18,7 @@ To get install and configure the **InfluxData 1.x** platform, use one of the fol
 
   - [Install the open source version of InfluxData 1.x platform](/platform/install-and-deploy/install/oss-install)
   - Install InfluxData 1.x Enterprise:
-      1. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/)
+      1. [Install Telegraf](/{{< latest "telegraf" >}}/install/)
       2. [Install InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/install-and-deploy/)
       3. [Install Kapacitor Enterprise](https://archive.docs.influxdata.com/enterprise_kapacitor/latest/introduction/installation_guide/)
 
