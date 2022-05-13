@@ -46,11 +46,7 @@ The instructions in this guide require **Grafana Cloud** or **Grafana v7.1+**.
 With **Flux** selected as the query language in your InfluxDB data source,
 configure your InfluxDB connection:
 
-1. Under **HTTP**, enter your [InfluxDB URL](/influxdb/v2.2/reference/urls/). By default, `http://localhost:8086`. Select or enter other HTTP details as needed.
-
-{{% note %}}
-If **Server access** is selected, this URL must be accessible from the Grafana server. If **Browser access** is selected, this URL must be accessible from a browser.
-{{% /note %}}
+1. Under **HTTP**, enter your [InfluxDB URL](/influxdb/v2.2/reference/urls/). By default, `http://localhost:8086`. Select or enter other HTTP details as needed. Note, if **Server access** is selected, this URL must be accessible from the Grafana server. If **Browser access** is selected, this URL must be accessible from a browser.
 
 2. Under **Auth**, select your preferred authentication method, and enter authentication credentials.
 3. Under **InfluxDB Details**, enter the following:
@@ -236,9 +232,6 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
         - **User**: Enter the username associated with your [InfluxDB 1.x compatibility authorization](#view-and-create-influxdb-v1-authorizations)
         - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#view-and-create-influxdb-dbrp-mappings)
         - **HTTP Method**: Select **GET**
-
-        <!--  -->
-        {{< img-hd src="/img/influxdb/2-0-tools-grafana-influxql.png" />}}
 
 3. Click **Save & Test**. Grafana attempts to connect to the InfluxDB {{< current-version >}} data source
    and returns the results of the test.
