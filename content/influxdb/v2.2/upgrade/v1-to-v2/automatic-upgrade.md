@@ -77,8 +77,8 @@ You can continue to use Kapacitor with InfluxDB OSS {{< current-version >}} unde
   Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/).
 - InfluxDB {{< current-version >}} has no subscriptions API and does not support Kapacitor stream tasks.
   To continue using stream tasks, write data directly to both InfluxDB and Kapacitor.
-  Use **Telegraf** and its [InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
-  to write to Kapacitor and the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb_v2) to write to InfluxDB v2.
+  Use **Telegraf** and its [InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb)
+  to write to Kapacitor and the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) to write to InfluxDB v2.
 
 ##### Example Telegraf configuration
 ```toml

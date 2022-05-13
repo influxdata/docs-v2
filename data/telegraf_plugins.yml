@@ -277,7 +277,7 @@ input:
     description: |
       > The `inputs.cisco_telementry_gnmi` plugin was renamed to `inputs.gmni`
       in **Telegraf 1.15.0** to better reflect its general support for gNMI devices.
-      See the [gNMI plugin](#gnmi).
+      See the [gNMI plugin](#input-cisco_telemetry_gnmi).
 
       Cisco GNMI Telemetry input plugin consumes telemetry data similar to the GNMI specification.
       This GRPC-based protocol can utilize TLS for authentication and encryption.
@@ -2210,7 +2210,7 @@ output:
     tags: [linux, macos, windows, systems]
 
   - name: Execd
-    id: exec
+    id: execd
     description: |
         The Execd output plugin runs an external program as a daemon.
     introduced: 1.15.0

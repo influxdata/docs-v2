@@ -1,26 +1,28 @@
 ---
-title: date.subDuration() function
+title: date.sub() function
 description: >
-  `date.subDuration()` subtracts a duration from a time value and returns the
+  `date.sub()` subtracts a duration from a time value and returns the
   resulting time value.
 menu:
   flux_0_x_ref:
-    name: date.subDuration
+    name: date.sub
     parent: date
 weight: 302
 flux/v0.x/tags: [date/time]
+aliases:
+  - /flux/v0.x/stdlib/date/subduration/
 related:
   - /flux/v0.x/stdlib/date/addduration/
 introduced: 0.162.0
 ---
 
-`date.subDuration()` subtracts a duration from a time value and returns the
+`date.sub()` subtracts a duration from a time value and returns the
 resulting time value.
 
 ```js
 import "date"
 
-date.subDuration(d: 12h, from: now())
+date.sub(d: 12h, from: now())
 ```
 
 ## Parameters
@@ -39,7 +41,7 @@ Durations are relative to [`now()`](/flux/v0.x/stdlib/universe/now/).
 ```js
 import "date"
 
-date.subDuration(d: 6h, from: 2019-09-16T12:00:00Z)
+date.sub(d: 6h, from: 2019-09-16T12:00:00Z)
 
 // Returns 2019-09-16T06:00:00.000000000Z
 ```
@@ -50,7 +52,7 @@ import "date"
 
 option now = () => 2022-01-01T12:00:00Z
 
-date.subDuration(d: 6h, from: -3h)
+date.sub(d: 6h, from: -3h)
 
 // Returns 2022-01-01T03:00:00.000000000Z
 ```

@@ -3,23 +3,25 @@ title: Get started
 description: Configure and start Telegraf
 menu:
   telegraf_1_22:
-
     name: Get started
     weight: 25
 ---
 
-After you've [downloaded and installed Telegraf](/{{< latest "telegraf" >}}/install/), you're ready to begin collecting and sending data. To collect and send data, do the following:
+After you've [downloaded and installed Telegraf](/telegraf/v1.22/install/), you're ready to begin collecting and sending data. To collect and send data, do the following:
 
 1. [Configure Telegraf](#configure-telegraf)
 2. [Start Telegraf](#start-telegraf)
-3. Use [plugins available in Telegraf](/{{< latest "telegraf" >}}/plugins/) to gather, transform, and output data.
+3. Use [plugins available in Telegraf](/telegraf/v1.22/plugins/) to gather, transform, and output data.
 
 ## Configure Telegraf
 
-Define which plugins Telegraf will use in the configuration file. Each configuration file needs at least one enabled [input plugin](/{{< latest "telegraf" >}}/plugins/inputs/) (where the metrics come from) and at least one enabled [output plugin](/{{< latest "telegraf" >}}/plugins/outputs/) (where the metrics go).
+Define which plugins Telegraf will use in the configuration file. Each configuration file needs at least one enabled [input plugin](/telegraf/v1.22/plugins/inputs/) (where the metrics come from) and at least one enabled [output plugin](/telegraf/v1.22/plugins/outputs/) (where the metrics go).
 
 The following example generates a sample configuration file with all available plugins, then uses `filter` flags to enable specific plugins.
-{{% note %}} For details on `filter` and other flags, see [Telegraf commands and flags](/{{< latest "telegraf" >}}/commands/). {{% /note %}}
+
+{{% note %}}
+For details on `filter` and other flags, see [Telegraf commands and flags](/telegraf/v1.22/commands/).
+{{% /note %}}
 
 1. Run the following command to create a configuration file:
    ```bash
