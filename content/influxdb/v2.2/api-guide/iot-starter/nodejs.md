@@ -459,7 +459,7 @@ Your component should manage the following _state_ properties:
 - `error`
 - `isLoading`
   
-and contain a `form` with the the following:
+and contain a `form` with the following:
 
 - device ID **text input** that sets the `deviceId` property
 - [`DeviceRegistrationButton`](#create-the-device-registration-button-component) that takes `deviceId` and callback functions to handle _error_ and _loading_ statuses
@@ -518,32 +518,40 @@ export default function DevicesCard() {
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+With the UI components in place, you're ready to [build the application API](#build-the-iot-starter-api) that
+handles requests from the UI and responses from InfluxDB.
+
 ## Build the IoT Starter API
 
-Build an IoT Starter API that provides URL endpoints and routes HTTP requests to your server-side code.
+The IoT Starter API provides URL endpoints and routes HTTP requests to server-side code and InfluxDB.
 
-Each API endpoint does the following:
+Each API endpoint is responsible for the following:
 
-- listens for requests from IoT Starter UI components
-- translates requests into InfluxDB API requests
-- processes InfluxDB API responses and handles errors
-- provides data to UI components
+- Listen for requests from IoT Starter UI components.
+- Translate requests into InfluxDB API requests.
+- Process InfluxDB API responses and handles errors.
+- Provide data to UI components.
 
-- [Create the API endpoint to list devices](#create-the-api-endpoint-to-list-devices)
-- [Create the API endpoint to register devices](#create-the-api-endpoint-to-register-devices)
+Follow these steps to build the IoT Starter API:
 
+1. [Create the API endpoint to list devices](#create-the-api-endpoint-to-list-devices)
+2. [Create the API endpoint to register devices](#create-the-api-endpoint-to-register-devices)
 
-## Create the API endpoint to list devices
+### Create the API endpoint to list devices
 
-To retrieve registered devices, send a Flux query to the `POST /api/v2/query` InfluxDB API endpoint.
+The IoT Starter `/api/devices` endpoint handles requests from the UI, queries InfluxDB, and returns
+registered device data to the UI.
 
-- [Create the Flux query](#create-the-flux-query-to-find-devices)
-- [Execute the query and process rows](#execute-the-query-and-process-rows)
-- [Copy the list devices example](#copy-the-list-devices-example)
+Follow these steps to build the `/api/devices` endpoint:
 
-### Create the Flux query to find devices
+1. [Create the Flux query](#create-the-flux-query-to-find-devices)
+2. [Execute the query and process rows](#execute-the-query-and-process-rows)
+3. [Copy the complete list devices example](#copy-the-list-devices-example)
 
-To retrieve registered devices from your `INFLUX_BUCKET_AUTH` bucket, get the last row of each [series](/influxdb/v2.2/reference/glossary#series) that contains a `deviceauth` measurement. The example below returns rows that contain the `key` field (authorization ID) and excludes rows that contain a `token` field (to avoid exposing sensitive token values).
+#### Create the Flux query to find devices
+
+To retrieve registered devices from your `INFLUX_BUCKET_AUTH` bucket, get the last row of each [series](/influxdb/v2.2/reference/glossary#series) that contains a `deviceauth` measurement.
+The example below returns rows that contain the `key` field (authorization ID) and excludes rows that contain a `token` field (to avoid exposing sensitive token values).
 
 ```js
 // Flux query finds devices
@@ -553,7 +561,9 @@ To retrieve registered devices from your `INFLUX_BUCKET_AUTH` bucket, get the la
       |> last()
 ```
 
-### Execute the query and process rows
+#### Execute the query and process rows
+
+To retrieve registered devices, use the client library to send the Flux query to the `POST /api/v2/query` InfluxDB API endpoint.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -576,15 +586,15 @@ To send the query and process the results, use the QueryAPI `queryRows(query, co
 
 The `consumer` that you provide must implement the [`FluxResultObserver` interface](https://github.com/influxdata/influxdb-client-js/blob/3db2942432b993048d152e0d0e8ec8499eedfa60/packages/core/src/results/FluxResultObserver.ts#L7) that provides the following callback functions:
 
-- `next(row, tableMeta)`: processes the next row and table metadata (e.g., by transforming data for the response)
-- `error(error)`: receives and handles errors (e.g., by rejecting the Promise)
-- `complete()`: called and signals when all rows have been consumed (e.g., by resolving the Promise)
+- `next(row, tableMeta)`: processes the next row and table metadata--for example, to prepare the response.
+- `error(error)`: receives and handles errors--for example, by rejecting the Promise.
+- `complete()`: signals when all rows have been consumed--for example, by resolving the Promise.
 
-To learn more about Observers, see the [RxJS Guide](https://rxjs.dev/guide/observer)
+To learn more about Observers, see the [RxJS Guide](https://rxjs.dev/guide/observer).
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-### Copy the example to get devices
+#### Copy the list devices example
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -592,23 +602,21 @@ To learn more about Observers, see the [RxJS Guide](https://rxjs.dev/guide/obser
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-In the example below, the `getDevices(deviceId)` function queries for registered devices, processes the data, and returns a Promise with the result.
-If you invoke the function as `getDevices()` (without a `deviceId`), it retrieves all `deviceauth` points and returns a Promise of `{ DEVICE_ID: ROW_DATA }`.
-To add a `_devices` module that exports the `getDevices(deviceId)` function, do the following:
-
-1. In your `/pages/api/devices` directory, create the file `_devices.js`.
-2. Paste the following example:
+Create a `./pages/api/devices/_devices.js` file that contains the following:
 
 ```js
 {{< get-shared-text "api/v2.0/client-library-examples/nodejs/server/devices/_devices.js" >}}
 ```
 
+The `_devices` module exports a `getDevices(deviceId)` function that queries
+for registered devices, processes the data, and returns a Promise with the result.
+If you invoke the function as `getDevices()` (without a `deviceId`),
+it retrieves all `deviceauth` points and returns a Promise with `{ DEVICE_ID: ROW_DATA }`.
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Next, [create an API route](#create-the-api-route-to-get-devices) that responds with the devices list.
-
-### Create the API route to get devices
+Next, create the API route.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -616,40 +624,57 @@ Next, [create an API route](#create-the-api-route-to-get-devices) that responds 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-The example below exports a server request `handler` function that listens for requests to `/api/devices` and responds with the [`getDevices(deviceId)`](#copy-the-list-devices-example) result.
-
-1. In your `/pages/api/devices` directory, create the file `index.js`.
-2. Paste the following example:
+Create a `./pages/api/devices/index.js` file that contains the following:
 
 ```js
 {{< get-shared-text "api/v2.0/client-library-examples/nodejs/server/devices/_devices.js" >}}
 ```
 
+The example exports a server request `handler` function that listens for
+requests to `/api/devices` and responds with the result of `getDevices(deviceId)`.
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Next, learn how to add an endpoint that [registers a device](#register-a-device).
+### Create the API endpoint to register devices
 
-## Create the API endpoint to register devices
+In **IoT Starter**, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
+The API token and authorization permissions allow the device to query and write to `INFLUX_BUCKET`.
+In this section, you'll add the `/api/devices/create` route that handles requests from the UI, creates an authorization in InfluxDB,
+and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket.
 
-In **IoT Starter**, a _registered device_ is a point that contains your device ID and authorization details (API token and authorization ID).
-A device authorization defines _read_ and _write_ permissions on `INFLUX_BUCKET`.
-To register devices, you'll add the `/api/devices/create` route that passes requests
-to InfluxDB and returns the new authorization.
-`/api/devices/create` will use the following `/api/v2` InfluxDB API endpoints:
+`/api/devices/create` uses the following `/api/v2` InfluxDB API endpoints:
 
 - `POST /api/v2/query`: to query `INFLUX_BUCKET_AUTH` for a registered device
 - `GET /api/v2/buckets`: to get the bucket ID for `INFLUX_BUCKET`
 - `POST /api/v2/authorizations`: to create an authorization for the device
 - `POST /api/v2/write`: to write the device authorization to `INFLUX_BUCKET_AUTH`
 
-- [Create an authorization for the device](#create-an-authorization-for-the-device)
-- [Write the device authorization to a bucket](#write-the-device-authorization-to-a-bucket)
-- [Copy the register device example](#copy-the-register-device-example)
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 
-### Get the bucket ID
+Create a `./pages/api/devices/create.js` file to use the filename
+convention for [Next.js dynamic routes](https://nextjs.org/docs/api-routes/dynamic-api-routes).
+In the file, export a server request `handler` function that does the following:
 
-To create an authorization with _read_-_write_ permission to `INFLUX_BUCKET`, you must pass the bucket ID.
+1. Accepts a device ID in the request body.
+2. Queries `INFLUX_BUCKET_AUTH` and responds with an error if a authorization already exists for the device.
+3. [Retrieves the `INFLUX_BUCKET` bucket ID](#get-the-bucket-id).
+4. [Creates a device authorization with _read_-_write_ permission to `INFLUX_BUCKET`](#create-an-authorization-for-the-device).
+5. [Writes the device ID and authorization to `INFLUX_BUCKET_AUTH`](#write-the-device-authorization-to-a-bucket).
+6. Responds with `HTTP 200` when the write request completes.
+
+[View the complete example](api/v2.0/client-library-examples/nodejs/server/devices/create.js).
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Get the bucket ID
+
+To create an authorization with _read_-_write_ permission for `INFLUX_BUCKET`, you must pass the bucket ID.
 To get the bucket ID, use the InfluxDB client library to send a `GET` request to the `/api/v2/buckets` InfluxDB API endpoint.
 
 {{< code-tabs-wrapper >}}
@@ -696,7 +721,7 @@ in the following steps:
 1. Instantiates the `InfluxDB` client as `influxdb`
 2. Instantiates the Authorizations client with the `influxdb` configuration
 3. Instantiates the and Buckets client with the `influxdb` configuration
-4. Calls the BucketsAPI `getBuckets` function to get the bucket ID for `INFLUX_BUCKET`
+4. Retrieves the bucket ID.
 5. Calls the AuthorizationsAPI `postAuthorization` function with a new authorization and returns the result from InfluxDB.
 
 ```js
@@ -736,11 +761,12 @@ async function postAuthorization(deviceId) {
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+
 Next, [write the device authorization to a bucket](#write-the-device-authorization-to-a-bucket).
 
 ### Write the device authorization to a bucket
 
-After you create the device authorization, write a point with device and authorization details to `INFLUX_BUCKET_AUTH`.
+After you create the device authorization, write a point with the device and authorization details to `INFLUX_BUCKET_AUTH`.
 Storing the device authorization in a bucket enables the following:
 
 - report device authorization history
@@ -758,29 +784,4 @@ In your request body, pass a point that contains the following elements:
 | field       | `key`      | authorization ID          |
 | field       | `token`    | authorization (API) token |g
 
-### Copy the register device example
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-The example below exports a server request `handler` function that does the following:
-
-1. accepts a device ID in the request body
-2. queries `INFLUX_BUCKET_AUTH` and responds with an error if an authorization exists for the device
-3. retrieves the `INFLUX_BUCKET` bucket ID
-4. creates a device authorization with _read_-_write_ permission to `INFLUX_BUCKET`
-5. writes the device ID and authorization to `INFLUX_BUCKET_AUTH`
-6. responds with `HTTP 200` when the write request completes
-
-7. In your `/pages/api/devices` directory, create the file `create.js` (to use [Next.js dynamic routes](https://nextjs.org/docs/api-routes/dynamic-api-routes))
-8. Paste the following example:
-
-```js
-{{< get-shared-text "api/v2.0/client-library-examples/nodejs/server/devices/create.js" >}}
-```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
