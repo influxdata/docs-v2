@@ -9,31 +9,6 @@ menu:
     parent: About the project
 ---
 
-## 1.9.7 [2022-05-11]
-
-### Features
-- Add experimental passive node feature; expose passive node feature to influxd-ctl and the API.
-- Throttle inter-node data replication, both incoming writes and hinted hand-off, when errors are encountered.
-
-#### Flux updates
-- Add [http requests package](/{{< latest "flux" >}}/stdlib/experimental/http/requests/).
-- Add [isType()](/{{< latest "flux" >}}/stdlib/types/istype/) function.
-- Add [display()](/{{< latest "flux" >}}/stdlib/universe/display/) function.
-- Enhancements to the following functions: [increase()](/{{< latest "flux" >}}/stdlib/universe/increase/), [sort()](/{{< latest "flux" >}}/stdlib/universe/sort/), [derivative()](/{{< latest "flux" >}}/stdlib/universe/derivative/), [union()](/{{< latest "flux" >}}/stdlib/universe/union/), [timeShift()](/{{< latest "flux" >}}/stdlib/universe/timeshift/), vectorization to applicable functions such as [map()](/{{< latest "flux" >}}/stdlib/universe/map/).
-- Add TCP connection pooling to [mqtt.publish()](/{{< latest "flux" >}}/stdlib/experimental/mqtt/publish/) function when called in a map() function.
-
-### Bug fixes
-- Fix race condition causing `influxd-ctl restore` command to fail.
-#### Error Messaging
-- Improve error messaging for `max series per database exceeded`error.
-- Improve influxd-ctl error messages when invalid JSON is received.
-- Add detail to `error creating subscription` message.
-- `DROP SHARD` now successfully ignores "shard not found" errors.
-
-### Maintenance updates
-- Upgrade to Go 1.17.9
-- Update to [Flux v0.161.0](/flux/v0.x/release-notes/#v01610-2022-03-24).
-
 ## 1.9.6 [2022-02-16]
 
 {{% note %}} InfluxDB Enterprise offerings are no longer available on AWS, Azure, and GCP marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/) to request an license key to [install InfluxDB Enterprise in your own environment](/enterprise_influxdb/v1.9/introduction/installation/).
@@ -64,6 +39,7 @@ menu:
 #### Data
 
 -  Adjust shard start and end times to avoid overlaps in existing shards. This resolves issues with existing shards (truncated or not) that have a different shard duration than the current default.
+- `DROP SHARD` now successfully ignores "shard not found errors."
 
 #### Errors
 
