@@ -1,19 +1,19 @@
 ---
-title: IoT Starter Guide
-seotitle: Use API client libraries to build an IoT Center
-description: Write, query, and manage authorizations with InfluxDB client libraries.
+title: Python client library starter guide
+seotitle: Use Python client library to build a sample application
+list_title: Python
+description: >
+  Use the InfluxDB Python client library to build a sample IoT application on
+  top of the InfluxDB API.
 weight: 3
 menu:
   influxdb_2_2:
-    name: IoT Center - Python
-    parent: IoT Center
+    name: Python
+    parent: API starter guides
 influxdb/cloud/tags: [api]
 aliases:
-  - /influxdb/v2.2/reference/api/client-libraries/python/
   - /influxdb/cloud/tools/api/iot-starter/python/
 ---
-
-## Build a starter Python IoT app with the InfluxDB API and client libraries
 
 This guide is for Python developers who want to build applications using the InfluxDB API and client libraries.
 InfluxDB API client libraries are maintained by InfluxData and the user community. As a developer, client libraries let you take advantage of:
@@ -36,7 +36,6 @@ manage IoT devices, write data to InfluxDB, query data from InfluxDB, create vis
 5. [Resources in InfluxDB](#resources-in-influxdb)
 
 ### Tutorial Guide
-From start to finish, you will:
 1. [Set up InfluxDB](#set-up-influxdb)
 2. [Create a web server](#introducing-iot-center)
    1. [Create a UI dashboard using Jinja](#create-iot-center)
@@ -189,7 +188,9 @@ To create an All-Access token, use one of the following:
 
 {{% note %}}
 
-For a production application, we recommend you create a token with minimal permissions and only use it with that application.
+For a production application, create and use a 
+{{% cloud-only %}}custom{{% /cloud-only %}}{{% oss-only %}}read-write{{% /oss-only %}} 
+token with minimal permissions and only use it with your application.
 
 {{% /note %}}
 
@@ -205,47 +206,44 @@ The IoT Center architecture has four layers:
 
 ### Create IoT Center 
 
-You will be using Flask alongside Jinja to create your IoT Center application. 
-Flask is a micro web framework written in Python that lets you develop web applications.
-Flask provides features such as:
-* lightweight with minimal dependencies
-* built-in web server
-* RESTful request dispatching
+Use [Flask](https://flask.palletsprojects.com/), a light-weight Python web 
+framework, and [Jinja](https://jinja.palletsprojects.com/), a templating engine,
+to create your sample IoT Center application. 
 
-Flask uses the Jinja web template engine used to help render an HTML. 
-
-To start, create and activate a Python virtual environment for the new project.
-
-
-```bash
-$ mkdir iotproject
-$ cd iotproject
-
-# Create a new virtual environment named "virtualenv"
-# Python 3.8+
-$ python -m venv virtualenv
-
-# Activate the virtualenv (OS X & Linux)
-$ source virtualenv/bin/activate
-```
-
-After activation completes, use the `pip` package installer (included with Python) to
-install Flask and Jinja
-```bash
-$ pip install Flask
-$ pip install Jinja
-```
-
+1. Create and navigate into a new project directory.
+    ```bash
+    $ mkdir iotproject && cd $_
+    ```
+2. Create and activate a Python virtual environment for the new project.
+    ```bash
+    # Create a new virtual environment named "virtualenv"
+    # Python 3.8+
+    $ python -m venv virtualenv
+    # Activate the virtualenv (OS X & Linux)
+    $ source virtualenv/bin/activate
+    ```
+3. After activation completes, use the `pip` package installer (included with Python) to
+install Flask and Jinja. 
+    ```bash
+    $ pip install Flask
+    $ pip install Jinja
+    ```
+   
 ### Install influxdb-client Package
 Use pip to install the influxdb-client package in your virtual environment.
-Additional information regarding the package can be found [here](https://pypi.org/project/influxdb-client/)
+
+For more information about the package, see [the Python InfluxDB client package](https://pypi.org/project/influxdb-client/).
 ```bash
 $ pip install influxdb-client
 ```
 
 ### Create a Flask Application
 
-In your project, create a `app.py` file that contains the following:
+In your project, create a `app.py` file that:
+1. Imports the Flask package.
+2. Instantiates a Flask application.
+3. Provides a route to execute the application.
+
 ```python
 from flask import Flask
 app = Flask(__name__)
@@ -256,79 +254,91 @@ def hello():
 ```
 {{% caption %}}[@influxdata/iot-python-app app.py](https://github.com/influxdata/iot-python-api/blob/main/app.py){{% /caption %}}
 
-To run your new Flask application, enter the following command in your terminal:  
+To run your new Flask application with the debugger and hot reloader enabled, 
+enter the following command inside your project directory.
 
-`flask run`
+```bash
+export FLASK_ENV=development
+flask run
+```
 
 In your browser, visit <http://localhost:5000> to view the “Hello World!” response.
 
 ### Create the UI
 
-In the `./templates` directory of your project, create an `index.html` page to serve as your application's landing page. 
-In `index.html` paste the following Jinja template:
+1. In the `./templates` directory of your project, create an `index.html` page to serve as your application's landing page.
+2. Paste the following Jinja template into your `index.html` file:
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>IOT Center</title>
-    </head>
-    {% extends 'base.html' %}
-    <body>
-    {% block content %}
-        <h1>Welcome to IOT Center</h1>
-        <p>The current time is {{time}}</p>
-    {% endblock %}
-    
-    </body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>IOT Center</title>
+        </head>
+        {% extends 'base.html' %}
+        <body>
+        {% block content %}
+            <h1>Welcome to IOT Center</h1>
+            <p>The current time is {{time}}</p>
+        {% endblock %}
+        
+        </body>
+    </html>
 ```
 {{% caption %}}[@influxdata/iot-python-app ./templates/index.html](https://github.com/influxdata/iot-python-api/blob/main/templates/index.html){{% /caption %}}
 
-In the `./templates` directory of your project, create a `base.html` file. 
-In `base.html` paste the following:
-
+3. In the `./templates` directory of your project, create a `base.html` file. 
+4. `base.html` provides the layout, navigation bar, CSS, and JavaScript for your UI.
+   Paste the following into your `base.html`:
+{{% truncate %}}
 ```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-    <title>{% block title %} {% endblock %}</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('index')}}">IoT Center</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="{{url_for('get_buckets')}}">Buckets</a>
-                </li>
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+        <title>{% block title %} {% endblock %}</title>
+      </head>
+      <body>
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <a class="navbar-brand" href="{{ url_for('index')}}">IoT Center</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{url_for('get_buckets')}}">Buckets</a>
+                    </li>
+            </div>
+        </nav>
+        <div class="container">
+            {% block content %} {% endblock %}
         </div>
-    </nav>
-    <div class="container">
-        {% block content %} {% endblock %}
-    </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
-</html>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      </body>
+    </html>
+    ```
+    {{% caption %}}[@influxdata/iot-python-app ./templates/base.html](https://github.com/influxdata/iot-python-api/blob/main/templates/base.html){{% /caption %}}
+    To inherit the base layout, all other pages in your application will extend `base.html` and provide
+    content to be rendered in the content block:
+    ```html
+      <div class="container">
+            {% block content %} {% endblock %}
+      </div>
 ```
 {{% caption %}}[@influxdata/iot-python-app ./templates/base.html](https://github.com/influxdata/iot-python-api/blob/main/templates/base.html){{% /caption %}}
+{{% /truncate %}}
 
 `base.html` provides the layout, navbar, CSS, and JavaScript for your UI.
 To inherit the base layout, all other pages in your application will extend `base.html` and provide
@@ -345,7 +355,7 @@ content to be rendered in the content block:
 
 ### Create config.ini
 
-The Python client library allows you to integrate InfluxDB into your application
+The Python client library lets you integrate InfluxDB into your application
 and interact with your InfluxDB instance. The client needs the following 
 information to connect to your InfluxDB instance:
 
@@ -357,8 +367,7 @@ and create (_write_) authorizations for IoT devices.
 * your InfluxDB bucket names
 
 To set up the client configuration, create a `config.ini` in your project's top 
-level directory.
-In `config.ini`, paste the following:
+level directory and paste the following to provide the necessary InfluxDB credentials:
 
 ```ini
 [APP]
@@ -382,20 +391,18 @@ INFLUX_BUCKET_AUTH = devices_auth
 
 
 ## Create IoT Virtual Device
-The IoT virtual device generates simulated weather data for you to store in
-InfluxDB. 
+The IoT virtual device generates simulated weather data to store in InfluxDB. 
 
-In the `./api` directory of your project, create a `sensor.py` file.
+In the `./api` directory of your project, create a `sensor.py` file and paste 
+the following:
 
-[//]: # Probably preferable to link the file rather than have the whole file written up()
+{{% truncate %}}
 ```python
 import json
 import random
 import urllib3
 
-
 http = urllib3.PoolManager()
-
 
 # Helper function to fetch lat lon data
 def fetch_json(url):
@@ -432,23 +439,21 @@ class Sensor:
             }
 ```
 {{% caption %}}[@influxdata/iot-python-app ./api/sensor.py](https://github.com/influxdata/iot-python-api/blob/main/api/sensor.py){{% /caption %}}
+{{% /truncate %}}
 
 The Sensor object's function `generate_measurement()` will be used to simulate 
 weather data.
 
 
-## Develop with the API
-
 ## Store Virtual IoT Device to InfluxDB
 
 In this section, you will learn how to use the python client library to store
 virtual device information in InfluxDB.
-Virtual device information will be stored in your first bucket. 
-Telemetry data from the device will be stored in the second bucket. 
-(You will learn more about this later on in the guide).
 
 In your `./api` directory, create a `devices.py` file. This file holds the 
 core functionality for your app.
+
+Import all necessary classes from `influxdb_client`.
 
 ```python
 import configparser
@@ -461,10 +466,33 @@ from influxdb_client.client.query_api import QueryApi
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 from api.sensor import Sensor
+```
 
+Ingest the configuartion key value pairs.
+
+```python
 config = configparser.ConfigParser()
 config.read('config.ini')
+```
 
+Create and store the device: 
+1. In `devices.py` create a new function `create_device()`. 
+   This function should take a `device_id` and store virtual device data to the 
+   data bucket.
+2. Initialize `InfluxDBClient` with the config. Pass in url, token and org to
+   create a connection to the InfluxDB instance.
+3. Initialize the `WriteAPI` instance. The `WriteApi` instance writes records 
+   to a specified bucket.
+4. Create a `Point` with data for `device_id`. A point represents a single 
+   data record, similar to a row in a SQL database table
+5. In the `Point` object, set `_measurement` value to `deviceauth`.
+6. Set the fields to `key` and `token`. 
+7. Send the API request with `write_api`. `write_api` uses `/api/v2/write` to
+   write the `Point` to a bucket.
+8. Check for any failures then return the `device_id` if the request
+was successful. Note that `write_api` returns `None` on success.
+
+```python
 def create_device(device_id=None):
     influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
                                      token=config.get('APP', 'INFLUX_TOKEN'),
@@ -492,56 +520,14 @@ def create_device(device_id=None):
 {{% caption %}}[@influxdata/iot-python-app ./api/devices.py create_device() line 59](https://github.com/influxdata/iot-python-api/blob/main/api/devices.py#L59){{% /caption %}}
 
 
-This file imports all the necessary classes from `influxdb_client`.
-The configuration key value pairs are ingested at the top of the file.  
-```python
-config = configparser.ConfigParser()
-config.read('config.ini')
-```
-
-`create_device` stores virtual device data by reading in a device_id and 
-writing that information to a bucket.
-Use the config to initialize `influxdb_client`. `InfluxDBClient` requires
-your url, token, and org to create a connection to your InfluxDB instance.
-```python
-influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
-                                  token=config.get('APP', 'INFLUX_TOKEN'),
-                                  org=config.get('APP', 'INFLUX_ORG'))
-```
-
-Create a `WriteAPI` using `InfluxDBClient`. The `WriteApi` instance writes
-records to a specified bucket. To generate a record, create a `Point` object.
-In the `Point` sample below, `deviceauth` is the name of the `_measurement`.
-`deviceId` is used as the tag, and two separate fields named `key` and `token` 
-are used to storethe device authorization information 
-(more information on authorization will be provided further along in the guide).
-After the `Point` has been set up, use `write_api` to send the API request to
-`/api/v2/write` and write the record to your bucket. `write_api` returns `None` 
-on success. Check for any failures then return the `device_id` if the request
-was successful.
-```python
-point = Point('deviceauth') \
-        .tag("deviceId", device_id) \
-        .field('key', f'fake_auth_id_{device_id}') \
-        .field('token', f'fake_auth_token_{device_id}')
-
- client_response = write_api.write(bucket=config.get('APP', 'INFLUX_BUCKET_AUTH'), record=point)
-
- # write() returns None on success
- if client_response is None:
-     return device_id
-
- # Return None on failure
- return None
-```
-
 ## Query Bucket For Device
-After storing device information to a bucket, use the client library to query 
-for the device information.  
 
-Create a new function called `get_devices()` within `devices.py`. This function 
-will take in a `device_id` and return a list of tuples that represent the 
+After storing device information in an InfluxDB bucket, use the Python client library to query 
+the device information.
+In  `devices.py`, create a new function called `get_devices()`. This function 
+should take a `device_id` and return a list of tuples that represent the 
 records generated by the query.
+
 ```python
 def get_device(device_id) -> {}:
     influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
@@ -568,12 +554,12 @@ def get_device(device_id) -> {}:
 ```
 {{% caption %}}[@influxdata/iot-python-app ./api/devices.py get_device() line 31](https://github.com/influxdata/iot-python-api/blob/main/api/devices.py#L31){{% /caption %}}
 
-Create a `QueryApi` instance. The `QueryApi` instance queries records from a
-specified bucket using Flux. To generate the Flux query, set the bucket 
-information, range, and query filter. This query will filter on `_measurement` 
-value, `deviceauth`, and searches for any device_id that matches the passed in 
-device_id. Add clause to search for `_field`s that do not contain `token` as a 
-value.
+Create a `QueryApi` instance that queries records from devices bucket using Flux.
+Create a query template that:
+1. Retrieves the device bucket ID to query from the application configuration.
+2. Queries the `deviceauth` measurement.
+3. Filters points by a specified device ID.
+4. Filters out points with the `token` field.
 
 ```python
 device_filter = f'r.deviceId == "{device_id}" and r._field != "token"'
@@ -583,23 +569,31 @@ flux_query = f'from(bucket: "{config.get("APP", "INFLUX_BUCKET_AUTH")}") ' \
            f'|> last()'
 ```
 
-The client returns a `FluxTable`. Parse the object into a list of tuples.
+The code below shows how `FluxTable` is parsed and returned as a list of dicts
+for each record returned.
+
 ```python
-# Samples results
-[('key', 'fake_auth_id_1'), ('key', 'fake_auth_id_2')]
+    response = query_api.query(flux_query)
+    results = []
+    for table in response:
+        results.append(table.records[0].values)
+
+    return results
 ```
 
 ## Write Telemetry Data
 After device information has been stored, generate telemetry data and write the
 records into InfluxDB.
 
-In `devices.py` create a new function `write_measurements()`. 
-This function will take in a `device_id` and write simulated weather telemetry 
-data to the second bucket. Initialize the `WriteAPI` instance. Then,
-initialize the `Sensor` object. Create a `Point` that contains data for 
-temperature, humidity, pressure, lat, and lon using the `Sensor`. 
-Set the `_measurement` value to `environment`. `environment` will be used as the
-main filter for future queries in this guide.
+1. In `devices.py` create a new function `write_measurements()`. 
+   This function should take a `device_id` and write simulated weather telemetry 
+   data to the telemetry bucket.
+2. Initialize the `WriteAPI` instance.
+3. Initialize the `Sensor` object.
+4. Create a `Point` with data for temperature, humidity, pressure,
+   lat, and lon using the `Sensor` object. 
+5. Set the `_measurement` value to `environment`. `environment` is used as the
+   main filter for future queries in this guide.
 
 ```python
 def write_measurements(device_id):
@@ -640,10 +634,11 @@ After telemetry data is written into your bucket, query InfluxDB to retrieve the
 telemetry data.  
 
 Within `devices.py` create a new function called `get_measurements()`. 
-This function will take in a `device_id` and query for simulated weather 
-telemetry data produced by the virtual device. Query on the `_measurement`,
-`environment` and search for all records where `device` matches the `device_id`. 
-Parse the returned `FluxTable` and return each record as a dict containing the 
+This function should:
+ 1. Take a `device_id` and query for simulated weather telemetry data produced by the virtual device.
+ 2. Query the `environment` measurement.
+ 3. Filter by `device_id`. 
+ 4. Parse the returned `FluxTable` and return each record as a [dictionary](https://docs.python.org/tutorial/datastructures.html#dictionaries) containing the 
 data from each record returned.
 
 ```python
@@ -702,27 +697,26 @@ for each record returned.
 ```
 
 ## Connect the UI to the API
-Now that the core functionality has been implemented, we can now create a UI to perform these requests.
-Your IoT Dashboard will have four main pages.
-* Query Devices
-* Create Devices
-* Write Data
-* Query Data
+Create a UI that utilizes the application to query and visualize data from InfluxDB.
+Your IoT Dashboard has four main pages.
+- Query Devices
+- Create Devices
+- Write Data
+- Query Data
 
-In the `./templates` directory, create the following files 
-* `create.html`(link outs to the files. UI code explanation out of scope) (Page to create virutal IoT device)
-* `data.html` (Page to query for telemetry data)
-* `devices.html` (Page to query for device data)
-* `write.html` (Page to write telemetry data)
+In the `./templates` directory, create the following files:
+ 
+- `create.html`: [Creates virtual IoT devices.](https://github.com/influxdata/iot-python-api/blob/main/templates/create.html)
+- `data.html`: [Queries telemetry data.](https://github.com/influxdata/iot-python-api/blob/main/templates/data.html)
+- `devices.html`: [Queries and displays device data.](https://github.com/influxdata/iot-python-api/blob/main/templates/devices.html)
+- `write.html`: [Writes telemetry data.](https://github.com/influxdata/iot-python-api/blob/main/templates/write.html)
 
-After those files are created, update `base.html` and `app.py` to connect the routes.
-Without going into details regarding the UI, `app.py` serves the routes and runs
-the core logic. 
+After creating those files are created, update `base.html` and `app.py` to connect the routes.
+`app.py` serves the routes and runs the core logic necessary to populate the UI.
 
-For example, in the `data` route, `device_id_input` is retrieved from 
-`data.html` when user input is submitted. `get_measurements()` is then called 
-with the provided input. After the query is ran, `data.html` re-renders with the
-query results. 
+For example, in the `data` route, the app retrieves `device_id_input` from 
+`data.html` when user input is submitted. It then calls `get_measurements()` 
+with the provided input. After the query runs, `data.html` displays query results.
 
 ```python
 @app.route('/data', methods=['GET', 'POST'])

@@ -1,19 +1,19 @@
 ---
-title: InfluxDB API IoT Starter Guide
+title: InfluxDB API starter guide
 seotitle: Build a starter app with InfluxDB API client libraries
-description: Use your favorite language with the InfluxDB API to build the IoT Center.
+description: >
+  Follow step-by-step tutorials to build the IoT Center sample application
+  with InfluxDB API client libraries in your favorite language or framework.
 weight: 4
 menu:
   influxdb_2_2:
-    name: IoT Center
+    name: API starter guides
     parent: Develop with the API
 influxdb/v2.2/tags: [api]
 ---
 
-## IoT Center tutorials
-
-Follow step-by-step tutorials to build the IoT Center with API client
-libraries in your favorite framework or language.
+Follow step-by-step tutorials to build the IoT Center sample application
+with InfluxDB API client libraries in your favorite language or framework.
 
 ## Node.js
 
@@ -24,3 +24,5 @@ with the InfluxDB client library for Javascript.
 
 [Build a Flask and Jinja app](/{{% latest "influxdb" %}}/api-guide/iot-starter/python/)
 with the InfluxDB client library for Python.
+
+{{< children >}}
