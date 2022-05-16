@@ -41,7 +41,7 @@ InfluxDB stores data on disk in [shards](/influxdb/v2.1/reference/glossary/#shar
 Each shard belongs to a shard group and each shard group has a shard group duration.
 The **shard group duration** defines the duration of time that each
 shard in the shard group covers.
-Each shard contains only points with timestamps in specific time range defined
+Each shard contains only points with timestamps in specific a time range defined
 by the shard group duration.
 
 By default, shard group durations are set automatically based on the bucket retention
@@ -78,4 +78,3 @@ deletes all shard groups with data that is **three to four days old** the next
 time the service runs.
 
 {{< html-diagram/data-retention >}}
-

@@ -6,6 +6,8 @@ menu:
 
     name: Install
     weight: 20
+aliases:
+- /telegraf/v1.22/introduction/installation/
 ---
 
 This page provides directions for installing, starting, and configuring Telegraf. To install Telegraf, do the following:
@@ -67,8 +69,7 @@ Install Telegraf from the InfluxData repository with the following commands:
 {{% code-tab-content %}}
 ```bash
 wget -qO- https://repos.influxdata.com/influxdb.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
-source /etc/os-release
-echo "deb https://repos.influxdata.com/${ID} ${VERSION_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+echo "deb https://repos.influxdata.com/debian stable main" | sudo tee /etc/apt/sources.list.d/influxdb.list
 sudo apt-get update && sudo apt-get install telegraf
 ```
 {{% /code-tab-content %}}
@@ -76,8 +77,7 @@ sudo apt-get update && sudo apt-get install telegraf
 {{% code-tab-content %}}
 ```bash
 curl -s https://repos.influxdata.com/influxdb.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
-source /etc/os-release
-echo "deb https://repos.influxdata.com/${ID} ${VERSION_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+echo "deb https://repos.influxdata.com/debian stable main" | sudo tee /etc/apt/sources.list.d/influxdb.list
 sudo apt-get update && sudo apt-get install telegraf
 ```
 {{% /code-tab-content %}}
@@ -124,8 +124,8 @@ For instructions on how to manually install the RPM package from a file, please 
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
 [influxdb]
-name = InfluxDB Repository - RHEL \$releasever
-baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
+name = InfluxData Repository - Stable
+baseurl = https://repos.influxdata.com/stable/\$basearch/main
 enabled = 1
 gpgcheck = 1
 gpgkey = https://repos.influxdata.com/influxdb.key

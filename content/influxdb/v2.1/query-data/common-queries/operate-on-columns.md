@@ -38,9 +38,9 @@ This query:
 
 ```js
 from(bucket: "noaa")
-    |> range(start: -30d)
-    |> group()
+    |> range(start: 2019-08-17)
     |> keep(columns: ["location"])
+    |> group()
     |> unique(column: "location")
 ```
 
@@ -59,6 +59,8 @@ This query:
 
 ```js
 from(bucket: "noaa")
+    |> range(start: 2019-08-17)
+    |> keep(columns: ["location"])
     |> group()
     |> unique(column: "location")
     |> count(column: "location")
@@ -83,8 +85,8 @@ The following query:
 ```js
 
 from(bucket: "noaa")
+    |> range(start: 2019-08-17)
     |> filter(fn: (r) => r._measurement == "average_temperature")
-    |> range(start: -30d)
     |> map(fn: (r) => ({r with _value: (float(v: r._value) - 32.0) * 5.0 / 9.0} ))
 ```
 
@@ -115,8 +117,8 @@ The following query:
 
 ```js
 from(bucket: "noaa")
+    |> range(start: 2019-08-17)
     |> filter(fn: (r) => r._measurement == "average_temperature")
-    |> range(start: -30d)
     |> map(fn: (r) => ({r with celsius: (r._value - 32.0) * 5.0 / 9.0}))
 ```
 

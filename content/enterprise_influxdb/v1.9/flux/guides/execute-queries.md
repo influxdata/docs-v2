@@ -31,6 +31,69 @@ on your InfluxDB instance, use the `-username` flag to provide your InfluxDB use
 the `-password` flag to provide your password.
 {{% /note %}}
 
+## Influx CLI
+To start an interactive Flux read-eval-print-loop (REPL) with the InfluxDB Enterprise 1.9+
+`influx` CLI, run the `influx` command with the following flags:
+
+- `-type=flux`
+- `-path-prefix=/api/v2/query`
+
+{{% note %}}
+If [authentication is enabled](/enterprise_influxdb/v1.9/administration/authentication_and_authorization)
+on your InfluxDB instance, use the `-username` flag to provide your InfluxDB username and
+the `-password` flag to provide your password.
+{{% /note %}}
+
+##### Enter an interactive Flux REPL
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[No Auth](#)
+[Auth Enabled](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+influx -type=flux -path-prefix=/api/v2/query
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+influx -type=flux \
+  -path-prefix=/api/v2/query \
+  -username myuser \
+  -password PasSw0rd
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+Any Flux query can be executed within the REPL.
+
+### Submit a Flux query via parameter
+Flux queries can also be passed to the Flux REPL as a parameter using the `influx` CLI's `-type=flux` option and the `-execute` parameter.
+The accompanying string is executed as a Flux query and results are output in your terminal.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[No Auth](#)
+[Auth Enabled](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+influx -type=flux \
+  -path-prefix=/api/v2/query \
+  -execute '<flux query>'
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+influx -type=flux \
+  -path-prefix=/api/v2/query \
+  -username myuser \
+  -password PasSw0rd \
+  -execute '<flux query>'
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 ### Submit a Flux query via via STDIN
 Flux queries an be piped into the `influx` CLI via STDIN.
 Query results are otuput in your terminal.
@@ -42,12 +105,15 @@ Query results are otuput in your terminal.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash
-echo '<flux query>' | influx -type=flux
+echo '<flux query>' | influx -type=flux -path-prefix=/api/v2/query
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```bash
-echo '<flux query>' | influx -type=flux -username myuser -password PasSw0rd
+echo '<flux query>' | influx -type=flux \
+  -path-prefix=/api/v2/query \
+  -username myuser \
+  -password PasSw0rd
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

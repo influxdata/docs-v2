@@ -2,8 +2,8 @@ components:
   parameters:
     After:
       description: >
-        The last resource ID from which to seek from (but not including). This
-        is to be used instead of `offset`.
+        Resource ID to seek from. Results are not inclusive of this ID. Use
+        `after` instead of `offset`.
       in: query
       name: after
       required: false
@@ -51,6 +51,92 @@ components:
       schema:
         type: string
   responses:
+    AuthorizationError:
+      content:
+        application/json:
+          examples:
+            tokenNotAuthorized:
+              summary: Token is not authorized to access a resource
+              value:
+                code: unauthorized
+                message: unauthorized access
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: |
+        Unauthorized. The error may indicate one of the following:
+
+          * The `Authorization: Token` header is missing or malformed.
+          * The API token value is missing from the header.
+          * The token does not have sufficient permissions to write to this organization and bucket.
+    BadRequestError:
+      content:
+        application/json:
+          examples:
+            orgNotFound:
+              summary: Organization not found
+              value:
+                code: invalid
+                message: 'failed to decode request body: organization not found'
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: |
+        Bad request.
+        The response body contains detail about the error.
+
+        #### InfluxDB OSS
+
+        - Returns this error if `org` or `orgID` does not match an organization.
+    GeneralServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: Non 2XX error response from server.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: |
+        Internal server error.
+        The server encountered an unexpected situation.
+    ResourceNotFoundError:
+      content:
+        application/json:
+          examples:
+            bucket-not-found:
+              summary: Bucket name not found
+              value:
+                code: not found
+                message: bucket "air_sensor" not found
+            org-not-found:
+              summary: Organization name not found
+              value:
+                code: not found
+                message: organization name "my-org" not found
+            orgID-not-found:
+              summary: Organization ID not found
+              value:
+                code: not found
+                message: organization not found
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: >
+        Not found.
+
+        A requested resource was not found.
+
+        The response body contains the requested resource type and the name
+        value
+
+        (if you passed it)--for example:
+
+
+        - `"organization name \"my-org\" not found"`
+
+        - `"organization not found"`: indicates you passed an ID that did not
+        match
+           an organization.
     ServerError:
       content:
         application/json:
@@ -169,8 +255,8 @@ components:
         status:
           default: active
           description: >-
-            If inactive the token is inactive and requests using the token will
-            be rejected.
+            Status of the token. If `inactive`, requests using the token will be
+            rejected.
           enum:
             - active
             - inactive
@@ -197,10 +283,10 @@ components:
         - 'y'
       type: object
     Axis:
-      description: The description of a particular axis for a visualization.
+      description: Axis used in a visualization.
       properties:
         base:
-          description: Base represents the radix for formatting axis values.
+          description: Radix for formatting axis values.
           enum:
             - ''
             - '2'
@@ -208,23 +294,23 @@ components:
           type: string
         bounds:
           description: >-
-            The extents of an axis in the form [lower, upper]. Clients determine
-            whether bounds are to be inclusive or exclusive of their limits
+            The extents of the axis in the form [lower, upper]. Clients
+            determine whether bounds are inclusive or exclusive of their limits.
           items:
             type: string
           maxItems: 2
           minItems: 0
           type: array
         label:
-          description: Label is a description of this Axis
+          description: Description of the axis.
           type: string
         prefix:
-          description: Prefix represents a label prefix for formatting axis values.
+          description: Label prefix for formatting axis values.
           type: string
         scale:
           $ref: '#/components/schemas/AxisScale'
         suffix:
-          description: Suffix represents a label suffix for formatting axis values.
+          description: Label suffix for formatting axis values.
           type: string
       type: object
     AxisScale:
@@ -391,22 +477,22 @@ components:
           properties:
             labels:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve labels for this bucket
+              description: URL to retrieve labels for this bucket.
             members:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve members that can read this bucket
+              description: URL to retrieve members that can read this bucket.
             org:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve parent organization for this bucket
+              description: URL to retrieve parent organization for this bucket.
             owners:
               $ref: '#/components/schemas/Link'
               description: URL to retrieve owners that can read and write to this bucket.
             self:
               $ref: '#/components/schemas/Link'
-              description: URL for this bucket
+              description: URL for this bucket.
             write:
               $ref: '#/components/schemas/Link'
-              description: URL to write line protocol for this bucket
+              description: URL to write line protocol to this bucket.
           readOnly: true
           type: object
         name:
@@ -596,7 +682,10 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp (in RFC3339 date/time
+            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
+            latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -828,24 +917,24 @@ components:
     DBRP:
       properties:
         bucketID:
-          description: the bucket ID used as target for the translation.
+          description: ID of the bucket used as the target for the translation.
           type: string
         database:
           description: InfluxDB v1 database
           type: string
         default:
           description: >-
-            Specify if this mapping represents the default retention policy for
-            the database specificed.
+            Mapping represents the default retention policy for the database
+            specified.
           type: boolean
         id:
-          description: the mapping identifier
+          description: ID of the DBRP mapping.
           readOnly: true
           type: string
         links:
           $ref: '#/components/schemas/Links'
         orgID:
-          description: the organization ID that owns this mapping.
+          description: ID of the organization that owns this mapping.
           type: string
         retention_policy:
           description: InfluxDB v1 retention policy
@@ -861,21 +950,21 @@ components:
     DBRPCreate:
       properties:
         bucketID:
-          description: the bucket ID used as target for the translation.
+          description: ID of the bucket used as the target for the translation.
           type: string
         database:
           description: InfluxDB v1 database
           type: string
         default:
           description: >-
-            Specify if this mapping represents the default retention policy for
-            the database specificed.
+            Mapping represents the default retention policy for the database
+            specified.
           type: boolean
         org:
-          description: the organization that owns this mapping.
+          description: Name of the organization that owns this mapping.
           type: string
         orgID:
-          description: the organization ID that owns this mapping.
+          description: ID of the organization that owns this mapping.
           type: string
         retention_policy:
           description: InfluxDB v1 retention policy
@@ -1119,94 +1208,26 @@ components:
       description: The delete predicate request.
       properties:
         predicate:
-          description: InfluxQL-like delete statement
+          description: >
+            An expression in [delete predicate
+            syntax](https://docs.influxdata.com/influxdb/cloud/reference/syntax/delete-predicate/).
           example: tag1="value1" and (tag2="value2" and tag3!="value3")
           type: string
         start:
-          description: RFC3339Nano
+          description: >-
+            A timestamp ([RFC3339 date/time
+            format](https://docs.influxdata.com/flux/v0.x/data-types/basic/time/#time-syntax)).
           format: date-time
           type: string
         stop:
-          description: RFC3339Nano
+          description: >-
+            A timestamp ([RFC3339 date/time
+            format](https://docs.influxdata.com/flux/v0.x/data-types/basic/time/#time-syntax)).
           format: date-time
           type: string
       required:
         - start
         - stop
-      type: object
-    DemoDataBucket:
-      properties:
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        description:
-          type: string
-        id:
-          readOnly: true
-          type: string
-        labels:
-          $ref: '#/components/schemas/Labels'
-        links:
-          example:
-            labels: /api/v2/buckets/1/labels
-            members: /api/v2/buckets/1/members
-            org: /api/v2/orgs/2
-            owners: /api/v2/buckets/1/owners
-            self: /api/v2/buckets/1
-            write: /api/v2/write?org=2&bucket=1
-          properties:
-            labels:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve labels for this bucket
-            members:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve members that can read this bucket
-            org:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve parent organization for this bucket
-            owners:
-              $ref: '#/components/schemas/Link'
-              description: URL to retrieve owners that can read and write to this bucket.
-            self:
-              $ref: '#/components/schemas/Link'
-              description: URL for this bucket
-            write:
-              $ref: '#/components/schemas/Link'
-              description: URL to write line protocol for this bucket
-          readOnly: true
-          type: object
-        name:
-          type: string
-        orgID:
-          type: string
-        retentionRules:
-          $ref: '#/components/schemas/RetentionRules'
-        rp:
-          type: string
-        schemaType:
-          $ref: '#/components/schemas/SchemaType'
-          default: implicit
-        type:
-          default: demodata
-          readOnly: true
-          type: string
-        updatedAt:
-          format: date-time
-          readOnly: true
-          type: string
-      required:
-        - name
-        - retentionRules
-    DemoDataBuckets:
-      properties:
-        buckets:
-          items:
-            $ref: '#/components/schemas/DemoDataBucket'
-          type: array
-        links:
-          $ref: '#/components/schemas/Links'
-          readOnly: true
       type: object
     Dialect:
       description: >-
@@ -1315,23 +1336,22 @@ components:
           type: string
         err:
           description: >-
-            err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+            Stack of errors that occurred during processing of the request.
+            Useful for debugging.
           readOnly: true
           type: string
         message:
-          description: message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
         op:
           description: >-
-            op describes the logical code operation during error. Useful for
-            debugging.
+            Describes the logical code operation when the error occurred. Useful
+            for debugging.
           readOnly: true
           type: string
       required:
         - code
-        - message
     Expression:
       oneOf:
         - $ref: '#/components/schemas/ArrayExpression'
@@ -2232,6 +2252,9 @@ components:
             deleteRequestsPerSecond:
               description: Allowed organization delete request rate.
               type: integer
+            queryTime:
+              description: Query Time in nanoseconds
+              type: integer
             readKBs:
               description: Query limit in kb/sec. 0 is unlimited.
               type: integer
@@ -2240,6 +2263,7 @@ components:
               type: integer
           required:
             - readKBs
+            - queryTime
             - concurrentReadRequests
             - writeKBs
             - concurrentWriteRequests
@@ -2376,30 +2400,27 @@ components:
           type: string
         err:
           description: >-
-            Err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+            Stack of errors that occurred during processing of the request.
+            Useful for debugging.
           readOnly: true
           type: string
         line:
-          description: First line within sent body containing malformed data
+          description: First line in the request body that contains malformed data.
           format: int32
           readOnly: true
           type: integer
         message:
-          description: Message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
         op:
           description: >-
-            Op describes the logical code operation during error. Useful for
-            debugging.
+            Describes the logical code operation when the error occurred. Useful
+            for debugging.
           readOnly: true
           type: string
       required:
         - code
-        - message
-        - op
-        - err
     LineProtocolLengthError:
       properties:
         code:
@@ -2409,7 +2430,7 @@ components:
           readOnly: true
           type: string
         message:
-          description: Message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
       required:
@@ -2498,12 +2519,13 @@ components:
         - note
       type: object
     MeasurementSchema:
-      description: The schema definition for a single measurement
+      description: Definition of a measurement schema.
       example:
         bucketID: ba3c5e7f9b0a0010
         columns:
-          - name: time
-            type: timestamp
+          - format: unix timestamp
+            name: time
+            type: integer
           - name: host
             type: tag
           - name: region
@@ -2514,17 +2536,17 @@ components:
           - dataType: float
             name: usage_user
             type: field
-        createdAt: 2021-01-21T00:48:40.993Z
+        createdAt: '2021-01-21T00:48:40.993Z'
         id: 1a3c5e7f9b0a8642
         name: cpu
         orgID: 0a3c5e7f9b0a0001
-        updatedAt: 2021-01-21T00:48:40.993Z
+        updatedAt: '2021-01-21T00:48:40.993Z'
       properties:
         bucketID:
           description: ID of the bucket that the measurement schema is associated with.
           type: string
         columns:
-          description: An ordered collection of column definitions
+          description: Ordered collection of column definitions.
           items:
             $ref: '#/components/schemas/MeasurementSchemaColumn'
           type: array
@@ -2539,7 +2561,9 @@ components:
           nullable: false
           type: string
         orgID:
-          description: ID of organization that the measurement schema is associated with.
+          description: >-
+            ID of the organization that the measurement schema is associated
+            with.
           type: string
         updatedAt:
           format: date-time
@@ -2553,10 +2577,11 @@ components:
         - updatedAt
       type: object
     MeasurementSchemaColumn:
-      description: Definition of a measurement column
+      description: Definition of a measurement schema column.
       example:
+        format: unix timestamp
         name: time
-        type: timestamp
+        type: integer
       properties:
         dataType:
           $ref: '#/components/schemas/ColumnDataType'
@@ -2569,11 +2594,12 @@ components:
         - type
       type: object
     MeasurementSchemaCreateRequest:
-      description: Create a new measurement schema
+      description: Create a new measurement schema.
       example:
         columns:
-          - name: time
-            type: timestamp
+          - format: unix timestamp
+            name: time
+            type: integer
           - name: host
             type: tag
           - name: region
@@ -2587,7 +2613,7 @@ components:
         name: cpu
       properties:
         columns:
-          description: An ordered collection of column definitions
+          description: Ordered collection of column definitions.
           items:
             $ref: '#/components/schemas/MeasurementSchemaColumn'
           type: array
@@ -2602,23 +2628,23 @@ components:
       example:
         measurementSchemas:
           - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
+            createdAt: '2021-01-21T00:48:40.993Z'
             id: 1a3c5e7f9b0a8642
             name: cpu
             orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
+            updatedAt: '2021-01-21T00:48:40.993Z'
           - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
+            createdAt: '2021-01-21T00:48:40.993Z'
             id: 1a3c5e7f9b0a8643
             name: memory
             orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
+            updatedAt: '2021-01-21T00:48:40.993Z'
           - bucketID: ba3c5e7f9b0a0010
-            createdAt: 2021-01-21T00:48:40.993Z
+            createdAt: '2021-01-21T00:48:40.993Z'
             id: 1a3c5e7f9b0a8644
             name: disk
             orgID: 0a3c5e7f9b0a0001
-            updatedAt: 2021-01-21T00:48:40.993Z
+            updatedAt: '2021-01-21T00:48:40.993Z'
       properties:
         measurementSchemas:
           items:
@@ -2631,8 +2657,9 @@ components:
       description: Update an existing measurement schema
       example:
         columns:
-          - name: time
-            type: timestamp
+          - format: unix timestamp
+            name: time
+            type: integer
           - name: host
             type: tag
           - name: region
@@ -2923,7 +2950,10 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp (in RFC3339 date/time
+            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
+            latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -3337,6 +3367,13 @@ components:
           type: string
         name:
           type: string
+        users:
+          description: >-
+            An optional list of email address's to be invited to the
+            organization
+          items:
+            type: string
+          type: array
       required:
         - name
       type: object
@@ -3428,7 +3465,7 @@ components:
     Ready:
       properties:
         started:
-          example: 2019-03-13T10:09:33.891196-04:00
+          example: '2019-03-13T10:09:33.891196-04:00'
           format: date-time
           type: string
         status:
@@ -3958,6 +3995,7 @@ components:
     ScriptInvocationParams:
       properties:
         params:
+          additionalProperties: true
           type: object
       type: object
     ScriptLanguage:
@@ -4319,8 +4357,8 @@ components:
       properties:
         authorizationID:
           description: >-
-            The ID of the authorization used when this task communicates with
-            the query engine.
+            The ID of the authorization used when the task communicates with the
+            query engine.
           type: string
         createdAt:
           format: date-time
@@ -4328,14 +4366,20 @@ components:
           type: string
         cron:
           description: >-
-            A task repetition schedule in the form '* * * * * *'; parsed from
-            Flux.
+            [Cron expression](https://en.wikipedia.org/wiki/Cron#Overview) that
+            defines the schedule on which the task runs. InfluxDB bases cron
+            runs on the system time.
           type: string
         description:
-          description: An optional description of the task.
+          description: The description of the task.
           type: string
         every:
-          description: A simple task repetition schedule; parsed from Flux.
+          description: >-
+            An interval ([duration
+            literal](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals)))
+            at which the task runs. `every` also determines when the task first
+            runs, depending on the specified time.
+          format: duration
           type: string
         flux:
           description: The Flux script to run for this task.
@@ -4356,7 +4400,10 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            A timestamp ([RFC3339 date/time
+            format](https://docs.influxdata.com/flux/v0.x/data-types/basic/time/#time-syntax))
+            of the latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -4388,15 +4435,17 @@ components:
           type: string
         offset:
           description: >-
-            Duration to delay after the schedule, before executing the task;
-            parsed from flux, if set to zero it will remove this option and use
-            0 as the default.
+            A
+            [duration](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals)
+            to delay execution of the task after the scheduled time has elapsed.
+            `0` removes the offset.
+          format: duration
           type: string
         org:
-          description: The name of the organization that owns this Task.
+          description: The name of the organization that owns the task.
           type: string
         orgID:
-          description: The ID of the organization that owns this Task.
+          description: The ID of the organization that owns the task.
           type: string
         ownerID:
           description: The ID of the user who owns this Task.
@@ -4404,9 +4453,7 @@ components:
         status:
           $ref: '#/components/schemas/TaskStatusType'
         type:
-          description: >-
-            The type of task, this can be used for filtering tasks on list
-            actions.
+          description: The type of the task, useful for filtering a task list.
           type: string
         updatedAt:
           format: date-time
@@ -5829,6 +5876,8 @@ components:
         - stacked
         - bar
         - monotoneX
+        - stepBefore
+        - stepAfter
       type: string
     XYViewProperties:
       properties:
@@ -5989,10 +6038,18 @@ info:
   title: InfluxDB Cloud API Service
   description: >
     The InfluxDB v2 API provides a programmatic interface for all interactions
-    with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
+    with InfluxDB.
+
+    Access the InfluxDB API using the `/api/v2/` endpoint.
+
+
+    This documentation is generated from the
+
+    [InfluxDB OpenAPI
+    specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
 openapi: 3.0.0
 paths:
-  /api/v2/:
+  /api/v2:
     get:
       operationId: GetRoutes
       parameters:
@@ -6045,7 +6102,7 @@ paths:
                 $ref: '#/components/schemas/Authorizations'
           description: A list of authorizations
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: List all authorizations
       tags:
@@ -6069,10 +6126,10 @@ paths:
                 $ref: '#/components/schemas/Authorization'
           description: Authorization created
         '400':
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Invalid request
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Create an authorization
       tags:
@@ -6092,7 +6149,7 @@ paths:
         '204':
           description: Authorization deleted
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Delete an authorization
       tags:
@@ -6115,7 +6172,7 @@ paths:
                 $ref: '#/components/schemas/Authorization'
           description: Authorization details
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Retrieve an authorization
       tags:
@@ -6146,7 +6203,7 @@ paths:
                 $ref: '#/components/schemas/Authorization'
           description: The updated authorization.
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Update authorization status
       tags:
@@ -6627,7 +6684,7 @@ paths:
               schema:
                 type: string
         '404':
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Bucket not found
       summary: List all measurement schemas of a bucket
       tags:
@@ -7272,9 +7329,7 @@ paths:
           required: true
           schema:
             type: string
-        - description: >-
-            Includes the cell view properties in the response if set to
-            `properties`
+        - description: If `properties`, includes the cell view properties in the response.
           in: query
           name: include
           required: false
@@ -7303,7 +7358,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
-      summary: Retrieve a Dashboard
+      summary: Retrieve a dashboard
       tags:
         - Dashboards
     patch:
@@ -8118,132 +8173,203 @@ paths:
         - DBRPs
   /api/v2/delete:
     post:
+      description: >
+        Deletes data from a bucket.
+
+
+        Use this endpoint to delete points from a bucket in a specified time
+        range.
+
+
+        #### InfluxDB Cloud
+
+
+        - Does the following when you send a delete request:
+
+          1. Validates the request and queues the delete.
+          2. Returns _success_ if queued; _error_ otherwise.
+          3. Handles the delete asynchronously.
+
+        #### InfluxDB OSS
+
+
+        - Validates the request, handles the delete synchronously,
+          and then responds with success or failure.
+
+        #### Required permissions
+
+
+        - `write-buckets` or `write-bucket BUCKET_ID`.
+
+          `BUCKET_ID` is the ID of the destination bucket.
+
+        #### Rate limits (with InfluxDB Cloud)
+
+
+        `write` rate limits apply.
+
+        For more information, see [limits and adjustable
+        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+
+
+        #### Related guides
+
+
+        - [Delete
+        data](https://docs.influxdata.com/influxdb/cloud/write-data/delete-data/).
+
+        - Learn how to use [delete predicate
+        syntax](https://docs.influxdata.com/influxdb/cloud/reference/syntax/delete-predicate/).
+
+        - Learn how InfluxDB handles [deleted
+        tags](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/)
+          and [deleted fields](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementfieldkeys/).
       operationId: PostDelete
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: Specifies the organization to delete data from.
+        - description: >
+            The organization to delete data from.
+
+            If you pass both `orgID` and `org`, they must both be valid.
+
+
+            #### InfluxDB Cloud
+
+
+            - Doesn't require `org` or `orgID`.
+
+            - Deletes data from the bucket in the organization associated with
+            the authorization (API token).
+
+
+            #### InfluxDB OSS
+
+
+            - Requires either `org` or `orgID`.
           in: query
           name: org
           schema:
-            description: Only points from this organization are deleted.
+            description: The organization name or ID.
             type: string
-        - description: Specifies the bucket to delete data from.
+        - description: >
+            The name or ID of the bucket to delete data from.
+
+            If you pass both `bucket` and `bucketID`, `bucketID` takes
+            precedence.
           in: query
           name: bucket
           schema:
-            description: Only points from this bucket are deleted.
+            description: The bucket name or ID.
             type: string
-        - description: Specifies the organization ID of the resource.
+        - description: >
+            The ID of the organization to delete data from.
+
+            If you pass both `orgID` and `org`, they must both be valid.
+
+
+            #### InfluxDB Cloud
+
+
+            - Doesn't require `org` or `orgID`.
+
+            - Deletes data from the bucket in the organization associated with
+            the authorization (API token).
+
+
+            #### InfluxDB OSS
+
+
+            - Requires either `org` or `orgID`.
           in: query
           name: orgID
           schema:
+            description: The organization ID.
             type: string
-        - description: Specifies the bucket ID to delete data from.
+        - description: >
+            The ID of the bucket to delete data from.
+
+            If you pass both `bucket` and `bucketID`, `bucketID` takes
+            precedence.
           in: query
           name: bucketID
           schema:
-            description: Only points from this bucket ID are deleted.
+            description: The bucket ID.
             type: string
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/DeletePredicateRequest'
-        description: Deletes data from an InfluxDB bucket.
+        description: >
+          Time range parameters and an optional **delete predicate expression**.
+
+
+          To select points to delete within the specified time range, pass a
+
+          **delete predicate expression** in the `predicate` property of the
+          request body.
+
+          If you don't pass a `predicate`, InfluxDB deletes all data with
+          timestamps
+
+          in the specified time range.
+
+
+          #### Related guides
+
+
+          - [Delete
+          data](https://docs.influxdata.com/influxdb/cloud/write-data/delete-data/).
+
+          - Learn how to use [delete predicate
+          syntax](https://docs.influxdata.com/influxdb/cloud/reference/syntax/delete-predicate/).
         required: true
       responses:
         '204':
-          description: delete has been accepted
+          description: >
+            Success.
+
+
+            #### InfluxDB Cloud
+
+
+            - Validated and queued the request.
+
+            - Handles the delete asynchronously - the deletion might not have
+            completed yet.
+
+
+            An HTTP `2xx` status code acknowledges that the write or delete is
+            queued.
+
+            To ensure that InfluxDB Cloud handles writes and deletes in the
+            order you request them,
+
+            wait for a response before you send the next request.
+
+
+            Because writes are asynchronous, data might not yet be written
+
+            when you receive the response.
+
+
+            #### InfluxDB OSS
+
+
+            - Deleted the data.
         '400':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Invalid request.
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: no token was sent or does not have sufficient permissions.
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
         '404':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: the bucket or organization is not found.
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: internal server error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Delete data
       tags:
         - Delete
-  /api/v2/experimental/sampledata/buckets:
-    get:
-      operationId: GetDemoDataBuckets
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DemoDataBuckets'
-          description: A list of demo data buckets
-        default:
-          $ref: '#/components/responses/ServerError'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
-  /api/v2/experimental/sampledata/buckets/{bucketID}/members:
-    delete:
-      operationId: DeleteDemoDataBucketMembers
-      parameters:
-        - description: bucket id
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: if sampledata route is not available gateway responds with 200
-        '204':
-          description: A list of demo data buckets
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
-    post:
-      operationId: GetDemoDataBucketMembers
-      parameters:
-        - description: bucket id
-          in: path
-          name: bucketID
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: if sampledata route is not available gateway responds with 200
-        '204':
-          description: A list of demo data buckets
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List of Demo Data Buckets
-      tags:
-        - DemoDataBuckets
   /api/v2/flags:
     get:
       operationId: GetFlags
@@ -8281,13 +8407,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LabelsResponse'
-          description: A list of labels
+          description: Success. The response body contains a list of labels.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: List all labels
       tags:
         - Labels
@@ -8298,7 +8422,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/LabelCreateRequest'
-        description: Label to create
+        description: The label to create.
         required: true
       responses:
         '201':
@@ -8306,13 +8430,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LabelResponse'
-          description: Added label
+          description: Success. The label was created.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Create a label
       tags:
         - Labels
@@ -8329,19 +8451,15 @@ paths:
             type: string
       responses:
         '204':
-          description: Delete has been accepted
+          description: Success. The delete was accepted.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
         '404':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Label not found
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Delete a label
       tags:
         - Labels
@@ -8361,13 +8479,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LabelResponse'
-          description: A label
+          description: Success. The response body contains the label.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Retrieve a label
       tags:
         - Labels
@@ -8386,7 +8502,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/LabelUpdate'
-        description: Label update
+        description: A label update.
         required: true
       responses:
         '200':
@@ -8394,19 +8510,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LabelResponse'
-          description: Updated label
+          description: Success. The response body contains the updated label.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
         '404':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Label not found
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Update a label
       tags:
         - Labels
@@ -8419,13 +8531,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Token'
-          description: A temp token for Mapbox
+          description: Temporary token for Mapbox.
         '401':
           $ref: '#/components/responses/ServerError'
         '500':
           $ref: '#/components/responses/ServerError'
         default:
           $ref: '#/components/responses/ServerError'
+      summary: Get a mapbox token
   /api/v2/me:
     get:
       operationId: GetMe
@@ -8437,13 +8550,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserResponse'
-          description: The currently authenticated user.
+          description: >-
+            Success. The response body contains the currently authenticated
+            user.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Retrieve the currently authenticated user
       tags:
         - Users
@@ -8457,11 +8570,11 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PasswordResetBody'
-        description: New password
+        description: The new password.
         required: true
       responses:
         '204':
-          description: Password successfully updated
+          description: Success. The password was updated.
         default:
           content:
             application/json:
@@ -9250,8 +9363,9 @@ paths:
         - Organizations
   /api/v2/orgs/{orgID}/limits:
     get:
+      operationId: GetOrgLimitsID
       parameters:
-        - description: The identifier of the organization.
+        - description: ID of the organization.
           in: path
           name: orgID
           required: true
@@ -9269,9 +9383,9 @@ paths:
                   links:
                     $ref: '#/components/schemas/Links'
                 type: object
-          description: The Limits defined for the organization.
+          description: Limits defined for the organization.
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: unexpected error
       summary: Retrieve limits for an organization
       tags:
@@ -9543,7 +9657,7 @@ paths:
         '204':
           description: Keys successfully deleted
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Delete a secret from an organization
       tags:
@@ -9581,25 +9695,38 @@ paths:
         - Secrets
   /api/v2/orgs/{orgID}/usage:
     get:
+      operationId: GetOrgUsageID
       parameters:
-        - description: The identifier of the organization.
+        - description: ID of the organization.
           in: path
           name: orgID
           required: true
           schema:
             type: string
-        - description: start time
+        - description: >
+            Earliest time to include in results.
+
+            For more information about timestamps, see [Manipulate timestamps
+            with
+            Flux](https://docs.influxdata.com/influxdb/cloud/query-data/flux/manipulate-timestamps/).
           in: query
           name: start
           required: true
           schema:
-            type: timestamp
-        - description: stop time
+            format: unix timestamp
+            type: integer
+        - description: >
+            Latest time to include in results.
+
+            For more information about timestamps, see [Manipulate timestamps
+            with
+            Flux](https://docs.influxdata.com/influxdb/cloud/query-data/flux/manipulate-timestamps/).
           in: query
           name: stop
           required: false
           schema:
-            type: timestamp
+            format: unix timestamp
+            type: integer
         - description: return raw usage data
           in: query
           name: raw
@@ -9636,17 +9763,20 @@ paths:
                   - identity
                 type: string
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: unexpected error
       summary: Retrieve usage for an organization
       tags:
         - Usage
   /ping:
     get:
+      description: Returns the status and InfluxDB version of the instance.
       operationId: GetPing
       responses:
         '204':
-          description: OK
+          description: |
+            OK.
+            Headers contain InfluxDB version information.
           headers:
             X-Influxdb-Build:
               description: The type of InfluxDB build.
@@ -9656,16 +9786,18 @@ paths:
               description: The version of InfluxDB.
               schema:
                 type: integer
-      servers:
-        - url: ''
-      summary: Checks the status of InfluxDB instance and version of InfluxDB.
+      servers: []
+      summary: Get the status and version of the instance
       tags:
         - Ping
     head:
+      description: Returns the status and InfluxDB version of the instance.
       operationId: HeadPing
       responses:
         '204':
-          description: OK
+          description: |
+            OK.
+            Headers contain InfluxDB version information.
           headers:
             X-Influxdb-Build:
               description: The type of InfluxDB build.
@@ -9675,40 +9807,43 @@ paths:
               description: The version of InfluxDB.
               schema:
                 type: integer
-      servers:
-        - url: ''
-      summary: Checks the status of InfluxDB instance and version of InfluxDB.
+      servers: []
+      summary: Get the status and version of the instance
       tags:
         - Ping
   /api/v2/query:
     post:
       description: >
-        Retrieves data from InfluxDB buckets.
+        Retrieves data from buckets.
 
 
-        To query data, you need the following:
-
-        - **organization** – _See [View
-        organizations](https://docs.influxdata.com/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
-        for instructions on viewing your organization ID._
-
-        - **API token** – _See [View
-        tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/)
-         for instructions on viewing your API token._
-        - **InfluxDB URL** – _See [InfluxDB
-        URLs](https://docs.influxdata.com/influxdb/cloud/reference/urls/)_.
-
-        - **Flux query** – _See [Flux](https://docs.influxdata.com/flux/v0.x/)._
+        Use this endpoint to send a Flux query request and retreive data from a
+        bucket.
 
 
-        For more information and examples, see [Query with the InfluxDB
+        #### Rate limits (with InfluxDB Cloud)
+
+
+        `read` rate limits apply.
+
+        For more information, see [limits and adjustable
+        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+
+
+        #### Related guides
+
+
+        - [Query with the InfluxDB
         API](https://docs.influxdata.com/influxdb/cloud/query-data/execute-queries/influx-api/).
+
+        - [Get started with
+        Flux](https://docs.influxdata.com/flux/v0.x/get-started/)
       operationId: PostQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: >-
-            Indicates the content encoding (usually a compression algorithm)
-            that the client can understand.
+            The content encoding (usually a compression algorithm) that the
+            client can understand.
           in: header
           name: Accept-Encoding
           schema:
@@ -9727,17 +9862,44 @@ paths:
               - application/json
               - application/vnd.flux
             type: string
-        - description: >-
-            Specifies the name of the organization executing the query. Takes
-            either the ID or Name. If both `orgID` and `org` are specified,
-            `org` takes precedence.
+        - description: >
+            The name or ID of the organization executing the query.
+
+
+            #### InfluxDB Cloud
+
+
+            - Doesn't use `org` or `orgID`.
+
+            - Queries the bucket in the organization associated with the
+            authorization (API token).
+
+
+            #### InfluxDB OSS
+
+
+            - Requires either `org` or `orgID`.
           in: query
           name: org
           schema:
             type: string
-        - description: >-
-            Specifies the ID of the organization executing the query. If both
-            `orgID` and `org` are specified, `org` takes precedence.
+        - description: >
+            The ID of the organization executing the query.
+
+
+            #### InfluxDB Cloud
+
+
+            - Doesn't use `org` or `orgID`.
+
+            - Queries the bucket in the organization associated with the
+            authorization (API token).
+
+
+            #### InfluxDB OSS
+
+
+            - Requires either `org` or `orgID`.
           in: query
           name: orgID
           schema:
@@ -9758,10 +9920,6 @@ paths:
       responses:
         '200':
           content:
-            application/vnd.influx.arrow:
-              schema:
-                format: binary
-                type: string
             text/csv:
               schema:
                 example: >
@@ -9770,12 +9928,12 @@ paths:
                   mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
                   mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
                 type: string
-          description: Success. Returns query results.
+          description: Success. The response body contains query results.
           headers:
             Content-Encoding:
               description: >-
-                Lists any encodings (usually compression algorithms) that have
-                been applied to the response payload.
+                Lists encodings (usually compression algorithms) that have been
+                applied to the response payload.
               schema:
                 default: identity
                 description: >
@@ -9786,30 +9944,39 @@ paths:
                   - identity
                 type: string
             Trace-Id:
-              description: >-
-                The Trace-Id header reports the request's trace ID, if one was
-                generated.
+              description: The trace ID, if generated, of the request.
               schema:
-                description: Specifies the request's trace ID.
+                description: Trace ID of a request.
                 type: string
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
         '429':
-          description: >-
-            Token is temporarily over quota. The Retry-After header describes
-            when to try the read again.
+          description: |
+            #### InfluxDB Cloud:
+              - returns this error if a **read** or **write** request exceeds your
+                plan's [adjustable service quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
+                or if a **delete** request exceeds the maximum
+                [global limit](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#global-limits)
+              - returns `Retry-After` header that describes when to try the write again.
+
+            #### InfluxDB OSS:
+              - doesn't return this error.
           headers:
             Retry-After:
               description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+                Non-negative decimal integer indicating seconds to wait before
+                retrying the request.
               schema:
                 format: int32
                 type: integer
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Error processing query
+          $ref: '#/components/responses/GeneralServerError'
       summary: Query data
       tags:
         - Query
@@ -9988,7 +10155,7 @@ paths:
           description: Unexpected error
       summary: List scripts
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
     post:
       operationId: PostScripts
       requestBody:
@@ -10010,7 +10177,7 @@ paths:
           description: Unexpected error
       summary: Create a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
   /api/v2/scripts/{scriptID}:
     delete:
       description: Deletes a script and all associated records.
@@ -10030,9 +10197,9 @@ paths:
           description: Unexpected error
       summary: Delete a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
     get:
-      description: Uses script ID to retrieve details of an invocable script.
+      description: Uses script ID to retrieve details of an invokable script.
       operationId: GetScriptsID
       parameters:
         - description: The script ID.
@@ -10053,10 +10220,10 @@ paths:
           description: Unexpected error
       summary: Retrieve a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
     patch:
       description: >
-        Updates properties (`name`, `description`, and `script`) of an invocable
+        Updates properties (`name`, `description`, and `script`) of an invokable
         script.
       operationId: PatchScriptsID
       parameters:
@@ -10085,7 +10252,7 @@ paths:
           description: Unexpected error
       summary: Update a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
   /api/v2/scripts/{scriptID}/invoke:
     post:
       description: >-
@@ -10115,7 +10282,7 @@ paths:
           description: Unexpected error
       summary: Invoke a script
       tags:
-        - Invocable Scripts
+        - Invokable Scripts
   /api/v2/setup:
     get:
       description: >-
@@ -10156,7 +10323,7 @@ paths:
                 $ref: '#/components/schemas/OnboardingResponse'
           description: The created default user, bucket, and organization
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Create an initial user, organization, and bucket
       tags:
@@ -10182,7 +10349,7 @@ paths:
                 $ref: '#/components/schemas/OnboardingResponse'
           description: The created default user, bucket, and organization.
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Create a new user, organization, and bucket
       tags:
@@ -10507,6 +10674,22 @@ paths:
             maximum: 500
             minimum: -1
             type: integer
+        - description: The number of records to skip
+          in: query
+          name: offset
+          required: false
+          schema:
+            default: 0
+            minimum: 0
+            type: integer
+        - description: Field that records should be sorted by
+          in: query
+          name: sortBy
+          required: false
+          schema:
+            enum:
+              - name
+            type: string
         - description: Type of task, unset by default.
           in: query
           name: type
@@ -11653,6 +11836,22 @@ paths:
             summary of the run. The summary contains newly created resources.
             The diff compares the initial state to the state after the package
             applied. This corresponds to `"dryRun": true`.
+        '422':
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/TemplateSummary'
+                  - properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                    required:
+                      - message
+                      - code
+                    type: object
+          description: Template failed validation
         default:
           content:
             application/json:
@@ -11708,7 +11907,7 @@ paths:
                 $ref: '#/components/schemas/Users'
           description: A list of users
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: List all users
       tags:
@@ -11732,7 +11931,7 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
           description: User created
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Create a user
       tags:
@@ -11752,7 +11951,7 @@ paths:
         '204':
           description: User deleted
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Delete a user
       tags:
@@ -11775,7 +11974,7 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
           description: User details
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Retrieve a user
       tags:
@@ -11805,7 +12004,7 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
           description: User updated
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: Update a user
       tags:
@@ -11865,10 +12064,10 @@ paths:
                 $ref: '#/components/schemas/Variables'
           description: A list of variables for an organization.
         '400':
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Invalid request
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Internal server error
       summary: List all variables
       tags:
@@ -11892,7 +12091,7 @@ paths:
                 $ref: '#/components/schemas/Variable'
           description: Variable created
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Internal server error
       summary: Create a variable
       tags:
@@ -11912,7 +12111,7 @@ paths:
         '204':
           description: Variable deleted
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Internal server error
       summary: Delete a variable
       tags:
@@ -11935,10 +12134,10 @@ paths:
                 $ref: '#/components/schemas/Variable'
           description: Variable found
         '404':
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Variable not found
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Internal server error
       summary: Retrieve a variable
       tags:
@@ -11968,7 +12167,7 @@ paths:
                 $ref: '#/components/schemas/Variable'
           description: Variable updated
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Internal server error
       summary: Update a variable
       tags:
@@ -11998,7 +12197,7 @@ paths:
                 $ref: '#/components/schemas/Variable'
           description: Variable updated
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
           description: Internal server error
       summary: Replace a variable
       tags:
@@ -12104,120 +12303,195 @@ paths:
         Writes data to a bucket.
 
 
-        To write data into InfluxDB, you need the following:
+        Use this endpoint to send data in [line
+        protocol](https://docs.influxdata.com/influxdb/cloud/reference/syntax/line-protocol/)
+        format to InfluxDB.
 
 
-        - **organization name or ID** – _See [View
-        organizations](https://docs.influxdata.com/influxdb/cloud/organizations/view-orgs/#view-your-organization-id)
-        for instructions on viewing your organization ID._
-
-        - **bucket** – _See [View
-        buckets](https://docs.influxdata.com/influxdb/cloud/organizations/buckets/view-buckets/)
-        for
-         instructions on viewing your bucket ID._
-        - **API token** – _See [View
-        tokens](https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/)
-         for instructions on viewing your API token._
-        - **InfluxDB URL** – _See [InfluxDB
-        URLs](https://docs.influxdata.com/influxdb/cloud/reference/urls/)_.
-
-        - data in [line
-        protocol](https://docs.influxdata.com/influxdb/cloud/reference/syntax/line-protocol)
-        format.
+        #### InfluxDB Cloud
 
 
-        InfluxDB Cloud enforces rate and size limits different from InfluxDB
-        OSS. For details, see Responses.
+        - Takes the following steps when you send a write request:
+
+          1. Validates the request and queues the write.
+          2. If the write is queued, responds with an HTTP `204` status code.
+          3. Handles the write asynchronously and reaches eventual consistency.
+
+          An HTTP `2xx` status code acknowledges that the write or delete is queued.
+          To ensure that InfluxDB Cloud handles writes and deletes in the order you request them,
+          wait for a response before you send the next request.
+
+          Because writes are asynchronous, data might not yet be written
+          when you receive the response.
+
+        #### InfluxDB OSS
 
 
-        For more information and examples, see the following:
+        - Validates the request, handles the write synchronously,
+          and then responds with success or failure.
+        - If all points were written successfully, returns `204`,
+          otherwise returns the first line that failed.
+
+        #### Required permissions
+
+
+        - `write-buckets` or `write-bucket BUCKET_ID`.
+
+          `BUCKET_ID` is the ID of the destination bucket.
+
+        #### Rate limits (with InfluxDB Cloud)
+
+
+        `write` rate limits apply.
+
+        For more information, see [limits and adjustable
+        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+
+
+        #### Related guides
+
 
         - [Write data with the InfluxDB
         API](https://docs.influxdata.com/influxdb/cloud/write-data/developer-tools/api).
 
         - [Optimize writes to
         InfluxDB](https://docs.influxdata.com/influxdb/cloud/write-data/best-practices/optimize-writes/).
+
+        - [Troubleshoot issues writing
+        data](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot/)
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: >
-            The value tells InfluxDB what compression is applied to the line
-            protocol in the request payload.
-
-            To make an API request with a GZIP payload, send `Content-Encoding:
-            gzip` as a request header.
+        - description: |
+            The compression applied to the line protocol in the request payload.
+            To send a GZIP payload, pass `Content-Encoding: gzip` header.
           in: header
           name: Content-Encoding
           schema:
             default: identity
-            description: >-
-              The content coding. Use `gzip` for compressed data or `identity`
-              for unmodified, uncompressed data.
+            description: >
+              Content coding.
+
+              Use `gzip` for compressed data or `identity` for unmodified,
+              uncompressed data.
             enum:
               - gzip
               - identity
             type: string
-        - description: >-
-            The header value indicates the format of the data in the request
-            body.
+        - description: >
+            The format of the data in the request body.
+
+            To send a line protocol payload, pass `Content-Type: text/plain;
+            charset=utf-8`.
           in: header
           name: Content-Type
           schema:
             default: text/plain; charset=utf-8
             description: >
-              `text/plain` specifies line protocol. `UTF-8` is the default
-              character set.
+              `text/plain` is the content type for line protocol. `UTF-8` is the
+              default character set.
             enum:
               - text/plain
               - text/plain; charset=utf-8
-              - application/vnd.influx.arrow
             type: string
-        - description: >-
-            The header value indicates the size of the entity-body, in bytes,
-            sent to the database. If the length is greater than the database's
-            `max body` configuration option, the server responds with status
-            code `413`.
+        - description: |
+            The size of the entity-body, in bytes, sent to InfluxDB.
+            If the length is greater than the `max body` configuration option,
+            the server responds with status code `413`.
           in: header
           name: Content-Length
           schema:
             description: The length in decimal number of octets.
             type: integer
-        - description: The header value specifies the response format.
+        - description: |
+            The content type that the client can understand.
+            Writes only return a response body if they fail--for example,
+            due to a formatting problem or quota limit.
+
+            #### InfluxDB Cloud
+
+              - Returns only `application/json` for format and limit errors.
+              - Returns only `text/html` for some quota limit errors.
+
+            #### InfluxDB OSS
+
+              - Returns only `application/json` for format and limit errors.
+
+            #### Related guides
+              - [Troubleshoot issues writing data](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot/).
           in: header
           name: Accept
           schema:
             default: application/json
-            description: The response format for errors.
+            description: Error content type.
             enum:
               - application/json
             type: string
-        - description: >-
-            The parameter value specifies the destination organization for
-            writes. The database writes all points in the batch to this
-            organization. If you provide both `orgID` and `org` parameters,
-            `org` takes precedence.
+        - description: >
+            The destination organization for writes.
+
+            InfluxDB writes all points in the batch to this organization.
+
+            If you pass both `orgID` and `org`, they must both be valid.
+
+
+            #### InfluxDB Cloud
+
+
+            - Doesn't require `org` or `orgID`.
+
+            - Writes to the bucket in the organization associated with the
+            authorization (API token).
+
+
+            #### InfluxDB OSS
+
+
+            - Requires either `org` or `orgID`.
+
+            - InfluxDB writes all points in the batch to this organization.
           in: query
           name: org
           required: true
           schema:
-            description: Organization name or ID.
+            description: The organization name or ID.
             type: string
-        - description: >-
-            The parameter value specifies the ID of the destination organization
-            for writes. If both `orgID` and `org` are specified, `org` takes
-            precedence.
+        - description: >
+            The ID of the destination organization for writes.
+
+            If you pass both `orgID` and `org`, they must both be valid.
+
+
+            #### InfluxDB Cloud
+
+
+            - Doesn't require `org` or `orgID`.
+
+            - Writes to the bucket in the organization associated with the
+            authorization (API token).
+
+
+
+            #### InfluxDB OSS
+
+
+            - Requires either `org` or `orgID`.
+
+            - InfluxDB writes all points in the batch to this organization.
           in: query
           name: orgID
           schema:
             type: string
-        - description: The destination bucket for writes.
+        - description: |
+            The destination bucket for writes.
+            InfluxDB writes all points in the batch to this bucket.
           in: query
           name: bucket
           required: true
           schema:
-            description: All points within batch are written to this bucket.
+            description: The bucket name or ID.
             type: string
-        - description: The precision for the unix timestamps within the body line-protocol.
+        - description: The precision for unix timestamps in the line protocol batch.
           in: query
           name: precision
           schema:
@@ -12225,24 +12499,69 @@ paths:
       requestBody:
         content:
           text/plain:
+            examples:
+              plain-utf8:
+                value: >
+                  airSensors,sensor_id=TLM0201
+                  temperature=73.97038159354763,humidity=35.23103248356096,co=0.48445310567793615
+                  1630424257000000000
+
+                  airSensors,sensor_id=TLM0202
+                  temperature=75.30007505999716,humidity=35.651929918691714,co=0.5141876544505826
+                  1630424257000000000
             schema:
               format: byte
               type: string
-        description: Data in line protocol format.
+        description: >
+          Data in line protocol format.
+
+
+          To send compressed data, do the following:
+
+            1. Use [GZIP](https://www.gzip.org/) to compress the line protocol data.
+            2. In your request, send the compressed data and the
+               `Content-Encoding: gzip` header.
+
+          #### Related guides
+
+
+          - [Best practices for optimizing
+          writes](https://docs.influxdata.com/influxdb/cloud/write-data/best-practices/optimize-writes/).
         required: true
       responses:
         '204':
-          description: >-
-            InfluxDB validated the request data format and accepted the data for
-            writing to the bucket. `204` doesn't indicate a successful write
-            operation since writes are asynchronous. See [how to check for write
+          description: >
+            Success.
+
+
+            #### InfluxDB Cloud
+
+
+            - Validated and queued the request.
+
+            - Handles the write asynchronously - the write might not have
+            completed yet.
+
+
+            #### InfluxDB OSS
+
+
+            - Successfully wrote all points in the batch.
+
+
+            #### Related guides
+
+
+            - [How to check for write
             errors](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot/).
         '400':
           content:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: Field type conflict thrown by an explicit bucket schema
+                  summary: >-
+                    InfluxDB Cloud field type conflict thrown by an explicit
+                    bucket schema
                   value:
                     code: invalid
                     message: >-
@@ -12253,43 +12572,15 @@ paths:
                       schema; got String but expected Float
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
-          description: >-
-            Bad request. The line protocol data in the request is malformed. The
-            response body contains the first malformed line in the data.
+          description: |
+            Bad request.
+            The line protocol data in the request is malformed.
+            The response body contains the first malformed line in the data.
             InfluxDB rejected the batch and did not write any data.
         '401':
-          content:
-            application/json:
-              examples:
-                tokenNotAuthorized:
-                  summary: >-
-                    Token is not authorized to access the organization or
-                    resource
-                  value:
-                    code: unauthorized
-                    message: unauthorized access
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: |
-            Unauthorized. The error may indicate one of the following:
-              * The `Authorization: Token` header is missing or malformed.
-              * The API token value is missing from the header.
-              * The token does not have sufficient permissions to write to this organization and bucket.
+          $ref: '#/components/responses/AuthorizationError'
         '404':
-          content:
-            application/json:
-              examples:
-                resource-not-found:
-                  summary: Not found error
-                  value:
-                    code: not found
-                    message: bucket "air_sensor" not found
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: >-
-            Not found. A requested resource was not found. The response body
-            contains the requested resource type, e.g. `organization name` or
-            `bucket`, and name.
+          $ref: '#/components/responses/ResourceNotFoundError'
         '413':
           content:
             application/json:
@@ -12316,54 +12607,69 @@ paths:
                     </html>
               schema:
                 type: string
-          description: >
-            The request payload is too large. InfluxDB rejected the batch and
-            did not write any data.
+          description: |
+            The request payload is too large.
+            InfluxDB rejected the batch and did not write any data.
 
             #### InfluxDB Cloud:
-             - returns this error if the payload exceeds the 50MB size limit.
-             - returns `Content-Type: text/html` for this error.
+
+             - Returns this error if the payload exceeds the 50MB size limit.
+             - Returns `Content-Type: text/html` for this error.
 
             #### InfluxDB OSS:
-             - returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
-             - returns `Content-Type: application/json` for this error.
+
+             - Returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
+             - Returns `Content-Type: application/json` for this error.
         '429':
-          description: >-
-            InfluxDB Cloud only. The token is temporarily over quota. The
-            Retry-After header describes when to try the write again.
+          description: |
+            Too many requests.
+
+            #### InfluxDB Cloud
+
+              - Returns this error if a **read** or **write** request exceeds your
+                plan's [adjustable service quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
+                or if a **delete** request exceeds the maximum
+                [global limit](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#global-limits).
+              - Returns `Retry-After` header that describes when to try the write again.
+
+            #### InfluxDB OSS
+
+              - Doesn't return this error.
           headers:
             Retry-After:
               description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+                Non-negative decimal integer indicating seconds to wait before
+                retrying the request.
               schema:
                 format: int32
                 type: integer
         '500':
-          content:
-            application/json:
-              examples:
-                internalError:
-                  summary: Internal error example
-                  value:
-                    code: internal error
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Internal server error.
+          $ref: '#/components/responses/InternalServerError'
         '503':
-          description: >-
-            The server is temporarily unavailable to accept writes. The
-            `Retry-After` header describes when to try the write again.
+          description: |
+            Service unavailable.
+
+            #### InfluxDB Cloud
+
+              - Returns this error if series cardinality exceeds your plan's
+                [adjustable service quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
+                See [how to resolve high series cardinality](https://docs.influxdata.com/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/).
+
+            #### InfluxDB OSS
+
+              - Returns this error if
+                the server is temporarily unavailable to accept writes.
+              - Returns `Retry-After` header that describes when to try the write again.
           headers:
             Retry-After:
               description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+                Non-negative decimal integer indicating seconds to wait before
+                retrying the request.
               schema:
                 format: int32
                 type: integer
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/GeneralServerError'
       summary: Write data
       tags:
         - Write
@@ -12372,44 +12678,142 @@ security:
 servers:
   - url: /
 tags:
-  - description: |
-      The InfluxDB `/api/v2` API requires authentication for all requests.
-      Use InfluxDB API tokens to authenticate requests to the `/api/v2` API.
+  - description: >
+      Use one of the following schemes to authenticate to the InfluxDB API:
 
 
-      For more information, see
-      [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+
+      - [Querystring
+      authentication](#section/Authentication/QuerystringAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
   - description: >
-      Create and manage API tokens. An **authorization** associates a list of
-      permissions to an **organization** and provides a token for API access.
+      Create and manage API tokens.
+
+      An **authorization** associates a list of permissions to an
+
+      **organization** and provides a token for API access.
+
       Optionally, you can restrict an authorization and its token to a specific
       user.
 
 
-      For more information and examples, see the following:
+      ### Related guides
+
         - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
         - [Manage API tokens](/influxdb/cloud/security/tokens/).
         - [Assign a token to a specific user](/influxdb/cloud/security/tokens/create-token/).
     name: Authorizations
-  - Bucket Schemas
-  - Buckets
-  - Cells
-  - Checks
-  - Dashboards
-  - DBRPs
-  - Delete
-  - DemoDataBuckets
-  - Invocable Scripts
-  - Labels
-  - Limits
-  - NotificationEndpoints
-  - NotificationRules
-  - Organizations
-  - Ping
+  - name: Bucket Schemas
+  - name: Buckets
+  - name: Cells
+  - name: Checks
+  - description: >
+      Many InfluxDB API endpoints require parameters to specify resources--for
+      example,
+
+      writing to a **bucket** in an **organization**.
+
+
+      ### Common query parameters
+
+
+      | Query parameter          | Value type            |
+      Description                                |
+
+      |:------------------------ |:---------------------
+      |:-------------------------------------------|
+
+      | `bucket`                 | string                | The bucket name or ID
+      ([find your bucket](/influxdb/cloud/organizations/buckets/view-buckets/).
+      |
+
+      | `bucketID`               | string                | The bucket ID ([find
+      your bucket](/influxdb/cloud/organizations/buckets/view-buckets/). |
+
+      | `org`                    | string                | The organization name
+      or ID ([find your organization](/influxdb/cloud/organizations/view-orgs/).
+      |
+
+      | `orgID`                  | 16-byte string        | The organization ID
+      ([find your organization](/influxdb/cloud/organizations/view-orgs/). |
+    name: Common parameters
+    x-traitTag: true
+  - name: Dashboards
+  - name: DBRPs
+  - name: Delete
+  - description: >
+      InfluxDB API endpoints use standard HTTP request and response headers.
+
+
+      **Note**: Not all operations support all headers.
+
+
+      ### Request headers
+
+
+      | Header                   | Value type            |
+      Description                                |
+
+      |:------------------------ |:---------------------
+      |:-------------------------------------------|
+
+      | `Accept`                 | string                | The content type that
+      the client can understand. |
+
+      | `Authorization`          | string                | The authorization
+      scheme and credential. |
+
+      | `Content-Encoding`       | string                | The compression
+      applied to the line protocol in the request payload. |
+
+      | `Content-Length`         | integer               | The size of the
+      entity-body, in bytes, sent to the database. |
+
+      | `Content-Type`           | string                | The format of the
+      data in the request body. |
+    name: Headers
+    x-traitTag: true
+  - description: >
+      Manage and execute scripts as API endpoints in InfluxDB.
+
+
+      An API Invokable Script assigns your custom Flux script to a new
+
+      InfluxDB API endpoint for your organization.
+
+      Invokable scripts let you execute your script as an HTTP request to the
+      endpoint.
+
+
+      Invokable scripts accept parameters.
+
+      Add parameter references in your script as `params.myparameter`.
+
+      When you `invoke` your script, you send parameters as key-value pairs in
+      the `params` object.
+
+      Then, InfluxDB executes your script with the key-value pairs as arguments,
+      and returns the result.
+
+
+      ### Related guides
+
+
+      - [Invoke custom
+      scripts](/influxdb/cloud/api-guide/api-invokable-scripts/).
+    name: Invokable Scripts
+  - name: Labels
+  - name: Limits
+  - name: NotificationEndpoints
+  - name: NotificationRules
+  - name: Organizations
+  - name: Ping
   - description: |
       Retrieve data, analyze queries, and get query suggestions.
     name: Query
@@ -12424,7 +12828,7 @@ tags:
       for popular languages and ready to import into your application.
     name: Quick start
     x-traitTag: true
-  - Resources
+  - name: Resources
   - description: >
       The InfluxDB API uses standard HTTP status codes for success and failure
       responses.
@@ -12479,20 +12883,20 @@ tags:
       when to try the request again. |
     name: Response codes
     x-traitTag: true
-  - Routes
-  - Rules
-  - Secrets
-  - Setup
-  - Signin
-  - Signout
-  - Tasks
-  - Telegraf Plugins
-  - Telegrafs
-  - Templates
-  - Usage
-  - Users
-  - Variables
-  - Views
+  - name: Routes
+  - name: Rules
+  - name: Secrets
+  - name: Setup
+  - name: Signin
+  - name: Signout
+  - name: Tasks
+  - name: Telegraf Plugins
+  - name: Telegrafs
+  - name: Templates
+  - name: Usage
+  - name: Users
+  - name: Variables
+  - name: Views
   - description: |
       Write time series data to buckets.
     name: Write
@@ -12501,11 +12905,15 @@ x-tagGroups:
     tags:
       - Quick start
       - Authentication
+      - Headers
       - Response codes
   - name: Data I/O endpoints
     tags:
       - Write
       - Query
+      - Delete
+      - Invokable Scripts
+      - Tasks
   - name: Resource endpoints
     tags:
       - Buckets
@@ -12531,8 +12939,7 @@ x-tagGroups:
       - Dashboards
       - DBRPs
       - Delete
-      - DemoDataBuckets
-      - Invocable Scripts
+      - Invokable Scripts
       - Labels
       - Limits
       - NotificationEndpoints
