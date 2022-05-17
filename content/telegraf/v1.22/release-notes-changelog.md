@@ -9,7 +9,23 @@ menu:
     name: Release notes
     weight: 60
 ---
-## v1.22.2 [2022-4-28]
+## v1.22.4 [2022-5-17]
+
+- Wait for network up in `systemd` packaging.
+
+### Input plugin updates
+- Couchbase (`couchbase`): Do not assume metrics will all be of the same length.
+- StatsD (`statsd`): Fix error when closing network connection.
+
+### Output plugin updates
+- Azure Monitor (`azure_monitor`): Reinitialize `http` client on context deadline error.
+- Wavefront (`wavefront`): Do not add `telegraf.host` tag if no `host` tag is provided.
+
+### Dependency updates
+- Update `github.com/showwin/speedtest-go` from 1.1.4 to 1.1.5.
+- Update OpenTelemetry plugins to v0.51.0.
+
+## v1.22.3 [2022-4-28]
 
 - Update Go to 1.18.1.
 
