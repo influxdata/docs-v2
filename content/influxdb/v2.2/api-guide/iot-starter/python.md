@@ -3,22 +3,15 @@ title: Python client library starter guide
 seotitle: Use Python client library to build a sample application
 list_title: Python
 description: >
-  Use the InfluxDB Python client library to build a sample IoT application on
-  top of the InfluxDB API.
+  Build a Flask and Jinja app on top of the InfluxDB API with the InfluxDB 
+  client library for Python
 weight: 3
 menu:
   influxdb_2_2:
     name: Python
     parent: API starter guides
 influxdb/cloud/tags: [api]
-aliases:
-  - /influxdb/cloud/tools/api/iot-starter/python/
 ---
-
-This guide is for Python developers who want to build applications using the InfluxDB API and client libraries.
-InfluxDB API client libraries are maintained by InfluxData and the user community. As a developer, client libraries let you take advantage of:
-- Idioms for InfluxDB requests, responses, and errors
-- Common patterns in a familiar programming language
 
 In this guide, you'll use the InfluxDB API and Python client libraries to build a real application, and learn the basics by 
 deconstructing the flow of events and data between the app, devices, and InfluxDB.
@@ -27,15 +20,7 @@ You'll see code samples that use InfluxDB API Python client libraries to
 manage IoT devices, write data to InfluxDB, query data from InfluxDB, create visualizations, and monitor the health of devices and the application itself.
 
 
-## Contents
-### InfluxDB API Overview
-1. [InfluxDB API basics](#influxdb-api-basics)
-2. [InfluxDB URL](#influxdb-url)
-3. [Data formats](#data-formats)
-4. [Responses](#responses)
-5. [Resources in InfluxDB](#resources-in-influxdb)
-
-### Tutorial Guide
+### Contents
 1. [Set up InfluxDB](#set-up-influxdb)
 2. [Create a web server](#introducing-iot-center)
    1. [Create a UI dashboard using Jinja](#create-iot-center)
@@ -50,141 +35,18 @@ manage IoT devices, write data to InfluxDB, query data from InfluxDB, create vis
 5. [Connect the UI to the API](#connect-the-ui-to-the-api) 
 
 
-## InfluxDB API basics
-
-### InfluxDB URL
-
-Throughout this guide, your application will send API requests to [your InfluxDB URL]().
-
-```sh
-http://localhost:8086
-```
-
-Most InfluxDB API operations you'll use in this guide are in the `/api/v2` URL path,
-e.g.
-
-```sh
-http://localhost:8086/api/v2/query
-http://localhost:8086/api/v2/write
-```
-
-### Data formats
-
-#### Line protocol
-
-You use the line protocol format to write data to InfluxDB.
-
-#### CSV
-
-The InfluxDB API returns query results in CSV format.
-
-#### JSON
-
-The InfluxDB API returns resources and errors in JSON format.
-
-### Responses
-
-The InfluxDB API is a REST API that accepts standard HTTP request verbs
-and returns standard HTTP response codes. If InfluxDB sends a response body, the body
-will have one of the following formats, depending on the endpoint and response status:
-
-- JSON: responses with resources or error messages
-- CSV: responses with query results.
-- Plain text: some error responses, responses with system information
-
-### Resources in InfluxDB
-
-**Resources** are InfluxDB objects that store data (.e.g. buckets) or configuration (.e.g. tasks) in InfluxDB.
-Your application uses the InfluxDB API to create, retrieve, update, and delete resources.
-In this guide, you'll encounter the following commonly used InfluxDB resources:
-
-- [Organization](#organization)
-- [User](#user)
-- [Authorization](#authorization)
-- [Bucket](#bucket)
-
-#### Organization
-
-An **organization** in InfluxDB is a logical workspace for a group of users.
-Members, buckets, tasks, and dashboards (along with a number of other resources), belong to an organization.
-
-See how to find your organization.
-
-#### User
-
-Users in InfluxDB are granted permission to access the database.
-Users are members of an **organization** and use **API tokens** to access resources.
-
-#### Bucket
-
-Buckets in InfluxDB are named locations where time series data is stored.
-All buckets have a **retention policy***, a duration of time that each data point persists.
-All buckets belong to an **organization**.
-
-#### Authorization
-
-An authorization in InfluxDB consists of a **token** and a set of **permissions**
-that specify _read_ or _write_ access to InfluxDB **resources**.
-Given that each authorization has one unique token, we use the term "API token" to refer to a token string and the authorization it belongs to.
-InfluxDB uses API tokens to authenticate and authorize API requests.
-
-#### Example: InfluxDB authorization
-
-In the following example, API token `Qjnu6uskk8ibmaytsgAEH4swgVa72rA_dEqzJMstHYLYJcDPlfDCLmwcGZbyYP1DajQnnj==`
-is a _Read-Write_ token with _read_ and _write_ access to all buckets
-in organization `48c88459ee424a04`.
-
-```json
-{
-   "id": "08e64ffe9b764000",
-   "token": "Qjnu6uskk8ibmaytsgAEH4swgVa72rA_dEqzJMstHYLYJcDPlfDCLmwcGZbyYP1DajQnnj==",
-   "status": "active",
-   "description": "IoT Center: device3",
-   "orgID": "48c88459ee424a04",
-   "org": "iot-org",
-   "userID": "0772396d1f411000",
-   "user": "iot-app-owner",
-   "permissions": [
-     {
-       "action": "read",
-       "resource": {
-         "type": "buckets",
-         "orgID": "48c88459ee424a04",
-         "org": "iot-org"
-       }
-     },
-     {
-       "action": "write",
-       "resource": {
-         "type": "buckets",
-         "orgID": "48c88459ee424a04",
-         "org": "iot-org"
-       }
-     }
-   ]
- }
-```
-
-{{% caption %}}Response body from the GET `/api/v2/authorizations/AUTHORIZATION_ID` InfluxDB API endpoint{{% /caption %}}
-
-{{% note %}}
-
-To learn more about InfluxDB data elements, schemas, and design principles, see the
-[Key concepts reference topics](influxdb/v2.1/reference/key-concepts/).
-
-{{% /note %}}
-
 ## Set up InfluxDB
 
-If you don't already have an InfluxDB instance, [create an InfluxDB Cloud account](https://www.influxdata.com/products/influxdb-cloud/) or [install InfluxDB OSS](https://www.influxdata.com/products/influxdb/).
-
+If you haven't already, 
+{{% cloud-only %}}[create an InfluxDB Cloud account](https://www.influxdata.com/products/influxdb-cloud/){{% /cloud-only %}}
+{{% oss-only %}}[install and set up InfluxDB OSS](https://www.influxdata.com/products/influxdb/){{% /oss-only %}}.
 
 ### Authenticate with an InfluxDB API token
 
-For convenience in development, use an _All-Access_ token for your application to read and write with the InfluxDB API.
-To create an All-Access token, use one of the following:
-- [InfluxDB UI](influxdb/v2.1/security/tokens/create-token/#create-an-all-access-token)
-- [InfluxDB CLI](/influxdb/v2.1/security/tokens/create-token/#create-an-all-access-token-1)
+For convenience in development, 
+[create an _All-Access_ token](/influxdb/v2.2/security/tokens/create-token/) 
+for your application. This grants your application full read and write 
+permissions on all resources within your InfluxDB organization.
 
 {{% note %}}
 
