@@ -18,7 +18,7 @@ Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol
 - Synchronize InfluxDB and LDAP so each LDAP request doesn't need to be queried
 
 {{% note %}}
-To configure InfluxDB Enterprise to support LDAP, all users must be managed in the remote LDAP service.
+LDAP **requires** JWT authentication. To configure InfluxDB Enterprise to support LDAP, all users must be managed in the remote LDAP service.
 If LDAP is configured and enabled, users **must** authenticate through LDAP, including users who may have existed before enabling LDAP.
 {{% /note %}}
 
