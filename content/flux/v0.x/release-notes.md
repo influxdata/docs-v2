@@ -10,6 +10,24 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.167.0 [2022-05-16]
+
+### Features
+- Allow default types to be specified for default arguments.
+- Add [`date.scale()`](/flux/v0.x/stdlib/date/scale/) to allow for dynamic duration changes.
+- Expose aggregate window spec fields for use by the query planner.
+- Add [`experimental.preview()`](/flux/v0.x/stdlib/experimental/preview/).
+
+### Bug fixes
+- Update `date.add()` and `date.sub()` to ork correctly with timezones enabled.
+- Fix failing continuous integration tests.
+- Update `hourSelection()` to support overnight time ranges.
+- Fix logic error in aggregate window planner rule preserve the rule if
+  `table.fill` is present.
+- Use `MultiplicativeOperator` in `MultiplicativeExpression`.
+
+---
+
 ## v0.166.0 [2022-05-09]
 
 ### Features
