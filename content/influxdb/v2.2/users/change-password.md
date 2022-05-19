@@ -22,14 +22,15 @@ to update a password for a user. To update a password, you need the following:
 
 - Username or user ID _(provided in the output of `influx user list`)_
 - New password
+- [Operator token](/influxdb/v2.2/security/tokens/#operator-token)
 
 ##### Update a password
 ```sh
 # Syntax
-influx user password -n <username>
+influx user password -n <username> -t <token>
 
 # Example
-influx user password -n johndoe
+influx user password -n johndoe -t My5uPErSecR37t0k3n
 ```
 
 When prompted, enter and confirm the new password.
