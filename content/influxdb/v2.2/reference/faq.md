@@ -240,7 +240,7 @@ Take care when inviting a user.
 
 Use one of the following methods to identify the version of InfluxDB OSS you're using:
 
-- **Look in the InfluxDB UI**:
+- **Use the InfluxDB UI**:
   - On the user login page
   - In the right column of the main landing page
 
@@ -592,7 +592,7 @@ on a database and retention policy data model doesn't exist in InfluxDB
 InfluxDB {{< current-version >}} lets you map unique database and retention 
 policy combinations used in InfluxQL to specific buckets using DBRP mappings.
 
-For details instructions on using InfluxQL with InfluxDB {{< current-version >}}
+For detailed instructions on using InfluxQL with InfluxDB {{< current-version >}}
 and configuring DBRP mapping, see [Query with InfluxQL](influxdb/v2.2/query-data/influxql/).
 
 #### How do I perform mathematical operations in an InfluxQL function?
