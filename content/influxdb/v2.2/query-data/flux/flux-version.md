@@ -59,7 +59,7 @@ To return the version of Flux installed with InfluxDB using the InfluxDB UI:
 
     {{< nav-icon "data-explorer" >}}
 
-2.  Click {{% caps %}}Script Editor{{% /caps %}} to manually create and
+2.  Click **{{% caps %}}Script Editor{{% /caps %}}** to manually create and
     edit a Flux query.
 3.  Enable the **View Raw Data {{< icon "toggle" >}}** toggle or select one of the
     following visualization types:
