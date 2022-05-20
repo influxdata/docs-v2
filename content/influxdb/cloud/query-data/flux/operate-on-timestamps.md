@@ -1,13 +1,15 @@
 ---
-title: Manipulate timestamps with Flux
-list_title: Manipulate timestamps
+title: Operate on timestamps with Flux
+list_title: Operate on timestamps
 description: >
-  Use Flux to process and manipulate timestamps.
+  Use Flux to operate on timestamps timestamps.
 menu:
   influxdb_cloud:
-    name: Manipulate timestamps
+    name: Operate on timestamps
     parent: Query with Flux
 weight: 220
+aliases:
+  - /influxdb/cloud/query-data/flux/manipulate-timestamps
 related:
   - /{{< latest "flux" >}}/stdlib/universe/now/
   - /{{< latest "flux" >}}/stdlib/system/time/
@@ -21,3 +23,5 @@ related:
 ---
 
 {{< duplicate-oss >}}
+
+
