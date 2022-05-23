@@ -52,7 +52,7 @@ For details, see [Export a dashboard](/influxdb/cloud/visualize-data/dashboards/
 #### Export data
 
 To export all your data, query your data out in time-based batches and store it
-in to an external system or even an InfluxDB OSS instance.
+in to an external system or an InfluxDB OSS instance.
 
 For information about automatically exporting and migrating data from InfluxDB 
 Cloud to InfluxDB OSS, see: [Migrate data from InfluxDB Cloud to InfluxDB OSS](/influxdb/cloud/migrate-data/migrate-cloud-to-oss/).
