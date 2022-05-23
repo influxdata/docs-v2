@@ -219,7 +219,8 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 
 ## InfluxQL support
 
-InfluxDB {{< current-version >}} supports InfluxQL **read-only** queries. See supported and unsupported queries below.
+InfluxDB {{< current-version >}} supports InfluxQL queries.
+See supported and unsupported queries below.
 To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest "influxdb" "v1" >}}/query_language/).
 
 {{< flex >}}
