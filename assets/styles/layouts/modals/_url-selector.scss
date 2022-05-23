@@ -244,44 +244,6 @@ label:after {
   &.inactive { display: none; }
 }
 
-///////////////////////////// InfluxDB URL Triggers ////////////////////////////
-
-.article--content {
-  .select-url {
-    margin: -2.5rem 0 1rem;
-    text-align: right;
-    display: none;
-  }
-
-  .url-trigger {
-    padding: .25rem .5rem;
-    display: inline-block;
-    font-size: .85rem;
-    font-style: italic;
-    color: rgba($article-tab-code-text, .5);
-    background: $article-code-bg;
-    border-radius: 0 0 $radius $radius;
-
-    &:before {
-      content: "\e924";
-      display: inline-block;
-      margin-right: .35rem;
-      font-family: "icomoon-v2";
-      font-style: normal;
-      font-size: .8rem;
-    }
-
-    &:hover {
-     color: $article-tab-code-text;
-    }
-  }
-  li .url-trigger { padding: 0rem .5rem; }
-
-  .code-tab-content {
-    .select-url{margin-top: -3.25rem}
-  }
-}
-
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 
 @include media(small) {

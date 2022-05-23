@@ -32,9 +32,11 @@ For details on `filter` and other flags, see [Telegraf commands and flags](/tele
    * Linux debian and RPM packages: `/etc/telegraf/telegraf.conf`
    * Standalone Binary: see the next section for how to create a configuration file
 
-   > **Note:** You can also specify a remote URL endpoint to pull a configuration file from. See [Configuration file locations](/telegraf/v1.15/administration/configuration/#configuration-file-locations).
+   > **Note:** You can also specify a remote URL endpoint to pull a configuration file from. See [Configuration file locations](/telegraf/v1.22/configuration/#configuration-file-locations).
 
 3. Edit the configuration file using `vim` or a text editor. Because this example uses [InfluxDB V2 output plugin](https://github.com/influxdata/telegraf/blob/release-1.21/plugins/outputs/influxdb_v2/README.md), we need to add the InfluxDB URL, authentication token, organization, and bucket details to this section of the configuration file.
+
+  > **Note:** For more configuration file options, see [Configuration options](/telegraf/v1.22/configuration/).
 
 4. For this example, specify two inputs (`cpu` and `mem`) with the `--input-filter` flag.
 Specify InfluxDB as the output with the `--output-filter` flag.
@@ -44,6 +46,54 @@ telegraf --sample-config --input-filter cpu:mem --output-filter influxdb_v2 > te
 ```
 
 The resulting configuration will collect CPU and memory data and sends it to InfluxDB V2.
+
+## Set environment variables
+
+Add environment variables anywhere in the configuration file by prepending them with `$`.
+For strings, variables must be in quotes (for example, `"$STR_VAR"`).
+For numbers and Booleans, variables must be unquoted (for example, `$INT_VAR`, `$BOOL_VAR`).
+
+You can also set environment variables using the Linux `export` command: `export password=mypassword`
+
+> **Note:** We recommend using environment variables for sensitive information.
+
+### Example: Telegraf environment variables
+
+In the Telegraf environment variables file (`/etc/default/telegraf`):
+
+```sh
+USER="alice"
+INFLUX_URL="http://localhost:8086"
+INFLUX_SKIP_DATABASE_CREATION="true"
+INFLUX_PASSWORD="monkey123"
+```
+
+In the Telegraf configuration file (`/etc/telegraf.conf`):
+
+```sh
+[global_tags]
+  user = "${USER}"
+
+[[inputs.mem]]
+
+[[outputs.influxdb]]
+  urls = ["${INFLUX_URL}"]
+  skip_database_creation = ${INFLUX_SKIP_DATABASE_CREATION}
+  password = "${INFLUX_PASSWORD}"
+```
+
+The environment variables above add the following configuration settings to Telegraf:
+
+```sh
+[global_tags]
+  user = "alice"
+
+[[outputs.influxdb]]
+  urls = "http://localhost:8086"
+  skip_database_creation = true
+  password = "monkey123"
+
+```
 
 ## Start Telegraf
 

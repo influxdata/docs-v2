@@ -863,7 +863,9 @@ Related entries: [aggregate](#aggregate), [function](#function), [transformation
 
 ### series
 
-A collection of data in the InfluxDB data structure that shares a measurement, tag set, and bucket.
+A collection of data in the InfluxDB data structure that share a common
+{{% cloud-only %}}**measurement**, **tag set**, and **field key**.{{% /cloud-only %}}
+{{% oss-only %}}**measurement** and **tag set**.{{% /oss-only %}}
 
 Related entries: [field set](#field-set), [measurement](#measurement),<!-- [retention policy](/#retention-policy-rp), --> [tag set](#tag-set)
 

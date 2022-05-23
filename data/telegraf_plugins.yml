@@ -1443,10 +1443,10 @@ input:
     introduced: 1.8.0
     tags: [linux, macos, windows, data-stores]
 
-  - name: Phfusion Passenger
+  - name: Phusion Passenger
     id: passenger
     description: |
-      The Phfusion 0Passenger input plugin gets Phusion Passenger statistics using
+      The Phusion Passenger input plugin gets Phusion Passenger statistics using
       their command line utility `passenger-status`.
     introduced: 0.10.1
     tags: [linux, macos, windows, web]
