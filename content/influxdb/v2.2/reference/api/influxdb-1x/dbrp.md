@@ -12,19 +12,23 @@ related:
   - /influxdb/v2.2/reference/api/influxdb-1x/query
   - /influxdb/v2.2/reference/api/influxdb-1x/write
   - /influxdb/v2.2/api/#tag/DBRPs, InfluxDB v2 API /dbrps endpoint
+  - /influxdb/v2.2/query-data/influxql/
 ---
 
 The InfluxDB 1.x data model includes [databases](/influxdb/v1.8/concepts/glossary/#database)
 and [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp).
-InfluxDB Cloud and InfluxDB OSS {{< current-version >}} replace databases and retention policies with [buckets](/influxdb/v2.2/reference/glossary/#bucket).
-To support InfluxDB 1.x query and write patterns in InfluxDB OSS {{< current-version >}} and Cloud, databases and retention
-policies are mapped to buckets using the **database and retention policy (DBRP) mapping service**.
+InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}}{{% oss-only %}}OSS 2.x{{% /oss-only %}}
+replaces databases and retention policies with [buckets](/influxdb/v2.2/reference/glossary/#bucket).
+To support InfluxDB 1.x query and write patterns in InfluxDB 
+{{% cloud-only %}}Cloud{{% /cloud-only %}}{{% oss-only %}}OSS 2.x{{% /oss-only %}},
+databases and retention policies are mapped to buckets using the
+**database and retention policy (DBRP) mapping service**.
 
 The DBRP mapping service uses the **database** and **retention policy** specified in
 [1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/) requests to route operations to a bucket.
 
 {{% note %}}
-To query data in InfluxQL that was written using the 2.x `/write` API,
+To query data in InfluxQL that was written using the `api/v2/write` API,
 you must **manually create a DBRP mapping** to map a bucket to a database and retention policy.
 For more information, see [Map unmapped buckets](/influxdb/v2.2/query-data/influxql/#map-unmapped-buckets).
 {{% /note %}}
@@ -63,8 +67,8 @@ the DBRP mapping service checks for a bucket mapped to the database and retentio
 
 ### When querying data
 
-When querying data from InfluxDB Cloud and InfluxDB OSS {{< current-version >}} using the
-[`/query` compatibility endpoint](/influxdb/v2.2/reference/api/influxdb-1x/query/),
+When querying data from InfluxDB {{< current-version >}}
+using the [`/query` compatibility endpoint](/influxdb/v2.2/reference/api/influxdb-1x/query/),
 the DBRP mapping service checks for the specified database and retention policy
 (if no retention policy is specified, the database's default retention policy is used):
 
@@ -72,3 +76,10 @@ the DBRP mapping service checks for the specified database and retention policy
 - If no mapped bucket exists, InfluxDB returns an error. See how to [Map unmapped buckets](/influxdb/v2.2/query-data/influxql/#map-unmapped-buckets).
 
 _For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.2/api/#tag/DBRPs)._
+
+{{% note %}}
+#### A DBRP combination can only be mapped to a single bucket
+Each unique DBRP combination can only be mapped to a single bucket.
+If you map a DBRP combination that is already mapped to another bucket,
+it will overwrite the existing DBRP mapping.
+{{% /note %}}
