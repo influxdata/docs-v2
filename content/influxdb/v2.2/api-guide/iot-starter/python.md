@@ -561,6 +561,7 @@ for each record returned.
 ## Connect the UI to the API
 Create a UI that utilizes the application to query and visualize data from InfluxDB.
 Your IoT Dashboard has four main pages.
+
 - Query Devices
 - Create Devices
 - Write Data
