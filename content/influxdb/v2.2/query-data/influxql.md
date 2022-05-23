@@ -17,7 +17,7 @@ related:
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
-In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2.2/reference/glossary/#bucket).
+In InfluxDB {{< current-version >}}, data is stored in [buckets](/influxdb/v2.2/reference/glossary/#bucket).
 Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 
 {{% note %}}
@@ -183,10 +183,17 @@ curl --request POST http://localhost:8086/api/v2/dbrps \
 
 After you've verified the bucket is mapped, query the bucket using the `query` 1.x compatibility endpoint.
 
+{{% note %}}
+#### A DBRP combination can only be mapped to a single bucket
+Each unique DBRP combination can only be mapped to a single bucket.
+If you map a DBRP combination that is already mapped to another bucket,
+it will overwrite the existing DBRP mapping.
+{{% /note %}}
+
 ## Query a mapped bucket with InfluxQL
 
 The [InfluxDB 1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/) supports
-all InfluxDB 1.x client libraries and integrations in InfluxDB OSS {{< current-version >}}.
+all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-version >}}.
 
 To query a mapped bucket with InfluxQL, use the [`/query` 1.x compatibility endpoint](/influxdb/v2.2/reference/api/influxdb-1x/query/).
 Include the following in your request:
@@ -212,7 +219,7 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 
 ## InfluxQL support
 
-InfluxDB OSS {{< current-version >}} supports InfluxQL **read-only** queries. See supported and unsupported queries below.
+InfluxDB {{< current-version >}} supports InfluxQL **read-only** queries. See supported and unsupported queries below.
 To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest "influxdb" "v1" >}}/query_language/).
 
 {{< flex >}}
