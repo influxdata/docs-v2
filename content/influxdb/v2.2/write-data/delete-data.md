@@ -40,7 +40,8 @@ InfluxDB {{< current-version >}} does not support deleting data by field.
 {{% cloud-only %}}
 
 In InfluxDB Cloud, writes and deletes are asynchronous and eventually consistent.
-Once InfluxDB validates your request and queues the delete, it sends a _success_ (HTTP `204` status code) response as an acknowledgement.
+Once InfluxDB validates your request and queues the delete,
+it sends a _success_ response (HTTP `204` status code) as an acknowledgement.
 To ensure that InfluxDB handles writes and deletes in the order you request them, wait for the acknowledgement before you send the next request.
 Once InfluxDB executes a queued delete, the deleted data is no longer queryable,
 but will remain on disk until the compaction service runs.
