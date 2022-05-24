@@ -560,26 +560,27 @@ for each record returned.
 
 ## Connect the UI to the API
 Create a UI that utilizes the application to query and visualize data from InfluxDB.
-Your IoT Dashboard has four main pages.
+Your IoT Dashboard has the following four main views:
 
-- Query Devices
-- Create Devices
-- Write Data
-- Query Data
+- Query Devices: queries and displays device information.
+- Create Devices: creates virtual IoT devices.
+- Write Data: writes telemetry data.
+- Query Data: queries telemetry data.
 
 In the `./templates` directory, create the following files:
  
-- `create.html`: [Creates virtual IoT devices.](https://github.com/influxdata/iot-python-api/blob/main/templates/create.html)
-- `data.html`: [Queries telemetry data.](https://github.com/influxdata/iot-python-api/blob/main/templates/data.html)
-- `devices.html`: [Queries and displays device data.](https://github.com/influxdata/iot-python-api/blob/main/templates/devices.html)
-- `write.html`: [Writes telemetry data.](https://github.com/influxdata/iot-python-api/blob/main/templates/write.html)
+- [`create.html`](https://github.com/influxdata/iot-python-api/blob/main/templates/create.html): provides the `Create Devices` view.
+- [`data.html`](https://github.com/influxdata/iot-python-api/blob/main/templates/data.html): provides the `Query Data` view.
+- [`devices.html`](https://github.com/influxdata/iot-python-api/blob/main/templates/devices.html): provides the `Query Devices` view.
+- [`write.html`](https://github.com/influxdata/iot-python-api/blob/main/templates/write.html): provides the `Write Data` view.
 
-After creating those files are created, update `base.html` and `app.py` to connect the routes.
+ With the view files created, update `base.html` and `app.py` to route server requests to your views.
 `app.py` serves the routes and runs the core logic necessary to populate the UI.
 
-For example, in the `data` route, the app retrieves `device_id_input` from 
-`data.html` when user input is submitted. It then calls `get_measurements()` 
-with the provided input. After the query runs, `data.html` displays query results.
+For example, in the `data` route, `app.py` retrieves `device_id_input` from 
+`data.html` once a user submits input in a `POST` request.
+`app.py` then passes the form data to `get_measurements(device_id)`.
+Once the query completes, `data.html` displays the results.
 
 ```python
 @app.route('/data', methods=['GET', 'POST'])
