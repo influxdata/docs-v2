@@ -14,20 +14,26 @@ Access the InfluxDB API using the `/api/v2/` endpoint.
 
 ## Developer guides
 
+- [IoT Starter](/influxdb/v2.2/api-guide/iot-starter/)
+
 ## InfluxDB client libraries
+
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.
 For tutorials and information about client libraries, see [InfluxDB client libraries](/{{< latest "influxdb" >}}/api-guide/client-libraries/).
 
 ## InfluxDB v2 API documentation
+
 <a class="btn" href="/influxdb/v2.2/api/">InfluxDB OSS {{< current-version >}} API documentation</a>
 
-#### View InfluxDB API documentation locally
+### View InfluxDB API documentation locally
+
 InfluxDB API documentation is built into the `influxd` service and represents
 the API specific to the current version of InfluxDB.
 To view the API documentation locally, [start InfluxDB](/influxdb/v2.2/get-started/#start-influxdb)
 and visit the `/docs` endpoint in a browser ([localhost:8086/docs](http://localhost:8086/docs)).
 
 ## InfluxDB v1 compatibility API documentation
+
 The InfluxDB v2 API includes [InfluxDB 1.x compatibility endpoints](/influxdb/v2.2/reference/api/influxdb-1x/)
 that work with InfluxDB 1.x client libraries and third-party integrations like
 [Grafana](https://grafana.com) and others.
