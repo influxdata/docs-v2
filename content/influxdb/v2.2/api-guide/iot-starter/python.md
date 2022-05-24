@@ -491,8 +491,7 @@ def write_measurements(device_id):
 {{% caption %}}[@influxdata/iot-python-app ./api/devices.py write_measurement() line 84](https://github.com/influxdata/iot-python-api/blob/main/api/devices.py#L84){{% /caption %}}
 
 ## Query Telemetry Data
-After telemetry data is written into your bucket, query InfluxDB to retrieve the 
-telemetry data.  
+After you write telemetry data to the bucket, query InfluxDB to retrieve the data.
 
 In `devices.py`, create a new function called `get_measurements()`. 
 This function should:
