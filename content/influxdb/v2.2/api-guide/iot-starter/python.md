@@ -338,8 +338,8 @@ config.read('config.ini')
 ```
 
 Create and store the device: 
-1. In `devices.py` create a new function `create_device()`. 
-   This function should take a `device_id` and store virtual device data to the 
+1. In `devices.py` create a new function `create_device(device_id)`
+   that takes a `device_id` and stores virtual device data to the 
    data bucket.
 2. Initialize `InfluxDBClient` with the config. Pass in url, token and org to
    create a connection to the InfluxDB instance.
