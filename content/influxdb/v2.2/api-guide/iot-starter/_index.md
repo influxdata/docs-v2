@@ -74,6 +74,7 @@ The InfluxDB API returns resources and errors in JSON format.
 The InfluxDB API is a REST API that accepts standard HTTP request verbs
 and returns standard HTTP response codes. If InfluxDB sends a response body, the body
 uses one of the following formats, depending on the endpoint and response status:
+
 - **JSON**: responses with resources or error messages
 - **CSV**: responses with query results
 - **Plain text**: some error responses, responses with system information
