@@ -417,7 +417,7 @@ def get_device(device_id) -> {}:
 
 Create a `QueryApi` instance that queries records from devices bucket using Flux.
 Create a query template that:
-1. Retrieves the device bucket ID to query from the application configuration.
+1. Retrieves the 'INFLUX_BUCKET_AUTH' bucket ID from `config`.
 2. Queries the `deviceauth` measurement.
 3. Filters points by a specified device ID.
 4. Filters out points with the `token` field.
