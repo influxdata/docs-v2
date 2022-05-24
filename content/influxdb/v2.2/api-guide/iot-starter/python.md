@@ -594,6 +594,7 @@ def data():
 
 After these files are created and updated, run the app to view the completed 
 IoT Center at `http://localhost:5000`.
+
 ```bash
 flask run
 ```
