@@ -12,3 +12,5 @@ menu:
       url: https://github.com/influxdata/influxdb-client-dart
 weight: 201
 ---
+
+{{< duplicate-oss >}}
