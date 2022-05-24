@@ -13,7 +13,7 @@ menu:
 weight: 201
 ---
 
-Ruby is a highly flexible open-source object-oriented programming language.
+Ruby is a highly flexible, open-source, object-oriented programming language.
 
 The documentation for this client library is available on GitHub.  
 
