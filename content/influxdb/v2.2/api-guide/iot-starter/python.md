@@ -343,8 +343,7 @@ Create and store the device:
    data bucket.
 2. Initialize `InfluxDBClient` with the config. Pass in url, token and org to
    create a connection to the InfluxDB instance.
-3. Initialize the `WriteAPI` instance. The `WriteApi` instance writes records 
-   to a specified bucket.
+3. Initialize a `WriteAPI` instance for writing data to an InfluxDB bucket.
 4. Create a `Point` with data for `device_id`. A point represents a single 
    data record, similar to a row in a SQL database table
 5. In the `Point` object, set `_measurement` value to `deviceauth`.
