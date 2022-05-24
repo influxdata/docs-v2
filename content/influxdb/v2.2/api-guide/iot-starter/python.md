@@ -529,6 +529,7 @@ def get_measurements(device_id):
 
 The code below shows how `FluxTable` is parsed and returned as a list of dicts
 for each record returned.
+
 ```python
 # iterate through the result(s)
     results = []
