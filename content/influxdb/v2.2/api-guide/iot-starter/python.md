@@ -351,8 +351,8 @@ Create and store the device:
 6. Set the fields to `key` and `token`. 
 7. Send the API request with `write_api`. `write_api` uses `/api/v2/write` to
    write the `Point` to a bucket.
-8. Check for any failures then return the `device_id` if the request
-was successful. Note that `write_api` returns `None` on success.
+8. Check for failures--if the write was successful,`write_api` returns `None`.
+9. Return `device_id` if successful; `None` otherwise.
 
 ```python
 def create_device(device_id=None):
