@@ -383,7 +383,7 @@ def create_device(device_id=None):
 
 ## Query Bucket For Device
 
-After storing device information in an InfluxDB bucket, use the Python client library to query 
+After storing device information in an InfluxDB bucket, use the client library to query 
 the device information.
 In  `devices.py`, create a new function called `get_devices()`. This function 
 should take a `device_id` and return a list of tuples that represent the 
