@@ -1,16 +1,16 @@
 ---
-title: InfluxDB API IoT Starter Tutorial
-seotitle: Build a starter app with InfluxDB API client libraries
-description: Follow step-by-step tutorials to build the IoT Center with API client libraries in your favorite framework or language.
+title: InfluxDB API client library guides
+seotitle: Starter tutorial for InfluxDB API client libraries
+description: Follow step-by-step tutorials to build an IoT dashboard with API client libraries in your favorite framework or language.
 weight: 4
 menu:
   influxdb_2_2:
-    name: IoT Starter Tutorial
+    name: Client library starter
     parent: Develop with the API
 influxdb/v2.2/tags: [api]
 ---
 
-Follow this step-by-step tutorial to build an Internet-of-Things (IoT) application with InfluxData client libraries and your favorite framework or language.
+Follow step-by-step tutorials to build an Internet-of-Things (IoT) application with InfluxData client libraries and your favorite framework or language.
 InfluxData and the user community maintain client libraries for developers who want to take advantage of:
 
 - Idioms for InfluxDB requests, responses, and errors.

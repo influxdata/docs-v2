@@ -14,7 +14,7 @@ Access the InfluxDB API using the `/api/v2/` endpoint.
 
 ## Developer guides
 
-- [IoT Starter](/influxdb/v2.2/api-guide/iot-starter/)
+- [API starter guide](/influxdb/v2.2/api-guide/starter/)
 
 ## InfluxDB client libraries
 
