@@ -482,7 +482,7 @@ TLS_CERTIFICATE=my.crt TLS_PRIVATE_KEY=my.key chronograf
 
 #### Docker example with environment variables
 ```sh
-docker run -v /host/path/to/certs:/certs -e TLS_CERTIFICATE=/certs/my.crt -e TLS_PRIVATE_KEY=/certs/my.key quay.io/influxdb/chronograf:latest
+docker run -v /host/path/to/certs:/certs -e TLS_CERTIFICATE=/certs/my.crt -e TLS_PRIVATE_KEY=/certs/my.key chronograf:{{< current-version }}
 ```
 
 ### Testing with self-signed certificates
