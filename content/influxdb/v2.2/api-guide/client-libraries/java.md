@@ -13,7 +13,7 @@ menu:
 weight: 201
 ---
 
-Java is one of the oldest and most popular class-based object-oriented programming languages.
+Java is one of the oldest and most popular class-based, object-oriented programming languages.
 
 The documentation for this client library is available on GitHub.  
 
