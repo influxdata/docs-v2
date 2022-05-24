@@ -1,12 +1,12 @@
 ---
-title: IoT starter tutorial in Node.js and React
-seotitle: Use API client libraries to build an IoT Center
-description: Write, query, and manage authorizations with InfluxDB client libraries.
+title: Client library starter tutorial for JavaScript (Node.js and React)
+seotitle: Build an IoT dashboard with API client libraries
+description: Learn to write, query, and manage authorizations with InfluxDB client libraries.
 weight: 3
 menu:
   influxdb_2_2:
     name: JS with Node.js and React
-    parent: IoT Starter Tutorial
+    parent: Client library starter
 influxdb/cloud/tags: [api]
 ---
 
@@ -113,432 +113,29 @@ bucketsAPI.getBuckets({name: process.env.INFLUX_BUCKET, orgID: process.env.INFLU
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-## Create UI layout
+## Create the UI
 
-### Create a shared layout in a custom app
+In the `./pages` directory, create the following files:
 
-Create a shared UI layout that applies a header, footer, and CSS to all `pages` in your app.
-To create the shared layout, do the following:
-
-1. [Create a shared layout component](#create-a-shared-layout-component)
-2. [Create a custom app component](#create-a-custom-app-component)
-
-#### Create a shared layout component
-
-Add a `Layout` component that renders a header, footer, and CSS.
-To add the `Layout` component, create a `pages/_layout.js` file that contains the following:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-```js
-import Head from 'next/head'
-
-export default function Layout({ children }) {
-  return (
-    <div className="container">
-      <Head>
-        <title>IoT Starter</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>{children}</main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
-        </a>
-      </footer>
-
-      <style jsx global>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        form input {
-          margin-left: 0.5rem;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .card .alert.alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
-  )
-}
-```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-#### Create a custom app component
-
-Add a custom app that imports your `Layout` component to wrap `/pages` routes.
-To add the custom app component, create a `pages/_app.js` file that contains the following:
-
-```js
-import Layout from './_layout'
-
-export default function IotStarter({ Component, pageProps }) {
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  )
-}
-```
+- [`pages/_layout.js`](): shared layout that applies a header, footer, and CSS to all `pages`.
+- [`pages/_app.js`](): root application component that imports `Layout` and wraps `/pages` routes.
 
 ### Create devices UI components
 
-#### Create the devices list component
+The application UI provides a Devices view that registers, queries, and displays devices.
 
-Add a `DeviceList` UI component that retrieves and displays the list of devices from your `/api/devices` IoT Starter endpoint.
-The example code below requests and renders devices from `/api/devices` whenever the `deviceId` property changes.
+Create a `./pages/devices` directory and add the following files:
 
-To add the component, create a `pages/_deviceList.js` file that contains the following:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-```js
-import React, { useState, useEffect } from 'react';
-
-export default function DeviceList({ deviceId, onError, isLoading}) {
- const [data, setData] = useState(null)
-
-  useEffect(() => {
-    isLoading(true)
-    fetch(`api/devices/${deviceId || ''}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if(Array.isArray(data)) {
-        setData(data)
-      }
-      if(data.error) {
-        onError(data.error)
-      }
-      isLoading(false)
-    })
-  }, [deviceId])
-
-  return (
-      <dl>
-      { Array.isArray(data) ?
-        data.map(item => (
-          <React.Fragment key={item.key}>
-          <dt id={'deviceId_' + item.key}>{item.deviceId}</dt>
-          <dd key={item.key + '_detail'}>Updated at: {item.updatedAt}</dd>
-          </React.Fragment>
-          )
-        ) : <p>No device data</p>
-      }
-      </dl>
-  )
-}
-
-```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-#### Create the register device form component
-
-Create a `DeviceRegistrationButton` component that renders a button to submit a new device ID.
-When the user enters a device ID and clicks the **Register** button, the component passes the device ID in a `POST` request to the `/api/devices/create` IoT Starter endpoint (you'll create in a [later step](#create-the-api-endpoint-to-register-devices).
-To add the UI component, create a `pages/devices/_deviceRegistrationButton.js` file that contains the following:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-```js
-import React, { useState, useEffect } from 'react'
-import Devices from './_devices'
-
-export default function DeviceRegistrationForm() {
-  const [device, setDevice] = useState(null)
-  const [isLoading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [deviceId, setDeviceId] = useState('')
-
-  function handleRegister(event) {
-    setLoading(true)
-    const body = JSON.stringify({ deviceId })
-
-    fetch('/api/devices/create', { method: 'POST', body })
-      .then((res) => res.json())
-      .then((data) => {
-        if(Array.isArray(data)) {
-          setDevice(data)
-        }
-        if(data.error) {
-          setError(data.error)
-        }
-        setLoading(false)
-      })
-  }
-
-  function handleChange(event) {
-    setError('')
-    setDeviceId(event.target.value)
-  }
-
-  if (isLoading) return <p>Loading...</p>
-
-  return (
-    <>
-      { error &&
-         <div className="alert alert-danger">{ error }</div>
-      }
-      <h2>Register a device</h2>
-      <form onSubmit={ handleRegister }>
-        <label>
-          New device ID:
-          <input type="text" name="register_deviceId" onChange={ handleChange } />
-        </label>
-        <input type="submit" value="Register" />
-      </form>
-
-      <div>
-        <Devices />
-      </div>
-    </>
-  )
-}
-
-```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-#### Create the devices page component
-
-Add a `DevicesCard` component that renders a form to register a new device, list
-all devices, or find a specific registered device.
-Your component should manage the following _state_ properties:
-
-- `deviceId`
-- `error`
-- `isLoading`
+- [`./pages/devices/index.js`](https://github.com/influxdata/iot-api-js/blob/main/pages/devices/index.js): provides the devices view.
+- [`./pages/devices/deviceList.js`](https://github.com/influxdata/iot-api-js/blob/main/pages/devices/_deviceList.js): `DeviceList` displays devices and refreshes the list when `deviceId` input changes.
+- [`./pages/devices/_deviceRegistrationButton.js`](https://github.com/influxdata/iot-api-js/blob/main/pages/devices/_deviceRegistrationButton.js): `DeviceRegistrationButton` allows the user to add a new device ID.
   
-and contain a `form` with the following:
-
-- device ID **text input** that sets the `deviceId` property
-- [`DeviceRegistrationButton`](#create-the-device-registration-button-component) that takes `deviceId` and callback functions to handle _error_ and _loading_ statuses
-- [`DeviceList`](#create-the-devices-list-ui-component) component that takes `deviceId` and a callback function to handle _loading_ status
-
-To create a `DevicesCard` component that serves as the default devices page at `http://localhost:3000/devices/`, create a `<iot-starter-root>/pages/devices/index.js` file that contains the following:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-```js
-import React, { useState } from 'react'
-import DeviceRegistrationButton from './_deviceRegistrationButton'
-import DeviceList from './_deviceList'
-
-export default function DevicesCard() {
-  const [deviceId, setDeviceId] = useState('')
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-
-  function handleChange(event) {
-    setError('')
-    setDeviceId(event.target.value)
-  }
-
-  function handleError(error) {
-    console.log(error)
-    setError(error)
-  }
-
-  return(
-      <div className="card">
-        <div className="alert">
-        { isLoading && <span>Loading...</span>}
-        { error &&
-          <span className="alert-danger">{ error }</span>
-        }
-        </div>
-        <form>
-          <label>
-            Device ID:
-            <input type="text" name="register_deviceId" onChange={ handleChange } />
-          </label>
-          <DeviceRegistrationButton deviceId={ deviceId } onError={ handleError } isLoading={ setIsLoading } />
-          <h2>Registered devices</h2>
-          <DeviceList deviceId={ deviceId } isLoading={ setIsLoading }  />
-        </form>
-      </div>
-  )
-}
-```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 With the UI components in place, you're ready to [build the application API](#build-the-iot-starter-api) that
 handles requests from the UI and responses from InfluxDB.
 
-## Build the IoT Starter API
+## Build the API
 
-The IoT Starter API provides URL endpoints and routes HTTP requests to server-side code and InfluxDB.
+The application API provides URL endpoints and routes HTTP requests to server-side code and InfluxDB.
 
 Each API endpoint is responsible for the following:
 
@@ -547,17 +144,17 @@ Each API endpoint is responsible for the following:
 - Process InfluxDB API responses and handles errors.
 - Provide data to UI components.
 
-Follow these steps to build the IoT Starter API:
+Follow these steps to build the API:
 
 1. [Create the API endpoint to list devices](#create-the-api-endpoint-to-list-devices)
 2. [Create the API endpoint to register devices](#create-the-api-endpoint-to-register-devices)
 
 ### Create the API endpoint to list devices
 
-The IoT Starter `/api/devices` endpoint handles requests from the UI, queries InfluxDB, and returns
+The `/api/devices` API endpoint handles requests from the UI, queries InfluxDB, and returns
 registered device data to the UI.
 
-Follow these steps to build the `/api/devices` endpoint:
+Follow these steps to build the `/api/devices` API endpoint:
 
 1. [Create the Flux query](#create-the-flux-query-to-find-devices)
 2. [Execute the query and process rows](#execute-the-query-and-process-rows)
@@ -586,7 +183,7 @@ To retrieve registered devices, use the client library to send the Flux query to
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-To send the query and process the results, use the QueryAPI `queryRows(query, consumer)` method.
+To send the query and process results, use the `QueryAPI queryRows(query, consumer)` method.
 `queryRows` executes the `query` and provides the Annotated CSV result as an Observable to the `consumer`.
 `queryRows` has the following signature (in TypeScript):
 
