@@ -10,6 +10,22 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.168.0 [2022-05-23]
+
+### Features
+- Enable [`movingAverage()`](/flux/v0.x/stdlib/universe/movingaverage/) and
+  [`cumulativeSum()`](/flux/v0.x/stdlib/universe/cumulativesum/) optimizations
+  by default.
+- Vectorize logical operations in [`map()`](/flux/v0.x/stdlib/universe/map/).
+- Add a planner rule that expands logical join nodes.
+- Added timezone support to [`hourSelection()`](/flux/v0.x/stdlib/universe/hourselection/).
+
+### Bug fixes
+- Attach type when constructing logical expressions.
+- Fix panic with half-diamond logical plan.
+
+---
+
 ## v0.167.0 [2022-05-16]
 
 ### Features
