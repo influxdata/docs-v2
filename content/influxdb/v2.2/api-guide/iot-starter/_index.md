@@ -82,6 +82,7 @@ uses one of the following formats, depending on the endpoint and response status
 **Resources** are InfluxDB objects that store data (.e.g. buckets) or configuration (.e.g. tasks) in InfluxDB.
 The IoT center application uses the InfluxDB API to create, retrieve, update, and delete resources.
 Many examples in these guides use the following InfluxDB resources:
+
 - [Organization](/influxdb/v2.2/reference/glossary/#organization)
 - [User](/influxdb/v2.2/reference/glossary/#user)
 - [Authorization](/influxdb/v2.2/reference/glossary/#authorization)
