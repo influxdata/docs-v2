@@ -1,26 +1,30 @@
 ---
-title: InfluxDB API IoT Starter Guide
+title: InfluxDB API IoT Starter Tutorial
 seotitle: Build a starter app with InfluxDB API client libraries
-description: Use your favorite language with the InfluxDB API to build the IoT Center.
+description: Follow step-by-step tutorials to build the IoT Center with API client libraries in your favorite framework or language.
 weight: 4
 menu:
   influxdb_2_2:
-    name: IoT Center
+    name: IoT Starter Tutorial
     parent: Develop with the API
 influxdb/v2.2/tags: [api]
 ---
 
-## IoT Center tutorials
+Follow this step-by-step tutorial to build an Internet-of-Things (IoT) application with InfluxData client libraries and your favorite framework or language.
+InfluxData and the user community maintain client libraries for developers who want to take advantage of:
 
-Follow step-by-step tutorials to build the IoT Center with API client
-libraries in your favorite framework or language.
+- Idioms for InfluxDB requests, responses, and errors.
+- Common patterns in a familiar programming language.
+- Faster development and less boilerplate code.
 
-## Node.js
+In this tutorial, you'll use the InfluxDB API and
+client libraries to build a modern application as you learn the following:
 
-[Build a Node.js and React app](/{{% latest "influxdb" %}}/api-guide/iot-starter/nodejs/)
-with the InfluxDB client library for Javascript.
+- InfluxDB core concepts.
+- How the application interacts with devices and InfluxDB.
+- How to authenticate apps and devices to the API.
+- How to install a client library.
+- How to write and query data in InfluxDB.
+- How to use the InfluxData UI libraries to format data and create visualizations.
 
-## Python
-
-[Build a Flask and Jinja app](/{{% latest "influxdb" %}}/api-guide/iot-starter/python/)
-with the InfluxDB client library for Python.
+{{< children >}}

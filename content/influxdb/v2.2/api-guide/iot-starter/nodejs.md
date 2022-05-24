@@ -1,14 +1,16 @@
 ---
-title: IoT Starter Guide
+title: IoT starter tutorial in Node.js and React
 seotitle: Use API client libraries to build an IoT Center
 description: Write, query, and manage authorizations with InfluxDB client libraries.
 weight: 3
 menu:
   influxdb_2_2:
-    name: IoT Starter - Part 1
-    parent: IoT Starter
+    name: JS with Node.js and React
+    parent: IoT Starter Tutorial
 influxdb/cloud/tags: [api]
 ---
+
+{{% api/iot-starter-intro %}}
 
 ## Create your app
 
@@ -69,18 +71,31 @@ Typically, you'll provide the following properties as environment variables for 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-Next.js provides an `env` module to provide environment variables to your app and prevents them being added to version control.
-Create an `.env.local` file that contains settings for your _development_ environment.
+Next.js provides an `env` module to provide environment variables to your application and prevents application secrets from being added to version control.
+The `./.env.development` file is versioned and contains default non-secret variables for your _development_ environment.
+
+```sh
+# .env.development
+
+INFLUX_URL=http://localhost:8086
+INFLUX_BUCKET=iot_center
+INFLUX_BUCKET_AUTH=iot_center_devices
+```
+
+Add a `./.env.local` to set environment variable secrets that aren't tracked by version control.
+In `./.env.local`, set your InfluxDB token and organization--for example:
 
 ```sh
 # .env.local
 
-INFLUX_URL=http://192.168.1.2:8086
-INFLUX_TOKEN=29Ye1KH9VkASPR2DSfRfFd82OwGD-5HWkBj0Ju_m-DTgT4PHakgweD3p87mp45Y633njDllKkD5wVc0zMCVhIw==
-INFLUX_ORG=48c88459ee424a04
+# INFLUX_TOKEN
+# InfluxDB API token used by the application server to send requests to InfluxDB.
+# For convenience in development, use an **All-Access** token.
+INFLUX_TOKEN=29Xx1KH9VkASPR2DSfRfFd82OwGD...
 
-INFLUX_BUCKET=iot_center
-INFLUX_BUCKET_AUTH=iot_center_devices
+# INFLUX_ORG
+# InfluxDB organization ID you want to use in development.
+INFLUX_ORG=48c88459ee424a04
 ```
 
 At startup, Next.js loads the settings in your Node.JS environment variables.
