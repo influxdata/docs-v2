@@ -12,3 +12,5 @@ menu:
       url: https://github.com/influxdata/influxdb-client-r
 weight: 201
 ---
+
+{{< duplicate-oss >}}
