@@ -448,7 +448,7 @@ After device information has been stored, generate telemetry data and write the
 records into InfluxDB.
 
 1. In `devices.py` create a new function `write_measurements()`. 
-   This function should take a `device_id` and write simulated weather telemetry 
+   that takes a `device_id` and writes simulated weather telemetry 
    data to the telemetry bucket.
 2. Initialize the `WriteAPI` instance.
 3. Initialize the `Sensor` object.
