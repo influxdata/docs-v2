@@ -415,7 +415,7 @@ def get_device(device_id) -> {}:
 ```
 {{% caption %}}[@influxdata/iot-python-app ./api/devices.py get_device() line 31](https://github.com/influxdata/iot-python-api/blob/main/api/devices.py#L31){{% /caption %}}
 
-Create a `QueryApi` instance that queries records from devices bucket using Flux.
+Create a `QueryApi` instance and a Flux query that retrieves devices from 'INFLUX_BUCKET_AUTH'.
 Create a query template that:
 1. Retrieves the 'INFLUX_BUCKET_AUTH' bucket ID from `config`.
 2. Queries the `deviceauth` measurement.
