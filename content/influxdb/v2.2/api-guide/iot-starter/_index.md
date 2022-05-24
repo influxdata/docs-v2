@@ -54,6 +54,7 @@ http://localhost:8086
 ```
 
 Most InfluxDB API operations use the `/api/v2` URL path. For example:
+
 ```sh
 http://localhost:8086/api/v2/query
 http://localhost:8086/api/v2/write
