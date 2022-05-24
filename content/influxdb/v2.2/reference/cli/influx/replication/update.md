@@ -30,7 +30,7 @@ influx replication update [command options] [arguments...]
 | `-n` | `--name`                       | New replication stream name                                           |   string   |                       |
 | `-d` | `--description`                | New replication stream description                                    |   string   |                       |
 |      | `--remote-id`                  | New remote connection ID to send data to                              |   string   |                       |
-|      | `--remote-bucket-id`              | New remote bucket ID to replicate data to                             |   string   |                       |
+|      | `--remote-bucket-id`           | New remote bucket ID to replicate data to                             |   string   |                       |
 |      | `--max-queue-bytes`            | New max queue size in bytes (default: `0`)                            |  integer   |                       |
 |      | `--drop-non-retryable-data`    | Drop data when a non-retryable error is encountered                   |            |                       |
 |      | `--no-drop-non-retryable-data` | Do not drop data when a non-retryable error is encountered            |            |                       |
