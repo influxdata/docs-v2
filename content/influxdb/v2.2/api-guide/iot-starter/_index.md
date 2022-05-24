@@ -28,7 +28,7 @@ with the InfluxDB client library for Javascript.
 - [IoT Center Overview](#iot-center-overview)
 
 These guides walk through building a sample IoT center application using 
-InfluxDB client libraries and the InfluxDB API.
+[InfluxDB client libraries](/influxdb/v2.2/api-guide/client-libraries/) and the InfluxDB API.
 InfluxDB API client libraries are maintained by InfluxData and the user 
 community. As a developer, client libraries let you take advantage of:
 - Idioms for InfluxDB requests, responses, and errors
