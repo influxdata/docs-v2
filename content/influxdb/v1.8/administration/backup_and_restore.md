@@ -12,32 +12,51 @@ menu:
 v2: /influxdb/v2.0/backup-restore/
 ---
 
-## Overview
+The InfluxDB {{< current-version >}} `backup` utility provides:
 
-The InfluxDB OSS `backup` utility provides:
+- Option to run backup and restore functions on online (live) databases.
+- Backup and restore functions for single or multiple databases, along with optional timestamp filtering.
+- Import data from [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) clusters.
+- Back up files compatible with InfluxDB Enterprise.
 
-* Option to run backup and restore functions on online (live) databases.
-* Backup and restore functions for single or multiple databases, along with optional timestamp filtering.
-* Data can be imported from [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) clusters
-* Backup files that can be imported into an InfluxDB Enterprise database.
+{{% note %}}
+The InfluxDB OSS 1.5+ `backup` utility creates backup file formats compatible with
+both InfluxDB OSS 1.5+ and InfluxDB Enterprise.
+The both the `backup` and `restore` utilities still support the legacy *offline* format.
+For information about using the legacy backup and restore format, see
+[Backward compatible offline backup and restore](#backward-compatible-offline-backup-and-restore-legacy-format).
+{{% /note %}}
 
-> **InfluxDB Enterprise users:** See [Backing up and restoring in InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/administration/backup-and-restore/).
+{{% note %}}
+#### InfluxDB Enterprise users
+See [Back up and restore in InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/administration/backup-and-restore/).
+{{% /note %}}
 
-> ***Note:*** Prior to InfluxDB OSS 1.5, the `backup` utility created backup file formats incompatible with InfluxDB Enterprise. This legacy format is still supported in the new `backup` utility as input for the new *online* restore function. The *offline* backup and restore utilities in InfluxDB OSS versions 1.4 and earlier are deprecated, but are documented below in [Backward compatible offline backup and restore](#backward-compatible-offline-backup-and-restore-legacy-format).
+## Backup and restore requirements
+- Both the source and target InfluxDB instances must be the same InfluxDB version
+  or differ by only a minor version.
+  For example, you can back up data from InfluxDB {{< latest-patch minorVersionOffset=-1 >}}
+  and restore it to an InfluxDB {{< latest-patch >}} instance.
 
-## Online backup and restore (for InfluxDB OSS)
+## Online backup and restore
 
-Use the `backup` and `restore` utilities to back up and restore between `influxd`
-instances with the same versions or with only minor version differences.
-For example, you can back up from {{< latest-patch version="1.7" >}} and restore on {{< latest-patch >}}.
+InfluxDB OSS {{< current-version >}}  `backup` and `restore` utilities let
+you back up and restore data while InfluxDB is running.
+Backup and restore processes execute over a TCP connection.
 
-### Configuring remote connections
+To configure the configured in your
+InfluxDB configuration
+
+### Configure remote connections
 
 The online backup and restore processes execute over a TCP connection to the database.
+The process consists of a **source** InfluxDB instance (the instance data is backed up from)
+and a **target** InfluxDB instance (the instance data is being restored to).
 
 **To enable the port for the backup and restore service:**
 
-1. At the root level of the InfluxDB config file (`influxdb.conf`), uncomment the [`bind-address` configuration setting](/influxdb/v1.8/administration/config#bind-address-127-0-0-1-8088) on the remote node.
+1. At the root level of the InfluxDB configuration file (`influxdb.conf`) ,
+   uncomment the [`bind-address` configuration setting](/influxdb/v1.8/administration/config#bind-address-127-0-0-1-8088) on the remote node.
 
 2. Update the `bind-address` value to `<remote-node-IP>:8088`
 
@@ -57,7 +76,9 @@ $ influxd backup -portable -database mydatabase -host <remote-node-IP>:8088 /tmp
  - copy of shard data **on disk**: 20060102T150405Z.<shard_id>.tar.gz
  - manifest (JSON file) describes collected backup data: 20060102T150405Z.manifest
 
->**Note:** `backup` ignores WAL files and in-memory cache data.
+{{% note %}}
+`backup` ignores WAL files and in-memory cache data.
+{{% /note %}}
 
 ```
 influxd backup
@@ -69,7 +90,8 @@ influxd backup
     <path-to-backup>
 ```
 
-To invoke the new InfluxDB Enterprise-compatible format, run the `influxd backup` command with the `-portable` flag, like this:
+To invoke the new InfluxDB Enterprise-compatible format, run the `influxd backup`
+command with the `-portable` flag. For example:
 
 ```
 influxd backup -portable [ arguments ] <path-to-backup>
