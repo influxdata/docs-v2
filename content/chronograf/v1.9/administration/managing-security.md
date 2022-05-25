@@ -541,7 +541,7 @@ Use of the TLS cryptographic protocol provides server authentication, data confi
 When configured, users can use HTTPS to securely communicate with your Chronograf applications.
 
 {{% note %}}
-Using HTTPS helps guard against nefarious agents sniffing the JWT and using it to spoof a valid user against the Chronograf server.
+HTTPS helps prevent nefarious agents stealing the JWT and using it to spoof a valid user against the server.
 {{% /note %}}
 
 ### Configure TLS for Chronograf
@@ -552,7 +552,7 @@ The files must contain PEM-encoded data.
 
 All Chronograf command line options have corresponding environment variables.
 
-**To configure Chronograf to support TLS:**
+To configure Chronograf to support TLS, do the following:
 
 1. Specify the certificate file using the `TLS_CERTIFICATE` environment variable or the `--cert` CLI option.
 2. Specify the key file using the `TLS_PRIVATE_KEY` environment variable or `--key` CLI option.
@@ -561,11 +561,11 @@ All Chronograf command line options have corresponding environment variables.
 If both the TLS certificate and key are in the same file, specify them using the `TLS_CERTIFICATE` environment variable (or the `--cert` CLI option).
     {{% /note %}}
 
-3. _(Optional)_ Specify which TLS cipher suites to allow using the `TLS_CIPHERS` or `--tls-ciphers` CLI option.
+3. _(Optional)_ To specify which TLS cipher suites to allow, use the `TLS_CIPHERS` environment variable or the `--tls-ciphers` CLI option.
     Chronograf supports all cipher suites in the
     [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants)
     and, by default, allows them all.
-4. _(Optional)_ Specify the minimum and maximum TLS versions to allow with the
+4. _(Optional)_ To specify the minimum and maximum TLS versions to allow, use the
     `TLS_MIN_VERSION` and `TLS_MAX_VERSION` environment variables or the
     `--tls-min-version` and `--tls-max-version` CLI options.
     By default, the minimum TLS version allowed is `tls1.2` and the maximum version is
@@ -604,7 +604,12 @@ docker run \
 ```
 
 ### Test with self-signed certificates
-In a production environment you should not use self-signed certificates, but for testing it is fast to create your own certificates.
+To test your setup, you can use a self-signed certificate.
+
+{{% warn %}}
+Don't use self-signed certificates in production environments.
+{{% /warn %}}
+
 
 To create a certificate and key in one file with OpenSSL:
 

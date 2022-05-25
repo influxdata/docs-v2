@@ -538,11 +538,11 @@ All Chronograf command line options have corresponding environment variables.
 If both the TLS certificate and key are in the same file, specify them using the `TLS_CERTIFICATE` environment variable (or the `--cert` CLI option).
     {{% /note %}}
 
-3. _(Optional)_ Specify which TLS cipher suites to allow using the `TLS_CIPHERS` or `--tls-ciphers` CLI option.
+3. _(Optional)_ To specify which TLS cipher suites to allow, use the `TLS_CIPHERS` environment variable or the `--tls-ciphers` CLI option.
     Chronograf supports all cipher suites in the
     [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants)
     and, by default, allows them all.
-4. _(Optional)_ Specify the minimum and maximum TLS versions to allow with the
+4. _(Optional)_ To specify the minimum and maximum TLS versions to allow, use the
     `TLS_MIN_VERSION` and `TLS_MAX_VERSION` environment variables or the
     `--tls-min-version` and `--tls-max-version` CLI options.
     By default, the minimum TLS version allowed is `tls1.2` and the maximum version is
@@ -581,7 +581,12 @@ docker run \
 ```
 
 ### Test with self-signed certificates
-In a production environment you should not use self-signed certificates, but for testing it is fast to create your own certificates.
+To test your setup, you can use a self-signed certificate.
+
+{{% warn %}}
+Don't use self-signed certificates in production environments.
+{{% /warn %}}
+
 
 To create a certificate and key in one file with OpenSSL:
 
