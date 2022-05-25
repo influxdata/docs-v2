@@ -19,7 +19,7 @@ The `experimental.objectKeys()` function returns an array of keys in a specified
 import "experimental"
 
 experimental.objectKeys(
-  o: {key1: "value1", key2: "value2"}
+    o: {key1: "value1", key2: "value2"}
 )
 
 // Returns [key1, key2]
@@ -36,13 +36,8 @@ The record to return keys from.
 ```js
 import "experimental"
 
-user = {
-  firstName: "John",
-  lastName: "Doe",
-  age: 42
-}
+user = {firstName: "John", lastName: "Doe", age: 42}
 
 experimental.objectKeys(o: user)
-
 // Returns [firstName, lastName, age]
 ```

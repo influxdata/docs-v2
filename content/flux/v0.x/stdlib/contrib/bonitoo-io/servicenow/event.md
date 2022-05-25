@@ -27,7 +27,7 @@ servicenow.event(
     resource: "",
     metricName: "",
     messageKey: "",
-    additionalInfo: {}
+    additionalInfo: {},
 )
 ```
 
@@ -103,11 +103,11 @@ username = secrets.get(key: "SERVICENOW_USERNAME")
 password = secrets.get(key: "SERVICENOW_PASSWORD")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_idle")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_idle")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 servicenow.event(
     url: "https://tenant.service-now.com/api/global/em/jsonv2",
@@ -118,9 +118,12 @@ servicenow.event(
     resource: lastReported.instance,
     metricName: lastReported._field,
     severity:
-        if lastReported._value < 1.0 then "critical"
-        else if lastReported._value < 5.0 then "warning"
-        else "info",
-    additionalInfo: {"devId": r.dev_id}
+        if lastReported._value < 1.0 then
+            "critical"
+        else if lastReported._value < 5.0 then
+            "warning"
+        else
+            "info",
+    additionalInfo: {"devId": r.dev_id},
 )
 ```

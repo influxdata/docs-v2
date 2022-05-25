@@ -12,12 +12,11 @@ aliases:
   - /influxdb/v2.1/query-data/guides/custom-functions/
 list_code_example: |
   ```js
-  multByX = (tables=<-, x) =>
-    tables
-      |> map(fn: (r) => ({ r with _value: r._value * x}))
+  multByX = (tables=<-, x) => tables
+      |> map(fn: (r) => ({r with _value: r._value * x}))
 
   data
-    |> multByX(x: 2.0)
+      |> multByX(x: 2.0)
   ```
 ---
 
@@ -92,18 +91,14 @@ to modify each `_value`.
 
 ```js
 // Function definition
-multByX = (tables=<-, x) =>
-  tables
-    |> map(fn: (r) => ({ r with _value: r._value * x}))
+multByX = (tables=<-, x) => tables
+    |> map(fn: (r) => ({r with _value: r._value * x}))
 
 // Function usage
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> multByX(x:2.0)
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> multByX(x: 2.0)
 ```
 
 ## Define parameter defaults
@@ -128,29 +123,22 @@ to return a specified number of records from the sorted table.
 
 ```js
 // Function definition
-leaderBoard = (tables=<-, limit=4, columns=["_value"], desc=true) =>
-  tables
+leaderBoard = (tables=<-, limit=4, columns=["_value"], desc=true) => tables
     |> sort(columns: columns, desc: desc)
     |> limit(n: limit)
 
 // Function usage
 // Get the 4 highest scoring players
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "player-stats" and
-    r._field == "total-points"
-  )
-  |> leaderBoard()
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "player-stats" and r._field == "total-points")
+    |> leaderBoard()
 
 // Get the 10 shortest race times
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) =>
-    r._measurement == "race-times" and
-    r._field == "elapsed-time"
-  )
-  |> leaderBoard(limit: 10, desc: false)
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "race-times" and r._field == "elapsed-time")
+    |> leaderBoard(limit: 10, desc: false)
 ```
 
 ## Define functions with scoped variables
@@ -160,8 +148,9 @@ and use a `return` statement to return a specific variable.
 
 ```js
 functionName = (functionParameters) => {
-  exampleVar = "foo"
-  return exampleVar
+    exampleVar = "foo"
+
+    return exampleVar
 }
 ```
 
@@ -176,11 +165,16 @@ a numeric input value:
 
 ```js
 alertLevel = (v) => {
-  level = if float(v:v) >= 90.0 then "crit"
-          else if float(v:v) >= 80.0 then "warn"
-          else if float(v:v) >= 65.0 then "info"
-          else "ok"
-  return level
+    level = if float(v: v) >= 90.0 then
+        "crit"
+    else if float(v: v) >= 80.0 then
+        "warn"
+    else if float(v: v) >= 65.0 then
+        "info"
+    else
+        "ok"
+
+    return level
 }
 
 alertLevel(v: 87.3)
@@ -196,26 +190,27 @@ to create a dictionary of HEX codes and their corresponding names.
 import "dict"
 
 hexName = (hex) => {
-  hexNames = dict.fromList(pairs: [
-    {key: "#00ffff", value: "Aqua"},
-    {key: "#000000", value: "Black"},
-    {key: "#0000ff", value: "Blue"},
-    {key: "#ff00ff", value: "Fuchsia"},
-    {key: "#808080", value: "Gray"},
-    {key: "#008000", value: "Green"},
-    {key: "#00ff00", value: "Lime"},
-    {key: "#800000", value: "Maroon"},
-    {key: "#000080", value: "Navy"},
-    {key: "#808000", value: "Olive"},
-    {key: "#800080", value: "Purple"},
-    {key: "#ff0000", value: "Red"},
-    {key: "#c0c0c0", value: "Silver"},
-    {key: "#008080", value: "Teal"},
-    {key: "#ffffff", value: "White"},
-    {key: "#ffff00", value: "Yellow"},
-  ])  
-  name = dict.get(dict: hexNames, key: hex, default: "No known name")
-  return name
+    hexNames = dict.fromList(pairs: [
+        {key: "#00ffff", value: "Aqua"},
+        {key: "#000000", value: "Black"},
+        {key: "#0000ff", value: "Blue"},
+        {key: "#ff00ff", value: "Fuchsia"},
+        {key: "#808080", value: "Gray"},
+        {key: "#008000", value: "Green"},
+        {key: "#00ff00", value: "Lime"},
+        {key: "#800000", value: "Maroon"},
+        {key: "#000080", value: "Navy"},
+        {key: "#808000", value: "Olive"},
+        {key: "#800080", value: "Purple"},
+        {key: "#ff0000", value: "Red"},
+        {key: "#c0c0c0", value: "Silver"},
+        {key: "#008080", value: "Teal"},
+        {key: "#ffffff", value: "White"},
+        {key: "#ffff00", value: "Yellow"},
+    ])  
+    name = dict.get(dict: hexNames, key: hex, default: "No known name")
+    
+    return name
 }
 
 hexName(hex: "#000000")

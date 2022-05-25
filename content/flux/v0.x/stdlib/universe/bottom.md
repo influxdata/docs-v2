@@ -51,7 +51,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> bottom(n:2)
+    |> bottom(n:2)
 ```
 
 {{< expand-wrapper >}}
@@ -80,15 +80,3 @@ sampledata.int()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-// _sortLimit is a helper function, which sorts and limits a table.
-_sortLimit = (n, desc, columns=["_value"], tables=<-) =>
-  tables
-    |> sort(columns:columns, desc:desc)
-    |> limit(n:n)
-
-bottom = (n, columns=["_value"], tables=<-) =>
-  _sortLimit(n:n, columns:columns, desc:false)
-```

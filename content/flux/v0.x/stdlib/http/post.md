@@ -22,9 +22,9 @@ headers and data and returns the HTTP status code.
 import "http"
 
 http.post(
-  url: "http://localhost:8086/",
-  headers: {x:"a", y:"b", z:"c"},
-  data: bytes(v: "body")
+    url: "http://localhost:8086/",
+    headers: {x:"a", y:"b", z:"c"},
+    data: bytes(v: "body"),
 )
 ```
 
@@ -55,19 +55,18 @@ The data body to include with the POST request.
 import "json"
 import "http"
 
-lastReported =
-  from(bucket: "example-bucket")
+lastReported = from(bucket: "example-bucket")
     |> range(start: -1m)
     |> filter(fn: (r) => r._measurement == "statuses")
     |> last()
     |> findColumn(fn: (key) => true, column: "_level")
 
 http.post(
-  url: "http://myawsomeurl.com/api/notify",
-  headers: {
-    Authorization: "Bearer mySuPerSecRetTokEn",
-    "Content-type": "application/json"
-  },
-  data: json.encode(v: lastReported[0])
+    url: "http://myawsomeurl.com/api/notify",
+    headers: {
+        Authorization: "Bearer mySuPerSecRetTokEn",
+        "Content-type": "application/json"
+    },
+    data: json.encode(v: lastReported[0]),
 )
 ```

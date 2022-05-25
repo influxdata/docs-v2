@@ -12,7 +12,7 @@ p,li,table {
     border-radius: $radius;
     color: $article-code;
     white-space: nowrap;
-    font-size: .95rem;
+    font-size: 1rem;
     font-style: normal;
   }
 }
@@ -66,25 +66,33 @@ pre {
   overflow-y: hidden;
   code {
     padding: 0;
-    font-size: .95rem;
-    line-height: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.7rem;
     white-space: pre;
   }
+
+  @import "code-api-methods";
 }
 
-pre .api {
-  margin-right: .35rem;
-  padding: .15rem .5rem .25rem;
-  border-radius: $radius;
-  color: $g20-white;
-  font-weight: bold;
-  font-size: .9rem;
+///////////////////////// Codeblocks fullscreen toggle /////////////////////////
 
-  &.get { background: $gr-viridian; }
-  &.post { background: $b-ocean; }
-  &.patch { background: $y-topaz; }
-  &.delete { background: $r-ruby; }
-  &.put {background: $br-pulsar; }
+.codeblock {
+  position: relative;
+  
+  .fullscreen-toggle {
+    cursor: pointer;
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    line-height: 0;
+    font-size: 1.15rem;
+    color: $article-code;
+    opacity: .5;
+    transition: opacity .2s;
+
+    &:hover {opacity: 1}
+  }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////

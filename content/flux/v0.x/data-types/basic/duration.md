@@ -59,6 +59,18 @@ Flux supports the following unit specifiers:
 3d12h4m25s // 3 days, 12 hours, 4 minutes, and 25 seconds
 ```
 
+{{% note %}}
+#### Do not include leading zeros in duration literals
+The integer part of a duration literal should not contain leading zeros.
+Leading zeros are parsed as separate integer literals.
+For example:
+
+```js
+01m // parsed as 0 (integer literal) and 1m (duration literal)
+02h05m // parsed as 0 (integer literal), 2h (duration literal), 0 (integer literal), and 5m (duration literal)
+```
+{{% /note %}}
+
 ## Convert data types to durations
 Use the [`duration()` function](/flux/v0.x/stdlib/universe/duration/) to convert
 the following [basic types](/flux/v0.x/data-types/basic/) to durations:
@@ -113,25 +125,25 @@ duration(v: int(v: 24h) / 2)
 ```
 
 ### Add a duration to a time value
-1. Import the [`experimental` package](/flux/v0.x/stdlib/experimental/).
-2. Use [`experimental.addDuration()`](/flux/v0.x/stdlib/experimental/addduration/)
+1. Import the [`date` package](/flux/v0.x/stdlib/date/).
+2. Use [`date.add()`](/flux/v0.x/stdlib/date/add/)
    to add a duration to a time value.
 
 ```js
-import "experimental"
+import "date"
 
-experimental.addDuration(d: 1w, to: 2021-01-01T00:00:00Z)
+date.add(d: 1w, to: 2021-01-01T00:00:00Z)
 // Returns 2021-01-08T00:00:00.000000000Z
 ```
 
 ### Subtract a duration from a time value
-1. Import the [`experimental` package](/flux/v0.x/stdlib/experimental/).
-2. Use [`experimental.subDuration()`](/flux/v0.x/stdlib/experimental/subduration/)
+1. Import the [`date` package](/flux/v0.x/stdlib/date/).
+2. Use [`date.sub()`](/flux/v0.x/stdlib/date/sub/)
 to subtract a duration from a time value.
 
 ```js
-import "experimental"
+import "date"
 
-experimental.subDuration(d: 1w, from: 2021-01-01T00:00:00Z)
+date.sub(d: 1w, from: 2021-01-01T00:00:00Z)
 // Returns 2020-12-25T00:00:00.000000000Z
 ```

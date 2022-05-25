@@ -46,14 +46,13 @@ The string value to search.
 import "regexp"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      regexStr: r.regexStr,
-      _value: r._value,
-      matchIndex: regexp.findStringIndex(
-        r: regexp.compile(r.regexStr),
-        v: r._value
-      )
-    })
-  )
+    |> map(fn: (r) => ({r with
+            regexStr: r.regexStr,
+            _value: r._value,
+            matchIndex: regexp.findStringIndex(
+                r: regexp.compile(r.regexStr),
+                v: r._value
+            )
+        })
+    )
 ```

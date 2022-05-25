@@ -19,4 +19,16 @@ Use the URLs below to interact with your InfluxDB Cloud instances with the
 
 <a href="https://www.influxdata.com/influxdb-cloud-2-0-provider-region/" target="_blank" class="btn">Request a cloud region</a>
 
+{{% note %}}
+#### Regions with multiple clusters
+Some InfluxDB Cloud regions have multiple Cloud clusters, each with a unique URL.
+To find your cluster URL, [log in to your InfluxDB Cloud organization](https://cloud2.influxdata.com)
+and review your organization URL. The first subdomain identifies your 
+InfluxDB Cloud cluster. For example:
+
+<pre class="highlight">
+https://<span class="bp" style="font-weight:bold;margin:0 .15rem">us-west-2-1</span>.aws.cloud2.influxdata.com/orgs/03a2bbf46249a000/...
+</pre>
+{{% /note %}}
+
 {{< cloud_regions >}}

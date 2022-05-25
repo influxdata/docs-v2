@@ -32,9 +32,9 @@ import "experimental"
 // ...
 
 experimental.join(
-  left: left,
-  right: right,
-  fn: (left, right) => ({left with lv: left._value, rv: right._value })
+    left: left,
+    right: right,
+    fn: (left, right) => ({left with lv: left._value, rv: right._value }),
 )
 ```
 
@@ -83,14 +83,13 @@ The return value must be a record.
 import "experimental"
 
 experimental.join(
-  left: left,
-  right: right,
-  fn: (left, right) => ({
-    left with
-    lv: left._value,
-    rv: right._value,
-    diff: left._value - right._value
-  })
+    left: left,
+    right: right,
+    fn: (left, right) => ({ left with
+        lv: left._value,
+        rv: right._value,
+        diff: left._value - right._value,
+    })
 )
 ```
 
@@ -108,22 +107,14 @@ experimental.join(
 import "experimental"
 
 s1 = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "foo")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "foo")
 
 s2 = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "bar")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "bar")
 
-experimental.join(
-  left: s1,
-  right: s2,
-  fn: (left, right) => ({
-    left with
-    s1_value: left._value,
-    s2_value: right._value
-  })
-)
+experimental.join(left: s1, right: s2, fn: (left, right) => ({left with s1_value: left._value, s2_value: right._value}))
 ```
 
 ###### Join two streams of tables with different fields and measurements
@@ -131,22 +122,14 @@ experimental.join(
 import "experimental"
 
 s1 = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "foo" and r._field == "bar")
-  |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "foo" and r._field == "bar")
+    |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
 
 s2 = from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "baz" and r._field == "quz")
-  |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "baz" and r._field == "quz")
+    |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
 
-experimental.join(
-  left: s1,
-  right: s2,
-  fn: (left, right) => ({
-    left with
-    bar_value: left._value,
-    quz_value: right._value
-  })
-)
+experimental.join(left: s1, right: s2, fn: (left, right) => ({left with bar_value: left._value, quz_value: right._value}))
 ```

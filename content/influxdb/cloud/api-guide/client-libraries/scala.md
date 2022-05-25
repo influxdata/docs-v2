@@ -8,6 +8,9 @@ menu:
   influxdb_cloud:
     name: Scala
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-java/tree/master/client-scala
+    params:
+      url: https://github.com/influxdata/influxdb-client-java/tree/master/client-scala
 weight: 201
 ---
+
+{{< duplicate-oss >}}

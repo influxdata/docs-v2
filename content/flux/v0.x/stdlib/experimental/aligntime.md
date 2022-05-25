@@ -20,7 +20,7 @@ The `experimental.alignTime()` function aligns input tables to a common start ti
 import "experimental"
 
 experimental.alignTime(
-  alignTo: 1970-01-01T00:00:00.000000000Z
+    alignTo: 1970-01-01T00:00:00.000000000Z
 )
 ```
 
@@ -41,10 +41,10 @@ Default is piped-forward data (`<-`).
 import "experimental"
 
 from(bucket: "example-bucket")
-  |> range(start: -12mo)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> window(every: 1mo)
-  |> experimental.alignTime()
+    |> range(start: -12mo)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> window(every: 1mo)
+    |> experimental.alignTime()
 ```
 
 **Given the following input:**
@@ -67,8 +67,8 @@ from(bucket: "example-bucket")
 
 ```js
 //...
-  |> window(every: 1mo)
-  |> alignTime(alignTo: 2020-01-01T00:00:00Z)
+    |> window(every: 1mo)
+    |> alignTime(alignTo: 2020-01-01T00:00:00Z)
 ```
 
 **And output:**

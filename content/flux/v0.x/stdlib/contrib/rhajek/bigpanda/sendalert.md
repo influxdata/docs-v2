@@ -19,11 +19,11 @@ The `bigpanda.sendAlert()` function sends an alert to [BigPanda](https://www.big
 import "contrib/rhajek/bigpanda"
 
 bigpanda.sendAlert(
-  url: "https://api.bigpanda.io/data/v2/alerts",
-  token: "my5uP3rS3cRe7t0k3n",
-  appKey: "example-app-key",
-  status: "critical",
-  rec: {},
+    url: "https://api.bigpanda.io/data/v2/alerts",
+    token: "my5uP3rS3cRe7t0k3n",
+    appKey: "example-app-key",
+    status: "critical",
+    rec: {},
 )
 ```
 
@@ -68,23 +68,20 @@ import "json"
 token = secrets.get(key: "BIGPANDA_API_KEY")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "level"
-    )
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "level")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 bigpanda.sendAlert(
-  token: token,
-  appKey: "example-app-key",
-  status: bigpanda.statusFromLevel(level: "${lastReported.status}"),
-  rec: {
-    tags: json.encode(v: [{"name": "host", "value": "my-host"}]),
-    check: "my-check",
-    description: "${lastReported._field} is ${lastReported.status}: ${string(v: lastReported._value)}"
-  }
+    token: token,
+    appKey: "example-app-key",
+    status: bigpanda.statusFromLevel(level: "${lastReported.status}"),
+    rec: {
+        tags: json.encode(v: [{"name": "host", "value": "my-host"}]),
+        check: "my-check",
+        description: "${lastReported._field} is ${lastReported.status}: ${string(v: lastReported._value)}",
+    },
 )
 ```

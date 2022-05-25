@@ -26,10 +26,7 @@ If the input table has less than `offset + n` records, `limit()` outputs all rec
 _`limit()` is a [selector function](/flux/v0.x/function-types/#selectors)._
 
 ```js
-limit(
-  n:10,
-  offset: 0
-)
+limit(n:10, offset: 0)
 ```
 
 ## Parameters
@@ -57,7 +54,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> limit(n: 3)
+    |> limit(n: 3)
 ```
 
 {{< expand-wrapper >}}
@@ -94,7 +91,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int()
-  |> limit(n: 3, offset: 2)
+    |> limit(n: 3, offset: 2)
 ```
 
 {{< expand-wrapper >}}

@@ -22,7 +22,7 @@ a message to PagerDuty that includes output data.
 import "pagerduty"
 
 pagerduty.endpoint(
-  url: "https://events.pagerduty.com/v2/enqueue"
+    url: "https://events.pagerduty.com/v2/enqueue"
 )
 ```
 
@@ -71,27 +71,25 @@ routingKey = secrets.get(key: "PAGERDUTY_ROUTING_KEY")
 toPagerDuty = pagerduty.endpoint()
 
 crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
 
 crit_statuses
-  |> toPagerDuty(mapFn: (r) => ({ r with
-      routingKey: routingKey,
-      client: r.client,
-      clientURL: r.clientURL,
-      class: r.class,
-      eventAction: r.eventAction,
-      group: r.group,
-      severity: r.severity,
-      component: r.component,
-      source: r.source,
-      summary: r.summary,
-      component: r.component,
-      timestamp: r._time,
-      customDetails: {
-        "ping time": lastReported.ping,
-        load: lastReported.load
-      }
-    })
-  )()
+    |> toPagerDuty(
+        mapFn: (r) => ({r with
+            routingKey: routingKey,
+            client: r.client,
+            clientURL: r.clientURL,
+            class: r.class,
+            eventAction: r.eventAction,
+            group: r.group,
+            severity: r.severity,
+            component: r.component,
+            source: r.source,
+            summary: r.summary,
+            component: r.component,
+            timestamp: r._time,
+            customDetails: {"ping time": lastReported.ping, load: lastReported.load},
+        }),
+    )()
 ```

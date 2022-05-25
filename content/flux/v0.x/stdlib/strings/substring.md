@@ -43,12 +43,6 @@ The ending exclusive index of the substring.
 
 ###### Store the first four characters of a string
 ```js
-import "strings"
-
 data
-  |> map(fn: (r) => ({
-      r with
-      abbr: strings.substring(v: r.name, start: 0, end: 4)
-    })
-  )
+    |> map(fn: (r) => ({r with abbr: strings.substring(v: r.name, start: 0, end: 4)}))
 ```

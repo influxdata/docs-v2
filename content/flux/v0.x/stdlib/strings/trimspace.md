@@ -43,5 +43,5 @@ String to remove spaces from.
 import "strings"
 
 data
-  |> map(fn: (r) => ({ r with userInput: strings.trimSpace(v: r.userInput) }))
+    |> map(fn: (r) => ({ r with userInput: strings.trimSpace(v: r.userInput) }))
 ```

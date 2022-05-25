@@ -14,10 +14,44 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
-<!-- ## January 2022
+## March 2022
+
+### Deep linking
+
+Navigate to UI pages without having to enter your organization ID in the URL using deep links. For example, `cloud2.influxdata.com/me/billing` redirects to your organization's billing page.
+
+## February 2022
+
+### Remove yourself from an organization
+
+You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from your organization](/influxdb/cloud/organizations/users/#remove-a-user-from-your-organization/).
+
+### Add auto-refresh functionality to Notebooks
+
+Automatically refresh Notebooks data. For details, see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/).
+
+## Performance improvements to dashboards and queries
+
+Previously, InfluxDB loaded all variables on the client side, even those not included in a dashboard or query. Now, InfluxDB only loads variables used by queries or dashboards.
+
+## January 2022
+
 ### Update Tokens UI
 
-To enhance security, the Token UI will only display an InfluxDB Cloud token when it's first created. If you return to the Token page later, you will not be able to view or copy the token. -->
+To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's [first created](/influxdb/cloud/security/tokens/create-token/). If you return to the Token page later, you won't be able to view or copy the token. To learn more about token access restrictions, see [Create an API token](/influxdb/cloud/security/tokens/create-token/).
+
+### Multi-account support
+
+You can now invite a user to join an organization using the same email they've used in another InfluxDB Cloud account. Users [can switch between accounts in the UI](/influxdb/cloud/account-management/switch-account/).
+
+## December 2021
+
+- **Paginated dashboards in UI**: Previously, the Dashboards page could take awhile to load with more than a few dashboards. Now, all dashboards are immediately paginated and accessible on the Dashboards page.
+- **$250 usage credit**: Available when you choose a usage-based plan during signup.
+- **Improved task reliability and reporting**
+- **Improved error handling** for InfluxQL queries.
+- When you select a bucket from **Data (Load Data) > Buckets**, the bucket opens in Notebooks.
+
 
 ## November 2021
 

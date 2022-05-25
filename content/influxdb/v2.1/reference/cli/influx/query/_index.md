@@ -33,7 +33,7 @@ drop columns such as `_start` and `_stop` to optimize the download file size.
 
 ```js
 // ...
-  |> drop(columns: ["_start", "_stop"])
+    |> drop(columns: ["_start", "_stop"])
 ```
 {{% /note %}}
 

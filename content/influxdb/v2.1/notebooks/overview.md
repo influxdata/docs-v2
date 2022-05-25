@@ -42,15 +42,15 @@ The following options appear at the top of each notebook.
 
 Select {{< caps >}}Run{{< /caps >}} (or press **Control+Enter**) to display results of each cell and write data to the selected bucket.
 
+### Save to version history
+
+Click the **{{< icon "..." >}}** icon, then select **Save to version history**.
+
+### Version history (appears after first save)
+
+Click the **{{< icon "..." >}}** icon, then select **Version history** to open the version history panel. Each saved version of the notebook appears. For details, see [Manage notebook version history](/influxdb/cloud/notebooks/manage-notebooks/#manage-notebook-version-history/).
+
 {{% /cloud-only %}}
-
-### Save Notebook (appears before first save)
-
-Select {{< caps >}}Save Notebook{{< /caps >}} to save all notebook cells. Once you've saved the notebook, this button disappears and the notebook automatically saves as subsequent changes are made.
-
-{{% note %}}
-Saving the notebook does not save cell results. When you open a saved notebook, click {{< caps >}}**Run**{{< /caps >}} to update cell results.
-{{% /note %}}
 
 ### Local or UTC timezone
 

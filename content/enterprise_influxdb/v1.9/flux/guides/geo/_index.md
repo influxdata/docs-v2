@@ -86,6 +86,6 @@ Use Flux to query the bird migration data and assign it to the `sampleGeoData` v
 
 ```js
 sampleGeoData = from(bucket: "db/rp")
-  |> range(start: 2019-01-01T00:00:00Z, stop: 2019-12-31T23:59:59Z)
-  |> filter(fn: (r) => r._measurement == "migration")
+    |> range(start: 2019-01-01T00:00:00Z, stop: 2019-12-31T23:59:59Z)
+    |> filter(fn: (r) => r._measurement == "migration")
 ```

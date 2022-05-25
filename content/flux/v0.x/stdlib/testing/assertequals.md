@@ -23,9 +23,9 @@ If unequal, the function returns an error.
 import "testing"
 
 testing.assertEquals(
-  name: "streamEquality",
-  got: got,
-  want: want
+    name: "streamEquality",
+    got: got,
+    want: want,
 )
 ```
 
@@ -50,10 +50,10 @@ The stream that contains the expected data to test against.
 import "testing"
 
 want = from(bucket: "backup-example-bucket")
-  |> range(start: -5m)
+    |> range(start: -5m)
 
 got = from(bucket: "example-bucket")
-  |> range(start: -5m)
+    |> range(start: -5m)
 
 testing.assertEquals(got: got, want: want)
 ```
@@ -63,9 +63,9 @@ testing.assertEquals(got: got, want: want)
 import "testing"
 
 want = from(bucket: "backup-example-bucket")
-  |> range(start: -5m)
+    |> range(start: -5m)
 
 from(bucket: "example-bucket")
-  |> range(start: -5m)
-  |> testing.assertEquals(want: want)
+    |> range(start: -5m)
+    |> testing.assertEquals(want: want)
 ```

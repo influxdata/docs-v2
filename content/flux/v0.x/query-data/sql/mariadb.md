@@ -13,11 +13,11 @@ related:
 list_code_example: |
   ```js
   import "sql"
-  
+
   sql.from(
-    driverName: "mysql",
-    dataSourceName: "user:password@tcp(localhost:3306)/db",
-    query: "SELECT * FROM example_table"
+      driverName: "mysql",
+      dataSourceName: "user:password@tcp(localhost:3306)/db",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [MariaDB](https://mariadb.org/) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "mysql",
-  dataSourceName: "user:password@tcp(localhost:3306)/db",
-  query: "SELECT * FROM example_table"
+    driverName: "mysql",
+    dataSourceName: "user:password@tcp(localhost:3306)/db",
+    query: "SELECT * FROM example_table",
 )
 ```
 

@@ -22,9 +22,9 @@ The `sql.from()` function retrieves data from a SQL data source.
 import "sql"
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
-  query:"SELECT * FROM TestTable"
+    driverName: "postgres",
+    dataSourceName: "postgresql://user:password@localhost",
+    query:"SELECT * FROM TestTable",
 )
 ```
 

@@ -58,11 +58,7 @@ and specify the key to reference.
 Specify the record to access followed by a period (`.`) and the property key.
 
 ```js
-c = {
-  name: "John Doe",
-  address: "123 Main St.",
-  id: 1123445
-}
+c = {name: "John Doe", address: "123 Main St.", id: 1123445}
 
 c.name
 // Returns John Doe
@@ -80,11 +76,7 @@ Use bracket notation to access keys with special or whitespace characters.
 {{% /note %}}
 
 ```js
-c = {
-  "Company Name": "ACME",
-  "Street Address": "123 Main St.",
-  id: 1123445
-}
+c = {"Company Name": "ACME", "Street Address": "123 Main St.", id: 1123445}
 
 c["Company Name"]
 // Returns ACME
@@ -97,14 +89,15 @@ c["id"]
 To reference nested records, use chained dot or bracket notation for each nested level.
 
 ```js
-customer = {
-  name: "John Doe",
-  address: {
-    street: "123 Main St.",
-    city: "Pleasantville",
-    state: "New York"
-  }
-}
+customer = 
+    {
+        name: "John Doe",
+        address: {
+            street: "123 Main St.",
+            city: "Pleasantville",
+            state: "New York"
+        }
+    }
 
 customer.address.street
 // Returns 123 Main St.
@@ -136,6 +129,8 @@ _To dynamically reference keys in a composite type, consider using a
 - [Extend a record](#extend-a-record)
 - [List keys in a record](#list-keys-in-a-record)
 - [Compare records](#compare-records)
+- [Return the string representation of a record](#return-the-string-representation-of-a-record)
+- [Include the string representation of a record in a table](#include-the-string-representation-of-a-record-in-a-table)
 
 ### Extend a record
 Use the **`with` operator** to extend a record.
@@ -143,10 +138,7 @@ The `with` operator overwrites record properties if the specified keys exists or
 adds the new properties if the keys do not exist.
 
 ```js
-c = {
-  name: "John Doe",
-  id: 1123445
-}
+c = {name: "John Doe", id: 1123445}
 
 {c with spouse: "Jane Doe", pet: "Spot"}
 // Returns {id: 1123445, name: John Doe, pet: Spot, spouse: Jane Doe}
@@ -160,10 +152,7 @@ c = {
 ```js
 import "experimental"
 
-c = {
-  name: "John Doe",
-  id: 1123445
-}
+c = {name: "John Doe", id: 1123445}
 
 experimental.objectKeys(o: c)
 // Returns [name, id]
@@ -181,3 +170,43 @@ Equality is based on keys, their values, and types.
 {foo: 12300.0, bar: 34500.0} == {bar: float(v: "3.45e+04"), foo: float(v: "1.23e+04")}
 // Returns true
 ```
+
+### Return the string representation of a record
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return the Flux literal
+representation of a record as a string.
+
+```js
+x = {a: 1, b: 2, c: 3}
+
+display(v: x)
+
+// Returns "{a: 1, b: 2, c: 3}"
+```
+
+### Include the string representation of a record in a table
+Use [`display()`](/flux/v0.x/stdlib/universe/display/) to return the Flux literal
+representation of a record as a string and include it as a column value.
+
+```js
+import "sampledata"
+
+sampledata.string()
+    |> map(fn: (r) => ({_time: r._time, exampleRecord: display(v: {tag: r.tag, value:r._value})}))
+```
+
+#### Output
+
+| \_time <em style="opacity:.5">(time)</em> | exampleRecord <em style="opacity:.5">(string)</em> |
+| :---------------------------------------- | :----------------------------------------------- |
+| 2021-01-01T00:00:00Z                      | {tag: t1, value: smpl_g9qczs}                    |
+| 2021-01-01T00:00:10Z                      | {tag: t1, value: smpl_0mgv9n}                    |
+| 2021-01-01T00:00:20Z                      | {tag: t1, value: smpl_phw664}                    |
+| 2021-01-01T00:00:30Z                      | {tag: t1, value: smpl_guvzy4}                    |
+| 2021-01-01T00:00:40Z                      | {tag: t1, value: smpl_5v3cce}                    |
+| 2021-01-01T00:00:50Z                      | {tag: t1, value: smpl_s9fmgy}                    |
+| 2021-01-01T00:00:00Z                      | {tag: t2, value: smpl_b5eida}                    |
+| 2021-01-01T00:00:10Z                      | {tag: t2, value: smpl_eu4oxp}                    |
+| 2021-01-01T00:00:20Z                      | {tag: t2, value: smpl_5g7tz4}                    |
+| 2021-01-01T00:00:30Z                      | {tag: t2, value: smpl_sox1ut}                    |
+| 2021-01-01T00:00:40Z                      | {tag: t2, value: smpl_wfm757}                    |
+| 2021-01-01T00:00:50Z                      | {tag: t2, value: smpl_dtn2bv}                    |

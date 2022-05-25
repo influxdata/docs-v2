@@ -78,11 +78,11 @@ is **not compatible** with the format of Prometheus histogram data stored in Inf
 import "experimental/prometheus"
 
 from(bucket: "example-bucket")
-  |> start(range: -1h)
-  |> filter(fn: (r) => r._measurement == "prometheus")
-  |> filter(fn: (r) => r._field == "qc_all_duration_seconds")
-  |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
-  |> prometheus.histogramQuantile(quantile: 0.99)
+    |> start(range: -1h)
+    |> filter(fn: (r) => r._measurement == "prometheus")
+    |> filter(fn: (r) => r._field == "qc_all_duration_seconds")
+    |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+    |> prometheus.histogramQuantile(quantile: 0.99)
 ```
 {{% /tab-content %}}
 
@@ -99,10 +99,10 @@ from(bucket: "example-bucket")
 import "experimental/prometheus"
 
 from(bucket: "example-bucket")
-  |> start(range: -1h)
-  |> filter(fn: (r) => r._measurement == "qc_all_duration_seconds")
-  |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
-  |> prometheus.histogramQuantile(quantile: 0.99, metricVersion: 1)
+    |> start(range: -1h)
+    |> filter(fn: (r) => r._measurement == "qc_all_duration_seconds")
+    |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+    |> prometheus.histogramQuantile(quantile: 0.99, metricVersion: 1)
 ```
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -135,17 +135,20 @@ histogramQuantile: unexpected null in the countColumn
 ```js
 import "experimental/prometheus"
 
-data = from(bucket: "example-bucket")
-  |> start(range: -1h)
-  |> filter(fn: (r) => r._measurement == "prometheus")
-  |> filter(fn: (r) => r._field == "qc_all_duration_seconds")
-  |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
-  
-union(tables: [
-  data |> prometheus.histogramQuantile(quantile: 0.99),
-  data |> prometheus.histogramQuantile(quantile: 0.5),
-  data |> prometheus.histogramQuantile(quantile: 0.25)
-])
+data =
+    from(bucket: "example-bucket")
+        |> start(range: -1h)
+        |> filter(fn: (r) => r._measurement == "prometheus")
+        |> filter(fn: (r) => r._field == "qc_all_duration_seconds")
+        |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+
+union(
+    tables: [
+        data |> prometheus.histogramQuantile(quantile: 0.99),
+        data |> prometheus.histogramQuantile(quantile: 0.5),
+        data |> prometheus.histogramQuantile(quantile: 0.25),
+    ],
+)
 ```
 {{% /code-tab-content %}}
 
@@ -153,17 +156,19 @@ union(tables: [
 ```js
 import "experimental/prometheus"
 
-data = from(bucket: "example-bucket")
-  |> start(range: -1h)
-  |> filter(fn: (r) => r._measurement == "qc_all_duration_seconds")
-  |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
+data =
+    from(bucket: "example-bucket")
+        |> start(range: -1h)
+        |> filter(fn: (r) => r._measurement == "qc_all_duration_seconds")
+        |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
 
-union(tables: [
-  data |> prometheus.histogramQuantile(quantile: 0.99, metricVersion: 1),
-  data |> prometheus.histogramQuantile(quantile: 0.5, metricVersion: 1),
-  data |> prometheus.histogramQuantile(quantile: 0.25, metricVersion: 1)
-])
-  
+union(
+    tables: [
+        data |> prometheus.histogramQuantile(quantile: 0.99, metricVersion: 1),
+        data |> prometheus.histogramQuantile(quantile: 0.5, metricVersion: 1),
+        data |> prometheus.histogramQuantile(quantile: 0.25, metricVersion: 1),
+    ],
+)
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}

@@ -22,8 +22,8 @@ The `geo.asTracks()` function groups rows into tracks (sequential, related data 
 import "experimental/geo"
 
 geo.asTracks(
-  groupBy: ["id","tid"],
-  orderBy: ["_time"]
+    groupBy: ["id","tid"],
+    orderBy: ["_time"],
 )
 ```
 
@@ -46,27 +46,13 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 
 ##### Group tracks in a box-shaped region
 ```js
-import "experimental/geo"
 
-region = {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
-}
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.gridFilter(region: region)
-  |> geo.toRows(correlationKey: ["_time", "id"])
-  |> geo.asTracks()
-```
-
-## Function definition
-```js
-asTracks = (tables=<-, groupBy=["id","tid"], orderBy=["_time"]) =>
-  tables
-    |> group(columns: groupBy)
-    |> sort(columns: orderBy)
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.gridFilter(region: region)
+    |> geo.toRows(correlationKey: ["_time", "id"])
+    |> geo.asTracks()
 ```

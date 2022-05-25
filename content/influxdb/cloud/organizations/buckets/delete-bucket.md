@@ -49,7 +49,7 @@ influx bucket delete -n my-bucket -o my-org
 <!-- -->
 ```sh
 # Syntax
-influx bucket delete -i <bucket-id>
+influx bucket delete -i <BUCKET_ID>
 
 # Example
 influx bucket delete -i 034ad714fdd6f000

@@ -51,7 +51,7 @@ import "sampledata"
 data = sampledata.int()
 
 data
-  |> distinct()
+    |> distinct()
 ```
 
 {{< expand-wrapper >}}
@@ -93,7 +93,7 @@ data
 import "sampledata"
 
 sampledata.int()
-  |> distinct(column: "tag")
+    |> distinct(column: "tag")
 ```
 
 {{< expand-wrapper >}}
@@ -126,7 +126,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int(includeNull: true)
-  |> distinct()
+    |> distinct()
 ```
 
 {{% expand "View input and output" %}}

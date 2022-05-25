@@ -10,6 +10,318 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.168.0 [2022-05-23]
+
+### Features
+- Enable [`movingAverage()`](/flux/v0.x/stdlib/universe/movingaverage/) and
+  [`cumulativeSum()`](/flux/v0.x/stdlib/universe/cumulativesum/) optimizations
+  by default.
+- Vectorize logical operations in [`map()`](/flux/v0.x/stdlib/universe/map/).
+- Add a planner rule that expands logical join nodes.
+- Added timezone support to [`hourSelection()`](/flux/v0.x/stdlib/universe/hourselection/).
+
+### Bug fixes
+- Attach type when constructing logical expressions.
+- Fix panic with half-diamond logical plan.
+
+---
+
+## v0.167.0 [2022-05-16]
+
+### Features
+- Allow default types to be specified for default arguments.
+- Add [`date.scale()`](/flux/v0.x/stdlib/date/scale/) to allow for dynamic duration changes.
+- Expose aggregate window spec fields for use by the query planner.
+- Add [`experimental.preview()`](/flux/v0.x/stdlib/experimental/preview/).
+
+### Bug fixes
+- Update `date.add()` and `date.sub()` to ork correctly with timezones enabled.
+- Fix failing continuous integration tests.
+- Update `hourSelection()` to support overnight time ranges.
+- Fix logic error in aggregate window planner rule preserve the rule if
+  `table.fill` is present.
+- Use `MultiplicativeOperator` in `MultiplicativeExpression`.
+
+---
+
+## v0.166.0 [2022-05-09]
+
+### Features
+- Add InfluxData semantic commit and pull request title validator.
+- Add an `Expr` node to the visitor API.
+- Add label polymorphism.
+- Vectorize remaining arithmetic operators.
+
+### Bug fixes
+- Remove `JoinOpSpec.TableNames` in favor of `JoinOpSpec.params` to stay
+  consistent inside `tableFind()`.
+- Fix `SortLimit` for empty input group.
+
+---
+
+## v0.165.0 [2022-04-25]
+
+### Features
+- Add support for options in the `testcase` extension.
+- Vectorize addition operations in `map()`.
+- Add location support to `date.truncate()`.
+- Accept string literals in properties of a record type.
+- Add trace option to the `flux` CLI.
+- Add `EquiJoinPredicateRule`.
+
+### Bug fixes
+- Update `map()` test case to include a range.
+- Don't set `BaseLocation.file` to `Some("")`.
+- Fix `strings.joinStr` panic when it receives a null value.
+- Remove 64bit misalignment.
+- Fix memory releases and add checked allocator to the end of tests.
+
+---
+
+## v0.164.1 [2022-04-18]
+
+### Bug fixes
+- Remove an extraneous `go generate` statement.
+
+---
+
+## v0.164.0 [2022-04-13]
+
+### Features
+- Allow Go to pass compilation options to Rust.
+
+### Bug fixes
+- Do not assume integers are 64bit integers.
+- Update `prometheus.scrape` type signature to correctly return a stream.
+
+---
+
+## v0.163.0 [2022-04-07]
+
+### Features
+- Report skipped tests.
+
+### Bug fixes
+- Update transformation transport adapter to always invoke `finish`.
+- Add support for "soft paragraphs" (paragraphs that contain single newline
+  characters) in inline Flux documentation.
+
+---
+
+## v0.162.0 [2022-04-05]
+
+### Features
+- Add [OpenTracing spans](https://opentracing.io/docs/overview/spans/) to the Flux runtime.
+- Add the `cffi` feature to reduce WASM binary size.
+- Replace the main `flux` CLI with a new `flux` CLI that starts a Flux REPL by
+  default or executes a Flux script via stdin.
+- Track freed memory with `SetFinalizer`.
+- Move [`addDuration()`](/flux/v0.x/stdlib/date/addduration/) and
+  [`subDuration()`](/flux/v0.x/stdlib/date/subduration/) from the `experimental`
+  package to the `date` package.
+
+### Bug fixes
+- Improve error messages for column conflicts in pivot operations.
+- Create OpenTracing spans for transformations using the proper context.
+- Add errors to OpenTracing spans created for transformations.
+- Restore required features hidden behind the `cffi` feature.
+
+---
+
+## v0.161.0 [2022-03-24]
+
+### Features
+- Re-enable the dialer pool and update dependency injection.
+
+### Bug fixes
+- Check length boundary for lower bound of [`strings.substring()`](/flux/v0.x/stdlib/strings/substring/).
+
+---
+
+## v0.160.0 [2022-03-22]
+
+### Features
+- Remove the `concurrencyLimit` feature flag and keep it in the dependencies.
+- Add MQTT Docker integration test.
+- Enable dialer pool.
+- Add an IOx-specific unpivot function to the `internal` package.
+
+### Bug fixes
+- Update [`join()`](/flux/v0.x/stdlib/universe/join/) to properly handle divergent schemas.
+- Fix line endings in the `testcase` format to prevent unnecessarily nesting the
+  body of a test case.
+- Make [`strings.substring()`](/flux/v0.x/stdlib/strings/substring/) check bounds correctly.
+- Fix duration and integer literal scanning.
+- Make `testcase` a semantic check instead of an error.
+- Skip parallel merge when selecting the result name based on side effects.
+- Add metadata headers to inline documentation.
+
+---
+
+## v0.159.0 [2022-03-14]
+
+### Features
+- Added a `finish` state to parallel-merge and always protect with a mutex lock.
+
+### Bug fixes
+- Use a fork of the `gosnowflake` library to prevent file transfers.
+- When encoding Flux types as JSON, encode dictionary types as JSON objects.
+- Upgrade Apache Arrow to v7.
+
+---
+
+## v0.158.0 [2022-03-09]
+
+### Features
+- Add inline documentation to the `universe` package.
+- Factor parallel execution into the concurrency quota calculation.
+
+### Bug fixes
+- Add parallel merges with no successors to the results set.
+- Correctly use range in an updated `map()` test.
+
+---
+
+## v0.157.0 [2022-03-03]
+
+### Features
+- Update `fill()` to use narrow transformation.
+- Add an attribute-based instantiation of parallel execution nodes.
+- Expose the `Record::fields` iterator.
+- Allow the `estimate_tdigest` method in `quantile()` to process any numeric value.
+- Optimize `aggregateWindow()` for specific aggregate transformations.
+
+### Bug fixes
+- Update vectorized `map()` to handle missing columns.
+- Remove duplicate line in `Makefile`.
+- Fix `cargo doc` build errors.
+- Reclassify CSV-decoding errors as user errors.
+- Update `iox.from()` and `generate.from()` to use proper stream annotation.
+
+---
+
+## v0.156.0 [2022-02-22]
+
+### Features
+- Add second pass to physical planner for parallelization rules.
+- Separate streams from arrays in the type system.
+- Add function to internal/debug to check feature flag values.
+- Allow feature flags to record metrics if configured.
+- Add extra verbose level to dump AST of test.
+- Explain what `[A], [A:B]` etc means in errors.
+
+### Bug fixes
+- Make `buckets()` function return a stream.
+- Remove unnecessary `TableObject` guards.
+- Copy `TagColumns` in `to()` that may get modified into the transformation.
+- Update tests to use explicit yields.
+
+---
+
+## v0.155.1 [2022-02-15]
+
+### Bug fixes
+- Update tests to use an explicit yield.
+
+---
+
+## v0.155.0 [2022-02-14]
+
+### Features
+- Add new [experimental array functions](/flux/v0.x/stdlib/experimental/array/)
+  for operating on arrays.
+
+### Bug fixes
+- Add `stop` parameter to [InfluxDB schema functions](/flux/v0.x/stdlib/influxdata/influxdb/schema/).
+- Remove `os.Exit` calls and allow `defer executor.Close` to run.
+- Properly handle time zone transitions when there is no daylight savings time
+  in the specified time zone.
+
+---
+
+## v0.154.0 [2022-02-09]
+
+### Features
+- Add [`requests.peek()`](/flux/v0.x/stdlib/experimental/http/requests/peek/) to
+  return HTTP response data in a table.
+- Add [`display()`](/flux/v0.x/stdlib/universe/display/) to represent any value as a string.
+- Create a version of `map()` that is columnar and supports vectorization.
+- Support vectorized functions.
+
+### Bug fixes
+- Add time vector to the `values` package.
+- Set the correct type for vectorized functions.
+
+---
+
+## v0.153.0 [2022-02-07]
+
+### Features
+- Connect language server protocol (LSP) features through the Flux crate.
+- Add conversion from `flux.Bounds` to `plan/execute.Bounds`.
+- Re-index all bound variables to start from 0.
+
+### Bug fixes
+- Int feature flags work properly when returned as floats.
+
+---
+
+## v0.152.0 [2022-01-31]
+
+### Features
+- Add the [`experimental/http/requests` package](/flux/v0.x/stdlib/experimental/http/requests/)
+  to support generic HTTP requests.
+- Add [`experimental/iox` package](/flux/v0.x/stdlib/experimental/iox/) and a
+  placeholder for the `iox.from()` function.
+- Add dependency hooks to the dependency subsystem.
+- Remove unneeded feature flags.
+
+### Bug fixes
+- Revert update to the dependencies package.
+- Return false if contains gets invalid value.
+
+---
+
+## v0.151.1 [2022-01-24]
+
+### Features
+- Update to Rust 1.58.1.
+
+---
+
+## v0.151.0 [2022-01-20]
+
+### Features
+- Expose `MonoType::parameter` and `MonoType::field`.
+
+### Bug fixes
+- Support writing unsigned integers with the `http` provider.
+
+---
+
+## v0.150.1 [2022-01-19]
+
+### Bug fixes
+- Remove duplicate `die` builtin in the `universe` package.
+
+---
+
+## v0.150.0 [2022-01-19]
+
+### Features
+- Update inline documentation in the following packages:
+  - date
+  - experimental
+  - testing
+  - timezone
+  - types
+
+### Bug fixes
+- Make iterating the hashmap deterministic.
+- Quote SQL identifiers to mitigate the risk of SQL injection.
+
+---
+
 ## v0.149.0 [2022-01-12]
 
 ### Features

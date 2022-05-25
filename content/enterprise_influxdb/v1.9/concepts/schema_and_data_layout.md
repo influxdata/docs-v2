@@ -126,9 +126,9 @@ The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blu
 ```js
 // Query *Good Measurements*, data stored in separate tags (recommended)
 from(bucket: "<database>/<retention_policy>")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
+    |> mean()
 ```
 
 **Difficult to query**: [_Bad Measurements_](#bad-measurements-schema) requires regular expressions to extract `plot` and `region` from the measurement, as in the following example.
@@ -136,9 +136,9 @@ from(bucket: "<database>/<retention_policy>")
 ```js
 // Query *Bad Measurements*, data encoded in the measurement (not recommended)
 from(bucket: "<database>/<retention_policy>")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement =~ /\.north$/ and r._field == "temp")
+    |> mean()
 ```
 
 Complex measurements make some queries impossible. For example, calculating the average temperature of both plots is not possible with the [_Bad Measurements_](#bad-measurements-schema) schema.
@@ -188,15 +188,15 @@ Schema 2 is preferable because using multiple tags, you don't need a regular exp
 ```js
 // Schema 1 -  Query for multiple data encoded in a single tag
 from(bucket:"<database>/<retention_policy>")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.location =~ /\.north$/ and r._field == "temp")
+    |> mean()
 
 // Schema 2 - Query for data encoded in multiple tags
 from(bucket:"<database>/<retention_policy>")
-  |> range(start:2016-08-30T00:00:00Z)
-  |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
-  |> mean()
+    |> range(start:2016-08-30T00:00:00Z)
+    |> filter(fn: (r) =>  r._measurement == "weather_sensor" and r.region == "north" and r._field == "temp")
+    |> mean()
 ```
 
 #### InfluxQL example to query schemas

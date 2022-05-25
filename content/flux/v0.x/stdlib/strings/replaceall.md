@@ -48,9 +48,5 @@ The replacement for all instances of `t`.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      content: strings.replaceAll(v: r.content, t: "he", u: "her")
-    })
-  )
+    |> map(fn: (r) => ({r with content: strings.replaceAll(v: r.content, t: "he", u: "her")}))
 ```

@@ -39,10 +39,8 @@ Default is piped-forward data (`<-`).
 ```js
 import "experimental"
 
-from(bucket:"example-bucket")
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field")
-  |> range(start:-1h)
-  |> experimental.mean()
+from(bucket: "example-bucket")
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+    |> range(start: -1h)
+    |> experimental.mean()
 ```

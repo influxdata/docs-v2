@@ -42,9 +42,5 @@ The substring value to search for.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      _value: strings.containsStr(v: r.author, substr: "John")
-    })
-  )
+    |> map(fn: (r) => ({r with _value: strings.containsStr(v: r.author, substr: "John")}))
 ```

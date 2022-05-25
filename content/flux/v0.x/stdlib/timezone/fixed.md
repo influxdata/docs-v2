@@ -38,11 +38,13 @@ import "timezone"
 
 option location = timezone.fixed(offset: -8h)
 
-data = array.from(rows: [
+data = array.from(
+    rows: [
         {_time: 2021-01-01T00:06:00Z, _value: 1},
         {_time: 2021-01-02T00:06:00Z, _value: 2},
-        {_time: 2021-01-03T00:06:00Z, _value: 3}
-    ])
+        {_time: 2021-01-03T00:06:00Z, _value: 3},
+    ],
+)
     |> range(start: 2021-01-01T00:00:00Z, stop: 2021-01-04T00:00:00Z)
 
 data

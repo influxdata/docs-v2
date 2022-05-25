@@ -19,26 +19,26 @@ This example compares the value from the latest point to an average value stored
 
 The following query:
 
-  - Uses [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) to define a time range.
-  - Gets the last value in the `means` bucket and compares it to the last value in the `noaa` bucket using [`last()`](/{{< latest "flux" >}}/stdlib/universe/last/).
-  - Uses [`join()`](/{{< latest "flux" >}}/stdlib/universe/join/) to combine the results
-  - Uses [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to calculate the differences
+- Uses [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) to define a time range.
+- Gets the last value in the `means` bucket and compares it to the last value in the `noaa` bucket using [`last()`](/{{< latest "flux" >}}/stdlib/universe/last/).
+- Uses [`join()`](/{{< latest "flux" >}}/stdlib/universe/join/) to combine the results
+- Uses [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to calculate the differences
 
-  ```js
-  means = from(bucket: "weekly_means")
+```js
+means = from(bucket: "weekly_means")
     |> range(start: 2019-09-01T00:00:00Z)
     |> last()
     |> keep(columns: ["_value", "location"])
 
-  latest = from(bucket: "noaa")
+latest = from(bucket: "noaa")
     |> range(start: 2019-09-01T00:00:00Z)
     |> filter(fn: (r) => r._measurement == "average_temperature")
     |> last()
     |> keep(columns: ["_value", "location"])
 
-  join(tables: {mean: means, reading: latest}, on: ["location"])
+join(tables: {mean: means, reading: latest}, on: ["location"])
     |> map(fn: (r) => ({r with deviation: r._value_reading - r._value_mean}))
-  ```
+```
 
 ### Example results
 

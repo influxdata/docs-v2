@@ -91,7 +91,7 @@ for a complete list of the global `influxd-ctl` options.
       databases, continuous queries, retention policies. Shards are not exported.
 - `-full`: perform a full backup. Deprecated in favour of `-strategy=full`
 - `-rp <string>`: the name of the single retention policy to back up (must specify `-db` with `-rp`)
-- `-shard <unit>`: the ID of the single shard to back up
+- `-shard <unit>`: the ID of the single shard to back up (cannot be used with `-db`)
 - `-start <timestamp>`: Include all points starting with specified timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 - `-end <timestamp>`: Exclude all points after timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 
@@ -178,9 +178,9 @@ $ ls ./telegrafbackup
 20160803T222811Z.manifest  20160803T222811Z.meta  20160803T222811Z.s4.tar.gz
 ```
 
-#### Perform a metastore only backup
+#### Perform a metadata only backup
 
-Perform a meta store only backup into a specific directory with the command below.
+Perform a metadata only backup into a specific directory with the command below.
 The directory must already exist.
 
 ```bash
@@ -318,8 +318,8 @@ Restored from my-incremental-backup/ in 83.892591ms, transferred 588800 bytes
 
 ##### Restore from a metadata backup
 
-In this example, the `restore` command restores an metadata backup stored
-in the `metadata-backup/` directory.
+In this example, the `restore` command restores a [metadata backup](#perform-a-metadata-only-backup)
+stored in the `metadata-backup/` directory.
 
 ```bash
 # Syntax
@@ -404,6 +404,29 @@ time                  written
 1970-01-01T00:00:00Z  471
 ```
 
+##### Restore (overwrite) metadata from a full or incremental backup to fix damaged metadata
+
+1. Identify a backup with uncorrupted metadata from which to restore.
+2. Restore from backup with `-meta-only-overwrite-force`.
+
+   {{% warn %}}
+   Only use the `-meta-only-overwrite-force` flag to restore from backups of the target cluster.
+   If you use this flag with metadata from a different cluster, you will lose data.
+   (since metadata includes shard assignments to data nodes).
+   {{% /warn %}}
+
+   ```bash
+   # Syntax
+   influxd-ctl restore -meta-only-overwrite-force <path-to-backup-directory>
+
+   # Example
+   $ influxd-ctl restore -meta-only-overwrite-force my-incremental-backup/
+   Using backup directory: my-incremental-backup/
+   Using meta backup: 20200101T000000Z.meta
+   Restoring meta data... Done. Restored in 21.373019ms, 1 shards mapped
+   Restored from my-incremental-backup/ in 19.2311ms, transferred 588 bytes
+   ```
+
 #### Common issues with restore
 
 ##### Restore writes information not part of the original backup
@@ -448,7 +471,11 @@ For details on optional settings and usage, see [`influx_inspect export` command
 In the following example, the database is exported filtered to include only one day and compressed for optimal speed and file size.
 
 ```bash
-influx_inspect export -database myDB -compress -start 2019-05-19T00:00:00.000Z -end 2019-05-19T23:59:59.999Z
+influx_inspect export \
+  -database myDB \
+  -compress \
+  -start 2019-05-19T00:00:00.000Z \
+  -end 2019-05-19T23:59:59.999Z
 ```
 
 ### Importing data
@@ -458,7 +485,7 @@ After exporting the data in line protocol format, you can import the data using 
 In the following example, the compressed data file is imported into the specified database.
 
 ```bash
-influx -import -database myDB -compress
+influx -import -database myDB -compressed
 ```
 
 For details on using the `influx -import` command, see [Import data from a file with -import](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#import-data-from-a-file-with--import).

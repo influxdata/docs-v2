@@ -17,11 +17,11 @@ list_code_example: |
   import "sql"
 
   data
-    |> sql.to(
-      driverName: "sqlite3",
-      dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
-      table: "example_table"
-    )
+      |> sql.to(
+          driverName: "sqlite3",
+          dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
+          table: "example_table",
+      )
   ```
 ---
 
@@ -41,11 +41,11 @@ To write data to [SQLite](https://www.sqlite.org/index.html) with Flux:
 import "sql"
 
 data
-  |> sql.to(
-    driverName: "sqlite3",
-    dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
-    table: "example_table"
-  )
+    |> sql.to(
+        driverName: "sqlite3",
+        dataSourceName: "file:/path/to/example.db?cache=shared&mode=ro",
+        table: "example_table",
+    )
 ```
 
 {{% note %}}

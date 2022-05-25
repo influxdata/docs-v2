@@ -31,6 +31,11 @@ The Flux VS Code extension is available in the **Visual Studio Marketplace**.
 For information about installing extensions from the Visual Studio marketplace,
 see the [Extension Marketplace documentation](https://code.visualstudio.com/docs/editor/extension-gallery).
 
+Once installed, open the **Explorer** area of your VS Code user interface.
+A new **InfluxDB** pane is available below your file explorer.
+
+{{< img-hd src="/img/influxdb/2-1-tools-vsflux-influxdb-pane.png" alt="InfluxDB pane in VS Code" />}}
+
 ## Connect to InfluxDB
 To create an InfluxDB connection in VS Code:
 
@@ -59,8 +64,10 @@ In the **InfluxDB** pane:
 1. Write your Flux query in a new VS Code file.
 2. Save your Flux script with the `.flux` extension or set the
    [VS Code Language Mode](https://code.visualstudio.com/docs/languages/overview#_changing-the-language-for-the-selected-file) to **Flux**.
-3. Execute the query with the `influxdb.runQuery` command or {{< keybind mac="⌃⌥E" other="Ctrl+Alt+E" >}}.
-4. Query results appear in a new tab. If query results do not appear, see [Debug Flux queries](#debug-flux-queries).
+3. Press {{< keybind mac="fn + F5" other="F5" >}} to execute the query.
+4. VS Code displays a list of InfluxDB connection configurations.
+   Select which InfluxDB connection to use to execute the query.
+5. Query results appear in a new tab. If query results do not appear, see [Debug Flux queries](#debug-flux-queries).
 
 ## Explore your schema
 After you've configured an InfluxDB connection, VS Code provides an overview of buckets,
@@ -83,7 +90,7 @@ and then `Reload Window`) to initialize the updated extensions.
 
 ## Flux extension commands
 
-| Command                     | Description       | Keyboard shortcut                            | Menu context      |
-|:-------                     |:-----------       |:-----------------:                           | ------------:     |
-| `influxdb.refresh`          | Refresh           |                                              |                   |
-| `influxdb.runQuery`         | Run Query         | {{< keybind mac="⌃⌥E" other="Ctrl+Alt+E" >}} | editor/context    |
+| Command                | Description    |
+| :--------------------- | :------------- |
+| `influxdb.refresh`     | Refresh        |
+| `influxdb.addInstance` | Add Connection |

@@ -25,9 +25,9 @@ Results are grouped by `newColumn`.
 import "experimental/geo"
 
 geo.groupByArea(
-  newColumn: "geoArea",
-  level: 3,
-  s2cellIDLevel: -1
+    newColumn: "geoArea",
+    level: 3,
+    s2cellIDLevel: -1,
 )
 ```
 
@@ -56,17 +56,12 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 ```js
 import "experimental/geo"
 
-region = {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
-}
+region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
 
 from(bucket: "example-bucket")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> geo.gridFilter(region: region)
-  |> geo.toRows()
-  |> geo.groupByArea(newColumn: "geoArea", level: 3)
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> geo.gridFilter(region: region)
+    |> geo.toRows()
+    |> geo.groupByArea(newColumn: "geoArea", level: 3)
 ```
