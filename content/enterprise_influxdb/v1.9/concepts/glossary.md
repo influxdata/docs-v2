@@ -451,6 +451,6 @@ Related entries: [tsm](#tsm-time-structured-merge-tree)
 
 Legacy user interface for the InfluxDB Enterprise.
 
-This has been deprecated and the suggestion is to use [Chronograf](/{{< latest "chronograf" >}}/introduction/).
+This interface has been deprecated. We recommend using [Chronograf](/{{< latest "chronograf" >}}/introduction/).
 
 If you are transitioning from the Enterprise Web Console to Chronograf, see how to [transition from the InfluxDB Web Admin Interface](/chronograf/v1.7/guides/transition-web-admin-interface/).
