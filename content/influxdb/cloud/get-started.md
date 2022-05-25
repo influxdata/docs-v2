@@ -13,11 +13,11 @@ influxdb/cloud/tags: [get-started, install]
 
 After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to get started:
 
-- Do one of the following:
+1. Do one of the following:
    - [Write and query data using the programming language of your choice](#write-and-query-data-using-the-programming-language-of-your-choice).
    - Add [sample data](#add-sample-data).
    - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
-- [Create a notebook](#create-a-notebook):
+2. [Create a notebook](#create-a-notebook):
     1.  Click **Notebooks** in the navigation menu on the left.
 
         {{< nav-icon "books" >}}
