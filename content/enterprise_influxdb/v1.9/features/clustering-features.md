@@ -142,7 +142,7 @@ Use this feature when you have a replication factor (RF) of 2 or more and your C
 
 Best practices when using an active-passive node setup: 
   - Use when you have a large cluster setup, generally 8 or more nodes.
-  - You should have between a 1:1 and 2:1 ratio of active and passive nodes.
+  - Keep the ratio of active to passive nodes between 1:1 and 2:1.
   - The passive nodes should receive all writes.  
 
 For instructions on how to add a paasive node to a cluster see [Add a passive node to a cluster](/enterprise_influxdb/v1.9/tools/influxd-ctl/#add-a-passive-node-to-the-cluster).
