@@ -184,7 +184,7 @@ The local server's nanosecond timestamp.
 ## passive node (experimental)
 
 Passive nodes are data nodes that do not own any shards. They accept write calls but do not write to their own disks, perform shard lookup and RPC calls (on non-passive nodes) and distribute writes to the data node that own shards.  In essence, they act as a kind of load balancer. 
-**NOTE:**  This is an experimental feature.  
+**Note:**  This is an experimental feature.  
 
 <!--
 ## permission
