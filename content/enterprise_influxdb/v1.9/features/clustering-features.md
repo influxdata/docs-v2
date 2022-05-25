@@ -138,7 +138,7 @@ more information.
 
 Passive nodes act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes.
 
- You can use this feature when you have a replication factor (RF) of 2 or more and your CPU usage is consistently above 80 percent.  Using the passive feature allows you to scale a cluster when you can no longer vertically scale. This active-passive node setup feature is especially useful if you experience a large amount of hinted handoff growth. The passive node writes the hinted handoff queue to its own disk and then communicates periodically with the appropriate node until it can send the queue contents there.  
+Use this feature when you have a replication factor (RF) of 2 or more and your CPU usage is consistently above 80 percent. Using the passive feature lets you scale a cluster when you can no longer vertically scale. Especially useful if you experience a large amount of hinted handoff growth. The passive node writes the hinted handoff queue to its own disk, and then communicates periodically with the appropriate node until it can send the queue contents there.  
 
 Best practices when using an active-passive node setup: 
   - Use when you have a large cluster setup, generally 8 or more nodes.
