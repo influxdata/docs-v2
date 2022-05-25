@@ -564,7 +564,7 @@ If both the TLS certificate and key are in the same file, specify them using the
 3. _(Optional)_ Specify which TLS cipher suites to allow using the `TLS_CIPHERS` or `--tls-ciphers` CLI option.
     Chronograf supports all cipher suites in the
     [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants)
-    and, by default, allows all of them.
+    and, by default, allows them all.
 4. _(Optional)_ Specify the minimum and maximum TLS versions to allow with the
     `TLS_MIN_VERSION` and `TLS_MAX_VERSION` environment variables or the
     `--tls-min-version` and `--tls-max-version` CLI options.
