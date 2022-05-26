@@ -386,6 +386,12 @@ This shortcode must be closed with `{{% /tabs %}}`.
 
 **Note**: The `%` characters used in this shortcode indicate that the contents should be processed as Markdown.
 
+The `{{% tabs %}}` shortcode has an optional `style` argument that lets you
+assign CSS classes to the tags HTML container. The following classes are available:
+
+- **small**: Tab buttons are smaller and don't scale to fit the width.
+- **even-wrap**: Prevents uneven tab widths when tabs are forced to wrap.
+
 `{{% tab-content %}}`  
 This shortcode creates a container for a content block.
 Each content block in the tab group needs to be wrapped in this shortcode.
