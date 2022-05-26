@@ -1,5 +1,6 @@
 ---
-title: Back up and restore InfluxDB OSS
+title: Back up and restore data
+seotitle: Back up and restore data in InfluxDB v1.8
 description: >
   To prevent unexpected data loss, back up and restore InfluxDB OSS instances.
 aliases:
@@ -43,26 +44,12 @@ See [Back up and restore in InfluxDB Enterprise](/{{< latest "enterprise_influxd
 InfluxDB OSS {{< current-version >}}  `backup` and `restore` utilities let
 you back up and restore data while InfluxDB is running.
 Backup and restore processes execute over a TCP connection.
+The default host and port used for backup and restore remote procedure calls (RPCs)
+is `127.0.0.1:8088`.
 
-To configure the configured in your
-InfluxDB configuration
-
-### Configure remote connections
-
-The online backup and restore processes execute over a TCP connection to the database.
-The process consists of a **source** InfluxDB instance (the instance data is backed up from)
-and a **target** InfluxDB instance (the instance data is being restored to).
-
-**To enable the port for the backup and restore service:**
-
-1. At the root level of the InfluxDB configuration file (`influxdb.conf`) ,
-   uncomment the [`bind-address` configuration setting](/influxdb/v1.8/administration/config#bind-address-127-0-0-1-8088) on the remote node.
-
-2. Update the `bind-address` value to `<remote-node-IP>:8088`
-
-3. Provide the IP address and port to the `-host` parameter when you run commands.
-
-**Example**
+**To customize the TCP host and port the backup and restore services use**,
+modify the [`bind-address` configuration setting](/influxdb/v1.8/administration/config#bind-address-127-0-0-1-8088) 
+at the root level of your InfluxDB configuration file (`influxdb.conf`).
 
 ```
 $ influxd backup -portable -database mydatabase -host <remote-node-IP>:8088 /tmp/mysnapshot
