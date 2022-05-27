@@ -8,4 +8,3 @@ client libraries to build a modern application as you learn the following:
 - How to authenticate apps and devices to the API.
 - How to install a client library.
 - How to write and query data in InfluxDB.
-- How to use the InfluxData UI libraries to format data and create visualizations.
