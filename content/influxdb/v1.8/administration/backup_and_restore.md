@@ -13,17 +13,21 @@ menu:
 v2: /influxdb/v2.0/backup-restore/
 ---
 
-The InfluxDB {{< current-version >}} `backup` utility provides:
+Use the InfluxDB {{< current-version >}} `backup` and `restore` utilities
+to prevent unexpected data loss and preserve the ability to restore data if it
+ever is lost.
+These utilities let you:
 
-- Option to run backup and restore functions on online (live) databases.
-- Backup and restore functions for single or multiple databases, along with optional timestamp filtering.
+- Run backup and restore operations on online or offline InfluxDB instances.
+- Back up and restore multiple databases at a time.
+- Back up specific time ranges.
 - Import data from [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) clusters.
-- Back up files compatible with InfluxDB Enterprise.
+- Create backup files compatible with InfluxDB Enterprise.
 
 {{% note %}}
 The InfluxDB OSS 1.5+ `backup` utility creates backup file formats compatible with
 both InfluxDB OSS 1.5+ and InfluxDB Enterprise.
-The both the `backup` and `restore` utilities still support the legacy *offline* format.
+Both the `backup` and `restore` utilities still support the legacy *offline* format.
 For information about using the legacy backup and restore format, see
 [Backward compatible offline backup and restore](#backward-compatible-offline-backup-and-restore-legacy-format).
 {{% /note %}}
@@ -39,17 +43,36 @@ See [Back up and restore in InfluxDB Enterprise](/{{< latest "enterprise_influxd
   For example, you can back up data from InfluxDB {{< latest-patch minorVersionOffset=-1 >}}
   and restore it to an InfluxDB {{< latest-patch >}} instance.
 
-## Online backup and restore
+## Modern vs legacy backup formats
+- The default backup format is legacy
+- The legacy backup format cannot be used with InfluxDB Enterprise.
+  If you plan to restore an InfluxDB OSS {{< current-version >}} backup to an
+  InfluxDB Enterprise cluster, you must use the modern portable format.
+- To modern backup format can be used to restore data to InfluxDB OSS
+  1.5-{{< current-version >}} and InfluxDB Enterprise.
+  The legacy format can be used to restore data to InfluxDB OSS 1.x, but is not
+  compatible with InfluxDB Enterprise.
+
+## Configure online backup and restore services
 
 InfluxDB OSS {{< current-version >}}  `backup` and `restore` utilities let
-you back up and restore data while InfluxDB is running.
-Backup and restore processes execute over a TCP connection.
+you back up and restore data while InfluxDB is running (online).
+Online backup and restore processes execute over a TCP connection.
 The default host and port used for backup and restore remote procedure calls (RPCs)
 is `127.0.0.1:8088`.
 
 **To customize the TCP host and port the backup and restore services use**,
-modify the [`bind-address` configuration setting](/influxdb/v1.8/administration/config#bind-address-127-0-0-1-8088) 
+uncomment and update the
+[`bind-address` configuration setting](/influxdb/v1.8/administration/config#bind-address-127-0-0-1-8088) 
 at the root level of your InfluxDB configuration file (`influxdb.conf`).
+
+```toml
+# Bind address to use for the RPC service for backup and restore.
+bind-address = "127.0.0.1:8088"
+```
+
+---
+
 
 ```
 $ influxd backup -portable -database mydatabase -host <remote-node-IP>:8088 /tmp/mysnapshot
