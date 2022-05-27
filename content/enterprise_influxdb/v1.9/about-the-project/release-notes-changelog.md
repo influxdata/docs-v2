@@ -12,7 +12,7 @@ menu:
 ## 1.9.7 [2022-05-26]
 
 ### Features
-- Add experimental passive node feature; expose passive node feature to influxd-ctl and the API.
+- Expose passive node feature to influxd-ctl and the API.
 - Throttle inter-node data replication, both incoming writes and hinted hand-off, when errors are encountered.
 
 #### Flux updates
