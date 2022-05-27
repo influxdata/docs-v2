@@ -16,9 +16,17 @@ related:
 ---
 Learn how to avoid unexpected results and recover from errors when writing to InfluxDB.
 
+{{% oss-only %}}
+
 - [Handle `write` and `delete` responses](#handle-write-and-delete-responses)
 - [Troubleshoot failures](#troubleshoot-failures)
+  
+{{% /oss-only %}}
+
 {{% cloud-only %}}
+
+- [Handle `write` and `delete` responses](#handle-write-and-delete-responses)
+- [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
 
 {{% /cloud-only %}}
@@ -28,17 +36,18 @@ Learn how to avoid unexpected results and recover from errors when writing to In
 {{% cloud-only %}}
 
 In InfluxDB Cloud, writes and deletes are asynchronous and eventually consistent.
-Once InfluxDB validates your request and [queues](/influxdb/cloud/reference/internals/durability/#backup-on-write) the write or delete, it sends a _success_ (HTTP `204` status code) response as an acknowledgement.
+Once InfluxDB validates your request and [queues](/influxdb/cloud/reference/internals/durability/#backup-on-write) the write or delete, it sends a _success_ response (HTTP `204` status code) as an acknowledgement.
 To ensure that InfluxDB handles writes and deletes in the order you request them, wait for the acknowledgement before you send the next request.
 Because writes are asynchronous, keep the following in mind:
-- Data might not yet be queryable when you receive an HTTP `204` status code.
-- InfluxDB may still reject points after responding with an HTTP `204` status code.
+
+- Data might not yet be queryable when you receive _success_ (HTTP `204` status code).
+- InfluxDB may still reject points after you receive _success_ (HTTP `204` status code).
 
 {{% /cloud-only %}}
 
 {{% oss-only %}}
 
-If InfluxDB OSS successfully writes all the request data to the bucket, then it returns success (HTTP `204` status code).
+If InfluxDB OSS successfully writes all the request data to the bucket, InfluxDB returns _success_ (HTTP `204` status code).
 The first rejected point in a batch causes InfluxDB to reject the entire batch and respond with an [HTTP error status](#review-http-status-codes).
 
 {{% /oss-only %}}
@@ -55,7 +64,7 @@ Write requests return the following status codes:
 | `204 "Success"`                 |                                                                         | If InfluxDB validated the request data format and queued the data for writing to the bucket |
 | `400 "Bad request"`             | `message` contains the first malformed line                             | If data is malformed    |
 | `401 "Unauthorized"`            |                                                                         | If the [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed or if the [API token](/influxdb/cloud/api-guide/api_intro/#authentication) doesn't have [permission](/influxdb/cloud/security/tokens/) to write to the bucket |
-| `404 "Not found"`               | requested **resource type**, e.g. "organization", and **resource name**     | If a requested resource (e.g. organization or bucket) wasn't found. |
+| `404 "Not found"`               | requested **resource type**, e.g. "organization", and **resource name**     | If a requested resource (e.g. organization or bucket) wasn't found |
 | `413 “Request too large”`       | cannot read data: points in batch is too large                          | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
 | `429 “Too many requests”`       | `Retry-After` header: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
 | `500 "Internal server error"`   |                                                                         | Default status for an error |
@@ -71,7 +80,7 @@ Write requests return the following status codes:
 - `401` **Unauthorized**: May indicate one of the following:
   - [`Authorization: Token` header](/influxdb/v2.2/api-guide/api_intro/#authentication) is missing or malformed.
   - [API token](/influxdb/v2.2/api-guide/api_intro/#authentication) value is missing from the header.
-  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2.2/security/tokens/)
+  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2.2/security/tokens/).
 - `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found. The response body contains the requested resource type, e.g. "organization", and resource name.
 - `413` **Request entity too large**: All request data was rejected and not written. InfluxDB OSS only returns this error if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
 - `500` **Internal server error**: Default HTTP status for an error.
@@ -162,7 +171,7 @@ To more quickly locate `rejected_points`, keep the following in mind:
 | `bucket`      | ID of the bucket that rejected the point                                                                                                                  |
 | `measurement` | Measurement name of the point                                                                                                                             |
 | `field`       | Name of the field that caused the rejection                                                                                                               |
-| `reason`      | Brief description of the problem. See specific reasons in [field type conflicts and schema rejections](#find-field-type-conflicts-and-schema-rejections). |
+| `reason`      | Brief description of the problem. See specific reasons in [data type conflicts and schema rejections](#find-data-type-conflicts-and-schema-rejections)   |
 | `gotType`     | Received [field](/influxdb/cloud/reference/key-concepts/data-elements/#field-value) type: `Boolean`, `Float`, `Integer`, `String`, or `UnsignedInteger`   |
 | `wantType`    | Expected [field](/influxdb/cloud/reference/key-concepts/data-elements/#field-value) type: `Boolean`, `Float`, `Integer`, `String`, or `UnsignedInteger`   |
 | `<timestamp>` | Time the rejected point was logged                                                                                                                        |
@@ -170,7 +179,7 @@ To more quickly locate `rejected_points`, keep the following in mind:
 #### Find parsing errors
 
 If InfluxDB can't parse a line (e.g. due to syntax problems), the response `message` might not provide details.
-To find parsing error details, query `rejected_points` entries that contain the `error` field (instead of the `count` field).
+To find parsing error details, query `rejected_points` entries that contain the `error` field.
 
 ```js
 from(bucket: "_monitoring")
@@ -204,16 +213,16 @@ The `rejected_points` entry contains one of the following reasons:
 
 ### Resolve explicit schema rejections
 
-Buckets with the [`explicit` schema type] use [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/).
-When you write to a bucket that uses explicit bucket schemas,
-InfluxDB rejects data that don't conform to one of the configured schemas.
+If you write to a bucket with an
+[explicit schema](/influxdb/cloud/organizations/buckets/bucket-schema/),
+the data must conform to the schema. Otherwise, InfluxDB rejects the data.
 
-Learn how to interpret `rejected_points` logging for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/).
+Do the following to interpret explicit schema rejections:
 
 - [Detect a measurement mismatch](#detect-a-measurement-mismatch)
 - [Detect a field type mismatch](#detect-a-field-type-mismatch)
 
-##### Detect a measurement mismatch
+#### Detect a measurement mismatch
 
 InfluxDB rejects a point if the [measurement](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) doesn't match the **name** of a [bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
 The `rejected_points` entry contains the following `reason` tag value:
@@ -246,7 +255,7 @@ InfluxDB logs three `rejected_points` entries, one for each field.
 | rejected_points | count  | 1      | co          | airSensors  | measurement not allowed by schema |
 | rejected_points | count  | 1      | temperature | airSensors  | measurement not allowed by schema |
 
-##### Detect a field type mismatch
+#### Detect a field type mismatch
 
 InfluxDB rejects a point if the [measurement](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) matches the **name** of a bucket schema and the field data types don't match.
 The `rejected_points` entry contains the following reason:
@@ -295,9 +304,8 @@ airSensors,sensorId=L1 temperature=90.5,humidity=70.0,co=0.2 1637014074
 airSensors,sensorId=L1 temperature="90.5",humidity=70.0,co=0.2 1637014074
 ```
 
-In the example data, one of the points has a `temperature` field value with the _string_ data type.
-However, the `airSensors` schema requires `temperature` to have the _float_ data type.
-If you try to write the example data to the `airSensors` bucket schema,
+In the example data above, the second point has a `temperature` field value with the _string_ data type.
+Because the `airSensors` schema requires `temperature` to have the _float_ data type,
 InfluxDB returns a `400` error and a message that describes the result:
 
 ```json

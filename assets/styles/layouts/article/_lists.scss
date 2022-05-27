@@ -2,6 +2,7 @@
 
 ol, ul {
   padding-left: 1.6rem;
+  margin: 1rem 0 1.5rem 0;
 }
 
 ul {
@@ -9,6 +10,16 @@ ul {
   li:before{
     content: "" !important;
     display: none;
+  }
+
+  ol {
+    list-style: revert;
+    
+    li::marker {
+      font-weight: bold;
+      color: $article-bold;
+    }
+  
   }
 }
 
@@ -33,15 +44,10 @@ ol {
     & > ol li ol li ol li:before { content: counter(item, lower-latin) ". "; }
     & > ol li ol li ol li ol li:before { content: counter(item) ". "; }
 
-    ul {
+    & > ul {
       counter-reset: item;
     }
   }
-}
-
-& > ol,
-& > ul {
-  margin: 1rem 0 1.5rem 0;
 }
 
 li {
