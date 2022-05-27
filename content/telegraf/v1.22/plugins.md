@@ -53,7 +53,6 @@ It supports four categories of plugins including input, output, aggregator, proc
 - [Output plugins](#output-plugins)
 - [Aggregator plugins](#aggregator-plugins)
 - [Processor plugins](#processor-plugins)
-- [External plugins](#external-plugins)
 
 ## Input plugins
 Telegraf input plugins are used with the InfluxData time series platform to collect
@@ -75,8 +74,3 @@ Telegraf aggregator plugins create aggregate metrics (for example, mean, min, ma
 Telegraf output plugins transform, decorate, and filter metrics.
 
 {{< telegraf/plugins type="processor" >}}
-
-## External plugins
-External plugins are external programs that are built outside of Telegraf that can run through an `execd` plugin.
-
-{{< telegraf/plugins type="external" >}}
