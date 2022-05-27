@@ -24,6 +24,7 @@ menu:
 
 ### Bug fixes
 - Fix race condition causing `influxd-ctl restore` command to fail.
+
 #### Error Messaging
 - Improve error messaging for `max series per database exceeded`error.
 - Improve influxd-ctl error messages when invalid JSON is received.
