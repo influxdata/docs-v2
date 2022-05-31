@@ -36,14 +36,40 @@
         color: $article-code-accent7;
       }
     }
-    &.external {
-      margin: 0 0 0 -.25rem;
-      display: inline-block;
-      padding: .1rem .75rem;
-      background-color: rgba($article-text, .1);
-      border-radius: 1rem;
-      font-size: .9rem;
-      font-weight: $medium;
+  }
+
+  a.external {
+    position: relative;
+    margin: 0 0 0 -.25rem;
+    display: inline-block;
+    padding: .4rem .85rem;
+    background-color: rgba($article-text, .1);
+    border-radius: 1rem;
+    font-size: .9rem;
+    font-weight: $medium;
+    color: $article-text;
+
+    &:after {
+      content: "?";
+      position: absolute;
+      display: block;
+      top: -3px;
+      right: -3px;
+      padding: 0.1rem 0.3rem .04rem;
+      color: $g20-white;
+      @include gradient($article-btn-gradient);
+      border-radius: 50%;
+      font-weight: bold;
+      line-height: .8rem;
+      font-size: .7rem;
+      box-shadow: 1px 1px 4px $sidebar-search-shadow;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    &:hover {
+      color: $article-text;
+      &:after {opacity: 1;}
     }
   }
 
