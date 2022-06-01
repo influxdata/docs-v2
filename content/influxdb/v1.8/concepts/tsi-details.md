@@ -55,7 +55,6 @@ This command works at the server-level but you can optionally add database, rete
 
 For details on this command, see [influx inspect buildtsi](/influxdb/v1.8/tools/influx_inspect/#buildtsi).
 
-
 ## Understanding TSI
 
 ### File organization
@@ -86,12 +85,29 @@ The following occurs when a write comes into the system:
 
 ### Compaction
 
-Once the LogFile exceeds a threshold (5MB), then a new active log file is created and the previous one begins compacting into an IndexFile.
-This first index file is at level 1 (L1).
-The log file is considered level 0 (L0).
+When compactions are enabled, every second, InfluxDB checks to see whether compactions are needed. If there haven't been writes during the `compact-full-write-cold-duration` period (by default, `4h`), InfluxDB compacts all TSM files. Otherwise, InfluxDB groups TSM files into generations (determined by the number of times the file have been compacted), and attempts to combine files and compress them more efficiently.
 
-Index files can also be created by merging two smaller index files together.
-For example, if contiguous two L1 index files exist then they can be merged into an L2 index file.
+Once the `LogFile` exceeds a threshold (`5MB`), InfluxDB creates a new active log file, and the previous one begins compacting into an `IndexFile`. This first index file is at level 1 (L1). The log file is considered level 0 (L0). Index files can also be created by merging two smaller index files together.
+For example, if two contiguous L1 index files exist, InfluxDB merges them into an L2 index file.
+
+InfluxDB schedules compactions preferentially, using the following guidelines:
+
+- The lower the level (the fewer times a file has been compacted), the more weight is given to compacting it.
+- The more compactible files in a level, the higher the priority given to that level. If the number of files in each level is equal, lower levels are compacted first.
+- If a higher level has more candidates for compaction, it may be compacted before a lower level. The equation is the number of candidate files for compaction times level weights of 0.4, 0.3, 0.2, and 0.1.
+
+#### Important compaction configuration settings
+
+Compaction workloads are driven by the ingestion rate of the database and the following throttling configuration settings:
+
+- `cache-snapshot-memory-size`: Specifies the `write-cache` size kept in memory before data is written to a TSM file.
+- `cache-snapshot-write-cold-duration`: If a cache does not exceed the `cache-snapshot-memory-size` size, this specifies the length of time to keep data in memory without any incoming data before data is written to a TSM file.
+- `max-concurrent-compactions`: The number compactions can run at once.
+- `compact-throughput`: Controls the average disk IO by the compaction engine.
+- `compact-throughput-burst`: Controls maximum disk IO by the compaction engine.
+- `compact-full-write-cold-duration`: How long a shard must receive no writes or deletes before it is scheduled for full compaction.
+
+These configuration settings are especially beneficial for systems with irregular loads, limiting compactions during periods of high usage, and letting compactions catch up during periods of lower load. In systems with stable load, if compactions interfere with other operations, typically, the system is undersized for its load, and configuration changes won't help much.
 
 ### Reads
 
