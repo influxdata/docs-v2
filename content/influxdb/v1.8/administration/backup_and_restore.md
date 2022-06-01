@@ -18,50 +18,75 @@ to prevent unexpected data loss and preserve the ability to restore data if it
 ever is lost.
 These utilities let you:
 
-- Run backup and restore operations on online or offline InfluxDB instances.
 - Back up and restore multiple databases at a time.
 - Back up specific time ranges.
 - Import data from [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) clusters.
 - Create backup files compatible with InfluxDB Enterprise.
 
 {{% note %}}
-The InfluxDB OSS 1.5+ `backup` utility creates backup file formats compatible with
-both InfluxDB OSS 1.5+ and InfluxDB Enterprise.
-Both the `backup` and `restore` utilities still support the legacy *offline* format.
-For information about using the legacy backup and restore format, see
-[Backward compatible offline backup and restore](#backward-compatible-offline-backup-and-restore-legacy-format).
-{{% /note %}}
-
-{{% note %}}
 #### InfluxDB Enterprise users
 See [Back up and restore in InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/administration/backup-and-restore/).
 {{% /note %}}
 
+- [Backup formats](#backup-formats)
+  - [Specify your backup format](#specify-your-backup-format)
+- [Backup and restore requirements](#backup-and-restore-requirements)
+- [Configure backup and restore services](#configure-backup-and-restore-services)
+- [Back up data](#back-up-data)
+  - [Backup examples](#backup-examples)
+
+## Backup formats
+The InfluxDB `backup` utility outputs data backups in one of two formats: **legacy** or **portable**.
+Each format provides different functionality and support for other versions of InfluxDB.
+The major difference between the formats is that the legacy format can only
+be used with InfluxDB OSS 1.x. The portable format is "portable" between
+InfluxDB 1.5–{{< current-version >}} and InfluxDB Enterprise.
+
+| Backup functionality                                    |    Legacy format     |   Portable format    |
+| :------------------------------------------------------ | :------------------: | :------------------: |
+| Back up single databases                                | {{< icon "check" >}} | {{< icon "check" >}} |
+| Back up multiple databases                              |                      | {{< icon "check" >}} |
+| Back up single retention polices                        | {{< icon "check" >}} | {{< icon "check" >}} |
+| Back up multiple retention policies                     | {{< icon "check" >}} | {{< icon "check" >}} |
+| Back up specific time ranges                            | {{< icon "check" >}} | {{< icon "check" >}} |
+| Back up remote databases                                | {{< icon "check" >}} | {{< icon "check" >}} |
+| Restore to **InfluxDB OSS 1.0–1.4**                     | {{< icon "check" >}} |                      |
+| Restore to **InfluxDB OSS 1.5–{{< current-version >}}** | {{< icon "check" >}} | {{< icon "check" >}} |
+| Restore to **InfluxDB Enterprise**                      |                      | {{< icon "check" >}} |
+
+### Specify your backup format
+By default, the `backup` utility creates backups in the legacy format.
+To create a backup in the portable format, include the `-portable` flag with
+your backup command.
+
+<pre class="highlight">
+influxd backup <span class="bp" style="font-weight:bold;margin:0 .15rem">-portable</span> /path/to/backup-destination
+</pre>
+
+Without the `-portable` flag, the `backup` utility creates a backup using the
+legacy format and also requires you to specify which database to back up.
+
+{{% note %}}
+#### We recommend the portable format
+We recommend using the portable format unless you need to be able to restore
+the backup to InfluxDB 1.4 or earlier.
+{{% /note %}}
+
 ## Backup and restore requirements
+- The InfluxDB service (`influxd`) must be running.
 - Both the source and target InfluxDB instances must be the same InfluxDB version
   or differ by only a minor version.
   For example, you can back up data from InfluxDB {{< latest-patch minorVersionOffset=-1 >}}
   and restore it to an InfluxDB {{< latest-patch >}} instance.
 
-## Modern vs legacy backup formats
-- The default backup format is legacy
-- The legacy backup format cannot be used with InfluxDB Enterprise.
-  If you plan to restore an InfluxDB OSS {{< current-version >}} backup to an
-  InfluxDB Enterprise cluster, you must use the modern portable format.
-- To modern backup format can be used to restore data to InfluxDB OSS
-  1.5-{{< current-version >}} and InfluxDB Enterprise.
-  The legacy format can be used to restore data to InfluxDB OSS 1.x, but is not
-  compatible with InfluxDB Enterprise.
+## Configure backup and restore services
 
-## Configure online backup and restore services
+InfluxDB OSS {{< current-version >}}  `backup` and `restore` utilities execute
+over a TCP connection.
+The default IP and port used for backup and restore remote procedure calls (RPCs)
+are `127.0.0.1:8088`.
 
-InfluxDB OSS {{< current-version >}}  `backup` and `restore` utilities let
-you back up and restore data while InfluxDB is running (online).
-Online backup and restore processes execute over a TCP connection.
-The default host and port used for backup and restore remote procedure calls (RPCs)
-is `127.0.0.1:8088`.
-
-**To customize the TCP host and port the backup and restore services use**,
+**To customize the TCP IP and port the backup and restore services use**,
 uncomment and update the
 [`bind-address` configuration setting](/influxdb/v1.8/administration/config#bind-address-127-0-0-1-8088) 
 at the root level of your InfluxDB configuration file (`influxdb.conf`).
@@ -71,92 +96,370 @@ at the root level of your InfluxDB configuration file (`influxdb.conf`).
 bind-address = "127.0.0.1:8088"
 ```
 
----
+## Back up data
 
-
-```
-$ influxd backup -portable -database mydatabase -host <remote-node-IP>:8088 /tmp/mysnapshot
-```
-
-### `backup`
-
-`backup` generates an InfluxDB Enterprise-compatible format with filtering options to constrain the range of data points exported to the backup. `backup` creates and stores the following in a specified directory (filenames include UTC timestamp when created):
-
- - copy of metastore **on disk**: 20060102T150405Z.meta (includes usernames and passwords)
- - copy of shard data **on disk**: 20060102T150405Z.<shard_id>.tar.gz
- - manifest (JSON file) describes collected backup data: 20060102T150405Z.manifest
+Use the [`influxd backup` utility](/influxdb/v1.8/tools/influxd/backup/) to create
+a backup of time series data and metadata stored in InfluxDB.
 
 {{% note %}}
 `backup` ignores WAL files and in-memory cache data.
 {{% /note %}}
 
+Provide the following for each [backup format](#backup-formats):
+
+{{< tabs-wrapper >}}
+{{% tabs "small" %}}
+[Portable format](#)
+[Legacy format](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+- ({{< req >}}) **`-portable` flag**
+- **InfluxDB bind address** _(Only required if creating a backup from a remote InfluxDB host)_
+- **Database name** _(If no database name is specified, the command backs up all databases)_
+- **Retention policy name**
+  _(If no retention policy is specified, the command backs up all retention policies)_
+- **Shard ID** _(If no shard ID is specified, the command backs up all shards. Requires a retention policy.)_
+- **Start time** _(If no start time is specified, the command backs up data from all time.)_
+- **Stop time** _(If no stop time is specified, the command backs up data to now.)_
+- ({{< req >}}) **Backup destination directory path**
+
+### Backup examples
+
+- [Back up all databases](#back-up-all-databases)
+- [Back up all data from a remote InfluxDB instance](#back-up-all-data-from-a-remote-influxdb-instance)
+- [Back up a specific time range](#back-up-a-specific-time-range)
+- [Back up data from a specific time to now](#back-up-data-from-a-specific-time-to-now)
+- [Back up a specific database](#back-up-a-specific-database)
+- [Back up a specific retention policy](#back-up-a-specific-retention-policy)
+- [Back up a specific shard](#back-up-a-specific-shard)
+
+#### Back up all databases
+```sh
+influxd backup -portable /path/to/backup-directory
 ```
-influxd backup
-    [ -database <db_name> ]
-    [ -portable ]
+
+#### Back up all data from a remote InfluxDB instance
+```sh
+influxd backup -portable \
+  -host 203.0.113.0:8088 \
+  /path/to/backup-directory
+```
+
+#### Back up a specific time range
+```sh
+influxd backup -portable \
+  -start 2022-01-01T00:00:00Z \
+  -stop 2022-02-01T00:00:00Z \
+  /path/to/backup-directory
+```
+
+#### Back up data from a specific time to now
+```sh
+influxd backup -portable \
+  -start 2022-01-01T00:00:00Z \
+  /path/to/backup-directory
+```
+
+#### Back up a specific database
+```sh
+influxd backup -portable \
+  -db example-db \
+  /path/to/backup-directory
+```
+
+#### Back up a specific retention policy
+```sh
+influxd backup -portable \
+  -db example-db \
+  -rp example-retention-policy \
+  /path/to/backup-directory
+```
+
+#### Back up a specific shard
+{{% note %}}
+To view shard IDs, use the [`SHOW SHARDS` InfluxQL statement](/influxdb/v1.8/query_language/spec/#show-shards).
+{{% /note %}}
+
+```sh
+influxd backup -portable \
+  -rp example-retention-policy \
+  -shard 123 \
+  /path/to/backup-directory
+```
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+- **InfluxDB bind address** _(Only required if creating a backup from a remote InfluxDB host)_
+- ({{< req >}}) **Database name**
+- **Retention policy name**
+  _(If no retention policy is specified, the command backs up all retention policies)_
+- **Shard ID** _(If no shard ID is specified, the command backs up all shards. Requires a retention policy.)_
+- **Start time** _(If no start time is specified, the command backs up data from all time.)_
+- **Stop time** _(If no stop time is specified, the command backs up data to now.)_
+- ({{< req >}}) **Backup destination directory path**
+
+### Legacy backup examples
+
+- [Back up a database](#back-up-a-database)
+- [Back up a database from a remote InfluxDB instance](#back-up-a-database-from-a-remote-influxdb-instance)
+- [Back up a specific time range](#back-up-a-specific-time-range-legacy)
+- [Back up data from a specific time to now](#back-up-data-from-a-specific-time-to-now-legacy)
+- [Back up a specific retention policy](#back-up-a-specific-retention-policy-legacy)
+- [Back up a specific shard](#back-up-a-specific-shard-legacy)
+
+#### Back up a database
+```sh
+influxd backup \
+  -db example-db \
+  /path/to/backup-directory
+```
+
+#### Back up a database from a remote InfluxDB instance
+```sh
+influxd backup \
+  -db example-db \
+  -host 203.0.113.0:8088 \
+  /path/to/backup-directory
+```
+
+#### Back up a specific time range {#back-up-a-specific-time-range-legacy}
+```sh
+influxd backup \
+  -db example-db \
+  -start 2022-01-01T00:00:00Z \
+  -stop 2022-02-01T00:00:00Z \
+  /path/to/backup-directory
+```
+
+#### Back up data from a specific time to now {#back-up-data-from-a-specific-time-to-now-legacy}
+```sh
+influxd backup \
+  -db example-db \
+  -start 2022-01-01T00:00:00Z \
+  /path/to/backup-directory
+```
+
+#### Back up a specific retention policy {#back-up-a-specific-retention-policy-legacy}
+```sh
+influxd backup \
+  -db example-db \
+  -rp example-retention-policy \
+  /path/to/backup-directory
+```
+
+#### Back up a specific shard {#back-up-a-specific-shard-legacy}
+{{% note %}}
+To view shard IDs, use the [`SHOW SHARDS` InfluxQL statement](/influxdb/v1.8/query_language/spec/#show-shards).
+{{% /note %}}
+
+```sh
+influxd backup -portable \
+  -db example-db \
+  -rp example-retention-policy \
+  -shard 123 \
+  /path/to/backup-directory
+```
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+
+---
+
+## Restore data
+
+Use the [`influxd restore` utility](/influxdb/v1.8/tools/influxd/restore/) to
+restore time series data and metadata to InfluxDB from an InfluxDB backup.
+
+{{% note %}}
+#### Cannot restore to an existing database
+The InfluxDB OSS {{< current-version >}} `restore` utility does **not** support incremental backups.
+When restoring data, the `restore` utility performs a full restore.
+To preserve existing data, the `restore` utility does not allow restoring data
+to a database that already exists.
+
+If the target database already exists, the `restore` utility returns an error
+similar to the following:
+
+```
+error updating meta: DB metadata not changed. database may already exist
+```
+{{% /note %}}
+
+Provide the following based on the [backup format](#backup-formats) used to
+generate the backup:
+
+{{< tabs-wrapper >}}
+{{% tabs "small" %}}
+[Portable format](#)
+[Legacy format](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+influxd restore [ -db <db_name> ]
+    -portable | -online
     [ -host <host:port> ]
-    [ -retention <rp_name> ] | [ -shard <shard_ID> -retention <rp_name> ]
-    [ -start <timestamp> [ -end <timestamp> ] | -since <timestamp> ]
-    <path-to-backup>
+    [ -newdb <newdb_name> ]
+    [ -rp <rp_name> ]
+    [ -newrp <newrp_name> ]
+    [ -shard <shard_ID> ]
+    <path-to-backup-files>
+
+- ({{< req >}}) **`-portable` flag**
+- **InfluxDB bind address** _(Only required if creating a backup from a remote InfluxDB host)_
+- **Database name** _(If no database name is specified, the command backs up all databases)_
+- **Retention policy name**
+  _(If no retention policy is specified, the command backs up all retention policies)_
+- **Shard ID** _(If no shard ID is specified, the command backs up all shards. Requires a retention policy.)_
+- **Start time** _(If no start time is specified, the command backs up data from all time.)_
+- **Stop time** _(If no stop time is specified, the command backs up data to now.)_
+- ({{< req >}}) **Backup destination directory path**
+
+### Backup examples
+
+- [Back up all databases](#back-up-all-databases)
+- [Back up all data from a remote InfluxDB instance](#back-up-all-data-from-a-remote-influxdb-instance)
+- [Back up a specific time range](#back-up-a-specific-time-range)
+- [Back up data from a specific time to now](#back-up-data-from-a-specific-time-to-now)
+- [Back up a specific database](#back-up-a-specific-database)
+- [Back up a specific retention policy](#back-up-a-specific-retention-policy)
+- [Back up a specific shard](#back-up-a-specific-shard)
+
+#### Back up all databases
+```sh
+influxd backup -portable /path/to/backup-directory
 ```
 
-To invoke the new InfluxDB Enterprise-compatible format, run the `influxd backup`
-command with the `-portable` flag. For example:
-
-```
-influxd backup -portable [ arguments ] <path-to-backup>
-```
-
-##### Arguments
-
-Optional arguments are enclosed in brackets.
-
-- `[ -database <db_name> ]`: The database to back up. If not specified, all databases are backed up.
-
-- `[ -portable ]`: Generates backup files in the newer InfluxDB Enterprise-compatible format. Highly recommended for all InfluxDB OSS users.
-
-{{% warn %}}
-**Important:** If `-portable` is not specified, the default legacy backup utility is used -- only the host metastore is backed up, unless `-database` is specified. If not using `-portable`, review [Backup (legacy)](#backup-legacy) below for expected behavior.
-{{% /warn %}}
-
-- `[ -host <host:port> ]`: Host and port for InfluxDB OSS instance . Default value is `'127.0.0.1:8088'`. Required for remote connections. Example: `-host 127.0.0.1:8088`
-
-- `[ -retention <rp_name> ]`: Retention policy for the backup. If not specified, the default is to use all retention policies. If specified, then `-database` is required.
-
-- `[ -shard <ID> ]`: Shard ID of the shard to be backed up. If specified, then `-retention <name>` is required.
-
-- `[ -start <timestamp> ]`: Include all points starting with the specified timestamp ([RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt)). Not compatible with `-since`. Example: `-start 2015-12-24T08:12:23Z`
-
-- `[ -end <timestamp> ]` ]: Exclude all results after the specified timestamp ([RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt)). Not compatible with `-since`. If used without `-start`, all data will be backed up starting from 1970-01-01. Example: `-end 2015-12-31T08:12:23Z`
-
-- `[ -since <timestamp> ]`: Perform an incremental backup after the specified timestamp [RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt). Use `-start` instead, unless needed for legacy backup support.
-
-
-#### Backup examples
-
-**To back up everything:**
-
-```
-influxd backup -portable <path-to-backup>
+#### Back up all data from a remote InfluxDB instance
+```sh
+influxd backup -portable \
+  -host 203.0.113.0:8088 \
+  /path/to/backup-directory
 ```
 
-**To backup all databases recently changed at the filesystem level**
-
-```
-influxd backup -portable -start <timestamp> <path-to-backup>
-```
-
-**To backup only the `telegraf` database:**
-
-```
-influxd backup -portable -database telegraf <path-to-backup>
+#### Back up a specific time range
+```sh
+influxd backup -portable \
+  -start 2022-01-01T00:00:00Z \
+  -stop 2022-02-01T00:00:00Z \
+  /path/to/backup-directory
 ```
 
-**To backup a database for a specified time interval:**
+#### Back up data from a specific time to now
+```sh
+influxd backup -portable \
+  -start 2022-01-01T00:00:00Z \
+  /path/to/backup-directory
+```
 
+#### Back up a specific database
+```sh
+influxd backup -portable \
+  -db example-db \
+  /path/to/backup-directory
 ```
-influxd backup  -portable -database mytsd -start 2017-04-28T06:49:00Z -end 2017-04-28T06:50:00Z /tmp/backup/influxdb
+
+#### Back up a specific retention policy
+```sh
+influxd backup -portable \
+  -db example-db \
+  -rp example-retention-policy \
+  /path/to/backup-directory
 ```
+
+#### Back up a specific shard
+{{% note %}}
+To view shard IDs, use the [`SHOW SHARDS` InfluxQL statement](/influxdb/v1.8/query_language/spec/#show-shards).
+{{% /note %}}
+
+```sh
+influxd backup -portable \
+  -rp example-retention-policy \
+  -shard 123 \
+  /path/to/backup-directory
+```
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+- **InfluxDB bind address** _(Only required if creating a backup from a remote InfluxDB host)_
+- ({{< req >}}) **Database name**
+- **Retention policy name**
+  _(If no retention policy is specified, the command backs up all retention policies)_
+- **Shard ID** _(If no shard ID is specified, the command backs up all shards. Requires a retention policy.)_
+- **Start time** _(If no start time is specified, the command backs up data from all time.)_
+- **Stop time** _(If no stop time is specified, the command backs up data to now.)_
+- ({{< req >}}) **Backup destination directory path**
+
+### Legacy backup examples
+
+- [Back up a database](#back-up-a-database)
+- [Back up a database from a remote InfluxDB instance](#back-up-a-database-from-a-remote-influxdb-instance)
+- [Back up a specific time range](#back-up-a-specific-time-range-legacy)
+- [Back up data from a specific time to now](#back-up-data-from-a-specific-time-to-now-legacy)
+- [Back up a specific retention policy](#back-up-a-specific-retention-policy-legacy)
+- [Back up a specific shard](#back-up-a-specific-shard-legacy)
+
+#### Back up a database
+```sh
+influxd backup \
+  -db example-db \
+  /path/to/backup-directory
+```
+
+#### Back up a database from a remote InfluxDB instance
+```sh
+influxd backup \
+  -db example-db \
+  -host 203.0.113.0:8088 \
+  /path/to/backup-directory
+```
+
+#### Back up a specific time range {#back-up-a-specific-time-range-legacy}
+```sh
+influxd backup \
+  -db example-db \
+  -start 2022-01-01T00:00:00Z \
+  -stop 2022-02-01T00:00:00Z \
+  /path/to/backup-directory
+```
+
+#### Back up data from a specific time to now {#back-up-data-from-a-specific-time-to-now-legacy}
+```sh
+influxd backup \
+  -db example-db \
+  -start 2022-01-01T00:00:00Z \
+  /path/to/backup-directory
+```
+
+#### Back up a specific retention policy {#back-up-a-specific-retention-policy-legacy}
+```sh
+influxd backup \
+  -db example-db \
+  -rp example-retention-policy \
+  /path/to/backup-directory
+```
+
+#### Back up a specific shard {#back-up-a-specific-shard-legacy}
+{{% note %}}
+To view shard IDs, use the [`SHOW SHARDS` InfluxQL statement](/influxdb/v1.8/query_language/spec/#show-shards).
+{{% /note %}}
+
+```sh
+influxd backup -portable \
+  -db example-db \
+  -rp example-retention-policy \
+  -shard 123 \
+  /path/to/backup-directory
+```
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+---
+
 
 ### `restore`
 
@@ -268,30 +571,6 @@ All backups are full backups; incremental backups are not supported.
 Two types of data can be backed up, the metastore and the metrics themselves.
 The [metastore](/influxdb/v1.8/concepts/glossary/#metastore) is backed up in its entirety.
 The metrics are backed up on a per-database basis in an operation separate from the metastore backup.
-
-#### Backing up the metastore
-
-The InfluxDB metastore contains internal information about the status of
-the system, including user information, database and shard metadata, continuous queries, retention policies, and subscriptions.
-While a node is running, you can create a backup of your instance's metastore by running the command:
-
-```
-influxd backup <path-to-backup>
-```
-
-Where `<path-to-backup>` is the directory where you
-want the backup to be written to. Without any other arguments,
-the backup will only record the current state of the system
-metastore. For example, the command:
-
-```bash
-$ influxd backup /tmp/backup
-2016/02/01 17:15:03 backing up metastore to /tmp/backup/meta.00
-2016/02/01 17:15:03 backup complete
-```
-
-Will create a metastore backup in the directory `/tmp/backup` (the
-directory will be created if it doesn't already exist).
 
 #### Backup (legacy)
 
@@ -433,3 +712,10 @@ telegraf
 ```
 
 The database has now been successfully restored!
+
+## Portable backup structure
+creates and stores the following in a specified directory (filenames include UTC timestamp when created):
+
+ - copy of metastore **on disk**: 20060102T150405Z.meta (includes usernames and passwords)
+ - copy of shard data **on disk**: 20060102T150405Z.<shard_id>.tar.gz
+ - manifest (JSON file) describes collected backup data: 20060102T150405Z.manifest
