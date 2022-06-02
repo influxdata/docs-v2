@@ -85,7 +85,7 @@ The following occurs when a write comes into the system:
 
 ### Compaction
 
-When compactions are enabled, every second, InfluxDB checks to see whether compactions are needed. If there haven't been writes during the `compact-full-write-cold-duration` period (by default, `4h`), InfluxDB compacts all TSM files. Otherwise, InfluxDB groups TSM files into generations (determined by the number of times the file have been compacted), and attempts to combine files and compress them more efficiently.
+When compactions are enabled, every second, InfluxDB checks to see whether compactions are needed. If there haven't been writes during the `compact-full-write-cold-duration` period (by default, `4h`), InfluxDB compacts all TSM files. Otherwise, InfluxDB groups TSM files into compaction levels (determined by the number of times the file have been compacted), and attempts to combine files and compress them more efficiently.
 
 Once the `LogFile` exceeds a threshold (`5MB`), InfluxDB creates a new active log file, and the previous one begins compacting into an `IndexFile`. This first index file is at level 1 (L1). The log file is considered level 0 (L0). Index files can also be created by merging two smaller index files together.
 For example, if two contiguous L1 index files exist, InfluxDB merges them into an L2 index file.
@@ -107,7 +107,7 @@ Compaction workloads are driven by the ingestion rate of the database and the fo
 - `compact-throughput-burst`: Controls maximum disk IO by the compaction engine.
 - `compact-full-write-cold-duration`: How long a shard must receive no writes or deletes before it is scheduled for full compaction.
 
-These configuration settings are especially beneficial for systems with irregular loads, limiting compactions during periods of high usage, and letting compactions catch up during periods of lower load. In systems with stable load, if compactions interfere with other operations, typically, the system is undersized for its load, and configuration changes won't help much.
+These configuration settings are especially beneficial for systems with irregular loads, limiting compactions during periods of high usage, and letting compactions catch up during periods of lower load. In systems with stable loads, if compactions interfere with other operations, typically, the system is undersized for its load, and configuration changes won't help much.
 
 ### Reads
 
