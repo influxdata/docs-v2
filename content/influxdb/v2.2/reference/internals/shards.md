@@ -104,24 +104,38 @@ historical data, InfluxDB writes to older shards that must first be un-compacted
 When the backfill is complete, InfluxDB re-compacts the older shards.
 
 ### Shard compaction
-InfluxDB compacts shards at regular intervals to compress time series data and optimize disk usage.
+
+InfluxDB compacts shards at regular intervals to compress time series data and optimize disk usage. When compactions are enabled, InfluxDB checks to see whether shard compactions are needed every second. If there haven't been writes during the `compact-full-write-cold-duration` period (by default, `4h`), InfluxDB compacts all TSM files. Otherwise, InfluxDB groups TSM files into compaction levels (determined by the number of times the file have been compacted), and attempts to combine files and compress them more efficiently.
+
 InfluxDB uses the following four compaction levels:
 
-- **Level 1 (L1):** InfluxDB flushes all newly written data held in an in-memory cache to disk.
+- **Level 0 (L0):** The log file (`LogFile`) is considered level 0 (L0). Once this file exceeds a `5MB` threshold, InfluxDB creates a new active log file, and the previous one begins compacting into an `IndexFile`. This first index file is at level 1 (L1).
+- **Level 1 (L1):** InfluxDB flushes all newly written data held in an in-memory cache to disk into an `IndexFile`.
 - **Level 2 (L2):** InfluxDB compacts up to eight L1-compacted files into one or more L2 files by
      combining multiple blocks containing the same series into fewer blocks in one or more new files.
 - **Level 3 (L3):** InfluxDB iterates over L2-compacted file blocks (over a certain size)
   and combines multiple blocks containing the same series into one block in a new file.
-- **Level 4 (L4):** **Full compaction**—InfluxDB iterates over L3-compacted file blocks
+- **Level 4 (L4):** **Full compaction** InfluxDB iterates over L3-compacted file blocks
   and combines multiple blocks containing the same series into one block in a new file.
 
+InfluxDB schedules compactions preferentially, using the following guidelines:
+
+- The lower the level (fewer times the file has been compacted), the more weight is given to compacting the file.
+- The more compactible files in a level, the higher the priority given to compacting that level. If the number of files in each level is equal, lower levels are compacted first.
+- If a higher level has more candidates for compaction, it may be compacted before a lower level. The equation is the number of candidate files for compaction times level weights of 0.4, 0.3, 0.2, and 0.1.
+
 ##### Shard compaction-related configuration settings
+
+The following configuration settings are especially beneficial for systems with irregular loads, because they limit compactions during periods of high usage, and let compactions catch up during periods of lower load:
+
 - [`storage-compact-full-write-cold-duration`](/influxdb/v2.2/reference/config-options/#storage-compact-full-write-cold-duration)
 - [`storage-compact-throughput-burst`](/influxdb/v2.2/reference/config-options/#storage-compact-throughput-burst)
 - [`storage-max-concurrent-compactions`](/influxdb/v2.2/reference/config-options/#storage-max-concurrent-compactions)
 - [`storage-max-index-log-file-size`](/influxdb/v2.2/reference/config-options/#storage-max-index-log-file-size)
 - [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2.2/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
 - [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2.2/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
+
+In systems with stable loads, if compactions interfere with other operations, typically, the system is undersized for its load, and configuration changes won't help much.
 
 ## Shard deletion
 The InfluxDB **retention enforcement service** routinely checks for shard groups
