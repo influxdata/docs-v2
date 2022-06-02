@@ -512,9 +512,13 @@ Default is `false`.
 
 By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
 
-If true, writes may process in a different order than they were received. This can reduce the time required to drain the HH queue and increase throughput during recovery.
+If set to `true`, writes may process in a different order than they were received. This can reduce the time required to drain the HH queue and increase throughput during recovery.
 
-**Do not enable if your use case involves updating points, which may cause points to be overwritten.** To overwrite an existing point, the measurement name, tag keys and values (if the point includes tags), field keys, and timestamp all have to be the same as a previous write.
+Whn a remote write fails, the database will send data to the hinted handoff (HH) queue for a short period of time before allowing incoming remote writes to be retried again. This time period grows with each failed write. The greater the number of successive write failures, the longer a node will delay writes before retrying them. Consecutive write failures will cause increased delay times before retrying writes in both emptying HH queues and in remote writes.
+
+This could result in temporarily large HH queues and more partial write errors if the [write consistency](https://docs.influxdata.com/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) level is not set to `any` when hinted handoff is written, but fewer "remote write failed" errors as the HH queues empty, and much lower memory usage when a node is unavailable. This is because remote writes, which keep data in memory while timing out, will be suppressed. Note that only **repeated** write failures will slow down the retry rate.
+
+**Do not enable if your use case involves updating points, which may cause points to be overwritten.** To overwrite an existing point, the measurement name, tag keys and values (if the point includes tags), field keys, and timestamp all have to be the same as a previous write. 
 
 For example, if you have two points with the same measurement (`cpu`), field key (`v`), and timestamp (`1234`), the following could happen:
 
