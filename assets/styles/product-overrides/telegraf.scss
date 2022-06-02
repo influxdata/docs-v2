@@ -85,6 +85,7 @@
 
   .plugin-card {
     .github-link { @include gradient($telegraf-btn-gradient); }
+    a.external:after { @include gradient($telegraf-btn-gradient); }
     &:hover .github-link { @include gradient($telegraf-btn-gradient); }
   }
 
