@@ -1,0 +1,32 @@
+{{ $course := .Get 0 | default "influxdbu" }}
+{{ $title := .Get "title" | default "Become an InfluxDB expert" }}
+{{ $summary := .Get "summary" | default "InfluxDB University provides **free**, in-depth training courses for InfluxDB, Flux, Telegraf, and more." }}
+{{ $action := .Get "action" | default "Sign up now" }}
+{{ $link := .Get "link" | default "https://university.influxdata.com" }}
+
+{{ $influxdb101 := dict "title" "InfluxDB Essentials" "summary" "Learn how to write, query, and visualize data in InfluxDB in this **free** InfluxDB University course." "action" "Take the course" "link" "https://university.influxdata.com/courses/influxdb-essentials-tutorial/" }}
+{{ $telegraf102 := dict "title" "Data Collection with Telegraf" "summary" "Learn how to use Telegraf to make data time series data collection easy in this **free** InfluxDB University course." "action" "Take the course" "link" "https://university.influxdata.com/courses/data-collection-with-telegraf-tutorial/" }}
+{{ $flux103 := dict "title" "Beginner Flux" "summary" "Get a hands-on introduction to writing queries in the Flux language in this **free** InfluxDB University course." "action" "Take the course" "link" "https://university.influxdata.com/courses/beginner-flux-tutorial" }}
+
+{{ define "banner" }}
+<div class="influxdbu-banner">
+  <div class="banner-content">
+    <img class="influxdbu-logo" src="/svgs/influxdbu-full-white.svg" alt="InfluxDB University">
+    <h4>{{ .title }}</h4>
+    <p>{{ .summary | markdownify }}</p>
+  </div>
+  <div class="banner-cta">
+    <a href="{{ .link }}" target="_blank">{{ .action }}</a>
+  </div>
+</div>
+{{ end }}
+
+{{ if eq $course "influxdb-101" }}
+  {{ template "banner" $influxdb101 }}
+{{ else if eq $course "telegraf-102" }}
+  {{ template "banner" $telegraf102 }}
+{{ else if eq $course "flux-103" }}
+  {{ template "banner" $flux103 }}
+{{ else }}
+  {{ template "banner" dict "title" $title "summary" $summary "action" $action "link" $link }}
+{{ end }}

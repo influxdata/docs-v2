@@ -17,3 +17,5 @@ Learn to query data stored in InfluxDB using Flux and tools such as the InfluxDB
 user interface and the 'influx' command line interface.
 
 {{< children >}}
+
+{{< influxdbu "influxdb-101" >}}
