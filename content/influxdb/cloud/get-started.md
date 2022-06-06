@@ -30,12 +30,12 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
 
 ## Write and query data using the programming language of your choice
 
-Follow the steps to write data, execute a simple query, and execute a sample query in the selected programming language:
+Follow the steps to write data and execute a simple query in the selected programming language:
 
 Click one of the following:
   - [Python](https://cloud2.influxdata.com/orgs/me/new-user-wizard/python)
   - [JavaScript/Node](https://cloud2.influxdata.com/orgs/me/new-user-wizard/nodejs)
-  - [Go](https://cloud2.influxdata.com/orgs/me/new-user-wizard/go) 
+  - [Go](https://cloud2.influxdata.com/orgs/me/new-user-wizard/go)
 
 
 ## Add sample data
