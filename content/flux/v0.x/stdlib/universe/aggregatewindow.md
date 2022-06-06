@@ -99,7 +99,7 @@ Defaults to `"_stop"`.
 The "time destination" column to which time is copied for the aggregate record.
 Defaults to `"_time"`.
 
-### location {data-type="location"}
+### location {data-type="record"}
 Location used to determine timezone.
 Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
