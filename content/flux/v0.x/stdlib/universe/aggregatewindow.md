@@ -30,7 +30,7 @@ aggregateWindow(
     column: "_value",
     timeSrc: "_stop",
     timeDst: "_time",
-    location: "UTC",
+    location: {offset: 0h, zone="UTC"},
     createEmpty: true,
 )
 ```
@@ -99,7 +99,7 @@ Defaults to `"_stop"`.
 The "time destination" column to which time is copied for the aggregate record.
 Defaults to `"_time"`.
 
-### location {data-type="string"}
+### location {data-type="location"}
 Location used to determine timezone.
 Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
