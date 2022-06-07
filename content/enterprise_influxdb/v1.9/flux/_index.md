@@ -33,3 +33,5 @@ from(bucket: "telegraf/autogen")
 ```
 
 {{< children >}}
+
+{{< influxdbu title="Intro to Basic Flux Elements" summary="Learn the basics about Flux, InfluxDB’s functional scripting language in this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/intro-to-basic-flux-elements-tutorial/" >}}
