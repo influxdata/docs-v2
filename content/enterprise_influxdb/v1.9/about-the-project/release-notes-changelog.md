@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## 1.9.7 [2022-05-26]
+## 1.9.7 [2022-06-06]
 
 {{% warn %}}
 An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. We're reverting back to InfluxDB Enterprise 1.9.6 as the official stable version. If you experience write errors and hinted hand-off growth, we recommend reverting back to 1.9.6 or upgrading to 1.9.8 when released.
