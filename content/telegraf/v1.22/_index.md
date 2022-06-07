@@ -17,3 +17,7 @@ Written in Go, Telegraf compiles into a single binary with no external dependenc
 For an introduction to Telegraf and an overview of how it works, watch the following video:
 
 {{< youtube vGJeo3FaMds >}}
+
+{{< influxdbu title="Telegraf Basics" summary="Learn how to get started with Telegraf with this **free** course that covers common use cases, proper configuration, and best practices for deployment. Also, discover how to write your own custom Telegraf plugins." action="Take the course" link="https://university.influxdata.com/courses/telegraf-basics-tutorial/" >}}
+
+{{< influxdbu "telegraf-102" >}}
