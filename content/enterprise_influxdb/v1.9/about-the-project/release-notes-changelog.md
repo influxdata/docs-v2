@@ -11,6 +11,11 @@ menu:
 
 ## 1.9.7 [2022-05-26]
 
+{{% warn %}}
+An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. We're reverting back to InfluxDB Enterprise 1.9.6 as the official stable version. If you experience write errors and hinted hand-off growth, we recommend reverting back to 1.9.6 or upgrading to 1.9.8 when released.
+{{% /warn %}}
+
+<!--
 ### Features
 - Expose passive node feature to influxd-ctl and the API.
 - Throttle inter-node data replication, both incoming writes and hinted hand-off, when errors are encountered.
@@ -34,6 +39,7 @@ menu:
 ### Maintenance updates
 - Upgrade to Go 1.17.9
 - Update to [Flux v0.161.0](/flux/v0.x/release-notes/#v01610-2022-03-24).
+-->
 
 ## 1.9.6 [2022-02-16]
 
