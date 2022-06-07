@@ -10,6 +10,9 @@ menu:
     name: Create a scraper
     parent: Manage scrapers
 weight: 301
+related:
+  - /influxdb/v2.2/write-data/no-code/scrape-data/
+
 ---
 
 Create a new scraper in the InfluxDB user interface (UI).
