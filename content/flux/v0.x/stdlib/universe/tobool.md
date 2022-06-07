@@ -26,7 +26,7 @@ toBool()
 
 {{% note %}}
 To convert values in a column other than `_value`, use `map()` and `bool()`
-as shown in [this example](/flux/v0.x/stdlib/universe/bool/#convert-all-values-in-a-column-to-boolean-values).
+as shown in [this example](/flux/v0.x/stdlib/universe/bool/#convert-a-numeric-column-to-a-boolean-column).
 {{% /note %}}
 
 ##### Supported data types
