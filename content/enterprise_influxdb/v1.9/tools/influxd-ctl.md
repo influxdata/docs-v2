@@ -169,8 +169,8 @@ Resources: [Installation](/enterprise_influxdb/v1.9/installation/data_node_insta
 
 Optional arguments are in brackets.
 
-##### `[ -p ]`  
-Add a passive node to an Enterprise cluster.
+<!-- ##### `[ -p ]`  
+Add a passive node to an Enterprise cluster. -->
 
 ### Examples
 
@@ -196,12 +196,12 @@ $ influxd-ctl -bind cluster-meta-node-01:8091 add-data cluster-data-node:8088
 Added data node 3 at cluster-data-node:8088
 ```
 
-###### Add a passive node to a cluster
+<!-- ###### Add a passive node to a cluster
 **Passive nodes** act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes. If you are using passive nodes, they should be the write endpoint for all data ingest. A cluster can have multiple passive nodes.
 
 ```bash
 influxd-ctl add-data -p <passive-data-node-TCP-bind-address>
-```
+``` -->
 
 ### `add-meta`
 
