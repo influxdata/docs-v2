@@ -1097,7 +1097,7 @@ cluster-node-01:8091    1.9.x-c1.9.x    {}
 cluster-node-02:8091    1.9.x-c1.9.x    {}
 cluster-node-03:8091    1.9.x-c1.9.x    {}
 ```
-##### Show active and passive data nodes in a cluster
+<!-- ##### Show active and passive data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes a passive data node.
 
@@ -1109,6 +1109,7 @@ ID	TCP Address               Version		    Labels	  Passive
 5	 cluster-node_1_1:8088		  1.9.6-c1.9.6  {}	      true
 6	 cluster-node_2_1:8088		  1.9.6-c1.9.6  {}	      false
 ```
+-->
 
 ### `show-shards`
 
