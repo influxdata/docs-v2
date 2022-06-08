@@ -110,8 +110,8 @@ The Schema pane allows you to explore your data.
 The Script pane is where you write your Flux script.
 The Functions pane provides a list of functions available in your Flux queries.
 
+{{< influxdbu "flux-103" >}}
+
 <div class="page-nav-btns">
   <a class="btn next" href="/enterprise_influxdb/v1.9/flux/get-started/query-influxdb/">Query InfluxDB with Flux</a>
 </div>
-
-{{< influxdbu "flux-103" >}}
