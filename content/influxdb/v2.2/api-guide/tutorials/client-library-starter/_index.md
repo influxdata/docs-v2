@@ -17,7 +17,7 @@ InfluxData and the user community maintain client libraries for developers who w
 - Common patterns in a familiar programming language.
 - Faster development and less boilerplate code.
 
-In this tutorial, you'll use the InfluxDB API and
+These tutorials walk through using the InfluxDB API and
 client libraries to build a modern application as you learn the following:
 
 - InfluxDB core concepts.
