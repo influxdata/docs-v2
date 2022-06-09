@@ -5,7 +5,8 @@ description: >
   How-to guides related to InfluxDB and other InfluxData products.
 menu:
   resources:
-    name: How-to Guides
+    name: How-to guides
+weight: 1
 ---
 
 Use the following how-to guides to learn more about InfluxDB and other InfluxData products.
