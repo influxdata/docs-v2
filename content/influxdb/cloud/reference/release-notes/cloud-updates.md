@@ -22,10 +22,6 @@ It's now easier to use the visual builder to create queries in the Data Explorer
 - The builder requires you to select a measurement before you can select associated tags.
 - All measurements, fields, tags, and tag values appear in the builder, not just the ones in the currently specified time range. This update ensures that measurements, fields, and tags, are visible even if you set a very short time range.
 
-### Help bar
-
-Find relevant content easily from the Cloud UI using the help tab in left side panel. 
-
 ### Onboarding wizards for common programming languages
 
 During onboarding, choose the Python, JavaScript, or Go wizard to quickly get started writing data and executing simple queries. For details, see [Write and query data using the programming language of your choice](/influxdb/cloud/get-started/#write-and-query-data-using-the-programming-language-of-your-choice).
