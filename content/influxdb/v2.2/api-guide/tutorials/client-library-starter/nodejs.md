@@ -25,7 +25,6 @@ influxdb/cloud/tags: [api]
 - [Install InfluxDB client library](#install-influxdb-client-library)
 - [Install InfluxDB client library for management APIs](#install-influxdb-client-library-for-management-apis)
 - [Configure the client library](#configure-the-client-library)
-- [Create the UI](#create-the-ui)
 - [Build the API](#build-the-api)
 - [Create the API to list devices](#create-the-api-to-list-devices)
   - [Handle requests for device information](#handle-requests-for-device-information)
@@ -33,6 +32,7 @@ influxdb/cloud/tags: [api]
 - [Create the API to register devices](#create-the-api-to-register-devices)
   - [Create an authorization for the device](#create-an-authorization-for-the-device)
   - [Write the device authorization to a bucket](#write-the-device-authorization-to-a-bucket)
+- [Install and run the UI](#install-and-run-the-ui)
 
 ## Set up InfluxDB
 
@@ -83,16 +83,16 @@ cd ~/iot-api-apps
 
 Use [Next.js](https://nextjs.org/), a framework for full-stack JavaScript applications, to create your application.
 
-1. In your `~/iot-api-apps` directory, open a terminal and enter the following commands to create the `iot-starter-js` app from the NextJS [learn-starter template](https://github.com/vercel/next-learn/tree/master/basics/learn-starter):
+1. In your `~/iot-api-apps` directory, open a terminal and enter the following commands to create the `iot-api-js` app from the NextJS [learn-starter template](https://github.com/vercel/next-learn/tree/master/basics/learn-starter):
 
    ```sh
-   npx create-next-app iot-starter-js --use-npm --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
+   npx create-next-app iot-api-js --use-npm --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
    ```
 
-2. After the installation completes, enter the following commands in your terminal to go into your `./iot-starter-js` directory and start the development server:
+2. After the installation completes, enter the following commands in your terminal to go into your `./iot-api-js` directory and start the development server:
 
    ```sh
-   cd nextjs-iot-starter
+   cd iot-api-js
    npm run dev
    ```
 
@@ -135,7 +135,7 @@ For more information about the client library, see the [influxdata/influxdb-clie
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-In your `iot-starter-js` directory, install `@influxdata/influxdb-client-apis` to create, modify, and delete authorizations, buckets, tasks, and other InfluxDB resources.
+Install `@influxdata/influxdb-client-apis` to create, modify, and delete authorizations, buckets, tasks, and other InfluxDB resources.
 
 ```sh
 npm i @influxdata/influxdb-client-apis
@@ -208,10 +208,10 @@ console.log(process.env.INFLUX_ORG)
 Your application API provides server-side HTTP endpoints that process requests from the UI.
 Each API endpoint is responsible for the following:
 
-- Listen for requests from UI components.
+- Listen for HTTP requests (from the UI).
 - Translate requests into InfluxDB API requests.
 - Process InfluxDB API responses and handle errors.
-- Provide data to UI components.
+- Respond and serve data (to the UI).
 
 Follow these steps to build the API:
 

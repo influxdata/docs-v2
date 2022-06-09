@@ -26,7 +26,6 @@ influxdb/cloud/tags: [api]
 - [Create the application](#create-the-application)
 - [Install InfluxDB client library](#install-influxdb-client-library)
 - [Configure the client library](#configure-the-client-library)
-  - [Create the UI](#create-the-ui)
 - [Build the API](#build-the-api)
 - [Create the API to register devices](#create-the-api-to-register-devices)
   - [Create an authorization for the device](#create-an-authorization-for-the-device)
@@ -36,7 +35,8 @@ influxdb/cloud/tags: [api]
 - [Create IoT virtual device](#create-iot-virtual-device)
 - [Write telemetry data](#write-telemetry-data)
 - [Query telemetry data](#query-telemetry-data)
-- [Connect the UI to the API](#connect-the-ui-to-the-api)
+- [Define API responses](#define-api-responses)
+- [Install and run the UI](#install-and-run-the-ui)
 
 ## Set up InfluxDB
 
@@ -71,14 +71,23 @@ The application architecture has four layers:
 
 ## Create the application
 
+Create a directory that will store your `iot-api` projects.
+The following example code creates an `iot-api` directory in your home directory
+and changes to the new directory:
+
+```sh
+mkdir ~/iot-api-apps
+cd ~/iot-api-apps
+```
+
 Use [Flask](https://flask.palletsprojects.com/), a lightweight Python web
-framework, and [Jinja](https://jinja.palletsprojects.com/), a templating engine,
+framework,
 to create your application.
 
-1. Open a terminal and enter the following commands to create and navigate into a new project directory:
+1. In your `~/iot-api-apps` directory, open a terminal and enter the following commands to create and navigate into a new project directory:
 
     ```bash
-    mkdir iotproject && cd $_
+    mkdir iot-api-python && cd $_
     ```
 
 2. Enter the following commands in your terminal to create and activate a Python virtual environment for the project:
@@ -92,11 +101,10 @@ to create your application.
     source virtualenv/bin/activate
     ```
 
-3. After activation completes, enter the following commands in your terminal to install Flask and Jinja with the `pip` package installer (included with Python):
+3. After activation completes, enter the following commands in your terminal to install Flask with the `pip` package installer (included with Python):
 
     ```bash
     pip install Flask
-    pip install Jinja
     ```
 
 4. In your project, create a `app.py` file that:
@@ -114,17 +122,18 @@ to create your application.
      return "Hello World!"
    ```
 
-   {{% caption %}}[@influxdata/iot-python-app app.py](https://github.com/influxdata/iot-api-python/blob/main/app.py){{% /caption %}}
+   {{% caption %}}[influxdata/iot-api-python app.py](https://github.com/influxdata/iot-api-python/blob/main/app.py){{% /caption %}}
 
-   To start your application with the debugger and hot-reloader enabled,
-   enter the following command in your terminal:
+   Start your application.
+   The following example code starts the application
+   on `http://localhost:5200` with debugging and hot-reloading enabled:
 
    ```bash
    export FLASK_ENV=development
-   flask run
+   flask run -h localhost -p 5200
    ```
-
-   In your browser, visit <http://localhost:5000> to view the “Hello World!” response.
+ 
+   In your browser, visit <http://localhost:5200> to view the “Hello World!” response.
 
 ## Install InfluxDB client library
 
@@ -193,109 +202,15 @@ and create (_write_) authorizations for devices.
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-### Create the UI
-
-The application UI provides the following features:
-
-- Register, query, and display devices.
-- Generate and query telemetry data.
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-1. Create a `./templates/index.html` file that serves as your application landing page and contains the following Jinja HTML:
-
-   ```html
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>IOT Center</title>
-        </head>
-        {% extends 'base.html' %}
-        <body>
-        {% block content %}
-            <h1>Welcome to IOT Center</h1>
-            <p>The current time is {{time}}</p>
-        {% endblock %}
-
-        </body>
-    </html>
-   ```
-
-   {{% caption %}}[/iot-api-python/templates/index.html](https://github.com/influxdata/iot-api-python/blob/main/templates/index.html){{% /caption %}}
-
-2. Create a `./templates/base.html` file that provides the layout, navigation, CSS, and JavaScript for your UI.
-   In `./templates/base.html`, paste the following Jinja HTML:
-
-   {{% truncate %}}
-
-   ```html
-    <!doctype html>
-    <html lang="en">
-      <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-        <title>{% block title %} {% endblock %}</title>
-      </head>
-      <body>
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
-            <a class="navbar-brand" href="{{ url_for('index')}}">IoT Center</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="{{url_for('get_buckets')}}">Buckets</a>
-                    </li>
-            </div>
-        </nav>
-        <div class="container">
-            {% block content %} {% endblock %}
-        </div>
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-      </body>
-    </html>
-   ```
-
-   {{% /truncate %}}
-
-   {{% caption %}}[/iot-api-python/templates/base.html](https://github.com/influxdata/iot-api-python/blob/main/templates/base.html){{% /caption %}}
-
-   To inherit the base layout, all other pages in your application will extend `base.html` and provide
-   content to be rendered in the content block:
-
-   ```html
-   <div class="container">
-       {% block content %} {% endblock %}
-   </div>
-   ```
-
-   {{% /code-tab-content %}}
-   {{< /code-tabs-wrapper >}}
-
 ## Build the API
 
 Your application API provides server-side HTTP endpoints that process requests from the UI.
 Each API endpoint is responsible for the following:
 
-- Listen for requests from UI components.
+- Listen for HTTP requests (from the UI).
 - Translate requests into InfluxDB API requests.
 - Process InfluxDB API responses and handle errors.
-- Provide data to UI components.
+- Respond and serve data (to the UI).
 
 Follow these steps to build the API:
 
@@ -672,19 +587,9 @@ The output is the following:
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-## Connect the UI to the API
+## Define API responses
 
-Create a UI that uses your application API to write and query data in InfluxDB.
-
-Add the following template files:
-
-- [`./templates/create.html`](https://github.com/influxdata/iot-api-python/blob/main/templates/create.html): **Create Devices** view to create virtual IoT devices.
-- [`./templates/devices.html`](https://github.com/influxdata/iot-api-python/blob/main/templates/devices.html): **Query Devices** view to query and display device information.
-- [`./templates/data.html`](https://github.com/influxdata/iot-api-python/blob/main/templates/data.html):  **Query Data** view to query telemetry data.
-- [`./templates/write.html`](https://github.com/influxdata/iot-api-python/blob/main/templates/write.html): **Write Data** view to write telemetry data.
-
-In `base.html` and `app.py`, add route server requests to your views.
-`app.py` serves the routes and runs the core logic necessary to populate the UI.
+In `app.py`, add API endpoints that match incoming requests and respond with the results of your modules.
 In the following `/data` route example, `app.py` retrieves _`device_id_input`_ from
 the `POST` request and then passes it to `get_measurements(device_id)`.
 Once the query completes, the server renders `data.html` with the results.
@@ -718,3 +623,30 @@ To view the application, visit <http://localhost:5000> in your browser.
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+## Install and run the UI
+
+`influxdata/iot-api-ui` is a standalone [Next.js React](https://nextjs.org/docs/basic-features/pages) UI that uses your application API to write and query data in InfluxDB.
+`iot-api-ui` uses Next.js _[rewrites](https://nextjs.org/docs/api-reference/next.config.js/rewrites)_ to route all requests in the `/api/` path to your API.
+
+To install and run the UI, do the following:
+
+1. In your `~/iot-api-apps` directory, clone the [`influxdata/iot-api-ui` repo](https://github.com/influxdata/iot-api-ui) and go into the `iot-api-ui` directory--for example:
+
+   ```sh
+   cd ~/iot-api-apps
+   git clone git@github.com:influxdata/iot-api-ui.git
+   cd ./iot-app-ui
+   ```
+
+2. The `./.env.development` file contains default configuration settings that you can
+   edit or override (with a `./.env.local` file).
+3. To start the UI, enter the following command into your terminal:
+
+   ```sh
+   yarn dev
+   ```
+
+   To view the list and register devices, visit <http://localhost:3000/devices> in your browser.
+
+To learn more about the UI components, see [`influxdata/iot-api-ui`](https://github.com/influxdata/iot-api-ui).
