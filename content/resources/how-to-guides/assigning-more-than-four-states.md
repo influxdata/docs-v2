@@ -72,19 +72,20 @@ array.from(
             }),
     )
 ```
+
 Where the example data looks like:
 
-| _value | _level |  
-| ------ | ------ | 
-| 0.0    | "2"    | 
-| 3.0    | "3"    |
-| 5.0    | "4"    |
-| 7.0    | "5"    |
-| 7.5    | "5"    |
-| 9.0    | "6"    |
-| 11.0   | "6"    |
+| _value | _level       |
+| ------ | ------------ |
+| 0.0    | customLevel2 |
+| 3.0    | customLevel3 |
+| 5.0    | customLevel4 |
+| 7.0    | customLevel5 |
+| 7.5    | customLevel5 |
+| 9.0    | customLevel6 |
+| 11.0   | customLevel6 |
 
-Now we can apply our custom stateChangesOnly() function: 
+Now apply our custom `stateChangesOnly()` function: 
 
 ```js
 |> stateChangesOnly()
