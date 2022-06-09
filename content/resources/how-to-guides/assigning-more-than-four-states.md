@@ -11,7 +11,7 @@ weight: 101
 Users want to use the monitor package and take advantage of functions like monitor.stateChanges(). However, the monitor.stateChanges() function only 
 
 ## Solution 1
-Define your own custom stateChangesOnly function. We will take the function from the source code here and alter it to accommodate more than four levels. Here we account for six different levels instead of just four. 
+Define your own custom `stateChangesOnly()` function. Use the function from the source code here and alter it to accommodate more than four levels. Here we account for six different levels instead of just four.
 
 ```js
 import "experimental/array"
