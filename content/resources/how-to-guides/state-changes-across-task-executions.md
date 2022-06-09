@@ -12,17 +12,17 @@ weight: 103
 
 It's common to use [InfluxDB tasks](/influxdb/cloud/process-data/) to evaluate and assign states to your time series data and then detect changes in those states. Tasks process data in batches, but what happens if there is a state change across the batch boundary? The task won't recognize it without knowing the final state of the previous task execution. This guide walks through creating a task that assigns a state to rows and then uses results from the previous task execution to detect any state changes across the batch boundary so you don’t miss any state changes.
 
-## Solution 1
+## Solution 
 
-Assign levels to the data based on thresholds explicitly. This approach is the most straightforward for users who have never written a custom check before or used the monitor package. Solution 2 will use the monitor package. For this example we’ll be using the telegram flux package to send alerts to telegram. You can use any other endpoint. 
+Assign levels to the data based on thresholds explicitly. This approach is the most straightforward for users who have never written a custom check before or used the monitor package. 
 
-### Solution 1 Advantages
+### Solution Advantages
 The easiest to understand for Flux users who have never written a task with the monitor package. 
 
-### Solution 1 Disadvantages
+### Solution Disadvantages
 You have to explicitly define your thresholds (potentially more code).
 
-### Solution 1 Overview
+### Solution Overview
 Create a task where you:
 
 1. Boilerplate. Import packages and define task options. 
@@ -34,13 +34,17 @@ Create a task where you:
 7. Discover state changes in “unioned_states”. Store this data in a variable “state_changes”.
 8. Notify on state changes that span across the last two tasks to catch any state changes that occur across task executions.  
 
-### Solution 1 Explained
-1. Import packages and define task options and secrets. 
+### Solution Explained
+1. Import packages and define task options and secrets. Import the following packages:
+  - [Flux Telegram package](/flux/v0.x/stdlib/contrib/sranka/telegram/): This package 
+  - [Flux InfluxDB secrets package](/flux/v0.x/stdlib/influxdata/influxdb/secrets/): This package contains the [secrets.get()](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) function which allows you to retrieve secrets from the InfluxDB secret store. Learn how to [manage secrets](/influxdb/v2.2/security/secrets/) in InfluxDB to use this package.    
+  - [Flux InfluxDB monitoring package](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/monitor/): This package contains functions and tools for monitoring your data.  
+  
 
     ```js
     import "contrib/sranka/telegram"
     import "influxdata/influxdb/secrets"
-    import "experimental"
+    import "influxdata/influxdb/monitor"
 
     option task = {name: "State changes across tasks", every: 30m, offset: 5m}
 

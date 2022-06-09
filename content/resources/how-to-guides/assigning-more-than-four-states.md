@@ -8,9 +8,9 @@ menu:
 weight: 101
 ---
 ## Problem
-Users want to use the monitor package and take advantage of functions like monitor.stateChanges(). However, the monitor.stateChanges() function only 
+Users want to use the monitor package and take advantage of functions like [monitor.stateChangesOnly(](flux/v0.x/stdlib/influxdata/influxdb/monitor/statechangesonly/). However, the monitor.stateChangesOnly() function only allows you to monitor four states: "crit", "warn", "ok", and "info". Users want to be able to assign and monitor state changes across more than four states or define custom states. 
 
-## Solution 1
+## Solution 
 Define your own custom `stateChangesOnly()` function. Use the function from the source code here and alter it to accommodate more than four levels. Here we account for six different levels instead of just four.
 
 ```js
