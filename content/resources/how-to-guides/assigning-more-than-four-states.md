@@ -41,7 +41,8 @@ stateChangesOnly = (tables=<-) => {
             |> experimental.group(mode: "extend", columns: ["_level"])
 }
 ```
-Let’s construct some example data with the array.from() function and map custom levels to it:
+
+Construct some example data with [`array.from()`](/flux/v0.x/stdlib/array/from/) and map custom levels to it:
 
 ```js
 array.from(rows: [{_value: 0.0}, 
