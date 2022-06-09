@@ -264,7 +264,7 @@ For more information, see [Database and retention policy mapping – Writing dat
 Provide the following:
 
 - database name
-- retention policy name _(not retention period)_
+- [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) name _(not retention period)_
 - [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/)
 - _(optional)_ `--default` flag if you want the retention policy to be the default retention
   policy for the specified database
