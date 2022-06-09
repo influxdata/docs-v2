@@ -147,9 +147,19 @@ Create a task where you:
 8.  Notify on state changes that span across the last two tasks to catch any state changes that occur across task executions.  
 
     ```js
-    state_changes = data
-
-    |> map(fn: (r) => ({ _value: telegram.message(token: telegram_token, channel: telegram_channel_ID , text:  "state change at ${r._value} at ${r._time}"  )}))
+    state_changes =
+        data
+            |> map(
+                fn: (r) =>
+                    ({
+                        _value:
+                            telegram.message(
+                                token: telegram_token,
+                                channel: telegram_channel_ID,
+                                text: "state change at ${r._value} at ${r._time}",
+                            ),
+                    }),
+            )
     ```
 
     Using the unioned data, the following alerts would be sent to Telegram: 
