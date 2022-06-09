@@ -1,14 +1,11 @@
 ---
-title: Assigning more than four states to data
+title: Assign custom states to data
 description: >
-  This how-to guide walks you through how overcome a limitation of the monitor.stateChanges function and assign more than four states to your data. 
+  Learn how overcome a limitation of the `monitor.stateChanges()` function and assign custom states to your data. 
 menu:
   resources:
-    parent: How-to Guides
-weight: 112
-date: 2021-06-03
-series: [Tasks]
-metadata: [Tasks]
+    parent: How-to guides
+weight: 101
 ---
 ## Problem
 Users want to use the monitor package and take advantage of functions like monitor.stateChanges(). However, the monitor.stateChanges() function only 
