@@ -66,6 +66,15 @@ The application architecture has four layers:
 
 ## Create the application
 
+Create a directory that will store your `iot-api` projects.
+The following example code creates an `iot-api` directory in your home directory
+and changes to the new directory:
+
+```sh
+mkdir ~/iot-api-apps
+cd ~/iot-api-apps
+```
+
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Node.js](#nodejs)
@@ -74,7 +83,7 @@ The application architecture has four layers:
 
 Use [Next.js](https://nextjs.org/), a framework for full-stack JavaScript applications, to create your application.
 
-1. Open a terminal and enter the following commands to create the `iot-starter-js` app from the NextJS [learn-starter template](https://github.com/vercel/next-learn/tree/master/basics/learn-starter):
+1. In your `~/iot-api-apps` directory, open a terminal and enter the following commands to create the `iot-starter-js` app from the NextJS [learn-starter template](https://github.com/vercel/next-learn/tree/master/basics/learn-starter):
 
    ```sh
    npx create-next-app iot-starter-js --use-npm --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
@@ -185,7 +194,7 @@ Enter the following commands into your terminal to restart and load the `.env` f
   1. `CONTROL+C` to stop the application.
   2. `npm run dev` to start the application.
 
-Next.js sets the variables in the `process.env` object--for example:
+Next.js sets variables that you can access in the `process.env` object--for example:
 
 ```ts
 console.log(process.env.INFLUX_ORG)
@@ -193,23 +202,6 @@ console.log(process.env.INFLUX_ORG)
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-## Create the UI
-
-Create a UI that uses your application API to write and query data in InfluxDB.
-
-1. In the `./pages` directory, create the following UI layout files:
-
-   - [`./pages/_layout.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/_layout.js): provides a header, footer, and CSS.
-   - [`./pages/_app.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/_app.js): root component that imports `Layout` and wraps `/pages` routes.
-
-2. Create a `./pages/devices` directory and add the following files:
-
-   - [`./pages/devices/index.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/index.js): **Devices** view to register and list devices.
-   - [`./pages/devices/_deviceList.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/_deviceList.js): `DeviceList` component to list devices.
-   - [`./pages/devices/_deviceRegistrationButton.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/_deviceRegistrationButton.js): `DeviceRegistrationButton` component to register a new device.
-  
-Next, [build the API](#build-the-api) that handles requests from the UI and responses from InfluxDB.
 
 ## Build the API
 
@@ -545,4 +537,44 @@ The function writes a point with the following elements:
 | field       | `key`      | authorization ID          |
 | field       | `token`    | authorization (API) token |
 
-To view the list and register devices, visit <http://localhost:3000/devices> in your browser.
+## Install and run the UI
+
+`influxdata/iot-api-ui` is a standalone [Next.js React](https://nextjs.org/docs/basic-features/pages) UI that uses your application API to write and query data in InfluxDB.
+`iot-api-ui` uses Next.js _[rewrites](https://nextjs.org/docs/api-reference/next.config.js/rewrites)_ to route all requests in the `/api/` path to your API.
+
+<!--
+ 
+
+   - [`./pages/_layout.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/_layout.js): provides a header, footer, and CSS.
+   - [`./pages/_app.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/_app.js): root component that imports `Layout` and wraps `/pages` routes.
+
+1. Create a `./pages/devices` directory and add the following files:
+
+   - [`./pages/devices/index.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/index.js): **Devices** view to register and list devices.
+   - [`./pages/devices/_deviceList.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/_deviceList.js): `DeviceList` component to list devices.
+   - [`./pages/devices/_deviceRegistrationButton.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/_deviceRegistrationButton.js): `DeviceRegistrationButton` component to register a new device.
+  
+Next, [build the API](#build-the-api) that handles requests from the UI and responses from InfluxDB.
+-->
+
+To install and run the UI, do the following:
+
+1. In your `~/iot-api-apps` directory, clone the [`influxdata/iot-api-ui` repo](https://github.com/influxdata/iot-api-ui) and go into the `iot-api-ui` directory--for example:
+
+   ```sh
+   cd ~/iot-api-apps
+   git clone git@github.com:influxdata/iot-api-ui.git
+   cd ./iot-app-ui
+   ```
+
+2. The `./.env.development` file contains default configuration settings that you can
+   edit or override (with a `./.env.local` file).
+3. To start the UI, enter the following command into your terminal:
+
+   ```sh
+   yarn dev
+   ```
+
+   To view the list and register devices, visit <http://localhost:3000/devices> in your browser.
+
+To learn more about the UI components, see the [`influxdata/iot-api-ui` README]().
