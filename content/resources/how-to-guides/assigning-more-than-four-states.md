@@ -148,12 +148,12 @@ data
     |> stateChangesOnly()
 ```
 
-Where the result looks like:
+This returns:
 
-| _value | _level |  
-| ------ | ------ | 
-| 3.0    | "3"    |
-| 5.0    | "4"    |
-| 7.0    | "5"    |
-| 9.0    | "6"    |
+| _value | _level       |
+| ------ | ------------ |
+| 3.0    | customLevel3 |
+| 5.0    | customLevel4 |
+| 7.0    | customLevel5 |
+| 9.0    | customLevel6 |
 
