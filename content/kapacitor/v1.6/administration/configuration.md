@@ -1063,3 +1063,5 @@ curl --request POST 'http://localhost:9092/kapacitor/v1/config/smtp' \
 
 For detailed information about how to override configurations with the Kapacitor API, see
 [Overriding configurations](/kapacitor/v1.6/working/api/#overriding-configurations).
+
+{{< influxdbu title="Configuring Kapacitor" summary="Learn how to dynamically configure Kapacitor via API with this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/configuring-kapacitor-tutorial/" >}}

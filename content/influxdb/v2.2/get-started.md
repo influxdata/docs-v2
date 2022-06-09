@@ -57,3 +57,5 @@ See [Visualize data](/influxdb/v2.2/visualize-data/).
 
 Monitor your data and sends alerts based on specified logic.
 See [Monitor and alert](/influxdb/v2.2/monitor-alert/).
+
+{{< influxdbu "influxdb-101" >}}
