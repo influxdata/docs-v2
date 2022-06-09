@@ -542,21 +542,6 @@ The function writes a point with the following elements:
 `influxdata/iot-api-ui` is a standalone [Next.js React](https://nextjs.org/docs/basic-features/pages) UI that uses your application API to write and query data in InfluxDB.
 `iot-api-ui` uses Next.js _[rewrites](https://nextjs.org/docs/api-reference/next.config.js/rewrites)_ to route all requests in the `/api/` path to your API.
 
-<!--
- 
-
-   - [`./pages/_layout.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/_layout.js): provides a header, footer, and CSS.
-   - [`./pages/_app.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/_app.js): root component that imports `Layout` and wraps `/pages` routes.
-
-1. Create a `./pages/devices` directory and add the following files:
-
-   - [`./pages/devices/index.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/index.js): **Devices** view to register and list devices.
-   - [`./pages/devices/_deviceList.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/_deviceList.js): `DeviceList` component to list devices.
-   - [`./pages/devices/_deviceRegistrationButton.js`](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/devices/_deviceRegistrationButton.js): `DeviceRegistrationButton` component to register a new device.
-  
-Next, [build the API](#build-the-api) that handles requests from the UI and responses from InfluxDB.
--->
-
 To install and run the UI, do the following:
 
 1. In your `~/iot-api-apps` directory, clone the [`influxdata/iot-api-ui` repo](https://github.com/influxdata/iot-api-ui) and go into the `iot-api-ui` directory--for example:
@@ -577,4 +562,4 @@ To install and run the UI, do the following:
 
    To view the list and register devices, visit <http://localhost:3000/devices> in your browser.
 
-To learn more about the UI components, see the [`influxdata/iot-api-ui` README]().
+To learn more about the UI components, see [`influxdata/iot-api-ui`](https://github.com/influxdata/iot-api-ui).
