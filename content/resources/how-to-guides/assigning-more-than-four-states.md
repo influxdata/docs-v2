@@ -45,21 +45,32 @@ stateChangesOnly = (tables=<-) => {
 Construct some example data with [`array.from()`](/flux/v0.x/stdlib/array/from/) and map custom levels to it:
 
 ```js
-array.from(rows: [{_value: 0.0}, 
-{_value: 3.0}, 
-{_value: 5.0}, 
-{_value: 7.0}, 
-{_value: 7.5}
-{_value: 9.0"}, 
-{_value: 11.0}])
-|> map(fn: (r) =>({r with _level: if r._value <= 2.0 then "2"
- 		     else if r._value <= 4.0 and r._value > 2.0 then 
-		        "3"
- 		     else if r._value <= 6.0 and r._value > 4.0 then 
-		        "4"
- 		     else if r._value <= 8.0 and r._value > 6.0 then 
-		        "5"
- 		     else "6",
+array.from(
+    rows: [
+        {_value: 0.0},
+        {_value: 3.0},
+        {_value: 5.0},
+        {_value: 7.0},
+        {_value: 7.5},
+        {_value: 9.0},
+        {_value: 11.0},
+    ],
+)
+    |> map(
+        fn: (r) =>
+            ({r with _level:
+                    if r._value <= 2.0 then
+                        "customLevel2"
+                    else if r._value <= 4.0 and r._value > 2.0 then
+                        "customLevel3"
+                    else if r._value <= 6.0 and r._value > 4.0 then
+                        "customLevel4"
+                    else if r._value <= 8.0 and r._value > 6.0 then
+                        "customLevel5"
+                    else
+                        "customLevel6",
+            }),
+    )
 ```
 Where the example data looks like:
 
