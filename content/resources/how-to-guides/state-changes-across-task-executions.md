@@ -137,11 +137,12 @@ Create a task where you:
         |> monitor.stateChangesOnly()
     ```
 
-    Where `state_changes` might look like: 
-    | measurement  | tagKey1   | _field    | _value | _level | _time |  
-    | ------------ | --------- | --------- | ------ | ------ | ----- |
-    | _measurement | tagValue1 | fieldKey1 | 30.0   | "ok"   | time1 | 
-    | _measurement | tagValue1 | fieldKey1 | 50.0   | "crit" | time2 | 
+    Where `state_changes` might look like:
+
+    | _measurement        | tagKey1           | _field        | _value | _level | _time                |
+    | :------------------ | :---------------- | :------------ | -----: | :----- | :------------------- |
+    | example-measurement | example-tag-value | example-field |   30.0 | ok     | 2022-01-01T00:00:00Z |
+    | example-measurement | example-tag-value | example-field |   50.0 | crit   | 2022-01-01T00:01:00Z |
 
 8.  Notify on state changes that span across the last two tasks to catch any state changes that occur across task executions.  
 
