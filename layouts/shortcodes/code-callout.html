@@ -1,0 +1,4 @@
+{{- $regex := .Get 0 -}}
+{{- $code := .Inner | markdownify -}}
+{{- $codeCallout := replaceRE $regex "<span class='bp' style='font-weight:bold;margin:0 .15rem'>$0</span>" $code -}}
+{{ $codeCallout | safeHTML }}
