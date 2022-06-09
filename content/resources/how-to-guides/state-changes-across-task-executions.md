@@ -134,7 +134,7 @@ Create a task where you:
 
     ```js
     state_changes = unioned_states 
-    |> monitor.stateChangesOnly()
+        |> monitor.stateChangesOnly()
     ```
 
     Where `state_changes` might look like: 
