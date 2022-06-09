@@ -14,38 +14,23 @@ Users want to use the monitor package and take advantage of functions like monit
 Define your own custom `stateChangesOnly()` function. Use the function from the source code here and alter it to accommodate more than four levels. Here we account for six different levels instead of just four.
 
 ```js
-import "experimental/array"
-
-level1 = "1"
-level2 = "2"
-level3 = "3"
-level4 = "4"
-level5 = "5"
-level6 = "6"
-
+import "dict"
+import "experimental"
 
 stateChangesOnly = (tables=<-) => {
+    levelInts =
+        [
+            "customLevel1": 1,
+            "customLevel2": 2,
+            "customLevel3": 3,
+            "customLevel4": 4,
+            "customLevel5": 5,
+            "customLevel6": 6,
+        ]
+
     return
         tables
-            |> map(
-                fn: (r) =>
-                    ({r with level_value:
-                            if r._level == level6 then
-                                6
-                            else if r._level == level5 then
-                                5
-                            else if r._level == level4 then
-                                4
-                            else if r._level == level3 then
-                                3
-                            else if r._level == level2 then
-                                2
-                            else if r._level == level1 then
-                                1
-                            else
-                                0,
-                    }),
-            )
+            |> map(fn: (r) => ({r with level_value: dict.get(dict: levelInts, key: r._level, default: 0)}))
             |> duplicate(column: "_level", as: "____temp_level____")
             |> drop(columns: ["_level"])
             |> rename(columns: {"____temp_level____": "_level"})
