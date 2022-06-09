@@ -72,16 +72,19 @@ Ultimately, use entries similar to the following (hostnames and domain IP addres
 | A           | ```enterprise-data-01.mydomain.com``` | ```<Data_1_IP>``` |
 | A           | ```enterprise-data-02.mydomain.com``` | ```<Data_2_IP>``` |
 
-> **Verification steps:**
->
+   {{% note %}}
+**Verification steps:**
+
 Before proceeding with the installation, verify on each meta and data server that the other
 servers are resolvable. Here is an example set of shell commands using `ping`:
->
+```bash
     ping -qc 1 enterprise-meta-01
     ping -qc 1 enterprise-meta-02
     ping -qc 1 enterprise-meta-03
     ping -qc 1 enterprise-data-01
     ping -qc 1 enterprise-data-02
+```
+   {{% /note %}}
 
 We highly recommend that each server be able to resolve the IP from the hostname alone as shown here.
 Resolve any connectivity issues before proceeding with the installation.
@@ -254,7 +257,7 @@ to the cluster.
 >
 Issue the following command on any meta node:
 ```bash
-    influxd-ctl show
+influxd-ctl show
 ```
 The expected output is:
 
