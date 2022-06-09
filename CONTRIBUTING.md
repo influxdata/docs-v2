@@ -1114,6 +1114,19 @@ Use the `{{< caps >}}` shortcode to format text to match those buttons.
 Click {{< caps >}}Add Data{{< /caps >}}
 ```
 
+#### Code callouts
+Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
+piece of code in a code block. Provide the string to highlight in the code block.
+Include a syntax for the codeblock to properly style the called out code.
+
+~~~md
+{{< code-callout "03a2bbf46249a000" >}}
+```sh
+http://localhost:8086/orgs/03a2bbf46249a000/...
+```
+{{< /code-callout >}}
+~~~
+
 #### InfluxDB University banners
 Use the `{{< influxdbu >}}` shortcode to add an InfluxDB University banner that
 points to the InfluxDB University site or a specific course.
