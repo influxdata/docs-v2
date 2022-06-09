@@ -3,8 +3,8 @@ title: JavaScript client library starter
 seotitle: Use JavaScript client library to build a sample application
 list_title: JavaScript client library starter
 description: >
-  Build an application that writes, queries, and manages devices with the InfluxDB 
-  client library for JavaScript.
+  Build a JavaScript application that writes, queries, and manages devices with the 
+  InfluxDB client library.
 menu:
   influxdb_2_2:
     identifier: client-library-starter-js
