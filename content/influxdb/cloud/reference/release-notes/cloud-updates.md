@@ -14,6 +14,16 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## May 2022
+
+### Bulk delete API tokens
+
+Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2.2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
+
+### Help bar
+
+Find relevant content easily from the Cloud UI using the help tab in left side panel. 
+
 ## March 2022
 
 ### Deep linking
