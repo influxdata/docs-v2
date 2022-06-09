@@ -8,6 +8,6 @@ menu:
     name: How-to Guides
 ---
 
-### Tasks
+Use the following how-to guides to learn more about InfluxDB and other InfluxData products.
 
-### Flux 
+{{< children >}}
