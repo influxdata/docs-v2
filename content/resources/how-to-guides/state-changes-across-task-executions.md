@@ -152,5 +152,7 @@ Create a task where you:
     |> map(fn: (r) => ({ _value: telegram.message(token: telegram_token, channel: telegram_channel_ID , text:  "state change at ${r._value} at ${r._time}"  )}))
     ```
 
-    Where the alerts received on telegram might look like: 
-    `state change at 30.0 at time1` and `state change at 50.0 at time2`.
+    Using the unioned data, the following alerts would be sent to Telegram: 
+    
+    - `state change at 30.0 at 2022-01-01T00:00:00Z`
+    - `state change at 50.0 at 2022-01-01T00:01:00Z`
