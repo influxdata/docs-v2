@@ -1,43 +1,40 @@
 ---
-title: Select hours from data 
+title: Select data from specific hours
 description: >
-  This how-to guide walks you through how to select for specific hours from their data. 
+  Learn how to select data from specific hours of the day. 
 menu:
   resources:
-    parent: How-to Guides
-weight: 112
-date: 2021-06-03
-series: [Flux]
-metadata: [Flux]
+    parent: How-to guides
+weight: 102
 ---
 
 ## Problem
-Users want to select specific hours from their data. For example they only want data from 9am - 5pm daily. 
+You may want to select data from specific hours of the day. For example, you may only want data within normal business hours (9am - 5pm). 
 
 ## Solution 1
-Use the [hourSelction()](/flux/v0.x/stdlib/universe/hourselection/) function. The hourSelection() function retains all rows of data within a specific time range. 
+Use [hourSelection()](/flux/v0.x/stdlib/universe/hourselection/) to filter data by a specific hour range in each day. 
+
 ```js 
 import "date"
-from(bucket: "northbound")
+
+from(bucket: "example-bucket")
     |> range(start: -7d)
-    |> filter(fn: (r) => r["_measurement"] == "<measurement1>")
-    |> filter(fn: (r) => r["_field"] == "<fieldKey1>")
-    |> filter(fn: (r) => r["tagKey1"] == "tagKeyValue1")
+    |> filter(fn: (r) => r["_measurement"] == "example-measurement")
+    |> filter(fn: (r) => r["_field"] == "example-field")
     |> hourSelection(start: 9, stop: 17)
 ```
 
 
 ## Solution 2
-Use the [date.hour()](/flux/v0.x/stdlib/date/hour/) function. 
+Use [date.hour()](/flux/v0.x/stdlib/date/hour/) to evaluate hours in a `filter()` predicate. 
+
 ```js 
 import "date"
-from(bucket: "northbound")
-  |> range(start: -7d)
-  |> filter(fn: (r) => r["_measurement"] == "<measurement1>")
-  |> filter(fn: (r) => r["_field"] == "<fieldKey1>")
-  |> filter(fn: (r) => r["tagKey1"] == "tagKeyValue1")
-  |> filter(fn: (r) => date.hour(t: r["_time"]) > 9 and date.hour(t: r["_time"]) < 17)
-  |> yield(name: "hours selected")
-```
 
-This solution is especially useful if you want to select certain hours from certain second, minutes, days, months, years, etc. Use the [Flux date package](/flux/v0.x/stdlib/date/) to assign integer representations to your data and filter for your desired schedule. 
+from(bucket: "example-bucket")
+    |> range(start: -7d)
+    |> filter(fn: (r) => r["_measurement"] == "example-measurement")
+    |> filter(fn: (r) => r["_field"] == "example-field")
+    |> filter(fn: (r) => date.hour(t: r["_time"]) > 9 and date.hour(t: r["_time"]) < 17)
+
+This solution also applies if you to select data from certain seconds in a minute, minutes in an hour, days in the month, months in the year, etc. Use the [Flux `date` package](/flux/v0.x/stdlib/date/) to assign integer representations to your data and filter for your desired schedule. 
