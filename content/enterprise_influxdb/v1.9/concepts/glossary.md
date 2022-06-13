@@ -181,10 +181,10 @@ Related entries: [server](#server)
 
 The local server's nanosecond timestamp.
 
-## passive node (experimental)
+<!-- ## passive node (experimental)
 
 Passive nodes act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes. 
-**Note:**  This is an experimental feature.  
+**Note:**  This is an experimental feature.   -->
 
 <!--
 ## permission
