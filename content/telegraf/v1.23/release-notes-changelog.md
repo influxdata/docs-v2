@@ -2,13 +2,72 @@
 title: Telegraf 1.23 release notes
 description: Important features and changes in the latest version of Telegraf.
 alias:
-  - /telegraf/v1.21/reference/release-notes/influxdb/
+  - /telegraf/v1.23/reference/release-notes/influxdb/
 menu:
   telegraf_1_23_ref:
 
     name: Release notes
     weight: 60
 ---
+
+## v1.23.0 [2022-6-13]
+
+- Sample configuration (`sample.conf`) files for the different plugins are now embedded into the Golang code by the Go compiler. You can now download the sample configuration from
+Telegraf without having to paste in sample configurations from each plugin's README.md.
+- Add missing build constraints for sqlite.
+- Always build README-embedder for host-architecture.
+- Avoid calling `sadc` with invalid 0 interval.
+- Check `net.Listen()` error in tests.
+- Add DataDog count metrics.
+- Deprecate unused database configuration option.
+- Document interval setting for internet speed plugin.
+- Add Elasticsearch output float handling test.
+- Log instance name in skip warnings.
+- Output erroneous namespace and fix error.
+- Remove any content type from Prometheus accept header.
+- Remove full access permissions.
+- Search services file in `/etc/services` and fall back to `/usr/etc/services`.
+- Migrate XPath parser to new style.
+- Add field key option to set event partition key
+- Add semantic commits checker.
+- Allow other `fluentd `metrics.
+- Add Artifactory Webhook Receiver.
+- Create and push nightly Docker images to quay.io.
+- Fix error if no nodes found for current configuration with XPath parser.
+
+### New plugins
+
+- [Fritzbox](https://github.com/gridscale/linux-psi-telegraf-plugin/blob/main/README.md)(`fritzbox`) - Contributed by [@hdecarne](https://github.com/@hdecarne).
+- [Huebridge](https://github.com/hdecarne-github/huebridge-telegraf-plugin/blob/main/README.md)(`huebridge`) - Contributed by [@hdecarne](https://github.com/@hdecarne).
+- [Slab](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/slab/README.md) (`slab`) - Contributed by @bobuhiro11.
+
+### Input plugin updates
+- Burrow (`burrow`): Move Dialer to variable and run `make fmt`.
+- CPU (`cpu`): Add core and physical ID tags that contain information about physical CPU or cores in cases of hyper-threading.
+- HTTP (`http`): Use readers over closers.
+- Lustre (`lustre`): Support collecting per-client stats.
+- Mock (`mock`) Add constant algorithm.
+- Tail (`tail`): Add ANSI color filter.
+- Redis (`redis`): Fix to `goroutine` leak triggered by auto-reload configuration mechanism.
+
+### Output plugin updates
+- HTTP (`http`): Enable authentication against a Google API protected by the OAuth 2.0 protocol.
+- HTTP (`elasticsearch`): Add healthcheck timeout.
+- SQL (`sql`): Add table existence cache.
+
+## Dependency updates
+- Update `github.com/wavefronthq/wavefront-sdk-go` from 0.9.10 to 0.9.11.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.15.3 to 1.15.7.
+- Update `github.com/sensu/sensu-go/api/core/v2` from 2.13.0 to 2.14.0.
+- Update `go.opentelemetry.io/otel/metric` from 0.28.0 to 0.30.0.
+- Update `github.com/nats-io/nats-server/v2` from 2.7.4 to 2.8.4.
+- Update `golangci-lint` from v1.45.2 to v1.46.2.
+- Update `gopsutil` from v3.22.3 to v3.22.4 to allow for HOST_PROC_MOUNTINFO.
+- Update `moby/ipvs` dependency from v1.0.1 to v1.0.2.
+- Update `modernc.org/sqlite `from v1.10.8 to v1.17.3.
+- Update `github.com/containerd/containerd` from v1.5.11 to v1.5.13.
+- Update `github.com/tidwall/gjson` from 1.10.2 to 1.14.1.
+
 ## v1.22.4 [2022-5-17]
 
 - Wait for network up in `systemd` packaging.
@@ -16,6 +75,7 @@ menu:
 ### Input plugin updates
 - Couchbase (`couchbase`): Do not assume metrics will all be of the same length.
 - StatsD (`statsd`): Fix error when closing network connection.
+- Add mount option filtering to disk plugin.
 
 ### Output plugin updates
 - Azure Monitor (`azure_monitor`): Reinitialize `http` client on context deadline error.

@@ -556,6 +556,15 @@ input:
     introduced: 1.4.0
     tags: [linux, macos, windows, servers]
 
+  - name: Fritzbox
+    id: fritzbox
+    description: |
+      This plugin gathers statistics from a [FRITZ!Box](https://avm.de/produkte/fritzbox/) router and repeater.
+    introduced: 1.23.0
+    link: https://github.com/hdecarne-github/fritzbox-telegraf-plugin/blob/main/README.md
+    external: true
+    tags: [external]
+
   - name: GitHub
     id: github
     description: |
@@ -694,6 +703,15 @@ input:
       and `result_type`. Tags for measurements include `server` and `method`.
     introduced: 0.12.1
     tags: [linux, macos, windows, servers, web]
+
+  - name: Hue Bridge
+    id: huebridge
+    description: |
+      This plugin gathers smart home statistics from [Hue Bridge](https://www.philips-hue.com/en-us/p/hue-bridge/046677458478#overview) devices.
+    introduced: 1.23.0
+    link: https://github.com/hdecarne-github/huebridge-telegraf-plugin/blob/main/README.md
+    external: true
+    tags: [iot, external]
 
   - name: Huge Pages
     id: hugepages
@@ -1690,6 +1708,14 @@ input:
     introduced: 1.19.0
     link: https://github.com/nicolasme/s7comm/blob/main/README.md
     tags: [external, iot]
+
+  - name: Slab
+    id: slab
+    description: |
+      This plugin collects details on how much memory each entry in Slab cache is consuming.
+    introduced: 1.23.0
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/slab/README.md
+    tags: [linux]
 
   - name: SMCIPMITool
     id: smc_ipmi
