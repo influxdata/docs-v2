@@ -24,9 +24,7 @@
       <div class="info">
         <h3 id="{{ $type }}-{{ .id }}">{{ .name }}</h3>
         {{ if in .tags "external"}}
-          <a class="external" href="{{ $externalPluginLink }}">External
-            
-          </a>
+          <a class="external" href="{{ $externalPluginLink }}">External</a>
         {{ end }}
         <p class="meta">
           Plugin ID: <code>{{ $type }}s.{{ .id }}</code><br/>

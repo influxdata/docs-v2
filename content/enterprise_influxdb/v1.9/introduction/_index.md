@@ -12,3 +12,5 @@ menu:
 ---
 
 {{< children >}}
+
+{{< influxdbu title="Intro to InfluxDB Enterprise" summary="Learn about the features and benefits of using InfluxDB Enterprise in this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/intro-to-influxdb-enterprise-tutorial/" >}}

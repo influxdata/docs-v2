@@ -10,3 +10,5 @@ menu:
 ---
 
 {{< children hlevel="h2" type="list" >}}
+
+{{< influxdbu title="Configuring InfluxDB Enterprise: Best Practices" summary="Learn about best practices and optimization techniques for InfluxDB Enterprise in this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/configuring-influxdb-enterprise-best-practices-tutorial/" >}}

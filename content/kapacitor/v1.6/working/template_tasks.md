@@ -430,3 +430,5 @@ kapacitor define mem_alert -file implicit_mem_template_task.yaml
 the `dbrps` field must **not** appear in the task definition file, e.g. in `implicit_mem_template_task.yaml`.
 Doing so will will cause an error.
 {{% /note %}}
+
+{{< influxdbu title="User Defined Functions in Kapacitor" summary="Learn how to create User Defined Functions and Tasks with Kapacitor in this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/user-defined-functions-in-kapacitor-tutorial/" >}}
