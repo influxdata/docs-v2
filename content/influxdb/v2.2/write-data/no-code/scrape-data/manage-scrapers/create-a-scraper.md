@@ -5,6 +5,7 @@ description: Create an InfluxDB scraper that collects data from InfluxDB or a re
 aliases:
   - /influxdb/v2.2/collect-data/scrape-data/manage-scrapers/create-a-scraper
   - /influxdb/v2.2/write-data/scrape-data/manage-scrapers/create-a-scraper
+influxdb/v2.2/tags: [scraper]
 menu:
   influxdb_2_2:
     name: Create a scraper
@@ -15,7 +16,10 @@ related:
 
 ---
 
-Create a new scraper in the InfluxDB user interface (UI).
+InfluxDB scrapers collect data from specified targets at regular intervals,
+then write the scraped data to an InfluxDB bucket.
+Scrapers can collect data from any HTTP(S)-accessible endpoint that provides data
+in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 ## Create a scraper in the InfluxDB UI
 1. In the navigation menu on the left, select **Data** (**Load Data**) > **Scrapers**.
