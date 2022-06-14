@@ -19,7 +19,7 @@ After you've [installed InfluxDB OSS](/influxdb/v2.2/install/), you're ready to 
 - [Visualize data](#visualize-data)
 - [Monitor and alert](#monitor-and-alert)
 
-**NOTE:** You must start the influxd daemon in order to start working with InfluxDB.  See [InfluxDB service](/influxdb/v2.2/reference/cli/influxd/). For information on the command line interface (CLI) see [InfluxDB command line interface](/influxdb/v2.2/reference/cli/influx/).  Once you've started the influxd daemon, use `localhost:8086` to log in to your instance. 
+*Note:** To run InfluxDB, start the `influxd` daemon ([InfluxDB service](/influxdb/v2.2/reference/cli/influxd/)) using the [InfluxDB command line interface](/influxdb/v2.2/reference/cli/influx/). Once you've started the `influxd` daemon, use `localhost:8086` to log in to your InfluxDB instance.
 
 To start Influx do the following:
   1. Open a terminal.
