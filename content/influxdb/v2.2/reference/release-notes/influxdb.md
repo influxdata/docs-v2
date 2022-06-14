@@ -25,12 +25,19 @@ This release includes the following new [features](#features) and several [bug f
 
 #### Technical preview: replicate data remotely
 
-- Add the option to [Replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
+Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
-  This [**technical preview**](/influxdb/v2.2/reference/glossary/#technical-preview) feature lets you create a durable subscription on a per bucket basis for the purposes of replicating data on-write from an InfluxDB OSS instance to InfluxDB Cloud.
-  - Lets you store, analyze, and aggregate data locally while also forwarding newly arriving data to a centralized InfluxDB Cloud account.
-  - If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data gets sent when network connectivity is reestablished.
-  - Configuration options include a maximum buffer size and data age restrictions to restrict the amount of data stored on disk.
+{{% warn %}}
+**Known issue:**
+On rare occasions, remote write failures cause data in the replication queue to get stuck. You'll be able to identify this is happening by checking the presence of data you expect in the replication target bucket. A less exact indication that this may be happening would be a buildup of the queue size. You can view this size with `influx replication list`.
+
+Prior to the fix, you can remediate the issue by restarting your node. We recommend doing this earlier rather than later as the queue can build up to a max, resulting in dropped data.
+{{% /warn %}}
+
+Replicating data remotely lets you do following:
+  - Create a durable subscription on a per bucket basis for the purposes of replicating data on-write from an InfluxDB OSS instance to InfluxDB Cloud.
+  - Store, analyze, and aggregate data locally while also forwarding newly arriving data to a centralized InfluxDB Cloud account.
+  - Configure a maximum buffer size and data age restrictions to restrict the amount of data stored on disk.
 
 #### Flux updates
 
