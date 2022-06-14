@@ -234,3 +234,4 @@ Now update the handler and only alerts that changed state will be sent to Slack.
 ```
 kapacitor define-topic-handler ./slack.yaml
 ```
+{{< influxdbu title="Event Handlers & Node Alerts in Kapacitor" summary="Get started with Kapacitor Topics and Event Handlers with this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/event-handlers-node-alerts-kapacitor-tutorial/" >}}
