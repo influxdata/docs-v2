@@ -100,11 +100,17 @@ The "time destination" column to which time is copied for the aggregate record.
 Defaults to `"_time"`.
 
 ### location {data-type="record"}
+
 Location used to determine timezone.
 Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
 _Flux uses the timezone database (commonly referred to as "tz" or "zoneinfo")
 provided by the operating system._
+
+### offset {data-type="duration"}
+
+Duration to shift the window boundaries by. Default is `0s`.
+`offset` can be negative, indicating that the offset goes backwards in time.
 
 ### createEmpty {data-type="bool"}
 
