@@ -25,7 +25,7 @@ To start InfluxDB, do the following:
   1. Open a terminal.
   2. Type `influxd` in the command line.
 
-```bash
+```sh
 influxd
 ```
 
