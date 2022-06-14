@@ -563,7 +563,7 @@ input:
     introduced: 1.23.0
     link: https://github.com/hdecarne-github/fritzbox-telegraf-plugin/blob/main/README.md
     external: true
-    tags: [external]
+    tags: [external, networking]
 
   - name: GitHub
     id: github
@@ -1715,7 +1715,7 @@ input:
       This plugin collects details on how much memory each entry in Slab cache is consuming.
     introduced: 1.23.0
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/slab/README.md
-    tags: [linux]
+    tags: [linux, system]
 
   - name: SMCIPMITool
     id: smc_ipmi
