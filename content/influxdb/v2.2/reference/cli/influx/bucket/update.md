@@ -52,7 +52,11 @@ The minimum retention period is **one hour**. Valid `--retention` units:
 - hours (`h`)
 - days (`d`)
 - weeks (`w`)
+
+For a retention period of **infinite** set the number to 0.
 {{% /note %}}
+
+
 
 ## Examples
 
