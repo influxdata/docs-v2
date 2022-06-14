@@ -25,9 +25,8 @@ toFloat()
 ```
 
 {{% note %}}
-To convert values in a column other than `_value`, define a custom function
-patterned after the [function definition](#function-definition),
-but replace `_value` with your desired column.
+To convert values in a column other than `_value`, use `map()` and `float()`
+as shown in [this example](/flux/v0.x/stdlib/universe/float/#convert-all-values-in-a-column-to-float-values).
 {{% /note %}}
 
 ##### Supported data types
