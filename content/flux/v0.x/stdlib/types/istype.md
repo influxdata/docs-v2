@@ -14,7 +14,7 @@ flux/v0.x/tags: [tests, types]
 
 `types.isType()` tests if a value is a specified
 [Flux basic type](/flux/v0.x/data-types/basic/) or
-[regular expression type](/flux/v0.x/data-types/regexp/).
+[regular expression type](/flux/v0.x/data-types/regexp/). Use this function to filter your data by type. Often used to downsample or [aggregate data by type](#aggregate-or-select-data-based-on-type).
 
 ```js
 import "types"
