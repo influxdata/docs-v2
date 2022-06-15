@@ -10,7 +10,7 @@ menu:
     identifier: client-library-starter-js
     name: JavaScript
     parent: Client library starter
-influxdb/cloud/tags: [api]
+influxdb/v2.2/tags: [api, javascript, nodejs]
 ---
 
 {{% api/iot-starter-intro %}}
@@ -142,16 +142,18 @@ INFLUX_BUCKET_AUTH=iot_center_devices
 To configure secrets and settings that aren't added to version control,
 create a `./.env.local` file and set the variables--for example, set your InfluxDB token and organization:
 
-```bash
+```sh
 # .env.local
 
 # INFLUX_TOKEN
 # InfluxDB API token used by the application server to send requests to InfluxDB.
 # For convenience in development, use an **All-Access** token.
+
 INFLUX_TOKEN=29Xx1KH9VkASPR2DSfRfFd82OwGD...
 
 # INFLUX_ORG
 # InfluxDB organization ID you want to use in development.
+
 INFLUX_ORG=48c88459ee424a04
 ```
 
