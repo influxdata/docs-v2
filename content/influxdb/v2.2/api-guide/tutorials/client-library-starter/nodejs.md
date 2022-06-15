@@ -444,7 +444,7 @@ const influxdb = new InfluxDB({url: process.env.INFLUX_URL, token: process.env.I
 {{% /truncate %}}
 {{% caption %}}[iot-api-js/pages/api/devices/create.js](https://github.com/influxdata/iot-api-js/blob/42a37d683b5e4df601422f85d2c22f5e9d592e68/pages/api/devices/create.js){{% /caption %}}
 
-Creating an authorization with _read_-_write_ permission for `INFLUX_BUCKET` requires the bucket ID.
+To create an authorization that has _read_-_write_ permission to `INFLUX_BUCKET`, you must pass the bucket ID.
 To retrieve the bucket ID,
 `createAuthorization(deviceId)` calls the `BucketsAPI getBuckets` function to send a `GET` request to
 the `/api/v2/buckets` InfluxDB API endpoint.
