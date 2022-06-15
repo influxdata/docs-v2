@@ -2,7 +2,7 @@
 title: Replicate data to a remote InfluxDB instance
 weight: 106
 description: >
-  Use InfluxDB Edge Data Replication to replicate all data written to an InfluxDB OSS
+  Use InfluxDB Edge Data Replication to replicate the incoming data of select buckets to one or more buckets on a remote InfluxDB instance.
   bucket to InfluxDB Cloud or a remote InfluxDB OSS bucket.
 menu:
   influxdb_2_2:
