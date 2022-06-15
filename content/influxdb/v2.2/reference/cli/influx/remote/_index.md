@@ -13,7 +13,7 @@ related:
 ---
 
 {{% cloud %}}
-(InfluxDB OSS only) Configure InfluxDB Edge Data Replication remotes and replication streams for InfluxDB OSS.
+Configure InfluxDB Edge Data Replication remotes and replication streams for InfluxDB OSS.
 {{% /cloud %}}
 
 Use the `influx remote` command to manage connections to remote instances of InfluxDB.
