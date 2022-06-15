@@ -35,7 +35,7 @@ influx bucket update [flags]
 | `-i` | `--id`                   | ({{< req >}}) Bucket ID                                               | string     |                       |
 |      | `--json`                 | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`                 | New bucket name                                                       | string     | `INFLUX_BUCKET_NAME`  |
-| `-r` | `--retention`            | New duration bucket will retain data                                  | duration   |                       |
+| `-r` | `--retention`            | New duration bucket will retain data. For detail, see [Retention periods](/influxdb/v2.2/reference/cli/influx/bucket/update/#retention-periods).                                  | duration   |                       |
 |      | `--shard-group-duration` | Custom shard group duration for the bucket (OSS only)                 | string     |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`                | API token                                                             | string     | `INFLUX_TOKEN`        |
@@ -53,7 +53,7 @@ The minimum retention period is **one hour**. Valid `--retention` units:
 - days (`d`)
 - weeks (`w`)
 
-For a retention period of **infinite** set the number to 0.
+For an **infinite** retention period, set the number to 0. For example, `0s`.
 {{% /note %}}
 
 
