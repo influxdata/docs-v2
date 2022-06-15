@@ -561,11 +561,10 @@ def api_get_device(device_id):
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-To start the application, enter the following command into your terminal:
+Enter the following commands into your terminal to restart the application:
 
-```bash
-flask run -h localhost -p 3001
-```
+  1. `CONTROL+C` to stop the application.
+  2. `flask run -h localhost -p 3001` to start the application.
 
 To retrieve devices data from your API, visit <http://localhost:3001/api/devices> in your browser.
 
