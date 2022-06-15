@@ -61,6 +61,10 @@ The application architecture has four layers:
 - **UI**: Sends requests to the server and renders views in the browser.
 - **API**: Receives requests from the UI, sends requests to InfluxDB, and processes responses from InfluxDB.
 
+{{% note %}}
+For the complete code referenced in this tutorial, see the [influxdata/iot-api-js repository](https://github.com/influxdata/iot-api-js).
+{{% /note %}}
+
 ## Create the application
 
 Create a directory that will contain your `iot-api` projects.
