@@ -36,15 +36,13 @@ influxdb/cloud/tags: [api]
 
 ## Set up InfluxDB
 
-If you haven't already, 
-{{% cloud-only %}}[create an InfluxDB Cloud account](https://www.influxdata.com/products/influxdb-cloud/){{% /cloud-only %}}
-{{% oss-only %}}[install and set up InfluxDB OSS](https://www.influxdata.com/products/influxdb/){{% /oss-only %}}.
+If you haven't already, [create an InfluxDB Cloud account](https://www.influxdata.com/products/influxdb-cloud/) or [install InfluxDB OSS](https://www.influxdata.com/products/influxdb/).
 
 ### Authenticate with an InfluxDB API token
 
-For convenience in development, 
-[create an _All-Access_ token](/influxdb/v2.2/security/tokens/create-token/) 
-for your application. This grants your application full read and write 
+For convenience in development,
+[create an _All-Access_ token](/influxdb/v2.2/security/tokens/create-token/)
+for your application. This grants your application full read and write
 permissions on all resources within your InfluxDB organization.
 
 {{% note %}}
@@ -66,7 +64,7 @@ The application architecture has four layers:
 
 ## Create the application
 
-Create a directory that will store your `iot-api` projects.
+Create a directory that will contain your `iot-api` projects.
 The following example code creates an `iot-api` directory in your home directory
 and changes to the new directory:
 
@@ -93,10 +91,10 @@ Use [Next.js](https://nextjs.org/), a framework for full-stack JavaScript applic
 
    ```sh
    cd iot-api-js
-   npm run dev
+   npm run dev -p 3001
    ```
 
-To view the application, visit <http://localhost:3000> in your browser.
+To view the application, visit <http://localhost:3001> in your browser.
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -208,10 +206,10 @@ console.log(process.env.INFLUX_ORG)
 Your application API provides server-side HTTP endpoints that process requests from the UI.
 Each API endpoint is responsible for the following:
 
-- Listen for HTTP requests (from the UI).
-- Translate requests into InfluxDB API requests.
-- Process InfluxDB API responses and handle errors.
-- Respond and serve data (to the UI).
+1. Listen for HTTP requests (from the UI).
+2. Translate requests into InfluxDB API requests.
+3. Process InfluxDB API responses and handle errors.
+4. Respond with status and data (for the UI).
 
 Follow these steps to build the API:
 
@@ -231,24 +229,15 @@ In this section, you'll add the `/api/devices` API endpoint.
 
 ### Handle requests for device information
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-1. Create a `./pages/api/devices/[[...deviceId]].js` file to handle requests for `/api/devices` and `/api/devices/<deviceId>`.
+1. Create a `./pages/api/devices/[[...deviceParams]].js` file to handle requests for `/api/devices` and `/api/devices/<deviceId>/measurements/`.
 
 2. In the file, export a Next.js request `handler` function.
-[See the example](https://github.com/influxdata/iot-api-js/blob/25b38c94a1f04ea71f2ef4b9fcba5350d691cb9d/pages/api/devices/%5B%5B...deviceId%5D%5D.js).
+[See the example](https://github.com/influxdata/iot-api-js/blob/18d34bcd59b93ad545c5cd9311164c77f6d1995a/pages/api/devices/%5B%5B...deviceParams%5D%5D.js).
 
   {{% note %}}
 In Next.js, the filename pattern `[[...param]].js` creates a _catch-all_ API route.
 To learn more, see [Next.js dynamic API routes](https://nextjs.org/docs/api-routes/dynamic-api-routes).
   {{% /note %}}
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 ### Retrieve and process devices
 
@@ -275,7 +264,7 @@ Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query result
 
    Create a `./pages/api/devices/_devices.js` file that contains the following:
 
-   {{% truncate %}}
+    {{% truncate %}}
 
    ```ts
    import { InfluxDB } from '@influxdata/influxdb-client'
@@ -283,7 +272,6 @@ Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query result
 
    const INFLUX_ORG = process.env.INFLUX_ORG
    const INFLUX_BUCKET_AUTH = process.env.INFLUX_BUCKET_AUTH
-
    const influxdb = new InfluxDB({url: process.env.INFLUX_URL, token: process.env.INFLUX_TOKEN})
 
    /**
@@ -304,7 +292,7 @@ Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query result
          |> filter(fn: (r) => r._measurement == "deviceauth"${deviceFilter})
          |> last()`
        const devices = {}
-       console.log(`*** QUERY *** \n ${fluxQuery}`)
+
        return await new Promise((resolve, reject) => {
          queryApi.queryRows(fluxQuery, {
            next(row, tableMeta) {
@@ -321,7 +309,6 @@ Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query result
            },
            error: reject,
            complete() {
-             console.log(JSON.stringify(devices))
              resolve(devices)
            },
          })
@@ -331,7 +318,10 @@ Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query result
 
    {{% /truncate %}}
 
-   {{% caption %}}[iot-api-js/pages/api/devices/_devices.js getDevices(deviceId)](https://github.com/influxdata/iot-api-js/blob/ae572e965d7fb2f112e68a41bde4df47fe94e9bc/pages/api/devices/_devices.js){{% /caption %}}
+   {{% caption %}}[iot-api-js/pages/api/devices/_devices.js getDevices(deviceId)](https://github.com/influxdata/iot-api-js/blob/18d34bcd59b93ad545c5cd9311164c77f6d1995a/pages/api/devices/_devices.js){{% /caption %}}
+
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
 
    The `_devices` module exports a `getDevices(deviceId)` function that queries
    for registered devices, processes the data, and returns a Promise with the result.
@@ -358,29 +348,24 @@ Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query result
    - `complete()`: signals when all rows have been consumed--for example, by resolving the Promise.
 
    To learn more about Observers, see the [RxJS Guide](https://rxjs.dev/guide/observer).
-   {{% /code-tab-content %}}
-   {{< /code-tabs-wrapper >}}
 
 ## Create the API to register devices
 
-In this section, you'll use the client library to store
+In this section, you use the client library to store
 virtual device information in InfluxDB.
 
-For this application, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
+In this scenario, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
 The API token and authorization permissions allow the device to query and write to `INFLUX_BUCKET`.
-In this section, you'll add the API endpoint that handles requests from the UI, creates an authorization in InfluxDB,
-and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket. The endpoint uses the following `/api/v2` InfluxDB API endpoints:
+In this section, you add the API endpoint that handles requests from the UI, creates an authorization in InfluxDB,
+and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket.
+To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2.2/security/tokens/)
+
+The application API uses the following `/api/v2` InfluxDB API endpoints:
 
 - `POST /api/v2/query`: to query `INFLUX_BUCKET_AUTH` for a registered device.
 - `GET /api/v2/buckets`: to get the bucket ID for `INFLUX_BUCKET`.
 - `POST /api/v2/authorizations`: to create an authorization for the device.
 - `POST /api/v2/write`: to write the device authorization to `INFLUX_BUCKET_AUTH`.
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 
 1. Add a `./pages/api/devices/create.js` file to handle requests for `/api/devices/create`.
 2. In the file, export a Next.js request `handler` function that does the following:
@@ -393,13 +378,10 @@ and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket. The endpoin
 
 [See the example](https://github.com/influxdata/iot-api-js/blob/25b38c94a1f04ea71f2ef4b9fcba5350d691cb9d/pages/api/devices/create.js).
 
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 ### Create an authorization for the device
 
-Create an authorization with _read_-_write_ permission to `INFLUX_BUCKET` and receive an API token for the device.
-The example below uses the following steps to create an authorization:
+In this section, you create an authorization with _read_-_write_ permission to `INFLUX_BUCKET` and receive an API token for the device.
+The example below uses the following steps to create the authorization:
 
 1. Instantiate the `AuthorizationsAPI` client and `BucketsAPI` client with the configuration.
 2. Retrieve the bucket ID.

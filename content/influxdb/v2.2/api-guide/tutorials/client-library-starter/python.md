@@ -40,9 +40,7 @@ influxdb/cloud/tags: [api]
 
 ## Set up InfluxDB
 
-If you haven't already,
-{{% cloud-only %}}[create an InfluxDB Cloud account](https://www.influxdata.com/products/influxdb-cloud/){{% /cloud-only %}}
-{{% oss-only %}}[install and set up InfluxDB OSS](https://www.influxdata.com/products/influxdb/){{% /oss-only %}}.
+If you haven't already, [create an InfluxDB Cloud account](https://www.influxdata.com/products/influxdb-cloud/) or [install InfluxDB OSS](https://www.influxdata.com/products/influxdb/).
 
 ### Authenticate with an InfluxDB API token
 
@@ -71,7 +69,7 @@ The application architecture has four layers:
 
 ## Create the application
 
-Create a directory that will store your `iot-api` projects.
+Create a directory that will contain your `iot-api` projects.
 The following example code creates an `iot-api` directory in your home directory
 and changes to the new directory:
 
@@ -207,10 +205,10 @@ and create (_write_) authorizations for devices.
 Your application API provides server-side HTTP endpoints that process requests from the UI.
 Each API endpoint is responsible for the following:
 
-- Listen for HTTP requests (from the UI).
-- Translate requests into InfluxDB API requests.
-- Process InfluxDB API responses and handle errors.
-- Respond and serve data (to the UI).
+1. Listen for HTTP requests (from the UI).
+2. Translate requests into InfluxDB API requests.
+3. Process InfluxDB API responses and handle errors.
+4. Respond with status and data (for the UI).
 
 Follow these steps to build the API:
 
@@ -219,12 +217,12 @@ Follow these steps to build the API:
 
 ## Create the API to register devices
 
-In this section, you'll use the client library to store
+In this section, you use the client library to store
 virtual device information in InfluxDB.
 
-For this application, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
+In this scenario, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
 The API token and authorization permissions allow the device to query and write to `INFLUX_BUCKET`.
-In this section, you'll add the API endpoint that handles requests from the UI, creates an authorization in InfluxDB,
+In this section, you add the API endpoint that handles requests from the UI, creates an authorization in InfluxDB,
 and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket.
 To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2.2/security/tokens/)
 
@@ -237,8 +235,8 @@ The application API uses the following `/api/v2` InfluxDB API endpoints:
 
 ### Create an authorization for the device
 
-Create an authorization with _read_-_write_ permission to `INFLUX_BUCKET` and receive an API token for the device.
-The example below uses the following steps to create an authorization:
+In this section, you create an authorization with _read_-_write_ permission to `INFLUX_BUCKET` and receive an API token for the device.
+The example below uses the following steps to create the authorization:
 
 1. Instantiate the `AuthorizationsAPI` client and `BucketsAPI` client with the configuration.
 2. Retrieve the bucket ID.
@@ -303,7 +301,7 @@ def create_authorization(device_id) -> Authorization:
 {{% /truncate %}}
 {{% caption %}}[iot-api-python/api/devices.py](https://github.com/influxdata/iot-api-python/blob/f354941c80b6bac643ca29efe408fde1deebdc96/api/devices.py){{% /caption %}}
 
-Creating an authorization with _read_-_write_ permission for `INFLUX_BUCKET` requires the bucket ID.
+To create an authorization that has _read_-_write_ permission to `INFLUX_BUCKET`, you must pass the bucket ID.
 To retrieve the bucket ID, `create_authorization(deviceId)` calls the
 `BucketsAPI find_bucket_by_name` function to send a `GET` request to
 the `/api/v2/buckets` InfluxDB API endpoint.
@@ -390,12 +388,6 @@ Add the `/api/devices` API endpoint to do the following:
 
 Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query results.
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
 1. Create a Flux query that gets the last row of each [series](/influxdb/v2.2/reference/glossary#series) that contains a `deviceauth` measurement.
    The example query below returns rows that contain the `key` field (authorization ID) and excludes rows that contain a `token` field (to avoid exposing tokens to the UI).
 
@@ -417,68 +409,71 @@ Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query result
 
    In `./api/devices.py`, add the following:
 
+   {{% truncate %}}
+
    ```python
-   def get_device(device_id) -> {}:
+   def get_device(device_id=None) -> {}:
        influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
-                                        token=config.get('APP', 'INFLUX_TOKEN'),
-                                        org=config.get('APP', 'INFLUX_ORG'))
+                                        token=os.environ.get('INFLUX_TOKEN'),
+                                        org=os.environ.get('INFLUX_ORG'))
        # Queries must be formatted with single and double quotes correctly
        query_api = QueryApi(influxdb_client)
-       device_id = str(device_id)
-       device_filter = f'r.deviceId == "{device_id}" and r._field != "token"'
+       device_filter = ''
+       if device_id:
+           device_id = str(device_id)
+           device_filter = f'r.deviceId == "{device_id}" and r._field != "token"'
+       else:
+           device_filter = f'r._field != "token"'
+
        flux_query = f'from(bucket: "{config.get("APP", "INFLUX_BUCKET_AUTH")}") ' \
                     f'|> range(start: 0) ' \
                     f'|> filter(fn: (r) => r._measurement == "deviceauth" and {device_filter}) ' \
                     f'|> last()'
-       devices = {}
+       
        response = query_api.query(flux_query)
-      results = []
-          for table in response:
-              for record in table.records:
-                  results.append((record.get_field(), record.get_value()))
-       return results
+       result = []
+       for table in response:
+           for record in table.records:
+               try:
+                   'updatedAt' in record
+               except KeyError:
+                   record['updatedAt'] = record.get_time()
+                   record[record.get_field()] = record.get_value()
+               result.append(record.values)
+       return result
    ```
 
-{{% caption %}}[iot-api-python/api/devices.py get_device()](https://github.com/influxdata/iot-api-python/blob/f354941c80b6bac643ca29efe408fde1deebdc96/api/devices.py){{% /caption %}}
+{{% /truncate %}}
+
+{{% caption %}}[iot-api-python/api/devices.py get_device()](https://github.com/influxdata/iot-api-python/blob/9bf44a659424a27eb937d545dc0455754354aef5/api/devices.py#L30){{% /caption %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 The `get_device(device_id)` function does the following:
 
 1. Instantiates a `QueryApi` client and sends the Flux query to InfluxDB.
 2. Iterates over the `FluxTable` in the response and returns a list of tuples.
 
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 ## Create IoT virtual device
 
-Create an IoT virtual device that generates simulated weather data.
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+In this section, you create an IoT virtual device that generates simulated weather data.
 
 Create a `./api/sensor.py` file that generates simulated weather telemetry data.
 [See the example](https://github.com/influxdata/iot-api-python/blob/f354941c80b6bac643ca29efe408fde1deebdc96/api/sensor.py).
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 Next, generate data for virtual devices and [write the data to InfluxDB](#write-telemetry-data).
 
 ## Write telemetry data
 
-To write telemetry data to the InfluxDB bucket,
-use the InfluxDB client library to send a `POST` request to the `/api/v2/write` InfluxDB API endpoint.
+In this section, you write telemetry data to an InfluxDB bucket.
+To write data, use the InfluxDB client library to send a `POST` request to the `/api/v2/write` InfluxDB API endpoint.
 
-The example below uses the following steps to generate data and write to InfluxDB:
+The example below uses the following steps to generate data and then write it to InfluxDB:
 
-1. Create a function that takes `device_id` and writes simulated weather telemetry
-   data to the telemetry bucket.
-2. Initialize the `WriteAPI` instance.
-3. Initialize `Sensor`.
-4. Use `Sensor` to create a `Point` with the `environment` measurement and temperature, humidity, pressure, lat, and lon data.
+1. Initialize a `WriteAPI` instance.
+2. Create a `Point` with the `environment` measurement and data fields for temperature, humidity, pressure, latitude, and longitude.
+3. Use the `WriteAPI write` method to send the point to InfluxDB.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -524,13 +519,13 @@ def write_measurements(device_id):
 
 ## Query telemetry data
 
-To retrieve telemetry data from the InfluxDB bucket,
-use the InfluxDB client library to send a `POST` request to the `/api/v2/query` InfluxDB API endpoint.
+In this section, you retrieve telemetry data from an InfluxDB bucket.
+To retrieve data, use the InfluxDB client library to send a `POST` request to the `/api/v2/query` InfluxDB API endpoint.
 The example below uses the following steps to retrieve and process telemetry data:
 
  1. Query `environment` measurements in `INFLUX_BUCKET`.
  2. Filter results by `device_id`.
- 3. Parse the returned `FluxTable` and return key-value pairs for each record.
+ 3. Return CSV data that the [`influxdata/giraffe` UI library](https://github.com/influxdata/giraffe) can process.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -541,48 +536,28 @@ The example below uses the following steps to retrieve and process telemetry dat
 In `./api/devices.py`, add the following `get_measurements(device_id)` function:
 
 ```python
-def get_measurements(device_id):
+def get_measurements(query):
     influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
-                                     token=config.get('APP', 'INFLUX_TOKEN'),
-                                     org=config.get('APP', 'INFLUX_ORG'))
+                                     token=os.environ.get('INFLUX_TOKEN'),
+                                     org=os.environ.get('INFLUX_ORG'))
+
     # Queries must be formatted with single and double quotes correctly
     query_api = QueryApi(influxdb_client)
-    device_id = str(device_id)
-    device_filter = f'r.device == "{device_id}"'
-    flux_query = f'from(bucket: "{config.get("APP", "INFLUX_BUCKET")}") ' \
-                 f'|> range(start: 0) ' \
-                 f'|> filter(fn: (r) => r._measurement == "environment" and {device_filter}) ' \
-                 f'|> last()'
-    response = query_api.query(flux_query)
-    # iterate through the result(s)
-    results = []
-    for table in response:
-        results.append(table.records[0].values)
-    return results
+    result = query_api.query_csv(query,
+                                   dialect=Dialect(
+                                       header=True,
+                                       delimiter=",",
+                                       comment_prefix="#",
+                                       annotations=['group', 'datatype', 'default'],
+                                       date_time_format="RFC3339"))
+    
+    response = ''
+    for row in result:
+        response += (',').join(row) + ('\n')
+    return response
 ```
 
-{{% caption %}}[iot-api-python/api/devices.py get_measurements()](https://github.com/influxdata/iot-api-python/blob/f354941c80b6bac643ca29efe408fde1deebdc96/api/devices.py){{% /caption %}}
-
-The output is the following:
-
-```python
-[
-   {
-      'result': '_result',
-       'table': 0,
-       '_start': datetime.datetime(1970, 1, 1, 0, 0, tzinfo=tzutc()),
-       '_stop': datetime.datetime(2022, 5, 8, 22, 25, 10, 111697, tzinfo=tzutc()),
-       '_time': datetime.datetime(2022, 5, 5, 17, 25, 48, 57014, tzinfo=tzutc()),
-       '_value': 33.780799865722656,
-       'HumiditySensor': 'virtual_bme280',
-       'PressureSensor': 'virtual_bme280',
-       'TemperatureSensor': 'virtual_bme280',
-       '_field': 'Lat',
-       '_measurement': 'environment',
-       'device': 'test_device_508472435243'
-    }
-]
-```
+{{% caption %}}[iot-api-python/api/devices.py get_measurements()](https://github.com/influxdata/iot-api-python/blob/9bf44a659424a27eb937d545dc0455754354aef5/api/devices.py#L122){{% /caption %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -590,9 +565,7 @@ The output is the following:
 ## Define API responses
 
 In `app.py`, add API endpoints that match incoming requests and respond with the results of your modules.
-In the following `/data` route example, `app.py` retrieves _`device_id_input`_ from
-the `POST` request and then passes it to `get_measurements(device_id)`.
-Once the query completes, the server renders `data.html` with the results.
+In the following `/api/devices/<device_id>` route example, `app.py` retrieves _`device_id`_ from `GET` and `POST` requests, passes it to the `get_device(device_id)` method and returns the result as JSON data with CORS `allow-` headers.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -601,28 +574,25 @@ Once the query completes, the server renders `data.html` with the results.
 {{% code-tab-content %}}
 
 ```python
-@app.route('/data', methods=['GET', 'POST'])
-def data():
-    if request.method == 'GET':
-        return render_template('data.html', data=None)
-    else:
-        device_id = request.form.get('device_id_input', None)
-        results = devices.get_measurements(device_id)
-        return render_template('data.html', data=results)
+@app.route('/api/devices/<string:device_id>', methods=['GET', 'POST'])
+def api_get_device(device_id):
+    if request.method == "OPTIONS": # CORS preflight
+        return _build_cors_preflight_response()
+    return _corsify_actual_response(jsonify(devices.get_device(device_id)))
 ```
 
-{{% caption %}}[iot-api-python/app.py](https://github.com/influxdata/iot-api-python/blob/f354941c80b6bac643ca29efe408fde1deebdc96/app.py){{% /caption %}}
-
-To start the app, enter the following command into the terminal:
-
-```bash
-flask run
-```
-
-To view the application, visit <http://localhost:5000> in your browser.
+{{% caption %}}[iot-api-python/app.py](https://github.com/influxdata/iot-api-python/blob/9bf44a659424a27eb937d545dc0455754354aef5/app.py){{% /caption %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+To start the application, enter the following command into your terminal:
+
+```bash
+flask run -h localhost -p 3001
+```
+
+To retrieve devices data from your API, visit <http://localhost:3001/api/devices> in your browser.
 
 ## Install and run the UI
 
