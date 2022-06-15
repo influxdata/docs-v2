@@ -23,7 +23,6 @@ influxdb/cloud/tags: [api]
 - [Introducing IoT Starter](#introducing-iot-starter)
 - [Create the application](#create-the-application)
 - [Install InfluxDB client library](#install-influxdb-client-library)
-- [Install InfluxDB client library for management APIs](#install-influxdb-client-library-for-management-apis)
 - [Configure the client library](#configure-the-client-library)
 - [Build the API](#build-the-api)
 - [Create the API to list devices](#create-the-api-to-list-devices)
