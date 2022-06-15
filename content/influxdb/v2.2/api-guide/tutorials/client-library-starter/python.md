@@ -31,7 +31,6 @@ influxdb/cloud/tags: [api]
   - [Create an authorization for the device](#create-an-authorization-for-the-device)
   - [Write the device authorization to a bucket](#write-the-device-authorization-to-a-bucket)
 - [Create the API to list devices](#create-the-api-to-list-devices)
-  - [Retrieve and list devices](#retrieve-and-list-devices)
 - [Create IoT virtual device](#create-iot-virtual-device)
 - [Write telemetry data](#write-telemetry-data)
 - [Query telemetry data](#query-telemetry-data)
@@ -199,10 +198,7 @@ Follow these steps to build the API:
 
 ## Create the API to register devices
 
-In this section, you use the client library to store
-virtual device information in InfluxDB.
-
-In this scenario, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
+In this application, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
 The API token and authorization permissions allow the device to query and write to `INFLUX_BUCKET`.
 In this section, you add the API endpoint that handles requests from the UI, creates an authorization in InfluxDB,
 and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket.
@@ -359,11 +355,7 @@ Next, [create the API to list devices](#create-the-api-to-list-devices).
 
 ## Create the API to list devices
 
-Add the `/api/devices` API endpoint that retrieves, processes, and lists devices.
-
-### Retrieve and list devices
-
-Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query results.
+Add the `/api/devices` API endpoint that retrieves, processes, and lists registered devices.
 
 1. Create a Flux query that gets the last row of each [series](/influxdb/v2.2/reference/glossary#series) that contains a `deviceauth` measurement.
    The example query below returns rows that contain the `key` field (authorization ID) and excludes rows that contain a `token` field (to avoid exposing tokens to the UI).
@@ -513,19 +505,15 @@ In `./api/devices.py`, add the following `get_measurements(device_id)` function:
 ```python
 def get_measurements(query):
     influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
-                                     token=os.environ.get('INFLUX_TOKEN'),
-                                     org=os.environ.get('INFLUX_ORG'))
-
-    # Queries must be formatted with single and double quotes correctly
+                                     token=os.environ.get('INFLUX_TOKEN'), org=os.environ.get('INFLUX_ORG'))
     query_api = QueryApi(influxdb_client)
     result = query_api.query_csv(query,
-                                   dialect=Dialect(
+                                 dialect=Dialect(
                                        header=True,
                                        delimiter=",",
                                        comment_prefix="#",
                                        annotations=['group', 'datatype', 'default'],
                                        date_time_format="RFC3339"))
-    
     response = ''
     for row in result:
         response += (',').join(row) + ('\n')

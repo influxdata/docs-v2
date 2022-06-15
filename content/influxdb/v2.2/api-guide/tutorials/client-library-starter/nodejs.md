@@ -174,7 +174,7 @@ Each API endpoint is responsible for the following:
 
 Follow these steps to build the API:
 
-1. [Create the API list devices](#create-the-api-to-list-devices)
+1. [Create the API to list devices](#create-the-api-to-list-devices)
 2. [Create the API to register devices](#create-the-api-to-register-devices)
 
 ## Create the API to list devices
@@ -306,10 +306,7 @@ To learn more about Observers, see the [RxJS Guide](https://rxjs.dev/guide/obser
 
 ## Create the API to register devices
 
-In this section, you use the client library to store
-virtual device information in InfluxDB.
-
-In this scenario, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
+In this application, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
 The API token and authorization permissions allow the device to query and write to `INFLUX_BUCKET`.
 In this section, you add the API endpoint that handles requests from the UI, creates an authorization in InfluxDB,
 and writes the registered device to the `INFLUX_BUCKET_AUTH` bucket.
