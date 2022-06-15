@@ -28,7 +28,7 @@ This release includes the following new [features](#features) and several [bug f
 Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
 {{% warn %}}
-On rare occasions, remote write failures may cause data in the replication queue to get stuck. To ensure data is not dropped, restart your node as soon as possible.
+On rare occasions, remote write failures may cause data in the replication queue to get stuck. To ensure data is not dropped, restart the InfluxDB instance you're writing to as soon as possible.
 
 To assess whether this issue is occurring, we recommend periodically doing one of the following:
 - Verify your data is successfully replicated to your target bucket. 
