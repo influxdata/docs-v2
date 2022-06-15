@@ -14,13 +14,13 @@ It's common to use [InfluxDB tasks](/influxdb/cloud/process-data/) to evaluate a
 
 ## Solution 
 
-Assign levels to the data based on thresholds explicitly. This approach is the most straightforward for users who have never written a custom check before or used the monitor package. 
+Explicitly assign levels to your data based on thresholds.
 
 ### Solution Advantages
-The easiest to understand for Flux users who have never written a task with the monitor package. 
+This is the easiest solution to understand if you have never written a task with the [`monitor` package](/flux/v0.x/stdlib/influxdata/influxdb/monitor/). 
 
 ### Solution Disadvantages
-You have to explicitly define your thresholds (potentially more code).
+You have to explicitly define your thresholds, which potentially requires more code.
 
 ### Solution Overview
 Create a task where you:
@@ -72,7 +72,7 @@ Create a task where you:
     | example-measurement | example-tag-value | example-field |   50.0 | 2022-01-01T00:00:00Z |
 
 
-3. Assign states to your data based on thresholds. Store this data in a variable, i.e. “states”. To simplify this example, there are only two states: "ok" and "crit." Store states in the `_level` column (required by the monitor package). 
+3. Assign states to your data based on thresholds. Store this data in a variable, i.e. “states”. To simplify this example, there are only two states: "ok" and "crit." Store states in the `_level` column (required by the `monitor` package). 
 
     ```js
     states =
@@ -115,14 +115,12 @@ Create a task where you:
     | :------------------ | :---------------- | :------------ | -----: | :----- | :------------------- |
     | example-measurement | example-tag-value | example-field |   55.0 | crit   | 2021-12-31T23:59:00Z |
 
-6. Union “states” and “last_state_previous_task”. Store this data in a variable “unioned_states”.
+6. Union “states” and “last_state_previous_task”. Store this data in a variable “unioned_states”. Use [`sort()`](/flux/v0.x/stdlib/universe/sort/) to ensure rows are ordered by time.
 
     ```js
-    unioned_states = union(tables: [states, last_state_previous_task])
-
-    // use the sort() function to guarantee that you preserve the time order
-
-    |> sort(columns: ["_time"], desc: true)
+    unioned_states =
+        union(tables: [states, last_state_previous_task])
+            |> sort(columns: ["_time"], desc: true)
     ```
 
     Where `unioned_states` might look like: 
@@ -133,11 +131,12 @@ Create a task where you:
     | example-measurement | example-tag-value | example-field |   30.0 | ok     | 2022-01-01T00:00:00Z |
     | example-measurement | example-tag-value | example-field |   50.0 | crit   | 2022-01-01T00:01:00Z |
 
-7. Use [`monitor.stateChangesOnly()`](/flux/v0.x/stdlib/influxdata/influxdb/monitor/statechangesonly/) to return only rows where the state changed in “unioned_states”. Store this data in a variable “state_changes”.
+7. Use [`monitor.stateChangesOnly()`](/flux/v0.x/stdlib/influxdata/influxdb/monitor/statechangesonly/) to return only rows where the state changed in “unioned_states”. Store this data in a variable, “state_changes”.
 
     ```js
-    state_changes = unioned_states 
-        |> monitor.stateChangesOnly()
+    state_changes =
+        unioned_states 
+            |> monitor.stateChangesOnly()
     ```
 
     Where `state_changes` might look like:
