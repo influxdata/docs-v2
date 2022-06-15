@@ -195,11 +195,6 @@ Each API endpoint is responsible for the following:
 3. Process InfluxDB API responses and handle errors.
 4. Respond with status and data (for the UI).
 
-Follow these steps to build the API:
-
-1. [Create the API to register devices](#create-the-api-to-register-devices)
-2. [Create the API to list devices](#create-the-api-to-list-devices)
-
 ## Create the API to register devices
 
 In this application, a _registered device_ is a point that contains your device ID, authorization ID, and API token.
