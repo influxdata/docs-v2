@@ -16,7 +16,8 @@ introduced: 0.37.0
 ---
 
 The `date.month()` function returns the month of a specified time.
-Results range from `[1-12]`.
+Results range from `[1-12]` and correspond to `date` package
+[month constants](/flux/v0.x/stdlib/date/#months-of-the-year).
 
 ```js
 import "date"

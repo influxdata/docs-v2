@@ -23,6 +23,7 @@ The `hourSelection()` function retains all rows with time values in a specified 
 hourSelection(
     start: 9,
     stop: 17,
+    location: {offset: 0h, zone: "UTC"},
     timeColumn: "_time",
 )
 ```
@@ -38,6 +39,10 @@ Hours range from `[0-23]`.
 ({{< req >}})
 The last hour of the hour range (inclusive).
 Hours range from `[0-23]`.
+
+### location {data-type="record"}
+Location used to determine timezone.
+Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
 ### timeColumn {data-type="string"}
 The column that contains the time value.
