@@ -73,12 +73,6 @@ mkdir ~/iot-api-apps
 cd ~/iot-api-apps
 ```
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
 Use [Next.js](https://nextjs.org/), a framework for full-stack JavaScript applications, to create your application.
 
 1. In your `~/iot-api-apps` directory, open a terminal and enter the following commands to create the `iot-api-js` app from the NextJS [learn-starter template](https://github.com/vercel/next-learn/tree/master/basics/learn-starter):
@@ -96,9 +90,6 @@ Use [Next.js](https://nextjs.org/), a framework for full-stack JavaScript applic
 
 To view the application, visit <http://localhost:3001> in your browser.
 
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 ## Install InfluxDB client library
 
 The InfluxDB client library provides the following InfluxDB API interactions:
@@ -108,39 +99,19 @@ The InfluxDB client library provides the following InfluxDB API interactions:
 - Batch data in the background.
 - Retry requests automatically on failure.
 
-Enter the following command into your terminal to install the client library:
+1. Enter the following command into your terminal to install the client library:
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+   ```sh
+   npm i @influxdata/influxdb-client
+   ```
 
-```bash
-npm i @influxdata/influxdb-client
-```
+2. Enter the following command into your terminal to install `@influxdata/influxdb-client-apis`, the _management APIs_ that create, modify, and delete authorizations, buckets, tasks, and other InfluxDB resources:
+
+   ```sh
+   npm i @influxdata/influxdb-client-apis
+   ```
 
 For more information about the client library, see the [influxdata/influxdb-client-js repo](https://github.com/influxdata/influxdb-client-js).
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-## Install InfluxDB client library for management APIs
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-Install `@influxdata/influxdb-client-apis` to create, modify, and delete authorizations, buckets, tasks, and other InfluxDB resources.
-
-```sh
-npm i @influxdata/influxdb-client-apis
-```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 ## Configure the client library
 
@@ -152,12 +123,6 @@ Typically, you'll provide the following properties as environment variables for 
 - `INFLUX_ORG`
 - `INFLUX_BUCKET`
 - `INFLUX_BUCKET_AUTH`
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 
 Next.js uses the `env` module to provide environment variables to your application.
 
@@ -197,9 +162,6 @@ Next.js sets variables that you can access in the `process.env` object--for exam
 ```ts
 console.log(process.env.INFLUX_ORG)
 ```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 ## Build the API
 
@@ -444,6 +406,9 @@ const influxdb = new InfluxDB({url: process.env.INFLUX_URL, token: process.env.I
 {{% /truncate %}}
 {{% caption %}}[iot-api-js/pages/api/devices/create.js](https://github.com/influxdata/iot-api-js/blob/42a37d683b5e4df601422f85d2c22f5e9d592e68/pages/api/devices/create.js){{% /caption %}}
 
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 To create an authorization that has _read_-_write_ permission to `INFLUX_BUCKET`, you must pass the bucket ID.
 To retrieve the bucket ID,
 `createAuthorization(deviceId)` calls the `BucketsAPI getBuckets` function to send a `GET` request to
@@ -452,9 +417,6 @@ the `/api/v2/buckets` InfluxDB API endpoint.
 
 - A description: `IoTCenterDevice: DEVICE_ID`.
 - A list of permissions to the bucket.
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2.2/security/tokens/).
 

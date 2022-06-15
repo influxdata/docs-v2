@@ -144,20 +144,11 @@ The InfluxDB client library provides the following InfluxDB API interactions:
 
 Enter the following command into your terminal to install the client library:
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
 ```bash
 pip install influxdb-client
 ```
 
 For more information about the client library, see the [influxdata/influxdb-client-python repo](https://github.com/influxdata/influxdb-client-python).
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 ## Configure the client library
 
