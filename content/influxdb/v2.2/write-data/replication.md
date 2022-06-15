@@ -14,7 +14,7 @@ related:
   - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
-Use InfluxDB Edge Data Replication to replicate all data written to an InfluxDB OSS
+Use InfluxDB Edge Data Replication to replicate the incoming data of select buckets to one or more buckets on a remote InfluxDB instance.
 bucket to an InfluxDB Cloud {{% oss-only %}}or a remote InfluxDB OSS{{% /oss-only %}} bucket.
 
 ## Configure a replication stream
