@@ -14,7 +14,7 @@ related:
   - /influxdb/v2.2/reference/cli/influx/replication
 ---
 
-Use InfluxDB Edge Data Replication to replicate the incoming data of select buckets to one or more buckets on a remote InfluxDB instance.
+Use InfluxDB replication streams (InfluxDB Edge Data Replication) to replicate the incoming data of select buckets to one or more buckets on a remote InfluxDB instance.
 
 ## Configure a replication stream
 
