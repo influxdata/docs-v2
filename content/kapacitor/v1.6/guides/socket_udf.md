@@ -655,3 +655,5 @@ If you want to learn more, here are a few places to start:
 * Change the mirror UDF to work on batches instead of streams.
 	This requires changing the edge type in the `Info` method as well as implementing the `BeginBatch` and `EndBatch` methods.
 * Take a look at the other [examples](https://github.com/influxdata/kapacitor/tree/master/udf/agent/examples) and modify one to do something similar to one of your existing requirements.
+
+{{< influxdbu title="User Defined Functions in Kapacitor" summary="Learn how to create User Defined Functions and Tasks with Kapacitor in this **free** InfluxDB University course" action="Take the course." link="https://university.influxdata.com/courses/user-defined-functions-in-kapacitor-tutorial/" >}}

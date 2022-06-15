@@ -45,9 +45,8 @@ toInt()
 | uint         | Integer equivalent of the unsigned integer      |
 
 {{% note %}}
-To convert values in a column other than `_value`, define a custom function
-patterned after the [function definition](#function-definition),
-but replace `_value` with your desired column.
+To convert values in a column other than `_value`, use `map()` and `int()`
+as shown in [this example](/flux/v0.x/stdlib/universe/int/#convert-all-values-in-a-column-to-integer-values).
 {{% /note %}}
 
 ## Parameters
