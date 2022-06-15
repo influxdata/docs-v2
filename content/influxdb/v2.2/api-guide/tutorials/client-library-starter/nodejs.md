@@ -27,7 +27,7 @@ influxdb/cloud/tags: [api]
 - [Build the API](#build-the-api)
 - [Create the API to list devices](#create-the-api-to-list-devices)
   - [Handle requests for device information](#handle-requests-for-device-information)
-  - [Retrieve and process devices](#retrieve-and-process-devices)
+  - [Retrieve and list devices](#retrieve-and-list-devices)
 - [Create the API to register devices](#create-the-api-to-register-devices)
   - [Create an authorization for the device](#create-an-authorization-for-the-device)
   - [Write the device authorization to a bucket](#write-the-device-authorization-to-a-bucket)
@@ -67,7 +67,7 @@ Create a directory that will contain your `iot-api` projects.
 The following example code creates an `iot-api` directory in your home directory
 and changes to the new directory:
 
-```sh
+```bash
 mkdir ~/iot-api-apps
 cd ~/iot-api-apps
 ```
@@ -76,13 +76,13 @@ Use [Next.js](https://nextjs.org/), a framework for full-stack JavaScript applic
 
 1. In your `~/iot-api-apps` directory, open a terminal and enter the following commands to create the `iot-api-js` app from the NextJS [learn-starter template](https://github.com/vercel/next-learn/tree/master/basics/learn-starter):
 
-   ```sh
+   ```bash
    npx create-next-app iot-api-js --use-npm --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
    ```
 
 2. After the installation completes, enter the following commands in your terminal to go into your `./iot-api-js` directory and start the development server:
 
-   ```sh
+   ```bash
    cd iot-api-js
    npm run dev -p 3001
    ```
@@ -100,13 +100,13 @@ The InfluxDB client library provides the following InfluxDB API interactions:
 
 1. Enter the following command into your terminal to install the client library:
 
-   ```sh
+   ```bash
    npm i @influxdata/influxdb-client
    ```
 
 2. Enter the following command into your terminal to install `@influxdata/influxdb-client-apis`, the _management APIs_ that create, modify, and delete authorizations, buckets, tasks, and other InfluxDB resources:
 
-   ```sh
+   ```bash
    npm i @influxdata/influxdb-client-apis
    ```
 
@@ -127,7 +127,7 @@ Next.js uses the `env` module to provide environment variables to your applicati
 
 The `./.env.development` file is versioned and contains non-secret default settings for your _development_ environment.
 
-```sh
+```bash
 # .env.development
 
 INFLUX_URL=http://localhost:8086
@@ -138,7 +138,7 @@ INFLUX_BUCKET_AUTH=iot_center_devices
 To configure secrets and settings that aren't added to version control,
 create a `./.env.local` file and set the variables--for example, set your InfluxDB token and organization:
 
-```sh
+```bash
 # .env.local
 
 # INFLUX_TOKEN
@@ -179,14 +179,8 @@ Follow these steps to build the API:
 
 ## Create the API to list devices
 
-In this section, you'll add the `/api/devices` API endpoint.
+Add the `/api/devices` API endpoint that retrieves, processes, and lists devices.
 `/api/devices` uses the `/api/v2/query` InfluxDB API endpoint to query `INFLUX_BUCKET_AUTH` for a registered device.
-
-`/api/devices` does the following:
-
-1. [Handle requests for device information](#handle-requests-for-device-information).
-2. [Retrieve and process devices](#retrieve-and-process-devices)
-3. Respond with a list of devices.
 
 ### Handle requests for device information
 
@@ -200,7 +194,7 @@ In Next.js, the filename pattern `[[...param]].js` creates a _catch-all_ API rou
 To learn more, see [Next.js dynamic API routes](https://nextjs.org/docs/api-routes/dynamic-api-routes).
   {{% /note %}}
 
-### Retrieve and process devices
+### Retrieve and list devices
 
 Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query results.
 
@@ -217,98 +211,98 @@ Retrieve registered devices in `INFLUX_BUCKET_AUTH` and process the query result
 
 2. Use the `QueryApi` client to send the Flux query to the `POST /api/v2/query` InfluxDB API endpoint.
 
-   {{< code-tabs-wrapper >}}
-   {{% code-tabs %}}
-   [Node.js](#nodejs)
-   {{% /code-tabs %}}
-   {{% code-tab-content %}}
+Create a `./pages/api/devices/_devices.js` file that contains the following:
 
-   Create a `./pages/api/devices/_devices.js` file that contains the following:
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 
-    {{% truncate %}}
+{{% truncate %}}
 
-   ```ts
-   import { InfluxDB } from '@influxdata/influxdb-client'
-   import { flux } from '@influxdata/influxdb-client'
+```ts
+import { InfluxDB } from '@influxdata/influxdb-client'
+import { flux } from '@influxdata/influxdb-client'
 
-   const INFLUX_ORG = process.env.INFLUX_ORG
-   const INFLUX_BUCKET_AUTH = process.env.INFLUX_BUCKET_AUTH
-   const influxdb = new InfluxDB({url: process.env.INFLUX_URL, token: process.env.INFLUX_TOKEN})
+const INFLUX_ORG = process.env.INFLUX_ORG
+const INFLUX_BUCKET_AUTH = process.env.INFLUX_BUCKET_AUTH
+const influxdb = new InfluxDB({url: process.env.INFLUX_URL, token: process.env.INFLUX_TOKEN})
 
-   /**
-    * Gets devices or a particular device when deviceId is specified. Tokens
-    * are not returned unless deviceId is specified. It can also return devices
-    * with empty/unknown key, such devices can be ignored (InfluxDB authorization is not associated).
-    * @param deviceId optional deviceId
-    * @returns promise with an Record<deviceId, {deviceId, createdAt, updatedAt, key, token}>.
-    */
-    export async function getDevices(deviceId) {
-       const queryApi = influxdb.getQueryApi(INFLUX_ORG)
-       const deviceFilter =
-         deviceId !== undefined
-           ? flux` and r.deviceId == "${deviceId}"`
-           : flux` and r._field != "token"`
-       const fluxQuery = flux`from(bucket:${INFLUX_BUCKET_AUTH})
-         |> range(start: 0)
-         |> filter(fn: (r) => r._measurement == "deviceauth"${deviceFilter})
-         |> last()`
-       const devices = {}
+/**
+ * Gets devices or a particular device when deviceId is specified. Tokens
+ * are not returned unless deviceId is specified. It can also return devices
+ * with empty/unknown key, such devices can be ignored (InfluxDB authorization is not associated).
+ * @param deviceId optional deviceId
+ * @returns promise with an Record<deviceId, {deviceId, createdAt, updatedAt, key, token}>.
+ */
+ export async function getDevices(deviceId) {
+  const queryApi = influxdb.getQueryApi(INFLUX_ORG)
+  const deviceFilter =
+    deviceId !== undefined
+      ? flux` and r.deviceId == "${deviceId}"`
+      : flux` and r._field != "token"`
+  const fluxQuery = flux`from(bucket:${INFLUX_BUCKET_AUTH})
+    |> range(start: 0)
+    |> filter(fn: (r) => r._measurement == "deviceauth"${deviceFilter})
+    |> last()`
+  const devices = {}
 
-       return await new Promise((resolve, reject) => {
-         queryApi.queryRows(fluxQuery, {
-           next(row, tableMeta) {
-             const o = tableMeta.toObject(row)
-             const deviceId = o.deviceId
-             if (!deviceId) {
-               return
-             }
-             const device = devices[deviceId] || (devices[deviceId] = {deviceId})
-             device[o._field] = o._value
-             if (!device.updatedAt || device.updatedAt < o._time) {
-               device.updatedAt = o._time
-             }
-           },
-           error: reject,
-           complete() {
-             resolve(devices)
-           },
-         })
-       })
-     }
-   ```
+  return await new Promise((resolve, reject) => {
+    queryApi.queryRows(fluxQuery, {
+      next(row, tableMeta) {
+        const o = tableMeta.toObject(row)
+        const deviceId = o.deviceId
+        if (!deviceId) {
+          return
+        }
+        const device = devices[deviceId] || (devices[deviceId] = {deviceId})
+        device[o._field] = o._value
+        if (!device.updatedAt || device.updatedAt < o._time) {
+          device.updatedAt = o._time
+        }
+      },
+      error: reject,
+      complete() {
+        resolve(devices)
+      },
+    })
+  })
+}
+```
 
-   {{% /truncate %}}
+{{% /truncate %}}
 
-   {{% caption %}}[iot-api-js/pages/api/devices/_devices.js getDevices(deviceId)](https://github.com/influxdata/iot-api-js/blob/18d34bcd59b93ad545c5cd9311164c77f6d1995a/pages/api/devices/_devices.js){{% /caption %}}
+{{% caption %}}[iot-api-js/pages/api/devices/_devices.js getDevices(deviceId)](https://github.com/influxdata/iot-api-js/blob/18d34bcd59b93ad545c5cd9311164c77f6d1995a/pages/api/devices/_devices.js){{% /caption %}}
 
-   {{% /code-tab-content %}}
-   {{< /code-tabs-wrapper >}}
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-   The `_devices` module exports a `getDevices(deviceId)` function that queries
-   for registered devices, processes the data, and returns a Promise with the result.
-   If you invoke the function as `getDevices()` (without a _`deviceId`_),
-   it retrieves all `deviceauth` points and returns a Promise with `{ DEVICE_ID: ROW_DATA }`.
+The `_devices` module exports a `getDevices(deviceId)` function that queries
+for registered devices, processes the data, and returns a Promise with the result.
+If you invoke the function as `getDevices()` (without a _`deviceId`_),
+it retrieves all `deviceauth` points and returns a Promise with `{ DEVICE_ID: ROW_DATA }`.
 
-   To send the query and process results, the `getDevices(deviceId)` function uses the `QueryAPI queryRows(query, consumer)` method.
-   `queryRows` executes the `query` and provides the Annotated CSV result as an Observable to the `consumer`.
-   `queryRows` has the following TypeScript signature:
+To send the query and process results, the `getDevices(deviceId)` function uses the `QueryAPI queryRows(query, consumer)` method.
+`queryRows` executes the `query` and provides the Annotated CSV result as an Observable to the `consumer`.
+`queryRows` has the following TypeScript signature:
 
-   ```ts
-     queryRows(
-       query: string | ParameterizedQuery,
-       consumer: FluxResultObserver<string[]>
-     ): void
-   ```
+```ts
+queryRows(
+  query: string | ParameterizedQuery,
+  consumer: FluxResultObserver<string[]>
+): void
+```
 
-   {{% caption %}}[@influxdata/influxdb-client-js QueryAPI](https://github.com/influxdata/influxdb-client-js/blob/3db2942432b993048d152e0d0e8ec8499eedfa60/packages/core/src/QueryApi.ts){{% /caption %}}
+{{% caption %}}[@influxdata/influxdb-client-js QueryAPI](https://github.com/influxdata/influxdb-client-js/blob/3db2942432b993048d152e0d0e8ec8499eedfa60/packages/core/src/QueryApi.ts){{% /caption %}}
 
-   The `consumer` that you provide must implement the [`FluxResultObserver` interface](https://github.com/influxdata/influxdb-client-js/blob/3db2942432b993048d152e0d0e8ec8499eedfa60/packages/core/src/results/FluxResultObserver.ts) and provide the following callback functions:
+The `consumer` that you provide must implement the [`FluxResultObserver` interface](https://github.com/influxdata/influxdb-client-js/blob/3db2942432b993048d152e0d0e8ec8499eedfa60/packages/core/src/results/FluxResultObserver.ts) and provide the following callback functions:
 
-   - `next(row, tableMeta)`: processes the next row and table metadata--for example, to prepare the response.
-   - `error(error)`: receives and handles errors--for example, by rejecting the Promise.
-   - `complete()`: signals when all rows have been consumed--for example, by resolving the Promise.
+- `next(row, tableMeta)`: processes the next row and table metadata--for example, to prepare the response.
+- `error(error)`: receives and handles errors--for example, by rejecting the Promise.
+- `complete()`: signals when all rows have been consumed--for example, by resolving the Promise.
 
-   To learn more about Observers, see the [RxJS Guide](https://rxjs.dev/guide/observer).
+To learn more about Observers, see the [RxJS Guide](https://rxjs.dev/guide/observer).
 
 ## Create the API to register devices
 
@@ -348,13 +342,13 @@ The example below uses the following steps to create the authorization:
 2. Retrieve the bucket ID.
 3. Use the client library to send a `POST` request to the `/api/v2/authorizations` InfluxDB API endpoint.
 
+In `./api/devices/create.js`, add the following `createAuthorization(deviceId)` function:
+
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-
-In `./api/devices/create.js`, add the following `createAuthorization(deviceId)` function:
 
 {{% truncate %}}
 
@@ -375,31 +369,31 @@ const influxdb = new InfluxDB({url: process.env.INFLUX_URL, token: process.env.I
  * @param {string} deviceId client identifier
  * @returns {import('@influxdata/influxdb-client-apis').Authorization} promise with authorization or an error
  */
-  async function createAuthorization(deviceId) {
-    const authorizationsAPI = new AuthorizationsAPI(influxdb)
-    const bucketsAPI = new BucketsAPI(influxdb)
-    const DESC_PREFIX = 'IoTCenterDevice: '
+async function createAuthorization(deviceId) {
+  const authorizationsAPI = new AuthorizationsAPI(influxdb)
+  const bucketsAPI = new BucketsAPI(influxdb)
+  const DESC_PREFIX = 'IoTCenterDevice: '
 
-    const buckets = await bucketsAPI.getBuckets({name: INFLUX_BUCKET, orgID: INFLUX_ORG})
-    const bucketId = buckets.buckets[0]?.id
-    
-    return await authorizationsAPI.postAuthorizations({
-      body: {
-        orgID: INFLUX_ORG,
-        description: DESC_PREFIX + deviceId,
-        permissions: [
-          {
-            action: 'read',
-            resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
-          },
-          {
-            action: 'write',
-            resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
-          },
-        ],
-      },
-    })
-  }
+  const buckets = await bucketsAPI.getBuckets({name: INFLUX_BUCKET, orgID: INFLUX_ORG})
+  const bucketId = buckets.buckets[0]?.id
+  
+  return await authorizationsAPI.postAuthorizations({
+    body: {
+      orgID: INFLUX_ORG,
+      description: DESC_PREFIX + deviceId,
+      permissions: [
+        {
+          action: 'read',
+          resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
+        },
+        {
+          action: 'write',
+          resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
+        },
+      ],
+    },
+  })
+}
 ```
 
 {{% /truncate %}}
@@ -408,14 +402,16 @@ const influxdb = new InfluxDB({url: process.env.INFLUX_URL, token: process.env.I
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-To create an authorization that has _read_-_write_ permission to `INFLUX_BUCKET`, you must pass the bucket ID.
+To create an authorization that has _read_-_write_ permission to `INFLUX_BUCKET`, you need the bucket ID.
 To retrieve the bucket ID,
-`createAuthorization(deviceId)` calls the `BucketsAPI getBuckets` function to send a `GET` request to
+`createAuthorization(deviceId)` calls the `BucketsAPI getBuckets` function that sends a `GET` request to
 the `/api/v2/buckets` InfluxDB API endpoint.
 `createAuthorization(deviceId)` then passes a new authorization in the request body with the following:
 
-- A description: `IoTCenterDevice: DEVICE_ID`.
-- A list of permissions to the bucket.
+- Bucket ID.
+- Organization ID.
+- Description: `IoTCenterDevice: DEVICE_ID`.
+- List of permissions to the bucket.
 
 To learn more about API tokens and authorizations, see [Manage API tokens](/influxdb/v2.2/security/tokens/).
 
@@ -432,14 +428,13 @@ Storing the device authorization in a bucket allows you to do the following:
 - Refresh tokens.
 
 To write a point to InfluxDB, use the InfluxDB client library to send a `POST` request to the `/api/v2/write` InfluxDB API endpoint.
+In `./pages/api/devices/create.js`, add the following `createDevice(deviceId)` function:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Node.js](#nodejs)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-
-In `./pages/api/devices/create.js`, add the following `createDevice(deviceId)` function:
 
 ```ts
 /** Creates an authorization for a deviceId and writes it to a bucket */
@@ -471,6 +466,13 @@ async function createDevice(deviceId) {
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+`createDevice(device_id)` takes a _`device_id`_ and writes data to `INFLUX_BUCKET_AUTH` in the following steps:
+
+1. Initialize `InfluxDBClient()` with `url`, `token`, and `org` values from the configuration.
+2. Initialize a `WriteAPI` client for writing data to an InfluxDB bucket.
+3. Create a `Point`.
+4. Use `writeApi.writePoint(point)` to write the `Point` to the bucket.
+
 The function writes a point with the following elements:
 
 | Element     | Name       | Value                     |
@@ -489,7 +491,7 @@ To install and run the UI, do the following:
 
 1. In your `~/iot-api-apps` directory, clone the [`influxdata/iot-api-ui` repo](https://github.com/influxdata/iot-api-ui) and go into the `iot-api-ui` directory--for example:
 
-   ```sh
+   ```bash
    cd ~/iot-api-apps
    git clone git@github.com:influxdata/iot-api-ui.git
    cd ./iot-app-ui
@@ -499,7 +501,7 @@ To install and run the UI, do the following:
    edit or override (with a `./.env.local` file).
 3. To start the UI, enter the following command into your terminal:
 
-   ```sh
+   ```bash
    yarn dev
    ```
 
