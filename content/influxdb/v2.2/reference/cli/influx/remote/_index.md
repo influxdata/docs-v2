@@ -13,7 +13,7 @@ related:
 ---
 
 {{% cloud %}}
-Configure InfluxDB Edge Data Replication remotes and replication streams for InfluxDB OSS.
+Configure InfluxDB Edge Data Replication remotes and replication streams to replicate data from InfluxDB OSS to remote buckets on InfluxDB Cloud, InfluxDB Enterprise, or another InfluxDB OSS instance. Currently, you cannot configure these streams on InfluxDB Cloud.
 {{% /cloud %}}
 
 Use the `influx remote` command to manage connections to remote instances of InfluxDB.
