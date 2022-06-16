@@ -122,7 +122,7 @@ InfluxDB schedules compactions preferentially, using the following guidelines:
 
 - The lower the level (fewer times the file has been compacted), the more weight is given to compacting the file.
 - The more compactible files in a level, the higher the priority given to compacting that level. If the number of files in each level is equal, lower levels are compacted first.
-- If a higher level has more candidates for compaction, it may be compacted before a lower level. The equation is the number of candidate files for compaction times level weights of 0.4, 0.3, 0.2, and 0.1.
+- If a higher level has more candidates for compaction, it may be compacted before a lower level. InfluxDB multiplies the number of collection groups (collections of files to compact into a single next-generation file) by a specified weight (0.4, 0.3, 0.2, and 0.1) per level, to determine the compaction priority.
 
 ##### Shard compaction-related configuration settings
 
