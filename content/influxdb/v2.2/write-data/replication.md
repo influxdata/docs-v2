@@ -75,8 +75,8 @@ Use InfluxDB replication streams (InfluxDB Edge Data Replication) to replicate t
     influx replication create \
       --name example-replication-stream-name \
       --remote-id 00xoXXXo0X0x \
-      --local-bucket Xxxo00Xx000o \
-      --remote-bucket 0xXXx00oooXx
+      --local-bucket-id Xxxo00Xx000o \
+      --remote-bucket-id 0xXXx00oooXx
     ```
 
 Once a replication stream is created, InfluxDB {{% oss-only %}}OSS{{% /oss-only %}}
