@@ -1,85 +1,103 @@
 ---
 title: histogram() function
-description: The `histogram()` function approximates the cumulative distribution of a dataset by counting data frequencies for a list of bins.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/histogram
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/histogram/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/histogram/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/histogram/
+description: >
+  `histogram()` approximates the cumulative distribution of a dataset by counting
+  data frequencies for a list of bins.
 menu:
   flux_0_x_ref:
     name: histogram
     parent: universe
-weight: 102
+    identifier: universe/histogram
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/histograms/
 introduced: 0.7.0
 ---
 
-The `histogram()` function approximates the cumulative distribution of a dataset by counting data frequencies for a list of bins.
-A bin is defined by an upper bound where all data points that are less than or equal to the bound are counted in the bin.
-The bin counts are cumulative.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L770-L780
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`histogram()` approximates the cumulative distribution of a dataset by counting
+data frequencies for a list of bins.
+
+A bin is defined by an upper bound where all data points that are less than
+or equal to the bound are counted in the bin. Bin counts are cumulative.
 
 Each input table is converted into a single output table representing a single histogram.
-The output table has the same group key as the input table.
-Columns not part of the group key are removed and an upper bound column and a count column are added.
+Each output table has the same group key as the corresponding input table.
+Columns not part of the group key are dropped.
+Output tables include additional columns for the upper bound and count of bins.
+
+##### Function type signature
 
 ```js
-histogram(
-    column: "_value",
-    upperBoundColumn: "le",
-    countColumn: "_value",
-    bins: [50.0, 75.0, 90.0],
-    normalize: false,
-)
+histogram = (
+    <-tables: stream[A],
+    bins: [float],
+    ?column: string,
+    ?countColumn: string,
+    ?normalize: bool,
+    ?upperBoundColumn: string,
+) => stream[B] where A: Record, B: Record
 ```
 
 ## Parameters
 
-### column {data-type="string"}
-The name of a column containing input data values.
-The column type must be float.
-Default is `"_value"`.
+### column
 
-### upperBoundColumn {data-type="string"}
-The name of the column in which to store the histogram's upper bounds.
-Default is `"le"`.
 
-### countColumn {data-type="string"}
-The name of the column in which to store the histogram counts.
-Default is `"_value"`.
+Column containing input values. Column must be of type float.
+Default is `_value`.
 
-### bins {data-type="array of floats"}
-({{< req >}}) A list of upper bounds to use when computing the histogram frequencies.
-Bins should contain a bin whose bound is the maximum value of the data set.
+### upperBoundColumn
+
+
+Column to store bin upper bounds in. Default is `le`.
+
+### countColumn
+
+
+Column to store bin counts in. Default is `_value`.
+
+### bins
+
+({{< req >}})
+List of upper bounds to use when computing the histogram frequencies.Bins should contain a bin whose bound is the maximum value of the data set.
 This value can be set to positive infinity if no maximum is known.
-
-#### Bin helper functions
+ #### Bin helper functions
 The following helper functions can be used to generated bins.
+ - linearBins()
+- logarithmicBins()
 
-[linearBins()](/flux/v0.x/stdlib/universe/linearbins)  
-[logarithmicBins()](/flux/v0.x/stdlib/universe/logarithmicbins)
+### normalize
 
-### normalize {data-type="bool"}
-When `true`, will convert the counts into frequency values between 0 and 1.
-Default is `false`.
 
-{{% note %}}
-Normalized histograms cannot be aggregated by summing their counts.
-{{% /note %}}
+Convert counts into frequency values between 0 and 1.
+Default is `false`.**Note**: Normalized histograms cannot be aggregated by summing their counts.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
-- [Create a cumulative histogram](#create-a-cumulative-histogram)
-- [Create a cumulative histogram with dynamically generated bins](#create-a-cumulative-histogram-with-dynamically-generated-bins)
 
-#### Create a cumulative histogram
+### Create a cumulative histogram
+
 ```js
 import "sampledata"
 
@@ -87,38 +105,46 @@ sampledata.float()
     |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+#### Input data
 
-##### Input data
-{{% flux/sample "float" %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
 
-##### Output data
-| tag |   le | _value |
-| :-- | ---: | -----: |
-| t1  |  0.0 |    1.0 |
-| t1  |  5.0 |    2.0 |
-| t1  | 10.0 |    3.0 |
-| t1  | 20.0 |    6.0 |
 
-| tag |   le | _value |
-| :-- | ---: | -----: |
-| t2  |  0.0 |    1.0 |
-| t2  |  5.0 |    3.0 |
-| t2  | 10.0 |    3.0 |
-| t2  | 20.0 |    6.0 |
+#### Output data
 
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
+| *tag | le  | _value  |
+| ---- | --- | ------- |
+| t1   | 0   | 1       |
+| t1   | 5   | 2       |
+| t1   | 10  | 3       |
+| t1   | 20  | 6       |
 
-#### Create a cumulative histogram with dynamically generated bins
+| *tag | le  | _value  |
+| ---- | --- | ------- |
+| t2   | 0   | 1       |
+| t2   | 5   | 3       |
+| t2   | 10  | 3       |
+| t2   | 20  | 6       |
+
+
+### Create a cumulative histogram with dynamically generated bins
+
 ```js
 import "sampledata"
 
@@ -126,31 +152,40 @@ sampledata.float()
     |> histogram(bins: linearBins(start: 0.0, width: 4.0, count: 3))
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+#### Input data
 
-##### Input data
-{{% flux/sample "float" %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
 
-##### Output data
-| tag |   le | _value |
-| :-- | ---: | -----: |
-| t1  |  0.0 |    1.0 |
-| t1  |  4.0 |    1.0 |
-| t1  |  8.0 |    3.0 |
-| t1  | +Inf |    6.0 |
 
-| tag |   le | _value |
-| :-- | ---: | -----: |
-| t2  |  0.0 |    1.0 |
-| t2  |  4.0 |    2.0 |
-| t2  |  8.0 |    3.0 |
-| t2  | +Inf |    6.0 |
+#### Output data
 
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
+| *tag | le   | _value  |
+| ---- | ---- | ------- |
+| t1   | 0    | 1       |
+| t1   | 4    | 1       |
+| t1   | 8    | 3       |
+| t1   | +Inf | 6       |
+
+| *tag | le   | _value  |
+| ---- | ---- | ------- |
+| t2   | 0    | 1       |
+| t2   | 4    | 2       |
+| t2   | 8    | 3       |
+| t2   | +Inf | 6       |
+

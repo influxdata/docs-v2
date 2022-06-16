@@ -1,26 +1,41 @@
 ---
-title: Flux Events package
-list_title: Events package
+title: events package
 description: >
-  The Flux Events package provides tools for analyzing event-based data.
-  Import the `contrib/tomhollingworth/events` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/events/
+  The `events` package provides tools for analyzing event-based data.
 menu:
   flux_0_x_ref:
-    name: events
-    parent: tomhollingworth
-    identifier: tomhollingworth-events
-weight: 201
-flux/v0.x/tags: [functions, events, package]
+    name: events 
+    parent: contrib/tomhollingworth
+    identifier: contrib/tomhollingworth/events
+weight: 31
+cascade:
+
+  introduced: 0.91.0
 ---
 
-The Flux Events package provides tools for analyzing event-based data.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/tomhollingworth/events/events.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `events` package provides tools for analyzing event-based data.
 Import the `contrib/tomhollingworth/events` package:
 
 ```js
 import "contrib/tomhollingworth/events"
 ```
+
+## Functions
 
 {{< children type="functions" show="pages" >}}

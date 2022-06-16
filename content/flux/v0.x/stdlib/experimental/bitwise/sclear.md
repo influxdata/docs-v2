@@ -1,33 +1,117 @@
 ---
 title: bitwise.sclear() function
 description: >
-  `bitwise.sclear()` performs the bitwise operation `a AND NOT b` with
-  [integer](/flux/v0.x/data-types/basic/int/) values.
+  `bitwise.sclear()` performs the bitwise operation `a AND NOT b`.
+  Both `a` and `b` are integers.
 menu:
   flux_0_x_ref:
     name: bitwise.sclear
-    parent: bitwise
-weight: 401
-related:
-  - /flux/v0.x/data-types/basic/int/
-flux/v0.x/tags: [bitwise]
+    parent: experimental/bitwise
+    identifier: experimental/bitwise/sclear
+weight: 201
 ---
 
-`bitwise.sclear()` performs the bitwise operation, `a AND NOT b`, with
-[integer](/flux/v0.x/data-types/basic/int/) values.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L338-L338
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`bitwise.sclear()` performs the bitwise operation `a AND NOT b`.
+Both `a` and `b` are integers.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental/bitwise"
-
-bitwise.sclear(a: 12, b: 21)
-
-// Returns 8
+bitwise.sclear = (a: int, b: int) => int
 ```
 
 ## Parameters
 
-### a {data-type="int"}
-Left operand.
+### a
 
-### b {data-type="int"}
-Right operand.
+({{< req >}})
+Left hand operand.
+
+### b
+
+({{< req >}})
+Bits to clear.
+
+
+## Examples
+
+
+### Perform a bitwise AND NOT operation
+
+```js
+import "experimental/bitwise"
+
+bitwise.sclear(a: 1234, b: 4567)// Returns 1024
+
+```
+
+
+### Perform a bitwise AND NOT operation on a stream of tables
+
+```js
+import "experimental/bitwise"
+import "sampledata"
+
+sampledata.int()
+    |> map(fn: (r) => ({r with _value: bitwise.sclear(a: r._value, b: 3)}))
+```
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -4      | t1   |
+| 2021-01-01T00:00:10Z | 8       | t1   |
+| 2021-01-01T00:00:20Z | 4       | t1   |
+| 2021-01-01T00:00:30Z | 16      | t1   |
+| 2021-01-01T00:00:40Z | 12      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 16      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -4      | t2   |
+| 2021-01-01T00:00:30Z | 16      | t2   |
+| 2021-01-01T00:00:40Z | 12      | t2   |
+| 2021-01-01T00:00:50Z | 0       | t2   |
+

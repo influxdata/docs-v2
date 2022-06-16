@@ -1,56 +1,68 @@
 ---
 title: dict.remove() function
 description: >
-  The `dict.remove()` function removes a key value pair from a dictionary and returns
-  an updated dictionary.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/dict/remove/
-  - /influxdb/cloud/reference/flux/stdlib/dict/remove/
+  `dict.remove()` removes a key value pair from a dictionary and returns an updated
+  dictionary.
 menu:
   flux_0_x_ref:
     name: dict.remove
     parent: dict
-weight: 301
-introduced: 0.97.0
+    identifier: dict/remove
+weight: 101
 ---
 
-The `dict.remove()` function removes a key value pair from a dictionary and returns
-an updated dictionary.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/dict/dict.flux#L132-L132
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`dict.remove()` removes a key value pair from a dictionary and returns an updated
+dictionary.
+
+
+
+##### Function type signature
 
 ```js
-import "dict"
-
-dict.remove(dict: [1: "foo", 2: "bar"], key: 1)
+dict.remove = (dict: [A:B], key: A) => [A:B] where A: Comparable
 ```
 
 ## Parameters
 
-<p>
-  {{< req "All paremeters are required" >}}
-</p>
+### dict
 
-### dict {data-type="dict"}
-Dictionary to remove a key-value pair from.
+({{< req >}})
+Dictionary to remove the key-value pair from.
 
-### key {data-type="string, bool, int, uint, float, time, bytes"}
+### key
+
+({{< req >}})
 Key to remove from the dictionary.
 Must be the same type as existing keys in the dictionary.
 
+
 ## Examples
 
-##### Remove a property from a dictionary
+
+### Remove a property from a dictionary
+
 ```js
 import "dict"
 
 d = [1: "foo", 2: "bar"]
 
-dNew = dict.remove(dict: d, key: 1)
+dict.remove(dict: d, key: 1)// Returns [2: "bar"]
 
-// Verify the key-value pairs was removed
-
-dict.get(dict: dNew, key: 1, default: "")
-// Returns an empty string
-
-dict.get(dict: dNew, key: 2, default: "")
-// Returns bar
 ```
+

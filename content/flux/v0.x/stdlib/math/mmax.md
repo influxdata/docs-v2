@@ -1,46 +1,96 @@
 ---
 title: math.mMax() function
-description: The math.mMax() function returns the larger of `x` or `y`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/m_max/
-  - /influxdb/v2.0/reference/flux/stdlib/math/m_max/
-  - /influxdb/v2.0/reference/flux/stdlib/math/mmax/
-  - /influxdb/cloud/reference/flux/stdlib/math/mmax/
+description: >
+  `math.mMax()` returns the larger of `x` or `y`.
 menu:
   flux_0_x_ref:
     name: math.mMax
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/mMax
+weight: 101
 ---
 
-The `math.mMax()` function returns the larger of `x` or `y`.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L1567-L1567
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.mMax()` returns the larger of `x` or `y`.
+
+
+
+##### Function type signature
 
 ```js
-import "math"
-
-math.mMax(x: 1.23, y: 4.56)
-
-// Returns 4.56
+math.mMax = (x: float, y: float) => float
 ```
 
 ## Parameters
 
-### x {data-type="float"}
-The X value used in the operation.
+### x
 
-### y {data-type="float"}
-The Y value used in the operation.
+({{< req >}})
+x-value to use in the operation.
 
-## Special cases
+### y
+
+({{< req >}})
+y-value to use in the operation.
+
+
+## Examples
+
+
+### Return the larger of two values
+
 ```js
-math.mMax(x:x, y:+Inf)  // Returns +Inf
-math.mMax(x: +Inf, y:y) // Returns +Inf
-math.mMax(x:x, y: NaN)  // Returns NaN
-math.mMax(x: NaN, y:y)  // Returns NaN
-math.mMax(x: +0, y: ±0) // Returns +0
-math.mMax(x: ±0, y: +0) // Returns +0
-math.mMax(x: -0, y: -0) // Returns -0
+import "math"
+
+math.mMax(x: 1.23, y: 4.56)// 4.56
+
 ```
+
+
+### Use math.mMax in map
+
+```js
+import "math"
+
+data
+    |> map(fn: (r) => ({_time: r._time, _value: math.mMax(x: r.t1, y: r.t2)}))
+```
+
+#### Input data
+
+| _time                | t1    | t2    |
+| -------------------- | ----- | ----- |
+| 2021-01-01T00:00:00Z | -2.18 | 19.85 |
+| 2021-01-01T00:00:10Z | 10.92 | 4.97  |
+| 2021-01-01T00:00:20Z | 7.35  | -3.75 |
+| 2021-01-01T00:00:30Z | 17.53 | 19.77 |
+| 2021-01-01T00:00:40Z | 15.23 | 13.86 |
+| 2021-01-01T00:00:50Z | 4.43  | 1.86  |
+
+
+#### Output data
+
+| _time                | _value  |
+| -------------------- | ------- |
+| 2021-01-01T00:00:00Z | 19.85   |
+| 2021-01-01T00:00:10Z | 10.92   |
+| 2021-01-01T00:00:20Z | 7.35    |
+| 2021-01-01T00:00:30Z | 19.77   |
+| 2021-01-01T00:00:40Z | 15.23   |
+| 2021-01-01T00:00:50Z | 4.43    |
+

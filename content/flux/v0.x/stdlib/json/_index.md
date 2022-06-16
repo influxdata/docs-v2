@@ -1,23 +1,35 @@
 ---
-title: Flux json package
-list_title: json package
+title: json package
 description: >
-  The Flux `json` package provides functions for working with JSON.
-  Import the `json` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/json/
-  - /influxdb/v2.0/reference/flux/stdlib/json/
-  - /influxdb/cloud/reference/flux/stdlib/json/
+  The `json` package provides tools for working with JSON.
 menu:
   flux_0_x_ref:
-    name: json
-    parent: Standard library
+    name: json 
+    parent: stdlib
+    identifier: json
 weight: 11
-flux/v0.x/tags: [functions, json, package]
-introduced: 0.40.0
+cascade:
+
+  introduced: 0.40.0
 ---
 
-The Flux `json` package provides functions for working with JSON.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/json/json.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `json` package provides tools for working with JSON.
 Import the `json` package:
 
 ```js
@@ -25,4 +37,5 @@ import "json"
 ```
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}

@@ -1,77 +1,103 @@
 ---
 title: telegram.endpoint() function
 description: >
-  The `telegram.endpoint()` function sends a message to a Telegram channel
-  using data from table rows.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/telegram/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/telegram/endpoint/
+  `telegram.endpoint()` sends a message to a Telegram channel using data from table rows.
 menu:
   flux_0_x_ref:
     name: telegram.endpoint
-    parent: telegram
-weight: 201
-introduced: 0.70.0
-flux/v0.x/tags: [notification endpoints]
+    parent: contrib/sranka/telegram
+    identifier: contrib/sranka/telegram/endpoint
+weight: 301
+
 ---
 
-The `telegram.endpoint()` function sends a message to a Telegram channel
-using data from table rows.
+<!------------------------------------------------------------------------------
 
-```js
-import "contrib/sranka/telegram"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-telegram.endpoint(
-    url: "https://api.telegram.org/bot",
-    token: "S3crEtTel3gRamT0k3n",
-    parseMode: "MarkdownV2",
-    disableWebPagePreview: false,
-)
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-{{% note %}}
-For information about retrieving your Telegram **bot token** and **channel ID**,
-see [Set up a Telegram bot](/v2.0/reference/flux/stdlib/contrib/telegram/#set-up-a-telegram-bot).
-{{% /note %}}
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/telegram/telegram.flux#L174-L197
 
-## Parameters
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-### url {data-type="string"}
-URL of the Telegram bot endpoint.
-Default is `https://api.telegram.org/bot`.
+------------------------------------------------------------------------------->
 
-### token {data-type="string"}
-({{< req >}})
-Telegram bot token.
-
-### parseMode {data-type="string"}
-[Parse mode](https://core.telegram.org/bots/api#formatting-options) of the message text.
-Default is `"MarkdownV2"`.
-
-### disableWebPagePreview {data-type="bool"}
-Disable preview of web links in the sent message.
-Default is `false`.
+`telegram.endpoint()` sends a message to a Telegram channel using data from table rows.
 
 ## Usage
+
 `telegram.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the POST request.
-Requires an `r` parameter.
+### `mapFn`
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following fields:
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
 
 - `channel`
 - `text`
 - `silent`
 
-_For more information, see [`telegram.message()` parameters](/v2.0/reference/flux/stdlib/contrib/telegram/message/#parameters)._
+For more information, see `telegram.message()` parameters.
+
+The returned factory function accepts a `mapFn` parameter.
+The `mapFn` must return an record with the following properties:
+
+- `channel`
+- `text`
+- `silent`
+
+See `telegram.message` parameters for more information.
+
+##### Function type signature
+
+```js
+telegram.endpoint = (
+    token: string,
+    ?disableWebPagePreview: A,
+    ?parseMode: B,
+    ?url: string,
+) => (
+    mapFn: (r: C) => {D with text: G, silent: F, channel: E},
+) => (<-tables: stream[C]) => stream[{C with _sent: string}]
+```
+
+## Parameters
+
+### url
+
+
+URL of the Telegram bot endpoint. Default is `https://api.telegram.org/bot`.
+
+### token
+
+({{< req >}})
+Telegram bot token.
+
+### parseMode
+
+
+[Parse mode](https://core.telegram.org/bots/api#formatting-options)
+of the message text.
+Default is `MarkdownV2`.
+
+### disableWebPagePreview
+
+
+Disable preview of web links in the sent message.
+Default is false.
+
 
 ## Examples
 
-##### Send critical statuses to a Telegram channel
+
+### Send critical statuses to a Telegram channel
+
 ```js
 import "influxdata/influxdb/secrets"
 import "contrib/sranka/telegram"
@@ -87,3 +113,4 @@ crit_statuses =
 crit_statuses
     |> endpoint(mapFn: (r) => ({channel: "-12345", text: "Disk usage is **${r.status}**.", silent: true}))()
 ```
+

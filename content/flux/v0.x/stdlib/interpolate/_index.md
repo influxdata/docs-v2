@@ -1,23 +1,37 @@
 ---
-title: Flux interpolate package
-list_title: interpolate package
+title: interpolate package
 description: >
-  The Flux `interpolate` package provides functions that insert rows for missing
-  data at regular intervals and estimate values using different interpolation methods.
-  Import the `interpolate` package.
+  The `interpolate` package provides functions that insert rows for missing data
+  at regular intervals and estimate values using different interpolation methods.
 menu:
   flux_0_x_ref:
-    name: interpolate
-    parent: Standard library
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/interpolate/
-  - /influxdb/cloud/reference/flux/stdlib/interpolate/
+    name: interpolate 
+    parent: stdlib
+    identifier: interpolate
 weight: 11
-introduced: 0.87.0
+cascade:
+
+  introduced: 0.87.0
 ---
 
-The `interpolate` package provides functions that insert rows for missing
-data at regular intervals and estimate values using different interpolation methods.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/interpolate/interpolate.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `interpolate` package provides functions that insert rows for missing data
+at regular intervals and estimate values using different interpolation methods.
 Import the `interpolate` package:
 
 ```js
@@ -25,4 +39,5 @@ import "interpolate"
 ```
 
 ## Functions
-{{< children type="articles" show="pages" >}}
+
+{{< children type="functions" show="pages" >}}

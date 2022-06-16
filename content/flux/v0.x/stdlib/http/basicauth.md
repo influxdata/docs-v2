@@ -1,44 +1,64 @@
 ---
 title: http.basicAuth() function
 description: >
-  The `http.basicAuth()` function returns a Base64-encoded basic authentication
-  header using a specified username and password combination.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/http/basicauth/
-  - /influxdb/v2.0/reference/flux/stdlib/http/basicauth/
-  - /influxdb/cloud/reference/flux/stdlib/http/basicauth/
+  `http.basicAuth()` returns a Base64-encoded basic authentication header
+  using a specified username and password combination.
 menu:
   flux_0_x_ref:
     name: http.basicAuth
     parent: http
-weight: 202
+    identifier: http/basicAuth
+weight: 101
+flux/v0.x/tags: [single notification]
 introduced: 0.44.0
 ---
 
-The `http.basicAuth()` function returns a Base64-encoded basic authentication
-header using a specified username and password combination.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux#L79-L79
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`http.basicAuth()` returns a Base64-encoded basic authentication header
+using a specified username and password combination.
+
+
+
+##### Function type signature
 
 ```js
-import "http"
-
-http.basicAuth(u: "username", p: "passw0rd")
-
-// Returns "Basic dXNlcm5hbWU6cGFzc3cwcmQ="
+http.basicAuth = (p: string, u: string) => string
 ```
 
 ## Parameters
 
-### u {data-type="string"}
-The username to use in the basic authentication header.
+### u
 
-### p {data-type="string"}
-The password to use in the basic authentication header.
+({{< req >}})
+Username to use in the basic authentication header.
+
+### p
+
+({{< req >}})
+Password to use in the basic authentication header.
+
 
 ## Examples
 
-##### Set a basic authentication header in an HTTP POST request
+
+### Set a basic authentication header in an HTTP POST request
+
 ```js
-import "monitor"
 import "http"
 
 username = "myawesomeuser"
@@ -46,7 +66,8 @@ password = "mySupErSecRetPasSW0rD"
 
 http.post(
     url: "http://myawesomesite.com/api/",
-    headers: {Authorization: http.basicAuth(u:username, p:password)},
-    data: bytes(v: "something I want to send."),
+    headers: {Authorization: http.basicAuth(u: username, p: password)},
+    data: bytes(v: "Something I want to send."),
 )
 ```
+

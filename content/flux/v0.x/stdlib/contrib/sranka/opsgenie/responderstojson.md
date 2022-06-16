@@ -1,40 +1,49 @@
 ---
 title: opsgenie.respondersToJSON() function
 description: >
-  The `opsgenie.respondersToJSON()` function converts an array of
-  [Opsgenie responder](https://docs.opsgenie.com/docs/alert-recipients-and-teams)
-  strings to a string-encoded JSON array that can be embedded in an alert message.
+  `opsgenie.respondersToJSON()` converts an array of Opsgenie responder strings
+  to a string-encoded JSON array that can be embedded in an alert message.
 menu:
   flux_0_x_ref:
     name: opsgenie.respondersToJSON
-    parent: opsgenie
+    parent: contrib/sranka/opsgenie
+    identifier: contrib/sranka/opsgenie/respondersToJSON
 weight: 301
-introduced: 0.84.0
 ---
 
-The `opsgenie.respondersToJSON()` function converts an array of
-[Opsgenie responder](https://docs.opsgenie.com/docs/alert-recipients-and-teams)
-strings to a string-encoded JSON array that can be embedded in an alert message.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/opsgenie/opsgenie.flux#L21-L21
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`opsgenie.respondersToJSON()` converts an array of Opsgenie responder strings
+to a string-encoded JSON array that can be embedded in an alert message.
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/sranka/opsgenie"
-
-import "contrib/sranka/opsgenie"
-
-opsgenie.respondersToJSON(
-    v: ["user:example-user", "team:example-team", "escalation:example-escalation", "schedule:example-schedule"],
-)
-
-// Returns "[
-//   {"type":"user","username":"example-user"},
-//   {"type":"team","name":"example-team"},
-//   {"type":"escalation","name":"example-escalation"},
-//   {"type":"schedule","name":"example-schedule"}
-// ]"
+opsgenie.respondersToJSON = (v: [string]) => string
 ```
 
 ## Parameters
 
-### v {data-type="array of strings"}
-({{< req >}}) Array of Opsgenie responder strings.
-Responder strings must begin with `user:`, `team:`, `escalation:`, or `schedule:`.
+### v
+
+({{< req >}})
+(Required) Array of Opsgenie responder strings.
+Responder strings must begin with
+`user: `, `team: `, `escalation: `, or `schedule: `.
+

@@ -1,57 +1,73 @@
 ---
 title: dict.get() function
 description: >
-  The `dict.get()` function returns the value of a specified key in a dictionary
-  or a default value if the key does not exist.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/dict/get/
-  - /influxdb/cloud/reference/flux/stdlib/dict/get/
+  `dict.get()` returns the value of a specified key in a dictionary or a default value
+  if the key does not exist.
 menu:
   flux_0_x_ref:
     name: dict.get
     parent: dict
-weight: 301
-introduced: 0.97.0
+    identifier: dict/get
+weight: 101
 ---
 
-The `dict.get()` function returns the value of a specified key in a dictionary
-or a default value if the key does not exist.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/dict/dict.flux#L58-L58
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`dict.get()` returns the value of a specified key in a dictionary or a default value
+if the key does not exist.
+
+
+
+##### Function type signature
 
 ```js
-import "dict"
-
-dict.get(
-    dict: [1: "foo", 2: "bar"],
-    key: 1,
-    default: "",
-)
+dict.get = (default: A, dict: [B:A], key: B) => A where B: Comparable
 ```
 
 ## Parameters
 
-<p>
-  {{< req "All paremeters are required" >}}
-</p>
+### dict
 
-### dict {data-type="dict"}
+({{< req >}})
 Dictionary to return a value from.
 
-### key {data-type="string, bool, int, uint, float, time, bytes"}
+### key
+
+({{< req >}})
 Key to return from the dictionary.
 
-### default {data-type="string, bool, int, uint, float, time, bytes"}
-Default value to return if the `key` does not exist in the dictionary.
-Must be the same type as values in the dictionary.
+### default
+
+({{< req >}})
+Default value to return if the key does not exist in the
+dictionary. Must be the same type as values in the dictionary.
+
 
 ## Examples
 
-##### Return a property of a dictionary
+
+### Return a property of a dictionary
+
 ```js
 import "dict"
 
 d = [1: "foo", 2: "bar"]
 
-dict.get(dict: d, key: 1, default: "")
+dict.get(dict: d, key: 1, default: "")// Returns "foo"
 
-// Returns foo
 ```
+

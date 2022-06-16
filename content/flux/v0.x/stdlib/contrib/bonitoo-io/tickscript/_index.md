@@ -1,29 +1,37 @@
 ---
-title: Flux tickscript package
-list_title: tickscript package
+title: tickscript package
 description: >
-  The Flux `tickscript` package provides functions to help migrate Kapacitor TICKscripts to Flux tasks.
-  Import the `contrib/bonitoo-io/tickscript` package.
+  The `tickscript` package provides functions to help migrate
+  Kapacitor [TICKscripts](https://docs.influxdata.com/kapacitor/latest/tick/) to Flux tasks.
 menu:
   flux_0_x_ref:
-    name: tickscript
-    parent: bonitoo-io
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/
-flux/v0.x/tags: [functions, tickscript, package]
+    name: tickscript 
+    parent: contrib/bonitoo-io
+    identifier: contrib/bonitoo-io/tickscript
+weight: 31
 cascade:
+
   introduced: 0.111.0
-  append:
-    block: note
-    content: |
-      #### Package author and maintainer
-      **Github:** [@bonitoo-io](https://github.com/bonitoo-io), [@alespour](https://github.com/alespour)  
-      **InfluxDB Slack:** [@Ales Pour](https://influxdata.com/slack)
 ---
 
-The Flux `tickscript` package provides functions to help migrate Kapacitor TICKscripts to Flux tasks.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `tickscript` package provides functions to help migrate
+Kapacitor [TICKscripts](https://docs.influxdata.com/kapacitor/latest/tick/) to Flux tasks.
 Import the `contrib/bonitoo-io/tickscript` package:
 
 ```js
@@ -31,4 +39,5 @@ import "contrib/bonitoo-io/tickscript"
 ```
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}

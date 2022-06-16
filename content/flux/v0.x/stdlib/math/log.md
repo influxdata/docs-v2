@@ -1,39 +1,69 @@
 ---
 title: math.log() function
-description: The math.log() function returns the natural logarithm of `x`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/log/
-  - /influxdb/v2.0/reference/flux/stdlib/math/log/
-  - /influxdb/cloud/reference/flux/stdlib/math/log/
+description: >
+  `math.log()` returns the natural logarithm of `x`.
 menu:
   flux_0_x_ref:
     name: math.log
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/log
+weight: 101
 ---
 
-The `math.log()` function returns the natural logarithm of `x`.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L1384-L1384
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.log()` returns the natural logarithm of `x`.
+
+
+
+##### Function type signature
 
 ```js
-import "math"
-
-math.log(x: 3.14)
-
-// Returns 1.144222799920162
+math.log = (x: float) => float
 ```
 
 ## Parameters
 
-### x {data-type="float"}
-The value used in the operation.
+### x
 
-## Special cases
+({{< req >}})
+Value to operate on.
+
+
+## Examples
+
+
+### Return the natural logarithm of a value
+
 ```js
-math.log(x: +Inf) // Returns +Inf
-math.log(x: 0)    // Returns -Inf
-math.log(x: <0)   // Returns NaN
-math.log(x: NaN)  // Returns NaN
+import "math"
+
+math.log(x: 3.14)// 1.144222799920162
+
 ```
+
+
+### Use math.log in map
+
+```js
+import "sampledata"
+import "math"
+
+sampledata.float()
+    |> map(fn: (r) => ({r with _value: math.log(x: r._value)}))
+```
+

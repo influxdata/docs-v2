@@ -1,22 +1,58 @@
 ---
 title: runtime.version() function
-description: The `runtime.version()` function returns the current Flux version.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/runtime/version/
-  - /influxdb/v2.0/reference/flux/stdlib/runtime/version/
-  - /influxdb/cloud/reference/flux/stdlib/runtime/version/
+description: >
+  `runtime.version()` returns the current Flux version.
 menu:
   flux_0_x_ref:
     name: runtime.version
     parent: runtime
-weight: 401
-introduced: 0.38.0
+    identifier: runtime/version
+weight: 101
 ---
 
-The `runtime.version()` function returns the current Flux version.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/runtime/runtime.flux#L19-L19
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`runtime.version()` returns the current Flux version.
+
+
+
+##### Function type signature
 
 ```js
+runtime.version = () => string
+```
+
+
+## Examples
+
+
+### Return the Flux version in a stream of tables
+
+```js
+import "array"
 import "runtime"
 
-runtime.version()
+array.from(rows: [{version: runtime.version()}])
 ```
+
+
+#### Output data
+
+| version  |
+| -------- |
+| (devel)  |
+

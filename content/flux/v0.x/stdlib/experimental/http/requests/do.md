@@ -1,163 +1,127 @@
 ---
 title: requests.do() function
 description: >
-  `requests.do()` makes an HTTP request using the specified request method.
+  `requests.do()` makes an http request.
 menu:
   flux_0_x_ref:
     name: requests.do
-    parent: requests
-weight: 401
-flux/v0.x/tags: [http, inputs, outputs]
-introduced: 0.152.0
+    parent: experimental/http/requests
+    identifier: experimental/http/requests/do
+weight: 301
+flux/v0.x/tags: [http, inputs]
 ---
 
-`requests.do()` makes an HTTP request using the specified request method.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L136-L151
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`requests.do()` makes an http request.
+
+
+
+The returned response contains the following properties:
+
+- statusCode: HTTP status code returned from the request.
+- body: Contents of the request. A maximum size of 100MB will be read from the response body.
+- headers: Headers present on the response.
+- duration: Duration of request.
+
+##### Function type signature
 
 ```js
-import "experimental/http/requests"
-
-requests.do(
-    method: "GET",
-    url: "http://example.com",
-    params: ["example-param": ["example-param-value"]],
-    headers: ["Example-Header": "example-header-value"],
-    body: bytes(v: ""),
-    config: requests.defaultConfig,
-)
+requests.do = (
+    method: string,
+    url: string,
+    ?body: bytes,
+    ?config: {A with timeout: duration, insecureSkipVerify: bool},
+    ?headers: [string:string],
+    ?params: [string:[string]],
+) => {statusCode: int, headers: [string:string], duration: duration, body: bytes}
 ```
-
-`requests.do()` returns a record with the following properties:
-
-- **statusCode**: HTTP status code of the request _(as an [integer](/flux/v0.x/data-types/basic/int/))_.
-- **body**: Response body _(as [bytes](/flux/v0.x/data-types/basic/bytes/))_.
-  A maximum size of 100MB is read from the response body.
-- **headers**: Response headers _(as a [dictionary](/flux/v0.x/data-types/composite/dict/))_.
-- **duration**: Request duration _(as a [duration](/flux/v0.x/data-types/basic/duration/))_.
 
 ## Parameters
 
-### method {data-type="string"}
-HTTP request method.
+### method
 
-**Supported methods**:
-- DELETE
-- GET
-- HEAD
-- PATCH
-- POST
-- PUT
+({{< req >}})
+method of the http request.
+   Supported methods: DELETE, GET, HEAD, PATCH, POST, PUT.
 
-### url {data-type="string"}
-URL to send the request to.
+### url
 
-{{% note %}}
-The URL should not include any query parameters.
-Use [`params`](#params) to specify query parameters.
-{{% /note %}}
+({{< req >}})
+URL to request. This should not include any query parameters.
 
-### params {data-type="dict"}
-Set of key-value pairs to add to the URL as query parameters.
-Query parameters are URL-encoded.
-All values for a key are appended to the query.
+### params
 
-### headers {data-type="dict"}
-Set of key values pairs to include as request headers.
 
-### body {data-type="bytes"}
+Set of key value pairs to add to the URL as query parameters.
+  Query parameters will be URL encoded.
+  All values for a key will be appended to the query.
+
+### headers
+
+
+Set of key values pairs to include on the request.
+
+### body
+
+
 Data to send with the request.
 
-### config {data-type="record"}
-Set of request configuration options.
-_See [HTTP configuration option examples](/flux/v0.x/stdlib/experimental/http/requests/#examples)._
+### config
+
+
+Set of options to control how the request should be performed.
+
 
 ## Examples
 
-- [Make a GET request](#make-a-get-request)
-- [Make a GET request with authorization](#make-a-get-request-with-authorization)
-- [Make a GET request with query parameters](#make-a-get-request-with-query-parameters)
-- [Make a GET request and decode the JSON response](#make-a-get-request-and-decode-the-json-response)
-- [Make a POST request with a JSON body](#make-a-post-request-with-a-json-body)
-- [Output HTTP response data in a table](#output-http-response-data-in-a-table)
 
 ### Make a GET request
+
 ```js
 import "experimental/http/requests"
 
-requests.do(url:"http://example.com", method: "GET")
+response = requests.do(url: "http://example.com", method: "GET")
+
+requests.peek(response: response)
 ```
 
-### Make a GET request with authorization
+
+### Make a GET request that needs authorization
+
 ```js
 import "experimental/http/requests"
 import "influxdata/influxdb/secrets"
 
-token = secrets.get(key:"TOKEN")
+token = secrets.get(key: "TOKEN")
 
-requests.do(
-    method: "GET",
-    url: "http://example.com",
-    headers: ["Authorization": "Token ${token}"],
-)
-```
-
-### Make a GET request with query parameters
-```js
-import "experimental/http/requests"
-
-requests.do(method: "GET", url: "http://example.com", params: ["start": ["100"]])
-```
-
-### Make a GET request and decode the JSON response
-To decode a JSON response, import the [`experimental/json` package](/flux/v0.x/stdlib/experimental/json/)
-and use [`json.parse()`](/flux/v0.x/stdlib/experimental/json/parse/) to parse
-the response into a [Flux type](/flux/v0.x/data-types/).
-
-```js
-import "experimental/http/requests"
-import "experimental/json"
-import "array"
-
-response = requests.do(method: "GET", url: "https://api.agify.io", params: ["name": ["nathaniel"]])
-
-// api.agify.io returns JSON with the form
-//
-// {
-//    name: string,
-//    age: number,
-//    count: number,
-// }
-//
-// Define a data variable that parses the JSON response body into a Flux record.
-data = json.parse(data: response.body)
-
-// Use array.from() to construct a table with one row containing our response data.
-array.from(rows: [{name: data.name, age: data.age, count: data.count}])
-```
-
-### Make a POST request with a JSON body
-Use [`json.encode()`](/flux/v0.x/stdlib/json/encode/) to encode a Flux record as
-a JSON object.
-
-```js
-import "experimental/http/requests"
-import "json"
-
-requests.do(
-    method: "POST",
-    url: "https://goolnk.com/api/v1/shorten",
-    body: json.encode(v: {url: "http://www.influxdata.com"}),
-    headers: ["Content-Type": "application/json"],
-)
-```
-
-### Output HTTP response data in a table
-To quickly inspect HTTP response data, use [`requests.peek()`](/flux/v0.x/stdlib/experimental/http/requests/peek/)
-to output HTTP response data in a table.
-
-```js
-import "experimental/http/requests"
-
-response = requests.do(method: "GET", url: "http://example.com")
+response = requests.do(method: "GET", url: "http://example.com", headers: ["Authorization": "token ${token}"])
 
 requests.peek(response: response)
 ```
+
+
+### Make a GET request with query parameters
+
+```js
+import "experimental/http/requests"
+
+response = requests.do(method: "GET", url: "http://example.com", params: ["start": ["100"]])
+
+requests.peek(response: response)
+```
+

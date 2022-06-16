@@ -5,70 +5,83 @@ description: >
 menu:
   flux_0_x_ref:
     name: requests.peek
-    parent: requests
-weight: 401
-flux/v0.x/tags: [http]
-introduced: 0.154.0
+    parent: experimental/http/requests
+    identifier: experimental/http/requests/peek
+weight: 301
 ---
+
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L307-L317
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
 
 `requests.peek()` converts an HTTP response into a table for easy inspection.
 
-```js
-import "experimental/http/requests"
-
-requests.peek(
-    response: requests.get(url: "http://example.com")
-)
-```
-
 The output table includes the following columns:
+ - **body** with the response body as a string
+ - **statusCode** with the returned status code as an integer
+ - **headers** with a string representation of the headers
+ - **duration** the duration of the request as a number of nanoseconds
 
-- **body**: response body as a string
-- **statusCode**: returned status code as an integer
-- **headers**: string representation of response headers
-- **duration**: request duration in nanoseconds
-
-{{% note %}}
 To customize how the response data is structured in a table, use `array.from()`
 with a function like `json.parse()`. Parse the response body into a set of values
 and then use `array.from()` to construct a table from those values.
-{{% /note %}}
 
+##### Function type signature
+
+```js
+requests.peek = (
+    response: {A with statusCode: E, headers: D, duration: C, body: B},
+) => stream[{statusCode: E, headers: string, duration: int, body: string}]
+```
 
 ## Parameters
 
-### response {data-type="record"}
+### response
+
+({{< req >}})
 Response data from an HTTP request.
+
 
 ## Examples
 
+
 ### Inspect the response of an HTTP request
+
 ```js
 import "experimental/http/requests"
 
-response = requests.get(url: "https://api.agify.io", params: ["name": ["natalie"]])
-
-requests.peek(response: response)
+requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name": ["natalie"]]))
 ```
 
-| statusCode | body | headers | duration |
-| :--------- | :--- | :------ | -------: |
-| 200 | {"name":"natalie","age":34,"count":20959} | _See [returned headers](#returned-headers) string below_ | 1212263875 |
 
-##### Returned headers
-```
-[
-    Access-Control-Allow-Headers: Content-Type, X-Genderize-Source,
-    Access-Control-Allow-Methods: GET,
-    Access-Control-Allow-Origin: *,
-    Connection: keep-alive,
-    Content-Length: 41,
-    Content-Type: application/json; charset=utf-8,
-    Date: Wed, 09 Feb 2022 20:00:00 GMT,
-    Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI",
-    Server: nginx/1.16.1,
-    X-Rate-Limit-Limit: 1000,
-    X-Rate-Limit-Remaining: 999,
-    X-Rate-Reset: 12203
-]
-```
+#### Output data
+
+| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | statusCode  |
+| ----------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| {"name":"natalie","age":34,"count":20959} | 100000000 | [
+    Access-Control-Allow-Headers: Content-Type, X-Genderize-Source, 
+    Access-Control-Allow-Methods: GET, 
+    Access-Control-Allow-Origin: *, 
+    Connection: keep-alive, 
+    Content-Length: 41, 
+    Content-Type: application/json; charset=utf-8, 
+    Date: Tue, 14 Jun 2022 15:25:06 GMT, 
+    Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI", 
+    Server: nginx/1.16.1, 
+    X-Rate-Limit-Limit: 1000, 
+    X-Rate-Limit-Remaining: 998, 
+    X-Rate-Reset: 30894
+]                           | 200         |
+

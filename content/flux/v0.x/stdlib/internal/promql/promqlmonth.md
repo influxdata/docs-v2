@@ -1,0 +1,47 @@
+---
+title: promql.promqlMonth() function
+description: >
+  `promql.promqlMonth()` implements functionality equivalent to
+  [PromQL's `month()` function](https://prometheus.io/docs/prometheus/latest/querying/functions/#month).
+menu:
+  flux_0_x_ref:
+    name: promql.promqlMonth
+    parent: internal/promql
+    identifier: internal/promql/promqlMonth
+weight: 201
+---
+
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L140-L140
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`promql.promqlMonth()` implements functionality equivalent to
+[PromQL's `month()` function](https://prometheus.io/docs/prometheus/latest/querying/functions/#month).
+
+
+
+##### Function type signature
+
+```js
+promql.promqlMonth = (timestamp: float) => float
+```
+
+## Parameters
+
+### timestamp
+
+({{< req >}})
+Time as a floating point value.
+

@@ -1,38 +1,110 @@
 ---
 title: math.logb() function
-description: The math.logb() function returns the binary exponent of `x`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/logb/
-  - /influxdb/v2.0/reference/flux/stdlib/math/logb/
-  - /influxdb/cloud/reference/flux/stdlib/math/logb/
+description: >
+  `math.logb()` returns the binary exponent of `x`.
 menu:
   flux_0_x_ref:
     name: math.logb
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/logb
+weight: 101
 ---
 
-The `math.logb()` function returns the binary exponent of `x`.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L1526-L1526
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.logb()` returns the binary exponent of `x`.
+
+
+
+##### Function type signature
 
 ```js
-import "math"
-
-math.logb(x: 3.14)
-
-// Returns 1.0
+math.logb = (x: float) => float
 ```
 
 ## Parameters
 
-### x {data-type="float"}
-The value used in the operation.
+### x
 
-## Special cases
+({{< req >}})
+Value to operate on.
+
+
+## Examples
+
+
+### Return the binary exponent of a value
+
 ```js
-math.logb(x: ±Inf) // Returns +Inf
-math.logb(x: 0)    // Returns -Inf
-math.logb(x: NaN)  // Returns NaN
+import "math"
+
+math.logb(x: 3.14)// 1
+
 ```
+
+
+### Use math.logb in map
+
+```js
+import "sampledata"
+import "math"
+
+sampledata.float()
+    |> map(fn: (r) => ({r with _value: math.logb(x: r._value)}))
+```
+
+#### Input data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
+
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 1       | t1   |
+| 2021-01-01T00:00:10Z | 3       | t1   |
+| 2021-01-01T00:00:20Z | 2       | t1   |
+| 2021-01-01T00:00:30Z | 4       | t1   |
+| 2021-01-01T00:00:40Z | 3       | t1   |
+| 2021-01-01T00:00:50Z | 2       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 4       | t2   |
+| 2021-01-01T00:00:10Z | 2       | t2   |
+| 2021-01-01T00:00:20Z | 1       | t2   |
+| 2021-01-01T00:00:30Z | 4       | t2   |
+| 2021-01-01T00:00:40Z | 3       | t2   |
+| 2021-01-01T00:00:50Z | 0       | t2   |
+

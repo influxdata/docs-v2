@@ -1,37 +1,110 @@
 ---
 title: math.pow10() function
-description: The math.pow10() function returns `10**n`, the base-10 exponential of `n`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/pow10/
-  - /influxdb/v2.0/reference/flux/stdlib/math/pow10/
-  - /influxdb/cloud/reference/flux/stdlib/math/pow10/
+description: >
+  `math.pow10()` returns 10**n, the base-10 exponential of `n`.
 menu:
   flux_0_x_ref:
     name: math.pow10
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/pow10
+weight: 101
 ---
 
-The `math.pow10()` function returns `10**n`, the base-10 exponential of `n`.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L1828-L1828
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.pow10()` returns 10**n, the base-10 exponential of `n`.
+
+
+
+##### Function type signature
 
 ```js
-import "math"
-
-math.pow10(n: 3)
-
-// Returns 1000
+math.pow10 = (n: int) => float
 ```
 
 ## Parameters
 
-### n {data-type="int"}
-The value used in the operation.
+### n
 
-## Special cases
+({{< req >}})
+Exponent value.
+
+
+## Examples
+
+
+### Return the base-10 exponential of n
+
 ```js
-math.pow10(n: <-323) // Returns 0
-math.pow10(n: >308)  // Returns +Inf
+import "math"
+
+math.pow10(n: 3)// 1000.0
+
 ```
+
+
+### Use math.pow10 in map
+
+```js
+import "math"
+import "sampledata"
+
+sampledata.int()
+    |> map(fn: (r) => ({r with _value: math.pow10(n: r._value)}))
+```
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | _value             | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:00Z | 0.01               | t1   |
+| 2021-01-01T00:00:10Z | 10000000000        | t1   |
+| 2021-01-01T00:00:20Z | 10000000           | t1   |
+| 2021-01-01T00:00:30Z | 100000000000000000 | t1   |
+| 2021-01-01T00:00:40Z | 1000000000000000   | t1   |
+| 2021-01-01T00:00:50Z | 10000              | t1   |
+
+| _time                | _value               | *tag |
+| -------------------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | 10000000000000000000 | t2   |
+| 2021-01-01T00:00:10Z | 10000                | t2   |
+| 2021-01-01T00:00:20Z | 0.001                | t2   |
+| 2021-01-01T00:00:30Z | 10000000000000000000 | t2   |
+| 2021-01-01T00:00:40Z | 10000000000000       | t2   |
+| 2021-01-01T00:00:50Z | 10                   | t2   |
+

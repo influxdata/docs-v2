@@ -1,28 +1,41 @@
 ---
-title: Flux InfluxDB sample package
-list_title: sample package
+title: sample package
 description: >
-  The Flux InfluxDB `sample` package provides functions for downloading and outputting InfluxDB data sample.
-  Import the `influxdata/influxdb/sample` package.
+  The `sample` package provides functions for downloading and ouputting InfluxDB sample datasets.
 menu:
   flux_0_x_ref:
-    name: sample
-    identifier: sample-pkg
-    parent: influxdb-pkg
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-sample
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-sample
-flux/v0.x/tags: [functions, sample data, package]
-introduced: 0.123.0
+    name: sample 
+    parent: influxdata/influxdb
+    identifier: influxdata/influxdb/sample
+weight: 31
+cascade:
+  flux/v0.x/tags: [sample data]
+  introduced: 0.123.0
 ---
 
-The Flux InfluxDB `sample` package provides functions for downloading and outputting InfluxDB data sample.
+<!------------------------------------------------------------------------------
 
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/sample/sample.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `sample` package provides functions for downloading and ouputting InfluxDB sample datasets.
 Import the `influxdata/influxdb/sample` package:
 
 ```js
 import "influxdata/influxdb/sample"
 ```
+
+## Functions
 
 {{< children type="functions" show="pages" >}}

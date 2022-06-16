@@ -1,56 +1,69 @@
 ---
 title: strings.splitN() function
 description: >
-  The strings.splitN() function splits a string on a specified separator and returns
-  an array of `i` substrings.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/splitn/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/splitn/
-  - /influxdb/cloud/reference/flux/stdlib/strings/splitn/
+  `strings.splitN()` splits a string on a specified separator and returns an array of `i` substrings.
 menu:
   flux_0_x_ref:
     name: strings.splitN
     parent: strings
-weight: 301
-related:
-  - /flux/v0.x/stdlib/strings/split
-  - /flux/v0.x/stdlib/strings/splitafter
-  - /flux/v0.x/stdlib/strings/splitaftern
-introduced: 0.18.0
+    identifier: strings/splitN
+weight: 101
 ---
 
-The `strings.splitN()` function splits a string on a specified separator and returns
-an array of `i` substrings.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Array of strings_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux#L734-L734
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`strings.splitN()` splits a string on a specified separator and returns an array of `i` substrings.
+
+
+
+##### Function type signature
 
 ```js
-import "strings"
-
-strings.splitN(v: "a flux of foxes", t: " ", i: 3)
-
-// returns ["a", "flux", "of foxes"]
+strings.splitN = (i: int, t: string, v: string) => [string]
 ```
 
 ## Parameters
 
-### v {data-type="string"}
-The string value to split.
+### v
 
-### t {data-type="string"}
-The string value that acts as the separator.
+({{< req >}})
+String value to split.
 
-### i {data-type="int"}
-The maximum number of split substrings to return.
-`-1` returns all matching substrings.
-The last substring is the unsplit remainder.
+### t
+
+({{< req >}})
+String value that acts as the separator.
+
+### i
+
+({{< req >}})
+Maximum number of split substrings to return.`-1` returns all matching substrings.
+    The last substring is the unsplit remainder.
+
 
 ## Examples
 
-###### Split a string into an array of substrings
+
+### Split a string into an array of substrings
+
 ```js
 import "strings"
 
-data
-    |> map (fn:(r) => strings.splitN(v: r.searchTags, t: ","))
+strings.splitN(v: "foo, bar, baz, quz", t: ", ", i: 3)// Returns ["foo", "bar", "baz, quz"]
+
 ```
+

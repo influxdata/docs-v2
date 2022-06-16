@@ -1,88 +1,97 @@
 ---
 title: victorops.alert() function
 description: >
-  The `victorops.alert()` function sends an alert to VictorOps.
+  `victorops.alert()` sends an alert to VictorOps.
 menu:
   flux_0_x_ref:
     name: victorops.alert
-    parent: victorops
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/victorops/event/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/victorops/event/
-  - /flux/v0.x/stdlib/contrib/bonitoo-io/victorops/event/
-introduced: 0.108.0
+    parent: contrib/bonitoo-io/victorops
+    identifier: contrib/bonitoo-io/victorops/alert
+weight: 301
+flux/v0.x/tags: [single notification]
 ---
 
-The `victorops.alert()` function sends an alert to [VictorOps](https://www.victorops.com/).
+<!------------------------------------------------------------------------------
 
-{{% note %}}
-#### VictorOps is now Splunk On-Call
-Splunk acquired VictorOps and VictorOps is now
-[Splunk On-Call](https://www.splunk.com/en_us/investor-relations/acquisitions/splunk-on-call.html).
-{{% /note %}}
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/victorops/victorops.flux#L75-L98
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`victorops.alert()` sends an alert to VictorOps.
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/victorops"
-
-victorops.alert(
-    url: "https://alert.victorops.com/integrations/generic/00000000/alert/${api_key}/${routing_key}",
-    monitoringTool: "",
-    messageType: "CRITICAL",
-    entityID: "",
-    entityDisplayName: "",
-    stateMessage: "",
-    timestamp: now(),
-)
+victorops.alert = (
+    messageType: A,
+    url: string,
+    ?entityDisplayName: B,
+    ?entityID: C,
+    ?monitoringTool: D,
+    ?stateMessage: E,
+    ?timestamp: F,
+) => int
 ```
 
 ## Parameters
 
-### url {data-type="string"}
+### url
+
 ({{< req >}})
-[VictorOps REST endpoint integration URL](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/).
+VictorOps REST endpoint integration URL.Example: `https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routing_key>`
+ Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing keys.
 
-##### VictorOps URL example
-```
-https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routing_key>
-```
+### monitoringTool
 
-_Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing keys._
 
-### monitoringTool {data-type="string"}
-Monitoring agent name.
-Default is `""`.
+Monitoring agent name. Default is `""`.
 
-### messageType {data-type="string"}
+### messageType
+
 ({{< req >}})
-VictorOps [message type](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields)
-(alert behavior).
-
-**Valid values:**
-
+VictorOps message type (alert behavior).**Valid values**:
 - `CRITICAL`
 - `WARNING`
 - `INFO`
 
-### entityID {data-type="string"}
-[Incident ID](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields).
-Default is `""`.
+### entityID
 
-### entityDisplayName {data-type="string"}
-[Incident display name or summary](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields).
-Default is `""`.
 
-### stateMessage {data-type="string"}
-[Verbose incident message](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields).
-Default is `""`.
+Incident ID. Default is `""`.
 
-### timestamp {data-type="time"}
-[Incident start time](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/#recommended-rest-endpoint-integration-fields).
-Default is `now()`.
+### entityDisplayName
+
+
+Incident display name or summary. Default is `""`.
+
+### stateMessage
+
+
+Verbose incident message. Default is `""`.
+
+### timestamp
+
+
+Incident start time. Default is `now()`.
+
 
 ## Examples
 
-##### Send the last reported value and incident type to VictorOps
+
+### Send the last reported value and incident type to VictorOps
+
 ```js
 import "contrib/bonitoo-io/victorops"
 import "influxdata/influxdb/secrets"
@@ -111,3 +120,4 @@ victorops.alert(
     stateMessage: "Last reported cpu_idle was ${string(v: r._value)}.",
 )
 ```
+

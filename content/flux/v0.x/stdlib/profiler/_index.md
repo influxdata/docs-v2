@@ -1,50 +1,52 @@
 ---
-title: Flux profiler package
-list_title: profiler package
+title: profiler package
 description: >
-  The Flux `profiler` package provides performance profiling tools for Flux queries and operations.
-  Import the `profiler` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/profiler/
-  - /influxdb/cloud/reference/flux/stdlib/profiler/
+  The `profiler` package provides performance profiling tools for Flux queries and operations.
 menu:
   flux_0_x_ref:
-    name: profiler
-    parent: Standard library
+    name: profiler 
+    parent: stdlib
+    identifier: profiler
 weight: 11
-flux/v0.x/tags: [functions, optimize, package]
-related:
-  - /{{< latest "influxdb" >}}/query-data/optimize-queries/
-introduced: 0.82.0
+cascade:
+  flux/v0.x/tags: [optimize]
+  introduced: 0.82.0
 ---
 
-The Flux `profiler` package provides performance profiling tools for Flux queries and operations.
-Import the `profiler` package:
+<!------------------------------------------------------------------------------
 
-```js
-import "profiler"
-```
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/profiler/profiler.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `profiler` package provides performance profiling tools for Flux queries and operations.
+Profile results are returned as an extra result in the response named according to the profiles which are enabled.
 ## Options
-The `profiler` package includes the following options:
 
 ```js
-import "profiler"
-
-option profiler.enabledProfilers = ["query", "operator"]
+option profiler.enabledProfilers = [""]
 ```
-
-### enabledProfilers {data-type="array of strings"}
-List of Flux profilers to enable.
-
+ 
+ 
+### enabledProfilers {data-type="[string]"}
+enabledProfilers is a list of profilers to enable during execution.
 ## Available profilers
 - [query](#query)
 - [operator](#operator)
 
 ### query
-The `query` profiler provides statistics about the execution of an entire Flux script.
-When enabled, results returned by [`yield()`](/flux/v0.x/stdlib/universe/yield/)
-include a table with the following columns:
+Provides statistics about the execution of an entire Flux script.
+When enabled, results include a table with the following columns:
 
 - **TotalDuration**: total query duration in nanoseconds.
 - **CompileDuration**: number of nanoseconds spent compiling the query.
@@ -62,10 +64,10 @@ include a table with the following columns:
 
 ### operator
 The `operator` profiler output statistics about each operation in a query.
-[Operations executed in the storage tier](/influxdb/cloud/query-data/optimize-queries/#start-queries-with-pushdown-functions)
+[Operations executed in the storage tier](https://docs.influxdata.com/influxdb/cloud/query-data/optimize-queries/#start-queries-with-pushdown-functions)
 return as a single operation.
-When the `operator` profile is enabled, results returned by [`yield()`](/flux/v0.x/stdlib/universe/yield/)
-include a table with a row for each operation and the following columns:
+When the `operator` profile is enabled, results include a table with a row
+for each operation and the following columns:
 
 - **Type:** operation type
 - **Label:** operation name

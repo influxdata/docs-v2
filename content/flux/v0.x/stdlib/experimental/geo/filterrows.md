@@ -1,169 +1,115 @@
 ---
 title: geo.filterRows() function
 description: >
-  The geo.filterRows() function filters data by a specified geographic region with
-  the option of strict filtering.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/filterrows/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/filterrows/
+  `geo.filterRows()` filters data by a specified geographic region with the option of strict filtering.
 menu:
   flux_0_x_ref:
     name: geo.filterRows
-    parent: geo
-weight: 401
-flux/v0.x/tags: [transformations, filters, geotemporal, geo]
-related:
-  - /flux/v0.x/stdlib/experimental/geo/gridfilter/
-  - /flux/v0.x/stdlib/experimental/geo/strictfilter/
-  - /{{< latest "influxdb" >}}/query-data/flux/geo/
-introduced: 0.63.0
+    parent: experimental/geo
+    identifier: experimental/geo/filterRows
+weight: 201
+flux/v0.x/tags: [transformations, filters, geotemporal]
 ---
 
-The `geo.filterRows()` function filters data by a specified geographic region with
-the option of strict filtering.
-This function is a combination of [`geo.gridFilter()`](/flux/v0.x/stdlib/experimental/geo/gridfilter/)
-and [`geo.strictFilter()`](/flux/v0.x/stdlib/experimental/geo/strictfilter/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/geo/geo.flux#L824-L866
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`geo.filterRows()` filters data by a specified geographic region with the option of strict filtering.
+
+This function is a combination of `geo.gridFilter()` and `geo.strictFilter()`.
+Input data must include an `s2_cell_id` column that is **part of the group key**.
+
+##### Function type signature
 
 ```js
-import "experimental/geo"
-
-geo.filterRows(
-    region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0},
-    minSize: 24,
-    maxSize: -1,
-    level: -1,
-    s2cellIDLevel: -1,
-    correlationKey: ["_time"],
-    strict: true,
-)
+geo.filterRows = (
+    <-tables: stream[{B with s2_cell_id: string, lon: D, lat: C}],
+    region: A,
+    ?level: int,
+    ?maxSize: int,
+    ?minSize: int,
+    ?s2cellIDLevel: int,
+    ?strict: bool,
+) => stream[{B with s2_cell_id: string, lon: D, lat: C}] where A: Record
 ```
-
-{{% note %}}
-#### s2_cell_id must be part of the group key
-To filter geo-temporal data with `geo.filterRows()`, `s2_cell_id` must be part
-of the [group key](/flux/v0.x/get-started/data-model/#group-key).
-To add `s2_cell_id` to the group key, use [`experimental.group`](/flux/v0.x/stdlib/experimental/group/):
-
-```js
-import "experimental"
-
-// ...
-    |> experimental.group(columns: ["s2_cell_id"], mode: "extend")
-```
-{{% /note %}}
-
-### Strict and non-strict filtering
-In most cases, the specified geographic region does not perfectly align with S2 grid cells.
-
-- **Non-strict filtering** returns points that may be outside of the specified region but
-  inside S2 grid cells partially covered by the region.
-- **Strict filtering** returns only points inside the specified region.
-
-<span class="key-geo-cell"></span> S2 grid cell  
-<span class="key-geo-region"></span> Filter region  
-<span class="key-geo-point"></span> Returned point
-
-{{< flex >}}
-{{% flex-content %}}
-**Strict filtering**
-{{< svg "/static/svgs/geo-strict.svg" >}}
-{{% /flex-content %}}
-{{% flex-content %}}
-**Non-strict filtering**
-{{< svg "/static/svgs/geo-non-strict.svg" >}}
-{{% /flex-content %}}
-{{< /flex >}}
 
 ## Parameters
 
-### region {data-type="record"}
-The region containing the desired data points.
-Specify record properties for the shape.
-_See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
+### region
 
-### minSize {data-type="int"}
+({{< req >}})
+Region containing the desired data points.Specify record properties for the shape.
+
+### minSize
+
+
 Minimum number of cells that cover the specified region.
 Default is `24`.
 
-### maxSize {data-type="int"}
+### maxSize
+
+
 Maximum number of cells that cover the specified region.
-Default is `-1`.
+Default is `-1` (unlimited).
 
-### level {data-type="int"}
-[S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) of grid cells.
-Default is `-1`.
+### level
 
-{{% warn %}}
-`level` is mutually exclusive with `minSize` and `maxSize` and must be less than
-or equal to `s2cellIDLevel`.
-{{% /warn %}}
 
-### s2cellIDLevel {data-type="int"}
-[S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html) used in `s2_cell_id` tag.
-Default is `-1`.
+[S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
+of grid cells. Default is `-1`.**Note:** `level` is mutually exclusive with `minSize` and `maxSize` and
+must be less than or equal to `s2cellIDLevel`.
 
-{{% note %}}
-When set to `-1`, `geo.filterRows()` attempts to automatically detect the S2 Cell ID level.
-{{% /note %}}
+### s2cellIDLevel
 
-### correlationKey {data-type="array of strings"}
-List of columns used to uniquely identify a row for output.
-Default is `["_time"]`.
 
-### strict {data-type="bool"}
-Enable strict geographic data filtering which filters points by longitude (`lon`) and latitude (`lat`).
-For S2 grid cells that are partially covered by the defined region, only points
-with coordinates in the defined region are returned.
-Default is `true`.
-_See [Strict and non-strict filtering](#strict-and-non-strict-filtering) above._
+[S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
+used in the `s2_cell_id` tag. Default is `-1` (detects S2 cell level from the `s2_cell_id` tag).
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### strict
+
+
+Enable strict geographic data filtering. Default is `true`.Strict filtering returns only points with coordinates in the defined region.
+Non-strict filtering returns all points from S2 grid cells that are partially
+covered by the defined region.
+
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
 
-- [Strictly filter data in a box-shaped region](#strictly-filter-data-in-a-box-shaped-region)
-- [Approximately filter data in a circular region](#approximately-filter-data-in-a-circular-region)
-- [Filter data in a polygonal region](#filter-data-in-a-polygonal-region)
 
-##### Strictly filter data in a box-shaped region
-```js
-import "experimental/geo"
-
-region = {minLat: 40.51757813, maxLat: 40.86914063, minLon: -73.65234375, maxLon: -72.94921875}
-
-from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "example-measurement")
-    |> geo.filterRows(region: region)
-```
-
-##### Approximately filter data in a circular region
-The following example returns points with coordinates located in S2 grid cells partially
-covered by the defined region even though some points my be located outside of the region.
+### Strictly filter geotemporal data by region
 
 ```js
 import "experimental/geo"
 
-region = {lat: 40.69335938, lon: -73.30078125, radius: 20.0}
-
-from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "example-measurement")
-    |> geo.filterRows(region: region, strict: false)
+data
+    |> geo.filterRows(region: {lat: 40.69335938, lon: -73.30078125, radius: 100.0})
 ```
 
-##### Filter data in a polygonal region
+
+### Approximately filter geotemporal data by region
+
 ```js
 import "experimental/geo"
 
-region = {
-    points: [{lat: 40.671659, lon: -73.936631}, {lat: 40.706543, lon: -73.749177}, {lat: 40.791333, lon: -73.880327}],
-}
-
-from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "example-measurement")
-    |> geo.filterRows(region: region)
+data
+    |> geo.filterRows(region: {lat: 40.69335938, lon: -73.30078125, radius: 100.0}, strict: false)
 ```
+

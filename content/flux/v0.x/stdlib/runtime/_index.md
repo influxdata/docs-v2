@@ -1,28 +1,38 @@
 ---
-title: Flux runtime package
-list_title: runtime package
+title: runtime package
 description: >
-  The Flux `runtime` package includes functions that provide information about the
-  current Flux runtime. Import the `runtime` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/runtime/
-  - /influxdb/v2.0/reference/flux/stdlib/runtime/
-  - /influxdb/cloud/reference/flux/stdlib/runtime/
+  The `runtime` package provides information about the current Flux runtime.
 menu:
   flux_0_x_ref:
-    name: runtime
-    parent: Standard library
+    name: runtime 
+    parent: stdlib
+    identifier: runtime
 weight: 11
-flux/v0.x/tags: [runtime, functions, package]
-introduced: 0.38.0
 ---
 
-The Flux `runtime` package includes functions that provide information about the
-current Flux runtime. Import the `runtime` package:
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/runtime/runtime.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `runtime` package provides information about the current Flux runtime.
+Import the `runtime` package:
 
 ```js
 import "runtime"
 ```
-
+introduce: 0.38.0
 ## Functions
+
 {{< children type="functions" show="pages" >}}

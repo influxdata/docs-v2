@@ -1,43 +1,59 @@
 ---
-title: Flux universe package (built-in)
-list_title: universe package (built-in)
+title: universe package
 description: >
-  The Flux `universe` package includes all functions that do not require a package import statement and are usable without any extra setup.
-  Functions in the `universe` package provide a foundation for working with data using Flux.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/
+  The `universe` package provides options and primitive functions that are
+  loaded into the Flux runtime by default and do not require an
+  import statement.
 menu:
   flux_0_x_ref:
     name: universe (built-in)
+    parent: stdlib
     identifier: universe
-    parent: Standard library
 weight: 10
-flux/v0.x/tags: [built-in, functions, package]
+cascade:
+
+  introduced: 0.14.0
 ---
 
-The Flux `universe` package includes all functions that do not require a package import statement and are usable without any extra setup.
-The "built-in" functions in the `universe` package provide a foundation for working with data using Flux.
+<!------------------------------------------------------------------------------
 
-## Options
-The `universe` package provides the following options:
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `universe` package provides options and primitive functions that are
+loaded into the Flux runtime by default and do not require an
+import statement.
+## Constants
 
 ```js
-option now = () => system.time()
-option location = timezone.utc
+inf // inf represents an infinte float value.
 ```
+## Options
 
-### now {data-type="function"}
-Function option that, by default, returns the current system time.
-The value of `now()` is cached at query time, so all instances of `now()` in a
-script return the same time value.
+```js
+option now = system.time
+```
+ 
+ ### now
 
-### location {data-type="record"}
-Location used to determine timezone. Default is [`timezone.utc`](/flux/v0.x/stdlib/timezone/#constants).
+`now` is a function option that, by default, returns the current system time.
 
-Flux uses the timezone information (commonly referred to as "tz" or "zoneinfo")
-provided by the operating system.
-
+#### now() vs system.time()
+`now()` returns the current system time (UTC). `now()` is cached at runtime,
+so all executions of `now()` in a Flux script return the same time value.
+`system.time()` returns the system time (UTC) at which `system.time()` is executed.
+Each instance of `system.time()` in a Flux script returns a unique value.
 ## Functions
-{{< children type="functions" >}}
+
+{{< children type="functions" show="pages" >}}

@@ -1,98 +1,78 @@
 ---
 title: servicenow.endpoint() function
 description: >
-  The `servicenow.endpoint()` function sends events to [ServiceNow](https://servicenow.com)
-  using data from input rows.
+  `servicenow.endpoint()` sends events to [ServiceNow](https://servicenow.com/) using data from input rows.
 menu:
   flux_0_x_ref:
     name: servicenow.endpoint
-    parent: servicenow
-weight: 202
-flux/v0.x/tags: [notification endpoints]
+    parent: contrib/bonitoo-io/servicenow
+    identifier: contrib/bonitoo-io/servicenow/endpoint
+weight: 301
 ---
 
-The `servicenow.endpoint()` function sends events to [ServiceNow](https://servicenow.com)
-using data from input rows.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/servicenow/servicenow.flux#L194-L223
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`servicenow.endpoint()` sends events to [ServiceNow](https://servicenow.com/) using data from input rows.
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/servicenow"
-
-servicenow.endpoint(
-    url: "https://example-tenant.service-now.com/api/global/em/jsonv2",
-    username: "example-username",
-    password: "example-password"
-)
+servicenow.endpoint = (
+    password: string,
+    url: string,
+    username: string,
+    ?source: A,
+) => (
+    mapFn: (
+        r: B,
+    ) => {
+        C with
+        severity: J,
+        resource: I,
+        node: H,
+        metricType: G,
+        metricName: F,
+        messageKey: E,
+        description: D,
+    },
+) => (<-tables: stream[B]) => stream[{B with _sent: string}] where J: Equatable
 ```
 
 ## Parameters
 
-### url {data-type="string"}
+### url
+
 ({{< req >}})
 ServiceNow web service URL.
 
-### username {data-type=" string"}
+### username
+
 ({{< req >}})
 ServiceNow username to use for HTTP BASIC authentication.
 
-### password {data-type="string"}
+### password
+
 ({{< req >}})
 ServiceNow password to use for HTTP BASIC authentication.
 
-## Usage
-`servicenow.endpoint` is a factory function that outputs another function.
-The output function requires a `mapFn` parameter.
+### source
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the ServiceNow API request.
-Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following properties:
+Source name. Default is `"Flux"`.
 
-- `description`
-- `severity`
-- `source`
-- `node`
-- `metricType`
-- `resource`
-- `metricName`
-- `messageKey`
-- `additionalInfo`
-
-_For more information, see [`servicenow.event()` parameters](/flux/v0.x/stdlib/contrib/bonitoo-io/servicenow/event/#parameters)._
-
-## Examples
-
-##### Send critical events to ServiceNow
-```js
-import "contrib/bonitoo-io/servicenow"
-import "influxdata/influxdb/secrets"
-
-username = secrets.get(key: "SERVICENOW_USERNAME")
-password = secrets.get(key: "SERVICENOW_PASSWORD")
-
-endpoint =
-    servicenow.endpoint(
-        url: "https://example-tenant.service-now.com/api/global/em/jsonv2",
-        username: username,
-        password: password,
-    )
-
-crit_events =
-    from(bucket: "example-bucket")
-        |> range(start: -1m)
-        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
-
-crit_events
-    |> endpoint(
-        mapFn: (r) =>
-            ({
-                node: r.host,
-                metricType: r._measurement,
-                resource: r.instance,
-                metricName: r._field,
-                severity: "critical",
-                additionalInfo: {"devId": r.dev_id},
-            }),
-    )()
-```

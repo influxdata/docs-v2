@@ -1,69 +1,94 @@
 ---
 title: experimental.first() function
 description: >
-  The `experimental.first()` function returns the first record with a non-null
-  value in the `_value` column.
+  `experimental.first()` returns the first record with a non-null value in the `_value` column
+  for each input table.
 menu:
   flux_0_x_ref:
     name: experimental.first
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/first/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/first/
-related:
-  - /{{< latest "inflxudb" >}}/query-data/flux/first-last/
-  - /flux/v0.x/stdlib/universe/first/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#first, InfluxQL – FIRST()
+    identifier: experimental/first
+weight: 101
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.112.0
 ---
 
-The `experimental.first()` function returns the first record with a non-null
-value in the `_value` column.
-_`experimental.first()` is a [selector function](/flux/v0.x/function-types/#selectors)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1093-L1093
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.first()` returns the first record with a non-null value in the `_value` column
+for each input table.
+
+`experimental.first()` drops empty tables.
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.first()
+experimental.first = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
 ```
-
-{{% warn %}}
-#### Empty tables
-`experimental.first()` drops empty tables.
-{{% /warn %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
 
-#### Return the first non-null value
+
+### Return the first non-null value in each input table
+
 ```js
 import "experimental"
+import "sampledata"
 
-data
+sampledata.int(includeNull: true)
     |> experimental.first()
 ```
 
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T00:01:00Z | 0.6    |
-| 2021-01-01T00:02:00Z | 2.3    |
-| 2021-01-01T00:03:00Z | 0.9    |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-{{% /flex-content %}}
-{{< /flex >}}
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z |         | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z |         | t1   |
+| 2021-01-01T00:00:40Z |         | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z |         | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z |         | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+

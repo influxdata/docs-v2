@@ -1,69 +1,112 @@
 ---
 title: monitor.deadman() function
 description: >
-  The `monitor.deadman()` function detects when a group stops reporting data.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/monitor/deadman/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/deadman/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/deadman/
+  `monitor.deadman()` detects when a group stops reporting data.
+  It takes a stream of tables and reports if groups have been observed since time `t`.
 menu:
   flux_0_x_ref:
     name: monitor.deadman
-    parent: monitor
-weight: 202
+    parent: influxdata/influxdb/monitor
+    identifier: influxdata/influxdb/monitor/deadman
+weight: 301
 flux/v0.x/tags: [transformations]
-introduced: 0.39.0
 ---
 
-The `monitor.deadman()` function detects when a group stops reporting data.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/monitor/monitor.flux#L380-L383
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`monitor.deadman()` detects when a group stops reporting data.
 It takes a stream of tables and reports if groups have been observed since time `t`.
 
-```js
-import "influxdata/influxdb/monitor"
-
-monitor.deadman(t: 2019-08-30T12:30:00Z)
-```
-
 `monitor.deadman()` retains the most recent row from each input table and adds a `dead` column.
-If a record appears **after** time `t`, `monitor.deadman()` sets `dead` to `false`.
+If a record appears after time `t`, `monitor.deadman()` sets `dead` to `false`.
 Otherwise, `dead` is set to `true`.
+
+##### Function type signature
+
+```js
+monitor.deadman = (<-tables: stream[{B with _time: C}], t: A) => stream[{B with dead: bool, _time: C}] where A: Comparable, C: Comparable
+```
 
 ## Parameters
 
-### t {data-type="time"}
-The time threshold for the deadman check.
+### t
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+({{< req >}})
+Time threshold for the deadman check.
+
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
 
-### Detect if a host hasn't reported in the last five minutes
+
+### Detect if a host hasn’t reported since a specific time
+
+```js
+import "array"
+import "influxdata/influxdb/monitor"
+
+data =
+    array.from(
+        rows: [
+            {_time: 2021-01-01T00:00:00Z, host: "a", _value: 1.2},
+            {_time: 2021-01-01T00:01:00Z, host: "a", _value: 1.3},
+            {_time: 2021-01-01T00:02:00Z, host: "a", _value: 1.4},
+            {_time: 2021-01-01T00:03:00Z, host: "a", _value: 1.3},
+        ],
+    )
+        |> group(columns: ["host"])
+
+data
+    |> monitor.deadman(t: 2021-01-01T00:05:00Z)
+```
+
+#### Input data
+
+| _time                | *host | _value  |
+| -------------------- | ----- | ------- |
+| 2021-01-01T00:00:00Z | a     | 1.2     |
+| 2021-01-01T00:01:00Z | a     | 1.3     |
+| 2021-01-01T00:02:00Z | a     | 1.4     |
+| 2021-01-01T00:03:00Z | a     | 1.3     |
+
+
+#### Output data
+
+| _time                | _value  | dead  | *host |
+| -------------------- | ------- | ----- | ----- |
+| 2021-01-01T00:03:00Z | 1.3     | true  | a     |
+
+
+### Detect if a host hasn't reported since a relative time
+
+Use `experimental.addDuration()` to return a time value relative to a specified time.
+
 ```js
 import "influxdata/influxdb/monitor"
 import "experimental"
 
+//
 from(bucket: "example-bucket")
     |> range(start: -10m)
-    |> group(columns: ["host"])
-    |> monitor.deadman(t: experimental.subDuration(d: 5m, from: now()))
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> monitor.deadman(t: experimental.addDuration(d: -5m, from: now()))
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View example input and output" %}}
-##### Example input data
-| _start               | _stop                | _time                | _measurement | _host | _field | _value |
-| :------------------- | :------------------- | :------------------- | :----------- | :---- | :----- | -----: |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:00:00Z | example      | h1    | resp   |    200 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:00:30Z | example      | h1    | resp   |    200 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:01:00Z | example      | h1    | resp   |    500 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:01:30Z | example      | h1    | resp   |    500 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:02:00Z | example      | h1    | resp   |    200 |
-
-##### Example output data
-| _start               | _stop                | _time                | _measurement | _host | _field | _value | dead |
-| :------------------- | :------------------- | :------------------- | :----------- | :---- | :----- | -----: | ---: |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:03:00Z | 2021-01-01T00:02:00Z | example      | h1    | resp   |    200 | true |
-{{% /expand %}}
-{{< /expand-wrapper >}}

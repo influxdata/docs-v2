@@ -1,137 +1,138 @@
 ---
 title: histogramQuantile() function
 description: >
- The `histogramQuantile()` function approximates a quantile given a histogram
- that approximates the cumulative distribution of the dataset.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/histogramquantile
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/histogramquantile/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/histogramquantile/
+  `histogramQuantile()` approximates a quantile given a histogram that approximates
+  the cumulative distribution of the dataset.
 menu:
   flux_0_x_ref:
     name: histogramQuantile
     parent: universe
-weight: 102
-related:
-  - /flux/v0.x/stdlib/experimental/histogramquantile/
-flux/v0.x/tags: [aggregates, transformations]
-introduced: 0.7.0
+    identifier: universe/histogramQuantile
+weight: 101
+flux/v0.x/tags: [transformations]
 ---
 
-The `histogramQuantile()` function approximates a quantile given a histogram that
-approximates the cumulative distribution of the dataset.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L834-L844
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`histogramQuantile()` approximates a quantile given a histogram that approximates
+the cumulative distribution of the dataset.
+
 Each input table represents a single histogram.
 The histogram tables must have two columns – a count column and an upper bound column.
 
 The count is the number of values that are less than or equal to the upper bound value.
-The table can have any number of records, each representing an entry in the histogram.
+The table can have any number of records, each representing a bin in the histogram.
 The counts must be monotonically increasing when sorted by upper bound.
-If any values in the count column or upper bound column are `null`, it returns an error.
+If any values in the count column or upper bound column are _null_, it returns an error.
+The count and upper bound columns must **not** be part of the group key.
 
-Linear interpolation between the two closest bounds is used to compute the quantile.
-If the either of the bounds used in interpolation are infinite,
-then the other finite bound is used and no interpolation is performed.
+The quantile is computed using linear interpolation between the two closest bounds.
+If either of the bounds used in interpolation are infinite, the other finite
+bound is used and no interpolation is performed.
 
-The output table has the same group key as the input table.
-Columns not part of the group key are removed and a single value column of type float is added.
-The count and upper bound columns must not be part of the group key.
+### Output tables
+Output tables have the same group key as corresponding input tables.
+Columns not part of the group key are dropped.
+A single value column of type float is added.
 The value column represents the value of the desired quantile from the histogram.
 
-_**Output data type:** Float_
+##### Function type signature
 
 ```js
-histogramQuantile(
-    quantile: 0.5,
-    countColumn: "_value",
-    upperBoundColumn: "le",
-    valueColumn: "_value",
-    minValue: 0.0,
-)
+histogramQuantile = (
+    <-tables: stream[A],
+    ?countColumn: string,
+    ?minValue: float,
+    ?quantile: float,
+    ?upperBoundColumn: string,
+    ?valueColumn: string,
+) => stream[B] where A: Record, B: Record
 ```
-
-_`histogramQuantile()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
 
 ## Parameters
 
-### quantile {data-type="float"}
-({{< req >}})
-A value between 0 and 1 indicating the desired quantile to compute.
+### quantile
 
-### countColumn {data-type="string"}
-The name of the column containing the histogram counts.
-The count column type must be float.
-Default is `"_value"`.
 
-### upperBoundColumn {data-type="string"}
-The name of the column containing the histogram upper bounds.
-The upper bound column type must be float.
-Default is `"le"`.
+Quantile to compute. Value must be between 0 and 1.
 
-### valueColumn {data-type="string"}
-The name of the output column which will contain the computed quantile.
-Default is `"_value"`.
+### countColumn
 
-### minValue {data-type="float"}
-The assumed minimum value of the dataset.
-When the quantile falls below the lowest upper bound, interpolation is performed between `minValue` and the lowest upper bound.
+
+Column containing histogram bin counts. Default is `_value`.
+
+### upperBoundColumn
+
+
+Column containing histogram bin upper bounds.
+Default is `le`.
+
+### valueColumn
+
+
+Column to store the computed quantile in. Default is `_value.
+
+### minValue
+
+
+Assumed minimum value of the dataset. Default is `0.0`.If the quantile falls below the lowest upper bound, interpolation is
+performed between `minValue` and the lowest upper bound.
 When `minValue` is equal to negative infinity, the lowest upper bound is used.
-Default is `0.0`.
 
-{{% note %}}
-When the quantile falls below the lowest upper bound,
-interpolation is performed between `minValue` and the lowest upper bound.
-When `minValue` is equal to negative infinity, the lowest upper bound is used.
-{{% /note %}}
+### tables
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
 
-##### Compute the 90th quantile of a histogram
+
+### Compute the 90th quantile of a histogram
+
 ```js
-import "sampledata"
-
-data = sampledata.float()
-    |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
-
 data
     |> histogramQuantile(quantile: 0.9)
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+#### Input data
 
-##### Input data
-| tag |   le | _value |
-| :-- | ---: | -----: |
-| t1  |  0.0 |    1.0 |
-| t1  |  5.0 |    2.0 |
-| t1  | 10.0 |    3.0 |
-| t1  | 20.0 |    6.0 |
+| *tag | le  | _value  |
+| ---- | --- | ------- |
+| t1   | 0   | 1       |
+| t1   | 5   | 2       |
+| t1   | 10  | 3       |
+| t1   | 20  | 6       |
 
-| tag |   le | _value |
-| :-- | ---: | -----: |
-| t2  |  0.0 |    1.0 |
-| t2  |  5.0 |    3.0 |
-| t2  | 10.0 |    3.0 |
-| t2  | 20.0 |    6.0 |
+| *tag | le  | _value  |
+| ---- | --- | ------- |
+| t2   | 0   | 1       |
+| t2   | 5   | 3       |
+| t2   | 10  | 3       |
+| t2   | 20  | 6       |
 
-{{% /flex-content %}}
-{{% flex-content %}}
 
-##### Output data
-| tag | _value |
-| :-- | -----: |
-| t1  |   18.0 |
+#### Output data
 
-| tag | _value |
-| :-- | -----: |
-| t2  |   18.0 |
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 18      |
 
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 18      |
+

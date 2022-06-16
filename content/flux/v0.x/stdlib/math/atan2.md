@@ -1,58 +1,52 @@
 ---
 title: math.atan2() function
 description: >
-  The math.atan2() function returns the arc tangent of `y`/`x`, using the signs of
-  the parameters to determine the quadrant of the return value.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/atan2/
-  - /influxdb/v2.0/reference/flux/stdlib/math/atan2/
-  - /influxdb/cloud/reference/flux/stdlib/math/atan2/
+  `math.atan2()` returns the artangent of `x/y`, using the signs
+  of the two to determine the quadrant of the return value.
 menu:
   flux_0_x_ref:
     name: math.atan2
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/atan2
+weight: 101
 ---
 
-The `math.atan2()` function returns the arc tangent of `y`/`x`, using the signs
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L322-L322
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.atan2()` returns the artangent of `x/y`, using the signs
 of the two to determine the quadrant of the return value.
 
-_**Output data type:** Float_
+
+
+##### Function type signature
 
 ```js
-import "math"
-
-math.atan2(y: 1.22, x: 3.14)
-
-// Returns 0.3705838802763881
+math.atan2 = (x: float, y: float) => float
 ```
 
 ## Parameters
 
-### y {data-type="float"}
-The y coordinate used in the operation.
+### y
 
-### x {data-type="float"}
-The x coordinate used in the operation.
+({{< req >}})
+y-coordinate to use in the operation.
 
-## Special cases
-```js
-math.atan2(y:y, x:NaN)        // Returns NaN
-math.atan2(y: NaN, x:x)       // Returns NaN
-math.atan2(y: +0, x: >=0)     // Returns +0
-math.atan2(y: -0, x: >=0)     // Returns -0
-math.atan2(y: +0, x: <=-0)    // Returns +Pi
-math.atan2(y: -0, x: <=-0)    // Returns -Pi
-math.atan2(y: >0, x: 0)       // Returns +Pi/2
-math.atan2(y: <0, x: 0)       // Returns -Pi/2
-math.atan2(y: +Inf, x: +Inf)  // Returns +Pi/4
-math.atan2(y: -Inf, x: +Inf)  // Returns -Pi/4
-math.atan2(y: +Inf, x: -Inf)  // Returns 3Pi/4
-math.atan2(y: -Inf, x: -Inf)  // Returns -3Pi/4
-math.atan2(y:y, x: +Inf)      // Returns 0
-math.atan2(y: >0, x: -Inf)    // Returns +Pi
-math.atan2(y: <0, x: -Inf)    // Returns -Pi
-math.atan2(y: +Inf, x:x)      // Returns +Pi/2
-math.atan2(y: -Inf, x:x)      // Returns -Pi/2
-```
+### x
+
+({{< req >}})
+x-corrdinate to use in the operation.
+

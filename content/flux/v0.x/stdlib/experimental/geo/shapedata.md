@@ -1,109 +1,72 @@
 ---
 title: geo.shapeData() function
 description: >
-  The `geo.shapeData()` function renames existing latitude and longitude fields to
-  **lat** and **lon** and adds an **s2_cell_id** tag.
-  Use `geo.shapeData()` to ensure geo-temporal data meets the requirements of the Geo package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/shapedata/
+  `geo.shapeData()` renames existing latitude and longitude fields to **lat** and **lon**
+  and adds an **s2\_cell\_id** tag.
 menu:
   flux_0_x_ref:
     name: geo.shapeData
-    parent: geo
-weight: 401
-flux/v0.x/tags: [transformations, geotemporal, geo]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/geo/
-introduced: 0.65.0
+    parent: experimental/geo
+    identifier: experimental/geo/shapeData
+weight: 201
 ---
 
-The `geo.shapeData()` function renames existing latitude and longitude fields to
-**lat** and **lon** and adds an **s2_cell_id** tag.
-Use `geo.shapeData()` to ensure geo-temporal data meets the
-[requirements of the Geo package](/flux/v0.x/stdlib/experimental/geo/#geo-schema-requirements):
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/geo/geo.flux#L590-L605
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`geo.shapeData()` renames existing latitude and longitude fields to **lat** and **lon**
+and adds an **s2\_cell\_id** tag.
+
+Use `geo.shapeData()` to ensure geotemporal data meets the requirements of the Geo package:
 
 1. Rename existing latitude and longitude fields to `lat` and `lon`.
-2. Pivot data into row-wise sets based on `_time`.
-3. Generate `s2_cell_id` tags using `lat` and `lon` values and a specified
-   [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html).
+2. Pivot fields into columns based on `_time`.
+3. Generate `s2_cell_id` tags using `lat` and `lon` values and a specified [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html).
+
+##### Function type signature
 
 ```js
-import "experimental/geo"
-
-geo.shapeData(
-    latField: "latitude",
-    lonField: "longitude",
-    level: 10,
-)
+geo.shapeData = (
+    <-tables: stream[{C with _field: string}],
+    latField: A,
+    level: int,
+    lonField: B,
+) => stream[{D with s2_cell_id: string, lon: float, lat: float}] where A: Equatable, B: Equatable
 ```
 
 ## Parameters
 
-### latField {data-type="string"}
-Name of the existing field that contains the latitude value in **decimal degrees** (WGS 84).
-Field is renamed to `lat`.
+### latField
 
-### lonField {data-type="string"}
-Name of the existing field that contains the longitude value in **decimal degrees** (WGS 84).
-Field is renamed to `lon`.
+({{< req >}})
+Name of the existing field that contains the latitude value in decimal degrees (WGS 84).Field is renamed to `lat`.
 
-### level {data-type="int"}
-[S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html) to use
-when generating the S2 cell ID token.
+### lonField
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+({{< req >}})
+Name of the existing field that contains the longitude value in decimal degrees (WGS 84).Field is renamed to `lon`.
 
-## Examples
+### level
 
-##### Shape data to meet the requirements of the Geo package
-```js
-import "experimental/geo"
+({{< req >}})
+[S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
+to use when generating the S2 cell ID token.
 
-from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "example-measurement")
-    |> geo.shapeData(latField: "latitude", lonField: "longitude", level: 10)
-```
+### tables
 
-### geo.shapeData input and output
 
-{{< flex >}}
-{{% flex-content %}}
-**Given the following input:**
+Input data. Default is piped-forward data (`<-`).
 
-| _time | _field    | _value |
-|:----- |:------:   | ------:|
-| 0001  | latitude  | 30.0   |
-| 0002  | latitude  | 30.5   |
-| 0003  | latitude  | 30.7   |
-| 0004  | latitude  | 31.1   |
-| • • • |   • • •   | • • •  |
-| 0001  | longitude | 20.0   |
-| 0002  | longitude | 19.8   |
-| 0003  | longitude | 19.2   |
-| 0004  | longitude | 19.5   |
-{{% /flex-content %}}
-{{% flex-content %}}
-
-**The following would output:**
-
-```js
-data
-    |> geo.shapeData(
-        latField: "latitude",
-        lonField: "longitude",
-        level: 5,
-    )
-```
-
-| _time | lat      | lon       | s2_cell_id |
-|:----- |:--------:|:---------:| ----------:|
-| 0001  | 30.0     | 20.0      | 138c       |
-| 0002  | 30.5     | 19.8      | 1384       |
-| 0003  | 30.7     | 19.2      | 139c       |
-| 0004  | 31.1     | 19.5      | 139c       |
-{{% /flex-content %}}
-{{< /flex >}}

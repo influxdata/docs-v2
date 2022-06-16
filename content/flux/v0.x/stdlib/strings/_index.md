@@ -1,23 +1,35 @@
 ---
-title: Flux strings package
-list_title: strings package
+title: strings package
 description: >
-  The Flux `strings` package provides functions to manipulate UTF-8 encoded strings.
-  Import the `strings` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/
-  - /influxdb/cloud/reference/flux/stdlib/strings/
+  The `strings` package provides functions to operate on UTF-8 encoded strings.
 menu:
   flux_0_x_ref:
-    name: strings
-    parent: Standard library
+    name: strings 
+    parent: stdlib
+    identifier: strings
 weight: 11
-flux/v0.x/tags: [strings, functions, package]
-introduced: 0.18.0
+cascade:
+
+  introduced: 0.18.0
 ---
 
-The Flux `strings` package provides functions for working with UTF-8 encoded strings.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `strings` package provides functions to operate on UTF-8 encoded strings.
 Import the `strings` package:
 
 ```js
@@ -25,4 +37,5 @@ import "strings"
 ```
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}

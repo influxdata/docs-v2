@@ -1,25 +1,41 @@
 ---
-title: Flux Experimental table package
-list_title: table package
+title: table package
 description: >
-  The Flux experimental table package provides tools working with Flux tables.
-  Import the `experimental/table` package.
+  The `table` package provides tools working with Flux tables.
 menu:
   flux_0_x_ref:
-    name: table
-    identifier: table-exp
+    name: table 
     parent: experimental
-weight: 301
-flux/v0.x/tags: [functions, table, package]
+    identifier: experimental/table
+weight: 21
 cascade:
+
   introduced: 0.115.0
 ---
 
-The Flux experimental table package provides tools working with Flux tables.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/table/table.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `table` package provides tools working with Flux tables.
 Import the `experimental/table` package:
 
 ```js
 import "experimental/table"
 ```
+
+## Functions
 
 {{< children type="functions" show="pages" >}}

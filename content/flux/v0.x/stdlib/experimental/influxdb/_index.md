@@ -1,24 +1,35 @@
 ---
-title: Flux Experimental InfluxDB package
-list_title: influxdb package
+title: influxdb package
 description: >
-  Flux experimental InfluxDB package provides tools for working with the InfluxDB API.
-  Import the `experimental/influxdb` package.
+  The `influxdb` package provides tools for working with the InfluxDB API.
 menu:
   flux_0_x_ref:
-    name: influxdb
-    identifier: influxdb-exp
+    name: influxdb 
     parent: experimental
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/influxdb/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/influxdb/
-weight: 301
-flux/v0.x/tags: [functions, api, package, influxdb]
+    identifier: experimental/influxdb
+weight: 21
 cascade:
+
   introduced: 0.114.0
 ---
 
-Flux experimental InfluxDB package provides tools for working with the InfluxDB API.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/influxdb/influxdb.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `influxdb` package provides tools for working with the InfluxDB API.
 Import the `experimental/influxdb` package:
 
 ```js
@@ -26,4 +37,5 @@ import "experimental/influxdb"
 ```
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}

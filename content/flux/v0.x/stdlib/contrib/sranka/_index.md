@@ -1,27 +1,33 @@
 ---
-title: Packages contributed by sranka
-list_title: sranka package
+title: sranka package
 description: >
-  The `sranka` package contains functions and packages contributed by
-  [@sranka](https://github.com/sranka).
+  
 menu:
   flux_0_x_ref:
-    name: sranka
+    name: sranka 
     parent: contrib
-weight: 101
-introduced: 0.70.0
-cascade:
-  append:
-    block: note
-    content: |
-      #### Package author and maintainer
-      **Github:** [@sranka](https://github.com/sranka)  
-      **InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
+    identifier: contrib/sranka
+weight: 21
 ---
 
-The `sranka` package contains functions and packages contributed by
-[@sranka](https://github.com/sranka).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/sranka.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+
 
 ## Packages
 
-{{< children >}}
+{{< children show="sections" >}}

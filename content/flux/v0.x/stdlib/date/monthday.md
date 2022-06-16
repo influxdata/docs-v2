@@ -1,56 +1,79 @@
 ---
 title: date.monthDay() function
 description: >
-  The `date.monthDay()` function returns the day of the month for a specified time.
-  Results range from `[1-31]`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/date/monthday/
-  - /influxdb/v2.0/reference/flux/stdlib/date/monthday/
-  - /influxdb/cloud/reference/flux/stdlib/date/monthday/
+  `date.monthDay()` returns the day of the month for a specified time.
+  Results range from `[1 - 31]`.
 menu:
   flux_0_x_ref:
     name: date.monthDay
     parent: date
-weight: 301
-introduced: 0.37.0
+    identifier: date/monthDay
+weight: 101
 ---
 
-The `date.monthDay()` function returns the day of the month for a specified time.
-Results range from `[1-31]`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L197-L197
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`date.monthDay()` returns the day of the month for a specified time.
+Results range from `[1 - 31]`.
+
+
+
+##### Function type signature
 
 ```js
-import "date"
-
-date.monthDay(t: 2019-07-17T12:05:21.012Z)
-
-// Returns 17
+date.monthDay = (t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
 ```
 
 ## Parameters
 
-### t {data-type="time, duration"}
-The time to operate on.
-Use an absolute time, relative duration, or integer.
+### t
+
+({{< req >}})
+Time to operate on.Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
+
+### location
+
+
+Location used to determine timezone.
+Default is the `location` option.
+
 
 ## Examples
 
-##### Return the day of the month for a time value
+
+### Return the day of the month for a time value
+
 ```js
 import "date"
 
-date.monthDay(t: 2020-02-11T12:21:03.293534940Z)
+date.monthDay(t: 2020-02-11T12:21:03.29353494Z)// Returns 11
 
-// Returns 11
 ```
 
-##### Return the day of the month for a relative duration
+
+### Return the day of the month for a relative duration
+
 ```js
 import "date"
 
-option now = () => 2020-02-11T12:21:03.293534940Z
+option now = () => 2020-02-11T12:21:03.29353494Z
 
-date.monthDay(t: -8d)
+date.monthDay(t: -8d)// Returns 25
 
-// Returns 3
 ```
+

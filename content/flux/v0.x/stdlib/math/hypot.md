@@ -1,45 +1,96 @@
 ---
 title: math.hypot() function
 description: >
-  The math.hypot() function returns the square root of `p*p + q*q`,
-  taking care to avoid unnecessary overflow and underflow.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/hypot/
-  - /influxdb/v2.0/reference/flux/stdlib/math/hypot/
-  - /influxdb/cloud/reference/flux/stdlib/math/hypot/
+  `math.hypot()` returns the square root of `p*p + q*q`, taking care to avoid overflow
+  and underflow.
 menu:
   flux_0_x_ref:
     name: math.hypot
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/hypot
+weight: 101
 ---
 
-The `math.hypot()` function returns the square root  of `p*p + q*q`,
-taking care to avoid overflow and underflow.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L1039-L1039
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.hypot()` returns the square root of `p*p + q*q`, taking care to avoid overflow
+and underflow.
+
+
+
+##### Function type signature
 
 ```js
-import "math"
-
-math.hypot(p: 2.0, q: 5.0)
-
-// Returns 5.385164807134505
+math.hypot = (p: float, q: float) => float
 ```
 
 ## Parameters
 
-### p {data-type="float"}
-The p value used in the operation.
+### p
 
-### q {data-type="float"}
-The q value used in the operation.
+({{< req >}})
+p-value to use in the operation.
 
-## Special cases
+### q
+
+({{< req >}})
+q-value to use in the operation.
+
+
+## Examples
+
+
+### Return the hypotenuse of two values
+
 ```js
-math.hypot(p: ±Inf, q:q) // Returns +Inf
-math.hypot(p:p, q: ±Inf) // Returns +Inf
-math.hypot(p: NaN, q:q)  // Returns NaN
-math.hypot(p:p, q: NaN)  // Returns NaN
+import "math"
+
+math.hypot(p: 2.0, q: 5.0)// 5.385164807134505
+
 ```
+
+
+### Use math.hypot in map
+
+```js
+import "math"
+
+data
+    |> map(fn: (r) => ({r with _value: math.hypot(p: r.a, q: r.b)}))
+```
+
+#### Input data
+
+| triangle  | a     | b    |
+| --------- | ----- | ---- |
+| t1        | 12.3  | 11.7 |
+| t2        | 109.6 | 23.3 |
+| t3        | 8.2   | 34.2 |
+| t4        | 33.9  | 28   |
+| t5        | 25    | 25   |
+
+
+#### Output data
+
+| _value             | a     | b    | triangle  |
+| ------------------ | ----- | ---- | --------- |
+| 16.975865220954127 | 12.3  | 11.7 | t1        |
+| 112.04931949815669 | 109.6 | 23.3 | t2        |
+| 35.16930479836074  | 8.2   | 34.2 | t3        |
+| 43.9682840238279   | 33.9  | 28   | t4        |
+| 35.35533905932738  | 25    | 25   | t5        |
+

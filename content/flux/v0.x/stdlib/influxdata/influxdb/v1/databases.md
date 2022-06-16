@@ -1,21 +1,86 @@
 ---
 title: v1.databases() function
-description: The `v1.databases()` function returns a list of databases in an InfluxDB 1.7+ instance.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/databases/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/databases/
+description: >
+  `v1.databases()` returns a list of databases in an InfluxDB 1.x (1.7+) instance.
 menu:
   flux_0_x_ref:
     name: v1.databases
-    parent: v1
+    parent: influxdata/influxdb/v1
+    identifier: influxdata/influxdb/v1/databases
 weight: 301
 flux/v0.x/tags: [metadata]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-databases, SHOW DATABASES in InfluxQL
-introduced: 0.16.0
 ---
 
-The `v1.databases()` function returns a list of databases in an **InfluxDB 1.7+ instance**.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/v1/v1.flux#L122-L134
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`v1.databases()` returns a list of databases in an InfluxDB 1.x (1.7+) instance.
+
+Output includes the following columns:
+
+- **databaseName**: Database name (string)
+- **retentionPolicy**: Retention policy name (string)
+- **retentionPeriod**: Retention period in nanoseconds (integer)
+- **default**: Default retention policy for the database (boolean)
+
+##### Function type signature
+
+```js
+v1.databases = (
+    ?host: string,
+    ?org: string,
+    ?orgID: string,
+    ?token: string,
+) => stream[{
+    retentionPolicy: string,
+    retentionPeriod: int,
+    organizationID: string,
+    default: bool,
+    databaseName: string,
+    bucketID: string,
+}]
+```
+
+## Parameters
+
+### org
+
+
+Organization name.
+
+### orgID
+
+
+Organization ID.
+
+### host
+
+
+InfluxDB URL. Default is `http://localhost:8086`.
+
+### token
+
+
+InfluxDB API token.
+
+
+## Examples
+
+
+### List databases from an InfluxDB instance
 
 ```js
 import "influxdata/influxdb/v1"
@@ -23,9 +88,3 @@ import "influxdata/influxdb/v1"
 v1.databases()
 ```
 
-Output includes the following columns:
-
-- **databaseName:** Database name _(string)_
-- **retentionPolicy:** Retention policy name _(string)_
-- **retentionPeriod:** Retention period in nanoseconds _(integer)_
-- **default:** Default retention policy for database _(boolean)_

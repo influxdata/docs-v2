@@ -1,82 +1,87 @@
 ---
 title: v1.fieldsAsCols() function
-description: The v1.fieldsAsCols() function pivots a table to automatically align fields within each input table that have the same timestamp.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/inputs/fromrows
-  - /influxdb/v2.0/reference/flux/functions/transformations/influxfieldsascols
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
-  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/fieldsascols/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldsascols/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/fieldsascols/
+description: >
+  `v1.fieldsAsCols()` is a special application of `pivot()` that pivots input data
+  on `_field` and `_time` columns to align fields within each input table that
+  have the same timestamp.
 menu:
   flux_0_x_ref:
     name: v1.fieldsAsCols
-    parent: v1
+    parent: influxdata/influxdb/v1
+    identifier: influxdata/influxdb/v1/fieldsAsCols
 weight: 301
 flux/v0.x/tags: [transformations]
-introduced: 0.16.0
 deprecated: 0.88.0
 ---
 
-{{% warn %}}
-`v1.fieldsAsCols()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.fieldsAsCols()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/).
-{{% /warn %}}
+<!------------------------------------------------------------------------------
 
-The `v1.fieldsAsCols()` function is a special application of the
-[`pivot()`](/flux/v0.x/stdlib/universe/pivot/)
-function that pivots on `_field` and `_time` columns to aligns fields within each
-input table that have the same timestamp. and resemble InfluxDB 1.x query output.
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/v1/v1.flux#L172-L172
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`v1.fieldsAsCols()` is a special application of `pivot()` that pivots input data
+on `_field` and `_time` columns to align fields within each input table that
+have the same timestamp.
+
+**Deprecated**: See influxdata/influxdata/schema.fieldsAsCols.
+
+##### Function type signature
 
 ```js
-import "influxdata/influxdb/v1"
-
-v1.fieldsAsCols()
+v1.fieldsAsCols = (<-tables: stream[A]) => stream[B] where A: Record, B: Record
 ```
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
+
+
+### Pivot InfluxDB fields into columns
+
 ```js
 import "influxdata/influxdb/v1"
 
-from(bucket:"example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "cpu")
+data
     |> v1.fieldsAsCols()
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View example input and output" %}}
+#### Input data
 
-_`_start` and `_stop` columns have been omitted._
+| _time                | *_measurement | *loc    | *_field | _value  |
+| -------------------- | ------------- | ------- | ------- | ------- |
+| 2021-01-01T12:00:00Z | m             | Seattle | hum     | 89.2    |
+| 2021-01-02T12:00:00Z | m             | Seattle | hum     | 90.5    |
+| 2021-01-03T12:00:00Z | m             | Seattle | hum     | 81.0    |
 
-##### Example input data
-| _measurement | _host | _time                | _field  | _value |
-| :----------- | :---- | :------------------- | :------ | -----: |
-| example      | h1    | 2021-01-01T00:00:00Z | resp_ms |     43 |
-| example      | h1    | 2021-01-01T00:00:30Z | resp_ms |     52 |
-| example      | h1    | 2021-01-01T00:01:00Z | resp_ms |  30000 |
-| example      | h1    | 2021-01-01T00:01:30Z | resp_ms |     49 |
+| _time                | *_measurement | *loc    | *_field | _value  |
+| -------------------- | ------------- | ------- | ------- | ------- |
+| 2021-01-01T12:00:00Z | m             | Seattle | temp    | 73.1    |
+| 2021-01-02T12:00:00Z | m             | Seattle | temp    | 68.2    |
+| 2021-01-03T12:00:00Z | m             | Seattle | temp    | 61.4    |
 
-| _measurement | _host | _time                | _field    | _value |
-| :----------- | :---- | :------------------- | :-------- | -----: |
-| example      | h1    | 2021-01-01T00:00:00Z | resp_code |    200 |
-| example      | h1    | 2021-01-01T00:00:30Z | resp_code |    200 |
-| example      | h1    | 2021-01-01T00:01:00Z | resp_code |    500 |
-| example      | h1    | 2021-01-01T00:01:30Z | resp_code |    200 |
 
-##### Example output data
-| _measurement | _host | _time                | resp_ms | resp_code |
-| :----------- | :---- | :------------------- | ------: | --------: |
-| example      | h1    | 2021-01-01T00:00:00Z |      43 |       200 |
-| example      | h1    | 2021-01-01T00:00:30Z |      52 |       200 |
-| example      | h1    | 2021-01-01T00:01:00Z |   30000 |       500 |
-| example      | h1    | 2021-01-01T00:01:30Z |      49 |       200 |
+#### Output data
 
-{{% /expand %}}
-{{< /expand-wrapper >}}
+| _time                | *_measurement | *loc    | hum  | temp  |
+| -------------------- | ------------- | ------- | ---- | ----- |
+| 2021-01-01T12:00:00Z | m             | Seattle | 89.2 | 73.1  |
+| 2021-01-02T12:00:00Z | m             | Seattle | 90.5 | 68.2  |
+| 2021-01-03T12:00:00Z | m             | Seattle | 81.0 | 61.4  |
+

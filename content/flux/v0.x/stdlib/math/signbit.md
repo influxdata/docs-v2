@@ -1,31 +1,109 @@
 ---
 title: math.signbit() function
-description: The math.signbit() function reports whether `x` is negative or negative zero.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/signbit/
-  - /influxdb/v2.0/reference/flux/stdlib/math/signbit/
-  - /influxdb/cloud/reference/flux/stdlib/math/signbit/
+description: >
+  `math.signbit()` reports whether `x` is negative or negative zero.
 menu:
   flux_0_x_ref:
     name: math.signbit
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/signbit
+weight: 101
 ---
 
-The `math.signbit()` function reports whether `x` is negative or negative zero.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Boolean_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L1961-L1961
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.signbit()` reports whether `x` is negative or negative zero.
+
+
+
+##### Function type signature
 
 ```js
-import "math"
-
-math.signbit(x: -1.2)
-
-// Returns true
+math.signbit = (x: float) => bool
 ```
 
 ## Parameters
 
-### x {data-type="float"}
-The value used in the evaluation.
+### x
+
+({{< req >}})
+Value to evaluate.
+
+
+## Examples
+
+
+### Test if a value is negative
+
+```js
+import "math"
+
+math.signbit(x: -1.2)// true
+
+```
+
+
+### Use math.signbit in map
+
+```js
+import "math"
+
+data
+    |> map(fn: (r) => ({r with _value: math.signbit(x: r._value)}))
+```
+
+#### Input data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | -0      |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | -0      |
+| 2021-01-01T00:00:40Z | t1   | -0      |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | -0      |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | -0      |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
+
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | true    | t1   |
+| 2021-01-01T00:00:10Z | true    | t1   |
+| 2021-01-01T00:00:20Z | false   | t1   |
+| 2021-01-01T00:00:30Z | true    | t1   |
+| 2021-01-01T00:00:40Z | true    | t1   |
+| 2021-01-01T00:00:50Z | false   | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | true    | t2   |
+| 2021-01-01T00:00:10Z | false   | t2   |
+| 2021-01-01T00:00:20Z | true    | t2   |
+| 2021-01-01T00:00:30Z | false   | t2   |
+| 2021-01-01T00:00:40Z | true    | t2   |
+| 2021-01-01T00:00:50Z | false   | t2   |
+

@@ -1,22 +1,32 @@
 ---
 title: stateDuration() function
-description: The `stateDuration()` function computes the duration of a given state.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/stateduration
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stateduration/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stateduration/
+description: >
+  `stateDuration()` returns the cumulative duration of a given state.
 menu:
   flux_0_x_ref:
     name: stateDuration
     parent: universe
-weight: 102
+    identifier: universe/stateDuration
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/monitor-states/
-  - /flux/v0.x/stdlib/contrib/tomhollingworth/events/duration/
 introduced: 0.7.0
 ---
+
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3889-L3897
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
 
 `stateDuration()` returns the cumulative duration of a given state.
 
@@ -30,85 +40,107 @@ and does not affect the state duration.
 The state duration is added as an additional column to each record.
 The duration is represented as an integer in the units specified.
 
-{{% note %}}
-As the first point in the given state has no previous point, its
+**Note:** As the first point in the given state has no previous point, its
 state duration will be 0.
-{{% /note %}}
+
+##### Function type signature
 
 ```js
-stateDuration(fn: (r) => r._measurement == "state", column: "stateDuration", unit: 1s)
+stateDuration = (
+    <-tables: stream[A],
+    fn: (r: A) => bool,
+    ?column: string,
+    ?timeColumn: string,
+    ?unit: duration,
+) => stream[B] where A: Record, B: Record
 ```
-
-_If the expression generates an error during evaluation, the point is discarded,
-and does not affect the state duration._
 
 ## Parameters
 
-{{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
-{{% /note %}}
+### fn
 
-### fn {data-type="function"}
 ({{< req >}})
-A single argument function that evaluates true or false to identify the state of the record.
-Records are passed to the function.
-Those that evaluate to `true` increment the state duration.
-Those that evaluate to `false` reset the state duration.
+Predicate function that identifies the state of a record.
 
-### column {data-type="string"}
-Name of the column added to each record that contains the state duration.
-Default is `stateDuration`.
+### column
 
-### unit {data-type="duration"}
 
-Unit of time to increment state duration with.
-For example: `1s`, `1m`, `1h`, etc.
-Default is one second (`1s`).
+Column to store the state duration in. Default is `stateDuration`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### timeColumn
+
+
+Time column to use to calculate elapsed time between rows.
+Default is `_time`.
+
+### unit
+
+
+Unit of time to use to increment state duration. Default is `1s` (seconds).**Example units:**
+- 1ns (nanoseconds)
+- 1us (microseconds)
+- 1ms (milliseconds)
+- 1s (seconds)
+- 1m (minutes)
+- 1h (hours)
+- 1d (days)
+
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+
+### Return the time spent in a specified state
 
 ```js
 import "sampledata"
 
 sampledata.int()
-    |> stateDuration(fn: (r) => r._value > 10)
+    |> stateDuration(fn: (r) => r._value < 15)
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+#### Input data
 
-##### Input data
-{{% flux/sample "int" %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-##### Output data
-| _time                | tag | _value | stateDuration |
-| :------------------- | :-- | -----: | ------------: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |            -1 |
-| 2021-01-01T00:00:10Z | t1  |     10 |            -1 |
-| 2021-01-01T00:00:20Z | t1  |      7 |            -1 |
-| 2021-01-01T00:00:30Z | t1  |     17 |             0 |
-| 2021-01-01T00:00:40Z | t1  |     15 |            10 |
-| 2021-01-01T00:00:50Z | t1  |      4 |            -1 |
 
-| _time                | tag | _value | stateDuration |
-| :------------------- | :-- | -----: | ------------: |
-| 2021-01-01T00:00:00Z | t2  |     19 |             0 |
-| 2021-01-01T00:00:10Z | t2  |      4 |            -1 |
-| 2021-01-01T00:00:20Z | t2  |     -3 |            -1 |
-| 2021-01-01T00:00:30Z | t2  |     19 |             0 |
-| 2021-01-01T00:00:40Z | t2  |     13 |            10 |
-| 2021-01-01T00:00:50Z | t2  |      1 |            -1 |
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
+#### Output data
+
+| _time                | _value  | *tag | stateDuration  |
+| -------------------- | ------- | ---- | -------------- |
+| 2021-01-01T00:00:00Z | -2      | t1   | 0              |
+| 2021-01-01T00:00:10Z | 10      | t1   | 10             |
+| 2021-01-01T00:00:20Z | 7       | t1   | 20             |
+| 2021-01-01T00:00:30Z | 17      | t1   | -1             |
+| 2021-01-01T00:00:40Z | 15      | t1   | -1             |
+| 2021-01-01T00:00:50Z | 4       | t1   | 0              |
+
+| _time                | _value  | *tag | stateDuration  |
+| -------------------- | ------- | ---- | -------------- |
+| 2021-01-01T00:00:00Z | 19      | t2   | -1             |
+| 2021-01-01T00:00:10Z | 4       | t2   | 0              |
+| 2021-01-01T00:00:20Z | -3      | t2   | 10             |
+| 2021-01-01T00:00:30Z | 19      | t2   | -1             |
+| 2021-01-01T00:00:40Z | 13      | t2   | 0              |
+| 2021-01-01T00:00:50Z | 1       | t2   | 10             |
+

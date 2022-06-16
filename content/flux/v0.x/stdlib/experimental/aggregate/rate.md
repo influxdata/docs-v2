@@ -1,57 +1,71 @@
 ---
 title: aggregate.rate() function
 description: >
-  The `aggregate.rate()` function calculates the rate of change per windows of time.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/aggregate/rate/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/aggregate/rate/
+  `aggregate.rate()` calculates the rate of change per windows of time for each input table.
 menu:
   flux_0_x_ref:
     name: aggregate.rate
-    parent: aggregate
-weight: 301
-flux/v0.x/tags: [transformations, aggregate]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/rate/
-introduced: 0.61.0
+    parent: experimental/aggregate
+    identifier: experimental/aggregate/rate
+weight: 201
+flux/v0.x/tags: [transformations, aggregates]
 ---
 
-The `aggregate.rate()` function calculates the rate of change per windows of time
-for each input table.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/aggregate/aggregate.flux#L41-L52
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`aggregate.rate()` calculates the rate of change per windows of time for each input table.
+
+`aggregate.rate()` requires that input data have `_start` and `_stop` columns
+to calculate windows of time to operate on.
+Use `range()` to assign `_start` and `_stop` values.
+
+##### Function type signature
 
 ```js
-import "experimental/aggregate"
-
-aggregate.rate(
-    every: 1m,
-    groupColumns: ["column1", "column2"],
-    unit: 1s,
-)
+aggregate.rate = (<-tables: stream[A], every: duration, ?groupColumns: [string], ?unit: duration) => stream[B] where A: Record, B: Record
 ```
-
-`aggregate.rate()` requires that input data have `_start` and `_stop` columns to
-calculate windows of time to operate on. Use [`range()`](/flux/v0.x/stdlib/universe/range/)
-to assign `_start` and `_stop` values.
 
 ## Parameters
 
-### every {data-type="duration"}
-({{< req >}}) Duration of time windows.
+### every
 
-### groupColumns {data-type="array of strings"}
+({{< req >}})
+Duration of time windows.
+
+### groupColumns
+
+
 List of columns to group by. Default is `[]`.
 
-### unit {data-type="duration"}
-The time duration to use when calculating the rate. Default is `1s`.
+### unit
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+Time duration to use when calculating the rate. Default is `1s`.
+
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
 
-### Calculate the average rate of change in sample data
-{{% flux/sample-example-intro %}}
+
+### Calculate the average rate of change in data
 
 ```js
 import "experimental/aggregate"
@@ -65,46 +79,36 @@ data
     |> aggregate.rate(every: 30s, unit: 1s, groupColumns: ["tag"])
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-##### Input data
-{{% flux/sample set="int" includeRange=true %}}
+#### Input data
 
-##### Output data
-| _start              | _stop               | _time               | tag | _value |
-| :------------------ | :------------------ | :------------------ | :-- | -----: |
-| 2021-01-01T00:00:00 | 2021-01-01T00:01:00 | 2021-01-01T00:00:30 | t1  |    1.2 |
-| 2021-01-01T00:00:00 | 2021-01-01T00:01:00 | 2021-01-01T00:01:00 | t1  |    1.0 |
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 4       | t1   |
 
-| _start              | _stop               | _time               | tag | _value |
-| :------------------ | :------------------ | :------------------ | :-- | -----: |
-| 2021-01-01T00:00:00 | 2021-01-01T00:01:00 | 2021-01-01T00:00:30 | t2  |        |
-| 2021-01-01T00:00:00 | 2021-01-01T00:01:00 | 2021-01-01T00:01:00 | t2  |    2.2 |
-{{% /expand %}}
-{{< /expand-wrapper >}}
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 1       | t2   |
 
-## Function definition
-```js
-package aggregate
 
-import "experimental"
+#### Output data
 
-rate = (tables=<-, every, groupColumns=[], unit=1s) =>
-  tables
-    |> derivative(nonNegative:true, unit:unit)
-    |> aggregateWindow(every: every, fn : (tables=<-, column) =>
-      tables
-        |> mean(column: column)
-        |> group(columns: groupColumns)
-        |> experimental.group(columns: ["_start", "_stop"], mode:"extend")
-        |> sum()
-    )
-```
+| *_start              | *_stop               | *tag | _value  | _time                |
+| -------------------- | -------------------- | ---- | ------- | -------------------- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1   | 1.2     | 2021-01-01T00:00:30Z |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1   | 1       | 2021-01-01T00:01:00Z |
 
-_**Used functions:**_  
-[aggregateWindow()](/flux/v0.x/stdlib/universe/aggregatewindow/)  
-[derivative()](/flux/v0.x/stdlib/universe/derivative/)  
-[experimental.group()](/flux/v0.x/stdlib/experimental/group/)  
-[group()](/flux/v0.x/stdlib/universe/group/)  
-[mean()](/flux/v0.x/stdlib/universe/mean/)  
-[sum()](/flux/v0.x/stdlib/universe/sum/)  
+| *_start              | *_stop               | *tag | _value  | _time                |
+| -------------------- | -------------------- | ---- | ------- | -------------------- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   |         | 2021-01-01T00:00:30Z |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 2.2     | 2021-01-01T00:01:00Z |
+

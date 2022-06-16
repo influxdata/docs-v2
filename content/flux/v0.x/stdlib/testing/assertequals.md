@@ -1,71 +1,90 @@
 ---
 title: testing.assertEquals() function
-description: The testing.assertEquals() function tests whether two streams have identical data.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/tests/assertequals
-  - /influxdb/v2.0/reference/flux/functions/testing/assertequals/
-  - /influxdb/v2.0/reference/flux/stdlib/testing/assertequals/
-  - /influxdb/cloud/reference/flux/stdlib/testing/assertequals/
+description: >
+  `testing.assertEquals()` tests whether two streams of tables are identical.
 menu:
   flux_0_x_ref:
     name: testing.assertEquals
     parent: testing
-weight: 301
-flux/v0.x/tags: [tests, transformations]
-introduced: 0.14.0
+    identifier: testing/assertEquals
+weight: 101
+flux/v0.x/tags: [tests]
 ---
 
-The `testing.assertEquals()` function tests whether two streams have identical data.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L52-L52
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`testing.assertEquals()` tests whether two streams of tables are identical.
+
 If equal, the function outputs the tested data stream unchanged.
 If unequal, the function returns an error.
 
+assertEquals can be used to perform in-line tests in a query.
+
+##### Function type signature
+
 ```js
-import "testing"
-
-testing.assertEquals(
-    name: "streamEquality",
-    got: got,
-    want: want,
-)
+testing.assertEquals = (<-got: stream[A], name: string, want: stream[A]) => stream[A]
 ```
-
-_The `testing.assertEquals()` function can be used to perform in-line tests in a query._
 
 ## Parameters
 
-### name {data-type="string"}
-Unique name given to the assertion.
+### name
 
-### got {data-type="stream of tables"}
-The stream containing data to test.
-Defaults to piped-forward data (`<-`).
+({{< req >}})
+Unique assertion name.
 
-### want {data-type="stream of tables"}
-The stream that contains the expected data to test against.
+### got
+
+
+Data to test. Default is piped-forward data (`<-`).
+
+### want
+
+({{< req >}})
+Expected data to test against.
+
 
 ## Examples
 
-##### Assert of separate streams
+
+### Test if streams of tables are different
+
 ```js
+import "sampledata"
 import "testing"
 
-want = from(bucket: "backup-example-bucket")
-    |> range(start: -5m)
+want = sampledata.int()
+got = sampledata.float() |> toInt()
 
-got = from(bucket: "example-bucket")
-    |> range(start: -5m)
-
-testing.assertEquals(got: got, want: want)
+testing.assertEquals(name: "test_equality", got: got, want: want)
 ```
 
-##### Inline assertion
+
+### Test if streams of tables are different mid-script
+
 ```js
 import "testing"
 
-want = from(bucket: "backup-example-bucket")
-    |> range(start: -5m)
+want =
+    from(bucket: "backup-example-bucket")
+        |> range(start: -5m)
 
 from(bucket: "example-bucket")
     |> range(start: -5m)
     |> testing.assertEquals(want: want)
 ```
+

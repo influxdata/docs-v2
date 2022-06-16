@@ -1,38 +1,35 @@
 ---
 title: usage.limits() function
 description: >
-  The `usage.limits()` function returns a record containing usage limits for an
-  **InfluxDB Cloud** organization.
+  `usage.limits()` returns a record containing usage limits for an **InfluxDB Cloud** organization.
 menu:
   flux_0_x_ref:
     name: usage.limits
-    parent: usage-exp
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/usage/limits/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/usage/limits/
-weight: 401
-related:
-  - /flux/v0.x/stdlib/influxdata/influxdb/cardinality/
-  - /influxdb/cloud/account-management/data-usage/
-  - /influxdb/cloud/account-management/limits/
+    parent: experimental/usage
+    identifier: experimental/usage/limits
+weight: 201
 ---
 
-The `usage.limits()` function returns a record containing usage limits for an
-**InfluxDB Cloud** organization.
+<!------------------------------------------------------------------------------
 
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-```js
-import "experimental/usage"
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-usage.limits(
-    host: "",
-    orgID: "",
-    token: "",
-)
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/usage/usage.flux#L305-L319
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`usage.limits()` returns a record containing usage limits for an **InfluxDB Cloud** organization.
+
+### Example output record
 ```
-
-#### Example output record
-```js
 {
     orgID: "123",
     rate: {
@@ -40,104 +37,128 @@ usage.limits(
         concurrentReadRequests: 0,
         writeKBs: 17,
         concurrentWriteRequests: 0,
-        cardinality: 10000
+        cardinality: 10000,
     },
-    bucket: {
-        maxBuckets: 2,
-        maxRetentionDuration: 2592000000000000
-    },
-    task: {
-        maxTasks: 5
-    },
-    dashboard: {
-        maxDashboards: 5
-    },
-    check: {
-        maxChecks: 2
-    },
-    notificationRule: {
-        maxNotifications: 2,
-        blockedNotificationRules: "comma, delimited, list"
-    },
-    notificationEndpoint: {
-        blockedNotificationEndpoints: "comma, delimited, list"
-    }
+    bucket: {maxBuckets: 2, maxRetentionDuration: 2592000000000000},
+    task: {maxTasks: 5},
+    dashboard: {maxDashboards: 5},
+    check: {maxChecks: 2},
+    notificationRule: {maxNotifications: 2, blockedNotificationRules: "comma, delimited, list"},
+    notificationEndpoint: {blockedNotificationEndpoints: "comma, delimited, list"},
 }
+```
+
+##### Function type signature
+
+```js
+usage.limits = (?host: string, ?orgID: string, ?token: string) => A
 ```
 
 ## Parameters
 
-### host {data-type="string"}
-[InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
-Default is `""`.
+### host
 
-### orgID {data-type="string"}
-InfluxDB Cloud organization ID _(Required if executed outside of your InfluxDB Cloud organization or region)_.
-Default is `""`.
 
-### token {data-type="string"}
-InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/) _(Required if executed outside of your InfluxDB Cloud organization or region)_.
-Default is `""`.
+[InfluxDB Cloud region URL](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
+Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+
+### orgID
+
+
+InfluxDB Cloud organization ID. Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+
+### token
+
+
+InfluxDB Cloud [API token](https://docs.influxdata.com/influxdb/cloud/security/tokens/).
+Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+
 
 ## Examples
 
-- [Get rate limits for your InfluxDB Cloud organization](#get-rate-limits-for-your-influxdb-cloud-organization)
-- [Get rate limits for a different InfluxDB Cloud organization](#get-rate-limits-for-a-different-influxdb-cloud-organization)
-- [Output organization limits in a table](#output-organization-limits-in-a-table)
-- [Output current cardinality with your cardinality limit](#output-current-cardinality-with-your-cardinality-limit)
 
 ### Get rate limits for your InfluxDB Cloud organization
+
 ```js
 import "experimental/usage"
 
 usage.limits()
 ```
 
+
 ### Get rate limits for a different InfluxDB Cloud organization
+
 ```js
 import "experimental/usage"
 import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "INFLUX_TOKEN")
 
-usage.limits(host: "https://cloud2.influxdata.com", orgID: "x000X0x0xx0X00x0", token: token)
+usage.limits(host: "https://us-west-2-1.aws.cloud2.influxdata.com", orgID: "x000X0x0xx0X00x0", token: token)
 ```
 
+
 ### Output organization limits in a table
+
 ```js
 import "array"
 import "experimental/usage"
-import "influxdata/influxdb/secrets"
 
-token = secrets.get(key: "INFLUX_TOKEN")
-
-limits = usage.limits(host: "https://cloud2.influxdata.com", orgID: "x000X0x0xx0X00x0", token: token)
+limits = usage.limits()
 
 array.from(
     rows: [
         {orgID: limits.orgID, limitGroup: "rate", limitName: "Read (kb/s)", limit: limits.rate.readKBs},
-        {orgID: limits.orgID, limitGroup: "rate", limitName: "Concurrent Read Requests", limit: limits.rate.concurrentReadRequests},
+        {
+            orgID: limits.orgID,
+            limitGroup: "rate",
+            limitName: "Concurrent Read Requests",
+            limit: limits.rate.concurrentReadRequests,
+        },
         {orgID: limits.orgID, limitGroup: "rate", limitName: "Write (kb/s)", limit: limits.rate.writeKBs},
-        {orgID: limits.orgID, limitGroup: "rate", limitName: "Concurrent Write Requests", limit: limits.rate.concurrentWriteRequests},
+        {
+            orgID: limits.orgID,
+            limitGroup: "rate",
+            limitName: "Concurrent Write Requests",
+            limit: limits.rate.concurrentWriteRequests,
+        },
         {orgID: limits.orgID, limitGroup: "rate", limitName: "Cardinality", limit: limits.rate.cardinality},
         {orgID: limits.orgID, limitGroup: "bucket", limitName: "Max Buckets", limit: limits.bucket.maxBuckets},
-        {orgID: limits.orgID, limitGroup: "bucket", limitName: "Max Retention Period (ns)", limit: limits.bucket.maxRetentionDuration},
+        {
+            orgID: limits.orgID,
+            limitGroup: "bucket",
+            limitName: "Max Retention Period (ns)",
+            limit: limits.bucket.maxRetentionDuration,
+        },
         {orgID: limits.orgID, limitGroup: "task", limitName: "Max Tasks", limit: limits.task.maxTasks},
-        {orgID: limits.orgID, limitGroup: "dashboard", limitName: "Max Dashboards", limit: limits.dashboard.maxDashboards},
+        {
+            orgID: limits.orgID,
+            limitGroup: "dashboard",
+            limitName: "Max Dashboards",
+            limit: limits.dashboard.maxDashboards,
+        },
         {orgID: limits.orgID, limitGroup: "check", limitName: "Max Checks", limit: limits.check.maxChecks},
-        {orgID: limits.orgID, limitGroup: "notificationRule", limitName: "Max Notification Rules", limit: limits.notificationRule.maxNotifications},
+        {
+            orgID: limits.orgID,
+            limitGroup: "notificationRule",
+            limitName: "Max Notification Rules",
+            limit: limits.notificationRule.maxNotifications,
+        },
     ],
 )
 ```
 
+
 ### Output current cardinality with your cardinality limit
+
 ```js
 import "experimental/usage"
 import "influxdata/influxdb"
 
 limits = usage.limits()
-bucketCardinality = (bucket) => (influxdb.cardinality(bucket: bucket, start: time(v: 0))
-    |> findColumn(fn: (key) => true, column: "_value"))[0]
+bucketCardinality = (bucket) =>
+    (influxdb.cardinality(bucket: bucket, start: time(v: 0))
+        |> findColumn(fn: (key) => true, column: "_value"))[0]
 
 buckets()
     |> filter(fn: (r) => not r.name =~ /^_/)
@@ -145,3 +166,4 @@ buckets()
     |> sum(column: "Cardinality")
     |> map(fn: (r) => ({r with "Cardinality Limit": limits.rate.cardinality}))
 ```
+

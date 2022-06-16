@@ -1,104 +1,81 @@
 ---
 title: sql.to() function
-description: The `sql.to()` function writes data to a SQL database.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/sql/to/
-  - /influxdb/v2.0/reference/flux/stdlib/sql/to/
-  - /influxdb/cloud/reference/flux/stdlib/sql/to/
+description: >
+  `sql.to()` writes data to an SQL database.
 menu:
   flux_0_x_ref:
     name: sql.to
     parent: sql
-weight: 202
-flux/v0.x/tags: [outputs]
-introduced: 0.35.0
+    identifier: sql/to
+weight: 101
 ---
 
-The `sql.to()` function writes data to a SQL database.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/sql/sql.flux#L176-L182
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`sql.to()` writes data to an SQL database.
+
+
+
+##### Function type signature
 
 ```js
-import "sql"
-
-sql.to(
-    driverName: "mysql",
-    dataSourceName: "username:password@tcp(localhost:3306)/dbname?param=value",
-    table: "example_table",
-    batchSize: 10000,
-)
+sql.to = (
+    <-tables: stream[A],
+    dataSourceName: string,
+    driverName: string,
+    table: string,
+    ?batchSize: int,
+) => stream[A]
 ```
 
 ## Parameters
 
-### driverName {data-type="string"}
-The driver used to connect to the SQL database.
+### driverName
 
-The following drivers are available:
-
+({{< req >}})
+Driver used to connect to the SQL database.**Supported drivers**:
 - bigquery
 - hdb
 - mysql
 - postgres
 - snowflake
-- sqlite3 – _Does not work with InfluxDB OSS or InfluxDB Cloud. For more information, see [Write to SQLite](/flux/v0.x/write-data/sql/sqlite/)._
+- sqlite3 _(Does not work with InfluxDB OSS or InfluxDB Cloud)_
 - sqlserver
 - vertica, vertigo
 
-{{% warn %}}
-#### sql.to does not support Amazon Athena
-The `sql.to` function does not support writing data to [Amazon Athena](https://aws.amazon.com/athena/).
-{{% /warn %}}
+### dataSourceName
 
-### dataSourceName {data-type="string"}
-The data source name (DSN) or connection string used to connect to the SQL database.
-The string's form and structure depend on the [driver](#drivername) used.
+({{< req >}})
+Data source name (DNS) or connection string used
+to connect to the SQL database.
 
-##### Driver dataSourceName examples
-```sh
-# Postgres Driver DSN
-postgres://pqgotest:password@localhost/pqgotest?sslmode=verify-full
+### table
 
-# MySQL Driver DSN
-username:password@tcp(localhost:3306)/dbname?param=value
+({{< req >}})
+Destination table.
 
-# Snowflake Driver DSNs
-username[:password]@accountname/dbname/schemaname?param1=value1&paramN=valueN
-username[:password]@accountname/dbname?param1=value1&paramN=valueN
-username[:password]@hostname:port/dbname/schemaname?account=<your_account>&param1=value1&paramN=valueN
+### batchSize
 
-# SQLite Driver DSN
-file:/path/to/test.db?cache=shared&mode=rw
 
-# Microsoft SQL Server Driver DSNs
-sqlserver://username:password@localhost:1234?database=examplebdb
-server=localhost;user id=username;database=examplebdb;
-server=localhost;user id=username;database=examplebdb;azure auth=ENV
-server=localhost;user id=username;database=examplebdbr;azure tenant id=77e7d537;azure client id=58879ce8;azure client secret=0123456789
+Number of parameters or columns that can be queued within each
+call to `Exec`. Default is `10000`.If writing to SQLite database, set the batchSize to `999` or less.
 
-# Google BigQuery DSNs
-bigquery://projectid/?param1=value&param2=value
-bigquery://projectid/location?param1=value&param2=value
+### tables
 
-# SAP HANA driver DSN
-hdb://<user>:<password>@<host>:<port>?<connection-property>=<value>&<connection-property>=<value>&...
-hdb://<user>:<password>@<host>:<port>?DATABASENAME=<tenant-db-name>
-hdb://?KEY=<keyname>
 
-# Vertica driver DSN
-vertica://<user>:<password>@<host>:<port>/<database>?<queryArgs>
-```
+Input data. Default is piped-forward data (`<-`).
 
-### table {data-type="string"}
-The destination table.
-
-### batchSize {data-type="int"}
-The number of parameters or columns that can be queued within each call to `Exec`.
-Defaults to `10000`.
-
-{{% note %}}
-If writing to a **SQLite** database, set `batchSize` to `999` or less.
-{{% /note %}}
-
-## Examples
-
-For examples and more information about each supported SQL database, see
-[Write to SQL databases](/flux/v0.x/write-data/sql/).

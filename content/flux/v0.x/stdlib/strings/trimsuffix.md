@@ -1,53 +1,104 @@
 ---
 title: strings.trimSuffix() function
 description: >
-  The `strings.trimSuffix()` function removes a suffix from a string.
-  Strings that do not end with the suffix are returned unchanged.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/trimsuffix/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trimsuffix/
-  - /influxdb/cloud/reference/flux/stdlib/strings/trimsuffix/
+  `strings.trimSuffix()` removes a suffix from a string.
 menu:
   flux_0_x_ref:
     name: strings.trimSuffix
     parent: strings
-weight: 301
-related:
-  - /flux/v0.x/stdlib/strings/trim
-  - /flux/v0.x/stdlib/strings/trimleft
-  - /flux/v0.x/stdlib/strings/trimright
-  - /flux/v0.x/stdlib/strings/trimprefix
-  - /flux/v0.x/stdlib/strings/trimspace
-introduced: 0.27.0
+    identifier: strings/trimSuffix
+weight: 101
 ---
 
-The `strings.trimSuffix()` function removes a suffix from a string.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux#L164-L164
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`strings.trimSuffix()` removes a suffix from a string.
+
 Strings that do not end with the suffix are returned unchanged.
 
-_**Output data type:** String_
+##### Function type signature
 
 ```js
-import "strings"
-
-strings.trimSuffix(v: "123_abc", suffix: "abc")
-
-// returns "123_"
+strings.trimSuffix = (suffix: string, v: string) => string
 ```
 
 ## Parameters
 
-### v {data-type="string"}
-The string value to trim.
+### v
 
-### suffix {data-type="string"}
-The suffix to remove.
+({{< req >}})
+String to trim
+
+### suffix
+
+({{< req >}})
+Suffix to remove.
+
 
 ## Examples
 
-###### Remove a suffix from all values in a column
+
+### Remove a suffix from all values in a column
+
 ```js
 import "strings"
 
 data
-    |> map(fn: (r) => ({r with sensorID: strings.trimSuffix(v: r.sensorId, suffix: "_s12")}))
+    |> map(fn: (r) => ({r with _value: strings.trimSuffix(v: r._value, suffix: "_ex1")}))
 ```
+
+#### Input data
+
+| _time                | _value          | *tag |
+| -------------------- | --------------- | ---- |
+| 2021-01-01T00:00:00Z | smpl_g9qczs_ex1 | t1   |
+| 2021-01-01T00:00:10Z | smpl_0mgv9n_ex1 | t1   |
+| 2021-01-01T00:00:20Z | smpl_phw664_ex1 | t1   |
+| 2021-01-01T00:00:30Z | smpl_guvzy4_ex1 | t1   |
+| 2021-01-01T00:00:40Z | smpl_5v3cce_ex1 | t1   |
+| 2021-01-01T00:00:50Z | smpl_s9fmgy_ex1 | t1   |
+
+| _time                | _value          | *tag |
+| -------------------- | --------------- | ---- |
+| 2021-01-01T00:00:00Z | smpl_b5eida_ex1 | t2   |
+| 2021-01-01T00:00:10Z | smpl_eu4oxp_ex1 | t2   |
+| 2021-01-01T00:00:20Z | smpl_5g7tz4_ex1 | t2   |
+| 2021-01-01T00:00:30Z | smpl_sox1ut_ex1 | t2   |
+| 2021-01-01T00:00:40Z | smpl_wfm757_ex1 | t2   |
+| 2021-01-01T00:00:50Z | smpl_dtn2bv_ex1 | t2   |
+
+
+#### Output data
+
+| _time                | _value      | *tag |
+| -------------------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | smpl_g9qczs | t1   |
+| 2021-01-01T00:00:10Z | smpl_0mgv9n | t1   |
+| 2021-01-01T00:00:20Z | smpl_phw664 | t1   |
+| 2021-01-01T00:00:30Z | smpl_guvzy4 | t1   |
+| 2021-01-01T00:00:40Z | smpl_5v3cce | t1   |
+| 2021-01-01T00:00:50Z | smpl_s9fmgy | t1   |
+
+| _time                | _value      | *tag |
+| -------------------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | smpl_b5eida | t2   |
+| 2021-01-01T00:00:10Z | smpl_eu4oxp | t2   |
+| 2021-01-01T00:00:20Z | smpl_5g7tz4 | t2   |
+| 2021-01-01T00:00:30Z | smpl_sox1ut | t2   |
+| 2021-01-01T00:00:40Z | smpl_wfm757 | t2   |
+| 2021-01-01T00:00:50Z | smpl_dtn2bv | t2   |
+

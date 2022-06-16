@@ -1,87 +1,96 @@
 ---
 title: schema.fieldKeys() function
-description: The `schema.fieldKeys()` function returns field keys in a bucket.
+description: >
+  `schema.fieldKeys()` returns field keys in a bucket.
 menu:
   flux_0_x_ref:
     name: schema.fieldKeys
-    parent: schema
+    parent: influxdata/influxdb/schema
+    identifier: influxdata/influxdb/schema/fieldKeys
 weight: 301
 flux/v0.x/tags: [metadata]
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldkeys
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldkeys/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/fieldkeys/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
-introduced: 0.88.0
 ---
 
-The `schema.fieldKeys()` function returns [field keys](/{{< latest "influxdb" >}}/reference/glossary/#field-key) in a bucket.
-The return value is always a single table with a single column, `_value`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/schema/schema.flux#L241-L248
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`schema.fieldKeys()` returns field keys in a bucket.
+
+Results include a single table with a single column, `_value`.
+
+**Note**: FieldKeys is a special application of `tagValues that returns field
+keys in a given bucket.
+
+##### Function type signature
 
 ```js
-import "influxdata/influxdb/schema"
-
-schema.fieldKeys(
-    bucket: "example-bucket",
-    predicate: (r) => true,
-    start: -30d,
-)
+schema.fieldKeys = (
+    bucket: string,
+    ?predicate: (
+        r: {
+            A with
+            _value: B,
+            _time: time,
+            _stop: time,
+            _start: time,
+            _measurement: string,
+            _field: string,
+        },
+    ) => bool,
+    ?start: C,
+    ?stop: D,
+) => stream[E] where E: Record
 ```
-
-{{% note %}}
-#### Deleted fields
-Fields [deleted from InfluxDB Cloud using the `/api/v2/delete` endpoint or the `influx delete` command](/influxdb/cloud/write-data/delete-data/)
-**do not** appear in results.
-
-#### Expired fields
-- **InfluxDB Cloud**: field keys associated with points outside of the bucket's
-  retention policy **may** appear in results up to an hour after expiring.
-- **InfluxDB OSS**: field keys associated with points outside of the bucket's
-  retention policy **may** appear in results.
-  For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
-{{% /note %}}
 
 ## Parameters
 
-### bucket {data-type="string"}
+### bucket
+
+({{< req >}})
 Bucket to list field keys from.
 
-### predicate {data-type="function"}
+### predicate
+
+
 Predicate function that filters field keys.
-_Default is `(r) => true`._
+Default is `(r) => true`.
 
-### start {data-type="duration, time"}
-Earliest time to include in results.
-_Default is `-30d`._
+### start
 
-Relative start times are defined using negative durations.
-Negative durations are relative to now.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
 
-### stop {data-type="duration, time"}
-Latest time to include in results.
-_Default is `now()`._
+Oldest time to include in results. Default is `-30d`.
 
-The `stop` time is exclusive, meaning values with a time equal to stop time are
-excluded from results.
-Relative start times are defined using negative durations.
+### stop
+
+
+Newest time include in results.
+  The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+  Default is `now()`.Relative start times are defined using negative durations.
 Negative durations are relative to `now()`.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+Absolute start times are defined using time values.
+
 
 ## Examples
 
-### Return all field keys in a bucket
+
+### Query field keys from an InfluxDB bucket
+
 ```js
 import "influxdata/influxdb/schema"
 
 schema.fieldKeys(bucket: "example-bucket")
 ```
 
-### Return all field keys in a bucket from a non-default time range
-```js
-import "influxdata/influxdb/schema"
-
-schema.fieldKeys(bucket: "example-bucket", start: -90d, stop: -60d)
-```

@@ -1,48 +1,62 @@
 ---
 title: spread() function
-description: The `spread()` function outputs the difference between the minimum and maximum values in a specified column.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/spread
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/spread/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/spread/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/spread/
+description: >
+  `spread()` returns the difference between the minimum and maximum values in a
+  specified column.
 menu:
   flux_0_x_ref:
     name: spread
     parent: universe
-weight: 102
-flux/v0.x/tags: [aggregates, transformations]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
-  - /flux/v0.x/stdlib/experimental/spread
+    identifier: universe/spread
+weight: 101
+flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.7.0
 ---
 
-The `spread()` function outputs the difference between the minimum and maximum values in a specified column.
-_`spread()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
 
-Only `uint`, `int`, and `float` column types can be used.
-The type of the output column depends on the type of input column:
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-- For columns with type `uint` or `int`, the output is an `int`
-- For columns with type `float`, the output is a float.
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2370-L2370
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`spread()` returns the difference between the minimum and maximum values in a
+specified column.
+
+
+
+##### Function type signature
 
 ```js
-spread(column: "_value")
+spread = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: Record
 ```
 
 ## Parameters
 
-### column {data-type="string"}
-The column on which to operate.
-Default is `"_value"`.
+### column
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+Column to operate on. Default is `_value`.
+
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+
+### Return the spread of values
 
 ```js
 import "sampledata"
@@ -51,26 +65,34 @@ sampledata.int()
     |> spread()
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+#### Input data
 
-##### Input data
-{{% flux/sample "int" %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-##### Output data
-| tag | _value |
-| :-- | -----: |
-| t1  |     19 |
 
-| tag | _value |
-| :-- | -----: |
-| t2  |     22 |
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 19      |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 22      |
+

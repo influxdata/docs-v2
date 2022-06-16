@@ -1,120 +1,120 @@
 ---
 title: time() function
-description: The `time()` function converts a single value to a time.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/time/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/time/
+description: >
+  `time()` converts a value to a time type.
 menu:
   flux_0_x_ref:
     name: time
     parent: universe
-weight: 102
+    identifier: universe/time
+weight: 101
 flux/v0.x/tags: [type-conversions]
-related:
-  - /flux/v0.x/data-types/basic/time/
-  - /flux/v0.x/stdlib/universe/totime/
 introduced: 0.7.0
 ---
 
-The `time()` function converts a value to a [time value](/flux/v0.x/data-types/basic/time/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3255-L3255
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`time()` converts a value to a time type.
+
+
+
+##### Function type signature
 
 ```js
-time(v: "2016-06-13T17:43:50.1004002Z")
+time = (v: A) => time
 ```
 
 ## Parameters
 
-### v {data-type="string, int, uint"}
-The value to convert.
-String values must be formatted as [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
+### v
 
-{{% note %}}
-`time()` assumes all numeric input values are nanosecond epoch timestamps.
-{{% /note %}}
+({{< req >}})
+Value to convert.Strings must be valid [RFC3339 timestamps](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
+Integer and unsigned integer values are parsed as nanosecond epoch timestamps.
+
 
 ## Examples
 
-- [Convert a string to a time value](#convert-a-string-to-a-time-value)
-- [Convert an integer to a time value](#convert-an-integer-to-a-time-value)
-- [Convert all values in a column to time values](#convert-all-values-in-a-column-to-time-values)
 
-#### Convert a string to a time value
+### Convert a string to a time value
+
 ```js
-time(v: "2021-01-01T00:00:00Z")
+time(v: "2021-01-01T00:00:00Z")// Returns 2021-01-01T00:00:00Z (time)
 
-// Returns 2021-01-01T00:00:00Z (time)
 ```
 
-#### Convert an integer to a time value
-```js
-time(v: 609459200000000000)
 
-// Returns 2021-01-01T00:00:00Z
+### Convert an integer to a time value
+
+```js
+time(v: 1640995200000000000)// Returns 2022-01-01T00:00:00Z
+
 ```
 
-#### Convert all values in a column to time values
-If updating values in the `_value` column, use [`toTime()`](/flux/v0.x/stdlib/universe/totime/).
-To update values in columns other than `_value`:
 
-1. Use [`map()`](/flux/v0.x/stdlib/universe/map/) to iterate over and update all input rows.
-2. Use `time()` to update the value of a column.
+### Convert all values in a column to time
 
-{{% flux/sample-example-intro %}}
+If converting the `_value` column to time types, use `toTime()`.
+If converting columns other than `_value`, use `map()` to iterate over each
+row and `time()` to covert a column value to a time type.
 
 ```js
-import "sampledata"
-
-data = sampledata.int()
-    |> map(fn: (r) => ({r with _value: r._value * 1000000000}))
-    |> rename(columns: {_value: "foo"})
-
 data
-    |> map(fn: (r) => ({r with foo: time(v: r.foo)}))
+    |> map(fn: (r) => ({r with exampleCol: time(v: r.exampleCol)}))
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| _time                | tag |         foo |
-| :------------------- | :-- | ----------: |
-| 2021-01-01T00:00:00Z | t1  | -2000000000 |
-| 2021-01-01T00:00:10Z | t1  | 10000000000 |
-| 2021-01-01T00:00:20Z | t1  |  7000000000 |
-| 2021-01-01T00:00:30Z | t1  | 17000000000 |
-| 2021-01-01T00:00:40Z | t1  | 15000000000 |
-| 2021-01-01T00:00:50Z | t1  |  4000000000 |
+#### Input data
 
-| _time                | tag |         foo |
-| :------------------- | :-- | ----------: |
-| 2021-01-01T00:00:00Z | t2  | 19000000000 |
-| 2021-01-01T00:00:10Z | t2  |  4000000000 |
-| 2021-01-01T00:00:20Z | t2  | -3000000000 |
-| 2021-01-01T00:00:30Z | t2  | 19000000000 |
-| 2021-01-01T00:00:40Z | t2  | 13000000000 |
-| 2021-01-01T00:00:50Z | t2  |  1000000000 |
+| _time                | _value  | exampleCol  | *tag |
+| -------------------- | ------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | -2000000000 | t1   |
+| 2021-01-01T00:00:10Z | 10      | 10000000000 | t1   |
+| 2021-01-01T00:00:20Z | 7       | 7000000000  | t1   |
+| 2021-01-01T00:00:30Z | 17      | 17000000000 | t1   |
+| 2021-01-01T00:00:40Z | 15      | 15000000000 | t1   |
+| 2021-01-01T00:00:50Z | 4       | 4000000000  | t1   |
 
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time                | tag | foo                  |
-| :------------------- | :-- | :------------------- |
-| 2021-01-01T00:00:00Z | t1  | 1969-12-31T23:59:58Z |
-| 2021-01-01T00:00:10Z | t1  | 1970-01-01T00:00:10Z |
-| 2021-01-01T00:00:20Z | t1  | 1970-01-01T00:00:07Z |
-| 2021-01-01T00:00:30Z | t1  | 1970-01-01T00:00:17Z |
-| 2021-01-01T00:00:40Z | t1  | 1970-01-01T00:00:15Z |
-| 2021-01-01T00:00:50Z | t1  | 1970-01-01T00:00:04Z |
+| _time                | _value  | exampleCol  | *tag |
+| -------------------- | ------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | 19000000000 | t2   |
+| 2021-01-01T00:00:10Z | 4       | 4000000000  | t2   |
+| 2021-01-01T00:00:20Z | -3      | -3000000000 | t2   |
+| 2021-01-01T00:00:30Z | 19      | 19000000000 | t2   |
+| 2021-01-01T00:00:40Z | 13      | 13000000000 | t2   |
+| 2021-01-01T00:00:50Z | 1       | 1000000000  | t2   |
 
-| _time                | tag | foo                  |
-| :------------------- | :-- | :------------------- |
-| 2021-01-01T00:00:00Z | t2  | 1970-01-01T00:00:19Z |
-| 2021-01-01T00:00:10Z | t2  | 1970-01-01T00:00:04Z |
-| 2021-01-01T00:00:20Z | t2  | 1969-12-31T23:59:57Z |
-| 2021-01-01T00:00:30Z | t2  | 1970-01-01T00:00:19Z |
-| 2021-01-01T00:00:40Z | t2  | 1970-01-01T00:00:13Z |
-| 2021-01-01T00:00:50Z | t2  | 1970-01-01T00:00:01Z |
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
+
+#### Output data
+
+| _time                | _value  | exampleCol           | *tag |
+| -------------------- | ------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | 1969-12-31T23:59:58Z | t1   |
+| 2021-01-01T00:00:10Z | 10      | 1970-01-01T00:00:10Z | t1   |
+| 2021-01-01T00:00:20Z | 7       | 1970-01-01T00:00:07Z | t1   |
+| 2021-01-01T00:00:30Z | 17      | 1970-01-01T00:00:17Z | t1   |
+| 2021-01-01T00:00:40Z | 15      | 1970-01-01T00:00:15Z | t1   |
+| 2021-01-01T00:00:50Z | 4       | 1970-01-01T00:00:04Z | t1   |
+
+| _time                | _value  | exampleCol           | *tag |
+| -------------------- | ------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | 1970-01-01T00:00:19Z | t2   |
+| 2021-01-01T00:00:10Z | 4       | 1970-01-01T00:00:04Z | t2   |
+| 2021-01-01T00:00:20Z | -3      | 1969-12-31T23:59:57Z | t2   |
+| 2021-01-01T00:00:30Z | 19      | 1970-01-01T00:00:19Z | t2   |
+| 2021-01-01T00:00:40Z | 13      | 1970-01-01T00:00:13Z | t2   |
+| 2021-01-01T00:00:50Z | 1       | 1970-01-01T00:00:01Z | t2   |
+

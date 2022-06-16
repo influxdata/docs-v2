@@ -1,54 +1,60 @@
 ---
-title: Flux math package
-list_title: math package
+title: math package
 description: >
-  The Flux `math` package provides basic constants and mathematical functions.
-  Import the `math` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/
-  - /influxdb/v2.0/reference/flux/stdlib/math/
-  - /influxdb/cloud/reference/flux/stdlib/math/
+  The `math` package provides basic constants and mathematical functions
 menu:
   flux_0_x_ref:
-    name: math
-    parent: Standard library
+    name: math 
+    parent: stdlib
+    identifier: math
 weight: 11
-flux/v0.x/tags: [math, functions]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/mathematic-operations/
-introduced: 0.22.0
+cascade:
+
+  introduced: 0.22.0
 ---
 
-The Flux `math` package provides basic constants and mathematical functions.
-Import the `math` package.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `math` package provides basic constants and mathematical functions
+Import the `math` package:
 
 ```js
 import "math"
 ```
-
-## Mathematical constants
-That `math` package includes the following mathematical constants.
+## Constants
 
 ```js
-math.e        = 2.71828182845904523536028747135266249775724709369995957496696763 // https ://oeis.org/A001113
-math.pi       = 3.14159265358979323846264338327950288419716939937510582097494459 // https ://oeis.org/A000796
-math.phi      = 1.61803398874989484820458683436563811772030917980576286213544862 // https ://oeis.org/A001622
-
-math.sqrt2    = 1.41421356237309504880168872420969807856967187537694807317667974 // https ://oeis.org/A002193
-math.sqrte    = 1.64872127070012814684865078781416357165377610071014801157507931 // https ://oeis.org/A019774
-math.sqrtpi   = 1.77245385090551602729816748334114518279754945612238712821380779 // https ://oeis.org/A002161
-math.sqrtphi  = 1.27201964951406896425242246173749149171560804184009624861664038 // https ://oeis.org/A139339
-
-math.ln2      = 0.693147180559945309417232121458176568075500134360255254120680009 // https://oeis.org/A002162
-math.log2e    = 1 ÷ math.ln2
-math.ln10     = 2.30258509299404568401799145468436420760110148862877297603332790 // https ://oeis.org/A002392
-math.log10e   = 1 ÷ math.ln10
-
-math.maxfloat = 1.797693134862315708145274237317043567981e+308 // 2**1023 * (2**53 - 1) / 2**52
-math.maxint   = 1<<63 - 1
-math.minint   = -1 << 63
-math.maxuint  = 1<<64 - 1
+math.builtin e // e represents the base of the natural logarithm, also known as Euler's number.
+math.builtin ln10 // ln10 represents the natural logarithm of 10.
+math.builtin ln2 // ln2 represents the natural logarithm of 2.
+math.builtin log10e // log10e represents the base 10 logarithm of **e** (`math.e`).
+math.builtin log2e // log2e represents the base 2 logarithm of **e** (`math.e`).
+math.builtin maxfloat // maxfloat represents the maximum float value.
+math.builtin maxint // maxint represents the maximum integer value (`2^63 - 1`).
+math.builtin maxuint // maxuint representes the maximum unsigned integer value  (`2^64 - 1`).
+math.builtin minint // minint represents the minimum integer value (`-2^63`).
+math.builtin phi // phi represents the [Golden Ratio](https://www.britannica.com/science/golden-ratio).
+math.builtin pi // pi represents pi (π).
+math.builtin smallestNonzeroFloat // smallestNonzeroFloat represents the smallest nonzero float value.
+math.builtin sqrt2 // sqrt2 represents the square root of 2.
+math.builtin sqrte // sqrte represents the square root of **e** (`math.e`).
+math.builtin sqrtphi // sqrtphi represents the square root of phi (`math.phi`), the Golden Ratio.
+math.builtin sqrtpi // sqrtpi represents the square root of pi (π).
 ```
+## Functions
 
-## Mathematical functions
 {{< children type="functions" show="pages" >}}

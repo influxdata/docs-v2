@@ -1,47 +1,58 @@
 ---
 title: csv.from() function
-seotitle: Experimental csv.from() function
-list_title: csv.from() (experimental)
 description: >
-  The experimental `csv.from()` function retrieves annotated CSV from a URL.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/csv/from/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/csv/from/
+  `csv.from()` retrieves [annotated CSV](https://docs.influxdata.com/influxdb/latest/reference/syntax/annotated-csv/) **from a URL**.
 menu:
   flux_0_x_ref:
-    name: csv.from *
-    parent: csv-exp
-weight: 401
-flux/v0.x/tags: [inputs]
-introduced: 0.64.0
+    name: csv.from
+    parent: experimental/csv
+    identifier: experimental/csv/from
+weight: 201
 ---
 
-The experimental `csv.from()` function retrieves
-[annotated CSV](/{{< latest "influxdb" >}}/reference/syntax/annotated-csv/) **from a URL**.
+<!------------------------------------------------------------------------------
 
-{{% note %}}
-The experimental `csv.from()` function is an alternative to the standard
-[`csv.from()` function](/flux/v0.x/stdlib/csv/from/).
-{{% /note %}}
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-{{< keep-url >}}
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/csv/csv.flux#L29-L29
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`csv.from()` retrieves [annotated CSV](https://docs.influxdata.com/influxdb/latest/reference/syntax/annotated-csv/) **from a URL**.
+
+**Note:** Experimental `csv.from()` is an alternative to the standard
+`csv.from()` function.
+
+##### Function type signature
+
 ```js
-import "experimental/csv"
-
-csv.from(url: "http://localhost:8086/")
+csv.from = (url: string) => stream[A] where A: Record
 ```
 
 ## Parameters
 
-### url {data-type="string"}
-The URL to retrieve annotated CSV from.
+### url
+
+({{< req >}})
+URL to retrieve annotated CSV from.
+
 
 ## Examples
 
-##### Query annotated CSV data from a remote URL
+
+### Query annotated CSV data from a URL
+
 ```js
 import "experimental/csv"
 
 csv.from(url: "http://example.com/csv/example.csv")
-    |> filter(fn: (r) => r._measurement == "example-measurement")
 ```
+

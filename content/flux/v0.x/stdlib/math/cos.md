@@ -1,37 +1,59 @@
 ---
 title: math.cos() function
-description: The math.cos() function returns the cosine of the radian argument `x`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/cos/
-  - /influxdb/v2.0/reference/flux/stdlib/math/cos/
-  - /influxdb/cloud/reference/flux/stdlib/math/cos/
+description: >
+  `math.cos()` returns the cosine of the radian argument `x`.
 menu:
   flux_0_x_ref:
     name: math.cos
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/cos
+weight: 101
 ---
 
-The `math.cos()` function returns the cosine of the radian argument `x`.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L497-L497
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.cos()` returns the cosine of the radian argument `x`.
+
+
+
+##### Function type signature
 
 ```js
-import "math"
-
-math.cos(x: 3.14)
-
-// Returns -0.9999987317275396
+math.cos = (x: float) => float
 ```
 
 ## Parameters
 
-### x {data-type="float"}
-The value used in the operation.
+### x
 
-## Special cases
+({{< req >}})
+Value to operate on.
+
+
+## Examples
+
+
+### Use math.cos in map
+
 ```js
-math.cos(±Inf) // Returns NaN
-math.cos(NaN)  // Returns NaN
+import "math"
+import "sampledata"
+
+sampledata.float()
+    |> map(fn: (r) => ({_time: r._time, _value: math.cos(x: r._value)}))
 ```
+

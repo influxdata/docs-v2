@@ -1,22 +1,37 @@
 ---
-title: Flux InfluxDB package
-list_title: influxdb package
+title: influxdb package
 description: >
-  The Flux InfluxDB package provides functions for analyzing InfluxDB metadata.
-  Import the `influxdata/influxdb` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb/
+  The `influxdb` package provides functions designed for working with InfluxDB and
+  analyzing InfluxDB metadata.
 menu:
   flux_0_x_ref:
-    name: influxdb
-    identifier: influxdb-pkg
+    name: influxdb 
     parent: influxdata
-weight: 202
-flux/v0.x/tags: [functions, package]
+    identifier: influxdata/influxdb
+weight: 21
+cascade:
+
+  introduced: 0.7.0
 ---
 
-The Flux `influxdb` package provides functions for analyzing InfluxDB metadata.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/influxdb.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `influxdb` package provides functions designed for working with InfluxDB and
+analyzing InfluxDB metadata.
 Import the `influxdata/influxdb` package:
 
 ```js
@@ -24,7 +39,9 @@ import "influxdata/influxdb"
 ```
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}
 
 ## Packages
+
 {{< children show="sections" >}}

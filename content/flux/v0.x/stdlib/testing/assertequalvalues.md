@@ -1,0 +1,71 @@
+---
+title: testing.assertEqualValues() function
+description: >
+  `testing.assertEqualValues()` tests whether two values are equal.
+menu:
+  flux_0_x_ref:
+    name: testing.assertEqualValues
+    parent: testing
+    identifier: testing/assertEqualValues
+weight: 101
+flux/v0.x/tags: [tests]
+introduced: 0.141.0
+---
+
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L378-L382
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`testing.assertEqualValues()` tests whether two values are equal.
+
+
+
+##### Function type signature
+
+```js
+testing.assertEqualValues = (got: A, want: A) => stream[{v: A, _diff: string}]
+```
+
+## Parameters
+
+### got
+
+({{< req >}})
+Value to test.
+
+### want
+
+({{< req >}})
+Expected value to test against.
+
+
+## Examples
+
+
+### Test if two values are equal
+
+```js
+import "testing"
+
+testing.assertEqualValues(got: 5, want: 12)
+```
+
+#### Input data
+
+| _diff  | v  |
+| ------ | -- |
+| -      | 12 |
+| +      | 5  |
+

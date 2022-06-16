@@ -1,102 +1,182 @@
 ---
 title: experimental.quantile() function
 description: >
-  The `experimental.quantile()` function outputs non-null records with values in
-  the `_value` column that fall within the specified quantile or the non-null
-  record with the value in the `_value` column that represents the specified quantile.
+  `experimental.quantile()` returns non-null records with values in the `_value` column that
+  fall within the specified quantile or represent the specified quantile.
 menu:
   flux_0_x_ref:
     name: experimental.quantile
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/quantile/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/quantile/
-related:
-  - /influxdb/v2.0/query-data/flux/percentile-quantile/
-  - /flux/v0.x/stdlib/universe/quantile/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
+    identifier: experimental/quantile
+weight: 101
 flux/v0.x/tags: [transformations, aggregates, selectors]
 introduced: 0.107.0
 ---
 
-The `experimental.quantile()` function outputs non-null records with values in
-the `_value` column that fall within the specified quantile or represent the specified quantile.
-Which it returns depends on the [method](#method) used.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L872-L877
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.quantile()` returns non-null records with values in the `_value` column that
+fall within the specified quantile or represent the specified quantile.
+
 The `_value` column must contain float values.
 
-_`experimental.quantile()` behaves like an [aggregate function](/flux/v0.x/function-types/#aggregates)
-or a [selector function](/flux/v0.x/function-types/#selectors) depending on
-the [`method`](#method) used._
-
-```js
-import "experimental"
-
-experimental.quantile(
-    q: 0.99,
-    method: "estimate_tdigest",
-    compression: 1000.0,
-)
-```
-
-When using the `estimate_tdigest` or `exact_mean` methods, the function outputs
-non-null records with values that fall within the specified quantile.
-
-When using the `exact_selector` method, it outputs the non-null record with the
-value that represents the specified quantile.
-
-## Parameters
-
-### q {data-type="float"}
-A value between 0 and 1 thats specifies the quantile.
-
-### method {data-type="string"}
-Computation method.
-Default is `estimate_tdigest`.
-
-**Available options:**
-
-- [estimate_tdigest](#estimate_tdigest)
-- [exact_mean](#exact_mean)
-- [exact_selector](#exact_selector)
+## Computation methods and behavior
+`experimental.quantile()` behaves like an **aggregate function** or a
+**selector function** depending on the `method` parameter.
+The following computation methods are available:
 
 ##### estimate_tdigest
 An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)
 to compute an accurate quantile estimate on large data sources.
+When used, `experimental.quantile()` outputs non-null records with values
+that fall within the specified quantile.
 
 ##### exact_mean
 An aggregate method that takes the average of the two points closest to the quantile value.
+When used, `experimental.quantile()` outputs non-null records with values
+that fall within the specified quantile.
 
 ##### exact_selector
 A selector method that returns the data point for which at least `q` points are less than.
+When used, `experimental.quantile()` outputs the non-null record with the
+value that represents the specified quantile.
 
-### compression {data-type="float"}
-Indicates how many centroids to use when compressing the dataset.
-A larger number produces a more accurate result at the cost of increased memory requirements.
-Defaults to `1000.0`.
+##### Function type signature
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+```js
+experimental.quantile = (
+    <-tables: stream[{A with _value: float}],
+    q: float,
+    ?compression: float,
+    ?method: string,
+) => stream[{A with _value: float}]
+```
+
+## Parameters
+
+### q
+
+({{< req >}})
+Quantile to compute (`[0 - 1]`).
+
+### method
+
+
+Computation method. Default is `estimate_tdigest`.**Supported methods**:
+- estimate_tdigest
+- exact_mean
+- exact_selector
+
+### compression
+
+
+Number of centroids to use when compressing the dataset.
+Default is `1000.0`.A larger number produces a more accurate result at the cost of increased
+memory requirements.
+
+### tables
+
+
+Input data. Default is piped-forward data (`<-`).
+
 
 ## Examples
 
-###### Quantile as an aggregate
+
+### Return values in the 50th percentile of each input table
+
 ```js
 import "experimental"
+import "sampledata"
 
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
-    |> experimental.quantile(q: 0.99, method: "estimate_tdigest", compression: 1000.0)
+sampledata.float()
+    |> experimental.quantile(q: 0.5)
 ```
 
-###### Quantile as a selector
+#### Input data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
+
+
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 9.135   |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 9.415   |
+
+
+### Return a value representing the 50th percentile of each input table
+
 ```js
 import "experimental"
+import "sampledata"
 
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
-    |> experimental.quantile(q: 0.99, method: "exact_selector")
+sampledata.float()
+    |> experimental.quantile(q: 0.5, method: "exact_selector")
 ```
+
+#### Input data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
+
+
+#### Output data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+

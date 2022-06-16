@@ -1,80 +1,69 @@
 ---
 title: discord.endpoint() function
 description: >
-  The `discord.endpoint()` function sends a single message to a Discord channel using
-  a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3)
+  `discord.endpoint()` sends a single message to a Discord channel using a
+  [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&?page=3)
   and data from table rows.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/discord/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/discord/endpoint/
 menu:
   flux_0_x_ref:
     name: discord.endpoint
-    parent: discord
-weight: 202
-flux/v0.x/tags: [notification endpoints]
-introduced: 0.74.0
+    parent: contrib/chobbs/discord
+    identifier: contrib/chobbs/discord/endpoint
+weight: 301
 ---
 
-The `discord.endpoint()` function sends a single message to a Discord channel using
-a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3)
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/chobbs/discord/discord.flux#L118-L139
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`discord.endpoint()` sends a single message to a Discord channel using a
+[Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&?page=3)
 and data from table rows.
 
-```js
-import "contrib/chobbs/discord"
 
-discord.endpoint(
-    webhookToken: "mySuPerSecRetTokEn",
-    webhookID: "123456789",
-    username: "username",
-    avatar_url: "https://example.com/avatar_pic.jpg",
-)
+
+##### Function type signature
+
+```js
+discord.endpoint = (
+    username: A,
+    webhookID: string,
+    webhookToken: string,
+    ?avatar_url: B,
+) => (mapFn: (r: C) => {D with content: E}) => (<-tables: stream[C]) => stream[{C with _sent: string}]
 ```
 
 ## Parameters
 
-### webhookToken {data-type="string"}
+### webhookToken
+
+({{< req >}})
 Discord [webhook token](https://discord.com/developers/docs/resources/webhook).
 
-### webhookID {data-type="string"}
+### webhookID
+
+({{< req >}})
 Discord [webhook ID](https://discord.com/developers/docs/resources/webhook).
 
-### username {data-type="string"}
-Override the Discord webhook's default username.
+### username
 
-### avatar_url {data-type="string"}
-Override the Discord webhook's default avatar.
+({{< req >}})
+Override the Discord webhook’s default username.
 
-## Usage
-`discord.endpoint` is a factory function that outputs another function.
-The output function requires a `mapFn` parameter.
+### avatar_url
 
-### mapFn {data-type="function"}
-A function that builds the record used to generate the Discord webhook request.
-Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns a record that must include the
-following field:
+Override the Discord webhook’s default avatar.
 
-- `content`
-
-_For more information, see the [`discord.send() content` parameter](/flux/v0.x/stdlib/contrib/chobbs/discord/send/#content)._
-
-## Examples
-
-##### Send critical statuses to a Discord channel
-```js
-import "influxdata/influxdb/secrets"
-import "contrib/chobbs/discord"
-
-discordToken = secrets.get(key: "DISCORD_TOKEN")
-endpoint = telegram.endpoint(webhookToken: discordToken, webhookID: "123456789", username: "critBot")
-
-crit_statuses =
-    from(bucket: "example-bucket")
-        |> range(start: -1m)
-        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
-
-crit_statuses
-    |> endpoint(mapFn: (r) => ({content: "The status is critical!"}))()
-```

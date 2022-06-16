@@ -1,53 +1,105 @@
 ---
 title: strings.trimPrefix() function
 description: >
-  The `strings.trimPrefix()` function removes a prefix from a string.
-  Strings that do not start with the prefix are returned unchanged.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/trimprefix/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trimprefix/
-  - /influxdb/cloud/reference/flux/stdlib/strings/trimprefix/
+  `strings.trimPrefix()` removes a prefix from a string. Strings that do not start with the prefix are returned unchanged.
 menu:
   flux_0_x_ref:
     name: strings.trimPrefix
     parent: strings
-weight: 301
-related:
-  - /flux/v0.x/stdlib/strings/trim
-  - /flux/v0.x/stdlib/strings/trimleft
-  - /flux/v0.x/stdlib/strings/trimright
-  - /flux/v0.x/stdlib/strings/trimsuffix
-  - /flux/v0.x/stdlib/strings/trimspace
-introduced: 0.27.0
+    identifier: strings/trimPrefix
+weight: 101
 ---
 
-The `strings.trimPrefix()` function removes a prefix from a string.
-Strings that do not start with the prefix are returned unchanged.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** String_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux#L119-L119
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`strings.trimPrefix()` removes a prefix from a string. Strings that do not start with the prefix are returned unchanged.
+
+
+
+##### Function type signature
 
 ```js
-import "strings"
-
-strings.trimPrefix(v: "123_abc", prefix: "123")
-
-// returns "_abc"
+strings.trimPrefix = (prefix: string, v: string) => string
 ```
 
 ## Parameters
 
-### v {data-type="string"}
-The string value to trim.
+### v
 
-### prefix {data-type="string"}
-The prefix to remove.
+({{< req >}})
+String to trim.
+
+### prefix
+
+({{< req >}})
+Prefix to remove.
+
 
 ## Examples
 
-###### Remove a prefix from all values in a column
+
+### Trim a prefix from all values in a column
+
 ```js
+import "sampledata"
 import "strings"
 
-data
-    |> map(fn: (r) => ({r with sensorID: strings.trimPrefix(v: r.sensorId, prefix: "s12_")}))
+sampledata.string()
+    |> map(fn: (r) => ({r with _value: strings.trimPrefix(v: r._value, prefix: "smpl_")}))
 ```
+
+#### Input data
+
+| _time                | *tag | _value      |
+| -------------------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | t1   | smpl_g9qczs |
+| 2021-01-01T00:00:10Z | t1   | smpl_0mgv9n |
+| 2021-01-01T00:00:20Z | t1   | smpl_phw664 |
+| 2021-01-01T00:00:30Z | t1   | smpl_guvzy4 |
+| 2021-01-01T00:00:40Z | t1   | smpl_5v3cce |
+| 2021-01-01T00:00:50Z | t1   | smpl_s9fmgy |
+
+| _time                | *tag | _value      |
+| -------------------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | t2   | smpl_b5eida |
+| 2021-01-01T00:00:10Z | t2   | smpl_eu4oxp |
+| 2021-01-01T00:00:20Z | t2   | smpl_5g7tz4 |
+| 2021-01-01T00:00:30Z | t2   | smpl_sox1ut |
+| 2021-01-01T00:00:40Z | t2   | smpl_wfm757 |
+| 2021-01-01T00:00:50Z | t2   | smpl_dtn2bv |
+
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | g9qczs  | t1   |
+| 2021-01-01T00:00:10Z | 0mgv9n  | t1   |
+| 2021-01-01T00:00:20Z | phw664  | t1   |
+| 2021-01-01T00:00:30Z | guvzy4  | t1   |
+| 2021-01-01T00:00:40Z | 5v3cce  | t1   |
+| 2021-01-01T00:00:50Z | s9fmgy  | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | b5eida  | t2   |
+| 2021-01-01T00:00:10Z | eu4oxp  | t2   |
+| 2021-01-01T00:00:20Z | 5g7tz4  | t2   |
+| 2021-01-01T00:00:30Z | sox1ut  | t2   |
+| 2021-01-01T00:00:40Z | wfm757  | t2   |
+| 2021-01-01T00:00:50Z | dtn2bv  | t2   |
+

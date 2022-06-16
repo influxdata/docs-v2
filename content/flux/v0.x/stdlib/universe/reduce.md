@@ -1,183 +1,168 @@
 ---
 title: reduce() function
 description: >
-  The `reduce()` function aggregates records in each table according to the reducer,
-  `fn`, providing a way to create custom table aggregations.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  `reduce()` aggregates rows in each input table using a reducer function (`fn`).
 menu:
   flux_0_x_ref:
     name: reduce
     parent: universe
-weight: 102
-flux/v0.x/tags: [aggregates, transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/custom-functions/custom-aggregate/
-  - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/
+    identifier: universe/reduce
+weight: 101
+flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.23.0
 ---
 
-The `reduce()` function aggregates records in each table according to the reducer,
-`fn`, providing a way to create custom aggregations.
-The output for each table is the group key of the table with columns corresponding
-to each field in the reducer record.
-_`reduce()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2116-L2120
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`reduce()` aggregates rows in each input table using a reducer function (`fn`).
+
+The output for each table is the group key of the table with columns
+corresponding to each field in the reducer record.
+If the reducer record contains a column with the same name as a group key column,
+the group key column’s value is overwritten, and the outgoing group key is changed.
+However, if two reduced tables write to the same destination group key, the
+function returns an error.
+
+### Dropped columns
+`reduce()` drops any columns that:
+
+- Are not part of the input table’s group key.
+- Are not explicitly mapped in the `identity` record or the reducer function (`fn`).
+
+##### Function type signature
 
 ```js
-reduce(
-    fn: (r, accumulator) => ({ sum: r._value + accumulator.sum }),
-    identity: {sum: 0.0},
-)
+reduce = (<-tables: stream[B], fn: (accumulator: A, r: B) => A, identity: A) => stream[C] where A: Record, B: Record, C: Record
 ```
-
-If the reducer record contains a column with the same name as a group key column,
-the group key column's value is overwritten, and the outgoing group key is changed.
-However, if two reduced tables write to the same destination group key, the function will error.
 
 ## Parameters
 
-{{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
-{{% /note %}}
+### fn
 
-### fn {data-type="function"}
-Function to apply to each record with a reducer record ([`identity`](#identity)).
+({{< req >}})
+Reducer function to apply to each row record (`r`).The reducer function accepts two parameters:
+ - **r**: Record representing the current row.
+- **accumulator**: Record returned from the reducer function's operation on
+  the previous row.
 
-###### fn syntax
-```js
-// Pattern
-fn: (r, accumulator) => ({ identityKey: r.column + accumulator.identityKey })
+### identity
 
-// Example
-fn: (r, accumulator) => ({ sum: r._value + accumulator.sum })
-```
+({{< req >}})
+Record that defines the reducer record and provides initial values
+for the reducer operation on the first row.May be used more than once in asynchronous processing use cases.
+The data type of values in the identity record determine the data type of
+output values.
 
-{{% note %}}
-#### Matching output record keys and types
-The output record from `fn` must have the same key names and value types as the [`identity`](#identity).
-After operating on a record, the output record is given back to `fn` as the input accumulator.
-If the output record keys and value types do not match the `identity` keys and value types,
-it will return a type error.
-{{% /note %}}
+### tables
 
-#### r {data-type=record}
-Record representing each row or record.
 
-#### accumulator {data-type=record}
-Reducer record defined by [`identity`](#identity).
+Input data. Default is piped-forward data (`<-`).
 
-### identity {data-type="record"}
-Defines the reducer record and provides initial values to use when creating a reducer.
-May be used more than once in asynchronous processing use cases.
-_The data type of values in the `identity` record determine the data type of output values._
-
-###### identity record syntax
-```js
-// Pattern
-identity: {identityKey1: value1, identityKey2: value2}
-
-// Example
-identity: {sum: 0.0, count: 0.0}
-```
-
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
-
-## Important notes
-
-#### Dropped columns
-By default, `reduce()` drops any columns that:
-
-1. Are not part of the input table's [group key](/flux/v0.x/get-started/data-model/#group-key).
-2. Are not explicitly mapped in the `reduce()` function.
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
-- [Compute the sum of the value column](#compute-the-sum-of-the-value-column)
-- [Compute the sum and count in a single reducer](#compute-the-sum-and-count-in-a-single-reducer)
-- [Compute the product of all values](#compute-the-product-of-all-values)
-- [Calculate the average of all values](#calculate-the-average-of-all-values)
 
-#### Compute the sum of the value column
+### Compute the sum of the value column
+
+```js
+import "sampledata"
+
+sampledata.int()
+    |> reduce(fn: (r, accumulator) => ({sum: r._value + accumulator.sum}), identity: {sum: 0})
+```
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *tag | sum  |
+| ---- | ---- |
+| t1   | 51   |
+
+| *tag | sum  |
+| ---- | ---- |
+| t2   | 53   |
+
+
+### Compute the sum and count in a single reducer
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> reduce(
-        fn: (r, accumulator) => ({sum: r._value + accumulator.sum}),
-        identity: {sum: 0},
+        fn: (r, accumulator) => ({sum: r._value + accumulator.sum, count: accumulator.count + 1}),
+        identity: {sum: 0, count: 0},
     )
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+#### Input data
 
-##### Input data
-{{% flux/sample "int" %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-##### Output data
-| tag | sum |
-| :-- | --: |
-| t1  |  51 |
 
-| tag | sum |
-| :-- | --: |
-| t2  |  53 |
+#### Output data
 
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
+| *tag | count  | sum  |
+| ---- | ------ | ---- |
+| t1   | 6      | 51   |
 
-#### Compute the sum and count in a single reducer
-```js
-import "sampledata"
+| *tag | count  | sum  |
+| ---- | ------ | ---- |
+| t2   | 6      | 53   |
 
-sampledata.int()
-    |> reduce(
-        fn: (r, accumulator) => ({
-            sum: r._value + accumulator.sum,
-            count: accumulator.count + 1,
-        }),
-        identity: {sum: 0, count: 0}
-    )
-```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+### Compute the product of all values
 
-##### Input data
-{{% flux/sample "int" %}}
-
-{{% /flex-content %}}
-{{% flex-content %}}
-
-##### Output data
-| tag | count | sum |
-| :-- | ----: | --: |
-| t1  |     6 |  51 |
-
-| tag | count | sum |
-| :-- | ----: | --: |
-| t2  |     6 |  53 |
-
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-#### Compute the product of all values
 ```js
 import "sampledata"
 
@@ -185,67 +170,83 @@ sampledata.int()
     |> reduce(fn: (r, accumulator) => ({prod: r._value * accumulator.prod}), identity: {prod: 1})
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+#### Input data
 
-##### Input data
-{{% flux/sample "int" %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-##### Output data
-| tag |    prod |
-| :-- | ------: |
-| t1  | -142800 |
 
-| tag |   prod |
-| :-- | -----: |
-| t2  | -56316 |
+#### Output data
 
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
+| *tag | prod    |
+| ---- | ------- |
+| t1   | -142800 |
 
-#### Calculate the average of all values
+| *tag | prod   |
+| ---- | ------ |
+| t2   | -56316 |
+
+
+### Calculate the average of all values
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> reduce(
-        fn: (r, accumulator) => ({
-            count: accumulator.count + 1,
-            total: accumulator.total + r._value,
-            avg: float(v: (accumulator.total + r._value)) / float(v: accumulator.count + 1)
-        }),
+        fn: (r, accumulator) =>
+            ({
+                count: accumulator.count + 1,
+                total: accumulator.total + r._value,
+                avg: float(v: accumulator.total + r._value) / float(v: accumulator.count + 1),
+            }),
         identity: {count: 0, total: 0, avg: 0.0},
     )
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+#### Input data
 
-##### Input data
-{{% flux/sample "int" %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-##### Output data
-| tag | avg | count | total |
-| :-- | --: | ----: | ----: |
-| t1  | 8.5 |     6 |    51 |
 
-| tag |   avg | count | total |
-| :-- | ----: | ----: | ----: |
-| t2  | 8.834 |     6 |    53 |
+#### Output data
 
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
+| *tag | avg  | count  | total  |
+| ---- | ---- | ------ | ------ |
+| t1   | 8.5  | 6      | 51     |
+
+| *tag | avg               | count  | total  |
+| ---- | ----------------- | ------ | ------ |
+| t2   | 8.833333333333334 | 6      | 53     |
+
