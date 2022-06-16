@@ -32,8 +32,8 @@ influx replication create [command options] [arguments...]
 |      | `--org-id`                     | Local organization ID                                                 |   string   | `INFLUX_ORG_ID`       |
 | `-o` | `--org`                        | Local organization name                                               |   string   | `INFLUX_ORG`          |
 |      | `--remote-id`                  | Remote connection ID to replicate data to                             |   string   |                       |
-|      | `--local-bucket-id`               | Local bucket ID to replicate data from                                |   string   |                       |
-|      | `--remote-bucket-id`              | Remote bucket ID to replicate data to                                 |   string   |                       |
+|      | `--local-bucket-id`            | Local bucket ID to replicate data from                                |   string   |                       |
+|      | `--remote-bucket-id`           | Remote bucket ID to replicate data to                                 |   string   |                       |
 |      | `--max-queue-bytes`            | Max queue size in bytes (default: `67108860`)                         |  integer   |                       |
 |      | `--drop-non-retryable-data`    | Drop data when a non-retryable error is encountered                   |            |                       |
 |      | `--no-drop-non-retryable-data` | Do not drop data when a non-retryable error is encountered            |            |                       |
