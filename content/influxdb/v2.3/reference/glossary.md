@@ -4,7 +4,7 @@ description: >
   Terms related to InfluxData products and platforms.
 weight: 9
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: Glossary
 influxdb/v2.2/tags: [glossary]
 ---

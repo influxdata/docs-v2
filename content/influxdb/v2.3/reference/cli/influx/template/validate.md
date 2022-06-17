@@ -3,7 +3,7 @@ title: influx template validate
 description: >
   The `influx template validate` command validates the provided InfluxDB template.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influx template
 weight: 201
 aliases:

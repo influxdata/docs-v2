@@ -5,7 +5,7 @@ description: >
   the defined retention period of the bucket the data is stored in.
 weight: 103
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: Data retention
     parent: InfluxDB internals
 influxdb/v2.2/tags: [storage, internals]

@@ -4,7 +4,7 @@ description: >
   The `influxd inspect verify-tombstone` command verifies the integrity of tombstone files.
 influxdb/v2.2/tags: [inspect]
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd inspect
 weight: 301
 ---

@@ -2,7 +2,7 @@
 title: influx secret list
 description: The `influx secret list` command lists secret keys.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx secret list
     parent: influx secret
 weight: 101

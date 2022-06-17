@@ -3,7 +3,7 @@ title: influxd recovery user update
 description: >
   The `influxd recovery user update` command lets you change your password if you forget your credentials.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd recovery user
 weight: 401
 ---

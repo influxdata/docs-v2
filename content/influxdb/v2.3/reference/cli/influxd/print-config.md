@@ -5,7 +5,7 @@ description: >
   from the current `influxd` environment.
 influxdb/v2.2/tags: [influxd, cli]
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd
 weight: 201
 related:

@@ -2,7 +2,7 @@
 title: influx remote
 description: Manage remote InfluxDB connections for replicating data.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx remote
     parent: influx
 weight: 101

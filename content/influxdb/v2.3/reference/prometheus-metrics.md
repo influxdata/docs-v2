@@ -4,7 +4,7 @@ description: >
   When scraping [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/)
   and writing them to InfluxDB, metrics are parsed and stored in InfluxDB in different formats.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: Prometheus metrics
 weight: 8
 influxdb/v2.2/tags: [prometheus]

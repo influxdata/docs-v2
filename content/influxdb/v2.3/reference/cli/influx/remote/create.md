@@ -2,7 +2,7 @@
 title: influx remote create
 description: Create a new remote InfluxDB connection for replicating data.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx remote create
     parent: influx remote
 weight: 101

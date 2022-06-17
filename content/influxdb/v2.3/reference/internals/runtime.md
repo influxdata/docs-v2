@@ -3,7 +3,7 @@ title: InfluxDB runtime
 description: >
   Learn how to collect Go runtime profiling and tracing information to help with InfluxDB performance analysis and debugging.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: Runtime
     parent: InfluxDB internals
 weight: 103

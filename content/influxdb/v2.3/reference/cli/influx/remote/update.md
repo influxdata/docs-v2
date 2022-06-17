@@ -2,7 +2,7 @@
 title: influx remote update
 description: Update remote InfluxDB connections used for for replicating data.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx remote update
     parent: influx remote
 weight: 102

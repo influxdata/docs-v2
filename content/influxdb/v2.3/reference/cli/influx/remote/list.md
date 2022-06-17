@@ -2,7 +2,7 @@
 title: influx remote list
 description: List remote InfluxDB connections sued for replicating data.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx remote list
     parent: influx remote
 weight: 102

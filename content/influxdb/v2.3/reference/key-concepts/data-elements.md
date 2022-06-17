@@ -4,7 +4,7 @@ description: >
   InfluxDB structures data using elements such as timestamps, field keys, field values, tags, etc.
 weight: 102
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: Key concepts
     name: Data elements
 influxdb/v2.2/tags: [key concepts, schema]

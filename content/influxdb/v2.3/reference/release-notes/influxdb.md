@@ -2,11 +2,56 @@
 title: InfluxDB v2.2 release notes
 description: Important changes and what's new in each version of InfluxDB.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: InfluxDB
     parent: Release notes
 weight: 101
 ---
+
+## v2.3 [2022-6-17]
+
+This release includes the following [maintenance](#maintenance), [features](#features) and several [bug fixes](#bug-fixes).
+
+### Maintenance
+
+- Upgrade from Flux 0.161.0 to [Flux 0.171.0](/flux/v0.x/release-notes/#v01710-2022-06-14).
+- Upgrade to [Go 1.18.3](https://go.dev/doc/go1.18).
+
+### Features
+
+- Add `--instance-id` option to `influxd` runtime to add the  `_instance_id` tag to remote replications metrics. Helps to identify where the metrics came from and ensures that two instances don't overwrite each others' data.
+- Add signifier to replication `user-agent` to signify when replication write requests are made. Helps to identify metrics written via replications.
+
+#### Flux advancement highlights
+
+##### Performance
+
+- Vectorize arithmetic operators in `map()`
+- Vectorize logical operations in `map()`
+- Enable `movingAverage()` and `cumulativeSum()` optimizations by default
+
+##### Other
+
+- Add `preview()` to experimental package for limiting return rows and tables (as opposed to just rows with `limit()`)
+- Add `date.scale()` to let users dynamically scale durations in dates
+- Add [OpenTracing](https://opentracing.io/docs/overview/spans/) spans to Flux transformations. This lets you monitor Flux scripts more precisely.
+- Add trace option to Flux CLI.
+- Move addDuration() and subDuration() out of experimental to date package.
+- Add location support to `date.truncate()`.
+- Add `_status` tag to PagerDuty record.
+- Refactor operator profile to be in the query statistics.
+
+### Bug fixes
+
+- Fix race condition when remote replicating that deadlocks the remote writer, resulting in no more writes to the target.
+- Error when creating v1 auth with a nonexistent bucket ID
+- Add fields to `_tasks` bucket to match schema of the same bucket in InfluxDB Cloud. Provides consistency for clients accessing both.
+- Fix rare case where measurement cardinality reported less than zero.
+- No longer panic on cleaning up failed iterators.
+
+### Security updates
+
+
 
 ## v2.2 [2022-04-06]
 

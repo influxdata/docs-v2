@@ -2,7 +2,7 @@
 title: influx bucket-schema update
 description: The `influx bucket-schema update` command updates the schema of an InfluxDB bucket that has the `explicit` schema-type.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx bucket-schema update
     parent: influx bucket-schema
 weight: 201

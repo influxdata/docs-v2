@@ -5,7 +5,7 @@ description: >
   customize your InfluxDB host and port.
 weight: 6
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: InfluxDB URLs
 ---
 

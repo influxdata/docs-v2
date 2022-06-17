@@ -3,7 +3,7 @@ title: InfluxDB OSS metrics
 description: >
  Get metrics about the workload performance of an InfluxDB OSS instance.
 menu:
- influxdb_2_2_ref:
+ influxdb_2_3_ref:
    parent: InfluxDB internals
    name: Metrics
 influxdb/v2.2/tags: [cpu, memory, metrics, performance, Prometheus, storage, usage]

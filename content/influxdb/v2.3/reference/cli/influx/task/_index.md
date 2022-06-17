@@ -2,7 +2,7 @@
 title: influx task
 description: The `influx task` command and its subcommands manage tasks in InfluxDB.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx task
     parent: influx
 weight: 101

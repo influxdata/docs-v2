@@ -5,7 +5,7 @@ description: >
   the series file.
 influxdb/v2.2/tags: [tsi]
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd inspect
 weight: 301
 ---

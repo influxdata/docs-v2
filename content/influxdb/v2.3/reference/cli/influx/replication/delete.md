@@ -2,7 +2,7 @@
 title: influx replication delete
 description: Delete an InfluxDB replication stream.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx replication delete
     parent: influx replication
 weight: 102

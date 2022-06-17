@@ -6,7 +6,7 @@ description: >
   and the time range the data covers.
 influxdb/v2.2/tags: [tsm, cardinality, inspect]
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd inspect
 weight: 301
 ---

@@ -3,7 +3,7 @@ title: influxd - InfluxDB service
 description: The `influxd` service starts and runs all the processes necessary for InfluxDB to function.
 influxdb/v2.2/tags: [influxd, cli]
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influxd
     parent: Command line tools
 weight: 102

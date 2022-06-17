@@ -2,7 +2,7 @@
 title: influx auth inactive
 description: The `influx auth inactive` command inactivates an API token in InfluxDB.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx auth inactive
     parent: influx auth
 weight: 201

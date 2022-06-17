@@ -4,7 +4,7 @@ description: >
   The `influxd recovery org list` command lists organizations stored on disk and 
   outputs data associated with each organization.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd recovery org
 weight: 401
 ---

@@ -4,7 +4,7 @@ description: >
   The `influxd recovery org create` command creates a new organization directly
   on disk for recovery purposes.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd recovery org
 weight: 401
 ---

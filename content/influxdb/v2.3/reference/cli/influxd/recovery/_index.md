@@ -5,7 +5,7 @@ description: >
   operator access to InfluxDB by directly modifying authorization, organization,
   and user data stored on disk.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd
 weight: 201
 ---

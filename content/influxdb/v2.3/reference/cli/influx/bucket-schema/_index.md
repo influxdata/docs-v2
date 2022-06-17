@@ -2,7 +2,7 @@
 title: influx bucket-schema
 description: The `influx bucket-schema` command and its subcommands manage schemas of buckets in InfluxDB.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx bucket-schema
     parent: influx
 weight: 101

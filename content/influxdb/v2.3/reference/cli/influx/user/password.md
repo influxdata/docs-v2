@@ -2,7 +2,7 @@
 title: influx user password
 description: The `influx user password` command updates the password for a user in InfluxDB.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx user password
     parent: influx user
 weight: 201

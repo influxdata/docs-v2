@@ -4,7 +4,7 @@ description: >
   The `influx write` command writes data to InfluxDB via stdin or from a specified file.
   Write data using line protocol, annotated CSV, or extended annotated CSV.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx write
     parent: influx
 weight: 101

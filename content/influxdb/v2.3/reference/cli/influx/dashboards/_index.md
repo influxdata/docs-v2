@@ -3,7 +3,7 @@ title: influx dashboards
 description: >
   The `influx dashboards` command lists existing InfluxDB dashboards.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx dashboards
     parent: influx
 weight: 101

@@ -4,7 +4,7 @@ description: >
   The `influxd inspect delete-tsm` command deletes a measurement from a raw TSM file.
 influxdb/v2.2/tags: [tsm]
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: influxd inspect
 weight: 301
 ---

@@ -2,7 +2,7 @@
 title: influx remote delete
 description: Delete remote InfluxDB connections used for replicating data.
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     name: influx remote delete
     parent: influx remote
 weight: 102

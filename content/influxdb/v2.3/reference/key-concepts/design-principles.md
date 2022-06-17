@@ -4,7 +4,7 @@ description: >
   Principles and tradeoffs related to InfluxDB design.
 weight: 104
 menu:
-  influxdb_2_2_ref:
+  influxdb_2_3_ref:
     parent: Key concepts
     name: Design principles
 influxdb/v2.2/tags: [key concepts, design principles]
