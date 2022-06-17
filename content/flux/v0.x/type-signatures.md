@@ -1,9 +1,8 @@
 ---
-title: Type signatures
-seotitle: Flux type signatures
+title: Function type signatures
 description: >
-  A **type signature** describes a function's input parameters and types,
-  and the function's output type.
+  A **function type signature** describes a function's input parameters and
+  types, and the function's output type.
 menu:
   flux_0_x_ref:
     name: Type signatures
@@ -13,18 +12,18 @@ related:
   - /flux/v0.x/spec/types/#type-constraints, Type constraints
 ---
 
-A **type signature** describes a function's input parameters and types,
+A **function type signature** describes a function's input parameters and types,
 and the function's output type.
 Use type signatures to identify data types expected by function parameters and
 to understand a function's expected output.
 
-- [Type signature structure](#type-signature-structure)
+- [Function type signature structure](#function-type-signature-structure)
 - [Type notation](#type-notation)
 - [Parameter notation](#parameter-notation)
 - [Type constraints](#type-constraints)
-- [Example type signatures](#example-type-signatures)
+- [Example function type signatures](#example-function-type-signatures)
 
-## Type signature structure
+## Function type signature structure
 
 ```js
 (parameter: type) => output-type
@@ -113,7 +112,7 @@ supports, see [Type constraints](/flux/v0.x/spec/types/#type-constraints).
 (v: A) => int where A: Timeable
 ```
 
-## Example type signatures
+## Example function type signatures
 
 - [Function without parameters](#function-without-parameters)
 - [Function with parameters](#function-with-parameters)
