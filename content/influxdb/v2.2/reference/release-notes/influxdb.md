@@ -8,6 +8,21 @@ menu:
 weight: 101
 ---
 
+## v2.3 [2022-06-17]
+
+...
+
+### Security updates
+
+Several security issues were fixed in dependencies and the toolchain used to build InfluxDB, including:
+- An issue in the `gopkg.in/yaml.v3` package import that could lead to a DoS in the templates service
+- An issue in the `github.com/buger/jsonparser` package import that could potentially lead to a DoS in storage authorization
+- The cumulative security fixes for [Go 1.18.3](https://go.dev/doc/devel/release#go1.18.minor) since Go 1.17.8 are included in this release.
+  This addresses the following issues that affect InfluxDB:
+  - An issue with processing large PEM files that could lead to a DoS in the templates service or flux connections using `to()`
+  - An issue in TLSv1.3 and a lack of ticket randomness
+  - A minor issue with `filepath.Clean()` on Windows
+
 ## v2.2 [2022-04-06]
 
 This release includes the following new [features](#features) and several [bug fixes](#bug-fixes).
