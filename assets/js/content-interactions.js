@@ -1,12 +1,25 @@
 ///////////////////////////// Make headers linkable /////////////////////////////
 
-$(".article--content h2, \
-   .article--content h3, \
-   .article--content h4, \
-   .article--content h5, \
-   .article--content h6" ).each(function() {
-  var link = "<a href=\"#" + $(this).attr("id") + "\"></a>"
-  $(this).wrapInner( link );
+var headingWhiteList = $("\
+  .article--content h2, \
+  .article--content h3, \
+  .article--content h4, \
+  .article--content h5, \
+  .article--content h6 \
+");
+
+var headingBlackList = ("\
+  .influxdbu-banner h4 \
+");
+
+headingElements = headingWhiteList.not(headingBlackList);
+
+headingElements.each(function() {
+    function getLink(element) {
+      return ((element.attr('href') === undefined ) ? $(element).attr("id") : element.attr('href'))
+    }
+    var link = "<a href=\"#" + getLink($(this)) + "\"></a>"
+    $(this).wrapInner( link );
   })
 
 ///////////////////////////////// Smooth Scroll /////////////////////////////////

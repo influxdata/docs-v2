@@ -102,9 +102,38 @@ The `influx` CLI uses the following patterns and conventions:
 - [Flag input types](#flag-input-types)
 
 #### Mapped environment variables
-`influx` CLI flags mapped to environment variables are listed in the **Mapped to** column.
+`influx` CLI flags mapped to environment variables are listed in the **Mapped to**
+column of the Flags table in each command documentation.
 Mapped flags inherit the value of the environment variable.
 To override environment variables, set the flag explicitly in your command.
+
+{{< expand-wrapper >}}
+{{% expand "View mapped environment variables" %}}
+
+{{% note %}}
+Some `influx` CLI commands may not support all mapped environment variables.
+For more information about what mapped environment variables each command supports,
+see the command documentation.
+{{% /note %}}
+
+| Environment variable     | Description                                                           |
+| :----------------------- | :-------------------------------------------------------------------- |
+| `INFLUX_ACTIVE_CONFIG`   | CLI configuration to use for commands                                 |
+| `INFLUX_BUCKET_ID`       | Bucket ID                                                             |
+| `INFLUX_BUCKET_NAME`     | Bucket name                                                           |
+| `INFLUX_CONFIGS_PATH`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) |
+| `INFLUX_HIDE_HEADERS`    | Hide table headers in command output (default `false`)                |
+| `INFLUX_HOST`            | HTTP address of InfluxDB (default `http://localhost:8086`)            |
+| `INFLUX_NAME`            | InfluxDB Username                                                     |
+| `INFLUX_ORG`             | InfluxDB Organization name                                            |
+| `INFLUX_ORG_DESCRIPTION` | Organization description                                              |
+| `INFLUX_ORG_ID`          | InfluxDB Organization ID                                              |
+| `INFLUX_OUTPUT_JSON`     | Return command output JSON                                            |
+| `INFLUX_SKIP_VERIFY`     | Skip TLS certificate verification                                     |
+| `INFLUX_TOKEN`           | InfluxDB API token                                                    |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 #### Shorthand and longhand flags
 Many `influx` CLI flags support both shorthand and longhand forms.

@@ -47,6 +47,7 @@ influx auth create [flags]
 |      | `--skip-verify`                 | Skip TLS certificate verification                                     |             | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`                       | API token                                                             | string      | `INFLUX_TOKEN`        |
 | `-u` | `--user`                        | Username                                                              | string      |                       |
+|      | `--write-annotations`           | Grant permission to create annotations                                |             |                       |
 |      | `--write-bucket`                | Grant permission to write to specified a bucket ID                    | stringArray |                       |
 |      | `--write-buckets`               | Grant permission to create and update **all** organization buckets    |             |                       |
 |      | `--write-checks`                | Grant permission to create checks                                     |             |                       |
@@ -60,6 +61,7 @@ influx auth create [flags]
 |      | `--write-tasks`                 | Grant permission to create and update tasks                           |             |                       |
 |      | `--write-telegrafs`             | Grant permission to create and update Telegraf configurations         |             |                       |
 |      | `--write-users`                 | Grant permission to create and update organization users              |             |                       |
+|      | `--write-variables`             | Grant permission to create and update variables                       |             |                       |
 
 ## Examples
 
@@ -107,6 +109,7 @@ influx auth create \
   --read-tasks \
   --read-telegrafs \
   --read-users \
+  --write-annotations \
   --write-buckets \
   --write-checks \
   --write-dashboards \
@@ -118,7 +121,8 @@ influx auth create \
   --write-replications \
   --write-tasks \
   --write-telegrafs \
-  --write-users
+  --write-users \
+  --write-variables
 ```
 
 ### Create an API token with read and write access to specific buckets

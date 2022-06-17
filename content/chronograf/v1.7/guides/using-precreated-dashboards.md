@@ -65,7 +65,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## apache
 
-**Required Telegraf plugin:** [Apache input plugin](/{{< latest "telegraf" >}}/plugins/#apache)
+**Required Telegraf plugin:** [Apache input plugin](/{{< latest "telegraf" >}}/plugins/#input-apache)
 
 `apache.json`
 
@@ -75,7 +75,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## consul
 
-**Required Telegraf plugin:** [Consul input plugin](/{{< latest "telegraf" >}}/plugins/#consul)
+**Required Telegraf plugin:** [Consul input plugin](/{{< latest "telegraf" >}}/plugins/#input-consul)
 
 `consul_http.json`
 
@@ -95,7 +95,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## docker
 
-**Required Telegraf plugin:** [Docker input plugin](/{{< latest "telegraf" >}}/plugins/#docker)
+**Required Telegraf plugin:** [Docker input plugin](/{{< latest "telegraf" >}}/plugins/#input-docker)
 
 `docker.json`
 
@@ -115,7 +115,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## elasticsearch
 
-**Required Telegraf plugin:** [Elasticsearch input plugin](/{{< latest "telegraf" >}}/plugins/#elasticsearch)
+**Required Telegraf plugin:** [Elasticsearch input plugin](/{{< latest "telegraf" >}}/plugins/#input-elasticsearch)
 
 `elasticsearch.json`
 
@@ -132,7 +132,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## haproxy
 
-**Required Telegraf plugin:** [HAProxy input plugin](/{{< latest "telegraf" >}}/plugins/#haproxy)
+**Required Telegraf plugin:** [HAProxy input plugin](/{{< latest "telegraf" >}}/plugins/#input-haproxy)
 
 `haproxy.json`
 
@@ -154,7 +154,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## iis
 
-**Required Telegraf plugin:** [Windows Performance Counters input plugin](/{{< latest "telegraf" >}}/plugins/#win_perf_counters)
+**Required Telegraf plugin:** [Windows Performance Counters input plugin](/{{< latest "telegraf" >}}/plugins/#input-win_perf_counters)
 
 `win_websvc.json`
 
@@ -162,7 +162,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## influxdb
 
-**Required Telegraf plugin:** [InfluxDB input plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
+**Required Telegraf plugin:** [InfluxDB input plugin](/{{< latest "telegraf" >}}/plugins/#input-influxdb)
 
 `influxdb_database.json`
 
@@ -207,7 +207,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## Memcached (`memcached`)
 
-**Required Telegraf plugin:** [Memcached input plugin](/{{< latest "telegraf" >}}/plugins/#memcached)
+**Required Telegraf plugin:** [Memcached input plugin](/{{< latest "telegraf" >}}/plugins/#input-memcached)
 
 `memcached.json`
 
@@ -227,7 +227,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## mesos
 
-**Required Telegraf plugin:** [Mesos input plugin](/{{< latest "telegraf" >}}/plugins/#mesos)
+**Required Telegraf plugin:** [Mesos input plugin](/{{< latest "telegraf" >}}/plugins/#input-mesos)
 
 `mesos.json`
 
@@ -242,7 +242,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## mongodb
 
-**Required Telegraf plugin:** [MongoDB input plugin](/{{< latest "telegraf" >}}/plugins/#mongodb)
+**Required Telegraf plugin:** [MongoDB input plugin](/{{< latest "telegraf" >}}/plugins/#input-mongodb)
 
 `mongodb.json`
 
@@ -254,7 +254,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## mysql
 
-**Required Telegraf plugin:** [MySQL input plugin](/{{< latest "telegraf" >}}/plugins/#mysql)
+**Required Telegraf plugin:** [MySQL input plugin](/{{< latest "telegraf" >}}/plugins/#input-mysql)
 
 `mysql.json`
 
@@ -265,7 +265,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## nginx
 
-**Required Telegraf plugin:** [NGINX input plugin](/{{< latest "telegraf" >}}/plugins/#nginx)
+**Required Telegraf plugin:** [NGINX input plugin](/{{< latest "telegraf" >}}/plugins/#input-nginx)
 
 `nginx.json`
 
@@ -276,7 +276,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## nsq
 
-**Required Telegraf plugin:** [NSQ input plugin](/{{< latest "telegraf" >}}/plugins/#nsq)
+**Required Telegraf plugin:** [NSQ input plugin](/{{< latest "telegraf" >}}/plugins/#input-nsq)
 
 `nsq_channel.json`
 
@@ -297,7 +297,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## phpfpm
 
-**Required Telegraf plugin:** [PHPfpm input plugin](/{{< latest "telegraf" >}}/plugins/#phpfpm)
+**Required Telegraf plugin:** [PHPfpm input plugin](/{{< latest "telegraf" >}}/plugins/#input-phpfpm)
 
 `phpfpm.json`
 
@@ -309,7 +309,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## ping
 
-**Required Telegraf plugin:** [Ping input plugin](/{{< latest "telegraf" >}}/plugins/#ping)
+**Required Telegraf plugin:** [Ping input plugin](/{{< latest "telegraf" >}}/plugins/#input-ping)
 
 `ping.json`
 
@@ -318,7 +318,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## postgresql
 
-**Required Telegraf plugin:** [PostgreSQL input plugin](/{{< latest "telegraf" >}}/plugins/#postgresql)
+**Required Telegraf plugin:** [PostgreSQL input plugin](/{{< latest "telegraf" >}}/plugins/#input-postgresql)
 
 `postgresql.json`
 
@@ -329,7 +329,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## rabbitmq
 
-**Required Telegraf plugin:** [RabbitMQ input plugin](/{{< latest "telegraf" >}}/plugins/#rabbitmq)
+**Required Telegraf plugin:** [RabbitMQ input plugin](/{{< latest "telegraf" >}}/plugins/#input-rabbitmq)
 
 `rabbitmq.json`
 
@@ -340,7 +340,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## redis
 
-**Required Telegraf plugin:** [Redis input plugin](/{{< latest "telegraf" >}}/plugins/#redis)
+**Required Telegraf plugin:** [Redis input plugin](/{{< latest "telegraf" >}}/plugins/#input-redis)
 
 
 `redis.json`
@@ -352,7 +352,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## riak
 
-**Required Telegraf plugin:** [Riak input plugin](/{{< latest "telegraf" >}}/plugins/#riak)
+**Required Telegraf plugin:** [Riak input plugin](/{{< latest "telegraf" >}}/plugins/#input-riak)
 
 
 `riak.json`
@@ -371,7 +371,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ### cpu
 
-**Required Telegraf plugin:** [CPU input plugin](/{{< latest "telegraf" >}}/plugins/#cpu)
+**Required Telegraf plugin:** [CPU input plugin](/{{< latest "telegraf" >}}/plugins/#input-cpu)
 
 `cpu.json`
 
@@ -381,13 +381,13 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 `disk.json`
 
-**Required Telegraf plugin:** [Disk input plugin](/{{< latest "telegraf" >}}/plugins/#disk)
+**Required Telegraf plugin:** [Disk input plugin](/{{< latest "telegraf" >}}/plugins/#input-disk)
 
   * "System - Disk used %"
 
 ### diskio
 
-**Required Telegraf plugin:** [DiskIO input plugin](/{{< latest "telegraf" >}}/plugins/#diskio)
+**Required Telegraf plugin:** [DiskIO input plugin](/{{< latest "telegraf" >}}/plugins/#input-diskio)
 
 `diskio.json`
 
@@ -396,7 +396,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ### mem
 
-**Required Telegraf plugin:** [Mem input plugin](/{{< latest "telegraf" >}}/plugins/#mem)
+**Required Telegraf plugin:** [Mem input plugin](/{{< latest "telegraf" >}}/plugins/#input-mem)
 
 `mem.json`
 
@@ -404,7 +404,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ### net
 
-**Required Telegraf plugin:** [Net input plugin](/{{< latest "telegraf" >}}/plugins/#net)
+**Required Telegraf plugin:** [Net input plugin](/{{< latest "telegraf" >}}/plugins/#input-net)
 
 `net.json`
 
@@ -413,7 +413,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ### netstat
 
-**Required Telegraf plugin:** [Netstat input plugin](/{{< latest "telegraf" >}}/plugins/#netstat)
+**Required Telegraf plugin:** [Netstat input plugin](/{{< latest "telegraf" >}}/plugins/#input-netstat)
 
 `netstat.json`
 
@@ -422,7 +422,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ### processes
 
-**Required Telegraf plugin:** [Processes input plugin](/{{< latest "telegraf" >}}/plugins/#processes)
+**Required Telegraf plugin:** [Processes input plugin](/{{< latest "telegraf" >}}/plugins/#input-processes)
 
 `processes.json`
 
@@ -430,7 +430,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ### procstat
 
-**Required Telegraf plugin:** [Procstat input plugin](/{{< latest "telegraf" >}}/plugins/#procstat)
+**Required Telegraf plugin:** [Procstat input plugin](/{{< latest "telegraf" >}}/plugins/#input-procstat)
 
 `procstat.json`
 
@@ -439,7 +439,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ### system
 
-**Required Telegraf plugin:** [Procstat input plugin](/{{< latest "telegraf" >}}/plugins/#procstat)
+**Required Telegraf plugin:** [Procstat input plugin](/{{< latest "telegraf" >}}/plugins/#input-procstat)
 
 `load.json`
 
@@ -447,7 +447,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## varnish
 
-**Required Telegraf plugin:** [Varnish](/{{< latest "telegraf" >}}/plugins/#varnish)
+**Required Telegraf plugin:** [Varnish](/{{< latest "telegraf" >}}/plugins/#input-varnish)
 
 `varnish.json`
 
@@ -456,7 +456,7 @@ See [Telegraf configuration](https://github.com/influxdata/telegraf/blob/master/
 
 ## win_system
 
-**Required Telegraf plugin:** [Windows Performance Counters input plugin](/{{< latest "telegraf" >}}/plugins/#win_perf_counters)
+**Required Telegraf plugin:** [Windows Performance Counters input plugin](/{{< latest "telegraf" >}}/plugins/#input-win_perf_counters)
 
 `win_cpu.json`
 

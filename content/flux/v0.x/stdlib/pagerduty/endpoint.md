@@ -26,6 +26,13 @@ pagerduty.endpoint(
 )
 ```
 
+## Output data
+For each input row, `pagerduty.endpoint()` sends an event to the PagerDuty API
+and outputs a corresponding output row with the following additional columns:
+
+- **sent**: Sent succesfully <span style="opacity: .5">_(bool)_</span>
+- **\_status**: HTTP response status code <span style="opacity: .5">_(string)_</span>
+
 ## Parameters
 
 ### url {data-type="string"}

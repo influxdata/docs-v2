@@ -30,12 +30,12 @@ The Docker dashboard displays the following information:
 
 ### Plugins
 
-- [`docker` plugin](/{{< latest "telegraf" >}}/plugins/#docker)
-- [`disk` plugin](/{{< latest "telegraf" >}}/plugins/#disk)
-- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#mem)
-- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#diskio)
-- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#system)
-- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins/#cpu)
+- [`docker` plugin](/{{< latest "telegraf" >}}/plugins/#input-docker)
+- [`disk` plugin](/{{< latest "telegraf" >}}/plugins/#input-disk)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#input-mem)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#input-diskio)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#input-system)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins/#input-cpu)
 
 ## Kubernetes Node
 The Kubernetes Node dashboard displays the following information:
@@ -53,7 +53,7 @@ The Kubernetes Node dashboard displays the following information:
 - K8s - Kubelet Memory Bytes
 
 ### Plugins
-- [kubernetes](/{{< latest "telegraf" >}}/plugins/#kubernetes)
+- [kubernetes](/{{< latest "telegraf" >}}/plugins/#input-kubernetes)
 
 ## Kubernetes Overview
 The Kubernetes Node dashboard displays the following information:
@@ -72,7 +72,7 @@ The Kubernetes Node dashboard displays the following information:
 
 ### Plugins
 
-- [kubernetes](/{{< latest "telegraf" >}}/plugins/#kubernetes)
+- [kubernetes](/{{< latest "telegraf" >}}/plugins/#input-kubernetes)
 
 ## Kubernetes Pod
 The Kubernetes Pod dashboard displays the following information:
@@ -87,7 +87,7 @@ The Kubernetes Pod dashboard displays the following information:
 - K8s - Pod TX Bytes/Second
 
 ### Plugins
-- [kubernetes](/{{< latest "telegraf" >}}/plugins/#kubernetes)
+- [kubernetes](/{{< latest "telegraf" >}}/plugins/#input-kubernetes)
 
 ## Riak
 The Riak dashboard displays the following information:
@@ -101,7 +101,7 @@ The Riak dashboard displays the following information:
 - Riak - Read Repairs/Minute
 
 ### Plugins
-- [`riak` plugin](/{{< latest "telegraf" >}}/plugins/#riak)
+- [`riak` plugin](/{{< latest "telegraf" >}}/plugins/#input-riak)
 
 ## Consul
 The Consul dashboard displays the following information:
@@ -110,7 +110,7 @@ The Consul dashboard displays the following information:
 - Consul - Number of Warning Health Checks
 
 ### Plugins
-- [`consul` plugin](/{{< latest "telegraf" >}}/plugins/#consul)
+- [`consul` plugin](/{{< latest "telegraf" >}}/plugins/#input-consul)
 
 ## Consul Telemetry
 The Consul Telemetry dashboard displays the following information:
@@ -125,7 +125,7 @@ The Consul Telemetry dashboard displays the following information:
 - Consul - Number of Serf Events
 
 ### Plugins
-[`consul` plugin](/{{< latest "telegraf" >}}/plugins/#consul)
+[`consul` plugin](/{{< latest "telegraf" >}}/plugins/#input-consul)
 
 
 ## Mesos
@@ -140,7 +140,7 @@ The Mesos dashboard displays the following information:
 - Mesos Master Uptime
 
 ### Plugins
-- [`mesos` plugin](/{{< latest "telegraf" >}}/plugins/#mesos)
+- [`mesos` plugin](/{{< latest "telegraf" >}}/plugins/#input-mesos)
 
 ## RabbitMQ
 The RabbitMQ dashboard displays the following information:
@@ -151,7 +151,7 @@ The RabbitMQ dashboard displays the following information:
 
 ### Plugins
 
-- [`rabbitmq` plugin](/{{< latest "telegraf" >}}/plugins/#rabbitmq)
+- [`rabbitmq` plugin](/{{< latest "telegraf" >}}/plugins/#input-rabbitmq)
 
 ## System
 
@@ -170,14 +170,14 @@ The System dashboard displays the following information:
 
 ### Plugins
 
-- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#system)
-- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#mem)
-- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins/#cpu)
-- [`disk` plugin](/{{< latest "telegraf" >}}/plugins/#disk)
-- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#diskio)
-- [`net` plugin](/{{< latest "telegraf" >}}/plugins/#net)
-- [`processes` plugin](/{{< latest "telegraf" >}}/plugins/#processes)
-- [`swap` plugin](/{{< latest "telegraf" >}}/plugins/#swap)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#input-system)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#input-mem)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins/#input-cpu)
+- [`disk` plugin](/{{< latest "telegraf" >}}/plugins/#input-disk)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#input-diskio)
+- [`net` plugin](/{{< latest "telegraf" >}}/plugins/#input-net)
+- [`processes` plugin](/{{< latest "telegraf" >}}/plugins/#input-processes)
+- [`swap` plugin](/{{< latest "telegraf" >}}/plugins/#input-swap)
 
 
 
@@ -198,7 +198,7 @@ The VMware vSphere Overview dashboard gives an overview of your VMware vSphere C
   - VM CPU % Ready for :clustername:
 
 ### Plugins
-- [`vsphere` plugin](/{{< latest "telegraf" >}}/plugins/#vmware-vsphere)
+- [`vsphere` plugin](/{{< latest "telegraf" >}}/plugins/#input-vmware-vsphere)
 
 ## Apache
 The Apache dashboard displays the following information:
@@ -221,12 +221,12 @@ The Apache dashboard displays the following information:
 
 ### Plugins
 
-- [`apache` plugin](/{{< latest "telegraf" >}}/plugins/#apache)
-- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#system)
-- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#mem)
-- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#diskio)
-- [`net` plugin](/{{< latest "telegraf" >}}/plugins/#net)
-- [`logparser` plugin](/{{< latest "telegraf" >}}/plugins/#logparser)
+- [`apache` plugin](/{{< latest "telegraf" >}}/plugins/#input-apache)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#input-system)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#input-mem)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#input-diskio)
+- [`net` plugin](/{{< latest "telegraf" >}}/plugins/#input-net)
+- [`logparser` plugin](/{{< latest "telegraf" >}}/plugins/#input-logparser)
 
 ## ElasticSearch
 The ElasticSearch dashboard displays the following information:
@@ -243,7 +243,7 @@ The ElasticSearch dashboard displays the following information:
 - ElasticSearch - JVM Heap Usage
 
 ### Plugins
-- [`elasticsearch` plugin](/{{< latest "telegraf" >}}/plugins/#elasticsearch)
+- [`elasticsearch` plugin](/{{< latest "telegraf" >}}/plugins/#input-elasticsearch)
 
 
 ## InfluxDB
@@ -272,12 +272,12 @@ The InfluxDB dashboard displays the following information:
 
 ### Plugins
 
-- [`influxdb` plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
-- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins/#cpu)
-- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#system)
-- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#mem)
-- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#diskio)
-- [`net` plugin](/{{< latest "telegraf" >}}/plugins/#net)
+- [`influxdb` plugin](/{{< latest "telegraf" >}}/plugins/#input-influxdb)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins/#input-cpu)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#input-system)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#input-mem)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#input-diskio)
+- [`net` plugin](/{{< latest "telegraf" >}}/plugins/#input-net)
 
 
 
@@ -299,7 +299,7 @@ The Memcached dashboard displays the following information:
 - Memcached - Evictions/10 Seconds
 
 ### Plugins
-- [`memcached` plugin](/{{< latest "telegraf" >}}/plugins/#memcached)
+- [`memcached` plugin](/{{< latest "telegraf" >}}/plugins/#input-memcached)
 
 
 ## NSQ
@@ -315,7 +315,7 @@ The NSQ dashboard displays the following information:
 - NSQ - Topic Egress
 
 ### Plugins
-- [`nsq` plugin](/{{< latest "telegraf" >}}/plugins/#nsq)
+- [`nsq` plugin](/{{< latest "telegraf" >}}/plugins/#input-nsq)
 
 ## PostgreSQL
 The PostgreSQL dashboard displays the following information:
@@ -340,11 +340,11 @@ The PostgreSQL dashboard displays the following information:
 
 ### Plugins
 
-- [`postgresql` plugin](/{{< latest "telegraf" >}}/plugins/#postgresql)
-- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#system)
-- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#mem)
-- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins/#cpu)
-- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#diskio)
+- [`postgresql` plugin](/{{< latest "telegraf" >}}/plugins/#input-postgresql)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#input-system)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#input-mem)
+- [`cpu` plugin](/{{< latest "telegraf" >}}/plugins/#input-cpu)
+- [`diskio` plugin](/{{< latest "telegraf" >}}/plugins/#input-diskio)
 
 
 ## HAProxy
@@ -367,7 +367,7 @@ The HAProxy dashboard displays the following information:
 - HAProxy - Backend Error Responses/Second
 
 ### Plugins
-- [`haproxy` plugin](/{{< latest "telegraf" >}}/plugins/#haproxy)
+- [`haproxy` plugin](/{{< latest "telegraf" >}}/plugins/#input-haproxy)
 
 
 ## NGINX
@@ -379,7 +379,7 @@ The NGINX dashboard displays the following information:
 - NGINX - Active Client State
 
 ### Plugins
-- [`nginx` plugin](/{{< latest "telegraf" >}}/plugins/#nginx)
+- [`nginx` plugin](/{{< latest "telegraf" >}}/plugins/#input-nginx)
 
 ## Redis
 The Redis dashboard displays the following information:
@@ -390,7 +390,7 @@ The Redis dashboard displays the following information:
 - Redis - Memory
 
 ### Plugins
-- [`redis` plugin](/{{< latest "telegraf" >}}/plugins/#redis)
+- [`redis` plugin](/{{< latest "telegraf" >}}/plugins/#input-redis)
 
 
 ## VMware vSphere VMs
@@ -406,7 +406,7 @@ The VMWare vSphere VMs dashboard gives an overview of your VMware vSphere virtua
 - Total Disk Latency for :vmname:
 
 ### Plugins
-- [`vsphere` plugin](/{{< latest "telegraf" >}}/plugins/#vsphere)
+- [`vsphere` plugin](/{{< latest "telegraf" >}}/plugins/#input-vsphere)
 
 ## VMware vSphere Hosts
 
@@ -422,7 +422,7 @@ The VMWare vSphere Hosts dashboard displays the following information:
 - Total Disk Latency for :esxhostname:
 
 ### Plugins
-- [`vsphere` plugin](/{{< latest "telegraf" >}}/plugins/#vsphere)
+- [`vsphere` plugin](/{{< latest "telegraf" >}}/plugins/#input-vsphere)
 
 ## PHPfpm
 The PHPfpm dashboard displays the following information:
@@ -433,7 +433,7 @@ The PHPfpm dashboard displays the following information:
 - PHPfpm - Max Children Reached
 
 ### Plugins
-- [`phpfpm` plugin](/{{< latest "telegraf" >}}/plugins/#nginx)
+- [`phpfpm` plugin](/{{< latest "telegraf" >}}/plugins/#input-nginx)
 
 ## Win System
 The Win System dashboard displays the following information:
@@ -445,7 +445,7 @@ The Win System dashboard displays the following information:
 - System - Load
 
 ### Plugins
-- [`win_services` plugin](/{{< latest "telegraf" >}}/plugins/#windows-services)
+- [`win_services` plugin](/{{< latest "telegraf" >}}/plugins/#input-windows-services)
 
 
 ## MySQL
@@ -472,9 +472,9 @@ The MySQL dashboard displays the following information:
 - InnoDB Data
 
 ### Plugins
-- [`mySQL` plugin](/{{< latest "telegraf" >}}/plugins/#mysql)
-- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#system)
-- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#mem)
+- [`mySQL` plugin](/{{< latest "telegraf" >}}/plugins/#input-mysql)
+- [`system` plugin](/{{< latest "telegraf" >}}/plugins/#input-system)
+- [`mem` plugin](/{{< latest "telegraf" >}}/plugins/#input-mem)
 
 ## Ping
 The Ping dashboard displays the following information:
@@ -483,4 +483,4 @@ The Ping dashboard displays the following information:
 - Ping - Response Times (ms)
 
 ### Plugins
-- [`ping` plugin](/{{< latest "telegraf" >}}/plugins/#ping)
+- [`ping` plugin](/{{< latest "telegraf" >}}/plugins/#input-ping)

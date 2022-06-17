@@ -1,15 +1,21 @@
 openapi: 3.0.0
 info:
   title: InfluxDB OSS v1 compatibility API documentation
-  version: 0.1.0
-  description: |
+  version: 2.2.0 v1 compatibility
+  description: >
     The InfluxDB 1.x compatibility /write and /query endpoints work with
-    InfluxDB 1.x client libraries and third-party integrations like Grafana
-    and others.
+    InfluxDB 1.x client libraries and third-party integrations like Grafana and
+    others.
 
 
-    If you want to use the latest InfluxDB `/api/v2` API instead,
-    see the [InfluxDB v2 API documentation](/influxdb/v2.1/api/).
+    If you want to use the latest InfluxDB /api/v2 API instead, see the
+    [InfluxDB v2 API documentation](/influxdb/v2.2/api/).
+
+
+    This documentation is generated from the
+
+    [InfluxDB OpenAPI
+    specification](https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss/contracts/swaggerV1Compat.yml).
 servers:
   - url: /
 paths:
@@ -36,8 +42,8 @@ paths:
             type: string
           required: true
           description: >-
-            Bucket to write to. If none exist a bucket will be created with a
-            default 3 day retention policy.
+            Bucket to write to. If none exists, InfluxDB creates a bucket with a
+            default 3-day retention policy.
         - in: query
           name: rp
           schema:
@@ -430,8 +436,8 @@ components:
 
         For examples and more information, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Authorize API requests](/influxdb/v2.1/api-guide/api_intro/#authentication).
-          - [Manage API tokens](/influxdb/v2.1/security/tokens/).
+          - [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication).
+          - [Manage API tokens](/influxdb/cloud/security/tokens/).
     BasicAuthentication:
       type: http
       scheme: basic
@@ -445,7 +451,7 @@ components:
 
 
         For examples and more information, see how to [authenticate with a
-        username and password](/influxdb/v2.1/reference/api/influxdb-1x/).
+        username and password](/influxdb/cloud/reference/api/influxdb-1x/).
     QuerystringAuthentication:
       type: apiKey
       in: query
@@ -460,7 +466,7 @@ components:
 
 
         For examples and more information, see how to [authenticate with a
-        username and password](/influxdb/v2.1/reference/api/influxdb-1x/).
+        username and password](/influxdb/cloud/reference/api/influxdb-1x/).
 security:
   - TokenAuthentication: []
   - BasicAuthentication: []
@@ -486,8 +492,8 @@ tags:
 
       <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
-  - Query
-  - Write
+  - name: Query
+  - name: Write
 x-tagGroups:
   - name: Overview
     tags:

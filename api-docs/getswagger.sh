@@ -11,12 +11,14 @@
 # - a base URL using the -b flag.
 #   The baseURL specifies where to retrieve the openapi files from.
 #   The default baseUrl is the master branch of the influxdata/openapi repo.
+#   The default baseUrl for OSS is the tag for the latest InfluxDB release.
+#   When a new OSS version is released, update baseUrlOSS to with the tag (/influxdb-oss-[SEMANTIC_VERSION]).
 #   For local development, pass your openapi directory using the file:/// protocol.
 #
 # Syntax:
 #   sh ./getswagger.sh <context>
 #   sh ./getswagger.sh <context> -b <baseUrl>
-#   sh .getswagger.sh -c <context> -o <version> -b <baseUrl>
+#   sh ./getswagger.sh -c <context> -o <version> -b <baseUrl>
 #
 # Examples:
 #   sh ./getswagger.sh cloud
@@ -25,6 +27,7 @@
 versionDirs=($(ls -d */))
 latestOSS=${versionDirs[${#versionDirs[@]}-1]}
 baseUrl="https://raw.githubusercontent.com/influxdata/openapi/master"
+baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss"
 ossVersion=${latestOSS%/}
 verbose=""
 context=""
@@ -63,6 +66,7 @@ case "$subcommand" in
         ;;
       b)
         baseUrl=$OPTARG
+        baseUrlOSS=$OPTARG
         ;;
       o)
         ossVersion=$OPTARG
@@ -95,30 +99,30 @@ function postProcess() {
   version="$2"
   apiVersion="$3"
 
-  openapiCLI="@redocly/openapi-cli"
+  openapiCLI=" @redocly/cli"
 
   npx --version
 
   # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
-  INFLUXDB_API_VERSION=$apiVersion INFLUXDB_VERSION=$version npm_config_yes=true npx $openapiCLI bundle $specPath \
+  INFLUXDB_API_VERSION=$apiVersion \
+  INFLUXDB_VERSION=$version \
+  npm_config_yes=true \
+  npx $openapiCLI bundle $specPath \
     --config=./.redocly.yaml \
     -o $specPath
 }
 
 function updateCloud {
-  echo "Updating Cloud openapi..."
   curl ${verbose} ${baseUrl}/contracts/ref/cloud.yml -s -o cloud/ref.yml
   postProcess $_ cloud
 }
 
 function updateOSS {
-  echo "Updating OSS ${ossVersion} openapi..."
-  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrl}/contracts/ref/oss.yml -s -o $_/ref.yml
+  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrlOSS}/contracts/ref/oss.yml -s -o $_/ref.yml
   postProcess $_ $ossVersion
 }
 
 function updateV1Compat {
-  echo "Updating Cloud and ${ossVersion} v1 compatibility openapi..."
   curl ${verbose} ${baseUrl}/contracts/swaggerV1Compat.yml -s -o cloud/swaggerV1Compat.yml
   postProcess $_ cloud v1compat
 

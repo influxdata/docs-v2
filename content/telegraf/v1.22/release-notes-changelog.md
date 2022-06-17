@@ -9,7 +9,69 @@ menu:
     name: Release notes
     weight: 60
 ---
-## v1.22.0 [2022-4-6]
+## v1.22.4 [2022-5-17]
+
+- Wait for network up in `systemd` packaging.
+
+### Input plugin updates
+- Couchbase (`couchbase`): Do not assume metrics will all be of the same length.
+- StatsD (`statsd`): Fix error when closing network connection.
+
+### Output plugin updates
+- Azure Monitor (`azure_monitor`): Reinitialize `http` client on context deadline error.
+- Wavefront (`wavefront`): Do not add `telegraf.host` tag if no `host` tag is provided.
+
+### Dependency updates
+- Update `github.com/showwin/speedtest-go` from 1.1.4 to 1.1.5.
+- Update OpenTelemetry plugins to v0.51.0.
+
+## v1.22.3 [2022-4-28]
+
+- Update Go to 1.18.1.
+
+### Input plugin updates
+- InfluxDB Listener (`influxdb_listener`): Remove duplicate writes with upstream parser.
+- GNMI (`gnmi`): Use external xpath parser.
+- System (`system`): Reduce log level back to original level.
+
+## v1.22.2 [2022-4-25]
+
+- Allow Makefile to work on Windows.
+- Allow zero outputs when using `test-wait` parameter.
+
+## Input plugin updates
+- Aerospike (`aerospike`): Fix statistics query bug.
+- Aliyun CMS (`aliyuncms`): Ensure metrics accept array.
+- Cisco Telemetry MDT (`cisco_telemetry_mdt`):
+  - Align the default value for message size.
+  - Remove overly verbose info message.
+- GNMI (`gnmi`):
+  - Add mutex to lookup map.
+  - Use sprint to cast to strings.
+- Consul agent (`consul_agent`): Use correct auth token.
+- MySQL (`mysql`): Add `mariadb_dialect` to address the MariaDB differences in `INNODB_METRICS`.
+- SMART (`smart`): Correctly parse various numeric forms
+- Prometheus (`prometheus`): Moved from watcher to informer.
+
+## Output plugin updates
+- InfluxDB v2 (`influxdb_v2`): Improve error message.
+
+## Dependency updates
+- Update `github.com/Azure/azure-kusto-go` from 0.5.0 to 0.60.
+- Update `opentelemetry` from v0.2.10 to v0.2.17.
+- Update `go.opentelemetry.io/collector/pdata` from v0.48.0 to v0.49.0.
+- Update `github.com/aws/aws-sdk-go-v2/config` from 1.13.1 to 1.15.3
+- Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs`.
+- Update `github.com/aws/aws-sdk-go-v2/credentials` from 1.8.0 to 1.11.2.
+- Update `github.com/containerd/containerd` from v1.5.9 to v1.5.11.
+- Update `github.com/miekg/dns` from 1.1.46 to 1.1.48.
+- Update `github.com/gopcua/opcua` from v0.3.1 to v0.3.3
+- Update `github.com/aws/aws-sdk-go-v2/service/dynamodb`.
+- Update `github.com/xdg/scram` from 1.0.3 to 1.0.5.
+- Update `go.mongodb.org/mongo-driver` from 1.8.3 to 1.9.0.
+- Update `starlark 7a1108eaa012->d1966c6b9fcd`.
+
+## v1.22.1 [2022-4-6]
 
 - Update `gonum.org/v1/gonum` from 0.9.3 to 0.11.0.
 - Update `github.com/golang-jwt/jwt/v4` from 4.2.0 to 4.4.1.
@@ -2595,14 +2657,14 @@ for details about the mapping.
 
 ### New input data formats (parsers)
 
-- [csv](/telegraf/v1.8/data_formats/input/csv) - Contributed by @maxunt
-- [grok](/telegraf/v1.8/data_formats/input/grok/) - Contributed by @maxunt
-- [logfmt](/telegraf/v1.8/data_formats/input/logfmt/) - Contributed by @Ayrdrie & @maxunt
-- [wavefront](/telegraf/v1.8/data_formats/input/wavefront/) - Contributed by @puckpuck
+- [csv](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/input/csv) - Contributed by @maxunt
+- [grok](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/input/grok/) - Contributed by @maxunt
+- [logfmt](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/input/logfmt/) - Contributed by @Ayrdrie & @maxunt
+- [wavefront](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/input/wavefront/) - Contributed by @puckpuck
 
 ### New output data formats (serializers)
 
-- [splunkmetric](/telegraf/v1.8/data_formats/output/splunkmetric/) - Contributed by @ronnocol
+- [splunkmetric](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/output/splunkmetric/) - Contributed by @ronnocol
 
 ### Features
 
@@ -3383,7 +3445,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 - Add [DMCache input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/dmcache).
 - Add support for precision in [HTTP Listener input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/http_listener).
 - Add `message_len_max` option to the [Kafka consumer input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/kafka_consumer).
-- Add [collectd parser](/telegraf/v1.3/concepts/data_formats_input/#collectd).
+- Add [collectd parser](https://archive.docs.influxdata.com/telegraf/v1.3/concepts/data_formats_input/#collectd).
 - Simplify plugin testing without outputs.
 - Check signature in the [GitHub webhook input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/webhooks/github).
 - Add [papertrail](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/webhooks/papertrail) support to webhooks.

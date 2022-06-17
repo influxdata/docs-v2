@@ -16,7 +16,8 @@ introduced: 0.37.0
 ---
 
 The `date.weekDay()` function returns the day of the week for a specified time.
-Results range from `[0-6]`.
+Results range from `[0-6]` and correspond to `date` package
+[weekday constants](/flux/v0.x/stdlib/date/#days-of-the-week).
 
 ```js
 import "date"

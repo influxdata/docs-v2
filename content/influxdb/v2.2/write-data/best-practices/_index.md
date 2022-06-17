@@ -11,7 +11,7 @@ menu:
     parent: Write data
 ---
 
-The following articles walk through recommendations and best practices for writing
+The following articles provide recommendations and best practices for writing
 data to InfluxDB.
 
 {{< children >}}

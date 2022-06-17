@@ -32,7 +32,7 @@ weight: 102
   v1frontmatter="---
 title: InfluxDB $titleVersion v1 compatibility API documentation
 description: >
-  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibly endpoints.
+  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibility endpoints.
 layout: api
 menu:
   $menu:
@@ -51,22 +51,26 @@ weight: 304
   npx --version
 
   # Use Redoc to generate the v2 API html
+  echo "Bundling ${version}/ref.yml"
   npm_config_yes=true npx $redocCLI bundle $version/ref.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
     --options.hideHostname \
+    --options.hideDownloadButton \
     --options.noAutoAuth \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
 
   # Use Redoc to generate the v1 compatibility API html
+  echo "Bundling ${version}/swaggerV1Compat.yml"
   npm_config_yes=true npx $redocCLI bundle $version/swaggerV1Compat.yml \
     -t template.hbs \
     --title="InfluxDB $titleVersion v1 compatibility API documentation" \
     --options.sortPropsAlphabetically \
     --options.menuToggle \
+    --options.hideDownloadButton \
     --options.hideHostname \
     --options.noAutoAuth \
     --templateOptions.version="$version" \

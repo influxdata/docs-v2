@@ -7142,27 +7142,6 @@ paths:
       summary: Retrieve a check query
       tags:
         - Checks
-  /api/v2/config:
-    get:
-      operationId: GetConfig
-      parameters:
-        - $ref: '#/components/parameters/TraceSpan'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Config'
-          description: >-
-            Payload body contains the run-time configuration of the InfluxDB
-            instance.
-        '401':
-          $ref: '#/components/responses/ServerError'
-        default:
-          $ref: '#/components/responses/ServerError'
-      summary: Get the run-time configuration of the instance
-      tags:
-        - Config
   /api/v2/dashboards:
     get:
       operationId: GetDashboards
@@ -13699,8 +13678,6 @@ x-tagGroups:
       - Users
   - name: System information endpoints
     tags:
-      - Config
-      - Debug
       - Health
       - Metrics
       - Ping
@@ -13713,7 +13690,6 @@ x-tagGroups:
       - Buckets
       - Cells
       - Checks
-      - Config
       - Dashboards
       - DBRPs
       - Delete

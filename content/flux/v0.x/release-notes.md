@@ -10,6 +10,126 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.171.0 [2022-06-14]
+
+### Breaking changes
+- Remove `testing.loadStorage()`.
+
+### Features
+- Add `FromStr` to allow the Flux LSP (language server protocol) CLI to run with
+  optional Flux features.
+- Add method to parallelize aggregate transformations.
+- Report unused symbols.
+- Add `From` implementations for `Node/NodeMut`.
+
+### Bug fixes
+- Pass a seed to the tables generator.
+- Ensure buffers are retained when copying a buffered table.
+- Return an error when using a label variable without the Label constraint.
+
+---
+
+## v0.170.1 [2022-06-06]
+
+### Bug fixes
+- Require an earlier minimum version of `lsp-types`.
+
+---
+
+## v0.170.0 [2022-06-02]
+
+### Features
+- Add a `pretty.rs`-based MonoType formatter.
+
+### Bug fixes
+- Update vectorized `map()` to properly handle shadowed columns.
+
+---
+
+## v0.169.0 [2022-05-31]
+
+### Features
+- Add a `_status` tag to PagerDuty records.
+- Refactor the operator profile to be in the query statistics.
+
+### Bug fixes
+- Ensure that constraints are checked and propagated fully.
+- Fix math for integral with a single value.
+- Add `json` tags for the transport profiles in statistics.
+- Initialize `Metadata` in Flux statistics.
+- Return a more helpful error message when an HTTP response body exceeds 100MB.
+- Correct several issues found during the implementation of polymorphic labels.
+
+---
+
+## v0.168.0 [2022-05-23]
+
+### Features
+- Enable [`movingAverage()`](/flux/v0.x/stdlib/universe/movingaverage/) and
+  [`cumulativeSum()`](/flux/v0.x/stdlib/universe/cumulativesum/) optimizations
+  by default.
+- Vectorize logical operations in [`map()`](/flux/v0.x/stdlib/universe/map/).
+- Add a planner rule that expands logical join nodes.
+- Added timezone support to [`hourSelection()`](/flux/v0.x/stdlib/universe/hourselection/).
+
+### Bug fixes
+- Attach type when constructing logical expressions.
+- Fix panic with half-diamond logical plan.
+
+---
+
+## v0.167.0 [2022-05-16]
+
+### Features
+- Allow default types to be specified for default arguments.
+- Add [`date.scale()`](/flux/v0.x/stdlib/date/scale/) to allow for dynamic duration changes.
+- Expose aggregate window spec fields for use by the query planner.
+- Add [`experimental.preview()`](/flux/v0.x/stdlib/experimental/preview/).
+
+### Bug fixes
+- Update `date.add()` and `date.sub()` to ork correctly with timezones enabled.
+- Fix failing continuous integration tests.
+- Update `hourSelection()` to support overnight time ranges.
+- Fix logic error in aggregate window planner rule preserve the rule if
+  `table.fill` is present.
+- Use `MultiplicativeOperator` in `MultiplicativeExpression`.
+
+---
+
+## v0.166.0 [2022-05-09]
+
+### Features
+- Add InfluxData semantic commit and pull request title validator.
+- Add an `Expr` node to the visitor API.
+- Add label polymorphism.
+- Vectorize remaining arithmetic operators.
+
+### Bug fixes
+- Remove `JoinOpSpec.TableNames` in favor of `JoinOpSpec.params` to stay
+  consistent inside `tableFind()`.
+- Fix `SortLimit` for empty input group.
+
+---
+
+## v0.165.0 [2022-04-25]
+
+### Features
+- Add support for options in the `testcase` extension.
+- Vectorize addition operations in `map()`.
+- Add location support to `date.truncate()`.
+- Accept string literals in properties of a record type.
+- Add trace option to the `flux` CLI.
+- Add `EquiJoinPredicateRule`.
+
+### Bug fixes
+- Update `map()` test case to include a range.
+- Don't set `BaseLocation.file` to `Some("")`.
+- Fix `strings.joinStr` panic when it receives a null value.
+- Remove 64bit misalignment.
+- Fix memory releases and add checked allocator to the end of tests.
+
+---
+
 ## v0.164.1 [2022-04-18]
 
 ### Bug fixes
