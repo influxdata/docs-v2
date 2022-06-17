@@ -41,13 +41,13 @@ tasks.lastSuccess = (orTime: A) => time where A: Timeable
 ## Parameters
 
 ### orTime
-
 ({{< req >}})
 Defualt time value returned if the task has never successfully run.
 
 
-## Examples
 
+
+## Examples
 
 ### Return the time an InfluxDB task last succesfully ran
 

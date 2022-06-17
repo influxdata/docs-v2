@@ -39,26 +39,31 @@ date.truncate = (t: A, unit: duration, ?location: {zone: string, offset: duratio
 ## Parameters
 
 ### t
-
 ({{< req >}})
-Time to operate on.Use an absolute time, relative duration, or integer.
+Time to operate on.
+
+Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
 ### unit
-
 ({{< req >}})
-Unit of time to truncate to.Only use 1 and the unit of time to specify the unit.
+Unit of time to truncate to.
+
+Only use 1 and the unit of time to specify the unit.
 For example: `1s`, `1m`, `1h`.
 
 ### location
-
 
 Location used to determine timezone.
 Default is the `location` option.
 
 
+
+
 ## Examples
 
+- [Truncate time values](#truncate-time-values)
+- [Truncate time values using relative durations](#truncate-time-values-using-relative-durations)
 
 ### Truncate time values
 

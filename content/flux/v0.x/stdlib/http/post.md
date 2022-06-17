@@ -43,24 +43,26 @@ http.post = (url: string, ?data: bytes, ?headers: A) => int where A: Record
 ## Parameters
 
 ### url
-
 ({{< req >}})
 URL to send the POST request to.
 
+
+
 ### headers
 
+Headers to include with the POST request.
 
-Headers to include with the POST request.**Header keys with special characters:**
- Wrap header keys that contain special characters in double quotes (`""`).
+**Header keys with special characters:**
+Wrap header keys that contain special characters in double quotes (`""`).
 
 ### data
-
 
 Data body to include with the POST request.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported status to a URL
 

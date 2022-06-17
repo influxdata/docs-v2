@@ -45,23 +45,25 @@ record.get = (default: A, key: string, r: B) => A where B: Record
 ## Parameters
 
 ### r
-
 ({{< req >}})
 Record to retrieve the value from.
 
-### key
 
+
+### key
 ({{< req >}})
 Property key to retrieve.
 
-### default
 
+
+### default
 ({{< req >}})
 Default value to return if the specified key does not exist in the record.
 
 
-## Examples
 
+
+## Examples
 
 ### Dynamically return a value from a recordd
 

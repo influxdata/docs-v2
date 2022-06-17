@@ -40,29 +40,32 @@ generate.from = (count: int, fn: (n: int) => int, start: A, stop: A) => stream[{
 ## Parameters
 
 ### count
-
 ({{< req >}})
 Number of rows to generate.
 
-### fn
 
+
+### fn
 ({{< req >}})
-Function used to generate values.The function takes an `n` parameter that represents the row index, operates
+Function used to generate values.
+
+The function takes an `n` parameter that represents the row index, operates
 on `n`, and then returns an integer value. Rows use zero-based indexing.
 
 ### start
-
 ({{< req >}})
 Beginning of the time range to generate values in.
 
-### stop
 
+
+### stop
 ({{< req >}})
 End of the time range to generate values in.
 
 
-## Examples
 
+
+## Examples
 
 ### Generate sample data
 

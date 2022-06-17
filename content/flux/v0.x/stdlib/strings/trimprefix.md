@@ -39,18 +39,19 @@ strings.trimPrefix = (prefix: string, v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String to trim.
 
-### prefix
 
+
+### prefix
 ({{< req >}})
 Prefix to remove.
 
 
-## Examples
 
+
+## Examples
 
 ### Trim a prefix from all values in a column
 
@@ -61,6 +62,9 @@ import "strings"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.trimPrefix(v: r._value, prefix: "smpl_")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -103,3 +107,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | wfm757  | t2   |
 | 2021-01-01T00:00:50Z | dtn2bv  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

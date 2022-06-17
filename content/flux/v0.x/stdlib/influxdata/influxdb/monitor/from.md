@@ -55,28 +55,30 @@ monitor.from = (
 ## Parameters
 
 ### start
-
 ({{< req >}})
-Earliest time to include in results.Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
-   For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
-   Durations are relative to `now()`.
+Earliest time to include in results.
+
+Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
+For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
+Durations are relative to `now()`.
 
 ### stop
 
+Latest time to include in results. Default is `now()`.
 
-Latest time to include in results. Default is `now()`.Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
-   For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
-   Durations are relative to `now()`
+Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
+For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
+Durations are relative to `now()`
 
 ### fn
 
+Predicate function that evaluates true or false.
 
-Predicate function that evaluates true or false.Records or rows (`r`) that evaluate to `true` are included in output tables.
-   Records that evaluate to _null_ or `false` are not included in output tables.
+Records or rows (`r`) that evaluate to `true` are included in output tables.
+Records that evaluate to _null_ or `false` are not included in output tables.
 
 
 ## Examples
-
 
 ### View critical check statuses from the last hour
 

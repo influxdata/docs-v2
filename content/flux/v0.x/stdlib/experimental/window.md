@@ -61,38 +61,46 @@ experimental.window = (
 
 ### every
 
-
 Duration of time between windows. Default is the `0s`.
+
+
 
 ### period
 
+Duration of the window. Default is `0s`.
 
-Duration of the window. Default is `0s`.Period is the length of each interval.
+Period is the length of each interval.
 It can be negative, indicating the start and stop boundaries are reversed.
 
 ### offset
 
+Duration to shift the window boundaries by. Default is 0s.
 
-Duration to shift the window boundaries by. Default is 0s.`offset` can be negative, indicating that the offset goes backwards in time.
+`offset` can be negative, indicating that the offset goes backwards in time.
 
 ### location
 
-
 Location used to determine timezone. Default is the `location` option.
+
+
 
 ### createEmpty
 
-
 Create empty tables for empty windows. Default is `false`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Window data into thirty second intervals](#window-data-into-thirty-second-intervals)
+- [Window by calendar month](#window-by-calendar-month)
 
 ### Window data into thirty second intervals
 
@@ -102,6 +110,9 @@ import "experimental"
 data
     |> experimental.window(every: 30s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -150,6 +161,8 @@ data
 | 2021-01-01T00:00:30Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:30Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Window by calendar month
 
@@ -159,6 +172,9 @@ import "experimental"
 data
     |> experimental.window(every: 1mo)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -186,3 +202,5 @@ data
 | 2021-02-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-02-02T00:00:00Z | 38.4    |
 | 2021-02-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-02-03T00:00:00Z | 37.8    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

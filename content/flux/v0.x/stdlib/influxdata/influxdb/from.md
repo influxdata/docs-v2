@@ -1,10 +1,10 @@
 ---
-title: influxdb.from() function
+title: from() function
 description: >
-  `influxdb.from()` queries data from an InfluxDB data source.
+  `from()` queries data from an InfluxDB data source.
 menu:
   flux_0_x_ref:
-    name: influxdb.from
+    name: from
     parent: influxdata/influxdb
     identifier: influxdata/influxdb/from
 weight: 201
@@ -27,7 +27,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`influxdb.from()` queries data from an InfluxDB data source.
+`from()` queries data from an InfluxDB data source.
 
 It returns a stream of tables from the specified bucket.
 Each unique series is contained within its own table.
@@ -46,7 +46,7 @@ Flux prelude and does not require an import statement or package namespace.
 ##### Function type signature
 
 ```js
-influxdb.from = (
+from = (
     ?bucket: string,
     ?bucketID: string,
     ?host: string,
@@ -60,44 +60,53 @@ influxdb.from = (
 
 ### bucket
 
-
 Name of the bucket to query.
-_`bucket` and `bucketID` are mutually exclusive_.**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
+_`bucket` and `bucketID` are mutually exclusive_.
+
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
 ### bucketID
 
-
 String-encoded bucket ID to query.
-_`bucket` and `bucketID` are mutually exclusive_.**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
+_`bucket` and `bucketID` are mutually exclusive_.
+
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
 ### host
 
+URL of the InfluxDB instance to query.
 
-URL of the InfluxDB instance to query.See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-  or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
 
 ### org
 
-
 Organization name.
-_`org` and `orgID` are mutually exclusive_.**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
+_`org` and `orgID` are mutually exclusive_.
+
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
 ### orgID
 
-
 String-encoded organization ID to query.
-_`org` and `orgID` are mutually exclusive_.**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
+_`org` and `orgID` are mutually exclusive_.
+
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
 ### token
 
+InfluxDB API token.
 
-InfluxDB API token.**InfluxDB 1.x or Enterprise**: If authentication is disabled, provide an
-  empty string (`""`). If authentication is enabled, provide your InfluxDB
-  username and password using the `<username>:<password>` syntax.
+**InfluxDB 1.x or Enterprise**: If authentication is disabled, provide an
+empty string (`""`). If authentication is enabled, provide your InfluxDB
+username and password using the `<username>:<password>` syntax.
 
 
 ## Examples
 
+- [Query InfluxDB using the bucket name](#query-influxdb-using-the-bucket-name)
+- [Query InfluxDB using the bucket ID](#query-influxdb-using-the-bucket-id)
+- [Query a remote InfluxDB Cloud instance](#query-a-remote-influxdb-cloud-instance)
 
 ### Query InfluxDB using the bucket name
 

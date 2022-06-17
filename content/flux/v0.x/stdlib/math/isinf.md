@@ -41,18 +41,22 @@ math.isInf = (f: float, sign: int) => bool
 ## Parameters
 
 ### f
-
 ({{< req >}})
 is the value used in the evaluation.
 
-### sign
 
+
+### sign
 ({{< req >}})
 is the sign used in the eveluation.
 
 
+
+
 ## Examples
 
+- [Test if a value is an infinity value](#test-if-a-value-is-an-infinity-value)
+- [Use math.isInf in map](#use-mathisinf-in-map)
 
 ### Test if a value is an infinity value
 
@@ -72,6 +76,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.isInf(f: r._value, sign: 1)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -114,3 +121,5 @@ data
 | 2021-01-01T00:00:40Z | true    | t2   |
 | 2021-01-01T00:00:50Z | false   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

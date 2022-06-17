@@ -79,52 +79,58 @@ monitor.check = (
 
 ### crit
 
-
 Predicate function that determines `crit` status. Default is `(r) => false`.
+
+
 
 ### warn
 
-
 Predicate function that determines `warn` status. Default is `(r) => false`.
+
+
 
 ### info
 
-
 Predicate function that determines `info` status. Default is `(r) => false`.
+
+
 
 ### ok
 
-
 Predicate function that determines `ok` status. `Default is (r) => true`.
 
-### messageFn
 
+
+### messageFn
 ({{< req >}})
-Predicate function that constructs a message to append to each row.The message is stored in the `_message` column.
+Predicate function that constructs a message to append to each row.
+
+The message is stored in the `_message` column.
 
 ### data
-
 ({{< req >}})
 Check data to append to output. used to identify this check.
 This data specifies which notification rule and notification endpoint to
-  associate with the sent notification.
-  The data record must contain the following properties:- **\_check\_id**: check ID _(string)_
-  - **\_check\_name**: check name _(string)_
-  - **\_type**: check type (threshold, deadman, or custom) _(string)_
-  - **tags**: Custom tags to append to output rows _(record)_
-   The InfluxDB monitoring and alerting system uses `monitor.check()` to
-  check statuses and automatically assigns these values.
-  If writing a custom check task, we recommend using **unique arbitrary**
-  values for data record properties.
+associate with the sent notification.
+The data record must contain the following properties:
+
+- **\_check\_id**: check ID _(string)_
+- **\_check\_name**: check name _(string)_
+- **\_type**: check type (threshold, deadman, or custom) _(string)_
+- **tags**: Custom tags to append to output rows _(record)_
+The InfluxDB monitoring and alerting system uses `monitor.check()` to
+check statuses and automatically assigns these values.
+If writing a custom check task, we recommend using **unique arbitrary**
+values for data record properties.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Monitor InfluxDB disk usage collected by Telegraf
 

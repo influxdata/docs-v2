@@ -40,6 +40,7 @@ monitor.log = (<-tables: stream[A]) => stream[A] where A: Record
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 

@@ -67,46 +67,51 @@ query.inBucket = (
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 InfluxDB bucket name.
 
-### measurement
 
+
+### measurement
 ({{< req >}})
 InfluxDB measurement name to filter by.
 
-### start
 
+
+### start
 ({{< req >}})
-Earliest time to include in results.Results include points that match the specified start time.
+Earliest time to include in results.
+
+Results include points that match the specified start time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
 ### stop
 
+Latest time to include in results. Default is `now()`.
 
-Latest time to include in results. Default is `now()`.Results exclude points that match the specified stop time.
+Results exclude points that match the specified stop time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
 ### fields
 
-
 Fields to filter by. Default is `[]`.
+
+
 
 ### predicate
 
-
 Predicate function that evaluates column values and returns `true` or `false`.
-Default is `(r) => true`.Records (`r`) are passed to the function.
+Default is `(r) => true`.
+
+Records (`r`) are passed to the function.
 Those that evaluate to `true` are included in the output tables.
 Records that evaluate to null or `false` are not included in the output tables.
 
 
 ## Examples
-
 
 ### Query specific fields in a measurement from InfluxDB
 

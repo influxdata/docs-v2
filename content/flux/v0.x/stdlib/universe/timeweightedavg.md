@@ -43,18 +43,19 @@ timeWeightedAvg = (<-tables: stream[A], unit: duration) => stream[{B with _value
 ## Parameters
 
 ### unit
-
 ({{< req >}})
 Unit of time to use to compute the time-weighted average.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate the time-weighted average of values
 
@@ -62,6 +63,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> timeWeightedAvg(unit: 1s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -90,3 +94,5 @@ data
 | -------------------- | -------------------- | ----------------- | ---- |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 5.416666666666667 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -41,9 +41,10 @@ opsgenie.respondersToJSON = (v: [string]) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 (Required) Array of Opsgenie responder strings.
 Responder strings must begin with
 `user: `, `team: `, `escalation: `, or `schedule: `.
+
+
 

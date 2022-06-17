@@ -41,24 +41,30 @@ experimental.addDuration = (d: duration, to: A, ?location: {zone: string, offset
 ## Parameters
 
 ### d
-
 ({{< req >}})
 Duration to add.
 
-### to
 
+
+### to
 ({{< req >}})
 Time to add the duration to.
 
+
+
 ### location
 
+Location to use for the time value.
 
-Location to use for the time value.Use an absolute time or a relative duration.
+Use an absolute time or a relative duration.
 Durations are relative to `now()`.
 
 
 ## Examples
 
+- [Add six hours to a timestamp](#add-six-hours-to-a-timestamp)
+- [Add one month to yesterday](#add-one-month-to-yesterday)
+- [Add six hours to a relative duration](#add-six-hours-to-a-relative-duration)
 
 ### Add six hours to a timestamp
 

@@ -40,6 +40,7 @@ debug.sink = (<-tables: stream[A]) => stream[A] where A: Record
 
 ### tables
 
-
 Stream to discard.
+
+
 

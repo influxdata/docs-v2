@@ -41,18 +41,18 @@ bytes = (v: A) => bytes
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a string to bytes
 
 ```js
-bytes(v: "Example string")// Returns 0x4578616d706c6520737472696e67
+bytes(v: "Example string") // Returns 0x4578616d706c6520737472696e67
 
 ```
 

@@ -47,23 +47,25 @@ http.get = (url: string, ?headers: A, ?timeout: duration) => {statusCode: int, h
 ## Parameters
 
 ### url
-
 ({{< req >}})
 URL to send the GET request to.
 
-### headers
 
+
+### headers
 
 Headers to include with the GET request.
 
-### timeout
 
+
+### timeout
 
 Timeout for the GET request. Default is `30s`.
 
 
-## Examples
 
+
+## Examples
 
 ### Get the status of an InfluxDB OSS instance
 

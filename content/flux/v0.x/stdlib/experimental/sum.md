@@ -42,12 +42,12 @@ experimental.sum = (<-tables: stream[{A with _value: B}]) => stream[{A with _val
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the sum of each input table
 
@@ -58,6 +58,9 @@ import "sampledata"
 sampledata.int()
     |> experimental.sum()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -90,3 +93,5 @@ sampledata.int()
 | ---- | ------- |
 | t2   | 53      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

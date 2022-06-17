@@ -39,13 +39,16 @@ math.sqrt = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the square root of a value](#return-the-square-root-of-a-value)
+- [Use math.sqrt in map](#use-mathsqrt-in-map)
 
 ### Return the square root of a value
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.sqrt(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 3.722902093797257  | t2   |
 | 2021-01-01T00:00:50Z | 1.3638181696985856 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

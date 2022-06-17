@@ -40,24 +40,26 @@ experimental.group = (<-tables: stream[A], columns: [string], mode: string) => s
 ## Parameters
 
 ### columns
-
 ({{< req >}})
 List of columns to use in the grouping operation. Default is `[]`.
 
-### mode
 
+
+### mode
 ({{< req >}})
-Grouping mode. `extend` is the only mode available to `experimental.group()`.#### Grouping modes
+Grouping mode. `extend` is the only mode available to `experimental.group()`.
+
+#### Grouping modes
 - **extend**: Appends columns defined in the `columns` parameter to group keys.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Add a column to the group key
 
@@ -67,6 +69,9 @@ import "experimental"
 data
     |> experimental.group(columns: ["region"], mode: "extend")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +112,5 @@ data
 | 2021-01-01T00:00:00Z | host2 | west    | 43      |
 | 2021-01-01T00:01:00Z | host2 | west    | 22      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

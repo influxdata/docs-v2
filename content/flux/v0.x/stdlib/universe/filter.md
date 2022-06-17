@@ -41,27 +41,33 @@ filter = (<-tables: stream[A], fn: (r: A) => bool, ?onEmpty: string) => stream[A
 ## Parameters
 
 ### fn
-
 ({{< req >}})
-Single argument predicate function that evaluates `true` or `false`.Records representing each row are passed to the function as `r`.
+Single argument predicate function that evaluates `true` or `false`.
+
+Records representing each row are passed to the function as `r`.
 Records that evaluate to `true` are included in output tables.
 Records that evaluate to _null_ or `false` are excluded from output tables.
 
 ### onEmpty
 
+Action to take with empty tables. Default is `drop`.
 
-Action to take with empty tables. Default is `drop`.**Supported values**:
+**Supported values**:
 - **keep**: Keep empty tables.
 - **drop**: Drop empty tables.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Filter based on InfluxDB measurement, field, and tag](#filter-based-on-influxdb-measurement-field-and-tag)
+- [Keep empty tables when filtering](#keep-empty-tables-when-filtering)
+- [Filter values based on thresholds](#filter-values-based-on-thresholds)
 
 ### Filter based on InfluxDB measurement, field, and tag
 
@@ -81,6 +87,9 @@ import "experimental/table"
 sampledata.int()
     |> filter(fn: (r) => r._value > 18, onEmpty: "keep")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -113,6 +122,8 @@ sampledata.int()
 | 2021-01-01T00:00:00Z | 19      | t2   |
 | 2021-01-01T00:00:30Z | 19      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Filter values based on thresholds
 
@@ -122,6 +133,9 @@ import "sampledata"
 sampledata.int()
     |> filter(fn: (r) => r._value > 0 and r._value < 10)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -156,3 +170,5 @@ sampledata.int()
 | 2021-01-01T00:00:10Z | 4       | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

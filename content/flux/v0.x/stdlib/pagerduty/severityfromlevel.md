@@ -44,13 +44,13 @@ pagerduty.severityFromLevel = (level: string) => string
 ## Parameters
 
 ### level
-
 ({{< req >}})
 InfluxDB status level to convert to a PagerDuty severity.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a status level to a PagerDuty serverity
 

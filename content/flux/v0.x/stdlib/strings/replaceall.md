@@ -39,23 +39,25 @@ strings.replaceAll = (t: string, u: string, v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to search.
 
-### t
 
+
+### t
 ({{< req >}})
 Substring to replace.
 
-### u
 
+
+### u
 ({{< req >}})
 Replacement for all instances of `t`.
 
 
-## Examples
 
+
+## Examples
 
 ### Replace string matches
 
@@ -66,6 +68,9 @@ import "strings"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.replaceAll(v: r._value, t: "p", u: "XX")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +113,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | smXXl_wfm757  | t2   |
 | 2021-01-01T00:00:50Z | smXXl_dtn2bv  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

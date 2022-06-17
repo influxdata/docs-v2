@@ -39,13 +39,16 @@ math.expm1 = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Get more accurate base-e exponentials for values near zero](#get-more-accurate-base-e-exponentials-for-values-near-zero)
+- [Use math.expm1 in map](#use-mathexpm1-in-map)
 
 ### Get more accurate base-e exponentials for values near zero
 
@@ -65,6 +68,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.expm1(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +113,5 @@ data
 | 2021-01-01T00:00:40Z | 0.14866454228127554  | t2   |
 | 2021-01-01T00:00:50Z | 0.018774057481622756 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

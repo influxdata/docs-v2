@@ -42,37 +42,38 @@ aggregate.table = (<-tables: stream[B], columns: A) => stream[C] where A: Record
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
-### columns
 
+
+### columns
 ({{< req >}})
-Columns to aggregate and which aggregate method to use.Columns is a record where the key is a column name and the value is an aggregate record.
-   The aggregate record is composed of at least the following required attributes:
-       - **column**: Input column name (string).
-       - **init**: A function to compute the initial state of the
-           output. This can return either the final aggregate or a
-           temporary state object that can be used to compute the
-           final aggregate. The `values` parameter will always be a
-           non-empty array of values from the specified column.
-           For example: `(values) => state`.
-       - **reduce**: A function that takes in another buffer of values
-           and the current state of the aggregate and computes
-           the updated state.
-           For example: `(values, state) => state`.
-       - **compute**: A function that takes the state and computes the final
-           aggregate. For example, `(state) => value`.
-       - **fill**: The value passed to `fill()`. If present, the fill value
-           determines what the aggregate does when there are no values.
-           This can either be a value or one of the predefined
-           identifiers of `null` or `none`.
-           This value must be the same type as the value return from
-           `compute`.
+Columns to aggregate and which aggregate method to use.
+
+Columns is a record where the key is a column name and the value is an aggregate record.
+The aggregate record is composed of at least the following required attributes:
+- **column**: Input column name (string).
+- **init**: A function to compute the initial state of the
+output. This can return either the final aggregate or a
+temporary state object that can be used to compute the
+final aggregate. The `values` parameter will always be a
+non-empty array of values from the specified column.
+For example: `(values) => state`.
+- **reduce**: A function that takes in another buffer of values
+and the current state of the aggregate and computes
+the updated state.
+For example: `(values, state) => state`.
+- **compute**: A function that takes the state and computes the final
+aggregate. For example, `(state) => value`.
+- **fill**: The value passed to `fill()`. If present, the fill value
+determines what the aggregate does when there are no values.
+This can either be a value or one of the predefined
+identifiers of `null` or `none`.
+This value must be the same type as the value return from
+`compute`.
 
 
 ## Examples
-
 
 ### Compute the min of a specific column
 
@@ -83,6 +84,9 @@ import "contrib/jsternberg/aggregate"
 sampledata.float()
     |> aggregate.table(columns: {"min_bottom_degrees": aggregate.min(column: "_value")})
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -115,3 +119,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | t2   | 13.86   |
 | 2021-01-01T00:00:50Z | t2   | 1.86    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

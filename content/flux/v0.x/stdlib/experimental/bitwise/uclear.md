@@ -39,18 +39,22 @@ bitwise.uclear = (a: uint, b: uint) => uint
 ## Parameters
 
 ### a
-
 ({{< req >}})
 Left hand operand.
 
-### b
 
+
+### b
 ({{< req >}})
 Bits to clear.
 
 
+
+
 ## Examples
 
+- [Perform a bitwise AND NOT operation](#perform-a-bitwise-and-not-operation)
+- [Perform a bitwise AND NOT operation on a stream of tables](#perform-a-bitwise-and-not-operation-on-a-stream-of-tables)
 
 ### Perform a bitwise AND NOT operation
 
@@ -71,6 +75,9 @@ import "sampledata"
 sampledata.uint()
     |> map(fn: (r) => ({r with _value: bitwise.uclear(a: r._value, b: uint(v: 3))}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -113,3 +120,5 @@ sampledata.uint()
 | 2021-01-01T00:00:40Z | 12                   | t2   |
 | 2021-01-01T00:00:50Z | 0                    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

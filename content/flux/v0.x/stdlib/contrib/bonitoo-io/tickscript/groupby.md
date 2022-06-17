@@ -42,18 +42,19 @@ tickscript.groupBy = (<-tables: stream[A], columns: [string]) => stream[A] where
 ## Parameters
 
 ### columns
-
 ({{< req >}})
 List of columns to group by.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Group by host and region
 
@@ -63,6 +64,9 @@ import "contrib/bonitoo-io/tickscript"
 data
     |> tickscript.groupBy(columns: ["host", "region"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -100,3 +104,5 @@ data
 | 2021-01-01T00:00:00Z | m             | h4    | west    | foo     | 2.3     |
 | 2021-01-01T00:01:00Z | m             | h4    | west    | foo     | 5.6     |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

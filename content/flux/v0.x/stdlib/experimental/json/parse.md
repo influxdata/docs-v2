@@ -48,13 +48,16 @@ json.parse = (data: bytes) => A
 ## Parameters
 
 ### data
-
 ({{< req >}})
 JSON data (as bytes) to parse.
 
 
+
+
 ## Examples
 
+- [Parse and use JSON data to restructure tables](#parse-and-use-json-data-to-restructure-tables)
+- [Parse JSON and use array functions to manipulate into a table](#parse-json-and-use-array-functions-to-manipulate-into-a-table)
 
 ### Parse and use JSON data to restructure tables
 
@@ -76,6 +79,9 @@ data
         },
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -100,6 +106,8 @@ data
 | bar     | 2021-01-01T01:00:00Z | 7  | 6  | 5  |
 | bar     | 2021-01-01T02:00:00Z | 4  | 3  | 2  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Parse JSON and use array functions to manipulate into a table
 
@@ -179,6 +187,8 @@ array.from(
 )
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -187,3 +197,5 @@ array.from(
 | 15612462 | red    | 3                |
 | 15612462 | blue   | 16               |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -46,17 +46,18 @@ anomalydetection.mad = (<-table: stream[B], ?threshold: A) => stream[{C with lev
 
 ### threshold
 
-
 Deviation threshold for anomalies.
 
-### table
 
+
+### table
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Use the MAD algorithm to detect anomalies
 
@@ -67,6 +68,9 @@ import "sampledata"
 sampledata.float()
     |> anomalydetection.mad(threshold: 1.0)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -121,3 +125,5 @@ sampledata.float()
 | 1.9051409999999995 | 2021-01-01T00:00:50Z | 1                  | 1.2849999999999997 | 1.2849999999999997 | anomaly | t1   |
 | 1.9051409999999995 | 2021-01-01T00:00:50Z | 1.0000000000000002 | 1.285              | 1.2849999999999997 | anomaly | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

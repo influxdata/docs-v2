@@ -52,26 +52,31 @@ aggregate.window = (
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
-### columns
 
+
+### columns
 ({{< req >}})
 Columns to aggregate and which aggregate method to use. See `aggregate.table()` for details.
 
-### every
 
+
+### every
 ({{< req >}})
 Duration between the start of each interval.
 
-### time
 
+
+### time
 
 Column name for the time input. Defaults to `_time` or `time` (whichever is earlier in the list of columns).
 
+
+
 ### period
 
-
 Length of the interval. Defaults to the `every` duration.
+
+
 

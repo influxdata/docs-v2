@@ -39,18 +39,22 @@ bitwise.uxor = (a: uint, b: uint) => uint
 ## Parameters
 
 ### a
-
 ({{< req >}})
 Left hand operand.
 
-### b
 
+
+### b
 ({{< req >}})
 Right hand operand.
 
 
+
+
 ## Examples
 
+- [Perform a bitwise XOR operation](#perform-a-bitwise-xor-operation)
+- [Perform a bitwise XOR operation on a stream of tables](#perform-a-bitwise-xor-operation-on-a-stream-of-tables)
 
 ### Perform a bitwise XOR operation
 
@@ -71,6 +75,9 @@ import "sampledata"
 sampledata.uint()
     |> map(fn: (r) => ({r with _value: bitwise.uxor(a: r._value, b: uint(v: 3))}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -113,3 +120,5 @@ sampledata.uint()
 | 2021-01-01T00:00:40Z | 14                   | t2   |
 | 2021-01-01T00:00:50Z | 2                    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

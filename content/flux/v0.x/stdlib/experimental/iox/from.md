@@ -41,12 +41,14 @@ iox.from = (bucket: string, measurement: string) => stream[{A with _time: time}]
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 IOx bucket to read data from.
 
-### measurement
 
+
+### measurement
 ({{< req >}})
 Measurement to read data from.
+
+
 

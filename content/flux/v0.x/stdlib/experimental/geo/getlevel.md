@@ -40,13 +40,13 @@ geo.getLevel = (token: string) => int
 ## Parameters
 
 ### token
-
 ({{< req >}})
 S2 cell ID token.
 
 
-## Examples
 
+
+## Examples
 
 ### Return the S2 cell level of an S2 cell ID token
 

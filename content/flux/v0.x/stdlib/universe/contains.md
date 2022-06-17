@@ -41,18 +41,19 @@ contains = (set: [A], value: A) => bool where A: Nullable
 ## Parameters
 
 ### value
-
 ({{< req >}})
 Value to search for.
 
-### set
 
+
+### set
 ({{< req >}})
 Array to search.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter on a set of specific fields
 
@@ -62,6 +63,9 @@ fields = ["f1", "f2"]
 data
     |> filter(fn: (r) => contains(value: r._field, set: fields))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -111,3 +115,5 @@ data
 | f2      | m             | 2021-01-01T00:00:10Z | 10      | t1   |
 | f2      | m             | 2021-01-01T00:00:20Z | 7       | t1   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -42,13 +42,13 @@ regexp.compile = (v: string) => regexp
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to parse into a regular expression.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a string into a regular expression
 

@@ -42,25 +42,30 @@ dict.insert = (dict: [A:B], key: A, value: B) => [A:B] where A: Comparable
 ## Parameters
 
 ### dict
-
 ({{< req >}})
 Dictionary to update.
 
-### key
 
+
+### key
 ({{< req >}})
 Key to insert into the dictionary.
 Must be the same type as the existing keys in the dictionary.
 
-### value
 
+
+### value
 ({{< req >}})
 Value to insert into the dictionary.
 Must be the same type as the existing values in the dictionary.
 
 
+
+
 ## Examples
 
+- [Insert a new key-value pair into the a dictionary](#insert-a-new-key-value-pair-into-the-a-dictionary)
+- [Overwrite an existing key-value pair in a dictionary](#overwrite-an-existing-key-value-pair-in-a-dictionary)
 
 ### Insert a new key-value pair into the a dictionary
 

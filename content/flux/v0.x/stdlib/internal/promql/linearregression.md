@@ -47,16 +47,19 @@ promql.linearRegression = (
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 ### predict
 
-
 Output should contain a prediction.
+
+
 
 ### fromNow
 
-
 Time as a floating point value.
+
+
 

@@ -44,17 +44,18 @@ max = (<-tables: stream[A], ?column: string) => stream[A] where A: Record
 
 ### column
 
-
 Column to return maximum values from. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the row with the maximum value
 
@@ -64,6 +65,9 @@ import "sampledata"
 sampledata.int()
     |> max()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -96,3 +100,5 @@ sampledata.int()
 | -------------------- | ------- | ---- |
 | 2021-01-01T00:00:00Z | 19      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

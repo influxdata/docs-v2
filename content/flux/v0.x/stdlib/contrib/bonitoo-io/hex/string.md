@@ -41,13 +41,23 @@ hex.string = (v: A) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert.
 
 
+
+
 ## Examples
 
+- [Convert integer to hexadecimal string](#convert-integer-to-hexadecimal-string)
+- [Convert a boolean to a hexadecimal string value](#convert-a-boolean-to-a-hexadecimal-string-value)
+- [Convert a duration to a hexadecimal string value](#convert-a-duration-to-a-hexadecimal-string-value)
+- [Convert a time to a hexadecimal string value](#convert-a-time-to-a-hexadecimal-string-value)
+- [Convert an integer to a hexadecimal string value](#convert-an-integer-to-a-hexadecimal-string-value)
+- [Convert a uinteger to a hexadecimal string value](#convert-a-uinteger-to-a-hexadecimal-string-value)
+- [Convert a float to a hexadecimal string value](#convert-a-float-to-a-hexadecimal-string-value)
+- [Convert bytes to a hexadecimal string value](#convert-bytes-to-a-hexadecimal-string-value)
+- [Convert all values in a column to hexadecimal string values](#convert-all-values-in-a-column-to-hexadecimal-string-values)
 
 ### Convert integer to hexadecimal string
 
@@ -147,6 +157,9 @@ data
     |> map(fn: (r) => ({r with _value: hex.string(v: r.foo)}))
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | _value  | *tag |
@@ -188,3 +201,5 @@ data
 | 2021-01-01T00:00:40Z |         | t2   |
 | 2021-01-01T00:00:50Z |         | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

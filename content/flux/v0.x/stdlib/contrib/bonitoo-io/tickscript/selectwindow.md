@@ -57,38 +57,43 @@ tickscript.selectWindow = (
 
 ### column
 
-
 Column to operate on. Default is _value.
 
-### fn
 
+
+### fn
 ({{< req >}})
 Aggregate or selector function to apply.
 
-### as
 
+
+### as
 ({{< req >}})
 New column name.
 
-### every
 
+
+### every
 ({{< req >}})
 Duration of windows.
 
-### defaultValue
 
+
+### defaultValue
 ({{< req >}})
 Default fill value for null values in column.
 Must be the same data type as column.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Change the name of, window, and then aggregate the value column
 
@@ -98,6 +103,9 @@ import "contrib/bonitoo-io/tickscript"
 data
     |> tickscript.selectWindow(fn: sum, as: "example-name", every: 1h, defaultValue: 0)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -130,3 +138,5 @@ data
 | -------------------- | -------------------- | ---- | ------------- | -------------------- |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 53            | 2021-01-01T00:01:00Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

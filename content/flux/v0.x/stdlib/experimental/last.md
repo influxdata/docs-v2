@@ -44,12 +44,12 @@ experimental.last = (<-tables: stream[{A with _value: B}]) => stream[{A with _va
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the last non-null value in each input table
 
@@ -60,6 +60,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> experimental.last()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +95,5 @@ sampledata.int(includeNull: true)
 | -------------------- | ------- | ---- |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

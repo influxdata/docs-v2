@@ -40,13 +40,13 @@ sampledata.string = (?includeNull: bool) => stream[A] where A: Record
 
 ### includeNull
 
-
 Include null values in the returned dataset.
 Default is `false`.
 
 
-## Examples
 
+
+## Examples
 
 ### Output basic sample data with string values
 
@@ -56,6 +56,8 @@ import "sampledata"
 sampledata.string()
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -77,3 +79,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | t2   | smpl_wfm757 |
 | 2021-01-01T00:00:50Z | t2   | smpl_dtn2bv |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

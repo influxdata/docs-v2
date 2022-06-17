@@ -41,18 +41,19 @@ strings.splitAfter = (t: string, v: string) => [string]
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to split.
 
-### t
 
+
+### t
 ({{< req >}})
 String value that acts as the separator.
 
 
-## Examples
 
+
+## Examples
 
 ### Split a string into an array of substrings
 

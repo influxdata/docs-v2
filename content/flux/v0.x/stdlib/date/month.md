@@ -39,20 +39,24 @@ date.month = (t: A, ?location: {zone: string, offset: duration}) => int where A:
 ## Parameters
 
 ### t
-
 ({{< req >}})
-Time to operate on.Use an absolute time, relative duration, or integer.
+Time to operate on.
+
+Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
 ### location
-
 
 Location used to determine timezone.
 Default is the `location` option.
 
 
+
+
 ## Examples
 
+- [Return the month of a time value](#return-the-month-of-a-time-value)
+- [Return the month of a relative duration](#return-the-month-of-a-relative-duration)
 
 ### Return the month of a time value
 

@@ -42,24 +42,29 @@ limit = (<-tables: stream[A], n: int, ?offset: int) => stream[A]
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Maximum number of rows to return.
 
-### offset
 
+
+### offset
 
 Number of rows to skip per table before limiting to `n`.
 Default is `0`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Limit results to the first three rows in each table](#limit-results-to-the-first-three-rows-in-each-table)
+- [Limit results to the first three rows in each input table after the first two](#limit-results-to-the-first-three-rows-in-each-input-table-after-the-first-two)
 
 ### Limit results to the first three rows in each table
 
@@ -69,6 +74,9 @@ import "sampledata"
 sampledata.int()
     |> limit(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -105,6 +113,8 @@ sampledata.int()
 | 2021-01-01T00:00:10Z | 4       | t2   |
 | 2021-01-01T00:00:20Z | -3      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Limit results to the first three rows in each input table after the first two
 

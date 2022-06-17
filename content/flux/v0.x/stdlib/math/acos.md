@@ -39,14 +39,17 @@ math.acos = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
-Value to operate on.`x` should be greater than -1 and less than 1. Otherwise, the operation
+Value to operate on.
+
+`x` should be greater than -1 and less than 1. Otherwise, the operation
 will return `NaN`.
 
 
 ## Examples
 
+- [Return the acosine of a value](#return-the-acosine-of-a-value)
+- [Use math.acos in map](#use-mathacos-in-map)
 
 ### Return the acosine of a value
 
@@ -66,6 +69,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.acos(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ data
 | 2021-01-01T00:00:40Z | 1.4317486962850596 | t2   |
 | 2021-01-01T00:00:50Z | 1.5521952541518969 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

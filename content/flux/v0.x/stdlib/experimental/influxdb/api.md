@@ -59,51 +59,61 @@ influxdb.api = (
 ## Parameters
 
 ### method
-
 ({{< req >}})
 HTTP request method.
 
-### path
 
+
+### path
 ({{< req >}})
 InfluxDB API path.
 
-### host
 
+
+### host
 
 InfluxDB host URL _(Required when executed outside of InfluxDB)_.
 Default is `""`.
 
-### token
 
+
+### token
 
 [InfluxDB API token](https://docs.influxdata.com/influxdb/cloud/security/tokens/)
 _(Required when executed outside of InfluxDB)_.
 Default is `""`.
 
-### headers
 
+
+### headers
 
 HTTP request headers.
 
-### query
 
+
+### query
 
 URL query parameters.
 
-### timeout
 
+
+### timeout
 
 HTTP request timeout. Default is `30s`.
 
-### body
 
+
+### body
 
 HTTP request body as bytes.
 
 
+
+
 ## Examples
 
+- [Retrieve the health of an InfluxDB OSS instance](#retrieve-the-health-of-an-influxdb-oss-instance)
+- [Create a bucket through the InfluxDB Cloud API](#create-a-bucket-through-the-influxdb-cloud-api)
 
 ### Retrieve the health of an InfluxDB OSS instance
 

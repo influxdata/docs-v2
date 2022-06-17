@@ -41,13 +41,13 @@ dict.fromList = (pairs: [{value: B, key: A}]) => [A:B] where A: Comparable
 ## Parameters
 
 ### pairs
-
 ({{< req >}})
 List of records with `key` and `value` properties.
 
 
-## Examples
 
+
+## Examples
 
 ### Create a dictionary from a list of records
 

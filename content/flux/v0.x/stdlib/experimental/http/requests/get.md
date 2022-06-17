@@ -46,35 +46,42 @@ requests.get = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 URL to request. This should not include any query parameters.
 
+
+
 ### params
 
-
 Set of key value pairs to add to the URL as query parameters.
-  Query parameters will be URL encoded.
-  All values for a key will be appended to the query.
+Query parameters will be URL encoded.
+All values for a key will be appended to the query.
+
+
 
 ### headers
 
-
 Set of key values pairs to include on the request.
+
+
 
 ### body
 
-
 Data to send with the request.
 
-### config
 
+
+### config
 
 Set of options to control how the request should be performed.
 
 
+
+
 ## Examples
 
+- [Make a GET request](#make-a-get-request)
+- [Make a GET request and decode the JSON response](#make-a-get-request-and-decode-the-json-response)
 
 ### Make a GET request
 
@@ -112,6 +119,8 @@ data = json.parse(data: response.body)
 array.from(rows: [{name: data.name, age: data.age}])
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -119,3 +128,5 @@ array.from(rows: [{name: data.name, age: data.age}])
 | --------- | ---- |
 | nathaniel | 30   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

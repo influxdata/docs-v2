@@ -43,13 +43,16 @@ http.pathEscape = (inputString: string) => string
 ## Parameters
 
 ### inputString
-
 ({{< req >}})
 String to escape.
 
 
+
+
 ## Examples
 
+- [URL-encode a string](#url-encode-a-string)
+- [URL-encode strings in a stream of tables](#url-encode-strings-in-a-stream-of-tables)
 
 ### URL-encode a string
 
@@ -70,6 +73,9 @@ import "sampledata"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: http.pathEscape(inputString: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -112,3 +118,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | smpl_wfm757 | t2   |
 | 2021-01-01T00:00:50Z | smpl_dtn2bv | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

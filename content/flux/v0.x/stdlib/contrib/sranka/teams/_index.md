@@ -40,16 +40,21 @@ Import the `contrib/sranka/teams` package:
 import "contrib/sranka/teams"
 ```
 
+
+
 ## Options
 
 ```js
 option teams.summaryCutoff = 70
 ```
  
- 
 ### summaryCutoff {data-type="int"}
+
 summaryCutoff is the limit for message summaries.
 Default is `70`.
+
+
+
 
 ## Functions
 

@@ -56,33 +56,36 @@ v1.tagKeys = (
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 Bucket to return tag keys from.
 
-### predicate
 
+
+### predicate
 
 Predicate function that filters tag keys.
 Default is `(r) => true`.
 
-### start
 
+
+### start
 
 Oldest time to include in results. Default is `-30d`.
 
+
+
 ### stop
 
-
 Newest time include in results.
-  The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
-  Default is `now()`.Relative start times are defined using negative durations.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+Relative start times are defined using negative durations.
 Negative durations are relative to `now()`.
 Absolute start times are defined using time values.
 
 
 ## Examples
-
 
 ### Query tag keys in an InfluxDB bucket
 

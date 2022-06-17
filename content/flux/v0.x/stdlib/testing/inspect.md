@@ -49,13 +49,13 @@ testing.inspect = (
 ## Parameters
 
 ### case
-
 ({{< req >}})
 Test case to inspect.
 
 
-## Examples
 
+
+## Examples
 
 ### Define and inspect a test case
 

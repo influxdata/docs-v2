@@ -42,22 +42,26 @@ tickscript.compute = (<-tables: B, as: string, ?column: A, ?fn: (<-: B, column: 
 ## Parameters
 
 ### as
-
 ({{< req >}})
 New column name.
 
-### column
 
+
+### column
 
 Column to operate on. Default is `_value`.
 
-### fn
 
+
+### fn
 
 Aggregate or selector function to apply.
 
+
+
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 

@@ -39,7 +39,6 @@ runtime.version = () => string
 
 ## Examples
 
-
 ### Return the Flux version in a stream of tables
 
 ```js
@@ -49,6 +48,8 @@ import "runtime"
 array.from(rows: [{version: runtime.version()}])
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -56,3 +57,5 @@ array.from(rows: [{version: runtime.version()}])
 | -------- |
 | (devel)  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -57,44 +57,52 @@ histogram = (
 
 ### column
 
-
 Column containing input values. Column must be of type float.
 Default is `_value`.
 
-### upperBoundColumn
 
+
+### upperBoundColumn
 
 Column to store bin upper bounds in. Default is `le`.
 
-### countColumn
 
+
+### countColumn
 
 Column to store bin counts in. Default is `_value`.
 
-### bins
 
+
+### bins
 ({{< req >}})
-List of upper bounds to use when computing the histogram frequencies.Bins should contain a bin whose bound is the maximum value of the data set.
+List of upper bounds to use when computing the histogram frequencies.
+
+Bins should contain a bin whose bound is the maximum value of the data set.
 This value can be set to positive infinity if no maximum is known.
- #### Bin helper functions
+#### Bin helper functions
 The following helper functions can be used to generated bins.
- - linearBins()
+- linearBins()
 - logarithmicBins()
 
 ### normalize
 
-
 Convert counts into frequency values between 0 and 1.
-Default is `false`.**Note**: Normalized histograms cannot be aggregated by summing their counts.
+Default is `false`.
+
+**Note**: Normalized histograms cannot be aggregated by summing their counts.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Create a cumulative histogram](#create-a-cumulative-histogram)
+- [Create a cumulative histogram with dynamically generated bins](#create-a-cumulative-histogram-with-dynamically-generated-bins)
 
 ### Create a cumulative histogram
 
@@ -104,6 +112,9 @@ import "sampledata"
 sampledata.float()
     |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -142,6 +153,8 @@ sampledata.float()
 | t2   | 10  | 3       |
 | t2   | 20  | 6       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Create a cumulative histogram with dynamically generated bins
 
@@ -151,6 +164,9 @@ import "sampledata"
 sampledata.float()
     |> histogram(bins: linearBins(start: 0.0, width: 4.0, count: 3))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -189,3 +205,5 @@ sampledata.float()
 | t2   | 8    | 3       |
 | t2   | +Inf | 6       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

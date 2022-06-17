@@ -49,13 +49,16 @@ union = (tables: [stream[A]]) => stream[A] where A: Record
 ## Parameters
 
 ### tables
-
 ({{< req >}})
 List of two or more streams of tables to union together.
 
 
+
+
 ## Examples
 
+- [Union two streams of tables with unique group keys](#union-two-streams-of-tables-with-unique-group-keys)
+- [Union two streams of tables with empty group keys](#union-two-streams-of-tables-with-empty-group-keys)
 
 ### Union two streams of tables with unique group keys
 
@@ -75,6 +78,8 @@ t2 =
 union(tables: [t1, t2])
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -92,6 +97,8 @@ union(tables: [t1, t2])
 | 2022-01-03T00:00:00Z | 3       | foo  |
 | 2022-01-04T00:00:00Z | 4       | foo  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Union two streams of tables with empty group keys
 
@@ -111,6 +118,8 @@ t2 =
 union(tables: [t1, t2])
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -125,3 +134,5 @@ union(tables: [t1, t2])
 | 2021-01-03T00:00:00Z | -2      | bar  |
 | 2021-01-04T00:00:00Z | -3      | bar  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

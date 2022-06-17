@@ -56,83 +56,97 @@ alerta.alert = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 (Required) Alerta URL.
 
-### apiKey
 
+
+### apiKey
 ({{< req >}})
 (Required) Alerta API key.
 
-### resource
 
+
+### resource
 ({{< req >}})
 (Required) Resource associated with the alert.
 
-### event
 
+
+### event
 ({{< req >}})
 (Required) Event name.
 
-### environment
 
+
+### environment
 
 Alerta environment. Valid values: "Production", "Development" or empty string (default).
 
-### severity
 
+
+### severity
 ({{< req >}})
 (Required) Event severity. See [Alerta severities](https://docs.alerta.io/en/latest/api/alert.html#alert-severities).
 
-### service
 
+
+### service
 
 List of affected services. Default is `[]`.
 
-### group
 
+
+### group
 
 Alerta event group. Default is `""`.
 
-### value
 
+
+### value
 
 Event value.  Default is `""`.
 
-### text
 
+
+### text
 
 Alerta text description. Default is `""`.
 
-### tags
 
+
+### tags
 
 List of event tags. Default is `[]`.
 
-### attributes
 
+
+### attributes
 ({{< req >}})
 (Required) Alert attributes.
 
-### origin
 
+
+### origin
 
 monitoring component.
 
-### type
 
+
+### type
 
 Event type. Default is `""`.
 
-### timestamp
 
+
+### timestamp
 
 time alert was generated. Default is `now()`.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported value and status to Alerta
 

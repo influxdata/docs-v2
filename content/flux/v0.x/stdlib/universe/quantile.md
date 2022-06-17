@@ -63,41 +63,48 @@ quantile = (
 
 ### column
 
-
 Column to use to compute the quantile. Default is `_value`.
 
-### q
 
+
+### q
 ({{< req >}})
 Quantile to compute. Must be between `0.0` and `1.0`.
 
+
+
 ### method
 
+Computation method. Default is `estimate_tdigest`.
 
-Computation method. Default is `estimate_tdigest`.**Avaialable methods**:
-   - **estimate_tdigest**: Aggregate method that uses a
-    [t-digest data structure](https://github.com/tdunning/t-digest) to
-    compute an accurate quantile estimate on large data sources.
-  - **exact_mean**: Aggregate method that takes the average of the two
-    points closest to the quantile value.
-  - **exact_selector**: Selector method that returns the row with the value
-    for which at least `q` points are less than.
+**Avaialable methods**:
+- **estimate_tdigest**: Aggregate method that uses a
+[t-digest data structure](https://github.com/tdunning/t-digest) to
+compute an accurate quantile estimate on large data sources.
+- **exact_mean**: Aggregate method that takes the average of the two
+points closest to the quantile value.
+- **exact_selector**: Selector method that returns the row with the value
+for which at least `q` points are less than.
 
 ### compression
 
-
 Number of centroids to use when compressing the dataset.
-Default is `1000.0`.A larger number produces a more accurate result at the cost of increased
+Default is `1000.0`.
+
+A larger number produces a more accurate result at the cost of increased
 memory requirements.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Quantile as an aggregate](#quantile-as-an-aggregate)
+- [Quantile as a selector](#quantile-as-a-selector)
 
 ### Quantile as an aggregate
 
@@ -107,6 +114,9 @@ import "sampledata"
 sampledata.float()
     |> quantile(q: 0.99, method: "estimate_tdigest")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -139,6 +149,8 @@ sampledata.float()
 | ---- | ------- |
 | t2   | 19.85   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Quantile as a selector
 
@@ -148,6 +160,9 @@ import "sampledata"
 sampledata.float()
     |> quantile(q: 0.5, method: "exact_selector")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -180,3 +195,5 @@ sampledata.float()
 | -------------------- | ---- | ------- |
 | 2021-01-01T00:00:10Z | t2   | 4.97    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

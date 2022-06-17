@@ -39,26 +39,28 @@ tickscript.defineCheck = (id: A, name: B, ?type: C) => {tags: {}, _type: C, _che
 ## Parameters
 
 ### id
-
 ({{< req >}})
 InfluxDB check ID.
 
-### name
 
+
+### name
 ({{< req >}})
 InfluxDB check name.
 
+
+
 ### type
 
+InfluxDB check type. Default is `custom`.
 
-InfluxDB check type. Default is `custom`.**Valid values**:
+**Valid values**:
 - `threshold`
 -`deadman`
 -`custom`
 
 
 ## Examples
-
 
 ### Generate InfluxDB check data
 

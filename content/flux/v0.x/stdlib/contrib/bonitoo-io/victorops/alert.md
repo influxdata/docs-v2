@@ -48,47 +48,53 @@ victorops.alert = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
-VictorOps REST endpoint integration URL.Example: `https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routing_key>`
- Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing keys.
+VictorOps REST endpoint integration URL.
+
+Example: `https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routing_key>`
+Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing keys.
 
 ### monitoringTool
 
-
 Monitoring agent name. Default is `""`.
 
-### messageType
 
+
+### messageType
 ({{< req >}})
-VictorOps message type (alert behavior).**Valid values**:
+VictorOps message type (alert behavior).
+
+**Valid values**:
 - `CRITICAL`
 - `WARNING`
 - `INFO`
 
 ### entityID
 
-
 Incident ID. Default is `""`.
+
+
 
 ### entityDisplayName
 
-
 Incident display name or summary. Default is `""`.
+
+
 
 ### stateMessage
 
-
 Verbose incident message. Default is `""`.
 
-### timestamp
 
+
+### timestamp
 
 Incident start time. Default is `now()`.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported value and incident type to VictorOps
 

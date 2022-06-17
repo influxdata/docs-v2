@@ -36,15 +36,20 @@ Import the `influxdata/influxdb/tasks` package:
 import "influxdata/influxdb/tasks"
 ```
 
+
+
 ## Options
 
 ```js
 option tasks.lastSuccessTime = _zeroTime
 ```
  
- 
 ### lastSuccessTime {data-type="time"}
+
 lastSuccessTime is the last time this task ran successfully.
+
+
+
 
 ## Functions
 

@@ -49,13 +49,13 @@ requests.peek = (
 ## Parameters
 
 ### response
-
 ({{< req >}})
 Response data from an HTTP request.
 
 
-## Examples
 
+
+## Examples
 
 ### Inspect the response of an HTTP request
 
@@ -65,6 +65,8 @@ import "experimental/http/requests"
 requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name": ["natalie"]]))
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -85,3 +87,5 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
     X-Rate-Reset: 30894
 ]                           | 200         |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

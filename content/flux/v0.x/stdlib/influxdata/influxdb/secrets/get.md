@@ -39,13 +39,16 @@ secrets.get = (key: string) => string
 ## Parameters
 
 ### key
-
 ({{< req >}})
 Secret key to retrieve.
 
 
+
+
 ## Examples
 
+- [Retrive a key from the InfluxDB secret store](#retrive-a-key-from-the-influxdb-secret-store)
+- [Populate sensitive credentials with secrets//](#populate-sensitive-credentials-with-secrets)
 
 ### Retrive a key from the InfluxDB secret store
 

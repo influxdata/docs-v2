@@ -41,13 +41,17 @@ bool = (v: A) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert.
 
 
+
+
 ## Examples
 
+- [Convert strings to booleans](#convert-strings-to-booleans)
+- [Convert numeric values to booleans](#convert-numeric-values-to-booleans)
+- [Convert all values in a column to booleans](#convert-all-values-in-a-column-to-booleans)
 
 ### Convert strings to booleans
 
@@ -94,6 +98,9 @@ data
     |> map(fn: (r) => ({r with powerOn: bool(v: r.powerOn)}))
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | powerOn  | *tag |
@@ -135,3 +142,5 @@ data
 | 2021-01-01T00:00:40Z | true     | t2   |
 | 2021-01-01T00:00:50Z | false    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

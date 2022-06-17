@@ -44,17 +44,18 @@ array.concat = (<-arr: [A], v: [A]) => [A]
 
 ### arr
 
-
 First array. Default is the piped-forward array (`<-`).
 
-### v
 
+
+### v
 ({{< req >}})
 Array to append to the first array.
 
 
-## Examples
 
+
+## Examples
 
 ### Merge two arrays
 
@@ -71,6 +72,8 @@ c = a |> array.concat(v: b)
 array.from(rows: c |> array.map(fn: (x) => ({_value: x})))
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -83,3 +86,5 @@ array.from(rows: c |> array.map(fn: (x) => ({_value: x})))
 | 5       |
 | 6       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

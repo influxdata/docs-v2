@@ -36,6 +36,8 @@ Import the `experimental/http/requests` package:
 import "experimental/http/requests"
 ```
 
+
+
 ## Options
 
 ```js
@@ -47,11 +49,14 @@ option requests.defaultConfig = {
 }
 ```
  
- 
 ### defaultConfig {data-type="{timeout: duration, insecureSkipVerify: bool}"}
+
 defaultConfig is the global default for all http requests using the requests package.
 Changing this config will affect all other packages using the requests package.
 To change the config for a single request, pass a new config directly into the corresponding function.
+
+
+
 
 ## Functions
 

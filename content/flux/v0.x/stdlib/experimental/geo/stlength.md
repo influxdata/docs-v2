@@ -43,13 +43,15 @@ geo.stLength = (geometry: A, units: {distance: string}) => float where A: Record
 ## Parameters
 
 ### geometry
-
 ({{< req >}})
 GIS geometry to test. Can be either point or linestring geometry.
 Point geometry will always return `0.0`.
 
-### units
 
+
+### units
 ({{< req >}})
 Record that defines the unit of measurement for distance.
+
+
 

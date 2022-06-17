@@ -36,6 +36,9 @@ Import the `contrib/bonitoo-io/alerta` package:
 import "contrib/bonitoo-io/alerta"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

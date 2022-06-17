@@ -39,13 +39,16 @@ math.cbrt = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the cube root of a value](#return-the-cube-root-of-a-value)
+- [Use math.cbrt in map](#use-mathcbrt-in-map)
 
 ### Return the cube root of a value
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.cbrt(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 2.402081527496116   | t2   |
 | 2021-01-01T00:00:50Z | 1.2298089464641     | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

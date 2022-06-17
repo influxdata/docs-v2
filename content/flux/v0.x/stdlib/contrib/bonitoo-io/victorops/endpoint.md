@@ -53,14 +53,16 @@ victorops.endpoint = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
-VictorOps REST endpoint integration URL.Example: `https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routing_key>`
+VictorOps REST endpoint integration URL.
+
+Example: `https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routing_key>`
 Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing keys.
 
 ### monitoringTool
 
-
 Tool to use for monitoring.
 Default is `InfluxDB`.
+
+
 

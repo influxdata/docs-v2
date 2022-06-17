@@ -60,35 +60,44 @@ difference = (
 
 ### nonNegative
 
+Disallow negative differences. Default is `false`.
 
-Disallow negative differences. Default is `false`.When `true`, if a value is less than the previous value, the function
+When `true`, if a value is less than the previous value, the function
 assumes the previous value should have been a zero.
 
 ### columns
 
-
 List of columns to operate on. Default is `["_value"]`.
+
+
 
 ### keepFirst
 
+Keep the first row in each input table. Default is `false`.
 
-Keep the first row in each input table. Default is `false`.If `true`, the difference of the first row of each output table is null.
+If `true`, the difference of the first row of each output table is null.
 
 ### initialZero
-
 
 Use zero (0) as the initial value in the difference calculation
 when the subsequent value is less than the previous value and `nonNegative` is
 `true`. Default is `false`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Calculate the difference between subsequent values](#calculate-the-difference-between-subsequent-values)
+- [Calculate the non-negative difference between subsequent values](#calculate-the-non-negative-difference-between-subsequent-values)
+- [Calculate the difference between subsequent values with null values](#calculate-the-difference-between-subsequent-values-with-null-values)
+- [Keep the first value when calculating the difference between values](#keep-the-first-value-when-calculating-the-difference-between-values)
 
 ### Calculate the difference between subsequent values
 
@@ -98,6 +107,9 @@ import "sampledata"
 sampledata.int()
     |> difference()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -138,6 +150,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | -6      | t2   |
 | 2021-01-01T00:00:50Z | -12     | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Calculate the non-negative difference between subsequent values
 
@@ -147,6 +161,9 @@ import "sampledata"
 sampledata.int()
     |> difference(nonNegative: true)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -187,6 +204,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z |         | t2   |
 | 2021-01-01T00:00:50Z |         | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Calculate the difference between subsequent values with null values
 
@@ -196,6 +215,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> difference()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -236,6 +258,8 @@ sampledata.int(includeNull: true)
 | 2021-01-01T00:00:40Z |         | t2   |
 | 2021-01-01T00:00:50Z | -18     | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Keep the first value when calculating the difference between values
 
@@ -245,6 +269,9 @@ import "sampledata"
 sampledata.int()
     |> difference(keepFirst: true)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -287,3 +314,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | -6      | t2   |
 | 2021-01-01T00:00:50Z | -12     | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

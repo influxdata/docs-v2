@@ -47,33 +47,37 @@ hourSelection = (
 ## Parameters
 
 ### start
-
 ({{< req >}})
 First hour of the hour range (inclusive). Hours range from `[0-23]`.
 
-### stop
 
+
+### stop
 ({{< req >}})
 Last hour of the hour range (inclusive). Hours range from `[0-23]`.
 
-### location
 
+
+### location
 
 Location used to determine timezone. Default is the `location` option.
 
-### timeColumn
 
+
+### timeColumn
 
 Column that contains the time value. Default is `_time`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Filter by business hours
 
@@ -81,6 +85,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> hourSelection(start: 9, stop: 17)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -102,3 +109,5 @@ data
 | 2022-01-01T11:00:20Z | t1   | 7       |
 | 2022-01-01T16:00:30Z | t1   | 17      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

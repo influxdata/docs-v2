@@ -35,6 +35,7 @@ Import the `date` package:
 ```js
 import "date"
 ```
+
 ## Constants
 
 ```js
@@ -58,6 +59,8 @@ date.Thursday = 4 // Thursday is a constant that represents Thursday as a day of
 date.Tuesday = 2 // Tuesday is a constant that represents Tuesday as a day of the week.
 date.Wednesday = 3 // Wednesday is a constant that represents Wednesday as a day of the week.
 ```
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

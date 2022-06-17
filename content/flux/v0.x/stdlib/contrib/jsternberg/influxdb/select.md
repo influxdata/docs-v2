@@ -66,64 +66,77 @@ influxdb.select = (
 ## Parameters
 
 ### from
-
 ({{< req >}})
 Name of the bucket to query.
 
-### start
 
+
+### start
 ({{< req >}})
-Earliest time to include in results.Results include points that match the specified start time.
+Earliest time to include in results.
+
+Results include points that match the specified start time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
 ### stop
 
+Latest time to include in results. Default is `now()`.
 
-Latest time to include in results. Default is `now()`.Results exclude points that match the specified stop time.
+Results exclude points that match the specified stop time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
 ### m
-
 ({{< req >}})
 Name of the measurement to query.
 
+
+
 ### fields
 
+List of fields to query. Default is`[]`.
 
-List of fields to query. Default is`[]`._Returns all fields when list is empty or unspecified._
+_Returns all fields when list is empty or unspecified._
 
 ### where
 
-
 Single argument predicate function that evaluates `true` or `false`
 and filters results based on tag values.
-Default is `(r) => true`.Records are passed to the function before fields are pivoted into columns.
+Default is `(r) => true`.
+
+Records are passed to the function before fields are pivoted into columns.
 Records that evaluate to `true` are included in the output tables.
 Records that evaluate to _null_ or `false` are not included in the output tables.
 
 ### host
 
+URL of the InfluxDB instance to query.
 
-URL of the InfluxDB instance to query.See [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/)
+See [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/)
 or [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
 
 ### org
 
-
 Organization name.
 
-### token
 
+
+### token
 
 InfluxDB [API token](https://docs.influxdata.com/influxdb/latest/security/tokens/).
 
 
+
+
 ## Examples
 
+- [Query a single field](#query-a-single-field)
+- [Query multiple fields](#query-multiple-fields)
+- [Query all fields and filter by tags](#query-all-fields-and-filter-by-tags)
+- [Query data from a remote InfluxDB Cloud instance](#query-data-from-a-remote-influxdb-cloud-instance)
 
 ### Query a single field
 

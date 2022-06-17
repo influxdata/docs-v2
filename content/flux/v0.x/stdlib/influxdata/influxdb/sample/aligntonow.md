@@ -45,12 +45,12 @@ sample.alignToNow = (<-tables: stream[A]) => stream[A] where A: Record
 
 ### tables
 
-
 Input data. Defaults to piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Align sample data to now
 

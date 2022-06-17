@@ -42,6 +42,7 @@ debug.pass = (<-tables: stream[A]) => stream[A] where A: Record
 
 ### tables
 
-
 Stream to pass unmodified to next transformation.
+
+
 

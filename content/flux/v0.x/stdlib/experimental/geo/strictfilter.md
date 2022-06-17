@@ -42,18 +42,19 @@ geo.strictFilter = (<-tables: stream[{B with lon: D, lat: C}], region: A) => str
 ## Parameters
 
 ### region
-
 ({{< req >}})
-Region containing the desired data points.Specify record properties for the shape.
+Region containing the desired data points.
+
+Specify record properties for the shape.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Strictly filter data to a specified region
 
@@ -63,6 +64,9 @@ import "experimental/geo"
 data
     |> geo.strictFilter(region: {lat: 40.69335938, lon: -73.30078125, radius: 50.0})
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -85,3 +89,5 @@ data
 | -------------------- | ----- | ------- | -------- | ----------- |
 | 2021-01-02T01:00:00Z | a213b | 40.9228 | -73.3527 | 89ec        |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

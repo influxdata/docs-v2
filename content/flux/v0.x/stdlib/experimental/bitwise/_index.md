@@ -35,10 +35,13 @@ Import the `experimental/bitwise` package:
 ```js
 import "experimental/bitwise"
 ```
+
 All integers are 64 bit integers.
 
 Functions prefixed with s operate on signed integers (int).
 Functions prefixed with u operate on unsigned integers (uint).
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

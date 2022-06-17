@@ -46,11 +46,13 @@ slack.endpoint = (
 
 ### url
 
+Slack API URL. Default is  `https://slack.com/api/chat.postMessage`.
 
-Slack API URL. Default is  `https://slack.com/api/chat.postMessage`.If using the Slack webhook API, this URL is provided ine Slack webhook setup process.
+If using the Slack webhook API, this URL is provided ine Slack webhook setup process.
 
 ### token
 
+Slack API token. Default is `""`.
 
-Slack API token. Default is `""`.If using the Slack Webhook API, a token is not required.
+If using the Slack Webhook API, a token is not required.
 

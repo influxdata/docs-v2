@@ -43,23 +43,25 @@ experimental.preview = (<-tables: stream[A], ?nrows: int, ?ntables: int) => stre
 
 ### nrows
 
-
 Maximum number of rows per table to return. Default is `5`.
 
-### ntables
 
+
+### ntables
 
 Maximum number of tables to return.
 Default is `5`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Preview data output
 

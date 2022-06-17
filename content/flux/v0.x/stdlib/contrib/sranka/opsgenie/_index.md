@@ -40,6 +40,9 @@ Import the `contrib/sranka/opsgenie` package:
 import "contrib/sranka/opsgenie"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

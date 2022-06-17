@@ -44,18 +44,22 @@ monitor.deadman = (<-tables: stream[{B with _time: C}], t: A) => stream[{B with 
 ## Parameters
 
 ### t
-
 ({{< req >}})
 Time threshold for the deadman check.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Detect if a host hasn’t reported since a specific time](#detect-if-a-host-hasnt-reported-since-a-specific-time)
+- [Detect if a host hasn't reported since a relative time](#detect-if-a-host-hasnt-reported-since-a-relative-time)
 
 ### Detect if a host hasn’t reported since a specific time
 
@@ -78,6 +82,9 @@ data
     |> monitor.deadman(t: 2021-01-01T00:05:00Z)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | *host | _value  |
@@ -94,6 +101,8 @@ data
 | -------------------- | ------- | ----- | ----- |
 | 2021-01-01T00:03:00Z | 1.3     | true  | a     |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Detect if a host hasn't reported since a relative time
 

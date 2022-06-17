@@ -27,9 +27,11 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 The `boolean` package provides constants for true and false values.
+
 ## Constants
 
 ```js
 boolean.builtin false // false is a constant that is the false value.
 boolean.builtin true // true is a constant that is the truth value.
 ```
+

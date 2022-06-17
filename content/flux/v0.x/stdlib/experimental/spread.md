@@ -44,12 +44,12 @@ experimental.spread = (<-tables: stream[{A with _value: B}]) => stream[{A with _
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the difference between minimum and maximum values
 
@@ -60,6 +60,9 @@ import "sampledata"
 sampledata.float()
     |> experimental.spread()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +95,5 @@ sampledata.float()
 | ---- | ------- |
 | t2   | 23.6    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

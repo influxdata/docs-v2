@@ -55,34 +55,41 @@ derivative = (
 
 ### unit
 
-
 Time duration used to calculate the derivative. Default is `1s`.
+
+
 
 ### nonNegative
 
+Disallow negative derivative values. Default is `false`.
 
-Disallow negative derivative values. Default is `false`.When `true`, if a value is less than the previous value, the function
+When `true`, if a value is less than the previous value, the function
 assumes the previous value should have been a zero.
 
 ### columns
 
-
 List of columns to operate on. Default is `["_value"]`.
 
-### timeColumn
 
+
+### timeColumn
 
 Column containing time values to use in the calculation.
 Default is `_time`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Calculate the non-negative rate of change per second](#calculate-the-non-negative-rate-of-change-per-second)
+- [Calculate the rate of change per second with null values](#calculate-the-rate-of-change-per-second-with-null-values)
 
 ### Calculate the non-negative rate of change per second
 
@@ -92,6 +99,9 @@ import "sampledata"
 sampledata.int()
     |> derivative(nonNegative: true)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -132,6 +142,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z |         | t2   |
 | 2021-01-01T00:00:50Z |         | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Calculate the rate of change per second with null values
 
@@ -141,6 +153,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> derivative()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -181,3 +196,5 @@ sampledata.int(includeNull: true)
 | 2021-01-01T00:00:40Z |         | t2   |
 | 2021-01-01T00:00:50Z | -0.9    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

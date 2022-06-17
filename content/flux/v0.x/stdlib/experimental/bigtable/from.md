@@ -40,31 +40,34 @@ bigtable.from = (instance: string, project: string, table: string, token: string
 ## Parameters
 
 ### token
-
 ({{< req >}})
-Google Cloud IAM token to use to access the Cloud Bigtable database.For more information, see the following:
- - [Cloud Bigtable Access Control](https://cloud.google.com/bigtable/docs/access-control)
+Google Cloud IAM token to use to access the Cloud Bigtable database.
+
+For more information, see the following:
+- [Cloud Bigtable Access Control](https://cloud.google.com/bigtable/docs/access-control)
 - [Google Cloud IAM How-to guides](https://cloud.google.com/iam/docs/how-to)
 - [Setting Up Authentication for Server to Server Production Applications on Google Cloud](https://cloud.google.com/docs/authentication/production)
 
 ### project
-
 ({{< req >}})
 Cloud Bigtable project ID.
 
-### instance
 
+
+### instance
 ({{< req >}})
 Cloud Bigtable instance ID.
 
-### table
 
+
+### table
 ({{< req >}})
 Cloud Bigtable table name.
 
 
-## Examples
 
+
+## Examples
 
 ### Query Google Cloud Bigtable
 

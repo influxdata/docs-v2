@@ -39,13 +39,16 @@ math.ilogb = (x: float) => int
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the binary exponent of a value](#return-the-binary-exponent-of-a-value)
+- [Use math.ilogb in map](#use-mathilogb-in-map)
 
 ### Return the binary exponent of a value
 
@@ -66,6 +69,9 @@ import "math"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.ilogb(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 3       | t2   |
 | 2021-01-01T00:00:50Z | 0       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

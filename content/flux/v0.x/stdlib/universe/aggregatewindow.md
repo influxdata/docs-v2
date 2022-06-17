@@ -68,61 +68,74 @@ aggregateWindow = (
 ## Parameters
 
 ### every
-
 ({{< req >}})
 Duration of time between windows.
 
+
+
 ### period
 
+Duration of windows. Default is the `every` value.
 
-Duration of windows. Default is the `every` value.`period` can be negative, indicating the start and stop boundaries are reversed.
+`period` can be negative, indicating the start and stop boundaries are reversed.
 
 ### offset
 
+Duration to shift the window boundaries by. Defualt is `0s`.
 
-Duration to shift the window boundaries by. Defualt is `0s`.`offset` can be negative, indicating that the offset goes backwards in time.
+`offset` can be negative, indicating that the offset goes backwards in time.
 
 ### fn
-
 ({{< req >}})
 Aggreate or selector function to apply to each time window.
 
-### location
 
+
+### location
 
 Location used to determine timezone. Default is the `location` option.
 
-### column
 
+
+### column
 
 Column to operate on.
 
-### timeSrc
 
+
+### timeSrc
 
 Column to use as the source of the new time value for aggregate values.
 Default is `_stop`.
 
-### timeDst
 
+
+### timeDst
 
 Column to store time values for aggregate values in.
 Default is `_time`.
 
+
+
 ### createEmpty
 
+Create empty tables for empty window. Default is `false`.
 
-Create empty tables for empty window. Default is `false`.**Note:** When using `createEmpty: true`, aggregate functions return empty
+**Note:** When using `createEmpty: true`, aggregate functions return empty
 tables, but selector functions do not. By design, selectors drop empty tables.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Use an aggregate function with default parameters](#use-an-aggregate-function-with-default-parameters)
+- [Specify parameters of the aggregate function](#specify-parameters-of-the-aggregate-function)
+- [Window and aggregate by calendar month](#window-and-aggregate-by-calendar-month)
 
 ### Use an aggregate function with default parameters
 
@@ -130,6 +143,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> aggregateWindow(every: 20s, fn: mean)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -166,6 +182,8 @@ data
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 8.01              | 2021-01-01T00:00:40Z |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 7.859999999999999 | 2021-01-01T00:01:00Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Specify parameters of the aggregate function
 
@@ -182,6 +200,9 @@ data
         fn: (column, tables=<-) => tables |> quantile(q: 0.99, column: column),
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -218,6 +239,8 @@ data
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 19.77   | 2021-01-01T00:00:40Z |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 13.86   | 2021-01-01T00:01:00Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Window and aggregate by calendar month
 
@@ -225,6 +248,9 @@ data
 data
     |> aggregateWindow(every: 1mo, fn: mean)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -257,3 +283,5 @@ data
 | -------------------- | -------------------- | ---- | ----------------- | -------------------- |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 9.426666666666668 | 2021-01-01T00:01:00Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

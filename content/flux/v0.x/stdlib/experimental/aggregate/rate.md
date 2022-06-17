@@ -42,28 +42,31 @@ aggregate.rate = (<-tables: stream[A], every: duration, ?groupColumns: [string],
 ## Parameters
 
 ### every
-
 ({{< req >}})
 Duration of time windows.
 
-### groupColumns
 
+
+### groupColumns
 
 List of columns to group by. Default is `[]`.
 
-### unit
 
+
+### unit
 
 Time duration to use when calculating the rate. Default is `1s`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate the average rate of change in data
 
@@ -78,6 +81,9 @@ data =
 data
     |> aggregate.rate(every: 30s, unit: 1s, groupColumns: ["tag"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -112,3 +118,5 @@ data
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   |         | 2021-01-01T00:00:30Z |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 2.2     | 2021-01-01T00:01:00Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

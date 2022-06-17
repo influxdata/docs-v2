@@ -43,24 +43,28 @@ geo.ST_DWithin = (distance: A, geometry: B, region: C, ?units: {distance: string
 ## Parameters
 
 ### region
-
 ({{< req >}})
 Region to test. Specify record properties for the shape.
 
-### geometry
 
+
+### geometry
 ({{< req >}})
 GIS geometry to test. Can be either point or linestring geometry.
 
-### distance
 
+
+### distance
 ({{< req >}})
 Maximum distance allowed between the region and geometry.
 Define distance units with the `geo.units` option.
 
-### units
 
+
+### units
 
 Record that defines the unit of measurement for distance.
 Default is the `geo.units` option.
+
+
 

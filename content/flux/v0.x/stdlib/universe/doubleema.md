@@ -51,18 +51,19 @@ doubleEMA = (<-tables: stream[{A with _value: B}], n: int) => stream[C] where B:
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of points to average.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate a three point double exponential moving average
 
@@ -72,6 +73,9 @@ import "sampledata"
 sampledata.int()
     |> doubleEMA(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -106,3 +110,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 15.027777777777779 | t2   |
 | 2021-01-01T00:00:50Z | 5.034722222222221  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

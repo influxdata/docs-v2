@@ -43,18 +43,19 @@ strings.lastIndexAny = (chars: string, v: string) => int
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to search.
 
-### chars
 
+
+### chars
 ({{< req >}})
 Characters to search for.
 
 
-## Examples
 
+
+## Examples
 
 ### Find the index of the last occurrence of characters from a string
 
@@ -65,6 +66,9 @@ import "strings"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.lastIndexAny(v: r._value, chars: "g7t")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +111,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | 10      | t2   |
 | 2021-01-01T00:00:50Z | 6       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

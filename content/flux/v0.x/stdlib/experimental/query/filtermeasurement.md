@@ -40,18 +40,19 @@ query.filterMeasurement = (<-table: stream[{B with _measurement: C}], measuremen
 ## Parameters
 
 ### measurement
-
 ({{< req >}})
 InfluxDB measurement name to filter by.
 
-### table
 
+
+### table
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Query data from InfluxDB in a specific measurement
 

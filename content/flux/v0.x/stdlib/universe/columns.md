@@ -47,18 +47,19 @@ columns = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B
 
 ### column
 
-
 Name of the output column to store column labels in.
 Default is "_value".
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### List all columns per input table
 

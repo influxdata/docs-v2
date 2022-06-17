@@ -39,18 +39,22 @@ math.jn = (n: int, x: float) => float
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Order number.
 
-### x
 
+
+### x
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the order-n Bessel function of a value](#return-the-order-n-bessel-function-of-a-value)
+- [Use math.jn in map](#use-mathjn-in-map)
 
 ### Return the order-n Bessel function of a value
 
@@ -71,6 +75,9 @@ import "math"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.jn(n: 4, x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -113,3 +120,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 0.10341672446511223  | t2   |
 | 2021-01-01T00:00:50Z | 0.026150267042506597 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

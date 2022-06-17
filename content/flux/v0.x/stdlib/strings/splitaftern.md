@@ -41,24 +41,26 @@ strings.splitAfterN = (i: int, t: string, v: string) => [string]
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to split.
 
-### t
 
+
+### t
 ({{< req >}})
 String value that acts as the separator.
 
-### i
 
+
+### i
 ({{< req >}})
-Maximum number of split substrings to return.`-1` returns all matching substrings.
-  The last substring is the unsplit remainder.
+Maximum number of split substrings to return.
+
+`-1` returns all matching substrings.
+The last substring is the unsplit remainder.
 
 
 ## Examples
-
 
 ### Split a string into an array of substrings
 

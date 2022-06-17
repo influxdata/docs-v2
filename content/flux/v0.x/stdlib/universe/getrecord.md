@@ -41,18 +41,19 @@ getRecord = (<-table: stream[A], idx: int) => A where A: Record
 ## Parameters
 
 ### idx
-
 ({{< req >}})
 Index of the record to extract.
 
-### table
 
+
+### table
 
 Input table. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Extract the first row from a table as a record
 

@@ -48,13 +48,13 @@ strings.toTitle = (v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to convert.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert characters in a string to title case
 

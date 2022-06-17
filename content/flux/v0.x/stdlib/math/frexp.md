@@ -40,13 +40,16 @@ math.frexp = (f: float) => {frac: float, exp: int}
 ## Parameters
 
 ### f
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the normalize fraction and integral of a value](#return-the-normalize-fraction-and-integral-of-a-value)
+- [Use math.frexp in map](#use-mathfrexp-in-map)
 
 ### Return the normalize fraction and integral of a value
 
@@ -73,6 +76,9 @@ sampledata.float()
         },
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -115,3 +121,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 13.86   | 4    | 0.86625   | t2   |
 | 2021-01-01T00:00:50Z | 1.86    | 1    | 0.93      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

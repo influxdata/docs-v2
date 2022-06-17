@@ -40,13 +40,13 @@ hex.uint = (v: string) => uint
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String to convert.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a hexadecimal string to an unsigned integer
 

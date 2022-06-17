@@ -41,23 +41,25 @@ geo.asTracks = (<-tables: stream[A], ?groupBy: [string], ?orderBy: [string]) => 
 
 ### groupBy
 
-
 Columns to group by. These columns should uniquely identify each track.
 Default is `["id","tid"]`.
 
-### orderBy
 
+
+### orderBy
 
 Columns to order results by. Default is `["_time"]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Group geotemporal data into tracks
 
@@ -67,6 +69,9 @@ import "experimental/geo"
 data
     |> geo.asTracks()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +99,5 @@ data
 | 2021-01-02T01:00:00Z | b546c | 13.9228  | 38.3527 |
 | 2021-01-03T02:00:00Z | b546c | 15.08433 | 36.9978 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

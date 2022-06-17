@@ -59,23 +59,28 @@ join = (<-tables: A, ?method: string, ?on: [string]) => stream[B] where A: Recor
 
 ### tables
 
-
 Record containing two input streams to join.
+
+
 
 ### on
 
-
 List of columns to join on.
+
+
 
 ### method
 
+Join method. Default is `inner`.
 
-Join method. Default is `inner`.**Supported methods**:
+**Supported methods**:
 - inner
 
 
 ## Examples
 
+- [Join two streams of tables](#join-two-streams-of-tables)
+- [Join data from separate data sources](#join-data-from-separate-data-sources)
 
 ### Join two streams of tables
 
@@ -93,6 +98,8 @@ t2 =
 join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -103,6 +110,8 @@ join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])
 | 2021-01-03T00:00:00Z | 3          | -2         | foo  |
 | 2021-01-04T00:00:00Z | 4          | -3         | foo  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Join data from separate data sources
 

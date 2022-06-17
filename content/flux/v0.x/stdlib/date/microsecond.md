@@ -41,14 +41,17 @@ date.microsecond = (t: A) => int where A: Timeable
 ## Parameters
 
 ### t
-
 ({{< req >}})
-Time to operate on.Use an absolute time, relative duration, or integer.
+Time to operate on.
+
+Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
 
 ## Examples
 
+- [Return the microsecond of a time value](#return-the-microsecond-of-a-time-value)
+- [Return the microsecond of a relative duration](#return-the-microsecond-of-a-relative-duration)
 
 ### Return the microsecond of a time value
 

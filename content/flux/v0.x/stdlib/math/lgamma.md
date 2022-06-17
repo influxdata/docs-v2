@@ -39,13 +39,16 @@ math.lgamma = (x: float) => {sign: int, lgamma: float}
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the natural logarithm and sign of a gamma function](#return-the-natural-logarithm-and-sign-of-a-gamma-function)
+- [Use math.lgamma in map](#use-mathlgamma-in-map)
 
 ### Return the natural logarithm and sign of a gamma function
 
@@ -72,6 +75,9 @@ sampledata.float()
         },
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -114,3 +120,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 13.86   | 22.188483434123324    | 1     | t2   |
 | 2021-01-01T00:00:50Z | 1.86    | -0.052676311706898016 | 1     | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

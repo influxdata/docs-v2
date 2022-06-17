@@ -42,12 +42,12 @@ testing.load = (<-tables: A) => A
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Load a raw stream of tables in a test case
 

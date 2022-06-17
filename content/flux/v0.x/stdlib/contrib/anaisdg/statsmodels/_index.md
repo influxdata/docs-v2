@@ -33,6 +33,9 @@ Import the `contrib/anaisdg/statsmodels` package:
 import "contrib/anaisdg/statsmodels"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

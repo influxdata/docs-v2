@@ -37,6 +37,7 @@ Import the `experimental/geo` package:
 ```js
 import "experimental/geo"
 ```
+
 ## Geo schema requirements
 The Geo package uses the Go implementation of the [S2 Geometry Library](https://s2geometry.io/).
 Functions in the `geo` package require the following:
@@ -204,15 +205,19 @@ import "experimental/geo"
 
 option geo.units = {distance: "mile"}
 ```
+
 ## Options
 
 ```js
 option geo.units = {distance: "km"}
 ```
  
- 
 ### units {data-type="{distance: string}"}
+
 units defines the unit of measurment used in geotemporal operations.
+
+
+
 
 ## Functions
 

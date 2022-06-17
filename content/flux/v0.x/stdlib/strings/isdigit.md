@@ -39,13 +39,13 @@ strings.isDigit = (v: string) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Single-character string to test.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter by columns with digits as values
 
@@ -55,6 +55,9 @@ import "strings"
 data
     |> filter(fn: (r) => strings.isDigit(v: r._value))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -89,3 +92,5 @@ data
 | 2021-01-01T00:00:20Z | 4       | t2   |
 | 2021-01-01T00:00:40Z | 7       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

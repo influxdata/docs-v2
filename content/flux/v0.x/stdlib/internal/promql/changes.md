@@ -42,6 +42,7 @@ promql.changes = (<-tables: stream[{A with _value: float}]) => stream[{B with _v
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 

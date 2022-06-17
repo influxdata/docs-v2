@@ -39,7 +39,8 @@ debug.feature = (key: string) => A
 ## Parameters
 
 ### key
-
 ({{< req >}})
 Feature flag name.
+
+
 

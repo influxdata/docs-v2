@@ -55,39 +55,48 @@ stateTracking = (
 ## Parameters
 
 ### fn
-
 ({{< req >}})
 Predicate function to determine state.
 
+
+
 ### countColumn
 
+Column to store state count in.
 
-Column to store state count in.If not defined, `stateTracking()` does not return the state count.
+If not defined, `stateTracking()` does not return the state count.
 
 ### durationColumn
 
+Column to store state duration in.
 
-Column to store state duration in.If not defined, `stateTracking()` does not return the state duration.
+If not defined, `stateTracking()` does not return the state duration.
 
 ### durationUnit
 
-
 Unit of time to report state duration in. Default is `1s`.
 
-### timeColumn
 
+
+### timeColumn
 
 Column with time values used to calculate state duration.
 Default is `_time`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Return a cumulative state count](#return-a-cumulative-state-count)
+- [Return a cumulative state duration in milliseconds](#return-a-cumulative-state-duration-in-milliseconds)
+- [Return a cumulative state count and duration](#return-a-cumulative-state-count-and-duration)
 
 ### Return a cumulative state count
 
@@ -95,6 +104,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> stateTracking(fn: (r) => r.state == "crit", countColumn: "count")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -137,6 +149,8 @@ data
 | 2021-01-01T00:00:40Z | 13      | crit   | t2   | 2      |
 | 2021-01-01T00:00:50Z | 1       | ok     | t2   | -1     |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Return a cumulative state duration in milliseconds
 
@@ -144,6 +158,9 @@ data
 data
     |> stateTracking(fn: (r) => r.state == "crit", durationColumn: "duration", durationUnit: 1ms)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -186,6 +203,8 @@ data
 | 2021-01-01T00:00:40Z | 13      | crit   | t2   | 10000     |
 | 2021-01-01T00:00:50Z | 1       | ok     | t2   | -1        |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Return a cumulative state count and duration
 
@@ -193,6 +212,9 @@ data
 data
     |> stateTracking(fn: (r) => r.state == "crit", countColumn: "count", durationColumn: "duration")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -235,3 +257,5 @@ data
 | 2021-01-01T00:00:40Z | 13      | crit   | t2   | 2      | 10        |
 | 2021-01-01T00:00:50Z | 1       | ok     | t2   | -1     | -1        |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

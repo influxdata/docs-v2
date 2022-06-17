@@ -43,23 +43,28 @@ testing.assertEquals = (<-got: stream[A], name: string, want: stream[A]) => stre
 ## Parameters
 
 ### name
-
 ({{< req >}})
 Unique assertion name.
 
-### got
 
+
+### got
 
 Data to test. Default is piped-forward data (`<-`).
 
-### want
 
+
+### want
 ({{< req >}})
 Expected data to test against.
 
 
+
+
 ## Examples
 
+- [Test if streams of tables are different](#test-if-streams-of-tables-are-different)
+- [Test if streams of tables are different mid-script](#test-if-streams-of-tables-are-different-mid-script)
 
 ### Test if streams of tables are different
 

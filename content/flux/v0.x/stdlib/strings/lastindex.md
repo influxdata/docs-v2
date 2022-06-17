@@ -41,18 +41,19 @@ strings.lastIndex = (substr: string, v: string) => int
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to search.
 
-### substr
 
+
+### substr
 ({{< req >}})
 Substring to search for.
 
 
-## Examples
 
+
+## Examples
 
 ### Find the index of the last occurrence of a substring
 
@@ -63,6 +64,9 @@ import "strings"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.lastIndex(v: r._value, substr: "g")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -105,3 +109,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | -1      | t2   |
 | 2021-01-01T00:00:50Z | -1      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

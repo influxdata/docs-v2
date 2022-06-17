@@ -41,18 +41,22 @@ math.hypot = (p: float, q: float) => float
 ## Parameters
 
 ### p
-
 ({{< req >}})
 p-value to use in the operation.
 
-### q
 
+
+### q
 ({{< req >}})
 q-value to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the hypotenuse of two values](#return-the-hypotenuse-of-two-values)
+- [Use math.hypot in map](#use-mathhypot-in-map)
 
 ### Return the hypotenuse of two values
 
@@ -72,6 +76,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.hypot(p: r.a, q: r.b)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +101,5 @@ data
 | 43.9682840238279   | 33.9  | 28   | t4        |
 | 35.35533905932738  | 25    | 25   | t5        |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

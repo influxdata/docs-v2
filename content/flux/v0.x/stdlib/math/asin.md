@@ -39,14 +39,17 @@ math.asin = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
-Value to operate on.`x` should be greater than -1 and less than 1. Otherwise the function will
+Value to operate on.
+
+`x` should be greater than -1 and less than 1. Otherwise the function will
 return `NaN`.
 
 
 ## Examples
 
+- [Return the arcsine of a value](#return-the-arcsine-of-a-value)
+- [Use math.asin in map](#use-mathasin-in-map)
 
 ### Return the arcsine of a value
 
@@ -65,6 +68,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.asin(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +113,5 @@ data
 | 2021-01-01T00:00:40Z | 0.13904763050983682  | t2   |
 | 2021-01-01T00:00:50Z | 0.0186010726429996   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

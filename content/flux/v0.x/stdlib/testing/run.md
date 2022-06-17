@@ -41,13 +41,13 @@ testing.run = (case: () => {A with want: stream[C], input: B, fn: (<-: B) => str
 ## Parameters
 
 ### case
-
 ({{< req >}})
 Test case to run.
 
 
-## Examples
 
+
+## Examples
 
 ### Define and execute a test case
 

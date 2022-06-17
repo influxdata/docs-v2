@@ -41,14 +41,18 @@ time = (v: A) => time
 ## Parameters
 
 ### v
-
 ({{< req >}})
-Value to convert.Strings must be valid [RFC3339 timestamps](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
+Value to convert.
+
+Strings must be valid [RFC3339 timestamps](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
 Integer and unsigned integer values are parsed as nanosecond epoch timestamps.
 
 
 ## Examples
 
+- [Convert a string to a time value](#convert-a-string-to-a-time-value)
+- [Convert an integer to a time value](#convert-an-integer-to-a-time-value)
+- [Convert all values in a column to time](#convert-all-values-in-a-column-to-time)
 
 ### Convert a string to a time value
 
@@ -76,6 +80,9 @@ row and `time()` to covert a column value to a time type.
 data
     |> map(fn: (r) => ({r with exampleCol: time(v: r.exampleCol)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -118,3 +125,5 @@ data
 | 2021-01-01T00:00:40Z | 13      | 1970-01-01T00:00:13Z | t2   |
 | 2021-01-01T00:00:50Z | 1       | 1970-01-01T00:00:01Z | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

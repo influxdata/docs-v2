@@ -44,16 +44,19 @@ promql.quantile = (<-tables: stream[A], q: float, ?method: string) => stream[A] 
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
-### q
 
+
+### q
 ({{< req >}})
 Quantile to compute (`[0.0 - 1.0]`).
 
+
+
 ### method
 
-
 Quantile method to use.
+
+
 

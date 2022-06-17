@@ -39,18 +39,22 @@ regexp.findString = (r: regexp, v: string) => string
 ## Parameters
 
 ### r
-
 ({{< req >}})
 Regular expression used to search `v`.
 
-### v
 
+
+### v
 ({{< req >}})
 String value to search.
 
 
+
+
 ## Examples
 
+- [Return the first regular expression match in a string](#return-the-first-regular-expression-match-in-a-string)
+- [Find the first regular expression match in each row](#find-the-first-regular-expression-match-in-each-row)
 
 ### Return the first regular expression match in a string
 
@@ -73,6 +77,9 @@ regex = /.{6}$/
 sampledata.string()
     |> map(fn: (r) => ({r with _value: regexp.findString(v: r._value, r: regex)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -115,3 +122,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | wfm757  | t2   |
 | 2021-01-01T00:00:50Z | dtn2bv  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

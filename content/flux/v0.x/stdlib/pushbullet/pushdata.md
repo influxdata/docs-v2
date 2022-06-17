@@ -41,22 +41,24 @@ pushbullet.pushData = (data: A, ?token: B, ?url: string) => int
 
 ### url
 
-
 URL of the PushBullet endpoint. Default is `"https://api.pushbullet.com/v2/pushes"`.
+
+
 
 ### token
 
-
 API token string.  Default is `""`.
 
-### data
 
+
+### data
 ({{< req >}})
-Data to send to the endpoint. Data is JSON-encoded and sent to the Pushbullet's endpoint.For how to structure data, see the [Pushbullet API documentation](https://docs.pushbullet.com/#create-push).
+Data to send to the endpoint. Data is JSON-encoded and sent to the Pushbullet's endpoint.
+
+For how to structure data, see the [Pushbullet API documentation](https://docs.pushbullet.com/#create-push).
 
 
 ## Examples
-
 
 ### Send a push notification to Pushbullet
 

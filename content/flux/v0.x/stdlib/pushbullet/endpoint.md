@@ -43,11 +43,13 @@ pushbullet.endpoint = (
 
 ### url
 
-
 PushBullet API endpoint URL. Default is `"https://api.pushbullet.com/v2/pushes"`.
+
+
 
 ### token
 
-
 Pushbullet API token string.  Default is `""`.
+
+
 

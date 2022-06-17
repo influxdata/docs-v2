@@ -32,6 +32,7 @@ Import the `contrib/jsternberg/aggregate` package:
 ```js
 import "contrib/jsternberg/aggregate"
 ```
+
 ## Constants
 
 ```js
@@ -40,6 +41,8 @@ aggregate.builtin none // none is a sentinel value for fill that will skip
 aggregate.builtin null // null is a sentinel value for fill that will fill
 // in a null value if there were no values for an interval.
 ```
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

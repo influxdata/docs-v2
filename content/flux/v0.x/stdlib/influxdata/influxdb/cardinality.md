@@ -52,58 +52,70 @@ influxdb.cardinality = (
 
 ### bucket
 
-
 Bucket to query cardinality from.
+
+
 
 ### bucketID
 
-
 String-encoded bucket ID to query cardinality from.
+
+
 
 ### org
 
-
 Organization name.
+
+
 
 ### orgID
 
-
 String-encoded organization ID.
+
+
 
 ### host
 
+URL of the InfluxDB instance to query.
 
-URL of the InfluxDB instance to query.See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-   or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
 
 ### token
 
-
 InfluxDB API token.
 
-### start
 
+
+### start
 ({{< req >}})
-Earliest time to include when calculating cardinality.The cardinality calculation includes points that match the specified start time.
-   Use a relative duration or absolute time. For example, `-1h` or `2019-08-28T22:00:00Z`.
-   Durations are relative to `now()`.
+Earliest time to include when calculating cardinality.
+
+The cardinality calculation includes points that match the specified start time.
+Use a relative duration or absolute time. For example, `-1h` or `2019-08-28T22:00:00Z`.
+Durations are relative to `now()`.
 
 ### stop
 
+Latest time to include when calculating cardinality.
 
-Latest time to include when calculating cardinality.The cardinality calculation excludes points that match the specified start time.
-   Use a relative duration or absolute time. For example, `-1h` or `2019-08-28T22:00:00Z`.
-   Durations are relative to `now()`. Default is `now()`.
+The cardinality calculation excludes points that match the specified start time.
+Use a relative duration or absolute time. For example, `-1h` or `2019-08-28T22:00:00Z`.
+Durations are relative to `now()`. Default is `now()`.
 
 ### predicate
 
-
 Predicate function that filters records.
-   Default is `(r) => true`.
+Default is `(r) => true`.
+
+
 
 
 ## Examples
 
+- [Query series cardinality in a bucket](#query-series-cardinality-in-a-bucket)
+- [Query series cardinality in a measurement//](#query-series-cardinality-in-a-measurement)
+- [Query series cardinality for a specific tag](#query-series-cardinality-for-a-specific-tag)
 
 ### Query series cardinality in a bucket
 

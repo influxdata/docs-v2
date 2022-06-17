@@ -37,12 +37,15 @@ Import the `timezone` package:
 ```js
 import "timezone"
 ```
+
 ## Constants
 
 ```js
 timezone.utc = {zone: "UTC", offset: 0h} // utc is the default location with a completely linear clock and no offset.
 // It is used as the default for location-related options.
 ```
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

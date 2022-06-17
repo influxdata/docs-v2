@@ -36,6 +36,9 @@ Import the `strings` package:
 import "strings"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

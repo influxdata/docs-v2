@@ -43,17 +43,18 @@ unique = (<-tables: stream[A], ?column: string) => stream[A] where A: Record
 
 ### column
 
-
 Column to search for unique values. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return unique values from input tables
 
@@ -63,6 +64,9 @@ import "sampledata"
 sampledata.int()
     |> unique()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -104,3 +108,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

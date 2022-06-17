@@ -39,7 +39,8 @@ math.max = (values: [A]) => A where A: Numeric
 ## Parameters
 
 ### values
-
 ({{< req >}})
 Array of values.
+
+
 

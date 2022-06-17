@@ -52,29 +52,36 @@ reduce = (<-tables: stream[B], fn: (accumulator: A, r: B) => A, identity: A) => 
 ## Parameters
 
 ### fn
-
 ({{< req >}})
-Reducer function to apply to each row record (`r`).The reducer function accepts two parameters:
- - **r**: Record representing the current row.
+Reducer function to apply to each row record (`r`).
+
+The reducer function accepts two parameters:
+- **r**: Record representing the current row.
 - **accumulator**: Record returned from the reducer function's operation on
-  the previous row.
+the previous row.
 
 ### identity
-
 ({{< req >}})
 Record that defines the reducer record and provides initial values
-for the reducer operation on the first row.May be used more than once in asynchronous processing use cases.
+for the reducer operation on the first row.
+
+May be used more than once in asynchronous processing use cases.
 The data type of values in the identity record determine the data type of
 output values.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Compute the sum of the value column](#compute-the-sum-of-the-value-column)
+- [Compute the sum and count in a single reducer](#compute-the-sum-and-count-in-a-single-reducer)
+- [Compute the product of all values](#compute-the-product-of-all-values)
+- [Calculate the average of all values](#calculate-the-average-of-all-values)
 
 ### Compute the sum of the value column
 
@@ -84,6 +91,9 @@ import "sampledata"
 sampledata.int()
     |> reduce(fn: (r, accumulator) => ({sum: r._value + accumulator.sum}), identity: {sum: 0})
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -116,6 +126,8 @@ sampledata.int()
 | ---- | ---- |
 | t2   | 53   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Compute the sum and count in a single reducer
 
@@ -128,6 +140,9 @@ sampledata.int()
         identity: {sum: 0, count: 0},
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -160,6 +175,8 @@ sampledata.int()
 | ---- | ------ | ---- |
 | t2   | 6      | 53   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Compute the product of all values
 
@@ -169,6 +186,9 @@ import "sampledata"
 sampledata.int()
     |> reduce(fn: (r, accumulator) => ({prod: r._value * accumulator.prod}), identity: {prod: 1})
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -201,6 +221,8 @@ sampledata.int()
 | ---- | ------ |
 | t2   | -56316 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Calculate the average of all values
 
@@ -218,6 +240,9 @@ sampledata.int()
         identity: {count: 0, total: 0, avg: 0.0},
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -250,3 +275,5 @@ sampledata.int()
 | ---- | ----------------- | ------ | ------ |
 | t2   | 8.833333333333334 | 6      | 53     |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

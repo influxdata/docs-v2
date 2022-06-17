@@ -39,13 +39,16 @@ strings.strlen = (v: string) => int
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to measure.
 
 
+
+
 ## Examples
 
+- [Filter based on string value length](#filter-based-on-string-value-length)
+- [Store the length of string values](#store-the-length-of-string-values)
 
 ### Filter based on string value length
 
@@ -55,6 +58,9 @@ import "strings"
 data
     |> filter(fn: (r) => strings.strlen(v: r._value) <= 6)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -90,6 +96,8 @@ data
 | 2021-01-01T00:00:20Z | pl_gtz  | t2   |
 | 2021-01-01T00:00:40Z | pl_wf   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Store the length of string values
 
@@ -99,6 +107,9 @@ import "strings"
 data
     |> map(fn: (r) => ({r with length: strings.strlen(v: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -141,3 +152,5 @@ data
 | 2021-01-01T00:00:40Z | pl_wf    | 5       | t2   |
 | 2021-01-01T00:00:50Z | pl_dtnbv | 8       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

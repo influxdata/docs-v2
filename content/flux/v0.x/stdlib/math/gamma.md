@@ -39,13 +39,16 @@ math.gamma = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the gamma function of a value](#return-the-gamma-function-of-a-value)
+- [Use math.gamma in map](#use-mathgamma-in-map)
 
 ### Return the gamma function of a value
 
@@ -66,6 +69,9 @@ import "math"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.gamma(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 4328485003.951652   | t2   |
 | 2021-01-01T00:00:50Z | 0.9486870416779484  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

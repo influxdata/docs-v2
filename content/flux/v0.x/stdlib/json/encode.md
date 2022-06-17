@@ -46,13 +46,13 @@ json.encode = (v: A) => bytes
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert.
 
 
-## Examples
 
+
+## Examples
 
 ### Encode a value as JSON bytes
 

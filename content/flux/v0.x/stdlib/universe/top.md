@@ -43,23 +43,25 @@ top = (<-tables: stream[A], n: int, ?columns: [string]) => stream[A] where A: Re
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of rows to return from each input table.
 
+
+
 ### columns
 
+List of columns to sort by. Default is `["_value"]`.
 
-List of columns to sort by. Default is `["_value"]`.Sort precedence is determined by list order (left to right).
+Sort precedence is determined by list order (left to right).
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return rows with the three highest values in each input table
 
@@ -69,6 +71,9 @@ import "sampledata"
 sampledata.int()
     |> top(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -105,3 +110,5 @@ sampledata.int()
 | 2021-01-01T00:00:30Z | 19      | t2   |
 | 2021-01-01T00:00:40Z | 13      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

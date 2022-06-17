@@ -42,19 +42,20 @@ last = (<-tables: stream[A], ?column: string) => stream[A] where A: Record
 
 ### column
 
-
 Column to use to verify the existence of a value.
-Default is `_value`.If this column is `null` in the last record, `last()` returns the previous
+Default is `_value`.
+
+If this column is `null` in the last record, `last()` returns the previous
 record with a non-null value.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the last row from each input table
 
@@ -64,6 +65,9 @@ import "sampledata"
 sampledata.int()
     |> last()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -96,3 +100,5 @@ sampledata.int()
 | -------------------- | ------- | ---- |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

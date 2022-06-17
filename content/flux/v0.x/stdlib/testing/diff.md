@@ -58,32 +58,39 @@ testing.diff = (
 
 ### got
 
-
 Stream containing data to test. Default is piped-forward data (`<-`).
 
-### want
 
+
+### want
 ({{< req >}})
 Stream that contains data to test against.
 
-### epsilon
 
+
+### epsilon
 
 Specify how far apart two float values can be, but still considered equal. Defaults to 0.000000001.
 
-### verbose
 
+
+### verbose
 
 Include detailed differences in output. Default is `false`.
 
-### nansEqual
 
+
+### nansEqual
 
 Consider `NaN` float values equal. Default is `false`.
 
 
+
+
 ## Examples
 
+- [Output a diff between two streams of tables](#output-a-diff-between-two-streams-of-tables)
+- [Return a diff between a stream of tables an the expected output](#return-a-diff-between-a-stream-of-tables-an-the-expected-output)
 
 ### Output a diff between two streams of tables
 
@@ -99,6 +106,9 @@ got =
 testing.diff(got: got, want: want)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input" %}}
+
 #### Input data
 
 | *tag | _diff  | _time                | _value  |
@@ -113,6 +123,8 @@ testing.diff(got: got, want: want)
 | t2   | -      | 2021-01-01T00:00:30Z | 19      |
 | t2   | +      | 2021-01-01T00:00:30Z | 20      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Return a diff between a stream of tables an the expected output
 

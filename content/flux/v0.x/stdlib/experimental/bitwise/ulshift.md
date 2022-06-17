@@ -41,18 +41,22 @@ bitwise.ulshift = (a: uint, b: uint) => uint
 ## Parameters
 
 ### a
-
 ({{< req >}})
 Left hand operand.
 
-### b
 
+
+### b
 ({{< req >}})
 Number of bits to shift.
 
 
+
+
 ## Examples
 
+- [Shift bits left in an unsigned integer](#shift-bits-left-in-an-unsigned-integer)
+- [Shift bits left in unsigned integers in a stream of tables](#shift-bits-left-in-unsigned-integers-in-a-stream-of-tables)
 
 ### Shift bits left in an unsigned integer
 
@@ -73,6 +77,9 @@ import "sampledata"
 sampledata.uint()
     |> map(fn: (r) => ({r with _value: bitwise.ulshift(a: r._value, b: uint(v: 3))}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -115,3 +122,5 @@ sampledata.uint()
 | 2021-01-01T00:00:40Z | 104                  | t2   |
 | 2021-01-01T00:00:50Z | 8                    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

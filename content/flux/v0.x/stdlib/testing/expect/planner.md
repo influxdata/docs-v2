@@ -43,7 +43,8 @@ expect.planner = (rules: [string:int]) => {}
 ## Parameters
 
 ### rules
-
 ({{< req >}})
 Mapping of rules names to expected counts.
+
+
 

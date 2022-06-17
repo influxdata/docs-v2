@@ -53,27 +53,34 @@ tickscript.select = (<-tables: B, as: string, ?column: A, ?fn: (<-: B, column: A
 
 ### column
 
-
 Column to operate on. Default is `_value`.
+
+
 
 ### fn
 
-
 Aggregate or selector function to apply.
 
-### as
 
+
+### as
 ({{< req >}})
 New column name.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Change the name of the value column](#change-the-name-of-the-value-column)
+- [Change the name of the value column and apply an aggregate function](#change-the-name-of-the-value-column-and-apply-an-aggregate-function)
+- [Change the name of the value column and apply a selector function](#change-the-name-of-the-value-column-and-apply-a-selector-function)
 
 ### Change the name of the value column
 
@@ -84,6 +91,9 @@ import "sampledata"
 sampledata.int()
     |> tickscript.select(as: "example-name")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -126,6 +136,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13            | t2   |
 | 2021-01-01T00:00:50Z | 1             | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Change the name of the value column and apply an aggregate function
 
@@ -136,6 +148,9 @@ import "sampledata"
 sampledata.int()
     |> tickscript.select(as: "sum", fn: sum)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -168,6 +183,8 @@ sampledata.int()
 | ---- | ---- |
 | t2   | 53   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Change the name of the value column and apply a selector function
 
@@ -178,6 +195,9 @@ import "sampledata"
 sampledata.int()
     |> tickscript.select(as: "max", fn: max)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -210,3 +230,5 @@ sampledata.int()
 | -------------------- | ---- | ---- |
 | 2021-01-01T00:00:00Z | 19   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

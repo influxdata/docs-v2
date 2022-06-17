@@ -37,10 +37,13 @@ Import the `contrib/RohanSreerama5/naiveBayesClassifier` package:
 ```js
 import "contrib/RohanSreerama5/naiveBayesClassifier"
 ```
+
 Currently supports single field classification and binary data sets.
 
 For information about demonstrating functions in this package, see the
 [package README on GitHub](https://github.com/influxdata/flux/blob/master/stdlib/contrib/RohanSreerama5/naiveBayesClassifier/README.md).
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

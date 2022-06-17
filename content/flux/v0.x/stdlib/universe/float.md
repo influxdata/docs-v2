@@ -41,13 +41,18 @@ float = (v: A) => float
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert.
 
 
+
+
 ## Examples
 
+- [Convert a string to a float](#convert-a-string-to-a-float)
+- [Convert a scientific notation string to a float](#convert-a-scientific-notation-string-to-a-float)
+- [Convert an integer to a float](#convert-an-integer-to-a-float)
+- [Convert all values in a column to floats](#convert-all-values-in-a-column-to-floats)
 
 ### Convert a string to a float
 
@@ -83,6 +88,9 @@ row and `float()` to covert a column value to a float type.
 data
     |> map(fn: (r) => ({r with exampleCol: float(v: r.exampleCol)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -125,3 +133,5 @@ data
 | 2021-01-01T00:00:40Z | 13          | t2   |
 | 2021-01-01T00:00:50Z | 1           | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -41,32 +41,35 @@ v1.measurementFieldKeys = (bucket: string, measurement: A, ?start: B, ?stop: C) 
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 Bucket to retrieve field keys from.
 
-### measurement
 
+
+### measurement
 ({{< req >}})
 Measurement to list field keys from.
 
-### start
 
+
+### start
 
 Oldest time to include in results. Default is `-30d`.
 
+
+
 ### stop
 
-
 Newest time include in results.
-  The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
-  Default is `now()`.Relative start times are defined using negative durations.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+Relative start times are defined using negative durations.
 Negative durations are relative to `now()`.
 Absolute start times are defined using time values.
 
 
 ## Examples
-
 
 ### Query field keys from an InfluxDB measurement
 

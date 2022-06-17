@@ -35,11 +35,14 @@ Import the `contrib/sranka/sensu` package:
 ```js
 import "contrib/sranka/sensu"
 ```
+
 ## Sensu API Key authentication
 
 The Flux Sensu package only supports [Sensu API key authentication](https://docs.sensu.io/sensu-go/latest/api/#authenticate-with-an-api-key).
 All `sensu` functions require an `apiKey` parameter to successfully authenticate with your Sensu service.
 For information about managing Sensu API keys, see the [Sensu APIKeys API documentation](https://docs.sensu.io/sensu-go/latest/api/apikeys/).
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

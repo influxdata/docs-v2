@@ -44,18 +44,19 @@ interpolate.linear = (<-tables: stream[{A with _value: float, _time: time}], eve
 ## Parameters
 
 ### every
-
 ({{< req >}})
 Duration of time between interpolated points.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Interpolate missing data by day
 
@@ -65,6 +66,9 @@ import "interpolate"
 data
     |> interpolate.linear(every: 1d)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +96,5 @@ data
 | 2021-01-08T00:00:00Z | 80      |
 | 2021-01-09T00:00:00Z | 90      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

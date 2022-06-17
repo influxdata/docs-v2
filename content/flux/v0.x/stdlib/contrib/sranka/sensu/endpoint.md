@@ -51,33 +51,38 @@ sensu.endpoint = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture)
 *without a trailing slash*.
 Example: `http://localhost:8080`.
 
-### apiKey
 
+
+### apiKey
 ({{< req >}})
 Sensu [API Key](https://docs.sensu.io/sensu-go/latest/operations/control-access/).
 
-### handlers
 
+
+### handlers
 
 [Sensu handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/) to execute.
 Default is `[]`.
 
-### namespace
 
+
+### namespace
 
 [Sensu namespace](https://docs.sensu.io/sensu-go/latest/reference/rbac/).
 Default is `default`.
 
+
+
 ### entityName
 
-
 Event source.
-Default is `influxdb`.Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
+Default is `influxdb`.
+
+Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
 

@@ -41,25 +41,27 @@ v1.measurements = (bucket: string, ?start: A, ?stop: B) => stream[C] where C: Re
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 Bucket to retrieve measurements from.
 
-### start
 
+
+### start
 
 Oldest time to include in results. Default is `-30d`.
 
+
+
 ### stop
 
-
 Newest time include in results.
-  The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
-  Default is `now()`.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+
 
 
 ## Examples
-
 
 ### Return a list of measurements in an InfluxDB bucket
 

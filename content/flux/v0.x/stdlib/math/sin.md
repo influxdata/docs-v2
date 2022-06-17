@@ -39,13 +39,16 @@ math.sin = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Radian value to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the sine of a radian value](#return-the-sine-of-a-radian-value)
+- [Use math.sin in map](#use-mathsin-in-map)
 
 ### Return the sine of a radian value
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.sin(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 0.9618345122584524  | t2   |
 | 2021-01-01T00:00:50Z | 0.9584712830789142  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

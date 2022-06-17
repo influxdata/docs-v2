@@ -42,23 +42,25 @@ strings.substring = (end: int, start: int, v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to search for.
 
-### start
 
+
+### start
 ({{< req >}})
 Starting inclusive index of the substring.
 
-### end
 
+
+### end
 ({{< req >}})
 Ending exclusive index of the substring.
 
 
-## Examples
 
+
+## Examples
 
 ### Return part of a string based on character index
 
@@ -69,6 +71,9 @@ import "strings"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.substring(v: r._value, start: 5, end: 9)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -111,3 +116,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | wfm7    | t2   |
 | 2021-01-01T00:00:50Z | dtn2    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

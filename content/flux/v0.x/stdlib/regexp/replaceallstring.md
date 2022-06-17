@@ -41,23 +41,28 @@ regexp.replaceAllString = (r: regexp, t: string, v: string) => string
 ## Parameters
 
 ### r
-
 ({{< req >}})
 Regular expression used to search `v`.
 
-### v
 
+
+### v
 ({{< req >}})
 String value to search.
 
-### t
 
+
+### t
 ({{< req >}})
 Replacement for matches to `r`.
 
 
+
+
 ## Examples
 
+- [Replace regular expression matches in a string](#replace-regular-expression-matches-in-a-string)
+- [Replace regular expression matches in string column values](#replace-regular-expression-matches-in-string-column-values)
 
 ### Replace regular expression matches in a string
 
@@ -78,6 +83,9 @@ import "sampledata"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: regexp.replaceAllString(r: /smpl_/, v: r._value, t: "")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -120,3 +128,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | wfm757  | t2   |
 | 2021-01-01T00:00:50Z | dtn2bv  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

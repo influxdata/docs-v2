@@ -39,13 +39,13 @@ strings.isLower = (v: string) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Single-character string value to test.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter by columns with single-letter lowercase values
 
@@ -55,6 +55,9 @@ import "strings"
 data
     |> filter(fn: (r) => strings.isLower(v: r._value))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -88,3 +91,5 @@ data
 | 2022-01-01T00:01:00Z | t2   | g       |
 | 2022-01-01T00:03:00Z | t2   | i       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

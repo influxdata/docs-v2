@@ -41,13 +41,13 @@ sensu.toSensuName = (v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String to operate on.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a string into a Sensu name
 

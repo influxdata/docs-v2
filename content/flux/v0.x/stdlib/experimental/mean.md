@@ -44,12 +44,12 @@ experimental.mean = (<-tables: stream[{A with _value: float}]) => stream[{A with
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate the average value of input tables
 
@@ -60,6 +60,9 @@ import "sampledata"
 sampledata.float()
     |> experimental.mean()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +95,5 @@ sampledata.float()
 | ---- | ----------------- |
 | t2   | 9.426666666666668 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

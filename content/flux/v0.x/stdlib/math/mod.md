@@ -43,18 +43,22 @@ math.mod = (x: float, y: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 x-value to use in the operation.
 
-### y
 
+
+### y
 ({{< req >}})
 y-value to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the modulo of two values](#return-the-modulo-of-two-values)
+- [Use math.mod in map](#use-mathmod-in-map)
 
 ### Return the modulo of two values
 
@@ -74,6 +78,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.mod(x: r.t1, y: r.t2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -98,3 +105,5 @@ data
 | 2021-01-01T00:00:40Z | 1.370000000000001  |
 | 2021-01-01T00:00:50Z | 0.7099999999999995 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

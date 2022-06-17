@@ -41,14 +41,17 @@ date.nanosecond = (t: A) => int where A: Timeable
 ## Parameters
 
 ### t
-
 ({{< req >}})
-Time to operate on.Use an absolute time, relative duration, or integer.
+Time to operate on.
+
+Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
 
 ## Examples
 
+- [Return the nanosecond for a time value](#return-the-nanosecond-for-a-time-value)
+- [Return the nanosecond for a relative duration](#return-the-nanosecond-for-a-relative-duration)
 
 ### Return the nanosecond for a time value
 

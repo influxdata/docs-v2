@@ -45,12 +45,12 @@ geo.ST_LineString = (<-tables: stream[{A with lon: C, lat: B}]) => stream[D] whe
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a series of geographic points into linestring
 
@@ -60,6 +60,9 @@ import "experimental/geo"
 data
     |> geo.ST_LineString()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -86,3 +89,5 @@ data
 | ----- | ---------------------------------------------------- |
 | b546c | 24.0069 -14.5464, 25.1304 -13.3338, 26.7899 -12.0433 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

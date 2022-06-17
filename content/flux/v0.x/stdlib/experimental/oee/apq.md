@@ -74,22 +74,26 @@ oee.APQ = (
 ## Parameters
 
 ### runningState
-
 ({{< req >}})
 State value that represents a running state.
 
-### plannedTime
 
+
+### plannedTime
 ({{< req >}})
 Total time that equipment is expected to produce parts.
 
-### idealCycleTime
 
+
+### idealCycleTime
 ({{< req >}})
 Ideal minimum time to produce one part.
 
+
+
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 

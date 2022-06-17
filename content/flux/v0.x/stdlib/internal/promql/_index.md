@@ -32,7 +32,10 @@ Import the `internal/promql` package:
 ```js
 import "internal/promql"
 ```
+
 THIS PACKAGE IS NOT MEANT FOR EXTERNAL USE.
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

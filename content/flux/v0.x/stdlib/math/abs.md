@@ -39,13 +39,16 @@ math.abs = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the absolute value](#return-the-absolute-value)
+- [Use math.abs in map](#use-mathabs-in-map)
 
 ### Return the absolute value
 
@@ -61,6 +64,9 @@ math.abs(x: -1.22)// 1.22
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.abs(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -103,3 +109,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 13.86   | t2   |
 | 2021-01-01T00:00:50Z | 1.86    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

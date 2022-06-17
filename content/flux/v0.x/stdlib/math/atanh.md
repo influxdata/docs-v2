@@ -39,14 +39,17 @@ math.atanh = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
-Value to operate on.`x` should be greater than -1 and less than 1. Otherwise the operation
+Value to operate on.
+
+`x` should be greater than -1 and less than 1. Otherwise the operation
 will return `NaN`.
 
 
 ## Examples
 
+- [Return the hyperbolic tangent of a value](#return-the-hyperbolic-tangent-of-a-value)
+- [Use math.atanh in map](#use-mathatanh-in-map)
 
 ### Return the hyperbolic tangent of a value
 
@@ -66,6 +69,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.atanh(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ data
 | 2021-01-01T00:00:40Z | 0.13949787194848565   | t2   |
 | 2021-01-01T00:00:50Z | 0.01860214539735061   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

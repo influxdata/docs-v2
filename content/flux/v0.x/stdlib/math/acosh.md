@@ -39,13 +39,16 @@ math.acosh = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
-Value to operate on.`x` should be greater than 1. If less than 1 the operation will return `NaN`.
+Value to operate on.
+
+`x` should be greater than 1. If less than 1 the operation will return `NaN`.
 
 
 ## Examples
 
+- [Return the inverse hyperbolic cosine of a value](#return-the-inverse-hyperbolic-cosine-of-a-value)
+- [Use math.acosh in map](#use-mathacosh-in-map)
 
 ### Return the inverse hyperbolic cosine of a value
 
@@ -64,6 +67,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.acosh(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -106,3 +112,5 @@ data
 | 2021-01-01T00:00:40Z | 0.8525776257667146 | t2   |
 | 2021-01-01T00:00:50Z | NaN                | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

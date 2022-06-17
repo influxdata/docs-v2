@@ -42,23 +42,25 @@ tickscript.join = (measurement: A, tables: B, ?on: [string]) => stream[{C with _
 ## Parameters
 
 ### tables
-
 ({{< req >}})
 Map of two streams to join.
 
-### on
 
+
+### on
 
 List of columns to join on. Default is `["_time"]`.
 
-### measurement
 
+
+### measurement
 ({{< req >}})
 Measurement name to use in results.
 
 
-## Examples
 
+
+## Examples
 
 ### Join two streams of data
 
@@ -95,6 +97,8 @@ states =
 tickscript.join(tables: {metric: metrics, state: states}, on: ["_time", "host"], measurement: "example-m")
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -110,3 +114,5 @@ tickscript.join(tables: {metric: metrics, state: states}, on: ["_time", "host"],
 | example-m     | 2021-01-01T01:00:00Z | 7.3            | alive         | host2 |
 | example-m     | 2021-01-01T02:00:00Z | 7.9            | alive         | host2 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

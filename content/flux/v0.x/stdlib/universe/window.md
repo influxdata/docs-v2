@@ -66,52 +66,64 @@ window = (
 
 ### every
 
-
 Duration of time between windows.
+
+
 
 ### period
 
+Duration of windows. Default is the `every` value.
 
-Duration of windows. Default is the `every` value.`period` can be negative, indicating the start and stop boundaries are reversed.
+`period` can be negative, indicating the start and stop boundaries are reversed.
 
 ### offset
 
+Duration to shift the window boundaries by. Defualt is `0s`.
 
-Duration to shift the window boundaries by. Defualt is `0s`.`offset` can be negative, indicating that the offset goes backwards in time.
+`offset` can be negative, indicating that the offset goes backwards in time.
 
 ### location
 
-
 Location used to determine timezone. Default is the `location` option.
+
+
 
 ### timeColumn
 
-
 Column that contains time values. Default is `_time`.
+
+
 
 ### startColumn
 
-
 Column to store the window start time in. Default is `_start`.
+
+
 
 ### stopColumn
 
-
 Column to store the window stop time in. Default is `_stop`.
+
+
 
 ### createEmpty
 
-
 Create empty tables for empty window. Default is `false`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Window data into 30 second intervals](#window-data-into-30-second-intervals)
+- [Window every 20 seconds covering 40 second periods](#window-every-20-seconds-covering-40-second-periods)
+- [Window by calendar month](#window-by-calendar-month)
 
 ### Window data into 30 second intervals
 
@@ -119,6 +131,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> window(every: 30s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -167,6 +182,8 @@ data
 | 2021-01-01T00:00:30Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:30Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Window every 20 seconds covering 40 second periods
 
@@ -174,6 +191,9 @@ data
 data
     |> window(every: 20s, period: 40s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -246,6 +266,8 @@ data
 | 2021-01-01T00:00:40Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:40Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Window by calendar month
 
@@ -253,6 +275,9 @@ data
 data
     |> window(every: 1mo)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -283,3 +308,5 @@ data
 | 2021-03-01T00:00:00Z | 2021-04-01T00:00:00Z | 2021-03-02T00:00:00Z | 8       |
 | 2021-03-01T00:00:00Z | 2021-04-01T00:00:00Z | 2021-03-17T00:00:00Z | 10      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

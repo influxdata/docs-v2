@@ -41,28 +41,31 @@ cov = (on: [string], x: A, y: B, ?pearsonr: bool) => stream[C] where C: Record
 ## Parameters
 
 ### x
-
 ({{< req >}})
 First input stream.
 
-### y
 
+
+### y
 ({{< req >}})
 Second input stream.
 
-### on
 
+
+### on
 ({{< req >}})
 List of columns to join on.
 
-### pearsonr
 
+
+### pearsonr
 
 Normalize results to the Pearson R coefficient. Default is `false`.
 
 
-## Examples
 
+
+## Examples
 
 ### Return the covariance between two streams of tables
 
@@ -80,6 +83,8 @@ stream2 =
 cov(x: stream1, y: stream2, on: ["_time"])
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -87,3 +92,5 @@ cov(x: stream1, y: stream2, on: ["_time"])
 | ------- |
 | 87.75   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

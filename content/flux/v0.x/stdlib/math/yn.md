@@ -39,18 +39,22 @@ math.yn = (n: int, x: float) => float
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Order number to use in the operation.
 
-### x
 
+
+### x
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the order-n Bessel function of a value](#return-the-order-n-bessel-function-of-a-value)
+- [Use math.yn in map](#use-mathyn-in-map)
 
 ### Return the order-n Bessel function of a value
 
@@ -70,6 +74,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.yn(n: r.n, x: r.x)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +99,5 @@ data
 | 2021-01-01T03:00:00Z | -0.8050704522628885 |
 | 2021-01-01T04:00:00Z | -1.1643613692219157 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

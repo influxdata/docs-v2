@@ -36,6 +36,9 @@ Import the `influxdata/influxdb/schema` package:
 import "influxdata/influxdb/schema"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

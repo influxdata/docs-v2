@@ -39,18 +39,22 @@ bitwise.sor = (a: int, b: int) => int
 ## Parameters
 
 ### a
-
 ({{< req >}})
 Left hand operand.
 
-### b
 
+
+### b
 ({{< req >}})
 Right hand operand.
 
 
+
+
 ## Examples
 
+- [Perform a bitwise OR operation](#perform-a-bitwise-or-operation)
+- [Perform a bitwise OR operation on a stream of tables](#perform-a-bitwise-or-operation-on-a-stream-of-tables)
 
 ### Perform a bitwise OR operation
 
@@ -71,6 +75,9 @@ import "sampledata"
 sampledata.int()
     |> map(fn: (r) => ({r with _value: bitwise.sor(a: r._value, b: 3)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -113,3 +120,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 15      | t2   |
 | 2021-01-01T00:00:50Z | 3       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

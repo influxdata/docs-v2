@@ -54,28 +54,31 @@ timedMovingAverage = (<-tables: stream[A], every: duration, period: duration, ?c
 ## Parameters
 
 ### every
-
 ({{< req >}})
 Frequency of time window.
 
-### period
 
+
+### period
 ({{< req >}})
-Length of each averaged time window.A negative duration indicates start and stop boundaries are reversed.
+Length of each averaged time window.
+
+A negative duration indicates start and stop boundaries are reversed.
 
 ### column
 
-
 Column to operate on. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate a five year moving average every year
 
@@ -83,6 +86,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> timedMovingAverage(every: 1y, period: 5y)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -111,3 +117,5 @@ data
 | 2015-01-01T00:00:00Z | 2021-01-01T00:00:00Z | 20.5               | 2021-01-01T00:00:00Z |
 | 2015-01-01T00:00:00Z | 2021-01-01T00:00:00Z | 25                 | 2021-01-01T00:00:00Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

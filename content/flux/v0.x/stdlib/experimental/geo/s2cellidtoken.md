@@ -44,23 +44,28 @@ geo.s2CellIDToken = (level: int, ?point: {lon: float, lat: float}, ?token: strin
 
 ### token
 
+S2 cell ID token to update.
 
-S2 cell ID token to update.Useful for changing the S2 cell level of an existing S2 cell ID token.
+Useful for changing the S2 cell level of an existing S2 cell ID token.
 
 ### point
-
 
 Record with `lat` and `lon` properties that specify the latitude and
 longitude in decimal degrees (WGS 84) of a point.
 
-### level
 
+
+### level
 ({{< req >}})
 S2 cell level to use when generating the S2 cell ID token.
 
 
+
+
 ## Examples
 
+- [Use latitude and longitude values to generate S2 cell ID tokens](#use-latitude-and-longitude-values-to-generate-s2-cell-id-tokens)
+- [Update S2 cell ID token level](#update-s2-cell-id-token-level)
 
 ### Use latitude and longitude values to generate S2 cell ID tokens
 
@@ -70,6 +75,9 @@ import "experimental/geo"
 data
     |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(point: {lat: r.lat, lon: r.lon}, level: 10)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -100,6 +108,8 @@ data
 | 2021-01-02T01:00:00Z | b546c | -13.3338 | 25.1304 | 1965c7      |
 | 2021-01-03T02:00:00Z | b546c | -12.0433 | 26.7899 | 1971dd      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Update S2 cell ID token level
 
@@ -109,6 +119,9 @@ import "experimental/geo"
 data
     |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(token: r.s2_cell_id, level: 5)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -139,3 +152,5 @@ data
 | 2021-01-02T01:00:00Z | b546c | 1964        |
 | 2021-01-03T02:00:00Z | b546c | 1974        |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

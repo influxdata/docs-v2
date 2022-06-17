@@ -44,25 +44,27 @@ findRecord = (<-tables: stream[B], fn: (key: A) => bool, idx: int) => B where A:
 ## Parameters
 
 ### idx
-
 ({{< req >}})
 Index of the record to extract.
 
-### fn
 
+
+### fn
 ({{< req >}})
-Predicate function to evaluate input table group keys.`findColumn()` uses the first table that resolves as `true`.
+Predicate function to evaluate input table group keys.
+
+`findColumn()` uses the first table that resolves as `true`.
 The predicate function requires a `key` argument that represents each input
 table's group key as a record.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Extract a row as a record
 

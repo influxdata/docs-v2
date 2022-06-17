@@ -33,6 +33,8 @@ Import the `contrib/rhajek/bigpanda` package:
 import "contrib/rhajek/bigpanda"
 ```
 
+
+
 ## Options
 
 ```js
@@ -40,15 +42,21 @@ option bigpanda.defaultTokenPrefix = "Bearer"
 option bigpanda.defaultUrl = "https://api.bigpanda.io/data/v2/alerts"
 ```
  
- 
 ### defaultTokenPrefix {data-type="string"}
+
 defaultTokenPrefix is the default HTTP authentication scheme to use when authenticating with BigPanda.
 Default is `Bearer`.
 
+
+
 ### defaultUrl {data-type="string"}
+
 defaultUrl is the default [BigPanda alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works)
 for functions in the `bigpanda` package.
 Default is `https://api.bigpanda.io/data/v2/alerts`.
+
+
+
 
 ## Functions
 

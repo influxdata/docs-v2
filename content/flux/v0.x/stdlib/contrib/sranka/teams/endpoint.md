@@ -43,7 +43,8 @@ teams.endpoint = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 Incoming webhook URL.
+
+
 

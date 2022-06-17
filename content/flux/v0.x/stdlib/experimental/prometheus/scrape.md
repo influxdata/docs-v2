@@ -42,13 +42,13 @@ prometheus.scrape = (url: string) => stream[A] where A: Record
 ## Parameters
 
 ### url
-
 ({{< req >}})
 URL to scrape Prometheus metrics from.
 
 
-## Examples
 
+
+## Examples
 
 ### Scrape InfluxDB OSS internal metrics
 

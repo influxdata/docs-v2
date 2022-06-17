@@ -28,6 +28,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 The `planner` package provides an API for interacting with the Flux engine planner.
 
+
+
 ## Options
 
 ```js
@@ -35,9 +37,15 @@ option planner.disableLogicalRules = [""]
 option planner.disablePhysicalRules = [""]
 ```
  
- 
 ### disableLogicalRules {data-type="[string]"}
+
 disableLogicalRules is a set of logical planner rules that should NOT be applied.
 
+
+
 ### disablePhysicalRules {data-type="[string]"}
+
 disablePhysicalRules is a set of physical planner rules that should NOT be applied.
+
+
+

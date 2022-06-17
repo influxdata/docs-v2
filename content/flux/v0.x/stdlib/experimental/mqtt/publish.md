@@ -51,56 +51,67 @@ mqtt.publish = (
 ## Parameters
 
 ### broker
-
 ({{< req >}})
 MQTT broker connection string.
 
-### topic
 
+
+### topic
 ({{< req >}})
 MQTT topic to send data to.
 
-### message
 
+
+### message
 ({{< req >}})
 Message to send to the MQTT broker.
 
-### qos
 
+
+### qos
 
 MQTT Quality of Service (QoS) level. Values range from `[0-2]`.
 Default is `0`.
 
-### retain
 
+
+### retain
 
 MQTT retain flag. Default is `false`.
 
-### clientid
 
+
+### clientid
 
 MQTT client ID.
 
+
+
 ### username
 
+Username to send to the MQTT broker.
 
-Username to send to the MQTT broker.Username is only required if the broker requires authentication.
+Username is only required if the broker requires authentication.
 If you provide a username, you must provide a password.
 
 ### password
 
+Password to send to the MQTT broker.
 
-Password to send to the MQTT broker.Password is only required if the broker requires authentication.
+Password is only required if the broker requires authentication.
 If you provide a password, you must provide a username.
 
 ### timeout
 
-
 MQTT connection timeout. Default is `1s`.
+
+
 
 
 ## Examples
 
+- [Send a message to an MQTT endpoint](#send-a-message-to-an-mqtt-endpoint)
+- [Send a message to an MQTT endpoint using input data](#send-a-message-to-an-mqtt-endpoint-using-input-data)
 
 ### Send a message to an MQTT endpoint
 

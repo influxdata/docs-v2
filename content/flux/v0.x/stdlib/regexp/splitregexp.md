@@ -41,23 +41,25 @@ regexp.splitRegexp = (i: int, r: regexp, v: string) => [string]
 ## Parameters
 
 ### r
-
 ({{< req >}})
 Regular expression used to search `v`.
 
-### v
 
+
+### v
 ({{< req >}})
 String value to be searched.
 
-### i
 
+
+### i
 ({{< req >}})
-Maximum number of substrings to return.-1 returns all matching substrings.
+Maximum number of substrings to return.
+
+-1 returns all matching substrings.
 
 
 ## Examples
-
 
 ### Return an array of regular expression matches
 

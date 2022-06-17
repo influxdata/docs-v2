@@ -46,23 +46,25 @@ stateCount = (<-tables: stream[A], fn: (r: A) => bool, ?column: string) => strea
 ## Parameters
 
 ### fn
-
 ({{< req >}})
 Predicate function that identifies the state of a record.
 
-### column
 
+
+### column
 
 Column to store the state count in. Default is `stateCount`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Count the number rows in a specific state
 
@@ -72,6 +74,9 @@ import "sampledata"
 sampledata.int()
     |> stateCount(fn: (r) => r._value < 10)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -114,3 +119,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   | -1          |
 | 2021-01-01T00:00:50Z | 1       | t2   | 1           |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

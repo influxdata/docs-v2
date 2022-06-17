@@ -54,36 +54,42 @@ opsgenie.sendAlert = (
 
 ### url
 
-
 Opsgenie API URL. Defaults to `https://api.opsgenie.com/v2/alerts`.
 
-### apiKey
 
+
+### apiKey
 ({{< req >}})
 (Required) Opsgenie API authorization key.
 
-### message
 
+
+### message
 ({{< req >}})
 (Required) Alert message text.
 130 characters or less.
 
-### alias
 
+
+### alias
 
 Opsgenie alias usee to de-deduplicate alerts.
 250 characters or less.
 Defaults to [message](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/sranka/opsgenie/sendalert/#message).
 
-### description
 
+
+### description
 
 Alert description. 15000 characters or less.
 
+
+
 ### priority
 
+Opsgenie alert priority.
 
-Opsgenie alert priority.Valid values include:
+Valid values include:
 - `P1`
 - `P2`
 - `P3` (default)
@@ -92,39 +98,44 @@ Opsgenie alert priority.Valid values include:
 
 ### responders
 
-
 List of responder teams or users.
 Use the `user: ` prefix for users and `teams: ` prefix for teams.
 
-### tags
 
+
+### tags
 
 Alert tags.
 
-### entity
 
+
+### entity
 
 Alert entity used to specify the alert domain.
 
-### actions
 
+
+### actions
 
 List of actions available for the alert.
 
-### details
 
+
+### details
 
 Additional alert details. Must be a JSON-encoded map of key-value string pairs.
 
-### visibleTo
 
+
+### visibleTo
 
 List of teams and users the alert will be visible to without sending notifications.
 Use the `user: ` prefix for users and `teams: ` prefix for teams.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported status to a Opsgenie
 

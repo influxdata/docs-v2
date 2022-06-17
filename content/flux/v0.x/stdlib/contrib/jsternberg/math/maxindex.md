@@ -39,7 +39,8 @@ math.maxIndex = (values: [A]) => int where A: Numeric
 ## Parameters
 
 ### values
-
 ({{< req >}})
 Array of values.
+
+
 

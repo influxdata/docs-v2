@@ -36,6 +36,9 @@ Import the `types` package:
 import "types"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

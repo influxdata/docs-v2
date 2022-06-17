@@ -58,33 +58,36 @@ schema.fieldKeys = (
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 Bucket to list field keys from.
 
-### predicate
 
+
+### predicate
 
 Predicate function that filters field keys.
 Default is `(r) => true`.
 
-### start
 
+
+### start
 
 Oldest time to include in results. Default is `-30d`.
 
+
+
 ### stop
 
-
 Newest time include in results.
-  The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
-  Default is `now()`.Relative start times are defined using negative durations.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+Relative start times are defined using negative durations.
 Negative durations are relative to `now()`.
 Absolute start times are defined using time values.
 
 
 ## Examples
-
 
 ### Query field keys from an InfluxDB bucket
 

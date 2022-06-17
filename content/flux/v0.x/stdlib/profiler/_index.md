@@ -30,16 +30,19 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 The `profiler` package provides performance profiling tools for Flux queries and operations.
+
 Profile results are returned as an extra result in the response named according to the profiles which are enabled.
+
 ## Options
 
 ```js
 option profiler.enabledProfilers = [""]
 ```
  
- 
 ### enabledProfilers {data-type="[string]"}
+
 enabledProfilers is a list of profilers to enable during execution.
+
 ## Available profilers
 - [query](#query)
 - [operator](#operator)
@@ -76,3 +79,4 @@ for each operation and the following columns:
 - **MaxDuration:** maximum duration of the operation in nanoseconds
 - **DurationSum:** total duration of all operation executions in nanoseconds
 - **MeanDuration:** average duration of all operation executions in nanoseconds
+

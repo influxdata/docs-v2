@@ -54,49 +54,55 @@ geo.gridFilter = (
 ## Parameters
 
 ### region
-
 ({{< req >}})
-Region containing the desired data points.Specify record properties for the shape.
+Region containing the desired data points.
+
+Specify record properties for the shape.
 
 ### minSize
-
 
 Minimum number of cells that cover the specified region.
 Default is `24`.
 
-### maxSize
 
+
+### maxSize
 
 Maximum number of cells that cover the specified region.
 Default is `-1` (unlimited).
 
+
+
 ### level
 
-
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
-of grid cells. Default is `-1`.**Note:** `level` is mutually exclusive with `minSize` and `maxSize` and
+of grid cells. Default is `-1`.
+
+**Note:** `level` is mutually exclusive with `minSize` and `maxSize` and
 must be less than or equal to `s2cellIDLevel`.
 
 ### s2cellIDLevel
 
-
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
 used in the `s2_cell_id` tag. Default is `-1` (detects S2 cell level from the S2 cell ID token).
 
-### units
 
+
+### units
 
 Record that defines the unit of measurement for distance.
 Default is the `geo.units` option.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Filter data to a specified region
 
@@ -106,6 +112,9 @@ import "experimental/geo"
 data
     |> geo.gridFilter(region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0})
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -128,3 +137,5 @@ data
 | -------------------- | ----- | ------- | -------- | ----------- |
 | 2021-01-02T01:00:00Z | a213b | 40.9228 | -73.3527 | 89e825      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

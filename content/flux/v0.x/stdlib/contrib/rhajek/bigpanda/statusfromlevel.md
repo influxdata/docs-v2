@@ -39,20 +39,23 @@ bigpanda.statusFromLevel = (level: string) => string
 ## Parameters
 
 ### level
-
 ({{< req >}})
-Alert level.##### Supported alert levels
- | Alert level | BigPanda status |
+Alert level.
+
+##### Supported alert levels
+| Alert level | BigPanda status |
 | :---------- | :--------------|
 | crit        | critical        |
 | warn        | warning         |
 | info        | ok              |
 | ok          | ok              |
- _All other alert levels return a `critical` BigPanda status._
+_All other alert levels return a `critical` BigPanda status._
 
 
 ## Examples
 
+- [Convert an alert level to a BigPanda status](#convert-an-alert-level-to-a-bigpanda-status)
+- [Convert alert levels in a stream of tables to BigPanda statuses](#convert-alert-levels-in-a-stream-of-tables-to-bigpanda-statuses)
 
 ### Convert an alert level to a BigPanda status
 
@@ -75,6 +78,9 @@ data
     |> map(fn: (r) => ({r with big_panda_status: bigpanda.statusFromLevel(level: r._level)}))
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | _level  |
@@ -94,3 +100,5 @@ data
 | warn    | 2021-01-01T00:02:00Z | warning           |
 | crit    | 2021-01-01T00:03:00Z | critical          |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

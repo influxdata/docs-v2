@@ -42,17 +42,18 @@ sum = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: Re
 
 ### column
 
-
 Column to operate on. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the sum of values in each table
 
@@ -62,6 +63,9 @@ import "sampledata"
 sampledata.int()
     |> stddev()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +98,5 @@ sampledata.int()
 | ---- | ----------------- |
 | t2   | 9.474527252938094 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

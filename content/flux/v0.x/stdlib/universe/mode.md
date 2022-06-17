@@ -47,17 +47,18 @@ mode = (<-tables: stream[A], ?column: string) => stream[{B with _value: C}] wher
 
 ### column
 
-
 Column to return the mode from. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the mode of each input table
 
@@ -67,6 +68,9 @@ import "sampledata"
 sampledata.int()
     |> mode()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -99,3 +103,5 @@ sampledata.int()
 | ---- | ------- |
 | t2   | 19      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

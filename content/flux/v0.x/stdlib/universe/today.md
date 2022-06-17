@@ -41,6 +41,8 @@ today = () => time
 
 ## Examples
 
+- [Return a timestamp representing today](#return-a-timestamp-representing-today)
+- [Query data from today](#query-data-from-today)
 
 ### Return a timestamp representing today
 

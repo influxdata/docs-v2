@@ -44,17 +44,20 @@ bigpanda.endpoint = (
 
 ### url
 
-
 BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
 Default is the value of the `bigpanda.defaultURL` option.
 
-### token
 
+
+### token
 ({{< req >}})
 BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
 
-### appKey
 
+
+### appKey
 ({{< req >}})
 BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
+
+
 

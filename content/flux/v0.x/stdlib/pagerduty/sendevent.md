@@ -56,90 +56,103 @@ pagerduty.sendEvent = (
 
 ### pagerdutyURL
 
+PagerDuty endpoint URL.
 
-PagerDuty endpoint URL.Default is https://events.pagerduty.com/v2/enqueue.
+Default is https://events.pagerduty.com/v2/enqueue.
 
 ### routingKey
-
 ({{< req >}})
 Routing key generated from your PagerDuty integration.
 
-### client
 
+
+### client
 ({{< req >}})
 Name of the client sending the alert.
 
-### clientURL
 
+
+### clientURL
 ({{< req >}})
 URL of the client sending the alert.
 
-### dedupKey
 
+
+### dedupKey
 ({{< req >}})
 Per-alert ID that acts as deduplication key and allows you to
 acknowledge or change the severity of previous messages.
 Supports a maximum of 255 characters.
 
-### class
 
+
+### class
 ({{< req >}})
-Class or type of the event.Classes are user-defined.
-   For example, `ping failure` or `cpu load`.
+Class or type of the event.
+
+Classes are user-defined.
+For example, `ping failure` or `cpu load`.
 
 ### group
-
 ({{< req >}})
-Logical grouping used by PagerDuty.Groups are user-defined.
-   For example, `app-stack`.
+Logical grouping used by PagerDuty.
+
+Groups are user-defined.
+For example, `app-stack`.
 
 ### severity
-
 ({{< req >}})
-Severity of the event.Valid values:
-    - `critical`
-   - `error`
-   - `warning`
-   - `info`
+Severity of the event.
+
+Valid values:
+- `critical`
+- `error`
+- `warning`
+- `info`
 
 ### eventAction
-
 ({{< req >}})
-Event type to send to PagerDuty.Valid values:
-    - `trigger`
-   - `resolve`
-   - `acknowledge`
+Event type to send to PagerDuty.
+
+Valid values:
+- `trigger`
+- `resolve`
+- `acknowledge`
 
 ### source
-
 ({{< req >}})
 Unique location of the affected system.
 For example, the hostname or fully qualified domain name (FQDN).
 
-### component
 
+
+### component
 
 Component responsible for the event.
 
-### summary
 
+
+### summary
 ({{< req >}})
 Brief text summary of the event used as the summaries or titles of associated alerts.
 The maximum permitted length is 1024 characters.
 
-### timestamp
 
+
+### timestamp
 ({{< req >}})
 Time the detected event occurred in RFC3339nano format.
 
-### customDetails
 
+
+### customDetails
 
 Record with additional details about the event.
 
 
-## Examples
 
+
+## Examples
 
 ### Send an event to PagerDuty
 

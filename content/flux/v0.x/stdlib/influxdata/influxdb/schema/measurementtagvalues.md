@@ -46,35 +46,39 @@ schema.measurementTagValues = (
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 Bucket to return tag values from for a specific measurement.
 
-### measurement
 
+
+### measurement
 ({{< req >}})
 Measurement to return tag values from.
 
-### tag
 
+
+### tag
 ({{< req >}})
 Tag to return all unique values from.
 
-### start
 
+
+### start
 
 Oldest time to include in results. Default is `-30d`.
 
+
+
 ### stop
 
-
 Newest time include in results.
-  The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
-  Default is `now()`.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+
 
 
 ## Examples
-
 
 ### Query unique tag values from an InfluxDB measurement
 

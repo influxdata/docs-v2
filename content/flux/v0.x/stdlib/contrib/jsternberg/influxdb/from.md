@@ -1,10 +1,10 @@
 ---
-title: influxdb.from() function
+title: from() function
 description: >
-  `influxdb.from()` retrieves data from an InfluxDB bucket between the `start` and `stop` times.
+  `from()` retrieves data from an InfluxDB bucket between the `start` and `stop` times.
 menu:
   flux_0_x_ref:
-    name: influxdb.from
+    name: from
     parent: contrib/jsternberg/influxdb
     identifier: contrib/jsternberg/influxdb/from
 weight: 301
@@ -27,14 +27,14 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`influxdb.from()` retrieves data from an InfluxDB bucket between the `start` and `stop` times.
+`from()` retrieves data from an InfluxDB bucket between the `start` and `stop` times.
 
 This version of `from` is equivalent to `from() |> range()` in a single call.
 
 ##### Function type signature
 
 ```js
-influxdb.from = (
+from = (
     bucket: string,
     start: A,
     ?host: string,
@@ -55,45 +55,54 @@ influxdb.from = (
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
-Name of the bucket to query.**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
+Name of the bucket to query.
+
+**InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
 ### start
-
 ({{< req >}})
-Earliest time to include in results.Results include points that match the specified start time.
+Earliest time to include in results.
+
+Results include points that match the specified start time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
 ### stop
 
+Latest time to include in results. Default is `now()`.
 
-Latest time to include in results. Default is `now()`.Results exclude points that match the specified stop time.
+Results exclude points that match the specified stop time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
 ### host
 
+URL of the InfluxDB instance to query.
 
-URL of the InfluxDB instance to query.See [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/)
+See [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/)
 or [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
 
 ### org
 
-
 Organization name.
 
-### token
 
+
+### token
 
 InfluxDB [API token](https://docs.influxdata.com/influxdb/latest/security/tokens/).
 
 
+
+
 ## Examples
 
+- [Query using the bucket name](#query-using-the-bucket-name)
+- [Query using the bucket ID](#query-using-the-bucket-id)
+- [Query a remote InfluxDB Cloud instance](#query-a-remote-influxdb-cloud-instance)
 
 ### Query using the bucket name
 

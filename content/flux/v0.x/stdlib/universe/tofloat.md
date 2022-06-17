@@ -46,12 +46,15 @@ toFloat = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _v
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Convert an integer _value column to floats](#convert-an-integer-_value-column-to-floats)
+- [Convert a boolean _value column to floats](#convert-a-boolean-_value-column-to-floats)
 
 ### Convert an integer _value column to floats
 
@@ -61,6 +64,9 @@ import "sampledata"
 sampledata.int()
     |> toFloat()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -103,6 +109,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Convert a boolean _value column to floats
 
@@ -112,6 +120,9 @@ import "sampledata"
 sampledata.bool()
     |> toFloat()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -154,3 +165,5 @@ sampledata.bool()
 | 2021-01-01T00:00:40Z | 1       | t2   |
 | 2021-01-01T00:00:50Z | 0       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -39,13 +39,13 @@ strings.isLetter = (v: string) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Single-character string to test.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter by columns with digits as values
 
@@ -55,6 +55,9 @@ import "strings"
 data
     |> filter(fn: (r) => strings.isLetter(v: r._value))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -93,3 +96,5 @@ data
 | 2021-01-01T00:00:30Z | t       | t2   |
 | 2021-01-01T00:00:50Z | v       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

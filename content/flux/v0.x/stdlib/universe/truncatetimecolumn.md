@@ -46,9 +46,10 @@ truncateTimeColumn = (<-tables: stream[{B with _time: C}], unit: duration, ?time
 ## Parameters
 
 ### unit
-
 ({{< req >}})
-Unit of time to truncate to.**Example units:**
+Unit of time to truncate to.
+
+**Example units:**
 - 1ns (nanosecond)
 - 1us (microsecond)
 - 1ms (millisecond)
@@ -62,18 +63,19 @@ Unit of time to truncate to.**Example units:**
 
 ### timeColumn
 
+Time column to truncate. Default is `_time`.
 
-Time column to truncate. Default is `_time`.**Note:** Currently, assigning a custom value to this parameter will have
+**Note:** Currently, assigning a custom value to this parameter will have
 no effect.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Truncate all time values to the minute
 
@@ -83,6 +85,9 @@ import "sampledata"
 sampledata.int()
     |> truncateTimeColumn(unit: 1m)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -125,3 +130,5 @@ sampledata.int()
 | 2021-01-01T00:00:00Z | 13      | t2   |
 | 2021-01-01T00:00:00Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

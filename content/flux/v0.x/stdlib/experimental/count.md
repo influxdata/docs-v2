@@ -53,12 +53,12 @@ experimental.count = (<-tables: stream[{A with _value: B}]) => stream[{A with _v
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Count the number of rows in a table
 
@@ -69,6 +69,9 @@ import "sampledata"
 sampledata.int()
     |> experimental.count()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -101,3 +104,5 @@ sampledata.int()
 | ---- | ------- |
 | t2   | 6       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

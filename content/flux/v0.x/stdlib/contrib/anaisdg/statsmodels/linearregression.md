@@ -68,12 +68,12 @@ statsmodels.linearRegression = (
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Perform a linear regression on a dataset
 

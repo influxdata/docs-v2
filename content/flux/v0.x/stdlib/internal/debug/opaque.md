@@ -44,6 +44,7 @@ debug.opaque = (<-tables: stream[A]) => stream[B] where A: Record, B: Record
 
 ### tables
 
-
 Stream to pass unmodified to next transformation.
+
+
 

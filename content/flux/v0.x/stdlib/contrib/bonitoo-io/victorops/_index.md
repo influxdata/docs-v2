@@ -35,6 +35,7 @@ Import the `contrib/bonitoo-io/victorops` package:
 ```js
 import "contrib/bonitoo-io/victorops"
 ```
+
 **Note**: VictorOps is now Splunk On-Call
 
 
@@ -44,6 +45,8 @@ To send events to VictorOps with Flux:
 1. [Enable the VictorOps REST Endpoint Integration](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/).
 2. [Create a REST integration routing key](https://help.victorops.com/knowledge-base/routing-keys/).
 3. [Create a VictorOps API key](https://help.victorops.com/knowledge-base/api/).
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

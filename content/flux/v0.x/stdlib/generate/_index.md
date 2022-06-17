@@ -36,6 +36,9 @@ Import the `generate` package:
 import "generate"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

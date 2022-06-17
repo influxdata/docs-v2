@@ -46,16 +46,19 @@ promql.holtWinters = (
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 ### smoothingFactor
 
-
 Exponential smoothing factor.
+
+
 
 ### trendFactor
 
-
 Trend factor.
+
+
 

@@ -48,13 +48,13 @@ strings.toUpper = (v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to convert.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert all values of a column to upper case
 
@@ -65,6 +65,9 @@ import "strings"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.toUpper(v: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +110,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | SMPL_WFM757 | t2   |
 | 2021-01-01T00:00:50Z | SMPL_DTN2BV | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

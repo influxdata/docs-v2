@@ -40,13 +40,16 @@ timezone.location = (name: string) => {zone: string, offset: duration}
 ## Parameters
 
 ### name
-
 ({{< req >}})
 Location name (as defined by your operating system timezone database).
 
 
+
+
 ## Examples
 
+- [Return a timezone-based location record](#return-a-timezone-based-location-record)
+- [Set the location option using a timezone-based location](#set-the-location-option-using-a-timezone-based-location)
 
 ### Return a timezone-based location record
 

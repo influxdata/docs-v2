@@ -42,17 +42,18 @@ experimental.alignTime = (<-tables: stream[B], ?alignTo: A) => stream[C] where B
 
 ### alignTo
 
-
 Time to align tables to. Default is `1970-01-01T00:00:00Z`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Compare month-over-month values
 
@@ -70,6 +71,9 @@ data
     |> window(every: 1mo)
     |> experimental.alignTime(alignTo: 2021-01-01T00:00:00Z)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -101,3 +105,5 @@ data
 | 2021-02-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-03T00:00:00Z | 37.8    |
 | 2021-02-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-04T00:00:00Z | 37.5    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

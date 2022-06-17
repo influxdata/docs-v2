@@ -44,12 +44,12 @@ experimental.first = (<-tables: stream[{A with _value: B}]) => stream[{A with _v
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the first non-null value in each input table
 
@@ -60,6 +60,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> experimental.first()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +95,5 @@ sampledata.int(includeNull: true)
 | -------------------- | ------- | ---- |
 | 2021-01-01T00:00:10Z | 4       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

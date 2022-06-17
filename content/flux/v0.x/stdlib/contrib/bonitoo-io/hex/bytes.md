@@ -40,13 +40,13 @@ hex.bytes = (v: string) => bytes
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String to convert.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a hexadecimal string into bytes
 

@@ -49,50 +49,59 @@ geo.filterRows = (
 ## Parameters
 
 ### region
-
 ({{< req >}})
-Region containing the desired data points.Specify record properties for the shape.
+Region containing the desired data points.
+
+Specify record properties for the shape.
 
 ### minSize
-
 
 Minimum number of cells that cover the specified region.
 Default is `24`.
 
-### maxSize
 
+
+### maxSize
 
 Maximum number of cells that cover the specified region.
 Default is `-1` (unlimited).
 
+
+
 ### level
 
-
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
-of grid cells. Default is `-1`.**Note:** `level` is mutually exclusive with `minSize` and `maxSize` and
+of grid cells. Default is `-1`.
+
+**Note:** `level` is mutually exclusive with `minSize` and `maxSize` and
 must be less than or equal to `s2cellIDLevel`.
 
 ### s2cellIDLevel
 
-
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
 used in the `s2_cell_id` tag. Default is `-1` (detects S2 cell level from the `s2_cell_id` tag).
 
+
+
 ### strict
 
+Enable strict geographic data filtering. Default is `true`.
 
-Enable strict geographic data filtering. Default is `true`.Strict filtering returns only points with coordinates in the defined region.
+Strict filtering returns only points with coordinates in the defined region.
 Non-strict filtering returns all points from S2 grid cells that are partially
 covered by the defined region.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Strictly filter geotemporal data by region](#strictly-filter-geotemporal-data-by-region)
+- [Approximately filter geotemporal data by region](#approximately-filter-geotemporal-data-by-region)
 
 ### Strictly filter geotemporal data by region
 

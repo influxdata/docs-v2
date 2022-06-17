@@ -43,22 +43,26 @@ socket.from = (url: string, ?decoder: string) => stream[A]
 ## Parameters
 
 ### url
-
 ({{< req >}})
-URL to return data from.**Supported URL schemes**:
+URL to return data from.
+
+**Supported URL schemes**:
 - tcp
 - unix
 
 ### decoder
 
+Decoder to use to parse returned data into a stream of tables.
 
-Decoder to use to parse returned data into a stream of tables.**Supported decoders**:
+**Supported decoders**:
 - csv
 - line
 
 
 ## Examples
 
+- [Query annotated CSV from a socket connection](#query-annotated-csv-from-a-socket-connection)
+- [Query line protocol from a socket connection](#query-line-protocol-from-a-socket-connection)
 
 ### Query annotated CSV from a socket connection
 

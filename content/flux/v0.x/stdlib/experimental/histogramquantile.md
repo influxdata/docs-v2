@@ -63,24 +63,26 @@ experimental.histogramQuantile = (
 
 ### quantile
 
-
 Quantile to compute (`[0.0 - 1.0]`).
+
+
 
 ### minValue
 
+Assumed minimum value of the dataset. Default is `0.0`.
 
-Assumed minimum value of the dataset. Default is `0.0`.When the quantile falls below the lowest upper bound, the function
+When the quantile falls below the lowest upper bound, the function
 interpolates values between `minValue` and the lowest upper bound.
 If `minValue` is equal to negative infinity, the lowest upper bound is used.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Compute the 90th percentile of a histogram
 
@@ -90,6 +92,9 @@ import "experimental"
 histogramData
     |> experimental.histogramQuantile(quantile: 0.9)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -115,3 +120,5 @@ histogramData
 | ----------------- | -------------------- |
 | example_histogram | 0.008237363919129085 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

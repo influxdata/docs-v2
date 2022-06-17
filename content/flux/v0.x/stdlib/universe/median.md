@@ -53,36 +53,42 @@ median = (<-tables: stream[A], ?column: string, ?compression: float, ?method: st
 
 ### column
 
-
 Column to use to compute the median. Default is `_value`.
+
+
 
 ### method
 
+Computation method. Default is `estimate_tdigest`.
 
-Computation method. Default is `estimate_tdigest`.**Avaialable methods**:
-   - **estimate_tdigest**: Aggregate method that uses a
-    [t-digest data structure](https://github.com/tdunning/t-digest) to
-    compute an accurate median estimate on large data sources.
-  - **exact_mean**: Aggregate method that takes the average of the two
-    points closest to the median value.
-  - **exact_selector**: Selector method that returns the row with the value
-    for which at least 50% of points are less than.
+**Avaialable methods**:
+- **estimate_tdigest**: Aggregate method that uses a
+[t-digest data structure](https://github.com/tdunning/t-digest) to
+compute an accurate median estimate on large data sources.
+- **exact_mean**: Aggregate method that takes the average of the two
+points closest to the median value.
+- **exact_selector**: Selector method that returns the row with the value
+for which at least 50% of points are less than.
 
 ### compression
 
-
 Number of centroids to use when compressing the dataset.
-Default is `0.0`.A larger number produces a more accurate result at the cost of increased
+Default is `0.0`.
+
+A larger number produces a more accurate result at the cost of increased
 memory requirements.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Use median as an aggregate transformation](#use-median-as-an-aggregate-transformation)
+- [Use median as a selector transformation](#use-median-as-a-selector-transformation)
 
 ### Use median as an aggregate transformation
 
@@ -92,6 +98,9 @@ import "sampledata"
 sampledata.float()
     |> median()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -124,6 +133,8 @@ sampledata.float()
 | ---- | ------- |
 | t2   | 9.415   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Use median as a selector transformation
 
@@ -133,6 +144,9 @@ import "sampledata"
 sampledata.float()
     |> median(method: "exact_selector")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -165,3 +179,5 @@ sampledata.float()
 | -------------------- | ---- | ------- |
 | 2021-01-01T00:00:10Z | t2   | 4.97    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

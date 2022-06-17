@@ -39,18 +39,19 @@ strings.repeat = (i: int, v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to repeat.
 
-### i
 
+
+### i
 ({{< req >}})
 Number of times to repeat `v`.
 
 
-## Examples
 
+
+## Examples
 
 ### Repeat a string based on existing columns
 
@@ -60,6 +61,9 @@ import "strings"
 data
     |> map(fn: (r) => ({r with _value: strings.repeat(v: "ha", i: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -102,3 +106,5 @@ data
 | 2021-01-01T00:00:40Z | hahahahahaha       | t2   |
 | 2021-01-01T00:00:50Z |                    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

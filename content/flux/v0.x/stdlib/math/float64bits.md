@@ -41,13 +41,16 @@ math.float64bits = (f: float) => uint
 ## Parameters
 
 ### f
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the binary expression of a value](#return-the-binary-expression-of-a-value)
+- [Use math.float64bits in map](#use-mathfloat64bits-in-map)
 
 ### Return the binary expression of a value
 
@@ -68,6 +71,9 @@ import "math"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.float64bits(f: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,3 +116,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 4623992104409177784  | t2   |
 | 2021-01-01T00:00:50Z | 4611055514479556035  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

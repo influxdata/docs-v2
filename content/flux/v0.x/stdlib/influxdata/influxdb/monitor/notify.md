@@ -45,33 +45,35 @@ monitor.notify = (
 ## Parameters
 
 ### endpoint
-
 ({{< req >}})
 A function that constructs and sends the notification to an endpoint.
 
-### data
 
+
+### data
 ({{< req >}})
-Notification data to append to the output.This data specifies which notification rule and notification endpoint to
-  associate with the sent notification.
-  The data record must contain the following properties:
-   - \_notification\_rule\_id
-  - \_notification\_rule\_name
-  - \_notification\_endpoint\_id
-  - \_notification\_endpoint\_name
-   The InfluxDB monitoring and alerting system uses `monitor.notify()` to store
-  information about sent notifications and automatically assigns these values.
-  If writing a custom notification task, we recommend using **unique arbitrary**
-  values for data record properties.
+Notification data to append to the output.
+
+This data specifies which notification rule and notification endpoint to
+associate with the sent notification.
+The data record must contain the following properties:
+- \_notification\_rule\_id
+- \_notification\_rule\_name
+- \_notification\_endpoint\_id
+- \_notification\_endpoint\_name
+The InfluxDB monitoring and alerting system uses `monitor.notify()` to store
+information about sent notifications and automatically assigns these values.
+If writing a custom notification task, we recommend using **unique arbitrary**
+values for data record properties.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Send critical status notifications to Slack
 

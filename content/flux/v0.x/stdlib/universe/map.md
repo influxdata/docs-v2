@@ -71,24 +71,30 @@ map = (<-tables: stream[A], fn: (r: A) => B, ?mergeKey: bool) => stream[B]
 ## Parameters
 
 ### fn
-
 ({{< req >}})
 Single argument function to apply to each record.
 The return value must be a record.
 
-### mergeKey
 
+
+### mergeKey
 
 _(Deprecated)_ Merge group keys of mapped records. Default is `false`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Square the value in each row](#square-the-value-in-each-row)
+- [Create a new table with new columns](#create-a-new-table-with-new-columns)
+- [Add new columns and preserve existing columns](#add-new-columns-and-preserve-existing-columns)
 
 ### Square the value in each row
 
@@ -98,6 +104,9 @@ import "sampledata"
 sampledata.int()
     |> map(fn: (r) => ({r with _value: r._value * r._value}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -140,6 +149,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 169     | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Create a new table with new columns
 
@@ -149,6 +160,9 @@ import "sampledata"
 sampledata.int()
     |> map(fn: (r) => ({time: r._time, source: r.tag, alert: if r._value > 10 then true else false}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -188,6 +202,8 @@ sampledata.int()
 | true   | t2      | 2021-01-01T00:00:40Z |
 | false  | t2      | 2021-01-01T00:00:50Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Add new columns and preserve existing columns
 
@@ -200,6 +216,9 @@ import "sampledata"
 sampledata.int()
     |> map(fn: (r) => ({r with server: "server-${r.tag}", valueFloat: float(v: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -242,3 +261,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | server-t2 | t2   | 13          |
 | 2021-01-01T00:00:50Z | 1       | server-t2 | t2   | 1           |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

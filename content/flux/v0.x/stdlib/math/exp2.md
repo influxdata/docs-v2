@@ -39,13 +39,16 @@ math.exp2 = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the base-2 exponential of a value](#return-the-base-2-exponential-of-a-value)
+- [Use math.exp2 in map](#use-mathexp2-in-map)
 
 ### Return the base-2 exponential of a value
 
@@ -66,6 +69,9 @@ import "math"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.exp2(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 14868.793840716358  | t2   |
 | 2021-01-01T00:00:50Z | 3.6300766212686435  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

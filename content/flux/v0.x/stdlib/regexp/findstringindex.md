@@ -41,18 +41,19 @@ regexp.findStringIndex = (r: regexp, v: string) => [int]
 ## Parameters
 
 ### r
-
 ({{< req >}})
 Regular expression used to search `v`.
 
-### v
 
+
+### v
 ({{< req >}})
 String value to search.
 
 
-## Examples
 
+
+## Examples
 
 ### Index the bounds of first regular expression match in each row
 

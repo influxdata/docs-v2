@@ -39,18 +39,22 @@ math.remainder = (x: float, y: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Numerator to use in the operation.
 
-### y
 
+
+### y
 ({{< req >}})
 Denominator to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the remainder of division between two values](#return-the-remainder-of-division-between-two-values)
+- [Use math.remainder in map](#use-mathremainder-in-map)
 
 ### Return the remainder of division between two values
 
@@ -70,6 +74,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.remainder(x: r.t1, y: r.t2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +101,5 @@ data
 | 2021-01-01T00:00:40Z | 1.370000000000001    |
 | 2021-01-01T00:00:50Z | 0.7099999999999995   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

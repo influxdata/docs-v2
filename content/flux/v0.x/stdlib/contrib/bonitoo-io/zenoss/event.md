@@ -56,68 +56,79 @@ zenoss.event = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
 
-### username
 
+
+### username
 ({{< req >}})
 Zenoss username to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-### password
 
+
+### password
 ({{< req >}})
 Zenoss password to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-### action
 
+
+### action
 
 Zenoss router name.
 Default is "EventsRouter".
 
-### method
 
+
+### method
 
 [EventsRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
 Default is "add_event".
 
-### type
 
+
+### type
 
 Event type.
 Default is "rpc".
 
-### tid
 
+
+### tid
 
 Temporary request transaction ID.
 Default is `1`.
 
-### summary
 
+
+### summary
 
 Event summary.
 Default is `""`.
 
-### device
 
+
+### device
 
 Related device.
 Default is `""`.
 
-### component
 
+
+### component
 
 Related component.
 Default is `""`.
 
-### severity
 
+
+### severity
 ({{< req >}})
-[Event severity level](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-severity-levels).**Supported values**:
+[Event severity level](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-severity-levels).
+
+**Supported values**:
 - Critical
 - Warning
 - Info
@@ -125,31 +136,34 @@ Default is `""`.
 
 ### eventClass
 
-
 [Event class](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/understanding-event-classes).
 Default is `""`.
 
-### eventClassKey
 
+
+### eventClassKey
 
 Event [class key](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-fields).
 Default is `""`.
 
-### collector
 
+
+### collector
 
 Zenoss [collector](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-fields).
 Default is `""`.
 
-### message
 
+
+### message
 
 Related message.
 Default is `""`.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported value and severity to Zenoss
 

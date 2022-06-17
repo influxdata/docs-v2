@@ -43,13 +43,17 @@ duration = (v: A) => duration
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert.
 
 
+
+
 ## Examples
 
+- [Convert a string to a duration](#convert-a-string-to-a-duration)
+- [Convert numeric types to durations](#convert-numeric-types-to-durations)
+- [Convert values in a column to durations](#convert-values-in-a-column-to-durations)
 
 ### Convert a string to a duration
 
@@ -80,6 +84,9 @@ data
     |> map(fn: (r) => ({r with _value: string(v: duration(v: r._value))}))
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | tag  | _value    |
@@ -103,3 +110,5 @@ data
 | 2022-01-01T19:00:40Z | 15ms    | t1   |
 | 2022-01-01T20:00:50Z | -42ms   | t1   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

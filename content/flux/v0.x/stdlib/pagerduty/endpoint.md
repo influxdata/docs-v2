@@ -58,6 +58,7 @@ pagerduty.endpoint = (
 
 ### url
 
+PagerDuty v2 Events API URL.
 
-PagerDuty v2 Events API URL.Default is `https://events.pagerduty.com/v2/enqueue`.
+Default is `https://events.pagerduty.com/v2/enqueue`.
 

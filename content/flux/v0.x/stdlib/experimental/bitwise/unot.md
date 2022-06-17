@@ -39,13 +39,16 @@ bitwise.unot = (a: uint) => uint
 ## Parameters
 
 ### a
-
 ({{< req >}})
 Unsigned integer to invert.
 
 
+
+
 ## Examples
 
+- [Invert bits in an unsigned integer](#invert-bits-in-an-unsigned-integer)
+- [Invert bits in unsigned integers in a stream of tables](#invert-bits-in-unsigned-integers-in-a-stream-of-tables)
 
 ### Invert bits in an unsigned integer
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.uint()
     |> map(fn: (r) => ({r with _value: bitwise.unot(a: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.uint()
 | 2021-01-01T00:00:40Z | 18446744073709551602 | t2   |
 | 2021-01-01T00:00:50Z | 18446744073709551614 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

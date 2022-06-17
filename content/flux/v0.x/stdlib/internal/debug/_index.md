@@ -33,15 +33,20 @@ Import the `internal/debug` package:
 import "internal/debug"
 ```
 
+
+
 ## Options
 
 ```js
 option debug.vectorize = false
 ```
  
- 
 ### vectorize {data-type="bool"}
+
 vectorize controls whether the compiler attempts to vectorize Flux functions.
+
+
+
 
 ## Functions
 

@@ -45,12 +45,12 @@ schema.fieldsAsCols = (<-tables: stream[A]) => stream[B] where A: Record, B: Rec
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Pivot InfluxDB fields into columns
 
@@ -60,6 +60,9 @@ import "influxdata/influxdb/schema"
 data
     |> schema.fieldsAsCols()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -84,3 +87,5 @@ data
 | 2021-01-02T12:00:00Z | m             | Seattle | 90.5 | 68.2  |
 | 2021-01-03T12:00:00Z | m             | Seattle | 81.0 | 61.4  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

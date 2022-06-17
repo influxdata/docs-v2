@@ -38,6 +38,9 @@ Import the `contrib/bonitoo-io/hex` package:
 import "contrib/bonitoo-io/hex"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

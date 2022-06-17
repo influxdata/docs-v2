@@ -37,6 +37,7 @@ Import the `contrib/sranka/telegram` package:
 ```js
 import "contrib/sranka/telegram"
 ```
+
 ## Set up a Telegram bot
 The **Telegram Bot API** requires a **bot token** and a **channel ID**.
 To set up a Telegram bot and obtain the required bot token and channel ID:
@@ -55,6 +56,7 @@ To set up a Telegram bot and obtain the required bot token and channel ID:
     ```
 
     Find your **channel ID** in the `id` field of the response.
+
 ## Options
 
 ```js
@@ -64,18 +66,30 @@ option telegram.defaultSilent = true
 option telegram.defaultURL = "https://api.telegram.org/bot"
 ```
  
- 
 ### defaultDisableWebPagePreview {data-type="bool"}
+
 defaultDisableWebPagePreview - Use Telegram web page preview by default. Default is `false`.
 
+
+
 ### defaultParseMode {data-type="string"}
+
 defaultParseMode is the default [Telegram parse mode](https://core.telegram.org/bots/api#formatting-options). Default is `MarkdownV2`.
 
+
+
 ### defaultSilent {data-type="bool"}
+
 defaultSilent - Send silent Telegram notifications by default. Default is `true`.
 
+
+
 ### defaultURL {data-type="string"}
+
 defaultURL is the default Telegram bot URL. Default is `https://api.telegram.org/bot`.
+
+
+
 
 ## Functions
 

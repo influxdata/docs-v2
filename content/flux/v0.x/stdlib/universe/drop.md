@@ -44,24 +44,29 @@ drop = (<-tables: stream[A], ?columns: [string], ?fn: (column: string) => bool) 
 
 ### columns
 
-
 List of columns to remove from input tables. Mutually exclusive with `fn`.
 
-### fn
 
+
+### fn
 
 Predicate function with a `column` parameter that returns a boolean
 value indicating whether or not the column should be removed from input tables.
 Mutually exclusive with `columns`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Drop a list of columns](#drop-a-list-of-columns)
+- [Drop columns matching a predicate](#drop-columns-matching-a-predicate)
 
 ### Drop a list of columns
 
@@ -71,6 +76,9 @@ import "sampledata"
 sampledata.int()
     |> drop(columns: ["_time", "tag"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,6 +118,8 @@ sampledata.int()
 | 13      |
 | 1       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Drop columns matching a predicate
 
@@ -119,6 +129,9 @@ import "sampledata"
 sampledata.int()
     |> drop(fn: (column) => column =~ /^t/)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -158,3 +171,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      |
 | 2021-01-01T00:00:50Z | 1       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

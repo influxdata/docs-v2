@@ -43,28 +43,31 @@ lowestAverage = (<-tables: stream[A], n: int, ?column: string, ?groupColumns: [s
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of records to return.
 
-### column
 
+
+### column
 
 Column to evaluate. Default is `_value`.
 
-### groupColumns
 
+
+### groupColumns
 
 List of columns to group by. Default is `[]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the lowest table average from a stream of tables
 
@@ -74,6 +77,9 @@ import "sampledata"
 sampledata.int()
     |> lowestAverage(n: 1, groupColumns: ["tag"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -102,3 +108,5 @@ sampledata.int()
 | ---- | ------- |
 | t1   | 8.5     |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

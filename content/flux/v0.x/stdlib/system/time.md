@@ -40,7 +40,6 @@ system.time = () => time
 
 ## Examples
 
-
 ### Return a stream of tables with the current system time
 
 ```js

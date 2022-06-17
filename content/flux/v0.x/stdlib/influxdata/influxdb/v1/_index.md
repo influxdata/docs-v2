@@ -37,6 +37,7 @@ Import the `influxdata/influxdb/v1` package:
 ```js
 import "influxdata/influxdb/v1"
 ```
+
 ### Deprecated functions
 In Flux 0.88.0, the following v1 package functions moved to
 the InfluxDB schema package. These functions are still available in the v1
@@ -51,6 +52,8 @@ schema package.
 - `v1.measurementTagValues()`
 - `v1.tagKeys()`
 - `v1.tagValues()`
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

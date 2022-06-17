@@ -86,44 +86,54 @@ holtWinters = (
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of values to predict.
 
-### interval
 
+
+### interval
 ({{< req >}})
 Interval between two data points.
 
-### withFit
 
+
+### withFit
 
 Return fitted data in results. Default is `false`.
 
-### column
 
+
+### column
 
 Column to operate on. Default is `_value`.
 
-### timeColumn
 
+
+### timeColumn
 
 Column containing time values to use in the calculating.
 Default is `_time`.
 
-### seasonality
 
+
+### seasonality
 
 Number of points in a season. Default is `0`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Use holtWinters to predict future values](#use-holtwinters-to-predict-future-values)
+- [Use holtWinters with seasonality to predict future values](#use-holtwinters-with-seasonality-to-predict-future-values)
+- [Use the holtWinters fitted model to predict future values](#use-the-holtwinters-fitted-model-to-predict-future-values)
 
 ### Use holtWinters to predict future values
 
@@ -133,6 +143,9 @@ import "sampledata"
 sampledata.int()
     |> holtWinters(n: 6, interval: 10s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -175,6 +188,8 @@ sampledata.int()
 | t2   | 2021-01-01T00:01:40Z | 6.781074246080124  |
 | t2   | 2021-01-01T00:01:50Z | 6.781074248100982  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Use holtWinters with seasonality to predict future values
 
@@ -184,6 +199,9 @@ import "sampledata"
 sampledata.int()
     |> holtWinters(n: 4, interval: 10s, seasonality: 4)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -222,6 +240,8 @@ sampledata.int()
 | t2   | 2021-01-01T00:01:20Z | 4.306517319025279    |
 | t2   | 2021-01-01T00:01:30Z | 2.473640466434541    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Use the holtWinters fitted model to predict future values
 
@@ -231,6 +251,9 @@ import "sampledata"
 sampledata.int()
     |> holtWinters(n: 3, interval: 10s, withFit: true)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -279,3 +302,5 @@ sampledata.int()
 | t2   | 2021-01-01T00:01:10Z | 6.781069271640753 |
 | t2   | 2021-01-01T00:01:20Z | 6.781073869897851 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -44,12 +44,12 @@ experimental.skew = (<-tables: stream[{A with _value: float}]) => stream[{A with
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the skew of input tables
 
@@ -60,6 +60,9 @@ import "sampledata"
 sampledata.float()
     |> experimental.skew()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +95,5 @@ sampledata.float()
 | ---- | -------------------- |
 | t2   | -0.11050153536874797 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

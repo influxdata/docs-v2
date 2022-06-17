@@ -61,41 +61,49 @@ events.duration = (
 
 ### unit
 
-
 Duration unit of the calculated state duration.
 Default is `1ns`
 
-### columnName
 
+
+### columnName
 
 Name of the result column.
 Default is `"duration"`.
 
-### timeColumn
 
+
+### timeColumn
 
 Name of the time column.
 Default is `"_time"`.
 
-### stopColumn
 
+
+### stopColumn
 
 Name of the stop column.
 Default is `"_stop"`.
 
+
+
 ### stop
 
+The latest time to use when calculating results.
 
-The latest time to use when calculating results.If provided, `stop` overrides the time value in the `stopColumn`.
+If provided, `stop` overrides the time value in the `stopColumn`.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Calculate the duration of states](#calculate-the-duration-of-states)
+- [Compared to similar functions](#compared-to-similar-functions)
 
 ### Calculate the duration of states
 
@@ -106,6 +114,9 @@ import "contrib/tomhollingworth/events"
 data
     |> events.duration(unit: 1m, stop: 2020-01-02T00:00:00Z)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -130,6 +141,8 @@ data
 | 2020-01-01T16:54:21Z | warn   | 86        |
 | 2020-01-01T18:20:45Z | ok     | 339       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Compared to similar functions
 
@@ -157,6 +170,8 @@ union(
     |> pivot(rowKey: ["_time", "state"], columnKey: ["function"], valueColumn: "value")
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -169,3 +184,5 @@ union(
 | 2020-01-01T16:54:21Z | warn   | 86                 | 46         | 1014             |
 | 2020-01-01T18:20:45Z | ok     | 339                | 86         | 1100             |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

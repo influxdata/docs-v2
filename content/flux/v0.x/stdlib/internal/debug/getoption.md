@@ -39,12 +39,14 @@ debug.getOption = (name: string, pkg: string) => A
 ## Parameters
 
 ### pkg
-
 ({{< req >}})
 Full path of the package.
 
-### name
 
+
+### name
 ({{< req >}})
 Option name.
+
+
 

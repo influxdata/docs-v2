@@ -36,6 +36,9 @@ Import the `influxdata/influxdb/sample` package:
 import "influxdata/influxdb/sample"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

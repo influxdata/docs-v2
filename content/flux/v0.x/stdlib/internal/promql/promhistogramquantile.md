@@ -48,26 +48,31 @@ promql.promHistogramQuantile = (
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 ### quantile
 
-
 Quantile to compute (`[0.0 - 1.0]`).
+
+
 
 ### countColumn
 
-
 Count column name.
+
+
 
 ### upperBoundColumn
 
-
 Upper bound column name.
+
+
 
 ### valueColumn
 
-
 Output value column name.
+
+
 

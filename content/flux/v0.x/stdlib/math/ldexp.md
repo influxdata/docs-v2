@@ -39,18 +39,22 @@ math.ldexp = (exp: int, frac: float) => float
 ## Parameters
 
 ### frac
-
 ({{< req >}})
 Fraction to use in the operation.
 
-### exp
 
+
+### exp
 ({{< req >}})
 Exponent to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the inverse of math.frexp](#return-the-inverse-of-mathfrexp)
+- [Use math.ldexp in map](#use-mathldexp-in-map)
 
 ### Return the inverse of math.frexp
 
@@ -70,6 +74,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, tag: r.tag, _value: math.ldexp(frac: r.frac, exp: r.exp)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -112,3 +119,5 @@ data
 | 2021-01-01T00:00:40Z | 13.86   | t2   |
 | 2021-01-01T00:00:50Z | 1.86    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

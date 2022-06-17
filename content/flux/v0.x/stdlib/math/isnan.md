@@ -39,13 +39,16 @@ math.isNaN = (f: float) => bool
 ## Parameters
 
 ### f
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Check if a value is a NaN float value](#check-if-a-value-is-a-nan-float-value)
+- [Use math.isNaN in map](#use-mathisnan-in-map)
 
 ### Check if a value is a NaN float value
 
@@ -65,6 +68,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.isNaN(f: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +113,5 @@ data
 | 2021-01-01T00:00:40Z | true    | t2   |
 | 2021-01-01T00:00:50Z | false   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

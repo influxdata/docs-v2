@@ -56,16 +56,19 @@ promql.extrapolatedRate = (
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 ### isCounter
 
-
 Data represents a counter.
+
+
 
 ### isRate
 
-
 Data represents a rate.
+
+
 

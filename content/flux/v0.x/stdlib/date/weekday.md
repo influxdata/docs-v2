@@ -41,20 +41,24 @@ date.weekDay = (t: A, ?location: {zone: string, offset: duration}) => int where 
 ## Parameters
 
 ### t
-
 ({{< req >}})
-Time to operate on.Use an absolute time, relative duration, or integer.
+Time to operate on.
+
+Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
 ### location
-
 
 Location used to determine timezone.
 Default is the `location` option.
 
 
+
+
 ## Examples
 
+- [Return the day of the week for a time value](#return-the-day-of-the-week-for-a-time-value)
+- [Return the day of the week for a relative duration](#return-the-day-of-the-week-for-a-relative-duration)
 
 ### Return the day of the week for a time value
 

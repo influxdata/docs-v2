@@ -44,25 +44,27 @@ findColumn = (<-tables: stream[B], column: string, fn: (key: A) => bool) => [C] 
 ## Parameters
 
 ### column
-
 ({{< req >}})
 Column to extract.
 
-### fn
 
+
+### fn
 ({{< req >}})
-Predicate function to evaluate input table group keys.`findColumn()` uses the first table that resolves as `true`.
+Predicate function to evaluate input table group keys.
+
+`findColumn()` uses the first table that resolves as `true`.
 The predicate function requires a `key` argument that represents each input
 table's group key as a record.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Extract a column as an array
 

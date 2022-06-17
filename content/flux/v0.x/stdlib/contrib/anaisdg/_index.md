@@ -8,6 +8,9 @@ menu:
     parent: contrib
     identifier: contrib/anaisdg
 weight: 21
+cascade:
+
+  contributors: ["**GitHub**: [@anaisdg](https://github.com/anaisdg), [@test](#)","**InfluxDB Slack**: [@anais](https://influxdata.com/slack)"]
 ---
 
 <!------------------------------------------------------------------------------
@@ -25,6 +28,9 @@ Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
+
+
+
 
 
 

@@ -45,13 +45,13 @@ testing.benchmark = (case: () => {A with input: B, fn: (<-: B) => C}) => C
 ## Parameters
 
 ### case
-
 ({{< req >}})
 Test case to benchmark.
 
 
-## Examples
 
+
+## Examples
 
 ### Define and benchmark a test case
 

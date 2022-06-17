@@ -46,18 +46,19 @@ keyValues = (<-tables: stream[A], ?keyColumns: [string]) => stream[{B with _valu
 
 ### keyColumns
 
+List of columns from which values are extracted.
 
-List of columns from which values are extracted.All columns must be of the same type.
+All columns must be of the same type.
 Each input table must have all of the columns in the `keyColumns` parameter.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Get key values from explicitly defined columns
 
@@ -65,6 +66,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> keyValues(keyColumns: ["sensorID", "_field"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +111,5 @@ data
 | temperature | airSensors    | TLM0100   | sensorID | TLM0100     |
 | temperature | airSensors    | TLM0100   | _field   | temperature |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

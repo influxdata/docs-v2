@@ -41,30 +41,33 @@ v1.measurementTagKeys = (bucket: string, measurement: A, ?start: B, ?stop: C) =>
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 Bucket to return tag keys from for a specific measurement.
 
-### measurement
 
+
+### measurement
 ({{< req >}})
 Measurement to return tag keys from.
 
-### start
 
+
+### start
 
 Oldest time to include in results. Default is `-30d`.
 
+
+
 ### stop
 
-
 Newest time include in results.
-  The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
-  Default is `now()`.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+
 
 
 ## Examples
-
 
 ### Query tag keys from an InfluxDB measurement
 

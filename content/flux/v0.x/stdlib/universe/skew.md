@@ -42,17 +42,18 @@ skew = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: R
 
 ### column
 
-
 Column to operate on. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the skew of values
 
@@ -62,6 +63,9 @@ import "sampledata"
 sampledata.int()
     |> skew()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +98,5 @@ sampledata.int()
 | ---- | -------------------- |
 | t2   | -0.01972080701262574 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -55,18 +55,19 @@ tripleEMA = (<-tables: stream[{A with _value: B}], n: int) => stream[C] where B:
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of points to use in the calculation.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate a three point triple exponential moving average
 
@@ -76,6 +77,9 @@ import "sampledata"
 sampledata.int()
     |> tripleEMA(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +112,5 @@ sampledata.int()
 | -------------------- | ------------------ | ---- |
 | 2021-01-01T00:00:50Z | 4.0729166666666625 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

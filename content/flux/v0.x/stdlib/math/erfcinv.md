@@ -39,14 +39,17 @@ math.erfcinv = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
-Value to operate on.`x` should be greater than 0 and less than 2. Otherwise the operation
+Value to operate on.
+
+`x` should be greater than 0 and less than 2. Otherwise the operation
 will return `NaN`.
 
 
 ## Examples
 
+- [Return the inverse complimentary error function](#return-the-inverse-complimentary-error-function)
+- [Use math.erfcinv in map](#use-matherfcinv-in-map)
 
 ### Return the inverse complimentary error function
 
@@ -66,6 +69,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.erfcinv(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ data
 | 2021-01-01T00:00:40Z | +Inf                | t2   |
 | 2021-01-01T00:00:50Z | 1.860000000000001   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -50,13 +50,16 @@ int = (v: A) => int
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert.
 
 
+
+
 ## Examples
 
+- [Convert basic types to integers](#convert-basic-types-to-integers)
+- [Convert all values in a column to integers](#convert-all-values-in-a-column-to-integers)
 
 ### Convert basic types to integers
 
@@ -88,6 +91,9 @@ row and `int()` to covert a column value to a integer type.
 data
     |> map(fn: (r) => ({r with exampleCol: int(v: r.exampleCol)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -130,3 +136,5 @@ data
 | 2021-01-01T00:00:40Z | 13          | t2   |
 | 2021-01-01T00:00:50Z | 1           | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

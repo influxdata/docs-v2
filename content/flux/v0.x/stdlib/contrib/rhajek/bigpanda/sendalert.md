@@ -46,38 +46,42 @@ bigpanda.sendAlert = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
 Default is the value of the `bigpanda.defaultURL` option.
 
-### token
 
+
+### token
 ({{< req >}})
 BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
 
-### appKey
 
+
+### appKey
 ({{< req >}})
 BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
 
-### status
 
+
+### status
 ({{< req >}})
-BigPanda [alert status](https://docs.bigpanda.io/reference#alerts).Supported statuses:
+BigPanda [alert status](https://docs.bigpanda.io/reference#alerts).
+
+Supported statuses:
 - `ok`
 - `critical`
 - `warning`
 - `acknowledged`
 
 ### rec
-
 ({{< req >}})
 Additional [alert parameters](https://docs.bigpanda.io/reference#alert-object) to send to the BigPanda alert API.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported value and status to BigPanda
 

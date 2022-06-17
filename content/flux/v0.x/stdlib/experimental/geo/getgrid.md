@@ -47,33 +47,39 @@ geo.getGrid = (
 ## Parameters
 
 ### region
-
 ({{< req >}})
 Region used to return S2 cell ID tokens.
 Specify record properties for the region shape.
 
+
+
 ### minSize
 
-
 Minimum number of cells that cover the specified region.
+
+
 
 ### maxSize
 
-
 Minimum number of cells that cover the specified region.
+
+
 
 ### level
 
-
 S2 cell level of grid cells.
+
+
 
 ### maxLevel
 
-
 Maximumn S2 cell level of grid cells.
 
-### units
 
+
+### units
 ({{< req >}})
 Record that defines the unit of measurement for distance.
+
+
 

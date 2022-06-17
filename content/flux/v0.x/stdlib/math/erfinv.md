@@ -39,14 +39,17 @@ math.erfinv = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
-Value to operate on.`x` should be greater than -1 and less than 1. Otherwise, the operation will
+Value to operate on.
+
+`x` should be greater than -1 and less than 1. Otherwise, the operation will
 return `NaN`.
 
 
 ## Examples
 
+- [Return the inverse error function of a value](#return-the-inverse-error-function-of-a-value)
+- [Use math.erfinv in map](#use-matherfinv-in-map)
 
 ### Return the inverse error function of a value
 
@@ -66,6 +69,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.erfinv(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ data
 | 2021-01-01T00:00:40Z | +Inf                | t2   |
 | 2021-01-01T00:00:50Z | 1.860000000000001   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

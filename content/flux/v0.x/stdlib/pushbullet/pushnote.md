@@ -41,27 +41,30 @@ pushbullet.pushNote = (text: A, title: B, ?token: C, ?url: string) => int
 
 ### url
 
-
 URL of the PushBullet endpoint. Default is `"https://api.pushbullet.com/v2/pushes"`.
+
+
 
 ### token
 
-
 API token string.  Defaults to: `""`.
 
-### title
 
+
+### title
 ({{< req >}})
 Title of the notification.
 
-### text
 
+
+### text
 ({{< req >}})
 Text to display in the notification.
 
 
-## Examples
 
+
+## Examples
 
 ### Send a push notification note to Pushbullet
 

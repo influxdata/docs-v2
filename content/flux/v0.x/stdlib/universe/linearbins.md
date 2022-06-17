@@ -41,28 +41,31 @@ linearBins = (count: int, start: float, width: float, ?infinity: bool) => [float
 ## Parameters
 
 ### start
-
 ({{< req >}})
 First value to return in the list.
 
-### width
 
+
+### width
 ({{< req >}})
 Distance between subsequent values.
 
-### count
 
+
+### count
 ({{< req >}})
 Number of values to return.
 
-### infinity
 
+
+### infinity
 
 Include an infinite value at the end of the list. Default is `true`.
 
 
-## Examples
 
+
+## Examples
 
 ### Generate a list of linearly increasing values
 

@@ -40,13 +40,13 @@ sampledata.numericBool = (?includeNull: bool) => stream[{A with _value: B, _valu
 
 ### includeNull
 
-
 Include null values in the returned dataset.
 Default is `false`.
 
 
-## Examples
 
+
+## Examples
 
 ### Output basic sample data with numeric boolean values
 
@@ -56,6 +56,8 @@ import "sampledata"
 sampledata.numericBool()
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -77,3 +79,5 @@ sampledata.numericBool()
 | 2021-01-01T00:00:40Z | 1       | t2   |
 | 2021-01-01T00:00:50Z | 0       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

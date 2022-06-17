@@ -39,18 +39,22 @@ regexp.matchRegexpString = (r: regexp, v: string) => bool
 ## Parameters
 
 ### r
-
 ({{< req >}})
 Regular expression used to search `v`.
 
-### v
 
+
+### v
 ({{< req >}})
 String value to search.
 
 
+
+
 ## Examples
 
+- [Test if a string contains a regular expression match](#test-if-a-string-contains-a-regular-expression-match)
+- [Filter by rows that contain matches to a regular expression](#filter-by-rows-that-contain-matches-to-a-regular-expression)
 
 ### Test if a string contains a regular expression match
 

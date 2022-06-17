@@ -41,19 +41,20 @@ dict.remove = (dict: [A:B], key: A) => [A:B] where A: Comparable
 ## Parameters
 
 ### dict
-
 ({{< req >}})
 Dictionary to remove the key-value pair from.
 
-### key
 
+
+### key
 ({{< req >}})
 Key to remove from the dictionary.
 Must be the same type as existing keys in the dictionary.
 
 
-## Examples
 
+
+## Examples
 
 ### Remove a property from a dictionary
 

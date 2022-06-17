@@ -44,18 +44,19 @@ strings.compare = (t: string, v: string) => int
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to compare.
 
-### t
 
+
+### t
 ({{< req >}})
 String value to compare against.
 
 
-## Examples
 
+
+## Examples
 
 ### Compare the lexicographical order of column values
 
@@ -65,6 +66,9 @@ import "strings"
 data
     |> map(fn: (r) => ({r with same: strings.compare(v: r.string1, t: r.string2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -87,3 +91,5 @@ data
 | -1    | HyXdjvrjgp | hyxDJvrJGP | 2022-01-01T00:03:00Z |
 | 1     | SVepvUBAVx | GuKKjuGsyI | 2022-01-01T00:04:00Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

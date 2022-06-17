@@ -48,30 +48,33 @@ geo.groupByArea = (
 ## Parameters
 
 ### newColumn
-
 ({{< req >}})
 Name of the new column for the unique identifier for each geographic area.
 
-### level
 
+
+### level
 ({{< req >}})
 [S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html)
 used to determine the size of each geographic area.
 
-### s2cellIDLevel
 
+
+### s2cellIDLevel
 
 [S2 Cell level](https://s2geometry.io/resources/s2cell_statistics.html)
 used in the `s2_cell_id` tag. Default is `-1` (detects S2 cell level from the `s2_cell_id` tag).
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Group geotemporal data by geographic area
 
@@ -81,6 +84,9 @@ import "experimental/geo"
 data
     |> geo.groupByArea(newColumn: "foo", level: 4)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ data
 | 89f  | 2021-01-01T00:00:00Z | a213b | 41.01433 | -70.7515 | 89e4        |
 | 89f  | 2021-01-02T01:00:00Z | a213b | 40.9228  | -73.3527 | 89ec        |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

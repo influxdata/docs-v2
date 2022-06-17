@@ -53,12 +53,12 @@ experimental.mode = (<-tables: stream[{A with _value: B}]) => stream[{A with _va
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Compute the mode of input tables
 
@@ -69,6 +69,9 @@ import "sampledata"
 sampledata.int()
     |> experimental.mode()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -101,3 +104,5 @@ sampledata.int()
 | ---- | ------- |
 | t2   | 19      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

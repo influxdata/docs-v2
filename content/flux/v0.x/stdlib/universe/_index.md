@@ -34,18 +34,20 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 The `universe` package provides options and primitive functions that are
 loaded into the Flux runtime by default and do not require an
 import statement.
+
 ## Constants
 
 ```js
 inf // inf represents an infinte float value.
 ```
+
 ## Options
 
 ```js
 option now = system.time
 ```
  
- ### now
+### now
 
 `now` is a function option that, by default, returns the current system time.
 

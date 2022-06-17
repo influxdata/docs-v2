@@ -42,23 +42,25 @@ duplicate = (<-tables: stream[A], as: string, column: string) => stream[B] where
 ## Parameters
 
 ### column
-
 ({{< req >}})
 Column to duplicate.
 
-### as
 
+
+### as
 ({{< req >}})
-Name to assign to the duplicate column.If the `as` column already exists, it will be overwritten by the duplicated column.
+Name to assign to the duplicate column.
+
+If the `as` column already exists, it will be overwritten by the duplicated column.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Duplicate a column
 
@@ -68,6 +70,9 @@ import "sampledata"
 sampledata.int()
     |> duplicate(column: "tag", as: "tag_dup")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,3 +115,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   | t2       |
 | 2021-01-01T00:00:50Z | 1       | t2   | t2       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

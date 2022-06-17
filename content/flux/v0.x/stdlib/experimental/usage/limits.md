@@ -58,24 +58,31 @@ usage.limits = (?host: string, ?orgID: string, ?token: string) => A
 
 ### host
 
-
 [InfluxDB Cloud region URL](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
-Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+Default is `""`.
+
+_(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 ### orgID
 
+InfluxDB Cloud organization ID. Default is `""`.
 
-InfluxDB Cloud organization ID. Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+_(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 ### token
 
-
 InfluxDB Cloud [API token](https://docs.influxdata.com/influxdb/cloud/security/tokens/).
-Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+Default is `""`.
+
+_(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 
 ## Examples
 
+- [Get rate limits for your InfluxDB Cloud organization](#get-rate-limits-for-your-influxdb-cloud-organization)
+- [Get rate limits for a different InfluxDB Cloud organization](#get-rate-limits-for-a-different-influxdb-cloud-organization)
+- [Output organization limits in a table](#output-organization-limits-in-a-table)
+- [Output current cardinality with your cardinality limit](#output-current-cardinality-with-your-cardinality-limit)
 
 ### Get rate limits for your InfluxDB Cloud organization
 

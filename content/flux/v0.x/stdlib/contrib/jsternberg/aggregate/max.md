@@ -49,11 +49,13 @@ aggregate.max = (
 
 ### column
 
-
 Name of the column to aggregate.
+
+
 
 ### fill
 
-
 When set, value to replace missing values.
+
+
 

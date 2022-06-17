@@ -44,17 +44,18 @@ array.map = (<-arr: [A], fn: (x: A) => B) => [B]
 
 ### arr
 
-
 Array to operate on. Defaults is the piped-forward array (`<-`).
 
-### fn
 
+
+### fn
 ({{< req >}})
 Function to apply to elements. The element is represented by `x` in the function.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert an array of integers to an array of records
 
@@ -75,6 +76,8 @@ b = a |> array.map(fn: (x) => ({_value: x}))
 array.from(rows: b)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -86,3 +89,5 @@ array.from(rows: b)
 | 4       |
 | 5       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

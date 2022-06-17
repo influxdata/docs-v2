@@ -50,61 +50,69 @@ kafka.to = (
 ## Parameters
 
 ### brokers
-
 ({{< req >}})
 List of Kafka brokers to send data to.
 
-### topic
 
+
+### topic
 ({{< req >}})
 Kafka topic to send data to.
 
+
+
 ### balancer
 
+Kafka load balancing strategy. Default is `hash`.
 
-Kafka load balancing strategy. Default is `hash`.The load balancing strategy determines how messages are routed to partitions
-  available on a Kafka cluster. The following strategies are available:
-   - **hash**: Uses a hash of the group key to determine which Kafka
-    partition to route messages to. This ensures that messages generated from
-    rows in the table are routed to the same partition.
-  - **round-robin**: Equally distributes messages across all available partitions.
-  - **least-bytes**: Routes messages to the partition that has received the
-    least amount of data.
+The load balancing strategy determines how messages are routed to partitions
+available on a Kafka cluster. The following strategies are available:
+- **hash**: Uses a hash of the group key to determine which Kafka
+partition to route messages to. This ensures that messages generated from
+rows in the table are routed to the same partition.
+- **round-robin**: Equally distributes messages across all available partitions.
+- **least-bytes**: Routes messages to the partition that has received the
+least amount of data.
 
 ### name
 
-
 Kafka metric name. Default is the value of the `nameColumn`.
 
-### nameColumn
 
+
+### nameColumn
 
 Column to use as the Kafka metric name.
 Default is `_measurement`.
 
-### timeColumn
 
+
+### timeColumn
 
 Time column. Default is `_time`.
 
-### tagColumns
 
+
+### tagColumns
 
 List of tag columns in input data.
 
-### valueColumns
 
+
+### valueColumns
 
 List of value columns in input data. Default is `["_value"]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Send data to Kafka
 

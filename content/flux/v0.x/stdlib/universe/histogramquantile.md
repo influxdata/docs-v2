@@ -67,40 +67,45 @@ histogramQuantile = (
 
 ### quantile
 
-
 Quantile to compute. Value must be between 0 and 1.
+
+
 
 ### countColumn
 
-
 Column containing histogram bin counts. Default is `_value`.
 
-### upperBoundColumn
 
+
+### upperBoundColumn
 
 Column containing histogram bin upper bounds.
 Default is `le`.
 
-### valueColumn
 
+
+### valueColumn
 
 Column to store the computed quantile in. Default is `_value.
 
+
+
 ### minValue
 
+Assumed minimum value of the dataset. Default is `0.0`.
 
-Assumed minimum value of the dataset. Default is `0.0`.If the quantile falls below the lowest upper bound, interpolation is
+If the quantile falls below the lowest upper bound, interpolation is
 performed between `minValue` and the lowest upper bound.
 When `minValue` is equal to negative infinity, the lowest upper bound is used.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Compute the 90th quantile of a histogram
 
@@ -108,6 +113,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> histogramQuantile(quantile: 0.9)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -136,3 +144,5 @@ data
 | ---- | ------- |
 | t2   | 18      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -67,39 +67,44 @@ oee.computeAPQ = (
 ## Parameters
 
 ### productionEvents
-
 ({{< req >}})
 Production events stream that contains the production
-state or start and stop events.Each row must contain the following columns:
-   - **_stop**: Right time boundary timestamp (typically assigned by `range()` or `window()`).
-  - **_time**: Timestamp of the production event.
-  - **state**: String that represents start or stop events or the production state.
-   Use [`runningState`](#runningstate) to specify which value in the `state`
-  column represents a running state.
+state or start and stop events.
+
+Each row must contain the following columns:
+- **_stop**: Right time boundary timestamp (typically assigned by `range()` or `window()`).
+- **_time**: Timestamp of the production event.
+- **state**: String that represents start or stop events or the production state.
+Use [`runningState`](#runningstate) to specify which value in the `state`
+column represents a running state.
 
 ### partEvents
-
 ({{< req >}})
 Part events that contains the running totals of parts produced and
-  parts that do not meet quality standards.Each row must contain the following columns:
-   - **_stop**: Right time boundary timestamp (typically assigned by
-  `range()` or `window()`).
-  - **_time**: Timestamp of the parts event.
-  - **partCount:** Cumulative total of parts produced.
-  - **badCount** Cumulative total of parts that do not meet quality standards.
+parts that do not meet quality standards.
+
+Each row must contain the following columns:
+- **_stop**: Right time boundary timestamp (typically assigned by
+`range()` or `window()`).
+- **_time**: Timestamp of the parts event.
+- **partCount:** Cumulative total of parts produced.
+- **badCount** Cumulative total of parts that do not meet quality standards.
 
 ### runningState
-
 ({{< req >}})
 State value that represents a running state.
 
-### plannedTime
 
+
+### plannedTime
 ({{< req >}})
 Total time that equipment is expected to produce parts.
 
-### idealCycleTime
 
+
+### idealCycleTime
 ({{< req >}})
 Ideal minimum time to produce one part.
+
+
 

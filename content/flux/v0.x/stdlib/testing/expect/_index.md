@@ -36,9 +36,12 @@ Import the `testing/expect` package:
 ```js
 import "testing/expect"
 ```
+
 These functions are intended to be called at the
 beginning of a testcase, but it doesn't really
 matter when they get invoked within the testcase.
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

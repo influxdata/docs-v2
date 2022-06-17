@@ -43,28 +43,31 @@ highestCurrent = (<-tables: stream[A], n: int, ?column: string, ?groupColumns: [
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of records to return.
 
-### column
 
+
+### column
 
 Column to evaluate. Default is `_value`.
 
-### groupColumns
 
+
+### groupColumns
 
 List of columns to group by. Default is `[]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the highest current value from a stream of tables
 
@@ -74,6 +77,9 @@ import "sampledata"
 sampledata.int()
     |> highestCurrent(n: 1, groupColumns: ["tag"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -102,3 +108,5 @@ sampledata.int()
 | -------------------- | ------- | ---- |
 | 2021-01-01T00:00:50Z | 4       | t1   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -53,17 +53,18 @@ count = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: 
 
 ### column
 
-
 Column to count values in and store the total count.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-wforward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Count the number of rows in each input table
 

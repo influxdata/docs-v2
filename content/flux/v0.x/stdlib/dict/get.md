@@ -41,24 +41,26 @@ dict.get = (default: A, dict: [B:A], key: B) => A where B: Comparable
 ## Parameters
 
 ### dict
-
 ({{< req >}})
 Dictionary to return a value from.
 
-### key
 
+
+### key
 ({{< req >}})
 Key to return from the dictionary.
 
-### default
 
+
+### default
 ({{< req >}})
 Default value to return if the key does not exist in the
 dictionary. Must be the same type as values in the dictionary.
 
 
-## Examples
 
+
+## Examples
 
 ### Return a property of a dictionary
 

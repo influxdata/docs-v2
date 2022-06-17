@@ -44,6 +44,7 @@ debug.unpivot = (<-tables: stream[{A with _time: time}]) => stream[{B with _valu
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 

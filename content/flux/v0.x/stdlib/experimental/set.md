@@ -42,19 +42,20 @@ experimental.set = (<-tables: stream[B], o: A) => stream[C] where A: Record, B: 
 ## Parameters
 
 ### o
-
 ({{< req >}})
-Record that defines the columns and values to set.The key of each key-value pair defines the column name.
+Record that defines the columns and values to set.
+
+The key of each key-value pair defines the column name.
 The value of each key-value pair defines the column value.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Set values for multiple columns
 
@@ -64,6 +65,9 @@ import "experimental"
 data
     |> experimental.set(o: {_field: "temperature", unit: "°F", location: "San Francisco"})
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -82,3 +86,5 @@ data
 | 2019-09-17T12:00:00Z | temperature | 68.4    | °F    | San Francisco |
 | 2019-09-18T12:00:00Z | temperature | 70.8    | °F    | San Francisco |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

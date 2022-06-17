@@ -49,33 +49,37 @@ webexteams.message = (
 
 ### url
 
-
 Base URL of Webex API endpoint (without a trailing slash).
 Default is `https://webexapis.com`.
 
-### token
 
+
+### token
 ({{< req >}})
 [Webex API access token](https://developer.webex.com/docs/api/getting-started).
 
-### roomId
 
+
+### roomId
 ({{< req >}})
 Room ID to send the message to.
 
-### text
 
+
+### text
 ({{< req >}})
 Plain text message.
 
-### markdown
 
+
+### markdown
 ({{< req >}})
 [Markdown formatted message](https://developer.webex.com/docs/api/basics#formatting-messages).
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported status to Webex Teams
 

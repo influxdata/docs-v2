@@ -40,13 +40,13 @@ pagerduty.actionFromSeverity = (severity: string) => string
 ## Parameters
 
 ### severity
-
 ({{< req >}})
 Severity to convert to a PagerDuty action.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a severity to a PagerDuty action
 

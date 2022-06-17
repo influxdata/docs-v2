@@ -39,13 +39,13 @@ slack.validateColorString = (color: string) => string
 ## Parameters
 
 ### color
-
 ({{< req >}})
 Hex color code.
 
 
-## Examples
 
+
+## Examples
 
 ### Validate a hex color code string
 

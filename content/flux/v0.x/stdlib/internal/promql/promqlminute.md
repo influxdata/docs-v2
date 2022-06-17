@@ -41,7 +41,8 @@ promql.promqlMinute = (timestamp: float) => float
 ## Parameters
 
 ### timestamp
-
 ({{< req >}})
 Time as a floating point value.
+
+
 

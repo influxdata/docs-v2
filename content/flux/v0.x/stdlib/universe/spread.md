@@ -44,17 +44,18 @@ spread = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B:
 
 ### column
 
-
 Column to operate on. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the spread of values
 
@@ -64,6 +65,9 @@ import "sampledata"
 sampledata.int()
     |> spread()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -96,3 +100,5 @@ sampledata.int()
 | ---- | ------- |
 | t2   | 22      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

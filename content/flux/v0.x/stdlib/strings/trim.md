@@ -39,18 +39,19 @@ strings.trim = (cutset: string, v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String to remove characters from.
 
-### cutset
 
+
+### cutset
 ({{< req >}})
-Leading and trailing characters to remove from the string.Only characters that match the cutset string exactly are trimmed.
+Leading and trailing characters to remove from the string.
+
+Only characters that match the cutset string exactly are trimmed.
 
 
 ## Examples
-
 
 ### Trim leading and trailing periods from all values in a column
 
@@ -60,6 +61,9 @@ import "strings"
 data
     |> map(fn: (r) => ({r with _value: strings.trim(v: r._value, cutset: "smpl_")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -102,3 +106,5 @@ data
 | 2021-01-01T00:00:40Z | .smpl_wfm757. | t2   |
 | 2021-01-01T00:00:50Z | .smpl_dtn2bv. | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

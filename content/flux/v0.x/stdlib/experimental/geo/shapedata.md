@@ -50,23 +50,27 @@ geo.shapeData = (
 ## Parameters
 
 ### latField
-
 ({{< req >}})
-Name of the existing field that contains the latitude value in decimal degrees (WGS 84).Field is renamed to `lat`.
+Name of the existing field that contains the latitude value in decimal degrees (WGS 84).
+
+Field is renamed to `lat`.
 
 ### lonField
-
 ({{< req >}})
-Name of the existing field that contains the longitude value in decimal degrees (WGS 84).Field is renamed to `lon`.
+Name of the existing field that contains the longitude value in decimal degrees (WGS 84).
+
+Field is renamed to `lon`.
 
 ### level
-
 ({{< req >}})
 [S2 cell level](https://s2geometry.io/resources/s2cell_statistics.html)
 to use when generating the S2 cell ID token.
 
+
+
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 

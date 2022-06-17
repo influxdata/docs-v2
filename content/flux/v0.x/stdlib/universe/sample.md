@@ -41,29 +41,32 @@ sample = (<-tables: stream[A], n: int, ?column: string, ?pos: int) => stream[A] 
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Sample every Nth element.
 
+
+
 ### pos
 
-
 Position offset from the start of results where sampling begins.
-Default is -1 (random offset).`pos` must be less than `n`. If pos is less than 0, a random offset is used.
+Default is -1 (random offset).
+
+`pos` must be less than `n`. If pos is less than 0, a random offset is used.
 
 ### column
 
-
 Column to operate on.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Sample every other result
 
@@ -73,6 +76,9 @@ import "sampledata"
 sampledata.int()
     |> sample(n: 2, pos: 1)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -109,3 +115,5 @@ sampledata.int()
 | 2021-01-01T00:00:30Z | 19      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -43,27 +43,34 @@ csv.from = (?csv: string, ?file: string, ?mode: string) => stream[A] where A: Re
 
 ### csv
 
+CSV data.
 
-CSV data.Supports anonotated CSV or raw CSV. Use `mode` to specify the parsing mode.
+Supports anonotated CSV or raw CSV. Use `mode` to specify the parsing mode.
 
 ### file
 
+File path of the CSV file to query.
 
-File path of the CSV file to query.The path can be absolute or relative.
+The path can be absolute or relative.
 If relative, it is relative to the working directory of the `fluxd` process.
 The CSV file must exist in the same file system running the `fluxd` process.
 
 ### mode
 
+is the CSV parsing mode. Default is `annotations`.
 
-is the CSV parsing mode. Default is `annotations`.**Available annotation modes**
-   - **annotations**: Use CSV notations to determine column data types.
-  - **raw**: Parse all columns as strings and use the first row as the
-    header row and all subsequent rows as data.
+**Available annotation modes**
+- **annotations**: Use CSV notations to determine column data types.
+- **raw**: Parse all columns as strings and use the first row as the
+header row and all subsequent rows as data.
 
 
 ## Examples
 
+- [Query anotated CSV data from file](#query-anotated-csv-data-from-file)
+- [Query raw data from CSV file](#query-raw-data-from-csv-file)
+- [Query an annotated CSV string](#query-an-annotated-csv-string)
+- [Query a raw CSV string](#query-a-raw-csv-string)
 
 ### Query anotated CSV data from file
 
@@ -105,6 +112,8 @@ csvData =
 csv.from(csv: csvData)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -123,6 +132,8 @@ csv.from(csv: csvData)
 | 2018-05-08T20:50:00Z | 2018-05-08T20:51:00Z | 2018-05-08T20:50:40Z | east    | C     | 52.62   |
 | 2018-05-08T20:50:00Z | 2018-05-08T20:51:00Z | 2018-05-08T20:51:40Z | east    | C     | 82.16   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Query a raw CSV string
 
@@ -140,6 +151,8 @@ _start,_stop,_time,region,host,_value
 csv.from(csv: csvData, mode: "raw")
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -149,3 +162,5 @@ csv.from(csv: csvData, mode: "raw")
 | 2018-05-08T20:50:00Z | 2018-05-08T20:51:00Z | 2018-05-08T20:50:20Z | east    | B     | 59.25   |
 | 2018-05-08T20:50:00Z | 2018-05-08T20:51:00Z | 2018-05-08T20:50:40Z | east    | C     | 52.62   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

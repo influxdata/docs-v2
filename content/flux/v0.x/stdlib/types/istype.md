@@ -40,27 +40,31 @@ types.isType = (type: string, v: A) => bool where A: Basic
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to test.
 
-### type
 
+
+### type
 ({{< req >}})
-String describing the type to check against.**Supported types**:
-  - string
-  - bytes
-  - int
-  - uint
-  - float
-  - bool
-  - time
-  - duration
-  - regexp
+String describing the type to check against.
+
+**Supported types**:
+- string
+- bytes
+- int
+- uint
+- float
+- bool
+- time
+- duration
+- regexp
 
 
 ## Examples
 
+- [Filter by value type](#filter-by-value-type)
+- [Aggregate or select data based on type](#aggregate-or-select-data-based-on-type)
 
 ### Filter by value type
 
@@ -70,6 +74,9 @@ import "types"
 data
     |> filter(fn: (r) => types.isType(v: r._value, type: "string"))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -97,6 +104,8 @@ data
 | 2022-01-01T00:01:00Z | bar     | jHvuDw35 |
 | 2022-01-01T00:02:00Z | bar     | HE5uCIC2 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Aggregate or select data based on type
 
@@ -115,6 +124,9 @@ numericData =
 
 union(tables: [nonNumericData, numericData])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -192,3 +204,5 @@ union(tables: [nonNumericData, numericData])
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | string | smpl_phw664 |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | string | smpl_s9fmgy |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

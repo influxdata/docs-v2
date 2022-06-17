@@ -41,20 +41,24 @@ date.week = (t: A, ?location: {zone: string, offset: duration}) => int where A: 
 ## Parameters
 
 ### t
-
 ({{< req >}})
-Time to operate on.Use an absolute time, relative duration, or integer.
+Time to operate on.
+
+Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
 ### location
-
 
 Location used to determine timezone.
 Default is the `location` option.
 
 
+
+
 ## Examples
 
+- [Return the week of the year](#return-the-week-of-the-year)
+- [Return the week of the year using a relative duration](#return-the-week-of-the-year-using-a-relative-duration)
 
 ### Return the week of the year
 

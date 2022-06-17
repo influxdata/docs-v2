@@ -43,28 +43,31 @@ highestMax = (<-tables: stream[A], n: int, ?column: string, ?groupColumns: [stri
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of records to return.
 
-### column
 
+
+### column
 
 Column to evaluate. Default is `_value`.
 
-### groupColumns
 
+
+### groupColumns
 
 List of columns to group by. Default is `[]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the highest two values from a stream of tables
 
@@ -74,6 +77,9 @@ import "sampledata"
 sampledata.int()
     |> highestMax(n: 2, groupColumns: ["tag"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -103,3 +109,5 @@ sampledata.int()
 | 2021-01-01T00:00:00Z | 19      | t2   |
 | 2021-01-01T00:00:30Z | 17      | t1   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

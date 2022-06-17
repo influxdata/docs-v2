@@ -45,12 +45,14 @@ webexteams.endpoint = (
 
 ### url
 
-
 Base URL of Webex API endpoint (without a trailing slash).
 Default is `https://webexapis.com`.
 
-### token
 
+
+### token
 ({{< req >}})
 [Webex API access token](https://developer.webex.com/docs/api/getting-started).
+
+
 

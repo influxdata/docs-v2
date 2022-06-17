@@ -35,6 +35,7 @@ Import the `math` package:
 ```js
 import "math"
 ```
+
 ## Constants
 
 ```js
@@ -55,6 +56,8 @@ math.builtin sqrte // sqrte represents the square root of **e** (`math.e`).
 math.builtin sqrtphi // sqrtphi represents the square root of phi (`math.phi`), the Golden Ratio.
 math.builtin sqrtpi // sqrtpi represents the square root of pi (π).
 ```
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

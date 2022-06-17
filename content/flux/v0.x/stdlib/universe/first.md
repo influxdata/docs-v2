@@ -42,17 +42,18 @@ first = (<-tables: stream[A], ?column: string) => stream[A] where A: Record
 
 ### column
 
-
 Column to operate on. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the first row in each input table
 
@@ -62,6 +63,9 @@ import "sampledata"
 sampledata.int()
     |> first()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +98,5 @@ sampledata.int()
 | -------------------- | ------- | ---- |
 | 2021-01-01T00:00:00Z | 19      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

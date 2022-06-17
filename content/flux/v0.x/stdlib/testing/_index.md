@@ -36,13 +36,15 @@ Import the `testing` package:
 import "testing"
 ```
 
+
+
 ## Options
 
 ```js
 option testing.load = (tables=<-) => tables
 ```
  
- ### load
+### load
 
 `load` loads test data from a stream of tables.
 

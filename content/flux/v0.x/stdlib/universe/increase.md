@@ -45,17 +45,18 @@ increase = (<-tables: stream[A], ?columns: [string]) => stream[B] where A: Recor
 
 ### columns
 
-
 List of columns to operate on. Default is `["_value"]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Normalize resets in counter metrics
 
@@ -65,6 +66,9 @@ import "sampledata"
 sampledata.int()
     |> increase()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +111,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 39      | t2   |
 | 2021-01-01T00:00:50Z | 40      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

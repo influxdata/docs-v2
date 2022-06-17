@@ -41,19 +41,22 @@ promql.join = (fn: (left: A, right: B) => C, left: stream[A], right: stream[B]) 
 ## Parameters
 
 ### left
-
 ({{< req >}})
 First of two streams of tables to join.
 
-### right
 
+
+### right
 ({{< req >}})
 Second of two streams of tables to join.
 
-### fn
 
+
+### fn
 ({{< req >}})
 Function with left and right arguments that maps a new output record
 using values from the `left` and `right` input records.
 The return value must be a record.
+
+
 

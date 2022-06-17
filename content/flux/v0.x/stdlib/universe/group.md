@@ -43,26 +43,32 @@ group = (<-tables: stream[A], ?columns: [string], ?mode: string) => stream[A] wh
 
 ### columns
 
+List of columns to use in the grouping operation. Default is `[]`.
 
-List of columns to use in the grouping operation. Default is `[]`.**Note**: When `columns` is set to an empty array, `group()` ungroups
+**Note**: When `columns` is set to an empty array, `group()` ungroups
 all data merges it into a single output table.
 
 ### mode
 
+Grouping mode. Default is `by`.
 
-Grouping mode. Default is `by`.**Avaliable modes**:
+**Avaliable modes**:
 - **by**: Group by columns defined in the `columns` parameter.
 - **except**: Group by all columns _except_ those in defined in the
-  `columns` parameter.
+`columns` parameter.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Group by specific columns](#group-by-specific-columns)
+- [Group by everything except time](#group-by-everything-except-time)
+- [Ungroup data](#ungroup-data)
 
 ### Group by specific columns
 
@@ -73,6 +79,9 @@ sampledata.int()
     |> group(columns: ["_time", "tag"])
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | _value  | *tag |
@@ -144,6 +153,8 @@ sampledata.int()
 | -------------------- | ------- | ---- |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Group by everything except time
 
@@ -154,6 +165,9 @@ sampledata.int()
     |> group(columns: ["_time"], mode: "except")
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | _value  | *tag |
@@ -222,6 +236,8 @@ sampledata.int()
 | 2021-01-01T00:00:00Z | 19      | t2   |
 | 2021-01-01T00:00:30Z | 19      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Ungroup data
 
@@ -232,6 +248,9 @@ import "sampledata"
 sampledata.int()
     |> group()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -271,3 +290,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -44,27 +44,30 @@ elapsed = (<-tables: stream[A], ?columnName: string, ?timeColumn: string, ?unit:
 
 ### unit
 
-
 Unit of time used in the calculation. Default is `1s`.
+
+
 
 ### timeColumn
 
-
 Column to use to compute the elapsed time. Default is `_time`.
+
+
 
 ### columnName
 
-
 Column to store elapsed times in. Default is `elapsed`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate the time between points in seconds
 
@@ -74,6 +77,9 @@ import "sampledata"
 sampledata.int()
     |> elapsed(unit: 1s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -114,3 +120,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   | 10       |
 | 2021-01-01T00:00:50Z | 1       | t2   | 10       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -40,13 +40,13 @@ hex.int = (v: string) => int
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String to convert.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert hexadecimal string to integer
 

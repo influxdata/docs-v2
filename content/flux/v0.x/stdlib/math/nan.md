@@ -39,7 +39,6 @@ math.NaN = () => float
 
 ## Examples
 
-
 ### Return a NaN value
 
 ```js

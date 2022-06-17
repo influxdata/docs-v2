@@ -58,27 +58,30 @@ v1.databases = (
 
 ### org
 
-
 Organization name.
+
+
 
 ### orgID
 
-
 Organization ID.
+
+
 
 ### host
 
-
 InfluxDB URL. Default is `http://localhost:8086`.
 
-### token
 
+
+### token
 
 InfluxDB API token.
 
 
-## Examples
 
+
+## Examples
 
 ### List databases from an InfluxDB instance
 

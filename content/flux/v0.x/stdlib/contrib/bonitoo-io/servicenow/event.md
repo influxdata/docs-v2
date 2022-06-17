@@ -54,29 +54,34 @@ servicenow.event = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 ServiceNow web service URL.
 
-### username
 
+
+### username
 ({{< req >}})
 ServiceNow username to use for HTTP BASIC authentication.
 
-### password
 
+
+### password
 ({{< req >}})
 ServiceNow password to use for HTTP BASIC authentication.
 
-### description
 
+
+### description
 ({{< req >}})
 Event description.
 
-### severity
 
+
+### severity
 ({{< req >}})
-Severity of the event.Supported values:
+Severity of the event.
+
+Supported values:
 - `critical`
 - `major`
 - `minor`
@@ -86,48 +91,54 @@ Severity of the event.Supported values:
 
 ### source
 
-
 Source name. Default is `"Flux"`.
 
-### node
 
+
+### node
 
 Node name or IP address related to the event.
 Default is an empty string (`""`).
 
-### metricType
 
+
+### metricType
 
 Metric type related to the event (for example, `CPU`).
 Default is an empty string (`""`).
 
-### resource
 
+
+### resource
 
 Resource related to the event (for example, `CPU-1`).
 Default is an empty string (`""`).
 
-### metricName
 
+
+### metricName
 
 Metric name related to the event (for example, `usage_idle`).
 Default is an empty string (`""`).
 
-### messageKey
 
+
+### messageKey
 
 Unique identifier of the event (for example, the InfluxDB alert ID).
 Default is an empty string (`""`).
 If an empty string, ServiceNow generates a value.
 
-### additionalInfo
 
+
+### additionalInfo
 
 Additional information to include with the event.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported value and incident type to ServiceNow
 

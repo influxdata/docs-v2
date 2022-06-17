@@ -39,13 +39,13 @@ strings.isUpper = (v: string) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Single-character string value to test.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter by columns with single-letter uppercase values
 
@@ -55,6 +55,9 @@ import "strings"
 data
     |> filter(fn: (r) => strings.isUpper(v: r._value))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -88,3 +91,5 @@ data
 | 2022-01-01T00:02:00Z | t2   | H       |
 | 2022-01-01T00:04:00Z | t2   | J       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

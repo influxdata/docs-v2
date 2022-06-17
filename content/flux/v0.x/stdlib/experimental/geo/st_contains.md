@@ -43,18 +43,21 @@ geo.ST_Contains = (geometry: A, region: B, ?units: {distance: string}) => bool w
 ## Parameters
 
 ### region
-
 ({{< req >}})
 Region to test. Specify record properties for the shape.
 
-### geometry
 
+
+### geometry
 ({{< req >}})
 GIS geometry to test. Can be either point or linestring geometry.
 
-### units
 
+
+### units
 
 Record that defines the unit of measurement for distance.
 Default is the `geo.units` option.
+
+
 

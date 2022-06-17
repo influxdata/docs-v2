@@ -39,18 +39,22 @@ math.nextafter = (x: float, y: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 x-value to use in the operation.
 
-### y
 
+
+### y
 ({{< req >}})
 y-value to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the next possible float value](#return-the-next-possible-float-value)
+- [Use math.nextafter in map](#use-mathnextafter-in-map)
 
 ### Return the next possible float value
 
@@ -70,6 +74,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.nextafter(x: r.t1, y: r.t2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +101,5 @@ data
 | 2021-01-01T00:00:40Z | 15.229999999999999  |
 | 2021-01-01T00:00:50Z | 4.429999999999999   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

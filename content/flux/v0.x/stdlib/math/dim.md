@@ -39,18 +39,22 @@ math.dim = (x: float, y: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 x-value to use in the operation.
 
-### y
 
+
+### y
 ({{< req >}})
 y-value to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the maximum difference betwee two values](#return-the-maximum-difference-betwee-two-values)
+- [Use math.dim in map](#use-mathdim-in-map)
 
 ### Return the maximum difference betwee two values
 
@@ -70,6 +74,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.dim(x: r.x, y: r.y)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +99,5 @@ data
 | 2021-01-01T03:00:00Z | 2                  |
 | 2021-01-01T04:00:00Z | 2.4000000000000004 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

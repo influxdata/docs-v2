@@ -46,17 +46,18 @@ yield = (<-tables: stream[A], ?name: string) => stream[A] where A: Record
 
 ### name
 
-
 Unique name for the yielded results. Default is `_results`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Yield multiple results from a query
 

@@ -46,26 +46,31 @@ join.join = (
 
 ### left
 
-
 left:
 
-### right
 
+
+### right
 ({{< req >}})
 right:
 
-### on
 
+
+### on
 ({{< req >}})
 on:
 
-### as
 
+
+### as
 ({{< req >}})
 as:
 
-### method
 
+
+### method
 ({{< req >}})
 method:
+
+
 

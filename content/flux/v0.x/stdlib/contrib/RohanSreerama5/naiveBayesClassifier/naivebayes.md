@@ -45,22 +45,26 @@ naiveBayesClassifier.naiveBayes = (
 ## Parameters
 
 ### myMeasurement
-
 ({{< req >}})
 Measurement to use as training data.
 
-### myField
 
+
+### myField
 ({{< req >}})
 Field to use as training data.
 
-### myClass
 
+
+### myClass
 ({{< req >}})
 Class to classify against.
 
+
+
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 

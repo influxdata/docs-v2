@@ -39,18 +39,19 @@ strings.hasPrefix = (prefix: string, v: string) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to search.
 
-### prefix
 
+
+### prefix
 ({{< req >}})
 Prefix to search for.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter based on the presence of a prefix in a column value
 
@@ -61,6 +62,9 @@ import "strings"
 sampledata.string()
     |> filter(fn: (r) => strings.hasPrefix(v: r._value, prefix: "smpl_5"))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -93,3 +97,5 @@ sampledata.string()
 | -------------------- | ---- | ----------- |
 | 2021-01-01T00:00:20Z | t2   | smpl_5g7tz4 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

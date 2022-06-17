@@ -41,13 +41,13 @@ die = (msg: string) => A
 ## Parameters
 
 ### msg
-
 ({{< req >}})
 Error message to return.
 
 
-## Examples
 
+
+## Examples
 
 ### Force a script to exit with an error message
 

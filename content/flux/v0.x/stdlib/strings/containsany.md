@@ -39,18 +39,19 @@ strings.containsAny = (chars: string, v: string) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to search.
 
-### chars
 
+
+### chars
 ({{< req >}})
 Characters to search for.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter based on the presence of a specific characters in a column value
 
@@ -61,6 +62,9 @@ import "strings"
 sampledata.string()
     |> filter(fn: (r) => strings.containsAny(v: r._value, chars: "a79"))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -97,3 +101,5 @@ sampledata.string()
 | 2021-01-01T00:00:20Z | t2   | smpl_5g7tz4 |
 | 2021-01-01T00:00:40Z | t2   | smpl_wfm757 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

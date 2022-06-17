@@ -39,13 +39,16 @@ math.floor = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the nearest integer less than a value](#return-the-nearest-integer-less-than-a-value)
+- [Use math.floor in map](#use-mathfloor-in-map)
 
 ### Return the nearest integer less than a value
 
@@ -66,6 +69,9 @@ import "math"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.floor(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

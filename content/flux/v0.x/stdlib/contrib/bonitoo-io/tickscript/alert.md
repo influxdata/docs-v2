@@ -83,62 +83,71 @@ tickscript.alert = (
 ## Parameters
 
 ### check
-
 ({{< req >}})
 InfluxDB check data.
 See `tickscript.defineCheck()`.
 
-### id
 
+
+### id
 
 Function that returns the InfluxDB check ID provided by the check record.
 Default is `(r) => "${r._check_id}"`.
 
-### details
 
+
+### details
 
 Function to return the InfluxDB check details using data from input rows.
 Default is `(r) => ""`.
 
-### message
 
+
+### message
 
 Function to return the InfluxDB check message using data from input rows.
 Default is `(r) => "Threshold Check: ${r._check_name} is: ${r._level}"`.
 
-### crit
 
+
+### crit
 
 Predicate function to determine `crit` status. Default is `(r) => false`.
 
-### warn
 
+
+### warn
 
 Predicate function to determine `warn` status. Default is `(r) => false`.
 
-### info
 
+
+### info
 
 Predicate function to determine `info` status. Default is `(r) => false`.
 
-### ok
 
+
+### ok
 
 Predicate function to determine `ok` status. Default is `(r) => true`.
 
-### topic
 
+
+### topic
 
 Check topic. Default is `""`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Store alert statuses for error counts
 

@@ -39,13 +39,16 @@ math.trunc = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Truncate a value at the decimal](#truncate-a-value-at-the-decimal)
+- [Use math.trunc in map](#use-mathtrunc-in-map)
 
 ### Truncate a value at the decimal
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.trunc(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

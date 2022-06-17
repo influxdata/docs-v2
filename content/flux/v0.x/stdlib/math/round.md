@@ -39,13 +39,16 @@ math.round = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Round a value to the nearest whole number](#round-a-value-to-the-nearest-whole-number)
+- [Use math.round in map](#use-mathround-in-map)
 
 ### Round a value to the nearest whole number
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.round(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 14      | t2   |
 | 2021-01-01T00:00:50Z | 2       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

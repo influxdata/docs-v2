@@ -42,29 +42,32 @@ teams.message = (text: string, title: A, url: string, ?summary: string) => int
 ## Parameters
 
 ### url
-
 ({{< req >}})
 Incoming webhook URL.
 
-### title
 
+
+### title
 ({{< req >}})
 Message card title.
 
-### text
 
+
+### text
 ({{< req >}})
 Message card text.
 
+
+
 ### summary
 
-
 Message card summary.
-Default is `""`.If no summary is provided, Flux generates the summary from the message text.
+Default is `""`.
+
+If no summary is provided, Flux generates the summary from the message text.
 
 
 ## Examples
-
 
 ### Send the last reported status to a Microsoft Teams channel
 

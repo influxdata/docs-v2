@@ -39,13 +39,13 @@ strings.title = (v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to convert.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert all values of a column to title case
 
@@ -56,6 +56,9 @@ import "strings"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.title(v: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -98,3 +101,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | Smpl_wfm757 | t2   |
 | 2021-01-01T00:00:50Z | Smpl_dtn2bv | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

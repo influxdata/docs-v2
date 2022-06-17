@@ -53,29 +53,32 @@ influxdb.buckets = (
 
 ### org
 
+Organization name. Default is the current organization.
 
-Organization name. Default is the current organization._`org` and `orgID` are mutually exclusive_.
+_`org` and `orgID` are mutually exclusive_.
 
 ### orgID
 
+Organization ID. Default is the ID of the current organization.
 
-Organization ID. Default is the ID of the current organization._`org` and `orgID` are mutually exclusive_.
+_`org` and `orgID` are mutually exclusive_.
 
 ### host
 
+URL of the InfluxDB instance.
 
-URL of the InfluxDB instance.See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-  or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
-   _`host` is required when `org` or `orgID` are specified._
+See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+_`host` is required when `org` or `orgID` are specified._
 
 ### token
 
+InfluxDB API token.
 
-InfluxDB API token._`token` is required when `host`, `org, or `orgID` are specified._
+_`token` is required when `host`, `org, or `orgID` are specified._
 
 
 ## Examples
-
 
 ### List buckets in an InfluxDB organization
 

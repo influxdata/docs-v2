@@ -70,28 +70,34 @@ pivot = (<-tables: stream[A], columnKey: [string], rowKey: [string], valueColumn
 ## Parameters
 
 ### rowKey
-
 ({{< req >}})
 Columns to use to uniquely identify an output row.
 
-### columnKey
 
+
+### columnKey
 ({{< req >}})
 Columns to use to identify new output columns.
 
-### valueColumn
 
+
+### valueColumn
 ({{< req >}})
 Column to use to populate the value of pivoted `columnKey` columns.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Align fields into rows based on time](#align-fields-into-rows-based-on-time)
+- [Associate values to tags by time](#associate-values-to-tags-by-time)
 
 ### Align fields into rows based on time
 
@@ -99,6 +105,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -124,6 +133,8 @@ data
 | 1970-01-01T00:00:03Z | m1            |     | 7   |     |
 | 1970-01-01T00:00:04Z | m1            |     |     | 8   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Associate values to tags by time
 
@@ -133,6 +144,9 @@ import "sampledata"
 sampledata.int()
     |> pivot(rowKey: ["_time"], columnKey: ["tag"], valueColumn: "_value")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -166,3 +180,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 15  | 13  |
 | 2021-01-01T00:00:50Z | 4   | 1   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

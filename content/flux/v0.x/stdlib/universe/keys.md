@@ -44,17 +44,22 @@ keys = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: R
 
 ### column
 
-
 Column to store group key labels in. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Return group key columns for each input table](#return-group-key-columns-for-each-input-table)
+- [Return all distinct group key columns in a single table](#return-all-distinct-group-key-columns-in-a-single-table)
+- [Return group key columns as an array](#return-group-key-columns-as-an-array)
 
 ### Return group key columns for each input table
 
@@ -62,6 +67,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> keys()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,6 +115,8 @@ data
 | temperature | airSensors    | TLM0100   | _measurement |
 | temperature | airSensors    | TLM0100   | sensorID     |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Return all distinct group key columns in a single table
 
@@ -116,6 +126,9 @@ data
     |> keep(columns: ["_value"])
     |> distinct()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -149,6 +162,8 @@ data
 | _measurement |
 | sensorID     |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Return group key columns as an array
 

@@ -42,12 +42,12 @@ length = (<-arr: [A]) => int
 
 ### arr
 
-
 Array to evaluate. Default is the piped-forward array (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the length of an array
 

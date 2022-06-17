@@ -39,13 +39,16 @@ math.tan = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the tangent of a radian value](#return-the-tangent-of-a-radian-value)
+- [Use math.tan in map](#use-mathtan-in-map)
 
 ### Return the tangent of a radian value
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.tan(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 3.515068256260714   | t2   |
 | 2021-01-01T00:00:50Z | -3.3608276755646553 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

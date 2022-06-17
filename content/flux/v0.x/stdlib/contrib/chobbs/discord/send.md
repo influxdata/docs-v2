@@ -46,33 +46,37 @@ discord.send = (
 ## Parameters
 
 ### webhookToken
-
 ({{< req >}})
 Discord [webhook token](https://discord.com/developers/docs/resources/webhook).
 
-### webhookID
 
+
+### webhookID
 ({{< req >}})
 Discord [webhook ID](https://discord.com/developers/docs/resources/webhook).
 
-### username
 
+
+### username
 ({{< req >}})
 Override the Discord webhook’s default username.
 
-### content
 
+
+### content
 ({{< req >}})
 Message to send to Discord (2000 character limit).
 
-### avatar_url
 
+
+### avatar_url
 
 Override the Discord webhook’s default avatar.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported status to Discord
 

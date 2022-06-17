@@ -42,26 +42,31 @@ prometheus.histogramQuantile = (<-tables: stream[{B with le: D, _field: C}], qua
 ## Parameters
 
 ### quantile
-
 ({{< req >}})
 Quantile to compute. Must be a float value between 0.0 and 1.0.
 
-### metricVersion
 
+
+### metricVersion
 
 [Prometheus metric parsing format](https://docs.influxdata.com/influxdb/latest/reference/prometheus-metrics/)
 used to parse queried Prometheus data.
 Available versions are `1` and `2`.
 Default is `2`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Compute the 0.99 quantile of a Prometheus histogram](#compute-the-099-quantile-of-a-prometheus-histogram)
+- [Compute the 0.99 quantile of a Prometheus histogram parsed with metric version 1](#compute-the-099-quantile-of-a-prometheus-histogram-parsed-with-metric-version-1)
 
 ### Compute the 0.99 quantile of a Prometheus histogram
 

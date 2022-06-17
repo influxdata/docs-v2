@@ -39,13 +39,16 @@ bitwise.snot = (a: int) => int
 ## Parameters
 
 ### a
-
 ({{< req >}})
 Integer to invert.
 
 
+
+
 ## Examples
 
+- [Invert bits in an integer](#invert-bits-in-an-integer)
+- [Invert bits in integers in a stream of tables](#invert-bits-in-integers-in-a-stream-of-tables)
 
 ### Invert bits in an integer
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.int()
     |> map(fn: (r) => ({r with _value: bitwise.snot(a: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | -14     | t2   |
 | 2021-01-01T00:00:50Z | -2      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

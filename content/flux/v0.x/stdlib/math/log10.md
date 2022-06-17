@@ -39,13 +39,16 @@ math.log10 = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the decimal lagarithm of a value](#return-the-decimal-lagarithm-of-a-value)
+- [Use math.log10 in map](#use-mathlog10-in-map)
 
 ### Return the decimal lagarithm of a value
 

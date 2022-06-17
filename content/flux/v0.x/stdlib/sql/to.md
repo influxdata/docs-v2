@@ -45,9 +45,10 @@ sql.to = (
 ## Parameters
 
 ### driverName
-
 ({{< req >}})
-Driver used to connect to the SQL database.**Supported drivers**:
+Driver used to connect to the SQL database.
+
+**Supported drivers**:
 - bigquery
 - hdb
 - mysql
@@ -58,24 +59,28 @@ Driver used to connect to the SQL database.**Supported drivers**:
 - vertica, vertigo
 
 ### dataSourceName
-
 ({{< req >}})
 Data source name (DNS) or connection string used
 to connect to the SQL database.
 
-### table
 
+
+### table
 ({{< req >}})
 Destination table.
 
+
+
 ### batchSize
 
-
 Number of parameters or columns that can be queued within each
-call to `Exec`. Default is `10000`.If writing to SQLite database, set the batchSize to `999` or less.
+call to `Exec`. Default is `10000`.
+
+If writing to SQLite database, set the batchSize to `999` or less.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 

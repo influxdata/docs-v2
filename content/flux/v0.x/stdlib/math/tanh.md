@@ -39,13 +39,16 @@ math.tanh = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the hyperbolic tangent of a value](#return-the-hyperbolic-tangent-of-a-value)
+- [Use math.tanh in map](#use-mathtanh-in-map)
 
 ### Return the hyperbolic tangent of a value
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.tanh(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 0.9999999999981702  | t2   |
 | 2021-01-01T00:00:50Z | 0.9526788436890776  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

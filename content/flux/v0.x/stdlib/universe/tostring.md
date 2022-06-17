@@ -42,12 +42,12 @@ toString = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Convert the _value column to strings
 
@@ -57,6 +57,9 @@ import "sampledata"
 sampledata.float()
     |> toString()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -99,3 +102,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 13.86   | t2   |
 | 2021-01-01T00:00:50Z | 1.86    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

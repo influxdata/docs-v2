@@ -47,7 +47,6 @@ sample.list = (
 
 ## Examples
 
-
 ### List available InfluxDB sample datasets
 
 ```js

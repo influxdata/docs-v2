@@ -49,35 +49,42 @@ integral = (
 
 ### unit
 
-
 Unit of time to use to compute the integral.
+
+
 
 ### column
 
-
 Column to operate on. Default is `_value`.
 
-### timeColumn
 
+
+### timeColumn
 
 Column that contains time values to use in the operation.
 Default is `_time`.
 
+
+
 ### interpolate
 
+Type of interpolation to use. Default is `""`.
 
-Type of interpolation to use. Default is `""`.**Available interplation types**:
+**Available interplation types**:
 - linear
 - _empty string for no interpolation_
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Calculate the integral](#calculate-the-integral)
+- [Calculate the integral with linear interpolation](#calculate-the-integral-with-linear-interpolation)
 
 ### Calculate the integral
 
@@ -85,6 +92,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> integral(unit: 10s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -117,6 +127,8 @@ data
 | -------------------- | -------------------- | ---- | ------- |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 43      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Calculate the integral with linear interpolation
 
@@ -124,6 +136,9 @@ data
 data
     |> integral(unit: 10s, interpolate: "linear")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -156,3 +171,5 @@ data
 | -------------------- | -------------------- | ---- | ------- |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 32.5    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

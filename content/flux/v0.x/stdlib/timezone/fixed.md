@@ -40,14 +40,17 @@ timezone.fixed = (offset: A) => {zone: string, offset: A}
 ## Parameters
 
 ### offset
-
 ({{< req >}})
 Fixed duration for the location offset.
 This duration is the offset from UTC.
 
 
+
+
 ## Examples
 
+- [Return a fixed location record](#return-a-fixed-location-record)
+- [Set the location option using a fixed location](#set-the-location-option-using-a-fixed-location)
 
 ### Return a fixed location record
 

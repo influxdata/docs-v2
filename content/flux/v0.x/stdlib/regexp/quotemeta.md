@@ -39,13 +39,13 @@ regexp.quoteMeta = (v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String that contains regular expression metacharacters to escape.
 
 
-## Examples
 
+
+## Examples
 
 ### Escape regular expression metacharacters in a string
 

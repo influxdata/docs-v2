@@ -41,13 +41,13 @@ experimental.objectKeys = (o: A) => [string] where A: Record
 ## Parameters
 
 ### o
-
 ({{< req >}})
 Record to return property keys from.
 
 
-## Examples
 
+
+## Examples
 
 ### Return all property keys in a record
 

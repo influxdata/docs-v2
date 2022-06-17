@@ -41,13 +41,16 @@ string = (v: A) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert.
 
 
+
+
 ## Examples
 
+- [Convert basic types to strings](#convert-basic-types-to-strings)
+- [Convert all values in a column to strings](#convert-all-values-in-a-column-to-strings)
 
 ### Convert basic types to strings
 
@@ -76,6 +79,9 @@ row and `string()` to covert a column value to a string type.
 data
     |> map(fn: (r) => ({r with exampleCol: string(v: r.exampleCol)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -118,3 +124,5 @@ data
 | 2021-01-01T00:00:40Z | 13.86       | t2   |
 | 2021-01-01T00:00:50Z | 1.86        | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

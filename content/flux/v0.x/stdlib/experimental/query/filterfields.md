@@ -41,17 +41,18 @@ query.filterFields = (<-table: stream[{B with _field: A}], ?fields: [A]) => stre
 
 ### fields
 
-
 Fields to filter by. Default is `[]`.
 
-### table
 
+
+### table
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Query specific fields from InfluxDB
 

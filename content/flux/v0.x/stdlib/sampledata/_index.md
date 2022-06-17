@@ -35,12 +35,15 @@ Import the `sampledata` package:
 ```js
 import "sampledata"
 ```
+
 ## Constants
 
 ```js
 sampledata.start = 2021-01-01T00:00:00Z // start represents the earliest time included in sample datasets.
 sampledata.stop = 2021-01-01T00:01:00Z // stop represents the latest time included in sample datasets.
 ```
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

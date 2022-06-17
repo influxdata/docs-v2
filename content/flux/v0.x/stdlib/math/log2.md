@@ -39,13 +39,16 @@ math.log2 = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 the value used in the operation.
 
 
+
+
 ## Examples
 
+- [Return the binary logarithm of a value](#return-the-binary-logarithm-of-a-value)
+- [Use math.log2 in map](#use-mathlog2-in-map)
 
 ### Return the binary logarithm of a value
 
@@ -66,6 +69,9 @@ import "math"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.log2(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 3.792855352362489  | t2   |
 | 2021-01-01T00:00:50Z | 0.8953026213333067 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

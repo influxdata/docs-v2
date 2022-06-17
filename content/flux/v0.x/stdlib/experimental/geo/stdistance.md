@@ -41,17 +41,20 @@ geo.stDistance = (geometry: A, region: B, units: {distance: string}) => float wh
 ## Parameters
 
 ### region
-
 ({{< req >}})
 Region to test. Specify record properties for the shape.
 
-### geometry
 
+
+### geometry
 ({{< req >}})
 GIS geometry to test. Can be either point or linestring geometry.
 
-### units
 
+
+### units
 ({{< req >}})
 Record that defines the unit of measurement for distance.
+
+
 

@@ -42,23 +42,28 @@ experimental.fill = (<-tables: stream[{B with _value: A}], ?usePrevious: bool, ?
 
 ### value
 
-
 Value to replace null values with.
 Data type must match the type of the `_value` column.
 
-### usePrevious
 
+
+### usePrevious
 
 Replace null values with the value of the previous non-null row.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Fill null values with a specified non-null value](#fill-null-values-with-a-specified-non-null-value)
+- [Fill null values with the previous non-null value](#fill-null-values-with-the-previous-non-null-value)
 
 ### Fill null values with a specified non-null value
 
@@ -69,6 +74,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> experimental.fill(value: 0)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -111,6 +119,8 @@ sampledata.int(includeNull: true)
 | 2021-01-01T00:00:40Z | 0       | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Fill null values with the previous non-null value
 
@@ -121,6 +131,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> experimental.fill(usePrevious: true)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -163,3 +176,5 @@ sampledata.int(includeNull: true)
 | 2021-01-01T00:00:40Z | 19      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

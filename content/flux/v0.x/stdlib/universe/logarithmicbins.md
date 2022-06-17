@@ -41,28 +41,31 @@ logarithmicBins = (count: int, factor: float, start: float, ?infinity: bool) => 
 ## Parameters
 
 ### start
-
 ({{< req >}})
 First value to return in the list.
 
-### factor
 
+
+### factor
 ({{< req >}})
 Multiplier to apply to subsequent values.
 
-### count
 
+
+### count
 ({{< req >}})
 Number of values to return.
 
-### infinity
 
+
+### infinity
 
 Include an infinite value at the end of the list. Default is `true`.
 
 
-## Examples
 
+
+## Examples
 
 ### Generate a list of exponentially increasing values
 

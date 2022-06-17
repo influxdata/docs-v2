@@ -35,6 +35,7 @@ Import the `influxdata/influxdb/monitor` package:
 ```js
 import "influxdata/influxdb/monitor"
 ```
+
 ## Constants
 
 ```js
@@ -45,6 +46,7 @@ monitor.levelOK = "ok" // levelOK is the string representation of the "ok" level
 monitor.levelUnknown = "unknown" // levelUnknown is the string representation of the an unknown level.
 monitor.levelWarn = "warn" // levelWarn is the string representation of the "warn" level.
 ```
+
 ## Options
 
 ```js
@@ -52,7 +54,7 @@ option monitor.log = (tables=<-) => tables |> experimental.to(bucket: bucket)
 option monitor.write = (tables=<-) => tables |> experimental.to(bucket: bucket)
 ```
  
- ### log
+### log
 
 `log` persists notification events to an InfluxDB bucket.
 

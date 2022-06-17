@@ -46,12 +46,12 @@ experimental.distinct = (<-tables: stream[{A with _value: B}]) => stream[{A with
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return distinct values from each input table
 
@@ -62,6 +62,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> experimental.distinct()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -101,3 +104,5 @@ sampledata.int(includeNull: true)
 | t2   | 19      |
 | t2   | 1       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -42,17 +42,18 @@ cumulativeSum = (<-tables: stream[A], ?columns: [string]) => stream[B] where A: 
 
 ### columns
 
-
 List of columns to operate on. Default is `["_value"]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the running total of values in each table
 
@@ -62,6 +63,9 @@ import "sampledata"
 sampledata.int()
     |> cumulativeSum()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -104,3 +108,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 52      | t2   |
 | 2021-01-01T00:00:50Z | 53      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

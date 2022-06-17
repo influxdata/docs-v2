@@ -42,23 +42,28 @@ rename = (<-tables: stream[B], ?columns: A, ?fn: (column: string) => string) => 
 
 ### columns
 
-
 Record that maps old column names to new column names.
 
-### fn
 
+
+### fn
 
 Function that takes the current column name (`column`) and returns a
 new column name.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Map column names to new column names](#map-column-names-to-new-column-names)
+- [Rename columns using a function](#rename-columns-using-a-function)
 
 ### Map column names to new column names
 
@@ -68,6 +73,9 @@ import "sampledata"
 sampledata.int()
     |> rename(columns: {tag: "uid", _value: "val"})
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,6 +118,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13   | t2   |
 | 2021-01-01T00:00:50Z | 1    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Rename columns using a function
 
@@ -119,6 +129,9 @@ import "sampledata"
 sampledata.int()
     |> rename(fn: (column) => "${column}_new")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -161,3 +174,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13          | t2       |
 | 2021-01-01T00:00:50Z | 1           | t2       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

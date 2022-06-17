@@ -41,13 +41,16 @@ array.from = (rows: [A]) => stream[A] where A: Record
 ## Parameters
 
 ### rows
-
 ({{< req >}})
 Array of records to construct a table with.
 
 
+
+
 ## Examples
 
+- [Build an arbitrary table](#build-an-arbitrary-table)
+- [Union custom rows with query results](#union-custom-rows-with-query-results)
 
 ### Build an arbitrary table
 
@@ -59,6 +62,8 @@ rows = [{foo: "bar", baz: 21.2}, {foo: "bar", baz: 23.8}]
 array.from(rows: rows)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -67,6 +72,8 @@ array.from(rows: rows)
 | bar  | 21.2 |
 | bar  | 23.8 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Union custom rows with query results
 

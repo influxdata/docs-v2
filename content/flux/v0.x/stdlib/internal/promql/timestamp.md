@@ -42,6 +42,7 @@ promql.timestamp = (<-tables: stream[{A with _value: float}]) => stream[{A with 
 
 ### tables
 
-
 Input data. Defaults is piped-forward data (`<-`).
+
+
 

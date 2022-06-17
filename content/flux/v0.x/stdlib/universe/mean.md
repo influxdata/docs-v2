@@ -44,17 +44,18 @@ mean = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: R
 
 ### column
 
-
 Column to use to compute means. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the average of values in each input table
 
@@ -64,6 +65,9 @@ import "sampledata"
 sampledata.int()
     |> mean()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -96,3 +100,5 @@ sampledata.int()
 | ---- | ----------------- |
 | t2   | 8.833333333333334 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -43,18 +43,19 @@ http.basicAuth = (p: string, u: string) => string
 ## Parameters
 
 ### u
-
 ({{< req >}})
 Username to use in the basic authentication header.
 
-### p
 
+
+### p
 ({{< req >}})
 Password to use in the basic authentication header.
 
 
-## Examples
 
+
+## Examples
 
 ### Set a basic authentication header in an HTTP POST request
 

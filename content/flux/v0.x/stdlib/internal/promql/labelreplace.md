@@ -48,26 +48,31 @@ promql.labelReplace = (
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
-### source
 
+
+### source
 ({{< req >}})
 Input label.
 
-### destination
 
+
+### destination
 ({{< req >}})
 Output label.
 
-### regex
 
+
+### regex
 ({{< req >}})
 Pattern as a regex string.
 
-### replacement
 
+
+### replacement
 ({{< req >}})
 Replacement value.
+
+
 

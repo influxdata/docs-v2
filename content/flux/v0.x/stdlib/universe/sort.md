@@ -48,22 +48,24 @@ sort = (<-tables: stream[A], ?columns: [string], ?desc: bool) => stream[A] where
 
 ### columns
 
+List of columns to sort by. Default is ["_value"].
 
-List of columns to sort by. Default is ["_value"].Sort precedence is determined by list order (left to right).
+Sort precedence is determined by list order (left to right).
 
 ### desc
 
-
 Sort results in descending order. Default is `false`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Sort values in ascending order
 
@@ -73,6 +75,9 @@ import "sampledata"
 sampledata.int()
     |> sort()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -115,3 +120,5 @@ sampledata.int()
 | 2021-01-01T00:00:00Z | 19      | t2   |
 | 2021-01-01T00:00:30Z | 19      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

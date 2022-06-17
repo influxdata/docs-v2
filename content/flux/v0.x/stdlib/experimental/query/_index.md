@@ -35,8 +35,11 @@ Import the `experimental/query` package:
 ```js
 import "experimental/query"
 ```
+
 The primary function in this package is `query.inBucket()`, which uses all
 other functions in this package.
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

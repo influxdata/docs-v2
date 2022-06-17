@@ -52,13 +52,20 @@ display = (v: A) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 Value to convert for display.
 
 
+
+
 ## Examples
 
+- [Display a value as part of a table](#display-a-value-as-part-of-a-table)
+- [Display a record](#display-a-record)
+- [Display an array](#display-an-array)
+- [Display a dictionary](#display-a-dictionary)
+- [Display bytes](#display-bytes)
+- [Display a composite value](#display-a-composite-value)
 
 ### Display a value as part of a table
 

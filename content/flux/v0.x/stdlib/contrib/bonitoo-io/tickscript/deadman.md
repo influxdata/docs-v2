@@ -82,45 +82,51 @@ tickscript.deadman = (
 ## Parameters
 
 ### check
-
 ({{< req >}})
 InfluxDB check data. See `tickscript.defineCheck()`.
 
-### measurement
 
+
+### measurement
 ({{< req >}})
 Measurement name. Should match the queried measurement.
 
+
+
 ### threshold
 
+Count threshold. Default is `0`.
 
-Count threshold. Default is `0`.The function assigns a `crit` status to input tables with a number of rows less than or equal to the threshold.
+The function assigns a `crit` status to input tables with a number of rows less than or equal to the threshold.
 
 ### id
-
 
 Function that returns the InfluxDB check ID provided by the check record.
 Default is `(r) => "${r._check_id}"`.
 
-### message
 
+
+### message
 
 Function that returns the InfluxDB check message using data from input rows.
 Default is `(r) => "Deadman Check: ${r._check_name} is: " + (if r.dead then "dead" else "alive")`.
 
-### topic
 
+
+### topic
 
 Check topic. Default is `""`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Detect when a series stops reporting
 

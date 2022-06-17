@@ -45,18 +45,19 @@ kaufmansER = (<-tables: stream[A], n: int) => stream[{B with _value: float, _val
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Period or number of points to use in the calculation.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Compute the Kaufman's Efficiency Ratio
 
@@ -66,6 +67,9 @@ import "sampledata"
 sampledata.int()
     |> kaufmansER(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -102,3 +106,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 0.2571428571428572 | t2   |
 | 2021-01-01T00:00:50Z | 0.1                | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

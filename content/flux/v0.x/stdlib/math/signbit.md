@@ -39,13 +39,16 @@ math.signbit = (x: float) => bool
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to evaluate.
 
 
+
+
 ## Examples
 
+- [Test if a value is negative](#test-if-a-value-is-negative)
+- [Use math.signbit in map](#use-mathsignbit-in-map)
 
 ### Test if a value is negative
 
@@ -65,6 +68,9 @@ import "math"
 data
     |> map(fn: (r) => ({r with _value: math.signbit(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -107,3 +113,5 @@ data
 | 2021-01-01T00:00:40Z | true    | t2   |
 | 2021-01-01T00:00:50Z | false   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

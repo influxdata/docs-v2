@@ -41,13 +41,13 @@ geo.s2CellLatLon = (token: string) => {lon: float, lat: float}
 ## Parameters
 
 ### token
-
 ({{< req >}})
 S2 cell ID token.
 
 
-## Examples
 
+
+## Examples
 
 ### Return the center coordinates of an S2 cell
 

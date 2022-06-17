@@ -39,18 +39,19 @@ strings.hasSuffix = (suffix: string, v: string) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to search.
 
-### suffix
 
+
+### suffix
 ({{< req >}})
 Suffix to search for.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter based on the presence of a suffix in a column value
 
@@ -61,6 +62,9 @@ import "strings"
 sampledata.string()
     |> filter(fn: (r) => strings.hasSuffix(v: r._value, suffix: "4"))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +98,5 @@ sampledata.string()
 | -------------------- | ---- | ----------- |
 | 2021-01-01T00:00:20Z | t2   | smpl_5g7tz4 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

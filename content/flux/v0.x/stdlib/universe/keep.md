@@ -44,24 +44,29 @@ keep = (<-tables: stream[A], ?columns: [string], ?fn: (column: string) => bool) 
 
 ### columns
 
-
 Columns to keep in output tables. Cannot be used with `fn`.
 
-### fn
 
+
+### fn
 
 Predicate function that takes a column name as a parameter (column) and
 returns a boolean indicating whether or not the column should be kept in
 output tables. Cannot be used with `columns`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Keep a list of columns](#keep-a-list-of-columns)
+- [Keep columns matching a predicate](#keep-columns-matching-a-predicate)
 
 ### Keep a list of columns
 
@@ -71,6 +76,9 @@ import "sampledata"
 sampledata.int()
     |> keep(columns: ["_time", "_value"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,6 +118,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      |
 | 2021-01-01T00:00:50Z | 1       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Keep columns matching a predicate
 
@@ -119,6 +129,9 @@ import "sampledata"
 sampledata.int()
     |> keep(fn: (column) => column =~ /^_?t/)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -161,3 +174,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | t2   |
 | 2021-01-01T00:00:50Z | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

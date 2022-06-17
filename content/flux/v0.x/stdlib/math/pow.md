@@ -39,18 +39,22 @@ math.pow = (x: float, y: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Base value to operate on.
 
-### y
 
+
+### y
 ({{< req >}})
 Exponent value.
 
 
+
+
 ## Examples
 
+- [Return the base-x exponential of a value](#return-the-base-x-exponential-of-a-value)
+- [Use math.pow in map](#use-mathpow-in-map)
 
 ### Return the base-x exponential of a value
 
@@ -70,6 +74,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.pow(x: r.t1, y: r.t2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +101,5 @@ data
 | 2021-01-01T00:00:40Z | 24672926229934220         |
 | 2021-01-01T00:00:50Z | 15.933490684011332        |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

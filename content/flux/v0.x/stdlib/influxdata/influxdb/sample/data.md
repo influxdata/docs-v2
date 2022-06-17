@@ -39,14 +39,15 @@ sample.data = (set: string) => stream[A] where A: Record
 ## Parameters
 
 ### set
-
 ({{< req >}})
-Sample data set to download and output.Valid datasets:
-   - **airSensor**: Simulated temperature, humidity, and CO data from an office building.
-  - **birdMigration**: 2019 African bird migration data from [Movebank: Animal Tracking](https://www.kaggle.com/pulkit8595/movebank-animal-tracking).
-  - **bitcoin**: Bitcoin price data from the last 30 days _([Powered by CoinDesk](https://www.coindesk.com/price/bitcoin))_.
-  - **noaa**: Latest observations from the [NOAA National Data Buoy Center (NDBC)](https://www.ndbc.noaa.gov/).
-  - **machineProduction**: States and metrics reported from four automated grinding wheel stations on a production line.
-  - **noaaWater**: Water level observations from two stations reported by the NOAA Center for Operational Oceanographic Products and Services between 2019-08-17 and 2019-09-17.
-  - **usgs**: USGS earthquake data from the last week.
+Sample data set to download and output.
+
+Valid datasets:
+- **airSensor**: Simulated temperature, humidity, and CO data from an office building.
+- **birdMigration**: 2019 African bird migration data from [Movebank: Animal Tracking](https://www.kaggle.com/pulkit8595/movebank-animal-tracking).
+- **bitcoin**: Bitcoin price data from the last 30 days _([Powered by CoinDesk](https://www.coindesk.com/price/bitcoin))_.
+- **noaa**: Latest observations from the [NOAA National Data Buoy Center (NDBC)](https://www.ndbc.noaa.gov/).
+- **machineProduction**: States and metrics reported from four automated grinding wheel stations on a production line.
+- **noaaWater**: Water level observations from two stations reported by the NOAA Center for Operational Oceanographic Products and Services between 2019-08-17 and 2019-09-17.
+- **usgs**: USGS earthquake data from the last week.
 

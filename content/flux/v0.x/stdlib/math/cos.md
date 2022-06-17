@@ -39,13 +39,13 @@ math.cos = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
-## Examples
 
+
+## Examples
 
 ### Use math.cos in map
 

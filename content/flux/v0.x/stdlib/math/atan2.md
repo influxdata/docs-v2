@@ -41,12 +41,14 @@ math.atan2 = (x: float, y: float) => float
 ## Parameters
 
 ### y
-
 ({{< req >}})
 y-coordinate to use in the operation.
 
-### x
 
+
+### x
 ({{< req >}})
 x-corrdinate to use in the operation.
+
+
 

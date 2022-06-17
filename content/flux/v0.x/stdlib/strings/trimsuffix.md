@@ -39,18 +39,19 @@ strings.trimSuffix = (suffix: string, v: string) => string
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String to trim
 
-### suffix
 
+
+### suffix
 ({{< req >}})
 Suffix to remove.
 
 
-## Examples
 
+
+## Examples
 
 ### Remove a suffix from all values in a column
 
@@ -60,6 +61,9 @@ import "strings"
 data
     |> map(fn: (r) => ({r with _value: strings.trimSuffix(v: r._value, suffix: "_ex1")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -102,3 +106,5 @@ data
 | 2021-01-01T00:00:40Z | smpl_wfm757 | t2   |
 | 2021-01-01T00:00:50Z | smpl_dtn2bv | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

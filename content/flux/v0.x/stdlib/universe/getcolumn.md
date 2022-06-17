@@ -41,18 +41,19 @@ getColumn = (<-table: stream[A], column: string) => [B] where A: Record
 ## Parameters
 
 ### column
-
 ({{< req >}})
 Column to extract
 
-### table
 
+
+### table
 
 Input table. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Extract a column from a table
 

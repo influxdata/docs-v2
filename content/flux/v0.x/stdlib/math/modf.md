@@ -39,13 +39,16 @@ math.modf = (f: float) => {int: float, frac: float}
 ## Parameters
 
 ### f
-
 ({{< req >}})
 Value to operate on
 
 
+
+
 ## Examples
 
+- [Return the integer and float that sum to a value](#return-the-integer-and-float-that-sum-to-a-value)
+- [Use math.modf in map](#use-mathmodf-in-map)
 
 ### Return the integer and float that sum to a value
 
@@ -72,6 +75,9 @@ sampledata.float()
         },
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -111,3 +117,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 0.8599999999999994   | 13   |
 | 2021-01-01T00:00:50Z | 0.8600000000000001   | 1    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

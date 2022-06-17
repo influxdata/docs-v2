@@ -42,12 +42,12 @@ table.fill = (<-tables: stream[A]) => stream[A] where A: Record
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Fill empty tables
 
@@ -62,6 +62,9 @@ data =
 data
     |> table.fill()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -93,3 +96,5 @@ data
 | ------ | ------- | ---- |
 |        |         | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

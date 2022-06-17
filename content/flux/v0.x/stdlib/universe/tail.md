@@ -44,24 +44,29 @@ tail = (<-tables: stream[A], n: int, ?offset: int) => stream[A]
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Maximum number of rows to output.
 
-### offset
 
+
+### offset
 
 Number of records to skip at the end of a table table before
 limiting to `n`. Default is 0.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Output the last three rows in each input table](#output-the-last-three-rows-in-each-input-table)
+- [Output the last three rows before the last row in each input table](#output-the-last-three-rows-before-the-last-row-in-each-input-table)
 
 ### Output the last three rows in each input table
 
@@ -72,6 +77,9 @@ sampledata.int()
     |> tail(n: 3)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | _value  | *tag |
@@ -107,6 +115,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Output the last three rows before the last row in each input table
 
@@ -117,6 +127,9 @@ sampledata.int()
     |> tail(n: 3, offset: 1)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | _value  | *tag |
@@ -152,3 +165,5 @@ sampledata.int()
 | 2021-01-01T00:00:30Z | 19      | t2   |
 | 2021-01-01T00:00:40Z | 13      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

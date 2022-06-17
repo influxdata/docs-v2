@@ -41,13 +41,16 @@ math.mInf = (sign: int) => float
 ## Parameters
 
 ### sign
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return an infinity float value from a positive or negative sign value](#return-an-infinity-float-value-from-a-positive-or-negative-sign-value)
+- [Use math.mInf in map](#use-mathminf-in-map)
 
 ### Return an infinity float value from a positive or negative sign value
 
@@ -68,6 +71,9 @@ import "math"
 sampledata.int()
     |> map(fn: (r) => ({r with _value: math.mInf(sign: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,3 +116,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | +Inf    | t2   |
 | 2021-01-01T00:00:50Z | +Inf    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

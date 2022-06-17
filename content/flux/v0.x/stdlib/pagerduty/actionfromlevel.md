@@ -40,13 +40,13 @@ pagerduty.actionFromLevel = (level: string) => string
 ## Parameters
 
 ### level
-
 ({{< req >}})
 Monitoring level to convert to a PagerDuty action.
 
 
-## Examples
 
+
+## Examples
 
 ### Convert a monitoring level to a PagerDuty action
 

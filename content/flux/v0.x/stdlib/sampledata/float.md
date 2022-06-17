@@ -40,13 +40,13 @@ sampledata.float = (?includeNull: bool) => stream[A] where A: Record
 
 ### includeNull
 
-
 Include null values in the returned dataset.
 Default is `false`.
 
 
-## Examples
 
+
+## Examples
 
 ### Output basic sample data with float values
 
@@ -56,6 +56,8 @@ import "sampledata"
 sampledata.float()
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -77,3 +79,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | t2   | 13.86   |
 | 2021-01-01T00:00:50Z | t2   | 1.86    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

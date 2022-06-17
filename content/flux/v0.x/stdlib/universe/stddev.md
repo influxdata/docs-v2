@@ -42,27 +42,29 @@ stddev = (<-tables: stream[A], ?column: string, ?mode: string) => stream[B] wher
 
 ### column
 
-
 Column to operate on. Default is `_value`.
+
+
 
 ### mode
 
-
 Standard deviation mode or type of standard deviation to calculate.
-Default is `sample`.**Availble modes:**
- - **sample**: Calculate the sample standard deviation where the data is
-  considered part of a larger population.
+Default is `sample`.
+
+**Availble modes:**
+- **sample**: Calculate the sample standard deviation where the data is
+considered part of a larger population.
 - **population**: Calculate the population standard deviation where the
-  data is considered a population of its own.
+data is considered a population of its own.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the standard deviation of values in each table
 
@@ -72,6 +74,9 @@ import "sampledata"
 sampledata.int()
     |> stddev()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -104,3 +109,5 @@ sampledata.int()
 | ---- | ----------------- |
 | t2   | 9.474527252938094 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

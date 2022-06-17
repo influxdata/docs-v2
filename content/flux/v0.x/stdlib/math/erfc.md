@@ -39,13 +39,16 @@ math.erfc = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the complementary error function of a value](#return-the-complementary-error-function-of-a-value)
+- [Use math.erfc in map](#use-matherfc-in-map)
 
 ### Return the complementary error function of a value
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.erfc(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000015161509817813512                                                                                        | t2   |
 | 2021-01-01T00:00:50Z | 0.008527511664360422                                                                                                                                                                           | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

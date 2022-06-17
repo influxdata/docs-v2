@@ -39,13 +39,16 @@ math.pow10 = (n: int) => float
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Exponent value.
 
 
+
+
 ## Examples
 
+- [Return the base-10 exponential of n](#return-the-base-10-exponential-of-n)
+- [Use math.pow10 in map](#use-mathpow10-in-map)
 
 ### Return the base-10 exponential of n
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.int()
     |> map(fn: (r) => ({r with _value: math.pow10(n: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 10000000000000       | t2   |
 | 2021-01-01T00:00:50Z | 10                   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

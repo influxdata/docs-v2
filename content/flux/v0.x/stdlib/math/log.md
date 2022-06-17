@@ -39,13 +39,16 @@ math.log = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the natural logarithm of a value](#return-the-natural-logarithm-of-a-value)
+- [Use math.log in map](#use-mathlog-in-map)
 
 ### Return the natural logarithm of a value
 

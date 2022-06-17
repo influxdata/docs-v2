@@ -39,18 +39,19 @@ strings.countStr = (substr: string, v: string) => int
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to search.
 
-### substr
 
+
+### substr
 ({{< req >}})
-Substring to count occurences of.The function counts only non-overlapping instances of `substr`.
+Substring to count occurences of.
+
+The function counts only non-overlapping instances of `substr`.
 
 
 ## Examples
-
 
 ### Count instances of a substring within a string
 
@@ -61,6 +62,9 @@ import "strings"
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.countStr(v: r._value, substr: "p")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -103,3 +107,5 @@ sampledata.string()
 | 2021-01-01T00:00:40Z | 1       | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

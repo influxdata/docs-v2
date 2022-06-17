@@ -39,13 +39,16 @@ math.sincos = (x: float) => {sin: float, cos: float}
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the sine and cosine of a value](#return-the-sine-and-cosine-of-a-value)
+- [Use math.sincos in map](#use-mathsincos-in-map)
 
 ### Return the sine and cosine of a value
 
@@ -72,6 +75,9 @@ sampledata.float()
         },
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -111,3 +117,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 0.2736318165501685   | 0.9618345122584524  |
 | 2021-01-01T00:00:50Z | -0.28518905924502086 | 0.9584712830789142  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

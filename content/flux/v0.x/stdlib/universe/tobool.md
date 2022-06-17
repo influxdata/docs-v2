@@ -46,12 +46,12 @@ toBool = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _va
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Convert an integer _value column to booleans
 
@@ -61,6 +61,9 @@ import "sampledata"
 sampledata.numericBool()
     |> toBool()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -103,3 +106,5 @@ sampledata.numericBool()
 | 2021-01-01T00:00:40Z | true    | t2   |
 | 2021-01-01T00:00:50Z | false   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

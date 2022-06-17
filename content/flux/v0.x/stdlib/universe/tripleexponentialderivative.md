@@ -66,18 +66,19 @@ tripleExponentialDerivative = (<-tables: stream[{A with _value: B}], n: int) => 
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of points to use in the calculation.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate a two-point triple exponential derivative
 

@@ -51,18 +51,22 @@ exponentialMovingAverage = (<-tables: stream[{A with _value: B}], n: int) => str
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of values to average.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Calculate a three point exponential moving average](#calculate-a-three-point-exponential-moving-average)
+- [Calculate a three point exponential moving average with null values](#calculate-a-three-point-exponential-moving-average-with-null-values)
 
 ### Calculate a three point exponential moving average
 
@@ -72,6 +76,9 @@ import "sampledata"
 sampledata.int()
     |> exponentialMovingAverage(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,6 +117,8 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 12.916666666666668 | t2   |
 | 2021-01-01T00:00:50Z | 6.958333333333334  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Calculate a three point exponential moving average with null values
 
@@ -119,6 +128,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> exponentialMovingAverage(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -157,3 +169,5 @@ sampledata.int(includeNull: true)
 | 2021-01-01T00:00:40Z | 9.75    | t2   |
 | 2021-01-01T00:00:50Z | 5.375   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

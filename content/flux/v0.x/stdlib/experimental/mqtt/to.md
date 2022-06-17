@@ -54,79 +54,91 @@ mqtt.to = (
 ## Parameters
 
 ### broker
-
 ({{< req >}})
 MQTT broker connection string.
 
-### topic
 
+
+### topic
 
 MQTT topic to send data to.
 
-### qos
 
+
+### qos
 
 MQTT Quality of Service (QoS) level. Values range from `[0-2]`. Default is `0`.
 
-### retain
 
+
+### retain
 
 MQTT retain flag. Default is `false`.
 
-### clientid
 
+
+### clientid
 
 MQTT client ID.
 
+
+
 ### username
 
+Username to send to the MQTT broker.
 
-Username to send to the MQTT broker.Username is only required if the broker requires authentication.
+Username is only required if the broker requires authentication.
 If you provide a username, you must provide a password.
 
 ### password
-
 
 Password to send to the MQTT broker.
 Password is only required if the broker requires authentication.
 If you provide a password, you must provide a username.
 
-### name
 
+
+### name
 
 Name for the MQTT message.
 
-### timeout
 
+
+### timeout
 
 MQTT connection timeout. Default is `1s`.
 
-### timeColumn
 
+
+### timeColumn
 
 Column to use as time values in the output line protocol.
 Default is `"_time"`.
 
-### tagColumns
 
+
+### tagColumns
 
 Columns to use as tag sets in the output line protocol.
 Default is `[]`.
 
-### valueColumns
 
+
+### valueColumns
 
 Columns to use as field values in the output line protocol.
 Default is `["_value"]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Send data to an MQTT broker
 

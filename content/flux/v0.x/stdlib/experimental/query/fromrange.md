@@ -52,28 +52,30 @@ query.fromRange = (
 ## Parameters
 
 ### bucket
-
 ({{< req >}})
 InfluxDB bucket name.
 
-### start
 
+
+### start
 ({{< req >}})
-Earliest time to include in results.Results include points that match the specified start time.
+Earliest time to include in results.
+
+Results include points that match the specified start time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
 ### stop
 
+Latest time to include in results. Default is `now()`.
 
-Latest time to include in results. Default is `now()`.Results exclude points that match the specified stop time.
+Results exclude points that match the specified stop time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
 
 ## Examples
-
 
 ### Query data from InfluxDB in a specified time range
 

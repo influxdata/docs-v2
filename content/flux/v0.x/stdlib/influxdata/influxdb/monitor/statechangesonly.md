@@ -46,12 +46,12 @@ monitor.stateChangesOnly = (<-tables: stream[{A with _level: B}]) => stream[C] w
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return records representing state changes
 
@@ -73,6 +73,9 @@ data
     |> monitor.stateChangesOnly()
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | _level  |
@@ -93,3 +96,5 @@ data
 | -------------------- | ------- |
 | 2021-01-01T00:02:00Z | warn    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

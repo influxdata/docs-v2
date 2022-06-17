@@ -32,6 +32,7 @@ Import the `experimental/record` package:
 ```js
 import "experimental/record"
 ```
+
 **Note**: The `experimental/record` package is an interim solution for
 [influxdata/flux#3461](https://github.com/influxdata/flux/issues/3461) and
 will either be removed after this issue is resolved or promoted out of the
@@ -41,6 +42,8 @@ experimental package if other uses are found.## Constants
 record.builtin any // any is a polymorphic record value that can be used as a default record value
 // when input record property types are not known.
 ```
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

@@ -42,23 +42,28 @@ timeShift = (<-tables: stream[A], duration: duration, ?columns: [string]) => str
 ## Parameters
 
 ### duration
-
 ({{< req >}})
 Amount of time to add to each time value. May be a negative duration.
 
-### columns
 
+
+### columns
 
 List of time columns to operate on. Default is `["_start", "_stop", "_time"]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Shift timestamps forward in time](#shift-timestamps-forward-in-time)
+- [Shift timestamps backward in time](#shift-timestamps-backward-in-time)
 
 ### Shift timestamps forward in time
 
@@ -68,6 +73,9 @@ import "sampledata"
 sampledata.int()
     |> timeShift(duration: 12h)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,6 +118,8 @@ sampledata.int()
 | 2021-01-01T12:00:40Z | 13      | t2   |
 | 2021-01-01T12:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Shift timestamps backward in time
 
@@ -119,6 +129,9 @@ import "sampledata"
 sampledata.int()
     |> timeShift(duration: -12h)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -161,3 +174,5 @@ sampledata.int()
 | 2020-12-31T12:00:40Z | 13      | t2   |
 | 2020-12-31T12:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

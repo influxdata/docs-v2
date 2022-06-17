@@ -44,22 +44,24 @@ monitor.stateChanges = (<-tables: stream[{C with _level: D}], ?fromLevel: A, ?to
 
 ### fromLevel
 
-
 Level to detect a change from. Default is `"any"`.
+
+
 
 ### toLevel
 
-
 Level to detect a change to. Default is `"any"`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Detect when the state changes to critical
 
@@ -81,6 +83,9 @@ data
     |> monitor.stateChanges(toLevel: "crit")
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
 #### Input data
 
 | _time                | _level  |
@@ -97,3 +102,5 @@ data
 | -------------------- | ------- |
 | 2021-01-01T00:03:00Z | crit    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

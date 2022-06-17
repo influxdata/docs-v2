@@ -40,13 +40,13 @@ csv.from = (url: string) => stream[A] where A: Record
 ## Parameters
 
 ### url
-
 ({{< req >}})
 URL to retrieve annotated CSV from.
 
 
-## Examples
 
+
+## Examples
 
 ### Query annotated CSV data from a URL
 

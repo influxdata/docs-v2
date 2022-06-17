@@ -39,7 +39,8 @@ regexp.getString = (r: regexp) => string
 ## Parameters
 
 ### r
-
 ({{< req >}})
 Regular expression object to convert to a string.
+
+
 

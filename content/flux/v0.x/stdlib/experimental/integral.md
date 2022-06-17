@@ -45,24 +45,29 @@ experimental.integral = (<-tables: stream[{A with _value: B, _time: time}], ?int
 
 ### unit
 
-
 Time duration used to compute the integral.
+
+
 
 ### interpolate
 
+Type of interpolation to use. Default is `""` (no interpolation).
 
-Type of interpolation to use. Default is `""` (no interpolation).Use one of the following interpolation options:
- - empty string (`""`) for no interpolation
+Use one of the following interpolation options:
+- empty string (`""`) for no interpolation
 - linear
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Calculate the integral](#calculate-the-integral)
+- [Calculate the integral with linear interpolation](#calculate-the-integral-with-linear-interpolation)
 
 ### Calculate the integral
 
@@ -77,6 +82,9 @@ data =
 data
     |> experimental.integral(unit: 20s)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -109,6 +117,8 @@ data
 | -------------------- | -------------------- | ---- | ------- |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 21.5    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Calculate the integral with linear interpolation
 
@@ -123,6 +133,9 @@ data =
 data
     |> experimental.integral(unit: 20s, interpolate: "linear")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -155,3 +168,5 @@ data
 | -------------------- | -------------------- | ---- | ------- |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 19      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

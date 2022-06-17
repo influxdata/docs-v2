@@ -44,6 +44,7 @@ debug.slurp = (<-tables: stream[A]) => stream[A] where A: Record
 
 ### tables
 
-
 Stream to consume into single buffers per table.
+
+
 

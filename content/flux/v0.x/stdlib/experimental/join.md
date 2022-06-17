@@ -45,25 +45,30 @@ experimental.join = (fn: (left: A, right: B) => C, left: stream[A], right: strea
 ## Parameters
 
 ### left
-
 ({{< req >}})
 First of two streams of tables to join.
 
-### right
 
+
+### right
 ({{< req >}})
 Second of two streams of tables to join.
 
-### fn
 
+
+### fn
 ({{< req >}})
 Function with left and right arguments that maps a new output record
 using values from the `left` and `right` input records.
 The return value must be a record.
 
 
+
+
 ## Examples
 
+- [Join two streams of tables](#join-two-streams-of-tables)
+- [Join two streams of tables with different fields and measurements](#join-two-streams-of-tables-with-different-fields-and-measurements)
 
 ### Join two streams of tables
 
@@ -97,6 +102,8 @@ experimental.join(
 )
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -107,6 +114,8 @@ experimental.join(
 | temp    | 2021-01-01T02:00:00Z | 79.9    | 9     | 79.9 | 70.9 |
 | temp    | 2021-01-01T03:00:00Z | 80.1    | 9     | 80.1 | 71.1 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Join two streams of tables with different fields and measurements
 

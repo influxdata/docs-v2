@@ -39,9 +39,10 @@ sql.from = (dataSourceName: string, driverName: string, query: string) => stream
 ## Parameters
 
 ### driverName
-
 ({{< req >}})
-Driver to use to connect to the SQL database.**Supported drivers**:
+Driver to use to connect to the SQL database.
+
+**Supported drivers**:
 - awsathena
 - bigquery
 - hdb
@@ -53,13 +54,15 @@ Driver to use to connect to the SQL database.**Supported drivers**:
 - vertica, vertigo
 
 ### dataSourceName
-
 ({{< req >}})
 Data source name (DNS) or connection string used to connect
 to the SQL database.
 
-### query
 
+
+### query
 ({{< req >}})
 Query to run against the SQL database.
+
+
 

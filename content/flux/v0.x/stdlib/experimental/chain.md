@@ -49,18 +49,19 @@ experimental.chain = (first: stream[A], second: stream[B]) => stream[B] where A:
 ## Parameters
 
 ### first
-
 ({{< req >}})
 First query to execute.
 
-### second
 
+
+### second
 ({{< req >}})
 Second query to execute.
 
 
-## Examples
 
+
+## Examples
 
 ### Write to a bucket and query the written data
 

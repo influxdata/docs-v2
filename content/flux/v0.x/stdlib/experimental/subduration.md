@@ -41,24 +41,30 @@ experimental.subDuration = (d: duration, from: A, ?location: {zone: string, offs
 ## Parameters
 
 ### from
-
 ({{< req >}})
-Time to subtract the duration from.Use an absolute time or a relative duration.
+Time to subtract the duration from.
+
+Use an absolute time or a relative duration.
 Durations are relative to `now()`.
 
 ### d
-
 ({{< req >}})
 Duration to subtract.
 
-### location
 
+
+### location
 
 Location to use for the time value.
 
 
+
+
 ## Examples
 
+- [Subtract six hours from a timestamp](#subtract-six-hours-from-a-timestamp)
+- [Subtract six hours from a relative duration](#subtract-six-hours-from-a-relative-duration)
+- [Subtract two days from one hour ago](#subtract-two-days-from-one-hour-ago)
 
 ### Subtract six hours from a timestamp
 

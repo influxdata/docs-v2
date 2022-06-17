@@ -53,29 +53,31 @@ experimental.histogram = (<-tables: stream[{A with _value: float}], bins: [float
 ## Parameters
 
 ### bins
-
 ({{< req >}})
 List of upper bounds to use when computing histogram frequencies,
-including the maximum value of the data set.This value can be set to positive infinity (`float(v: "+Inf")`) if no maximum is known.
- ##### Bin helper functions
+including the maximum value of the data set.
+
+This value can be set to positive infinity (`float(v: "+Inf")`) if no maximum is known.
+##### Bin helper functions
 The following helper functions can be used to generated bins.
- - `linearBins()`
+- `linearBins()`
 - `logarithmicBins()`
 
 ### normalize
 
-
 Convert count values into frequency values between 0 and 1.
-Default is `false`.**Note**: Normalized histograms cannot be aggregated by summing their counts.
+Default is `false`.
+
+**Note**: Normalized histograms cannot be aggregated by summing their counts.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Create a histgram from input data
 
@@ -94,6 +96,9 @@ sampledata.float()
         ],
     )
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -134,3 +139,5 @@ sampledata.float()
 | t2   | 15  | 4       |
 | t2   | 20  | 6       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

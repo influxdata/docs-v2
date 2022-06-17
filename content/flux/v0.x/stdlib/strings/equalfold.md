@@ -39,18 +39,19 @@ strings.equalFold = (t: string, v: string) => bool
 ## Parameters
 
 ### v
-
 ({{< req >}})
 String value to compare.
 
-### t
 
+
+### t
 ({{< req >}})
 String value to compare against.
 
 
-## Examples
 
+
+## Examples
 
 ### Ignore case when comparing two strings
 
@@ -60,6 +61,9 @@ import "strings"
 data
     |> map(fn: (r) => ({r with same: strings.equalFold(v: r.string1, t: r.string2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -82,3 +86,5 @@ data
 | true  | HyXdjvrjgp | hyxDJvrJGP | 2022-01-01T00:03:00Z |
 | false | SVepvUBAVx | GuKKjuGsyI | 2022-01-01T00:04:00Z |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

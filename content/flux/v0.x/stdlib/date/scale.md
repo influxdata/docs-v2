@@ -40,18 +40,22 @@ date.scale = (d: duration, n: int) => duration
 ## Parameters
 
 ### d
-
 ({{< req >}})
 Duration to scale.
 
-### n
 
+
+### n
 ({{< req >}})
 Amount to scale the duration by.
 
 
+
+
 ## Examples
 
+- [Add n hours to a time](#add-n-hours-to-a-time)
+- [Add scaled mixed duration to a time](#add-scaled-mixed-duration-to-a-time)
 
 ### Add n hours to a time
 

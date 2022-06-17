@@ -44,12 +44,12 @@ experimental.min = (<-tables: stream[{A with _value: B}]) => stream[{A with _val
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the row with the lowest value in each input table
 
@@ -60,6 +60,9 @@ import "sampledata"
 sampledata.int()
     |> experimental.min()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -92,3 +95,5 @@ sampledata.int()
 | -------------------- | ------- | ---- |
 | 2021-01-01T00:00:20Z | -3      | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -39,18 +39,22 @@ math.mMin = (x: float, y: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 x-value to use in the operation.
 
-### y
 
+
+### y
 ({{< req >}})
 y-value to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the lesser of two values](#return-the-lesser-of-two-values)
+- [Use math.mMin in map](#use-mathmmin-in-map)
 
 ### Return the lesser of two values
 
@@ -70,6 +74,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.mMin(x: r.t1, y: r.t2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -94,3 +101,5 @@ data
 | 2021-01-01T00:00:40Z | 13.86   |
 | 2021-01-01T00:00:50Z | 1.86    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

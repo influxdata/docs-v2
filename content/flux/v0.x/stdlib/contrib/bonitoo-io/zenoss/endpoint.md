@@ -61,42 +61,49 @@ zenoss.endpoint = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
 
-### username
 
+
+### username
 ({{< req >}})
 Zenoss username to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-### password
 
+
+### password
 ({{< req >}})
 Zenoss password to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-### action
 
+
+### action
 
 Zenoss router name.
 Default is `"EventsRouter"`.
 
-### method
 
+
+### method
 
 EventsRouter method.
 Default is `"add_event"`.
 
-### type
 
+
+### type
 
 Event type. Default is `"rpc"`.
 
-### tid
 
+
+### tid
 
 Temporary request transaction ID.
 Default is `1`.
+
+
 

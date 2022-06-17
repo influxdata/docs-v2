@@ -48,12 +48,12 @@ experimental.unique = (<-tables: stream[{A with _value: B}]) => stream[{A with _
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return rows with unique values in each input table
 
@@ -64,6 +64,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> experimental.unique()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -103,3 +106,5 @@ sampledata.int(includeNull: true)
 | 2021-01-01T00:00:30Z | 19      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

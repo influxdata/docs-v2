@@ -51,46 +51,52 @@ telegram.message = (
 
 ### url
 
-
 URL of the Telegram bot endpoint. Default is `https://api.telegram.org/bot`.
 
-### token
 
+
+### token
 ({{< req >}})
 Telegram bot token.
 
-### channel
 
+
+### channel
 ({{< req >}})
 Telegram channel ID.
 
-### text
 
+
+### text
 ({{< req >}})
 Message text.
 
-### parseMode
 
+
+### parseMode
 
 [Parse mode](https://core.telegram.org/bots/api#formatting-options)
 of the message text.
 Default is `MarkdownV2`.
 
-### disableWebPagePreview
 
+
+### disableWebPagePreview
 
 Disable preview of web links in the sent message.
 Default is `false`.
 
-### silent
 
+
+### silent
 
 Send message [silently](https://telegram.org/blog/channels-2-0#silent-messages).
 Default is `true`.
 
 
-## Examples
 
+
+## Examples
 
 ### Send the last reported status to Telegram
 

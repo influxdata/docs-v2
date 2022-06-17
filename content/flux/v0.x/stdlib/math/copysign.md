@@ -39,18 +39,22 @@ math.copysign = (x: float, y: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Magnitude to use in the operation.
 
-### y
 
+
+### y
 ({{< req >}})
 Sign to use in the operation.
 
 
+
+
 ## Examples
 
+- [Return the copysign of two columns](#return-the-copysign-of-two-columns)
+- [Use math.copysign in map](#use-mathcopysign-in-map)
 
 ### Return the copysign of two columns
 
@@ -69,6 +73,9 @@ import "math"
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.copysign(x: r.x, y: r.y)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -91,3 +98,5 @@ data
 | 2021-01-01T03:00:00Z | 4.8     |
 | 2021-01-01T04:00:00Z | 5.1     |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

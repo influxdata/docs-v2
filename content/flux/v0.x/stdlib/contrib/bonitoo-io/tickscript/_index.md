@@ -38,6 +38,9 @@ Import the `contrib/bonitoo-io/tickscript` package:
 import "contrib/bonitoo-io/tickscript"
 ```
 
+
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

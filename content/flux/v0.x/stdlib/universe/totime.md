@@ -47,12 +47,12 @@ toTime = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _va
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Convert an integer _value column to times
 
@@ -60,6 +60,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> toTime()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -102,3 +105,5 @@ data
 | 2021-01-01T00:00:40Z | 1974-02-13T15:06:40Z | t2   |
 | 2021-01-01T00:00:50Z | 1970-04-26T17:46:40Z | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

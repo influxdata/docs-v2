@@ -42,12 +42,12 @@ testing.assertEmpty = (<-tables: stream[A]) => stream[A]
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Check if there is a difference between streams
 

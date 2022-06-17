@@ -36,16 +36,21 @@ Import the `contrib/chobbs/discord` package:
 import "contrib/chobbs/discord"
 ```
 
+
+
 ## Options
 
 ```js
 option discord.discordURL = "https://discordapp.com/api/webhooks/"
 ```
  
- 
 ### discordURL {data-type="string"}
+
 discordURL is the Discord webhook URL.
 Default is `https://discordapp.com/api/webhooks/`.
+
+
+
 
 ## Functions
 

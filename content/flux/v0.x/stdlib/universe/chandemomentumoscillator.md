@@ -54,23 +54,25 @@ chandeMomentumOscillator = (<-tables: stream[A], n: int, ?columns: [string]) => 
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Period or number of points to use in the calculation.
 
-### columns
 
+
+### columns
 
 List of columns to operate on. Default is `["_value"]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Apply the Chande Momentum Oscillator to input data
 

@@ -41,21 +41,25 @@ v1.json = (?file: string, ?json: string) => stream[A] where A: Record
 
 ### json
 
+InfluxDB 1.x query results in JSON format.
 
-InfluxDB 1.x query results in JSON format._`json` and `file` are mutually exclusive._
+_`json` and `file` are mutually exclusive._
 
 ### file
 
+File path to file containing InfluxDB 1.x query results in JSON format.
 
-File path to file containing InfluxDB 1.x query results in JSON format.The path can be absolute or relative.
+The path can be absolute or relative.
 If relative, it is relative to the working directory of the `fluxd` process.
 The JSON file must exist in the same file system running the `fluxd` process.
- **Note**: InfluxDB OSS and InfluxDB Cloud do not support the `file` parameter.
+**Note**: InfluxDB OSS and InfluxDB Cloud do not support the `file` parameter.
 Neither allow access to the underlying filesystem.
 
 
 ## Examples
 
+- [Convert a InfluxDB 1.x JSON query output string to a stream of tables](#convert-a-influxdb-1x-json-query-output-string-to-a-stream-of-tables)
+- [Convert a InfluxDB 1.x JSON query output file to a stream of tables](#convert-a-influxdb-1x-json-query-output-file-to-a-stream-of-tables)
 
 ### Convert a InfluxDB 1.x JSON query output string to a stream of tables
 
@@ -97,6 +101,8 @@ jsonData =
 v1.json(json: jsonData)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -106,6 +112,8 @@ v1.json(json: jsonData)
 | 2021-01-01T00:01:00Z | cpu_load_short | value   | 0.55    |
 | 2021-01-01T00:02:00Z | cpu_load_short | value   | 0.64    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Convert a InfluxDB 1.x JSON query output file to a stream of tables
 

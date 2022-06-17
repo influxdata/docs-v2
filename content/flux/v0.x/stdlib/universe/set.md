@@ -43,23 +43,25 @@ set = (<-tables: stream[A], key: string, value: string) => stream[A] where A: Re
 ## Parameters
 
 ### key
-
 ({{< req >}})
 Label of the column to modify or set.
 
-### value
 
+
+### value
 ({{< req >}})
 String value to set.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Set a column to a specific string value
 
@@ -69,6 +71,9 @@ import "sampledata"
 sampledata.int()
     |> set(key: "host", value: "prod1")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -111,3 +116,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   | prod1 |
 | 2021-01-01T00:00:50Z | 1       | t2   | prod1 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

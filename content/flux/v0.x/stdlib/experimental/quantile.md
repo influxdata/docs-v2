@@ -69,33 +69,39 @@ experimental.quantile = (
 ## Parameters
 
 ### q
-
 ({{< req >}})
 Quantile to compute (`[0 - 1]`).
 
+
+
 ### method
 
+Computation method. Default is `estimate_tdigest`.
 
-Computation method. Default is `estimate_tdigest`.**Supported methods**:
+**Supported methods**:
 - estimate_tdigest
 - exact_mean
 - exact_selector
 
 ### compression
 
-
 Number of centroids to use when compressing the dataset.
-Default is `1000.0`.A larger number produces a more accurate result at the cost of increased
+Default is `1000.0`.
+
+A larger number produces a more accurate result at the cost of increased
 memory requirements.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Return values in the 50th percentile of each input table](#return-values-in-the-50th-percentile-of-each-input-table)
+- [Return a value representing the 50th percentile of each input table](#return-a-value-representing-the-50th-percentile-of-each-input-table)
 
 ### Return values in the 50th percentile of each input table
 
@@ -106,6 +112,9 @@ import "sampledata"
 sampledata.float()
     |> experimental.quantile(q: 0.5)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -138,6 +147,8 @@ sampledata.float()
 | ---- | ------- |
 | t2   | 9.415   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Return a value representing the 50th percentile of each input table
 
@@ -148,6 +159,9 @@ import "sampledata"
 sampledata.float()
     |> experimental.quantile(q: 0.5, method: "exact_selector")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -180,3 +194,5 @@ sampledata.float()
 | -------------------- | ---- | ------- |
 | 2021-01-01T00:00:10Z | t2   | 4.97    |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -44,23 +44,25 @@ kaufmansAMA = (<-tables: stream[A], n: int, ?column: string) => stream[B] where 
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Period or number of points to use in the calculation.
 
-### column
 
+
+### column
 
 Column to operate on. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Caclulate Kaufman's Adaptive Moving Average for input data
 
@@ -70,6 +72,9 @@ import "sampledata"
 sampledata.int()
     |> kaufmansAMA(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -106,3 +111,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | -2.142970089472789  | t2   |
 | 2021-01-01T00:00:50Z | -2.0940721758134693 | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

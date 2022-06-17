@@ -43,20 +43,21 @@ tableFind = (<-tables: stream[B], fn: (key: A) => bool) => stream[B] where A: Re
 ## Parameters
 
 ### fn
-
 ({{< req >}})
-Predicate function to evaluate input table group keys.`tableFind()` returns the first table that resolves as `true`.
+Predicate function to evaluate input table group keys.
+
+`tableFind()` returns the first table that resolves as `true`.
 The predicate function requires a `key` argument that represents each input
 table's group key as a record.
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Extract a table from a stream of tables
 

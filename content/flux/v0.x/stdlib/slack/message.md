@@ -49,37 +49,44 @@ slack.message = (
 
 ### url
 
-
 Slack API URL.
-Default is `https://slack.com/api/chat.postMessage`.If using the Slack webhook API, this URL is provided ine Slack webhook setup process.
+Default is `https://slack.com/api/chat.postMessage`.
+
+If using the Slack webhook API, this URL is provided ine Slack webhook setup process.
 
 ### token
 
+Slack API token. Default is `""`.
 
-Slack API token. Default is `""`.If using the Slack Webhook API, a token is not required.
+If using the Slack Webhook API, a token is not required.
 
 ### channel
-
 ({{< req >}})
 Slack channel or user to send the message to.
 
-### text
 
+
+### text
 ({{< req >}})
 Message text.
 
-### color
 
+
+### color
 ({{< req >}})
-Slack message color.Valid values:
-  - good
-  - warning
-  - danger
-  - Any hex RGB color code
+Slack message color.
+
+Valid values:
+- good
+- warning
+- danger
+- Any hex RGB color code
 
 
 ## Examples
 
+- [Send a message to Slack using a Slack webhook](#send-a-message-to-slack-using-a-slack-webhook)
+- [Send a message to Slack using chat.postMessage API](#send-a-message-to-slack-using-chatpostmessage-api)
 
 ### Send a message to Slack using a Slack webhook
 

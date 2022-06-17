@@ -46,18 +46,19 @@ pagerduty.dedupKey = (<-tables: stream[A], ?exclude: [string]) => stream[{A with
 
 ### exclude
 
-
 Group key columns to exclude when generating the deduplication key.
 Default is ["_start", "_stop", "_level"].
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Add a PagerDuty deduplication key to output data
 
@@ -68,6 +69,9 @@ import "sampledata"
 sampledata.int()
     |> pagerduty.dedupKey()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -110,3 +114,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   | e137b67e3ecac75539ab3f0c139e421433c389c7a9932a878aff5405712dc384 |
 | 2021-01-01T00:00:50Z | 1       | t2   | e137b67e3ecac75539ab3f0c139e421433c389c7a9932a878aff5405712dc384 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

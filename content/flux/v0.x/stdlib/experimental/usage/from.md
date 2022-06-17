@@ -62,45 +62,58 @@ usage.from = (
 ## Parameters
 
 ### start
-
 ({{< req >}})
 Earliest time to include in results.
 
-### stop
 
+
+### stop
 ({{< req >}})
 Latest time to include in results.
 
+
+
 ### host
 
-
 [InfluxDB Cloud region URL](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
-Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+Default is `""`.
+
+_(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 ### orgID
 
+InfluxDB Cloud organization ID. Default is `""`.
 
-InfluxDB Cloud organization ID. Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+_(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 ### token
 
-
 InfluxDB Cloud [API token](https://docs.influxdata.com/influxdb/cloud/security/tokens/).
-Default is `""`._(Required if executed outside of your InfluxDB Cloud organization or region)_.
+Default is `""`.
+
+_(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 ### raw
 
-
 Return raw, high resolution usage data instead of downsampled usage data.
-Default is `false`.`usage.from()` can query the following time ranges:
-   | Data resolution | Maximum time range |
-  | :-------------- | -----------------: |
-  | raw             |             1 hour |
-  | downsampled     |            30 days |
+Default is `false`.
+
+`usage.from()` can query the following time ranges:
+| Data resolution | Maximum time range |
+| :-------------- | -----------------: |
+| raw             |             1 hour |
+| downsampled     |            30 days |
 
 
 ## Examples
 
+- [Query downsampled usage data for your InfluxDB Cloud organization](#query-downsampled-usage-data-for-your-influxdb-cloud-organization)
+- [Query raw usage data for your InfluxDB Cloud organization](#query-raw-usage-data-for-your-influxdb-cloud-organization)
+- [Query downsampled usage data for a different InfluxDB Cloud organization](#query-downsampled-usage-data-for-a-different-influxdb-cloud-organization)
+- [Query number of bytes in requests to the /api/v2/write endpoint](#query-number-of-bytes-in-requests-to-the-apiv2write-endpoint)
+- [Query number of bytes returned from the /api/v2/query endpoint](#query-number-of-bytes-returned-from-the-apiv2query-endpoint)
+- [Query the query count for InfluxDB Cloud query endpoints](#query-the-query-count-for-influxdb-cloud-query-endpoints)
+- [Compare usage metrics to organization usage limits](#compare-usage-metrics-to-organization-usage-limits)
 
 ### Query downsampled usage data for your InfluxDB Cloud organization
 

@@ -61,23 +61,27 @@ alerta.endpoint = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 (Required) Alerta URL.
 
-### apiKey
 
+
+### apiKey
 ({{< req >}})
 (Required) Alerta API key.
 
-### environment
 
+
+### environment
 
 Alert environment. Default is `""`.
 Valid values: "Production", "Development" or empty string (default).
 
+
+
 ### origin
 
-
 Alert origin. Default is `"InfluxDB"`.
+
+
 

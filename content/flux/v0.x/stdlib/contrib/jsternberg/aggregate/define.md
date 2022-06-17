@@ -53,33 +53,37 @@ aggregate.define = (
 ## Parameters
 
 ### init
-
 ({{< req >}})
 Function to compute the initial state of the
-  output. This can return either the final aggregate or a
-  temporary state object that can be used to compute the
-  final aggregate. The `values` parameter will always be a
-  non-empty array of values from the specified column.
+output. This can return either the final aggregate or a
+temporary state object that can be used to compute the
+final aggregate. The `values` parameter will always be a
+non-empty array of values from the specified column.
+
+
 
 ### reduce
-
 ({{< req >}})
 Function that takes in another buffer of values
-  and the current state of the aggregate and computes
-  the updated state.
+and the current state of the aggregate and computes
+the updated state.
+
+
 
 ### compute
-
 ({{< req >}})
 Function that takes the state and computes the final aggregate.
 
+
+
 ### fill
 
-
 Value passed to `fill()`. If present, the fill value determines what
-  the aggregate does when there are no values.
-  This can either be a value or one of the predefined
-  identifiers, `null` or `none`.
-  This value must be the same type as the value return from
-  compute.
+the aggregate does when there are no values.
+This can either be a value or one of the predefined
+identifiers, `null` or `none`.
+This value must be the same type as the value return from
+compute.
+
+
 

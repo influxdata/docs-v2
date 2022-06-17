@@ -58,25 +58,29 @@ stateDuration = (
 ## Parameters
 
 ### fn
-
 ({{< req >}})
 Predicate function that identifies the state of a record.
 
-### column
 
+
+### column
 
 Column to store the state duration in. Default is `stateDuration`.
 
-### timeColumn
 
+
+### timeColumn
 
 Time column to use to calculate elapsed time between rows.
 Default is `_time`.
 
+
+
 ### unit
 
+Unit of time to use to increment state duration. Default is `1s` (seconds).
 
-Unit of time to use to increment state duration. Default is `1s` (seconds).**Example units:**
+**Example units:**
 - 1ns (nanoseconds)
 - 1us (microseconds)
 - 1ms (milliseconds)
@@ -87,12 +91,12 @@ Unit of time to use to increment state duration. Default is `1s` (seconds).**Exa
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the time spent in a specified state
 
@@ -102,6 +106,9 @@ import "sampledata"
 sampledata.int()
     |> stateDuration(fn: (r) => r._value < 15)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -144,3 +151,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   | 0              |
 | 2021-01-01T00:00:50Z | 1       | t2   | 10             |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

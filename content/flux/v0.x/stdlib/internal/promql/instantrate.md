@@ -46,11 +46,13 @@ promql.instantRate = (<-tables: stream[{A with _value: float, _time: time}], ?is
 
 ### tables
 
-
 Input data. Defaults is piped-forward data (`<-`).
+
+
 
 ### isRate
 
-
 Data represents a rate.
+
+
 

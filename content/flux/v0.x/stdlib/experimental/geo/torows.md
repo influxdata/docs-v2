@@ -43,12 +43,12 @@ geo.toRows = (<-tables: stream[A]) => stream[B] where A: Record, B: Record
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Pivot lat and lon fields into columns
 
@@ -58,6 +58,9 @@ import "experimental/geo"
 data
     |> geo.toRows()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -82,3 +85,5 @@ data
 | 2021-01-02T01:00:00Z | a213b | 13.9228  | 38.3527 |
 | 2021-01-03T02:00:00Z | a213b | 15.08433 | 36.9978 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -39,13 +39,13 @@ math.cosh = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
-## Examples
 
+
+## Examples
 
 ### Use math.cosh in map
 

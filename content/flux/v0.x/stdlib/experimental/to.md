@@ -58,53 +58,59 @@ experimental.to = (
 
 ### bucket
 
-
 Name of the bucket to write to.
 _`bucket` and `bucketID` are mutually exclusive_.
 
-### bucketID
 
+
+### bucketID
 
 String-encoded bucket ID to to write to.
 _`bucket` and `bucketID` are mutually exclusive_.
 
+
+
 ### host
 
+URL of the InfluxDB instance to write to.
 
-URL of the InfluxDB instance to write to.See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-  or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
-   `host` is required when writing to a remote InfluxDB instance.
-  If specified, `token` is also required.
+See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+`host` is required when writing to a remote InfluxDB instance.
+If specified, `token` is also required.
 
 ### org
-
 
 Organization name.
 _`org` and `orgID` are mutually exclusive_.
 
-### orgID
 
+
+### orgID
 
 String-encoded organization ID to query.
 _`org` and `orgID` are mutually exclusive_.
 
+
+
 ### token
 
+InfluxDB API token.
 
-InfluxDB API token.**InfluxDB 1.x or Enterprise**: If authentication is disabled, provide an
-  empty string (`""`). If authentication is enabled, provide your InfluxDB
-  username and password using the `<username>:<password>` syntax.
-   `token` is required when writing to another organization or when `host`
-  is specified.
+**InfluxDB 1.x or Enterprise**: If authentication is disabled, provide an
+empty string (`""`). If authentication is enabled, provide your InfluxDB
+username and password using the `<username>:<password>` syntax.
+`token` is required when writing to another organization or when `host`
+is specified.
 
 ### tables
-
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Pivot and write data to InfluxDB
 

@@ -53,20 +53,21 @@ experimental.stddev = (<-tables: stream[{A with _value: float}], ?mode: string) 
 
 ### mode
 
-
 Standard deviation mode or type of standard deviation to calculate.
-Default is `sample`.**Available options**:
+Default is `sample`.
+
+**Available options**:
 - sample
 - population
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Return the standard deviation in input tables
 
@@ -77,6 +78,9 @@ import "sampledata"
 sampledata.float()
     |> experimental.stddev()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -109,3 +113,5 @@ sampledata.float()
 | ---- | ---------------- |
 | t2   | 9.85926704510364 |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

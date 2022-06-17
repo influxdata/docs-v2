@@ -44,18 +44,19 @@ array.filter = (<-arr: [A], fn: (x: A) => bool) => [A]
 
 ### arr
 
-
 Array to filter. Default is the piped-forward array (`<-`).
 
-### fn
 
+
+### fn
 ({{< req >}})
 Predicate function to evaluate on each element.
 The element is represented by `x` in the predicate function.
 
 
-## Examples
 
+
+## Examples
 
 ### Filter array of integers
 
@@ -76,6 +77,8 @@ b = a |> array.filter(fn: (x) => x >= 3)
 array.from(rows: b |> array.map(fn: (x) => ({_value: x})))
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
 #### Output data
 
@@ -85,3 +88,5 @@ array.from(rows: b |> array.map(fn: (x) => ({_value: x})))
 | 4       |
 | 5       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

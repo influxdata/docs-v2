@@ -39,13 +39,16 @@ math.atan = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the arctangent of a value](#return-the-arctangent-of-a-value)
+- [Use math.atan in map](#use-mathatan-in-map)
 
 ### Return the arctangent of a value
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.atan(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 1.4987710606562659  | t2   |
 | 2021-01-01T00:00:50Z | 1.0774963946058176  | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

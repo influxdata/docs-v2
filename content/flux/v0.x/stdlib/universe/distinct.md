@@ -43,17 +43,22 @@ distinct = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, 
 
 ### column
 
-
 Column to return unique values from. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
+
+
 ## Examples
 
+- [Return distinct values from the _value column](#return-distinct-values-from-the-_value-column)
+- [Return distinct values from a non-default column](#return-distinct-values-from-a-non-default-column)
+- [Return distinct values from data with null values](#return-distinct-values-from-data-with-null-values)
 
 ### Return distinct values from the _value column
 
@@ -63,6 +68,9 @@ import "sampledata"
 sampledata.int()
     |> distinct()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -104,6 +112,8 @@ sampledata.int()
 | t2   | 13      |
 | t2   | 1       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Return distinct values from a non-default column
 
@@ -113,6 +123,9 @@ import "sampledata"
 sampledata.int()
     |> distinct(column: "tag")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -145,6 +158,8 @@ sampledata.int()
 | ---- | ------- |
 | t2   | t2      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Return distinct values from data with null values
 
@@ -154,6 +169,9 @@ import "sampledata"
 sampledata.int(includeNull: true)
     |> distinct()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -193,3 +211,5 @@ sampledata.int(includeNull: true)
 | t2   | 19      |
 | t2   | 1       |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

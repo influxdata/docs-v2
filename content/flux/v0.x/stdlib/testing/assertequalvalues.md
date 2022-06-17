@@ -41,18 +41,19 @@ testing.assertEqualValues = (got: A, want: A) => stream[{v: A, _diff: string}]
 ## Parameters
 
 ### got
-
 ({{< req >}})
 Value to test.
 
-### want
 
+
+### want
 ({{< req >}})
 Expected value to test against.
 
 
-## Examples
 
+
+## Examples
 
 ### Test if two values are equal
 
@@ -62,6 +63,9 @@ import "testing"
 testing.assertEqualValues(got: 5, want: 12)
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input" %}}
+
 #### Input data
 
 | _diff  | v  |
@@ -69,3 +73,5 @@ testing.assertEqualValues(got: 5, want: 12)
 | -      | 12 |
 | +      | 5  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

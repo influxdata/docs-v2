@@ -41,28 +41,31 @@ covariance = (<-tables: stream[A], columns: [string], ?pearsonr: bool, ?valueDst
 ## Parameters
 
 ### columns
-
 ({{< req >}})
 List of two columns to operate on.
 
-### pearsonr
 
+
+### pearsonr
 
 Normalize results to the Pearson R coefficient. Default is `false`.
 
-### valueDst
 
+
+### valueDst
 
 Column to store the result in. Default is `_value`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate the covariance between two columns
 
@@ -70,6 +73,9 @@ Input data. Default is piped-forward data (`<-`).
 data
     |> covariance(columns: ["x", "y"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -88,3 +94,5 @@ data
 | ------- |
 | 345.75  |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -39,18 +39,19 @@ strings.joinStr = (arr: [string], v: string) => string
 ## Parameters
 
 ### arr
-
 ({{< req >}})
 Array of strings to concatenate.
 
-### v
 
+
+### v
 ({{< req >}})
 Separator to use in the concatenated value.
 
 
-## Examples
 
+
+## Examples
 
 ### Join a list of strings into a single string
 

@@ -45,6 +45,8 @@ now = () => time
 
 ## Examples
 
+- [Use the current UTC time as a query boundary](#use-the-current-utc-time-as-a-query-boundary)
+- [Define a custom now time](#define-a-custom-now-time)
 
 ### Use the current UTC time as a query boundary
 

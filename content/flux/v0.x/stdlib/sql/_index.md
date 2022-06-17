@@ -35,6 +35,7 @@ Import the `sql` package:
 ```js
 import "sql"
 ```
+
 ## SQL data source names
 The `sql` packages uses Go drivers to connect to SQL database.
 The data source name (DSN) (also known as connection string) is determined by
@@ -140,6 +141,8 @@ azure tenant id=77...;azure client id=58...;azure username=some@myorg;azure pass
 ```txt
 azure auth=MSI
 ```
+
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

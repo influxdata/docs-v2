@@ -44,22 +44,26 @@ gen.tables = (
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of rows to generate.
 
-### nulls
 
+
+### nulls
 
 Percentage chance that a null value will be used in the input. Valid value range is `[0.0 - 1.0]`.
 
-### tags
 
+
+### tags
 
 Set of tags with their cardinality to generate.
 
+
+
 ### seed
 
-
 Pass seed to tables generator to get the very same sequence each time
+
+
 

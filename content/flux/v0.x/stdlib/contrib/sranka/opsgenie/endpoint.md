@@ -59,16 +59,19 @@ opsgenie.endpoint = (
 
 ### url
 
-
 Opsgenie API URL. Defaults to `https://api.opsgenie.com/v2/alerts`.
 
-### apiKey
 
+
+### apiKey
 ({{< req >}})
 (Required) Opsgenie API authorization key.
 
+
+
 ### entity
 
-
 Alert entity used to specify the alert domain.
+
+
 

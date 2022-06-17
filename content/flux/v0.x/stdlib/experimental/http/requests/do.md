@@ -54,41 +54,50 @@ requests.do = (
 ## Parameters
 
 ### method
-
 ({{< req >}})
 method of the http request.
-   Supported methods: DELETE, GET, HEAD, PATCH, POST, PUT.
+Supported methods: DELETE, GET, HEAD, PATCH, POST, PUT.
+
+
 
 ### url
-
 ({{< req >}})
 URL to request. This should not include any query parameters.
 
+
+
 ### params
 
-
 Set of key value pairs to add to the URL as query parameters.
-  Query parameters will be URL encoded.
-  All values for a key will be appended to the query.
+Query parameters will be URL encoded.
+All values for a key will be appended to the query.
+
+
 
 ### headers
 
-
 Set of key values pairs to include on the request.
+
+
 
 ### body
 
-
 Data to send with the request.
 
-### config
 
+
+### config
 
 Set of options to control how the request should be performed.
 
 
+
+
 ## Examples
 
+- [Make a GET request](#make-a-get-request)
+- [Make a GET request that needs authorization](#make-a-get-request-that-needs-authorization)
+- [Make a GET request with query parameters](#make-a-get-request-with-query-parameters)
 
 ### Make a GET request
 

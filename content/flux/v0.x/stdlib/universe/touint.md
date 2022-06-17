@@ -52,12 +52,16 @@ toUInt = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _va
 
 ### tables
 
-
 Input data. Default is piped-forward data (`<-`).
+
+
 
 
 ## Examples
 
+- [Convert a float _value column to uintegers](#convert-a-float-_value-column-to-uintegers)
+- [Convert a boolean _value column to uintegers](#convert-a-boolean-_value-column-to-uintegers)
+- [Convert a uinteger _value column to an uintegers](#convert-a-uinteger-_value-column-to-an-uintegers)
 
 ### Convert a float _value column to uintegers
 
@@ -67,6 +71,9 @@ import "sampledata"
 sampledata.float()
     |> toUInt()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -109,6 +116,8 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 13                   | t2   |
 | 2021-01-01T00:00:50Z | 1                    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Convert a boolean _value column to uintegers
 
@@ -118,6 +127,9 @@ import "sampledata"
 sampledata.bool()
     |> toUInt()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -160,6 +172,8 @@ sampledata.bool()
 | 2021-01-01T00:00:40Z | 1       | t2   |
 | 2021-01-01T00:00:50Z | 0       | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Convert a uinteger _value column to an uintegers
 
@@ -169,6 +183,9 @@ import "sampledata"
 sampledata.uint()
     |> toUInt()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -211,3 +228,5 @@ sampledata.uint()
 | 2021-01-01T00:00:40Z | 13                   | t2   |
 | 2021-01-01T00:00:50Z | 1                    | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

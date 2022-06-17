@@ -39,13 +39,16 @@ math.sinh = (x: float) => float
 ## Parameters
 
 ### x
-
 ({{< req >}})
 Value to operate on.
 
 
+
+
 ## Examples
 
+- [Return the hyperbolic sine of a value](#return-the-hyperbolic-sine-of-a-value)
+- [Use math.sinh in map](#use-mathsinh-in-map)
 
 ### Return the hyperbolic sine of a value
 
@@ -66,6 +69,9 @@ import "sampledata"
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.sinh(x: r._value)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -108,3 +114,5 @@ sampledata.float()
 | 2021-01-01T00:00:40Z | 522746.9691817887   | t2   |
 | 2021-01-01T00:00:50Z | 3.134032070530569   | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

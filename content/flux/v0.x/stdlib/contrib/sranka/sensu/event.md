@@ -50,37 +50,43 @@ sensu.event = (
 ## Parameters
 
 ### url
-
 ({{< req >}})
 Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture)
-without a trailing slash.Example: `http://localhost:8080`
+without a trailing slash.
+
+Example: `http://localhost:8080`
 
 ### apiKey
-
 ({{< req >}})
 Sensu [API Key](https://docs.sensu.io/sensu-go/latest/operations/control-access/).
 
-### checkName
 
+
+### checkName
 ({{< req >}})
-Check name.Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
+Check name.
+
+Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
 
 ### text
-
 ({{< req >}})
-Event text.Mapped to `output` in the Sensu Events API request.
+Event text.
+
+Mapped to `output` in the Sensu Events API request.
 
 ### handlers
 
-
 Sensu handlers to execute. Default is `[]`.
+
+
 
 ### status
 
-
 Event status code that indicates [state](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/sranka/sensu/event/#state).
-Default is `0`.| Status code     | State                   |
+Default is `0`.
+
+| Status code     | State                   |
 | :-------------- | :---------------------- |
 | 0               | OK                      |
 | 1               | WARNING                 |
@@ -89,29 +95,31 @@ Default is `0`.| Status code     | State                   |
 
 ### state
 
-
 Event state.
-Default is `"passing"` for `0` [status](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/sranka/sensu/event/#status) and `"failing"` for other statuses.**Accepted values**:
+Default is `"passing"` for `0` [status](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/sranka/sensu/event/#status) and `"failing"` for other statuses.
+
+**Accepted values**:
 - `"failing"`
 - `"passing"`
 - `"flapping"`
 
 ### namespace
 
-
 [Sensu namespace](https://docs.sensu.io/sensu-go/latest/reference/rbac/).
 Default is `"default"`.
 
+
+
 ### entityName
 
-
 Event source.
-Default is `influxdb`.Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
+Default is `influxdb`.
+
+Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
 
 
 ## Examples
-
 
 ### Send the last reported status to Sensu
 

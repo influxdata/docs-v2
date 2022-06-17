@@ -28,12 +28,17 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 The `location` package loads a timezone based on a location name.
 
+
+
 ## Options
 
 ```js
 option location.location = {zone: "UTC", offset: 0h}
 ```
  
- 
 ### location {data-type="{zone: string, offset: duration}"}
+
 location loads a timezone based on a location name.
+
+
+

@@ -52,23 +52,25 @@ relativeStrengthIndex = (<-tables: stream[A], n: int, ?columns: [string]) => str
 ## Parameters
 
 ### n
-
 ({{< req >}})
 Number of values to use to calculate the RSI.
 
-### columns
 
+
+### columns
 
 Columns to operate on. Default is `["_value"]`.
 
-### tables
 
+
+### tables
 
 Input data. Default is piped-forward data (`<-`).
 
 
-## Examples
 
+
+## Examples
 
 ### Calculate a three point relative strength index
 
@@ -78,6 +80,9 @@ import "sampledata"
 sampledata.int()
     |> relativeStrengthIndex(n: 3)
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
 #### Input data
 
@@ -114,3 +119,5 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 59.42857142857142 | t2   |
 | 2021-01-01T00:00:50Z | 40.625            | t2   |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
