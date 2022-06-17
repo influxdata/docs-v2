@@ -24,14 +24,15 @@ introduced: 0.7.0
 
 ```js
 aggregateWindow(
-  every: 1m,
-  period: 1m,
-  fn: mean,
-  column: "_value",
-  timeSrc: "_stop",
-  timeDst: "_time",
-  location: "UTC",
-  createEmpty: true
+    every: 1m,
+    period: 1m,
+    fn: mean,
+    column: "_value",
+    timeSrc: "_stop",
+    timeDst: "_time",
+    location: timezone.utc,
+    offset: 0s,
+    createEmpty: true,
 )
 ```
 
@@ -99,12 +100,18 @@ Defaults to `"_stop"`.
 The "time destination" column to which time is copied for the aggregate record.
 Defaults to `"_time"`.
 
-### location {data-type="string"}
+### location {data-type="record"}
+
 Location used to determine timezone.
 Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
 _Flux uses the timezone database (commonly referred to as "tz" or "zoneinfo")
 provided by the operating system._
+
+### offset {data-type="duration"}
+
+Duration to shift the window boundaries by. Default is `0s`.
+`offset` can be negative, indicating that the offset goes backwards in time.
 
 ### createEmpty {data-type="bool"}
 
@@ -128,6 +135,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 - [Use an aggregate function with default parameters](#use-an-aggregate-function-with-default-parameters)
 - [Specify parameters of the aggregate function](#specify-parameters-of-the-aggregate-function)
 - [Window and aggregate by calendar month](#window-and-aggregate-by-calendar-month)
+- [Window and aggregate by calendar week starting on Monday](#window-and-aggregate-by-calendar-week-starting-on-monday)
 
 #### Use an aggregate function with default parameters
 The following example uses the default parameters of the
@@ -138,13 +146,10 @@ to aggregate time-based windows:
 import "sampledata"
 
 data = sampledata.float()
-  |> range(start: sampledata.start, stop: sampledata.stop)
+    |> range(start: sampledata.start, stop: sampledata.stop)
 
 data
-  |> aggregateWindow(
-    every: 20s,
-    fn: mean
-  )
+    |> aggregateWindow(every: 20s, fn: mean)
 ```
 
 {{< expand-wrapper >}}
@@ -177,14 +182,14 @@ tables into the aggregate or selector function with all required parameters defi
 import "sampledata"
 
 data = sampledata.float()
-  |> range(start: sampledata.start, stop: sampledata.stop)
+    |> range(start: sampledata.start, stop: sampledata.stop)
 
 data
-  |> aggregateWindow(
-    column: "_value",
-    every: 20s,
-    fn: (column, tables=<-) => tables |> quantile(q: 0.99, column:column)
-  )
+    |> aggregateWindow(
+        column: "_value",
+        every: 20s,
+        fn: (column, tables=<-) => tables |> quantile(q: 0.99, column: column),
+    )
 ```
 
 {{< expand-wrapper >}}
@@ -212,12 +217,13 @@ data
 import "sampledata"
 
 data = sampledata.float()
-  |> range(start: sampledata.start, stop: sampledata.stop)
+    |> range(start: sampledata.start, stop: sampledata.stop)
 
 data
-  |> aggregateWindow(every: 1mo, fn: mean)
+    |> aggregateWindow(every: 1mo, fn: mean)
 ```
 
+{{< expand-wrapper >}}
 {{% expand "View input and output" %}}
 ##### Input data
 {{% flux/sample set="float" includeRange=true %}}
@@ -231,3 +237,47 @@ data
 | :------------------- | :------------------- | :------------------- | :-- | ----------------: |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t2  | 9.426666666666668 |
 {{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Window and aggregate by calendar week starting on Monday
+
+Flux increments weeks from the Unix epoch, which was a Thursday.
+Because of this, by default, all `1w` windows begin on Thursday.
+Use the `offset` parameter to shift the start of weekly windows to the desired day.
+
+| Week start | Offset |
+| :--------- | :----: |
+| Monday     |  -3d   |
+| Tuesday    |  -2d   |
+| Wednesday  |  -1d   |
+| Thursday   |   0d   |
+| Friday     |   1d   |
+| Saturday   |   2d   |
+| Sunday     |   3d   |
+
+```js
+import "sampledata"
+
+data = sampledata.float()
+    |> range(start: sampledata.start, stop: sampledata.stop)
+
+data
+    |> aggregateWindow(every: 1w, offset: -3d, fn: mean)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View input and output" %}}
+##### Input data
+{{% flux/sample set="float" includeRange=true %}}
+
+#### Output data
+| _start               | _stop                | _time                | tag | _value |
+| :------------------- | :------------------- | :------------------- | :-- | -----: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t1  |   8.88 |
+
+| _start               | _stop                | _time                | tag |            _value |
+| :------------------- | :------------------- | :------------------- | :-- | ----------------: |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | t2  | 9.426666666666668 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

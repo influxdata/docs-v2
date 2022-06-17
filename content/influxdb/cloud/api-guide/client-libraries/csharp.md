@@ -8,6 +8,9 @@ menu:
   influxdb_cloud:
     name: C#
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-csharp
+    params:
+      url: https://github.com/influxdata/influxdb-client-csharp
 weight: 201
 ---
+
+{{< duplicate-oss >}}

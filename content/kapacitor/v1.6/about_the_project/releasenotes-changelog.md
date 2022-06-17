@@ -7,13 +7,43 @@ menu:
     name: Release notes
 ---
 
+## v1.6.4 [2022-03-15]
+
+### Features
+
+- Add `SASL` support to `Kafka` alerts.
+
+### Bug fixes
+
+- Fully deprecate DES based ciphers, RC4 based ciphers and TLS 1.1 and 1.0 ciphers. 
+- Adjust `Flux` injected dependencies so that large data sets can be downloaded without issue.
+
+## v1.6.3 [2022-01-25]
+
+### Features
+
+- Add support for custom `attributes` field in [Alerta event handler](/kapacitor/v1.6/event_handlers/alerta/).
+- Add `host` and `attribute` options to [BigPanda event handler](/kapacitor/v1.6/event_handlers/bigpanda/):
+  - `host`: Identifies the main object that caused the alert.
+  - `attribute`: Adds additional attribute(s) to the alert payload.
+- Add new `auto-attributes` configuration option to BigPanda node.
+- Ability to add new headers to HTTP posts directly in `env var` config. 
+- `Topic queue length` is now configurable. This allows you to set a `topic-buffer-length` parameter in the Kapacitor config file in the
+[alert](https://docs.influxdata.com/kapacitor/v1.6/administration/configuration/#alert) section. The default is 5000. Minimum length
+is 1000.
+- Add new `address template` to email alert. Email addresses no longer need to be hardcoded; can be derived directly from data.
+
+### Bug fixes
+
+- Deprecated ciphers identified as "weak" in response to the [sweet32](https://sweet32.info/) attack.
+- Add additional detail to the error message `missing flux data`. This error is generated when issues occur when running a **Flux** query within a batch TICKscript.
+
 ## v1.6.2 [2021-09-24]
 
 ### Features
 
 - Add the `template-id` property to the `GET /kapacitor/v1/tasks` request response. Adding this property helps to identify tasks that were created from a [template](/kapacitor/v1.6/working/template_tasks/).
 - For alert templates, row templates, and details templates, add support for third-party services that reject standard `json` (terminated by a new line character) by compacting `json` in templates. To do this, replace `{{ json . }}` with `{{ jsonCompact . }}` in your templates. (This change also compacts Big Panda alert details to avoid Panda service error.)
-- Previously, Kapacitor used a remote `influxdb` bucket (or 1.x database) to store Flux task run logs, and you had to manually create the database or bucket to store Flux logs. Now, Kapacitor automatically creates an InfluxDB 1.x database or InfluxDB 2.x bucket for Flux task logs (by default, kapacitor_fluxtask_logs). For more information, see how to [use Flux tasks with Kapacitor](/kapacitor/v1.6/working/flux/).
 
 ### Bug fixes
 

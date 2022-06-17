@@ -2,14 +2,20 @@ openapi: 3.0.0
 info:
   title: InfluxDB Cloud v1 compatibility API documentation
   version: 0.1.0
-  description: |
-    The InfluxDB 1.x compatibility `/write` and `/query` endpoints work with
-    InfluxDB 1.x client libraries and third-party integrations like Grafana
-    and others.
+  description: >
+    The InfluxDB 1.x compatibility /write and /query endpoints work with
+    InfluxDB 1.x client libraries and third-party integrations like Grafana and
+    others.
 
 
-    If you want to use the latest InfluxDB `/api/v2` API instead,
-    see the [InfluxDB v2 API documentation](/influxdb/cloud/api/).
+    If you want to use the latest InfluxDB /api/v2 API instead, see the
+    [InfluxDB v2 API documentation](/influxdb/cloud/api/).
+
+
+    This documentation is generated from the
+
+    [InfluxDB OpenAPI
+    specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/swaggerV1Compat.yml).
 servers:
   - url: /
 paths:
@@ -36,7 +42,7 @@ paths:
             type: string
           required: true
           description: >-
-            Bucket to write to. If none exists, a bucket will be created with a
+            Bucket to write to. If none exists, InfluxDB creates a bucket with a
             default 3-day retention policy.
         - in: query
           name: rp
@@ -486,8 +492,8 @@ tags:
 
       <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
-  - Query
-  - Write
+  - name: Query
+  - name: Write
 x-tagGroups:
   - name: Overview
     tags:

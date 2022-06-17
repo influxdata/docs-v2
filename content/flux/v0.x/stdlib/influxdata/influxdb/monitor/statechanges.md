@@ -23,8 +23,8 @@ a `_level` column and outputs records that change from `fromLevel` to `toLevel`.
 import "influxdata/influxdb/monitor"
 
 monitor.stateChanges(
-  fromLevel: "any",
-  toLevel: "any"
+    fromLevel: "any",
+    toLevel: "any",
 )
 ```
 
@@ -50,7 +50,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "influxdata/influxdb/monitor"
 
 monitor.from(start: -1h)
-  |> monitor.stateChanges(toLevel: "crit")
+    |> monitor.stateChanges(toLevel: "crit")
 ```
 
 {{< flex >}}
@@ -72,12 +72,3 @@ monitor.from(start: -1h)
 | 2021-01-01T00:30:00Z |  crit  |
 {{% /flex-content %}}
 {{< /flex >}}
-
-## Function definition
-```js
-stateChanges = (fromLevel="any", toLevel="any", tables=<-) => {
-  return
-    if fromLevel == "any" and toLevel == "any" then tables |> stateChangesOnly()
-    else tables |> _stateChanges(fromLevel: fromLevel, toLevel: toLevel)
-}
-```

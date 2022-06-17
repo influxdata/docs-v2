@@ -23,8 +23,8 @@ _`prometheus.histogramQuantile()` is an [aggregate function](/flux/v0.x/function
 import "experimental/prometheus"
 
 prometheus.histogramQuantile(
-  quantile: 0.99,
-  metricVersion: 2
+    quantile: 0.99,
+    metricVersion: 2,
 )
 ```
 

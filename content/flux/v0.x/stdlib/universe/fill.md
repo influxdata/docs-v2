@@ -60,7 +60,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float(includeNull: true)
-  |> fill(value: 0.0)
+    |> fill(value: 0.0)
 ```
 
 {{< expand-wrapper >}}
@@ -103,7 +103,7 @@ sampledata.float(includeNull: true)
 import "sampledata"
 
 sampledata.float(includeNull: true)
-  |> fill(usePrevious: true)
+    |> fill(usePrevious: true)
 ```
 
 {{% expand "View input and output" %}}

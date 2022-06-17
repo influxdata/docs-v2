@@ -12,7 +12,7 @@ related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /influxdb/v2.1/write-data/developer-tools/scrape-prometheus-metrics/
   - /{{< latest "flux" >}}/prometheus/, Work with Prometheus in Flux
-  - /{{< latest "telegraf" >}}/plugins/#prometheus, Telegraf Prometheus input plugin
+  - /{{< latest "telegraf" >}}/plugins/#input-prometheus, Telegraf Prometheus input plugin
   - /influxdb/v2.1/write-data/no-code/scrape-data/
   - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
 ---
@@ -28,7 +28,7 @@ are parsed and written to InfluxDB in one of two formats, depending on the scrap
 
 | Scraping tool                                                                              |                               InfluxDB Metric version |
 | :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}/plugins/#prometheus)               | _Determined by `metric_version` configuration option_ |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}/plugins/#input-prometheus)               | _Determined by `metric_version` configuration option_ |
 | [InfluxDB scraper](/influxdb/v2.1/write-data/no-code/scrape-data/)                         |                                                     1 |
 | Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
@@ -37,7 +37,7 @@ are parsed and written to InfluxDB in one of two formats, depending on the scrap
 
 | Scraping tool                                                                              |                               InfluxDB Metric version |
 | :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
-| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}/plugins/#prometheus)               | _Determined by `metric_version` configuration option_ |
+| [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}/plugins/#input-prometheus)               | _Determined by `metric_version` configuration option_ |
 | Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
 {{% /cloud-only %}}

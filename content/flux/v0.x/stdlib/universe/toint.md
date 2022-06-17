@@ -45,9 +45,8 @@ toInt()
 | uint         | Integer equivalent of the unsigned integer      |
 
 {{% note %}}
-To convert values in a column other than `_value`, define a custom function
-patterned after the [function definition](#function-definition),
-but replace `_value` with your desired column.
+To convert values in a column other than `_value`, use `map()` and `int()`
+as shown in [this example](/flux/v0.x/stdlib/universe/int/#convert-all-values-in-a-column-to-integer-values).
 {{% /note %}}
 
 ## Parameters
@@ -68,7 +67,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float()
-  |> toInt()
+    |> toInt()
 ```
 
 {{< expand-wrapper >}}
@@ -110,7 +109,7 @@ sampledata.float()
 import "sampledata"
 
 sampledata.bool()
-  |> toInt()
+    |> toInt()
 ```
 
 {{< expand-wrapper >}}
@@ -137,7 +136,7 @@ sampledata.bool()
 import "sampledata"
 
 sampledata.uint()
-  |> toInt()
+    |> toInt()
 ```
 
 {{< expand-wrapper >}}
@@ -173,10 +172,3 @@ sampledata.uint()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toInt = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: int(v: r._value) }))
-```

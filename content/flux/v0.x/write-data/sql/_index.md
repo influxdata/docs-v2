@@ -14,12 +14,12 @@ related:
 list_code_example: |
   ```js
   import "sql"
-  
+
   sql.to(
-    driverName: "postgres",
-    dataSourceName: "postgresql://user:password@localhost",
-    table: "ExampleTable",
-    batchSize: 10000
+      driverName: "postgres",
+      dataSourceName: "postgresql://user:password@localhost",
+      table: "ExampleTable",
+      batchSize: 10000,
   )
   ```
 ---
@@ -71,9 +71,9 @@ username = secrets.get(key: "POSTGRES_USER")
 password = secrets.get(key: "POSTGRES_PASS")
 
 sql.to(
-  driverName: "postgres",
-  dataSourceName: "postgresql://${username}:${password}@localhost:5432",
-  table: "example_table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://${username}:${password}@localhost:5432",
+    table: "example_table",
 )
 ```
 
@@ -106,21 +106,16 @@ Given the following following [stream of tables](/flux/v0.x/get-started/data-mod
 | 2021-01-01T00:00:10Z | t2  |      4 |
 | 2021-01-01T00:00:20Z | t2  |     -3 |
 
-##### Flux query
+##### Flux script
 ```js
 import "sql"
 
 data
-  |> sql.from(
-    driver: "mysql",
-    dataSourceName: "username:passwOrd@tcp(localhost:3306)/db",
-    table: "exampleTable"
-  )
-```
-
-##### SQL Query
-```sql
-SELECT * FROM exampleTable
+    |> sql.to(
+        driver: "mysql",
+        dataSourceName: "username:passwOrd@tcp(localhost:3306)/db",
+        table: "exampleTable"
+    )
 ```
 
 ##### SQL output

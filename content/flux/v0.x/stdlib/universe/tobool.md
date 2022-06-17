@@ -25,9 +25,8 @@ toBool()
 ```
 
 {{% note %}}
-To convert values in a column other than `_value`, define a custom function
-patterned after the [function definition](#function-definition),
-but replace `_value` with your desired column.
+To convert values in a column other than `_value`, use `map()` and `bool()`
+as shown in [this example](/flux/v0.x/stdlib/universe/bool/#convert-a-numeric-column-to-a-boolean-column).
 {{% /note %}}
 
 ##### Supported data types
@@ -51,7 +50,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.numericBool()
-  |> toBool()
+    |> toBool()
 ```
 
 {{< expand-wrapper >}}
@@ -87,10 +86,3 @@ sampledata.numericBool()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toBool = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: bool(v: r._value) }))
-```

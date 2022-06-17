@@ -47,9 +47,5 @@ The substring to search for.
 import "strings"
 
 data
-  |> map(fn: (r) => ({
-      r with
-      the_index: strings.lastIndex(v: r.pageTitle, substr: "the")
-    })
-  )
+    |> map(fn: (r) => ({r with the_index: strings.lastIndex(v: r.pageTitle, substr: "the")}))
 ```

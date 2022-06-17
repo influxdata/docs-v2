@@ -14,6 +14,9 @@ aliases:
 related:
   - /influxdb/v2.1/reference/cli/influx/apply/
   - /influxdb/v2.1/reference/cli/influx/template/
+  - /influxdb/v2.1/reference/internals/metrics/
+  - /flux/v0.x/prometheus/scrape-prometheus/
+  - /influxdb/v2.1/reference/prometheus-metrics/
 ---
 
 Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics),
@@ -28,6 +31,7 @@ Do the following:
 5. [View the Monitoring dashboard](#view-the-monitoring-dashboard)
 6. (Optional) [Alert when metrics stop reporting](#alert-when-metrics-stop-reporting)
 7. (Optional) [Create a notification endpoint and rule](#create-a-notification-endpoint-and-rule)
+8. (Optional) [Write metrics to InfluxDB OSS at regular intervals](#write-metrics-to-influxdb-oss-at-regular-intervals)
 
 ## Review requirements
 
@@ -45,7 +49,7 @@ The InfluxDB OSS Monitoring template includes a Telegraf configuration that send
 InfluxDB OSS metrics to an InfluxDB endpoint and a dashboard that visualizes the metrics.
 
 1.  [Log into your InfluxDB Cloud account](https://cloud2.influxdata.com/).
-2.  Go to **Settings > Templates** in the navigation bar on the left
+2.  Go to **Settings > Templates** in the navigation bar on the left.
 
     {{< nav-icon "Settings" >}}
 
@@ -67,13 +71,14 @@ InfluxDB OSS metrics to an InfluxDB endpoint and a dashboard that visualizes the
 
 ## Set up InfluxDB OSS for monitoring
 
-By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
-internal InfluxDB metrics in [Prometheus format](https://prometheus.io/docs/concepts/data_model/).
+InfluxDB OSS 2.x has a `/metrics` endpoint that exports [internal InfluxDB metrics](/{{< latest "influxdb" >}}/reference/internals/metrics/) in [Prometheus exposition format](https://prometheus.io/docs/concepts/data_model/).
+
+[{{< api-endpoint method="GET" endpoint="http://localhost:8086/metrics" >}}](/influxdb/v2.1/api/#operation/GetMetrics)
 
 1. Ensure the `/metrics` endpoint is [enabled](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
    If you've changed the default settings to disable the `/metrics` endpoint,
    [re-enable these settings](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
-2. Navigate to the `/metrics` endpoint of your InfluxDB OSS instance to view the InfluxDB OSS system metrics in your browser: 
+2. To preview `/metrics` data, use your browser to navigate to the endpoint.
 
 ## Set up Telegraf
 
@@ -83,7 +88,7 @@ On each InfluxDB OSS instance you want to monitor, do the following:
 
 1. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/).
 2. Set the following environment variables in your Telegraf environment:
-    
+
     - `INFLUX_URL`: Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
     - `INFLUX_ORG`: Your InfluxDB Cloud organization name
 
@@ -91,7 +96,7 @@ On each InfluxDB OSS instance you want to monitor, do the following:
 
     {{< nav-icon "load-data" >}}
 
-2. Click **Setup Instructions** under **Scrape InfluxDB OSS Metrics**. 
+2. In the **Telegraf** page, find the **Scrape InfluxDB OSS Metrics** configuration and click **Setup Instructions**.
 3. Complete the Telegraf Setup instructions to start Telegraf using the Scrape InfluxDB OSS Metrics
    Telegraf configuration stored in InfluxDB Cloud.
 
@@ -142,34 +147,38 @@ To alert when data stops flowing from InfluxDB OSS instances to your InfluxDB Cl
 
 ## Create a notification endpoint and rule
 
-To receive a notification message when your deadman check is triggered, create a [notification endpoint](#create-a-notification-endpoint) and [rule](#create-a-notification-rule). 
+To receive a notification message when your deadman check is triggered, create a [notification endpoint](#create-a-notification-endpoint) and [rule](#create-a-notification-rule).
 
-### Create a notification endpoint 
+### Create a notification endpoint
 
-InfluxData supports different endpoints: Slack, PagerDuty, and HTTP. Slack is free for all users, while PagerDuty and HTTP are exclusive to the Usage-Based Plan. 
+InfluxData supports different endpoints: Slack, PagerDuty, and HTTP. Slack is free for all users, while PagerDuty and HTTP are exclusive to the Usage-Based Plan.
 
 #### Send a notification to Slack
 
-1.  Create a [Slack Webhooks](https://api.slack.com/messaging/webhooks). 
+1.  Create a [Slack Webhooks](https://api.slack.com/messaging/webhooks).
 2.  Go to **Alerts > Alerts** in the left navigation menu and then click **{{< caps >}}Notification Endpoints{{< /caps >}}**.
 
     {{< nav-icon "alerts" >}}
 
-4.  Click **{{< caps >}}{{< icon "plus" >}} Create{{< /caps >}}**, and enter a name and description for your Slack endpoint. 
-3.  Enter your Slack Webhook under **Incoming Webhook URL** and click **{{< caps >}}Create Notification Endpoint{{< /caps >}}**. 
+4.  Click **{{< caps >}}{{< icon "plus" >}} Create{{< /caps >}}**, and enter a name and description for your Slack endpoint.
+3.  Enter your Slack Webhook under **Incoming Webhook URL** and click **{{< caps >}}Create Notification Endpoint{{< /caps >}}**.
 
-#### Send a notification to PagerDuty or HTTP 
+#### Send a notification to PagerDuty or HTTP
 
 Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgrading your InfluxDB Cloud account](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan).
 
-### Create a notification rule 
+### Create a notification rule
 
-[Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to set rules for when to send a deadman alert message to your notification endpoint. 
+[Create a notification rule](/influxdb/cloud/monitor-alert/notification-rules/create/) to set rules for when to send a deadman alert message to your notification endpoint.
 
 1.  Go to **Alerts > Alerts** in the left navigation menu and then click **{{< caps >}}Notification Rules{{< /caps >}}**.
 
     {{< nav-icon "alerts" >}}
 
 4.  Click **{{< caps >}}{{< icon "plus" >}} Create{{< /caps >}}**, and then provide
-    the required information. 
-3.  Click **{{< caps >}}Create Notification Rule{{< /caps >}}**. 
+    the required information.
+3.  Click **{{< caps >}}Create Notification Rule{{< /caps >}}**.
+
+## Write metrics to InfluxDB OSS at regular intervals
+
+See how to [scrape InfluxDB OSS metrics and write them to InfluxDB at regular intervals](/flux/v0.x/prometheus/scrape-prometheus/#write-prometheus-metrics-to-influxdb-at-regular-intervals).

@@ -59,10 +59,11 @@ configure your InfluxDB connection:
     - **Default Bucket**: The default [bucket](/influxdb/v2.1/organizations/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
-    {{< img-hd src="/img/influxdb/2-0-tools-grafana.png" />}}
-
 2. Click **Save & Test**. Grafana attempts to connect to the InfluxDB {{< current-version >}} datasource
    and returns the results of the test.
+
+{{< img-hd src="/img/influxdb/2-0-tools-grafana.png" />}}
+
 {{% /tab-content %}}
 <!----------------------------- END FLUX CONTENT ----------------------------->
 <!-------------------------- BEGIN INFLUXQL CONTENT -------------------------->
@@ -238,11 +239,11 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
         - **Password**: Enter the password associated with your [InfluxDB 1.x compatibility authorization](#view-and-create-influxdb-dbrp-mappings)
         - **HTTP Method**: Select **GET**
 
-        <!--  -->
-        {{< img-hd src="/img/influxdb/2-0-tools-grafana-influxql.png" />}}
-
 3. Click **Save & Test**. Grafana attempts to connect to the InfluxDB {{< current-version >}} data source
    and returns the results of the test.
+
+{{< img-hd src="/img/influxdb/2-0-tools-grafana-influxql.png" />}}
+
 {{% /tab-content %}}
 <!--------------------------- END INFLUXQL CONTENT --------------------------->
 {{< /tabs-wrapper >}}

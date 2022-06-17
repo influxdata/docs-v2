@@ -11,7 +11,6 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: Cancel InfluxDB Cloud
-products: [cloud]
 ---
 
 To cancel your {{< cloud-name >}} subscription, complete the following steps:
@@ -50,9 +49,13 @@ For details, see [Export a dashboard](/influxdb/cloud/visualize-data/dashboards/
 3. Click the name of a Telegraf configuration.
 4. Click **Download Config** to save.
 
-#### Request a data backup
+#### Export data
 
-To request a backup of data in your {{< cloud-name "short" >}} instance, contact [InfluxData Support](mailto:support@influxdata.com).
+To export all your data, query your data out in time-based batches and store it
+in to an external system or an InfluxDB OSS instance.
+
+For information about automatically exporting and migrating data from InfluxDB 
+Cloud to InfluxDB OSS, see: [Migrate data from InfluxDB Cloud to InfluxDB OSS](/influxdb/cloud/migrate-data/migrate-cloud-to-oss/).
 
 ### Cancel service
 

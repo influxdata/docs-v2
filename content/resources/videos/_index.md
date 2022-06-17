@@ -16,5 +16,7 @@ menu:
 #### Season 2
 {{< resources/video-cards series="Meet the Developers S2" >}}
 
+#### Season 3
+{{< resources/video-cards series="Meet the Developers S3" >}}
 
 For additional product and tutorial videos, please visit our [YouTube channel](https://www.youtube.com/channel/UCnrgOD6G0y0_rcubQuICpTQ).

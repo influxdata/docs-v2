@@ -29,14 +29,14 @@ the parameters passed into the `window()` function.
 
 ```js
 window(
-  every: 5m,
-  period: 5m,
-  offset: 12h,
-  timeColumn: "_time",
-  startColumn: "_start",
-  stopColumn: "_stop",
-  location: "UTC",
-  createEmpty: false
+    every: 5m,
+    period: 5m,
+    offset: 12h,
+    timeColumn: "_time",
+    startColumn: "_start",
+    stopColumn: "_stop",
+    location: "UTC",
+    createEmpty: false,
 )
 ```
 
@@ -107,10 +107,10 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 data = sampledata.int()
-  |> range(start: sampledata.start, stop: sampledata.stop)
- 
-data 
-  |> window(every: 30s)
+    |> range(start: sampledata.start, stop: sampledata.stop)
+
+data
+    |> window(every: 30s)
 ```
 
 {{< expand-wrapper >}}
@@ -152,10 +152,10 @@ data
 import "sampledata"
 
 data = sampledata.int()
-  |> range(start: sampledata.start, stop: sampledata.stop)
- 
-data 
-  |> window(every: 20s, period: 40s)
+    |> range(start: sampledata.start, stop: sampledata.stop)
+
+data
+    |> window(every: 20s, period: 40s)
 ```
 
 {{< expand-wrapper >}}
@@ -225,16 +225,11 @@ import "generate"
 
 timeRange = {start: 2021-01-01T00:00:00Z, stop: 2021-04-01T00:00:00Z}
 
-data = generate.from(
-    count: 6,
-    fn: (n) => n + n,
-    start: timeRange.start,
-    stop: timeRange.stop
-  )
-  |> range(start: timeRange.start, stop: timeRange.stop)
+data = generate.from(count: 6, fn: (n) => n + n, start: timeRange.start, stop: timeRange.stop)
+    |> range(start: timeRange.start, stop: timeRange.stop)
 
 data
-  |> window(every: 1mo)
+    |> window(every: 1mo)
 ```
 
 {{< expand-wrapper >}}

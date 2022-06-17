@@ -44,7 +44,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> set(key: "host", value: "prod1")
+    |> set(key: "host", value: "prod1")
 ```
 
 {{< expand-wrapper >}}

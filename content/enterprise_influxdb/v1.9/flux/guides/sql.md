@@ -17,9 +17,9 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://user:password@localhost",
-    query: "SELECT * FROM example_table"
+      driverName: "postgres",
+      dataSourceName: "postgresql://user:password@localhost",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -53,9 +53,9 @@ To query a SQL data source:
 import "sql"
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://user:password@localhost",
-  query: "SELECT * FROM example_table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://user:password@localhost",
+    query: "SELECT * FROM example_table",
 )
 ```
 {{% /code-tab-content %}}
@@ -65,9 +65,9 @@ sql.from(
 import "sql"
 
 sql.from(
-  driverName: "mysql",
-  dataSourceName: "user:password@tcp(localhost:3306)/db",
-  query: "SELECT * FROM example_table"
+    driverName: "mysql",
+    dataSourceName: "user:password@tcp(localhost:3306)/db",
+    query: "SELECT * FROM example_table",
 )
 ```
 {{% /code-tab-content %}}
@@ -80,9 +80,9 @@ sql.from(
 
 import "sql"
 sql.from(
-  driverName: "sqlite3",
-  dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
-  query: "SELECT * FROM example_table"
+    driverName: "sqlite3",
+    dataSourceName: "file:/path/to/test.db?cache=shared&mode=ro",
+    query: "SELECT * FROM example_table",
 )
 ```
 {{% /code-tab-content %}}
@@ -106,15 +106,15 @@ import "sql"
 
 // Query data from PostgreSQL
 sensorInfo = sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://localhost?sslmode=disable",
-  query: "SELECT * FROM sensors"
+    driverName: "postgres",
+    dataSourceName: "postgresql://localhost?sslmode=disable",
+    query: "SELECT * FROM sensors",
 )
 
 // Query data from InfluxDB
 sensorMetrics = from(bucket: "telegraf/autogen")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "airSensors")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "airSensors")
 
 // Join InfluxDB query results with PostgreSQL query results
 join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])

@@ -21,9 +21,9 @@ returns the HTTP status code, response body, and response headers.
 import "experimental/http"
 
 http.get(
-  url: "http://localhost:8086/",
-  headers: {x:"a", y:"b", z:"c"},
-  timeout: 30s
+    url: "http://localhost:8086/",
+    headers: {x:"a", y:"b", z:"c"},
+    timeout: 30s
 )
 ```
 
@@ -66,10 +66,7 @@ import "csv"
 
 token = secrets.get(key: "READONLY_TOKEN")
 
-response = http.get(
-    url: "http://localhost:8086/health",
-    headers: {Authorization: "Token ${token}"}
-  )
+response = http.get(url: "http://localhost:8086/health", headers: {Authorization: "Token ${token}"})
 
 httpStatus = response.statusCode
 responseBody = string(v: response.body)
@@ -87,12 +84,15 @@ csvData = "#datatype,string,long,string
 ,result,table,column
 ,,0,*
 "
+
 csv.from(csv: csvData)
-  |> map(fn: (r) => ({
-    httpStatus: httpStatus,
-    responseBody: responseBody,
-    date: date,
-    contentLenth: contentLenth,
-    contentType: contentType,
-  }))
+    |> map(
+        fn: (r) => ({
+            httpStatus: httpStatus,
+            responseBody: responseBody,
+            date: date,
+            contentLenth: contentLenth,
+            contentType: contentType,
+        }),
+    )
 ```

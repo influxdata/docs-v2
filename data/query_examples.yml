@@ -3,7 +3,7 @@ aggregate_window:
     code: |
       ```js
       data
-        |> aggregateWindow(every: 20m, fn: mean)
+          |> aggregateWindow(every: 20m, fn: mean)
       ```
     input: |
       | _time                | _value |
@@ -28,7 +28,7 @@ cumulative_sum:
     code: |
       ```js
       data
-        |> cumulativeSum()
+          |> cumulativeSum()
       ```
     input: |
       | _time                | _value |
@@ -50,7 +50,7 @@ fill_null:
     code: |
       ```js
       data
-        |> fill(usePrevious: true)
+          |> fill(usePrevious: true)
       ```
     input: |
       | _time                | _value |
@@ -72,7 +72,7 @@ fill_null:
     code: |
       ```js
       data
-        |> fill(value: 0.0)
+          |> fill(value: 0.0)
       ```
     input: |
       | _time                | _value |
@@ -96,7 +96,7 @@ first_last:
     code: |
       ```js
       data
-        |> first()
+          |> first()
       ```
     input: |
       | _time                | _value |
@@ -113,7 +113,7 @@ first_last:
     code: |
       ```js
       data
-        |> last()
+          |> last()
       ```
     input: |
       | _time                | _value |
@@ -132,7 +132,7 @@ group:
     code: |
       ```js
       data
-        |> group(columns: ["host"], mode: "by")
+          |> group(columns: ["host"], mode: "by")
       ```
     input: |
       | _time                | host  | _value |
@@ -157,12 +157,12 @@ histogram:
     code: |
       ```js
       data
-        |> histogram(
-          column: "_value",
-          upperBoundColumn: "le",
-          countColumn: "_value",
-          bins: [100.0, 200.0, 300.0, 400.0],
-        )
+          |> histogram(
+              column: "_value",
+              upperBoundColumn: "le",
+              countColumn: "_value",
+              bins: [100.0, 200.0, 300.0, 400.0],
+          )
       ```
     input: |
       | _time                | _value |
@@ -187,7 +187,7 @@ increase:
     code: |
       ```js
       data
-        |> increase()
+          |> increase()
       ```
     input: |
       | _time                | _value |
@@ -214,7 +214,7 @@ interpolate_linear:
       import "interpolate"
 
       data
-        |> interpolate.linear(every: 1d)
+          |> interpolate.linear(every: 1d)
       ```
     input: |
       | _time                | _value |
@@ -242,12 +242,12 @@ join:
     code: |
       ```js
       t1 = from(bucket: "example-bucket")
-        |> range(start: 2020-01-01T00:00:00Z)
-        |> filter(fn: (r) => r.m == "foo")
+          |> range(start: 2020-01-01T00:00:00Z)
+          |> filter(fn: (r) => r.m == "foo")
 
       t2 = from(bucket: "example-bucket")
-        |> range(start: 2020-01-01T00:00:00Z)
-        |> filter(fn: (r) => r.m == "bar")
+          |> range(start: 2020-01-01T00:00:00Z)
+          |> filter(fn: (r) => r.m == "bar")
 
       join(tables: {t1: t1, t2: t2}, on: ["_time"])
       ```
@@ -280,7 +280,7 @@ map_math:
     code: |
       ```js
       data
-        |> map(fn: (r) => ({ r with _value: r._value * r._value }))
+          |> map(fn: (r) => ({ r with _value: r._value * r._value }))
       ```
     input: |
       | _time                | _value |
@@ -302,7 +302,7 @@ median:
     code: |
       ```js
       data
-        |> median()
+          |> median()
       ```
     input: |
       | _time                | _value |
@@ -321,7 +321,7 @@ moving_average:
     code: |
       ```js
       data
-        |> movingAverage(n: 5)
+          |> movingAverage(n: 5)
       ```
     input: |
       | _time                | _value |
@@ -343,7 +343,7 @@ moving_average:
     code: |
       ```js
       data
-        |> timedMovingAverage(every: 2m, period: 4m)
+          |> timedMovingAverage(every: 2m, period: 4m)
       ```
     input: |
       | _time                | _value |
@@ -368,11 +368,13 @@ percentages:
       ```js
       data
         |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-        |> map(fn: (r) => ({
-          _time: r._time,
-          _field: "used_percent",
-          _value: float(v: r.used) / float(v: r.total) * 100.0
-        }))
+        |> map(
+            fn: (r) => ({
+                _time: r._time,
+                _field: "used_percent",
+                _value: float(v: r.used) / float(v: r.total) * 100.0,
+            }),
+        )
       ```
     input: |
       | _time                | _field  | _value |
@@ -399,7 +401,7 @@ quantile:
     code: |
       ```js
       data
-        |> quantile(q: 0.99, method: "estimate_tdigest")
+          |> quantile(q: 0.99, method: "estimate_tdigest")
       ```
     input: |
       | _time                | _value |
@@ -418,7 +420,7 @@ rate_of_change:
     code: |
       ```js
       data
-        |> derivative(unit: 1m, nonNegative: true)
+          |> derivative(unit: 1m, nonNegative: true)
       ```
     input: |
       | _time                | _value |
@@ -445,7 +447,7 @@ rate_of_change:
       import "experimental/aggregate"
 
       data
-        |> aggregate.rate(every: 20m, unit: 1m)
+          |> aggregate.rate(every: 20m, unit: 1m)
       ```
     input: |
       | _time                | _value |
@@ -470,7 +472,7 @@ regular_expressions:
     code: |
       ```js
       data
-        |> filter(fn: (r) => r.tag =~ /^foo[1-3]/)
+          |> filter(fn: (r) => r.tag =~ /^foo[1-3]/)
       ```
     input: |
       | _time                | tag  | _value |
@@ -493,8 +495,8 @@ sort_limit:
     code: |
       ```js
       data
-        |> sort(columns: ["host", "_value"])
-        |> limit(n: 4)
+          |> sort(columns: ["host", "_value"])
+          |> limit(n: 4)
       ```
     input: |
       | _time                | host | _value |

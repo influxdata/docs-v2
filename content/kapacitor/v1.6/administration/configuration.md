@@ -29,11 +29,11 @@ Any property key can be located by following its path in the configuration file 
 Values for configuration keys are declared in the configuration file.
 
 #### Kapacitor configuration file location
-Kapacitor looks for configuration files at specific locations depends on your operating system:
+Kapacitor looks for configuration files at specific locations, depending on your operating system:
 
-**Linux**: `/etc/kapacitor/kapacitor.conf`
-**macOS**: `/usr/local/etc/kapacitor.conf`
-**Windows**: _same directory as the `kapacitord.exe`._
+- **Linux**: `/etc/kapacitor/kapacitor.conf`
+- **macOS**: `/usr/local/etc/kapacitor.conf`
+- **Windows**: _same directory as `kapacitord.exe`_
 
 Define a custom location for your `kapacitor.conf` at startup with the `-config` flag.
 The path to the configuration file can also be declared using the environment variable `KAPACITOR_CONFIG_PATH`.
@@ -263,8 +263,6 @@ Use the query `SHOW DIAGNOSTICS` to see the version of Go used to build Kapacito
 Minimum version of the TLS protocol that will be negotiated.
 Valid values include: 
 
-- `tls1.0`
-- `tls1.1`
 - `tls1.2`
 - `tls1.3` _(default)_
 
@@ -273,8 +271,6 @@ Valid values include:
 Maximum version of the TLS protocol that will be negotiated. 
 Valid values include: 
 
-- `tls1.0`
-- `tls1.1`
 - `tls1.2`
 - `tls1.3` _(default)_
 
@@ -423,9 +419,12 @@ the InfluxDB user must have [admin privileges](/{{< latest "influxdb" "v1" >}}/a
 # ...
 
 [[influxdb]]
-  # Connect to an InfluxDB cluster
-  # Kapacitor can subscribe, query and write to this cluster.
+  # Connect to InfluxDB
+  # Kapacitor can subscribe, query, and write to this cluster.
   # Using InfluxDB is not required and can be disabled.
+  # To connect to InfluxDB OSS 1.x or InfluxDB Enterprise, 
+  # use the following configuration:
+  
   enabled = true
   default = true
   name = "localhost"
@@ -433,6 +432,16 @@ the InfluxDB user must have [admin privileges](/{{< latest "influxdb" "v1" >}}/a
   username = ""
   password = ""
   timeout = 0
+
+  # To connect to InfluxDB OSS 2.x or InfluxDB Cloud, 
+  # use the following configuration:
+  
+  enabled = true
+  default = true
+  name = "localhost"
+  urls = ["http://localhost:8086"]
+  token = ""
+  timeout = 0 
   
   # By default, all data sent to InfluxDB is compressed in gzip format.
   # To turn off gzip compression, add the following config setting:
@@ -579,6 +588,9 @@ Use the `[alert]` group to globally configure alerts created by the
   # Persisting topics can become an I/O bottleneck under high load.
   # This setting disables them entirely.
   persist-topics = false
+  # This setting sets the topic queue length.
+  # Default is 5000. Minimum length is 1000.
+  topic-buffer-length = 5000
 
 # ...
 ```
@@ -1051,3 +1063,5 @@ curl --request POST 'http://localhost:9092/kapacitor/v1/config/smtp' \
 
 For detailed information about how to override configurations with the Kapacitor API, see
 [Overriding configurations](/kapacitor/v1.6/working/api/#overriding-configurations).
+
+{{< influxdbu title="Configuring Kapacitor" summary="Learn how to dynamically configure Kapacitor via API with this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/configuring-kapacitor-tutorial/" >}}

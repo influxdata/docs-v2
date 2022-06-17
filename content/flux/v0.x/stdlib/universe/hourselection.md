@@ -21,9 +21,10 @@ The `hourSelection()` function retains all rows with time values in a specified 
 
 ```js
 hourSelection(
-  start: 9,
-  stop: 17,
-  timeColumn: "_time"
+    start: 9,
+    stop: 17,
+    location: {offset: 0h, zone: "UTC"},
+    timeColumn: "_time",
 )
 ```
 
@@ -38,6 +39,10 @@ Hours range from `[0-23]`.
 ({{< req >}})
 The last hour of the hour range (inclusive).
 Hours range from `[0-23]`.
+
+### location {data-type="record"}
+Location used to determine timezone.
+Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
 ### timeColumn {data-type="string"}
 The column that contains the time value.
@@ -56,14 +61,14 @@ to generate sample data and show how `covariance()` transforms data.
 import "generate"
 
 data = generate.from(
-  count: 8,
-  fn: (n) => n * n,
-  start: 2021-01-01T00:00:00Z,
-  stop: 2021-01-02T00:00:00Z
+    count: 8,
+    fn: (n) => n * n,
+    start: 2021-01-01T00:00:00Z,
+    stop: 2021-01-02T00:00:00Z,
 )
   
 data 
-  |> hourSelection(start: 9, stop: 17)
+    |> hourSelection(start: 9, stop: 17)
 ```
 
 {{< expand-wrapper >}}

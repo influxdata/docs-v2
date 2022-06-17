@@ -8,6 +8,9 @@ menu:
   influxdb_cloud:
     name: Dart
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-dart
+    params:
+      url: https://github.com/influxdata/influxdb-client-dart
 weight: 201
 ---
+
+{{< duplicate-oss >}}

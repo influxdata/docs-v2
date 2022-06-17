@@ -24,11 +24,24 @@ The return value is always a single table with a single column, `_value`.
 import "influxdata/influxdb/schema"
 
 schema.measurementFieldKeys(
-  bucket: "example-bucket",
-  measurement: "example-measurement",
-  start: -30d
+    bucket: "example-bucket",
+    measurement: "example-measurement",
+    start: -30d,
 )
 ```
+
+{{% note %}}
+#### Deleted fields
+Fields [explicitly deleted from InfluxDB Cloud](/influxdb/cloud/write-data/delete-data/)
+**do not** appear in results.
+
+#### Expired fields
+- **InfluxDB Cloud**: field keys associated with points outside of the bucket's
+  retention policy **may** appear in results up to an hour after expiring.
+- **InfluxDB OSS**: field keys associated with points outside of the bucket's
+  retention policy **may** appear in results.
+  For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
+{{% /note %}}
 
 ## Parameters
 
@@ -39,30 +52,35 @@ Bucket to retrieve field keys from.
 Measurement to list field keys from.
 
 ### start {data-type="duration, time"}
-Oldest time to include in results.
+Earliest time to include in results.
 _Defaults to `-30d`._
 
 Relative start times are defined using negative durations.
 Negative durations are relative to now.
 Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
 
+### stop {data-type="duration, time"}
+Latest time to include in results.
+_Default is `now()`._
+
+The `stop` time is exclusive, meaning values with a time equal to stop time are
+excluded from results.
+Relative start times are defined using negative durations.
+Negative durations are relative to `now()`.
+Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+
 ## Examples
+
+### Return all field keys in a measurement
 ```js
 import "influxdata/influxdb/schema"
 
-schema.measurementFieldKeys(
-  bucket: "telegraf",
-  measurement: "cpu",
-)
+schema.measurementFieldKeys(bucket: "example-bucket",  measurement: "example-measurement")
 ```
 
-## Function definition
+### Return all field keys in a measurement from a non-default time range
 ```js
-package schema
+import "influxdata/influxdb/schema"
 
-measurementFieldKeys = (bucket, measurement, start=-30d) =>
-  fieldKeys(bucket: bucket, predicate: (r) => r._measurement == measurement, start: start)
+schema.measurementFieldKeys(bucket: "example-bucket",  measurement: "example-measurement", start: -90d, stop: -60d)
 ```
-
-_**Used functions:**
-[schema.fieldKeys](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldkeys/)_

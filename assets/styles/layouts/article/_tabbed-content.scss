@@ -12,10 +12,11 @@
     flex-grow: 1;
     margin: 2px;
     position: relative;
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: $medium;
     padding: .65rem 1.25rem;
     display: inline-block;
+    white-space: nowrap;
     text-align: center;
     color: $article-tab-text !important;
     border-radius: $radius;
@@ -59,6 +60,10 @@
       padding: .35rem 1rem;
     }
   }
+  // Style suggested for tabs that have uneven button widths because of wrapping.
+  &.even-wrap a {
+    flex-basis: 25%;
+  }
 }
 
 .code-tabs {
@@ -72,7 +77,7 @@
     margin: 0;
     border-radius: $radius $radius 0 0;
     display: inline-block;
-    font-size: 0.875rem;
+    font-size: 1rem;
     background: $article-bg;
     color: rgba($article-tab-code-text, .5);
     &:hover {
@@ -97,7 +102,7 @@
   margin: .75rem 0 3rem;
   width: 100%;
 
-  & > :not(table, .fs-diagram) {
+  & > :not(table, .fs-diagram, img) {
     width: 100%;
     margin-left: 0;
   }

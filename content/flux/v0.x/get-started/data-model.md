@@ -60,8 +60,7 @@ An **empty group key** groups all data in a stream of tables into a single table
 
 _For an example of how group keys work, see the [Table grouping example](#table-grouping-example) below._
 
-{{% note %}}
-#### Data sources determine data structure
+## Data sources determine data structure
 The Flux data model is separate from the queried data source model.
 Queried sources return data structured into columnar tables.
 The table structure and columns included depends on the data source. 
@@ -70,7 +69,13 @@ For example, InfluxDB returns data grouped by [series](/{{< latest "influxdb" >}
 so each table in the returned stream of tables represents a unique series.
 However, [SQL data sources](/flux/v0.x/stdlib/sql/from/) return a stream of tables
 with a single table and an empty group key.
-{{% /note %}}
+
+### Column labels beginning with underscores
+Some data sources return column labels prefixed with an underscore (`_`).
+This is a Flux convention used to identify important or reserved column names.
+While the underscore doesn't change the functionality of the column, many
+functions in the [Flux standard library](/flux/v0.x/stdlib/) expect or require
+these specific column names.
 
 ## Operate on tables
 At its core, Flux operates on tables.
@@ -89,7 +94,7 @@ to modify group keys in a stream of tables.
 
 ```js
 data
-  |> group(columns: ["foo", "bar"], mode: "by")
+    |> group(columns: ["foo", "bar"], mode: "by")
 ```
 
 ### Table grouping example

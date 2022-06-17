@@ -25,9 +25,8 @@ toFloat()
 ```
 
 {{% note %}}
-To convert values in a column other than `_value`, define a custom function
-patterned after the [function definition](#function-definition),
-but replace `_value` with your desired column.
+To convert values in a column other than `_value`, use `map()` and `float()`
+as shown in [this example](/flux/v0.x/stdlib/universe/float/#convert-all-values-in-a-column-to-float-values).
 {{% /note %}}
 
 ##### Supported data types
@@ -55,7 +54,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> toFloat()
+    |> toFloat()
 ```
 
 {{< expand-wrapper >}}
@@ -97,7 +96,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.bool()
-  |> toFloat()
+    |> toFloat()
 ```
 
 {{< expand-wrapper >}}
@@ -133,10 +132,3 @@ sampledata.bool()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toFloat = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: float(v: r._value) }))
-```

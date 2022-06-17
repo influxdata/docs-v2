@@ -60,7 +60,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> exponentialMovingAverage(n: 3)
+    |> exponentialMovingAverage(n: 3)
 ```
 
 {{< expand-wrapper >}}
@@ -100,7 +100,7 @@ sampledata.int()
 import "sampledata"
 
 sampledata.int(includeNull: true)
-  |> exponentialMovingAverage(n: 3)
+    |> exponentialMovingAverage(n: 3)
 ```
 
 {{% expand "View input and output" %}}

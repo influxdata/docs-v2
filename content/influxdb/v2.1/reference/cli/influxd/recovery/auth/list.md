@@ -9,7 +9,7 @@ menu:
 weight: 401
 ---
 
-The `influxd recovery org list` command lists authorizations stored on disk and 
+The `influxd recovery auth list` command lists authorizations stored on disk and 
 outputs data associated with each authorization.
 
 {{% note %}}

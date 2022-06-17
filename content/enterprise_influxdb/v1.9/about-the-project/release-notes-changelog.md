@@ -9,6 +9,83 @@ menu:
     parent: About the project
 ---
 
+## 1.9.7 [2022-06-06]
+
+{{% warn %}}
+An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. We're reverting back to InfluxDB Enterprise 1.9.6 as the official stable version. If you experience write errors and hinted hand-off growth, we recommend reverting back to 1.9.6 or upgrading to 1.9.8 when released.
+{{% /warn %}}
+
+<!--
+### Features
+- Expose passive node feature to influxd-ctl and the API.
+- Throttle inter-node data replication, both incoming writes and hinted hand-off, when errors are encountered.
+
+#### Flux updates
+- Add [http requests package](/{{< latest "flux" >}}/stdlib/experimental/http/requests/).
+- Add [isType()](/{{< latest "flux" >}}/stdlib/types/istype/) function.
+- Add [display()](/{{< latest "flux" >}}/stdlib/universe/display/) function.
+- Enhancements to the following functions: [increase()](/{{< latest "flux" >}}/stdlib/universe/increase/), [sort()](/{{< latest "flux" >}}/stdlib/universe/sort/), [derivative()](/{{< latest "flux" >}}/stdlib/universe/derivative/), [union()](/{{< latest "flux" >}}/stdlib/universe/union/), [timeShift()](/{{< latest "flux" >}}/stdlib/universe/timeshift/), vectorization to applicable functions such as [map()](/{{< latest "flux" >}}/stdlib/universe/map/).
+- Add TCP connection pooling to [mqtt.publish()](/{{< latest "flux" >}}/stdlib/experimental/mqtt/publish/) function when called in a map() function.
+
+### Bug fixes
+- Fix race condition causing `influxd-ctl restore` command to fail.
+
+#### Error Messaging
+- Improve error messaging for `max series per database exceeded`error.
+- Improve influxd-ctl error messages when invalid JSON is received.
+- Add detail to `error creating subscription` message.
+- `DROP SHARD` now successfully ignores "shard not found" errors.
+
+### Maintenance updates
+- Upgrade to Go 1.17.9
+- Update to [Flux v0.161.0](/flux/v0.x/release-notes/#v01610-2022-03-24).
+-->
+
+## 1.9.6 [2022-02-16]
+
+{{% note %}} InfluxDB Enterprise offerings are no longer available on AWS, Azure, and GCP marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/) to request an license key to [install InfluxDB Enterprise in your own environment](/enterprise_influxdb/v1.9/introduction/installation/).
+{{% /note %}}
+
+### Features
+
+#### Backup enhancements
+
+- **Revert damaged meta nodes to a previous state**: Add the `-meta-only-overwrite-force` option to [`influxd-ctl restore`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#restore) to revert damaged meta nodes in an existing cluster to a previous state when restoring an InfluxDB Enterprise database.
+
+- **Estimate the size of a backup** (full or incremental) and provide progress messages. Add `-estimate` option to [`influxd-ctl backup`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#backup) to estimate the size of a backup (full or incremental) and provide progress messages. Prints the number of files to back up, the percentage of bytes transferred for each file (organized by shard), and the estimated time remaining to complete the backup.
+
+#### Logging enhancements
+
+- **Log active queries when a process is terminated**: Add the [`termination-query-log`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#termination-query-log--false) configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a Kubernetes process exceeds the container memory limit or the process is terminated).
+
+- **Log details of HTTP calls to meta nodes**. When [`cluster-tracing`](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#cluster-tracing--false) is enabled, all API calls to meta nodes are now logged with details providing an audit trail including IP address of caller, specific API being invoked, action being invoked, and more.
+
+### Maintenance updates
+
+- Update to [Flux v0.140](/flux/v0.x/release-notes/#v01400-2021-11-22).
+- Upgrade to Go 1.17.
+- Upgrade `protobuf` library.
+
+### Bug fixes
+
+#### Data
+
+-  Adjust shard start and end times to avoid overlaps in existing shards. This resolves issues with existing shards (truncated or not) that have a different shard duration than the current default.
+
+#### Errors
+
+- Fix panic when running `influxd config`.
+- Ensure `influxd-ctl entropy` commands use the correct TLS settings.
+
+#### Profiling
+
+- Resolve issue to enable [mutex profiling](/enterprise_influxdb/v1.9/tools/api/#debugpprof-http-endpoint).
+
+#### influx-ctl updates
+
+- Improve [`influxd-ctl join`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#join) robustness and provide better error messages on failure.
+- Add user friendly error message when accessing a TLS-enabled server without TLS enabled on client.
+
 ## v1.9.5 [2021-10-11]
 
 {{% note %}}
@@ -67,7 +144,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Add [configurable password hashing](/enterprise_influxdb/v1.9/administration/configure-password-hashing/) with `bcrypt` and `pbkdf2` support.
 - Add retry with exponential back-off to anti-entropy repair.
 - Add logging to compaction.
-- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/config-data-nodes/#total-buffer-bytes--0) configuration parameter to subscriptions.
+- Add [`total-buffer-bytes`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#total-buffer-bytes) configuration parameter to subscriptions.
   This option is intended to help alleviate out-of-memory errors.
 - Update to [Flux v0.120.1.](/influxdb/v2.0/reference/release-notes/flux/#v01201-2021-07-06)
 
@@ -99,7 +176,7 @@ in that there is no corresponding InfluxDB OSS release.
   These queries now return a `cardinality estimation` column header where before they returned `count`.
 - Improve diagnostics for license problems.
   Add [license expiration date](/enterprise_influxdb/v1.9/features/clustering-features/#entitlements) to `debug/vars` metrics.
-- Add improved [ingress metrics](/enterprise_influxdb/v1.9/administration/config-data-nodes/#ingress-metric-by-measurement-enabled--false) to track points written by measurement and by login.
+- Add improved [ingress metrics](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#ingress-metric-by-measurement-enabled) to track points written by measurement and by login.
   Allow for collection of statistics regarding points, values, and new series written per measurement and by login.
   This data is collected and exposed at the data node level.
   With these metrics you can, for example:
@@ -107,7 +184,7 @@ in that there is no corresponding InfluxDB OSS release.
   monitor the growth of series within a measurement,
   and track what user credentials are being used to write data.
 - Support authentication for Kapacitor via LDAP.
-- Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
+- Support for [configuring Flux query resource usage](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#flux-controller) (concurrency, memory, etc.).
 - Upgrade to [Flux v0.113.0](/influxdb/v2.0/reference/release-notes/flux/#v01130-2021-04-21).
 - Update Prometheus remote protocol to allow streamed reading.
 - Improve performance of sorted merge iterator.

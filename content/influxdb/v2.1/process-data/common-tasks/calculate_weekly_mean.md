@@ -23,16 +23,13 @@ The following query:
   - Sends the weekly mean to a new bucket (`weekly_means`)
 
 ```js
-option task = {
-  name: "weekly-means",
-  every: 1w,
-}
+option task = {name: "weekly-means", every: 1w}
 
 from(bucket: "noaa")
-  |> filter(fn: (r) => r._measurement == "average_temperature")
-  |> range(start: 2019-09-01T11:24:00Z)
-  |> aggregateWindow(every:  1w, fn: mean)
-  |> to(bucket: "weekly_means")
+    |> filter(fn: (r) => r._measurement == "average_temperature")
+    |> range(start: 2019-09-01T11:24:00Z)
+    |> aggregateWindow(every: 1w, fn: mean)
+    |> to(bucket: "weekly_means")
 ```
 ### Example results
 

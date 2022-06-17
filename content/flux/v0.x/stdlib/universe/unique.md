@@ -45,7 +45,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.int()
-  |> unique()
+    |> unique()
 ```
 
 {{< expand-wrapper >}}

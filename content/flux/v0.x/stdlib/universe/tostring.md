@@ -22,9 +22,8 @@ toString()
 ```
 
 {{% note %}}
-To convert values in a column other than `_value`, define a custom function
-patterned after the [function definition](#function-definition),
-but replace `_value` with your desired column.
+To convert values in a column other than `_value`, use `map()` and `string()`
+as shown in [this example](/flux/v0.x/stdlib/universe/string/#convert-all-values-in-a-column-to-string-values).
 {{% /note %}}
 
 ##### Supported data types
@@ -51,7 +50,7 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 import "sampledata"
 
 sampledata.float()
-  |> toString()
+    |> toString()
 ```
 
 {{< expand-wrapper >}}
@@ -87,10 +86,3 @@ sampledata.float()
 {{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-toString = (tables=<-) =>
-  tables
-    |> map(fn:(r) => ({ r with _value: string(v: r._value) }))
-```

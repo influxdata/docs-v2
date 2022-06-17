@@ -40,5 +40,5 @@ The single-character string to test.
 import "strings"
 
 data
-  |> filter(fn: (r) => strings.isDigit(v: r.serverRef))
+    |> filter(fn: (r) => strings.isDigit(v: r.serverRef))
 ```

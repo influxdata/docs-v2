@@ -26,9 +26,9 @@ _This function is comparable to the [Kapacitor JoinNode](/{{< latest "kapacitor"
 import "contrib/bonitoo-io/tickscript"
 
 tickscript.join(
-  tables: {t1: example1, t2: example2}
-  on: ["_time"],
-  measurement: "example-measurement"
+    tables: {t1: example1, t2: example2},
+    on: ["_time"],
+    measurement: "example-measurement",
 )
 ```
 
@@ -91,9 +91,9 @@ metrics = //...
 states = //...
 
 tickscript.join(
-  tables: {metric: metrics, state: states},
-  on: ["_time", "host"],
-  measurement: "example-m"
+    tables: {metric: metrics, state: states},
+    on: ["_time", "host"],
+    measurement: "example-m",
 )
 ```
 

@@ -14,6 +14,7 @@ influxdb/cloud/tags: [get-started, install]
 After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to get started:
 
 1. Do one of the following:
+   - [Write and query data using the programming language of your choice](#write-and-query-data-using-the-programming-language-of-your-choice).
    - Add [sample data](#add-sample-data).
    - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
 2. [Create a notebook](#create-a-notebook):
@@ -26,6 +27,16 @@ After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're re
     4. (Optional) [Process data](#process-data)
     5. (Optional) [Monitor data](#monitor-data)
     6. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
+
+## Write and query data using the programming language of your choice
+
+Follow the steps to write data and execute a simple query in the selected programming language:
+
+Click one of the following:
+  - [Python](https://cloud2.influxdata.com/orgs/me/new-user-wizard/python)
+  - [JavaScript/Node](https://cloud2.influxdata.com/orgs/me/new-user-wizard/nodejs)
+  - [Go](https://cloud2.influxdata.com/orgs/me/new-user-wizard/go)
+
 
 ## Add sample data
 
@@ -65,12 +76,11 @@ Add the following as an [InfluxDB task](/influxdb/cloud/process-data/manage-task
 
 ```js
 import "influxdata/influxdb/sample"
-option task = {
-  name: "Collect NOAA NDBC data"
-  every: 15m,
-}
+
+option task = {name: "Collect NOAA NDBC data", every: 15m}
+
 sample.data(set: "noaa")
-  |> to(bucket: "noaa"  )
+    |> to(bucket: "noaa")
  ```
 
 For more information about this and other InfluxDB sample datasets, see [InfluxDB sample data](/influxdb/cloud/reference/sample-data/).
@@ -135,3 +145,5 @@ After processing, send the downsampled data to a new bucket to store and view it
 3. Enter a name for your bucket and click **Create**.
 4. Click **Run** from the **Preview** dropdown list to run the notebook and write to the output bucket a single time.
 5. To write continuously, click **Export as Task** in the upper right corner of the **Output to Bucket** cell. For details about working with tasks, see [Manage tasks](/influxdb/cloud/process-data/manage-tasks/).
+
+{{< influxdbu "influxdb-101" >}}

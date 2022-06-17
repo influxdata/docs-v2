@@ -20,10 +20,10 @@ The `sql.to()` function writes data to a SQL database.
 import "sql"
 
 sql.to(
-  driverName: "mysql",
-  dataSourceName: "username:password@tcp(localhost:3306)/dbname?param=value",
-  table: "example_table",
-  batchSize: 10000
+    driverName: "mysql",
+    dataSourceName: "username:password@tcp(localhost:3306)/dbname?param=value",
+    table: "example_table",
+    batchSize: 10000,
 )
 ```
 

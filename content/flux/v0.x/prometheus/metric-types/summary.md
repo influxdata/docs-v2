@@ -64,9 +64,9 @@ Prometheus summary metrics provide quantile values that can be visualized withou
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "prometheus")
-  |> filter(fn: (r) => r._field == "go_gc_duration_seconds")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "prometheus")
+    |> filter(fn: (r) => r._field == "go_gc_duration_seconds")
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -76,9 +76,9 @@ from(bucket: "example-bucket")
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "go_gc_duration_seconds")
-  |> filter(fn: (r) => r._field != "count" and r._field != "sum")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "go_gc_duration_seconds")
+    |> filter(fn: (r) => r._field != "count" and r._field != "sum")
 ```
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -106,16 +106,11 @@ derive an average summary value.
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "prometheus")
-  |> filter(fn: (r) =>
-    r._field == "go_gc_duration_seconds_count" or
-    r._field == "go_gc_duration_seconds_sum"
-  )
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with
-    _value: r.go_gc_duration_seconds_sum / r.go_gc_duration_seconds_count
-  }))
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "prometheus")
+    |> filter(fn: (r) => r._field == "go_gc_duration_seconds_count" or r._field == "go_gc_duration_seconds_sum")
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({r with _value: r.go_gc_duration_seconds_sum / r.go_gc_duration_seconds_count}))
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -128,11 +123,11 @@ from(bucket: "example-bucket")
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "go_gc_duration_seconds")
-  |> filter(fn: (r) => r._field == "count" or r._field == "sum")
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with _value: r.sum / r.count }))
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "go_gc_duration_seconds")
+    |> filter(fn: (r) => r._field == "count" or r._field == "sum")
+    |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({ r with _value: r.sum / r.count }))
 ```
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

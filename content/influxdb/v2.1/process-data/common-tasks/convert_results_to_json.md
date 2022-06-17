@@ -29,15 +29,16 @@ import "http"
 import "json"
 
 from(bucket: "noaa")
-  |> filter(fn: (r) => r._measurement == "average_temperature")
-  |> mean()
-  |> map(fn: (r) => ({ r with
-    jsonStr: string(v: json.encode(v: {"location":r.location,"mean":r._value}))}))
-  |> map(fn: (r) => ({r with
-    status_code: http.post(
-      url: "http://somehost.com/",
-      headers: {x:"a", y:"b"},
-      data: bytes(v: r.jsonStr)
+    |> filter(fn: (r) => r._measurement == "average_temperature")
+    |> mean()
+    |> map(fn: (r) => ({r with jsonStr: string(v: json.encode(v: {"location": r.location, "mean": r._value}))}))
+    |> map(
+        fn: (r) => ({
+            r with
+            status_code: http.post(url: "http://somehost.com/",
+                headers: {x: "a", y: "b"},
+                data: bytes(v: r.jsonStr),
+            ),
+        })
     )
-  }))
 ```

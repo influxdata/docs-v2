@@ -9,9 +9,8 @@ menu:
     parent: InfluxDB v2 API
 weight: 104
 influxdb/cloud/tags: [influxql, query, write]
-products: [cloud]
 related:
   - /influxdb/cloud/query-data/influxql
 ---
 
-{{% duplicate-oss %}}
+{{< duplicate-oss >}}

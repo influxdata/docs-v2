@@ -10,9 +10,13 @@ menu:
     name: Create a scraper
     parent: Manage scrapers
 weight: 301
+related:
+  - /influxdb/v2.1/reference/prometheus-metrics/
+  - influxdb/v2.1/write-data/developer-tools/scrape-prometheus-metrics/
+influxdb/v2.1/tags: [prometheus, scraper]
 ---
 
-Create a new scraper in the InfluxDB user interface (UI).
+Create a scraper in the InfluxDB user interface (UI).
 
 ## Create a scraper in the InfluxDB UI
 1. In the navigation menu on the left, select **Data** (**Load Data**) > **Scrapers**.

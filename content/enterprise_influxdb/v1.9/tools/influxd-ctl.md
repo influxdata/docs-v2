@@ -110,7 +110,9 @@ influxd-ctl -auth-type jwt -secret oatclusters show
 
 The `influxd-ctl` utility uses JWT authentication with the shared secret `oatclusters`.
 
-If authentication is enabled in the cluster's [meta node configuration files](/enterprise_influxdb/v1.9/administration/config-meta-nodes#auth-enabled-false) and [data node configuration files](/enterprise_influxdb/v1.9/administration/config-data-nodes#meta-auth-enabled-false) and the `influxd-ctl` command does not include authentication details, the system returns:
+If authentication is enabled in the cluster's [meta node configuration files](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#auth-enabled)
+and [data node configuration files](/enterprise_influxdb/v1.9/administration/config-data-nodes/#meta-auth-enabled)
+and the `influxd-ctl` command does not include authentication details, the system returns:
 
 ```bash
 Error: unable to parse authentication credentials.
@@ -132,7 +134,10 @@ In the following example, the `influxd-ctl` utility uses basic authentication fo
 influxd-ctl -auth-type basic -user admini -pwd mouse show
 ```
 
-If authentication is enabled in the cluster's [meta node configuration files](/enterprise_influxdb/v1.9/administration/config-meta-nodes#auth-enabled-false) and [data node configuration files](/enterprise_influxdb/v1.9/administration/config-data-nodes#meta-auth-enabled-false) and the `influxd-ctl` command does not include authentication details, the system returns:
+If authentication is enabled in the cluster's
+[meta node configuration files](/enterprise_influxdb/v1.9/administration/config-meta-nodes/#auth-enabled-false)
+and [data node configuration files](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#meta-auth-enabled)
+and the `influxd-ctl` command does not include authentication details, the system returns:
 
 ```bash
 Error: unable to parse authentication credentials.
@@ -144,9 +149,9 @@ If authentication is enabled and the `influxd-ctl` command provides the incorrec
 Error: authorization failed.
 ```
 
-### Commands
+### **Commands**
 
-#### `add-data`
+### `add-data`
 
 Adds a data node to a cluster.
 By default, `influxd-ctl` adds the specified data node to the local meta node's cluster.
@@ -160,7 +165,14 @@ add-data <data-node-TCP-bind-address>
 
 Resources: [Installation](/enterprise_influxdb/v1.9/installation/data_node_installation/)
 
-##### Examples
+##### Arguments
+
+Optional arguments are in brackets.
+
+<!-- ##### `[ -p ]`  
+Add a passive node to an Enterprise cluster. -->
+
+### Examples
 
 ###### Add a data node to a cluster using the local meta node
 
@@ -183,6 +195,13 @@ $ influxd-ctl -bind cluster-meta-node-01:8091 add-data cluster-data-node:8088
 
 Added data node 3 at cluster-data-node:8088
 ```
+
+<!-- ###### Add a passive node to a cluster
+**Passive nodes** act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes. If you are using passive nodes, they should be the write endpoint for all data ingest. A cluster can have multiple passive nodes.
+
+```bash
+influxd-ctl add-data -p <passive-data-node-TCP-bind-address>
+``` -->
 
 ### `add-meta`
 
@@ -245,6 +264,20 @@ Optional arguments are in brackets.
 ###### [ `-db <db_name>` ]
 
 Name of the single database to back up.
+
+###### [ `-estimate` ]
+
+Provide estimated backup size and progress messages during backup.
+
+**Sample output:**
+
+```
+Backing up node backup_data_0_1:8088, db stress, rp autogen, shard 14
+Files: 8 / 9 Bytes: 189543424 / 231921095 Completed: 82% in 22s Estimated remaining: 3s
+Files: 8 / 9 Bytes: 189543424 / 231921095 Completed: 82% in 23s Estimated remaining: 2s
+Files: 9 / 9 Bytes: 231736320 / 231921095 Completed: 100% in 24s Estimated remaining: 447µs
+Done backing up node backup_data_0_1:8088, db stress, rp autogen, shard 14 in 67ms: 42192896 bytes transferred
+```
 
 ###### [ `-from <data-node-TCP-address>` ]
 
@@ -351,7 +384,10 @@ Copied shard 22 from cluster-data-node-01:8088 to cluster-data-node-02:8088
 
 ### `copy-shard-status`
 
-Shows all in-progress [copy shard](#copy-shard) operations, including the shard's source node, destination node, database, [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp), shard ID, total size, current size, and the operation's start time.
+Shows all in-progress [copy shard](#copy-shard) operations,
+including the shard's source node, destination node, database,
+[retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp),
+shard ID, total size, current size, and the operation's start time.
 
 #### Syntax
 
@@ -935,6 +971,19 @@ To restore metadata, [restore a metadata backup](#restore-from-a-metadata-backup
 
 Show the contents of the backup.
 
+###### [ `-meta-only-overwrite-force` ]
+
+Restore *metadata only* from a backup.
+
+{{% warn %}}
+Only use this flag to restore from backups of the target cluster.
+If you use this flag with metadata from a different cluster, you will lose data
+(since metadata includes shard assignments to data nodes).
+
+See ["Back up and restore"](/enterprise_influxdb/v1.9/administration/backup-and-restore/#restore-overwrite-metadata-from-a-full-or-incremental-backup-to-fix-damaged-metadata)
+for instructions on using this flag.
+{{% /warn %}}
+
 ###### [ `-newdb <newdb_name>` ]
 
 Name of the new database to restore to.
@@ -1048,6 +1097,19 @@ cluster-node-01:8091    1.9.x-c1.9.x    {}
 cluster-node-02:8091    1.9.x-c1.9.x    {}
 cluster-node-03:8091    1.9.x-c1.9.x    {}
 ```
+<!-- ##### Show active and passive data nodes in a cluster
+
+In this example, the `show` command output displays that the cluster includes a passive data node.
+
+```bash
+Data Nodes
+==========
+ID	TCP Address               Version		    Labels	  Passive
+4	 cluster-node_0_1:8088		  1.9.6-c1.9.6  {}	      false
+5	 cluster-node_1_1:8088		  1.9.6-c1.9.6  {}	      true
+6	 cluster-node_2_1:8088		  1.9.6-c1.9.6  {}	      false
+```
+-->
 
 ### `show-shards`
 

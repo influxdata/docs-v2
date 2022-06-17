@@ -17,11 +17,11 @@ list_code_example: |
   import "sql"
 
   data
-    |> sql.from(
-      driverName: "bigquery",
-      dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
-      query: "SELECT * FROM exampleTable"
-    )
+      |> sql.to(
+          driverName: "bigquery",
+          dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+          table: "exampleTable",
+      )
   ```
 ---
 
@@ -41,11 +41,11 @@ To write data to [Google BigQuery](https://cloud.google.com/bigquery) with Flux:
 import "sql"
 
 data
-  |> sql.to(
-    driverName: "bigquery",
-    dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
-    table: "exampleTable"
-  )
+    |> sql.to(
+        driverName: "bigquery",
+        dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+        table: "exampleTable",
+    )
 ```
 
 ---

@@ -21,13 +21,13 @@ the [`sendMessage` method of the Telegram Bot API](https://core.telegram.org/bot
 import "contrib/sranka/telegram"
 
 telegram.message(
-  url: "https://api.telegram.org/bot",
-  token: "S3crEtTel3gRamT0k3n",
-  channel: "-12345",
-  text: "Example message text",
-  parseMode: "MarkdownV2",
-  disableWebPagePreview: false,
-  silent: true
+    url: "https://api.telegram.org/bot",
+    token: "S3crEtTel3gRamT0k3n",
+    channel: "-12345",
+    text: "Example message text",
+    parseMode: "MarkdownV2",
+    disableWebPagePreview: false,
+    silent: true,
 )
 ```
 
@@ -75,15 +75,11 @@ import "contrib/sranka/telegram"
 token = secrets.get(key: "TELEGRAM_TOKEN")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
-    telegram.message(
-      token: token,
-      channel: "-12345"
-      text: "Disk usage is **${lastReported.status}**.",
-    )
+telegram.message(token: token, channel: "-12345", text: "Disk usage is **${lastReported.status}**.")
 ```
