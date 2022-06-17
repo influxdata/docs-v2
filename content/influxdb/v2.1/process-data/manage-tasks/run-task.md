@@ -23,7 +23,7 @@ however, you can manually run a task from the InfluxDB user interface (UI) or th
 
     {{% nav-icon "tasks" %}}
 
-2. Find the task you would like to run and click the **{{< icon "settings" >}}** icon located far right of the task name.
+2. Find the task you want to run and click the **{{< icon "settings" >}}** icon located far right of the task name.
 3. Click **Run**.
 
 ## Run a task with the influx CLI
