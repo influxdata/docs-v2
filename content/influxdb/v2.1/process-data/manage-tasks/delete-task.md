@@ -17,7 +17,7 @@ related:
 
     {{< nav-icon "tasks" >}}
 
-2. Find the task you would like to delete and click the **{{< icon "delete" >}}** icon located far right of the task name.
+2. Find the task you want to delete and click the **{{< icon "delete" >}}** icon located far right of the task name.
 3. Click **{{< caps >}}Confirm{{< /caps >}}**.
 
 ## Delete a task with the influx CLI
