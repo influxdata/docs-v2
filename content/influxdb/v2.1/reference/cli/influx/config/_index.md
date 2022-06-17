@@ -55,7 +55,7 @@ influx config local-config
 | Subcommand                                                  | Description                              |
 |:----                                                        |:-----------                              |
 | [create](/influxdb/v2.1/reference/cli/influx/config/create) | Create a connection configuration        |
-| [list](/influxdb/v2.1/reference/cli/influx/config/create)   | List connection configurations           |
+| [list](/influxdb/v2.1/reference/cli/influx/config/list)     | List connection configurations           |
 | [delete](/influxdb/v2.1/reference/cli/influx/config/rm)     | Delete a connection configuration        |
 | [set](/influxdb/v2.1/reference/cli/influx/config/set)       | Set or update a connection configuration |
 
