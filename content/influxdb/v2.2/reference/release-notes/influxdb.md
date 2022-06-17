@@ -25,12 +25,20 @@ This release includes the following new [features](#features) and several [bug f
 
 #### Technical preview: replicate data remotely
 
-- Add the option to [Replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
+Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.2/write-data/replication).
 
-  This [**technical preview**](/influxdb/v2.2/reference/glossary/#technical-preview) feature lets you create a durable subscription on a per bucket basis for the purposes of replicating data on-write from an InfluxDB OSS instance to InfluxDB Cloud.
-  - Lets you store, analyze, and aggregate data locally while also forwarding newly arriving data to a centralized InfluxDB Cloud account.
-  - If InfluxDB OSS loses connectivity to InfluxDB Cloud, the data gets sent when network connectivity is reestablished.
-  - Configuration options include a maximum buffer size and data age restrictions to restrict the amount of data stored on disk.
+{{% warn %}}
+On rare occasions, remote write failures may cause data in the replication queue to get stuck. To ensure data is not dropped, restart the InfluxDB instance you're replicating data to as soon as possible.
+
+To assess whether this issue is occurring, we recommend periodically doing one of the following:
+- Verify your data is successfully replicated to your target bucket. 
+- View your queue size using [`influx replication list`](/influxdb/cloud/reference/cli/influx/replication/list/) for unexpected growth.
+{{% /warn %}}
+
+Replicating data remotely lets you do following:
+  - Create a durable subscription on a per bucket basis for the purposes of replicating data on-write from an InfluxDB OSS instance to InfluxDB Cloud.
+  - Store, analyze, and aggregate data locally while also forwarding newly arriving data to a centralized InfluxDB Cloud account.
+  - Configure a maximum buffer size and data age restrictions to restrict the amount of data stored on disk.
 
 #### Flux updates
 

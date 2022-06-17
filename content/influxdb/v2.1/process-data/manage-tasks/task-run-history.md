@@ -26,11 +26,10 @@ to view task run histories and associated logs.
 
     {{< nav-icon "tasks" >}}
 
-2. Hover over the task you want to run and click the **{{< icon "gear" >}}** icon.
-3. Select **View Task Runs**.
+2. Click the name of the task to view the run history.
 
 ### View task run logs
-To view logs associated with a run, click **View Logs** next to the run in the task's run history.
+To view logs associated with a run, click **{{< caps >}}View Logs{{< /caps >}}** next to the run in the task's run history.
 
 ## View a task's run history with the influx CLI
 Use the `influx task run list` command to view a task's run history.
