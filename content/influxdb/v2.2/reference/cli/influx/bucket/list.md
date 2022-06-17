@@ -35,7 +35,7 @@ influx bucket list [flags]
 |      | `--json`          | Output data as JSON (default `false`)                                        |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--limit`         | Total number of buckets to fetch from the server, or 0 to return all buckets |   string   |                       |
 | `-n` | `--name`          | Bucket name                                                                  |   string   | `INFLUX_BUCKET_NAME`  |
-|      | `--offset`        | Number of buckets to skip over in the list                                   |            | `INFLUX_ORG`          |
+|      | `--offset`        | Number of buckets to skip over in the list                                   |  integer   |                       |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                       |   string   | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                            |   string   | `INFLUX_ORG_ID`       |
 |      | `--page-size`     | Number of buckets to fetch per request to the server (default 20)            |            |                       |

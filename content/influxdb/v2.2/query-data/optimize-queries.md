@@ -28,8 +28,8 @@ Once a non-pushdown function runs, Flux pulls data into memory and runs all
 subsequent operations there.
 
 #### Pushdown functions and function combinations
-Most pushdowns are supported when querying an InfluxDB {{< current-version >}} or InfluxDB Cloud data source.
-As shown in the following table, a handful of pushdowns are not supported in InfluxDB {{< current-version >}}.
+Most pushdowns are supported when querying an InfluxDB {{< current-version keep=true >}} or InfluxDB Cloud data source.
+As shown in the following table, a handful of pushdowns are not supported in InfluxDB {{< current-version keep=true >}}.
 
 | Functions                      | InfluxDB {{< current-version keep=true >}} |    InfluxDB Cloud    |
 | :----------------------------- | :----------------------------------------: | :------------------: |

@@ -45,6 +45,26 @@ influx export all [flags]
 |      | `--skip-verify`   | Skip TLS certificate verification                                                               |             | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`         | API token                                                                                       | string      | `INFLUX_TOKEN`        |
 
+## Resources
+The following resources can be exported:
+
+- Bucket                       
+- Check                        
+- CheckDeadman                 
+- CheckThreshold               
+- Dashboard                    
+- Label                        
+- NotificationEndpoint         
+- NotificationEndpointHTTP     
+- NotificationEndpointPagerDuty
+- NotificationEndpointSlack    
+- NotificationRule             
+- Task                         
+- Telegraf                     
+- Variable
+
+For additional information on each resource, please see 
+[template resources](/influxdb/v2.2/influxdb-templates/#template-resources).
 
 ## Examples
 

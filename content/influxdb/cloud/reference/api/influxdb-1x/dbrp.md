@@ -12,6 +12,7 @@ related:
   - /influxdb/cloud/reference/api/influxdb-1x/query
   - /influxdb/cloud/reference/api/influxdb-1x/write
   - /influxdb/cloud/api/#tag/DBRPs, InfluxDB v2 API /dbrps endpoint
+  - /influxdb/cloud/query-data/influxql/
 ---
 
 {{% duplicate-oss %}}

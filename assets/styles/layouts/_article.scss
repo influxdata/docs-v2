@@ -78,6 +78,13 @@
     &:hover {
       color: $article-link-hover;
     }
+    &.help-link {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: $article-bg;
+    }
   }
 
   strong {
@@ -116,6 +123,7 @@
           "article/flex",
           "article/flux",
           "article/html-diagrams",
+          "article/influxdbu",
           "article/keybinding",
           "article/list-filters",
           "article/lists",

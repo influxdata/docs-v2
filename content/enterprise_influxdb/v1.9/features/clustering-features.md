@@ -133,3 +133,20 @@ InfluxDB Enterprise clusters support backup and restore functionality starting w
 version 0.7.1.
 See [Backup and restore](/enterprise_influxdb/v1.9/administration/backup-and-restore/) for
 more information.
+
+<!-- ## Passive node setup (experimental)
+
+Passive nodes act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes.
+
+Use this feature when you have a replication factor (RF) of 2 or more and your CPU usage is consistently above 80 percent. Using the passive feature lets you scale a cluster when you can no longer vertically scale. Especially useful if you experience a large amount of hinted handoff growth. The passive node writes the hinted handoff queue to its own disk, and then communicates periodically with the appropriate node until it can send the queue contents there.  
+
+Best practices when using an active-passive node setup: 
+  - Use when you have a large cluster setup, generally 8 or more nodes.
+  - Keep the ratio of active to passive nodes between 1:1 and 2:1.
+  - Passive nodes should receive all writes.  
+
+For more inforrmation, see how to [add a passive node to a cluster](/enterprise_influxdb/v1.9/tools/influxd-ctl/#add-a-passive-node-to-the-cluster).
+
+{{% note %}}
+**Note:**  This feature is experimental and available only in InfluxDB Enterprise.
+{{% /note %}} -->

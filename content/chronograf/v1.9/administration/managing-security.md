@@ -12,12 +12,12 @@ menu:
 To enhance security, configure Chronograf to authenticate and authorize with [OAuth 2.0](https://oauth.net/) and use TLS/HTTPS.
 (Basic authentication with username and password is also available.)
 
-* [Configure Chronograf to authenticate with OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-20)
+- [Configure Chronograf to authenticate with OAuth 2.0](#configure-chronograf-to-authenticate-with-oauth-20)
   1. [Generate a Token Secret](#generate-a-token-secret)
   2. [Set configurations for your OAuth provider](#set-configurations-for-your-oauth-provider)
   3. [Configure authentication duration](#configure-authentication-duration)
-* [Configure Chronograf to authenticate with a username and password](#configure-chronograf-to-authenticate-with-a-username-and-password)
-* [Configure TLS (Transport Layer Security) and HTTPS](#configure-tls-transport-layer-security-and-https)
+- [Configure Chronograf to authenticate with a username and password](#configure-chronograf-to-authenticate-with-a-username-and-password)
+- [Configure TLS (Transport Layer Security) and HTTPS](#configure-tls-transport-layer-security-and-https)
 
 ## Configure Chronograf to authenticate with OAuth 2.0
 
@@ -51,6 +51,7 @@ Chronograf will use this secret to generate the JWT Signature for all access tok
 1. Generate a high-entropy pseudo-random string.
 
     For example, to do this with OpenSSL, run this command:
+
     ```sh
     openssl rand -base64 256 | tr -d '\n'
     ```
@@ -377,7 +378,7 @@ export HEROKU_ORGS=hill-valley-preservation-sociey,the-pinheads
 
     Set the following environment variables in `/etc/default/chronograf`:
 
-    ```
+    ```txt
     GENERIC_TOKEN_URL=https://login.microsoftonline.com/<<TENANT-ID>>/oauth2/token
     TENANT=<<TENANT-ID>>
     GENERIC_NAME=AzureAD
@@ -540,10 +541,10 @@ Use of the TLS cryptographic protocol provides server authentication, data confi
 When configured, users can use HTTPS to securely communicate with your Chronograf applications.
 
 {{% note %}}
-Using HTTPS helps guard against nefarious agents sniffing the JWT and using it to spoof a valid user against the Chronograf server.
+HTTPS helps prevent nefarious agents stealing the JWT and using it to spoof a valid user against the server.
 {{% /note %}}
 
-### Configuring TLS for Chronograf
+### Configure TLS for Chronograf
 
 Chronograf server has command line and environment variable options to specify the certificate and key files.
 The server reads and parses a public/private key pair from these files.
@@ -551,32 +552,64 @@ The files must contain PEM-encoded data.
 
 All Chronograf command line options have corresponding environment variables.
 
-**To configure Chronograf to support TLS:**
+To configure Chronograf to support TLS, do the following:
 
-1. Specify the certificate file using the `TLS_CERTIFICATE` environment variable (or the `--cert` CLI option).
-2. Specify the key file using the `TLS_PRIVATE_KEY` environment variable (or `--key` CLI option).
+1. Specify the certificate file using the `TLS_CERTIFICATE` environment variable or the `--cert` CLI option.
+2. Specify the key file using the `TLS_PRIVATE_KEY` environment variable or `--key` CLI option.
 
-{{% note %}}
+    {{% note %}}
 If both the TLS certificate and key are in the same file, specify them using the `TLS_CERTIFICATE` environment variable (or the `--cert` CLI option).
-{{% /note %}}
+    {{% /note %}}
+
+3. _(Optional)_ To specify which TLS cipher suites to allow, use the `TLS_CIPHERS` environment variable or the `--tls-ciphers` CLI option.
+    Chronograf supports all cipher suites in the
+    [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants)
+    and, by default, allows them all.
+4. _(Optional)_ To specify the minimum and maximum TLS versions to allow, use the
+    `TLS_MIN_VERSION` and `TLS_MAX_VERSION` environment variables or the
+    `--tls-min-version` and `--tls-max-version` CLI options.
+    By default, the minimum TLS version allowed is `tls1.2` and the maximum version is
+    unlimited.
 
 #### Example with CLI options
 ```sh
-chronograf --cert=my.crt --key=my.key
+chronograf \
+  --cert=my.crt \
+  --key=my.key \
+  --tls-ciphers=TLS_RSA_WITH_AES_256_CBC_SHA,TLS_AES_128_GCM_SHA256 \
+  --tls-min-version=tls1.2 \
+  --tls-max-version=tls1.3
 ```
 
 #### Example with environment variables
 ```sh
-TLS_CERTIFICATE=my.crt TLS_PRIVATE_KEY=my.key chronograf
+TLS_CERTIFICATE=my.crt \
+TLS_PRIVATE_KEY=my.key \
+TLS_CIPHERS=TLS_RSA_WITH_AES_256_CBC_SHA,TLS_AES_128_GCM_SHA256 \
+TLS_MIN_VERSION=tls1.2 \
+TLS_MAX_VERSION=tls1.3 \
+chronograf
 ```
 
 #### Docker example with environment variables
 ```sh
-docker run -v /host/path/to/certs:/certs -e TLS_CERTIFICATE=/certs/my.crt -e TLS_PRIVATE_KEY=/certs/my.key quay.io/influxdb/chronograf:latest
+docker run \
+  -v /host/path/to/certs:/certs \
+  -e TLS_CERTIFICATE=/certs/my.crt \
+  -e TLS_PRIVATE_KEY=/certs/my.key \
+  -e TLS_CIPHERS=TLS_RSA_WITH_AES_256_CBC_SHA,TLS_AES_128_GCM_SHA256 \
+  -e TLS_MIN_VERSION=tls1.2 \
+  -e TLS_MAX_VERSION=tls1.3 \
+  chronograf:{{< current-version >}}
 ```
 
-### Testing with self-signed certificates
-In a production environment you should not use self-signed certificates, but for testing it is fast to create your own certificates.
+### Test with self-signed certificates
+To test your setup, you can use a self-signed certificate.
+
+{{% warn %}}
+Don't use self-signed certificates in production environments.
+{{% /warn %}}
+
 
 To create a certificate and key in one file with OpenSSL:
 
