@@ -89,6 +89,8 @@ to visualize InfluxDB `_internal` metrics.
   - [writeNodeReqPoints](#writenodereqpoints)
   - [writeShardReq](#writeshardreq)
   - [writeShardReqPoints](#writeshardreqpoints)
+- [hh_node](#hh-node-enterprise-only) (Enterprise only)
+  - [queueTotalSize](#queuetotalsize) 
 - [hh_processor](#hh-processor-enterprise-only) (Enterprise only)
   - [bytesRead](#bytesread)
   - [bytesWritten](#byteswritten)
@@ -424,6 +426,26 @@ The total number of every write batch request enqueued into the hinted handoff q
 
 #### writeShardReqPoints
 The total number of points enqueued into the hinted handoff queue.
+
+---
+
+### hh_node (Enterprise only)
+The `hh_node` measurement stores hinted handoff statistics for all queues (shards) for a given node.
+The `hh_node` measurement is available in InfluxDB Enterprise 1.9.8 and later.
+
+The `hh_node` measurement has one additional tag:
+
+- `node` - The destination node for the recorded metrics.
+
+
+#### queueTotalSize
+The sum total number of bytes of disk space used by all hinted handoff queues for a single node.
+This statistics tracks the disk usage of all hinted handoff queues for a given node, not the number
+of bytes waiting to be processed. Due to the implementation of the hinted handoff queue, there will
+be a lag between the bytes being processed and when they are removed from the disk.
+
+`queueTotalSize` is the metric used to determine if a node's hinted handoff queue has reached the
+configured maximum size as given by the [[hinted-handoff]max-size configuration parameter](https://docs.influxdata.com/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-size).
 
 ---
 
