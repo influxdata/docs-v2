@@ -36,7 +36,7 @@ This release includes the following [maintenance](#maintenance), [features](#fea
 - Add `date.scale()` to let users dynamically scale durations in dates.
 - Add [OpenTracing](https://opentracing.io/docs/overview/spans/) spans to Flux transformations. Lets you monitor Flux scripts more precisely.
 - Add `trace` option to Flux CLI.
-- Move addDuration() and subDuration() out of experimental to date package.
+- Move `addDuration()` and `subDuration()` out of experimental to date package.
 - Add location support to `date.truncate()`.
 - Add `_status` tag to PagerDuty record.
 - Refactor operator profile to be in the query statistics.
