@@ -1,5 +1,5 @@
 ---
-title: InfluxDB v2.2 release notes
+title: InfluxDB v2.3 release notes
 description: Important changes and what's new in each version of InfluxDB.
 menu:
   influxdb_2_3_ref:
@@ -10,7 +10,7 @@ weight: 101
 
 ## v2.3 [2022-6-17]
 
-This release includes the following [maintenance](#maintenance), [features](#features) and several [bug fixes](#bug-fixes).
+This release includes the following [maintenance](#maintenance), [features](#features) and [bug fixes](#bug-fixes).
 
 ### Maintenance
 
@@ -19,21 +19,21 @@ This release includes the following [maintenance](#maintenance), [features](#fea
 
 ### Features
 
-- Add `--instance-id` option to `influxd` runtime to add the  `_instance_id` tag to remote replications metrics. Helps to identify where the metrics came from and ensures that two instances don't overwrite each others' data.
+- Add the `--instance-id` option to `influxd` runtime to add the  `_instance_id` tag to remote replications metrics. Helps to identify where the metrics came from and ensures that two instances don't overwrite each others' data.
 - Add signifier to replication `user-agent` to signify when replication write requests are made. Helps to identify metrics written via replications.
 
 #### Flux advancement highlights
 
-##### Performance
+##### Performance improvements
 
-- Vectorize arithmetic operators in `map()`
-- Vectorize logical operations in `map()`
-- Enable `movingAverage()` and `cumulativeSum()` optimizations by default
+- Vectorize arithmetic operators in `map()`.
+- Vectorize logical operations in `map()`.
+- Enable `movingAverage()` and `cumulativeSum()` optimizations by default.
 
-##### Other
+##### Other highlights
 
-- Add `preview()` to experimental package for limiting return rows and tables (as opposed to just rows with `limit()`)
-- Add `date.scale()` to let users dynamically scale durations in dates
+- Add `preview()` to experimental package for limiting return rows and tables (as opposed to just rows with `limit()`).
+- Add `date.scale()` to let users dynamically scale durations in dates.
 - Add [OpenTracing](https://opentracing.io/docs/overview/spans/) spans to Flux transformations. This lets you monitor Flux scripts more precisely.
 - Add trace option to Flux CLI.
 - Move addDuration() and subDuration() out of experimental to date package.
