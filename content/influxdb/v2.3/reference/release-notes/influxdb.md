@@ -19,7 +19,7 @@ This release includes the following [maintenance](#maintenance), [features](#fea
 
 ### Features
 
-- Add the `--instance-id` option to `influxd` runtime to add the  `_instance_id` tag to remote replications metrics. Helps to identify where the metrics came from and ensures that two instances don't overwrite each others' data.
+- Add the [`--instance-id`](/influxdb/v2.3/reference/config-options/?t=JSON#instance-id) flag to `influxd` runtime to add the `_instance_id` tag to remote replications metrics. Helps to identify where the metrics came from, and ensures that two instances don't overwrite each others' data.
 - Add signifier to replication `user-agent` to signify when replication write requests are made. Helps to identify metrics written via replications.
 
 #### Flux advancement highlights
@@ -34,8 +34,8 @@ This release includes the following [maintenance](#maintenance), [features](#fea
 
 - Add `preview()` to experimental package for limiting return rows and tables (as opposed to just rows with `limit()`).
 - Add `date.scale()` to let users dynamically scale durations in dates.
-- Add [OpenTracing](https://opentracing.io/docs/overview/spans/) spans to Flux transformations. This lets you monitor Flux scripts more precisely.
-- Add trace option to Flux CLI.
+- Add [OpenTracing](https://opentracing.io/docs/overview/spans/) spans to Flux transformations. Lets you monitor Flux scripts more precisely.
+- Add `trace` option to Flux CLI.
 - Move addDuration() and subDuration() out of experimental to date package.
 - Add location support to `date.truncate()`.
 - Add `_status` tag to PagerDuty record.
@@ -43,15 +43,11 @@ This release includes the following [maintenance](#maintenance), [features](#fea
 
 ### Bug fixes
 
-- Fix race condition when remote replicating that deadlocks the remote writer, resulting in no more writes to the target.
-- Error when creating v1 auth with a nonexistent bucket ID
-- Add fields to `_tasks` bucket to match schema of the same bucket in InfluxDB Cloud. Provides consistency for clients accessing both.
+- Fix race condition when remote replicating deadlocks the remote writer that prevented writes to the target.
+- Resolve error when creating v1 auth with a nonexistent bucket ID.
+- Add fields to the `_tasks` bucket to match schema of the same bucket in InfluxDB Cloud. Provides consistency for clients accessing both.
 - Fix rare case where measurement cardinality reported less than zero.
-- No longer panic on cleaning up failed iterators.
-
-### Security updates
-
-
+- Resolve panic on cleaning up failed iterators.
 
 ## v2.2 [2022-04-06]
 
