@@ -134,6 +134,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [influxql-max-select-buckets](#influxql-max-select-buckets)
 - [influxql-max-select-point](#influxql-max-select-point)
 - [influxql-max-select-series](#influxql-max-select-series)
+- [instance-id](#instance-id)
 - [log-level](#log-level)
 - [metrics-disabled](#metrics-disabled)
 - [nats-max-payload-bytes](#nats-max-payload-bytes) <em style="opacity:.65">- (deprecated)</em>
@@ -195,7 +196,7 @@ Override the default InfluxDB user interface (UI) assets by serving assets from 
 _Typically, InfluxData internal use only._
 
 | influxd flag    | Environment variable  | Configuration key |
-|:------------    |:--------------------  |:----------------- |
+| :-------------- | :-------------------- | :---------------- |
 | `--assets-path` | `INFLUXD_ASSETS_PATH` | `assets-path`     |
 
 ###### influxd flag
@@ -245,7 +246,7 @@ user information, UI data, REST resources, and other key value data.
 **Default:** `~/.influxdbv2/influxd.bolt`  
 
 | influxd flag  | Environment variable | Configuration key |
-|:------------  |:-------------------- |:----------------- |
+| :------------ | :------------------- | :---------------- |
 | `--bolt-path` | `INFLUXD_BOLT_PATH`  | `bolt-path`       |
 
 ###### influxd flag
@@ -291,7 +292,7 @@ Add a `/debug/flush` endpoint to the InfluxDB HTTP API to clear stores.
 InfluxData uses this endpoint in end-to-end testing.
 
 | influxd flag    | Environment variable  | Configuration key |
-|:------------    |:--------------------  |:----------------- |
+| :-------------- | :-------------------- | :---------------- |
 | `--e2e-testing` | `INFLUXD_E2E_TESTING` | `e2e-testing`     |
 
 ###### influxd flag
@@ -339,7 +340,7 @@ Time-Structure Merge Tree (TSM) data on disk.
 **Default:** `~/.influxdbv2/engine`  
 
 | influxd flag    | Environment variable  | Configuration key |
-|:------------    |:--------------------  |:----------------- |
+| :-------------- | :-------------------- | :---------------- |
 | `--engine-path` | `INFLUXD_ENGINE_PATH` | `engine-path`     |
 
 ###### influxd flag
@@ -453,9 +454,9 @@ Include option to show detailed logs for Flux queries, including the following l
 
 **Default:** `false`  
 
-| influxd flag         | Environment variable       | Configuration key |
-|:------------         |:--------------------       |:----------------- |
-| `--flux-log-enabled` | `INFLUXD_FLUX_LOG_ENABLED` | `flux-log-enabled`|
+| influxd flag         | Environment variable       | Configuration key  |
+| :------------------- | :------------------------- | :----------------- |
+| `--flux-log-enabled` | `INFLUXD_FLUX_LOG_ENABLED` | `flux-log-enabled` |
 
 ###### influxd flag
 ```sh
@@ -549,7 +550,7 @@ Customize the URL and port for the InfluxDB API and UI.
 **Default:** `:8086`  
 
 | influxd flag          | Environment variable        | Configuration key   |
-|:------------          |:--------------------        |:-----------------   |
+| :-------------------- | :-------------------------- | :------------------ |
 | `--http-bind-address` | `INFLUXD_HTTP_BIND_ADDRESS` | `http-bind-address` |
 
 ###### influxd flag
@@ -597,7 +598,7 @@ Set to `0` for no timeout.
 **Default:** `3m0s`
 
 | influxd flag          | Environment variable        | Configuration key   |
-|:------------          |:--------------------        |:-----------------   |
+| :-------------------- | :-------------------------- | :------------------ |
 | `--http-idle-timeout` | `INFLUXD_HTTP_IDLE_TIMEOUT` | `http-idle-timeout` |
 
 ###### influxd flag
@@ -645,7 +646,7 @@ Set to `0` for no timeout.
 **Default:** `10s`
 
 | influxd flag                 | Environment variable               | Configuration key          |
-|:------------                 |:--------------------               |:-----------------          |
+| :--------------------------- | :--------------------------------- | :------------------------- |
 | `--http-read-header-timeout` | `INFLUXD_HTTP_READ_HEADER_TIMEOUT` | `http-read-header-timeout` |
 
 ###### influxd flag
@@ -701,7 +702,7 @@ potentially hurt performance.
 {{% /note %}}
 
 | influxd flag          | Environment variable        | Configuration key   |
-|:------------          |:--------------------        |:-----------------   |
+| :-------------------- | :-------------------------- | :------------------ |
 | `--http-read-timeout` | `INFLUXD_HTTP_READ_TIMEOUT` | `http-read-timeout` |
 
 ###### influxd flag
@@ -757,7 +758,7 @@ potentially hurt performance.
 {{% /note %}}
 
 | influxd flag           | Environment variable         | Configuration key    |
-|:------------           |:--------------------         |:-----------------    |
+| :--------------------- | :--------------------------- | :------------------- |
 | `--http-write-timeout` | `INFLUXD_HTTP_WRITE_TIMEOUT` | `http-write-timeout` |
 
 ###### influxd flag
@@ -805,7 +806,7 @@ Maximum number of group by time buckets a `SELECT` statement can create.
 **Default:** `0`
 
 | influxd flag                    | Environment variable                  | Configuration key             |
-|:------------                    |:--------------------                  |:-----------------             |
+| :------------------------------ | :------------------------------------ | :---------------------------- |
 | `--influxql-max-select-buckets` | `INFLUXD_INFLUXQL_MAX_SELECT_BUCKETS` | `influxql-max-select-buckets` |
 
 ###### influxd flag
@@ -854,7 +855,7 @@ InfluxDB checks the point count every second (so queries exceeding the maximum a
 **Default:** `0`
 
 | influxd flag                  | Environment variable                | Configuration key           |
-|:------------                  |:--------------------                |:-----------------           |
+| :---------------------------- | :---------------------------------- | :-------------------------- |
 | `--influxql-max-select-point` | `INFLUXD_INFLUXQL_MAX_SELECT_POINT` | `influxql-max-select-point` |
 
 ###### influxd flag
@@ -902,7 +903,7 @@ Maximum number of series a `SELECT` statement can return.
 **Default:** `0`
 
 | influxd flag                   | Environment variable                 | Configuration key            |
-|:------------                   |:--------------------                 |:-----------------            |
+| :----------------------------- | :----------------------------------- | :--------------------------- |
 | `--influxql-max-select-series` | `INFLUXD_INFLUXQL_MAX_SELECT_SERIES` | `influxql-max-select-series` |
 
 ###### influxd flag
@@ -943,6 +944,52 @@ influxql-max-select-series = 0
 
 ---
 
+### instance-id
+
+Identifies edge nodes during replication, and prevents collisions if two edge nodes write the same `measurement,tagset`.
+
+| influxd flag    | Environment variable  | Configuration key |
+| :-------------- | :-------------------- | :---------------- |
+| `--instance-id` | `INFLUXD_INSTANCE_ID` | `instance-id`     |
+
+###### influxd flag
+```sh
+influxd --instance-id=:8086
+```
+
+###### Environment variable
+```sh
+export INFLUXD_INSTANCE_ID=:8086
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+instance-id: ":8086"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+instance-id = ":8086"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "instance-id": ":8086"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### log-level
 Log output level.
 InfluxDB outputs log entries with severity levels greater than or equal to the level specified.
@@ -951,7 +998,7 @@ InfluxDB outputs log entries with severity levels greater than or equal to the l
 **Default:** `info`  
 
 | influxd flag  | Environment variable | Configuration key |
-|:------------  |:-------------------- |:----------------- |
+| :------------ | :------------------- | :---------------- |
 | `--log-level` | `INFLUXD_LOG_LEVEL`  | `log-level`       |
 
 ###### influxd flag
@@ -998,7 +1045,7 @@ Disable the HTTP `/metrics` endpoint which exposes [internal InfluxDB metrics](/
 **Default:** `false`  
 
 | influxd flag         | Environment variable       | Configuration key  |
-|:------------         |:--------------------       |:-----------------  |
+| :------------------- | :------------------------- | :----------------- |
 | `--metrics-disabled` | `INFLUXD_METRICS_DISABLED` | `metrics-disabled` |
 
 ###### influxd flag
@@ -1050,7 +1097,7 @@ Maximum number of bytes allowed in a NATS message payload.
 **Default:** `1048576`
 
 | influxd flag               | Environment variable             | Configuration key        |
-|:------------               |:--------------------             |:-----------------        |
+| :------------------------- | :------------------------------- | :----------------------- |
 | `--nats-max-payload-bytes` | `INFLUXD_NATS_MAX_PAYLOAD_BYTES` | `nats-max-payload-bytes` |
 
 ###### influxd flag
@@ -1102,7 +1149,7 @@ Port for the NATS streaming server. `-1` selects a random port.
 **Default:** `-1`
 
 | influxd flag  | Environment variable | Configuration key |
-|:------------  |:-------------------- |:----------------- |
+| :------------ | :------------------- | :---------------- |
 | `--nats-port` | `INFLUXD_NATS_PORT`  | `nats-port`       |
 
 ###### influxd flag
@@ -1151,7 +1198,7 @@ InfluxDB without scheduling or executing tasks.
 **Default:** `false`
 
 | influxd flag | Environment variable | Configuration key |
-|:------------ |:-------------------- |:----------------- |
+| :----------- | :------------------- | :---------------- |
 | `--no-tasks` | `INFLUXD_NO_TASKS`   | `no-tasks`        |
 
 ###### influxd flag
@@ -1199,7 +1246,7 @@ This endpoint provides runtime profiling data and can be helpful when debugging.
 **Default:** `false`
 
 | influxd flag       | Environment variable     | Configuration key |
-|:-------------------|:-------------------------|:------------------|
+| :----------------- | :----------------------- | :---------------- |
 | `--pprof-disabled` | `INFLUXD_PPROF_DISABLED` | `pprof-disabled`  |
 
 ###### influxd flag
@@ -1246,7 +1293,7 @@ Number of queries allowed to execute concurrently.
 **Default:** `10`
 
 | influxd flag          | Environment variable        | Configuration key   |
-|:------------          |:--------------------        |:-----------------   |
+| :-------------------- | :-------------------------- | :------------------ |
 | `--query-concurrency` | `INFLUXD_QUERY_CONCURRENCY` | `query-concurrency` |
 
 ###### influxd flag
@@ -1293,7 +1340,7 @@ Initial bytes of memory allocated for a query.
 **Default:** _equal to_ [query-memory-bytes](#query-memory-bytes)
 
 | influxd flag                   | Environment variable                 | Configuration key            |
-|:------------                   |:--------------------                 |:-----------------            |
+| :----------------------------- | :----------------------------------- | :--------------------------- |
 | `--query-initial-memory-bytes` | `INFLUXD_QUERY_INITIAL_MEMORY_BYTES` | `query-initial-memory-bytes` |
 
 ###### influxd flag
@@ -1340,7 +1387,7 @@ Maximum total bytes of memory allowed for queries.
 **Default:** _equal to_ [query-concurrency](#query-concurrency) × [query-memory-bytes](#query-memory-bytes)
 
 | influxd flag               | Environment variable             | Configuration key        |
-|:------------               |:--------------------             |:-----------------        |
+| :------------------------- | :------------------------------- | :----------------------- |
 | `--query-max-memory-bytes` | `INFLUXD_QUERY_MAX_MEMORY_BYTES` | `query-max-memory-bytes` |
 
 ###### influxd flag
@@ -1391,7 +1438,7 @@ Must be greater than or equal to [query-initial-memory-bytes](#query-initial-mem
 {{% /note %}}
 
 | influxd flag           | Environment variable         | Configuration key    |
-|:------------           |:--------------------         |:-----------------    |
+| :--------------------- | :--------------------------- | :------------------- |
 | `--query-memory-bytes` | `INFLUXD_QUERY_MEMORY_BYTES` | `query-memory-bytes` |
 
 ###### influxd flag
@@ -1439,7 +1486,7 @@ When queue limit is reached, new queries are rejected.
 **Default:** `10`
 
 | influxd flag         | Environment variable       | Configuration key  |
-|:------------         |:--------------------       |:-----------------  |
+| :------------------- | :------------------------- | :----------------- |
 | `--query-queue-size` | `INFLUXD_QUERY_QUEUE_SIZE` | `query-queue-size` |
 
 ###### influxd flag
@@ -1488,7 +1535,7 @@ information about what data is collected and how InfluxData uses it.
 **Default:** `false`
 
 | influxd flag           | Environment variable         | Configuration key    |
-|:------------           |:--------------------         |:-----------------    |
+| :--------------------- | :--------------------------- | :------------------- |
 | `--reporting-disabled` | `INFLUXD_REPORTING_DISABLED` | `reporting-disabled` |
 
 ###### influxd flag
@@ -1538,7 +1585,7 @@ or in [Vault](https://www.vaultproject.io/).
 **Default:** `bolt`  
 
 | influxd flag     | Environment variable   | Configuration key |
-|:------------     |:--------------------   |:----------------- |
+| :--------------- | :--------------------- | :---------------- |
 | `--secret-store` | `INFLUXD_SECRET_STORE` | `secret-store`    |
 
 ###### influxd flag
@@ -1585,7 +1632,7 @@ Specifies the Time to Live (TTL) **in minutes** for newly created user sessions.
 **Default:** `60`
 
 | influxd flag       | Environment variable     | Configuration key |
-|:------------       |:--------------------     |:----------------- |
+| :----------------- | :----------------------- | :---------------- |
 | `--session-length` | `INFLUXD_SESSION_LENGTH` | `session-length`  |
 
 ###### influxd flag
@@ -1635,7 +1682,7 @@ and the user is redirected to the login page, even if recently active.
 **Default:** `false`
 
 | influxd flag               | Environment variable             | Configuration key        |
-|:------------               |:--------------------             |:-----------------        |
+| :------------------------- | :------------------------------- | :----------------------- |
 | `--session-renew-disabled` | `INFLUXD_SESSION_RENEW_DISABLED` | `session-renew-disabled` |
 
 ###### influxd flag
@@ -1684,7 +1731,7 @@ The SQLite database is used to store metadata for notebooks and annotations.
 **Default:** _`influxd.sqlite` in the same directory as the [bolt-path](#bolt-path)._
 
 | influxd flag    | Environment variable  | Configuration key |
-|:----------------|:----------------------|:------------------|
+| :-------------- | :-------------------- | :---------------- |
 | `--sqlite-path` | `INFLUXD_SQLITE_PATH` | `sqlite-path`     |
 
 ###### influxd flag
@@ -1731,7 +1778,7 @@ Maximum size (in bytes) a shard's cache can reach before it starts rejecting wri
 **Default:** `1073741824`
 
 | influxd flag                      | Environment variable                    | Configuration key               |
-|:----------------------------------|:----------------------------------------|:--------------------------------|
+| :-------------------------------- | :-------------------------------------- | :------------------------------ |
 | `--storage-cache-max-memory-size` | `INFLUXD_STORAGE_CACHE_MAX_MEMORY_SIZE` | `storage-cache-max-memory-size` |
 
 ###### influxd flag
@@ -1779,7 +1826,7 @@ and write it to a TSM file to make more memory available.
 **Default:** `26214400`)
 
 | influxd flag                           | Environment variable                         | Configuration key                    |
-|:------------                           |:--------------------                         |:-----------------                    |
+| :------------------------------------- | :------------------------------------------- | :----------------------------------- |
 | `--storage-cache-snapshot-memory-size` | `INFLUXD_STORAGE_CACHE_SNAPSHOT_MEMORY_SIZE` | `storage-cache-snapshot-memory-size` |
 
 ###### influxd flag
@@ -1827,7 +1874,7 @@ write it to a new TSM file if the shard hasn't received writes or deletes.
 **Default:** `10m0s`
 
 | influxd flag                                   | Environment variable                                 | Configuration key                            |
-|:------------                                   |:--------------------                                 |:-----------------                            |
+| :--------------------------------------------- | :--------------------------------------------------- | :------------------------------------------- |
 | `--storage-cache-snapshot-write-cold-duration` | `INFLUXD_STORAGE_CACHE_SNAPSHOT_WRITE_COLD_DURATION` | `storage-cache-snapshot-write-cold-duration` |
 
 ###### influxd flag
@@ -1875,7 +1922,7 @@ shard if it hasn't received writes or deletes.
 **Default:** `4h0m0s`
 
 | influxd flag                                 | Environment variable                               | Configuration key                          |
-|:------------                                 |:--------------------                               |:-----------------                          |
+| :------------------------------------------- | :------------------------------------------------- | :----------------------------------------- |
 | `--storage-compact-full-write-cold-duration` | `INFLUXD_STORAGE_COMPACT_FULL_WRITE_COLD_DURATION` | `storage-compact-full-write-cold-duration` |
 
 ###### influxd flag
@@ -1922,7 +1969,7 @@ Rate limit (in bytes per second) that TSM compactions can write to disk.
 **Default:** `50331648`
 
 | influxd flag                         | Environment variable                       | Configuration key                  |
-|:------------                         |:--------------------                       |:-----------------                  |
+| :----------------------------------- | :----------------------------------------- | :--------------------------------- |
 | `--storage-compact-throughput-burst` | `INFLUXD_STORAGE_COMPACT_THROUGHPUT_BURST` | `storage-compact-throughput-burst` |
 
 ###### influxd flag
@@ -1972,7 +2019,7 @@ _This setting does not apply to cache snapshotting._
 **Default:** `0`
 
 | influxd flag                           | Environment variable                         | Configuration key                    |
-|:------------                           |:--------------------                         |:-----------------                    |
+| :------------------------------------- | :------------------------------------------- | :----------------------------------- |
 | `--storage-max-concurrent-compactions` | `INFLUXD_STORAGE_MAX_CONCURRENT_COMPACTIONS` | `storage-max-concurrent-compactions` |
 
 ###### influxd flag
@@ -2021,7 +2068,7 @@ heap usage at the expense of write throughput.
 **Default:** `1048576`
 
 | influxd flag                        | Environment variable                      | Configuration key                 |
-|:------------                        |:--------------------                      |:-----------------                 |
+| :---------------------------------- | :---------------------------------------- | :-------------------------------- |
 | `--storage-max-index-log-file-size` | `INFLUXD_STORAGE_MAX_INDEX_LOG_FILE_SIZE` | `storage-max-index-log-file-size` |
 
 ###### influxd flag
@@ -2115,7 +2162,7 @@ Interval of retention policy enforcement checks.
 **Default:** `30m0s`
 
 | influxd flag                         | Environment variable                       | Configuration key                  |
-|:------------                         |:--------------------                       |:-----------------                  |
+| :----------------------------------- | :----------------------------------------- | :--------------------------------- |
 | `--storage-retention-check-interval` | `INFLUXD_STORAGE_RETENTION_CHECK_INTERVAL` | `storage-retention-check-interval` |
 
 ###### influxd flag
@@ -2163,7 +2210,7 @@ all series partitions in a database.
 **Default:** `0`
 
 | influxd flag                                                | Environment variable                                              | Configuration key                                         |
-|:------------                                                |:--------------------                                              |:-----------------                                         |
+| :---------------------------------------------------------- | :---------------------------------------------------------------- | :-------------------------------------------------------- |
 | `--storage-series-file-max-concurrent-snapshot-compactions` | `INFLUXD_STORAGE_SERIES_FILE_MAX_CONCURRENT_SNAPSHOT_COMPACTIONS` | `storage-series-file-max-concurrent-snapshot-compactions` |
 
 ###### influxd flag
@@ -2219,8 +2266,8 @@ predicates across all measurements for a database is larger than 100.
 An increase in cache size may lead to an increase in heap usage.
 {{% /note %}}
 
-| influxd flag                                                | Environment variable                                              | Configuration key                                         |
-|:------------                                                |:--------------------                                              |:-----------------                                         |
+| influxd flag                         | Environment variable                       | Configuration key                  |
+| :----------------------------------- | :----------------------------------------- | :--------------------------------- |
 | `--storage-series-id-set-cache-size` | `INFLUXD_STORAGE_SERIES_ID_SET_CACHE_SIZE` | `storage-series-id-set-cache-size` |
 
 ###### influxd flag
@@ -2267,7 +2314,7 @@ The time before a shard group's end-time that the successor shard group is creat
 **Default:** `30m0s`
 
 | influxd flag                                | Environment variable                              | Configuration key                         |
-|:------------                                |:--------------------                              |:-----------------                         |
+| :------------------------------------------ | :------------------------------------------------ | :---------------------------------------- |
 | `--storage-shard-precreator-advance-period` | `INFLUXD_STORAGE_SHARD_PRECREATOR_ADVANCE_PERIOD` | `storage-shard-precreator-advance-period` |
 
 ###### influxd flag
@@ -2314,7 +2361,7 @@ Interval of pre-create new shards check.
 **Default:** `10m0s`
 
 | influxd flag                                | Environment variable                              | Configuration key                         |
-|:------------                                |:--------------------                              |:-----------------                         |
+| :------------------------------------------ | :------------------------------------------------ | :---------------------------------------- |
 | `--storage-shard-precreator-check-interval` | `INFLUXD_STORAGE_SHARD_PRECREATOR_CHECK_INTERVAL` | `storage-shard-precreator-check-interval` |
 
 ###### influxd flag
@@ -2361,7 +2408,7 @@ Inform the kernel that InfluxDB intends to page in mmap'd sections of TSM files.
 **Default:** `false`
 
 | influxd flag                      | Environment variable                    | Configuration key               |
-|:------------                      |:--------------------                    |:-----------------               |
+| :-------------------------------- | :-------------------------------------- | :------------------------------ |
 | `--storage-tsm-use-madv-willneed` | `INFLUXD_STORAGE_TSM_USE_MADV_WILLNEED` | `storage-tsm-use-madv-willneed` |
 
 ###### influxd flag
@@ -2408,7 +2455,7 @@ Validate incoming writes to ensure keys have only valid unicode characters.
 **Default:** `false`
 
 | influxd flag              | Environment variable            | Configuration key       |
-|:------------              |:--------------------            |:-----------------       |
+| :------------------------ | :------------------------------ | :---------------------- |
 | `--storage-validate-keys` | `INFLUXD_STORAGE_VALIDATE_KEYS` | `storage-validate-keys` |
 
 ###### influxd flag
@@ -2457,7 +2504,7 @@ This is useful for slower disks or when WAL write contention is present.
 **Default:** `0s`
 
 | influxd flag                | Environment variable              | Configuration key         |
-|:------------                |:--------------------              |:-----------------         |
+| :-------------------------- | :-------------------------------- | :------------------------ |
 | `--storage-wal-fsync-delay` | `INFLUXD_STORAGE_WAL_FSYNC_DELAY` | `storage-wal-fsync-delay` |
 
 ###### influxd flag
@@ -2659,7 +2706,7 @@ InfluxData does not recommend using `memory` in production.
 {{% /note %}}
 
 | influxd flag | Environment variable | Configuration key |
-|:------------ |:-------------------- |:----------------- |
+| :----------- | :------------------- | :---------------- |
 | `--store`    | `INFLUXD_STORE`      | `store`           |
 
 ###### influxd flag
@@ -2707,7 +2754,7 @@ This configuration option is primary used in continuous integration tests.
 **Default:** `false`
 
 | influxd flag                   | Environment variable                 | Configuration key            |
-|:------------                   |:--------------------                 |:-----------------            |
+| :----------------------------- | :----------------------------------- | :--------------------------- |
 | `--testing-always-allow-setup` | `INFLUXD_TESTING_ALWAYS_ALLOW_SETUP` | `testing-always-allow-setup` |
 
 ###### influxd flag
@@ -2755,7 +2802,7 @@ Requires the [`tls-key`](#tls-key) to be set.
 _For more information, see [Enable TLS encryption](/influxdb/v2.2/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
-|:------------ |:-------------------- |:----------------- |
+| :----------- | :------------------- | :---------------- |
 | `--tls-cert` | `INFLUXD_TLS_CERT`   | `tls-cert`        |
 
 ###### influxd flag
@@ -2803,8 +2850,8 @@ Requires the [`tls-cert`](#tls-cert) to be set.
 _For more information, see [Enable TLS encryption](/influxdb/v2.2/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
-|:------------ |:-------------------- |:----------------- |
-| `--tls-key` | `INFLUXD_TLS_KEY`   | `tls-key`        |
+| :----------- | :------------------- | :---------------- |
+| `--tls-key`  | `INFLUXD_TLS_KEY`    | `tls-key`         |
 
 ###### influxd flag
 ```sh
@@ -2850,7 +2897,7 @@ Minimum accepted TLS version.
 **Default:** `1.2`
 
 | influxd flag        | Environment variable      | Configuration key |
-|:------------        |:--------------------      |:----------------- |
+| :------------------ | :------------------------ | :---------------- |
 | `--tls-min-version` | `INFLUXD_TLS_MIN_VERSION` | `tls-min-version` |
 
 ###### influxd flag
@@ -2902,7 +2949,7 @@ Restrict accepted TLS ciphers to:
 **Default:** `false`
 
 | influxd flag           | Environment variable         | Configuration key    |
-|:------------           |:--------------------         |:-----------------    |
+| :--------------------- | :--------------------------- | :------------------- |
 | `--tls-strict-ciphers` | `INFLUXD_TLS_STRICT_CIPHERS` | `tls-strict-ciphers` |
 
 ###### influxd flag
@@ -2950,7 +2997,7 @@ Tracing is disabled by default.
 **Options:** `log`, `jaeger`
 
 | influxd flag     | Environment variable   | Configuration key |
-|:------------     |:--------------------   |:----------------- |
+| :--------------- | :--------------------- | :---------------- |
 | `--tracing-type` | `INFLUXD_TRACING_TYPE` | `tracing-type`    |
 
 ###### influxd flag
@@ -3044,7 +3091,7 @@ Specifies the address of the Vault server expressed as a URL and port.
 For example: `https://127.0.0.1:8200/`.
 
 | influxd flag   | Environment variable | Configuration key |
-|:------------   |:-------------------- |:----------------- |
+| :------------- | :------------------- | :---------------- |
 | `--vault-addr` | `VAULT_ADDR`         | `vault-addr`      |
 
 ###### influxd flag
@@ -3091,7 +3138,7 @@ This file is used to verify the Vault server's SSL certificate.
 **This setting takes precedence over the [`--vault-capath`](#vault-capath) setting.**
 
 | influxd flag     | Environment variable | Configuration key |
-|:------------     |:-------------------- |:----------------- |
+| :--------------- | :------------------- | :---------------- |
 | `--vault-cacert` | `VAULT_CACERT`       | `vault-cacert`    |
 
 ###### influxd flag
@@ -3137,7 +3184,7 @@ Specifies the path to a directory of PEM-encoded CA certificate files on the loc
 These certificates are used to verify the Vault server's SSL certificate.
 
 | influxd flag     | Environment variable | Configuration key |
-|:------------     |:-------------------- |:----------------- |
+| :--------------- | :------------------- | :---------------- |
 | `--vault-capath` | `VAULT_CAPATH`       | `vault-capath`    |
 
 ###### influxd flag
@@ -3183,7 +3230,7 @@ Specifies the path to a PEM-encoded client certificate on the local disk.
 This file is used for TLS communication with the Vault server.
 
 | influxd flag          | Environment variable | Configuration key   |
-|:------------          |:-------------------- |:-----------------   |
+| :-------------------- | :------------------- | :------------------ |
 | `--vault-client-cert` | `VAULT_CLIENT_CERT`  | `vault-client-cert` |
 
 ###### influxd flag
@@ -3228,9 +3275,9 @@ vault-client-cert = "/path/to/client_cert.pem"
 Specifies the path to an unencrypted, PEM-encoded private key on disk which
 corresponds to the matching client certificate.
 
-| influxd flag          | Environment variable | Configuration key   |
-|:------------          |:-------------------- |:-----------------   |
-| `--vault-client-key` | `VAULT_CLIENT_KEY`  | `vault-client-key` |
+| influxd flag         | Environment variable | Configuration key  |
+| :------------------- | :------------------- | :----------------- |
+| `--vault-client-key` | `VAULT_CLIENT_KEY`   | `vault-client-key` |
 
 ###### influxd flag
 ```sh
@@ -3277,7 +3324,7 @@ The default is 2 (for three attempts in total). Set this to 0 or less to disable
 **Default:** `2`  
 
 | influxd flag          | Environment variable | Configuration key   |
-|:------------          |:-------------------- |:-----------------   |
+| :-------------------- | :------------------- | :------------------ |
 | `--vault-max-retries` | `VAULT_MAX_RETRIES`  | `vault-max-retries` |
 
 ###### influxd flag
@@ -3324,7 +3371,7 @@ Specifies the Vault client timeout.
 **Default:** `60s`  
 
 | influxd flag             | Environment variable   | Configuration key      |
-|:------------             |:--------------------   |:-----------------      |
+| :----------------------- | :--------------------- | :--------------------- |
 | `--vault-client-timeout` | `VAULT_CLIENT_TIMEOUT` | `vault-client-timeout` |
 
 ###### influxd flag
@@ -3373,7 +3420,7 @@ and is **not recommended**._
 **Default:** `false`
 
 | influxd flag          | Environment variable | Configuration key   |
-|:------------          |:-------------------- |:-----------------   |
+| :-------------------- | :------------------- | :------------------ |
 | `--vault-skip-verify` | `VAULT_SKIP_VERIFY`  | `vault-skip-verify` |
 
 ###### influxd flag
@@ -3418,7 +3465,7 @@ vault-skip-verify = true
 Specifies the name to use as the Server Name Indication (SNI) host when connecting via TLS.
 
 | influxd flag              | Environment variable    | Configuration key       |
-|:------------              |:--------------------    |:-----------------       |
+| :------------------------ | :---------------------- | :---------------------- |
 | `--vault-tls-server-name` | `VAULT_TLS_SERVER_NAME` | `vault-tls-server-name` |
 
 ###### influxd flag
@@ -3463,7 +3510,7 @@ vault-tls-server-name = "secure.example.com"
 Specifies the Vault token use when authenticating with Vault.
 
 | influxd flag    | Environment variable | Configuration key |
-|:------------    |:-------------------- |:----------------- |
+| :-------------- | :------------------- | :---------------- |
 | `--vault-token` | `VAULT_TOKEN`        | `vault-token`     |
 
 ###### influxd flag
