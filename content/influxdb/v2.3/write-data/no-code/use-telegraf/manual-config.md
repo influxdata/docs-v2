@@ -19,7 +19,7 @@ related:
   - /influxdb/v2.2/telegraf-configs/update/
 ---
 
-Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.2 bucket.
+Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.3 bucket.
 This article describes how to enable the `influxdb_v2` output plugin in new and existing Telegraf configurations,
 then start Telegraf using the custom configuration file.
 
@@ -47,7 +47,7 @@ To manually add any of the available [Telegraf plugins](/{{< latest "telegraf" >
 
 ### Enable and configure the InfluxDB v2 output plugin
 
-To send data to an InfluxDB v2.2 instance, enable in the
+To send data to an InfluxDB v2.3 instance, enable in the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
 in the `telegraf.conf`.
 
@@ -64,12 +64,12 @@ To find an example InfluxDB v2 output plugin configuration in the UI:
 The InfluxDB output plugin configuration contains the following options:
 
 ##### urls
-An array of URLs for your InfluxDB v2.2 instances.
+An array of URLs for your InfluxDB v2.3 instances.
 See [InfluxDB URLs](/influxdb/v2.2/reference/urls/) for information about which URLs to use.
 **{{< cloud-name "short">}} requires HTTPS**.
 
 ##### token
-Your InfluxDB v2.2 authorization token.
+Your InfluxDB v2.3 authorization token.
 For information about viewing tokens, see [View tokens](/influxdb/v2.2/security/tokens/view-tokens/).
 
 {{% note %}}
@@ -140,7 +140,7 @@ The example below illustrates an `influxdb_v2` configuration.
 {{% note %}}
 ##### Write to InfluxDB v1.x and v2.2
 If a Telegraf agent is already writing to an InfluxDB v1.x database,
-enabling the InfluxDB v2 output plugin will write data to both v1.x and v2.2 instances.
+enabling the InfluxDB v2 output plugin will write data to both v1.x and v2.3 instances.
 {{% /note %}}
 
 ## Add a custom Telegraf configuration to InfluxDB
