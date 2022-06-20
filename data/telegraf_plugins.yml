@@ -2264,7 +2264,7 @@ output:
     introduced: 0.10.1
     tags: [linux, macos, windows, data-stores]
 
-  - name: Grafani Loki
+  - name: Grafana Loki
     id: loki
     description: |
       The Grafana Loki output sends logs to [Loki](https://grafana.com/oss/loki/).
