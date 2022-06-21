@@ -1,17 +1,24 @@
 ---
 title: Work with regular expression types
 seotitle: Work with Flux regular expression types
-list_title: Regular expression types
+list_title: Regular expression
 description: >
+  A **regular expression** type represents a regular expression pattern.
   Learn how to work with Flux regular expression types.
 menu:
   flux_0_x:
-    name: Regular expression types
-    parent: Work with Flux types
-weight: 101
+    name: Regular expression
+    parent: Basic types
+weight: 201
 flux/v0.x/tags: ["regexp types", "data types"]
+aliases:
+  - /flux/v0.x/data-types/regexp/
 related:
   - /flux/v0.x/stdlib/regexp/
+list_code_example: |
+  ```js
+  /^[a-z0-9]+$/
+  ```
 ---
 
 A **regular expression** type represents a regular expression pattern.
@@ -30,7 +37,7 @@ This syntax is similar to regular expressions in Perl, Python, and other languag
 Regular expression literals are enclosed in forward slash characters (`/`).
 
 ```js
-/^[a-z0-9]{1,}$/
+/^[a-z0-9]+$/
 ```
 
 ## Use regular expression flags
