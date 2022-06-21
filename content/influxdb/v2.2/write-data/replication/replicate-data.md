@@ -43,7 +43,7 @@ Use InfluxDB replication streams (InfluxDB Edge Data Replication) to replicate t
     ```sh
     influx remote create \
       --name example-remote-name \
-      --remote-url cloud2.influxdata.com \
+      --remote-url https://cloud2.influxdata.com \
       --remote-api-token mYsuP3r5Ecr37t0k3n \
       --remote-org-id 00xoXXoxXX00
     ```
