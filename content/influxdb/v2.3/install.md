@@ -132,9 +132,9 @@ If you rename the binaries, all references to `influxd` and `influx` in this doc
 By default, InfluxDB uses TCP port `8086` for client-server communication over
 the [InfluxDB HTTP API](/influxdb/v2.3/reference/api/).
 
-### Start InfluxDB
+### Start and configure InfluxDB
 
-Start InfluxDB by running the `influxd` daemon:
+To start InfluxDB, run the `influxd` daemon:
 
 ```bash
 influxd
@@ -171,7 +171,7 @@ file and process limits for your operating system version then restart `influxd`
 
 {{% /warn %}}
 
-_See the [`influxd` documentation](/influxdb/v2.3/reference/cli/influxd) for information about
+To configure InfluxDB, see [InfluxDB configuration options](/influxdb/v2.2/reference/config-options/), and the [`influxd` documentation](/influxdb/v2.3/reference/cli/influxd) for information about
 available flags and options._
 
 {{% note %}}
