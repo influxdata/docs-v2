@@ -55,7 +55,7 @@ Several security issues were fixed in dependencies and the toolchain used to bui
 ### Bug fixes
 
 - Fix race condition when remote replicating deadlocks the remote writer that prevented writes to the target.
-- Resolve error when creating v1 auth with a nonexistent bucket ID.
+- Resolve error when creating v1 authorization (`v1 auth`) with a nonexistent bucket ID.
 - Add fields to the `_tasks` bucket to match schema of the same bucket in InfluxDB Cloud. Provides consistency for clients accessing both.
 - Fix rare case where measurement cardinality reported less than zero.
 - Resolve panic on cleaning up failed iterators.
