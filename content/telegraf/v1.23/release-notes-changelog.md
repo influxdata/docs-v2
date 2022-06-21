@@ -1,8 +1,9 @@
 ---
 title: Telegraf 1.23 release notes
 description: Important features and changes in the latest version of Telegraf.
-alias:
+aliases:
   - /telegraf/v1.23/reference/release-notes/influxdb/
+  - /telegraf/v1.23/about_the_project/release-notes-changelog/
 menu:
   telegraf_1_23_ref:
 
