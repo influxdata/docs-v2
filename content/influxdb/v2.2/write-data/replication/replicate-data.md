@@ -112,11 +112,11 @@ In some cases, you may not want to write raw, high-precision data to a remote In
 
     numeric = data()
         |> filter(fn: (r) => types.isType(v: r._value, type: "float") or types.isType(v: r._value, type: "int") or types.isType(v: r._value, type: "uint"))
-        |> aggregateWindow(every: -task.every, fn: mean)
+        |> aggregateWindow(every: task.every, fn: mean)
 
     nonNumeric = data()
         |> filter(fn: (r) => types.isType(v: r._value, type: "string") or types.isType(v: r._value, type: "bool"))
-        |> aggregateWindow(every: -task.every, fn: last)
+        |> aggregateWindow(every: task.every, fn: last)
 
     union(tables: [numeric, nonNumeric])
         |> to(bucket: "example-downsampled-bucket")
