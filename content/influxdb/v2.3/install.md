@@ -171,7 +171,7 @@ file and process limits for your operating system version then restart `influxd`
 
 {{% /warn %}}
 
-To configure InfluxDB, see [InfluxDB configuration options](/influxdb/v2.2/reference/config-options/), and the [`influxd` documentation](/influxdb/v2.3/reference/cli/influxd) for information about
+To configure InfluxDB, see [InfluxDB configuration options](/influxdb/v2.3/reference/config-options/), and the [`influxd` documentation](/influxdb/v2.3/reference/cli/influxd) for information about
 available flags and options._
 
 {{% note %}}
