@@ -18,9 +18,12 @@ Use type signatures to identify data types expected by function parameters and
 to understand a function's expected output.
 
 - [Function type signature structure](#function-type-signature-structure)
+  - [Parameter notation](#parameter-notation)
 - [Type variables](#type-variables)
 - [Type notation](#type-notation)
-- [Parameter notation](#parameter-notation)
+  - [Stream types](#stream-types)
+  - [Basic types](#basic-types)
+  - [Composite types](#composite-types)
 - [Type constraints](#type-constraints)
 - [Example function type signatures](#example-function-type-signatures)
 
@@ -28,6 +31,16 @@ to understand a function's expected output.
 
 ```js
 (parameter: type) => output-type
+```
+
+### Parameter notation
+
+Parameter notation indicates specific behaviors of function parameters.
+
+```js
+?  // Optional parameter
+<- // Pipe receive – indicates the parameter that, by default, represents
+   // the piped-forward value
 ```
 
 ## Type variables
@@ -99,16 +112,6 @@ with the following syntaxes:
 {_value: int}   // record type
 ```
 
-## Parameter notation
-
-Parameter notation indicates specific behaviors of function parameters.
-
-```js
-?  // Optional parameter
-<- // Pipe receive – indicates the parameter that, by default, represents
-   // the piped-forward value
-```
-
 ## Type constraints
 
 Some function parameters are "polymorphic" and can support multiple data types.
@@ -172,7 +175,7 @@ The following type signature describes a
 [transformation](/flux/v0.x/function-types/#transformations) that:
 
 - Takes a stream of tables of type `A` as piped-forward input
-- Returns the input stream of tables unmodified
+- Returns the input stream of tables with an unmodified type
 
 ```js
 (<-tables: stream[A]) => stream[A]
