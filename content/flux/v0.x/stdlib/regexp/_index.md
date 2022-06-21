@@ -16,7 +16,7 @@ weight: 11
 flux/v0.x/tags: [regex, functions]
 cascade:
   related:
-    - /flux/v0.x/data-types/regexp/
+    - /flux/v0.x/data-types/basic/regexp/
 introduced: 0.33.0
 ---
 

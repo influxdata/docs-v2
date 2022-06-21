@@ -18,6 +18,7 @@ Use type signatures to identify data types expected by function parameters and
 to understand a function's expected output.
 
 - [Function type signature structure](#function-type-signature-structure)
+- [Type variables](#type-variables)
 - [Type notation](#type-notation)
 - [Parameter notation](#parameter-notation)
 - [Type constraints](#type-constraints)
@@ -29,17 +30,32 @@ to understand a function's expected output.
 (parameter: type) => output-type
 ```
 
+## Type variables
+
+Flux type signatures use **type variables** to represent unique types in the signature.
+A type variable is [polymorphic](/flux/v0.x/spec/types/#polymorphism), meaning
+it can be one of many types, and may be constrained by [type constraints](#type-constraints).
+
+Type variables use the following identifier patterns:
+
+```js
+A
+B
+C
+t11
+// etc.
+```
+
 ## Type notation
 
 - [Stream types](#stream-types)
 - [Basic types](#basic-types)
 - [Composite types](#composite-types)
-- [Regular expression types](#regular-expression-types)
 
 ### Stream types
 
-Type signatures idenitify stream types ([streams of tables](/flux/v0.x/get-started/data-model/#stream-of-tables))
-using the `stream[A]` syntax where `A` is a unique identifier.
+Type signatures identify stream types ([streams of tables](/flux/v0.x/get-started/data-model/#stream-of-tables))
+using the `stream[A]` syntax where `A` is a unique [type variable](#type-variables).
 Stream types may included specific column names and column types.
 
 ```js
@@ -65,6 +81,7 @@ bytes    // bytes type
 duration // duration type
 float    // float type
 int      // integer type
+regexp   // regular expression type
 string   // string type
 time     // time type
 uint     // unsigned integer type
@@ -79,12 +96,7 @@ with the following syntaxes:
 [A]             // array type
 [B: A]          // dictionary type
 (param: A) => B // function type
-{}              // record type
-```
-
-### Regular expression types
-```js
-regexp // regular expression type
+{_value: int}   // record type
 ```
 
 ## Parameter notation
@@ -93,8 +105,8 @@ Parameter notation indicates specific behaviors of function parameters.
 
 ```js
 ?  // Optional parameter
-<- // Pipe receive – indicates the parameter, by default, represents
-   // the piped-forward value or stream of tables
+<- // Pipe receive – indicates the parameter that, by default, represents
+   // the piped-forward value
 ```
 
 ## Type constraints
@@ -102,15 +114,19 @@ Parameter notation indicates specific behaviors of function parameters.
 Some function parameters are "polymorphic" and can support multiple data types.
 Polymorphic parameters are bound by **type constraints**, which define what
 types can be used.
-Type signatures indicate type contraints for specific values using the
+Type signatures indicate type constraints for specific values using the
 `where A: Constraint` syntax.
 
-For more information about the different type constraints and the types each
-supports, see [Type constraints](/flux/v0.x/spec/types/#type-constraints).
+For example, the following type signature describes a function that takes a
+single parameter, `v` and returns and integer.
+`v` can be any type that satisfies the Timeable constraint (duration or time).
 
 ```js
 (v: A) => int where A: Timeable
 ```
+
+For more information about the different type constraints and the types each
+supports, see [Type constraints](/flux/v0.x/spec/types/#type-constraints).
 
 ## Example function type signatures
 
@@ -123,6 +139,7 @@ supports, see [Type constraints](/flux/v0.x/spec/types/#type-constraints).
 ---
 
 #### Function without parameters
+
 The following type signature describes a function that:
 
 - Has no parameters
@@ -135,9 +152,10 @@ The following type signature describes a function that:
 ---
 
 #### Function with parameters
+
 The following type signature describes a function that:
 
-- Has two parameters:
+- Has two parameters of type `A`:
   - multiplier _(Optional)_
   - v ({{< req >}})
 - Returns a value the same type as the two input parameters
@@ -149,10 +167,11 @@ The following type signature describes a function that:
 ---
 
 #### Pass-through transformation
+
 The following type signature describes a
 [transformation](/flux/v0.x/function-types/#transformations) that:
 
-- Takes a stream of tables as piped-forward input
+- Takes a stream of tables of type `A` as piped-forward input
 - Returns the input stream of tables unmodified
 
 ```js
@@ -162,14 +181,17 @@ The following type signature describes a
 ---
 
 #### Basic transformation
+
 The following type signature describes a
 [transformation](/flux/v0.x/function-types/#transformations) that:
 
-- Takes a stream of tables as piped-forward input
-- Returns a new, modified stream of tables
+- Takes a stream of tables of type `A` as piped-forward input
+- Has an `fn` parameter with a function type
+  - `fn` uses type `A` as input and returns type `B`
+- Returns a new, modified stream of tables of type `B`
 
 ```js
-(<-tables: stream[A]) => stream[B]
+(<-tables: stream[A], fn: (r: A) => B,) => stream[B]
 ```
 
 ---
@@ -178,11 +200,12 @@ The following type signature describes a
 The following type signature describes a
 [transformation](/flux/v0.x/function-types/#transformations) that:
 
-- Takes a stream of tables as piped-forward input
-- Has a required **tag** parameter
-- Returns a new, modified stream of tables that includes a **tag** column with
-  string values
+- Takes a stream of tables of type `A` as piped-forward input
+- Has a required **tag** parameter of type `B`
+  - The `B` type is constrained by the Stringable constraint
+- Returns a new, modified stream of tables of type `A` that includes a **tag**
+  column with string values
 
 ```js
-(<-tables: stream[A], tag: B) => stream[{A with tag: string}]
+(<-tables: stream[A], tag: B) => stream[{A with tag: string}] where B: Stringable
 ```
