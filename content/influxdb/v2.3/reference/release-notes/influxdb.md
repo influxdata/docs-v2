@@ -41,6 +41,17 @@ This release includes the following [maintenance](#maintenance), [features](#fea
 - Add `_status` tag to PagerDuty record.
 - Refactor operator profile to be in the query statistics.
 
+### Security updates
+
+Several security issues were fixed in dependencies and the toolchain used to build InfluxDB, including:
+- An issue in the `gopkg.in/yaml.v3` package import that could lead to a DoS in the templates service.
+- An issue in the `github.com/buger/jsonparser` package import that could potentially lead to a DoS in storage authorization.
+- Cumulative security fixes for Go 1.17.8-[1.18.3](https://go.dev/doc/devel/release#go1.18.minor) are included in this release.
+  These fixes resolve the following InfluxDB issues:
+  - An issue with processing large PEM files that could lead to a DoS in the templates service or flux connections using `to()`.
+  - An issue in TLSv1.3 and a lack of ticket randomness.
+  - A minor issue with `filepath.Clean()` on Windows.
+
 ### Bug fixes
 
 - Fix race condition when remote replicating deadlocks the remote writer that prevented writes to the target.
