@@ -119,7 +119,7 @@ In some cases, you may not want to write raw, high-precision data to a remote In
         |> aggregateWindow(every: -task.every, fn: last)
 
     union(tables: [numeric, nonNumeric])
-        |> to(bucket: "example-downsampled-bucket"])
+        |> to(bucket: "example-downsampled-bucket")
     ```
 
 3. [Create a replication stream](#configure-a-replication-stream) to replicate data from the downsampled bucket to the remote InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}instance.
