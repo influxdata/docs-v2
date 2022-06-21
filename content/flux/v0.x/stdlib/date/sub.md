@@ -7,7 +7,7 @@ menu:
   flux_0_x_ref:
     name: date.sub
     parent: date
-weight: 302
+weight: 301
 flux/v0.x/tags: [date/time]
 aliases:
   - /flux/v0.x/stdlib/date/subduration/
