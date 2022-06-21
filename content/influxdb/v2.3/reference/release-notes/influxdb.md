@@ -48,9 +48,9 @@ Several security issues were fixed in dependencies and the toolchain used to bui
 - An issue in the `github.com/buger/jsonparser` package import that could potentially lead to a DoS in storage authorization.
 - Cumulative security fixes for Go 1.17.8-[1.18.3](https://go.dev/doc/devel/release#go1.18.minor) are included in this release.
   These fixes resolve the following InfluxDB issues:
-  - An issue with processing large PEM files that could lead to a DoS in the templates service or flux connections using `to()`
-  - An issue in TLSv1.3 and a lack of ticket randomness
-  - A minor issue with `filepath.Clean()` on Windows
+  - An issue with processing large PEM files that could lead to a DoS in the templates service or flux connections using `to()`.
+  - An issue in TLSv1.3 and a lack of ticket randomness.
+  - A minor issue with `filepath.Clean()` on Windows.
 
 ### Bug fixes
 
