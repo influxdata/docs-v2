@@ -10,7 +10,7 @@ weight: 101
 
 ## v2.3 [2022-6-17]
 
-This release includes the following [maintenance](#maintenance), [features](#features) and [bug fixes](#bug-fixes).
+This release includes the following [maintenance](#maintenance), [features](#features), [security updates](#security-updates) and [bug fixes](#bug-fixes).
 
 ### Maintenance
 
