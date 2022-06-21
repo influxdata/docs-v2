@@ -105,6 +105,7 @@ In some cases, you may not want to write raw, high-precision data to a remote In
     import "influxdata/influxdb/tasks"
     import "types"
 
+    // omit this line if adding task via the UI
     option task = {name: "Downsample raw data", every: 10m}
 
     data = () => from(bucket: "example-bucket")
