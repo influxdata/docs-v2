@@ -37,8 +37,10 @@ If the modified column is part of the group key, output tables are regrouped as 
 ##### Function type signature
 
 ```js
-set = (<-tables: stream[A], key: string, value: string) => stream[A] where A: Record
+(<-tables: stream[A], key: string, value: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

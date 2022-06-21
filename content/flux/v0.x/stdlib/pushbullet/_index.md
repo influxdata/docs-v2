@@ -44,9 +44,9 @@ import "pushbullet"
 option pushbullet.defaultURL = "https://api.pushbullet.com/v2/pushes"
 ```
  
-### defaultURL {data-type="string"}
+### defaultURL
 
-defaultURL is the default Pushbullet API URL used by functions in the `pushbullet` package.
+`defaultURL` is the default Pushbullet API URL used by functions in the `pushbullet` package.
 
 
 

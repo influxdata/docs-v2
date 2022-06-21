@@ -54,7 +54,7 @@ For each input table, `oee.APQ` outputs a table with a single row that includes 
 ##### Function type signature
 
 ```js
-oee.APQ = (
+(
     <-tables: stream[D],
     idealCycleTime: A,
     plannedTime: B,
@@ -70,6 +70,8 @@ oee.APQ = (
     _stop: F,
 }] where C: Equatable, D: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

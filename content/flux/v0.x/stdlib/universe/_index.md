@@ -38,8 +38,10 @@ import statement.
 ## Constants
 
 ```js
-inf // inf represents an infinte float value.
+inf
 ```
+
+- **inf** represents an infinte float value.
 
 ## Options
 

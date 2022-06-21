@@ -34,8 +34,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-geo.asTracks = (<-tables: stream[A], ?groupBy: [string], ?orderBy: [string]) => stream[A] where A: Record
+(<-tables: stream[A], ?groupBy: [string], ?orderBy: [string]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

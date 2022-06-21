@@ -72,7 +72,7 @@ in the Holt-Winters calculation.
 ##### Function type signature
 
 ```js
-holtWinters = (
+(
     <-tables: stream[A],
     interval: duration,
     n: int,
@@ -82,6 +82,8 @@ holtWinters = (
     ?withFit: bool,
 ) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

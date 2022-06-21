@@ -39,8 +39,10 @@ comparing test output that occurs in `testing.run()`.
 ##### Function type signature
 
 ```js
-testing.benchmark = (case: () => {A with input: B, fn: (<-: B) => C}) => C
+(case: () => {A with input: B, fn: (<-: B) => C}) => C
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

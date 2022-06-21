@@ -38,8 +38,10 @@ determine values for inserted rows.
 ##### Function type signature
 
 ```js
-interpolate.linear = (<-tables: stream[{A with _value: float, _time: time}], every: duration) => stream[{A with _value: float, _time: time}]
+(<-tables: stream[{A with _value: float, _time: time}], every: duration) => stream[{A with _value: float, _time: time}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

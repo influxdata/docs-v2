@@ -35,8 +35,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-covariance = (<-tables: stream[A], columns: [string], ?pearsonr: bool, ?valueDst: string) => stream[B] where A: Record, B: Record
+(<-tables: stream[A], columns: [string], ?pearsonr: bool, ?valueDst: string) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

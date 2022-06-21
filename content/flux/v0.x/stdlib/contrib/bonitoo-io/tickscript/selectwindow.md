@@ -43,7 +43,7 @@ query("SELECT f(x) AS y")
 ##### Function type signature
 
 ```js
-tickscript.selectWindow = (
+(
     <-tables: stream[D],
     as: string,
     defaultValue: A,
@@ -52,6 +52,8 @@ tickscript.selectWindow = (
     ?column: string,
 ) => stream[E] where B: Record, C: Record, D: Record, E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

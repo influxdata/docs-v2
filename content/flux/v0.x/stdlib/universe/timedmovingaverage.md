@@ -48,8 +48,10 @@ calculated weeks begin on Thursday.
 ##### Function type signature
 
 ```js
-timedMovingAverage = (<-tables: stream[A], every: duration, period: duration, ?column: string) => stream[B] where A: Record, B: Record
+(<-tables: stream[A], every: duration, period: duration, ?column: string) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

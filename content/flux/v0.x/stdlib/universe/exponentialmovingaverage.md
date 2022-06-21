@@ -45,8 +45,10 @@ number of values in the `_value` column giving more weight to more recent data.
 ##### Function type signature
 
 ```js
-exponentialMovingAverage = (<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: B}] where B: Numeric
+(<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: B}] where B: Numeric
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

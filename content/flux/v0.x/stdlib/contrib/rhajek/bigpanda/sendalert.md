@@ -34,7 +34,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-bigpanda.sendAlert = (
+(
     appKey: A,
     rec: B,
     status: C,
@@ -42,6 +42,8 @@ bigpanda.sendAlert = (
     url: string,
 ) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -37,6 +37,8 @@ PromQL's [`time()`](https://prometheus.io/docs/prometheus/latest/querying/functi
 ##### Function type signature
 
 ```js
-promql.emptyTable = () => stream[{_value: float, _time: time, _stop: time, _start: time}]
+() => stream[{_value: float, _time: time, _stop: time, _start: time}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 

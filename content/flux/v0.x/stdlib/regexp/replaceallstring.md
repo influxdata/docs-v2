@@ -35,8 +35,10 @@ specified replacement.
 ##### Function type signature
 
 ```js
-regexp.replaceAllString = (r: regexp, t: string, v: string) => string
+(r: regexp, t: string, v: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

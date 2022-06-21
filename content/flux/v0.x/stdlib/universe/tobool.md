@@ -39,8 +39,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-toBool = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _value: bool}]
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _value: bool}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

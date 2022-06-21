@@ -45,7 +45,7 @@ The exact diff produced may change.
 ##### Function type signature
 
 ```js
-testing.diff = (
+(
     <-got: stream[A],
     want: stream[A],
     ?epsilon: float,
@@ -53,6 +53,8 @@ testing.diff = (
     ?verbose: bool,
 ) => stream[{A with _diff: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

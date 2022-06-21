@@ -38,8 +38,10 @@ the resulting linestring.
 ##### Function type signature
 
 ```js
-geo.ST_LineString = (<-tables: stream[{A with lon: C, lat: B}]) => stream[D] where D: Record
+(<-tables: stream[{A with lon: C, lat: B}]) => stream[D] where D: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

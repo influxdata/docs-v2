@@ -37,8 +37,10 @@ the specified GIS geometry and returns `true` or `false`.
 ##### Function type signature
 
 ```js
-geo.ST_DWithin = (distance: A, geometry: B, region: C, ?units: {distance: string}) => bool where A: Comparable + Equatable, B: Record, C: Record
+(distance: A, geometry: B, region: C, ?units: {distance: string}) => bool where A: Comparable + Equatable, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

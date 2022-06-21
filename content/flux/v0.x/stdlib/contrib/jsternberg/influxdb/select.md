@@ -40,7 +40,7 @@ returned by InfluxQL `SELECT` statements.
 ##### Function type signature
 
 ```js
-influxdb.select = (
+(
     from: string,
     m: A,
     start: B,
@@ -62,6 +62,8 @@ influxdb.select = (
     ) => bool,
 ) => stream[F] where A: Equatable, F: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

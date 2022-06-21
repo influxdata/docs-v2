@@ -35,8 +35,10 @@ assertEmpty can be used to perform in-line tests in a query.
 ##### Function type signature
 
 ```js
-testing.assertEmpty = (<-tables: stream[A]) => stream[A]
+(<-tables: stream[A]) => stream[A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

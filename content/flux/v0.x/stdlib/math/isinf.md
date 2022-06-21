@@ -35,8 +35,10 @@ If `sign  == 0`, math.isInf reports whether `f` is either infinity.
 ##### Function type signature
 
 ```js
-math.isInf = (f: float, sign: int) => bool
+(f: float, sign: int) => bool
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

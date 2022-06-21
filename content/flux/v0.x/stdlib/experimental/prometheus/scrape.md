@@ -36,8 +36,10 @@ them as a stream of tables.
 ##### Function type signature
 
 ```js
-prometheus.scrape = (url: string) => stream[A] where A: Record
+(url: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -44,9 +44,9 @@ import "pagerduty"
 option pagerduty.defaultURL = "https://events.pagerduty.com/v2/enqueue"
 ```
  
-### defaultURL {data-type="string"}
+### defaultURL
 
-defaultURL is the default PagerDuty URL used by functions in the `pagerduty` package.
+`defaultURL` is the default PagerDuty URL used by functions in the `pagerduty` package.
 
 
 

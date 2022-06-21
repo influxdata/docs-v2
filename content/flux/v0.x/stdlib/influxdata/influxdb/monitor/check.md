@@ -37,7 +37,7 @@ to the `statuses` measurement in the `_monitoring` bucket.
 ##### Function type signature
 
 ```js
-monitor.check = (
+(
     <-tables: stream[J],
     data: {A with tags: E, _type: D, _check_name: C, _check_id: B},
     messageFn: (
@@ -74,6 +74,8 @@ monitor.check = (
     _check_id: B,
 }] where E: Record, J: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -44,7 +44,7 @@ Authorization permissions and limits apply to each request.
 ##### Function type signature
 
 ```js
-influxdb.api = (
+(
     method: string,
     path: string,
     ?body: bytes,
@@ -55,6 +55,8 @@ influxdb.api = (
     ?token: string,
 ) => {statusCode: int, headers: [string:string], body: bytes}
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

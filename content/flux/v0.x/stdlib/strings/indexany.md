@@ -35,8 +35,10 @@ If none of the specified characters are present, it returns `-1`.
 ##### Function type signature
 
 ```js
-strings.indexAny = (chars: string, v: string) => int
+(chars: string, v: string) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

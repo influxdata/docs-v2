@@ -48,9 +48,9 @@ import "contrib/sranka/teams"
 option teams.summaryCutoff = 70
 ```
  
-### summaryCutoff {data-type="int"}
+### summaryCutoff
 
-summaryCutoff is the limit for message summaries.
+`summaryCutoff` is the limit for message summaries.
 Default is `70`.
 
 

@@ -37,8 +37,10 @@ specified GIS geometry.
 ##### Function type signature
 
 ```js
-geo.ST_Contains = (geometry: A, region: B, ?units: {distance: string}) => bool where A: Record, B: Record
+(geometry: A, region: B, ?units: {distance: string}) => bool where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

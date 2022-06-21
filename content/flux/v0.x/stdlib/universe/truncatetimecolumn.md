@@ -40,8 +40,10 @@ so all calculated weeks begin on Thursday.
 ##### Function type signature
 
 ```js
-truncateTimeColumn = (<-tables: stream[{B with _time: C}], unit: duration, ?timeColumn: A) => stream[{B with _time: C, _time: time}] where C: Timeable
+(<-tables: stream[{B with _time: C}], unit: duration, ?timeColumn: A) => stream[{B with _time: C, _time: time}] where C: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

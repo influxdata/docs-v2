@@ -44,9 +44,9 @@ import "influxdata/influxdb/tasks"
 option tasks.lastSuccessTime = _zeroTime
 ```
  
-### lastSuccessTime {data-type="time"}
+### lastSuccessTime
 
-lastSuccessTime is the last time this task ran successfully.
+`lastSuccessTime` is the last time this task ran successfully.
 
 
 

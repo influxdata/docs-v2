@@ -37,8 +37,10 @@ input table.
 ##### Function type signature
 
 ```js
-mean = (<-tables: stream[{B with A: C}], ?column: A = "_value") => stream[{A: C}] where A: Label, B: Record, C: Numeric
+(<-tables: stream[{B with A: C}], ?column: A = "_value") => stream[{A: C}] where A: Label, B: Record, C: Numeric
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

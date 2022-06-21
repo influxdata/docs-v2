@@ -36,8 +36,10 @@ This function is comparable to [Kapacitor JoinNode](https://docs.influxdata.com/
 ##### Function type signature
 
 ```js
-tickscript.join = (measurement: A, tables: B, ?on: [string]) => stream[{C with _measurement: A}] where B: Record, C: Record
+(measurement: A, tables: B, ?on: [string]) => stream[{C with _measurement: A}] where B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

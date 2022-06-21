@@ -37,8 +37,10 @@ input table.
 ##### Function type signature
 
 ```js
-min = (<-tables: stream[A], ?column: string) => stream[A] where A: Record
+(<-tables: stream[A], ?column: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

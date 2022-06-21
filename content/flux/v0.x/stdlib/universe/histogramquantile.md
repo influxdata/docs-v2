@@ -53,7 +53,7 @@ The value column represents the value of the desired quantile from the histogram
 ##### Function type signature
 
 ```js
-histogramQuantile = (
+(
     <-tables: stream[A],
     ?countColumn: string,
     ?minValue: float,
@@ -62,6 +62,8 @@ histogramQuantile = (
     ?valueColumn: string,
 ) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

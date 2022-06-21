@@ -33,8 +33,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-tickscript.defineCheck = (id: A, name: B, ?type: C) => {tags: {}, _type: C, _check_name: B, _check_id: A}
+(id: A, name: B, ?type: C) => {tags: {}, _type: C, _check_name: B, _check_id: A}
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

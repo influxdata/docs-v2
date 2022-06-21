@@ -35,8 +35,10 @@ if the key does not exist.
 ##### Function type signature
 
 ```js
-dict.get = (default: A, dict: [B:A], key: B) => A where B: Comparable
+(default: A, dict: [B:A], key: B) => A where B: Comparable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

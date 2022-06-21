@@ -37,8 +37,10 @@ input type has any correlation with the output type.
 ##### Function type signature
 
 ```js
-debug.opaque = (<-tables: stream[A]) => stream[B] where A: Record, B: Record
+(<-tables: stream[A]) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

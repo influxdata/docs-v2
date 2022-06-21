@@ -39,8 +39,10 @@ represents a state change.
 ##### Function type signature
 
 ```js
-monitor.stateChangesOnly = (<-tables: stream[{A with _level: B}]) => stream[C] where B: Equatable, C: Record
+(<-tables: stream[{A with _level: B}]) => stream[C] where B: Equatable, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -43,8 +43,10 @@ has on the results of the first query are met.
 ##### Function type signature
 
 ```js
-experimental.chain = (first: stream[A], second: stream[B]) => stream[B] where A: Record, B: Record
+(first: stream[A], second: stream[B]) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

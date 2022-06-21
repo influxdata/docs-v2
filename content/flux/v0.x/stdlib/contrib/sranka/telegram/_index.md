@@ -61,32 +61,35 @@ To set up a Telegram bot and obtain the required bot token and channel ID:
 
 ```js
 option telegram.defaultDisableWebPagePreview = false
+
 option telegram.defaultParseMode = "MarkdownV2"
+
 option telegram.defaultSilent = true
+
 option telegram.defaultURL = "https://api.telegram.org/bot"
 ```
  
-### defaultDisableWebPagePreview {data-type="bool"}
+### defaultDisableWebPagePreview
 
-defaultDisableWebPagePreview - Use Telegram web page preview by default. Default is `false`.
-
-
-
-### defaultParseMode {data-type="string"}
-
-defaultParseMode is the default [Telegram parse mode](https://core.telegram.org/bots/api#formatting-options). Default is `MarkdownV2`.
+`defaultDisableWebPagePreview` - Use Telegram web page preview by default. Default is `false`.
 
 
 
-### defaultSilent {data-type="bool"}
+### defaultParseMode
 
-defaultSilent - Send silent Telegram notifications by default. Default is `true`.
+`defaultParseMode` is the default [Telegram parse mode](https://core.telegram.org/bots/api#formatting-options). Default is `MarkdownV2`.
 
 
 
-### defaultURL {data-type="string"}
+### defaultSilent
 
-defaultURL is the default Telegram bot URL. Default is `https://api.telegram.org/bot`.
+`defaultSilent` - Send silent Telegram notifications by default. Default is `true`.
+
+
+
+### defaultURL
+
+`defaultURL` is the default Telegram bot URL. Default is `https://api.telegram.org/bot`.
 
 
 

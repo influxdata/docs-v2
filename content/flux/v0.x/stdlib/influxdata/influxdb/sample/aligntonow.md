@@ -38,8 +38,10 @@ Input data must have a `_time` column.
 ##### Function type signature
 
 ```js
-sample.alignToNow = (<-tables: stream[A]) => stream[A] where A: Record
+(<-tables: stream[A]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

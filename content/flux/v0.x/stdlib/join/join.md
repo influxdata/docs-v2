@@ -33,7 +33,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-join.join = (
+(
     <-left: stream[A],
     as: (l: A, r: B) => C,
     method: string,
@@ -41,6 +41,8 @@ join.join = (
     right: stream[B],
 ) => stream[C] where A: Record, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

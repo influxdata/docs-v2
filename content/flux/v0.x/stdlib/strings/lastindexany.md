@@ -37,8 +37,10 @@ If none of the specified characters are present, the function returns `-1`.
 ##### Function type signature
 
 ```js
-strings.lastIndexAny = (chars: string, v: string) => int
+(chars: string, v: string) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -37,8 +37,10 @@ column respectively. `q` must be a float.
 ##### Function type signature
 
 ```js
-promql.quantile = (<-tables: stream[A], q: float, ?method: string) => stream[A] where A: Record
+(<-tables: stream[A], q: float, ?method: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

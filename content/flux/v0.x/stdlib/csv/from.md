@@ -36,8 +36,10 @@ returns a stream of tables.
 ##### Function type signature
 
 ```js
-csv.from = (?csv: string, ?file: string, ?mode: string) => stream[A] where A: Record
+(?csv: string, ?file: string, ?mode: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

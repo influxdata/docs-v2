@@ -39,26 +39,46 @@ import "date"
 ## Constants
 
 ```js
-date.April = 4 // April is a constant that represents the month of April.
-date.August = 8 // August is a constant that represents the month of August.
-date.December = 12 // December is a constant that represents the month of December.
-date.February = 2 // February is a constant that represents the month of February.
-date.Friday = 5 // Friday is a constant that represents Friday as a day of the week.
-date.January = 1 // January is a constant that represents the month of January.
-date.July = 7 // July is a constant that represents the month of July.
-date.June = 6 // June is a constant that represents the month of June.
-date.March = 3 // March is a constant that represents the month of March.
-date.May = 5 // May is a constant that represents the month of May.
-date.Monday = 1 // Monday is a constant that represents Monday as a day of the week.
-date.November = 11 // November is a constant that represents the month of November.
-date.October = 10 // October is a constant that represents the month of October.
-date.Saturday = 6 // Saturday is a constant that represents Saturday as a day of the week.
-date.September = 9 // September is a constant that represents the month of September.
-date.Sunday = 0 // Sunday is a constant that represents Sunday as a day of the week
-date.Thursday = 4 // Thursday is a constant that represents Thursday as a day of the week.
-date.Tuesday = 2 // Tuesday is a constant that represents Tuesday as a day of the week.
-date.Wednesday = 3 // Wednesday is a constant that represents Wednesday as a day of the week.
+date.April = 4
+date.August = 8
+date.December = 12
+date.February = 2
+date.Friday = 5
+date.January = 1
+date.July = 7
+date.June = 6
+date.March = 3
+date.May = 5
+date.Monday = 1
+date.November = 11
+date.October = 10
+date.Saturday = 6
+date.September = 9
+date.Sunday = 0
+date.Thursday = 4
+date.Tuesday = 2
+date.Wednesday = 3
 ```
+
+- **date.April** is a constant that represents the month of April.
+- **date.August** is a constant that represents the month of August.
+- **date.December** is a constant that represents the month of December.
+- **date.February** is a constant that represents the month of February.
+- **date.Friday** is a constant that represents Friday as a day of the week.
+- **date.January** is a constant that represents the month of January.
+- **date.July** is a constant that represents the month of July.
+- **date.June** is a constant that represents the month of June.
+- **date.March** is a constant that represents the month of March.
+- **date.May** is a constant that represents the month of May.
+- **date.Monday** is a constant that represents Monday as a day of the week.
+- **date.November** is a constant that represents the month of November.
+- **date.October** is a constant that represents the month of October.
+- **date.Saturday** is a constant that represents Saturday as a day of the week.
+- **date.September** is a constant that represents the month of September.
+- **date.Sunday** is a constant that represents Sunday as a day of the week
+- **date.Thursday** is a constant that represents Thursday as a day of the week.
+- **date.Tuesday** is a constant that represents Tuesday as a day of the week.
+- **date.Wednesday** is a constant that represents Wednesday as a day of the week.
 
 
 ## Functions

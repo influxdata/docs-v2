@@ -36,8 +36,10 @@ This function is comparable to [Kapacitor QueryNode .groupBy](https://docs.influ
 ##### Function type signature
 
 ```js
-tickscript.groupBy = (<-tables: stream[A], columns: [string]) => stream[A] where A: Record
+(<-tables: stream[A], columns: [string]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

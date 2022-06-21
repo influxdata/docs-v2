@@ -37,8 +37,10 @@ If a specified column is not present in a table, the function returns an error.
 ##### Function type signature
 
 ```js
-drop = (<-tables: stream[A], ?columns: [string], ?fn: (column: string) => bool) => stream[B] where A: Record, B: Record
+(<-tables: stream[A], ?columns: [string], ?fn: (column: string) => bool) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

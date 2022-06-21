@@ -33,8 +33,10 @@ Both values have the same sign as `f`.
 ##### Function type signature
 
 ```js
-math.modf = (f: float) => {int: float, frac: float}
+(f: float) => {int: float, frac: float}
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

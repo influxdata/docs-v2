@@ -34,7 +34,7 @@ so results include S2 grid cells fully and partially covered by the region.
 ##### Function type signature
 
 ```js
-geo.getGrid = (
+(
     region: A,
     units: {distance: string},
     ?level: int,
@@ -43,6 +43,8 @@ geo.getGrid = (
     ?minSize: int,
 ) => {set: [string], level: int} where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

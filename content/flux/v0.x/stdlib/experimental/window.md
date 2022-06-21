@@ -47,7 +47,7 @@ calendar months (`1mo`) and years (`1y`).
 ##### Function type signature
 
 ```js
-experimental.window = (
+(
     <-tables: stream[{A with _time: time, _stop: time, _start: time}],
     ?createEmpty: bool,
     ?every: duration,
@@ -56,6 +56,8 @@ experimental.window = (
     ?period: duration,
 ) => stream[{A with _time: time, _stop: time, _start: time}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

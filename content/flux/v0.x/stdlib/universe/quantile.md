@@ -50,7 +50,7 @@ specified `method`.
 ##### Function type signature
 
 ```js
-quantile = (
+(
     <-tables: stream[A],
     q: float,
     ?column: string,
@@ -58,6 +58,8 @@ quantile = (
     ?method: string,
 ) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

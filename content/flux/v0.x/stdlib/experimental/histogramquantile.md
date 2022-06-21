@@ -52,12 +52,14 @@ The function returns the value of the specified quantile from the histogram in t
 ##### Function type signature
 
 ```js
-experimental.histogramQuantile = (
+(
     <-tables: stream[{A with le: float, _value: float}],
     ?minValue: float,
     ?quantile: float,
 ) => stream[{A with _value: float}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

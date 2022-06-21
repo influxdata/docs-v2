@@ -35,7 +35,7 @@ Results include a single table with a single column, `_value`.
 ##### Function type signature
 
 ```js
-v1.tagKeys = (
+(
     bucket: string,
     ?predicate: (
         r: {
@@ -52,6 +52,8 @@ v1.tagKeys = (
     ?stop: D,
 ) => stream[E] where E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

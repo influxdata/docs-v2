@@ -41,8 +41,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-experimental.unique = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

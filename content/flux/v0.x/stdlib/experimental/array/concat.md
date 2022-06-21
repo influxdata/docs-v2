@@ -37,8 +37,10 @@ Neither input array is mutated and a new array is returned.
 ##### Function type signature
 
 ```js
-array.concat = (<-arr: [A], v: [A]) => [A]
+(<-arr: [A], v: [A]) => [A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

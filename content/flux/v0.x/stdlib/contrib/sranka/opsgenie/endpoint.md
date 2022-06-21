@@ -33,7 +33,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-opsgenie.endpoint = (
+(
     apiKey: string,
     ?entity: string,
     ?url: string,
@@ -54,6 +54,8 @@ opsgenie.endpoint = (
     },
 ) => (<-tables: stream[A]) => stream[{A with _sent: string}] where D: Stringable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

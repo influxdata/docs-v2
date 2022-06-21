@@ -37,8 +37,10 @@ lowest `n` records.
 ##### Function type signature
 
 ```js
-lowestCurrent = (<-tables: stream[A], n: int, ?column: string, ?groupColumns: [string]) => stream[A] where A: Record
+(<-tables: stream[A], n: int, ?column: string, ?groupColumns: [string]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -51,7 +51,7 @@ calculated weeks begin on Thursday.
 ##### Function type signature
 
 ```js
-aggregateWindow = (
+(
     <-tables: stream[D],
     every: duration,
     fn: (<-: stream[B], column: A) => stream[C],
@@ -64,6 +64,8 @@ aggregateWindow = (
     ?timeSrc: string,
 ) => stream[E] where B: Record, C: Record, D: Record, E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

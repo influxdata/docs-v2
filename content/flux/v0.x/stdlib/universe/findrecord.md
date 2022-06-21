@@ -38,8 +38,10 @@ out of bounds.
 ##### Function type signature
 
 ```js
-findRecord = (<-tables: stream[B], fn: (key: A) => bool, idx: int) => B where A: Record, B: Record
+(<-tables: stream[B], fn: (key: A) => bool, idx: int) => B where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

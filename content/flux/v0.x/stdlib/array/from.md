@@ -35,8 +35,10 @@ records must have the same keys and data types.
 ##### Function type signature
 
 ```js
-array.from = (rows: [A]) => stream[A] where A: Record
+(rows: [A]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

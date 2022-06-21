@@ -39,8 +39,10 @@ Output data is grouped by `_time` and includes the following columns of interest
 ##### Function type signature
 
 ```js
-anomalydetection.mad = (<-table: stream[B], ?threshold: A) => stream[{C with level: string, _value_diff_med: D, _value_diff: D, _value: D}] where A: Comparable + Equatable, B: Record, D: Comparable + Divisible + Equatable
+(<-table: stream[B], ?threshold: A) => stream[{C with level: string, _value_diff_med: D, _value_diff: D, _value: D}] where A: Comparable + Equatable, B: Record, D: Comparable + Divisible + Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -41,9 +41,9 @@ import "internal/debug"
 option debug.vectorize = false
 ```
  
-### vectorize {data-type="bool"}
+### vectorize
 
-vectorize controls whether the compiler attempts to vectorize Flux functions.
+`vectorize` controls whether the compiler attempts to vectorize Flux functions.
 
 
 

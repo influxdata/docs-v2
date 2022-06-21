@@ -60,8 +60,10 @@ a negative value indicates decreasing momentum.
 ##### Function type signature
 
 ```js
-tripleExponentialDerivative = (<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: float}] where A: Record, B: Numeric
+(<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: float}] where A: Record, B: Numeric
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

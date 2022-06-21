@@ -35,8 +35,10 @@ types to hexadecimal lowercase characters.
 ##### Function type signature
 
 ```js
-hex.string = (v: A) => string
+(v: A) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

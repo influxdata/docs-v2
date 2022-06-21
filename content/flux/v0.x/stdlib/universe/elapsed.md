@@ -37,8 +37,10 @@ additional column containing the elapsed time.
 ##### Function type signature
 
 ```js
-elapsed = (<-tables: stream[A], ?columnName: string, ?timeColumn: string, ?unit: duration) => stream[B] where A: Record, B: Record
+(<-tables: stream[A], ?columnName: string, ?timeColumn: string, ?unit: duration) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

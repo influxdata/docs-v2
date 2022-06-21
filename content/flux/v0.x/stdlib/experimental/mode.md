@@ -46,8 +46,10 @@ If there is no mode, it returns _null_.
 ##### Function type signature
 
 ```js
-experimental.mode = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

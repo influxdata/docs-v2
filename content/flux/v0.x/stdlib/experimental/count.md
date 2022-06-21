@@ -46,8 +46,10 @@ aggregateWindow(createEmpty: true)
 ##### Function type signature
 
 ```js
-experimental.count = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: int}]
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: int}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

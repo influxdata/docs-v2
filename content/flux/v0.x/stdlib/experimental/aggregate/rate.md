@@ -36,8 +36,10 @@ Use `range()` to assign `_start` and `_stop` values.
 ##### Function type signature
 
 ```js
-aggregate.rate = (<-tables: stream[A], every: duration, ?groupColumns: [string], ?unit: duration) => stream[B] where A: Record, B: Record
+(<-tables: stream[A], every: duration, ?groupColumns: [string], ?unit: duration) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

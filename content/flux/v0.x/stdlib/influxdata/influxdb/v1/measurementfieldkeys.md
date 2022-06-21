@@ -35,8 +35,10 @@ Results include a single table with a single column, `_value`.
 ##### Function type signature
 
 ```js
-v1.measurementFieldKeys = (bucket: string, measurement: A, ?start: B, ?stop: C) => stream[D] where A: Equatable, D: Record
+(bucket: string, measurement: A, ?start: B, ?stop: C) => stream[D] where A: Equatable, D: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

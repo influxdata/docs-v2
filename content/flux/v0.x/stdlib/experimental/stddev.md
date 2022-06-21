@@ -46,8 +46,10 @@ population of its own.
 ##### Function type signature
 
 ```js
-experimental.stddev = (<-tables: stream[{A with _value: float}], ?mode: string) => stream[{A with _value: float}]
+(<-tables: stream[{A with _value: float}], ?mode: string) => stream[{A with _value: float}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

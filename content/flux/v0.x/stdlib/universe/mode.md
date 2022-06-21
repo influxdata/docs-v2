@@ -40,8 +40,10 @@ If there is no mode, `mode()` returns `null`.
 ##### Function type signature
 
 ```js
-mode = (<-tables: stream[A], ?column: string) => stream[{B with _value: C}] where A: Record, B: Record
+(<-tables: stream[A], ?column: string) => stream[{B with _value: C}] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -33,12 +33,14 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-teams.endpoint = (
+(
     url: string,
 ) => (
     mapFn: (r: A) => {B with title: C, text: string, summary: string},
 ) => (<-tables: stream[A]) => stream[{A with _sent: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

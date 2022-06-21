@@ -37,8 +37,10 @@ All columns not in the group key are dropped.
 ##### Function type signature
 
 ```js
-keys = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: Record
+(<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

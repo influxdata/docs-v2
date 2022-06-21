@@ -41,10 +41,12 @@ and then use `array.from()` to construct a table from those values.
 ##### Function type signature
 
 ```js
-requests.peek = (
+(
     response: {A with statusCode: E, headers: D, duration: C, body: B},
 ) => stream[{statusCode: E, headers: string, duration: int, body: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

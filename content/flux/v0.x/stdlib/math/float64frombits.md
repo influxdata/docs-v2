@@ -37,8 +37,10 @@ same bit position.
 ##### Function type signature
 
 ```js
-math.float64frombits = (b: uint) => float
+(b: uint) => float
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

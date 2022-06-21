@@ -35,8 +35,10 @@ Results range from `[1 - 31]`.
 ##### Function type signature
 
 ```js
-date.monthDay = (t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
+(t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

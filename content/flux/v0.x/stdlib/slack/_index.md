@@ -44,9 +44,9 @@ import "slack"
 option slack.defaultURL = "https://slack.com/api/chat.postMessage"
 ```
  
-### defaultURL {data-type="string"}
+### defaultURL
 
-defaultURL defines the default Slack API URL used by functions in the `slack` package.
+`defaultURL` defines the default Slack API URL used by functions in the `slack` package.
 
 
 

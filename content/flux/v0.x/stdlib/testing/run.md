@@ -35,8 +35,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-testing.run = (case: () => {A with want: stream[C], input: B, fn: (<-: B) => stream[C]}) => stream[{C with _diff: string}] where C: Record
+(case: () => {A with want: stream[C], input: B, fn: (<-: B) => stream[C]}) => stream[{C with _diff: string}] where C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -37,8 +37,10 @@ a new array with only elements that match the predicate.
 ##### Function type signature
 
 ```js
-array.filter = (<-arr: [A], fn: (x: A) => bool) => [A]
+(<-arr: [A], fn: (x: A) => bool) => [A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

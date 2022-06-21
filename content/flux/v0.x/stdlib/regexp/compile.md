@@ -36,8 +36,10 @@ that can be used to match against strings.
 ##### Function type signature
 
 ```js
-regexp.compile = (v: string) => regexp
+(v: string) => regexp
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

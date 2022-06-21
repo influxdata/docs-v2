@@ -33,8 +33,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-date.hour = (t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
+(t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

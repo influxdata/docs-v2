@@ -36,7 +36,7 @@ using the [`sendMessage`](https://core.telegram.org/bots/api#sendmessage) method
 ##### Function type signature
 
 ```js
-telegram.message = (
+(
     channel: A,
     text: B,
     token: string,
@@ -46,6 +46,8 @@ telegram.message = (
     ?url: string,
 ) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

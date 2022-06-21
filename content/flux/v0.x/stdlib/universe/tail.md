@@ -38,8 +38,10 @@ records before the `offset`.
 ##### Function type signature
 
 ```js
-tail = (<-tables: stream[A], n: int, ?offset: int) => stream[A]
+(<-tables: stream[A], n: int, ?offset: int) => stream[A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

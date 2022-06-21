@@ -37,8 +37,10 @@ duration literal representation.
 ##### Function type signature
 
 ```js
-duration = (v: A) => duration
+(v: A) => duration
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

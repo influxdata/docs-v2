@@ -37,7 +37,7 @@ using data from table rows.
 ##### Function type signature
 
 ```js
-sensu.endpoint = (
+(
     apiKey: string,
     url: string,
     ?entityName: string,
@@ -47,6 +47,8 @@ sensu.endpoint = (
     mapFn: (r: B) => {C with text: E, status: D, checkName: string},
 ) => (<-tables: stream[B]) => stream[{B with _sent: string}] where D: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

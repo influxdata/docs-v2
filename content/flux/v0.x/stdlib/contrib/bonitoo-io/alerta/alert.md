@@ -34,7 +34,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-alerta.alert = (
+(
     apiKey: string,
     attributes: A,
     event: B,
@@ -52,6 +52,8 @@ alerta.alert = (
     ?value: t12,
 ) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

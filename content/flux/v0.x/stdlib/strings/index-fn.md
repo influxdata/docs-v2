@@ -35,8 +35,10 @@ If the substring is not present, it returns `-1`.
 ##### Function type signature
 
 ```js
-strings.index = (substr: string, v: string) => int
+(substr: string, v: string) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

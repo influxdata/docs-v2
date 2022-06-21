@@ -39,8 +39,10 @@ pairs for each input table.
 ##### Function type signature
 
 ```js
-keyValues = (<-tables: stream[A], ?keyColumns: [string]) => stream[{B with _value: C, _key: string}] where A: Record, B: Record
+(<-tables: stream[A], ?keyColumns: [string]) => stream[{B with _value: C, _key: string}] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

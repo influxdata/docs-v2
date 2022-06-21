@@ -35,8 +35,10 @@ If the specified column is not present in the table, the function returns an err
 ##### Function type signature
 
 ```js
-getColumn = (<-table: stream[A], column: string) => [B] where A: Record
+(<-table: stream[A], column: string) => [B] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

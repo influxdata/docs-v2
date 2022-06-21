@@ -33,12 +33,12 @@ The `location` package loads a timezone based on a location name.
 ## Options
 
 ```js
-option location.location = {zone: "UTC", offset: 0h}
+option location = {zone: "UTC", offset: 0h}
 ```
  
-### location {data-type="{zone: string, offset: duration}"}
+### location
 
-location loads a timezone based on a location name.
+`location` loads a timezone based on a location name.
 
 
 

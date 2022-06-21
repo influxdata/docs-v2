@@ -34,18 +34,19 @@ The `planner` package provides an API for interacting with the Flux engine plann
 
 ```js
 option planner.disableLogicalRules = [""]
+
 option planner.disablePhysicalRules = [""]
 ```
  
-### disableLogicalRules {data-type="[string]"}
+### disableLogicalRules
 
-disableLogicalRules is a set of logical planner rules that should NOT be applied.
+`disableLogicalRules` is a set of logical planner rules that should NOT be applied.
 
 
 
-### disablePhysicalRules {data-type="[string]"}
+### disablePhysicalRules
 
-disablePhysicalRules is a set of physical planner rules that should NOT be applied.
+`disablePhysicalRules` is a set of physical planner rules that should NOT be applied.
 
 
 

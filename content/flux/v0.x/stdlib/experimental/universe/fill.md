@@ -38,8 +38,10 @@ in the specified column.
 ##### Function type signature
 
 ```js
-fill = (<-tables: stream[{C with A: B}], ?column: A = "_value", ?usePrevious: bool, ?value: B) => stream[{C with A: B}] where A: Label, C: Record
+(<-tables: stream[{C with A: B}], ?column: A = "_value", ?usePrevious: bool, ?value: B) => stream[{C with A: B}] where A: Label, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -41,8 +41,10 @@ When `desc: true`, null values are first in the sort order.
 ##### Function type signature
 
 ```js
-sort = (<-tables: stream[A], ?columns: [string], ?desc: bool) => stream[A] where A: Record
+(<-tables: stream[A], ?columns: [string], ?desc: bool) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -35,8 +35,10 @@ If a column in group key is renamed, the column name in the group key is updated
 ##### Function type signature
 
 ```js
-rename = (<-tables: stream[B], ?columns: A, ?fn: (column: string) => string) => stream[C] where A: Record, B: Record, C: Record
+(<-tables: stream[B], ?columns: A, ?fn: (column: string) => string) => stream[C] where A: Record, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

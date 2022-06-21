@@ -35,8 +35,10 @@ properties.
 ##### Function type signature
 
 ```js
-dict.fromList = (pairs: [{value: B, key: A}]) => [A:B] where A: Comparable
+(pairs: [{value: B, key: A}]) => [A:B] where A: Comparable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

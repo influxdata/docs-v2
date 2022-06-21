@@ -39,7 +39,7 @@ Output includes the following columns:
 ##### Function type signature
 
 ```js
-v1.databases = (
+(
     ?host: string,
     ?org: string,
     ?orgID: string,
@@ -53,6 +53,8 @@ v1.databases = (
     bucketID: string,
 }]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

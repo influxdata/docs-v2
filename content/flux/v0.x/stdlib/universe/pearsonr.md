@@ -37,8 +37,10 @@ Pearson R coefficient.
 ##### Function type signature
 
 ```js
-pearsonr = (on: [string], x: A, y: B) => stream[C] where C: Record
+(on: [string], x: A, y: B) => stream[C] where C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

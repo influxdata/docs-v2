@@ -33,8 +33,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-sql.from = (dataSourceName: string, driverName: string, query: string) => stream[A]
+(dataSourceName: string, driverName: string, query: string) => stream[A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -35,8 +35,10 @@ Output tables have the same schema as the corresponding input tables.
 ##### Function type signature
 
 ```js
-filter = (<-tables: stream[A], fn: (r: A) => bool, ?onEmpty: string) => stream[A] where A: Record
+(<-tables: stream[A], fn: (r: A) => bool, ?onEmpty: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

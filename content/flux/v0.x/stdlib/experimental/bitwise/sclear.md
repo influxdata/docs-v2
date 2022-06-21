@@ -35,8 +35,10 @@ Both `a` and `b` are integers.
 ##### Function type signature
 
 ```js
-bitwise.sclear = (a: int, b: int) => int
+(a: int, b: int) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

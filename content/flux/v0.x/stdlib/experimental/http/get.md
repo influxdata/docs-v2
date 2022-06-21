@@ -41,8 +41,10 @@ status code, response body, and response headers.
 ##### Function type signature
 
 ```js
-http.get = (url: string, ?headers: A, ?timeout: duration) => {statusCode: int, headers: B, body: bytes} where A: Record, B: Record
+(url: string, ?headers: A, ?timeout: duration) => {statusCode: int, headers: B, body: bytes} where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

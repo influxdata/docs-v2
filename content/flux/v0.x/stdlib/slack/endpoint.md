@@ -34,13 +34,15 @@ that row was sent successfully.
 ##### Function type signature
 
 ```js
-slack.endpoint = (
+(
     ?token: string,
     ?url: string,
 ) => (
     mapFn: (r: A) => {B with text: D, color: string, channel: C},
 ) => (<-tables: stream[A]) => stream[{A with _sent: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

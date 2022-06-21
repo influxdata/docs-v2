@@ -57,7 +57,7 @@ See `telegram.message` parameters for more information.
 ##### Function type signature
 
 ```js
-telegram.endpoint = (
+(
     token: string,
     ?disableWebPagePreview: A,
     ?parseMode: B,
@@ -66,6 +66,8 @@ telegram.endpoint = (
     mapFn: (r: C) => {D with text: G, silent: F, channel: E},
 ) => (<-tables: stream[C]) => stream[{C with _sent: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

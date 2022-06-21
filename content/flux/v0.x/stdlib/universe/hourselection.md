@@ -35,7 +35,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-hourSelection = (
+(
     <-tables: stream[A],
     start: int,
     stop: int,
@@ -43,6 +43,8 @@ hourSelection = (
     ?timeColumn: string,
 ) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

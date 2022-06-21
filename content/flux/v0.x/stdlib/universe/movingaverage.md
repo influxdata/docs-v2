@@ -42,8 +42,10 @@ and `n - 1` previous values in the `_values` column.
 ##### Function type signature
 
 ```js
-movingAverage = (<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: float}] where B: Numeric
+(<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: float}] where B: Numeric
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

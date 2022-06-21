@@ -47,7 +47,7 @@ See the example [below](#compared-to-similar-functions).
 ##### Function type signature
 
 ```js
-events.duration = (
+(
     <-tables: stream[A],
     ?columnName: string,
     ?stop: time,
@@ -56,6 +56,8 @@ events.duration = (
     ?unit: duration,
 ) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

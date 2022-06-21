@@ -34,13 +34,15 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-naiveBayesClassifier.naiveBayes = (
+(
     <-tables: stream[{C with _time: time, _measurement: E, _field: D}],
     myClass: string,
     myField: A,
     myMeasurement: B,
 ) => stream[F] where A: Equatable, B: Equatable, D: Equatable, E: Equatable, F: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

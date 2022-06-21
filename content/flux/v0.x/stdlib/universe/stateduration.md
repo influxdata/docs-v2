@@ -46,7 +46,7 @@ state duration will be 0.
 ##### Function type signature
 
 ```js
-stateDuration = (
+(
     <-tables: stream[A],
     fn: (r: A) => bool,
     ?column: string,
@@ -54,6 +54,8 @@ stateDuration = (
     ?unit: duration,
 ) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -34,7 +34,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-pagerduty.sendEvent = (
+(
     class: A,
     client: B,
     clientURL: C,
@@ -51,6 +51,8 @@ pagerduty.sendEvent = (
     ?pagerdutyURL: string,
 ) => int where t12: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

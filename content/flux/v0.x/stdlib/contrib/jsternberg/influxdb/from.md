@@ -34,7 +34,7 @@ This version of `from` is equivalent to `from() |> range()` in a single call.
 ##### Function type signature
 
 ```js
-from = (
+(
     bucket: string,
     start: A,
     ?host: string,
@@ -51,6 +51,8 @@ from = (
     _field: string,
 }]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

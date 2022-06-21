@@ -35,7 +35,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-monitor.from = (
+(
     start: A,
     ?fn: (
         r: {
@@ -51,6 +51,8 @@ monitor.from = (
     ?stop: D,
 ) => stream[E] where E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

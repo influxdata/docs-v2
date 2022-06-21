@@ -65,8 +65,10 @@ data
 ##### Function type signature
 
 ```js
-map = (<-tables: stream[A], fn: (r: A) => B, ?mergeKey: bool) => stream[B]
+(<-tables: stream[A], fn: (r: A) => B, ?mergeKey: bool) => stream[B]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

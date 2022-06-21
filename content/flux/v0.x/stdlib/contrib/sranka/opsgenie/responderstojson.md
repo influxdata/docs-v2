@@ -35,8 +35,10 @@ to a string-encoded JSON array that can be embedded in an alert message.
 ##### Function type signature
 
 ```js
-opsgenie.respondersToJSON = (v: [string]) => string
+(v: [string]) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

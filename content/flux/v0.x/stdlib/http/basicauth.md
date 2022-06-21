@@ -37,8 +37,10 @@ using a specified username and password combination.
 ##### Function type signature
 
 ```js
-http.basicAuth = (p: string, u: string) => string
+(p: string, u: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

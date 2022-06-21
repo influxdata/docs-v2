@@ -35,8 +35,10 @@ row containing the aggregated value.
 ##### Function type signature
 
 ```js
-aggregate.table = (<-tables: stream[B], columns: A) => stream[C] where A: Record, B: Record, C: Record
+(<-tables: stream[B], columns: A) => stream[C] where A: Record, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

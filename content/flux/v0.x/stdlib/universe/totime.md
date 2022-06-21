@@ -40,8 +40,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-toTime = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _value: time}]
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _value: time}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

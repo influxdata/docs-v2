@@ -36,8 +36,10 @@ that the engine sends them.
 ##### Function type signature
 
 ```js
-experimental.preview = (<-tables: stream[A], ?nrows: int, ?ntables: int) => stream[A] where A: Record
+(<-tables: stream[A], ?nrows: int, ?ntables: int) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

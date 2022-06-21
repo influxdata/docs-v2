@@ -39,8 +39,10 @@ group key to create a unique deduplication key for each input table.
 ##### Function type signature
 
 ```js
-pagerduty.dedupKey = (<-tables: stream[A], ?exclude: [string]) => stream[{A with _pagerdutyDedupKey: string}]
+(<-tables: stream[A], ?exclude: [string]) => stream[{A with _pagerdutyDedupKey: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

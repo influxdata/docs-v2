@@ -35,8 +35,10 @@ and underflow.
 ##### Function type signature
 
 ```js
-math.hypot = (p: float, q: float) => float
+(p: float, q: float) => float
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

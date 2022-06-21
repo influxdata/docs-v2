@@ -41,8 +41,10 @@ Each output table has the same number of rows as the number of columns of the in
 ##### Function type signature
 
 ```js
-columns = (<-tables: stream[B], ?column: A = "_value") => stream[{A: string}] where A: Label, B: Record
+(<-tables: stream[B], ?column: A = "_value") => stream[{A: string}] where A: Label, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

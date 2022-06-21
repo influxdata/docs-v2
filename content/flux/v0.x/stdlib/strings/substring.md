@@ -36,8 +36,10 @@ is assumed. When end is less than or equal to start an empty string is returned.
 ##### Function type signature
 
 ```js
-strings.substring = (end: int, start: int, v: string) => string
+(end: int, start: int, v: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

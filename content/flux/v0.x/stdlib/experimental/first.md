@@ -37,8 +37,10 @@ for each input table.
 ##### Function type signature
 
 ```js
-experimental.first = (<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

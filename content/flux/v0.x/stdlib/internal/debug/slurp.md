@@ -37,8 +37,10 @@ buffers versus a single buffer.
 ##### Function type signature
 
 ```js
-debug.slurp = (<-tables: stream[A]) => stream[A] where A: Record
+(<-tables: stream[A]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

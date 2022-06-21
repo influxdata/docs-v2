@@ -36,7 +36,7 @@ The curve is defined using `_time` as the domain and record values as the range.
 ##### Function type signature
 
 ```js
-integral = (
+(
     <-tables: stream[A],
     ?column: string,
     ?interpolate: string,
@@ -44,6 +44,8 @@ integral = (
     ?unit: duration,
 ) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

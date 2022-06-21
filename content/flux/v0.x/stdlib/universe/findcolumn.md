@@ -38,8 +38,10 @@ label is not present in the set of columns.
 ##### Function type signature
 
 ```js
-findColumn = (<-tables: stream[B], column: string, fn: (key: A) => bool) => [C] where A: Record, B: Record
+(<-tables: stream[B], column: string, fn: (key: A) => bool) => [C] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

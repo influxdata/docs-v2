@@ -40,8 +40,10 @@ This function encodes Flux types as follows:
 ##### Function type signature
 
 ```js
-json.encode = (v: A) => bytes
+(v: A) => bytes
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

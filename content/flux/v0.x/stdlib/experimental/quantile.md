@@ -58,13 +58,15 @@ value that represents the specified quantile.
 ##### Function type signature
 
 ```js
-experimental.quantile = (
+(
     <-tables: stream[{A with _value: float}],
     q: float,
     ?compression: float,
     ?method: string,
 ) => stream[{A with _value: float}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -43,7 +43,7 @@ Output tables include additional columns for the upper bound and count of bins.
 ##### Function type signature
 
 ```js
-histogram = (
+(
     <-tables: stream[A],
     bins: [float],
     ?column: string,
@@ -52,6 +52,8 @@ histogram = (
     ?upperBoundColumn: string,
 ) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

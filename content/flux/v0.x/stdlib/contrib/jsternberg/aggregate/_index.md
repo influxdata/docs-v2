@@ -36,11 +36,14 @@ import "contrib/jsternberg/aggregate"
 ## Constants
 
 ```js
-aggregate.builtin none // none is a sentinel value for fill that will skip
-// emitting a row if there are no values for an interval.
-aggregate.builtin null // null is a sentinel value for fill that will fill
-// in a null value if there were no values for an interval.
+aggregate.none
+aggregate.null
 ```
+
+- **aggregate.none** is a sentinel value for fill that will skip
+emitting a row if there are no values for an interval.
+- **aggregate.null** is a sentinel value for fill that will fill
+in a null value if there were no values for an interval.
 
 
 ## Functions

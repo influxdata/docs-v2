@@ -35,8 +35,10 @@ by replacing non-alphanumeric characters (`[a-zA-Z0-9_.-]`) with underscores (`_
 ##### Function type signature
 
 ```js
-sensu.toSensuName = (v: string) => string
+(v: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

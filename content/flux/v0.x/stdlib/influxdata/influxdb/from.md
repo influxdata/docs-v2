@@ -46,7 +46,7 @@ Flux prelude and does not require an import statement or package namespace.
 ##### Function type signature
 
 ```js
-from = (
+(
     ?bucket: string,
     ?bucketID: string,
     ?host: string,
@@ -55,6 +55,8 @@ from = (
     ?token: string,
 ) => stream[{A with _value: B, _time: time, _measurement: string, _field: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

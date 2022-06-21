@@ -36,8 +36,10 @@ InfluxDB scrapers available in InfluxDB OSS.
 ##### Function type signature
 
 ```js
-prometheus.histogramQuantile = (<-tables: stream[{B with le: D, _field: C}], quantile: float, ?metricVersion: A) => stream[E] where A: Equatable, C: Equatable, E: Record
+(<-tables: stream[{B with le: D, _field: C}], quantile: float, ?metricVersion: A) => stream[E] where A: Equatable, C: Equatable, E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

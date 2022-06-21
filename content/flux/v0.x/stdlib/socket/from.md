@@ -37,8 +37,10 @@ start to the end of the connection.
 ##### Function type signature
 
 ```js
-socket.from = (url: string, ?decoder: string) => stream[A]
+(url: string, ?decoder: string) => stream[A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

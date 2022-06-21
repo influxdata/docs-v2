@@ -49,7 +49,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-usage.from = (
+(
     start: A,
     stop: B,
     ?host: string,
@@ -58,6 +58,8 @@ usage.from = (
     ?token: string,
 ) => stream[D] where D: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

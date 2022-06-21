@@ -42,8 +42,10 @@ JSON types are converted to Flux types as follows:
 ##### Function type signature
 
 ```js
-json.parse = (data: bytes) => A
+(data: bytes) => A
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

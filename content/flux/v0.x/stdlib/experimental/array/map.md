@@ -37,8 +37,10 @@ and then returns a new array.
 ##### Function type signature
 
 ```js
-array.map = (<-arr: [A], fn: (x: A) => B) => [B]
+(<-arr: [A], fn: (x: A) => B) => [B]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

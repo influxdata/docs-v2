@@ -35,8 +35,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-experimental.alignTime = (<-tables: stream[B], ?alignTo: A) => stream[C] where B: Record, C: Record
+(<-tables: stream[B], ?alignTo: A) => stream[C] where B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

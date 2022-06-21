@@ -34,8 +34,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-query.filterFields = (<-table: stream[{B with _field: A}], ?fields: [A]) => stream[{B with _field: A}] where A: Nullable
+(<-table: stream[{B with _field: A}], ?fields: [A]) => stream[{B with _field: A}] where A: Nullable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

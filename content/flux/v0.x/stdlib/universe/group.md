@@ -36,8 +36,10 @@ To ensure data is sorted correctly, use `sort()` after `group()`.
 ##### Function type signature
 
 ```js
-group = (<-tables: stream[A], ?columns: [string], ?mode: string) => stream[A] where A: Record
+(<-tables: stream[A], ?columns: [string], ?mode: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

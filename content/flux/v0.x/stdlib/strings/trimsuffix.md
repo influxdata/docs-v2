@@ -33,8 +33,10 @@ Strings that do not end with the suffix are returned unchanged.
 ##### Function type signature
 
 ```js
-strings.trimSuffix = (suffix: string, v: string) => string
+(suffix: string, v: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -37,13 +37,15 @@ and data from table rows.
 ##### Function type signature
 
 ```js
-discord.endpoint = (
+(
     username: A,
     webhookID: string,
     webhookToken: string,
     ?avatar_url: B,
 ) => (mapFn: (r: C) => {D with content: E}) => (<-tables: stream[C]) => stream[{C with _sent: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -37,8 +37,10 @@ specified S2 cell level.
 ##### Function type signature
 
 ```js
-geo.s2CellIDToken = (level: int, ?point: {lon: float, lat: float}, ?token: string) => string
+(level: int, ?point: {lon: float, lat: float}, ?token: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

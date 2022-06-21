@@ -39,8 +39,10 @@ For more information, see [influxdata/flux#4073](https://github.com/influxdata/f
 ##### Function type signature
 
 ```js
-record.get = (default: A, key: string, r: B) => A where B: Record
+(default: A, key: string, r: B) => A where B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

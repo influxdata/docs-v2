@@ -35,8 +35,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-experimental.fill = (<-tables: stream[{B with _value: A}], ?usePrevious: bool, ?value: A) => stream[{B with _value: A}]
+(<-tables: stream[{B with _value: A}], ?usePrevious: bool, ?value: A) => stream[{B with _value: A}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

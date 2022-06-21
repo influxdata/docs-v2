@@ -39,7 +39,7 @@ This function is comparable to [Kapacitor AlertNode deadman](https://docs.influx
 ##### Function type signature
 
 ```js
-tickscript.deadman = (
+(
     <-tables: stream[t12],
     check: {A with tags: E, _type: D, _check_name: C, _check_id: B},
     measurement: string,
@@ -78,6 +78,8 @@ tickscript.deadman = (
     _check_id: B,
 }] where E: Record, F: Record, t11: Comparable + Equatable, t12: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

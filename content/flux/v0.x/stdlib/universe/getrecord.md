@@ -35,8 +35,10 @@ If the specified index is out of bounds, the function returns an error.
 ##### Function type signature
 
 ```js
-getRecord = (<-table: stream[A], idx: int) => A where A: Record
+(<-table: stream[A], idx: int) => A where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

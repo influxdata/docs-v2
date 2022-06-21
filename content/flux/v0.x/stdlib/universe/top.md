@@ -37,8 +37,10 @@ in each table.
 ##### Function type signature
 
 ```js
-top = (<-tables: stream[A], n: int, ?columns: [string]) => stream[A] where A: Record
+(<-tables: stream[A], n: int, ?columns: [string]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

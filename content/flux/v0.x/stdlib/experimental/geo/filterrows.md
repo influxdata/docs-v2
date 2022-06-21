@@ -35,7 +35,7 @@ Input data must include an `s2_cell_id` column that is **part of the group key**
 ##### Function type signature
 
 ```js
-geo.filterRows = (
+(
     <-tables: stream[{B with s2_cell_id: string, lon: D, lat: C}],
     region: A,
     ?level: int,
@@ -45,6 +45,8 @@ geo.filterRows = (
     ?strict: bool,
 ) => stream[{B with s2_cell_id: string, lon: D, lat: C}] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

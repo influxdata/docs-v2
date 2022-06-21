@@ -35,8 +35,10 @@ of the two to determine the quadrant of the return value.
 ##### Function type signature
 
 ```js
-math.atan2 = (x: float, y: float) => float
+(x: float, y: float) => float
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

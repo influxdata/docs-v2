@@ -39,8 +39,10 @@ tables and is only necessary when yielding multiple results from a query.
 ##### Function type signature
 
 ```js
-yield = (<-tables: stream[A], ?name: string) => stream[A] where A: Record
+(<-tables: stream[A], ?name: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

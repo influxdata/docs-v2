@@ -39,9 +39,11 @@ will either be removed after this issue is resolved or promoted out of the
 experimental package if other uses are found.## Constants
 
 ```js
-record.builtin any // any is a polymorphic record value that can be used as a default record value
-// when input record property types are not known.
+record.any
 ```
+
+- **record.any** is a polymorphic record value that can be used as a default record value
+when input record property types are not known.
 
 
 ## Functions

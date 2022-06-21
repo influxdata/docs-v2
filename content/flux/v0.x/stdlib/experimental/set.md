@@ -36,8 +36,10 @@ If a column does not exist, the function adds it with the specified value.
 ##### Function type signature
 
 ```js
-experimental.set = (<-tables: stream[B], o: A) => stream[C] where A: Record, B: Record, C: Record
+(<-tables: stream[B], o: A) => stream[C] where A: Record, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

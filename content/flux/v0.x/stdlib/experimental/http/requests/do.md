@@ -41,7 +41,7 @@ The returned response contains the following properties:
 ##### Function type signature
 
 ```js
-requests.do = (
+(
     method: string,
     url: string,
     ?body: bytes,
@@ -50,6 +50,8 @@ requests.do = (
     ?params: [string:[string]],
 ) => {statusCode: int, headers: [string:string], duration: duration, body: bytes}
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -37,7 +37,7 @@ keys in a given bucket.
 ##### Function type signature
 
 ```js
-schema.fieldKeys = (
+(
     bucket: string,
     ?predicate: (
         r: {
@@ -54,6 +54,8 @@ schema.fieldKeys = (
     ?stop: D,
 ) => stream[E] where E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

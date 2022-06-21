@@ -40,7 +40,7 @@ Use `geo.toRows()` and `geo.strictFilter()` after `geo.gridFilter()` to precisel
 ##### Function type signature
 
 ```js
-geo.gridFilter = (
+(
     <-tables: stream[{B with s2_cell_id: string}],
     region: A,
     ?level: int,
@@ -50,6 +50,8 @@ geo.gridFilter = (
     ?units: {distance: string},
 ) => stream[{B with s2_cell_id: string}] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

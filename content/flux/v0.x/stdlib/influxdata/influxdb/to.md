@@ -51,7 +51,7 @@ Flux prelude and does not require an import statement or package namespace.
 ##### Function type signature
 
 ```js
-to = (
+(
     <-tables: stream[A],
     ?bucket: string,
     ?bucketID: string,
@@ -65,6 +65,8 @@ to = (
     ?token: string,
 ) => stream[A] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

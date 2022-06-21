@@ -35,8 +35,10 @@ Results range from `[0 - 6]`.
 ##### Function type signature
 
 ```js
-date.weekDay = (t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
+(t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

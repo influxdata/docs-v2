@@ -39,9 +39,9 @@ Profile results are returned as an extra result in the response named according 
 option profiler.enabledProfilers = [""]
 ```
  
-### enabledProfilers {data-type="[string]"}
+### enabledProfilers
 
-enabledProfilers is a list of profilers to enable during execution.
+`enabledProfilers` is a list of profilers to enable during execution.
 
 ## Available profilers
 - [query](#query)

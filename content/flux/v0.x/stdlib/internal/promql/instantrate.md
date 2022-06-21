@@ -39,8 +39,10 @@ counters and is used to implement PromQL's
 ##### Function type signature
 
 ```js
-promql.instantRate = (<-tables: stream[{A with _value: float, _time: time}], ?isRate: bool) => stream[{B with _value: float}]
+(<-tables: stream[{A with _value: float, _time: time}], ?isRate: bool) => stream[{B with _value: float}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

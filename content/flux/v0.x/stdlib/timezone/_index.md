@@ -41,9 +41,11 @@ import "timezone"
 ## Constants
 
 ```js
-timezone.utc = {zone: "UTC", offset: 0h} // utc is the default location with a completely linear clock and no offset.
-// It is used as the default for location-related options.
+timezone.utc = {zone: "UTC", offset: 0h}
 ```
+
+- **timezone.utc** is the default location with a completely linear clock and no offset.
+It is used as the default for location-related options.
 
 
 ## Functions

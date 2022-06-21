@@ -37,8 +37,10 @@ and replaces non-ASCII characters with hexadecimal representations (`%XX`).
 ##### Function type signature
 
 ```js
-http.pathEscape = (inputString: string) => string
+(inputString: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -35,8 +35,10 @@ beginning and ending indexes of the first regular expression match in a string.
 ##### Function type signature
 
 ```js
-regexp.findStringIndex = (r: regexp, v: string) => [int]
+(r: regexp, v: string) => [int]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

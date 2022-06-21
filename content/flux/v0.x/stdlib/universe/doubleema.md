@@ -45,8 +45,10 @@ recent data.
 ##### Function type signature
 
 ```js
-doubleEMA = (<-tables: stream[{A with _value: B}], n: int) => stream[C] where B: Numeric, C: Record
+(<-tables: stream[{A with _value: B}], n: int) => stream[C] where B: Numeric, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

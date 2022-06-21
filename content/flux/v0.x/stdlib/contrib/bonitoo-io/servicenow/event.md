@@ -35,7 +35,7 @@ ServiceNow Event API fields are described in
 ##### Function type signature
 
 ```js
-servicenow.event = (
+(
     description: A,
     password: string,
     severity: B,
@@ -50,6 +50,8 @@ servicenow.event = (
     ?source: I,
 ) => int where B: Equatable, C: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

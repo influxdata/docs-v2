@@ -37,8 +37,10 @@ input table as a float.
 ##### Function type signature
 
 ```js
-experimental.skew = (<-tables: stream[{A with _value: float}]) => stream[{A with _value: float}]
+(<-tables: stream[{A with _value: float}]) => stream[{A with _value: float}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

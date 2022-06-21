@@ -35,7 +35,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-influxdb.cardinality = (
+(
     start: A,
     ?bucket: string,
     ?bucketID: string,
@@ -47,6 +47,8 @@ influxdb.cardinality = (
     ?token: string,
 ) => stream[{_value: int, _stop: time, _start: time}] where A: Timeable, D: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

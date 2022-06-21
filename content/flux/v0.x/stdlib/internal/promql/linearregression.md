@@ -36,12 +36,14 @@ https://prometheus.io/docs/prometheus/latest/querying/functions/#predict_linear
 ##### Function type signature
 
 ```js
-promql.linearRegression = (
+(
     <-tables: stream[{A with _value: float, _time: time, _stop: time}],
     ?fromNow: float,
     ?predict: bool,
 ) => stream[{B with _value: float}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

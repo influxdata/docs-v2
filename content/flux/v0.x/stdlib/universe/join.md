@@ -52,8 +52,10 @@ into a single stream of tables and groups rows of data based on existing group k
 ##### Function type signature
 
 ```js
-join = (<-tables: A, ?method: string, ?on: [string]) => stream[B] where A: Record, B: Record
+(<-tables: A, ?method: string, ?on: [string]) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

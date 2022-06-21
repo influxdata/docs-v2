@@ -35,8 +35,10 @@ Use `linearBins()` to generate bin bounds for `histogram()`.
 ##### Function type signature
 
 ```js
-linearBins = (count: int, start: float, width: float, ?infinity: bool) => [float]
+(count: int, start: float, width: float, ?infinity: bool) => [float]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

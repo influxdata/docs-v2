@@ -35,8 +35,10 @@ tag and field per time value.
 ##### Function type signature
 
 ```js
-iox.from = (bucket: string, measurement: string) => stream[{A with _time: time}] where A: Record
+(bucket: string, measurement: string) => stream[{A with _time: time}] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

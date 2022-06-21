@@ -46,7 +46,7 @@ the following columns:
 ##### Function type signature
 
 ```js
-oee.computeAPQ = (
+(
     idealCycleTime: A,
     partEvents: stream[B],
     plannedTime: C,
@@ -63,6 +63,8 @@ oee.computeAPQ = (
     _stop: G,
 }] where B: Record, D: Record, E: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -47,7 +47,7 @@ For each input table with `n` rows, `difference()` outputs a table with
 ##### Function type signature
 
 ```js
-difference = (
+(
     <-tables: stream[A],
     ?columns: [string],
     ?initialZero: bool,
@@ -55,6 +55,8 @@ difference = (
     ?nonNegative: bool,
 ) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

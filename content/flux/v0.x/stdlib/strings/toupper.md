@@ -42,8 +42,10 @@ strings.toTitle(v: str) // Returns ǲ
 ##### Function type signature
 
 ```js
-strings.toUpper = (v: string) => string
+(v: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -39,7 +39,7 @@ added to the group key.
 ##### Function type signature
 
 ```js
-aggregate.window = (
+(
     <-tables: stream[B],
     columns: A,
     every: duration,
@@ -47,6 +47,8 @@ aggregate.window = (
     ?time: string,
 ) => stream[C] where A: Record, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

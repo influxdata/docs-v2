@@ -37,8 +37,10 @@ and outputs records that change from `fromLevel` to `toLevel`.
 ##### Function type signature
 
 ```js
-monitor.stateChanges = (<-tables: stream[{C with _level: D}], ?fromLevel: A, ?toLevel: B) => stream[E] where A: Equatable, B: Equatable, D: Equatable, E: Record
+(<-tables: stream[{C with _level: D}], ?fromLevel: A, ?toLevel: B) => stream[E] where A: Equatable, B: Equatable, D: Equatable, E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

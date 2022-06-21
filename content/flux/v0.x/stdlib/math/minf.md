@@ -35,8 +35,10 @@ if `sign < 0`
 ##### Function type signature
 
 ```js
-math.mInf = (sign: int) => float
+(sign: int) => float
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

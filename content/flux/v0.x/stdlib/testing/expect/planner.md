@@ -37,8 +37,10 @@ The key is the name of the planner rule.
 ##### Function type signature
 
 ```js
-expect.planner = (rules: [string:int]) => {}
+(rules: [string:int]) => {}
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

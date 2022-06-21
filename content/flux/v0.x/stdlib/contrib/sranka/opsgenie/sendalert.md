@@ -34,7 +34,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-opsgenie.sendAlert = (
+(
     apiKey: string,
     message: string,
     ?actions: A,
@@ -49,6 +49,8 @@ opsgenie.sendAlert = (
     ?visibleTo: [string],
 ) => int where B: Stringable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

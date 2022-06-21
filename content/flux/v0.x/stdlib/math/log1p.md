@@ -37,8 +37,10 @@ near zero.
 ##### Function type signature
 
 ```js
-math.log1p = (x: float) => float
+(x: float) => float
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

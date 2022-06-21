@@ -37,8 +37,10 @@ match a specified predicate.
 ##### Function type signature
 
 ```js
-tableFind = (<-tables: stream[B], fn: (key: A) => bool) => stream[B] where A: Record, B: Record
+(<-tables: stream[B], fn: (key: A) => bool) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

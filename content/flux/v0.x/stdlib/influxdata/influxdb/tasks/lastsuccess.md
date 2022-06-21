@@ -35,8 +35,10 @@ or the value of the `orTime` parameter if the task has never successfully run.
 ##### Function type signature
 
 ```js
-tasks.lastSuccess = (orTime: A) => time where A: Timeable
+(orTime: A) => time where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

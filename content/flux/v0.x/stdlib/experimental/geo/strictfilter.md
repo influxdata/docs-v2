@@ -36,8 +36,10 @@ Input rows must have `lat` and `lon` columns.
 ##### Function type signature
 
 ```js
-geo.strictFilter = (<-tables: stream[{B with lon: D, lat: C}], region: A) => stream[{B with lon: D, lat: C}] where A: Record
+(<-tables: stream[{B with lon: D, lat: C}], region: A) => stream[{B with lon: D, lat: C}] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

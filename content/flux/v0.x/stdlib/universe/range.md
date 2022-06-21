@@ -41,8 +41,10 @@ Tables with all rows outside the time bounds are filtered entirely.
 ##### Function type signature
 
 ```js
-range = (<-tables: stream[{C with _time: time}], start: A, ?stop: B) => stream[{C with _time: time, _stop: time, _start: time}]
+(<-tables: stream[{C with _time: time}], start: A, ?stop: B) => stream[{C with _time: time, _stop: time, _start: time}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

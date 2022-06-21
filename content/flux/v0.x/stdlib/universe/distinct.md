@@ -36,8 +36,10 @@ The `_value` of each output record is set to a distinct value in the specified c
 ##### Function type signature
 
 ```js
-distinct = (<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: Record
+(<-tables: stream[A], ?column: string) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

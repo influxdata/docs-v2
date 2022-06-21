@@ -39,7 +39,7 @@ TICKscript [`alert()`](https://docs.influxdata.com/kapacitor/v1.6/nodes/alert_no
 ##### Function type signature
 
 ```js
-tickscript.alert = (
+(
     <-tables: stream[t12],
     check: {A with tags: E, _type: D, _check_name: C, _check_id: B},
     ?crit: (r: {F with _time: H, _measurement: G}) => bool,
@@ -79,6 +79,8 @@ tickscript.alert = (
     _check_id: B,
 }] where E: Record, I: Record, t12: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

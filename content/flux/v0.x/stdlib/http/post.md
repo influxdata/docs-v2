@@ -37,8 +37,10 @@ and returns the HTTP status code.
 ##### Function type signature
 
 ```js
-http.post = (url: string, ?data: bytes, ?headers: A) => int where A: Record
+(url: string, ?data: bytes, ?headers: A) => int where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

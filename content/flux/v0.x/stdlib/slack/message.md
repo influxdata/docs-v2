@@ -36,7 +36,7 @@ The function works with either with the `chat.postMessage` API or with a Slack w
 ##### Function type signature
 
 ```js
-slack.message = (
+(
     channel: A,
     color: string,
     text: B,
@@ -44,6 +44,8 @@ slack.message = (
     ?url: string,
 ) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

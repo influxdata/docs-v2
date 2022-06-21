@@ -37,8 +37,10 @@ Specialized to transform the pivoted output from `iox.from()` into the unpivoted
 ##### Function type signature
 
 ```js
-debug.unpivot = (<-tables: stream[{A with _time: time}]) => stream[{B with _value: C, _field: string}] where A: Record, B: Record
+(<-tables: stream[{A with _time: time}]) => stream[{B with _value: C, _field: string}] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

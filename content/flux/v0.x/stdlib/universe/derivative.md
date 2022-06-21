@@ -42,7 +42,7 @@ For each input table with `n` rows, `derivative()` outputs a table with
 ##### Function type signature
 
 ```js
-derivative = (
+(
     <-tables: stream[A],
     ?columns: [string],
     ?nonNegative: bool,
@@ -50,6 +50,8 @@ derivative = (
     ?unit: duration,
 ) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -36,8 +36,10 @@ The output table schema is the same as the input table schema.
 ##### Function type signature
 
 ```js
-timeShift = (<-tables: stream[A], duration: duration, ?columns: [string]) => stream[A]
+(<-tables: stream[A], duration: duration, ?columns: [string]) => stream[A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

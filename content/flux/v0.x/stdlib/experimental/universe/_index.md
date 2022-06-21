@@ -5,10 +5,10 @@ description: >
   but with more precise type signatures.
 menu:
   flux_0_x_ref:
-    name: universe (built-in)
+    name: universe 
     parent: experimental
     identifier: experimental/universe
-weight: 20
+weight: 21
 cascade:
 
   introduced: v0.166.0
@@ -32,6 +32,11 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 The `universe` package provides equivalent functions to the standard universe package
 but with more precise type signatures.
+Import the `experimental/universe` package:
+
+```js
+import "experimental/universe"
+```
 
 
 

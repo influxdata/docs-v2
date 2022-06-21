@@ -36,7 +36,7 @@ filters data by measurement, field, and optional predicate expressions.
 ##### Function type signature
 
 ```js
-query.inBucket = (
+(
     bucket: string,
     measurement: A,
     start: B,
@@ -63,6 +63,8 @@ query.inBucket = (
     _field: string,
 }] where A: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

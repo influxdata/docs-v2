@@ -46,10 +46,12 @@ _For information about properties, see `http.post`._
 ##### Function type signature
 
 ```js
-http.endpoint = (
+(
     url: string,
 ) => (mapFn: (r: A) => {B with headers: C, data: bytes}) => (<-tables: stream[A]) => stream[{A with _sent: string}] where C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

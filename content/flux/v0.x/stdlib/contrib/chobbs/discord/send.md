@@ -34,7 +34,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-discord.send = (
+(
     content: A,
     username: B,
     webhookID: string,
@@ -42,6 +42,8 @@ discord.send = (
     ?avatar_url: C,
 ) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -36,8 +36,10 @@ the duplicate column will not be part of the output’s group key.
 ##### Function type signature
 
 ```js
-duplicate = (<-tables: stream[A], as: string, column: string) => stream[B] where A: Record, B: Record
+(<-tables: stream[A], as: string, column: string) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

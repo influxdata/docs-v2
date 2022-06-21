@@ -36,7 +36,7 @@ in the `_monitoring` bucket.
 ##### Function type signature
 
 ```js
-monitor.logs = (
+(
     fn: (
         r: {
             A with
@@ -52,6 +52,8 @@ monitor.logs = (
     ?stop: D,
 ) => stream[E] where E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

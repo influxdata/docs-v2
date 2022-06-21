@@ -36,7 +36,7 @@ using the [Webex messages API](https://developer.webex.com/docs/api/v1/messages/
 ##### Function type signature
 
 ```js
-webexteams.message = (
+(
     markdown: A,
     roomId: B,
     text: C,
@@ -44,6 +44,8 @@ webexteams.message = (
     ?url: string,
 ) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -34,7 +34,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-sensu.event = (
+(
     apiKey: string,
     checkName: string,
     text: A,
@@ -46,6 +46,8 @@ sensu.event = (
     ?status: C,
 ) => int where C: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

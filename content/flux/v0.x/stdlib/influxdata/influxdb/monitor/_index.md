@@ -39,18 +39,26 @@ import "influxdata/influxdb/monitor"
 ## Constants
 
 ```js
-monitor.bucket = "_monitoring" // bucket is the default bucket to store InfluxDB monitoring data in.
-monitor.levelCrit = "crit" // levelCrit is the string representation of the "crit" level.
-monitor.levelInfo = "info" // levelInfo is the string representation of the "info" level.
-monitor.levelOK = "ok" // levelOK is the string representation of the "ok" level.
-monitor.levelUnknown = "unknown" // levelUnknown is the string representation of the an unknown level.
-monitor.levelWarn = "warn" // levelWarn is the string representation of the "warn" level.
+monitor.bucket = "_monitoring"
+monitor.levelCrit = "crit"
+monitor.levelInfo = "info"
+monitor.levelOK = "ok"
+monitor.levelUnknown = "unknown"
+monitor.levelWarn = "warn"
 ```
+
+- **monitor.bucket** is the default bucket to store InfluxDB monitoring data in.
+- **monitor.levelCrit** is the string representation of the "crit" level.
+- **monitor.levelInfo** is the string representation of the "info" level.
+- **monitor.levelOK** is the string representation of the "ok" level.
+- **monitor.levelUnknown** is the string representation of the an unknown level.
+- **monitor.levelWarn** is the string representation of the "warn" level.
 
 ## Options
 
 ```js
 option monitor.log = (tables=<-) => tables |> experimental.to(bucket: bucket)
+
 option monitor.write = (tables=<-) => tables |> experimental.to(bucket: bucket)
 ```
  

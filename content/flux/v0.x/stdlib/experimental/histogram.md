@@ -47,8 +47,10 @@ Bin counts are cumulative.
 ##### Function type signature
 
 ```js
-experimental.histogram = (<-tables: stream[{A with _value: float}], bins: [float], ?normalize: bool) => stream[{A with le: float, _value: float}]
+(<-tables: stream[{A with _value: float}], bins: [float], ?normalize: bool) => stream[{A with le: float, _value: float}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

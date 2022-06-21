@@ -35,12 +35,14 @@ measurement in the `_monitoring` bucket.
 ##### Function type signature
 
 ```js
-monitor.notify = (
+(
     <-tables: stream[E],
     data: A,
     endpoint: (<-: stream[{B with _time: C, _time: time, _status_timestamp: int, _measurement: string}]) => stream[D],
 ) => stream[D] where A: Record, D: Record, E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

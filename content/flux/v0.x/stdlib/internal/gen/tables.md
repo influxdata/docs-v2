@@ -33,13 +33,15 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-gen.tables = (
+(
     n: int,
     ?nulls: float,
     ?seed: int,
     ?tags: [{name: string, cardinality: int}],
 ) => stream[{A with _value: float, _time: time}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

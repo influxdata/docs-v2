@@ -34,7 +34,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-kafka.to = (
+(
     <-tables: stream[A],
     brokers: [string],
     topic: string,
@@ -46,6 +46,8 @@ kafka.to = (
     ?valueColumns: [string],
 ) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

@@ -37,13 +37,15 @@ Results are grouped by `newColumn`.
 ##### Function type signature
 
 ```js
-geo.groupByArea = (
+(
     <-tables: stream[{A with s2_cell_id: string, lon: float, lat: float}],
     level: int,
     newColumn: string,
     ?s2cellIDLevel: int,
 ) => stream[B] where B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

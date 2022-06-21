@@ -33,7 +33,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ##### Function type signature
 
 ```js
-servicenow.endpoint = (
+(
     password: string,
     url: string,
     username: string,
@@ -53,6 +53,8 @@ servicenow.endpoint = (
     },
 ) => (<-tables: stream[B]) => stream[{B with _sent: string}] where J: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

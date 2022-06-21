@@ -39,13 +39,15 @@ Use `geo.shapeData()` to ensure geotemporal data meets the requirements of the G
 ##### Function type signature
 
 ```js
-geo.shapeData = (
+(
     <-tables: stream[{C with _field: string}],
     latField: A,
     level: int,
     lonField: B,
 ) => stream[{D with s2_cell_id: string, lon: float, lat: float}] where A: Equatable, B: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

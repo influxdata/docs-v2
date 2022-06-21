@@ -35,8 +35,10 @@ Results range `from [0-999999]`.
 ##### Function type signature
 
 ```js
-date.microsecond = (t: A) => int where A: Timeable
+(t: A) => int where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

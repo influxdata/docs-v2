@@ -35,8 +35,10 @@ Both `a` and `b` are unsigned integers.
 ##### Function type signature
 
 ```js
-bitwise.urshift = (a: uint, b: uint) => uint
+(a: uint, b: uint) => uint
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 

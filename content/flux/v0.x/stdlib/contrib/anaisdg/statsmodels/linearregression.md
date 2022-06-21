@@ -47,7 +47,7 @@ Output data includes the following columns:
 ##### Function type signature
 
 ```js
-statsmodels.linearRegression = (
+(
     <-tables: stream[A],
 ) => stream[{
     B with
@@ -63,6 +63,8 @@ statsmodels.linearRegression = (
     N: C,
 }] where A: Record, D: Divisible + Subtractable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
