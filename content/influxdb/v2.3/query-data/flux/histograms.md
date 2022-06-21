@@ -3,14 +3,14 @@ title: Create histograms with Flux
 list_title: Histograms
 description: >
   Use `histogram()` to create cumulative histograms with Flux.
-influxdb/v2.2/tags: [histogram]
+influxdb/v2.3/tags: [histogram]
 menu:
   influxdb_2_3:
     name: Histograms
     parent: Query with Flux
 weight: 210
 aliases:
-  - /influxdb/v2.2/query-data/guides/histograms/
+  - /influxdb/v2.3/query-data/guides/histograms/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/histogram
   - /{{< latest "flux" >}}/prometheus/metric-types/histogram/, Work with Prometheus histograms in Flux
@@ -23,7 +23,7 @@ This guide walks through using Flux's `histogram()` function to transform your d
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.3/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## histogram() function
 
@@ -69,12 +69,12 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
 ```
 
 ## Histogram visualization
-The [Histogram visualization type](/influxdb/v2.2/visualize-data/visualization-types/histogram/)
+The [Histogram visualization type](/influxdb/v2.3/visualize-data/visualization-types/histogram/)
 automatically converts query results into a binned and segmented histogram.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-histogram-example.png" alt="Histogram visualization" />}}
 
-Use the [Histogram visualization controls](/influxdb/v2.2/visualize-data/visualization-types/histogram/#histogram-controls)
+Use the [Histogram visualization controls](/influxdb/v2.3/visualize-data/visualization-types/histogram/#histogram-controls)
 to specify the number of bins and define groups in bins.
 
 ### Histogram visualization data structure

@@ -7,11 +7,11 @@ menu:
     name: Calculate a weekly mean
     parent: Common tasks
 weight: 202
-influxdb/v2.2/tags: [tasks]
+influxdb/v2.3/tags: [tasks]
 ---
 
 {{% note %}}
-This example uses [NOAA water sample data](/influxdb/v2.2/reference/sample-data/#noaa-water-sample-data).
+This example uses [NOAA water sample data](/influxdb/v2.3/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
 This example calculates a temperature weekly mean and stores it in a separate bucket.

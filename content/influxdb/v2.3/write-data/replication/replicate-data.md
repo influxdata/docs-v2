@@ -8,17 +8,17 @@ menu:
   influxdb_2_3:
     name: How to replicate data
     parent: Replicate data
-influxdb/v2.2/tags: [write, replication]
+influxdb/v2.3/tags: [write, replication]
 related:
-  - /influxdb/v2.2/reference/cli/influx/remote
-  - /influxdb/v2.2/reference/cli/influx/replication
+  - /influxdb/v2.3/reference/cli/influx/remote
+  - /influxdb/v2.3/reference/cli/influx/replication
 ---
 
 Use InfluxDB replication streams (InfluxDB Edge Data Replication) to replicate the incoming data of select buckets to one or more buckets on a remote InfluxDB instance.
 
 ## Configure a replication stream
 
-1. [Download and install the `influx` CLI](/influxdb/v2.2/tools/influx-cli/).
+1. [Download and install the `influx` CLI](/influxdb/v2.3/tools/influx-cli/).
 2. In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use the `influx remote create` command to create a remote connection to replicate data to.
 
    Provide the following:

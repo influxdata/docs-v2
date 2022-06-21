@@ -26,7 +26,7 @@ of exported line protocol to match your InfluxDB Cloud organization's limits.
 1.  [Find the InfluxDB OSS bucket ID](/influxdb/{{< current-version-link >}}/organizations/buckets/view-buckets/)
     that contains data you want to migrate.
 2.  Use the `influxd inspect export-lp` command to export data in your bucket as
-    [line protocol](/influxdb/v2.2/reference/syntax/line-protocol/).
+    [line protocol](/influxdb/v2.3/reference/syntax/line-protocol/).
     Provide the following:
 
     - **bucket ID**: ({{< req >}}) ID of the bucket to migrate.

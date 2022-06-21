@@ -8,14 +8,14 @@ menu:
     name: Create a template
     identifier: Create an InfluxDB template
 weight: 103
-influxdb/v2.2/tags: [templates]
+influxdb/v2.3/tags: [templates]
 related:
-  - /influxdb/v2.2/reference/cli/influx/export/
-  - /influxdb/v2.2/reference/cli/influx/export/all/
+  - /influxdb/v2.3/reference/cli/influx/export/
+  - /influxdb/v2.3/reference/cli/influx/export/all/
 ---
 
-Use the InfluxDB user interface (UI) and the [`influx export` command](/influxdb/v2.2/reference/cli/influx/export/) to
-create InfluxDB templates from [resources](/influxdb/v2.2/influxdb-templates/#template-resources) in an organization.
+Use the InfluxDB user interface (UI) and the [`influx export` command](/influxdb/v2.3/reference/cli/influx/export/) to
+create InfluxDB templates from [resources](/influxdb/v2.3/influxdb-templates/#template-resources) in an organization.
 Add buckets, Telegraf configurations, tasks, and more in the InfluxDB
 UI and then export those resources as a template.
 
@@ -33,11 +33,11 @@ Creating a new organization to contain only your template resources is an easy w
 to ensure you export the resources you want.
 Follow these steps to create a template from a new organization.
 
-1. [Start InfluxDB](/influxdb/v2.2/get-started/).
-2. [Create a new organization](/influxdb/v2.2/organizations/create-org/).
-3. In the InfluxDB UI, add one or more [resources](/influxdb/v2.2/influxdb-templates/#template-resources).
-4. [Create an **All-Access** API token](/influxdb/v2.2/security/tokens/create-token/) (or a token that has **read** access to the organization).
-5. Use the API token from **Step 4** with the [`influx export all` subcommand](/influxdb/v2.2/reference/cli/influx/export/all/) to [export all resources]() in the organization to a template file.
+1. [Start InfluxDB](/influxdb/v2.3/get-started/).
+2. [Create a new organization](/influxdb/v2.3/organizations/create-org/).
+3. In the InfluxDB UI, add one or more [resources](/influxdb/v2.3/influxdb-templates/#template-resources).
+4. [Create an **All-Access** API token](/influxdb/v2.3/security/tokens/create-token/) (or a token that has **read** access to the organization).
+5. Use the API token from **Step 4** with the [`influx export all` subcommand](/influxdb/v2.3/reference/cli/influx/export/all/) to [export all resources]() in the organization to a template file.
 
    ```sh
    influx export all \
@@ -48,16 +48,16 @@ Follow these steps to create a template from a new organization.
 
 ## Export resources to a template
 
-The [`influx export` command](/influxdb/v2.2/reference/cli/influx/export/) and subcommands let you
+The [`influx export` command](/influxdb/v2.3/reference/cli/influx/export/) and subcommands let you
 export [resources](#template-resources) from an organization to a template manifest.
-Your [API token](/influxdb/v2.2/security/tokens/) must have **read** access to resources that you want to export.
+Your [API token](/influxdb/v2.3/security/tokens/) must have **read** access to resources that you want to export.
 
 If you want to export resources that depend on other resources, be sure to export the dependencies.
 
 {{< cli/influx-creds-note >}}
 
-To create a template that **adds, modifies, and deletes resources** when applied to an organization, use [InfluxDB stacks](/influxdb/v2.2/influxdb-templates/stacks/).
-First, [initialize the stack](/influxdb/v2.2/influxdb-templates/stacks/init/)
+To create a template that **adds, modifies, and deletes resources** when applied to an organization, use [InfluxDB stacks](/influxdb/v2.3/influxdb-templates/stacks/).
+First, [initialize the stack](/influxdb/v2.3/influxdb-templates/stacks/init/)
 and then [export the stack](#export-a-stack).
 
 To create a template that only **adds resources** when applied to an organization (and doesn't modify existing resources there), choose one of the following:
@@ -67,9 +67,9 @@ To create a template that only **adds resources** when applied to an organizatio
 
 ### Export all resources
 
-To export all [resources](/influxdb/v2.2/influxdb-templates/#template-resources)
+To export all [resources](/influxdb/v2.3/influxdb-templates/#template-resources)
 within an organization to a template manifest file, use the
-[`influx export all` subcommand](/influxdb/v2.2/reference/cli/influx/export/all/)
+[`influx export all` subcommand](/influxdb/v2.3/reference/cli/influx/export/all/)
 with the `--file` (`-f`) option.
 
 Provide the following:
@@ -86,7 +86,7 @@ influx export all -f <FILE_PATH>
 
 #### Export resources filtered by labelName or resourceKind
 
-The [`influx export all` subcommand](/influxdb/v2.2/reference/cli/influx/export/all/)
+The [`influx export all` subcommand](/influxdb/v2.3/reference/cli/influx/export/all/)
 accepts a `--filter` option that exports
 only resources that match specified label names or resource kinds.
 To filter on label name *and* resource kind, provide a `--filter` for each.
@@ -111,11 +111,11 @@ influx export all \
 ```
 
 For more options and examples, see the
-[`influx export all` subcommand](/influxdb/v2.2/reference/cli/influx/export/all/).
+[`influx export all` subcommand](/influxdb/v2.3/reference/cli/influx/export/all/).
 
 ### Export specific resources
 
-To export specific [resources](/influxdb/v2.2/influxdb-templates/#template-resources) by name or ID, use the **[`influx export` command](/influxdb/v2.2/reference/cli/influx/export/)** with one or more lists of resources to include.
+To export specific [resources](/influxdb/v2.3/influxdb-templates/#template-resources) by name or ID, use the **[`influx export` command](/influxdb/v2.3/reference/cli/influx/export/)** with one or more lists of resources to include.
 
 Provide the following:
 
@@ -125,7 +125,7 @@ Provide the following:
   - `your-template.json`: [JSON](https://json.org/) format
 - **Resource options** with corresponding lists of resource IDs or resource names to include in the template.
   For information about what resource options are available, see the
-  [`influx export` command](/influxdb/v2.2/reference/cli/influx/export/).
+  [`influx export` command](/influxdb/v2.3/reference/cli/influx/export/).
 
 ```sh
 # Syntax
@@ -155,7 +155,7 @@ influx export \
 
 ### Export a stack
 
-To export an InfluxDB [stack](/influxdb/v2.2/influxdb-templates/stacks/) and all its associated resources as a template, use the
+To export an InfluxDB [stack](/influxdb/v2.3/influxdb-templates/stacks/) and all its associated resources as a template, use the
 `influx export stack` command.
 Provide the following:
 
@@ -237,7 +237,7 @@ metadata:
   {{< /code-tabs-wrapper >}}
 
 Using the example above, users are prompted to provide a value for `bucket-name-1`
-when [applying the template](/influxdb/v2.2/influxdb-templates/use/#apply-templates).
+when [applying the template](/influxdb/v2.3/influxdb-templates/use/#apply-templates).
 Users can also include the `--env-ref` flag with the appropriate key-value pair
 when installing the template.
 
@@ -271,9 +271,9 @@ templates, check the following:
 
 ### Ensure read access
 
-The [API token](/influxdb/v2.2/security/tokens/) must have **read** access to resources that you want to export. The `influx export all` command only exports resources that the API token can read. For example, to export all resources in an organization that has ID `abc123`, the API token must have the `read:/orgs/abc123` permission.
+The [API token](/influxdb/v2.3/security/tokens/) must have **read** access to resources that you want to export. The `influx export all` command only exports resources that the API token can read. For example, to export all resources in an organization that has ID `abc123`, the API token must have the `read:/orgs/abc123` permission.
 
-To learn more about permissions, see [how to view authorizations](/influxdb/v2.2/security/tokens/view-tokens/) and [how to create a token](/influxdb/v2.2/security/tokens/create-token/) with specific permissions.
+To learn more about permissions, see [how to view authorizations](/influxdb/v2.3/security/tokens/view-tokens/) and [how to create a token](/influxdb/v2.3/security/tokens/create-token/) with specific permissions.
 
 ### Use Organization ID
 

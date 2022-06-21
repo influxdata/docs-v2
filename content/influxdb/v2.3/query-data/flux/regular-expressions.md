@@ -2,16 +2,16 @@
 title: Use regular expressions in Flux
 list_title: Regular expressions
 description: This guide walks through using regular expressions in evaluation logic in Flux functions.
-influxdb/v2.2/tags: [regex]
+influxdb/v2.3/tags: [regex]
 menu:
   influxdb_2_3:
     name: Regular expressions
     parent: Query with Flux
 weight: 220
 aliases:
-  - /influxdb/v2.2/query-data/guides/regular-expressions/
+  - /influxdb/v2.3/query-data/guides/regular-expressions/
 related:
-  - /influxdb/v2.2/query-data/flux/query-fields/
+  - /influxdb/v2.3/query-data/flux/query-fields/
   - /{{< latest "flux" >}}/stdlib/regexp/
 list_query_example: regular_expressions
 ---
@@ -24,7 +24,7 @@ This guide shows how to use regular expressions in your Flux scripts.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.3/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Go regular expression syntax
 Flux uses Go's [regexp package](https://golang.org/pkg/regexp/) for regular expression search.

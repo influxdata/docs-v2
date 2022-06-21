@@ -9,7 +9,7 @@ menu:
     parent: Manage tasks
 weight: 206
 related:
-  - /influxdb/v2.2/reference/cli/influx/task/delete
+  - /influxdb/v2.3/reference/cli/influx/task/delete
 ---
 
 ## Delete a task in the InfluxDB UI

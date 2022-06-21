@@ -70,7 +70,7 @@ InfluxDB returns a gzipped tar file that contains the following profiles in the 
 
 | Option  | Include by |
 |:--------|:-----------|
-| Profile CPU | Pass a [duration of seconds](/influxdb/v2.2/reference/glossary/#duration) with the `cpu` query parameter in your request URL |
+| Profile CPU | Pass a [duration of seconds](/influxdb/v2.3/reference/glossary/#duration) with the `cpu` query parameter in your request URL |
 
 Use an HTTP client like `curl` or `wget` to download profiles from `/debug/pprof/all`.
 
@@ -96,7 +96,7 @@ the total number of bytes allocated since the program began (including garbage-c
 
 | Option  | Include by |
 |:--------|:-----------|
-| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.2/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.3/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
 | Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 ```sh
@@ -145,7 +145,7 @@ Profiles program counters sampled from the execution stack. To download the prof
 
 | Option  | Include by |
 |:--------|:-----------|
-| Seconds to sample (default `30`) | Pass an [unsigned integer](/influxdb/v2.2/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Seconds to sample (default `30`) | Pass an [unsigned integer](/influxdb/v2.3/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
 
 Use an HTTP client like `curl` or `wget` to download the profile.
 
@@ -194,7 +194,7 @@ Profiles all current goroutines.
 
 | Option  | Include by |
 |:--------|:-----------|
-| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.2/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.3/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
 | Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 #### Example
@@ -222,7 +222,7 @@ Profiles heap, or memory allocations for live objects.
 | Option  | Include by |
 |:--------|:-----------|
 | Run garbage control before sampling | Pass `1` with the `gc` query parameter in your request URL |
-| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.2/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.3/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
 | Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 #### Example
@@ -254,7 +254,7 @@ Profiles holders of contended mutual exclusions (mutexes).
 
 | Option  | Include by |
 |:--------|:-----------|
-| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.2/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.3/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
 | Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 #### Example
@@ -281,7 +281,7 @@ Profiles operations that led to the creation of OS threads.
 
 | Option  | Include by |
 |:--------|:-----------|
-| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.2/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
+| Seconds to sample | Pass an [unsigned integer](/influxdb/v2.3/reference/glossary/#unsigned-integer) with the `seconds` query parameter in your request URL |
 | Output plain text (mutually exclusive with `seconds`) | Pass `1` with the `debug` query parameter in your request URL |
 
 #### Example
@@ -349,5 +349,5 @@ To view the command, arguments, and command-line variables that invoked InfluxDB
 
 ## View runtime configuration
 
-In InfluxDB v2.2+, you can view your active runtime configuration, including flags and environment variables.
-See how to [view your runtime server configuration](/influxdb/v2.2/reference/config-options/#view-your-runtime-server-configuration).
+In InfluxDB v2.3+, you can view your active runtime configuration, including flags and environment variables.
+See how to [view your runtime server configuration](/influxdb/v2.3/reference/config-options/#view-your-runtime-server-configuration).

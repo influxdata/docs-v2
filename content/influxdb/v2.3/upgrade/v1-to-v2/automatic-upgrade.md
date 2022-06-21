@@ -9,11 +9,11 @@ menu:
     name: Automatically upgrade
 weight: 10
 aliases:
-  - /influxdb/v2.2/reference/upgrading/influxd-upgrade-guide/
+  - /influxdb/v2.3/reference/upgrading/influxd-upgrade-guide/
 related:
-  - /influxdb/v2.2/reference/cli/influxd/upgrade/
-  - /influxdb/v2.2/upgrade/v1-to-v2/manual-upgrade/
-  - /influxdb/v2.2/upgrade/v1-to-v2/docker/
+  - /influxdb/v2.3/reference/cli/influxd/upgrade/
+  - /influxdb/v2.3/upgrade/v1-to-v2/manual-upgrade/
+  - /influxdb/v2.3/upgrade/v1-to-v2/docker/
 ---
 
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB {{< current-version >}}.
@@ -23,8 +23,8 @@ Specifically, the upgrade process does the following:
 
 1. Reads the existing InfluxDB 1.x configuration file and generates an equivalent InfluxDB {{< current-version >}} configuration file at `~/.influxdbv2/config.toml` or at a custom path specified with the `--v2-config-path` flag.
 2. Upgrades metadata and storage engine paths to `~/.influxdbv2/meta` and `~/.influxdbv2/engine`, respectively (unless otherwise specified).
-3. Writes existing data and write ahead log (WAL) files into InfluxDB {{< current-version >}} [buckets](/influxdb/v2.2/reference/glossary/#bucket).
-4. Creates [database and retention policy (DBRP) mappings](/influxdb/v2.2/reference/api/influxdb-1x/dbrp/) required to query data with InfluxQL.
+3. Writes existing data and write ahead log (WAL) files into InfluxDB {{< current-version >}} [buckets](/influxdb/v2.3/reference/glossary/#bucket).
+4. Creates [database and retention policy (DBRP) mappings](/influxdb/v2.3/reference/api/influxdb-1x/dbrp/) required to query data with InfluxQL.
 5. Reads existing metadata and migrates non-admin users, passwords, and permissions into a 1.x authorization–compatible store within `~/influxdbv2/influxdb.bolt`.
 
 When starting InfluxDB {{< current-version >}} after running `influxdb upgrade`, InfluxDB must build a new time series index (TSI).
@@ -60,7 +60,7 @@ InfluxDB {{< current-version >}} requires 64-bit operating systems.
 Continuous queries are replaced by **tasks** in InfluxDB {{< current-version >}}.
 By default, `influxd upgrade` writes all continuous queries to `~/continuous_queries.txt`.
 To convert continuous queries to InfluxDB tasks, see
-[Migrate continuous queries to tasks](/influxdb/v2.2/upgrade/v1-to-v2/migrate-cqs/).
+[Migrate continuous queries to tasks](/influxdb/v2.3/upgrade/v1-to-v2/migrate-cqs/).
 
 ### Supported protocols
 
@@ -74,7 +74,7 @@ Use [Telegraf](/{{< latest "telegraf" >}}/) to translate these protocols to line
 You can continue to use Kapacitor with InfluxDB OSS {{< current-version >}} under the following scenarios:
 
 - Kapacitor Batch-style TICKscripts work with the 1.x read compatible API.
-  Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/).
+  Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2.3/reference/api/influxdb-1x/).
 - InfluxDB {{< current-version >}} has no subscriptions API and does not support Kapacitor stream tasks.
   To continue using stream tasks, write data directly to both InfluxDB and Kapacitor.
   Use **Telegraf** and its [InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb)
@@ -139,8 +139,8 @@ This provides you with the opportunity to reassess who to grant admin permission
 
 ### Dashboards
 
-You can continue to use your existing dashboards and visualization tools with InfluxDB {{< current-version >}} via the [1.x read compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/).
-The upgrade process creates [DBRP mappings](/influxdb/v2.2/reference/api/influxdb-1x/dbrp/) to ensure existing users can execute InfluxQL queries with the appropriate permissions.
+You can continue to use your existing dashboards and visualization tools with InfluxDB {{< current-version >}} via the [1.x read compatibility API](/influxdb/v2.3/reference/api/influxdb-1x/).
+The upgrade process creates [DBRP mappings](/influxdb/v2.3/reference/api/influxdb-1x/dbrp/) to ensure existing users can execute InfluxQL queries with the appropriate permissions.
 
 However, if your dashboard tool is configured using a user with admin permissions,
 you will need to create a new read-only user with the appropriate database permissions *before* upgrading.
@@ -152,7 +152,7 @@ Ensure your dashboards are all functioning before upgrading.
 
 The 1.x `_internal` database is not migrated with the `influxd upgrade` command.
 To collect, store, and monitor similar internal InfluxDB metrics,
-[create an InfluxDB {{< current-version >}} scraper](/influxdb/v2.2/write-data/no-code/scrape-data/manage-scrapers/create-a-scraper/)
+[create an InfluxDB {{< current-version >}} scraper](/influxdb/v2.3/write-data/no-code/scrape-data/manage-scrapers/create-a-scraper/)
 to scrape data from the `/metrics` endpoint and store them in a bucket.
 
 ### Secure by default
@@ -174,7 +174,7 @@ InfluxDB {{< current-version >}} doesn't support [in-memory (`inmem`) indexing](
 
 ### Interactive shell
 
-The InfluxDB 2.x `influx` CLI does not include an interactive shell for executing InfluxQL queries or Flux queries. For information about executing InfluxQL queries, see [Query data with InfluxQL](/influxdb/v2.2/query-data/influxql/). To build an interactive shell to execute Flux queries, [compile and build a command line Flux REPL from source](https://github.com/influxdata/flux/blob/master/README.md#getting-started). 
+The InfluxDB 2.x `influx` CLI does not include an interactive shell for executing InfluxQL queries or Flux queries. For information about executing InfluxQL queries, see [Query data with InfluxQL](/influxdb/v2.3/query-data/influxql/). To build an interactive shell to execute Flux queries, [compile and build a command line Flux REPL from source](https://github.com/influxdata/flux/blob/master/README.md#getting-started). 
 
 ## Perform the upgrade
 
@@ -251,7 +251,7 @@ It is also saved (for troubleshooting and debugging) in the current directory to
 ### Verify 1.x users were migrated to {{< current-version >}}
 
 To verify 1.x users were successfully migrated to {{< current-version >}}, run
-[`influx v1 auth list`](/influxdb/v2.2/reference/cli/influx/v1/auth/list/).
+[`influx v1 auth list`](/influxdb/v2.3/reference/cli/influx/v1/auth/list/).
 
 #### Add authorizations for external clients
 
@@ -261,6 +261,6 @@ your 1.x instance will not be able to access InfluxDB {{< current-version >}}, w
 
 **For these external clients to work with InfluxDB {{< current-version >}}:**
 
-1. [Manually create a 1.x-compatible authorization](/influxdb/v2.2/upgrade/v1-to-v2/manual-upgrade/#create-a-1x-compatible-authorization).
+1. [Manually create a 1.x-compatible authorization](/influxdb/v2.3/upgrade/v1-to-v2/manual-upgrade/#create-a-1x-compatible-authorization).
 2. Update the client configuration to use the username and password associated
    with your 1.x-compatible authorization.

@@ -3,7 +3,7 @@ title: Common queries
 seotitle: Common queries with Flux
 description: >
   This collection of articles walks through common use cases for Flux queries.
-influxdb/v2.2/tags: [queries]
+influxdb/v2.3/tags: [queries]
 menu:
   influxdb_2_3:
     name: Common queries
@@ -12,7 +12,7 @@ weight: 104
 ---
 
 The following articles walk through common queries using the
-[NOAA water database data](/influxdb/v2.2/reference/sample-data/#noaa-water-sample-data).
+[NOAA water database data](/influxdb/v2.3/reference/sample-data/#noaa-water-sample-data).
 
 {{< children >}}
 

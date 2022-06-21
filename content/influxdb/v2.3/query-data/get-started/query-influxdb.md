@@ -1,7 +1,7 @@
 ---
 title: Query InfluxDB with Flux
 description: Learn the basics of using Flux to query data from InfluxDB.
-influxdb/v2.2/tags: [query, flux]
+influxdb/v2.3/tags: [query, flux]
 menu:
   influxdb_2_3:
     name: Query InfluxDB
@@ -9,7 +9,7 @@ menu:
 weight: 201
 related:
   - /{{< latest "flux" >}}/get-started/query-basics/
-  - /influxdb/v2.2/query-data/flux/
+  - /influxdb/v2.3/query-data/flux/
   - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/from
   - /{{< latest "flux" >}}/stdlib/universe/range
   - /{{< latest "flux" >}}/stdlib/universe/filter
@@ -130,4 +130,4 @@ You have now queried data from InfluxDB using Flux.
 The query shown here is a basic example.
 Flux queries can be extended in many ways to form powerful scripts.
 
-{{< page-nav prev="/influxdb/v2.2/query-data/get-started/" next="/influxdb/v2.2/query-data/get-started/transform-data/" >}}
+{{< page-nav prev="/influxdb/v2.3/query-data/get-started/" next="/influxdb/v2.3/query-data/get-started/transform-data/" >}}

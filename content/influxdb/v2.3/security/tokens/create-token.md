@@ -3,7 +3,7 @@ title: Create a token
 seotitle: Create an API token in InfluxDB
 description: Create an API token in InfluxDB using the InfluxDB UI, the `influx` CLI, or the InfluxDB API.
 aliases:
-  - /influxdb/v2.2/users/tokens/create-token/
+  - /influxdb/v2.3/users/tokens/create-token/
 menu:
   influxdb_2_3:
     name: Create a token
@@ -111,9 +111,9 @@ find the token you want to clone and click the **{{< icon "settings" >}}** icon 
 
 ## Create a token using the influx CLI
 
-Use the [`influx auth create` command](/influxdb/v2.2/reference/cli/influx/auth/create) to create a token.
+Use the [`influx auth create` command](/influxdb/v2.3/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
-See the [available flags](/influxdb/v2.2/reference/cli/influx/auth/create#flags).
+See the [available flags](/influxdb/v2.3/reference/cli/influx/auth/create#flags).
 Only tokens with the `write: authorizations` permission can create tokens.
 
 ```sh
@@ -165,13 +165,13 @@ See the [`influx auth create` documentation](/{{< latest "influxdb" >}}/referenc
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to create a token.
 
-[{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" >}}]((/influxdb/v2.2/api/#operation/PostAuthorizations))
+[{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" >}}]((/influxdb/v2.3/api/#operation/PostAuthorizations))
 
 Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`write: authorizations`](/influxdb/v2.2/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% oss-only %}}`Bearer` or {{% /oss-only %}}`Token` scheme. |
+| API token with the [`write: authorizations`](/influxdb/v2.3/api/#operation/PostAuthorizations) permission  | Use the `Authorization` header and the {{% oss-only %}}`Bearer` or {{% /oss-only %}}`Token` scheme. |
 | Organization         | Pass as `orgID` in the request body.
 | Permissions list     | Pass as a `permissions` array in the request body.
 
@@ -189,5 +189,5 @@ body.
 ```
 
 See the
-[`POST /api/v2/authorizations` documentation](/influxdb/v2.2/api/#operation/PostAuthorizations)
+[`POST /api/v2/authorizations` documentation](/influxdb/v2.3/api/#operation/PostAuthorizations)
 for more information about options.

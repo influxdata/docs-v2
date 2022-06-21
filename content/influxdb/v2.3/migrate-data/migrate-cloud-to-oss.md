@@ -211,7 +211,7 @@ metadata()
 {{% expand "Determine your task interval" %}}
 
 The task interval determines how often the migration task runs and is defined by
-the [`task.every` option](/influxdb/v2.2/process-data/task-options/#every).
+the [`task.every` option](/influxdb/v2.3/process-data/task-options/#every).
 InfluxDB Cloud rate limits and quotas reset every five minutes, so
 **we recommend a `5m` task interval**.
 
@@ -328,7 +328,7 @@ for monitoring running data migrations.
 <a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
 ## Troubleshoot migration task failures
-If the migration task fails, [view your task logs](/influxdb/v2.2/process-data/manage-tasks/task-run-history/)
+If the migration task fails, [view your task logs](/influxdb/v2.3/process-data/manage-tasks/task-run-history/)
 to identify the specific error. Below are common causes of migration task failures.
 
 - [Exceeded rate limits](#exceeded-rate-limits)

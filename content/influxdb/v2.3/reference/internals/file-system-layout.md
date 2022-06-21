@@ -8,7 +8,7 @@ menu:
   influxdb_2_3_ref:
     name: File system layout
     parent: InfluxDB internals
-influxdb/v2.2/tags: [storage, internals]
+influxdb/v2.3/tags: [storage, internals]
 ---
 
 The InfluxDB file system layout depends on the operating system, installation method,
@@ -27,23 +27,23 @@ where InfluxDB stores time series data, includes the following directories:
 - **data**: stores Time-Structured Merge Tree (TSM) files
 - **wal**: stores Write Ahead Log (WAL) files.
 
-To customize this path, use the [engine-path](/influxdb/v2.2/reference/config-options/#engine-path)
+To customize this path, use the [engine-path](/influxdb/v2.3/reference/config-options/#engine-path)
 configuration option.
 
 #### Bolt path
 File path to the [Boltdb](https://github.com/boltdb/bolt) database, a file-based
 key-value store for non-time series data, such as InfluxDB users, dashboards, tasks, etc.
-To customize this path, use the [bolt-path](/influxdb/v2.2/reference/config-options/#bolt-path)
+To customize this path, use the [bolt-path](/influxdb/v2.3/reference/config-options/#bolt-path)
 configuration option.
 
 #### Configs path
-File path to [`influx` CLI connection configurations](/influxdb/v2.2/reference/cli/influx/config/) (configs).
+File path to [`influx` CLI connection configurations](/influxdb/v2.3/reference/cli/influx/config/) (configs).
 To customize this path, use the `--configs-path` flag with `influx` CLI commands.
 
 #### InfluxDB configuration files
 Some operating systems and package managers store a default InfluxDB (`influxd`) configuration file on disk.
 For more information about using InfluxDB configuration files, see
-[Configuration options](/influxdb/v2.2/reference/config-options/).
+[Configuration options](/influxdb/v2.3/reference/config-options/).
 
 ## File system layout
 {{< tabs-wrapper >}}
@@ -182,7 +182,7 @@ Each have a unique InfluxDB file system layout.
 {{% note %}}
 The InfluxDB Dockerhub image uses `/var/lib/influxdb2` instead of `/var/lib/influxdb`
 so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during the
-[upgrade process](/influxdb/v2.2/upgrade/v1-to-v2/docker/).
+[upgrade process](/influxdb/v2.3/upgrade/v1-to-v2/docker/).
 {{% /note %}}
 
 #### Dockerhub default paths

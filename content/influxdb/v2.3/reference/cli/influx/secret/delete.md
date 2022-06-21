@@ -6,7 +6,7 @@ menu:
     name: influx secret delete
     parent: influx secret
 weight: 101
-influxdb/v2.2/tags: [secrets]
+influxdb/v2.3/tags: [secrets]
 ---
 
 The `influx secret delete` command deletes secrets.

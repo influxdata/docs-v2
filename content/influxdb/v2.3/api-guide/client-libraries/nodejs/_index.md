@@ -8,11 +8,11 @@ menu:
   influxdb_2_3:
     name: Node.js
     parent: Client libraries
-influxdb/v2.2/tags: [client libraries, JavaScript]
+influxdb/v2.3/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
-  - /influxdb/v2.2/reference/api/client-libraries/nodejs/
-  - /influxdb/v2.2/reference/api/client-libraries/js/  
+  - /influxdb/v2.3/reference/api/client-libraries/nodejs/
+  - /influxdb/v2.3/reference/api/client-libraries/js/  
 ---
 
 Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into your Node.js application.

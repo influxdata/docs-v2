@@ -7,10 +7,10 @@ menu:
     name: influx v1 auth set-inactive
     parent: influx v1 auth
 weight: 101
-influxdb/v2.2/tags: [authorization]
+influxdb/v2.3/tags: [authorization]
 ---
 
-The `influx v1 auth set-inactive` command deactivates an authorization in the [InfluxDB 1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/).
+The `influx v1 auth set-inactive` command deactivates an authorization in the [InfluxDB 1.x compatibility API](/influxdb/v2.3/reference/api/influxdb-1x/).
 Inactive authorizations **do not** grant access to InfluxDB.
 
 ## Usage

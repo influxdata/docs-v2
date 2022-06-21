@@ -4,7 +4,7 @@ seotitle: Command line tools for managing InfluxDB
 description: >
   InfluxDB provides command line tools designed to aid in managing and working
   with InfluxDB from the command line.
-influxdb/v2.2/tags: [cli]
+influxdb/v2.3/tags: [cli]
 menu:
   influxdb_2_3_ref:
     name: Command line tools

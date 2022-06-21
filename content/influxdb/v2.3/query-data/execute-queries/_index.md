@@ -7,7 +7,7 @@ menu:
   influxdb_2_3:
     name: Execute queries
     parent: Query data
-influxdb/v2.2/tags: [query]
+influxdb/v2.3/tags: [query]
 ---
 
 There are multiple ways to execute queries with InfluxDB. Choose from the following options:

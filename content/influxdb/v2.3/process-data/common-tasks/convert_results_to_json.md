@@ -9,10 +9,10 @@ menu:
     name: Convert results to JSON
     parent: Common tasks
 weight: 203
-influxdb/v2.2/tags: [tasks]
+influxdb/v2.3/tags: [tasks]
 ---
 {{% note %}}
-This example uses [NOAA water sample data](/influxdb/v2.2/reference/sample-data/#noaa-water-sample-data).
+This example uses [NOAA water sample data](/influxdb/v2.3/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
 Send each record to a URL endpoint using the HTTP POST method. This example uses [`json.encode()`](/{{< latest "flux" >}}/stdlib/json/encode/) to convert a value into JSON bytes, then uses [`http.post()`](/{{< latest "flux" >}}/stdlib/http/post/) to send them to a URL endpoint.

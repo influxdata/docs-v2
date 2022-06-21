@@ -3,8 +3,8 @@ title: Manage API tokens
 seotitle: Manage API tokens in InfluxDB
 description: Manage API tokens in InfluxDB using the InfluxDB UI or the influx CLI.
 aliases:
-  - /influxdb/v2.2/users/tokens
-influxdb/v2.2/tags: [tokens, authentication, security]
+  - /influxdb/v2.3/users/tokens
+influxdb/v2.3/tags: [tokens, authentication, security]
 menu:
   influxdb_2_3:
     name: Manage tokens
@@ -25,13 +25,13 @@ Learn how to create, view, update, or delete an API token.
 
 #### Operator token
 Grants full read and write access to **all organizations and all organization resources in InfluxDB OSS 2.x**.
-Some operations, e.g. [retrieving the server configuration](/influxdb/v2.2/reference/config-options/), require operator permissions.
+Some operations, e.g. [retrieving the server configuration](/influxdb/v2.3/reference/config-options/), require operator permissions.
 Operator tokens are created in the InfluxDB setup process.
-To [create an operator token manually](/influxdb/v2.2/security/tokens/create-token/), you must use an existing operator token.
+To [create an operator token manually](/influxdb/v2.3/security/tokens/create-token/), you must use an existing operator token.
 
 {{% note %}}
 Because Operator tokens have full read and write access to all organizations in the database,
-we recommend [creating an All-Access token](/influxdb/v2.2/security/tokens/create-token/)
+we recommend [creating an All-Access token](/influxdb/v2.3/security/tokens/create-token/)
 for each organization and using those to manage InfluxDB.
 This helps to prevent accidental interactions across organizations.
 {{% /note %}}

@@ -6,11 +6,11 @@ menu:
     name: influx bucket
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [buckets]
+influxdb/v2.3/tags: [buckets]
 cascade:
   related:
-    - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 cascade:
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
@@ -26,10 +26,10 @@ influx bucket [command]
 ## Subcommands
 | Subcommand                                                  | Description   |
 |:----------                                                  |:-----------   |
-| [create](/influxdb/v2.2/reference/cli/influx/bucket/create) | Create bucket |
-| [delete](/influxdb/v2.2/reference/cli/influx/bucket/delete) | Delete bucket |
-| [list](/influxdb/v2.2/reference/cli/influx/bucket/list)     | List buckets  |
-| [update](/influxdb/v2.2/reference/cli/influx/bucket/update) | Update bucket |
+| [create](/influxdb/v2.3/reference/cli/influx/bucket/create) | Create bucket |
+| [delete](/influxdb/v2.3/reference/cli/influx/bucket/delete) | Delete bucket |
+| [list](/influxdb/v2.3/reference/cli/influx/bucket/list)     | List buckets  |
+| [update](/influxdb/v2.3/reference/cli/influx/bucket/update) | Update bucket |
 
 ## Flags
 | Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}    |

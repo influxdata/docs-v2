@@ -3,16 +3,16 @@ title: Create an InfluxDB scraper
 list_title: Create a scraper
 description: Create an InfluxDB scraper that collects data from InfluxDB or a remote endpoint.
 aliases:
-  - /influxdb/v2.2/collect-data/scrape-data/manage-scrapers/create-a-scraper
-  - /influxdb/v2.2/write-data/scrape-data/manage-scrapers/create-a-scraper
-influxdb/v2.2/tags: [scraper]
+  - /influxdb/v2.3/collect-data/scrape-data/manage-scrapers/create-a-scraper
+  - /influxdb/v2.3/write-data/scrape-data/manage-scrapers/create-a-scraper
+influxdb/v2.3/tags: [scraper]
 menu:
   influxdb_2_3:
     name: Create a scraper
     parent: Manage scrapers
 weight: 301
 related:
-  - /influxdb/v2.2/write-data/no-code/scrape-data/
+  - /influxdb/v2.3/write-data/no-code/scrape-data/
 
 ---
 

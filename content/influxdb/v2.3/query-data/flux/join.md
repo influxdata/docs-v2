@@ -3,14 +3,14 @@ title: Join data with Flux
 seotitle: Join data in InfluxDB with Flux
 list_title: Join
 description: This guide walks through joining data with Flux and outlines how it shapes your data in the process.
-influxdb/v2.2/tags: [join, flux]
+influxdb/v2.3/tags: [join, flux]
 menu:
   influxdb_2_3:
     name: Join
     parent: Query with Flux
 weight: 210
 aliases:
-  - /influxdb/v2.2/query-data/guides/join/
+  - /influxdb/v2.3/query-data/guides/join/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/join
 list_query_example: join
@@ -30,7 +30,7 @@ total number of running processes, then calculate the average memory usage per r
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.3/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Define stream variables
 In order to perform a join, you must have two streams of data.

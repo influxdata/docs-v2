@@ -2,7 +2,7 @@
 title: Control a dashboard
 seotitle: Control an InfluxDB dashboard
 description: Control an InfluxDB dashboard in the InfluxDB user interface (UI).
-influxdb/v2.2/tags: [dashboards]
+influxdb/v2.3/tags: [dashboards]
 menu:
   influxdb_2_3:
     name: Control a dashboard
@@ -18,7 +18,7 @@ Use dashboard controls in the upper left to update your dashboard.
 
 Click **{{< icon "add-cell" >}} Add Cell** to open the Data Explorer and configure a new cell for your dashboard.
 
-For details on using the Data Explorer, see [Explore metrics](/influxdb/v2.2/visualize-data/explore-metrics/).
+For details on using the Data Explorer, see [Explore metrics](/influxdb/v2.3/visualize-data/explore-metrics/).
 
 ### Add a note
 
@@ -55,7 +55,7 @@ The default time range is 5 minutes.
 
 ### Add variables
 
-Click **Variables** to display variables available for your dashboard. For details, see [Use and manage variables](/influxdb/v2.2/visualize-data/variables/)
+Click **Variables** to display variables available for your dashboard. For details, see [Use and manage variables](/influxdb/v2.3/visualize-data/variables/)
 
 ### Presentation mode
 

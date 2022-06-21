@@ -6,11 +6,11 @@ menu:
     name: influx config
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [config]
+influxdb/v2.3/tags: [config]
 cascade:
   related:
-    - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
@@ -54,10 +54,10 @@ influx config local-config
 ## Subcommands
 | Subcommand                                                   | Description                              |
 |:----                                                         |:-----------                              |
-| [create](/influxdb/v2.2/reference/cli/influx/config/create/) | Create a connection configuration        |
-| [list](/influxdb/v2.2/reference/cli/influx/config/list/)     | List connection configurations           |
-| [delete](/influxdb/v2.2/reference/cli/influx/config/rm/)     | Delete a connection configuration        |
-| [set](/influxdb/v2.2/reference/cli/influx/config/set/)       | Set or update a connection configuration |
+| [create](/influxdb/v2.3/reference/cli/influx/config/create/) | Create a connection configuration        |
+| [list](/influxdb/v2.3/reference/cli/influx/config/list/)     | List connection configurations           |
+| [delete](/influxdb/v2.3/reference/cli/influx/config/rm/)     | Delete a connection configuration        |
+| [set](/influxdb/v2.3/reference/cli/influx/config/set/)       | Set or update a connection configuration |
 
 ## Flags
 | Flag |          | Description                   |

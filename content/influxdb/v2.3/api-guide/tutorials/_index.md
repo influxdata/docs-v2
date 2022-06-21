@@ -7,7 +7,7 @@ menu:
   influxdb_2_3:
     name: Client library tutorials
     parent: Develop with the API
-influxdb/v2.2/tags: [api]
+influxdb/v2.3/tags: [api]
 ---
 
 {{< children >}}

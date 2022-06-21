@@ -7,13 +7,13 @@ menu:
   influxdb_2_3:
     parent: Manage notification rules
 related:
-  - /influxdb/v2.2/monitor-alert/checks/
-  - /influxdb/v2.2/monitor-alert/notification-endpoints/
+  - /influxdb/v2.3/monitor-alert/checks/
+  - /influxdb/v2.3/monitor-alert/notification-endpoints/
 ---
 
 Once you've set up checks and notification endpoints, create notification rules to alert you.
-_For details, see [Manage checks](/influxdb/v2.2/monitor-alert/checks/) and
-[Manage notification endpoints](/influxdb/v2.2/monitor-alert/notification-endpoints/)._
+_For details, see [Manage checks](/influxdb/v2.3/monitor-alert/checks/) and
+[Manage notification endpoints](/influxdb/v2.3/monitor-alert/notification-endpoints/)._
 
 
 1. In the navigation menu on the left, select **Alerts > Alerts**.

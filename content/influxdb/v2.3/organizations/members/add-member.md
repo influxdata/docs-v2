@@ -33,4 +33,4 @@ influx user list
 influx org members add -n <org-name> -m <user-ID>
 ```
 
-For more information, see the [`influx org members add` command](/influxdb/v2.2/reference/cli/influx/org/members/add).
+For more information, see the [`influx org members add` command](/influxdb/v2.3/reference/cli/influx/org/members/add).

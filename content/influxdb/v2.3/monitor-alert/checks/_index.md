@@ -7,10 +7,10 @@ menu:
   influxdb_2_3:
     parent: Monitor & alert
 weight: 101
-influxdb/v2.2/tags: [monitor, checks, notifications, alert]
+influxdb/v2.3/tags: [monitor, checks, notifications, alert]
 related:
-  - /influxdb/v2.2/monitor-alert/notification-rules/
-  - /influxdb/v2.2/monitor-alert/notification-endpoints/
+  - /influxdb/v2.3/monitor-alert/notification-rules/
+  - /influxdb/v2.3/monitor-alert/notification-endpoints/
 ---
 
 Checks in InfluxDB query data and apply a status or level to each data point based on specified conditions.

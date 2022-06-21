@@ -6,11 +6,11 @@ menu:
     name: influx org
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [organizations]
+influxdb/v2.3/tags: [organizations]
 cascade:
   related:
-    - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
@@ -28,11 +28,11 @@ influx org [command]
 ## Subcommands
 | Subcommand                                                 | Description                      |
 |:----------                                                 |:-----------                      |
-| [create](/influxdb/v2.2/reference/cli/influx/org/create)   | Create an organization           |
-| [delete](/influxdb/v2.2/reference/cli/influx/org/delete)   | Delete an organization           |
-| [list](/influxdb/v2.2/reference/cli/influx/org/list)       | List organizations               |
-| [members](/influxdb/v2.2/reference/cli/influx/org/members) | Organization membership commands |
-| [update](/influxdb/v2.2/reference/cli/influx/org/update)   | Update an organization           |
+| [create](/influxdb/v2.3/reference/cli/influx/org/create)   | Create an organization           |
+| [delete](/influxdb/v2.3/reference/cli/influx/org/delete)   | Delete an organization           |
+| [list](/influxdb/v2.3/reference/cli/influx/org/list)       | List organizations               |
+| [members](/influxdb/v2.3/reference/cli/influx/org/members) | Organization membership commands |
+| [update](/influxdb/v2.3/reference/cli/influx/org/update)   | Update an organization           |
 
 ## Flags
 | Flag |          | Description                |

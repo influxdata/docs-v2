@@ -8,14 +8,14 @@ weight: 102
 menu:
   influxdb_2_3:
     parent: Security & authorization
-influxdb/v2.2/tags: [security, hardening]
+influxdb/v2.3/tags: [security, hardening]
 ---
 
 InfluxDB {{< current-version >}} provides optional security features that ensure your
 InfluxDB instance is secure in whatever environment it's used in.
 
 To enable all [additional security features](#security-features), use the
-[`hardening-enabled` configuration option](/influxdb/v2.2/reference/config-options/#hardening-enabled)
+[`hardening-enabled` configuration option](/influxdb/v2.3/reference/config-options/#hardening-enabled)
 when starting InfluxDB.
 
 ## Security features
@@ -26,7 +26,7 @@ when starting InfluxDB.
 
 Some Flux functions ([`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/),
 [`from()`](/flux/v0.x/stdlib/influxdata/influxdb/from/), [`http.post()`](/flux/v0.x/stdlib/http/post/), etc.)
-and [template fetching](/influxdb/v2.2/influxdb-templates/) can require InfluxDB to make
+and [template fetching](/influxdb/v2.3/influxdb-templates/) can require InfluxDB to make
 HTTP requests over the network.
 With private IP validation enabled, InfluxDB first verifies that the IP address of the URL is not a private IP address.
 

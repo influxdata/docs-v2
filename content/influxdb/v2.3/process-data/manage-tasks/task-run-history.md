@@ -8,9 +8,9 @@ menu:
     parent: Manage tasks
 weight: 203
 related:
-  - /influxdb/v2.2/reference/cli/influx/task/list
-  - /influxdb/v2.2/reference/cli/influx/task/run/list
-  - /influxdb/v2.2/reference/cli/influx/task/retry-failed
+  - /influxdb/v2.3/reference/cli/influx/task/list
+  - /influxdb/v2.3/reference/cli/influx/task/run/list
+  - /influxdb/v2.3/reference/cli/influx/task/retry-failed
 ---
 
 When an InfluxDB task runs, a "run" record is created in the task's history.
@@ -48,7 +48,7 @@ Detailed run logs are not currently available in the `influx` CLI.
 {{% /note %}}
 
 ## Retry failed task runs
-Use the [`influx task retry-failed` command](/influxdb/v2.2/reference/cli/influx/task/retry-failed/)
+Use the [`influx task retry-failed` command](/influxdb/v2.3/reference/cli/influx/task/retry-failed/)
 to retry failed task runs.
 
 ```sh

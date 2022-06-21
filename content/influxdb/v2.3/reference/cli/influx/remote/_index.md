@@ -6,10 +6,10 @@ menu:
     name: influx remote
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [write, replication]
+influxdb/v2.3/tags: [write, replication]
 related:
-  - /influxdb/v2.2/reference/cli/influx/replication
-  - /influxdb/v2.2/write-data/replication
+  - /influxdb/v2.3/reference/cli/influx/replication
+  - /influxdb/v2.3/write-data/replication
 ---
 
 {{% cloud %}}
@@ -28,10 +28,10 @@ influx remote [commond options] [arguments...]
 
 |  Subcommand                                                 |  Description                           |
 |:--------------------------------------------------------------|--------------------------------------|
-| [`create`](/influxdb/v2.2/reference/cli/influx/remote/create) | Create a new remote connection       |
-| [`delete`](/influxdb/v2.2/reference/cli/influx/remote/delete) | Delete a remote connection |
-| [`list`](/influxdb/v2.2/reference/cli/influx/remote/list)     | List remote connections          |
-| [`update`](/influxdb/v2.2/reference/cli/influx/remote/update) | Update a remote connection |
+| [`create`](/influxdb/v2.3/reference/cli/influx/remote/create) | Create a new remote connection       |
+| [`delete`](/influxdb/v2.3/reference/cli/influx/remote/delete) | Delete a remote connection |
+| [`list`](/influxdb/v2.3/reference/cli/influx/remote/list)     | List remote connections          |
+| [`update`](/influxdb/v2.3/reference/cli/influx/remote/update) | Update a remote connection |
 
 ## Flags
 | Flag |          | Description                   |

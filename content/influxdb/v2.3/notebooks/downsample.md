@@ -5,7 +5,7 @@ description: >
   within specified time intervals, reducing the overall disk usage as data
   collects over time.
 weight: 104
-influxdb/v2.2/tags: [notebooks]
+influxdb/v2.3/tags: [notebooks]
 menu:
   influxdb_2_3:
     name: Downsample data
@@ -22,8 +22,8 @@ sample data** from the last hour, downsamples the data into ten minute summaries
 and then writes the downsampled data to an InfluxDB bucket.
 
 1.  If you do not have an existing bucket to write the downsampled data to,
-    [create a new bucket](/influxdb/v2.2/organizations/buckets/create-bucket/).
-2.  [Create a new notebook](/influxdb/v2.2/notebooks/create-notebook/).
+    [create a new bucket](/influxdb/v2.3/organizations/buckets/create-bucket/).
+2.  [Create a new notebook](/influxdb/v2.3/notebooks/create-notebook/).
 3.  Select **Past 1h** from the time range drop-down list at the top of your notebook.
 4.  In the **Build a Query** cell:
 

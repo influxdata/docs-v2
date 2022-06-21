@@ -6,7 +6,7 @@ menu:
   influxdb_2_3:
     parent: Use and manage variables
 weight: 207
-influxdb/v2.2/tags: [variables]
+influxdb/v2.3/tags: [variables]
 ---
 
 Variable types determine how a variable's list of possible values is populated.
@@ -43,7 +43,7 @@ buckets()
     |> keep(columns: ["_value"])
 ```
 
-_For examples of dashboard variable queries, see [Common variable queries](/influxdb/v2.2/visualize-data/variables/common-variables)._
+_For examples of dashboard variable queries, see [Common variable queries](/influxdb/v2.3/visualize-data/variables/common-variables)._
 
 {{% note %}}
 #### Important things to note about variable queries
@@ -55,7 +55,7 @@ _For examples of dashboard variable queries, see [Common variable queries](/infl
 - The variable will only use the first table in the output stream.
   Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group)
   to group everything into a single table.
-- Do not use any [predefined dashboard variables](/influxdb/v2.2/visualize-data/variables/#predefined-dashboard-variables) in variable queries.
+- Do not use any [predefined dashboard variables](/influxdb/v2.3/visualize-data/variables/#predefined-dashboard-variables) in variable queries.
 {{% /note %}}
 
 ### CSV
@@ -94,4 +94,4 @@ from(bucket: "telegraf")
 - **In a dashboard:** Use the dashboard variable drop-down menus at the top of your dashboard.
 - **In the Script Editor:** Click the **Variables** tab on the right of the Script Editor, click the name of the variable, and then select the variable value from the drop-down menu.
 
-_For more on using dashboard variables, see [Use and manage variables](/influxdb/v2.2/visualize-data/variables/)._
+_For more on using dashboard variables, see [Use and manage variables](/influxdb/v2.3/visualize-data/variables/)._

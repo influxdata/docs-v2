@@ -44,7 +44,7 @@ If you change a bucket name, be sure to update the bucket in the above places as
 
 ## Update a bucket using the influx CLI
 
-Use the [`influx bucket update` command](/influxdb/v2.2/reference/cli/influx/bucket/update)
+Use the [`influx bucket update` command](/influxdb/v2.3/reference/cli/influx/bucket/update)
 to update a bucket. Updating a bucket requires the following:
 
 - The bucket ID _(provided in the output of `influx bucket list`)_

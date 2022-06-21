@@ -3,7 +3,7 @@ title: Visualize data with the InfluxDB UI
 description: >
   InfluxDB offers a complete dashboard solution for visualizing your time series data.
   Create custom dashboards with flexible queries and visualization types.
-influxdb/v2.2/tags: [visualize]
+influxdb/v2.3/tags: [visualize]
 menu:
   influxdb_2_3:
     name: Visualize data

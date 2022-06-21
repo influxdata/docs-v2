@@ -8,10 +8,10 @@ menu:
     name: System buckets
     parent: InfluxDB internals
 weight: 103
-influxdb/v2.2/tags: [buckets]
+influxdb/v2.3/tags: [buckets]
 related:
-  - /influxdb/v2.2/monitor-alert/
-  - /influxdb/v2.2/process-data/
+  - /influxdb/v2.3/monitor-alert/
+  - /influxdb/v2.3/process-data/
   - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/check/
   - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/deadman/
   - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/from/
@@ -29,12 +29,12 @@ Each InfluxDB organization includes the following system buckets:
 
 {{% note %}}
 The system bucket schemas below reference **InfluxDB data elements**.
-For more information, see [InfluxDB key concepts](/influxdb/v2.2/reference/key-concepts/data-elements/).
+For more information, see [InfluxDB key concepts](/influxdb/v2.3/reference/key-concepts/data-elements/).
 {{% /note %}}
 
 ## \_monitoring system bucket
 The `_monitoring` system bucket stores InfluxDB data used to
-[monitor data and send alerts](/influxdb/v2.2/monitor-alert/).
+[monitor data and send alerts](/influxdb/v2.3/monitor-alert/).
 
 **Data retention:** 7 days
 
@@ -89,7 +89,7 @@ The `_monitoring` system bucket stores InfluxDB data used to
 
 
 ## \_tasks system bucket
-The `_tasks` system bucket stores data related to [InfluxDB task](/influxdb/v2.2/process-data/) executions.
+The `_tasks` system bucket stores data related to [InfluxDB task](/influxdb/v2.3/process-data/) executions.
 
 **Data retention:** 3 days
 

@@ -1,7 +1,7 @@
 ---
 title: InfluxDB configuration options
 description: >
-  Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.2/reference/cli/influxd/)
+  Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.3/reference/cli/influxd/)
   configuration flags, setting environment variables, or defining configuration
   options in a configuration file.
 menu:
@@ -10,10 +10,10 @@ menu:
 weight: 3
 products: [oss]
 related:
-  - /influxdb/v2.2/reference/cli/influxd
+  - /influxdb/v2.3/reference/cli/influxd
 ---
 
-Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.2/reference/cli/influxd/)
+Customize your InfluxDB configuration by using [`influxd`](/influxdb/v2.3/reference/cli/influxd/)
 configuration flags, setting environment variables, or defining configuration
 options in a configuration file.
 
@@ -26,11 +26,11 @@ options in a configuration file.
 
 Use the `influx` CLI or the InfluxDB API to get the runtime server configuration of your InfluxDB instance.
 
-Server configuration commands require an [Operator token](/influxdb/v2.2/security/tokens/#operator-token).
+Server configuration commands require an [Operator token](/influxdb/v2.3/security/tokens/#operator-token).
 
 #### View your server configuration with the CLI
 
-Use the [`influx server-config` command](/influxdb/v2.2/reference/cli/influx/server-config/)
+Use the [`influx server-config` command](/influxdb/v2.3/reference/cli/influx/server-config/)
 to retrieve your runtime server configuration.
 
 ```sh
@@ -41,7 +41,7 @@ influx server-config
 
 Use the `/api/v2/config` InfluxDB API endpoint to retrieve your runtime server configuration.
 
-[{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/config" >}}]((/influxdb/v2.2/api/#operation/GetConfig))
+[{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/config" >}}]((/influxdb/v2.3/api/#operation/GetConfig))
 
 ### Configuration precedence
 InfluxDB honors configuration settings using the following precedence:
@@ -117,7 +117,7 @@ Only non-default settings need to be defined in the configuration file.
 ## Configuration options
 
 To configure InfluxDB, use the following configuration options when starting the
-[`influxd` service](/influxdb/v2.2/reference/cli/influxd):
+[`influxd` service](/influxdb/v2.3/reference/cli/influxd):
 
 - [assets-path](#assets-path)
 - [bolt-path](#bolt-path)
@@ -498,7 +498,7 @@ flux-log-enabled = "true"
 
 ### hardening-enabled
 
-Enable [additional security features](/influxdb/v2.2/security/enable-hardening/)
+Enable [additional security features](/influxdb/v2.3/security/enable-hardening/)
 in InfluxDB.
 **Default:** `false`
 | influxd flag          | Environment variable        | Configuration key   |
@@ -1040,7 +1040,7 @@ log-level = "info"
 ---
 
 ### metrics-disabled
-Disable the HTTP `/metrics` endpoint which exposes [internal InfluxDB metrics](/influxdb/v2.2/reference/internals/metrics/).
+Disable the HTTP `/metrics` endpoint which exposes [internal InfluxDB metrics](/influxdb/v2.3/reference/internals/metrics/).
 
 **Default:** `false`  
 
@@ -2799,7 +2799,7 @@ testing-always-allow-setup = true
 Path to TLS certificate file.
 Requires the [`tls-key`](#tls-key) to be set.
 
-_For more information, see [Enable TLS encryption](/influxdb/v2.2/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.3/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 | :----------- | :------------------- | :---------------- |
@@ -2847,7 +2847,7 @@ tls-cert = "/path/to/influxdb.crt"
 Path to TLS key file.
 Requires the [`tls-cert`](#tls-cert) to be set.
 
-_For more information, see [Enable TLS encryption](/influxdb/v2.2/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.3/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 | :----------- | :------------------- | :---------------- |

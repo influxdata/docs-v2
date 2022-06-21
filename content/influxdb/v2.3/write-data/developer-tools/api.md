@@ -15,7 +15,7 @@ Use the `POST` request method and include the following in your request:
 |:-----------          |:----------                                               |
 | Organization         | Use the `org` query parameter in your request URL.       |
 | Bucket               | Use the `bucket` query parameter in your request URL.    |
-| Timestamp precision  | Use the [`precision`](/influxdb/v2.2/write-data/#timestamp-precision) query parameter in your request URL. Default is `ns`. |
+| Timestamp precision  | Use the [`precision`](/influxdb/v2.3/write-data/#timestamp-precision) query parameter in your request URL. Default is `ns`. |
 | API token | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
 | Line protocol        | Pass as plain text in your request body.                 |
 
@@ -54,4 +54,4 @@ Compression reduces network bandwidth, but increases server-side load.
 {{% /note %}}
 
 _For information about **InfluxDB API response codes**, see
-[InfluxDB API Write documentation](/influxdb/v2.2/api/#operation/PostWrite)._
+[InfluxDB API Write documentation](/influxdb/v2.3/api/#operation/PostWrite)._

@@ -22,7 +22,7 @@ http://localhost:8086/
 
 ## Customize your InfluxDB OSS URL
 To customize your InfluxDB host and port, use the
-[`http-bind-address` configuration option](/influxdb/v2.2/reference/config-options/#http-bind-address)
+[`http-bind-address` configuration option](/influxdb/v2.3/reference/config-options/#http-bind-address)
 when starting `influxd`.
 
 {{< keep-url >}}

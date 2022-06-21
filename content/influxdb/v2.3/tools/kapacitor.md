@@ -16,7 +16,7 @@ related:
 [Kapacitor](/{{< latest "kapacitor" >}}/) is a data processing framework that makes
 it easy to create alerts, run ETL jobs and detect anomalies.
 Kapacitor interacts with **InfluxDB Cloud** and **InfluxDB OSS {{< current-version >}}** using the
-[InfluxDB 1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/), so
+[InfluxDB 1.x compatibility API](/influxdb/v2.3/reference/api/influxdb-1x/), so
 you can continue using Kapacitor without having to migrate libraries of TICKscripts
 to InfluxDB tasks.
 
@@ -45,7 +45,7 @@ section(s) of your [Kapacitor configuration file](/{{< latest "kapacitor" >}}/ad
 ### Specify your InfluxDB URL
 Provide your InfluxDB URL in the `[[influxdb]].urls` configuration option.
 For more information, see [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](/influxdb/v2.2/reference/urls/).
+or [InfluxDB OSS URLs](/influxdb/v2.3/reference/urls/).
 
 ```toml
 [[influxdb]]
@@ -59,7 +59,7 @@ Provide the following credentials in your `[[influxdb]].username` and `[[influxd
 configuration options:
 
 - **username:** InfluxDB username
-- **password:** InfluxDB [API token](/influxdb/v2.2/security/tokens/)
+- **password:** InfluxDB [API token](/influxdb/v2.3/security/tokens/)
 
 ```toml
 [[influxdb]]
@@ -72,7 +72,7 @@ configuration options:
 Kapacitor is subject to InfluxDB token permission restrictions.
 To query or write to an InfluxDB bucket, the InfluxDB token must have read and/or
 write permissions for the target bucket.
-For information about token permissions, see [Create a token](/influxdb/v2.2/security/tokens/create-token/).
+For information about token permissions, see [Create a token](/influxdb/v2.3/security/tokens/create-token/).
 {{% /warn %}}
 
 ### Disable InfluxDB subscriptions
@@ -120,8 +120,8 @@ The following example Telegraf configuration writes data to both InfluxDB and Ka
 If using the Kapacitor `InfluxDBOut` node to write data to InfluxDB Cloud or OSS {{< current-version >}},
 InfluxDB maps the specified database and retention policy to a corresponding bucket.
 You can also manually map database/retention policy combinations (DBRPs) to buckets.
-For more information, see [DBRP mapping](/influxdb/v2.2/reference/api/influxdb-1x/dbrp/)
-and [Map unmapped buckets](/influxdb/v2.2/query-data/influxql/#map-unmapped-buckets).
+For more information, see [DBRP mapping](/influxdb/v2.3/reference/api/influxdb-1x/dbrp/)
+and [Map unmapped buckets](/influxdb/v2.3/query-data/influxql/#map-unmapped-buckets).
 
 The following example TICKscript writes to the `my-db/my-rp` bucket in
 InfluxDB Cloud or InfluxDB OSS {{< current-version >}}.

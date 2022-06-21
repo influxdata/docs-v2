@@ -25,7 +25,7 @@ menu:
 - Template apply uses improved diff checking.
 - Fix error applying `-e jsonnet` template.
 
-## v2.2.1 [2021-11-09]
+## v2.3.1 [2021-11-09]
 
 This release includes two new bug fixes.
 
@@ -36,7 +36,7 @@ run `./influx --help` to see a list of valid commands. Thanks @slai!
 
 - Ensure `org members remove` API calls successfully remove a member from an organization by fixing accidental swap of `orgID` and `userID`. Thanks @geek981108!
 
-## v2.2.0 [2021-10-21]
+## v2.3.0 [2021-10-21]
 
 This release includes three new features and bug fixes.
 

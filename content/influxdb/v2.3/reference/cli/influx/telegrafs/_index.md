@@ -8,12 +8,12 @@ menu:
     name: influx telegrafs
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [telegraf]
+influxdb/v2.3/tags: [telegraf]
 cascade:
   related:
-    - /influxdb/v2.2/telegraf-configs/
-    - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.3/telegraf-configs/
+    - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
@@ -29,9 +29,9 @@ influx telegrafs [command]
 ## Subcommands
 | Subcommand                                                     | Description                     |
 |:----------                                                     |:-----------                     |
-| [create](/influxdb/v2.2/reference/cli/influx/telegrafs/create) | Create a Telegraf configuration |
-| [rm](/influxdb/v2.2/reference/cli/influx/telegrafs/rm)         | Remove a Telegraf configuration |
-| [update](/influxdb/v2.2/reference/cli/influx/telegrafs/update) | Update a Telegraf configuration |
+| [create](/influxdb/v2.3/reference/cli/influx/telegrafs/create) | Create a Telegraf configuration |
+| [rm](/influxdb/v2.3/reference/cli/influx/telegrafs/rm)         | Remove a Telegraf configuration |
+| [update](/influxdb/v2.3/reference/cli/influx/telegrafs/update) | Update a Telegraf configuration |
 
 ## Flags
 | Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}    |

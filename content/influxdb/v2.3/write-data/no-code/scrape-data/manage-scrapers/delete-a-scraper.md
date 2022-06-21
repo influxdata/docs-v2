@@ -3,8 +3,8 @@ title: Delete an InfluxDB scraper
 list_title: Delete a scraper
 description: Delete an InfluxDB scraper in the InfluxDB user interface.
 aliases:
-  - /influxdb/v2.2/collect-data/scrape-data/manage-scrapers/delete-a-scraper
-  - /influxdb/v2.2/write-data/scrape-data/manage-scrapers/delete-a-scraper
+  - /influxdb/v2.3/collect-data/scrape-data/manage-scrapers/delete-a-scraper
+  - /influxdb/v2.3/write-data/scrape-data/manage-scrapers/delete-a-scraper
 menu:
   influxdb_2_3:
     name: Delete a scraper

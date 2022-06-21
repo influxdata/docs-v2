@@ -11,8 +11,8 @@ menu:
     name: Graph + Single Stat
     parent: Visualization types
 related:
-  - /influxdb/v2.2/visualize-data/visualization-types/graph
-  - /influxdb/v2.2/visualize-data/visualization-types/single-stat
+  - /influxdb/v2.3/visualize-data/visualization-types/graph
+  - /influxdb/v2.3/visualize-data/visualization-types/single-stat
 ---
 
 The **Graph + Single Stat** view displays the specified time series in a line graph

@@ -7,8 +7,8 @@ menu:
     parent: influx stacks
 weight: 201
 aliases:
-  - /influxdb/v2.2/reference/cli/influx/pkg/stack/remove/
-influxdb/v2.2/tags: [templates]
+  - /influxdb/v2.3/reference/cli/influx/pkg/stack/remove/
+influxdb/v2.3/tags: [templates]
 ---
 
 The `influx stacks remove` command removes an InfluxDB stack and all associated resources.

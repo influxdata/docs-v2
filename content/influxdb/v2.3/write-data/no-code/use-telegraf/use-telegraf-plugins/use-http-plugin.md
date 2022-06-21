@@ -5,7 +5,7 @@ list_title: HTTP input plugin
 description: >
   Write Citi Bike data to your InfluxDB instance with the HTTP plugin.
 aliases:
-  - /influxdb/v2.2/write-data/use-telegraf/use-telegraf-plugins/use-http-plugin/
+  - /influxdb/v2.3/write-data/use-telegraf/use-telegraf-plugins/use-http-plugin/
 menu:
   influxdb_2_3:
     name: HTTP input plugin

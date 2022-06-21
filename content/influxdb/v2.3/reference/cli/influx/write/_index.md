@@ -8,24 +8,24 @@ menu:
     name: influx write
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [write]
+influxdb/v2.3/tags: [write]
 cascade:
   related:
-    - /influxdb/v2.2/write-data/
-    - /influxdb/v2.2/write-data/developer-tools/csv/
-    - /influxdb/v2.2/reference/syntax/line-protocol/
-    - /influxdb/v2.2/reference/syntax/annotated-csv/
-    - /influxdb/v2.2/reference/syntax/annotated-csv/extended/
-    - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.3/write-data/
+    - /influxdb/v2.3/write-data/developer-tools/csv/
+    - /influxdb/v2.3/reference/syntax/line-protocol/
+    - /influxdb/v2.3/reference/syntax/annotated-csv/
+    - /influxdb/v2.3/reference/syntax/annotated-csv/extended/
+    - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 updated_in: CLI v2.0.5
 ---
 
 The `influx write` command writes data to InfluxDB via stdin or from a specified file.
-Write data using [line protocol](/influxdb/v2.2/reference/syntax/line-protocol),
-[annotated CSV](/influxdb/v2.2/reference/syntax/annotated-csv), or
-[extended annotated CSV](/influxdb/v2.2/reference/syntax/annotated-csv/extended/).
+Write data using [line protocol](/influxdb/v2.3/reference/syntax/line-protocol),
+[annotated CSV](/influxdb/v2.3/reference/syntax/annotated-csv), or
+[extended annotated CSV](/influxdb/v2.3/reference/syntax/annotated-csv/extended/).
 If you write CSV data, CSV annotations determine how the data translates into line protocol.
 
 
@@ -44,7 +44,7 @@ To write data to InfluxDB, you must provide the following for each row:
 - **value**
 
 #### Line protocol
-In **line protocol**, the [structure of the line data](/influxdb/v2.2/reference/syntax/line-protocol/#elements-of-line-protocol)
+In **line protocol**, the [structure of the line data](/influxdb/v2.3/reference/syntax/line-protocol/#elements-of-line-protocol)
 determines the measurement, field, and value.
 
 #### Annotated CSV
@@ -52,17 +52,17 @@ In **annotated CSV**, measurements, fields, and values are represented by the
 `_measurement`, `_field`, and `_value` columns.
 Their types are determined by CSV annotations.
 To successfully write annotated CSV to InfluxDB, include all
-[annotation rows](/influxdb/v2.2/reference/syntax/annotated-csv/#annotations).
+[annotation rows](/influxdb/v2.3/reference/syntax/annotated-csv/#annotations).
 
 #### Extended annotated CSV
 In **extended annotated CSV**, measurements, fields, and values and their types are determined by
-[CSV annotations](/influxdb/v2.2/reference/syntax/annotated-csv/extended/#csv-annotations).
+[CSV annotations](/influxdb/v2.3/reference/syntax/annotated-csv/extended/#csv-annotations).
 {{% /note %}}
 
 ## Subcommands
 | Subcommand                                                 | Description                         |
 |:----------                                                 |:-----------                         |
-| [dryrun](/influxdb/v2.2/reference/cli/influx/write/dryrun) | Write to stdout instead of InfluxDB |
+| [dryrun](/influxdb/v2.3/reference/cli/influx/write/dryrun) | Write to stdout instead of InfluxDB |
 
 ## Flags
 | Flag |                     | Description                                                                                  | Input type  | {{< cli/mapped >}}    |
@@ -83,7 +83,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 |      | `--max-line-length` | Maximum number of bytes that can be read for a single line (default `16000000`)              |   integer   |                       |
 | `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                                       |   string    | `INFLUX_ORG`          |
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                                            |   string    | `INFLUX_ORG_ID`       |
-| `-p` | `--precision`       | [Precision](/influxdb/v2.2/write-data/#timestamp-precision) of the timestamps (default `ns`) |   string    | `INFLUX_PRECISION`    |
+| `-p` | `--precision`       | [Precision](/influxdb/v2.3/write-data/#timestamp-precision) of the timestamps (default `ns`) |   string    | `INFLUX_PRECISION`    |
 |      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                                   |   string    |                       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                                            |             | `INFLUX_SKIP_VERIFY`  |
 |      | `--skipHeader`      | Skip first *n* rows of input data                                                            |   integer   |                       |

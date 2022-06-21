@@ -7,7 +7,7 @@ menu:
     name: Manage buckets
     parent: Manage organizations
 weight: 105
-influxdb/v2.2/tags: [buckets]
+influxdb/v2.3/tags: [buckets]
 ---
 
 A **bucket** is a named location where time series data is stored.

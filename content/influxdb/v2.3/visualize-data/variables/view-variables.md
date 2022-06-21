@@ -6,7 +6,7 @@ menu:
   influxdb_2_3:
     parent: Use and manage variables
 weight: 203
-influxdb/v2.2/tags: [variables]
+influxdb/v2.3/tags: [variables]
 ---
 
 View a list of dashboard variables in the InfluxDB user interface (UI) from an organization or from the Data Explorer.

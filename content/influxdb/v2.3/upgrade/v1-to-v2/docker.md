@@ -24,7 +24,7 @@ to update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
 The automated upgrade process **does not** migrate InfluxDB 1.x continuous queries (CQs)
 to InfluxDB 2.x tasks (the 2.x equivalent). Export all of your CQs before upgrading to InfluxDB 2.x.
 For information about exporting and migrating CQs to tasks, see
-[Migrate continuous queries to tasks](/influxdb/v2.2/upgrade/v1-to-v2/migrate-cqs/).
+[Migrate continuous queries to tasks](/influxdb/v2.3/upgrade/v1-to-v2/migrate-cqs/).
 {{% /note %}}
 
 ## Upgrade requirements
@@ -43,12 +43,12 @@ the upgrade won't run if an existing boltdb file is found at the
 {{% /note %}}
 
 Find more information about the automated InfluxDB upgrade process,
-see [Automatically upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.2/upgrade/v1-to-v2/automatic-upgrade/).
+see [Automatically upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.3/upgrade/v1-to-v2/automatic-upgrade/).
 
 ### InfluxDB 2.x initialization credentials
 The automated InfluxDB upgrade process bootstraps an initial admin user,
-[organization](/influxdb/v2.2/reference/glossary/#organization), and
-[bucket](/influxdb/v2.2/reference/glossary/#bucket) required by InfluxDB 2.x.
+[organization](/influxdb/v2.3/reference/glossary/#organization), and
+[bucket](/influxdb/v2.3/reference/glossary/#bucket) required by InfluxDB 2.x.
 Set the following [environment variables in your Docker container](https://docs.docker.com/search/?q=environment%20variables)
 to provide setup credentials:
 

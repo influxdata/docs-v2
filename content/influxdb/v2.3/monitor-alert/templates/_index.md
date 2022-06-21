@@ -6,7 +6,7 @@ menu:
   influxdb_2_3:
     parent: Monitor & alert
 weight: 104
-influxdb/v2.2/tags: [monitor, templates]
+influxdb/v2.3/tags: [monitor, templates]
 ---
 
 Use one of our community templates to quickly set up InfluxDB (with a bucket and dashboard) to collect, analyze, and monitor data in supported environments.

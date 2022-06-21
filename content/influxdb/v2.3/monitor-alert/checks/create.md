@@ -8,8 +8,8 @@ menu:
     parent: Manage checks
 weight: 201
 related:
-  - /influxdb/v2.2/monitor-alert/notification-rules/
-  - /influxdb/v2.2/monitor-alert/notification-endpoints/
+  - /influxdb/v2.3/monitor-alert/notification-rules/
+  - /influxdb/v2.3/monitor-alert/notification-endpoints/
 ---
 
 Create a check in the InfluxDB user interface (UI).
@@ -90,7 +90,7 @@ in a specified amount of time.
 
     Use custom tags to associate additional metadata with the check.
     Common metadata tags across different checks lets you easily group and organize checks.
-    You can also use custom tags in [notification rules](/influxdb/v2.2/monitor-alert/notification-rules/create/).
+    You can also use custom tags in [notification rules](/influxdb/v2.3/monitor-alert/notification-rules/create/).
 
 3.  In the **{{< caps >}}Status Message Template{{< /caps >}}** column, enter
     the status message template for the check.

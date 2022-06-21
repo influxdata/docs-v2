@@ -5,16 +5,16 @@ description: >
   Learn the basics of writing an InfluxDB task that processes data, and then performs an action,
   such as storing the modified data in a new bucket or sending an alert.
 aliases:
-  - /influxdb/v2.2/process-data/write-a-task/
-influxdb/v2.2/tags: [tasks]
+  - /influxdb/v2.3/process-data/write-a-task/
+influxdb/v2.3/tags: [tasks]
 menu:
   influxdb_2_3:
     name: Get started with tasks
     parent: Process data
 weight: 101
 related:
-  - /influxdb/v2.2/process-data/manage-tasks/
-  - /influxdb/v2.2/process-data/manage-tasks/create-task/
+  - /influxdb/v2.3/process-data/manage-tasks/
+  - /influxdb/v2.3/process-data/manage-tasks/create-task/
   - /resources/videos/influxdb-tasks/
 ---
 
@@ -46,7 +46,7 @@ The example below illustrates how task options are defined in your Flux script:
 option task = {name: "downsample_5m_precision", every: 1h, offset: 0m}
 ```
 
-_See [Task configuration options](/influxdb/v2.2/process-data/task-options) for detailed information
+_See [Task configuration options](/influxdb/v2.3/process-data/task-options) for detailed information
 about each option._
 
 {{% note %}}
@@ -111,7 +111,7 @@ from(bucket: "example-bucket")
     |> aggregateWindow(every: 5m, fn: mean)
 ```
 
-_See [Common tasks](/influxdb/v2.2/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
+_See [Common tasks](/influxdb/v2.3/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
 ## Define a destination
 

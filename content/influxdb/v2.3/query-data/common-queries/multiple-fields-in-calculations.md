@@ -3,7 +3,7 @@ title: Use multiple fields in a calculation
 description: >
   Query multiple fields, pivot results, and use multiple field values to
   calculate new values in query results.
-influxdb/v2.2/tags: [queries]
+influxdb/v2.3/tags: [queries]
 menu:
   influxdb_2_3:
     parent: Common queries
@@ -58,7 +58,7 @@ to align multiple fields by time.
 {{% note %}}
 To correctly pivot on `_time`, points for each field must have identical timestamps.
 If timestamps are irregular or do not align perfectly, see
-[Normalize irregular timestamps](/influxdb/v2.2/query-data/flux/manipulate-timestamps/#normalize-irregular-timestamps).
+[Normalize irregular timestamps](/influxdb/v2.3/query-data/flux/manipulate-timestamps/#normalize-irregular-timestamps).
 {{% /note %}}
 
 ```js

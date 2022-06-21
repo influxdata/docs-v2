@@ -6,19 +6,19 @@ menu:
     name: influx delete
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [delete]
+influxdb/v2.3/tags: [delete]
 related:
-  - /influxdb/v2.2/write-data/delete-data
-  - /influxdb/v2.2/reference/syntax/delete-predicate
-  - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.3/write-data/delete-data
+  - /influxdb/v2.3/reference/syntax/delete-predicate
+  - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 metadata: [influx CLI 2.0.3+, InfluxDB 2.0.3+]
-updated_in: CLI v2.2.0
+updated_in: CLI v2.3.0
 ---
 
-The `influx delete` command deletes [points](/influxdb/v2.2/reference/glossary/#point)
+The `influx delete` command deletes [points](/influxdb/v2.3/reference/glossary/#point)
 from an InfluxDB bucket in a specified time range.
-Select points to delete within the specified time range using [delete predicate syntax](/influxdb/v2.2/reference/syntax/delete-predicate).
+Select points to delete within the specified time range using [delete predicate syntax](/influxdb/v2.3/reference/syntax/delete-predicate).
 
 {{% warn %}}
 Running `influx delete` without the `-p` or `--predicate` flag deletes all data with timestamps between the specified
@@ -37,7 +37,7 @@ Running `influx delete` without the `-p` or `--predicate` flag deletes all data 
 |      | `--http-debug`    | Inspect communication with InfluxDB servers.                                                              | string     |                       |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                                                    | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                                                         | string     | `INFLUX_ORG_ID`       |
-| `-p` | `--predicate`     | InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2.2/reference/syntax/delete-predicate)) | string     |                       |
+| `-p` | `--predicate`     | InfluxQL-like predicate string (see [Delete predicate](/influxdb/v2.3/reference/syntax/delete-predicate)) | string     |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                                                         |            | `INFLUX_SKIP_VERIFY`  |
 |      | `--start`         | ({{< req >}}) Start time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                  | string     |                       |
 |      | `--stop`          | ({{< req >}}) Stop time in RFC3339 format (i.e. `2009-01-02T23:00:00Z`)                                   | string     |                       |

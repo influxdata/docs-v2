@@ -2,7 +2,7 @@
 title: IoT sensor common queries
 description: >
   Use Flux to address common IoT use cases that query data collected from sensors.
-influxdb/v2.2/tags: [queries]
+influxdb/v2.3/tags: [queries]
 menu:
   influxdb_2_3:
     name: IoT common queries
@@ -97,7 +97,7 @@ The result shows that 88.66% of time production is in the `OK` state, and that 1
 
 #### Mosaic visualization 
 
-The [mosaic visualization](/influxdb/v2.2/visualize-data/visualization-types/mosaic/) displays state changes over time. In this example, the mosaic visualization displays different colored tiles based on the `state` field. 
+The [mosaic visualization](/influxdb/v2.3/visualize-data/visualization-types/mosaic/) displays state changes over time. In this example, the mosaic visualization displays different colored tiles based on the `state` field. 
 
 ```js
 from(bucket: "machine")

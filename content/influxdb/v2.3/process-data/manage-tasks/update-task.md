@@ -9,7 +9,7 @@ menu:
     parent: Manage tasks
 weight: 204
 related:
-  - /influxdb/v2.2/reference/cli/influx/task/update
+  - /influxdb/v2.3/reference/cli/influx/task/update
 ---
 
 ## Update a task in the InfluxDB UI
@@ -44,7 +44,7 @@ _This command requires a task ID, which is available in the output of `influx ta
 #### Update a task Flux script
 Pass the file path of your updated Flux script to the `influx task update` command
 with the ID of the task you want to update.
-Modified [task options](/influxdb/v2.2/process-data/task-options) defined in the Flux
+Modified [task options](/influxdb/v2.3/process-data/task-options) defined in the Flux
 script are also updated.
 
 ```sh

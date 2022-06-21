@@ -6,16 +6,16 @@ menu:
     name: influx secret
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [secrets]
+influxdb/v2.3/tags: [secrets]
 cascade:
   related:
-    - /influxdb/v2.2/security/secrets/
-    - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.3/security/secrets/
+    - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
-The `influx secret` command manages [secrets](/influxdb/v2.2/reference/glossary/#secret).
+The `influx secret` command manages [secrets](/influxdb/v2.3/reference/glossary/#secret).
 
 ## Usage
 ```
@@ -26,9 +26,9 @@ influx secret [subcommand]
 ## Subcommands
 | Subcommand                                                   | Description            |
 |:----------                                                   |:-----------            |
-| [delete](/influxdb/v2.2/reference/cli/influx/secret/delete/) | Delete a secret        |
-| [list](/influxdb/v2.2/reference/cli/influx/secret/list/)     | List secrets           |
-| [update](/influxdb/v2.2/reference/cli/influx/secret/update/) | Add or update a secret |
+| [delete](/influxdb/v2.3/reference/cli/influx/secret/delete/) | Delete a secret        |
+| [list](/influxdb/v2.3/reference/cli/influx/secret/list/)     | List secrets           |
+| [update](/influxdb/v2.3/reference/cli/influx/secret/update/) | Add or update a secret |
 
 ## Flags
 | Flag |          | Description                   |

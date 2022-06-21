@@ -6,9 +6,9 @@ menu:
     name: influx replication create
     parent: influx replication
 weight: 101
-influxdb/v2.2/tags: [write]
+influxdb/v2.3/tags: [write]
 related:
-  - /influxdb/v2.2/reference/cli/influx/replication
+  - /influxdb/v2.3/reference/cli/influx/replication
 ---
 
 {{% cloud %}}
@@ -53,7 +53,7 @@ influx replication create [command options] [arguments...]
 
 ### Create a replication stream
 
-1. [Create a remote connection](/influxdb/v2.2/reference/cli/influx/remote/create/), if you haven't already.
+1. [Create a remote connection](/influxdb/v2.3/reference/cli/influx/remote/create/), if you haven't already.
 2. Use `influx remote list` to get the ID for the remote you want to replicate data to.
    ```sh
    $ influx remote list

@@ -9,9 +9,9 @@ menu:
     parent: Manage tasks
 weight: 203
 related:
-  - /influxdb/v2.2/reference/cli/influx/task/run
-  - /influxdb/v2.2/reference/cli/influx/task/run/retry
-  - /influxdb/v2.2/reference/cli/influx/task/retry-failed
+  - /influxdb/v2.3/reference/cli/influx/task/run
+  - /influxdb/v2.3/reference/cli/influx/task/run/retry
+  - /influxdb/v2.3/reference/cli/influx/task/retry-failed
 ---
 
 InfluxDB data processing tasks generally run in defined intervals or at a specific time,
@@ -47,7 +47,7 @@ influx task run retry --task-id=0000000000000000 --run-id=0000000000000000
 ```
 
 ### Retry failed task runs
-Use the [`influx task retry-failed` command](/influxdb/v2.2/reference/cli/influx/task/retry-failed/)
+Use the [`influx task retry-failed` command](/influxdb/v2.3/reference/cli/influx/task/retry-failed/)
 to retry failed task runs.
 
 ```sh

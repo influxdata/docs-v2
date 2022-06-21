@@ -3,7 +3,7 @@ title: influxd inspect export-lp
 description: >
   The `influxd inspect export-lp` command exports all time series data in a bucket
   as line protocol.
-influxdb/v2.2/tags: [inspect, export]
+influxdb/v2.3/tags: [inspect, export]
 menu:
   influxdb_2_3_ref:
     parent: influxd inspect
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `influxd inspect export-lp` command exports all time-structured merge tree (TSM)
-data in a bucket to [line protocol](/influxdb/v2.2/reference/syntax/line-protocol/).
+data in a bucket to [line protocol](/influxdb/v2.3/reference/syntax/line-protocol/).
 
 ## Usage
 ```sh

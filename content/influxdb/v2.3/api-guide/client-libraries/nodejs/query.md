@@ -6,10 +6,10 @@ menu:
   influxdb_2_3:
     name: Query
     parent: Node.js
-influxdb/v2.2/tags: [client libraries, JavaScript]
+influxdb/v2.3/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
-  - /influxdb/v2.2/reference/api/client-libraries/nodejs/query
+  - /influxdb/v2.3/reference/api/client-libraries/nodejs/query
 ---
 
 Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) in a Node.js environment to query InfluxDB.  
@@ -18,7 +18,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 
 ## Before you begin
 
-- [Install the client library and other dependencies](/influxdb/v2.2/api-guide/client-libraries/nodejs/install/).
+- [Install the client library and other dependencies](/influxdb/v2.3/api-guide/client-libraries/nodejs/install/).
 
 ## Query InfluxDB
 

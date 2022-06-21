@@ -6,7 +6,7 @@ menu:
   influxdb_2_3:
     name: Manage organizations
 weight: 10
-influxdb/v2.2/tags: [organizations]
+influxdb/v2.3/tags: [organizations]
 ---
 
 An **organization** is a workspace for a group of users.

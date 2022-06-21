@@ -2,11 +2,11 @@
 title: Operate on columns
 description: >
   Find and count unique values, recalculate the `_value` column, and use values to calculate a new column.
-influxdb/v2.2/tags: [queries]
+influxdb/v2.3/tags: [queries]
 aliases: 
-  - /influxdb/v2.2/query-data/common-queries/count_unique_values_for_column/
-  - /influxdb/v2.2/query-data/common-queries/recalculate_value_column/
-  - /influxdb/v2.2/query-data/common-queries/calculate_new_column/
+  - /influxdb/v2.3/query-data/common-queries/count_unique_values_for_column/
+  - /influxdb/v2.3/query-data/common-queries/recalculate_value_column/
+  - /influxdb/v2.3/query-data/common-queries/calculate_new_column/
 menu:
   influxdb_2_3:
     name: Operate on columns
@@ -21,7 +21,7 @@ Use the following common queries to operate on columns:
 - [Calculate a new column](#calculate-a-new-column)
 
 {{% note %}}
-These examples use [NOAA water sample data](/influxdb/v2.2/reference/sample-data/#noaa-water-sample-data).
+These examples use [NOAA water sample data](/influxdb/v2.3/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
 ## Find and count unique values in a column

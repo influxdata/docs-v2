@@ -9,7 +9,7 @@ menu:
 weight: 106
 products: [oss]
 related:
-  - /influxdb/v2.2/reference/cli/influxd/recovery/
+  - /influxdb/v2.3/reference/cli/influxd/recovery/
 ---
 
 Use the `influxd` command line interface (CLI) to recover user credentials and regain access to your InfluxDB instance:
@@ -40,7 +40,7 @@ influxd recovery user list
 ```
 
 {{% note %}}
-If you used a [custom `bolt-path`](/influxdb/v2.2/reference/config-options/#bolt-path) when starting InfluxDB, provide your custom bolt path to the `influx recovery user list` command with the `--bolt-path` flag.
+If you used a [custom `bolt-path`](/influxdb/v2.3/reference/config-options/#bolt-path) when starting InfluxDB, provide your custom bolt path to the `influx recovery user list` command with the `--bolt-path` flag.
 {{% /note %}}
 
 ## Create a user for recovery purposes

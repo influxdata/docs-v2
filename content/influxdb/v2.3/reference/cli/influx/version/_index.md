@@ -1,7 +1,7 @@
 ---
 title: influx version
 description: The `influx version` command outputs the current version of the influx command line interface (CLI).
-influxdb/v2.2/tags: [influx, cli]
+influxdb/v2.3/tags: [influx, cli]
 menu:
   influxdb_2_3_ref:
     parent: influx

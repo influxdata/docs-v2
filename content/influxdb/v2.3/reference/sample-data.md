@@ -5,7 +5,7 @@ description: >
   InfluxData provides many sample time series datasets to use with InfluxDB
   and InfluxDB Cloud.
 aliases:
-  - /influxdb/v2.2/write-data/sample-data/
+  - /influxdb/v2.3/write-data/sample-data/
 menu: influxdb_2_3_ref
 weight: 7
 ---
@@ -44,8 +44,8 @@ sample.data(set: "airSensor")
 The air sensor sample dataset is paired with a relational SQL dataset with meta
 information about sensors in each room.
 These two sample datasets are used to demonstrate
-[how to join time series data and relational data with Flux](/influxdb/v2.2/query-data/flux/sql/#join-sql-data-with-data-in-influxdb)
-in the [Query SQL data sources](/influxdb/v2.2/query-data/flux/sql/) guide.
+[how to join time series data and relational data with Flux](/influxdb/v2.3/query-data/flux/sql/#join-sql-data-with-data-in-influxdb)
+in the [Query SQL data sources](/influxdb/v2.3/query-data/flux/sql/) guide.
 
 <a class="btn download" href="https://influx-testdata.s3.amazonaws.com/sample-sensor-info.csv" download>Download SQL air sensor data</a>
 
@@ -68,7 +68,7 @@ import "influxdata/influxdb/sample"
 sample.data(set: "birdMigration")
 ```
 
-The bird migration sample dataset is used in the [Work with geo-temporal data](/influxdb/v2.2/query-data/flux/geo/)
+The bird migration sample dataset is used in the [Work with geo-temporal data](/influxdb/v2.3/query-data/flux/geo/)
 guide to demonstrate how to query and analyze geo-temporal data.
 
 ## NOAA sample data
@@ -104,7 +104,7 @@ sample.data(set: "noaa")
 The **NOAA NDBC sample dataset** only returns the most recent observations;
 not historical observations.
 To regularly query and store NOAA NDBC observations, add the following as an
-[InfluxDB task](/influxdb/v2.2/process-data/manage-tasks/).
+[InfluxDB task](/influxdb/v2.3/process-data/manage-tasks/).
 Replace `example-org` and `example-bucket` with your organization name and the
 name of the bucket to store data in.
 
@@ -126,7 +126,7 @@ from **August 18, 2015** through **September 18, 2015**.
 {{% note %}}
 #### Store NOAA water sample data to avoid bandwidth usage
 To avoid having to re-download this 10MB dataset every time you run a query,
-we recommend that you [create a new bucket](/influxdb/v2.2/organizations/buckets/create-bucket/)
+we recommend that you [create a new bucket](/influxdb/v2.3/organizations/buckets/create-bucket/)
 (`noaa`) and write the NOAA sample water data to it.
 
 ```js
@@ -138,8 +138,8 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 {{% /note %}}
 
 The NOAA water sample dataset is used to demonstrate Flux queries in the
-[Common queries](/influxdb/v2.2/query-data/common-queries/) and
-[Common tasks](/influxdb/v2.2/process-data/common-tasks/) guides.
+[Common queries](/influxdb/v2.3/query-data/common-queries/) and
+[Common tasks](/influxdb/v2.3/process-data/common-tasks/) guides.
 
 ## USGS Earthquake data
 

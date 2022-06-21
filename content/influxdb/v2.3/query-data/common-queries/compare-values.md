@@ -3,7 +3,7 @@ title: Comparing values from different buckets
 seotitle: Compare the last measurement to a mean stored in another bucket
 description: >
   Compare the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a threshold check.
-influxdb/v2.2/tags: [queries]
+influxdb/v2.3/tags: [queries]
 menu:
   influxdb_2_3:
     name: Compare values from different buckets
@@ -12,10 +12,10 @@ weight: 104
 ---
 
 {{% note %}}
-This example uses [NOAA water sample data](/influxdb/v2.2/reference/sample-data/#noaa-water-sample-data).
+This example uses [NOAA water sample data](/influxdb/v2.3/reference/sample-data/#noaa-water-sample-data).
 {{% /note %}}
 
-This example compares the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a [threshold check](/influxdb/v2.2/monitor-alert/checks/create/#threshold-check).
+This example compares the value from the latest point to an average value stored in another bucket. This is useful when using the average value to calculate a [threshold check](/influxdb/v2.3/monitor-alert/checks/create/#threshold-check).
 
 The following query:
 

@@ -2,7 +2,7 @@
 title: influxd recovery auth create-operator
 description: >
   The `influxd recovery auth create-operator` command creates new
-  [Operator token](/influxdb/v2.2/security/tokens/#operator-token) directly on disk
+  [Operator token](/influxdb/v2.3/security/tokens/#operator-token) directly on disk
   for a specified user.
 menu:
   influxdb_2_3_ref:
@@ -11,7 +11,7 @@ weight: 401
 ---
 
 The `influxd recovery auth create-operator` command creates a new
-[Operator token](/influxdb/v2.2/security/tokens/#operator-token) directly on disk
+[Operator token](/influxdb/v2.3/security/tokens/#operator-token) directly on disk
 for a specified user.
 
 {{% note %}}

@@ -4,7 +4,7 @@ description: >
   Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x.
   It is part of the [TICKstack](/platform/) that provides an InfluxQL data explorer, Kapacitor integrations, and more.
   Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS 2.x** and the
-  [1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/).
+  [1.x compatibility API](/influxdb/v2.3/reference/api/influxdb-1x/).
 menu:
   influxdb_2_3:
     name: Use Chronograf
@@ -18,7 +18,7 @@ related:
 tool designed to visualize data in InfluxDB 1.x. It is part of the [TICKstack](/platform/)
 that provides an InfluxQL data explorer, Kapacitor integrations, and more.
 Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< current-version >}}** and the
-[1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/).
+[1.x compatibility API](/influxdb/v2.3/reference/api/influxdb-1x/).
 
 
 ## Create an InfluxDB connection
@@ -35,9 +35,9 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< curren
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-    - **Organization:** InfluxDB [organization](/influxdb/v2.2/organizations/)
-    - **Token:** InfluxDB [API token](/influxdb/v2.2/security/tokens/)
-    - **Telegraf Database Name:** InfluxDB [bucket](/influxdb/v2.2/organizations/buckets/)
+    - **Organization:** InfluxDB [organization](/influxdb/v2.3/organizations/)
+    - **Token:** InfluxDB [API token](/influxdb/v2.3/security/tokens/)
+    - **Telegraf Database Name:** InfluxDB [bucket](/influxdb/v2.3/organizations/buckets/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Default Retention Policy:** default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp)
       _**(leave blank)**_
@@ -48,8 +48,8 @@ In InfluxDB Cloud and InfluxDB OSS {{< current-version >}}, database/retention-p
 are mapped to buckets using the `database-name/retention-policy` naming convention.
 **DBRP mappings are required to query InfluxDB OSS 2.x or InfluxDB Cloud using InfluxQL.**
 
-For information, see [DBRP mapping](/influxdb/v2.2/reference/api/influxdb-1x/dbrp/)
-and [Map unmapped buckets](/influxdb/v2.2/query-data/influxql/#map-unmapped-buckets).
+For information, see [DBRP mapping](/influxdb/v2.3/reference/api/influxdb-1x/dbrp/)
+and [Map unmapped buckets](/influxdb/v2.3/query-data/influxql/#map-unmapped-buckets).
       {{% /note %}}
 
 3. Click **Add Connection**.
@@ -57,7 +57,7 @@ and [Map unmapped buckets](/influxdb/v2.2/query-data/influxql/#map-unmapped-buck
 5. To configure a Kapacitor connection, provide the necessary credentials,
    and then click **Continue**. Otherwise, click **Skip**.
    _For information about using Kapacitor with InfluxDB Cloud or InfluxDB OSS {{< current-version >}},
-   see [Use Kapacitor with InfluxDB](/influxdb/v2.2/tools/kapacitor/)._
+   see [Use Kapacitor with InfluxDB](/influxdb/v2.3/tools/kapacitor/)._
 6. Click **Finish**.
 
 ## Important notes
@@ -87,9 +87,9 @@ When connected to an InfluxDB Cloud or InfluxDB {{< current-version >}} database
 To complete administrative tasks, use the following:
 
 - **InfluxDB user interface (UI)**
-- [InfluxDB CLI](/influxdb/v2.2/reference/cli/influx/)
-- [InfluxDB v2 API](/influxdb/v2.2/reference/api/)
+- [InfluxDB CLI](/influxdb/v2.3/reference/cli/influx/)
+- [InfluxDB v2 API](/influxdb/v2.3/reference/api/)
 
 ### Limited InfluxQL support
 InfluxDB Cloud and InfluxDB OSS {{< current-version >}} support InfluxQL **read-only** queries.
-For more information, see [InfluxQL support](/influxdb/v2.2/query-data/influxql/#influxql-support).
+For more information, see [InfluxQL support](/influxdb/v2.3/query-data/influxql/#influxql-support).

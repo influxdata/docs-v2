@@ -1,13 +1,13 @@
 ---
 title: Add secrets
 description: Add secrets using the `influx` CLI or the InfluxDB API.
-influxdb/v2.2/tags: [secrets, security]
+influxdb/v2.3/tags: [secrets, security]
 menu:
   influxdb_2_3:
     parent: Manage secrets
 weight: 301
 aliases:
-  - /influxdb/v2.2/security/secrets/manage-secrets/add/
+  - /influxdb/v2.3/security/secrets/manage-secrets/add/
 ---
 
 Add secrets using the `influx` command line interface (CLI) or the InfluxDB API.
@@ -17,7 +17,7 @@ Add secrets using the `influx` command line interface (CLI) or the InfluxDB API.
 - [Add a secret using the InfluxDB API](#add-a-secret-using-the-influxdb-api)
 
 ## Add a secret using the influx CLI
-Use the [`influx secret update` command](/influxdb/v2.2/reference/cli/influx/secret/update/)
+Use the [`influx secret update` command](/influxdb/v2.3/reference/cli/influx/secret/update/)
 to add a new secret to your organization.
 Provide the secret key with the `-k` or `--key` flag.
 You may also provide the secret value with the `-v` or `--value` flag.
@@ -43,8 +43,8 @@ add a new secret to your organization.
 
 **Include the following:**
 
-- Your [organization ID](/influxdb/v2.2/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [API token](/influxdb/v2.2/security/tokens/view-tokens/) in the `Authorization` header
+- Your [organization ID](/influxdb/v2.3/organizations/view-orgs/#view-your-organization-id) in the request URL
+- Your [API token](/influxdb/v2.3/security/tokens/view-tokens/) in the `Authorization` header
 - The secret key-value pair in the request body
 
 <!-- -->

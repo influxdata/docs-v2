@@ -3,7 +3,7 @@ title: influxd inspect export-index
 description: >
   The `influxd inspect export-index` command exports all series in a TSI index to
   SQL format for inspection and debugging.
-influxdb/v2.2/tags: [inspect]
+influxdb/v2.3/tags: [inspect]
 menu:
   influxdb_2_3_ref:
     parent: influxd inspect

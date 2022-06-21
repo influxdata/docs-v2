@@ -7,7 +7,7 @@ menu:
     parent: influx auth
 weight: 201
 aliases:
-  - /influxdb/v2.2/reference/cli/influx/auth/find
+  - /influxdb/v2.3/reference/cli/influx/auth/find
 ---
 
 The `influx auth list` command lists and searches API tokens in InfluxDB.

@@ -8,12 +8,12 @@ menu:
     parent: Manage notification endpoints
 weight: 203
 related:
-  - /influxdb/v2.2/monitor-alert/checks/
-  - /influxdb/v2.2/monitor-alert/notification-rules/
+  - /influxdb/v2.3/monitor-alert/checks/
+  - /influxdb/v2.3/monitor-alert/notification-rules/
 ---
 
 Complete the following steps to update notification endpoint details.
-To update the notification endpoint selected for a notification rule, see [update notification rules](/influxdb/v2.2/monitor-alert/notification-rules/update/).
+To update the notification endpoint selected for a notification rule, see [update notification rules](/influxdb/v2.3/monitor-alert/notification-rules/update/).
 
 **To update a notification endpoint**
 
@@ -36,7 +36,7 @@ To update the notification endpoint selected for a notification rule, see [updat
 ## Change endpoint details
 1. Click the name of the endpoint to update.
 2. Update details as needed, and then click **Edit Notification Endpoint**.
-   For details about each field, see [Create notification endpoints](/influxdb/v2.2/monitor-alert/notification-endpoints/create/).
+   For details about each field, see [Create notification endpoints](/influxdb/v2.3/monitor-alert/notification-endpoints/create/).
 
 ## Disable notification endpoint
 Click the {{< icon "toggle" >}} toggle to disable the notification endpoint.

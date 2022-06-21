@@ -1,7 +1,7 @@
 ---
 title: Store secrets in Vault
 description: Use Vault as an InfluxDB secret store and manage secrets through the in InfluxDB API.
-influxdb/v2.2/tags: [secrets, security]
+influxdb/v2.3/tags: [secrets, security]
 menu:
   influxdb_2_3:
     parent: Manage secrets
@@ -54,20 +54,20 @@ to provide connection credentials and other important Vault-related information 
 #### Vault address
 
 Provide the API address of your Vault server _(available in the Vault server output)_
-using the [`--vault-addr` flag](/influxdb/v2.2/reference/config-options/#vault-addr) when
+using the [`--vault-addr` flag](/influxdb/v2.3/reference/config-options/#vault-addr) when
 starting `influxd` or with the `VAULT_ADDR` environment variable.
 
 #### Vault token
 
 Provide your [Vault token](https://learn.hashicorp.com/vault/getting-started/authentication)
-(required to access your Vault server) using the [`--vault-token` flag](/influxdb/v2.2/reference/config-options/#vault-token)
+(required to access your Vault server) using the [`--vault-token` flag](/influxdb/v2.3/reference/config-options/#vault-token)
 when starting `influxd` or with the `VAULT_TOKEN` environment variable.
 
 _Your Vault server configuration may require other Vault settings._
 
 ## Start InfluxDB
 
-Start the [`influxd` service](/influxdb/v2.2/reference/cli/influxd/) with the `--secret-store`
+Start the [`influxd` service](/influxdb/v2.3/reference/cli/influxd/) with the `--secret-store`
 option set to `vault` any other necessary flags.
 
 ```bash
@@ -90,9 +90,9 @@ If set, these flags override any [Vault environment variables](https://www.vault
 - `--vault-tls-server-name`
 - `--vault-token`
 
-For more information, see [InfluxDB configuration options](/influxdb/v2.2/reference/config-options/).
+For more information, see [InfluxDB configuration options](/influxdb/v2.3/reference/config-options/).
 
 ## Manage secrets through the InfluxDB API
 
 Use the InfluxDB `/org/{orgID}/secrets` API endpoint to add tokens to Vault.
-For details, see [Manage secrets](/influxdb/v2.2/security/secrets/manage-secrets/).
+For details, see [Manage secrets](/influxdb/v2.3/security/secrets/manage-secrets/).

@@ -3,7 +3,7 @@ title: influxd inspect verify-tsm
 description: >
   The `influxd inspect verify-tsm` command analyzes a set of TSM files for inconsistencies
   between the TSM index and the blocks.
-influxdb/v2.2/tags: [tsm, inspect]
+influxdb/v2.3/tags: [tsm, inspect]
 menu:
   influxdb_2_3_ref:
     parent: influxd inspect

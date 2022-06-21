@@ -7,11 +7,11 @@ menu:
     name: influx v1 auth create
     parent: influx v1 auth
 weight: 101
-influxdb/v2.2/tags: [authorization]
+influxdb/v2.3/tags: [authorization]
 updated_in: CLI v2.0.3
 ---
 
-The `influx v1 auth create` command creates a legacy authorization with the [InfluxDB 1.x compatibility API](/influxdb/v2.2/reference/api/influxdb-1x/).
+The `influx v1 auth create` command creates a legacy authorization with the [InfluxDB 1.x compatibility API](/influxdb/v2.3/reference/api/influxdb-1x/).
 
 ## Usage
 ```

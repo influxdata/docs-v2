@@ -8,7 +8,7 @@ menu:
   influxdb_2_3:
     parent: Visualize data
 weight: 103
-influxdb/v2.2/tags: [variables]
+influxdb/v2.3/tags: [variables]
 ---
 
 Dashboard variables let you alter specific components of cells' queries without having to edit the queries,

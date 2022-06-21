@@ -9,11 +9,11 @@ menu:
     parent: Tools & integrations
     identifier: influx-cli-task-based
 weight: 101
-influxdb/v2.2/tags: [cli]
+influxdb/v2.3/tags: [cli]
 aliases:
-  - /influxdb/v2.2/tools/clis/
+  - /influxdb/v2.3/tools/clis/
 related:
-  - /influxdb/v2.2/reference/cli/influx/
+  - /influxdb/v2.3/reference/cli/influx/
 ---
 
 Use the `influx` CLI to interact with and manage your
@@ -23,7 +23,7 @@ Write and query data, generate InfluxDB templates, export data, and more.
 {{% oss-only %}}
 
 {{% note %}}
-The [`influx` CLI](/influxdb/v2.2/reference/cli/influx) is packaged and versioned
+The [`influx` CLI](/influxdb/v2.3/reference/cli/influx) is packaged and versioned
 separately from the InfluxDB server (`influxd`).
 {{% /note %}}
 
@@ -206,7 +206,7 @@ with each command, store them in an `influx` CLI configuration (config).
 `influx` commands that require these credentials automatically retrieve these
 credentials from the active config.
 
-Use the [`influx config create` command](/influxdb/v2.2/reference/cli/influx/config/create/)
+Use the [`influx config create` command](/influxdb/v2.3/reference/cli/influx/config/create/)
 to create an `influx` CLI config and set it as active:
 
 ```sh
@@ -218,15 +218,15 @@ influx config create --config-name <config-name> \
 ```
 
 For more information about managing CLI configurations, see the
-[`influx config` documentation](/influxdb/v2.2/reference/cli/influx/config/).
+[`influx config` documentation](/influxdb/v2.3/reference/cli/influx/config/).
 
-For instructions on how to create API tokens, see [Create a token](/influxdb/v2.2/security/tokens/create-token/).
+For instructions on how to create API tokens, see [Create a token](/influxdb/v2.3/security/tokens/create-token/).
 
 ### Enable shell completion (Optional)
 
 To install `influx` shell completion scripts, see
-[`influx completion`](/influxdb/v2.2/reference/cli/influx/completion/#install-completion-scripts).
+[`influx completion`](/influxdb/v2.3/reference/cli/influx/completion/#install-completion-scripts).
 
 ## Use influx CLI commands
 _For information about `influx` CLI commands, see the
-[`influx` CLI reference documentation](/influxdb/v2.2/reference/cli/influx/)._
+[`influx` CLI reference documentation](/influxdb/v2.3/reference/cli/influx/)._

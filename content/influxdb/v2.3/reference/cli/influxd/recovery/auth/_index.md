@@ -21,8 +21,8 @@ influxd recovery auth [command]
 ## Subcommands
 | Subcommand                                                                             | Description                          |
 | :------------------------------------------------------------------------------------- | :----------------------------------- |
-| [create-operator](/influxdb/v2.2/reference/cli/influxd/recovery/auth/create-operator/) | Create new operator token for a user |
-| [list](/influxdb/v2.2/reference/cli/influxd/recovery/auth/list/)                       | List authorizations                  |
+| [create-operator](/influxdb/v2.3/reference/cli/influxd/recovery/auth/create-operator/) | Create new operator token for a user |
+| [list](/influxdb/v2.3/reference/cli/influxd/recovery/auth/list/)                       | List authorizations                  |
 
 ## Flags
 | Flag  |          | Description     |

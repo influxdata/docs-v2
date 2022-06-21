@@ -3,15 +3,15 @@ title: Group data in InfluxDB with Flux
 list_title: Group
 description: >
   Use `group()` to group data with common values in specific columns.
-influxdb/v2.2/tags: [group]
+influxdb/v2.3/tags: [group]
 menu:
   influxdb_2_3:
     name: Group
     parent: Query with Flux
 weight: 202
 aliases:
-  - /influxdb/v2.2/query-data/guides/group-data/
-  - /influxdb/v2.2/query-data/flux/grouping-data/
+  - /influxdb/v2.3/query-data/guides/group-data/
+  - /influxdb/v2.3/query-data/flux/grouping-data/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/group
   - /{{< latest "flux" >}}/stdlib/experimental/group
@@ -25,7 +25,7 @@ This guide walks through grouping data in Flux and provides examples of how data
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.2/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.3/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Group keys
 Every table has a **group key** – a list of columns for which every row in the table has the same value.

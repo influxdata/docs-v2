@@ -6,7 +6,7 @@ menu:
   influxdb_2_3:
     parent: Use and manage variables
 weight: 203
-influxdb/v2.2/tags: [variables]
+influxdb/v2.3/tags: [variables]
 ---
 
 Update an existing dashboard variable's name or JSON content in the InfluxDB user interface (UI).

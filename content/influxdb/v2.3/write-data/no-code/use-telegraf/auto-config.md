@@ -1,18 +1,18 @@
 ---
 title: Automatically configure Telegraf
-seotitle: Automatically configure Telegraf for InfluxDB v2.2
+seotitle: Automatically configure Telegraf for InfluxDB v2.3
 description: >
   Use the InfluxDB UI to automatically generate a Telegraf configuration,
   then start Telegraf using the generated configuration file.
 aliases:
-  - /influxdb/v2.2/collect-data/use-telegraf/auto-config
-  - /influxdb/v2.2/write-data/use-telegraf/auto-config
+  - /influxdb/v2.3/collect-data/use-telegraf/auto-config
+  - /influxdb/v2.3/write-data/use-telegraf/auto-config
 menu:
   influxdb_2_3:
     parent: Telegraf (agent)
 weight: 201
 related:
-  - /influxdb/v2.2/telegraf-configs/create/
+  - /influxdb/v2.3/telegraf-configs/create/
 ---
 
 The InfluxDB user interface (UI) can automatically create Telegraf configuration files based on user-selected Telegraf plugins.
@@ -22,8 +22,8 @@ start Telegraf using the generated configuration file.
 {{< youtube M8KP7FAb2L0 >}}
 
 {{% note %}}
-_View the [requirements](/influxdb/v2.2/write-data/no-code/use-telegraf#requirements)
-for using Telegraf with InfluxDB v2.2._
+_View the [requirements](/influxdb/v2.3/write-data/no-code/use-telegraf#requirements)
+for using Telegraf with InfluxDB v2.3._
 {{% /note %}}
 
 ## Create a Telegraf configuration
@@ -66,12 +66,12 @@ If you plan to monitor a Windows host using the System plugin, you must complete
 
 ## Start Telegraf
 
-Requests to the [InfluxDB v2 API](/influxdb/v2.2/reference/api/) must include an API token.
+Requests to the [InfluxDB v2 API](/influxdb/v2.3/reference/api/) must include an API token.
 A token identifies specific permissions to the InfluxDB instance.
 
 ### Configure your token as an environment variable
 
-1. Find your API token. _For information about viewing tokens, see [View tokens](/influxdb/v2.2/security/tokens/view-tokens/)._
+1. Find your API token. _For information about viewing tokens, see [View tokens](/influxdb/v2.3/security/tokens/view-tokens/)._
 
 2. To configure your API token as the `INFLUX_TOKEN` environment variable, run the command appropriate for your operating system and command-line tool:
 
@@ -133,4 +133,4 @@ telegraf -config http://localhost:8086/api/v2/telegrafs/0xoX00oOx0xoX00o
 ## Manage Telegraf configurations
 
 For more information about managing Telegraf configurations in InfluxDB, see
-[Telegraf configurations](/influxdb/v2.2/telegraf-configs/).
+[Telegraf configurations](/influxdb/v2.3/telegraf-configs/).

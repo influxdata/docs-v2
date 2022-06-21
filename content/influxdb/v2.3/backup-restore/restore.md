@@ -7,10 +7,10 @@ menu:
   influxdb_2_3:
     parent: Back up & restore data
 weight: 101
-influxdb/v2.2/tags: [restore]
+influxdb/v2.3/tags: [restore]
 related:
-  - /influxdb/v2.2/backup-restore/backup/
-  - /influxdb/v2.2/reference/cli/influxd/restore/
+  - /influxdb/v2.3/backup-restore/backup/
+  - /influxdb/v2.3/reference/cli/influxd/restore/
 products: [oss]
 ---
 
@@ -32,7 +32,7 @@ _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 #### Cannot restore to existing buckets
 The `influx restore` command cannot restore data to existing buckets.
 Use the `--new-bucket` flag to create a new bucket to restore data to.
-To restore data and retain bucket names, [delete existing buckets](/influxdb/v2.2/organizations/buckets/delete-bucket/)
+To restore data and retain bucket names, [delete existing buckets](/influxdb/v2.3/organizations/buckets/delete-bucket/)
 and then begin the restore process.
 {{% /note %}}
 
@@ -40,7 +40,7 @@ and then begin the restore process.
 Use the `influx restore` command and specify the path to the backup directory.
 
 _For more information about restore options and flags, see the
-[`influx restore` documentation](/influxdb/v2.2/reference/cli/influx/restore/)._
+[`influx restore` documentation](/influxdb/v2.3/reference/cli/influx/restore/)._
 
 - [Restore all time series data](#restore-all-time-series-data)
 - [Restore data from a specific bucket](#restore-data-from-a-specific-bucket)
@@ -101,7 +101,7 @@ influx restore \
 #### Restore to a new InfluxDB server
 If using a backup to populate a new InfluxDB server:
 
-1. Retrieve the [admin token](/influxdb/v2.2/security/tokens/#admin-token) from your source InfluxDB instance.
+1. Retrieve the [admin token](/influxdb/v2.3/security/tokens/#admin-token) from your source InfluxDB instance.
 2. Set up your new InfluxDB instance, but use the `-t`, `--token` flag to use the
    **admin token** from your source instance as the admin token on your new instance.
 
@@ -131,7 +131,7 @@ to authenticate with the new server will fail.
 
 ## Recover from a failed restore
 If the restoration process fails, InfluxDB preserves existing data in a `tmp`
-directory in the [target engine path](/influxdb/v2.2/reference/cli/influx/restore/#flags)
+directory in the [target engine path](/influxdb/v2.3/reference/cli/influx/restore/#flags)
 (default is `~/.influxdbv2/engine`).
 
 To recover from a failed restore:

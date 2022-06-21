@@ -6,18 +6,18 @@ menu:
     name: influx server-config
     parent: influx
 weight: 101
-influxdb/v2.2/tags: [config]
+influxdb/v2.3/tags: [config]
 cascade:
   related:
-    - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.3.0+, InfluxDB 2.0.0+]
 ---
 
-The `influx server-config` command displays the InfluxDB runtime [server configuration](/influxdb/v2.2/reference/config-options/).
+The `influx server-config` command displays the InfluxDB runtime [server configuration](/influxdb/v2.3/reference/config-options/).
 
 {{% note %}}
-To display the server configuration, you must use an [operator token](/influxdb/v2.2/security/tokens/#operator-token).
+To display the server configuration, you must use an [operator token](/influxdb/v2.3/security/tokens/#operator-token).
 {{% /note %}}
 
 ## Usage

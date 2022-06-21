@@ -6,7 +6,7 @@ menu:
     name: influx auth create
     parent: influx auth
 weight: 201
-updated_in: CLI v2.2.0
+updated_in: CLI v2.3.0
 ---
 
 The `influx auth create` command creates an API token in InfluxDB.

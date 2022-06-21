@@ -10,7 +10,7 @@ menu:
     name: Downgrade InfluxDB
 weight: 12
 related:
-  - /influxdb/v2.2/reference/cli/influxd/downgrade/
+  - /influxdb/v2.3/reference/cli/influxd/downgrade/
 ---
 
 To downgrade from InfluxDB {{< current-version >}} to a previous 2.x version,

@@ -6,12 +6,12 @@ menu:
   influxdb_2_3:
     name: Write
     parent: Node.js
-influxdb/v2.2/tags: [client libraries, JavaScript]
+influxdb/v2.3/tags: [client libraries, JavaScript]
 weight: 101
 aliases:
-  - /influxdb/v2.2/reference/api/client-libraries/nodejs/write
+  - /influxdb/v2.3/reference/api/client-libraries/nodejs/write
 related:
-  - /influxdb/v2.2/write-data/troubleshoot/
+  - /influxdb/v2.3/write-data/troubleshoot/
 ---
 
 Use the [InfluxDB Javascript client library](https://github.com/influxdata/influxdb-client-js) to write data from a Node.js environment to InfluxDB.
@@ -24,7 +24,7 @@ The Javascript client library includes the following convenient features for wri
 
 ### Before you begin
 
-- [Install the client library and other dependencies](/influxdb/v2.2/api-guide/client-libraries/nodejs/install/).
+- [Install the client library and other dependencies](/influxdb/v2.3/api-guide/client-libraries/nodejs/install/).
 ### Write data with the client library
 
 1. Instantiate an `InfluxDB` client. Provide your InfluxDB URL and API token.
@@ -48,15 +48,15 @@ The Javascript client library includes the following convenient features for wri
    - *`YOUR_ORG`*: InfluxDB organization ID
    - *`YOUR_BUCKET`*: InfluxDB bucket name
 
-3. To apply one or more [tags](/influxdb/v2.2/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
+3. To apply one or more [tags](/influxdb/v2.3/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
    Provide tags as an object of key/value pairs.
 
     ```js
     writeApi.useDefaultTags({region: 'west'})
     ```
 
-4. Use the `Point()` constructor to create a [point](/influxdb/v2.2/reference/glossary/#point).
-   1. Call the constructor and provide a [measurement](/influxdb/v2.2/reference/glossary/#measurement).
+4. Use the `Point()` constructor to create a [point](/influxdb/v2.3/reference/glossary/#point).
+   1. Call the constructor and provide a [measurement](/influxdb/v2.3/reference/glossary/#measurement).
    2. To add one or more tags, chain the `tag()` method to the constructor.
       Provide a `name` and `value`.
    3. To add a field of type `float`, chain the `floatField()` method to the constructor.

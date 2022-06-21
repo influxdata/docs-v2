@@ -21,8 +21,8 @@ influxd recovery org [command]
 ## Subcommands
 | Subcommand                                                          | Description        |
 | :------------------------------------------------------------------ | :----------------- |
-| [create](/influxdb/v2.2/reference/cli/influxd/recovery/org/create/) | Create new org     |
-| [list](/influxdb/v2.2/reference/cli/influxd/recovery/org/list/)     | List organizations |
+| [create](/influxdb/v2.3/reference/cli/influxd/recovery/org/create/) | Create new org     |
+| [list](/influxdb/v2.3/reference/cli/influxd/recovery/org/list/)     | List organizations |
 
 ## Flags
 | Flag |          | Description    |
