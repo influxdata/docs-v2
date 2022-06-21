@@ -1,7 +1,7 @@
 ---
 title: Telegraf 1.22 release notes
 description: Important features and changes in the latest version of Telegraf.
-alias:
+aliases:
   - /telegraf/v1.22/reference/release-notes/influxdb/
   - /telegraf/v1.22/about_the_project/release-notes-changelog/
 menu:
