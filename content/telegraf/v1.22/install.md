@@ -44,7 +44,7 @@ aren't synchronized with NTP, the timestamps on the data might be inaccurate.
 ## Installation
 
 {{< tabs-wrapper >}}
-{{% tabs %}}
+{{% tabs style="even-wrap" %}}
   [Ubuntu & Debian](#)
   [RedHat & CentOS](#)
   [SLES & openSUSE](#)
@@ -262,7 +262,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.22/administration/configuration/).
+[configuration documentation](/telegraf/v1.22/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN Windows ---------->
 {{% tab-content %}}

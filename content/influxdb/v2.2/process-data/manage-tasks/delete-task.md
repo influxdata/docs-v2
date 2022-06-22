@@ -17,7 +17,7 @@ related:
 
     {{< nav-icon "tasks" >}}
 
-2. In the list of tasks, hover over the task you would like to delete.
+2. In the list of tasks, hover over the task you want to delete.
 3. Click **Delete** on the far right.
 4. Click **Confirm**.
 

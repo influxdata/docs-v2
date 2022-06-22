@@ -30,7 +30,7 @@ aren't synchronized with NTP, the timestamps on the data can be inaccurate.
 ## Installation
 
 {{< tabs-wrapper >}}
-{{% tabs %}}
+{{% tabs style="even-wrap" %}}
 [Ubuntu & Debian](#)
 [RedHat & CentOS](#)
 [SLES & openSUSE](#)

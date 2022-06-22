@@ -16,6 +16,7 @@
     font-weight: $medium;
     padding: .65rem 1.25rem;
     display: inline-block;
+    white-space: nowrap;
     text-align: center;
     color: $article-tab-text !important;
     border-radius: $radius;
@@ -58,6 +59,10 @@
       flex-grow: unset;
       padding: .35rem 1rem;
     }
+  }
+  // Style suggested for tabs that have uneven button widths because of wrapping.
+  &.even-wrap a {
+    flex-basis: 25%;
   }
 }
 

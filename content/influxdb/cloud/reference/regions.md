@@ -26,9 +26,12 @@ To find your cluster URL, [log in to your InfluxDB Cloud organization](https://c
 and review your organization URL. The first subdomain identifies your 
 InfluxDB Cloud cluster. For example:
 
-<pre class="highlight">
-https://<span class="bp" style="font-weight:bold;margin:0 .15rem">us-west-2-1</span>.aws.cloud2.influxdata.com/orgs/03a2bbf46249a000/...
-</pre>
+{{< code-callout "us-west-2-1" >}}
+```sh
+https://us-west-2-1.aws.cloud2.influxdata.com/orgs/03a2bbf46249a000/...
+```
+{{< /code-callout >}}
+
 {{% /note %}}
 
 {{< cloud_regions >}}

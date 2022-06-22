@@ -1,11 +1,11 @@
 ---
 title: API Quick Start
 seotitle: Use the InfluxDB API
-description: Interact with InfluxDB 1 using a rich API for writing and querying data and more.
+description: Interact with InfluxDB using a rich API for writing and querying data and more.
 weight: 3
 menu:
   influxdb_2_2:
-    name: Quick Start
+    name: Quick start
     parent: Develop with the API
 aliases:
   - /influxdb/v2.2/tools/api/

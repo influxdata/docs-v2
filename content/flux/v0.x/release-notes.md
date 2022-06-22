@@ -10,6 +10,58 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.171.0 [2022-06-14]
+
+### Breaking changes
+- Remove `testing.loadStorage()`.
+
+### Features
+- Add `FromStr` to allow the Flux LSP (language server protocol) CLI to run with
+  optional Flux features.
+- Add method to parallelize aggregate transformations.
+- Report unused symbols.
+- Add `From` implementations for `Node/NodeMut`.
+
+### Bug fixes
+- Pass a seed to the tables generator.
+- Ensure buffers are retained when copying a buffered table.
+- Return an error when using a label variable without the Label constraint.
+
+---
+
+## v0.170.1 [2022-06-06]
+
+### Bug fixes
+- Require an earlier minimum version of `lsp-types`.
+
+---
+
+## v0.170.0 [2022-06-02]
+
+### Features
+- Add a `pretty.rs`-based MonoType formatter.
+
+### Bug fixes
+- Update vectorized `map()` to properly handle shadowed columns.
+
+---
+
+## v0.169.0 [2022-05-31]
+
+### Features
+- Add a `_status` tag to PagerDuty records.
+- Refactor the operator profile to be in the query statistics.
+
+### Bug fixes
+- Ensure that constraints are checked and propagated fully.
+- Fix math for integral with a single value.
+- Add `json` tags for the transport profiles in statistics.
+- Initialize `Metadata` in Flux statistics.
+- Return a more helpful error message when an HTTP response body exceeds 100MB.
+- Correct several issues found during the implementation of polymorphic labels.
+
+---
+
 ## v0.168.0 [2022-05-23]
 
 ### Features
