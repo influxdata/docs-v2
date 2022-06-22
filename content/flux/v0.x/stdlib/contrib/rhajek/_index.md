@@ -1,7 +1,7 @@
 ---
 title: rhajek package
 description: >
-  
+  The `rhajek` package contains packages and functions contributed by [@rhajek](https://github.com/rhajek).
 menu:
   flux_0_x_ref:
     name: rhajek 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `rhajek` package contains packages and functions contributed by [@rhajek](https://github.com/rhajek).
 
 
 

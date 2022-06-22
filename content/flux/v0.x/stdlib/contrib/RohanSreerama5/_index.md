@@ -1,7 +1,7 @@
 ---
 title: RohanSreerama5 package
 description: >
-  
+  The `RohanSreerama5` package contains packages and functions contributed by [@RohanSreerama5](https://github.com/RohanSreerama5).
 menu:
   flux_0_x_ref:
     name: RohanSreerama5 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `RohanSreerama5` package contains packages and functions contributed by [@RohanSreerama5](https://github.com/RohanSreerama5).
 
 
 

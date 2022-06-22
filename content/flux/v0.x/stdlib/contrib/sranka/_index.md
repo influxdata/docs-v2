@@ -1,7 +1,7 @@
 ---
 title: sranka package
 description: >
-  
+  The `sranka` package contains packages and functions contributed by [@sranka](https://github.com/sranka).
 menu:
   flux_0_x_ref:
     name: sranka 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `sranka` package contains packages and functions contributed by [@sranka](https://github.com/sranka).
 
 
 

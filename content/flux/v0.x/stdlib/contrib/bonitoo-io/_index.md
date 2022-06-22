@@ -1,7 +1,7 @@
 ---
 title: bonitoo-io package
 description: >
-  
+  The `bonitoo-io` package contains packages and functions contributed by [@bonitoo-io](https://github.com/bonitoo-io).
 menu:
   flux_0_x_ref:
     name: bonitoo-io 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `bonitoo-io` package contains packages and functions contributed by [@bonitoo-io](https://github.com/bonitoo-io).
 
 
 

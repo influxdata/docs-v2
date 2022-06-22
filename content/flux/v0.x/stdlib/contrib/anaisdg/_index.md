@@ -1,7 +1,7 @@
 ---
 title: anaisdg package
 description: >
-  
+  The `anaisdg` package contains packages and functions contributed by [@anaisdg](https://github.com/anaisdg).
 menu:
   flux_0_x_ref:
     name: anaisdg 
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `anaisdg` package contains packages and functions contributed by [@anaisdg](https://github.com/anaisdg).
 
 
 

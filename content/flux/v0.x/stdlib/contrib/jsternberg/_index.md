@@ -1,7 +1,7 @@
 ---
 title: jsternberg package
 description: >
-  
+  The `jsternberg` package contains packages and functions contributed by [@jsternberg](https://github.com/jsternberg).
 menu:
   flux_0_x_ref:
     name: jsternberg 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `jsternberg` package contains packages and functions contributed by [@jsternberg](https://github.com/jsternberg).
 
 
 

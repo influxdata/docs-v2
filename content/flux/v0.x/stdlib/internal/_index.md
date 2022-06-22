@@ -1,7 +1,7 @@
 ---
 title: internal package
 description: >
-  
+  The `internal` package contains packages and functions used internally by Flux.
 menu:
   flux_0_x_ref:
     name: internal 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `internal` package contains packages and functions used internally by Flux.
 
 
 

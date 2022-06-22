@@ -1,7 +1,7 @@
 ---
 title: chobbs package
 description: >
-  
+  The `chobbs` package contains packages and functions contributed by [@chobbs](https://github.com/chobbs).
 menu:
   flux_0_x_ref:
     name: chobbs 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `chobbs` package contains packages and functions contributed by [@chobbs](https://github.com/chobbs).
 
 
 

@@ -1,7 +1,7 @@
 ---
 title: tomhollingworth package
 description: >
-  
+  The `tomhollingworth` package contains packages and functions contributed by [@tomhollingworth](https://github.com/tomhollingworth).
 menu:
   flux_0_x_ref:
     name: tomhollingworth 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `tomhollingworth` package contains packages and functions contributed by [@tomhollingworth](https://github.com/tomhollingworth).
 
 
 

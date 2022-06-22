@@ -1,7 +1,7 @@
 ---
 title: contrib package
 description: >
-  
+  The `contrib` package contains packages and functions contributed and maintained by members of the Flux and InfluxDB communities.
 menu:
   flux_0_x_ref:
     name: contrib 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-
+The `contrib` package contains packages and functions contributed and maintained by members of the Flux and InfluxDB communities.
 
 
 
