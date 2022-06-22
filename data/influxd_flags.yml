@@ -57,6 +57,9 @@
 - flag: "--influxql-max-select-series"
   added: 2.0
 
+- flag: "--instance-id"
+  added: 2.3
+
 - flag: "--log-level"
   added: 2.0
 

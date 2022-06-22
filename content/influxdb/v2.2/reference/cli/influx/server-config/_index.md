@@ -11,7 +11,7 @@ cascade:
   related:
     - /influxdb/v2.2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/v2.2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
-  metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
+  metadata: [influx CLI 2.3.0+, InfluxDB 2.0.0+]
 ---
 
 The `influx server-config` command displays the InfluxDB runtime [server configuration](/influxdb/v2.2/reference/config-options/).

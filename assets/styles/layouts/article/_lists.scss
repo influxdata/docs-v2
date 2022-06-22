@@ -3,6 +3,8 @@
 ol, ul {
   padding-left: 1.6rem;
   margin: 1rem 0 1.5rem 0;
+
+  ol, ul {margin: 0;}
 }
 
 ul {
@@ -44,8 +46,10 @@ ol {
     & > ol li ol li ol li:before { content: counter(item, lower-latin) ". "; }
     & > ol li ol li ol li ol li:before { content: counter(item) ". "; }
 
-    & > ul {
+    ul {
       counter-reset: item;
+
+      & > ol {counter-reset: item;}
     }
   }
 }
