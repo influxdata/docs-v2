@@ -1,9 +1,7 @@
 ---
 title: types.isType() function
 description: >
-  `types.isType()` tests if a value is a specified
-  [Flux basic type](/flux/v0.x/data-types/basic/) or
-  [regular expression type](/flux/v0.x/data-types/regexp/).
+  `types.isType()` tests if a value is a specified [Flux basic type](/flux/v0.x/data-types/basic/).
 menu:
   flux_0_x_ref:
     name: types.isType
@@ -12,9 +10,9 @@ weight: 101
 flux/v0.x/tags: [tests, types]
 ---
 
-`types.isType()` tests if a value is a specified
-[Flux basic type](/flux/v0.x/data-types/basic/) or
-[regular expression type](/flux/v0.x/data-types/regexp/). Use this function to filter your data by type. Often used to downsample or [aggregate data by type](#aggregate-or-select-data-based-on-type).
+`types.isType()` tests if a value is a specified [Flux basic type](/flux/v0.x/data-types/basic/).
+Use this function to filter your data by type. Often used to downsample or
+[aggregate data by type](#aggregate-or-select-data-based-on-type).
 
 ```js
 import "types"
