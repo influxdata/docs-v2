@@ -178,7 +178,7 @@ The InfluxDB 2.x `influx` CLI does not include an interactive shell for executin
 
 ## Perform the upgrade
 
-If you've considered the [guidance above](#before-you-begin-important-considerations)
+If you've considered the [guidance above](#important-considerations-before-you-begin)
 and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to InfluxDB {{< current-version >}}.
 
 1. [Download InfluxDB OSS {{< current-version >}}](https://portal.influxdata.com/downloads/).
