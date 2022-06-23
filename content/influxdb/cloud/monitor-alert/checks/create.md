@@ -132,7 +132,7 @@ count = 12
 
 ## Create a deadman check as an InfluxDB task
 
-To add a check for when data stops, you can create a deadman check.
+To check when data stops, create a deadman check.
 
 1. Use the InfluxDB UI, CLI, or Influx API to create a task.
 2. Include the following Flux script in your task:
