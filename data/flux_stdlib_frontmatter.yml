@@ -474,7 +474,7 @@
     - /flux/v0.x/stdlib/universe/distinct/
     - /{{< latest "influxdb" "v1" >}}/query_language/functions/#distinct, InfluxQL – DISTINCT()
 
-/flux/v0.x/stdlib/experimental/fill.md:
+/flux/v0.x/stdlib/experimental/fill.md: |
   aliases:
     - /influxdb/v2.0/reference/flux/stdlib/experimental/fill/
     - /influxdb/cloud/reference/flux/stdlib/experimental/fill/
@@ -1046,6 +1046,15 @@
   aliases:
     - /influxdb/v2.0/reference/flux/stdlib/influxdb/
     - /influxdb/cloud/reference/flux/stdlib/influxdb/
+
+/flux/v0.x/stdlib/influxdata/influxdb/buckets.md: |
+  aliases:
+    - /influxdb/v2.0/reference/flux/functions/inputs/buckets
+    - /influxdb/v2.0/reference/flux/functions/built-in/inputs/buckets/
+    - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/buckets/
+    - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/buckets/
+  related:
+    - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-databases, InfluxQL - SHOW DATABASES]()
 
 /flux/v0.x/stdlib/influxdata/influxdb/cardinality.md: |
   aliases:
@@ -2499,16 +2508,6 @@
     - /influxdb/v2.0/reference/flux/stdlib/testing/load/
     - /influxdb/cloud/reference/flux/stdlib/testing/load/
 
-/flux/v0.x/stdlib/testing/loadmem.md: |
-  aliases:
-    - /influxdb/v2.0/reference/flux/stdlib/testing/loadmem/
-    - /influxdb/cloud/reference/flux/stdlib/testing/loadmem/
-
-/flux/v0.x/stdlib/testing/loadstorage.md: |
-  aliases:
-    - /influxdb/v2.0/reference/flux/stdlib/testing/loadstorage/
-    - /influxdb/cloud/reference/flux/stdlib/testing/loadstorage/
-
 /flux/v0.x/stdlib/testing/run.md: |
   aliases:
     - /influxdb/v2.0/reference/flux/stdlib/testing/run/
@@ -2548,15 +2547,6 @@
     - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/bottom/
   related:
     - /{{< latest "influxdb" "v1" >}}/query_language/functions/#bottom, InfluxQL – BOTTOM()
-
-/flux/v0.x/stdlib/universe/buckets.md: |
-  aliases:
-    - /influxdb/v2.0/reference/flux/functions/inputs/buckets
-    - /influxdb/v2.0/reference/flux/functions/built-in/inputs/buckets/
-    - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/buckets/
-    - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/buckets/
-  related:
-    - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-databases, InfluxQL - SHOW DATABASES]()
 
 /flux/v0.x/stdlib/universe/bytes.md: |
   aliases:
@@ -3461,4 +3451,3 @@
     - /influxdb/cloud/reference/flux/stdlib/built-in/outputs/yield/
   related:
     - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT AS
-    

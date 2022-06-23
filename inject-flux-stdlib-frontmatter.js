@@ -8,16 +8,40 @@ and appends the associated frontmatter.
 const yaml = require('js-yaml')
 const fs = require('fs')
 
-const frontmatter = yaml.load(fs.readFileSync('./data/flux_stdlib_frontmatter.yml', 'utf8'))
+// Check to see if frontmatter has already been injected
+hasFrontmatter = () => {
+  var sampleFile = fs.readFileSync("./content/flux/v0.x/stdlib/array/_index.md").toString();
 
-for (const [key, value] of Object.entries(frontmatter)) {
+  console.log(sampleFile.includes("aliases:"));
+  return sampleFile.includes("aliases:");
+}
 
-  let pageText = fs.readFileSync(`./content${key}`).toString()
-  let i = 0
+// Exit with success
+exitWithSuccess = (message) => {
+  console.log(message);
+  process.exit(0);
+}
+
+injectFrontmatter = () => {
+  const frontmatter = yaml.load(fs.readFileSync('./data/flux_stdlib_frontmatter.yml', 'utf8'))
+
+  for (const [key, value] of Object.entries(frontmatter)) {
+
+    let pageText = fs.readFileSync(`./content${key}`).toString()
+    let i = 0
+    
+    pageText = pageText.replace(/^---/gm, (match) => ++i === 2 ? `${value}---` : match);
   
-  pageText = pageText.replace(/^---/gm, (match) => ++i === 2 ? `${value}---` : match);
+    fs.writeFile(`./content${key}`, pageText, (err) => {
+      if (err) throw err;
+    });
+  }
 
-  fs.writeFile(`./content${key}`, pageText, (err) => {
-    if (err) throw err;
-  })
+  console.log("Flux standard library frontmatter injected!");
+}
+
+if ( hasFrontmatter() ) {
+  exitWithSuccess("Flux standard library frontmatter has already been injected. Skipping...");
+} else {
+  injectFrontmatter();
 }
