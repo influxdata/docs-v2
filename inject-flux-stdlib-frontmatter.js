@@ -12,7 +12,6 @@ const fs = require('fs')
 hasFrontmatter = () => {
   var sampleFile = fs.readFileSync("./content/flux/v0.x/stdlib/array/_index.md").toString();
 
-  console.log(sampleFile.includes("aliases:"));
   return sampleFile.includes("aliases:");
 }
 
