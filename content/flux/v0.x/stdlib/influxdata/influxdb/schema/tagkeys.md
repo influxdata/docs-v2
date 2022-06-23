@@ -1,87 +1,98 @@
 ---
 title: schema.tagKeys() function
-description: The schema.tagKeys() function returns a list of tag keys for all series that match the predicate.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagkeys/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagkeys/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/tagkeys/
+description: >
+  `schema.tagKeys()` returns a list of tag keys for all series that match the `predicate`.
 menu:
   flux_0_x_ref:
     name: schema.tagKeys
-    parent: schema
+    parent: influxdata/influxdb/schema
+    identifier: influxdata/influxdb/schema/tagKeys
 weight: 301
 flux/v0.x/tags: [metadata]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
-introduced: 0.88.0
 ---
 
-The `schema.tagKeys()` function returns a list of tag keys for all series that match the [`predicate`](#predicate).
-The return value is always a single table with a single column, `_value`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/schema/schema.flux#L127-L133
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`schema.tagKeys()` returns a list of tag keys for all series that match the `predicate`.
+
+Results include a single table with a single column, `_value`.
+
+##### Function type signature
 
 ```js
-import "influxdata/influxdb/schema"
-
-schema.tagKeys(
-    bucket: "example-bucket",
-    predicate: (r) => true,
-    start: -30d,
-)
+(
+    bucket: string,
+    ?predicate: (
+        r: {
+            A with
+            _value: B,
+            _time: time,
+            _stop: time,
+            _start: time,
+            _measurement: string,
+            _field: string,
+        },
+    ) => bool,
+    ?start: C,
+    ?stop: D,
+) => stream[E] where E: Record
 ```
 
-{{% note %}}
-#### Deleted tags
-Tags [explicitly deleted from InfluxDB](/{{< latest "influxdb" >}}/write-data/delete-data/)
-**do not** appear in results.
-
-#### Expired tags
-- **InfluxDB Cloud**: tags associated with points outside of the bucket's
-  retention policy **may** appear in results up to an hour after expiring.
-- **InfluxDB OSS**: tags associated with points outside of the bucket's
-  retention policy **may** appear in results.
-  For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
-{{% /note %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### bucket {data-type="string"}
+### bucket
+({{< req >}})
 Bucket to return tag keys from.
 
-### predicate {data-type="function"}
+
+
+### predicate
+
 Predicate function that filters tag keys.
-_Default is `(r) => true`._
+Default is `(r) => true`.
 
-### start {data-type="duration, time"}
-Earliest time to include in results.
-_Default is `-30d`._
 
-Relative start times are defined using negative durations.
-Negative durations are relative to now.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
 
-### stop {data-type="duration, time"}
-Latest time to include in results.
-_Default is `now()`._
+### start
 
-The `stop` time is exclusive, meaning values with a time equal to stop time are
-excluded from results.
+Oldest time to include in results. Default is `-30d`.
+
+
+
+### stop
+
+Newest time include in results.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
 Relative start times are defined using negative durations.
 Negative durations are relative to `now()`.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+Absolute start times are defined using time values.
+
 
 ## Examples
 
-### Return all tag keys in a bucket
+### Query tag keys in an InfluxDB bucket
+
 ```js
 import "influxdata/influxdb/schema"
 
 schema.tagKeys(bucket: "example-bucket")
 ```
 
-### Return all tag keys in a bucket during a non-default time range
-```js
-import "influxdata/influxdb/schema"
-
-schema.tagKeys(bucket: "example-bucket", start: -90d, stop: -60d)
-```

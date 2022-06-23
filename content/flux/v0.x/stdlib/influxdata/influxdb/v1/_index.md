@@ -1,49 +1,59 @@
 ---
-title: Flux InfluxDB v1 package
-list_title: v1 package
+title: v1 package
 description: >
-  The Flux InfluxDB v1 package provides functions for managing data from an InfluxDB v1.x
-  database or structured using the InfluxDB v1 data structure.
-  Import the `influxdata/influxdb/v1` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/
+  The `v1` package provides tools for managing data from an InfluxDB v1.x database or
+  structured using the InfluxDB v1 data structure.
 menu:
   flux_0_x_ref:
-    name: v1
-    parent: influxdb-pkg
-weight: 202
-flux/v0.x/tags: [functions, influxdb-v1, package]
-introduced: 0.16.0
+    name: v1 
+    parent: influxdata/influxdb
+    identifier: influxdata/influxdb/v1
+weight: 31
+cascade:
+
+  introduced: 0.16.0
 ---
 
-InfluxDB v1 Flux functions provide tools for managing data from an InfluxDB v1.x
-database or structured using the InfluxDB v1 data structure.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/v1/v1.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `v1` package provides tools for managing data from an InfluxDB v1.x database or
+structured using the InfluxDB v1 data structure.
 Import the `influxdata/influxdb/v1` package:
 
 ```js
 import "influxdata/influxdb/v1"
 ```
 
+### Deprecated functions
+In Flux 0.88.0, the following v1 package functions moved to
+the InfluxDB schema package. These functions are still available in the v1
+package for backwards compatibility, but are deprecated in favor of the
+schema package.
+
+- `v1.fieldKeys()`
+- `v1.fieldsAsCols()`
+- `v1.measurementFieldKeys()`
+- `v1.measurements()`
+- `v1.measurementTagKeys()`
+- `v1.measurementTagValues()`
+- `v1.tagKeys()`
+- `v1.tagValues()`
+
+
 ## Functions
+
 {{< children type="functions" show="pages" >}}
-
-{{% warn %}}
-#### Deprecated functions
-In **Flux 0.88.0**, the following InfluxDB v1 package functions moved to the
-[InfluxDB schema package](/flux/v0.x/stdlib/influxdata/influxdb/schema/).
-These functions are still available in the `v1` package for backwards compatibility,
-but are deprecated in favor of `schema`.
-
-| Deprecated v1 function        | → | Corresponding schema function                                                                      |
-|:-------------------           |:-:|:------------------------                                                                           |
-| **v1.fieldKeys()**            | → | [schema.fieldKeys()](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldkeys/)                       |
-| **v1.fieldsAsCols()**         | → | [schema.fieldsAsCols()](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/)                 |
-| **v1.measurementFieldKeys()** | → | [schema.measurementFieldKeys()](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementfieldkeys/) |
-| **v1.measurements()**         | → | [schema.measurements()](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurements/)                 |
-| **v1.measurementTagKeys()**   | → | [schema.measurementTagKeys()](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/)     |
-| **v1.measurementTagValues()** | → | [schema.measurementTagValues()](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagvalues/) |
-| **v1.tagKeys()**              | → | [schema.tagKeys()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagkeys/)                           |
-| **v1.tagValues()**            | → | [schema.tagValues()](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues/)                       |
-{{% /warn %}}

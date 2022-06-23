@@ -27,7 +27,9 @@
 versionDirs=($(ls -d */))
 latestOSS=${versionDirs[${#versionDirs[@]}-1]}
 baseUrl="https://raw.githubusercontent.com/influxdata/openapi/master"
-baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss"
+# baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss"
+# Temporarily pin baseUrlOSS to the latest OSS version tag.
+baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/influxdb-oss-v2.3.0"
 ossVersion=${latestOSS%/}
 verbose=""
 context=""

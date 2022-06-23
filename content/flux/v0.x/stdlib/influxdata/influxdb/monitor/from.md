@@ -1,63 +1,92 @@
 ---
 title: monitor.from() function
 description: >
-  The `monitor.from()` function retrieves check statuses stored in the `statuses`
-  measurement in the `_monitoring` bucket.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/monitor/from/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/from/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/from/
+  `monitor.from()` retrieves check statuses stored in the `statuses` measurement in the
+  `_monitoring` bucket.
 menu:
   flux_0_x_ref:
     name: monitor.from
-    parent: monitor
-weight: 202
-flux/v0.x/tags: [inputs]
-introduced: 0.39.0
+    parent: influxdata/influxdb/monitor
+    identifier: influxdata/influxdb/monitor/from
+weight: 301
 ---
 
-The `monitor.from()` function retrieves check statuses stored in the `statuses`
-measurement in the `_monitoring` bucket.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/monitor/monitor.flux#L107-L112
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`monitor.from()` retrieves check statuses stored in the `statuses` measurement in the
+`_monitoring` bucket.
+
+
+
+##### Function type signature
 
 ```js
-import "influxdata/influxdb/monitor"
-
-monitor.from(
-    start: -1h,
-    stop: now(),
-    fn: (r) => true,
-)
+(
+    start: A,
+    ?fn: (
+        r: {
+            B with
+            _value: C,
+            _time: time,
+            _stop: time,
+            _start: time,
+            _measurement: string,
+            _field: string,
+        },
+    ) => bool,
+    ?stop: D,
+) => stream[E] where E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### start {data-type="duration, time, int"}
-The earliest time to include in results.
+### start
+({{< req >}})
+Earliest time to include in results.
+
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.
 
-### stop {data-type="duration, time, int"}
-The latest time to include in results.
+### stop
+
+Latest time to include in results. Default is `now()`.
+
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
-Durations are relative to `now()`.
-Defaults to `now()`.
+Durations are relative to `now()`
 
-{{% note %}}
-Time values in Flux must be in [RFC3339 format](/flux/v0.x/spec/types#timestamp-format).
-{{% /note %}}
+### fn
 
-### fn {data-type="function"}
-A single argument predicate function that evaluates `true` or `false`.
+Predicate function that evaluates true or false.
+
 Records or rows (`r`) that evaluate to `true` are included in output tables.
 Records that evaluate to _null_ or `false` are not included in output tables.
+
 
 ## Examples
 
 ### View critical check statuses from the last hour
+
 ```js
 import "influxdata/influxdb/monitor"
 
 monitor.from(start: -1h, fn: (r) => r._level == "crit")
 ```
+

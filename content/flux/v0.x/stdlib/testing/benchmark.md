@@ -1,49 +1,74 @@
 ---
 title: testing.benchmark() function
 description: >
-  The `testing.benchmark()` function executes a test case without comparing test output with the expected test output.
-  This lets you accurately benchmark a test case without the added overhead of comparing
-  test output that occurs in [`testing.run()`](/flux/v0.x/stdlib/testing/run/).
+  `testing.benchmark()` executes a test case without comparing test output with the expected test output.
+  This lets you accurately benchmark a test case without the added overhead of
+  comparing test output that occurs in `testing.run()`.
 menu:
   flux_0_x_ref:
     name: testing.benchmark
     parent: testing
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/testing/benchmark/
-  - /influxdb/cloud/reference/flux/stdlib/testing/benchmark/
-weight: 301
-flux/v0.x/tags: [tests, transformations]
+    identifier: testing/benchmark
+weight: 101
+
 introduced: 0.49.0
 ---
 
-The `testing.benchmark()` function executes a test case without comparing test output with the expected test output.
-This lets you accurately benchmark a test case without the added overhead of comparing
-test output that occurs in [`testing.run()`](/flux/v0.x/stdlib/testing/run/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L353-L357
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`testing.benchmark()` executes a test case without comparing test output with the expected test output.
+This lets you accurately benchmark a test case without the added overhead of
+comparing test output that occurs in `testing.run()`.
+
+
+
+##### Function type signature
 
 ```js
-import "testing"
-
-testing.benchmark(case: exampleTestCase)
+(case: () => {A with input: B, fn: (<-: B) => C}) => C
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### case {data-type="function"}
+### case
+({{< req >}})
 Test case to benchmark.
+
+
+
 
 ## Examples
 
-##### Define and benchmark a test case
-The following script defines a test case for the `sum()` function and enables
-[profilers](/flux/v0.x/stdlib/profiler/) to measure query performance.
+### Define and benchmark a test case
+
+The following script defines a test case for the sum() function and enables
+profilers to measure query performance.
 
 ```js
+import "csv"
 import "testing"
 import "profiler"
 
 option profiler.enabledProfilers = ["query", "operator"]
 
-inData = "
+inData =
+    "
 #datatype,string,long,string,dateTime:RFC3339,string,double
 #group,false,false,true,false,true,false
 #default,_result,,,,,
@@ -53,7 +78,8 @@ inData = "
 ,,0,m,2021-01-03T00:00:00Z,t,2.2
 "
 
-outData = "
+outData =
+    "
 #datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,string,string,double
 #group,false,false,true,true,true,true,false
 #default,_result,,,,,,
@@ -61,11 +87,13 @@ outData = "
 ,,0,2021-01-01T00:00:00Z,2021-01-03T01:00:00Z,m,t,4.8
 "
 
-t_sum = (table=<-) => table
-    |> range(start: 2021-01-01T00:00:00Z, stop: 2021-01-03T01:00:00Z)
-    |> sum()
+t_sum = (table=<-) =>
+    table
+        |> range(start: 2021-01-01T00:00:00Z, stop: 2021-01-03T01:00:00Z)
+        |> sum()
 
-test _sum = () => ({input: testing.loadStorage(csv: inData), want: testing.loadMem(csv: outData), fn: t_sum})
+test _sum = () => ({input: csv.from(csv: inData), want: csv.from(csv: outData), fn: t_sum})
 
 testing.benchmark(case: _sum)
 ```
+
