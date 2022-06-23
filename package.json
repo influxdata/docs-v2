@@ -8,6 +8,7 @@
     "autoprefixer": "^10.2.5",
     "hugo-extended": "^0.92.1",
     "postcss": "^8.2.13",
-    "postcss-cli": "^9.1.0"
+    "postcss-cli": "^9.1.0",
+    "js-yaml": "^4.1.0"
   }
 }

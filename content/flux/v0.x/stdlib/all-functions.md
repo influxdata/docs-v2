@@ -8,7 +8,7 @@ aliases:
 menu:
   flux_0_x_ref:
     name: View all functions
-    parent: Standard library
+    parent: stdlib
 weight: 9
 ---
 

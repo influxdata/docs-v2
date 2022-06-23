@@ -1,53 +1,112 @@
 ---
 title: strings.trimRight() function
 description: >
-  The strings.trimRight() function removes trailing characters specified in the cutset from a string.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/trimright/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trimright/
-  - /influxdb/cloud/reference/flux/stdlib/strings/trimright/
+  `strings.trimRight()` removes trailing characters specified in the cutset from a string.
 menu:
   flux_0_x_ref:
     name: strings.trimRight
     parent: strings
-weight: 301
-related:
-  - /flux/v0.x/stdlib/strings/trim
-  - /flux/v0.x/stdlib/strings/trimleft
-  - /flux/v0.x/stdlib/strings/trimprefix
-  - /flux/v0.x/stdlib/strings/trimsuffix
-  - /flux/v0.x/stdlib/strings/trimspace
-introduced: 0.18.0
+    identifier: strings/trimRight
+weight: 101
 ---
 
-The `strings.trimRight()` function removes trailing characters specified in the
-[`cutset`](#cutset) from a string.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** String_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux#L188-L188
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`strings.trimRight()` removes trailing characters specified in the cutset from a string.
+
+
+
+##### Function type signature
 
 ```js
-import "strings"
-
-strings.trimRight(v: ".abc.", cutset: ".")
-
-// returns ".abc"
+(cutset: string, v: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string"}
-String to remove characters from.
+### v
+({{< req >}})
+String to to remove characters from
 
-### cutset {data-type="string"}
-The trailing characters to trim from the string.
-Only characters that match the `cutset` string exactly are trimmed.
+
+
+### cutset
+({{< req >}})
+Trailing characters to trim from the string.
+
+Only characters that match the cutset string exactly are trimmed.
+
 
 ## Examples
 
-###### Trim trailing periods from all values in a column
+### Trim trailing periods from all values in a column
+
 ```js
 import "strings"
 
 data
-    |> map(fn: (r) => ({r with variables: strings.trimRight(v: r.variables, cutset: ".")}))
+    |> map(fn: (r) => ({r with _value: strings.trimRight(v: r._value, cutset: ".")}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _value         | *tag |
+| -------------------- | -------------- | ---- |
+| 2021-01-01T00:00:00Z | smpl_g9qczs... | t1   |
+| 2021-01-01T00:00:10Z | smpl_0mgv9n... | t1   |
+| 2021-01-01T00:00:20Z | smpl_phw664... | t1   |
+| 2021-01-01T00:00:30Z | smpl_guvzy4... | t1   |
+| 2021-01-01T00:00:40Z | smpl_5v3cce... | t1   |
+| 2021-01-01T00:00:50Z | smpl_s9fmgy... | t1   |
+
+| _time                | _value         | *tag |
+| -------------------- | -------------- | ---- |
+| 2021-01-01T00:00:00Z | smpl_b5eida... | t2   |
+| 2021-01-01T00:00:10Z | smpl_eu4oxp... | t2   |
+| 2021-01-01T00:00:20Z | smpl_5g7tz4... | t2   |
+| 2021-01-01T00:00:30Z | smpl_sox1ut... | t2   |
+| 2021-01-01T00:00:40Z | smpl_wfm757... | t2   |
+| 2021-01-01T00:00:50Z | smpl_dtn2bv... | t2   |
+
+
+#### Output data
+
+| _time                | _value      | *tag |
+| -------------------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | smpl_g9qczs | t1   |
+| 2021-01-01T00:00:10Z | smpl_0mgv9n | t1   |
+| 2021-01-01T00:00:20Z | smpl_phw664 | t1   |
+| 2021-01-01T00:00:30Z | smpl_guvzy4 | t1   |
+| 2021-01-01T00:00:40Z | smpl_5v3cce | t1   |
+| 2021-01-01T00:00:50Z | smpl_s9fmgy | t1   |
+
+| _time                | _value      | *tag |
+| -------------------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | smpl_b5eida | t2   |
+| 2021-01-01T00:00:10Z | smpl_eu4oxp | t2   |
+| 2021-01-01T00:00:20Z | smpl_5g7tz4 | t2   |
+| 2021-01-01T00:00:30Z | smpl_sox1ut | t2   |
+| 2021-01-01T00:00:40Z | smpl_wfm757 | t2   |
+| 2021-01-01T00:00:50Z | smpl_dtn2bv | t2   |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

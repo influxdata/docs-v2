@@ -204,7 +204,7 @@ $('.tooltip').each( function(){
 
 $('.article--content table').each(function() {
   var table = $(this);
-  var timeColumns = ['_time', '_start', '_stop'];
+  var timeColumns = ['_time', '*_time', '_start', '*_start', '_stop', '*_stop'];
   let header = [];
   let timeColumnIndexes = [];
 

@@ -1,81 +1,110 @@
 ---
 title: experimental.distinct() function
 description: >
-  The `experimental.distinct()` function returns unique values from the `_value` column.
+  `experimental.distinct()` returns unique values from the `_value` column.
 menu:
   flux_0_x_ref:
     name: experimental.distinct
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/distinct/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/distinct/
-related:
-  - /flux/v0.x/stdlib/universe/distinct/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#distinct, InfluxQL – DISTINCT()
-introduced: 0.112.0
+    identifier: experimental/distinct
+weight: 101
 flux/v0.x/tags: [transformations, selectors]
+introduced: 0.112.0
 ---
 
-The `experimental.distinct()` function returns unique values from the `_value` column.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1035-L1035
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.distinct()` returns unique values from the `_value` column.
+
 The `_value` of each output record is set to a distinct value in the specified column.
 `null` is considered a distinct value.
-_`experimental.distinct()` is a [selector function](/flux/v0.x/function-types/#selectors)._
+
+`experimental.distinct()` drops all columns **not** in the group key and
+drops empty tables.
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.distinct()
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}]
 ```
 
-#### Output schema
-`experimental.distinct()` outputs a single table for each input table and does
-the following:
-
-- Outputs a single record for each distinct value.
-- Drops all columns **not** in the group key.
-
-{{% warn %}}
-#### Empty tables
-`experimental.distinct()` drops empty tables.
-{{% /warn %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-#### Return distinct values for each input table
+### Return distinct values from each input table
+
 ```js
 import "experimental"
+import "sampledata"
 
-data
+sampledata.int(includeNull: true)
     |> experimental.distinct()
 ```
 
-{{< flex >}}
-{{% flex-content "two-thirds" %}}
-##### Input data
-| _time                | _field | _value |
-|:-----                |:------ | ------:|
-| 2021-01-01T00:00:00Z | ver    | v1     |
-| 2021-01-01T00:01:00Z | ver    | v1     |
-| 2021-01-01T00:02:00Z | ver    | v2     |
-| 2021-01-01T00:03:00Z | ver    |        |
-| 2021-01-01T00:04:00Z | ver    | v3     |
-| 2021-01-01T00:05:00Z | ver    | v3     |
-{{% /flex-content %}}
-{{% flex-content "third" %}}
-##### Output data
-| _value |
-| ------:|
-| v1     |
-| v2     |
-|        |
-| v3     |
-{{% /flex-content %}}
-{{< /flex >}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z |         | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z |         | t1   |
+| 2021-01-01T00:00:40Z |         | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z |         | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z |         | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   | -2      |
+| t1   |         |
+| t1   | 7       |
+| t1   | 4       |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   |         |
+| t2   | 4       |
+| t2   | -3      |
+| t2   | 19      |
+| t2   | 1       |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

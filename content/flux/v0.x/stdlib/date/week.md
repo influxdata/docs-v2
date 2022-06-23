@@ -1,56 +1,85 @@
 ---
 title: date.week() function
 description: >
-  The `date.week()` function returns the ISO week of the year for a specified time.
-  Results range from `[1-53]`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/date/week/
-  - /influxdb/v2.0/reference/flux/stdlib/date/week/
-  - /influxdb/cloud/reference/flux/stdlib/date/week/
+  `date.week()` returns the ISO week of the year for a specified time.
+  Results range from `[1 - 53]`.
 menu:
   flux_0_x_ref:
     name: date.week
     parent: date
-weight: 301
-introduced: 0.37.0
+    identifier: date/week
+weight: 101
 ---
 
-The `date.week()` function returns the ISO week of the year for a specified time.
-Results range from `[1-53]`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L355-L355
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`date.week()` returns the ISO week of the year for a specified time.
+Results range from `[1 - 53]`.
+
+
+
+##### Function type signature
 
 ```js
-import "date"
-
-date.week(t: 2019-07-17T12:05:21.012Z)
-
-// Returns 29
+(t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### t {data-type="time, duration"}
-The time to operate on.
+### t
+({{< req >}})
+Time to operate on.
+
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
+### location
+
+Location used to determine timezone.
+Default is the `location` option.
+
+
+
+
 ## Examples
 
-##### Return the week of the year
+- [Return the week of the year](#return-the-week-of-the-year)
+- [Return the week of the year using a relative duration](#return-the-week-of-the-year-using-a-relative-duration)
+
+### Return the week of the year
+
 ```js
 import "date"
 
-date.week(t: 2020-02-11T12:21:03.293534940Z)
+date.week(t: 2020-02-11T12:21:03.29353494Z)// Returns 7
 
-// Returns 7
 ```
 
-##### Return the week of the year using a relative duration
+
+### Return the week of the year using a relative duration
+
 ```js
 import "date"
 
-option now = () => 2020-02-11T12:21:03.293534940Z
+option now = () => 2020-02-11T12:21:03.29353494Z
 
-date.week(t: -12d)
+date.week(t: -12d)// Returns 42
 
-// Returns 5
 ```
+

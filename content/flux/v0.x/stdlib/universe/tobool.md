@@ -1,51 +1,62 @@
 ---
 title: toBool() function
-description: The `toBool()` function converts all values in the `_value` column to booleans.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/tobool
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/tobool/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/tobool/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/tobool/
+description: >
+  `toBool()` converts all values in the `_value` column to boolean types.
 menu:
   flux_0_x_ref:
     name: toBool
     parent: universe
-weight: 102
-flux/v0.x/tags: [type-conversions, transformations]
-related:
-  - /flux/v0.x/data-types/basic/bool/
-  - /flux/v0.x/stdlib/universe/bool/
+    identifier: universe/toBool
+weight: 101
+flux/v0.x/tags: [transformations, type-conversions]
 introduced: 0.7.0
 ---
 
-The `toBool()` function converts all values in the `_value` column to booleans.
+<!------------------------------------------------------------------------------
 
-```js
-toBool()
-```
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-{{% note %}}
-To convert values in a column other than `_value`, use `map()` and `bool()`
-as shown in [this example](/flux/v0.x/stdlib/universe/bool/#convert-a-numeric-column-to-a-boolean-column).
-{{% /note %}}
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-##### Supported data types
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4590-L4590
 
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`toBool()` converts all values in the `_value` column to boolean types.
+
+#### Supported data types
 - **string**: `true` or `false`
 - **int**: `1` or `0`
 - **uint**: `1` or `0`
 - **float**: `1.0` or `0.0`
 
+##### Function type signature
+
+```js
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _value: bool}]
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
 
-#### Convert an integer value column to a boolean column
+### Convert an integer _value column to booleans
+
 ```js
 import "sampledata"
 
@@ -54,35 +65,48 @@ sampledata.numericBool()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "numericBool" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 1       | t1   |
+| 2021-01-01T00:00:10Z | 1       | t1   |
+| 2021-01-01T00:00:20Z | 0       | t1   |
+| 2021-01-01T00:00:30Z | 1       | t1   |
+| 2021-01-01T00:00:40Z | 0       | t1   |
+| 2021-01-01T00:00:50Z | 0       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |   true |
-| 2021-01-01T00:00:10Z | t1  |   true |
-| 2021-01-01T00:00:20Z | t1  |  false |
-| 2021-01-01T00:00:30Z | t1  |   true |
-| 2021-01-01T00:00:40Z | t1  |  false |
-| 2021-01-01T00:00:50Z | t1  |  false |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 0       | t2   |
+| 2021-01-01T00:00:10Z | 1       | t2   |
+| 2021-01-01T00:00:20Z | 0       | t2   |
+| 2021-01-01T00:00:30Z | 1       | t2   |
+| 2021-01-01T00:00:40Z | 1       | t2   |
+| 2021-01-01T00:00:50Z | 0       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t2  |  false |
-| 2021-01-01T00:00:10Z | t2  |   true |
-| 2021-01-01T00:00:20Z | t2  |  false |
-| 2021-01-01T00:00:30Z | t2  |   true |
-| 2021-01-01T00:00:40Z | t2  |   true |
-| 2021-01-01T00:00:50Z | t2  |  false |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | true    | t1   |
+| 2021-01-01T00:00:10Z | true    | t1   |
+| 2021-01-01T00:00:20Z | false   | t1   |
+| 2021-01-01T00:00:30Z | true    | t1   |
+| 2021-01-01T00:00:40Z | false   | t1   |
+| 2021-01-01T00:00:50Z | false   | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | false   | t2   |
+| 2021-01-01T00:00:10Z | true    | t2   |
+| 2021-01-01T00:00:20Z | false   | t2   |
+| 2021-01-01T00:00:30Z | true    | t2   |
+| 2021-01-01T00:00:40Z | true    | t2   |
+| 2021-01-01T00:00:50Z | false   | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

@@ -1,30 +1,47 @@
 ---
-title: Flux experimental bitwise package
-list_title: bitwise package
+title: bitwise package
 description: >
-  The Flux experimental `bitwise` package provides functions for performing
-  bitwise operations on integers.
-  Import the `experimental/bitwise` package.
+  The `bitwise` package provides functions for performing bitwise operations on integers.
 menu:
   flux_0_x_ref:
-    name: bitwise
+    name: bitwise 
     parent: experimental
-weight: 301
-flux/v0.x/tags: [functions, bitwise, package]
+    identifier: experimental/bitwise
+weight: 21
 cascade:
+  flux/v0.x/tags: [bitwise]
   introduced: 0.138.0
 ---
 
-The Flux experimental `bitwise` package provides functions for performing bitwise
-operations on integers and unsigned integers.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `bitwise` package provides functions for performing bitwise operations on integers.
 Import the `experimental/bitwise` package:
 
 ```js
 import "experimental/bitwise"
 ```
 
+All integers are 64 bit integers.
+
+Functions prefixed with s operate on signed integers (int).
+Functions prefixed with u operate on unsigned integers (uint).
+
+
 ## Functions
-Functions prefixed with `s` operate on [signed integers (int)](/flux/v0.x/data-types/basic/int/#perform-bitwise-operations-on-integers).
-Functions prefixed with `u` operate on [unsigned integers (uint)](/flux/v0.x/data-types/basic/uint/#perform-bitwise-operations-on-uintegers).
 
 {{< children type="functions" show="pages" >}}
