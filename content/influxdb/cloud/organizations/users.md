@@ -26,7 +26,7 @@ By default, each user has full permissions on resources in your organization.
 - [Remove a user from your organization](#remove-a-user-from-your-organization)
 
 {{% note %}}
-**Tip:** If you have multiple users, we recommend creating a system account for administrative purposes. For example, if you have applications writing to InfluxDB, ensure the applications use the system account credentials.
+If you have multiple users, we recommend creating a system account for administrative purposes. For example, if you have applications writing to InfluxDB, ensure the applications use the system account credentials.
 {{% /note %}}
 
 ## Members page

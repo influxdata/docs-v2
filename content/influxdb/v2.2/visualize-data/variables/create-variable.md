@@ -53,10 +53,12 @@ _For information about common Query variables, see [Common variable queries](/in
     {{< nav-icon "settings" >}}
 
 2. Select the **Variables** tab.
-3. Enter a name for your variable.
-4. Select your variable type. For details on each type, see [Variable types](/influxdb/v2.2/visualize-data/variables/variable-types/).
-5. Enter the appropriate variable information.
-6. Click **Create**.
+3. Click the **{{< icon "plus" >}} Create Variable** drop-down menu and select **New Variable**.
+4. In the window that appears:
+   - Enter a name for your variable.
+   - Select your variable type. For details on each type, see [Variable types](/influxdb/v2.2/visualize-data/variables/variable-types/).
+   - Enter the appropriate variable information based on the variable type.
+6. Click **Create Variable**.
 
 ## Import a variable
 InfluxDB lets you import variables exported from InfluxDB in JSON format.
@@ -68,6 +70,6 @@ InfluxDB lets you import variables exported from InfluxDB in JSON format.
 2.  Select the **Variables** tab.
 3. Click the **{{< icon "plus" >}} Create Variable** drop-down menu and select **Import Variable**.
 4. In the window that appears:
-  - Select **Upload File** to drag and drop or select a file.
-  - Select **Paste JSON** to paste in JSON.
-6. Click **Import JSON as Variable**.
+   - Select **Upload File** to drag and drop or select a file.
+   - Select **Paste JSON** to paste in JSON.
+5. Click **Import JSON as Variable**.
