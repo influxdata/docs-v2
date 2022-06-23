@@ -43,7 +43,7 @@ Use InfluxDB replication streams (InfluxDB Edge Data Replication) to replicate t
     ```sh
     influx remote create \
       --name example-remote-name \
-      --remote-url cloud2.influxdata.com \
+      --remote-url https://cloud2.influxdata.com \
       --remote-api-token mYsuP3r5Ecr37t0k3n \
       --remote-org-id 00xoXXoxXX00
     ```
@@ -105,6 +105,7 @@ In some cases, you may not want to write raw, high-precision data to a remote In
     import "influxdata/influxdb/tasks"
     import "types"
 
+    // omit this line if adding task via the UI
     option task = {name: "Downsample raw data", every: 10m}
 
     data = () => from(bucket: "example-bucket")
@@ -112,14 +113,14 @@ In some cases, you may not want to write raw, high-precision data to a remote In
 
     numeric = data()
         |> filter(fn: (r) => types.isType(v: r._value, type: "float") or types.isType(v: r._value, type: "int") or types.isType(v: r._value, type: "uint"))
-        |> aggregateWindow(every: -task.every, fn: mean)
+        |> aggregateWindow(every: task.every, fn: mean)
 
     nonNumeric = data()
         |> filter(fn: (r) => types.isType(v: r._value, type: "string") or types.isType(v: r._value, type: "bool"))
-        |> aggregateWindow(every: -task.every, fn: last)
+        |> aggregateWindow(every: task.every, fn: last)
 
     union(tables: [numeric, nonNumeric])
-        |> to(bucket: "example-downsampled-bucket"])
+        |> to(bucket: "example-downsampled-bucket")
     ```
 
 3. [Create a replication stream](#configure-a-replication-stream) to replicate data from the downsampled bucket to the remote InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}instance.
