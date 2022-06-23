@@ -1,7 +1,7 @@
 ---
 title: influxdata package
 description: >
-  The `influxdata` package contains packages and functions that provided by InfluxData and that integrate with InfluxData products.
+  The `influxdata` package contains packages and functions that integrate with InfluxData products.
 menu:
   flux_0_x_ref:
     name: influxdata 
@@ -26,7 +26,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-The `influxdata` package contains packages and functions that provided by InfluxData and that integrate with InfluxData products.
+The `influxdata` package contains packages and functions that integrate with InfluxData products.
 
 
 

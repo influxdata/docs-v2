@@ -1,10 +1,10 @@
 ---
-title: influxdb.buckets() function
+title: buckets() function
 description: >
-  `influxdb.buckets()` returns a list of buckets in the specified organization.
+  `buckets()` returns a list of buckets in the specified organization.
 menu:
   flux_0_x_ref:
-    name: influxdb.buckets
+    name: buckets
     parent: influxdata/influxdb
     identifier: influxdata/influxdb/buckets
 weight: 201
@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`influxdb.buckets()` returns a list of buckets in the specified organization.
+`buckets()` returns a list of buckets in the specified organization.
 
 
 

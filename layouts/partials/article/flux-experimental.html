@@ -1,14 +1,14 @@
 {{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 1 }}
-{{ $expRiskURL := print "/flux/v0.x/stdlib/experimental/#experimental-functions-are-subject-to-change" }}
+{{ $expRiskURL := print "/flux/v0.x/stdlib/experimental/#experimental-packages-are-subject-to-change" }}
 {{ $expPath := print "/flux/v0.x/stdlib/experimental/" }}
 
 {{ if in .RelPermalink $expPath }}
   {{ if not (eq .RelPermalink $expPath) }}
     {{ if eq .Kind "page" }}
-      {{ $name := replaceRE `^\w*\.\w*\(\)` "<code>$0</code>" .Title }}
+      {{ $name := replaceRE " function" "" .Title }}
       <div class="warn block">
         <p>
-          The {{ $name | safeHTML }} is {{ if in $name "experimental" }}{{ else }}experimental and{{ end }} subject to change at any time.
+          <code>{{ $name | safeHTML }}</code> is {{ if in $name "experimental" }}{{ else }}experimental and{{ end }} subject to change at any time.
           By using this function, you accept the <a href="{{ $expRiskURL }}">risks of experimental functions</a>.
         </p>
       </div>
