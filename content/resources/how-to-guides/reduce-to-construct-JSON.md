@@ -1,0 +1,71 @@
+---
+title:  Using reduce() to construct a JSON. 
+description: >
+  Learn how how to send multiple points with http.post() by creating a JSON object with reduce(). 
+menu:
+  resources:
+    parent: How-to guides
+weight: 105
+---
+## Problem
+Users want to send data with [http.post()](/flux/v0.x/stdlib/http/post/) but they want to send more than just one point at a time, as shown in the following example. 
+
+## Solution 
+Use the [reduce()](/flux/v0.x/stdlib/universe/reduce/) function to create a JSON object and include it as the body with the `http.post()` function. 
+
+1. Boilerplate. Import packages. The [array](/flux/v0.x/stdlib/array/) package is used to construct tables so you can run this script yourself. The [http package](/flux/v0.x/stdlib/http/) is used to transfer the JSON over http.  
+2. Construct a table with the `array.from()` function. You could also query for your own data. 
+3. Use the `reduce()` function to start constructing a JSON. The output of reduce is stored in the result `output of reduce`. This table looks like: 
+
+    | field                 | tag                            |
+    | :-------------------- | :----------------------------- |
+    | example-field:["3"4"1 | {example-tag-key:["bar"bar"bar |
+
+4. Next, use the [map()](/flux/v0.x/stdlib/universe/map/) function to combine the two components together to complete our JSON and store it in the column `final`. Use a second yield() function to store the result as `final JSON`. This table looks like:
+
+    | field                 | tag                            | final                                                     |
+    | :-------------------- | :----------------------------- | :-------------------------------------------------------  |
+    | example-field:["3"4"1 | {example-tag-key:["bar"bar"bar | {example-tag-key:["bar"bar"bar] , example-field:["3"4"1]} |
+
+5. Finally, use the findRecord() function to extract the value from the final column, the JSON. 
+6. This example usest the [Post Test Server](https://ptsv2.com/) to grab a URL to dump the JSON and test the `http.post()` function. 
+
+```js
+import "array"
+import "http"
+
+ 
+data = array.from(
+        rows: [
+            {_time: 2020-01-01T00:00:00Z, _field: "example-field", _value: 3, foo: "bar"},
+            {_time: 2020-01-01T00:01:00Z, _field: "example-field", _value: 4, foo: "bar"},
+            {_time: 2020-01-01T00:02:00Z, _field: "example-field", _value: 1, foo: "bar"},
+        ],
+    )
+  
+    |> reduce(
+            fn: (r, accumulator) => ({tag:accumulator.tag + "\"" + r.foo, 
+                                    field : accumulator.field + "\"" + string(v:r._value)
+                                    }),
+            identity: {tag: "{example-tag-key:[", 
+                    field: "example-field:[" }
+    )
+    |> yield(name: "output of reduce")
+    |> map(fn: (r) => ({ r with tag: r.tag + "]" }))
+    |> map(fn: (r) => ({ r with field: r.field + "]}" }))
+    |> map(fn: (r) => ({ r with final: r.tag + " , " + r.field}))
+    |> yield(name: "final JSON")
+    |> findRecord(
+        fn: (key) => true,
+        idx: 0,
+        )
+
+
+http.post(
+    url: "https://ptsv2.com/t/c4x38-1656014222/post",
+    headers: {"Content-type": "application/json"},
+    data: bytes(v: data.final),
+    )
+```
+
+
