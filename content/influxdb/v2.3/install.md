@@ -411,13 +411,13 @@ For information about installing the `influx` CLI, see
 [Install and use the influx CLI](/influxdb/v2.3/tools/influx-cli/).
 {{% /note %}}
 
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}.x86_64.rpm" download >InfluxDB v{{< current-version >}} (Windows)</a>
+<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-2.3.0-windows-amd64.zip" download >InfluxDB v{{< current-version >}} (Windows)</a>
 
 Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename the files if desired.
 
 ```powershell
-> Expand-Archive .\influxdb2-{{< latest-patch >}}.x86_64.rpm -DestinationPath 'C:\Program Files\InfluxData\'
-> mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}.x86_64' 'C:\Program Files\InfluxData\influxdb'
+> Expand-Archive .\influxdb2-{{< latest-patch >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
+> mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
 ```
 
 ## Networking ports
