@@ -53,18 +53,12 @@
    git push tags
    ```
 
-5. Enter the following commands into your terminal to update `docs-release/influxdb-oss` branch to the OSS release commit, rebase or reset the branch to the [latest release of InfluxDB OSS](#how-to-find-the-api-spec-used-by-an-influxdb-oss-version).
+5. Enter the following commands into your terminal to update `docs-release/influxdb-oss` branch to the OSS release commit and rebase the branch to the [latest release of InfluxDB OSS](#how-to-find-the-api-spec-used-by-an-influxdb-oss-version), replacing **`OSS_RELEASE_TAG`** with the SHA from step 3.
 
    ```sh
    git checkout docs-release/influxdb-oss
    git rebase -i OSS_RELEASE_TAG
    git push -f origin docs-release/influxdb-oss
-   ```
-
-   Replace the following:
-
-   - **`OSS_RELEASE_TAG`**: release tag name or SHA from **Step 3**.
-  
 6. Go into your `docs-v2` directory and create a branch for your changes--for example:
 
    ```sh
