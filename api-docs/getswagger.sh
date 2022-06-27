@@ -10,9 +10,8 @@
 #   The default version is the latest OSS version directory in the api-docs directory.
 # - a base URL using the -b flag.
 #   The baseURL specifies where to retrieve the openapi files from.
-#   The default baseUrl is the master branch of the influxdata/openapi repo.
-#   The default baseUrl for OSS is the tag for the latest InfluxDB release.
-#   When a new OSS version is released, update baseUrlOSS to with the tag (/influxdb-oss-[SEMANTIC_VERSION]).
+#   The default baseUrl (used for InfluxDB Cloud) is the master branch of influxdata/openapi.
+#   The default baseUrl for OSS is the docs-release/influxdb-oss branch of influxdata/openapi.
 #   For local development, pass your openapi directory using the file:/// protocol.
 #
 # Syntax:
@@ -26,10 +25,12 @@
 
 versionDirs=($(ls -d */))
 latestOSS=${versionDirs[${#versionDirs[@]}-1]}
+
+# Use openapi master branch as the default base URL.
 baseUrl="https://raw.githubusercontent.com/influxdata/openapi/master"
-# baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss"
-# Temporarily pin baseUrlOSS to the latest OSS version tag.
-baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/influxdb-oss-v2.3.0"
+
+# Use openapi docs-release/influxdb-oss branch for the OSS base URL.
+baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss"
 ossVersion=${latestOSS%/}
 verbose=""
 context=""

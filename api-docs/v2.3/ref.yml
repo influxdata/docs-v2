@@ -8404,7 +8404,7 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - description: >
             Collects and returns CPU profiling data for the specified
-            [duration](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#duration).
+            [duration](/influxdb/v2.3/reference/glossary/#duration).
           in: query
           name: cpu
           schema:
@@ -9654,6 +9654,8 @@ paths:
           description: >-
             Success. The response body contains the currently authenticated
             user.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
@@ -9703,7 +9705,7 @@ paths:
         metrics](https://docs.influxdata.com/influxdb/v2.3/reference/internals/metrics/).
 
         - Learn how to use InfluxDB to [scrape Prometheus
-        metrics](https://docs.influxdata.com/influxdb/v2.3/write-data/developer-tools/scrape-prometheus-metrics/).
+        metrics](https://docs.influxdata.com/influxdb/v2.3write-data/developer-tools/scrape-prometheus-metrics/).
 
         - Learn how InfluxDB [parses the Prometheus exposition
         format](https://docs.influxdata.com/influxdb/v2.3/reference/prometheus-metrics/).
@@ -11036,9 +11038,9 @@ paths:
           description: |
             #### InfluxDB Cloud:
               - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](https://docs.influxdata.com/influxdb/v2.3/account-management/limits/#adjustable-service-quotas)
+                plan's [adjustable service quotas](/influxdb/v2.3/account-management/limits/#adjustable-service-quotas)
                 or if a **delete** request exceeds the maximum
-                [global limit](https://docs.influxdata.com/influxdb/v2.3/account-management/limits/#global-limits)
+                [global limit](/influxdb/v2.3/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
 
             #### InfluxDB OSS:
@@ -14518,7 +14520,7 @@ paths:
               - Returns only `application/json` for format and limit errors.
 
             #### Related guides
-              - [Troubleshoot issues writing data](https://docs.influxdata.com/influxdb/v2.3/write-data/troubleshoot/).
+              - [Troubleshoot issues writing data](/influxdb/v2.3/write-data/troubleshoot/).
           in: header
           name: Accept
           schema:
@@ -14653,7 +14655,7 @@ paths:
 
 
             - [How to check for write
-            errors](https://docs.influxdata.com/influxdb/v2.3/write-data/troubleshoot/).
+            errors](/influxdb/v2.3/write-data/troubleshoot/).
         '400':
           content:
             application/json:
@@ -14727,9 +14729,9 @@ paths:
             #### InfluxDB Cloud
 
               - Returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
+                plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
                 or if a **delete** request exceeds the maximum
-                [global limit](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#global-limits).
+                [global limit](/influxdb/cloud/account-management/limits/#global-limits).
               - Returns `Retry-After` header that describes when to try the write again.
 
             #### InfluxDB OSS
@@ -14752,8 +14754,8 @@ paths:
             #### InfluxDB Cloud
 
               - Returns this error if series cardinality exceeds your plan's
-                [adjustable service quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
-                See [how to resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.3/write-data/best-practices/resolve-high-cardinality/).
+                [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
+                See [how to resolve high series cardinality](/influxdb/v2.3/write-data/best-practices/resolve-high-cardinality/).
 
             #### InfluxDB OSS
 
@@ -14981,8 +14983,8 @@ paths:
 
 
               **Note**: With `application/csv`, query results include [unix
-              timestamps](/influxdb/v2.3/reference/glossary/#unix-timestamp) instead of RFC3339
-              timestamps.
+              timestamps](/influxdb/v2.3/reference/glossary/#unix-timestamp)
+              instead of RFC3339 timestamps.
             enum:
               - application/json
               - application/csv
@@ -15022,10 +15024,8 @@ paths:
         - description: >
             The database to query data from.
 
-            This is mapped to an InfluxDB [bucket](/influxdb/v2.3/reference/glossary/#bucket).
-
-            For more information, see [Database and retention policy
-            mapping](/influxdb/v2.3/api/influxdb-1x/dbrp/).
+            This is mapped to an InfluxDB
+            [bucket](/influxdb/v2.3/api/influxdb-1x/dbrp/).
           in: query
           name: db
           required: true
@@ -15034,10 +15034,8 @@ paths:
         - description: >
             The retention policy to query data from.
 
-            This is mapped to an InfluxDB [bucket](/influxdb/v2.3/reference/glossary/#bucket).
-
-            For more information, see [Database and retention policy
-            mapping](/influxdb/v2.3/api/influxdb-1x/dbrp/).
+            This is mapped to an InfluxDB
+            [bucket](/influxdb/v2.3/api/influxdb-1x/dbrp/).
           in: query
           name: rp
           schema:
@@ -15051,8 +15049,10 @@ paths:
           schema:
             type: string
         - description: >-
-            Return results with [unix (epoch) timestamps](/influxdb/v2.3/reference/glossary/#unix-timestamp) in the specified precision
-            instead of RFC3339 timestamps with nanosecond precision.
+            Return results with [unix (epoch)
+            timestamps](/influxdb/v2.3/reference/glossary/#unix-timestamp) in
+            the specified precision instead of RFC3339 timestamps with
+            nanosecond precision.
           in: query
           name: epoch
           schema:
@@ -15106,9 +15106,7 @@ paths:
           description: |
             #### InfluxDB Cloud:
               - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb/v2.3/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum
-                [global limit](/influxdb/v2.3/account-management/limits/#global-limits)
+                plan's [adjustable service quotas](/influxdb/v2.3/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
 
             #### InfluxDB OSS:
