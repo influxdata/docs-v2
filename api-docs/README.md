@@ -20,7 +20,6 @@
    sh getswagger.sh cloud
    ```
 
-   To troubleshoot errors, see [how to generate API docs locally](#how-to-generate-api-docs-locally).
 3. Enter the following commands into your terminal to generate the API docs with Redocly:
 
    ```sh
