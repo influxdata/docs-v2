@@ -1,104 +1,115 @@
 ---
 title: hourSelection() function
 description: >
-  The `hourSelection()` function retains all rows with time values in a specified hour range.
-  Hours are specified in military time.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/hourselection
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/hourselection/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/hourselection/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/hourselection/
+  `hourSelection()` filters rows by time values in a specified hour range.
 menu:
   flux_0_x_ref:
     name: hourSelection
     parent: universe
-weight: 102
-flux/v0.x/tags: [transformations, date/time]
+    identifier: universe/hourSelection
+weight: 101
+flux/v0.x/tags: [transformations, date/time, filters]
 introduced: 0.39.0
 ---
 
-The `hourSelection()` function retains all rows with time values in a specified hour range.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L985-L993
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`hourSelection()` filters rows by time values in a specified hour range.
+
+
+
+##### Function type signature
 
 ```js
-hourSelection(
-    start: 9,
-    stop: 17,
-    location: {offset: 0h, zone: "UTC"},
-    timeColumn: "_time",
-)
+(
+    <-tables: stream[A],
+    start: int,
+    stop: int,
+    ?location: {zone: string, offset: duration},
+    ?timeColumn: string,
+) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### start {data-type="int"}
+### start
 ({{< req >}})
-The first hour of the hour range (inclusive).
-Hours range from `[0-23]`.
+First hour of the hour range (inclusive). Hours range from `[0-23]`.
 
-### stop {data-type="int"}
+
+
+### stop
 ({{< req >}})
-The last hour of the hour range (inclusive).
-Hours range from `[0-23]`.
+Last hour of the hour range (inclusive). Hours range from `[0-23]`.
 
-### location {data-type="record"}
-Location used to determine timezone.
-Default is the [`location` option](/flux/v0.x/stdlib/universe/#location).
 
-### timeColumn {data-type="string"}
-The column that contains the time value.
-Default is `"_time"`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### location
+
+Location used to determine timezone. Default is the `location` option.
+
+
+
+### timeColumn
+
+Column that contains the time value. Default is `_time`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
-to generate sample data and show how `covariance()` transforms data.
 
-#### Filter by business hours
+### Filter by business hours
+
 ```js
-import "generate"
-
-data = generate.from(
-    count: 8,
-    fn: (n) => n * n,
-    start: 2021-01-01T00:00:00Z,
-    stop: 2021-01-02T00:00:00Z,
-)
-  
-data 
+data
     |> hourSelection(start: 9, stop: 17)
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-| _time                | _value |
-| :------------------- | -----: |
-| 2021-01-01T00:00:00Z |      0 |
-| 2021-01-01T03:00:00Z |      1 |
-| 2021-01-01T06:00:00Z |      4 |
-| 2021-01-01T09:00:00Z |      9 |
-| 2021-01-01T12:00:00Z |     16 |
-| 2021-01-01T15:00:00Z |     25 |
-| 2021-01-01T18:00:00Z |     36 |
-| 2021-01-01T21:00:00Z |     49 |
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | tag  | _value  |
+| -------------------- | ---- | ------- |
+| 2022-01-01T05:00:00Z | t1   | -2      |
+| 2022-01-01T09:00:10Z | t1   | 10      |
+| 2022-01-01T11:00:20Z | t1   | 7       |
+| 2022-01-01T16:00:30Z | t1   | 17      |
+| 2022-01-01T19:00:40Z | t1   | 15      |
+| 2022-01-01T20:00:50Z | t1   | 4       |
 
-##### Output data
-| _time                | _value |
-| :------------------- | -----: |
-| 2021-01-01T09:00:00Z |      9 |
-| 2021-01-01T12:00:00Z |     16 |
-| 2021-01-01T15:00:00Z |     25 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | tag  | _value  |
+| -------------------- | ---- | ------- |
+| 2022-01-01T09:00:10Z | t1   | 10      |
+| 2022-01-01T11:00:20Z | t1   | 7       |
+| 2022-01-01T16:00:30Z | t1   | 17      |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

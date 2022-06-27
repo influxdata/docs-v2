@@ -1,42 +1,56 @@
 ---
-title: Flux pushbullet package
-list_title: pushbullet package
+title: pushbullet package
 description: >
-  The Flux `pushbullet` package provides functions for sending data to
-  [Pushbullet](https://www.pushbullet.com/).
-  Import the `pushbullet` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/
-  - /influxdb/cloud/reference/flux/stdlib/pushbullet/
+  The `pushbullet` package provides functions for sending data to Pushbullet.
 menu:
   flux_0_x_ref:
-    name: pushbullet
-    parent: Standard library
+    name: pushbullet 
+    parent: stdlib
+    identifier: pushbullet
 weight: 11
-flux/v0.x/tags: [functions, pushbullet, package]
-introduced: 0.66.0
+cascade:
+
+  introduced: 0.66.0
 ---
 
-The Flux `pushbullet` package provides functions for sending data to
-[Pushbullet](https://www.pushbullet.com/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/pushbullet/pushbullet.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `pushbullet` package provides functions for sending data to Pushbullet.
 Import the `pushbullet` package:
 
 ```js
 import "pushbullet"
 ```
 
+
+
 ## Options
-The `pushbullet` package includes the following options:
 
 ```js
-import "pushbullet"
-
 option pushbullet.defaultURL = "https://api.pushbullet.com/v2/pushes"
 ```
+ 
+### defaultURL
 
-### defaultURL {data-type="string"}
-Default Pushbullet API URL.
-Default is `https://api.pushbullet.com/v2/pushes`.
+`defaultURL` is the default Pushbullet API URL used by functions in the `pushbullet` package.
+
+
+
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}

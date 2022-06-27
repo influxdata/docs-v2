@@ -5,35 +5,57 @@ description: >
 menu:
   flux_0_x_ref:
     name: hex.bytes
-    parent: hex
-weight: 302
-related:
-  - /flux/v0.x/data-types/basic/bytes/
-flux/v0.x/tags: [type-conversions]
+    parent: contrib/bonitoo-io/hex
+    identifier: contrib/bonitoo-io/hex/bytes
+weight: 301
+
 ---
 
-`hex.bytes()` decodes a hexadecimal string and converts the decoded value to bytes.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/hex/hex.flux#L169-L169
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`hex.bytes()` converts a hexadecimal string to bytes.
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/hex"
-
-hex.bytes(v: "6869")
-
-// Returns [104 105] (the bytes representation of "hi")
+(v: string) => bytes
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string"}
-Value to convert.
+### v
+({{< req >}})
+String to convert.
+
+
+
 
 ## Examples
 
-#### Convert a hexadecimal string to bytes
+### Convert a hexadecimal string into bytes
+
 ```js
 import "contrib/bonitoo-io/hex"
 
-hex.bytes(v: "FF5733")
+hex.bytes(v: "FF5733")// Returns [255 87 51] (bytes)
 
-// Returns [255 87 51] (bytes)
 ```
+

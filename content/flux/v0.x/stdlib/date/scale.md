@@ -1,49 +1,76 @@
 ---
 title: date.scale() function
 description: >
-  `date.scale()` multiplies a duration by a specified value.
+  `date.scale()` will multiply the duration by the given value.
 menu:
   flux_0_x_ref:
     name: date.scale
     parent: date
-weight: 301
-introduced: 0.167.0
+    identifier: date/scale
+weight: 101
 flux/v0.x/tags: [date/time]
 ---
 
-`date.scale()` multiplies a duration by a specified value.
+<!------------------------------------------------------------------------------
 
-This function lets you dynamically scale a duration value.
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L718-L718
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`date.scale()` will multiply the duration by the given value.
+
+
+
+##### Function type signature
 
 ```js
-import "date"
-
-date.scale(d: 1h, n: 12)
-
-// Returns 12h
+(d: duration, n: int) => duration
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### d {data-type="duration"}
-({{< req >}}) Duration to scale.
+### d
+({{< req >}})
+Duration to scale.
 
-### n {data-type="int"}
-({{< req >}} Amount to scale the duration (`d`) by.
+
+
+### n
+({{< req >}})
+Amount to scale the duration by.
+
+
+
 
 ## Examples
 
+- [Add n hours to a time](#add-n-hours-to-a-time)
+- [Add scaled mixed duration to a time](#add-scaled-mixed-duration-to-a-time)
+
 ### Add n hours to a time
+
 ```js
 import "date"
 
 n = 5
 d = date.scale(d: 1h, n: n)
 
-date.add(d: d, to: 2022-05-10T00:00:00Z)
+date.add(d: d, to: 2022-05-10T00:00:00Z)// Returns 2022-05-10T00:00:00.000000000Z
 
-// Returns 2022-05-10T00:00:00.000000000Z
 ```
+
 
 ### Add scaled mixed duration to a time
 
@@ -53,7 +80,7 @@ import "date"
 n = 5
 d = date.scale(d: 1mo1h, n: 5)
 
-date.add(d: d, to: 2022-01-01T00:00:00Z)
+date.add(d: d, to: 2022-01-01T00:00:00Z)// Returns 2022-06-01T05:00:00.000000000Z
 
-// Returns 2022-06-01T05:00:00.000000000Z
 ```
+

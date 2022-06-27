@@ -1,41 +1,107 @@
 ---
 title: math.nextafter() function
-description: The math.nextafter() function returns the next representable float value after `x` towards `y`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/nextafter/
-  - /influxdb/v2.0/reference/flux/stdlib/math/nextafter/
-  - /influxdb/cloud/reference/flux/stdlib/math/nextafter/
+description: >
+  `math.nextafter()` returns the next representable float value after `x` towards `y`.
 menu:
   flux_0_x_ref:
     name: math.nextafter
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/nextafter
+weight: 101
 ---
 
-The `math.nextafter()` function returns the next representable float value after `x` towards `y`.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L1741-L1741
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.nextafter()` returns the next representable float value after `x` towards `y`.
+
+
+
+##### Function type signature
+
+```js
+(x: float, y: float) => float
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### x
+({{< req >}})
+x-value to use in the operation.
+
+
+
+### y
+({{< req >}})
+y-value to use in the operation.
+
+
+
+
+## Examples
+
+- [Return the next possible float value](#return-the-next-possible-float-value)
+- [Use math.nextafter in map](#use-mathnextafter-in-map)
+
+### Return the next possible float value
 
 ```js
 import "math"
 
-math.nextafter(x: 1.23, y: 4.56)
+math.nextafter(x: 1.23, y: 4.56)// 1.2300000000000002
 
-// Returns 1.2300000000000002
 ```
 
-## Parameters
 
-### x {data-type="float"}
-The X value used in the operation.
+### Use math.nextafter in map
 
-### y {data-type="float"}
-The Y value used in the operation.
-
-## Special cases
 ```js
-math.nextafter(x:x, y:x)    // Returns x
-math.nextafter(x: NaN, y:y) // Returns NaN
-math.nextafter(x:x, y:NaN)  // Returns NaN
+import "math"
+
+data
+    |> map(fn: (r) => ({_time: r._time, _value: math.nextafter(x: r.t1, y: r.t2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | t1    | t2    |
+| -------------------- | ----- | ----- |
+| 2021-01-01T00:00:00Z | -2.18 | 19.85 |
+| 2021-01-01T00:00:10Z | 10.92 | 4.97  |
+| 2021-01-01T00:00:20Z | 7.35  | -3.75 |
+| 2021-01-01T00:00:30Z | 17.53 | 19.77 |
+| 2021-01-01T00:00:40Z | 15.23 | 13.86 |
+| 2021-01-01T00:00:50Z | 4.43  | 1.86  |
+
+
+#### Output data
+
+| _time                | _value              |
+| -------------------- | ------------------- |
+| 2021-01-01T00:00:00Z | -2.1799999999999997 |
+| 2021-01-01T00:00:10Z | 10.919999999999998  |
+| 2021-01-01T00:00:20Z | 7.349999999999999   |
+| 2021-01-01T00:00:30Z | 17.530000000000005  |
+| 2021-01-01T00:00:40Z | 15.229999999999999  |
+| 2021-01-01T00:00:50Z | 4.429999999999999   |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
