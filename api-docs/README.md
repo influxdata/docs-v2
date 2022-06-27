@@ -94,7 +94,7 @@
    To troubleshoot errors, see [how to generate API docs locally](#how-to-generate-api-docs-locally).
 10. Commit the changes, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
-## How to update API docs for OSS spec changes between releases
+## Update API docs for OSS spec changes between releases
 
 Follow these steps to update OSS API docs between version releases--for example, after revising description fields in `influxdata/openapi`.
 
