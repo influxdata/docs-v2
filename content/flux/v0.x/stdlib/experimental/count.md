@@ -1,57 +1,110 @@
 ---
 title: experimental.count() function
 description: >
-  The `experimental.count()` function outputs the number of records in each input table
-  and returns the count in the `_value` column.
+  `experimental.count()` returns the number of records in each input table.
 menu:
   flux_0_x_ref:
     name: experimental.count
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/count/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/count/
-related:
-  - /flux/v0.x/stdlib/universe/count/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
+    identifier: experimental/count
+weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.107.0
 ---
 
-The `experimental.count()` function outputs the number of records in each input table
-and returns the count in the `_value` column.
-This function counts both null and non-null records.
-_`experimental.count()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
 
-```js
-import "experimental"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-experimental.count()
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L674-L674
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.count()` returns the number of records in each input table.
+
+The count is returned in the `_value` column and counts both null and non-null records.
+
+#### Counts on empty tables
+`experimental.count()` returns 0 for empty tables.
+To keep empty tables in your data, set the following parameters when using
+the following functions:
+
+```
+filter(onEmpty: "keep")
+window(createEmpty: true)
+aggregateWindow(createEmpty: true)
 ```
 
-{{% note %}}
-#### Empty tables
-`experimental.count()` returns `0` for empty tables.
-To keep empty tables in your data, set the following parameters for the following functions:
+##### Function type signature
 
-| Function                                                         | Parameter           |
-|:--------                                                         |:---------           |
-| [filter()](/flux/v0.x/stdlib/universe/filter/)                   | `onEmpty: "keep"`   |
-| [window()](/flux/v0.x/stdlib/universe/window/)                   | `createEmpty: true` |
-| [aggregateWindow()](/flux/v0.x/stdlib/universe/aggregatewindow/) | `createEmpty: true` |
-{{% /note %}}
+```js
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: int}]
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
+
+### Count the number of rows in a table
+
 ```js
 import "experimental"
+import "sampledata"
 
-from(bucket: "example-bucket")
-    |> range(start: -5m)
+sampledata.int()
     |> experimental.count()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 6       |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 6       |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

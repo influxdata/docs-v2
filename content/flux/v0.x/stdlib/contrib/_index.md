@@ -1,22 +1,33 @@
 ---
-title: Flux contrib package (user-contributed)
-list_title: contrib package (user-contributed)
+title: contrib package
 description: >
-  The Flux `contrib` package contains packages and functions that are contributed
-  and maintained by members of the Flux and InfluxDB communities.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/
+  The `contrib` package contains packages and functions contributed and maintained by members of the Flux and InfluxDB communities.
 menu:
   flux_0_x_ref:
-    name: contrib
-    parent: Standard library
+    name: contrib 
+    parent: stdlib
+    identifier: contrib
 weight: 11
-flux/v0.x/tags: [contributed, functions, package]
 ---
 
-The Flux `contrib` package contains packages and functions that are contributed
-and maintained by members of the Flux and InfluxDB communities.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/contrib.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `contrib` package contains packages and functions contributed and maintained by members of the Flux and InfluxDB communities.
+
 InfluxData supports user-contributed Flux packages and functions.
 We also recognize the importance of original contributors reviewing updates to
 their packages and functions.
@@ -27,4 +38,7 @@ original authors on all proposed changes to contributed packages and functions.
 For information about adding a new Flux package or future plans regarding Flux contributions,
 see [Contribute Third Party Flux Packages](https://github.com/influxdata/flux/blob/master/stdlib/contrib/README.md).
 
-{{< children >}}
+
+## Packages
+
+{{< children show="sections" >}}

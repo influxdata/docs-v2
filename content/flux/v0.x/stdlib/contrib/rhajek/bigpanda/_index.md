@@ -1,58 +1,64 @@
 ---
-title: Flux bigpanda package
-list_title: bigpanda package
+title: bigpanda package
 description: >
-  The Flux `bigpanda` package provides functions that send alerts to
-  [BigPanda](https://www.bigpanda.io/).
+  The `bigpanda` package provides functions for sending alerts to [BigPanda](https://www.bigpanda.io/).
 menu:
   flux_0_x_ref:
-    name: bigpanda
-    parent: rhajek
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/bigpanda/
-flux/v0.x/tags: [functions, bigpanda, package]
+    name: bigpanda 
+    parent: contrib/rhajek
+    identifier: contrib/rhajek/bigpanda
+weight: 31
 ---
 
-The Flux `bigpanda` package provides functions that send alerts to
-[BigPanda](https://www.bigpanda.io/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/rhajek/bigpanda/bigpanda.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `bigpanda` package provides functions for sending alerts to [BigPanda](https://www.bigpanda.io/).
 Import the `contrib/rhajek/bigpanda` package:
 
 ```js
 import "contrib/rhajek/bigpanda"
 ```
 
-## Options
-The BigPanda package provides the following options:
 
-- [defaultURL](#defaulturl)
-- [defaultTokenPrefix](#defaulttokenprefix)
+
+## Options
 
 ```js
-import "contrib/rhajek/bigpanda"
+option bigpanda.defaultTokenPrefix = "Bearer"
 
 option bigpanda.defaultUrl = "https://api.bigpanda.io/data/v2/alerts"
-option bigpanda.defaultTokenPrefix = "Bearer"
 ```
+ 
+### defaultTokenPrefix
 
-### defaultUrl {data-type="string"}
-The default [BigPanda alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works)
-for functions in the BigPanda package.
-Default is `https://api.bigpanda.io/data/v2/alerts`.
-
-### defaultTokenPrefix {data-type="string"}
-The default HTTP authentication schema to use when authenticating with BigPanda.
+`defaultTokenPrefix` is the default HTTP authentication scheme to use when authenticating with BigPanda.
 Default is `Bearer`.
 
+
+
+### defaultUrl
+
+`defaultUrl` is the default [BigPanda alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works)
+for functions in the `bigpanda` package.
+Default is `https://api.bigpanda.io/data/v2/alerts`.
+
+
+
+
 ## Functions
+
 {{< children type="functions" show="pages" >}}
-
-## Send alert timestamps to BigPanda
-Sending alert timestamps to BigPanda is optional, but if you choose to send them,
-convert timestamps to **epoch second timestamps**:
-
-```js
-data
-    |> map(fn: (r) => ({ r with secTime: int(v: r._time) / 1000000000 }))
-```

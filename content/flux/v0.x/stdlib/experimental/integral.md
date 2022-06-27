@@ -1,69 +1,174 @@
 ---
 title: experimental.integral() function
 description: >
-  The `integral()` function computes the area under the curve per unit of time of subsequent non-null records.
-  Input tables must have `_time` and `_value` columns.
+  `experimental.integral()` computes the area under the curve per unit of time of subsequent non-null records.
 menu:
   flux_0_x_ref:
     name: experimental.integral
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/integral/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/integral/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#integral, InfluxQL – INTEGRAL()
-  - /flux/v0.x/stdlib/universe/integral/
+    identifier: experimental/integral
+weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.106.0
 ---
 
-The `experimental.integral()` function computes the area under the curve per
-[`unit`](#unit) of time of subsequent non-null records.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L636-L640
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.integral()` computes the area under the curve per unit of time of subsequent non-null records.
+
 The curve is defined using `_time` as the domain and record values as the range.
-**Input tables must have `_time` and `_value` columns.**
-_`integral()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+
+Input tables must have `_start`, _stop`, `_time`, and `_value` columns.
+`_start` and `_stop` must be part of the group key.
+
+##### Function type signature
 
 ```js
-integral(
-    unit: 10s,
-    interpolate: "",
-)
+(<-tables: stream[{A with _value: B, _time: time}], ?interpolate: string, ?unit: duration) => stream[{A with _value: B}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### unit {data-type="duration"}
-({{< req >}})
+### unit
+
 Time duration used to compute the integral.
 
-### interpolate {data-type="string"}
-Type of interpolation to use.
-Defaults to `""`.
+
+
+### interpolate
+
+Type of interpolation to use. Default is `""` (no interpolation).
 
 Use one of the following interpolation options:
-
-- _empty string for no interpolation_
+- empty string (`""`) for no interpolation
 - linear
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-##### Calculate the integral
+- [Calculate the integral](#calculate-the-integral)
+- [Calculate the integral with linear interpolation](#calculate-the-integral-with-linear-interpolation)
+
+### Calculate the integral
+
 ```js
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system")
-    |> integral(unit: 10s)
+import "experimental"
+import "sampledata"
+
+data =
+    sampledata.int()
+        |> range(start: sampledata.start, stop: sampledata.stop)
+
+data
+    |> experimental.integral(unit: 20s)
 ```
 
-##### Calculate the integral with linear interpolation
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 4       | t1   |
+
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *_start              | *_stop               | *tag | _value  |
+| -------------------- | -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1   | 25      |
+
+| *_start              | *_stop               | *tag | _value  |
+| -------------------- | -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 21.5    |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Calculate the integral with linear interpolation
+
 ```js
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system")
-    |> integral(unit: 10s, interpolate: "linear")
+import "experimental"
+import "sampledata"
+
+data =
+    sampledata.int()
+        |> range(start: sampledata.start, stop: sampledata.stop)
+
+data
+    |> experimental.integral(unit: 20s, interpolate: "linear")
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 4       | t1   |
+
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *_start              | *_stop               | *tag | _value  |
+| -------------------- | -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1   | 24.25   |
+
+| *_start              | *_stop               | *tag | _value  |
+| -------------------- | -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 19      |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

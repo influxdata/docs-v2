@@ -29,7 +29,10 @@ jobs:
           command: cd api-docs && yarn install
       - run:
           name: Generate API documentation
-          command: cd api-docs && bash generate-api-docs.sh
+          command: cd api-docs && bash generate-api-docs.sh      
+      - run:
+          name: Inject Flux stdlib frontmatter
+          command: node ./inject-flux-stdlib-frontmatter.js
       - save_cache:
           key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
