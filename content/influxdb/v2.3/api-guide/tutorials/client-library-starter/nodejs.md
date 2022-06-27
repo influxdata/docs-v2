@@ -360,7 +360,7 @@ In `./api/devices/create.js`, add the following `createAuthorization(deviceId)` 
 
 {{% truncate %}}
 
-```ts
+```js
 import { InfluxDB } from '@influxdata/influxdb-client'
 import { getDevices } from './_devices'
 import { AuthorizationsAPI, BucketsAPI } from '@influxdata/influxdb-client-apis'
@@ -385,22 +385,25 @@ async function createAuthorization(deviceId) {
   const buckets = await bucketsAPI.getBuckets({name: INFLUX_BUCKET, orgID: INFLUX_ORG})
   const bucketId = buckets.buckets[0]?.id
   
-  return await authorizationsAPI.postAuthorizations({
-    body: {
-      orgID: INFLUX_ORG,
-      description: DESC_PREFIX + deviceId,
-      permissions: [
-        {
-          action: 'read',
-          resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
-        },
-        {
-          action: 'write',
-          resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
-        },
-      ],
-    },
-  })
+  return await authorizationsAPI.postAuthorizations(
+    {
+      body: {
+              orgID: INFLUX_ORG,
+              description: DESC_PREFIX + deviceId,
+              permissions: [
+                {
+                  action: 'read',
+                  resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
+                },
+                {
+                  action: 'write',
+                  resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
+                },
+              ],
+            },
+    }
+  )
+
 }
 ```
 
