@@ -43,17 +43,10 @@
    git log -n 1 --pretty=format:%h -- contracts/ref/oss.yml
    ```
 
-3. Copy the SHA from the output and create a git tag for it with the pattern `influxdb-oss-v[SEMANTIC_VERSION]`:
+3. Copy the SHA from the output and create a git tag by running the following command, replacing **`[SEMANTIC_VERSION]`** with the OSS release (for example, `2.3.0`) and **`COMMIT_SHA`** with the SHA from step 2:
 
    ```sh
    git tag influxdb-oss-v[SEMANTIC_VERSION] COMMIT_SHA
-   ```
-
-   Replace the following:
-
-   - **`COMMIT_SHA`**: SHA from **Step 2**.
-   - **`[SEMANTIC_VERSION]`**: OSS patch release number--for example: `2.3.0`.
-
 4. Enter the following commands into your terminal to push the new tag to the repo:
 
    ```sh
