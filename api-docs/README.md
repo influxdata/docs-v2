@@ -1,6 +1,6 @@
 # API reference documentation
 
-## How to update API docs for InfluxDB Cloud
+## Update API docs for InfluxDB Cloud
 
 1. In your `docs-v2` directory, create a branch for your changes--for example:
 
