@@ -152,7 +152,7 @@ Follow these steps to update OSS API docs between version releases--for example,
 
 8. Commit the changes, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
-## How to generate InfluxDB API docs
+## Generate InfluxDB API docs
 
 InfluxData uses [Redoc](https://github.com/Redocly/redoc/),
 [redoc-cli](https://github.com/Redocly/redoc/blob/master/cli/README.md),
