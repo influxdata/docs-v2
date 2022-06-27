@@ -187,8 +187,7 @@ api-docs/
 
 ### InfluxDB Cloud version
 
-Because InfluxDB Cloud releases are frequent and not versioned, we make no effort to version the
-Cloud API spec.
+InfluxDB Cloud releases are frequent and not versioned, so the Cloud API spec isn't versioned.
 We regenerate API reference docs from `influxdata/openapi`
 **master** branch as features are released.
 
