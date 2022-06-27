@@ -111,16 +111,11 @@ Follow these steps to update OSS API docs between version releases--for example,
    git checkout -t docs-release/influxdb-oss
    ```
 
-3. Cherry-pick the new documentation commits into the release branch and push to the remote branch--for example:
+3. Cherry-pick the commits with the updated description fields, and push the commits to the remote branch, replacing **`[COMMIT_SHAs]`** (one or more commit SHAs (space-separated))--for example:
 
    ```sh
    git cherry-pick [COMMIT_SHAs]
    git push -f origin docs-release/influxdb-oss
-   ```
-
-   Replace the following:
-
-   - **`[COMMIT_SHAs]`**: one or more commit SHAs (space-separated).
   
 4. Go into your `docs-v2` directory and create a branch for your changes--for example:
 
