@@ -13,12 +13,12 @@ aliases:
 ## v0.172.0 [2022-06-24]
 
 ### Features
+- Add multiple new join functions to the `join` package such as `join.full()`.
 - Add `initialZero` parameter to derivative function. 
 - Allow features to enable builtin statements. 
 - Provide the comments for each `Symbol` from `PackageExports`.
-- Suggestions now start off by default and added a new flag. 
-- Add new join function with outer join support. 
-- Add builtin function time to the date package to convert any timeable into datetime. 
+- Suggestions now start off by default and added a new flag.
+- Add builtin function time to the `date` package to convert any timeable into datetime. 
 - Allow vector types to be specified in flux source. 
 
 ### Bug fixes
