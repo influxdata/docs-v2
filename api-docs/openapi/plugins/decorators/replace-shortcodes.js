@@ -3,7 +3,7 @@ module.exports = ReplaceShortcodes;
 function replaceDocsUrl(field) {
   if(!field) { return }
   /** Regex to match the URL "shortcode" {{% INFLUXDB_DOCS_URL %}}.
-   * [^]* matches line breaks.
+   * [^]* matches line breaks (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#using_regular_expression_on_multiple_lines).
    */
   const shortcodeRe = /\{\{[^]*%\s*[^]*INFLUXDB_DOCS_URL[^]*\s*[^]*%\}\}/g
   let replacement = `/influxdb/${process.env.INFLUXDB_VERSION}`;
