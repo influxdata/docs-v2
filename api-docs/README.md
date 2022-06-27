@@ -29,7 +29,7 @@
    To troubleshoot errors, see [how to generate API docs locally](#how-to-generate-api-docs-locally).
 4. Commit the changes, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
-## How to update API docs for a new InfluxDB OSS version release
+## Update API docs for an InfluxDB OSS release
 
 1. Go into your local `influxdata/openapi` repo directory--for example:
 
