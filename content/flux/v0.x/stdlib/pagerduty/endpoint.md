@@ -40,8 +40,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
         r: {A with _pagerdutyDedupKey: string},
     ) => {
         B with
-        timestamp: t11,
-        summary: t10,
+        timestamp: L,
+        summary: K,
         source: J,
         severity: I,
         routingKey: H,

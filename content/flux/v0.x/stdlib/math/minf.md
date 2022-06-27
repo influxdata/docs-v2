@@ -2,7 +2,7 @@
 title: math.mInf() function
 description: >
   `math.mInf()` returns positive infinity if `sign >= 0`, negative infinity
-  if `sign < 0`
+  if `sign < 0`.
 menu:
   flux_0_x_ref:
     name: math.mInf
@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 `math.mInf()` returns positive infinity if `sign >= 0`, negative infinity
-if `sign < 0`
+if `sign < 0`.
 
 
 

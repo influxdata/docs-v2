@@ -8,6 +8,9 @@ menu:
     parent: contrib/rhajek
     identifier: contrib/rhajek/bigpanda
 weight: 31
+cascade:
+
+  introduced: 0.108.0
 ---
 
 <!------------------------------------------------------------------------------

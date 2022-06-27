@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L103-L140
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L105-L142
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -40,10 +40,10 @@ TICKscript [`alert()`](https://docs.influxdata.com/kapacitor/v1.6/nodes/alert_no
 
 ```js
 (
-    <-tables: stream[t12],
+    <-tables: stream[M],
     check: {A with tags: E, _type: D, _check_name: C, _check_id: B},
     ?crit: (r: {F with _time: H, _measurement: G}) => bool,
-    ?details: (r: {I with id: J, _check_name: C, _check_id: B}) => t10,
+    ?details: (r: {I with id: J, _check_name: C, _check_id: B}) => K,
     ?id: (r: {I with _check_name: C, _check_id: B}) => J,
     ?info: (r: {F with _time: H, _measurement: G}) => bool,
     ?message: (
@@ -60,7 +60,7 @@ TICKscript [`alert()`](https://docs.influxdata.com/kapacitor/v1.6/nodes/alert_no
             _check_name: C,
             _check_id: B,
         },
-    ) => t11,
+    ) => L,
     ?ok: (r: {F with _time: H, _measurement: G}) => bool,
     ?topic: string,
     ?warn: (r: {F with _time: H, _measurement: G}) => bool,
@@ -71,13 +71,13 @@ TICKscript [`alert()`](https://docs.influxdata.com/kapacitor/v1.6/nodes/alert_no
     _time: time,
     _source_timestamp: int,
     _source_measurement: G,
-    _message: t11,
+    _message: L,
     _measurement: G,
     _measurement: string,
     _level: string,
     _check_name: C,
     _check_id: B,
-}] where E: Record, I: Record, t12: Record
+}] where E: Record, I: Record, M: Record
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}

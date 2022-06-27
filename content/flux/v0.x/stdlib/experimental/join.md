@@ -10,6 +10,7 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.65.0
+deprecated: 0.172.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L392-L396
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L399-L403
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -29,6 +30,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 `experimental.join()` joins two streams of tables on the **group key and `_time` column**.
+
+**Deprecated**: `experimental.join()` is deprecated in favor of [`join.time()`](https://docs.influxdata.com/flux/v0.x/stdlib/join/time/).
+The [`join` package](https://docs.influxdata.com/flux/v0.x/stdlib/join/) provides support
+for multiple join methods.
 
 Use the `fn` parameter to map new output tables using values from input tables.
 

@@ -1,15 +1,15 @@
 ---
-title: debug.unpivot() function
+title: experimental.unpivot() function
 description: >
-  `debug.unpivot()` removes the `_time` column and any other column not in the group key and outputs a new table with `_field` and `_value` columns pairs.
+  `experimental.unpivot()` removes the `_time` column and any other column not in the group key and outputs a new table with `_field` and `_value` columns pairs.
   The output stream retains the group key and all group key columns of the input stream.
   Specialized to transform the pivoted output from `iox.from()` into the unpivoted format.
 menu:
   flux_0_x_ref:
-    name: debug.unpivot
-    parent: internal/debug
-    identifier: internal/debug/unpivot
-weight: 201
+    name: experimental.unpivot
+    parent: experimental
+    identifier: experimental/unpivot
+weight: 101
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,14 +21,14 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/debug/debug.flux#L62-L65
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1299-L1302
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`debug.unpivot()` removes the `_time` column and any other column not in the group key and outputs a new table with `_field` and `_value` columns pairs.
+`experimental.unpivot()` removes the `_time` column and any other column not in the group key and outputs a new table with `_field` and `_value` columns pairs.
 The output stream retains the group key and all group key columns of the input stream.
 Specialized to transform the pivoted output from `iox.from()` into the unpivoted format.
 

@@ -42,7 +42,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ### v
 ({{< req >}})
-String to to remove characters from
+String to to remove characters from.
 
 
 

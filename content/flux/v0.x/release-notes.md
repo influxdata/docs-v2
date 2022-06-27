@@ -10,6 +10,30 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.172.0 [2022-06-24]
+
+### Features
+- Add `initialZero` parameter to derivative function. 
+- Allow features to enable builtin statements. 
+- Provide the comments for each `Symbol` from `PackageExports`.
+- Suggestions now start off by default and added a new flag. 
+- Add new join function with outer join support. 
+- Add builtin function time to the date package to convert any timeable into datetime. 
+- Allow vector types to be specified in flux source. 
+
+### Bug fixes
+- Replace extra boolean parameter for suggestions with repl options. 
+- Remove `testing.load()` from yield test. 
+- Fix a bug in how sort nodes created for new join. 
+- Removed extra indentation for testcases. 
+- Retain the package for identifier referencing the prelude. 
+- Only return error in tests if an assertion fails. 
+- Fix `findColumn()` to handle multi-buffer tables. 
+- Point to the function being piped to on argument mismatches. 
+- Visit successors before continuing DFS on node. 
+
+---
+
 ## v0.171.0 [2022-06-14]
 
 ### Breaking changes

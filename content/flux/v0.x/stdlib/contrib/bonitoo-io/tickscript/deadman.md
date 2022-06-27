@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L186-L242
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L188-L244
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -40,7 +40,7 @@ This function is comparable to [Kapacitor AlertNode deadman](https://docs.influx
 
 ```js
 (
-    <-tables: stream[t12],
+    <-tables: stream[M],
     check: {A with tags: E, _type: D, _check_name: C, _check_id: B},
     measurement: string,
     ?id: (r: {F with _check_name: C, _check_id: B}) => G,
@@ -59,8 +59,8 @@ This function is comparable to [Kapacitor AlertNode deadman](https://docs.influx
             _check_name: C,
             _check_id: B,
         },
-    ) => t10,
-    ?threshold: t11,
+    ) => K,
+    ?threshold: L,
     ?topic: string,
 ) => stream[{
     H with
@@ -70,13 +70,13 @@ This function is comparable to [Kapacitor AlertNode deadman](https://docs.influx
     _time: time,
     _source_timestamp: int,
     _source_measurement: I,
-    _message: t10,
+    _message: K,
     _measurement: I,
     _measurement: string,
     _level: string,
     _check_name: C,
     _check_id: B,
-}] where E: Record, F: Record, t11: Comparable + Equatable, t12: Record
+}] where E: Record, F: Record, L: Comparable + Equatable, M: Record
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}

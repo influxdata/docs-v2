@@ -45,11 +45,11 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
     severity: H,
     source: I,
     summary: J,
-    timestamp: t10,
-    ?component: t11,
-    ?customDetails: t12,
+    timestamp: K,
+    ?component: L,
+    ?customDetails: M,
     ?pagerdutyURL: string,
-) => int where t12: Equatable
+) => int where M: Equatable
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}

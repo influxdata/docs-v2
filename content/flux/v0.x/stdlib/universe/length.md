@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3450-L3450
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3459-L3459
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
