@@ -13,7 +13,7 @@ aliases:
 ## v0.172.0 [2022-06-24]
 
 ### Features
-- Add multiple new join functions to the `join` package such as `join.full()`.
+- Add multiple new join functions to the [`join`](/flux/v0.x/stdlib/join/) package such as [`join.full()`](/flux/v0.x/stdlib/join/full/).
 - Add `initialZero` parameter to derivative function. 
 - Allow features to enable builtin statements. 
 - Provide the comments for each `Symbol` from `PackageExports`.
