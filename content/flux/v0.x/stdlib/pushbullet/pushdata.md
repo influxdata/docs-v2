@@ -1,75 +1,80 @@
 ---
 title: pushbullet.pushData() function
 description: >
-  The `pushbullet.pushData()` function sends a push notification to the Pushbullet API.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/pushdata/
-  - /influxdb/cloud/reference/flux/stdlib/pushbullet/pushdata/
+  `pushbullet.pushData()` sends a push notification to the Pushbullet API.
 menu:
   flux_0_x_ref:
     name: pushbullet.pushData
     parent: pushbullet
-weight: 202
-introduced: 0.66.0
+    identifier: pushbullet/pushData
+weight: 101
+flux/v0.x/tags: [single notification]
 ---
 
-The `pushbullet.pushData()` function sends a push notification to the
-[Pushbullet API](https://docs.pushbullet.com/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/pushbullet/pushbullet.flux#L37-L42
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`pushbullet.pushData()` sends a push notification to the Pushbullet API.
+
+
+
+##### Function type signature
 
 ```js
-import "pushbullet"
-
-pushbullet.pushData(
-    url: "https://api.pushbullet.com/v2/pushes",
-    token: "",
-    data: {
-        "type": "link",
-        "title": "This is a notification!",
-        "body": "This notification came from Flux.",
-        "url": "http://example.com"
-    },
-  )
+(data: A, ?token: B, ?url: string) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
-Pushbullet API URL.
-Defaults to `https://api.pushbullet.com/v2/pushes`.
+### url
 
-### token {data-type="string"}
-[Pushbullet API token](https://get.pushbullet.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
-to use when interacting with Pushbullet.
-Defaults to `""`.
+URL of the PushBullet endpoint. Default is `"https://api.pushbullet.com/v2/pushes"`.
 
-### data {data-type="record"}
+
+
+### token
+
+API token string.  Default is `""`.
+
+
+
+### data
 ({{< req >}})
-Data to send to the Pushbullet API.
-The function JSON-encodes data before sending it to Pushbullet.
+Data to send to the endpoint. Data is JSON-encoded and sent to the Pushbullet's endpoint.
+
+For how to structure data, see the [Pushbullet API documentation](https://docs.pushbullet.com/#create-push).
+
 
 ## Examples
 
-##### Send the last reported status to Pushbullet
+### Send a push notification to Pushbullet
+
 ```js
 import "pushbullet"
-import "influxdata/influxdb/secrets"
-
-token = secrets.get(key: "PUSHBULLET_TOKEN")
-
-lastReported = from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
-    |> tableFind(fn: (key) => true)
-    |> getRecord(idx: 0)
 
 pushbullet.pushData(
-    token: token,
+    token: "mY5up3Rs3Cre7T0k3n",
     data: {
         "type": "link",
-        "title": "Last reported status",
-        "body": "${lastReported._time}: ${lastReported.status}.",
-        "url": "${lastReported.statusURL}",
-    }
+        "title": "Example title",
+        "body": "Example nofication body",
+        "url": "http://example-url.com",
+    },
 )
 ```
+

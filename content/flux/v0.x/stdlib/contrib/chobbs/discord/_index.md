@@ -1,47 +1,57 @@
 ---
-title: Flux discord package
-list_title: discord package
+title: discord package
 description: >
-  The Flux `discord` package provides functions for sending messages to [Discord](https://discord.com/).
-  Import the `contrib/chobbs/discord` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/discord/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/discord/
+  The `discord` package provides functions for sending messages to [Discord](https://discord.com/).
 menu:
   flux_0_x_ref:
-    name: discord
-    parent: chobbs
-weight: 201
-flux/v0.x/tags: [functions, discord, package]
-introduced: 0.69.0
+    name: discord 
+    parent: contrib/chobbs
+    identifier: contrib/chobbs/discord
+weight: 31
+cascade:
+
+  introduced: 0.69.0
 ---
 
-The Flux `discord` package provides functions for sending messages to [Discord](https://discord.com/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/chobbs/discord/discord.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `discord` package provides functions for sending messages to [Discord](https://discord.com/).
 Import the `contrib/chobbs/discord` package:
 
 ```js
 import "contrib/chobbs/discord"
 ```
 
+
+
 ## Options
-The `contrib/chobbs/discord` package provides the following options:
 
 ```js
-import "contrib/chobbs/discord"
-
 option discord.discordURL = "https://discordapp.com/api/webhooks/"
 ```
+ 
+### discordURL
 
-### discordURL {data-type="string"}
-Discord webhook URL.
+`discordURL` is the Discord webhook URL.
 Default is `https://discordapp.com/api/webhooks/`.
+
+
+
 
 ## Functions
 
 {{< children type="functions" show="pages" >}}
-
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@chobbs](https://github.com/chobbs)  
-**InfluxDB Slack:** [@craig](https://influxdata.com/slack)  
-{{% /note %}}

@@ -1,27 +1,46 @@
 ---
-title: Flux Prometheus package
-list_title: prometheus package
+title: prometheus package
 description: >
-  The Flux Prometheus package provides functions for working with Prometheus-formatted metrics.
-  Import the `experimental/prometheus` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/prometheus/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/prometheus/
+  The `prometheus` package provides tools for working with
+  [Prometheus-formatted metrics](https://prometheus.io/docs/instrumenting/exposition_formats/).
 menu:
   flux_0_x_ref:
-    name: prometheus
+    name: prometheus 
     parent: experimental
-weight: 301
-flux/v0.x/tags: [functions, prometheus, package]
-introduced: 0.50.0
+    identifier: experimental/prometheus
+weight: 21
+cascade:
+  flux/v0.x/tags: [prometheus]
+  introduced: 0.50.0
 ---
 
-Flux Prometheus functions provide tools for working with
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/prometheus/prometheus.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `prometheus` package provides tools for working with
 [Prometheus-formatted metrics](https://prometheus.io/docs/instrumenting/exposition_formats/).
 Import the `experimental/prometheus` package:
 
 ```js
 import "experimental/prometheus"
 ```
+
+
+
+
+## Functions
 
 {{< children type="functions" show="pages" >}}

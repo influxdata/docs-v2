@@ -1,90 +1,120 @@
 ---
 title: slack.message() function
 description: >
-  The `slack.message()` function sends a single message to a Slack channel.
-  The function works with either with the chat.postMessage API or with a Slack webhook.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/slack/message/
-  - /influxdb/v2.0/reference/flux/stdlib/slack/message/
-  - /influxdb/cloud/reference/flux/stdlib/slack/message/
+  `slack.message()` sends a single message to a Slack channel and returns the HTTP
+  response code of the request.
 menu:
   flux_0_x_ref:
     name: slack.message
     parent: slack
-weight: 202
-introduced: 0.41.0
+    identifier: slack/message
+weight: 101
+flux/v0.x/tags: [single notification]
 ---
 
-The `slack.message()` function sends a single message to a Slack channel.
-The function works with either with the [chat.postMessage API](https://api.slack.com/methods/chat.postMessage)
-or with a [Slack webhook](https://api.slack.com/incoming-webhooks).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/slack/slack.flux#L87-L101
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`slack.message()` sends a single message to a Slack channel and returns the HTTP
+response code of the request.
+
+The function works with either with the `chat.postMessage` API or with a Slack webhook.
+
+##### Function type signature
 
 ```js
-import "slack"
-
-slack.message(
-    url: "https://slack.com/api/chat.postMessage",
-    token: "mySuPerSecRetTokEn",
-    channel: "#flux",
-    text: "This is a message from the Flux slack.message() function.",
-    color: "good",
-)
+(
+    channel: A,
+    color: string,
+    text: B,
+    ?token: string,
+    ?url: string,
+) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
-The Slack API URL.
+### url
+
+Slack API URL.
 Default is `https://slack.com/api/chat.postMessage`.
 
-{{% note %}}
-If using a Slack webhook, you'll receive a Slack webhook URL when you
-[create an incoming webhook](https://api.slack.com/incoming-webhooks#create_a_webhook).
-{{% /note %}}
+If using the Slack webhook API, this URL is provided ine Slack webhook setup process.
 
-### token {data-type="string"}
-The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
-used to interact with Slack.
-Default is `""`.
+### token
 
-{{% note %}}
-A token is only required if using the Slack chat.postMessage API.
-{{% /note %}}
+Slack API token. Default is `""`.
 
-### channel {data-type="string"}
-({{< req >}}) The name of channel to post the message to.
+If using the Slack Webhook API, a token is not required.
 
-### text {data-type="string"}
-({{< req >}}) The text to display in the Slack message.
+### channel
+({{< req >}})
+Slack channel or user to send the message to.
 
-### color {data-type="string"}
-({{< req >}}) The color to include with the message.
 
-**Valid values include:**
 
-- `good`
-- `warning`
-- `danger`
-- Any valid RGB hex color code. For example, `#439FE0`.
+### text
+({{< req >}})
+Message text.
+
+
+
+### color
+({{< req >}})
+Slack message color.
+
+Valid values:
+- good
+- warning
+- danger
+- Any hex RGB color code
+
 
 ## Examples
 
-##### Send the last reported status to Slack
+- [Send a message to Slack using a Slack webhook](#send-a-message-to-slack-using-a-slack-webhook)
+- [Send a message to Slack using chat.postMessage API](#send-a-message-to-slack-using-chatpostmessage-api)
+
+### Send a message to Slack using a Slack webhook
+
 ```js
 import "slack"
 
-lastReported = from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
-    |> tableFind(fn: (key) => true)
-    |> getRecord(idx: 0)
+slack.message(
+    url: "https://hooks.slack.com/services/EXAMPLE-WEBHOOK-URL",
+    channel: "#example-channel",
+    text: "Example slack message",
+    color: "warning",
+)
+```
+
+
+### Send a message to Slack using chat.postMessage API
+
+```js
+import "slack"
 
 slack.message(
     url: "https://slack.com/api/chat.postMessage",
     token: "mySuPerSecRetTokEn",
-    channel: "#system-status",
-    text: "The last reported status was \"${lastReported.status}\".",
+    channel: "#example-channel",
+    text: "Example slack message",
     color: "warning",
 )
 ```
+

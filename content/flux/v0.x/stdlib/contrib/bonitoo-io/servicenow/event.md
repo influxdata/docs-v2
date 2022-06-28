@@ -1,62 +1,89 @@
 ---
 title: servicenow.event() function
 description: >
-  The `servicenow.event()` function sends an event to ServiceNow.
+  `servicenow.event()` sends an event to [ServiceNow](https://servicenow.com/).
 menu:
   flux_0_x_ref:
     name: servicenow.event
-    parent: servicenow
-weight: 202
+    parent: contrib/bonitoo-io/servicenow
+    identifier: contrib/bonitoo-io/servicenow/event
+weight: 301
 flux/v0.x/tags: [single notification]
 ---
 
-The `servicenow.event()` function sends an event to [ServiceNow](https://servicenow.com).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/servicenow/servicenow.flux#L83-L129
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`servicenow.event()` sends an event to [ServiceNow](https://servicenow.com/).
+
+ServiceNow Event API fields are described in
+[ServiceNow Create Event documentation](https://docs.servicenow.com/bundle/paris-it-operations-management/page/product/event-management/task/t_EMCreateEventManually.html).
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/servicenow"
-
-servicenow.event(
-    url: "https://example-tenant.service-now.com/api/global/em/jsonv2",
-    username: "example-username",
-    password: "example-password",
-    description: "Example event description.",
-    severity: "minor",
-    source: "",
-    node: "",
-    metricType: "",
-    resource: "",
-    metricName: "",
-    messageKey: "",
-    additionalInfo: {},
-)
+(
+    description: A,
+    password: string,
+    severity: B,
+    url: string,
+    username: string,
+    ?additionalInfo: C,
+    ?messageKey: D,
+    ?metricName: E,
+    ?metricType: F,
+    ?node: G,
+    ?resource: H,
+    ?source: I,
+) => int where B: Equatable, C: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-_ServiceNow Event API fields are described in [ServiceNow Create Event documentation](https://docs.servicenow.com/bundle/paris-it-operations-management/page/product/event-management/task/t_EMCreateEventManually.html)._
-
-### url {data-type="string"}
+### url
 ({{< req >}})
 ServiceNow web service URL.
 
-### username {data-type=" string"}
+
+
+### username
 ({{< req >}})
 ServiceNow username to use for HTTP BASIC authentication.
 
-### password {data-type="string"}
+
+
+### password
 ({{< req >}})
 ServiceNow password to use for HTTP BASIC authentication.
 
-### description {data-type="string"}
+
+
+### description
 ({{< req >}})
 Event description.
 
-### severity {data-type="string"}
+
+
+### severity
 ({{< req >}})
 Severity of the event.
 
-**Supported values:**
-
+Supported values:
 - `critical`
 - `major`
 - `minor`
@@ -64,37 +91,59 @@ Severity of the event.
 - `info`
 - `clear`
 
-### source {data-type="string"}
-Source name.
-Default is `"Flux"`.
+### source
 
-### node {data-type="string"}
+Source name. Default is `"Flux"`.
+
+
+
+### node
+
 Node name or IP address related to the event.
 Default is an empty string (`""`).
 
-### metricType {data-type="string"}
+
+
+### metricType
+
 Metric type related to the event (for example, `CPU`).
 Default is an empty string (`""`).
 
-### resource {data-type="string"}
+
+
+### resource
+
 Resource related to the event (for example, `CPU-1`).
 Default is an empty string (`""`).
 
-### metricName {data-type="string"}
+
+
+### metricName
+
 Metric name related to the event (for example, `usage_idle`).
 Default is an empty string (`""`).
 
-### messageKey {data-type="string"}
+
+
+### messageKey
+
 Unique identifier of the event (for example, the InfluxDB alert ID).
 Default is an empty string (`""`).
 If an empty string, ServiceNow generates a value.
 
-### additionalInfo {data-type="record"}
+
+
+### additionalInfo
+
 Additional information to include with the event.
+
+
+
 
 ## Examples
 
-##### Send the last reported value and incident type to ServiceNow
+### Send the last reported value and incident type to ServiceNow
+
 ```js
 import "contrib/bonitoo-io/servicenow"
 import "influxdata/influxdb/secrets"
@@ -127,3 +176,4 @@ servicenow.event(
     additionalInfo: {"devId": r.dev_id},
 )
 ```
+

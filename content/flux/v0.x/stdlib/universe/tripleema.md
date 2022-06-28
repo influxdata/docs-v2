@@ -1,62 +1,78 @@
 ---
 title: tripleEMA() function
 description: >
-  The `tripleEMA()` function calculates the exponential moving average of values
-  grouped into `n` number of points, giving more weight to recent data with less lag
-  than `exponentialMovingAverage()` and `doubleEMA()`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleema/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/tripleema/
+  `tripleEMA()` returns the triple exponential moving average (TEMA) of values in
+  the `_value` column.
 menu:
   flux_0_x_ref:
     name: tripleEMA
     parent: universe
-weight: 102
+    identifier: universe/tripleEMA
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /flux/v0.x/stdlib/universe/movingaverage/
-  - /flux/v0.x/stdlib/universe/doubleema/
-  - /flux/v0.x/stdlib/universe/timedmovingaverage/
-  - /flux/v0.x/stdlib/universe/exponentialmovingaverage/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
 introduced: 0.38.0
 ---
 
-The `tripleEMA()` function calculates the exponential moving average of values in
-the `_value` column grouped into `n` number of points, giving more weight to recent
-data with less lag than
-[`exponentialMovingAverage()`](/flux/v0.x/stdlib/universe/exponentialmovingaverage/)
-and [`doubleEMA()`](/flux/v0.x/stdlib/universe/doubleema/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4405-L4413
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tripleEMA()` returns the triple exponential moving average (TEMA) of values in
+the `_value` column.
+
+`tripleEMA` uses `n` number of points to calculate the TEMA, giving more
+weight to recent data with less lag than `exponentialMovingAverage()` and
+`doubleEMA()`.
+
+#### Triple exponential moving average rules
+- A triple exponential moving average is defined as `tripleEMA = (3 * EMA_1) - (3 * EMA_2) + EMA_3`.
+    - `EMA_1` is the exponential moving average of the original data.
+    - `EMA_2` is the exponential moving average of `EMA_1`.
+    - `EMA_3` is the exponential moving average of `EMA_2`.
+- A true triple exponential moving average requires at least requires at least
+  `3 * n - 2` values. If not enough values exist to calculate the TEMA, it
+  returns a `NaN` value.
+- `tripleEMA()` inherits all `exponentialMovingAverage()` rules.
+
+##### Function type signature
 
 ```js
-tripleEMA(n: 5)
+(<-tables: stream[{A with _value: B}], n: int) => stream[C] where B: Numeric, C: Record
 ```
 
-##### Triple exponential moving average rules
-- A triple exponential moving average is defined as `tripleEMA = (3 * EMA_1) - (3 * EMA_2) + EMA_3`.
-  - `EMA_1` is the exponential moving average of the original data.
-  - `EMA_2` is the exponential moving average of `EMA_1`.
-  - `EMA_3` is the exponential moving average of `EMA_2`.
-- A true triple exponential moving average requires at least requires at least `3 * n - 2` values.
-  If not enough values exist to calculate the triple EMA, it returns a `NaN` value.
-- `tripleEMA()` inherits all [exponential moving average rules](/flux/v0.x/stdlib/universe/exponentialmovingaverage/#exponential-moving-average-rules).
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
+### n
 ({{< req >}})
-Number of points to average.
+Number of points to use in the calculation.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
 
-#### Calculate a three point triple exponential moving average
+### Calculate a three point triple exponential moving average
+
 ```js
 import "sampledata"
 
@@ -65,26 +81,38 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:00:50Z | t1  | 7.6250000000000036 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:00:50Z | t2  | 4.0729166666666625 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value             | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:50Z | 7.6250000000000036 | t1   |
+
+| _time                | _value             | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:50Z | 4.0729166666666625 | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

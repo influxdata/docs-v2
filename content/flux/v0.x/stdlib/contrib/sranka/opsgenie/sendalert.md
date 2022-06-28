@@ -1,97 +1,146 @@
 ---
 title: opsgenie.sendAlert() function
 description: >
-  The `opsgenie.sendAlert()` function sends an alert message to Opsgenie.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/sendalert/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/opsgenie/sendalert/
+  `opsgenie.sendAlert()` sends an alert message to Opsgenie.
 menu:
   flux_0_x_ref:
     name: opsgenie.sendAlert
-    parent: opsgenie
+    parent: contrib/sranka/opsgenie
+    identifier: contrib/sranka/opsgenie/sendAlert
 weight: 301
-introduced: 0.84.0
+flux/v0.x/tags: [single notification]
 ---
 
-The `opsgenie.sendAlert()` function sends an alert message to Opsgenie.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/opsgenie/opsgenie.flux#L78-L117
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`opsgenie.sendAlert()` sends an alert message to Opsgenie.
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/sranka/opsgenie"
-
-opsgenie.sendAlert(
-    url: "https://api.opsgenie.com/v2/alerts",
-    apiKey: "YoUrSup3R5ecR37AuThK3y",
-    message: "Example message",
-    alias: "Example alias",
-    description: "Example description",
-    priority: "P3",
-    responders: ["user:john@example.com", "team:itcrowd"],
-    tags: ["tag1", "tag2"],
-    entity: "example-entity",
-    actions: ["action1", "action2"],
-    details: "{}",
-    visibleTo: [],
-)
+(
+    apiKey: string,
+    message: string,
+    ?actions: A,
+    ?alias: string,
+    ?description: string,
+    ?details: B,
+    ?entity: string,
+    ?priority: string,
+    ?responders: [string],
+    ?tags: C,
+    ?url: string,
+    ?visibleTo: [string],
+) => int where B: Stringable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
-Opsgenie API URL.
-Defaults to `https://api.opsgenie.com/v2/alerts`.
+### url
 
-### apiKey {data-type="string"}
-({{< req >}})
-Opsgenie API authorization key.
+Opsgenie API URL. Defaults to `https://api.opsgenie.com/v2/alerts`.
 
-### message {data-type="string"}
+
+
+### apiKey
 ({{< req >}})
-Alert message text.
+(Required) Opsgenie API authorization key.
+
+
+
+### message
+({{< req >}})
+(Required) Alert message text.
 130 characters or less.
 
-### alias {data-type="string"}
+
+
+### alias
+
 Opsgenie alias usee to de-deduplicate alerts.
 250 characters or less.
-Defaults to [message](#message).
+Defaults to [message](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/sranka/opsgenie/sendalert/#message).
 
-### description {data-type="string"}
-Alert description.
-15000 characters or less.
 
-### priority {data-type="string"}
-Opsgenie [alert priority](https://docs.opsgenie.com/docs/alert-priority-settings).
+
+### description
+
+Alert description. 15000 characters or less.
+
+
+
+### priority
+
+Opsgenie alert priority.
+
 Valid values include:
-
 - `P1`
 - `P2`
-- `P3` _(default)_
+- `P3` (default)
 - `P4`
 - `P5`
 
-### responders {data-type="array of strings"}
-List of responder teams or users.
-Use the `user:` prefix for users and `teams:` prefix for teams.
+### responders
 
-### tags {data-type="array of strings"}
+List of responder teams or users.
+Use the `user: ` prefix for users and `teams: ` prefix for teams.
+
+
+
+### tags
+
 Alert tags.
 
-### entity {data-type="string"}
+
+
+### entity
+
 Alert entity used to specify the alert domain.
 
-### actions {data-type="array of strings"}
+
+
+### actions
+
 List of actions available for the alert.
 
-### details {data-type="string"}
-Additional alert details.
-Must be a JSON-encoded map of key-value string pairs.
 
-### visibleTo {data-type="array of strings"}
+
+### details
+
+Additional alert details. Must be a JSON-encoded map of key-value string pairs.
+
+
+
+### visibleTo
+
 List of teams and users the alert will be visible to without sending notifications.
-Use the `user:` prefix for users and `teams:` prefix for teams.
+Use the `user: ` prefix for users and `teams: ` prefix for teams.
+
+
+
 
 ## Examples
 
-##### Send the last reported status to a Opsgenie
+### Send the last reported status to a Opsgenie
+
 ```js
 import "influxdata/influxdb/secrets"
 import "contrib/sranka/opsgenie"
@@ -112,3 +161,4 @@ opsgenie.sendAlert(
     responders: ["user:john@example.com", "team:itcrowd"],
 )
 ```
+

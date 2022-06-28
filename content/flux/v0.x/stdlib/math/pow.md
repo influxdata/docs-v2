@@ -1,59 +1,107 @@
 ---
 title: math.pow() function
-description: The math.pow() function returns `x**y`, the base-x exponential of y.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/pow/
-  - /influxdb/v2.0/reference/flux/stdlib/math/pow/
-  - /influxdb/cloud/reference/flux/stdlib/math/pow/
+description: >
+  `math.pow()` returns `x**y`, the base-x exponential of `y`.
 menu:
   flux_0_x_ref:
     name: math.pow
     parent: math
-weight: 301
-introduced: 0.22.0
+    identifier: math/pow
+weight: 101
 ---
 
-The `math.pow()` function returns `x**y`, the base-x exponential of y.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/math/math.flux#L1796-L1796
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`math.pow()` returns `x**y`, the base-x exponential of `y`.
+
+
+
+##### Function type signature
+
+```js
+(x: float, y: float) => float
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### x
+({{< req >}})
+Base value to operate on.
+
+
+
+### y
+({{< req >}})
+Exponent value.
+
+
+
+
+## Examples
+
+- [Return the base-x exponential of a value](#return-the-base-x-exponential-of-a-value)
+- [Use math.pow in map](#use-mathpow-in-map)
+
+### Return the base-x exponential of a value
 
 ```js
 import "math"
 
-math.pow(x: 2.0, y: 3.0)
+math.pow(x: 2.0, y: 3.0)// 8.0
 
-// Returns 8.0
 ```
 
-## Parameters
 
-### x {data-type="float"}
-The X value used in the operation.
+### Use math.pow in map
 
-### y {data-type="float"}
-The Y value used in the operation.
-
-## Special cases
 ```js
-// In order of priority
-math.pow(x:x, y:±0)     // Returns 1 for any x
-math.pow(x:1, y:y)      // Returns 1 for any y
-math.pow(x:X, y:1)      // Returns x for any x
-math.pow(x:NaN, y:y)    // Returns NaN
-math.pow(x:x, y:NaN)    // Returns NaN
-math.pow(x:±0, y:y)     // Returns ±Inf for y an odd integer < 0
-math.pow(x:±0, y:-Inf)  // Returns +Inf
-math.pow(x:±0, y:+Inf)  // Returns +0
-math.pow(x:±0, y:y)     // Returns +Inf for finite y < 0 and not an odd integer
-math.pow(x:±0, y:y)     // Returns ±0 for y an odd integer > 0
-math.pow(x:±0, y:y)     // Returns +0 for finite y > 0 and not an odd integer
-math.pow(x:-1, y:±Inf)  // Returns 1
-math.pow(x:x, y:+Inf)   // Returns +Inf for |x| > 1
-math.pow(x:x, y:-Inf)   // Returns +0 for |x| > 1
-math.pow(x:x, y:+Inf)   // Returns +0 for |x| < 1
-math.pow(x:x, y:-Inf)   // Returns +Inf for |x| < 1
-math.pow(x:+Inf, y:y)   // Returns +Inf for y > 0
-math.pow(x:+Inf, y:y)   // Returns +0 for y < 0
-math.pow(x:-Inf, y:y)   // Returns math.pow(-0, -y)
-math.pow(x:x, y:y)      // Returns NaN for finite x < 0 and finite non-integer y
+import "math"
+
+data
+    |> map(fn: (r) => ({_time: r._time, _value: math.pow(x: r.t1, y: r.t2)}))
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | t1    | t2    |
+| -------------------- | ----- | ----- |
+| 2021-01-01T00:00:00Z | -2.18 | 19.85 |
+| 2021-01-01T00:00:10Z | 10.92 | 4.97  |
+| 2021-01-01T00:00:20Z | 7.35  | -3.75 |
+| 2021-01-01T00:00:30Z | 17.53 | 19.77 |
+| 2021-01-01T00:00:40Z | 15.23 | 13.86 |
+| 2021-01-01T00:00:50Z | 4.43  | 1.86  |
+
+
+#### Output data
+
+| _time                | _value                    |
+| -------------------- | ------------------------- |
+| 2021-01-01T00:00:00Z | NaN                       |
+| 2021-01-01T00:00:10Z | 144532.83209763622        |
+| 2021-01-01T00:00:20Z | 0.0005641862251143407     |
+| 2021-01-01T00:00:30Z | 3886587782891166000000000 |
+| 2021-01-01T00:00:40Z | 24672926229934220         |
+| 2021-01-01T00:00:50Z | 15.933490684011332        |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

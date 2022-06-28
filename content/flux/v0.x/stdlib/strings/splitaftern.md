@@ -1,57 +1,75 @@
 ---
 title: strings.splitAfterN() function
 description: >
-  The strings.splitAfterN() function splits a string after a specified separator and returns
-  an array of `i` substrings.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/splitaftern/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/splitaftern/
-  - /influxdb/cloud/reference/flux/stdlib/strings/splitaftern/
+  `strings.splitAfterN()` splits a string after a specified separator and returns an array of `i` substrings.
+  Split substrings include the separator, `t`.
 menu:
   flux_0_x_ref:
     name: strings.splitAfterN
     parent: strings
-weight: 301
-related:
-  - /flux/v0.x/stdlib/strings/split
-  - /flux/v0.x/stdlib/strings/splitafter
-  - /flux/v0.x/stdlib/strings/splitn
-introduced: 0.18.0
+    identifier: strings/splitAfterN
+weight: 101
 ---
 
-The `strings.splitAfterN()` function splits a string after a specified separator and returns
-an array of `i` substrings.
-Split substrings include the separator `t`.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Array of strings_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux#L758-L758
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`strings.splitAfterN()` splits a string after a specified separator and returns an array of `i` substrings.
+Split substrings include the separator, `t`.
+
+
+
+##### Function type signature
 
 ```js
-import "strings"
-
-strings.splitAfterN(v: "a flux of foxes", t: " ", i: 3)
-
-// returns ["a ", "flux ", "of foxes"]
+(i: int, t: string, v: string) => [string]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string"}
-The string value to split.
+### v
+({{< req >}})
+String value to split.
 
-### t {data-type="string"}
-The string value that acts as the separator.
 
-### i {data-type="int"}
-The maximum number of split substrings to return.
+
+### t
+({{< req >}})
+String value that acts as the separator.
+
+
+
+### i
+({{< req >}})
+Maximum number of split substrings to return.
+
 `-1` returns all matching substrings.
 The last substring is the unsplit remainder.
 
+
 ## Examples
 
-###### Split a string into an array of substrings
+### Split a string into an array of substrings
+
 ```js
 import "strings"
 
-data
-    |> map (fn:(r) => strings.splitAfterN(v: r.searchTags, t: ","))
+strings.splitAfterN(v: "foo, bar, baz, quz", t: ", ", i: 3)// Returns ["foo, ", "bar, ", "baz, quz"]
+
 ```
+

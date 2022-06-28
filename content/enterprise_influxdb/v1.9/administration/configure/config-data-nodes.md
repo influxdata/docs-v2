@@ -746,11 +746,9 @@ Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_INTERVAL`
 
 #### `retry-max-interval`
 
-Default is `"10s"`.
+Default is `"200s"`.
 
 The maximum interval after which the hinted handoff retries a write after the write fails.
-The `retry-max-interval` option is no longer in use and will be removed from the configuration file in a future release.
-Changing the `retry-max-interval` setting has no effect on your cluster.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_MAX_INTERVAL`
 

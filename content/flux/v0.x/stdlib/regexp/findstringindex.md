@@ -1,58 +1,68 @@
 ---
 title: regexp.findStringIndex() function
 description: >
-  The `regexp.findStringIndex()` function returns a two-element array of integers defining
-  the beginning and ending indexes of the left-most regular expression match in a string.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/findstringindex/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/findstringindex/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/findstringindex/
+  `regexp.findStringIndex()` returns a two-element array of integers that represent the
+  beginning and ending indexes of the first regular expression match in a string.
 menu:
   flux_0_x_ref:
     name: regexp.findStringIndex
     parent: regexp
-weight: 301
-related:
-  - /flux/v0.x/stdlib/regexp/compile
-  - /flux/v0.x/data-types/regexp/
-introduced: 0.33.2
+    identifier: regexp/findStringIndex
+weight: 101
 ---
 
-The `regexp.findStringIndex()` function returns a two-element array of integers defining
-the beginning and ending indexes of the left-most regular expression match in a string.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Array of Integers_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/regexp/regexp.flux#L93-L93
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`regexp.findStringIndex()` returns a two-element array of integers that represent the
+beginning and ending indexes of the first regular expression match in a string.
+
+
+
+##### Function type signature
 
 ```js
-import "regexp"
-
-regexp.findStringIndex(r: /ab?/, v: "tablet")
-
-// Returns [1, 3]
+(r: regexp, v: string) => [int]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### r {data-type="regexp"}
-The regular expression used to search `v`.
+### r
+({{< req >}})
+Regular expression used to search `v`.
 
-### v {data-type="string"}
-The string value to search.
+
+
+### v
+({{< req >}})
+String value to search.
+
+
+
 
 ## Examples
 
-###### Index the bounds of first regular expression match in each row
+### Index the bounds of first regular expression match in each row
+
 ```js
 import "regexp"
 
-data
-    |> map(fn: (r) => ({r with
-            regexStr: r.regexStr,
-            _value: r._value,
-            matchIndex: regexp.findStringIndex(
-                r: regexp.compile(r.regexStr),
-                v: r._value
-            )
-        })
-    )
+regexp.findStringIndex(r: /ab?/, v: "tablet")// Returns [1, 3]
+
 ```
+
