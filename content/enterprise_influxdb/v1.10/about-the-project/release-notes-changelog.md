@@ -9,6 +9,42 @@ menu:
     parent: About the project
 ---
 
+## 1.10 [TBD]
+
+### Features
+- Add  /v2/api/buckets support for create, delete, list, retrieve, and update operations.
+- Add  /v2/api/delete support.
+- Add  wildcard support for retention policies in `SHOW MEASUREMENTS`.
+- Log slow queries even when query logging is not enabled.
+- Add  `--start` and `--stop` flags to backup procedure to break up the work by time.
+- Add Raft Status output to `inflxud-ctl show`.
+
+#### Flux updates
+- Add [experimental.preview()](/flux/v0.x/stdlib/experimental/preview/) function to limit return rows and tables (as opposed to returning only rows with limit() function).
+- Add [date.scale()](/flux/v0.x/stdlib/date/scale/) function to let users dynamically scale durations in dates.
+- Add OpenTracing spans to Flux transformations. This allows developers to more precisely monitor Flux scripts.
+- Add trace option to Flux CLI.
+- Rename addDuration() to add and subDuration() to sub, and moved both of these functions from the experimental package to the date package.
+<!-- - Move [addDuration()](/flux/v0.x/stdlib/experimental/addduration/) function and [subDuration()](/flux/v0.x/stdlib/experimental/subduration/) function out of expterimental status to date package. -->
+- Add location support to [date.truncate()](/flux/v0.x/stdlib/date/truncate/) function.
+- Vectorize arithmetic operators in [map()](/flux/v0.x/stdlib/universe/map/) function.
+
+### Bug fixes
+
+#### Backup
+- Fix backup estimation so it dynamically updates with known information as progress is made.
+- Ability to create backup with passing only `-shard flag` when using the influxd-ctl backup command.
+
+### Maintenance updates
+- Upgrade to [Flux 0.167.0](/flux/v0.x/release-notes/#v01670-2022-05-16).
+- Upgrade to Go 1.18.1
+- Fixes issue with OSXCross and Darwin builds. This results in the new minimum OSX version being MacOSX10.14/darwin18.
+
+
+
+
+<!-- Inlcude 1.9.8 - missed here due to rollback -->
+
 ## 1.9.7 [2022-05-26]
 
 ### Features
