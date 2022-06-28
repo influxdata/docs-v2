@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/tomhollingworth/events/duration.flux#L99-L109
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/tomhollingworth/events/duration.flux#L101-L111
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -64,7 +64,7 @@ See the example [below](#compared-to-similar-functions).
 ### unit
 
 Duration unit of the calculated state duration.
-Default is `1ns`
+Default is `1ns`.
 
 
 

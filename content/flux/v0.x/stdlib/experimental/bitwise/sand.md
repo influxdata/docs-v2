@@ -42,13 +42,13 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ### a
 ({{< req >}})
-Left hand operand
+Left hand operand.
 
 
 
 ### b
 ({{< req >}})
-Right hand operand
+Right hand operand.
 
 
 

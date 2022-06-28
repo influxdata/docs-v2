@@ -8,6 +8,9 @@ menu:
     parent: contrib/anaisdg
     identifier: contrib/anaisdg/statsmodels
 weight: 31
+cascade:
+
+  introduced: 0.90.0
 ---
 
 <!------------------------------------------------------------------------------

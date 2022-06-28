@@ -54,7 +54,7 @@ Each instance of `system.time()` in a Flux script returns a unique value.
 
 ```js
 data
-    |> range(start: -10h, stop: now)
+    |> range(start: -10h, stop: now())
 ```
 
 

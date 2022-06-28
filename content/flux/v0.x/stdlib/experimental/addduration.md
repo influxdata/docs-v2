@@ -9,6 +9,7 @@ menu:
     identifier: experimental/addDuration
 weight: 101
 flux/v0.x/tags: [date/time]
+introduced: 0.39.0
 deprecated: 0.162.0
 ---
 
@@ -21,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L73-L73
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L74-L74
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
