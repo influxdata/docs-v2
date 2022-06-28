@@ -1,229 +1,38 @@
 ---
 title: map() function
-description: The `map()` function applies a function to each record in the input tables.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/map
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/map/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/map/
+description: >
+  `map()` iterates over and applies a function to input rows.
 menu:
   flux_0_x_ref:
     name: map
     parent: universe
-weight: 102
+    identifier: universe/map
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/
-  - /{{< latest "influxdb" >}}/query-data/flux/mathematic-operations/
-  - /flux/v0.x/stdlib/contrib/jsternberg/rows/map/
 introduced: 0.7.0
 ---
 
-The `map()` function applies a function to each record in the input tables.
-The modified records are assigned to new tables based on the group key of the input table.
-The output tables are the result of applying the map function to each record of the input tables.
+<!------------------------------------------------------------------------------
 
-When the output record contains a different value for the group key, the record is regrouped into the appropriate table.
-When the output record drops a column that was part of the group key, that column is removed from the group key.
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-```js
-map(fn: (r) => ({ _value: r._value * r._value }))
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-## Parameters
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1689-L1689
 
-{{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
-{{% /note %}}
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-### fn {data-type="function"}
+------------------------------------------------------------------------------->
 
-A single argument function to apply to each record.
-The return value must be a record.
+`map()` iterates over and applies a function to input rows.
 
-{{% note %}}
-Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".
-{{% /note %}}
-
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
-
-## Important notes
-
-#### Preserve columns
-
-By default, `map()` drops any columns that:
-
-1. Are not part of the input table's group key.
-2. Are not explicitly mapped in the `map()` function.
-
-This often results in the `_time` column being dropped.
-To preserve the `_time` column and other columns that do not meet the criteria above,
-use the `with` operator to map values in the `r` record.
-The `with` operator updates a column if it already exists,
-creates a new column if it doesn't exist, and includes all existing columns in
-the output table.
-
-```js
-map(fn: (r) => ({ r with newColumn: r._value * 2 }))
-```
-
-## Examples
-{{% flux/sample-example-intro plural=true %}}
-
-- [Square the value in each row](#square-the-value-in-each-row)
-- [Create a new table with new columns](#create-a-new-table-with-new-columns)
-- [Add new columns and preserve existing columns](#add-new-columns-and-preserve-existing-columns)
-
-#### Square the value in each row
-
-```js
-import "sampledata"
-
-sampledata.int()
-  |> map(fn: (r) => ({ r with _value: r._value * r._value }))
-```
-
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-
-##### Input data
-{{% flux/sample "int" %}}
-
-{{% /flex-content %}}
-{{% flex-content %}}
-
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |      4 |
-| 2021-01-01T00:00:10Z | t1  |    100 |
-| 2021-01-01T00:00:20Z | t1  |     49 |
-| 2021-01-01T00:00:30Z | t1  |    289 |
-| 2021-01-01T00:00:40Z | t1  |    225 |
-| 2021-01-01T00:00:50Z | t1  |     16 |
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t2  |    361 |
-| 2021-01-01T00:00:10Z | t2  |     16 |
-| 2021-01-01T00:00:20Z | t2  |      9 |
-| 2021-01-01T00:00:30Z | t2  |    361 |
-| 2021-01-01T00:00:40Z | t2  |    169 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
-
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-#### Create a new table with new columns
-
-```js
-import "sampledata"
-
-sampledata.int()
-    |> map(
-        fn: (r) => ({
-            time: r._time,
-            source: r.tag,
-            alert: if r._value > 10 then true else false
-        })
-    )
-```
-
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-
-##### Input data
-{{% flux/sample "int" %}}
-
-{{% /flex-content %}}
-{{% flex-content %}}
-
-##### Output data
-| time                 | source | alert |
-| :------------------- | :----- | ----: |
-| 2021-01-01T00:00:00Z | t1     | false |
-| 2021-01-01T00:00:10Z | t1     | false |
-| 2021-01-01T00:00:20Z | t1     | false |
-| 2021-01-01T00:00:30Z | t1     |  true |
-| 2021-01-01T00:00:40Z | t1     |  true |
-| 2021-01-01T00:00:50Z | t1     | false |
-| 2021-01-01T00:00:00Z | t2     |  true |
-| 2021-01-01T00:00:10Z | t2     | false |
-| 2021-01-01T00:00:20Z | t2     | false |
-| 2021-01-01T00:00:30Z | t2     |  true |
-| 2021-01-01T00:00:40Z | t2     |  true |
-| 2021-01-01T00:00:50Z | t2     | false |
-
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-#### Add new columns and preserve existing columns
-Use the `with` operator on the `r` record to preserve columns not directly
-operated on by the map operation.
-
-```js
-import "sampledata"
-
-sampledata.int()
-  |> map(
-      fn: (r) => ({
-          r with
-          server: "server-${r.tag}",
-          valueFloat: float(v: r._value)
-      })
-  )
-```
-
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-
-##### Input data
-{{% flux/sample "int" %}}
-
-{{% /flex-content %}}
-{{% flex-content %}}
-
-##### Output data
-| _time                | tag | _value | server    | valueFloat |
-| :------------------- | :-- | -----: | :-------- | ---------: |
-| 2021-01-01T00:00:00Z | t1  |     -2 | server-t1 |       -2.0 |
-| 2021-01-01T00:00:10Z | t1  |     10 | server-t1 |       10.0 |
-| 2021-01-01T00:00:20Z | t1  |      7 | server-t1 |        7.0 |
-| 2021-01-01T00:00:30Z | t1  |     17 | server-t1 |       17.0 |
-| 2021-01-01T00:00:40Z | t1  |     15 | server-t1 |       15.0 |
-| 2021-01-01T00:00:50Z | t1  |      4 | server-t1 |        4.0 |
-
-| _time                | tag | _value | server    | valueFloat |
-| :------------------- | :-- | -----: | :-------- | ---------: |
-| 2021-01-01T00:00:00Z | t2  |     19 | server-t2 |       19.0 |
-| 2021-01-01T00:00:10Z | t2  |      4 | server-t2 |        4.0 |
-| 2021-01-01T00:00:20Z | t2  |     -3 | server-t2 |       -3.0 |
-| 2021-01-01T00:00:30Z | t2  |     19 | server-t2 |       19.0 |
-| 2021-01-01T00:00:40Z | t2  |     13 | server-t2 |       13.0 |
-| 2021-01-01T00:00:50Z | t2  |      1 | server-t2 |        1.0 |
-
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-## Troubleshooting
-
-### Map object property is not supported in a Flux table
-
-Flux tables only support the following value types:
+Each input row is passed to the `fn` as a record, `r`.
+Each `r` property represents a column key-value pair.
+Output values must be of the following supported column types:
 
 - float
 - integer
@@ -232,18 +41,227 @@ Flux tables only support the following value types:
 - boolean
 - time
 
-If `map()` returns a record with an unsupported type, Flux returns an error with
-the name of the column that attempted to use the unsupported type.
+### Output data
+Output tables are the result of applying the map function (`fn`) to each
+record of the input tables. Output records are assigned to new tables based
+on the group key of the input stream.
+If the output record contains a different value for a group key column, the
+record is regrouped into the appropriate table.
+If the output record drops a group key column, that column is removed from
+the group key.
 
-If mapping a **duration** value, use [`time()`](/flux/v0.x/stdlib/universe/time/)
-to convert it to a time value or [`int()`](/flux/v0.x/stdlib/universe/int/)
-to convert it to an integer.
-For the **bytes** type, use [`string()`](/flux/v0.x/stdlib/universe/string/) to convert the value to a string.
+#### Preserve columns
+`map()` drops any columns that are not mapped explictly by column label or
+implicitly using the `with` operator in the `fn` function.
+The `with` operator updates a record property if it already exists, creates
+a new record property if it doesn’t exist, and includes all existing
+properties in the output record.
 
-{{% note %}}
-For information about supporting other data types in Flux tables, see the
-following Github issues:
+```no_run
+data
+    |> map(fn: (r) => ({ r with newColumn: r._value * 2 }))
+```
 
-- [Add support for duration column value](https://github.com/influxdata/flux/issues/1803)
-- [Add support for bytes column value](https://github.com/influxdata/flux/issues/1804)
-{{% /note %}}
+##### Function type signature
+
+```js
+(<-tables: stream[A], fn: (r: A) => B, ?mergeKey: bool) => stream[B]
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### fn
+({{< req >}})
+Single argument function to apply to each record.
+The return value must be a record.
+
+
+
+### mergeKey
+
+_(Deprecated)_ Merge group keys of mapped records. Default is `false`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
+
+## Examples
+
+- [Square the value in each row](#square-the-value-in-each-row)
+- [Create a new table with new columns](#create-a-new-table-with-new-columns)
+- [Add new columns and preserve existing columns](#add-new-columns-and-preserve-existing-columns)
+
+### Square the value in each row
+
+```js
+import "sampledata"
+
+sampledata.int()
+    |> map(fn: (r) => ({r with _value: r._value * r._value}))
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 4       | t1   |
+| 2021-01-01T00:00:10Z | 100     | t1   |
+| 2021-01-01T00:00:20Z | 49      | t1   |
+| 2021-01-01T00:00:30Z | 289     | t1   |
+| 2021-01-01T00:00:40Z | 225     | t1   |
+| 2021-01-01T00:00:50Z | 16      | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 361     | t2   |
+| 2021-01-01T00:00:10Z | 16      | t2   |
+| 2021-01-01T00:00:20Z | 9       | t2   |
+| 2021-01-01T00:00:30Z | 361     | t2   |
+| 2021-01-01T00:00:40Z | 169     | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Create a new table with new columns
+
+```js
+import "sampledata"
+
+sampledata.int()
+    |> map(fn: (r) => ({time: r._time, source: r.tag, alert: if r._value > 10 then true else false}))
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| alert  | source  | time                 |
+| ------ | ------- | -------------------- |
+| false  | t1      | 2021-01-01T00:00:00Z |
+| false  | t1      | 2021-01-01T00:00:10Z |
+| false  | t1      | 2021-01-01T00:00:20Z |
+| true   | t1      | 2021-01-01T00:00:30Z |
+| true   | t1      | 2021-01-01T00:00:40Z |
+| false  | t1      | 2021-01-01T00:00:50Z |
+| true   | t2      | 2021-01-01T00:00:00Z |
+| false  | t2      | 2021-01-01T00:00:10Z |
+| false  | t2      | 2021-01-01T00:00:20Z |
+| true   | t2      | 2021-01-01T00:00:30Z |
+| true   | t2      | 2021-01-01T00:00:40Z |
+| false  | t2      | 2021-01-01T00:00:50Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Add new columns and preserve existing columns
+
+Use the `with` operator on the `r` record to preserve columns not directly
+operated on by the map operation.
+
+```js
+import "sampledata"
+
+sampledata.int()
+    |> map(fn: (r) => ({r with server: "server-${r.tag}", valueFloat: float(v: r._value)}))
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | _value  | server    | *tag | valueFloat  |
+| -------------------- | ------- | --------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | -2      | server-t1 | t1   | -2          |
+| 2021-01-01T00:00:10Z | 10      | server-t1 | t1   | 10          |
+| 2021-01-01T00:00:20Z | 7       | server-t1 | t1   | 7           |
+| 2021-01-01T00:00:30Z | 17      | server-t1 | t1   | 17          |
+| 2021-01-01T00:00:40Z | 15      | server-t1 | t1   | 15          |
+| 2021-01-01T00:00:50Z | 4       | server-t1 | t1   | 4           |
+
+| _time                | _value  | server    | *tag | valueFloat  |
+| -------------------- | ------- | --------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | 19      | server-t2 | t2   | 19          |
+| 2021-01-01T00:00:10Z | 4       | server-t2 | t2   | 4           |
+| 2021-01-01T00:00:20Z | -3      | server-t2 | t2   | -3          |
+| 2021-01-01T00:00:30Z | 19      | server-t2 | t2   | 19          |
+| 2021-01-01T00:00:40Z | 13      | server-t2 | t2   | 13          |
+| 2021-01-01T00:00:50Z | 1       | server-t2 | t2   | 1           |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

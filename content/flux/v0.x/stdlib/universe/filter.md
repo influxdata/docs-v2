@@ -1,91 +1,86 @@
 ---
 title: filter() function
-description: The `filter()` function filters data based on conditions defined in a predicate function (fn).
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/filter
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/filter/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter/
+description: >
+  `filter()` filters data based on conditions defined in a predicate function (`fn`).
 menu:
   flux_0_x_ref:
     name: filter
     parent: universe
-weight: 102
+    identifier: universe/filter
+weight: 101
 flux/v0.x/tags: [transformations, filters]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/query-fields/
-  - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/
-  - /{{< latest "influxdb" >}}/query-data/flux/exists/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT
 introduced: 0.7.0
 ---
 
-The `filter()` function filters data based on conditions defined in a predicate function ([`fn`](#fn)).
-The output tables have the same schema as the corresponding input tables.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L639-L639
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`filter()` filters data based on conditions defined in a predicate function (`fn`).
+
+Output tables have the same schema as the corresponding input tables.
+
+##### Function type signature
 
 ```js
-filter(
-    fn: (r) => r._measurement == "cpu",
-    onEmpty: "drop",
-)
+(<-tables: stream[A], fn: (r: A) => bool, ?onEmpty: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-{{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
-{{% /note %}}
+### fn
+({{< req >}})
+Single argument predicate function that evaluates `true` or `false`.
 
-### fn {data-type="function"}
+Records representing each row are passed to the function as `r`.
+Records that evaluate to `true` are included in output tables.
+Records that evaluate to _null_ or `false` are excluded from output tables.
 
-A single argument predicate function that evaluates true or false.
-Records are passed to the function.
-Those that evaluate to true are included in the output tables.
-Records that evaluate to _null_ or false are not included in the output tables.
+### onEmpty
 
-{{% note %}}
-Records evaluated in `fn` functions are represented by `r`, short for "record" or "row".
-{{% /note %}}
+Action to take with empty tables. Default is `drop`.
 
-### onEmpty {data-type="string"}
-Defines the behavior for empty tables.
-Potential values are `keep` and `drop`.
-Defaults to `drop`.
+**Supported values**:
+- **keep**: Keep empty tables.
+- **drop**: Drop empty tables.
 
-##### drop
-Tables without rows are dropped.
+### tables
 
-##### keep
-Tables without rows are output to the next transformation.
+Input data. Default is piped-forward data (`<-`).
 
-{{% warn %}}
-Keeping empty tables with your first `filter()` function can have severe performance
-costs since it retains empty tables from your entire data set.
-For higher performance, use your first `filter()` function to do basic filtering,
-then keep empty tables on subsequent `filter()` calls with smaller data sets.
-_[See the example below](#keep-empty-tables-when-filtering)._
-{{% /warn %}}
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
 
 ## Examples
 
 - [Filter based on InfluxDB measurement, field, and tag](#filter-based-on-influxdb-measurement-field-and-tag)
 - [Keep empty tables when filtering](#keep-empty-tables-when-filtering)
-- [Filter out null values](#filter-out-null-values)
 - [Filter values based on thresholds](#filter-values-based-on-thresholds)
 
-#### Filter based on InfluxDB measurement, field, and tag
+### Filter based on InfluxDB measurement, field, and tag
+
 ```js
 from(bucket: "example-bucket")
     |> range(start: -1h)
     |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
 ```
 
-#### Keep empty tables when filtering
-The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/).
+
+### Keep empty tables when filtering
 
 ```js
 import "sampledata"
@@ -95,106 +90,87 @@ sampledata.int()
     |> filter(fn: (r) => r._value > 18, onEmpty: "keep")
 ```
 
-{{% note %}}
-Use [`table.fill()`](/flux/v0.x/stdlib/experimental/table/fill/) to fill empty tables.
-{{% /note %}}
-
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t2  |     19 |
-| 2021-01-01T00:00:30Z | t2  |     19 |
+| _time  | _value  | *tag |
+| ------ | ------- | ---- |
 
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Filter out null values
-The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/).
-
-```js
-import "sampledata"
-
-sampledata.int(includeNull: true)
-    |> filter(fn: (r) => exists r._value )
-```
-
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-
-##### Input data
-{{% flux/sample "int" true %}}
-
-{{% /flex-content %}}
-{{% flex-content %}}
-
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |
-| 2021-01-01T00:00:20Z | t1  |      7 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:10Z | t2  |      4 |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
-| 2021-01-01T00:00:30Z | t2  |     19 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
-
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-#### Filter values based on thresholds
-The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/).
+### Filter values based on thresholds
 
 ```js
 import "sampledata"
 
 sampledata.int()
-    |> filter(fn: (r) => r._value > 0 and r._value < 10 )
+    |> filter(fn: (r) => r._value > 0 and r._value < 10)
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t1  |      7 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:10Z | t2  |      4 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

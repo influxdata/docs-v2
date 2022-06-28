@@ -1,38 +1,40 @@
 ---
 title: exponentialMovingAverage() function
 description: >
-  The `exponentialMovingAverage()` function calculates the exponential moving average of values
-  in the `_value` column grouped into `n` number of points, giving more weight to recent data.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/exponentialmovingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/exponentialmovingaverage/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/exponentialmovingaverage/
+  `exponentialMovingAverage()` calculates the exponential moving average of `n`
+  number of values in the `_value` column giving more weight to more recent data.
 menu:
   flux_0_x_ref:
     name: exponentialMovingAverage
     parent: universe
-weight: 102
+    identifier: universe/exponentialMovingAverage
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /flux/v0.x/stdlib/universe/movingaverage/
-  - /flux/v0.x/stdlib/universe/timedmovingaverage/
-  - /flux/v0.x/stdlib/universe/doubleema/
-  - /flux/v0.x/stdlib/universe/tripleema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#exponential-moving-average, InfluxQL EXPONENTIAL_MOVING_AVERAGE()
 introduced: 0.37.0
 ---
 
-The `exponentialMovingAverage()` function calculates the exponential moving average of values
-in the `_value` column grouped into `n` number of points, giving more weight to recent data.
+<!------------------------------------------------------------------------------
 
-```js
-exponentialMovingAverage(n: 5)
-```
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-##### Exponential moving average rules
-- The first value of an exponential moving average over `n` values is the
-  algebraic mean of `n` values.
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L543-L545
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`exponentialMovingAverage()` calculates the exponential moving average of `n`
+number of values in the `_value` column giving more weight to more recent data.
+
+### Exponential moving average rules
+
+- The first value of an exponential moving average over `n` values is the algebraic mean of `n` values.
 - Subsequent values are calculated as `y(t) = x(t) * k + y(t-1) * (1 - k)`, where:
     - `y(t)` is the exponential moving average at time `t`.
     - `x(t)` is the value at time `t`.
@@ -40,22 +42,36 @@ exponentialMovingAverage(n: 5)
 - The average over a period populated by only `null` values is `null`.
 - Exponential moving averages skip `null` values.
 
+##### Function type signature
+
+```js
+(<-tables: stream[{A with _value: B}], n: int) => stream[{A with _value: B}] where B: Numeric
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
 ## Parameters
 
-### n {data-type="int"}
-The number of points to average.
+### n
+({{< req >}})
+Number of values to average.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
 - [Calculate a three point exponential moving average](#calculate-a-three-point-exponential-moving-average)
 - [Calculate a three point exponential moving average with null values](#calculate-a-three-point-exponential-moving-average-with-null-values)
 
-#### Calculate a three point exponential moving average
+### Calculate a three point exponential moving average
+
 ```js
 import "sampledata"
 
@@ -64,37 +80,49 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t1  |      5 |
-| 2021-01-01T00:00:30Z | t1  |     11 |
-| 2021-01-01T00:00:40Z | t1  |     13 |
-| 2021-01-01T00:00:50Z | t1  |    8.5 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:00:20Z | t2  |  6.666666666666667 |
-| 2021-01-01T00:00:30Z | t2  | 12.833333333333334 |
-| 2021-01-01T00:00:40Z | t2  | 12.916666666666668 |
-| 2021-01-01T00:00:50Z | t2  |  6.958333333333334 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | 5       | t1   |
+| 2021-01-01T00:00:30Z | 11      | t1   |
+| 2021-01-01T00:00:40Z | 13      | t1   |
+| 2021-01-01T00:00:50Z | 8.5     | t1   |
+
+| _time                | _value             | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:20Z | 6.666666666666667  | t2   |
+| 2021-01-01T00:00:30Z | 12.833333333333334 | t2   |
+| 2021-01-01T00:00:40Z | 12.916666666666668 | t2   |
+| 2021-01-01T00:00:50Z | 6.958333333333334  | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Calculate a three point exponential moving average with null values
+### Calculate a three point exponential moving average with null values
 
 ```js
 import "sampledata"
@@ -103,31 +131,45 @@ sampledata.int(includeNull: true)
     |> exponentialMovingAverage(n: 3)
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" true %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z |         | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z |         | t1   |
+| 2021-01-01T00:00:40Z |         | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| tag | _time                | _value |
-| :-- | :------------------- | -----: |
-| t1  | 2021-01-01T00:00:20Z |    2.5 |
-| t1  | 2021-01-01T00:00:30Z |    2.5 |
-| t1  | 2021-01-01T00:00:40Z |    2.5 |
-| t1  | 2021-01-01T00:00:50Z |   3.25 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z |         | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z |         | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| tag | _time                | _value |
-| :-- | :------------------- | -----: |
-| t2  | 2021-01-01T00:00:20Z |    0.5 |
-| t2  | 2021-01-01T00:00:30Z |   9.75 |
-| t2  | 2021-01-01T00:00:40Z |   9.75 |
-| t2  | 2021-01-01T00:00:50Z |  5.375 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | 2.5     | t1   |
+| 2021-01-01T00:00:30Z | 2.5     | t1   |
+| 2021-01-01T00:00:40Z | 2.5     | t1   |
+| 2021-01-01T00:00:50Z | 3.25    | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | 0.5     | t2   |
+| 2021-01-01T00:00:30Z | 9.75    | t2   |
+| 2021-01-01T00:00:40Z | 9.75    | t2   |
+| 2021-01-01T00:00:50Z | 5.375   | t2   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

@@ -1,124 +1,127 @@
 ---
 title: experimental.to() function
 description: >
-  The `experimental.to()` function writes data to an InfluxDB v2.0 bucket.
-  The function structures data differently than the built-in `to()` function.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/to/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/to/
+  `experimental.to()` writes _pivoted_ data to an InfluxDB 2.x or InfluxDB Cloud bucket.
 menu:
   flux_0_x_ref:
     name: experimental.to
     parent: experimental
-weight: 302
+    identifier: experimental/to
+weight: 101
 flux/v0.x/tags: [outputs]
-related:
-  - /flux/v0.x/stdlib/influxdata/influxdb/to/
 introduced: 0.40.0
 ---
 
-The `experimental.to()` function writes data to an InfluxDB v2.0 bucket, but in
-a [different structure](#expected-data-structure) than the
-[`to()` function](/flux/v0.x/stdlib/influxdata/influxdb/to/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L305-L315
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.to()` writes _pivoted_ data to an InfluxDB 2.x or InfluxDB Cloud bucket.
+
+#### Requirements and behavior
+- Requires both a `_time` and a `_measurement` column.
+- All columns in the group key (other than `_measurement`) are written as tags
+  with the column name as the tag key and the column value as the tag value.
+- All columns **not** in the group key (other than `_time`) are written as
+  fields with the column name as the field key and the column value as the field value.
+
+If using the `from()` to query data from InfluxDB, use pivot() to transform
+data into the structure `experimental.to()` expects.
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.to(
-    bucket: "my-bucket",
-    org: "my-org",
-    host: "http://localhost:8086",
-    token: "mY5uPeRs3Cre7tok3N",
-)
-
-// OR
-
-experimental.to(
-    bucketID: "1234567890",
-    orgID: "0987654321",
-    host: "http://localhost:8086",
-    token: "mY5uPeRs3Cre7tok3N",
-)
+(
+    <-tables: stream[A],
+    ?bucket: string,
+    ?bucketID: string,
+    ?host: string,
+    ?org: string,
+    ?orgID: string,
+    ?token: string,
+) => stream[A] where A: Record
 ```
 
-### Expected data structure
-
-#### Data structure expected by built-in to()
-The built-in `to()` function requires `_time`, `_measurement`, `_field`, and `_value` columns.
-The `_field` column stores the **field key** and the `_value` column stores the **field value**.
-
-| _time     | _measurement     | _field    | _value      |
-| -----     | ------------     | ------    | ------      |
-| timestamp | measurement-name | field key | field value |
-
-#### Data structure expected by experimental to()
-`experimental.to()` requires both a `_time` and a `_measurement` column.
-All columns _in the group key_ (other than `_measurement`) are written as tags
-with the column name as the **tag key** and the column value as the **tag value**.
-
-All columns _**not** in the group key_ (other than `_time`) are written as fields
-with the column name as the **field key** and the column value as the **field value**.
-
-| _time     | _measurement     | field_key   |
-| -----     | ------------     | ---------   |
-| timestamp | measurement-name | field value |
-
-If using the built-in `from()` function, use [`pivot()`](/flux/v0.x/stdlib/universe/pivot/)
-to transform data into the structure `experimetnal.to()` expects.
-_[See the example below](#use-pivot-to-shape-data-for-experimentalto)._
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### bucket {data-type="string"}
-The bucket to write data to.
-`bucket` and `bucketID` are mutually exclusive.
+### bucket
 
-### bucketID {data-type="string"}
-The ID of the bucket to write data to.
-`bucketID` and `bucket` are mutually exclusive.
+Name of the bucket to write to.
+_`bucket` and `bucketID` are mutually exclusive_.
 
-### org {data-type="string"}
-The organization name of the specified [`bucket`](#bucket).
-Only required when writing to a different organization or a remote host.
-`org` and `orgID` are mutually exclusive.
 
-### orgID {data-type="string"}
-The organization ID of the specified [`bucket`](#bucket).
-Only required when writing to a different organization or a remote host.
-`orgID` and `org` are mutually exclusive.
 
-{{% warn %}}
-`experimental.to()` cannot write to from one InfluxDB Cloud organization to another.
-{{% /warn %}}
+### bucketID
 
-### host {data-type="string"}
-[InfluxDB URL](/{{< latest "influxdb" >}}/reference/urls/) or
-[InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL to write to.
+String-encoded bucket ID to to write to.
+_`bucket` and `bucketID` are mutually exclusive_.
 
-{{% warn %}}
-_`host` is required when writing to a remote InfluxDB instance.
-If specified, [`token`](#token) is also required._
-{{% /warn %}}
 
-### token {data-type="string"}
-[InfluxDB API token](/{{< latest "influxdb" >}}/security/tokens).
 
-{{% warn %}}
-_`token` is required when writing to another organization or when writing to a remote InfluxDB [`host`](#host)._
-{{% /warn %}}
+### host
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+URL of the InfluxDB instance to write to.
+
+See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+`host` is required when writing to a remote InfluxDB instance.
+If specified, `token` is also required.
+
+### org
+
+Organization name.
+_`org` and `orgID` are mutually exclusive_.
+
+
+
+### orgID
+
+String-encoded organization ID to query.
+_`org` and `orgID` are mutually exclusive_.
+
+
+
+### token
+
+InfluxDB API token.
+
+**InfluxDB 1.x or Enterprise**: If authentication is disabled, provide an
+empty string (`""`). If authentication is enabled, provide your InfluxDB
+username and password using the `<username>:<password>` syntax.
+`token` is required when writing to another organization or when `host`
+is specified.
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-##### Use pivot() to shape data for experimental.to()
+### Pivot and write data to InfluxDB
+
 ```js
 import "experimental"
 
 from(bucket: "example-bucket")
     |> range(start: -1h)
     |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
-    |> experimental.to(bucket: "bucket-name", org: "org-name")
+    |> experimental.to(bucket: "example-target-bucket")
 ```
+

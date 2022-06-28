@@ -1,69 +1,79 @@
 ---
 title: generate.from() function
 description: >
-  `generate.from` generates data using provided parameter values.
+  `generate.from()` generates data using the provided parameter values.
 menu:
   flux_0_x_ref:
     name: generate.from
     parent: generate
+    identifier: generate/from
+weight: 101
 flux/v0.x/tags: [inputs]
-weight: 202
 ---
 
-`generate.from` generates data using provided parameter values.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/generate/generate.flux#L37-L44
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`generate.from()` generates data using the provided parameter values.
+
+
+
+##### Function type signature
 
 ```js
-import "generate"
-
-generate.from(
-    count: 5,
-    fn: (n) => n,
-    start: 2021-01-01T00:00:00Z,
-    stop: 2021-01-02T00:00:00Z,
-)
+(count: int, fn: (n: int) => int, start: A, stop: A) => stream[{_value: int, _time: time, _stop: time, _start: time}] where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### count {data-type="int"}
+### count
 ({{< req >}})
 Number of rows to generate.
 
-### fn {data-type="function"}
-({{< req >}}) 
-Function used to generate values.
-The function takes an `n` parameter that represents the row index, operates on `n`, 
-and then returns an [integer value](/flux/v0.x/data-types/basic/int/).
-Rows use zero-based indexing.
 
-### start {data-type="time"}
+
+### fn
+({{< req >}})
+Function used to generate values.
+
+The function takes an `n` parameter that represents the row index, operates
+on `n`, and then returns an integer value. Rows use zero-based indexing.
+
+### start
 ({{< req >}})
 Beginning of the time range to generate values in.
 
-### stop {data-type="time"}
-({{< req >}}) 
+
+
+### stop
+({{< req >}})
 End of the time range to generate values in.
+
+
+
 
 ## Examples
 
 ### Generate sample data
+
 ```js
 import "generate"
 
-generate.from(
-    count: 6,
-    fn: (n) => (n + 1) * (n + 2),
-    start: 2021-01-01T00:00:00Z,
-    stop: 2021-01-02T00:00:00Z,
-)
+generate.from(count: 6, fn: (n) => (n + 1) * (n + 2), start: 2021-01-01T00:00:00Z, stop: 2021-01-02T00:00:00Z)
 ```
 
-##### Output data
-| _time                | _value |
-| :------------------- | -----: |
-| 2021-01-01T00:00:00Z |      2 |
-| 2021-01-01T04:00:00Z |      6 |
-| 2021-01-01T08:00:00Z |     12 |
-| 2021-01-01T12:00:00Z |     20 |
-| 2021-01-01T16:00:00Z |     30 |
-| 2021-01-01T20:00:00Z |     42 |

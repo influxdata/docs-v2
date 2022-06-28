@@ -1,48 +1,74 @@
 ---
 title: yield() function
-description: The `yield()` function indicates the input tables received should be delivered as a result of the query.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/outputs/yield
-  - /influxdb/v2.0/reference/flux/functions/built-in/outputs/yield/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/outputs/yield/
+description: >
+  `yield()` delivers input data as a result of the query.
 menu:
   flux_0_x_ref:
     name: yield
     parent: universe
-weight: 102
+    identifier: universe/yield
+weight: 101
 flux/v0.x/tags: [outputs]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT AS
 introduced: 0.7.0
 ---
 
-The `yield()` function indicates the input tables received should be delivered as a result of the query.
-Yield outputs the input stream unmodified.
-A query may have multiple results, each identified by the name provided to the `yield()` function.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2827-L2827
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`yield()` delivers input data as a result of the query.
+
+A query may have multiple yields, each identified by unique name specified in
+the `name` parameter.
+
+**Note:** `yield()` is implicit for queries that output a single stream of
+tables and is only necessary when yielding multiple results from a query.
+
+##### Function type signature
 
 ```js
-yield(name: "custom-name")
+(<-tables: stream[A], ?name: string) => stream[A] where A: Record
 ```
 
-{{% note %}}
-`yield()` is implicit for queries that do only one thing and are only needed when using multiple sources in a query.
-With multiple sources, `yield()` is required to specify what is returned, and what name to give it.
-{{% /note %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### name {data-type="string"}
-A unique name for the yielded results.
-Default is `"_results"`.
+### name
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+Unique name for the yielded results. Default is `_results`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
+
+### Yield multiple results from a query
+
 ```js
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> yield(name: "result-name")
+import "sampledata"
+
+sampledata.int()
+    |> yield(name: "unmodified")
+    |> map(fn: (r) => ({r with _value: r._value * r._value}))
+    |> yield(name: "squared")
 ```
+

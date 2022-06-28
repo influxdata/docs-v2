@@ -211,24 +211,22 @@ components:
               readOnly: true
               type: object
             org:
-              description: Name of the org token is scoped to.
+              description: Name of the organization that the token is scoped to.
               readOnly: true
               type: string
             orgID:
-              description: ID of org that authorization is scoped to.
+              description: ID of the organization that the authorization is scoped to.
               type: string
             permissions:
               description: >-
-                List of permissions for an auth.  An auth must have at least one
-                Permission.
+                List of permissions for an authorization.  An authorization must
+                have at least one permission.
               items:
                 $ref: '#/components/schemas/Permission'
               minItems: 1
               type: array
             token:
-              description: >-
-                Passed via the Authorization Header and Token Authentication
-                type.
+              description: Token used to authenticate API requests.
               readOnly: true
               type: string
             updatedAt:
@@ -236,11 +234,11 @@ components:
               readOnly: true
               type: string
             user:
-              description: Name of user that created and owns the token.
+              description: Name of the user that created and owns the token.
               readOnly: true
               type: string
             userID:
-              description: ID of user that created and owns the token.
+              description: ID of the user that created and owns the token.
               readOnly: true
               type: string
           type: object
@@ -1317,6 +1315,7 @@ components:
     Error:
       properties:
         code:
+          $ref: '#/components/schemas/ErrorCode'
           description: code is the machine-readable error code.
           enum:
             - internal error
@@ -1352,6 +1351,24 @@ components:
           type: string
       required:
         - code
+    ErrorCode:
+      description: code is the machine-readable error code.
+      enum:
+        - internal error
+        - not found
+        - conflict
+        - invalid
+        - unprocessable entity
+        - empty value
+        - unavailable
+        - forbidden
+        - too many requests
+        - unauthorized
+        - method not allowed
+        - request too large
+        - unsupported media type
+      readOnly: true
+      type: string
     Expression:
       oneOf:
         - $ref: '#/components/schemas/ArrayExpression'
@@ -2035,6 +2052,49 @@ components:
         type:
           $ref: '#/components/schemas/NodeType'
       type: object
+    InfluxqlCsvResponse:
+      description: CSV Response to InfluxQL Query
+      example: >
+        name,tags,time,test_field,test_tag
+        test_measurement,,1603740794286107366,1,tag_value
+        test_measurement,,1603740870053205649,2,tag_value
+        test_measurement,,1603741221085428881,3,tag_value
+      type: string
+    InfluxqlJsonResponse:
+      description: JSON Response to InfluxQL Query
+      properties:
+        results:
+          items:
+            properties:
+              error:
+                type: string
+              series:
+                items:
+                  properties:
+                    columns:
+                      items:
+                        type: string
+                      type: array
+                    name:
+                      type: string
+                    partial:
+                      type: boolean
+                    tags:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    values:
+                      items:
+                        items: {}
+                        type: array
+                      type: array
+                  type: object
+                type: array
+              statement_id:
+                type: integer
+            type: object
+          type: array
+      type: object
     IntegerLiteral:
       description: Represents integer numbers
       properties:
@@ -2163,6 +2223,31 @@ components:
         - lat
         - lon
       type: object
+    LegacyAuthorizationPostRequest:
+      allOf:
+        - $ref: '#/components/schemas/AuthorizationUpdateRequest'
+        - properties:
+            orgID:
+              description: ID of org that authorization is scoped to.
+              type: string
+            permissions:
+              description: >-
+                List of permissions for an auth.  An auth must have at least one
+                Permission.
+              items:
+                $ref: '#/components/schemas/Permission'
+              minItems: 1
+              type: array
+            token:
+              description: Token (name) of the authorization
+              type: string
+            userID:
+              description: ID of user that authorization is scoped to.
+              type: string
+          type: object
+      required:
+        - orgID
+        - permissions
     LesserThreshold:
       allOf:
         - $ref: '#/components/schemas/ThresholdBase'
@@ -3312,6 +3397,55 @@ components:
           type: string
         resource:
           $ref: '#/components/schemas/Resource'
+          properties:
+            id:
+              description: >-
+                If ID is set that is a permission for a specific resource. if it
+                is not set it is a permission for all resources of that resource
+                type.
+              type: string
+            name:
+              description: Optional name of the resource if the resource has a name field.
+              type: string
+            org:
+              description: >-
+                Optional name of the organization of the organization with
+                orgID.
+              type: string
+            orgID:
+              description: >-
+                If orgID is set that is a permission for all resources owned my
+                that org. if it is not set it is a permission for all resources
+                of that resource type.
+              type: string
+            type:
+              enum:
+                - authorizations
+                - buckets
+                - dashboards
+                - orgs
+                - sources
+                - tasks
+                - telegrafs
+                - users
+                - variables
+                - scrapers
+                - secrets
+                - labels
+                - views
+                - documents
+                - notificationRules
+                - notificationEndpoints
+                - checks
+                - dbrp
+                - notebooks
+                - annotations
+                - remotes
+                - replications
+              type: string
+          required:
+            - type
+          type: object
       required:
         - action
         - resource
@@ -3727,6 +3861,10 @@ components:
           format: date-time
           readOnly: true
           type: string
+        flux:
+          description: Flux used for the task
+          readOnly: true
+          type: string
         id:
           readOnly: true
           type: string
@@ -3991,6 +4129,7 @@ components:
       description: >-
         The data sent in the response body when a script is invoked by an HTTP
         request. User defined and dynamic.
+      format: binary
       type: string
     ScriptInvocationParams:
       properties:
@@ -8553,6 +8692,8 @@ paths:
           description: >-
             Success. The response body contains the currently authenticated
             user.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
@@ -9707,8 +9848,7 @@ paths:
             Earliest time to include in results.
 
             For more information about timestamps, see [Manipulate timestamps
-            with
-            Flux](https://docs.influxdata.com/influxdb/cloud/query-data/flux/manipulate-timestamps/).
+            with Flux](/influxdb/cloud/query-data/flux/manipulate-timestamps/).
           in: query
           name: start
           required: true
@@ -9719,8 +9859,7 @@ paths:
             Latest time to include in results.
 
             For more information about timestamps, see [Manipulate timestamps
-            with
-            Flux](https://docs.influxdata.com/influxdb/cloud/query-data/flux/manipulate-timestamps/).
+            with Flux](/influxdb/cloud/query-data/flux/manipulate-timestamps/).
           in: query
           name: stop
           required: false
@@ -9958,9 +10097,9 @@ paths:
           description: |
             #### InfluxDB Cloud:
               - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
+                plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
                 or if a **delete** request exceeds the maximum
-                [global limit](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#global-limits)
+                [global limit](/influxdb/cloud/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
 
             #### InfluxDB OSS:
@@ -11228,14 +11367,34 @@ paths:
             type: string
       responses:
         '204':
-          description: Delete has been accepted
+          description: Delete has been accepted.
+        '405':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Method not allowed.
+
+            #### InfluxDB Cloud
+
+              - Cancelling task runs is not supported in InfluxDB Cloud.
+
+            #### InfluxDB OSS
+
+              - Doesn't return this error.
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Cancel a running task
+          description: Unexpected error.
+      summary: |
+        Cancel a running task.
+
+        #### InfluxDB Cloud
+
+          - Doesn't support this operation.
       tags:
         - Tasks
     get:
@@ -11260,14 +11419,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Run'
-          description: The run record
+          description: Returns the run record.
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Retrieve a single run for a task
+          description: Unexpected error.
+      summary: Retrieve a single run for a task.
       tags:
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}/logs:
@@ -12418,7 +12577,7 @@ paths:
               - Returns only `application/json` for format and limit errors.
 
             #### Related guides
-              - [Troubleshoot issues writing data](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot/).
+              - [Troubleshoot issues writing data](/influxdb/cloud/write-data/troubleshoot/).
           in: header
           name: Accept
           schema:
@@ -12553,7 +12712,7 @@ paths:
 
 
             - [How to check for write
-            errors](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot/).
+            errors](/influxdb/cloud/write-data/troubleshoot/).
         '400':
           content:
             application/json:
@@ -12627,9 +12786,9 @@ paths:
             #### InfluxDB Cloud
 
               - Returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
+                plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
                 or if a **delete** request exceeds the maximum
-                [global limit](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#global-limits).
+                [global limit](/influxdb/cloud/account-management/limits/#global-limits).
               - Returns `Retry-After` header that describes when to try the write again.
 
             #### InfluxDB OSS
@@ -12652,8 +12811,8 @@ paths:
             #### InfluxDB Cloud
 
               - Returns this error if series cardinality exceeds your plan's
-                [adjustable service quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
-                See [how to resolve high series cardinality](https://docs.influxdata.com/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/).
+                [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
+                See [how to resolve high series cardinality](/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/).
 
             #### InfluxDB OSS
 
@@ -12673,6 +12832,483 @@ paths:
       summary: Write data
       tags:
         - Write
+  /legacy/authorizations:
+    get:
+      operationId: GetLegacyAuthorizations
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: Only show legacy authorizations that belong to a user ID.
+          in: query
+          name: userID
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to a user name.
+          in: query
+          name: user
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to an organization ID.
+          in: query
+          name: orgID
+          schema:
+            type: string
+        - description: Only show legacy authorizations that belong to a organization name.
+          in: query
+          name: org
+          schema:
+            type: string
+        - description: Only show legacy authorizations with a specified token (auth name).
+          in: query
+          name: token
+          schema:
+            type: string
+        - description: Only show legacy authorizations with a specified auth ID.
+          in: query
+          name: authID
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  authorizations:
+                    items:
+                      $ref: '#/components/schemas/Authorization'
+                    type: array
+                  links:
+                    $ref: '#/components/schemas/Links'
+                    readOnly: true
+                type: object
+          description: A list of legacy authorizations
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: List all legacy authorizations
+      tags:
+        - Legacy Authorizations
+    post:
+      operationId: PostLegacyAuthorizations
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegacyAuthorizationPostRequest'
+        description: Legacy authorization to create
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: Legacy authorization created
+        '400':
+          $ref: '#/components/responses/ServerError'
+          description: Invalid request
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Create a legacy authorization
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
+  /legacy/authorizations/{authID}:
+    delete:
+      operationId: DeleteLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to delete.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Legacy authorization deleted
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Delete a legacy authorization
+      tags:
+        - Legacy Authorizations
+    get:
+      operationId: GetLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to get.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: Legacy authorization details
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Retrieve a legacy authorization
+      tags:
+        - Legacy Authorizations
+    patch:
+      operationId: PatchLegacyAuthorizationsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to update.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizationUpdateRequest'
+        description: Legacy authorization to update
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+          description: The active or inactive legacy authorization
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Update a legacy authorization to be active or inactive
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
+  /legacy/authorizations/{authID}/password:
+    post:
+      operationId: PostLegacyAuthorizationsIDPassword
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the legacy authorization to update.
+          in: path
+          name: authID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                password:
+                  type: string
+              required:
+                - password
+        description: New password
+        required: true
+      responses:
+        '204':
+          description: Legacy authorization password set
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      summary: Set a legacy authorization password
+      tags:
+        - Legacy Authorizations
+    servers:
+      - url: /private
+  /query:
+    get:
+      description: Queries InfluxDB using InfluxQL.
+      operationId: GetLegacyQuery
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: header
+          name: Accept
+          schema:
+            default: application/json
+            description: >
+              Media type that the client can understand.
+
+
+              **Note**: With `application/csv`, query results include [unix
+              timestamps](/influxdb/cloud/reference/glossary/#unix-timestamp)
+              instead of RFC3339 timestamps.
+            enum:
+              - application/json
+              - application/csv
+              - text/csv
+              - application/x-msgpack
+            type: string
+        - description: >-
+            The content encoding (usually a compression algorithm) that the
+            client can understand.
+          in: header
+          name: Accept-Encoding
+          schema:
+            default: identity
+            description: >-
+              The content coding. Use `gzip` for compressed data or `identity`
+              for unmodified, uncompressed data.
+            enum:
+              - gzip
+              - identity
+            type: string
+        - in: header
+          name: Content-Type
+          schema:
+            enum:
+              - application/json
+            type: string
+        - description: The InfluxDB 1.x username to authenticate the request.
+          in: query
+          name: u
+          schema:
+            type: string
+        - description: The InfluxDB 1.x password to authenticate the request.
+          in: query
+          name: p
+          schema:
+            type: string
+        - description: >
+            The database to query data from.
+
+            This is mapped to an InfluxDB
+            [bucket](/influxdb/cloud/api/influxdb-1x/dbrp/).
+          in: query
+          name: db
+          required: true
+          schema:
+            type: string
+        - description: >
+            The retention policy to query data from.
+
+            This is mapped to an InfluxDB
+            [bucket](/influxdb/cloud/api/influxdb-1x/dbrp/).
+          in: query
+          name: rp
+          schema:
+            type: string
+        - description: >-
+            The InfluxQL query to execute. To execute multiple queries, delimit
+            queries with a semicolon (`;`).
+          in: query
+          name: q
+          required: true
+          schema:
+            type: string
+        - description: >-
+            Return results with [unix (epoch)
+            timestamps](/influxdb/cloud/reference/glossary/#unix-timestamp) in
+            the specified precision instead of RFC3339 timestamps with
+            nanosecond precision.
+          in: query
+          name: epoch
+          schema:
+            enum:
+              - ns
+              - u
+              - µ
+              - ms
+              - s
+              - m
+              - h
+            type: string
+      responses:
+        '200':
+          content:
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/InfluxqlCsvResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfluxqlJsonResponse'
+            application/x-msgpack:
+              schema:
+                format: binary
+                type: string
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/InfluxqlCsvResponse'
+          description: Query results
+          headers:
+            Content-Encoding:
+              description: >-
+                Lists encodings (usually compression algorithms) that have been
+                applied to the response payload.
+              schema:
+                default: identity
+                description: |
+                  The content coding:
+                    - `gzip`: compressed data
+                    - `identity`: unmodified, uncompressed data.
+                enum:
+                  - gzip
+                  - identity
+                type: string
+            Trace-Id:
+              description: The trace ID, if generated, of the request.
+              schema:
+                description: Trace ID of a request.
+                type: string
+        '429':
+          description: |
+            #### InfluxDB Cloud:
+              - returns this error if a **read** or **write** request exceeds your
+                plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#global-limits)
+              - returns `Retry-After` header that describes when to try the write again.
+
+            #### InfluxDB OSS:
+              - doesn't return this error.
+          headers:
+            Retry-After:
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
+              schema:
+                format: int32
+                type: integer
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error processing query
+      summary: Query with the 1.x compatibility API
+      tags:
+        - Legacy Query
+  /write:
+    post:
+      operationId: PostLegacyWrite
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The InfluxDB 1.x username to authenticate the request.
+          in: query
+          name: u
+          schema:
+            type: string
+        - description: The InfluxDB 1.x password to authenticate the request.
+          in: query
+          name: p
+          schema:
+            type: string
+        - description: >-
+            Bucket to write to. If none exists, InfluxDB creates a bucket with a
+            default 3-day retention policy.
+          in: query
+          name: db
+          required: true
+          schema:
+            type: string
+        - description: Retention policy name.
+          in: query
+          name: rp
+          schema:
+            type: string
+        - description: Write precision.
+          in: query
+          name: precision
+          schema:
+            type: string
+        - description: >-
+            When present, its value indicates to the database that compression
+            is applied to the line protocol body.
+          in: header
+          name: Content-Encoding
+          schema:
+            default: identity
+            description: >-
+              Specifies that the line protocol in the body is encoded with gzip
+              or not encoded with identity.
+            enum:
+              - gzip
+              - identity
+            type: string
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+        description: Line protocol body
+        required: true
+      responses:
+        '204':
+          description: >-
+            Write data is correctly formatted and accepted for writing to the
+            bucket.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineProtocolError'
+          description: >-
+            Line protocol poorly formed and no points were written.  Response
+            can be used to determine the first malformed line in the body
+            line-protocol. All data in body was rejected and not written.
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: >-
+            Token does not have sufficient permissions to write to this
+            organization and bucket or the organization and bucket do not exist.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: No token was sent and they are required.
+        '413':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LineProtocolLengthError'
+          description: >-
+            Write has been rejected because the payload is too large. Error
+            message returns max size supported. All data in body was rejected
+            and not written.
+        '429':
+          description: >-
+            Token is temporarily over quota. The Retry-After header describes
+            when to try the write again.
+          headers:
+            Retry-After:
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
+              schema:
+                format: int32
+                type: integer
+        '503':
+          description: >-
+            Server is temporarily unavailable to accept writes.  The Retry-After
+            header describes when to try the write again.
+          headers:
+            Retry-After:
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
+              schema:
+                format: int32
+                type: integer
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal server error
+      summary: Write time series data into InfluxDB in a V1-compatible format
+      tags:
+        - Legacy Write
 security:
   - TokenAuthentication: []
 servers:
@@ -12809,6 +13445,9 @@ tags:
       scripts](/influxdb/cloud/api-guide/api-invokable-scripts/).
     name: Invokable Scripts
   - name: Labels
+  - name: Legacy Authorizations
+  - name: Legacy Query
+  - name: Legacy Write
   - name: Limits
   - name: NotificationEndpoints
   - name: NotificationRules
@@ -12941,6 +13580,9 @@ x-tagGroups:
       - Delete
       - Invokable Scripts
       - Labels
+      - Legacy Authorizations
+      - Legacy Query
+      - Legacy Write
       - Limits
       - NotificationEndpoints
       - NotificationRules

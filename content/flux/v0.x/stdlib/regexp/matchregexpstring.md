@@ -1,47 +1,80 @@
 ---
 title: regexp.matchRegexpString() function
 description: >
-  The `regexp.matchRegexpString()` function tests if a string contains any match
-  to a regular expression.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/matchregexpstring/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/matchregexpstring/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/matchregexpstring/
+  `regexp.matchRegexpString()` tests if a string contains any match to a regular expression.
 menu:
   flux_0_x_ref:
     name: regexp.matchRegexpString
     parent: regexp
-weight: 301
-introduced: 0.33.4
+    identifier: regexp/matchRegexpString
+weight: 101
 ---
 
-The `regexp.matchRegexpString()` function tests if a string contains any match
-to a regular expression.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Boolean_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/regexp/regexp.flux#L119-L119
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`regexp.matchRegexpString()` tests if a string contains any match to a regular expression.
+
+
+
+##### Function type signature
 
 ```js
-import "regexp"
-
-regexp.matchRegexpString(r: /(gopher){2}/, v: "gophergophergopher")
-
-// Returns true
+(r: regexp, v: string) => bool
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### r {data-type="regexp"}
-The regular expression used to search `v`.
+### r
+({{< req >}})
+Regular expression used to search `v`.
 
-### v {data-type="string"}
-The string value to search.
+
+
+### v
+({{< req >}})
+String value to search.
+
+
+
 
 ## Examples
 
-###### Filter by columns that contain matches to a regular expression
+- [Test if a string contains a regular expression match](#test-if-a-string-contains-a-regular-expression-match)
+- [Filter by rows that contain matches to a regular expression](#filter-by-rows-that-contain-matches-to-a-regular-expression)
+
+### Test if a string contains a regular expression match
+
 ```js
 import "regexp"
 
-data
-    |> filter(fn: (r) => regexp.matchRegexpString(r: /Alert:/, v: r.message))
+regexp.matchRegexpString(r: /(gopher){2}/, v: "gophergophergopher")// Returns true
+
 ```
+
+
+### Filter by rows that contain matches to a regular expression
+
+```js
+import "regexp"
+import "sampledata"
+
+sampledata.string()
+    |> filter(fn: (r) => regexp.matchRegexpString(r: /_\d/, v: r._value))
+```
+
