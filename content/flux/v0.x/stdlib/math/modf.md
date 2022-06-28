@@ -42,7 +42,7 @@ Both values have the same sign as `f`.
 
 ### f
 ({{< req >}})
-Value to operate on
+Value to operate on.
 
 
 

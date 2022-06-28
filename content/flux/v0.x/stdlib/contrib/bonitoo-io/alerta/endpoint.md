@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/alerta/alerta.flux#L189-L220
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/alerta/alerta.flux#L191-L222
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -43,11 +43,11 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
         r: C,
     ) => {
         D with
-        value: t14,
-        type: t13,
-        timestamp: t12,
-        text: t11,
-        tags: t10,
+        value: O,
+        type: N,
+        timestamp: M,
+        text: L,
+        tags: K,
         severity: J,
         service: I,
         resource: H,
