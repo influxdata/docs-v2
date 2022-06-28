@@ -8348,17 +8348,16 @@ paths:
         `write` rate limits apply.
 
         For more information, see [limits and adjustable
-        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+        quotas](/influxdb/cloud/account-management/limits/).
 
 
         #### Related guides
 
 
-        - [Delete
-        data](https://docs.influxdata.com/influxdb/cloud/write-data/delete-data/).
+        - [Delete data](/influxdb/cloud/write-data/delete-data/).
 
         - Learn how to use [delete predicate
-        syntax](https://docs.influxdata.com/influxdb/cloud/reference/syntax/delete-predicate/).
+        syntax](/influxdb/cloud/reference/syntax/delete-predicate/).
 
         - Learn how InfluxDB handles [deleted
         tags](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/)
@@ -8457,11 +8456,10 @@ paths:
           #### Related guides
 
 
-          - [Delete
-          data](https://docs.influxdata.com/influxdb/cloud/write-data/delete-data/).
+          - [Delete data](/influxdb/cloud/write-data/delete-data/).
 
           - Learn how to use [delete predicate
-          syntax](https://docs.influxdata.com/influxdb/cloud/reference/syntax/delete-predicate/).
+          syntax](/influxdb/cloud/reference/syntax/delete-predicate/).
         required: true
       responses:
         '204':
@@ -9966,14 +9964,14 @@ paths:
         `read` rate limits apply.
 
         For more information, see [limits and adjustable
-        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+        quotas](/influxdb/cloud/account-management/limits/).
 
 
         #### Related guides
 
 
         - [Query with the InfluxDB
-        API](https://docs.influxdata.com/influxdb/cloud/query-data/execute-queries/influx-api/).
+        API](/influxdb/cloud/query-data/execute-queries/influx-api/).
 
         - [Get started with
         Flux](https://docs.influxdata.com/flux/v0.x/get-started/)
@@ -12463,8 +12461,8 @@ paths:
 
 
         Use this endpoint to send data in [line
-        protocol](https://docs.influxdata.com/influxdb/cloud/reference/syntax/line-protocol/)
-        format to InfluxDB.
+        protocol](/influxdb/cloud/reference/syntax/line-protocol/) format to
+        InfluxDB.
 
 
         #### InfluxDB Cloud
@@ -12504,20 +12502,20 @@ paths:
         `write` rate limits apply.
 
         For more information, see [limits and adjustable
-        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+        quotas](/influxdb/cloud/account-management/limits/).
 
 
         #### Related guides
 
 
         - [Write data with the InfluxDB
-        API](https://docs.influxdata.com/influxdb/cloud/write-data/developer-tools/api).
+        API](/influxdb/cloud/write-data/developer-tools/api).
 
         - [Optimize writes to
-        InfluxDB](https://docs.influxdata.com/influxdb/cloud/write-data/best-practices/optimize-writes/).
+        InfluxDB](/influxdb/cloud/write-data/best-practices/optimize-writes/).
 
         - [Troubleshoot issues writing
-        data](https://docs.influxdata.com/influxdb/cloud/write-data/troubleshoot/)
+        data](/influxdb/cloud/write-data/troubleshoot/)
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12685,7 +12683,7 @@ paths:
 
 
           - [Best practices for optimizing
-          writes](https://docs.influxdata.com/influxdb/cloud/write-data/best-practices/optimize-writes/).
+          writes](/influxdb/cloud/write-data/best-practices/optimize-writes/).
         required: true
       responses:
         '204':
