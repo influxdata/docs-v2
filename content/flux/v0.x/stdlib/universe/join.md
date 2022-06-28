@@ -13,6 +13,7 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
+deprecated: 0.172.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -24,7 +25,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1121-L1121
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1130-L1130
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -35,6 +36,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 Null values are not considered equal when comparing column values.
 The resulting schema is the union of the input schemas.
 The resulting group key is the union of the input group keys.
+
+**Deprecated**: `join()` is deprecated in favor of [`join.inner()`](https://docs.influxdata.com/flux/v0.x/stdlib/join/inner/).
+The [`join` package](https://docs.influxdata.com/flux/v0.x/stdlib/join/) provides support
+for multiple join methods.
 
 #### Output data
 The schema and group keys of the joined output output data is the union of

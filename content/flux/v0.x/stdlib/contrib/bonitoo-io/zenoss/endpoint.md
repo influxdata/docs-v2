@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/zenoss/zenoss.flux#L202-L241
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/zenoss/zenoss.flux#L204-L243
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -46,10 +46,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
         r: E,
     ) => {
         F with
-        summary: t13,
-        severity: t12,
-        message: t11,
-        eventClassKey: t10,
+        summary: N,
+        severity: M,
+        message: L,
+        eventClassKey: K,
         eventClass: J,
         device: I,
         component: H,

@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2875-L2875
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2884-L2884
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -44,7 +44,7 @@ If the specified column is not present in the table, the function returns an err
 
 ### column
 ({{< req >}})
-Column to extract
+Column to extract.
 
 
 

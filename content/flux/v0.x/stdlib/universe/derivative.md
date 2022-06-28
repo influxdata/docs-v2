@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L250-L259
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L253-L263
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -45,6 +45,7 @@ For each input table with `n` rows, `derivative()` outputs a table with
 (
     <-tables: stream[A],
     ?columns: [string],
+    ?initialZero: bool,
     ?nonNegative: bool,
     ?timeColumn: string,
     ?unit: duration,
@@ -78,6 +79,14 @@ List of columns to operate on. Default is `["_value"]`.
 
 Column containing time values to use in the calculation.
 Default is `_time`.
+
+
+
+### initialZero
+
+Use zero (0) as the initial value in the derivative calculation
+when the subsequent value is less than the previous value and `nonNegative` is
+`true`. Default is `false`.
 
 
 

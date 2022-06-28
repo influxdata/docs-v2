@@ -75,7 +75,7 @@ date.Wednesday = 3
 - **date.October** is a constant that represents the month of October.
 - **date.Saturday** is a constant that represents Saturday as a day of the week.
 - **date.September** is a constant that represents the month of September.
-- **date.Sunday** is a constant that represents Sunday as a day of the week
+- **date.Sunday** is a constant that represents Sunday as a day of the week.
 - **date.Thursday** is a constant that represents Thursday as a day of the week.
 - **date.Tuesday** is a constant that represents Tuesday as a day of the week.
 - **date.Wednesday** is a constant that represents Wednesday as a day of the week.
@@ -84,3 +84,7 @@ date.Wednesday = 3
 ## Functions
 
 {{< children type="functions" show="pages" >}}
+
+## Packages
+
+{{< children show="sections" >}}

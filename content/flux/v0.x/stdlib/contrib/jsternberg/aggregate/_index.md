@@ -8,6 +8,9 @@ menu:
     parent: contrib/jsternberg
     identifier: contrib/jsternberg/aggregate
 weight: 31
+cascade:
+
+  introduced: 0.77.0
 ---
 
 <!------------------------------------------------------------------------------

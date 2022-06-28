@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/monitor/monitor.flux#L453-L499
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/monitor/monitor.flux#L454-L500
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -111,11 +111,11 @@ The message is stored in the `_message` column.
 
 ### data
 ({{< req >}})
-Check data to append to output. used to identify this check.
+Check data to append to output used to identify this check.
+
 This data specifies which notification rule and notification endpoint to
 associate with the sent notification.
 The data record must contain the following properties:
-
 - **\_check\_id**: check ID _(string)_
 - **\_check\_name**: check name _(string)_
 - **\_type**: check type (threshold, deadman, or custom) _(string)_

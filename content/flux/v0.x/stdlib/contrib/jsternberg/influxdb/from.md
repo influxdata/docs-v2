@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/influxdb/influxdb.flux#L81-L109
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/influxdb/influxdb.flux#L83-L111
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md

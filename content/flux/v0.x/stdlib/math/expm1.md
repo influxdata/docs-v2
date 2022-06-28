@@ -1,7 +1,8 @@
 ---
 title: math.expm1() function
 description: >
-  `math.expm1()` returns `e**x - 1`, the base-e exponential of `x` minus
+  `math.expm1()` returns `e**x - 1`, the base-e exponential of `x` minus 1.
+  It is more accurate than `math.exp(x:x) - 1` when `x` is near zero.
 menu:
   flux_0_x_ref:
     name: math.expm1
@@ -26,9 +27,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`math.expm1()` returns `e**x - 1`, the base-e exponential of `x` minus
+`math.expm1()` returns `e**x - 1`, the base-e exponential of `x` minus 1.
+It is more accurate than `math.exp(x:x) - 1` when `x` is near zero.
 
-1. It is more accurate than `math.exp(x:x) - 1` when `x` is near zero.
+
 
 ##### Function type signature
 

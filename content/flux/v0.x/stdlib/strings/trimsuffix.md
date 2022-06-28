@@ -42,7 +42,7 @@ Strings that do not end with the suffix are returned unchanged.
 
 ### v
 ({{< req >}})
-String to trim
+String to trim.
 
 
 

@@ -65,7 +65,7 @@ Set of tags with their cardinality to generate.
 
 ### seed
 
-Pass seed to tables generator to get the very same sequence each time
+Pass seed to tables generator to get the very same sequence each time.
 
 
 

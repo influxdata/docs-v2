@@ -1,7 +1,7 @@
 ---
 title: math package
 description: >
-  The `math` package provides basic constants and mathematical functions
+  The `math` package provides basic constants and mathematical functions.
 menu:
   flux_0_x_ref:
     name: math 
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-The `math` package provides basic constants and mathematical functions
+The `math` package provides basic constants and mathematical functions.
 Import the `math` package:
 
 ```js

@@ -10,6 +10,35 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.172.0 [2022-06-24]
+
+### Features
+- Add multiple new join functions to the [`join`](/flux/v0.x/stdlib/join/) 
+  package such as [`join.full()`](/flux/v0.x/stdlib/join/full/).
+- Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) 
+  parameter to the derivative function. 
+- Allow features to enable builtin statements. 
+- Provide the comments for each `Symbol` from `PackageExports`.
+- Suggestions now start off by default and added a new flag.
+- Add builtin function [`time`](/flux/v0.x/stdlib/date/time/) to the `date` 
+  package to convert any timeable into datetime. 
+- Allow vector types to be specified in Flux source. 
+
+### Bug fixes
+- Replace extra boolean parameter for suggestions with Flux REPL options. 
+- Remove [`testing.load()`](/flux/v0.x/stdlib/testing/load/) 
+  from [`testutil.yield()`](/flux/v0.x/stdlib/internal/testutil/yield/). 
+- Fix a bug in how sort nodes are created for a new join. 
+- Removed extra indentation for test cases. 
+- Retain the package for identifier referencing the prelude. 
+- Only return an error in tests if an assertion fails. 
+- Fix [`findColumn()`](/flux/v0.x/stdlib/universe/findcolumn/)
+  to handle multi-buffer tables. 
+- Point to the function being piped to on argument mismatches. 
+- Visit successors before continuing DFS on node. 
+
+---
+
 ## v0.171.0 [2022-06-14]
 
 ### Breaking changes
