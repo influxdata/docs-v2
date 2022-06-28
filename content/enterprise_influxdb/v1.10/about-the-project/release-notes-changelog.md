@@ -1,5 +1,5 @@
 ---
-title: InfluxDB Enterprise 1.9 release notes
+title: InfluxDB Enterprise 1.10 release notes
 description: >
   Important changes and what's new in each version InfluxDB Enterprise.
 menu:
@@ -20,14 +20,16 @@ menu:
 - Add Raft Status output to `inflxud-ctl show`.
 
 #### Flux updates
-- Add [experimental.preview()](/flux/v0.x/stdlib/experimental/preview/) function to limit return rows and tables (as opposed to returning only rows with limit() function).
-- Add [date.scale()](/flux/v0.x/stdlib/date/scale/) function to let users dynamically scale durations in dates.
-- Add OpenTracing spans to Flux transformations. This allows developers to more precisely monitor Flux scripts.
-- Add trace option to Flux CLI.
-- Rename addDuration() to add and subDuration() to sub, and moved both of these functions from the experimental package to the date package.
-<!-- - Move [addDuration()](/flux/v0.x/stdlib/experimental/addduration/) function and [subDuration()](/flux/v0.x/stdlib/experimental/subduration/) function out of expterimental status to date package. -->
-- Add location support to [date.truncate()](/flux/v0.x/stdlib/date/truncate/) function.
-- Vectorize arithmetic operators in [map()](/flux/v0.x/stdlib/universe/map/) function.
+- Add `preview()` to experimental package for limiting return rows and tables (as opposed to just rows with `limit()`).
+- Add [date.scale()](/flux/v0.x/stdlib/date/scale/) to let users dynamically scale durations in dates.
+- Add [OpenTracing](https://opentracing.io/docs/overview/spans/) spans to Flux transformations. Lets you monitor Flux scripts more precisely.
+- Add `trace` option to Flux CLI.
+- Rename `addDuration()` to [add](/flux/v0.x/stdlib/date/add/) and `subDuration()` to [sub](/flux/v0.x/stdlib/date/sub/),
+and moved both of these functions from the experimental package to the date package.
+- Add location support to [date.truncate()](/flux/v0.x/stdlib/date/truncate/).
+- Vectorize arithmetic operators in [map()](/flux/v0.x/stdlib/universe/map/).
+- Vectorize logical operations in `map()`.
+- Enable `movingAverage()` and `cumulativeSum()` optimizations by default. 
 
 ### Bug fixes
 
@@ -35,13 +37,22 @@ menu:
 - Fix backup estimation so it dynamically updates with known information as progress is made.
 - Ability to create backup with passing only `-shard flag` when using the influxd-ctl backup command.
 
+#### influx_inspect
+- Ability to export multiple retetnion policies (RPs) on the same database.
+- `verify` subcommand no longer appends /data to the `-dir` flag path parameter
+
+#### Other
+- Grow tag index buffer if needed. This avoids a panic in the rare case of exactly 100 tags in a record.
+- Fix multiple results returned per timestamp for some nested `InfluxQL` queries.
+- Sync index file before close to avoid a shard reload error on instance restart.
+- Fix rare case of numMeasurements reporting as less than 0 in `/debug/vars`.
+- Fix `influxd` config panic.
+- Fix shard confusion when multiple sub-queries reference different retention policies.
+
 ### Maintenance updates
-- Upgrade to [Flux 0.167.0](/flux/v0.x/release-notes/#v01670-2022-05-16).
-- Upgrade to Go 1.18.1
+- Upgrade to [Flux 0.170.0](/flux/v0.x/release-notes/#v01700-2022-06-02).
+- Upgrade to Go 1.18.3.  
 - Fixes issue with OSXCross and Darwin builds. This results in the new minimum OSX version being MacOSX10.14/darwin18.
-
-
-
 
 <!-- Inlcude 1.9.8 - missed here due to rollback -->
 

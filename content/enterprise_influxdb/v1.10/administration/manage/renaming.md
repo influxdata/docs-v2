@@ -2,7 +2,6 @@
 title: Rename hosts in InfluxDB Enterprise
 description: Rename a host within your InfluxDB Enterprise instance.
 aliases:
-    - /enterprise_influxdb/v1.9/administration/renaming/
     - /enterprise_influxdb/v1.10/administration/renaming/
 menu:
   enterprise_influxdb_1_10:
