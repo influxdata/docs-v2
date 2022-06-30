@@ -22,7 +22,7 @@ aliases:
 - Deprecate [`experimental.http.get`](/flux/v0.x/stdlib/experimental/http/get/).
 - Deprecate [`experimental.csv.from()`](/flux/v0.x/stdlib/experimental/csv/from/).
 - Promote the following functions from `experimental.array` into the 
-  [`array`](/flux/v0.x/stdlib/array) pacakage:
+  [`array`](/flux/v0.x/stdlib/array) package:
   - [`array.concat()`](/flux/v0.x/stdlib/array/concat/) 
   - [`array.filter()`](/flux/v0.x/stdlib/array/filter/)
   - [`array.map()`](/flux/v0.x/stdlib/array/map/)
@@ -30,7 +30,7 @@ aliases:
   [`http.requests`](/flux/v0.x/stdlib/http/requests/) package:
   - [`http.requests.do()`](/flux/v0.x/stdlib/http/requests/do/)
   - [`http.requests.get()`](/flux/v0.x/stdlib/http/requests/get/)
-  - [`http.requests.peek()`](/flux/v0.x/stdlib/http/requests/peek)
+  - [`http.requests.peek()`](/flux/v0.x/stdlib/http/requests/peek/)
   - [`http.requests.post()`](/flux/v0.x/stdlib/http/requests/post/)
 - Promote `experimental.bitwise` into the [`bitwise`](/flux/v0.x/stdlib/bitwise/) 
   package.
