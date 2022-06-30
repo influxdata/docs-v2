@@ -10,7 +10,7 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
-git
+
 ## v0.173.0 [2022-06-29]
 
 ### Breaking changes
@@ -27,7 +27,7 @@ git
   - [`array.filter()`](/flux/v0.x/stdlib/array/filter/)
   - [`array.map()`](/flux/v0.x/stdlib/array/map/)
 - Promote the following functions from `experimental.http.requests` into the 
-  [`http.requests`](/flux/v0.x/stdlib/http/requests/) pacakage:
+  [`http.requests`](/flux/v0.x/stdlib/http/requests/) package:
   - [`http.requests.do()`](/flux/v0.x/stdlib/http/requests/do/)
   - [`http.requests.get()`](/flux/v0.x/stdlib/http/requests/get/)
   - [`http.requests.peek()`](/flux/v0.x/stdlib/http/requests/peek)
