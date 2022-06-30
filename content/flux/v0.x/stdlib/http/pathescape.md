@@ -63,6 +63,7 @@ import "http"
 
 http.pathEscape(inputString: "Hello world!")// Returns "Hello%20world%21"
 
+
 ```
 
 
@@ -74,6 +75,7 @@ import "sampledata"
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: http.pathEscape(inputString: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

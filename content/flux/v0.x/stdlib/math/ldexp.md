@@ -65,6 +65,7 @@ import "math"
 
 math.ldexp(frac: 0.5, exp: 6)// 32.0
 
+
 ```
 
 
@@ -75,6 +76,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({_time: r._time, tag: r.tag, _value: math.ldexp(frac: r.frac, exp: r.exp)}))
+
 ```
 
 {{< expand-wrapper >}}

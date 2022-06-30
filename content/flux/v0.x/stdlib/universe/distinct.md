@@ -69,6 +69,7 @@ import "sampledata"
 
 sampledata.int()
     |> distinct()
+
 ```
 
 {{< expand-wrapper >}}
@@ -124,6 +125,7 @@ import "sampledata"
 
 sampledata.int()
     |> distinct(column: "tag")
+
 ```
 
 {{< expand-wrapper >}}
@@ -170,6 +172,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> distinct()
+
 ```
 
 {{< expand-wrapper >}}

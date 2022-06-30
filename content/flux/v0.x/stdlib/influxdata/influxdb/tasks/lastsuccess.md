@@ -57,5 +57,6 @@ Defualt time value returned if the task has never successfully run.
 import "influxdata/influxdb/tasks"
 
 tasks.lastSuccess(orTime: 2020-01-01T00:00:00Z)
+
 ```
 

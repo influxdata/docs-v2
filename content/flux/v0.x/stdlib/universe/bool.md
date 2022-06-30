@@ -63,6 +63,7 @@ bool(v: "true")
 // Returns true
 bool(v: "false")// Returns false
 
+
 ```
 
 
@@ -86,6 +87,7 @@ bool(v: uint(v: 1))
 // Returns true
 bool(v: uint(v: 0))// Returns false
 
+
 ```
 
 
@@ -98,6 +100,7 @@ row and `bool()` to covert a column value to a boolean type.
 ```js
 data
     |> map(fn: (r) => ({r with powerOn: bool(v: r.powerOn)}))
+
 ```
 
 {{< expand-wrapper >}}

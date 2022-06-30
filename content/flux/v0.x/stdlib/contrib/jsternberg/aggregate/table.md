@@ -85,6 +85,7 @@ import "contrib/jsternberg/aggregate"
 
 sampledata.float()
     |> aggregate.table(columns: {"min_bottom_degrees": aggregate.min(column: "_value")})
+
 ```
 
 {{< expand-wrapper >}}

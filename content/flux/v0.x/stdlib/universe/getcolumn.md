@@ -66,5 +66,6 @@ sampledata.int()
     |> tableFind(fn: (key) => key.tag == "t1")
     |> getColumn(column: "_value")// Returns [-2, 10, 7, 17, 15, 4]
 
+
 ```
 

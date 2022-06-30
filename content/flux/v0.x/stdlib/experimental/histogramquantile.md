@@ -93,6 +93,7 @@ import "experimental"
 
 histogramData
     |> experimental.histogramQuantile(quantile: 0.9)
+
 ```
 
 {{< expand-wrapper >}}

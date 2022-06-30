@@ -81,6 +81,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> fill(value: 0)
+
 ```
 
 {{< expand-wrapper >}}
@@ -137,6 +138,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> fill(usePrevious: true)
+
 ```
 
 {{< expand-wrapper >}}

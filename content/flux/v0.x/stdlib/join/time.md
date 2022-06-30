@@ -89,6 +89,7 @@ ints = sampledata.int()
 strings = sampledata.string()
 
 join.time(left: ints, right: strings, as: (l, r) => ({l with label: r._value}))
+
 ```
 
 {{< expand-wrapper >}}

@@ -78,6 +78,7 @@ import "sampledata"
 
 sampledata.int()
     |> tripleEMA(n: 3)
+
 ```
 
 {{< expand-wrapper >}}

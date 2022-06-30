@@ -72,6 +72,7 @@ import "experimental"
 data
     |> window(every: 1mo)
     |> experimental.alignTime(alignTo: 2021-01-01T00:00:00Z)
+
 ```
 
 {{< expand-wrapper >}}

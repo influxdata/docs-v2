@@ -59,6 +59,7 @@ import "math"
 
 math.exp2(x: 21.0)// 2.097152e+06
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.exp2(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

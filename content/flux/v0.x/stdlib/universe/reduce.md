@@ -92,6 +92,7 @@ import "sampledata"
 
 sampledata.int()
     |> reduce(fn: (r, accumulator) => ({sum: r._value + accumulator.sum}), identity: {sum: 0})
+
 ```
 
 {{< expand-wrapper >}}
@@ -141,6 +142,7 @@ sampledata.int()
         fn: (r, accumulator) => ({sum: r._value + accumulator.sum, count: accumulator.count + 1}),
         identity: {sum: 0, count: 0},
     )
+
 ```
 
 {{< expand-wrapper >}}
@@ -187,6 +189,7 @@ import "sampledata"
 
 sampledata.int()
     |> reduce(fn: (r, accumulator) => ({prod: r._value * accumulator.prod}), identity: {prod: 1})
+
 ```
 
 {{< expand-wrapper >}}
@@ -241,6 +244,7 @@ sampledata.int()
             }),
         identity: {count: 0, total: 0, avg: 0.0},
     )
+
 ```
 
 {{< expand-wrapper >}}

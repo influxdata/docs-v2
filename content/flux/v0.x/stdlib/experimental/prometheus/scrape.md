@@ -58,5 +58,6 @@ URL to scrape Prometheus metrics from.
 import "experimental/prometheus"
 
 prometheus.scrape(url: "http://localhost:8086/metrics")
+
 ```
 

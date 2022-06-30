@@ -77,6 +77,7 @@ import "sampledata"
 
 sampledata.int()
     |> sample(n: 2, pos: 1)
+
 ```
 
 {{< expand-wrapper >}}

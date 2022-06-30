@@ -113,6 +113,7 @@ import "sampledata"
 
 sampledata.float()
     |> histogram(bins: [0.0, 5.0, 10.0, 20.0])
+
 ```
 
 {{< expand-wrapper >}}
@@ -165,6 +166,7 @@ import "sampledata"
 
 sampledata.float()
     |> histogram(bins: linearBins(start: 0.0, width: 4.0, count: 3))
+
 ```
 
 {{< expand-wrapper >}}

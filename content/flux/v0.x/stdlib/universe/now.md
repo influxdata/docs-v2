@@ -55,6 +55,7 @@ Each instance of `system.time()` in a Flux script returns a unique value.
 ```js
 data
     |> range(start: -10h, stop: now())
+
 ```
 
 
@@ -62,5 +63,6 @@ data
 
 ```js
 option now = () => 2022-01-01T00:00:00Z
+
 ```
 

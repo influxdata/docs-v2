@@ -61,6 +61,7 @@ import "sampledata"
 
 sampledata.float()
     |> experimental.mean()
+
 ```
 
 {{< expand-wrapper >}}

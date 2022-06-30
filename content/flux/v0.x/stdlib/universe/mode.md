@@ -69,6 +69,7 @@ import "sampledata"
 
 sampledata.int()
     |> mode()
+
 ```
 
 {{< expand-wrapper >}}

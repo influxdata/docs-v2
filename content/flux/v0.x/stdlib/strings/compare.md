@@ -67,6 +67,7 @@ import "strings"
 
 data
     |> map(fn: (r) => ({r with same: strings.compare(v: r.string1, t: r.string2)}))
+
 ```
 
 {{< expand-wrapper >}}

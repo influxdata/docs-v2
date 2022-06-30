@@ -63,5 +63,6 @@ import "experimental/query"
 
 query.fromRange(bucket: "telegraf", start: -1h)
     |> query.filterFields(fields: ["used_percent", "available_percent"])
+
 ```
 

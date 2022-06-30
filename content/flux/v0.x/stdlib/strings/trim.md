@@ -62,6 +62,7 @@ import "strings"
 
 data
     |> map(fn: (r) => ({r with _value: strings.trim(v: r._value, cutset: "smpl_")}))
+
 ```
 
 {{< expand-wrapper >}}

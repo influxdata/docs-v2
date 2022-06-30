@@ -77,6 +77,7 @@ import "sampledata"
 
 sampledata.int()
     |> drop(columns: ["_time", "tag"])
+
 ```
 
 {{< expand-wrapper >}}
@@ -130,6 +131,7 @@ import "sampledata"
 
 sampledata.int()
     |> drop(fn: (column) => column =~ /^t/)
+
 ```
 
 {{< expand-wrapper >}}

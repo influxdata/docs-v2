@@ -61,6 +61,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> experimental.last()
+
 ```
 
 {{< expand-wrapper >}}

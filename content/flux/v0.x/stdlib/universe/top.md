@@ -72,6 +72,7 @@ import "sampledata"
 
 sampledata.int()
     |> top(n: 3)
+
 ```
 
 {{< expand-wrapper >}}

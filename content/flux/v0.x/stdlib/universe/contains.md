@@ -64,6 +64,7 @@ fields = ["f1", "f2"]
 
 data
     |> filter(fn: (r) => contains(value: r._field, set: fields))
+
 ```
 
 {{< expand-wrapper >}}

@@ -115,6 +115,7 @@ import "sampledata"
 
 sampledata.float()
     |> quantile(q: 0.99, method: "estimate_tdigest")
+
 ```
 
 {{< expand-wrapper >}}
@@ -161,6 +162,7 @@ import "sampledata"
 
 sampledata.float()
     |> quantile(q: 0.5, method: "exact_selector")
+
 ```
 
 {{< expand-wrapper >}}

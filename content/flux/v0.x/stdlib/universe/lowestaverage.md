@@ -78,6 +78,7 @@ import "sampledata"
 
 sampledata.int()
     |> lowestAverage(n: 1, groupColumns: ["tag"])
+
 ```
 
 {{< expand-wrapper >}}

@@ -55,5 +55,6 @@ Error message to return.
 
 ```js
 die(msg: "This is an error message")
+
 ```
 

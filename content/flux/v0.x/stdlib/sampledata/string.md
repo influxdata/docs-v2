@@ -56,6 +56,7 @@ Default is `false`.
 import "sampledata"
 
 sampledata.string()
+
 ```
 
 {{< expand-wrapper >}}

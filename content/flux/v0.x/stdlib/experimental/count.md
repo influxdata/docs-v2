@@ -70,6 +70,7 @@ import "sampledata"
 
 sampledata.int()
     |> experimental.count()
+
 ```
 
 {{< expand-wrapper >}}

@@ -109,6 +109,7 @@ import "sampledata"
 
 sampledata.int()
     |> derivative(nonNegative: true)
+
 ```
 
 {{< expand-wrapper >}}
@@ -163,6 +164,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> derivative()
+
 ```
 
 {{< expand-wrapper >}}

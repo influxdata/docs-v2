@@ -72,6 +72,7 @@ import "sampledata"
 
 sampledata.int()
     |> set(key: "host", value: "prod1")
+
 ```
 
 {{< expand-wrapper >}}

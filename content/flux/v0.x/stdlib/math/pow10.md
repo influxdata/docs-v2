@@ -59,6 +59,7 @@ import "math"
 
 math.pow10(n: 3)// 1000.0
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.int()
     |> map(fn: (r) => ({r with _value: math.pow10(n: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

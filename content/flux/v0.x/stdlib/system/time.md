@@ -49,5 +49,6 @@ import "array"
 import "system"
 
 array.from(rows: [{time: system.time()}])
+
 ```
 

@@ -69,6 +69,7 @@ import "math"
 
 math.mod(x: 4.56, y: 1.23)// 0.8699999999999997
 
+
 ```
 
 
@@ -79,6 +80,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.mod(x: r.t1, y: r.t2)}))
+
 ```
 
 {{< expand-wrapper >}}

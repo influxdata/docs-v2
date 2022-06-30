@@ -146,6 +146,7 @@ InfluxDB [API token](https://docs.influxdata.com/influxdb/latest/security/tokens
 import "contrib/jsternberg/influxdb"
 
 influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fields: ["field1"])
+
 ```
 
 
@@ -155,6 +156,7 @@ influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fi
 import "contrib/jsternberg/influxdb"
 
 influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fields: ["field1", "field2", "field3"])
+
 ```
 
 
@@ -169,6 +171,7 @@ influxdb.select(
     m: "example-measurement",
     where: (r) => r.host == "host1" and r.region == "us-west",
 )
+
 ```
 
 
@@ -189,5 +192,6 @@ influxdb.select(
     org: "example-org",
     token: token,
 )
+
 ```
 

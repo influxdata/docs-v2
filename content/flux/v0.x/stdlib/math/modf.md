@@ -59,6 +59,7 @@ import "math"
 
 math.modf(f: 3.14)// {frac: 0.14000000000000012, int: 3}
 
+
 ```
 
 
@@ -76,6 +77,7 @@ sampledata.float()
             return {_time: r._time, int: result.int, frac: result.frac}
         },
     )
+
 ```
 
 {{< expand-wrapper >}}

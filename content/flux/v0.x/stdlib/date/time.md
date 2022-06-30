@@ -69,6 +69,7 @@ import "date"
 
 date.time(t: 2020-02-11T12:21:03.29353494Z)// Returns 2020-02-11T12:21:03.293534940Z
 
+
 ```
 
 
@@ -80,6 +81,7 @@ import "date"
 option now = () => 2022-01-01T00:00:00Z
 
 date.time(t: -1h)// Returns 2021-12-31T23:00:00.000000000Z
+
 
 ```
 

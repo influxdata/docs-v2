@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L120-L120
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L133-L133
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.uxor()` performs the bitwise operation, `a XOR b`, with unsigned integers.
 
-
+**Deprecated**: `uxor` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/uxor/).
 
 ##### Function type signature
 
@@ -65,6 +65,7 @@ import "experimental/bitwise"
 
 bitwise.uxor(a: uint(v: 1234), b: uint(v: 4567))// Returns 5381 (uint)
 
+
 ```
 
 
@@ -76,6 +77,7 @@ import "sampledata"
 
 sampledata.uint()
     |> map(fn: (r) => ({r with _value: bitwise.uxor(a: r._value, b: uint(v: 3))}))
+
 ```
 
 {{< expand-wrapper >}}

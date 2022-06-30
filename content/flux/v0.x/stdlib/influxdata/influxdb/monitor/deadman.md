@@ -82,6 +82,7 @@ data =
 
 data
     |> monitor.deadman(t: 2021-01-01T00:05:00Z)
+
 ```
 
 {{< expand-wrapper >}}
@@ -119,5 +120,6 @@ from(bucket: "example-bucket")
     |> range(start: -10m)
     |> filter(fn: (r) => r._measurement == "example-measurement")
     |> monitor.deadman(t: experimental.addDuration(d: -5m, from: now()))
+
 ```
 

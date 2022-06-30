@@ -64,6 +64,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> timeWeightedAvg(unit: 1s)
+
 ```
 
 {{< expand-wrapper >}}

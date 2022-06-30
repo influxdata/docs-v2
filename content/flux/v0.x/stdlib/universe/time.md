@@ -61,6 +61,7 @@ Integer and unsigned integer values are parsed as nanosecond epoch timestamps.
 ```js
 time(v: "2021-01-01T00:00:00Z")// Returns 2021-01-01T00:00:00Z (time)
 
+
 ```
 
 
@@ -68,6 +69,7 @@ time(v: "2021-01-01T00:00:00Z")// Returns 2021-01-01T00:00:00Z (time)
 
 ```js
 time(v: 1640995200000000000)// Returns 2022-01-01T00:00:00Z
+
 
 ```
 
@@ -81,6 +83,7 @@ row and `time()` to covert a column value to a time type.
 ```js
 data
     |> map(fn: (r) => ({r with exampleCol: time(v: r.exampleCol)}))
+
 ```
 
 {{< expand-wrapper >}}

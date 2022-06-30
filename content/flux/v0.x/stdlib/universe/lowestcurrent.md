@@ -78,6 +78,7 @@ import "sampledata"
 
 sampledata.int()
     |> lowestCurrent(n: 1, groupColumns: ["tag"])
+
 ```
 
 {{< expand-wrapper >}}

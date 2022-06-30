@@ -69,6 +69,7 @@ d = date.scale(d: 1h, n: n)
 
 date.add(d: d, to: 2022-05-10T00:00:00Z)// Returns 2022-05-10T00:00:00.000000000Z
 
+
 ```
 
 
@@ -81,6 +82,7 @@ n = 5
 d = date.scale(d: 1mo1h, n: 5)
 
 date.add(d: d, to: 2022-01-01T00:00:00Z)// Returns 2022-06-01T05:00:00.000000000Z
+
 
 ```
 

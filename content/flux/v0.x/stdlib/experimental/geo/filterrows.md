@@ -112,6 +112,7 @@ import "experimental/geo"
 
 data
     |> geo.filterRows(region: {lat: 40.69335938, lon: -73.30078125, radius: 100.0})
+
 ```
 
 
@@ -122,5 +123,6 @@ import "experimental/geo"
 
 data
     |> geo.filterRows(region: {lat: 40.69335938, lon: -73.30078125, radius: 100.0}, strict: false)
+
 ```
 

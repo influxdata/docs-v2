@@ -69,6 +69,7 @@ import "date"
 
 date.yearDay(t: 2020-02-11T12:21:03.29353494Z)// Returns 42
 
+
 ```
 
 
@@ -80,6 +81,7 @@ import "date"
 option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.yearDay(t: -1mo)// Returns 276
+
 
 ```
 

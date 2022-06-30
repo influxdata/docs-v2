@@ -75,6 +75,7 @@ import "sampledata"
 
 sampledata.int()
     |> limit(n: 3)
+
 ```
 
 {{< expand-wrapper >}}
@@ -125,5 +126,6 @@ import "sampledata"
 
 sampledata.int()
     |> limit(n: 3, offset: 2)
+
 ```
 

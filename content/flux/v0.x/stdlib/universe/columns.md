@@ -70,5 +70,6 @@ import "sampledata"
 
 sampledata.string()
     |> columns(column: "labels")
+
 ```
 
