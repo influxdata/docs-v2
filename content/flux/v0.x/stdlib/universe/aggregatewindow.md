@@ -145,6 +145,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> aggregateWindow(every: 20s, fn: mean)
+
 ```
 
 {{< expand-wrapper >}}
@@ -202,6 +203,7 @@ data
         every: 20s,
         fn: (column, tables=<-) => tables |> quantile(q: 0.99, column: column),
     )
+
 ```
 
 {{< expand-wrapper >}}
@@ -250,6 +252,7 @@ data
 ```js
 data
     |> aggregateWindow(every: 1mo, fn: mean)
+
 ```
 
 {{< expand-wrapper >}}

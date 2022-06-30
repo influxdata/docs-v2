@@ -86,5 +86,6 @@ _`token` is required when `host`, `org, or `orgID` are specified._
 
 ```js
 buckets(org: "example-org", host: "http://localhost:8086", token: "mYSuP3rSecR37t0k3N")
+
 ```
 

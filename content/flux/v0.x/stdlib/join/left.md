@@ -109,6 +109,7 @@ join.left(
     on: (l, r) => l.label == r.id and l._time == r._time,
     as: (l, r) => ({_time: l._time, label: l.label, v_left: l._value, v_right: r._value}),
 )
+
 ```
 
 {{< expand-wrapper >}}

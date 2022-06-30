@@ -71,5 +71,6 @@ t =
         |> tableFind(fn: (key) => key.tag == "t2")// t represents the first table in a stream whose group key
 // contains "tag" with a value of "t2".
 
+
 ```
 

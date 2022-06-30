@@ -75,6 +75,7 @@ import "sampledata"
 
 sampledata.int()
     |> stateCount(fn: (r) => r._value < 10)
+
 ```
 
 {{< expand-wrapper >}}

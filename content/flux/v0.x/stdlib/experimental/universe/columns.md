@@ -72,5 +72,6 @@ import "sampledata"
 
 sampledata.string()
     |> universe.columns(column: "labels")
+
 ```
 

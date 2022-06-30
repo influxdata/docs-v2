@@ -98,5 +98,6 @@ notification_data = {
 monitor.from(range: -5m, fn: (r) => r._level == "crit")
     |> range(start: -5m)
     |> monitor.notify(endpoint: endpoint, data: notification_data)
+
 ```
 

@@ -59,6 +59,7 @@ import "math"
 
 math.logb(x: 3.14)// 1
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.logb(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

@@ -59,6 +59,7 @@ import "math"
 
 math.atan(x: 3.14)// 1.262480664599468
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.atan(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

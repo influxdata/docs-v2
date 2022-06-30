@@ -59,6 +59,7 @@ import "math"
 
 math.lgamma(x: 3.14)// {lgamma: 0.8261387047770286, sign: 1}
 
+
 ```
 
 
@@ -76,6 +77,7 @@ sampledata.float()
             return {r with lgamma: result.lgamma, sign: result.sign}
         },
     )
+
 ```
 
 {{< expand-wrapper >}}

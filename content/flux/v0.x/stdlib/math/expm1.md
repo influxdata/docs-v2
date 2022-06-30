@@ -61,6 +61,7 @@ import "math"
 
 math.expm1(x: 0.022)// 0.022243784470438233
 
+
 ```
 
 
@@ -71,6 +72,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.expm1(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

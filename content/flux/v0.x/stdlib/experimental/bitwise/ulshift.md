@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L175-L175
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L192-L192
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `bitwise.ulshift()` shifts the bits in `a` left by `b` bits.
 Both `a` and `b` are unsigned integers.
 
-
+**Deprecated**: `ulshift` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/ulshift/).
 
 ##### Function type signature
 
@@ -67,6 +67,7 @@ import "experimental/bitwise"
 
 bitwise.ulshift(a: uint(v: 1234), b: uint(v: 2))// Returns 4936 (uint)
 
+
 ```
 
 
@@ -78,6 +79,7 @@ import "sampledata"
 
 sampledata.uint()
     |> map(fn: (r) => ({r with _value: bitwise.ulshift(a: r._value, b: uint(v: 3))}))
+
 ```
 
 {{< expand-wrapper >}}

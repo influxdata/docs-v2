@@ -11,6 +11,7 @@ weight: 21
 cascade:
   flux/v0.x/tags: [http]
   introduced: 0.39.0
+  deprecated: 0.173.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -36,7 +37,7 @@ Import the `experimental/http` package:
 import "experimental/http"
 ```
 
-
+**Deprecated**: This package is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/).
 
 
 ## Functions

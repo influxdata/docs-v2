@@ -77,5 +77,6 @@ exampleRecord = {foo: 1.0, bar: "hello"}
 
 record.get(r: exampleRecord, key: key, default: "")// Returns 1.0
 
+
 ```
 

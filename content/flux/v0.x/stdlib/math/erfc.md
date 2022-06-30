@@ -59,6 +59,7 @@ import "math"
 
 math.erfc(x: 22.6)// 3.772618913849058e-224
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.erfc(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

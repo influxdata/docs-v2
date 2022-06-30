@@ -61,6 +61,7 @@ import "math"
 
 math.mInf(sign: 1)// +Inf
 
+
 ```
 
 
@@ -72,6 +73,7 @@ import "math"
 
 sampledata.int()
     |> map(fn: (r) => ({r with _value: math.mInf(sign: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

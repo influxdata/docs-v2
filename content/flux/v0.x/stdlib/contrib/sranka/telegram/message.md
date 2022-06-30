@@ -116,5 +116,6 @@ lastReported =
         |> findRecord(fn: (key) => true, idx: 0)
 
 telegram.message(token: token, channel: "-12345", text: "Disk usage is **${lastReported.status}**.")
+
 ```
 

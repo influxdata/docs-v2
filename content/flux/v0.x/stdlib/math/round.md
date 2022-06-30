@@ -59,6 +59,7 @@ import "math"
 
 math.round(x: 2.12)// 2.0
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.round(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

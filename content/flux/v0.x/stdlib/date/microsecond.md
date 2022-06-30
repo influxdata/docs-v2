@@ -62,6 +62,7 @@ import "date"
 
 date.microsecond(t: 2020-02-11T12:21:03.29353494Z)// Returns 293534
 
+
 ```
 
 
@@ -73,6 +74,7 @@ import "date"
 option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.microsecond(t: -1890us)// Returns 322661
+
 
 ```
 

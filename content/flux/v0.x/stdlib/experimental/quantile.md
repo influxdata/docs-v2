@@ -113,6 +113,7 @@ import "sampledata"
 
 sampledata.float()
     |> experimental.quantile(q: 0.5)
+
 ```
 
 {{< expand-wrapper >}}
@@ -160,6 +161,7 @@ import "sampledata"
 
 sampledata.float()
     |> experimental.quantile(q: 0.5, method: "exact_selector")
+
 ```
 
 {{< expand-wrapper >}}

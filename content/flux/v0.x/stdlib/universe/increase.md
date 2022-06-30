@@ -67,6 +67,7 @@ import "sampledata"
 
 sampledata.int()
     |> increase()
+
 ```
 
 {{< expand-wrapper >}}

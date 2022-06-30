@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L56-L56
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L57-L57
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,9 +30,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `array.from()` constructs a table from an array of records.
 
-The `experimental/array.from()` function was promoted to the `array` package in
-Flux 0.103.0. This function is available for backwards compatibility, but we
-recommend using the `array` package instead.
+**Deprecated**: `from()` is deprecated in favor of [`from()`](https://docs.influxdata.com/flux/v0.x/stdlib/array/from).
+This function is available for backwards compatibility, but we recommend using the `array` package instead.
 
 
 Each record in the array is converted into an output row or record. All
@@ -68,6 +67,7 @@ import "experimental/array"
 rows = [{foo: "bar", baz: 21.2}, {foo: "bar", baz: 23.8}]
 
 array.from(rows: rows)
+
 ```
 
 {{< expand-wrapper >}}
@@ -94,5 +94,6 @@ tags = v1.tagValues(bucket: "example-bucket", tag: "host")
 wildcard_tag = array.from(rows: [{_value: "*"}])
 
 union(tables: [tags, wildcard_tag])
+
 ```
 

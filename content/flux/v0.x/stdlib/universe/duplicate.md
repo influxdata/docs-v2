@@ -71,6 +71,7 @@ import "sampledata"
 
 sampledata.int()
     |> duplicate(column: "tag", as: "tag_dup")
+
 ```
 
 {{< expand-wrapper >}}

@@ -65,6 +65,7 @@ import "strings"
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.indexAny(v: r._value, chars: "g7t")}))
+
 ```
 
 {{< expand-wrapper >}}

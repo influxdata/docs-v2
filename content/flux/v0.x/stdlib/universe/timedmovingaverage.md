@@ -87,6 +87,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> timedMovingAverage(every: 1y, period: 5y)
+
 ```
 
 {{< expand-wrapper >}}

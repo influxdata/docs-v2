@@ -83,6 +83,7 @@ data =
 
 data
     |> experimental.integral(unit: 20s)
+
 ```
 
 {{< expand-wrapper >}}
@@ -134,6 +135,7 @@ data =
 
 data
     |> experimental.integral(unit: 20s, interpolate: "linear")
+
 ```
 
 {{< expand-wrapper >}}

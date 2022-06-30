@@ -11,6 +11,7 @@ menu:
 weight: 201
 
 introduced: 0.155.0
+deprecated: 0.173.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -22,7 +23,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L109-L109
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L116-L116
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -32,7 +33,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `array.map()` iterates over an array, applies a function to each element to produce a new element,
 and then returns a new array.
 
-
+**Deprecated**: `map()` is deprecated in favor of [`map()`](https://docs.influxdata.com/flux/v0.x/stdlib/array/map).
 
 ##### Function type signature
 
@@ -76,6 +77,7 @@ b = a |> array.map(fn: (x) => ({_value: x}))
 // b returns [{_value: 1}, {_value: 2}, {_value: 3}, {_value: 4}, {_value: 5}]
 // Output the array of records as a table
 array.from(rows: b)
+
 ```
 
 {{< expand-wrapper >}}

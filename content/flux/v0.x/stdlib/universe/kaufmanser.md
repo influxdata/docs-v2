@@ -68,6 +68,7 @@ import "sampledata"
 
 sampledata.int()
     |> kaufmansER(n: 3)
+
 ```
 
 {{< expand-wrapper >}}

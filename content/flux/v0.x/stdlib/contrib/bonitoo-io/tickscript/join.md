@@ -97,6 +97,7 @@ states =
         |> group(columns: ["host"])
 
 tickscript.join(tables: {metric: metrics, state: states}, on: ["_time", "host"], measurement: "example-m")
+
 ```
 
 {{< expand-wrapper >}}

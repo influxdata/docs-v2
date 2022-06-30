@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L366-L366
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L397-L397
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `bitwise.slshift()` shifts the bits in `a` left by `b` bits.
 Both `a` and `b` are integers.
 
-
+**Deprecated**: `slshift` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/slshift/).
 
 ##### Function type signature
 
@@ -67,6 +67,7 @@ import "experimental/bitwise"
 
 bitwise.slshift(a: 1234, b: 2)// Returns 4936
 
+
 ```
 
 
@@ -78,6 +79,7 @@ import "sampledata"
 
 sampledata.int()
     |> map(fn: (r) => ({r with _value: bitwise.slshift(a: r._value, b: 3)}))
+
 ```
 
 {{< expand-wrapper >}}

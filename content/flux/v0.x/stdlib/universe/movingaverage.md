@@ -74,6 +74,7 @@ import "sampledata"
 
 sampledata.int()
     |> movingAverage(n: 3)
+
 ```
 
 {{< expand-wrapper >}}
@@ -126,6 +127,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> movingAverage(n: 3)
+
 ```
 
 {{< expand-wrapper >}}

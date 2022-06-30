@@ -59,6 +59,7 @@ import "math"
 
 math.sqrt(x: 4.0)// 2.0
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.sqrt(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

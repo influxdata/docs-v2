@@ -106,6 +106,7 @@ got =
         |> map(fn: (r) => ({r with _value: if r._value > 15 then r._value + 1 else r._value}))
 
 testing.diff(got: got, want: want)
+
 ```
 
 {{< expand-wrapper >}}
@@ -138,5 +139,6 @@ want = from(bucket: "backup-example-bucket") |> range(start: -5m)
 from(bucket: "example-bucket")
     |> range(start: -5m)
     |> testing.diff(want: want)
+
 ```
 

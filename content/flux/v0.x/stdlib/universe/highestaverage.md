@@ -78,6 +78,7 @@ import "sampledata"
 
 sampledata.int()
     |> highestAverage(n: 1, groupColumns: ["tag"])
+
 ```
 
 {{< expand-wrapper >}}

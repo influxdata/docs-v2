@@ -105,6 +105,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> stateTracking(fn: (r) => r.state == "crit", countColumn: "count")
+
 ```
 
 {{< expand-wrapper >}}
@@ -159,6 +160,7 @@ data
 ```js
 data
     |> stateTracking(fn: (r) => r.state == "crit", durationColumn: "duration", durationUnit: 1ms)
+
 ```
 
 {{< expand-wrapper >}}
@@ -213,6 +215,7 @@ data
 ```js
 data
     |> stateTracking(fn: (r) => r.state == "crit", countColumn: "count", durationColumn: "duration")
+
 ```
 
 {{< expand-wrapper >}}

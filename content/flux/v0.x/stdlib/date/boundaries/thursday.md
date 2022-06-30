@@ -55,6 +55,7 @@ option now = () => 2021-12-30T00:40:44Z
 
 boundaries.thursday()// Returns {start: 2021-12-23T08:00:00Z, stop:2021-12-24T08:00:00Z }
 
+
 ```
 
 
@@ -67,5 +68,6 @@ day = boundaries.thursday()
 
 from(bucket: "example-bucket")
     |> range(start: day.start, stop: day.stop)
+
 ```
 

@@ -61,6 +61,7 @@ Value to convert.
 ```js
 float(v: "3.14")// Returns 3.14
 
+
 ```
 
 
@@ -69,6 +70,7 @@ float(v: "3.14")// Returns 3.14
 ```js
 float(v: "1.23e+20")// Returns 1.23e+20 (float)
 
+
 ```
 
 
@@ -76,6 +78,7 @@ float(v: "1.23e+20")// Returns 1.23e+20 (float)
 
 ```js
 float(v: "10")// Returns 10.0
+
 
 ```
 
@@ -89,6 +92,7 @@ row and `float()` to covert a column value to a float type.
 ```js
 data
     |> map(fn: (r) => ({r with exampleCol: float(v: r.exampleCol)}))
+
 ```
 
 {{< expand-wrapper >}}

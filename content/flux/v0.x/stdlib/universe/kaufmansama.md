@@ -73,6 +73,7 @@ import "sampledata"
 
 sampledata.int()
     |> kaufmansAMA(n: 3)
+
 ```
 
 {{< expand-wrapper >}}

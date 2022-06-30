@@ -59,6 +59,7 @@ import "math"
 
 math.log2(x: 3.14)// 1.6507645591169022
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.log2(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

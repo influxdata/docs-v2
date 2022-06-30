@@ -64,6 +64,7 @@ import "sampledata"
 
 sampledata.int()
     |> first()
+
 ```
 
 {{< expand-wrapper >}}

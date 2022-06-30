@@ -73,6 +73,7 @@ option now = () => 2022-05-10T00:00:00.00001Z
 
 boundaries.week()// Returns {start: 2022-05-09T00:00:00.000000000Z, stop: 2022-05-16T00:00:00.000000000Z}
 
+
 ```
 
 
@@ -87,6 +88,7 @@ boundaries.week(
     start_sunday: true,
 )// Returns {start: 2022-05-08T00:00:00.000000000Z, stop: 2022-05-14T00:00:00.000000000Z}
 
+
 ```
 
 
@@ -99,6 +101,7 @@ thisWeek = boundaries.week()
 
 from(bucket: "example-bucket")
     |> range(start: thisWeek.start, stop: thisWeek.stop)
+
 ```
 
 
@@ -111,5 +114,6 @@ lastWeek = boundaries.week(week_offset: -1)
 
 from(bucket: "example-bucket")
     |> range(start: lastWeek.start, stop: lastWeek.stop)
+
 ```
 

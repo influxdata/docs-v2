@@ -76,6 +76,7 @@ import "experimental"
 
 experimental.subDuration(from: 2019-09-16T12:00:00Z, d: 6h)// Returns 2019-09-16T06:00:00.000000000Z
 
+
 ```
 
 
@@ -87,6 +88,7 @@ import "experimental"
 option now = () => 2022-01-01T12:00:00Z
 
 experimental.subDuration(d: 6h, from: -3h)// Returns 2022-01-01T03:00:00.000000000Z
+
 
 ```
 
@@ -103,6 +105,7 @@ import "experimental"
 option now = () => 2021-12-10T16:27:40Z
 
 experimental.subDuration(from: -1h, d: 2d)// Returns 2021-12-08T15:27:40Z
+
 
 ```
 

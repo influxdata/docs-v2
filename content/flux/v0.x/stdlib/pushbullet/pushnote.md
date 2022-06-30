@@ -77,5 +77,6 @@ pushbullet.pushNote(
     token: "mY5up3Rs3Cre7T0k3n",
     data: {"type": "link", "title": "Example title", "text": "Example note text"},
 )
+
 ```
 

@@ -74,6 +74,7 @@ import "sampledata"
 
 sampledata.int()
     |> rename(columns: {tag: "uid", _value: "val"})
+
 ```
 
 {{< expand-wrapper >}}
@@ -130,6 +131,7 @@ import "sampledata"
 
 sampledata.int()
     |> rename(fn: (column) => "${column}_new")
+
 ```
 
 {{< expand-wrapper >}}

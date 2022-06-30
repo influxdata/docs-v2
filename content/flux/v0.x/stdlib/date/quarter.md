@@ -67,6 +67,7 @@ import "date"
 
 date.quarter(t: 2020-02-11T12:21:03.29353494Z)// Returns 1
 
+
 ```
 
 
@@ -78,6 +79,7 @@ import "date"
 option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.quarter(t: -7mo)// Returns 2
+
 
 ```
 

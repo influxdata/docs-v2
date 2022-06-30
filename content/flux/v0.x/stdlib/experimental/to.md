@@ -123,5 +123,6 @@ from(bucket: "example-bucket")
     |> range(start: -1h)
     |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
     |> experimental.to(bucket: "example-target-bucket")
+
 ```
 

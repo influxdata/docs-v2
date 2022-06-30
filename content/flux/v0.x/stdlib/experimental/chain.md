@@ -84,5 +84,6 @@ average_max =
         |> mean()
 
 experimental.chain(first: downsampled_max, second: average_max)
+
 ```
 

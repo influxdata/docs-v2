@@ -42,3 +42,7 @@ import "http"
 ## Functions
 
 {{< children type="functions" show="pages" >}}
+
+## Packages
+
+{{< children show="sections" >}}

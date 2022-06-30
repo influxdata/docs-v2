@@ -85,6 +85,7 @@ import "experimental/geo"
 
 data
     |> geo.groupByArea(newColumn: "foo", level: 4)
+
 ```
 
 {{< expand-wrapper >}}

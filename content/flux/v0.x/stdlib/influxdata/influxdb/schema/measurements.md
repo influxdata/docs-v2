@@ -70,5 +70,6 @@ Default is `now()`.
 import "influxdata/influxdb/schema"
 
 schema.measurements(bucket: "example-bucket")
+
 ```
 

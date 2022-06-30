@@ -62,6 +62,7 @@ import "strings"
 
 data
     |> map(fn: (r) => ({r with _value: strings.trimLeft(v: r._value, cutset: ".")}))
+
 ```
 
 {{< expand-wrapper >}}

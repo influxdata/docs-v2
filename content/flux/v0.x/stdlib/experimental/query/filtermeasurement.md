@@ -63,5 +63,6 @@ import "experimental/query"
 
 query.fromRange(bucket: "example-bucket", start: -1h)
     |> query.filterMeasurement(measurement: "example-measurement")
+
 ```
 

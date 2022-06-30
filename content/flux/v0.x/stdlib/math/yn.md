@@ -65,6 +65,7 @@ import "math"
 
 math.yn(n: 3, x: 3.14)// -0.4866506930335083
 
+
 ```
 
 
@@ -75,6 +76,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.yn(n: r.n, x: r.x)}))
+
 ```
 
 {{< expand-wrapper >}}

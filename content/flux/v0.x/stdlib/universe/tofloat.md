@@ -65,6 +65,7 @@ import "sampledata"
 
 sampledata.int()
     |> toFloat()
+
 ```
 
 {{< expand-wrapper >}}
@@ -121,6 +122,7 @@ import "sampledata"
 
 sampledata.bool()
     |> toFloat()
+
 ```
 
 {{< expand-wrapper >}}

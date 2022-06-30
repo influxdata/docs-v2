@@ -65,6 +65,7 @@ import "contrib/bonitoo-io/tickscript"
 
 data
     |> tickscript.groupBy(columns: ["host", "region"])
+
 ```
 
 {{< expand-wrapper >}}

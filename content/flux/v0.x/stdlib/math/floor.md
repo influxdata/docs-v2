@@ -59,6 +59,7 @@ import "math"
 
 math.floor(x: 1.22)// 1.0
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.floor(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

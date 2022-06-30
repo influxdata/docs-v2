@@ -78,6 +78,7 @@ t2 =
         |> group(columns: ["tag"])
 
 union(tables: [t1, t2])
+
 ```
 
 {{< expand-wrapper >}}
@@ -118,6 +119,7 @@ t2 =
         |> group()
 
 union(tables: [t1, t2])
+
 ```
 
 {{< expand-wrapper >}}

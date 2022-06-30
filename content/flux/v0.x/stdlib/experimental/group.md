@@ -70,6 +70,7 @@ import "experimental"
 
 data
     |> experimental.group(columns: ["region"], mode: "extend")
+
 ```
 
 {{< expand-wrapper >}}

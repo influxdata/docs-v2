@@ -65,6 +65,7 @@ import "sampledata"
 
 sampledata.int()
     |> unique()
+
 ```
 
 {{< expand-wrapper >}}

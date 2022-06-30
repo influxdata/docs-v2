@@ -94,5 +94,6 @@ Absolute start times are defined using time values.
 import "influxdata/influxdb/schema"
 
 schema.tagKeys(bucket: "example-bucket")
+
 ```
 

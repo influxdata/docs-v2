@@ -57,5 +57,6 @@ import "contrib/bonitoo-io/hex"
 
 hex.bytes(v: "FF5733")// Returns [255 87 51] (bytes)
 
+
 ```
 
