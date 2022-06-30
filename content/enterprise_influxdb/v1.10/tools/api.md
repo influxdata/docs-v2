@@ -19,37 +19,39 @@ The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
 Those settings [are configurable](/enterprise_influxdb/v1.10/administration/configure/config-data-nodes/#http-endpoints-settings).
 
-- [InfluxDB 2.0 API compatibility endpoints](#influxdb-20-api-compatibility-endpoints)
+- [InfluxDB 2.x API compatibility endpoints](#influxdb-20-api-compatibility-endpoints)
 - [InfluxDB  1.x HTTP endpoints](#influxdb-1x-http-endpoints)
 
-## InfluxDB 2.0 API compatibility endpoints
+## InfluxDB 2.x API compatibility endpoints
 
-InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.0.
+InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.x.
 There are multiple reasons for introducing these:
 
 - The latest [InfluxDB client libraries](/enterprise_influxdb/v1.10/tools/api_client_libraries/)
-  are built for the InfluxDB 2.0 API, but now also work with **InfluxDB 1.8.0+**.
+  are built for the InfluxDB 2.x API, but now also work with **InfluxDB 1.8.0+**.
 - InfluxDB Cloud is a generally available service across multiple cloud service providers and regions
   that is fully compatible with the **latest** client libraries.
 
 If you are just getting started with InfluxDB 1.x today, we recommend adopting
 the [latest client libraries](/enterprise_influxdb/v1.10/tools/api_client_libraries/).
-They allow you to easily move from InfluxDB 1.x to InfluxDB 2.0 Cloud or open source,
+They allow you to easily move from InfluxDB 1.x to InfluxDB 2.x Cloud or open source,
 (when you are ready).
 
 The following forward compatible APIs are available:
 
 | Endpoint                                     | Description                                                                                                |
 |:----------                                   |:----------                                                                                                 |
-| [/api/v2/query](#api-v2-query-http-endpoint) | Query data in InfluxDB 1.8.0+ using the InfluxDB 2.0 API and [Flux](/flux/latest/)                         |
-| [/api/v2/write](#api-v2-write-http-endpoint) | Write data to InfluxDB 1.8.0+ using the InfluxDB 2.0 API _(compatible with InfluxDB 2.0 client libraries)_ |
+| [/api/v2/query](#api-v2-query-http-endpoint) | Query data in InfluxDB 1.8.0+ using the InfluxDB 2.x API and [Flux](/flux/latest/)                         |
+| [/api/v2/write](#api-v2-write-http-endpoint) | Write data to InfluxDB 1.8.0+ using the InfluxDB 2.x API _(compatible with InfluxDB 2.x client libraries)_ |
 | [/health](#health-http-endpoint)             | Check the health of your InfluxDB instance                                                                 |
+| [/api/v2/buckets](#api-v2-buckets-http-endpoint)    | Allows some client code using buckets to run against 1.X and 2.X without modification                                                             |
+| [/api/v2/delete](#api-v2-delete-http-endpoint)      | Supports deletion by tag value, timestamp and measurement using the InfluxDB 2.x API  
 
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.10/flux/) and [InfluxDB 2.0 client libraries](/influxdb/v2.0/api-guide/client-libraries/).
- Flux is the primary language for working with data in InfluxDB 2.0.
+Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.10/flux/) and [InfluxDB 2.x client libraries](/influxdb/v2.x/api-guide/client-libraries/).
+ Flux is the primary language for working with data in InfluxDB 2.x.
 
 **Include the following HTTP headers:**
 
@@ -90,11 +92,11 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 ### `/api/v2/write/` HTTP endpoint
 
 The `/api/v2/write` endpoint accepts `POST` HTTP requests.
-Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.0 client libraries](/influxdb/v2.0/api-guide/client-libraries/).
+Use this endpoint to write to an InfluxDB 1.8.0+ database using [InfluxDB 2.x client libraries](/influxdb/v2.0/api-guide/client-libraries/).
 
-Both InfluxDB 1.x and 2.0 APIs support the same line protocol format for raw time series data.
+Both InfluxDB 1.x and 2.x APIs support the same line protocol format for raw time series data.
 For the purposes of writing data, the APIs differ only in the URL parameters and request headers.
-InfluxDB 2.0 uses [organizations](/influxdb/v2.0/reference/glossary/#organization)
+InfluxDB 2.x uses [organizations](/influxdb/v2.0/reference/glossary/#organization)
 and [buckets](/influxdb/v2.0/reference/glossary/#bucket)
 instead of databases and retention policies.
 The `/api/v2/write` endpoint maps the supplied version 1.8 database and retention policy to a bucket.
@@ -112,7 +114,7 @@ The `/api/v2/write` endpoint maps the supplied version 1.8 database and retentio
 
 **Include the following HTTP header:**
 
-- `Authorization`: In InfluxDB 2.0 uses [API Tokens](/influxdb/v2.0/security/tokens/)
+- `Authorization`: In InfluxDB 2.x uses [API Tokens](/influxdb/v2.0/security/tokens/)
   to access the platform and all its capabilities.
   InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
   Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
@@ -153,6 +155,35 @@ curl -XGET "localhost:8086/health"
 | 503           | Unhealthy |                                | `fail` |
 
 ---
+
+### `/api/v2/buckets/` HTTP endpoint
+
+### `/api/v2/delete/` HTTP endpoint
+
+The `/api/v2/delete` endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
+
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[No Auth](#)
+[Auth Enabled](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+curl -XPOST "localhost:8086/api/v2/write?bucket=db/rp&precision=s" \
+  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+curl -XPOST "localhost:8086/api/v2/write?bucket=db/rp&precision=s" \
+  -H 'Authorization: Token <username>:<password>' \
+  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+
 
 ## InfluxDB 1.x HTTP endpoints
 The following InfluxDB 1.x API endpoints are available:
