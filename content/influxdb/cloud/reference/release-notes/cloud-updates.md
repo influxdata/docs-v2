@@ -14,6 +14,35 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## June 2022
+
+### Help bar updates
+
+- Now, in the InfluxDB Cloud Help bar, if you have a Usage-Based plan, you can submit support requests and questions directly to the Salesforce Support queue (without needing a Salesforce account) . You'll receive a confirmation email with your ticket number for reference.
+
+- Add Status page to display InfluxDB uptime, downtime, and incident management information for all Cloud regions.
+
+- Add link to quickly access InfluxDB University.
+
+### Sample applications
+
+Add more support to quickly start writing and querying your data with **JavaScript/Node.js**. Now, when you complete the **JavaScript/Node.js** onboarding wizard, you'll have the option to do either of the following:
+- **View a Sample IoT App** written in node.js
+- **View Boiler Plate Code Snippets** in node.js
+
+### Bug fixes
+
+- Keep the time picker on the screen when the Script Editor is open.
+- Escape commas in strings that were breaking the rendering of table visualizations.
+- Add a Copy to Clipboard button to copy the organization name on the Organization Settings page.
+- Ensure the following:
+  - The Copy button no longer hides graph error messages.
+  - Nested objects no longer break tables.
+  - Query Explorer displays results when data is returned.
+  - Single Usage stats text is selectable.
+  - Users get redirected to the Login page after a session expires.
+  - Renamed “Token last used” to “Token last modified” to be more accurate and descriptive.
+
 ## May 2022
 
 ### Bulk delete API tokens
