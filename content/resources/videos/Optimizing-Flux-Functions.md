@@ -1,0 +1,15 @@
+---
+title: Optimizing Flux Functions
+description: >
+  Flux Queries are scripts that let you work with your data in InfluxDB. Here, Scott Anderson provides some tips for optimizing Flux queries, so that your data and applications are more performant.
+menu:
+  resources:
+    parent: Videos
+weight: 112
+youtubeID: ZorlId2_XEg
+date: 2022-6-30
+series: [Meet the Developers S4]
+metadata: [Meet the Developer Series]
+---
+
+{{< resources/video-content >}}
