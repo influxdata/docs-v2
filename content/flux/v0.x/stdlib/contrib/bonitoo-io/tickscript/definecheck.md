@@ -77,5 +77,6 @@ tickscript.defineCheck(id: "000000000000", name: "Example check name")// Returns
 //     tags: {}
 // }
 
+
 ```
 

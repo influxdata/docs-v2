@@ -160,5 +160,6 @@ opsgenie.sendAlert(
     alias: "example-disk-usage",
     responders: ["user:john@example.com", "team:itcrowd"],
 )
+
 ```
 

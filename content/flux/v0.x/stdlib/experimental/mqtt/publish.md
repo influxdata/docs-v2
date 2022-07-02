@@ -127,6 +127,7 @@ mqtt.publish(
     clientid: "alert-watcher",
     retain: true,
 )
+
 ```
 
 
@@ -148,5 +149,6 @@ sampledata.float()
                     ),
             }),
     )
+
 ```
 

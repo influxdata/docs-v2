@@ -113,6 +113,7 @@ import "experimental/geo"
 
 data
     |> geo.gridFilter(region: {lat: 40.69335938, lon: -73.30078125, radius: 20.0})
+
 ```
 
 {{< expand-wrapper >}}

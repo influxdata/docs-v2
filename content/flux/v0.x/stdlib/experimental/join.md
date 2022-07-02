@@ -107,6 +107,7 @@ experimental.join(
     right: right,
     fn: (left, right) => ({left with lv: left._value, rv: right._value, diff: left._value - right._value}),
 )
+
 ```
 
 {{< expand-wrapper >}}
@@ -146,5 +147,6 @@ experimental.join(
     right: s2,
     fn: (left, right) => ({left with bar_value: left._value, quz_value: right._value}),
 )
+
 ```
 

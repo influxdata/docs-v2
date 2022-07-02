@@ -59,6 +59,7 @@ import "math"
 
 math.sinh(x: 1.23)// 1.564468479304407
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.sinh(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

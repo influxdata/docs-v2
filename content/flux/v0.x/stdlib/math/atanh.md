@@ -60,6 +60,7 @@ import "math"
 
 math.atanh(x: 0.22)// 0.22365610902183242
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.atanh(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

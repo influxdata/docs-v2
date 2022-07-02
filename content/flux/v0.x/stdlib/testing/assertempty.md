@@ -66,5 +66,6 @@ got = sampledata.float() |> toInt()
 got
     |> testing.diff(want: want)
     |> testing.assertEmpty()
+
 ```
 

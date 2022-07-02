@@ -127,5 +127,6 @@ query.inBucket(
     fields: ["field1", "field2"],
     predicate: (r) => r.host == "host1",
 )
+
 ```
 

@@ -59,6 +59,7 @@ import "math"
 
 math.tan(x: 3.14)// -0.001592654936407223
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.tan(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

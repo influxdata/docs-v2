@@ -56,6 +56,7 @@ import "strings"
 
 data
     |> filter(fn: (r) => strings.isLower(v: r._value))
+
 ```
 
 {{< expand-wrapper >}}

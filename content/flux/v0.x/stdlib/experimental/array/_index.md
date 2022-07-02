@@ -36,7 +36,7 @@ Import the `experimental/array` package:
 import "experimental/array"
 ```
 
-
+**Deprecated**: This package is deprecated in favor of [`array`](https://docs.influxdata.com/flux/v0.x/stdlib/array/).
 
 
 ## Functions

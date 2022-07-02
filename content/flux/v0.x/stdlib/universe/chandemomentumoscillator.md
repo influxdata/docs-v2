@@ -83,5 +83,6 @@ import "sampledata"
 
 sampledata.int()
     |> chandeMomentumOscillator(n: 2)
+
 ```
 

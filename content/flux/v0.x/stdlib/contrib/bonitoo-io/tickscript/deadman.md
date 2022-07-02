@@ -145,5 +145,6 @@ from(bucket: "example-bucket")
         measurement: "pulse",
         threshold: 2,
     )
+
 ```
 

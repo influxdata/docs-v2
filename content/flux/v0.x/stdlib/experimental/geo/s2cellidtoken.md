@@ -76,6 +76,7 @@ import "experimental/geo"
 
 data
     |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(point: {lat: r.lat, lon: r.lon}, level: 10)}))
+
 ```
 
 {{< expand-wrapper >}}
@@ -120,6 +121,7 @@ import "experimental/geo"
 
 data
     |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(token: r.s2_cell_id, level: 5)}))
+
 ```
 
 {{< expand-wrapper >}}

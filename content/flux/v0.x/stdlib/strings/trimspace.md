@@ -56,6 +56,7 @@ import "strings"
 
 data
     |> map(fn: (r) => ({r with _value: strings.trimSpace(v: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

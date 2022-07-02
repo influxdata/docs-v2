@@ -72,6 +72,7 @@ Decoder to use to parse returned data into a stream of tables.
 import "socket"
 
 socket.from(url: "tcp://127.0.0.1:1234", decoder: "csv")
+
 ```
 
 
@@ -81,5 +82,6 @@ socket.from(url: "tcp://127.0.0.1:1234", decoder: "csv")
 import "socket"
 
 socket.from(url: "tcp://127.0.0.1:1234", decoder: "line")
+
 ```
 

@@ -65,6 +65,7 @@ import "math"
 
 math.remainder(x: 21.0, y: 4.0)// 1.0
 
+
 ```
 
 
@@ -75,6 +76,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.remainder(x: r.t1, y: r.t2)}))
+
 ```
 
 {{< expand-wrapper >}}

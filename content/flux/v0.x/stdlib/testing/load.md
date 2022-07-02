@@ -80,5 +80,6 @@ want =
 
 testing.load(tables: got)
     |> testing.diff(want: want)
+
 ```
 

@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L147-L147
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L162-L162
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.uclear()` performs the bitwise operation `a AND NOT b`, with unsigned integers.
 
-
+**Deprecated**: `uclear` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/uclear/).
 
 ##### Function type signature
 
@@ -65,6 +65,7 @@ import "experimental/bitwise"
 
 bitwise.uclear(a: uint(v: 1234), b: uint(v: 4567))// Returns 1024 (uint)
 
+
 ```
 
 
@@ -76,6 +77,7 @@ import "sampledata"
 
 sampledata.uint()
     |> map(fn: (r) => ({r with _value: bitwise.uclear(a: r._value, b: uint(v: 3))}))
+
 ```
 
 {{< expand-wrapper >}}

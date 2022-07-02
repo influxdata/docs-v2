@@ -79,5 +79,6 @@ sampledata.int()
         idx: 0,
     )// Returns {_time: 2021-01-01T00:00:00.000000000Z, _value: -2, tag: t1}
 
+
 ```
 

@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L283-L283
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L308-L308
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.snot()` inverts every bit in `a`, an integer.
 
-
+**Deprecated**: `snot` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/snot/).
 
 ##### Function type signature
 
@@ -59,6 +59,7 @@ import "experimental/bitwise"
 
 bitwise.snot(a: 1234)// Returns -1235
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.int()
     |> map(fn: (r) => ({r with _value: bitwise.snot(a: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

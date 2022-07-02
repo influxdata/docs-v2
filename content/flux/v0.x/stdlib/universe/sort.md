@@ -76,6 +76,7 @@ import "sampledata"
 
 sampledata.int()
     |> sort()
+
 ```
 
 {{< expand-wrapper >}}

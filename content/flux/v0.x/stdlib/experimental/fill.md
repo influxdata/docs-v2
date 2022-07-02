@@ -75,6 +75,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> experimental.fill(value: 0)
+
 ```
 
 {{< expand-wrapper >}}
@@ -132,6 +133,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> experimental.fill(usePrevious: true)
+
 ```
 
 {{< expand-wrapper >}}

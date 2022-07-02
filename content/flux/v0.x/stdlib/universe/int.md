@@ -80,6 +80,7 @@ int(v: 1m)
 // Returns 160000000000
 int(v: 2022-01-01T00:00:00Z)// Returns 1640995200000000000
 
+
 ```
 
 
@@ -92,6 +93,7 @@ row and `int()` to covert a column value to a integer type.
 ```js
 data
     |> map(fn: (r) => ({r with exampleCol: int(v: r.exampleCol)}))
+
 ```
 
 {{< expand-wrapper >}}

@@ -11,6 +11,7 @@ weight: 31
 cascade:
   flux/v0.x/tags: [http]
   introduced: 0.152.0
+  deprecated: 0.173.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -36,7 +37,9 @@ Import the `experimental/http/requests` package:
 import "experimental/http/requests"
 ```
 
-
+**Deprecated**: This package is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/).
+Do not mix usage of this experimental package with the `requests` package as the `defaultConfig` is not shared between the two packages.
+This experimental package is completely superceded by the `requests` package so there should be no need to mix them.
 
 ## Options
 
@@ -55,7 +58,8 @@ option requests.defaultConfig = {
 Changing this config will affect all other packages using the requests package.
 To change the config for a single request, pass a new config directly into the corresponding function.
 
-
+**Deprecated**: `defautlConfig` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/#options).
+Do not mix usage of this experimental package with the `requests` package as the `defaultConfig` is not shared between the two packages.
 
 
 ## Functions

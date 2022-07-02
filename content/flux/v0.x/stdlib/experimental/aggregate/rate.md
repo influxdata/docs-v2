@@ -82,6 +82,7 @@ data =
 
 data
     |> aggregate.rate(every: 30s, unit: 1s, groupColumns: ["tag"])
+
 ```
 
 {{< expand-wrapper >}}

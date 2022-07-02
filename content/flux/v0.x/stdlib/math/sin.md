@@ -59,6 +59,7 @@ import "math"
 
 math.sin(x: 3.14)// 0.0015926529164868282
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.sin(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

@@ -106,6 +106,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+
 ```
 
 {{< expand-wrapper >}}
@@ -145,6 +146,7 @@ import "sampledata"
 
 sampledata.int()
     |> pivot(rowKey: ["_time"], columnKey: ["tag"], valueColumn: "_value")
+
 ```
 
 {{< expand-wrapper >}}

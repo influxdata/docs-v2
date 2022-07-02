@@ -62,6 +62,7 @@ import "strings"
 
 data
     |> map(fn: (r) => ({r with _value: strings.trimSuffix(v: r._value, suffix: "_ex1")}))
+
 ```
 
 {{< expand-wrapper >}}

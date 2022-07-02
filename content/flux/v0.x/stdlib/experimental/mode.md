@@ -10,6 +10,7 @@ menu:
     identifier: experimental/mode
 weight: 101
 flux/v0.x/tags: [transformations, aggregates]
+introduced: 0.107.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.int()
     |> experimental.mode()
+
 ```
 
 {{< expand-wrapper >}}

@@ -92,6 +92,7 @@ import "sampledata"
 
 sampledata.int()
     |> tickscript.select(as: "example-name")
+
 ```
 
 {{< expand-wrapper >}}
@@ -149,6 +150,7 @@ import "sampledata"
 
 sampledata.int()
     |> tickscript.select(as: "sum", fn: sum)
+
 ```
 
 {{< expand-wrapper >}}
@@ -196,6 +198,7 @@ import "sampledata"
 
 sampledata.int()
     |> tickscript.select(as: "max", fn: max)
+
 ```
 
 {{< expand-wrapper >}}

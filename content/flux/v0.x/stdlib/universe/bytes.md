@@ -56,5 +56,6 @@ Value to convert.
 ```js
 bytes(v: "Example string")// Returns 0x4578616d706c6520737472696e67
 
+
 ```
 

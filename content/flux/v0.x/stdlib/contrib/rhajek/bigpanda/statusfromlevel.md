@@ -66,6 +66,7 @@ import "contrib/rhajek/bigpanda"
 
 bigpanda.statusFromLevel(level: "crit")// Returns "critical"
 
+
 ```
 
 
@@ -78,6 +79,7 @@ import "contrib/rhajek/bigpanda"
 
 data
     |> map(fn: (r) => ({r with big_panda_status: bigpanda.statusFromLevel(level: r._level)}))
+
 ```
 
 {{< expand-wrapper >}}

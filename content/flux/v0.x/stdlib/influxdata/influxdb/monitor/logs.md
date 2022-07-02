@@ -89,5 +89,6 @@ Records that evaluate to _null_ or `false` are not included in output tables.
 import "influxdata/influxdb/monitor"
 
 monitor.logs(start: -2h, fn: (r) => true)
+
 ```
 

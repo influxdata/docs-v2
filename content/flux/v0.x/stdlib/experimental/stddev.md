@@ -79,6 +79,7 @@ import "sampledata"
 
 sampledata.float()
     |> experimental.stddev()
+
 ```
 
 {{< expand-wrapper >}}

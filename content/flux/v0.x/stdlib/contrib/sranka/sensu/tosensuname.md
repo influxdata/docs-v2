@@ -58,5 +58,6 @@ import "contrib/sranka/sensu"
 
 sensu.toSensuName(v: "Example name conversion")// Returns "Example_name_conversion"
 
+
 ```
 

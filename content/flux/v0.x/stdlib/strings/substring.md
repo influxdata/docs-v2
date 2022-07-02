@@ -72,6 +72,7 @@ import "strings"
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.substring(v: r._value, start: 5, end: 9)}))
+
 ```
 
 {{< expand-wrapper >}}

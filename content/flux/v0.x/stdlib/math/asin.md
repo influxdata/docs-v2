@@ -59,6 +59,7 @@ return `NaN`.
 import "math"
 
 math.asin(x: 0.22)
+
 ```
 
 
@@ -69,6 +70,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.asin(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

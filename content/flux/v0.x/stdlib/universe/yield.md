@@ -70,5 +70,6 @@ sampledata.int()
     |> yield(name: "unmodified")
     |> map(fn: (r) => ({r with _value: r._value * r._value}))
     |> yield(name: "squared")
+
 ```
 

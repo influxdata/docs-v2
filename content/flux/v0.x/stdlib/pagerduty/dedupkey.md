@@ -70,6 +70,7 @@ import "sampledata"
 
 sampledata.int()
     |> pagerduty.dedupKey()
+
 ```
 
 {{< expand-wrapper >}}

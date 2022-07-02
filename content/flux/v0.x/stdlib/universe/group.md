@@ -79,6 +79,7 @@ import "sampledata"
 
 sampledata.int()
     |> group(columns: ["_time", "tag"])
+
 ```
 
 {{< expand-wrapper >}}
@@ -165,6 +166,7 @@ import "sampledata"
 
 sampledata.int()
     |> group(columns: ["_time"], mode: "except")
+
 ```
 
 {{< expand-wrapper >}}
@@ -249,6 +251,7 @@ import "sampledata"
 // Merge all tables into a single table
 sampledata.int()
     |> group()
+
 ```
 
 {{< expand-wrapper >}}

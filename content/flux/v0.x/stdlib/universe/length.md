@@ -58,5 +58,6 @@ people = ["John", "Jane", "Abed"]
 
 people |> length()// Returns 3
 
+
 ```
 

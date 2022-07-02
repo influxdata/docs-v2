@@ -111,6 +111,7 @@ import "experimental"
 
 data
     |> experimental.window(every: 30s)
+
 ```
 
 {{< expand-wrapper >}}
@@ -173,6 +174,7 @@ import "experimental"
 
 data
     |> experimental.window(every: 1mo)
+
 ```
 
 {{< expand-wrapper >}}

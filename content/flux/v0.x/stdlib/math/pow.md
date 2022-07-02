@@ -65,6 +65,7 @@ import "math"
 
 math.pow(x: 2.0, y: 3.0)// 8.0
 
+
 ```
 
 
@@ -75,6 +76,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.pow(x: r.t1, y: r.t2)}))
+
 ```
 
 {{< expand-wrapper >}}

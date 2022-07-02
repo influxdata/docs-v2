@@ -67,6 +67,7 @@ import "math"
 
 math.isInf(f: 2.12, sign: 3)// false
 
+
 ```
 
 
@@ -77,6 +78,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.isInf(f: r._value, sign: 1)}))
+
 ```
 
 {{< expand-wrapper >}}

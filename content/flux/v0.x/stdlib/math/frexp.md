@@ -60,6 +60,7 @@ import "math"
 
 math.frexp(f: 22.0)// {exp: 5, frac: 0.6875}
 
+
 ```
 
 
@@ -77,6 +78,7 @@ sampledata.float()
             return {r with exp: result.exp, frac: result.frac}
         },
     )
+
 ```
 
 {{< expand-wrapper >}}

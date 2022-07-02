@@ -103,6 +103,7 @@ t2 =
         |> set(key: "tag", value: "foo")
 
 join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])
+
 ```
 
 {{< expand-wrapper >}}
@@ -139,5 +140,6 @@ tsData =
         |> filter(fn: (r) => exists r.sensorID)
 
 join(tables: {sql: sqlData, ts: tsData}, on: ["_time", "sensorID"])
+
 ```
 

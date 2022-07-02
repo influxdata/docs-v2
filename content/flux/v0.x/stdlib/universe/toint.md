@@ -72,6 +72,7 @@ import "sampledata"
 
 sampledata.float()
     |> toInt()
+
 ```
 
 {{< expand-wrapper >}}
@@ -128,6 +129,7 @@ import "sampledata"
 
 sampledata.bool()
     |> toInt()
+
 ```
 
 {{< expand-wrapper >}}
@@ -184,6 +186,7 @@ import "sampledata"
 
 sampledata.uint()
     |> toInt()
+
 ```
 
 {{< expand-wrapper >}}

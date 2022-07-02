@@ -68,6 +68,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> keys()
+
 ```
 
 {{< expand-wrapper >}}
@@ -127,6 +128,7 @@ data
     |> keys()
     |> keep(columns: ["_value"])
     |> distinct()
+
 ```
 
 {{< expand-wrapper >}}
@@ -178,6 +180,7 @@ import "sampledata"
 sampledata.int()
     |> keys()
     |> findColumn(fn: (key) => true, column: "_value")// Returns [tag]
+
 
 ```
 

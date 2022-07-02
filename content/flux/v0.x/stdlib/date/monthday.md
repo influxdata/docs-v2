@@ -69,6 +69,7 @@ import "date"
 
 date.monthDay(t: 2020-02-11T12:21:03.29353494Z)// Returns 11
 
+
 ```
 
 
@@ -80,6 +81,7 @@ import "date"
 option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.monthDay(t: -8d)// Returns 25
+
 
 ```
 

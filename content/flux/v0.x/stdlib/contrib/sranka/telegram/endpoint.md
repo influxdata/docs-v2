@@ -117,5 +117,6 @@ crit_statuses =
 
 crit_statuses
     |> endpoint(mapFn: (r) => ({channel: "-12345", text: "Disk usage is **${r.status}**.", silent: true}))()
+
 ```
 

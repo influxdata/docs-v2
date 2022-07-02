@@ -55,5 +55,6 @@ Hex color code.
 import "slack"
 
 slack.validateColorString(color: "#fff")
+
 ```
 

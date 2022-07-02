@@ -79,6 +79,7 @@ prometheus.scrape(url: "http://localhost:8086/metrics")
     |> filter(fn: (r) => r._measurement == "prometheus")
     |> filter(fn: (r) => r._field == "qc_all_duration_seconds")
     |> prometheus.histogramQuantile(quantile: 0.99)
+
 ```
 
 
@@ -91,5 +92,6 @@ from(bucket: "example-bucket")
     |> range(start: -1h)
     |> filter(fn: (r) => r._measurement == "qc_all_duration_seconds")
     |> prometheus.histogramQuantile(quantile: 0.99, metricVersion: 1)
+
 ```
 

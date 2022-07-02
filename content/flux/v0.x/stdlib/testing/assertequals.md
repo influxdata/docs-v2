@@ -78,6 +78,7 @@ want = sampledata.int()
 got = sampledata.float() |> toInt()
 
 testing.assertEquals(name: "test_equality", got: got, want: want)
+
 ```
 
 
@@ -93,5 +94,6 @@ want =
 from(bucket: "example-bucket")
     |> range(start: -5m)
     |> testing.assertEquals(want: want)
+
 ```
 

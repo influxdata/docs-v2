@@ -57,6 +57,7 @@ Value to operate on.
 ```js
 math.abs(x: -1.22)// 1.22
 
+
 ```
 
 
@@ -65,6 +66,7 @@ math.abs(x: -1.22)// 1.22
 ```js
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.abs(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

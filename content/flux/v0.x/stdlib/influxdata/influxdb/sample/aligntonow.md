@@ -61,5 +61,6 @@ import "influxdata/influxdb/sample"
 
 sample.data(set: "birdMigration")
     |> sample.alignToNow()
+
 ```
 

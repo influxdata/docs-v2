@@ -77,6 +77,7 @@ Input data. Default is piped-forward data (`<-`).
 from(bucket: "example-bucket")
     |> range(start: -1h)
     |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+
 ```
 
 
@@ -88,6 +89,7 @@ import "experimental/table"
 
 sampledata.int()
     |> filter(fn: (r) => r._value > 18, onEmpty: "keep")
+
 ```
 
 {{< expand-wrapper >}}
@@ -134,6 +136,7 @@ import "sampledata"
 
 sampledata.int()
     |> filter(fn: (r) => r._value > 0 and r._value < 10)
+
 ```
 
 {{< expand-wrapper >}}

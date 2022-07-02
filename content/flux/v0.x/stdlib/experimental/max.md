@@ -61,6 +61,7 @@ import "sampledata"
 
 sampledata.int()
     |> experimental.max()
+
 ```
 
 {{< expand-wrapper >}}

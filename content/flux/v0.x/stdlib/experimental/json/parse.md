@@ -80,6 +80,7 @@ data
             }
         },
     )
+
 ```
 
 {{< expand-wrapper >}}
@@ -187,6 +188,7 @@ array.from(
                 },
             ),
 )
+
 ```
 
 {{< expand-wrapper >}}

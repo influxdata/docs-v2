@@ -91,5 +91,6 @@ InfluxDB API token.
 import "influxdata/influxdb/v1"
 
 v1.databases()
+
 ```
 

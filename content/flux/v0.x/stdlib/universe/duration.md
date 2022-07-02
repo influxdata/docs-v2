@@ -62,6 +62,7 @@ Value to convert.
 ```js
 duration(v: "1h20m")// Returns 1h20m
 
+
 ```
 
 
@@ -72,6 +73,7 @@ duration(v: 4800000000000)
 
 // Returns 1h20m
 duration(v: uint(v: 9600000000000))// Returns 2h40m
+
 
 ```
 
@@ -84,6 +86,7 @@ To store durations in a column, convert duration types to strings.
 ```js
 data
     |> map(fn: (r) => ({r with _value: string(v: duration(v: r._value))}))
+
 ```
 
 {{< expand-wrapper >}}
