@@ -23,8 +23,8 @@ New support for private InfluxDB Cloud offering for annual customers. Please con
 ### Sample IoT application and code snippets for Node.js
 
 Quickly start writing and querying your data with **JavaScript/Node.js**. Now, when you complete the **JavaScript/Node.js** onboarding wizard, you'll have the option to do either of the following:
-- View an IoT [**Sample App**](https://github.com/influxdata/iot-api-js) written in Node.js
-- View [**Boilerplate Snippets**](https://github.com/influxdata/nodejs-samples/) of code in Node.js
+- View an IoT [Sample App](https://github.com/influxdata/iot-api-js) written in Node.js
+- View [Boilerplate Snippets](https://github.com/influxdata/nodejs-samples/) of code in Node.js
 
 ### Help bar updates
 
@@ -32,7 +32,7 @@ Quickly start writing and querying your data with **JavaScript/Node.js**. Now, w
 
 - Add a [Status page](https://status.influxdata.com/) to display InfluxDB uptime, downtime, and incident management information for all Cloud regions. Hover over the question mark in InfluxDB Cloud, and select **Status Page**.
 
-- Add a link to quickly access InfluxDB University. Hover over the question mark in InfluxDB Cloud, and select [**InfluxDB University**](https://university.influxdata.com/).
+- Add a link to quickly access InfluxDB University. Hover over the question mark in InfluxDB Cloud, and select [InfluxDB University](https://university.influxdata.com/).
 
 ### Bug fixes
 
