@@ -23,8 +23,8 @@ New support for private InfluxDB Cloud offering for annual customers. Please con
 ### Sample IoT application and code snippets for Node.js
 
 Quickly start writing and querying your data with **JavaScript/Node.js**. Now, when you complete the **JavaScript/Node.js** onboarding wizard, you'll have the option to do either of the following:
-- View an IoT [Sample App](https://github.com/influxdata/iot-api-js) written in Node.js
-- View [Boilerplate Snippets](https://github.com/influxdata/nodejs-samples/) of code in Node.js
+- View an IoT [Sample App](https://github.com/influxdata/iot-api-js) written in Node.js.
+- View [Boilerplate Snippets](https://github.com/influxdata/nodejs-samples/) of code in Node.js.
 
 ### Help bar updates
 
