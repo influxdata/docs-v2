@@ -28,7 +28,7 @@ Quickly start writing and querying your data with **JavaScript/Node.js**. Now, w
 
 ### Help bar updates
 
-- If you have a [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan), you can now submit **Support requests** and questions directly to our **Salesforce Support queue** (without needing a Salesforce account). You'll receive a confirmation email with your ticket number for reference.
+- If you have a [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan), you can now submit **Support requests** and questions directly to our **Salesforce Support queue** (without needing a Salesforce account). Hover over the question mark in InfluxDB Cloud, and select **Contact Support**. You'll receive a confirmation email with your ticket number for reference.
 
 - Add a [Status page](https://status.influxdata.com/) to display InfluxDB uptime, downtime, and incident management information for all Cloud regions.
 
