@@ -32,7 +32,7 @@ Quickly start writing and querying your data with **JavaScript/Node.js**. Now, w
 
 - Add a [Status page](https://status.influxdata.com/) to display InfluxDB uptime, downtime, and incident management information for all Cloud regions. Hover over the question mark in InfluxDB Cloud, and select **Status Page**.
 
-- Add a link to quickly access InfluxDB University. Hover over the question mark in InfluxDB Cloud, and select **InfluxDB University**.
+- Add a link to quickly access InfluxDB University. Hover over the question mark in InfluxDB Cloud, and select [**InfluxDB University**](https://university.influxdata.com/).
 
 ### Bug fixes
 
