@@ -16,19 +16,23 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ## June 2022
 
+### Private InfluxDB Cloud offering
+
+New support for private InfluxDB Cloud offering for annual customers. Please contact sales@influxdata.com for more information.
+
+### Sample IoT application and code snippets for Node.js
+
+Quickly start writing and querying your data with **JavaScript/Node.js**. Now, when you complete the **JavaScript/Node.js** onboarding wizard, you'll have the option to do either of the following:
+- View an IoT [**Sample App**](https://github.com/influxdata/iot-api-js) written in Node.js
+- View [**Boilerplate Snippets**](https://github.com/influxdata/nodejs-samples/) of code in Node.js
+
 ### Help bar updates
 
-- Now, in the InfluxDB Cloud Help bar, if you have a Usage-Based plan, you can submit support requests and questions directly to the Salesforce Support queue (without needing a Salesforce account) . You'll receive a confirmation email with your ticket number for reference.
+- If you have a [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan), you can now submit **Support requests** and questions directly to our **Salesforce Support queue** (without needing a Salesforce account). You'll receive a confirmation email with your ticket number for reference.
 
-- Add Status page to display InfluxDB uptime, downtime, and incident management information for all Cloud regions.
+- Add a [Status page](https://status.influxdata.com/) to display InfluxDB uptime, downtime, and incident management information for all Cloud regions.
 
-- Add link to quickly access InfluxDB University.
-
-### Sample applications
-
-Add more support to quickly start writing and querying your data with **JavaScript/Node.js**. Now, when you complete the **JavaScript/Node.js** onboarding wizard, you'll have the option to do either of the following:
-- **View a Sample IoT App** written in node.js
-- **View Boiler Plate Code Snippets** in node.js
+- Add a link to quickly access InfluxDB University.
 
 ### Bug fixes
 
