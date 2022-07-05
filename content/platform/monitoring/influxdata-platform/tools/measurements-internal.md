@@ -440,8 +440,7 @@ The `hh_node` measurement has one additional tag:
 
 #### queueTotalSize
 The sum total number of bytes of disk space used by all hinted handoff queues for a single node.
-This statistics tracks the disk usage of all hinted handoff queues for a given node, not the number
-of bytes waiting to be processed. Due to the implementation of the hinted handoff queue, there will
+Tracks the disk usage of all hinted handoff queues for a given node (not the bytes waiting to be processed). Due to the implementation of the hinted handoff queue, 
 be a lag between the bytes being processed and when they are removed from the disk.
 
 `queueTotalSize` is the metric used to determine if a node's hinted handoff queue has reached the
