@@ -188,7 +188,6 @@ Passive nodes act as load balancers--they accept write calls, perform shard look
 
 <!-- ## permission -->
 
-
 ## point
 
 In InfluxDB, a point represents a single data record, similar to a row in a SQL database table. Each point:
@@ -246,11 +245,7 @@ For more information, see [Retention policy management](/enterprise_influxdb/v1.
 
 Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)\
 
-
-<!--
-## role
  
-
 ## schema
 
 How the data are organized in InfluxDB.
