@@ -9,13 +9,8 @@ menu:
     parent: About the project
 ---
 
-## 1.9.7 [2022-06-06]
+## 1.9.8 [2022-07-05]
 
-{{% warn %}}
-An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. We're reverting back to InfluxDB Enterprise 1.9.6 as the official stable version. If you experience write errors and hinted hand-off growth, we recommend reverting back to 1.9.6 or upgrading to 1.9.8 when released.
-{{% /warn %}}
-
-<!--
 ### Features
 - Expose passive node feature to influxd-ctl and the API.
 - Throttle inter-node data replication, both incoming writes and hinted hand-off, when errors are encountered.
@@ -29,17 +24,26 @@ An edge case regression was introduced into this version that may cause a consta
 
 ### Bug fixes
 - Fix race condition causing `influxd-ctl restore` command to fail.
+- Fix issue where measurement cardinality dips below zero.
+- Resolve issue regarding RPC retries for non-RPC errors, which had caused hinted handoff to build constantly.
+- Correctly calculate hinted handoff queue size on disk to prevent unnecessary `queue is full` errors.
 
 #### Error Messaging
+- Replace unprintable and invalid characters in error messaging, making errors pertaining to invalid line protocol easier to read.
 - Improve error messaging for `max series per database exceeded`error.
 - Improve influxd-ctl error messages when invalid JSON is received.
 - Add detail to `error creating subscription` message.
 - `DROP SHARD` now successfully ignores "shard not found" errors.
 
 ### Maintenance updates
-- Upgrade to Go 1.17.9
+- Upgrade to Go 1.17.11
 - Update to [Flux v0.161.0](/flux/v0.x/release-notes/#v01610-2022-03-24).
--->
+
+## 1.9.7 [2022-06-06]
+
+{{% warn %}}
+An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. We're reverting back to InfluxDB Enterprise 1.9.6 as the official stable version. If you experience write errors and hinted hand-off growth, we recommend reverting back to 1.9.6 or upgrading to 1.9.8 when released.
+{{% /warn %}}
 
 ## 1.9.6 [2022-02-16]
 

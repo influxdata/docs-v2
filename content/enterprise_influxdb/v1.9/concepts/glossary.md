@@ -181,14 +181,13 @@ Related entries: [server](#server)
 
 The local server's nanosecond timestamp.
 
-<!-- ## passive node (experimental)
+## passive node (experimental)
 
 Passive nodes act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes. 
-**Note:**  This is an experimental feature.   -->
+**Note:**  This is an experimental feature.  
 
-<!--
-## permission
--->
+<!-- ## permission -->
+
 
 ## point
 
@@ -245,11 +244,13 @@ Describes how long InfluxDB keeps data (duration), how many copies of the data t
 When you create a database, InfluxDB creates a retention policy called `autogen` with an infinite duration, a replication factor set to one, and a shard group duration set to seven days.
 For more information, see [Retention policy management](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management).
 
-Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)
+Related entries: [duration](#duration), [measurement](#measurement), [replication factor](#replication-factor), [series](#series), [shard duration](#shard-duration), [tag set](#tag-set)\
+
 
 <!--
 ## role
-  -->
+ 
+
 ## schema
 
 How the data are organized in InfluxDB.
